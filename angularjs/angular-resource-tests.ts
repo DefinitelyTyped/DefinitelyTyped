@@ -1,14 +1,19 @@
 /// <reference path="angular-resource.d.ts" />
 
-interface IMyResource extends angular.resource.IResource<IMyResource> { };
-interface IMyResourceClass extends angular.resource.IResourceClass<IMyResource> { };
+
+import IHttpPromiseCallbackArg = angular.IHttpPromiseCallbackArg;
+
+interface IMyData {}
+interface IMyHttpPromiseCallbackArg extends IHttpPromiseCallbackArg<IMyData> {}
+interface IMyResource extends angular.resource.IResource<IMyResource> { }
+interface IMyResourceClass extends angular.resource.IResourceClass<IMyResource> { }
 
 ///////////////////////////////////////
 // IActionDescriptor
 ///////////////////////////////////////
 var actionDescriptor: angular.resource.IActionDescriptor;
 
-angular.injector(['ng']).invoke(function ($cacheFactory: angular.ICacheFactoryService, $timeout: angular.ITimeoutService) {
+angular.injector(['ng']).invoke(function ($cacheFactory: angular.ICacheFactoryService) {
     actionDescriptor.method = 'method action';
     actionDescriptor.params = { key: 'value' };
     actionDescriptor.url = '/api/test-url/';
@@ -21,10 +26,13 @@ angular.injector(['ng']).invoke(function ($cacheFactory: angular.ICacheFactorySe
     actionDescriptor.cache = true;
     actionDescriptor.cache = $cacheFactory('cacheId');
     actionDescriptor.timeout = 1000;
-    actionDescriptor.timeout = $timeout(function () { });
     actionDescriptor.withCredentials = true;
     actionDescriptor.responseType = 'response type';
-    actionDescriptor.interceptor = { key: 'value' };
+    actionDescriptor.interceptor = {
+        response: function<IMyData> () { return <IMyHttpPromiseCallbackArg>{}; },
+        responseError: function () {}
+    };
+    actionDescriptor.cancellable = true;
 });
 
 
@@ -44,6 +52,7 @@ resource = resourceClass.delete({ key: 'value' }, { key: 'value' });
 resource = resourceClass.delete({ key: 'value' }, { key: 'value' }, function () { });
 resource = resourceClass.delete({ key: 'value' }, { key: 'value' }, function () { }, function () { });
 resource.$promise.then(function(data: IMyResource) {});
+resource.$cancelRequest();
 
 resource = resourceClass.get();
 resource = resourceClass.get({ key: 'value' });
