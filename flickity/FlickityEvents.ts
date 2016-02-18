@@ -1,6 +1,10 @@
 // Event Constants for Flickity v1.1.1
 // Project: http://flickity.metafizzy.co/
+<<<<<<< HEAD
 // Definitions by: Chris McGrath <https://www.github.com/clmcgrath>
+=======
+// Definitions by: [Chris McGrath] <https://www.github.com/clmcgrath>
+>>>>>>> 6aea981d4bbc7cef299050738a791cc1b19d94db
 // Definitions: https://github.com/clmcgrath/
 class FlickityEvents {
 
