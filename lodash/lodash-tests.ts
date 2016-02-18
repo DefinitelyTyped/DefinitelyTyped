@@ -6000,6 +6000,41 @@ module TestWrap {
  * Lang *
  ********/
 
+// _.castArray
+namespace TestCastArray {
+    {
+        let result: number[];
+
+        result = _.castArray(42);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<number>;
+
+        result = _(42).castArray();
+        result = _([42]).castArray();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<{a: number}>;
+
+        result = _({a: 42}).castArray();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<number>;
+
+        result = _(42).chain().castArray();
+        result = _([42]).chain().castArray();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<{a: number}>;
+
+        result = _({a: 42}).chain().castArray();
+    }
+}
+
 // _.clone
 {
     let result: number;

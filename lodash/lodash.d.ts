@@ -10596,6 +10596,59 @@ declare module _ {
      * Lang *
      ********/
 
+    //_.castArray
+    interface LoDashStatic {
+        /**
+         * Casts value as an array if it’s not one.
+         *
+         * @param value The value to inspect.
+         * @return Returns the cast array.
+         */
+        castArray<T>(value: T): T[];
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.castArray
+         */
+        castArray(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.castArray
+         */
+        castArray(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.castArray
+         */
+        castArray(): LoDashImplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.castArray
+         */
+        castArray(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.castArray
+         */
+        castArray(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.castArray
+         */
+        castArray(): LoDashExplicitArrayWrapper<T>;
+    }
+
     //_.clone
     interface LoDashStatic {
         /**
