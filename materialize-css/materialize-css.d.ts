@@ -468,4 +468,11 @@ interface JQuery {
      * @name method, the method to call (always "select_tab") and a param containing the id of the tab to open
      */
     tabs(method?:string, tab?:string): JQuery;
+    
+    /**
+     * <select> in material
+     * 
+     * @name method: callback
+     */
+    material_select(method?:string): JQuery;
 }
