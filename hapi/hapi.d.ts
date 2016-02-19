@@ -513,27 +513,31 @@ declare module "hapi" {
         pre?: any[];
         /** validation rules for the outgoing response payload (response body).Can only validate object response: */
         response?: {
+            /** the default HTTP status code when the payload is empty. Value can be 200 or 204. 
+            Note that a 200 status code is converted to a 204 only at the time or response transmission 
+            (the response status code will remain 200 throughout the request lifecycle unless manually set). Defaults to 200. */
+            emptyStatusCode?: number;
 			/**   the default response object validation rules (for all non-error responses) expressed as one of:
-			trueany payload allowed (no validation performed). This is the default.
-			falseno payload allowed.
+			true - any payload allowed (no validation performed). This is the default.
+			false - no payload allowed.
 			a Joi validation object.
 			a validation function using the signature function(value, options, next) where:
-			valuethe object containing the response object.
-			optionsthe server validation options.
-			next(err)the callback function called when validation is completed.  */
-            schema: boolean | any;
+			value - the object containing the response object.
+			options - the server validation options.
+			next(err) - the callback function called when validation is completed.  */
+            schema?: boolean | any;
             /** HTTP status- codespecific validation rules.The status key is set to an object where each key is a 3 digit HTTP status code and the value has the same definition as schema.If a response status code is not present in the status object, the schema definition is used, expect for errors which are not validated by default.  */
-            status: number;
+            status?: { [statusCode: number] : boolean | any };
             /** the percent of responses validated (0100).Set to 0 to disable all validation.Defaults to 100 (all responses). */
-            sample: number;
+            sample?: number;
 			/**  defines what to do when a response fails validation.Options are:
 			errorreturn an Internal Server Error (500) error response.This is the default value.
 			loglog the error but send the response.  */
-            failAction: string;
+            failAction?: string;
             /** if true, applies the validation rule changes to the response.Defaults to false. */
-            modify: boolean;
+            modify?: boolean;
             /** options to pass to Joi.Useful to set global options such as stripUnknown or abortEarly (the complete list is available here: https://github.com/hapijs/joi#validatevalue-schema-options-callback ).Defaults to no options.  */
-            options: any;
+            options?: any;
         };
         /** sets common security headers (disabled by default).To enable set security to true or to an object with the following options */
         security?: boolean | {

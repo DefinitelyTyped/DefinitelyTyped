@@ -16,10 +16,6 @@ declare namespace __ReduxRouter {
     */
     export class ReduxRouter extends React.Component<any, any> { }
     /**
-    * A component that renders a React Router app using router state from a Redux store.
-    */
-    export class ReactRouter { }
-    /**
     * A Redux store enhancer that adds router state to the store.
     */
     export var reduxReactRouter: any;
@@ -38,7 +34,7 @@ declare namespace __ReduxRouter {
     export function routerDidChange(state: any): ReduxRouterAction;
     export function initRoutes(routes: any): ReduxRouterAction;
     export function replaceRoutes(routes: any): ReduxRouterAction;
-    export function historyAPI(method: any): ReduxRouterAction;
+    export function historyAPI(method: any): (...args: Object[]) => ReduxRouterAction;
 }
 
 declare module "redux-router/lib/routerStateReducer" {
@@ -46,7 +42,8 @@ declare module "redux-router/lib/routerStateReducer" {
 }
 
 declare module "redux-router/lib/ReduxRouter" {
-    export default __ReduxRouter.ReactRouter;
+    import Router from "react-router";
+    export default Router;
 }
 
 declare module "redux-router/lib/client" {
@@ -62,14 +59,14 @@ declare module "redux-router/lib/actionCreators" {
     export const initRoutes: typeof __ReduxRouter.initRoutes;
     export const replaceRoutes: typeof __ReduxRouter.replaceRoutes;
     export const historyAPI: typeof __ReduxRouter.historyAPI;
-    export const pushState: __ReduxRouter.ReduxRouterAction;
-    export const push: __ReduxRouter.ReduxRouterAction;
-    export const replaceState: __ReduxRouter.ReduxRouterAction;
-    export const replace: __ReduxRouter.ReduxRouterAction;
-    export const setState: __ReduxRouter.ReduxRouterAction;
-    export const go: __ReduxRouter.ReduxRouterAction;
-    export const goBack: __ReduxRouter.ReduxRouterAction;
-    export const goForward: __ReduxRouter.ReduxRouterAction;
+    export const pushState: (...args: Object[]) => __ReduxRouter.ReduxRouterAction;
+    export const push: (...args: Object[]) => __ReduxRouter.ReduxRouterAction;
+    export const replaceState: (...args: Object[]) => __ReduxRouter.ReduxRouterAction;
+    export const replace: (...args: Object[]) => __ReduxRouter.ReduxRouterAction;
+    export const setState: (...args: Object[]) => __ReduxRouter.ReduxRouterAction;
+    export const go: (...args: Object[]) => __ReduxRouter.ReduxRouterAction;
+    export const goBack: (...args: Object[]) => __ReduxRouter.ReduxRouterAction;
+    export const goForward: (...args: Object[]) => __ReduxRouter.ReduxRouterAction;
 }
 
 declare module "redux-router" {
