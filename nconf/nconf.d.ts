@@ -25,7 +25,7 @@ declare module "nconf" {
 	export function argv(options?: IOptions): Provider;
 	export function env(options?: IOptions): Provider;
 	export function file(name: string, options?: IFileOptions): Provider;
-	export function file(key: string, name: string): Provider;
+	export function file(name: string, filename: string): Provider;
 	export function file(options: IFileOptions): Provider;
 	export function use(name: string, options?: IOptions): Provider;
 	export function defaults(options?: IOptions): Provider;
@@ -49,8 +49,8 @@ declare module "nconf" {
 		parse: (str: string) => any;
 	}
 
-	export interface IOptions { 
-		[index: string]: any; 
+	export interface IOptions {
+		[index: string]: any;
 	}
 
 	export interface IFileOptions {
@@ -87,6 +87,7 @@ declare module "nconf" {
 		argv(options?: IOptions): Provider;
 		env(options?: IOptions): Provider;
 		file(name: string, options?: IFileOptions): Provider;
+		file(name: string, filename: string): Provider;
 		file(options: IFileOptions): Provider;
 		use(name: string, options?: IOptions): Provider;
 

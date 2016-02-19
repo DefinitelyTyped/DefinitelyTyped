@@ -692,18 +692,22 @@ declare module "react-bootstrap" {
         className?: string;
         componentClass?: any; // TODO: Add more specific type
         lg?: number;
+        lgHidden?: boolean;
         lgOffset?: number;
         lgPull?: number;
         lgPush?: number;
         md?: number;
+        mdHidden?: boolean;
         mdOffset?: number;
         mdPull?: number;
         mdPush?: number;
         sm?: number;
+        smHidden?: boolean;
         smOffset?: number;
         smPull?: number;
         smPush?: number;
         xs?: number;
+        xsHidden?: boolean;
         xsOffset?: number;
         xsPull?: number;
         xsPush?: number;
