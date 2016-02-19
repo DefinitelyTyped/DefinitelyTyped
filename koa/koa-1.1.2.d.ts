@@ -13,13 +13,22 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../cookies/cookies.d.ts" />
 
+declare module Koa {
+
+    // These open interfaces may be extended in an application-specific manner via declaration merging.
+    // See for example method-override.d.ts (https://github.com/borisyankov/DefinitelyTyped/blob/master/method-override/method-override.d.ts)
+    export interface Request { }
+    export interface Response { }
+    export interface Application { }
+}
+
 declare module "koa" {
     import * as net from 'net';
     import * as http from 'http';
     import * as events from 'events';
     import * as Cookies from 'cookies';
 
-    interface IRequest {
+    interface IRequest extends Koa.Request {
             /**
              * Return request header.
              *
@@ -272,7 +281,7 @@ declare module "koa" {
             get(field: string): string;
     }
 
-    interface IResponse {
+    interface IResponse extends Koa.Response{
             /**
              * Get/Set response status code.
              */
@@ -543,7 +552,7 @@ declare module "koa" {
             state: any;
         }
 
-        interface Application extends events.EventEmitter {
+        interface Application extends events.EventEmitter , Koa.Application{
             env: string;
             subdomainOffset: number;
             middleware: any[];
@@ -560,6 +569,7 @@ declare module "koa" {
             listen(port: number, hostname?: string, callback?: Function): http.Server;
             listen(path: string, callback?: Function): http.Server;
             listen(handle: any, listeningListener?: Function): http.Server;
+            listen(): http.Server;
             /**
              * Return JSON representation.
              * We only bother showing settings.
