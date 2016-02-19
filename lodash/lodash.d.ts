@@ -7997,11 +7997,17 @@ declare module _ {
             thisArg?: any
         ): TResult[];
 
+        map<T extends {}, TResult>(
+            collection: NumericDictionary<T>,
+            iteratee?: NumericDictionaryIterator<T, TResult>,
+            thisArg?: any
+        ): TResult[];
+
         /**
          * @see _.map
          */
         map<T, TResult>(
-            collection: List<T>|Dictionary<T>,
+            collection: List<T>|Dictionary<T>|NumericDictionary<T>,
             iteratee?: string
         ): TResult[];
 
@@ -8009,7 +8015,7 @@ declare module _ {
          * @see _.map
          */
         map<T, TObject extends {}>(
-            collection: List<T>|Dictionary<T>,
+            collection: List<T>|Dictionary<T>|NumericDictionary<T>,
             iteratee?: TObject
         ): boolean[];
     }
