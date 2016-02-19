@@ -10946,6 +10946,31 @@ declare module _ {
         isArray(): LoDashExplicitWrapper<boolean>;
     }
 
+    //_.isArrayBuffer
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as an ArrayBuffer object.
+         *
+         * @param value The value to check.
+         * @return Returns true if value is correctly classified, else false.
+         */
+        isArrayBuffer(value?: any): value is ArrayBuffer;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isArrayBuffer
+         */
+        isArrayBuffer(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isArrayBuffer
+         */
+        isArrayBuffer(): LoDashExplicitWrapper<boolean>;
+    }
+
     //_.isArrayLike
     interface LoDashStatic {
         /**
