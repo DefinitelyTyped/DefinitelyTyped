@@ -8306,6 +8306,15 @@ declare module _ {
         * @see _.reduce
         **/
         reduce<T, TResult>(
+            collection: NumericDictionary<T>,
+            callback: MemoIterator<T, TResult>,
+            accumulator: TResult,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        reduce<T, TResult>(
             collection: Array<T>,
             callback: MemoIterator<T, TResult>,
             thisArg?: any): TResult;
@@ -8323,6 +8332,14 @@ declare module _ {
         **/
         reduce<T, TResult>(
             collection: Dictionary<T>,
+            callback: MemoIterator<T, TResult>,
+            thisArg?: any): TResult;
+
+        /**
+        * @see _.reduce
+        **/
+        reduce<T, TResult>(
+            collection: NumericDictionary<T>,
             callback: MemoIterator<T, TResult>,
             thisArg?: any): TResult;
 
