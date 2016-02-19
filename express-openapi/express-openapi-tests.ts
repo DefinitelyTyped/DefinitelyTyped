@@ -10,7 +10,14 @@ var api:openapi.InitializedApi;
 api = openapi.initialize({
     apiDoc: require('./api-doc.js'),
     app: app,
-    routes: './api-routes'
+    routes: './api-routes',
+    docPath: '/doc',
+    exposeApiDocs: true,
+    validateApiDoc: true,
+    errorTransformer: (openapiError, jsonschemaError) => {},
+    customFormats: {
+        myFormat: input => { return true; },
+    }
 });
 
 app.listen(3000);
