@@ -211,6 +211,23 @@ declare module NodeJS {
 
     export interface ReadWriteStream extends ReadableStream, WritableStream {}
 
+    export interface Events extends EventEmitter { }
+
+    export interface Domain extends Events {
+        run(fn: Function): void;
+        add(emitter: Events): void;
+        remove(emitter: Events): void;
+        bind(cb: (err: Error, data: any) => any): any;
+        intercept(cb: (data: any) => any): any;
+        dispose(): void;
+
+        addListener(event: string, listener: Function): Domain;
+        on(event: string, listener: Function): Domain;
+        once(event: string, listener: Function): Domain;
+        removeListener(event: string, listener: Function): Domain;
+        removeAllListeners(event?: string): Domain;
+    }
+
     export interface Process extends EventEmitter {
         stdout: WritableStream;
         stderr: WritableStream;
@@ -275,9 +292,12 @@ declare module NodeJS {
         umask(mask?: number): number;
         uptime(): number;
         hrtime(time?:number[]): number[];
+        domain: Domain;
 
         // Worker
         send?(message: any, sendHandle?: any): void;
+        disconnect(): void;
+        connected: boolean;
     }
 
     export interface Global {
@@ -624,6 +644,12 @@ declare module "cluster" {
         exec?: string;
         args?: string[];
         silent?: boolean;
+    }
+
+    export interface Address {
+        address: string;
+        port: number;
+        addressType: string;
     }
 
     export class Worker extends events.EventEmitter {
@@ -1720,15 +1746,18 @@ declare module "crypto" {
         final(): Buffer;
         final(output_encoding: string): string;
         setAutoPadding(auto_padding: boolean): void;
+        getAuthTag(): Buffer;
     }
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
     export interface Decipher {
         update(data: Buffer): Buffer;
-        update(data: string, input_encoding?: string, output_encoding?: string): string;
+        update(data: string|Buffer, input_encoding?: string, output_encoding?: string): string;
+        update(data: string|Buffer, input_encoding?: string, output_encoding?: string): Buffer;
         final(): Buffer;
         final(output_encoding: string): string;
         setAutoPadding(auto_padding: boolean): void;
+        setAuthTag(tag: Buffer): void;
     }
     export function createSign(algorithm: string): Signer;
     export interface Signer extends NodeJS.WritableStream {
@@ -1951,7 +1980,7 @@ declare module "tty" {
 declare module "domain" {
     import * as events from "events";
 
-    export class Domain extends events.EventEmitter {
+    export class Domain extends events.EventEmitter implements NodeJS.Domain {
         run(fn: Function): void;
         add(emitter: events.EventEmitter): void;
         remove(emitter: events.EventEmitter): void;
