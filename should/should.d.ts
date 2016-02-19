@@ -7,104 +7,108 @@ interface Object {
   should: ShouldAssertion;
 }
 
-interface ShouldAssertion {
+interface ShouldAssertion extends TypedShouldAssertion<any> 
+{
+    
+}
+
+interface TypedShouldAssertion<T> {
   // basic grammar
-  a: ShouldAssertion;
-  an: ShouldAssertion;
-  and: ShouldAssertion;
-  be: ShouldAssertion;
-  have: ShouldAssertion;
-  with: ShouldAssertion;
-  of: ShouldAssertion;
-  not: ShouldAssertion;
+  a: TypedShouldAssertion<T>;
+  an: TypedShouldAssertion<T>;
+  and: TypedShouldAssertion<T>;
+  be: TypedShouldAssertion<T>;
+  have: TypedShouldAssertion<T>;
+  with: TypedShouldAssertion<T>;
+  of: TypedShouldAssertion<T>;
+  not: TypedShouldAssertion<T>;
 
   // validators
-  arguments: ShouldAssertion;
-  empty: ShouldAssertion;
-  ok: ShouldAssertion;
-  true: ShouldAssertion;
-  false: ShouldAssertion;
-  NaN: ShouldAssertion;
-  Infinity: ShouldAssertion;
-  Array: ShouldAssertion;
-  Object: ShouldAssertion;
-  String: ShouldAssertion;
-  Boolean: ShouldAssertion;
-  Number: ShouldAssertion;
-  Error: ShouldAssertion;
-  Function: ShouldAssertion;
-  eql(expected: any, description?: string): ShouldAssertion;
-  equal(expected: any, description?: string): ShouldAssertion;
-  within(start: number, finish: number, description?: string): ShouldAssertion;
-  approximately(value: number, delta: number, description?: string): ShouldAssertion;
-  type(expected: any, description?: string): ShouldAssertion;
-  instanceof(constructor: Function, description?: string): ShouldAssertion;
-  above(n: number, description?: string): ShouldAssertion;
-  below(n: number, description?: string): ShouldAssertion;
-  match(other: {}, description?: string): ShouldAssertion;
-  match(other: (val: any) => any, description?: string): ShouldAssertion;
-  match(regexp: RegExp, description?: string): ShouldAssertion;
-  match(other: any, description?: string): ShouldAssertion;
-  matchEach(other: {}, description?: string): ShouldAssertion;
-  matchEach(other: (val: any) => any, description?: string): ShouldAssertion;
-  matchEach(regexp: RegExp, description?: string): ShouldAssertion;
-  matchEach(other: any, description?: string): ShouldAssertion;
-  length(n: number, description?: string): ShouldAssertion;
-  property(name: string, description?: string): ShouldAssertion;
-  property(name: string, val: any, description?: string): ShouldAssertion;
-  properties(names: string[]): ShouldAssertion;
-  properties(name: string): ShouldAssertion;
-  properties(descriptor: any): ShouldAssertion;
-  properties(...properties: string[]): ShouldAssertion;
-  ownProperty(name: string, description?: string): ShouldAssertion;
-  contain(obj: any): ShouldAssertion;
-  containEql(obj: any): ShouldAssertion;
-  containDeep(obj: any): ShouldAssertion;
-  keys(...allKeys: string[]): ShouldAssertion;
-  keys(allKeys: string[]): ShouldAssertion;
-  header(field: string, val?: string): ShouldAssertion;
-  status(code: number): ShouldAssertion;
-  json: ShouldAssertion;
-  html: ShouldAssertion;
-  startWith(expected: string, message?: any): ShouldAssertion;
-  endWith(expected: string, message?: any): ShouldAssertion;
-  throw(message?: any): ShouldAssertion;
+  arguments: TypedShouldAssertion<T>;
+  empty: TypedShouldAssertion<T>;
+  ok: TypedShouldAssertion<T>;
+  true: TypedShouldAssertion<T>;
+  false: TypedShouldAssertion<T>;
+  NaN: TypedShouldAssertion<T>;
+  Infinity: TypedShouldAssertion<T>;
+  Array: TypedShouldAssertion<T>;
+  Object: TypedShouldAssertion<T>;
+  String: TypedShouldAssertion<T>;
+  Boolean: TypedShouldAssertion<T>;
+  Number: TypedShouldAssertion<T>;
+  Error: TypedShouldAssertion<T>;
+  Function: TypedShouldAssertion<T>;
+  eql(expected: T, description?: string): TypedShouldAssertion<T>;
+  equal(expected: T, description?: string): TypedShouldAssertion<T>;
+  within(start: number, finish: number, description?: string): TypedShouldAssertion<T>;
+  approximately(value: number, delta: number, description?: string): TypedShouldAssertion<T>;
+  type(expected: any, description?: string): TypedShouldAssertion<T>;
+  instanceof(constructor: Function, description?: string): TypedShouldAssertion<T>;
+  above(n: number, description?: string): TypedShouldAssertion<T>;
+  below(n: number, description?: string): TypedShouldAssertion<T>;
+  match(other: {}, description?: string): TypedShouldAssertion<T>;
+  match(other: (val: any) => any, description?: string): TypedShouldAssertion<T>;
+  match(regexp: RegExp, description?: string): TypedShouldAssertion<T>;
+  match(other: any, description?: string): TypedShouldAssertion<T>;
+  matchEach(other: {}, description?: string): TypedShouldAssertion<T>;
+  matchEach(other: (val: any) => any, description?: string): TypedShouldAssertion<T>;
+  matchEach(regexp: RegExp, description?: string): TypedShouldAssertion<T>;
+  matchEach(other: any, description?: string): TypedShouldAssertion<T>;
+  length(n: number, description?: string): TypedShouldAssertion<T>;
+  property(name: string, description?: string): TypedShouldAssertion<T>;
+  property(name: string, val: any, description?: string): TypedShouldAssertion<T>;
+  properties(names: string[]): TypedShouldAssertion<T>;
+  properties(name: string): TypedShouldAssertion<T>;
+  properties(descriptor: any): TypedShouldAssertion<T>;
+  properties(...properties: string[]): TypedShouldAssertion<T>;
+  ownProperty(name: string, description?: string): TypedShouldAssertion<T>;
+  contain(obj: any): TypedShouldAssertion<T>;
+  containEql(obj: any): TypedShouldAssertion<T>;
+  containDeep(obj: any): TypedShouldAssertion<T>;
+  keys(...allKeys: string[]): TypedShouldAssertion<T>;
+  keys(allKeys: string[]): TypedShouldAssertion<T>;
+  header(field: string, val?: string): TypedShouldAssertion<T>;
+  status(code: number): TypedShouldAssertion<T>;
+  json: TypedShouldAssertion<T>;
+  html: TypedShouldAssertion<T>;
+  startWith(expected: string, message?: any): TypedShouldAssertion<T>;
+  endWith(expected: string, message?: any): TypedShouldAssertion<T>;
+  throw(message?: any): TypedShouldAssertion<T>;
 
   // deprecated
-  include(obj: any, description?: string): ShouldAssertion;
-  includeEql(obj: any[], description?: string): ShouldAssertion;
+  include(obj: any, description?: string): TypedShouldAssertion<T>;
+  includeEql(obj: any[], description?: string): TypedShouldAssertion<T>;
 
   // aliases
-  exactly(expected: any, description?: string): ShouldAssertion;
-  instanceOf(constructor: Function, description?: string): ShouldAssertion;
-  throwError(message?: any): ShouldAssertion;
-  lengthOf(n: number, description?: string): ShouldAssertion;
-  key(key: string): ShouldAssertion;
-  haveOwnProperty(name: string, description?: string): ShouldAssertion;
-  greaterThan(n: number, description?: string): ShouldAssertion;
-  lessThan(n: number, description?: string): ShouldAssertion;
+  exactly(expected: any, description?: string): TypedShouldAssertion<T>;
+  instanceOf(constructor: Function, description?: string): TypedShouldAssertion<T>;
+  throwError(message?: any): TypedShouldAssertion<T>;
+  lengthOf(n: number, description?: string): TypedShouldAssertion<T>;
+  key(key: string): TypedShouldAssertion<T>;
+  haveOwnProperty(name: string, description?: string): TypedShouldAssertion<T>;
+  greaterThan(n: number, description?: string): TypedShouldAssertion<T>;
+  lessThan(n: number, description?: string): TypedShouldAssertion<T>;
 }
 
 interface ShouldInternal {
   // should.js's extras
+  <T>(obj: T): TypedShouldAssertion<T>;  
   exist(actual: any, msg?: string): void;
   exists(actual: any, msg?: string): void;
   not: ShouldInternal;
 }
 
 interface Internal extends ShouldInternal {
-  (obj: any): ShouldAssertion;
-
   // node.js's assert functions
   fail(actual: any, expected: any, message: string, operator: string): void;
   assert(value: any, message: string): void;
   ok(value: any, message?: string): void;
-  equal(actual: any, expected: any, message?: string): void;
-  notEqual(actual: any, expected: any, message?: string): void;
-  deepEqual(actual: any, expected: any, message?: string): void;
-  notDeepEqual(actual: any, expected: any, message?: string): void;
-  strictEqual(actual: any, expected: any, message?: string): void;
-  notStrictEqual(actual: any, expected: any, message?: string): void;
+  equal<T>(actual: T, expected: T, message?: string): void;
+  notEqual<T>(actual: T, expected: T, message?: string): void;
+  deepEqual<T>(actual: T, expected: T, message?: string): void;
+  notDeepEqual<T>(actual: T, expected: T, message?: string): void;
+  strictEqual<T>(actual: T, expected: T, message?: string): void;
+  notStrictEqual<T>(actual: T, expected: T, message?: string): void;
   throws(block: any, error?: any, message?: string): void;
   doesNotThrow(block: any, message?: string): void;
   ifError(value: any): void;
