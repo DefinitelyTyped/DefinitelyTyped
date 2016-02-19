@@ -18,6 +18,16 @@ declare module reactInputCalendar {
         */
         date?: string | Date;
         /**
+        * Set the selectable minimum date
+        * @default null
+        */
+        minDate?: string | Date;
+        /**
+        * Set the selectable maximum date
+        * @default null
+        */
+        maxDate?: string | Date;
+        /**
         * Set minimal view. Values:
         * 0 - days
         * 1 - months
