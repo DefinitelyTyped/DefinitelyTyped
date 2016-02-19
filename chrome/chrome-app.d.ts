@@ -359,3 +359,49 @@ declare module chrome.system.network {
 
     export function getNetworkInterfaces(callback: (networkInterfaces: NetworkInterface[]) => void): void;
 }
+
+declare module chrome.runtime {
+	interface Manifest {
+		app?: {
+			background?: {
+				scripts?: string[];
+			}
+		},
+		bluetooth?: {
+			uuids?: string[];
+			socket?: boolean;
+			low_energy?: boolean;
+			peripheral?: boolean;
+		},
+		file_handlers?: {
+			[name: string]: {
+				types?: string[];
+				extensions?: string[];
+				title?: string;
+			}
+		},
+		kiosk_enabled?: boolean,
+		kiosk_only?: boolean,
+		url_handlers?: {
+			[name: string]: {
+				matches: string[];
+				title?: string;
+			}
+		},
+		usb_printers?: {
+			filters: {
+				vendorId?: number;
+				productId?: number;
+				interfaceClass?: number;
+				interfaceSubclass?: number;
+				interfaceProtocol?: number;
+			}[]
+		},
+		webview?: {
+			partitions?: {
+				name: string;
+				accessible_resources: string[];
+			}[]
+		}
+	}
+}
