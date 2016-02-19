@@ -1,4 +1,4 @@
-// Type definitions for express-openapi 0.6.x
+// Type definitions for express-openapi 0.11.x
 // Project: https://github.com/kogosoftwarellc/express-openapi
 // Definitions by: TANAKA Koichi <https://github.com/mugeso/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
