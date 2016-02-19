@@ -25,39 +25,61 @@ declare module DbJs {
         execute(): Promise<T[]>;
     }
 
-    interface IndexQuery<T> extends ExecutableQuery<T> {
-        all(): IndexQuery<T>;
-        filter<TValue>(index: string, value: TValue): IndexQuery<T>;
-        filter(filter: (value: T) => boolean): IndexQuery<T>;
-        limit(n, m): ExecutableQuery<T>
-        count(): ExecutableQuery<T>
-        // desc()
-        // distinct()
-        // modify(update)
-        // map(fn)
-        // only()
-        // bound()
-        // upperBound()
-        // lowerBound()
-        // range()
+    interface CountableQuery<T> {
+        count(): ExecutableQuery<T>;
+    }
+    
+    interface KeysQuery<T> extends DescableQuery<T>, ExecutableQuery<T>, FilterableQuery<T>, DistinctableQuery<T>, MappableQuery<T>    {
+    } 
+
+    interface KeyableQuery<T> {
+        keys(): KeysQuery<T>;
+    }
+    
+    interface FilterQuery<T> extends KeyableQuery<T>, ExecutableQuery<T>, FilterableQuery<T>, DescableQuery<T>, DistinctableQuery<T>, ModifiableQuery<T>, LimitableQuery<T>, MappableQuery<T> {
     }
 
-    interface Query<T> {
+    interface FilterableQuery<T> {
+        filter<TValue>(index: string, value: TValue): FilterQuery<T>;
+        filter(filter: (value: T) => boolean): FilterQuery<T>;
+    }
+    
+    interface DescQuery<T> extends KeyableQuery<T>, CountableQuery<T>, ExecutableQuery<T>, FilterableQuery<T>, DescableQuery<T>, ModifiableQuery<T>, MappableQuery<T> {    
+    }
+
+    interface DescableQuery<T> {
+        desc(): DescQuery<T>;
+    }
+    
+    interface DistinctQuery<T> extends KeyableQuery<T>, ExecutableQuery<T>, FilterableQuery<T>, DescableQuery<T>, ModifiableQuery<T>, MappableQuery<T>, CountableQuery<T> {
+    }
+
+    interface DistinctableQuery<T> {
+        distinct(filter: (value: T) => boolean): DistinctQuery<T>;
+    }
+
+    interface ModifiableQuery<T> {
+        modify(filter: (value: T) => boolean): ExecutableQuery<T>;
+    }
+
+    interface LimitableQuery<T> {
+        limit(n, m): ExecutableQuery<T>;
+    }
+
+    interface MappableQuery<T> {
+        map<TMap>(fn: (value: T) => TMap): Query<TMap>;
+    }
+    
+    interface Query<T> extends KeyableQuery<T>, ExecutableQuery<T>, FilterableQuery<T>, DescableQuery<T>, DistinctableQuery<T>, ModifiableQuery<T>, LimitableQuery<T>, MappableQuery<T>, CountableQuery<T> {
+    }
+
+    interface IndexQuery<T> extends Query<T> {
+        only(): Query<T>;
+        bound(): Query<T>;
+        upperBound(): Query<T>;
+        lowerBound(): Query<T>;
+        range(opts): Query<T>;
         all(): Query<T>;
-        execute(): Promise<T[]>;
-        filter<TValue>(index: string, value: TValue): Query<T>;
-        filter<TValue>(filter: (value: TValue) => boolean): Query<T>;
-        // limit(n, m)
-        // count()
-        // desc()
-        // distinct()
-        // modify(update)
-        // map(fn)
-        // only()
-        // bound()
-        // upperBound()
-        // lowerBound()
-        // range()
     }
 
     interface KeyValuePair<TKey, TValue> {
@@ -87,7 +109,7 @@ declare module DbJs {
         get<T>(table: string, key: any): Promise<T>;
         query<T>(table: string): IndexQuery<T>;
         query<T>(table: string, index: string): IndexQuery<T>;
-        count(table: string, key: any): number;
+        count(table: string, key: any): Promise<number>;
     }
 
     interface TypedObjectStoreServer<T> {
@@ -105,7 +127,7 @@ declare module DbJs {
         get(key: any): Promise<T>;
         query(): IndexQuery<T>;
         query(index: string): IndexQuery<T>;
-        count(key: any): number;
+        count(key: any): Promise<number>;
     }
     
     type Server = DbJs.ObjectStoreServer & DbJs.BaseServer;
