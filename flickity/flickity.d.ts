@@ -8,11 +8,11 @@ interface JQuery {
     /**
     * initialize fickity plugin
     */
-    flickity: IFlickityJquery;
+    flickity: FlickityJquery;
 }
 
-interface IFlickityJquery {
-    (options?: IFlickityOptions): JQuery;
+interface FlickityJquery {
+    (options?: FlickityOptions): JQuery;
     (command: string, ...params: any[]): JQuery;
 }
 
@@ -23,14 +23,14 @@ declare class Flickity {
     * @param element Element selector string
     * @param options (IFlickityOptions) Flickity options
     */
-    constructor(selector: string, options?: IFlickityOptions);
+    constructor(selector: string, options?: FlickityOptions);
     /**
     * Initializes an new instance of Flickity .
     *
     * @param element Container Element to initialize Flickity on
     * @param options (IFlickityOptions) Flickity options
     */
-    constructor(element: Element, options?: IFlickityOptions);
+    constructor(element: Element, options?: FlickityOptions);
 
     //properties
 
@@ -241,7 +241,7 @@ declare class Flickity {
 
 }
 
-interface IFlickityOptions {
+interface FlickityOptions {
 
     /**
     * Specify selector for cell elements. cellSelector is useful if you have other elements in your gallery elements that are not cells.
