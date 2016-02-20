@@ -386,6 +386,32 @@ _.isNull(undefined);
 
 _.isUndefined((<any>window).missingVariable);
 
+//////////////////////////////////// User Defined Guard tests
+
+function useElement(arg: Element) {};
+function useArguments(arg: IArguments) {};
+function useFunction(arg: Function) {};
+function useError(arg: Error) {};
+function useString(arg: String) {};
+function useNumber(arg: Number) {};
+function useBoolean(arg: Boolean) {};
+function useDate(arg: Date) {};
+function useRegExp(arg: RegExp) {};
+function useArray<T>(arg: T[]) {};
+
+var guardedType: {};
+if(_.isElement(guardedType)) useElement(guardedType);
+if(_.isArray(guardedType)) useArray(guardedType);
+if(_.isArray<String>(guardedType)) useArray(guardedType);
+if(_.isArguments(guardedType)) useArguments(guardedType);
+if(_.isFunction(guardedType)) useFunction(guardedType);
+if(_.isError(guardedType)) useError(guardedType);
+if(_.isString(guardedType)) useString(guardedType);
+if(_.isNumber(guardedType)) useNumber(guardedType);
+if(_.isBoolean(guardedType)) useBoolean(guardedType);
+if(_.isDate(guardedType)) useDate(guardedType);
+if(_.isRegExp(guardedType)) useRegExp(guardedType);
+
 ///////////////////////////////////////////////////////////////////////////////////////
 
 var UncleMoe = { name: 'moe' };
