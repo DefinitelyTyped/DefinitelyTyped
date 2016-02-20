@@ -780,6 +780,7 @@ declare namespace __MaterialUI {
         floatingLabelStyle?: React.CSSProperties;
         fullWidth?: boolean;
         hintText?: string | React.ReactElement<any>;
+        hintStyle?: React.CSSProperties;
 
         // passed to DropDownMenu
         displayMember?: string;
