@@ -428,35 +428,24 @@ class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implemen
             disabled={true}
             defaultValue="Disabled With Value" />;
 
-        //Select Fields
-        let arbitraryArrayMenuItems = [
-            {
-                id: 0,
-                name: "zero",
-            },
-        ];
         element = <SelectField
             value = { 0 }
             onChange = { this.selectFieldChangeHandler }
-            hintText = "Hint Text"
-            menuItems = { menuItems } />;
+            hintText = "Hint Text" />;
         element = <SelectField
             valueLink={this.linkState('selectValueLinkValue') }
             floatingLabelText="Float Label Text"
             valueMember="id"
-            displayMember="name"
-            menuItems={arbitraryArrayMenuItems} />;
+            displayMember="name" />;
         element = <SelectField
             valueLink = { this.linkState('selectValueLinkValue2') }
             floatingLabelText = "Float Custom Label Text"
             floatingLabelStyle = {{ color: "red" }}
             valueMember = "id"
-            displayMember = "name"
-            menuItems = { arbitraryArrayMenuItems } />;
+            displayMember = "name" />;
         element = <SelectField
             value={0}
-            onChange={ this.selectFieldChangeHandler }
-            menuItems={arbitraryArrayMenuItems} />;
+            onChange={ this.selectFieldChangeHandler } />;
 
         //Floating Hint Text Labels
         element = <TextField
@@ -503,20 +492,20 @@ class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implemen
             hintText="Password Field"
             floatingLabelText="Password"
             type="password" />;
-            
+
 
         // "http://material-ui.com/#/components/time-picker"
 
 
         // "http://material-ui.com/#/components/toolbars"
-        
+
         // "http://material-ui.com/#/components/grid-list"
         element = <GridList
             cols={3}
             padding={50}
             cellHeight={200}
             style={{ color: 'red' }} />;
-            
+
         element = <GridTile
             title="GridTileTitle"
             actionIcon={<h1>GridTile</h1>}
