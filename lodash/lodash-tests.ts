@@ -6237,6 +6237,37 @@ module TestIsArray {
     }
 }
 
+// _.isArrayBuffer
+module TestIsArrayBuffer {
+    {
+        let value: ArrayBuffer|number;
+
+        if (_.isArrayBuffer(value)) {
+            let result: ArrayBuffer = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isArrayBuffer(any);
+        result = _(1).isArrayBuffer();
+        result = _<any>([]).isArrayBuffer();
+        result = _({}).isArrayBuffer();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isArrayBuffer();
+        result = _<any>([]).chain().isArrayBuffer();
+        result = _({}).chain().isArrayBuffer();
+    }
+}
+
 // _.isArrayLike
 module TestIsArrayLike {
     {
