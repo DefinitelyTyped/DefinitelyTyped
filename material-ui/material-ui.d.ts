@@ -72,7 +72,7 @@ declare module "material-ui" {
     export import ToolbarTitle = __MaterialUI.Toolbar.ToolbarTitle; // require('material-ui/lib/toolbar/toolbar-title');
     export import Tooltip = __MaterialUI.Tooltip; // require('material-ui/lib/tooltip');
     export import Utils = __MaterialUI.Utils; // require('material-ui/lib/utils/');
-    
+
     export import GridList = __MaterialUI.GridList.GridList; // require('material-ui/lib/gridlist/grid-list');
     export import GridTile = __MaterialUI.GridList.GridTile; // require('material-ui/lib/gridlist/grid-tile');
 
@@ -785,8 +785,6 @@ declare namespace __MaterialUI {
         displayMember?: string;
         valueMember?: string;
         autoWidth?: boolean;
-        menuItems: Menu.MenuItemRequest[];
-        menuItemStyle?: React.CSSProperties;
         selectedIndex?: number;
         underlineStyle?: React.CSSProperties;
         underlineFocusStyle?: React.CSSProperties;
