@@ -206,8 +206,8 @@ declare module Backbone {
         pluck(attribute: string): any[];
         push(model: TModel, options?: AddOptions): TModel;
         pop(options?: Silenceable): TModel;
-        remove(model: TModel, options?: Silenceable): TModel;
-        remove(models: TModel[], options?: Silenceable): TModel[];
+        remove(model: {}|TModel, options?: Silenceable): TModel;
+        remove(models: ({}|TModel)[], options?: Silenceable): TModel[];
         reset(models?: TModel[], options?: Silenceable): TModel[];
         set(models?: TModel[], options?: Silenceable): TModel[];
         shift(options?: Silenceable): TModel;
