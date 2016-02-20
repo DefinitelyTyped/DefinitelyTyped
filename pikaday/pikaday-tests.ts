@@ -26,6 +26,7 @@ new Pikaday({field: $('#datepicker')[0]});
             console.log(this.getMoment().format('Do MMMM YYYY'));
         }
     });
+
     picker.toString();
     picker.toString('YYYY-MM-DD');
     picker.getDate();
@@ -40,6 +41,8 @@ new Pikaday({field: $('#datepicker')[0]});
     picker.gotoYear(2015);
     picker.setMinDate(new Date);
     picker.setMaxDate(new Date);
+    picker.setStartRange(new Date);
+    picker.setEndRange(new Date);
     picker.isVisible();
     picker.show();
     picker.adjustPosition();
