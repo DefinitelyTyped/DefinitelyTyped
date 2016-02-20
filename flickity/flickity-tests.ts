@@ -10,7 +10,8 @@
 //jQuery tests
 
 
-    var $flickity : JQuery = $("#flickity-selector").flickity({
+    var $flickity : JQuery = $("#flickity-selector").flickity(
+    {
         initialIndex: 0,
         accessibility: true,
         asNavFor: "#nav-bar",
