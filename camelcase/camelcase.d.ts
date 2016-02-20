@@ -4,5 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "camelcase" {
-	export default function camelcase(...args: string[]): string;
+	function camelcase(...args: string[]): string;
+	namespace camelcase {}
+	export = camelcase;
 }
