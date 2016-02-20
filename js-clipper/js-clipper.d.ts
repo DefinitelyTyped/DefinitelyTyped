@@ -2,7 +2,7 @@
 // Project: https://github.com/mathisonian/JsClipper
 // Definitions by: Hou Chunlei <https://github.com/omni360>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// 
+
 declare module ClipperLib {
 
 	export var biginteger_used: boolean;
@@ -12,7 +12,7 @@ declare module ClipperLib {
 	export function Math_Max_Int32_Int32(a: number, b: number): number;
 	export function Cast_Int32(a: number): number;
 	export function Cast_Int64(a: number): number;
-	export function Clear(a): void;
+	export function Clear(a:ArrayLike<any>): void;
 
 	export const MaxSteps: number;
 	export const PI: number;
