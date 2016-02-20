@@ -452,6 +452,10 @@ class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implemen
             hintText = "Hint Text"
             floatingLabelText = "Floating Label Text" />;
         element = <TextField
+            hintText = "Hint Text"
+            hintStyle = {{fontSize: 10}}
+            floatingLabelText = "Floating Label Text" />;
+        element = <TextField
             hintText="Hint Text"
             defaultValue="Default Value"
             floatingLabelText="Floating Label Text" />;
