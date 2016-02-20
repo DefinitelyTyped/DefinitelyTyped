@@ -239,7 +239,7 @@ declare module ClipperLib {
 		BuildIntersectList(botY: number, topY: number): void;
 		FixupIntersections(): boolean;
 		ProcessIntersectList(): void;
-		Round(a): number;
+		Round(a: number): number;
 		TopX(edge: TEdge, currentY: number): number;
 		AddIntersectNode(e1: TEdge, e2: TEdge, pt: IntPoint): void;
 		ProcessParam1BeforeParam2(node1: IntersectNode, node2: IntersectNode): boolean;
