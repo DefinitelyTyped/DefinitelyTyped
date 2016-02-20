@@ -2,7 +2,7 @@
 // Project: https://github.com/mathisonian/JsClipper
 // Definitions by: Hou Chunlei <https://github.com/omni360>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// 
 declare module ClipperLib {
 
 	export var biginteger_used: boolean;
@@ -12,17 +12,18 @@ declare module ClipperLib {
 	export function Math_Max_Int32_Int32(a: number, b: number): number;
 	export function Cast_Int32(a: number): number;
 	export function Cast_Int64(a: number): number;
-	export function Clear(a:ArrayLike<any>): void;
+	export function Clear(a: ArrayLike<any>): void;
 
-	export const MaxSteps: number;
-	export const PI: number;
-	export const PI2: number;
+	export var MaxSteps: number;
+	export var PI: number;
+	export var PI2: number;
 
 	export class IntPoint {
 		X: number;
 		Y: number;
+		constructor();
 		constructor(PointXY: IntPoint);
-		constructor(x: number, y: number)
+		constructor(x: number, y: number);
 	}
 
 	export class IntRect {
@@ -31,21 +32,21 @@ declare module ClipperLib {
 		right: number;
 		bottom: number;
 		constructor();
-		constructor(left: number, top: number,right:number,bottom:number);
+		constructor(left: number, top: number, right: number, bottom: number);
 	}
 
-	export class Polygon{
+	export class Polygon {
 		constructor();
-		constructor(poly:ArrayLike<IntPoint>);
+		constructor(poly: ArrayLike<IntPoint>);
 	}
 
-	export class Polygons{
+	export class Polygons {
 		constructor();
 		constructor(polys: ArrayLike<ArrayLike<IntPoint>>);
 	}
-		
 
-	export class ExPolygon{
+
+	export class ExPolygon {
 		outer: ArrayLike<IntPoint>;
 		holes: ArrayLike<ArrayLike<IntPoint>>;
 	}
@@ -109,28 +110,28 @@ declare module ClipperLib {
 		bottomPt: OutPt;
 
 	}
-	export class OutPt{
+	export class OutPt {
 		idx: number;
 		pt: OutPt;
 		next: OutPt;
 		prev: OutPt;
 	}
-	export class JoinRec{
-		pt1a : IntPoint;
-		pt1b : IntPoint;
+	export class JoinRec {
+		pt1a: IntPoint;
+		pt1b: IntPoint;
 		poly1Idx: number;
 		pt2a: IntPoint;
 		pt2b: IntPoint;
 		poly2Idx: number;
 	}
-	export class HorzJoinRec{
+	export class HorzJoinRec {
 		edge: TEdge;
 		savedIdx: number;
 	}
-	export class ClipperBase{
+	export class ClipperBase {
 		m_MinimaList: LocalMinima;
 		m_CurrentLM: LocalMinima;
-		m_edges : ArrayLike<ArrayLike<TEdge>>;
+		m_edges: ArrayLike<ArrayLike<TEdge>>;
 		m_UseFullRange: boolean;
 		horizontal: number;
 		loRange: number;
@@ -139,12 +140,12 @@ declare module ClipperLib {
 		PointsEqual(pt1: IntPoint, pt2: IntPoint): boolean;
 		PointIsVertex(pt: IntPoint, pp: JoinRec): boolean;
 		PointInPolygon(pt: IntPoint, pp: JoinRec, UseFulllongRange: boolean): boolean;
-		SlopesEqual(e1: TEdge, e2: TEdge, UseFullRange: boolean);
+		SlopesEqual(e1: TEdge, e2: TEdge, UseFullRange: boolean): boolean;
 		SlopesEqual(pt1: IntPoint, pt2: IntPoint, pt3: IntPoint, UseFullRange: boolean): boolean;
 		SlopesEqual(pt1: IntPoint, pt2: IntPoint, pt3: IntPoint, pt4: IntPoint, UseFullRange: boolean): boolean;
-		clear():void;
+		clear(): void;
 		DisposeLocalMinimaList(): void;
-		AddPolygons(ppg: ArrayLike<ArrayLike<IntPoint>>, polyType: PolyType);
+		AddPolygons(ppg: ArrayLike<ArrayLike<IntPoint>>, polyType: PolyType): boolean | string;
 		AddPolygon(pg: ArrayLike<IntPoint>, polyType: PolyType, multiple: boolean): boolean | string;
 		InitEdge(e: TEdge, eNext: TEdge, ePrev: TEdge, pt: IntPoint, polyType: PolyType): void;
 		SetDx(e: TEdge): void;
@@ -157,7 +158,7 @@ declare module ClipperLib {
 
 	}
 
-	export class Clipper extends ClipperBase{
+	export class Clipper extends ClipperBase {
 		m_PolyOuts: TEdge | ArrayLike<TEdge>;
 		m_ClipType: ClipType;
 		m_Scanbeam: Scanbeam;
@@ -176,9 +177,9 @@ declare module ClipperLib {
 
 		DisposeScanbeamList(): void;
 		get_ReverseSolution(): boolean;
-		set_ReverseSolution(value: boolean);
+		set_ReverseSolution(value: boolean): boolean;
 		InsertScanbeam(Y: number): void;
-		Execute(clipType: ClipType, solution: ArrayLike<IntPoint> | ExPolygon ): boolean;
+		Execute(clipType: ClipType, solution: ArrayLike<IntPoint> | ExPolygon): boolean;
 		Execute(clipType: ClipType, solution: ArrayLike<IntPoint> | ExPolygon, subjFillType: PolyFillType, clipFillType: PolyFillType): boolean;
 		PolySort(or1: OutRec, or2: OutRec): number;
 		FindAppendLinkEnd(outRec: OutRec): OutRec;
@@ -188,9 +189,9 @@ declare module ClipperLib {
 		DisposeOutRec(index: number): void;
 		DisposeOutPts(pp: OutPt): void;
 		AddJoin(e1: TEdge, e2: TEdge, e1OutIdx: number, e2OutIdx: number): void;
-		AddHorzJoin(e: TEdge, idx: number);
+		AddHorzJoin(e: TEdge, idx: number): void;
 		InsertLocalMinimaIntoAEL(botY: number): void;
-		InsertEdgeIntoAEL(edge: TEdge);
+		InsertEdgeIntoAEL(edge: TEdge): void;
 		E2InsertsBeforeE1(e1: TEdge, e2: TEdge): boolean;
 		IsEvenOddFillType(edge: TEdge): boolean;
 		IsEvenOddAltFillType(edge: TEdge): boolean;
@@ -209,14 +210,14 @@ declare module ClipperLib {
 		FindSegment(pp: IntPoint, pt1: IntPoint, pt2: IntPoint): boolean;
 		Pt3IsBetweenPt1AndPt2(pt1: boolean, pt2: boolean, pt3: boolean): OutPt;
 		InsertPolyPtBetween(p1: OutPt, p2: OutPt, pt: OutPt): OutPt;
-		SetHoleState(e: TEdge, outRec: OutRec);
+		SetHoleState(e: TEdge, outRec: OutRec): void;
 		GetDx(pt1: IntPoint, pt2: IntPoint): number;
 		FirstIsBottomPt(btmPt1: OutPt, btmPt2: OutPt): boolean;
-		GetBottomPt(pp: OutPt);
+		GetBottomPt(pp: OutPt): OutPt;
 		GetLowermostRec(outRec1: OutRec, outRec2: OutRec): OutRec;
 		Param1RightOfParam2(outRec1: OutRec, outRec2: OutRec): boolean;
 		AppendPolygon(e1: TEdge, e2: TEdge): void;
-		ReversePolyPtLinks(pp: OutPt);
+		ReversePolyPtLinks(pp: OutPt): void;
 		SwapSides(edge1: TEdge, edge2: TEdge): void;
 		SwapPolyIndexes(edge1: TEdge, edge2: TEdge): void;
 		DoEdge1(edge1: TEdge, edge2: TEdge, pt: OutPt): void;
@@ -242,7 +243,7 @@ declare module ClipperLib {
 		TopX(edge: TEdge, currentY: number): number;
 		AddIntersectNode(e1: TEdge, e2: TEdge, pt: IntPoint): void;
 		ProcessParam1BeforeParam2(node1: IntersectNode, node2: IntersectNode): boolean;
-		SwapIntersectNodes(int1:IntersectNode,int2:IntersectNode);
+		SwapIntersectNodes(int1: IntersectNode, int2: IntersectNode): void;
 		IntersectPoint(edge1: TEdge, edge2: TEdge, ip: IntPoint): boolean;
 		DisposeIntersectNodes(): void;
 		ProcessEdgesAtTopOfScanbeam(topY: number): void;
@@ -254,11 +255,11 @@ declare module ClipperLib {
 		BuildResultEx(polyg: ExPolygon): void;
 		FixupOutPolygon(outRec: OutPt): void;
 		JoinPoints(j: JoinRec, p1: IntPoint, p2: IntPoint): boolean;
-		FixupJoinRecs(j: JoinRec, pt: JoinRec, startIdx: number);
+		FixupJoinRecs(j: JoinRec, pt: JoinRec, startIdx: number): void;
 		JoinCommonEdges(): void;
 		FullRangeNeeded(pts: ArrayLike<IntPoint>): boolean;
-		Area(poly:Polygon): number;
-		Area(outRec: OutRec, UseFull64BitRange: boolean);
+		Area(poly: Polygon): number;
+		Area(outRec: OutRec, UseFull64BitRange: boolean): number;
 		BuildArc(pt: IntPoint, a1: IntPoint, a2: IntPoint, r: number): Polygon;
 		GetUnitNormal(pt1: IntPoint, pt2: IntPoint): DoublePoint;
 		OffsetPolygons(poly: Polygon, delta: number, jointype: JoinType, MiterLimit: number, AutoFix: boolean): ArrayLike<ArrayLike<IntPoint>>;
@@ -267,13 +268,13 @@ declare module ClipperLib {
 
 
 	}
-	export class DoublePoint{
+	export class DoublePoint {
 		X: number;
 		Y: number;
 		constructor(x: number, y: number);
 	}
 
-	export class PolyOffsetBuilder{
+	export class PolyOffsetBuilder {
 		pts: Polygons;
 		currentPoly: Polygon;
 		normals: ArrayLike<IntPoint>;
@@ -295,7 +296,7 @@ declare module ClipperLib {
 	export function Clone(polygon: ArrayLike<IntPoint> | ArrayLike<ArrayLike<IntPoint>>): ArrayLike<IntPoint> | ArrayLike<ArrayLike<IntPoint>>;
 	export function Clean(polygon: ArrayLike<IntPoint> | ArrayLike<ArrayLike<IntPoint>>, delta: number): ArrayLike<IntPoint> | ArrayLike<ArrayLike<IntPoint>>;
 	export function Lighten(polygon: ArrayLike<IntPoint> | ArrayLike<ArrayLike<IntPoint>>, tolerance: number): ArrayLike<IntPoint> | ArrayLike<ArrayLike<IntPoint>>;
-	
+
 
 }
-	
+
