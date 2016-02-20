@@ -20,7 +20,7 @@ declare module Chai {
         become(expected: any): PromisedAssertion;
         fulfilled: PromisedAssertion;
         rejected: PromisedAssertion;
-        rejectedWith(expected: any, message?: string): PromisedAssertion;
+        rejectedWith(expected: any, message?: string | RegExp): PromisedAssertion;
         notify(fn: Function): PromisedAssertion;
     }
 
@@ -30,7 +30,7 @@ declare module Chai {
         become(expected: PromisesAPlus.Thenable<any>): PromisedAssertion;
         fulfilled: PromisedAssertion;
         rejected: PromisedAssertion;
-        rejectedWith(expected: any): PromisedAssertion;
+        rejectedWith(expected: any, message?: string | RegExp): PromisedAssertion;
         notify(fn: Function): PromisedAssertion;
 
         // From chai
