@@ -1,4 +1,4 @@
-/// <reference path="jsClipper.d.ts" />
+/// <reference path="js-clipper.d.ts" />
 
 class jsClipperTest{
 	public intPointTest(){
