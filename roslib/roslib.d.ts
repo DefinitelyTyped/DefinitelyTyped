@@ -55,22 +55,24 @@ declare module ROSLIB {
 		 * @param level - User level as a string given by the client.
 		 * @param end - End time of the client's session.
 		 */
-		authenticate(mac:string, client:string, dest:string, rand:string, t:number, level:string, end:string): void;
+		authenticate(mac:string, client:string, dest:string, rand:string, t:number, level:string, end:string):void;
 
 
 		/**
 		 * Sends the message over the WebSocket, but queues the message up if not yet
 		 * connected.
 		 */
-		callOnConnection(message:any): void;
+		callOnConnection(message:any):void;
 
 		/**
 		 * Retrieves list of topics in ROS as an array.
 		 *
 		 * @param callback function with params:
 		 *   * topics - Array of topic names
+		 * @param failedCallback - the callback function when the ros call failed (optional). Params:
+		 *   * error - the error message reported by ROS
 		 */
-		getTopics(callback:(topics:string[]) => void, failedCallback:(error:any)=>void): void;
+		getTopics(callback:(topics:string[]) => void, failedCallback?:(error:any)=>void):void;
 
 		/**
 		 * Retrieves Topics in ROS as an array as specific type
@@ -78,16 +80,20 @@ declare module ROSLIB {
 		 * @param topicType topic type to find:
 		 * @param callback function with params:
 		 *   * topics - Array of topic names
+		 * @param failedCallback - the callback function when the ros call failed (optional). Params:
+		 *   * error - the error message reported by ROS
 		 */
-		getTopicsForType(topicType:string, callback:(topics:string[]) => void, failedCallback:(error:any)=>void): void;
+		getTopicsForType(topicType:string, callback:(topics:string[]) => void, failedCallback?:(error:any)=>void):void;
 
 		/**
 		 * Retrieves list of active service names in ROS.
 		 *
 		 * @param callback - function with the following params:
 		 *   * services - array of service names
+		 * @param failedCallback - the callback function when the ros call failed (optional). Params:
+		 *   * error - the error message reported by ROS
 		 */
-		getServices(callback:(services:string[]) => void, failedCallback:(error:any)=>void): void;
+		getServices(callback:(services:string[]) => void, failedCallback?:(error:any)=>void):void;
 
 		/**
 		 * Retrieves list of services in ROS as an array as specific type
@@ -95,24 +101,30 @@ declare module ROSLIB {
 		 * @param serviceType service type to find:
 		 * @param callback function with params:
 		 *   * topics - Array of service names
+		 * @param failedCallback - the callback function when the ros call failed (optional). Params:
+		 *   * error - the error message reported by ROS
 		 */
-		getServicesForType(serviceType: string, callback:(services:string[]) => void, failedCallback:(error:any)=>void): void;
+		getServicesForType(serviceType:string, callback:(services:string[]) => void, failedCallback?:(error:any)=>void):void;
 
 		/**
 		 * Retrieves list of active node names in ROS.
 		 *
 		 * @param callback - function with the following params:
 		 *   * nodes - array of node names
+		 * @param failedCallback - the callback function when the ros call failed (optional). Params:
+		 *   * error - the error message reported by ROS
 		 */
-		getNodes(callback:(nodes:string[]) => void, failedCallback:(error:any)=>void): void;
+		getNodes(callback:(nodes:string[]) => void, failedCallback?:(error:any)=>void):void;
 
 		/**
 		 * Retrieves list of param names from the ROS Parameter Server.
 		 *
 		 * @param callback function with params:
 		 *  * params - array of param names.
+		 * @param failedCallback - the callback function when the ros call failed (optional). Params:
+		 *   * error - the error message reported by ROS
 		 */
-		getParams(callback:(params:string[]) => void, failedCallback:(error:any)=>void): void;
+		getParams(callback:(params:string[]) => void, failedCallback?:(error:any)=>void):void;
 
 		/**
 		 * Retrieves a type of ROS topic.
@@ -120,8 +132,10 @@ declare module ROSLIB {
 		 * @param topic name of the topic:
 		 * @param callback - function with params:
 		 *   * type - String of the topic type
+		 * @param failedCallback - the callback function when the ros call failed (optional). Params:
+		 *   * error - the error message reported by ROS
 		 */
-		getTopicType(topic: string, callback:(type:string) => void, failedCallback:(error:any)=>void): void;
+		getTopicType(topic:string, callback:(type:string) => void, failedCallback?:(error:any)=>void):void;
 
 		/**
 		 * Retrieves a type of ROS service.
@@ -129,8 +143,10 @@ declare module ROSLIB {
 		 * @param service name of service:
 		 * @param callback - function with params:
 		 *   * type - String of the service type
+		 * @param failedCallback - the callback function when the ros call failed (optional). Params:
+		 *   * error - the error message reported by ROS
 		 */
-		getServiceType(service: string, callback:(type:string) => void, failedCallback:(error:any)=>void): void;
+		getServiceType(service:string, callback:(type:string) => void, failedCallback?:(error:any)=>void):void;
 
 		/**
 		 * Retrieves a detail of ROS message.
@@ -138,15 +154,17 @@ declare module ROSLIB {
 		 * @param callback - function with params:
 		 *   * details - Array of the message detail
 		 * @param message - String of a topic type
+		 * @param failedCallback - the callback function when the ros call failed (optional). Params:
+		 *   * error - the error message reported by ROS
 		 */
-		getMessageDetails(message: Message, callback:(detail:any) => void, failedCallback:(error:any)=>void): void;
+		getMessageDetails(message:Message, callback:(detail:any) => void, failedCallback?:(error:any)=>void):void;
 
 		/**
 		 * Decode a typedefs into a dictionary like `rosmsg show foo/bar`
 		 *
 		 * @param defs - array of type_def dictionary
 		 */
-		decodeTypeDefs(defs: any): void;
+		decodeTypeDefs(defs:any):void;
 	}
 
 	export class Message {
@@ -179,19 +197,21 @@ declare module ROSLIB {
 		 * @param callback - function with the following params:
 		 *  * value - the value of the param from ROS.
 		 */
-		get(callback:(response:any) => void): void;
+		get(callback:(response:any) => void):void;
 
 		/**
 		 * Sets the value of the param in ROS.
 		 *
 		 * @param value - value to set param to.
+		 * @param callback - function with params:
+		 *   * response - the response from the service request
 		 */
-		set(value:any, callback:(response:any) => void): void;
+		set(value:any, callback?:(response:any) => void):void;
 
 		/**
 		 * Delete this parameter on the ROS server.
 		 */
-		delete(callback:(response:any) => void): void;
+		delete(callback:(response:any) => void):void;
 
 	}
 
@@ -212,6 +232,12 @@ declare module ROSLIB {
 			serviceType: string
 		});
 
+
+		// getter
+		public name:string;
+		// getter
+		public serviceType:string;
+
 		/**
 		 * Calls the service. Returns the service response in the callback.
 		 *
@@ -221,7 +247,21 @@ declare module ROSLIB {
 		 * @param failedCallback - the callback function when the service call failed (optional). Params:
 		 *   * error - the error message reported by ROS
 		 */
-		callService(request:ServiceRequest, callback:(response:any) => void, failedCallback?:(error:any) => void): void;
+		callService(request:ServiceRequest, callback:(response:any) => void, failedCallback?:(error:any) => void):void;
+
+		/**
+		 * Advertise this service and call the callback each time a client calls it.
+		 *
+		 * @param callback - function with the following params:
+		 *   * request - the service request data
+		 *   * response - the data which should be sent back to the caller
+		 */
+		advertise(callback:(request:any, response:any) => void):void;
+
+		/**
+		 * Unadvertise a previously advertised service
+		 */
+		unadvertise():void;
 	}
 
 	export class ServiceRequest {
@@ -231,7 +271,7 @@ declare module ROSLIB {
 		 * @constructor
 		 * @param values - object matching the fields defined in the .srv definition file
 		 */
-		constructor(values?: any);
+		constructor(values?:any);
 	}
 
 	export class ServiceResponse {
@@ -241,7 +281,7 @@ declare module ROSLIB {
 		 * @constructor
 		 * @param values - object matching the fields defined in the .srv definition file
 		 */
-		constructor(values?: any);
+		constructor(values?:any);
 	}
 
 	export class Topic {
@@ -263,16 +303,21 @@ declare module ROSLIB {
 		 *   * latch - latch the topic when publishing
 		 *   * queue_length - the queue length at bridge side used when subscribing (defaults to 0, no queueing).
 		 */
-		constructor(options: {
+		constructor(options:{
 			ros: Ros,
 			name: string,
 			messageType: string,
-			compression: string,
-			throttle_rate: number,
-			queue_size: number,
-			latch: number,
-			queue_length: number
+			compression?: string,
+			throttle_rate?: number,
+			queue_size?: number,
+			latch?: number,
+			queue_length?: number
 		});
+
+		// getter
+		public name:string;
+		// getter
+		public messageType:string;
 
 		/**
 		 * Every time a message is published for the given topic, the callback
@@ -281,7 +326,7 @@ declare module ROSLIB {
 		 * @param callback - function with the following params:
 		 *   * message - the published message
 		 */
-		subscribe(callback: (message: Message) => void): void;
+		subscribe(callback:(message:Message) => void):void;
 
 		/**
 		 * Unregisters as a subscriber for the topic. Unsubscribing stop remove
@@ -292,24 +337,24 @@ declare module ROSLIB {
 		 *     * provided and other listeners are registered the topic won't
 		 *     * unsubscribe, just stop emitting to the passed listener
 		 */
-		unsubscribe(callback?: () => void): void;
+		unsubscribe(callback?:() => void):void;
 
 		/**
 		 * Registers as a publisher for the topic.
 		 */
-		advertise(): void;
+		advertise():void;
 
 		/**
 		 * Unregisters as a publisher for the topic.
 		 */
-		unadvertise(): void;
+		unadvertise():void;
 
 		/**
 		 * Publish the message.
 		 *
 		 * @param message - A ROSLIB.Message object.
 		 */
-		publish(message: Message): void;
+		publish(message:Message):void;
 	}
 
 	class ActionClient {
@@ -329,7 +374,7 @@ declare module ROSLIB {
 		 *   * actionName - the action message name, like 'actionlib_tutorials/FibonacciAction'
 		 *   * timeout - the timeout length when connecting to the action server
 		 */
-		constructor(options: {
+		constructor(options:{
 			ros: Ros,
 			serverName: string,
 			actionName: string,
@@ -339,7 +384,7 @@ declare module ROSLIB {
 		/**
 		 * Cancel all goals associated with this ActionClient.
 		 */
-		cancel(): void;
+		cancel():void;
 	}
 
 	class Goal {
@@ -350,11 +395,11 @@ declare module ROSLIB {
 		 *  * 'timeout' - if a timeout occurred while sending a goal
 		 *
 		 *  @constructor
-		 *  @param object with following keys:
+		 *  @param options with following keys:
 		 *   * actionClient - the ROSLIB.ActionClient to use with this goal
 		 *   * goalMessage - The JSON object containing the goal for the action server
 		 */
-		constructor(options: {
+		constructor(options:{
 			actionClient: ActionClient,
 			goalMessage: any
 		});
@@ -364,12 +409,12 @@ declare module ROSLIB {
 		 *
 		 * @param timeout (optional) - a timeout length for the goal's result
 		 */
-		send(timeout?: number): void;
+		send(timeout?:number):void;
 
 		/**
 		 * Cancel the current goal.
 		 */
-		cancel(): void;
+		cancel():void;
 	}
 }
 

@@ -5365,6 +5365,11 @@ declare module "sequelize" {
              */
             new ( uri : string, options? : Options ) : Sequelize;
 
+            /**
+             * Provide access to continuation-local-storage (http://docs.sequelizejs.com/en/latest/api/sequelize/#transactionoptions-promise)
+             */
+            cls: any;
+
         }
 
         interface QueryOptionsTransactionRequired { }

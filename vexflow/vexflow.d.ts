@@ -1411,3 +1411,7 @@ declare namespace Vex {
         }
     }
 }
+
+declare module "vexflow" {
+  export = Vex;
+}

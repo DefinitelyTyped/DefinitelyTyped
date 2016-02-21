@@ -675,20 +675,61 @@ declare module google.maps {
         setVisible(visible: boolean): void;
     }
 
-    export interface  PolygonOptions {
+    export interface PolygonOptions {
+        /** Indicates whether this Polygon handles mouse events. Defaults to true. */
         clickable?: boolean;
+        /** 
+         * If set to true, the user can drag this shape over the map. 
+         * The geodesic property defines the mode of dragging. Defaults to false.
+         */
         draggable?: boolean;
+        /**
+         * If set to true, the user can edit this shape by dragging the control points 
+         * shown at the vertices and on each segment. Defaults to false.
+         */
         editable?: boolean;
+        /** The fill color. All CSS3 colors are supported except for extended named colors. */
         fillColor?: string;
+        /** The fill opacity between 0.0 and 1.0 */
         fillOpacity?: number;
+        /**
+         * When true, edges of the polygon are interpreted as geodesic and will follow 
+         * the curvature of the Earth. When false, edges of the polygon are rendered as
+         * straight lines in screen space. Note that the shape of a geodesic polygon may
+         * appear to change when dragged, as the dimensions are maintained relative to 
+         * the surface of the earth. Defaults to false.
+         */
         geodesic?: boolean;
+        /** Map on which to display Polygon. */
         map?: Map;
+        /**
+         * The ordered sequence of coordinates that designates a closed loop. Unlike 
+         * polylines, a polygon may consist of one or more paths. As a result, the paths
+         * property may specify one or more arrays of LatLng coordinates. Paths are 
+         * closed automatically; do not repeat the first vertex of the path as the last
+         * vertex. Simple polygons may be defined using a single array of LatLngs. More
+         * complex polygons may specify an array of arrays. Any simple arrays are 
+         * converted into MVCArrays. Inserting or removing LatLngs from the MVCArray 
+         * will automatically update the polygon on the map.
+         */
         paths?: any[]; // MVCArray<MVCArray<LatLng>>|MVCArray<LatLng>|Array<Array<LatLng|LatLngLiteral>>|Array<LatLng|LatLngLiteral>
+        /** 
+         * The stroke color. 
+         * All CSS3 colors are supported except for extended named colors.
+         */
         strokeColor?: string;
+        /** The stroke opacity between 0.0 and 1.0 */
         strokeOpacity?: number;
+        /** 
+         * The stroke position. Defaults to CENTER.
+         * This property is not supported on Internet Explorer 8 and earlier.
+         */
         strokePosition?: StrokePosition;
+        /** The stroke width in pixels. */
         strokeWeight?: number;
+        /** Whether this polygon is visible on the map. Defaults to true. */
         visible?: boolean;
+        /** The zIndex compared to other polys. */
         zIndex?: number;
     }
 
@@ -764,9 +805,18 @@ declare module google.maps {
         zIndex?: number;
     }
 
+    /** 
+     * The possible positions of the stroke on a polygon. 
+     */
     export enum StrokePosition {
+        /** 
+         * The stroke is centered on the polygon's path, with half the stroke inside
+         * the polygon and half the stroke outside the polygon.
+         */
         CENTER,
+        /** The stroke lies inside the polygon. */
         INSIDE,
+        /** The stroke lies outside the polygon. */
         OUTSIDE
     }
 
@@ -1591,13 +1641,42 @@ declare module google.maps {
     export interface MapsEventListener { }
 
     export class event {
+        /**
+         * Cross browser event handler registration. This listener is removed by calling
+         * removeListener(handle) for the handle that is returned by this function.
+         */
         static addDomListener(instance: Object, eventName: string, handler: Function, capture?: boolean): MapsEventListener;
+        /**
+         * Wrapper around addDomListener that removes the listener after the first event.
+         */
         static addDomListenerOnce(instance: Object, eventName: string, handler: Function, capture?: boolean): MapsEventListener;
+        /**
+         * Adds the given listener function to the given event name for the given object 
+         * instance. Returns an identifier for this listener that can be used with 
+         * removeListener().
+         */
         static addListener(instance: Object, eventName: string, handler: Function): MapsEventListener;
+        /**
+         * Like addListener, but the handler removes itself after handling the first event.
+         */
         static addListenerOnce(instance: Object, eventName: string, handler: Function): MapsEventListener;
+        /**
+         * Removes all listeners for all events for the given instance.
+         */
         static clearInstanceListeners(instance: Object): void;
+        /**
+         * Removes all listeners for the given event for the given instance.
+         */
         static clearListeners(instance: Object, eventName: string): void;
+        /**
+         * Removes the given listener, which should have been returned by addListener above.
+         * Equivalent to calling listener.remove().
+         */
         static removeListener(listener: MapsEventListener): void;
+        /**
+         * Triggers the given event. All arguments after eventName are passed as arguments to
+         * the listeners.
+         */
         static trigger(instance: any, eventName: string, ...args: any[]): void;
     }
 
@@ -1722,14 +1801,55 @@ declare module google.maps {
             static encodePath(path: any[]): string; // LatLng[]|MVCArray<LatLng>
         }
 
+        /**
+         * Utility functions for computing geodesic angles, distances and areas.
+         * The default radius is Earth's radius of 6378137 meters.
+         */
         export class spherical {
+            /**
+             * Returns the area of a closed path.
+             * The computed area uses the same units as the radius.
+             * The radius defaults to the Earth's radius in meters, 
+             * in which case the area is in square meters.
+             */
             static computeArea(path: any[], radius?: number): number; // LatLng[]|MVCArray<LatLng>
+            /**
+             * Returns the distance, in meters, between two LatLngs. 
+             * You can optionally specify a custom radius. 
+             * The radius defaults to the radius of the Earth.
+             */
             static computeDistanceBetween(from: LatLng, to: LatLng, radius?: number): number;
+            /**
+             * Returns the heading from one LatLng to another LatLng.
+             * Headings are expressed in degrees clockwise from North within the range [-180,180).
+             */
             static computeHeading(from: LatLng, to: LatLng): number;
+            /**
+             * Returns the length of the given path.
+             */
             static computeLength(path: any[], radius?: number): number; // LatLng[]|MVCArray<LatLng>
+            /**
+             * Returns the LatLng resulting from moving a distance from an origin in the 
+             * specified heading (expressed in degrees clockwise from north).
+             */
             static computeOffset(from: LatLng, distance: number, heading: number, radius?: number): LatLng;
+            /**
+             * Returns the location of origin when provided with a LatLng destination, meters 
+             * travelled and original heading. Headings are expressed in degrees clockwise from
+             * North. This function returns null when no solution is available.
+             */
             static computeOffsetOrigin(to: LatLng, distance: number, heading: number, radius?: number): LatLng;
+            /**
+             * Returns the signed area of a closed path. The signed area may be used to determine
+             * the orientation of the path. The computed area uses the same units as the radius.
+             * The radius defaults to the Earth's radius in meters, in which case the area is in
+             * square meters.
+             */
             static computeSignedArea(loop: any[], radius?: number): number; // LatLng[]|MVCArray<LatLng>
+            /**
+             * Returns the LatLng which lies the given fraction of the way between the origin
+             * LatLng and the destination LatLng.
+             */
             static interpolate(from: LatLng, to: LatLng, fraction: number): LatLng;
         }
 
