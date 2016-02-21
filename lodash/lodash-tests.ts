@@ -217,15 +217,15 @@ module TestDifference {
     {
         let result: TResult[];
 
-        result = _.difference<TResult>(array);
-        result = _.difference<TResult>(array, array);
-        result = _.difference<TResult>(array, list, array);
-        result = _.difference<TResult>(array, array, list, array);
+        result = _.difference(array);
+        result = _.difference(array, array);
+        result = _.difference(array, list, array);
+        result = _.difference(array, array, list, array);
 
-        result = _.difference<TResult>(list);
-        result = _.difference<TResult>(list, list);
-        result = _.difference<TResult>(list, array, list);
-        result = _.difference<TResult>(list, list, array, list);
+        result = _.difference(list);
+        result = _.difference(list, list);
+        result = _.difference(list, array, list);
+        result = _.difference(list, list, array, list);
     }
 
     {
@@ -6000,6 +6000,41 @@ module TestWrap {
  * Lang *
  ********/
 
+// _.castArray
+namespace TestCastArray {
+    {
+        let result: number[];
+
+        result = _.castArray(42);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<number>;
+
+        result = _(42).castArray();
+        result = _([42]).castArray();
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<{a: number}>;
+
+        result = _({a: 42}).castArray();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<number>;
+
+        result = _(42).chain().castArray();
+        result = _([42]).chain().castArray();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<{a: number}>;
+
+        result = _({a: 42}).chain().castArray();
+    }
+}
+
 // _.clone
 {
     let result: number;
@@ -6199,6 +6234,37 @@ module TestIsArray {
         result = _(1).chain().isArray();
         result = _<any>([]).chain().isArray();
         result = _({}).chain().isArray();
+    }
+}
+
+// _.isArrayBuffer
+module TestIsArrayBuffer {
+    {
+        let value: ArrayBuffer|number;
+
+        if (_.isArrayBuffer(value)) {
+            let result: ArrayBuffer = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isArrayBuffer(any);
+        result = _(1).isArrayBuffer();
+        result = _<any>([]).isArrayBuffer();
+        result = _({}).isArrayBuffer();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isArrayBuffer();
+        result = _<any>([]).chain().isArrayBuffer();
+        result = _({}).chain().isArrayBuffer();
     }
 }
 
