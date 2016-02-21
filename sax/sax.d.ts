@@ -16,16 +16,38 @@ declare module "sax" {
         position?: boolean;
     }
 
-    export interface Tag {
-        name: string;
-        attributes: { [key: string]: string };
-
-        // Available if opt.xmlns
-        ns?: { [key: string]: string };
-        prefix?: string;
-        local?: string;
-        uri?: string;
+    export interface QualifiedName {
+      name: string;
+      prefix: string;
+      local: string;
+      uri: string;
     }
+
+    export interface Attribute extends QualifiedName {
+      value: string;
+    }
+
+    interface BaseTag {
+      name: string;
+      isSelfClosing: boolean;
+    }
+
+    export interface QualifiedTag extends QualifiedName, BaseTag {
+        ns: { [key: string]: string };
+        attributes: { [key: string]: Attribute };
+    }
+
+    export interface Tag extends BaseTag {
+      attributes: { [key: string]: string };
+    }
+
+    // export interface Tag extends BaseTag {
+    //   // If opt.xmlns available
+    //     ns?: { [key: string]: string };
+    //     // If opt.xmlns available, the attributes map value is an object type
+    //     attributes: { [key: string]: string | Attribute };
+    //     isSelfClosing: boolean;
+    // }
 
     export function parser(strict: boolean, opt: SAXOptions): SAXParser;
     export class SAXParser {
@@ -54,7 +76,7 @@ declare module "sax" {
         ontext(t: string): void;
         ondoctype(doctype: string): void;
         onprocessinginstruction(node: { name: string; body: string }): void;
-        onopentag(tag: Tag): void;
+        onopentag(tag: Tag | QualifiedTag): void;
         onclosetag(tagName: string): void;
         onattribute(attr: { name: string; value: string }): void;
         oncomment(comment: string): void;
@@ -75,4 +97,3 @@ declare module "sax" {
         private _parser: SAXParser;
     }
 }
-
