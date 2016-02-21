@@ -17,7 +17,9 @@ parser.onerror = function(e: Error) {
 parser.ontext = function(text: string) {
 };
 
-parser.onopentag = function(tag: sax.Tag) {
+parser.onopentag = function(tag: sax.QualifiedTag) {
+  for (let attr in tag.attributes)
+    console.log(typeof(attr));
 };
 
 parser.onattribute = function(attr: { name: string; value: string; }) {
@@ -40,4 +42,3 @@ import fs = require("fs");
 fs.createReadStream("file.xml")
   .pipe(saxStream)
   .pipe(fs.createWriteStream("file-copy.xml"));
-
