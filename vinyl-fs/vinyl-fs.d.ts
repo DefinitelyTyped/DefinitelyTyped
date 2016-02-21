@@ -4,6 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
+/// <reference path="../glob-stream/glob-stream.d.ts" />
 /// <reference path="../vinyl/vinyl.d.ts" />
 
 declare module NodeJS {
@@ -15,8 +16,9 @@ declare module NodeJS {
 declare module "vinyl-fs" {
    import _events = require("events");
    import File = require("vinyl");
+   import globStream = require("glob-stream");
 
-   interface ISrcOptions {
+   interface ISrcOptions extends globStream.Options {
       /** Specifies the working directory the folder is relative to */
       cwd?: string;
 

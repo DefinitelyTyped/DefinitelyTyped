@@ -135,13 +135,7 @@ declare module chrome.alarms {
         name: string;
     }
 
-    interface AlarmEvent extends chrome.events.Event {
-		/**
-		 * The callback parameter should be a function that looks like this:
-		 * function( Alarm alarm) {...}; 
-		 */
-        addListener(callback: (alarm: Alarm) => void): void;
-    }
+    interface AlarmEvent extends chrome.events.Event<(alarm: Alarm) => void> {}
 
 	/**
 	 * Creates an alarm. Near the time(s) specified by alarmInfo, the onAlarm event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
@@ -286,61 +280,19 @@ declare module chrome.bookmarks {
         childIds: string[];
     }
 
-    interface BookmarkRemovedEvent extends chrome.events.Event {
-		/** 
-		 * @param callback The callback parameter should be a function that looks like this:
-		 * function(string id, object removeInfo) {...};  
-		 */
-        addListener(callback: (id: string, removeInfo: BookmarkRemoveInfo) => void): void;
-    }
+    interface BookmarkRemovedEvent extends chrome.events.Event<(id: string, removeInfo: BookmarkRemoveInfo) => void> {}
 
-    interface BookmarkImportEndedEvent extends chrome.events.Event {
-        /** 
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function() {...}; 
-		 */
-		addListener(callback: () => void): void;
-    }
+    interface BookmarkImportEndedEvent extends chrome.events.Event<() => void> {}
 
-    interface BookmarkMovedEvent extends chrome.events.Event {
-        /** 
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string id, object moveInfo) {...}; 
-		 */
-        addListener(callback: (id: string, moveInfo: BookmarkMoveInfo) => void): void;
-    }
+    interface BookmarkMovedEvent extends chrome.events.Event<(id: string, moveInfo: BookmarkMoveInfo) => void> {}
 
-    interface BookmarkImportBeganEvent extends chrome.events.Event {
-        /** 
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function() {...}; 
-		 */
-		addListener(callback: () => void): void;
-    }
+    interface BookmarkImportBeganEvent extends chrome.events.Event<() => void> {}
 
-    interface BookmarkChangedEvent extends chrome.events.Event {
-        /** 
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string id, object changeInfo) {...}; 
-		 */
-        addListener(callback: (id: string, changeInfo: BookmarkChangeInfo) => void): void;
-    }
+    interface BookmarkChangedEvent extends chrome.events.Event<(id: string, changeInfo: BookmarkChangeInfo) => void> {}
 
-    interface BookmarkCreatedEvent extends chrome.events.Event {
-        /** 
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string id, BookmarkTreeNode bookmark) {...}; 
-		 */
-        addListener(callback: (id: string, bookmark: BookmarkTreeNode) => void): void;
-    }
+    interface BookmarkCreatedEvent extends chrome.events.Event<(id: string, bookmark: BookmarkTreeNode) => void> {}
 
-    interface BookmarkChildrenReordered extends chrome.events.Event {
-        /** 
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string id, object reorderInfo) {...}; 
-		 */
-        addListener(callback: (id: string, reorderInfo: BookmarkReorderInfo) => void): void;
-    }
+    interface BookmarkChildrenReordered extends chrome.events.Event<(id: string, reorderInfo: BookmarkReorderInfo) => void> {}
 
 	interface BookmarkSearchQuery {
 		query?: string;
@@ -524,13 +476,7 @@ declare module chrome.browserAction {
         popup: string;
     }
 
-    interface BrowserClickedEvent extends chrome.events.Event {
-		/** 
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( tabs.Tab tab) {...}; 
-		 */
-        addListener(callback: (tab: chrome.tabs.Tab) => void): void;
-    }
+    interface BrowserClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
 
 	/**
 	 * Since Chrome 22. 
@@ -787,13 +733,7 @@ declare module chrome.commands {
 		shortcut?: string;
 	}
 
-    interface CommandEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string command) {...}; 
-		 */
-        addListener(callback: (command: string) => void): void;
-    }
+    interface CommandEvent extends chrome.events.Event<(command: string) => void> {}
 
 	/**
 	 * Returns all the registered extension commands for this extension and their shortcut (if active). 
@@ -1118,15 +1058,7 @@ declare module chrome.contextMenus {
         type?: string;
     }
 
-    interface MenuClickedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object info, tabs.Tab tab) {...}; 
-		 * Parameter info: Information sent when a context menu item is clicked. 
-		 * Parameter tab: The details of the tab where the click took place. If the click did not take place in a tab, this parameter will be missing. 
-		 */
-        addListener(callback: (info: OnClickData, tab?: chrome.tabs.Tab) => void): void;
-    }
+    interface MenuClickedEvent extends chrome.events.Event<(info: OnClickData, tab?: chrome.tabs.Tab) => void> {}
 
 	/**
 	 * Since Chrome 38. 
@@ -1287,13 +1219,7 @@ declare module chrome.cookies {
         cause: string;
     }
 
-    interface CookieChangedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this:
-		 * function(object changeInfo) {...};
-		 */
-        addListener(callback: (changeInfo: CookieChangeInfo) => void): void;
-    }
+    interface CookieChangedEvent extends chrome.events.Event<(changeInfo: CookieChangeInfo) => void> {}
 
 	/**
 	 * Lists all existing cookie stores. 
@@ -1396,26 +1322,9 @@ declare module "chrome.debugger" {
 		faviconUrl?: string;
     }
 
-    interface DebuggerDetachedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( Debuggee source, DetachReason reason) {...}; 
-		 * Parameter source: The debuggee that was detached. 
-		 * Parameter reason: Since Chrome 24. Connection termination reason. 
-		 */
-        addListener(callback: (source: Debuggee, reason: string) => void): void;
-    }
+    interface DebuggerDetachedEvent extends chrome.events.Event<(source: Debuggee, reason: string) => void> {}
 
-    interface DebuggerEventEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( Debuggee source, string method, object params) {...}; 
-		 * Parameter source: The debuggee that generated this event. 
-		 * Parameter method: Method name. Should be one of the notifications defined by the remote debugging protocol. 
-		 * Parameter params: JSON object with the parameters. Structure of the parameters varies depending on the method name and is defined by the 'parameters' attribute of the event description in the remote debugging protocol. 
-		 */
-        addListener(callback: (source: Debuggee, method: string, params?: Object) => void): void;
-    }
+    interface DebuggerEventEvent extends chrome.events.Event<(source: Debuggee, method: string, params?: Object) => void> {}
 
 	/**
 	 * Attaches debugger to the given target. 
@@ -1631,9 +1540,7 @@ declare module chrome.declarativeWebRequest {
         filter: RequestCookie;
     }
 
-    interface RequestedEvent extends chrome.events.Event {
-        addListener(callback: Function): void;
-    }
+    interface RequestedEvent extends chrome.events.Event<Function> {}
 
     var onRequest: RequestedEvent;
 }
@@ -1734,22 +1641,9 @@ declare module chrome.devtools.inspectedWindow {
 		value: string;
     }
 
-    interface ResourceAddedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( Resource resource) {...}; 
-		 */
-        addListener(callback: (resource: Resource) => void): void;
-    }
+    interface ResourceAddedEvent extends chrome.events.Event<(resource: Resource) => void> {}
 
-    interface ResourceContentCommittedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( Resource resource, string content) {...}; 
-		 * Parameter content: New content of the resource. 
-		 */
-        addListener(callback: (resource: Resource, content: string) => void): void;
-    }
+    interface ResourceContentCommittedEvent extends chrome.events.Event<(resource: Resource, content: string) => void> {}
 
 	/** The ID of the tab being inspected. This ID may be used with chrome.tabs.* API. */
     var tabId: number;
@@ -1801,23 +1695,9 @@ declare module chrome.devtools.network {
         getContent(callback: (content: string, encoding: string) => void): void;
     }
 
-    interface RequestFinishedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( Request request) {...}; 
-		 * Parameter request: Description of a network request in the form of a HAR entry. See HAR specification for details. 
-		 */
-        addListener(callback: (request: Request) => void): void;
-    }
+    interface RequestFinishedEvent extends chrome.events.Event<(request: Request) => void> {}
 
-    interface NavigatedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string url) {...}; 
-		 * Parameter url: URL of the new page. 
-		 */
-        addListener(callback: (url: string) => void): void;
-    }
+    interface NavigatedEvent extends chrome.events.Event<(url: string) => void> {}
 
 	/**
 	 * Returns HAR log that contains all known network requests. 
@@ -1842,32 +1722,11 @@ declare module chrome.devtools.network {
  * Availability: Since Chrome 18. 
  */
 declare module chrome.devtools.panels {
-    interface PanelShownEvent extends chrome.events.Event {
-		/** 
-		 * @param callback The callback parameter should be a function that looks like this:
-		 * function(global window) {...};
-		 * Parameter window: The JavaScript window object of panel's page. 
-		 */
-        addListener(callback: (window: chrome.windows.Window) => void): void;
-    }
+    interface PanelShownEvent extends chrome.events.Event<(window: chrome.windows.Window) => void> {}
 
-    interface PanelHiddenEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function() {...}; 
-		 */
-        addListener(callback: () => void): void;
-    }
+    interface PanelHiddenEvent extends chrome.events.Event<() => void> {}
 
-    interface PanelSearchEvent extends chrome.events.Event {
-		/**
-		 * The callback parameter should be a function that looks like this: 
-		 * function(string action, string queryString) {...}; 
-		 * Parameter action: Type of search action being performed. 
-		 * Optional parameter queryString: Query string (only for 'performSearch'). 
-		 */
-        addListener(callback: (action: string, queryString?: string) => void): void;
-    }
+    interface PanelSearchEvent extends chrome.events.Event<(action: string, queryString?: string) => void> {}
 
 	/** Represents a panel created by extension. */
     interface ExtensionPanel {
@@ -1886,13 +1745,7 @@ declare module chrome.devtools.panels {
         onSearch: PanelSearchEvent;
     }
 
-    interface ButtonClickedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function() {...}; 
-		 */
-        addListener(callback: () => void): void;
-    }
+    interface ButtonClickedEvent extends chrome.events.Event<() => void> {}
 
 	/** A button created by the extension. */
     interface Button {
@@ -1907,13 +1760,7 @@ declare module chrome.devtools.panels {
         onClicked: ButtonClickedEvent;
     }
 
-    interface SelectionChangedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function() {...}; 
-		 */
-        addListener(callback: () => void): void;
-    }
+    interface SelectionChangedEvent extends chrome.events.Event<() => void> {}
 
 	/** Represents the Elements panel. */
     interface ElementsPanel {
@@ -1948,22 +1795,9 @@ declare module chrome.devtools.panels {
         onSelectionChanged: SelectionChangedEvent;
     }
 
-    interface ExtensionSidebarPaneShownEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this:
-		 * function(global window) {...};
-		 * Parameter window: The JavaScript window object of the sidebar page, if one was set with the setPage() method. 
-		 */
-        addListener(callback: (window: chrome.windows.Window) => void): void;
-    }
+    interface ExtensionSidebarPaneShownEvent extends chrome.events.Event<(window: chrome.windows.Window) => void> {}
 
-    interface ExtensionSidebarPaneHiddenEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function() {...}; 
-		 */
-        addListener(callback: () => void): void;
-    }
+    interface ExtensionSidebarPaneHiddenEvent extends chrome.events.Event<() => void> {}
 
 	/** A sidebar created by the extension. */
     interface ExtensionSidebarPane {
@@ -2279,39 +2113,13 @@ declare module chrome.downloads {
 		conflictAction?: string;
 	}
 
-    interface DownloadChangedEvent extends chrome.events.Event {
-		/**
-		 * When any of a DownloadItem's properties except bytesReceived and estimatedEndTime changes, this event fires with the downloadId and an object containing the properties that changed. 
-		 * @param callback The callback parameter should be a function that looks like this:
-		 * function(object downloadDelta) {...}; 
-		 */
-        addListener(callback: (downloadDelta: DownloadDelta) => void): void;
-    }
+    interface DownloadChangedEvent extends chrome.events.Event<(downloadDelta: DownloadDelta) => void> {}
 
-    interface DownloadCreatedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( DownloadItem downloadItem) {...}; 
-		 */
-        addListener(callback: (downloadItem: DownloadItem) => void): void;
-    }
+    interface DownloadCreatedEvent extends chrome.events.Event<(downloadItem: DownloadItem) => void> {}
 
-    interface DownloadErasedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(integer downloadId) {...}; 
-		 * Parameter downloadId: The id of the DownloadItem that was erased. 
-		 */
-        addListener(callback: (downloadId: number) => void): void;
-    }
+    interface DownloadErasedEvent extends chrome.events.Event<(downloadId: number) => void> {}
 
-	interface DownloadDeterminingFilenameEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( DownloadItem downloadItem, function suggest) {...};
-		 */
-		addListener(callback: (downloadItem: DownloadItem, suggest: (suggestion?: DownloadFilenameSuggestion) => void) => void): void;
-	}
+	interface DownloadDeterminingFilenameEvent extends chrome.events.Event<(downloadItem: DownloadItem, suggest: (suggestion?: DownloadFilenameSuggestion) => void) => void> {}
 
 	/**
 	 * Find DownloadItem. Set query to the empty object to get all DownloadItem. To get a specific DownloadItem, set only the id field. To page through a large number of items, set orderBy: ['-startTime'], set limit to the number of items per page, and set startedAfter to the startTime of the last item from the last page. 
@@ -2537,14 +2345,14 @@ declare module chrome.events {
     }
 
 	/** An object which allows the addition and removal of listeners for a Chrome event. */
-    interface Event {
+    interface Event<T extends Function> {
 		/**
 		 * Registers an event listener callback to an event. 
 		 * @param callback Called when an event occurs. The parameters of this function depend on the type of event. 
 		 * The callback parameter should be a function that looks like this:
 		 * function() {...}; 
 		 */
-        addListener(callback: Function): void;
+        addListener(callback: T): void;
 		/**
 		 * Returns currently registered rules. 
 		 * @param callback Called with registered rules. 
@@ -2565,7 +2373,7 @@ declare module chrome.events {
         /**
 		 * @param callback Listener whose registration status shall be tested. 
 		 */
-        hasListener(callback: Function): boolean;
+        hasListener(callback: T): boolean;
 		/**
 		 * Unregisters currently registered rules. 
 		 * @param ruleIdentifiers If an array is passed, only rules with identifiers contained in this array are unregistered. 
@@ -2596,7 +2404,7 @@ declare module chrome.events {
 		 * The callback parameter should be a function that looks like this:
 		 * function() {...}; 
 		 */
-        removeListener(callback: () => void): void;
+        removeListener(callback: T): void;
         hasListeners(): boolean;
     }
 
@@ -2639,21 +2447,7 @@ declare module chrome.extension {
         message: string;
     }
 
-	interface OnRequestEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(any request, runtime.MessageSender sender, function sendResponse) {...}; 
-		 * Parameter request: The request sent by the calling script. 
-		 * Parameter sendResponse: Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object, or undefined if there is no response. If you have more than one onRequest listener in the same document, then only one may send a response. 
-		 */
-		addListener(callback: (request: any, sender: runtime.MessageSender, sendResponse: (response: any) => void) => void): void;
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(runtime.MessageSender sender, function sendResponse) {...}; 
-		 * Parameter sendResponse: Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object, or undefined if there is no response. If you have more than one onRequest listener in the same document, then only one may send a response. 
-		 */
-		addListener(callback: (sender: runtime.MessageSender, sendResponse: (response: any) => void) => void): void;
-    }
+	interface OnRequestEvent extends chrome.events.Event<((request: any, sender: runtime.MessageSender, sendResponse: (response: any) => void) => void) | ((sender: runtime.MessageSender, sendResponse: (response: any) => void) => void)> {}
 
 	/**
 	 * Since Chrome 7. 
@@ -2764,15 +2558,7 @@ declare module chrome.fileBrowserHandler {
         entries: any[];
     }
 
-    interface FileBrowserHandlerExecuteEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string id, FileHandlerExecuteEventDetails details) {...}; 
-		 * Parameter id: File browser action id as specified in the listener component's manifest. 
-		 * Parameter details: File handler execute event details. 
-		 */
-        addListener(callback: (id: string, details: FileHandlerExecuteEventDetails) => void): void;
-    }
+    interface FileBrowserHandlerExecuteEvent extends chrome.events.Event<(id: string, details: FileHandlerExecuteEventDetails) => void> {}
 
 	/**
 	 * Prompts user to select file path under which file should be saved. When the file is selected, file access permission required to use the file (read, write and create) are granted to the caller. The file will not actually get created during the function call, so function caller must ensure its existence before using it. The function has to be invoked with a user gesture. 
@@ -3018,117 +2804,33 @@ declare module chrome.fileSystemProvider {
 		operationRequestId: number;
 	}
 
-	interface RequestedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object options, function successCallback, function errorCallback) {...}; 
-		 */
-		addListener(callback: (options: RequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
-	}
+	interface RequestedEvent extends chrome.events.Event<(options: RequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> {}
 
-	interface MetadataRequestedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object options, function successCallback, function errorCallback) {...}; 
-		 */
-		addListener(callback: (options: MetadataRequestedEventOptions, successCallback: (metadata: EntryMetadata) => void, errorCallback: (error: string) => void) => void): void;
-	}
+	interface MetadataRequestedEvent extends chrome.events.Event<(options: MetadataRequestedEventOptions, successCallback: (metadata: EntryMetadata) => void, errorCallback: (error: string) => void) => void> {}
 
-	interface DirectoryPathRequestedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object options, function successCallback, function errorCallback) {...}; 
-		 */
-		addListener(callback: (options: DirectoryPathRequestedEventOptions, successCallback: (entries: EntryMetadata[], hasMore: boolean) => void, errorCallback: (error: string) => void) => void): void;
-	}
+	interface DirectoryPathRequestedEvent extends chrome.events.Event<(options: DirectoryPathRequestedEventOptions, successCallback: (entries: EntryMetadata[], hasMore: boolean) => void, errorCallback: (error: string) => void) => void> {}
 
-	interface OpenFileRequestedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object options, function successCallback, function errorCallback) {...}; 
-		 */
-		addListener(callback: (options: OpenFileRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
-	}
+	interface OpenFileRequestedEvent extends chrome.events.Event<(options: OpenFileRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> {}
 
-	interface OpenedFileRequestedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object options, function successCallback, function errorCallback) {...}; 
-		 */
-		addListener(callback: (options: OpenedFileRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
-	}
+	interface OpenedFileRequestedEvent extends chrome.events.Event<(options: OpenedFileRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> {}
 
-	interface OpenedFileOffsetRequestedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object options, function successCallback, function errorCallback) {...}; 
-		 */
-		addListener(callback: (options: OpenedFileOffsetRequestedEventOptions, successCallback: (data: ArrayBuffer, hasMore: boolean) => void, errorCallback: (error: string) => void) => void): void;
-	}
+	interface OpenedFileOffsetRequestedEvent extends chrome.events.Event<(options: OpenedFileOffsetRequestedEventOptions, successCallback: (data: ArrayBuffer, hasMore: boolean) => void, errorCallback: (error: string) => void) => void> {}
 
-	interface DirectoryPathRecursiveRequestedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object options, function successCallback, function errorCallback) {...}; 
-		 */
-		addListener(callback: (options: DirectoryPathRecursiveRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
-	}
+	interface DirectoryPathRecursiveRequestedEvent extends chrome.events.Event<(options: DirectoryPathRecursiveRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> {}
 
-	interface EntryPathRecursiveRequestedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object options, function successCallback, function errorCallback) {...}; 
-		 */
-		addListener(callback: (options: EntryPathRecursiveRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
-	}
+	interface EntryPathRecursiveRequestedEvent extends chrome.events.Event<(options: EntryPathRecursiveRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> {}
 
-	interface FilePathRequestedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object options, function successCallback, function errorCallback) {...}; 
-		 */
-		addListener(callback: (options: FilePathRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
-	}
+	interface FilePathRequestedEvent extends chrome.events.Event<(options: FilePathRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> {}
 
-	interface SourceTargetPathRequestedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object options, function successCallback, function errorCallback) {...}; 
-		 */
-		addListener(callback: (options: SourceTargetPathRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
-	}
+	interface SourceTargetPathRequestedEvent extends chrome.events.Event<(options: SourceTargetPathRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> {}
 
-	interface FilePathLengthRequestedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object options, function successCallback, function errorCallback) {...}; 
-		 */
-		addListener(callback: (options: FilePathLengthRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
-	}
+	interface FilePathLengthRequestedEvent extends chrome.events.Event<(options: FilePathLengthRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> {}
 
-	interface OpenedFileIoRequestedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object options, function successCallback, function errorCallback) {...}; 
-		 */
-		addListener(callback: (options: OpenedFileIoRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
-	}
+	interface OpenedFileIoRequestedEvent extends chrome.events.Event<(options: OpenedFileIoRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> {}
 
-	interface OperationRequestedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object options, function successCallback, function errorCallback) {...}; 
-		 */
-		addListener(callback: (options: OperationRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void): void;
-	}
+	interface OperationRequestedEvent extends chrome.events.Event<(options: OperationRequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void> {}
 
-	interface OptionlessRequestedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(function successCallback, function errorCallback) {...}; 
-		 */
-		addListener(callback: (successCallback: Function, errorCallback: (error: string) => void) => void): void;
-	}
+	interface OptionlessRequestedEvent extends chrome.events.Event<(successCallback: Function, errorCallback: (error: string) => void) => void> {}
 	
 	/**
 	 * Mounts a file system with the given fileSystemId and displayName. displayName will be shown in the left panel of Files.app. displayName can contain any characters including '/', but cannot be an empty string. displayName must be descriptive but doesn't have to be unique. The fileSystemId must not be an empty string.
@@ -3289,37 +2991,13 @@ declare module chrome.fontSettings {
         fontId: string;
     }
 
-    interface DefaultFixedFontSizeChangedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object details) {...}; 
-		 */
-        addListener(callback: (details: FontSizeDetails) => void): void;
-    }
+    interface DefaultFixedFontSizeChangedEvent extends chrome.events.Event<(details: FontSizeDetails) => void> {}
 
-    interface DefaultFontSizeChangedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object details) {...}; 
-		 */
-        addListener(callback: (details: FontSizeDetails) => void): void;
-    }
+    interface DefaultFontSizeChangedEvent extends chrome.events.Event<(details: FontSizeDetails) => void> {}
 
-    interface MinimumFontSizeChangedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object details) {...}; 
-		 */
-        addListener(callback: (details: FontSizeDetails) => void): void;
-    }
+    interface MinimumFontSizeChangedEvent extends chrome.events.Event<(details: FontSizeDetails) => void> {}
 
-    interface FontChangedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object details) {...}; 
-		 */
-        addListener(callback: (details: FullFontDetails) => void): void;
-    }
+    interface FontChangedEvent extends chrome.events.Event<(details: FullFontDetails) => void> {}
 
 	/**
 	 * Sets the default font size. 
@@ -3461,31 +3139,11 @@ declare module chrome.gcm {
 		detail: Object;
 	}
 
-	interface MessageReceptionEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object message) {...}; 
-		 * Parameter message: A message received from another party via GCM. 
-		 */
-		addListener(callback: (message: IncomingMessage) => void): void;
-	}
+	interface MessageReceptionEvent extends chrome.events.Event<(message: IncomingMessage) => void> {}
 
-	interface MessageDeletionEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function() {...}; 
-		 */
-		addListener(callback: () => void): void;
-	}
+	interface MessageDeletionEvent extends chrome.events.Event<() => void> {}
 
-	interface GcmErrorEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object error) {...}; 
-		 * Parameter error: An error that occured while trying to send the message either in Chrome or on the GCM server. Application can retry sending the message with a reasonable backoff and possibly longer time-to-live. 
-		 */
-		addListener(callback: (error: GcmError) => void): void;
-	}
+	interface GcmErrorEvent extends chrome.events.Event<(error: GcmError) => void> {}
 	
 	/** The maximum size (in bytes) of all key/value pairs in a message. */
 	var MAX_MESSAGE_SIZE: number;
@@ -3593,21 +3251,9 @@ declare module chrome.history {
         urls?: string[];
     }
 
-    interface HistoryVisitedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( HistoryItem result) {...}; 
-		 */
-        addListener(callback: (result: HistoryItem) => void): void;
-    }
+    interface HistoryVisitedEvent extends chrome.events.Event<(result: HistoryItem) => void> {}
 
-    interface HistoryVisitRemovedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object removed) {...}; 
-		 */
-        addListener(callback: (removed: RemovedResult) => void): void;
-    }
+    interface HistoryVisitRemovedEvent extends chrome.events.Event<(removed: RemovedResult) => void> {}
 
 	/**
 	 * Searches the history for the last visit time of each page matching the query. 
@@ -3741,13 +3387,7 @@ declare module chrome.identity {
 		interactive?: boolean;
 	}
 
-	interface SignInChangeEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( AccountInfo account, boolean signedIn) {...}; 
-		 */
-		addListener(callback: (account: AccountInfo, signedIn: boolean) => void): void;
-	}
+	interface SignInChangeEvent extends chrome.events.Event<(account: AccountInfo, signedIn: boolean) => void> {}
 
 	/**
 	 * Retrieves a list of AccountInfo objects describing the accounts present on the profile.
@@ -3814,13 +3454,7 @@ declare module chrome.identity {
  * @since Chrome 6.
  */
 declare module chrome.idle {
-    interface IdleStateChangedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( IdleState newState) {...}; 
-		 */
-        addListener(callback: (newState: string) => void): void;
-    }
+    interface IdleStateChangedEvent extends chrome.events.Event<(newState: string) => void> {}
 
 	/**
 	 * Returns "locked" if the system is locked, "idle" if the user has not generated any input for a specified number of seconds, or "active" otherwise. 
@@ -4109,101 +3743,25 @@ declare module chrome.input.ime {
 		anchor: number;
     }
 
-    interface BlurEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(integer contextID) {...};
-		 * Parameter contextID: The ID of the text field that has lost focus. The ID is invalid after this call 
-		 */
-        addListener(callback: (contextID: number) => void): void;
-    }
+    interface BlurEvent extends chrome.events.Event<(contextID: number) => void> {}
 
-    interface CandidateClickedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string engineID, integer candidateID, MouseButton button) {...};
-		 * Parameter engineID: ID of the engine receiving the event
-		 * Parameter candidateID: ID of the candidate that was clicked. 
-		 * Parameter button: Which mouse buttons was clicked. 
-		 */
-        addListener(callback: (engineID: string, candidateID: number, button: string) => void): void;
-    }
+    interface CandidateClickedEvent extends chrome.events.Event<(engineID: string, candidateID: number, button: string) => void> {}
 
-    interface KeyEventEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string engineID, KeyboardEvent keyData) {...};
-		 * Parameter engineID: ID of the engine receiving the event
-		 * Parameter keyData: Data on the key event 
-		 */
-        addListener(callback: (engineID: string, keyData: KeyboardEvent) => void): void;
-    }
+    interface KeyEventEvent extends chrome.events.Event<(engineID: string, keyData: KeyboardEvent) => void> {}
 
-    interface DeactivatedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string engineID) {...};
-		 * Parameter engineID: ID of the engine receiving the event 
-		 */
-        addListener(callback: (engineID: string) => void): void;
-    }
+    interface DeactivatedEvent extends chrome.events.Event<(engineID: string) => void> {}
 
-    interface InputContextUpdateEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( InputContext context) {...};
-		 * Parameter context: An InputContext object describing the text field that has changed. 
-		 */
-        addListener(callback: (context: InputContext) => void): void;
-    }
+    interface InputContextUpdateEvent extends chrome.events.Event<(context: InputContext) => void> {}
 
-    interface ActivateEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string engineID, ScreenType screen) {...}; 
-		 * Parameter engineID: ID of the engine receiving the event 
-		 * Parameter The screen type under which the IME is activated. 
-		 */
-		addListener(callback: (engineID: string, screen: string) => void): void;
-    }
+    interface ActivateEvent extends chrome.events.Event<(engineID: string, screen: string) => void> {}
 
-    interface FocusEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( InputContext context) {...};
-		 * Parameter context: Describes the text field that has acquired focus. 
-		 */
-        addListener(callback: (context: InputContext) => void): void;
-    }
+    interface FocusEvent extends chrome.events.Event<(context: InputContext) => void> {}
 
-    interface MenuItemActivatedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string engineID, string name) {...}; 
-		 * Parameter engineID: ID of the engine receiving the event 
-		 * Parameter name: Name of the MenuItem which was activated 
-		 */
-        addListener(callback: (engineID: string, name: string) => void): void;
-    }
+    interface MenuItemActivatedEvent extends chrome.events.Event<(engineID: string, name: string) => void> {}
 
-	interface SurroundingTextChangedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string engineID, object surroundingInfo) {...};
-		 * Parameter engineID: ID of the engine receiving the event
-		 * Parameter surroundingInfo: The surrounding information. 
-		 */
-		addListener(callback: (engineID: string, surroundingInfo: SurroundingTextInfo) => void): void;
-	}
+	interface SurroundingTextChangedEvent extends chrome.events.Event<(engineID: string, surroundingInfo: SurroundingTextInfo) => void> {}
 
-	interface InputResetEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string engineID) {...};
-		 * Parameter engineID: ID of the engine receiving the event 
-		 */
-		addListener(callback: (engineID: string) => void): void;
-	}
+	interface InputResetEvent extends chrome.events.Event<(engineID: string) => void> {}
 
 	/**
 	 * Adds the provided menu items to the language menu when this IME is active. 
@@ -4435,38 +3993,13 @@ declare module chrome.management {
         showConfirmDialog?: boolean;
     }
 
-    interface ManagementDisabledEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( ExtensionInfo info) {...}; 
-		 */
-        addListener(callback: (info: ExtensionInfo) => void): void;
-    }
+    interface ManagementDisabledEvent extends chrome.events.Event<(info: ExtensionInfo) => void> {}
 
-    interface ManagementUninstalledEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string id) {...};
-		 * Parameter id: The id of the extension, app, or theme that was uninstalled.  
-		 */
-        addListener(callback: (id: string) => void): void;
-    }
+    interface ManagementUninstalledEvent extends chrome.events.Event<(id: string) => void> {}
 
-    interface ManagementInstalledEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( ExtensionInfo info) {...}; 
-		 */
-        addListener(callback: (info: ExtensionInfo) => void): void;
-    }
+    interface ManagementInstalledEvent extends chrome.events.Event<(info: ExtensionInfo) => void> {}
 
-    interface ManagementEnabledEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( ExtensionInfo info) {...}; 
-		 */
-        addListener(callback: (info: ExtensionInfo) => void): void;
-    }
+    interface ManagementEnabledEvent extends chrome.events.Event<(info: ExtensionInfo) => void> {}
 
 	/**
 	 * Enables or disables an app or extension. 
@@ -4613,14 +4146,7 @@ declare module chrome.networking.config {
 		Security?: string;
 	}
 
-	interface CaptivePorttalDetectedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( NetworkInfo networkInfo) {...};
-		 * Parameter networkInfo: Information about the network on which a captive portal was detected.  
-		 */
-		addListener(callback: (networkInfo: NetworkInfo) => void): void;
-	}
+	interface CaptivePorttalDetectedEvent extends chrome.events.Event<(networkInfo: NetworkInfo) => void> {}
 	
 	/**
 	 * Allows an extension to define network filters for the networks it can handle. A call to this function will remove all filters previously installed by the extension before setting the new list. 
@@ -4719,45 +4245,15 @@ declare module chrome.notifications {
 		imageUrl?: string;
     }
 
-	interface NotificationClosedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string notificationId, boolean byUser) {...}; 
-		 */
-        addListener(callback: (notificationId: string, byUser: boolean) => void): void;
-    }
+	interface NotificationClosedEvent extends chrome.events.Event<(notificationId: string, byUser: boolean) => void> {}
 
-	interface NotificationClickedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string notificationId) {...}; 
-		 */
-        addListener(callback: (notificationId: string) => void): void;
-    }
+	interface NotificationClickedEvent extends chrome.events.Event<(notificationId: string) => void> {}
 
-	interface NotificationButtonClickedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string notificationId, integer buttonIndex) {...}; 
-		 */
-        addListener(callback: (notificationId: string, buttonIndex: number) => void): void;
-    }
+	interface NotificationButtonClickedEvent extends chrome.events.Event<(notificationId: string, buttonIndex: number) => void> {}
 
-	interface NotificationPermissionLevelChangedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( PermissionLevel level) {...}; 
-		 */
-        addListener(callback: (level: string) => void): void;
-    }
+	interface NotificationPermissionLevelChangedEvent extends chrome.events.Event<(level: string) => void> {}
 
-	interface NotificationShowSettingsEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function() {...}; 
-		 */
-		addListener(callback: () => void): void;
-    }
+	interface NotificationShowSettingsEvent extends chrome.events.Event<() => void> {}
 
 	/** The notification closed, either by the system or by user action. */
 	export var onClosed: NotificationClosedEvent;
@@ -4857,40 +4353,13 @@ declare module chrome.omnibox {
         description: string;
     }
 
-    interface OmniboxInputEnteredEvent extends chrome.events.Event {
-		/**
-		 * The callback parameter should be a function that looks like this: 
-		 * function(string text, OnInputEnteredDisposition disposition) {...}; 
-		 */
-        addListener(callback: (text: string) => void): void;
-    }
+    interface OmniboxInputEnteredEvent extends chrome.events.Event<(text: string) => void> {}
 
-    interface OmniboxInputChangedEvent extends chrome.events.Event {
-		/**
-		 * The callback parameter should be a function that looks like this: 
-		 * function(string text, function suggest) {...};
-		 * Parameter suggest: A callback passed to the onInputChanged event used for sending suggestions back to the browser.
-		 * The suggest parameter should be a function that looks like this:
-		 * function(array of SuggestResult suggestResults) {...}; 
-		 */
-        addListener(callback: (text: string, suggest: (suggestResults: SuggestResult[]) => void) => void): void;
-    }
+    interface OmniboxInputChangedEvent extends chrome.events.Event<(text: string, suggest: (suggestResults: SuggestResult[]) => void) => void> {}
 
-    interface OmniboxInputStartedEvent extends chrome.events.Event {
-		/** 
-		 * The callback parameter should be a function that looks like this: 
-		 * function() {...}; 
-		 */
-		addListener(callback: () => void): void;
-    }
+    interface OmniboxInputStartedEvent extends chrome.events.Event<() => void> {}
 
-    interface OmniboxInputCancelledEvent extends chrome.events.Event {
-		/**
-		 * The callback parameter should be a function that looks like this: 
-		 * function() {...}; 
-		 */
-		addListener(callback: () => void): void;
-    }
+    interface OmniboxInputCancelledEvent extends chrome.events.Event<() => void> {}
 
 	/**
 	 * Sets the description and styling for the default suggestion. The default suggestion is the text that is displayed in the first suggestion row underneath the URL bar. 
@@ -4917,13 +4386,7 @@ declare module chrome.omnibox {
  * @since Chrome 5.
  */
 declare module chrome.pageAction {
-    interface PageActionClickedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( tabs.Tab tab) {...}; 
-		 */
-        addListener(callback: (tab: chrome.tabs.Tab) => void): void;
-    }
+    interface PageActionClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
 
     interface TitleDetails {
 		/** The id of the tab for which you want to modify the page action. */
@@ -5232,45 +4695,13 @@ declare module chrome.printerProvider {
 		document: Blob;
 	}
 
-	interface PrinterRequestedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(function resultCallback) {...};
-		 * Parameter resultCallback: Callback to return printer list. Every listener must call callback exactly once.  
-		 */
-		addListener(callback: (resultCallback: (printerInfo: PrinterInfo[]) => void) => void): void;
-	}
+	interface PrinterRequestedEvent extends chrome.events.Event<(resultCallback: (printerInfo: PrinterInfo[]) => void) => void> {}
 
-	interface PrinterInfoRequestedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function( usb.Device device, function resultCallback) {...};
-		 * Parameter device: The USB device.
-		 * Parameter resultCallback: Callback to return printer info. The receiving listener must call callback exactly once. If the parameter to this callback is undefined that indicates that the application has determined that the device is not supported.   
-		 */
-		addListener(callback: (device: any, resultCallback: (printerInfo?: PrinterInfo) => void) => void): void;
-	}
+	interface PrinterInfoRequestedEvent extends chrome.events.Event<(device: any, resultCallback: (printerInfo?: PrinterInfo) => void) => void> {}
 
-	interface CapabilityRequestedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(string printerId, function resultCallback) {...};
-		 * Parameter printerId: Unique ID of the printer whose capabilities are requested. 
-		 * Parameter resultCallback: Callback to return device capabilities in CDD format. The receiving listener must call callback exectly once.  
-		 */
-		addListener(callback: (printerId: string, resultCallback: (capabilities: PrinterCapabilities) => void) => void): void;
-	}
+	interface CapabilityRequestedEvent extends chrome.events.Event<(printerId: string, resultCallback: (capabilities: PrinterCapabilities) => void) => void> {}
 
-	interface PrintRequestedEvent extends chrome.events.Event {
-		/**
-		 * @param callback The callback parameter should be a function that looks like this: 
-		 * function(object printJob, function resultCallback) {...};
-		 * Parameter printJob: The printing request parameters. 
-		 * Parameter resultCallback: Callback that should be called when the printing request is completed.
-		 * Parameter result (for resultCallback):   OK: Operation completed successfully. FAILED: General failure. INVALID_TICKET: Print ticket is invalid. For example, ticket is inconsistent with capabilities or extension is not able to handle all settings from the ticket. INVALID_DATA: Document is invalid. For example, data may be corrupted or the format is incompatible with the extension. 
-		 */
-		addListener(callback: (printJob: PrintJob, resultCallback: (result: string) => void) => void): void;
-	}
+	interface PrintRequestedEvent extends chrome.events.Event<(printJob: PrintJob, resultCallback: (result: string) => void) => void> {}
 	
 	/** Event fired when print manager requests printers provided by extensions. */
 	export var onGetPrintersRequested: PrinterRequestedEvent;
@@ -5407,13 +4838,7 @@ declare module chrome.proxy {
         fatal: boolean;
     }
 
-    interface ProxyErrorEvent extends chrome.events.Event {
-        /**
-         * @param callback The callback parameter should be a function that looks like this: 
-         * function(object details) {...}; 
-         */
-        addListener(callback: (details: ErrorDetails) => void): void;
-    }
+    interface ProxyErrorEvent extends chrome.events.Event<(details: ErrorDetails) => void> {}
 
     var settings: chrome.types.ChromeSetting;
     /** Notifies about proxy errors. */
@@ -5527,7 +4952,7 @@ declare module chrome.runtime {
          */
         sender?: MessageSender;
         /** An object which allows the addition and removal of listeners for a Chrome event. */
-        onDisconnect: chrome.events.Event;
+        onDisconnect: chrome.events.Event<() => void>;
         /** An object which allows the addition and removal of listeners for a Chrome event. */
         onMessage: PortMessageEvent;
         name: string;
@@ -5543,46 +4968,19 @@ declare module chrome.runtime {
         version: string;
     }
 
-    interface PortMessageEvent extends chrome.events.Event {
-        addListener(callback: (message: Object, port: Port) => void): void;
-    }
+    interface PortMessageEvent extends chrome.events.Event<(message: Object, port: Port) => void> {}
 
-    interface ExtensionMessageEvent extends chrome.events.Event {
-		/**
-		 * @param callback
-		 * Optional parameter message: The message sent by the calling script. 
-		 * Parameter sendResponse: Function to call (at most once) when you have a response. The argument should be any JSON-ifiable object. If you have more than one onMessage listener in the same document, then only one may send a response. This function becomes invalid when the event listener returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this will keep the message channel open to the other end until sendResponse is called). 
-		 */
-        addListener(callback: (message: any, sender: MessageSender, sendResponse: (response: any) => void) => void): void;
-    }
+    interface ExtensionMessageEvent extends chrome.events.Event<(message: any, sender: MessageSender, sendResponse: (response: any) => void) => void> {}
 
-    interface ExtensionConnectEvent extends chrome.events.Event {
-        addListener(callback: (port: Port) => void): void;
-    }
+    interface ExtensionConnectEvent extends chrome.events.Event<(port: Port) => void> {}
 
-    interface RuntimeInstalledEvent extends chrome.events.Event {
-        addListener(callback: (details: InstalledDetails) => void): void;
-    }
+    interface RuntimeInstalledEvent extends chrome.events.Event<(details: InstalledDetails) => void> {}
 
-	interface RuntimeEvent extends chrome.events.Event {
-		addListener(callback: () => void): void;
-    }
+	interface RuntimeEvent extends chrome.events.Event<() => void> {}
 
-    interface RuntimeRestartRequiredEvent extends chrome.events.Event {
-		/**
-		 * @param callback
-		 * Parameter reason: The reason that the event is being dispatched. One of: "app_update", "os_update", or "periodic" 
-		 */
-        addListener(callback: (reason: string) => void): void;
-    }
+    interface RuntimeRestartRequiredEvent extends chrome.events.Event<(reason: string) => void> {}
 
-    interface RuntimeUpdateAvailableEvent extends chrome.events.Event {
-		/**
-		 * @param callback 
-		 * Parameter details: The manifest details of the available update. 
-		 */
-        addListener(callback: (details: UpdateAvailableDetails) => void): void;
-    }
+    interface RuntimeUpdateAvailableEvent extends chrome.events.Event<(details: UpdateAvailableDetails) => void> {}
 
     /**
      * Attempts to connect to connect listeners within an extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes, inter-app/extension communication, and web messaging. Note that this does not connect to any listeners in a content script. Extensions may connect to content scripts embedded in tabs via tabs.connect. 
@@ -5763,9 +5161,7 @@ declare module chrome.scriptBadge {
         popup: string;
     }
 
-    interface ScriptBadgeClickedEvent extends chrome.events.Event {
-        addListener(callback: (tab: chrome.tabs.Tab) => void): void;
-    }
+    interface ScriptBadgeClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
 
     export function getPopup(details: GetPopupDetails, callback: Function): void;
     export function getAttention(details: AttentionDetails): void;
@@ -5813,9 +5209,7 @@ declare module chrome.sessions {
 		sessions: Session[];
 	}
 
-	interface SessionChangedEvent extends chrome.events.Event {
-		addListener(callback: () => void): void;
-	}
+	interface SessionChangedEvent extends chrome.events.Event<() => void> {}
 	
 	/** The maximum number of sessions.Session that will be included in a requested list. */
 	export var MAX_SESSION_RESULTS: number;
@@ -5978,14 +5372,7 @@ declare module chrome.storage {
 		MAX_WRITE_OPERATIONS_PER_MINUTE: number;
 	}
 
-	interface StorageChangedEvent extends chrome.events.Event {
-		/**
-		 * @param callback
-		 * Parameter changes: Object mapping each key that changed to its corresponding storage.StorageChange for that item. 
-		 * Parameter areaName: Since Chrome 22. The name of the storage area ("sync", "local" or "managed") the changes are for.
-		 */
-		addListener(callback: (changes: { [key: string]: StorageChange }, areaName: string) => void): void;
-	}
+	interface StorageChangedEvent extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: string) => void> {}
 
 	/** Items in the local storage area are local to each machine. */
 	var local: LocalStorageArea;
@@ -6159,13 +5546,9 @@ declare module chrome.system.storage {
 		availableCapacity: number;
 	}
 
-	interface SystemStorageAttachedEvent extends chrome.events.Event {
-		addListener(callback: (info: StorageUnitInfo) => void): void;
-	}
+	interface SystemStorageAttachedEvent extends chrome.events.Event<(info: StorageUnitInfo) => void> {}
 
-	interface SystemStorageDetachedEvent extends chrome.events.Event {
-		addListener(callback: (id: string) => void): void;
-	}
+	interface SystemStorageDetachedEvent extends chrome.events.Event<(id: string) => void> {}
 	
 	/** Get the storage information from the system. The argument passed to the callback is an array of StorageUnitInfo objects. */
 	export function getInfo(callback: (info: StorageUnitInfo[]) => void): void;
@@ -6219,13 +5602,7 @@ declare module chrome.tabCapture {
 		videoConstraints?: MediaStreamConstraints;
 	}
 
-	interface CaptureStatusChangedEvent extends chrome.events.Event {
-		/**
-		 * @param callback
-		 * Parameter info: CaptureInfo with new capture status for the tab. 
-		 */
-		addListener(callback: (info: CaptureInfo) => void): void;
-    }
+	interface CaptureStatusChangedEvent extends chrome.events.Event<(info: CaptureInfo) => void> {}
 
 	/**
 	 * Captures the visible area of the currently active tab. Capture can only be started on the currently active tab after the extension has been invoked. Capture is maintained across page navigations within the tab, and stops when the tab is closed, or the media stream is closed by the extension. 
@@ -6659,58 +6036,27 @@ declare module chrome.tabs {
 		zoomSettings: ZoomSettings;
 	}
 
-    interface TabHighlightedEvent extends chrome.events.Event {
-        addListener(callback: (highlightInfo: HighlightInfo) => void): void;
-    }
+    interface TabHighlightedEvent extends chrome.events.Event<(highlightInfo: HighlightInfo) => void> {}
 
-    interface TabRemovedEvent extends chrome.events.Event {
-        addListener(callback: (tabId: number, removeInfo: TabRemoveInfo) => void): void;
-    }
+    interface TabRemovedEvent extends chrome.events.Event<(tabId: number, removeInfo: TabRemoveInfo) => void> {}
 
-    interface TabUpdatedEvent extends chrome.events.Event {
-		/**
-		 * @param callback
-		 * Parameter changeInfo: Lists the changes to the state of the tab that was updated. 
-		 * Parameter tab: Gives the state of the tab that was updated. 
-		 */
-        addListener(callback: (tabId: number, changeInfo: TabChangeInfo, tab: Tab) => void): void;
-    }
+    interface TabUpdatedEvent extends chrome.events.Event<(tabId: number, changeInfo: TabChangeInfo, tab: Tab) => void> {}
 
-    interface TabAttachedEvent extends chrome.events.Event {
-        addListener(callback: (tabId: number, attachInfo: TabAttachInfo) => void): void;
-    }
+    interface TabAttachedEvent extends chrome.events.Event<(tabId: number, attachInfo: TabAttachInfo) => void> {}
 
-    interface TabMovedEvent extends chrome.events.Event {
-        addListener(callback: (tabId: number, moveInfo: TabMoveInfo) => void): void;
-    }
+    interface TabMovedEvent extends chrome.events.Event<(tabId: number, moveInfo: TabMoveInfo) => void> {}
 
-    interface TabDetachedEvent extends chrome.events.Event {
-        addListener(callback: (tabId: number, detachInfo: TabDetachInfo) => void): void;
-    }
+    interface TabDetachedEvent extends chrome.events.Event<(tabId: number, detachInfo: TabDetachInfo) => void> {}
 
-    interface TabCreatedEvent extends chrome.events.Event {
-		/**
-		 * @param callback 
-		 * Parameter tab: Details of the tab that was created. 
-		 */
-        addListener(callback: (tab: Tab) => void): void;
-    }
+    interface TabCreatedEvent extends chrome.events.Event<(tab: Tab) => void> {}
 
-    interface TabActivatedEvent extends chrome.events.Event {
-        addListener(callback: (activeInfo: TabActiveInfo) => void): void;
-    }
+    interface TabActivatedEvent extends chrome.events.Event<(activeInfo: TabActiveInfo) => void> {}
 
-    interface TabReplacedEvent extends chrome.events.Event {
-        addListener(callback: (addedTabId: number, removedTabId: number) => void): void;
-    }
+    interface TabReplacedEvent extends chrome.events.Event<(addedTabId: number, removedTabId: number) => void> {}
 
-	interface TabSelectedEvent extends chrome.events.Event {
-		addListener(callback: (tabId: number, selectInfo: TabWindowInfo) => void): void;
-	}
+	interface TabSelectedEvent extends chrome.events.Event<(tabId: number, selectInfo: TabWindowInfo) => void> {}
 
-	interface TabZoomChangeEvent extends chrome.events.Event {
-		addListener(callback: (ZoomChangeInfo: ZoomChangeInfo) => void): void;
-	}
+	interface TabZoomChangeEvent extends chrome.events.Event<(ZoomChangeInfo: ZoomChangeInfo) => void> {}
 
 	/**
 	 * Injects JavaScript code into a page. For details, see the programmatic injection section of the content scripts doc. 
@@ -7185,30 +6531,22 @@ declare module chrome.ttsEngine {
         pitch?: number;
     }
 
-    interface TtsEngineSpeakEvent extends chrome.events.Event {
-		/**
-		 * @param callback
-		 * Parameter utterance: The text to speak, specified as either plain text or an SSML document. If your engine does not support SSML, you should strip out all XML markup and synthesize only the underlying text content. The value of this parameter is guaranteed to be no more than 32,768 characters. If this engine does not support speaking that many characters at a time, the utterance should be split into smaller chunks and queued internally without returning an error. 
-		 * Parameter options: Options specified to the tts.speak() method. 
-		 * Parameter sendTtsEvent: Call this function with events that occur in the process of speaking the utterance. 
-		 */
-        addListener(callback: (utterance: string, options: SpeakOptions, sendTtsEvent: (event: chrome.tts.TtsEvent) => void) => void): void;
-    }
+    interface TtsEngineSpeakEvent extends chrome.events.Event<(utterance: string, options: SpeakOptions, sendTtsEvent: (event: chrome.tts.TtsEvent) => void) => void> {}
 
 	/** Called when the user makes a call to tts.speak() and one of the voices from this extension's manifest is the first to match the options object. */
     var onSpeak: TtsEngineSpeakEvent;
 	/** Fired when a call is made to tts.stop and this extension may be in the middle of speaking. If an extension receives a call to onStop and speech is already stopped, it should do nothing (not raise an error). If speech is in the paused state, this should cancel the paused state. */
-	var onStop: chrome.events.Event;
+	var onStop: chrome.events.Event<() => void>;
 	/**
 	 * Optional: if an engine supports the pause event, it should pause the current utterance being spoken, if any, until it receives a resume event or stop event. Note that a stop event should also clear the paused state. 
 	 * @since Chrome 29.
 	 */
-	var onPause: chrome.events.Event;
+	var onPause: chrome.events.Event<() => void>;
 	/**
 	 * Optional: if an engine supports the pause event, it should also support the resume event, to continue speaking the current utterance, if any. Note that a stop event should also clear the paused state. 
 	 * @since Chrome 29.
 	 */
-	var onResume: chrome.events.Event;
+	var onResume: chrome.events.Event<() => void>;
 }
 
 ////////////////////
@@ -7277,9 +6615,7 @@ declare module chrome.types {
         incognitoSpecific?: boolean;
     }
 
-    interface ChromeSettingChangedEvent extends chrome.events.Event {
-        addListener(callback: DetailsCallback): void;
-    }
+    interface ChromeSettingChangedEvent extends chrome.events.Event<DetailsCallback> {}
 
 	/** An interface that allows access to a Chrome browser setting. See accessibilityFeatures for an example. */
     interface ChromeSetting {
@@ -7336,55 +6672,15 @@ declare module chrome.vpnProvider {
 		dnsServer: string[];
 	}
 
-	interface VpnPlatformMessageEvent extends chrome.events.Event {
-		/**
-		 * @param callback
-		 * Parameter id: ID of the configuration the message is intended for. 
-		 * Parameter message: The message received from the platform. 
-		 * * connected: VPN configuration connected. 
-		 * * disconnected: VPN configuration disconnected. 
-		 * * error: An error occurred in VPN connection, for example a timeout. A description of the error is give as the  error argument to onPlatformMessage. 
-		 * Parameter error: Error message when there is an error. 
-		 */
-		addListener(callback: (id: string, message: string, error: string) => void): void;
-	}
+	interface VpnPlatformMessageEvent extends chrome.events.Event<(id: string, message: string, error: string) => void> {}
 
-	interface VpnPacketReceptionEvent extends chrome.events.Event {
-		/**
-		 * @param callback
-		 * Parameter data: The IP packet received from the platform. 
-		 */
-		addListener(callback: (data: ArrayBuffer) => void): void;
-	}
+	interface VpnPacketReceptionEvent extends chrome.events.Event<(data: ArrayBuffer) => void> {}
 
-	interface VpnConfigRemovalEvent extends chrome.events.Event {
-		/**
-		 * @param callback
-		 * Parameter id: ID of the removed configuration. 
-		 */
-		addListener(callback: (id: string) => void): void;
-	}
+	interface VpnConfigRemovalEvent extends chrome.events.Event<(id: string) => void> {}
 
-	interface VpnConfigCreationEvent extends chrome.events.Event {
-		/**
-		 * @param callback
-		 * Parameter id: ID of the configuration created. 
-		 * Parameter name: Name of the configuration created. 
-		 * Parameter data: Configuration data provided by the administrator. 
-		 */
-		addListener(callback: (id: string, name: string, data: Object) => void): void;
-	}
+	interface VpnConfigCreationEvent extends chrome.events.Event<(id: string, name: string, data: Object) => void> {}
 
-	interface VpnUiEvent extends chrome.events.Event {
-		/**
-		 * @param callback
-		 * Parameter event: The UI event that is triggered. 
-		 * * showAddDialog: Request the VPN client to show add configuration dialog to the user. 
-		 * * showConfigureDialog: Request the VPN client to show configuration settings dialog to the user.
-		 * Optional parameter id: ID of the configuration for which the UI event was triggered.  
-		 */
-		addListener(callback: (event: string, id?: string) => void): void;
-	}
+	interface VpnUiEvent extends chrome.events.Event<(event: string, id?: string) => void> {}
 	
 	/**
 	 * Creates a new VPN configuration that persists across multiple login sessions of the user. 
@@ -7577,33 +6873,21 @@ declare module chrome.webNavigation {
         url: chrome.events.UrlFilter[];
     }
 
-	interface WebNavigationEvent extends chrome.events.Event {
-		addListener(callback: (details: WebNavigationCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
+	interface WebNavigationEvent<T extends WebNavigationCallbackDetails> extends chrome.events.Event<(details: T) => void> {
+		addListener(callback: (details: T) => void, filters?: WebNavigationEventFilter): void;
     }
+    
+    interface WebNavigationFramedEvent extends WebNavigationEvent<WebNavigationFramedCallbackDetails> {}
 
-	interface WebNavigationFramedEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationFramedCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
-    }
+	interface WebNavigationFramedErrorEvent extends WebNavigationEvent<WebNavigationFramedErrorCallbackDetails> {}
 
-	interface WebNavigationFramedErrorEvent extends WebNavigationFramedEvent {
-		addListener(callback: (details: WebNavigationFramedErrorCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
-    }
+	interface WebNavigationSourceEvent extends WebNavigationEvent<WebNavigationSourceCallbackDetails> {}
 
-	interface WebNavigationSourceEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationSourceCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
-    }
+	interface WebNavigationParentedEvent extends WebNavigationEvent<WebNavigationParentedCallbackDetails> {}
 
-	interface WebNavigationParentedEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationParentedCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
-    }
+	interface WebNavigationTransitionalEvent extends WebNavigationEvent<WebNavigationTransitionCallbackDetails> {}
 
-	interface WebNavigationTransitionalEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationTransitionCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
-    }
-
-	interface WebNavigationReplacementEvent extends WebNavigationEvent {
-		addListener(callback: (details: WebNavigationReplacementCallbackDetails) => void, filters?: WebNavigationEventFilter): void;
-    }
+	interface WebNavigationReplacementEvent extends WebNavigationEvent<WebNavigationReplacementCallbackDetails> {}
 
 	/**
 	 * Retrieves information about the given frame. A frame refers to an <iframe> or a <frame> of a web page and is identified by a tab ID and a frame ID. 
@@ -7822,33 +7106,27 @@ declare module chrome.webRequest {
 		error: string;
     }
 
-	interface WebRequestBodyEvent extends chrome.events.Event {
+	interface WebRequestBodyEvent extends chrome.events.Event<(details: WebRequestBodyDetails) => void> {
 		addListener(callback: (details: WebRequestBodyDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
-	interface WebRequestHeadersEvent extends chrome.events.Event {
+	interface WebRequestHeadersEvent extends chrome.events.Event<(details: WebRequestHeadersDetails) => void> {
 		addListener(callback: (details: WebRequestHeadersDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
-	interface WebResponseHeadersEvent extends chrome.events.Event {
-		addListener(callback: (details: WebResponseHeadersDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+	interface _WebResponseHeadersEvent<T extends WebResponseHeadersDetails> extends chrome.events.Event<(details: T) => void> {
+		addListener(callback: (details: T) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
+    
+    interface WebResponseHeadersEvent extends _WebResponseHeadersEvent<WebResponseHeadersDetails> {}
+    
+    interface WebResponseCacheEvent extends _WebResponseHeadersEvent<WebResponseCacheDetails> {}
 
-	interface WebResponseCacheEvent extends WebResponseHeadersEvent {
-		addListener(callback: (details: WebResponseCacheDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
-    }
+	interface WebRedirectionResponseEvent extends _WebResponseHeadersEvent<WebRedirectionResponseDetails> {}
 
-	interface WebRedirectionResponseEvent extends WebResponseCacheEvent {
-		addListener(callback: (details: WebRedirectionResponseDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
-    }
+	interface WebAuthenticationChallengeEvent extends chrome.events.Event<(details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void> {}
 
-	interface WebAuthenticationChallengeEvent extends chrome.events.Event {
-		addListener(callback: (details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void): void;
-    }
-
-	interface WebResponseErrorEvent extends WebResponseCacheEvent {
-		addListener(callback: (details: WebResponseErrorDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
-    }
+	interface WebResponseErrorEvent extends _WebResponseHeadersEvent<WebResponseErrorDetails> {}
 
 	/**
 	 * The maximum number of times that handlerBehaviorChanged can be called per 10 minute sustained interval. handlerBehaviorChanged is an expensive function call that shouldn't be called often. 
@@ -7963,22 +7241,9 @@ declare module chrome.webstore {
 	 */
 	export function install(failureCallback?: (error: string, errorCode?: string) => void): void;
 
-	interface InstallationStageEvent extends chrome.events.Event {
-		/**
-		 * @param callback
-		 * Parameter stage: The InstallStage that just began. 
-		 * * One of: "installing", or "downloading"
-		 */
-		addListener(callback: (stage: string) => void): void;
-	}
+	interface InstallationStageEvent extends chrome.events.Event<(stage: string) => void> {}
 
-	interface DownloadProgressEvent extends chrome.events.Event {
-		/**
-		 * @param callback
-		 * Parameter percentDownloaded: The progress of the download, between 0 and 1. 0 indicates no progress; 1.0 indicates complete. 
-		 */
-		addListener(callback: (percentDownloaded: number) => void): void;
-	}
+	interface DownloadProgressEvent extends chrome.events.Event<(percentDownloaded: number) => void> {}
 	
 	/**
 	 * Fired when an inline installation enters a new InstallStage. In order to receive notifications about this event, listeners must be registered before the inline installation begins. 
@@ -8141,21 +7406,9 @@ declare module chrome.windows {
 		windowTypes: string[];
     }
 
-	interface WindowIdEvent extends chrome.events.Event {
-		/**
-		 * @param callback
-		 * Parameter windowId: The id of the window associated with this event.
-		 */
-		addListener(callback: (windowId: number, filters?: WindowEventFilter) => void): void;
-    }
+	interface WindowIdEvent extends chrome.events.Event<(windowId: number, filters?: WindowEventFilter) => void> {}
 
-	interface WindowReferenceEvent extends chrome.events.Event {
-		/**
-		 * @param callback
-		 * Parameter window: The window object associated with this event.
-		 */
-		addListener(callback: (window: Window, filters?: WindowEventFilter) => void): void;
-    }
+	interface WindowReferenceEvent extends chrome.events.Event<(window: Window, filters?: WindowEventFilter) => void> {}
 
 	/**
 	 * The windowId value that represents the current window. 
