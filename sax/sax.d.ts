@@ -32,6 +32,7 @@ declare module "sax" {
       isSelfClosing: boolean;
     }
 
+    // Interface used when the xmlns option is set
     export interface QualifiedTag extends QualifiedName, BaseTag {
         ns: { [key: string]: string };
         attributes: { [key: string]: Attribute };
@@ -40,14 +41,6 @@ declare module "sax" {
     export interface Tag extends BaseTag {
       attributes: { [key: string]: string };
     }
-
-    // export interface Tag extends BaseTag {
-    //   // If opt.xmlns available
-    //     ns?: { [key: string]: string };
-    //     // If opt.xmlns available, the attributes map value is an object type
-    //     attributes: { [key: string]: string | Attribute };
-    //     isSelfClosing: boolean;
-    // }
 
     export function parser(strict: boolean, opt: SAXOptions): SAXParser;
     export class SAXParser {
