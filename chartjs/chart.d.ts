@@ -119,6 +119,8 @@ interface CircularInstance extends ChartInstance {
 }
 
 interface LineChartOptions extends ChartOptions {
+    scaleShowHorizontalLines?: boolean;
+    scaleShowVerticalLines?: boolean;
     bezierCurve?: boolean;
     bezierCurveTension?: number;
     pointDot?: boolean;
@@ -137,7 +139,7 @@ interface BarChartOptions extends ChartOptions {
     barValueSpacing?: number;
     barDatasetSpacing?: number;
     scaleShowHorizontalLines?: boolean;
-    scaleShowVerticalLines?: boolean;    
+    scaleShowVerticalLines?: boolean;
 }
 
 interface RadarChartOptions extends ChartSettings {
