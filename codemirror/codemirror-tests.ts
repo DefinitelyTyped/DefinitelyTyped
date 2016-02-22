@@ -46,3 +46,7 @@ var annotation: CodeMirror.Annotation = {
     message: "test",
     severity: "warning"
 };
+
+myCodeMirror.getValue();
+myCodeMirror.getValue("foo")
+myCodeMirror.setValue("bar");
