@@ -64,6 +64,7 @@ interface RaphaelElement {
     remove(): void;
     removeData(key?: string): RaphaelElement;
     resume(anim?: RaphaelAnimation): RaphaelElement;
+    rotate(deg: number, cx?: number, cy?: number): RaphaelElement;
     setTime(anim: RaphaelAnimation): void;
     setTime(anim: RaphaelAnimation, value: number): RaphaelElement;
     show(): RaphaelElement;
