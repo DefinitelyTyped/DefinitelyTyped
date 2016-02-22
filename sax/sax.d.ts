@@ -17,19 +17,19 @@ declare module "sax" {
     }
 
     export interface QualifiedName {
-      name: string;
-      prefix: string;
-      local: string;
-      uri: string;
+        name: string;
+        prefix: string;
+        local: string;
+        uri: string;
     }
 
     export interface Attribute extends QualifiedName {
-      value: string;
+        value: string;
     }
 
     interface BaseTag {
-      name: string;
-      isSelfClosing: boolean;
+        name: string;
+        isSelfClosing: boolean;
     }
 
     // Interface used when the xmlns option is set
@@ -39,7 +39,7 @@ declare module "sax" {
     }
 
     export interface Tag extends BaseTag {
-      attributes: { [key: string]: string };
+        attributes: { [key: string]: string };
     }
 
     export function parser(strict: boolean, opt: SAXOptions): SAXParser;
