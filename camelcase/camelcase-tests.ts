@@ -1,6 +1,6 @@
 /// <reference path="./camelcase.d.ts" />
 
-import camelCase from 'camelcase';
+import camelCase = require('camelcase');
 
 camelCase('foo-bar');
 camelCase('foo_bar');
