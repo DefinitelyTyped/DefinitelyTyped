@@ -53,7 +53,7 @@ declare module "express-session" {
       unset?: string;
     }
 
-    export interface IBaseStore {
+    export interface BaseStore {
       regenerate (req: express.Request, fn: (err: any) => any): void;
       load (sid: string, fn: (err: any, session: Express.Session) => any): void;
       createSession (req: express.Request, sess: Express.Session): void;
@@ -67,7 +67,7 @@ declare module "express-session" {
       clear?: (callback: (err: any) => void) => void;
     }
 	
-    export class Store implements IBaseStore {
+    export class Store implements BaseStore {
 	  constructor(config?: any);
 	  
 	  regenerate (req: express.Request, fn: (err: any) => any): void;
@@ -75,7 +75,7 @@ declare module "express-session" {
       createSession (req: express.Request, sess: Express.Session): void;
     }
   
-    export class MemoryStore implements IMemoryStore, IBaseStore {
+    export class MemoryStore implements IMemoryStore, BaseStore {
       get: (sid: string, callback: (err: any, session: Express.Session) => void) => void;
       set: (sid: string, session: Express.Session, callback: (err: any) => void) => void;
       destroy: (sid: string, callback: (err: any) => void) => void;
