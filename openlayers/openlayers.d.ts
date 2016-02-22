@@ -141,7 +141,7 @@ declare module olx {
 
         /** Use the ol.Map#pixelRatio value when requesting the image from the remote server. Default is true.*/
         hidpi?: boolean;
-        
+
         logo?: string | olx.LogoOptions;
         
         /** Tile grid. Base this on the resolutions, tilesize and extent supported by the server. If this is not defined, a default grid will be used: if there is a projection extent, the grid will be based on that; if not, a grid based on a global extent with origin at 0,0 will be used. */
@@ -172,15 +172,15 @@ declare module olx {
      * Object literal with config options for the map logo.
      */
     interface LogoOptions {
-      /**
-       * Link url for the logo. Will be followed when the logo is clicked.
-       */
-      href: string;
+		/**
+		* Link url for the logo. Will be followed when the logo is clicked.
+		*/
+		href: string;
 
-      /**
-       * Image src for the logo
-       */
-      src: string;
+		/**
+		* Image src for the logo
+		*/
+		src: string;
 
     }
 
@@ -529,15 +529,15 @@ declare module olx {
             pinchZoom?: boolean;
             zoomDelta?: number;
             zoomDuration?: number;
-          }
-        interface ModifyOptions {
+        }
+        interface ModifyOptions {
             deleteCondition?: ol.events.ConditionType;
             pixelTolerance?: number;
-            style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
+            style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
             features: ol.Collection<ol.Feature>;
             wrapX?: boolean;
         }
-        interface DrawOptions {
+        interface DrawOptions {
             clickTolerance?: number;
             features?: ol.Collection<ol.Feature>;
             source?: ol.source.Vector;
@@ -545,15 +545,15 @@ declare module olx {
             type: ol.geom.GeometryType;
             maxPoints?: number;
             minPoints?: number;
-            style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
+            style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
             geometryFunction?: ol.interaction.DrawGeometryFunctionType;
             wrapX?: boolean;
         }
-        interface SelectOptions{
+        interface SelectOptions {
             addCondition?: ol.events.ConditionType;
             condition?: ol.events.ConditionType;
             layers?: Array<ol.layer.Layer>;
-            style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
+            style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
             removeCondition?: ol.events.ConditionType;
             toggleCondition?: ol.events.ConditionType;
             multi?: boolean;
@@ -580,7 +580,7 @@ declare module olx {
              * The bounding extent for layer rendering. The layer will not be rendered outside of this extent.
              */
             extent?: ol.Extent;
-            
+
             zIndex?: number;
             /**
              * The minimum resolution (inclusive) at which this layer will be visible.
@@ -748,7 +748,7 @@ declare module olx {
              */
             wrapX?: boolean;
         }
-        interface WMTSOptions{
+        interface WMTSOptions {
             attributions?: Array<ol.Attribution>;
             crossOrigin?: string;
             logo?: string | olx.LogoOptions;
@@ -788,18 +788,18 @@ declare module olx {
         }
 
         interface TextOptions {
-          font?: string;
-          offsetX?: number;
-          offsetY?: number;
-          scale?: number;
-          rotation?: number;
-          text?: string;
-          textAlign?: string;
-          textBaseline?: string;
-          fill?: ol.style.Fill;
-          stroke?: ol.style.Stroke;
+            font?: string;
+            offsetX?: number;
+            offsetY?: number;
+            scale?: number;
+            rotation?: number;
+            text?: string;
+            textAlign?: string;
+            textBaseline?: string;
+            fill?: ol.style.Fill;
+            stroke?: ol.style.Stroke;
         }
-        interface StrokeOptions {
+        interface StrokeOptions {
             color?: ol.Color | string;
             lineCap?: string;
             lineJoin?: string;
@@ -985,6 +985,12 @@ declare module olx {
     }
 
     module format {
+        interface WKTOptions {
+            /**
+             * Whether to split GeometryCollections into multiple features on reading. Default is false.
+             */
+            splitCollection?: boolean;
+        }
 
         interface GeoJSONOptions {
 
@@ -1037,9 +1043,9 @@ declare module olx {
  */
 declare module ol {
 
-    interface TileLoadFunctionType{ (image: ol.Image, url: string): void }
+    interface TileLoadFunctionType { (image: ol.Image, url: string): void }
 
-    interface ImageLoadFunctionType{ (image: ol.Image, url: string): void }
+    interface ImageLoadFunctionType { (image: ol.Image, url: string): void }
 
     /**
      * An attribution for a layer source.
@@ -1282,7 +1288,7 @@ declare module ol {
          * Set the feature id. The feature id is considered stable and may be used when requesting features or comparing identifiers returned from a remote source. The feature id can be used with the ol.source.Vector#getFeatureById method.
          * @param id The feature id.
          */
-        setId(id: string|number): void;
+        setId(id: string | number): void;
 
         /**
          * Set the style for the feature. This can be a single style object, an array of styles, or a function that takes a resolution and returns an array of styles. If it is null the feature has no style (a null style).
@@ -2197,19 +2203,12 @@ declare module ol {
         constrainResolution(resolution: number, delta?: number, direction?: number): number;
 
         /**
-         * Fit the map view to the passed extent and size. The size is pixel dimensions of the box to fit the extent into. In most cases you will want to use the map size, that is map.getSize().
-         * @param extent Extent.
-         * @param size Box pixel size.
-         */
-        fitExtent(extent: ol.Extent, size: ol.Size): void;
-
-        /**
-         * Fit the given geometry into the view based on the given map size and border.
-         * @param geometry Geometry.
-         * @param size Box pixel size.
-         * @param options Options
-         */
-        fitGeometry(geometry: ol.geom.SimpleGeometry, size: ol.Size, options?: olx.view.FitGeometryOptions): void;
+          * Fit the map view to the passed extent and size. The size is pixel dimensions of the box to fit the extent into. In most cases you will want to use the map size, that is map.getSize().
+          * @param extent Extent.
+          * @param size Box pixel size.
+          * @param options Options
+          */
+        fit(geometry: ol.geom.SimpleGeometry | ol.Extent, size: ol.Size, opt_options?: olx.view.FitGeometryOptions): void;
 
         /**
          * Get the view center.
@@ -2803,6 +2802,55 @@ declare module ol {
         }
 
         class WKT {
+            constructor(opt_options?: olx.format.WKTOptions);
+
+            /**
+             * Read a feature from a WKT source.
+             * @param source Source
+             * @param options Read options
+             * @returns Feature
+             */
+            readFeature(source: Document | Node | JSON | string, opt_options?: olx.format.ReadOptions): ol.Feature;
+
+            /**
+             * Read all features from a WKT source.
+             * @param source Source
+             * @param options Read options
+             * @returns Features
+             */
+            readFeatures(source: Document | Node | JSON | string, options?: olx.format.ReadOptions): Array<ol.Feature>;
+
+            /**
+             * Read a geometry from a GeoJSON source.
+             * @param source Source
+             * @param options Read options
+             * @returns Geometry
+             */
+            readGeometry(source: Document | Node | JSON | string, options?: olx.format.ReadOptions): ol.geom.Geometry;
+
+            /**
+             * Encode a feature as a WKT string.
+             * @param feature Feature
+             * @param options Write options
+             * @returns GeoJSON
+             */
+            writeFeature(feature: ol.Feature, options?: olx.format.WriteOptions): string;
+
+            /**
+             * Encode an array of features as a WKT string.
+             * @param features Features
+             * @param options Write options
+             * @returns GeoJSON
+             */
+            writeFeatures(features: Array<ol.Feature>, options?: olx.format.WriteOptions): string;
+
+            /**
+             * Write a single geometry as a WKT string.
+             * @param geometry Geometry
+             * @param options Write options
+             * @returns GeoJSON
+             */
+            writeGeometry(geometry: ol.geom.Geometry, options?: olx.format.WriteOptions): string;
         }
 
         class WMSCapabilities {
@@ -3057,7 +3105,7 @@ declare module ol {
              * @param coordinates Coordinates.
              * @param layout Layout.
              */
-            setCoordinates(coordinates: Array<ol.Coordinate>, layout?: ol.geom.GeometryLayout) : void;
+            setCoordinates(coordinates: Array<ol.Coordinate>, layout?: ol.geom.GeometryLayout): void;
         }
 
         /**
@@ -3549,8 +3597,8 @@ declare module ol {
         }
 
         function defaults(opts: olx.interaction.DefaultsOptions): ol.Collection<ol.interaction.Interaction>;
-        interface DrawGeometryFunctionType { (coordinates: ol.Coordinate, geom?: ol.geom.Geometry): ol.geom.Geometry;}
-        interface SelectFilterFunction { (feature: ol.Feature | ol.render.Feature, layer: ol.layer.Layer):boolean;}
+        interface DrawGeometryFunctionType { (coordinates: ol.Coordinate, geom?: ol.geom.Geometry): ol.geom.Geometry; }
+        interface SelectFilterFunction { (feature: ol.Feature | ol.render.Feature, layer: ol.layer.Layer): boolean; }
     }
 
     module layer {
@@ -4014,7 +4062,7 @@ declare module ol {
 
         class VectorContext {
         }
-        class Feature{
+        class Feature {
             get(key: string): any;
             getExtent(): ol.Extent;
             getGeometry(): ol.geom.Geometry;
@@ -4099,39 +4147,39 @@ declare module ol {
         }
 
         class Vector {
-          constructor(opts: olx.source.VectorOptions)
-          /**
-           * Add a single feature to the source. If you want to add a batch of features at once,
-           * call source.addFeatures() instead.
-           */
-          addFeature(feature: ol.Feature):void;
+            constructor(opts?: olx.source.VectorOptions)
+            /**
+             * Add a single feature to the source. If you want to add a batch of features at once,
+             * call source.addFeatures() instead.
+             */
+            addFeature(feature: ol.Feature): void;
            
-           /**
-            * Add a batch of features to the source.
-            */
-            addFeatures(features: ol.Feature[]):void;
+            /**
+             * Add a batch of features to the source.
+             */
+            addFeatures(features: ol.Feature[]): void;
             
             /**
              * Remove all features from the source.
              * @param Skip dispatching of removefeature events.
              */
-            clear(fast?: boolean):void;
-          /**
-           * Get the extent of the features currently in the source.
-           */
-          getExtent(): ol.Extent;
+            clear(fast?: boolean): void;
+            /**
+             * Get the extent of the features currently in the source.
+             */
+            getExtent(): ol.Extent;
           
-          /**
-           * Get all features in the provided extent. Note that this returns all features whose bounding boxes
-           * intersect the given extent (so it may include features whose geometries do not intersect the extent).
-           * This method is not available when the source is configured with useSpatialIndex set to false.
-           */
-          getFeaturesInExtent(extent: ol.Extent): ol.Feature[];
+            /**
+             * Get all features in the provided extent. Note that this returns all features whose bounding boxes
+             * intersect the given extent (so it may include features whose geometries do not intersect the extent).
+             * This method is not available when the source is configured with useSpatialIndex set to false.
+             */
+            getFeaturesInExtent(extent: ol.Extent): ol.Feature[];
           
-          /**
-           * Get all features on the source
-           */
-          getFeatures(): ol.Feature[];
+            /**
+             * Get all features on the source
+             */
+            getFeatures(): ol.Feature[];
         }
 
         class VectorEvent {
@@ -4162,7 +4210,7 @@ declare module ol {
         class AtlasManager {
         }
 
-        class Circle extends Image{
+        class Circle extends Image {
             constructor(opt_options?: olx.style.CircleOptions);
         }
 
@@ -4171,16 +4219,16 @@ declare module ol {
          */
         class Fill {
 
-          constructor(opt_options?: olx.style.FillOptions);
+            constructor(opt_options?: olx.style.FillOptions);
 
-          getColor(): ol.Color | string;
+            getColor(): ol.Color | string;
 
-          /**
-           * Set the color.
-           */
-          setColor(color: ol.Color | string): void;
+            /**
+             * Set the color.
+             */
+            setColor(color: ol.Color | string): void;
 
-          getChecksum(): string;
+            getChecksum(): string;
         }
 
         class Icon extends Image {
@@ -4193,14 +4241,14 @@ declare module ol {
             getRotation(): number;
             getScale(): number;
             getSnapToPiexl(): boolean;
-            
-            setOpacity(opacity: number):void;
-            setRotation(rotation: number):void;
-            setScale(scale: number):void;
+
+            setOpacity(opacity: number): void;
+            setRotation(rotation: number): void;
+            setScale(scale: number): void;
         }
 
         interface GeometryFunction {
-          (feature: Feature): ol.geom.Geometry
+            (feature: Feature): ol.geom.Geometry
         }
 
         class RegularShape {
@@ -4208,18 +4256,18 @@ declare module ol {
 
         class Stroke {
             constructor(opts?: olx.style.StrokeOptions);
-            getColor(): ol.Color|string;
+            getColor(): ol.Color | string;
             getLineCap(): string;
             getLineDash(): number[];
             getLineJoin(): string;
             getMitterLimit(): number;
             getWidth(): number;
-            setColor(color: ol.Color|string):void;
-            setLineCap(lineCap: string):void;
-            setLineDash(lineDash: number[]):void;
-            setLineJoin(lineJoin: string):void;
-            setMiterLimit(miterLimit: number):void;
-            setWidth(width: number):void;
+            setColor(color: ol.Color | string): void;
+            setLineCap(lineCap: string): void;
+            setLineDash(lineDash: number[]): void;
+            setLineJoin(lineJoin: string): void;
+            setMiterLimit(miterLimit: number): void;
+            setWidth(width: number): void;
         }
 
         /**
@@ -4228,92 +4276,92 @@ declare module ol {
          * feature, layer or FeatureOverlay that uses the style is re-rendered.
          */
         class Style {
-          constructor(opts: olx.style.StyleOptions);
-          
-          getFill(): ol.style.Fill;
-          /***
-           * Get the geometry to be rendered.
-           * @return Feature property or geometry or function that returns the geometry that will
-           * be rendered with this style. 
-           */
-          getGeometry(): string | ol.geom.Geometry | ol.style.GeometryFunction;
-          getGeometryFunction(): ol.style.GeometryFunction;
-          getImage(): ol.style.Image;
-          getStroke(): ol.style.Stroke;
-          getText(): ol.style.Text;
-          getZIndex(): number;
-          
-          setGeometry(geometry: string | ol.geom.Geometry | ol.style.GeometryFunction):void;
-          setZIndex( zIndex: number):void;
+            constructor(opts: olx.style.StyleOptions);
+
+            getFill(): ol.style.Fill;
+            /***
+             * Get the geometry to be rendered.
+             * @return Feature property or geometry or function that returns the geometry that will
+             * be rendered with this style. 
+             */
+            getGeometry(): string | ol.geom.Geometry | ol.style.GeometryFunction;
+            getGeometryFunction(): ol.style.GeometryFunction;
+            getImage(): ol.style.Image;
+            getStroke(): ol.style.Stroke;
+            getText(): ol.style.Text;
+            getZIndex(): number;
+
+            setGeometry(geometry: string | ol.geom.Geometry | ol.style.GeometryFunction): void;
+            setZIndex(zIndex: number): void;
         }
 
         /**
          * Set text style for vector features.
          */
         class Text {
-          constructor(opt?: olx.style.TextOptions);
+            constructor(opt?: olx.style.TextOptions);
 
-          getFont(): string;
-          getOffsetX(): number;
-          getOffsetY(): number;
-          getFill(): Fill;
-          getRotation(): number;
-          getScale(): number;
-          getStroke(): Stroke;
-          getText(): string;
-          getTextAlign(): string;
-          getTextBaseline(): string;
+            getFont(): string;
+            getOffsetX(): number;
+            getOffsetY(): number;
+            getFill(): Fill;
+            getRotation(): number;
+            getScale(): number;
+            getStroke(): Stroke;
+            getText(): string;
+            getTextAlign(): string;
+            getTextBaseline(): string;
 
-          /**
-           * Set the font.
-           */
-          setFont(font: string): void;
+            /**
+             * Set the font.
+             */
+            setFont(font: string): void;
 
-          /**
-           * Set the x offset.
-           */
-          setOffsetX(offsetX: number): void;
+            /**
+             * Set the x offset.
+             */
+            setOffsetX(offsetX: number): void;
 
-           /**
-            * Set the y offset.
-            */
-          setOffsetY(offsetY: number): void;
+            /**
+             * Set the y offset.
+             */
+            setOffsetY(offsetY: number): void;
 
-          /**
-           * Set the fill.
-           */
-          setFill(fill: Fill): void;
+            /**
+             * Set the fill.
+             */
+            setFill(fill: Fill): void;
 
-          /**
-           * Set the rotation.
-           */
-          setRotation(rotation: number): void;
+            /**
+             * Set the rotation.
+             */
+            setRotation(rotation: number): void;
 
-          /**
-           * Set the scale.
-           */
-          setScale(scale: number): void;
+            /**
+             * Set the scale.
+             */
+            setScale(scale: number): void;
 
-          /**
-           * Set the stroke.
-           *
-           */
-          setStroke(stroke: Stroke): void;
+            /**
+             * Set the stroke.
+             *
+             */
+            setStroke(stroke: Stroke): void;
 
-           /**
-            * Set the text.
-            */
-          setText(text: string): void;
+            /**
+             * Set the text.
+             */
+            setText(text: string): void;
 
-           /**
-            * Set the text alignment.
-            */
-          setTextAlign(textAlign: string): void;
+            /**
+             * Set the text alignment.
+             */
+            setTextAlign(textAlign: string): void;
 
-           /**
-            * Set the text baseline.
-            */
-          setTextBaseline(textBaseline: string): void;
+            /**
+             * Set the text baseline.
+             */
+            setTextBaseline(textBaseline: string): void;
         }
 
         /**
