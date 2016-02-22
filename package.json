@@ -33,6 +33,7 @@
     "help": "dt -h"
   },
   "dependencies": {
+    "dt": "0.0.1"
   },
   "devDependencies": {
     "definition-tester": "0.5.0",
