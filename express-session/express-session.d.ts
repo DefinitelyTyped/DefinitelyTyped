@@ -43,7 +43,7 @@ declare module "express-session" {
     export interface SessionOptions {
       secret: string;
       name?: string;
-      store?: Store;
+      store?: Store | MemoryStore;
       cookie?: express.CookieOptions;
       genid?: (req: express.Request) => string;
       rolling?: boolean;
@@ -53,20 +53,39 @@ declare module "express-session" {
       unset?: string;
     }
 
-    export interface Store {
+    export interface IBaseStore {
+      regenerate (req: express.Request, fn: (err: any) => any): void;
+      load (sid: string, fn: (err: any, session: Express.Session) => any): void;
+      createSession (req: express.Request, sess: Express.Session): void;
+    }
+	
+	export interface IMemoryStore {
       get: (sid: string, callback: (err: any, session: Express.Session) => void) => void;
       set: (sid: string, session: Express.Session, callback: (err: any) => void) => void;
       destroy: (sid: string, callback: (err: any) => void) => void;
       length?: (callback: (err: any, length: number) => void) => void;
       clear?: (callback: (err: any) => void) => void;
     }
-    export class MemoryStore implements Store {
+	
+    export class Store implements IBaseStore {
+	  constructor(config?: any);
+	  
+	  regenerate (req: express.Request, fn: (err: any) => any): void;
+      load (sid: string, fn: (err: any, session: Express.Session) => any): void;
+      createSession (req: express.Request, sess: Express.Session): void;
+    }
+  
+    export class MemoryStore implements IMemoryStore, IBaseStore {
       get: (sid: string, callback: (err: any, session: Express.Session) => void) => void;
       set: (sid: string, session: Express.Session, callback: (err: any) => void) => void;
       destroy: (sid: string, callback: (err: any) => void) => void;
       all: (callback: (err: any, obj: { [sid: string]: Express.Session; }) => void) => void;
       length: (callback: (err: any, length: number) => void) => void;
       clear: (callback: (err: any) => void) => void;
+	  
+	  regenerate (req: express.Request, fn: (err: any) => any): void;
+      load (sid: string, fn: (err: any, session: Express.Session) => any): void;
+      createSession (req: express.Request, sess: Express.Session): void;
     }
   }
 
