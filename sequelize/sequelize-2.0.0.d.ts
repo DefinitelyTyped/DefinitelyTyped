@@ -1383,7 +1383,7 @@ declare module "sequelize"
             /**
              * The dialect options that are passed to the underlying dialect library.
              */
-            dialectOptions?: any;
+            dialectOptions?: Object;
 
             /**
              * The host of the relational database. Default 'localhost'.
