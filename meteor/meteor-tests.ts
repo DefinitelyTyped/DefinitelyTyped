@@ -131,12 +131,15 @@ Meteor.methods({
 /**
  * From Methods, Meteor.Error section
  */
-throw new Meteor.Error("logged-out",
-    "The user must be logged in to post a comment.");
+if (Math.random() < 0.5) {
+    throw new Meteor.Error("logged-out",
+        "The user must be logged in to post a comment.");
+}
 
-throw new Meteor.Error(403,
-    "The user must be logged in to post a comment.");
-
+if (Math.random() < 0.5) {
+    throw new Meteor.Error(403,
+        "The user must be logged in to post a comment.");
+}
 
 Meteor.call("methodName", function (error: Meteor.Error) {
   if (error.error === "logged-out") {
