@@ -5177,7 +5177,7 @@ declare module "sequelize" {
             isolationLevel? : string;
 
             /**
-             * Set the default transaction type. See `Sequelize.Transaction.TRANSACTION_TYPES` for possible
+             * Set the default transaction type. See `Sequelize.Transaction.TYPES` for possible
              * options.
              *
              * Defaults to 'DEFERRED'
@@ -5825,9 +5825,9 @@ declare module "sequelize" {
              * });
              * ```
              *
-             * @see TRANSACTION_TYPES
+             * @see Sequelize.Transaction.TYPES
              */
-            TRANSACTION_TYPES : TransactionTypes;
+            TYPES : TransactionTypes;
 
             /**
              * Possible options for row locking. Used in conjuction with `find` calls:
@@ -5916,7 +5916,7 @@ declare module "sequelize" {
             isolationLevel?: string;
 
             /**
-             *  See `Sequelize.Transaction.TRANSACTION_TYPES` for possible options
+             *  See `Sequelize.Transaction.TYPES` for possible options
              */
             type?: string;
 
