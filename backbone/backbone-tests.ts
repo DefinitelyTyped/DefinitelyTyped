@@ -29,11 +29,11 @@ class SettingDefaults extends Backbone.Model {
     }
 
     constructor(attributes?: any, options?: any) {
+        super(attributes, options); // error TS17009: 'super' must be called before accessing 'this' in the constructor of a derived class.
         this.defaults = <any>{
             name: "Joe"
         }
         // super has to come last
-        super(attributes, options);
     }
 
     // or set it like this
