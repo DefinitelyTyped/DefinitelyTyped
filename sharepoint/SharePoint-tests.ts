@@ -995,7 +995,7 @@ module CSR {
                 function GetCurrentLookupValue() {
                     if (_dropdownElt == null)
                         return '';
-                    return _dropdownElt.value == '0' || _dropdownElt.value == '' ? '' : _dropdownElt.value + ';#' + _dropdownElt.options[_dropdownElt.selectedIndex].text;
+                    return _dropdownElt.value == '0' || _dropdownElt.value == '' ? '' : _dropdownElt.value + ';#' + (_dropdownElt.options[_dropdownElt.selectedIndex] as any /* TODO remove `as any` */).text;
                 }
 
                 function stripBraces(input: string): string {
@@ -1093,12 +1093,12 @@ module CSR {
                         var selected = false; 
 
                         while (_dropdownElt.options.length) {
-                            _dropdownElt.options.remove(0);
+                            (_dropdownElt.options as any /* TODO remove `as any` */).remove(0);
                         }
 
                         if (!_schema.Required) {
                             var defaultOpt = new Option(Strings.STS.L_LookupFieldNoneOption, '0', selected, selected);
-                            _dropdownElt.options.add(defaultOpt);
+                            (_dropdownElt.options as any /* TODO remove `as any` */).add(defaultOpt);
                             selected = _selectedValue == 0;
                         }
                         var isEmptyList = true;
@@ -1122,7 +1122,7 @@ module CSR {
                                 selected = true;
                             }
                             var opt = new Option(text, id.toString(), isSelected, isSelected);
-                            _dropdownElt.options.add(opt);
+                            (_dropdownElt.options as any /* TODO remove `as any` */).add(opt);
                             isEmptyList = false;
                         }
                         pendingLoads--;
