@@ -144,33 +144,37 @@ resource.addRequestInterceptor((data: any, headers: any, method: string, url: st
 resource.addFullRequestInterceptor(function(params, headers, data, method, url) {
     //...
 
-    // all args had been modified
-    return {
-        params: params,
-        headers: headers,
-        data: data,
-        method: method,
-        url: url
-    };
-
-    // just return modified arguments
-    return {
-        headers: headers,
-        data: data
-    };
+    if(Math.random() < 0.5) {
+        // all args had been modified
+        return {
+            params: params,
+            headers: headers,
+            data: data,
+            method: method,
+            url: url
+        };
+    } else {
+        // just return modified arguments
+        return {
+            headers: headers,
+            data: data
+        };
+    }
 });
 
 resource.addFullResponseInterceptor(function(data, headers, method, url) {
-    // all args had been modified (method and url is read only)
-    return {
-        headers: headers,
-        data: data
-    };
-
-    // just return modified arguments
-    return {
-        headers: headers
-    };
+    if(Math.random() < 0.5) {
+        // all args had been modified (method and url is read only)
+        return {
+            headers: headers,
+            data: data
+        };
+    } else {
+        // just return modified arguments
+        return {
+            headers: headers
+        };
+    }
 });
 
 //
