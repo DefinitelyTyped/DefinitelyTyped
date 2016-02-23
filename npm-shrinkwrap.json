@@ -14,7 +14,7 @@
     },
     "bluebird": {
       "version": "3.3.1",
-      "from": "bluebird@>=3.1.2 <4.0.0",
+      "from": "bluebird@>=3.3.1 <4.0.0",
       "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.3.1.tgz"
     },
     "brace-expansion": {
@@ -38,8 +38,8 @@
       "resolved": "https://registry.npmjs.org/definition-header/-/definition-header-0.3.0.tgz"
     },
     "definition-tester": {
-      "version": "0.5.0",
-      "from": "definition-tester@0.5.0"
+      "version": "0.5.1",
+      "from": "definition-tester@0.5.1"
     },
     "findup-sync": {
       "version": "0.3.0",
@@ -59,9 +59,9 @@
       "resolved": "https://registry.npmjs.org/git-wrapper/-/git-wrapper-0.1.1.tgz"
     },
     "glob": {
-      "version": "6.0.4",
-      "from": "glob@>=6.0.4 <7.0.0",
-      "resolved": "https://registry.npmjs.org/glob/-/glob-6.0.4.tgz"
+      "version": "7.0.0",
+      "from": "glob@>=7.0.0 <8.0.0",
+      "resolved": "https://registry.npmjs.org/glob/-/glob-7.0.0.tgz"
     },
     "hoek": {
       "version": "3.0.4",
