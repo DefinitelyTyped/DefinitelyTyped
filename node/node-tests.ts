@@ -32,7 +32,7 @@ assert.notDeepStrictEqual({ x: { y: "3" } }, { x: { y: 3 } }, "uses === comparat
 assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
 
 assert.doesNotThrow(() => {
-    if (Math.random() < 0.5) { throw "a hammer at your face"; }
+    if (false) { throw "a hammer at your face"; }
 }, undefined, "What the...*crunch*");
 
 ////////////////////////////////////////////////////
