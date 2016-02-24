@@ -2203,7 +2203,7 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
 
 
 		/**
-        * server.register(plugins, [options], callback)
+		* server.register(plugins, [options], callback)
 		* Registers a plugin where:
 		* plugins - an object or array of objects where each one is either:
 		* a plugin registration function.
@@ -2217,8 +2217,8 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
 		* vhost - virtual host string (or array of strings) applied to every route. The outer-most vhost overrides the any nested configuration.
 		* callback - the callback function with signature function(err) where:
 		* err - an error returned from the registration function. Note that exceptions thrown by the registration function are not handled by the framework.
-        *
-        * If no callback is provided, a Promise object is returned.
+		*
+		* If no callback is provided, a Promise object is returned.
 		*/
         register(plugins: any | any[], options: {
                 select: string | string[];
