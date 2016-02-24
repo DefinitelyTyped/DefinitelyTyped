@@ -54,7 +54,7 @@ declare module jest {
         toContain(expected: string): boolean;
         toBeCloseTo(expected: number, delta: number): boolean;
         toBeGreaterThan(expected: number): boolean;
-        toBeLessThen(expected: number): boolean;
+        toBeLessThan(expected: number): boolean;
         toBeCalled(): boolean;
         toBeCalledWith(...args: any[]): boolean;
         lastCalledWith(...args: any[]): boolean;
