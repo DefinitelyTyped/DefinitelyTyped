@@ -126,6 +126,10 @@ declare module joint {
             class Image extends Generic {
             }
         }
+        module devs {
+            class Model extends basic.Generic{
+            }
+        }
     }
 
     module util {
