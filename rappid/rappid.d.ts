@@ -25,8 +25,8 @@ declare module joint{
                 model : Backbone.Collection<joint.dia.Cell>
             });
 
-            createSelectionBox(cellView:joint.dia.CellView) : void;
-            destroySelectionBox(cellView:joint.dia.CellView) : void;
+            createSelectionBox(cellView:joint.dia.CellView<joint.dia.Cell>) : void;
+            destroySelectionBox(cellView:joint.dia.CellView<joint.dia.Cell>) : void;
             startSelecting(evt:any) : void;
             cancelSelection() : void;
 
