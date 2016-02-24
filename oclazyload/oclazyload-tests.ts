@@ -41,7 +41,7 @@ angular.module('app').controller(['$ocLazyLoadProvider', function ($ocLazyLoad: 
                 'bower_components/bootstrap/dist/js/bootstrap.js'
             ],
             cache: false,
-            kjdf: false
+            // kjdf: false
         },
         {
             files: ['anotherModule.js'],

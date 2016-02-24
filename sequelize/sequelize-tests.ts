@@ -1300,7 +1300,7 @@ s.define( 'ProductWithSettersAndGetters2', {
 s.define( 'post', {
     title : Sequelize.STRING,
     authorId : { type : Sequelize.INTEGER, references : testModel, referencesKey : 'id' }
-} );
+} as any /* TODO please remove `as any` */);
 s.define( 'post', {
     title : Sequelize.STRING,
     authorId : { type : Sequelize.INTEGER, references : { model : testModel, key : 'id' } }
