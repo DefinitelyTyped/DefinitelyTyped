@@ -139,6 +139,7 @@ declare module joint {
         function supplement(objects:any[]):any;
         function deepMixin(objects:any[]):any;
         function deepSupplement(objects:any[], defaultIndicator?:any):any;
+        function breakText(text:string, size:{width?:number, height?:number}):string;
     }
 
 }
