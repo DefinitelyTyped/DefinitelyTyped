@@ -15,6 +15,10 @@ declare module NgProgress {
         reset(): void;
         complete(): void;
     }
+    
+    export interface INgProgressFactory {
+        createInstance(): INgProgress;
+    }
 
 }
 

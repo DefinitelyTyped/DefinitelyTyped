@@ -7,6 +7,9 @@
 declare var _spBodyOnLoadFunctions: Function[];
 declare var _spBodyOnLoadFunctionNames: string[];
 declare var _spBodyOnLoadCalled: boolean;
+declare function ExecuteOrDelayUntilBodyLoaded(initFunc: () => void): void;
+declare function ExecuteOrDelayUntilScriptLoaded(func: () => void, depScriptFileName: string): boolean;
+declare function ExecuteOrDelayUntilEventNotified(func: Function, eventName: string): boolean;
 declare var Strings:any;
 
 declare module SP {
@@ -179,6 +182,7 @@ declare class _spPageContextInfo {
 }
 
 declare function STSHtmlEncode(value: string): string;
+declare function STSHtmlDecode(value: string): string;
 
 declare function AddEvtHandler(element: HTMLElement, event: string, func: EventListener): void;
 
@@ -7326,7 +7330,7 @@ declare module SP {
             /** Displays a wait/loading modal dialog with the specified title, message, height and width. Height and width are defined in pixels. Cancel button is shown. If user clicks it, the callbackFunc is called. */
             static showWaitScreenSize(title: string, message?: string, callbackFunc?: SP.UI.DialogReturnValueCallback, height?: number, width?: number): SP.UI.ModalDialog;
             static showPlatformFirstRunDialog(url: string, callbackFunc: SP.UI.DialogReturnValueCallback): SP.UI.ModalDialog;
-            static get_childDialog: ModalDialog;
+            static get_childDialog(): SP.UI.ModalDialog;
             /** Closes the dialog using the specified dialog result. */
             close(dialogResult: SP.UI.DialogResult): void;
         }
@@ -8445,7 +8449,7 @@ declare module SP.WorkflowServices {
         /** Specifies the custom status set by workflow authors. */
         set_userStatus(value: string): string;
         /** Gets the unique identifier (GUID) of the subscription that instantiates the WorkflowInstance */
-        get_workflowSubscriptionId(): string;
+        get_workflowSubscriptionId(): SP.Guid;
         /** This method is internal and is not intended to be used in your code. */
         initPropertiesFromJson(parentNode: any): void;
 

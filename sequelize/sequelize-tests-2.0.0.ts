@@ -18,7 +18,7 @@ var transOpts: Sequelize.TransactionOptions;
 var syncOpts: Sequelize.SyncOptions;
 var assocOpts: Sequelize.AssociationOptions;
 var schemaOpts: Sequelize.SchemaOptions;
-var findOpts: Sequelize.FindOptions
+var findOpts: Sequelize.FindOptions;
 var findCrOpts: Sequelize.FindOrCreateOptions;
 var queryOpts: Sequelize.QueryOptions;
 var buildOpts: Sequelize.BuildOptions;
@@ -45,7 +45,6 @@ interface modelPojo {
 }
 
 interface modelInst extends Sequelize.Instance<modelInst, modelPojo>, modelPojo {
-    
 };
 
 var myModelInst: modelInst;
@@ -117,12 +116,12 @@ model.find().then(function () { }, function () { });
 model.find().then(function () { });
 model.find().then(null, function () { });
 model.find().then(function (result: modelInst) { });
-model.find().then<modelInst>(function (result: modelInst): Sequelize.PromiseT<modelInst> { return model.find(1) });
-model.find().then<modelInst, any>(function (result: modelInst): Sequelize.PromiseT<modelInst> { return model.find(1) }, function (): Sequelize.PromiseT<any> { return model.find(1) });
+model.find().then<modelInst>(function (result: modelInst): Sequelize.PromiseT<modelInst> { return model.find(1); });
+model.find().then<modelInst, any>(function (result: modelInst): Sequelize.PromiseT<modelInst> { return model.find(1); }, function (): Sequelize.PromiseT<any> { return model.find(1); });
 
 model.find().catch(function () { });
 model.find().catch(function (result: modelInst) { });
-model.find().catch(function (result: modelInst): Sequelize.Promise { return model.find(1) });
+model.find().catch(function (result: modelInst): Sequelize.Promise { return model.find(1); });
 
 model.find().spread(function () { }, function () { });
 model.find().spread(function () { });
@@ -130,10 +129,10 @@ model.find().spread(null, function () { });
 model.find().spread(function (result: modelInst) { });
 model.find().spread(function (result1: modelInst, result2: any) { });
 model.find().spread(null, function (result1: any, result2: boolean) { });
-model.find().spread(function (result: modelInst): Sequelize.Promise { return model.find(1) });
-model.find().spread<modelInst>(function (result: modelInst): Sequelize.PromiseT<modelInst> { return model.find(1) });
-model.find().spread<modelInst>(function (result: modelInst) { }, function (): Sequelize.PromiseT<modelInst> { return model.find(1) });
-model.find().spread<modelInst, any>(function (result: modelInst): Sequelize.PromiseT<modelInst> { return model.find(1) }, function (): Sequelize.PromiseT<any> { return model.find(1) });
+model.find().spread(function (result: modelInst): Sequelize.Promise { return model.find(1); });
+model.find().spread<modelInst>(function (result: modelInst): Sequelize.PromiseT<modelInst> { return model.find(1); });
+model.find().spread<modelInst>(function (result: modelInst) { }, function (): Sequelize.PromiseT<modelInst> { return model.find(1); });
+model.find().spread<modelInst, any>(function (result: modelInst): Sequelize.PromiseT<modelInst> { return model.find(1); }, function (): Sequelize.PromiseT<any> { return model.find(1); });
 
 promiseMe = model.findAll(findOpts, queryOpts);
 promiseMe = model.findAll(findOpts);

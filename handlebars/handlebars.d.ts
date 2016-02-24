@@ -6,6 +6,7 @@
 
 declare module Handlebars {
     export function registerHelper(name: string, fn: Function, inverse?: boolean): void;
+    export function registerHelper(name: Object): void;
     export function registerPartial(name: string, str: any): void;
     export function unregisterHelper(name: string): void;
     export function unregisterPartial(name: string): void;

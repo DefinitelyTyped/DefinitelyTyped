@@ -607,6 +607,16 @@ interface JQueryAnimationOptions {
     specialEasing?: Object;
 }
 
+interface JQueryEasingFunction {
+    ( percent: number ): number;
+}
+
+interface JQueryEasingFunctions {
+    [ name: string ]: JQueryEasingFunction;
+    linear: JQueryEasingFunction;
+    swing: JQueryEasingFunction;
+}
+
 /**
  * Static members of jQuery (those on $ and jQuery themselves)
  */
@@ -795,7 +805,7 @@ interface JQueryStatic {
      *
      * @param removeAll A Boolean indicating whether to remove all jQuery variables from the global scope (including jQuery itself).
      */
-    noConflict(removeAll?: boolean): Object;
+    noConflict(removeAll?: boolean): JQueryStatic;
 
     /**
      * Provides a way to execute callback functions based on one or more objects, usually Deferred objects that represent asynchronous events.
@@ -889,6 +899,9 @@ interface JQueryStatic {
     /**
      * Effects
      */
+
+    easing: JQueryEasingFunctions;
+
     fx: {
         tick: () => void;
         /**
@@ -2258,6 +2271,13 @@ interface JQuery {
      * @param handler A handler function previously attached for the event(s), or the special value false.
      */
     off(events: string, selector?: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Remove an event handler.
+     *
+     * @param events One or more space-separated event types and optional namespaces, or just namespaces, such as "click", "keydown.myPlugin", or ".myPlugin".
+     * @param handler A handler function previously attached for the event(s), or the special value false. Takes handler with extra args that can be attached with on().
+     */
+    off(events: string, handler: (eventObject: JQueryEventObject, ...args: any[]) => any): JQuery;
     /**
      * Remove an event handler.
      *

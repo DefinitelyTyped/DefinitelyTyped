@@ -1,8 +1,9 @@
-﻿// Type definitions for Chrome packaged application development
+// Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
 // Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="chrome.d.ts"/>
 /// <reference path='../filesystem/filesystem.d.ts'/>
 
 ////////////////////
@@ -22,13 +23,9 @@ declare module chrome.app.runtime {
         type: string;
     }
 
-    interface LaunchedEvent {
-        addListener(callback: (launchData: LaunchData) => void): void;
-    }
+    interface LaunchedEvent extends chrome.events.Event<(launchData: LaunchData) => void> {}
 
-    interface RestartedEvent {
-        addListener(callback: () => void): void;
-    }
+    interface RestartedEvent extends chrome.events.Event<() => void> {}
 
     var onLaunched: LaunchedEvent;
     var onRestarted: RestartedEvent;
@@ -136,10 +133,7 @@ declare module chrome.app.window {
     export function getAll(): AppWindow[];
     export function canSetVisibleOnAllWorkspaces(): boolean;
 
-    interface WindowEvent {
-        addListener(callback: () => void): void;
-        removeListener(callback: () => void): void;
-    }
+    interface WindowEvent extends chrome.events.Event<() => void> {}
 
     var onBoundsChanged: WindowEvent;
     var onClosed: WindowEvent;
@@ -153,20 +147,6 @@ declare module chrome.app.window {
 // fileSystem
 ////////////////////
 declare module chrome.fileSystem {
-
-    interface ChildChangeInfo {
-        entry: Entry;
-        type: string;
-    }
-
-    interface EntryChangedEvent {
-        target: Entry;
-        childChanges?: ChildChangeInfo[];
-    }
-
-    interface EntryRemovedEvent {
-        target: Entry;
-    }
 
     interface AcceptOptions {
         description?: string;
@@ -205,10 +185,6 @@ declare module chrome.sockets.tcp {
     interface SendInfo {
         resultCode: number;
         bytesSent?: number;
-    }
-
-    interface Event<T> {
-        addListener(callback: (info: T) => void): void;
     }
 
     interface ReceiveEventArgs {
@@ -258,10 +234,10 @@ declare module chrome.sockets.tcp {
     export function send(socketId: number, data: ArrayBuffer, callback: (sendInfo: SendInfo) => void): void;
     export function close(socketId: number, callback?: () => void): void;
     export function getInfo(socketId: number, callback: (socketInfo: SocketInfo) => void): void;
-    export function getSockets(socketId: number, callback: (socketInfos: SocketInfo[]) => void): void;
+    export function getSockets(callback: (socketInfos: SocketInfo[]) => void): void;
 
-    var onReceive: Event<ReceiveEventArgs>;
-    var onReceiveError: Event<ReceiveErrorEventArgs>;
+    var onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
+    var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
 }
 
 declare module chrome.sockets.udp {
@@ -272,10 +248,6 @@ declare module chrome.sockets.udp {
     interface SendInfo {
         resultCode: number;
         bytesSent?: number;
-    }
-
-    interface Event<T> {
-        addListener(callback: (info: T) => void): void;
     }
 
     interface ReceiveEventArgs {
@@ -323,17 +295,13 @@ declare module chrome.sockets.udp {
     export function setMulticastLoopbackMode(socketId: number, enabled: boolean, callback: (result: number) => void): void;
     export function getJoinedGroups(socketId: number, callback: (groups: string[]) => void): void;
 
-    var onReceive: Event<ReceiveEventArgs>;
-    var onReceiveError: Event<ReceiveErrorEventArgs>;
+    var onReceive: chrome.events.Event<(args: ReceiveEventArgs) => void>;
+    var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
 }
 
 declare module chrome.sockets.tcpServer {
     interface CreateInfo {
         socketId: number;
-    }
-
-    interface Event<T> {
-        addListener(callback: (info: T) => void): void;
     }
 
     interface AcceptEventArgs {
@@ -375,6 +343,65 @@ declare module chrome.sockets.tcpServer {
     export function close(socketId: number, callback?: () => void): void;
     export function getInfo(socketId: number, callback: (socketInfos: SocketInfo[]) => void): void;
 
-    var onAccept: Event<AcceptEventArgs>;
-    var onAcceptError: Event<AcceptErrorEventArgs>;
+    var onAccept: chrome.events.Event<(args: AcceptEventArgs) => void>;
+    var onAcceptError: chrome.events.Event<(args: AcceptErrorEventArgs) => void>;
+}
+
+////////////////////
+// System - Network
+////////////////////
+declare module chrome.system.network {
+    interface NetworkInterface {
+        name: string;
+        address: string;
+        prefixLength: number;
+    }
+
+    export function getNetworkInterfaces(callback: (networkInterfaces: NetworkInterface[]) => void): void;
+}
+
+declare module chrome.runtime {
+	interface Manifest {
+		app?: {
+			background?: {
+				scripts?: string[];
+			}
+		},
+		bluetooth?: {
+			uuids?: string[];
+			socket?: boolean;
+			low_energy?: boolean;
+			peripheral?: boolean;
+		},
+		file_handlers?: {
+			[name: string]: {
+				types?: string[];
+				extensions?: string[];
+				title?: string;
+			}
+		},
+		kiosk_enabled?: boolean,
+		kiosk_only?: boolean,
+		url_handlers?: {
+			[name: string]: {
+				matches: string[];
+				title?: string;
+			}
+		},
+		usb_printers?: {
+			filters: {
+				vendorId?: number;
+				productId?: number;
+				interfaceClass?: number;
+				interfaceSubclass?: number;
+				interfaceProtocol?: number;
+			}[]
+		},
+		webview?: {
+			partitions?: {
+				name: string;
+				accessible_resources: string[];
+			}[]
+		}
+	}
 }

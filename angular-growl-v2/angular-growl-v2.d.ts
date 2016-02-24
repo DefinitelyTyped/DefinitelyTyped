@@ -39,6 +39,16 @@ declare module angular.growl {
      */
     interface IGrowlMessage extends IGrowlMessageConfig {
         text: string;
+        
+        /**
+         * Destroy the message.
+         */
+        destroy(): void;
+        /**
+         * Update the message body.
+         * @param newText new message body
+         */
+        setText(newText: string): void;
     }
 
     /**
@@ -223,7 +233,7 @@ declare module angular.growl {
          * @param referenceId
          * @param limitMessages
          */
-        initDirective(referenceId: number, limitMessages: number): ng.IDirective;
+        initDirective(referenceId: number, limitMessages: number): angular.IDirective;
 
         /**
          * Get current messages

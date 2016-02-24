@@ -79,6 +79,8 @@ interface ChartOptions extends ChartSettings {
     scaleShowGridLines?: boolean;
     scaleGridLineColor?: string;
     scaleGridLineWidth?: number;
+    scaleShowHorizontalLines?: boolean;
+    scaleShowVerticalLines?: boolean;  
     legendTemplate?: string;
 }
 
@@ -107,7 +109,7 @@ interface LinearInstance extends ChartInstance {
     getPointsAtEvent: (event: Event) => PointsAtEvent[];
     update: () => void;
     addData: (valuesArray: number[], label: string) => void;
-    removeData: () => void;
+    removeData: (index?: number) => void;
 }
 
 interface CircularInstance extends ChartInstance {
@@ -135,7 +137,7 @@ interface BarChartOptions extends ChartOptions {
     barShowStroke?: boolean;
     barStrokeWidth?: number;
     barValueSpacing?: number;
-    barDatasetSpacing?: number;
+    barDatasetSpacing?: number;  
 }
 
 interface RadarChartOptions extends ChartSettings {

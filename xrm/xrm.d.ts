@@ -49,7 +49,7 @@ declare module Xrm
          * Gets current styling theme.
          *
          * @return  The name of the current theme, as either "default", "Office12Blue", or "Office14Silver"
-         * 
+         *
          * @remarks This function does not work with Dynamics CRM for tablets.
          */
         getCurrentTheme(): string;
@@ -65,7 +65,7 @@ declare module Xrm
          * Gets organization's LCID (language code).
          *
          * @return  The organization language code.
-         * 
+         *
          * @see     {@link http://msdn.microsoft.com/en-us/library/ms912047(WinEmbedded.10).aspx|Microsoft Locale ID Values}
          */
         getOrgLcid(): number;
@@ -74,7 +74,7 @@ declare module Xrm
          * Gets organization's unique name.
          *
          * @return  The organization's unique name.
-         * 
+         *
          * @remarks This value can be found on the Developer Resources page within Dynamics CRM
          */
         getOrgUniqueName(): string;
@@ -97,7 +97,7 @@ declare module Xrm
          * Gets user's unique identifier.
          *
          * @return  The user's identifier in Guid format.
-         * 
+         *
          * @remarks Example: "{B05EC7CE-5D51-DF11-97E0-00155DB232D0}"
          */
         getUserId(): string;
@@ -106,7 +106,7 @@ declare module Xrm
          * Gets user's LCID (language code).
          *
          * @return  The user's language code.
-         * 
+         *
          * @see     {@link http://msdn.microsoft.com/en-us/library/ms912047(WinEmbedded.10).aspx|Microsoft Locale ID Values}
          */
         getUserLcid(): number;
@@ -122,7 +122,7 @@ declare module Xrm
          * Gets all user security roles.
          *
          * @return  An array of user role identifiers, in Guid format.
-         * 
+         *
          * @remarks Example: ["cf4cc7ce-5d51-df11-97e0-00155db232d0"]
          */
         getUserRoles(): string[];
@@ -133,7 +133,7 @@ declare module Xrm
          * @param   {string}    sPath   Local pathname of the resource.
          *
          * @return  A path string with the organization name.
-         * 
+         *
          * @remarks Format: "/"+ OrgName + sPath
          */
         prependOrgName( sPath: string ): string;
@@ -249,7 +249,7 @@ declare module Xrm
              * @param   {string}    itemName    The item name to get.
              *
              * @return  The T matching the key itemName.
-             * 
+             *
              * @see {@link Xrm.Page.Control.getName()} for Control-naming schemes.
              */
             get( itemName: string ): T;
@@ -272,7 +272,7 @@ declare module Xrm
 
     /**
      * The Xrm.Page API
-     * 
+     *
      * @see {@link http://msdn.microsoft.com/en-us/library/gg328255.aspx|Documentation} for details.
      */
     export module Page
@@ -343,7 +343,7 @@ declare module Xrm
             * Returns the unique identifier of the process.
             *
             * @return The identifier for this process, in GUID format.
-            *         
+            *
             * @remarks  Example: "{825CB223-A651-DF11-AA8B-00155DBA3804}".
             */
             getId(): string;
@@ -394,7 +394,7 @@ declare module Xrm
              * Returns the unique identifier of the stage.
              *
              * @return  The identifier of the Stage, in GUID format.
-             *          
+             *
              * @remarks  Example: "{825CB223-A651-DF11-AA8B-00155DBA3804}".
              */
             getId(): string;
@@ -476,7 +476,7 @@ declare module Xrm
              * Gets save-event arguments.
              *
              * @return  The event arguments.
-             * 
+             *
              * @remarks Returns null for all but the "save" event.
              */
             getEventArgs(): SaveEventArguments;
@@ -495,7 +495,7 @@ declare module Xrm
              * @param   {string}    key The key.
              *
              * @return  The shared variable.
-             * 
+             *
              * @remarks Used to pass values between handlers of an event.
              */
             getSharedVariable<T>( key: string ): T;
@@ -506,7 +506,7 @@ declare module Xrm
              * @tparam  T   Generic type parameter.
              * @param   {string}    key The key.
              * @param   {T} value       The value.
-             * 
+             *
              * @remarks Used to pass values between handlers of an event.
              */
             setSharedVariable<T>( key: string, value: T ): void;
@@ -650,7 +650,7 @@ declare module Xrm
              * Gets attribute type.
              *
              * @return  The attribute's type name.
-             * 
+             *
              * @remarks Values returned are: boolean
              *                               datetime
              *                               decimal
@@ -668,9 +668,9 @@ declare module Xrm
              * Gets the attribute format.
              *
              * @return  The format of the attribute.
-             * 
+             *
              * @see {@link getAttributeType()}
-             * 
+             *
              * @remarks Values returned are: date           (datetime)
              *                               datetime       (datetime)
              *                               duration       (integer)
@@ -718,7 +718,7 @@ declare module Xrm
              * Gets current submit mode for the attribute.
              *
              * @return  The submit mode, as either "always", "never", or "dirty"
-             * 
+             *
              * @remarks The default value is "dirty"
              */
             getSubmitMode(): string;
@@ -790,7 +790,7 @@ declare module Xrm
              * Sets the submit mode.
              *
              * @param   {string}    submitMode  The submit mode, as either "always", "never", or "dirty".
-             * 
+             *
              * @remarks The default value is "dirty"
              */
             setSubmitMode( submitMode: string ): void;
@@ -840,7 +840,7 @@ declare module Xrm
              * Sets the value.
              *
              * @param   {number}    value   The value.
-             * 
+             *
              * @remarks Attributes on Quick Create Forms will not save values set with this method.
              */
             setValue( value: number ): void;
@@ -857,7 +857,7 @@ declare module Xrm
              * Gets maximum length allowed.
              *
              * @return  The maximum length allowed.
-             * 
+             *
              * @remarks The email form's "Description" attribute does not have the this method.
              */
             getMaxLength(): number;
@@ -1036,7 +1036,7 @@ declare module Xrm
              * Sets the value.
              *
              * @param   {LookupValue[]} value   The value.
-             * 
+             *
              * @remarks Attributes on Quick Create Forms will not save values set with this method.
              */
             setValue( value: LookupValue[] ): void;
@@ -1093,7 +1093,7 @@ declare module Xrm
              * Gets the record's primary attribute value.
              *
              * @return  The primary attribute value.
-             * 
+             *
              * @remarks The value for this attribute is used when links to the record are displayed.
              */
             getPrimaryAttributeValue(): string;
@@ -1154,7 +1154,7 @@ declare module Xrm
              * @remarks Values returned are: 1      Save
              *                               2      Save and Close
              *                               59     Save and New
-             *                               70     AutoSave (Where enabled; can be used with an OnSave handler 
+             *                               70     AutoSave (Where enabled; can be used with an OnSave handler
              *                                                to conditionally disable auto-saving)
              *                               58     Save as Completed (Activities)
              *                               5      Deactivate
@@ -1242,7 +1242,7 @@ declare module Xrm
                  *                                                                      Id of the business process flow and the value of
                  *                                                                      the property is the name of the business process
                  *                                                                      flow.
-                 *                                                                      
+                 *
                  *                                                                      The enabled processes are filtered according to
                  *                                                                      the user’s privileges. The list of enabled
                  *                                                                      processes is the same ones a user can see in the
@@ -1345,7 +1345,7 @@ declare module Xrm
              * @param   {string}    uniqueId    (Optional) Unique identifier.
              *
              * @return  true if it succeeds, false if it fails.
-             * 
+             *
              * @remarks If the uniqueId parameter is not used, the current notification shown will be removed.
              */
             clearNotification( uniqueId?: string ): boolean;
@@ -1397,7 +1397,7 @@ declare module Xrm
              * @return  The parent Section.
              */
             getParent(): Section;
-            
+
             /**
              * Sets the state of the control to either enabled, or disabled.
              *
@@ -1489,7 +1489,7 @@ declare module Xrm
             /**
              * Adds an additional custom filter to the lookup, with the "AND" filter operator.
              * Can only be used within a "pre search" event handler
-             * 
+             *
              * @sa addPreSearch
              *
              * @param   {string}    filter              Specifies the filter, as a serialized FetchXML
@@ -1513,7 +1513,7 @@ declare module Xrm
              * @param   {string}    fetchXml        The FetchXML query for the view's contents, serialized as a string.
              * @param   {string}    layoutXml       The Layout XML, serialized as a string.
              * @param   {boolean}   isDefault       true, to treat this view as default.
-             * 
+             *
              * @remarks Cannot be used on "Owner" Lookup controls.
              *          The viewId is never saved to CRM, but must be unique across available views.  Generating
              *          a new value can be accomplished with a {@link http://www.guidgen.com/|Guid generator}.
@@ -1533,7 +1533,7 @@ declare module Xrm
              * Gets the unique identifier of the default view.
              *
              * @return  The default view, in Guid format.
-             * 
+             *
              * @remarks Example: "{00000000-0000-0000-0000-000000000000}"
              */
             getDefaultView(): string;
@@ -1549,7 +1549,7 @@ declare module Xrm
              * Sets the Lookup's default view.
              *
              * @param   {string}    viewGuid    Unique identifier for the view.
-             * 
+             *
              * @remarks Example viewGuid value: "{00000000-0000-0000-0000-000000000000}"
              */
             setDefaultView( viewGuid: string ): void;
@@ -1567,7 +1567,7 @@ declare module Xrm
              *
              * @param   {OptionSetValue}    option  The option.
              * @param   {number}    index           (Optional) zero-based index of the option.
-             * 
+             *
              * @remarks This method does not check that the values within the options you add are valid.
              *          If index is not provided, the new option will be added to the end of the list.
              */
@@ -1637,7 +1637,7 @@ declare module Xrm
 
             /**
              * Refreshes the sub grid.
-             * 
+             *
              * @remarks Not available during the "on load" event of the form.
              */
             refresh(): void;
@@ -1664,7 +1664,7 @@ declare module Xrm
              * Gets the DOM element containing the control.
              *
              * @return  The container object.
-             * 
+             *
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
             getObject(): HTMLIFrameElement;
@@ -1673,7 +1673,7 @@ declare module Xrm
              * Gets the URL value of the control.
              *
              * @return  The source URL.
-             * 
+             *
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
             getSrc(): string;
@@ -1682,7 +1682,7 @@ declare module Xrm
              * Sets the URL value of the control.
              *
              * @param   {string}    src The source URL.
-             * 
+             *
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
             setSrc( src: string ): void;
@@ -1699,7 +1699,7 @@ declare module Xrm
              * Gets initial URL defined for the Iframe.
              *
              * @return  The initial URL.
-             * 
+             *
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
             getInitialUrl(): string;
@@ -1716,7 +1716,7 @@ declare module Xrm
              * Gets the query string value passed to Silverlight.
              *
              * @return  The data.
-             * 
+             *
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
             getData(): string;
@@ -1725,7 +1725,7 @@ declare module Xrm
              * Sets the query string value passed to Silverlight.
              *
              * @param   {string}    data    The data.
-             * 
+             *
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
             setData( data: string ): void;
@@ -1734,7 +1734,7 @@ declare module Xrm
              * Gets the DOM element containing the control.
              *
              * @return  The container object.
-             * 
+             *
              * @remarks Unavailable for Microsoft Dynamics CRM for tablets.
              */
             getObject(): HTMLObjectElement;
@@ -1942,7 +1942,7 @@ declare module Xrm
                  * Returns the id for the record in the row.
                  *
                  * @return  The identifier of the GridEntity, in GUID format.
-                 *          
+                 *
                  * @remarks Example return: "{00000000-0000-0000-0000-000000000000}"
                  */
                 getId(): string;
@@ -2017,10 +2017,10 @@ declare module Xrm
              * @return  The form type.
              *
              * @remarks     Values returned are: 0  Undefined
-             *                                   1  Create 
-             *                                   2  Update 
-             *                                   3  Read Only 
-             *                                   4  Disabled 
+             *                                   1  Create
+             *                                   2  Update
+             *                                   3  Read Only
+             *                                   4  Disabled
              *                                   6  Bulk Edit
              *              Deprecated values are 5 (Quick Create), and 11 (Read Optimized)
              */
@@ -2030,7 +2030,7 @@ declare module Xrm
              * Gets view port height.
              *
              * @return  The view port height, in pixels.
-             * 
+             *
              * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
              */
             export function getViewPortHeight(): number;
@@ -2039,14 +2039,14 @@ declare module Xrm
              * Gets view port width.
              *
              * @return  The view port width, in pixels.
-             * 
+             *
              * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
              */
             export function getViewPortWidth(): number;
 
             /**
              * Re-evaluates the ribbon's configured EnableRules
-             * 
+             *
              * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
              */
             export function refreshRibbon(): void;
@@ -2104,14 +2104,14 @@ declare module Xrm
 
             /**
              * The form selector API.
-             * 
+             *
              * @remarks This API does not exist with Microsoft Dynamics CRM for tablets.
              */
             export var formSelector: FormSelector;
 
             /**
              * The navigation API.
-             * 
+             *
              * @remarks This API does not exist with Microsoft Dynamics CRM for tablets.
              */
             export var navigation: Navigation;
@@ -2183,7 +2183,7 @@ declare module Xrm
              * Gets current form.
              *
              * @return  The current item.
-             * 
+             *
              * @remarks When only one form is available this method will return null.
              */
             getCurrentItem(): FormItem;
@@ -2290,7 +2290,7 @@ declare module Xrm
 
     /**
      * An definition module for URL-based, CRM component parameters.
-     * 
+     *
      * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx} for details.
      */
     export module Url
@@ -2306,11 +2306,11 @@ declare module Xrm
 
         /**
          * Interface for defining parameters on a request to open a form with main.aspx (as with
-         * window.open). Useful for parsing the keys and values into a string of the format: 
+         * window.open). Useful for parsing the keys and values into a string of the format:
          * "&key=value".
          *
          * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx} for details.
-         * 
+         *
          * @remarks  A member for "pagetype" is not provided.  The value "entityrecord" is required in
          *           the URL, for forms. Example:  "pagetype=entityrecord"
          */
@@ -2325,7 +2325,7 @@ declare module Xrm
              * Additional parameters can be provided to the request. This can only be used to provide
              * default field values for the form, or pass data to custom parameters that have been
              * customized for the form.  See example below for setting the selected form.
-             * 
+             *
              * @remarks Example:  encodeURIComponent( "formid={8c9f3e6f-7839-e211-831e-00155db7d98f}" );
              */
             extraqs?: string;
@@ -2349,9 +2349,9 @@ declare module Xrm
 
         /**
          * Interface for defining parameters on a request to open a view with main.aspx (as with
-         * window.open). Useful for parsing the keys and values into a string of the format: 
+         * window.open). Useful for parsing the keys and values into a string of the format:
          * "&key=value".
-         * 
+         *
          * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx} for details.
          *
          * @remarks  A member for "pagetype" is not provided.  The value "entitylist" is required in
@@ -2397,9 +2397,9 @@ declare module Xrm
 
         /**
          * Interface for defining parameters of a request to open a dialog with rundialog.aspx (as with
-         * window.open).  Useful for parsing the keys and values into a string of the format: 
+         * window.open).  Useful for parsing the keys and values into a string of the format:
          * "&key=value".
-         * 
+         *
          * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx} for details.
          */
         export interface DialogOpenParameters
@@ -2425,7 +2425,7 @@ declare module Xrm
          * Interface for defining parameters of a request to open a report with viewer.apsx (as with
          * window.open).  Useful for parsing out the keys and values into a string of the format:
          * "&key=value"
-         * 
+         *
          * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx} for details.
          */
         export interface ReportOpenParameters
@@ -2433,7 +2433,7 @@ declare module Xrm
             /**
              * The action to perform, as either "run" or "filter".
              *
-             * @remarks  "run"       Executes the report with default filters. 
+             * @remarks  "run"       Executes the report with default filters.
              *           "filter"    Presents the user with the filter editor, and a "Run Report" button.
              */
             action: string;
@@ -2453,7 +2453,7 @@ declare module Xrm
 
     /**
      * The Xrm.Utility API
-     * 
+     *
      * @see {@link http://msdn.microsoft.com/en-us/library/gg328255.aspx|Documentation} for details.
      */
     export module Utility
@@ -2571,7 +2571,7 @@ declare module Xrm
          * @param   {number}    height          (Optional) The height of the new window.
          *
          * @return  A Window reference, containing the opened Web Resource.
-         * 
+         *
          * @remarks This function will not work with Microsoft Dynamics CRM for tablets.
          *          Valid WebResource URL Parameters:   typename
          *                                              type
@@ -2588,7 +2588,7 @@ declare module Xrm
 /**
  * Gets the xRM application context, for HTML web resources, included by ClientGlobalContext.js.aspx
  * @returns {Xrm.Context}   The application context for the user's current session.
- * @remarks The ClientGlobalContext.js.aspx page will include some global event handlers. These event handlers will 
+ * @remarks The ClientGlobalContext.js.aspx page will include some global event handlers. These event handlers will
  *          cancel the onselectstart, contextmenu, and ondragstart events.
  */
 declare function GetGlobalContext(): Xrm.Context;

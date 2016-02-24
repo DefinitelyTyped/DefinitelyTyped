@@ -3,7 +3,7 @@
 // Definitions by: Steve Baker <https://github.com/stkb/>, Giedrius Grabauskas <https://github.com/QuatroDevOfficial/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../react/react-global.d.ts" />
+/// <reference path="../react/react.d.ts" />
 
 declare module Flux {
 
@@ -70,6 +70,7 @@ declare module "flux" {
 
 declare module FluxUtils {
 
+    import React = __React;
     export class Container {
         constructor();
         /**

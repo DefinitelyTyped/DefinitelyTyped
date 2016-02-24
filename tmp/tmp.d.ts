@@ -9,7 +9,7 @@ declare module "tmp" {
 		interface Options extends SimpleOptions {
 			mode?: number;
 		}
-		
+
 		interface SimpleOptions {
 			prefix?: string;
 			postfix?: string;
@@ -19,7 +19,7 @@ declare module "tmp" {
 			keep?: boolean;
 			unsafeCleanup?: boolean;
 		}
-		
+
 		interface SynchrounousResult {
 			name: string;
 			fd: number;
@@ -28,9 +28,9 @@ declare module "tmp" {
 
 		function file(callback: (err: any, path: string, fd: number, cleanupCallback: () => void) => void): void;
 		function file(config: Options, callback?: (err: any, path: string, fd: number, cleanupCallback: () => void) => void): void;
-		
+
 		function fileSync(config?: Options): SynchrounousResult;
-				
+
 		function dir(callback: (err: any, path: string, cleanupCallback: () => void) => void): void;
 		function dir(config: Options, callback?: (err: any, path: string, cleanupCallback: () => void) => void): void;
 

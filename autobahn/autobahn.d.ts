@@ -4,7 +4,6 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../when/when.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
 
 declare module autobahn {
 
@@ -194,7 +193,7 @@ declare module autobahn {
         type: string;
     }
 
-    type DeferFactory = () => JQueryPromise<any>;
+    type DeferFactory = () => When.Promise<any>;
 
     type OnChallengeHandler = (session: Session, method: string, extra: any) => When.Promise<string>;
 

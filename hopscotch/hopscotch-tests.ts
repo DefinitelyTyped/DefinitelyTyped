@@ -1,6 +1,6 @@
 /// <reference path="hopscotch.d.ts" />
 
-var tourDefinition = {
+var tourDefinition: TourDefinition = {
   id: 'intro-tour',
   steps: [
     {

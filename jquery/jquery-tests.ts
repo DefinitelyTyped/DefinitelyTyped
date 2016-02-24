@@ -1710,6 +1710,20 @@ function test_focusout() {
     });
 }
 
+function test_easing() {
+    const easing = jQuery.easing;
+
+    function test_easing_function( name: string, fn: JQueryEasingFunction ) {
+        const step = Math.pow( 2, -3 ); // use power of 2 to prevent floating point rounding error
+        for( let i = 0; i <= 1; i += step ) {
+            console.log( `$.easing.${name}(${i}): ${fn.call(easing, i)}` );
+        }
+    }
+
+    test_easing_function( "linear", easing.linear );
+    test_easing_function( "swing", easing.swing );
+}
+
 function test_fx() {
     jQuery.fx.interval = 100;
     $("input").click(function () {

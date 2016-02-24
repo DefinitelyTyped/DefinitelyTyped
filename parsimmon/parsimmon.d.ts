@@ -1,12 +1,14 @@
 // Type definitions for Parsimmon 0.5.0
 // Project: https://github.com/jneen/parsimmon
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Mizunashi Mana <https://github.com/mizunashi-mana>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // TODO convert to generics
 
 declare module 'parsimmon' {
 	module Parsimmon {
+		
+		export type StreamType = string;
 
 		export interface Mark<T> {
 			start: number;
@@ -102,6 +104,14 @@ declare module 'parsimmon' {
 		 */
 		export function seq<U>(...parsers: Parser<U>[]): Parser<U[]>;
 		export function seq(...parsers: Parser<any>[]): Parser<any[]>;
+
+		export type SuccessFunctionType<U> = (index: number, result: U) => Result<U>;
+		export type FailureFunctionType<U> = (index: number, msg: string) => Result<U>;
+		export type ParseFunctionType<U> = (stream: StreamType, index: number) => Result<U>;
+		/*
+		 allows to add custom primitive parsers.
+		 */
+		export function custom<U>(parsingFunction: (success: SuccessFunctionType<U>, failure: FailureFunctionType<U>) => ParseFunctionType<U>): Parser<U>;
 
 		/*
 		 accepts a variable number of parsers, and yields the value of the first one that succeeds, backtracking in between.

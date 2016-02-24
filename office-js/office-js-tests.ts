@@ -165,6 +165,69 @@ function test_word() {
 		if (error instanceof OfficeExtension.Error) {
 			console.log('Debug info: ' + JSON.stringify(error.debugInfo));
 		}
-	});
+        });
+
+    // Body.insertInlinePictureFromBase64 Word 1.1    
+    Word.run(function(context) {
+                
+        // Create a proxy body object.     
+        var body = context.document.body;
+
+        // Queue a command to insert the image into the document.        
+        var image = body.insertInlinePictureFromBase64('', Word.InsertLocation.start);
+                
+        // Queue a command to select the image.
+        image.select();
+                
+        // Synchronize the document state by executing the queued commands,
+        // and returning a promise to indicate task completion. 
+        return context.sync()
+    })
+        .catch(function(error) {
+            console.log('Error: ' + JSON.stringify(error));
+            if (error instanceof OfficeExtension.Error) {
+                console.log('Debug info: ' + JSON.stringify(error.debugInfo));
+            }
+        });
+    
+    // Body.insertInlinePictureFromBase64 Word 1.2
+    Word.run((context) => {
+
+        // Create a proxy object for the range at the current selection.
+        var imageRange = context.document.getSelection();
+
+        // Load the selected range.
+        context.load(imageRange, 'text');
+
+        // Synchronize the document state by executing the queued commands, 
+        // and return a promise to indicate task completion.
+        return context.sync()
+            .then(() => {
+
+                // Queue a command to insert the image into the document.
+                var insertedImage = imageRange.insertInlinePictureFromBase64('', Word.InsertLocation.replace);
+
+                // Queue a command to navigate the UI to the insert picture.
+                insertedImage.select();
+
+                // Queue an indefinite number of commands to insert paragraphs 
+                // based on the number of callouts added to the image. 
+                if (this._calloutNumber > 0) {
+                    var lastParagraph = insertedImage.insertParagraph('Here are your callout descriptions:', Word.InsertLocation.after) as Word.Paragraph;
+
+                    for (var i = 0; i < this._calloutNumber; i++) {
+                        lastParagraph = lastParagraph.insertParagraph((i + 1) + ') [enter callout description].', Word.InsertLocation.after);
+                    }
+                }
+            })
+            // Synchronize the document state by executing the queued commands.
+            .then(context.sync);
+    })
+        .catch((error) => {
+            console.log('Error: ' + JSON.stringify(error));
+            if (error instanceof OfficeExtension.Error) {
+                console.log('Debug info: ' + JSON.stringify(error.debugInfo));
+            }
+        });
 
 }

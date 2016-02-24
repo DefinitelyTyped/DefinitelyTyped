@@ -3,6 +3,8 @@
 var intro = introJs();
 
 intro.setOption('doneLabel', 'Next page');
+intro.setOption('overlayOpacity', 50);
+intro.setOption('showProgress', true);
 intro.setOptions({
     steps: [
         {

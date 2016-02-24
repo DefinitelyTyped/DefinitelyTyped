@@ -74,3 +74,9 @@ jwt.verify(token, cert, { ignoreExpiration: true }, function(err, decoded) {
  * https://github.com/auth0/node-jsonwebtoken#jwtdecodetoken
  */
 var decoded = jwt.decode(token);
+
+decoded = jwt.decode(token, { complete: false });
+
+decoded = jwt.decode(token, { json: false });
+
+decoded = jwt.decode(token, { complete: false, json: false });
