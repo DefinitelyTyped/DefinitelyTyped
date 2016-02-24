@@ -174,12 +174,12 @@ declare module NodeJS {
     }
 
     export interface EventEmitter {
-        addListener(event: string, listener: Function): EventEmitter;
-        on(event: string, listener: Function): EventEmitter;
-        once(event: string, listener: Function): EventEmitter;
-        removeListener(event: string, listener: Function): EventEmitter;
-        removeAllListeners(event?: string): EventEmitter;
-        setMaxListeners(n: number): EventEmitter;
+        addListener(event: string, listener: Function): this;
+        on(event: string, listener: Function): this;
+        once(event: string, listener: Function): this;
+        removeListener(event: string, listener: Function): this;
+        removeAllListeners(event?: string): this;
+        setMaxListeners(n: number): this;
         getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
@@ -440,12 +440,12 @@ declare module "events" {
         static listenerCount(emitter: EventEmitter, event: string): number; // deprecated
         static defaultMaxListeners: number;
 
-        addListener(event: string, listener: Function): EventEmitter;
-        on(event: string, listener: Function): EventEmitter;
-        once(event: string, listener: Function): EventEmitter;
-        removeListener(event: string, listener: Function): EventEmitter;
-        removeAllListeners(event?: string): EventEmitter;
-        setMaxListeners(n: number): EventEmitter;
+        addListener(event: string, listener: Function): this;
+        on(event: string, listener: Function): this;
+        once(event: string, listener: Function): this;
+        removeListener(event: string, listener: Function): this;
+        removeAllListeners(event?: string): this;
+        setMaxListeners(n: number): this;
         getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
@@ -1958,12 +1958,6 @@ declare module "domain" {
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
         dispose(): void;
-
-        addListener(event: string, listener: Function): Domain;
-        on(event: string, listener: Function): Domain;
-        once(event: string, listener: Function): Domain;
-        removeListener(event: string, listener: Function): Domain;
-        removeAllListeners(event?: string): Domain;
     }
 
     export function create(): Domain;

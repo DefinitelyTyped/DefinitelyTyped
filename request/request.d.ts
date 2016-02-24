@@ -62,7 +62,7 @@ declare module 'request' {
 		interface DefaultUriUrlRequestApi<TRequest extends Request,
 			TOptions extends CoreOptions,
 			TUriUrlOptions>	extends RequestAPI<TRequest, TOptions, TUriUrlOptions> {
-				
+
 			defaults(options: TOptions): DefaultUriUrlRequestApi<TRequest, TOptions, OptionalUriUrl>;
 			(): TRequest;
 			get(): TRequest;
@@ -182,12 +182,12 @@ declare module 'request' {
 			oauth(oauth: OAuthOptions): Request;
 			jar(jar: CookieJar): Request;
 
-			on(event: string, listener: Function): Request;
-			on(event: 'request', listener: (req: http.ClientRequest) => void): Request;
-			on(event: 'response', listener: (resp: http.IncomingMessage) => void): Request;
-			on(event: 'data', listener: (data: Buffer | string) => void): Request;
-			on(event: 'error', listener: (e: Error) => void): Request;
-			on(event: 'complete', listener: (resp: http.IncomingMessage, body?: string | Buffer) => void): Request;
+			on(event: string, listener: Function): this;
+			on(event: 'request', listener: (req: http.ClientRequest) => void): this;
+			on(event: 'response', listener: (resp: http.IncomingMessage) => void): this;
+			on(event: 'data', listener: (data: Buffer | string) => void): this;
+			on(event: 'error', listener: (e: Error) => void): this;
+			on(event: 'complete', listener: (resp: http.IncomingMessage, body?: string | Buffer) => void): this;
 
 			write(buffer: Buffer, cb?: Function): boolean;
 			write(str: string, cb?: Function): boolean;
