@@ -18,10 +18,13 @@ declare module joint {
         class Graph extends Backbone.Model {
             addCell(cell:Cell) : void;
             addCells(cells:Cell[]) : void;
+            getCells(): Cell[];
+            getElements(): Element[];
             initialize() : void;
             fromJSON(json:any) : void;
             toJSON() : Object;
             clear() : void;
+            getLinks(): Link[];
             getConnectedLinks(cell:Cell, opt?:any):Link[];
             disconnectLinks(cell:Cell) : void;
             removeLinks(cell:Cell) : void;
@@ -38,6 +41,7 @@ declare module joint {
             getEmbeddedCells():Cell[];
             clone(opt?:any):Backbone.Model;      // @todo: return can either be Cell or Cell[].
             attr(attrs:any):Cell;
+            prop(props:string, value?:any, opt?:any):any;
         }
 
         class Element extends Cell {
@@ -59,13 +63,14 @@ declare module joint {
             remove(): void;
         }
 
-        interface IOptions {
-            width?: number;
-            height?: number;
-            gridSize?: number;
+        interface IOptions extends Backbone.ViewOptions<Backbone.Model>{
+            width: number;
+            height: number;
+            gridSize: number;
             perpendicularLinks?: boolean;
             elementView?: ElementView;
             linkView?: LinkView;
+            defaultLink?: (joint.dia.Link | {():joint.dia.Link});
         }
 
         class Paper extends Backbone.View<Backbone.Model> {
@@ -74,18 +79,18 @@ declare module joint {
             setDimensions(width:number, height:number) : void;
             scale(sx:number, sy?:number, ox?:number, oy?:number):Paper;
             rotate(deg:number, ox?:number, oy?:number):Paper;      // @todo not released yet though it's in the source code already
-            findView(el:any):CellView;
-            findViewByModel(modelOrId:any):CellView;
-            findViewsFromPoint(p:{ x: number; y: number; }):CellView[];
-            findViewsInArea(r:{ x: number; y: number; width: number; height: number; }):CellView[];
+            findView(el:any):CellView<Cell>;
+            findViewByModel(modelOrId:any):CellView<Cell>;
+            findViewsFromPoint(p:{ x: number; y: number; }):CellView<Cell>[];
+            findViewsInArea(r:{ x: number; y: number; width: number; height: number; }):CellView<Cell>[];
             fitToContent(opt?:any): void;
         }
 
-        class ElementView extends CellView {
+        class ElementView extends CellView<Element> {
             scale(sx:number, sy:number) : void;
         }
 
-        class CellView extends Backbone.View<Cell> {
+        class CellView<T extends Backbone.Model> extends Backbone.View<T> {
             getBBox():{ x: number; y: number; width: number; height: number; };
             highlight(el?:any): void;
             unhighlight(el?:any): void;
@@ -99,7 +104,7 @@ declare module joint {
             pointerup(evt:any, x:number, y:number):void;
         }
 
-        class LinkView extends CellView {
+        class LinkView extends CellView<Link> {
             getConnectionLength():number;
             getPointAtLength(length:number):{ x: number; y: number; };
         }
