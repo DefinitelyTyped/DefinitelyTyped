@@ -23,9 +23,16 @@ plugin.register.attributes = {
 
 // optional options parameter
 server.register({}, function (err) {});
+// optional callback function with and without options
+server.register({}).then((res: any) => {
+	console.log(res);
+});
+server.register({}, { select: "api", routes: { prefix: "/prefix" } }).then((res: any) => {
+	console.log(res);
+});
 
 // optional options.routes.vhost parameter
-server.register({}, { select: 'api', routes: { prefix: '/prefix' } }, function (err) {});
+server.register({}, { select: "api", routes: { prefix: "/prefix" } }, function (err) {});
 
 //server.pack.register(plugin, (err: Object) => {
 //	if (err) { throw err; }
