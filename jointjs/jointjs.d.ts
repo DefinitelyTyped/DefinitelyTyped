@@ -40,7 +40,7 @@ declare module joint {
             unembed(cell:Cell) : void;
             getEmbeddedCells():Cell[];
             clone(opt?:any):Backbone.Model;      // @todo: return can either be Cell or Cell[].
-            attr(attrs:any):Cell;
+            attr(attrs:any):Cell; // @todo: is really always a Cell returned?
             prop(props:string, value?:any, opt?:any):any;
         }
 
