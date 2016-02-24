@@ -11516,6 +11516,31 @@ declare module _ {
         isLength(): LoDashExplicitWrapper<boolean>;
     }
 
+    //_.isMap
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a Map object.
+         *
+         * @param value The value to check.
+         * @returns Returns true if value is correctly classified, else false.
+         */
+        isMap<K, V>(value?: any): value is Map<K, V>;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isMap
+         */
+        isMap(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isMap
+         */
+        isMap(): LoDashExplicitWrapper<boolean>;
+    }
+
     //_.isMatch
     interface isMatchCustomizer {
         (value: any, other: any, indexOrKey?: number|string): boolean;
