@@ -2200,39 +2200,34 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
 		next();
 		};*/
         path(relativeTo: string): void;
-		/**server.register(plugins, [options], callback)
-		Registers a plugin where:
-		plugins - an object or array of objects where each one is either:
-		a plugin registration function.
-		an object with the following:
-		register - the plugin registration function.
-		options - optional options passed to the registration function when called.
-		options - optional registration options (different from the options passed to the registration function):
-		select - a string or array of string labels used to pre-select connections for plugin registration.
-		routes - modifiers applied to each route added by the plugin:
-		prefix - string added as prefix to any route path (must begin with '/'). If a plugin registers a child plugin the prefix is passed on to the child or is added in front of the child-specific prefix.
-		vhost - virtual host string (or array of strings) applied to every route. The outer-most vhost overrides the any nested configuration.
-		callback - the callback function with signature function(err) where:
-		err - an error returned from the registration function. Note that exceptions thrown by the registration function are not handled by the framework.
-		server.register({
-		register: require('plugin_name'),
-		options: {
-		message: 'hello'
-		}
-		}, function (err) {
-		if (err) {
-		console.log('Failed loading plugin');
-		}
-		});*/
-        register(plugins: any | any[], options: {
-            select: string | string[];
-            routes: {
-                prefix: string; vhost?: string | string[]
-            };
-        }
-            , callback: (err: any) => void): void;
 
-        register(plugins: any | any[], callback: (err: any) => void): void;
+
+		/**
+        * server.register(plugins, [options], callback)
+		* Registers a plugin where:
+		* plugins - an object or array of objects where each one is either:
+		* a plugin registration function.
+		* an object with the following:
+		* register - the plugin registration function.
+		* options - optional options passed to the registration function when called.
+		* options - optional registration options (different from the options passed to the registration function):
+		* select - a string or array of string labels used to pre-select connections for plugin registration.
+		* routes - modifiers applied to each route added by the plugin:
+		* prefix - string added as prefix to any route path (must begin with '/'). If a plugin registers a child plugin the prefix is passed on to the child or is added in front of the child-specific prefix.
+		* vhost - virtual host string (or array of strings) applied to every route. The outer-most vhost overrides the any nested configuration.
+		* callback - the callback function with signature function(err) where:
+		* err - an error returned from the registration function. Note that exceptions thrown by the registration function are not handled by the framework.
+        *
+        * If no callback is provided, a Promise object is returned.
+		*/
+        register(plugins: any | any[], options: {
+                select: string | string[];
+                routes: {
+                    prefix: string; vhost?: string | string[]
+                };
+            }, callback?: (err: any) => void): IPromise<any>;
+
+        register(plugins: any | any[], callback?: (err: any) => void): IPromise<any>;
 
 		/**server.render(template, context, [options], callback)
 		Utilizes the server views manager to render a template where:
