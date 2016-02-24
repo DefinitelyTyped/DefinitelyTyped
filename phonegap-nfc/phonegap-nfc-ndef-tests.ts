@@ -1,4 +1,4 @@
-/// <reference path="PhoneGapNfc.d.ts"/>
+/// <reference path="phonegap-nfc.d.ts"/>
 
 let record:NdefRecord = ndef.record(0x01,[0x0F],[0x0C],[0xFF]);
 
