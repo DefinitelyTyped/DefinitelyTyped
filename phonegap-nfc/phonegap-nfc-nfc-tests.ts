@@ -1,4 +1,4 @@
-/// <reference path="PhoneGapNfc.d.ts"/>
+/// <reference path="phonegap-nfc.d.ts"/>
 
 nfc.addTagDiscoveredListener(() => {});
 nfc.addTagDiscoveredListener(() => {},() => {}, () => {});
