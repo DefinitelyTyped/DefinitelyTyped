@@ -64,9 +64,9 @@ declare module joint {
         }
 
         interface IOptions extends Backbone.ViewOptions<Backbone.Model>{
-            width: number;
-            height: number;
-            gridSize: number;
+            width?: number;
+            height?: number;
+            gridSize?: number;
             perpendicularLinks?: boolean;
             elementView?: ElementView;
             linkView?: LinkView;
