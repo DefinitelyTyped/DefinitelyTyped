@@ -233,13 +233,6 @@ declare module "ssh2" {
             exit(name: string, coreDumped: boolean, msg: string): boolean;
             exit(status: number): boolean;
             stderr?: ServerStderr;
-
-            // EventEmitter overrides
-            addListener(event: string, listener: Function): Channel;
-            on(event: string, listener: Function): Channel;
-            once(event: string, listener: Function): Channel;
-            removeListener(event: string, listener: Function): Channel;
-            removeAllListeners(event?: string): Channel;
         }
 
         interface ServerStderr extends NodeJS.WritableStream {

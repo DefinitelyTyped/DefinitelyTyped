@@ -72,12 +72,12 @@ declare module "gulp-nodemon" {
         }
 
         interface EventEmitter extends NodeJS.EventEmitter {
-            addListener(event: string, listener: Function): EventEmitter;
-            addListener(event: string, tasks: string[]): EventEmitter;
-            on(event: string, listener: Function): EventEmitter;
-            on(event: string, tasks: string[]): EventEmitter;
-            once(event: string, listener: Function): EventEmitter;
-            once(event: string, tasks: string[]): EventEmitter;
+            addListener(event: string, listener: Function): this;
+            addListener(event: string, tasks: string[]): this;
+            on(event: string, listener: Function): this;
+            on(event: string, tasks: string[]): this;
+            once(event: string, listener: Function): this;
+            once(event: string, tasks: string[]): this;
         }
     }
 
@@ -85,4 +85,3 @@ declare module "gulp-nodemon" {
 
     export = nodemon;
 }
-
