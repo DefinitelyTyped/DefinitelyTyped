@@ -38,7 +38,7 @@ declare module "react-router-redux" {
     export var syncHistoryWithStore: (
         history,
         store,
-        options: SyncHistoryWithStoreOptions) => any;
+        options?: SyncHistoryWithStoreOptions) => any;
 
     export var LOCATION_CHANGE: string;
     export var routerReducer: Redux.Reducer;
