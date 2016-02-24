@@ -6,15 +6,10 @@
 
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { browserHistory } from 'react-router';
-import { syncHistory, routeReducer } from 'react-router-redux';
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
-const reducer = combineReducers({ routing: routeReducer });
+const reducer = combineReducers({ routing: routerReducer });
+const store = createStore(reducer);
 
-// Sync dispatched route actions to the history
-const reduxRouterMiddleware = syncHistory(browserHistory);
-const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware)(createStore);
-
-const store = createStoreWithMiddleware(reducer);
-
-// Required for replaying actions from devtools to
-reduxRouterMiddleware.listenForReplays(store);
+// Create an enhanced history that syncs navigation events with the store
+const history = syncHistoryWithStore(browserHistory, store)
