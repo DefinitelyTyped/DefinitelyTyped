@@ -102,6 +102,7 @@ interface Auth0LoginOptions {
 
 interface Auth0SignupOptions extends Auth0LoginOptions {
     auto_login: boolean;
+    sso?: boolean;
 }
 
 interface Auth0Error {
