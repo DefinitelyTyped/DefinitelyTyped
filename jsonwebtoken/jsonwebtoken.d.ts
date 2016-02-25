@@ -1,6 +1,6 @@
 ﻿// Type definitions for jsonwebtoken 0.4.0
 // Project: https://github.com/auth0/node-jsonwebtoken
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
+// Definitions by: Maxime LUCE <https://github.com/SomaticIT>, Daniel Heim <https://github.com/danielheim>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
@@ -53,7 +53,7 @@ declare module "jsonwebtoken" {
     }
 
     export interface SignCallback {
-        (err: Error, encoded: string): void;
+        (encoded: string): void;
     }
 
     /**
