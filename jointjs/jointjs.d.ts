@@ -40,7 +40,7 @@ declare module joint {
             unembed(cell:Cell) : void;
             getEmbeddedCells():Cell[];
             clone(opt?:any):Backbone.Model;      // @todo: return can either be Cell or Cell[].
-            attr(attrs:any):Cell; // @todo: is really always a Cell returned?
+            attr(attrs:any):Cell; // @rapidtodo: is really always a Cell returned?
             prop(props:string, value?:any, opt?:any):any;
         }
 
@@ -74,6 +74,8 @@ declare module joint {
         }
 
         class Paper extends Backbone.View<Backbone.Model> {
+            constructor(options:IOptions)
+
             options:IOptions;
 
             setDimensions(width:number, height:number) : void;
