@@ -18,5 +18,5 @@ declare module 'redux-logger' {
     stateTransformer?: (state: any) => any;
   }
 
-  export default function createLogger(options?: ReduxLoggerOptions): Redux.Middleware;
+  export function createLogger(options?: ReduxLoggerOptions): Redux.Middleware;
 }
