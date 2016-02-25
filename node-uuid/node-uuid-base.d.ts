@@ -36,12 +36,6 @@ declare namespace __NodeUUID {
         v1(options?: UUIDOptions): string;
         v1(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
 
-        v2(options?: UUIDOptions): string;
-        v2(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
-
-        v3(options?: UUIDOptions): string;
-        v3(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
-
         v4(options?: UUIDOptions): string;
         v4(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
 
