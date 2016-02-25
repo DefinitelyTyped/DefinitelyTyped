@@ -24,6 +24,11 @@ token = jwt.sign({ foo: 'bar' }, 'shhhhh');
 cert = fs.readFileSync('private.key');  // get private key
 token = jwt.sign({ foo: 'bar' }, cert, { algorithm: 'RS256'});
 
+// sign asynchronously
+jwt.sign({ foo: 'bar' }, cert, { algorithm: 'RS256' }, function(token: string) {
+  console.log(token);
+});
+
 /**
  * jwt.verify
  * https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
