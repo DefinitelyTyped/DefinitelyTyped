@@ -79,3 +79,8 @@ moment.tz.names();
 moment.tz.setDefault('America/Los_Angeles');
 
 moment.tz.guess();
+
+moment.tz.zoneAbbr();
+
+moment.tz.zoneName();
+
