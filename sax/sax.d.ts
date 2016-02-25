@@ -23,7 +23,7 @@ declare module "sax" {
         uri: string;
     }
 
-    export interface Attribute extends QualifiedName {
+    export interface QualifiedAttribute extends QualifiedName {
         value: string;
     }
 
@@ -35,7 +35,7 @@ declare module "sax" {
     // Interface used when the xmlns option is set
     export interface QualifiedTag extends QualifiedName, BaseTag {
         ns: { [key: string]: string };
-        attributes: { [key: string]: Attribute };
+        attributes: { [key: string]: QualifiedAttribute };
     }
 
     export interface Tag extends BaseTag {
