@@ -1845,7 +1845,7 @@ declare namespace __React {
         unselectable?: boolean;
         
         // Allows aria- and data- Attributes
-        [key: string]: string | string[] | boolean | number | EventHandler<SyntheticEvent> | CSSProperties | {__html: string};
+        [key: string]: any;
     }
 
     interface SVGAttributes extends HTMLAttributes {
