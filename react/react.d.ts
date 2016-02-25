@@ -124,7 +124,7 @@ declare namespace __React {
         render(): JSX.Element;
         props: P;
         state: S;
-        context: {};
+        context: { [key: string]: any };
         refs: {
             [key: string]: ReactInstance
         };

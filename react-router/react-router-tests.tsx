@@ -12,6 +12,16 @@ import { browserHistory, hashHistory, Router, Route, IndexRoute, Link } from "re
 
 class Master extends React.Component<React.Props<{}>, {}> {
 
+	navigate() {
+        var router = this.context["router"] as ReactRouter.RouterOnContext;
+		router.push("/users");
+		router.push({
+			pathname: "/users/12",
+			query: { modal: true },
+			state: { fromDashboard: true }
+		});
+	}
+
 	render() {
 		return <div>
 			<h1>Master</h1>
@@ -21,6 +31,10 @@ class Master extends React.Component<React.Props<{}>, {}> {
 	}
 
 }
+
+(Master as React.ComponentClass<{}>).contextTypes = {
+	router: React.PropTypes.object,
+};
 
 
 class Dashboard extends React.Component<{}, {}> {
