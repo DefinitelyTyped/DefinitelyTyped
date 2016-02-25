@@ -1,6 +1,6 @@
-// Type definitions for react-router v2.0.0-rc5
+// Type definitions for react-router v2.0.0
 // Project: https://github.com/rackt/react-router
-// Definitions by: Sergey Buturlakin <http://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>
+// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>, Nathan Brown <https://github.com/ngbrown>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -195,6 +195,10 @@ declare namespace ReactRouter {
     interface IndexRedirectElement extends React.ReactElement<IndexRedirectProps> {}
     const IndexRedirect: IndexRedirect
 
+    interface RouterOnContext extends H.History {
+        setRouteLeaveHook(route: PlainRoute, hook?: RouteHook): () => void;
+        isActive(pathOrLoc: H.LocationDescriptor, indexOnly?: boolean): boolean;
+    }
 
     /* mixins */
 
