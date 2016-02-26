@@ -1,6 +1,6 @@
 /// <reference path="./react-router-redux.d.ts" />
 /// <reference path="../redux/redux.d.ts" />
-/// <reference path="../react-dom/react-dom.d.ts" />
+/// <reference path="../react/react-dom.d.ts" />
 
 import { createStore, combineReducers } from 'redux';
 import { browserHistory } from 'react-router';
