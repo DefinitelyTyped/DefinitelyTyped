@@ -85,7 +85,7 @@ declare module chrome.app.window {
         frame?: any; // string ("none", "chrome") or FrameOptions
         bounds?: ContentBounds;
         alphaEnabled?: boolean;
-        state?: string; // "normal", "fullscreen", "maximized", "minimized" 
+        state?: string; // "normal", "fullscreen", "maximized", "minimized"
         hidden?: boolean;
         resizable?: boolean;
         singleton?: boolean;
@@ -345,6 +345,91 @@ declare module chrome.sockets.tcpServer {
 
     var onAccept: chrome.events.Event<(args: AcceptEventArgs) => void>;
     var onAcceptError: chrome.events.Event<(args: AcceptErrorEventArgs) => void>;
+}
+
+////////////////////
+// System Display
+////////////////////
+/**
+ * Use the system.display API to query display metadata.
+ * Permissions: "system.display"
+ * @since Chrome 30.
+ */
+declare module chrome.system.display {
+    interface Bounds {
+        /**  The x-coordinate of the upper-left corner. */
+        left: number;
+        /**  The y-coordinate of the upper-left corner. */
+        top: number;
+        /** The width of the display in pixels. */
+        width: number;
+        /** The height of the display in pixels. */
+        height: number;
+    }
+
+    interface Insets {
+        /** The x-axis distance from the left bound. */
+        left: number;
+        /** The y-axis distance from the top bound. */
+        top: number;
+        /** The x-axis distance from the right bound. */
+        right: number;
+        /** The y-axis distance from the bottom bound. */
+        bottom: number;
+    }
+
+    interface DisplayInfo {
+        /** The unique identifier of the display. */
+        id: string;
+        /** The user-friendly name (e.g. "HP LCD monitor"). */
+        name: string;
+        /** Identifier of the display that is being mirrored on the display unit. If mirroring is not in progress, set to an empty string. Currently exposed only on ChromeOS. Will be empty string on other platforms. */
+        mirroringSourceId: string;
+        /** True if this is the primary display. */
+        isPrimary: boolean;
+        /** True if this is an internal display. */
+        isInternal: boolean;
+        /** True if this display is enabled. */
+        isEnabled: boolean;
+        /** The number of pixels per inch along the x-axis. */
+        dpiX: number;
+        /** The number of pixels per inch along the y-axis. */
+        dpiY: number;
+        /** The display's clockwise rotation in degrees relative to the vertical position. Currently exposed only on ChromeOS. Will be set to 0 on other platforms. */
+        rotation: number;
+        /** The display's logical bounds. */
+        bounds: Bounds;
+        /** The display's insets within its screen's bounds. Currently exposed only on ChromeOS. Will be set to empty insets on other platforms. */
+        overscan: Insets;
+        /** The usable work area of the display within the display bounds. The work area excludes areas of the display reserved for OS, for example taskbar and launcher. */
+        workArea: Bounds;
+    }
+
+    /** The information about display properties that should be changed. A property will be changed only if a new value for it is specified in |info|. */
+    interface DisplayProps {
+        /** If set and not empty, starts mirroring between this and the display with the provided id (the system will determine which of the displays is actually mirrored). If set and not empty, stops mirroring between this and the display with the specified id (if mirroring is in progress). If set, no other parameter may be set. */
+        mirroringSourceId?: string;
+        /** If set to true, makes the display primary. No-op if set to false. */
+        isPrimary?: boolean;
+        /** If set, sets the display's overscan insets to the provided values. Note that overscan values may not be negative or larger than a half of the screen's size. Overscan cannot be changed on the internal monitor. It's applied after isPrimary parameter. */
+        overscan?: Insets;
+        /** If set, updates the display's rotation. Legal values are [0, 90, 180, 270]. The rotation is set clockwise, relative to the display's vertical position. It's applied after overscan paramter. */
+        rotation?: number;
+        /** If set, updates the display's logical bounds origin along x-axis. Applied together with boundsOriginY, if boundsOriginY is set. Note that, when updating the display origin, some constraints will be applied, so the final bounds origin may be different than the one set. The final bounds can be retrieved using getInfo. The bounds origin is applied after rotation. The bounds origin cannot be changed on the primary display. Note that is also invalid to set bounds origin values if isPrimary is also set (as isPrimary parameter is applied first). */
+        boundsOriginX?: number;
+        /** If set, updates the display's logical bounds origin along y-axis. See documentation for boundsOriginX parameter. */
+        boundsOriginY?: number;
+    }
+
+    interface DisplayChangedEvent extends chrome.events.Event<() => void> { }
+
+    /** Queries basic CPU information of the system. */
+    export function getInfo(callback: (info: DisplayInfo[]) => void): void;
+
+    /** Updates the properties for the display specified by |id|, according to the information provided in |info|. On failure, runtime.lastError will be set. */
+    export function setDisplayProperties(id: string, info: DisplayInfo, callback?: () => void): void;
+
+    export var onDisplayChanged: DisplayChangedEvent;
 }
 
 ////////////////////

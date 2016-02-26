@@ -435,13 +435,13 @@ declare module SocketIO {
 		 * @param listener A listener that should take one parameter of type Socket
 		 * @return This Namespace
 		 */
-		on( event: 'connection', listener: ( socket: Socket ) => void ): Namespace;
-		
+		on( event: 'connection', listener: ( socket: Socket ) => void ): this;
+
 		/**
 		 * @see on( 'connection', listener )
 		 */
-		on( event: 'connect', listener: ( socket: Socket ) => void ): Namespace;
-		
+		on( event: 'connect', listener: ( socket: Socket ) => void ): this;
+
 		/**
 		 * Base 'on' method to add a listener for an event
 		 * @param event The event that we want to add a listener for
@@ -449,7 +449,7 @@ declare module SocketIO {
 		 * for the callback depend on the event
 		 * @ This Namespace
 		 */
-		on( event: string, listener: Function ): Namespace;
+		on( event: string, listener: Function ): this;
 
 		/**
 		 * Gets a list of clients.

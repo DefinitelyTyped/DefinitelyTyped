@@ -394,6 +394,8 @@ declare module Accounts {
 	function onCreateUser(func: Function): void;
 	function validateLoginAttempt(func: Function): { stop: () => void };
 	function validateNewUser(func: Function): boolean;
+	function loginServicesConfigured(): boolean;
+ 	function onPageLoadLogin(func: Function): void;
 }
 
 declare module App {

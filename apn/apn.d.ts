@@ -96,44 +96,44 @@ declare module "apn" {
 		/**
 		 * Emitted when an error occurs during initialisation of the module, usually due to a problem with the keys and certificates.
 		 */
-		on(event: "error", listener: (error:Error) => void):Connection;
+		on(event: "error", listener: (error:Error) => void):this;
 		/**
 		 * Emitted when the connection socket experiences an error. This may be useful for debugging but no action should be necessary.
 		 */
-		on(event: "socketError", listener: (error:Error) => void):Connection;
+		on(event: "socketError", listener: (error:Error) => void):this;
 		/**
 		 * Emitted when a notification has been sent to Apple - not a guarantee that it has been accepted by Apple, an error relating to it may occur later on. A notification may also be "transmitted" several times if a preceding notification caused an error requiring retransmission.
 		 */
-		on(event: "transmitted", listener: (notification:Notification, decive:Device) => void):Connection;
+		on(event: "transmitted", listener: (notification:Notification, decive:Device) => void):this;
 		/**
 		 * Emitted when all pending notifications have been transmitted to Apple and the pending queue is empty. This may be called more than once if a notification error occurs and notifications must be re-sent.
 		 */
-		on(event: "completed", listener: () => void):Connection;
+		on(event: "completed", listener: () => void):this;
 		/**
 		 * Emitted when Apple returns a notification as invalid but the notification has already been expunged from the cache - usually due to high throughput and indicates that notifications will be getting lost. The parameter is an estimate of how many notifications have been lost. You should experiment with increasing the cache size or enabling ```autoAdjustCache``` if you see this frequently.
 		 * 
 		 * **Note**: With ```autoAdjustCache``` enabled this event will still be emitted when an adjustment is triggered.
 		 */
-		on(event: "cacheTooSmall", listener: (sizeDifference:number) => void):Connection;
+		on(event: "cacheTooSmall", listener: (sizeDifference:number) => void):this;
 		/**
 		 * Emitted when a connection to Apple is successfully established. The parameter indicates the number of open connections. No action is required as the connection is managed internally.
 		 */
-		on(event: "connected", listener: (openSockets:net.Socket[]) => void):Connection;
+		on(event: "connected", listener: (openSockets:net.Socket[]) => void):this;
 		/**
 		 * Emitted when the connection to Apple has been closed, this could be for numerous reasons, for example an error has occurred or the connection has timed out. The parameter is the same as for `connected` and again, no action is required.
 		 */
-		on(event: "disconnected", listener: (openSockets:net.Socket[]) => void):Connection;
+		on(event: "disconnected", listener: (openSockets:net.Socket[]) => void):this;
 		/**
 		 * Emitted when the connectionTimeout option has been specified and no activity has occurred on a socket for a specified duration. The socket will be closed immediately after this event and a `disconnected` event will also be emitted.
 		 */
-		on(event: "timeout", listener: () => void):Connection;
+		on(event: "timeout", listener: () => void):this;
 		/**
 		 * Emitted when a message has been received from Apple stating that a notification was invalid or if an internal error occurred before that notification could be pushed to Apple. If the notification is still in the cache it will be passed as the second argument, otherwise null. Where possible the associated `Device` object will be passed as a third parameter, however in cases where the token supplied to the module cannot be parsed into a `Buffer` the supplied value will be returned.
 
 		 * Error codes smaller than 512 correspond to those returned by Apple as per their [docs][errors]. Other errors are applicable to `node-apn` itself. Definitions can be found in `lib/errors.js`.
 		 */
-		on(event: "transmissionError", listener: (errorCode:number, notification:Notification, device:Device|Buffer) => void):Connection;
-		on(event: string, listener: Function):Connection;
+		on(event: "transmissionError", listener: (errorCode:number, notification:Notification, device:Device|Buffer) => void):this;
+		on(event: string, listener: Function):this;
 	}
 	export interface NotificationAlertOptions {
 		title?:string;

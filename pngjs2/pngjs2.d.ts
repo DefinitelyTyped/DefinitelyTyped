@@ -22,7 +22,7 @@ declare module "pngjs2" {
     colorType?: number;
     inputHasAlpha?: boolean;
   }
-  
+
   interface PNGMetadata {
     width: number;
     height: number;
@@ -40,10 +40,10 @@ declare module "pngjs2" {
     data: Buffer;
     gamma: number;
 
-    on(event: string, callback: Function): PNG;
-    on(event: "metadata", callback: (metadata: PNGMetadata) => void): PNG;
-    on(event: "parsed", callback: (data: Buffer) => void): PNG;
-    on(event: "error", callback: (err: Error) => void): PNG;
+    on(event: string, callback: Function): this;
+    on(event: "metadata", callback: (metadata: PNGMetadata) => void): this;
+    on(event: "parsed", callback: (data: Buffer) => void): this;
+    on(event: "error", callback: (err: Error) => void): this;
 
     parse(data: string|Buffer, callback?: (err: Error, data: Buffer) => void): PNG;
     pack(): PNG;
@@ -55,7 +55,7 @@ declare module "pngjs2" {
     bitblt(dst: PNG, srcX: number, srcY: number,
            width: number, height: number, deltaX: number, deltaY: number): PNG;
   }
-  
+
   export namespace PNG {
     namespace sync {
       function read(buffer: string|Buffer, options?: PNGOptions): PNG;

@@ -1567,3 +1567,13 @@ s.transaction( function() {
 s.transaction( { isolationLevel : 'SERIALIZABLE' }, function( t ) { return Promise.resolve(); } );
 s.transaction( { isolationLevel : s.Transaction.ISOLATION_LEVELS.SERIALIZABLE }, (t) => Promise.resolve() );
 s.transaction( { isolationLevel : s.Transaction.ISOLATION_LEVELS.READ_COMMITTED }, (t) => Promise.resolve() );
+
+// transaction types
+new Sequelize( '', { transactionType: 'DEFERRED' } );
+new Sequelize( '', { transactionType: Sequelize.Transaction.TYPES.DEFERRED} );
+new Sequelize( '', { transactionType: Sequelize.Transaction.TYPES.IMMEDIATE} );
+new Sequelize( '', { transactionType: Sequelize.Transaction.TYPES.EXCLUSIVE} );
+s.transaction( { type : 'DEFERRED' }, (t) => Promise.resolve() );
+s.transaction( { type : s.Transaction.TYPES.DEFERRED }, (t) => Promise.resolve() );
+s.transaction( { type : s.Transaction.TYPES.IMMEDIATE }, (t) => Promise.resolve() );
+s.transaction( { type : s.Transaction.TYPES.EXCLUSIVE }, (t) => Promise.resolve() );
