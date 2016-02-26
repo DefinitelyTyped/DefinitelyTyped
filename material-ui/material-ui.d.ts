@@ -25,7 +25,6 @@ declare module "material-ui" {
     export import DatePicker = __MaterialUI.DatePicker.DatePicker; // require('material-ui/lib/date-picker/date-picker');
     export import DatePickerDialog = __MaterialUI.DatePicker.DatePickerDialog; // require('material-ui/lib/date-picker/date-picker-dialog');
     export import Dialog = __MaterialUI.Dialog // require('material-ui/lib/dialog');
-    export import DropDownIcon = __MaterialUI.DropDownIcon; // require('material-ui/lib/drop-down-icon');
     export import DropDownMenu = __MaterialUI.Menus.DropDownMenu; // require('material-ui/lib/DropDownMenu/DropDownMenu');
     export import EnhancedButton = __MaterialUI.EnhancedButton; // require('material-ui/lib/enhanced-button');
     export import FlatButton = __MaterialUI.FlatButton; // require('material-ui/lib/flat-button');
@@ -38,8 +37,8 @@ declare module "material-ui" {
     export import List = __MaterialUI.Lists.List; // require('material-ui/lib/lists/list');
     export import ListDivider = __MaterialUI.Lists.ListDivider; // require('material-ui/lib/lists/list-divider');
     export import ListItem = __MaterialUI.Lists.ListItem; // require('material-ui/lib/lists/list-item');
-    export import Menu = __MaterialUI.Menu.Menu; // require('material-ui/lib/menu/menu');
-    export import MenuItem = __MaterialUI.Menu.MenuItem; // require('material-ui/lib/menu/menu-item');
+    export import Menu = __MaterialUI.Menus.Menu; // require('material-ui/lib/menus/menu');
+    export import MenuItem = __MaterialUI.Menus.MenuItem; // require('material-ui/lib/menus/menu-item');
     export import Mixins = __MaterialUI.Mixins; // require('material-ui/lib/mixins/');
     export import Overlay = __MaterialUI.Overlay; // require('material-ui/lib/overlay');
     export import Paper = __MaterialUI.Paper; // require('material-ui/lib/paper');
@@ -440,24 +439,10 @@ declare namespace __MaterialUI {
     export class Divider extends React.Component<DividerProps, {}>{
     }
 
-    interface DropDownIconProps extends React.Props<DropDownIcon> {
-        menuItems: Menu.MenuItemRequest[];
-        closeOnMenuItemTouchTap?: boolean;
-        iconStyle?: React.CSSProperties;
-        iconClassName?: string;
-        iconLigature?: string;
-
-        onChange?: Menu.ItemTapEventHandler;
-    }
-    export class DropDownIcon extends React.Component<DropDownIconProps, {}> {
-    }
-
     interface DropDownMenuProps extends React.Props<DropDownMenu> {
         displayMember?: string;
         valueMember?: string;
         autoWidth?: boolean;
-        menuItems: Menu.MenuItemRequest[];
-        menuItemStyle?: React.CSSProperties;
         selectedIndex?: number;
         underlineStyle?: React.CSSProperties;
         iconStyle?: React.CSSProperties;
@@ -466,8 +451,6 @@ declare namespace __MaterialUI {
         disabled?: boolean;
         valueLink?: ReactLink<any>;
         value?: any;
-
-        onChange?: Menu.ItemTapEventHandler;
     }
     export class DropDownMenu extends React.Component<DropDownMenuProps, {}> {
     }
@@ -565,8 +548,6 @@ declare namespace __MaterialUI {
         docked?: boolean;
         open?: boolean;
         header?: React.ReactElement<any>;
-        menuItems?: Menu.MenuItemRequest[];
-        onChange?: Menu.ItemTapEventHandler;
         onNavOpen?: () => void;
         onNavClose?: () => void;
         onRequestChange?: (t: boolean) => void;
@@ -646,71 +627,6 @@ declare namespace __MaterialUI {
 
         // union types for higher order components in TypeScript 1.8: https://github.com/Microsoft/TypeScript/issues/4362
         export function SelectableContainerEnhance<P extends {}>(component: React.ComponentClass<P>): React.ComponentClass<P & SelectableProps>;
-    }
-
-    // Old menu implementation.  Being replaced by new "menus".
-    namespace Menu {
-        interface ItemTapEventHandler {
-            (e: TouchTapEvent, index: number, menuItem: MenuItemRequest): void;
-        }
-
-        // almost extends MenuItemProps, but certain required items are generated in Menu and not passed here.
-        interface MenuItemRequest extends React.Props<MenuItem> {
-            // use value from MenuItem.Types.*
-            type?: string;
-
-            text?: string;
-            data?: string;
-            payload?: string;
-            icon?: React.ReactElement<any>;
-            attribute?: string;
-            number?: string;
-            toggle?: boolean;
-            onTouchTap?: TouchTapEventHandler;
-            isDisabled?: boolean;
-            style?: React.CSSProperties;
-
-            // for MenuItems.Types.NESTED
-            items?: MenuItemRequest[];
-
-            // for custom text or payloads
-            [propertyName: string]: any;
-        }
-
-        interface MenuProps extends React.Props<Menu> {
-            index: number;
-            text?: string;
-            menuItems: MenuItemRequest[];
-            zDepth?: number;
-            active?: boolean;
-            onItemTap?: ItemTapEventHandler;
-            menuItemStyle?: React.CSSProperties;
-            style?: React.CSSProperties;
-        }
-        export class Menu extends React.Component<MenuProps, {}> {
-        }
-
-        interface MenuItemProps extends React.Props<MenuItem> {
-            index: number;
-            icon?: React.ReactElement<any>;
-            iconClassName?: string;
-            iconRightClassName?: string;
-            iconStyle?: React.CSSProperties;
-            iconRightStyle?: React.CSSProperties;
-            attribute?: string;
-            number?: string;
-            data?: string;
-            toggle?: boolean;
-            onTouchTap?: (e: React.MouseEvent, key: number) => void;
-            onToggle?: (e: React.MouseEvent, key: number, toggled: boolean) => void;
-            selected?: boolean;
-            active?: boolean;
-            style?: React.CSSProperties;
-            value?: any;
-        }
-        export class MenuItem extends React.Component<MenuItemProps, {}> {
-            static Types: { LINK: string, SUBHEADER: string, NESTED: string, }
-        }
     }
 
     export namespace Mixins {
@@ -847,8 +763,6 @@ declare namespace __MaterialUI {
         displayMember?: string;
         valueMember?: string;
         autoWidth?: boolean;
-        menuItems?: Menu.MenuItemRequest[];
-        menuItemStyle?: React.CSSProperties;
         selectedIndex?: number;
         underlineStyle?: React.CSSProperties;
         iconStyle?: React.CSSProperties;
@@ -1719,17 +1633,17 @@ declare module 'material-ui/lib/dialog' {
     export default Dialog;
 }
 
-declare module 'material-ui/lib/drop-down-icon' {
-    export import DropDownIcon = __MaterialUI.DropDownIcon;
-    export default DropDownIcon;
-}
-
 declare module 'material-ui/lib/drop-down-menu' {
-    export import DropDownMenu = __MaterialUI.DropDownMenu;
+    export import DropDownMenu = __MaterialUI.Menus.DropDownMenu;
     export default DropDownMenu;
 }
 
 declare module 'material-ui/lib/DropDownMenu/DropDownMenu' {
+    export import DropDownMenu = __MaterialUI.Menus.DropDownMenu;
+    export default DropDownMenu;
+}
+
+declare module 'material-ui/lib/DropDownMenu' {
     export import DropDownMenu = __MaterialUI.Menus.DropDownMenu;
     export default DropDownMenu;
 }
@@ -1787,16 +1701,6 @@ declare module 'material-ui/lib/lists/list-divider' {
 declare module 'material-ui/lib/lists/list-item' {
     export import ListItem = __MaterialUI.Lists.ListItem;
     export default ListItem;
-}
-
-declare module 'material-ui/lib/menu/menu' {
-    export import Menu = __MaterialUI.Menu.Menu;
-    export default Menu;
-}
-
-declare module 'material-ui/lib/menu/menu-item' {
-    export import MenuItem = __MaterialUI.Menu.MenuItem;
-    export default MenuItem;
 }
 
 declare module 'material-ui/lib/mixins/' {
