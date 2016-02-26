@@ -1170,6 +1170,7 @@ declare namespace __MaterialUI {
     namespace Table {
         interface TableProps extends React.Props<Table> {
             allRowsSelected?: boolean;
+            className?: string;
             fixedFooter?: boolean;
             fixedHeader?: boolean;
             height?: string;
@@ -1188,6 +1189,7 @@ declare namespace __MaterialUI {
 
         interface TableBodyProps extends React.Props<TableBody> {
             allRowsSelected?: boolean;
+            className?: string;
             deselectOnClickaway?: boolean;
             displayRowCheckbox?: boolean;
             multiSelectable?: boolean;
@@ -1208,6 +1210,7 @@ declare namespace __MaterialUI {
 
         interface TableFooterProps extends React.Props<TableFooter> {
             adjustForCheckbox?: boolean;
+            className?: string;
             style?: React.CSSProperties;
         }
         export class TableFooter extends React.Component<TableFooterProps, {}> {
@@ -1215,6 +1218,7 @@ declare namespace __MaterialUI {
 
         interface TableHeaderProps extends React.Props<TableHeader> {
             adjustForCheckbox?: boolean;
+            className?: string;
             displaySelectAll?: boolean;
             enableSelectAll?: boolean;
             onSelectAll?: (event: React.MouseEvent) => void;
@@ -1225,6 +1229,8 @@ declare namespace __MaterialUI {
         }
 
         interface TableHeaderColumnProps extends React.Props<TableHeaderColumn> {
+            className?: string;
+            colSpan?: number;
             columnNumber?: number;
             onClick?: (e: React.MouseEvent, column: number) => void;
             style?: React.CSSProperties;
@@ -1235,6 +1241,7 @@ declare namespace __MaterialUI {
         }
 
         interface TableRowProps extends React.Props<TableRow> {
+            className?: string;
             displayBorder?: boolean;
             hoverable?: boolean;
             onCellClick?: (e: React.MouseEvent, row: number, column: number) => void;
@@ -1253,6 +1260,8 @@ declare namespace __MaterialUI {
         }
 
         interface TableRowColumnProps extends React.Props<TableRowColumn> {
+            className?: string;
+            colSpan?: number;
             columnNumber?: number;
             hoverable?: boolean;
             onHover?: (e: React.MouseEvent, column: number) => void;
