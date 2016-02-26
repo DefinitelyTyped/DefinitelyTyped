@@ -441,7 +441,8 @@ class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implemen
         element = <SelectField
             value = { 0 }
             onChange = { this.selectFieldChangeHandler }
-            hintText = "Hint Text">
+            hintText = "Hint Text"
+            hintStyle = {{ fontSize: 10 }}>
                 arbitraryArrayMenuItems
             </SelectField>;
         element = <SelectField
@@ -468,6 +469,10 @@ class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implemen
         //Floating Hint Text Labels
         element = <TextField
             hintText = "Hint Text"
+            floatingLabelText = "Floating Label Text" />;
+        element = <TextField
+            hintText = "Hint Text"
+            hintStyle = {{fontSize: 10}}
             floatingLabelText = "Floating Label Text" />;
         element = <TextField
             hintText="Hint Text"

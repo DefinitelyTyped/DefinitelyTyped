@@ -1079,6 +1079,7 @@ declare namespace __MaterialUI {
         floatingLabelStyle?: React.CSSProperties;
         floatingLabelText?: string;
         fullWidth?: boolean;
+        hintStyle?: React.CSSProperties;
         hintText?: string | React.ReactElement<any>;
         iconStyle?: React.CSSProperties;
         inputStyle?: React.CSSProperties;
