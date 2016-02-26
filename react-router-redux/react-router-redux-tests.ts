@@ -1,20 +1,15 @@
 /// <reference path="./react-router-redux.d.ts" />
 /// <reference path="../redux/redux.d.ts" />
-/// <reference path="../react-router/react-router.d.ts" />
+/// <reference path="../react-dom/react-dom.d.ts" />
 
-
-
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { browserHistory } from 'react-router';
-import { syncHistory, routeReducer } from 'react-router-redux';
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
-const reducer = combineReducers({ routing: routeReducer });
+const store = createStore(
+  combineReducers({
+    routing: routerReducer
+  })
+);
 
-// Sync dispatched route actions to the history
-const reduxRouterMiddleware = syncHistory(browserHistory);
-const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware)(createStore);
-
-const store = createStoreWithMiddleware(reducer);
-
-// Required for replaying actions from devtools to
-reduxRouterMiddleware.listenForReplays(store);
+const history = syncHistoryWithStore(browserHistory, store);
