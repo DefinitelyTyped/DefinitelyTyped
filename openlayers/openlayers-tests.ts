@@ -1,4 +1,4 @@
-﻿/// <reference path="openlayers.d.ts" />
+/// <reference path="openlayers.d.ts" />
 
 // Basic type variables for test functions
 var voidValue: void;
@@ -155,20 +155,29 @@ voidValue = geometryCollection.setGeometries(geometriesArray);
 // ol.geom.LinearRing
 //
 linearRing = new ol.geom.LinearRing(coordinatesArray);
-linearRing = new ol.geom.LinearRing(coordinatesArray, geometryLayout);
+linearRing = new ol.geom.LinearRing(coordinatesArray, ol.geom.GeometryLayout.XY);
+linearRing = new ol.geom.LinearRing(coordinatesArray, ol.geom.GeometryLayout.XYM);
+linearRing = new ol.geom.LinearRing(coordinatesArray, ol.geom.GeometryLayout.XYZ);
+linearRing = new ol.geom.LinearRing(coordinatesArray, ol.geom.GeometryLayout.XYZM);
 linearRing = linearRing.clone();
 numberValue = linearRing.getArea();
 coordinatesArray = linearRing.getCoordinates();
 geometryType = linearRing.getType();
 voidValue = linearRing.setCoordinates(coordinatesArray);
-voidValue = linearRing.setCoordinates(coordinatesArray, geometryLayout);
+voidValue = linearRing.setCoordinates(coordinatesArray, ol.geom.GeometryLayout.XY);
+voidValue = linearRing.setCoordinates(coordinatesArray, ol.geom.GeometryLayout.XYM);
+voidValue = linearRing.setCoordinates(coordinatesArray, ol.geom.GeometryLayout.XYZ);
+voidValue = linearRing.setCoordinates(coordinatesArray, ol.geom.GeometryLayout.XYZM);
 
 //
 //
 // ol.geom.LineString
 //
 lineString = new ol.geom.LineString(coordinatesArray);
-lineString = new ol.geom.LineString(coordinatesArray, geometryLayout);
+lineString = new ol.geom.LineString(coordinatesArray, ol.geom.GeometryLayout.XY);
+lineString = new ol.geom.LineString(coordinatesArray, ol.geom.GeometryLayout.XYM);
+lineString = new ol.geom.LineString(coordinatesArray, ol.geom.GeometryLayout.XYZ);
+lineString = new ol.geom.LineString(coordinatesArray, ol.geom.GeometryLayout.XYZM);
 voidValue = lineString.appendCoordinate(coordinate);
 lineString = lineString.clone();
 coordinate = lineString.getCoordinateAtM(numberValue);
@@ -178,7 +187,10 @@ numberValue = lineString.getLength();
 geometryType = lineString.getType();
 booleanValue = lineString.intersectsExtent(extent);
 voidValue = lineString.setCoordinates(coordinatesArray);
-voidValue = lineString.setCoordinates(coordinatesArray, geometryLayout);
+voidValue = lineString.setCoordinates(coordinatesArray, ol.geom.GeometryLayout.XY);
+voidValue = lineString.setCoordinates(coordinatesArray, ol.geom.GeometryLayout.XYM);
+voidValue = lineString.setCoordinates(coordinatesArray, ol.geom.GeometryLayout.XYZ);
+voidValue = lineString.setCoordinates(coordinatesArray, ol.geom.GeometryLayout.XYZM);
 
 //
 //
@@ -187,7 +199,10 @@ voidValue = lineString.setCoordinates(coordinatesArray, geometryLayout);
 var lineStringsArray: Array<ol.geom.LineString>;
 
 multiLineString = new ol.geom.MultiLineString(coordinatesArrayDim2);
-multiLineString = new ol.geom.MultiLineString(coordinatesArrayDim2, geometryLayout);
+multiLineString = new ol.geom.MultiLineString(coordinatesArrayDim2, ol.geom.GeometryLayout.XY);
+multiLineString = new ol.geom.MultiLineString(coordinatesArrayDim2, ol.geom.GeometryLayout.XYM);
+multiLineString = new ol.geom.MultiLineString(coordinatesArrayDim2, ol.geom.GeometryLayout.XYZ);
+multiLineString = new ol.geom.MultiLineString(coordinatesArrayDim2, ol.geom.GeometryLayout.XYZM);
 voidValue = multiLineString.appendLineString(lineString);
 multiLineString = multiLineString.clone();
 coordinate = multiLineString.getCoordinateAtM(numberValue);
@@ -199,7 +214,10 @@ lineStringsArray = multiLineString.getLineStrings();
 geometryType = multiLineString.getType();
 booleanValue = multiLineString.intersectsExtent(extent);
 voidValue = multiLineString.setCoordinates(coordinatesArrayDim2);
-voidValue = multiLineString.setCoordinates(coordinatesArrayDim2, geometryLayout);
+voidValue = multiLineString.setCoordinates(coordinatesArrayDim2, ol.geom.GeometryLayout.XY);
+voidValue = multiLineString.setCoordinates(coordinatesArrayDim2, ol.geom.GeometryLayout.XYM);
+voidValue = multiLineString.setCoordinates(coordinatesArrayDim2, ol.geom.GeometryLayout.XYZ);
+voidValue = multiLineString.setCoordinates(coordinatesArrayDim2, ol.geom.GeometryLayout.XYZM);
 
 //
 //
@@ -208,7 +226,10 @@ voidValue = multiLineString.setCoordinates(coordinatesArrayDim2, geometryLayout)
 var pointsArray: Array<ol.geom.Point>;
 
 multiPoint = new ol.geom.MultiPoint(coordinatesArray);
-multiPoint = new ol.geom.MultiPoint(coordinatesArray, geometryLayout);
+multiPoint = new ol.geom.MultiPoint(coordinatesArray, ol.geom.GeometryLayout.XY);
+multiPoint = new ol.geom.MultiPoint(coordinatesArray, ol.geom.GeometryLayout.XYM);
+multiPoint = new ol.geom.MultiPoint(coordinatesArray, ol.geom.GeometryLayout.XYZ);
+multiPoint = new ol.geom.MultiPoint(coordinatesArray, ol.geom.GeometryLayout.XYZM);
 voidValue = multiPoint.appendPoint(point);
 multiPoint = multiPoint.clone();
 coordinatesArray = multiPoint.getCoordinates();
@@ -217,7 +238,10 @@ pointsArray = multiPoint.getPoints();
 geometryType = multiPoint.getType();
 booleanValue = multiPoint.intersectsExtent(extent);
 voidValue = multiPoint.setCoordinates(coordinatesArray);
-voidValue = multiPoint.setCoordinates(coordinatesArray, geometryLayout);
+voidValue = multiPoint.setCoordinates(coordinatesArray, ol.geom.GeometryLayout.XY);
+voidValue = multiPoint.setCoordinates(coordinatesArray, ol.geom.GeometryLayout.XYM);
+voidValue = multiPoint.setCoordinates(coordinatesArray, ol.geom.GeometryLayout.XYZ);
+voidValue = multiPoint.setCoordinates(coordinatesArray, ol.geom.GeometryLayout.XYZM);
 
 //
 //
@@ -227,7 +251,10 @@ var coordinatesArrayDim3: Array<Array<Array<ol.Coordinate>>>;
 var polygonsArray: Array<ol.geom.Polygon>;
 
 multiPolygon = new ol.geom.MultiPolygon(coordinatesArrayDim3);
-multiPolygon = new ol.geom.MultiPolygon(coordinatesArrayDim3, geometryLayout);
+multiPolygon = new ol.geom.MultiPolygon(coordinatesArrayDim3, ol.geom.GeometryLayout.XY);
+multiPolygon = new ol.geom.MultiPolygon(coordinatesArrayDim3, ol.geom.GeometryLayout.XYM);
+multiPolygon = new ol.geom.MultiPolygon(coordinatesArrayDim3, ol.geom.GeometryLayout.XYZ);
+multiPolygon = new ol.geom.MultiPolygon(coordinatesArrayDim3, ol.geom.GeometryLayout.XYZM);
 voidValue = multiPolygon.appendPolygon(polygon);
 multiPolygon = multiPolygon.clone();
 numberValue = multiPolygon.getArea();
@@ -239,20 +266,29 @@ polygonsArray = multiPolygon.getPolygons();
 geometryType = multiPolygon.getType();
 booleanValue = multiPolygon.intersectsExtent(extent);
 voidValue = multiPolygon.setCoordinates(coordinatesArrayDim3);
-voidValue = multiPolygon.setCoordinates(coordinatesArrayDim3, geometryLayout);
+voidValue = multiPolygon.setCoordinates(coordinatesArrayDim3, ol.geom.GeometryLayout.XY);
+voidValue = multiPolygon.setCoordinates(coordinatesArrayDim3, ol.geom.GeometryLayout.XYM);
+voidValue = multiPolygon.setCoordinates(coordinatesArrayDim3, ol.geom.GeometryLayout.XYZ);
+voidValue = multiPolygon.setCoordinates(coordinatesArrayDim3, ol.geom.GeometryLayout.XYZM);
 
 //
 //
 // ol.geom.Point
 //
 point = new ol.geom.Point(coordinate);
-point = new ol.geom.Point(coordinate, geometryLayout);
+point = new ol.geom.Point(coordinate, ol.geom.GeometryLayout.XY);
+point = new ol.geom.Point(coordinate, ol.geom.GeometryLayout.XYM);
+point = new ol.geom.Point(coordinate, ol.geom.GeometryLayout.XYZ);
+point = new ol.geom.Point(coordinate, ol.geom.GeometryLayout.XYZM);
 point = point.clone();
 coordinate = point.getCoordinates();
 geometryType = point.getType();
 booleanValue = point.intersectsExtent(extent);
 voidValue = point.setCoordinates(coordinate);
-voidValue = point.setCoordinates(coordinate, geometryLayout);
+voidValue = point.setCoordinates(coordinate, ol.geom.GeometryLayout.XY);
+voidValue = point.setCoordinates(coordinate, ol.geom.GeometryLayout.XYM);
+voidValue = point.setCoordinates(coordinate, ol.geom.GeometryLayout.XYZ);
+voidValue = point.setCoordinates(coordinate, ol.geom.GeometryLayout.XYZM);
 
 //
 //
@@ -262,7 +298,10 @@ var localSphere: ol.Sphere;
 var linearRingsArray: Array<ol.geom.LinearRing>;
 
 polygon = new ol.geom.Polygon(coordinatesArrayDim2);
-polygon = new ol.geom.Polygon(coordinatesArrayDim2, geometryLayout);
+polygon = new ol.geom.Polygon(coordinatesArrayDim2, ol.geom.GeometryLayout.XY);
+polygon = new ol.geom.Polygon(coordinatesArrayDim2, ol.geom.GeometryLayout.XYM);
+polygon = new ol.geom.Polygon(coordinatesArrayDim2, ol.geom.GeometryLayout.XYZ);
+polygon = new ol.geom.Polygon(coordinatesArrayDim2, ol.geom.GeometryLayout.XYZM);
 polygon = ol.geom.Polygon.circular(localSphere, coordinate, numberValue);
 polygon = ol.geom.Polygon.circular(localSphere, coordinate, numberValue, numberValue);
 voidValue = polygon.appendLinearRing(linearRing);
@@ -354,7 +393,8 @@ map.beforeRender(preRenderFunction);
 //
 var imageWMS: ol.source.ImageWMS = new ol.source.ImageWMS({
     serverType: stringValue,
-    url:stringValue
+    url:stringValue,
+    params: {}
 });
 //
 // ol.source.TileWMS
@@ -369,7 +409,10 @@ var tileWMS: ol.source.TileWMS = new ol.source.TileWMS({
 // ol.source.WMTS
 //
 var wmts: ol.source.WMTS = new ol.source.WMTS({
-   tileGrid: new ol.tilegrid.WMTS({}),
+   tileGrid: new ol.tilegrid.WMTS({
+       resolutions: [],
+       matrixIds: []
+   }),
    layer: "",
    style: "",
    matrixSet: "",
@@ -439,7 +482,7 @@ easingFunction = ol.easing.upAndDown;
 var geolocation: ol.Geolocation = new ol.Geolocation({
     projection: projection
 });
-geolocation.on('change', function (evt) {
+geolocation.on('change', (evt: any) => {
     window.console.log(geolocation.getPosition());
 });
 
@@ -463,7 +506,7 @@ graticule.setMap(graticuleMap);
 var deviceOrientation: ol.DeviceOrientation = new ol.DeviceOrientation({
     tracking: true,
 });
-deviceOrientation.on('change', function (evt) {
+deviceOrientation.on('change', (evt: any) => {
     window.console.log(deviceOrientation.getHeading());
 });
 
@@ -479,13 +522,21 @@ var popupElement: Element = popup.getElement();
 var popupMap: ol.Map = popup.getMap();
 var popupOffset: Array<number> = popup.getOffset();
 coordinate = popup.getPosition();
-var popupPositioning: ol.OverlayPositioning = popup.getPositioning();
+var popupPositioning = popup.getPositioning();
 popup.setElement(popupElement);
 popup.setMap(popupMap);
 popup.setOffset(popupOffset);
 popup.setPosition(coordinate);
 popup.setPositioning(popupPositioning);
-
+popup.setPositioning(ol.OverlayPositioning.BOTTOM_CENTER);
+popup.setPositioning(ol.OverlayPositioning.BOTTOM_LEFT);
+popup.setPositioning(ol.OverlayPositioning.BOTTOM_RIGHT);
+popup.setPositioning(ol.OverlayPositioning.CENTER_CENTER);
+popup.setPositioning(ol.OverlayPositioning.CENTER_LEFT);
+popup.setPositioning(ol.OverlayPositioning.CENTER_RIGHT);
+popup.setPositioning(ol.OverlayPositioning.TOP_CENTER);
+popup.setPositioning(ol.OverlayPositioning.TOP_LEFT);
+popup.setPositioning(ol.OverlayPositioning.TOP_RIGHT);
 
 //
 // ol.format.GeoJSON
