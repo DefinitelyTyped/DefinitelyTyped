@@ -221,11 +221,11 @@ declare module NodeJS {
         intercept(cb: (data: any) => any): any;
         dispose(): void;
 
-        addListener(event: string, listener: Function): Domain;
-        on(event: string, listener: Function): Domain;
-        once(event: string, listener: Function): Domain;
-        removeListener(event: string, listener: Function): Domain;
-        removeAllListeners(event?: string): Domain;
+        addListener(event: string, listener: Function): this;
+        on(event: string, listener: Function): this;
+        once(event: string, listener: Function): this;
+        removeListener(event: string, listener: Function): this;
+        removeAllListeners(event?: string): this;
     }
 
     export interface Process extends EventEmitter {
