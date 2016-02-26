@@ -10,30 +10,32 @@ declare namespace __React {
     // ----------------------------------------------------------------------
 
     type ReactType = string | ComponentClass<any> | StatelessComponent<any>;
+    type Key = string | number;
+    type Ref<T> = string | ((instance: T) => any);
 
     interface ReactElement<P extends Props<any>> {
         type: string | ComponentClass<P> | StatelessComponent<P>;
         props: P;
-        key: string | number;
-        ref: string | ((component: Component<P, any> | Element) => any);
+        key: Key;
+        ref: Ref<Component<P, any> | Element>;
     }
 
     interface ClassicElement<P> extends ReactElement<P> {
         type: ClassicComponentClass<P>;
-        ref: string | ((component: ClassicComponent<P, any>) => any);
+        ref: Ref<ClassicComponent<P, any>>;
     }
 
     interface DOMElement<P extends Props<Element>> extends ReactElement<P> {
         type: string;
-        ref: string | ((element: Element) => any);
+        ref: Ref<Element>;
     }
 
     interface ReactHTMLElement extends DOMElement<HTMLProps<HTMLElement>> {
-        ref: string | ((element: HTMLElement) => any);
+        ref: Ref<HTMLElement>;
     }
 
     interface ReactSVGElement extends DOMElement<SVGProps> {
-        ref: string | ((element: SVGElement) => any);
+        ref: Ref<SVGElement>;
     }
 
     //
@@ -321,8 +323,8 @@ declare namespace __React {
 
     interface Props<T> {
         children?: ReactNode;
-        key?: string | number;
-        ref?: string | ((component: T) => any);
+        key?: Key;
+        ref?: Ref<T>;
     }
 
     interface HTMLProps<T> extends HTMLAttributes, Props<T> {
@@ -2133,11 +2135,11 @@ declare namespace JSX {
     interface ElementAttributesProperty { props: {}; }
 
     interface IntrinsicAttributes {
-        key?: string | number;
+        key?: React.Key;
     }
 
     interface IntrinsicClassAttributes<T> {
-        ref?: string | ((classInstance: T) => void);
+        ref?: React.Ref<T>;
     }
 
     interface IntrinsicElements {
