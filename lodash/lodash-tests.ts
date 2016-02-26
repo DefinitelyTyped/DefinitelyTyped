@@ -6371,6 +6371,26 @@ module TestIsBoolean {
     }
 }
 
+// _.isBuffer
+module TestIsBuffer {
+    {
+        let result: boolean;
+
+        result = _.isBuffer(any);
+        result = _(1).isBuffer();
+        result = _<any>([]).isBuffer();
+        result = _({}).isBuffer();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isBuffer();
+        result = _<any>([]).chain().isBuffer();
+        result = _({}).chain().isBuffer();
+    }
+}
+
 // _.isDate
 module TestIsBoolean {
     {
