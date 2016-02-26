@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "./target",
+    "jsx": "react",
+    "target": "es6"
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
