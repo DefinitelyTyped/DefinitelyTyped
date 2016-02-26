@@ -34,6 +34,7 @@ import IconMenu from "material-ui/lib/menus/icon-menu";
 import Menu from 'material-ui/lib/menus/menu';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import Divider from 'material-ui/lib/divider';
+import ThemeDecorator from 'material-ui/lib/styles/theme-decorator';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import GridList from 'material-ui/lib/grid-list/grid-list';
 import GridTile from 'material-ui/lib/grid-list/grid-tile';
@@ -57,6 +58,17 @@ interface MaterialUiTestsState {
     value: number;
 }
 
+// "http://material-ui.com/#/customization/themes"
+let muiTheme: MuiTheme = ThemeManager.getMuiTheme({
+    palette: {
+        accent1Color: Colors.cyan100
+    },
+    spacing: {
+
+    }
+});
+
+@ThemeDecorator(muiTheme)
 class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implements React.LinkedStateMixin {
 
     // injected with mixin
@@ -74,16 +86,6 @@ class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implemen
     }
 
     render() {
-
-        // "http://material-ui.com/#/customization/themes"
-        let muiTheme: MuiTheme = ThemeManager.getMuiTheme({
-            palette: {
-                accent1Color: Colors.cyan100
-            },
-            spacing: {
-
-            }
-        });
 
         // "http://material-ui.com/#/customization/inline-styles"
         let element: React.ReactElement<any>;
