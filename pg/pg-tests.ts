@@ -1,6 +1,10 @@
 /// <reference path="pg.d.ts" />
-import pg = require("pg");
+import * as pg from "pg";
+
 var conString = "postgres://username:password@localhost/database";
+
+// https://github.com/brianc/node-pg-types
+pg.types.setTypeParser(20, (val) => Number(val));
 
 // Client pooling
 pg.connect(conString, (err, client, done) => {
