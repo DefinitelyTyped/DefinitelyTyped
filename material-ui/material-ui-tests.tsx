@@ -54,6 +54,7 @@ interface MaterialUiTestsState {
     showDialogStandardActions: boolean;
     showDialogCustomActions: boolean;
     showDialogScrollable: boolean;
+    value: number;
 }
 
 class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implements React.LinkedStateMixin {
@@ -247,14 +248,13 @@ class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implemen
 
 
         // "http://material-ui.com/#/components/dropdown-menu"
-        let menuItems = [
-            { payload: '1', text: 'Never' },
-            { payload: '2', text: 'Every Night' },
-            { payload: '3', text: 'Weeknights' },
-            { payload: '4', text: 'Weekends' },
-            { payload: '5', text: 'Weekly' },
-        ];
-        element = <DropDownMenu menuItems={menuItems} />;
+        element =   <DropDownMenu value={this.state.value} onChange={(e, i, v) => this.touchTapEventHandler(e)}>
+                        <MenuItem value={1} primaryText="Never"/>
+                        <MenuItem value={2} primaryText="Every Night"/>
+                        <MenuItem value={3} primaryText="Weeknights"/>
+                        <MenuItem value={4} primaryText="Weekends"/>
+                        <MenuItem value={5} primaryText="Weekly"/>
+                    </DropDownMenu>;
 
         // "http://material-ui.com/#/components/icons"
         element = <MaterialUi.Icons.NavigationMenu />;
@@ -432,35 +432,36 @@ class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implemen
             disabled={true}
             defaultValue="Disabled With Value" />;
 
-        //Select Fields
+        // "http://www.material-ui.com/#/components/select-field"
         let arbitraryArrayMenuItems = [
-            {
-                id: 0,
-                name: "zero",
-            },
+            <MenuItem value={1} primaryText="Never"/>,
         ];
         element = <SelectField
             value = { 0 }
             onChange = { this.selectFieldChangeHandler }
-            hintText = "Hint Text"
-            menuItems = { menuItems } />;
+            hintText = "Hint Text">
+                arbitraryArrayMenuItems
+            </SelectField>;
         element = <SelectField
             valueLink={this.linkState('selectValueLinkValue') }
             floatingLabelText="Float Label Text"
             valueMember="id"
-            displayMember="name"
-            menuItems={arbitraryArrayMenuItems} />;
+            displayMember="name">
+                arbitraryArrayMenuItems
+            </SelectField>;
         element = <SelectField
             valueLink = { this.linkState('selectValueLinkValue2') }
             floatingLabelText = "Float Custom Label Text"
             floatingLabelStyle = {{ color: "red" }}
             valueMember = "id"
-            displayMember = "name"
-            menuItems = { arbitraryArrayMenuItems } />;
+            displayMember = "name">
+                arbitraryArrayMenuItems
+            </SelectField>;
         element = <SelectField
             value={0}
-            onChange={ this.selectFieldChangeHandler }
-            menuItems={arbitraryArrayMenuItems} />;
+            onChange={ this.selectFieldChangeHandler }>
+                arbitraryArrayMenuItems
+            </SelectField>;
 
         //Floating Hint Text Labels
         element = <TextField
