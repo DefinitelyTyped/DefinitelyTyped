@@ -913,7 +913,16 @@ declare module "react-bootstrap" {
     var ButtonInput: ButtonInputClass;
 
 
-    // TODO: FormControls.Static
+    // <FormControls.Static />
+    // ----------------------------------------
+
+    interface StaticProps extends React.Props<StaticClass> { }
+    interface Static extends React.ReactElement<StaticProps> { }
+    interface StaticClass extends React.ComponentClass<StaticProps> { }
+    interface FormControlsClass {
+      Static: StaticClass;
+    }
+    var FormControls: FormControlsClass;
   
   
     // <Portal />
