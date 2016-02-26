@@ -5176,6 +5176,14 @@ declare module "sequelize" {
              */
             isolationLevel? : string;
 
+            /**
+             * Set the default transaction type. See `Sequelize.Transaction.TYPES` for possible
+             * options.
+             *
+             * Defaults to 'DEFERRED'
+             */
+            transactionType? : string;
+
         }
 
         /**
@@ -5787,6 +5795,41 @@ declare module "sequelize" {
             ISOLATION_LEVELS : TransactionIsolationLevels;
 
             /**
+             * Transaction type can be set per-transaction by passing `options.type` to
+             * `sequelize.transaction`. Default to `DEFERRED` but you can override the default isolation level
+             * by passing `options.transactionType` in `new Sequelize`.
+             *
+             * The transaction types to use when starting a transaction:
+             *
+             * ```js
+             * {
+             *   DEFERRED: "DEFERRED",
+             *   IMMEDIATE: "IMMEDIATE",
+             *   EXCLUSIVE: "EXCLUSIVE"
+             * }
+             * ```
+             *
+             * Pass in the transaction type the first argument:
+             *
+             * ```js
+             * return sequelize.transaction({
+             *   type: Sequelize.Transaction.EXCLUSIVE
+             * }, function (t) {
+             *
+             *  // your transactions
+             *
+             * }).then(function(result) {
+             *   // transaction has been committed. Do something after the commit if required.
+             * }).catch(function(err) {
+             *   // do something with the err.
+             * });
+             * ```
+             *
+             * @see Sequelize.Transaction.TYPES
+             */
+            TYPES : TransactionTypes;
+
+            /**
              * Possible options for row locking. Used in conjuction with `find` calls:
              *
              * ```js
@@ -5838,6 +5881,17 @@ declare module "sequelize" {
         }
 
         /**
+         * Transaction type can be set per-transaction by passing `options.type` to `sequelize.transaction`.
+         * Default to `DEFERRED` but you can override the default isolation level by passing
+         * `options.transactionType` in `new Sequelize`.
+         */
+        interface TransactionTypes {
+          DEFERRED: string; // 'DEFERRED'
+          IMMEDIATE: string; // 'IMMEDIATE'
+          EXCLUSIVE: string; // 'EXCLUSIVE'
+        }
+
+        /**
          * Possible options for row locking. Used in conjuction with `find` calls:
          */
         interface TransactionLock {
@@ -5860,6 +5914,11 @@ declare module "sequelize" {
              *  See `Sequelize.Transaction.ISOLATION_LEVELS` for possible options
              */
             isolationLevel?: string;
+
+            /**
+             *  See `Sequelize.Transaction.TYPES` for possible options
+             */
+            type?: string;
 
             /**
              * A function that gets executed while running the query to log the sql.
