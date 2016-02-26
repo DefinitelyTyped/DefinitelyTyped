@@ -151,10 +151,10 @@ interface JQuery {
 
 declare var i18n: I18nextStatic;
 
-declare module "i18next" {
+declare module 'i18next' {
     export = i18n;
 }
 
-declare module "i18next-client" {
+declare module 'i18next-client' {
     export = i18n;
 }
