@@ -74,7 +74,8 @@ declare namespace ReactRouter {
     }
 
     type History = HistoryBase & H.HistoryQueries & HistoryRoutes
-
+    const browserHistory: History;
+    const hashHistory: History;
 
     /* components */
 
@@ -367,6 +368,13 @@ declare module "react-router/lib/PropTypes" {
 
 }
 
+declare module "react-router/lib/browserHistory" {
+  export default ReactRouter.browserHistory;
+}
+
+declare module "react-router/lib/hashHistory" {
+  export default ReactRouter.hashHistory;
+}
 
 declare module "react-router/lib/match" {
 
@@ -396,6 +404,10 @@ declare module "react-router" {
     import Lifecycle from "react-router/lib/Lifecycle"
 
     import RouteContext from "react-router/lib/RouteContext"
+
+    import browserHistory from "react-router/lib/browserHistory"
+
+    import hashHistory from "react-router/lib/hashHistory"
 
     import useRoutes from "react-router/lib/useRoutes"
 
@@ -437,6 +449,8 @@ declare module "react-router" {
         Redirect,
         Route,
         History,
+        browserHistory,
+        hashHistory,
         Lifecycle,
         RouteContext,
         useRoutes,

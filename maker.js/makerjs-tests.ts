@@ -42,7 +42,19 @@ function test() {
 		makerjs.exporter.toDXF(model);
 		makerjs.exporter.toOpenJsCad(model);
 		makerjs.exporter.toSTL(model);
-		makerjs.exporter.toSVG(model);
+		makerjs.exporter.toSVG(model, 
+            { 
+                annotate: true, 
+                fontSize: '', 
+                origin: [], 
+                scale: 9.9, 
+                stroke: '', 
+                strokeWidth: '', 
+                svgAttrs: {}, 
+                units: '', 
+                useSvgPathOnly: false,
+                viewBox: false
+             });
 		makerjs.exporter.tryGetModelUnits(model);
 	}
 	
@@ -51,6 +63,7 @@ function test() {
 		makerjs.kit.getParameterValues(null);
 		(<MakerJs.IMetaParameter>{}).max;
 		(<MakerJs.IKit>{}).metaParameters;
+		(<MakerJs.IKit>{}).notes;
 	}
 	
 	function testMeasure() {
@@ -83,6 +96,7 @@ function test() {
 		makerjs.model.rotate(makerjs.model.scale(model, 6), 45, [0,0]);
 		makerjs.model.scale(model, 7);
 		makerjs.model.walkPaths(model, (modelContext: MakerJs.IModel, pathId: string, pathContext: MakerJs.IPath) => {});
+        model.exporterOptions = { foo: 'bar' };
 	}
 
 	function testModels(): MakerJs.IModel[] {

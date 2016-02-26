@@ -1289,6 +1289,7 @@ declare namespace __MaterialUI {
             onTouchTap?: React.TouchEventHandler;
             shouldDisableDate?: (day: Date) => boolean;
             showYearSelector?: boolean;
+            style?: React.CSSProperties;
             textFieldStyle?: React.CSSProperties;
         }
         export class DatePicker extends React.Component<DatePickerProps, {}> {
@@ -5017,7 +5018,7 @@ declare namespace __MaterialUI {
         format?: string;
         pedantic?: boolean;
         style?: __React.CSSProperties;
-        textFieldStye?: __React.CSSProperties;
+        textFieldStyle?: __React.CSSProperties;
         autoOk?: boolean;
         openDialog?: () => void;
         onFocus?: React.FocusEventHandler;

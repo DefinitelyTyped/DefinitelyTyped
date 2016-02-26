@@ -34,7 +34,7 @@ declare module "browser-sync" {
              * Default: undefined
              * Note: requires at least version 2.6.0
              */
-            watchOptions?: ChokidarOptions;
+            watchOptions?: chokidar.WatchOptions;
             /**
              * Use the built-in static server for basic HTML/JS/CSS websites.
              * Default: false
@@ -243,17 +243,11 @@ declare module "browser-sync" {
              * Note: requires at least version 1.6.2
              */
             socket?: SocketOptions;
+            middleware?: MiddlewareHandler | MiddlewareHandler[];
         }
 
         interface Hash<T> {
             [path: string]: T;
-        }
-
-        interface ChokidarOptions {
-            interval?: number;
-            debounceDelay?: number;
-            mode?: string;
-            cwd?: string;
         }
 
         interface UIOptions { 

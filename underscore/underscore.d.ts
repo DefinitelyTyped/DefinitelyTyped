@@ -76,6 +76,7 @@ interface UnderscoreStatic {
 	* as the first parameter can be invoked through this function.
 	* @param key First argument to Underscore object functions.
 	**/
+	<T>(value: _.Dictionary<T>): Underscore<T>;
 	<T>(value: Array<T>): Underscore<T>;
 	<T>(value: T): Underscore<T>;
 
@@ -900,6 +901,16 @@ interface UnderscoreStatic {
 	**/
 	zip(...arrays: any[]): any[];
 
+    /**
+    * The opposite of zip. Given a number of arrays, returns a series of new arrays, the first 
+    * of which contains all of the first elements in the input arrays, the second of which
+    * contains all of the second elements, and so on. Use with apply to pass in an array 
+    * of arrays
+    * @param arrays The arrays to unzip.
+    * @return Unzipped version of `arrays`.      
+    **/
+    unzip(...arrays: any[][]): any[][];
+
 	/**
 	* Converts arrays into objects. Pass either a single list of [key, value] pairs, or a
 	* list of keys, and a list of values.
@@ -961,6 +972,30 @@ interface UnderscoreStatic {
 		array: _.List<T>,
 		value: T,
 		from?: number): number;
+		
+	/**
+	* Returns the first index of an element in `array` where the predicate truth test passes
+	* @param array The array to search for the index of the first element where the predicate truth test passes.
+	* @param predicate Predicate function.
+	* @param context `this` object in `predicate`, optional.
+	* @return Returns the index of an element in `array` where the predicate truth test passes or -1.`
+	**/
+	findIndex<T>(
+		array: _.List<T>,
+		predicate: _.ListIterator<T, boolean>,
+		context?: any): number;
+		
+	/**
+	* Returns the last index of an element in `array` where the predicate truth test passes
+	* @param array The array to search for the index of the last element where the predicate truth test passes.
+	* @param predicate Predicate function.
+	* @param context `this` object in `predicate`, optional.
+	* @return Returns the index of an element in `array` where the predicate truth test passes or -1.`
+	**/
+	findLastIndex<T>(
+		array: _.List<T>,
+		predicate: _.ListIterator<T, boolean>,
+		context?: any): number;
 
 	/**
 	* Uses a binary search to determine the index at which the value should be inserted into the list in order
@@ -1192,6 +1227,20 @@ interface UnderscoreStatic {
 	**/
 	keys(object: any): string[];
 
+    /**
+	* Retrieve all the names of object's own and inherited properties.
+	* @param object Retrieve the key or property names from this object.
+	* @return List of all the property names on `object`.
+	**/
+	allKeys(object: any): string[];
+
+	/**
+	* Return all of the values of the object's properties.
+	* @param object Retrieve the values of all the properties on this object.
+	* @return List of all the values on `object`.
+	**/
+	values<T>(object: _.Dictionary<T>): T[];
+
 	/**
 	* Return all of the values of the object's properties.
 	* @param object Retrieve the values of all the properties on this object.
@@ -1371,6 +1420,13 @@ interface UnderscoreStatic {
 	**/
 	property(key: string): (object: Object) => any;
 
+    /**
+	* Returns a function that will itself return the value of a object key property.
+	* @param key The object to get the property value from.
+	* @return Function which accept a key property in `object` and returns its value.
+	**/
+    propertyOf(object: Object): (key: string) => any;
+
 	/**
 	* Performs an optimized deep comparison between the two objects,
 	* to determine if they should be considered equal.
@@ -1386,6 +1442,14 @@ interface UnderscoreStatic {
 	* @return True if `object` is empty.
 	**/
 	isEmpty(object: any): boolean;
+
+	/**
+	* Returns true if the keys and values in `properties` matches with the `object` properties.
+	* @param object Object to be compared with `properties`.
+	* @param properties Properties be compared with `object`
+	* @return True if `object` has matching keys and values, otherwise false.
+	**/
+	isMatch(object:any, properties:any): boolean;
 
 	/**
 	* Returns true if object is a DOM element.
@@ -1422,6 +1486,13 @@ interface UnderscoreStatic {
 	* @return True if `object` is a Function, otherwise false.
 	**/
 	isFunction(object: any): boolean;
+    
+    /**
+	* Returns true if object inherits from an Error.
+	* @param object Check if this object is an Error.
+	* @return True if `object` is a Error, otherwise false.
+	**/
+    isError(object:any): boolean;
 
 	/**
 	* Returns true if object is a String.
@@ -1573,12 +1644,7 @@ interface UnderscoreStatic {
 	* @param prefix A prefix string to start the unique ID with.
 	* @return Unique string ID beginning with `prefix`.
 	**/
-	uniqueId(prefix: string): string;
-
-	/**
-	* @see _.uniqueId
-	**/
-	uniqueId(): number;
+	uniqueId(prefix?: string): string;
 
 	/**
 	* Escapes a string for insertion into HTML, replacing &, <, >, ", ', and / characters.
@@ -1598,9 +1664,10 @@ interface UnderscoreStatic {
 	* If the value of the named property is a function then invoke it; otherwise, return it.
 	* @param object Object to maybe invoke function `property` on.
 	* @param property The function by name to invoke on `object`.
+    * @param defaultValue The value to be returned in case `property` doesn't exist or is undefined.
 	* @return The result of invoking the function `property` on `object.
 	**/
-	result(object: any, property: string): any;
+	result(object: any, property: string, defaultValue?:any): any;
 
 	/**
 	* Compiles JavaScript templates into functions that can be evaluated for rendering. Useful
@@ -1641,6 +1708,7 @@ interface UnderscoreStatic {
 	* @return Wrapped `obj`.
 	**/
 	chain<T>(obj: T[]): _Chain<T>;
+	chain<T>(obj: _.Dictionary<T>): _Chain<T>;
 	chain<T extends {}>(obj: T): _Chain<T>;
 }
 
@@ -2079,6 +2147,12 @@ interface Underscore<T> {
 	**/
 	zip(...arrays: any[][]): any[][];
 
+    /**
+	* Wrapped type `any[][]`.
+	* @see _.unzip
+	**/
+	unzip(...arrays: any[][]): any[][];
+
 	/**
 	* Wrapped type `any[][]`.
 	* @see _.object
@@ -2106,6 +2180,16 @@ interface Underscore<T> {
 	* @see _.lastIndexOf
 	**/
 	lastIndexOf(value: T, from?: number): number;
+
+	/**
+	* @see _.findIndex
+	**/
+	findIndex<T>(array: _.List<T>, predicate: _.ListIterator<T, boolean>, context?: any): number;
+
+	/**
+	* @see _.findLastIndex
+	**/
+	findLastIndex<T>(array: _.List<T>, predicate: _.ListIterator<T, boolean>, context?: any): number;
 
 	/**
 	* Wrapped type `any[]`.
@@ -2228,6 +2312,12 @@ interface Underscore<T> {
 	**/
 	keys(): string[];
 
+    /**
+	* Wrapped type `object`.
+	* @see _.allKeys
+	**/
+    allKeys(): string[];
+
 	/**
 	* Wrapped type `object`.
 	* @see _.values
@@ -2314,6 +2404,12 @@ interface Underscore<T> {
 	* @see _.property
 	**/
 	property(): (object: Object) => any;
+    
+    /**
+	* Wrapped type `object`.
+	* @see _.propertyOf
+	**/
+	propertyOf(): (key: string) => any;
 
 	/**
 	* Wrapped type `object`.
@@ -2326,6 +2422,12 @@ interface Underscore<T> {
 	* @see _.isEmpty
 	**/
 	isEmpty(): boolean;
+	
+	/**
+	* Wrapped type `object`.
+	* @see _.isMatch
+	**/
+	isMatch(): boolean;	
 
 	/**
 	* Wrapped type `object`.
@@ -2356,6 +2458,12 @@ interface Underscore<T> {
 	* @see _.isFunction
 	**/
 	isFunction(): boolean;
+    
+    /**
+	* Wrapped type `object`.
+	* @see _.isError
+	**/
+	isError(): boolean;
 
 	/**
 	* Wrapped type `object`.
@@ -2484,7 +2592,7 @@ interface Underscore<T> {
 	* Wrapped type `object`.
 	* @see _.result
 	**/
-	result(property: string): any;
+	result(property: string, defaultValue?:any): any;
 
 	/**
 	* Wrapped type `string`.
@@ -2815,7 +2923,7 @@ interface _Chain<T> {
 	* Wrapped type `any`.
 	* @see _.size
 	**/
-	size(): _Chain<T>;
+	size(): _ChainSingle<number>;
 
 	/*********
 	* Arrays *
@@ -2957,6 +3065,12 @@ interface _Chain<T> {
 	**/
 	zip(...arrays: any[][]): _Chain<T>;
 
+    /**
+	* Wrapped type `any[][]`.
+	* @see _.unzip
+	**/
+	unzip(...arrays: any[][]): _Chain<T>;
+
 	/**
 	* Wrapped type `any[][]`.
 	* @see _.object
@@ -2984,6 +3098,16 @@ interface _Chain<T> {
 	* @see _.lastIndexOf
 	**/
 	lastIndexOf(value: T, from?: number): _ChainSingle<T>;
+
+	/**
+	* @see _.findIndex
+	**/
+	findIndex<T>(predicate: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+
+	/**
+	* @see _.findLastIndex
+	**/
+	findLastIndex<T>(predicate: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
 
 	/**
 	* Wrapped type `any[]`.
@@ -3106,6 +3230,12 @@ interface _Chain<T> {
 	**/
 	keys(): _Chain<string>;
 
+    /**
+	* Wrapped type `object`.
+	* @see _.allKeys
+	**/
+	allKeys(): _Chain<string>;
+
 	/**
 	* Wrapped type `object`.
 	* @see _.values
@@ -3192,6 +3322,12 @@ interface _Chain<T> {
 	* @see _.property
 	**/
 	property(): _Chain<T>;
+    
+    /**
+	* Wrapped type `object`.
+	* @see _.propertyOf
+	**/
+	propertyOf(): _Chain<T>;
 
 	/**
 	* Wrapped type `object`.
@@ -3204,6 +3340,12 @@ interface _Chain<T> {
 	* @see _.isEmpty
 	**/
 	isEmpty(): _Chain<T>;
+	
+	/**
+	* Wrapped type `object`.
+	* @see _.isMatch
+	**/
+	isMatch(): _Chain<T>;
 
 	/**
 	* Wrapped type `object`.
@@ -3234,6 +3376,12 @@ interface _Chain<T> {
 	* @see _.isFunction
 	**/
 	isFunction(): _Chain<T>;
+
+    /**
+	* Wrapped type `object`.
+	* @see _.isError
+	**/
+	isError(): _Chain<T>;
 
 	/**
 	* Wrapped type `object`.
@@ -3362,7 +3510,7 @@ interface _Chain<T> {
 	* Wrapped type `object`.
 	* @see _.result
 	**/
-	result(property: string): _Chain<T>;
+	result(property: string, defaultValue?:any): _Chain<T>;
 
 	/**
 	* Wrapped type `string`.

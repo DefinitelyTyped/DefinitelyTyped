@@ -147,11 +147,18 @@ declare module "aws-sdk" {
 
 	export class S3 {
 		constructor(options?: any);
-		public client: s3.Client;
+		putObject(params: s3.PutObjectRequest, callback: (err: any, data: any) => void): void;
+		getObject(params: s3.GetObjectRequest, callback: (err: any, data: any) => void): void;
 	}
 
 	export class DynamoDB {
 		constructor(options?: any);
+	}
+
+	export module DynamoDB {
+		export class DocumentClient {
+			constructor(options?: any);
+		}
 	}
 
 	export module SQS {
@@ -1036,14 +1043,7 @@ declare module "aws-sdk" {
 	}
 
 	export module s3 {
-
-		export interface Client {
-			config: ClientConfig;
-
-			putObject(params: PutObjectRequest, callback: (err: any, data: any) => void): void;
-			getObject(params: GetObjectRequest, callback: (err: any, data: any) => void): void;
-		}
-
+		
 		export interface PutObjectRequest {
 			ACL?: string;
 			Body?: any;
