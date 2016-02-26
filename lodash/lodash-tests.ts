@@ -6640,6 +6640,37 @@ module TestIsLength {
     }
 }
 
+// _.isMap
+module TestIsMap {
+    {
+        let value: number|Map<string, number>;
+
+        if (_.isMap<string, number>(value)) {
+            let result: Map<string, number> = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isMap(any);
+        result = _(1).isMap();
+        result = _<any>([]).isMap();
+        result = _({}).isMap();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isMap();
+        result = _<any>([]).chain().isMap();
+        result = _({}).chain().isMap();
+    }
+}
+
 // _.isMatch
 module TestIsMatch {
     let testIsMatchCustiomizerFn: (value: any, other: any, indexOrKey: number|string) => boolean;
