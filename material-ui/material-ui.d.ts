@@ -1149,7 +1149,7 @@ declare namespace __MaterialUI {
             subtitleStyle?: React.CSSProperties;
             textStyle?: React.CSSProperties;
             style?: React.CSSProperties;
-            avatar: React.ReactElement<any> | string;
+            avatar?: React.ReactElement<any> | string;
         }
         export class CardHeader extends React.Component<CardHeaderProps, {}> {
         }
@@ -1535,6 +1535,7 @@ declare namespace __MaterialUI {
             onKeyboardFocus?: React.FocusEventHandler;
             onNestedListToggle?: (item: ListItem) => void;
             onClick?: React.MouseEventHandler;
+            onTouchTap?: TouchTapEventHandler;
             rightAvatar?: React.ReactElement<any>;
             rightIcon?: React.ReactElement<any>;
             rightIconButton?: React.ReactElement<any>;
@@ -1546,6 +1547,18 @@ declare namespace __MaterialUI {
         }
         export class ListItem extends React.Component<ListItemProps, {}> {
         }
+    }
+
+    namespace Hoc {
+        interface SelectableProps {
+            selectedItemStyle?: React.CSSProperties;
+            valueLink?: { value: any; requestChange: (e: TouchTapEvent, value: any) => void };
+            value?: any;
+            onChange?: (e: TouchTapEvent, value: any) => void;
+        }
+
+        // union types for higher order components in TypeScript 1.8: https://github.com/Microsoft/TypeScript/issues/4362
+        export function SelectableContainerEnhance<P extends {}>(component: React.ComponentClass<P>): React.ComponentClass<P & SelectableProps>;
     }
 
     // Old menu implementation.  Being replaced by new "menus".
@@ -4841,9 +4854,11 @@ declare namespace __MaterialUI {
         action?: string;
         autoHideDuration?: number;
         onActionTouchTap?: React.TouchEventHandler;
-        onShow?: () => void;
-        onDismiss?: () => void;
-        openOnMount?: boolean;
+        onDismiss?: () => void; // DEPRECATED
+        onRequestClose: (reason: string) => void;
+        onShow?: () => void; // DEPRECATED
+        open: boolean;
+        openOnMount?: boolean; // DEPRECATED
         style?: React.CSSProperties;
     }
     export class Snackbar extends React.Component<SnackbarProps, {}> {
@@ -4851,7 +4866,7 @@ declare namespace __MaterialUI {
 
     namespace Tabs {
         interface TabProps extends React.Props<Tab> {
-            label?: string;
+            label?: React.ReactNode;
             value?: string;
             selected?: boolean;
             width?: string;
@@ -5416,6 +5431,11 @@ declare module 'material-ui/lib/floating-action-button' {
 declare module 'material-ui/lib/font-icon' {
     export import FontIcon = __MaterialUI.FontIcon;
     export default FontIcon;
+}
+
+declare module 'material-ui/lib/hoc/selectable-enhance' {
+    export import SelectableContainerEnhance = __MaterialUI.Hoc.SelectableContainerEnhance;
+    export default SelectableContainerEnhance;
 }
 
 declare module 'material-ui/lib/icon-button' {
