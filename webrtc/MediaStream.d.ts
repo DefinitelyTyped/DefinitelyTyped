@@ -196,7 +196,7 @@ interface MediaDevices {
 
 interface MediaDeviceInfo {
     label: string;
-    id: string;
+    deviceId: string;
     kind: string;
-    facing: string;
+    groupId: string;
 }
