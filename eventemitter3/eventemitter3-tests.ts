@@ -30,7 +30,7 @@ declare namespace Assume {
 let assume = Assume.assume;
 
 class EventEmitterTest {
-    v: EventEmitter3.EventEmitter;
+    v: EventEmitter;
 
     constructor() {
         this.v = new EventEmitter();
@@ -55,40 +55,40 @@ class EventEmitterTest {
 
     on() {
         var fn = () => console.log(1);
-        var v1: EventEmitter3.EventEmitter = this.v.on('click', fn);
-        var v2: EventEmitter3.EventEmitter = this.v.on('click', fn, this);
+        var v1: EventEmitter = this.v.on('click', fn);
+        var v2: EventEmitter = this.v.on('click', fn, this);
     }
 
     once() {
         var fn = () => console.log(1);
-        var v1: EventEmitter3.EventEmitter = this.v.once('click', fn);
-        var v2: EventEmitter3.EventEmitter = this.v.once('click', fn, this);
+        var v1: EventEmitter = this.v.once('click', fn);
+        var v2: EventEmitter = this.v.once('click', fn, this);
     }
 
     removeListener() {
         var fn = () => console.log(1);
-        var v1: EventEmitter3.EventEmitter = this.v.removeListener('click', fn);
-        var v2: EventEmitter3.EventEmitter = this.v.removeListener('click', fn, true);
+        var v1: EventEmitter = this.v.removeListener('click', fn);
+        var v2: EventEmitter = this.v.removeListener('click', fn, true);
     }
 
     removeAllListeners() {
-        var v1: EventEmitter3.EventEmitter = this.v.removeAllListeners('click');
+        var v1: EventEmitter = this.v.removeAllListeners('click');
     }
 
     off() {
         var fn = () => console.log(1);
-        var v1: EventEmitter3.EventEmitter = this.v.off('click', fn);
-        var v2: EventEmitter3.EventEmitter = this.v.off('click', fn, true);
+        var v1: EventEmitter = this.v.off('click', fn);
+        var v2: EventEmitter = this.v.off('click', fn, true);
     }
 
     addListener() {
         var fn = () => console.log(1);
-        var v1: EventEmitter3.EventEmitter = this.v.addListener('click', fn);
-        var v2: EventEmitter3.EventEmitter = this.v.addListener('click', fn, this);
+        var v1: EventEmitter = this.v.addListener('click', fn);
+        var v2: EventEmitter = this.v.addListener('click', fn, this);
     }
 
     setMaxListeners() {
-        var v1: EventEmitter3.EventEmitter = this.v.setMaxListeners();
+        var v1: EventEmitter = this.v.setMaxListeners();
     }
 }
 
@@ -252,7 +252,7 @@ describe('EventEmitter', function tests() {
     it('receives the emitted events', function (done) {
       var e = new EventEmitter();
 
-      e.on('data', function (a: string, b: EventEmitter3.EventEmitter, c: Date, d: void, undef: void) {
+      e.on('data', function (a: string, b: EventEmitter, c: Date, d: void, undef: void) {
         assume(a).equals('foo');
         assume(b).equals(e);
         assume(c).is.instanceOf(Date);
