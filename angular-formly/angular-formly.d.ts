@@ -21,7 +21,9 @@ declare module AngularFormly {
     }
 
 	interface IFieldGroup {
-		data?: Object;
+		data?: {
+	            [key: string]: any;
+	        };
 		className?: string;
 		elementAttributes?: string;
         fieldGroup?: IFieldArray;
@@ -37,7 +39,9 @@ declare module AngularFormly {
 
 
 	interface IFormOptionsAPI {
-		data?: Object;
+		data?: {
+                    [key: string]: any;
+                };
 		fieldTransform?: Function;
 		formState?: Object;
 		removeChromeAutoComplete?: boolean;
@@ -177,7 +181,9 @@ declare module AngularFormly {
 		 *
 		 * see http://docs.angular-formly.com/docs/field-configuration-object#data-object
 		 */
-		data?: Object;
+		data?: {
+                    [key: string]: any;
+                };
 
 
 		/**
@@ -536,7 +542,9 @@ declare module AngularFormly {
 		apiCheckOptions?: Object;
 		defaultOptions?: IFieldConfigurationObject | Function;
 		controller?: Function | string | any[];
-		data?: Object;
+		data?: {
+                    [key: string]: any;
+                };
 		extends?: string;
 		link?: ng.IDirectiveLinkFn;
 		overwriteOk?: boolean;
