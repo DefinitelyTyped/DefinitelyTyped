@@ -78,10 +78,20 @@ module NavigationTests {
 	
 	// State Handler
 	class LogStateHandler extends Navigation.StateHandler {
+		getNavigationLink(state: Navigation.State, data: any): string {
+			console.log('get navigation link');
+			return super.getNavigationLink(state, data, { ids: [] });
+		}
 	    getNavigationData(state: Navigation.State, url: string): any {
 			console.log('get navigation data');
-			super.getNavigationData(state, url);
+			super.getNavigationData(state, url, {});
 	    }
+        urlEncode(state: Navigation.State, key: string, val: string, queryString: boolean): string {
+            return queryString ? val.replace(/\s/g, '+') : super.urlEncode(state, key, val, queryString);
+        }
+        urlDecode(state: Navigation.State, key: string, val: string, queryString: boolean): string {
+            return queryString ? val.replace(/\+/g, ' ') : super.urlDecode(state, key, val, queryString);
+        }
 	}
 	homePage.stateHandler = new LogStateHandler();
 	personList.stateHandler = new LogStateHandler();

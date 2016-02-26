@@ -9,6 +9,7 @@ import * as crypto from "crypto";
 import * as tls from "tls";
 import * as http from "http";
 import * as net from "net";
+import * as tty from "tty";
 import * as dgram from "dgram";
 import * as querystring from "querystring";
 import * as path from "path";
@@ -133,6 +134,7 @@ function bufferTests() {
     var base64Buffer = new Buffer('','base64');
     var octets: Uint8Array = null;
     var octetBuffer = new Buffer(octets);
+    var copiedBuffer = new Buffer(utf8Buffer);
     console.log(Buffer.isBuffer(octetBuffer));
     console.log(Buffer.isEncoding('utf8'));
     console.log(Buffer.byteLength('xyz123'));
@@ -158,6 +160,15 @@ function bufferTests() {
 
     // fill returns the input buffer.
     b.fill('a').fill('b');
+   
+    {
+        let buffer = new Buffer('123');
+        let index: number;
+        index = buffer.indexOf("23");
+        index = buffer.indexOf("23", 1);
+        index = buffer.indexOf(23);
+        index = buffer.indexOf(buffer);
+    }
 }
 
 
@@ -201,6 +212,13 @@ function stream_readable_pipe_test() {
 ////////////////////////////////////////////////////
 
 var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
+
+{
+    let hmac: crypto.Hmac;
+    (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
+        let hash: Buffer|string = hmac.read();
+    });
+}
 
 function crypto_cipher_decipher_string_test() {
 	var key:Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
@@ -281,7 +299,7 @@ module http_tests {
 	});
 
 	var agent: http.Agent = http.globalAgent;
-	
+
 	http.request({
 		agent: false
 	});
@@ -291,6 +309,23 @@ module http_tests {
 	http.request({
 		agent: undefined
 	});
+}
+
+////////////////////////////////////////////////////
+/// TTY tests : http://nodejs.org/api/tty.html
+////////////////////////////////////////////////////
+
+module tty_tests {
+    let rs: tty.ReadStream;
+    let ws: tty.WriteStream;
+
+    let rsIsRaw: boolean = rs.isRaw;
+    rs.setRawMode(true);
+
+    let wsColumns: number = ws.columns;
+    let wsRows: number = ws.rows;
+
+    let isTTY: boolean = tty.isatty(1);
 }
 
 ////////////////////////////////////////////////////

@@ -22,7 +22,7 @@ declare module angular.translate {
 
     interface IStorage {
         get(name: string): string;
-        set(name: string, value: string): void;
+        put(name: string, value: string): void;
     }
 
     interface IStaticFilesLoaderOptions {
@@ -87,6 +87,7 @@ declare module angular.translate {
         fallbackLanguage(): ITranslateProvider;
         fallbackLanguage(language: string): ITranslateProvider;
         fallbackLanguage(languages: string[]): ITranslateProvider;
+        forceAsyncReload(value: boolean): ITranslateProvider;
         use(): string;
         use(key: string): ITranslateProvider;
         storageKey(): string;

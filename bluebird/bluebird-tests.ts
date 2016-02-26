@@ -754,8 +754,8 @@ Promise.longStackTraces();
 
 //TODO enable delay
 
-fooProm = Promise.delay(fooThen, num);
-fooProm = Promise.delay(foo, num);
+fooProm = Promise.delay(num, fooThen);
+fooProm = Promise.delay(num, foo);
 voidProm = Promise.delay(num);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -766,6 +766,13 @@ func = Promise.promisify(f, obj);
 obj = Promise.promisifyAll(obj);
 anyProm = Promise.fromNode(callback => nodeCallbackFunc(callback));
 anyProm = Promise.fromNode(callback => nodeCallbackFuncErrorOnly(callback));
+anyProm = Promise.fromNode(callback => nodeCallbackFunc(callback), {multiArgs : true});
+anyProm = Promise.fromNode(callback => nodeCallbackFuncErrorOnly(callback), {multiArgs : true});
+
+anyProm = Promise.fromCallback(callback => nodeCallbackFunc(callback));
+anyProm = Promise.fromCallback(callback => nodeCallbackFuncErrorOnly(callback));
+anyProm = Promise.fromCallback(callback => nodeCallbackFunc(callback), {multiArgs : true});
+anyProm = Promise.fromCallback(callback => nodeCallbackFuncErrorOnly(callback), {multiArgs : true});
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

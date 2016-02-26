@@ -6,14 +6,14 @@
 /// <reference path="react.d.ts" />
 
 declare namespace __React {
-    
+
     interface TransitionGroupProps {
         component?: ReactType;
         childFactory?: (child: ReactElement<any>) => ReactElement<any>;
     }
-    
+
     type TransitionGroup = ComponentClass<TransitionGroupProps>;
-    
+
     namespace __Addons {
         export var TransitionGroup: __React.TransitionGroup;
     }

@@ -51,6 +51,8 @@ interface Auth0UserProfile {
     user_id: string;
     /** Represents one or more Identities that may be associated with the User. */
     identities: Auth0Identity[];
+    user_metadata?: any;
+    app_metadata?: any;
 }
 
 /** Represents an Auth0UserProfile that has a Microsoft Account as the primary identity. */

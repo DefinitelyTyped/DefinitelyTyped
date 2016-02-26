@@ -31,7 +31,7 @@ require('crash-reporter').start();
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the javascript object is GCed.
-var mainWindow: GitHubElectron.BrowserWindow = null;
+var mainWindow: Electron.BrowserWindow = null;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -72,6 +72,7 @@ app.on('ready', () => {
 	mainWindow.webContents.addWorkSpace('/path/to/workspace');
 	mainWindow.webContents.removeWorkSpace('/path/to/workspace');
 	var opened: boolean = mainWindow.webContents.isDevToolsOpened()
+    var focused = mainWindow.webContents.isDevToolsFocused();
 	// Emitted when the window is closed.
 	mainWindow.on('closed', () => {
 		// Dereference the window object, usually you would store windows
@@ -116,21 +117,21 @@ app.on('ready', () => {
 app.addRecentDocument('/Users/USERNAME/Desktop/work.type');
 app.clearRecentDocuments();
 var dockMenu = Menu.buildFromTemplate([
-	<GitHubElectron.MenuItemOptions>{
+	<Electron.MenuItemOptions>{
 		label: 'New Window',
 		click: () => {
 			console.log('New Window');
 		}
 	},
-	<GitHubElectron.MenuItemOptions>{
+	<Electron.MenuItemOptions>{
 		label: 'New Window with Settings',
 		submenu: [
-			<GitHubElectron.MenuItemOptions>{ label: 'Basic' },
-			<GitHubElectron.MenuItemOptions>{ label: 'Pro' }
+			<Electron.MenuItemOptions>{ label: 'Basic' },
+			<Electron.MenuItemOptions>{ label: 'Pro' }
 		]
 	},
-	<GitHubElectron.MenuItemOptions>{ label: 'New Command...' },
-	<GitHubElectron.MenuItemOptions>{
+	<Electron.MenuItemOptions>{ label: 'New Command...' },
+	<Electron.MenuItemOptions>{
 		label: 'Edit',
 		submenu: [
 			{
@@ -167,7 +168,7 @@ var dockMenu = Menu.buildFromTemplate([
 app.dock.setMenu(dockMenu);
 
 app.setUserTasks([
-	<GitHubElectron.Task>{
+	<Electron.Task>{
 		program: process.execPath,
 		arguments: '--new-window',
 		iconPath: process.execPath,
@@ -186,7 +187,7 @@ window.setDocumentEdited(true);
 // Online/Offline Event Detection
 // https://github.com/atom/electron/blob/master/docs/tutorial/online-offline-events.md
 
-var onlineStatusWindow: GitHubElectron.BrowserWindow;
+var onlineStatusWindow: Electron.BrowserWindow;
 
 app.on('ready', () => {
 	onlineStatusWindow = new BrowserWindow({ width: 0, height: 0, show: false });
@@ -249,9 +250,21 @@ contentTracing.startRecording('*', contentTracing.DEFAULT_OPTIONS, () => {
 // dialog
 // https://github.com/atom/electron/blob/master/docs/api/dialog.md
 
-console.log(dialog.showOpenDialog({
+// variant without browserWindow
+var openDialogResult: string[] = dialog.showOpenDialog({
+  title: 'Testing showOpenDialog',
+  defaultPath: '/var/log/syslog',
+  filters: [{name: '', extensions: ['']}],
 	properties: ['openFile', 'openDirectory', 'multiSelections']
-}));
+});
+
+// variant with browserWindow
+openDialogResult = dialog.showOpenDialog(win, {
+  title: 'Testing showOpenDialog',
+  defaultPath: '/var/log/syslog',
+  filters: [{name: '', extensions: ['']}],
+	properties: ['openFile', 'openDirectory', 'multiSelections']
+});
 
 // global-shortcut
 // https://github.com/atom/electron/blob/master/docs/api/global-shortcut.md
@@ -275,12 +288,12 @@ globalShortcut.unregisterAll();
 // ipcMain
 // https://github.com/atom/electron/blob/master/docs/api/ipc-main-process.md
 
-ipcMain.on('asynchronous-message', (event: any, arg: any) => {
+ipcMain.on('asynchronous-message', (event: Electron.IPCMainEvent, arg: any) => {
 	console.log(arg);  // prints "ping"
 	event.sender.send('asynchronous-reply', 'pong');
 });
 
-ipcMain.on('synchronous-message', (event: any, arg: any) => {
+ipcMain.on('synchronous-message', (event: Electron.IPCMainEvent, arg: any) => {
 	console.log(arg);  // prints "ping"
 	event.returnValue = 'pong';
 });
@@ -460,7 +473,7 @@ app.on('ready', () => {
 // tray
 // https://github.com/atom/electron/blob/master/docs/api/tray.md
 
-var appIcon: GitHubElectron.Tray = null;
+var appIcon: Electron.Tray = null;
 app.on('ready', () => {
 	appIcon = new Tray('/path/to/my/icon');
 	var contextMenu = Menu.buildFromTemplate([
