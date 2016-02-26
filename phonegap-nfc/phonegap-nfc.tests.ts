@@ -1,5 +1,9 @@
 /// <reference path="phonegap-nfc.d.ts"/>
 
+import nfc = require('nfc');
+import ndef = require('ndef');
+import NdefRecord = PhoneGapNfc.NdefRecord;
+
 nfc.addTagDiscoveredListener(() => {});
 nfc.addTagDiscoveredListener(() => {},() => {}, () => {});
 
