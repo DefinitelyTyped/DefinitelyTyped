@@ -8,8 +8,8 @@
 declare module "material-ui" {
     export import AppBar = __MaterialUI.AppBar; // require('material-ui/lib/app-bar');
     export import AppCanvas = __MaterialUI.AppCanvas; // require('material-ui/lib/app-canvas');
-    export import Avatar = __MaterialUI.Avatar; // require('material-ui/lib/avatar');
     export import AutoComplete = __MaterialUI.AutoComplete; // require('material-ui/lib/auto-complete');
+    export import Avatar = __MaterialUI.Avatar; // require('material-ui/lib/avatar');
     export import Badge = __MaterialUI.Badge; // require('material-ui/lib/badge');
     export import BeforeAfterWrapper = __MaterialUI.BeforeAfterWrapper; // require('material-ui/lib/before-after-wrapper');
     export import Card = __MaterialUI.Card.Card; // require('material-ui/lib/card/card');
@@ -30,6 +30,8 @@ declare module "material-ui" {
     export import FlatButton = __MaterialUI.FlatButton; // require('material-ui/lib/flat-button');
     export import FloatingActionButton = __MaterialUI.FloatingActionButton; // require('material-ui/lib/floating-action-button');
     export import FontIcon = __MaterialUI.FontIcon; // require('material-ui/lib/font-icon');
+    export import GridList = __MaterialUI.GridList.GridList; // require('material-ui/lib/gridlist/grid-list');
+    export import GridTile = __MaterialUI.GridList.GridTile; // require('material-ui/lib/gridlist/grid-tile');
     export import IconButton = __MaterialUI.IconButton; // require('material-ui/lib/icon-button');
     export import IconMenu = __MaterialUI.Menus.IconMenu; // require('material-ui/lib/menus/icon-menu');
     export import LeftNav = __MaterialUI.LeftNav; // require('material-ui/lib/left-nav');
@@ -49,11 +51,10 @@ declare module "material-ui" {
     export import Ripples = __MaterialUI.Ripples; // require('material-ui/lib/ripples/');
     export import SelectField = __MaterialUI.SelectField; // require('material-ui/lib/select-field');
     export import Slider = __MaterialUI.Slider; // require('material-ui/lib/slider');
-    export import SvgIcon = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon');
-    export import Styles = __MaterialUI.Styles; // require('material-ui/lib/styles/');
     export import Snackbar = __MaterialUI.Snackbar; // require('material-ui/lib/snackbar');
+    export import Styles = __MaterialUI.Styles; // require('material-ui/lib/styles/');
+    export import SvgIcon = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon');
     export import Tab = __MaterialUI.Tabs.Tab; // require('material-ui/lib/tabs/tab');
-    export import Tabs = __MaterialUI.Tabs.Tabs; // require('material-ui/lib/tabs/tabs');
     export import Table = __MaterialUI.Table.Table; // require('material-ui/lib/table/table');
     export import TableBody = __MaterialUI.Table.TableBody; // require('material-ui/lib/table/table-body');
     export import TableFooter = __MaterialUI.Table.TableFooter; // require('material-ui/lib/table/table-footer');
@@ -61,19 +62,17 @@ declare module "material-ui" {
     export import TableHeaderColumn = __MaterialUI.Table.TableHeaderColumn; // require('material-ui/lib/table/table-header-column');
     export import TableRow = __MaterialUI.Table.TableRow; // require('material-ui/lib/table/table-row');
     export import TableRowColumn = __MaterialUI.Table.TableRowColumn; // require('material-ui/lib/table/table-row-column');
-    export import ThemeWrapper = __MaterialUI.ThemeWrapper; // require('material-ui/lib/theme-wrapper');
-    export import Toggle = __MaterialUI.Toggle; // require('material-ui/lib/toggle');
-    export import TimePicker = __MaterialUI.TimePicker; // require('material-ui/lib/time-picker');
+    export import Tabs = __MaterialUI.Tabs.Tabs; // require('material-ui/lib/tabs/tabs');
     export import TextField = __MaterialUI.TextField; // require('material-ui/lib/text-field');
+    export import ThemeWrapper = __MaterialUI.ThemeWrapper; // require('material-ui/lib/theme-wrapper');
+    export import TimePicker = __MaterialUI.TimePicker; // require('material-ui/lib/time-picker');
+    export import Toggle = __MaterialUI.Toggle; // require('material-ui/lib/toggle');
     export import Toolbar = __MaterialUI.Toolbar.Toolbar; // require('material-ui/lib/toolbar/toolbar');
     export import ToolbarGroup = __MaterialUI.Toolbar.ToolbarGroup; // require('material-ui/lib/toolbar/toolbar-group');
     export import ToolbarSeparator = __MaterialUI.Toolbar.ToolbarSeparator; // require('material-ui/lib/toolbar/toolbar-separator');
     export import ToolbarTitle = __MaterialUI.Toolbar.ToolbarTitle; // require('material-ui/lib/toolbar/toolbar-title');
     export import Tooltip = __MaterialUI.Tooltip; // require('material-ui/lib/tooltip');
     export import Utils = __MaterialUI.Utils; // require('material-ui/lib/utils/');
-
-    export import GridList = __MaterialUI.GridList.GridList; // require('material-ui/lib/gridlist/grid-list');
-    export import GridTile = __MaterialUI.GridList.GridTile; // require('material-ui/lib/gridlist/grid-tile');
 
     // svg icons
     import NavigationMenu = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/menu');
@@ -113,702 +112,10 @@ declare namespace __MaterialUI {
     // What's common between React.TouchEventHandler and React.MouseEventHandler
     interface TouchTapEventHandler extends React.EventHandler<TouchTapEvent> { }
 
-    // more specific than React.HTMLAttributes
-
-    interface AppBarProps extends React.Props<AppBar> {
-        iconClassNameLeft?: string;
-        iconClassNameRight?: string;
-        iconElementLeft?: React.ReactElement<any>;
-        iconElementRight?: React.ReactElement<any>;
-        iconStyleRight?: string;
-        style?: React.CSSProperties;
-        showMenuIconButton?: boolean;
-        title?: React.ReactNode;
-        zDepth?: number;
-
-        onLeftIconButtonTouchTap?: TouchTapEventHandler;
-        onRightIconButtonTouchTap?: TouchTapEventHandler;
+    interface ThemeWrapperProps extends React.Props<ThemeWrapper> {
+        theme: Styles.MuiTheme;
     }
-    export class AppBar extends React.Component<AppBarProps, {}>{
-    }
-
-    interface AppCanvasProps extends React.Props<AppCanvas> {
-    }
-    export class AppCanvas extends React.Component<AppCanvasProps, {}> {
-    }
-
-    interface AutoCompleteProps extends React.Props<AutoComplete> {
-        animated?: boolean;
-        fullWidth?: boolean;
-        searchText?: string;
-        errorText?: string;
-        floatingLabelText?: string;
-        dataSource?: any;
-        onUpdateInput?: (text: string) => void;
-        onNewRequest?: (text: string) => void;
-        anchorOrigin?: string;
-        disableFocusRipple?: boolean;
-        errorStyle?: any;
-        filter?: (i: any) => boolean;
-        hintText?: string;
-        listStyle?: any;
-        menuCloseDelay?: number;
-        menuProps?: any;
-        menuStyle?: any;
-        open?: boolean;
-        showAllItems?: boolean;
-        style?: any;
-        targetOrigin?: string;
-        touchTapCloseDelay?: number;
-        updateWhenFocused?: boolean;
-    }
-    export class AutoComplete extends React.Component<AutoCompleteProps, {}> {
-    }
-
-    interface AvatarProps extends React.Props<Avatar> {
-        icon?: React.ReactElement<any>;
-        backgroundColor?: string;
-        color?: string;
-        size?: number;
-        src?: string;
-        style?: React.CSSProperties;
-    }
-    export class Avatar extends React.Component<AvatarProps, {}> {
-    }
-
-    interface BadgeProps extends React.Props<Badge> {
-        badgeContent: React.ReactElement<any> | string | number;
-        primary?: boolean;
-        secondary?: boolean;
-        style?: React.CSSProperties;
-        badgeStyle?: React.CSSProperties;
-    }
-    export class Badge extends React.Component<BadgeProps, {}> {
-    }
-
-    interface BeforeAfterWrapperProps extends React.Props<BeforeAfterWrapper> {
-        beforeStyle?: React.CSSProperties;
-        afterStyle?: React.CSSProperties;
-        beforeElementType?: string;
-        afterElementType?: string;
-        elementType?: string;
-    }
-    export class BeforeAfterWrapper extends React.Component<BeforeAfterWrapperProps, {}> {
-    }
-
-    namespace Card {
-
-        interface CardProps extends React.Props<Card> {
-            expandable?: boolean;
-            initiallyExpanded?: boolean;
-            onExpandedChange?: (isExpanded: boolean) => void;
-            style?: React.CSSProperties;
-        }
-        export class Card extends React.Component<CardProps, {}> {
-        }
-
-        interface CardActionsProps extends React.Props<CardActions> {
-            expandable?: boolean;
-            showExpandableButton?: boolean;
-            style?: React.CSSProperties;
-        }
-        export class CardActions extends React.Component<CardActionsProps, {}> {
-        }
-
-        interface CardExpandableProps extends React.Props<CardExpandable> {
-            onExpanding?: (isExpanded: boolean) => void;
-            expanded?: boolean;
-            style?: React.CSSProperties;
-        }
-        export class CardExpandable extends React.Component<CardExpandableProps, {}> {
-        }
-
-        interface CardHeaderProps extends React.Props<CardHeader> {
-            expandable?: boolean;
-            showExpandableButton?: boolean;
-            title?: string | React.ReactElement<any>;
-            titleColor?: string;
-            titleStyle?: React.CSSProperties;
-            subtitle?: string | React.ReactElement<any>;
-            subtitleColor?: string;
-            subtitleStyle?: React.CSSProperties;
-            textStyle?: React.CSSProperties;
-            style?: React.CSSProperties;
-            avatar?: React.ReactElement<any> | string;
-        }
-        export class CardHeader extends React.Component<CardHeaderProps, {}> {
-        }
-
-        interface CardMediaProps extends React.Props<CardMedia> {
-            expandable?: boolean;
-            overlay?: React.ReactNode;
-            overlayStyle?: React.CSSProperties;
-            overlayContainerStyle?: React.CSSProperties;
-            overlayContentStyle?: React.CSSProperties;
-            mediaStyle?: React.CSSProperties;
-            style?: React.CSSProperties;
-        }
-        export class CardMedia extends React.Component<CardMediaProps, {}> {
-        }
-
-        interface CardTextProps extends React.Props<CardText> {
-            expandable?: boolean;
-            color?: string;
-            style?: React.CSSProperties;
-        }
-        export class CardText extends React.Component<CardTextProps, {}> {
-        }
-
-        interface CardTitleProps extends React.Props<CardTitle> {
-            expandable?: boolean;
-            showExpandableButton?: boolean;
-            title?: string | React.ReactElement<any>;
-            titleColor?: string;
-            titleStyle?: React.CSSProperties;
-            subtitle?: string | React.ReactElement<any>;
-            subtitleColor?: string;
-            subtitleStyle?: React.CSSProperties;
-            textStyle?: React.CSSProperties;
-            style?: React.CSSProperties;
-        }
-        export class CardTitle extends React.Component<CardTitleProps, {}> {
-        }
-    }
-
-    // what's not commonly overridden by Checkbox, RadioButton, or Toggle
-    interface CommonEnhancedSwitchProps<T> extends React.HTMLAttributes, React.Props<T> {
-        // <input/> is root element
-        id?: string;
-        iconStyle?: React.CSSProperties;
-        labelStyle?: React.CSSProperties;
-        rippleStyle?: React.CSSProperties;
-        thumbStyle?: React.CSSProperties;
-        trackStyle?: React.CSSProperties;
-        name?: string;
-        value?: string;
-        label?: string;
-        required?: boolean;
-        disabled?: boolean;
-        defaultSwitched?: boolean;
-        disableFocusRipple?: boolean;
-        disableTouchRipple?: boolean;
-    }
-
-    interface EnhancedSwitchProps extends CommonEnhancedSwitchProps<EnhancedSwitch> {
-        // <input/> is root element
-        inputType: string;
-        switchElement: React.ReactElement<any>;
-        onParentShouldUpdate: (isInputChecked: boolean) => void;
-        switched: boolean;
-        rippleColor?: string;
-        onSwitch?: (e: React.MouseEvent, isInputChecked: boolean) => void;
-        labelPosition?: string;
-    }
-    export class EnhancedSwitch extends React.Component<EnhancedSwitchProps, {}> {
-        isSwitched(): boolean;
-        setSwitched(newSwitchedValue: boolean): void;
-        getValue(): any;
-        isKeyboardFocused(): boolean;
-    }
-
-    interface CheckboxProps extends CommonEnhancedSwitchProps<Checkbox> {
-        // <EnhancedSwitch/> is root element
-        checkedIcon?: React.ReactElement<{ style?: React.CSSProperties }>; // Normally an SvgIcon
-        defaultChecked?: boolean;
-        iconStyle?: React.CSSProperties;
-        label?: string;
-        labelStyle?: React.CSSProperties;
-        labelPosition?: string;
-        style?: React.CSSProperties;
-        checked?: boolean;
-        unCheckedIcon?: React.ReactElement<{ style?: React.CSSProperties }>; // Normally an SvgIcon
-
-        disabled?: boolean;
-        valueLink?: ReactLink<boolean>;
-        checkedLink?: ReactLink<boolean>;
-
-        onCheck?: (event: React.MouseEvent, checked: boolean) => void;
-    }
-    export class Checkbox extends React.Component<CheckboxProps, {}> {
-        isChecked(): void;
-        setChecked(newCheckedValue: boolean): void;
-    }
-
-    interface CircularProgressProps extends React.Props<CircularProgress> {
-        mode?: string;
-        value?: number;
-        min?: number;
-        max?: number;
-        size?: number;
-        color?: string;
-        innerStyle?: React.CSSProperties;
-        style?: React.CSSProperties;
-
-    }
-    export class CircularProgress extends React.Component<CircularProgressProps, {}> {
-    }
-
-    interface ClearFixProps extends React.Props<ClearFix> {
-    }
-    export class ClearFix extends React.Component<ClearFixProps, {}> {
-    }
-
-    namespace DatePicker {
-        interface DatePickerProps extends React.Props<DatePicker> {
-            autoOk?: boolean;
-            defaultDate?: Date;
-            formatDate?: string;
-            hintText?: string;
-            floatingLabelText?: string;
-            hideToolbarYearChange?: boolean;
-            maxDate?: Date;
-            minDate?: Date;
-            mode?: string;
-            onDismiss?: () => void;
-
-            // e is always null
-            onChange?: (e: any, d: Date) => void;
-
-            onFocus?: React.FocusEventHandler;
-            onShow?: () => void;
-            onTouchTap?: React.TouchEventHandler;
-            shouldDisableDate?: (day: Date) => boolean;
-            showYearSelector?: boolean;
-            style?: React.CSSProperties;
-            textFieldStyle?: React.CSSProperties;
-        }
-        export class DatePicker extends React.Component<DatePickerProps, {}> {
-        }
-
-        interface DatePickerDialogProps extends React.Props<DatePickerDialog> {
-            disableYearSelection?: boolean;
-            initialDate?: Date;
-            maxDate?: Date;
-            minDate?: Date;
-            onAccept?: (d: Date) => void;
-            onClickAway?: () => void;
-            onDismiss?: () => void;
-            onShow?: () => void;
-            shouldDisableDate?: (day: Date) => boolean;
-            showYearSelector?: boolean;
-        }
-        export class DatePickerDialog extends React.Component<DatePickerDialogProps, {}> {
-        }
-    }
-
-    export interface DialogAction {
-        id?: string;
-        text: string;
-        ref?: string;
-
-        onTouchTap?: TouchTapEventHandler;
-        onClick?: React.MouseEventHandler;
-    }
-    interface DialogProps extends React.Props<Dialog> {
-        actions?: Array<DialogAction | React.ReactElement<any>>;
-        actionFocus?: string;
-        autoDetectWindowHeight?: boolean;
-        autoScrollBodyContent?: boolean;
-        style?: React.CSSProperties;
-        bodyStyle?: React.CSSProperties;
-        contentClassName?: string;
-        contentInnerStyle?: React.CSSProperties;
-        contentStyle?: React.CSSProperties;
-        modal?: boolean;
-        openImmediately?: boolean;
-        repositionOnUpdate?: boolean;
-        title?: React.ReactNode;
-        defaultOpen?: boolean;
-        open?: boolean;
-
-        onClickAway?: () => void;
-        onDismiss?: () => void;
-        onShow?: () => void;
-        onRequestClose?: (buttonClicked: boolean) => void;
-    }
-    export class Dialog extends React.Component<DialogProps, {}> {
-        dismiss(): void;
-        show(): void;
-        isOpen(): boolean;
-    }
-
-    interface DividerProps extends React.Props<Divider> {
-        inset?: boolean;
-        style?: React.CSSProperties;
-    }
-    export class Divider extends React.Component<DividerProps, {}>{
-    }
-
-    interface DropDownMenuProps extends React.Props<DropDownMenu> {
-        displayMember?: string;
-        valueMember?: string;
-        autoWidth?: boolean;
-        selectedIndex?: number;
-        underlineStyle?: React.CSSProperties;
-        iconStyle?: React.CSSProperties;
-        labelStyle?: React.CSSProperties;
-        style?: React.CSSProperties;
-        disabled?: boolean;
-        valueLink?: ReactLink<any>;
-        value?: any;
-    }
-    export class DropDownMenu extends React.Component<DropDownMenuProps, {}> {
-    }
-
-    // non generally overridden elements of EnhancedButton
-    interface SharedEnhancedButtonProps<T> extends React.HTMLAttributes, React.Props<T> {
-        centerRipple?: boolean;
-        containerElement?: string | React.ReactElement<any>;
-        disabled?: boolean;
-        disableFocusRipple?: boolean;
-        disableKeyboardFocus?: boolean;
-        disableTouchRipple?: boolean;
-        keyboardFocused?: boolean;
-        linkButton?: boolean;
-        focusRippleColor?: string;
-        focusRippleOpacity?: number;
-        touchRippleOpacity?: number;
-        tabIndex?: number;
-
-        onBlur?: React.FocusEventHandler;
-        onFocus?: React.FocusEventHandler;
-        onKeyboardFocus?: (e: React.FocusEvent, isKeyboardFocused: boolean) => void;
-        onKeyDown?: React.KeyboardEventHandler;
-        onKeyUp?: React.KeyboardEventHandler;
-        onMouseEnter?: React.MouseEventHandler;
-        onMouseLeave?: React.MouseEventHandler;
-        onTouchStart?: React.TouchEventHandler;
-        onTouchEnd?: React.TouchEventHandler;
-        onTouchTap?: TouchTapEventHandler;
-    }
-
-    interface EnhancedButtonProps extends SharedEnhancedButtonProps<EnhancedButton> {
-        touchRippleColor?: string;
-        focusRippleColor?: string;
-        style?: React.CSSProperties;
-    }
-    export class EnhancedButton extends React.Component<EnhancedButtonProps, {}> {
-    }
-
-    interface FlatButtonProps extends SharedEnhancedButtonProps<FlatButton> {
-        hoverColor?: string;
-        label?: string;
-        labelPosition?: string;
-        labelStyle?: React.CSSProperties;
-        linkButton?: boolean;
-        primary?: boolean;
-        secondary?: boolean;
-        rippleColor?: string;
-        style?: React.CSSProperties;
-    }
-    export class FlatButton extends React.Component<FlatButtonProps, {}> {
-    }
-
-    interface FloatingActionButtonProps extends SharedEnhancedButtonProps<FloatingActionButton> {
-        backgroundColor?: string;
-        disabled?: boolean;
-        disabledColor?: string;
-        iconClassName?: string;
-        iconStyle?: React.CSSProperties;
-        mini?: boolean;
-        secondary?: boolean;
-        style?: React.CSSProperties;
-    }
-    export class FloatingActionButton extends React.Component<FloatingActionButtonProps, {}> {
-    }
-
-    interface FontIconProps extends React.Props<FontIcon> {
-        color?: string;
-        hoverColor?: string;
-        onMouseLeave?: React.MouseEventHandler;
-        onMouseEnter?: React.MouseEventHandler;
-        style?: React.CSSProperties;
-        className?: string;
-    }
-    export class FontIcon extends React.Component<FontIconProps, {}> {
-    }
-
-    interface IconButtonProps extends SharedEnhancedButtonProps<IconButton> {
-        iconClassName?: string;
-        iconStyle?: React.CSSProperties;
-        style?: React.CSSProperties;
-        tooltip?: string;
-        tooltipPosition?: string;
-        tooltipStyles?: React.CSSProperties;
-        touch?: boolean;
-
-        onBlur?: React.FocusEventHandler;
-        onFocus?: React.FocusEventHandler;
-    }
-    export class IconButton extends React.Component<IconButtonProps, {}> {
-    }
-
-    interface LeftNavProps extends React.Props<LeftNav> {
-        disableSwipeToOpen?: boolean;
-        docked?: boolean;
-        open?: boolean;
-        header?: React.ReactElement<any>;
-        onNavOpen?: () => void;
-        onNavClose?: () => void;
-        onRequestChange?: (t: boolean) => void;
-        openRight?: Boolean;
-        selectedIndex?: number;
-        menuItemClassName?: string;
-        menuItemClassNameSubheader?: string;
-        menuItemClassNameLink?: string;
-        style?: React.CSSProperties;
-    }
-    export class LeftNav extends React.Component<LeftNavProps, {}> {
-      toggle(): void;
-    }
-
-    interface LinearProgressProps extends React.Props<LinearProgress> {
-        mode?: string;
-        value?: number;
-        min?: number;
-        max?: number;
-    }
-    export class LinearProgress extends React.Component<LinearProgressProps, {}> {
-    }
-
-    namespace Lists {
-        interface ListProps extends React.Props<List> {
-            insetSubheader?: boolean;
-            subheader?: string;
-            subheaderStyle?: React.CSSProperties;
-            zDepth?: number;
-            style?: React.CSSProperties;
-        }
-        export class List extends React.Component<ListProps, {}> {
-        }
-
-        interface ListDividerProps extends React.Props<ListDivider> {
-            inset?: boolean;
-        }
-        export class ListDivider extends React.Component<ListDividerProps, {}> {
-        }
-
-        interface ListItemProps extends React.Props<ListItem> {
-            autoGenerateNestedIndicator?: boolean;
-            disableKeyboardFocus?: boolean;
-            initiallyOpen?: boolean;
-            innerDivStyle?: React.CSSProperties;
-            insetChildren?: boolean;
-            innerStyle?: React.CSSProperties;
-            leftAvatar?: React.ReactElement<any>;
-            leftCheckbox?: React.ReactElement<any>;
-            leftIcon?: React.ReactElement<any>;
-            nestedLevel?: number;
-            nestedItems?: React.ReactElement<any>[];
-            onKeyboardFocus?: React.FocusEventHandler;
-            onNestedListToggle?: (item: ListItem) => void;
-            onClick?: React.MouseEventHandler;
-            onTouchTap?: TouchTapEventHandler;
-            rightAvatar?: React.ReactElement<any>;
-            rightIcon?: React.ReactElement<any>;
-            rightIconButton?: React.ReactElement<any>;
-            rightToggle?: React.ReactElement<any>;
-            primaryText?: React.ReactNode;
-            secondaryText?: React.ReactNode;
-            secondaryTextLines?: number;
-            style?: React.CSSProperties;
-        }
-        export class ListItem extends React.Component<ListItemProps, {}> {
-        }
-    }
-
-    namespace Hoc {
-        interface SelectableProps {
-            selectedItemStyle?: React.CSSProperties;
-            valueLink?: { value: any; requestChange: (e: TouchTapEvent, value: any) => void };
-            value?: any;
-            onChange?: (e: TouchTapEvent, value: any) => void;
-        }
-
-        // union types for higher order components in TypeScript 1.8: https://github.com/Microsoft/TypeScript/issues/4362
-        export function SelectableContainerEnhance<P extends {}>(component: React.ComponentClass<P>): React.ComponentClass<P & SelectableProps>;
-    }
-
-    export namespace Mixins {
-        interface ClickAwayable extends React.Mixin<any, any> {
-        }
-        var ClickAwayable: ClickAwayable;
-
-        interface WindowListenable extends React.Mixin<any, any> {
-        }
-        var WindowListenable: WindowListenable;
-
-        interface StylePropable extends React.Mixin<any, any> {
-        }
-        var StylePropable: StylePropable
-
-        interface StyleResizable extends React.Mixin<any, any> {
-        }
-        var StyleResizable: StyleResizable
-    }
-
-    interface OverlayProps extends React.Props<Overlay> {
-        autoLockScrolling?: boolean;
-        show?: boolean;
-        transitionEnabled?: boolean;
-    }
-    export class Overlay extends React.Component<OverlayProps, {}> {
-    }
-
-    interface PaperProps extends React.HTMLAttributes, React.Props<Paper> {
-        circle?: boolean;
-        rounded?: boolean;
-        transitionEnabled?: boolean;
-        zDepth?: number;
-    }
-    export class Paper extends React.Component<PaperProps, {}> {
-    }
-
-    interface RadioButtonProps extends CommonEnhancedSwitchProps<RadioButton> {
-        // <EnhancedSwitch/> is root element
-        defaultChecked?: boolean;
-        iconStyle?: React.CSSProperties;
-        label?: string;
-        labelStyle?: React.CSSProperties;
-        labelPosition?: string;
-        style?: React.CSSProperties;
-        value?: string;
-
-        onCheck?: (e: React.FormEvent, selected: string) => void;
-    }
-    export class RadioButton extends React.Component<RadioButtonProps, {}> {
-    }
-
-    interface RadioButtonGroupProps extends React.Props<RadioButtonGroup> {
-        defaultSelected?: string;
-        labelPosition?: string;
-        name: string;
-        style?: React.CSSProperties;
-        valueSelected?: string;
-
-        onChange?: (e: React.FormEvent, selected: string) => void;
-    }
-    export class RadioButtonGroup extends React.Component<RadioButtonGroupProps, {}> {
-        getSelectedValue(): string;
-        setSelectedValue(newSelectionValue: string): void;
-        clearValue(): void;
-    }
-
-    interface RaisedButtonProps extends SharedEnhancedButtonProps<RaisedButton> {
-        className?: string;
-        disabled?: boolean;
-        label?: string;
-        primary?: boolean;
-        secondary?: boolean;
-        labelStyle?: React.CSSProperties;
-        backgroundColor?: string;
-        labelColor?: string;
-        disabledBackgroundColor?: string;
-        disabledLabelColor?: string;
-        fullWidth?: boolean;
-    }
-    export class RaisedButton extends React.Component<RaisedButtonProps, {}> {
-    }
-
-    interface RefreshIndicatorProps extends React.Props<RefreshIndicator> {
-        left: number;
-        percentage?: number;
-        size?: number;
-        status?: string;
-        top: number;
-        style?: React.CSSProperties;
-    }
-    export class RefreshIndicator extends React.Component<RefreshIndicatorProps, {}> {
-    }
-
-    namespace Ripples {
-        interface CircleRippleProps extends React.Props<CircleRipple> {
-            color?: string;
-            opacity?: number;
-            style?: React.CSSProperties;
-        }
-        export class CircleRipple extends React.Component<CircleRippleProps, {}> {
-        }
-
-        interface FocusRippleProps extends React.Props<FocusRipple> {
-            color?: string;
-            style?: React.CSSProperties;
-            innerStyle?: React.CSSProperties;
-            opacity?: number;
-            show?: boolean;
-        }
-        export class FocusRipple extends React.Component<FocusRippleProps, {}> {
-        }
-
-        interface TouchRippleProps extends React.Props<TouchRipple> {
-            centerRipple?: boolean;
-            color?: string;
-            opacity?: number;
-            style?: React.CSSProperties;
-        }
-        export class TouchRipple extends React.Component<TouchRippleProps, {}> {
-        }
-    }
-
-    interface SelectFieldProps extends React.Props<SelectField> {
-        // passed to TextField
-        errorStyle?: React.CSSProperties;
-        errorText?: string;
-        floatingLabelText?: string;
-        floatingLabelStyle?: React.CSSProperties;
-        fullWidth?: boolean;
-        hintText?: string | React.ReactElement<any>;
-
-        // passed to DropDownMenu
-        displayMember?: string;
-        valueMember?: string;
-        autoWidth?: boolean;
-        selectedIndex?: number;
-        underlineStyle?: React.CSSProperties;
-        iconStyle?: React.CSSProperties;
-        labelStyle?: React.CSSProperties;
-        style?: React.CSSProperties;
-        disabled?: boolean;
-        valueLink?: ReactLink<any>;
-        value?: any;
-
-        onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
-        onEnterKeyDown?: React.KeyboardEventHandler;
-
-        // own properties
-        selectFieldRoot?: string;
-        multiLine?: boolean;
-        type?: string;
-        rows?: number;
-        inputStyle?: React.CSSProperties;
-    }
-    export class SelectField extends React.Component<SelectFieldProps, {}> {
-    }
-
-    interface SliderProps extends React.Props<Slider> {
-        name: string;
-        defaultValue?: number;
-        description?: string;
-        error?: string;
-        max?: number;
-        min?: number;
-        required?: boolean;
-        step?: number;
-        value?: number;
-        style?: React.CSSProperties;
-    }
-    export class Slider extends React.Component<SliderProps, {}> {
-    }
-
-    interface SvgIconProps extends React.Props<SvgIcon> {
-        color?: string;
-        hoverColor?: string;
-        onMouseEnter?: React.MouseEventHandler;
-        onMouseLeave?: React.MouseEventHandler;
-        viewBox?: string;
-        style?: React.CSSProperties;
-    }
-    export class SvgIcon extends React.Component<SvgIconProps, {}> {
+    export class ThemeWrapper extends React.Component<ThemeWrapperProps, {}> {
     }
 
     export namespace Styles {
@@ -1084,10 +391,743 @@ declare namespace __MaterialUI {
         export var LightRawTheme: RawTheme;
     }
 
+    interface AppBarProps extends React.Props<AppBar> {
+        iconClassNameLeft?: string;
+        iconClassNameRight?: string;
+        iconElementLeft?: React.ReactElement<any>;
+        iconElementRight?: React.ReactElement<any>;
+        iconStyleRight?: string;
+        onLeftIconButtonTouchTap?: TouchTapEventHandler;
+        onRightIconButtonTouchTap?: TouchTapEventHandler;
+        showMenuIconButton?: boolean;
+        style?: React.CSSProperties;
+        title?: React.ReactNode;
+        zDepth?: number;
+    }
+    export class AppBar extends React.Component<AppBarProps, {}>{
+    }
+
+    interface AppCanvasProps extends React.Props<AppCanvas> {
+    }
+    export class AppCanvas extends React.Component<AppCanvasProps, {}> {
+    }
+
+    interface AutoCompleteProps extends React.Props<AutoComplete> {
+        anchorOrigin?: string;
+        animated?: boolean;
+        dataSource?: any;
+        disableFocusRipple?: boolean;
+        errorStyle?: any;
+        errorText?: string;
+        filter?: (i: any) => boolean;
+        floatingLabelText?: string;
+        fullWidth?: boolean;
+        hintText?: string;
+        listStyle?: any;
+        menuCloseDelay?: number;
+        menuProps?: any;
+        menuStyle?: any;
+        onNewRequest?: (text: string) => void;
+        onUpdateInput?: (text: string) => void;
+        open?: boolean;
+        searchText?: string;
+        showAllItems?: boolean;
+        style?: any;
+        targetOrigin?: string;
+        touchTapCloseDelay?: number;
+        updateWhenFocused?: boolean;
+    }
+    export class AutoComplete extends React.Component<AutoCompleteProps, {}> {
+    }
+
+    interface AvatarProps extends React.Props<Avatar> {
+        backgroundColor?: string;
+        color?: string;
+        icon?: React.ReactElement<any>;
+        size?: number;
+        src?: string;
+        style?: React.CSSProperties;
+    }
+    export class Avatar extends React.Component<AvatarProps, {}> {
+    }
+
+    interface BadgeProps extends React.Props<Badge> {
+        badgeContent: React.ReactElement<any> | string | number;
+        badgeStyle?: React.CSSProperties;
+        primary?: boolean;
+        secondary?: boolean;
+        style?: React.CSSProperties;
+    }
+    export class Badge extends React.Component<BadgeProps, {}> {
+    }
+
+    interface BeforeAfterWrapperProps extends React.Props<BeforeAfterWrapper> {
+        afterElementType?: string;
+        afterStyle?: React.CSSProperties;
+        beforeElementType?: string;
+        beforeStyle?: React.CSSProperties;
+        elementType?: string;
+    }
+    export class BeforeAfterWrapper extends React.Component<BeforeAfterWrapperProps, {}> {
+    }
+
+    namespace Card {
+
+        interface CardProps extends React.Props<Card> {
+            expandable?: boolean;
+            initiallyExpanded?: boolean;
+            onExpandedChange?: (isExpanded: boolean) => void;
+            style?: React.CSSProperties;
+        }
+        export class Card extends React.Component<CardProps, {}> {
+        }
+
+        interface CardActionsProps extends React.Props<CardActions> {
+            expandable?: boolean;
+            showExpandableButton?: boolean;
+            style?: React.CSSProperties;
+        }
+        export class CardActions extends React.Component<CardActionsProps, {}> {
+        }
+
+        interface CardExpandableProps extends React.Props<CardExpandable> {
+            expanded?: boolean;
+            onExpanding?: (isExpanded: boolean) => void;
+            style?: React.CSSProperties;
+        }
+        export class CardExpandable extends React.Component<CardExpandableProps, {}> {
+        }
+
+        interface CardHeaderProps extends React.Props<CardHeader> {
+            avatar?: React.ReactElement<any> | string;
+            expandable?: boolean;
+            showExpandableButton?: boolean;
+            style?: React.CSSProperties;
+            subtitle?: string | React.ReactElement<any>;
+            subtitleColor?: string;
+            subtitleStyle?: React.CSSProperties;
+            textStyle?: React.CSSProperties;
+            title?: string | React.ReactElement<any>;
+            titleColor?: string;
+            titleStyle?: React.CSSProperties;
+        }
+        export class CardHeader extends React.Component<CardHeaderProps, {}> {
+        }
+
+        interface CardMediaProps extends React.Props<CardMedia> {
+            expandable?: boolean;
+            mediaStyle?: React.CSSProperties;
+            overlay?: React.ReactNode;
+            overlayContainerStyle?: React.CSSProperties;
+            overlayContentStyle?: React.CSSProperties;
+            overlayStyle?: React.CSSProperties;
+            style?: React.CSSProperties;
+        }
+        export class CardMedia extends React.Component<CardMediaProps, {}> {
+        }
+
+        interface CardTextProps extends React.Props<CardText> {
+            color?: string;
+            expandable?: boolean;
+            style?: React.CSSProperties;
+        }
+        export class CardText extends React.Component<CardTextProps, {}> {
+        }
+
+        interface CardTitleProps extends React.Props<CardTitle> {
+            expandable?: boolean;
+            showExpandableButton?: boolean;
+            style?: React.CSSProperties;
+            subtitle?: string | React.ReactElement<any>;
+            subtitleColor?: string;
+            subtitleStyle?: React.CSSProperties;
+            textStyle?: React.CSSProperties;
+            title?: string | React.ReactElement<any>;
+            titleColor?: string;
+            titleStyle?: React.CSSProperties;
+        }
+        export class CardTitle extends React.Component<CardTitleProps, {}> {
+        }
+    }
+
+    // what's not commonly overridden by Checkbox, RadioButton, or Toggle
+    interface CommonEnhancedSwitchProps<T> extends React.HTMLAttributes, React.Props<T> {
+        // <input/> is root element
+        defaultSwitched?: boolean;
+        disabled?: boolean;
+        disableFocusRipple?: boolean;
+        disableTouchRipple?: boolean;
+        iconStyle?: React.CSSProperties;
+        id?: string;
+        label?: string;
+        labelStyle?: React.CSSProperties;
+        name?: string;
+        required?: boolean;
+        rippleStyle?: React.CSSProperties;
+        thumbStyle?: React.CSSProperties;
+        trackStyle?: React.CSSProperties;
+        value?: string;
+    }
+
+    interface EnhancedSwitchProps extends CommonEnhancedSwitchProps<EnhancedSwitch> {
+        // <input/> is root element
+        inputType: string;
+        labelPosition?: string;
+        onParentShouldUpdate: (isInputChecked: boolean) => void;
+        onSwitch?: (e: React.MouseEvent, isInputChecked: boolean) => void;
+        rippleColor?: string;
+        switched: boolean;
+        switchElement: React.ReactElement<any>;
+    }
+    export class EnhancedSwitch extends React.Component<EnhancedSwitchProps, {}> {
+        getValue(): any;
+        isKeyboardFocused(): boolean;
+        isSwitched(): boolean;
+        setSwitched(newSwitchedValue: boolean): void;
+    }
+
+    interface CheckboxProps extends CommonEnhancedSwitchProps<Checkbox> {
+        // <EnhancedSwitch/> is root element
+        checked?: boolean;
+        checkedIcon?: React.ReactElement<{ style?: React.CSSProperties }>; // Normally an SvgIcon
+        checkedLink?: ReactLink<boolean>;
+        defaultChecked?: boolean;
+        disabled?: boolean;
+        iconStyle?: React.CSSProperties;
+        label?: string;
+        labelPosition?: string;
+        labelStyle?: React.CSSProperties;
+        onCheck?: (event: React.MouseEvent, checked: boolean) => void;
+        style?: React.CSSProperties;
+        unCheckedIcon?: React.ReactElement<{ style?: React.CSSProperties }>; // Normally an SvgIcon
+        valueLink?: ReactLink<boolean>;
+    }
+    export class Checkbox extends React.Component<CheckboxProps, {}> {
+        isChecked(): void;
+        setChecked(newCheckedValue: boolean): void;
+    }
+
+    interface CircularProgressProps extends React.Props<CircularProgress> {
+        color?: string;
+        innerStyle?: React.CSSProperties;
+        max?: number;
+        min?: number;
+        mode?: string;
+        size?: number;
+        style?: React.CSSProperties;
+        value?: number;
+    }
+    export class CircularProgress extends React.Component<CircularProgressProps, {}> {
+    }
+
+    interface ClearFixProps extends React.Props<ClearFix> {
+    }
+    export class ClearFix extends React.Component<ClearFixProps, {}> {
+    }
+
+    namespace DatePicker {
+        interface DatePickerProps extends React.Props<DatePicker> {
+            autoOk?: boolean;
+            defaultDate?: Date;
+            floatingLabelText?: string;
+            formatDate?: string;
+            hideToolbarYearChange?: boolean;
+            hintText?: string;
+            maxDate?: Date;
+            minDate?: Date;
+            mode?: string;
+            onChange?: (e: any, d: Date) => void; // e is always null
+            onDismiss?: () => void;
+            onFocus?: React.FocusEventHandler;
+            onShow?: () => void;
+            onTouchTap?: React.TouchEventHandler;
+            shouldDisableDate?: (day: Date) => boolean;
+            showYearSelector?: boolean;
+            style?: React.CSSProperties;
+            textFieldStyle?: React.CSSProperties;
+        }
+        export class DatePicker extends React.Component<DatePickerProps, {}> {
+        }
+
+        interface DatePickerDialogProps extends React.Props<DatePickerDialog> {
+            disableYearSelection?: boolean;
+            initialDate?: Date;
+            maxDate?: Date;
+            minDate?: Date;
+            onAccept?: (d: Date) => void;
+            onClickAway?: () => void;
+            onDismiss?: () => void;
+            onShow?: () => void;
+            shouldDisableDate?: (day: Date) => boolean;
+            showYearSelector?: boolean;
+        }
+        export class DatePickerDialog extends React.Component<DatePickerDialogProps, {}> {
+        }
+    }
+
+    export interface DialogAction {
+        id?: string;
+        onClick?: React.MouseEventHandler;
+        onTouchTap?: TouchTapEventHandler;
+        ref?: string;
+        text: string;
+    }
+    interface DialogProps extends React.Props<Dialog> {
+        actionFocus?: string;
+        actions?: Array<DialogAction | React.ReactElement<any>>;
+        autoDetectWindowHeight?: boolean;
+        autoScrollBodyContent?: boolean;
+        bodyStyle?: React.CSSProperties;
+        contentClassName?: string;
+        contentInnerStyle?: React.CSSProperties;
+        contentStyle?: React.CSSProperties;
+        defaultOpen?: boolean;
+        modal?: boolean;
+        onClickAway?: () => void;
+        onDismiss?: () => void;
+        onRequestClose?: (buttonClicked: boolean) => void;
+        onShow?: () => void;
+        open?: boolean;
+        openImmediately?: boolean;
+        repositionOnUpdate?: boolean;
+        style?: React.CSSProperties;
+        title?: React.ReactNode;
+    }
+    export class Dialog extends React.Component<DialogProps, {}> {
+        dismiss(): void;
+        isOpen(): boolean;
+        show(): void;
+    }
+
+    interface DividerProps extends React.Props<Divider> {
+        inset?: boolean;
+        style?: React.CSSProperties;
+    }
+    export class Divider extends React.Component<DividerProps, {}>{
+    }
+
+    namespace GridList {
+        interface GridListProps extends React.Props<GridList> {
+            cellHeight?: number;
+            cols?: number;
+            padding?: number;
+            style?: React.CSSProperties;
+        }
+
+        export class GridList extends React.Component<GridListProps, {}>{
+        }
+
+        interface GridTileProps extends React.Props<GridTile> {
+            actionIcon?: __React.ReactElement<any>;
+            actionPosition?: string; //"left"|"right"
+            cols?: number;
+            rootClass?: string | __React.Component<any, any>;
+            rows?: number;
+            style?: React.CSSProperties;
+            subtitle?: __React.ReactNode;
+            title?: string;
+            titleBackground?: string;
+            titlePosition?: string; //"top"|"bottom"
+        }
+
+        export class GridTile extends React.Component<GridTileProps, {}>{
+        }
+    }
+
+    // non generally overridden elements of EnhancedButton
+    interface SharedEnhancedButtonProps<T> extends React.HTMLAttributes, React.Props<T> {
+        centerRipple?: boolean;
+        containerElement?: string | React.ReactElement<any>;
+        disabled?: boolean;
+        disableFocusRipple?: boolean;
+        disableKeyboardFocus?: boolean;
+        disableTouchRipple?: boolean;
+        focusRippleColor?: string;
+        focusRippleOpacity?: number;
+        keyboardFocused?: boolean;
+        linkButton?: boolean;
+        onBlur?: React.FocusEventHandler;
+        onFocus?: React.FocusEventHandler;
+        onKeyboardFocus?: (e: React.FocusEvent, isKeyboardFocused: boolean) => void;
+        onKeyDown?: React.KeyboardEventHandler;
+        onKeyUp?: React.KeyboardEventHandler;
+        onMouseEnter?: React.MouseEventHandler;
+        onMouseLeave?: React.MouseEventHandler;
+        onTouchEnd?: React.TouchEventHandler;
+        onTouchStart?: React.TouchEventHandler;
+        onTouchTap?: TouchTapEventHandler;
+        tabIndex?: number;
+        touchRippleOpacity?: number;
+    }
+
+    interface EnhancedButtonProps extends SharedEnhancedButtonProps<EnhancedButton> {
+        focusRippleColor?: string;
+        style?: React.CSSProperties;
+        touchRippleColor?: string;
+    }
+    export class EnhancedButton extends React.Component<EnhancedButtonProps, {}> {
+    }
+
+    interface FlatButtonProps extends SharedEnhancedButtonProps<FlatButton> {
+        hoverColor?: string;
+        label?: string;
+        labelPosition?: string;
+        labelStyle?: React.CSSProperties;
+        linkButton?: boolean;
+        primary?: boolean;
+        rippleColor?: string;
+        secondary?: boolean;
+        style?: React.CSSProperties;
+    }
+    export class FlatButton extends React.Component<FlatButtonProps, {}> {
+    }
+
+    interface FloatingActionButtonProps extends SharedEnhancedButtonProps<FloatingActionButton> {
+        backgroundColor?: string;
+        disabled?: boolean;
+        disabledColor?: string;
+        iconClassName?: string;
+        iconStyle?: React.CSSProperties;
+        mini?: boolean;
+        secondary?: boolean;
+        style?: React.CSSProperties;
+    }
+    export class FloatingActionButton extends React.Component<FloatingActionButtonProps, {}> {
+    }
+
+    interface FontIconProps extends React.Props<FontIcon> {
+        className?: string;
+        color?: string;
+        hoverColor?: string;
+        onMouseEnter?: React.MouseEventHandler;
+        onMouseLeave?: React.MouseEventHandler;
+        style?: React.CSSProperties;
+    }
+    export class FontIcon extends React.Component<FontIconProps, {}> {
+    }
+
+    interface IconButtonProps extends SharedEnhancedButtonProps<IconButton> {
+        iconClassName?: string;
+        iconStyle?: React.CSSProperties;
+        onBlur?: React.FocusEventHandler;
+        onFocus?: React.FocusEventHandler;
+        style?: React.CSSProperties;
+        tooltip?: string;
+        tooltipPosition?: string;
+        tooltipStyles?: React.CSSProperties;
+        touch?: boolean;
+    }
+    export class IconButton extends React.Component<IconButtonProps, {}> {
+    }
+
+    interface LeftNavProps extends React.Props<LeftNav> {
+        disableSwipeToOpen?: boolean;
+        docked?: boolean;
+        header?: React.ReactElement<any>;
+        menuItemClassName?: string;
+        menuItemClassNameLink?: string;
+        menuItemClassNameSubheader?: string;
+        onNavClose?: () => void;
+        onNavOpen?: () => void;
+        onRequestChange?: (t: boolean) => void;
+        open?: boolean;
+        openRight?: Boolean;
+        selectedIndex?: number;
+        style?: React.CSSProperties;
+    }
+    export class LeftNav extends React.Component<LeftNavProps, {}> {
+      toggle(): void;
+    }
+
+    interface LinearProgressProps extends React.Props<LinearProgress> {
+        max?: number;
+        min?: number;
+        mode?: string;
+        value?: number;
+    }
+    export class LinearProgress extends React.Component<LinearProgressProps, {}> {
+    }
+
+    namespace Lists {
+        interface ListProps extends React.Props<List> {
+            insetSubheader?: boolean;
+            style?: React.CSSProperties;
+            subheader?: string;
+            subheaderStyle?: React.CSSProperties;
+            zDepth?: number;
+        }
+        export class List extends React.Component<ListProps, {}> {
+        }
+
+        interface ListDividerProps extends React.Props<ListDivider> {
+            inset?: boolean;
+        }
+        export class ListDivider extends React.Component<ListDividerProps, {}> {
+        }
+
+        interface ListItemProps extends React.Props<ListItem> {
+            autoGenerateNestedIndicator?: boolean;
+            disableKeyboardFocus?: boolean;
+            initiallyOpen?: boolean;
+            innerDivStyle?: React.CSSProperties;
+            innerStyle?: React.CSSProperties;
+            insetChildren?: boolean;
+            leftAvatar?: React.ReactElement<any>;
+            leftCheckbox?: React.ReactElement<any>;
+            leftIcon?: React.ReactElement<any>;
+            nestedItems?: React.ReactElement<any>[];
+            nestedLevel?: number;
+            onClick?: React.MouseEventHandler;
+            onKeyboardFocus?: React.FocusEventHandler;
+            onNestedListToggle?: (item: ListItem) => void;
+            onTouchTap?: TouchTapEventHandler;
+            primaryText?: React.ReactNode;
+            rightAvatar?: React.ReactElement<any>;
+            rightIcon?: React.ReactElement<any>;
+            rightIconButton?: React.ReactElement<any>;
+            rightToggle?: React.ReactElement<any>;
+            secondaryText?: React.ReactNode;
+            secondaryTextLines?: number;
+            style?: React.CSSProperties;
+        }
+        export class ListItem extends React.Component<ListItemProps, {}> {
+        }
+    }
+
+    namespace Menus {
+        interface DropDownMenuProps extends React.Props<DropDownMenu> {
+            autoWidth?: boolean;
+            children?: React.ReactElement<MenuItem>[];
+            className?: string;
+            disabled?: boolean;
+            iconStyle?: any;
+            labelStyle?: any;
+            maxHeight?: number;
+            menuStyle?: any;
+            onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
+            openImmediately?: boolean;
+            style?: any;
+            underlineStyle?: any;
+            value?: any;
+        }
+
+        export class DropDownMenu extends React.Component<DropDownMenuProps, {}> {
+        }
+
+        interface IconMenuProps extends React.Props<IconMenu> {
+            closeOnItemTouchTap?: boolean;
+            desktop?: boolean;
+            iconButtonElement: React.ReactElement<IconButtonProps>;
+            menuStyle?: React.CSSProperties;
+            multiple?: boolean;
+            onChange?: (e: React.FormEvent, value: string | Array<string>) => void;
+            onItemTouchTap?: (e: TouchTapEvent, item: React.ReactElement<any>) => void;
+            onKeyboardFocus?: React.FocusEventHandler;
+            openDirection?: string;
+            style?: React.CSSProperties;
+            touchTapCloseDelay?: number;
+            value?: string | Array<string>;
+            width?: string | number;
+        }
+        export class IconMenu extends React.Component<IconMenuProps, {}> {
+        }
+
+        interface MenuProps extends React.Props<Menu> {
+            animated?: boolean;
+            autoWidth?: boolean;
+            desktop?: boolean;
+            listStyle?: React.CSSProperties;
+            maxHeight?: number;
+            multiple?: boolean;
+            openDirection?: string;
+            style?: React.CSSProperties;
+            value?: string | Array<string>;
+            width?: string | number;
+            zDepth?: number;
+        }
+        export class Menu extends React.Component<MenuProps, {}>{
+        }
+
+        interface MenuItemProps extends React.Props<MenuItem> {
+            checked?: boolean;
+            desktop?: boolean;
+            disabled?: boolean;
+            innerDivStyle?: React.CSSProperties;
+            insetChildren?: boolean;
+            leftIcon?: React.ReactElement<any>;
+            onChange?: (e: React.FormEvent, value: string) => void;
+            onEscKeyDown?: React.KeyboardEventHandler;
+            onItemTouchTap?: (e: TouchTapEvent, item: React.ReactElement<any>) => void;
+            primaryText?: string | React.ReactElement<any>;
+            rightIcon?: React.ReactElement<any>;
+            secondaryText?: React.ReactNode;
+            style?: React.CSSProperties;
+            value?: any;
+        }
+        export class MenuItem extends React.Component<MenuItemProps, {}>{
+        }
+    }
+
+    interface OverlayProps extends React.Props<Overlay> {
+        autoLockScrolling?: boolean;
+        show?: boolean;
+        transitionEnabled?: boolean;
+    }
+    export class Overlay extends React.Component<OverlayProps, {}> {
+    }
+
+    interface PaperProps extends React.HTMLAttributes, React.Props<Paper> {
+        circle?: boolean;
+        rounded?: boolean;
+        transitionEnabled?: boolean;
+        zDepth?: number;
+    }
+    export class Paper extends React.Component<PaperProps, {}> {
+    }
+
+    interface RadioButtonProps extends CommonEnhancedSwitchProps<RadioButton> {
+        // <EnhancedSwitch/> is root element
+        defaultChecked?: boolean;
+        iconStyle?: React.CSSProperties;
+        label?: string;
+        labelPosition?: string;
+        labelStyle?: React.CSSProperties;
+        onCheck?: (e: React.FormEvent, selected: string) => void;
+        style?: React.CSSProperties;
+        value?: string;
+    }
+    export class RadioButton extends React.Component<RadioButtonProps, {}> {
+    }
+
+    interface RadioButtonGroupProps extends React.Props<RadioButtonGroup> {
+        defaultSelected?: string;
+        labelPosition?: string;
+        name: string;
+        onChange?: (e: React.FormEvent, selected: string) => void;
+        style?: React.CSSProperties;
+        valueSelected?: string;
+    }
+    export class RadioButtonGroup extends React.Component<RadioButtonGroupProps, {}> {
+        clearValue(): void;
+        getSelectedValue(): string;
+        setSelectedValue(newSelectionValue: string): void;
+    }
+
+    interface RaisedButtonProps extends SharedEnhancedButtonProps<RaisedButton> {
+        backgroundColor?: string;
+        className?: string;
+        disabled?: boolean;
+        disabledBackgroundColor?: string;
+        disabledLabelColor?: string;
+        fullWidth?: boolean;
+        label?: string;
+        labelColor?: string;
+        labelStyle?: React.CSSProperties;
+        primary?: boolean;
+        secondary?: boolean;
+    }
+    export class RaisedButton extends React.Component<RaisedButtonProps, {}> {
+    }
+
+    interface RefreshIndicatorProps extends React.Props<RefreshIndicator> {
+        left: number;
+        percentage?: number;
+        size?: number;
+        status?: string;
+        style?: React.CSSProperties;
+        top: number;
+    }
+    export class RefreshIndicator extends React.Component<RefreshIndicatorProps, {}> {
+    }
+
+    namespace Ripples {
+        interface CircleRippleProps extends React.Props<CircleRipple> {
+            color?: string;
+            opacity?: number;
+            style?: React.CSSProperties;
+        }
+        export class CircleRipple extends React.Component<CircleRippleProps, {}> {
+        }
+
+        interface FocusRippleProps extends React.Props<FocusRipple> {
+            color?: string;
+            innerStyle?: React.CSSProperties;
+            opacity?: number;
+            show?: boolean;
+            style?: React.CSSProperties;
+        }
+        export class FocusRipple extends React.Component<FocusRippleProps, {}> {
+        }
+
+        interface TouchRippleProps extends React.Props<TouchRipple> {
+            centerRipple?: boolean;
+            color?: string;
+            opacity?: number;
+            style?: React.CSSProperties;
+        }
+        export class TouchRipple extends React.Component<TouchRippleProps, {}> {
+        }
+    }
+
+    interface SelectFieldProps extends React.Props<SelectField> {
+        autoWidth?: boolean;
+        disabled?: boolean;
+        displayMember?: string;
+        errorStyle?: React.CSSProperties;
+        errorText?: string;
+        floatingLabelStyle?: React.CSSProperties;
+        floatingLabelText?: string;
+        fullWidth?: boolean;
+        hintText?: string | React.ReactElement<any>;
+        iconStyle?: React.CSSProperties;
+        inputStyle?: React.CSSProperties;
+        labelStyle?: React.CSSProperties;
+        multiLine?: boolean;
+        onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
+        onEnterKeyDown?: React.KeyboardEventHandler;
+        rows?: number;
+        selectedIndex?: number;
+        selectFieldRoot?: string;
+        style?: React.CSSProperties;
+        type?: string;
+        underlineStyle?: React.CSSProperties;
+        value?: any;
+        valueLink?: ReactLink<any>;
+        valueMember?: string;
+    }
+    export class SelectField extends React.Component<SelectFieldProps, {}> {
+    }
+
+    interface SliderProps extends React.Props<Slider> {
+        defaultValue?: number;
+        description?: string;
+        error?: string;
+        max?: number;
+        min?: number;
+        name: string;
+        required?: boolean;
+        step?: number;
+        style?: React.CSSProperties;
+        value?: number;
+    }
+    export class Slider extends React.Component<SliderProps, {}> {
+    }
+
+    interface SvgIconProps extends React.Props<SvgIcon> {
+        color?: string;
+        hoverColor?: string;
+        onMouseEnter?: React.MouseEventHandler;
+        onMouseLeave?: React.MouseEventHandler;
+        style?: React.CSSProperties;
+        viewBox?: string;
+    }
+    export class SvgIcon extends React.Component<SvgIconProps, {}> {
+    }
+
     interface SnackbarProps extends React.Props<Snackbar> {
-        message: string;
         action?: string;
         autoHideDuration?: number;
+        message: string;
         onActionTouchTap?: React.TouchEventHandler;
         onDismiss?: () => void; // DEPRECATED
         onRequestClose: (reason: string) => void;
@@ -1102,15 +1142,12 @@ declare namespace __MaterialUI {
     namespace Tabs {
         interface TabProps extends React.Props<Tab> {
             label?: React.ReactNode;
-            value?: string;
-            selected?: boolean;
-            width?: string;
-            style?: React.CSSProperties;
-
-            // Called by Tabs component
             onActive?: (tab: Tab) => void;
-
             onTouchTap?: (value: string, e: TouchTapEvent, tab: Tab) => void;
+            selected?: boolean;
+            style?: React.CSSProperties;
+            value?: string;
+            width?: string;
         }
         export class Tab extends React.Component<TabProps, {}> {
         }
@@ -1119,13 +1156,12 @@ declare namespace __MaterialUI {
             contentContainerStyle?: React.CSSProperties;
             initialSelectedIndex?: number;
             inkBarStyle?: React.CSSProperties;
+            onChange?: (value: string | number, e: React.FormEvent, tab: Tab) => void;
             style?: React.CSSProperties;
             tabItemContainerStyle?: React.CSSProperties;
+            tabTemplate?: __React.ComponentClass<any>;
             tabWidth?: number;
             value?: string | number;
-            tabTemplate?: __React.ComponentClass<any>;
-
-            onChange?: (value: string | number, e: React.FormEvent, tab: Tab) => void;
         }
         export class Tabs extends React.Component<TabsProps, {}> {
         }
@@ -1191,9 +1227,9 @@ declare namespace __MaterialUI {
         interface TableHeaderColumnProps extends React.Props<TableHeaderColumn> {
             columnNumber?: number;
             onClick?: (e: React.MouseEvent, column: number) => void;
+            style?: React.CSSProperties;
             tooltip?: string;
             tooltipStyle?: React.CSSProperties;
-            style?: React.CSSProperties;
         }
         export class TableHeaderColumn extends React.Component<TableHeaderColumnProps, {}> {
         }
@@ -1227,20 +1263,13 @@ declare namespace __MaterialUI {
         }
     }
 
-    interface ThemeWrapperProps extends React.Props<ThemeWrapper> {
-        theme: Styles.MuiTheme;
-    }
-    export class ThemeWrapper extends React.Component<ThemeWrapperProps, {}> {
-    }
-
     interface ToggleProps extends CommonEnhancedSwitchProps<Toggle> {
         // <EnhancedSwitch/> is root element
-
+        defaultToggled?: boolean;
         elementStyle?: React.CSSProperties;
         labelStyle?: React.CSSProperties;
         onToggle?: (e: React.MouseEvent, isInputChecked: boolean) => void;
         toggled?: boolean;
-        defaultToggled?: boolean;
     }
     export class Toggle extends React.Component<ToggleProps, {}> {
         isToggled(): boolean;
@@ -1248,51 +1277,49 @@ declare namespace __MaterialUI {
     }
 
     interface TimePickerProps extends React.Props<TimePicker> {
+        autoOk?: boolean;
         defaultTime?: Date;
         format?: string;
+        onChange?: (e: any, time: Date) => void;
+        onDismiss?: () => void;
+        onFocus?: React.FocusEventHandler;
+        onShow?: () => void;
+        onTouchTap?: TouchTapEventHandler;
+        openDialog?: () => void;
         pedantic?: boolean;
         style?: __React.CSSProperties;
         textFieldStyle?: __React.CSSProperties;
-        autoOk?: boolean;
-        openDialog?: () => void;
-        onFocus?: React.FocusEventHandler;
-        onTouchTap?: TouchTapEventHandler;
-        onChange?: (e: any, time: Date) => void;
-        onShow?: () => void;
-        onDismiss?: () => void;
     }
     export class TimePicker extends React.Component<TimePickerProps, {}> {
     }
 
     interface TextFieldProps extends React.Props<TextField> {
+        defaultValue?: string;
+        disabled?: boolean;
         errorStyle?: React.CSSProperties;
         errorText?: string;
-        floatingLabelText?: string;
         floatingLabelStyle?: React.CSSProperties;
+        floatingLabelText?: string;
         fullWidth?: boolean;
+        hintStyle?: React.CSSProperties;
         hintText?: string | React.ReactElement<any>;
         id?: string;
         inputStyle?: React.CSSProperties;
-        multiLine?: boolean;
-        onEnterKeyDown?: React.KeyboardEventHandler;
-        style?: React.CSSProperties;
-        rows?: number,
-        underlineStyle?: React.CSSProperties;
-        underlineFocusStyle?: React.CSSProperties;
-        underlineDisabledStyle?: React.CSSProperties;
-        type?: string;
-        hintStyle?: React.CSSProperties;
-
-        disabled?: boolean;
         isRtl?: boolean;
-        value?: string;
-        defaultValue?: string;
-        valueLink?: ReactLink<string>;
-
+        multiLine?: boolean;
         onBlur?: React.FocusEventHandler;
         onChange?: React.FormEventHandler;
+        onEnterKeyDown?: React.KeyboardEventHandler;
         onFocus?: React.FocusEventHandler;
         onKeyDown?: React.KeyboardEventHandler;
+        rows?: number,
+        style?: React.CSSProperties;
+        type?: string;
+        underlineDisabledStyle?: React.CSSProperties;
+        underlineFocusStyle?: React.CSSProperties;
+        underlineStyle?: React.CSSProperties;
+        value?: string;
+        valueLink?: ReactLink<string>;
     }
     export class TextField extends React.Component<TextFieldProps, {}> {
         blur(): void;
@@ -1311,9 +1338,9 @@ declare namespace __MaterialUI {
         }
 
         interface ToolbarGroupProps extends React.Props<ToolbarGroup> {
+            firstChild?: boolean;
             float?: string;
             style?: React.CSSProperties;
-            firstChild?: boolean;
         }
         export class ToolbarGroup extends React.Component<ToolbarGroupProps, {}> {
         }
@@ -1325,63 +1352,93 @@ declare namespace __MaterialUI {
         }
 
         interface ToolbarTitleProps extends React.HTMLAttributes, React.Props<ToolbarTitle> {
-            text?: string;
             style?: React.CSSProperties;
+            text?: string;
         }
         export class ToolbarTitle extends React.Component<ToolbarTitleProps, {}> {
         }
     }
 
     interface TooltipProps extends React.Props<Tooltip> {
+        horizontalPosition?: string;
         label: string;
         show?: boolean;
         touch?: boolean;
         verticalPosition?: string;
-        horizontalPosition?: string;
     }
     export class Tooltip extends React.Component<TooltipProps, {}> {
     }
 
+    namespace Hoc {
+        interface SelectableProps {
+            onChange?: (e: TouchTapEvent, value: any) => void;
+            selectedItemStyle?: React.CSSProperties;
+            value?: any;
+            valueLink?: { value: any; requestChange: (e: TouchTapEvent, value: any) => void };
+        }
+
+        // union types for higher order components in TypeScript 1.8: https://github.com/Microsoft/TypeScript/issues/4362
+        export function SelectableContainerEnhance<P extends {}>(component: React.ComponentClass<P>): React.ComponentClass<P & SelectableProps>;
+    }
+
+    export namespace Mixins {
+        interface ClickAwayable extends React.Mixin<any, any> {
+        }
+        var ClickAwayable: ClickAwayable;
+
+        interface WindowListenable extends React.Mixin<any, any> {
+        }
+        var WindowListenable: WindowListenable;
+
+        interface StylePropable extends React.Mixin<any, any> {
+        }
+        var StylePropable: StylePropable
+
+        interface StyleResizable extends React.Mixin<any, any> {
+        }
+        var StyleResizable: StyleResizable
+    }
+
     export namespace Utils {
         interface ContrastLevel {
-            range: [number, number];
             color: string;
+            range: [number, number];
         }
         interface ColorManipulator {
-            fade(color: string, amount: string | number): string;
-            lighten(color: string, amount: string | number): string;
-            darken(color: string, amount: string | number): string;
             contrastRatio(background: string, foreground: string): number;
             contrastRatioLevel(background: string, foreground: string): ContrastLevel;
+            darken(color: string, amount: string | number): string;
+            fade(color: string, amount: string | number): string;
+            lighten(color: string, amount: string | number): string;
         }
         export var ColorManipulator: ColorManipulator;
 
         interface CssEvent {
-            transitionEndEventName(): string;
             animationEndEventName(): string;
-            onTransitionEnd(el: Element, callback: () => void): void;
             onAnimationEnd(el: Element, callback: () => void): void;
+            onTransitionEnd(el: Element, callback: () => void): void;
+            transitionEndEventName(): string;
         }
         export var CssEvent: CssEvent;
 
         interface Dom {
+            addClass(el: Element, className: string): void;
+            forceRedraw(el: HTMLElement): void;
+            getStyleAttributeAsNumber(el: HTMLElement, attr: string): number;
+            hasClass(el: Element, className: string): boolean;
             isDescendant(parent: Node, child: Node): boolean;
             offset(el: Element): { top: number, left: number };
-            getStyleAttributeAsNumber(el: HTMLElement, attr: string): number;
-            addClass(el: Element, className: string): void;
             removeClass(el: Element, className: string): void;
-            hasClass(el: Element, className: string): boolean;
             toggleClass(el: Element, className: string): void;
-            forceRedraw(el: HTMLElement): void;
             withoutTransition(el: HTMLElement, callback: () => void): void;
         }
         export var Dom: Dom;
 
         interface Events {
-            once(el: Element, type: string, callback: EventListener): void;
-            on(el: Element, type: string, callback: EventListener): void;
-            off(el: Element, type: string, callback: EventListener): void;
             isKeyboard(e: Event): boolean;
+            off(el: Element, type: string, callback: EventListener): void;
+            on(el: Element, type: string, callback: EventListener): void;
+            once(el: Element, type: string, callback: EventListener): void;
         }
         export var Events: Events;
 
@@ -1428,113 +1485,6 @@ declare namespace __MaterialUI {
             mergeAndPrefix(base: any, ...args: any[]): React.CSSProperties;
         }
         export var Styles: Styles;
-    }
-
-    // New menus available only through requiring directly to the end file
-    namespace Menus {
-        interface DropDownMenuProps extends React.Props<DropDownMenu> {
-          autoWidth?: boolean;
-          children?: React.ReactElement<MenuItem>[];
-          className?: string;
-          disabled?: boolean;
-          iconStyle?: any;
-          labelStyle?: any;
-          maxHeight?: number;
-          menuStyle?: any;
-          onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
-          openImmediately?: boolean;
-          style?: any;
-          underlineStyle?:  any;
-          value?: any;
-        }
-
-        export class DropDownMenu extends React.Component<DropDownMenuProps, {}> {
-        }
-
-        interface IconMenuProps extends React.Props<IconMenu> {
-            closeOnItemTouchTap?: boolean;
-            desktop?: boolean;
-            iconButtonElement: React.ReactElement<IconButtonProps>;
-            openDirection?: string;
-            menuStyle?: React.CSSProperties;
-            multiple?: boolean;
-            value?: string | Array<string>;
-            width?: string | number;
-            touchTapCloseDelay?: number;
-            style?: React.CSSProperties;
-
-            onKeyboardFocus?: React.FocusEventHandler;
-            onItemTouchTap?: (e: TouchTapEvent, item: React.ReactElement<any>) => void;
-            onChange?: (e: React.FormEvent, value: string | Array<string>) => void;
-        }
-        export class IconMenu extends React.Component<IconMenuProps, {}> {
-        }
-
-        interface MenuProps extends React.Props<Menu> {
-            animated?: boolean;
-            autoWidth?: boolean;
-            desktop?: boolean;
-            listStyle?: React.CSSProperties;
-            maxHeight?: number;
-            multiple?: boolean;
-            openDirection?: string;
-            value?: string | Array<string>;
-            width?: string | number;
-            zDepth?: number;
-            style?: React.CSSProperties;
-        }
-        export class Menu extends React.Component<MenuProps, {}>{
-        }
-
-        interface MenuItemProps extends React.Props<MenuItem> {
-            checked?: boolean;
-            desktop?: boolean;
-            disabled?: boolean;
-            innerDivStyle?: React.CSSProperties;
-            insetChildren?: boolean;
-            leftIcon?: React.ReactElement<any>;
-            primaryText?: string | React.ReactElement<any>;
-            rightIcon?: React.ReactElement<any>;
-            secondaryText?: React.ReactNode;
-            value?: any;
-            style?: React.CSSProperties;
-
-            onEscKeyDown?: React.KeyboardEventHandler;
-            onItemTouchTap?: (e: TouchTapEvent, item: React.ReactElement<any>) => void;
-            onChange?: (e: React.FormEvent, value: string) => void;
-        }
-        export class MenuItem extends React.Component<MenuItemProps, {}>{
-        }
-    }
-
-    namespace GridList {
-
-        interface GridListProps extends React.Props<GridList> {
-            cols?: number;
-            padding?: number;
-            cellHeight?: number;
-            style?: React.CSSProperties;
-        }
-
-        export class GridList extends React.Component<GridListProps, {}>{
-        }
-
-        interface GridTileProps extends React.Props<GridTile> {
-            title?: string;
-            subtitle?: __React.ReactNode;
-            titlePosition?: string; //"top"|"bottom"
-            titleBackground?: string;
-            actionIcon?: __React.ReactElement<any>;
-            actionPosition?: string; //"left"|"right"
-            cols?: number;
-            rows?: number;
-            rootClass?: string | __React.Component<any,any>;
-            style?: React.CSSProperties;
-        }
-
-        export class GridTile extends React.Component<GridTileProps, {}>{
-        }
-
     }
 }    // __MaterialUI
 
@@ -1638,12 +1588,12 @@ declare module 'material-ui/lib/drop-down-menu' {
     export default DropDownMenu;
 }
 
-declare module 'material-ui/lib/DropDownMenu/DropDownMenu' {
+declare module 'material-ui/lib/DropDownMenu' {
     export import DropDownMenu = __MaterialUI.Menus.DropDownMenu;
     export default DropDownMenu;
 }
 
-declare module 'material-ui/lib/DropDownMenu' {
+declare module 'material-ui/lib/DropDownMenu/DropDownMenu' {
     export import DropDownMenu = __MaterialUI.Menus.DropDownMenu;
     export default DropDownMenu;
 }
@@ -6938,8 +6888,8 @@ declare module "material-ui/lib/svg-icons" {
     export import ActionAccountBox = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/account-box');
     export import ActionAccountCircle = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/account-circle');
     export import ActionAddShoppingCart = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/add-shopping-cart');
-    export import ActionAlarmAdd = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/alarm-add');
     export import ActionAlarm = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/alarm');
+    export import ActionAlarmAdd = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/alarm-add');
     export import ActionAlarmOff = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/alarm-off');
     export import ActionAlarmOn = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/alarm-on');
     export import ActionAllOut = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/all-out');
@@ -6947,17 +6897,17 @@ declare module "material-ui/lib/svg-icons" {
     export import ActionAnnouncement = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/announcement');
     export import ActionAspectRatio = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/aspect-ratio');
     export import ActionAssessment = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/assessment');
+    export import ActionAssignment = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/assignment');
     export import ActionAssignmentInd = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/assignment-ind');
     export import ActionAssignmentLate = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/assignment-late');
-    export import ActionAssignment = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/assignment');
-    export import ActionAssignmentReturned = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/assignment-returned');
     export import ActionAssignmentReturn = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/assignment-return');
+    export import ActionAssignmentReturned = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/assignment-returned');
     export import ActionAssignmentTurnedIn = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/assignment-turned-in');
     export import ActionAutorenew = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/autorenew');
     export import ActionBackup = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/backup');
-    export import ActionBookmarkBorder = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/bookmark-border');
-    export import ActionBookmark = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/bookmark');
     export import ActionBook = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/book');
+    export import ActionBookmark = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/bookmark');
+    export import ActionBookmarkBorder = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/bookmark-border');
     export import ActionBugReport = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/bug-report');
     export import ActionBuild = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/build');
     export import ActionCached = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/cached');
@@ -6978,8 +6928,8 @@ declare module "material-ui/lib/svg-icons" {
     export import ActionDelete = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/delete');
     export import ActionDescription = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/description');
     export import ActionDns = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/dns');
-    export import ActionDoneAll = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/done-all');
     export import ActionDone = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/done');
+    export import ActionDoneAll = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/done-all');
     export import ActionDonutLarge = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/donut-large');
     export import ActionDonutSmall = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/donut-small');
     export import ActionEject = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/eject');
@@ -6989,8 +6939,8 @@ declare module "material-ui/lib/svg-icons" {
     export import ActionExplore = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/explore');
     export import ActionExtension = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/extension');
     export import ActionFace = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/face');
-    export import ActionFavoriteBorder = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/favorite-border');
     export import ActionFavorite = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/favorite');
+    export import ActionFavoriteBorder = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/favorite-border');
     export import ActionFeedback = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/feedback');
     export import ActionFindInPage = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/find-in-page');
     export import ActionFindReplace = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/find-replace');
@@ -7050,8 +7000,8 @@ declare module "material-ui/lib/svg-icons" {
     export import ActionPermPhoneMsg = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/perm-phone-msg');
     export import ActionPermScanWifi = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/perm-scan-wifi');
     export import ActionPets = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/pets');
-    export import ActionPictureInPictureAlt = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/picture-in-picture-alt');
     export import ActionPictureInPicture = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/picture-in-picture');
+    export import ActionPictureInPictureAlt = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/picture-in-picture-alt');
     export import ActionPlayForWork = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/play-for-work');
     export import ActionPolymer = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/polymer');
     export import ActionPowerSettingsNew = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/power-settings-new');
@@ -7070,6 +7020,7 @@ declare module "material-ui/lib/svg-icons" {
     export import ActionRowing = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/rowing');
     export import ActionSchedule = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/schedule');
     export import ActionSearch = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/search');
+    export import ActionSettings = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/settings');
     export import ActionSettingsApplications = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/settings-applications');
     export import ActionSettingsBackupRestore = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/settings-backup-restore');
     export import ActionSettingsBluetooth = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/settings-bluetooth');
@@ -7081,7 +7032,6 @@ declare module "material-ui/lib/svg-icons" {
     export import ActionSettingsInputComposite = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/settings-input-composite');
     export import ActionSettingsInputHdmi = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/settings-input-hdmi');
     export import ActionSettingsInputSvideo = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/settings-input-svideo');
-    export import ActionSettings = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/settings');
     export import ActionSettingsOverscan = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/settings-overscan');
     export import ActionSettingsPhone = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/settings-phone');
     export import ActionSettingsPower = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/settings-power');
@@ -7098,8 +7048,8 @@ declare module "material-ui/lib/svg-icons" {
     export import ActionSubject = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/subject');
     export import ActionSupervisorAccount = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/supervisor-account');
     export import ActionSwapHoriz = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/swap-horiz');
-    export import ActionSwapVerticalCircle = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/swap-vertical-circle');
     export import ActionSwapVert = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/swap-vert');
+    export import ActionSwapVerticalCircle = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/swap-vertical-circle');
     export import ActionSystemUpdateAlt = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/system-update-alt');
     export import ActionTab = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/tab');
     export import ActionTabUnselected = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/action/tab-unselected');
@@ -7177,14 +7127,14 @@ declare module "material-ui/lib/svg-icons" {
     export import AvMusicVideo = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/music-video');
     export import AvNewReleases = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/new-releases');
     export import AvNotInterested = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/not-interested');
+    export import AvPause = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/pause');
     export import AvPauseCircleFilled = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/pause-circle-filled');
     export import AvPauseCircleOutline = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/pause-circle-outline');
-    export import AvPause = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/pause');
     export import AvPlayArrow = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/play-arrow');
     export import AvPlayCircleFilled = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/play-circle-filled');
     export import AvPlayCircleOutline = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/play-circle-outline');
-    export import AvPlaylistAddCheck = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/playlist-add-check');
     export import AvPlaylistAdd = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/playlist-add');
+    export import AvPlaylistAddCheck = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/playlist-add-check');
     export import AvPlaylistPlay = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/playlist-play');
     export import AvQueue = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/queue');
     export import AvQueueMusic = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/queue-music');
@@ -7194,10 +7144,10 @@ declare module "material-ui/lib/svg-icons" {
     export import AvRemoveFromQueue = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/remove-from-queue');
     export import AvRepeat = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/repeat');
     export import AvRepeatOne = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/repeat-one');
+    export import AvReplay = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/replay');
     export import AvReplay10 = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/replay-10');
     export import AvReplay30 = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/replay-30');
     export import AvReplay5 = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/replay-5');
-    export import AvReplay = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/replay');
     export import AvShuffle = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/shuffle');
     export import AvSkipNext = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/skip-next');
     export import AvSkipPrevious = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/skip-previous');
@@ -7215,20 +7165,20 @@ declare module "material-ui/lib/svg-icons" {
     export import AvVolumeMute = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/volume-mute');
     export import AvVolumeOff = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/volume-off');
     export import AvVolumeUp = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/volume-up');
-    export import AvWebAsset = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/web-asset');
     export import AvWeb = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/web');
+    export import AvWebAsset = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/av/web-asset');
     export import CommunicationBusiness = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/business');
+    export import CommunicationCall = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/call');
     export import CommunicationCallEnd = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/call-end');
     export import CommunicationCallMade = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/call-made');
-    export import CommunicationCall = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/call');
     export import CommunicationCallMerge = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/call-merge');
     export import CommunicationCallMissed = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/call-missed');
     export import CommunicationCallMissedOutgoing = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/call-missed-outgoing');
     export import CommunicationCallReceived = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/call-received');
     export import CommunicationCallSplit = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/call-split');
+    export import CommunicationChat = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/chat');
     export import CommunicationChatBubble = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/chat-bubble');
     export import CommunicationChatBubbleOutline = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/chat-bubble-outline');
-    export import CommunicationChat = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/chat');
     export import CommunicationClearAll = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/clear-all');
     export import CommunicationComment = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/comment');
     export import CommunicationContactMail = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/contact-mail');
@@ -7247,11 +7197,11 @@ declare module "material-ui/lib/svg-icons" {
     export import CommunicationMailOutline = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/mail-outline');
     export import CommunicationMessage = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/message');
     export import CommunicationNoSim = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/no-sim');
+    export import CommunicationPhone = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/phone');
     export import CommunicationPhonelinkErase = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/phonelink-erase');
     export import CommunicationPhonelinkLock = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/phonelink-lock');
     export import CommunicationPhonelinkRing = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/phonelink-ring');
     export import CommunicationPhonelinkSetup = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/phonelink-setup');
-    export import CommunicationPhone = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/phone');
     export import CommunicationPortableWifiOff = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/portable-wifi-off');
     export import CommunicationPresentToAll = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/present-to-all');
     export import CommunicationRingVolume = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/ring-volume');
@@ -7267,10 +7217,10 @@ declare module "material-ui/lib/svg-icons" {
     export import CommunicationTextsms = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/textsms');
     export import CommunicationVoicemail = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/voicemail');
     export import CommunicationVpnKey = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/communication/vpn-key');
+    export import ContentAdd = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/add');
     export import ContentAddBox = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/add-box');
     export import ContentAddCircle = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/add-circle');
     export import ContentAddCircleOutline = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/add-circle-outline');
-    export import ContentAdd = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/add');
     export import ContentArchive = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/archive');
     export import ContentBackspace = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/backspace');
     export import ContentBlock = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/block');
@@ -7292,11 +7242,11 @@ declare module "material-ui/lib/svg-icons" {
     export import ContentMoveToInbox = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/move-to-inbox');
     export import ContentNextWeek = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/next-week');
     export import ContentRedo = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/redo');
+    export import ContentRemove = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/remove');
     export import ContentRemoveCircle = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/remove-circle');
     export import ContentRemoveCircleOutline = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/remove-circle-outline');
-    export import ContentRemove = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/remove');
-    export import ContentReplyAll = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/reply-all');
     export import ContentReply = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/reply');
+    export import ContentReplyAll = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/reply-all');
     export import ContentReport = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/report');
     export import ContentSave = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/save');
     export import ContentSelectAll = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/content/select-all');
@@ -7329,9 +7279,9 @@ declare module "material-ui/lib/svg-icons" {
     export import DeviceBatteryFull = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/battery-full');
     export import DeviceBatteryStd = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/battery-std');
     export import DeviceBatteryUnknown = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/battery-unknown');
+    export import DeviceBluetooth = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/bluetooth');
     export import DeviceBluetoothConnected = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/bluetooth-connected');
     export import DeviceBluetoothDisabled = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/bluetooth-disabled');
-    export import DeviceBluetooth = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/bluetooth');
     export import DeviceBluetoothSearching = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/bluetooth-searching');
     export import DeviceBrightnessAuto = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/brightness-auto');
     export import DeviceBrightnessHigh = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/brightness-high');
@@ -7370,14 +7320,14 @@ declare module "material-ui/lib/svg-icons" {
     export import DeviceSignalCellularNull = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/signal-cellular-null');
     export import DeviceSignalCellularOff = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/signal-cellular-off');
     export import DeviceSignalWifi0Bar = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/signal-wifi-0-bar');
-    export import DeviceSignalWifi1BarLock = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/signal-wifi-1-bar-lock');
     export import DeviceSignalWifi1Bar = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/signal-wifi-1-bar');
-    export import DeviceSignalWifi2BarLock = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/signal-wifi-2-bar-lock');
+    export import DeviceSignalWifi1BarLock = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/signal-wifi-1-bar-lock');
     export import DeviceSignalWifi2Bar = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/signal-wifi-2-bar');
-    export import DeviceSignalWifi3BarLock = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/signal-wifi-3-bar-lock');
+    export import DeviceSignalWifi2BarLock = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/signal-wifi-2-bar-lock');
     export import DeviceSignalWifi3Bar = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/signal-wifi-3-bar');
-    export import DeviceSignalWifi4BarLock = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/signal-wifi-4-bar-lock');
+    export import DeviceSignalWifi3BarLock = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/signal-wifi-3-bar-lock');
     export import DeviceSignalWifi4Bar = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/signal-wifi-4-bar');
+    export import DeviceSignalWifi4BarLock = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/signal-wifi-4-bar-lock');
     export import DeviceSignalWifiOff = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/signal-wifi-off');
     export import DeviceStorage = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/storage');
     export import DeviceUsb = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/device/usb');
@@ -7447,10 +7397,10 @@ declare module "material-ui/lib/svg-icons" {
     export import EditorVerticalAlignTop = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/editor/vertical-align-top');
     export import EditorWrapText = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/editor/wrap-text');
     export import FileAttachment = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/file/attachment');
+    export import FileCloud = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/file/cloud');
     export import FileCloudCircle = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/file/cloud-circle');
     export import FileCloudDone = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/file/cloud-done');
     export import FileCloudDownload = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/file/cloud-download');
-    export import FileCloud = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/file/cloud');
     export import FileCloudOff = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/file/cloud-off');
     export import FileCloudQueue = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/file/cloud-queue');
     export import FileCloudUpload = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/file/cloud-upload');
@@ -7460,8 +7410,8 @@ declare module "material-ui/lib/svg-icons" {
     export import FileFolder = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/file/folder');
     export import FileFolderOpen = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/file/folder-open');
     export import FileFolderShared = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/file/folder-shared');
-    export import HardwareCastConnected = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/cast-connected');
     export import HardwareCast = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/cast');
+    export import HardwareCastConnected = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/cast-connected');
     export import HardwareComputer = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/computer');
     export import HardwareDesktopMac = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/desktop-mac');
     export import HardwareDesktopWindows = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/desktop-windows');
@@ -7472,6 +7422,7 @@ declare module "material-ui/lib/svg-icons" {
     export import HardwareGamepad = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/gamepad');
     export import HardwareHeadset = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/headset');
     export import HardwareHeadsetMic = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/headset-mic');
+    export import HardwareKeyboard = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/keyboard');
     export import HardwareKeyboardArrowDown = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/keyboard-arrow-down');
     export import HardwareKeyboardArrowLeft = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/keyboard-arrow-left');
     export import HardwareKeyboardArrowRight = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/keyboard-arrow-right');
@@ -7479,13 +7430,12 @@ declare module "material-ui/lib/svg-icons" {
     export import HardwareKeyboardBackspace = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/keyboard-backspace');
     export import HardwareKeyboardCapslock = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/keyboard-capslock');
     export import HardwareKeyboardHide = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/keyboard-hide');
-    export import HardwareKeyboard = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/keyboard');
     export import HardwareKeyboardReturn = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/keyboard-return');
     export import HardwareKeyboardTab = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/keyboard-tab');
     export import HardwareKeyboardVoice = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/keyboard-voice');
+    export import HardwareLaptop = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/laptop');
     export import HardwareLaptopChromebook = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/laptop-chromebook');
     export import HardwareLaptopMac = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/laptop-mac');
-    export import HardwareLaptop = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/laptop');
     export import HardwareLaptopWindows = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/laptop-windows');
     export import HardwareMemory = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/memory');
     export import HardwareMouse = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/mouse');
@@ -7499,11 +7449,11 @@ declare module "material-ui/lib/svg-icons" {
     export import HardwareSecurity = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/security');
     export import HardwareSimCard = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/sim-card');
     export import HardwareSmartphone = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/smartphone');
-    export import HardwareSpeakerGroup = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/speaker-group');
     export import HardwareSpeaker = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/speaker');
+    export import HardwareSpeakerGroup = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/speaker-group');
+    export import HardwareTablet = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/tablet');
     export import HardwareTabletAndroid = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/tablet-android');
     export import HardwareTabletMac = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/tablet-mac');
-    export import HardwareTablet = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/tablet');
     export import HardwareToys = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/toys');
     export import HardwareTv = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/tv');
     export import HardwareVideogameAsset = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/hardware/videogame-asset');
@@ -7527,20 +7477,21 @@ declare module "material-ui/lib/svg-icons" {
     export import ImageBrightness7 = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/brightness-7');
     export import ImageBrokenImage = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/broken-image');
     export import ImageBrush = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/brush');
+    export import ImageCamera = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/camera');
     export import ImageCameraAlt = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/camera-alt');
     export import ImageCameraFront = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/camera-front');
-    export import ImageCamera = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/camera');
     export import ImageCameraRear = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/camera-rear');
     export import ImageCameraRoll = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/camera-roll');
     export import ImageCenterFocusStrong = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/center-focus-strong');
     export import ImageCenterFocusWeak = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/center-focus-weak');
-    export import ImageCollectionsBookmark = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/collections-bookmark');
     export import ImageCollections = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/collections');
+    export import ImageCollectionsBookmark = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/collections-bookmark');
     export import ImageColorize = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/colorize');
     export import ImageColorLens = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/color-lens');
     export import ImageCompare = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/compare');
-    export import ImageControlPointDuplicate = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/control-point-duplicate');
     export import ImageControlPoint = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/control-point');
+    export import ImageControlPointDuplicate = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/control-point-duplicate');
+    export import ImageCrop = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/crop');
     export import ImageCrop169 = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/crop-16-9');
     export import ImageCrop32 = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/crop-3-2');
     export import ImageCrop54 = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/crop-5-4');
@@ -7548,7 +7499,6 @@ declare module "material-ui/lib/svg-icons" {
     export import ImageCropDin = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/crop-din');
     export import ImageCropFree = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/crop-free');
     export import ImageCropLandscape = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/crop-landscape');
-    export import ImageCrop = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/crop');
     export import ImageCropOriginal = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/crop-original');
     export import ImageCropPortrait = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/crop-portrait');
     export import ImageCropRotate = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/crop-rotate');
@@ -7562,6 +7512,7 @@ declare module "material-ui/lib/svg-icons" {
     export import ImageExposurePlus1 = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/exposure-plus-1');
     export import ImageExposurePlus2 = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/exposure-plus-2');
     export import ImageExposureZero = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/exposure-zero');
+    export import ImageFilter = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/filter');
     export import ImageFilter1 = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/filter-1');
     export import ImageFilter2 = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/filter-2');
     export import ImageFilter3 = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/filter-3');
@@ -7577,7 +7528,6 @@ declare module "material-ui/lib/svg-icons" {
     export import ImageFilterDrama = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/filter-drama');
     export import ImageFilterFrames = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/filter-frames');
     export import ImageFilterHdr = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/filter-hdr');
-    export import ImageFilter = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/filter');
     export import ImageFilterNone = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/filter-none');
     export import ImageFilterTiltShift = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/filter-tilt-shift');
     export import ImageFilterVintage = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/filter-vintage');
@@ -7595,19 +7545,19 @@ declare module "material-ui/lib/svg-icons" {
     export import ImageHdrStrong = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/hdr-strong');
     export import ImageHdrWeak = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/hdr-weak');
     export import ImageHealing = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/healing');
-    export import ImageImageAspectRatio = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/image-aspect-ratio');
     export import ImageImage = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/image');
+    export import ImageImageAspectRatio = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/image-aspect-ratio');
     export import ImageIso = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/iso');
     export import ImageLandscape = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/landscape');
     export import ImageLeakAdd = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/leak-add');
     export import ImageLeakRemove = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/leak-remove');
     export import ImageLens = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/lens');
     export import ImageLinkedCamera = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/linked-camera');
+    export import ImageLooks = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/looks');
     export import ImageLooks3 = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/looks-3');
     export import ImageLooks4 = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/looks-4');
     export import ImageLooks5 = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/looks-5');
     export import ImageLooks6 = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/looks-6');
-    export import ImageLooks = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/looks');
     export import ImageLooksOne = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/looks-one');
     export import ImageLooksTwo = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/looks-two');
     export import ImageLoupe = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/loupe');
@@ -7620,16 +7570,16 @@ declare module "material-ui/lib/svg-icons" {
     export import ImageNavigateBefore = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/navigate-before');
     export import ImageNavigateNext = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/navigate-next');
     export import ImagePalette = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/palette');
+    export import ImagePanorama = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/panorama');
     export import ImagePanoramaFishEye = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/panorama-fish-eye');
     export import ImagePanoramaHorizontal = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/panorama-horizontal');
-    export import ImagePanorama = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/panorama');
     export import ImagePanoramaVertical = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/panorama-vertical');
     export import ImagePanoramaWideAngle = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/panorama-wide-angle');
+    export import ImagePhoto = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/photo');
     export import ImagePhotoAlbum = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/photo-album');
     export import ImagePhotoCamera = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/photo-camera');
     export import ImagePhotoFilter = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/photo-filter');
     export import ImagePhotoLibrary = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/photo-library');
-    export import ImagePhoto = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/photo');
     export import ImagePhotoSizeSelectActual = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/photo-size-select-actual');
     export import ImagePhotoSizeSelectLarge = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/photo-size-select-large');
     export import ImagePhotoSizeSelectSmall = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/photo-size-select-small');
@@ -7647,9 +7597,9 @@ declare module "material-ui/lib/svg-icons" {
     export import ImageTagFaces = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/tag-faces');
     export import ImageTexture = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/texture');
     export import ImageTimelapse = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/timelapse');
+    export import ImageTimer = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/timer');
     export import ImageTimer10 = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/timer-10');
     export import ImageTimer3 = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/timer-3');
-    export import ImageTimer = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/timer');
     export import ImageTimerOff = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/timer-off');
     export import ImageTonality = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/tonality');
     export import ImageTransform = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/transform');
@@ -7662,15 +7612,15 @@ declare module "material-ui/lib/svg-icons" {
     export import ImageWbIncandescent = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/wb-incandescent');
     export import ImageWbIridescent = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/wb-iridescent');
     export import ImageWbSunny = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/image/wb-sunny');
-    export import IndexGenerator = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/index-generator');
     export import Index = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/index');
+    export import IndexGenerator = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/index-generator');
     export import MapsAddLocation = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/add-location');
     export import MapsBeenhere = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/beenhere');
+    export import MapsDirections = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/directions');
     export import MapsDirectionsBike = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/directions-bike');
     export import MapsDirectionsBoat = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/directions-boat');
     export import MapsDirectionsBus = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/directions-bus');
     export import MapsDirectionsCar = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/directions-car');
-    export import MapsDirections = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/directions');
     export import MapsDirectionsRailway = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/directions-railway');
     export import MapsDirectionsRun = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/directions-run');
     export import MapsDirectionsSubway = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/directions-subway');
@@ -7679,8 +7629,8 @@ declare module "material-ui/lib/svg-icons" {
     export import MapsEditLocation = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/edit-location');
     export import MapsFlight = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/flight');
     export import MapsHotel = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/hotel');
-    export import MapsLayersClear = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/layers-clear');
     export import MapsLayers = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/layers');
+    export import MapsLayersClear = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/layers-clear');
     export import MapsLocalActivity = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/local-activity');
     export import MapsLocalAirport = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/local-airport');
     export import MapsLocalAtm = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/local-atm');
@@ -7714,8 +7664,8 @@ declare module "material-ui/lib/svg-icons" {
     export import MapsMyLocation = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/my-location');
     export import MapsNavigation = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/navigation');
     export import MapsNearMe = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/near-me');
-    export import MapsPersonPinCircle = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/person-pin-circle');
     export import MapsPersonPin = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/person-pin');
+    export import MapsPersonPinCircle = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/person-pin-circle');
     export import MapsPinDrop = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/pin-drop');
     export import MapsPlace = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/place');
     export import MapsRateReview = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/maps/rate-review');
@@ -7728,8 +7678,8 @@ declare module "material-ui/lib/svg-icons" {
     export import NavigationApps = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/apps');
     export import NavigationArrowBack = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/arrow-back');
     export import NavigationArrowDownward = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/arrow-downward');
-    export import NavigationArrowDropDownCircle = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/arrow-drop-down-circle');
     export import NavigationArrowDropDown = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/arrow-drop-down');
+    export import NavigationArrowDropDownCircle = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/arrow-drop-down-circle');
     export import NavigationArrowDropRight = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation-arrow-drop-right');
     export import NavigationArrowDropUp = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/arrow-drop-up');
     export import NavigationArrowForward = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/arrow-forward');
@@ -7741,8 +7691,8 @@ declare module "material-ui/lib/svg-icons" {
     export import NavigationClose = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/close');
     export import NavigationExpandLess = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/expand-less');
     export import NavigationExpandMore = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/expand-more');
-    export import NavigationFullscreenExit = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/fullscreen-exit');
     export import NavigationFullscreen = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/fullscreen');
+    export import NavigationFullscreenExit = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/fullscreen-exit');
     export import NavigationMenu = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/menu');
     export import NavigationMoreHoriz = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/more-horiz');
     export import NavigationMoreVert = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/more-vert');
@@ -7752,8 +7702,8 @@ declare module "material-ui/lib/svg-icons" {
     export import NavigationUnfoldLess = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/unfold-less');
     export import NavigationUnfoldMore = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/unfold-more');
     export import NotificationAdb = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/adb');
-    export import NotificationAirlineSeatFlatAngled = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/airline-seat-flat-angled');
     export import NotificationAirlineSeatFlat = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/airline-seat-flat');
+    export import NotificationAirlineSeatFlatAngled = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/airline-seat-flat-angled');
     export import NotificationAirlineSeatIndividualSuite = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/airline-seat-individual-suite');
     export import NotificationAirlineSeatLegroomExtra = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/airline-seat-legroom-extra');
     export import NotificationAirlineSeatLegroomNormal = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/airline-seat-legroom-normal');
@@ -7763,8 +7713,8 @@ declare module "material-ui/lib/svg-icons" {
     export import NotificationBluetoothAudio = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/bluetooth-audio');
     export import NotificationConfirmationNumber = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/confirmation-number');
     export import NotificationDiscFull = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/disc-full');
-    export import NotificationDoNotDisturbAlt = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/do-not-disturb-alt');
     export import NotificationDoNotDisturb = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/do-not-disturb');
+    export import NotificationDoNotDisturbAlt = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/do-not-disturb-alt');
     export import NotificationDriveEta = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/drive-eta');
     export import NotificationEnhancedEncryption = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/enhanced-encryption');
     export import NotificationEventAvailable = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/event-available');
@@ -7789,10 +7739,10 @@ declare module "material-ui/lib/svg-icons" {
     export import NotificationRvHookup = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/rv-hookup');
     export import NotificationSdCard = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/sd-card');
     export import NotificationSimCardAlert = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/sim-card-alert');
-    export import NotificationSmsFailed = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/sms-failed');
     export import NotificationSms = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/sms');
-    export import NotificationSyncDisabled = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/sync-disabled');
+    export import NotificationSmsFailed = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/sms-failed');
     export import NotificationSync = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/sync');
+    export import NotificationSyncDisabled = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/sync-disabled');
     export import NotificationSyncProblem = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/sync-problem');
     export import NotificationSystemUpdate = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/system-update');
     export import NotificationTapAndPlay = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/notification/tap-and-play');
@@ -7822,13 +7772,13 @@ declare module "material-ui/lib/svg-icons" {
     export import PlacesSpa = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/places/spa');
     export import SocialCake = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/cake');
     export import SocialDomain = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/domain');
-    export import SocialGroupAdd = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/group-add');
     export import SocialGroup = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/group');
+    export import SocialGroupAdd = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/group-add');
     export import SocialLocationCity = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/location-city');
-    export import SocialMoodBad = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/mood-bad');
     export import SocialMood = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/mood');
-    export import SocialNotificationsActive = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/notifications-active');
+    export import SocialMoodBad = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/mood-bad');
     export import SocialNotifications = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/notifications');
+    export import SocialNotificationsActive = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/notifications-active');
     export import SocialNotificationsNone = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/notifications-none');
     export import SocialNotificationsOff = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/notifications-off');
     export import SocialNotificationsPaused = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/notifications-paused');
@@ -7836,8 +7786,8 @@ declare module "material-ui/lib/svg-icons" {
     export import SocialPartyMode = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/party-mode');
     export import SocialPeople = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/people');
     export import SocialPeopleOutline = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/people-outline');
-    export import SocialPersonAdd = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/person-add');
     export import SocialPerson = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/person');
+    export import SocialPersonAdd = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/person-add');
     export import SocialPersonOutline = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/person-outline');
     export import SocialPlusOne = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/plus-one');
     export import SocialPoll = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/social/poll');
@@ -7850,7 +7800,7 @@ declare module "material-ui/lib/svg-icons" {
     export import ToggleIndeterminateCheckBox = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/toggle/indeterminate-check-box');
     export import ToggleRadioButtonChecked = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/toggle/radio-button-checked');
     export import ToggleRadioButtonUnchecked = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/toggle/radio-button-unchecked');
+    export import ToggleStar = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/toggle/star');
     export import ToggleStarBorder = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/toggle/star-border');
     export import ToggleStarHalf = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/toggle/star-half');
-    export import ToggleStar = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/toggle/star');
 }
