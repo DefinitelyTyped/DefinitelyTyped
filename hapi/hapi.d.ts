@@ -959,40 +959,40 @@ declare module "hapi" {
     }
 
     export interface IServerInject {
-        (options: string | {
-            /**  the request HTTP method (e.g. 'POST'). Defaults to 'GET'.*/
-            method: string;
-            /** the request URL. If the URI includes an authority (e.g. 'example.com:8080'), it is used to automatically set an HTTP 'Host' header, unless one was specified in headers.*/
-            url: string;
-            /** an object with optional request headers where each key is the header name and the value is the header content. Defaults to no additions to the default Shot headers.*/
-            headers?: IDictionary<string>;
-            /** n optional string, buffer or object containing the request payload. In case of an object it will be converted to a string for you. Defaults to no payload. Note that payload processing defaults to 'application/json' if no 'Content-Type' header provided.*/
-            payload?: string | {} | Buffer;
-            /** an optional credentials object containing authentication information. The credentials are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Defaults to no credentials.*/
-            credentials?: any;
-            /** an optional artifacts object containing authentication artifact information. The artifacts are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Ignored if set without credentials. Defaults to no artifacts.*/
-            artifacts?: any;
-            /** sets the initial value of request.app*/
-            app?: any;
-            /** sets the initial value of request.plugins*/
-            plugins?: any;
-            /** allows access to routes with config.isInternal set to true. Defaults to false.*/
-            allowInternals?: boolean;
-            /** sets the remote address for the incoming connection.*/
-            remoteAddress?: boolean;
-			/**object with options used to simulate client request stream conditions for testing:
-			error - if true, emits an 'error' event after payload transmission (if any). Defaults to false.
-			close - if true, emits a 'close' event after payload transmission (if any). Defaults to false.
-			end - if false, does not end the stream. Defaults to true.*/
-            simulate?: {
-                error: boolean;
-                close: boolean;
-                end: boolean;
-            };
-        },
-            callback?: (res: IServerInjectResponse) => void
-        ): IPromise<IServerInjectResponse>;
+        (options: string | IServerInjectOptions, callback: (res: IServerInjectResponse) => void): void;
+        (options: string | IServerInjectOptions): IPromise<IServerInjectResponse>;
+    }
 
+    export interface IServerInjectOptions {
+        /**  the request HTTP method (e.g. 'POST'). Defaults to 'GET'.*/
+        method: string;
+        /** the request URL. If the URI includes an authority (e.g. 'example.com:8080'), it is used to automatically set an HTTP 'Host' header, unless one was specified in headers.*/
+        url: string;
+        /** an object with optional request headers where each key is the header name and the value is the header content. Defaults to no additions to the default Shot headers.*/
+        headers?: IDictionary<string>;
+        /** n optional string, buffer or object containing the request payload. In case of an object it will be converted to a string for you. Defaults to no payload. Note that payload processing defaults to 'application/json' if no 'Content-Type' header provided.*/
+        payload?: string | {} | Buffer;
+        /** an optional credentials object containing authentication information. The credentials are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Defaults to no credentials.*/
+        credentials?: any;
+        /** an optional artifacts object containing authentication artifact information. The artifacts are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Ignored if set without credentials. Defaults to no artifacts.*/
+        artifacts?: any;
+        /** sets the initial value of request.app*/
+        app?: any;
+        /** sets the initial value of request.plugins*/
+        plugins?: any;
+        /** allows access to routes with config.isInternal set to true. Defaults to false.*/
+        allowInternals?: boolean;
+        /** sets the remote address for the incoming connection.*/
+        remoteAddress?: boolean;
+        /**object with options used to simulate client request stream conditions for testing:
+        error - if true, emits an 'error' event after payload transmission (if any). Defaults to false.
+        close - if true, emits a 'close' event after payload transmission (if any). Defaults to false.
+        end - if false, does not end the stream. Defaults to true.*/
+        simulate?: {
+            error: boolean;
+            close: boolean;
+            end: boolean;
+        };
     }
 
 
@@ -2200,39 +2200,41 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
 		next();
 		};*/
         path(relativeTo: string): void;
-		/**server.register(plugins, [options], callback)
-		Registers a plugin where:
-		plugins - an object or array of objects where each one is either:
-		a plugin registration function.
-		an object with the following:
-		register - the plugin registration function.
-		options - optional options passed to the registration function when called.
-		options - optional registration options (different from the options passed to the registration function):
-		select - a string or array of string labels used to pre-select connections for plugin registration.
-		routes - modifiers applied to each route added by the plugin:
-		prefix - string added as prefix to any route path (must begin with '/'). If a plugin registers a child plugin the prefix is passed on to the child or is added in front of the child-specific prefix.
-		vhost - virtual host string (or array of strings) applied to every route. The outer-most vhost overrides the any nested configuration.
-		callback - the callback function with signature function(err) where:
-		err - an error returned from the registration function. Note that exceptions thrown by the registration function are not handled by the framework.
-		server.register({
-		register: require('plugin_name'),
-		options: {
-		message: 'hello'
-		}
-		}, function (err) {
-		if (err) {
-		console.log('Failed loading plugin');
-		}
-		});*/
+
+
+		/**
+		* server.register(plugins, [options], callback)
+		* Registers a plugin where:
+		* plugins - an object or array of objects where each one is either:
+		* a plugin registration function.
+		* an object with the following:
+		* register - the plugin registration function.
+		* options - optional options passed to the registration function when called.
+		* options - optional registration options (different from the options passed to the registration function):
+		* select - a string or array of string labels used to pre-select connections for plugin registration.
+		* routes - modifiers applied to each route added by the plugin:
+		* prefix - string added as prefix to any route path (must begin with '/'). If a plugin registers a child plugin the prefix is passed on to the child or is added in front of the child-specific prefix.
+		* vhost - virtual host string (or array of strings) applied to every route. The outer-most vhost overrides the any nested configuration.
+		* callback - the callback function with signature function(err) where:
+		* err - an error returned from the registration function. Note that exceptions thrown by the registration function are not handled by the framework.
+		*
+		* If no callback is provided, a Promise object is returned.
+		*/
         register(plugins: any | any[], options: {
-            select: string | string[];
-            routes: {
-                prefix: string; vhost?: string | string[]
-            };
-        }
-            , callback: (err: any) => void): void;
+                select: string | string[];
+                routes: {
+                    prefix: string; vhost?: string | string[]
+                };
+            }, callback: (err: any) => void): void;
+        register(plugins: any | any[], options: {
+                select: string | string[];
+                routes: {
+                    prefix: string; vhost?: string | string[]
+                };
+            }): IPromise<any>;
 
         register(plugins: any | any[], callback: (err: any) => void): void;
+        register(plugins: any | any[]): IPromise<any>;
 
 		/**server.render(template, context, [options], callback)
 		Utilizes the server views manager to render a template where:
