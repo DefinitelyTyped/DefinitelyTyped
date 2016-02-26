@@ -9,16 +9,27 @@ declare module 'redux-logger' {
 
   type LoggerPredicate = (getState: () => any, action: any) => boolean;
 
+  type StateToString = (state: any) => string;
+  type ActionToString = (action: any) => string;
+  type ErrorToString = (error: any, prevState: any) => string;
+
   interface ColorsObject {
-    title?: (action: any) => string;
-    prevState?: (prevState: any) => string;
-    action?: (action: any) => string;
-    nextState?: (nextState: any) => string;
-    error?: (error: any, prevState: any) => string;
+    title?: boolean | ActionToString;
+    prevState?: boolean | StateToString;
+    action?: boolean | ActionToString;
+    nextState?: boolean | StateToString;
+    error?: boolean | ErrorToString;
+  }
+
+  interface LevelObject {
+    prevState?: string | boolean | StateToString;
+    action?: string | boolean | ActionToString;
+    nextState?: string | boolean | StateToString;
+    error?: string | boolean | ErrorToString;
   }
 
   interface ReduxLoggerOptions {
-    level?: string;
+    level?: string | ActionToString | LevelObject;
     duration?: boolean;
     timestamp?: boolean;
     colors?: ColorsObject;
