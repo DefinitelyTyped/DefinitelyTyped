@@ -5,7 +5,7 @@
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
-/// <reference path="../lodash/lodash.d.ts" />
+/// <reference path='../lodash/lodash.d.ts' />
 /// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path="../validator/validator.d.ts" />
 
@@ -1736,7 +1736,15 @@ declare module "sequelize" {
 
         interface DataTypeTime extends DataTypeAbstract { }
 
-        interface DataTypeDate extends DataTypeAbstract { }
+        interface DataTypeDate extends DataTypeAbstract {
+
+            /**
+             * Length of decimal places of time
+             */
+            ( options? : { length?: number } ) : DataTypeDate;
+            ( length? : number) : DataTypeDate;
+
+        }
 
         interface DataTypeDateOnly extends DataTypeAbstract { }
 
@@ -1778,7 +1786,16 @@ declare module "sequelize" {
 
         interface DataTypeUUIDv4 extends DataTypeAbstract { }
 
-        interface DataTypeVirtual extends DataTypeAbstract { }
+        interface DataTypeVirtual extends DataTypeAbstract {
+
+            /**
+             * Virtual field
+             *
+             * Accepts subtype any of the DataTypes
+             * Array of required attributes that are available on the model
+             */
+            new( subtype : DataTypeAbstract, requireAttributes? : Array<string> ) : DataTypeVirtual;
+        }
 
         interface DataTypeEnum extends DataTypeAbstract {
 
@@ -5348,6 +5365,11 @@ declare module "sequelize" {
              */
             new ( uri : string, options? : Options ) : Sequelize;
 
+            /**
+             * Provide access to continuation-local-storage (http://docs.sequelizejs.com/en/latest/api/sequelize/#transactionoptions-promise)
+             */
+            cls: any;
+
         }
 
         interface QueryOptionsTransactionRequired { }
@@ -5666,7 +5688,7 @@ declare module "sequelize" {
         /**
          * Validator Interface
          */
-        interface Validator extends IValidatorStatic {
+        interface Validator extends ValidatorJS.ValidatorStatic {
 
             notEmpty( str : string ) : boolean;
             len( str : string, min : number, max : number ) : boolean;

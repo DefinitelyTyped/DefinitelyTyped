@@ -330,7 +330,7 @@ declare module "react-bootstrap" {
         placement?: string;
         positionLeft?: number;
         positionTop?: number;
-        title: any; // TODO: Add more specific type
+        title?: any; // TODO: Add more specific type
     }
     interface Popover extends React.ReactElement<PopoverProps> { }
     interface PopoverClass extends React.ComponentClass<PopoverProps> { }
@@ -692,18 +692,22 @@ declare module "react-bootstrap" {
         className?: string;
         componentClass?: any; // TODO: Add more specific type
         lg?: number;
+        lgHidden?: boolean;
         lgOffset?: number;
         lgPull?: number;
         lgPush?: number;
         md?: number;
+        mdHidden?: boolean;
         mdOffset?: number;
         mdPull?: number;
         mdPush?: number;
         sm?: number;
+        smHidden?: boolean;
         smOffset?: number;
         smPull?: number;
         smPush?: number;
         xs?: number;
+        xsHidden?: boolean;
         xsOffset?: number;
         xsPull?: number;
         xsPush?: number;
@@ -847,6 +851,7 @@ declare module "react-bootstrap" {
     // <Input />
     // ----------------------------------------
     interface InputProps extends React.Props<InputClass> {
+        defaultValue?:string;
         addonAfter?: any; // TODO: Add more specific type
         addonBefore?: any; // TODO: Add more specific type
         bsSize?: string;

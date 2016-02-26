@@ -4,7 +4,6 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="./angular.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
 
 declare module angular {
     /**
@@ -36,6 +35,9 @@ declare module angular {
      * ```
      */
     interface Instruction {
+        component: ComponentInstruction;
+        child: Instruction;
+        auxInstruction: {[key: string]: Instruction};
 
         urlPath(): string;
 

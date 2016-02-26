@@ -1,4 +1,4 @@
-// Type definitions for DevExtreme 15.2.3
+// Type definitions for DevExtreme 15.2.5
 // Project: http://js.devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -429,7 +429,10 @@ declare module DevExpress {
         }
         /** An object that provides access to a data web service or local data storage for collection container widgets. */
         export class DataSource implements EventsMixin<DataSource> {
-            constructor(options?: DataSourceOptions);
+            constructor(url: string);
+            constructor(data: Array<any>);
+            constructor(options: CustomStoreOptions);
+            constructor(options: DataSourceOptions);
             /** Disposes all resources associated with this DataSource. */
             dispose(): void;
             /** Returns the current filter option value. */
@@ -452,6 +455,8 @@ declare module DevExpress {
             key(): any;
             /** Starts loading data. */
             load(): JQueryPromise<Array<any>>;
+            /** Clears currently loaded DataSource items and calls the load() method. */
+            reload(): JQueryPromise<Array<any>>;
             /** Returns an object that would be passed to the load() method of the underlying Store according to the current data shaping option values of the current DataSource instance. */
             loadOptions(): Object;
             /** Returns the current pageSize option value. */
@@ -612,6 +617,8 @@ declare module DevExpress {
             enumerate(): JQueryPromise<any>;
             /** Filters the current Query data. */
             filter(criteria: Array<any>): Query;
+            /** Filters the current Query data. */
+            filter(predicate: (item: any) => boolean): Query;
             /** Groups the current Query data. */
             groupBy(getter: Object): Query;
             /** Applies the specified transformation to each item. */
@@ -1429,7 +1436,7 @@ declare module DevExpress.ui {
         clearButtonText?: string;
         /** Specifies whether or not the widget cleans the search box when the popup window is displayed. */
         cleanSearchOnOpening?: boolean;
-        /** A Boolean value specifying whether or not the widget is closed if a user clicks outside of the overlaying window. */
+        /** A Boolean value specifying whether or not a widget is closed if a user clicks outside of the overlaying window. */
         closeOnOutsideClick?: any;
         /** The text displayed on the Apply button. */
         applyButtonText?: string;
@@ -2053,7 +2060,7 @@ declare module DevExpress.ui {
         dataField?: string;
         /** Specifies the form item name. */
         name?: string;
-        /** Specifie which editor widget is used to display and edit the form item value. */
+        /** Specifies which editor widget is used to display and edit the form item value. */
         editorType?: string;
         /** Specifies configuration options for the editor widget of the current form item. */
         editorOptions?: Object;
@@ -2133,6 +2140,7 @@ declare module DevExpress.ui {
         items?: Array<dxFormItem>;
         /** A Boolean value specifying whether to enable or disable form scrolling. */
         scrollingEnabled?: boolean;
+        onContentReady?: Function;
     }
     /** A form widget used to display and edit values of object fields. */
     export class dxForm extends Widget {
@@ -2534,6 +2542,7 @@ declare module DevExpress.ui {
         /** Specifies whether or not the drop-down menu is displayed. */
         opened?: boolean;
         hoverStateEnabled?: boolean;
+        activeStateEnabled?: boolean;
     }
     /** A drop-down menu widget. */
     export class dxDropDownMenu extends Widget {
@@ -2901,6 +2910,22 @@ declare module DevExpress.ui {
         horizontalScrollingEnabled?: boolean;
         /** Specifies whether a user can switch views using tabs or a drop-down menu. */
         useDropDownViewSwitcher?: boolean;
+        /** Specifies the name of the data source item field that defines the start of the appointment. */
+        startDateExpr?: string;
+        /** Specifies the name of the data source item field that defines the ending of the appointment. */
+        endDateExpr?: string;
+        /** Specifies the name of the data source item field that holds the subject of the appointment. */
+        textExpr?: string;
+        /** Specifies the name of the data source item field whose value holds the description of the corresponding appointment. */
+        descriptionExpr?: string;
+        /** Specifies the name of the data source item field whose value defines whether or not the corresponding appointment is an all-day appointment. */
+        allDayExpr?: string;
+        /** Specifies the name of the data source item field that defines a recurrence rule for generating recurring appointments. */
+        recurrenceRuleExpr?: string;
+        /** Specifies the name of the data source item field that defines exceptions for the current recurring appointment. */
+        recurrenceExceptionExpr?: string;
+        /** Specifies whether filtering is performed on the server or client side. */
+        remoteFiltering?: boolean;
     }
     /** A widget that displays scheduled data using different views and provides the capability to load, add and edit appointments. */
     export class dxScheduler extends Widget {
@@ -2960,7 +2985,10 @@ declare module DevExpress.ui {
         dataStructure?: string;
         /** Specifies whether or not a user can expand all tree view items by the "*" hot key. */
         expandAllEnabled?: boolean;
-        /** Specifies whether or not a check box is displayed at each tree view item. */
+        /**
+         * Specifies whether or not a check box is displayed at each tree view item.
+         * @deprecated Use the showCheckBoxesMode option instead.
+         */
         showCheckBoxes?: boolean;
         /** Specifies the current check boxes display mode. */
         showCheckBoxesMode?: string;
@@ -2968,7 +2996,10 @@ declare module DevExpress.ui {
         selectNodesRecursive?: boolean;
         /** Specifies whether or not all parent nodes of an initially expanded node are displayed expanded. */
         expandNodesRecursive?: boolean;
-        /** Specifies whether the "Select All" check box is displayed over the tree view. */
+        /**
+         * Specifies whether the "Select All" check box is displayed over the tree view.
+         * @deprecated Use the showCheckBoxesMode option instead.
+         */
         selectAllEnabled?: boolean;
         /** Specifies the text displayed at the "Select All" check box. */
         selectAllText?: string;
@@ -3221,7 +3252,7 @@ declare module DevExpress.ui {
         };
         /** Specifies column-level options for filtering using a column header filter. */
         headerFilter?: {
-            /** Specifies the data source to be used for header filter. */
+            /** Specifies the data source to be used for the header filter. */
             dataSource?: any;
             /** Specifies how header filter values should be combined into groups. */
             groupInterval?: any;
@@ -3498,6 +3529,8 @@ declare module DevExpress.ui {
         };
         /** Specifies whether or not grid rows must be shaded in a different way. */
         rowAlternationEnabled?: boolean;
+        /** Specifies whether to enable two-way data binding. */
+        twoWayBindingEnabled?: boolean;
         /** A handler for the rowClick event. */
         onRowClick?: any;
         /** A handler for the rowPrepared event. */
@@ -3570,7 +3603,7 @@ declare module DevExpress.ui {
             texts?: {
                 /** Specifies text for the Export button when this button invokes a dropdown menu so you can choose the required export format. */
                 exportTo?: string;
-                /** Specifies text for the Export button when this button exports to the XSLX format. */
+                /** Specifies text for the Export button's hint when this button exports to the XSLX format without invoking the drop-down menu. */
                 exportToExcel?: string;
                 /** Specifies text for the item in the Export dropdown menu that exports grid data to Excel. */
                 excelFormat?: string;
@@ -3602,6 +3635,13 @@ declare module DevExpress.ui {
         onExporting?: (e: {
             fileName: string;
             format: string;
+            cancel: boolean;
+        }) => void;
+        /** A handler for the fileSaving event. */
+        onFileSaving?: (e: {
+            fileName: string;
+            format: string;
+            data: any;
             cancel: boolean;
         }) => void;
         /** A handler for the exported event. */
@@ -3998,6 +4038,13 @@ declare module DevExpress.ui {
         onExporting?: (e: {
             fileName: string;
             format: string;
+            cancel: boolean;
+        }) => void;
+        /** A handler for the fileSaving event. */
+        onFileSaving?: (e: {
+            fileName: string;
+            format: string;
+            data: any;
             cancel: boolean;
         }) => void;
         /** A handler for the exported event. */
@@ -4594,7 +4641,7 @@ declare module DevExpress.viz.core {
         /** Specifies whether or not the legend is visible on the map. */
         visible?: boolean;
     }
-    export interface BaseWidgetOptions {
+    export interface BaseWidgetOptions extends DOMComponentOptions {
         /** A handler for the drawn event. */
         onDrawn?: (e: {
             component: BaseWidget;
@@ -5153,7 +5200,7 @@ declare module DevExpress.viz.charts {
     }
     export interface CommonPieSeriesSettings extends CommonPieSeriesConfig {
         /**
-         * Sets a series type for all series.
+         * Specifies the type of the pie chart series.
          * @deprecated use the 'type' option instead
          */
         type?: string;
@@ -5450,10 +5497,12 @@ declare module DevExpress.viz.charts {
     }
     export interface ChartArgumentAxis extends ChartAxis, ArgumentAxis { }
     export interface PolarArgumentAxis extends PolarAxis, ArgumentAxis {
-        /** Specifies a start angle for the argument axis in degrees. */
+        /** Specifies the angle in arc degrees to which the argument axis should be rotated. The positive values rotate the axis clockwise. */
         startAngle?: number;
         /** Specifies whether or not to display the first point at the angle specified by the startAngle option. */
         firstPointOnStartAngle?: boolean;
+        /** Specifies the value to be used as the origin for the argument axis. */
+        originValue?: number;
         /** Specifies the period of the argument values in the data source. */
         period?: number;
     }
@@ -5826,7 +5875,7 @@ declare module DevExpress.viz.charts {
         diameter?: number;
         /** Specifies the direction that the pie chart segments will occupy. */
         segmentsDirection?: string;
-        /** Specifies the starting angle in arc degrees for the first segment in a pie chart. */
+        /** Specifies the angle in arc degrees from which the first segment of a pie chart should start. */
         startAngle?: number;
         /** Specifies the fraction of the inner radius relative to the total radius in the series of the 'doughnut' type. The value should be between 0 and 1. */
         innerRadius?: number;
@@ -6389,8 +6438,13 @@ declare module DevExpress.viz.rangeSelector {
             };
             /** Specifies the value to be raised to a power when generating ticks for a logarithmic scale. */
             logarithmBase?: number;
-            /** Specifies an interval between major ticks. */
+            /**
+             * Specifies an interval between major ticks.
+             * @deprecated ..\tickInterval\tickInterval.md
+             */
             majorTickInterval?: any;
+            /** Specifies an interval between axis ticks. */
+            tickInterval?: any;
             /** Specifies options for the date-time scale's markers. */
             marker?: {
                 /** Defines the options that can be set for the text that is displayed by the scale markers. */
@@ -6425,7 +6479,10 @@ declare module DevExpress.viz.rangeSelector {
             setTicksAtUnitBeginning?: boolean;
             /** Specifies whether or not to show ticks for the boundary scale values, when neither major ticks nor minor ticks are created for these values. */
             showCustomBoundaryTicks?: boolean;
-            /** Indicates whether or not to show minor ticks on the scale. */
+            /**
+             * Indicates whether or not to show minor ticks on the scale.
+             * @deprecated minorTick\visible.md
+             */
             showMinorTicks?: boolean;
             /** Specifies the scale's start value. */
             startValue?: any;
@@ -6437,6 +6494,17 @@ declare module DevExpress.viz.rangeSelector {
                 opacity?: number;
                 /** Specifies the width of the scale's ticks (both major and minor ticks). */
                 width?: number;
+            };
+            /** Specifies options of the range selector's minor ticks. */
+            minorTick?: {
+                /** Specifies the color of the scale's minor ticks. */
+                color?: string;
+                /** Specifies the opacity of the scale's minor ticks. */
+                opacity?: number;
+                /** Specifies the width of the scale's minor ticks. */
+                width?: number;
+                /** Indicates whether scale minor ticks are visible or not. */
+                visible?: boolean;
             };
             /** Specifies the type of the scale. */
             type?: string;
@@ -6583,7 +6651,7 @@ declare module DevExpress.viz.map {
         selected(): boolean;
         /** Sets the selection state of the layer element. */
         selected(state: boolean): void;
-        /** Applies the layer element settings and updates the element appearance. */
+        /** Applies the layer element settings and updates element appearance. */
         applySettings(settings: any): void;
     }
     /**
@@ -6680,9 +6748,9 @@ declare module DevExpress.viz.map {
         type?: string;
         /** Specifies the type of a marker element. Setting this option makes sense only if the layer type is "marker". */
         elementType?: string;
-        /** Specifies a data source for the layer element. */
+        /** Specifies a data source for the layer. */
         data?: any;
-        /** Specifies the width of the layer elements border in pixels. */
+        /** Specifies the line width (for layers of a line type) or width of the layer elements border in pixels. */
         borderWidth?: number;
         /** Specifies a color for the border of the layer elements. */
         borderColor?: string;
@@ -6690,11 +6758,11 @@ declare module DevExpress.viz.map {
         color?: string;
         /** Specifies a color for the border of the layer element when it is hovered over. */
         hoveredBorderColor?: string;
-        /** Specifies the pixel-measured width for the border of the layer element when it is hovered over. */
+        /** Specifies the pixel-measured line width (for layers of a line type) or width for the border of the layer element when it is hovered over. */
         hoveredBorderWidth?: number;
         /** Specifies a color for a layer element when it is hovered over. */
         hoveredColor?: string;
-        /** Specifies a pixel-measured width for the border of the layer element when it is selected. */
+        /** Specifies a pixel-measured line width (for layers of a line type) or width for the border of the layer element when it is selected. */
         selectedBorderWidth?: number;
         /** Specifies a color for the border of the layer element when it is selected. */
         selectedBorderColor?: string;

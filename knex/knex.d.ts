@@ -399,7 +399,7 @@ declare module "knex" {
       debug?: boolean;
       client?: string;
       dialect?: string;
-      connection: string|ConnectionConfig|
+      connection: string|ConnectionConfig|MariaSqlConnectionConfig|
         Sqlite3ConnectionConfig|SocketConnectionConfig;
       pool?: PoolConfig;
       migrations?: MigrationConfig;
@@ -411,6 +411,38 @@ declare module "knex" {
       password: string;
       database: string;
       debug?: boolean;
+    }
+
+    // Config object for mariasql: https://github.com/mscdex/node-mariasql#client-methods
+    interface MariaSqlConnectionConfig {
+      user?: string;
+      password?: string;
+      host?: string;
+      port?: number;
+      unixSocket?: string;
+      protocol?: string;
+      db?: string;
+      keepQueries?: boolean;
+      multiStatements?: boolean;
+      connTimeout?: number;
+      pingInterval?: number;
+      secureAuth?: boolean;
+      compress?: boolean;
+      ssl?: boolean|MariaSslConfiguration;
+      local_infile?: boolean;
+      read_default_file?: string;
+      read_default_group?: string;
+      charset?: string;
+      streamHWM?: number;
+    }
+
+    interface MariaSslConfiguration {
+      key?: string;
+      cert?: string;
+      ca?: string;
+      capath?: string;
+      cipher?: string;
+      rejectUnauthorized?: boolean;
     }
 
     /** Used with SQLite3 adapter */

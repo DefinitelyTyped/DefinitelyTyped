@@ -3,11 +3,9 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 /// <reference path="../orchestrator/orchestrator.d.ts" />
-
 
 declare module "gulp-help" {
     import Orchestrator = require('orchestrator');
@@ -116,4 +114,3 @@ declare module "gulp-help" {
 
     export = gulpHelp;
 }
-

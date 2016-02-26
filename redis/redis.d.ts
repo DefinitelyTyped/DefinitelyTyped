@@ -46,6 +46,7 @@ declare module "redis" {
         connect_timeout?: number;
         max_attempts?: number;
         auth_pass?: string;
+        password?: string;
         family?: string;
         command_queue_high_water?: number;
         command_queue_low_water?: number;
@@ -358,6 +359,9 @@ declare module "redis" {
         eval(...args:any[]): boolean;
         evalsha(args:any[], callback?:ResCallbackT<any>): boolean;
         evalsha(...args:any[]): boolean;
+        script(args:any[], callback?:ResCallbackT<any>): boolean;
+        script(...args: any[]): boolean;
+        script(key: string, callback?: ResCallbackT<any>): boolean;
         quit(args:any[], callback?:ResCallbackT<any>): boolean;
         quit(...args:any[]): boolean;
     }

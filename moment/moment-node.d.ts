@@ -18,7 +18,7 @@ declare module moment {
         seconds?: number;
         milliseconds?: number;
     }
-    
+
     interface MomentInput {
         /** Year */
         years?: number;
@@ -125,11 +125,11 @@ declare module moment {
     }
 
     interface MomentCreationData {
-        input?: string,
-        format?: string,
-        locale: MomentLocale,
-        isUTC: boolean,
-        strict?: boolean
+        input?: string;
+        format?: string;
+        locale: MomentLocale;
+        isUTC: boolean;
+        strict?: boolean;
     }
 
     interface Moment {
@@ -313,6 +313,7 @@ declare module moment {
          * @since 2.10.7+
          */
         isSameOrBefore(b: MomentComparable, granularity?: string): boolean;
+        isSameOrAfter(b: MomentComparable, granularity?: string): boolean;
 
         /**
          * @deprecated since version 2.8.0
@@ -344,7 +345,7 @@ declare module moment {
         get(unit: string): number;
         set(unit: string, value: number): Moment;
         set(objectLiteral: MomentInput): Moment;
-        
+
         /**
          * This returns an object containing year, month, day-of-month, hour, minute, seconds, milliseconds.
          * @since 2.10.5+
@@ -384,11 +385,149 @@ declare module moment {
         longDateFormat?: MomentLongDateFormat;
     }
 
-    interface MomentLanguageData extends BaseMomentLanguage {
+    interface MomentLanguageData {
         /**
-         * @param formatType should be L, LL, LLL, LLLL.
+         * Get the full localized month name of a moment object
+         * @param  {Moment} aMoment a moment object
+         * @return {string}         full month name
          */
-        longDateFormat(formatType: string): string;
+        months(aMoment: Moment): string;
+
+        /**
+         * Get the short localized month name of a moment object
+         * @param  {Moment} aMoment a moment object
+         * @return {string}         short month name
+         */
+        monthsShort(aMoment: Moment): string;
+
+        /**
+         * Parses a month name and returns the month id (0-11)
+         * @param  {string} longOrShortMonthString string of month to parse
+         * @return {number}                        month id (0 to 11) of input
+         */
+        monthsParse(longOrShortMonthString: string): number;
+
+        /**
+         * Gets the full weekday name of a moment object (eg. Monday)
+         * @param  {Moment} aMoment a moment object
+         * @return {string}         full weekday name
+         */
+        weekdays(aMoment: Moment): string;
+
+        /**
+         * Gets the short weekday name of a moment object (eg. Mon)
+         * @param  {Moment} aMoment a moment object
+         * @return {string}         short weekday name
+         */
+        weekdaysShort(aMoment: Moment): string;
+
+        /**
+         * Gets the min weekday name of a moment object (eg. Mo)
+         * @param  {Moment} aMoment a moment object
+         * @return {string}         min weekday name
+         */
+        weekdaysMin(aMoment: Moment): string;
+
+        /**
+         * Parses a weekday name and returns the weekday id (0-6)
+         * @param  {string} longOrShortMonthString string of weekday to parse
+         * @return {number}                        weekday id (0 to 6) of input
+         */
+        weekdaysParse(longOrShortMonthString: string): number;
+
+        /**
+         * Returns the full format of abbreviated date-time formats
+         * @param  {string} dateFormat date-time format such as LT, L, LL and so on
+         * @return {string}            full date format string
+         */
+        longDateFormat(dateFormat: string): string;
+
+        /**
+         * Returns whether a string represents PM
+         * @param  {string}  amPmString date string to check
+         * @return {boolean}            true if string represents PM
+         */
+        isPM(amPmString: string): boolean;
+
+        /**
+         * Returns am/pm string for particular time-of-day in upper/lower case
+         * @param  {number}  hour        hour
+         * @param  {number}  minute      minute
+         * @param  {boolean} isLowercase whether to return in lowercase
+         * @return {string}              'am' or 'pm'
+         */
+        meridiem(hour: number, minute: number, isLowercase: boolean): string;
+
+        /**
+         * Returns a format that would be used for calendar representation.
+         * @param  {string} key     one of 'sameDay', 'nextDay', 'lastDay', 'nextWeek', 'prevWeek', 'sameElse'
+         * @param  {Moment} aMoment a moment object
+         * @return {string}         date format string
+         */
+        calendar(key: string, aMoment: Moment): string;
+
+        /**
+         * Returns relative time string (eg. a year ago)
+         * @param  {number}  number        the relative number
+         * @param  {boolean} withoutSuffix whether to drop the suffix
+         * @param  {string}  key           one of 's', 'm', 'mm', 'h', 'hh', 'd', 'dd', 'M', 'MM', 'y', 'yy'. Single letter when number is 1.
+         * @param  {boolean} isFuture      whether this represents a future date
+         * @return {string}                humanized representation of relative time
+         */
+        relativeTime(number: number, withoutSuffix: boolean, key: string, isFuture: boolean): string;
+
+        /**
+         * Converts relative time string to past or future string depending on difference
+         * @param  {number} diff    positive or negative number
+         * @param  {string} relTime relative time string
+         * @return {string}         humanized representation of relative time
+         */
+        pastFuture(diff: number, relTime: string): string;
+
+        /**
+         * Convert number to ordinal string 1 -> 1st
+         * @param  {number} number the number
+         * @return {string}        ordinal string
+         */
+        ordinal(number: number): string;
+
+        /**
+         * Called before parsing every input string
+         */
+        preparse(str: string): string;
+
+        /**
+         * Called after formatting on every string
+         */
+        postformat(str: string): string;
+
+        /**
+         * Returns week-of-year of a moment object
+         * @param  {Moment} aMoment a moment object
+         * @return {number}         number of the week
+         */
+        week(aMoment: Moment): number;
+
+        /**
+         * Returns a translation of 'Invalid date'
+         * @return {string} translation of 'Invalid date'
+         */
+        invalidDate(): string;
+
+        /**
+         * Returns the first day of the week (0-6, Sunday to Saturday)
+         * @return {number} first day of the week
+         */
+        firstDayOfWeek(): number;
+
+        /**
+         * This and the first day of week are used to determine which is
+         * the first week of the year. dow == 1 and doy == 4 means week starts
+         * Monday and first week that has Thursday is the first week of the
+         * year (but doy is NOT simply Thursday).
+         * @return {number} number between 0-15
+         */
+        firstDayOfYear(): number;
     }
 
     interface MomentLongDateFormat {
@@ -510,7 +649,9 @@ declare module moment {
         weekdaysMin(format: string, index: number): string;
 
         min(...moments: Moment[]): Moment;
+        min(moments: Moment[]): Moment;
         max(...moments: Moment[]): Moment;
+        max(moments: Moment[]): Moment;
 
         normalizeUnits(unit: string): string;
         relativeTimeThreshold(threshold: string): number | boolean;

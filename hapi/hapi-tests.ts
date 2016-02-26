@@ -110,3 +110,51 @@ server.route([{
 
 // Start the server
 server.start();
+
+// server startup may now return a promise
+server.start()
+    .then(() => {
+        console.log('Started!');
+    });
+
+//inject a request into connection
+server.inject({
+    method: 'GET',
+    url: '/hello'
+}).then(response => {
+    console.log(response.statusCode);
+});
+
+//the same but this time using callback
+server.inject({
+    method: 'GET',
+    url: '/hello'
+}, response => {
+    console.log(response.statusCode);
+});
+
+//tests for server initialization
+server.initialize()
+    .then(() => {
+        console.log('Initialized!')
+    });
+
+//and the same but with callback
+server.initialize(err => {
+    if (err) {
+        console.log(err);
+    }
+});
+
+//server stopping may now return a promise
+server.stop()
+    .then(() => {
+        console.log('Stopped!');
+    });
+
+//decorate can take an optional options argument
+server.decorate('hello', 'world', () => {}, {
+    apply: true
+});
+
+server.decorate('hello2', 'world2', () => {});

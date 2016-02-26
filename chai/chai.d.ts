@@ -17,7 +17,7 @@ declare module Chai {
         /**
          * Provides a way to extend the internals of Chai
          */
-        use(fn: (chai: any, utils: any) => void): any;
+        use(fn: (chai: any, utils: any) => void): ChaiStatic;
         assert: AssertStatic;
         config: Config;
         AssertionError: typeof AssertionError;

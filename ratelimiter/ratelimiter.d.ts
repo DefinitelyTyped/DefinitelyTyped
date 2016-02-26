@@ -55,5 +55,7 @@ declare module "ratelimiter" {
 		get(fn: (err: any, info: LimiterInfo) => void): void;
 	}
 
+	namespace Limiter {}
+
 	export = Limiter;
 }

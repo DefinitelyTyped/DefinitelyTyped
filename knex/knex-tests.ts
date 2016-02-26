@@ -1,5 +1,5 @@
 /// <reference path='knex.d.ts' />
-/// <reference path='../lodash/lodash.d.ts' />
+/// <reference path='../lodash/lodash-3.10.d.ts' />
 import Knex = require('knex');
 import _ = require('lodash');
 'use strict';
@@ -19,6 +19,18 @@ var knex = Knex({
     user     : 'your_database_user',
     password : 'your_database_password',
     database : 'myapp_test'
+  }
+});
+
+// Mariasql configuration
+var knex = Knex({
+  debug: true,
+  client: 'mariasql',
+  connection: {
+    host     : '127.0.0.1',
+    user     : 'your_database_user',
+    password : 'your_database_password',
+    db       : 'myapp_test'
   }
 });
 

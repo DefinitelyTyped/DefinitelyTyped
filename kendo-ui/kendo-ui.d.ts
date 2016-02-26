@@ -1,4 +1,4 @@
-// Type definitions for Kendo UI Professional v2015.3.1111
+// Type definitions for Kendo UI Professional v2016.1.112
 // Project: http://www.telerik.com/kendo-ui
 // Definitions by: Telerik <https://github.com/telerik/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -301,7 +301,7 @@ declare module kendo {
 
     class Layout extends View {
         containers: { [selector: string]: ViewContainer; };
-        showIn(selector: string, view: View): void;
+        showIn(selector: string, view: View, transitionClass?: string): void;
     }
 
     class History extends Observable {
@@ -316,9 +316,13 @@ declare module kendo {
     var history: History;
 
     interface RouterOptions {
-        init?: (e: RouterEvent) => void;
-        routeMissing?: (e: RouterEvent) => void;
-        change?: (e: RouterEvent) => void;
+        pushState?: boolean;
+        hashBang?: boolean;
+        root?: string;
+        ignoreCase?: boolean;
+        change?(e: RouterChangeEvent): void;
+        routeMissing?(e: RouterRouteMissingEvent): void;
+        same?(e: RouterEvent): void;
     }
 
     interface RouterEvent {
@@ -326,6 +330,15 @@ declare module kendo {
         url: string;
         preventDefault: Function;
         isDefaultPrevented(): boolean;
+    }
+    
+    interface RouterChangeEvent extends RouterEvent {
+        params: any;
+        backButtonPressed: boolean;
+    }
+    
+    interface RouterRouteMissingEvent extends RouterEvent {
+        params: any;
     }
 
     class Route extends Class {
@@ -932,6 +945,7 @@ declare module kendo.data {
     interface DataSourceSchemaModel {
         id?: string;
         fields?: any;
+        [index: string]: any;
     }
 
     interface DataSourceSchemaModelWithFieldsArray extends DataSourceSchemaModel {
@@ -1375,6 +1389,17 @@ declare module kendo.ui {
     interface GridColumn {
         editor?(container: JQuery, options: GridColumnEditorOptions): void;
     }
+
+    interface TreeListEditorOptions {
+        field?: string;
+        format?: string;
+        model?: kendo.data.Model;
+        values?: any[];
+    }
+
+    interface TreeListColumn {
+        editor?(container: JQuery, options: TreeListEditorOptions): void;
+    }
 }
 
 declare module kendo.mobile {
@@ -1459,712 +1484,6 @@ declare module kendo.drawing.pdf {
                     proxyUrl?: string, callback?: Function): void;
 }
 
-declare module kendo.drawing {
-    class Arc extends kendo.drawing.Element {
-
-
-        options: ArcOptions;
-
-
-        constructor(geometry: kendo.geometry.Arc, options?: ArcOptions);
-
-
-        bbox(): kendo.geometry.Rect;
-        clip(): kendo.drawing.Path;
-        clip(clip: kendo.drawing.Path): void;
-        clippedBBox(): kendo.geometry.Rect;
-        geometry(): kendo.geometry.Arc;
-        geometry(value: kendo.geometry.Arc): void;
-        fill(color: string, opacity?: number): kendo.drawing.Arc;
-        opacity(): number;
-        opacity(opacity: number): void;
-        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Arc;
-        transform(): kendo.geometry.Transformation;
-        transform(transform: kendo.geometry.Transformation): void;
-        visible(): boolean;
-        visible(visible: boolean): void;
-
-    }
-
-    interface ArcOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
-    }
-    interface ArcEvent {
-        sender: Arc;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class Circle extends kendo.drawing.Element {
-
-
-        options: CircleOptions;
-
-
-        constructor(geometry: kendo.geometry.Circle, options?: CircleOptions);
-
-
-        bbox(): kendo.geometry.Rect;
-        clip(): kendo.drawing.Path;
-        clip(clip: kendo.drawing.Path): void;
-        clippedBBox(): kendo.geometry.Rect;
-        geometry(): kendo.geometry.Circle;
-        geometry(value: kendo.geometry.Circle): void;
-        fill(color: string, opacity?: number): kendo.drawing.Circle;
-        opacity(): number;
-        opacity(opacity: number): void;
-        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Circle;
-        transform(): kendo.geometry.Transformation;
-        transform(transform: kendo.geometry.Transformation): void;
-        visible(): boolean;
-        visible(visible: boolean): void;
-
-    }
-
-    interface CircleOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
-    }
-    interface CircleEvent {
-        sender: Circle;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class Element extends kendo.Class {
-
-
-        options: ElementOptions;
-
-
-        constructor(options?: ElementOptions);
-
-
-        bbox(): kendo.geometry.Rect;
-        clip(): kendo.drawing.Path;
-        clip(clip: kendo.drawing.Path): void;
-        clippedBBox(): kendo.geometry.Rect;
-        opacity(): number;
-        opacity(opacity: number): void;
-        transform(): kendo.geometry.Transformation;
-        transform(transform: kendo.geometry.Transformation): void;
-        visible(): boolean;
-        visible(visible: boolean): void;
-
-    }
-
-    interface ElementOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        opacity?: number;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
-    }
-    interface ElementEvent {
-        sender: Element;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    interface FillOptions  {
-
-
-
-        color: string;
-        opacity: number;
-
-
-
-
-    }
-
-
-
-    class Gradient extends kendo.Class {
-
-
-        options: GradientOptions;
-
-        stops: any;
-
-        constructor(options?: GradientOptions);
-
-
-        addStop(offset: number, color: string, opacity: number): kendo.drawing.GradientStop;
-        removeStop(stop: kendo.drawing.GradientStop): void;
-
-    }
-
-    interface GradientOptions {
-        name?: string;
-        stops?: any;
-    }
-    interface GradientEvent {
-        sender: Gradient;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class GradientStop extends kendo.Class {
-
-
-        options: GradientStopOptions;
-
-
-        constructor(options?: GradientStopOptions);
-
-
-
-    }
-
-    interface GradientStopOptions {
-        name?: string;
-        offset?: number;
-        color?: string;
-        opacity?: number;
-    }
-    interface GradientStopEvent {
-        sender: GradientStop;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class Group extends kendo.drawing.Element {
-
-
-        options: GroupOptions;
-
-        children: any;
-
-        constructor(options?: GroupOptions);
-
-
-        append(element: kendo.drawing.Element): void;
-        clear(): void;
-        clip(): kendo.drawing.Path;
-        clip(clip: kendo.drawing.Path): void;
-        clippedBBox(): kendo.geometry.Rect;
-        insert(position: number, element: kendo.drawing.Element): void;
-        opacity(): number;
-        opacity(opacity: number): void;
-        remove(element: kendo.drawing.Element): void;
-        removeAt(index: number): void;
-        visible(): boolean;
-        visible(visible: boolean): void;
-
-    }
-
-    interface GroupOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        opacity?: number;
-        pdf?: kendo.drawing.PDFOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
-    }
-    interface GroupEvent {
-        sender: Group;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class Image extends kendo.drawing.Element {
-
-
-        options: ImageOptions;
-
-
-        constructor(src: string, rect: kendo.geometry.Rect);
-
-
-        bbox(): kendo.geometry.Rect;
-        clip(): kendo.drawing.Path;
-        clip(clip: kendo.drawing.Path): void;
-        clippedBBox(): kendo.geometry.Rect;
-        opacity(): number;
-        opacity(opacity: number): void;
-        src(): string;
-        src(value: string): void;
-        rect(): kendo.geometry.Rect;
-        rect(value: kendo.geometry.Rect): void;
-        transform(): kendo.geometry.Transformation;
-        transform(transform: kendo.geometry.Transformation): void;
-        visible(): boolean;
-        visible(visible: boolean): void;
-
-    }
-
-    interface ImageOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        opacity?: number;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
-    }
-    interface ImageEvent {
-        sender: Image;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class Layout extends kendo.drawing.Group {
-
-
-        options: LayoutOptions;
-
-
-        constructor(rect: kendo.geometry.Rect, options?: LayoutOptions);
-
-
-        rect(): kendo.geometry.Rect;
-        rect(rect: kendo.geometry.Rect): void;
-        reflow(): void;
-
-    }
-
-    interface LayoutOptions {
-        name?: string;
-        alignContent?: string;
-        alignItems?: string;
-        justifyContent?: string;
-        lineSpacing?: number;
-        spacing?: number;
-        orientation?: string;
-        wrap?: boolean;
-    }
-    interface LayoutEvent {
-        sender: Layout;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class LinearGradient extends kendo.drawing.Gradient {
-
-
-        options: LinearGradientOptions;
-
-        stops: any;
-
-        constructor(options?: LinearGradientOptions);
-
-
-        addStop(offset: number, color: string, opacity: number): kendo.drawing.GradientStop;
-        end(): kendo.geometry.Point;
-        end(end: any): void;
-        end(end: kendo.geometry.Point): void;
-        start(): kendo.geometry.Point;
-        start(start: any): void;
-        start(start: kendo.geometry.Point): void;
-        removeStop(stop: kendo.drawing.GradientStop): void;
-
-    }
-
-    interface LinearGradientOptions {
-        name?: string;
-        stops?: any;
-    }
-    interface LinearGradientEvent {
-        sender: LinearGradient;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class MultiPath extends kendo.drawing.Element {
-
-
-        options: MultiPathOptions;
-
-        paths: any;
-
-        constructor(options?: MultiPathOptions);
-
-
-        bbox(): kendo.geometry.Rect;
-        clip(): kendo.drawing.Path;
-        clip(clip: kendo.drawing.Path): void;
-        clippedBBox(): kendo.geometry.Rect;
-        close(): kendo.drawing.MultiPath;
-        curveTo(controlOut: any, controlIn: any, endPoint: any): kendo.drawing.MultiPath;
-        curveTo(controlOut: any, controlIn: any, endPoint: kendo.geometry.Point): kendo.drawing.MultiPath;
-        curveTo(controlOut: any, controlIn: kendo.geometry.Point, endPoint: any): kendo.drawing.MultiPath;
-        curveTo(controlOut: any, controlIn: kendo.geometry.Point, endPoint: kendo.geometry.Point): kendo.drawing.MultiPath;
-        curveTo(controlOut: kendo.geometry.Point, controlIn: any, endPoint: any): kendo.drawing.MultiPath;
-        curveTo(controlOut: kendo.geometry.Point, controlIn: any, endPoint: kendo.geometry.Point): kendo.drawing.MultiPath;
-        curveTo(controlOut: kendo.geometry.Point, controlIn: kendo.geometry.Point, endPoint: any): kendo.drawing.MultiPath;
-        curveTo(controlOut: kendo.geometry.Point, controlIn: kendo.geometry.Point, endPoint: kendo.geometry.Point): kendo.drawing.MultiPath;
-        fill(color: string, opacity?: number): kendo.drawing.MultiPath;
-        lineTo(x: number, y?: number): kendo.drawing.MultiPath;
-        lineTo(x: any, y?: number): kendo.drawing.MultiPath;
-        lineTo(x: kendo.geometry.Point, y?: number): kendo.drawing.MultiPath;
-        moveTo(x: number, y?: number): kendo.drawing.MultiPath;
-        moveTo(x: any, y?: number): kendo.drawing.MultiPath;
-        moveTo(x: kendo.geometry.Point, y?: number): kendo.drawing.MultiPath;
-        opacity(): number;
-        opacity(opacity: number): void;
-        stroke(color: string, width?: number, opacity?: number): kendo.drawing.MultiPath;
-        transform(): kendo.geometry.Transformation;
-        transform(transform: kendo.geometry.Transformation): void;
-        visible(): boolean;
-        visible(visible: boolean): void;
-
-    }
-
-    interface MultiPathOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
-    }
-    interface MultiPathEvent {
-        sender: MultiPath;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class OptionsStore extends kendo.Class {
-
-
-        options: OptionsStoreOptions;
-
-        observer: any;
-
-        constructor(options?: OptionsStoreOptions);
-
-
-        get(field: string): any;
-        set(field: string, value: any): void;
-
-    }
-
-    interface OptionsStoreOptions {
-        name?: string;
-    }
-    interface OptionsStoreEvent {
-        sender: OptionsStore;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    interface PDFOptions  {
-
-
-
-        creator: string;
-        date: Date;
-        keywords: string;
-        landscape: boolean;
-        margin: any;
-        paperSize: any;
-        subject: string;
-        title: string;
-
-
-
-
-    }
-
-
-
-    class Path extends kendo.drawing.Element {
-
-
-        options: PathOptions;
-
-        segments: any;
-
-        constructor(options?: PathOptions);
-
-        static fromPoints(points: any): kendo.drawing.Path;
-        static fromRect(rect: kendo.geometry.Rect): kendo.drawing.Path;
-        static parse(svgPath: string, options?: any): kendo.drawing.Path;
-
-        bbox(): kendo.geometry.Rect;
-        clip(): kendo.drawing.Path;
-        clip(clip: kendo.drawing.Path): void;
-        clippedBBox(): kendo.geometry.Rect;
-        close(): kendo.drawing.Path;
-        curveTo(controlOut: any, controlIn: any, endPoint: any): kendo.drawing.Path;
-        curveTo(controlOut: any, controlIn: any, endPoint: kendo.geometry.Point): kendo.drawing.Path;
-        curveTo(controlOut: any, controlIn: kendo.geometry.Point, endPoint: any): kendo.drawing.Path;
-        curveTo(controlOut: any, controlIn: kendo.geometry.Point, endPoint: kendo.geometry.Point): kendo.drawing.Path;
-        curveTo(controlOut: kendo.geometry.Point, controlIn: any, endPoint: any): kendo.drawing.Path;
-        curveTo(controlOut: kendo.geometry.Point, controlIn: any, endPoint: kendo.geometry.Point): kendo.drawing.Path;
-        curveTo(controlOut: kendo.geometry.Point, controlIn: kendo.geometry.Point, endPoint: any): kendo.drawing.Path;
-        curveTo(controlOut: kendo.geometry.Point, controlIn: kendo.geometry.Point, endPoint: kendo.geometry.Point): kendo.drawing.Path;
-        fill(color: string, opacity?: number): kendo.drawing.Path;
-        lineTo(x: number, y?: number): kendo.drawing.Path;
-        lineTo(x: any, y?: number): kendo.drawing.Path;
-        lineTo(x: kendo.geometry.Point, y?: number): kendo.drawing.Path;
-        moveTo(x: number, y?: number): kendo.drawing.Path;
-        moveTo(x: any, y?: number): kendo.drawing.Path;
-        moveTo(x: kendo.geometry.Point, y?: number): kendo.drawing.Path;
-        opacity(): number;
-        opacity(opacity: number): void;
-        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Path;
-        transform(): kendo.geometry.Transformation;
-        transform(transform: kendo.geometry.Transformation): void;
-        visible(): boolean;
-        visible(visible: boolean): void;
-
-    }
-
-    interface PathOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
-    }
-    interface PathEvent {
-        sender: Path;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class RadialGradient extends kendo.drawing.Gradient {
-
-
-        options: RadialGradientOptions;
-
-        stops: any;
-
-        constructor(options?: RadialGradientOptions);
-
-
-        addStop(offset: number, color: string, opacity: number): kendo.drawing.GradientStop;
-        center(): kendo.geometry.Point;
-        center(center: any): void;
-        center(center: kendo.geometry.Point): void;
-        radius(): number;
-        radius(value: number): void;
-        removeStop(stop: kendo.drawing.GradientStop): void;
-
-    }
-
-    interface RadialGradientOptions {
-        name?: string;
-        center?: any|kendo.geometry.Point;
-        radius?: number;
-        stops?: any;
-    }
-    interface RadialGradientEvent {
-        sender: RadialGradient;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class Rect extends kendo.drawing.Element {
-
-
-        options: RectOptions;
-
-
-        constructor(geometry: kendo.geometry.Rect, options?: RectOptions);
-
-
-        bbox(): kendo.geometry.Rect;
-        clip(): kendo.drawing.Path;
-        clip(clip: kendo.drawing.Path): void;
-        clippedBBox(): kendo.geometry.Rect;
-        geometry(): kendo.geometry.Rect;
-        geometry(value: kendo.geometry.Rect): void;
-        fill(color: string, opacity?: number): kendo.drawing.Rect;
-        opacity(): number;
-        opacity(opacity: number): void;
-        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Rect;
-        transform(): kendo.geometry.Transformation;
-        transform(transform: kendo.geometry.Transformation): void;
-        visible(): boolean;
-        visible(visible: boolean): void;
-
-    }
-
-    interface RectOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
-    }
-    interface RectEvent {
-        sender: Rect;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class Segment extends kendo.Class {
-
-
-        options: SegmentOptions;
-
-
-        constructor(anchor: kendo.geometry.Point, controlIn: kendo.geometry.Point, controlOut: kendo.geometry.Point);
-
-
-        anchor(): kendo.geometry.Point;
-        anchor(value: kendo.geometry.Point): void;
-        controlIn(): kendo.geometry.Point;
-        controlIn(value: kendo.geometry.Point): void;
-        controlOut(): kendo.geometry.Point;
-        controlOut(value: kendo.geometry.Point): void;
-
-    }
-
-    interface SegmentOptions {
-        name?: string;
-    }
-    interface SegmentEvent {
-        sender: Segment;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    interface StrokeOptions  {
-
-
-
-        color: string;
-        dashType: string;
-        lineCap: string;
-        lineJoin: string;
-        opacity: number;
-        width: number;
-
-
-
-
-    }
-
-
-
-    class Surface extends kendo.Observable {
-
-
-        options: SurfaceOptions;
-
-
-        constructor(options?: SurfaceOptions);
-
-        static create(element: JQuery, options?: any): kendo.drawing.Surface;
-        static create(element: Element, options?: any): kendo.drawing.Surface;
-
-        clear(): void;
-        draw(element: kendo.drawing.Element): void;
-        eventTarget(e: any): kendo.drawing.Element;
-        resize(force?: boolean): void;
-
-    }
-
-    interface SurfaceOptions {
-        name?: string;
-        type?: string;
-        height?: string;
-        width?: string;
-        click?(e: SurfaceClickEvent): void;
-        mouseenter?(e: SurfaceMouseenterEvent): void;
-        mouseleave?(e: SurfaceMouseleaveEvent): void;
-    }
-    interface SurfaceEvent {
-        sender: Surface;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-    interface SurfaceClickEvent extends SurfaceEvent {
-        element?: kendo.drawing.Element;
-        originalEvent?: any;
-    }
-
-    interface SurfaceMouseenterEvent extends SurfaceEvent {
-        element?: kendo.drawing.Element;
-        originalEvent?: any;
-    }
-
-    interface SurfaceMouseleaveEvent extends SurfaceEvent {
-        element?: kendo.drawing.Element;
-        originalEvent?: any;
-    }
-
-
-    class Text extends kendo.drawing.Element {
-
-
-        options: TextOptions;
-
-
-        constructor(content: string, position: kendo.geometry.Point, options?: TextOptions);
-
-
-        bbox(): kendo.geometry.Rect;
-        clip(): kendo.drawing.Path;
-        clip(clip: kendo.drawing.Path): void;
-        clippedBBox(): kendo.geometry.Rect;
-        content(): string;
-        content(value: string): void;
-        fill(color: string, opacity?: number): kendo.drawing.Text;
-        opacity(): number;
-        opacity(opacity: number): void;
-        position(): kendo.geometry.Point;
-        position(value: kendo.geometry.Point): void;
-        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Text;
-        transform(): kendo.geometry.Transformation;
-        transform(transform: kendo.geometry.Transformation): void;
-        visible(): boolean;
-        visible(visible: boolean): void;
-
-    }
-
-    interface TextOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        fill?: kendo.drawing.FillOptions;
-        font?: string;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
-    }
-    interface TextEvent {
-        sender: Text;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-}
 declare module kendo.geometry {
     class Arc extends Observable {
 
@@ -2431,6 +1750,721 @@ declare module kendo.geometry {
 
 
 }
+declare module kendo.drawing {
+    class Arc extends kendo.drawing.Element {
+
+
+        options: ArcOptions;
+
+
+        constructor(geometry: kendo.geometry.Arc, options?: ArcOptions);
+
+
+        bbox(): kendo.geometry.Rect;
+        clip(): kendo.drawing.Path;
+        clip(clip: kendo.drawing.Path): void;
+        clippedBBox(): kendo.geometry.Rect;
+        geometry(): kendo.geometry.Arc;
+        geometry(value: kendo.geometry.Arc): void;
+        fill(color: string, opacity?: number): kendo.drawing.Arc;
+        opacity(): number;
+        opacity(opacity: number): void;
+        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Arc;
+        transform(): kendo.geometry.Transformation;
+        transform(transform: kendo.geometry.Transformation): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface ArcOptions {
+        name?: string;
+        clip?: kendo.drawing.Path;
+        cursor?: string;
+        fill?: kendo.drawing.FillOptions;
+        opacity?: number;
+        stroke?: kendo.drawing.StrokeOptions;
+        transform?: kendo.geometry.Transformation;
+        visible?: boolean;
+    }
+    interface ArcEvent {
+        sender: Arc;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class Circle extends kendo.drawing.Element {
+
+
+        options: CircleOptions;
+
+
+        constructor(geometry: kendo.geometry.Circle, options?: CircleOptions);
+
+
+        bbox(): kendo.geometry.Rect;
+        clip(): kendo.drawing.Path;
+        clip(clip: kendo.drawing.Path): void;
+        clippedBBox(): kendo.geometry.Rect;
+        geometry(): kendo.geometry.Circle;
+        geometry(value: kendo.geometry.Circle): void;
+        fill(color: string, opacity?: number): kendo.drawing.Circle;
+        opacity(): number;
+        opacity(opacity: number): void;
+        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Circle;
+        transform(): kendo.geometry.Transformation;
+        transform(transform: kendo.geometry.Transformation): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface CircleOptions {
+        name?: string;
+        clip?: kendo.drawing.Path;
+        cursor?: string;
+        fill?: kendo.drawing.FillOptions;
+        opacity?: number;
+        stroke?: kendo.drawing.StrokeOptions;
+        transform?: kendo.geometry.Transformation;
+        visible?: boolean;
+    }
+    interface CircleEvent {
+        sender: Circle;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class Element extends kendo.Class {
+
+
+        options: ElementOptions;
+
+
+        constructor(options?: ElementOptions);
+
+
+        bbox(): kendo.geometry.Rect;
+        clip(): kendo.drawing.Path;
+        clip(clip: kendo.drawing.Path): void;
+        clippedBBox(): kendo.geometry.Rect;
+        opacity(): number;
+        opacity(opacity: number): void;
+        transform(): kendo.geometry.Transformation;
+        transform(transform: kendo.geometry.Transformation): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface ElementOptions {
+        name?: string;
+        clip?: kendo.drawing.Path;
+        cursor?: string;
+        opacity?: number;
+        transform?: kendo.geometry.Transformation;
+        visible?: boolean;
+    }
+    interface ElementEvent {
+        sender: Element;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    interface FillOptions  {
+
+
+
+        color?: string;
+        opacity?: number;
+
+
+
+
+    }
+
+
+
+    class Gradient extends kendo.Class {
+
+
+        options: GradientOptions;
+
+        stops: any;
+
+        constructor(options?: GradientOptions);
+
+
+        addStop(offset: number, color: string, opacity: number): kendo.drawing.GradientStop;
+        removeStop(stop: kendo.drawing.GradientStop): void;
+
+    }
+
+    interface GradientOptions {
+        name?: string;
+        stops?: any;
+    }
+    interface GradientEvent {
+        sender: Gradient;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class GradientStop extends kendo.Class {
+
+
+        options: GradientStopOptions;
+
+
+        constructor(options?: GradientStopOptions);
+
+
+
+    }
+
+    interface GradientStopOptions {
+        name?: string;
+        offset?: number;
+        color?: string;
+        opacity?: number;
+    }
+    interface GradientStopEvent {
+        sender: GradientStop;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class Group extends kendo.drawing.Element {
+
+
+        options: GroupOptions;
+
+        children: any;
+
+        constructor(options?: GroupOptions);
+
+
+        append(element: kendo.drawing.Element): void;
+        clear(): void;
+        clip(): kendo.drawing.Path;
+        clip(clip: kendo.drawing.Path): void;
+        clippedBBox(): kendo.geometry.Rect;
+        insert(position: number, element: kendo.drawing.Element): void;
+        opacity(): number;
+        opacity(opacity: number): void;
+        remove(element: kendo.drawing.Element): void;
+        removeAt(index: number): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface GroupOptions {
+        name?: string;
+        clip?: kendo.drawing.Path;
+        cursor?: string;
+        opacity?: number;
+        pdf?: kendo.drawing.PDFOptions;
+        transform?: kendo.geometry.Transformation;
+        visible?: boolean;
+    }
+    interface GroupEvent {
+        sender: Group;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class Image extends kendo.drawing.Element {
+
+
+        options: ImageOptions;
+
+
+        constructor(src: string, rect: kendo.geometry.Rect);
+
+
+        bbox(): kendo.geometry.Rect;
+        clip(): kendo.drawing.Path;
+        clip(clip: kendo.drawing.Path): void;
+        clippedBBox(): kendo.geometry.Rect;
+        opacity(): number;
+        opacity(opacity: number): void;
+        src(): string;
+        src(value: string): void;
+        rect(): kendo.geometry.Rect;
+        rect(value: kendo.geometry.Rect): void;
+        transform(): kendo.geometry.Transformation;
+        transform(transform: kendo.geometry.Transformation): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface ImageOptions {
+        name?: string;
+        clip?: kendo.drawing.Path;
+        cursor?: string;
+        opacity?: number;
+        transform?: kendo.geometry.Transformation;
+        visible?: boolean;
+    }
+    interface ImageEvent {
+        sender: Image;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class Layout extends kendo.drawing.Group {
+
+
+        options: LayoutOptions;
+
+
+        constructor(rect: kendo.geometry.Rect, options?: LayoutOptions);
+
+
+        rect(): kendo.geometry.Rect;
+        rect(rect: kendo.geometry.Rect): void;
+        reflow(): void;
+
+    }
+
+    interface LayoutOptions {
+        name?: string;
+        alignContent?: string;
+        alignItems?: string;
+        justifyContent?: string;
+        lineSpacing?: number;
+        spacing?: number;
+        orientation?: string;
+        wrap?: boolean;
+    }
+    interface LayoutEvent {
+        sender: Layout;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class LinearGradient extends kendo.drawing.Gradient {
+
+
+        options: LinearGradientOptions;
+
+        stops: any;
+
+        constructor(options?: LinearGradientOptions);
+
+
+        addStop(offset: number, color: string, opacity: number): kendo.drawing.GradientStop;
+        end(): kendo.geometry.Point;
+        end(end: any): void;
+        end(end: kendo.geometry.Point): void;
+        start(): kendo.geometry.Point;
+        start(start: any): void;
+        start(start: kendo.geometry.Point): void;
+        removeStop(stop: kendo.drawing.GradientStop): void;
+
+    }
+
+    interface LinearGradientOptions {
+        name?: string;
+        stops?: any;
+    }
+    interface LinearGradientEvent {
+        sender: LinearGradient;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class MultiPath extends kendo.drawing.Element {
+
+
+        options: MultiPathOptions;
+
+        paths: any;
+
+        constructor(options?: MultiPathOptions);
+
+
+        bbox(): kendo.geometry.Rect;
+        clip(): kendo.drawing.Path;
+        clip(clip: kendo.drawing.Path): void;
+        clippedBBox(): kendo.geometry.Rect;
+        close(): kendo.drawing.MultiPath;
+        curveTo(controlOut: any, controlIn: any, endPoint: any): kendo.drawing.MultiPath;
+        curveTo(controlOut: any, controlIn: any, endPoint: kendo.geometry.Point): kendo.drawing.MultiPath;
+        curveTo(controlOut: any, controlIn: kendo.geometry.Point, endPoint: any): kendo.drawing.MultiPath;
+        curveTo(controlOut: any, controlIn: kendo.geometry.Point, endPoint: kendo.geometry.Point): kendo.drawing.MultiPath;
+        curveTo(controlOut: kendo.geometry.Point, controlIn: any, endPoint: any): kendo.drawing.MultiPath;
+        curveTo(controlOut: kendo.geometry.Point, controlIn: any, endPoint: kendo.geometry.Point): kendo.drawing.MultiPath;
+        curveTo(controlOut: kendo.geometry.Point, controlIn: kendo.geometry.Point, endPoint: any): kendo.drawing.MultiPath;
+        curveTo(controlOut: kendo.geometry.Point, controlIn: kendo.geometry.Point, endPoint: kendo.geometry.Point): kendo.drawing.MultiPath;
+        fill(color: string, opacity?: number): kendo.drawing.MultiPath;
+        lineTo(x: number, y?: number): kendo.drawing.MultiPath;
+        lineTo(x: any, y?: number): kendo.drawing.MultiPath;
+        lineTo(x: kendo.geometry.Point, y?: number): kendo.drawing.MultiPath;
+        moveTo(x: number, y?: number): kendo.drawing.MultiPath;
+        moveTo(x: any, y?: number): kendo.drawing.MultiPath;
+        moveTo(x: kendo.geometry.Point, y?: number): kendo.drawing.MultiPath;
+        opacity(): number;
+        opacity(opacity: number): void;
+        stroke(color: string, width?: number, opacity?: number): kendo.drawing.MultiPath;
+        transform(): kendo.geometry.Transformation;
+        transform(transform: kendo.geometry.Transformation): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface MultiPathOptions {
+        name?: string;
+        clip?: kendo.drawing.Path;
+        cursor?: string;
+        fill?: kendo.drawing.FillOptions;
+        opacity?: number;
+        stroke?: kendo.drawing.StrokeOptions;
+        transform?: kendo.geometry.Transformation;
+        visible?: boolean;
+    }
+    interface MultiPathEvent {
+        sender: MultiPath;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class OptionsStore extends kendo.Class {
+
+
+        options: OptionsStoreOptions;
+
+        observer: any;
+
+        constructor(options?: OptionsStoreOptions);
+
+
+        get(field: string): any;
+        set(field: string, value: any): void;
+
+    }
+
+    interface OptionsStoreOptions {
+        name?: string;
+    }
+    interface OptionsStoreEvent {
+        sender: OptionsStore;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    interface PDFOptions  {
+
+
+
+        creator?: string;
+        date?: Date;
+        keywords?: string;
+        landscape?: boolean;
+        margin?: any;
+        paperSize?: any;
+        subject?: string;
+        title?: string;
+
+
+
+
+    }
+
+
+
+    class Path extends kendo.drawing.Element {
+
+
+        options: PathOptions;
+
+        segments: any;
+
+        constructor(options?: PathOptions);
+
+        static fromPoints(points: any): kendo.drawing.Path;
+        static fromRect(rect: kendo.geometry.Rect): kendo.drawing.Path;
+        static parse(svgPath: string, options?: any): kendo.drawing.Path;
+
+        bbox(): kendo.geometry.Rect;
+        clip(): kendo.drawing.Path;
+        clip(clip: kendo.drawing.Path): void;
+        clippedBBox(): kendo.geometry.Rect;
+        close(): kendo.drawing.Path;
+        curveTo(controlOut: any, controlIn: any, endPoint: any): kendo.drawing.Path;
+        curveTo(controlOut: any, controlIn: any, endPoint: kendo.geometry.Point): kendo.drawing.Path;
+        curveTo(controlOut: any, controlIn: kendo.geometry.Point, endPoint: any): kendo.drawing.Path;
+        curveTo(controlOut: any, controlIn: kendo.geometry.Point, endPoint: kendo.geometry.Point): kendo.drawing.Path;
+        curveTo(controlOut: kendo.geometry.Point, controlIn: any, endPoint: any): kendo.drawing.Path;
+        curveTo(controlOut: kendo.geometry.Point, controlIn: any, endPoint: kendo.geometry.Point): kendo.drawing.Path;
+        curveTo(controlOut: kendo.geometry.Point, controlIn: kendo.geometry.Point, endPoint: any): kendo.drawing.Path;
+        curveTo(controlOut: kendo.geometry.Point, controlIn: kendo.geometry.Point, endPoint: kendo.geometry.Point): kendo.drawing.Path;
+        fill(color: string, opacity?: number): kendo.drawing.Path;
+        lineTo(x: number, y?: number): kendo.drawing.Path;
+        lineTo(x: any, y?: number): kendo.drawing.Path;
+        lineTo(x: kendo.geometry.Point, y?: number): kendo.drawing.Path;
+        moveTo(x: number, y?: number): kendo.drawing.Path;
+        moveTo(x: any, y?: number): kendo.drawing.Path;
+        moveTo(x: kendo.geometry.Point, y?: number): kendo.drawing.Path;
+        opacity(): number;
+        opacity(opacity: number): void;
+        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Path;
+        transform(): kendo.geometry.Transformation;
+        transform(transform: kendo.geometry.Transformation): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface PathOptions {
+        name?: string;
+        clip?: kendo.drawing.Path;
+        cursor?: string;
+        fill?: kendo.drawing.FillOptions;
+        opacity?: number;
+        stroke?: kendo.drawing.StrokeOptions;
+        transform?: kendo.geometry.Transformation;
+        visible?: boolean;
+    }
+    interface PathEvent {
+        sender: Path;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class RadialGradient extends kendo.drawing.Gradient {
+
+
+        options: RadialGradientOptions;
+
+        stops: any;
+
+        constructor(options?: RadialGradientOptions);
+
+
+        addStop(offset: number, color: string, opacity: number): kendo.drawing.GradientStop;
+        center(): kendo.geometry.Point;
+        center(center: any): void;
+        center(center: kendo.geometry.Point): void;
+        radius(): number;
+        radius(value: number): void;
+        removeStop(stop: kendo.drawing.GradientStop): void;
+
+    }
+
+    interface RadialGradientOptions {
+        name?: string;
+        center?: any|kendo.geometry.Point;
+        radius?: number;
+        stops?: any;
+    }
+    interface RadialGradientEvent {
+        sender: RadialGradient;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class Rect extends kendo.drawing.Element {
+
+
+        options: RectOptions;
+
+
+        constructor(geometry: kendo.geometry.Rect, options?: RectOptions);
+
+
+        bbox(): kendo.geometry.Rect;
+        clip(): kendo.drawing.Path;
+        clip(clip: kendo.drawing.Path): void;
+        clippedBBox(): kendo.geometry.Rect;
+        geometry(): kendo.geometry.Rect;
+        geometry(value: kendo.geometry.Rect): void;
+        fill(color: string, opacity?: number): kendo.drawing.Rect;
+        opacity(): number;
+        opacity(opacity: number): void;
+        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Rect;
+        transform(): kendo.geometry.Transformation;
+        transform(transform: kendo.geometry.Transformation): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface RectOptions {
+        name?: string;
+        clip?: kendo.drawing.Path;
+        cursor?: string;
+        fill?: kendo.drawing.FillOptions;
+        opacity?: number;
+        stroke?: kendo.drawing.StrokeOptions;
+        transform?: kendo.geometry.Transformation;
+        visible?: boolean;
+    }
+    interface RectEvent {
+        sender: Rect;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class Segment extends kendo.Class {
+
+
+        options: SegmentOptions;
+
+
+        constructor(anchor: kendo.geometry.Point, controlIn: kendo.geometry.Point, controlOut: kendo.geometry.Point);
+
+
+        anchor(): kendo.geometry.Point;
+        anchor(value: kendo.geometry.Point): void;
+        controlIn(): kendo.geometry.Point;
+        controlIn(value: kendo.geometry.Point): void;
+        controlOut(): kendo.geometry.Point;
+        controlOut(value: kendo.geometry.Point): void;
+
+    }
+
+    interface SegmentOptions {
+        name?: string;
+    }
+    interface SegmentEvent {
+        sender: Segment;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    interface StrokeOptions  {
+
+
+
+        color?: string;
+        dashType?: string;
+        lineCap?: string;
+        lineJoin?: string;
+        opacity?: number;
+        width?: number;
+
+
+
+
+    }
+
+
+
+    class Surface extends kendo.Observable {
+
+
+        options: SurfaceOptions;
+
+
+        constructor(options?: SurfaceOptions);
+
+        static create(element: JQuery, options?: any): kendo.drawing.Surface;
+        static create(element: Element, options?: any): kendo.drawing.Surface;
+
+        clear(): void;
+        draw(element: kendo.drawing.Element): void;
+        eventTarget(e: any): kendo.drawing.Element;
+        resize(force?: boolean): void;
+
+    }
+
+    interface SurfaceOptions {
+        name?: string;
+        type?: string;
+        height?: string;
+        width?: string;
+        click?(e: SurfaceClickEvent): void;
+        mouseenter?(e: SurfaceMouseenterEvent): void;
+        mouseleave?(e: SurfaceMouseleaveEvent): void;
+    }
+    interface SurfaceEvent {
+        sender: Surface;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+    interface SurfaceClickEvent extends SurfaceEvent {
+        element?: kendo.drawing.Element;
+        originalEvent?: any;
+    }
+
+    interface SurfaceMouseenterEvent extends SurfaceEvent {
+        element?: kendo.drawing.Element;
+        originalEvent?: any;
+    }
+
+    interface SurfaceMouseleaveEvent extends SurfaceEvent {
+        element?: kendo.drawing.Element;
+        originalEvent?: any;
+    }
+
+
+    class Text extends kendo.drawing.Element {
+
+
+        options: TextOptions;
+
+
+        constructor(content: string, position: kendo.geometry.Point, options?: TextOptions);
+
+
+        bbox(): kendo.geometry.Rect;
+        clip(): kendo.drawing.Path;
+        clip(clip: kendo.drawing.Path): void;
+        clippedBBox(): kendo.geometry.Rect;
+        content(): string;
+        content(value: string): void;
+        fill(color: string, opacity?: number): kendo.drawing.Text;
+        opacity(): number;
+        opacity(opacity: number): void;
+        position(): kendo.geometry.Point;
+        position(value: kendo.geometry.Point): void;
+        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Text;
+        transform(): kendo.geometry.Transformation;
+        transform(transform: kendo.geometry.Transformation): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface TextOptions {
+        name?: string;
+        clip?: kendo.drawing.Path;
+        cursor?: string;
+        fill?: kendo.drawing.FillOptions;
+        font?: string;
+        opacity?: number;
+        stroke?: kendo.drawing.StrokeOptions;
+        transform?: kendo.geometry.Transformation;
+        visible?: boolean;
+    }
+    interface TextEvent {
+        sender: Text;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+}
 declare module kendo.ui {
     class AutoComplete extends kendo.ui.Widget {
 
@@ -2627,6 +2661,7 @@ declare module kendo.ui {
         culture?: string;
         dates?: any;
         depth?: string;
+        disableDates?: any|Function;
         footer?: string|Function;
         format?: string;
         max?: Date;
@@ -2905,27 +2940,15 @@ declare module kendo.ui {
         enable(element: string, enable: boolean): kendo.ui.ContextMenu;
         enable(element: Element, enable: boolean): kendo.ui.ContextMenu;
         enable(element: JQuery, enable: boolean): kendo.ui.ContextMenu;
-        insertAfter(item: string, referenceItem: string): kendo.ui.ContextMenu;
-        insertAfter(item: string, referenceItem: Element): kendo.ui.ContextMenu;
-        insertAfter(item: string, referenceItem: JQuery): kendo.ui.ContextMenu;
-        insertAfter(item: Element, referenceItem: string): kendo.ui.ContextMenu;
-        insertAfter(item: Element, referenceItem: Element): kendo.ui.ContextMenu;
-        insertAfter(item: Element, referenceItem: JQuery): kendo.ui.ContextMenu;
-        insertAfter(item: JQuery, referenceItem: string): kendo.ui.ContextMenu;
-        insertAfter(item: JQuery, referenceItem: Element): kendo.ui.ContextMenu;
-        insertAfter(item: JQuery, referenceItem: JQuery): kendo.ui.ContextMenu;
-        insertBefore(item: string, referenceItem: string): kendo.ui.ContextMenu;
-        insertBefore(item: string, referenceItem: Element): kendo.ui.ContextMenu;
-        insertBefore(item: string, referenceItem: JQuery): kendo.ui.ContextMenu;
-        insertBefore(item: Element, referenceItem: string): kendo.ui.ContextMenu;
-        insertBefore(item: Element, referenceItem: Element): kendo.ui.ContextMenu;
-        insertBefore(item: Element, referenceItem: JQuery): kendo.ui.ContextMenu;
-        insertBefore(item: JQuery, referenceItem: string): kendo.ui.ContextMenu;
-        insertBefore(item: JQuery, referenceItem: Element): kendo.ui.ContextMenu;
-        insertBefore(item: JQuery, referenceItem: JQuery): kendo.ui.ContextMenu;
-        open(x: number, y: number): kendo.ui.ContextMenu;
-        open(x: Element, y: number): kendo.ui.ContextMenu;
-        open(x: JQuery, y: number): kendo.ui.ContextMenu;
+        insertAfter(item: any, referenceItem: string): kendo.ui.ContextMenu;
+        insertAfter(item: any, referenceItem: Element): kendo.ui.ContextMenu;
+        insertAfter(item: any, referenceItem: JQuery): kendo.ui.ContextMenu;
+        insertBefore(item: any, referenceItem: string): kendo.ui.ContextMenu;
+        insertBefore(item: any, referenceItem: Element): kendo.ui.ContextMenu;
+        insertBefore(item: any, referenceItem: JQuery): kendo.ui.ContextMenu;
+        open(x: number, y?: number): kendo.ui.ContextMenu;
+        open(x: Element, y?: number): kendo.ui.ContextMenu;
+        open(x: JQuery, y?: number): kendo.ui.ContextMenu;
         remove(element: string): kendo.ui.ContextMenu;
         remove(element: Element): kendo.ui.ContextMenu;
         remove(element: JQuery): kendo.ui.ContextMenu;
@@ -3065,6 +3088,7 @@ declare module kendo.ui {
         culture?: string;
         dates?: any;
         depth?: string;
+        disableDates?: any|Function;
         footer?: string|Function;
         format?: string;
         max?: Date;
@@ -3154,6 +3178,7 @@ declare module kendo.ui {
         culture?: string;
         dates?: any;
         depth?: string;
+        disableDates?: any|Function;
         footer?: string;
         format?: string;
         interval?: number;
@@ -3207,6 +3232,7 @@ declare module kendo.ui {
 
 
         close(): void;
+        dataItem(index?: JQuery): any;
         dataItem(index?: number): any;
         destroy(): void;
         focus(): void;
@@ -4165,6 +4191,8 @@ declare module kendo.ui {
         dataSource?: any|any|kendo.data.DataSource;
         checkAll?: boolean;
         itemTemplate?: Function;
+        search?: boolean;
+        ignoreCase?: boolean;
         ui?: string|Function;
     }
 
@@ -4237,6 +4265,8 @@ declare module kendo.ui {
     interface GridFilterableOperatorsDate {
         eq?: string;
         neq?: string;
+        isnull?: string;
+        isnotnull?: string;
         gte?: string;
         gt?: string;
         lte?: string;
@@ -4246,11 +4276,15 @@ declare module kendo.ui {
     interface GridFilterableOperatorsEnums {
         eq?: string;
         neq?: string;
+        isnull?: string;
+        isnotnull?: string;
     }
 
     interface GridFilterableOperatorsNumber {
         eq?: string;
         neq?: string;
+        isnull?: string;
+        isnotnull?: string;
         gte?: string;
         gt?: string;
         lte?: string;
@@ -4260,6 +4294,10 @@ declare module kendo.ui {
     interface GridFilterableOperatorsString {
         eq?: string;
         neq?: string;
+        isnull?: string;
+        isnotnull?: string;
+        isempty?: string;
+        isnotempty?: string;
         startswith?: string;
         contains?: string;
         doesnotcontain?: string;
@@ -4686,24 +4724,12 @@ declare module kendo.ui {
         enable(element: string, enable: boolean): kendo.ui.Menu;
         enable(element: Element, enable: boolean): kendo.ui.Menu;
         enable(element: JQuery, enable: boolean): kendo.ui.Menu;
-        insertAfter(item: string, referenceItem: string): kendo.ui.Menu;
-        insertAfter(item: string, referenceItem: Element): kendo.ui.Menu;
-        insertAfter(item: string, referenceItem: JQuery): kendo.ui.Menu;
-        insertAfter(item: Element, referenceItem: string): kendo.ui.Menu;
-        insertAfter(item: Element, referenceItem: Element): kendo.ui.Menu;
-        insertAfter(item: Element, referenceItem: JQuery): kendo.ui.Menu;
-        insertAfter(item: JQuery, referenceItem: string): kendo.ui.Menu;
-        insertAfter(item: JQuery, referenceItem: Element): kendo.ui.Menu;
-        insertAfter(item: JQuery, referenceItem: JQuery): kendo.ui.Menu;
-        insertBefore(item: string, referenceItem: string): kendo.ui.Menu;
-        insertBefore(item: string, referenceItem: Element): kendo.ui.Menu;
-        insertBefore(item: string, referenceItem: JQuery): kendo.ui.Menu;
-        insertBefore(item: Element, referenceItem: string): kendo.ui.Menu;
-        insertBefore(item: Element, referenceItem: Element): kendo.ui.Menu;
-        insertBefore(item: Element, referenceItem: JQuery): kendo.ui.Menu;
-        insertBefore(item: JQuery, referenceItem: string): kendo.ui.Menu;
-        insertBefore(item: JQuery, referenceItem: Element): kendo.ui.Menu;
-        insertBefore(item: JQuery, referenceItem: JQuery): kendo.ui.Menu;
+        insertAfter(item: any, referenceItem: string): kendo.ui.Menu;
+        insertAfter(item: any, referenceItem: Element): kendo.ui.Menu;
+        insertAfter(item: any, referenceItem: JQuery): kendo.ui.Menu;
+        insertBefore(item: any, referenceItem: string): kendo.ui.Menu;
+        insertBefore(item: any, referenceItem: Element): kendo.ui.Menu;
+        insertBefore(item: any, referenceItem: JQuery): kendo.ui.Menu;
         open(element: string): kendo.ui.Menu;
         open(element: Element): kendo.ui.Menu;
         open(element: JQuery): kendo.ui.Menu;
@@ -5631,11 +5657,11 @@ declare module kendo.ui {
     }
 
     interface RangeSliderChangeEvent extends RangeSliderEvent {
-        value?: number;
+        value?: any;
     }
 
     interface RangeSliderSlideEvent extends RangeSliderEvent {
-        value?: number;
+        value?: any;
     }
 
 
@@ -6363,7 +6389,10 @@ declare module kendo.ui {
         activeSheet(): kendo.spreadsheet.Sheet;
         activeSheet(sheet?: kendo.spreadsheet.Sheet): void;
         sheets(): any;
+        fromFile(blob: Blob): JQueryPromise<any>;
+        fromFile(blob: File): JQueryPromise<any>;
         saveAsExcel(): void;
+        saveAsPDF(): JQueryPromise<any>;
         sheetByName(name: string): kendo.spreadsheet.Sheet;
         sheetIndex(sheet: kendo.spreadsheet.Sheet): number;
         sheetByIndex(index: number): kendo.spreadsheet.Sheet;
@@ -6372,7 +6401,7 @@ declare module kendo.ui {
         removeSheet(sheet: kendo.spreadsheet.Sheet): void;
         renameSheet(sheet: kendo.spreadsheet.Sheet, newSheetName: string): kendo.spreadsheet.Sheet;
         toJSON(): any;
-        fromJSON(options: any): void;
+        fromJSON(data: any): void;
 
     }
 
@@ -6380,6 +6409,34 @@ declare module kendo.ui {
         fileName?: string;
         forceProxy?: boolean;
         proxyURL?: string;
+    }
+
+    interface SpreadsheetPdfMargin {
+        bottom?: number|string;
+        left?: number|string;
+        right?: number|string;
+        top?: number|string;
+    }
+
+    interface SpreadsheetPdf {
+        area?: string;
+        author?: string;
+        creator?: string;
+        date?: Date;
+        fileName?: string;
+        fitWidth?: boolean;
+        forceProxy?: boolean;
+        guidelines?: boolean;
+        hCenter?: boolean;
+        keywords?: string;
+        landscape?: boolean;
+        margin?: SpreadsheetPdfMargin;
+        paperSize?: string|any;
+        proxyURL?: string;
+        proxyTarget?: string;
+        subject?: string;
+        title?: string;
+        vCenter?: boolean;
     }
 
     interface SpreadsheetSheetColumn {
@@ -6428,11 +6485,12 @@ declare module kendo.ui {
     }
 
     interface SpreadsheetSheetRowCellValidation {
+        type?: string;
         comparerType?: string;
         dataType?: string;
         from?: string;
         to?: string;
-        allowNulls?: string;
+        allowNulls?: boolean;
         messageTemplate?: string;
         titleTemplate?: string;
     }
@@ -6448,6 +6506,7 @@ declare module kendo.ui {
         fontSize?: number;
         italic?: boolean;
         bold?: boolean;
+        enable?: boolean;
         format?: string;
         formula?: string;
         index?: number;
@@ -6497,6 +6556,7 @@ declare module kendo.ui {
         headerHeight?: number;
         headerWidth?: number;
         dataSource?: kendo.data.DataSource;
+        data?: any;
     }
 
     interface SpreadsheetOptions {
@@ -6507,12 +6567,16 @@ declare module kendo.ui {
         headerHeight?: number;
         headerWidth?: number;
         excel?: SpreadsheetExcel;
+        pdf?: SpreadsheetPdf;
         rowHeight?: number;
         rows?: number;
         sheets?: SpreadsheetSheet[];
+        sheetsbar?: boolean;
         toolbar?: boolean;
         render?(e: SpreadsheetRenderEvent): void;
         excelExport?(e: SpreadsheetExcelExportEvent): void;
+        excelImport?(e: SpreadsheetExcelImportEvent): void;
+        pdfExport?(e: SpreadsheetPdfExportEvent): void;
     }
     interface SpreadsheetEvent {
         sender: Spreadsheet;
@@ -6528,6 +6592,15 @@ declare module kendo.ui {
         workbook?: kendo.ooxml.Workbook;
     }
 
+    interface SpreadsheetExcelImportEvent extends SpreadsheetEvent {
+        file?: Blob|File;
+        progress?: JQueryPromise<any>;
+    }
+
+    interface SpreadsheetPdfExportEvent extends SpreadsheetEvent {
+        promise?: JQueryPromise<any>;
+    }
+
 
     class TabStrip extends kendo.ui.Widget {
 
@@ -6535,6 +6608,7 @@ declare module kendo.ui {
 
         options: TabStripOptions;
 
+        dataSource: kendo.data.DataSource;
         tabGroup: JQuery;
 
         element: JQuery;
@@ -6581,12 +6655,14 @@ declare module kendo.ui {
         reload(element: JQuery): kendo.ui.TabStrip;
         remove(element: string): kendo.ui.TabStrip;
         remove(element: number): kendo.ui.TabStrip;
+        remove(element: JQuery): kendo.ui.TabStrip;
         select(): JQuery;
         select(element: string): void;
         select(element: Element): void;
         select(element: JQuery): void;
         select(element: number): void;
-        setDataSource(): void;
+        setDataSource(dataSource: any): void;
+        setDataSource(dataSource: kendo.data.DataSource): void;
 
     }
 
@@ -6617,6 +6693,7 @@ declare module kendo.ui {
         dataContentField?: string;
         dataContentUrlField?: string;
         dataImageUrlField?: string;
+        dataSource?: any|any|kendo.data.DataSource;
         dataSpriteCssClass?: string;
         dataTextField?: string;
         dataUrlField?: string;
@@ -7739,6 +7816,7 @@ declare module kendo.ui {
     }
 
     interface ValidatorValidateEvent extends ValidatorEvent {
+        valid?: boolean;
     }
 
 
@@ -7952,6 +8030,7 @@ declare module kendo.dataviz.ui {
         options: ChartOptions;
 
         dataSource: kendo.data.DataSource;
+        surface: kendo.drawing.Surface;
 
         element: JQuery;
         wrapper: JQuery;
@@ -14388,6 +14467,214 @@ declare module kendo.dataviz.ui {
 
 
 }
+declare module kendo.dataviz.map {
+    class BingLayer extends kendo.dataviz.map.TileLayer {
+
+
+        options: BingLayerOptions;
+
+        map: kendo.dataviz.ui.Map;
+
+        constructor(map: kendo.dataviz.ui.Map, options?: BingLayerOptions);
+
+
+        show(): void;
+        hide(): void;
+        imagerySet(): void;
+
+    }
+
+    interface BingLayerOptions {
+        name?: string;
+        baseUrl?: string;
+        imagerySet?: string;
+    }
+    interface BingLayerEvent {
+        sender: BingLayer;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class Extent extends kendo.Class {
+
+
+        options: ExtentOptions;
+
+        nw: kendo.dataviz.map.Location;
+        se: kendo.dataviz.map.Location;
+
+        constructor(nw: kendo.dataviz.map.Location, se: kendo.dataviz.map.Location);
+
+        static create(a: kendo.dataviz.map.Location, b?: kendo.dataviz.map.Location): kendo.dataviz.map.Extent;
+        static create(a: kendo.dataviz.map.Location, b?: any): kendo.dataviz.map.Extent;
+        static create(a: any, b?: kendo.dataviz.map.Location): kendo.dataviz.map.Extent;
+        static create(a: any, b?: any): kendo.dataviz.map.Extent;
+
+        contains(location: kendo.dataviz.map.Location): boolean;
+        containsAny(locations: any): boolean;
+        center(): kendo.dataviz.map.Location;
+        include(location: kendo.dataviz.map.Location): void;
+        includeAll(locations: any): void;
+        edges(): any;
+        toArray(): any;
+        overlaps(extent: kendo.dataviz.map.Extent): boolean;
+
+    }
+
+    interface ExtentOptions {
+        name?: string;
+    }
+    interface ExtentEvent {
+        sender: Extent;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class Layer extends kendo.Class {
+
+
+        options: LayerOptions;
+
+        map: kendo.dataviz.ui.Map;
+
+        constructor(map: kendo.dataviz.ui.Map, options?: LayerOptions);
+
+
+        show(): void;
+        hide(): void;
+
+    }
+
+    interface LayerOptions {
+        name?: string;
+    }
+    interface LayerEvent {
+        sender: Layer;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class Location extends kendo.Class {
+
+
+        options: LocationOptions;
+
+        lat: number;
+        lng: number;
+
+        constructor(lat: number, lng: number);
+
+        static create(lat: number, lng?: number): kendo.dataviz.map.Location;
+        static create(lat: any, lng?: number): kendo.dataviz.map.Location;
+        static create(lat: kendo.dataviz.map.Location, lng?: number): kendo.dataviz.map.Location;
+        static fromLngLat(lnglat: any): kendo.dataviz.map.Location;
+        static fromLatLng(lnglat: any): kendo.dataviz.map.Location;
+
+        clone(): kendo.dataviz.map.Location;
+        destination(destination: kendo.dataviz.map.Location, bearing: number): number;
+        distanceTo(distance: number, bearing: number): kendo.dataviz.map.Location;
+        equals(location: kendo.dataviz.map.Location): boolean;
+        round(digits: number): kendo.dataviz.map.Location;
+        toArray(): any;
+        toString(): string;
+        wrap(): kendo.dataviz.map.Location;
+
+    }
+
+    interface LocationOptions {
+        name?: string;
+    }
+    interface LocationEvent {
+        sender: Location;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class MarkerLayer extends kendo.dataviz.map.Layer {
+
+
+        options: MarkerLayerOptions;
+
+        map: kendo.dataviz.ui.Map;
+
+        constructor(map: kendo.dataviz.ui.Map, options?: MarkerLayerOptions);
+
+
+        show(): void;
+        hide(): void;
+        setDataSource(): void;
+
+    }
+
+    interface MarkerLayerOptions {
+        name?: string;
+    }
+    interface MarkerLayerEvent {
+        sender: MarkerLayer;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class ShapeLayer extends kendo.dataviz.map.Layer {
+
+
+        options: ShapeLayerOptions;
+
+        map: kendo.dataviz.ui.Map;
+
+        constructor(map: kendo.dataviz.ui.Map, options?: ShapeLayerOptions);
+
+
+        show(): void;
+        hide(): void;
+        setDataSource(): void;
+
+    }
+
+    interface ShapeLayerOptions {
+        name?: string;
+    }
+    interface ShapeLayerEvent {
+        sender: ShapeLayer;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class TileLayer extends kendo.dataviz.map.Layer {
+
+
+        options: TileLayerOptions;
+
+        map: kendo.dataviz.ui.Map;
+
+        constructor(map: kendo.dataviz.ui.Map, options?: TileLayerOptions);
+
+
+        show(): void;
+        hide(): void;
+
+    }
+
+    interface TileLayerOptions {
+        name?: string;
+        urlTemplate?: string;
+        subdomains?: any;
+        tileSize?: number;
+    }
+    interface TileLayerEvent {
+        sender: TileLayer;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+}
 declare module kendo.dataviz {
     class ChartAxis extends Observable {
 
@@ -14749,6 +15036,101 @@ declare module kendo.dataviz.diagram {
     }
 
 
+    class Path extends Observable {
+
+
+        options: PathOptions;
+
+
+        constructor(options?: PathOptions);
+
+
+        data(): string;
+        data(path: string): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface PathEndCapFill {
+        color?: string;
+        opacity?: number;
+    }
+
+    interface PathEndCapStroke {
+        color?: string;
+        dashType?: string;
+        width?: number;
+    }
+
+    interface PathEndCap {
+        fill?: PathEndCapFill;
+        stroke?: PathEndCapStroke;
+        type?: string;
+    }
+
+    interface PathFillGradientStop {
+        offset?: number;
+        color?: string;
+        opacity?: number;
+    }
+
+    interface PathFillGradient {
+        type?: string;
+        center?: any;
+        radius?: number;
+        start?: any;
+        end?: any;
+        stops?: PathFillGradientStop[];
+    }
+
+    interface PathFill {
+        color?: string;
+        opacity?: number;
+        gradient?: PathFillGradient;
+    }
+
+    interface PathStartCapFill {
+        color?: string;
+        opacity?: number;
+    }
+
+    interface PathStartCapStroke {
+        color?: string;
+        dashType?: string;
+        width?: number;
+    }
+
+    interface PathStartCap {
+        fill?: PathStartCapFill;
+        stroke?: PathStartCapStroke;
+        type?: string;
+    }
+
+    interface PathStroke {
+        color?: string;
+        width?: number;
+    }
+
+    interface PathOptions {
+        name?: string;
+        data?: string;
+        endCap?: PathEndCap;
+        fill?: PathFill;
+        height?: number;
+        startCap?: PathStartCap;
+        stroke?: PathStroke;
+        width?: number;
+        x?: number;
+        y?: number;
+    }
+    interface PathEvent {
+        sender: Path;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
     class Point extends Observable {
 
 
@@ -14768,6 +15150,96 @@ declare module kendo.dataviz.diagram {
     }
     interface PointEvent {
         sender: Point;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class Polyline extends Observable {
+
+
+        options: PolylineOptions;
+
+
+        constructor(options?: PolylineOptions);
+
+
+        points(): any;
+        points(points: any): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface PolylineEndCapFill {
+        color?: string;
+        opacity?: number;
+    }
+
+    interface PolylineEndCapStroke {
+        color?: string;
+        dashType?: string;
+        width?: number;
+    }
+
+    interface PolylineEndCap {
+        fill?: PolylineEndCapFill;
+        stroke?: PolylineEndCapStroke;
+        type?: string;
+    }
+
+    interface PolylineFillGradientStop {
+        offset?: number;
+        color?: string;
+        opacity?: number;
+    }
+
+    interface PolylineFillGradient {
+        type?: string;
+        center?: any;
+        radius?: number;
+        start?: any;
+        end?: any;
+        stops?: PolylineFillGradientStop[];
+    }
+
+    interface PolylineFill {
+        color?: string;
+        opacity?: number;
+        gradient?: PolylineFillGradient;
+    }
+
+    interface PolylineStartCapFill {
+        color?: string;
+        opacity?: number;
+    }
+
+    interface PolylineStartCapStroke {
+        color?: string;
+        dashType?: string;
+        width?: number;
+    }
+
+    interface PolylineStartCap {
+        fill?: PolylineStartCapFill;
+        stroke?: PolylineStartCapStroke;
+        type?: string;
+    }
+
+    interface PolylineStroke {
+        color?: string;
+        width?: number;
+    }
+
+    interface PolylineOptions {
+        name?: string;
+        endCap?: PolylineEndCap;
+        fill?: PolylineFill;
+        startCap?: PolylineStartCap;
+        stroke?: PolylineStroke;
+    }
+    interface PolylineEvent {
+        sender: Polyline;
         preventDefault: Function;
         isDefaultPrevented(): boolean;
     }
@@ -15071,6 +15543,8 @@ declare module kendo {
         function parseFloat(value: string, culture?: string): number;
         function parseInt(value: string, culture?: string): number;
         function parseColor(color: string, noerror: boolean): kendo.Color;
+        function proxyModelSetters(): void;
+        function proxyModelSetters(data: kendo.data.Model): void;
         function resize(element: string, force: boolean): void;
         function resize(element: JQuery, force: boolean): void;
         function resize(element: Element, force: boolean): void;
@@ -15140,6 +15614,10 @@ declare module kendo.spreadsheet {
 
 
 
+        background(): string;
+        background(value?: string): void;
+        bold(): boolean;
+        bold(value?: boolean): void;
         borderBottom(): any;
         borderBottom(value?: any): void;
         borderLeft(): any;
@@ -15148,11 +15626,21 @@ declare module kendo.spreadsheet {
         borderRight(value?: any): void;
         borderTop(): any;
         borderTop(value?: any): void;
+        color(): string;
+        color(value?: string): void;
         clear(options?: any): void;
         clearFilter(indices: any): void;
         clearFilter(indices: number): void;
+        enable(): boolean;
+        enable(value?: boolean): void;
+        fillFrom(srcRange: Range, direction?: number): void;
+        fillFrom(srcRange: string, direction?: number): void;
         filter(filter: boolean): void;
         filter(filter: any): void;
+        fontFamily(): string;
+        fontFamily(value?: string): void;
+        fontSize(): number;
+        fontSize(value?: number): void;
         format(): string;
         format(format?: string): void;
         formula(): string;
@@ -15164,10 +15652,14 @@ declare module kendo.spreadsheet {
         input(value?: Date): void;
         isSortable(): boolean;
         isFilterable(): boolean;
+        italic(): boolean;
+        italic(value?: boolean): void;
         merge(): void;
         select(): void;
         sort(sort: number): void;
         sort(sort: any): void;
+        textAlign(): string;
+        textAlign(value?: string): void;
         unmerge(): void;
         values(values: any): void;
         validation(): any;
@@ -15176,6 +15668,8 @@ declare module kendo.spreadsheet {
         value(value?: string): void;
         value(value?: number): void;
         value(value?: Date): void;
+        verticalAlign(): string;
+        verticalAlign(value?: string): void;
         wrap(): boolean;
         wrap(value?: boolean): void;
 
@@ -15276,158 +15770,6 @@ declare module kendo.spreadsheet {
     }
     interface ValueFilterEvent {
         sender: ValueFilter;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-}
-declare module kendo.dataviz.map {
-    class Extent extends kendo.Class {
-
-
-        options: ExtentOptions;
-
-        nw: kendo.dataviz.map.Location;
-        se: kendo.dataviz.map.Location;
-
-        constructor(nw: kendo.dataviz.map.Location, se: kendo.dataviz.map.Location);
-
-        static create(a: kendo.dataviz.map.Location, b?: kendo.dataviz.map.Location): kendo.dataviz.map.Extent;
-        static create(a: kendo.dataviz.map.Location, b?: any): kendo.dataviz.map.Extent;
-        static create(a: any, b?: kendo.dataviz.map.Location): kendo.dataviz.map.Extent;
-        static create(a: any, b?: any): kendo.dataviz.map.Extent;
-
-        contains(location: kendo.dataviz.map.Location): boolean;
-        containsAny(locations: any): boolean;
-        center(): kendo.dataviz.map.Location;
-        include(location: kendo.dataviz.map.Location): void;
-        includeAll(locations: any): void;
-        edges(): any;
-        toArray(): any;
-        overlaps(extent: kendo.dataviz.map.Extent): boolean;
-
-    }
-
-    interface ExtentOptions {
-        name?: string;
-    }
-    interface ExtentEvent {
-        sender: Extent;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class Layer extends kendo.Class {
-
-
-        options: LayerOptions;
-
-        map: kendo.dataviz.ui.Map;
-
-        constructor(map: kendo.dataviz.ui.Map, options?: LayerOptions);
-
-
-        show(): void;
-        hide(): void;
-
-    }
-
-    interface LayerOptions {
-        name?: string;
-    }
-    interface LayerEvent {
-        sender: Layer;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class Location extends kendo.Class {
-
-
-        options: LocationOptions;
-
-        lat: number;
-        lng: number;
-
-        constructor(lat: number, lng: number);
-
-        static create(lat: number, lng?: number): kendo.dataviz.map.Location;
-        static create(lat: any, lng?: number): kendo.dataviz.map.Location;
-        static create(lat: kendo.dataviz.map.Location, lng?: number): kendo.dataviz.map.Location;
-        static fromLngLat(lnglat: any): kendo.dataviz.map.Location;
-        static fromLatLng(lnglat: any): kendo.dataviz.map.Location;
-
-        clone(): kendo.dataviz.map.Location;
-        destination(destination: kendo.dataviz.map.Location): number;
-        distanceTo(distance: number, bearing: number): kendo.dataviz.map.Location;
-        equals(location: kendo.dataviz.map.Location): boolean;
-        round(digits: number): kendo.dataviz.map.Location;
-        toArray(): any;
-        toString(): string;
-        wrap(): kendo.dataviz.map.Location;
-
-    }
-
-    interface LocationOptions {
-        name?: string;
-    }
-    interface LocationEvent {
-        sender: Location;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class MarkerLayer extends kendo.dataviz.map.Layer {
-
-
-        options: MarkerLayerOptions;
-
-        map: kendo.dataviz.ui.Map;
-
-        constructor(map: kendo.dataviz.ui.Map, options?: MarkerLayerOptions);
-
-
-        show(): void;
-        hide(): void;
-        setDataSource(): void;
-
-    }
-
-    interface MarkerLayerOptions {
-        name?: string;
-    }
-    interface MarkerLayerEvent {
-        sender: MarkerLayer;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class ShapeLayer extends kendo.dataviz.map.Layer {
-
-
-        options: ShapeLayerOptions;
-
-        map: kendo.dataviz.ui.Map;
-
-        constructor(map: kendo.dataviz.ui.Map, options?: ShapeLayerOptions);
-
-
-        show(): void;
-        hide(): void;
-        setDataSource(): void;
-
-    }
-
-    interface ShapeLayerOptions {
-        name?: string;
-    }
-    interface ShapeLayerEvent {
-        sender: ShapeLayer;
         preventDefault: Function;
         isDefaultPrevented(): boolean;
     }
@@ -15906,7 +16248,7 @@ declare module kendo.mobile.ui {
 
         close(): void;
         destroy(): void;
-        open(target: JQuery): void;
+        open(target?: JQuery): void;
 
     }
 
@@ -16444,8 +16786,32 @@ declare module kendo.ooxml {
         rowSplit?: number;
     }
 
+    interface WorkbookSheetRowCellBorderBottom {
+        color?: string;
+        size?: string;
+    }
+
+    interface WorkbookSheetRowCellBorderLeft {
+        color?: string;
+        size?: string;
+    }
+
+    interface WorkbookSheetRowCellBorderRight {
+        color?: string;
+        size?: string;
+    }
+
+    interface WorkbookSheetRowCellBorderTop {
+        color?: string;
+        size?: string;
+    }
+
     interface WorkbookSheetRowCell {
         background?: string;
+        borderBottom?: WorkbookSheetRowCellBorderBottom;
+        borderLeft?: WorkbookSheetRowCellBorderLeft;
+        borderTop?: WorkbookSheetRowCellBorderTop;
+        borderRight?: WorkbookSheetRowCellBorderRight;
         bold?: boolean;
         color?: string;
         colSpan?: number;
@@ -16497,712 +16863,6 @@ declare module kendo.ooxml {
 
 }
 
-declare module kendo.dataviz.drawing {
-    class Arc extends kendo.drawing.Element {
-
-
-        options: ArcOptions;
-
-
-        constructor(geometry: kendo.geometry.Arc, options?: ArcOptions);
-
-
-        bbox(): kendo.geometry.Rect;
-        clip(): kendo.drawing.Path;
-        clip(clip: kendo.drawing.Path): void;
-        clippedBBox(): kendo.geometry.Rect;
-        geometry(): kendo.geometry.Arc;
-        geometry(value: kendo.geometry.Arc): void;
-        fill(color: string, opacity?: number): kendo.drawing.Arc;
-        opacity(): number;
-        opacity(opacity: number): void;
-        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Arc;
-        transform(): kendo.geometry.Transformation;
-        transform(transform: kendo.geometry.Transformation): void;
-        visible(): boolean;
-        visible(visible: boolean): void;
-
-    }
-
-    interface ArcOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
-    }
-    interface ArcEvent {
-        sender: Arc;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class Circle extends kendo.drawing.Element {
-
-
-        options: CircleOptions;
-
-
-        constructor(geometry: kendo.geometry.Circle, options?: CircleOptions);
-
-
-        bbox(): kendo.geometry.Rect;
-        clip(): kendo.drawing.Path;
-        clip(clip: kendo.drawing.Path): void;
-        clippedBBox(): kendo.geometry.Rect;
-        geometry(): kendo.geometry.Circle;
-        geometry(value: kendo.geometry.Circle): void;
-        fill(color: string, opacity?: number): kendo.drawing.Circle;
-        opacity(): number;
-        opacity(opacity: number): void;
-        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Circle;
-        transform(): kendo.geometry.Transformation;
-        transform(transform: kendo.geometry.Transformation): void;
-        visible(): boolean;
-        visible(visible: boolean): void;
-
-    }
-
-    interface CircleOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
-    }
-    interface CircleEvent {
-        sender: Circle;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class Element extends kendo.Class {
-
-
-        options: ElementOptions;
-
-
-        constructor(options?: ElementOptions);
-
-
-        bbox(): kendo.geometry.Rect;
-        clip(): kendo.drawing.Path;
-        clip(clip: kendo.drawing.Path): void;
-        clippedBBox(): kendo.geometry.Rect;
-        opacity(): number;
-        opacity(opacity: number): void;
-        transform(): kendo.geometry.Transformation;
-        transform(transform: kendo.geometry.Transformation): void;
-        visible(): boolean;
-        visible(visible: boolean): void;
-
-    }
-
-    interface ElementOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        opacity?: number;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
-    }
-    interface ElementEvent {
-        sender: Element;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    interface FillOptions  {
-
-
-
-        color: string;
-        opacity: number;
-
-
-
-
-    }
-
-
-
-    class Gradient extends kendo.Class {
-
-
-        options: GradientOptions;
-
-        stops: any;
-
-        constructor(options?: GradientOptions);
-
-
-        addStop(offset: number, color: string, opacity: number): kendo.drawing.GradientStop;
-        removeStop(stop: kendo.drawing.GradientStop): void;
-
-    }
-
-    interface GradientOptions {
-        name?: string;
-        stops?: any;
-    }
-    interface GradientEvent {
-        sender: Gradient;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class GradientStop extends kendo.Class {
-
-
-        options: GradientStopOptions;
-
-
-        constructor(options?: GradientStopOptions);
-
-
-
-    }
-
-    interface GradientStopOptions {
-        name?: string;
-        offset?: number;
-        color?: string;
-        opacity?: number;
-    }
-    interface GradientStopEvent {
-        sender: GradientStop;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class Group extends kendo.drawing.Element {
-
-
-        options: GroupOptions;
-
-        children: any;
-
-        constructor(options?: GroupOptions);
-
-
-        append(element: kendo.drawing.Element): void;
-        clear(): void;
-        clip(): kendo.drawing.Path;
-        clip(clip: kendo.drawing.Path): void;
-        clippedBBox(): kendo.geometry.Rect;
-        insert(position: number, element: kendo.drawing.Element): void;
-        opacity(): number;
-        opacity(opacity: number): void;
-        remove(element: kendo.drawing.Element): void;
-        removeAt(index: number): void;
-        visible(): boolean;
-        visible(visible: boolean): void;
-
-    }
-
-    interface GroupOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        opacity?: number;
-        pdf?: kendo.drawing.PDFOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
-    }
-    interface GroupEvent {
-        sender: Group;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class Image extends kendo.drawing.Element {
-
-
-        options: ImageOptions;
-
-
-        constructor(src: string, rect: kendo.geometry.Rect);
-
-
-        bbox(): kendo.geometry.Rect;
-        clip(): kendo.drawing.Path;
-        clip(clip: kendo.drawing.Path): void;
-        clippedBBox(): kendo.geometry.Rect;
-        opacity(): number;
-        opacity(opacity: number): void;
-        src(): string;
-        src(value: string): void;
-        rect(): kendo.geometry.Rect;
-        rect(value: kendo.geometry.Rect): void;
-        transform(): kendo.geometry.Transformation;
-        transform(transform: kendo.geometry.Transformation): void;
-        visible(): boolean;
-        visible(visible: boolean): void;
-
-    }
-
-    interface ImageOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        opacity?: number;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
-    }
-    interface ImageEvent {
-        sender: Image;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class Layout extends kendo.drawing.Group {
-
-
-        options: LayoutOptions;
-
-
-        constructor(rect: kendo.geometry.Rect, options?: LayoutOptions);
-
-
-        rect(): kendo.geometry.Rect;
-        rect(rect: kendo.geometry.Rect): void;
-        reflow(): void;
-
-    }
-
-    interface LayoutOptions {
-        name?: string;
-        alignContent?: string;
-        alignItems?: string;
-        justifyContent?: string;
-        lineSpacing?: number;
-        spacing?: number;
-        orientation?: string;
-        wrap?: boolean;
-    }
-    interface LayoutEvent {
-        sender: Layout;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class LinearGradient extends kendo.drawing.Gradient {
-
-
-        options: LinearGradientOptions;
-
-        stops: any;
-
-        constructor(options?: LinearGradientOptions);
-
-
-        addStop(offset: number, color: string, opacity: number): kendo.drawing.GradientStop;
-        end(): kendo.geometry.Point;
-        end(end: any): void;
-        end(end: kendo.geometry.Point): void;
-        start(): kendo.geometry.Point;
-        start(start: any): void;
-        start(start: kendo.geometry.Point): void;
-        removeStop(stop: kendo.drawing.GradientStop): void;
-
-    }
-
-    interface LinearGradientOptions {
-        name?: string;
-        stops?: any;
-    }
-    interface LinearGradientEvent {
-        sender: LinearGradient;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class MultiPath extends kendo.drawing.Element {
-
-
-        options: MultiPathOptions;
-
-        paths: any;
-
-        constructor(options?: MultiPathOptions);
-
-
-        bbox(): kendo.geometry.Rect;
-        clip(): kendo.drawing.Path;
-        clip(clip: kendo.drawing.Path): void;
-        clippedBBox(): kendo.geometry.Rect;
-        close(): kendo.drawing.MultiPath;
-        curveTo(controlOut: any, controlIn: any, endPoint: any): kendo.drawing.MultiPath;
-        curveTo(controlOut: any, controlIn: any, endPoint: kendo.geometry.Point): kendo.drawing.MultiPath;
-        curveTo(controlOut: any, controlIn: kendo.geometry.Point, endPoint: any): kendo.drawing.MultiPath;
-        curveTo(controlOut: any, controlIn: kendo.geometry.Point, endPoint: kendo.geometry.Point): kendo.drawing.MultiPath;
-        curveTo(controlOut: kendo.geometry.Point, controlIn: any, endPoint: any): kendo.drawing.MultiPath;
-        curveTo(controlOut: kendo.geometry.Point, controlIn: any, endPoint: kendo.geometry.Point): kendo.drawing.MultiPath;
-        curveTo(controlOut: kendo.geometry.Point, controlIn: kendo.geometry.Point, endPoint: any): kendo.drawing.MultiPath;
-        curveTo(controlOut: kendo.geometry.Point, controlIn: kendo.geometry.Point, endPoint: kendo.geometry.Point): kendo.drawing.MultiPath;
-        fill(color: string, opacity?: number): kendo.drawing.MultiPath;
-        lineTo(x: number, y?: number): kendo.drawing.MultiPath;
-        lineTo(x: any, y?: number): kendo.drawing.MultiPath;
-        lineTo(x: kendo.geometry.Point, y?: number): kendo.drawing.MultiPath;
-        moveTo(x: number, y?: number): kendo.drawing.MultiPath;
-        moveTo(x: any, y?: number): kendo.drawing.MultiPath;
-        moveTo(x: kendo.geometry.Point, y?: number): kendo.drawing.MultiPath;
-        opacity(): number;
-        opacity(opacity: number): void;
-        stroke(color: string, width?: number, opacity?: number): kendo.drawing.MultiPath;
-        transform(): kendo.geometry.Transformation;
-        transform(transform: kendo.geometry.Transformation): void;
-        visible(): boolean;
-        visible(visible: boolean): void;
-
-    }
-
-    interface MultiPathOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
-    }
-    interface MultiPathEvent {
-        sender: MultiPath;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class OptionsStore extends kendo.Class {
-
-
-        options: OptionsStoreOptions;
-
-        observer: any;
-
-        constructor(options?: OptionsStoreOptions);
-
-
-        get(field: string): any;
-        set(field: string, value: any): void;
-
-    }
-
-    interface OptionsStoreOptions {
-        name?: string;
-    }
-    interface OptionsStoreEvent {
-        sender: OptionsStore;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    interface PDFOptions  {
-
-
-
-        creator: string;
-        date: Date;
-        keywords: string;
-        landscape: boolean;
-        margin: any;
-        paperSize: any;
-        subject: string;
-        title: string;
-
-
-
-
-    }
-
-
-
-    class Path extends kendo.drawing.Element {
-
-
-        options: PathOptions;
-
-        segments: any;
-
-        constructor(options?: PathOptions);
-
-        static fromPoints(points: any): kendo.drawing.Path;
-        static fromRect(rect: kendo.geometry.Rect): kendo.drawing.Path;
-        static parse(svgPath: string, options?: any): kendo.drawing.Path;
-
-        bbox(): kendo.geometry.Rect;
-        clip(): kendo.drawing.Path;
-        clip(clip: kendo.drawing.Path): void;
-        clippedBBox(): kendo.geometry.Rect;
-        close(): kendo.drawing.Path;
-        curveTo(controlOut: any, controlIn: any, endPoint: any): kendo.drawing.Path;
-        curveTo(controlOut: any, controlIn: any, endPoint: kendo.geometry.Point): kendo.drawing.Path;
-        curveTo(controlOut: any, controlIn: kendo.geometry.Point, endPoint: any): kendo.drawing.Path;
-        curveTo(controlOut: any, controlIn: kendo.geometry.Point, endPoint: kendo.geometry.Point): kendo.drawing.Path;
-        curveTo(controlOut: kendo.geometry.Point, controlIn: any, endPoint: any): kendo.drawing.Path;
-        curveTo(controlOut: kendo.geometry.Point, controlIn: any, endPoint: kendo.geometry.Point): kendo.drawing.Path;
-        curveTo(controlOut: kendo.geometry.Point, controlIn: kendo.geometry.Point, endPoint: any): kendo.drawing.Path;
-        curveTo(controlOut: kendo.geometry.Point, controlIn: kendo.geometry.Point, endPoint: kendo.geometry.Point): kendo.drawing.Path;
-        fill(color: string, opacity?: number): kendo.drawing.Path;
-        lineTo(x: number, y?: number): kendo.drawing.Path;
-        lineTo(x: any, y?: number): kendo.drawing.Path;
-        lineTo(x: kendo.geometry.Point, y?: number): kendo.drawing.Path;
-        moveTo(x: number, y?: number): kendo.drawing.Path;
-        moveTo(x: any, y?: number): kendo.drawing.Path;
-        moveTo(x: kendo.geometry.Point, y?: number): kendo.drawing.Path;
-        opacity(): number;
-        opacity(opacity: number): void;
-        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Path;
-        transform(): kendo.geometry.Transformation;
-        transform(transform: kendo.geometry.Transformation): void;
-        visible(): boolean;
-        visible(visible: boolean): void;
-
-    }
-
-    interface PathOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
-    }
-    interface PathEvent {
-        sender: Path;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class RadialGradient extends kendo.drawing.Gradient {
-
-
-        options: RadialGradientOptions;
-
-        stops: any;
-
-        constructor(options?: RadialGradientOptions);
-
-
-        addStop(offset: number, color: string, opacity: number): kendo.drawing.GradientStop;
-        center(): kendo.geometry.Point;
-        center(center: any): void;
-        center(center: kendo.geometry.Point): void;
-        radius(): number;
-        radius(value: number): void;
-        removeStop(stop: kendo.drawing.GradientStop): void;
-
-    }
-
-    interface RadialGradientOptions {
-        name?: string;
-        center?: any|kendo.geometry.Point;
-        radius?: number;
-        stops?: any;
-    }
-    interface RadialGradientEvent {
-        sender: RadialGradient;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class Rect extends kendo.drawing.Element {
-
-
-        options: RectOptions;
-
-
-        constructor(geometry: kendo.geometry.Rect, options?: RectOptions);
-
-
-        bbox(): kendo.geometry.Rect;
-        clip(): kendo.drawing.Path;
-        clip(clip: kendo.drawing.Path): void;
-        clippedBBox(): kendo.geometry.Rect;
-        geometry(): kendo.geometry.Rect;
-        geometry(value: kendo.geometry.Rect): void;
-        fill(color: string, opacity?: number): kendo.drawing.Rect;
-        opacity(): number;
-        opacity(opacity: number): void;
-        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Rect;
-        transform(): kendo.geometry.Transformation;
-        transform(transform: kendo.geometry.Transformation): void;
-        visible(): boolean;
-        visible(visible: boolean): void;
-
-    }
-
-    interface RectOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        fill?: kendo.drawing.FillOptions;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
-    }
-    interface RectEvent {
-        sender: Rect;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    class Segment extends kendo.Class {
-
-
-        options: SegmentOptions;
-
-
-        constructor(anchor: kendo.geometry.Point, controlIn: kendo.geometry.Point, controlOut: kendo.geometry.Point);
-
-
-        anchor(): kendo.geometry.Point;
-        anchor(value: kendo.geometry.Point): void;
-        controlIn(): kendo.geometry.Point;
-        controlIn(value: kendo.geometry.Point): void;
-        controlOut(): kendo.geometry.Point;
-        controlOut(value: kendo.geometry.Point): void;
-
-    }
-
-    interface SegmentOptions {
-        name?: string;
-    }
-    interface SegmentEvent {
-        sender: Segment;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-    interface StrokeOptions  {
-
-
-
-        color: string;
-        dashType: string;
-        lineCap: string;
-        lineJoin: string;
-        opacity: number;
-        width: number;
-
-
-
-
-    }
-
-
-
-    class Surface extends kendo.Observable {
-
-
-        options: SurfaceOptions;
-
-
-        constructor(options?: SurfaceOptions);
-
-        static create(element: JQuery, options?: any): kendo.drawing.Surface;
-        static create(element: Element, options?: any): kendo.drawing.Surface;
-
-        clear(): void;
-        draw(element: kendo.drawing.Element): void;
-        eventTarget(e: any): kendo.drawing.Element;
-        resize(force?: boolean): void;
-
-    }
-
-    interface SurfaceOptions {
-        name?: string;
-        type?: string;
-        height?: string;
-        width?: string;
-        click?(e: SurfaceClickEvent): void;
-        mouseenter?(e: SurfaceMouseenterEvent): void;
-        mouseleave?(e: SurfaceMouseleaveEvent): void;
-    }
-    interface SurfaceEvent {
-        sender: Surface;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-    interface SurfaceClickEvent extends SurfaceEvent {
-        element?: kendo.drawing.Element;
-        originalEvent?: any;
-    }
-
-    interface SurfaceMouseenterEvent extends SurfaceEvent {
-        element?: kendo.drawing.Element;
-        originalEvent?: any;
-    }
-
-    interface SurfaceMouseleaveEvent extends SurfaceEvent {
-        element?: kendo.drawing.Element;
-        originalEvent?: any;
-    }
-
-
-    class Text extends kendo.drawing.Element {
-
-
-        options: TextOptions;
-
-
-        constructor(content: string, position: kendo.geometry.Point, options?: TextOptions);
-
-
-        bbox(): kendo.geometry.Rect;
-        clip(): kendo.drawing.Path;
-        clip(clip: kendo.drawing.Path): void;
-        clippedBBox(): kendo.geometry.Rect;
-        content(): string;
-        content(value: string): void;
-        fill(color: string, opacity?: number): kendo.drawing.Text;
-        opacity(): number;
-        opacity(opacity: number): void;
-        position(): kendo.geometry.Point;
-        position(value: kendo.geometry.Point): void;
-        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Text;
-        transform(): kendo.geometry.Transformation;
-        transform(transform: kendo.geometry.Transformation): void;
-        visible(): boolean;
-        visible(visible: boolean): void;
-
-    }
-
-    interface TextOptions {
-        name?: string;
-        clip?: kendo.drawing.Path;
-        fill?: kendo.drawing.FillOptions;
-        font?: string;
-        opacity?: number;
-        stroke?: kendo.drawing.StrokeOptions;
-        transform?: kendo.geometry.Transformation;
-        visible?: boolean;
-    }
-    interface TextEvent {
-        sender: Text;
-        preventDefault: Function;
-        isDefaultPrevented(): boolean;
-    }
-
-
-}
 declare module kendo.dataviz.geometry {
     class Arc extends Observable {
 
@@ -17463,6 +17123,721 @@ declare module kendo.dataviz.geometry {
     }
     interface TransformationEvent {
         sender: Transformation;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+}
+declare module kendo.dataviz.drawing {
+    class Arc extends kendo.drawing.Element {
+
+
+        options: ArcOptions;
+
+
+        constructor(geometry: kendo.geometry.Arc, options?: ArcOptions);
+
+
+        bbox(): kendo.geometry.Rect;
+        clip(): kendo.drawing.Path;
+        clip(clip: kendo.drawing.Path): void;
+        clippedBBox(): kendo.geometry.Rect;
+        geometry(): kendo.geometry.Arc;
+        geometry(value: kendo.geometry.Arc): void;
+        fill(color: string, opacity?: number): kendo.drawing.Arc;
+        opacity(): number;
+        opacity(opacity: number): void;
+        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Arc;
+        transform(): kendo.geometry.Transformation;
+        transform(transform: kendo.geometry.Transformation): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface ArcOptions {
+        name?: string;
+        clip?: kendo.drawing.Path;
+        cursor?: string;
+        fill?: kendo.drawing.FillOptions;
+        opacity?: number;
+        stroke?: kendo.drawing.StrokeOptions;
+        transform?: kendo.geometry.Transformation;
+        visible?: boolean;
+    }
+    interface ArcEvent {
+        sender: Arc;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class Circle extends kendo.drawing.Element {
+
+
+        options: CircleOptions;
+
+
+        constructor(geometry: kendo.geometry.Circle, options?: CircleOptions);
+
+
+        bbox(): kendo.geometry.Rect;
+        clip(): kendo.drawing.Path;
+        clip(clip: kendo.drawing.Path): void;
+        clippedBBox(): kendo.geometry.Rect;
+        geometry(): kendo.geometry.Circle;
+        geometry(value: kendo.geometry.Circle): void;
+        fill(color: string, opacity?: number): kendo.drawing.Circle;
+        opacity(): number;
+        opacity(opacity: number): void;
+        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Circle;
+        transform(): kendo.geometry.Transformation;
+        transform(transform: kendo.geometry.Transformation): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface CircleOptions {
+        name?: string;
+        clip?: kendo.drawing.Path;
+        cursor?: string;
+        fill?: kendo.drawing.FillOptions;
+        opacity?: number;
+        stroke?: kendo.drawing.StrokeOptions;
+        transform?: kendo.geometry.Transformation;
+        visible?: boolean;
+    }
+    interface CircleEvent {
+        sender: Circle;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class Element extends kendo.Class {
+
+
+        options: ElementOptions;
+
+
+        constructor(options?: ElementOptions);
+
+
+        bbox(): kendo.geometry.Rect;
+        clip(): kendo.drawing.Path;
+        clip(clip: kendo.drawing.Path): void;
+        clippedBBox(): kendo.geometry.Rect;
+        opacity(): number;
+        opacity(opacity: number): void;
+        transform(): kendo.geometry.Transformation;
+        transform(transform: kendo.geometry.Transformation): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface ElementOptions {
+        name?: string;
+        clip?: kendo.drawing.Path;
+        cursor?: string;
+        opacity?: number;
+        transform?: kendo.geometry.Transformation;
+        visible?: boolean;
+    }
+    interface ElementEvent {
+        sender: Element;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    interface FillOptions  {
+
+
+
+        color?: string;
+        opacity?: number;
+
+
+
+
+    }
+
+
+
+    class Gradient extends kendo.Class {
+
+
+        options: GradientOptions;
+
+        stops: any;
+
+        constructor(options?: GradientOptions);
+
+
+        addStop(offset: number, color: string, opacity: number): kendo.drawing.GradientStop;
+        removeStop(stop: kendo.drawing.GradientStop): void;
+
+    }
+
+    interface GradientOptions {
+        name?: string;
+        stops?: any;
+    }
+    interface GradientEvent {
+        sender: Gradient;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class GradientStop extends kendo.Class {
+
+
+        options: GradientStopOptions;
+
+
+        constructor(options?: GradientStopOptions);
+
+
+
+    }
+
+    interface GradientStopOptions {
+        name?: string;
+        offset?: number;
+        color?: string;
+        opacity?: number;
+    }
+    interface GradientStopEvent {
+        sender: GradientStop;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class Group extends kendo.drawing.Element {
+
+
+        options: GroupOptions;
+
+        children: any;
+
+        constructor(options?: GroupOptions);
+
+
+        append(element: kendo.drawing.Element): void;
+        clear(): void;
+        clip(): kendo.drawing.Path;
+        clip(clip: kendo.drawing.Path): void;
+        clippedBBox(): kendo.geometry.Rect;
+        insert(position: number, element: kendo.drawing.Element): void;
+        opacity(): number;
+        opacity(opacity: number): void;
+        remove(element: kendo.drawing.Element): void;
+        removeAt(index: number): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface GroupOptions {
+        name?: string;
+        clip?: kendo.drawing.Path;
+        cursor?: string;
+        opacity?: number;
+        pdf?: kendo.drawing.PDFOptions;
+        transform?: kendo.geometry.Transformation;
+        visible?: boolean;
+    }
+    interface GroupEvent {
+        sender: Group;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class Image extends kendo.drawing.Element {
+
+
+        options: ImageOptions;
+
+
+        constructor(src: string, rect: kendo.geometry.Rect);
+
+
+        bbox(): kendo.geometry.Rect;
+        clip(): kendo.drawing.Path;
+        clip(clip: kendo.drawing.Path): void;
+        clippedBBox(): kendo.geometry.Rect;
+        opacity(): number;
+        opacity(opacity: number): void;
+        src(): string;
+        src(value: string): void;
+        rect(): kendo.geometry.Rect;
+        rect(value: kendo.geometry.Rect): void;
+        transform(): kendo.geometry.Transformation;
+        transform(transform: kendo.geometry.Transformation): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface ImageOptions {
+        name?: string;
+        clip?: kendo.drawing.Path;
+        cursor?: string;
+        opacity?: number;
+        transform?: kendo.geometry.Transformation;
+        visible?: boolean;
+    }
+    interface ImageEvent {
+        sender: Image;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class Layout extends kendo.drawing.Group {
+
+
+        options: LayoutOptions;
+
+
+        constructor(rect: kendo.geometry.Rect, options?: LayoutOptions);
+
+
+        rect(): kendo.geometry.Rect;
+        rect(rect: kendo.geometry.Rect): void;
+        reflow(): void;
+
+    }
+
+    interface LayoutOptions {
+        name?: string;
+        alignContent?: string;
+        alignItems?: string;
+        justifyContent?: string;
+        lineSpacing?: number;
+        spacing?: number;
+        orientation?: string;
+        wrap?: boolean;
+    }
+    interface LayoutEvent {
+        sender: Layout;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class LinearGradient extends kendo.drawing.Gradient {
+
+
+        options: LinearGradientOptions;
+
+        stops: any;
+
+        constructor(options?: LinearGradientOptions);
+
+
+        addStop(offset: number, color: string, opacity: number): kendo.drawing.GradientStop;
+        end(): kendo.geometry.Point;
+        end(end: any): void;
+        end(end: kendo.geometry.Point): void;
+        start(): kendo.geometry.Point;
+        start(start: any): void;
+        start(start: kendo.geometry.Point): void;
+        removeStop(stop: kendo.drawing.GradientStop): void;
+
+    }
+
+    interface LinearGradientOptions {
+        name?: string;
+        stops?: any;
+    }
+    interface LinearGradientEvent {
+        sender: LinearGradient;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class MultiPath extends kendo.drawing.Element {
+
+
+        options: MultiPathOptions;
+
+        paths: any;
+
+        constructor(options?: MultiPathOptions);
+
+
+        bbox(): kendo.geometry.Rect;
+        clip(): kendo.drawing.Path;
+        clip(clip: kendo.drawing.Path): void;
+        clippedBBox(): kendo.geometry.Rect;
+        close(): kendo.drawing.MultiPath;
+        curveTo(controlOut: any, controlIn: any, endPoint: any): kendo.drawing.MultiPath;
+        curveTo(controlOut: any, controlIn: any, endPoint: kendo.geometry.Point): kendo.drawing.MultiPath;
+        curveTo(controlOut: any, controlIn: kendo.geometry.Point, endPoint: any): kendo.drawing.MultiPath;
+        curveTo(controlOut: any, controlIn: kendo.geometry.Point, endPoint: kendo.geometry.Point): kendo.drawing.MultiPath;
+        curveTo(controlOut: kendo.geometry.Point, controlIn: any, endPoint: any): kendo.drawing.MultiPath;
+        curveTo(controlOut: kendo.geometry.Point, controlIn: any, endPoint: kendo.geometry.Point): kendo.drawing.MultiPath;
+        curveTo(controlOut: kendo.geometry.Point, controlIn: kendo.geometry.Point, endPoint: any): kendo.drawing.MultiPath;
+        curveTo(controlOut: kendo.geometry.Point, controlIn: kendo.geometry.Point, endPoint: kendo.geometry.Point): kendo.drawing.MultiPath;
+        fill(color: string, opacity?: number): kendo.drawing.MultiPath;
+        lineTo(x: number, y?: number): kendo.drawing.MultiPath;
+        lineTo(x: any, y?: number): kendo.drawing.MultiPath;
+        lineTo(x: kendo.geometry.Point, y?: number): kendo.drawing.MultiPath;
+        moveTo(x: number, y?: number): kendo.drawing.MultiPath;
+        moveTo(x: any, y?: number): kendo.drawing.MultiPath;
+        moveTo(x: kendo.geometry.Point, y?: number): kendo.drawing.MultiPath;
+        opacity(): number;
+        opacity(opacity: number): void;
+        stroke(color: string, width?: number, opacity?: number): kendo.drawing.MultiPath;
+        transform(): kendo.geometry.Transformation;
+        transform(transform: kendo.geometry.Transformation): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface MultiPathOptions {
+        name?: string;
+        clip?: kendo.drawing.Path;
+        cursor?: string;
+        fill?: kendo.drawing.FillOptions;
+        opacity?: number;
+        stroke?: kendo.drawing.StrokeOptions;
+        transform?: kendo.geometry.Transformation;
+        visible?: boolean;
+    }
+    interface MultiPathEvent {
+        sender: MultiPath;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class OptionsStore extends kendo.Class {
+
+
+        options: OptionsStoreOptions;
+
+        observer: any;
+
+        constructor(options?: OptionsStoreOptions);
+
+
+        get(field: string): any;
+        set(field: string, value: any): void;
+
+    }
+
+    interface OptionsStoreOptions {
+        name?: string;
+    }
+    interface OptionsStoreEvent {
+        sender: OptionsStore;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    interface PDFOptions  {
+
+
+
+        creator?: string;
+        date?: Date;
+        keywords?: string;
+        landscape?: boolean;
+        margin?: any;
+        paperSize?: any;
+        subject?: string;
+        title?: string;
+
+
+
+
+    }
+
+
+
+    class Path extends kendo.drawing.Element {
+
+
+        options: PathOptions;
+
+        segments: any;
+
+        constructor(options?: PathOptions);
+
+        static fromPoints(points: any): kendo.drawing.Path;
+        static fromRect(rect: kendo.geometry.Rect): kendo.drawing.Path;
+        static parse(svgPath: string, options?: any): kendo.drawing.Path;
+
+        bbox(): kendo.geometry.Rect;
+        clip(): kendo.drawing.Path;
+        clip(clip: kendo.drawing.Path): void;
+        clippedBBox(): kendo.geometry.Rect;
+        close(): kendo.drawing.Path;
+        curveTo(controlOut: any, controlIn: any, endPoint: any): kendo.drawing.Path;
+        curveTo(controlOut: any, controlIn: any, endPoint: kendo.geometry.Point): kendo.drawing.Path;
+        curveTo(controlOut: any, controlIn: kendo.geometry.Point, endPoint: any): kendo.drawing.Path;
+        curveTo(controlOut: any, controlIn: kendo.geometry.Point, endPoint: kendo.geometry.Point): kendo.drawing.Path;
+        curveTo(controlOut: kendo.geometry.Point, controlIn: any, endPoint: any): kendo.drawing.Path;
+        curveTo(controlOut: kendo.geometry.Point, controlIn: any, endPoint: kendo.geometry.Point): kendo.drawing.Path;
+        curveTo(controlOut: kendo.geometry.Point, controlIn: kendo.geometry.Point, endPoint: any): kendo.drawing.Path;
+        curveTo(controlOut: kendo.geometry.Point, controlIn: kendo.geometry.Point, endPoint: kendo.geometry.Point): kendo.drawing.Path;
+        fill(color: string, opacity?: number): kendo.drawing.Path;
+        lineTo(x: number, y?: number): kendo.drawing.Path;
+        lineTo(x: any, y?: number): kendo.drawing.Path;
+        lineTo(x: kendo.geometry.Point, y?: number): kendo.drawing.Path;
+        moveTo(x: number, y?: number): kendo.drawing.Path;
+        moveTo(x: any, y?: number): kendo.drawing.Path;
+        moveTo(x: kendo.geometry.Point, y?: number): kendo.drawing.Path;
+        opacity(): number;
+        opacity(opacity: number): void;
+        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Path;
+        transform(): kendo.geometry.Transformation;
+        transform(transform: kendo.geometry.Transformation): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface PathOptions {
+        name?: string;
+        clip?: kendo.drawing.Path;
+        cursor?: string;
+        fill?: kendo.drawing.FillOptions;
+        opacity?: number;
+        stroke?: kendo.drawing.StrokeOptions;
+        transform?: kendo.geometry.Transformation;
+        visible?: boolean;
+    }
+    interface PathEvent {
+        sender: Path;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class RadialGradient extends kendo.drawing.Gradient {
+
+
+        options: RadialGradientOptions;
+
+        stops: any;
+
+        constructor(options?: RadialGradientOptions);
+
+
+        addStop(offset: number, color: string, opacity: number): kendo.drawing.GradientStop;
+        center(): kendo.geometry.Point;
+        center(center: any): void;
+        center(center: kendo.geometry.Point): void;
+        radius(): number;
+        radius(value: number): void;
+        removeStop(stop: kendo.drawing.GradientStop): void;
+
+    }
+
+    interface RadialGradientOptions {
+        name?: string;
+        center?: any|kendo.geometry.Point;
+        radius?: number;
+        stops?: any;
+    }
+    interface RadialGradientEvent {
+        sender: RadialGradient;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class Rect extends kendo.drawing.Element {
+
+
+        options: RectOptions;
+
+
+        constructor(geometry: kendo.geometry.Rect, options?: RectOptions);
+
+
+        bbox(): kendo.geometry.Rect;
+        clip(): kendo.drawing.Path;
+        clip(clip: kendo.drawing.Path): void;
+        clippedBBox(): kendo.geometry.Rect;
+        geometry(): kendo.geometry.Rect;
+        geometry(value: kendo.geometry.Rect): void;
+        fill(color: string, opacity?: number): kendo.drawing.Rect;
+        opacity(): number;
+        opacity(opacity: number): void;
+        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Rect;
+        transform(): kendo.geometry.Transformation;
+        transform(transform: kendo.geometry.Transformation): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface RectOptions {
+        name?: string;
+        clip?: kendo.drawing.Path;
+        cursor?: string;
+        fill?: kendo.drawing.FillOptions;
+        opacity?: number;
+        stroke?: kendo.drawing.StrokeOptions;
+        transform?: kendo.geometry.Transformation;
+        visible?: boolean;
+    }
+    interface RectEvent {
+        sender: Rect;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    class Segment extends kendo.Class {
+
+
+        options: SegmentOptions;
+
+
+        constructor(anchor: kendo.geometry.Point, controlIn: kendo.geometry.Point, controlOut: kendo.geometry.Point);
+
+
+        anchor(): kendo.geometry.Point;
+        anchor(value: kendo.geometry.Point): void;
+        controlIn(): kendo.geometry.Point;
+        controlIn(value: kendo.geometry.Point): void;
+        controlOut(): kendo.geometry.Point;
+        controlOut(value: kendo.geometry.Point): void;
+
+    }
+
+    interface SegmentOptions {
+        name?: string;
+    }
+    interface SegmentEvent {
+        sender: Segment;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+
+    interface StrokeOptions  {
+
+
+
+        color?: string;
+        dashType?: string;
+        lineCap?: string;
+        lineJoin?: string;
+        opacity?: number;
+        width?: number;
+
+
+
+
+    }
+
+
+
+    class Surface extends kendo.Observable {
+
+
+        options: SurfaceOptions;
+
+
+        constructor(options?: SurfaceOptions);
+
+        static create(element: JQuery, options?: any): kendo.drawing.Surface;
+        static create(element: Element, options?: any): kendo.drawing.Surface;
+
+        clear(): void;
+        draw(element: kendo.drawing.Element): void;
+        eventTarget(e: any): kendo.drawing.Element;
+        resize(force?: boolean): void;
+
+    }
+
+    interface SurfaceOptions {
+        name?: string;
+        type?: string;
+        height?: string;
+        width?: string;
+        click?(e: SurfaceClickEvent): void;
+        mouseenter?(e: SurfaceMouseenterEvent): void;
+        mouseleave?(e: SurfaceMouseleaveEvent): void;
+    }
+    interface SurfaceEvent {
+        sender: Surface;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+    interface SurfaceClickEvent extends SurfaceEvent {
+        element?: kendo.drawing.Element;
+        originalEvent?: any;
+    }
+
+    interface SurfaceMouseenterEvent extends SurfaceEvent {
+        element?: kendo.drawing.Element;
+        originalEvent?: any;
+    }
+
+    interface SurfaceMouseleaveEvent extends SurfaceEvent {
+        element?: kendo.drawing.Element;
+        originalEvent?: any;
+    }
+
+
+    class Text extends kendo.drawing.Element {
+
+
+        options: TextOptions;
+
+
+        constructor(content: string, position: kendo.geometry.Point, options?: TextOptions);
+
+
+        bbox(): kendo.geometry.Rect;
+        clip(): kendo.drawing.Path;
+        clip(clip: kendo.drawing.Path): void;
+        clippedBBox(): kendo.geometry.Rect;
+        content(): string;
+        content(value: string): void;
+        fill(color: string, opacity?: number): kendo.drawing.Text;
+        opacity(): number;
+        opacity(opacity: number): void;
+        position(): kendo.geometry.Point;
+        position(value: kendo.geometry.Point): void;
+        stroke(color: string, width?: number, opacity?: number): kendo.drawing.Text;
+        transform(): kendo.geometry.Transformation;
+        transform(transform: kendo.geometry.Transformation): void;
+        visible(): boolean;
+        visible(visible: boolean): void;
+
+    }
+
+    interface TextOptions {
+        name?: string;
+        clip?: kendo.drawing.Path;
+        cursor?: string;
+        fill?: kendo.drawing.FillOptions;
+        font?: string;
+        opacity?: number;
+        stroke?: kendo.drawing.StrokeOptions;
+        transform?: kendo.geometry.Transformation;
+        visible?: boolean;
+    }
+    interface TextEvent {
+        sender: Text;
         preventDefault: Function;
         isDefaultPrevented(): boolean;
     }

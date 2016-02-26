@@ -216,6 +216,7 @@ declare module NodeJS {
         stderr: WritableStream;
         stdin: ReadableStream;
         argv: string[];
+        execArgv: string[];
         execPath: string;
         abort(): void;
         chdir(directory: string): void;
@@ -411,6 +412,9 @@ interface NodeBuffer {
 ************************************************/
 declare module "buffer" {
     export var INSPECT_MAX_BYTES: number;
+    var BuffType: typeof Buffer;
+    var SlowBuffType: typeof SlowBuffer;
+    export { BuffType as Buffer, SlowBuffType as SlowBuffer };
 }
 
 declare module "querystring" {
@@ -459,7 +463,7 @@ declare module "http" {
         host?: string;
         hostname?: string;
         family?: number;
-        port?: number
+        port?: number;
         localAddress?: string;
         socketPath?: string;
         method?: string;
@@ -498,7 +502,7 @@ declare module "http" {
         statusCode: number;
         statusMessage: string;
         headersSent: boolean;
-        setHeader(name: string, value: string): void;
+        setHeader(name: string, value: string | string[]): void;
         sendDate: boolean;
         getHeader(name: string): string;
         removeHeader(name: string): void;
@@ -643,6 +647,13 @@ declare module "cluster" {
 
     // Event emitter
     export function addListener(event: string, listener: Function): void;
+    export function on(event: "disconnect", listener: (worker: Worker) => void): void;
+    export function on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): void;
+    export function on(event: "fork", listener: (worker: Worker) => void): void;
+    export function on(event: "listening", listener: (worker: Worker, address: any) => void): void;
+    export function on(event: "message", listener: (worker: Worker, message: any) => void): void;
+    export function on(event: "online", listener: (worker: Worker) => void): void;
+    export function on(event: "setup", listener: (settings: any) => void): void;
     export function on(event: string, listener: Function): any;
     export function once(event: string, listener: Function): void;
     export function removeListener(event: string, listener: Function): void;
@@ -731,7 +742,7 @@ declare module "os" {
             sys: number;
             idle: number;
             irq: number;
-        }
+        };
     }
 
     export interface NetworkInterfaceInfo {
@@ -906,6 +917,7 @@ declare module "child_process" {
         stdin:  stream.Writable;
         stdout: stream.Readable;
         stderr: stream.Readable;
+        stdio: (stream.Readable|stream.Writable)[];
         pid: number;
         kill(signal?: string): void;
         send(message: any, sendHandle?: any): void;
@@ -1749,6 +1761,17 @@ declare module "crypto" {
     export function randomBytes(size: number, callback: (err: Error, buf: Buffer) =>void ): void;
     export function pseudoRandomBytes(size: number): Buffer;
     export function pseudoRandomBytes(size: number, callback: (err: Error, buf: Buffer) =>void ): void;
+    export interface RsaPublicKey {
+        key: string;
+        padding?: any;
+    }
+    export interface RsaPrivateKey {
+        key: string;
+        passphrase?: string,
+        padding?: any;
+    }
+    export function publicEncrypt(public_key: string|RsaPublicKey, buffer: Buffer): Buffer
+    export function privateDecrypt(private_key: string|RsaPrivateKey, buffer: Buffer): Buffer
 }
 
 declare module "stream" {

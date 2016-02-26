@@ -909,4 +909,15 @@ describe('symlink stream', function () {
          stream.end();
       });
    });
+   it('should check if it"s a vinyl file', function () {
+      var srcPath = path.join(__dirname, './fixtures/test.coffee');
+      var options = {
+         path: srcPath,
+         cwd: __dirname,
+         contents: new Buffer("1234567890")
+      };
+      var file = new File(options);
+      File.isVinyl(file).should.equal(true);
+      File.isVinyl(options).should.equal(false);
+   })
 });

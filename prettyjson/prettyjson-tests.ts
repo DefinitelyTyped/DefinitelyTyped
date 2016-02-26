@@ -1,4 +1,5 @@
 /// <reference path="prettyjson.d.ts" />
+import prettyjson = require("prettyjson");
 
 var options: prettyjson.RendererOptions,
 	input: string,
