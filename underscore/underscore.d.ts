@@ -1,6 +1,6 @@
 // Type definitions for Underscore 1.7.0
 // Project: http://underscorejs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Josh Baldwin <https://github.com/jbaldwin/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Josh Baldwin <https://github.com/jbaldwin/>, Christopher Currens <https://github.com/ccurrens/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module _ {
@@ -3738,14 +3738,21 @@ interface UnderscoreStatic {
 	* @param object Check if this object is a DOM element.
 	* @return True if `object` is a DOM element, otherwise false.
 	**/
-	isElement(object: any): boolean;
+	isElement(object: any): object is Element;
 
 	/**
 	* Returns true if object is an Array.
 	* @param object Check if this object is an Array.
 	* @return True if `object` is an Array, otherwise false.
 	**/
-	isArray(object: any): boolean;
+	isArray(object: any): object is [];
+
+	/**
+	* Returns true if object is an Array.
+	* @param object Check if this object is an Array.
+	* @return True if `object` is an Array, otherwise false.
+	**/
+	isArray<T>(object: any): object is T[];
 
 	/**
 	* Returns true if value is an Object. Note that JavaScript arrays and functions are objects,
@@ -3760,35 +3767,35 @@ interface UnderscoreStatic {
 	* @param object Check if this object is an Arguments object.
 	* @return True if `object` is an Arguments object, otherwise false.
 	**/
-	isArguments(object: any): boolean;
+	isArguments(object: any): object is IArguments;
 
 	/**
 	* Returns true if object is a Function.
 	* @param object Check if this object is a Function.
 	* @return True if `object` is a Function, otherwise false.
 	**/
-	isFunction(object: any): boolean;
+	isFunction(object: any): object is Function;
 
-    /**
+	/**
 	* Returns true if object inherits from an Error.
 	* @param object Check if this object is an Error.
 	* @return True if `object` is a Error, otherwise false.
 	**/
-    isError(object:any): boolean;
+	isError(object:any): object is Error;
 
 	/**
 	* Returns true if object is a String.
 	* @param object Check if this object is a String.
 	* @return True if `object` is a String, otherwise false.
 	**/
-	isString(object: any): boolean;
+	isString(object: any): object is string;
 
 	/**
 	* Returns true if object is a Number (including NaN).
 	* @param object Check if this object is a Number.
 	* @return True if `object` is a Number, otherwise false.
 	**/
-	isNumber(object: any): boolean;
+	isNumber(object: any): object is number;
 
 	/**
 	* Returns true if object is a finite Number.
@@ -3802,21 +3809,21 @@ interface UnderscoreStatic {
 	* @param object Check if this object is a bool.
 	* @return True if `object` is a bool, otherwise false.
 	**/
-	isBoolean(object: any): boolean;
+	isBoolean(object: any): object is boolean;
 
 	/**
 	* Returns true if object is a Date.
 	* @param object Check if this object is a Date.
 	* @return True if `object` is a Date, otherwise false.
 	**/
-	isDate(object: any): boolean;
+	isDate(object: any): object is Date;
 
 	/**
 	* Returns true if object is a RegExp.
 	* @param object Check if this object is a RegExp.
 	* @return True if `object` is a RegExp, otherwise false.
 	**/
-	isRegExp(object: any): boolean;
+	isRegExp(object: any): object is RegExp;
 
 	/**
 	* Returns true if object is NaN.

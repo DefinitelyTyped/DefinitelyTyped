@@ -9,6 +9,8 @@ declare module moment {
     interface Moment {
         tz(): string;
         tz(timezone: string): Moment;
+        zoneAbbr() :Moment;
+        zoneName() :Moment;
     }
 
     interface MomentStatic {

@@ -11159,6 +11159,31 @@ declare module _ {
         isBoolean(): LoDashExplicitWrapper<boolean>;
     }
 
+    //_.isBuffer
+    interface LoDashStatic {
+        /**
+         * Checks if value is a buffer.
+         *
+         * @param value The value to check.
+         * @return Returns true if value is a buffer, else false.
+         */
+        isBuffer(value?: any): boolean;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isBuffer
+         */
+        isBuffer(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isBuffer
+         */
+        isBuffer(): LoDashExplicitWrapper<boolean>;
+    }
+
     //_.isDate
     interface LoDashStatic {
         /**
@@ -11514,6 +11539,31 @@ declare module _ {
          * @see _.isLength
          */
         isLength(): LoDashExplicitWrapper<boolean>;
+    }
+
+    //_.isMap
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a Map object.
+         *
+         * @param value The value to check.
+         * @returns Returns true if value is correctly classified, else false.
+         */
+        isMap<K, V>(value?: any): value is Map<K, V>;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isMap
+         */
+        isMap(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isMap
+         */
+        isMap(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isMatch
@@ -14949,6 +14999,133 @@ declare module _ {
          * @see _.invert
          */
         invert<TResult extends {}>(multiValue?: boolean): LoDashExplicitObjectWrapper<TResult>;
+    }
+
+    //_.inverBy
+    interface InvertByIterator<T> {
+        (value: T): any;
+    }
+
+    interface LoDashStatic {
+        /**
+         * This method is like _.invert except that the inverted object is generated from the results of running each
+         * element of object through iteratee. The corresponding inverted value of each inverted key is an array of
+         * keys responsible for generating the inverted value. The iteratee is invoked with one argument: (value).
+         *
+         * @param object The object to invert.
+         * @param interatee The iteratee invoked per element.
+         * @return Returns the new inverted object.
+         */
+        invertBy(
+            object: Object,
+            interatee?: InvertByIterator<any>|string
+        ): Dictionary<string[]>;
+
+        /**
+         * @see _.invertBy
+         */
+        invertBy<T>(
+            object: _.Dictionary<T>|_.NumericDictionary<T>,
+            interatee?: InvertByIterator<T>|string
+        ): Dictionary<string[]>;
+
+        /**
+         * @see _.invertBy
+         */
+        invertBy<W>(
+            object: Object,
+            interatee?: W
+        ): Dictionary<string[]>;
+
+        /**
+         * @see _.invertBy
+         */
+        invertBy<T, W>(
+            object: _.Dictionary<T>,
+            interatee?: W
+        ): Dictionary<string[]>;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.invertBy
+         */
+        invertBy(
+            interatee?: InvertByIterator<any>
+        ): LoDashImplicitObjectWrapper<Dictionary<string[]>>;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.invertBy
+         */
+        invertBy(
+            interatee?: InvertByIterator<T>|string
+        ): LoDashImplicitObjectWrapper<Dictionary<string[]>>;
+
+        /**
+         * @see _.invertBy
+         */
+        invertBy<W>(
+            interatee?: W
+        ): LoDashImplicitObjectWrapper<Dictionary<string[]>>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.invertBy
+         */
+        invertBy(
+            interatee?: InvertByIterator<any>|string
+        ): LoDashImplicitObjectWrapper<Dictionary<string[]>>;
+
+        /**
+         * @see _.invertBy
+         */
+        invertBy<W>(
+            interatee?: W
+        ): LoDashImplicitObjectWrapper<Dictionary<string[]>>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.invertBy
+         */
+        invertBy(
+            interatee?: InvertByIterator<any>
+        ): LoDashExplicitObjectWrapper<Dictionary<string[]>>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.invertBy
+         */
+        invertBy(
+            interatee?: InvertByIterator<T>|string
+        ): LoDashExplicitObjectWrapper<Dictionary<string[]>>;
+
+        /**
+         * @see _.invertBy
+         */
+        invertBy<W>(
+            interatee?: W
+        ): LoDashExplicitObjectWrapper<Dictionary<string[]>>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.invertBy
+         */
+        invertBy(
+            interatee?: InvertByIterator<any>|string
+        ): LoDashExplicitObjectWrapper<Dictionary<string[]>>;
+
+        /**
+         * @see _.invertBy
+         */
+        invertBy<W>(
+            interatee?: W
+        ): LoDashExplicitObjectWrapper<Dictionary<string[]>>;
     }
 
     //_.keys
