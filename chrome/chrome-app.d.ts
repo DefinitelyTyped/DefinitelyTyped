@@ -1,6 +1,6 @@
 // Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
-// Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>
+// Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="chrome.d.ts"/>
@@ -172,6 +172,110 @@ declare module chrome.fileSystem {
     export function restoreEntry(id: string, callback: (entry: Entry) => void): void;
     export function isRestorable(id: string, callback: (isRestorable: boolean) => void): void;
     export function retainEntry(entry: Entry): string;
+}
+
+////////////////////
+// Media Galleries
+////////////////////
+declare module chrome.mediaGalleries {
+    interface MediaFileSystemsOptions {
+        interactive?: 'no' | 'yes' | 'if_needed';
+    }
+    
+    interface MediaFileSystemMetadata {
+        name: string;
+        galleryId: string;
+        deviceId?: string;
+        isRemovable: boolean;
+        isMediaDevice: boolean;
+        isAvailable: boolean;
+    }
+    
+    interface MetadataOptions {
+        metadataType: 'all' | 'mimeTypeAndTags' | 'mimeTypeOnly';
+    }
+
+    interface RawTag {
+        type: string;
+        tags: { [name: string]: string; };
+    }
+    
+    interface Metadata {
+        // The browser sniffed mime type.
+        mimeType: string;
+        // Defined for images and video. In pixels.
+        height?: number;
+        width?: number;
+        // Defined for images only.
+        xResolution?: number;
+        yResolution?: number;
+        // Defined for audio and video. In seconds.
+        duration?: number;
+        // Defined for images and video. In degrees.
+        rotation?: number;
+        // Defined for images only.
+        cameraMake?: string;
+        cameraModel?: string;
+        exposureTimeSeconds?: number;
+        flashFired?: boolean;
+        fNumber?: number;
+        focalLengthMm?: number;
+        isoEquivalent?: number;
+        // Defined for audio and video only.
+        album?: string;
+        artist?: string;
+        comment?: string;
+        copyright?: string;
+        disc?: number;
+        genre?: string;
+        language?: string;
+        title?: string;
+        track?: number;
+        // All the metadata in the media file. For formats with multiple streams, stream order will be preserved. Container metadata is the first element.
+        rawTags: RawTag[];
+        // The images embedded in the media file's metadata. This is most often used for album art or video thumbnails.
+        attachedImages: Blob[];
+    }
+    
+    interface GalleryWatchResult {
+        galleryId: string;
+        success: boolean;
+    }
+    
+    interface GalleryChangedEventArgs {
+        type: 'contents_changed' | 'watch_dropped';
+        galleryId: string;
+    }
+    
+    interface ScanProgressEventArgs {
+        // The type of progress event, i.e. start, finish, etc.
+        type: 'start' | 'cancel' | 'finish' | 'error';
+        // The number of Galleries found.
+        galleryCount?: number;
+        // Appoximate number of media files found; some file types can be either audio or video and are included in both counts.
+        audioCount?: number;
+        imageCount?: number;
+        videoCount?: number;
+    }
+    
+    export function getMediaFileSystems(callback: (mediaFileSystems: FileSystem[]) => void): void;
+    export function getMediaFileSystems(options: MediaFileSystemsOptions, callback: (mediaFileSystems: FileSystem[]) => void): void;
+    export function addUserSelectedFolder(callback: (mediaFileSystems: FileSystem[], selectedFileSystemName: string) => void): void;
+    export function dropPermissionForMediaFileSystem(galleryId: string, callback?: () => void): void;
+    export function startMediaScan(): void;
+    export function cancelMediaScan(): void;
+    export function addScanResults(callback: (mediaFileSystems: FileSystem[]) => void): void;
+    export function getMediaFileSystemMetadata(mediaFileSystem: FileSystem): MediaFileSystemMetadata;
+    export function getAllMediaFileSystemMetadata(callback: (metadatas: MediaFileSystemMetadata[]) => void): void;
+    export function getMetadata(mediaFile: Blob, callback: (metadata: Metadata) => void): void;
+    export function getMetadata(mediaFile: Blob, options: MetadataOptions, callback: (metadata: Metadata) => void): void;
+    export function addGalleryWatch(galleryId: string, callback: (result: GalleryWatchResult) => void): void;
+    export function removeGalleryWatch(galleryId: string): void;
+    export function getAllGalleryWatch(callback: (galleryIds: string[]) => void): void;
+    export function removeAllGalleryWatch(): void;
+    
+    var onGalleryChanged: chrome.events.Event<(args: GalleryChangedEventArgs) => void>;
+    var onScanProgress: chrome.events.Event<(args: ScanProgressEventArgs) => void>;
 }
 
 ////////////////////
