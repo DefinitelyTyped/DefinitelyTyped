@@ -6342,8 +6342,8 @@ declare class ErrorCallbackArgs  {
 }
 
 declare class FailureResponse {
-	code: Number; 
-	error: string; 
+	code: Number;
+	error: string;
 	success: boolean;
 }
 

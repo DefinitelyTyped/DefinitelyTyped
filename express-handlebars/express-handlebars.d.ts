@@ -3,8 +3,6 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>, Igor Dultsev <https://github.com/yhaskell>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../es6-promise/es6-promise.d.ts" />
-
 interface PartialTemplateOptions {
     cache?: boolean;
     precompiled?: boolean;

@@ -1,4 +1,4 @@
-// Type definitions for Select2 3.2
+// Type definitions for Select2 4.0.1
 // Project: http://ivaynberg.github.com/select2/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -77,6 +77,7 @@ interface Select2Options {
     */
     templateSelection?: (object: Select2SelectionObject) => any;
     templateResult?: (object: Select2SelectionObject) => any;
+	language?: string;
 }
 
 interface Select2JQueryEventObject extends JQueryEventObject {
@@ -90,6 +91,7 @@ interface Select2JQueryEventObject extends JQueryEventObject {
 }
 
 interface Select2SelectionObject {
+	loading: boolean,
     disabled: boolean,
     element: HTMLOptionElement,
     id: string,

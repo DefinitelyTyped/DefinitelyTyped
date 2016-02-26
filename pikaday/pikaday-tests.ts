@@ -2,6 +2,8 @@
 /// <reference path="../moment/moment.d.ts" />
 /// <reference path="pikaday.d.ts" />
 
+import * as Pikaday from "pikaday";
+
 new Pikaday({field: document.getElementById('datepicker')});
 new Pikaday({field: $('#datepicker')[0]});
 
@@ -24,6 +26,7 @@ new Pikaday({field: $('#datepicker')[0]});
             console.log(this.getMoment().format('Do MMMM YYYY'));
         }
     });
+
     picker.toString();
     picker.toString('YYYY-MM-DD');
     picker.getDate();
@@ -38,6 +41,8 @@ new Pikaday({field: $('#datepicker')[0]});
     picker.gotoYear(2015);
     picker.setMinDate(new Date);
     picker.setMaxDate(new Date);
+    picker.setStartRange(new Date);
+    picker.setEndRange(new Date);
     picker.isVisible();
     picker.show();
     picker.adjustPosition();
@@ -46,7 +51,7 @@ new Pikaday({field: $('#datepicker')[0]});
 })();
 
 (() => {
-    var i18n:PikadayI18nConfig = {
+    var i18n: Pikaday.PikadayI18nConfig = {
         previousMonth: 'Previous Month',
         nextMonth: 'Next Month',
         months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],

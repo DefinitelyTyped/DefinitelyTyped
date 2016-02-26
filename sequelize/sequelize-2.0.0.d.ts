@@ -6,7 +6,7 @@
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../lodash/lodash.d.ts" />
+/// <reference path='../lodash/lodash-3.10.d.ts' />
 
 declare module "sequelize"
 {
@@ -1379,6 +1379,11 @@ declare module "sequelize"
              * connecting to a pg database, you should specify 'pg.js' here
              */
             dialectModulePath?: string;
+			
+            /**
+             * The dialect options that are passed to the underlying dialect library.
+             */
+            dialectOptions?: Object;
 
             /**
              * The host of the relational database. Default 'localhost'.

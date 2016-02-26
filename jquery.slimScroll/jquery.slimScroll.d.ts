@@ -49,6 +49,10 @@ interface IJQuerySlimScrollOptions {
     borderRadius?: string;
     // sets border radius of the rail
     railBorderRadius?: string;
+    // jumps to the specified scroll value
+    scrollTo?: string;
+    // increases/decreases current scroll value by specified amount
+    scrollBy?: string;
 }
 
 interface JQuery {

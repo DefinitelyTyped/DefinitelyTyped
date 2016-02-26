@@ -3,8 +3,6 @@
 // Definitions by: Jonathan Pevarnek <https://github.com/jpevarnek/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../es6-promise/es6-promise.d.ts"/>
-
 declare module freedom {
     // Common on/emit for message passing interfaces.
     interface EventDispatchFn<T> { (eventType: string, value?: T): void; }
@@ -497,7 +495,7 @@ declare module freedom.Social {
     interface UserProfile {
         userId: string;
         name: string;
-        status?: number;        
+        status?: number;
         url?: string;
         // Image URI (e.g. data:image/png;base64,adkwe329...)
         imageData?: string;

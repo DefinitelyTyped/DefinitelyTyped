@@ -26,9 +26,6 @@ import path = require('path');
 // Quick start
 // https://github.com/atom/electron/blob/master/docs/tutorial/quick-start.md
 
-// Report crashes to our server.
-require('crash-reporter').start();
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the javascript object is GCed.
 var mainWindow: Electron.BrowserWindow = null;
@@ -111,6 +108,9 @@ app.on('ready', () => {
 	mainWindow.webContents.printToPDF({}, (err, data) => {});
 });
 
+// Locale
+app.getLocale();
+
 // Desktop environment integration
 // https://github.com/atom/electron/blob/master/docs/tutorial/desktop-environment-integration.md
 
@@ -166,6 +166,10 @@ var dockMenu = Menu.buildFromTemplate([
 	},
 ]);
 app.dock.setMenu(dockMenu);
+app.dock.setBadge('foo');
+var id = app.dock.bounce('informational');
+app.dock.cancelBounce(id);
+app.dock.setIcon('/path/to/icon.png');
 
 app.setUserTasks([
 	<Electron.Task>{
@@ -501,7 +505,10 @@ crashReporter.start({
 	productName: 'YourName',
 	companyName: 'YourCompany',
 	submitURL: 'https://your-domain.com/url-to-submit',
-	autoSubmit: true
+	autoSubmit: true,
+	extra: {
+		someKey: "value"
+	}
 });
 
 // nativeImage

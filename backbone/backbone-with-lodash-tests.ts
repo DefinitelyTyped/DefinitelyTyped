@@ -1,5 +1,5 @@
 /// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../lodash/lodash.d.ts" />
+/// <reference path='../lodash/lodash-3.10.d.ts' />
 /// <reference path="./backbone-global.d.ts" />
 
 function test_events() {
@@ -30,11 +30,11 @@ class SettingDefaults extends Backbone.Model {
     }
 
     constructor(attributes?: any, options?: any) {
+        super(attributes, options); // TODO error TS17009: 'super' must be called before accessing 'this' in the constructor of a derived class.
         this.defaults = <any>{
             name: "Joe"
         }
         // super has to come last
-        super(attributes, options);
     }
 
     // or set it like this

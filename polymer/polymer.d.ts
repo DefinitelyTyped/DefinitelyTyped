@@ -1,4 +1,4 @@
-// Type definitions for polymer v1.1.5
+// Type definitions for polymer v1.1.6
 // Project: https://github.com/Polymer/polymer
 // Definitions by: Louis Grignon <https://github.com/lgrignon>, Suguru Inatomi <https://github.com/laco0416>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -11,7 +11,7 @@ declare module polymer {
 
   interface PropObjectType {
     type: PropConstructorType;
-    value?: boolean | number | string | Function;
+    value?: boolean | number | string | Function | Object;
     reflectToAttribute?: boolean;
     readOnly?: boolean;
     notify?: boolean;

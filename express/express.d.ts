@@ -102,9 +102,9 @@ declare module "express" {
             route(path: string): IRoute;
 
             use(...handler: RequestHandler[]): T;
-            use(handler: ErrorRequestHandler): T;
+            use(handler: ErrorRequestHandler|RequestHandler): T;
             use(path: string, ...handler: RequestHandler[]): T;
-            use(path: string, handler: ErrorRequestHandler): T;
+            use(path: string, handler: ErrorRequestHandler|RequestHandler): T;
             use(path: string[], ...handler: RequestHandler[]): T;
             use(path: string[], handler: ErrorRequestHandler): T;
             use(path: RegExp, ...handler: RequestHandler[]): T;
@@ -199,20 +199,35 @@ declare module "express" {
             accepts(type: string[]): string;
 
             /**
-             * Check if the given `charset` is acceptable,
-             * otherwise you should respond with 406 "Not Acceptable".
+             * Returns the first accepted charset of the specified character sets,
+             * based on the request’s Accept-Charset HTTP header field.
+             * If none of the specified charsets is accepted, returns false.
              *
+             * For more information, or if you have issues or concerns, see accepts.
              * @param charset
              */
-            acceptsCharset(charset: string): boolean;
+            acceptsCharsets(charset?: string|string[]): string[];
 
             /**
-             * Check if the given `lang` is acceptable,
-             * otherwise you should respond with 406 "Not Acceptable".
+             * Returns the first accepted encoding of the specified encodings,
+             * based on the request’s Accept-Encoding HTTP header field.
+             * If none of the specified encodings is accepted, returns false.
+             *
+             * For more information, or if you have issues or concerns, see accepts.
+             * @param encoding
+             */
+            acceptsEncodings(encoding?: string|string[]): string[];
+
+            /**
+             * Returns the first accepted language of the specified languages,
+             * based on the request’s Accept-Language HTTP header field.
+             * If none of the specified languages is accepted, returns false.
+             *
+             * For more information, or if you have issues or concerns, see accepts.
              *
              * @param lang
              */
-            acceptsLanguage(lang: string): boolean;
+            acceptsLanguages(lang?: string|string[]): string[];
 
             /**
              * Parse Range header field,
@@ -238,28 +253,6 @@ declare module "express" {
              * ordered from highest quality to lowest.
              */
             accepted: MediaType[];
-
-            /**
-             * Return an array of Accepted languages
-             * ordered from highest quality to lowest.
-             *
-             * Examples:
-             *
-             *     Accept-Language: en;q=.5, en-us
-             *     ['en-us', 'en']
-             */
-            acceptedLanguages: any[];
-
-            /**
-             * Return an array of Accepted charsets
-             * ordered from highest quality to lowest.
-             *
-             * Examples:
-             *
-             *     Accept-Charset: iso-8859-5;q=.2, unicode-1-1;q=0.8
-             *     ['unicode-1-1', 'iso-8859-5']
-             */
-            acceptedCharsets: any[];
 
             /**
              * Return the value of param `name` when present or `defaultValue`.
@@ -414,9 +407,9 @@ declare module "express" {
             originalUrl: string;
 
             url: string;
-            
+
             baseUrl: string;
-            
+
             app: Application;
         }
 
@@ -803,18 +796,23 @@ declare module "express" {
             charset: string;
         }
 
+        interface NextFunction {
+            (): void;
+            (err: any): void;
+        }
+
         interface ErrorRequestHandler {
-            (err: any, req: Request, res: Response, next: Function): any;
+            (err: any, req: Request, res: Response, next: NextFunction): any;
         }
 
         interface RequestHandler {
-            (req: Request, res: Response, next: Function): any;
+            (req: Request, res: Response, next: NextFunction): any;
         }
 
         interface Handler extends RequestHandler {}
 
         interface RequestParamHandler {
-            (req: Request, res: Response, next: Function, param: any): any;
+            (req: Request, res: Response, next: NextFunction, param: any): any;
         }
 
         interface Application extends IRouter<Application>, Express.Application {

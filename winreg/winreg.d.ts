@@ -1,4 +1,4 @@
-// Type definitions for Winreg v0.0.15
+// Type definitions for Winreg v0.0.16
 // Project: https://github.com/fresc81/node-winreg/
 // Definitions by: RX14 <https://github.com/RX14>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -123,6 +123,12 @@ interface Winreg {
     path: string;
 
     /**
+     * Architecture this key belongs to.
+     * @readonly
+     */
+    arch: string;
+
+    /**
      * A new Winreg instance of the parent key.
      * @readonly
      */
@@ -198,7 +204,12 @@ declare namespace Winreg {
         /**
          * Optional key, default is the root key.
          */
-        key?: String;
+        key?: string;
+
+        /**
+         * Optional architecture of the registry.
+         */
+        arch?: string;
     }
 
     /**
@@ -240,6 +251,12 @@ declare namespace Winreg {
          * @readonly
          */
         value: string;
+
+        /**
+         * Architecture this value belongs to.
+         * @readonly
+         */
+        arch: string;
     }
 }
 
