@@ -351,7 +351,7 @@ declare namespace __MaterialUI {
             palette: ThemePalette;
         }
 
-        export function ThemeDecorator(muiTheme: Styles.MuiTheme): <T>(Component: T) => T;
+        export function ThemeDecorator(muiTheme: Styles.MuiTheme): <TFunction extends Function>(Component: TFunction) => TFunction;
 
         interface ThemeManager {
             getMuiTheme(rawTheme: RawTheme): MuiTheme;
