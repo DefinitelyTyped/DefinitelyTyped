@@ -10,10 +10,19 @@ import * as ReactDOM from "react-dom"
 
 import { browserHistory, hashHistory, Router, Route, IndexRoute, Link } from "react-router"
 
+interface MasterContext {
+	router: ReactRouter.RouterOnContext;
+}
+
 class Master extends React.Component<React.Props<{}>, {}> {
 
+	static contextTypes: React.ValidationMap<any> = {
+		router: React.PropTypes.object
+	};
+	context: MasterContext;
+
 	navigate() {
-        var router = this.context["router"] as ReactRouter.RouterOnContext;
+		var router = this.context.router;
 		router.push("/users");
 		router.push({
 			pathname: "/users/12",
@@ -31,10 +40,6 @@ class Master extends React.Component<React.Props<{}>, {}> {
 	}
 
 }
-
-(Master as React.ComponentClass<{}>).contextTypes = {
-	router: React.PropTypes.object,
-};
 
 
 class Dashboard extends React.Component<{}, {}> {
