@@ -25,8 +25,8 @@ var payments = crossfilter<Payment>([
 ]);
 
 var total_payments : number = payments.groupAll<number>().reduce(
-    function(p,v) { return p+=v; },
-    function(p,v) { return p-=v; },
+    function(p,v) { return p+=v.total; },
+    function(p,v) { return p-=v.total; },
     function() { return 0; } ).value();
 
 var paymentsByTotal = payments.dimension((d) => d.total);
