@@ -4,6 +4,7 @@
 
 import * as React from "react";
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
+import * as MaterialUi from "material-ui";
 import Checkbox from "material-ui/lib/checkbox";
 import Colors from "material-ui/lib/styles/colors";
 import Spacing from "material-ui/lib/styles/spacing";
@@ -37,6 +38,7 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import GridList from 'material-ui/lib/grid-list/grid-list';
 import GridTile from 'material-ui/lib/grid-list/grid-tile';
 
+import * as Icons from "material-ui/lib/svg-icons";
 import NavigationClose from "material-ui/lib/svg-icons/navigation/close";
 import FileFolder from "material-ui/lib/svg-icons/file/folder";
 import ToggleStar from "material-ui/lib/svg-icons/toggle/star";
@@ -255,6 +257,9 @@ class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implemen
         element = <DropDownMenu menuItems={menuItems} />;
 
         // "http://material-ui.com/#/components/icons"
+        element = <MaterialUi.Icons.NavigationMenu />;
+        element = <Icons.ToggleStar />;
+
         element = <FontIcon className= "material-icons" color= { Colors.red500 } > home</FontIcon>;
 
         // "http://material-ui.com/#/components/icon-buttons"
