@@ -3,12 +3,12 @@
 // Definitions by: Yuichi Murata <https://github.com/mrk21>, Leon Yu <https://github.com/leonyu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace EventEmitter3 {
+
     interface EventEmitter3Static {
         new (): EventEmitter;
         prefixed: string | boolean;
     }
-    class EventEmitter {
+    declare class EventEmitter {
         /**
          * Minimal EventEmitter interface that is molded against the Node.js
          * EventEmitter interface.
@@ -112,12 +112,12 @@ declare namespace EventEmitter3 {
          */
         setMaxListeners(): EventEmitter;
     }
-}
+
 
 declare module 'eventemitter3' {
     //
     // Expose the module.
     //
-    var EventEmitter3: EventEmitter3.EventEmitter3Static;
+    var EventEmitter3: EventEmitter3Static;
     export = EventEmitter3;
 }
