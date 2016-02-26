@@ -490,3 +490,115 @@ declare module chrome.runtime {
 		}
 	}
 }
+
+////////////////////
+// USB
+////////////////////
+declare module chrome.usb {
+	type Direction = 'in' | 'out';
+
+	interface Device {
+		device: number,
+		vendorId: number,
+		productId: number,
+		productName: string,
+		manufacturerName: string,
+		serialNumber: string
+	}
+
+	interface ConnectionHandle {
+		handle: number,
+		vendorId: number,
+		productId: number
+	}
+
+	interface EndpointDescriptor {
+		address: number,
+		type: 'control' | 'interrupt' | 'isochronous' | 'bulk',
+		direction: Direction,
+		maximumPacketSize: number,
+		synchronization?: 'asynchronous' | 'adaptive' | 'synchronous',
+		usage?: 'data' | 'feedback' | 'explicitFeedback',
+		pollingInterval?: number,
+		extra_data: ArrayBuffer
+	}
+
+	interface InterfaceDescriptor {
+		interfaceNumber: number,
+		alternateSetting: number,
+		interfaceClass: number,
+		interfaceSubclass: number,
+		interfaceProtocol: number,
+		description?: string,
+		endpoints: EndpointDescriptor[],
+		extra_data: ArrayBuffer
+	}
+
+	interface ConfigDescriptor {
+		active: boolean,
+		configurationValue: number,
+		description?: string,
+		selfPowered: boolean,
+		remoteWakeup: boolean,
+		maxPower: number,
+		interfaces: InterfaceDescriptor[],
+		extra_data: ArrayBuffer
+	}
+
+	interface GenericTransferInfo {
+		direction: Direction,
+		endpoint: number,
+		length?: number,
+		data?: ArrayBuffer,
+		timeout?: number
+	}
+
+	interface TransferResultInfo {
+		resultCode: number,
+		data?: ArrayBuffer
+	}
+
+	interface DeviceFilter {
+		vendorId?: number,
+		productId?: number,
+		interfaceClass?: number,
+		interfaceSubclass?: number,
+		interfaceProtocol?: number
+	}
+
+	interface TransferInfo {
+		direction: Direction;
+		recipient: 'device' | 'interface' | 'endpoint' | 'other';
+		requestType: 'standard' | 'class' | 'vendor' | 'reserved';
+		request: number;
+		value: number;
+		index: number;
+		length?: number;
+		data?: ArrayBuffer;
+		timeout?: number;
+	}
+
+	interface DeviceEvent extends chrome.events.Event<(device: Device) => void> {}
+
+	export var onDeviceAdded: DeviceEvent;
+	export var onDeviceAdded: DeviceEvent;
+
+	export function getDevices(options: { vendorId?: number, productId?: number, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
+	export function getUserSelectedDevices(options: { multiple?: boolean, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
+	export function getConfigurations(device: Device, callback: (configs: ConfigDescriptor[]) => void): void;
+	export function requestAccess(device: Device, interfaceId: number, callback: (success: boolean) => void): void;
+	export function openDevice(device: Device, callback: (handle: ConnectionHandle) => void): void;
+	export function findDevices(options: { vendorId: number, productId: number, interfaceId?: number }, callback: (handles: ConnectionHandle[]) => void): void;
+	export function closeDevice(handle: ConnectionHandle, callback?: () => void): void;
+	export function setConfiguration(handle: ConnectionHandle, configurationValue: number, callback: () => void): void;
+	export function getConfiguration(handle: ConnectionHandle, callback: (config: ConfigDescriptor) => void): void;
+	export function listInterfaces(handle: ConnectionHandle, callback: (descriptors: InterfaceDescriptor[]) => void): void;
+	export function claimInterface(handle: ConnectionHandle, interfaceNumber: number, callback: () => void): void;
+	export function releaseInterface(handle: ConnectionHandle, interfaceNumber: number, callback: () => void): void;
+	export function setInterfaceAlternateSetting(handle: ConnectionHandle, interfaceNumber: number, alternateSetting: number, callback: () => void): void;
+	export function controlTransfer(handle: ConnectionHandle, transferInfo: TransferInfo, callback: (info: TransferResultInfo) => void): void;
+	export function bulkTransfer(handle: ConnectionHandle, transferInfo: GenericTransferInfo, callback: (info: TransferResultInfo) => void): void;
+	export function interruptTransfer(handle: ConnectionHandle, transferInfo: GenericTransferInfo, callback: (info: TransferResultInfo) => void): void;
+	export function isochronousTransfer(handle: ConnectionHandle, transferInfo: { transferInfo: GenericTransferInfo, packets: number, packetLength: number }, callback: (info: TransferResultInfo) => void): void;
+	export function resetDevice(handle: ConnectionHandle, callback: (success: boolean) => void): void;
+}
