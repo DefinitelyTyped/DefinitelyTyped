@@ -1,6 +1,8 @@
 /// <reference path="intro.js.d.ts" />
 
 var intro = introJs();
+var introWithElement = introJs(document.body);
+var introWithQuerySelector = introJs('body');
 
 intro.setOption('doneLabel', 'Next page');
 intro.setOption('overlayOpacity', 50);
@@ -53,4 +55,18 @@ intro.start()
     })
     .oncomplete(function () {
         alert('Done');
-    });
+    })
+    .onexit(function () {
+        alert('Exiting');
+    })
+    .onhintsadded(function () {
+        alert('Hints added');
+    })
+    .onhintclick(function (hintElement, item, stepId) {
+        element.getAttribute('class');
+    })
+    .onhintclose(function (stepId) {
+        alert('Hint close for Step ID ' + stepId);
+    })
+    .addHints()
+    .clone();
