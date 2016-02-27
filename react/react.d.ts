@@ -92,17 +92,21 @@ declare namespace __React {
         props?: P,
         ...children: ReactNode[]): ReactElement<P>;
 
-    function cloneElement<P>(
-        element: DOMElement<P>,
-        props?: P,
-        ...children: ReactNode[]): DOMElement<P>;
-    function cloneElement<P>(
+    function cloneElement(
+        element: ReactHTMLElement,
+        props?: HTMLProps<HTMLElement>,
+        ...children: ReactNode[]): ReactHTMLElement;
+    function cloneElement(
+        element: ReactSVGElement,
+        props?: SVGProps,
+        ...children: ReactNode[]): ReactSVGElement;
+    function cloneElement<P extends Q, Q>(
         element: ClassicElement<P>,
-        props?: P,
+        props?: Q,
         ...children: ReactNode[]): ClassicElement<P>;
-    function cloneElement<P>(
+    function cloneElement<P extends Q, Q>(
         element: ReactElement<P>,
-        props?: P,
+        props?: Q,
         ...children: ReactNode[]): ReactElement<P>;
 
     function isValidElement(object: {}): boolean;
