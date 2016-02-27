@@ -187,13 +187,17 @@ var domElement: React.ReactHTMLElement =
 
 // React.cloneElement
 var clonedElement: React.ReactElement<Props> =
-    React.cloneElement(element, props);
+    React.cloneElement(element, { foo: 43 });
 var clonedStatelessElement: React.ReactElement<SCProps> =
-    React.cloneElement(statelessElement, props);
+    // known problem: cloning with optional props don't work properly
+    // workaround: cast to actual props type
+    React.cloneElement(statelessElement, <SCProps>{ foo: 44 });
 var clonedClassicElement: React.ClassicElement<Props> =
     React.cloneElement(classicElement, props);
 var clonedDOMElement: React.ReactHTMLElement =
-    React.cloneElement(domElement);
+    React.cloneElement(domElement, {
+        className: "clonedElement"
+    });
 
 // React.render
 var component: React.Component<Props, any> =
