@@ -1186,11 +1186,11 @@ declare module Electron {
 		 * before using this API
 		 */
 		checkForUpdates(): any;
-    /**
-     * Restarts the app and installs the update after it has been downloaded.
-     * It should only be called after update-downloaded has been emitted.
-     */
-    quitAndInstall(): any;
+		/**
+		 * Restarts the app and installs the update after it has been downloaded.
+		 * It should only be called after update-downloaded has been emitted.
+		 */
+		 quitAndInstall(): any;
 	}
 
 	module Dialog {
