@@ -50,8 +50,8 @@ intro.start()
     .onafterchange(function (element) {
         element.getAttribute('class');
     })
-    .onchange(function () {
-        alert('Changed');
+    .onchange(function (element) {
+        element.getAttribute('class');
     })
     .oncomplete(function () {
         alert('Done');
