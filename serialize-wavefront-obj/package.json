@@ -1,0 +1,25 @@
+{
+  "name": "serialize-wavefront-obj",
+  "version": "1.0.0",
+  "description": "serialize wavefront obj file, the definition file for serialize-wavefront-obj",
+  "main": "serialize-wavefront-obj.d.ts",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/omni360/serialize-wavefront-obj.git"
+  },
+  "keywords": [
+    "serialize",
+    "wavefront",
+    "obj",
+    "geometry"
+  ],
+  "author": "Hou Chunlei",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/omni360/serialize-wavefront-obj/issues"
+  },
+  "homepage": "https://github.com/omni360/serialize-wavefront-obj#readme"
+}
