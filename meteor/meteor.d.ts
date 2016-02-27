@@ -394,6 +394,8 @@ declare module Accounts {
 	function onCreateUser(func: Function): void;
 	function validateLoginAttempt(func: Function): { stop: () => void };
 	function validateNewUser(func: Function): boolean;
+	function loginServicesConfigured(): boolean;
+ 	function onPageLoadLogin(func: Function): void;
 }
 
 declare module App {
@@ -522,10 +524,10 @@ declare module Match {
 declare module Meteor {
 	var Error: ErrorStatic;
 	interface ErrorStatic {
-		new(error: string, reason?: string, details?: string): Error;
+		new(error: string | number, reason?: string, details?: string): Error;
 	}
 	interface Error {
-		error: string;
+		error: string | number;
 		reason?: string;
 		details?: string;
 	}
@@ -616,7 +618,7 @@ declare module Mongo {
 		insert(doc: T, callback?: Function): string;
 		rawCollection(): any;
 		rawDatabase(): any;
-		remove(selector: Mongo.Selector | Mongo.ObjectID | string, callback?: Function): void;
+		remove(selector: Mongo.Selector | Mongo.ObjectID | string, callback?: Function): number;
 		update(selector: Mongo.Selector | Mongo.ObjectID | string, modifier: Mongo.Modifier, options?: {
 			multi?: boolean;
 			upsert?: boolean;

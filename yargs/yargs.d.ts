@@ -11,6 +11,13 @@ declare module "yargs" {
 			(...args: any[]): any;
 			parse(...args: any[]): any;
 
+			reset(): Argv;
+
+			locale(): string;
+			locale(loc:string): Argv;
+			
+			detectLocale(detect:boolean): Argv;
+
 			alias(shortName: string, longName: string): Argv;
 			alias(aliases: { [shortName: string]: string }): Argv;
 			alias(aliases: { [shortName: string]: string[] }): Argv;
@@ -71,6 +78,9 @@ declare module "yargs" {
 			string(key: string): Argv;
 			string(keys: string[]): Argv;
 
+			choices(choices: Object): Argv;
+			choices(key: string, values:any[]): Argv;
+
 			config(key: string): Argv;
 			config(keys: string[]): Argv;
 
@@ -81,11 +91,17 @@ declare module "yargs" {
 			help(): string;
 			help(option: string, description?: string): Argv;
 
+			epilog(msg: string): Argv;
+			epilogue(msg: string): Argv;
+
 			version(version: string, option?: string, description?: string): Argv;
+			version(version: () => string, option?: string, description?: string): Argv;
 
 			showHelpOnFail(enable: boolean, message?: string): Argv;
 
 			showHelp(func?: (message: string) => any): Argv;
+
+			exitProcess(enabled:boolean): Argv;
 
 			/* Undocumented */
 
@@ -115,6 +131,7 @@ declare module "yargs" {
 			description?: any;
 			desc?: any;
 			requiresArg?: any;
+			choices?:string[];
 		}
 
 		type SyncCompletionFunction = (current: string, argv: any) => string[];

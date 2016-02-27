@@ -131,7 +131,7 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	 * Promises are by default not cancellable. Use `.cancellable()` to mark a promise as cancellable.
 	 */
 	// TODO what to do with this?
-	cancel<U>(): Promise<U>;
+	cancel<U>(reason?: any): Promise<U>;
 
 	/**
 	 * Like `.then()`, but cancellation of the the returned promise or any of its descendant will not propagate cancellation to this promise or this promise's ancestors.
@@ -319,11 +319,9 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	 *
 	 * Alias for `attempt();` for compatibility with earlier ECMAScript version.
 	 */
-	static try<R>(fn: () => Promise.Thenable<R>, args?: any[], ctx?: any): Promise<R>;
-	static try<R>(fn: () => R, args?: any[], ctx?: any): Promise<R>;
+	static try<R>(fn: () => R | Promise.Thenable<R>, args?: any[], ctx?: any): Promise<R>;
 
-	static attempt<R>(fn: () => Promise.Thenable<R>, args?: any[], ctx?: any): Promise<R>;
-	static attempt<R>(fn: () => R, args?: any[], ctx?: any): Promise<R>;
+	static attempt<R>(fn: () => R | Promise.Thenable<R>, args?: any[], ctx?: any): Promise<R>;
 
 	/**
 	 * Returns a new function that wraps the given function `fn`. The new function will always return a promise that is fulfilled with the original functions return values or rejected with thrown exceptions from the original function.
@@ -394,7 +392,7 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	 * Note that the original methods on the object are not overwritten but new methods are created with the `Async`-postfix. For example, if you `promisifyAll()` the node.js `fs` object use `fs.statAsync()` to call the promisified `stat` method.
 	 */
 	// TODO how to model promisifyAll?
-	static promisifyAll(target: Object): Object;
+	static promisifyAll(target: Object): any;
 
 	/**
 	 * Returns a function that can use `yield` to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.

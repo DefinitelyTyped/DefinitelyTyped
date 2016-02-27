@@ -129,7 +129,7 @@ declare module jasmine {
 
     interface CustomMatcherResult {
         pass: boolean;
-        message: string;
+        message?: string;
     }
 
     interface MatchersUtil {
@@ -281,7 +281,7 @@ declare module jasmine {
 
         toBe(expected: any, expectationFailOutput?: any): boolean;
         toEqual(expected: any, expectationFailOutput?: any): boolean;
-        toMatch(expected: any, expectationFailOutput?: any): boolean;
+        toMatch(expected: string | RegExp, expectationFailOutput?: any): boolean;
         toBeDefined(expectationFailOutput?: any): boolean;
         toBeUndefined(expectationFailOutput?: any): boolean;
         toBeNull(expectationFailOutput?: any): boolean;
@@ -290,14 +290,14 @@ declare module jasmine {
         toBeFalsy(expectationFailOutput?: any): boolean;
         toHaveBeenCalled(): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
+        toHaveBeenCalledTimes(expected: number): boolean;
         toContain(expected: any, expectationFailOutput?: any): boolean;
-        toBeLessThan(expected: any, expectationFailOutput?: any): boolean;
-        toBeGreaterThan(expected: any, expectationFailOutput?: any): boolean;
-        toBeCloseTo(expected: any, precision: any, expectationFailOutput?: any): boolean;
-        toContainHtml(expected: string): boolean;
-        toContainText(expected: string): boolean;
+        toBeLessThan(expected: number, expectationFailOutput?: any): boolean;
+        toBeGreaterThan(expected: number, expectationFailOutput?: any): boolean;
+        toBeCloseTo(expected: number, precision: any, expectationFailOutput?: any): boolean;
         toThrow(expected?: any): boolean;
-        toThrowError(expected?: any, message?: string): boolean;
+        toThrowError(message?: string | RegExp): boolean;
+        toThrowError(expected?: Error, message?: string | RegExp): boolean;
         not: Matchers;
 
         Any: Any;
@@ -423,11 +423,11 @@ declare module jasmine {
         /** By chaining the spy with and.callThrough, the spy will still track all calls to it but in addition it will delegate to the actual implementation. */
         callThrough(): Spy;
         /** By chaining the spy with and.returnValue, all calls to the function will return a specific value. */
-        returnValue(val: any): void;
+        returnValue(val: any): Spy;
         /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied function. */
         callFake(fn: Function): Spy;
         /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */
-        throwError(msg: string): void;
+        throwError(msg: string): Spy;
         /** When a calling strategy is used for a spy, the original stubbing behavior can be returned at any time with and.stub. */
         stub(): Spy;
     }

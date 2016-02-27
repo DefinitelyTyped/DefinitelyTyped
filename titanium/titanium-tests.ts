@@ -6,13 +6,13 @@ function test_window() {
 		backgroundColor: 'white',
 		borderRadius: 10
 	});
-	
+
 	window.setBackgroundColor('blue');
 	window.opacity = 0.92;
-	
+
 	var matrix = Ti.UI.create2DMatrix().scale(1.1, 1);
 	window.transform = matrix;
-	
+
 	var label: Ti.UI.Label;
 	label = Ti.UI.createLabel({
 		color: '#900',
@@ -100,7 +100,7 @@ function test_map() {
 	mountainView.setTitle('Appcelerator');
 	mountainView.setSubtitle('Mountain View, CA');
 	mountainView.setPincolor(Ti.Map.ANNOTATION_RED);
-	
+
 	var mapview = Ti.Map.createView({
 		mapType: Ti.Map.STANDARD_TYPE,
 		region: {

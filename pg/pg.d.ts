@@ -67,22 +67,22 @@ declare module "pg" {
         pauseDrain(): void;
         resumeDrain(): void;
 
-        public on(event: "drain", listener: () => void): Client;
-        public on(event: "error", listener: (err: Error) => void): Client;
-        public on(event: "notification", listener: (message: any) => void): Client;
-        public on(event: "notice", listener: (message: any) => void): Client;
-        public on(event: string, listener: Function): Client;
+        public on(event: "drain", listener: () => void): this;
+        public on(event: "error", listener: (err: Error) => void): this;
+        public on(event: "notification", listener: (message: any) => void): this;
+        public on(event: "notice", listener: (message: any) => void): this;
+        public on(event: string, listener: Function): this;
     }
 
     export class Query extends events.EventEmitter {
-        public on(event: "row", listener: (row: any, result?: ResultBuilder) => void): Query;
-        public on(event: "error", listener: (err: Error) => void): Query;
-        public on(event: "end", listener: (result: ResultBuilder) => void): Query;
-        public on(event: string, listener: Function): Query;
+        public on(event: "row", listener: (row: any, result?: ResultBuilder) => void): this;
+        public on(event: "error", listener: (err: Error) => void): this;
+        public on(event: "end", listener: (result: ResultBuilder) => void): this;
+        public on(event: string, listener: Function): this;
     }
 
     export class Events extends events.EventEmitter {
-        public on(event: "error", listener: (err: Error, client: Client) => void): Events;
-        public on(event: string, listener: Function): Events;
+        public on(event: "error", listener: (err: Error, client: Client) => void): this;
+        public on(event: string, listener: Function): this;
     }
 }

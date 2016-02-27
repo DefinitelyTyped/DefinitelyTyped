@@ -2251,782 +2251,782 @@ declare module "core-js/web/immediate" {
 declare module "core-js/web/timers" {
     export = core;
 }
-declare module "core-js/libary" {
+declare module "core-js/library" {
     export = core;
 }
-declare module "core-js/libary/shim" {
+declare module "core-js/library/shim" {
     export = core;
 }
-declare module "core-js/libary/core" {
+declare module "core-js/library/core" {
     export = core;
 }
-declare module "core-js/libary/core/$for" {
+declare module "core-js/library/core/$for" {
     import $for = core.$for;
     export = $for;
 }
-declare module "core-js/libary/core/_" {
+declare module "core-js/library/core/_" {
     var _: typeof core._;
     export = _;
 }
-declare module "core-js/libary/core/array" {
+declare module "core-js/library/core/array" {
     var Array: typeof core.Array;
     export = Array;
 }
-declare module "core-js/libary/core/date" {
+declare module "core-js/library/core/date" {
     var Date: typeof core.Date;
     export = Date;
 }
-declare module "core-js/libary/core/delay" {
+declare module "core-js/library/core/delay" {
     var delay: typeof core.delay;
     export = delay;
 }
-declare module "core-js/libary/core/dict" {
+declare module "core-js/library/core/dict" {
     var Dict: typeof core.Dict;
     export = Dict;
 }
-declare module "core-js/libary/core/function" {
+declare module "core-js/library/core/function" {
     var Function: typeof core.Function;
     export = Function;
 }
-declare module "core-js/libary/core/global" {
+declare module "core-js/library/core/global" {
     var global: typeof core.global;
     export = global;
 }
-declare module "core-js/libary/core/log" {
+declare module "core-js/library/core/log" {
     var log: typeof core.log;
     export = log;
 }
-declare module "core-js/libary/core/number" {
+declare module "core-js/library/core/number" {
     var Number: typeof core.Number;
     export = Number;
 }
-declare module "core-js/libary/core/object" {
+declare module "core-js/library/core/object" {
     var Object: typeof core.Object;
     export = Object;
 }
-declare module "core-js/libary/core/string" {
+declare module "core-js/library/core/string" {
     var String: typeof core.String;
     export = String;
 }
-declare module "core-js/libary/fn/$for" {
+declare module "core-js/library/fn/$for" {
     import $for = core.$for;
     export = $for;
 }
-declare module "core-js/libary/fn/_" {
+declare module "core-js/library/fn/_" {
     var _: typeof core._;
     export = _;
 }
-declare module "core-js/libary/fn/clear-immediate" {
+declare module "core-js/library/fn/clear-immediate" {
     var clearImmediate: typeof core.clearImmediate;
     export = clearImmediate;
 }
-declare module "core-js/libary/fn/delay" {
+declare module "core-js/library/fn/delay" {
     var delay: typeof core.delay;
     export = delay;
 }
-declare module "core-js/libary/fn/dict" {
+declare module "core-js/library/fn/dict" {
     var Dict: typeof core.Dict;
     export = Dict;
 }
-declare module "core-js/libary/fn/get-iterator" {
+declare module "core-js/library/fn/get-iterator" {
     var getIterator: typeof core.getIterator;
     export = getIterator;
 }
-declare module "core-js/libary/fn/global" {
+declare module "core-js/library/fn/global" {
     var global: typeof core.global;
     export = global;
 }
-declare module "core-js/libary/fn/is-iterable" {
+declare module "core-js/library/fn/is-iterable" {
     var isIterable: typeof core.isIterable;
     export = isIterable;
 }
-declare module "core-js/libary/fn/log" {
+declare module "core-js/library/fn/log" {
     var log: typeof core.log;
     export = log;
 }
-declare module "core-js/libary/fn/map" {
+declare module "core-js/library/fn/map" {
     var Map: typeof core.Map;
     export = Map;
 }
-declare module "core-js/libary/fn/promise" {
+declare module "core-js/library/fn/promise" {
     var Promise: typeof core.Promise;
     export = Promise;
 }
-declare module "core-js/libary/fn/set" {
+declare module "core-js/library/fn/set" {
     var Set: typeof core.Set;
     export = Set;
 }
-declare module "core-js/libary/fn/set-immediate" {
+declare module "core-js/library/fn/set-immediate" {
     var setImmediate: typeof core.setImmediate;
     export = setImmediate;
 }
-declare module "core-js/libary/fn/set-interval" {
+declare module "core-js/library/fn/set-interval" {
     var setInterval: typeof core.setInterval;
     export = setInterval;
 }
-declare module "core-js/libary/fn/set-timeout" {
+declare module "core-js/library/fn/set-timeout" {
     var setTimeout: typeof core.setTimeout;
     export = setTimeout;
 }
-declare module "core-js/libary/fn/weak-map" {
+declare module "core-js/library/fn/weak-map" {
     var WeakMap: typeof core.WeakMap;
     export = WeakMap;
 }
-declare module "core-js/libary/fn/weak-set" {
+declare module "core-js/library/fn/weak-set" {
     var WeakSet: typeof core.WeakSet;
     export = WeakSet;
 }
-declare module "core-js/libary/fn/array" {
+declare module "core-js/library/fn/array" {
     var Array: typeof core.Array;
     export = Array;
 }
-declare module "core-js/libary/fn/array/concat" {
+declare module "core-js/library/fn/array/concat" {
     var concat: typeof core.Array.concat;
     export = concat;
 }
-declare module "core-js/libary/fn/array/copy-within" {
+declare module "core-js/library/fn/array/copy-within" {
     var copyWithin: typeof core.Array.copyWithin;
     export = copyWithin;
 }
-declare module "core-js/libary/fn/array/entries" {
+declare module "core-js/library/fn/array/entries" {
     var entries: typeof core.Array.entries;
     export = entries;
 }
-declare module "core-js/libary/fn/array/every" {
+declare module "core-js/library/fn/array/every" {
     var every: typeof core.Array.every;
     export = every;
 }
-declare module "core-js/libary/fn/array/fill" {
+declare module "core-js/library/fn/array/fill" {
     var fill: typeof core.Array.fill;
     export = fill;
 }
-declare module "core-js/libary/fn/array/filter" {
+declare module "core-js/library/fn/array/filter" {
     var filter: typeof core.Array.filter;
     export = filter;
 }
-declare module "core-js/libary/fn/array/find" {
+declare module "core-js/library/fn/array/find" {
     var find: typeof core.Array.find;
     export = find;
 }
-declare module "core-js/libary/fn/array/find-index" {
+declare module "core-js/library/fn/array/find-index" {
     var findIndex: typeof core.Array.findIndex;
     export = findIndex;
 }
-declare module "core-js/libary/fn/array/for-each" {
+declare module "core-js/library/fn/array/for-each" {
     var forEach: typeof core.Array.forEach;
     export = forEach;
 }
-declare module "core-js/libary/fn/array/from" {
+declare module "core-js/library/fn/array/from" {
     var from: typeof core.Array.from;
     export = from;
 }
-declare module "core-js/libary/fn/array/includes" {
+declare module "core-js/library/fn/array/includes" {
     var includes: typeof core.Array.includes;
     export = includes;
 }
-declare module "core-js/libary/fn/array/index-of" {
+declare module "core-js/library/fn/array/index-of" {
     var indexOf: typeof core.Array.indexOf;
     export = indexOf;
 }
-declare module "core-js/libary/fn/array/join" {
+declare module "core-js/library/fn/array/join" {
     var join: typeof core.Array.join;
     export = join;
 }
-declare module "core-js/libary/fn/array/keys" {
+declare module "core-js/library/fn/array/keys" {
     var keys: typeof core.Array.keys;
     export = keys;
 }
-declare module "core-js/libary/fn/array/last-index-of" {
+declare module "core-js/library/fn/array/last-index-of" {
     var lastIndexOf: typeof core.Array.lastIndexOf;
     export = lastIndexOf;
 }
-declare module "core-js/libary/fn/array/map" {
+declare module "core-js/library/fn/array/map" {
     var map: typeof core.Array.map;
     export = map;
 }
-declare module "core-js/libary/fn/array/of" {
+declare module "core-js/library/fn/array/of" {
     var of: typeof core.Array.of;
     export = of;
 }
-declare module "core-js/libary/fn/array/pop" {
+declare module "core-js/library/fn/array/pop" {
     var pop: typeof core.Array.pop;
     export = pop;
 }
-declare module "core-js/libary/fn/array/push" {
+declare module "core-js/library/fn/array/push" {
     var push: typeof core.Array.push;
     export = push;
 }
-declare module "core-js/libary/fn/array/reduce" {
+declare module "core-js/library/fn/array/reduce" {
     var reduce: typeof core.Array.reduce;
     export = reduce;
 }
-declare module "core-js/libary/fn/array/reduce-right" {
+declare module "core-js/library/fn/array/reduce-right" {
     var reduceRight: typeof core.Array.reduceRight;
     export = reduceRight;
 }
-declare module "core-js/libary/fn/array/reverse" {
+declare module "core-js/library/fn/array/reverse" {
     var reverse: typeof core.Array.reverse;
     export = reverse;
 }
-declare module "core-js/libary/fn/array/shift" {
+declare module "core-js/library/fn/array/shift" {
     var shift: typeof core.Array.shift;
     export = shift;
 }
-declare module "core-js/libary/fn/array/slice" {
+declare module "core-js/library/fn/array/slice" {
     var slice: typeof core.Array.slice;
     export = slice;
 }
-declare module "core-js/libary/fn/array/some" {
+declare module "core-js/library/fn/array/some" {
     var some: typeof core.Array.some;
     export = some;
 }
-declare module "core-js/libary/fn/array/sort" {
+declare module "core-js/library/fn/array/sort" {
     var sort: typeof core.Array.sort;
     export = sort;
 }
-declare module "core-js/libary/fn/array/splice" {
+declare module "core-js/library/fn/array/splice" {
     var splice: typeof core.Array.splice;
     export = splice;
 }
-declare module "core-js/libary/fn/array/turn" {
+declare module "core-js/library/fn/array/turn" {
     var turn: typeof core.Array.turn;
     export = turn;
 }
-declare module "core-js/libary/fn/array/unshift" {
+declare module "core-js/library/fn/array/unshift" {
     var unshift: typeof core.Array.unshift;
     export = unshift;
 }
-declare module "core-js/libary/fn/array/values" {
+declare module "core-js/library/fn/array/values" {
     var values: typeof core.Array.values;
     export = values;
 }
-declare module "core-js/libary/fn/date" {
+declare module "core-js/library/fn/date" {
     var Date: typeof core.Date;
     export = Date;
 }
-declare module "core-js/libary/fn/date/add-locale" {
+declare module "core-js/library/fn/date/add-locale" {
     var addLocale: typeof core.addLocale;
     export = addLocale;
 }
-declare module "core-js/libary/fn/date/format" {
+declare module "core-js/library/fn/date/format" {
     var format: typeof core.Date.format;
     export = format;
 }
-declare module "core-js/libary/fn/date/formatUTC" {
+declare module "core-js/library/fn/date/formatUTC" {
     var formatUTC: typeof core.Date.formatUTC;
     export = formatUTC;
 }
-declare module "core-js/libary/fn/function" {
+declare module "core-js/library/fn/function" {
     var Function: typeof core.Function;
     export = Function;
 }
-declare module "core-js/libary/fn/function/has-instance" {
+declare module "core-js/library/fn/function/has-instance" {
     var hasInstance: (value: any) => boolean;
     export = hasInstance;
 }
-declare module "core-js/libary/fn/function/name" {
+declare module "core-js/library/fn/function/name" {
 }
-declare module "core-js/libary/fn/function/part" {
+declare module "core-js/library/fn/function/part" {
     var part: typeof core.Function.part;
     export = part;
 }
-declare module "core-js/libary/fn/math" {
+declare module "core-js/library/fn/math" {
     var Math: typeof core.Math;
     export = Math;
 }
-declare module "core-js/libary/fn/math/acosh" {
+declare module "core-js/library/fn/math/acosh" {
     var acosh: typeof core.Math.acosh;
     export = acosh;
 }
-declare module "core-js/libary/fn/math/asinh" {
+declare module "core-js/library/fn/math/asinh" {
     var asinh: typeof core.Math.asinh;
     export = asinh;
 }
-declare module "core-js/libary/fn/math/atanh" {
+declare module "core-js/library/fn/math/atanh" {
     var atanh: typeof core.Math.atanh;
     export = atanh;
 }
-declare module "core-js/libary/fn/math/cbrt" {
+declare module "core-js/library/fn/math/cbrt" {
     var cbrt: typeof core.Math.cbrt;
     export = cbrt;
 }
-declare module "core-js/libary/fn/math/clz32" {
+declare module "core-js/library/fn/math/clz32" {
     var clz32: typeof core.Math.clz32;
     export = clz32;
 }
-declare module "core-js/libary/fn/math/cosh" {
+declare module "core-js/library/fn/math/cosh" {
     var cosh: typeof core.Math.cosh;
     export = cosh;
 }
-declare module "core-js/libary/fn/math/expm1" {
+declare module "core-js/library/fn/math/expm1" {
     var expm1: typeof core.Math.expm1;
     export = expm1;
 }
-declare module "core-js/libary/fn/math/fround" {
+declare module "core-js/library/fn/math/fround" {
     var fround: typeof core.Math.fround;
     export = fround;
 }
-declare module "core-js/libary/fn/math/hypot" {
+declare module "core-js/library/fn/math/hypot" {
     var hypot: typeof core.Math.hypot;
     export = hypot;
 }
-declare module "core-js/libary/fn/math/imul" {
+declare module "core-js/library/fn/math/imul" {
     var imul: typeof core.Math.imul;
     export = imul;
 }
-declare module "core-js/libary/fn/math/log10" {
+declare module "core-js/library/fn/math/log10" {
     var log10: typeof core.Math.log10;
     export = log10;
 }
-declare module "core-js/libary/fn/math/log1p" {
+declare module "core-js/library/fn/math/log1p" {
     var log1p: typeof core.Math.log1p;
     export = log1p;
 }
-declare module "core-js/libary/fn/math/log2" {
+declare module "core-js/library/fn/math/log2" {
     var log2: typeof core.Math.log2;
     export = log2;
 }
-declare module "core-js/libary/fn/math/sign" {
+declare module "core-js/library/fn/math/sign" {
     var sign: typeof core.Math.sign;
     export = sign;
 }
-declare module "core-js/libary/fn/math/sinh" {
+declare module "core-js/library/fn/math/sinh" {
     var sinh: typeof core.Math.sinh;
     export = sinh;
 }
-declare module "core-js/libary/fn/math/tanh" {
+declare module "core-js/library/fn/math/tanh" {
     var tanh: typeof core.Math.tanh;
     export = tanh;
 }
-declare module "core-js/libary/fn/math/trunc" {
+declare module "core-js/library/fn/math/trunc" {
     var trunc: typeof core.Math.trunc;
     export = trunc;
 }
-declare module "core-js/libary/fn/number" {
+declare module "core-js/library/fn/number" {
     var Number: typeof core.Number;
     export = Number;
 }
-declare module "core-js/libary/fn/number/epsilon" {
+declare module "core-js/library/fn/number/epsilon" {
     var EPSILON: typeof core.Number.EPSILON;
     export = EPSILON;
 }
-declare module "core-js/libary/fn/number/is-finite" {
+declare module "core-js/library/fn/number/is-finite" {
     var isFinite: typeof core.Number.isFinite;
     export = isFinite;
 }
-declare module "core-js/libary/fn/number/is-integer" {
+declare module "core-js/library/fn/number/is-integer" {
     var isInteger: typeof core.Number.isInteger;
     export = isInteger;
 }
-declare module "core-js/libary/fn/number/is-nan" {
+declare module "core-js/library/fn/number/is-nan" {
     var isNaN: typeof core.Number.isNaN;
     export = isNaN;
 }
-declare module "core-js/libary/fn/number/is-safe-integer" {
+declare module "core-js/library/fn/number/is-safe-integer" {
     var isSafeInteger: typeof core.Number.isSafeInteger;
     export = isSafeInteger;
 }
-declare module "core-js/libary/fn/number/max-safe-integer" {
+declare module "core-js/library/fn/number/max-safe-integer" {
     var MAX_SAFE_INTEGER: typeof core.Number.MAX_SAFE_INTEGER;
     export = MAX_SAFE_INTEGER;
 }
-declare module "core-js/libary/fn/number/min-safe-interger" {
+declare module "core-js/library/fn/number/min-safe-interger" {
     var MIN_SAFE_INTEGER: typeof core.Number.MIN_SAFE_INTEGER;
     export = MIN_SAFE_INTEGER;
 }
-declare module "core-js/libary/fn/number/parse-float" {
+declare module "core-js/library/fn/number/parse-float" {
     var parseFloat: typeof core.Number.parseFloat;
     export = parseFloat;
 }
-declare module "core-js/libary/fn/number/parse-int" {
+declare module "core-js/library/fn/number/parse-int" {
     var parseInt: typeof core.Number.parseInt;
     export = parseInt;
 }
-declare module "core-js/libary/fn/number/random" {
+declare module "core-js/library/fn/number/random" {
     var random: typeof core.Number.random;
     export = random;
 }
-declare module "core-js/libary/fn/object" {
+declare module "core-js/library/fn/object" {
     var Object: typeof core.Object;
     export = Object;
 }
-declare module "core-js/libary/fn/object/assign" {
+declare module "core-js/library/fn/object/assign" {
     var assign: typeof core.Object.assign;
     export = assign;
 }
-declare module "core-js/libary/fn/object/classof" {
+declare module "core-js/library/fn/object/classof" {
     var classof: typeof core.Object.classof;
     export = classof;
 }
-declare module "core-js/libary/fn/object/create" {
+declare module "core-js/library/fn/object/create" {
     var create: typeof core.Object.create;
     export = create;
 }
-declare module "core-js/libary/fn/object/define" {
+declare module "core-js/library/fn/object/define" {
     var define: typeof core.Object.define;
     export = define;
 }
-declare module "core-js/libary/fn/object/define-properties" {
+declare module "core-js/library/fn/object/define-properties" {
     var defineProperties: typeof core.Object.defineProperties;
     export = defineProperties;
 }
-declare module "core-js/libary/fn/object/define-property" {
+declare module "core-js/library/fn/object/define-property" {
     var defineProperty: typeof core.Object.defineProperty;
     export = defineProperty;
 }
-declare module "core-js/libary/fn/object/entries" {
+declare module "core-js/library/fn/object/entries" {
     var entries: typeof core.Object.entries;
     export = entries;
 }
-declare module "core-js/libary/fn/object/freeze" {
+declare module "core-js/library/fn/object/freeze" {
     var freeze: typeof core.Object.freeze;
     export = freeze;
 }
-declare module "core-js/libary/fn/object/get-own-property-descriptor" {
+declare module "core-js/library/fn/object/get-own-property-descriptor" {
     var getOwnPropertyDescriptor: typeof core.Object.getOwnPropertyDescriptor;
     export = getOwnPropertyDescriptor;
 }
-declare module "core-js/libary/fn/object/get-own-property-descriptors" {
+declare module "core-js/library/fn/object/get-own-property-descriptors" {
     var getOwnPropertyDescriptors: typeof core.Object.getOwnPropertyDescriptors;
     export = getOwnPropertyDescriptors;
 }
-declare module "core-js/libary/fn/object/get-own-property-names" {
+declare module "core-js/library/fn/object/get-own-property-names" {
     var getOwnPropertyNames: typeof core.Object.getOwnPropertyNames;
     export = getOwnPropertyNames;
 }
-declare module "core-js/libary/fn/object/get-own-property-symbols" {
+declare module "core-js/library/fn/object/get-own-property-symbols" {
     var getOwnPropertySymbols: typeof core.Object.getOwnPropertySymbols;
     export = getOwnPropertySymbols;
 }
-declare module "core-js/libary/fn/object/get-prototype-of" {
+declare module "core-js/library/fn/object/get-prototype-of" {
     var getPrototypeOf: typeof core.Object.getPrototypeOf;
     export = getPrototypeOf;
 }
-declare module "core-js/libary/fn/object/is" {
+declare module "core-js/library/fn/object/is" {
     var is: typeof core.Object.is;
     export = is;
 }
-declare module "core-js/libary/fn/object/is-extensible" {
+declare module "core-js/library/fn/object/is-extensible" {
     var isExtensible: typeof core.Object.isExtensible;
     export = isExtensible;
 }
-declare module "core-js/libary/fn/object/is-frozen" {
+declare module "core-js/library/fn/object/is-frozen" {
     var isFrozen: typeof core.Object.isFrozen;
     export = isFrozen;
 }
-declare module "core-js/libary/fn/object/is-object" {
+declare module "core-js/library/fn/object/is-object" {
     var isObject: typeof core.Object.isObject;
     export = isObject;
 }
-declare module "core-js/libary/fn/object/is-sealed" {
+declare module "core-js/library/fn/object/is-sealed" {
     var isSealed: typeof core.Object.isSealed;
     export = isSealed;
 }
-declare module "core-js/libary/fn/object/keys" {
+declare module "core-js/library/fn/object/keys" {
     var keys: typeof core.Object.keys;
     export = keys;
 }
-declare module "core-js/libary/fn/object/make" {
+declare module "core-js/library/fn/object/make" {
     var make: typeof core.Object.make;
     export = make;
 }
-declare module "core-js/libary/fn/object/prevent-extensions" {
+declare module "core-js/library/fn/object/prevent-extensions" {
     var preventExtensions: typeof core.Object.preventExtensions;
     export = preventExtensions;
 }
-declare module "core-js/libary/fn/object/seal" {
+declare module "core-js/library/fn/object/seal" {
     var seal: typeof core.Object.seal;
     export = seal;
 }
-declare module "core-js/libary/fn/object/set-prototype-of" {
+declare module "core-js/library/fn/object/set-prototype-of" {
     var setPrototypeOf: typeof core.Object.setPrototypeOf;
     export = setPrototypeOf;
 }
-declare module "core-js/libary/fn/object/values" {
+declare module "core-js/library/fn/object/values" {
     var values: typeof core.Object.values;
     export = values;
 }
-declare module "core-js/libary/fn/reflect" {
+declare module "core-js/library/fn/reflect" {
     var Reflect: typeof core.Reflect;
     export = Reflect;
 }
-declare module "core-js/libary/fn/reflect/apply" {
+declare module "core-js/library/fn/reflect/apply" {
     var apply: typeof core.Reflect.apply;
     export = apply;
 }
-declare module "core-js/libary/fn/reflect/construct" {
+declare module "core-js/library/fn/reflect/construct" {
     var construct: typeof core.Reflect.construct;
     export = construct;
 }
-declare module "core-js/libary/fn/reflect/define-property" {
+declare module "core-js/library/fn/reflect/define-property" {
     var defineProperty: typeof core.Reflect.defineProperty;
     export = defineProperty;
 }
-declare module "core-js/libary/fn/reflect/delete-property" {
+declare module "core-js/library/fn/reflect/delete-property" {
     var deleteProperty: typeof core.Reflect.deleteProperty;
     export = deleteProperty;
 }
-declare module "core-js/libary/fn/reflect/enumerate" {
+declare module "core-js/library/fn/reflect/enumerate" {
     var enumerate: typeof core.Reflect.enumerate;
     export = enumerate;
 }
-declare module "core-js/libary/fn/reflect/get" {
+declare module "core-js/library/fn/reflect/get" {
     var get: typeof core.Reflect.get;
     export = get;
 }
-declare module "core-js/libary/fn/reflect/get-own-property-descriptor" {
+declare module "core-js/library/fn/reflect/get-own-property-descriptor" {
     var getOwnPropertyDescriptor: typeof core.Reflect.getOwnPropertyDescriptor;
     export = getOwnPropertyDescriptor;
 }
-declare module "core-js/libary/fn/reflect/get-prototype-of" {
+declare module "core-js/library/fn/reflect/get-prototype-of" {
     var getPrototypeOf: typeof core.Reflect.getPrototypeOf;
     export = getPrototypeOf;
 }
-declare module "core-js/libary/fn/reflect/has" {
+declare module "core-js/library/fn/reflect/has" {
     var has: typeof core.Reflect.has;
     export = has;
 }
-declare module "core-js/libary/fn/reflect/is-extensible" {
+declare module "core-js/library/fn/reflect/is-extensible" {
     var isExtensible: typeof core.Reflect.isExtensible;
     export = isExtensible;
 }
-declare module "core-js/libary/fn/reflect/own-keys" {
+declare module "core-js/library/fn/reflect/own-keys" {
     var ownKeys: typeof core.Reflect.ownKeys;
     export = ownKeys;
 }
-declare module "core-js/libary/fn/reflect/prevent-extensions" {
+declare module "core-js/library/fn/reflect/prevent-extensions" {
     var preventExtensions: typeof core.Reflect.preventExtensions;
     export = preventExtensions;
 }
-declare module "core-js/libary/fn/reflect/set" {
+declare module "core-js/library/fn/reflect/set" {
     var set: typeof core.Reflect.set;
     export = set;
 }
-declare module "core-js/libary/fn/reflect/set-prototype-of" {
+declare module "core-js/library/fn/reflect/set-prototype-of" {
     var setPrototypeOf: typeof core.Reflect.setPrototypeOf;
     export = setPrototypeOf;
 }
-declare module "core-js/libary/fn/regexp" {
+declare module "core-js/library/fn/regexp" {
     var RegExp: typeof core.RegExp;
     export = RegExp;
 }
-declare module "core-js/libary/fn/regexp/escape" {
+declare module "core-js/library/fn/regexp/escape" {
     var escape: typeof core.RegExp.escape;
     export = escape;
 }
-declare module "core-js/libary/fn/string" {
+declare module "core-js/library/fn/string" {
     var String: typeof core.String;
     export = String;
 }
-declare module "core-js/libary/fn/string/at" {
+declare module "core-js/library/fn/string/at" {
     var at: typeof core.String.at;
     export = at;
 }
-declare module "core-js/libary/fn/string/code-point-at" {
+declare module "core-js/library/fn/string/code-point-at" {
     var codePointAt: typeof core.String.codePointAt;
     export = codePointAt;
 }
-declare module "core-js/libary/fn/string/ends-with" {
+declare module "core-js/library/fn/string/ends-with" {
     var endsWith: typeof core.String.endsWith;
     export = endsWith;
 }
-declare module "core-js/libary/fn/string/escape-html" {
+declare module "core-js/library/fn/string/escape-html" {
     var escapeHTML: typeof core.String.escapeHTML;
     export = escapeHTML;
 }
-declare module "core-js/libary/fn/string/from-code-point" {
+declare module "core-js/library/fn/string/from-code-point" {
     var fromCodePoint: typeof core.String.fromCodePoint;
     export = fromCodePoint;
 }
-declare module "core-js/libary/fn/string/includes" {
+declare module "core-js/library/fn/string/includes" {
     var includes: typeof core.String.includes;
     export = includes;
 }
-declare module "core-js/libary/fn/string/lpad" {
+declare module "core-js/library/fn/string/lpad" {
     var lpad: typeof core.String.lpad;
     export = lpad;
 }
-declare module "core-js/libary/fn/string/raw" {
+declare module "core-js/library/fn/string/raw" {
     var raw: typeof core.String.raw;
     export = raw;
 }
-declare module "core-js/libary/fn/string/repeat" {
+declare module "core-js/library/fn/string/repeat" {
     var repeat: typeof core.String.repeat;
     export = repeat;
 }
-declare module "core-js/libary/fn/string/rpad" {
+declare module "core-js/library/fn/string/rpad" {
     var rpad: typeof core.String.rpad;
     export = rpad;
 }
-declare module "core-js/libary/fn/string/starts-with" {
+declare module "core-js/library/fn/string/starts-with" {
     var startsWith: typeof core.String.startsWith;
     export = startsWith;
 }
-declare module "core-js/libary/fn/string/unescape-html" {
+declare module "core-js/library/fn/string/unescape-html" {
     var unescapeHTML: typeof core.String.unescapeHTML;
     export = unescapeHTML;
 }
-declare module "core-js/libary/fn/symbol" {
+declare module "core-js/library/fn/symbol" {
     var Symbol: typeof core.Symbol;
     export = Symbol;
 }
-declare module "core-js/libary/fn/symbol/for" {
+declare module "core-js/library/fn/symbol/for" {
     var _for: typeof core.Symbol.for;
     export = _for;
 }
-declare module "core-js/libary/fn/symbol/has-instance" {
+declare module "core-js/library/fn/symbol/has-instance" {
     var hasInstance: typeof core.Symbol.hasInstance;
     export = hasInstance;
 }
-declare module "core-js/libary/fn/symbol/is-concat-spreadable" {
+declare module "core-js/library/fn/symbol/is-concat-spreadable" {
     var isConcatSpreadable: typeof core.Symbol.isConcatSpreadable;
     export = isConcatSpreadable;
 }
-declare module "core-js/libary/fn/symbol/iterator" {
+declare module "core-js/library/fn/symbol/iterator" {
     var iterator: typeof core.Symbol.iterator;
     export = iterator;
 }
-declare module "core-js/libary/fn/symbol/key-for" {
+declare module "core-js/library/fn/symbol/key-for" {
     var keyFor: typeof core.Symbol.keyFor;
     export = keyFor;
 }
-declare module "core-js/libary/fn/symbol/match" {
+declare module "core-js/library/fn/symbol/match" {
     var match: typeof core.Symbol.match;
     export = match;
 }
-declare module "core-js/libary/fn/symbol/replace" {
+declare module "core-js/library/fn/symbol/replace" {
     var replace: typeof core.Symbol.replace;
     export = replace;
 }
-declare module "core-js/libary/fn/symbol/search" {
+declare module "core-js/library/fn/symbol/search" {
     var search: typeof core.Symbol.search;
     export = search;
 }
-declare module "core-js/libary/fn/symbol/species" {
+declare module "core-js/library/fn/symbol/species" {
     var species: typeof core.Symbol.species;
     export = species;
 }
-declare module "core-js/libary/fn/symbol/split" {
+declare module "core-js/library/fn/symbol/split" {
     var split: typeof core.Symbol.split;
     export = split;
 }
-declare module "core-js/libary/fn/symbol/to-primitive" {
+declare module "core-js/library/fn/symbol/to-primitive" {
     var toPrimitive: typeof core.Symbol.toPrimitive;
     export = toPrimitive;
 }
-declare module "core-js/libary/fn/symbol/to-string-tag" {
+declare module "core-js/library/fn/symbol/to-string-tag" {
     var toStringTag: typeof core.Symbol.toStringTag;
     export = toStringTag;
 }
-declare module "core-js/libary/fn/symbol/unscopables" {
+declare module "core-js/library/fn/symbol/unscopables" {
     var unscopables: typeof core.Symbol.unscopables;
     export = unscopables;
 }
-declare module "core-js/libary/es5" {
+declare module "core-js/library/es5" {
     export = core;
 }
-declare module "core-js/libary/es6" {
+declare module "core-js/library/es6" {
     export = core;
 }
-declare module "core-js/libary/es6/array" {
+declare module "core-js/library/es6/array" {
     var Array: typeof core.Array;
     export = Array;
 }
-declare module "core-js/libary/es6/function" {
+declare module "core-js/library/es6/function" {
     var Function: typeof core.Function;
     export = Function;
 }
-declare module "core-js/libary/es6/map" {
+declare module "core-js/library/es6/map" {
     var Map: typeof core.Map;
     export = Map;
 }
-declare module "core-js/libary/es6/math" {
+declare module "core-js/library/es6/math" {
     var Math: typeof core.Math;
     export = Math;
 }
-declare module "core-js/libary/es6/number" {
+declare module "core-js/library/es6/number" {
     var Number: typeof core.Number;
     export = Number;
 }
-declare module "core-js/libary/es6/object" {
+declare module "core-js/library/es6/object" {
     var Object: typeof core.Object;
     export = Object;
 }
-declare module "core-js/libary/es6/promise" {
+declare module "core-js/library/es6/promise" {
     var Promise: typeof core.Promise;
     export = Promise;
 }
-declare module "core-js/libary/es6/reflect" {
+declare module "core-js/library/es6/reflect" {
     var Reflect: typeof core.Reflect;
     export = Reflect;
 }
-declare module "core-js/libary/es6/regexp" {
+declare module "core-js/library/es6/regexp" {
     var RegExp: typeof core.RegExp;
     export = RegExp;
 }
-declare module "core-js/libary/es6/set" {
+declare module "core-js/library/es6/set" {
     var Set: typeof core.Set;
     export = Set;
 }
-declare module "core-js/libary/es6/string" {
+declare module "core-js/library/es6/string" {
     var String: typeof core.String;
     export = String;
 }
-declare module "core-js/libary/es6/symbol" {
+declare module "core-js/library/es6/symbol" {
     var Symbol: typeof core.Symbol;
     export = Symbol;
 }
-declare module "core-js/libary/es6/weak-map" {
+declare module "core-js/library/es6/weak-map" {
     var WeakMap: typeof core.WeakMap;
     export = WeakMap;
 }
-declare module "core-js/libary/es6/weak-set" {
+declare module "core-js/library/es6/weak-set" {
     var WeakSet: typeof core.WeakSet;
     export = WeakSet;
 }
-declare module "core-js/libary/es7" {
+declare module "core-js/library/es7" {
     export = core;
 }
-declare module "core-js/libary/es7/array" {
+declare module "core-js/library/es7/array" {
     var Array: typeof core.Array;
     export = Array;
 }
-declare module "core-js/libary/es7/map" {
+declare module "core-js/library/es7/map" {
     var Map: typeof core.Map;
     export = Map;
 }
-declare module "core-js/libary/es7/object" {
+declare module "core-js/library/es7/object" {
     var Object: typeof core.Object;
     export = Object;
 }
-declare module "core-js/libary/es7/regexp" {
+declare module "core-js/library/es7/regexp" {
     var RegExp: typeof core.RegExp;
     export = RegExp;
 }
-declare module "core-js/libary/es7/set" {
+declare module "core-js/library/es7/set" {
     var Set: typeof core.Set;
     export = Set;
 }
-declare module "core-js/libary/es7/string" {
+declare module "core-js/library/es7/string" {
     var String: typeof core.String;
     export = String;
 }
-declare module "core-js/libary/js" {
+declare module "core-js/library/js" {
     export = core;
 }
-declare module "core-js/libary/js/array" {
+declare module "core-js/library/js/array" {
     var Array: typeof core.Array;
     export = Array;
 }
-declare module "core-js/libary/web" {
+declare module "core-js/library/web" {
     export = core;
 }
-declare module "core-js/libary/web/dom" {
+declare module "core-js/library/web/dom" {
     export = core;
 }
-declare module "core-js/libary/web/immediate" {
+declare module "core-js/library/web/immediate" {
     export = core;
 }
-declare module "core-js/libary/web/timers" {
+declare module "core-js/library/web/timers" {
     export = core;
 }

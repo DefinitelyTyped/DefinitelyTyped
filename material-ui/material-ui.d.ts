@@ -1,6 +1,6 @@
-// Type definitions for material-ui v0.12.1
+// Type definitions for material-ui v0.13.4
 // Project: https://github.com/callemall/material-ui
-// Definitions by: Nathan Brown <https://github.com/ngbrown>
+// Definitions by: Nathan Brown <https://github.com/ngbrown>, Oliver Herrmann <https://github.com/herrmanno>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 ///<reference path='../react/react.d.ts' />
@@ -9,6 +9,7 @@ declare module "material-ui" {
     export import AppBar = __MaterialUI.AppBar; // require('material-ui/lib/app-bar');
     export import AppCanvas = __MaterialUI.AppCanvas; // require('material-ui/lib/app-canvas');
     export import Avatar = __MaterialUI.Avatar; // require('material-ui/lib/avatar');
+    export import Badge = __MaterialUI.Badge; // require('material-ui/lib/badge');
     export import BeforeAfterWrapper = __MaterialUI.BeforeAfterWrapper; // require('material-ui/lib/before-after-wrapper');
     export import Card = __MaterialUI.Card.Card; // require('material-ui/lib/card/card');
     export import CardActions = __MaterialUI.Card.CardActions; // require('material-ui/lib/card/card-actions');
@@ -71,6 +72,9 @@ declare module "material-ui" {
     export import ToolbarTitle = __MaterialUI.Toolbar.ToolbarTitle; // require('material-ui/lib/toolbar/toolbar-title');
     export import Tooltip = __MaterialUI.Tooltip; // require('material-ui/lib/tooltip');
     export import Utils = __MaterialUI.Utils; // require('material-ui/lib/utils/');
+    
+    export import GridList = __MaterialUI.GridList.GridList; // require('material-ui/lib/gridlist/grid-list');
+    export import GridTile = __MaterialUI.GridList.GridTile; // require('material-ui/lib/gridlist/grid-tile');
 
     // export type definitions
     export type TouchTapEvent = __MaterialUI.TouchTapEvent;
@@ -119,6 +123,7 @@ declare namespace __MaterialUI {
     }
 
     interface AppCanvasProps extends React.Props<AppCanvas> {
+        style?: React.CSSProperties;
     }
     export class AppCanvas extends React.Component<AppCanvasProps, {}> {
     }
@@ -132,6 +137,16 @@ declare namespace __MaterialUI {
         style?: React.CSSProperties;
     }
     export class Avatar extends React.Component<AvatarProps, {}> {
+    }
+
+    interface BadgeProps extends React.Props<Badge> {
+        badgeContent: React.ReactElement<any> | string | number;
+        primary?: boolean;
+        secondary?: boolean;
+        style?: React.CSSProperties;
+        badgeStyle?: React.CSSProperties;
+    }
+    export class Badge extends React.Component<BadgeProps, {}> {
     }
 
     interface BeforeAfterWrapperProps extends React.Props<BeforeAfterWrapper> {
@@ -158,6 +173,7 @@ declare namespace __MaterialUI {
         interface CardActionsProps extends React.Props<CardActions> {
             expandable?: boolean;
             showExpandableButton?: boolean;
+            style?: React.CSSProperties;
         }
         export class CardActions extends React.Component<CardActionsProps, {}> {
         }
@@ -165,6 +181,7 @@ declare namespace __MaterialUI {
         interface CardExpandableProps extends React.Props<CardExpandable> {
             onExpanding?: (isExpanded: boolean) => void;
             expanded?: boolean;
+            style?: React.CSSProperties;
         }
         export class CardExpandable extends React.Component<CardExpandableProps, {}> {
         }
@@ -222,7 +239,7 @@ declare namespace __MaterialUI {
     }
 
     // what's not commonly overridden by Checkbox, RadioButton, or Toggle
-    interface CommonEnhancedSwitchProps<T> extends React.HTMLAttributesBase<T> {
+    interface CommonEnhancedSwitchProps<T> extends React.HTMLAttributes, React.Props<T> {
         // <input/> is root element
         id?: string;
         iconStyle?: React.CSSProperties;
@@ -288,6 +305,7 @@ declare namespace __MaterialUI {
         size?: number;
         color?: string;
         innerStyle?: React.CSSProperties;
+        style?: React.CSSProperties;
 
     }
     export class CircularProgress extends React.Component<CircularProgressProps, {}> {
@@ -302,7 +320,9 @@ declare namespace __MaterialUI {
         interface DatePickerProps extends React.Props<DatePicker> {
             autoOk?: boolean;
             defaultDate?: Date;
-            formatDate?: string;
+            formatDate?: (date:Date) => string;
+            hintText?: string;
+            floatingLabelText?: string;
             hideToolbarYearChange?: boolean;
             maxDate?: Date;
             minDate?: Date;
@@ -317,6 +337,7 @@ declare namespace __MaterialUI {
             onTouchTap?: React.TouchEventHandler;
             shouldDisableDate?: (day: Date) => boolean;
             showYearSelector?: boolean;
+            style?: React.CSSProperties;
             textFieldStyle?: React.CSSProperties;
         }
         export class DatePicker extends React.Component<DatePickerProps, {}> {
@@ -351,6 +372,7 @@ declare namespace __MaterialUI {
         actionFocus?: string;
         autoDetectWindowHeight?: boolean;
         autoScrollBodyContent?: boolean;
+        style?: React.CSSProperties;
         bodyStyle?: React.CSSProperties;
         contentClassName?: string;
         contentInnerStyle?: React.CSSProperties;
@@ -359,14 +381,18 @@ declare namespace __MaterialUI {
         openImmediately?: boolean;
         repositionOnUpdate?: boolean;
         title?: React.ReactNode;
+        defaultOpen?: boolean;
+        open?: boolean;
 
         onClickAway?: () => void;
         onDismiss?: () => void;
         onShow?: () => void;
+        onRequestClose?: (buttonClicked: boolean) => void;
     }
     export class Dialog extends React.Component<DialogProps, {}> {
         dismiss(): void;
         show(): void;
+        isOpen(): boolean;
     }
 
     interface DropDownIconProps extends React.Props<DropDownIcon> {
@@ -402,7 +428,7 @@ declare namespace __MaterialUI {
     }
 
     // non generally overridden elements of EnhancedButton
-    interface SharedEnhancedButtonProps<T> extends React.HTMLAttributesBase<T> {
+    interface SharedEnhancedButtonProps<T> extends React.HTMLAttributes, React.Props<T> {
         centerRipple?: boolean;
         containerElement?: string | React.ReactElement<any>;
         disabled?: boolean;
@@ -502,6 +528,7 @@ declare namespace __MaterialUI {
         menuItemClassName?: string;
         menuItemClassNameSubheader?: string;
         menuItemClassNameLink?: string;
+        style?: React.CSSProperties;
     }
     export class LeftNav extends React.Component<LeftNavProps, {}> {
     }
@@ -521,6 +548,7 @@ declare namespace __MaterialUI {
             subheader?: string;
             subheaderStyle?: React.CSSProperties;
             zDepth?: number;
+            style?: React.CSSProperties;
         }
         export class List extends React.Component<ListProps, {}> {
         }
@@ -545,6 +573,7 @@ declare namespace __MaterialUI {
             nestedItems?: React.ReactElement<any>[];
             onKeyboardFocus?: React.FocusEventHandler;
             onNestedListToggle?: (item: ListItem) => void;
+            onClick?: React.MouseEventHandler;
             rightAvatar?: React.ReactElement<any>;
             rightIcon?: React.ReactElement<any>;
             rightIconButton?: React.ReactElement<any>;
@@ -552,6 +581,7 @@ declare namespace __MaterialUI {
             primaryText?: React.ReactNode;
             secondaryText?: React.ReactNode;
             secondaryTextLines?: number;
+            style?: React.CSSProperties;
         }
         export class ListItem extends React.Component<ListItemProps, {}> {
         }
@@ -577,6 +607,7 @@ declare namespace __MaterialUI {
             toggle?: boolean;
             onTouchTap?: TouchTapEventHandler;
             isDisabled?: boolean;
+            style?: React.CSSProperties;
 
             // for MenuItems.Types.NESTED
             items?: MenuItemRequest[];
@@ -593,6 +624,7 @@ declare namespace __MaterialUI {
             active?: boolean;
             onItemTap?: ItemTapEventHandler;
             menuItemStyle?: React.CSSProperties;
+            style?: React.CSSProperties;
         }
         export class Menu extends React.Component<MenuProps, {}> {
         }
@@ -612,6 +644,7 @@ declare namespace __MaterialUI {
             onToggle?: (e: React.MouseEvent, key: number, toggled: boolean) => void;
             selected?: boolean;
             active?: boolean;
+            style?: React.CSSProperties;
         }
         export class MenuItem extends React.Component<MenuItemProps, {}> {
             static Types: { LINK: string, SUBHEADER: string, NESTED: string, }
@@ -644,7 +677,7 @@ declare namespace __MaterialUI {
     export class Overlay extends React.Component<OverlayProps, {}> {
     }
 
-    interface PaperProps extends React.HTMLAttributesBase<Paper> {
+    interface PaperProps extends React.HTMLAttributes, React.Props<Paper> {
         circle?: boolean;
         rounded?: boolean;
         transitionEnabled?: boolean;
@@ -705,6 +738,7 @@ declare namespace __MaterialUI {
         size?: number;
         status?: string;
         top: number;
+        style?: React.CSSProperties;
     }
     export class RefreshIndicator extends React.Component<RefreshIndicatorProps, {}> {
     }
@@ -713,12 +747,14 @@ declare namespace __MaterialUI {
         interface CircleRippleProps extends React.Props<CircleRipple> {
             color?: string;
             opacity?: number;
+            style?: React.CSSProperties;
         }
         export class CircleRipple extends React.Component<CircleRippleProps, {}> {
         }
 
         interface FocusRippleProps extends React.Props<FocusRipple> {
             color?: string;
+            style?: React.CSSProperties;
             innerStyle?: React.CSSProperties;
             opacity?: number;
             show?: boolean;
@@ -730,6 +766,7 @@ declare namespace __MaterialUI {
             centerRipple?: boolean;
             color?: string;
             opacity?: number;
+            style?: React.CSSProperties;
         }
         export class TouchRipple extends React.Component<TouchRippleProps, {}> {
         }
@@ -752,6 +789,7 @@ declare namespace __MaterialUI {
         menuItemStyle?: React.CSSProperties;
         selectedIndex?: number;
         underlineStyle?: React.CSSProperties;
+        underlineFocusStyle?: React.CSSProperties;
         iconStyle?: React.CSSProperties;
         labelStyle?: React.CSSProperties;
         style?: React.CSSProperties;
@@ -782,6 +820,7 @@ declare namespace __MaterialUI {
         required?: boolean;
         step?: number;
         value?: number;
+        style?: React.CSSProperties;
     }
     export class Slider extends React.Component<SliderProps, {}> {
     }
@@ -790,6 +829,7 @@ declare namespace __MaterialUI {
         color?: string;
         hoverColor?: string;
         viewBox?: string;
+        style?: React.CSSProperties;
     }
     export class SvgIcon extends React.Component<SvgIconProps, {}> {
     }
@@ -838,6 +878,8 @@ declare namespace __MaterialUI {
             desktopSubheaderHeight?: number;
             desktopToolbarHeight?: number;
         }
+        export var Spacing: Spacing;
+
         interface ThemePalette {
             primary1Color?: string;
             primary2Color?: string;
@@ -1037,6 +1079,7 @@ declare namespace __MaterialUI {
                 backgroundColor?: string;
                 borderColor?: string;
             };
+            isRtl: boolean;
         }
 
         interface RawTheme {
@@ -1064,7 +1107,7 @@ declare namespace __MaterialUI {
         export var Transitions: Transitions;
 
         interface Typography {
-            textFullBlack:string;
+            textFullBlack: string;
             textDarkBlack: string;
             textLightBlack: string;
             textMinBlack: string;
@@ -1093,16 +1136,18 @@ declare namespace __MaterialUI {
         onShow?: () => void;
         onDismiss?: () => void;
         openOnMount?: boolean;
+        style?: React.CSSProperties;
     }
     export class Snackbar extends React.Component<SnackbarProps, {}> {
     }
 
     namespace Tabs {
         interface TabProps extends React.Props<Tab> {
-            label?: string;
+            label?: any;
             value?: string;
             selected?: boolean;
             width?: string;
+            style?: React.CSSProperties;
 
             // Called by Tabs component
             onActive?: (tab: Tab) => void;
@@ -1120,6 +1165,7 @@ declare namespace __MaterialUI {
             tabItemContainerStyle?: React.CSSProperties;
             tabWidth?: number;
             value?: string | number;
+            tabTemplate?: __React.ComponentClass<any>;
 
             onChange?: (value: string | number, e: React.FormEvent, tab: Tab) => void;
         }
@@ -1139,8 +1185,9 @@ declare namespace __MaterialUI {
             onCellHoverExit?: (row: number, column: number) => void;
             onRowHover?: (row: number) => void;
             onRowHoverExit?: (row: number) => void;
-            onRowSelection?: (selectedRows: number[])=> void;
+            onRowSelection?: (selectedRows: number[]) => void;
             selectable?: boolean;
+            style?: React.CSSProperties;
         }
         export class Table extends React.Component<TableProps, {}> {
         }
@@ -1155,17 +1202,19 @@ declare namespace __MaterialUI {
             onCellHoverExit?: (row: number, column: number) => void;
             onRowHover?: (row: number) => void;
             onRowHoverExit?: (row: number) => void;
-            onRowSelection?: (selectedRows: number[])=> void;
+            onRowSelection?: (selectedRows: number[]) => void;
             preScanRows?: boolean;
             selectable?: boolean;
             showRowHover?: boolean;
             stripedRows?: boolean;
+            style?: React.CSSProperties;
         }
         export class TableBody extends React.Component<TableBodyProps, {}> {
         }
 
         interface TableFooterProps extends React.Props<TableFooter> {
             adjustForCheckbox?: boolean;
+            style?: React.CSSProperties;
         }
         export class TableFooter extends React.Component<TableFooterProps, {}> {
         }
@@ -1176,15 +1225,17 @@ declare namespace __MaterialUI {
             enableSelectAll?: boolean;
             onSelectAll?: (event: React.MouseEvent) => void;
             selectAllSelected?: boolean;
+            style?: React.CSSProperties;
         }
         export class TableHeader extends React.Component<TableHeaderProps, {}> {
         }
 
         interface TableHeaderColumnProps extends React.Props<TableHeaderColumn> {
             columnNumber?: number;
-            onClick?:  (e: React.MouseEvent, column: number) => void;
+            onClick?: (e: React.MouseEvent, column: number) => void;
             tooltip?: string;
             tooltipStyle?: React.CSSProperties;
+            style?: React.CSSProperties;
         }
         export class TableHeaderColumn extends React.Component<TableHeaderColumnProps, {}> {
         }
@@ -1202,15 +1253,19 @@ declare namespace __MaterialUI {
             selectable?: boolean;
             selected?: boolean;
             striped?: boolean;
+            style?: React.CSSProperties;
         }
         export class TableRow extends React.Component<TableRowProps, {}> {
         }
 
         interface TableRowColumnProps extends React.Props<TableRowColumn> {
             columnNumber?: number;
+            colSpan?: number;
             hoverable?: boolean;
+            onClick?: React.MouseEventHandler;
             onHover?: (e: React.MouseEvent, column: number) => void;
             onHoverExit?: (e: React.MouseEvent, column: number) => void;
+            style?: React.CSSProperties;
         }
         export class TableRowColumn extends React.Component<TableRowColumnProps, {}> {
         }
@@ -1240,6 +1295,10 @@ declare namespace __MaterialUI {
         defaultTime?: Date;
         format?: string;
         pedantic?: boolean;
+        style?: __React.CSSProperties;
+        textFieldStyle?: __React.CSSProperties;
+        autoOk?: boolean;
+        openDialog?: () => void;
         onFocus?: React.FocusEventHandler;
         onTouchTap?: TouchTapEventHandler;
         onChange?: (e: any, time: Date) => void;
@@ -1266,6 +1325,7 @@ declare namespace __MaterialUI {
         underlineFocusStyle?: React.CSSProperties;
         underlineDisabledStyle?: React.CSSProperties;
         type?: string;
+        hintStyle?: React.CSSProperties;
 
         disabled?: boolean;
         isRtl?: boolean;
@@ -1289,23 +1349,27 @@ declare namespace __MaterialUI {
 
     namespace Toolbar {
         interface ToolbarProps extends React.Props<Toolbar> {
+            style?: React.CSSProperties;
         }
         export class Toolbar extends React.Component<ToolbarProps, {}> {
         }
 
         interface ToolbarGroupProps extends React.Props<ToolbarGroup> {
             float?: string;
+            style?: React.CSSProperties;
         }
         export class ToolbarGroup extends React.Component<ToolbarGroupProps, {}> {
         }
 
         interface ToolbarSeparatorProps extends React.Props<ToolbarSeparator> {
+            style?: React.CSSProperties;
         }
         export class ToolbarSeparator extends React.Component<ToolbarSeparatorProps, {}> {
         }
 
-        interface ToolbarTitleProps extends React.HTMLAttributesBase<ToolbarTitle> {
-           text?: string;
+        interface ToolbarTitleProps extends React.HTMLAttributes, React.Props<ToolbarTitle> {
+            text?: string;
+            style?: React.CSSProperties;
         }
         export class ToolbarTitle extends React.Component<ToolbarTitleProps, {}> {
         }
@@ -1327,9 +1391,9 @@ declare namespace __MaterialUI {
             color: string;
         }
         interface ColorManipulator {
-            fade(color: string, amount: string|number): string;
-            lighten(color: string, amount: string|number): string;
-            darken(color: string, amount: string|number): string;
+            fade(color: string, amount: string | number): string;
+            lighten(color: string, amount: string | number): string;
+            darken(color: string, amount: string | number): string;
             contrastRatio(background: string, foreground: string): number;
             contrastRatioLevel(background: string, foreground: string): ContrastLevel;
         }
@@ -1421,6 +1485,7 @@ declare namespace __MaterialUI {
             value?: string | Array<string>;
             width?: string | number;
             touchTapCloseDelay?: number;
+            style?: React.CSSProperties;
 
             onKeyboardFocus?: React.FocusEventHandler;
             onItemTouchTap?: (e: TouchTapEvent, item: React.ReactElement<any>) => void;
@@ -1440,6 +1505,7 @@ declare namespace __MaterialUI {
             value?: string | Array<string>;
             width?: string | number;
             zDepth?: number;
+            style?: React.CSSProperties;
         }
         export class Menu extends React.Component<MenuProps, {}>{
         }
@@ -1455,6 +1521,7 @@ declare namespace __MaterialUI {
             rightIcon?: React.ReactElement<any>;
             secondaryText?: React.ReactNode;
             value?: string;
+            style?: React.CSSProperties;
 
             onEscKeyDown?: React.KeyboardEventHandler;
             onItemTouchTap?: (e: TouchTapEvent, item: React.ReactElement<any>) => void;
@@ -1469,6 +1536,36 @@ declare namespace __MaterialUI {
         }
         export class MenuDivider extends React.Component<MenuDividerProps, {}>{
         }
+    }
+
+    namespace GridList {
+
+        interface GridListProps extends React.Props<GridList> {
+            cols?: number;
+            padding?: number;
+            cellHeight?: number;
+            style?: React.CSSProperties;
+        }
+
+        export class GridList extends React.Component<GridListProps, {}>{
+        }
+
+        interface GridTileProps extends React.Props<GridTile> {
+            title?: string;
+            subtitle?: __React.ReactNode;
+            titlePosition?: string; //"top"|"bottom"
+            titleBackground?: string;
+            actionIcon?: __React.ReactElement<any>;
+            actionPosition?: string; //"left"|"right"
+            cols?: number;
+            rows?: number;
+            rootClass?: string | __React.Component<any,any>;
+            style?: React.CSSProperties;
+        }
+
+        export class GridTile extends React.Component<GridTileProps, {}>{
+        }
+
     }
 }    // __MaterialUI
 
@@ -1485,6 +1582,11 @@ declare module 'material-ui/lib/app-canvas' {
 declare module 'material-ui/lib/avatar' {
     import Avatar = __MaterialUI.Avatar;
     export = Avatar;
+}
+
+declare module "material-ui/lib/badge" {
+    import Badge = __MaterialUI.Badge;
+    export = Badge;
 }
 
 declare module 'material-ui/lib/before-after-wrapper' {
@@ -1952,6 +2054,16 @@ declare module "material-ui/lib/menus/menu-divider" {
     export = MenuDivider;
 }
 
+declare module "material-ui/lib/grid-list/grid-list" {
+    import GridList = __MaterialUI.GridList.GridList;
+    export = GridList;
+}
+
+declare module "material-ui/lib/grid-list/grid-tile" {
+    import GridTile = __MaterialUI.GridList.GridTile;
+    export = GridTile;
+}
+
 declare module "material-ui/lib/styles/colors" {
     import Colors = __MaterialUI.Styles.Colors;
     export = Colors;
@@ -2246,4 +2358,926 @@ declare namespace __MaterialUI.Styles {
         lightWhite: string;
     }
     export var Colors: Colors;
+}
+
+declare module "material-ui/lib/svg-icons" {
+    export var ActionAccessibility: __MaterialUI.SvgIcon;
+    export var ActionAccessible: __MaterialUI.SvgIcon;
+    export var ActionAccountBalanceWallet: __MaterialUI.SvgIcon;
+    export var ActionAccountBalance: __MaterialUI.SvgIcon;
+    export var ActionAccountBox: __MaterialUI.SvgIcon;
+    export var ActionAccountCircle: __MaterialUI.SvgIcon;
+    export var ActionAddShoppingCart: __MaterialUI.SvgIcon;
+    export var ActionAlarmAdd: __MaterialUI.SvgIcon;
+    export var ActionAlarmOff: __MaterialUI.SvgIcon;
+    export var ActionAlarmOn: __MaterialUI.SvgIcon;
+    export var ActionAlarm: __MaterialUI.SvgIcon;
+    export var ActionAllOut: __MaterialUI.SvgIcon;
+    export var ActionAndroid: __MaterialUI.SvgIcon;
+    export var ActionAnnouncement: __MaterialUI.SvgIcon;
+    export var ActionAspectRatio: __MaterialUI.SvgIcon;
+    export var ActionAssessment: __MaterialUI.SvgIcon;
+    export var ActionAssignmentInd: __MaterialUI.SvgIcon;
+    export var ActionAssignmentLate: __MaterialUI.SvgIcon;
+    export var ActionAssignmentReturn: __MaterialUI.SvgIcon;
+    export var ActionAssignmentReturned: __MaterialUI.SvgIcon;
+    export var ActionAssignmentTurnedIn: __MaterialUI.SvgIcon;
+    export var ActionAssignment: __MaterialUI.SvgIcon;
+    export var ActionAutorenew: __MaterialUI.SvgIcon;
+    export var ActionBackup: __MaterialUI.SvgIcon;
+    export var ActionBook: __MaterialUI.SvgIcon;
+    export var ActionBookmarkBorder: __MaterialUI.SvgIcon;
+    export var ActionBookmark: __MaterialUI.SvgIcon;
+    export var ActionBugReport: __MaterialUI.SvgIcon;
+    export var ActionBuild: __MaterialUI.SvgIcon;
+    export var ActionCached: __MaterialUI.SvgIcon;
+    export var ActionCameraEnhance: __MaterialUI.SvgIcon;
+    export var ActionCardGiftcard: __MaterialUI.SvgIcon;
+    export var ActionCardMembership: __MaterialUI.SvgIcon;
+    export var ActionCardTravel: __MaterialUI.SvgIcon;
+    export var ActionChangeHistory: __MaterialUI.SvgIcon;
+    export var ActionCheckCircle: __MaterialUI.SvgIcon;
+    export var ActionChromeReaderMode: __MaterialUI.SvgIcon;
+    export var ActionClass: __MaterialUI.SvgIcon;
+    export var ActionCode: __MaterialUI.SvgIcon;
+    export var ActionCompareArrows: __MaterialUI.SvgIcon;
+    export var ActionCopyright: __MaterialUI.SvgIcon;
+    export var ActionCreditCard: __MaterialUI.SvgIcon;
+    export var ActionDashboard: __MaterialUI.SvgIcon;
+    export var ActionDateRange: __MaterialUI.SvgIcon;
+    export var ActionDelete: __MaterialUI.SvgIcon;
+    export var ActionDescription: __MaterialUI.SvgIcon;
+    export var ActionDns: __MaterialUI.SvgIcon;
+    export var ActionDoneAll: __MaterialUI.SvgIcon;
+    export var ActionDone: __MaterialUI.SvgIcon;
+    export var ActionDonutLarge: __MaterialUI.SvgIcon;
+    export var ActionDonutSmall: __MaterialUI.SvgIcon;
+    export var ActionEject: __MaterialUI.SvgIcon;
+    export var ActionEventSeat: __MaterialUI.SvgIcon;
+    export var ActionEvent: __MaterialUI.SvgIcon;
+    export var ActionExitToApp: __MaterialUI.SvgIcon;
+    export var ActionExplore: __MaterialUI.SvgIcon;
+    export var ActionExtension: __MaterialUI.SvgIcon;
+    export var ActionFace: __MaterialUI.SvgIcon;
+    export var ActionFavoriteBorder: __MaterialUI.SvgIcon;
+    export var ActionFavorite: __MaterialUI.SvgIcon;
+    export var ActionFeedback: __MaterialUI.SvgIcon;
+    export var ActionFindInPage: __MaterialUI.SvgIcon;
+    export var ActionFindReplace: __MaterialUI.SvgIcon;
+    export var ActionFingerprint: __MaterialUI.SvgIcon;
+    export var ActionFlightLand: __MaterialUI.SvgIcon;
+    export var ActionFlightTakeoff: __MaterialUI.SvgIcon;
+    export var ActionFlipToBack: __MaterialUI.SvgIcon;
+    export var ActionFlipToFront: __MaterialUI.SvgIcon;
+    export var ActionGavel: __MaterialUI.SvgIcon;
+    export var ActionGetApp: __MaterialUI.SvgIcon;
+    export var ActionGif: __MaterialUI.SvgIcon;
+    export var ActionGrade: __MaterialUI.SvgIcon;
+    export var ActionGroupWork: __MaterialUI.SvgIcon;
+    export var ActionHelpOutline: __MaterialUI.SvgIcon;
+    export var ActionHelp: __MaterialUI.SvgIcon;
+    export var ActionHighlightOff: __MaterialUI.SvgIcon;
+    export var ActionHistory: __MaterialUI.SvgIcon;
+    export var ActionHome: __MaterialUI.SvgIcon;
+    export var ActionHourglassEmpty: __MaterialUI.SvgIcon;
+    export var ActionHourglassFull: __MaterialUI.SvgIcon;
+    export var ActionHttp: __MaterialUI.SvgIcon;
+    export var ActionHttps: __MaterialUI.SvgIcon;
+    export var ActionImportantDevices: __MaterialUI.SvgIcon;
+    export var ActionInfoOutline: __MaterialUI.SvgIcon;
+    export var ActionInfo: __MaterialUI.SvgIcon;
+    export var ActionInput: __MaterialUI.SvgIcon;
+    export var ActionInvertColors: __MaterialUI.SvgIcon;
+    export var ActionLabelOutline: __MaterialUI.SvgIcon;
+    export var ActionLabel: __MaterialUI.SvgIcon;
+    export var ActionLanguage: __MaterialUI.SvgIcon;
+    export var ActionLaunch: __MaterialUI.SvgIcon;
+    export var ActionLightbulbOutline: __MaterialUI.SvgIcon;
+    export var ActionLineStyle: __MaterialUI.SvgIcon;
+    export var ActionLineWeight: __MaterialUI.SvgIcon;
+    export var ActionList: __MaterialUI.SvgIcon;
+    export var ActionLockOpen: __MaterialUI.SvgIcon;
+    export var ActionLockOutline: __MaterialUI.SvgIcon;
+    export var ActionLock: __MaterialUI.SvgIcon;
+    export var ActionLoyalty: __MaterialUI.SvgIcon;
+    export var ActionMarkunreadMailbox: __MaterialUI.SvgIcon;
+    export var ActionMotorcycle: __MaterialUI.SvgIcon;
+    export var ActionNoteAdd: __MaterialUI.SvgIcon;
+    export var ActionOfflinePin: __MaterialUI.SvgIcon;
+    export var ActionOpacity: __MaterialUI.SvgIcon;
+    export var ActionOpenInBrowser: __MaterialUI.SvgIcon;
+    export var ActionOpenInNew: __MaterialUI.SvgIcon;
+    export var ActionOpenWith: __MaterialUI.SvgIcon;
+    export var ActionPageview: __MaterialUI.SvgIcon;
+    export var ActionPanTool: __MaterialUI.SvgIcon;
+    export var ActionPayment: __MaterialUI.SvgIcon;
+    export var ActionPermCameraMic: __MaterialUI.SvgIcon;
+    export var ActionPermContactCalendar: __MaterialUI.SvgIcon;
+    export var ActionPermDataSetting: __MaterialUI.SvgIcon;
+    export var ActionPermDeviceInformation: __MaterialUI.SvgIcon;
+    export var ActionPermIdentity: __MaterialUI.SvgIcon;
+    export var ActionPermMedia: __MaterialUI.SvgIcon;
+    export var ActionPermPhoneMsg: __MaterialUI.SvgIcon;
+    export var ActionPermScanWifi: __MaterialUI.SvgIcon;
+    export var ActionPets: __MaterialUI.SvgIcon;
+    export var ActionPictureInPictureAlt: __MaterialUI.SvgIcon;
+    export var ActionPictureInPicture: __MaterialUI.SvgIcon;
+    export var ActionPlayForWork: __MaterialUI.SvgIcon;
+    export var ActionPolymer: __MaterialUI.SvgIcon;
+    export var ActionPowerSettingsNew: __MaterialUI.SvgIcon;
+    export var ActionPregnantWoman: __MaterialUI.SvgIcon;
+    export var ActionPrint: __MaterialUI.SvgIcon;
+    export var ActionQueryBuilder: __MaterialUI.SvgIcon;
+    export var ActionQuestionAnswer: __MaterialUI.SvgIcon;
+    export var ActionReceipt: __MaterialUI.SvgIcon;
+    export var ActionRecordVoiceOver: __MaterialUI.SvgIcon;
+    export var ActionRedeem: __MaterialUI.SvgIcon;
+    export var ActionReorder: __MaterialUI.SvgIcon;
+    export var ActionReportProblem: __MaterialUI.SvgIcon;
+    export var ActionRestore: __MaterialUI.SvgIcon;
+    export var ActionRoom: __MaterialUI.SvgIcon;
+    export var ActionRoundedCorner: __MaterialUI.SvgIcon;
+    export var ActionRowing: __MaterialUI.SvgIcon;
+    export var ActionSchedule: __MaterialUI.SvgIcon;
+    export var ActionSearch: __MaterialUI.SvgIcon;
+    export var ActionSettingsApplications: __MaterialUI.SvgIcon;
+    export var ActionSettingsBackupRestore: __MaterialUI.SvgIcon;
+    export var ActionSettingsBluetooth: __MaterialUI.SvgIcon;
+    export var ActionSettingsBrightness: __MaterialUI.SvgIcon;
+    export var ActionSettingsCell: __MaterialUI.SvgIcon;
+    export var ActionSettingsEthernet: __MaterialUI.SvgIcon;
+    export var ActionSettingsInputAntenna: __MaterialUI.SvgIcon;
+    export var ActionSettingsInputComponent: __MaterialUI.SvgIcon;
+    export var ActionSettingsInputComposite: __MaterialUI.SvgIcon;
+    export var ActionSettingsInputHdmi: __MaterialUI.SvgIcon;
+    export var ActionSettingsInputSvideo: __MaterialUI.SvgIcon;
+    export var ActionSettingsOverscan: __MaterialUI.SvgIcon;
+    export var ActionSettingsPhone: __MaterialUI.SvgIcon;
+    export var ActionSettingsPower: __MaterialUI.SvgIcon;
+    export var ActionSettingsRemote: __MaterialUI.SvgIcon;
+    export var ActionSettingsVoice: __MaterialUI.SvgIcon;
+    export var ActionSettings: __MaterialUI.SvgIcon;
+    export var ActionShopTwo: __MaterialUI.SvgIcon;
+    export var ActionShop: __MaterialUI.SvgIcon;
+    export var ActionShoppingBasket: __MaterialUI.SvgIcon;
+    export var ActionShoppingCart: __MaterialUI.SvgIcon;
+    export var ActionSpeakerNotes: __MaterialUI.SvgIcon;
+    export var ActionSpellcheck: __MaterialUI.SvgIcon;
+    export var ActionStars: __MaterialUI.SvgIcon;
+    export var ActionStore: __MaterialUI.SvgIcon;
+    export var ActionSubject: __MaterialUI.SvgIcon;
+    export var ActionSupervisorAccount: __MaterialUI.SvgIcon;
+    export var ActionSwapHoriz: __MaterialUI.SvgIcon;
+    export var ActionSwapVert: __MaterialUI.SvgIcon;
+    export var ActionSwapVerticalCircle: __MaterialUI.SvgIcon;
+    export var ActionSystemUpdateAlt: __MaterialUI.SvgIcon;
+    export var ActionTabUnselected: __MaterialUI.SvgIcon;
+    export var ActionTab: __MaterialUI.SvgIcon;
+    export var ActionTheaters: __MaterialUI.SvgIcon;
+    export var ActionThreeDRotation: __MaterialUI.SvgIcon;
+    export var ActionThumbDown: __MaterialUI.SvgIcon;
+    export var ActionThumbUp: __MaterialUI.SvgIcon;
+    export var ActionThumbsUpDown: __MaterialUI.SvgIcon;
+    export var ActionTimeline: __MaterialUI.SvgIcon;
+    export var ActionToc: __MaterialUI.SvgIcon;
+    export var ActionToday: __MaterialUI.SvgIcon;
+    export var ActionToll: __MaterialUI.SvgIcon;
+    export var ActionTouchApp: __MaterialUI.SvgIcon;
+    export var ActionTrackChanges: __MaterialUI.SvgIcon;
+    export var ActionTranslate: __MaterialUI.SvgIcon;
+    export var ActionTrendingDown: __MaterialUI.SvgIcon;
+    export var ActionTrendingFlat: __MaterialUI.SvgIcon;
+    export var ActionTrendingUp: __MaterialUI.SvgIcon;
+    export var ActionTurnedInNot: __MaterialUI.SvgIcon;
+    export var ActionTurnedIn: __MaterialUI.SvgIcon;
+    export var ActionUpdate: __MaterialUI.SvgIcon;
+    export var ActionVerifiedUser: __MaterialUI.SvgIcon;
+    export var ActionViewAgenda: __MaterialUI.SvgIcon;
+    export var ActionViewArray: __MaterialUI.SvgIcon;
+    export var ActionViewCarousel: __MaterialUI.SvgIcon;
+    export var ActionViewColumn: __MaterialUI.SvgIcon;
+    export var ActionViewDay: __MaterialUI.SvgIcon;
+    export var ActionViewHeadline: __MaterialUI.SvgIcon;
+    export var ActionViewList: __MaterialUI.SvgIcon;
+    export var ActionViewModule: __MaterialUI.SvgIcon;
+    export var ActionViewQuilt: __MaterialUI.SvgIcon;
+    export var ActionViewStream: __MaterialUI.SvgIcon;
+    export var ActionViewWeek: __MaterialUI.SvgIcon;
+    export var ActionVisibilityOff: __MaterialUI.SvgIcon;
+    export var ActionVisibility: __MaterialUI.SvgIcon;
+    export var ActionWatchLater: __MaterialUI.SvgIcon;
+    export var ActionWork: __MaterialUI.SvgIcon;
+    export var ActionYoutubeSearchedFor: __MaterialUI.SvgIcon;
+    export var ActionZoomIn: __MaterialUI.SvgIcon;
+    export var ActionZoomOut: __MaterialUI.SvgIcon;
+    export var AlertAddAlert: __MaterialUI.SvgIcon;
+    export var AlertErrorOutline: __MaterialUI.SvgIcon;
+    export var AlertError: __MaterialUI.SvgIcon;
+    export var AlertWarning: __MaterialUI.SvgIcon;
+    export var AvAddToQueue: __MaterialUI.SvgIcon;
+    export var AvAirplay: __MaterialUI.SvgIcon;
+    export var AvAlbum: __MaterialUI.SvgIcon;
+    export var AvArtTrack: __MaterialUI.SvgIcon;
+    export var AvAvTimer: __MaterialUI.SvgIcon;
+    export var AvClosedCaption: __MaterialUI.SvgIcon;
+    export var AvEqualizer: __MaterialUI.SvgIcon;
+    export var AvExplicit: __MaterialUI.SvgIcon;
+    export var AvFastForward: __MaterialUI.SvgIcon;
+    export var AvFastRewind: __MaterialUI.SvgIcon;
+    export var AvFiberDvr: __MaterialUI.SvgIcon;
+    export var AvFiberManualRecord: __MaterialUI.SvgIcon;
+    export var AvFiberNew: __MaterialUI.SvgIcon;
+    export var AvFiberPin: __MaterialUI.SvgIcon;
+    export var AvFiberSmartRecord: __MaterialUI.SvgIcon;
+    export var AvForward10: __MaterialUI.SvgIcon;
+    export var AvForward30: __MaterialUI.SvgIcon;
+    export var AvForward5: __MaterialUI.SvgIcon;
+    export var AvGames: __MaterialUI.SvgIcon;
+    export var AvHd: __MaterialUI.SvgIcon;
+    export var AvHearing: __MaterialUI.SvgIcon;
+    export var AvHighQuality: __MaterialUI.SvgIcon;
+    export var AvLibraryAdd: __MaterialUI.SvgIcon;
+    export var AvLibraryBooks: __MaterialUI.SvgIcon;
+    export var AvLibraryMusic: __MaterialUI.SvgIcon;
+    export var AvLoop: __MaterialUI.SvgIcon;
+    export var AvMicNone: __MaterialUI.SvgIcon;
+    export var AvMicOff: __MaterialUI.SvgIcon;
+    export var AvMic: __MaterialUI.SvgIcon;
+    export var AvMovie: __MaterialUI.SvgIcon;
+    export var AvMusicVideo: __MaterialUI.SvgIcon;
+    export var AvNewReleases: __MaterialUI.SvgIcon;
+    export var AvNotInterested: __MaterialUI.SvgIcon;
+    export var AvPauseCircleFilled: __MaterialUI.SvgIcon;
+    export var AvPauseCircleOutline: __MaterialUI.SvgIcon;
+    export var AvPause: __MaterialUI.SvgIcon;
+    export var AvPlayArrow: __MaterialUI.SvgIcon;
+    export var AvPlayCircleFilled: __MaterialUI.SvgIcon;
+    export var AvPlayCircleOutline: __MaterialUI.SvgIcon;
+    export var AvPlaylistAddCheck: __MaterialUI.SvgIcon;
+    export var AvPlaylistAdd: __MaterialUI.SvgIcon;
+    export var AvPlaylistPlay: __MaterialUI.SvgIcon;
+    export var AvQueueMusic: __MaterialUI.SvgIcon;
+    export var AvQueuePlayNext: __MaterialUI.SvgIcon;
+    export var AvQueue: __MaterialUI.SvgIcon;
+    export var AvRadio: __MaterialUI.SvgIcon;
+    export var AvRecentActors: __MaterialUI.SvgIcon;
+    export var AvRemoveFromQueue: __MaterialUI.SvgIcon;
+    export var AvRepeatOne: __MaterialUI.SvgIcon;
+    export var AvRepeat: __MaterialUI.SvgIcon;
+    export var AvReplay10: __MaterialUI.SvgIcon;
+    export var AvReplay30: __MaterialUI.SvgIcon;
+    export var AvReplay5: __MaterialUI.SvgIcon;
+    export var AvReplay: __MaterialUI.SvgIcon;
+    export var AvShuffle: __MaterialUI.SvgIcon;
+    export var AvSkipNext: __MaterialUI.SvgIcon;
+    export var AvSkipPrevious: __MaterialUI.SvgIcon;
+    export var AvSlowMotionVideo: __MaterialUI.SvgIcon;
+    export var AvSnooze: __MaterialUI.SvgIcon;
+    export var AvSortByAlpha: __MaterialUI.SvgIcon;
+    export var AvStop: __MaterialUI.SvgIcon;
+    export var AvSubscriptions: __MaterialUI.SvgIcon;
+    export var AvSubtitles: __MaterialUI.SvgIcon;
+    export var AvSurroundSound: __MaterialUI.SvgIcon;
+    export var AvVideoLibrary: __MaterialUI.SvgIcon;
+    export var AvVideocamOff: __MaterialUI.SvgIcon;
+    export var AvVideocam: __MaterialUI.SvgIcon;
+    export var AvVolumeDown: __MaterialUI.SvgIcon;
+    export var AvVolumeMute: __MaterialUI.SvgIcon;
+    export var AvVolumeOff: __MaterialUI.SvgIcon;
+    export var AvVolumeUp: __MaterialUI.SvgIcon;
+    export var AvWebAsset: __MaterialUI.SvgIcon;
+    export var AvWeb: __MaterialUI.SvgIcon;
+    export var CommunicationBusiness: __MaterialUI.SvgIcon;
+    export var CommunicationCallEnd: __MaterialUI.SvgIcon;
+    export var CommunicationCallMade: __MaterialUI.SvgIcon;
+    export var CommunicationCallMerge: __MaterialUI.SvgIcon;
+    export var CommunicationCallMissedOutgoing: __MaterialUI.SvgIcon;
+    export var CommunicationCallMissed: __MaterialUI.SvgIcon;
+    export var CommunicationCallReceived: __MaterialUI.SvgIcon;
+    export var CommunicationCallSplit: __MaterialUI.SvgIcon;
+    export var CommunicationCall: __MaterialUI.SvgIcon;
+    export var CommunicationChatBubbleOutline: __MaterialUI.SvgIcon;
+    export var CommunicationChatBubble: __MaterialUI.SvgIcon;
+    export var CommunicationChat: __MaterialUI.SvgIcon;
+    export var CommunicationClearAll: __MaterialUI.SvgIcon;
+    export var CommunicationComment: __MaterialUI.SvgIcon;
+    export var CommunicationContactMail: __MaterialUI.SvgIcon;
+    export var CommunicationContactPhone: __MaterialUI.SvgIcon;
+    export var CommunicationContacts: __MaterialUI.SvgIcon;
+    export var CommunicationDialerSip: __MaterialUI.SvgIcon;
+    export var CommunicationDialpad: __MaterialUI.SvgIcon;
+    export var CommunicationEmail: __MaterialUI.SvgIcon;
+    export var CommunicationForum: __MaterialUI.SvgIcon;
+    export var CommunicationImportContacts: __MaterialUI.SvgIcon;
+    export var CommunicationImportExport: __MaterialUI.SvgIcon;
+    export var CommunicationInvertColorsOff: __MaterialUI.SvgIcon;
+    export var CommunicationLiveHelp: __MaterialUI.SvgIcon;
+    export var CommunicationLocationOff: __MaterialUI.SvgIcon;
+    export var CommunicationLocationOn: __MaterialUI.SvgIcon;
+    export var CommunicationMailOutline: __MaterialUI.SvgIcon;
+    export var CommunicationMessage: __MaterialUI.SvgIcon;
+    export var CommunicationNoSim: __MaterialUI.SvgIcon;
+    export var CommunicationPhone: __MaterialUI.SvgIcon;
+    export var CommunicationPhonelinkErase: __MaterialUI.SvgIcon;
+    export var CommunicationPhonelinkLock: __MaterialUI.SvgIcon;
+    export var CommunicationPhonelinkRing: __MaterialUI.SvgIcon;
+    export var CommunicationPhonelinkSetup: __MaterialUI.SvgIcon;
+    export var CommunicationPortableWifiOff: __MaterialUI.SvgIcon;
+    export var CommunicationPresentToAll: __MaterialUI.SvgIcon;
+    export var CommunicationRingVolume: __MaterialUI.SvgIcon;
+    export var CommunicationScreenShare: __MaterialUI.SvgIcon;
+    export var CommunicationSpeakerPhone: __MaterialUI.SvgIcon;
+    export var CommunicationStayCurrentLandscape: __MaterialUI.SvgIcon;
+    export var CommunicationStayCurrentPortrait: __MaterialUI.SvgIcon;
+    export var CommunicationStayPrimaryLandscape: __MaterialUI.SvgIcon;
+    export var CommunicationStayPrimaryPortrait: __MaterialUI.SvgIcon;
+    export var CommunicationStopScreenShare: __MaterialUI.SvgIcon;
+    export var CommunicationSwapCalls: __MaterialUI.SvgIcon;
+    export var CommunicationTextsms: __MaterialUI.SvgIcon;
+    export var CommunicationVoicemail: __MaterialUI.SvgIcon;
+    export var CommunicationVpnKey: __MaterialUI.SvgIcon;
+    export var ContentAddBox: __MaterialUI.SvgIcon;
+    export var ContentAddCircleOutline: __MaterialUI.SvgIcon;
+    export var ContentAddCircle: __MaterialUI.SvgIcon;
+    export var ContentAdd: __MaterialUI.SvgIcon;
+    export var ContentArchive: __MaterialUI.SvgIcon;
+    export var ContentBackspace: __MaterialUI.SvgIcon;
+    export var ContentBlock: __MaterialUI.SvgIcon;
+    export var ContentClear: __MaterialUI.SvgIcon;
+    export var ContentContentCopy: __MaterialUI.SvgIcon;
+    export var ContentContentCut: __MaterialUI.SvgIcon;
+    export var ContentContentPaste: __MaterialUI.SvgIcon;
+    export var ContentCreate: __MaterialUI.SvgIcon;
+    export var ContentDrafts: __MaterialUI.SvgIcon;
+    export var ContentFilterList: __MaterialUI.SvgIcon;
+    export var ContentFlag: __MaterialUI.SvgIcon;
+    export var ContentFontDownload: __MaterialUI.SvgIcon;
+    export var ContentForward: __MaterialUI.SvgIcon;
+    export var ContentGesture: __MaterialUI.SvgIcon;
+    export var ContentInbox: __MaterialUI.SvgIcon;
+    export var ContentLink: __MaterialUI.SvgIcon;
+    export var ContentMail: __MaterialUI.SvgIcon;
+    export var ContentMarkunread: __MaterialUI.SvgIcon;
+    export var ContentMoveToInbox: __MaterialUI.SvgIcon;
+    export var ContentNextWeek: __MaterialUI.SvgIcon;
+    export var ContentRedo: __MaterialUI.SvgIcon;
+    export var ContentRemoveCircleOutline: __MaterialUI.SvgIcon;
+    export var ContentRemoveCircle: __MaterialUI.SvgIcon;
+    export var ContentRemove: __MaterialUI.SvgIcon;
+    export var ContentReplyAll: __MaterialUI.SvgIcon;
+    export var ContentReply: __MaterialUI.SvgIcon;
+    export var ContentReport: __MaterialUI.SvgIcon;
+    export var ContentSave: __MaterialUI.SvgIcon;
+    export var ContentSelectAll: __MaterialUI.SvgIcon;
+    export var ContentSend: __MaterialUI.SvgIcon;
+    export var ContentSort: __MaterialUI.SvgIcon;
+    export var ContentTextFormat: __MaterialUI.SvgIcon;
+    export var ContentUnarchive: __MaterialUI.SvgIcon;
+    export var ContentUndo: __MaterialUI.SvgIcon;
+    export var ContentWeekend: __MaterialUI.SvgIcon;
+    export var DeviceAccessAlarm: __MaterialUI.SvgIcon;
+    export var DeviceAccessAlarms: __MaterialUI.SvgIcon;
+    export var DeviceAccessTime: __MaterialUI.SvgIcon;
+    export var DeviceAddAlarm: __MaterialUI.SvgIcon;
+    export var DeviceAirplanemodeActive: __MaterialUI.SvgIcon;
+    export var DeviceAirplanemodeInactive: __MaterialUI.SvgIcon;
+    export var DeviceBattery20: __MaterialUI.SvgIcon;
+    export var DeviceBattery30: __MaterialUI.SvgIcon;
+    export var DeviceBattery50: __MaterialUI.SvgIcon;
+    export var DeviceBattery60: __MaterialUI.SvgIcon;
+    export var DeviceBattery80: __MaterialUI.SvgIcon;
+    export var DeviceBattery90: __MaterialUI.SvgIcon;
+    export var DeviceBatteryAlert: __MaterialUI.SvgIcon;
+    export var DeviceBatteryCharging20: __MaterialUI.SvgIcon;
+    export var DeviceBatteryCharging30: __MaterialUI.SvgIcon;
+    export var DeviceBatteryCharging50: __MaterialUI.SvgIcon;
+    export var DeviceBatteryCharging60: __MaterialUI.SvgIcon;
+    export var DeviceBatteryCharging80: __MaterialUI.SvgIcon;
+    export var DeviceBatteryCharging90: __MaterialUI.SvgIcon;
+    export var DeviceBatteryChargingFull: __MaterialUI.SvgIcon;
+    export var DeviceBatteryFull: __MaterialUI.SvgIcon;
+    export var DeviceBatteryStd: __MaterialUI.SvgIcon;
+    export var DeviceBatteryUnknown: __MaterialUI.SvgIcon;
+    export var DeviceBluetoothConnected: __MaterialUI.SvgIcon;
+    export var DeviceBluetoothDisabled: __MaterialUI.SvgIcon;
+    export var DeviceBluetoothSearching: __MaterialUI.SvgIcon;
+    export var DeviceBluetooth: __MaterialUI.SvgIcon;
+    export var DeviceBrightnessAuto: __MaterialUI.SvgIcon;
+    export var DeviceBrightnessHigh: __MaterialUI.SvgIcon;
+    export var DeviceBrightnessLow: __MaterialUI.SvgIcon;
+    export var DeviceBrightnessMedium: __MaterialUI.SvgIcon;
+    export var DeviceDataUsage: __MaterialUI.SvgIcon;
+    export var DeviceDeveloperMode: __MaterialUI.SvgIcon;
+    export var DeviceDevices: __MaterialUI.SvgIcon;
+    export var DeviceDvr: __MaterialUI.SvgIcon;
+    export var DeviceGpsFixed: __MaterialUI.SvgIcon;
+    export var DeviceGpsNotFixed: __MaterialUI.SvgIcon;
+    export var DeviceGpsOff: __MaterialUI.SvgIcon;
+    export var DeviceGraphicEq: __MaterialUI.SvgIcon;
+    export var DeviceLocationDisabled: __MaterialUI.SvgIcon;
+    export var DeviceLocationSearching: __MaterialUI.SvgIcon;
+    export var DeviceNetworkCell: __MaterialUI.SvgIcon;
+    export var DeviceNetworkWifi: __MaterialUI.SvgIcon;
+    export var DeviceNfc: __MaterialUI.SvgIcon;
+    export var DeviceScreenLockLandscape: __MaterialUI.SvgIcon;
+    export var DeviceScreenLockPortrait: __MaterialUI.SvgIcon;
+    export var DeviceScreenLockRotation: __MaterialUI.SvgIcon;
+    export var DeviceScreenRotation: __MaterialUI.SvgIcon;
+    export var DeviceSdStorage: __MaterialUI.SvgIcon;
+    export var DeviceSettingsSystemDaydream: __MaterialUI.SvgIcon;
+    export var DeviceSignalCellular0Bar: __MaterialUI.SvgIcon;
+    export var DeviceSignalCellular1Bar: __MaterialUI.SvgIcon;
+    export var DeviceSignalCellular2Bar: __MaterialUI.SvgIcon;
+    export var DeviceSignalCellular3Bar: __MaterialUI.SvgIcon;
+    export var DeviceSignalCellular4Bar: __MaterialUI.SvgIcon;
+    export var DeviceSignalCellularConnectedNoInternet0Bar: __MaterialUI.SvgIcon;
+    export var DeviceSignalCellularConnectedNoInternet1Bar: __MaterialUI.SvgIcon;
+    export var DeviceSignalCellularConnectedNoInternet2Bar: __MaterialUI.SvgIcon;
+    export var DeviceSignalCellularConnectedNoInternet3Bar: __MaterialUI.SvgIcon;
+    export var DeviceSignalCellularConnectedNoInternet4Bar: __MaterialUI.SvgIcon;
+    export var DeviceSignalCellularNoSim: __MaterialUI.SvgIcon;
+    export var DeviceSignalCellularNull: __MaterialUI.SvgIcon;
+    export var DeviceSignalCellularOff: __MaterialUI.SvgIcon;
+    export var DeviceSignalWifi0Bar: __MaterialUI.SvgIcon;
+    export var DeviceSignalWifi1BarLock: __MaterialUI.SvgIcon;
+    export var DeviceSignalWifi1Bar: __MaterialUI.SvgIcon;
+    export var DeviceSignalWifi2BarLock: __MaterialUI.SvgIcon;
+    export var DeviceSignalWifi2Bar: __MaterialUI.SvgIcon;
+    export var DeviceSignalWifi3BarLock: __MaterialUI.SvgIcon;
+    export var DeviceSignalWifi3Bar: __MaterialUI.SvgIcon;
+    export var DeviceSignalWifi4BarLock: __MaterialUI.SvgIcon;
+    export var DeviceSignalWifi4Bar: __MaterialUI.SvgIcon;
+    export var DeviceSignalWifiOff: __MaterialUI.SvgIcon;
+    export var DeviceStorage: __MaterialUI.SvgIcon;
+    export var DeviceUsb: __MaterialUI.SvgIcon;
+    export var DeviceWallpaper: __MaterialUI.SvgIcon;
+    export var DeviceWidgets: __MaterialUI.SvgIcon;
+    export var DeviceWifiLock: __MaterialUI.SvgIcon;
+    export var DeviceWifiTethering: __MaterialUI.SvgIcon;
+    export var EditorAttachFile: __MaterialUI.SvgIcon;
+    export var EditorAttachMoney: __MaterialUI.SvgIcon;
+    export var EditorBorderAll: __MaterialUI.SvgIcon;
+    export var EditorBorderBottom: __MaterialUI.SvgIcon;
+    export var EditorBorderClear: __MaterialUI.SvgIcon;
+    export var EditorBorderColor: __MaterialUI.SvgIcon;
+    export var EditorBorderHorizontal: __MaterialUI.SvgIcon;
+    export var EditorBorderInner: __MaterialUI.SvgIcon;
+    export var EditorBorderLeft: __MaterialUI.SvgIcon;
+    export var EditorBorderOuter: __MaterialUI.SvgIcon;
+    export var EditorBorderRight: __MaterialUI.SvgIcon;
+    export var EditorBorderStyle: __MaterialUI.SvgIcon;
+    export var EditorBorderTop: __MaterialUI.SvgIcon;
+    export var EditorBorderVertical: __MaterialUI.SvgIcon;
+    export var EditorDragHandle: __MaterialUI.SvgIcon;
+    export var EditorFormatAlignCenter: __MaterialUI.SvgIcon;
+    export var EditorFormatAlignJustify: __MaterialUI.SvgIcon;
+    export var EditorFormatAlignLeft: __MaterialUI.SvgIcon;
+    export var EditorFormatAlignRight: __MaterialUI.SvgIcon;
+    export var EditorFormatBold: __MaterialUI.SvgIcon;
+    export var EditorFormatClear: __MaterialUI.SvgIcon;
+    export var EditorFormatColorFill: __MaterialUI.SvgIcon;
+    export var EditorFormatColorReset: __MaterialUI.SvgIcon;
+    export var EditorFormatColorText: __MaterialUI.SvgIcon;
+    export var EditorFormatIndentDecrease: __MaterialUI.SvgIcon;
+    export var EditorFormatIndentIncrease: __MaterialUI.SvgIcon;
+    export var EditorFormatItalic: __MaterialUI.SvgIcon;
+    export var EditorFormatLineSpacing: __MaterialUI.SvgIcon;
+    export var EditorFormatListBulleted: __MaterialUI.SvgIcon;
+    export var EditorFormatListNumbered: __MaterialUI.SvgIcon;
+    export var EditorFormatPaint: __MaterialUI.SvgIcon;
+    export var EditorFormatQuote: __MaterialUI.SvgIcon;
+    export var EditorFormatShapes: __MaterialUI.SvgIcon;
+    export var EditorFormatSize: __MaterialUI.SvgIcon;
+    export var EditorFormatStrikethrough: __MaterialUI.SvgIcon;
+    export var EditorFormatTextdirectionLToR: __MaterialUI.SvgIcon;
+    export var EditorFormatTextdirectionRToL: __MaterialUI.SvgIcon;
+    export var EditorFormatUnderlined: __MaterialUI.SvgIcon;
+    export var EditorFunctions: __MaterialUI.SvgIcon;
+    export var EditorHighlight: __MaterialUI.SvgIcon;
+    export var EditorInsertChart: __MaterialUI.SvgIcon;
+    export var EditorInsertComment: __MaterialUI.SvgIcon;
+    export var EditorInsertDriveFile: __MaterialUI.SvgIcon;
+    export var EditorInsertEmoticon: __MaterialUI.SvgIcon;
+    export var EditorInsertInvitation: __MaterialUI.SvgIcon;
+    export var EditorInsertLink: __MaterialUI.SvgIcon;
+    export var EditorInsertPhoto: __MaterialUI.SvgIcon;
+    export var EditorLinearScale: __MaterialUI.SvgIcon;
+    export var EditorMergeType: __MaterialUI.SvgIcon;
+    export var EditorModeComment: __MaterialUI.SvgIcon;
+    export var EditorModeEdit: __MaterialUI.SvgIcon;
+    export var EditorMoneyOff: __MaterialUI.SvgIcon;
+    export var EditorPublish: __MaterialUI.SvgIcon;
+    export var EditorShortText: __MaterialUI.SvgIcon;
+    export var EditorSpaceBar: __MaterialUI.SvgIcon;
+    export var EditorStrikethroughS: __MaterialUI.SvgIcon;
+    export var EditorTextFields: __MaterialUI.SvgIcon;
+    export var EditorVerticalAlignBottom: __MaterialUI.SvgIcon;
+    export var EditorVerticalAlignCenter: __MaterialUI.SvgIcon;
+    export var EditorVerticalAlignTop: __MaterialUI.SvgIcon;
+    export var EditorWrapText: __MaterialUI.SvgIcon;
+    export var FileAttachment: __MaterialUI.SvgIcon;
+    export var FileCloudCircle: __MaterialUI.SvgIcon;
+    export var FileCloudDone: __MaterialUI.SvgIcon;
+    export var FileCloudDownload: __MaterialUI.SvgIcon;
+    export var FileCloudOff: __MaterialUI.SvgIcon;
+    export var FileCloudQueue: __MaterialUI.SvgIcon;
+    export var FileCloudUpload: __MaterialUI.SvgIcon;
+    export var FileCloud: __MaterialUI.SvgIcon;
+    export var FileCreateNewFolder: __MaterialUI.SvgIcon;
+    export var FileFileDownload: __MaterialUI.SvgIcon;
+    export var FileFileUpload: __MaterialUI.SvgIcon;
+    export var FileFolderOpen: __MaterialUI.SvgIcon;
+    export var FileFolderShared: __MaterialUI.SvgIcon;
+    export var FileFolder: __MaterialUI.SvgIcon;
+    export var HardwareCastConnected: __MaterialUI.SvgIcon;
+    export var HardwareCast: __MaterialUI.SvgIcon;
+    export var HardwareComputer: __MaterialUI.SvgIcon;
+    export var HardwareDesktopMac: __MaterialUI.SvgIcon;
+    export var HardwareDesktopWindows: __MaterialUI.SvgIcon;
+    export var HardwareDeveloperBoard: __MaterialUI.SvgIcon;
+    export var HardwareDeviceHub: __MaterialUI.SvgIcon;
+    export var HardwareDevicesOther: __MaterialUI.SvgIcon;
+    export var HardwareDock: __MaterialUI.SvgIcon;
+    export var HardwareGamepad: __MaterialUI.SvgIcon;
+    export var HardwareHeadsetMic: __MaterialUI.SvgIcon;
+    export var HardwareHeadset: __MaterialUI.SvgIcon;
+    export var HardwareKeyboardArrowDown: __MaterialUI.SvgIcon;
+    export var HardwareKeyboardArrowLeft: __MaterialUI.SvgIcon;
+    export var HardwareKeyboardArrowRight: __MaterialUI.SvgIcon;
+    export var HardwareKeyboardArrowUp: __MaterialUI.SvgIcon;
+    export var HardwareKeyboardBackspace: __MaterialUI.SvgIcon;
+    export var HardwareKeyboardCapslock: __MaterialUI.SvgIcon;
+    export var HardwareKeyboardHide: __MaterialUI.SvgIcon;
+    export var HardwareKeyboardReturn: __MaterialUI.SvgIcon;
+    export var HardwareKeyboardTab: __MaterialUI.SvgIcon;
+    export var HardwareKeyboardVoice: __MaterialUI.SvgIcon;
+    export var HardwareKeyboard: __MaterialUI.SvgIcon;
+    export var HardwareLaptopChromebook: __MaterialUI.SvgIcon;
+    export var HardwareLaptopMac: __MaterialUI.SvgIcon;
+    export var HardwareLaptopWindows: __MaterialUI.SvgIcon;
+    export var HardwareLaptop: __MaterialUI.SvgIcon;
+    export var HardwareMemory: __MaterialUI.SvgIcon;
+    export var HardwareMouse: __MaterialUI.SvgIcon;
+    export var HardwarePhoneAndroid: __MaterialUI.SvgIcon;
+    export var HardwarePhoneIphone: __MaterialUI.SvgIcon;
+    export var HardwarePhonelinkOff: __MaterialUI.SvgIcon;
+    export var HardwarePhonelink: __MaterialUI.SvgIcon;
+    export var HardwarePowerInput: __MaterialUI.SvgIcon;
+    export var HardwareRouter: __MaterialUI.SvgIcon;
+    export var HardwareScanner: __MaterialUI.SvgIcon;
+    export var HardwareSecurity: __MaterialUI.SvgIcon;
+    export var HardwareSimCard: __MaterialUI.SvgIcon;
+    export var HardwareSmartphone: __MaterialUI.SvgIcon;
+    export var HardwareSpeakerGroup: __MaterialUI.SvgIcon;
+    export var HardwareSpeaker: __MaterialUI.SvgIcon;
+    export var HardwareTabletAndroid: __MaterialUI.SvgIcon;
+    export var HardwareTabletMac: __MaterialUI.SvgIcon;
+    export var HardwareTablet: __MaterialUI.SvgIcon;
+    export var HardwareToys: __MaterialUI.SvgIcon;
+    export var HardwareTv: __MaterialUI.SvgIcon;
+    export var HardwareVideogameAsset: __MaterialUI.SvgIcon;
+    export var HardwareWatch: __MaterialUI.SvgIcon;
+    export var ImageAddAPhoto: __MaterialUI.SvgIcon;
+    export var ImageAddToPhotos: __MaterialUI.SvgIcon;
+    export var ImageAdjust: __MaterialUI.SvgIcon;
+    export var ImageAssistantPhoto: __MaterialUI.SvgIcon;
+    export var ImageAssistant: __MaterialUI.SvgIcon;
+    export var ImageAudiotrack: __MaterialUI.SvgIcon;
+    export var ImageBlurCircular: __MaterialUI.SvgIcon;
+    export var ImageBlurLinear: __MaterialUI.SvgIcon;
+    export var ImageBlurOff: __MaterialUI.SvgIcon;
+    export var ImageBlurOn: __MaterialUI.SvgIcon;
+    export var ImageBrightness1: __MaterialUI.SvgIcon;
+    export var ImageBrightness2: __MaterialUI.SvgIcon;
+    export var ImageBrightness3: __MaterialUI.SvgIcon;
+    export var ImageBrightness4: __MaterialUI.SvgIcon;
+    export var ImageBrightness5: __MaterialUI.SvgIcon;
+    export var ImageBrightness6: __MaterialUI.SvgIcon;
+    export var ImageBrightness7: __MaterialUI.SvgIcon;
+    export var ImageBrokenImage: __MaterialUI.SvgIcon;
+    export var ImageBrush: __MaterialUI.SvgIcon;
+    export var ImageCameraAlt: __MaterialUI.SvgIcon;
+    export var ImageCameraFront: __MaterialUI.SvgIcon;
+    export var ImageCameraRear: __MaterialUI.SvgIcon;
+    export var ImageCameraRoll: __MaterialUI.SvgIcon;
+    export var ImageCamera: __MaterialUI.SvgIcon;
+    export var ImageCenterFocusStrong: __MaterialUI.SvgIcon;
+    export var ImageCenterFocusWeak: __MaterialUI.SvgIcon;
+    export var ImageCollectionsBookmark: __MaterialUI.SvgIcon;
+    export var ImageCollections: __MaterialUI.SvgIcon;
+    export var ImageColorLens: __MaterialUI.SvgIcon;
+    export var ImageColorize: __MaterialUI.SvgIcon;
+    export var ImageCompare: __MaterialUI.SvgIcon;
+    export var ImageControlPointDuplicate: __MaterialUI.SvgIcon;
+    export var ImageControlPoint: __MaterialUI.SvgIcon;
+    export var ImageCrop169: __MaterialUI.SvgIcon;
+    export var ImageCrop32: __MaterialUI.SvgIcon;
+    export var ImageCrop54: __MaterialUI.SvgIcon;
+    export var ImageCrop75: __MaterialUI.SvgIcon;
+    export var ImageCropDin: __MaterialUI.SvgIcon;
+    export var ImageCropFree: __MaterialUI.SvgIcon;
+    export var ImageCropLandscape: __MaterialUI.SvgIcon;
+    export var ImageCropOriginal: __MaterialUI.SvgIcon;
+    export var ImageCropPortrait: __MaterialUI.SvgIcon;
+    export var ImageCropRotate: __MaterialUI.SvgIcon;
+    export var ImageCropSquare: __MaterialUI.SvgIcon;
+    export var ImageCrop: __MaterialUI.SvgIcon;
+    export var ImageDehaze: __MaterialUI.SvgIcon;
+    export var ImageDetails: __MaterialUI.SvgIcon;
+    export var ImageEdit: __MaterialUI.SvgIcon;
+    export var ImageExposureNeg1: __MaterialUI.SvgIcon;
+    export var ImageExposureNeg2: __MaterialUI.SvgIcon;
+    export var ImageExposurePlus1: __MaterialUI.SvgIcon;
+    export var ImageExposurePlus2: __MaterialUI.SvgIcon;
+    export var ImageExposureZero: __MaterialUI.SvgIcon;
+    export var ImageExposure: __MaterialUI.SvgIcon;
+    export var ImageFilter1: __MaterialUI.SvgIcon;
+    export var ImageFilter2: __MaterialUI.SvgIcon;
+    export var ImageFilter3: __MaterialUI.SvgIcon;
+    export var ImageFilter4: __MaterialUI.SvgIcon;
+    export var ImageFilter5: __MaterialUI.SvgIcon;
+    export var ImageFilter6: __MaterialUI.SvgIcon;
+    export var ImageFilter7: __MaterialUI.SvgIcon;
+    export var ImageFilter8: __MaterialUI.SvgIcon;
+    export var ImageFilter9Plus: __MaterialUI.SvgIcon;
+    export var ImageFilter9: __MaterialUI.SvgIcon;
+    export var ImageFilterBAndW: __MaterialUI.SvgIcon;
+    export var ImageFilterCenterFocus: __MaterialUI.SvgIcon;
+    export var ImageFilterDrama: __MaterialUI.SvgIcon;
+    export var ImageFilterFrames: __MaterialUI.SvgIcon;
+    export var ImageFilterHdr: __MaterialUI.SvgIcon;
+    export var ImageFilterNone: __MaterialUI.SvgIcon;
+    export var ImageFilterTiltShift: __MaterialUI.SvgIcon;
+    export var ImageFilterVintage: __MaterialUI.SvgIcon;
+    export var ImageFilter: __MaterialUI.SvgIcon;
+    export var ImageFlare: __MaterialUI.SvgIcon;
+    export var ImageFlashAuto: __MaterialUI.SvgIcon;
+    export var ImageFlashOff: __MaterialUI.SvgIcon;
+    export var ImageFlashOn: __MaterialUI.SvgIcon;
+    export var ImageFlip: __MaterialUI.SvgIcon;
+    export var ImageGradient: __MaterialUI.SvgIcon;
+    export var ImageGrain: __MaterialUI.SvgIcon;
+    export var ImageGridOff: __MaterialUI.SvgIcon;
+    export var ImageGridOn: __MaterialUI.SvgIcon;
+    export var ImageHdrOff: __MaterialUI.SvgIcon;
+    export var ImageHdrOn: __MaterialUI.SvgIcon;
+    export var ImageHdrStrong: __MaterialUI.SvgIcon;
+    export var ImageHdrWeak: __MaterialUI.SvgIcon;
+    export var ImageHealing: __MaterialUI.SvgIcon;
+    export var ImageImageAspectRatio: __MaterialUI.SvgIcon;
+    export var ImageImage: __MaterialUI.SvgIcon;
+    export var ImageIso: __MaterialUI.SvgIcon;
+    export var ImageLandscape: __MaterialUI.SvgIcon;
+    export var ImageLeakAdd: __MaterialUI.SvgIcon;
+    export var ImageLeakRemove: __MaterialUI.SvgIcon;
+    export var ImageLens: __MaterialUI.SvgIcon;
+    export var ImageLinkedCamera: __MaterialUI.SvgIcon;
+    export var ImageLooks3: __MaterialUI.SvgIcon;
+    export var ImageLooks4: __MaterialUI.SvgIcon;
+    export var ImageLooks5: __MaterialUI.SvgIcon;
+    export var ImageLooks6: __MaterialUI.SvgIcon;
+    export var ImageLooksOne: __MaterialUI.SvgIcon;
+    export var ImageLooksTwo: __MaterialUI.SvgIcon;
+    export var ImageLooks: __MaterialUI.SvgIcon;
+    export var ImageLoupe: __MaterialUI.SvgIcon;
+    export var ImageMonochromePhotos: __MaterialUI.SvgIcon;
+    export var ImageMovieCreation: __MaterialUI.SvgIcon;
+    export var ImageMovieFilter: __MaterialUI.SvgIcon;
+    export var ImageMusicNote: __MaterialUI.SvgIcon;
+    export var ImageNaturePeople: __MaterialUI.SvgIcon;
+    export var ImageNature: __MaterialUI.SvgIcon;
+    export var ImageNavigateBefore: __MaterialUI.SvgIcon;
+    export var ImageNavigateNext: __MaterialUI.SvgIcon;
+    export var ImagePalette: __MaterialUI.SvgIcon;
+    export var ImagePanoramaFishEye: __MaterialUI.SvgIcon;
+    export var ImagePanoramaHorizontal: __MaterialUI.SvgIcon;
+    export var ImagePanoramaVertical: __MaterialUI.SvgIcon;
+    export var ImagePanoramaWideAngle: __MaterialUI.SvgIcon;
+    export var ImagePanorama: __MaterialUI.SvgIcon;
+    export var ImagePhotoAlbum: __MaterialUI.SvgIcon;
+    export var ImagePhotoCamera: __MaterialUI.SvgIcon;
+    export var ImagePhotoFilter: __MaterialUI.SvgIcon;
+    export var ImagePhotoLibrary: __MaterialUI.SvgIcon;
+    export var ImagePhotoSizeSelectActual: __MaterialUI.SvgIcon;
+    export var ImagePhotoSizeSelectLarge: __MaterialUI.SvgIcon;
+    export var ImagePhotoSizeSelectSmall: __MaterialUI.SvgIcon;
+    export var ImagePhoto: __MaterialUI.SvgIcon;
+    export var ImagePictureAsPdf: __MaterialUI.SvgIcon;
+    export var ImagePortrait: __MaterialUI.SvgIcon;
+    export var ImageRemoveRedEye: __MaterialUI.SvgIcon;
+    export var ImageRotate90DegreesCcw: __MaterialUI.SvgIcon;
+    export var ImageRotateLeft: __MaterialUI.SvgIcon;
+    export var ImageRotateRight: __MaterialUI.SvgIcon;
+    export var ImageSlideshow: __MaterialUI.SvgIcon;
+    export var ImageStraighten: __MaterialUI.SvgIcon;
+    export var ImageStyle: __MaterialUI.SvgIcon;
+    export var ImageSwitchCamera: __MaterialUI.SvgIcon;
+    export var ImageSwitchVideo: __MaterialUI.SvgIcon;
+    export var ImageTagFaces: __MaterialUI.SvgIcon;
+    export var ImageTexture: __MaterialUI.SvgIcon;
+    export var ImageTimelapse: __MaterialUI.SvgIcon;
+    export var ImageTimer10: __MaterialUI.SvgIcon;
+    export var ImageTimer3: __MaterialUI.SvgIcon;
+    export var ImageTimerOff: __MaterialUI.SvgIcon;
+    export var ImageTimer: __MaterialUI.SvgIcon;
+    export var ImageTonality: __MaterialUI.SvgIcon;
+    export var ImageTransform: __MaterialUI.SvgIcon;
+    export var ImageTune: __MaterialUI.SvgIcon;
+    export var ImageViewComfy: __MaterialUI.SvgIcon;
+    export var ImageViewCompact: __MaterialUI.SvgIcon;
+    export var ImageVignette: __MaterialUI.SvgIcon;
+    export var ImageWbAuto: __MaterialUI.SvgIcon;
+    export var ImageWbCloudy: __MaterialUI.SvgIcon;
+    export var ImageWbIncandescent: __MaterialUI.SvgIcon;
+    export var ImageWbIridescent: __MaterialUI.SvgIcon;
+    export var ImageWbSunny: __MaterialUI.SvgIcon;
+    export var MapsAddLocation: __MaterialUI.SvgIcon;
+    export var MapsBeenhere: __MaterialUI.SvgIcon;
+    export var MapsDirectionsBike: __MaterialUI.SvgIcon;
+    export var MapsDirectionsBoat: __MaterialUI.SvgIcon;
+    export var MapsDirectionsBus: __MaterialUI.SvgIcon;
+    export var MapsDirectionsCar: __MaterialUI.SvgIcon;
+    export var MapsDirectionsRailway: __MaterialUI.SvgIcon;
+    export var MapsDirectionsRun: __MaterialUI.SvgIcon;
+    export var MapsDirectionsSubway: __MaterialUI.SvgIcon;
+    export var MapsDirectionsTransit: __MaterialUI.SvgIcon;
+    export var MapsDirectionsWalk: __MaterialUI.SvgIcon;
+    export var MapsDirections: __MaterialUI.SvgIcon;
+    export var MapsEditLocation: __MaterialUI.SvgIcon;
+    export var MapsFlight: __MaterialUI.SvgIcon;
+    export var MapsHotel: __MaterialUI.SvgIcon;
+    export var MapsLayersClear: __MaterialUI.SvgIcon;
+    export var MapsLayers: __MaterialUI.SvgIcon;
+    export var MapsLocalActivity: __MaterialUI.SvgIcon;
+    export var MapsLocalAirport: __MaterialUI.SvgIcon;
+    export var MapsLocalAtm: __MaterialUI.SvgIcon;
+    export var MapsLocalBar: __MaterialUI.SvgIcon;
+    export var MapsLocalCafe: __MaterialUI.SvgIcon;
+    export var MapsLocalCarWash: __MaterialUI.SvgIcon;
+    export var MapsLocalConvenienceStore: __MaterialUI.SvgIcon;
+    export var MapsLocalDining: __MaterialUI.SvgIcon;
+    export var MapsLocalDrink: __MaterialUI.SvgIcon;
+    export var MapsLocalFlorist: __MaterialUI.SvgIcon;
+    export var MapsLocalGasStation: __MaterialUI.SvgIcon;
+    export var MapsLocalGroceryStore: __MaterialUI.SvgIcon;
+    export var MapsLocalHospital: __MaterialUI.SvgIcon;
+    export var MapsLocalHotel: __MaterialUI.SvgIcon;
+    export var MapsLocalLaundryService: __MaterialUI.SvgIcon;
+    export var MapsLocalLibrary: __MaterialUI.SvgIcon;
+    export var MapsLocalMall: __MaterialUI.SvgIcon;
+    export var MapsLocalMovies: __MaterialUI.SvgIcon;
+    export var MapsLocalOffer: __MaterialUI.SvgIcon;
+    export var MapsLocalParking: __MaterialUI.SvgIcon;
+    export var MapsLocalPharmacy: __MaterialUI.SvgIcon;
+    export var MapsLocalPhone: __MaterialUI.SvgIcon;
+    export var MapsLocalPizza: __MaterialUI.SvgIcon;
+    export var MapsLocalPlay: __MaterialUI.SvgIcon;
+    export var MapsLocalPostOffice: __MaterialUI.SvgIcon;
+    export var MapsLocalPrintshop: __MaterialUI.SvgIcon;
+    export var MapsLocalSee: __MaterialUI.SvgIcon;
+    export var MapsLocalShipping: __MaterialUI.SvgIcon;
+    export var MapsLocalTaxi: __MaterialUI.SvgIcon;
+    export var MapsMap: __MaterialUI.SvgIcon;
+    export var MapsMyLocation: __MaterialUI.SvgIcon;
+    export var MapsNavigation: __MaterialUI.SvgIcon;
+    export var MapsNearMe: __MaterialUI.SvgIcon;
+    export var MapsPersonPinCircle: __MaterialUI.SvgIcon;
+    export var MapsPersonPin: __MaterialUI.SvgIcon;
+    export var MapsPinDrop: __MaterialUI.SvgIcon;
+    export var MapsPlace: __MaterialUI.SvgIcon;
+    export var MapsRateReview: __MaterialUI.SvgIcon;
+    export var MapsRestaurantMenu: __MaterialUI.SvgIcon;
+    export var MapsSatellite: __MaterialUI.SvgIcon;
+    export var MapsStoreMallDirectory: __MaterialUI.SvgIcon;
+    export var MapsTerrain: __MaterialUI.SvgIcon;
+    export var MapsTraffic: __MaterialUI.SvgIcon;
+    export var MapsZoomOutMap: __MaterialUI.SvgIcon;
+    export var NavigationApps: __MaterialUI.SvgIcon;
+    export var NavigationArrowBack: __MaterialUI.SvgIcon;
+    export var NavigationArrowDownward: __MaterialUI.SvgIcon;
+    export var NavigationArrowDropDownCircle: __MaterialUI.SvgIcon;
+    export var NavigationArrowDropDown: __MaterialUI.SvgIcon;
+    export var NavigationArrowDropUp: __MaterialUI.SvgIcon;
+    export var NavigationArrowForward: __MaterialUI.SvgIcon;
+    export var NavigationArrowUpward: __MaterialUI.SvgIcon;
+    export var NavigationCancel: __MaterialUI.SvgIcon;
+    export var NavigationCheck: __MaterialUI.SvgIcon;
+    export var NavigationChevronLeft: __MaterialUI.SvgIcon;
+    export var NavigationChevronRight: __MaterialUI.SvgIcon;
+    export var NavigationClose: __MaterialUI.SvgIcon;
+    export var NavigationExpandLess: __MaterialUI.SvgIcon;
+    export var NavigationExpandMore: __MaterialUI.SvgIcon;
+    export var NavigationFullscreenExit: __MaterialUI.SvgIcon;
+    export var NavigationFullscreen: __MaterialUI.SvgIcon;
+    export var NavigationMenu: __MaterialUI.SvgIcon;
+    export var NavigationMoreHoriz: __MaterialUI.SvgIcon;
+    export var NavigationMoreVert: __MaterialUI.SvgIcon;
+    export var NavigationRefresh: __MaterialUI.SvgIcon;
+    export var NavigationSubdirectoryArrowLeft: __MaterialUI.SvgIcon;
+    export var NavigationSubdirectoryArrowRight: __MaterialUI.SvgIcon;
+    export var NavigationUnfoldLess: __MaterialUI.SvgIcon;
+    export var NavigationUnfoldMore: __MaterialUI.SvgIcon;
+    export var NavigationArrowDropRight: __MaterialUI.SvgIcon;
+    export var NotificationAdb: __MaterialUI.SvgIcon;
+    export var NotificationAirlineSeatFlatAngled: __MaterialUI.SvgIcon;
+    export var NotificationAirlineSeatFlat: __MaterialUI.SvgIcon;
+    export var NotificationAirlineSeatIndividualSuite: __MaterialUI.SvgIcon;
+    export var NotificationAirlineSeatLegroomExtra: __MaterialUI.SvgIcon;
+    export var NotificationAirlineSeatLegroomNormal: __MaterialUI.SvgIcon;
+    export var NotificationAirlineSeatLegroomReduced: __MaterialUI.SvgIcon;
+    export var NotificationAirlineSeatReclineExtra: __MaterialUI.SvgIcon;
+    export var NotificationAirlineSeatReclineNormal: __MaterialUI.SvgIcon;
+    export var NotificationBluetoothAudio: __MaterialUI.SvgIcon;
+    export var NotificationConfirmationNumber: __MaterialUI.SvgIcon;
+    export var NotificationDiscFull: __MaterialUI.SvgIcon;
+    export var NotificationDoNotDisturbAlt: __MaterialUI.SvgIcon;
+    export var NotificationDoNotDisturb: __MaterialUI.SvgIcon;
+    export var NotificationDriveEta: __MaterialUI.SvgIcon;
+    export var NotificationEnhancedEncryption: __MaterialUI.SvgIcon;
+    export var NotificationEventAvailable: __MaterialUI.SvgIcon;
+    export var NotificationEventBusy: __MaterialUI.SvgIcon;
+    export var NotificationEventNote: __MaterialUI.SvgIcon;
+    export var NotificationFolderSpecial: __MaterialUI.SvgIcon;
+    export var NotificationLiveTv: __MaterialUI.SvgIcon;
+    export var NotificationMms: __MaterialUI.SvgIcon;
+    export var NotificationMore: __MaterialUI.SvgIcon;
+    export var NotificationNetworkCheck: __MaterialUI.SvgIcon;
+    export var NotificationNetworkLocked: __MaterialUI.SvgIcon;
+    export var NotificationNoEncryption: __MaterialUI.SvgIcon;
+    export var NotificationOndemandVideo: __MaterialUI.SvgIcon;
+    export var NotificationPersonalVideo: __MaterialUI.SvgIcon;
+    export var NotificationPhoneBluetoothSpeaker: __MaterialUI.SvgIcon;
+    export var NotificationPhoneForwarded: __MaterialUI.SvgIcon;
+    export var NotificationPhoneInTalk: __MaterialUI.SvgIcon;
+    export var NotificationPhoneLocked: __MaterialUI.SvgIcon;
+    export var NotificationPhoneMissed: __MaterialUI.SvgIcon;
+    export var NotificationPhonePaused: __MaterialUI.SvgIcon;
+    export var NotificationPower: __MaterialUI.SvgIcon;
+    export var NotificationRvHookup: __MaterialUI.SvgIcon;
+    export var NotificationSdCard: __MaterialUI.SvgIcon;
+    export var NotificationSimCardAlert: __MaterialUI.SvgIcon;
+    export var NotificationSmsFailed: __MaterialUI.SvgIcon;
+    export var NotificationSms: __MaterialUI.SvgIcon;
+    export var NotificationSyncDisabled: __MaterialUI.SvgIcon;
+    export var NotificationSyncProblem: __MaterialUI.SvgIcon;
+    export var NotificationSync: __MaterialUI.SvgIcon;
+    export var NotificationSystemUpdate: __MaterialUI.SvgIcon;
+    export var NotificationTapAndPlay: __MaterialUI.SvgIcon;
+    export var NotificationTimeToLeave: __MaterialUI.SvgIcon;
+    export var NotificationVibration: __MaterialUI.SvgIcon;
+    export var NotificationVoiceChat: __MaterialUI.SvgIcon;
+    export var NotificationVpnLock: __MaterialUI.SvgIcon;
+    export var NotificationWc: __MaterialUI.SvgIcon;
+    export var NotificationWifi: __MaterialUI.SvgIcon;
+    export var PlacesAcUnit: __MaterialUI.SvgIcon;
+    export var PlacesAirportShuttle: __MaterialUI.SvgIcon;
+    export var PlacesAllInclusive: __MaterialUI.SvgIcon;
+    export var PlacesBeachAccess: __MaterialUI.SvgIcon;
+    export var PlacesBusinessCenter: __MaterialUI.SvgIcon;
+    export var PlacesCasino: __MaterialUI.SvgIcon;
+    export var PlacesChildCare: __MaterialUI.SvgIcon;
+    export var PlacesChildFriendly: __MaterialUI.SvgIcon;
+    export var PlacesFitnessCenter: __MaterialUI.SvgIcon;
+    export var PlacesFreeBreakfast: __MaterialUI.SvgIcon;
+    export var PlacesGolfCourse: __MaterialUI.SvgIcon;
+    export var PlacesHotTub: __MaterialUI.SvgIcon;
+    export var PlacesKitchen: __MaterialUI.SvgIcon;
+    export var PlacesPool: __MaterialUI.SvgIcon;
+    export var PlacesRoomService: __MaterialUI.SvgIcon;
+    export var PlacesSmokeFree: __MaterialUI.SvgIcon;
+    export var PlacesSmokingRooms: __MaterialUI.SvgIcon;
+    export var PlacesSpa: __MaterialUI.SvgIcon;
+    export var SocialCake: __MaterialUI.SvgIcon;
+    export var SocialDomain: __MaterialUI.SvgIcon;
+    export var SocialGroupAdd: __MaterialUI.SvgIcon;
+    export var SocialGroup: __MaterialUI.SvgIcon;
+    export var SocialLocationCity: __MaterialUI.SvgIcon;
+    export var SocialMoodBad: __MaterialUI.SvgIcon;
+    export var SocialMood: __MaterialUI.SvgIcon;
+    export var SocialNotificationsActive: __MaterialUI.SvgIcon;
+    export var SocialNotificationsNone: __MaterialUI.SvgIcon;
+    export var SocialNotificationsOff: __MaterialUI.SvgIcon;
+    export var SocialNotificationsPaused: __MaterialUI.SvgIcon;
+    export var SocialNotifications: __MaterialUI.SvgIcon;
+    export var SocialPages: __MaterialUI.SvgIcon;
+    export var SocialPartyMode: __MaterialUI.SvgIcon;
+    export var SocialPeopleOutline: __MaterialUI.SvgIcon;
+    export var SocialPeople: __MaterialUI.SvgIcon;
+    export var SocialPersonAdd: __MaterialUI.SvgIcon;
+    export var SocialPersonOutline: __MaterialUI.SvgIcon;
+    export var SocialPerson: __MaterialUI.SvgIcon;
+    export var SocialPlusOne: __MaterialUI.SvgIcon;
+    export var SocialPoll: __MaterialUI.SvgIcon;
+    export var SocialPublic: __MaterialUI.SvgIcon;
+    export var SocialSchool: __MaterialUI.SvgIcon;
+    export var SocialShare: __MaterialUI.SvgIcon;
+    export var SocialWhatshot: __MaterialUI.SvgIcon;
+    export var ToggleCheckBoxOutlineBlank: __MaterialUI.SvgIcon;
+    export var ToggleCheckBox: __MaterialUI.SvgIcon;
+    export var ToggleIndeterminateCheckBox: __MaterialUI.SvgIcon;
+    export var ToggleRadioButtonChecked: __MaterialUI.SvgIcon;
+    export var ToggleRadioButtonUnchecked: __MaterialUI.SvgIcon;
+    export var ToggleStarBorder: __MaterialUI.SvgIcon;
+    export var ToggleStarHalf: __MaterialUI.SvgIcon;
+    export var ToggleStar: __MaterialUI.SvgIcon;
 }
