@@ -2,17 +2,25 @@
 
 
 import sagaMiddleware, {
+  storeIO,
+  runSaga,
+  Saga,
+  SagaCancellationException,
+  takeEvery,
+  takeLatest,
+  isCancelError
+} from 'redux-saga'
+
+import {
   take,
   put,
   race,
   call,
   fork,
+  select,
   cancel,
-  storeIO,
-  runSaga,
-  Saga,
-  SagaCancellationException
-} from 'redux-saga'
+} from 'redux-saga/effects'
+
 import {applyMiddleware, createStore} from 'redux';
 
 declare const delay: (ms: number) => Promise<any>;
@@ -137,7 +145,7 @@ namespace TaskCancellation {
         yield call(delay, 5000)
       }
     } catch(error) {
-      if(error instanceof SagaCancellationException)
+      if(error instanceof SagaCancellationException && isCancelError(error))
         yield put({type: 'REQUEST_FAILURE', message: 'Sync cancelled!'})
     }
   }
@@ -169,4 +177,37 @@ namespace DynamicallyStartingSagasWithRunSaga {
     serverSaga(store.getState),
     storeIO(store)
   )
+}
+
+namespace DynamicallyStartingSagasWithMiddleware {
+  function* startupSaga() {
+  }
+
+  function* dynamicSaga() {
+  }
+
+  sagaMiddleware(startupSaga).run(dynamicSaga)
+}
+
+namespace TestHelpers {
+  function* watchAndLog(getState) {
+    yield* takeEvery('*', function* logger(action) {
+      console.log('action', action)
+    })
+  }
+
+  function* fetchUser(action) {
+  }
+
+  function* watchLastFetchUser() {
+    yield* takeLatest('USER_REQUESTED', fetchUser)
+  }
+}
+
+namespace AccessCurrentState {
+  export const getCart = state => state.cart;
+
+  function* checkout() {
+    const cart = yield select(getCart)
+  }
 }
