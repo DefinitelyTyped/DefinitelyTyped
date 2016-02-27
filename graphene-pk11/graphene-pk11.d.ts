@@ -22,7 +22,7 @@ declare module "graphene-pk11" {
          * @param {string} libFile path to PKCS11 library
          */
         constructor(libFile: string);
-        protected callFunction(funcName: string, args: any): number;
+        protected callFunction(funcName: string, args: any[]): number;
         /**
          * C_Initialize initializes the Cryptoki library.
          * @param pInitArgs   if this is not NULL_PTR, it gets
@@ -2270,8 +2270,8 @@ declare module "graphene-pk11" {
          * @param callback optional callback function wich is called for each founded object
          * - if callback function returns false, it breaks find function.
          */
-        find(callback?: (obj: SessionObject) => any): SessionObjectCollection;
-        find(template: ITemplate, callback?: (obj: SessionObject) => any): SessionObjectCollection;
+        find(callback?: (obj: SessionObject) => void): SessionObjectCollection;
+        find(template: ITemplate, callback?: (obj: SessionObject) => void): SessionObjectCollection;
         /**
          * Returns object from session by handle
          * @param  {number} handle handle of object
@@ -2284,7 +2284,7 @@ declare module "graphene-pk11" {
          * @param template template for the new key or set of domain parameters
          */
         generateKey(mechanism: MechanismType, template?: ITemplate): SecretKey;
-        generateKey(mechanism: MechanismType, template: ITemplate, callback: (err, key: SecretKey) => void): void;
+        generateKey(mechanism: MechanismType, template: ITemplate, callback: (err: Error, key: SecretKey) => void): void;
         generateKeyPair(mechanism: MechanismType, publicTemplate: ITemplate, privateTemplate: ITemplate): IKeyPair;
         createSign(alg: MechanismType, key: Key): Sign;
         createVerify(alg: MechanismType, key: Key): Verify;
@@ -2525,8 +2525,8 @@ declare module "graphene-pk11" {
         lib: Pkcs11;
         constructor(session: Session, alg: MechanismType, lib: Pkcs11);
         protected init(alg: MechanismType): void;
-        update(text: string): any;
-        update(data: Buffer): any;
+        update(text: string): void;
+        update(data: Buffer): void;
         final(): Buffer;
     }
 
@@ -2535,8 +2535,8 @@ declare module "graphene-pk11" {
         lib: Pkcs11;
         constructor(session: Session, alg: MechanismType, key: Key, lib: Pkcs11);
         protected init(alg: MechanismType, key: Key): void;
-        update(text: string): any;
-        update(data: Buffer): any;
+        update(text: string): void;
+        update(data: Buffer): void;
         final(): Buffer;
     }
 
@@ -2545,8 +2545,8 @@ declare module "graphene-pk11" {
         lib: Pkcs11;
         constructor(session: Session, alg: MechanismType, key: Key, lib: Pkcs11);
         protected init(alg: MechanismType, key: Key): void;
-        update(text: string): any;
-        update(data: Buffer): any;
+        update(text: string): void;
+        update(data: Buffer): void;
         final(signature: Buffer): boolean;
     }
 
