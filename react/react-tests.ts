@@ -541,6 +541,11 @@ renderer.render(React.createElement(Timer));
 var output: React.ReactElement<React.Props<Timer>> =
     renderer.getRenderOutput();
 
+var foundComponent: ModernComponent = TestUtils.findRenderedComponentWithType(
+    inst, ModernComponent);
+var foundComponents: ModernComponent[] = TestUtils.scryRenderedComponentsWithType(
+    inst, ModernComponent);
+
 //
 // TransitionGroup addon
 // --------------------------------------------------------------------------
