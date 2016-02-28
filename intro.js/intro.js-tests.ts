@@ -63,7 +63,7 @@ intro.start()
         alert('Hints added');
     })
     .onhintclick(function (hintElement, item, stepId) {
-        element.getAttribute('class');
+        hintElement.getAttribute('class');
     })
     .onhintclose(function (stepId) {
         alert('Hint close for Step ID ' + stepId);
