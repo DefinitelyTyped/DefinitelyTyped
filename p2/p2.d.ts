@@ -4,6 +4,10 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "p2" {
+    export = p2;
+}
+
+declare module p2 {
 
     export class AABB {
 
