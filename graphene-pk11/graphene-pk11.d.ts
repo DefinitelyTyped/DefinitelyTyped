@@ -2550,5 +2550,170 @@ declare module "graphene-pk11" {
         final(signature: Buffer): boolean;
     }
 
+    /**
+     * 
+     * EC
+     * 
+     */
+
+    /**
+     * EcKdf is used to indicate the Key Derivation Function (KDF)
+     * applied to derive keying data from a shared secret.
+     * The key derivation function will be used by the EC key agreement schemes.
+     */
+    enum EcKdf {
+        NULL,
+        SHA1,
+        SHA224,
+        SHA256,
+        SHA384,
+        SHA512,
+    }
+
+    class EcdhParams implements IParams {
+        /**
+         * key derivation function used on the shared secret value
+         */
+        kdf: EcKdf;
+        /**
+         * some data shared between the two parties
+         */
+        sharedData: Buffer;
+        /**
+         * other party's EC public key value
+         */
+        publicData: Buffer;
+        /**
+         * @param  {EcKdf} kdf key derivation function used on the shared secret value
+         * @param  {Buffer=null} sharedData some data shared between the two parties
+         * @param  {Buffer=null} publicData other party's EC public key value
+         */
+        constructor(kdf: EcKdf, sharedData?: Buffer, publicData?: Buffer);
+        toCKI(): Buffer;
+    }
+
+    export interface INamedCurve {
+        name: string;
+        oid: string;
+        value: Buffer;
+        size: number;
+    }
+
+    class NamedCurve {
+        static getByName(name: string): INamedCurve;
+        static getByOid(oid: string): INamedCurve;
+    }
+
+    /**
+     * 
+     * AES
+     * 
+     */
+
+    class AesCbcParams implements IParams {
+        /**
+         * initialization vector
+         * - must have a fixed size of 16 bytes
+         */
+        iv: Buffer;
+        /**
+         * the data
+         */
+        data: Buffer;
+        constructor(iv: Buffer, data: Buffer);
+        toCKI(): Buffer;
+    }
+
+    class AesCcmParams implements IParams {
+        /**
+         * length of the data where 0 <= dataLength < 2^8L
+         */
+        dataLength: number;
+        /**
+         * the nonce
+         */
+        nonce: Buffer;
+        /**
+         * the additional authentication data
+         * - This data is authenticated but not encrypted
+         */
+        aad: Buffer;
+        /**
+         * length of authentication tag (output following cipher text) in bits.
+         * - Can be any value between 0 and 128
+         */
+        macLength: number;
+        constructor(dataLength: number, nonce: Buffer, aad?: Buffer, macLength?: number);
+        toCKI(): Buffer;
+    }
+
+    class AesGcmParams implements IParams {
+        /**
+         * initialization vector
+         * - The length of the initialization vector can be any number between 1 and 256.
+         * 96-bit (12 byte) IV values can be processed more efficiently,
+         * so that length is recommended for situations in which efficiency is critical.
+         */
+        iv: Buffer;
+        /**
+         * pointer to additional authentication data.
+         * This data is authenticated but not encrypted.
+         */
+        aad: Buffer;
+        /**
+         * length of authentication tag (output following cipher text) in bits.
+         * Can be any value between 0 and 128. Default 128
+         */
+        tagBits: number;
+        constructor(iv: Buffer, aad?: Buffer, tagBits?: number);
+        toCKI(): Buffer;
+    }
+
+    /**
+     * 
+     * RSA
+     * 
+     */
+
+    enum RsaMgf {
+        MGF1_SHA1,
+        MGF1_SHA224,
+        MGF1_SHA256,
+        MGF1_SHA384,
+        MGF1_SHA512,
+    }
+
+    class RsaOaepParams implements IParams {
+        hashAlgorithm: MechanismEnum;
+        mgf: RsaMgf;
+        source: number;
+        sourceData: Buffer;
+        constructor(hashAlg?: MechanismEnum, mgf?: RsaMgf, sourceData?: Buffer);
+        toCKI(): Buffer;
+    }
+
+    class RsaPssParams implements IParams {
+        /**
+         * hash algorithm used in the PSS encoding;
+         * - if the signature mechanism does not include message hashing,
+         * then this value must be the mechanism used by the application to generate
+         * the message hash;
+         * - if the signature mechanism includes hashing,
+         * then this value must match the hash algorithm indicated
+         * by the signature mechanism
+         */
+        hashAlgorithm: MechanismEnum;
+        /**
+         * mask generation function to use on the encoded block
+         */
+        mgf: RsaMgf;
+        /**
+         * length, in bytes, of the salt value used in the PSS encoding;
+         * - typical values are the length of the message hash and zero
+         */
+        saltLength: number;
+        constructor(hashAlg?: MechanismEnum, mgf?: RsaMgf, saltLen?: number);
+        toCKI(): Buffer;
+    }
 
 }
