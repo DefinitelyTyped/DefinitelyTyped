@@ -29,9 +29,9 @@ declare module IntroJs {
         overlayOpacity?: number;
         positionPrecedence?: string[];
         disableInteraction?: boolean;
-        hintPosition: string;
-        hintButtonLabel: string;
-        steps: Step[];
+        hintPosition?: string;
+        hintButtonLabel?: string;
+        steps?: Step[];
     }
 
     interface IntroJs {
