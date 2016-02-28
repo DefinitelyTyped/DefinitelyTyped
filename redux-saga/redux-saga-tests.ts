@@ -16,6 +16,7 @@ import {
   put,
   race,
   call,
+  apply,
   fork,
   select,
   cancel,
@@ -55,13 +56,12 @@ namespace GettingStarted {
   }
 }
 
-
 namespace EffectCombinators {
   const fetchPostsWithTimeout:Saga = function* fetchPostsWithTimeout() {
     while( yield take('FETCH_POSTS') ) {
       // starts a race between 2 effects
       const {posts, timeout} = yield race({
-        posts   : call(fetchApi, '/posts'),
+        posts   : call([this, fetchApi], '/posts'),
         timeout : call(delay, 1000)
       })
 
@@ -140,7 +140,7 @@ namespace TaskCancellation {
     try {
       while(true) {
         yield put({type: 'REQUEST_START'})
-        const result = yield call(someApi)
+        const result = yield apply(this, someApi)
         yield put({type: 'REQUEST_SUCCESS', result})
         yield call(delay, 5000)
       }
