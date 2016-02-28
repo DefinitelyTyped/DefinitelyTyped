@@ -1418,7 +1418,7 @@ declare module chrome.declarativeContent {
 		/** Optional. Matches if the scheme of the URL is equal to any of the schemes specified in the array.  */
 		schemes?: string[];
 		/** Optional. Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.  */
-		port?: any[];
+		ports?: (number | number[])[];
 	}
 	
 	/** Matches the state of a web page by various criteria. */
@@ -3436,7 +3436,7 @@ declare module chrome.identity {
 	 * @since Chrome 33.
 	 * @param path Optional. The path appended to the end of the generated URL. 
 	 */
-	export function getRedirectURL(path?: string): void;
+	export function getRedirectURL(path?: string): string;
 
 	/**
 	 * Fired when signin state changes for an account on the user's profile. 
@@ -4981,6 +4981,213 @@ declare module chrome.runtime {
     interface RuntimeRestartRequiredEvent extends chrome.events.Event<(reason: string) => void> {}
 
     interface RuntimeUpdateAvailableEvent extends chrome.events.Event<(details: UpdateAvailableDetails) => void> {}
+	
+	interface ManifestIcons {
+		[size: number]: string;
+	}
+	
+	interface ManifestAction {
+		default_icon?: ManifestIcons;
+		default_title?: string;
+		default_popup?: string;
+	}
+	
+	interface SearchProvider {
+		name?: string;
+		keyword?: string;
+		favicon_url?: string;
+		search_url: string;
+		encoding?: string;
+		suggest_url?: string;
+		instant_url?: string;
+		image_url?: string;
+		search_url_post_params?: string;
+		suggest_url_post_params?: string;
+		instant_url_post_params?: string;
+		image_url_post_params?: string;
+		alternate_urls?: string[];
+		prepopulated_id?: number;
+		is_default?: boolean;
+	}
+	
+	interface Manifest {
+		// Required
+		manifest_version: number;
+		name: string;
+		version: string;
+
+		// Recommended
+		default_locale?: string;
+		description?: string;
+		icons?: ManifestIcons;
+
+		// Pick one (or none)
+		browser_action?: ManifestAction;
+		page_action?: ManifestAction;
+
+		// Optional
+		author?: any;
+		automation?: any;
+		background?: {
+			scripts?: string[];
+			page?: string;
+			persistent?: boolean;
+		};
+		background_page?: string;
+		chrome_settings_overrides?: {
+			homepage?: string;
+			search_provider?: SearchProvider;
+			startup_pages?: string[];
+		};
+		chrome_ui_overrides?: {
+			bookmarks_ui?: {
+				remove_bookmark_shortcut?: boolean;
+				remove_button?: boolean;
+			}
+		};
+		chrome_url_overrides?: {
+			bookmarks?: string;
+			history?: string;
+			newtab?: string;
+		};
+		commands?: {
+			[name: string]: {
+				suggested_key?: {
+                    default?: string;
+					windows?: string;
+					mac?: string;
+					chromeos?: string;
+					linux?: string;
+				};
+				description?: string;
+				global?: boolean
+			}
+		};
+		content_capabilities?: {
+			matches?: string[];
+			permissions?: string[];
+		};
+		content_scripts?: {
+			matches?: string[];
+			exclude_matches?: string[];
+			css?: string[];
+			js?: string[];
+			run_at?: string;
+			all_frames?: boolean;
+			include_globs?: string[];
+			exclude_globs?: string[];
+		}[];
+		content_security_policy?: string;
+		converted_from_user_script?: boolean;
+		copresence?: any;
+		current_locale?: string;
+		devtools_page?: string;
+		event_rules?: {
+			event?: string;
+			actions?: {
+				type: string;
+			}[];
+            conditions?: chrome.declarativeContent.PageStateMatcher[]
+		}[];
+		externally_connectable?: {
+            ids?: string[];
+			matches?: string[];
+            accepts_tls_channel_id?: boolean;
+		};
+		file_browser_handlers?: {
+			id?: string;
+			default_title?: string;
+			file_filters?: string[];
+		}[];
+		file_system_provider_capabilities?: {
+			configurable?: boolean;
+			watchable?: boolean;
+			multiple_mounts?: boolean;
+			source?: string;
+		};
+		homepage_url?: string;
+		import?: {
+			id: string;
+			minimum_version?: string
+		}[];
+		export?: {
+			whitelist?: string[]
+		};
+		incognito?: string;
+		input_components?: {
+			name?: string;
+			type?: string;
+			id?: string;
+			description?: string;
+			language?: string;
+			layouts?: any[];
+		}[];
+		key?: string;
+		minimum_chrome_version?: string;
+		nacl_modules?: {
+			path: string;
+			mime_type: string;
+		}[];
+		oauth2?: {
+			client_id: string;
+			scopes?: string[];
+		};
+		offline_enabled?: boolean;
+		omnibox?: {
+			keyword: string;
+		};
+		optional_permissions?: string[];
+		options_page?: string;
+		options_ui?: {
+			page?: string;
+			chrome_style?: boolean;
+			open_in_tab?: boolean;
+		};
+		permissions?: string[];
+		platforms?: {
+			nacl_arch?: string;
+			sub_package_path: string;
+		}[];
+		plugins?: {
+			path: string;
+		}[];
+		requirements?: {
+			'3D'?: {
+				features?: string[]
+			};
+			plugins?: {
+				npapi?: boolean;
+			}
+		};
+		sandbox?: {
+			pages: string[];
+			content_security_policy?: string;
+		};
+		short_name?: string;
+		signature?: any;
+		spellcheck?: {
+			dictionary_language?: string;
+			dictionary_locale?: string;
+			dictionary_format?: string;
+			dictionary_path?: string;
+		};
+		storage?: {
+			managed_schema: string
+		};
+		system_indicator?: any;
+		tts_engine?: {
+			voices: {
+				voice_name: string;
+				lang?: string;
+				gender?: string;
+				event_types?: string[];
+			}[]
+		};
+		update_url?: string;
+		version_name?: string;
+		web_accessible_resources?: string[];
+		[key: string]: any;
+	}
 
     /**
      * Attempts to connect to connect listeners within an extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes, inter-app/extension communication, and web messaging. Note that this does not connect to any listeners in a content script. Extensions may connect to content scripts embedded in tabs via tabs.connect. 
@@ -5006,7 +5213,7 @@ declare module chrome.runtime {
      * Returns details about the app or extension from the manifest. The object returned is a serialization of the full manifest file. 
      * @returns The manifest details.
      */
-    export function getManifest(): Object;
+    export function getManifest(): Manifest;
     /**
      * Returns a DirectoryEntry for the package directory. 
      * @since Chrome 29.
