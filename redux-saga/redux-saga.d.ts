@@ -55,6 +55,12 @@ declare module 'redux-saga/effects' {
 
   export type Effect = {};
 
+  type EffectFunction<T1, T2, T3> = (arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]) => Promise<any> | Iterable<any>;
+
+  interface EffectFunctionContext<T1, T2, T3> {
+    0: any;
+    1: EffectFunction<T1, T2, T3>;
+  }
 
   export function take(pattern?: Pattern): Effect;
 
@@ -62,14 +68,17 @@ declare module 'redux-saga/effects' {
 
   export function race(effects: {[key:string]: any}): Effect;
 
-  export function call<T1, T2, T3>(fn: (arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]) => any,
-                                   arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]): Effect;
+  export function call<T1, T2, T3>(fn: EffectFunction<T1, T2, T3>, arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]): Effect;
 
+  export function call<T1, T2, T3>(fn: EffectFunctionContext<T1, T2, T3>, arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]): Effect;
+
+  export function apply<T1, T2, T3>(context: any, fn: EffectFunction<T1, T2, T3>, arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]): Effect;
 
   export function fork(effect: Effect): Effect;
-  export function fork<T1, T2, T3>(fn: (arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]) =>
-    Promise<any>|Iterable<any>,
-                                   arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]): Effect;
+
+  export function fork<T1, T2, T3>(fn: EffectFunction<T1, T2, T3>, arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]): Effect;
+
+  export function fork<T1, T2, T3>(fn: EffectFunctionContext<T1, T2, T3>, arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]): Effect;
 
   export function join(task: Task<any>): Effect;
 
