@@ -70,3 +70,11 @@ intro.start()
     })
     .addHints()
     .clone();
+
+introWithElement.start()
+    .exit()
+    .clone();
+    
+introWithQuerySelector.start()
+    .exit()
+    .clone();
