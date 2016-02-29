@@ -1,6 +1,6 @@
 ///<reference path="agenda.d.ts"/>
 
-import Agenda from "agenda";
+import * as Agenda from "agenda";
 
 
 var mongoConnectionString = "mongodb://127.0.0.1/agenda";
