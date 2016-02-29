@@ -42,6 +42,7 @@ declare class Headers {
 	getAll(name: string): Array<string>;
 	has(name: string): boolean;
 	set(name: string, value: string): void;
+	forEach(callback: (value: string, name: string) => void): void;
 }
 
 declare class Body {
