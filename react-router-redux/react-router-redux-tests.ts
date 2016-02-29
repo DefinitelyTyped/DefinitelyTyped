@@ -6,15 +6,25 @@
 
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { browserHistory } from 'react-router';
-import { syncHistory, routeReducer } from 'react-router-redux';
+import { syncHistoryWithStore, routerReducer, routerMiddleware, push, replace, go, goForward, goBack } from 'react-router-redux';
 
-const reducer = combineReducers({ routing: routeReducer });
+const reducer = combineReducers({ routing: routerReducer });
 
-// Sync dispatched route actions to the history
-const reduxRouterMiddleware = syncHistory(browserHistory);
-const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware)(createStore);
+// Apply the middleware to the store
+const middleware = routerMiddleware(browserHistory);
+const store = createStore(
+    reducer,
+    applyMiddleware(middleware)
+);
 
-const store = createStoreWithMiddleware(reducer);
+// Create an enhanced history that syncs navigation events with the store
+const history = syncHistoryWithStore(browserHistory, store);
+history.listen(location => console.log(location) );
+history.unsubscribe();
 
-// Required for replaying actions from devtools to
-reduxRouterMiddleware.listenForReplays(store);
+// Dispatch from anywhere like normal.
+store.dispatch(push('/foo'));
+store.dispatch(replace('/foo'));
+store.dispatch(go(1));
+store.dispatch(goForward());
+store.dispatch(goBack());
