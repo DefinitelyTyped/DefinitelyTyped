@@ -205,7 +205,7 @@ declare module "agenda" {
         priority?: string | number;
     }
 
-    export default class Agenda extends EventEmitter {
+    class Agenda extends EventEmitter {
 
         /**
          * Constructs a new Agenda object.
@@ -349,4 +349,10 @@ declare module "agenda" {
          */
         stop(cb: Callback): void;
     }
+
+    module Agenda {
+
+    }
+
+    export = Agenda;
 }
