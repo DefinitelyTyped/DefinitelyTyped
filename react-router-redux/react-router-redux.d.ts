@@ -34,7 +34,7 @@ declare namespace ReactRouterRedux {
         goForward: GoForwardAction;
         goBack: GoBackAction;
     }
-    interface HistoryMiddleware extends H.History {
+    interface ReactRouterReduxHistory extends H.History {
         unsubscribe(): void;
     }
     
