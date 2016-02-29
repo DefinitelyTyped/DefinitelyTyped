@@ -1,6 +1,8 @@
 /// <reference path="intro.js.d.ts" />
 
 var intro = introJs();
+var introWithElement = introJs(document.body);
+var introWithQuerySelector = introJs('body');
 
 intro.setOption('doneLabel', 'Next page');
 intro.setOption('overlayOpacity', 50);
@@ -48,9 +50,31 @@ intro.start()
     .onafterchange(function (element) {
         element.getAttribute('class');
     })
-    .onchange(function () {
-        alert('Changed');
+    .onchange(function (element) {
+        element.getAttribute('class');
     })
     .oncomplete(function () {
         alert('Done');
-    });
+    })
+    .onexit(function () {
+        alert('Exiting');
+    })
+    .onhintsadded(function () {
+        alert('Hints added');
+    })
+    .onhintclick(function (hintElement, item, stepId) {
+        hintElement.getAttribute('class');
+    })
+    .onhintclose(function (stepId) {
+        alert('Hint close for Step ID ' + stepId);
+    })
+    .addHints()
+    .clone();
+
+introWithElement.start()
+    .exit()
+    .clone();
+    
+introWithQuerySelector.start()
+    .exit()
+    .clone();
