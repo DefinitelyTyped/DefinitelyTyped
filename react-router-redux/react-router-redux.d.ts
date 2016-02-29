@@ -37,9 +37,18 @@ declare namespace ReactRouterRedux {
     interface HistoryMiddleware extends H.History {
         unsubscribe(): void;
     }
+    
+    interface DefaultSelectLocationState extends Function {
+        (state: any): any;
+    }
+
+    interface SyncHistoryWithStoreOptions {
+        selectLocationState?: DefaultSelectLocationState;
+        adjustUrlOnReplay?: boolean;
+    }
 
     function routerReducer(state?: any, options?: any): R.Reducer;
-    function syncHistoryWithStore(history: H.History, store: R.Store, options?: any): HistoryMiddleware;
+    function syncHistoryWithStore(history: H.History, store: R.Store, options?: SyncHistoryWithStoreOptions): HistoryMiddleware;
     function routerMiddleware(history: H.History): Function;
 }
 
