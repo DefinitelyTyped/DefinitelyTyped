@@ -275,7 +275,7 @@ declare module "agenda" {
          * @param name The name of the job.
          * @param data Data to associated with the job.
          */
-        create(name: string, data: any): Job;
+        create(name: string, data?: any): Job;
 
         /**
          * Find all Jobs matching `query` and pass same back in cb().
