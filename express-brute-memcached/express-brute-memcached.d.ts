@@ -102,7 +102,7 @@ declare module "express-brute-memcached" {
      * @summary A memcached store adapter.
      * @class
      */
-    export = class MemcachedStore {
+    export default class MemcachedStore {
         /**
          * @summary Constructor.
          * @constructor
