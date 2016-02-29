@@ -1,4 +1,4 @@
-// Type definitions for axios 0.8.1
+// Type definitions for axios 0.9.1
 // Project: https://github.com/mzabriskie/axios
 // Definitions by: Marcel Buesing <https://github.com/marcelbuesing>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -167,18 +167,34 @@ declare module Axios {
         response: ResponseInterceptor
     }
 
+    type InterceptorId = number;
+
     interface RequestInterceptor {
         /**
          * <U> - request body data type
          */
-        use<U>(fn: (config: AxiosXHRConfig<U>) => AxiosXHRConfig<U>): void;
+
+        use<U>(fulfilledFn: (config: AxiosXHRConfig<U>) => AxiosXHRConfig<U>): InterceptorId;
+
+        use<U>(fulfilledFn: (config: AxiosXHRConfig<U>) => AxiosXHRConfig<U>,
+               rejectedFn: (error: any) => any)
+            : InterceptorId;
+
+        eject(interceptorId: InterceptorId): void;
     }
 
     interface ResponseInterceptor {
         /**
          * <T> - expected response type
          */
-        use<T>(fn: (config: AxiosXHR<T>) => AxiosXHR<T>): void;
+
+        use<T>(fulfilledFn: (config: Axios.AxiosXHR<T>) => Axios.AxiosXHR<T>): InterceptorId;
+
+        use<T>(fulfilledFn: (config: Axios.AxiosXHR<T>) => Axios.AxiosXHR<T>,
+               rejectedFn: (error: any) => any)
+            : InterceptorId;
+
+        eject(interceptorId: InterceptorId): void;
     }
 
     /**
