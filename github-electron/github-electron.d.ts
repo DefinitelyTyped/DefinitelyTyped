@@ -1190,7 +1190,7 @@ declare module Electron {
 		 * Restarts the app and installs the update after it has been downloaded.
 		 * It should only be called after update-downloaded has been emitted.
 		 */
-		 quitAndInstall(): any;
+		 quitAndInstall(): void;
 	}
 
 	module Dialog {
