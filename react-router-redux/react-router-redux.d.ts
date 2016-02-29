@@ -49,7 +49,7 @@ declare namespace ReactRouterRedux {
 
     function routerReducer(state?: any, options?: any): R.Reducer;
     function syncHistoryWithStore(history: H.History, store: R.Store, options?: SyncHistoryWithStoreOptions): HistoryMiddleware;
-    function routerMiddleware(history: H.History): Function;
+    function routerMiddleware(history: H.History): R.Middleware;
 }
 
 declare module "react-router-redux" {
