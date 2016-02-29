@@ -21,12 +21,17 @@ declare namespace ReactRouterRedux {
     const routerActions: RouteActions;
 
     type LocationDescriptor = H.Location | H.Path;
-    type PushAction = (nextLocation: LocationDescriptor) => void;
-    type ReplaceAction = (nextLocation: LocationDescriptor) => void;
-    type GoAction = (n: number) => void;
-    type GoForwardAction = () => void;
-    type GoBackAction = () => void;
+    type PushAction = (nextLocation: LocationDescriptor) => RouterAction;
+    type ReplaceAction = (nextLocation: LocationDescriptor) => RouterAction;
+    type GoAction = (n: number) => RouterAction;
+    type GoForwardAction = () => RouterAction;
+    type GoBackAction = () => RouterAction;
 
+    type RouterAction = {
+        type: string
+        payload?: any
+    }
+    
     interface RouteActions {
         push: PushAction;
         replace: ReplaceAction;
