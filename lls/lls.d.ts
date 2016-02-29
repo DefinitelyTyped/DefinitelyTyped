@@ -120,7 +120,7 @@ declare module LargeLocalStorageInterfaces {
     }
 }
 
-declare module "large-local-storage" {
+declare module "lls" {
     var LargeLocalStorage: LargeLocalStorageInterfaces.LargeLocalStorageService;
     export = LargeLocalStorage;
 }
