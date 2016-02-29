@@ -4180,6 +4180,12 @@ declare module ol {
              * Get all features on the source
              */
             getFeatures(): ol.Feature[];
+
+            /**
+             * Get the features collection associated with this source. Will be null unless the source was configured 
+             * with useSpatialIndex set to false, or with an ol.Collection as features.
+             */
+            getFeaturesAtCoordinate(coordinate: ol.Coordinate): ol.Feature[];
         }
 
         class VectorEvent {
