@@ -1,6 +1,6 @@
-/// <reference path="large-local-storage.d.ts" />
+/// <reference path="lls.d.ts" />
 
-import LargeLocalStorage = require('large-local-storage');
+import LargeLocalStorage = require('lls');
 
 var storage = new LargeLocalStorage({size: 75*1024*1024});
 storage.initialized.then(function(grantedCapacity) {
