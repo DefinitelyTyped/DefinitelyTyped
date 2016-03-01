@@ -1744,9 +1744,17 @@ declare module angular {
         ): void;
     }
 
+    interface IDirectivePre {
+        pre: IDirectiveLinkFn;       
+    }
+
+    interface IDirectivePost {        
+        post: IDirectiveLinkFn;
+    }
+
     interface IDirectivePrePost {
-        pre?: IDirectiveLinkFn;
-        post?: IDirectiveLinkFn;
+        pre: IDirectiveLinkFn;
+        post: IDirectiveLinkFn;
     }
 
     interface IDirectiveCompileFn {
@@ -1762,7 +1770,7 @@ declare module angular {
         controller?: any;
         controllerAs?: string;
         bindToController?: boolean|Object;
-        link?: IDirectiveLinkFn | IDirectivePrePost;
+        link?: IDirectiveLinkFn | IDirectivePrePost | IDirectivePre | IDirectivePost;
         name?: string;
         priority?: number;
         replace?: boolean;
