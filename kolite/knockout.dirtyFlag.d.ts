@@ -15,6 +15,10 @@ interface DirtyFlag {
     reset(): void;
 }
 
+interface KnockoutStatic {
+    DirtyFlag: DirtyFlag;
+}
+
 interface KnockoutDirtyFlagStatic {
     DirtyFlag: DirtyFlag;
 }
