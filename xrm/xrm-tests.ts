@@ -67,7 +67,11 @@ if (Xrm.Page.data.process != null)
 
 /// Demonstrate v7.1 Quick Create form
 
-Xrm.Utility.openQuickCreate(( newRecord ) => { alert( `Newly created record Id: ${newRecord.id}` ); }, "account" );
+Xrm.Utility.openQuickCreate("account")
+    .then ( 
+        ( newRecord ) => { alert( `Newly created record Id: ${newRecord.savedEntityReference.id}` ); },
+        ( error ) =>     { alert( `Error creating record: ${error.message}` ); }
+    );
 
 /// Make all controls visible.
 
