@@ -11,7 +11,7 @@
 
 interface DirtyFlag {
     isDirty: KnockoutComputed<boolean>;
-    new (objectToTrack: any, isInitiallyDirty?: boolean, hashFunction?: () => any);
+    new (objectToTrack: any, isInitiallyDirty?: boolean, hashFunction?: () => any): any;
     reset(): void;
 }
 
