@@ -1,6 +1,6 @@
 // Type definitions for semver v4.3.4
 // Project: https://github.com/npm/node-semver
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds> and Julien Paroche <https://github.com/julienpa>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/semver
 
 declare var semver: SemVerModule.SemVer;
