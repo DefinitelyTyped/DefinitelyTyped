@@ -1,6 +1,6 @@
-// Type definitions for redux-saga 0.6.0
+// Type definitions for redux-saga 0.9.1
 // Project: https://github.com/yelouafi/redux-saga
-// Definitions by: Daniel Lytkin <https://github.com/aikoven>
+// Definitions by: Daniel Lytkin <https://github.com/aikoven>, Dimitri Rosenberg <https://github.com/rosendi>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../redux/redux.d.ts" />
@@ -9,41 +9,17 @@ declare module 'redux-saga' {
   export class SagaCancellationException {
   }
 
-  export type Effect = {};
-
   export type Saga = <T>(getState?: () => T) => Iterable<any>;
-
-  type Predicate = (action: any) => boolean;
-
-  export function take(pattern?: string|string[]|Predicate): Effect;
-
-  export function put(action: any): Effect;
-
-  export function race(effects: {[key:string]: any}): Effect;
-
-  export function call<T1, T2, T3>(fn: (arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]) => any,
-                                   arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]): Effect;
-
-
-  export interface Task<T> {
-    name:string;
-    isRunning():boolean;
-    result():T;
-    error():any;
-  }
-
-  export function fork(effect: Effect): Effect;
-  export function fork<T1, T2, T3>(fn: (arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]) =>
-    Promise<any>|Iterable<any>,
-                                   arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]): Effect;
-
-  export function join(task: Task<any>): Effect;
-
-  export function cancel(task: Task<any>): Effect;
-
+  export type Predicate = (action: any) => boolean;
+  export type Pattern = string | string[] | Predicate;
 
   import {Middleware} from 'redux';
-  export default function (...sagas: Saga[]): Middleware;
+
+  interface SagaMiddleware extends Middleware {
+    run(saga: Saga, ...args: any[]): void;
+  }
+
+  export default function (...sagas: Saga[]): SagaMiddleware;
 
   export {
     CANCEL,
@@ -57,8 +33,59 @@ declare module 'redux-saga' {
 
   export {runSaga, storeIO} from 'redux-saga/lib/runSaga'
 
+  export interface Task<T> {
+    name:string;
+    isRunning():boolean;
+    result():T;
+    error():any;
+    cancel(): void;
+  }
+
+  export function takeEvery(pattern: Pattern, saga: Saga, ...args: any[]): { [Symbol.iterator](): IterableIterator<any> };
+
+  export function takeLatest(pattern: Pattern, saga: Saga, ...args: any[]): { [Symbol.iterator](): IterableIterator<any> };
+
+  export function isCancelError(e: any): boolean;
 }
 
+declare module 'redux-saga/effects' {
+  import {Task} from 'redux-saga';
+  import {Predicate} from 'redux-saga';
+  import {Pattern} from 'redux-saga';
+
+  export type Effect = {};
+
+  type EffectFunction<T1, T2, T3> = (arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]) => Promise<any> | Iterable<any>;
+
+  interface EffectFunctionContext<T1, T2, T3> {
+    0: any;
+    1: EffectFunction<T1, T2, T3>;
+  }
+
+  export function take(pattern?: Pattern): Effect;
+
+  export function put(action: any): Effect;
+
+  export function race(effects: {[key:string]: any}): Effect;
+
+  export function call<T1, T2, T3>(fn: EffectFunction<T1, T2, T3>, arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]): Effect;
+
+  export function call<T1, T2, T3>(fn: EffectFunctionContext<T1, T2, T3>, arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]): Effect;
+
+  export function apply<T1, T2, T3>(context: any, fn: EffectFunction<T1, T2, T3>, arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]): Effect;
+
+  export function fork(effect: Effect): Effect;
+
+  export function fork<T1, T2, T3>(fn: EffectFunction<T1, T2, T3>, arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]): Effect;
+
+  export function fork<T1, T2, T3>(fn: EffectFunctionContext<T1, T2, T3>, arg1?: T1, arg2?: T2, arg3?: T3, ...rest: any[]): Effect;
+
+  export function join(task: Task<any>): Effect;
+
+  export function select(selector?: (state: any, ...args: any[]) => any, ...args: any[]): Effect;
+
+  export function cancel(task: Task<any>): Effect;
+}
 
 declare module 'redux-saga/lib/proc' {
   import {Task} from 'redux-saga';
