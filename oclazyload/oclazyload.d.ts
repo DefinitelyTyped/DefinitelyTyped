@@ -43,7 +43,7 @@ declare module oc {
          * Injects a module with the associated name into Angular. Useful for manual injection when loading through RequireJS, SystemJS, etc. Useful in 
          * conjunction with the toggleWatch() method.
          */
-        inject(moduleName: string|string[]): boolean;
+        inject(moduleName: string|string[]): ng.IPromise<any>;
 
         /**
          * Enables or disables watching Angular for new modules. Useful in conjunction with the inject() method. Make sure to not keep the watch enabled
