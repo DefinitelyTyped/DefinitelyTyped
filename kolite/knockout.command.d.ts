@@ -24,6 +24,13 @@ interface KoLiteCommandOptions {
     canExecute?: (isExecuting: boolean) => any;
 }
 
+// when not AMD, add to ko object
+interface KnockoutStatic {
+    command(options: KoLiteCommandOptions): KoliteCommand;
+    asyncCommand(options: KoLiteCommandOptions): KoliteAsyncCommand;
+} 
+
+// when using AMD, it is exported
 interface KnockoutCommandStatic {
     command(options: KoLiteCommandOptions): KoliteCommand;
     asyncCommand(options: KoLiteCommandOptions): KoliteAsyncCommand;
@@ -37,6 +44,7 @@ interface KnockoutBindingHandlers {
     command: KnockoutBindingHandler;
 }
 
+// Ambient declarations for typescript+requirejs
 declare var kocommand: KnockoutCommandStatic;
 declare module 'kocommand'{
     export = kocommand;
