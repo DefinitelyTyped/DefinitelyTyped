@@ -9,7 +9,7 @@
 declare module "agenda" {
 
     import {EventEmitter} from "events";
-    import {Db, Collection} from "mongodb";
+    import {Db, Collection, ObjectID} from "mongodb";
 
     interface Callback {
         (err?: Error): void;
@@ -96,9 +96,94 @@ declare module "agenda" {
     }
 
     /**
+     * The database record associated with a job.
+     */
+    interface JobAttributes {
+        /**
+         * The record identity.
+         */
+        _id: ObjectID;
+
+        /**
+         * The name of the job.
+         */
+        name: string;
+
+        /**
+         * The type of the job (single|normal).
+         */
+        type: string;
+
+        /**
+         * The job details.
+         */
+        data: { [name: string]: any };
+
+        /**
+         * The priority of the job.
+         */
+        priority: number;
+
+        /**
+         * How often the job is repeated using a human-readable or cron format.
+         */
+        repeatInterval: string | number;
+
+        /**
+         * The timezone that conforms to [moment-timezone](http://momentjs.com/timezone/).
+         */
+        repeatTimezone: string;
+
+        /**
+         * Date/time the job was las modified.
+         */
+        lastModifiedBy: string;
+
+        /**
+         * Date/time the job will run next.
+         */
+        nextRunAt: Date;
+
+        /**
+         * Date/time the job was locked.
+         */
+        lockedAt: Date;
+
+        /**
+         * Date/time the job was last run.
+         */
+        lastRunAt: Date;
+
+        /**
+         * Date/time the job last finished running.
+         */
+        lastFinishedAt: Date;
+
+        /**
+         * The reason the job failed.
+         */
+        failReason: string;
+
+        /**
+         * The number of times the job has failed.
+         */
+        failCount: number;
+
+        /**
+         * The date/time the job last failed.
+         */
+        failedAt: Date;
+    }
+
+    /**
      * A scheduled job.
      */
     interface Job {
+
+        /**
+         * The database record associated with the job.
+         */
+        attrs: JobAttributes;
 
         /**
          * Specifies an interval on which the job should repeat.
