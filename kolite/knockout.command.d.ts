@@ -30,7 +30,7 @@ interface KnockoutCommandStatic {
 }
 
 interface KnockoutUtils {
-    wrapAccessor(accessor): Function;
+    wrapAccessor(accessor: any): Function;
 }
 
 interface KnockoutBindingHandlers {
