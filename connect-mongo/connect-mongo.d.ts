@@ -99,7 +99,7 @@ declare module "connect-mongo" {
             new (options: NaitiveMongoOptions): MongoStore;
         }
 
-        export class MongoStore implements session.Store {
+        export class MongoStore extends session.Store {
             get: (sid: string, callback: (err: any, session: Express.Session) => void) => void;
             set: (sid: string, session: Express.Session, callback: (err: any) => void) => void;
             destroy: (sid: string, callback: (err: any) => void) => void;
