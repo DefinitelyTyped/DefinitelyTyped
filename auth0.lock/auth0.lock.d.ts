@@ -78,6 +78,6 @@ interface Auth0LockStatic {
 
 declare var Auth0Lock: Auth0LockStatic;
 
-declare module "Auth0Lock" {
+declare module "auth0-lock" {
     export = Auth0Lock;
 }
