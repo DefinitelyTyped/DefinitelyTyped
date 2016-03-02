@@ -13,8 +13,8 @@ interface ITruncateOptions{
     ellipsis?: string;
 }
 
-interface jQuery{
-    truncate(options: ITruncateOptions) : jQuery;
+interface JQuery{
+    truncate(options: ITruncateOptions) : JQuery;
 }
 
 interface JQueryStatic {
