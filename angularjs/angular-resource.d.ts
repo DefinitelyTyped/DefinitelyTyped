@@ -82,12 +82,12 @@ declare module angular.resource {
     // Also, static calls always return the IResource (or IResourceArray) retrieved
     // https://github.com/angular/angular.js/blob/v1.2.0/src/ngResource/resource.js#L538-L549
     interface IResourceClass<T> {
-        new(dataOrParams? : any) : T;
-        get(): T;
-        get(params: Object): T;
-        get(success: Function, error?: Function): T;
-        get(params: Object, success: Function, error?: Function): T;
-        get(params: Object, data: Object, success?: Function, error?: Function): T;
+        new(dataOrParams? : any) : IResource<T>;
+        get(): IResource<T>;
+        get(params: Object): IResource<T>;
+        get(success: Function, error?: Function): IResource<T>;
+        get(params: Object, success: Function, error?: Function): IResource<T>;
+        get(params: Object, data: Object, success?: Function, error?: Function): IResource<T>;
 
         query(): IResourceArray<T>;
         query(params: Object): IResourceArray<T>;
@@ -95,23 +95,23 @@ declare module angular.resource {
         query(params: Object, success: Function, error?: Function): IResourceArray<T>;
         query(params: Object, data: Object, success?: Function, error?: Function): IResourceArray<T>;
 
-        save(): T;
-        save(data: Object): T;
-        save(success: Function, error?: Function): T;
-        save(data: Object, success: Function, error?: Function): T;
-        save(params: Object, data: Object, success?: Function, error?: Function): T;
+        save(): IResource<T>;
+        save(data: Object): IResource<T>;
+        save(success: Function, error?: Function): IResource<T>;
+        save(data: Object, success: Function, error?: Function): IResource<T>;
+        save(params: Object, data: Object, success?: Function, error?: Function): IResource<T>;
 
-        remove(): T;
-        remove(params: Object): T;
-        remove(success: Function, error?: Function): T;
-        remove(params: Object, success: Function, error?: Function): T;
-        remove(params: Object, data: Object, success?: Function, error?: Function): T;
+        remove(): IResource<T>;
+        remove(params: Object): IResource<T>;
+        remove(success: Function, error?: Function): IResource<T>;
+        remove(params: Object, success: Function, error?: Function): IResource<T>;
+        remove(params: Object, data: Object, success?: Function, error?: Function): IResource<T>;
 
-        delete(): T;
-        delete(params: Object): T;
-        delete(success: Function, error?: Function): T;
-        delete(params: Object, success: Function, error?: Function): T;
-        delete(params: Object, data: Object, success?: Function, error?: Function): T;
+        delete(): IResource<T>;
+        delete(params: Object): IResource<T>;
+        delete(success: Function, error?: Function): IResource<T>;
+        delete(params: Object, success: Function, error?: Function): IResource<T>;
+        delete(params: Object, data: Object, success?: Function, error?: Function): IResource<T>;
     }
 
     // Instance calls always return the the promise of the request which retrieved the object
