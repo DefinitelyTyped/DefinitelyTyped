@@ -28,6 +28,42 @@ declare module angular.animate {
      */
     interface IAnimateService {
         /**
+        * Sets up an event listener to fire whenever the animation event (enter, leave, move, etc...) has fired
+        * on the given element or among any of its children. Once the listener is fired, the provided callback
+        * is fired with the following params:
+        *
+        * @event the animation event that will be captured (e.g. enter, leave, move, addClass, removeClass, etc...)
+        * @container the container element that will capture each of the animation events that are fired on itself as well as among its children
+        * @callback the callback function that will be fired when the listener is triggered
+        *  The arguments present in the callback function are:
+        *      element - The captured DOM element that the animation was fired on.
+        *      phase - The phase of the animation. The two possible phases are start (when the animation starts) and close (when it ends).
+        */
+        on(event: string, container: JQuery, callback: (element?: JQuery, phase?: string) => any): void;
+
+        /**
+        * Deregisters an event listener based on the event which has been associated with the provided element.
+        * This method can be used in three different ways depending on the arguments.
+        *
+        * @event the animation event (e.g. enter, leave, move, addClass, removeClass, etc...)
+        * @container the container element the event listener was placed on.
+        * @callback the callback function that was registered as the listener
+        */
+        off(event: string, container?: JQuery, callback?: (element?: JQuery, phase?: string) => any): void;
+
+        /**
+        * Associates the provided element with a host parent element to allow the element to be animated even if
+        * it exists outside of the DOM structure of the Angular application. By doing so, any animation triggered
+        * via $animate can be issued on the element despite being outside the realm of the application or within
+        * another application. Say for example if the application was bootstrapped on an element that is somewhere
+        * inside of the <body> tag, but we wanted to allow for an element to be situated as a direct child of document.body,
+        * then this can be achieved by pinning the element via $animate.pin(element). Keep in mind that calling
+        * $animate.pin(element, parentElement) will not actually insert into the DOM anywhere; it will just create the association.
+        * Note that this feature is only active when the ngAnimate module is used.
+        */
+        pin(element: JQuery, parentElement: JQuery): void;
+
+        /**
         * Globally enables / disables animations.
         *
         * @param element If provided then the element will be used to represent the enable/disable operation.
