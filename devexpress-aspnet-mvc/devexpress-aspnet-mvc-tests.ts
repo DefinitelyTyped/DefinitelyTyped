@@ -59,3 +59,17 @@ module Tests.Globals {
         let editorsInGroupValid: boolean =ASPxClientEdit.ValidateGroup("group1", false);
     }
 }
+
+module Tests.Controls {
+    declare var comboBox: ASPxClientComboBox;
+
+    function ASPxClientComboBoxTest() {
+        let selectedIndex: number = comboBox.GetSelectedIndex();
+        comboBox.SetSelectedIndex(1);
+
+        let selectedIndexChangedEventHandler: (s: ASPxClientControl, e: ASPxClientEventArgs) => void = (s: ASPxClientControl, e: ASPxClientEventArgs) => { };
+        comboBox.SelectedIndexChanged.AddHandler(selectedIndexChangedEventHandler);
+        comboBox.SelectedIndexChanged.RemoveHandler(selectedIndexChangedEventHandler);
+        comboBox.SelectedIndexChanged.ClearHandlers();
+    }
+}
