@@ -1,4 +1,4 @@
-// Type definitions for Globalize v?.? NuGet package v0.1.3
+// Type definitions for Globalize v0.1.3 (NuGet package version)
 // Project: https://github.com/jquery/globalize
 // Definitions by: Aram Taieb <https://github.com/afromogli/>
 // Definitions: https://github.com/afromogli/DefinitelyTyped
