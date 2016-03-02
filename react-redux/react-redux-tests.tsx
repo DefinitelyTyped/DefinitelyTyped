@@ -94,6 +94,7 @@ interface TodoProps {
 }
 interface DispatchProps {
     addTodo(userId: number, text: string): void;
+    action: Function;
 }
 declare var actionCreators: () => {
     action: Function;
@@ -270,11 +271,3 @@ let anElement: ReactElement<TestProp>;
 class NonComponent {}
 // this doesn't compile
 //connect()(NonComponent);
-
-// connect()(SomeClass) has the same constructor as SomeClass itself
-class SomeClass extends Component<any, any> {
-    constructor(public foo: string) { super() }
-    public bar: number;
-}
-let bar: number = new (connect()(SomeClass))("foo").bar;
-

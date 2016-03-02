@@ -7,40 +7,68 @@
 /// <reference path="../redux/redux.d.ts" />
 
 declare module "react-redux" {
-  import { Component } from 'react';
+  import { Component, ComponentClass, Props, ReactNode } from 'react';
   import { Store, Dispatch, ActionCreator } from 'redux';
 
-  export class ElementClass extends Component<any, any> { }
-  export interface ClassDecorator {
-    <T extends (typeof ElementClass)>(component: T): T
+  /** Generic decorator, that receives T = original props, U = own props */
+  interface ComponentDecorator<T extends Props<any>, U extends Props<any>> {
+    (component: ComponentClass<T>): ComponentClass<U>;
+  }
+
+  /**
+   * Decorator that infers the type from the original component
+   *
+   * Can't use the above decorator because it would default the type to {}
+   */
+  export interface InferableComponentDecorator {
+    <P>(component: ComponentClass<P>): ComponentClass<P>;
   }
 
   /**
    * Connects a React component to a Redux store.
+   *
+   * - Without arguments, just wraps the component, without changing the behavior / props
+   *
+   * - If 2 params are passed (3rd param, mergeProps, is skipped), default behavior
+   * is to override ownProps (as stated in the docs), so what remains is everything that's
+   * not a state or dispatch prop
+   *
+   * - When 3rd param is passed, we don't know if ownProps propagate and whether they
+   * should be valid component props, because it depends on mergeProps implementation.
+   * As such, it is the user's responsability to extend ownProps interface from state or
+   * dispatch props or both when applicable
+   *
    * @param mapStateToProps
    * @param mapDispatchToProps
    * @param mergeProps
    * @param options
-     */
-  export function connect(mapStateToProps?: MapStateToProps,
-                          mapDispatchToProps?: MapDispatchToPropsFunction|MapDispatchToPropsObject,
-                          mergeProps?: MergeProps,
-                          options?: Options): ClassDecorator;
+   */
+  export function connect(): InferableComponentDecorator;
+  export function connect<T extends Props<any>, U extends Props<any>, V extends Props<any>>(
+    mapStateToProps: MapStateToProps<T, V>,
+    mapDispatchToProps?: MapDispatchToPropsFunction<U, V>|MapDispatchToPropsObject
+  ): ComponentDecorator<T & U, V>;
+  export function connect<T extends Props<any>, U extends Props<any>, V extends Props<any>>(
+    mapStateToProps: MapStateToProps<T, V>,
+    mapDispatchToProps: MapDispatchToPropsFunction<U, V>|MapDispatchToPropsObject,
+    mergeProps: MergeProps<T, U, V>,
+    options?: Options
+  ): ComponentDecorator<T & U, V>;
 
-  interface MapStateToProps {
-    (state: any, ownProps?: any): any;
+  interface MapStateToProps<T, V> {
+    (state: any, ownProps?: V): T;
   }
 
-  interface MapDispatchToPropsFunction {
-    (dispatch: Dispatch, ownProps?: any): any;
+  interface MapDispatchToPropsFunction<U, V> {
+    (dispatch: Dispatch, ownProps?: V): U;
   }
 
   interface MapDispatchToPropsObject {
     [name: string]: ActionCreator;
   }
 
-  interface MergeProps {
-    (stateProps: any, dispatchProps: any, ownProps: any): any;
+  interface MergeProps<T, U, V> {
+    (stateProps: T, dispatchProps: U, ownProps: V): T & U;
   }
 
   interface Options {
@@ -54,16 +82,16 @@ declare module "react-redux" {
     pure: boolean;
   }
 
-  export interface Property {
+  export interface ProviderProps extends Props<Provider> {
     /**
      * The single Redux store in your application.
      */
     store?: Store;
-    children?: Function;
+    children?: ReactNode;
   }
 
   /**
    * Makes the Redux store available to the connect() calls in the component hierarchy below.
    */
-  export class Provider extends Component<Property, {}> { }
+  export class Provider extends Component<ProviderProps, {}> { }
 }
