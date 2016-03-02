@@ -4182,8 +4182,7 @@ declare module ol {
             getFeatures(): ol.Feature[];
 
             /**
-             * Get the features collection associated with this source. Will be null unless the source was configured 
-             * with useSpatialIndex set to false, or with an ol.Collection as features.
+             * Get all features whose geometry intersects the provided coordinate.
              */
             getFeaturesAtCoordinate(coordinate: ol.Coordinate): ol.Feature[];
         }
