@@ -1358,7 +1358,7 @@ declare module Xrm
          *
          * @sa  UiElement
          */
-        export interface Control extends UiElement
+        export interface Control extends UiElement, UiFocusable
         {
             /**
              * Clears the notification identified by uniqueId.
@@ -2570,7 +2570,7 @@ declare module Xrm
         export type QuickCreateSuccessCallbackDelegate = ( record: { savedEntityReference: Page.LookupValue; } ) => void;
 
         /**
-         * Called when the open QuickCreate form operation is successful.
+         * Called when the open QuickCreate form operation is unsuccessful.
          */
         export type QuickCreateErrorCallbackDelegate = ( error: { errorCode: number; message: string; } ) => void;
         
