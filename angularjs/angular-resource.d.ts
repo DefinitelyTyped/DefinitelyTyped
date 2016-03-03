@@ -63,6 +63,26 @@ declare module angular.resource {
         responseType?: string;
         interceptor?: any;
     }
+    
+    // Allow specify more resource methods
+    // No need to add duplicates for all four overloads.
+    interface IResourceMethod<T> {
+        (): T;
+        (params: Object): T;
+        (success: Function, error?: Function): T;
+        (params: Object, success: Function, error?: Function): T;
+        (params: Object, data: Object, success?: Function, error?: Function): T;
+    }
+    
+    // Allow specify resource moethod which returns the array
+    // No need to add duplicates for all four overloads.
+    interface IResourceArrayMethod<T> {
+        (): IResourceArray<T>;
+        (params: Object): IResourceArray<T>;
+        (success: Function, error?: Function): IResourceArray<T>;
+        (params: Object, success: Function, error?: Function): IResourceArray<T>;
+        (params: Object, data: Object, success?: Function, error?: Function): IResourceArray<T>;
+    }
 
     // Baseclass for everyresource with default actions.
     // If you define your new actions for the resource, you will need
@@ -83,35 +103,15 @@ declare module angular.resource {
     // https://github.com/angular/angular.js/blob/v1.2.0/src/ngResource/resource.js#L538-L549
     interface IResourceClass<T> {
         new(dataOrParams? : any) : T;
-        get(): T;
-        get(params: Object): T;
-        get(success: Function, error?: Function): T;
-        get(params: Object, success: Function, error?: Function): T;
-        get(params: Object, data: Object, success?: Function, error?: Function): T;
+        get: IResourceMethod<T>;
 
-        query(): IResourceArray<T>;
-        query(params: Object): IResourceArray<T>;
-        query(success: Function, error?: Function): IResourceArray<T>;
-        query(params: Object, success: Function, error?: Function): IResourceArray<T>;
-        query(params: Object, data: Object, success?: Function, error?: Function): IResourceArray<T>;
+        query: IResourceArrayMethod<T>;
 
-        save(): T;
-        save(data: Object): T;
-        save(success: Function, error?: Function): T;
-        save(data: Object, success: Function, error?: Function): T;
-        save(params: Object, data: Object, success?: Function, error?: Function): T;
+        save: IResourceMethod<T>;
 
-        remove(): T;
-        remove(params: Object): T;
-        remove(success: Function, error?: Function): T;
-        remove(params: Object, success: Function, error?: Function): T;
-        remove(params: Object, data: Object, success?: Function, error?: Function): T;
+        remove: IResourceMethod<T>;
 
-        delete(): T;
-        delete(params: Object): T;
-        delete(success: Function, error?: Function): T;
-        delete(params: Object, success: Function, error?: Function): T;
-        delete(params: Object, data: Object, success?: Function, error?: Function): T;
+        delete: IResourceMethod<T>;
     }
 
     // Instance calls always return the the promise of the request which retrieved the object
