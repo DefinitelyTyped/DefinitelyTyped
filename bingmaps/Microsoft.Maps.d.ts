@@ -67,8 +67,8 @@ declare module Microsoft.Maps {
 
     export class Events {
 
-        static addHandler(target: any, eventName: string, handler: () => void): any;
-        static addThrottledHandler(target: any, eventName: string, handler: () => void, throttleInterval: number): any;
+        static addHandler(target: any, eventName: string, handler: (e: any) => void): any;
+        static addThrottledHandler(target: any, eventName: string, handler: (e: any) => void, throttleInterval: number): any;
         static hasHandler(target: any, eventName: string): boolean;
         static invoke(target: any, eventName: string, args: any): void;
         static removeHandler(handlerId: any): void;
