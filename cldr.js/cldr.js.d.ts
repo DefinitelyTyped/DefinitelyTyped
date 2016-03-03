@@ -91,6 +91,19 @@ declare module cldr {
          * Maximized Language Id {@link http://www.unicode.org/reports/tr35/#Likely_Subtags}
          */
         maxLanguageId: any;
+
+        /**
+         * @name minLanguageId
+         * @memberof cldr.Attributes
+         * @kind property
+         * @access public
+         *
+         * @type {any}
+         *
+         * @description
+         * Minimized Language Id {@link http://www.unicode.org/reports/tr35/#Likely_Subtags}
+         */
+        minLanguageId: any;
     }
 
     /**
