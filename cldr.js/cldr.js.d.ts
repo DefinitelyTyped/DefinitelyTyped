@@ -242,6 +242,13 @@ declare module cldr {
          * @returns {cldr.CldrStatic} The instance of {@link cldr.CldrStatic} class.
          */
         new (locale: string): CldrStatic;
+
+        /**
+         * Allow user to override locale separator "-" (default) | "_".
+         * According to http://www.unicode.org/reports/tr35/#Unicode_language_identifier, both "-" and "_" are valid locale separators (eg. "en_GB", "en-GB").
+         * According to http://unicode.org/cldr/trac/ticket/6786 its usage must be consistent throughout the data set.
+         */
+        localeSep: "-" | "_";
     }
 }
 
