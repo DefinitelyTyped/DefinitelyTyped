@@ -632,7 +632,7 @@ declare module "redis" {
         evalsha(...args:any[]): Multi;
         quit(args:any[], callback?:ResCallbackT<any>): Multi;
         quit(...args:any[]): Multi;
-        scan(...args:any[]): boolean;
+        scan(...args:any[]): Multi;
         scan(args:any[], callback?:ResCallbackT<any>): Multi;
         hscan(...args:any[]): Multi;
         hscan(args:any[], callback?:ResCallbackT<any>): Multi;
