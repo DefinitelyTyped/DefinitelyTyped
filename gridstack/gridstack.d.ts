@@ -1,8 +1,9 @@
-﻿/// <reference path="../jqueryui/jqueryui.d.ts" />
-// Type definitions for Gridstack
+﻿// Type definitions for Gridstack
 // Project: http://troolee.github.io/gridstack.js/
 // Definitions by: Pascal Senn <https://github.com/PascalSenn/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+/// <reference path="../jqueryui/jqueryui.d.ts" />
 
 interface JQuery {
     gridstack (options: IGridstackOptions):GridStack
