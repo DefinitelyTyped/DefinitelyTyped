@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "es2015",
     "outDir": "./target",
-    "jsx": "react",
+    "jsx": "preserve",
     "target": "es6"
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "griddle-react.d.ts",
+    "typings/main",
+    "typings/main.d.ts"
   ]
 }

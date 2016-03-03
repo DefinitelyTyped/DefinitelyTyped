@@ -28,7 +28,7 @@ interface GriddleProps<T> {
     columns?: string[];
     columnMetadata?: ColumnMetaData[];
     rowMetadata?: RowMetaData<T>;
-    results?: T;
+    results?: T[];
     resultsPerPage?: number;
     initialSort?: string;
     initialSortAscending?: boolean;
