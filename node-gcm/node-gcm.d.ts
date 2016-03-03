@@ -54,15 +54,23 @@ declare module "node-gcm" {
         backoff?: number;
     }
 
+    export interface IRecipient {
+        to?: string,
+        topic?: string,
+        notificationKey?: string,
+        registrationIds?: string[],
+        registrationTokens?: string[]
+    }
+    
     export class Sender {
         constructor(key: string, options?: ISenderOptions);
         key: string;
         options: ISenderOptions;
 
-        send(message: Message, registrationIds: string|string[], callback: (err: any, resJson: IResponseBody) => void): void;
-        send(message: Message, registrationIds: string|string[], retries: number, callback: (err: any, resJson: IResponseBody) => void): void;
-        send(message: Message, registrationIds: string|string[], options: ISenderSendOptions, callback: (err: any, resJson: IResponseBody) => void): void;
-        sendNoRetry(message: Message, registrationIds: string|string[], callback: (err: any, resJson: IResponseBody) => void): void;
+        send(message: Message, registrationIds: string|string[]|IRecipient, callback: (err: any, resJson: IResponseBody) => void): void;
+        send(message: Message, registrationIds: string|string[]|IRecipient, retries: number, callback: (err: any, resJson: IResponseBody) => void): void;
+        send(message: Message, registrationIds: string|string[]|IRecipient, options: ISenderSendOptions, callback: (err: any, resJson: IResponseBody) => void): void;
+        sendNoRetry(message: Message, registrationIds: string|string[]|IRecipient, callback: (err: any, resJson: IResponseBody) => void): void;
     }
 
 
