@@ -15,14 +15,14 @@ interface GridStack {
      *
      *   Widget will be always placed even if result height is more than actual grid height. You need to use will_it_fit method before calling add_widget for additional check.
      * 
-     * @param {string} el widget to add
+     * @param {string | Element | JQuery | {}} el widget to add
      * @param {number} x widget position x
      * @param {number} y widget position y
      * @param {number} width  widget dimension width
      * @param {number} height widget dimension height
      * @param {boolean} auto_position if true then x, y parameters will be ignored and widget will be places on the first available position
      */
-    add_widget(el: string, x?: number, y?: number, width?: number, height?: number, auto_position?: boolean): JQuery
+    add_widget(el: string | Element | JQuery | {}, x?: number, y?: number, width?: number, height?: number, auto_position?: boolean): JQuery
     /**
     * Initializes batch updates. You will see no changes until commit method is called.
     */
