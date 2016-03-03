@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
+/// <reference path="../redux/redux-1.0.0.d.ts" />
 
 declare module "react-redux" {
   import { Component } from 'react';

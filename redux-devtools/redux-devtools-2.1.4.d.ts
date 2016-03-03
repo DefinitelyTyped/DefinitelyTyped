@@ -3,7 +3,7 @@
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../redux/redux.d.ts" />
+/// <reference path="../redux/redux-1.0.0.d.ts" />
 /// <reference path="../react/react.d.ts" />
 
 declare module "redux-devtools" {

@@ -1,5 +1,5 @@
 /// <reference path="redux-devtools-2.1.4.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
+/// <reference path="../redux/redux-1.0.0.d.ts" />
 /// <reference path="../react/react.d.ts" />
 
 import { compose, createStore, applyMiddleware, Middleware, Reducer } from 'redux';

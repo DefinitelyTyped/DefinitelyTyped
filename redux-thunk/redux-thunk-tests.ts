@@ -1,5 +1,5 @@
 /// <reference path="redux-thunk.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
+/// <reference path="../redux/redux-1.0.0.d.ts" />
 /// <reference path="../express/express.d.ts" />
 
 import { createStore, applyMiddleware, Store, Dispatch } from 'redux';

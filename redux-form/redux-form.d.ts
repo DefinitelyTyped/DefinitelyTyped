@@ -5,7 +5,7 @@
 
 
 /// <reference path="../react/react.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
+/// <reference path="../redux/redux-1.0.0.d.ts" />
 
 declare module 'redux-form' {
   import { Component, SyntheticEvent, FormEventHandler } from 'react';
