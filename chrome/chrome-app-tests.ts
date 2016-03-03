@@ -117,7 +117,7 @@ function test_socketsTcp(): void {
     chrome.sockets.tcp.getInfo(socketId, (info: chrome.sockets.tcp.SocketInfo) => { });
 
     // getSockets
-    chrome.sockets.tcp.getSockets(socketId, (infos: chrome.sockets.tcp.SocketInfo[]) => { });
+    chrome.sockets.tcp.getSockets((infos: chrome.sockets.tcp.SocketInfo[]) => { });
 }
 
 function test_socketsTcpEvents(): void {
@@ -283,7 +283,7 @@ function test_socketsTcpServer(): void {
     chrome.sockets.udp.getInfo(socketId, (info: chrome.sockets.udp.SocketInfo) => { });
 
     // getSockets
-    chrome.sockets.tcp.getSockets(socketId, (infos: chrome.sockets.tcp.SocketInfo[]) => { });
+    chrome.sockets.tcp.getSockets((infos: chrome.sockets.tcp.SocketInfo[]) => { });
 }
 
 function test_socketsTcpServerEvents(): void {
@@ -315,4 +315,13 @@ function testSocketsTcpServerTypes(): void {
     socketInfo.name = "test";
     socketInfo.localAddress = "192.168.0.2";
     socketInfo.localPort = 8000;
+}
+
+function testSystemNetwork() {
+    chrome.system.network.getNetworkInterfaces((networkInterfaces) => {
+        var iface: chrome.system.network.NetworkInterface;
+        for (var i in networkInterfaces) {
+            iface = networkInterfaces[i];
+        }
+    });
 }

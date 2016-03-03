@@ -12,6 +12,10 @@ interface VideoJSOptions {
 	height?: number;
 	defaultVolume?: number;
 	children?: Object;
+	controls?: boolean;
+	src?: string;
+	autoplay?: boolean;
+	preload?: string;
 }
 
 interface VideoJSSource {
@@ -30,10 +34,10 @@ interface VideoJSPlayer {
 	currentTime(): number;
 	duration(): number;
 	buffered(): TimeRanges;
-	bufferedPercent(): number;	
+	bufferedPercent(): number;
 	volume(percentAsDecimal: number): TimeRanges;
 	volume(): number;
-	width(): number;	
+	width(): number;
 	width(pixels: number): VideoJSPlayer;
 	height(): number;
 	height(pixels: number): VideoJSPlayer;

@@ -70,6 +70,10 @@ function test_before() {
     before(() => { });
 
     before((done) => { done(); });
+
+    before("my description", () => { });
+
+    before("my description", done => { });
 }
 
 function test_setup() {
@@ -82,6 +86,10 @@ function test_after() {
     after(() => { });
 
     after((done) => { done(); });
+
+    after("my description", () => { });
+
+    after("my description", done => { });
 }
 
 function test_teardown() {
@@ -94,6 +102,10 @@ function test_beforeEach() {
     beforeEach(() => { });
 
     beforeEach((done) => { done(); });
+
+    beforeEach("my description", () => { });
+
+    beforeEach("my description", done => { });
 }
 
 function test_suiteSetup() {
@@ -106,6 +118,10 @@ function test_afterEach() {
     afterEach(() => { });
 
     afterEach((done) => { done(); });
+
+    afterEach("my description", () => { });
+
+    afterEach("my description", done => { });
 }
 
 function test_suiteTeardown() {
@@ -250,36 +266,6 @@ function test_run_withOnComplete() {
     });
 }
 
-class CustomSpecReporter extends MochaDef.reporters.Spec {
-    constructor(runner: Mocha.IRunner) {
-        super(runner);
-        
-        runner.on('test', (test: Mocha.ITest) => {
-            console.log(test.parent.title + '/' + test.title);
-        });
-    }
-}
-
-class MyReporter extends MochaDef.reporters.Base {
-    passes: number = 0;
-    failures: number = 0;
-
-    constructor(runner: Mocha.IRunner) {
-        super(runner);
-        
-        runner.on('pass', (test: Mocha.ITest) => {
-            this.passes++;
-            console.log('pass: %s', test.fullTitle());
-        });
-
-        runner.on('fail', (test: Mocha.ITest, err: Error) => {
-            this.failures++;
-            console.log('fail: %s -- error: %s', test.fullTitle(), err.message);
-        });
-
-        runner.on('end', () => {
-            console.log('end: %d/%d', this.passes, this.passes + this.failures);
-            process.exit(this.failures);
-        });
-    }
+function test_throwError() {
+    mocha.throwError(new Error("I'm an error!"));
 }

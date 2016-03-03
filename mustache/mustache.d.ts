@@ -47,3 +47,7 @@ interface MustacheStatic {
 }
 
 declare var Mustache: MustacheStatic;
+
+declare module 'mustache' {
+	export = Mustache;
+}

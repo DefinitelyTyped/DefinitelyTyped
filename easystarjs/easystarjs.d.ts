@@ -3,10 +3,10 @@
 // Definitions by: Magnus Gustafsson <https://github.com/borundin>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped  
 /*
-easystarjs.d.ts may be freely distributed under the MIT license.
-*/
+ easystarjs.d.ts may be freely distributed under the MIT license.
+ */
 
-declare module "easystarjs"
+declare module easystarjs
 {
     class js
     {
@@ -31,4 +31,6 @@ declare module "easystarjs"
     }
 }
 
- 
+declare module "easystarjs" {
+    export = easystarjs;
+}

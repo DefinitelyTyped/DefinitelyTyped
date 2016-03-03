@@ -29,7 +29,7 @@ declare var RTCConfiguration: {
 };
 
 interface RTCIceServer {
-  url: string;
+  urls: string;
   credential?: string;
 }
 declare var RTCIceServer: {
@@ -360,5 +360,4 @@ interface Window{
   RTCIceCandidate: RTCIceCandidate;
   webkitRTCIceCandidate: webkitRTCIceCandidate;
   mozRTCIceCandidate: mozRTCIceCandidate;
-  URL: URL;
 }

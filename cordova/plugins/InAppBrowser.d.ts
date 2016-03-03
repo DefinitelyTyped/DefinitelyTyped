@@ -107,9 +107,9 @@ interface InAppBrowser extends Window {
      *                  loaderror: event fires when the InAppBrowser encounters an error when loading a URL.
      *                  exit: event fires when the InAppBrowser window is closed.
      * @param callback  the function that executes when the event fires. The function is
-     *                  passed an InAppBrowserEvent object as a parameter.
+     *                  passed an Event object as a parameter.
      */
-    addEventListener(type: string, callback: (event: InAppBrowserEvent) => void): void;
+    addEventListener(type: string, callback: (event: Event) => void): void;
     // removeEventListener overloads
     /**
      * Removes a listener for an event from the InAppBrowser.
@@ -163,9 +163,9 @@ interface InAppBrowser extends Window {
      *                  loaderror: event fires when the InAppBrowser encounters an error when loading a URL.
      *                  exit: event fires when the InAppBrowser window is closed.
      * @param callback  the function that executes when the event fires. The function is
-     *                  passed an InAppBrowserEvent object as a parameter.
+     *                  passed an Event object as a parameter.
      */
-    removeEventListener(type: string, callback: (event: InAppBrowserEvent) => void): void;
+    removeEventListener(type: string, callback: (event: Event) => void): void;
     /** Closes the InAppBrowser window. */
     close(): void;
     /**

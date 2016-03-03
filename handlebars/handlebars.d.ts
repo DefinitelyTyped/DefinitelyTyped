@@ -6,7 +6,10 @@
 
 declare module Handlebars {
     export function registerHelper(name: string, fn: Function, inverse?: boolean): void;
+    export function registerHelper(name: Object): void;
     export function registerPartial(name: string, str: any): void;
+    export function unregisterHelper(name: string): void;
+    export function unregisterPartial(name: string): void;
     export function K(): void;
     export function createFrame(object: any): any;
     export function Exception(message: string): void;
@@ -18,6 +21,7 @@ declare module Handlebars {
     export var Utils: typeof hbs.Utils;
     export var logger: Logger;
     export var templates: HandlebarsTemplates;
+    export var helpers: any;
 
     export module AST {
         export var helpers: hbs.AST.helpers;

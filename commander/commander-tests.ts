@@ -95,6 +95,13 @@ program.on('--help', () => {
     console.log('');
 });
 
+program
+    .command('allow-unknown-option')
+    .allowUnknownOption()
+    .action(() => {
+        console.log('unknown option is allowed');
+    });
+
 program.parse(process.argv);
 
 console.log('stuff');
