@@ -9,20 +9,22 @@ interface JQuery {
     gridstack (options: IGridstackOptions):GridStack
 }
 
+type GridStackElement = string | Element | JQuery | {};
+
 interface GridStack {
     /**
      * Creates new widget and returns it.
      *
      *   Widget will be always placed even if result height is more than actual grid height. You need to use will_it_fit method before calling add_widget for additional check.
      * 
-     * @param {string | Element | JQuery | {}} el widget to add
+     * @param {GridStackElement} el widget to add
      * @param {number} x widget position x
      * @param {number} y widget position y
      * @param {number} width  widget dimension width
      * @param {number} height widget dimension height
      * @param {boolean} auto_position if true then x, y parameters will be ignored and widget will be places on the first available position
      */
-    add_widget(el: string | Element | JQuery | {}, x?: number, y?: number, width?: number, height?: number, auto_position?: boolean): JQuery
+    add_widget(el: GridStackElement, x?: number, y?: number, width?: number, height?: number, auto_position?: boolean): JQuery
     /**
     * Initializes batch updates. You will see no changes until commit method is called.
     */
@@ -71,59 +73,59 @@ interface GridStack {
     is_area_empty(x: number, y: number, width: number, height: number): void
     /*
     * Locks/unlocks widget.
-    * @param {HTMLElement} el widget to modify.
+    * @param {GridStackElement} el widget to modify.
     * @param {boolean} val if true widget will be locked.
     */
-    locked(el: HTMLElement, val: boolean): void
+    locked(el: GridStackElement, val: boolean): void
     /*
     * Set the minWidth for a widget.
-    * @param {HTMLElement} el widget to modify.
+    * @param {GridStackElement} el widget to modify.
     * @param {number} val A numeric value of the number of columns
     */
-    min_width(el: HTMLElement, val: number): void
+    min_width(el: GridStackElement, val: number): void
     /*
     * Set the minHeight for a widget.
-    * @param {HTMLElement} el widget to modify.
+    * @param {GridStackElement} el widget to modify.
     * @param {number} val A numeric value of the number of rows
     */
-    min_height(el: HTMLElement, val: number): void
+    min_height(el: GridStackElement, val: number): void
      /*
     * Enables/Disables moving.
-    * @param {HTMLElement} el widget to modify.
+    * @param {GridStackElement} el widget to modify.
     * @param {number} val if true widget will be draggable.
     */
-    movable(el: HTMLElement, val: boolean): void
+    movable(el: GridStackElement, val: boolean): void
     /**
     * Changes widget position
-    * @param {HTMLElement} el  widget to modify
+    * @param {GridStackElement} el  widget to modify
     * @param {number} x new position x. If value is null or undefined it will be ignored.
     * @param {number} y new position y. If value is null or undefined it will be ignored.
     * 
     */
-    move(el: HTMLElement, x: number, y: number): void
+    move(el: GridStackElement, x: number, y: number): void
     /**
     * Removes widget from the grid.
-    * @param {HTMLElement} el  widget to modify
+    * @param {GridStackElement} el  widget to modify
     * @param {boolean} detach_node if false DOM node won't be removed from the tree (Optional. Default true).
     */
-    remove_widget(el: HTMLElement, detach_node?: boolean): void
+    remove_widget(el: GridStackElement, detach_node?: boolean): void
     /**
     * Removes all widgets from the grid.
     */
     remove_all(): void
     /**
     * Changes widget size
-    * @param {HTMLElement} el  widget to modify
+    * @param {GridStackElement} el  widget to modify
     * @param {number} width new dimensions width. If value is null or undefined it will be ignored.
     * @param {number} height  new dimensions height. If value is null or undefined it will be ignored.
     */
-    resize(el: HTMLElement, width: number, height: number): void
+    resize(el: GridStackElement, width: number, height: number): void
     /**
     * Enables/Disables resizing.
-    * @param {HTMLElement} el  widget to modify
+    * @param {GridStackElement} el  widget to modify
     * @param {boolean} val  if true widget will be resizable.
     */
-    resizable(el: HTMLElement, val: boolean): void
+    resizable(el: GridStackElement, val: boolean): void
     /**
     * Toggle the grid static state. Also toggle the grid-stack-static class.
     * @param {boolean} static_value if true the grid become static.
@@ -131,13 +133,13 @@ interface GridStack {
     set_static(static_value: boolean): void
     /**
     * Updates widget position/size.
-    * @param {HTMLElement} el  widget to modify
+    * @param {GridStackElement} el  widget to modify
     * @param {number} x new position x. If value is null or undefined it will be ignored.
     * @param {number} y new position y. If value is null or undefined it will be ignored.
     * @param {number} width new dimensions width. If value is null or undefined it will be ignored.
     * @param {number} height  new dimensions height. If value is null or undefined it will be ignored.
     */
-    update(el: HTMLElement, x: number, y: number, width: number, height: number): void
+    update(el: GridStackElement, x: number, y: number, width: number, height: number): void
     /**
     * Returns true if the height of the grid will be less the vertical constraint. Always returns true if grid doesn't have height constraint.
     * @param {number} x new position x. If value is null or undefined it will be ignored.
