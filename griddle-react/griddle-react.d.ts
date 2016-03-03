@@ -1,13 +1,12 @@
 import * as React from 'react';
 
-//TODO: Find good way to export this, and set it as first type argument on ColumnMetaData.customComponent
-interface CustomColumnComponentProps<T> {
+export interface CustomColumnComponentProps<T> {
     data: any,
     rowData: T,
     metaData: ColumnMetaData
 }
 
-interface ColumnMetaData {
+export interface ColumnMetaData {
     columnName: string;
     order?: number;
     locked?: boolean;
@@ -16,15 +15,15 @@ interface ColumnMetaData {
     customComponent?: any; //TODO: should be React.Component, but getting weird error.
 }
 
-interface BodyCssClassNameFunction<T> {
+export interface BodyCssClassNameFunction<T> {
     (rowData:T): string;
 }
 
-interface RowMetaData<T> {
+export interface RowMetaData<T> {
     bodyCssClassName?: BodyCssClassNameFunction<T> | string;
 }
 
-interface GriddleProps<T> {
+export interface GriddleProps<T> {
     columns?: string[];
     columnMetadata?: ColumnMetaData[];
     rowMetadata?: RowMetaData<T>;

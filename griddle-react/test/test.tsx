@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {render} from 'react-dom';
-import Griddle from 'griddle-react';
+import {default as Griddle, CustomColumnComponentProps} from 'griddle-react';
 
 class TestComponent extends React.Component<any, any> {
     render() {
@@ -15,7 +15,7 @@ interface MyCustomResult {
     test: string
 }
 
-class LinkComponent extends React.Component<any, any> {
+class LinkComponent extends React.Component<CustomColumnComponentProps<MyCustomResult>, any> {
     render() {
         var url = "speakers/" + this.props.rowData.test + "/" + this.props.data;
         return <a href={url}>{this.props.data}</a>
