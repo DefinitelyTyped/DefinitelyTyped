@@ -7,8 +7,11 @@
 // Definitions by: Pascal Senn <https://github.com/PascalSenn/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-var options = <IGridstackOptions> {
-    float: true
+var options: IGridstackOptions = {
+    float: true,
+    draggable: {
+        cursor: "myCursor"
+    }
 };
 var gridstack:GridStack = $(document).gridstack(options);
 

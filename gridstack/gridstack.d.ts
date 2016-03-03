@@ -1,4 +1,5 @@
-﻿// Type definitions for Gridstack
+﻿/// <reference path="../jqueryui/jqueryui.d.ts" />
+// Type definitions for Gridstack
 // Project: http://troolee.github.io/gridstack.js/
 // Definitions by: Pascal Senn <https://github.com/PascalSenn/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -197,7 +198,7 @@ interface IGridstackOptions {
     /**
      * allows to override jQuery UI draggable options. (default: { handle: '.grid-stack-item-content', scroll: true, appendTo: 'body' })
      */
-    draggable?: {};
+    draggable?: JQueryUI.DraggableOptions;
     /**
     * draggable handle selector (default: '.grid-stack-item-content')
     */
@@ -225,7 +226,7 @@ interface IGridstackOptions {
     /**
     * allows to override jQuery UI resizable options. (default: { autoHide: true, handles: 'se' })
     */
-    resizable?: {};
+    resizable?: JQueryUI.ResizableOptions;
     /**
     * makes grid static (default false).If true widgets are not movable/ resizable.You don't even need jQueryUI draggable/resizable. A CSS class grid-stack-static is also added to the container.
     */
