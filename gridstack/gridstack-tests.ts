@@ -15,7 +15,7 @@ var options: IGridstackOptions = {
 };
 var gridstack:GridStack = $(document).gridstack(options);
 
-gridstack.add_widget("test", 1, 2, 3, 4, true);
+gridstack.add_widget("test", 1, 2, 3, 4);
 gridstack.batch_update();
 gridstack.cell_height();;
 gridstack.cell_height(2);

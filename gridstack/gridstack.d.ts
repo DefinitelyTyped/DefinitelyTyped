@@ -21,7 +21,7 @@ interface GridStack {
      * @param {number} height widget dimension height
      * @param {boolean} auto_position if true then x, y parameters will be ignored and widget will be places on the first available position
      */
-    add_widget(el: string, x: number, y: number, width: number, height: number, auto_position: boolean): JQuery
+    add_widget(el: string, x?: number, y?: number, width?: number, height?: number, auto_position?: boolean): JQuery
     /**
     * Initializes batch updates. You will see no changes until commit method is called.
     */
