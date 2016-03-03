@@ -24,7 +24,7 @@ declare module "node-gcm" {
         timeToLive?: number;
         restrictedPackageName?: string;
         dryRun?: boolean;
-        data: {
+        data?: {
             [key: string]: string;
         };
         notification?: INotificationOptions;
