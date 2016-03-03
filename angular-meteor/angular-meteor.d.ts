@@ -39,6 +39,28 @@ declare module angular.meteor {
          * @return The promise solved successfully when subscription is ready. The success promise holds the subscription handle.
          */
         subscribe(name: string, ...publisherArguments: any[]): angular.IPromise<Meteor.SubscriptionHandle>;
+
+        /**
+         * The helpers method is part of the ReactiveContext, and available on every context and $scope.
+         * These method are defined as Object, where each key is the name of the variable that will be available on the context we run, and each value is a function with a return value.
+         * Under the hood, each helper starts a new Tracker.autorun. When its reactive dependencies change, the helper is rerun.
+         * To trigger a rerun every time an specific Angular variable change, use getReactively](/api/1.3.1/get-reactively) to make your Angular variable reactive inside the helper its used in.
+         * Each helper function should return a MongoDB Cursor and the helpers will expose it as a normal array to the context.
+         *
+         * @param definitions - Object containing `name` => `function` definition, where each name is a string and each function is the helper function. Should return a [MongoDB Cursor](http://docs.meteor.com/#/full/mongo_cursor)
+         * @return This method returns this, which the the reactive context, in order to provide the ability to chain the logic.
+         */
+        helpers(definitions : { [helperName : string] : () => Mongo.Cursor<any> }): IScope;
+
+        /**
+         * This method is a wrapper of Tracker.autorun and shares exactly the same API.
+         * The autorun method is part of the ReactiveContext, and available on every context and $scope.
+         * The argument of this method is a callback, which will be called each time Autorun will be used.
+         * The Autorun will stop automatically when when it's context ($scope) is destroyed.
+         * 
+         * @param runFunc - The function to run. It receives one argument: the Computation object that will be returned.
+         */
+        autorun(runFunc : () => void) : Tracker.Computation;
     }
     
     /**

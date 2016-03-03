@@ -35,3 +35,5 @@ $.cookie("test", testObject, cookieOptions);
 var result = <TestObject>$.cookie("test");
 
 console.log(result.text);
+
+$.cookie.defaults = cookieOptions;

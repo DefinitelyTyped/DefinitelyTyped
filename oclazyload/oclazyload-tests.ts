@@ -41,7 +41,7 @@ angular.module('app').controller(['$ocLazyLoadProvider', function ($ocLazyLoad: 
                 'bower_components/bootstrap/dist/js/bootstrap.js'
             ],
             cache: false,
-            kjdf: false
+            // kjdf: false
         },
         {
             files: ['anotherModule.js'],
@@ -89,7 +89,7 @@ angular.module('app').controller(['$ocLazyLoadProvider', function ($ocLazyLoad: 
         'testModule2.js'
     ]);
 
-    $ocLazyLoad.inject('testModule');
+    var promise: ng.IPromise<any> = $ocLazyLoad.inject('testModule');
 
     $ocLazyLoad.toggleWatch(true);
 }]);

@@ -50,7 +50,7 @@ function d() {
 function e() {
 	mock({
 		'some/dir': mock.directory({
-			mode: 0755,
+			mode: parseInt("0755", 8),
 			items: {
 				file1: 'file one content',
 				file2: new Buffer([8, 6, 7, 5, 3, 0, 9])
@@ -77,3 +77,10 @@ var mockedFS = mock.fs({
 if (mockedFS.readFileSync('/file', { encoding: 'utf8' }) === 'blah') {
 	console.log('woo');
 }
+
+mock({
+	'path/to/file.txt': 'file content here'
+}, {
+  createTmp: true,
+  createCwd: false
+});

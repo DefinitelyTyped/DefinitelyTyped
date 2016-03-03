@@ -1,8 +1,14 @@
 /// <reference path="UUID.d.ts" />
+
+
+import UUID = require("UUID");
+
+
+const uuid1: string = UUID.generate()
+const uuid2: UUID.UUID = UUID.genV4()
+const uuid3: UUID.UUID = UUID.genV1()
+
 // Copied below from readme at https://github.com/LiosK/UUID.js
-
-
-
 
 // the simplest way to get an UUID (as a hexadecimal string)
 console.log(UUID.generate());  // "0db9a5fa-f532-4736-89d6-8819c7f3ac7b"

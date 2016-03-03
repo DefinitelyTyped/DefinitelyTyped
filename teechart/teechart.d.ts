@@ -316,7 +316,7 @@ declare module Tee {
     calc(value: number): number;
     fromPos(position: number): number;
     fromSize(size: number): number;
-    
+
     hasAnySeries(): boolean;
     scroll(delta: number): void;
     setMinMax(minimum: number, maximum: number): void;

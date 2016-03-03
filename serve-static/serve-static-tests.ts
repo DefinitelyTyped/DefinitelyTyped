@@ -1,7 +1,7 @@
 /// <reference path="serve-static.d.ts" />
 
-import express = require('express');
-import serveStatic = require('serve-static');
+import * as express from 'express';
+import * as serveStatic from 'serve-static';
 var app = express();
 
 app.use(serveStatic('/1'));

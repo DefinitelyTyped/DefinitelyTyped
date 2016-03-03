@@ -8,7 +8,7 @@ interface DetectorStatic {
 	webgl: boolean;
 	workers: boolean;
 	fileapi: boolean;
-	
+
 	getWebGLErrorMessage(): HTMLElement;
 	addGetWebGLMessage(parameters?: {id?: string; parent?: HTMLElement}): void;
 }

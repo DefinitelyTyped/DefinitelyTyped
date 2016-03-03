@@ -42,7 +42,7 @@ To avoid cluttering the list of suggestions as you type in your IDE, all interfa
 
 **ngMockE2E** does not define a new namespace, but rather modifies some of **ng**'s interfaces.
 
-Bellow is an example of how to use the interfaces:
+Below is an example of how to use the interfaces:
 ```ts
 function MainController($scope: ng.IScope, $http: ng.IHttpService) {
     // code assistance will now be available for $scope and $http

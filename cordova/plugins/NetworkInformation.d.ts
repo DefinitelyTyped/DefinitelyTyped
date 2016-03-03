@@ -45,16 +45,16 @@ interface Connection {
      *     Connection.CELL
      *     Connection.NONE
      */
-    type: number
+    type: string
 }
 
 declare var Connection: {
-    UNKNOWN: number;
-    ETHERNET: number;
-    WIFI: number;
-    CELL_2G: number;
-    CELL_3G: number;
-    CELL_4G: number;
-    CELL: number;
-    NONE: number;
+    UNKNOWN: string;
+    ETHERNET: string;
+    WIFI: string;
+    CELL_2G: string;
+    CELL_3G: string;
+    CELL_4G: string;
+    CELL: string;
+    NONE: string;
 }

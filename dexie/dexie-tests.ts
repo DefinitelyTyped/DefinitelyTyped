@@ -1,6 +1,6 @@
 ﻿/// <reference path="dexie.d.ts" /> 
 
-import Dexie = require("Dexie");
+import Dexie = require("dexie");
 
 module Utils {
 

@@ -51,13 +51,13 @@ declare module "nodemailer" {
 	/**
 	 * Create a direct transporter
 	 */
-	export function createTransport(options?: directTransport.DirectOptions): Transporter;
+	export function createTransport(options?: directTransport.DirectOptions, defaults?: Object): Transporter;
 	/**
 	 * Create an SMTP transporter
 	 */
-	export function createTransport(options?: smtpTransport.SmtpOptions): Transporter;
+	export function createTransport(options?: smtpTransport.SmtpOptions, defaults?: Object): Transporter;
 	/**
 	 * Create a transporter from a given implementation
 	 */
-	export function createTransport(transport: Transport): Transporter;
+	export function createTransport(transport: Transport, defaults?: Object): Transporter;
 }

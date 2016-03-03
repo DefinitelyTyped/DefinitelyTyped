@@ -6,8 +6,10 @@
 declare module "node-polyglot" {
 	module Polyglot {
 		interface InterpolationOptions {
-			smart_count?: number;
+			smart_count?: number | { length: number };
 			_?: string;
+
+			[interpolationKey: string]: any;
 		}
 
 		interface PolyglotOptions {

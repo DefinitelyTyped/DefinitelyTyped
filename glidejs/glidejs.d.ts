@@ -32,7 +32,7 @@ declare module JQueryGlide {
         /**
          * Default: 500
          * Animation time in ms
-         * @type {Int}
+         * @type {number}
          */
         animationDuration?: number;
         /**

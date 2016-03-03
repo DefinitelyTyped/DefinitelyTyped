@@ -3,8 +3,6 @@
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../es6-promise/es6-promise.d.ts" />
-
 interface Navigator {
     /**
      * When invoked, returns a Promise object representing a request for access to MIDI devices on the user's system.
@@ -128,4 +126,3 @@ declare module WebMidi{
         port: MIDIPort;
     }
 }
-

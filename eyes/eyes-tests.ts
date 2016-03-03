@@ -27,3 +27,8 @@ var options = {
     stream: process.stdout,
     maxLength: 120
 }
+
+var result = eyes.inspector(testObj)
+
+
+
