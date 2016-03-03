@@ -39,8 +39,8 @@ declare module "node-gcm" {
 
         addData(key: string, value: string): void;
         addData(data: { [key: string]: string }): void;
-        addNotification(value: INotificationOptions);
-        addNotification(key: string, value:INotificationOptions);
+        addNotification(value: INotificationOptions): void;
+        addNotification(key: string, value:INotificationOptions): void;
     }
 
 
