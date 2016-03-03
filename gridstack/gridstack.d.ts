@@ -181,61 +181,61 @@ interface IGridstackOptions {
     /**
      * if true the resizing handles are shown even if the user is not hovering over the widget (default: false)
      */
-    always_show_resize_handle: boolean;
+    always_show_resize_handle?: boolean;
     /**
      * turns animation on (default: true)
      */
-    animate: boolean;
+    animate?: boolean;
     /**
      * if false gridstack will not initialize existing items (default: true)
      */
-    auto: boolean;
+    auto?: boolean;
     /**
      *  one cell height (default: 60)
      */
-    cell_height: number;
+    cell_height?: number;
     /**
      * allows to override jQuery UI draggable options. (default: { handle: '.grid-stack-item-content', scroll: true, appendTo: 'body' })
      */
-    draggable: {};
+    draggable?: {};
     /**
     * draggable handle selector (default: '.grid-stack-item-content')
     */
-     handle: string;
+     handle?: string;
     /**
     * maximum rows amount.Default is 0 which means no maximum rows
     */
-     height: number;
+     height?: number;
     /** 
     * enable floating widgets (default: false) See example
     */
-    float: boolean;
+    float?: boolean;
     /**
     * widget class (default: 'grid-stack-item')
     */
-     item_class: string;
+     item_class?: string;
     /** 
     * minimal width.If window width is less, grid will be shown in one - column mode (default: 768)
     */
-    min_width: number;
+    min_width?: number;
     /**
     * class for placeholder (default: 'grid-stack-placeholder')
     */
-    placeholder_class: string;
+    placeholder_class?: string;
     /**
     * allows to override jQuery UI resizable options. (default: { autoHide: true, handles: 'se' })
     */
-    resizable: {};
+    resizable?: {};
     /**
     * makes grid static (default false).If true widgets are not movable/ resizable.You don't even need jQueryUI draggable/resizable. A CSS class grid-stack-static is also added to the container.
     */
-    static_grid: boolean; 
+    static_grid?: boolean; 
     /**
     * vertical gap size (default: 20)
     */
-    vertical_margin: number; 
+    vertical_margin?: number; 
     /**
     * amount of columns (default: 12)
     */
-    width: number;
+    width?: number;
 }
