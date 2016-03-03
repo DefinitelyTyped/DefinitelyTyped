@@ -140,19 +140,19 @@ declare module Sdk
          * Adds a column to the collection.
          * @param column The logical name of the attribute to add.
          */
-        addColumn( column: string );
+        addColumn( column: string ): void;
 
         /**
          * Adds a string array of column names.
          * @param columns A string array of column names.
          */
-        addColumns( columns: Array<string> );
+        addColumns( columns: Array<string> ): void;
 
         /**
          * Sets the AllColumns property.
          * @params allColumns A boolean value.
          */
-        setAllColumns( allColumns: boolean );
+        setAllColumns( allColumns: boolean ): void;
 
         /**
          * Whether all columns will be returned.
@@ -242,7 +242,7 @@ declare module Sdk
          * Applies the action contained within a delegate function.
          * @param fn Delegate function with parameters for item and index.
          */
-        forEach( fn: ( item: T, index: number ) => any );
+        forEach( fn: ( item: T, index: number ) => any ): void;
 
         /**
          * Gets the item in the collection at the specified index.
@@ -376,7 +376,7 @@ declare module Sdk
          * Sets whether the results of the query exceeds the total record count.
          * @param totalRecordCountLimitExceeded Whether the results of the query exceeds the total record count.
          */
-        setTotalRecordCountLimitExceeded( totalRecordCountLimitExceeded: boolean );
+        setTotalRecordCountLimitExceeded( totalRecordCountLimitExceeded: boolean ): void;
 
         /**
          * XML definition of an the child nodes of an entity.
@@ -406,7 +406,7 @@ declare module Sdk
          * Sets the collection of entity references.
          * @param entityReferences The entity references
          */
-        setEntityReferences( entityReferences: Sdk.Collection<EntityReference> );
+        setEntityReferences( entityReferences: Sdk.Collection<EntityReference> ): void;
         
         
         /// prototype methods
@@ -415,7 +415,7 @@ declare module Sdk
          * Removes an entity reference to the collection.
          * @param entityReference The entity reference to remove.
          */
-        remove( entityReference: Sdk.EntityReference ); 
+        remove( entityReference: Sdk.EntityReference ): void; 
  
         /**
          * Returns a view of the data in an entity reference collection instance.
@@ -551,23 +551,16 @@ declare module Sdk
         setType( type: Sdk.ValueType ): void;
 
         /**
-         * Internal Use Only
-         */
-        setValidValue( value );
-        
-        /**
          * Sets the general value of the attribute
          * @param name The value of the attribute.
          */
-        setValue( value: any );
+        setValue( value: any ): void;
         
         /// prototype methods
         /**
          * XML node for Attribute.
          */
-        toXml( action ): string;
-
-        
+        toXml( action: string ): string;
     }
 
     class Boolean extends AttributeBase
@@ -867,7 +860,7 @@ declare module Sdk
          * Sets the collection of attributes for the entity.
          * @param attributes The collection of attributes for the entity.
          */
-        setAttributes( attributes: Sdk.AttributeCollection );
+        setAttributes( attributes: Sdk.AttributeCollection ): void;
 
         /**
          * Gets the state of the entity.
@@ -912,7 +905,7 @@ declare module Sdk
          * Sets the logical name of the entity.
          * @param type The logical name of the entity.
          */
-        setType( type ): void;
+        setType( type: string ): void;
 
         /**
          * Gets a collection of related entities.
@@ -930,7 +923,7 @@ declare module Sdk
          * @param attribute The attribute to add
          * @param isChanged Whether the attribute should be considered changed, the default is true.
          */
-        addAttribute( attribute: Sdk.AttributeBase, isChanged?: boolean );
+        addAttribute( attribute: Sdk.AttributeBase, isChanged?: boolean ): void;
 
         /**
          * Adds an entity to the related entities.
@@ -948,7 +941,7 @@ declare module Sdk
          * Sets the value to indicate whether data for the entity has changed.
          * @param isChanged The value to indicate whether data for the entity has changed.
          */
-        setIsChanged( isChanged: boolean );
+        setIsChanged( isChanged: boolean ): void;
 
         /**
          * Gets the value of the specified attribute.
@@ -959,7 +952,7 @@ declare module Sdk
         /**
          * Generates properties for the entity based on metadata.
          */
-        initializeSubClass( metadata );
+        initializeSubClass( metadata: Sdk.Mdq.IEntityMetadata ): void;
 
         /**
          * Sets the value of the specified attribute.
@@ -982,12 +975,12 @@ declare module Sdk
          * XML definition of an the child nodes of an entity.
          * @param action
          */
-        toValueXml( action ): string;
+        toValueXml( action: string ): string;
 
         /**
          * XML definition of an entity where the root node is <entity>.
          */
-        toXml( action ): string;
+        toXml( action: string ): string;
 
         /**
          * Returns a view of the data in an entity instance
@@ -1174,12 +1167,12 @@ declare module Sdk
         /***
          * 
          */
-        public getServerVersionStamp();
+        public getServerVersionStamp(): string;
     
         /***
          * 
          */
-        public getDeletedMetadata();
+        public getDeletedMetadata(): any;
     }
 
 
@@ -1279,7 +1272,7 @@ declare module Sdk.Query
          * Sets the number of pages and the number of entity instances per page returned from the query.
          * @param pageInfo The number of pages and the number of entity instances per page returned from the query.
          */
-        setPageInfo( pageInfo: Sdk.Query.PagingInfo );
+        setPageInfo( pageInfo: Sdk.Query.PagingInfo ): void;
 
         /**
          * Adds the specified column to the column set.
@@ -1308,7 +1301,7 @@ declare module Sdk.Query
          * Sets the number of rows to be returned.
          * @param count The number of rows to be returned.
          */
-        setTopCount( count: number );
+        setTopCount( count: number ): void;
 
         /**
          * Gets the serialized QueryExpression.
@@ -1339,7 +1332,7 @@ declare module Sdk.Query
          * Sets an Sdk.Collection of Sdk.Query.OrderExpression instances that define the order in which the entity instances are returned from the query.
          * @param orders An Sdk.Collection of Sdk.Query.OrderExpression instances that define the order in which the entity instances are returned from the query.
          */
-        setOrders( orders: Sdk.Collection<Sdk.Query.OrderExpression> );
+        setOrders( orders: Sdk.Collection<Sdk.Query.OrderExpression> ): void;
         
         /// prototype methods
         
@@ -1390,7 +1383,7 @@ declare module Sdk.Query
         /**
          * Sets whether the results of the query contain duplicate entity instances.
          */
-        setDistinct( isDistinct: boolean );
+        setDistinct( isDistinct: boolean ): void;
 
         /**
          * Gets an Sdk.Collection of Sdk.Query.LinkEntity instances.
@@ -1956,7 +1949,7 @@ declare module Sdk.Query
          * Specifies a Boolean value to be compared in the query.
          * @param setValueArgs An array of boolean values.
          */
-        public setValues( setValueArgs: boolean[] );
+        public setValues( setValueArgs: boolean[] ): void;
     }
 
     /**
@@ -2251,7 +2244,7 @@ declare module Sdk.Util
     /**
      * 
      */
-    function getError( resp ): string;
+    function getError( resp: any ): string;
  
     /**
      * Returns the clinent URL.
@@ -2267,13 +2260,13 @@ declare module Sdk.Util
     /**
      * 
      */
-    function getXMLHttpRequest( action, async: boolean ); 
+    function getXMLHttpRequest( action: string, async: boolean ); 
  
     /**
      * Creates an entity from XML.
      * @param The serialized entity returned from the SOAP service as XML.
      */
-    function createEntityFromNode( node: string );
+    function createEntityFromNode( node: string ): void;
 }
 
 declare module Sdk.Xml
@@ -2332,17 +2325,18 @@ declare module Sdk.Mdq
         public addCondition(
             propertyName: SearchableEntityMetadataProperties|SearchableAttributeMetadataProperties|SearchableRelationshipMetadataProperties,
             conditionOperator: MetadataConditionOperator,
-            value: Object );
-        addCondition(propertyName: SearchableAttributeMetadataProperties, conditionOperator: MetadataConditionOperator, value: any);
+            value: Object ): void;
+        public addCondition(
+            propertyName: SearchableAttributeMetadataProperties, conditionOperator: MetadataConditionOperator, value: any): void;
         public addCondition(
             propertyName: SearchableEntityMetadataProperties|SearchableAttributeMetadataProperties|SearchableRelationshipMetadataProperties,
             conditionOperator: MetadataConditionOperator,
-            value: Object );
+            value: Object ): void;
         addCondition(propertyName: SearchableAttributeMetadataProperties, conditionOperator: MetadataConditionOperator);
         public addCondition(
             propertyName: SearchableEntityMetadataProperties|SearchableAttributeMetadataProperties|SearchableRelationshipMetadataProperties,
             conditionOperator: MetadataConditionOperator,
-            value: Object);
+            value: Object): void;
     }
 
     /**
@@ -2664,38 +2658,38 @@ declare module Sdk.Mdq
 
     export interface IEntityMetadata
     {
-        ActivityTypeMask;
-        Attributes: Array<IAttributeMetadata>;
-        AutoCreateAccessTeams;
+        ActivityTypeMask: any;
+        Attributes: IAttributeMetadata[];
+        AutoCreateAccessTeams: any;
         AutoRouteToOwnerQueue: boolean;
-        CanBeInManyToMany;
-        CanBePrimaryEntityInRelationship;
-        CanBeRelatedEntityInRelationship;
-        CanCreateAttributes;
-        CanCreateCharts;
-        CanCreateForms;
-        CanCreateViews;
-        CanModifyAdditionalSettings;
+        CanBeInManyToMany: boolean;
+        CanBePrimaryEntityInRelationship: boolean;
+        CanBeRelatedEntityInRelationship: boolean;
+        CanCreateAttributes: boolean;
+        CanCreateCharts: boolean;
+        CanCreateForms: boolean;
+        CanCreateViews: boolean;
+        CanModifyAdditionalSettings: boolean;
         CanTriggerWorkflow: boolean;
-        Description;
-        DisplayCollectionName;
-        DisplayName;
-        IconLargeName;
-        IconMediumName;
-        IconSmallName;
-        IntroducedVersion;
+        Description: string;
+        DisplayCollectionName: string;
+        DisplayName: string;
+        IconLargeName: string;
+        IconMediumName: string;
+        IconSmallName: string;
+        IntroducedVersion: any;
         IsActivity: boolean;
         IsActivityParty: boolean;
-        IsAIRUpdated;
-        IsAuditEnabled;
+        IsAIRUpdated: boolean;
+        IsAuditEnabled: boolean;
         IsAvailableOffline: boolean;
-        IsBusinessProcessEnabled;
+        IsBusinessProcessEnabled: boolean;
         IsChildEntity: boolean;
-        IsConnectionsEnabled;
+        IsConnectionsEnabled: boolean;
         IsCustomEntity: boolean;
-        IsCustomizable;
+        IsCustomizable: boolean;
         IsDocumentManagementEnabled: boolean;
-        IsDuplicateDetectionEnabled;
+        IsDuplicateDetectionEnabled: boolean;
         IsEnabledForCharts: boolean;
         IsImportable: boolean;
         IsIntersect: boolean;
@@ -2710,16 +2704,16 @@ declare module Sdk.Mdq
         IsVisibleInMobile: boolean;
         IsVisibleInMobileClient: boolean;
         LogicalName: string;
-        ManyToManyRelationships;
-        ManyToOneRelationships;
-        MetadataId;
+        ManyToManyRelationships: any;
+        ManyToOneRelationships: any;
+        MetadataId: string;
         ObjectTypeCode: number;
-        OneToManyRelationships;
+        OneToManyRelationships: any;
         OwnershipType: string;
         PrimaryIdAttribute: string;
-        PrimaryImageAttribute;
+        PrimaryImageAttribute: string;
         PrimaryNameAttribute: string;
-        Privileges;
+        Privileges: any;
         RecurrenceBaseEntityLogicalName;
         ReportViewName: string;
         SchemaName: string;
@@ -2727,50 +2721,50 @@ declare module Sdk.Mdq
 
     export interface IAttributeMetadata
     {
-        AttributeOf;
-        AttributeType;
-        AttributeTypeName;
-        CalculationOf;
-        CanBeSecuredForCreate;
-        CanBeSecuredForRead;
-        CanBeSecuredForUpdate;
-        CanModifyAdditionalSettings;
-        ColumnNumber;
-        DefaultFormValue;
-        DefaultValue;
-        DeprecatedVersion;
-        Description;
-        DisplayName;
-        EntityLogicalName;
-        Format;
-        FormatName;
-        ImeMode;
-        IntroducedVersion;
-        IsAuditEnabled;
-        IsCustomAttribute;
-        IsCustomizable;
-        IsManaged;
-        IsPrimaryId;
-        IsPrimaryName;
-        IsRenameable;
-        IsSecured;
-        IsValidForAdvancedFind;
-        IsValidForCreate;
-        IsValidForRead;
-        IsValidForUpdate;
-        LinkedAttributeId;
-        LogicalName;
-        MaxLength;
-        MaxValue;
-        MetadataId;
-        MinValue;
-        OptionSet;
-        Precision;
-        PrecisionSource;
-        RequiredLevel;
-        SchemaName;
+        AttributeOf: any;
+        AttributeType: any;
+        AttributeTypeName: string;
+        CalculationOf: any;
+        CanBeSecuredForCreate: boolean;
+        CanBeSecuredForRead: boolean;
+        CanBeSecuredForUpdate: boolean;
+        CanModifyAdditionalSettings: boolean;
+        ColumnNumber: number;
+        DefaultFormValue: any;
+        DefaultValue: any;
+        DeprecatedVersion: any;
+        Description: string;
+        DisplayName: string;
+        EntityLogicalName: string;
+        Format: any;
+        FormatName: string;
+        ImeMode: any;
+        IntroducedVersion: any;
+        IsAuditEnabled: boolean;
+        IsCustomAttribute: boolean;
+        IsCustomizable: boolean;
+        IsManaged: boolean;
+        IsPrimaryId: boolean;
+        IsPrimaryName: boolean;
+        IsRenameable: boolean;
+        IsSecured: boolean;
+        IsValidForAdvancedFind: boolean;
+        IsValidForCreate: boolean;
+        IsValidForRead: boolean;
+        IsValidForUpdate: boolean;
+        LinkedAttributeId: string;
+        LogicalName: string;
+        MaxLength: number;
+        MaxValue: any;
+        MetadataId: string;
+        MinValue: number;
+        OptionSet: any;
+        Precision: any;
+        PrecisionSource: any;
+        RequiredLevel: any;
+        SchemaName: string;
         Targets: string[];
-        YomiOf;
+        YomiOf: any;
     }
 
     module ValueEnums
