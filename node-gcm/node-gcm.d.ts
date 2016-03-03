@@ -1,20 +1,35 @@
-// Type definitions for node-gcm 0.9.15
+// Type definitions for node-gcm 0.14.0
 // Project: https://www.npmjs.org/package/node-gcm
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "node-gcm" {
 
+    export interface INotificationOptions {
+        title: string;
+        body?: string;
+        icon: string;
+        sound?: string;
+        badge?: string;
+        tag?: string;
+        color?: string;
+        click_action?: string;
+    }
+    
     export interface IMessageOptions {
         collapseKey?: string;
+        priority?: string;
+        contentAvailable?: boolean;
         delayWhileIdle?: boolean;
         timeToLive?: number;
+        restrictedPackageName?: string;
         dryRun?: boolean;
         data: {
             [key: string]: string;
         };
+        notification?: INotificationOptions;
     }
-
+    
     export class Message {
         constructor(options?: IMessageOptions);
         collapseKey: string;
@@ -24,6 +39,8 @@ declare module "node-gcm" {
 
         addData(key: string, value: string): void;
         addData(data: { [key: string]: string }): void;
+        addNotification(value: INotificationOptions);
+        addNotification(key: string, value:INotificationOptions);
     }
 
 
