@@ -1,4 +1,4 @@
-/// <reference path="microsoft-sdk-soap" />
+/// <reference path="microsoft-sdk-soap.d.ts" />
 
 // QueryByAttribute
 var queryByAttribute = new Sdk.Query.QueryByAttribute( "account" );
@@ -6,8 +6,7 @@ queryByAttribute.addColumn( "accountnumber" );
 queryByAttribute.addAttributeValue( new Sdk.String( "name", "acme" ) );
 Sdk.Q.retrieveMultiple( queryByAttribute ).then( entityCollection =>
 {
-	var first = entityCollection.getEntities().getByIndex( 0 );
-	var accountNumber = first.getAttributes().getAttributeByName( "accountnumber" );
+	var accountNumber = entityCollection.getEntity( 0 ).getAttributes( "accountnumber" ).getValue();
 	console.log( "Account 'acme' has the Account Number '" + accountNumber + "'" );
 } );
 
