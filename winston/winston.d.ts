@@ -185,6 +185,7 @@ declare module "winston" {
   export interface ConsoleTransportOptions extends TransportOptions {
     json?: boolean;
     colorize?: boolean;
+    colors?: any;
     prettyPrint?: boolean;
     timestamp?: (Function|boolean);
     showLevel?: boolean;
