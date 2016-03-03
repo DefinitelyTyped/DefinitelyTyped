@@ -213,7 +213,7 @@ declare module Sdk
          * Adds an array of objects to the collection.
          * @param items An array of items to add to the collection.
          */
-        addRange( items ): void;
+        addRange( items: any[] ): void;
 
         /**
          * Removes all items from the collection.
@@ -1200,9 +1200,9 @@ declare module Sdk
 
         /**
          * Sets the status that corresponds to the State property.
-         * @param value: number The status that corresponds to the State property.
+         * @param value The status that corresponds to the State property.
          */
-        setStatus( value ): void;
+        setStatus( value: number ): void;
     }
     
     /**
@@ -1739,7 +1739,7 @@ declare module Sdk.Query
          * Sets the logical name of the entity that you are linking from.
          * @param name The logical name of the entity that you are linking from.
          */
-        public setLinkFromEntityName( name ): void;
+        public setLinkFromEntityName( name: string ): void;
         
         /**
          * Gets the logical name of the attribute of the entity that you are linking to
@@ -2202,10 +2202,10 @@ declare module Sdk.Query
         public setValues( setValueArgs: string[] ): void
     }
 
-    class LogicalOperator
+    export enum LogicalOperator
     {
-        public static Or;
-        public static And;
+        Or,
+        And,
     }
 }
 
@@ -2239,7 +2239,7 @@ declare module Sdk.Util
      * @param string The string containing placeholders for items in the array.
      * @param args An array of strings to replace the placeholders.
      */
-    function format( string: string, args: Array<string> ); 
+    function format( string: string, args: string[] ): string; 
  
     /**
      * 
@@ -2260,7 +2260,7 @@ declare module Sdk.Util
     /**
      * 
      */
-    function getXMLHttpRequest( action: string, async: boolean ); 
+    function getXMLHttpRequest( action: string, async: boolean ): any; 
  
     /**
      * Creates an entity from XML.
@@ -2332,7 +2332,7 @@ declare module Sdk.Mdq
             propertyName: SearchableEntityMetadataProperties|SearchableAttributeMetadataProperties|SearchableRelationshipMetadataProperties,
             conditionOperator: MetadataConditionOperator,
             value: Object ): void;
-        addCondition(propertyName: SearchableAttributeMetadataProperties, conditionOperator: MetadataConditionOperator);
+        addCondition(propertyName: SearchableAttributeMetadataProperties, conditionOperator: MetadataConditionOperator): void;
         public addCondition(
             propertyName: SearchableEntityMetadataProperties|SearchableAttributeMetadataProperties|SearchableRelationshipMetadataProperties,
             conditionOperator: MetadataConditionOperator,
@@ -2714,7 +2714,7 @@ declare module Sdk.Mdq
         PrimaryImageAttribute: string;
         PrimaryNameAttribute: string;
         Privileges: any;
-        RecurrenceBaseEntityLogicalName;
+        RecurrenceBaseEntityLogicalName: string;
         ReportViewName: string;
         SchemaName: string;
     }
