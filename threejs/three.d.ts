@@ -1633,6 +1633,7 @@ declare module THREE {
         distance: number;
         point: Vector3;
         face: Face3;
+        faceIndex: number;
         object: Object3D;
     }
 
