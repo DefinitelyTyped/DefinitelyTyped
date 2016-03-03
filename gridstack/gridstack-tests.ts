@@ -13,7 +13,7 @@ var options: IGridstackOptions = {
         cursor: "myCursor"
     }
 };
-var gridstack:GridStack = $(document).gridstack(options);
+var gridstack: GridStack = $(document).gridstack(options).data("gridstack");
 
 gridstack.add_widget("test", 1, 2, 3, 4);
 gridstack.batch_update();

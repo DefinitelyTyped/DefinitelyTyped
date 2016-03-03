@@ -6,7 +6,8 @@
 /// <reference path="../jqueryui/jqueryui.d.ts" />
 
 interface JQuery {
-    gridstack (options: IGridstackOptions):GridStack
+    gridstack(options: IGridstackOptions): JQuery;
+    data(key: 'gridstack'): GridStack;
 }
 
 type GridStackElement = string | Element | JQuery | {};
