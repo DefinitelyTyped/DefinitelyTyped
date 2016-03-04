@@ -220,6 +220,7 @@ declare namespace ReactRouter {
         listenBeforeLeavingRoute(route: PlainRoute, hook: RouteHook): void
         match(location: H.Location, callback: (error: any, nextState: RouterState, nextLocation: H.Location) => void): void
         isActive(pathname: H.Pathname, query?: H.Query, indexOnly?: boolean): boolean
+        setRouteLeaveHook(route: PlainRoute, callback: RouteHook): void
     }
 
     function useRoutes<T>(createHistory: HistoryModule.CreateHistory<T>): HistoryModule.CreateHistory<T & HistoryRoutes>
