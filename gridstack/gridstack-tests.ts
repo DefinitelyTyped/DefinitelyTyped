@@ -7,7 +7,7 @@
 // Definitions by: Pascal Senn <https://github.com/PascalSenn/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-var options: IGridstackOptions = {
+var options: GridStack.IGridstackOptions = {
     float: true,
     draggable: {
         cursor: "myCursor"
