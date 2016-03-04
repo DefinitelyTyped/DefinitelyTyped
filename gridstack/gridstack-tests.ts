@@ -13,11 +13,11 @@ var options: IGridstackOptions = {
         cursor: "myCursor"
     }
 };
-var gridstack: GridStack = $(document).gridstack(options).data("gridstack");
+var gridstack = $(document).gridstack(options).data("gridstack");
 
 gridstack.add_widget("test", 1, 2, 3, 4);
 gridstack.batch_update();
 gridstack.cell_height();;
 gridstack.cell_height(2);
 gridstack.cell_width();
-gridstack.get_cell_from_pixel(<MousePosition>{ left:20, top: 20 });
+gridstack.get_cell_from_pixel({ left:20, top: 20 });
