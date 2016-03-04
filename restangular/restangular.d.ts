@@ -93,6 +93,7 @@ declare module restangular {
     service(route: string, parent?: any): IService;
     stripRestangular(element: any): any;
     extendModel(route: string, extender: (model: IElement) => any): void;
+    extendCollection(route: string, extender: (collection: ICollection) => any): void;
   }
 
   interface IElement extends IService {
