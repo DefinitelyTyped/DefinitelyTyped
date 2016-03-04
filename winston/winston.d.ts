@@ -20,18 +20,23 @@ declare module "winston" {
 
   export function log(level: string, msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
   export function log(level: string, msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
+  export function log(level: string, msg: string, ...args: any[]): LoggerInstance;
 
   export function debug(msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
   export function debug(msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
+  export function debug(msg: string, ...args: any[]): LoggerInstance;
 
   export function info(msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
   export function info(msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
+  export function info(msg: string, ...args: any[]): LoggerInstance;
 
   export function warn(msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
   export function warn(msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
+  export function warn(msg: string, ...args: any[]): LoggerInstance;
 
   export function error(msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
   export function error(msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
+  export function error(msg: string, ...args: any[]): LoggerInstance;
 
   export function query(options: QueryOptions, callback?: (err: Error, results: any) => void): any;
   export function query(callback: (err: Error, results: any) => void): any;
@@ -61,18 +66,23 @@ declare module "winston" {
 
     log(level: string, msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
     log(level: string, msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
+    log(level: string, msg: string, ...args: any[]): LoggerInstance;
 
     debug(msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
     debug(msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
+    debug(msg: string, ...args: any[]): LoggerInstance;
 
     info(msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
     info(msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
+    info(msg: string, ...args: any[]): LoggerInstance;
 
     warn(msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
     warn(msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
+    warn(msg: string, ...args: any[]): LoggerInstance;
 
     error(msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
     error(msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
+    error(msg: string, ...args: any[]): LoggerInstance;
 
     query(options: QueryOptions, callback?: (err: Error, results: any) => void): any;
     query(callback: (err: Error, results: any) => void): any;

@@ -6,6 +6,8 @@ var str: string;
 var bool: boolean;
 var num: number;
 var metadata: any;
+var callback: (err: Error, level: string, msg: string, meta: any) => void;
+var arg: any;
 var obj: any = {};
 
 winston.level = 'debug';
@@ -75,15 +77,30 @@ winston.exitOnError = bool;
 
 
 winston.log(str, str);
+winston.log(str, str, callback);
 winston.log(str, str, metadata);
+winston.log(str, str, metadata, callback);
+winston.log(str, str, arg, arg, metadata, callback);
 winston.debug(str);
+winston.debug(str, callback);
 winston.debug(str, metadata);
+winston.debug(str, metadata, callback);
+winston.debug(str, arg, arg, metadata, callback);
 winston.info(str);
+winston.info(str, callback);
 winston.info(str, metadata);
+winston.info(str, metadata, callback);
+winston.info(str, arg, arg, metadata, callback);
 winston.warn(str);
+winston.warn(str, callback);
 winston.warn(str, metadata);
+winston.warn(str, metadata, callback);
+winston.warn(str, arg, arg, metadata, callback);
 winston.error(str);
+winston.error(str, callback);
 winston.error(str, metadata);
+winston.error(str, metadata, callback);
+winston.error(str, arg, arg, metadata, callback);
 
 winston.query(queryOptions, (err: Error, results: any): void => {
 
@@ -117,15 +134,30 @@ readableStream.on('log', function (log:any):void {
 
 logger = logger.extend(obj);
 logger.log(str, str);
+logger.log(str, str, callback);
 logger.log(str, str, metadata);
+logger.log(str, str, metadata, callback);
+logger.log(str, str, arg, arg, metadata, callback);
 logger.debug(str);
+logger.debug(str, callback);
 logger.debug(str, metadata);
+logger.debug(str, metadata, callback);
+logger.debug(str, arg, arg, metadata, callback);
 logger.info(str);
+logger.info(str, callback);
 logger.info(str, metadata);
+logger.info(str, metadata, callback);
+logger.info(str, arg, arg, metadata, callback);
 logger.warn(str);
+logger.warn(str, callback);
 logger.warn(str, metadata);
+logger.warn(str, metadata, callback);
+logger.warn(str, arg, arg, metadata, callback);
 logger.error(str);
+logger.error(str, callback);
 logger.error(str, metadata);
+logger.error(str, metadata, callback);
+logger.error(str, arg, arg, metadata, callback);
 
 logger.query(queryOptions, (err: Error, results: any): void => {
 
