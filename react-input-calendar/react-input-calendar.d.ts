@@ -55,6 +55,14 @@ declare module reactInputCalendar {
         * Id that should be applied to the input field. Useful when using it with a label element.
         */
         inputFieldId?: string;
+        /**
+        * Define the class name of the input field where the date picker represents its value.
+        */
+        inputFieldClass?: string;
+        /**
+        * If true, the input field gets disabled and the icon next to it disappears.
+        */
+        disabled?: boolean;
     }
     interface ReactInputCalendarState { }
     export class ReactInputCalendar extends __React.Component<ReactInputCalendarProps, ReactInputCalendarState> {
