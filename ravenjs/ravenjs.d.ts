@@ -58,7 +58,7 @@ interface RavenStatic {
     /** Raven.js version. */
     VERSION: string;
     
-    Plugins: RavenPlugin[];
+    Plugins: { [id: string]: RavenPlugin };
 
     /*
      * Allow Raven to be configured as soon as it is loaded
