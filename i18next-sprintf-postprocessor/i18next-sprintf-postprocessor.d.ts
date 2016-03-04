@@ -6,6 +6,17 @@
 ///<reference path="../express/express.d.ts"/>
 ///<reference path="../i18next/i18next.d.ts"/>
 
+declare module I18next {
+	interface I18nextOptions extends i18nextSprintfPostProcessor.I18nextOptions {}
+}
+
+declare module i18nextSprintfPostProcessor {
+    interface I18nextOptions {
+        overloadTranslationOptionHandler?(args: Array<any>): void;
+        process?(value: any, key: string, options: Object): void;
+    }
+}
+
 declare module "i18next-sprintf-postprocessor" {
     import i18next = require("i18next");
 
