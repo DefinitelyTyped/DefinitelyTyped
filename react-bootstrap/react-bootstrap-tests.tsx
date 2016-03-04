@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 import * as React from 'react';
 import { Component, CSSProperties } from 'react';
-import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput } from 'react-bootstrap';
+import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput, FormControls } from 'react-bootstrap';
 
 
 export class ReactBootstrapTest extends Component<any, any> {
@@ -849,6 +849,14 @@ export class ReactBootstrapTest extends Component<any, any> {
                       <ButtonInput type="reset" bsStyle="primary" onClick={this.callback} />
                       <ButtonInput type="submit" value="Submit Your Input" bsStyle="success" bsSize="large" disabled={false} />
                     </form>
+                </div>
+
+                <div style={style}>
+                  <form>
+                    <FormControls.Static className="col-xs-10 col-xs-offset-2" value="I'm in a form" />
+                    <FormControls.Static label="First Name" labelClassName="col-xs-2" wrapperClassName="col-xs-10" value="Billy" />
+                    <FormControls.Static label="Last Name" labelClassName="col-xs-2" wrapperClassName="col-xs-10">Bob</FormControls.Static>
+                  </form>
                 </div>
 
                 <div style={style}>
