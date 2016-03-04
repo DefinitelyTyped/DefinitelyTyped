@@ -375,6 +375,9 @@ export class ReactBootstrapTest extends Component<any, any> {
                     <OverlayTrigger trigger='focus' placement='bottom' overlay={<Popover title='Popover bottom'><strong>Holy guacamole!</strong> Check this info.</Popover>}>
                       <Button bsStyle='default'>Focus</Button>
                     </OverlayTrigger>
+                    <OverlayTrigger trigger={['click', 'hover', 'focus']} placement='bottom' overlay={<Popover title='Popover bottom'><strong>Holy guacamole!</strong> Check this info.</Popover>}>
+                      <Button bsStyle='default'>Click or hover or focus</Button>
+                    </OverlayTrigger>
                     <OverlayTrigger trigger='click' rootClose placement='bottom' overlay={<Popover title='Popover bottom'><strong>Holy guacamole!</strong> Check this info.</Popover>}>
                       <Button bsStyle='default'>Click + rootClose</Button>
                     </OverlayTrigger>
