@@ -3844,7 +3844,7 @@ declare module uiGrid {
          * or you can supply a custom filter function that gets passed the
          * following arguments: [searchTerm, cellValue, row, column].
          */
-        condition?: number;
+        condition?: number | ((searchTerm: string, cellValue: any, row: IGridRow, column: IGridColumn) => boolean);
         /**
          * If set, the filter field will be pre-populated with this value
          */

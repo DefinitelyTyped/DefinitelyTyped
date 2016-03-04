@@ -199,6 +199,11 @@ function test_ajax() {
         console.log(jqXHR, textStatus, errorThrown);
     });
 
+    // generic then method
+    var p: JQueryPromise<number> = $.ajax({ url: "test.js" })
+        .then(() => "Hello")
+        .then((x) => x.length);
+
     // jqXHR object
     var jqXHR = $.ajax({
         url: "test.js"

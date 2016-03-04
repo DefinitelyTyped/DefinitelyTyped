@@ -1,4 +1,4 @@
-// Type definitions for react-redux 2.1.2
+// Type definitions for react-redux 4.4.0
 // Project: https://github.com/rackt/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -7,7 +7,7 @@
 /// <reference path="../redux/redux.d.ts" />
 
 declare module "react-redux" {
-  import { Component, ComponentClass, Props, ReactNode } from 'react';
+  import { ComponentClass, Component, StatelessComponent, Props, ReactNode } from 'react';
   import { Store, Dispatch, ActionCreator } from 'redux';
 
   /** Generic decorator, that receives T = original props, U = own props */
@@ -21,7 +21,7 @@ declare module "react-redux" {
    * Can't use the above decorator because it would default the type to {}
    */
   export interface InferableComponentDecorator {
-    <P>(component: ComponentClass<P>): ComponentClass<P>;
+    <P, TComponentConstruct extends (ComponentClass<P>|StatelessComponent<P>)>(component: TComponentConstruct): TComponentConstruct;
   }
 
   /**
