@@ -4,12 +4,6 @@
 function test_cases() {
     $('#datetimepicker').datetimepicker();
     $('#datetimepicker').datetimepicker({
-        pickDate: false
-    });
-    $('#datetimepicker').datetimepicker({
-        pickTime: false
-    });
-    $('#datetimepicker').datetimepicker({
         minDate: '2012-12-31'
     });
 
