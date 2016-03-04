@@ -379,6 +379,15 @@ module TestDeferred {
     }
 }
 
+module TestInjector {
+    let $injector: angular.auto.IInjectorService;
+
+    $injector.strictDi = true;
+
+    $injector.annotate(() => {});
+    $injector.annotate(() => {}, true);
+}
+
 
 // Promise signature tests
 module TestPromise {
@@ -957,7 +966,7 @@ function NgModelControllerTyping() {
     };
 }
 
-var $filter:  angular.IFilterService;
+var $filter: angular.IFilterService;
 
 function testFilter() {
 
