@@ -4,6 +4,7 @@ var obj:Object;
 var bool:boolean;
 var num:number;
 var str:string;
+var diff:string;
 var x:any = null;
 var arr:any[];
 var exp:RegExp;
@@ -21,6 +22,9 @@ str = mod.valid(str);
 
 str = mod.valid(str, loose);
 str = mod.inc(str, str, loose);
+num = mod.major(str, loose);
+num = mod.minor(str, loose);
+num = mod.patch(str, loose);
 
 // Comparison
 bool = mod.gt(v1, v2, loose);
@@ -32,6 +36,7 @@ bool = mod.neq(v1, v2, loose);
 bool = mod.cmp(v1, x, v2, loose);
 num = mod.compare(v1, v2, loose);
 num = mod.rcompare(v1, v2, loose);
+diff = mod.diff(v1, v2, loose);
 
 // Ranges
 str = mod.validRange(str, loose);

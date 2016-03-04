@@ -364,6 +364,12 @@ declare module "redis" {
         script(key: string, callback?: ResCallbackT<any>): boolean;
         quit(args:any[], callback?:ResCallbackT<any>): boolean;
         quit(...args:any[]): boolean;
+        scan(...args:any[]): boolean;
+        scan(args:any[], callback?:ResCallbackT<any>): boolean;
+        hscan(...args:any[]): boolean;
+        hscan(args:any[], callback?:ResCallbackT<any>): boolean;
+        zscan(...args:any[]): boolean;
+        zscan(args:any[], callback?:ResCallbackT<any>): boolean;
     }
 
     export interface Multi {
@@ -626,5 +632,11 @@ declare module "redis" {
         evalsha(...args:any[]): Multi;
         quit(args:any[], callback?:ResCallbackT<any>): Multi;
         quit(...args:any[]): Multi;
+        scan(...args:any[]): Multi;
+        scan(args:any[], callback?:ResCallbackT<any>): Multi;
+        hscan(...args:any[]): Multi;
+        hscan(args:any[], callback?:ResCallbackT<any>): Multi;
+        zscan(...args:any[]): Multi;
+        zscan(args:any[], callback?:ResCallbackT<any>): Multi;
     }
 }

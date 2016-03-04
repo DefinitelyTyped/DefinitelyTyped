@@ -130,19 +130,13 @@ declare namespace __React {
                 root: Component<any, any>,
                 tagName: string): Element;
 
-            export function scryRenderedComponentsWithType<P>(
+            export function scryRenderedComponentsWithType<T extends Component<{}, {}>>(
                 root: Component<any, any>,
-                type: ComponentClass<P>): Component<P, {}>[];
-            export function scryRenderedComponentsWithType<C extends Component<any, any>>(
-                root: Component<any, any>,
-                type: ComponentClass<any>): C[];
+                type: { new(): T }): T[];
 
-            export function findRenderedComponentWithType<P>(
+            export function findRenderedComponentWithType<T extends Component<{}, {}>>(
                 root: Component<any, any>,
-                type: ComponentClass<P>): Component<P, {}>;
-            export function findRenderedComponentWithType<C extends Component<any, any>>(
-                root: Component<any, any>,
-                type: ComponentClass<any>): C;
+                type: { new(): T }): T;
 
             export function createRenderer(): ShallowRenderer;
         }
