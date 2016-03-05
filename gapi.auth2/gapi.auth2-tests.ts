@@ -1,5 +1,16 @@
 /// <reference path="gapi.auth2.d.ts" />
 
+function test_load() {
+  gapi.load('auth2', function() {
+    gapi.auth2.init({
+      client_id: 'my-id',
+      cookie_policy: 'single_host_origin',
+      scope: 'https://www.googleapis.com/auth/plus.login',
+      fetch_basic_profile: true
+    })
+  })
+}
+
 function test_init(){
   var auth = gapi.auth2.init({
     client_id: 'my-id',

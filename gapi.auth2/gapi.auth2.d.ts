@@ -5,6 +5,15 @@
 
 /// <reference path="../gapi/gapi.d.ts" />
 
+declare module gapi {
+
+    /**
+     * Pragmatically initialize gapi class member.
+     */
+    export function load(object: string, fn: any) : gapi.auth2.GoogleAuth;
+
+}
+
 declare module gapi.auth2 {
 
   /**
