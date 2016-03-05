@@ -12,7 +12,7 @@ declare module Xrm.Page
      *
      * @sa  Control
      */
-    export interface KbSearchControl extends Control
+    export interface KbSearchControl extends XrmInterface.Page.Control
     {
         /**
          * Use this method to add an event handler to the OnResultOpened event.
