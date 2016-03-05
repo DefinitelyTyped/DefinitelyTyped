@@ -42,15 +42,6 @@ declare module gapi {
 
 }
 
-declare module gapi {
-
-    /**
-     * Pragmatically initialize gapi class member.
-     */
-    export function load(object: string, fn: any) : any;
-
-}
-
 declare module gapi.auth {
     /**
      * Initiates the OAuth 2.0 authorization process. The browser displays a popup window prompting the user authenticate and authorize. After the user authorizes, the popup closes and the callback function fires.
