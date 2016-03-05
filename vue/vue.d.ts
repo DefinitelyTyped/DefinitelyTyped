@@ -118,7 +118,7 @@ declare namespace vuejs {
         // instance/api/dom.js
         $nextTick(callback: Function): void;
         $appendTo(target: (HTMLElement | string), callback?: Function, withTransition?: boolean): this;
-        $prependTo(target: (HTMLElement | string), callback?: Function, withTransition?: boolean); this;
+        $prependTo(target: (HTMLElement | string), callback?: Function, withTransition?: boolean): this;
         $before(target: (HTMLElement | string), callback?: Function, withTransition?: boolean): this;
         $after(target: (HTMLElement | string), callback?: Function, withTransition?: boolean): this;
         $remove(callback?: Function): this;
