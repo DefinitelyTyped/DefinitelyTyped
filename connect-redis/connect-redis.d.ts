@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "connect-redis" {
-    /// <reference path="./express/express.d.ts" />
-    /// <reference path="./express-session/express-session.d.ts" />
-    /// <reference path="./redis/redis.d.ts" />
+    /// <reference path="../express/express.d.ts" />
+    /// <reference path="../express-session/express-session.d.ts" />
+    /// <reference path="../redis/redis.d.ts" />
 
     function s(options: (options?: session.SessionOptions) => express.RequestHandler): s.RedisStore;
 
