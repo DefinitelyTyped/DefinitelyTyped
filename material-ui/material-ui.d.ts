@@ -25,6 +25,7 @@ declare module "material-ui" {
     export import DatePicker = __MaterialUI.DatePicker.DatePicker; // require('material-ui/lib/date-picker/date-picker');
     export import DatePickerDialog = __MaterialUI.DatePicker.DatePickerDialog; // require('material-ui/lib/date-picker/date-picker-dialog');
     export import Dialog = __MaterialUI.Dialog // require('material-ui/lib/dialog');
+    export import Divider = __MaterialUI.Divider // require('material-ui/lib/divider');
     export import DropDownMenu = __MaterialUI.Menus.DropDownMenu; // require('material-ui/lib/DropDownMenu/DropDownMenu');
     export import EnhancedButton = __MaterialUI.EnhancedButton; // require('material-ui/lib/enhanced-button');
     export import FlatButton = __MaterialUI.FlatButton; // require('material-ui/lib/flat-button');
