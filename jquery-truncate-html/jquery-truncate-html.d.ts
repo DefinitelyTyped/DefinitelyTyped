@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-interface ITruncateOptions{
+interface TruncateOptions{
     length?: number;
     stripTags?: boolean;
     words?: boolean;
@@ -14,9 +14,9 @@ interface ITruncateOptions{
 }
 
 interface JQuery{
-    truncate(options: ITruncateOptions) : JQuery;
+    truncate(options: TruncateOptions) : JQuery;
 }
 
 interface JQueryStatic {
-    truncate(html: string, options: ITruncateOptions) : string;
+    truncate(html: string, options: TruncateOptions) : string;
 }
