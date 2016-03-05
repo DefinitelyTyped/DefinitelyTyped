@@ -5,7 +5,7 @@
 
 /// <reference path="../vue/vue.d.ts" />
 
-declare namespace vuerouter {
+declare namespace vuejs {
 
     interface Transition<RootVueApp, FromParams, FromQuery, ToParams, ToQuery> {
         from: $route<RootVueApp, FromParams, FromQuery>;
@@ -71,20 +71,18 @@ declare namespace vuerouter {
         canDeactivate?(transition?: Transition<Root, FP, FQ, TP, TQ>): PromiseLike<any> | boolean | void;
         canReuse?: boolean | ((transition: Transition<Root, FP, FQ, TP, TQ>) => boolean);
     }
-}
 
-declare namespace vuejs {
     interface Vue {
-        $route?: vuerouter.$route<any, any, any>;
-        $router?: vuerouter.Router<any>;
+        $route: vuejs.$route<any, any, any>;
+        $router: vuejs.Router<any>;
     }
 
     interface ComponentOption {
-        route?: vuerouter.TransitionHook<any, any, any, any, any>;
+        route?: vuejs.TransitionHook<any, any, any, any, any>;
     }
 }
 
-declare var VueRouter: vuerouter.RouterStatic;
+declare var VueRouter: vuejs.RouterStatic;
 
 declare module "vue-router" {
     export = VueRouter;
