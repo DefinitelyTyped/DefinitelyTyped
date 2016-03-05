@@ -3,10 +3,15 @@
 // Definitions by: Xavier Stouder <https://github.com/xstoudi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../express/express.d.ts" />
+/// <reference path="../express-session/express-session.d.ts" />
+/// <reference path="../redis/redis.d.ts" />
+
 declare module "connect-redis" {
-    /// <reference path="../express/express.d.ts" />
-    /// <reference path="../express-session/express-session.d.ts" />
-    /// <reference path="../redis/redis.d.ts" />
+    import * as express from "express";
+    import * as session from "express-session";
+    import * as redis from "redis";
+
 
     function s(options: (options?: session.SessionOptions) => express.RequestHandler): s.RedisStore;
 
