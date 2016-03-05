@@ -27,11 +27,11 @@ var grids = Xrm.Page.getControl(( control ) =>
     return control.getControlType() === "subgrid";
 });
 
-var selectedGridReferences: Xrm.Page.LookupValue[] = [];
+var selectedGridReferences: XrmInterface.Page.LookupValue[] = [];
 
 /// Demonstrate iterator typing with v7.1 additions
 
-grids.forEach(( gridControl: Xrm.Page.GridControl ) =>
+grids.forEach(( gridControl: XrmInterface.Page.GridControl ) =>
 {
     gridControl.getGrid().getSelectedRows().forEach(( row ) =>
     {
@@ -41,8 +41,8 @@ grids.forEach(( gridControl: Xrm.Page.GridControl ) =>
 
 /// Demonstrate generic overload vs typecast
 
-var lookupAttribute = <Xrm.Page.LookupControl>Xrm.Page.getControl( "customerid" );
-var lookupAttribute2 = Xrm.Page.getControl<Xrm.Page.LookupControl>( "customerid" );
+var lookupAttribute = <XrmInterface.Page.LookupControl>Xrm.Page.getControl( "customerid" );
+var lookupAttribute2 = Xrm.Page.getControl<XrmInterface.Page.LookupControl>( "customerid" );
 
 /// Demonstrate ES6 String literal syntax
 
@@ -91,7 +91,7 @@ Xrm.Page.data.entity.addOnSave(( context ) =>
 {
     var eventArgs = context.getEventArgs();
 
-    if ( eventArgs.getSaveMode() === Xrm.Page.SaveMode.AutoSave || eventArgs.getSaveMode() === Xrm.Page.SaveMode.SaveAndClose )
+    if ( eventArgs.getSaveMode() === XrmInterface.Page.SaveMode.AutoSave || eventArgs.getSaveMode() === XrmInterface.Page.SaveMode.SaveAndClose )
         eventArgs.preventDefault();
 });
 
