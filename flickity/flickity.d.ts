@@ -269,7 +269,7 @@ interface FlickityOptions {
     *
     * default: true
     */
-    useSetGallerySize?: boolean;
+    setGallerySize?: boolean;
 
     /**
     * Adjusts sizes and positions when window is resized.
