@@ -1,5 +1,3 @@
-// Compiled using typings@0.6.10
-// Source: https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/1209610bb338b0e50d15920c82d8f4e312faee26/xrm/xrm.d.ts
 // Type definitions for Microsoft Dynamics xRM API v7.1
 // Project: http://www.microsoft.com/en-us/download/details.aspx?id=44567
 // Definitions by: David Berry <https://github.com/6ix4our/>, Matt Ngan <https://github.com/mattngan/>, Markus Mauch <https://github.com/markusmauch/>
