@@ -106,6 +106,10 @@ app.on('ready', () => {
 
 	mainWindow.printToPDF({}, (err, data) => {});
 	mainWindow.webContents.printToPDF({}, (err, data) => {});
+
+	mainWindow.webContents.executeJavaScript('return true;');
+	mainWindow.webContents.executeJavaScript('return true;', true);
+	mainWindow.webContents.executeJavaScript('return true;', true, (result: boolean) => console.log(result));
 });
 
 // Locale
