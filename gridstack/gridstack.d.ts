@@ -14,15 +14,18 @@ interface JQuery {
 declare namespace GridStack {
     type GridStackElement = string | Element | JQuery | {};
 
-    interface GridStackNode {
-        autoPosition: boolean;
-        locked: boolean;
-        noMove: boolean;
-        noResize: boolean;
+    interface HasPositionInfo {
         x: number | string;
         y: number | string;
         width: number | string;
         height: number | string;
+    }
+
+    interface GridStackNode extends HasPositionInfo {
+        autoPosition: boolean;
+        locked: boolean;
+        noMove: boolean;
+        noResize: boolean;
         maxHeight: number | string;
         maxWidth: number | string;
         minWidth: number | string;
@@ -31,6 +34,16 @@ declare namespace GridStack {
         el: JQuery;
     }
 
+    interface Utils {
+        isIntercepted(a: HasPositionInfo, b: HasPositionInfo): boolean;
+        sort(nodes: GridStackNode[], direction: number, width: number): GridStackNode[];
+        createStylesheet(id: string): CSSStyleSheet;
+        removeStylesheet(id: string): void;
+        insertCSSRule(sheet: CSSStyleSheet, selector: string, rules: string, index?: number);
+        toBool(arg: any): boolean;
+        parseHeight(str: string): { height: number, unit: string };
+
+    }
 
     interface GridStack {
         /**
@@ -302,16 +315,11 @@ declare namespace GridStack {
         */
         width?: number;
     }
-}
 
-declare namespace GridStackUI {
-    interface Utils {
-        /**
-        * Sorts array of nodes
-        *@param nodes array to sort
-        *@param dir 1 for asc, -1 for desc (optional)
-        *@param width width of the grid. If undefined the width will be calculated automatically (optional).
-        **/
-        sort(nodes: HTMLElement[], dir: number, width: number): void
+    interface GridStackUI extends GridStack {
+        Utils: Utils;
     }
 }
+
+declare var GridStackUI: GridStack.GridStackUI;
+
