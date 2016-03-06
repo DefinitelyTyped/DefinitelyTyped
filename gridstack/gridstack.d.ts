@@ -48,6 +48,7 @@ declare namespace GridStack {
     interface GridStackStatic {
         new (el: GridStackElement, opts: IGridstackOptions): GridStack;
         Utils: Utils;
+        GridStackEngine: GridStackEngineStatic;
     }
 
     interface GridStack {
@@ -319,6 +320,26 @@ declare namespace GridStack {
         * amount of columns (default: 12)
         */
         width?: number;
+    }
+
+    interface GridStackEngine {
+        batchUpdate(): void;
+        commit(): void;
+        isAreaEmpty(x: number, y: number, width: number, height: number): boolean;
+        cleanNodes(): void;
+        getDirtyNodes(): GridStackNode[];
+        addNode(node: GridStackNode, triggerAddEvent: boolean): GridStackNode;
+        removeNode(node: GridStackNode, detatchNode: boolean): void;
+        canMoveNode(node: GridStackNode, x: number, y: number, width: number, height: number): boolean;
+        canBePlacedWithRespectToHeight(node: GridStackNode): boolean;
+        moveNode(node: GridStackNode, x: number, y: number, width: number, height: number, noPack: boolean): GridStackNode;
+        getGridHeight(): number;
+        beginUpdate(node: GridStackNode): void;
+        endUpdate(): void;
+    }
+
+    interface GridStackEngineStatic {
+        new (width: number, onchange?: (nodes: GridStackNode[]) => any, floatMode?: boolean, height?: number, items?: GridStackNode[]): GridStackEngine;
     }
 }
 
