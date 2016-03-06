@@ -63,9 +63,9 @@ declare namespace GridStack {
         cellHeight(): number
         /**
         * Update current cell height. This method rebuilds an internal CSS style sheet. Note: You can expect performance issues if call this method too often.
-        * @param {number} val the cell height
+        * @param {number|string} val the cell height
         */
-        cellHeight(val: number, noUpdate?: boolean): void
+        cellHeight(val: number|string, noUpdate?: boolean): void
         /**
         * Gets current cell width.
         */
@@ -194,7 +194,7 @@ declare namespace GridStack {
         */
         willItFit(x: number, y: number, width: number, height: number, autoPosition: boolean): boolean
 
-        verticalMargin(val: number, noUpdate?: boolean): void;
+        verticalMargin(val: number|string, noUpdate?: boolean): void;
         verticalMargin(): number;
     }
     /**
@@ -232,15 +232,25 @@ declare namespace GridStack {
         /**
             *  one cell height (default: 60)
             */
-        cellHeight?: number;
+        cellHeight?: number | 'auto';
+
+        cellHeightUnit?: string;
+
+        disableDrag?: boolean;
+
+        disableResize?: boolean;
+
         /**
-            * allows to override jQuery UI draggable options. (default: { handle: '.grid-stack-item-content', scroll: true, appendTo: 'body' })
-            */
+        * allows to override jQuery UI draggable options. (default: { handle: '.grid-stack-item-content', scroll: true, appendTo: 'body' })
+        */
         draggable?: JQueryUI.DraggableOptions;
         /**
         * draggable handle selector (default: '.grid-stack-item-content')
         */
         handle?: string;
+
+        handleClass?: string;
+
         /**
         * maximum rows amount.Default is 0 which means no maximum rows
         */
@@ -261,10 +271,21 @@ declare namespace GridStack {
         * class for placeholder (default: 'grid-stack-placeholder')
         */
         placeholderClass?: string;
+
+        placeholderText?: string;
+
+
         /**
         * allows to override jQuery UI resizable options. (default: { autoHide: true, handles: 'se' })
         */
         resizable?: JQueryUI.ResizableOptions;
+
+        removable?: boolean;
+
+        removeTimeout?: number;
+
+        rtl?: boolean | 'auto';
+
         /**
         * makes grid static (default false).If true widgets are not movable/ resizable.You don't even need jQueryUI draggable/resizable. A CSS class grid-stack-static is also added to the container.
         */
@@ -273,6 +294,9 @@ declare namespace GridStack {
         * vertical gap size (default: 20)
         */
         verticalMargin?: number;
+
+        verticalMarginUnit?: string;
+        
         /**
         * amount of columns (default: 12)
         */
