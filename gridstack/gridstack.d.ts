@@ -32,7 +32,7 @@ declare namespace GridStack {
 
     interface GridStack {
         /**
-        * Creates new widget and returns it.
+        * Creates new widget, adds it to the grid and DOM, and returns it.
         *
         *   Widget will be always placed even if result height is more than actual grid height. You need to use will_it_fit method before calling add_widget for additional check.
         * 
@@ -44,6 +44,12 @@ declare namespace GridStack {
         * @param {boolean} auto_position if true then x, y parameters will be ignored and widget will be places on the first available position
         */
         add_widget(el: GridStackElement, x?: number, y?: number, width?: number, height?: number, auto_position?: boolean): JQuery
+        /**
+        * Creates new widget, adds it to the grid, and returns it.
+        *
+        * @param {GridStackElement} el widget to create
+        */
+        make_widget(el: GridStackElement): JQuery
         /**
         * Initializes batch updates. You will see no changes until commit method is called.
         */
@@ -131,7 +137,7 @@ declare namespace GridStack {
         /**
         * Removes all widgets from the grid.
         */
-        remove_all(): void
+        remove_all(detach_node?: boolean): void
         /**
         * Changes widget size
         * @param {GridStackElement} el  widget to modify
