@@ -27,6 +27,8 @@ declare namespace GridStack {
         maxWidth: number | string;
         minWidth: number | string;
         minHeight: number | string;
+        id: string;
+        el: JQuery;
     }
 
 
@@ -41,9 +43,10 @@ declare namespace GridStack {
         * @param {number} y widget position y
         * @param {number} width  widget dimension width
         * @param {number} height widget dimension height
-        * @param {boolean} auto_position if true then x, y parameters will be ignored and widget will be places on the first available position
+        * @param {boolean} autoPosition if true then x, y parameters will be ignored and widget will be places on the first available position
         */
-        addWidget(el: GridStackElement, x?: number, y?: number, width?: number, height?: number, autoPosition?: boolean): JQuery
+        addWidget(el: GridStackElement, x?: number, y?: number, width?: number, height?: number, autoPosition?: boolean, minWidth?: number,
+            maxWidth?: number, minHeight?: number, maxHeight?: number, id?: string): JQuery
         /**
         * Creates new widget, adds it to the grid, and returns it.
         *
@@ -62,7 +65,7 @@ declare namespace GridStack {
         * Update current cell height. This method rebuilds an internal CSS style sheet. Note: You can expect performance issues if call this method too often.
         * @param {number} val the cell height
         */
-        cellHeight(val: number): void
+        cellHeight(val: number, noUpdate?: boolean): void
         /**
         * Gets current cell width.
         */
@@ -74,7 +77,7 @@ declare namespace GridStack {
         /**
         * Destroys a grid instance.
         */
-        destroy(): void
+        destroy(detachGrid?: boolean): void
         /*
         * Disables widgets moving/resizing.
         */
@@ -83,11 +86,16 @@ declare namespace GridStack {
         * Enables widgets moving/resizing.
         */
         enable(): void
+
+        enableMove(enable: boolean, includeNewWidgets: boolean): void;
+
+        enableResize(enable: boolean, includeNewWidgets: boolean): void;
+
         /*
         * Get the position of the cell under a pixel on screen.
         * @param  {MousePosition}  position the position of the pixel to resolve in absolute coordinates, as an object with top and leftproperties
         */
-        getCellFromPixel(position: MousePosition): CellPosition,
+        getCellFromPixel(position: MousePosition, useOffset?: boolean): CellPosition,
         /*
         * Checks if specified area is empty.
         * @param {number} x the position x.
@@ -95,13 +103,18 @@ declare namespace GridStack {
         * @param {number} width the width of to check
         * @param {number} height the height of to check
         */
-        isAreaEmpty(x: number, y: number, width: number, height: number): void
+        isAreaEmpty(x: number, y: number, width: number, height: number): boolean;
         /*
         * Locks/unlocks widget.
         * @param {GridStackElement} el widget to modify.
         * @param {boolean} val if true widget will be locked.
         */
-        locked(el: GridStackElement, val: boolean): void
+        locked(el: GridStackElement, val: boolean): void;
+
+        maxHeight(el: GridStackElement, val: number): void;
+
+        maxWidth(el: GridStackElement, val: number): void;
+
         /*
         * Set the minWidth for a widget.
         * @param {GridStackElement} el widget to modify.
@@ -151,7 +164,12 @@ declare namespace GridStack {
         * @param {GridStackElement} el  widget to modify
         * @param {boolean} val  if true widget will be resizable.
         */
-        resizable(el: GridStackElement, val: boolean): void
+        resizable(el: GridStackElement, val: boolean): void;
+
+        setAnimation(enable: boolean);
+
+        setGridWidth(gridWidth: number, doNotPropagate?: boolean): void;
+
         /**
         * Toggle the grid static state. Also toggle the grid-stack-static class.
         * @param {boolean} staticValue if true the grid become static.
@@ -176,7 +194,8 @@ declare namespace GridStack {
         */
         willItFit(x: number, y: number, width: number, height: number, autoPosition: boolean): boolean
 
-
+        verticalMargin(val: number, noUpdate?: boolean): void;
+        verticalMargin(): number;
     }
     /**
     * Defines the coordiantes of a object
