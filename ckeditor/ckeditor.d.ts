@@ -167,7 +167,7 @@ declare module CKEDITOR {
             // Properties
             type: number;
 
-            // Methods            
+            // Methods
             constructor(element: string, ownerDocument?: document);
             constructor(element: HTMLElement, ownerDocument?: document);
             addClass(className: string): void;
@@ -1024,7 +1024,7 @@ declare module CKEDITOR {
         function get(name: string): any;
         function getFilePath(name: string): string;
         function getPath(name: string): string;
-        function load(name: string, callback: string, scope: any): void;
+        function load(name: string, callback: Function, scope?: Object): void;
         function setLang(pluginName: string, languageCode: string, languageEntries: any): void;
 
     }
@@ -1460,7 +1460,7 @@ declare module CKEDITOR {
         show(): void;
         showPage(id: string): void;
         updateStyle(): void;
-        
+
         // NOTE: Static methods are added to dialog module
     }
 

@@ -113,8 +113,19 @@ function test_hubs() {
     proxy.on('addMessage', function (msg?) {
         console.log(msg);
     });
+        
+    //a listener may have more than 1 parameter, and you should be able to subscribe and unsubscribe
+    function listenerWithMoreParams(id: number, anything: string){
+    	console.log('listenerWithMoreParams -> ', arguments);
+    };
+    //subscribe
+    proxy.on('listenerWithMoreParams', listenerWithMoreParams);
+    
     var connection = $.hubConnection('http://localhost:8081/');
     connection.start({ jsonp: true });
+
+    //unsubscribe
+    proxy.off('listenerWithMoreParams', listenerWithMoreParams);
 }
 
 // Sample from : https://github.com/SignalR/SignalR/wiki/QuickStart-Hubs#javascript--html 

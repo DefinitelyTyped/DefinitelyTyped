@@ -4180,6 +4180,11 @@ declare module ol {
              * Get all features on the source
              */
             getFeatures(): ol.Feature[];
+
+            /**
+             * Get all features whose geometry intersects the provided coordinate.
+             */
+            getFeaturesAtCoordinate(coordinate: ol.Coordinate): ol.Feature[];
         }
 
         class VectorEvent {
