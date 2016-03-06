@@ -102,6 +102,63 @@ declare module When {
     function all<T>(promisesOrValues: any[]): Promise<T>;
 
     /**
+     * Describes the status of a promise.
+     * state may be one of:
+     * "fulfilled" - the promise has resolved
+     * "pending" - the promise is still pending to resolve/reject
+     * "rejected" - the promise has rejected
+     */
+    interface Descriptor<T> {
+        state: string;
+        value?: T;
+        reason?: any;
+    }
+
+    /**
+     * Returns a promise for an array containing the same number of elements as the input array.
+     * Each element is a descriptor object describing of the outcome of the corresponding element in the input.
+     * The returned promise will only reject if array itself is a rejected promise. Otherwise,
+     * it will always fulfill with an array of descriptors. This is in contrast to when.all,
+     * which will reject if any element of array rejects.
+     * @memberOf when
+     *
+     * @param promisesOrValues array of anything, may contain a mix
+     *      of {@link Promise}s and values
+     */
+    function settle<T>(promisesOrValues: any[]): Promise<Descriptor<T>[]>;
+
+    /**
+     * Generates a potentially infinite stream of promises by repeatedly calling f until predicate becomes true.
+     * @memberOf when
+     * @param f function that, given a seed, returns the next value or a promise for it.
+     * @param predicate function that receives the current iteration value, and should return truthy when the iterating should stop
+     * @param handler function that receives each value as it is produced by f. It may return a promise to delay the next iteration.
+     * @param seed initial value provided to the handler, and first f invocation. May be a promise.
+     */
+    function iterate<U>(f: (seed: U) => U | Promise<U>,
+                        predicate: (value: U) => boolean,
+                        handler: (value: U) => Promise<any> | void,
+                        seed: U | Promise<U>): Promise<U>;
+
+
+    /**
+     * Similar to when/iterate, when.unfold generates a potentially infinite stream of promises by repeatedly calling
+     * unspool until predicate becomes true. when.unfold allows you to thread additional state information through the iteration.
+     * @memberOf when
+     * @param unspool function that, given a seed, returns a [valueToSendToHandler, newSeed] pair.
+     * May return an array, array of promises, promise for an array, or promise for an array of promises.
+     * @param predicate function that receives the current seed, and should return truthy when the unfold should stop
+     * @param handler function that receives the valueToSendToHandler of the current iteration.
+     * This function can process valueToSendToHandler in whatever way you need.
+     * It may return a promise to delay the next iteration of the unfold.
+     * @param seed initial value provided to the first unspool invocation. May be a promise.
+     */
+    function unfold<T, U>(unspool: (seed: U) => [T | Promise<T>, U | Promise<U>] | Promise<[T | Promise<T>, U | Promise<U>]>,
+                          predicate: (value: U) => boolean | Promise<boolean>,
+                          handler: (value: T) => Promise<any> | void,
+                          seed: U | Promise<U>): Promise<void>;
+
+    /**
      * Creates a {promise, resolver} pair, either or both of which
      * may be given out safely to consumers.
      * The resolver has resolve, reject, and progress.  The promise
@@ -148,7 +205,7 @@ declare module When {
 
         // Make sure you test any usage of these overloads, exceptionType must
         // be a constructor with prototype set to an instance of Error.
-        catch<U>(exceptionType: any, onRejected?: (reason: any) => Promise<U>): Promise<U>;
+        catch<U>(exceptionType: any, onRejected?: (reason: any) => U | Promise<U>): Promise<U>;
 
         finally(onFulfilledOrRejected: Function): Promise<T>;
 
@@ -179,6 +236,13 @@ declare module When {
         otherwise<U>(exceptionType: any, onRejected?: (reason: any) => U | Promise<U>): Promise<U>;
 
         then<U>(onFulfilled: (value: T) => U | Promise<U>, onRejected?: (reason: any) => U | Promise<U>, onProgress?: (update: any) => void): Promise<U>;
+
+        spread<T>(onFulfilled: _.Fn0<Promise<T> | T>): Promise<T>;
+        spread<A1, T>(onFulfilled: _.Fn1<A1, Promise<T> | T>): Promise<T>;
+        spread<A1, A2, T>(onFulfilled: _.Fn2<A1, A2, Promise<T> | T>): Promise<T>;
+        spread<A1, A2, A3, T>(onFulfilled: _.Fn3<A1, A2, A3, Promise<T> | T>): Promise<T>;
+        spread<A1, A2, A3, A4, T>(onFulfilled: _.Fn4<A1, A2, A3, A4, Promise<T> | T>): Promise<T>;
+        spread<A1, A2, A3, A4, A5, T>(onFulfilled: _.Fn5<A1, A2, A3, A4, A5, Promise<T> | T>): Promise<T>;
 
         done<U>(onFulfilled: (value: T) => void, onRejected?: (reason: any) => void): void;
 
@@ -252,12 +316,12 @@ declare module "when/node" {
     ): when.Promise<T>;
 
 
-    function apply<T>(fn: _.NodeFn0<T>, args: any[]): when.Promise<T>;
-    function apply<T>(fn: _.NodeFn1<any, T>, args: any[]): when.Promise<T>;
-    function apply<T>(fn: _.NodeFn2<any, any, T>, args: any[]): when.Promise<T>;
-    function apply<T>(fn: _.NodeFn3<any, any, any, T>, args: any[]): when.Promise<T>;
-    function apply<T>(fn: _.NodeFn4<any, any, any, any, T>, args: any[]): when.Promise<T>;
-    function apply<T>(fn: _.NodeFn5<any, any, any, any, any, T>, args: any[]): when.Promise<T>;
+    function apply<T>(fn: _.NodeFn0<T>, args: any[] | IArguments): when.Promise<T>;
+    function apply<T>(fn: _.NodeFn1<any, T>, args: any[] | IArguments): when.Promise<T>;
+    function apply<T>(fn: _.NodeFn2<any, any, T>, args: any[] | IArguments): when.Promise<T>;
+    function apply<T>(fn: _.NodeFn3<any, any, any, T>, args: any[] | IArguments): when.Promise<T>;
+    function apply<T>(fn: _.NodeFn4<any, any, any, any, T>, args: any[] | IArguments): when.Promise<T>;
+    function apply<T>(fn: _.NodeFn5<any, any, any, any, any, T>, args: any[] | IArguments): when.Promise<T>;
 
 
     function liftAll(srcApi: any, transform?: (destApi: any, liftedFunc: Function, name: string) => any, destApi?: any): any;

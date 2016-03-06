@@ -33,14 +33,14 @@ THE SOFTWARE.
 /// <reference path="./tests/webgl/webgl_geometries.ts" />
 /// <reference path="./tests/webgl/webgl_helpers.ts" />
 /// <reference path="./tests/webgl/webgl_interactive_cubes.ts" />
-/// <reference path="./tests/webgl/webgl_interactive_raycasting_pointcloud.ts" />
+/// <reference path="./tests/webgl/webgl_interactive_raycasting_points.ts" />
 /// <reference path="./tests/webgl/webgl_lensflares.ts" />
 /// <reference path="./tests/webgl/webgl_lights_heimsphere.ts" />
 /// <reference path="./tests/webgl/webgl_lines_colors.ts" />
 /// <reference path="./tests/webgl/webgl_loader_awd.ts" />
 /// <reference path="./tests/webgl/webgl_materials.ts" />
 /// <reference path="./tests/webgl/webgl_morphtargets.ts" />
-/// <reference path="./tests/webgl/webgl_particles_billboards.ts" />
+/// <reference path="./tests/webgl/webgl_points_billboards.ts" />
 /// <reference path="./tests/webgl/webgl_postprocessing.ts" />
 /// <reference path="./tests/webgl/webgl_shader.ts" />
 /// <reference path="./tests/webgl/webgl_sprites.ts" />
@@ -57,5 +57,7 @@ THE SOFTWARE.
 /// <reference path="./tests/canvas/canvas_materials.ts" />
 /// <reference path="./tests/canvas/canvas_particles_floor.ts" />
 
-// examples test.
+// examples test
 /// <reference path="./tests/examples/detector.ts" />
+/// <reference path="./tests/examples/effects/vreffect.ts" />
+/// <reference path="./tests/examples/controls/vrcontrols.ts" />

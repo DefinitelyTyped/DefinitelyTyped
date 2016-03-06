@@ -37,11 +37,11 @@ declare module "noble" {
         writeHandle(handle: NodeBuffer, data: NodeBuffer, withoutResponse: boolean, callback: (error: string) => void): void;
         toString(): string;
 
-        on(event: string, listener: Function): events.EventEmitter;
-        on(event: "connect", listener: (error: string) => void): events.EventEmitter;
-        on(event: "disconnect", listener: (error: string) => void): events.EventEmitter;
-        on(event: "rssiUpdate", listener: (rssi: number) => void): events.EventEmitter;
-        on(event: "servicesDiscover", listener: (services: Service[]) => void): events.EventEmitter;
+        on(event: string, listener: Function): this;
+        on(event: "connect", listener: (error: string) => void): this;
+        on(event: "disconnect", listener: (error: string) => void): this;
+        on(event: "rssiUpdate", listener: (rssi: number) => void): this;
+        on(event: "servicesDiscover", listener: (services: Service[]) => void): this;
     }
 
     export interface Advertisement {
@@ -63,9 +63,9 @@ declare module "noble" {
         discoverCharacteristics(characteristicUUIDs: string[], callback?: (error: string, characteristics: Characteristic[]) => void): void;
         toString(): string;
 
-        on(event: string, listener: Function): events.EventEmitter;
-        on(event: "includedServicesDiscover", listener: (includedServiceUuids: string[]) => void): events.EventEmitter;
-        on(event: "characteristicsDiscover", listener: (characteristics: Characteristic[]) => void): events.EventEmitter;
+        on(event: string, listener: Function): this;
+        on(event: "includedServicesDiscover", listener: (includedServiceUuids: string[]) => void): this;
+        on(event: "characteristicsDiscover", listener: (characteristics: Characteristic[]) => void): this;
     }
 
     export class Characteristic extends events.EventEmitter {
@@ -82,13 +82,13 @@ declare module "noble" {
         discoverDescriptors(callback?: (error: string, descriptors: Descriptor[]) => void): void;
         toString(): string;
 
-        on(event: string, listener: Function): events.EventEmitter;
-        on(event: string, option: boolean, listener: Function): events.EventEmitter;
-        on(event: "read", listener: (data: NodeBuffer, isNotification: boolean) => void): events.EventEmitter;
-        on(event: "write", withoutResponse: boolean, listener: (error: string) => void): events.EventEmitter;
-        on(event: "broadcast", listener: (state: string) => void): events.EventEmitter;
-        on(event: "notify", listener: (state: string) => void): events.EventEmitter;
-        on(event: "descriptorsDiscover", listener: (descriptors: Descriptor[]) => void): events.EventEmitter;
+        on(event: string, listener: Function): this;
+        on(event: string, option: boolean, listener: Function): this;
+        on(event: "read", listener: (data: NodeBuffer, isNotification: boolean) => void): this;
+        on(event: "write", withoutResponse: boolean, listener: (error: string) => void): this;
+        on(event: "broadcast", listener: (state: string) => void): this;
+        on(event: "notify", listener: (state: string) => void): this;
+        on(event: "descriptorsDiscover", listener: (descriptors: Descriptor[]) => void): this;
     }
 
     export class Descriptor extends events.EventEmitter {
@@ -100,9 +100,9 @@ declare module "noble" {
         writeValue(data: NodeBuffer, callback?: (error: string) => void): void;
         toString(): string;
 
-        on(event: string, listener: Function): events.EventEmitter;
-        on(event: "valueRead", listener: (error: string, data: NodeBuffer) => void): events.EventEmitter;
-        on(event: "valueWrite", listener: (error: string) => void): events.EventEmitter;
+        on(event: string, listener: Function): this;
+        on(event: "valueRead", listener: (error: string, data: NodeBuffer) => void): this;
+        on(event: "valueWrite", listener: (error: string) => void): this;
     }
 }
 

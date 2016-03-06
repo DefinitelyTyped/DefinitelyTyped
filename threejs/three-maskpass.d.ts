@@ -18,7 +18,7 @@ declare module THREE {
 
         render(renderer: WebGLRenderer, writeBuffer: WebGLRenderTarget, readBuffer: WebGLRenderTarget, delta: number): void;
 	}
-	
+
 	export class ClearMaskPass {
 		constructor();
 

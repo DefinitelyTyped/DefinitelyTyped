@@ -3,6 +3,8 @@
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+// Change [0]: 2015/06/14 - Marcelo Camargo <https://github.com/haskellcamargo>
+
 declare module "prelude-ls" {
 	module PreludeLS {
 		export function id<A>(x: A): A;
@@ -14,8 +16,8 @@ declare module "prelude-ls" {
 		
 		// List
 		
-		export function each<A>(f: (x: A) => void): (xs: A[]) => void;
-		export function each<A>(f: (x: A) => void, xs: A[]): void;
+		export function each<A>(f: (x: A) => void): (xs: A[]) => A[];
+		export function each<A>(f: (x: A) => void, xs: A[]): A[];
 		export function map<A, B>(f: (x: A) => B): (xs: A[]) => B[];
 		export function map<A, B>(f: (x: A) => B, xs: A[]): B[];
 		export function compact<A>(xs: A[]): A[];
@@ -25,11 +27,11 @@ declare module "prelude-ls" {
 		export function reject<A>(f: (x: A) => boolean, xs: A[]): A[];
 		export function partition<A>(f: (x: A) => Boolean): (xs: A[]) => [A[], A[]];
 		export function partition<A>(f: (x: A) => Boolean, xs: A[]): [A[], A[]];
-		export function find<A>(f: (x: A) => Boolean): (xs: A[]) => (A | void);
-		export function find<A>(f: (x: A) => Boolean, xs: A[]): (A | void);
-		export function head<A>(xs: A[]): (A | void);
+		export function find<A>(f: (x: A) => Boolean): (xs: A[]) => A;
+		export function find<A>(f: (x: A) => Boolean, xs: A[]): A;
+		export function head<A>(xs: A[]): A;
 		export function tail<A>(xs: A[]): A[];
-		export function last<A>(xs: A[]): (A | void);
+		export function last<A>(xs: A[]): A;
 		export function initial<A>(xs: A[]): A[];
 		export function empty<A>(xs: A[]): boolean;
 		export function reverse<A>(xs: A[]): A[];
@@ -58,8 +60,8 @@ declare module "prelude-ls" {
 		export function concatMap<A, B>(f: (x: A) => B[], xs: A[]): B[];
 		export function flatten(xs: any[]): any[];
 		export function difference<A>(...xss: A[][]): A[];
-		export function intersection<A>(...xss: A[]): A[];
-		export function union<A>(...xss: A[]): A[];
+		export function intersection<A>(...xss: A[][]): A[];
+		export function union<A>(...xss: A[][]): A[];
 		export function countBy<A, B>(f: (x: A) => B): (xs: A[]) => any;
 		export function countBy<A, B>(f: (x: A) => B, xs: A[]): any;
 		export function groupBy<A, B>(f: (x: A) => B): (xs: A[]) => any;
@@ -73,11 +75,11 @@ declare module "prelude-ls" {
 		export function sort<A>(xs: A[]): A[];
 		export function sortWith<A>(f: (x: A) => (y: A) => number): (xs: A[]) => A[];
 		export function sortWith<A>(f: (x: A) => (y: A) => number, xs: A[]): A[];
-		export function sortBy<A, B>(f: (x: A) => B): (xs: A[]) => A;
-		export function sortBy<A, B>(f: (x: A) => B, xs: A[]): A;
-		export function sum(xs: number[]): number[];
-		export function product(xs: number[]): number[];
-		export function mean(xs: number[]): number[];
+		export function sortBy<A, B>(f: (x: A) => B): (xs: A[]) => A[];
+		export function sortBy<A, B>(f: (x: A) => B, xs: A[]): A[];
+		export function sum(xs: number[]): number;
+		export function product(xs: number[]): number;
+		export function mean(xs: number[]): number;
 		export function maximum<A>(xs: A[]): A;
 		export function minimum<A>(xs: A[]): A;
 		export function maximumBy<A, B>(f: (x: A) => B): (xs: A[]) => A;

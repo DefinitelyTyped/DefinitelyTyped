@@ -52,7 +52,7 @@ declare module Backbone {
 
   type PageableGetPageOptions = CollectionFetchOptions|Silenceable;
 
-  class PageableCollection<TModel extends Model> extends Collection<Model>{
+  class PageableCollection<TModel extends Model> extends Collection<TModel>{
 
     fullCollection: Collection<TModel>;
     mode: string;

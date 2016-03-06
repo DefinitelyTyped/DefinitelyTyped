@@ -41,6 +41,16 @@ declare function fail(...err:any[]): void;
 declare function file(name:string, prereqs?:string[], action?:()=>void, opts?:jake.FileTaskOptions): jake.FileTask;
 
 /**
+ * Creates Jake FileTask from regex patterns
+ * @name name/pattern of the Task
+ * @param source calculated from the name pattern
+ * @param prereqs Prerequisites to be run before this task
+ * @param action The action to perform for this task
+ * @param opts Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
+ */
+declare function rule(pattern: RegExp, source: string | { (name: string): string; }, prereqs?: string[], action?: () => void, opts?: jake.TaskOptions): void;
+
+/**
  * Creates a namespace which allows logical grouping of tasks, and prevents name-collisions with task-names. Namespaces can be nested inside of other namespaces.
  * @param name The name of the namespace
  * @param scope The enclosing scope for the namespaced tasks
@@ -122,6 +132,11 @@ declare module jake{
 		 * stop execution on error, default true
 		 */
 		breakOnError?:boolean;
+		
+		/**
+		* 
+		*/
+		windowsVerbatimArguments?: boolean
 	}
 	export function exec(cmds:string[], callback?:()=>void, opts?:ExecOptions):void;
 
@@ -180,6 +195,11 @@ declare module jake{
 		 * @default false
 		 */
 		async?: boolean;
+		
+		/**
+		 * number of parllel async tasks
+		*/
+		parallelLimit?: number;
 	}
 
 	/**
@@ -206,15 +226,17 @@ declare module jake{
 		 */
 		reenable(): void;
 
-		addListener(event: string, listener: Function): NodeJS.EventEmitter;
-        on(event: string, listener: Function): NodeJS.EventEmitter;
-        once(event: string, listener: Function): NodeJS.EventEmitter;
-        removeListener(event: string, listener: Function): NodeJS.EventEmitter;
-        removeAllListeners(event?: string): NodeJS.EventEmitter;
-        setMaxListeners(n: number): void;
-        listeners(event: string): Function[];
-        emit(event: string, ...args: any[]): boolean;
-        value: any;
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
+		getMaxListeners(): number;
+		listeners(event: string): Function[];
+		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
+		value: any;
 	}
 
 	export class DirectoryTask{

@@ -8,5 +8,6 @@
 
 declare module "gulp-mocha" {
     function mocha(setupOptions?: MochaSetupOptions): NodeJS.ReadWriteStream;
+    namespace mocha {}
     export = mocha;
 }

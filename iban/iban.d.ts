@@ -56,3 +56,7 @@ interface IBANStatic {
 }
 
 declare var IBAN: IBANStatic;
+
+declare module 'iban' {
+  export = IBAN;
+}

@@ -294,7 +294,7 @@ function ModelValidation() {
     var validatedModel = valerie.validatableModel(model)
         .validateAll()
         .end();
-    
+
 }
 
 function UtilsStaticTests() {

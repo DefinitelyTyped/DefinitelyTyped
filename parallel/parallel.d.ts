@@ -102,3 +102,7 @@ declare class Parallel<T> {
 	public require(fn: Function): Parallel<T>;
 }
 
+/* commonjs binding for npm use */
+declare module "paralleljs" {
+	export = Parallel;
+}

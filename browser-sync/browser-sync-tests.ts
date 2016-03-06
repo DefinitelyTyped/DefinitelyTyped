@@ -1,9 +1,23 @@
 /// <reference path="./browser-sync.d.ts"/>
 import browserSync = require("browser-sync");
 
+(() => {
+    //make sure that the interfaces are correctly exposed
+    var bsInstance: browserSync.BrowserSyncInstance;
+    var bsStatic: browserSync.BrowserSyncStatic;
+    var opts: browserSync.Options;
+})();
+
 browserSync({
     server: {
         baseDir: "./"
+    }
+});
+
+// multiple base directory
+browserSync({
+    server: {
+        baseDir: ["app", "dist"]
     }
 });
 
@@ -63,3 +77,46 @@ evt.on("init", function () {
 });
 
 browserSync(config);
+
+var has = browserSync.has("My server");
+
+var bs = browserSync.create();
+
+bs.init({
+    server: "./app"
+});
+
+bs.reload();
+
+function browserSyncInit(): browserSync.BrowserSyncInstance {
+    var browser = browserSync.create();
+    browser.init();
+    console.log(browser.name);
+    console.log(browserSync.name);
+    return browser;
+}
+var browser = browserSyncInit();
+browser.exit();
+
+// Stream method.
+
+// -- No options.
+browser.stream();
+
+// -- "once" option.
+browser.stream({once: true});
+
+// -- "match" option (string).
+browser.stream({match: "**/*.js"});
+
+// -- "match" option (RegExp).
+browser.stream({match: /\.js$/});
+
+// -- "match" option (function).
+browser.stream({match: (testString) => true});
+
+// -- "match" option (array).
+browser.stream({match: ["**/*.js", /\.js$/, (testString) => true]});
+
+// -- Both options.
+browser.stream({once: true, match: ["**/*.js", /\.js$/, (testString) => true]});

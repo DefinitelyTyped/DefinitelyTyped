@@ -108,7 +108,7 @@ declare module CanvasJS {
         */
         animationEnabled?: boolean;
         /** 
-        * While exporting any chart, “Chart” is used as the default fine name with corresponding extension “jpg” or “png”. You can override this name using exportFileName property. 
+        * While exporting any chart, "Chart" is used as the default fine name with corresponding extension "jpg" or "png". You can override this name using exportFileName property. 
         * Default: Chart 
         */
         exportFileName?: string;
@@ -126,25 +126,25 @@ declare module CanvasJS {
         zoomEnabled?: boolean;
         /** 
         * Sets the theme of the Chart. Various predefined themes are bundled along with the library. User can easily switch these themes by changing theme property to the below mentioned options.
-        * Default: “theme1″ 
-        * Options: “theme1″,”theme2″, “theme3″ 
+        * Default: "theme1" 
+        * Options: "theme1","theme2", "theme3" 
         */
         theme?: string;
         /** 
-        * Sets the background color of entire Chart Area. Values can be “HTML Color Name”, “hex code” or “rgba values”
-        * Default: “white” 
-        * Example: “yellow”, “#F5DEB3″.. 
+        * Sets the background color of entire Chart Area. Values can be "HTML Color Name", "hex code" or "rgba values"
+        * Default: "white" 
+        * Example: "yellow", "#F5DEB3".. 
         */
         backgroundColor?: string;
         /** 
         * Sets the colorSet of the Chart. Color Set is an array of colors that are used to render data. Various predefined Color Sets are bundled along with the library. You can either choose from the pre-defined Color Sets or define your own Color Set.
-        * Default: “colorset1″ or as defined in the selected theme 
-        * Example: “colorSet1″, “colorSet2″, “colorSet3″ 
+        * Default: "colorset1" or as defined in the selected theme 
+        * Example: "colorSet1", "colorSet2", "colorSet3" 
         */
         colorSet?: string;
         /** 
-        * CanvasJS allows you to localize various culture / language / country specific elements in the Chart like number formatting style – where you can choose which character to use as a decimal separator and as a digit group separator (also referred to as a thousand separator). By default CanvasJS is set to Neutral English Culture – “en”.
-        * Default: “en”
+        * CanvasJS allows you to localize various culture / language / country specific elements in the Chart like number formatting style – where you can choose which character to use as a decimal separator and as a digit group separator (also referred to as a thousand separator). By default CanvasJS is set to Neutral English Culture – "en".
+        * Default: "en"
         */
         culture?: string;
         /** 
@@ -190,19 +190,19 @@ declare module CanvasJS {
         /** 
         * Sets the Title’s text.
         * Default: null 
-        * Example: “Chart title” 
+        * Example: "Chart title" 
         */
         text?: string;
         /** 
         * This property lets you align the Chart Title vertically.
-        * Default: “top” 
-        * Options: “top”, “center”, “bottom” 
+        * Default: "top" 
+        * Options: "top", "center", "bottom" 
         */
         verticalAlign?: string;
         /** 
         * This property lets you align the Chart Title horizontally.
-        * Default: “center” 
-        * Options: “left”, “right”, “center” 
+        * Default: "center" 
+        * Options: "left", "right", "center" 
         */
         horizontalAlign?: string;
         /** 
@@ -213,26 +213,26 @@ declare module CanvasJS {
         fontSize?: number;
         /** 
         * Sets the Font Family of Chart Title.
-        * Default: “Calibri, Optima, Candara, Verdana, Geneva, sans-serif”
-        * Example: “arial” , “tahoma”, “verdana” .. 
+        * Default: "Calibri, Optima, Candara, Verdana, Geneva, sans-serif"
+        * Example: "arial" , "tahoma", "verdana" .. 
         */
         fontFamily?: string;
         /** 
         * Sets the Font Weight used in the Chart Title.
-        * Default: “bold” 
-        * Options: “lighter”, “normal”, “bold” , “bolder” 
+        * Default: "bold" 
+        * Options: "lighter", "normal", "bold" , "bolder" 
         */
         fontWeight?: string;
         /** 
-        * Sets the font color of Chart Title. The value of fontColor can be a “HTML Color Name” or “hex” code .
-        * Default: “#3A3A3A”
-        * Example: “red”, “#FAC003″ .. 
+        * Sets the font color of Chart Title. The value of fontColor can be a "HTML Color Name" or "hex" code .
+        * Default: "#3A3A3A"
+        * Example: "red", "#FAC003" .. 
         */
         fontColor?: string;
         /** 
         * Sets the fontStyle of Chart Title. fontStyle can be set to one of the below options.
-        * Default: “normal” 
-        * Options: “normal”, “italic” , “oblique” 
+        * Default: "normal" 
+        * Options: "normal", "italic" , "oblique" 
         */
         fontStyle?: string;
         /** 
@@ -248,15 +248,15 @@ declare module CanvasJS {
         */
         cornerRadius?: number;
         /** 
-        * Sets the color of border around Chart Title. Values of borderColor can be “HTML Color Name” or “hex” code .
-        * Default: “black”
-        * Example: “red”, “#FF0000″ ..
+        * Sets the color of border around Chart Title. Values of borderColor can be "HTML Color Name" or "hex" code .
+        * Default: "black"
+        * Example: "red", "#FF0000" ..
         */
         borderColor?: string;
         /** 
-        * Sets the background color of Chart Title. Values can be “HTML Color Name” or “hex” code.
+        * Sets the background color of Chart Title. Values can be "HTML Color Name" or "hex" code.
         * Default: null
-        * Example: “red”, “#FF0000″ .. 
+        * Example: "red", "#FF0000" .. 
         */
         backgroundColor?: string;
         /** 
@@ -274,6 +274,13 @@ declare module CanvasJS {
     }
 
     interface ChartLegendOptions {
+        /**
+        * Sets the cursor type for legend items.
+        * Default: "default"
+        * Examples: "pointer", "crosshair" ..
+        */
+        cursor?: string;
+
         /** 
         * Sets the font Size of Legend Text in pixels.
         * Default: 12 
@@ -282,38 +289,38 @@ declare module CanvasJS {
         fontSize?: number;
         /** 
         * Sets the Font Family of Legend Text.
-        * Default: “calibri” 
-        * Example: “arial” , “tahoma”, “verdana” .. 
+        * Default: "calibri" 
+        * Example: "arial" , "tahoma", "verdana" .. 
         */
         fontFamily?: string;
         /** 
-        * Sets the font color of Legend Text . The value of fontColor can be a “HTML Color Name” or “hex” code .
-        * Default: “black” 
-        * Example: “red”, “#FAC003″ .. 
+        * Sets the font color of Legend Text . The value of fontColor can be a "HTML Color Name" or "hex" code .
+        * Default: "black" 
+        * Example: "red", "#FAC003" .. 
         */
         fontColor?: string;
         /** 
         * Sets the Font Weight of Legend Text.
-        * Default: “normal” 
-        * Example: “lighter”, “normal”, “bold” , “bolder” 
+        * Default: "normal" 
+        * Example: "lighter", "normal", "bold" , "bolder" 
         */
         fontWeight?: string;
         /** 
         * Sets the fontStyle of Legend Text. fontStyle can be set to one of the below options.
-        * Default: “normal” 
-        * Example: “normal”, “italic” , “oblique” 
+        * Default: "normal" 
+        * Example: "normal", "italic" , "oblique" 
         */
         fontStyle?: string;
         /** 
         * This property lets you align the Legend Position vertically.
-        * Default: “bottom” 
-        * Example: “top”, “center”, “bottom” 
+        * Default: "bottom" 
+        * Example: "top", "center", "bottom" 
         */
         verticalAlign?: string;
         /** 
         * This property lets you align the Legend Position horizontally.
-        * Default: “right” 
-        * Example: “left”, “right”, “center” 
+        * Default: "right" 
+        * Example: "left", "right", "center" 
         */
         horizontalAlign?: string;
         /** 
@@ -373,13 +380,13 @@ declare module CanvasJS {
         /** 
         * Sets the Axis Title.
         * Default: null 
-        * Example: “Axis X Title” 
+        * Example: "Axis X Title" 
         */
         title?: string;
         /** 
-        * Sets the Font Color of Axis Title. The value of titleFontColor can be a “HTML Color Name” or “hex” code .
-        * Default: “#666666″ 
-        * Example: “red”, “#006400″ .
+        * Sets the Font Color of Axis Title. The value of titleFontColor can be a "HTML Color Name" or "hex" code .
+        * Default: "#666666" 
+        * Example: "red", "#006400" .
         */
         titleFontColor?: string;
         /** 
@@ -390,20 +397,20 @@ declare module CanvasJS {
         titleFontSize?: number;
         /** 
         * Sets the Font Family of Axis Title.
-        * Default: “Calibri, Optima, Candara, Verdana, Geneva, sans-serif”
-        * Example: “calibri”, “tahoma, “verdana” .. 
+        * Default: "Calibri, Optima, Candara, Verdana, Geneva, sans-serif"
+        * Example: "calibri", "tahoma, "verdana" .. 
         */
         titleFontFamily?: string;
         /** 
         * Sets the Font Weight used in the Axis Title. It can be set to one of the options below.
-        * Default: “normal” 
-        * Options: “lighter”, “normal”, “bold” , “bolder” 
+        * Default: "normal" 
+        * Options: "lighter", "normal", "bold" , "bolder" 
         */
         titleFontWeight?: string;
         /** 
         * Sets the Font Style of Axis Title. It can be set to one of the below options.
-        * Default: “normal” 
-        * Options: “normal”, “italic” , “oblique” 
+        * Default: "normal" 
+        * Options: "normal", "italic" , "oblique" 
         */
         titleFontStyle?: string;
         /** 
@@ -419,9 +426,9 @@ declare module CanvasJS {
         */
         labelAngle?: number;
         /** 
-        * Sets the Axis Label color. The value of labelFontColor can be a “HTML Color Name” or “hex” code .
-        * Default: “grey”
-        * Example: “red”, “#FAC003″ .. 
+        * Sets the Axis Label color. The value of labelFontColor can be a "HTML Color Name" or "hex" code .
+        * Default: "grey"
+        * Example: "red", "#FAC003" .. 
         */
         labelFontColor?: string;
         /** 
@@ -432,32 +439,32 @@ declare module CanvasJS {
         labelFontSize?: number;
         /** 
         * Sets the Font Family of Axis labels.
-        * Default: “Calibri, Optima, Candara, Verdana, Geneva, sans-serif” 
-        * Example: “calibri”, “tahoma”, “verdana” .. 
+        * Default: "Calibri, Optima, Candara, Verdana, Geneva, sans-serif" 
+        * Example: "calibri", "tahoma", "verdana" .. 
         */
         labelFontFamily?: string;
         /** 
         * Set the font Weight used in Axis Labels. It can be set to one of the options below.
-        * Default: “normal”
-        * Options: “lighter”, “normal”, “bold” , “bolder” 
+        * Default: "normal"
+        * Options: "lighter", "normal", "bold" , "bolder" 
         */
         labelFontWeight?: string;
         /** 
         * Sets the Font Style of Axis Labels. It can be set to one of the below options.
-        * Default: “normal” 
-        * Options: “italic”, “oblique”, “normal” 
+        * Default: "normal" 
+        * Options: "italic", "oblique", "normal" 
         */
         labelFontStyle?: string;
         /** 
         * A string that prepends all the labels on axisX.
         * Default: null 
-        * Example: “$”,”cat”.. 
+        * Example: "$","cat".. 
         */
         prefix?: string;
         /** 
         * A string that appends all the labels on axisX.
         * Default: null 
-        * Example: “$”,”cat”.. 
+        * Example: "$","cat".. 
         */
         suffix?: string;
         /** 
@@ -483,10 +490,10 @@ declare module CanvasJS {
         */
         interval?: number;
         /** 
-        * intervalType is the unit of interval property. intervalType is by default set to “number” and hence you need to specify the interval type (eg “week”, “month”, etc) depending on the type of interval you intend to set. If required interval is 3 months, you need to provide interval as 3 and intervalType as “month”
-        * Default: Automatically handled when interval property is not set. Defaults to “number” when you set the interval. 
-        * Option: “number”,”millisecond” ,”second”,” minute”, “hour”, “day”, “month” ,”year” 
-        * Example: for interval as 15 minutes, set interval as 15, and set intervalType as “minute”, 
+        * intervalType is the unit of interval property. intervalType is by default set to "number" and hence you need to specify the interval type (eg "week", "month", etc) depending on the type of interval you intend to set. If required interval is 3 months, you need to provide interval as 3 and intervalType as "month"
+        * Default: Automatically handled when interval property is not set. Defaults to "number" when you set the interval. 
+        * Option: "number","millisecond" ,"second"," minute", "hour", "day", "month" ,"year" 
+        * Example: for interval as 15 minutes, set interval as 15, and set intervalType as "minute", 
         */
         intervalType?: string;
         /** 
@@ -496,9 +503,9 @@ declare module CanvasJS {
         */
         tickLength?: number;
         /** 
-        * Sets the color of Tick Marks drawn on the axis. The value of tickColor can be a “HTML Color Name” or “hex” code .
-        * Default: “#BBBBBB”
-        * Example: “red”, “#006400″. 
+        * Sets the color of Tick Marks drawn on the axis. The value of tickColor can be a "HTML Color Name" or "hex" code .
+        * Default: "#BBBBBB"
+        * Example: "red", "#006400". 
         */
         tickColor?: string;
         /** 
@@ -508,9 +515,9 @@ declare module CanvasJS {
         */
         tickThickness?: number;
         /** 
-        * Sets the color of Axis line. Axis line color can be a “HTML Color Name” or “hex” code .
-        * Default: “#BBBBBB” 
-        * Example: “blue”,”#21AB13″.. 
+        * Sets the color of Axis line. Axis line color can be a "HTML Color Name" or "hex" code .
+        * Default: "#BBBBBB" 
+        * Example: "blue","#21AB13".. 
         */
         lineColor?: string;
         /** 
@@ -520,9 +527,9 @@ declare module CanvasJS {
         */
         lineThickness?: string;
         /** 
-        * Sets the Interlacing Color that alternates between the set interval. If the interval is not set explicitly, then the auto calculated interval is considered. The value of interlacedColor can be a “HTML Color Name” or “hex” code .
+        * Sets the Interlacing Color that alternates between the set interval. If the interval is not set explicitly, then the auto calculated interval is considered. The value of interlacedColor can be a "HTML Color Name" or "hex" code .
         * Default: null 
-        * Example: “#F8F1E4″, “#FEFDDF” …. 
+        * Example: "#F8F1E4", "#FEFDDF" …. 
         */
         interlaceColor?: string;
         /** 
@@ -532,11 +539,21 @@ declare module CanvasJS {
         */
         gridThickness?: number;
         /** 
-        * Sets the Color of Grid Lines. Value of gridColor can be a “HTML Color Name” or “hex” code .
-        * Default: “#BBBBBB” 
-        * Example: “red”, “#FEFDDF” .. 
+        * Sets the Color of Grid Lines. Value of gridColor can be a "HTML Color Name" or "hex" code .
+        * Default: "#BBBBBB" 
+        * Example: "red", "#FEFDDF" .. 
         */
         gridColor?: string;
+        
+        /**
+        * Sets the Interlacing Color that alternates between the set interval.
+        * If the interval is not set explicitly, then the auto calculated interval is considered.
+        * The value of interlacedColor can be an "HTML Color Name" or "hex" code.
+        * Default: null
+        * Example: "#F8F1E4", "#FEFDDF"
+        */
+        interlacedColor?: string;
+        
         /** 
         * Strip Lines are vertical or horizontal lines used to highlight/mark a certain region on the plot area. You can choose whether to draw a line at a specific position or shade a region on the plot area. Strip Lines are sometimes referred to as trend lines. 
         * If you want to just mark a certain position on the axis, you can set the value attribute and it’ll draw a line at that position with the set thickness. If you want to shade a region instead, you need to set startValue and endValue attributes. This will fill the area within the specified range. 
@@ -573,32 +590,32 @@ declare module CanvasJS {
         thickness?: number;
         /** 
         * Sets the color of the stripLine.
-        * Default: “orange” 
-        * Example: “green”, “#23EA23″ 
+        * Default: "orange" 
+        * Example: "green", "#23EA23" 
         */
         color?: string;
         /** 
         * Sets the label of the stripLine. These are shown on top of axis labels.
-        * Default: “” (empty string) 
-        * Example: “Threshold”, “Deaths in 1920″ 
+        * Default: "" (empty string) 
+        * Example: "Threshold", "Deaths in 1920" 
         */
         label?: string;
         /** 
         * Sets the background color of stripLine’s label.
-        * Default: “#eeeeee” 
-        * Example: “red”,”#fabd76″ 
+        * Default: "#eeeeee" 
+        * Example: "red","#fabd76" 
         */
         labelBackgroundColor?: string;
         /** 
         * Sets the font-family of stripLine’s label. If the first font is not found in the system from the specified font-family list, it tries to use the next font in the list.
-        * Default: “arial” 
-        * Example: “Arial, Trebuchet MS, Tahoma, sans-serif” 
+        * Default: "arial" 
+        * Example: "Arial, Trebuchet MS, Tahoma, sans-serif" 
         */
         labelFontFamily?: string;
         /** 
         * Sets the font color of label.
-        * Default: “orange” 
-        * Example: “blue”,”#4135e9″ 
+        * Default: "orange" 
+        * Example: "blue","#4135e9" 
         */
         labelFontColor?: string;
         /** 
@@ -609,14 +626,14 @@ declare module CanvasJS {
         labelFontSize?: number;
         /** 
         * Sets the font weight of stripLine’s label.
-        * Default: “normal” 
-        * Example: “lighter”,”normal”,”bold”,”bolder” 
+        * Default: "normal" 
+        * Example: "lighter","normal","bold","bolder" 
         */
         labelFontWeight?: string;
         /** 
         * Sets the font style of stripLine’s label.
-        * Default: “normal” 
-        * Example: “normal”,”italic”,”oblique” 
+        * Default: "normal" 
+        * Example: "normal","italic","oblique" 
         */
         labelFontStyle?: string;
     }
@@ -657,7 +674,7 @@ declare module CanvasJS {
         /** 
         * Sets the border color around Tool Tip. When not set it takes the color of corresponding dataSeries or dataPoint.
         * Default: dataSeries color/ dataPoint color
-        * Example: “red”, “#808080″.. 
+        * Example: "red", "#808080".. 
         */
         borderColor?: string;
     }
@@ -665,53 +682,53 @@ declare module CanvasJS {
     interface ChartDataCommon {
         /** 
         * Sets the dataPoint Name. dataPoint name is shown in various places like toolTip & legend unless overridden.
-        * Default: Automatically Named (“dataPoint 1″, “dataPoint 2″ .. ) 
-        * Example: “apple”, “mango” ..
+        * Default: Automatically Named ("dataPoint 1", "dataPoint 2" .. ) 
+        * Example: "apple", "mango" ..
         */
         name?: string;
         /** 
-        * Sets the color of dataSeries. The value of tickColor can be a “HTML Color Name” or “Hex Code”.
+        * Sets the color of dataSeries. The value of tickColor can be a "HTML Color Name" or "Hex Code".
         * Default: Automatically set from Theme. 
-        * Example: “red”, “green” .. 
+        * Example: "red", "green" .. 
         */
         color?: string;
         /** 
         * Instead of setting string values for all indexLabels, you can also use keywords like x, y, etc that will automatically show corresponding properties as indexLabel. This will allow you to define indexLabel at the series level once. While setting indexLabel you specify a keyword by enclosing it in flower brackets like {x}, {y}, {color}, etc. 
         * Range Charts have two indexLabels – one for each y value. This requires the use of a special keyword #index to show index label on either sides of the column/bar/area. 
-        * eg: indexLabel: “{x}: {y[#index]}”
+        * eg: indexLabel: "{x}: {y[#index]}"
         * Important keywords to keep in mind are. {x}, {y}, {name}, {label}.
         * Default: null 
-        * Example: “{label}”, “Win”, “x: {x}, y: {y} ” 
+        * Example: "{label}", "Win", "x: {x}, y: {y} " 
         */
         indexLabel?: string;
         /** 
-        * Using this property you can define whether to render indexLabel “inside” or “outside” the dataPoint.
-        * Default: “outside” 
-        * Example: “outside”, “inside” 
+        * Using this property you can define whether to render indexLabel "inside" or "outside" the dataPoint.
+        * Default: "outside" 
+        * Example: "outside", "inside" 
         */
         indexLabelPlacement?: string;
         /** 
-        * Sets the Orientation of indexLabel to “horizontal” or “vertical”.
-        * Default: “horizontal” 
-        * Options: “horizontal”, “vertical” 
+        * Sets the Orientation of indexLabel to "horizontal" or "vertical".
+        * Default: "horizontal" 
+        * Options: "horizontal", "vertical" 
         */
         indexLabelOrientation?: string;
         /** 
-        * Sets the Background color of Index Labels. The value of indexLabelBackgroundColor can be a “HTML Color Name” or “Hex Code”.
+        * Sets the Background color of Index Labels. The value of indexLabelBackgroundColor can be a "HTML Color Name" or "Hex Code".
         * Default: null 
-        * Example: “red”, “#FAC003″ .. 
+        * Example: "red", "#FAC003" .. 
         */
         indexLabelBackgroundColor?: string;
         /** 
         * Sets the Index Label’s Font Style. It can be set to one of the below options.
-        * Default: “normal” 
-        * Options: “italic”, “oblique”, “normal” 
+        * Default: "normal" 
+        * Options: "italic", "oblique", "normal" 
         */
         indexLabelFontStyle?: string;
         /** 
-        * Sets the Index Label’s Font color. The value of IndexLabelFontColor can be a “HTML Color Name” or “Hex Code”.
-        * Default: “grey” 
-        * Example: “red”, “#FAC003″ .. 
+        * Sets the Index Label’s Font color. The value of IndexLabelFontColor can be a "HTML Color Name" or "Hex Code".
+        * Default: "grey" 
+        * Example: "red", "#FAC003" .. 
         */
         indexLabelFontColor?: string;
         /** 
@@ -722,24 +739,24 @@ declare module CanvasJS {
         indexLabelFontSize?: number;
         /** 
         * Sets the Index Label’s Font Family.
-        * Default: “Calibri, Optima, Candara, Verdana, Geneva, sans-serif” 
-        * Example: “calibri”, “tahoma”, “verdana”.. 
+        * Default: "Calibri, Optima, Candara, Verdana, Geneva, sans-serif" 
+        * Example: "calibri", "tahoma", "verdana".. 
         */
         indexLabelFontFamily?: string;
         /** 
         * Sets the Index Label’s Font Weight. It can be set to one of the below options.
-        * Default: “normal” 
-        * Example: “lighter”, “normal” ,”bold” , “bolder”
+        * Default: "normal" 
+        * Example: "lighter", "normal" ,"bold" , "bolder"
         */
         indexLabelFontWeight?: string;
         /** 
-        * Sets the color of line connecting index labels with their dataPoint. It is only applicable for pie and doughnut chart when indexLabelPlacment is outside. The value of indexLineColor can be a “HTML Color Name” or “Hex Code”.
-        * Default: “lightgrey” 
-        * Example: “red”, “#FAC003″ .. 
+        * Sets the color of line connecting index labels with their dataPoint. It is only applicable for pie and doughnut chart when indexLabelPlacment is outside. The value of indexLineColor can be a "HTML Color Name" or "Hex Code".
+        * Default: "lightgrey" 
+        * Example: "red", "#FAC003" .. 
         */
         indexLabelLineColor?: string;
         /** 
-        * Sets the thickness of line connecting indexLabel with its corresponding dataPoint. It is only applicable for pie and doughnut chart when indexLabelPlacement is set to “outside”.
+        * Sets the thickness of line connecting indexLabel with its corresponding dataPoint. It is only applicable for pie and doughnut chart when indexLabelPlacement is set to "outside".
         * Default: 2 
         * Example: 4, 6 
         */
@@ -752,14 +769,14 @@ declare module CanvasJS {
         /** 
         * Sets marker type to be rendered at each dataPoint. While markers are helpful in highlighting individual dataPoints, they do not help much when the dataPoints are crowded. In case of large number of dataPoints it is recommended to disable markers in order to improve the appearance and performance of chart.
         * Same marker type is also used in legend unless overridden by legendMarkerType property.
-        * Default: “circle” 
-        * Options: “none”, “circle”, “square”, “triangle” and “cross” 
+        * Default: "circle" 
+        * Options: "none", "circle", "square", "triangle" and "cross" 
         */
         markerType?: string;
         /** 
         * Sets the color of marker that is displayed on the Chart. Legend Marker for the series uses the same Color as set here unless overridden using legendMarkerColor property.
         * Default: dataSeries Color 
-        * Example: “red”, “#008000″ .. 
+        * Example: "red", "#008000" .. 
         */
         markerColor?: string;
         /** 
@@ -769,9 +786,9 @@ declare module CanvasJS {
         */
         markerSize?: number;
         /** 
-        * Sets the border color around marker. Value of markerBorderColor can be “HTML Color Name” or “hex code”.
+        * Sets the border color around marker. Value of markerBorderColor can be "HTML Color Name" or "hex code".
         * Default: dataSeries color. 
-        * Example: “red”, “#008000″ .. 
+        * Example: "red", "#008000" .. 
         */
         markerBorderColor?: string;
         /** 
@@ -782,14 +799,14 @@ declare module CanvasJS {
         markerBorderThickness?: number;
         /** 
         * Sets the text that describes the dataSeries in legend.
-        * Default: “DataSeries 1″, “DataSeries 2″ ..etc 
-        * Example: “2010″, “2011″.. 
+        * Default: "DataSeries 1", "DataSeries 2" ..etc 
+        * Example: "2010", "2011".. 
         */
         legendText?: string;
         /** 
         * Sets the Legend Marker to one of the options below. This property is used to override the default marker in legend, which is same as dataSeries Marker Type.
         * Default: same as markerType 
-        * Options: “circle”, “square”, “cross” and “triangle” 
+        * Options: "circle", "square", "cross" and "triangle" 
         */
         legendMarkerType?: string;
         /** 
@@ -798,9 +815,9 @@ declare module CanvasJS {
         */
         click?: (event: ChartEvent) => void;
         /** 
-        * Sets the color of marker that is displayed on legend. This property overrides default Marker’s Color in Legend, which is same as dataSeries Marker Color. Value of legendMarkerColor can be “HTML Color Name” or “hex code”.
+        * Sets the color of marker that is displayed on legend. This property overrides default Marker’s Color in Legend, which is same as dataSeries Marker Color. Value of legendMarkerColor can be "HTML Color Name" or "hex code".
         * Default: dataSeries marker color 
-        * Example: “red”, “#008000″ .. 
+        * Example: "red", "#008000" .. 
         */
         legendMarkerColor?: string;
         /** 
@@ -829,39 +846,39 @@ declare module CanvasJS {
         visible?: boolean;
         /** 
         * Sets the type of chart to be rendered for corresponding dataSeries. One can choose from the following options.
-        * Default: “column” 
+        * Default: "column" 
         * Options:
-        *     “line”
-        *     “column”
-        *     “bar”
-        *     “area”
-        *     “spline”
-        *     “splineArea”
-        *     “stepLine”
-        *     “scatter”
-        *     “bubble”
-        *     “stackedColumn”
-        *     “stackedBar”
-        *     “stackedArea”
-        *     “stackedColumn100″
-        *     “stackedBar100″
-        *     “stackedArea100″
-        *     “pie”
-        *     “doughnut”
+        *     "line"
+        *     "column"
+        *     "bar"
+        *     "area"
+        *     "spline"
+        *     "splineArea"
+        *     "stepLine"
+        *     "scatter"
+        *     "bubble"
+        *     "stackedColumn"
+        *     "stackedBar"
+        *     "stackedArea"
+        *     "stackedColumn100"
+        *     "stackedBar100"
+        *     "stackedArea100"
+        *     "pie"
+        *     "doughnut"
         */
         type?: string;
         /** 
-        * Setting axisYType lets you choose between primary and secondary Y Axis for a dataSeries to plot against. By choosing “secondary” Axis you can plot the series against axisY2.
+        * Setting axisYType lets you choose between primary and secondary Y Axis for a dataSeries to plot against. By choosing "secondary" Axis you can plot the series against axisY2.
         * In case of Multi-Series or Combinational Charts, one can assign primary axis to some series and secondary axis to other series.
         * This is helpful when dataSeries objects use different unit of measurement or range of data. By default, all series are plotted against primary Y axis.
-        * Default: “primary”
-        * Options: “primary”, “secondary” 
+        * Default: "primary"
+        * Options: "primary", "secondary" 
         */
         axisYType?: string;
         /** 
-        * This defines the data type of x values. Data Type is normally figured out by default based on the object type that is assigned to x. But if you are providing time stamp (which is integer) values instead of Date objects, you’ll have to explicitly set the xValueType to “dateTime”.
+        * This defines the data type of x values. Data Type is normally figured out by default based on the object type that is assigned to x. But if you are providing time stamp (which is integer) values instead of Date objects, you’ll have to explicitly set the xValueType to "dateTime".
         * Default: Automatically Calculated 
-        * Options: “number”, “dateTime” 
+        * Options: "number", "dateTime" 
         */
         xValueType?: string;
         /** 
@@ -878,8 +895,8 @@ declare module CanvasJS {
         zValueFormatString?: string;
         /** 
         * Sets the bevel property, which creates a chiselled effect at the corners of a Column Charts and Bar Charts.
-        * Default: “true”
-        * Example: “true”, “false” 
+        * Default: "true"
+        * Example: "true", "false" 
         */
         bevelEnabled?: boolean;
         /** 
@@ -907,8 +924,8 @@ declare module CanvasJS {
         showInLegend?: boolean;
         /** 
         * In candle Stick chart, when Closing Price is greater than Opening price, the body is filled with white by default and it can be overridden by risingColor property.
-        * Default: “white” 
-        * Options: “red”, “#DD7E86″, etc. 
+        * Default: "white" 
+        * Options: "red", "#DD7E86", etc. 
         */
         risingColor?: string;
         /** 
@@ -940,7 +957,7 @@ declare module CanvasJS {
         /** 
         * Sets label value of a dataPoint. The value appears next to the dataPoint on axisX Line. If not provided, it takes x value for label.
         * Default: x value 
-        * Example: “label1″, “label2″.. 
+        * Example: "label1", "label2".. 
         */
         label?: string;
         /** 
@@ -950,9 +967,9 @@ declare module CanvasJS {
         */
         exploded?: boolean;
         /** 
-        * Sets the color of marker that is displayed on legend. This property works only with Pie and Doughnut charts. Value of legendMarkerColor can be “HTML Color Name” or “hex” code.
+        * Sets the color of marker that is displayed on legend. This property works only with Pie and Doughnut charts. Value of legendMarkerColor can be "HTML Color Name" or "hex" code.
         * Default: dataSeries marker color 
-        * Example: “red”, “#008000″.. 
+        * Example: "red", "#008000".. 
         */
         legendMarkerColor?: string;
     }

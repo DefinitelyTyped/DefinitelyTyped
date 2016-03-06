@@ -1,4 +1,4 @@
-// Type definitions for rest.js v1.2.0
+// Type definitions for rest.js v1.3.1
 // Project: https://github.com/cujojs/rest
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -253,6 +253,23 @@ declare module "rest/interceptor/retry" {
 	}
 
 	export = retry;
+}
+
+declare module "rest/interceptor/template" {
+	import rest = require("rest");
+
+	var template: rest.Interceptor<template.Config>;
+
+	module template {
+		interface Config {
+			template?: string;
+			params?: {
+				[name: string]: any;
+			};
+		}
+	}
+
+	export = template;
 }
 
 declare module "rest/interceptor/timeout" {

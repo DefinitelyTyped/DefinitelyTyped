@@ -184,6 +184,13 @@ declare module Selectize {
         valueField?: string;
 
         /**
+         * Option groups that options will be bucketed into.
+         * If your element is a <select> with <optgroup>s this property gets populated automatically.
+         * Make sure each object in the array has a property named whatever "optgroupValueField" is set to.
+         */
+        optgroups?: U[];
+
+        /**
          * The name of the option group property that serves as its unique identifier.
          *
          * Default: "value"

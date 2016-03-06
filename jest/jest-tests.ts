@@ -47,7 +47,7 @@ describe('displayUser', function() {
             '  <button id="button" />' +
             '</div>';
 
-        var displayUser = require('../displayUser');
+        var displayUser = require.requireActual('../displayUser');
         var $ = require('jquery');
         var fetchCurrentUser = require('../fetchCurrentUser');
 
