@@ -1,19 +1,20 @@
 /// <reference path="../when/when.d.ts" />
-/// <reference path="./chai-http.d.ts" />
+/// <reference path="chai-http.d.ts" />
 
 import fs = require('fs');
 import http = require('http');
 import chai = require('chai');
-import chaiHttp = require('chai-http');
+import ChaiHttp = require('chai-http');
 import when = require('when');
 
-chai.use(chaiHttp);
+chai.use(ChaiHttp);
+
+// ReSharper disable WrongExpressionStatement
 
 // Add promise support if this does not exist natively.
 if (!global.Promise) {
 	chai.request.addPromises(when.promise);
 }
-
 
 var app: http.Server;
 
@@ -41,13 +42,12 @@ chai.request(app)
 
 chai.request(app)
 	.get('/search')
-	.query('name', 'foo')
-	.query('limit', '10');
+	.query({name: 'foo', limit: 10});
 
 chai.request(app)
 	.put('/user/me')
 	.send({ passsword: '123', confirmPassword: '123' })
-	.end((err: any, res: chaiHttp.Response) => {
+	.end((err: any, res: ChaiHttp.Response) => {
 		chai.expect(err).to.be.null;
 		chai.expect(res).to.have.status(200);
 	});
@@ -55,7 +55,7 @@ chai.request(app)
 chai.request(app)
 	.put('/user/me')
 	.send({ passsword: '123', confirmPassword: '123' })
-	.then((res: chaiHttp.Response) => chai.expect(res).to.have.status(200))
+	.then((res: ChaiHttp.Response) => chai.expect(res).to.have.status(200))
 	.catch((err: any) => { throw err; });
 
 var agent = chai.request.agent(app);
@@ -63,17 +63,17 @@ var agent = chai.request.agent(app);
 agent
 	.post('/session')
 	.send({ username: 'me', password: '123' })
-	.then((res: chaiHttp.Response) => {
+	.then((res: ChaiHttp.Response) => {
 		chai.expect(res).to.have.cookie('sessionid');
 		// The `agent` now has the sessionid cookie saved, and will send it
 		// back to the server in the next request:
 		return agent.get('/user/me')
-			.then((res: chaiHttp.Response) => chai.expect(res).to.have.status(200));
+			.then((res: ChaiHttp.Response) => chai.expect(res).to.have.status(200));
 	});
 
 function test1() {
 	var req = chai.request(app).get('/');
-	req.then((res: chaiHttp.Response) => {
+	req.then((res: ChaiHttp.Response) => {
 		chai.expect(res).to.have.status(200);
 		chai.expect(res).to.have.header('content-type', 'text/plain');
 		chai.expect(res).to.have.header('content-type', /^text/);
@@ -98,6 +98,5 @@ function test1() {
 		throw err;
 	});
 }
-
 
 when(chai.request(app).get('/')).done(() => console.log('success'), () => console.log('failure'));

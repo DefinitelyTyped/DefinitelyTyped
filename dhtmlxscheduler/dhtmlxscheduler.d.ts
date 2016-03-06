@@ -1166,10 +1166,21 @@ interface SchedulerStatic{
 	deleteEvent(id: any);
 
 	/**
+	 * removes all blocking sets from the scheduler
+	*/
+	deleteMarkedTimespan();
+
+	/**
 	 * removes marking/blocking set by the addMarkedTimespan() and blockTime() methods
 	 * @param id the timespan id
 	*/
 	deleteMarkedTimespan(id: string);
+	
+	/**
+	 * removes marking/blocking set by the addMarkedTimespan() and blockTime() methods
+	 * @param configuration for deleting
+	*/
+	deleteMarkedTimespan(config: any);
 
 	/**
 	 * deletes a section from  the currently active view (if the opened view isn't Timeline in the 'Tree' mode - the method will be ignored)
@@ -1212,6 +1223,13 @@ interface SchedulerStatic{
 	 * expands the scheduler to the full screen view
 	*/
 	expand();
+	
+	/**
+	 * filter events that will be displayed on the week view
+	 * @param id event-id
+	 * @param event event-object
+	*/
+	filter_week(id: any, event: any);
 
 	/**
 	 * gives access to the objects of lightbox's sections
@@ -1229,7 +1247,7 @@ interface SchedulerStatic{
 	 * return the event object by its id
 	 * @param event_id event_id
 	*/
-	getEvent(event_id: any);
+	getEvent<T>(event_id: any): T;
 
 	/**
 	 * gets the event's end date

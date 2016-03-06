@@ -214,7 +214,7 @@ interface BigIntegerStatic {
     /** Parse a Javascript number into a bigInt */
     ( number: number ): BigInteger;
     /** Parse a string into a bigInt */
-    ( string: string ): BigInteger;
+    ( string: string,  base?: string | number | BigInteger): BigInteger;
     /** no-op */
     ( bigInt: BigInteger ): BigInteger;
 }

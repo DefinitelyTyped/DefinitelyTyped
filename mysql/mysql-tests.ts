@@ -109,6 +109,10 @@ var sql = "SELECT * FROM ?? WHERE ?? = ?";
 var inserts = ['users', 'id', userId];
 sql = mysql.format(sql, inserts);
 
+var sql = "INSERT INTO posts SET ?";
+var post = { id: 1, title: 'Hello MySQL' };
+sql = mysql.format(sql, post);
+
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
     return query.replace(/\:(\w+)/g, function (txt: string, key: string) {
@@ -217,6 +221,13 @@ poolCluster.of('*').getConnection(function (err, connection) { });
 var pool = poolCluster.of('SLAVE*', 'RANDOM');
 pool.getConnection(function (err, connection) { });
 pool.getConnection(function (err, connection) { });
+
+var poolClusterWithOptions = mysql.createPoolCluster({
+    canRetry: true,
+    removeNodeErrorCount: 3,
+    restoreNodeTimeout: 1000,
+    defaultSelector: 'RR'
+});
 
 // destroy
 poolCluster.end();

@@ -6,7 +6,7 @@
 /// <reference path="../express/express.d.ts" />
 
 declare module "body-parser" {
-    import express = require('express');
+    import * as express from "express";
 
     /**
      * bodyParser: use individual json/urlencoded middlewares
@@ -110,7 +110,7 @@ declare module "body-parser" {
             defaultCharset?: string;
         }): express.RequestHandler;
 
-        export function urlencoded(options?: {
+        export function urlencoded(options: {
             /**
              * if deflated bodies will be inflated. (default: true)
              */
@@ -128,9 +128,9 @@ declare module "body-parser" {
              */
             verify?: (req: express.Request, res: express.Response, buf: Buffer, encoding: string) => void;
             /**
-             * parse extended syntax with the qs module. (default: true)
+             * parse extended syntax with the qs module.
              */
-            extended?: boolean;
+            extended: boolean;
         }): express.RequestHandler;
     }
 

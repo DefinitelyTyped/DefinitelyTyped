@@ -6,11 +6,11 @@
 // Some documentation prose is copied from the XPath documentation at https://developer.mozilla.org.
 
 declare module 'xpath' {
-      
+
     // select1 can return any of: `Node`, `boolean`, `string`, `number`.
     // select and selectWithResolver can return any of the above return types or `Array<Node>`.
     // For this reason, their return types are `any`.
-  
+
     interface SelectFn {
         /**
          * Evaluate an XPath expression against a DOM node.  Returns the result as one of the following:
@@ -163,7 +163,7 @@ declare module 'xpath' {
          * Value of this result, if it is a STRING_TYPE result.
          */
         stringValue: string;
-        
+
         /**
          * Value of this result, if it is a FIRST_ORDERED_NODE_TYPE result.
          */

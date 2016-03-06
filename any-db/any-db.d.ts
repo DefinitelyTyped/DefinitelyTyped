@@ -50,7 +50,7 @@ declare module "any-db" {
 		/**
 		 * Result rows
 		 */
-		rows: Object[];
+		rows: any[];
 		/**
 		 * Result field descriptions
 		 */

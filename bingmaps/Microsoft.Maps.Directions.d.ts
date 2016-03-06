@@ -79,10 +79,6 @@ declare module Microsoft.Maps.Directions {
         isExactLocation(): boolean;
         isViapoint(): boolean;
         setOptions(options: WaypointOptions): void;
-
-        changed: (args: WaypointEventArgs) => void;
-        geocoded: (args: WaypointEventArgs) => void;
-        reverseGeocoded: (args: WaypointEventArgs) => void;
     }
 
     export interface DirectionsRenderOptions {
@@ -185,27 +181,6 @@ declare module Microsoft.Maps.Directions {
         setMapView(): void;
         setRenderOptions(options: DirectionsRenderOptions): void;
         setRequestOptions(options: DirectionsRequestOptions): void;
-
-        afterRouteSelectorRender: (args: RouteSelectorRenderEventArgs) => void;
-        afterStepRender: (args: DirectionsStepRenderEventArgs) => void;
-        afterSummaryRender: (args: RouteSummaryRenderEventArgs) => void;
-        afterWaypointRender: (args: WaypointRenderEventArgs) => void;
-        beforeDisambiguationRender: (args: DisambiguationRenderEventArgs) => void;
-        beforeRouteSelectorRender: (args: RouteSelectorRenderEventArgs) => void;
-        beforeStepRender: (args: DirectionsStepRenderEventArgs) => void;
-        beforeSummaryRender: (args: RouteSummaryRenderEventArgs) => void;
-        beforeWaypointRender: (args: WaypointRenderEventArgs) => void;
-        directionsError: (args: DirectionsErrorEventArgs) => void;
-        directionsUpdated: (args: DirectionsEventArgs) => void;
-        dragDropCompleted: () => void;
-        itineraryStepClicked: (args: DirectionsStepEventArgs) => void;
-        mouseEnterRouteSelector: (args: RouteSelectorEventArgs) => void;
-        mouseEnterStep: (args: DirectionsStepEventArgs) => void;
-        mouseLeaveRouteSelector: (args: RouteSelectorEventArgs) => void;
-        mouseLeaveStep: (args: DirectionsStepEventArgs) => void;
-        routeSelectorClicked: (args: RouteSelectorEventArgs) => void;
-        waypointAdded: (args: WaypointEventArgs) => void;
-        waypointRemoved: (args: WaypointEventArgs) => void;
     }
 
     export interface DirectionsStepEventArgs {

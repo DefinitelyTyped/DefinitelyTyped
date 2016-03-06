@@ -64,6 +64,11 @@ interface HeatmapConfiguration {
      */
     radius?: number;
 
+    /**
+     * Scales the radius based on map zoom.
+     */
+    scaleRadius?: boolean;
+
     /*
      * Indicate whether the heatmap should use a global extrema or a local
      * extrema (the maximum and minimum of the currently displayed viewport)

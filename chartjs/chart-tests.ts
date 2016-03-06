@@ -252,12 +252,12 @@ var myPolarAreaChart = new Chart(ctx).PolarArea(polarAreaData, {
 
 var myPolarAreaChartLegend: string = myPolarAreaChart.generateLegend();
 var myPolarAreaChartImage: string = myPolarAreaChart.toBase64Image();
-myPolarAreaChart.addData([{
+myPolarAreaChart.addData({
     value: 120,
     color: "#4D5360",
     highlight: "#616774",
     label: "Dark Grey"
-}], 0);
+}, 0);
 myPolarAreaChart.clear();
 myPolarAreaChart.removeData(0);
 myPolarAreaChart.resize();
@@ -301,12 +301,12 @@ var myPieChart = new Chart(ctx).Pie(pieData, {
 
 var myPieChartLegend: string = myPieChart.generateLegend();
 var myPieChartImage: string = myPieChart.toBase64Image();
-myPieChart.addData([{
+myPieChart.addData({
     value: 120,
     color: "#4D5360",
     highlight: "#616774",
     label: "Dark Grey"
-}], 0);
+}, 0);
 myPieChart.clear();
 myPieChart.removeData(0);
 myPieChart.resize();
@@ -325,19 +325,48 @@ var myDoughnutChart = new Chart(ctx).Doughnut(pieData, {
     animateRotate: true,
     animateScale: false,
     legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-}); 
+});
 
 var myDoughnutChartLegend: string = myDoughnutChart.generateLegend();
 var myDoughnutChartImage: string = myDoughnutChart.toBase64Image();
-myPieChart.addData([{
+myPieChart.addData({
     value: 120,
     color: "#4D5360",
     highlight: "#616774",
     label: "Dark Grey"
-}], 0);
+}, 0);
 myDoughnutChart.clear();
 myDoughnutChart.removeData(0);
 myDoughnutChart.resize();
 myDoughnutChart.update();
 myDoughnutChart.stop();
 myDoughnutChart.destroy();
+
+// Test using charts with overrides of a subset of global options
+var partialOpts: ChartSettings = {
+    showTooltips: true,
+    tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+    tooltipFillColor: "rgba(0,0,0,0.8)",
+    tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+    tooltipFontSize: 14,
+    tooltipFontStyle: "normal",
+    tooltipFontColor: "#fff",
+    tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+    tooltipTitleFontSize: 14,
+    tooltipTitleFontStyle: "bold",
+    tooltipTitleFontColor: "#fff",
+    tooltipYPadding: 6,
+    tooltipXPadding: 6,
+    tooltipCaretSize: 8,
+    tooltipCornerRadius: 6,
+    tooltipXOffset: 10,
+    tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>"
+};
+
+var my2ndLineChart = new Chart(ctx).Line(lineData, partialOpts);
+var my2ndBarChart = new Chart(ctx).Bar(barData, partialOpts);
+var my2ndRadarChart = new Chart(ctx).Radar(radarData, partialOpts);
+var my2ndPolarAreaChart = new Chart(ctx).PolarArea(polarAreaData, partialOpts);
+var my2ndPieChart = new Chart(ctx).Pie(pieData, partialOpts);
+var my2ndDoughnutChart = new Chart(ctx).Doughnut(pieData, partialOpts);
+

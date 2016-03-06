@@ -10,7 +10,7 @@ declare module TWEEN {
   export function add(tween:Tween): void;
   export function remove(tween:Tween): void;
   export function update(time?:number): boolean;
-  
+
   export class Tween {
     constructor(object?:any);
     to(properties:any, duration:number): Tween;
@@ -95,6 +95,6 @@ interface TweenInterpolation {
   Utils: {
     Linear(p0:number, p1:number, t:number): number;
     Bernstein(n:number, i:number): number;
-    Factorial(n): number;
+    Factorial(n:number): number;
   };
 }

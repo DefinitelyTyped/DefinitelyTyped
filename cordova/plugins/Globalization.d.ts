@@ -41,12 +41,17 @@ interface Globalization {
      * @param onError   Called on error with a GlobalizationError object.
      *                  The error's expected code is GlobalizationError.FORMATTING_ERROR.
      * @param options   Optional format parameters. Default {formatLength:'short', selector:'date and time'}
+     *                      - 'formatLength' can be "short", "medium", "long", or "full".
+     *                      - 'selector' can be "date", "time", or "date and time".
      */
     dateToString(
         date: Date,
         onSuccess: (date: { value: string; }) => void,
         onError: (error: GlobalizationError) => void,
-        options?: { type?: string; item?: string; }): void;
+        options?: {
+            formatLength?: string; // "short" | "medium" | "long" | "full"
+            selector?: string; // "date" | "time" | "date and time"
+        }): void;
     /**
      * Parses a date formatted as a string, according to the client's user preferences
      * and calendar using the time zone of the client, and returns the corresponding date object.

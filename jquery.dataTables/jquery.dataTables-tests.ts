@@ -44,6 +44,9 @@ $(document).ready(function () {
     };
 
     var colDataFunc: DataTables.FunctionColumnData = function (row, type, set, meta) {
+        meta.col;
+        meta.row;
+        meta.settings;
     };
 
     var colRenderObject: DataTables.ObjectColumnRender = {
@@ -54,7 +57,9 @@ $(document).ready(function () {
     };
 
     var colRenderFunc: DataTables.FunctionColumnRender = function (data, type, row, meta) {
-
+        meta.col;
+        meta.row;
+        meta.settings;
     };
 
     var col: DataTables.ColumnSettings =

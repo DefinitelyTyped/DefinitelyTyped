@@ -6,7 +6,7 @@
 /// <reference path="Microsoft.Maps.d.ts"/>
 
 declare module Microsoft.Maps.Search {
-     
+
      export interface Address {
          addressLine: string;
          adminDistrict: string;
@@ -25,12 +25,12 @@ declare module Microsoft.Maps.Search {
      }
 
      export interface GeocodeRequestOptions {
-         bounds: LocationRect;
-         callback: (result: GeocodeResult, userData: any) => any;
+         bounds?: LocationRect;
+         callback?: (result: GeocodeResult, userData: any) => any;
          count: number;
-         errorCallback: (options: GeocodeRequestOptions) => any;
-         timeout: number;
-         userData: any;
+         errorCallback?: (options: GeocodeRequestOptions) => any;
+         timeout?: number;
+         userData?: any;
          where:string;
      }
 
@@ -71,15 +71,15 @@ declare module Microsoft.Maps.Search {
      }
 
      export interface ReverseGeocodeRequestOptions {
-         callback: (result: PlaceResult, userData: any) => any;
-         errorCallback: (options: ReverseGeocodeRequestOptions) => any;
-         location: Location;
-         timeout: number;
-         userData:any;
+         callback?: (result: PlaceResult, userData: any) => any;
+         errorCallback?: (options: ReverseGeocodeRequestOptions) => any;
+         location?: Location;
+         timeout?: number;
+         userData?:any;
      }
 
      export class SearchManager {
-         
+
          constructor(map: Map);
 
          geocode(request: GeocodeRequestOptions): void;
@@ -104,16 +104,16 @@ declare module Microsoft.Maps.Search {
      }
 
      export interface SearchRequestOptions {
-         callback:(result: SearchResponse, userData: any)=>any;
+         callback?:(result: SearchResponse, userData: any)=>any;
          count: number;
-         errorCallback:(options: SearchRequestOptions)=>any;
-         query: string;
-         startIndex: number;
-         timeout: number;
-         entityType: string;
-         userData: any;
-         what: string;
-         where:string;
+         errorCallback?:(options: SearchRequestOptions)=>any;
+         query?: string;
+         startIndex?: number;
+         timeout?: number;
+         entityType?: string;
+         userData?: any;
+         what?: string;
+         where?:string;
      }
 
      export interface SearchResponse {

@@ -32,7 +32,7 @@ interface JSZip {
 
     /**
      * Return an new JSZip instance with the given folder as root
-     * 
+     *
      * @param name Name of the folder
      * @return New JSZip object with the given folder as root or null
      */
@@ -40,7 +40,7 @@ interface JSZip {
 
     /**
      * Returns new JSZip instances with the matching folders as root
-     * 
+     *
      * @param name RegExp to match
      * @return New array of JSZipFile objects which match the RegExp
      */
@@ -56,7 +56,7 @@ interface JSZip {
 
     /**
      * Removes the file or folder from the archive
-     * 
+     *
      * @param path Relative path of file or folder
      * @return Returns the JSZip instance
      */
@@ -140,6 +140,18 @@ interface JSZipSupport {
     nodebuffer: boolean;
 }
 
+interface DEFLATE {
+    /** pako.deflateRaw, level:0-9 */
+    compress(input: string, compressionOptions: {level:number}): Uint8Array;
+    compress(input: number[], compressionOptions: {level:number}): Uint8Array;
+    compress(input: Uint8Array, compressionOptions: {level:number}): Uint8Array;
+
+    /** pako.inflateRaw */
+    uncompress(input: string): Uint8Array;
+    uncompress(input: number[]): Uint8Array;
+    uncompress(input: Uint8Array): Uint8Array;
+}
+
 declare var JSZip: {
     /**
      * Create JSZip instance
@@ -169,6 +181,9 @@ declare var JSZip: {
 
     prototype: JSZip;
     support: JSZipSupport;
+    compressions: {
+      DEFLATE: DEFLATE;
+    }
 }
 
 declare module "jszip" {

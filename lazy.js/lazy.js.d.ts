@@ -135,8 +135,8 @@ declare module LazyJS {
         dropWhile(predicateFn: TestCallback<T>): Sequence<T>;
         every(predicateFn: TestCallback<T>): boolean;
         filter(predicateFn: TestCallback<T>): Sequence<T>;
-        find(predicateFn: TestCallback<T>): Sequence<T>;
-        findWhere(properties: Object): Sequence<T>;
+        find(predicateFn: TestCallback<T>): T;
+        findWhere(properties: Object): T;
 
         flatten(): Sequence<T>;
         groupBy(keyFn: GetKeyCallback<T>): ObjectLikeSequence<T>;
@@ -150,7 +150,7 @@ declare module LazyJS {
         max(valueFn?: NumberCallback<T>): T;
         min(valueFn?: NumberCallback<T>): T;
         none(valueFn?: TestCallback<T>): boolean;
-        pluck(propertyName: string): Sequence<T>;
+        pluck(propertyName: string): Sequence<any>;
         reduce<U>(aggregatorFn: MemoCallback<T, U>, memo?: U): U;
         reduceRight<U>(aggregatorFn: MemoCallback<T, U>, memo: U): U;
         reject(predicateFn: TestCallback<T>): Sequence<T>;
@@ -162,7 +162,7 @@ declare module LazyJS {
         sortBy(sortFn: NumberCallback<T>, descending?: boolean): Sequence<T>;
         sortedIndex(value: T): Sequence<T>;
         size(): number;
-        sum(valueFn?: NumberCallback<T>): Sequence<T>;
+        sum(valueFn?: NumberCallback<T>): T;
         takeWhile(predicateFn: TestCallback<T>): Sequence<T>;
         union(var_args: T[]): Sequence<T>;
         uniq(): Sequence<T>;
