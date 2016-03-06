@@ -26,9 +26,16 @@ interface SignalRStateChange {
     newState: number;
 }
 
+interface SignalRConnectionState {
+    connecting: number;
+    connected: number;
+    reconnecting: number;
+    disconnected: number;
+}
+
 interface SignalR {
     events: SignalREvents;
-    connectionState: any;
+    connectionState: SignalRConnectionState;
     transports: any;
 
     hub: HubConnection;
