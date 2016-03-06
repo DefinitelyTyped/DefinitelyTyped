@@ -39,10 +39,15 @@ declare namespace GridStack {
         sort(nodes: GridStackNode[], direction: number, width: number): GridStackNode[];
         createStylesheet(id: string): CSSStyleSheet;
         removeStylesheet(id: string): void;
-        insertCSSRule(sheet: CSSStyleSheet, selector: string, rules: string, index?: number);
+        insertCSSRule(sheet: CSSStyleSheet, selector: string, rules: string, index?: number): void;
         toBool(arg: any): boolean;
         parseHeight(str: string): { height: number, unit: string };
 
+    }
+
+    interface GridStackStatic {
+        new (el: GridStackElement, opts: IGridstackOptions): GridStack;
+        Utils: Utils;
     }
 
     interface GridStack {
@@ -78,7 +83,7 @@ declare namespace GridStack {
         * Update current cell height. This method rebuilds an internal CSS style sheet. Note: You can expect performance issues if call this method too often.
         * @param {number|string} val the cell height
         */
-        cellHeight(val: number|string, noUpdate?: boolean): void
+        cellHeight(val: number | string, noUpdate?: boolean): void
         /**
         * Gets current cell width.
         */
@@ -108,7 +113,7 @@ declare namespace GridStack {
         * Get the position of the cell under a pixel on screen.
         * @param  {MousePosition}  position the position of the pixel to resolve in absolute coordinates, as an object with top and leftproperties
         */
-        getCellFromPixel(position: MousePosition, useOffset?: boolean): CellPosition,
+        getCellFromPixel(position: MousePosition, useOffset?: boolean): CellPosition;
         /*
         * Checks if specified area is empty.
         * @param {number} x the position x.
@@ -179,7 +184,7 @@ declare namespace GridStack {
         */
         resizable(el: GridStackElement, val: boolean): this;
 
-        setAnimation(enable: boolean);
+        setAnimation(enable: boolean): void;
 
         setGridWidth(gridWidth: number, doNotPropagate?: boolean): void;
 
@@ -207,7 +212,7 @@ declare namespace GridStack {
         */
         willItFit(x: number, y: number, width: number, height: number, autoPosition: boolean): boolean
 
-        verticalMargin(val: number|string, noUpdate?: boolean): void;
+        verticalMargin(val: number | string, noUpdate?: boolean): void;
         verticalMargin(): number;
     }
     /**
@@ -309,17 +314,13 @@ declare namespace GridStack {
         verticalMargin?: number;
 
         verticalMarginUnit?: string;
-        
+
         /**
         * amount of columns (default: 12)
         */
         width?: number;
     }
-
-    interface GridStackUI extends GridStack {
-        Utils: Utils;
-    }
 }
 
-declare var GridStackUI: GridStack.GridStackUI;
+declare var GridStackUI: GridStack.GridStackStatic;
 
