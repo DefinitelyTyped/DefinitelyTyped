@@ -109,30 +109,30 @@ declare namespace GridStack {
         * @param {GridStackElement} el widget to modify.
         * @param {boolean} val if true widget will be locked.
         */
-        locked(el: GridStackElement, val: boolean): void;
+        locked(el: GridStackElement, val: boolean): this;
 
-        maxHeight(el: GridStackElement, val: number): void;
+        maxHeight(el: GridStackElement, val: number): this;
 
-        maxWidth(el: GridStackElement, val: number): void;
+        maxWidth(el: GridStackElement, val: number): this;
 
         /*
         * Set the minWidth for a widget.
         * @param {GridStackElement} el widget to modify.
         * @param {number} val A numeric value of the number of columns
         */
-        minWidth(el: GridStackElement, val: number): void
+        minWidth(el: GridStackElement, val: number): this;
         /*
         * Set the minHeight for a widget.
         * @param {GridStackElement} el widget to modify.
         * @param {number} val A numeric value of the number of rows
         */
-        minHeight(el: GridStackElement, val: number): void
+        minHeight(el: GridStackElement, val: number): this;
         /*
         * Enables/Disables moving.
         * @param {GridStackElement} el widget to modify.
         * @param {number} val if true widget will be draggable.
         */
-        movable(el: GridStackElement, val: boolean): void
+        movable(el: GridStackElement, val: boolean): this;
         /**
         * Changes widget position
         * @param {GridStackElement} el  widget to modify
@@ -140,31 +140,31 @@ declare namespace GridStack {
         * @param {number} y new position y. If value is null or undefined it will be ignored.
         * 
         */
-        move(el: GridStackElement, x: number, y: number): void
+        move(el: GridStackElement, x: number, y: number): void;
         /**
         * Removes widget from the grid.
         * @param {GridStackElement} el  widget to modify
         * @param {boolean} detachNode if false DOM node won't be removed from the tree (Optional. Default true).
         */
-        removeWidget(el: GridStackElement, detachNode?: boolean): void
+        removeWidget(el: GridStackElement, detachNode?: boolean): void;
         /**
         * Removes all widgets from the grid.
         * @param {boolean} detachNode if false DOM node won't be removed from the tree (Optional. Default true).
         */
-        removeAll(detachNode?: boolean): void
+        removeAll(detachNode?: boolean): void;
         /**
         * Changes widget size
         * @param {GridStackElement} el  widget to modify
         * @param {number} width new dimensions width. If value is null or undefined it will be ignored.
         * @param {number} height  new dimensions height. If value is null or undefined it will be ignored.
         */
-        resize(el: GridStackElement, width: number, height: number): void
+        resize(el: GridStackElement, width: number, height: number): void;
         /**
         * Enables/Disables resizing.
         * @param {GridStackElement} el  widget to modify
         * @param {boolean} val  if true widget will be resizable.
         */
-        resizable(el: GridStackElement, val: boolean): void;
+        resizable(el: GridStackElement, val: boolean): this;
 
         setAnimation(enable: boolean);
 
