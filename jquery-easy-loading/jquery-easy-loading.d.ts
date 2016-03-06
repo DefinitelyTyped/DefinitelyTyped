@@ -190,3 +190,10 @@ interface JQuery {
      */
     Loading(options?: JQueryEasyLoading.Options): JQueryEasyLoading.LoadingObject;
 }
+
+declare var factory: (root?: any, jQuery?: JQueryStatic) => JQueryStatic;
+
+declare module "jquery-easy-loading" {
+
+    export = factory;
+}

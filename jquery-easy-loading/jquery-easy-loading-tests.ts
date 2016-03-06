@@ -37,3 +37,12 @@ function test_commands() {
         .loading("stop")
         .loading("toggle");
 }
+
+import * as jQuery from "jquery";
+import * as factory from "jquery-easy-loading";
+
+function test_factory() {
+
+    const $loading: JQueryStatic = factory(window, jQuery);
+    $loading("body").loading("start");
+}
