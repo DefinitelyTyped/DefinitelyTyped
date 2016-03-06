@@ -195,5 +195,14 @@ declare var factory: (root?: any, jQuery?: JQueryStatic) => JQueryStatic;
 
 declare module "jquery-easy-loading" {
 
+    /**
+     * The package `jquery-easy-loading` would return a factory for the library
+     * itself if you use this not in the browser env.
+     *
+     * <pre>
+     * import * as factory from "jquery-easy-loading";
+     * const $: JQueryStatic = factory(window);
+     * </pre>
+     */
     export = factory;
 }
