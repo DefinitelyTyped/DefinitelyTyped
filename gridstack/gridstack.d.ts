@@ -15,18 +15,18 @@ declare namespace GridStack {
     type GridStackElement = string | Element | JQuery | {};
 
     interface GridStackNode {
-        auto_position: boolean;
+        autoPosition: boolean;
         locked: boolean;
-        no_move: boolean;
-        no_resize: boolean;
+        noMove: boolean;
+        noResize: boolean;
         x: number | string;
         y: number | string;
         width: number | string;
         height: number | string;
-        max_height: number | string;
-        max_width: number | string;
-        min_width: number | string;
-        min_height: number | string;
+        maxHeight: number | string;
+        maxWidth: number | string;
+        minWidth: number | string;
+        minHeight: number | string;
     }
 
 
@@ -34,7 +34,7 @@ declare namespace GridStack {
         /**
         * Creates new widget, adds it to the grid and DOM, and returns it.
         *
-        *   Widget will be always placed even if result height is more than actual grid height. You need to use will_it_fit method before calling add_widget for additional check.
+        *   Widget will be always placed even if result height is more than actual grid height. You need to use willItFit method before calling addWidget for additional check.
         * 
         * @param {GridStackElement} el widget to add
         * @param {number} x widget position x
@@ -43,32 +43,32 @@ declare namespace GridStack {
         * @param {number} height widget dimension height
         * @param {boolean} auto_position if true then x, y parameters will be ignored and widget will be places on the first available position
         */
-        add_widget(el: GridStackElement, x?: number, y?: number, width?: number, height?: number, auto_position?: boolean): JQuery
+        addWidget(el: GridStackElement, x?: number, y?: number, width?: number, height?: number, autoPosition?: boolean): JQuery
         /**
         * Creates new widget, adds it to the grid, and returns it.
         *
         * @param {GridStackElement} el widget to create
         */
-        make_widget(el: GridStackElement): JQuery
+        makeWidget(el: GridStackElement): JQuery
         /**
         * Initializes batch updates. You will see no changes until commit method is called.
         */
-        batch_update(): void
+        batchUpdate(): void
         /**
         * Gets current cell height.
         */
-        cell_height(): number
+        cellHeight(): number
         /**
         * Update current cell height. This method rebuilds an internal CSS style sheet. Note: You can expect performance issues if call this method too often.
         * @param {number} val the cell height
         */
-        cell_height(val: number): void
+        cellHeight(val: number): void
         /**
         * Gets current cell width.
         */
-        cell_width(): number
+        cellWidth(): number
         /**
-        * Finishes batch updates. Updates DOM nodes. You must call it after batch_update.
+        * Finishes batch updates. Updates DOM nodes. You must call it after batchUpdate.
         */
         commit(): void
         /**
@@ -87,7 +87,7 @@ declare namespace GridStack {
         * Get the position of the cell under a pixel on screen.
         * @param  {MousePosition}  position the position of the pixel to resolve in absolute coordinates, as an object with top and leftproperties
         */
-        get_cell_from_pixel(position: MousePosition): CellPosition,
+        getCellFromPixel(position: MousePosition): CellPosition,
         /*
         * Checks if specified area is empty.
         * @param {number} x the position x.
@@ -95,7 +95,7 @@ declare namespace GridStack {
         * @param {number} width the width of to check
         * @param {number} height the height of to check
         */
-        is_area_empty(x: number, y: number, width: number, height: number): void
+        isAreaEmpty(x: number, y: number, width: number, height: number): void
         /*
         * Locks/unlocks widget.
         * @param {GridStackElement} el widget to modify.
@@ -107,13 +107,13 @@ declare namespace GridStack {
         * @param {GridStackElement} el widget to modify.
         * @param {number} val A numeric value of the number of columns
         */
-        min_width(el: GridStackElement, val: number): void
+        minWidth(el: GridStackElement, val: number): void
         /*
         * Set the minHeight for a widget.
         * @param {GridStackElement} el widget to modify.
         * @param {number} val A numeric value of the number of rows
         */
-        min_height(el: GridStackElement, val: number): void
+        minHeight(el: GridStackElement, val: number): void
         /*
         * Enables/Disables moving.
         * @param {GridStackElement} el widget to modify.
@@ -131,13 +131,14 @@ declare namespace GridStack {
         /**
         * Removes widget from the grid.
         * @param {GridStackElement} el  widget to modify
-        * @param {boolean} detach_node if false DOM node won't be removed from the tree (Optional. Default true).
+        * @param {boolean} detachNode if false DOM node won't be removed from the tree (Optional. Default true).
         */
-        remove_widget(el: GridStackElement, detach_node?: boolean): void
+        removeWidget(el: GridStackElement, detachNode?: boolean): void
         /**
         * Removes all widgets from the grid.
+        * @param {boolean} detachNode if false DOM node won't be removed from the tree (Optional. Default true).
         */
-        remove_all(detach_node?: boolean): void
+        removeAll(detachNode?: boolean): void
         /**
         * Changes widget size
         * @param {GridStackElement} el  widget to modify
@@ -153,9 +154,9 @@ declare namespace GridStack {
         resizable(el: GridStackElement, val: boolean): void
         /**
         * Toggle the grid static state. Also toggle the grid-stack-static class.
-        * @param {boolean} static_value if true the grid become static.
+        * @param {boolean} staticValue if true the grid become static.
         */
-        set_static(static_value: boolean): void
+        setStatic(staticValue: boolean): void
         /**
         * Updates widget position/size.
         * @param {GridStackElement} el  widget to modify
@@ -171,9 +172,9 @@ declare namespace GridStack {
         * @param {number} y new position y. If value is null or undefined it will be ignored.
         * @param {number} width new dimensions width. If value is null or undefined it will be ignored.
         * @param {number} height  new dimensions height. If value is null or undefined it will be ignored.
-        * @param {boolean} auto_position  if true then x, y parameters will be ignored and widget will be places on the first available position
+        * @param {boolean} autoPosition  if true then x, y parameters will be ignored and widget will be places on the first available position
         */
-        will_it_fit(x: number, y: number, width: number, height: number, auto_position: boolean): boolean
+        willItFit(x: number, y: number, width: number, height: number, autoPosition: boolean): boolean
 
 
     }
@@ -200,7 +201,7 @@ declare namespace GridStack {
         /**
             * if true the resizing handles are shown even if the user is not hovering over the widget (default: false)
             */
-        always_show_resize_handle?: boolean;
+        alwaysShowResizeHandle?: boolean;
         /**
             * turns animation on (default: true)
             */
@@ -212,7 +213,7 @@ declare namespace GridStack {
         /**
             *  one cell height (default: 60)
             */
-        cell_height?: number;
+        cellHeight?: number;
         /**
             * allows to override jQuery UI draggable options. (default: { handle: '.grid-stack-item-content', scroll: true, appendTo: 'body' })
             */
@@ -232,15 +233,15 @@ declare namespace GridStack {
         /**
         * widget class (default: 'grid-stack-item')
         */
-        item_class?: string;
+        itemClass?: string;
         /** 
         * minimal width.If window width is less, grid will be shown in one - column mode (default: 768)
         */
-        min_width?: number;
+        minWidth?: number;
         /**
         * class for placeholder (default: 'grid-stack-placeholder')
         */
-        placeholder_class?: string;
+        placeholderClass?: string;
         /**
         * allows to override jQuery UI resizable options. (default: { autoHide: true, handles: 'se' })
         */
@@ -248,11 +249,11 @@ declare namespace GridStack {
         /**
         * makes grid static (default false).If true widgets are not movable/ resizable.You don't even need jQueryUI draggable/resizable. A CSS class grid-stack-static is also added to the container.
         */
-        static_grid?: boolean;
+        staticGrid?: boolean;
         /**
         * vertical gap size (default: 20)
         */
-        vertical_margin?: number;
+        verticalMargin?: number;
         /**
         * amount of columns (default: 12)
         */
