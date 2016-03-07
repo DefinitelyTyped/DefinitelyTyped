@@ -160,7 +160,7 @@ declare module Xrm
         /**
          * Interface for Xrm.Page.data promises.
          */
-        export interface XrmPromise
+        export interface XrmPromise<TSuccess, TError>
         {
             /**
              * A basic 'then' promise.
@@ -168,7 +168,7 @@ declare module Xrm
              * @param   {SuccessCallbackDelegate}   successCallback   The success callback.
              * @param   {ErrorCallbackDelegate}     errorCallback     The error callback.
              */
-            then( successCallback: SuccessCallbackDelegate, errorCallback: ErrorCallbackDelegate ): void;
+            then( successCallback: TSuccess, errorCallback: TError ): void;
         }
     }
 
@@ -335,6 +335,19 @@ declare module Xrm
         }
 
         /**
+         * Defines save options to control how appointment, recurring appointment, or service activity records are processed.
+         * {@link https://msdn.microsoft.com/en-us/library/dn481607.aspx#Anchor_2}
+         */
+        interface SaveOptions
+        {
+            /**
+             * Indicates whether to use the Book or Reschedule messages rather than the Create or Update messages.
+             * Applicable to appointment, recurring appointment, or service activity records.
+             */
+            UseSchedulingEngine?: boolean;
+        }
+
+        /**
          * Interface for a CRM Business Process Flow instance.
          */
         export interface Process
@@ -486,7 +499,7 @@ declare module Xrm
              *
              * @return  The event source.
              */
-            getEventSource(): Xrm.Page.Attribute | Xrm.Page.Entity;
+            getEventSource(): Attribute | Entity;
 
             /**
              * Gets the shared variable with the specified key.
@@ -799,6 +812,20 @@ declare module Xrm
              * A collection of all the controls on the form that interface with this attribute.
              */
             controls: Collection.ItemCollection<Control>;
+            
+            /**
+             * Gets the value.
+             *
+             * @return  The value.
+             */
+            getValue(): any;
+
+            /**
+             * Sets the value.
+             *
+             * @param   {any}    value   The value.
+             */
+            setValue( value: any ): void;
         }
 
         /**
@@ -1310,14 +1337,23 @@ declare module Xrm
              *
              * @return  An Async.XrmPromise.
              */
-            export function refresh( save: boolean ): Async.XrmPromise;
-
+            export function refresh( save: boolean ): Async.XrmPromise<Async.SuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
+            
+            /**
+             * Asynchronously saves the record  with the option to set callback functions to be executed after the save operation is completed.
+             *
+             * @param   {saveOptions}   saveOptions    Options to control how appointment, recurring appointment, or service activity records are processed.
+             *
+             * @return  An Async.XrmPromise.
+             */
+            export function save( saveOptions: SaveOptions ): Async.XrmPromise<Async.SuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
+            
             /**
              * Asynchronously saves the record.
              *
              * @return  An Async.XrmPromise.
              */
-            export function save(): Async.XrmPromise;
+            export function save(): Async.XrmPromise<Async.SuccessCallbackDelegate, Async.ErrorCallbackDelegate>;
 
             /**
              * The record context of the form.
@@ -1337,7 +1373,7 @@ declare module Xrm
          *
          * @sa  UiElement
          */
-        export interface Control extends UiElement
+        export interface Control extends UiElement, UiFocusable
         {
             /**
              * Clears the notification identified by uniqueId.
@@ -2477,7 +2513,7 @@ declare module Xrm
             /**
              * The identifier of the form to use, when several are available.
              */
-            formid: string;
+            formid?: string;
 
             /**
              * Controls whether the Navigation bar is displayed on the form.
@@ -2542,23 +2578,30 @@ declare module Xrm
          * @param   {WindowOptions} windowOptions   (Optional) Options for controlling the window.
          */
         export function openEntityForm( name: string, id?: string, parameters?: FormOpenParameters, windowOptions?: WindowOptions ): void;
+        
+        /**
+         * Called when the open QuickCreate form operation is successful.
+         */
+        export type QuickCreateSuccessCallbackDelegate = ( record: { savedEntityReference: Page.LookupValue; } ) => void;
 
         /**
-         * Opens quick create.
-         *
-         * @param   {Function}  callback                    The function that will be called when a record is created. This
-         *                                                  function is passed a LookupValue object as a parameter.
+         * Called when the open QuickCreate form operation is unsuccessful.
+         */
+        export type QuickCreateErrorCallbackDelegate = ( error: { errorCode: number; message: string; } ) => void;
+        
+        /**
+         * Opens a new quick create form, including setting default values using attribute mappings or for specific attributes.
+         * If the user saves the record, a reference to the created record will be returned in an asynchronous promise.
+         * 
          * @param   {string}    entityLogicalName           The logical name of the entity to create.
          * @param   {Page.LookupValue}  createFromEntity    (Optional) Designates a record that will provide default values
          *                                                  based on mapped attribute values.
          * @param   {OpenParameters}    parameters          (Optional) A dictionary object that passes extra query string
-         *                                                  parameters to the form. Invalid query string parameters will cause an
-         *                                                  error.
+         *                                                  parameters to the form. Invalid query string parameters will cause an error.
+         * @returns {Async.XrmPromise} Returns an asynchronous promise.
          */
-        export function openQuickCreate( callback: ( recordReference: Page.LookupValue ) => void,
-            entityLogicalName: string,
-            createFromEntity?: Page.LookupValue,
-            parameters?: OpenParameters ): void;
+        export function openQuickCreate( entityLogicalName: string, createFromEntity?: Page.LookupValue, parameters?: OpenParameters ):
+            Async.XrmPromise<QuickCreateSuccessCallbackDelegate, QuickCreateErrorCallbackDelegate>;
 
         /**
          * Opens an HTML Web Resource in a new browser window.
