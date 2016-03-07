@@ -274,7 +274,19 @@ declare module angular {
          * Run blocks are the closest thing in Angular to the main method. A run block is the code which needs to run to kickstart the application. It is executed after all of the service have been configured and the injector has been created. Run blocks typically contain code which is hard to unit-test, and for this reason should be declared in isolated modules, so that they can be ignored in the unit-tests.
          */
         run(inlineAnnotatedFunction: any[]): IModule;
+        /**
+         * Register a service constructor, which will be invoked with new to create the service instance. This is short for registering a service where its provider's $get property is a factory function that returns an instance instantiated by the injector from the service constructor function.
+         *
+         * @param name The name of the instance.
+         * @param serviceConstructor An injectable class (constructor function) that will be instantiated.
+         */
         service(name: string, serviceConstructor: Function): IModule;
+        /**
+         * Register a service constructor, which will be invoked with new to create the service instance. This is short for registering a service where its provider's $get property is a factory function that returns an instance instantiated by the injector from the service constructor function.
+         *
+         * @param name The name of the instance.
+         * @param inlineAnnotatedConstructor An injectable class (constructor function) that will be instantiated.
+         */
         service(name: string, inlineAnnotatedConstructor: any[]): IModule;
         service(object: Object): IModule;
         /**
@@ -1821,13 +1833,14 @@ declare module angular {
         // see http://docs.angularjs.org/api/AUTO.$injector
         ///////////////////////////////////////////////////////////////////////
         interface IInjectorService {
-            annotate(fn: Function): string[];
+            annotate(fn: Function, strictDi?: boolean): string[];
             annotate(inlineAnnotatedFunction: any[]): string[];
             get<T>(name: string, caller?: string): T;
             has(name: string): boolean;
             instantiate<T>(typeConstructor: Function, locals?: any): T;
             invoke(inlineAnnotatedFunction: any[]): any;
             invoke(func: Function, context?: any, locals?: any): any;
+            strictDi: boolean;
         }
 
         ///////////////////////////////////////////////////////////////////////

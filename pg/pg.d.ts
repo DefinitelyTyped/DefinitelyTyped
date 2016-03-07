@@ -85,4 +85,8 @@ declare module "pg" {
         public on(event: "error", listener: (err: Error, client: Client) => void): this;
         public on(event: string, listener: Function): this;
     }
+
+    namespace types {
+        function setTypeParser<T>(typeId: number, parser: (value: string) => T): void;
+    }
 }

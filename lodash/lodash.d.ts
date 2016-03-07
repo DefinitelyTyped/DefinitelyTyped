@@ -18284,3 +18284,6 @@ declare module _ {
 declare module "lodash" {
     export = _;
 }
+
+// Backward compatibility with --target es5
+interface Map<K, V> {}

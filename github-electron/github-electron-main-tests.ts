@@ -227,6 +227,10 @@ app.commandLine.appendSwitch('vmodule', 'console=0');
 
 autoUpdater.setFeedURL('http://mycompany.com/myapp/latest?version=' + app.getVersion());
 
+autoUpdater.checkForUpdates();
+
+autoUpdater.quitAndInstall();
+
 // browser-window
 // https://github.com/atom/electron/blob/master/docs/api/browser-window.md
 

@@ -1,4 +1,4 @@
-// Type definitions for react-redux 2.1.2
+// Type definitions for react-redux 4.4.0
 // Project: https://github.com/rackt/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -7,12 +7,11 @@
 /// <reference path="../redux/redux.d.ts" />
 
 declare module "react-redux" {
-  import { Component } from 'react';
+  import { ComponentClass, Component, StatelessComponent } from 'react';
   import { Store, Dispatch, ActionCreator } from 'redux';
 
-  export class ElementClass extends Component<any, any> { }
-  export interface ClassDecorator {
-    <T extends (typeof ElementClass)>(component: T): T
+  export interface ComponentConstructDecorator<P> {
+    <TComponentConstruct extends (ComponentClass<P>|StatelessComponent<P>)>(component: TComponentConstruct): TComponentConstruct
   }
 
   /**
@@ -22,10 +21,10 @@ declare module "react-redux" {
    * @param mergeProps
    * @param options
      */
-  export function connect(mapStateToProps?: MapStateToProps,
-                          mapDispatchToProps?: MapDispatchToPropsFunction|MapDispatchToPropsObject,
-                          mergeProps?: MergeProps,
-                          options?: Options): ClassDecorator;
+  export function connect<P>(mapStateToProps?: MapStateToProps,
+                             mapDispatchToProps?: MapDispatchToPropsFunction|MapDispatchToPropsObject,
+                             mergeProps?: MergeProps,
+                             options?: Options): ComponentConstructDecorator<P>;
 
   interface MapStateToProps {
     (state: any, ownProps?: any): any;

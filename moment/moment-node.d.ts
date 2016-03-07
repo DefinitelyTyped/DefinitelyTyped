@@ -280,9 +280,9 @@ declare module moment {
         to(f: MomentComparable, suffix?: boolean): string;
         toNow(withoutPrefix?: boolean): string;
 
-        diff(b: Moment): number;
-        diff(b: Moment, unitOfTime: string): number;
-        diff(b: Moment, unitOfTime: string, round: boolean): number;
+        diff(b: MomentComparable): number;
+        diff(b: MomentComparable, unitOfTime: string): number;
+        diff(b: MomentComparable, unitOfTime: string, round: boolean): number;
 
         toArray(): number[];
         toDate(): Date;
