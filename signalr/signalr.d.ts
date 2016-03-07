@@ -20,35 +20,22 @@ declare namespace SignalR {
         onDisconnect: string;
     }
 
-    module Transport {
-
-        interface onSuccess {
-            (): void;
-        }
-
-        interface onFailed {
-            (error?: any): void;
-        }
-
-        interface ITranposrt {
-            name: string;
-            supportsKeepAlive(): boolean;
-            send(connection: SignalR.Connection, data: any): void;
-            start(connection: SignalR.Connection, onSuccess: onSuccess, onFailed: onFailed): void;
-            reconnect(connection: SignalR.Connection): void;
-            lostConnection(connection: SignalR.Connection): void;
-            stop(connection: SignalR.Connection): void;
-            abort(connection: SignalR.Connection, async: boolean): void;
-        }
-
-
+    interface Transport {
+        name: string;
+        supportsKeepAlive(): boolean;
+        send(connection: SignalR.Connection, data: any): void;
+        start(connection: SignalR.Connection, onSuccess: () => void, onFailed: (error?: any) => void): void;
+        reconnect(connection: SignalR.Connection): void;
+        lostConnection(connection: SignalR.Connection): void;
+        stop(connection: SignalR.Connection): void;
+        abort(connection: SignalR.Connection, async: boolean): void;
     }
 
     interface Transports {
-        foreverFrame: Transport.ITranposrt;
-        longPolling: Transport.ITranposrt;
-        serverSentEvents: Transport.ITranposrt;
-        webSockets: Transport.ITranposrt;
+        foreverFrame: Transport;
+        longPolling: Transport;
+        serverSentEvents: Transport;
+        webSockets: Transport;
     }
 
     module Hub {
@@ -171,7 +158,7 @@ declare namespace SignalR {
     }
 
     interface ConnectionOptions {
-        transport?: string | Array<string> | Transport.ITranposrt;
+        transport?: string | Array<string> | Transport;
         callback?: Function;
         waitForPageLoad?: boolean;
         jsonp?: boolean;
