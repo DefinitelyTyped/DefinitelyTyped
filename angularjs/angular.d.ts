@@ -532,6 +532,16 @@ declare module angular {
         $invalid: boolean;
     }
 
+    //Allows tuning how model updates are done.
+    //https://docs.angularjs.org/api/ng/directive/ngModelOptions
+    interface INgModelOptions {
+        updateOn?: string;
+        debounce?: any;
+        allowInvalid?: boolean;
+        getterSetter?: boolean;
+        timezone?: string;
+    }
+
     interface IModelValidators {
         /**
          * viewValue is any because it can be an object that is called in the view like $viewValue.name:$viewValue.subName
