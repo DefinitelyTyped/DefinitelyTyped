@@ -1491,7 +1491,7 @@ declare module angular {
     interface IHttpInterceptor {
         request?: (config: IRequestConfig) => IRequestConfig|IPromise<IRequestConfig>;
         requestError?: (rejection: any) => any;
-        response?: <T>(response: IHttpPromiseCallbackArg<T>) => IPromise<T>|T;
+        response?: <T>(response: IHttpPromiseCallbackArg<T>) => IPromise<IHttpPromiseCallbackArg<T>>|IHttpPromiseCallbackArg<T>;
         responseError?: (rejection: any) => any;
     }
 

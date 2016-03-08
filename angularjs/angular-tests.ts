@@ -1077,3 +1077,21 @@ function doBootstrap(element: Element | JQuery, mode: string): ng.auto.IInjector
         debugInfoEnabled: false
     });
 }
+
+// IHttpInterceptor implementation test
+class MyHttpInterceptor implements ng.IHttpInterceptor {
+    public request(config: ng.IRequestConfig): ng.IRequestConfig | ng.IPromise<ng.IRequestConfig> {
+        if (config.withCredentials) {
+            // Include OAuth2 token in headers
+        }
+        
+        return config;
+    }
+
+    public response<T>(response: ng.IHttpPromiseCallbackArg<T>): ng.IPromise<ng.IHttpPromiseCallbackArg<T>> | ng.IHttpPromiseCallbackArg<T> {
+        if (response.status === 500) {
+            // Unwrap error message
+        }
+        return response;
+    }
+}
