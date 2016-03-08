@@ -1,7 +1,7 @@
-// Type definitions for Showdown 0.3.1
-// Project: https://github.com/coreyti/showdown
+// Type definitions for Showdown 1.3.0
+// Project: https://github.com/showdownjs/showdown
 // Definitions by: cbowdon <https://github.com/cbowdon>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module Showdown {
 
@@ -70,7 +70,7 @@ declare module Showdown {
     }
 
     /** Constructor function for a Converter */
-    var converter: ConverterStatic;
+    var Converter: ConverterStatic;
 
     /** Registered extensions */
     var extensions: { [name: string]: ShowdownExtension };
