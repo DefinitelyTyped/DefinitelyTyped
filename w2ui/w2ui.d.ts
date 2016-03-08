@@ -111,7 +111,7 @@ declare module W2UI {
         interface Records { }
     }
 
-    interface W2Grid extends W2Common {
+    interface W2Grid extends W2Common, W2OnClickable {
         autoLoad: boolean;
         buttons: Object;
         columnGroups: Object[];
@@ -250,7 +250,7 @@ declare module W2UI {
         unselect(...recids: string[]): number;
     }
 
-    interface W2Toolbar extends W2Common {
+    interface W2Toolbar extends W2Common, W2OnClickable {
         items: W2Item[];
         right: string;
         routeData: string;
@@ -270,7 +270,7 @@ declare module W2UI {
         uncheck(...ids: string[]): number;
     }
 
-    interface W2Sidebar extends W2Common {
+    interface W2Sidebar extends W2Common, W2OnClickable {
         bottomHTML: string;
         icon: string;
         img: string;
@@ -316,7 +316,7 @@ declare module W2UI {
         unselect(id: string): boolean;
     }
 
-    interface W2Tabs extends W2Common {
+    interface W2Tabs extends W2Common, W2OnClickable {
         active: string;
         right: string;
         routeData: string;
@@ -330,7 +330,6 @@ declare module W2UI {
         get(id: string, returnIndex?: boolean): Object | number | void;
         hide(...ids: string[]): number;
         insert(before: string, tabs: Object | Object[]): void;
-        onClick(event: Object): void;
         remove(...ids: string[]): number;
         select(id: string): boolean;
         set(id: string, tab: Object): boolean;
@@ -398,6 +397,11 @@ declare module W2UI {
         toggle(): void;
         unlock(): void;
         unlockScreen(): void;
+    }
+
+    interface W2OnClickable {
+      onClick(event: W2Event): void;
+      onClick(id: string, data: W2Event): void;
     }
 
 }
