@@ -3,232 +3,213 @@
 // Definitions by: David Berry <https://github.com/6ix4our/>, Matt Ngan <https://github.com/mattngan/>, Markus Mauch <https://github.com/markusmauch/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/**
- * Injects the Xrm object and GetGlobalContext function into the global namespace.
- */
-declare var Xrm: XrmStatic;
-declare function GetGlobalContext(): XrmInterface.Context;
+declare var Xrm: Xrm.XrmStatic;
+declare function GetGlobalContext(): Xrm.Context; 
 
-/**
- * Extends the Window interface defined in lib.d.ts and makes the Xrm object and GetGlobalContext function accessible from any window object (window, parent, top, etc.).
- */
 interface Window
 {
-    /**
-     * A reference to the xRM global object.
-     */
-    Xrm: XrmStatic;
-        
-    /**
-     * Gets the xRM application context, for HTML web resources, included by ClientGlobalContext.js.aspx
-     * @returns {Xrm.Context}   The application context for the user's current session.
-     * @remarks The ClientGlobalContext.js.aspx page will include some global event handlers. These event handlers will
-     *          cancel the onselectstart, contextmenu, and ondragstart events.
-     */
-    GetGlobalContext(): XrmInterface.Context;
+    Xrm: Xrm.XrmStatic;
+    GetGlobalContext(): Xrm.Context;
 }
 
-/**
- * Static xRM object.
- */
-interface XrmStatic
+declare module Xrm
 {
     /**
-     * Provides a namespace container for the context, data and ui objects.
+     * Static xRM object.
      */
-    Page: {
+    export interface XrmStatic
+    {
         /**
-         * Provides methods to retrieve information specific to an organization, a user, or parameters passed to a page.
+         * Provides a namespace container for the context, data and ui objects.
          */
-        context: XrmInterface.Context;
-        
-        /**
-         * Provides methods to work with the form.
-         */
-        data: XrmInterface.Data;
-        
-        /**
-         * Contains properties and methods to retrieve information about the user interface as well as collections for several subcomponents of the form.
-         */
-        ui: XrmInterface.Ui;
-        
-        /**
-         * Gets all attributes.
-         *
-         * @return  An array of attributes.
-         */
-        getAttribute(): XrmInterface.Page.Attribute[];
+        Page: {
+            /**
+             * Provides methods to retrieve information specific to an organization, a user, or parameters passed to a page.
+             */
+            context: Context;
+
+            /**
+             * Provides methods to work with the form.
+             */
+            data: Data;
+
+            /**
+             * Contains properties and methods to retrieve information about the user interface as well as collections for several subcomponents of the form.
+             */
+            ui: Ui;
+
+            /**
+             * Gets all attributes.
+             *
+             * @return  An array of attributes.
+             */
+            getAttribute(): Page.Attribute[];
+
+            /**
+             * Gets an attribute matching attributeName.
+             *
+             * @tparam  T   An Attribute type.
+             * @param   {string}    attributeName   Name of the attribute.
+             *
+             * @return  The attribute.
+             */
+            getAttribute<T extends Page.Attribute>( attributeName: string ): T;
+
+            /**
+             * Gets an attribute matching attributeName.
+             *
+             * @param   {string}    attributeName   Name of the attribute.
+             *
+             * @return  The attribute.
+             */
+            getAttribute( attributeName: string ): Page.Attribute;
+
+            /**
+             * Gets an attribute by index.
+             *
+             * @param   {number}    index   The attribute index.
+             *
+             * @return  The attribute.
+             */
+            getAttribute( index: number ): Page.Attribute;
+
+            /**
+             * Gets an attribute.
+             *
+             * @param   {Collection.MatchingDelegate{Attribute}}    delegateFunction    A matching delegate function
+             *
+             * @return  An array of attribute.
+             */
+            getAttribute( delegateFunction: Collection.MatchingDelegate<Page.Attribute> ): Page.Attribute[];
+
+            /**
+             * Gets all controls.
+             *
+             * @return  An array of controls.
+             */
+            getControl(): Page.Control[];
+
+            /**
+             * Gets a control matching controlName.
+             *
+             * @tparam  T   A Control type
+             * @param   {string}    controlName Name of the control.
+             *
+             * @return  The control.
+             */
+            getControl<T extends Page.Control>( controlName: string ): T;
+
+            /**
+             * Gets a control matching controlName.
+             *
+             * @param   {string}    controlName Name of the control.
+             *
+             * @return  The control.
+             */
+            getControl( controlName: string ): Page.Control;
+
+            /**
+             * Gets a control by index.
+             *
+             * @param   {number}    index   The control index.
+             *
+             * @return  The control.
+             */
+            getControl( index: number ): Page.Control;
+
+            /**
+             * Gets a control.
+             *
+             * @param   {Collection.MatchingDelegate{Control}}  delegateFunction    A matching delegate function.
+             *
+             * @return  An array of control.
+             */
+            getControl( delegateFunction: Collection.MatchingDelegate<Page.Control> ): Page.Control[];
+        }
 
         /**
-         * Gets an attribute matching attributeName.
-         *
-         * @tparam  T   An Attribute type.
-         * @param   {string}    attributeName   Name of the attribute.
-         *
-         * @return  The attribute.
+         * Provides a container for useful functions not directly related to the current page.
          */
-        getAttribute<T extends XrmInterface.Page.Attribute>( attributeName: string ): T;
+        Utility: {
+            /**
+             * Displays an alert dialog, with an "OK" button.
+             *
+             * @param   {string}        message         The message.
+             * @param   {function()}    onCloseCallback The "OK" callback.
+             */
+            alertDialog( message: string, onCloseCallback: () => void ): void;
 
-        /**
-         * Gets an attribute matching attributeName.
-         *
-         * @param   {string}    attributeName   Name of the attribute.
-         *
-         * @return  The attribute.
-         */
-        getAttribute( attributeName: string ): XrmInterface.Page.Attribute;
+            /**
+             * Displays a confirmation dialog, with "OK" and "Cancel" buttons.
+             *
+             * @param   {string}        message             The message.
+             * @param   {function()}    yesCloseCallback    The "OK" callback.
+             * @param   {function()}    noCloseCallback     The "Cancel" callback.
+             */
+            confirmDialog( message: string, yesCloseCallback: () => void, noCloseCallback: () => void ): void;
 
-        /**
-         * Gets an attribute by index.
-         *
-         * @param   {number}    index   The attribute index.
-         *
-         * @return  The attribute.
-         */
-        getAttribute( index: number ): XrmInterface.Page.Attribute;
+            /**
+             * Query if 'entityType' is an Activity entity.
+             *
+             * @param   {string}    entityType  Type of the entity.
+             *
+             * @return  true if the entity is an Activity, false if not.
+             */
+            isActivityType( entityType: string ): boolean;
 
-        /**
-         * Gets an attribute.
-         *
-         * @param   {Collection.MatchingDelegate{Attribute}}    delegateFunction    A matching delegate function
-         *
-         * @return  An array of attribute.
-         */
-        getAttribute( delegateFunction: XrmInterface.Collection.MatchingDelegate<XrmInterface.Page.Attribute> ): XrmInterface.Page.Attribute[];
+            /**
+             * Opens quick create.
+             *
+             * @param   {Function}  callback                    The function that will be called when a record is created. This
+             *                                                  function is passed a LookupValue object as a parameter.
+             * @param   {string}    entityLogicalName           The logical name of the entity to create.
+             * @param   {Page.LookupValue}  createFromEntity    (Optional) Designates a record that will provide default values
+             *                                                  based on mapped attribute values.
+             * @param   {OpenParameters}    parameters          (Optional) A dictionary object that passes extra query string
+             *                                                  parameters to the form. Invalid query string parameters will cause an
+             *                                                  error.
+             */
+            openQuickCreate(
+                callback: ( recordReference: Page.LookupValue ) => void,
+                entityLogicalName: string,
+                createFromEntity?: Page.LookupValue,
+                parameters?: Utility.OpenParameters ): void;
 
-        /**
-         * Gets all controls.
-         *
-         * @return  An array of controls.
-         */
-        getControl(): XrmInterface.Page.Control[];
+            /**
+             * Opens an entity form.
+             *
+             * @param   {string}    name                The entity's logical name.
+             * @param   {string}    id                  (Optional) The unique identifier for the record.
+             * @param   {FormParameters}    parameters  (Optional) A dictionary object that passes extra query string parameters to the form.
+             * @param   {WindowOptions} windowOptions   (Optional) Options for controlling the window.
+             */
+            openEntityForm( name: string, id?: string, parameters?: Utility.FormOpenParameters, windowOptions?: Utility.WindowOptions ): void;
 
-        /**
-         * Gets a control matching controlName.
-         *
-         * @tparam  T   A Control type
-         * @param   {string}    controlName Name of the control.
-         *
-         * @return  The control.
-         */
-        getControl<T extends XrmInterface.Page.Control>( controlName: string ): T;
-
-        /**
-         * Gets a control matching controlName.
-         *
-         * @param   {string}    controlName Name of the control.
-         *
-         * @return  The control.
-         */
-        getControl( controlName: string ): XrmInterface.Page.Control;
-
-        /**
-         * Gets a control by index.
-         *
-         * @param   {number}    index   The control index.
-         *
-         * @return  The control.
-         */
-        getControl( index: number ): XrmInterface.Page.Control;
-
-        /**
-         * Gets a control.
-         *
-         * @param   {Collection.MatchingDelegate{Control}}  delegateFunction    A matching delegate function.
-         *
-         * @return  An array of control.
-         */
-        getControl( delegateFunction: XrmInterface.Collection.MatchingDelegate<XrmInterface.Page.Control> ): XrmInterface.Page.Control[];
+            /**
+             * Opens an HTML Web Resource in a new browser window.
+             *
+             * @param   {string}    webResourceName Name of the HTML web resource. Can be used to pass URL
+             *                                      parameters.  See Remarks.
+             * @param   {string}    webResourceData (Optional) Data to pass into the Web Resource's data parameter.
+             *                                                 It is advised to use encodeURIcomponent() to encode the value.
+             * @param   {number}    width           (Optional) The width of the new window.
+             * @param   {number}    height          (Optional) The height of the new window.
+             *
+             * @return  A Window reference, containing the opened Web Resource.
+             *
+             * @remarks This function will not work with Microsoft Dynamics CRM for tablets.
+             *          Valid WebResource URL Parameters:   typename
+             *                                              type
+             *                                              id
+             *                                              orgname
+             *                                              userlcid
+             *                                              data (identical to this method's webResourceData parameter)
+             *                                              formid
+             */
+            openWebResource( webResourceName: string, webResourceData?: string, width?: number, height?: number ): Window;
+        }
     }
-    
-    /**
-     * Provides a container for useful functions not directly related to the current page.
-     */
-    Utility: {
-        /**
-         * Displays an alert dialog, with an "OK" button.
-         *
-         * @param   {string}        message         The message.
-         * @param   {function()}    onCloseCallback The "OK" callback.
-         */
-        alertDialog( message: string, onCloseCallback: () => void ): void;
-        
-        /**
-         * Displays a confirmation dialog, with "OK" and "Cancel" buttons.
-         *
-         * @param   {string}        message             The message.
-         * @param   {function()}    yesCloseCallback    The "OK" callback.
-         * @param   {function()}    noCloseCallback     The "Cancel" callback.
-         */
-        confirmDialog( message: string, yesCloseCallback: () => void, noCloseCallback: () => void ): void;
-        
-        /**
-         * Query if 'entityType' is an Activity entity.
-         *
-         * @param   {string}    entityType  Type of the entity.
-         *
-         * @return  true if the entity is an Activity, false if not.
-         */
-        isActivityType( entityType: string ): boolean;
-        
-        /**
-         * Opens quick create.
-         *
-         * @param   {Function}  callback                    The function that will be called when a record is created. This
-         *                                                  function is passed a LookupValue object as a parameter.
-         * @param   {string}    entityLogicalName           The logical name of the entity to create.
-         * @param   {Page.LookupValue}  createFromEntity    (Optional) Designates a record that will provide default values
-         *                                                  based on mapped attribute values.
-         * @param   {OpenParameters}    parameters          (Optional) A dictionary object that passes extra query string
-         *                                                  parameters to the form. Invalid query string parameters will cause an
-         *                                                  error.
-         */
-        openQuickCreate(
-            callback: ( recordReference: XrmInterface.Page.LookupValue ) => void,
-            entityLogicalName: string,
-            createFromEntity?: XrmInterface.Page.LookupValue,
-            parameters?: XrmInterface.Utility.OpenParameters ): void;
-        
-        /**
-         * Opens an entity form.
-         *
-         * @param   {string}    name                The entity's logical name.
-         * @param   {string}    id                  (Optional) The unique identifier for the record.
-         * @param   {FormParameters}    parameters  (Optional) A dictionary object that passes extra query string parameters to the form.
-         * @param   {WindowOptions} windowOptions   (Optional) Options for controlling the window.
-         */
-        openEntityForm( name: string, id?: string, parameters?: XrmInterface.Utility.FormOpenParameters, windowOptions?: XrmInterface.Utility.WindowOptions ): void;
 
-        /**
-         * Opens an HTML Web Resource in a new browser window.
-         *
-         * @param   {string}    webResourceName Name of the HTML web resource. Can be used to pass URL
-         *                                      parameters.  See Remarks.
-         * @param   {string}    webResourceData (Optional) Data to pass into the Web Resource's data parameter.
-         *                                                 It is advised to use encodeURIcomponent() to encode the value.
-         * @param   {number}    width           (Optional) The width of the new window.
-         * @param   {number}    height          (Optional) The height of the new window.
-         *
-         * @return  A Window reference, containing the opened Web Resource.
-         *
-         * @remarks This function will not work with Microsoft Dynamics CRM for tablets.
-         *          Valid WebResource URL Parameters:   typename
-         *                                              type
-         *                                              id
-         *                                              orgname
-         *                                              userlcid
-         *                                              data (identical to this method's webResourceData parameter)
-         *                                              formid
-         */
-        openWebResource( webResourceName: string, webResourceData?: string, width?: number, height?: number ): Window;
-    }   
-}
-
-/**
- * Ghost module for the Xrm interfaces.
- */
-declare module XrmInterface
-{
     /**
      * Interface for the client context.
      */
@@ -252,7 +233,7 @@ declare module XrmInterface
     /**
      * Interface for the xRM application context.
      */
-    export interface Context
+    interface Context
     {
         /**
          * The client's context instance.
@@ -375,26 +356,26 @@ declare module XrmInterface
          *
          * @return  An Async.XrmPromise.
          */
-        refresh( save: boolean ): XrmInterface.Async.XrmPromise;
+        refresh( save: boolean ): Async.XrmPromise;
 
         /**
          * Asynchronously saves the record.
          *
          * @return  An Async.XrmPromise.
          */
-        save(): XrmInterface.Async.XrmPromise;
-        
+        save(): Async.XrmPromise;
+
         /**
          * The record context of the form.
          */
-        entity: XrmInterface.Page.Entity;
+        entity: Page.Entity;
 
         /**
          * The process API for Xrm.Page.data.
          *
          * @remarks This member may be undefined when Process Flows are not used by the current entity.
          */
-        process: XrmInterface.Page.data.ProcessManager;
+        process: Page.data.ProcessManager;
     }
 
     /**
@@ -429,7 +410,7 @@ declare module XrmInterface
          *                                   6  Bulk Edit
          *              Deprecated values are 5 (Quick Create), and 11 (Read Optimized)
          */
-        getFormType(): XrmInterface.Page.FormType;
+        getFormType(): XrmEnum.FormType;
 
         /**
          * Gets view port height.
@@ -500,31 +481,31 @@ declare module XrmInterface
          */
         setFormNotification( message: string, level: string, uniqueId: string ): boolean;
 
-        process: XrmInterface.Page.data.ProcessManager;
+        process: Page.data.ProcessManager;
 
         /**
          * A reference to the collection of controls on the form.
          */
-        controls: XrmInterface.Collection.ItemCollection<XrmInterface.Page.Control>;
+        controls: Collection.ItemCollection<Page.Control>;
 
         /**
          * The form selector API.
          *
          * @remarks This API does not exist with Microsoft Dynamics CRM for tablets.
          */
-        formSelector: XrmInterface.Page.FormSelector;
+        formSelector: Page.FormSelector;
 
         /**
          * The navigation API.
          *
          * @remarks This API does not exist with Microsoft Dynamics CRM for tablets.
          */
-        navigation: XrmInterface.Page.Navigation;
+        navigation: Page.Navigation;
 
         /**
          * A reference to the collection of tabs on the form.
          */
-        tabs: XrmInterface.Collection.ItemCollection<XrmInterface.Page.Tab>;
+        tabs: Collection.ItemCollection<Page.Tab>;
     }
 
     /**
@@ -666,63 +647,6 @@ declare module XrmInterface
     export module Page
     {
         /**
-         * Enumeration of entity form states/types.
-         */
-        export const enum FormType
-        {
-            Undefined = 0,
-            Create = 1,
-            Update = 2,
-            ReadOnly = 3,
-            Disabled = 4,
-            BulkEdit = 6
-        }
-
-        /**
-         * Enumeration of entity form save modes.
-         */
-        export const enum SaveMode
-        {
-            Save = 1,
-            SaveAndClose = 2,
-            SaveAndNew = 59,
-            AutoSave = 70,
-            SaveAsCompleted = 58,
-            Deactivate = 5,
-            Reactivate = 6,
-            Assign = 47,
-            Send = 7,
-            Qualify = 16,
-            Disqualify = 15
-        }
-
-        /**
-         * Enumeration of stage categories.
-         */
-        export const enum StageCategory
-        {
-            Qualify = 0,
-            Develop = 1,
-            Propose = 2,
-            Close = 3,
-            Identify = 4,
-            Research = 5,
-            Resolve = 6
-        }
-
-        /**
-         * Enumeration of grid control context resolutions.
-         */
-        export const enum GridControlContext
-        {
-            Unknown = 0,
-            RibbonContextForm = 1,
-            RibbonContextListing = 2,
-            FormContextUnrelated = 3,
-            FormContextRelated = 4
-        }
-
-        /**
          * Interface for a CRM Business Process Flow instance.
          */
         export interface Process
@@ -769,7 +693,7 @@ declare module XrmInterface
              *
              * @return  The stage category.
              */
-            getCategory(): { getValue(): StageCategory };
+            getCategory(): { getValue(): XrmEnum.StageCategory };
 
             /**
              * Returns the logical name of the entity associated with the stage.
@@ -874,7 +798,7 @@ declare module XrmInterface
              *
              * @return  The event source.
              */
-            getEventSource(): XrmInterface.Page.Attribute | XrmInterface.Page.Entity;
+            getEventSource(): Page.Attribute | Page.Entity;
 
             /**
              * Gets the shared variable with the specified key.
@@ -1552,7 +1476,7 @@ declare module XrmInterface
              *                               16     Qualify (Lead)
              *                               15     Disqualify (Lead)
              */
-            getSaveMode(): SaveMode;
+            getSaveMode(): XrmEnum.SaveMode;
 
             /**
              * Returns a boolean value to indicate if the record's save has been prevented.
@@ -1972,7 +1896,7 @@ declare module XrmInterface
              *
              * @return  The context type.
              */
-            getContextType(): GridControlContext;
+            getContextType(): XrmEnum.GridControlContext;
 
             /**
              * Use this method to get the logical name of the entity data displayed in the grid.
@@ -2127,7 +2051,7 @@ declare module XrmInterface
              *
              * @return  The parent.
              */
-            getParent(): XrmInterface.Ui;
+            getParent(): Ui;
 
             /**
              * Sets display state of the tab.
@@ -2439,15 +2363,6 @@ declare module XrmInterface
     export module Url
     {
         /**
-         * An enumeration for view types.
-         */
-        export const enum ViewType
-        {
-            SystemView = 1039,
-            UserView = 4230
-        }
-
-        /**
          * Interface for defining parameters on a request to open a form with main.aspx (as with
          * window.open). Useful for parsing the keys and values into a string of the format:
          * "&key=value".
@@ -2519,7 +2434,7 @@ declare module XrmInterface
              * @remarks  Accepted values are:    1039    System View
              *                                   4230    User View.
              */
-            viewtype: ViewType;
+            viewtype: XrmEnum.ViewType;
 
             /**
              * Controls whether the command bar is displayed.
@@ -2649,5 +2564,74 @@ declare module XrmInterface
              */
             openInNewWindow: boolean;
         }
+    }
+}
+
+declare module XrmEnum
+{
+    /**
+     * Enumeration of entity form states/types.
+     */
+    export const enum FormType
+    {
+        Undefined = 0,
+        Create = 1,
+        Update = 2,
+        ReadOnly = 3,
+        Disabled = 4,
+        BulkEdit = 6
+    }
+
+    /**
+     * Enumeration of entity form save modes.
+     */
+    export const enum SaveMode
+    {
+        Save = 1,
+        SaveAndClose = 2,
+        SaveAndNew = 59,
+        AutoSave = 70,
+        SaveAsCompleted = 58,
+        Deactivate = 5,
+        Reactivate = 6,
+        Assign = 47,
+        Send = 7,
+        Qualify = 16,
+        Disqualify = 15
+    }
+
+    /**
+     * Enumeration of stage categories.
+     */
+    export const enum StageCategory
+    {
+        Qualify = 0,
+        Develop = 1,
+        Propose = 2,
+        Close = 3,
+        Identify = 4,
+        Research = 5,
+        Resolve = 6
+    }
+
+    /**
+     * Enumeration of grid control context resolutions.
+     */
+    export const enum GridControlContext
+    {
+        Unknown = 0,
+        RibbonContextForm = 1,
+        RibbonContextListing = 2,
+        FormContextUnrelated = 3,
+        FormContextRelated = 4
+    }
+
+    /**
+     * An enumeration for view types.
+     */
+    export const enum ViewType
+    {
+        SystemView = 1039,
+        UserView = 4230
     }
 }
