@@ -5,12 +5,13 @@
 
 /* =================== USAGE ===================
 
-    import express = require('express');
+    import * as express from "express";
     var app = express();
 
  =============================================== */
 
 /// <reference path="../node/node.d.ts" />
+/// <reference path="../serve-static/serve-static.d.ts" />
 
 declare module Express {
 
@@ -23,7 +24,8 @@ declare module Express {
 
 
 declare module "express" {
-    import http = require('http');
+    import * as http from "http";
+    import * as serveStatic from "serve-static";
 
     function e(): e.Express;
 
@@ -38,11 +40,11 @@ declare module "express" {
             delete(...handler: RequestHandler[]): IRoute;
             patch(...handler: RequestHandler[]): IRoute;
             options(...handler: RequestHandler[]): IRoute;
+            head(...handler: RequestHandler[]): IRoute;
         }
 
         interface IRouterMatcher<T> {
-            (name: string, ...handlers: RequestHandler[]): T;
-            (name: RegExp, ...handlers: RequestHandler[]): T;
+            (name: string|RegExp, ...handlers: RequestHandler[]): T;
         }
 
         interface IRouter<T> extends RequestHandler {
@@ -95,13 +97,19 @@ declare module "express" {
             delete: IRouterMatcher<T>;
             patch: IRouterMatcher<T>;
             options: IRouterMatcher<T>;
+            head: IRouterMatcher<T>;
 
             route(path: string): IRoute;
 
             use(...handler: RequestHandler[]): T;
-            use(handler: ErrorRequestHandler): T;
+            use(handler: ErrorRequestHandler|RequestHandler): T;
             use(path: string, ...handler: RequestHandler[]): T;
-            use(path: string, handler: ErrorRequestHandler): T;
+            use(path: string, handler: ErrorRequestHandler|RequestHandler): T;
+            use(path: string[], ...handler: RequestHandler[]): T;
+            use(path: string[], handler: ErrorRequestHandler): T;
+            use(path: RegExp, ...handler: RequestHandler[]): T;
+            use(path: RegExp, handler: ErrorRequestHandler): T;
+            use(path:string, router:Router): T;
         }
 
         export function Router(options?: any): Router;
@@ -191,20 +199,35 @@ declare module "express" {
             accepts(type: string[]): string;
 
             /**
-             * Check if the given `charset` is acceptable,
-             * otherwise you should respond with 406 "Not Acceptable".
+             * Returns the first accepted charset of the specified character sets,
+             * based on the request’s Accept-Charset HTTP header field.
+             * If none of the specified charsets is accepted, returns false.
              *
+             * For more information, or if you have issues or concerns, see accepts.
              * @param charset
              */
-            acceptsCharset(charset: string): boolean;
+            acceptsCharsets(charset?: string|string[]): string[];
 
             /**
-             * Check if the given `lang` is acceptable,
-             * otherwise you should respond with 406 "Not Acceptable".
+             * Returns the first accepted encoding of the specified encodings,
+             * based on the request’s Accept-Encoding HTTP header field.
+             * If none of the specified encodings is accepted, returns false.
+             *
+             * For more information, or if you have issues or concerns, see accepts.
+             * @param encoding
+             */
+            acceptsEncodings(encoding?: string|string[]): string[];
+
+            /**
+             * Returns the first accepted language of the specified languages,
+             * based on the request’s Accept-Language HTTP header field.
+             * If none of the specified languages is accepted, returns false.
+             *
+             * For more information, or if you have issues or concerns, see accepts.
              *
              * @param lang
              */
-            acceptsLanguage(lang: string): boolean;
+            acceptsLanguages(lang?: string|string[]): string[];
 
             /**
              * Parse Range header field,
@@ -230,28 +253,6 @@ declare module "express" {
              * ordered from highest quality to lowest.
              */
             accepted: MediaType[];
-
-            /**
-             * Return an array of Accepted languages
-             * ordered from highest quality to lowest.
-             *
-             * Examples:
-             *
-             *     Accept-Language: en;q=.5, en-us
-             *     ['en-us', 'en']
-             */
-            acceptedLanguages: any[];
-
-            /**
-             * Return an array of Accepted charsets
-             * ordered from highest quality to lowest.
-             *
-             * Examples:
-             *
-             *     Accept-Charset: iso-8859-5;q=.2, unicode-1-1;q=0.8
-             *     ['unicode-1-1', 'iso-8859-5']
-             */
-            acceptedCharsets: any[];
 
             /**
              * Return the value of param `name` when present or `defaultValue`.
@@ -349,6 +350,11 @@ declare module "express" {
             /**
              * Parse the "Host" header field hostname.
              */
+            hostname: string;
+
+            /**
+             * @deprecated Use hostname instead.
+             */
             host: string;
 
             /**
@@ -384,8 +390,6 @@ declare module "express" {
 
             authenticatedUser: any;
 
-            files: any;
-
             /**
              * Clear cookie `name`.
              *
@@ -403,6 +407,10 @@ declare module "express" {
             originalUrl: string;
 
             url: string;
+
+            baseUrl: string;
+
+            app: Application;
         }
 
         interface MediaType {
@@ -537,19 +545,19 @@ declare module "express" {
             sendFile(path: string, options: any, fn: Errback): void;
 
             /**
-             * deprecated, use sendFile instead.
+             * @deprecated Use sendFile instead.
              */
             sendfile(path: string): void;
             /**
-             * deprecated, use sendFile instead.
+             * @deprecated Use sendFile instead.
              */
             sendfile(path: string, options: any): void;
             /**
-             * deprecated, use sendFile instead.
+             * @deprecated Use sendFile instead.
              */
             sendfile(path: string, fn: Errback): void;
             /**
-             * deprecated, use sendFile instead.
+             * @deprecated Use sendFile instead.
              */
             sendfile(path: string, options: any, fn: Errback): void;
 
@@ -788,18 +796,23 @@ declare module "express" {
             charset: string;
         }
 
+        interface NextFunction {
+            (): void;
+            (err: any): void;
+        }
+
         interface ErrorRequestHandler {
-            (err: any, req: Request, res: Response, next: Function): any;
+            (err: any, req: Request, res: Response, next: NextFunction): any;
         }
 
         interface RequestHandler {
-            (req: Request, res: Response, next: Function): any;
+            (req: Request, res: Response, next: NextFunction): any;
         }
 
         interface Handler extends RequestHandler {}
 
         interface RequestParamHandler {
-            (req: Request, res: Response, next: Function, param: any): any;
+            (req: Request, res: Response, next: NextFunction, param: any): any;
         }
 
         interface Application extends IRouter<Application>, Express.Application {
@@ -865,8 +878,7 @@ declare module "express" {
             set(setting: string, val: any): Application;
             get: {
                 (name: string): any; // Getter
-                (name: string, ...handlers: RequestHandler[]): Application;
-                (name: RegExp, ...handlers: RequestHandler[]): Application;
+                (name: string|RegExp, ...handlers: RequestHandler[]): Application;
             };
 
             /**
@@ -1062,31 +1074,7 @@ declare module "express" {
             response: Response;
         }
 
-        /**
-         * Static:
-         *
-         *   Static file server with the given `root` path.
-         *
-         * Examples:
-         *
-         *     var oneDay = 86400000;
-         *
-         *     connect()
-         *       .use(connect.static(__dirname + '/public'))
-         *
-         *     connect()
-         *       .use(connect.static(__dirname + '/public', { maxAge: oneDay }))
-         *
-         * Options:
-         *
-         *    - `maxAge`     Browser cache maxAge in milliseconds. defaults to 0
-         *    - `hidden`     Allow transfer of hidden files. defaults to false
-         *    - `redirect`   Redirect to trailing "/" when the pathname is a dir. defaults to true
-         *
-         * @param root
-         * @param options
-         */
-        function static(root: string, options?: any): RequestHandler;
+        var static: typeof serveStatic;
     }
 
     export = e;

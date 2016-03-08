@@ -1,4 +1,4 @@
-﻿// Type definitions for serve-favicon 2.1.6
+﻿// Type definitions for serve-favicon 2.2.0
 // Project: https://github.com/expressjs/serve-favicon
 // Definitions by: Uros Smolnik <https://github.com/urossmolnik/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -24,6 +24,8 @@ declare module "serve-favicon" {
         */
         maxAge?: number;
     }): express.RequestHandler;
+    
+    namespace serveFavicon{}
 
     export = serveFavicon;
 }

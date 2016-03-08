@@ -3,7 +3,13 @@
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path='../node/node.d.ts' />
+/// <reference path='../jquery/jquery.d.ts' />
+
 declare module "jsdom" {
+
+    import EventEmitter = NodeJS.EventEmitter;
+
 	/**
 	 * The do-what-I-mean API.
 	 *
@@ -26,6 +32,51 @@ declare module "jsdom" {
 	export function env(urlOrHtml: string, config: Config, callback?: Callback): void;
 	export function env(config: Config, callback?: Callback): void;
 
+	export function serializeDocument(doc: Document): string;
+
+	export interface VirtualConsole extends EventEmitter {
+		sendTo(console: Console): VirtualConsole;
+	}
+	
+	export interface VirtualConsoleOptions {
+	}
+	
+	export interface WindowProperties {
+		parsingMode?: string; // html, xml, auto, undefined
+		contentType?: string;
+		parser?: any;
+		url?: string;
+		referrer?: string;
+		cookieJar?: CookieJar;
+		cookie?: string;
+		resourceLoader?: any;
+		deferClose?: boolean;
+		concurrentNodeIterators?: number;
+		virtualConsole?: VirtualConsole;
+		created?: (something: any, window: Window) => any;
+		features?: FeatureOptions;
+		top?: Window;
+	}
+
+    // tough-cookie
+    export interface CookieJar {
+        
+    }
+
+	export function createVirtualConsole(options?: VirtualConsoleOptions): VirtualConsole;
+	export function getVirtualConsole(window: Window): VirtualConsole;
+	export function createCookieJar(): CookieJar;
+	export function nodeLocation(node: Node): any;
+	export function reconfigureWindow(window: Window, newProps: WindowProperties): void;
+	
+	export function jQueryify(window: Window, jqueryUrl: string, callback: (window: Window, jquery: JQuery) => any): void;
+	
+	export var debugMode: boolean;
+	
+	export interface DocumentWithParentWindow extends Document {
+		parentWindow: Window;
+	}
+
 	/**
 	 * The jsdom.jsdom method does less things automatically; it takes in only HTML source, and does not let you to
 	 * separately supply script that it will inject and execute. It just gives you back a document object,
@@ -37,12 +88,14 @@ declare module "jsdom" {
 	 *					equivalent to what a browser will give if you open up an empty .html file.
 	 * @param options	see the explanation of the config object above.
 	 */
-	export function jsdom(markup: string, config?: Config): Document;
+	export function jsdom(markup: string, config?: Config): DocumentWithParentWindow;
 
 	/**
 	 * Before creating any documents, you can modify the defaults for all future documents:
 	 */
-	export var defaultDocumentFeatures: FeatureOptions;
+	export var availableDocumentFeatures: FeatureOptions;
+ 	export var defaultDocumentFeatures: FeatureOptions;
+	export var applyDocumentFeatures: FeatureOptions;
 
     export interface Callback {
         (errors: Error[], window: Window): any;
@@ -54,7 +107,7 @@ declare module "jsdom" {
 		 * Allowed: ["script", "img", "css", "frame", "iframe", "link"] or false
 		 * Default for jsdom.env: false
 		 */
-		FetchExternalResources?: any;
+		FetchExternalResources?: string[] | boolean;
 
 		/**
 		 * Enables/disables JavaScript execution
@@ -62,7 +115,7 @@ declare module "jsdom" {
 		 * Allowed: ["script"] or false, 
 		 * Default for jsdom.env: false
 		 */
-		ProcessExternalResources?: any;
+		ProcessExternalResources?: string[] | boolean;
 
 		/**
 		 * Filters resource downloading and processing to disallow those matching the given regular expression
@@ -70,7 +123,7 @@ declare module "jsdom" {
 		 * Allowed: /url to be skipped/ or false
 		 * Example: /http:\/\/example.org/js/bad\.js/
 		 */
-		SkipExternalResources?: any;
+		SkipExternalResources?: string | boolean;
 	}
 
 	export interface EnvDocument {
@@ -112,7 +165,7 @@ declare module "jsdom" {
 		/**
 		 * a custom cookie jar, if desired; see mikeal/request documentation.
 		 */
-		jar?: any;
+		jar?: CookieJar;
 		/**
 		 *  either "auto", "html", or "xml". The default is "auto", which uses HTML behavior unless config.url responds with an XML Content-Type, or config.file contains a filename ending in .xml or .xhtml. Setting to "xml" will attempt to parse the document as an XHTML document. (jsdom is currently only OK at doing that.)
 		 */
@@ -122,6 +175,8 @@ declare module "jsdom" {
 		 * Note: the default feature set for jsdom.env does not include fetching remote JavaScript and executing it. This is something that you will need to carefully enable yourself.
 		 */
 		features?: FeatureOptions;
+		
+		virtualConsole?: VirtualConsole;
 		
 		/**
 		 * Now that you know about created and loaded, you can see that done is essentially both of them smashed together:

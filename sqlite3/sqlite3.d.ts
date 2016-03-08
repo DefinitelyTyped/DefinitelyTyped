@@ -68,13 +68,13 @@ declare module "sqlite3" {
         
         public serialize(callback?: () => void): void;
         public parallelize(callback?: () => void): void;
-        
-        public on(event: "trace", listener: (sql: string) => void): Database;
-        public on(event: "profile", listener: (sql: string, time: number) => void): Database;
-        public on(event: "error", listener: (err: Error) => void): Database;
-        public on(event: "open", listener: () => void): Database;
-        public on(event: "close", listener: () => void): Database;
-        public on(event: string, listener: Function): Database;
+
+        public on(event: "trace", listener: (sql: string) => void): this;
+        public on(event: "profile", listener: (sql: string, time: number) => void): this;
+        public on(event: "error", listener: (err: Error) => void): this;
+        public on(event: "open", listener: () => void): this;
+        public on(event: "close", listener: () => void): this;
+        public on(event: string, listener: Function): this;
     }
     
     function verbose(): void;

@@ -1,14 +1,22 @@
-// Type definitions for Tether v0.6
+// Type definitions for Tether v1.1
 // Project: http://github.hubspot.com/tether/
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module tether {
+// global Tether constructor
+declare class Tether {
+    constructor(options: Tether.ITetherOptions);
 
-    interface TetherStatic {
-        new(options: ITetherOptions): Tether;
-    }
+    public setOptions(options: Tether.ITetherOptions): void;
+    public disable(): void;
+    public enable(): void;
+    public destroy(): void;
+    public position(): void;
 
+    public static position(): void;
+}
+
+declare namespace Tether {
     interface ITetherOptions {
         attachment?: string;
         classes?: {[className: string]: boolean};
@@ -31,20 +39,9 @@ declare module tether {
         pinnedClass?: string;
         to?: string | HTMLElement | number[];
     }
-
-    interface Tether {
-        setOptions(options: ITetherOptions): void;
-        disable(): void;
-        enable(): void;
-        destroy(): void;
-        position(): void;
-    }
-
 }
 
 declare module "tether" {
-    export = tether;
+    export = Tether;
 }
-
-declare var Tether: tether.TetherStatic;
 

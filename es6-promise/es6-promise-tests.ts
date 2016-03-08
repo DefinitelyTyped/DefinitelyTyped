@@ -68,6 +68,9 @@ promiseNumber = thenWithUndefinedFullFillAndPromiseReject;
 var thenWithNoResultAndNoReject = promiseString.then<number>();
 promiseNumber = thenWithNoResultAndNoReject;
 
+var catchAfterThen = promiseString.then().catch<number>();
+promiseNumber = catchAfterThen;
+
 var voidPromise = new Promise<void>(function (resolve) { resolve(); });
 
 //catch test
@@ -159,4 +162,33 @@ getJSON('story.json').then(function(story: Story) {
   addTextToPage("Argh, broken: " + err.message);
 }).then(function() {
   (<HTMLElement>document.querySelector('.spinner')).style.display = 'none';
+});
+
+interface T1 {
+    __t1: string;
+}
+
+interface T2 {
+    __t2: string;
+}
+
+interface T3 {
+    __t3: string;
+}
+
+function f1(): Promise<T1> {
+    return Promise.resolve({ __t1: "foo_t1" });
+}
+
+function f2(x: T1): T2 {
+    return { __t2: x.__t1 + ":foo_21" };
+}
+
+var x3 = f1()
+    .then(f2, (e: Error) => {
+    console.log("error 1");
+    throw e;
+})
+    .then((x: T2) => {
+    return { __t3: x.__t2 + "bar" };
 });

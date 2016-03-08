@@ -8,7 +8,7 @@
 declare module THREE {
     export interface SpriteCanvasMaterialParameters extends MaterialParameters{
         color?: number;
-
+        program?: (context: any, color: Color) => void;
     }
 
     export class SpriteCanvasMaterial extends Material {
@@ -23,6 +23,7 @@ declare module THREE {
     export interface CanvasRendererParameters {
         canvas?: HTMLCanvasElement;
         devicePixelRatio?: number;
+        alpha?: boolean;
     }
 
     export class CanvasRenderer implements Renderer {

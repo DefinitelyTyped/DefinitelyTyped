@@ -17,6 +17,7 @@ declare module YT {
         onReady?: EventHandler;
         onPlayback?: EventHandler;
         onStateChange?: EventHandler;
+        onError?: EventHandler;
     }
 
 	export enum ListType {
@@ -38,11 +39,12 @@ declare module YT {
 		iv_load_policy?: number;
 		list?: string;
 		listType?: ListType;
-		loop?;
+		loop?: number;
 		modestbranding?: number;
-		origin?;
+		origin?: string;
         playerpiid?: string;
-		playlist?;
+		playlist?: string[];
+        playsinline?: number;
 		rel?: number;
         showinfo?: number;
 		start?: number;
@@ -50,8 +52,8 @@ declare module YT {
     }
 
     export interface PlayerOptions {
-        width?: number;
-        height?: number;
+        width?: string | number;
+        height?: string | number;
         videoId?: string;
         playerVars?: PlayerVars;
         events?: Events;
@@ -84,17 +86,17 @@ declare module YT {
 
         // Queueing functions
         loadVideoById(videoId: string, startSeconds?: number, suggestedQuality?: string): void;
-        loadVideoById(VideoByIdParams): void;
+        loadVideoById(VideoByIdParams: Object): void;
         cueVideoById(videoId: string, startSeconds?: number, suggestedQuality?: string): void;
-        cueVideoById(VideoByIdParams): void;
+        cueVideoById(VideoByIdParams: Object): void;
 
         loadVideoByUrl(mediaContentUrl: string, startSeconds?: number, suggestedQuality?: string): void;
-        loadVideoByUrl(VideoByUrlParams): void;
+        loadVideoByUrl(VideoByUrlParams: Object): void;
         cueVideoByUrl(mediaContentUrl: string, startSeconds?: number, suggestedQuality?: string): void;
-        cueVideoByUrl(VideoByUrlParams): void;
+        cueVideoByUrl(VideoByUrlParams: Object): void;
 
         // Properties
-        size;
+        size: any;
 
         // Playing
         playVideo(): void;
@@ -146,10 +148,14 @@ declare module YT {
         getPlaylistIndex(): number;
 
         // Event Listener
-        addEventListener(event: string, listener: string): void;
+        addEventListener(event: string, handler: EventHandler): void;
+
+        // DOM
+        destroy(): void;
     }
 
     export enum PlayerState {
+        UNSTARTED,
         BUFFERING,
         CUED,
         ENDED,

@@ -300,7 +300,7 @@ interface UnderscoreStringStaticExports {
      * @param delimiter
      */
     words(str: string): string[];
-    
+
     /**
      * Split string by delimiter (String or RegExp).
      * /\s+/ by default.

@@ -53,8 +53,8 @@ interface FileTransfer {
         target: string,
         successCallback: (fileEntry: FileEntry) => void,
         errorCallback: (error: FileTransferError) => void,
-        options?: FileDownloadOptions,
-        trustAllHosts?: boolean): void;
+        trustAllHosts?: boolean,
+        options?: FileDownloadOptions): void;
     /**
      * Aborts an in-progress transfer. The onerror callback is passed a FileTransferError object
      * which has an error code of FileTransferError.ABORT_ERR.
@@ -98,8 +98,8 @@ interface FileUploadOptions {
 
 /** Optional parameters for download method. */
 interface FileDownloadOptions {
-    /** A map of header name/header values. Use an array to specify more than one value. */
-    headers?: Object[];
+    /** A map of header name/header values. */
+    headers?: {};
 }
 
 /** A FileTransferError object is passed to an error callback when an error occurs. */

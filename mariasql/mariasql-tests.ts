@@ -1,13 +1,14 @@
 // These are the examples from the node-mariasql README transposed to TypeScript
 // https://github.com/mscdex/node-mariasql
 
-/// <reference path="../node/node-0.10.d.ts" />
+/// <reference path="./mariasql.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 // Example 1 - SHOW DATABASES
 import util = require('util');
 import Client = require('mariasql');
 
-var c:Client = new Client(),
+var c:mariasql.MariaClient = new Client(),
     inspect = util.inspect;
 
 c.connect({
@@ -92,6 +93,9 @@ c.query('SELECT * FROM users WHERE id = ? AND name = ?',
                 console.log('Result error: ' + inspect(err));
             })
             .on('end', function (info) {
+                console.log(info.affectedRows);
+                console.log(info.insertId);
+                console.log(info.numRows);
                 console.log('Result finished successfully');
             });
     })

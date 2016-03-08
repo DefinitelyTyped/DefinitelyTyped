@@ -33,7 +33,7 @@ Raven.context({tags: { key: "value" }}, throwsError);
 setTimeout(Raven.wrap(throwsError), 1000);
 Raven.wrap({logger: "my.module"}, throwsError)();
 
-Raven.setUser({
+Raven.setUserContext({
     email: 'matt@example.com',
     id: '123'
 });

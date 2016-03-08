@@ -255,7 +255,7 @@ declare module Valerie {
 
         /*
         //TODO: additional namespaces/statics not yet used
-        dom: DomStatic; 
+        dom: DomStatic;
         formatting: FormattingStatic;
         koBindingsHelper: KoBindingsHelperStatic;
         koExtras: KoExtrasStatic;
@@ -278,7 +278,7 @@ declare module Valerie {
 
     // Contains converters, always singletons.
     interface ConvertersStatic {
-        
+
         //TODO: other converters to be added
 
         passThrough: Valerie.IConverter;
@@ -365,19 +365,19 @@ declare module Valerie {
          */
         clearSummary(valueOrFunction: any): ModelValidationState;
 
-        /*** 
+        /***
          * Gets whether the model has failed validation.
          * @return {boolean}
          */
         failed(): boolean;
 
-        /*** 
+        /***
          * Gets the validation states that belong to the model that are in a failure state.
          * @return {Valerie.IValidationState[]}
          */
         failedStates(): Valerie.IValidationState[];
 
-        /*** 
+        /***
          * Gets the name of the model.
          * @return {string}
          */
@@ -387,7 +387,7 @@ declare module Valerie {
         message(): string;
         passed(): boolean;
 
-        /*** 
+        /***
          * Gets or sets whether the computation that updates the validation result has been paused.
          * @param {boolean} [value = false] true if the computation should be paused, false if the computation should not be paused
          * @return {boolean} true if computation is paused, false otherwise
