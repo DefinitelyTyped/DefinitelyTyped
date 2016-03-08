@@ -1,4 +1,4 @@
-// Type definitions for redux-thunk
+// Type definitions for redux-thunk v2.0.1
 // Project: https://github.com/gaearon/redux-thunk
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -14,5 +14,5 @@ declare module ReduxThunk {
 
 declare module "redux-thunk" {
     var thunk: ReduxThunk.Thunk;
-    export = thunk;
+    export default thunk;
 }
