@@ -5,6 +5,8 @@
 
 declare module 'format-unicorn/safe' {
 
-  export default function (str: string, replacements: { }): string;
+  function formatUnicornSafe(str: string, replacements: { }): string;
+
+  export = formatUnicornSafe;
 
 }

@@ -1,6 +1,6 @@
 /// <reference path="format-unicorn-safe.d.ts"/>
 
-import formatUnicorn from 'format-unicorn/safe';
+import formatUnicorn = require('format-unicorn/safe');
 
 // Safe version
 var outputString: string;
