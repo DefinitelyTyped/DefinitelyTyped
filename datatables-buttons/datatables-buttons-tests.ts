@@ -128,7 +128,7 @@ $(document).ready(function () {
             buttons: [
                 {
                     text: '',
-                    init: function ( e, dt, node:JQuery, config ) {
+                    init: function ( dt, node, config ) {
                         node.on( 'mouseenter'+config.namespace, function () {
                             console.log( 'Mouse enter' );
                         } );
@@ -140,6 +140,20 @@ $(document).ready(function () {
                     destroy: function ( dt, node, config ) {
                         node.off( 'mouseenter'+config.namespace );
                         node.off( 'mouseleave'+config.namespace );
+                    }
+                }
+            ]
+        }
+    });
+
+    $('#myTable').DataTable( {
+        buttons: {
+            buttons: [
+                {
+                    text: 'Alert',
+                    action: function ( e, dt, node, config ) {
+                        alert( 'Activated!' );
+                        this.disable(); // disable button
                     }
                 }
             ]
