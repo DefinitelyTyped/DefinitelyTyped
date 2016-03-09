@@ -8,7 +8,7 @@ class LinkTest extends React.Component<React.Props<{}>, {}> {
 
 	render() {
 		return <div>
-	       <Link to={'/'} />
+	       <Link to="/">Dashboard</Link>
 		</div>
 	}
 
@@ -18,7 +18,7 @@ class ElementTest extends React.Component<React.Props<{}>, {}> {
 
 	render() {
 		return <div>
-	       <Element name="test" />
+	       <Element name="test" >Test</Element>
 		</div>
 	}
 }
