@@ -6,171 +6,69 @@
 /// <reference path="../jquery/jquery.d.ts" />
 
 declare module kendo {
-    function culture(): {
-        name: string;
-        calendar: {
-            AM: string[];
-            PM: string[];
-            days: {
-                names: string[];
-                namesAbbr: string[];
-                namesShort: string[];
-                firstDay: number;
-            };
-            months: {
-                names: string[];
-                namesAbbr: string[];
-            };
-            patterns: {
-                D: string;
-                F: string;
-                G: string;
-                M: string;
-                T: string;
-                Y: string;
-                d: string;
-                g: string;
-                m: string;
-                s: string;
-                t: string;
-                u: string;
-                y: string;
-            };
-            twoDigitYearMax: number;
-        };
-        calendars: {
-            standard: {
-                AM: string[];
-                PM: string[];
-                days: {
-                    names: string[];
-                    namesAbbr: string[];
-                    namesShort: string[];
-                    firstDay: number;
-                };
-                months: {
-                    names: string[];
-                    namesAbbr: string[];
-                };
-                patterns: {
-                    D: string;
-                    F: string;
-                    G: string;
-                    M: string;
-                    T: string;
-                    Y: string;
-                    d: string;
-                    g: string;
-                    m: string;
-                    s: string;
-                    t: string;
-                    u: string;
-                    y: string;
-                };
-                twoDigitYearMax: number;
-            };
-        };
-        numberFormat: {
-            currency: {
-                decimals: number;
-                groupSize: number[];
-                pattern: string[];
-                symbol: string;
-            };
-            decimals: number;
-            groupSize: number[];
-            pattern: string[];
-            percent: {
-                decimals: number;
-                groupSize: number[];
-                pattern: string[];
-                symbol: string;
-            };
-        };
-    };
+    interface DateFormatPatterns {
+        D: string;
+        F: string;
+        G: string;
+        M: string;
+        T: string;
+        Y: string;
+        d: string;
+        g: string;
+        m: string;
+        s: string;
+        t: string;
+        u: string;
+        y: string;
+    }
 
-    var cultures: {[culture: string] : {
-        name?: string;
-        calendar?: {
-            AM: string[];
-            PM: string[];
-            days: {
-                names: string[];
-                namesAbbr: string[];
-                namesShort: string[];
-                firstDay: number;
-            };
-            months: {
-                names: string[];
-                namesAbbr: string[];
-            };
-            patterns: {
-                D: string;
-                F: string;
-                G: string;
-                M: string;
-                T: string;
-                Y: string;
-                d: string;
-                g: string;
-                m: string;
-                s: string;
-                t: string;
-                u: string;
-                y: string;
-            };
-            twoDigitYearMax: number;
+    interface DateFormat {
+        AM: string[];
+        PM: string[];
+        days: {
+            names: string[];
+            namesAbbr: string[];
+            namesShort: string[];
+            firstDay: number;
         };
-        calendars?: {
-            standard: {
-                AM: string[];
-                PM: string[];
-                days: {
-                    names: string[];
-                    namesAbbr: string[];
-                    namesShort: string[];
-                    firstDay: number;
-                };
-                months: {
-                    names: string[];
-                    namesAbbr: string[];
-                };
-                patterns: {
-                    D: string;
-                    F: string;
-                    G: string;
-                    M: string;
-                    T: string;
-                    Y: string;
-                    d: string;
-                    g: string;
-                    m: string;
-                    s: string;
-                    t: string;
-                    u: string;
-                    y: string;
-                };
-                twoDigitYearMax: number;
-            };
+        months: {
+            names: string[];
+            namesAbbr: string[];
         };
-        numberFormat?: {
-            currency: {
-                decimals: number;
-                groupSize: number[];
-                pattern: string[];
-                symbol: string;
-            };
+        patterns: DateFormatPatterns;
+        twoDigitYearMax: number;
+    }
+
+    interface NumberFormat {
+        currency: {
             decimals: number;
             groupSize: number[];
             pattern: string[];
-            percent: {
-                decimals: number;
-                groupSize: number[];
-                pattern: string[];
-                symbol: string;
-            };
+            symbol: string;
         };
-    }};
+        decimals: number;
+        groupSize: number[];
+        pattern: string[];
+        percent: {
+            decimals: number;
+            groupSize: number[];
+            pattern: string[];
+            symbol: string;
+        };
+    }
+
+    interface Culture {
+        name?: string;
+        calendar?: DateFormat;
+        calendars?: {
+            standard: DateFormat
+        };
+        numberFormat?: NumberFormat;
+    }
+
+    function culture(): Culture;
+
+    var cultures: {[culture: string] : Culture};
 
     function format(format: string, ...values: any[]): string;
 
