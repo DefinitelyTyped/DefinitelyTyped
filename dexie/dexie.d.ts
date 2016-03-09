@@ -1,7 +1,6 @@
 ﻿// Type definitions for Dexie 1.3.1
 // Project: https://github.com/dfahlander/Dexie.js
 // Definitions by: David Fahlander <http://github.com/dfahlander>
-// Date Wed Mar 09 2016
 
 interface Thenable<R> {
     then<U>(onFulfilled: (value: R) => Thenable<U>, onRejected: (error: any) => Thenable<U>): Thenable<U>;
