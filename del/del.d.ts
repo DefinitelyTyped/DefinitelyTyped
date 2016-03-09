@@ -4,7 +4,6 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../glob/glob.d.ts"/>
-/// <reference path="../es6-promise/es6-promise.d.ts" />
 
 declare module "del" {
     import glob = require("glob");

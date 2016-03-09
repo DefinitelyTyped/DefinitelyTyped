@@ -24,6 +24,11 @@ token = jwt.sign({ foo: 'bar' }, 'shhhhh');
 cert = fs.readFileSync('private.key');  // get private key
 token = jwt.sign({ foo: 'bar' }, cert, { algorithm: 'RS256'});
 
+// sign asynchronously
+jwt.sign({ foo: 'bar' }, cert, { algorithm: 'RS256' }, function(token: string) {
+  console.log(token);
+});
+
 /**
  * jwt.verify
  * https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
@@ -74,3 +79,9 @@ jwt.verify(token, cert, { ignoreExpiration: true }, function(err, decoded) {
  * https://github.com/auth0/node-jsonwebtoken#jwtdecodetoken
  */
 var decoded = jwt.decode(token);
+
+decoded = jwt.decode(token, { complete: false });
+
+decoded = jwt.decode(token, { json: false });
+
+decoded = jwt.decode(token, { complete: false, json: false });

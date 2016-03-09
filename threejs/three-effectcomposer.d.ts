@@ -17,7 +17,7 @@ declare module THREE {
 		readBuffer: WebGLRenderTarget;
 		passes: any[];
 		copyPass: ShaderPass;
-		
+
 		swapBuffers(): void;
 		addPass(pass: any): void;
 		insertPass(pass: any, index: number): void;

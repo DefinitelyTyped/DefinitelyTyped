@@ -41,7 +41,7 @@ declare module L {
     export function bounds(points: Point[]): Bounds;
 
 
-    export interface BoundsStatic extends ClassStatic {
+    export interface BoundsStatic {
         /**
           * Creates a Bounds object from two coordinates (usually top-left and bottom-right
           * corners).
@@ -513,7 +513,7 @@ declare module L {
         /**
           * Creates a control with the given options.
           */
-        function (options?: ControlOptions): Control;
+        (options?: ControlOptions): Control;
     }
 
     export namespace control {
@@ -805,13 +805,6 @@ declare namespace L {
 }
 
 declare namespace L {
-
-    /**
-      * Creates a Draggable object for moving the given element when you start dragging
-      * the dragHandle element (equals the element itself by default).
-      */
-    function draggable(element: HTMLElement, dragHandle?: HTMLElement): Draggable;
-
     export interface DraggableStatic extends ClassStatic {
         /**
           * Creates a Draggable object for moving the given element when you start dragging
@@ -1453,7 +1446,7 @@ declare namespace L {
       */
     function latLng(coords: LatLngExpression): LatLng;
 
-    export interface LatLngStatic extends ClassStatic {
+    export interface LatLngStatic {
         /**
           * Creates an object representing a geographical point with the given latitude
           * and longitude.
@@ -1539,7 +1532,7 @@ declare namespace L {
       */
     function latLngBounds(latlngs: LatLngBoundsExpression): LatLngBounds;
 
-    export interface LatLngBoundsStatic extends ClassStatic {
+    export interface LatLngBoundsStatic {
         /**
           * Creates a LatLngBounds object by defining south-west and north-east corners
           * of the rectangle.
@@ -2442,7 +2435,7 @@ declare namespace L {
         options: Map.MapOptions;
 
         /**
-          * Iterates over the layers of the map, optionally specifying context 
+          * Iterates over the layers of the map, optionally specifying context
 		  * of the iterator function.
           */
         eachLayer(fn: (layer: ILayer) => void, context?: any): Map;
@@ -3058,7 +3051,7 @@ declare namespace L {
       */
     function multiPolygon(latlngs: LatLng[][], options?: PolylineOptions): MultiPolygon;
 
-    export interface MultiPolylgonStatic extends ClassStatic {
+    export interface MultiPolygonStatic extends ClassStatic {
         /**
           * Instantiates a multi-polyline object given an array of latlngs arrays (one
           * for each individual polygon) and optionally an options object (the same
@@ -3066,7 +3059,7 @@ declare namespace L {
           */
         new(latlngs: LatLng[][], options?: PolylineOptions): MultiPolygon;
     }
-    export var MultiPolylgon: MultiPolylgonStatic;
+    export var MultiPolygon: MultiPolygonStatic;
 
     export interface MultiPolygon extends FeatureGroup<Polygon> {
         /**
@@ -3401,7 +3394,7 @@ declare namespace L {
       */
     function point(x: number, y: number, round?: boolean): Point;
 
-    export interface PointStatic extends ClassStatic {
+    export interface PointStatic {
         /**
           * Creates a Point object with the given x and y coordinates. If optional round
           * is set to true, rounds the x and y values.
@@ -4182,7 +4175,7 @@ declare namespace L {
           * When this option is set, the TileLayer only loads tiles that are in the given geographical bounds.
           */
         bounds?: LatLngBounds;
-        
+
         /**
           * Custom keys may be specified in TileLayerOptions so they can be used in a provided URL template.
           */
@@ -4191,7 +4184,7 @@ declare namespace L {
 }
 
 declare namespace L {
-    export interface TransformationStatic extends ClassStatic {
+    export interface TransformationStatic {
         /**
           * Creates a transformation object with the given coefficients.
           */

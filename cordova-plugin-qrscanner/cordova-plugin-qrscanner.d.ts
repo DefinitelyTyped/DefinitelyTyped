@@ -1,4 +1,4 @@
-// Type definitions for cordova-plugin-qrscanner
+// Type definitions for cordova-plugin-qrscanner v1.0.0
 // Project: https://github.com/bitpay/cordova-plugin-qrscanner
 // Definitions by: Jason Dreyzehner <https://github.com/bitjson/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -22,20 +22,21 @@ interface QRScanner {
     * only be visible if `QRScanner.show()` has already made the webview transparent.
     * @param {function} [callback] Callback that gets an error or the QRScannerStatus object.
     */
-    prepare: (callback?: (error: Error, status: QRScannerStatus) => any) => void;
+    prepare: (callback?: (error: QRScannerError, status: QRScannerStatus) => any) => void;
 
     /**
     * Sets QRScanner to "watch" for valid QR codes. Once a valid code is
     * detected, it's contents are passed to the callback, and scanning is
     * toggled off. If `QRScanner.prepare()` has not been called,
-    * `QRScanner.scan()` performs that setup as well. The video preview does
+    * this method performs that setup as well. The video preview does
     * not need to be visible for scanning to function.
     * @param {function} callback Callback that gets an error or the results string.
     */
-    scan: (callback: (error: Error, result: String) => any) => void;
+    scan: (callback: (error: QRScannerError, result: String) => any) => void;
 
     /**
-    * Cancels the current scan. The current scan() callback will not return.
+    * Cancels the current scan. If `QRScanner.prepare()` has not been called,
+    * this method performs that setup as well.
     * @param {function} [callback] Callback that gets the QRScannerStatus object.
     */
     cancelScan: (callback?: (status: QRScannerStatus) => any) => void;
@@ -44,6 +45,7 @@ interface QRScanner {
     * Configures the native webview to have a transparent background, then sets
     * the background of the `<body>` and parent elements to transparent,
     * allowing the webview to re-render with the transparent background.
+    *
     * To see the video preview, your application background must be transparent
     * in the areas through which it should show.
     * @param {function} [callback] Callback that gets the QRScannerStatus object.
@@ -59,36 +61,42 @@ interface QRScanner {
 
 
     /**
-    * Enable the device's light (for scanning in low-light environments).
+    * Enable the device's light (for scanning in low-light environments). If
+    * `QRScanner.prepare()` has not been called, this method performs that setup
+    * as well.
     * @param {function} [callback] Callback that gets an error or the QRScannerStatus object.
     */
-    enableLight: (callback?: (error: Error, status: QRScannerStatus) => any) => void;
+    enableLight: (callback?: (error: QRScannerError, status: QRScannerStatus) => any) => void;
 
     /**
-    * Disable the device's light.
+    * Disable the device's light. If `QRScanner.prepare()` has not been called,
+    * this method performs that setup as well.
     * @param {function} [callback] Callback that gets an error or the QRScannerStatus object.
     */
-    disableLight: (callback?: (error: Error, status: QRScannerStatus) => any) => void;
+    disableLight: (callback?: (error: QRScannerError, status: QRScannerStatus) => any) => void;
 
     /**
     * Switch video capture to the `index` camera. Camera `0` is the back camera,
-    * camera `1` is front camera.
+    * camera `1` is front camera. If `QRScanner.prepare()` has not been called,
+    * this method performs that setup as well.
     * @param {number} index A number representing the index of the camera to use.
     * @param {function} [callback] Callback that gets an error or the QRScannerStatus object.
     */
-    useCamera: (index: Number, callback?: (error: Error, status: QRScannerStatus) => any) => void;
+    useCamera: (index: Number, callback?: (error: QRScannerError, status: QRScannerStatus) => any) => void;
 
     /**
-    * Switch video capture to the device's front camera.
+    * Switch video capture to the device's front camera. If `QRScanner.prepare()`
+    * has not been called, this method performs that setup as well.
     * @param {function} [callback] Callback that gets an error or the QRScannerStatus object.
     */
-    useFrontCamera: (callback?: (error: Error, status: QRScannerStatus) => any) => void;
+    useFrontCamera: (callback?: (error: QRScannerError, status: QRScannerStatus) => any) => void;
 
     /**
-    * Switch video capture to the device's back camera.
+    * Switch video capture to the device's back camera. If `QRScanner.prepare()`
+    * has not been called, this method performs that setup as well.
     * @param {function} [callback] Callback that gets an error or the QRScannerStatus object.
     */
-    useBackCamera: (callback?: (error: Error, status: QRScannerStatus) => any) => void;
+    useBackCamera: (callback?: (error: QRScannerError, status: QRScannerStatus) => any) => void;
 
     /**
     * Pauses the video preview on the current frame (as if a snapshot was taken).
@@ -105,9 +113,13 @@ interface QRScanner {
     /**
     * Open the app-specific permission settings in the user's device settings.
     * Here the user can enable/disable camera (and other) access for your app.
+    *
+    * Note: iOS immediately kills all apps affected by permissions changes. If
+    * the user changes a permission settings, your app will stop and only
+    * restart when they return.
     * @param {function} [callback] Callback that gets the QRScannerStatus object.
     */
-    openSettings: (callback?: (error: Error, status: QRScannerStatus) => any) => void;
+    openSettings: (callback?: (error: QRScannerError, status: QRScannerStatus) => any) => void;
 
     /**
     * Retrieve the status of QRScanner and provide it to the callback function.
@@ -116,9 +128,9 @@ interface QRScanner {
     getStatus: (callback: (status: QRScannerStatus) => any) => void;
 
     /**
-    * Stops scanning, video capture, and the preview, and deallocates as much as
-    * possible. (E.g. to improve performance/battery life when the scanner is
-    * not likely to be used for a while.)
+    * Runs hide(), stops scanning, video capture, and the preview, and
+    * deallocates as much as possible. (E.g. to improve performance/battery life
+    * when the scanner is not likely to be used for a while.)
     * Basically reverts the plugin to it's startup-state.
     * @param {function} [callback] Callback that gets the QRScannerStatus object.
     */
@@ -132,15 +144,28 @@ interface QRScanner {
 interface QRScannerStatus {
 
   /**
-  * On iOS, camera access is granted to an app by the user (by clicking "Allow"
-  * at the dialog). The `authorized` property is a boolean value which is true
-  * only when the user has allowed camera access to your app
-  * (`AVAuthorizationStatus.Authorized`). The `NotDetermined`, `Restricted`
-  * (e.g.: parental controls), and `Denied` AVAuthorizationStatus states all
-  * cause this value to be false. If the user has denied access to your app,
-  * consider asking nicely and offering a link via `QRScanner.openSettings()`.
+  * On iOS and Android 6.0+, camera access is granted at runtime by the user (by
+  * clicking "Allow" at the dialog). The `authorized` property is a boolean
+  * value which is true only when the user has allowed camera access to your app
+  * (`AVAuthorizationStatus.Authorized`). On platforms with permissions granted
+  * at install (Android pre-6.0, Windows Phone) this property is always true.
   */
   authorized: Boolean,
+
+  /**
+  * A boolean value which is true if the user permenantly denied camera access
+  * to the app (`AVAuthorizationStatus.Denied`). Once denied, camera access can
+  * only be gained by requesting the user change their decision (consider
+  * offering a link to the setting via `openSettings()`).
+  */
+  denied: Boolean,
+
+  /**
+  * A boolean value which is true if the user is unable to grant permissions due
+  * to parental controls, organization security configuration profiles, or
+  * similar reasons.
+  */
+  restricted: Boolean,
 
   /**
   * A boolean value which is true if QRScanner is prepared to capture video and
@@ -186,6 +211,48 @@ interface QRScannerStatus {
   * camera, `1` is the front.
   */
   currentCamera: Number
+}
+
+/**
+* An object representing an error issued by QRScanner.
+*
+* Many QRScanner functions accept a callback with an `error` parameter. When
+* QRScanner experiences errors, this parameter contains a QRScannerError object
+* with properties `name` (_String_), `code` (_Number_), and `_message`
+* (_String_). When handling errors, rely only on the `name` or `code` parameter,
+*as the specific content of `_message` is not considered part of the plugin's
+* stable API.
+*
+* # Possible Error Types
+*
+* Code | Name                        | Description
+* ---: | :-------------------------- | :----------------------------------------
+*    0 | `UNEXPECTED_ERROR`          | An unexpected error. Returned only by bugs in QRScanner.
+*    1 | `CAMERA_ACCESS_DENIED`      | The user denied camera access.
+*    2 | `CAMERA_ACCESS_RESTRICTED`  | Camera access is restricted (due to parental controls, organization security configuration profiles, or similar reasons).
+*    3 | `BACK_CAMERA_UNAVAILABLE`   | The back camera is unavailable.
+*    4 | `FRONT_CAMERA_UNAVAILABLE`  | The front camera is unavailable.
+*    5 | `CAMERA_UNAVAILABLE`        | The camera is unavailable because it doesn't exist or is otherwise unable to be configured. (Returned if QRScanner cannot return one of the more specific `BACK_CAMERA_UNAVAILABLE` or `FRONT_CAMERA_UNAVAILABLE` errors.)
+*    6 | `SCAN_CANCELED`             | Scan was canceled by the `cancelScan()` method. (Returned exclusively to the `QRScanner.scan()` method.)
+*    7 | `LIGHT_UNAVAILABLE`         | The device light is unavailable because it doesn't exist or is otherwise unable to be configured.
+*    8 | `OPEN_SETTINGS_UNAVAILABLE` | The device is unable to open settings.
+*/
+interface QRScannerError {
+
+  /**
+  * The standard string identifying the type of this QRScannerError.
+  */
+  name: String,
+
+  /**
+  * The standard number identifying the type of this QRScannerError.
+  */
+  code: Number,
+
+  /**
+  * A simple message describing this QRScannerError.
+  */
+  _message: String
 }
 
 declare var QRScanner: QRScanner;

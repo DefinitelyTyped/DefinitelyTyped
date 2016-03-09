@@ -1,6 +1,6 @@
-// Type definitions for react-router v1.0.0
+// Type definitions for react-router v2.0.0
 // Project: https://github.com/rackt/react-router
-// Definitions by: Sergey Buturlakin <http://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>
+// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>, Nathan Brown <https://github.com/ngbrown>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
@@ -110,17 +110,22 @@ declare namespace ReactRouter {
     const IndexLink: Link
 
 
-    interface RoutingContextProps extends React.Props<RoutingContext> {
-        history: H.History
+    interface RouterContextProps extends React.Props<RouterContext> {
+        history?: H.History
+        router: Router
         createElement: (component: RouteComponent, props: Object) => any
         location: H.Location
         routes: RouteConfig
         params: Params
         components?: RouteComponent[]
     }
-    interface RoutingContext extends React.ComponentClass<RoutingContextProps> {}
-    interface RoutingContextElement extends React.ReactElement<RoutingContextProps> {}
-    const RoutingContext: RoutingContext
+    interface RouterContext extends React.ComponentClass<RouterContextProps> {}
+    interface RouterContextElement extends React.ReactElement<RouterContextProps> {
+        history?: H.History
+        location: H.Location
+        router?: Router
+    }
+    const RouterContext: RouterContext
 
 
     /* components (configuration) */
@@ -190,6 +195,10 @@ declare namespace ReactRouter {
     interface IndexRedirectElement extends React.ReactElement<IndexRedirectProps> {}
     const IndexRedirect: IndexRedirect
 
+    interface RouterOnContext extends H.History {
+        setRouteLeaveHook(route: PlainRoute, hook?: RouteHook): () => void;
+        isActive(pathOrLoc: H.LocationDescriptor, indexOnly?: boolean): boolean;
+    }
 
     /* mixins */
 
@@ -215,6 +224,7 @@ declare namespace ReactRouter {
         listenBeforeLeavingRoute(route: PlainRoute, hook: RouteHook): void
         match(location: H.Location, callback: (error: any, nextState: RouterState, nextLocation: H.Location) => void): void
         isActive(pathname: H.Pathname, query?: H.Query, indexOnly?: boolean): boolean
+        setRouteLeaveHook(route: PlainRoute, callback: RouteHook): void
     }
 
     function useRoutes<T>(createHistory: HistoryModule.CreateHistory<T>): HistoryModule.CreateHistory<T & HistoryRoutes>
@@ -335,9 +345,9 @@ declare module "react-router/lib/RouteUtils" {
 }
 
 
-declare module "react-router/lib/RoutingContext" {
+declare module "react-router/lib/RouterContext" {
 
-    export default ReactRouter.RoutingContext
+    export default ReactRouter.RouterContext
 
 }
 
@@ -418,7 +428,7 @@ declare module "react-router" {
 
     import { formatPattern } from "react-router/lib/PatternUtils"
 
-    import RoutingContext from "react-router/lib/RoutingContext"
+    import RouterContext from "react-router/lib/RouterContext"
 
     import PropTypes from "react-router/lib/PropTypes"
 
@@ -442,6 +452,7 @@ declare module "react-router" {
     export type RouterListener = ReactRouter.RouterListener
     export type RouterState = ReactRouter.RouterState
     export type HistoryBase = ReactRouter.HistoryBase
+    export type RouterOnContext = ReactRouter.RouterOnContext
 
     export {
         Router,
@@ -459,7 +470,7 @@ declare module "react-router" {
         useRoutes,
         createRoutes,
         formatPattern,
-        RoutingContext,
+        RouterContext,
         PropTypes,
         match
     }

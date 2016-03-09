@@ -319,11 +319,9 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	 *
 	 * Alias for `attempt();` for compatibility with earlier ECMAScript version.
 	 */
-	static try<R>(fn: () => Promise.Thenable<R>, args?: any[], ctx?: any): Promise<R>;
-	static try<R>(fn: () => R, args?: any[], ctx?: any): Promise<R>;
+	static try<R>(fn: () => R | Promise.Thenable<R>, args?: any[], ctx?: any): Promise<R>;
 
-	static attempt<R>(fn: () => Promise.Thenable<R>, args?: any[], ctx?: any): Promise<R>;
-	static attempt<R>(fn: () => R, args?: any[], ctx?: any): Promise<R>;
+	static attempt<R>(fn: () => R | Promise.Thenable<R>, args?: any[], ctx?: any): Promise<R>;
 
 	/**
 	 * Returns a new function that wraps the given function `fn`. The new function will always return a promise that is fulfilled with the original functions return values or rejected with thrown exceptions from the original function.

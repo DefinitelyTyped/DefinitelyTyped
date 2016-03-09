@@ -234,6 +234,7 @@ declare module "webpack" {
         interface Plugin { }
 
         interface Webpack {
+            (config: Configuration, callback?: compiler.CompilerCallback): compiler.Compiler;
             /**
              * optimize namespace
              */
@@ -445,6 +446,88 @@ declare module "webpack" {
             interface LabeledModulesPluginStatic {
                 new(): Plugin;
             }
+        }
+
+        namespace compiler {
+            interface Compiler {
+                /** Builds the bundle(s). */
+                run(callback: CompilerCallback): void;
+                /**
+                 * Builds the bundle(s) then starts the watcher, which rebuilds bundles whenever their source files change.
+                 * Returns a Watching instance. Note: since this will automatically run an initial build, so you only need to run watch (and not run).
+                 */
+                watch(watchOptions: WatchOptions, handler: CompilerCallback): Watching;
+                //TODO: below are some of the undocumented properties. needs typings
+                outputFileSystem: any;
+                name: string;
+                options: Configuration;
+            }
+
+            interface Watching {
+                close(callback: () => void): void;
+            }
+
+            interface WatchOptions {
+                /** After a change the watcher waits that time (in milliseconds) for more changes. Default: 300. */
+                aggregateTimeout?: number;
+                /** The watcher uses polling instead of native watchers. true uses the default interval, a number specifies a interval in milliseconds. Default: undefined (automatic). */
+                poll?: number|boolean;
+            }
+
+            interface Stats {
+                /** Returns true if there were errors while compiling */
+                hasErrors(): boolean;
+                /** Returns true if there were warnings while compiling. */
+                hasWarnings(): boolean;
+                /** Return information as json object */
+                toJson(options?: StatsToJsonOptions): any; //TODO: type this
+                /** Returns a formatted string of the result. */
+                toString(options?: StatsToStringOptions): string;
+            }
+
+            interface StatsToJsonOptions {
+                /** context directory for request shortening */
+                context?: boolean;
+                /** add the hash of the compilation */
+                hash?: boolean;
+                /** add webpack version information */
+                version?: boolean;
+                /** add timing information */
+                timings?: boolean;
+                /** add assets information */
+                assets?: boolean;
+                /** add chunk information */
+                chunks?: boolean;
+                /** add built modules information to chunk information */
+                chunkModules?: boolean;
+                /** add built modules information */
+                modules?: boolean;
+                /** add children information */
+                children?: boolean;
+                /** add also information about cached (not built) modules */
+                cached?: boolean;
+                /** add information about the reasons why modules are included */
+                reasons?: boolean;
+                /** add the source code of modules */
+                source?: boolean;
+                /** add details to errors (like resolving log) */
+                errorDetails?: boolean;
+                /** add the origins of chunks and chunk merging info */
+                chunkOrigins?: boolean;
+                /** sort the modules by that field */
+                modulesSort?: string;
+                /** sort the chunks by that field */
+                chunksSort?: string;
+                /** sort the assets by that field */
+                assetsSort?: string;
+            }
+
+            interface StatsToStringOptions extends StatsToJsonOptions {
+                /** With console colors */
+                colors?: boolean;
+            }
+
+            type CompilerCallback = (err: Error, stats: Stats) => void
         }
     }
 

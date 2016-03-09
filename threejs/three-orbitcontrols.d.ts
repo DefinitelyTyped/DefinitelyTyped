@@ -51,7 +51,7 @@ declare module THREE {
         reset(): void;
         getPolarAngle(): number;
         getAzimuthalAngle(): number;
-        
+
         // EventDispatcher mixins
         addEventListener(type: string, listener: (event: any) => void): void;
         hasEventListener(type: string, listener: (event: any) => void): void;

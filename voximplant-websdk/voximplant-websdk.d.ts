@@ -3,7 +3,7 @@
 // Definitions by: Alexey Aylarov <https://github.com/aylarov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare namespace VoxImplant {	
+declare namespace VoxImplant {
 
 	/**
 	*	VoxImplant.Client general events
@@ -12,7 +12,7 @@ declare namespace VoxImplant {
 		AuthResult,
 		ConnectionClosed,
 		ConnectionEstablished,
-		ConnectionFailed,		
+		ConnectionFailed,
 		IncomingCall,
 		MicAccessResult,
 		NetStatsReceived,
@@ -44,14 +44,14 @@ declare namespace VoxImplant {
 		ChatRoomPresenceUpdate,
 		ChatRoomStateUpdate,
 		ChatRoomSubjectChange,
-		ChatRoomsDataReceived,		
+		ChatRoomsDataReceived,
 		ChatStateUpdate,
-		MessageModified,	
-		MessageNotModified,	
+		MessageModified,
+		MessageNotModified,
 		MessageReceived,
-		MessageRemoved,		
+		MessageRemoved,
 		MessageStatus,
-		PresenceUpdate,		
+		PresenceUpdate,
 		RosterItemChange,
 		RosterPresenceUpdate,
 		RosterReceived,
@@ -123,7 +123,7 @@ declare namespace VoxImplant {
 			*	Failure reason description
 			*/
 			message: string;
-		}		
+		}
 
 		/**
 		*	Event dispatched when there is a new incoming call to current user
@@ -196,7 +196,7 @@ declare namespace VoxImplant {
 			*/
 			headers?: Object;
 		}
-		
+
 		/**
 		*	Event dispatched after call was disconnected
 		*/
@@ -320,7 +320,7 @@ declare namespace VoxImplant {
 		}
 	}
 
-	module IMEvents {		
+	module IMEvents {
 
 		/**
 		*	Event dispatched when chat history received
@@ -389,7 +389,7 @@ declare namespace VoxImplant {
 		/**
 		*	Event dispatched when chat room history received
 		*/
-		interface ChatRoomHistoryReceived {			
+		interface ChatRoomHistoryReceived {
 			/**
 			* Message id specified in getInstantMessagingHistory method
 			*/
@@ -407,7 +407,7 @@ declare namespace VoxImplant {
 		/**
 		*	Event dispatched when user joins chat room
 		*/
-		interface ChatRoomInfo {			
+		interface ChatRoomInfo {
 			/**
 			* Room features
 			*/
@@ -429,7 +429,7 @@ declare namespace VoxImplant {
 		/**
 		*	Event dispatched when invitation to chat room received
 		*/
-		interface ChatRoomInvitation {			
+		interface ChatRoomInvitation {
 			/**
 			* The body of the message
 			*/
@@ -455,7 +455,7 @@ declare namespace VoxImplant {
 		/**
 		*	Event dispatched if an invitation to chat room was declined by the invitee
 		*/
-		interface ChatRoomInviteDeclined {			
+		interface ChatRoomInviteDeclined {
 			/**
 			* User id (invitee)
 			*/
@@ -473,7 +473,7 @@ declare namespace VoxImplant {
 		/**
 		*	Event dispatched when chat room message modified
 		*/
-		interface ChatRoomMessageModified {			
+		interface ChatRoomMessageModified {
 			/**
 			* New message content
 			*/
@@ -507,7 +507,7 @@ declare namespace VoxImplant {
 		/**
 		*	Event dispatched in case of error during chat room message modification
 		*/
-		interface ChatRoomMessageNotModified {			
+		interface ChatRoomMessageNotModified {
 			/**
 			* Error code
 			*/
@@ -529,7 +529,7 @@ declare namespace VoxImplant {
 		/**
 		*	Event dispatched when instant message was sent to chat room
 		*/
-		interface ChatRoomMessageReceived {			
+		interface ChatRoomMessageReceived {
 			/**
 			* Message content
 			*/
@@ -563,7 +563,7 @@ declare namespace VoxImplant {
 		/**
 		*	Event dispatched when chat room message removed
 		*/
-		interface ChatRoomMessageRemoved {			
+		interface ChatRoomMessageRemoved {
 			/**
 			* User id
 			*/
@@ -593,7 +593,7 @@ declare namespace VoxImplant {
 		/**
 		*	Event dispatched when new participant joined the chat room
 		*/
-		interface ChatRoomNewParticipant {			
+		interface ChatRoomNewParticipant {
 			/**
 			* User display name
 			*/
@@ -609,7 +609,7 @@ declare namespace VoxImplant {
 		}
 
 		/**
-		*	Event dispatched when chat room participant was banned/unbanned	
+		*	Event dispatched when chat room participant was banned/unbanned
 		*/
 		interface ChatRoomOperation {
 			/**
@@ -629,7 +629,7 @@ declare namespace VoxImplant {
 		/**
 		*	Event dispatched when participant left the chat room
 		*/
-		interface ChatRoomParticipantExit {			
+		interface ChatRoomParticipantExit {
 			/**
 			* User id
 			*/
@@ -643,7 +643,7 @@ declare namespace VoxImplant {
 		/**
 		*	Event dispatched when info about chat room participants received
 		*/
-		interface ChatRoomParticipants {			
+		interface ChatRoomParticipants {
 			/**
 			* Participants list
 			*/
@@ -657,7 +657,7 @@ declare namespace VoxImplant {
 		/**
 		*	Event dispatched if chat room participant presence status was updated
 		*/
-		interface ChatRoomPresenceUpdate {			
+		interface ChatRoomPresenceUpdate {
 			/**
 			* Optional presence message
 			*/
@@ -679,7 +679,7 @@ declare namespace VoxImplant {
 		/**
 		*	Event dispatched when chat session state updated
 		*/
-		interface ChatRoomStateUpdate {			
+		interface ChatRoomStateUpdate {
 			/**
 			* User id
 			*/
@@ -687,7 +687,7 @@ declare namespace VoxImplant {
 			/**
 			* Resource name
 			*/
-			resource: string;			
+			resource: string;
 			/**
 			* Room id
 			*/
@@ -701,7 +701,7 @@ declare namespace VoxImplant {
 		/**
 		*	Event dispatched if chat room subject was changed
 		*/
-		interface ChatRoomSubjectChange {			
+		interface ChatRoomSubjectChange {
 			/**
 			* User id who changed the subject
 			*/
@@ -709,7 +709,7 @@ declare namespace VoxImplant {
 			/**
 			* Resource name
 			*/
-			resource: string;			
+			resource: string;
 			/**
 			* Room id
 			*/
@@ -723,7 +723,7 @@ declare namespace VoxImplant {
 		/**
 		*	Event dispatched when information about chat rooms where user participates received
 		*/
-		interface ChatRoomsDataReceived {			
+		interface ChatRoomsDataReceived {
 			/**
 			* Rooms list
 			*/
@@ -899,7 +899,7 @@ declare namespace VoxImplant {
 			/**
 			*	Roster item event type. See VoxImplant.RosterItemEvent enum
 			*/
-			type: RosterItemEvent;			
+			type: RosterItemEvent;
 		}
 
 		/**
@@ -987,7 +987,7 @@ declare namespace VoxImplant {
 	}
 
 	type VoxImplantEvent = Events.AuthResult | Events.ConnectionClosed | Events.ConnectionEstablished |
-		Events.ConnectionFailed | Events.IncomingCall | Events.MicAccessResult | 
+		Events.ConnectionFailed | Events.IncomingCall | Events.MicAccessResult |
 		Events.NetStatsReceived | Events.PlaybackFinished | Events.SDKReady | Events.SourcesInfoUpdated;
 
 
@@ -995,17 +995,17 @@ declare namespace VoxImplant {
 		CallEvents.InfoReceived | CallEvents.MessageReceived | CallEvents.ProgressToneStart |
 		CallEvents.ProgressToneStop | CallEvents.TransferComplete | CallEvents.TransferFailed;
 
-	type VoxImplantIMEvent = IMEvents.ChatHistoryReceived | IMEvents.ChatRoomBanList | 
-		IMEvents.ChatRoomCreated | IMEvents.ChatRoomError | IMEvents.ChatRoomHistoryReceived | 
-		IMEvents.ChatRoomInfo | IMEvents.ChatRoomInvitation | IMEvents.ChatRoomInviteDeclined | 
-		IMEvents.ChatRoomMessageModified | IMEvents.ChatRoomMessageNotModified | IMEvents.ChatRoomMessageReceived | 
-		IMEvents.ChatRoomMessageRemoved | IMEvents.ChatRoomNewParticipant | IMEvents.ChatRoomOperation | 
-		IMEvents.ChatRoomParticipantExit | IMEvents.ChatRoomParticipants | IMEvents.ChatRoomPresenceUpdate | 
-		IMEvents.ChatRoomStateUpdate | IMEvents.ChatRoomSubjectChange | IMEvents.ChatRoomsDataReceived | 
-		IMEvents.ChatStateUpdate | IMEvents.MessageModified | IMEvents.MessageNotModified | 
-		IMEvents.MessageReceived | IMEvents.MessageRemoved | IMEvents.MessageStatus | 
-		IMEvents.PresenceUpdate | IMEvents.RosterItemChange | IMEvents.RosterPresenceUpdate | 
-		IMEvents.RosterReceived | IMEvents.SubscriptionRequest | IMEvents.SystemError | 
+	type VoxImplantIMEvent = IMEvents.ChatHistoryReceived | IMEvents.ChatRoomBanList |
+		IMEvents.ChatRoomCreated | IMEvents.ChatRoomError | IMEvents.ChatRoomHistoryReceived |
+		IMEvents.ChatRoomInfo | IMEvents.ChatRoomInvitation | IMEvents.ChatRoomInviteDeclined |
+		IMEvents.ChatRoomMessageModified | IMEvents.ChatRoomMessageNotModified | IMEvents.ChatRoomMessageReceived |
+		IMEvents.ChatRoomMessageRemoved | IMEvents.ChatRoomNewParticipant | IMEvents.ChatRoomOperation |
+		IMEvents.ChatRoomParticipantExit | IMEvents.ChatRoomParticipants | IMEvents.ChatRoomPresenceUpdate |
+		IMEvents.ChatRoomStateUpdate | IMEvents.ChatRoomSubjectChange | IMEvents.ChatRoomsDataReceived |
+		IMEvents.ChatStateUpdate | IMEvents.MessageModified | IMEvents.MessageNotModified |
+		IMEvents.MessageReceived | IMEvents.MessageRemoved | IMEvents.MessageStatus |
+		IMEvents.PresenceUpdate | IMEvents.RosterItemChange | IMEvents.RosterPresenceUpdate |
+		IMEvents.RosterReceived | IMEvents.SubscriptionRequest | IMEvents.SystemError |
 		IMEvents.UCConnected | IMEvents.UCDisconnected;
 
 	/**
@@ -1115,23 +1115,23 @@ declare namespace VoxImplant {
 	}
 
 	enum ChatStateType {
-		/** 
-		*	User is actively participating in the chat session 
+		/**
+		*	User is actively participating in the chat session
 		*/
 		Active,
-		/** 
+		/**
 		*	User is composing a message
 		*/
 		Composing,
-		/** 
+		/**
 		*	User has effectively ended their participation in the chat session
 		*/
 		Gone,
-		/** 
+		/**
 		*	User has not been actively participating in the chat session
 		*/
 		Inactive,
-		/** 
+		/**
 		*	Invalid type
 		*/
 		Invalid,
@@ -1488,7 +1488,7 @@ declare namespace VoxImplant {
 		*	@param direction False/true to get messages older/newer than the message with specified id
 		*	@param count Number of messages
 		*/
-		getInstantMessagingHistory(user_id: string, message_id?: string, direction?: boolean, count?: number): void;		
+		getInstantMessagingHistory(user_id: string, message_id?: string, direction?: boolean, count?: number): void;
 		/**
 		*	Initialize SDK. SDKReady event will be dispatched after succesful SDK initialization. SDK can't be used until it's initialized
 		*
@@ -1524,25 +1524,25 @@ declare namespace VoxImplant {
 		/**
 		*	Login into application
 		*
-		*	@param username 
+		*	@param username
 		*	@param password
-		*	@param options Login options 
+		*	@param options Login options
 		*/
 		login(username: string, password: string, options?: LoginOptions): void;
 		/**
 		*	Login into application using 'code' auth method
 		*
-		*	@param username 
+		*	@param username
 		*	@param code
-		*	@param options Login options 
+		*	@param options Login options
 		*/
 		loginWithCode(username: string, code: string, options?: LoginOptions): void;
 		/**
 		*	Login into application using 'onetimekey' auth method
 		*
-		*	@param username 
+		*	@param username
 		*	@param hash
-		*	@param options Login options 
+		*	@param options Login options
 		*/
 		loginWithOneTimeKey(username: string, hash: string, options?: LoginOptions): void;
 		/**
@@ -1700,7 +1700,7 @@ declare namespace VoxImplant {
 		setPresenceStatus(status: UserStatuses, msg: string): void;
 		/**
 		*	Set background color of flash app (only for Flash mode)
-		*	
+		*
 		*	@param color Color in web format (i.e. #000000 for black)
 		*/
 		setSwfColor(color: string): void;
@@ -1720,7 +1720,7 @@ declare namespace VoxImplant {
 		setVideoSettings(settings: VideoSettings | FlashVideoSettings, successCallback?: () => any, failedCallback?: () => any): void;
 		/**
 		*	Show flash settings panel
-		*	
+		*
 		*	@param panel Settings type - default/microphone/camera/etc as described in SecurityPanel class
 		*/
 		showFlashSettingsPanel(panel?: string): void;
@@ -1782,18 +1782,18 @@ declare namespace VoxImplant {
 		*	@param eventName Event name
 		*	@param eventHandler Handler function. A single parameter is passed - object with the event information
 		*/
-		addEventListener(eventName: VoxImplant.CallEvents, eventHandler: (eventObject: VoxImplantCallEvent) => any): void;	
+		addEventListener(eventName: VoxImplant.CallEvents, eventHandler: (eventObject: VoxImplantCallEvent) => any): void;
 		/**
 		*	Answer on incoming call
 		*
 		*	@param customData Set custom string associated with call session. It can be later obtained from Call History using HTTP API
-		*	@param extraHeaders Optional custom parameters (SIP headers) that should be sent after accepting incoming call. Parameter names must start with "X-" to be processed by application 
+		*	@param extraHeaders Optional custom parameters (SIP headers) that should be sent after accepting incoming call. Parameter names must start with "X-" to be processed by application
 		*/
 		answer(customData?: string, extraHeaders?: Object): void;
 		/**
 		*	Reject incoming call
 		*
-		*	@param extraHeaders Optional custom parameters (SIP headers) that should be sent after accepting incoming call. Parameter names must start with "X-" to be processed by application 
+		*	@param extraHeaders Optional custom parameters (SIP headers) that should be sent after accepting incoming call. Parameter names must start with "X-" to be processed by application
 		*/
 		decline(extraHeaders?: Object): void;
 		/**
@@ -1944,7 +1944,7 @@ declare namespace VoxImplant {
 		/**
 		*	Optional constraints object
 		*/
-		optional?: Object; 
+		optional?: Object;
 	}
 
 	/**
@@ -2029,7 +2029,7 @@ declare namespace VoxImplant {
 	*	VoxImplant Web SDK lib version
 	*/
 	function version(): String;
-	
+
 }
 
 declare module "voximplant-websdk" {

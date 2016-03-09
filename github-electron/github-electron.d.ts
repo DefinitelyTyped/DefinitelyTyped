@@ -1,4 +1,4 @@
-// Type definitions for Electron v0.35.0
+// Type definitions for Electron v0.36.3
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -51,6 +51,10 @@ declare module Electron {
 		 * Marks the image as template image.
 		 */
 		setTemplateImage(option: boolean): void;
+		/**
+		 * Returns a boolean whether the image is a template image.
+		 */
+		isTemplateImage(): boolean;
 	}
 
 	module Clipboard {
@@ -93,12 +97,12 @@ declare module Electron {
 	}
 
 	class Screen implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): Screen;
-		on(event: string, listener: Function): Screen;
-		once(event: string, listener: Function): Screen;
-		removeListener(event: string, listener: Function): Screen;
-		removeAllListeners(event?: string): Screen;
-		setMaxListeners(n: number): Screen;
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
 		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
@@ -130,12 +134,12 @@ declare module Electron {
 	 * You can also create a window without chrome by using Frameless Window API.
 	 */
 	class BrowserWindow implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): WebContents;
-		on(event: string, listener: Function): WebContents;
-		once(event: string, listener: Function): WebContents;
-		removeListener(event: string, listener: Function): WebContents;
-		removeAllListeners(event?: string): WebContents;
-		setMaxListeners(n: number): WebContents;
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
 		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
@@ -479,6 +483,7 @@ declare module Electron {
 	interface WebPreferences {
 		nodeIntegration?: boolean;
 		preload?: string;
+		session?: Session;
 		partition?: string;
 		zoomFactor?: number;
 		javascript?: boolean;
@@ -492,16 +497,11 @@ declare module Electron {
 		plugins?: boolean;
 		experimentalFeatures?: boolean;
 		experimentalCanvasFeatures?: boolean;
-		overlayScrollbars?: boolean;
-		sharedWorker?: boolean;
 		directWrite?: boolean;
-		pageVisibility?: boolean;
+		blinkFeatures?: string;
 	}
 
-	// Includes all options BrowserWindow can take as of this writing
-	// http://electron.atom.io/docs/v0.29.0/api/browser-window/
 	interface BrowserWindowOptions extends Rectangle {
-		show?: boolean;
 		useContentSize?: boolean;
 		center?: boolean;
 		minWidth?: number;
@@ -512,28 +512,22 @@ declare module Electron {
 		alwaysOnTop?: boolean;
 		fullscreen?: boolean;
 		skipTaskbar?: boolean;
-		zoomFactor?: number;
 		kiosk?: boolean;
 		title?: string;
 		icon?: NativeImage|string;
+		show?: boolean;
 		frame?: boolean;
 		acceptFirstMouse?: boolean;
 		disableAutoHideCursor?: boolean;
 		autoHideMenuBar?: boolean;
 		enableLargerThanScreen?: boolean;
+		backgroundColor?: string;
 		darkTheme?: boolean;
 		preload?: string;
 		transparent?: boolean;
 		type?: string;
-		standardWindow?: boolean;
-		webPreferences?: WebPreferences;
-		java?: boolean;
-		textAreasAreResizable?: boolean;
-		extraPluginDirs?: string[];
-		subpixelFontScaling?: boolean;
-		overlayFullscreenVideo?: boolean;
 		titleBarStyle?: string;
-		backgroundColor?: string;
+		webPreferences?: WebPreferences;
 	}
 
 	interface Rectangle {
@@ -547,12 +541,12 @@ declare module Electron {
 	 * A WebContents is responsible for rendering and controlling a web page.
 	 */
 	class WebContents implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): WebContents;
-		on(event: string, listener: Function): WebContents;
-		once(event: string, listener: Function): WebContents;
-		removeListener(event: string, listener: Function): WebContents;
-		removeAllListeners(event?: string): WebContents;
-		setMaxListeners(n: number): WebContents;
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
 		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
@@ -785,6 +779,10 @@ declare module Electron {
 		 */
 		toggleDevTools(): void;
 		/**
+		 * Starts inspecting element at position (x, y).
+		 */
+		inspectElement(x: number, y: number): void;
+		/**
 		 * Send args.. to the web page via channel in asynchronous message, the web page
 		 * can handle it by listening to the channel event of ipc module.
 		 * Note:
@@ -961,12 +959,12 @@ declare module Electron {
 	}
 
 	class App implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): App;
-		on(event: string, listener: Function): App;
-		once(event: string, listener: Function): App;
-		removeListener(event: string, listener: Function): App;
-		removeAllListeners(event?: string): App;
-		setMaxListeners(n: number): App;
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
 		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
@@ -1023,6 +1021,10 @@ declare module Electron {
 		 */
 		getName(): string;
 		/**
+		  * @returns The current application locale.
+		  **/
+		getLocale(): string;
+		/**
 		 * Resolves the proxy information for url, the callback would be called with
 		 * callback(proxy) when the request is done.
 		 */
@@ -1044,7 +1046,7 @@ declare module Electron {
 		 * Note: This API is only available on Windows.
 		 */
 		setUserTasks(tasks: Task[]): void;
-		dock: BrowserWindow;
+		dock: Dock;
 		commandLine: CommandLine;
 		/**
 		 * This method makes your application a Single Instance Application instead of allowing
@@ -1069,6 +1071,64 @@ declare module Electron {
 		 * Note: This will not affect process.argv.
 		 */
 		appendArgument(value: any): void;
+	}
+
+	interface Dock {
+		/**
+		 * When critical is passed, the dock icon will bounce until either the
+		 * application becomes active or the request is canceled.
+		 *
+		 * When informational is passed, the dock icon will bounce for one second.
+		 * The request, though, remains active until either the application becomes
+		 * active or the request is canceled.
+		 *
+		 * Note: This API is only available on Mac.
+		 * @param type Can be critical or informational, the default is informational.
+		 * @returns An ID representing the request
+		 */
+		bounce(type?: string): number;
+		/**
+		 * Cancel the bounce of id.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		cancelBounce(id: number): void;
+		/**
+		 * Sets the string to be displayed in the dock’s badging area.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		setBadge(text: string): void;
+		/**
+		 * Returns the badge string of the dock.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		getBadge(): string;
+		/**
+		 * Hides the dock icon.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		hide(): void;
+		/**
+		 * Shows the dock icon.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		show(): void;
+		/**
+		 * Sets the application dock menu.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		setMenu(menu: Menu): void;
+		/**
+		 * Sets the image associated with this dock icon.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		setIcon(icon: NativeImage | string): void;
 	}
 
 	interface Task {
@@ -1102,66 +1162,16 @@ declare module Electron {
 		 */
 		iconIndex?: number;
 		commandLine?: CommandLine;
-		dock?: {
-			/**
-			 * When critical is passed, the dock icon will bounce until either the
-			 * application becomes active or the request is canceled.
-			 *
-			 * When informational is passed, the dock icon will bounce for one second.
-			 * The request, though, remains active until either the application becomes
-			 * active or the request is canceled.
-			 *
-			 * Note: This API is only available on Mac.
-			 * @param type Can be critical or informational, the default is informational.
-			 * @returns An ID representing the request
-			 */
-			bounce(type?: string): any;
-			/**
-			 * Cancel the bounce of id.
-			 *
-			 * Note: This API is only available on Mac.
-			 */
-			cancelBounce(id: number): void;
-			/**
-			 * Sets the string to be displayed in the dock’s badging area.
-			 *
-			 * Note: This API is only available on Mac.
-			 */
-			setBadge(text: string): void;
-			/**
-			 * Returns the badge string of the dock.
-			 *
-			 * Note: This API is only available on Mac.
-			 */
-			getBadge(): string;
-			/**
-			 * Hides the dock icon.
-			 *
-			 * Note: This API is only available on Mac.
-			 */
-			hide(): void;
-			/**
-			 * Shows the dock icon.
-			 *
-			 * Note: This API is only available on Mac.
-			 */
-			show(): void;
-			/**
-			 * Sets the application dock menu.
-			 *
-			 * Note: This API is only available on Mac.
-			 */
-			setMenu(menu: Menu): void;
-		};
+		dock?: Dock;
 	}
 
 	class AutoUpdater implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): AutoUpdater;
-		on(event: string, listener: Function): AutoUpdater;
-		once(event: string, listener: Function): AutoUpdater;
-		removeListener(event: string, listener: Function): AutoUpdater;
-		removeAllListeners(event?: string): AutoUpdater;
-		setMaxListeners(n: number): AutoUpdater;
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
 		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
@@ -1176,6 +1186,11 @@ declare module Electron {
 		 * before using this API
 		 */
 		checkForUpdates(): any;
+		/**
+		 * Restarts the app and installs the update after it has been downloaded.
+		 * It should only be called after update-downloaded has been emitted.
+		 */
+		 quitAndInstall(): void;
 	}
 
 	module Dialog {
@@ -1221,7 +1236,7 @@ declare module Electron {
 			filters?: {
 				name: string;
 				extensions: string[];
-			}[]
+			}[];
 		}
 
 		/**
@@ -1276,12 +1291,12 @@ declare module Electron {
 	}
 
 	class Tray implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): Tray;
-		on(event: string, listener: Function): Tray;
-		once(event: string, listener: Function): Tray;
-		removeListener(event: string, listener: Function): Tray;
-		removeAllListeners(event?: string): Tray;
-		setMaxListeners(n: number): Tray;
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
 		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
@@ -1369,15 +1384,11 @@ declare module Electron {
 		* Default: Electron
 		*/
 		productName?: string;
-		/**
-		* Default: GitHub, Inc.
-		*/
-		companyName?: string;
+		companyName: string;
 		/**
 		* URL that crash reports would be sent to as POST.
-		* Default: http://54.249.141.255:1127/post
 		*/
-		submitURL?: string;
+		submitURL: string;
 		/**
 		* Send the crash report without user interaction.
 		* Default: true.
@@ -1392,7 +1403,7 @@ declare module Electron {
 		* Only string properties are send correctly.
 		* Nested objects are not supported.
 		*/
-		extra?: {};
+		extra?: {[prop: string]: string};
 	}
 
 	interface CrashReporterPayload extends Object {
@@ -1436,7 +1447,7 @@ declare module Electron {
 	}
 
 	interface CrashReporter {
-		start(options?: CrashReporterStartOptions): void;
+		start(options: CrashReporterStartOptions): void;
 
 		/**
 		 * @returns The date and ID of the last crash report. When there was no crash report
@@ -1472,12 +1483,12 @@ declare module Electron {
 	// Type definitions for renderer process
 
 	export class IpcRenderer implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): IpcRenderer;
-		on(event: string, listener: Function): IpcRenderer;
-		once(event: string, listener: Function): IpcRenderer;
-		removeListener(event: string, listener: Function): IpcRenderer;
-		removeAllListeners(event?: string): IpcRenderer;
-		setMaxListeners(n: number): IpcRenderer;
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
 		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
@@ -1504,16 +1515,16 @@ declare module Electron {
 	}
 
 	class IPCMain implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): IPCMain;
-		once(event: string, listener: Function): IPCMain;
-		removeListener(event: string, listener: Function): IPCMain;
-		removeAllListeners(event?: string): IPCMain;
-		setMaxListeners(n: number): IPCMain;
+		addListener(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
 		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
 		listenerCount(type: string): number;
-		on(event: string, listener: (event: IPCMainEvent, ...args: any[]) => any): IPCMain;
+		on(event: string, listener: (event: IPCMainEvent, ...args: any[]) => any): this;
 	}
 
 	interface IPCMainEvent {
@@ -1576,6 +1587,17 @@ declare module Electron {
 		 * corrupted by active network attackers.
 		 */
 		registerURLSchemeAsSecure(scheme: string): void;
+		/**
+		 * Inserts text to the focused element.
+		 */
+		insertText(text: string): void;
+		/**
+		 * Evaluates `code` in page.
+ 		 * In the browser window some HTML APIs like `requestFullScreen` can only be
+ 		 * invoked by a gesture from the user. Setting `userGesture` to `true` will remove
+ 		 * this limitation.
+		 */
+		executeJavaScript(code: string, userGesture?: boolean): void;
 	}
 
 	// Type definitions for main process
@@ -1798,6 +1820,7 @@ declare module Electron {
 		clearCache(callback: Function): void;
 		clearStorageData(callback: Function): void;
 		clearStorageData(options: ClearStorageDataOptions, callback: Function): void;
+		flushStorageData(): void;
 		setProxy(config: string, callback: Function): void;
 		resolveProxy(url: URL, callback: (proxy: any) => any): void;
 		setDownloadPath(path: string): void;

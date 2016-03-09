@@ -1,4 +1,4 @@
-﻿// Type definitions for Dexie v1.1
+// Type definitions for Dexie v1.2
 // Project: https://github.com/dfahlander/Dexie.js
 // Definitions by: David Fahlander <http://github.com/dfahlander>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -50,7 +50,7 @@ declare class Dexie {
         versionchange: Dexie.DexieVersionChangeEvent;
     };
 
-    open(): Dexie.Promise<void>;
+    open(): Dexie.Promise<Dexie>;
 
     table(tableName: string): Dexie.Table<any, any>;
 
@@ -78,6 +78,8 @@ declare class Dexie {
 
     delete(): Dexie.Promise<void>;
 
+    exists(name : string) : Dexie.Promise<boolean>;
+
     isOpen(): boolean;
 
     hasFailed(): boolean;
@@ -104,9 +106,9 @@ declare module Dexie {
 
         catch<U>(onRejected: (error: any) => Promise<U>): Promise<U>;
 
-        catch<U>(ExceptionType: Function, onRejected: (error : any) => Promise<U>): Promise<U>;
+        catch<U>(ExceptionType: Function, onRejected: (error: any) => Promise<U>): Promise<U>;
 
-        catch<U>(errorName: string, onRejected: (error : any) => Promise<U>): Promise<U>;
+        catch<U>(errorName: string, onRejected: (error: any) => Promise<U>): Promise<U>;
 
         finally<R>(onFinally: () => any): Promise<R>;
 
@@ -131,7 +133,7 @@ declare module Dexie {
         var PSD: any;
 
         var on: {
-            (eventName: string, subscriber: (...args : any[]) => any): void;
+            (eventName: string, subscriber: (...args: any[]) => any): void;
             error: DexieErrorEvent;
         }
     }
@@ -162,28 +164,27 @@ declare module Dexie {
     }
 
     interface DexieEvent {
-        subscribe(fn: () => any) : void;
-        unsubscribe(fn: () => any) : void;
-        fire() : any;
+        subscribe(fn: () => any): void;
+        unsubscribe(fn: () => any): void;
+        fire(): any;
     }
 
     interface DexieErrorEvent {
-        subscribe(fn: (error: any) => any) : void;
-        unsubscribe(fn: (error: any) => any) : void;
-        fire(error: any) : any;
+        subscribe(fn: (error: any) => any): void;
+        unsubscribe(fn: (error: any) => any): void;
+        fire(error: any): any;
     }
 
     interface DexieVersionChangeEvent {
-        subscribe(fn: (event: IDBVersionChangeEvent) => any) : void;
-        unsubscribe(fn: (event: IDBVersionChangeEvent) => any) : void;
-        fire(event: IDBVersionChangeEvent) : any;
+        subscribe(fn: (event: IDBVersionChangeEvent) => any): void;
+        unsubscribe(fn: (event: IDBVersionChangeEvent) => any): void;
+        fire(event: IDBVersionChangeEvent): any;
     }
 
-    interface DexieOnReadyEvent
-    {
-        subscribe(fn: () => any, bSticky: boolean) : void;
-        unsubscribe(fn: () => any) : void;
-        fire() : any;
+    interface DexieOnReadyEvent {
+        subscribe(fn: () => any, bSticky: boolean): void;
+        unsubscribe(fn: () => any): void;
+        fire(): any;
     }
 
     interface Table<T, Key> {
@@ -221,7 +222,7 @@ declare module Dexie {
         reverse(): Collection<T, Key>;
         mapToClass(constructor: Function): Function;
         add(item: T, key?: Key): Promise<Key>;
-        update(key: Key, changes: { [keyPath: string]: any }) : Promise<number>;
+        update(key: Key, changes: { [keyPath: string]: any }): Promise<number>;
         put(item: T, key?: Key): Promise<Key>;
         delete(key: Key): Promise<void>;
         clear(): Promise<void>;
@@ -256,7 +257,14 @@ declare module Dexie {
         equals(key: Array<any>): Collection<T, Key>;
         equalsIgnoreCase(key: string): Collection<T, Key>;
         startsWith(key: string): Collection<T, Key>;
+        startsWithAnyOf(prefixes: string[]): Collection<T, Key>;
+        startsWithAnyOf(...prefixes: string[]): Collection<T, Key>;
         startsWithIgnoreCase(key: string): Collection<T, Key>;
+        noneOf(keys: Array<any>): Collection<T, Key>;
+        notEqual(key: number): Collection<T, Key>;
+        notEqual(key: string): Collection<T, Key>;
+        notEqual(key: Date): Collection<T, Key>;
+        notEqual(key: Array<any>): Collection<T, Key>;
     }
 
     interface Collection<T, Key> {
@@ -306,7 +314,7 @@ declare module Dexie {
 
     interface IndexSpec {
         name: string;
-        keyPath: any;
+        keyPath: any; // string | Array<string>
         unique: boolean;
         multi: boolean;
         auto: boolean;

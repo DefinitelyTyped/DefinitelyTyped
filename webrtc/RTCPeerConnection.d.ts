@@ -29,7 +29,7 @@ declare var RTCConfiguration: {
 };
 
 interface RTCIceServer {
-  url: string;
+  urls: string;
   credential?: string;
 }
 declare var RTCIceServer: {

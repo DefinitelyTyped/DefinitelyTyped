@@ -3,11 +3,7 @@
 // Definitions by: Gorgi Kosev <https://github.com/spion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
-
 declare module "anydb-sql" {
-    import Promise = require('bluebird');
-
     interface AnyDBPool extends anydbSQL.DatabaseConnection {
         query:(text:string, values:any[], callback:(err:Error, result:any)=>void)=>void
         begin:()=>anydbSQL.Transaction
@@ -61,7 +57,7 @@ declare module "anydb-sql" {
             getWithin(tx:DatabaseConnection):Promise<T>
             exec():Promise<void>
             all():Promise<T[]>
-            execWithin(tx:DatabaseConnection):Promise<void> 
+            execWithin(tx:DatabaseConnection):Promise<void>
             allWithin(tx:DatabaseConnection):Promise<T[]>
             toQuery():QueryLike;
         }

@@ -1,4 +1,4 @@
-﻿// Type definitions for Pixi.js 3.0.9 dev
+// Type definitions for Pixi.js 3.0.9 dev
 // Project: https://github.com/GoodBoyDigital/pixi.js/
 // Definitions by: clark-stevenson <https://github.com/pixijs/pixi-typescript>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -87,10 +87,10 @@ declare module PIXI {
         emit(event: string, ...args: any[]): boolean;
         on(event: string, fn: Function, context?: any): EventEmitter;
         once(event: string, fn: Function, context?: any): EventEmitter;
-        removeListener(event: string, fn: Function, once?: boolean): EventEmitter;
+        removeListener(event: string, fn: Function, context?: any, once?: boolean): EventEmitter;
         removeAllListeners(event: string): EventEmitter;
 
-        off(event: string, fn: Function, once?: boolean): EventEmitter;
+        off(event: string, fn: Function, context?: any, once?: boolean): EventEmitter;
         addListener(event: string, fn: Function, context?: any): EventEmitter;
 
     }
@@ -502,7 +502,7 @@ declare module PIXI {
     export interface RendererOptions {
 
         view?: HTMLCanvasElement;
-        transparent?: boolean
+        transparent?: boolean;
         antialias?: boolean;
         resolution?: number;
         clearBeforeRendering?: boolean;
@@ -611,7 +611,7 @@ declare module PIXI {
             premultipliedAlpha: boolean;
             stencil: boolean;
             preseveDrawingBuffer: boolean;
-        }
+        };
         protected _renderTargetStack: RenderTarget[];
 
         protected _initContext(): void;
@@ -689,7 +689,7 @@ declare module PIXI {
         popFilter(): AbstractFilter;
         getRenderTarget(clear?: boolean): RenderTarget;
         protected returnRenderTarget(renderTarget: RenderTarget): void;
-        applyFilter(shader: Shader, inputTarget: RenderTarget, outputTarget: RenderTarget, clear?: boolean): void;
+        applyFilter(shader: Shader | AbstractFilter, inputTarget: RenderTarget, outputTarget: RenderTarget, clear?: boolean): void;
         calculateMappedMatrix(filterArea: Rectangle, sprite: Sprite, outputMatrix?: Matrix): Matrix;
         capFilterArea(filterArea: Rectangle): void;
         resize(width: number, height: number): void;
@@ -771,8 +771,8 @@ declare module PIXI {
         fragmentSrc: string;
 
         init(): void;
-        cachUniformLocations(keys: string): void;
-        cacheAttributeLocations(keys: string): void;
+        cacheUniformLocations(keys: string[]): void;
+        cacheAttributeLocations(keys: string[]): void;
         compile(): WebGLProgram;
         syncUniform(uniform: any): void;
         syncUniforms(): void;
@@ -871,7 +871,7 @@ declare module PIXI {
         anchor: Point;
         tint: number;
         blendMode: number;
-        shader: Shader;
+        shader: Shader | AbstractFilter;
         texture: Texture;
 
         width: number;
@@ -896,7 +896,7 @@ declare module PIXI {
         indices: number[];
         currentBatchSize: number;
         sprites: Sprite[];
-        shader: Shader;
+        shader: Shader | AbstractFilter;
 
         render(sprite: Sprite): void;
         flush(): void;
@@ -1144,7 +1144,7 @@ declare module PIXI {
                 align: string;
                 name: string;
                 size: number;
-            }
+            };
             protected _text: string;
 
             protected updateText(): void;
@@ -1164,7 +1164,7 @@ declare module PIXI {
                 align: string;
                 name: string;
                 size: number;
-            }
+            };
             text: string;
 
         }
@@ -1609,6 +1609,7 @@ declare module PIXI {
 
             name: string;
             texture: Texture;
+			textures: Texture[];
             url: string;
             data: any;
             crossOrigin: string;
@@ -1634,7 +1635,7 @@ declare module PIXI {
             static DRAW_MODES: {
                 TRIANGLE_MESH: number;
                 TRIANGLES: number;
-            }
+            };
 
             constructor(texture: Texture, vertices?: number[], uvs?: number[], indices?: number[], drawMode?: number);
 
@@ -1646,7 +1647,7 @@ declare module PIXI {
             blendMode: number;
             canvasPadding: number;
             drawMode: number;
-            shader: Shader;
+            shader: Shader | AbstractFilter;
 
             getBounds(matrix?: Matrix): Rectangle;
             containsPoint(point: Point): boolean;

@@ -16,6 +16,8 @@ import * as path from "path";
 import * as readline from "readline";
 import * as childProcess from "child_process";
 import * as os from "os";
+// Specifically test buffer module regression.
+import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -168,6 +170,14 @@ function bufferTests() {
         index = buffer.indexOf("23", 1);
         index = buffer.indexOf(23);
         index = buffer.indexOf(buffer);
+    }
+
+    // Imported Buffer from buffer module works properly
+    {
+        let b = new ImportedBuffer('123');
+        b.writeUInt8(0, 6);
+        let sb = new ImportedSlowBuffer(43);
+        b.writeUInt8(0, 6);
     }
 }
 

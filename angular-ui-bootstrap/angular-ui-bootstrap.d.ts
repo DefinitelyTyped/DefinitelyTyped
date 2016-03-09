@@ -6,7 +6,15 @@
 /// <reference path="../angularjs/angular.d.ts" />
 
 // Support for AMD require
-declare module 'angular-bootstrap' {}
+declare module 'angular-bootstrap' {
+    let _: string;
+    export = _;
+}
+
+declare module 'angular-ui-bootstrap' {
+    let _: string;
+    export = _;
+}
 
 declare module angular.ui.bootstrap {
 

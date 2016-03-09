@@ -1,4 +1,4 @@
-// Type definitions for Matter.js - EDGE
+// Type definitions for Matter.js - 0.9.1
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
 //                 David Asmuth <https://github.com/piranha771/>
@@ -491,16 +491,17 @@ declare module Matter {
         */
         lineWidth: number;
 
-
-
         /**
          * A String that defines the stroke style to use when rendering the body outline (if a sprite is not defined). It is the same as when using a canvas, so it accepts CSS style property values.
          Default: a random colour
         */
         strokeStyle: string;
-
-
-
+		
+		
+		/*
+		 * Sets the opacity. 1.0 is fully opaque. 0.0 is fully translucent
+		 */
+		opacity: number;
     }
 
     export interface IBodyRenderOptionsSprite {
@@ -612,7 +613,7 @@ declare module Matter {
          * @param {body} body
          * @param {number} inertia
          */
-        static setInterna(body: Body, interna: number): void;
+        static setInertia(body: Body, interna: number): void;
         /**
          * Sets the body's vertices and updates body properties accordingly, including inertia, area and mass (with respect to `body.density`).
          * Vertices will be automatically transformed to be orientated around their centre of mass as the origin.
@@ -636,7 +637,7 @@ declare module Matter {
          * @param [body] parts
          * @param {bool} [autoHull=true]
          */
-        static setParts(body: Body, parts: Body, autoHull: boolean): void;
+        static setParts(body: Body, parts: Body[], autoHull?: boolean): void;
         /**
          * Sets the position of the body instantly. Velocity, angle, force etc. are unchanged.
          * @method setPosition
@@ -2959,7 +2960,7 @@ declare module Matter {
         * @param {} event.source The source object of the event
         * @param {} event.name The name of the event
         */
-        static on(obj: Engine, name: "sleepStart", callback: (e: IEvent<Body>) => void): void;
+        static on(obj: Body, name: "sleepStart", callback: (e: IEvent<Body>) => void): void;
         /**
          * Fired when a body ends sleeping (where `this` is the body).
          *
@@ -2969,7 +2970,7 @@ declare module Matter {
         * @param {} event.source The source object of the event
         * @param {} event.name The name of the event
         */
-        static on(obj: Engine, name: "sleepEnd", callback: (e: IEvent<Body>) => void): void;
+        static on(obj: Body, name: "sleepEnd", callback: (e: IEvent<Body>) => void): void;
 
         /**
         * Fired when a call to `Composite.add` is made, before objects have been added.
@@ -3158,7 +3159,7 @@ declare module Matter {
          * @param name
          * @param callback
          */
-        static on(obj: Engine, name: "mousedown", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mousedown", callback: (e: any) => void): void;
 
         /**
          * Fired when the mouse has moved (or a touch moves) during the last step
@@ -3166,7 +3167,7 @@ declare module Matter {
          * @param name
          * @param callback
          */
-        static on(obj: Engine, name: "mousemove", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mousemove", callback: (e: any) => void): void;
 
         /**
          * Fired when the mouse is up (or a touch has ended) during the last step
@@ -3174,10 +3175,10 @@ declare module Matter {
          * @param name
          * @param callback
          */
-        static on(obj: Engine, name: "mouseup", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mouseup", callback: (e: any) => void): void;
 
 
-        static on(obj: Engine, name: string, callback: (e: any) => void): void;
+        static on(obj: any, name: string, callback: (e: any) => void): void;
 
         /**
          * Removes the given event callback. If no callback, clears all callbacks in eventNames. If no eventNames, clears all events.

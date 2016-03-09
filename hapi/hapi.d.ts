@@ -1,9 +1,9 @@
-// Type definitions for hapi 12.0.1
+// Type definitions for hapi 13.0.0
 // Project: http://github.com/spumko/hapi
 // Definitions by: Jason Swearingen <http://github.com/jasonswearingen>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-//Note/Disclaimer: This .d.ts was created against hapi v8.x but has been incrementally upgraded to 12.x.  Some newer features/changes may be missing.  YMMV.
+//Note/Disclaimer: This .d.ts was created against hapi v8.x but has been incrementally upgraded to 13.x.  Some newer features/changes may be missing.  YMMV.
 
 
 /// <reference path="../node/node.d.ts" />
@@ -513,27 +513,31 @@ declare module "hapi" {
         pre?: any[];
         /** validation rules for the outgoing response payload (response body).Can only validate object response: */
         response?: {
+            /** the default HTTP status code when the payload is empty. Value can be 200 or 204.
+            Note that a 200 status code is converted to a 204 only at the time or response transmission
+            (the response status code will remain 200 throughout the request lifecycle unless manually set). Defaults to 200. */
+            emptyStatusCode?: number;
 			/**   the default response object validation rules (for all non-error responses) expressed as one of:
-			trueany payload allowed (no validation performed). This is the default.
-			falseno payload allowed.
+			true - any payload allowed (no validation performed). This is the default.
+			false - no payload allowed.
 			a Joi validation object.
 			a validation function using the signature function(value, options, next) where:
-			valuethe object containing the response object.
-			optionsthe server validation options.
-			next(err)the callback function called when validation is completed.  */
-            schema: boolean | any;
+			value - the object containing the response object.
+			options - the server validation options.
+			next(err) - the callback function called when validation is completed.  */
+            schema?: boolean | any;
             /** HTTP status- codespecific validation rules.The status key is set to an object where each key is a 3 digit HTTP status code and the value has the same definition as schema.If a response status code is not present in the status object, the schema definition is used, expect for errors which are not validated by default.  */
-            status: number;
+            status?: { [statusCode: number] : boolean | any };
             /** the percent of responses validated (0100).Set to 0 to disable all validation.Defaults to 100 (all responses). */
-            sample: number;
+            sample?: number;
 			/**  defines what to do when a response fails validation.Options are:
 			errorreturn an Internal Server Error (500) error response.This is the default value.
 			loglog the error but send the response.  */
-            failAction: string;
+            failAction?: string;
             /** if true, applies the validation rule changes to the response.Defaults to false. */
-            modify: boolean;
+            modify?: boolean;
             /** options to pass to Joi.Useful to set global options such as stripUnknown or abortEarly (the complete list is available here: https://github.com/hapijs/joi#validatevalue-schema-options-callback ).Defaults to no options.  */
-            options: any;
+            options?: any;
         };
         /** sets common security headers (disabled by default).To enable set security to true or to an object with the following options */
         security?: boolean | {
@@ -931,54 +935,64 @@ declare module "hapi" {
         }
     }
 
-
+    /**the response object where:
+     statusCode - the HTTP status code.
+     headers - an object containing the headers set.
+     payload - the response payload string.
+     rawPayload - the raw response payload buffer.
+     raw - an object with the injection request and response objects:
+     req - the simulated node request object.
+     res - the simulated node response object.
+     result - the raw handler response (e.g. when not a stream or a view) before it is serialized for transmission. If not available, the value is set to payload. Useful for inspection and reuse of the internal objects returned (instead of parsing the response string).
+     request - the request object.*/
+    export interface IServerInjectResponse {
+        statusCode: number;
+        headers: IDictionary<string>;
+        payload: string;
+        rawPayload: Buffer;
+        raw: {
+            req: http.ClientRequest;
+            res: http.ServerResponse
+        };
+        result: string;
+        request: Request;
+    }
 
     export interface IServerInject {
-        (options: string | {
-            /**  the request HTTP method (e.g. 'POST'). Defaults to 'GET'.*/
-            method: string;
-            /** the request URL. If the URI includes an authority (e.g. 'example.com:8080'), it is used to automatically set an HTTP 'Host' header, unless one was specified in headers.*/
-            url: string;
-            /** an object with optional request headers where each key is the header name and the value is the header content. Defaults to no additions to the default Shot headers.*/
-            headers?: IDictionary<string>;
-            /** n optional string, buffer or object containing the request payload. In case of an object it will be converted to a string for you. Defaults to no payload. Note that payload processing defaults to 'application/json' if no 'Content-Type' header provided.*/
-            payload?: string | {} | Buffer;
-            /** an optional credentials object containing authentication information. The credentials are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Defaults to no credentials.*/
-            credentials?: any;
-            /** an optional artifacts object containing authentication artifact information. The artifacts are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Ignored if set without credentials. Defaults to no artifacts.*/
-            artifacts?: any;
-            /** sets the initial value of request.app*/
-            app?: any;
-            /** sets the initial value of request.plugins*/
-            plugins?: any;
-            /** allows access to routes with config.isInternal set to true. Defaults to false.*/
-            allowInternals?: boolean;
-            /** sets the remote address for the incoming connection.*/
-            remoteAddress?: boolean;
-			/**object with options used to simulate client request stream conditions for testing:
-			error - if true, emits an 'error' event after payload transmission (if any). Defaults to false.
-			close - if true, emits a 'close' event after payload transmission (if any). Defaults to false.
-			end - if false, does not end the stream. Defaults to true.*/
-            simulate?: {
-                error: boolean;
-                close: boolean;
-                end: boolean;
-            };
-        },
-            callback: (
-                /**the response object where:
-                statusCode - the HTTP status code.
-                headers - an object containing the headers set.
-                payload - the response payload string.
-                rawPayload - the raw response payload buffer.
-                raw - an object with the injection request and response objects:
-                req - the simulated node request object.
-                res - the simulated node response object.
-                result - the raw handler response (e.g. when not a stream or a view) before it is serialized for transmission. If not available, the value is set to payload. Useful for inspection and reuse of the internal objects returned (instead of parsing the response string).
-                request - the request object.*/
-                res: { statusCode: number; headers: IDictionary<string>; payload: string; rawPayload: Buffer; raw: { req: http.ClientRequest; res: http.ServerResponse }; result: string; request: Request }) => void
-        ): void;
+        (options: string | IServerInjectOptions, callback: (res: IServerInjectResponse) => void): void;
+        (options: string | IServerInjectOptions): IPromise<IServerInjectResponse>;
+    }
 
+    export interface IServerInjectOptions {
+        /**  the request HTTP method (e.g. 'POST'). Defaults to 'GET'.*/
+        method: string;
+        /** the request URL. If the URI includes an authority (e.g. 'example.com:8080'), it is used to automatically set an HTTP 'Host' header, unless one was specified in headers.*/
+        url: string;
+        /** an object with optional request headers where each key is the header name and the value is the header content. Defaults to no additions to the default Shot headers.*/
+        headers?: IDictionary<string>;
+        /** n optional string, buffer or object containing the request payload. In case of an object it will be converted to a string for you. Defaults to no payload. Note that payload processing defaults to 'application/json' if no 'Content-Type' header provided.*/
+        payload?: string | {} | Buffer;
+        /** an optional credentials object containing authentication information. The credentials are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Defaults to no credentials.*/
+        credentials?: any;
+        /** an optional artifacts object containing authentication artifact information. The artifacts are used to bypass the default authentication strategies, and are validated directly as if they were received via an authentication scheme. Ignored if set without credentials. Defaults to no artifacts.*/
+        artifacts?: any;
+        /** sets the initial value of request.app*/
+        app?: any;
+        /** sets the initial value of request.plugins*/
+        plugins?: any;
+        /** allows access to routes with config.isInternal set to true. Defaults to false.*/
+        allowInternals?: boolean;
+        /** sets the remote address for the incoming connection.*/
+        remoteAddress?: boolean;
+        /**object with options used to simulate client request stream conditions for testing:
+        error - if true, emits an 'error' event after payload transmission (if any). Defaults to false.
+        close - if true, emits a 'close' event after payload transmission (if any). Defaults to false.
+        end - if false, does not end the stream. Defaults to true.*/
+        simulate?: {
+            error: boolean;
+            close: boolean;
+            end: boolean;
+        };
     }
 
 
@@ -1110,8 +1124,6 @@ declare module "hapi" {
             mode: any;
             /** the authentication error is failed and mode set to 'try'.*/
             error: any;
-            /** an object used by the ['cookie' authentication scheme]  https://github.com/hapijs/hapi-auth-cookie */
-            session: any
         };
         /** the connection used by this request*/
         connection: ServerConnection;
@@ -1123,21 +1135,26 @@ declare module "hapi" {
         id: number;
         /**  request information */
         info: {
-            /**  request reception timestamp. */
-            received: number;
-            /**  request response timestamp (0 is not responded yet). */
-            responded: number;
-            /** remote client IP address. */
-
-            remoteAddress: string;
-            /**  remote client port. */
-            remotePort: number;
-            /**  content of the HTTP 'Referrer' (or 'Referer') header. */
-            referrer: string;
+            /**  the request preferred encoding. */
+            acceptEncoding: string;
+            /**  if CORS is enabled for the route, contains the following: */
+            cors: {
+                isOriginMatch: boolean; /**  true if the request 'Origin' header matches the configured CORS restrictions. Set to false if no 'Origin' header is found or if it does not match. Note that this is only available after the 'onRequest' extension point as CORS is configured per-route and no routing decisions are made at that point in the request lifecycle. */
+            };
             /**  content of the HTTP 'Host' header (e.g. 'example.com:8080'). */
             host: string;
             /**  the hostname part of the 'Host' header (e.g. 'example.com').*/
             hostname: string;
+            /**  request reception timestamp. */
+            received: number;
+            /**  content of the HTTP 'Referrer' (or 'Referer') header. */
+            referrer: string;
+            /** remote client IP address. */
+            remoteAddress: string;
+            /**  remote client port. */
+            remotePort: number;
+            /**  request response timestamp (0 is not responded yet). */
+            responded: number;
         };
         /**  the request method in lower case (e.g. 'get', 'post'). */
         method: string;
@@ -1176,8 +1193,6 @@ declare module "hapi" {
         route: IRoute;
         /** the server object. */
         server: Server;
-        /** Special key reserved for plugins implementing session support. Plugins utilizing this key must check for null value to ensure there is no conflict with another similar server. */
-        session: any;
         /** an object containing parsed HTTP state information (cookies) where each key is the cookie name and value is the matching cookie content after processing using any registered cookie definition. */
         state: any;
         /** complex object contining details on the url */
@@ -1537,7 +1552,7 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
         states: {
             settings: any; cookies: any; names: any[]
         };
-        auth: { connection: ServerConnection; _schemes: any; _strategies: any; settings: any; };
+        auth: { connection: ServerConnection; _schemes: any; _strategies: any; settings: any; api: any; };
         _router: any;
         MSPluginsCollection: any;
         applicationCache: any;
@@ -1712,6 +1727,35 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
         after(method: (plugin: any, next: (err: any) => void) => void, dependencies: string | string[]): void;
 
         auth: {
+            /** server.auth.api
+            An object where each key is a strategy name and the value is the exposed strategy API. Available on when the authentication scheme exposes an API by returning an api key in the object returned from its implementation function.
+            When the server contains more than one connection, each server.connections array member provides its own connection.auth.api object.
+            const server = new Hapi.Server();
+            server.connection({ port: 80 });
+            const scheme = function (server, options) {
+            return {
+            api: {
+            settings: {
+            x: 5
+            }
+            },
+            authenticate: function (request, reply) {
+            const req = request.raw.req;
+            const authorization = req.headers.authorization;
+            if (!authorization) {
+            return reply(Boom.unauthorized(null, 'Custom'));
+            }
+            return reply.continue({ credentials: { user: 'john' } });
+            }
+            };
+            };
+            server.auth.scheme('custom', scheme);
+            server.auth.strategy('default', 'custom');
+            console.log(server.auth.api.default.settings.x);    // 5
+            */
+            api: {
+                [index: string]: any;
+            }
 			/** server.auth.default(options)
 			Sets a default strategy which is applied to every route where:
 			options - a string with the default strategy name or an object with a specified strategy or strategies using the same format as the route auth handler options.
@@ -1857,13 +1901,15 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
 		// web.connections.length === 1
 		// admin.connections.length === 1 */
         connection(options: IServerConnectionOptions): Server;
-		/** server.decorate(type, property, method)
+		/** server.decorate(type, property, method, [options])
 		Extends various framework interfaces with custom methods where:
 		type - the interface being decorated. Supported types:
 		'reply' - adds methods to the reply interface.
 		'server' - adds methods to the Server object.
 		property - the object decoration key name.
 		method - the extension function.
+        options - if the type is 'request', supports the following optional settings:
+        'apply' - if true, the method function is invoked using the signature function(request) where request is the current request object and the returned value is assigned as the decoration.
 		Note that decorations apply to the entire server and all its connections regardless of current selection.
 		var Hapi = require('hapi');
 		var server = new Hapi.Server();
@@ -1878,7 +1924,7 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
 		return reply.success();
 		}
 		});*/
-        decorate(type: string, property: string, method: Function): void;
+        decorate(type: string, property: string, method: Function, options?: { apply: boolean }): void;
 
 		/** server.dependency(dependencies, [after])
 		Used within a plugin to declares a required dependency on other plugins where:
@@ -1983,7 +2029,27 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
 		};
 		server.handler('test', handler);*/
         handler<THandlerConfig>(name: string, method: (route: IRoute, options: THandlerConfig) => ISessionHandler): void;
-		/** When the server contains exactly one connection, injects a request into the sole connection simulating an incoming HTTP request without making an actual socket connection.
+
+        /** server.initialize([callback])
+        Initializes the server (starts the caches, finalizes plugin registration) but does not start listening
+        on the connection ports, where:
+        - `callback` - the callback method when server initialization is completed or failed with the signature
+        `function(err)` where:
+        - `err` - any initialization error condition.
+
+        If no `callback` is provided, a `Promise` object is returned.
+
+        Note that if the method fails and the callback includes an error, the server is considered to be in
+        an undefined state and should be shut down. In most cases it would be impossible to fully recover as
+        the various plugins, caches, and other event listeners will get confused by repeated attempts to
+        start the server or make assumptions about the healthy state of the environment. It is recommended
+        to assert that no error has been returned after calling `initialize()` to abort the process when the
+        server fails to start properly. If you must try to resume after an error, call `server.stop()`
+        first to reset the server state.
+        */
+        initialize(callback?: (error: any) => void): IPromise<void>;
+
+        /** When the server contains exactly one connection, injects a request into the sole connection simulating an incoming HTTP request without making an actual socket connection.
 		Injection is useful for testing purposes as well as for invoking routing logic internally without the overhead or limitations of the network stack.
 		Utilizes the [shot module | https://github.com/hapijs/shot ] for performing injections, with some additional options and response properties
 		* When the server contains more than one connection, each server.connections array member provides its own connection.inject().
@@ -2134,39 +2200,41 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
 		next();
 		};*/
         path(relativeTo: string): void;
-		/**server.register(plugins, [options], callback)
-		Registers a plugin where:
-		plugins - an object or array of objects where each one is either:
-		a plugin registration function.
-		an object with the following:
-		register - the plugin registration function.
-		options - optional options passed to the registration function when called.
-		options - optional registration options (different from the options passed to the registration function):
-		select - a string or array of string labels used to pre-select connections for plugin registration.
-		routes - modifiers applied to each route added by the plugin:
-		prefix - string added as prefix to any route path (must begin with '/'). If a plugin registers a child plugin the prefix is passed on to the child or is added in front of the child-specific prefix.
-		vhost - virtual host string (or array of strings) applied to every route. The outer-most vhost overrides the any nested configuration.
-		callback - the callback function with signature function(err) where:
-		err - an error returned from the registration function. Note that exceptions thrown by the registration function are not handled by the framework.
-		server.register({
-		register: require('plugin_name'),
-		options: {
-		message: 'hello'
-		}
-		}, function (err) {
-		if (err) {
-		console.log('Failed loading plugin');
-		}
-		});*/
+
+
+		/**
+		* server.register(plugins, [options], callback)
+		* Registers a plugin where:
+		* plugins - an object or array of objects where each one is either:
+		* a plugin registration function.
+		* an object with the following:
+		* register - the plugin registration function.
+		* options - optional options passed to the registration function when called.
+		* options - optional registration options (different from the options passed to the registration function):
+		* select - a string or array of string labels used to pre-select connections for plugin registration.
+		* routes - modifiers applied to each route added by the plugin:
+		* prefix - string added as prefix to any route path (must begin with '/'). If a plugin registers a child plugin the prefix is passed on to the child or is added in front of the child-specific prefix.
+		* vhost - virtual host string (or array of strings) applied to every route. The outer-most vhost overrides the any nested configuration.
+		* callback - the callback function with signature function(err) where:
+		* err - an error returned from the registration function. Note that exceptions thrown by the registration function are not handled by the framework.
+		*
+		* If no callback is provided, a Promise object is returned.
+		*/
         register(plugins: any | any[], options: {
-            select: string | string[];
-            routes: {
-                prefix: string; vhost?: string | string[]
-            };
-        }
-            , callback: (err: any) => void): void;
+                select: string | string[];
+                routes: {
+                    prefix: string; vhost?: string | string[]
+                };
+            }, callback: (err: any) => void): void;
+        register(plugins: any | any[], options: {
+                select: string | string[];
+                routes: {
+                    prefix: string; vhost?: string | string[]
+                };
+            }): IPromise<any>;
 
         register(plugins: any | any[], callback: (err: any) => void): void;
+        register(plugins: any | any[]): IPromise<any>;
 
 		/**server.render(template, context, [options], callback)
 		Utilizes the server views manager to render a template where:
@@ -2229,7 +2297,7 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
 		server.start(function (err) {
 		console.log('Server started at: ' + server.info.uri);
 		});*/
-        start(callback?: (err: any) => void): void;
+        start(callback?: (err: any) => void): IPromise<void>;
 		/** server.state(name, [options])
 		HTTP state management uses client cookies to persist a state across multiple requests. Registers a cookie definitions
 		State defaults can be modified via the server connections.routes.state configuration option.
@@ -2274,7 +2342,7 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
 		server.stop({ timeout: 60 * 1000 }, function () {
 		console.log('Server stopped');
 		});*/
-        stop(options?: { timeout: number }, callback?: () => void): void;
+        stop(options?: { timeout: number }, callback?: () => void): IPromise<void>;
 		/**server.table([host])
 		Returns a copy of the routing table where:
 		host - optional host to filter routes matching a specific virtual host. Defaults to all virtual hosts.

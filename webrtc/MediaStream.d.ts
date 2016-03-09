@@ -6,8 +6,6 @@
 // Taken from http://dev.w3.org/2011/webrtc/editor/getusermedia.html
 // version: W3C Editor's Draft 29 June 2015
 
-/// <reference path="../es6-promise/es6-promise.d.ts" />
-
 interface ConstrainBooleanParameters {
     exact?: boolean;
     ideal?: boolean;
@@ -174,6 +172,9 @@ interface NavigatorGetUserMedia {
      errorCallback: (error: MediaStreamError) => void): void;
 }
 
+// to use with adapter.js, see: https://github.com/webrtc/adapter
+declare var getUserMedia: NavigatorGetUserMedia;
+
 interface Navigator {
     getUserMedia: NavigatorGetUserMedia;
 
@@ -195,7 +196,7 @@ interface MediaDevices {
 
 interface MediaDeviceInfo {
     label: string;
-    id: string;
+    deviceId: string;
     kind: string;
-    facing: string;
+    groupId: string;
 }

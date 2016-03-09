@@ -394,6 +394,8 @@ declare module Accounts {
 	function onCreateUser(func: Function): void;
 	function validateLoginAttempt(func: Function): { stop: () => void };
 	function validateNewUser(func: Function): boolean;
+	function loginServicesConfigured(): boolean;
+ 	function onPageLoadLogin(func: Function): void;
 }
 
 declare module App {
@@ -522,10 +524,10 @@ declare module Match {
 declare module Meteor {
 	var Error: ErrorStatic;
 	interface ErrorStatic {
-		new(error: string, reason?: string, details?: string): Error;
+		new(error: string | number, reason?: string, details?: string): Error;
 	}
 	interface Error {
-		error: string;
+		error: string | number;
 		reason?: string;
 		details?: string;
 	}

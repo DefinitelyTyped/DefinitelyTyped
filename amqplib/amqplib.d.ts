@@ -38,6 +38,7 @@ declare module "amqplib/properties" {
             messageTtl?: number;
             expires?: number;
             deadLetterExchange?: string;
+            deadLetterRoutingKey?: string;
             maxLength?: number;
         }
         interface DeleteQueue {

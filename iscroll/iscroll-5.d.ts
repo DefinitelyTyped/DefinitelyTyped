@@ -79,7 +79,7 @@ declare class IScroll {
 	scrollTo(x: number, y: number, time?: number, relative?: boolean): void;
 	scrollToElement(element: string, time?: number): void;
 	scrollToElement(element: HTMLElement, time?: number): void;
-	scrollToPage(pageX: number, pageY: number, time?: number): void;
+	goToPage(pageX: number, pageY: number, time?: number): void;
 	disable(): void;
 	enable(): void;
 	stop(): void;

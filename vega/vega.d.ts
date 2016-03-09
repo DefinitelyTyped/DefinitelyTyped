@@ -65,7 +65,7 @@ declare namespace Vega {
     props?: string;
     items?: any;
     duration?: number;
-    ease?: string; 
+    ease?: string;
   }
 
   export interface Bounds {
@@ -518,7 +518,7 @@ declare namespace vg {
   export namespace scene {
     export function item(mark: Vega.Node): Vega.Node;
   }
-  
+
   export class Bounds implements Vega.Bounds {
     x1: number;
     y1: number;
