@@ -379,10 +379,16 @@ declare module moment {
         meridiem?: (hour: number, minute: number, isLowercase: boolean) => string;
         calendar?: MomentCalendar;
         ordinal?: (num: number) => string;
+        week?: MomentLanguageWeek
     }
 
     interface MomentLanguage extends BaseMomentLanguage {
         longDateFormat?: MomentLongDateFormat;
+    }
+    
+    interface MomentLanguageWeek {
+        dow?: number;
+        doy?: number;
     }
 
     interface MomentLanguageData {
