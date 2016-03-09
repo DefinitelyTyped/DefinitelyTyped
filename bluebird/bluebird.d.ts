@@ -51,11 +51,9 @@ interface PromiseConstructor {
      *
      * Alias for `attempt();` for compatibility with earlier ECMAScript version.
      */
-    try<T>(fn: () => PromiseLike<T>, args?: any[], ctx?: any): Promise<T>;
-    try<T>(fn: () => T, args?: any[], ctx?: any): Promise<T>;
+    try<T>(fn: () => T | PromiseLike<T>, args?: any[], ctx?: any): Promise<T>;
 
-    attempt<T>(fn: () => PromiseLike<T>, args?: any[], ctx?: any): Promise<T>;
-    attempt<T>(fn: () => T, args?: any[], ctx?: any): Promise<T>;
+    attempt<T>(fn: () => T | PromiseLike<T>, args?: any[], ctx?: any): Promise<T>;
 
     /**
      * Returns a new function that wraps the given function `fn`. The new function will always return a promise that is fulfilled with the original functions return values or rejected with thrown exceptions from the original function.
@@ -66,9 +64,8 @@ interface PromiseConstructor {
     /**
      * Create a promise that is resolved with the given `value`. If `value` is a thenable or promise, the returned promise will assume its state.
      */
+    resolve<T>(value: T | PromiseLike<T>): Promise<T>;
     resolve(): Promise<void>;
-    resolve<T>(value: PromiseLike<T>): Promise<T>;
-    resolve<T>(value: T): Promise<T>;
 
     /**
      * Create a promise that is rejected with the given `reason`.
@@ -84,8 +81,7 @@ interface PromiseConstructor {
     /**
      * Cast the given `value` to a trusted promise. If `value` is already a trusted `Promise`, it is returned as is. If `value` is not a thenable, a fulfilled is: Promise returned with `value` as its fulfillment value. If `value` is a thenable (Promise-like object, like those returned by jQuery's `$.ajax`), returns a trusted that: Promise assimilates the state of the thenable.
      */
-    cast<T>(value: PromiseLike<T>): Promise<T>;
-    cast<T>(value: T): Promise<T>;
+    cast<T>(value: T | PromiseLike<T>): Promise<T>;
 
     /**
      * Sugar for `Promise.resolve(undefined).bind(thisArg);`. See `.bind()`.
@@ -106,8 +102,7 @@ interface PromiseConstructor {
      * Returns a promise that will be fulfilled with `value` (or `undefined`) after given `ms` milliseconds. If `value` is a promise, the delay will start counting down when it is fulfilled and the returned promise will be fulfilled with the fulfillment value of the `value` promise.
      */
     // TODO enable more overloads
-    delay<T>(ms: number, value: PromiseLike<T>): Promise<T>;
-    delay<T>(ms: number, value: T): Promise<T>;
+    delay<T>(ms: number, value: T | PromiseLike<T>): Promise<T>;
     delay(ms: number): Promise<void>;
 
     /**
@@ -177,10 +172,10 @@ interface PromiseConstructor {
     // array with promises of value
     all<T>(values: PromiseLike<T>[]): Promise<T[]>;
     // array with promises of different types
-    all<T1, T2>(values: [PromiseLike<T1>, PromiseLike<T2>]): Promise<[T1, T2]>;
-    all<T1, T2, T3>(values: [PromiseLike<T1>, PromiseLike<T2>, PromiseLike<T3>]): Promise<[T1, T2, T3]>;
-    all<T1, T2, T3, T4>(values: [PromiseLike<T1>, PromiseLike<T2>, PromiseLike<T3>, PromiseLike<T4>]): Promise<[T1, T2, T3, T4]>;
     all<T1, T2, T3, T4, T5>(values: [PromiseLike<T1>, PromiseLike<T2>, PromiseLike<T3>, PromiseLike<T4>, PromiseLike<T5>]): Promise<[T1, T2, T3, T4, T5]>;
+    all<T1, T2, T3, T4>(values: [PromiseLike<T1>, PromiseLike<T2>, PromiseLike<T3>, PromiseLike<T4>]): Promise<[T1, T2, T3, T4]>;
+    all<T1, T2, T3>(values: [PromiseLike<T1>, PromiseLike<T2>, PromiseLike<T3>]): Promise<[T1, T2, T3]>;
+    all<T1, T2>(values: [PromiseLike<T1>, PromiseLike<T2>]): Promise<[T1, T2]>;
     // array with values
     all<T>(values: T[]): Promise<T[]>;
 
@@ -269,20 +264,16 @@ interface PromiseConstructor {
      * *The original array is not modified.*
      */
     // promise of array with promises of value
-    map<T, U>(values: PromiseLike<PromiseLike<T>[]>, mapper: (item: T, index: number, arrayLength: number) => PromiseLike<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
-    map<T, U>(values: PromiseLike<PromiseLike<T>[]>, mapper: (item: T, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
+    map<T, U>(values: PromiseLike<PromiseLike<T>[]>, mapper: (item: T, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
     // promise of array with values
-    map<T, U>(values: PromiseLike<T[]>, mapper: (item: T, index: number, arrayLength: number) => PromiseLike<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
-    map<T, U>(values: PromiseLike<T[]>, mapper: (item: T, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
+    map<T, U>(values: PromiseLike<T[]>, mapper: (item: T, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
     // array with promises of value
-    map<T, U>(values: PromiseLike<T>[], mapper: (item: T, index: number, arrayLength: number) => PromiseLike<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
-    map<T, U>(values: PromiseLike<T>[], mapper: (item: T, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
+    map<T, U>(values: PromiseLike<T>[], mapper: (item: T, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
     // array with values
-    map<T, U>(values: T[], mapper: (item: T, index: number, arrayLength: number) => PromiseLike<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
-    map<T, U>(values: T[], mapper: (item: T, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
+    map<T, U>(values: T[], mapper: (item: T, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
     /**
      * Similar to `map` with concurrency set to 1 but guaranteed to execute in sequential order
@@ -312,20 +303,16 @@ interface PromiseConstructor {
      * *The original array is not modified. If no `intialValue` is given and the array doesn't contain at least 2 items, the callback will not be called and `undefined` is returned. If `initialValue` is given and the array doesn't have at least 1 item, `initialValue` is returned.*
      */
     // promise of array with promises of value
-    reduce<T, U>(values: PromiseLike<PromiseLike<T>[]>, reducer: (total: U, current: T, index: number, arrayLength: number) => PromiseLike<U>, initialValue?: U): Promise<U>;
-    reduce<T, U>(values: PromiseLike<PromiseLike<T>[]>, reducer: (total: U, current: T, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
+    reduce<T, U>(values: PromiseLike<PromiseLike<T>[]>, reducer: (total: U, current: T, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Promise<U>;
 
     // promise of array with values
-    reduce<T, U>(values: PromiseLike<T[]>, reducer: (total: U, current: T, index: number, arrayLength: number) => PromiseLike<U>, initialValue?: U): Promise<U>;
-    reduce<T, U>(values: PromiseLike<T[]>, reducer: (total: U, current: T, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
+    reduce<T, U>(values: PromiseLike<T[]>, reducer: (total: U, current: T, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Promise<U>;
 
     // array with promises of value
-    reduce<T, U>(values: PromiseLike<T>[], reducer: (total: U, current: T, index: number, arrayLength: number) => PromiseLike<U>, initialValue?: U): Promise<U>;
-    reduce<T, U>(values: PromiseLike<T>[], reducer: (total: U, current: T, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
+    reduce<T, U>(values: PromiseLike<T>[], reducer: (total: U, current: T, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Promise<U>;
 
     // array with values
-    reduce<T, U>(values: T[], reducer: (total: U, current: T, index: number, arrayLength: number) => PromiseLike<U>, initialValue?: U): Promise<U>;
-    reduce<T, U>(values: T[], reducer: (total: U, current: T, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
+    reduce<T, U>(values: T[], reducer: (total: U, current: T, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Promise<U>;
 
     /**
      * Filter an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `filterer` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
@@ -335,20 +322,16 @@ interface PromiseConstructor {
      * *The original array is not modified.
      */
     // promise of array with promises of value
-    filter<T>(values: PromiseLike<PromiseLike<T>[]>, filterer: (item: T, index: number, arrayLength: number) => PromiseLike<boolean>, option?: Promise.ConcurrencyOption): Promise<T[]>;
-    filter<T>(values: PromiseLike<PromiseLike<T>[]>, filterer: (item: T, index: number, arrayLength: number) => boolean, option?: Promise.ConcurrencyOption): Promise<T[]>;
+    filter<T>(values: PromiseLike<PromiseLike<T>[]>, filterer: (item: T, index: number, arrayLength: number) => boolean | PromiseLike<boolean>, option?: Promise.ConcurrencyOption): Promise<T[]>;
 
     // promise of array with values
-    filter<T>(values: PromiseLike<T[]>, filterer: (item: T, index: number, arrayLength: number) => PromiseLike<boolean>, option?: Promise.ConcurrencyOption): Promise<T[]>;
-    filter<T>(values: PromiseLike<T[]>, filterer: (item: T, index: number, arrayLength: number) => boolean, option?: Promise.ConcurrencyOption): Promise<T[]>;
+    filter<T>(values: PromiseLike<T[]>, filterer: (item: T, index: number, arrayLength: number) => boolean | PromiseLike<boolean>, option?: Promise.ConcurrencyOption): Promise<T[]>;
 
     // array with promises of value
-    filter<T>(values: PromiseLike<T>[], filterer: (item: T, index: number, arrayLength: number) => PromiseLike<boolean>, option?: Promise.ConcurrencyOption): Promise<T[]>;
-    filter<T>(values: PromiseLike<T>[], filterer: (item: T, index: number, arrayLength: number) => boolean, option?: Promise.ConcurrencyOption): Promise<T[]>;
+    filter<T>(values: PromiseLike<T>[], filterer: (item: T, index: number, arrayLength: number) => boolean | PromiseLike<boolean>, option?: Promise.ConcurrencyOption): Promise<T[]>;
 
     // array with values
-    filter<T>(values: T[], filterer: (item: T, index: number, arrayLength: number) => PromiseLike<boolean>, option?: Promise.ConcurrencyOption): Promise<T[]>;
-    filter<T>(values: T[], filterer: (item: T, index: number, arrayLength: number) => boolean, option?: Promise.ConcurrencyOption): Promise<T[]>;
+    filter<T>(values: T[], filterer: (item: T, index: number, arrayLength: number) => boolean | PromiseLike<boolean>, option?: Promise.ConcurrencyOption): Promise<T[]>;
 
     /**
      * Iterate over an array, or a promise of an array, which contains promises (or a mix of promises and values) with the given iterator function with the signature (item, index, value) where item is the resolved value of a respective promise in the input array. Iteration happens serially. If any promise in the input array is rejected the returned promise is rejected as well.
@@ -412,11 +395,9 @@ interface Promise<T> extends PromiseLike<T>, Promise.Inspection<T> {
      *
      * Alias `.lastly();` for compatibility with earlier ECMAScript version.
      */
-    finally<U>(handler: () => PromiseLike<U>): Promise<T>;
-    finally<U>(handler: () => U): Promise<T>;
+    finally<U>(handler: () => U | PromiseLike<U>): Promise<T>;
 
-    lastly<U>(handler: () => PromiseLike<U>): Promise<T>;
-    lastly<U>(handler: () => U): Promise<T>;
+    lastly<U>(handler: () => U | PromiseLike<U>): Promise<T>;
 
     /**
      * Create a promise that follows this promise, but is bound to the given `thisArg` value. A bound promise will call its handlers with the bound value set to `this`. Additionally promises derived from a bound promise will also be bound promises with the same `thisArg` binding as the original promise.
@@ -426,16 +407,13 @@ interface Promise<T> extends PromiseLike<T>, Promise.Inspection<T> {
     /**
      * Like `.then()`, but any unhandled rejection that ends up here will be thrown as an error.
      */
-    done<U>(onFulfilled: (value: T) => PromiseLike<U>, onRejected: (error: any) => PromiseLike<U>, onProgress?: (note: any) => any): void;
-    done<U>(onFulfilled: (value: T) => PromiseLike<U>, onRejected?: (error: any) => U, onProgress?: (note: any) => any): void;
-    done<U>(onFulfilled: (value: T) => U, onRejected: (error: any) => PromiseLike<U>, onProgress?: (note: any) => any): void;
-    done<U>(onFulfilled?: (value: T) => U, onRejected?: (error: any) => U, onProgress?: (note: any) => any): void;
+    done<U>(onFulfilled?: (value: T) => PromiseLike<U>, onRejected?: (error: any) => U | PromiseLike<U>, onProgress?: (note: any) => any): void;
+    done<U>(onFulfilled?: (value: T) => U, onRejected?: (error: any) => U | PromiseLike<U>, onProgress?: (note: any) => any): void;
 
     /**
      * Like `.finally()`, but not called for rejections.
      */
-    tap<U>(onFulFill: (value: T) => PromiseLike<U>): Promise<T>;
-    tap<U>(onFulfill: (value: T) => U): Promise<T>;
+    tap<U>(onFulFill: (value: T) => U | PromiseLike<U>): Promise<T>;
 
     /**
      * Shorthand for `.then(null, null, handler);`. Attach a progress handler that will be called if this promise is progressed. Returns a new promise chained from this promise.
@@ -481,10 +459,7 @@ interface Promise<T> extends PromiseLike<T>, Promise.Inspection<T> {
     /**
      * Like `.then()`, but cancellation of the the returned promise or any of its descendant will not propagate cancellation to this promise or this promise's ancestors.
      */
-    fork<U>(onFulfilled: (value: T) => PromiseLike<U>, onRejected: (error: any) => PromiseLike<U>, onProgress?: (note: any) => any): Promise<U>;
-    fork<U>(onFulfilled: (value: T) => PromiseLike<U>, onRejected?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
-    fork<U>(onFulfilled: (value: T) => U, onRejected: (error: any) => PromiseLike<U>, onProgress?: (note: any) => any): Promise<U>;
-    fork<U>(onFulfilled?: (value: T) => U, onRejected?: (error: any) => U, onProgress?: (note: any) => any): Promise<U>;
+    fork<U>(onFulfilled?: (value: T) => U | PromiseLike<U>, onRejected?: (error: any) => U | PromiseLike<U>, onProgress?: (note: any) => any): Promise<U>;
 
     /**
      * Create an uncancellable promise based on this promise.
@@ -605,8 +580,7 @@ interface Promise<T> extends PromiseLike<T>, Promise.Inspection<T> {
      * Like calling `.then`, but the fulfillment value or rejection reason is assumed to be an array, which is flattened to the formal parameters of the handlers.
      */
     // TODO how to model instance.spread()? like Q?
-    spread<U>(onFulfill: Function, onReject?: (reason: any) => PromiseLike<U>): Promise<U>;
-    spread<U>(onFulfill: Function, onReject?: (reason: any) => U): Promise<U>;
+    spread<U>(onFulfill: Function, onReject?: (reason: any) => U | PromiseLike<U>): Promise<U>;
     /*
      // TODO or something like this?
      spread<U, W>(onFulfill: (...values: W[]) => PromiseLike<U>, onReject?: (reason: any) => PromiseLike<U>): Promise<U>;
@@ -654,8 +628,7 @@ interface Promise<T> extends PromiseLike<T>, Promise.Inspection<T> {
      * Same as calling `Promise.map(thisPromise, mapper)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
      */
     // TODO type inference from array-resolving promise?
-    map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => PromiseLike<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
-    map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => U, options?: Promise.ConcurrencyOption): Promise<U[]>;
+    map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
     /**
      * Same as `Promise.mapSeries(thisPromise, mapper)`.
@@ -667,15 +640,13 @@ interface Promise<T> extends PromiseLike<T>, Promise.Inspection<T> {
      * Same as calling `Promise.reduce(thisPromise, Function reducer, initialValue)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
      */
     // TODO type inference from array-resolving promise?
-    reduce<Q, U>(reducer: (memo: U, item: Q, index: number, arrayLength: number) => PromiseLike<U>, initialValue?: U): Promise<U>;
-    reduce<Q, U>(reducer: (memo: U, item: Q, index: number, arrayLength: number) => U, initialValue?: U): Promise<U>;
+    reduce<Q, U>(reducer: (memo: U, item: Q, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Promise<U>;
 
     /**
      * Same as calling ``Promise.filter(thisPromise, filterer)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
      */
     // TODO type inference from array-resolving promise?
-    filter<U>(filterer: (item: U, index: number, arrayLength: number) => PromiseLike<boolean>, options?: Promise.ConcurrencyOption): Promise<U[]>;
-    filter<U>(filterer: (item: U, index: number, arrayLength: number) => boolean, options?: Promise.ConcurrencyOption): Promise<U[]>;
+    filter<U>(filterer: (item: U, index: number, arrayLength: number) => boolean | PromiseLike<boolean>, options?: Promise.ConcurrencyOption): Promise<U[]>;
 
     /**
      * Same as calling ``Promise.each(thisPromise, iterator)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.

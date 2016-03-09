@@ -486,6 +486,7 @@ Sequelize.CHAR( 12 ).BINARY;
 Sequelize.CHAR.BINARY;
 Sequelize.BOOLEAN;
 Sequelize.DATE;
+Sequelize.DATE(6);
 Sequelize.UUID;
 Sequelize.UUIDV1;
 Sequelize.UUIDV4;
@@ -581,6 +582,9 @@ Sequelize.GEOMETRY( 'POINT' );
 Sequelize.GEOMETRY( 'LINESTRING' );
 Sequelize.GEOMETRY( 'POLYGON' );
 Sequelize.GEOMETRY( 'POINT', 4326 );
+Sequelize.VIRTUAL;
+new Sequelize.VIRTUAL( Sequelize.STRING );
+new Sequelize.VIRTUAL( Sequelize.DATE , ['property1', 'property2']);
 
 //
 //  Deferrable
@@ -1296,7 +1300,7 @@ s.define( 'ProductWithSettersAndGetters2', {
 s.define( 'post', {
     title : Sequelize.STRING,
     authorId : { type : Sequelize.INTEGER, references : testModel, referencesKey : 'id' }
-} );
+} as any /* TODO please remove `as any` */);
 s.define( 'post', {
     title : Sequelize.STRING,
     authorId : { type : Sequelize.INTEGER, references : { model : testModel, key : 'id' } }
@@ -1563,3 +1567,13 @@ s.transaction( function() {
 s.transaction( { isolationLevel : 'SERIALIZABLE' }, function( t ) { return Promise.resolve(); } );
 s.transaction( { isolationLevel : s.Transaction.ISOLATION_LEVELS.SERIALIZABLE }, (t) => Promise.resolve() );
 s.transaction( { isolationLevel : s.Transaction.ISOLATION_LEVELS.READ_COMMITTED }, (t) => Promise.resolve() );
+
+// transaction types
+new Sequelize( '', { transactionType: 'DEFERRED' } );
+new Sequelize( '', { transactionType: Sequelize.Transaction.TYPES.DEFERRED} );
+new Sequelize( '', { transactionType: Sequelize.Transaction.TYPES.IMMEDIATE} );
+new Sequelize( '', { transactionType: Sequelize.Transaction.TYPES.EXCLUSIVE} );
+s.transaction( { type : 'DEFERRED' }, (t) => Promise.resolve() );
+s.transaction( { type : s.Transaction.TYPES.DEFERRED }, (t) => Promise.resolve() );
+s.transaction( { type : s.Transaction.TYPES.IMMEDIATE }, (t) => Promise.resolve() );
+s.transaction( { type : s.Transaction.TYPES.EXCLUSIVE }, (t) => Promise.resolve() );

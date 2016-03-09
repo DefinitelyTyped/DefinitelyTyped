@@ -47,6 +47,7 @@ declare module angular.route {
 
     }
 
+    type InlineAnnotatedFunction = Function|Array<string|Function>
 
     /**
      * see http://docs.angularjs.org/api/ngRoute/provider/$routeProvider#when for API documentation
@@ -56,7 +57,7 @@ declare module angular.route {
          * {(string|function()=}
          * Controller fn that should be associated with newly created scope or the name of a registered controller if passed as a string.
          */
-        controller?: string|Function;
+        controller?: string|InlineAnnotatedFunction;
         /**
          * A controller alias name. If present the controller will be published to scope under the controllerAs name.
          */

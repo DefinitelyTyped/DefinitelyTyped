@@ -31,7 +31,7 @@ declare module SinonChrome {
 }
 
 declare module SinonChrome.events {
-    interface Event extends chrome.events.Event {
+    interface Event extends chrome.events.Event<Function> {
         trigger(...args: any[]): void;
         triggerAsync(...args: any[]): void;
 

@@ -185,12 +185,12 @@ interface AudioContext {
 }
 
 interface MediaStreamAudioSourceNode extends AudioNode {
-    
+
 }
 
 interface AudioBuffer {
     copyFromChannel(destination: Float32Array, channelNumber: number, startInChannel?: number): void;
-    
+
     copyToChannel(source: Float32Array, channelNumber: number, startInChannel?: number): void;
 }
 

@@ -75,15 +75,10 @@ declare module NotificationSystem {
         ref?: string;
         style?: Style | boolean;
     }
-
-
-    export interface Component {
-        (): React.ReactElement<Attributes>;
-    }
 }
 
 
 declare module 'react-notification-system' {
-    var component: NotificationSystem.Component;
+    var component: __React.ClassicComponentClass<NotificationSystem.Attributes>;
     export = component;
 }

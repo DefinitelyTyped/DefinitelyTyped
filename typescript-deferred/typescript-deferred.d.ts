@@ -42,6 +42,6 @@ declare module "typescript-deferred" {
     export function create<T>(): DeferredInterface<T>;
     export function when<T>(value?: ThenableInterface<T>): PromiseInterface<T>;
     export function when<T>(value?: T): PromiseInterface<T>;
-    
+
 
 }

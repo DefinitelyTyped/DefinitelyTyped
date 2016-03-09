@@ -14,8 +14,8 @@ interface Proxyquire {
     noCallThru(): Proxyquire;
     callThru(): Proxyquire;
 
-    noPreserveCache(): void;
-    preserveCache(): void;
+    noPreserveCache(): Proxyquire;
+    preserveCache(): Proxyquire;
 }
 
 declare module 'proxyquire' {

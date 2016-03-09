@@ -3,8 +3,6 @@
 // Definitions by: freshp86 <https://github.com/freshp86>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../es6-promise/es6-promise.d.ts"/>
-
 declare module lf {
   export enum Order { ASC, DESC }
 

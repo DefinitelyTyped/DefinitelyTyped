@@ -7,11 +7,7 @@
  * Function used as .init() argument.
  */
 interface Init {
-    (ctx:Context): any | Promise;
-}
-
-interface Promise {
-    then(resolve:(result: any) => any|Promise, reject:(reason: any | Error) => any|Promise): Promise
+    (ctx:Context): any | Promise<any>;
 }
 
 /**
@@ -101,7 +97,7 @@ interface Stamp {
      * an .enclose() function is an anti-pattern that should be avoided, when possible.
      * @return A new object composed of the Stamps and prototypes provided.
      */
-    (state?:{}, ...encloseArgs:any[]): any | Promise;
+    (state?:{}, ...encloseArgs:any[]): any | Promise<any>;
 
     /**
      * Just like calling stamp(), stamp.create() invokes the stamp and returns a new instance.
@@ -113,7 +109,7 @@ interface Stamp {
      * an .enclose() function is an anti-pattern that should be avoided, when possible.
      * @return A new object composed of the Stamps and prototypes provided.
      */
-    create(state?:{}, ...encloseArgs:any[]): any | Promise;
+    create(state?:{}, ...encloseArgs:any[]): any | Promise<any>;
 
     /**
      * An object map containing the fixed prototypes.

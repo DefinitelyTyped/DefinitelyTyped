@@ -4,8 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../node/node-0.11.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 interface JQuery {
     /**

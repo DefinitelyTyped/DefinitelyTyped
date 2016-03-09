@@ -3,8 +3,6 @@
 // Definitions by: joaomoreno <https://github.com/joaomoreno/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../es6-promise/es6-promise.d.ts" />
-
 declare module "denodeify" {
 	function _<R>(fn: _.F0<R>, transformer?: _.M): () => Promise<R>;
 	function _<A,R>(fn: _.F1<A,R>, transformer?: _.M): (a:A) => Promise<R>;
@@ -16,7 +14,7 @@ declare module "denodeify" {
 	function _<A,B,C,D,E,F,G,R>(fn: _.F7<A,B,C,D,E,F,G,R>, transformer?: _.M): (a:A, b:B, c:C, d:D, e:E, f:F, g:G) => Promise<R>;
 	function _<A,B,C,D,E,F,G,H,R>(fn: _.F8<A,B,C,D,E,F,G,H,R>, transformer?: _.M): (a:A, b:B, c:C, d:D, e:E, f:F, g:G, h:H) => Promise<R>;
 	function _(fn: _.F, transformer?: _.M): (...args: any[]) => Promise<any>;
-	
+
 	module _ {
 		type Callback<R> = (err: Error, result: R) => any;
 		type F0<R> = (cb: Callback<R>) => any;
@@ -31,6 +29,6 @@ declare module "denodeify" {
 		type F = (...args: any[]) => any;
 		type M = (err: Error, ...args: any[]) => any[];
 	}
-	
+
 	export = _;
 }

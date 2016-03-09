@@ -149,7 +149,7 @@ declare module YT {
 
         // Event Listener
         addEventListener(event: string, handler: EventHandler): void;
-        
+
         // DOM
         destroy(): void;
     }

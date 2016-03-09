@@ -146,9 +146,10 @@ var StatelessComponent = (props: SCProps) => {
     return React.DOM.div(null, props.foo);
 };
 
-// Must explicitly type-annotate to add defaultProps/contextTypes
+// Must explicitly type-annotate to add displayName/defaultProps/contextTypes
 var StatelessComponent2: React.StatelessComponent<SCProps> =
     (props: SCProps) => React.DOM.div(null, props.foo);
+StatelessComponent2.displayName = "StatelessComponent2";
 StatelessComponent2.defaultProps = {
     foo: 42
 };
@@ -186,13 +187,17 @@ var domElement: React.ReactHTMLElement =
 
 // React.cloneElement
 var clonedElement: React.ReactElement<Props> =
-    React.cloneElement(element, props);
+    React.cloneElement(element, { foo: 43 });
 var clonedStatelessElement: React.ReactElement<SCProps> =
-    React.cloneElement(statelessElement, props);
+    // known problem: cloning with optional props don't work properly
+    // workaround: cast to actual props type
+    React.cloneElement(statelessElement, <SCProps>{ foo: 44 });
 var clonedClassicElement: React.ClassicElement<Props> =
     React.cloneElement(classicElement, props);
 var clonedDOMElement: React.ReactHTMLElement =
-    React.cloneElement(domElement);
+    React.cloneElement(domElement, {
+        className: "clonedElement"
+    });
 
 // React.render
 var component: React.Component<Props, any> =
@@ -405,7 +410,8 @@ var mappedChildrenArray: number[] =
     React.Children.map<number>(children, (child) => { return 42; });
 React.Children.forEach(children, (child) => {});
 var nChildren: number = React.Children.count(children);
-var onlyChild = React.Children.only([null, [[["Hallo"], true]], false]);
+var onlyChild: React.ReactElement<any> = React.Children.only(React.DOM.div()); // ok
+onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
 var childrenToArray: React.ReactChild[] = React.Children.toArray(children);
 
 //
@@ -521,7 +527,10 @@ React.createClass({
 //
 // TestUtils addon
 // --------------------------------------------------------------------------
-var node: Element;
+
+var inst: ModernComponent = TestUtils.renderIntoDocument<ModernComponent>(element);
+var node: Element = TestUtils.renderIntoDocument(React.DOM.div());
+
 TestUtils.Simulate.click(node);
 TestUtils.Simulate.change(node);
 TestUtils.Simulate.keyDown(node, { key: "Enter" });
@@ -531,6 +540,11 @@ var renderer: React.ShallowRenderer =
 renderer.render(React.createElement(Timer));
 var output: React.ReactElement<React.Props<Timer>> =
     renderer.getRenderOutput();
+
+var foundComponent: ModernComponent = TestUtils.findRenderedComponentWithType(
+    inst, ModernComponent);
+var foundComponents: ModernComponent[] = TestUtils.scryRenderedComponentsWithType(
+    inst, ModernComponent);
 
 //
 // TransitionGroup addon

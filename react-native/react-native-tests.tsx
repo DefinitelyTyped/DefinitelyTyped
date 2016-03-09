@@ -21,7 +21,14 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 
 
 import * as React from 'react-native'
-const  { StyleSheet, Text, View } = React
+import {
+    StyleSheet,
+    Text,
+    View,
+    AppState,
+    AppStateIOS,
+    ViewPagerAndroid
+} from 'react-native';
 
 var styles = StyleSheet.create(
     {
@@ -67,5 +74,40 @@ class Welcome extends React.Component<any,any> {
     }
 }
 
-export default Welcome
+export default Welcome;
 
+// App State
+
+function appStateListener(state : string) {
+    console.log('New state: ' + state);
+}
+
+function appStateTest() {
+    console.log('Current state: ' + AppState.currentState);
+    AppState.addEventListener('change', appStateListener);
+}
+
+function appStateIOSTest() {
+    console.log('Current state: ' + AppStateIOS.currentState);
+    AppStateIOS.addEventListener('change', appStateListener);
+}
+
+// ViewPagerAndroid
+
+export class ViewPagerAndroidTest {
+    render() {
+        return (
+            <ViewPagerAndroid style={{height: 56}}
+                initialPage={0}
+                keyboardDismissMode={'on-drag'}
+                onPageScroll={(e) => {
+                    console.log(`position: ${e.nativeEvent.position}`);
+                    console.log(`offset: ${e.nativeEvent.offset}`);
+                }}
+                onPageSelected={(e) => {
+                    console.log(`position: ${e.nativeEvent.position}`)
+                }}
+                />
+        );
+    }
+}

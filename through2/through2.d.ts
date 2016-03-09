@@ -8,7 +8,7 @@
 declare module 'through2' {
 
 	import stream = require('stream');
-	
+
 	type TransfofmCallback = (err?: any, data?: any) => void;
 	type TransformFunction = (chunk: any, enc: string, callback: TransfofmCallback) => void;
 	type FlashCallback = (flushCallback: () => void) => void;

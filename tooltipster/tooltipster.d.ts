@@ -13,7 +13,7 @@ declare module JQueryTooltipster {
 	export interface ITooltipsterOptions {
 
 		/**
-		 * Determines how the tooltip will animate in and out. Feel free to modify or create custom transitions in the tooltipster.css file. 
+		 * Determines how the tooltip will animate in and out. Feel free to modify or create custom transitions in the tooltipster.css file.
 		 * In IE9 and 8, all animations default to a JavaScript generated, fade animation. Default: 'fade'
 		 */
 		animation?: string;
@@ -39,7 +39,7 @@ declare module JQueryTooltipster {
 		content?: string;
 
 		/**
-		 * If the content of the tooltip is provided as a string, it is displayed as plain text by default. 
+		 * If the content of the tooltip is provided as a string, it is displayed as plain text by default.
 		 * If this content should actually be interpreted as HTML, set this option to true. Default: false
 		 */
 		contentAsHTML?: boolean;
@@ -127,13 +127,13 @@ declare module JQueryTooltipster {
 		iconTouch?: boolean;
 
 		/**
-		 * Give users the possibility to interact with the tooltip. Unless autoClose is set to false, the tooltip will still close if the user moves away from or clicks out of the tooltip. 
+		 * Give users the possibility to interact with the tooltip. Unless autoClose is set to false, the tooltip will still close if the user moves away from or clicks out of the tooltip.
 		 * Default: false
 		 */
 		interactive?: boolean;
 
 		/**
-		 * If the tooltip is interactive and activated by a hover event, set the amount of time (milliseconds) allowed for a user to hover off 
+		 * If the tooltip is interactive and activated by a hover event, set the amount of time (milliseconds) allowed for a user to hover off
 		 * of the tooltip activator (origin) on to the tooltip itself - keeping the tooltip from closing. Default: 350
 		 */
 		interactiveTolerance?: number;
@@ -170,14 +170,14 @@ declare module JQueryTooltipster {
 		positionTracker?: boolean;
 
 		/**
-		 * Called after the tooltip has been repositioned by the position tracker (if enabled). 
+		 * Called after the tooltip has been repositioned by the position tracker (if enabled).
 		 * Default: A function that will close the tooltip if the trigger is 'hover' and autoClose is false.
 		 */
 		positionTrackerCallback?: Function;
 
 		/**
-		 * Specify if a TITLE attribute should be restored on the HTML element after a call to the 'destroy' method. 
-		 * This attribute may be omitted, or be restored with the value that existed before Tooltipster was initialized, or be restored with the stringified value of the current content. 
+		 * Specify if a TITLE attribute should be restored on the HTML element after a call to the 'destroy' method.
+		 * This attribute may be omitted, or be restored with the value that existed before Tooltipster was initialized, or be restored with the stringified value of the current content.
 		 * Note: in case of multiple tooltips on a single element, only the last destroyed tooltip may trigger a restoration. Default: 'current'
 		 *
 		 * Possible values: 'none', 'previous' or 'current'
@@ -200,8 +200,8 @@ declare module JQueryTooltipster {
 		theme?: string;
 
 		/**
-		 * 
-		 * If set to false, tooltips will not show on pure-touch devices, unless you open them yourself with the 'show' method. 
+		 *
+		 * If set to false, tooltips will not show on pure-touch devices, unless you open them yourself with the 'show' method.
 		 * Touch gestures on devices which also have a mouse will still open the tooltips though. Default: true
 		 */
 		touchDevices?: boolean;
@@ -225,8 +225,8 @@ declare module JQueryTooltipster {
 
 		/**
 		 * Updates the content of the tooltip.
-		 * @param value 
-		 * @returns {} 
+		 * @param value
+		 * @returns {}
 		 */
 		content(value: string): JQuery;
 
@@ -254,7 +254,7 @@ declare module JQueryTooltipster {
 		 * Destroy the tooltip and its listeners.
 		 */
 		destroy(): void;
-		
+
 		/**
 		 * Reposition and resize the tooltip.
 		 */

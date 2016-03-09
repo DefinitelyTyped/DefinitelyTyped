@@ -77,6 +77,7 @@ declare module JQueryUI {
 
     interface Autocomplete extends Widget, AutocompleteOptions {
         escapeRegex: (value: string) => string;
+        filter: (array: any, term: string) => any;
     }
 
 
@@ -363,7 +364,7 @@ declare module JQueryUI {
         title?: string;
         width?: any; // number or string
         zIndex?: number;
-		
+
 		open?: DialogEvent;
         close?: DialogEvent;
     }
@@ -1703,7 +1704,7 @@ interface JQuery {
     sortable(methodName: string): JQuery;
     sortable(options: JQueryUI.SortableOptions): JQuery;
     sortable(optionLiteral: string, optionName: string): any;
-    sortable(methodName: 'serialize', options: { key?: string; attribute?: string; expression?: RegExp }): string;
+    sortable(methodName: 'serialize', options?: { key?: string; attribute?: string; expression?: RegExp }): string;
     sortable(optionLiteral: string, options: JQueryUI.SortableOptions): any;
     sortable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 

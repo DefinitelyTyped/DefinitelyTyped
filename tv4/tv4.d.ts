@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module tv4 {
-    
+
     // Note that every top-level property is optional in json-schema
     export interface JsonSchema {
         [key: string]: any;
@@ -15,7 +15,7 @@ declare module tv4 {
         type?: string;
         items?: any;
         properties?: any;
-        patternProperties?: any; 
+        patternProperties?: any;
         additionalProperties?: boolean;
         required?: string[];
         definitions?: any;

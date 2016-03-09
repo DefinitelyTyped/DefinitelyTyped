@@ -110,6 +110,15 @@ var options: request.Options = {
 	strictSSL: bool
 };
 
+// Below line has compile error, use OptionsWithUri or OptionsWithUrl instead. See #7979.
+// options.uri = str;
+
+const opt: request.OptionsWithUri = {
+  baseUrl: 'http://localhost',
+  uri: 'bar'
+};
+opt.uri = str;
+
 // --- --- --- --- --- --- --- --- --- --- --- ---
 
 agent = req.getAgent();
@@ -640,3 +649,15 @@ request({url: 'http://www.google.com', jar: j}, function () {
   var cookies = j.getCookies(url);
   // [{key: 'key1', value: 'value1', domain: "www.google.com", ...}, ...]
 });
+
+request(
+    { method: 'GET'
+    , uri: 'http://www.google.com'
+    , gzip: true
+    }
+  )
+  .on('request', function(req: http.ClientRequest) { })
+  .on('response', function(resp: http.IncomingMessage) { })
+  .on('data', function(data: Buffer | string) { })
+  .on('error', function(e: Error) { })
+  .on('complete', function(resp: http.IncomingMessage, body?: string | Buffer) { });

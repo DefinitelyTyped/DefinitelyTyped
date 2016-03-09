@@ -230,7 +230,6 @@ declare module _ {
     interface LoDashExplicitObjectWrapper<T> extends LoDashExplicitWrapperBase<T, LoDashExplicitObjectWrapper<T>> { }
 
     interface LoDashImplicitArrayWrapper<T> extends LoDashImplicitWrapperBase<T[], LoDashImplicitArrayWrapper<T>> {
-        join(seperator?: string): string;
         pop(): T;
         push(...items: T[]): LoDashImplicitArrayWrapper<T>;
         shift(): T;
@@ -245,6 +244,49 @@ declare module _ {
     interface LoDashImplicitNumberArrayWrapper extends LoDashImplicitArrayWrapper<number> { }
 
     interface LoDashExplicitNumberArrayWrapper extends LoDashExplicitArrayWrapper<number> { }
+
+    // join (exists only in wrappers)
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): string;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): string;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): string;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.join
+         */
+        join(separator?: string): LoDashExplicitWrapper<string>;
+    }
 
     /*********
      * Array *
@@ -9559,16 +9601,17 @@ declare module _ {
          * @param resolver The function to resolve the cache key.
          * @return Returns the new memoizing function.
          */
-        memoize<TResult extends MemoizedFunction>(
-            func: Function,
-            resolver?: Function): TResult;
+        memoize: {
+            <T extends Function>(func: T, resolver?: Function): T & MemoizedFunction;
+            Cache: MapCache;
+        }
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.memoize
          */
-        memoize<TResult extends MemoizedFunction>(resolver?: Function): LoDashImplicitObjectWrapper<TResult>;
+        memoize(resolver?: Function): LoDashImplicitObjectWrapper<T & MemoizedFunction>;
     }
 
     //_.modArgs
@@ -10432,17 +10475,25 @@ declare module _ {
         /**
          * Checks if value is empty. A value is considered empty unless it’s an arguments object, array, string, or
          * jQuery-like collection with a length greater than 0 or an object with own enumerable properties.
+         *
          * @param value The value to inspect.
          * @return Returns true if value is empty, else false.
-         **/
-        isEmpty(value?: any[]|Dictionary<any>|string|any): boolean;
+         */
+        isEmpty(value?: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T,TWrapper> {
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.isEmpty
          */
         isEmpty(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isEmpty
+         */
+        isEmpty(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isEqual
@@ -13291,40 +13342,65 @@ declare module _ {
          * @param value The value to set.
          * @return Returns object.
          */
-        set<T>(
-            object: T,
+        set<TResult>(
+            object: Object,
             path: StringRepresentable|StringRepresentable[],
             value: any
-        ): T;
+        ): TResult;
 
         /**
          * @see _.set
          */
-        set<V, T>(
-            object: T,
+        set<V, TResult>(
+            object: Object,
             path: StringRepresentable|StringRepresentable[],
             value: V
-        ): T;
+        ): TResult;
+
+        /**
+         * @see _.set
+         */
+        set<O, V, TResult>(
+            object: O,
+            path: StringRepresentable|StringRepresentable[],
+            value: V
+        ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.set
          */
-        set<V>(
+        set<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            value: any
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.set
+         */
+        set<V, TResult>(
             path: StringRepresentable|StringRepresentable[],
             value: V
-        ): LoDashImplicitObjectWrapper<T>;
+        ): LoDashImplicitObjectWrapper<TResult>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.set
          */
-        set<V>(
+        set<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            value: any
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.set
+         */
+        set<V, TResult>(
             path: StringRepresentable|StringRepresentable[],
             value: V
-        ): LoDashExplicitObjectWrapper<T>;
+        ): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.transform
@@ -14183,21 +14259,21 @@ declare module _ {
          * @param func The function to attempt.
          * @return Returns the func result or error object.
          */
-        attempt<TResult>(func: (...args: any[]) => TResult): TResult|Error;
+        attempt<TResult>(func: (...args: any[]) => TResult, ...args: any[]): TResult|Error;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.attempt
          */
-        attempt<TResult>(): TResult|Error;
+        attempt<TResult>(...args: any[]): TResult|Error;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.attempt
          */
-        attempt<TResult>(): LoDashExplicitObjectWrapper<TResult|Error>;
+        attempt<TResult>(...args: any[]): LoDashExplicitObjectWrapper<TResult|Error>;
     }
 
     //_.callback

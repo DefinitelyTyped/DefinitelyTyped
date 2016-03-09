@@ -407,9 +407,9 @@ declare module "express" {
             originalUrl: string;
 
             url: string;
-            
+
             baseUrl: string;
-            
+
             app: Application;
         }
 
@@ -796,18 +796,23 @@ declare module "express" {
             charset: string;
         }
 
+        interface NextFunction {
+            (): void;
+            (err: any): void;
+        }
+
         interface ErrorRequestHandler {
-            (err: any, req: Request, res: Response, next: Function): any;
+            (err: any, req: Request, res: Response, next: NextFunction): any;
         }
 
         interface RequestHandler {
-            (req: Request, res: Response, next: Function): any;
+            (req: Request, res: Response, next: NextFunction): any;
         }
 
         interface Handler extends RequestHandler {}
 
         interface RequestParamHandler {
-            (req: Request, res: Response, next: Function, param: any): any;
+            (req: Request, res: Response, next: NextFunction, param: any): any;
         }
 
         interface Application extends IRouter<Application>, Express.Application {

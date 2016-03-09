@@ -182,6 +182,7 @@ declare class _spPageContextInfo {
 }
 
 declare function STSHtmlEncode(value: string): string;
+declare function STSHtmlDecode(value: string): string;
 
 declare function AddEvtHandler(element: HTMLElement, event: string, func: EventListener): void;
 
@@ -7329,7 +7330,7 @@ declare module SP {
             /** Displays a wait/loading modal dialog with the specified title, message, height and width. Height and width are defined in pixels. Cancel button is shown. If user clicks it, the callbackFunc is called. */
             static showWaitScreenSize(title: string, message?: string, callbackFunc?: SP.UI.DialogReturnValueCallback, height?: number, width?: number): SP.UI.ModalDialog;
             static showPlatformFirstRunDialog(url: string, callbackFunc: SP.UI.DialogReturnValueCallback): SP.UI.ModalDialog;
-            static get_childDialog: ModalDialog;
+            static get_childDialog(): SP.UI.ModalDialog;
             /** Closes the dialog using the specified dialog result. */
             close(dialogResult: SP.UI.DialogResult): void;
         }

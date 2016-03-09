@@ -1,4 +1,4 @@
-// Type definitions for highlight.js v8.2.0
+// Type definitions for highlight.js v9.1.0
 // Project: https://github.com/isagalaev/highlight.js
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee/>, Jeremy Hull <https://github.com/sourrust>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -34,6 +34,11 @@ declare  module hljs
 	export function getLanguage(name: string): IMode;
 
 	export function inherit(parent: Object, obj: Object): Object;
+
+	export function COMMENT(
+		begin: (string|RegExp),
+		end: (string|RegExp),
+		inherits: IModeBase): IMode;
 
 	// Common regexps
 	export var IDENT_RE: string;
@@ -111,8 +116,8 @@ declare  module hljs
 	{
 		className?: string;
 		aliases?: string[];
-		begin?: string;
-		end?: string;
+		begin?: (string|RegExp);
+		end?: (string|RegExp);
 		case_insensitive?: boolean;
 		beginKeyword?: string;
 		endsWithParent?: boolean;

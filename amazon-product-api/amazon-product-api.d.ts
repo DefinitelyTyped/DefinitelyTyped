@@ -3,8 +3,6 @@
 // Definitions by: Matti Lehtinen <https://github.com/MattiLehtinen/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../es6-promise/es6-promise.d.ts"/>
-
 declare module "amazon-product-api" {
 
     interface ICredentials {

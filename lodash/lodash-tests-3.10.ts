@@ -133,7 +133,6 @@ module TestWrapper {
 }
 
 //Wrapped array shortcut methods
-result = <string>_([1, 2, 3, 4]).join(',');
 result = <number>_([1, 2, 3, 4]).pop();
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).push(5, 6, 7);
 result = <number>_([1, 2, 3, 4]).shift();
@@ -141,6 +140,34 @@ result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sort((a, b) => 1)
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1);
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1, 2, 5, 6);
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
+
+// join (exists only in wrappers)
+namespace TestJoin {
+    let array = [1, 2];
+    let list = {0: 1, 1: 2, length: 2};
+
+    {
+        let result: string;
+
+        result = _('abc').join();
+        result = _('abc').join('_');
+        result = _(array).join();
+        result = _(array).join('_');
+        result = _(list).join();
+        result = _(list).join('_');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('abc').chain().join();
+        result = _('abc').chain().join('_');
+        result = _(array).chain().join();
+        result = _(array).chain().join('_');
+        result = _(list).chain().join();
+        result = _(list).chain().join('_');
+    }
+}
 
 /*********
  * Array *
@@ -5932,17 +5959,28 @@ module TestFlowRight {
 }
 
 // _.memoize
-var testMemoizedFunction: _.MemoizedFunction;
-result = <_.MapCache>testMemoizedFunction.cache;
-interface TestMemoizedResultFn extends _.MemoizedFunction {
-    (...args: any[]): any;
+namespace TestMemoize {
+    var testMemoizedFunction: _.MemoizedFunction;
+    var cache = <_.MapCache>testMemoizedFunction.cache;
+    interface TestMemoizedResultFn extends _.MemoizedFunction {
+        (a1: string, a2: number): boolean;
+    }
+    var testMemoizeFn = (a1: string, a2: number) => a1.length > a2;
+    var testMemoizeResolverFn = (a1: string, a2: number) => a1 + a2;
+    var result: TestMemoizedResultFn;
+    result = _.memoize(testMemoizeFn);
+    result = _.memoize(testMemoizeFn, testMemoizeResolverFn);
+    result = _(testMemoizeFn).memoize().value();
+    result = _(testMemoizeFn).memoize(testMemoizeResolverFn).value();
+    result('foo', 1);
+    result.cache.get('foo1');
+    _.memoize.Cache = {
+        delete: key => false,
+        get: key => undefined,
+        has: key => false,
+        set(key, value) { return this; }
+    };
 }
-var testMemoizeFn: (...args: any[]) => any;
-var testMemoizeResolverFn: (...args: any[]) => any;
-result = <TestMemoizedResultFn>_.memoize<TestMemoizedResultFn>(testMemoizeFn);
-result = <TestMemoizedResultFn>_.memoize<TestMemoizedResultFn>(testMemoizeFn, testMemoizeResolverFn);
-result = <TestMemoizedResultFn>(_(testMemoizeFn).memoize<TestMemoizedResultFn>().value());
-result = <TestMemoizedResultFn>(_(testMemoizeFn).memoize<TestMemoizedResultFn>(testMemoizeResolverFn).value());
 
 // _.modArgs
 module TestModArgs {
@@ -6574,12 +6612,26 @@ module TestIsElement {
 }
 
 // _.isEmpty
-result = <boolean>_.isEmpty([1, 2, 3]);
-result = <boolean>_.isEmpty({});
-result = <boolean>_.isEmpty('');
-result = <boolean>_([1, 2, 3]).isEmpty();
-result = <boolean>_({}).isEmpty();
-result = <boolean>_('').isEmpty();
+module TestIsEmpty {
+    {
+        let result: boolean;
+
+        result = _.isEmpty(any);
+        result = _(1).isEmpty();
+        result = _('').isEmpty();
+        result = _<any>([]).isEmpty();
+        result = _({}).isEmpty();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isEmpty();
+        result = _('').chain().isEmpty();
+        result = _<any>([]).chain().isEmpty();
+        result = _({}).chain().isEmpty();
+    }
+}
 
 // _.isEqual
 module TestIsEqual {
@@ -8635,39 +8687,43 @@ module TestPick {
 
 // _.set
 module TestSet {
-    type SampleValue = {a: number; b: string; c: boolean;};
+    type SampleObject = {a: {}};
+    type SampleResult = {a: {b: number[]}};
 
-    let object: TResult;
-    let value = {a: 1, b: '', c: true};
+    let object: SampleObject;
+    let value: number;
 
     {
-        let result: TResult;
+        let result: SampleResult;
 
-        result = _.set(object, '', any);
-        result = _.set(object, ['a', 'b', 1], any);
+        result = _.set<SampleResult>(object, 'a.b[1]', value);
+        result = _.set<SampleResult>(object, ['a', 'b', 1], value);
 
-        result = _.set<SampleValue>(object, '', value);
-        result = _.set<SampleValue>(object, ['a', 'b', 1], value);
+        result = _.set<number, SampleResult>(object, 'a.b[1]', value);
+        result = _.set<number, SampleResult>(object, ['a', 'b', 1], value);
+
+        result = _.set<SampleObject, number, SampleResult>(object, 'a.b[1]', value);
+        result = _.set<SampleObject, number, SampleResult>(object, ['a', 'b', 1], value);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<TResult>;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
 
-        result = _(object).set('', any);
-        result = _(object).set(['a', 'b', 1], any);
+        result = _(object).set<SampleResult>('a.b[1]', value);
+        result = _(object).set<SampleResult>(['a', 'b', 1], value);
 
-        result = _(object).set<SampleValue>('', value);
-        result = _(object).set<SampleValue>(['a', 'b', 1], value);
+        result = _(object).set<number, SampleResult>('a.b[1]', value);
+        result = _(object).set<number, SampleResult>(['a', 'b', 1], value);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<TResult>;
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
 
-        result = _(object).chain().set('', any);
-        result = _(object).chain().set(['a', 'b', 1], any);
+        result = _(object).chain().set<SampleResult>('a.b[1]', value);
+        result = _(object).chain().set<SampleResult>(['a', 'b', 1], value);
 
-        result = _(object).chain().set<SampleValue>('', value);
-        result = _(object).chain().set<SampleValue>(['a', 'b', 1], value);
+        result = _(object).chain().set<number, SampleResult>('a.b[1]', value);
+        result = _(object).chain().set<number, SampleResult>(['a', 'b', 1], value);
     }
 }
 
@@ -9239,13 +9295,16 @@ module TestAttempt {
         let result: {a: string}|Error;
 
         result = _.attempt<{a: string}>(func);
+        result = _.attempt<{a: string}>(func, 'foo', 'bar', 'baz');
         result = _(func).attempt<{a: string}>();
+        result = _(func).attempt<{a: string}>('foo', 'bar', 'baz');
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<{a: string}|Error>;
 
         result = _(func).chain().attempt<{a: string}>();
+        result = _(func).chain().attempt<{a: string}>('foo', 'bar', 'baz');
     }
 }
 

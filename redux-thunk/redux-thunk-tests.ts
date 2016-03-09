@@ -1,12 +1,10 @@
 /// <reference path="redux-thunk.d.ts" />
 /// <reference path="../redux/redux.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
 /// <reference path="../express/express.d.ts" />
 
 import { createStore, applyMiddleware, Store, Dispatch } from 'redux';
-import thunk from 'redux-thunk';
-import { ThunkInterface } from 'redux-thunk';
-import { Promise } from 'es6-promise';
+import * as thunk from 'redux-thunk';
+import ThunkInterface = ReduxThunk.ThunkInterface;
 
 declare var rootReducer: Function;
 declare var fetch: any;
@@ -124,4 +122,3 @@ function makeSandwichesForEverybody(): ThunkInterface {
         );
     };
 }
-

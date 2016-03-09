@@ -135,6 +135,11 @@ declare module "vinyl" {
 		 * Returns a pretty String interpretation of the File. Useful for console.log.
 		 */
 		public inspect(): string;
+
+		/**
+		 * Checks if a given object is a vinyl file.
+		 */
+		public static isVinyl(obj: any): boolean;
 	}
 
 	export = File;

@@ -200,6 +200,7 @@ declare module angular {
          * @param inlineAnnotatedFunction Execute this function on module load. Useful for service configuration.
          */
         config(inlineAnnotatedFunction: any[]): IModule;
+        config(object: Object): IModule;
         /**
          * Register a constant service, such as a string, a number, an array, an object or a function, with the $injector. Unlike value it can be injected into a module configuration function (see config) and it cannot be overridden by an Angular decorator.
          *
@@ -273,7 +274,19 @@ declare module angular {
          * Run blocks are the closest thing in Angular to the main method. A run block is the code which needs to run to kickstart the application. It is executed after all of the service have been configured and the injector has been created. Run blocks typically contain code which is hard to unit-test, and for this reason should be declared in isolated modules, so that they can be ignored in the unit-tests.
          */
         run(inlineAnnotatedFunction: any[]): IModule;
+        /**
+         * Register a service constructor, which will be invoked with new to create the service instance. This is short for registering a service where its provider's $get property is a factory function that returns an instance instantiated by the injector from the service constructor function.
+         *
+         * @param name The name of the instance.
+         * @param serviceConstructor An injectable class (constructor function) that will be instantiated.
+         */
         service(name: string, serviceConstructor: Function): IModule;
+        /**
+         * Register a service constructor, which will be invoked with new to create the service instance. This is short for registering a service where its provider's $get property is a factory function that returns an instance instantiated by the injector from the service constructor function.
+         *
+         * @param name The name of the instance.
+         * @param inlineAnnotatedConstructor An injectable class (constructor function) that will be instantiated.
+         */
         service(name: string, inlineAnnotatedConstructor: any[]): IModule;
         service(object: Object): IModule;
         /**
@@ -1083,7 +1096,7 @@ declare module angular {
     }
 
     interface IDeferred<T> {
-        resolve(value?: T): void;
+        resolve(value?: T|IPromise<T>): void;
         reject(reason?: any): void;
         notify(state?: any): void;
         promise: IPromise<T>;
@@ -1684,7 +1697,7 @@ declare module angular {
          * Controller constructor function that should be associated with newly created scope or the name of a registered
          * controller if passed as a string. Empty function by default.
          */
-        controller?: string | Function;
+        controller?: any;
         /**
          * An identifier name for a reference to the controller. If present, the controller will be published to scope under
          * the controllerAs name. If not present, this will default to be the same as the component name.
@@ -1714,15 +1727,7 @@ declare module angular {
          * Whether transclusion is enabled. Enabled by default.
          */
         transclude?: boolean;
-        /**
-         * Whether the new scope is isolated. Isolated by default.
-         */
-        isolate?: boolean;
-        /**
-         * String of subset of EACM which restricts the component to specific directive declaration style. If omitted,
-         * this defaults to 'E'.
-         */
-        restrict?: string;
+        require? : Object;
         $canActivate?: () => boolean;
         $routeConfig?: RouteDefinition[];
     }
@@ -1773,12 +1778,12 @@ declare module angular {
         name?: string;
         priority?: number;
         replace?: boolean;
-        require?: any;
+        require? : any;
         restrict?: string;
         scope?: any;
-        template?: any;
+        template?: string | Function;
         templateNamespace?: string;
-        templateUrl?: any;
+        templateUrl?: string | Function;
         terminal?: boolean;
         transclude?: any;
     }
@@ -1828,13 +1833,14 @@ declare module angular {
         // see http://docs.angularjs.org/api/AUTO.$injector
         ///////////////////////////////////////////////////////////////////////
         interface IInjectorService {
-            annotate(fn: Function): string[];
+            annotate(fn: Function, strictDi?: boolean): string[];
             annotate(inlineAnnotatedFunction: any[]): string[];
             get<T>(name: string, caller?: string): T;
             has(name: string): boolean;
             instantiate<T>(typeConstructor: Function, locals?: any): T;
             invoke(inlineAnnotatedFunction: any[]): any;
             invoke(func: Function, context?: any, locals?: any): any;
+            strictDi: boolean;
         }
 
         ///////////////////////////////////////////////////////////////////////

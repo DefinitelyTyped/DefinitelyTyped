@@ -118,6 +118,13 @@ interface HighchartsAxisLabels {
      */
     padding?: number;
     /**
+     * Whether to reserve space for the labels. This can be turned off when for example the labels are rendered inside
+     * the plot area instead of outside.
+     * @default true
+     * @since 4.1.10
+     */
+    reserveSpace?: boolean;
+    /**
      * Rotation of the labels in degrees.
      * @default 0
      */
@@ -3667,6 +3674,11 @@ interface HighchartsSeriesChart {
      */
     lineWidth?: number;
     /**
+     * The line cap used for line ends and line joins on the graph.
+     * @default 'round'
+     */
+    linecap?: string;
+    /**
      * The id of another series to link to. Additionally, the value can be ':previous' to link to the previous series.
      * When two series are linked, only the first one appears in the legend. Toggling the visibility of this also
      * toggles the linked series.
@@ -4439,7 +4451,9 @@ interface HighchartsLineChart extends HighchartsSeriesChart {
  */
 interface HighchartsPieChart extends HighchartsSeriesChart {
     /**
-     * The color of the border surrounding each column or bar.
+     * The color of the border surrounding each slice. When null, the border takes the same color as the slice fill.
+     * This can be used together with a borderWidth to fill drawing gaps created by antialiazing artefacts in
+     * borderless pies.
      * @default '#FFFFFF'
      */
     borderColor?: string;
@@ -4718,6 +4732,11 @@ interface HighchartsTreeMapChart extends HighchartsSeriesChart {
      * @since 4.1.8
      */
     maxPointWidth?: number;
+    /**
+     * The sort index of the point inside the treemap level.
+     * @since 4.1.10
+     */
+    sortIndex?: number;
     /**
      * A wrapper object for all the series options in specific states.
      */
@@ -5783,6 +5802,21 @@ interface HighchartsChart {
      * @return {HighchartsChartObject}
      */
     new (options: HighchartsOptions, callback: (chart: HighchartsChartObject) => void): HighchartsChartObject;
+    /**
+     * This is the constructor for creating a new chart object.
+     * @param {string|HTMLElement} renderTo The id or a reference to a DOM element where the chart should be rendered (since v4.2.0).
+     * @param {HighchartsOptions} options The chart options
+     * @return {HighchartsChartObject}
+     */
+    new (renderTo: string | HTMLElement, options: HighchartsOptions): HighchartsChartObject;
+    /**
+     * This is the constructor for creating a new chart object.
+     * @param {string|HTMLElement} renderTo The id or a reference to a DOM element where the chart should be rendered (since v4.2.0).
+     * @param {HighchartsOptions} options The chart options
+     * @param callback A function to execute when the chart object is finished loading and rendering. In most cases the chart is built in one thread, but in Internet Explorer version 8 or less the chart is sometimes initiated before the document is ready, and in these cases the chart object will not be finished directly after callingnew Highcharts.Chart(). As a consequence, code that relies on the newly built Chart object should always run in the callback. Defining a chart.event.load handler is equivalent.
+     * @return {HighchartsChartObject}
+     */
+    new (renderTo: string | HTMLElement, options: HighchartsOptions, callback: (chart: HighchartsChartObject) => void): HighchartsChartObject;
 }
 
 /**
@@ -5964,6 +5998,16 @@ interface HighchartsStatic {
     Renderer: HighchartsRenderer;
     Color(color: string | HighchartsGradient): string | HighchartsGradient;
 
+    /**
+     * As Highcharts.Chart, but without need for the new keyword.
+     * @since 4.2.0
+     */
+    chart(options: HighchartsOptions, callback?: (chart: HighchartsChartObject) => void): HighchartsChartObject;
+    /**
+     * As Highcharts.Chart, but without need for the new keyword.
+     * @since 4.2.0
+     */
+    chart(renderTo: string | HTMLElement, options: HighchartsOptions, callback?: (chart: HighchartsChartObject) => void): HighchartsChartObject;
     /**
      * An array containing the current chart objects in the page. A chart's position in the array is preserved
      * throughout the page's lifetime. When a chart is destroyed, the array item becomes undefined.
@@ -6241,3 +6285,16 @@ interface JQuery {
     **/
     highcharts(options: HighchartsOptions, callback: (chart: HighchartsChartObject) => void): JQuery;
 }
+
+/**
+ * Enabling the usage of ES6 module loading.
+ */
+declare var Highcharts: HighchartsStatic;
+
+/**
+ * Declaration for ES6 module loading.
+ */
+declare module "highcharts" {
+    export = Highcharts;
+}
+

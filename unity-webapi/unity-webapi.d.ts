@@ -41,11 +41,11 @@ interface UnityMediaPlayer {
    setCanGoPrev(cangoprev:Boolean);
    setCanPlay(canplay:Boolean);
    setCanPause(canpause:Boolean);
-}	      
+}
 
 interface UnityNotification {
    showNotification (summary:String, body:String, iconUrl?:String);
-} 
+}
 
 declare class UnityIndicatorProperties {
    public count:Number;
@@ -63,7 +63,7 @@ interface UnityMessagingIndicator {
    removeAction(name:String);
    removeActions();
    onPresenceChanged(onPresenceChanged:Function);
-   
+
    // This is suppose to be readonly, but i'm not sure how to do this
    // in a definition file.
    presence:String;
@@ -72,7 +72,7 @@ interface UnityMessagingIndicator {
  interface UnityLauncher {
    setCount(count:number);
    clearCount();
-	
+
    setProgress(progress:number);
    clearProgress();
 
@@ -81,7 +81,7 @@ interface UnityMessagingIndicator {
    addAction(name:String, onActionInvoked:Function);
    removeAction(name:String);
    removeActions();
-} 
+}
 
 interface Unity {
 	init(settings:UnitySettings);
@@ -98,4 +98,3 @@ interface Unity {
 interface BrowserPublic {
 	getUnityObject(version:number):Unity;
 }
-
