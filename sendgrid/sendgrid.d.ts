@@ -3,6 +3,8 @@
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+///<reference path="../smtpapi/smtpapi.d.ts" />
+
 declare module Sendgrid {
     //#region Options
 
