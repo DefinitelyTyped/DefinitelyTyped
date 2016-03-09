@@ -4438,7 +4438,7 @@ declare module kendo.ui {
         scrollable?: GridScrollable;
         selectable?: boolean|string;
         sortable?: GridSortable;
-        toolbar?: GridToolbarItem[];
+        toolbar?: string | ((...args) => string) | GridToolbarItem[];
         cancel?(e: GridCancelEvent): void;
         change?(e: GridChangeEvent): void;
         columnHide?(e: GridColumnHideEvent): void;
