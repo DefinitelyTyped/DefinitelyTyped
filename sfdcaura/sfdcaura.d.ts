@@ -9,7 +9,7 @@ interface StringMap<T> {
     [key:string]: T;
 }
 
-declare module Aura {
+declare module SFDCAura {
 
     interface $A extends SharedComponentService,SharedAuraRenderingService {
 
@@ -1931,9 +1931,9 @@ declare module Aura {
     }
 }
 
-declare module 'aura' {
+declare module 'sfdcaura' {
     export = $A;
 }
 
-declare var $A: Aura.$A;
+declare var $A: SFDCAura.$A;
 

@@ -1,4 +1,4 @@
-/// <reference path="aura.d.ts" />
+/// <reference path="sfdcaura.d.ts" />
 
 
 // *********************************************************************************************
@@ -6,8 +6,8 @@
 // *********************************************************************************************
 
 // Get an Attribute Value
-var cmp = $A.get<Aura.Component>('foo');
-var myLabel = cmp.find<Aura.Component>('button1').get<string>('v.label');
+var cmp = $A.get<SFDCAura.Component>('foo');
+var myLabel = cmp.find<SFDCAura.Component>('button1').get<string>('v.label');
 
 //Set an Attribute Value
 cmp.set('v.label', 'This is a label');
@@ -23,24 +23,24 @@ var isEmpty = $A.util.isEmpty(cmp.get<string>('v.label'));
 // *******************************************************************************************
 
 // Replace a Component's Bod
-var cmp2 = $A.get<Aura.Component>('foo2');
+var cmp2 = $A.get<SFDCAura.Component>('foo2');
 cmp.set('v.body', cmp2);
 
 // Clear a Component's Body
 cmp.set('v.body', []);
 
 // Append a Component to a Component's Body
-var body = cmp.get<Aura.Component[]>('v.body');
+var body = cmp.get<SFDCAura.Component[]>('v.body');
 body.push(cmp2);
 cmp.set('v.body', body);
 
 // Prepend a Component to a Component's Body
-var body = cmp.get<Aura.Component[]>('v.body');
+var body = cmp.get<SFDCAura.Component[]>('v.body');
 body.unshift(cmp2);
 cmp.set('v.body', body);
 
 // Remove a Component from a Component's Body
-var body = cmp.get<Aura.Component[]>("v.body");
+var body = cmp.get<SFDCAura.Component[]>("v.body");
 body.splice(3, 1);
 cmp.set("v.body", body);
 
@@ -49,7 +49,7 @@ cmp.set("v.body", body);
 // *******************************************************************************************
 if (cmp.get<boolean>("v.disabled")) {
     var disabled = $A.util.getBooleanValue(cmp.get<boolean>("v.disabled"));
-    var button = cmp.find<Aura.Component>("button");
+    var button = cmp.find<SFDCAura.Component>("button");
     if (button) {
         var element = button.getElement();
         if (element) {
@@ -79,8 +79,8 @@ window.setTimeout(
 
 // Default Error Handling
 var controllerDefault = {
-    doAction: function (component: Aura.Component) {
-        var inputCmp = component.find<Aura.Component>("inputCmp");
+    doAction: function (component: SFDCAura.Component) {
+        var inputCmp = component.find<SFDCAura.Component>("inputCmp");
         var value = inputCmp.get<number>("v.value");
 
         // Is input numeric?
@@ -95,8 +95,8 @@ var controllerDefault = {
 }
 
 var controllerCustom = {
-    doAction: function (component: Aura.Component, event: Aura.AuraEvent) {
-        var inputCmp = component.find<Aura.Component>("inputCmp");
+    doAction: function (component: SFDCAura.Component, event: SFDCAura.AuraEvent) {
+        var inputCmp = component.find<SFDCAura.Component>("inputCmp");
         var value = inputCmp.get<number>("v.value");
 
         // is input numeric?
@@ -107,12 +107,12 @@ var controllerCustom = {
         }
     },
 
-    handleError: function (component: Aura.Component, event: Aura.AuraEvent) {
+    handleError: function (component: SFDCAura.Component, event: SFDCAura.AuraEvent) {
         /* do any custom error handling
          * logic desired here */
     },
 
-    handleClearError: function (component: Aura.Component, event: Aura.AuraEvent) {
+    handleClearError: function (component: SFDCAura.Component, event: SFDCAura.AuraEvent) {
         /* do any custom error handling
          * logic desired here */
     }
@@ -123,7 +123,7 @@ var controllerCustom = {
 // https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/js_throw_error.htm
 // *********************************************************************************************
 var recoverableErrorController = ({
-    throwErrorForKicks: function (cmp: Aura.Component) {
+    throwErrorForKicks: function (cmp: SFDCAura.Component) {
         // this sample always throws an error to demo try/catch
         var hasPerm = false;
         try {
@@ -147,7 +147,7 @@ var recoverableErrorController = ({
                         var outputText = components[1];
                         // set the body of the ui:message to be the ui:outputText
                         message.set("v.body", outputText);
-                        var div1 = cmp.find<Aura.Component>("div1");
+                        var div1 = cmp.find<SFDCAura.Component>("div1");
                         // Replace div body with the dynamic component
                         div1.set("v.body", message);
                     }
@@ -160,17 +160,17 @@ var recoverableErrorController = ({
 // *********************************************************************************************
 // https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/js_cmp_methods.htm
 // *********************************************************************************************
-interface SampleComponent extends Aura.Component {
+interface SampleComponent extends SFDCAura.Component {
     sampleMethod(val: string): void;
 }
 var auraMethodController = ({
-    handleClick: function (cmp: SampleComponent, event: Aura.AuraEvent) {
+    handleClick: function (cmp: SampleComponent, event: SFDCAura.AuraEvent) {
         console.log("in handleClick");
         // call the method declared by <aura:method> in the markup
         cmp.sampleMethod("1");
     },
 
-    doAction: function (cmp: SampleComponent, event: Aura.AuraEvent) {
+    doAction: function (cmp: SampleComponent, event: SFDCAura.AuraEvent) {
         var params = event.getParam('arguments');
         if (params) {
             var param1 = params.param1;
@@ -185,10 +185,10 @@ var auraMethodController = ({
 // **************************************************************************************************************
 
 var callingServerAction = ({
-    "echo": function (cmp: Aura.Component) {
+    "echo": function (cmp: SFDCAura.Component) {
         // create a one-time use instance of the serverEcho action
         // in the server-side controller
-        var action = cmp.get<Aura.Action>("c.serverEcho");
+        var action = cmp.get<SFDCAura.Action>("c.serverEcho");
         action.setParams({firstName: cmp.get("v.firstName")});
 
         // Create a callback that is executed after
