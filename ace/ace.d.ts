@@ -2244,7 +2244,7 @@ declare module AceAjax {
          * @param range The range of text to select
          * @param reverse Indicates if the range should go backwards (`true`) or not
         **/
-        setRange(range: Range, reverse?: boolean): void;
+        setRange(range: Range, reverse: boolean): void;
 
         /**
          * Moves the selection cursor to the indicated row and column.
