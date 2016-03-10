@@ -155,7 +155,9 @@ declare module "winston" {
     Webhook: WebhookTransportInstance;
   }
 
-  export interface TransportOptions {
+  export type TransportOptions = ConsoleTransportOptions|DailyRotateFileTransportOptions|FileTransportOptions|HttpTransportOptions|MemoryTransportOptions|WebhookTransportOptions|WinstonModuleTransportOptions;
+
+  export interface GenericTransportOptions {
     level?: string;
     silent?: boolean;
     raw?: boolean;
@@ -188,12 +190,12 @@ declare module "winston" {
     path?: string;
   }
 
-  export interface ConsoleTransportOptions extends TransportOptions, GenericTextTransportOptions {
+  export interface ConsoleTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
     logstash?: boolean;
     debugStdout?: boolean;
   }
 
-  export interface DailyRotateFileTransportOptions extends TransportOptions, GenericTextTransportOptions {
+  export interface DailyRotateFileTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
     logstash?: boolean;
     maxsize?: number;
     maxFiles?: number;
@@ -209,7 +211,7 @@ declare module "winston" {
     stream?: NodeJS.WritableStream;
   }
 
-  export interface FileTransportOptions extends TransportOptions, GenericTextTransportOptions {
+  export interface FileTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
     logstash?: boolean;
     maxsize?: number;
     rotationFormat?: boolean;
@@ -227,14 +229,14 @@ declare module "winston" {
     stream?: NodeJS.WritableStream;
   }
 
-  export interface HttpTransportOptions extends TransportOptions, GenericNetworkTransportOptions {
+  export interface HttpTransportOptions extends GenericTransportOptions, GenericNetworkTransportOptions {
     ssl?: boolean;
   }
 
-  export interface MemoryTransportOptions extends TransportOptions, GenericTextTransportOptions {
+  export interface MemoryTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
   }
 
-  export interface WebhookTransportOptions extends TransportOptions, GenericNetworkTransportOptions {
+  export interface WebhookTransportOptions extends GenericTransportOptions, GenericNetworkTransportOptions {
     method?: string;
     ssl?: {
       key?: any;
@@ -243,7 +245,7 @@ declare module "winston" {
     };
   }
 
-  export interface WinstonModuleTransportOptions extends TransportOptions {
+  export interface WinstonModuleTransportOptions extends GenericTransportOptions {
     [optionName: string]: any;
   }
 
