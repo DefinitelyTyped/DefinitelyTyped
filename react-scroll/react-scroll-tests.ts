@@ -1,8 +1,8 @@
 /// <reference path="../react/react.d.ts" />
 /// <reference path="./react-scroll.d.ts" />
 
-import * as React from 'react';
-import { Link, Element, Events, scroller } from 'react-scroll';
+import * as React from 'react'
+import { Link, Element, Events, scroller } from 'react-scroll'
 
 class LinkTest extends React.Component<React.Props<{}>, {}> {
 
