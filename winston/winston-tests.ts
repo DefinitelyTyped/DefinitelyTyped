@@ -99,6 +99,7 @@ winston.query((err: Error, results: any): void => {
 
 logger = winston.add(transport, transportOptions);
 logger = winston.remove(transport);
+logger = winston.add(transport, {filename: 'path/to/file.log'});
 
 winston.clear();
 logger = winston.profile(str, str, metadata, (err: Error, level: string, msg: string, meta: any):void => {
@@ -150,6 +151,7 @@ logger.handleExceptions(transport);
 logger.unhandleExceptions(transport);
 logger = logger.add(transport, transportOptions, bool);
 logger = logger.add(transport);
+logger = logger.add(transport, {filename: 'path/to/file.log'});
 
 logger.clear();
 logger = logger.remove(transport);
