@@ -636,7 +636,7 @@ declare module Electron {
 		 * Evaluates code in page.
 		 * @param code Code to evaluate.
 		 */
-		executeJavaScript(code: string): void;
+		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): void;
 		/**
 		 * Executes Edit -> Undo command in page.
 		 */
@@ -1597,7 +1597,7 @@ declare module Electron {
  		 * invoked by a gesture from the user. Setting `userGesture` to `true` will remove
  		 * this limitation.
 		 */
-		executeJavaScript(code: string, userGesture?: boolean): void;
+		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): void;
 	}
 
 	// Type definitions for main process
