@@ -547,9 +547,9 @@ declare module DevExpress.XtraCharts.Web.Scripts {
         PerformCallback(): void;
 
         // Events
-        BeginCallback: AsPxClientEvent;
-        EndCallback: AsPxClientEvent;
-        ObjectHotTracked: AsPxClientEvent;
-        ObjectSelected: AsPxClientEvent;
+        BeginCallback: DevExpress.Web.Scripts.ASPxClientEvent;
+        EndCallback: DevExpress.Web.Scripts.ASPxClientEvent;
+        ObjectHotTracked: DevExpress.Web.Scripts.ASPxClientEvent;
+        ObjectSelected: DevExpress.Web.Scripts.ASPxClientEvent;
     }
 }
