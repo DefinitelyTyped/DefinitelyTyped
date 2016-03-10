@@ -10,7 +10,7 @@ import {
 	shell
 } from 'electron';
 
-import fs = require('fs');
+import * as fs from 'fs';
 
 // In renderer process (web page).
 // https://github.com/atom/electron/blob/master/docs/api/ipc-renderer.md
