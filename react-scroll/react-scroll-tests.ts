@@ -3,8 +3,7 @@
 /// <reference path="../react/react-dom.d.ts"/>
 
 import { Component } from 'react'
-import * as ReactDOM from 'react-dom';
-import { Link, Element, Events, scroller } from 'react-scroll'
+import { Link, Element, scroller } from 'react-scroll'
 
 let link = <Link to="test" />;
 let element = <Element name="test" />;
