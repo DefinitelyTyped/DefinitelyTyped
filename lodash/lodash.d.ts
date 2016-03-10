@@ -12132,6 +12132,31 @@ declare module _ {
         isSafeInteger(): LoDashExplicitWrapper<boolean>;
     }
 
+    //_.isSet
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a Set object.
+         *
+         * @param value The value to check.
+         * @returns Returns true if value is correctly classified, else false.
+         */
+        isSet<T>(value?: any): value is Set<T>;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isSet
+         */
+        isSet(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isSet
+         */
+        isSet(): LoDashExplicitWrapper<boolean>;
+    }
+
     //_.isString
     interface LoDashStatic {
         /**
@@ -18460,4 +18485,5 @@ declare module "lodash" {
 }
 
 // Backward compatibility with --target es5
+interface Set<T> {}
 interface Map<K, V> {}
