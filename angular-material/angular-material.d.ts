@@ -139,6 +139,7 @@ declare module angular.material {
     interface IToastOptions {
         templateUrl?: string;
         template?: string;
+        autoWrap?:boolean;
         scope?: angular.IScope; // default: new child scope
         preserveScope?: boolean; // default: false
         hideDelay?: number; // default (ms): 3000
