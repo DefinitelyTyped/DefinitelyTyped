@@ -1,7 +1,7 @@
 /// <reference path="../react/react.d.ts" />
 /// <reference path="./react-scroll.d.ts" />
 
-import { Component } from 'react';
+import * as React from 'react';
 import { Link, Element, scroller } from 'react-scroll';
 
 let link = <Link to="test" />;
