@@ -418,3 +418,6 @@ declare module ROSLIB {
 	}
 }
 
+declare module "ROSLIB" {
+    export = ROSLIB;
+}
