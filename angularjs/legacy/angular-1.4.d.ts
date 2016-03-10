@@ -1,10 +1,10 @@
-// Type definitions for Angular JS 1.5
+// Type definitions for Angular JS 1.4+
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="../../jquery/jquery.d.ts" />
 
 declare var angular: angular.IAngularStatic;
 
@@ -178,6 +178,9 @@ declare module angular {
     // see http://docs.angularjs.org/api/angular.Module
     ///////////////////////////////////////////////////////////////////////////
     interface IModule {
+        animation(name: string, animationFactory: Function): IModule;
+        animation(name: string, inlineAnnotatedFunction: any[]): IModule;
+        animation(object: Object): IModule;
         /**
          * Use this method to register a component.
          *
@@ -271,19 +274,7 @@ declare module angular {
          * Run blocks are the closest thing in Angular to the main method. A run block is the code which needs to run to kickstart the application. It is executed after all of the service have been configured and the injector has been created. Run blocks typically contain code which is hard to unit-test, and for this reason should be declared in isolated modules, so that they can be ignored in the unit-tests.
          */
         run(inlineAnnotatedFunction: any[]): IModule;
-        /**
-         * Register a service constructor, which will be invoked with new to create the service instance. This is short for registering a service where its provider's $get property is a factory function that returns an instance instantiated by the injector from the service constructor function.
-         *
-         * @param name The name of the instance.
-         * @param serviceConstructor An injectable class (constructor function) that will be instantiated.
-         */
         service(name: string, serviceConstructor: Function): IModule;
-        /**
-         * Register a service constructor, which will be invoked with new to create the service instance. This is short for registering a service where its provider's $get property is a factory function that returns an instance instantiated by the injector from the service constructor function.
-         *
-         * @param name The name of the instance.
-         * @param inlineAnnotatedConstructor An injectable class (constructor function) that will be instantiated.
-         */
         service(name: string, inlineAnnotatedConstructor: any[]): IModule;
         service(object: Object): IModule;
         /**
@@ -344,12 +335,6 @@ declare module angular {
          * the class removal.
          */
         $removeClass(classVal: string): void;
-
-        /**
-         * Adds and removes the appropriate CSS class values to the element based on the difference between
-         * the new and old CSS class values (specified as newClasses and oldClasses).
-         */
-        $updateClass(newClasses: string, oldClasses: string): void;
 
         /**
          * Set DOM element attribute value.
@@ -621,6 +606,15 @@ declare module angular {
     }
 
     ///////////////////////////////////////////////////////////////////////////
+    // BrowserService
+    // TODO undocumented, so we need to get it from the source code
+    ///////////////////////////////////////////////////////////////////////////
+    interface IBrowserService {
+        defer: angular.ITimeoutService;
+        [key: string]: any;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
     // TimeoutService
     // see http://docs.angularjs.org/api/ng.$timeout
     ///////////////////////////////////////////////////////////////////////////
@@ -637,6 +631,35 @@ declare module angular {
     interface IIntervalService {
         (func: Function, delay: number, count?: number, invokeApply?: boolean, ...args: any[]): IPromise<any>;
         cancel(promise: IPromise<any>): boolean;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // AnimateProvider
+    // see http://docs.angularjs.org/api/ng/provider/$animateProvider
+    ///////////////////////////////////////////////////////////////////////////
+    interface IAnimateProvider {
+        /**
+         * Registers a new injectable animation factory function.
+         *
+         * @param name The name of the animation.
+         * @param factory The factory function that will be executed to return the animation object.
+         */
+        register(name: string, factory: () => IAnimateCallbackObject): void;
+
+        /**
+         * Gets and/or sets the CSS class expression that is checked when performing an animation.
+         *
+         * @param expression The className expression which will be checked against all animations.
+         * @returns The current CSS className expression value. If null then there is no expression value.
+         */
+        classNameFilter(expression?: RegExp): RegExp;
+    }
+
+    /**
+     * The animation object which contains callback functions for each event that is expected to be animated.
+     */
+    interface IAnimateCallbackObject {
+        eventFn(element: Node, doneFn: () => void): Function;
     }
 
     /**
@@ -1186,14 +1209,9 @@ declare module angular {
 
     interface ICompileProvider extends IServiceProvider {
         directive(name: string, directiveFactory: Function): ICompileProvider;
-        directive(directivesMap: Object, directiveFactory: Function): ICompileProvider;
-        directive(name: string, inlineAnnotatedFunction: any[]): ICompileProvider;
-        directive(directivesMap: Object, inlineAnnotatedFunction: any[]): ICompileProvider;
 
         // Undocumented, but it is there...
         directive(directivesMap: any): ICompileProvider;
-
-        component(name: string, options: IComponentOptions): ICompileProvider;
 
         aHrefSanitizationWhitelist(): RegExp;
         aHrefSanitizationWhitelist(regexp: RegExp): ICompileProvider;
@@ -1238,15 +1256,6 @@ declare module angular {
         register(name: string, controllerConstructor: Function): void;
         register(name: string, dependencyAnnotatedConstructor: any[]): void;
         allowGlobals(): void;
-    }
-
-    /**
-     * xhrFactory
-     * Replace or decorate this service to create your own custom XMLHttpRequest objects.
-     * see https://docs.angularjs.org/api/ng/service/$xhrFactory
-     */
-    interface IXhrFactory<T> {
-        (method: string, url: string): T;
     }
 
     /**
@@ -1390,18 +1399,8 @@ declare module angular {
     }
 
     interface IHttpPromise<T> extends IPromise<IHttpPromiseCallbackArg<T>> {
-        /**
-         * The $http legacy promise methods success and error have been deprecated. Use the standard then method instead.
-         * If $httpProvider.useLegacyPromiseExtensions is set to false then these methods will throw $http/legacy error.
-         * @deprecated
-         */
-        success?(callback: IHttpPromiseCallback<T>): IHttpPromise<T>;
-        /**
-         * The $http legacy promise methods success and error have been deprecated. Use the standard then method instead.
-         * If $httpProvider.useLegacyPromiseExtensions is set to false then these methods will throw $http/legacy error.
-         * @deprecated
-         */
-        error?(callback: IHttpPromiseCallback<any>): IHttpPromise<T>;
+        success(callback: IHttpPromiseCallback<T>): IHttpPromise<T>;
+        error(callback: IHttpPromiseCallback<any>): IHttpPromise<T>;
     }
 
     // See the jsdoc for transformData() at https://github.com/angular/angular.js/blob/master/src/ng/http.js#L228
@@ -1414,15 +1413,13 @@ declare module angular {
         (data: any, headersGetter: IHttpHeadersGetter, status: number): any;
     }
 
-    type HttpHeaderType = {[requestType: string]:string|((config:IRequestConfig) => string)};
-
     interface IHttpRequestConfigHeaders {
-        [requestType: string]: any;
-        common?: any;
-        get?: any;
-        post?: any;
-        put?: any;
-        patch?: any;
+        [requestType: string]: string|(() => string);
+        common?: string|(() => string);
+        get?: string|(() => string);
+        post?: string|(() => string);
+        put?: string|(() => string);
+        patch?: string|(() => string);
     }
 
     /**
@@ -1482,7 +1479,7 @@ declare module angular {
     interface IHttpInterceptor {
         request?: (config: IRequestConfig) => IRequestConfig|IPromise<IRequestConfig>;
         requestError?: (rejection: any) => any;
-        response?: <T>(response: IHttpPromiseCallbackArg<T>) => IPromise<IHttpPromiseCallbackArg<T>>|IHttpPromiseCallbackArg<T>;
+        response?: <T>(response: IHttpPromiseCallbackArg<T>) => IPromise<T>|T;
         responseError?: (rejection: any) => any;
     }
 
@@ -1688,11 +1685,10 @@ declare module angular {
          * Controller constructor function that should be associated with newly created scope or the name of a registered
          * controller if passed as a string. Empty function by default.
          */
-        controller?: string | Function;
+        controller?: any;
         /**
          * An identifier name for a reference to the controller. If present, the controller will be published to scope under
          * the controllerAs name. If not present, this will default to be the same as the component name.
-         * @default "$ctrl"
          */
         controllerAs?: string;
         /**
@@ -1714,12 +1710,14 @@ declare module angular {
          * Define DOM attribute binding to component properties. Component properties are always bound to the component
          * controller and not to the scope.
          */
-        bindings?: {[binding: string]: string};
+        bindings?: any;
         /**
          * Whether transclusion is enabled. Enabled by default.
          */
-        transclude?: boolean | string | {[slot: string]: string};
-        require?: string | string[] | {[controller: string]: string};
+        transclude?: boolean;
+        require? : Object;
+        $canActivate?: () => boolean;
+        $routeConfig?: RouteDefinition[];
     }
 
     interface IComponentTemplateFn {
@@ -1755,12 +1753,6 @@ declare module angular {
         (
             templateElement: IAugmentedJQuery,
             templateAttributes: IAttributes,
-            /**
-             * @deprecated
-             * Note: The transclude function that is passed to the compile function is deprecated,
-             * as it e.g. does not know about the right outer scope. Please use the transclude function
-             * that is passed to the link function instead.
-             */
             transclude: ITranscludeFunction
         ): IDirectivePrePost;
     }
@@ -1769,29 +1761,19 @@ declare module angular {
         compile?: IDirectiveCompileFn;
         controller?: any;
         controllerAs?: string;
-        /**
-         * @deprecated
-         * Deprecation warning: although bindings for non-ES6 class controllers are currently bound to this before
-         * the controller constructor is called, this use is now deprecated. Please place initialization code that
-         * relies upon bindings inside a $onInit method on the controller, instead.
-         */
-        bindToController?: boolean | Object;
+        bindToController?: boolean|Object;
         link?: IDirectiveLinkFn | IDirectivePrePost;
-        multiElement?: boolean;
         name?: string;
         priority?: number;
-        /**
-         * @deprecated
-         */
         replace?: boolean;
-        require?: string | string[] | {[controller: string]: string};
+        require? : any;
         restrict?: string;
-        scope?: boolean | Object;
+        scope?: any;
         template?: string | Function;
         templateNamespace?: string;
         templateUrl?: string | Function;
         terminal?: boolean;
-        transclude?: boolean | string | {[slot: string]: string};
+        transclude?: any;
     }
 
     /**
@@ -1839,14 +1821,13 @@ declare module angular {
         // see http://docs.angularjs.org/api/AUTO.$injector
         ///////////////////////////////////////////////////////////////////////
         interface IInjectorService {
-            annotate(fn: Function, strictDi?: boolean): string[];
+            annotate(fn: Function): string[];
             annotate(inlineAnnotatedFunction: any[]): string[];
             get<T>(name: string, caller?: string): T;
             has(name: string): boolean;
             instantiate<T>(typeConstructor: Function, locals?: any): T;
             invoke(inlineAnnotatedFunction: any[]): any;
             invoke(func: Function, context?: any, locals?: any): any;
-            strictDi: boolean;
         }
 
         ///////////////////////////////////////////////////////////////////////
