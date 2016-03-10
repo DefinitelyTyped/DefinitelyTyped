@@ -51,6 +51,7 @@ declare module Promise {
 	 * Make a promise that rejects to obj. For consistency and debugging (eg stack traces), obj should be an instanceof Error
 	 */
 	function reject(error: any): Promise<any>;
+	function reject<T>(error: T): Promise<T>;
 
 	/**
 	 * Make a promise that fulfills when every item in the array fulfills, and rejects if (and when) any item rejects.

@@ -456,6 +456,8 @@ declare module jasmine {
         object: any;
         /** All arguments passed to the call */
         args: any[];
+        /** The return value of the call */
+        returnValue: any;
     }
 
     interface Util {

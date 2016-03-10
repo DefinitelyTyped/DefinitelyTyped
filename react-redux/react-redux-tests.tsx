@@ -2,14 +2,14 @@
 /// <reference path="../react/react.d.ts"/>
 /// <reference path="../react/react-dom.d.ts"/>
 /// <reference path="../redux/redux.d.ts" />
-/// <reference path="../react-router/react-router-0.13.3.d.ts" />
+/// <reference path="../history/history.d.ts" />
+/// <reference path="../react-router/react-router.d.ts" />
 /// <reference path="../object-assign/object-assign.d.ts" />
 
 import { Component, ReactElement } from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as Router from 'react-router';
-import { Route, RouterState } from 'react-router';
+import { Router, RouterState } from 'react-router';
 import { Store, Dispatch, bindActionCreators } from 'redux';
 import { connect, Provider } from 'react-redux';
 import objectAssign = require('object-assign');
@@ -77,9 +77,9 @@ ReactDOM.render((
 // API
 // https://github.com/rackt/react-redux/blob/master/docs/api.md
 //
-declare var routes: Route;
 declare var store: Store;
 declare var routerState: RouterState;
+declare var history: HistoryModule.History;
 class MyRootComponent extends Component<any, any> {
 
 }
@@ -109,26 +109,30 @@ ReactDOM.render(
   document.body
 );
 
-Router.run(routes, Router.HistoryLocation, (Handler, routerState) => { // note "routerState" here
-    ReactDOM.render(
-        <Provider store={store}>
-            {/*
-             //TODO: error TS2339: Property 'routerState' does not exist on type 'RouteProp'.
-             {() => <Handler routerState={routerState} />} // note "routerState" here: important to pass it down
-            */}
-        </Provider>,
-        document.getElementById('root')
-    );
-});
+//TODO: for React Router 0.13
+////TODO: error TS2339: Property 'run' does not exist on type 'typeof "react-router"'.
+////TODO: error TS2339: Property 'HistoryLocation' does not exist on type 'typeof "react-router"'.
+//declare var routes: any;
+//Router.run(routes, Router.HistoryLocation, (Handler, routerState) => { // note "routerState" here
+//    ReactDOM.render(
+//        <Provider store={store}>
+//            {/*
+//             //TODO: error TS2339: Property 'routerState' does not exist on type 'RouteProp'.
+//             {() => <Handler routerState={routerState} />} // note "routerState" here: important to pass it down
+//            */}
+//        </Provider>,
+//        document.getElementById('root')
+//    );
+//});
+
 
 //TODO: for React Router 1.0
-//TODO: error TS2604: JSX element type 'Router' does not have any construct or call signatures.
-//ReactDOM.render(
-//    <Provider store={store}>
-//        {() => <Router history={history}>...</Router>}
-//    </Provider>,
-//    targetEl
-//);
+ReactDOM.render(
+    <Provider store={store}>
+        {() => <Router history={history}>...</Router>}
+    </Provider>,
+    targetEl
+);
 
 // Inject just dispatch and don't listen to store
 
@@ -278,3 +282,12 @@ class SomeClass extends Component<any, any> {
 }
 let bar: number = new (connect()(SomeClass))("foo").bar;
 
+
+// stateless functions
+interface HelloMessageProps { name: string; }
+function HelloMessage(props: HelloMessageProps) {
+    return <div>Hello {props.name}</div>;
+}
+let ConnectedHelloMessage = connect()(HelloMessage);
+ReactDOM.render(<HelloMessage name="Sebastian" />, document.getElementById('content'));
+ReactDOM.render(<ConnectedHelloMessage name="Sebastian" />, document.getElementById('content'));
