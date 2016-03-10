@@ -11,7 +11,7 @@ declare var fetch: any;
 
 // create a store that has redux-thunk middleware enabled
 const createStoreWithMiddleware = applyMiddleware(
-    thunk
+    thunk.default
 )(createStore);
 
 const store: Store = createStoreWithMiddleware(rootReducer);
