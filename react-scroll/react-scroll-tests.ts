@@ -1,10 +1,10 @@
 /// <reference path="../react/react.d.ts" />
 /// <reference path="./react-scroll.d.ts" />
 
-import * as React from 'react'
+import { Component } from 'react'
 import { Link, Element, Events, scroller } from 'react-scroll'
 
-class LinkTest extends React.Component<React.Props<{}>, {}> {
+class LinkTest extends Component<any, any> {
 
 	render() {
 		return <div>
@@ -14,7 +14,7 @@ class LinkTest extends React.Component<React.Props<{}>, {}> {
 
 }
 
-class ElementTest extends React.Component<React.Props<{}>, {}> {
+class ElementTest extends Component<any, any> {
 
 	render() {
 		return <div>
