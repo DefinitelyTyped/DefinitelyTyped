@@ -388,6 +388,7 @@ declare module angular {
         $invalid: boolean;
         $submitted: boolean;
         $error: any;
+        $pending: any;
         $addControl(control: INgModelController): void;
         $removeControl(control: INgModelController): void;
         $setValidity(validationErrorKey: string, isValid: boolean, control: INgModelController): void;
