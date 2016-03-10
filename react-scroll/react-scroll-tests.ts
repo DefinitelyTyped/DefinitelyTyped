@@ -6,9 +6,9 @@ import { Component } from 'react'
 import * as ReactDOM from 'react-dom';
 import { Link, Element, Events, scroller } from 'react-scroll'
 
-let link = <Link to="test" spy={true} smooth={true}>Dashboard</Link>;
-let element = <Element name="test" >Test</Element>;
+let link = <Link to="test" />;
+let element = <Element name="test" />;
 
-scroller.scrollTo("test");
+//scroller.scrollTo("test");
 
 
