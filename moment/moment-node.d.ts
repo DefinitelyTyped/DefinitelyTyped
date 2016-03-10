@@ -325,7 +325,7 @@ declare module moment {
         locale(language: string): Moment;
         locale(reset: boolean): Moment;
         locale(): string;
-
+        locales() : string[];
         localeData(language: string): Moment;
         localeData(reset: boolean): Moment;
         localeData(): MomentLanguage;
