@@ -523,18 +523,18 @@ declare module angular {
          * @param name Event name to listen on.
          * @param listener Function to call when the event is emitted.
          */
-        $on(name: string, listener: (event: IAngularEvent, ...args: any[]) => any): Function;
+        $on(name: string, listener: (event: IAngularEvent, ...args: any[]) => any): () => void;
 
-        $watch(watchExpression: string, listener?: string, objectEquality?: boolean): Function;
-        $watch<T>(watchExpression: string, listener?: (newValue: T, oldValue: T, scope: IScope) => any, objectEquality?: boolean): Function;
-        $watch(watchExpression: (scope: IScope) => any, listener?: string, objectEquality?: boolean): Function;
-        $watch<T>(watchExpression: (scope: IScope) => T, listener?: (newValue: T, oldValue: T, scope: IScope) => any, objectEquality?: boolean): Function;
+        $watch(watchExpression: string, listener?: string, objectEquality?: boolean): () => void;
+        $watch<T>(watchExpression: string, listener?: (newValue: T, oldValue: T, scope: IScope) => any, objectEquality?: boolean): () => void;
+        $watch(watchExpression: (scope: IScope) => any, listener?: string, objectEquality?: boolean): () => void;
+        $watch<T>(watchExpression: (scope: IScope) => T, listener?: (newValue: T, oldValue: T, scope: IScope) => any, objectEquality?: boolean): () => void;
 
-        $watchCollection<T>(watchExpression: string, listener: (newValue: T, oldValue: T, scope: IScope) => any): Function;
-        $watchCollection<T>(watchExpression: (scope: IScope) => T, listener: (newValue: T, oldValue: T, scope: IScope) => any): Function;
+        $watchCollection<T>(watchExpression: string, listener: (newValue: T, oldValue: T, scope: IScope) => any): () => void;
+        $watchCollection<T>(watchExpression: (scope: IScope) => T, listener: (newValue: T, oldValue: T, scope: IScope) => any): () => void;
 
-        $watchGroup(watchExpressions: any[], listener: (newValue: any, oldValue: any, scope: IScope) => any): Function;
-        $watchGroup(watchExpressions: { (scope: IScope): any }[], listener: (newValue: any, oldValue: any, scope: IScope) => any): Function;
+        $watchGroup(watchExpressions: any[], listener: (newValue: any, oldValue: any, scope: IScope) => any): () => void;
+        $watchGroup(watchExpressions: { (scope: IScope): any }[], listener: (newValue: any, oldValue: any, scope: IScope) => any): () => void;
 
         $parent: IScope;
         $root: IRootScopeService;
