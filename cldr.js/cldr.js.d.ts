@@ -1,6 +1,6 @@
 // Type definitions for Cldr.js 0.4.4
 // Project: https://github.com/rxaviers/cldrjs
-// Definitions by: Raman But-Husaim <https://github.com/RamanBut-Husaim>
+// Definitions by: Raman But-Husaim <https://github.com/RamanBut-Husaim>, Grégoire Castre <https://github.com/gcastre/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module cldr {
@@ -91,6 +91,19 @@ declare module cldr {
          * Maximized Language Id {@link http://www.unicode.org/reports/tr35/#Likely_Subtags}
          */
         maxLanguageId: any;
+
+        /**
+         * @name minLanguageId
+         * @memberof cldr.Attributes
+         * @kind property
+         * @access public
+         *
+         * @type {any}
+         *
+         * @description
+         * Minimized Language Id {@link http://www.unicode.org/reports/tr35/#Likely_Subtags}
+         */
+        minLanguageId: any;
     }
 
     /**
@@ -229,6 +242,13 @@ declare module cldr {
          * @returns {cldr.CldrStatic} The instance of {@link cldr.CldrStatic} class.
          */
         new (locale: string): CldrStatic;
+
+        /**
+         * Allow user to override locale separator "-" (default) | "_".
+         * According to http://www.unicode.org/reports/tr35/#Unicode_language_identifier, both "-" and "_" are valid locale separators (eg. "en_GB", "en-GB").
+         * According to http://unicode.org/cldr/trac/ticket/6786 its usage must be consistent throughout the data set.
+         */
+        localeSep: "-" | "_";
     }
 }
 
