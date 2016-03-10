@@ -21,7 +21,7 @@ declare module "react-scroll" {
     }
 
     interface scroller {
-        scrollTo(to: any, animate?: any, duration?: any, offset?: any)
+        scrollTo(to: any, animate?: any, duration?: any, offset?: any) : void
     }
 
     const Link: Link;
