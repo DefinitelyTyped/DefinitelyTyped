@@ -3,8 +3,6 @@
 // Definitions by: Daniel Chao <http://dchao.co/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../es6-promise/es6-promise.d.ts"/>
-
 declare module "cross-storage" {
   interface CrossStorageClientOptions {
     timeout?: number;
