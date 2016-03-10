@@ -1,4 +1,4 @@
-/// <reference path="devexpress-aspnet-mvc.d.ts" />
+/// <reference path="devexpress-web.d.ts" />
 
 module Tests.Globals {
     function ASPxTest(): void {
@@ -7,10 +7,10 @@ module Tests.Globals {
 
     function ASPxClientControlTest(): void {
         ASPxClientControl.AdjustControls();
-        let controls: ASPxClientControlCollection = ASPxClientControl.GetControlCollection();
+        let controls: DevExpress.Web.Scripts.ASPxClientControlCollection = ASPxClientControl.GetControlCollection();
         controls.GetByName("myControl");
 
-        let elements: ASPxClientControl[] = controls.elements;
+        let elements: DevExpress.Web.Scripts.ASPxClientControl[] = controls.elements;
         for (let element of elements) {
             let name: string = element.name;
             element.AdjustControl();
@@ -24,7 +24,7 @@ module Tests.Globals {
             element.SetWidth(600);
             element.SetHeight(400);
 
-            let initEventHandler: (s: ASPxClientControl, e: ASPxClientEventArgs) => void = (s: ASPxClientControl, e: ASPxClientEventArgs) => { };
+            let initEventHandler: (s: DevExpress.Web.Scripts.ASPxClientControl, e: DevExpress.Web.Scripts.ASPxClientEventArgs) => void = (s: DevExpress.Web.Scripts.ASPxClientControl, e: DevExpress.Web.Scripts.ASPxClientEventArgs) => { };
             element.Init.AddHandler(initEventHandler);
             element.Init.RemoveHandler(initEventHandler);
             element.Init.ClearHandlers();
@@ -38,12 +38,12 @@ module Tests.Globals {
         let x: number = ASPxClientUtils.GetEventX(htmlEvent);
         let y: number = ASPxClientUtils.GetEventY(htmlEvent);
 
-        let control: ASPxClientControl;
+        let control: DevExpress.Web.Scripts.ASPxClientControl;
         let controlExists: boolean = ASPxClientUtils.IsExists(control);
     }
 
     function MVCxClientGlobalEventsTest(): void {
-        MVCxClientGlobalEvents.AddControlsInitializedEventHandler((s: any, e: ASPxClientControlsInitializedEventArgs) => {});
+        ASPxClientGlobalEvents.AddControlsInitializedEventHandler((s: any, e: DevExpress.Web.Scripts.ASPxClientControlsInitializedEventArgs) => {});
     }
 
     function ASPxClientEditTest(): void {
@@ -61,13 +61,13 @@ module Tests.Globals {
 }
 
 module Tests.Controls {
-    declare var comboBox: ASPxClientComboBox;
+    declare var comboBox: DevExpress.Web.Scripts.ASPxClientComboBox;
 
     function ASPxClientComboBoxTest() {
         let selectedIndex: number = comboBox.GetSelectedIndex();
         comboBox.SetSelectedIndex(1);
 
-        let selectedIndexChangedEventHandler: (s: ASPxClientControl, e: ASPxClientEventArgs) => void = (s: ASPxClientControl, e: ASPxClientEventArgs) => { };
+        let selectedIndexChangedEventHandler: (s: DevExpress.Web.Scripts.ASPxClientControl, e: DevExpress.Web.Scripts.ASPxClientEventArgs) => void = (s: DevExpress.Web.Scripts.ASPxClientControl, e: DevExpress.Web.Scripts.ASPxClientEventArgs) => { };
         comboBox.SelectedIndexChanged.AddHandler(selectedIndexChangedEventHandler);
         comboBox.SelectedIndexChanged.RemoveHandler(selectedIndexChangedEventHandler);
         comboBox.SelectedIndexChanged.ClearHandlers();
