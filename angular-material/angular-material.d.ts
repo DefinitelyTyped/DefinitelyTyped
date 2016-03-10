@@ -126,6 +126,7 @@ declare module angular.material {
         textContent(content: string): T;
         action(action: string): T;
         highlightAction(highlightAction: boolean): T;
+        highlightClass(highlightClass: string): T;
         capsule(capsule: boolean): T;
         theme(theme: string): T;
         hideDelay(delay: number): T;
