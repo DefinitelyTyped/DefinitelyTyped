@@ -1,4 +1,4 @@
-// Type definitions for DevExpress ASP.NET (Classic & MVC) web controls
+// Type definitions for DevExpress ASP.NET (Classic and MVC) web controls
 // Project: https://www.devexpress.com/Products/NET/Controls/ASP/MVC/
 // Definitions by: Sheron Benedict <https://github.com/INullable>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
