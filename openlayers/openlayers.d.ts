@@ -4051,7 +4051,9 @@ declare module ol {
         function transformExtent(extent: Extent, source: ProjectionLike, destination: ProjectionLike): Extent;
 
         class Projection {
-            constructor(options: olx.Projection)
+            constructor(options: olx.Projection);
+            
+            getExtent(): Extent;
         }
     }
 
