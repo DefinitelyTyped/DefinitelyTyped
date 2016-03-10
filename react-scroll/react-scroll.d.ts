@@ -3,6 +3,8 @@
 // Definitions by: Pedro Pereira <https://github.com/oizie>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="../react/react.d.ts" />
+
 declare module "react-scroll" {
     import React = __React
 
