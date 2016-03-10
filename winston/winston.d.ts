@@ -18,20 +18,12 @@ declare module "winston" {
   export var exitOnError: boolean;
   export var level: string;
 
-  export function log(level: string, msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-  export function log(level: string, msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
+  export var log: LogMethod;
 
-  export function debug(msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-  export function debug(msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-
-  export function info(msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-  export function info(msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-
-  export function warn(msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-  export function warn(msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-
-  export function error(msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-  export function error(msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
+  export var debug: LeveledLogMethod;
+  export var info: LeveledLogMethod;
+  export var warn: LeveledLogMethod;
+  export var error: LeveledLogMethod;
 
   export function query(options: QueryOptions, callback?: (err: Error, results: any) => void): any;
   export function query(callback: (err: Error, results: any) => void): any;
@@ -59,20 +51,12 @@ declare module "winston" {
   export interface LoggerInstance extends NodeJS.EventEmitter {
     extend(target: any): LoggerInstance;
 
-    log(level: string, msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-    log(level: string, msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
+    log: LogMethod;
 
-    debug(msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-    debug(msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-
-    info(msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-    info(msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-
-    warn(msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-    warn(msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-
-    error(msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-    error(msg: string, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
+    debug: LeveledLogMethod;
+    info: LeveledLogMethod;
+    warn: LeveledLogMethod;
+    error: LeveledLogMethod;
 
     query(options: QueryOptions, callback?: (err: Error, results: any) => void): any;
     query(callback: (err: Error, results: any) => void): any;
@@ -280,5 +264,21 @@ declare module "winston" {
     logger: LoggerInstance;
     start: Date;
     done: (msg: string) => LoggerInstance;
+  }
+
+  interface LogMethod {
+    (level: string, msg: string, callback: LogCallback): LoggerInstance;
+    (level: string, msg: string, meta: any, callback: LogCallback): LoggerInstance;
+    (level: string, msg: string, ... meta: any[]): LoggerInstance;
+  }
+
+  interface LeveledLogMethod {
+    (msg: string, callback: LogCallback): LoggerInstance;
+    (msg: string, meta: any, callback: LogCallback): LoggerInstance;
+    (msg: string, ... meta: any[]): LoggerInstance;
+  }
+
+  interface LogCallback {
+    (error?: any, level?: string, msg?: string, meta?:any): void;
   }
 }
