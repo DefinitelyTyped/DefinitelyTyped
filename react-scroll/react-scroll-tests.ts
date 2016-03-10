@@ -7,9 +7,11 @@ import { Link, Element, Events, scroller } from 'react-scroll'
 class LinkTest extends Component<any, any> {
 
 	render() {
-		return <div>
+		return (
+		<div>
 	       <Link to="test" spy={true} smooth={true}>Dashboard</Link>
 		</div>
+		);
 	}
 
 }
@@ -17,9 +19,11 @@ class LinkTest extends Component<any, any> {
 class ElementTest extends Component<any, any> {
 
 	render() {
-		return <div>
+		return (
+		<div>
 	       <Element name="test" >Test</Element>
 		</div>
+		);
 	}
 }
 
