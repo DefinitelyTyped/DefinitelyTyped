@@ -8,7 +8,7 @@ class LinkTest extends React.Component<React.Props<{}>, {}> {
 
 	render() {
 		return <div>
-	       <Link to="/">Dashboard</Link>
+	       <Link to="test" spy={true} smooth={true}>Dashboard</Link>
 		</div>
 	}
 
