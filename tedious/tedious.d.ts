@@ -97,6 +97,7 @@ declare module 'tedious' {
 		BitN: TediousType;
 		Char: TediousType;
 		DateN: TediousType;
+		DateTime2: TediousType;
 		DateTime2N: TediousType;
 		DateTime: TediousType;
 		DateTimeN: TediousType;
