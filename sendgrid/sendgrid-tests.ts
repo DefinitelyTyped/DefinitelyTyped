@@ -3,7 +3,6 @@
  */
 
 ///<reference path="../node/node.d.ts" />
-///<reference path="../smtpapi/smtpapi.d.ts" />
 ///<reference path="sendgrid.d.ts" />
 
 import sg = require('sendgrid');

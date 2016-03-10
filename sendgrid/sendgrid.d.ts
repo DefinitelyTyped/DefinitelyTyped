@@ -3,7 +3,7 @@
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../smtpapi/smtpapi.d.ts" />
+/// <reference path="../smtpapi/smtpapi.d.ts" />
 
 declare module Sendgrid {
     //#region Options
@@ -54,7 +54,7 @@ declare module Sendgrid {
         date?: Date;
         headers?: { [key: string]: string };
         files?: FileHandlerOptions[];
-        smtpapi?: Smtpapi;
+        smtpapi?: SmtpApi.Instance;
     }
 
     export class Email {
@@ -70,10 +70,12 @@ declare module Sendgrid {
         date: Date;
         headers: { [key: string]: string };
         files: FileHandler[];
-        smtpapi: any;
+        smtpapi: SmtpApi.Instance;
 
         constructor();
         constructor(options: EmailOptions);
+
+        new(options: EmailOptions): Email;
 
         addTo(address: string): Email;
         addHeader(type: string, value: string): Email;
@@ -170,7 +172,7 @@ declare module Sendgrid {
         version: string;
         api_user: string;
         api_key: string;
-        smtpapi: typeof smtpapi_lib;
+        smtpapi: SmtpApi.Instance;
         options: OptionsExport;
         Email: typeof Email;
 
