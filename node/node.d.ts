@@ -189,13 +189,12 @@ declare module NodeJS {
     export interface ReadableStream extends EventEmitter {
         readable: boolean;
         read(size?: number): string|Buffer;
-        setEncoding(encoding: string): void;
-        pause(): void;
-        resume(): void;
+        setEncoding(encoding: string|void): this;
+        pause(): this;
+        resume(): this;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends WritableStream>(destination?: T): void;
-        unshift(chunk: string): void;
-        unshift(chunk: Buffer): void;
+        unshift(chunk: string|Buffer): void;
         wrap(oldStream: ReadableStream): ReadableStream;
     }
 
