@@ -1,14 +1,14 @@
-/// <reference path="./phantom-1.0.0.d.ts" />
+/// <reference path="./phantom.d.ts" />
 
 import phantom = require("phantom");
 
-phantom.create((ph: phantom.PhantomJS): void => {
-  ph.createPage((page): void => {
-    page.open("http://www.google.com", (status: string): void => {
+phantom.create().then((ph: phantom.PhantomJS): void => {
+  ph.createPage().then((page): void => {
+    page.open("http://www.google.com").then((status: string) => {
       console.log("opened google? ", status);
-      page.evaluate((): string => {
+      return page.evaluate((): string => {
         return document.title;
-      }, (result: string): void => {
+      }).then((result: string): void => {
         console.log('Page title is ' + result);
         ph.exit();
       });
@@ -18,17 +18,17 @@ phantom.create((ph: phantom.PhantomJS): void => {
 
 
 var _ph: phantom.PhantomJS;
-phantom.create("--web-security=no", "--ignore-ssl-errors=yes", { port: 12345 }, (ph) => {
+phantom.create(["--web-security=no", "--ignore-ssl-errors=yes"]).then((ph) => {
   console.log("Phantom Bridge Initiated");
   _ph = ph;
 });
 var _page: phantom.WebPage;
-_ph.createPage((page) => {
+_ph.createPage().then((page) => {
   console.log("Page created!");
   _page = page;
 });
 
-_page.open("http://www.google.com", function (status) {
+_page.open("http://www.google.com").then(function (status) {
   if (status == "success") {
     console.log("Page is open!");
     _page.close();
@@ -42,16 +42,16 @@ _page.evaluate(function() {
 _page.evaluate(function(selector) {
   var text = (<HTMLElement>document.querySelector(selector)).innerText
   console.log(selector + " contains the following text: " + text)
-}, function(result) {}, "title")
+}, "title").then(function(result) {})
 _page.evaluate(function(selector) {
   var text = (<HTMLElement>document.querySelector(selector)).innerText
   return text
-}, function(result) {
+}, "title").then(function(result) {
   console.log("The element contains the following text: " + result)
-}, "title");
+});
 
 
-_page.set('viewportSize', { width: 1920, height: 1080 }, function (result) {
+_page.set('viewportSize', { width: 1920, height: 1080 }).then(function (result) {
   console.log("Viewport set to: " + result.width + "x" + result.height);
 });
 _page.set('onConsoleMessage', function (msg: string) {
@@ -82,7 +82,7 @@ _page.set('settings.viewportSize', {
   width : 1920,
   height : 1080
 });
-_page.open("http://google.co.jp", (status) => {
+_page.open("http://google.co.jp").then((status) => {
   _page.render("/tmp/google-top.jpg", {
     format : 'jpeg',
     quality : '80'
@@ -91,11 +91,11 @@ _page.open("http://google.co.jp", (status) => {
 });
 
 
-phantom.create((ph) => {
+phantom.create().then((ph) => {
   ph.addCookie('cookie_name', 'cookie_value', 'localhost', () => {});
   ph.getCookies((cookies) => {});
 
-  ph.createPage((page) => {
+  ph.createPage().then((page) => {
     page.set('Referer', 'http://google.com');
     page.set('settings.userAgent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.89 Safari/537.1');
 
@@ -117,7 +117,7 @@ phantom.create((ph) => {
       var finishedFunc = (result: any) => {
         ph.exit();
       };
-      page.evaluate<string, {wahtt: number;}, void>(someFunc, finishedFunc, 'div', {wahtt: 111});
+      page.evaluate<string, {wahtt: number;}, void>(someFunc, 'div', {wahtt: 111}).then(finishedFunc);
     });
   });
 
