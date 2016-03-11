@@ -3,8 +3,6 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/semver
 
-declare var semver: SemVerModule.SemVer;
-
 declare module SemVerModule {
     /**
      * Return the parsed version, or null if it's not valid.
@@ -137,6 +135,39 @@ declare module SemVerModule {
         test(version: SemVer): boolean;
     }
 }
+
+interface SemVerStatic {
+    SemVer(version: string, loose?: boolean): SemVerModule.SemVer;
+    Comparator(comp: string, loose?: boolean): SemVerModule.Comparator;
+    Range(range: string, loose?: boolean): SemVerModule.Range;
+    clean(version: string, loose?: boolean): string;
+
+    SEMVER_SPEC_VERSION: string;
+
+    valid(v: string, loose?: boolean): string;
+    inc(v: string, release: string, loose?: boolean): string;
+    major(v: string, loose?: boolean): number;
+    minor(v: string, loose?: boolean): number;
+    patch(v: string, loose?: boolean): number;
+    gt(v1: string, v2: string, loose?: boolean): boolean;
+    gte(v1: string, v2: string, loose?: boolean): boolean;
+    lt(v1: string, v2: string, loose?: boolean): boolean;
+    lte(v1: string, v2: string, loose?: boolean): boolean;
+    eq(v1: string, v2: string, loose?: boolean): boolean;
+    neq(v1: string, v2: string, loose?: boolean): boolean;
+    cmp(v1: string, comparator: any, v2: string, loose?: boolean): boolean;
+    compare(v1: string, v2: string, loose?: boolean): number;
+    rcompare(v1: string, v2: string, loose?: boolean): number;
+    diff(v1: string, v2: string, loose?: boolean): string;
+    validRange(range: string, loose?: boolean): string;
+    satisfies(version: string, range: string, loose?: boolean): boolean;
+    maxSatisfying(versions: string[], range: string, loose?: boolean): string;
+    gtr(version: string, range: string, loose?: boolean): boolean;
+    ltr(version: string, range: string, loose?: boolean): boolean;
+    outside(version: string, range: string, hilo: string, loose?: boolean): boolean;
+}
+
+declare var semver: SemVerStatic;
 
 declare module "semver" {
     export = SemVerModule;

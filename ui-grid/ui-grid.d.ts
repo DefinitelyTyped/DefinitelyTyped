@@ -3024,7 +3024,7 @@ declare module uiGrid {
              * @param {number} numValue Numeric value of the field
              * @param {IGridRow} row Row objet
              */
-            customerTreeAggregationFn?: (aggregation: IGridTreeBaseAggregationObject, fieldValue: any, numValue: number,
+            customTreeAggregationFn?: (aggregation: IGridTreeBaseAggregationObject, fieldValue: any, numValue: number,
                 row: IGridRowOf<TEntity>) => void;
             /**
              * A custom label to use for this aggregation.  If providedm, we don't use native i18n

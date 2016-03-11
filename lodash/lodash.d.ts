@@ -10675,28 +10675,15 @@ declare module _ {
     //_.clone
     interface LoDashStatic {
         /**
-         * Creates a shallow clone of `value`.
+         * Creates a shallow clone of value.
          *
-         * **Note:** This method is loosely based on the
-         * [structured clone algorithm](https://mdn.io/Structured_clone_algorithm)
-         * and supports cloning arrays, array buffers, booleans, date objects, maps,
-         * numbers, `Object` objects, regexes, sets, strings, symbols, and typed
-         * arrays. The own enumerable properties of `arguments` objects are cloned
-         * as plain objects. An empty object is returned for uncloneable values such
-         * as error objects, functions, DOM nodes, and WeakMaps.
+         * Note: This method is loosely based on the structured clone algorithm and supports cloning arrays,
+         * array buffers, booleans, date objects, maps, numbers, Object objects, regexes, sets, strings, symbols,
+         * and typed arrays. The own enumerable properties of arguments objects are cloned as plain objects. An empty
+         * object is returned for uncloneable values such as error objects, functions, DOM nodes, and WeakMaps.
          *
-         * @static
-         * @memberOf _
-         * @category Lang
-         * @param {*} value The value to clone.
-         * @returns {*} Returns the cloned value.
-         * @example
-         *
-         * var objects = [{ 'a': 1 }, { 'b': 2 }];
-         *
-         * var shallow = _.clone(objects);
-         * console.log(shallow[0] === objects[0]);
-         * // => true
+         * @param value The value to clone.
+         * @return Returns the cloned value.
          */
         clone<T>(value: T): T;
     }
@@ -10723,23 +10710,35 @@ declare module _ {
         clone(): T;
     }
 
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.clone
+         */
+        clone(): LoDashExplicitWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+
+        /**
+         * @see _.clone
+         */
+        clone(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.clone
+         */
+        clone(): LoDashExplicitObjectWrapper<T>;
+    }
+
     //_.cloneDeep
     interface LoDashStatic {
         /**
-         * This method is like `_.clone` except that it recursively clones `value`.
+         * This method is like _.clone except that it recursively clones value.
          *
-         * @static
-         * @memberOf _
-         * @category Lang
-         * @param {*} value The value to recursively clone.
-         * @returns {*} Returns the deep cloned value.
-         * @example
-         *
-         * var objects = [{ 'a': 1 }, { 'b': 2 }];
-         *
-         * var deep = _.cloneDeep(objects);
-         * console.log(deep[0] === objects[0]);
-         * // => false
+         * @param value The value to recursively clone.
+         * @return Returns the deep cloned value.
          */
         cloneDeep<T>(value: T): T;
     }
@@ -10765,97 +10764,272 @@ declare module _ {
         cloneDeep(): T;
     }
 
-    //_.cloneWith
-    interface LoDashStatic {
+    interface LoDashExplicitWrapper<T> {
         /**
-         * Creates a shallow clone of `value`.
-         *
-         * **Note:** This method is loosely based on the
-         * [structured clone algorithm](https://mdn.io/Structured_clone_algorithm)
-         * and supports cloning arrays, array buffers, booleans, date objects, maps,
-         * numbers, `Object` objects, regexes, sets, strings, symbols, and typed
-         * arrays. The own enumerable properties of `arguments` objects are cloned
-         * as plain objects. An empty object is returned for uncloneable values such
-         * as error objects, functions, DOM nodes, and WeakMaps.
-         *
-         * @static
-         * @memberOf _
-         * @category Lang
-         * @param {*} value The value to clone.
-         * @returns {*} Returns the cloned value.
-         * @example
-         *
-         * var objects = [{ 'a': 1 }, { 'b': 2 }];
-         *
-         * var shallow = _.clone(objects);
-         * console.log(shallow[0] === objects[0]);
-         * // => true
+         * @see _.cloneDeep
          */
-        clone<T>(
-            value: T,
-            customizer: (value: any) => any): T;
+        cloneDeep(): LoDashExplicitWrapper<T>;
     }
 
-    interface LoDashImplicitWrapper<T> {
+    interface LoDashExplicitArrayWrapper<T> {
         /**
-         * @see _.clone
+         * @see _.cloneDeep
          */
-        clone(customizer: (value: any) => any): T;
+        cloneDeep(): LoDashExplicitArrayWrapper<T>;
     }
 
-    interface LoDashImplicitArrayWrapper<T> {
-
+    interface LoDashExplicitObjectWrapper<T> {
         /**
-         * @see _.clone
+         * @see _.cloneDeep
          */
-        clone(customizer: (value: any) => any): T[];
-    }
-
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.clone
-         */
-        clone(customizer: (value: any) => any): T;
+        cloneDeep(): LoDashExplicitObjectWrapper<T>;
     }
 
     //_.cloneDeepWith
+    interface CloneDeepWithCustomizer<TValue, TResult> {
+        (value: TValue): TResult;
+    }
+
     interface LoDashStatic {
         /**
-         * Creates a deep clone of value. If customizer is provided it’s invoked to produce the cloned values. If
-         * customizer returns undefined cloning is handled by the method instead. The customizer is bound to thisArg
-         * and invoked with up to three argument; (value [, index|key, object]).
-         * Note: This method is loosely based on the structured clone algorithm. The enumerable properties of arguments
-         * objects and objects created by constructors other than Object are cloned to plain Object objects. An empty
-         * object is returned for uncloneable values such as functions, DOM nodes, Maps, Sets, and WeakMaps.
-         * @param value The value to deep clone.
-         * @param customizer The function to customize cloning values.
-         * @param thisArg The this binding of customizer.
+         * This method is like _.cloneWith except that it recursively clones value.
+         *
+         * @param value The value to recursively clone.
+         * @param customizer The function to customize cloning.
          * @return Returns the deep cloned value.
          */
-        cloneDeep<T>(
+        cloneDeepWith<TResult>(
+            value: any,
+            customizer?: CloneDeepWithCustomizer<any, TResult>
+        ): TResult;
+
+        /**
+         * @see _.clonDeepeWith
+         */
+        cloneDeepWith<T, TResult>(
             value: T,
-            customizer: (value: any) => any): T;
+            customizer?: CloneDeepWithCustomizer<T, TResult>
+        ): TResult;
     }
 
     interface LoDashImplicitWrapper<T> {
         /**
-         * @see _.cloneDeep
+         * @see _.cloneDeepWith
          */
-        cloneDeep(customizer: (value: any) => any): T;
+        cloneDeepWith<TResult>(
+            customizer?: CloneDeepWithCustomizer<T, TResult>
+        ): TResult;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
-         * @see _.cloneDeep
+         * @see _.cloneDeepWith
          */
-        cloneDeep(customizer: (value: any) => any): T[];
+        cloneDeepWith<TResult>(
+            customizer?: CloneDeepWithCustomizer<T[], TResult>
+        ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-         * @see _.cloneDeep
+         * @see _.cloneDeepWith
          */
-        cloneDeep(customizer: (value: any) => any): T;
+        cloneDeepWith<TResult>(
+            customizer?: CloneDeepWithCustomizer<T, TResult>
+        ): TResult;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.cloneDeepWith
+         */
+        cloneDeepWith<TResult extends (number|string|boolean)>(
+            customizer?: CloneDeepWithCustomizer<T, TResult>
+        ): LoDashExplicitWrapper<TResult>;
+
+        /**
+         * @see _.cloneDeepWith
+         */
+        cloneDeepWith<TResult>(
+            customizer?: CloneDeepWithCustomizer<T, TResult[]>
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.cloneDeepWith
+         */
+        cloneDeepWith<TResult extends Object>(
+            customizer?: CloneDeepWithCustomizer<T, TResult>
+        ): LoDashExplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.cloneDeepWith
+         */
+        cloneDeepWith<TResult extends (number|string|boolean)>(
+            customizer?: CloneDeepWithCustomizer<T[], TResult>
+        ): LoDashExplicitWrapper<TResult>;
+
+        /**
+         * @see _.cloneDeepWith
+         */
+        cloneDeepWith<TResult>(
+            customizer?: CloneDeepWithCustomizer<T[], TResult[]>
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.cloneDeepWith
+         */
+        cloneDeepWith<TResult extends Object>(
+            customizer?: CloneDeepWithCustomizer<T[], TResult>
+        ): LoDashExplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.cloneDeepWith
+         */
+        cloneDeepWith<TResult extends (number|string|boolean)>(
+            customizer?: CloneDeepWithCustomizer<T, TResult>
+        ): LoDashExplicitWrapper<TResult>;
+
+        /**
+         * @see _.cloneDeepWith
+         */
+        cloneDeepWith<TResult>(
+            customizer?: CloneDeepWithCustomizer<T, TResult[]>
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.cloneDeepWith
+         */
+        cloneDeepWith<TResult extends Object>(
+            customizer?: CloneDeepWithCustomizer<T, TResult>
+        ): LoDashExplicitObjectWrapper<TResult>;
+    }
+
+    //_.cloneWith
+    interface CloneWithCustomizer<TValue, TResult> {
+        (value: TValue): TResult;
+    }
+
+    interface LoDashStatic {
+        /**
+         * This method is like _.clone except that it accepts customizer which is invoked to produce the cloned value.
+         * If customizer returns undefined cloning is handled by the method instead.
+         *
+         * @param value The value to clone.
+         * @param customizer The function to customize cloning.
+         * @return Returns the cloned value.
+         */
+        cloneWith<TResult>(
+            value: any,
+            customizer?: CloneWithCustomizer<any, TResult>
+        ): TResult;
+
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith<T, TResult>(
+            value: T,
+            customizer?: CloneWithCustomizer<T, TResult>
+        ): TResult;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith<TResult>(
+            customizer?: CloneWithCustomizer<T, TResult>
+        ): TResult;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith<TResult>(
+            customizer?: CloneWithCustomizer<T[], TResult>
+        ): TResult;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith<TResult>(
+            customizer?: CloneWithCustomizer<T, TResult>
+        ): TResult;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith<TResult extends (number|string|boolean)>(
+            customizer?: CloneWithCustomizer<T, TResult>
+        ): LoDashExplicitWrapper<TResult>;
+
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith<TResult>(
+            customizer?: CloneWithCustomizer<T, TResult[]>
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith<TResult extends Object>(
+            customizer?: CloneWithCustomizer<T, TResult>
+        ): LoDashExplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith<TResult extends (number|string|boolean)>(
+            customizer?: CloneWithCustomizer<T[], TResult>
+        ): LoDashExplicitWrapper<TResult>;
+
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith<TResult>(
+            customizer?: CloneWithCustomizer<T[], TResult[]>
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith<TResult extends Object>(
+            customizer?: CloneWithCustomizer<T[], TResult>
+        ): LoDashExplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith<TResult extends (number|string|boolean)>(
+            customizer?: CloneWithCustomizer<T, TResult>
+        ): LoDashExplicitWrapper<TResult>;
+
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith<TResult>(
+            customizer?: CloneWithCustomizer<T, TResult[]>
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.cloneWith
+         */
+        cloneWith<TResult extends Object>(
+            customizer?: CloneWithCustomizer<T, TResult>
+        ): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.eq
@@ -11956,6 +12130,31 @@ declare module _ {
          * see _.isSafeInteger
          */
         isSafeInteger(): LoDashExplicitWrapper<boolean>;
+    }
+
+    //_.isSet
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a Set object.
+         *
+         * @param value The value to check.
+         * @returns Returns true if value is correctly classified, else false.
+         */
+        isSet<T>(value?: any): value is Set<T>;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isSet
+         */
+        isSet(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isSet
+         */
+        isSet(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.isString
@@ -18286,4 +18485,5 @@ declare module "lodash" {
 }
 
 // Backward compatibility with --target es5
+interface Set<T> {}
 interface Map<K, V> {}
