@@ -5,7 +5,7 @@
 
 
 /// <reference path="../react/react.d.ts" />
-/// <reference path="./history.d.ts"/>
+/// <reference path="../history/history.d.ts"/>
 
 
 declare namespace ReactRouter {
