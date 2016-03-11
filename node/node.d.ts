@@ -1756,7 +1756,9 @@ declare module "crypto" {
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
     export interface Cipher {
         update(data: Buffer): Buffer;
-        update(data: string, input_encoding?: string, output_encoding?: string): string;
+        update(data: string, input_encoding: "utf8"|"ascii"|"binary"): Buffer;
+        update(data: Buffer, input_encoding: any, output_encoding: "binary"|"base64"|"hex"): string;
+        update(data: string, input_encoding: "utf8"|"ascii"|"binary", output_encoding: "binary"|"base64"|"hex"): string;
         final(): Buffer;
         final(output_encoding: string): string;
         setAutoPadding(auto_padding: boolean): void;
@@ -1766,8 +1768,9 @@ declare module "crypto" {
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
     export interface Decipher {
         update(data: Buffer): Buffer;
-        update(data: string|Buffer, input_encoding?: string, output_encoding?: string): string;
-        update(data: string|Buffer, input_encoding?: string, output_encoding?: string): Buffer;
+        update(data: string, input_encoding: "binary"|"base64"|"hex"): Buffer;
+        update(data: Buffer, input_encoding: any, output_encoding: "utf8"|"ascii"|"binary"): string;
+        update(data: string, input_encoding: "binary"|"base64"|"hex", output_encoding: "utf8"|"ascii"|"binary"): string;
         final(): Buffer;
         final(output_encoding: string): string;
         setAutoPadding(auto_padding: boolean): void;
