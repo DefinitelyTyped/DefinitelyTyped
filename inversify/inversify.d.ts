@@ -73,7 +73,7 @@ declare namespace inversify {
     export interface IContext {
         kernel: IKernel;
         plan: IPlan;
-        addPlan(plan: IPlan);
+        addPlan(plan: IPlan): void;
     }
 
     export interface IPlan {
