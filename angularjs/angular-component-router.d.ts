@@ -428,4 +428,9 @@ declare module angular {
     interface OnReuse {
         $routerOnReuse(next?: angular.ComponentInstruction, prev?: angular.ComponentInstruction): any;
     }
+    
+    interface IRouterComponentOptions extends IComponentOptions {
+        $canActivate?: () => boolean;
+        $routeConfig?: RouteDefinition[];
+    }
 }
