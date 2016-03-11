@@ -1,4 +1,4 @@
-// Type definitions for draft-js 0.1.0
+// Type definitions for draft-js 0.2.2
 // Project: https://github.com/facebook/draft-js
 // Definitions by: Pavel Evsegneev <https://github.com/Ahineya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -144,7 +144,8 @@ declare module "draft-js" {
         interface BlockMap {
             get(key: string): ContentBlock,
             set(key: string, value: any): BlockMap,
-            delete(key: string): BlockMap
+            delete(key: string): BlockMap,
+            find(cb: any): ContentBlock
         }
 
         interface Modifier {
@@ -232,7 +233,10 @@ declare module "draft-js" {
             onUpArrow?: (e: any) => void,
             onDownArrow?: (e: any) => void,
 
-            suppressContentEditableWarning?: any
+            suppressContentEditableWarning?: any,
+
+            onBlur?: (e: any) => void,
+            onFocus?: (e: any) => void
         }
 
         interface Editor {
@@ -262,7 +266,9 @@ declare module "draft-js" {
         var RichUtils: RichUtils;
 
         function convertFromRaw(rawState: any): Array<ContentBlock>;
+
         function convertToRaw(contentState: ContentState): any;
+
         function genKey(): string
     }
 
