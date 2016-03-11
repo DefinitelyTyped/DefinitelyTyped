@@ -19,7 +19,7 @@ module external_module_test {
     }
 
     interface IShuriken {
-        throw();
+        throw(): string;
     }
 
     class Katana implements IKatana {
