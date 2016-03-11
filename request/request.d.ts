@@ -11,6 +11,7 @@
 declare module 'request' {
 	import stream = require('stream');
 	import http = require('http');
+	import https = require('https');
 	import FormData = require('form-data');
 	import url = require('url');
 	import fs = require('fs');
