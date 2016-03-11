@@ -1542,6 +1542,10 @@ declare module Electron {
 		 */
 		getCurrentWindow(): BrowserWindow;
 		/**
+		 * @returns The WebContents object of this web page.
+		 */
+		getCurrentWebContents(): WebContents;
+		/**
 		 * @returns The global variable of name (e.g. global[name]) in the main process.
 		 */
 		getGlobal(name: string): any;
