@@ -70,7 +70,7 @@ interface MomentTimezone {
     }): void;
 
     names(): string[];
-    guess(): MomentZone;
+    guess(): string;
 
     setDefault(timezone: string): void;
 }
