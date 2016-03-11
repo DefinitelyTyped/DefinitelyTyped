@@ -38,6 +38,8 @@ remote.getCurrentWindow().capturePage(buf => {
 	});
 });
 
+remote.getCurrentWebContents().print();
+
 remote.getCurrentWindow().capturePage(buf => {
 	remote.require('fs').writeFile('/tmp/screenshot.png', buf, (err: Error) => {
 		console.log(err);
