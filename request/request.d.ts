@@ -86,7 +86,7 @@ declare module 'request' {
 			qs?: any;
 			json?: any;
 			multipart?: RequestPart[] | Multipart;
-            agent?: http.Agent;
+			agent?: http.Agent | https.Agent;
 			agentOptions?: any;
 			agentClass?: any;
 			forever?: any;
