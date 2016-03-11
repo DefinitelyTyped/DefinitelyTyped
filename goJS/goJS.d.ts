@@ -1509,7 +1509,7 @@ declare module go {
         *        the default predicate checks whether the argument is a string
         * @return {*}
         */
-        static takeBuilderArgument(args: Array<any>, defval?: any, pred?: (any) => boolean): any;
+        static takeBuilderArgument(args: Array<any>, defval?: any, pred?: (arg: any) => boolean): any;
 
         /**
         * Returns the effective angle that the object is drawn at, in document coordinates.
