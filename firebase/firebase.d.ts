@@ -109,6 +109,7 @@ interface FirebaseQuery {
 	 */
 	once(eventType: string, successCallback: (dataSnapshot: FirebaseDataSnapshot) => void, context?: Object): void;
 	once(eventType: string, successCallback: (dataSnapshot: FirebaseDataSnapshot) => void, failureCallback?: (error: any) => void, context?: Object): void;
+	once(eventType: string): Promise<FirebaseDataSnapshot>
 	/**
 	 * Generates a new Query object ordered by the specified child key.
 	 */
