@@ -1187,3 +1187,13 @@ declare var LokiConstructor: {
 declare module "lokijs" {
     export = LokiConstructor;
 }
+
+
+declare var LokiIndexedAdapterConstructor: {
+    new (filename: string): LokiIndexedAdapter;
+};
+
+
+declare module "loki-indexed-adapter" {
+    export = LokiIndexedAdapterConstructor;
+}
