@@ -29,7 +29,7 @@ declare interface IXDomain {
    * Requests that do not match both the origin and the path regular expressions will be blocked.
    * @param masterObj
    */
-  masters(masterObj: Object): void;
+  masters (masterObj: Object): void;
   origin: string;
   /**
    * When true, XDomain will log actions to console
@@ -41,7 +41,7 @@ declare interface IXDomain {
    * @param event
    * @param handler
    */
-  on(event: "log"|"warn"|"timeout", handler: (message?: string) => any): void;
+  on (event: "log"|"warn"|"timeout", handler: (message?: string) => any): void;
   cookies: XDomainCookies;
 }
 
