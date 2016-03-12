@@ -5395,6 +5395,9 @@ declare module "sequelize" {
         }
 
         interface QueryOptionsTransactionRequired { }
+        interface ModelsHashInterface {
+            [name: string]: Model<any, any>;
+        }
 
         /**
          * This is the main class, the entry point to sequelize. To use it, you just need to
@@ -5414,6 +5417,11 @@ declare module "sequelize" {
              * A reference to Sequelize constructor from sequelize. Useful for accessing DataTypes, Errors etc.
              */
             Sequelize: SequelizeStatic;
+
+            /**
+             * Defined models.
+             */
+            models: ModelsHashInterface;
 
             /**
              * Returns the specified dialect.
