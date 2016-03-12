@@ -1698,8 +1698,9 @@ declare module angular {
         /**
          * Controller constructor function that should be associated with newly created scope or the name of a registered
          * controller if passed as a string. Empty function by default.
+         * Use the array form to define dependencies (necessary if strictDi is enabled and you require dependency injection)
          */
-        controller?: string | Function;
+        controller?: string | Function | any[];
         /**
          * An identifier name for a reference to the controller. If present, the controller will be published to scope under
          * the controllerAs name. If not present, this will default to be the same as the component name.
@@ -1712,15 +1713,17 @@ declare module angular {
          * If template is a function, then it is injected with the following locals:
          * $element - Current element
          * $attrs - Current attributes object for the element
+         * Use the array form to define dependencies (necessary if strictDi is enabled and you require dependency injection)
          */
-        template?: string | Function;
+        template?: string | Function | any[];
         /**
          * path or function that returns a path to an html template that should be used as the contents of this component.
          * If templateUrl is a function, then it is injected with the following locals:
          * $element - Current element
          * $attrs - Current attributes object for the element
+         * Use the array form to define dependencies (necessary if strictDi is enabled and you require dependency injection)
          */
-        templateUrl?: string | Function;
+        templateUrl?: string | Function | any[];
         /**
          * Define DOM attribute binding to component properties. Component properties are always bound to the component
          * controller and not to the scope.
