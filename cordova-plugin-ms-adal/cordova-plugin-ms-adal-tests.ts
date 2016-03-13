@@ -15,7 +15,7 @@ function test_cordova_plugin_ms_adal() {
 
             context.tokenCache.readItems().then((cacheItems) => {
                 if (cacheItems.length >= 1) {
-                    var testUserId;
+                    var testUserId: string;
                     testUserId = cacheItems[0].userInfo.userId;
 
                     context.acquireTokenSilentAsync(testConfiguration.resourceUrl, testConfiguration.clientId, testUserId).then((authResult) => {

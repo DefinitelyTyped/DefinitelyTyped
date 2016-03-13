@@ -35,11 +35,11 @@ declare namespace Microsoft {
         }
 
         interface IPromise {
-            then(doneCallBack: () => void, failCallBack?: (message: string) => void);
+            then(doneCallBack: () => any, failCallBack?: (message: string) => any):any;
         }
 
         interface IPromiseTokenCacheItems {
-            then(doneCallBack: (tokenCacheItems: ITokenCacheItem[]) => void, failCallBack?: (message: string) => void);
+            then(doneCallBack: (tokenCacheItems: ITokenCacheItem[]) => any, failCallBack?: (message: string) => any):any;
         }
 
         class TokenCache implements ITokenCache {
@@ -101,7 +101,7 @@ declare namespace Microsoft {
         }
 
         interface IPromiseAuthenticationResult {
-            then(doneCallBack: (context: IAuthenticationResult) => void, failCallBack?: (message: string) => void);
+            then(doneCallBack: (context: IAuthenticationResult) => any, failCallBack?: (message: string) => any):any;
         }
 
         interface IAuthenticationContext {
@@ -142,7 +142,7 @@ declare namespace Microsoft {
         }
 
         interface IPromiseAuthenticationContext {
-            then(doneCallBack: (context: IAuthenticationContext) => void, failCallBack?: (message: string) => void);
+            then(doneCallBack: (context: IAuthenticationContext) => any, failCallBack?: (message: string) => any):any;
         }
 
         class AuthenticationContext implements IAuthenticationContext {
