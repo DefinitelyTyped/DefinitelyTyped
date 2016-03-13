@@ -804,17 +804,17 @@ declare module chrome.serial {
     export var onReceive: OnReceiveEvent;
     export var onReceiveError: OnReceiveErrorEvent;
 
-    export function getDevices(callback: (ports: Port[])=>void);
-    export function connect(path: string, options: ConnectionOptions, callback: (info: ConnectionInfo)=>void);
-    export function update(connectionId: number, options: ConnectionOptions, callback: (result: boolean)=>void);
-    export function disconnect(connectionId: number, callback: (result: boolean)=>void);
-    export function setPaused(connectionId: number, paused: boolean, callback: ()=>void);
-    export function getInfo(connectionId: number, callback: (info: ConnectionInfo)=>void);
-    export function getConnections(callback: (connections: ConnectionInfo[])=>void);
-    export function send(connectionId: number, data: ArrayBuffer, callback: (result: SendResult)=>void);
-    export function flush(connectionId: number, callback: (result: boolean)=>void);
-    export function getControlSignals(connectionId: number, callback: (signals: ControlSignals)=>void);
-    export function setControlSignals(connectionId: number, signals: SetSignals, callback: (result: boolean)=>void);
-    export function setBreak(connectionId: number, callback: (result: boolean)=>void);
-    export function clearBreak(connectionId: number, callback: (result: boolean)=>void);
+    export function getDevices(callback: (ports: Port[])=>void): void;
+    export function connect(path: string, options: ConnectionOptions, callback: (info: ConnectionInfo)=>void): void;
+    export function update(connectionId: number, options: ConnectionOptions, callback: (result: boolean)=>void): void;
+    export function disconnect(connectionId: number, callback: (result: boolean)=>void): void;
+    export function setPaused(connectionId: number, paused: boolean, callback: ()=>void): void;
+    export function getInfo(connectionId: number, callback: (info: ConnectionInfo)=>void): void;
+    export function getConnections(callback: (connections: ConnectionInfo[])=>void): void;
+    export function send(connectionId: number, data: ArrayBuffer, callback: (result: SendResult)=>void): void;
+    export function flush(connectionId: number, callback: (result: boolean)=>void): void;
+    export function getControlSignals(connectionId: number, callback: (signals: ControlSignals)=>void): void;
+    export function setControlSignals(connectionId: number, signals: SetSignals, callback: (result: boolean)=>void): void;
+    export function setBreak(connectionId: number, callback: (result: boolean)=>void): void;
+    export function clearBreak(connectionId: number, callback: (result: boolean)=>void): void;
 }
