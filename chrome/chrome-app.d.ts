@@ -706,3 +706,115 @@ declare module chrome.usb {
 	export function isochronousTransfer(handle: ConnectionHandle, transferInfo: { transferInfo: GenericTransferInfo, packets: number, packetLength: number }, callback: (info: TransferResultInfo) => void): void;
 	export function resetDevice(handle: ConnectionHandle, callback: (success: boolean) => void): void;
 }
+////////////////////
+// Serial Port
+////////////////////
+declare module chrome.serial {
+
+    enum DataBits {
+        "seven",
+        "eight"
+    }
+    enum ParityBit {
+        "no",
+        "even",
+        "odd"
+    }
+    enum StopBits {
+        "one",
+        "two"
+    }
+    enum ReceiveErrorType {
+        "disconnected",
+        "timeout",
+        "device_lost",
+        "break",
+        "frame_error",
+        "overrun",
+        "buffer_overflow",
+        "parity_error",
+        "system_error",
+    }
+
+    interface ConnectionOptions {
+        persistent?: boolean;
+        name?: string;
+        bufferSize?: number;
+        bitrate?: number;
+        dataBits?: DataBits;
+        parityBit?: ParityBit;
+        stopBits?: StopBits;
+        ctsFlowControl?: boolean;
+        receiveTimeout?: number;
+        sendTimeout?: number;
+    }
+
+    interface ConnectionInfo {
+        connectionId: number;
+        paused: boolean;
+        persistent: boolean;
+        name: string;
+        bufferSize: number;
+        receiveTimeout: number;
+        sendTimeout: number;
+        bitrate?: number;
+        dataBits?: DataBits;
+        parityBit?: ParityBit;
+        stopBits?: StopBits;
+        ctsFlowControl?: boolean;
+    }
+
+    interface Port {
+        path: string;
+        vendorId?: number;
+        productId?: number;
+        displayName?: string;
+    }
+
+    interface SendResult {
+        bytesSent: number;
+        error?: "disconnected" | "pending" | "timeout" | "system_error";
+    }
+
+    interface ControlSignals {
+        dcd: boolean;
+        cts: boolean;
+        ri: boolean;
+        dsr: boolean;
+    }
+
+    interface SetSignals {
+        dtr?: boolean;
+        rts?: boolean;
+    }
+
+    interface ReceiveInfo {
+        connectionId: number;
+        data: ArrayBuffer;
+    }
+
+    interface ReceiveError {
+        connectionId: number;
+        error: ReceiveErrorType;
+    }
+
+    interface OnReceiveEvent extends chrome.events.Event<(info: ReceiveInfo)=> void> {}
+    interface OnReceiveErrorEvent extends chrome.events.Event<(info: ReceiveError)=> void> {}
+
+    export var onReceive: OnReceiveEvent;
+    export var onReceiveError: OnReceiveErrorEvent;
+
+    export function getDevices(callback: (ports: Port[])=>void);
+    export function connect(path: string, options: ConnectionOptions, callback: (info: ConnectionInfo)=>void);
+    export function update(connectionId: number, options: ConnectionOptions, callback: (result: boolean)=>void);
+    export function disconnect(connectionId: number, callback: (result: boolean)=>void);
+    export function setPaused(connectionId: number, paused: boolean, callback: ()=>void);
+    export function getInfo(connectionId: number, callback: (info: ConnectionInfo)=>void);
+    export function getConnections(callback: (connections: ConnectionInfo[])=>void);
+    export function send(connectionId: number, data: ArrayBuffer, callback: (result: SendResult)=>void);
+    export function flush(connectionId: number, callback: (result: boolean)=>void);
+    export function getControlSignals(connectionId: number, callback: (signals: ControlSignals)=>void);
+    export function setControlSignals(connectionId: number, signals: SetSignals, callback: (result: boolean)=>void);
+    export function setBreak(connectionId: number, callback: (result: boolean)=>void);
+    export function clearBreak(connectionId: number, callback: (result: boolean)=>void);
+}
