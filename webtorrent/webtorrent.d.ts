@@ -28,8 +28,8 @@ declare module WebTorrent {
   }
   
   export interface Client extends NodeJS.EventEmitter, ClientConstructor {
-    on(event: string, listener: Function): NodeJS.EventEmitter;
-    
+    on(event: string, listener: Function): this;
+
     /**
      * Start downloading a new torrent. Aliased as client.download.
 
@@ -50,16 +50,16 @@ declare module WebTorrent {
     add(magnetUriOrPathOrInfoHash:string, opts?:TorrentOptions, onTorrentCallback?:(torrent:Torrent)=>void):Torrent;
     add(torrentFileOrInfoHash:Buffer, opts?:TorrentOptions, onTorrentCallback?:(torrent:Torrent)=>void):Torrent;
     add(parsedTorrent:ParseTorrent.ParsedTorrent, opts?:TorrentOptions, onTorrentCallback?:(torrent:Torrent)=>void):Torrent;
-    
+
     add(magnetUriOrPathOrInfoHash:string, onTorrentCallback?:(torrent:Torrent)=>void):Torrent;
     add(torrentFileOrInfoHash:Buffer, onTorrentCallback?:(torrent:Torrent)=>void):Torrent;
     add(parsedTorrent:ParseTorrent.ParsedTorrent, onTorrentCallback?:(torrent:Torrent)=>void):Torrent;
-    
+
     /**
      * Emitted when a torrent is ready to be used (i.e. metadata is available and store is ready). See the torrent section for more info on what methods a torrent has.
      */
-    on(event:'torrent', callback:(torrent:Torrent)=>void): NodeJS.EventEmitter;
-    
+    on(event:'torrent', callback:(torrent:Torrent)=>void): this;
+
     /**
      * Start seeding a new torrent.
 
@@ -117,8 +117,8 @@ declare module WebTorrent {
   }
   
   export interface Torrent extends NodeJS.EventEmitter {
-    on(event: string, listener: Function): NodeJS.EventEmitter;
-    
+    on(event: string, listener: Function): this;
+
     /**
      * Get the info hash of the torrent.
      */
@@ -228,22 +228,22 @@ declare module WebTorrent {
     /**
      * Emitted when all the torrent's files have been downloaded.
      */
-    on(event: 'done', callback:()=>void): NodeJS.EventEmitter;
-    
+    on(event: 'done', callback:()=>void): this;
+
     /**
      * Emitted every time a new chunk of data arrives, it's useful for reporting the current torrent status.
      */
-    on(event: 'download', callback:(chunkSize:number)=>void): NodeJS.EventEmitter;
-    
+    on(event: 'download', callback:(chunkSize:number)=>void): this;
+
     /**
      * Emitted whenever a new peer is connected for this torrent. wire is an instance of bittorrent-protocol, which is a node.js-style duplex stream to the remote peer. This event can be used to specify custom BitTorrent protocol extensions.
      */
-    on(event: 'wire', callback:(wire:any)=>void): NodeJS.EventEmitter;
+    on(event: 'wire', callback:(wire:any)=>void): this;
   }
   
   export interface InTorrentFile extends NodeJS.EventEmitter {
-    on(event: string, listener: Function): NodeJS.EventEmitter;
-    
+    on(event: string, listener: Function): this;
+
     /**
      * File name, as specified by the torrent. Example: 'some-filename.txt'
      */
@@ -330,7 +330,7 @@ declare module WebTorrent {
     /**
      * Emitted when the file have been downloaded.
      */
-    on(event: 'done', callback:()=>void): NodeJS.EventEmitter;
+    on(event: 'done', callback:()=>void): this;
   }
 }
 

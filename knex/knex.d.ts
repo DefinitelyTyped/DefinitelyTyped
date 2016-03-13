@@ -337,6 +337,8 @@ declare module "knex" {
       primary(columnNames: string[]) : TableBuilder;
       index(columnNames: string[], indexName?: string, indexType?: string) : TableBuilder;
       unique(columnNames: string[], indexName?: string) : TableBuilder;
+      foreign(column: string): ForeignConstraintBuilder;
+      foreign(columns: string[]): MultikeyForeignConstraintBuilder;
     }
 
     interface CreateTableBuilder extends TableBuilder {
@@ -367,7 +369,15 @@ declare module "knex" {
       nullable(): ColumnBuilder;
       comment(value: string): ColumnBuilder;
     }
-
+    
+    interface ForeignConstraintBuilder {
+        references(columnName: string): ReferencingColumnBuilder;
+    }
+    
+    interface MultikeyForeignConstraintBuilder {
+        references(columnNames: string[]): ReferencingColumnBuilder;
+    }
+    
     interface PostgreSqlColumnBuilder extends ColumnBuilder {
       index(indexName?: string, indexType?: string): ColumnBuilder;
     }

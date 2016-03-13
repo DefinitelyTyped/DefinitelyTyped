@@ -149,25 +149,25 @@ declare module Browserify {
      * When a file is resolved for the bundle, the bundle emits a 'file' event with the full file path, the id string passed to require(), and the parent object used by browser-resolve.
      * You could use the file event to implement a file watcher to regenerate bundles when files change.
      */
-    on(event: 'file', listener: (file: string, id: string, parent: any) => any): BrowserifyObject;
+    on(event: 'file', listener: (file: string, id: string, parent: any) => any): this;
     /**
      * When a package.json file is read, this event fires with the contents.
      * The package directory is available at pkg.__dirname.
      */
-    on(event: 'package', listener: (pkg: any) => any): BrowserifyObject;
+    on(event: 'package', listener: (pkg: any) => any): this;
     /**
      * When .bundle() is called, this event fires with the bundle output stream.
      */
-    on(event: 'bundle', listener: (bundle: NodeJS.ReadableStream) => any): BrowserifyObject;
+    on(event: 'bundle', listener: (bundle: NodeJS.ReadableStream) => any): this;
     /**
      * When the .reset() method is called or implicitly called by another call to .bundle(), this event fires.
      */
-    on(event: 'reset', listener: () => any): BrowserifyObject;
+    on(event: 'reset', listener: () => any): this;
     /**
      * When a transform is applied to a file, the 'transform' event fires on the bundle stream with the transform stream tr and the file that the transform is being applied to.
      */
-    on(event: 'transform', listener: (tr: NodeJS.ReadWriteStream, file: string) => any): BrowserifyObject;
-    on(event: string, listener: Function): BrowserifyObject;
+    on(event: 'transform', listener: (tr: NodeJS.ReadWriteStream, file: string) => any): this;
+    on(event: string, listener: Function): this;
 
     /**
      * Set to any until substack/labeled-stream-splicer is defined

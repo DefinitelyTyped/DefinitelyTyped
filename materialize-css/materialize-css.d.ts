@@ -428,8 +428,10 @@ interface JQuery {
     
     /**
      * Open a modal programatically
+     * 
+     * @name options the lean modal options 
      */
-    openModal(): void;
+    openModal(options?: Materialize.LeanModalOptions): void;
     
     /**
      * Close a modal programatically

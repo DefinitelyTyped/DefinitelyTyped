@@ -62,6 +62,10 @@ angular.module('http-auth-interceptor', [])
  */
     .config(['$httpProvider', 'authServiceProvider', <any>function ($httpProvider: ng.IHttpProvider, authServiceProvider: any) {
 
+        $httpProvider.defaults.headers.common = {'Authorization': 'Bearer token'};
+        $httpProvider.defaults.headers.get['Authorization'] = 'Bearer token';
+        $httpProvider.defaults.headers.post['Authorization'] = function (config:ng.IRequestConfig):string { return 'Bearer token'; }
+
         var interceptor = ['$rootScope', '$q', <any>function ($rootScope: ng.IScope, $q: ng.IQService) {
             function success(response: ng.IHttpPromiseCallbackArg<any>) {
                 return response;
@@ -379,6 +383,15 @@ module TestDeferred {
     }
 }
 
+module TestInjector {
+    let $injector: angular.auto.IInjectorService;
+
+    $injector.strictDi = true;
+
+    $injector.annotate(() => {});
+    $injector.annotate(() => {}, true);
+}
+
 
 // Promise signature tests
 module TestPromise {
@@ -510,6 +523,7 @@ test_IAttributes({
     $normalize: function (classVal){ return "foo" },
     $addClass: function (classVal){},
     $removeClass: function(classVal){},
+    $updateClass: function(newClass, oldClass){},
     $set: function(key, value){},
     $observe: function(name: any, fn: any){
         return fn;
@@ -748,6 +762,7 @@ angular.module('docsTransclusionExample', [])
         };
     });
 
+
 angular.module('docsIsoFnBindExample', [])
     .controller('Controller', ['$scope', '$timeout', function($scope: any, $timeout: any) {
         $scope.name = 'Tobias';
@@ -845,6 +860,30 @@ angular.module('docsTabsExample', [])
             },
             templateUrl: 'my-pane.html'
         };
+    });
+
+angular.module('componentExample', [])
+    .component('counter', {
+        require: ['^ctrl'],
+        bindings: {
+            count: '='
+        },
+        controller: 'CounterCtrl',
+        controllerAs: 'counterCtrl',
+        template: function () {
+            return '';
+        },
+        transclude: {
+            'el': 'target'
+        }
+    })
+    .component('anotherCounter', {
+        controller: function(){},
+        require: {
+            'parent': '^parentCtrl'
+        },
+        template: '',
+        transclude: true
     });
 
 interface copyExampleUser {
@@ -957,7 +996,7 @@ function NgModelControllerTyping() {
     };
 }
 
-var $filter:  angular.IFilterService;
+var $filter: angular.IFilterService;
 
 function testFilter() {
 

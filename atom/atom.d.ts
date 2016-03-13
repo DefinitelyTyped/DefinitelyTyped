@@ -165,7 +165,7 @@ declare module AtomCore {
 	}
 
 	interface ICommandRegistry {
-		add(selector: string, name: string, callback: (event: any) => void): void; // selector:'atom-editor'|'atom-workspace'
+		add(target: string, commandName: Object, callback?: (event: any) => void): any; // selector:'atom-editor'|'atom-workspace'
 		findCommands(params: Object): Object[];
 		dispatch(selector: any, name:string): void;
 	}
@@ -589,6 +589,7 @@ declare module AtomCore {
 		subscriptionCounts: any;
 		subscriptionsByObject: any; /* WeakMap */
 		subscriptions: Emissary.ISubscription[];
+		destroy():void;
 
 		mini: any;
 
@@ -780,6 +781,7 @@ declare module AtomCore {
 		moveCursorToNextWordBoundary():void;
 		moveCursorToBeginningOfNextParagraph():void;
 		moveCursorToBeginningOfPreviousParagraph():void;
+		moveToBottom():void;
 		scrollToCursorPosition(options:any):any;
 		pageUp():void;
 		pageDown():void;

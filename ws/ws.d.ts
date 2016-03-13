@@ -69,21 +69,21 @@ declare module "ws" {
         addEventListener(method: string, listener?: () => void): void;
 
         // Events
-        on(event: 'error', cb: (err: Error) => void): WebSocket;
-        on(event: 'close', cb: (code: number, message: string) => void): WebSocket;
-        on(event: 'message', cb: (data: any, flags: {binary: boolean}) => void): WebSocket;
-        on(event: 'ping', cb: (data: any, flags: {binary: boolean}) => void): WebSocket;
-        on(event: 'pong', cb: (data: any, flags: {binary: boolean}) => void): WebSocket;
-        on(event: 'open', cb: () => void): WebSocket;
-        on(event: string, listener: () => void): WebSocket;
+        on(event: 'error', cb: (err: Error) => void): this;
+        on(event: 'close', cb: (code: number, message: string) => void): this;
+        on(event: 'message', cb: (data: any, flags: {binary: boolean}) => void): this;
+        on(event: 'ping', cb: (data: any, flags: {binary: boolean}) => void): this;
+        on(event: 'pong', cb: (data: any, flags: {binary: boolean}) => void): this;
+        on(event: 'open', cb: () => void): this;
+        on(event: string, listener: () => void): this;
 
-        addListener(event: 'error', cb: (err: Error) => void): WebSocket;
-        addListener(event: 'close', cb: (code: number, message: string) => void): WebSocket;
-        addListener(event: 'message', cb: (data: any, flags: {binary: boolean}) => void): WebSocket;
-        addListener(event: 'ping', cb: (data: any, flags: {binary: boolean}) => void): WebSocket;
-        addListener(event: 'pong', cb: (data: any, flags: {binary: boolean}) => void): WebSocket;
-        addListener(event: 'open', cb: () => void): WebSocket;
-        addListener(event: string, listener: () => void): WebSocket;
+        addListener(event: 'error', cb: (err: Error) => void): this;
+        addListener(event: 'close', cb: (code: number, message: string) => void): this;
+        addListener(event: 'message', cb: (data: any, flags: {binary: boolean}) => void): this;
+        addListener(event: 'ping', cb: (data: any, flags: {binary: boolean}) => void): this;
+        addListener(event: 'pong', cb: (data: any, flags: {binary: boolean}) => void): this;
+        addListener(event: 'open', cb: () => void): this;
+        addListener(event: string, listener: () => void): this;
     }
 
     module WebSocket {
@@ -115,15 +115,15 @@ declare module "ws" {
                           upgradeHead: Buffer, callback: (client: WebSocket) => void): void;
 
             // Events
-            on(event: 'error', cb: (err: Error) => void): Server;
-            on(event: 'headers', cb: (headers: string[]) => void): Server;
-            on(event: 'connection', cb: (client: WebSocket) => void): Server;
-            on(event: string, listener: () => void): Server;
+            on(event: 'error', cb: (err: Error) => void): this;
+            on(event: 'headers', cb: (headers: string[]) => void): this;
+            on(event: 'connection', cb: (client: WebSocket) => void): this;
+            on(event: string, listener: () => void): this;
 
-            addListener(event: 'error', cb: (err: Error) => void): Server;
-            addListener(event: 'headers', cb: (headers: string[]) => void): Server;
-            addListener(event: 'connection', cb: (client: WebSocket) => void): Server;
-            addListener(event: string, listener: () => void): Server;
+            addListener(event: 'error', cb: (err: Error) => void): this;
+            addListener(event: 'headers', cb: (headers: string[]) => void): this;
+            addListener(event: 'connection', cb: (client: WebSocket) => void): this;
+            addListener(event: string, listener: () => void): this;
         }
 
         export function createServer(options?: IServerOptions,

@@ -3,6 +3,10 @@
 // Definitions by: Clark Stevenson <https://github.com/clark-stevenson>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+declare module "p2" {
+    export = p2;
+}
+
 declare module p2 {
 
     export class AABB {

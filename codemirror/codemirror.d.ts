@@ -32,6 +32,11 @@ declare module CodeMirror {
     whenever a new CodeMirror instance is initialized. */
     function defineInitHook(func: Function): void;
 
+    /** Registers a helper value with the given name in the given namespace (type). This is used to define functionality
+    that may be looked up by mode. Will create (if it doesn't already exist) a property on the CodeMirror object for
+    the given type, pointing to an object that maps names to values. I.e. after doing
+    CodeMirror.registerHelper("hint", "foo", myFoo), the value CodeMirror.hint.foo will point to myFoo. */
+    function registerHelper(namespace: string, name: string, helper: any): void;
 
 
     function on(element: any, eventName: string, handler: Function): void;
@@ -145,7 +150,11 @@ declare module CodeMirror {
         /** Attach a new document to the editor. Returns the old document, which is now no longer associated with an editor. */
         swapDoc(doc: CodeMirror.Doc): CodeMirror.Doc;
 
+        /** Get the content of the current editor document. You can pass it an optional argument to specify the string to be used to separate lines (defaults to "\n"). */
+        getValue(seperator?: string): string;
 
+        /** Set the content of the current editor document. */
+        setValue(content: string): void;
 
         /** Sets the gutter marker for the given gutter (identified by its CSS class, see the gutters option) to the given value.
         Value can be either null, to clear the marker, or a DOM element, to set it. The DOM element will be shown in the specified gutter next to the specified line. */
@@ -647,8 +656,8 @@ declare module CodeMirror {
     }
 
     interface PositionConstructor {
-        new (line: number, ch: number): Position;
-        (line: number, ch: number): Position;
+        new (line: number, ch?: number): Position;
+        (line: number, ch?: number): Position;
     }
     
     interface Range{
@@ -807,8 +816,8 @@ declare module CodeMirror {
         /** Optional lint configuration to be used in conjunction with CodeMirror's linter addon. */
         lint?: boolean | LintOptions;
 
-	/** Optional value to be used in conduction with CodeMirror’s placeholder add-on. */
-	placeholder?: string;
+        /** Optional value to be used in conjunction with CodeMirror’s placeholder add-on. */
+        placeholder?: string;
     }
 
     interface TextMarkerOptions {

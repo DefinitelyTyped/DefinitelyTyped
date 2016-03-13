@@ -10,30 +10,32 @@ declare namespace __React {
     // ----------------------------------------------------------------------
 
     type ReactType = string | ComponentClass<any> | StatelessComponent<any>;
+    type Key = string | number;
+    type Ref<T> = string | ((instance: T) => any);
 
     interface ReactElement<P extends Props<any>> {
         type: string | ComponentClass<P> | StatelessComponent<P>;
         props: P;
-        key: string | number;
-        ref: string | ((component: Component<P, any> | Element) => any);
+        key: Key;
+        ref: Ref<Component<P, any> | Element>;
     }
 
     interface ClassicElement<P> extends ReactElement<P> {
         type: ClassicComponentClass<P>;
-        ref: string | ((component: ClassicComponent<P, any>) => any);
+        ref: Ref<ClassicComponent<P, any>>;
     }
 
     interface DOMElement<P extends Props<Element>> extends ReactElement<P> {
         type: string;
-        ref: string | ((element: Element) => any);
+        ref: Ref<Element>;
     }
 
     interface ReactHTMLElement extends DOMElement<HTMLProps<HTMLElement>> {
-        ref: string | ((element: HTMLElement) => any);
+        ref: Ref<HTMLElement>;
     }
 
     interface ReactSVGElement extends DOMElement<SVGProps> {
-        ref: string | ((element: SVGElement) => any);
+        ref: Ref<SVGElement>;
     }
 
     //
@@ -90,17 +92,21 @@ declare namespace __React {
         props?: P,
         ...children: ReactNode[]): ReactElement<P>;
 
-    function cloneElement<P>(
-        element: DOMElement<P>,
-        props?: P,
-        ...children: ReactNode[]): DOMElement<P>;
-    function cloneElement<P>(
+    function cloneElement(
+        element: ReactHTMLElement,
+        props?: HTMLProps<HTMLElement>,
+        ...children: ReactNode[]): ReactHTMLElement;
+    function cloneElement(
+        element: ReactSVGElement,
+        props?: SVGProps,
+        ...children: ReactNode[]): ReactSVGElement;
+    function cloneElement<P extends Q, Q>(
         element: ClassicElement<P>,
-        props?: P,
+        props?: Q,
         ...children: ReactNode[]): ClassicElement<P>;
-    function cloneElement<P>(
+    function cloneElement<P extends Q, Q>(
         element: ReactElement<P>,
-        props?: P,
+        props?: Q,
         ...children: ReactNode[]): ReactElement<P>;
 
     function isValidElement(object: {}): boolean;
@@ -321,8 +327,8 @@ declare namespace __React {
 
     interface Props<T> {
         children?: ReactNode;
-        key?: string | number;
-        ref?: string | ((component: T) => any);
+        key?: Key;
+        ref?: Ref<T>;
     }
 
     interface HTMLProps<T> extends HTMLAttributes, Props<T> {
@@ -427,31 +433,7 @@ declare namespace __React {
     // This interface is not complete. Only properties accepting
     // unitless numbers are listed here (see CSSProperty.js in React)
     interface CSSProperties {
-        boxFlex?: number;
-        boxFlexGroup?: number;
-        columnCount?: number;
-        flex?: number | string;
-        flexGrow?: number;
-        flexShrink?: number;
-        fontWeight?: number | string;
-        lineClamp?: number;
-        lineHeight?: number | string;
-        opacity?: number;
-        order?: number;
-        orphans?: number;
-        widows?: number;
-        zIndex?: number;
-        zoom?: number;
 
-        fontSize?: number | string;
-
-        // SVG-related properties
-        fillOpacity?: number;
-        strokeOpacity?: number;
-        strokeWidth?: number;
-
-        // Remaining properties auto-extracted from http://docs.webplatform.org.
-        // License: http://docs.webplatform.org/wiki/Template:CC-by-3.0
         /**
          * Aligns a flex container's lines within the flex container when there is extra space in the cross-axis, similar to how justify-content aligns individual items within the main-axis.
          */
@@ -510,11 +492,29 @@ declare namespace __React {
         backfaceVisibility?: any;
 
         /**
+         * Shorthand property to set the values for one or more of:
+         * background-clip, background-color, background-image,
+         * background-origin, background-position, background-repeat,
+         * background-size, and background-attachment.
+         */
+        background?: any;
+
+        /**
+         * If a background-image is specified, this property determines
+         * whether that image's position is fixed within the viewport,
+         * or scrolls along with its containing block.
+         */
+        backgroundAttachment?: "scroll" | "fixed" | "local";
+
+        /**
          * This property describes how the element's background images should blend with each other and the element's background color.
          * The value is a list of blend modes that corresponds to each background image. Each element in the list will apply to the corresponding element of background-image. If a property doesn’t have enough comma-separated values to match the number of layers, the UA must calculate its used value by repeating the list of values until there are enough.
          */
         backgroundBlendMode?: any;
 
+        /**
+         * Sets the background color of an element.
+         */
         backgroundColor?: any;
 
         backgroundComposite?: any;
@@ -530,9 +530,9 @@ declare namespace __React {
         backgroundOrigin?: any;
 
         /**
-         * Sets the horizontal position of a background image.
+         * Sets the position of a background image.
          */
-        backgroundPositionX?: any;
+        backgroundPosition?: any;
 
         /**
          * Background-repeat defines if and how background images will be repeated after they have been sized and positioned
@@ -555,6 +555,17 @@ declare namespace __React {
         border?: any;
 
         /**
+         * Shorthand that sets the values of border-bottom-color,
+         * border-bottom-style, and border-bottom-width.
+         */
+        borderBottom?: any;
+
+        /**
+         * Sets the color of the bottom border of an element.
+         */
+        borderBottomColor?: any;
+
+        /**
          * Defines the shape of the border of the bottom-left corner.
          */
         borderBottomLeftRadius?: any;
@@ -563,6 +574,11 @@ declare namespace __React {
          * Defines the shape of the border of the bottom-right corner.
          */
         borderBottomRightRadius?: any;
+
+        /**
+         * Sets the line style of the bottom border of a box.
+         */
+        borderBottomStyle?: any;
 
         /**
          * Sets the width of an element's bottom border. To set all four borders, use the border-width shorthand property which sets the values simultaneously for border-top-width, border-right-width, border-bottom-width, and border-left-width.
@@ -725,6 +741,16 @@ declare namespace __React {
         boxOrdinalGroup?: any;
 
         /**
+         * Deprecated.
+         */
+        boxFlex?: number;
+
+        /**
+         * Deprecated.
+         */
+        boxFlexGroup?: number;
+
+        /**
          * The CSS break-after property allows you to force a break on multi-column layouts. More specifically, it allows you to force a break after an element. It allows you to determine if a break should occur, and what type of break it should be. The break-after CSS property describes how the page, column or region break behaves after the generated box. If there is no generated box, the property is ignored.
          */
         breakAfter?: any;
@@ -759,6 +785,11 @@ declare namespace __React {
          * The color property sets the color of an element's foreground content (usually text), accepting any standard CSS color from keywords and hex values to RGB(a) and HSL(a).
          */
         color?: any;
+
+        /**
+         * Describes the number of columns of the element.
+         */
+        columnCount?: number;
 
         /**
          * Specifies how to fill columns (balanced or sequential).
@@ -821,6 +852,11 @@ declare namespace __React {
         cueAfter?: any;
 
         /**
+         * Specifies the mouse cursor displayed when the mouse pointer is over an element.
+         */
+        cursor?: any;
+
+        /**
          * The direction CSS property specifies the text direction/writing direction. The rtl is used for Hebrew or Arabic text, the ltr is for other languages.
          */
         direction?: any;
@@ -836,6 +872,11 @@ declare namespace __React {
         fill?: any;
 
         /**
+         * SVG: Specifies the opacity of the color or the content the current object is filled with.
+         */
+        fillOpacity?: number;
+
+        /**
          * The ‘fill-rule’ property indicates the algorithm which is to be used to determine what parts of the canvas are included inside the shape. For a simple, non-intersecting path, it is intuitively clear what region lies "inside"; however, for a more complex path, such as a path that intersects itself or where one subpath encloses another, the interpretation of "inside" is not so obvious.
          * The ‘fill-rule’ property provides two options for how the inside of a shape is determined:
          */
@@ -845,6 +886,11 @@ declare namespace __React {
          * Applies various image processing effects. This property is largely unsupported. See Compatibility section for more information.
          */
         filter?: any;
+
+        /**
+         * Shorthand for `flex-grow`, `flex-shrink`, and `flex-basis`.
+         */
+        flex?: number | string;
 
         /**
          * Obsolete, do not use. This property has been renamed to align-items.
@@ -868,6 +914,11 @@ declare namespace __React {
         flexFlow?: any;
 
         /**
+         * Specifies the flex grow factor of a flex item.
+         */
+        flexGrow?: number;
+
+        /**
          * Do not use. This property has been renamed to align-self
          * Specifies the alignment (perpendicular to the layout axis defined by flex-direction) of child elements of the object.
          */
@@ -883,6 +934,11 @@ declare namespace __React {
          * Gets or sets a value that specifies the ordinal group that a flexbox element belongs to. This ordinal value identifies the display order for the group.
          */
         flexOrder?: any;
+
+        /**
+         * Specifies the flex shrink factor of a flex item.
+         */
+        flexShrink?: number;
 
         /**
          * Elements which have the style float are floated horizontally. These elements can move as far to the left or right of the containing element. All elements after the floating element will flow around it, but elements before the floating element are not impacted. If several floating elements are placed after each other, they will float next to each other as long as there is room.
@@ -908,6 +964,11 @@ declare namespace __React {
          * The font-kerning property allows contextual adjustment of inter-glyph spacing, i.e. the spaces between the characters in text. This property controls <bold>metric kerning</bold> - that utilizes adjustment data contained in the font. Optical Kerning is not supported as yet.
          */
         fontKerning?: any;
+
+        /**
+         * Specifies the size of the font. Used to compute em and ex units.
+         */
+        fontSize?: number | string;
 
         /**
          * The font-size-adjust property adjusts the font-size of the fallback fonts defined with font-family, so that the x-height is the same no matter what font is used. This preserves the readability of the text when fallback happens.
@@ -938,6 +999,11 @@ declare namespace __React {
          * Fonts can provide alternate glyphs in addition to default glyph for a character. This property provides control over the selection of these alternate glyphs.
          */
         fontVariantAlternates?: any;
+
+        /**
+         * Specifies the weight or boldness of the font.
+         */
+        fontWeight?: "normal" | "bold" | "lighter" | "bolder" | number;
 
         /**
          * Lays out one or more grid items bound by 4 grid lines. Shorthand for setting grid-column-start, grid-column-end, grid-row-start, and grid-row-end in a single declaration.
@@ -1043,6 +1109,13 @@ declare namespace __React {
          * Deprecated. Gets or sets line-breaking rules for text in selected languages such as Japanese, Chinese, and Korean.
          */
         lineBreak?: any;
+
+        lineClamp?: number;
+
+        /**
+         * Specifies the height of an inline block level element. 
+         */
+        lineHeight?: number | string;
 
         /**
          * Shorthand property that sets the list-style-type, list-style-position and list-style-image properties in one declaration.
@@ -1165,6 +1238,23 @@ declare namespace __React {
         minWidth?: any;
 
         /**
+         * Specifies the transparency of an element.
+         */
+        opacity?: number;
+
+        /**
+         * Specifies the order used to lay out flex items in their flex container.
+         * Elements are laid out in the ascending order of the order value.
+         */
+        order?: number;
+
+        /**
+         * In paged media, this property defines the minimum number of lines in
+         * a block container that must be left at the bottom of the page.
+         */
+        orphans?: number;
+
+        /**
          * The CSS outline property is a shorthand property for setting one or more of the individual outline properties outline-style, outline-width and outline-color in a single rule. In most cases the use of this shortcut is preferable and more convenient.
          * Outlines differ from borders in the following ways:  •       Outlines do not take up space, they are drawn above the content.
          *      •       Outlines may be non-rectangular. They are rectangular in Gecko/Firefox. Internet Explorer attempts to place the smallest contiguous outline around all elements or shapes that are indicated to have an outline. Opera draws a non-rectangular shape around a construct.
@@ -1192,9 +1282,14 @@ declare namespace __React {
         overflowStyle?: any;
 
         /**
-         * The overflow-x property is a specific case of the generic overflow property. It controls how extra content exceeding the x-axis of the bounding box of an element is rendered.
+         * Controls how extra content exceeding the x-axis of the bounding box of an element is rendered.
          */
         overflowX?: any;
+
+        /**
+         * Controls how extra content exceeding the y-axis of the bounding box of an element is rendered.
+         */
+        overflowY?: any;
 
         /**
          * The padding optional CSS property sets the required padding space on one to four sides of an element. The padding area is the space between an element and its border. Negative values are not allowed but decimal values are permitted. The element size is treated as fixed, and the content of the element shifts toward the center as padding is increased.
@@ -1340,6 +1435,16 @@ declare namespace __React {
          * The speak-as property determines how the speech synthesizer interprets the content: words as whole words or as a sequence of letters, numbers as a numerical value or a sequence of digits, punctuation as pauses in speech or named punctuation characters.
          */
         speakAs?: any;
+
+        /**
+         * SVG: Specifies the opacity of the outline on the current object.
+         */
+        strokeOpacity?: number;
+
+        /**
+         * SVG: Specifies the width of the outline on the current object.
+         */
+        strokeWidth?: number;
 
         /**
          * The tab-size CSS property is used to customise the width of a tab (U+0009) character.
@@ -1650,6 +1755,12 @@ declare namespace __React {
         whiteSpaceTreatment?: any;
 
         /**
+         * In paged media, this property defines the mimimum number of lines
+         * that must be left at the top of the second page.
+         */
+        widows?: number;
+
+        /**
          * Specifies the width of the content area of an element. The content area of the element width does not include the padding, border, and margin of the element.
          */
         width?: any;
@@ -1690,6 +1801,16 @@ declare namespace __React {
          */
         writingMode?: any;
 
+        /**
+         * The z-index property specifies the z-order of an element and its descendants.
+         * When elements overlap, z-order determines which one covers the other.
+         */
+        zIndex?: "auto" | number;
+
+        /**
+         * Sets the initial zoom factor of a document defined by @viewport.
+         */
+        zoom?: "auto" | number;
 
         [propertyName: string]: any;
     }
@@ -1843,6 +1964,9 @@ declare namespace __React {
         results?: number;
         security?: string;
         unselectable?: boolean;
+        
+        // Allows aria- and data- Attributes
+        [key: string]: any;
     }
 
     interface SVGAttributes extends HTMLAttributes {
@@ -2133,11 +2257,11 @@ declare namespace JSX {
     interface ElementAttributesProperty { props: {}; }
 
     interface IntrinsicAttributes {
-        key?: string | number;
+        key?: React.Key;
     }
 
     interface IntrinsicClassAttributes<T> {
-        ref?: string | ((classInstance: T) => void);
+        ref?: React.Ref<T>;
     }
 
     interface IntrinsicElements {

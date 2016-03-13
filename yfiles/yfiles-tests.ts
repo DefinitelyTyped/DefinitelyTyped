@@ -139,6 +139,9 @@ module yfilesTest {
     }
 
     class MyNodeStyle extends yfiles.drawing.SimpleAbstractNodeStyle<yfiles.drawing.RectVisual> {
+        constructor() {
+            super(null);
+        }
         createVisual(node:yfiles.graph.INode, renderContext:yfiles.drawing.IRenderContext):yfiles.drawing.RectVisual {
             return new yfiles.drawing.RectVisual.FromRectangle(new yfiles.geometry.Rectangle(0, 0, 10, 10));
         }
