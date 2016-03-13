@@ -29,8 +29,6 @@ declare module harmonyProxy {
     }
 }
 
-declare let Proxy: harmonyProxy.ProxyConstructor;
-
 declare module "harmony-proxy" {
     let _Proxy: harmonyProxy.ProxyConstructor;
     export = _Proxy;
