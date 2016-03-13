@@ -6,19 +6,33 @@
 ///<reference path="../express/express.d.ts"/>
 ///<reference path="../i18next/i18next.d.ts"/>
 
-/**
- * @summary Interface for Language detector options.
- * @interface
- */
-interface LanguageDetectorOptions {
-    caches?: boolean;
-    cookieDomain?: string;
-    cookieExpirationDate?: Date;
-    lookupCookie?: string;
-    lookupFromPathIndex?: number;
-    lookupQuerystring?: string;
-    lookupSession?: string;
-    order?: Array<string>;
+declare module I18next {
+    interface I18nextOptions extends i18nextExpressMiddleware.I18nextOptions { }
+}
+
+declare module i18nextExpressMiddleware {
+    /**
+     * @summary Interface for Language detector options.
+     * @interface
+     */
+    interface LanguageDetectorOptions {
+        caches?: Array<string>|boolean;
+        cookieDomain?: string;
+        cookieExpirationDate?: Date;
+        lookupCookie?: string;
+        lookupFromPathIndex?: number;
+        lookupQuerystring?: string;
+        lookupSession?: string;
+        order?: Array<string>;
+    }
+
+    /**
+     * @summary i18next options.
+     * @interface
+     */
+    interface I18nextOptions {
+        detection?: LanguageDetectorOptions;
+    }
 }
 
 declare module "i18next-express-middleware" {

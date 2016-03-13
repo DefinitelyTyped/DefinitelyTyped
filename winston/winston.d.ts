@@ -49,7 +49,7 @@ declare module "winston" {
   export function addRewriter(rewriter: MetadataRewriter): void;
 
   export interface MetadataRewriter {
-      (level: string, msg: string, meta: any): any;
+    (level: string, msg: string, meta: any): any;
   }
 
   export interface LoggerStatic {
@@ -182,27 +182,35 @@ declare module "winston" {
     humanReadableUnhandledException?: boolean;
   }
 
-  export interface ConsoleTransportOptions extends TransportOptions {
+  export interface GenericTextTransportOptions {
     json?: boolean;
     colorize?: boolean;
+    colors?: any;
     prettyPrint?: boolean;
     timestamp?: (Function|boolean);
     showLevel?: boolean;
     label?: string;
-    logstash?: boolean;
-    debugStdout?: boolean;
     depth?: number;
+    stringify?: Function;
   }
 
-  export interface DailyRotateFileTransportOptions extends TransportOptions {
-    json?: boolean;
-    colorize?: boolean;
-    prettyPrint?: boolean;
-    timestamp?: (Function|boolean);
-    showLevel?: boolean;
-    label?: string;
+  export interface GenericNetworkTransportOptions {
+    host?: string;
+    port?: number;
+    auth?: {
+      username: string;
+      password: string;
+    };
+    path?: string;
+  }
+
+  export interface ConsoleTransportOptions extends TransportOptions, GenericTextTransportOptions {
     logstash?: boolean;
-    depth?: number;
+    debugStdout?: boolean;
+  }
+
+  export interface DailyRotateFileTransportOptions extends TransportOptions, GenericTextTransportOptions {
+    logstash?: boolean;
     maxsize?: number;
     maxFiles?: number;
     eol?: string;
@@ -213,19 +221,12 @@ declare module "winston" {
     options?: {
       flags?: string;
       highWaterMark?: number;
-    }
+    };
     stream?: NodeJS.WritableStream;
   }
 
-  export interface FileTransportOptions extends TransportOptions {
-    json?: boolean;
-    colorize?: boolean;
-    prettyPrint?: boolean;
-    timestamp?: (Function|boolean);
-    showLevel?: boolean;
-    label?: string;
+  export interface FileTransportOptions extends TransportOptions, GenericTextTransportOptions {
     logstash?: boolean;
-    depth?: number;
     maxsize?: number;
     rotationFormat?: boolean;
     zippedArchive?: boolean;
@@ -238,40 +239,19 @@ declare module "winston" {
     options?: {
       flags?: string;
       highWaterMark?: number;
-    }
+    };
     stream?: NodeJS.WritableStream;
   }
 
-  export interface HttpTransportOptions extends TransportOptions {
+  export interface HttpTransportOptions extends TransportOptions, GenericNetworkTransportOptions {
     ssl?: boolean;
-    host?: string;
-    port?: number;
-    auth?: {
-      username: string;
-      password: string;
-    };
-    path?: string;
   }
 
-  export interface MemoryTransportOptions extends TransportOptions {
-    json?: boolean;
-    colorize?: boolean;
-    prettyPrint?: boolean;
-    timestamp?: (Function|boolean);
-    showLevel?: boolean;
-    label?: string;
-    depth?: number;
+  export interface MemoryTransportOptions extends TransportOptions, GenericTextTransportOptions {
   }
 
-  export interface WebhookTransportOptions extends TransportOptions {
-    host?: string;
-    port?: number;
+  export interface WebhookTransportOptions extends TransportOptions, GenericNetworkTransportOptions {
     method?: string;
-    path?: string;
-    auth?: {
-      username?: string;
-      password?: string;
-    };
     ssl?: {
       key?: any;
       cert?: any;

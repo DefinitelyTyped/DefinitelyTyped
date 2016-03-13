@@ -3325,6 +3325,20 @@ declare module "sequelize" {
              */
             logging? : boolean | Function;
 
+            /**
+             * Transaction to run query under
+             */
+            transaction? : Transaction;
+
+            /**
+             * An optional parameter to specify the schema search_path (Postgres only)
+             */
+            searchPath? : string;
+
+            /**
+             * Print query execution time in milliseconds when logging SQL.
+             */
+            benchmark? : boolean;
         }
 
         /**

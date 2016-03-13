@@ -41,7 +41,7 @@ module ngSignalrTest {
                     console.error(message);
                 },
                 
-                stateChanged: (state: SignalRStateChange) => {
+                stateChanged: (state: SignalR.StateChanged) => {
                     // your code here
                 }
             });
