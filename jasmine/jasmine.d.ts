@@ -297,7 +297,7 @@ declare module jasmine {
         toBeCloseTo(expected: number, precision: any, expectationFailOutput?: any): boolean;
         toThrow(expected?: any): boolean;
         toThrowError(message?: string | RegExp): boolean;
-        toThrowError(expected?: Error, message?: string | RegExp): boolean;
+        toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): boolean;
         not: Matchers;
 
         Any: Any;
@@ -456,6 +456,8 @@ declare module jasmine {
         object: any;
         /** All arguments passed to the call */
         args: any[];
+        /** The return value of the call */
+        returnValue: any;
     }
 
     interface Util {

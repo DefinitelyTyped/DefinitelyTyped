@@ -33,6 +33,7 @@ function test_JsMockito_when() {
 }
 
 function test_JsMockito_verify() {
+    JsMockito.verify(new TestClass()).test();
     JsMockito.verify(new TestClass(), new TestVerifier()).test();
 }
 
@@ -129,6 +130,7 @@ function test_when() {
 }
 
 function test_verify() {
+    verify(new TestClass()).test();
     verify(new TestClass(), new TestVerifier()).test();
 }
 

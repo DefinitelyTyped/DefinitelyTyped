@@ -4,7 +4,7 @@
 /// <reference path="../express/express.d.ts" />
 
 import * as express from "express";
-import timeout from "connect-timeout";
+import * as timeout from "connect-timeout";
 import * as bodyParser from "body-parser";
 import * as cookieParser from "cookie-parser";
 

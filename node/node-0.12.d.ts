@@ -168,11 +168,11 @@ declare module NodeJS {
     }
 
     export interface EventEmitter {
-        addListener(event: string, listener: Function): EventEmitter;
-        on(event: string, listener: Function): EventEmitter;
-        once(event: string, listener: Function): EventEmitter;
-        removeListener(event: string, listener: Function): EventEmitter;
-        removeAllListeners(event?: string): EventEmitter;
+        addListener(event: string, listener: Function): this;
+        on(event: string, listener: Function): this;
+        once(event: string, listener: Function): this;
+        removeListener(event: string, listener: Function): this;
+        removeAllListeners(event?: string): this;
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
@@ -364,7 +364,7 @@ interface NodeBuffer {
     readUIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
     readIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
     readIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
-    readUInt8(offset: number, noAsset?: boolean): number;
+    readUInt8(offset: number, noAssert?: boolean): number;
     readUInt16LE(offset: number, noAssert?: boolean): number;
     readUInt16BE(offset: number, noAssert?: boolean): number;
     readUInt32LE(offset: number, noAssert?: boolean): number;
@@ -415,11 +415,11 @@ declare module "events" {
     export class EventEmitter implements NodeJS.EventEmitter {
         static listenerCount(emitter: EventEmitter, event: string): number;
 
-        addListener(event: string, listener: Function): EventEmitter;
-        on(event: string, listener: Function): EventEmitter;
-        once(event: string, listener: Function): EventEmitter;
-        removeListener(event: string, listener: Function): EventEmitter;
-        removeAllListeners(event?: string): EventEmitter;
+        addListener(event: string, listener: Function): this;
+        on(event: string, listener: Function): this;
+        once(event: string, listener: Function): this;
+        removeListener(event: string, listener: Function): this;
+        removeAllListeners(event?: string): this;
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
@@ -1844,12 +1844,6 @@ declare module "domain" {
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
         dispose(): void;
-
-        addListener(event: string, listener: Function): Domain;
-        on(event: string, listener: Function): Domain;
-        once(event: string, listener: Function): Domain;
-        removeListener(event: string, listener: Function): Domain;
-        removeAllListeners(event?: string): Domain;
     }
 
     export function create(): Domain;

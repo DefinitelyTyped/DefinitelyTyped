@@ -114,6 +114,8 @@ module Marionette.Tests {
         behaviors: any;
 
         constructor(model: MyModel) {
+            super({ model: model });
+
             this.ui = {
                 destroy: '.destroy'
             };
@@ -123,9 +125,6 @@ module Marionette.Tests {
                     message: 'hello'
                 }
             };
-
-            super({ model: model });
-
         }
 
         template() {
@@ -136,8 +135,8 @@ module Marionette.Tests {
 
     class MainRegion extends Marionette.Region {
         constructor() {
-            this.el = '#main';
             super();
+            this.el = '#main';
         }
     }
 
@@ -147,13 +146,13 @@ module Marionette.Tests {
         options: any;
 
         constructor() {
+            super();
             this.name = 'Adam';
 
             this.options = {
                 name: 'Foo'
             };
 
-            super();
             this.on("before:destroy", () => {
                 console.log("before:destroy");
             });
@@ -166,27 +165,28 @@ module Marionette.Tests {
 
     class MyRegion extends Marionette.Region {
         constructor() {
-            this.el = '#main-nav';
             super();
+            this.el = '#main-nav';
         }
     }
 
     class MyJQueryRegion extends Marionette.Region {
         constructor() {
-            this.el = $('#main-nav');
             super();
+            this.el = $('#main-nav');
         }
     }
 
     class MyHtmlElRegion extends Marionette.Region {
         constructor() {
-            this.el = document.querySelector("body");
             super();
+            this.el = document.querySelector("body");
         }
     }
 
     class MyCollectionView extends Marionette.CollectionView<MyModel, MyView> {
         constructor() {
+            super();
             this.childView = MyView;
             this.childEvents = {
                 render: function () {
@@ -207,8 +207,6 @@ module Marionette.Tests {
             };
 
             this.childViewEventPrefix = "some:prefix";
-
-            super();
 
             this.on('some:prefix:render', function () {
 

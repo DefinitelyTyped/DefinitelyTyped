@@ -6036,79 +6036,197 @@ namespace TestCastArray {
 }
 
 // _.clone
-{
-    let result: number;
-    result = _.clone<number>(42);
-    result = _(42).clone();
-}
-{
-    let result: string[];
-    result = _.clone<string[]>([]);
-    result = _<string>([]).clone();
-}
-{
-    let result: {a: {b: number;}};
-    result = _.clone<{a: {b: number;}}>({a: {b: 2}});
-    result = _({a: {b: 2}}).clone();
+namespace TestClone {
+    {
+        let result: number;
+
+        result = _.clone<number>(42);
+        result = _(42).clone();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(42).chain().clone();
+    }
+
+    {
+        let result: string[];
+
+        result = _.clone<string[]>(['']);
+        result = _<string>(['']).clone();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _(['']).chain().clone();
+    }
+
+    {
+        let result: {a: {b: number;};};
+
+        result = _.clone<{a: {b: number;};}>({a: {b: 42}});
+        result = _({a: {b: 42}}).clone();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{a: {b: number;};}>;
+
+        result = _({a: {b: 42}}).chain().clone();
+    }
 }
 
 // _.cloneDeep
-{
-    let result: number;
-    result = _.cloneDeep<number>(42);
-    result = _(42).cloneDeep();
-}
-{
-    let result: string[];
-    result = _.cloneDeep<string[]>([]);
-    result = _<string>([]).cloneDeep();
-}
-{
-    let result: {a: {b: number;}};
-    result = _.cloneDeep<{a: {b: number;}}>({a: {b: 2}});
-    result = _({a: {b: 2}}).cloneDeep();
-}
+namespace TestCloneDeep {
+    {
+        let result: number;
 
-// _.cloneWith
-interface TestCloneCustomizerFn {
-    (value: any): any;
-}
-var testCloneCustomizerFn: TestCloneCustomizerFn;
-{
-    let result: number;
-    result = _.clone<number>(42, testCloneCustomizerFn);
-    result = _(42).clone(testCloneCustomizerFn);
-}
-{
-    let result: string[];
-    result = _.clone<string[]>([], testCloneCustomizerFn);
-    result = _<string>([]).clone(testCloneCustomizerFn);
-}
-{
-    let result: {a: {b: number;}};
-    result = _.clone<{a: {b: number;}}>({a: {b: 2}}, testCloneCustomizerFn);
-    result = _({a: {b: 2}}).clone(testCloneCustomizerFn);
+        result = _.cloneDeep<number>(42);
+        result = _(42).cloneDeep();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(42).chain().cloneDeep();
+    }
+
+    {
+        let result: string[];
+
+        result = _.cloneDeep<string[]>(['']);
+        result = _<string>(['']).cloneDeep();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _(['']).chain().cloneDeep();
+    }
+
+    {
+        let result: {a: {b: number;};};
+
+        result = _.cloneDeep<{a: {b: number;};}>({a: {b: 42}});
+        result = _({a: {b: 42}}).cloneDeep();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{a: {b: number;};}>;
+
+        result = _({a: {b: 42}}).chain().cloneDeep();
+    }
 }
 
 // _.cloneDeepWith
-interface TestCloneDeepCustomizerFn {
-    (value: any): any;
+namespace TestCloneDeepWith {
+    interface CloneDeepWithCustomizer<V, R> {
+        (value: V): R;
+    }
+
+    {
+        let customizer: CloneDeepWithCustomizer<number, string>;
+        let reslut: string;
+
+        result = _.cloneDeepWith<string>(42, customizer);
+        result = _.cloneDeepWith<number, string>(42, customizer);
+        result = _(42).cloneDeepWith<string>(customizer);
+    }
+
+    {
+        let customizer: CloneDeepWithCustomizer<number, string>;
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _(42).chain().cloneDeepWith<string>(customizer);
+    }
+
+    {
+        let customizer: CloneDeepWithCustomizer<number[], string[]>;
+        let reslut: string[];
+
+        result = _.cloneDeepWith<string[]>([42], customizer);
+        result = _.cloneDeepWith<number[], string[]>([42], customizer);
+        result = _([42]).cloneDeepWith<string[]>(customizer);
+    }
+
+    {
+        let customizer: CloneDeepWithCustomizer<number[], string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _([42]).chain().cloneDeepWith<string>(customizer);
+    }
+
+    {
+        let customizer: CloneDeepWithCustomizer<{a: {b: number;};}, {a: {b: string;};}>;
+        let reslut: {a: {b: string;};};
+
+        result = _.cloneDeepWith<{a: {b: string;};}>({a: {b: 42}}, customizer);
+        result = _.cloneDeepWith<{a: {b: number;};}, {a: {b: string;};}>({a: {b: 42}}, customizer);
+        result = _({a: {b: 42}}).cloneDeepWith<{a: {b: string;};}>(customizer);
+    }
+
+    {
+        let customizer: CloneDeepWithCustomizer<{a: {b: number;};}, {a: {b: string;};}>;
+        let result: _.LoDashExplicitObjectWrapper<{a: {b: string;};}>;
+
+        result = _({a: {b: 42}}).chain().cloneDeepWith<{a: {b: string;};}>(customizer);
+    }
 }
-var testCloneDeepCustomizerFn: TestCloneDeepCustomizerFn;
-{
-    let result: number;
-    result = _.cloneDeep<number>(42, testCloneDeepCustomizerFn);
-    result = _(42).cloneDeep(testCloneDeepCustomizerFn);
-}
-{
-    let result: string[];
-    result = _.cloneDeep<string[]>([], testCloneDeepCustomizerFn);
-    result = _<string>([]).cloneDeep(testCloneDeepCustomizerFn);
-}
-{
-    let result: {a: {b: number;}};
-    result = _.cloneDeep<{a: {b: number;}}>({a: {b: 2}}, testCloneDeepCustomizerFn);
-    result = _({a: {b: 2}}).cloneDeep(testCloneDeepCustomizerFn);
+
+// _.cloneWith
+namespace TestCloneWith {
+    interface CloneWithCustomizer<V, R> {
+        (value: V): R;
+    }
+
+    {
+        let customizer: CloneWithCustomizer<number, string>;
+        let reslut: string;
+
+        result = _.cloneWith<string>(42, customizer);
+        result = _.cloneWith<number, string>(42, customizer);
+        result = _(42).cloneWith<string>(customizer);
+    }
+
+    {
+        let customizer: CloneWithCustomizer<number, string>;
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _(42).chain().cloneWith<string>(customizer);
+    }
+
+    {
+        let customizer: CloneWithCustomizer<number[], string[]>;
+        let reslut: string[];
+
+        result = _.cloneWith<string[]>([42], customizer);
+        result = _.cloneWith<number[], string[]>([42], customizer);
+        result = _([42]).cloneWith<string[]>(customizer);
+    }
+
+    {
+        let customizer: CloneWithCustomizer<number[], string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _([42]).chain().cloneWith<string>(customizer);
+    }
+
+    {
+        let customizer: CloneWithCustomizer<{a: {b: number;};}, {a: {b: string;};}>;
+        let reslut: {a: {b: string;};};
+
+        result = _.cloneWith<{a: {b: string;};}>({a: {b: 42}}, customizer);
+        result = _.cloneWith<{a: {b: number;};}, {a: {b: string;};}>({a: {b: 42}}, customizer);
+        result = _({a: {b: 42}}).cloneWith<{a: {b: string;};}>(customizer);
+    }
+
+    {
+        let customizer: CloneWithCustomizer<{a: {b: number;};}, {a: {b: string;};}>;
+        let result: _.LoDashExplicitObjectWrapper<{a: {b: string;};}>;
+
+        result = _({a: {b: 42}}).chain().cloneWith<{a: {b: string;};}>(customizer);
+    }
 }
 
 // _.eq
@@ -6371,6 +6489,26 @@ module TestIsBoolean {
     }
 }
 
+// _.isBuffer
+module TestIsBuffer {
+    {
+        let result: boolean;
+
+        result = _.isBuffer(any);
+        result = _(1).isBuffer();
+        result = _<any>([]).isBuffer();
+        result = _({}).isBuffer();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isBuffer();
+        result = _<any>([]).chain().isBuffer();
+        result = _({}).chain().isBuffer();
+    }
+}
+
 // _.isDate
 module TestIsBoolean {
     {
@@ -6617,6 +6755,37 @@ module TestIsLength {
         result = _(1).chain().isLength();
         result = _<any>([]).chain().isLength();
         result = _({}).chain().isLength();
+    }
+}
+
+// _.isMap
+module TestIsMap {
+    {
+        let value: number|Map<string, number>;
+
+        if (_.isMap<string, number>(value)) {
+            let result: Map<string, number> = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isMap(any);
+        result = _(1).isMap();
+        result = _<any>([]).isMap();
+        result = _({}).isMap();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isMap();
+        result = _<any>([]).chain().isMap();
+        result = _({}).chain().isMap();
     }
 }
 
@@ -6878,6 +7047,37 @@ module TestIsSafeInteger {
         result = _(1).chain().isSafeInteger();
         result = _<any>([]).chain().isSafeInteger();
         result = _({}).chain().isSafeInteger();
+    }
+}
+
+// _.isSet
+module TestIsSet {
+    {
+        let value: number|Set<string>;
+
+        if (_.isSet<string>(value)) {
+            let result: Set<string> = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isSet(any);
+        result = _(1).isSet();
+        result = _<any>([]).isSet();
+        result = _({}).isSet();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isSet();
+        result = _<any>([]).chain().isSet();
+        result = _({}).chain().isSet();
     }
 }
 
@@ -8820,6 +9020,101 @@ module TestInvert {
 
         result = _({}).chain().invert<TResult>();
         result = _({}).chain().invert<TResult>(true);
+    }
+}
+
+// _.invertBy
+namespace TestInvertBy {
+    let array: ({a: number;})[];
+    let list: _.List<{a: number;}>;
+    let dictionary: _.Dictionary<{a: number;}>;
+    let numericDictionary: _.NumericDictionary<{a: number;}>;
+
+    let stringIterator: (value: string) => any;
+    let arrayIterator: (value: {a: number;}) => any;
+    let listIterator: (value: {a: number;}) => any;
+    let dictionaryIterator: (value: {a: number;}) => any;
+    let numericDictionaryIterator: (value: {a: number;}) => any;
+
+    {
+        let result: _.Dictionary<string[]>;
+
+        result = _.invertBy('foo');
+        result = _.invertBy('foo', stringIterator);
+
+        result = _.invertBy(array);
+        result = _.invertBy<{a: number;}>(array, 'a');
+        result = _.invertBy<{a: number;}>(array, arrayIterator);
+        result = _.invertBy<{a: number;}>(array, {a: 1});
+
+        result = _.invertBy(list);
+        result = _.invertBy<{a: number;}>(list, 'a');
+        result = _.invertBy<{a: number;}>(list, listIterator);
+        result = _.invertBy<{a: number;}>(list, {a: 1});
+
+        result = _.invertBy(dictionary);
+        result = _.invertBy<{a: number;}>(dictionary, 'a');
+        result = _.invertBy<{a: number;}>(dictionary, dictionaryIterator);
+        result = _.invertBy<{a: number;}>(dictionary, {a: 1});
+
+        result = _.invertBy(numericDictionary);
+        result = _.invertBy<{a: number;}>(numericDictionary, 'a');
+        result = _.invertBy<{a: number;}>(numericDictionary, numericDictionaryIterator);
+        result = _.invertBy<{a: number;}>(numericDictionary, {a: 1});
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<string[]>>;
+
+        result = _('foo').invertBy();
+        result = _('foo').invertBy(stringIterator);
+
+        result = _(array).invertBy();
+        result = _(array).invertBy('a');
+        result = _(array).invertBy(arrayIterator);
+        result = _(array).invertBy({a: 1});
+
+        result = _(list).invertBy();
+        result = _(list).invertBy('a');
+        result = _(list).invertBy(listIterator);
+        result = _(list).invertBy<{a: number;}>({a: 1});
+
+        result = _(dictionary).invertBy();
+        result = _(dictionary).invertBy('a');
+        result = _(dictionary).invertBy(dictionaryIterator);
+        result = _(dictionary).invertBy<{a: number;}>({a: 1});
+
+        result = _(numericDictionary).invertBy();
+        result = _(numericDictionary).invertBy('a');
+        result = _(numericDictionary).invertBy(numericDictionaryIterator);
+        result = _(numericDictionary).invertBy<{a: number;}>({a: 1});
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<string[]>>;
+
+        result = _('foo').chain().invertBy();
+        result = _('foo').chain().invertBy(stringIterator);
+
+        result = _(array).chain().invertBy();
+        result = _(array).chain().invertBy('a');
+        result = _(array).chain().invertBy(arrayIterator);
+        result = _(array).chain().invertBy({a: 1});
+
+        result = _(list).chain().invertBy();
+        result = _(list).chain().invertBy('a');
+        result = _(list).chain().invertBy(listIterator);
+        result = _(list).chain().invertBy<{a: number;}>({a: 1});
+
+        result = _(dictionary).chain().invertBy();
+        result = _(dictionary).chain().invertBy('a');
+        result = _(dictionary).chain().invertBy(dictionaryIterator);
+        result = _(dictionary).chain().invertBy<{a: number;}>({a: 1});
+
+        result = _(numericDictionary).chain().invertBy();
+        result = _(numericDictionary).chain().invertBy('a');
+        result = _(numericDictionary).chain().invertBy(numericDictionaryIterator);
+        result = _(numericDictionary).chain().invertBy<{a: number;}>({a: 1});
     }
 }
 

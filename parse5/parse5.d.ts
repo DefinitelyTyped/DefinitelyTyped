@@ -108,7 +108,7 @@ declare module 'parse5' {
          * The resulting document node.
          */
         document: ASTNode;
-        on(event: string, listener: Function): ParserStream;
+        on(event: string, listener: Function): this;
         /**
          * Raised then parser encounters a <script> element. If this event has listeners, parsing will be suspended
          *  once it is emitted. So, if <script> has the src attribute, 
@@ -117,44 +117,44 @@ declare module 'parse5' {
          * The script element that caused the event, a function for writing additional html at the current parsing position. Suitable for implementing the DOM document.write and document.writeln methods.
          * And finally a resume function as a callback to signal the continuation of the parsing
          */
-        on(event: 'script', listener: (scriptElement: ASTNode, documentWrite: (html: string) => void, resume: Function) => void): ParserStream;
+        on(event: 'script', listener: (scriptElement: ASTNode, documentWrite: (html: string) => void, resume: Function) => void): this;
     }
 
     export class SAXParser extends stream.Transform {
         constructor(options?: SAXParserOptions);
-        on(event: string, listener: Function): events.EventEmitter;
+        on(event: string, listener: Function): this;
         /**
          * Raised when the parser encounters a start tag.
          * Listener function has 4 parameters:
          * Tag name, List of attributes in the { key: String, value: String } form, selfClosing boolean 
          * and start tag source code location info. Available if location info is enabled in SAXParserOptions.
          */
-        on(event: 'startTag', listener: (name: string, attrs: Attribute[], selfClosing: boolean, location?: StartTagLocationInfo) => void): SAXParser;
+        on(event: 'startTag', listener: (name: string, attrs: Attribute[], selfClosing: boolean, location?: StartTagLocationInfo) => void): this;
         /**
          * Raised when parser encounters an end tag.
          * Listener function has 2 parameters:
          * Tag name and location End tag source code location info. Available if location info is enabled in SAXParserOptions. 
          */
-        on(event: 'endTag', listener: (name: string, location?: LocationInfo) => void): SAXParser;
+        on(event: 'endTag', listener: (name: string, location?: LocationInfo) => void): this;
         /**
          * Raised then parser encounters a comment.
          * Listener function has 2 parameters:
          * The comment text and the source code location info. Available if location info is enabled in SAXParserOptions.
          */
-        on(event: 'comment', listener: (text: string, location?: LocationInfo) => void): SAXParser;
+        on(event: 'comment', listener: (text: string, location?: LocationInfo) => void): this;
         /**
          * Raised then parser encounters text content.
          * Listener function has 2 parameters:
          * The text content and location info. Available if location info is enabled in SAXParserOptions.
          */
-        on(event: 'text', listener: (text: string, location?: LocationInfo) => void): SAXParser;
+        on(event: 'text', listener: (text: string, location?: LocationInfo) => void): this;
         /**
          * Raised then parser encounters a document type declaration.
          * Listener function has 4 parameters:
          * The document type name, document type public identifier, document type system identifier and
          * location info. Available if location info is enabled in SAXParserOptions.
          */
-        on(event: 'doctype', listener: (name: string, publicId: string, systemId: string, location?: LocationInfo) => void): SAXParser;
+        on(event: 'doctype', listener: (name: string, publicId: string, systemId: string, location?: LocationInfo) => void): this;
         /**
          * Stops parsing. Useful if you want the parser to stop consuming CPU time once you've obtained the desired info from the input stream. 
          * Doesn't prevent piping, so that data will flow through the parser as usual.

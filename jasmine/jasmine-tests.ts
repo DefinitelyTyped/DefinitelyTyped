@@ -150,6 +150,17 @@ describe("Included matchers:", function () {
         expect(foo).not.toThrow();
         expect(bar).toThrow();
     });
+
+    it("The 'toThrowError' matcher is for testing a specific thrown exception", function() {
+        var foo = function() {
+            throw new TypeError("foo bar baz");
+        };
+
+        expect(foo).toThrowError("foo bar baz");
+        expect(foo).toThrowError(/bar/);
+        expect(foo).toThrowError(TypeError);
+        expect(foo).toThrowError(TypeError, "foo bar baz");
+    });
 });
 
 describe("A spec", function () {
@@ -512,21 +523,21 @@ describe("A spy", function () {
     it("can provide the context and arguments to all calls", function () {
         foo.setBar(123);
 
-        expect(foo.setBar.calls.all()).toEqual([{ object: foo, args: [123] }]);
+        expect(foo.setBar.calls.all()).toEqual([{ object: foo, args: [123], returnValue: undefined }]);
     });
 
     it("has a shortcut to the most recent call", function () {
         foo.setBar(123);
         foo.setBar(456, "baz");
 
-        expect(foo.setBar.calls.mostRecent()).toEqual({ object: foo, args: [456, "baz"] });
+        expect(foo.setBar.calls.mostRecent()).toEqual({ object: foo, args: [456, "baz"], returnValue: undefined });
     });
 
     it("has a shortcut to the first call", function () {
         foo.setBar(123);
         foo.setBar(456, "baz");
 
-        expect(foo.setBar.calls.first()).toEqual({ object: foo, args: [123] });
+        expect(foo.setBar.calls.first()).toEqual({ object: foo, args: [123], returnValue: undefined });
     });
 
     it("can be reset", function () {

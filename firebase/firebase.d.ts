@@ -1,6 +1,6 @@
-// Type definitions for Firebase API 2.0.2
+// Type definitions for Firebase API 2.4.1
 // Project: https://www.firebase.com/docs/javascript/firebase
-// Definitions by: Vincent Botone <https://github.com/vbortone/>, Shin1 Kashimura <https://github.com/in-async/>, Sebastien Dubois <https://github.com/dsebastien/>
+// Definitions by: Vincent Botone <https://github.com/vbortone/>, Shin1 Kashimura <https://github.com/in-async/>, Sebastien Dubois <https://github.com/dsebastien/>, Szymon Stasik <https://github.com/ciekawy/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface FirebaseAuthResult {
@@ -68,27 +68,31 @@ interface FirebaseOnDisconnect {
 	 * Ensures the data at this location is set to the specified value when the client is disconnected
 	 * (due to closing the browser, navigating to a new page, or network issues).
 	 */
-	set(value: any, onComplete?: (error: any) => void): void;
+	set(value: any, onComplete: (error: any) => void): void;
+	set(value: any): Promise<void>;
 	/**
 	 * Ensures the data at this location is set to the specified value and priority when the client is disconnected
 	 * (due to closing the browser, navigating to a new page, or network issues).
 	 */
-	setWithPriority(value: any, priority: string, onComplete?: (error: any) => void): void;
-	setWithPriority(value: any, priority: number, onComplete?: (error: any) => void): void;
+	setWithPriority(value: any, priority: string|number, onComplete: (error: any) => void): void;
+	setWithPriority(value: any, priority: string|number): Promise<void>;
 	/**
 	 * Writes the enumerated children at this Firebase location when the client is disconnected
 	 * (due to closing the browser, navigating to a new page, or network issues).
 	 */
-	update(value: Object, onComplete?: (error: any) => void): void;
+	update(value: Object, onComplete: (error: any) => void): void;
+	update(value: Object): Promise<void>;
 	/**
 	 * Ensures the data at this location is deleted when the client is disconnected
 	 * (due to closing the browser, navigating to a new page, or network issues).
 	 */
-	remove(onComplete?: (error: any) => void): void;
+	remove(onComplete: (error: any) => void): void;
+	remove(): Promise<void>;
 	/**
 	 * Cancels all previously queued onDisconnect() set or update events for this location and all children.
 	 */
-	cancel(onComplete?: (error: any) => void): void;
+	cancel(onComplete: (error: any) => void): void;
+	cancel(): Promise<void>;
 }
 
 interface FirebaseQuery {
@@ -105,6 +109,7 @@ interface FirebaseQuery {
 	 */
 	once(eventType: string, successCallback: (dataSnapshot: FirebaseDataSnapshot) => void, context?: Object): void;
 	once(eventType: string, successCallback: (dataSnapshot: FirebaseDataSnapshot) => void, failureCallback?: (error: any) => void, context?: Object): void;
+	once(eventType: string): Promise<FirebaseDataSnapshot>
 	/**
 	 * Generates a new Query object ordered by the specified child key.
 	 */
@@ -141,9 +146,7 @@ interface FirebaseQuery {
 	/**
 	 * Creates a Query which includes children which match the specified value.
 	 */
-	equalTo(value: string, key?: string): FirebaseQuery;
-	equalTo(value: number, key?: string): FirebaseQuery;
-	equalTo(value: boolean, key?: string): FirebaseQuery;
+	equalTo(value: string|number|boolean, key?: string): FirebaseQuery;
 	/**
 	 * Generates a new Query object limited to the first certain number of children.
 	 */
@@ -163,32 +166,38 @@ interface Firebase extends FirebaseQuery {
 	 * @deprecated Use authWithCustomToken() instead.
 	 * Authenticates a Firebase client using the provided authentication token or Firebase Secret.
 	 */
-	auth(authToken: string, onComplete?: (error: any, result: FirebaseAuthResult) => void, onCancel?:(error: any) => void): void;
+	auth(authToken: string, onComplete: (error: any, result: FirebaseAuthResult) => void, onCancel?:(error: any) => void): void;
+	auth(authToken: string): Promise<FirebaseAuthResult>;
 	/**
 	 * Authenticates a Firebase client using an authentication token or Firebase Secret.
 	 */
 	authWithCustomToken(autoToken: string, onComplete: (error: any, authData: FirebaseAuthData) => void, options?:Object): void;
+	authWithCustomToken(autoToken: string, options?:Object): Promise<FirebaseAuthData>;
 	/**
 	 * Authenticates a Firebase client using a new, temporary guest account.
 	 */
 	authAnonymously(onComplete: (error: any, authData: FirebaseAuthData) => void, options?: Object): void;
+	authAnonymously(options?: Object): Promise<FirebaseAuthData>;
 	/**
 	 * Authenticates a Firebase client using an email / password combination.
 	 */
 	authWithPassword(credentials: FirebaseCredentials, onComplete: (error: any, authData: FirebaseAuthData) => void, options?: Object): void;
+	authWithPassword(credentials: FirebaseCredentials, options?: Object): Promise<FirebaseAuthData>;
 	/**
 	 * Authenticates a Firebase client using a popup-based OAuth flow.
 	 */
 	authWithOAuthPopup(provider: string, onComplete:(error: any, authData: FirebaseAuthData) => void, options?: Object): void;
+	authWithOAuthPopup(provider: string, options?: Object): Promise<FirebaseAuthData>;
 	/**
 	 * Authenticates a Firebase client using a redirect-based OAuth flow.
 	 */
 	authWithOAuthRedirect(provider: string, onComplete: (error: any) => void, options?: Object): void;
+	authWithOAuthRedirect(provider: string, options?: Object): Promise<void>;
 	/**
 	 * Authenticates a Firebase client using OAuth access tokens or credentials.
 	 */
-	authWithOAuthToken(provider: string, credentials: string, onComplete: (error: any, authData: FirebaseAuthData) => void, options?: Object): void;
-	authWithOAuthToken(provider: string, credentials: Object, onComplete: (error: any, authData: FirebaseAuthData) => void, options?: Object): void;
+	authWithOAuthToken(provider: string, credentials: string|Object, onComplete: (error: any, authData: FirebaseAuthData) => void, options?: Object): void;
+	authWithOAuthToken(provider: string, credentials: string|Object, options?: Object): Promise<FirebaseAuthData>;
 	/**
 	 * Synchronously access the current authentication state of the client.
 	 */
@@ -233,30 +242,33 @@ interface Firebase extends FirebaseQuery {
 	/**
 	 * Writes data to this Firebase location.
 	 */
-	set(value: any, onComplete?: (error: any) => void): void;
+	set(value: any, onComplete: (error: any) => void): void;
+	set(value: any): Promise<void>;
 	/**
 	 * Writes the enumerated children to this Firebase location.
 	 */
-	update(value: Object, onComplete?: (error: any) => void): void;
+	update(value: Object, onComplete: (error: any) => void): void;
+	update(value: Object): Promise<void>;
 	/**
 	 * Removes the data at this Firebase location.
 	 */
-	remove(onComplete?: (error: any) => void): void;
+	remove(onComplete: (error: any) => void): void;
+	remove(): Promise<void>;
 	/**
 	 * Generates a new child location using a unique name and returns a Firebase reference to it.
 	 * @returns {Firebase} A Firebase reference for the generated location.
 	 */
-	push(value?: any, onComplete?: (error: any) => void): Firebase;
+	push(value?: any, onComplete?: (error: any) => void): FirebaseWithPromise<void>;
 	/**
 	 * Writes data to this Firebase location. Like set() but also specifies the priority for that data.
 	 */
-	setWithPriority(value: any, priority: string, onComplete?: (error: any) => void): void;
-	setWithPriority(value: any, priority: number, onComplete?: (error: any) => void): void;
+	setWithPriority(value: any, priority: string|number, onComplete: (error: any) => void): void;
+	setWithPriority(value: any, priority: string|number): Promise<void>;
 	/**
 	 * Sets a priority for the data at this Firebase location.
 	 */
-	setPriority(priority: string, onComplete?: (error: any) => void): void;
-	setPriority(priority: number, onComplete?: (error: any) => void): void;
+	setPriority(priority: string|number, onComplete: (error: any) => void): void;
+	setPriority(priority: string|number): Promise<void>;
 	/**
 	 * Atomically modifies the data at this location.
 	 */
@@ -283,6 +295,9 @@ interface Firebase extends FirebaseQuery {
 	resetPassword(credentials: FirebaseResetPasswordCredentials, onComplete: (error: any) => void): void;
 	onDisconnect(): FirebaseOnDisconnect;
 }
+
+interface FirebaseWithPromise<T> extends Firebase, Promise<T> {}
+
 interface FirebaseStatic {
 	/**
 	 * Constructs a new Firebase reference from a full Firebase URL.
