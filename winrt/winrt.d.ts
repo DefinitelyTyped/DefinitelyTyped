@@ -11348,7 +11348,7 @@ declare module Windows {
             preferredApplicationDisplayName: string;
             preferredApplicationPackageFamilyName: string;
             treatAsUntrusted: boolean;
-            UI: Windows.System.LauncherUIOptions;
+            uI: Windows.System.LauncherUIOptions;
             
         }
         export class LauncherOptions implements Windows.System.ILauncherOptions {
