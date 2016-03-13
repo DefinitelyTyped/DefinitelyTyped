@@ -5,16 +5,20 @@
 
 declare var Raven: RavenStatic;
 
+declare module 'raven-js' {
+  export default Raven;
+}
+
 interface RavenOptions {
     /** The log level associated with this event. Default: error */
     level?: string;
 
     /** The name of the logger used by Sentry. Default: javascript */
     logger?: string;
-    
+
     /** The release version of the application you are monitoring with Sentry */
     release?: string;
-    
+
     /** The name of the server or device that the client is running on */
     serverName?: string;
 
@@ -36,19 +40,19 @@ interface RavenOptions {
     };
 
     extra?: any;
-    
+
     /** In some cases you may see issues where Sentry groups multiple events together when they should be separate entities. In other cases, Sentry simply doesn’t group events together because they’re so sporadic that they never look the same. */
     fingerprint?: string[];
-    
+
     /** A function which allows mutation of the data payload right before being sent to Sentry */
     dataCallback?: (data: any) => any;
-    
+
     /** A callback function that allows you to apply your own filters to determine if the message should be sent to Sentry. */
     shouldSendCallback?: (data: any) => boolean;
-    
+
     /** By default, Raven does not truncate messages. If you need to truncate characters for whatever reason, you may set this to limit the length. */
     maxMessageLength?: number;
-    
+
     /** Override the default HTTP data transport handler. */
     transport?: (options: RavenTransportOptions) => void;
 }
@@ -57,8 +61,8 @@ interface RavenStatic {
 
     /** Raven.js version. */
     VERSION: string;
-    
-    Plugins: RavenPlugin[];
+
+    Plugins: { [id: string]: RavenPlugin };
 
     /*
      * Allow Raven to be configured as soon as it is loaded
@@ -94,7 +98,7 @@ interface RavenStatic {
      * @return {Raven}
      */
     install(): RavenStatic;
-    
+
     /*
      * Adds a plugin to Raven
      *
@@ -166,13 +170,13 @@ interface RavenStatic {
         username?: string;
         email?: string;
     }): RavenStatic;
-    
+
     /** Override the default HTTP data transport handler. */
     setTransport(transportFunction: (options: RavenTransportOptions) => void): RavenStatic;
-    
+
     /** An event id is a globally unique id for the event that was just sent. This event id can be used to find the exact event from within Sentry. */
     lastEventId(): string;
-    
+
     /** If you need to conditionally check if raven needs to be initialized or not, you can use the isSetup function. It will return true if Raven is already initialized. */
     isSetup(): boolean;
 }

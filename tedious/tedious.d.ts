@@ -96,10 +96,13 @@ declare module 'tedious' {
 		Bit: TediousType;
 		BitN: TediousType;
 		Char: TediousType;
+		Date: TediousType;
 		DateN: TediousType;
+		DateTime2: TediousType;
 		DateTime2N: TediousType;
 		DateTime: TediousType;
 		DateTimeN: TediousType;
+		DateTimeOffset: TediousType;
 		DateTimeOffsetN: TediousType;
 		Decimal: TediousType;
 		DecimalN: TediousType;
@@ -122,9 +125,11 @@ declare module 'tedious' {
 		SmallMoney: TediousType;
 		TVP: TediousType;
 		Text: TediousType;
+		Time: TediousType;
 		TimeN: TediousType;
 		TinyInt: TediousType;
 		UDT: TediousType;
+		UniqueIdentifier: TediousType;
 		UniqueIdentifierN: TediousType;
 		VarBinary: TediousType;
 		VarChar: TediousType;

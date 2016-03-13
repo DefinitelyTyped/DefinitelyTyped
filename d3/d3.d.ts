@@ -2492,11 +2492,11 @@ declare module d3 {
 
             source(): (d: Link, i: number) => Node;
             source(source: Node): Diagonal<Link, Node>;
-            source(source: (d: Link, i: number) => Node): Diagonal<Link, Node>;
+            source(source: (d: Link, i: number) => { x: number; y: number; }): Diagonal<Link, Node>;
 
             target(): (d: Link, i: number) => Node;
             target(target: Node): Diagonal<Link, Node>;
-            target(target: (d: Link, i: number) => Node): Diagonal<Link, Node>;
+            target(target: (d: Link, i: number) => { x: number; y: number; }): Diagonal<Link, Node>;
 
             projection(): (d: Node, i: number) => [number, number];
             projection(projection: (d: Node, i: number) => [number, number]): Diagonal<Link, Node>;

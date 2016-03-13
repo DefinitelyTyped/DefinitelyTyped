@@ -11,6 +11,7 @@ interface MockJaxSettingsHeaders {
 
 interface MockJaxSettings {
     url?: string | RegExp;
+    urlParams?: string[];
     data?: any;
     type?: string;
     headers?: MockJaxSettingsHeaders;

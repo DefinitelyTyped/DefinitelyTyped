@@ -1,4 +1,4 @@
-// Type definitions for DevExtreme 15.2.5
+// Type definitions for DevExtreme 15.2.7
 // Project: http://js.devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -1197,7 +1197,7 @@ declare module DevExpress.ui {
         /** Updates the dimensions of the scrollable contents. */
         update(): void;
     }
-    export interface dxRadioGroupOptions extends CollectionWidgetOptions, DataExpressionMixinOptions {
+    export interface dxRadioGroupOptions extends EditorOptions, DataExpressionMixinOptions {
         activeStateEnabled?: boolean;
         /** Specifies the radio group layout. */
         layout?: string;
@@ -1300,6 +1300,7 @@ declare module DevExpress.ui {
         onShowing?: Function;
         /** A handler for the shown event. */
         onShown?: Function;
+        onContentReady?: Function;
         /** A Boolean value specifying whether or not the widget is visible. */
         visible?: boolean;
         /** The widget width in pixels. */
@@ -1334,6 +1335,8 @@ declare module DevExpress.ui {
         step?: number;
         /** The current number box value. */
         value?: number;
+        /** The "mode" attribute value of the actual HTML input element representing the widget. */
+        mode?: string;
     }
     /** A textbox widget that enables a user to enter numeric values. */
     export class dxNumberBox extends dxTextEditor {
@@ -1366,7 +1369,7 @@ declare module DevExpress.ui {
         constructor(element: Element, options?: dxMultiViewOptions);
     }
     export interface dxMapOptions extends WidgetOptions {
-        /** Specifies whether or not the widget automatically adjusts center and zoom option values when adding a new marker or route. */
+        /** Specifies whether or not the widget automatically adjusts center and zoom option values when adding a new marker or route or when creating a widget if it initially contains markers or routes. */
         autoAdjust?: boolean;
         center?: {
             /** The latitude location displayed in the center of the widget. */
@@ -1502,6 +1505,8 @@ declare module DevExpress.ui {
         onTitleRendered?: Function;
         /** A Boolean value specifying whether or not to display the title in the popup window. */
         showPopupTitle?: boolean;
+        /** The template to be used for rendering the widget text field. */
+        fieldTemplate?: any;
     }
     /** A widget that allows a user to select predefined values from a lookup window. */
     export class dxLookup extends dxDropDownList {
@@ -1764,6 +1769,10 @@ declare module DevExpress.ui {
         invalidDateMessage?: string;
         /** Specifies the message displayed if the specified date is later than the max value or earlier than the min value. */
         dateOutOfRangeMessage?: string;
+        /** The text displayed on the Apply button. */
+        applyButtonText?: string;
+        /** The text displayed on the Cancel button. */
+        cancelButtonText?: string;
     }
     /** A date box widget. */
     export class dxDateBox extends dxDropDownEditor {
@@ -2055,6 +2064,10 @@ declare module DevExpress.ui {
         /** Specifies the number of columns spanned by the item. */
         colSpan?: number;
     }
+    export interface dxFormEmptyItem extends dxFormItem {
+        /** Specifies the form item name. */
+        name?: string;
+    }
     export interface dxFormSimpleItem extends dxFormItem {
         /** Specifies the path to the formData object field bound to the current form item. */
         dataField?: string;
@@ -2096,6 +2109,16 @@ declare module DevExpress.ui {
         alignItemLabels?: boolean;
         /** Holds an array of form items displayed within the tab. */
         items?: Array<dxFormItem>;
+        /** Specifies a badge text for the tab. */
+        badge?: string;
+        /** A Boolean value specifying whether or not the tab can respond to user interaction. */
+        disabled?: boolean;
+        /** Specifies the icon to be displayed on the tab. */
+        icon?: string;
+        /** The template to be used for rendering the tab. */
+        tabTemplate?: any;
+        /** The template to be used for rendering the tab content. */
+        template?: any;
     }
     export interface dxFormTabbedItem extends dxFormItem {
         /** Holds a configuration object for the dxTabPanel widget used to display the current form item. */
@@ -2126,7 +2149,7 @@ declare module DevExpress.ui {
         alignItemLabelsInAllGroups?: boolean;
         /** Specifies whether or not a colon is displayed at the end of form labels. */
         showColonAfterLabel?: boolean;
-        /** Specifies whether or not the required mark is displayed for optional fields. */
+        /** Specifies whether or not the required mark is displayed for required fields. */
         showRequiredMark?: boolean;
         /** Specifies whether or not the optional mark is displayed for optional fields. */
         showOptionalMark?: boolean;
@@ -2134,6 +2157,8 @@ declare module DevExpress.ui {
         requiredMark?: string;
         /** The text displayed for optional fields. */
         optionalMark?: string;
+        /** Specifies the message that is shown for end-users a required field value is not specified. */
+        requiredMessage?: string;
         /** Specifies whether or not the total validation summary is displayed on the form. */
         showValidationSummary?: boolean;
         /** Holds an array of form items. */
@@ -2629,6 +2654,7 @@ declare module DevExpress.data {
         catalog?: string;
         /** The cube name. */
         cube?: string;
+        /** A function used to customize a web request before it is sent. */
         beforeSend?: (request: Object) => void;
     }
     /** A Store that provides access to an OLAP cube using the XMLA standard. */
@@ -2910,11 +2936,11 @@ declare module DevExpress.ui {
         horizontalScrollingEnabled?: boolean;
         /** Specifies whether a user can switch views using tabs or a drop-down menu. */
         useDropDownViewSwitcher?: boolean;
-        /** Specifies the name of the data source item field that defines the start of the appointment. */
+        /** Specifies the name of the data source item field that defines the start of an appointment. */
         startDateExpr?: string;
-        /** Specifies the name of the data source item field that defines the ending of the appointment. */
+        /** Specifies the name of the data source item field that defines the ending of an appointment. */
         endDateExpr?: string;
-        /** Specifies the name of the data source item field that holds the subject of the appointment. */
+        /** Specifies the name of the data source item field that holds the subject of an appointment. */
         textExpr?: string;
         /** Specifies the name of the data source item field whose value holds the description of the corresponding appointment. */
         descriptionExpr?: string;
@@ -3088,7 +3114,7 @@ declare module DevExpress.ui {
         showFirstSubmenuMode?: {
             /** Specifies the mode name. */
             name?: string;
-            /** Specifies the delay of submenu showing and hiding. */
+            /** Specifies the delay in submenu showing and hiding. */
             delay?: {
                 /** The time span after which the submenu is shown. */
                 show?: number;
@@ -3161,6 +3187,16 @@ declare module DevExpress.ui {
         grouping?: boolean;
         /** Specifies whether or not summaries calculation must be performed on the server side. */
         summary?: boolean;
+    }
+    export interface dxDataGridRow {
+        /** The data object represented by the row. */
+        data: Object;
+        /** The key of the data object represented by the row. */
+        key: any;
+        /** The visible index of the row. */
+        rowIndex: number;
+        /** The type of the row. */
+        rowType: string;
     }
     export interface dxDataGridColumn {
         /** Specifies the content alignment within column cells. */
@@ -3634,7 +3670,6 @@ declare module DevExpress.ui {
         /** A handler for the exporting event. */
         onExporting?: (e: {
             fileName: string;
-            format: string;
             cancel: boolean;
         }) => void;
         /** A handler for the fileSaving event. */
@@ -4037,7 +4072,6 @@ declare module DevExpress.ui {
         /** A handler for the exporting event. */
         onExporting?: (e: {
             fileName: string;
-            format: string;
             cancel: boolean;
         }) => void;
         /** A handler for the fileSaving event. */
@@ -5757,6 +5791,12 @@ declare module DevExpress.viz.charts {
                 visible?: boolean;
                 /** Specifies font options for the text of the crosshair labels. */
                 font?: viz.core.Font;
+                /** Specifies the format of the values displayed by crosshair labels. */
+                format?: string;
+                /** Specifies a precision for formatted values. */
+                precision?: number;
+                /** Customizes the text displayed by the crosshair labels. */
+                customizeText?: (info: { value: any; valueText: string; point: ChartPoint; }) => string;
             }
         };
         /** Specifies a default pane for the chart's series. */
@@ -5815,6 +5855,12 @@ declare module DevExpress.viz.charts {
             visible?: boolean;
             /** Specifies font options for the text of the label that belongs to the horizontal crosshair line. */
             font?: viz.core.Font;
+            /** Specifies the format of the values displayed by crosshair labels. */
+            format?: string;
+            /** Specifies a precision for formatted values. */
+            precision?: number;
+            /** Customizes the text displayed by the crosshair label that accompany the horizontal line. */
+            customizeText?: (info: { value: any; valueText: string; point: ChartPoint; }) => string;
         }
     }
     export interface PolarChartTooltip extends BaseChartTooltip {
