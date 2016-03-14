@@ -31,17 +31,15 @@ declare namespace __React {
         ref: Ref<ClassicComponent<P, any>>;
     }
 
-    interface DOMElement<P extends DOMAttributes> extends ReactElement<P> {
+    interface DOMElement<P extends DOMAttributes, T extends Element> extends ReactElement<P> {
         type: string;
-        ref: Ref<Element>;
+        ref: Ref<T>;
     }
 
-    interface ReactHTMLElement extends DOMElement<HTMLAttributes> {
-        ref: Ref<HTMLElement>;
+    interface ReactHTMLElement<T extends HTMLElement> extends DOMElement<HTMLAttributes, T> {
     }
 
-    interface ReactSVGElement extends DOMElement<SVGAttributes> {
-        ref: Ref<SVGElement>;
+    interface ReactSVGElement extends DOMElement<SVGAttributes, SVGElement> {
     }
 
     //
@@ -56,12 +54,15 @@ declare namespace __React {
         (props?: P & ClassAttributes<ClassicComponent<P, {}>>, ...children: ReactNode[]): ClassicElement<P>;
     }
 
-    interface DOMFactory<P extends DOMAttributes> {
-        (props?: P & ClassAttributes<Element>, ...children: ReactNode[]): DOMElement<P>;
+    interface DOMFactory<P extends DOMAttributes, T extends Element> {
+        (props?: P & ClassAttributes<T>, ...children: ReactNode[]): DOMElement<P, T>;
     }
 
-    type HTMLFactory = DOMFactory<HTMLAttributes>;
-    type SVGFactory = DOMFactory<SVGAttributes>;
+    interface HTMLFactory<T extends HTMLElement> extends DOMFactory<HTMLAttributes, T> {
+    }
+
+    interface SVGFactory extends DOMFactory<SVGAttributes, SVGElement> {
+    }
 
     //
     // React Nodes
@@ -81,14 +82,15 @@ declare namespace __React {
 
     function createClass<P, S>(spec: ComponentSpec<P, S>): ClassicComponentClass<P>;
 
-    function createFactory<P>(type: string): DOMFactory<P>;
+    function createFactory<P extends DOMAttributes, T extends Element>(
+        type: string): DOMFactory<P, T>;
     function createFactory<P>(type: ClassicComponentClass<P>): ClassicFactory<P>;
     function createFactory<P>(type: ComponentClass<P> | StatelessComponent<P>): Factory<P>;
 
     function createElement<P extends DOMAttributes, T extends Element>(
         type: string,
-        props?: P & ClassAttributes<Element>,
-        ...children: ReactNode[]): DOMElement<P>;
+        props?: P & ClassAttributes<T>,
+        ...children: ReactNode[]): DOMElement<P, T>;
     function createElement<P>(
         type: ClassicComponentClass<P>,
         props?: P & ClassAttributes<ClassicComponent<P, {}>>,
@@ -98,14 +100,10 @@ declare namespace __React {
         props?: P & ClassAttributes<Component<P, {}>>,
         ...children: ReactNode[]): ReactElement<P>;
 
-    function cloneElement(
-        element: ReactHTMLElement,
-        props?: HTMLAttributes & ClassAttributes<HTMLElement>,
-        ...children: ReactNode[]): ReactHTMLElement;
-    function cloneElement(
-        element: ReactSVGElement,
-        props?: SVGAttributes & ClassAttributes<SVGElement>,
-        ...children: ReactNode[]): ReactSVGElement;
+    function cloneElement<P extends DOMAttributes, T extends Element>(
+        element: DOMElement<P, T>,
+        props?: P & ClassAttributes<T>,
+        ...children: ReactNode[]): DOMElement<P, T>;
     function cloneElement<P extends Q, Q>(
         element: ClassicElement<P>,
         props?: Q & ClassAttributes<ClassicComponent<P, {}>>,
@@ -2060,119 +2058,119 @@ declare namespace __React {
 
     interface ReactDOM {
         // HTML
-        a: HTMLFactory;
-        abbr: HTMLFactory;
-        address: HTMLFactory;
-        area: HTMLFactory;
-        article: HTMLFactory;
-        aside: HTMLFactory;
-        audio: HTMLFactory;
-        b: HTMLFactory;
-        base: HTMLFactory;
-        bdi: HTMLFactory;
-        bdo: HTMLFactory;
-        big: HTMLFactory;
-        blockquote: HTMLFactory;
-        body: HTMLFactory;
-        br: HTMLFactory;
-        button: HTMLFactory;
-        canvas: HTMLFactory;
-        caption: HTMLFactory;
-        cite: HTMLFactory;
-        code: HTMLFactory;
-        col: HTMLFactory;
-        colgroup: HTMLFactory;
-        data: HTMLFactory;
-        datalist: HTMLFactory;
-        dd: HTMLFactory;
-        del: HTMLFactory;
-        details: HTMLFactory;
-        dfn: HTMLFactory;
-        dialog: HTMLFactory;
-        div: HTMLFactory;
-        dl: HTMLFactory;
-        dt: HTMLFactory;
-        em: HTMLFactory;
-        embed: HTMLFactory;
-        fieldset: HTMLFactory;
-        figcaption: HTMLFactory;
-        figure: HTMLFactory;
-        footer: HTMLFactory;
-        form: HTMLFactory;
-        h1: HTMLFactory;
-        h2: HTMLFactory;
-        h3: HTMLFactory;
-        h4: HTMLFactory;
-        h5: HTMLFactory;
-        h6: HTMLFactory;
-        head: HTMLFactory;
-        header: HTMLFactory;
-        hgroup: HTMLFactory;
-        hr: HTMLFactory;
-        html: HTMLFactory;
-        i: HTMLFactory;
-        iframe: HTMLFactory;
-        img: HTMLFactory;
-        input: HTMLFactory;
-        ins: HTMLFactory;
-        kbd: HTMLFactory;
-        keygen: HTMLFactory;
-        label: HTMLFactory;
-        legend: HTMLFactory;
-        li: HTMLFactory;
-        link: HTMLFactory;
-        main: HTMLFactory;
-        map: HTMLFactory;
-        mark: HTMLFactory;
-        menu: HTMLFactory;
-        menuitem: HTMLFactory;
-        meta: HTMLFactory;
-        meter: HTMLFactory;
-        nav: HTMLFactory;
-        noscript: HTMLFactory;
-        object: HTMLFactory;
-        ol: HTMLFactory;
-        optgroup: HTMLFactory;
-        option: HTMLFactory;
-        output: HTMLFactory;
-        p: HTMLFactory;
-        param: HTMLFactory;
-        picture: HTMLFactory;
-        pre: HTMLFactory;
-        progress: HTMLFactory;
-        q: HTMLFactory;
-        rp: HTMLFactory;
-        rt: HTMLFactory;
-        ruby: HTMLFactory;
-        s: HTMLFactory;
-        samp: HTMLFactory;
-        script: HTMLFactory;
-        section: HTMLFactory;
-        select: HTMLFactory;
-        small: HTMLFactory;
-        source: HTMLFactory;
-        span: HTMLFactory;
-        strong: HTMLFactory;
-        style: HTMLFactory;
-        sub: HTMLFactory;
-        summary: HTMLFactory;
-        sup: HTMLFactory;
-        table: HTMLFactory;
-        tbody: HTMLFactory;
-        td: HTMLFactory;
-        textarea: HTMLFactory;
-        tfoot: HTMLFactory;
-        th: HTMLFactory;
-        thead: HTMLFactory;
-        time: HTMLFactory;
-        title: HTMLFactory;
-        tr: HTMLFactory;
-        track: HTMLFactory;
-        u: HTMLFactory;
-        ul: HTMLFactory;
-        "var": HTMLFactory;
-        video: HTMLFactory;
-        wbr: HTMLFactory;
+        a: HTMLFactory<HTMLAnchorElement>;
+        abbr: HTMLFactory<HTMLElement>;
+        address: HTMLFactory<HTMLElement>;
+        area: HTMLFactory<HTMLAreaElement>;
+        article: HTMLFactory<HTMLElement>;
+        aside: HTMLFactory<HTMLElement>;
+        audio: HTMLFactory<HTMLAudioElement>;
+        b: HTMLFactory<HTMLElement>;
+        base: HTMLFactory<HTMLBaseElement>;
+        bdi: HTMLFactory<HTMLElement>;
+        bdo: HTMLFactory<HTMLElement>;
+        big: HTMLFactory<HTMLElement>;
+        blockquote: HTMLFactory<HTMLElement>;
+        body: HTMLFactory<HTMLBodyElement>;
+        br: HTMLFactory<HTMLBRElement>;
+        button: HTMLFactory<HTMLButtonElement>;
+        canvas: HTMLFactory<HTMLCanvasElement>;
+        caption: HTMLFactory<HTMLElement>;
+        cite: HTMLFactory<HTMLElement>;
+        code: HTMLFactory<HTMLElement>;
+        col: HTMLFactory<HTMLTableColElement>;
+        colgroup: HTMLFactory<HTMLTableColElement>;
+        data: HTMLFactory<HTMLElement>;
+        datalist: HTMLFactory<HTMLDataListElement>;
+        dd: HTMLFactory<HTMLElement>;
+        del: HTMLFactory<HTMLElement>;
+        details: HTMLFactory<HTMLElement>;
+        dfn: HTMLFactory<HTMLElement>;
+        dialog: HTMLFactory<HTMLElement>;
+        div: HTMLFactory<HTMLDivElement>;
+        dl: HTMLFactory<HTMLDListElement>;
+        dt: HTMLFactory<HTMLElement>;
+        em: HTMLFactory<HTMLElement>;
+        embed: HTMLFactory<HTMLEmbedElement>;
+        fieldset: HTMLFactory<HTMLFieldSetElement>;
+        figcaption: HTMLFactory<HTMLElement>;
+        figure: HTMLFactory<HTMLElement>;
+        footer: HTMLFactory<HTMLElement>;
+        form: HTMLFactory<HTMLFormElement>;
+        h1: HTMLFactory<HTMLHeadingElement>;
+        h2: HTMLFactory<HTMLHeadingElement>;
+        h3: HTMLFactory<HTMLHeadingElement>;
+        h4: HTMLFactory<HTMLHeadingElement>;
+        h5: HTMLFactory<HTMLHeadingElement>;
+        h6: HTMLFactory<HTMLHeadingElement>;
+        head: HTMLFactory<HTMLHeadElement>;
+        header: HTMLFactory<HTMLElement>;
+        hgroup: HTMLFactory<HTMLElement>;
+        hr: HTMLFactory<HTMLHRElement>;
+        html: HTMLFactory<HTMLHtmlElement>;
+        i: HTMLFactory<HTMLElement>;
+        iframe: HTMLFactory<HTMLIFrameElement>;
+        img: HTMLFactory<HTMLImageElement>;
+        input: HTMLFactory<HTMLInputElement>;
+        ins: HTMLFactory<HTMLModElement>;
+        kbd: HTMLFactory<HTMLElement>;
+        keygen: HTMLFactory<HTMLElement>;
+        label: HTMLFactory<HTMLLabelElement>;
+        legend: HTMLFactory<HTMLLegendElement>;
+        li: HTMLFactory<HTMLLIElement>;
+        link: HTMLFactory<HTMLLinkElement>;
+        main: HTMLFactory<HTMLElement>;
+        map: HTMLFactory<HTMLMapElement>;
+        mark: HTMLFactory<HTMLElement>;
+        menu: HTMLFactory<HTMLElement>;
+        menuitem: HTMLFactory<HTMLElement>;
+        meta: HTMLFactory<HTMLMetaElement>;
+        meter: HTMLFactory<HTMLElement>;
+        nav: HTMLFactory<HTMLElement>;
+        noscript: HTMLFactory<HTMLElement>;
+        object: HTMLFactory<HTMLObjectElement>;
+        ol: HTMLFactory<HTMLOListElement>;
+        optgroup: HTMLFactory<HTMLOptGroupElement>;
+        option: HTMLFactory<HTMLOptionElement>;
+        output: HTMLFactory<HTMLElement>;
+        p: HTMLFactory<HTMLParagraphElement>;
+        param: HTMLFactory<HTMLParamElement>;
+        picture: HTMLFactory<HTMLElement>;
+        pre: HTMLFactory<HTMLPreElement>;
+        progress: HTMLFactory<HTMLProgressElement>;
+        q: HTMLFactory<HTMLQuoteElement>;
+        rp: HTMLFactory<HTMLElement>;
+        rt: HTMLFactory<HTMLElement>;
+        ruby: HTMLFactory<HTMLElement>;
+        s: HTMLFactory<HTMLElement>;
+        samp: HTMLFactory<HTMLElement>;
+        script: HTMLFactory<HTMLElement>;
+        section: HTMLFactory<HTMLElement>;
+        select: HTMLFactory<HTMLSelectElement>;
+        small: HTMLFactory<HTMLElement>;
+        source: HTMLFactory<HTMLSourceElement>;
+        span: HTMLFactory<HTMLSpanElement>;
+        strong: HTMLFactory<HTMLElement>;
+        style: HTMLFactory<HTMLStyleElement>;
+        sub: HTMLFactory<HTMLElement>;
+        summary: HTMLFactory<HTMLElement>;
+        sup: HTMLFactory<HTMLElement>;
+        table: HTMLFactory<HTMLTableElement>;
+        tbody: HTMLFactory<HTMLTableSectionElement>;
+        td: HTMLFactory<HTMLTableDataCellElement>;
+        textarea: HTMLFactory<HTMLTextAreaElement>;
+        tfoot: HTMLFactory<HTMLTableSectionElement>;
+        th: HTMLFactory<HTMLTableHeaderCellElement>;
+        thead: HTMLFactory<HTMLTableSectionElement>;
+        time: HTMLFactory<HTMLElement>;
+        title: HTMLFactory<HTMLTitleElement>;
+        tr: HTMLFactory<HTMLTableRowElement>;
+        track: HTMLFactory<HTMLTrackElement>;
+        u: HTMLFactory<HTMLElement>;
+        ul: HTMLFactory<HTMLUListElement>;
+        "var": HTMLFactory<HTMLElement>;
+        video: HTMLFactory<HTMLVideoElement>;
+        wbr: HTMLFactory<HTMLElement>;
 
         // SVG
         svg: SVGFactory;

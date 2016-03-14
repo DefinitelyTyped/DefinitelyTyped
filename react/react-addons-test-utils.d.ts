@@ -94,8 +94,8 @@ declare namespace __React {
                 export var wheel: EventSimulator;
             }
 
-            export function renderIntoDocument(
-                element: DOMElement<any>): Element;
+            export function renderIntoDocument<T extends Element>(
+                element: DOMElement<any, T>): T;
             export function renderIntoDocument<P>(
                 element: ReactElement<P>): Component<P, any>;
             export function renderIntoDocument<C extends Component<any, any>>(

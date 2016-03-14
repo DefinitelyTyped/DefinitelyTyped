@@ -9,7 +9,7 @@ declare module "react-holder" {
 
   import React = __React;
 
-  interface ReactHolderProp extends React.HTMLProps<ReactHolder> {
+  interface ReactHolderProp extends React.HTMLAttributes {
     width: string | number;
     height: string | number;
     updateOnResize: boolean;
