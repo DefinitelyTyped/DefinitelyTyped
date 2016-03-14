@@ -136,15 +136,27 @@ declare module "koa-router" {
         use(...middleware: Array<Router.IMiddleware>): Router;
         use(path: string, ...middleware: Array<Router.IMiddleware>): Router;
 
+        /**
+         * HTTP get method
+         */
         get(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
         get(path: string, ...middleware: Array<Router.IMiddleware>): Router;
-
+        
+        /**
+         * HTTP post method
+         */
         post(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
         post(path: string, ...middleware: Array<Router.IMiddleware>): Router;
-
+        
+        /**
+         * HTTP put method
+         */
         put(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
         put(path: string, ...middleware: Array<Router.IMiddleware>): Router;
 
+        /**
+         * HTTP delete method
+         */
         delete(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
         delete(path: string, ...middleware: Array<Router.IMiddleware>): Router;
 
@@ -154,12 +166,21 @@ declare module "koa-router" {
         del(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
         del(path: string, ...middleware: Array<Router.IMiddleware>): Router;
 
+        /**
+         * HTTP head method
+         */
         head(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
         head(path: string, ...middleware: Array<Router.IMiddleware>): Router;
 
+        /**
+         * HTTP options method
+         */
         options(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
         options(path: string, ...middleware: Array<Router.IMiddleware>): Router;
 
+        /**
+         * HTTP path method
+         */
         patch(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
         patch(path: string, ...middleware: Array<Router.IMiddleware>): Router;
 
