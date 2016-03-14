@@ -220,9 +220,12 @@ domNode = ReactDOM.findDOMNode(domNode);
 // React Elements
 // --------------------------------------------------------------------------
 
-var type = element.type;
+var type: React.ComponentClass<Props> = element.type;
 var elementProps: Props = element.props;
-var key = element.key;
+var key: React.Key = element.key;
+
+var t: React.ReactType<any>;
+var name = typeof t === "string" ? t : t.displayName;
 
 //
 // React Components
@@ -542,6 +545,20 @@ var foundComponent: ModernComponent = TestUtils.findRenderedComponentWithType(
     inst, ModernComponent);
 var foundComponents: ModernComponent[] = TestUtils.scryRenderedComponentsWithType(
     inst, ModernComponent);
+
+// ReactTestUtils custom type guards
+
+var emptyElement: React.ReactElement<{}>;
+if (TestUtils.isElementOfType(emptyElement, StatelessComponent)) {
+    emptyElement.props.foo;
+}
+
+var anyInstance: Element | React.Component<any, any>;
+if (TestUtils.isDOMComponent(anyInstance)) {
+    anyInstance.getAttribute("className");
+} else if (TestUtils.isCompositeComponent(anyInstance)) {
+    anyInstance.props;
+}
 
 //
 // TransitionGroup addon

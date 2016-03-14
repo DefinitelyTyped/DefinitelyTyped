@@ -174,12 +174,12 @@ declare namespace __React {
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
         defaultProps?: P;
+        displayName?: string;
     }
 
     interface ClassicComponentClass<P> extends ComponentClass<P> {
         new(props?: P, context?: any): ClassicComponent<P, any>;
         getDefaultProps?(): P;
-        displayName?: string;
     }
 
     //
