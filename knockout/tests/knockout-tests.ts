@@ -655,3 +655,24 @@ function testUnwrapUnion() {
     var num = ko.unwrap(possibleObs);
 
 }
+
+function testOptions() {
+    ko.options.deferUpdates = false;
+    ko.options.useOnlyNativeEvents = false;
+}
+
+function testMicrotasks() {
+    var handle: number = ko.tasks.schedule(() => { console.log("hello world"); });
+    ko.tasks.cancel(handle);
+    ko.tasks.runEarly();
+}
+
+function testPureComputed() {
+    var fullName = ko.pureComputed(function() {
+        return this.firstName() + " " + this.lastName();
+    }, this);
+
+    var isPureComputed: boolean = ko.isPureComputed(fullName);
+
+    var name: string = fullName.peek();
+}
