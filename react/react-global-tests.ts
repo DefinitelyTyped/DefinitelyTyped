@@ -115,9 +115,9 @@ class ModernComponent extends React.Component<Props, State>
 }
 
 // React.createFactory
-var factory: React.Factory<Props> =
+var factory: React.CFactory<Props, ModernComponent> =
     React.createFactory(ModernComponent);
-var factoryElement: React.ReactElement<Props> =
+var factoryElement: React.CElement<Props, ModernComponent> =
     factory(props);
 
 var classicFactory: React.ClassicFactory<Props> =
@@ -131,7 +131,7 @@ var domFactoryElement: React.DOMElement<React.DOMAttributes, Element> =
     domFactory();
 
 // React.createElement
-var element: React.ReactElement<Props> =
+var element: React.CElement<Props, ModernComponent> =
     React.createElement(ModernComponent, props);
 var classicElement: React.ClassicElement<Props> =
     React.createElement(ClassicComponent, props);
@@ -139,7 +139,7 @@ var domElement: React.ReactHTMLElement<HTMLDivElement> =
     React.createElement("div");
 
 // React.cloneElement
-var clonedElement: React.ReactElement<Props> =
+var clonedElement: React.CElement<Props, ModernComponent> =
     React.cloneElement(element, props);
 var clonedClassicElement: React.ClassicElement<Props> =
     React.cloneElement(classicElement, props);

@@ -10,6 +10,7 @@ declare namespace __React {
     // ----------------------------------------------------------------------
 
     type ReactType = string | ComponentClass<any> | StatelessComponent<any>;
+
     type Key = string | number;
     type Ref<T> = string | ((instance: T) => any);
 
@@ -20,16 +21,23 @@ declare namespace __React {
         ref?: Ref<T>;
     }
 
-    interface ReactElement<P extends Props<any>> {
-        type: string | ComponentClass<P> | StatelessComponent<P>;
+    interface ReactElement<P> {
+        type: string | ComponentClass<P> | SFC<P>;
         props: P;
         key?: Key;
     }
 
-    interface ClassicElement<P> extends ReactElement<P> {
-        type: ClassicComponentClass<P>;
-        ref: Ref<ClassicComponent<P, any>>;
+    interface SFCElement<P> extends ReactElement<P> {
+        type: SFC<P>;
     }
+
+    type CElement<P, T extends Component<P, {}>> = ComponentElement<P, T>;
+    interface ComponentElement<P, T extends Component<P, {}>> extends ReactElement<P> {
+        type: ComponentClass<P>;
+        ref?: Ref<T>;
+    }
+
+    type ClassicElement<P> = CElement<P, ClassicComponent<P, {}>>;
 
     interface DOMElement<P extends DOMAttributes, T extends Element> extends ReactElement<P> {
         type: string;
@@ -50,9 +58,16 @@ declare namespace __React {
         (props?: P & Attributes, ...children: ReactNode[]): ReactElement<P>;
     }
 
-    interface ClassicFactory<P> extends Factory<P> {
-        (props?: P & ClassAttributes<ClassicComponent<P, {}>>, ...children: ReactNode[]): ClassicElement<P>;
+    interface SFCFactory<P> {
+        (props?: P & Attributes, ...children: ReactNode[]): SFCElement<P>;
     }
+
+    interface ComponentFactory<P, T extends Component<P, {}>> {
+        (props?: P & ClassAttributes<T>, ...children: ReactNode[]): CElement<P, T>;
+    }
+
+    type CFactory<P, T extends Component<P, {}>> = ComponentFactory<P, T>;
+    type ClassicFactory<P> = CFactory<P, ClassicComponent<P, {}>>;
 
     interface DOMFactory<P extends DOMAttributes, T extends Element> {
         (props?: P & ClassAttributes<T>, ...children: ReactNode[]): DOMElement<P, T>;
@@ -84,20 +99,32 @@ declare namespace __React {
 
     function createFactory<P extends DOMAttributes, T extends Element>(
         type: string): DOMFactory<P, T>;
-    function createFactory<P>(type: ClassicComponentClass<P>): ClassicFactory<P>;
-    function createFactory<P>(type: ComponentClass<P> | StatelessComponent<P>): Factory<P>;
+    function createFactory<P>(type: SFC<P>): SFCFactory<P>;
+    function createFactory<P>(
+        type: ClassType<P, ClassicComponent<P, {}>, ClassicComponentClass<P>>): CFactory<P, ClassicComponent<P, {}>>;
+    function createFactory<P, T extends Component<P, {}>, C extends ComponentClass<P>>(
+        type: ClassType<P, T, C>): CFactory<P, T>;
+    function createFactory<P>(type: ComponentClass<P> | SFC<P>): Factory<P>;
 
     function createElement<P extends DOMAttributes, T extends Element>(
         type: string,
         props?: P & ClassAttributes<T>,
         ...children: ReactNode[]): DOMElement<P, T>;
     function createElement<P>(
-        type: ClassicComponentClass<P>,
-        props?: P & ClassAttributes<ClassicComponent<P, {}>>,
-        ...children: ReactNode[]): ClassicElement<P>;
+        type: SFC<P>,
+        props?: P & Attributes,
+        ...children: ReactNode[]): SFCElement<P>;
     function createElement<P>(
-        type: ComponentClass<P> | StatelessComponent<P>,
-        props?: P & ClassAttributes<Component<P, {}>>,
+        type: ClassType<P, ClassicComponent<P, {}>, ClassicComponentClass<P>>,
+        props?: P & ClassAttributes<ClassicComponent<P, {}>>,
+        ...children: ReactNode[]): CElement<P, ClassicComponent<P, {}>>;
+    function createElement<P, T extends Component<P, {}>, C extends ComponentClass<P>>(
+        type: ClassType<P, T, C>,
+        props?: P & ClassAttributes<T>,
+        ...children: ReactNode[]): CElement<P, T>;
+    function createElement<P>(
+        type: ComponentClass<P> | SFC<P>,
+        props?: P & Attributes,
         ...children: ReactNode[]): ReactElement<P>;
 
     function cloneElement<P extends DOMAttributes, T extends Element>(
@@ -105,12 +132,16 @@ declare namespace __React {
         props?: P & ClassAttributes<T>,
         ...children: ReactNode[]): DOMElement<P, T>;
     function cloneElement<P extends Q, Q>(
-        element: ClassicElement<P>,
-        props?: Q & ClassAttributes<ClassicComponent<P, {}>>,
-        ...children: ReactNode[]): ClassicElement<P>;
+        element: SFCElement<P>,
+        props?: Q, // should be Q & Attributes, but then Q is inferred as {}
+        ...children: ReactNode[]): SFCElement<P>;
+    function cloneElement<P extends Q, Q, T extends Component<P, {}>>(
+        element: CElement<P, T>,
+        props?: Q, // should be Q & ClassAttributes<T>
+        ...children: ReactNode[]): CElement<P, T>;
     function cloneElement<P extends Q, Q>(
         element: ReactElement<P>,
-        props?: Q & Attributes,
+        props?: Q, // should be Q & Attributes
         ...children: ReactNode[]): ReactElement<P>;
 
     function isValidElement<P>(object: {}): object is ReactElement<P>;
@@ -160,6 +191,7 @@ declare namespace __React {
     // Class Interfaces
     // ----------------------------------------------------------------------
 
+    type SFC<P> = StatelessComponent<P>;
     interface StatelessComponent<P> {
         (props?: P, context?: any): ReactElement<any>;
         propTypes?: ValidationMap<P>;
@@ -169,7 +201,7 @@ declare namespace __React {
     }
 
     interface ComponentClass<P> {
-        new(props?: P, context?: any): Component<P, any>;
+        new(props?: P, context?: any): Component<P, {}>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
@@ -178,9 +210,19 @@ declare namespace __React {
     }
 
     interface ClassicComponentClass<P> extends ComponentClass<P> {
-        new(props?: P, context?: any): ClassicComponent<P, any>;
+        new(props?: P, context?: any): ClassicComponent<P, {}>;
         getDefaultProps?(): P;
     }
+
+    /**
+     * We use an intersection type to infer multiple type parameters from
+     * a single argument, which is useful for many top-level API defs.
+     * See https://github.com/Microsoft/TypeScript/issues/7234 for more info.
+     */
+    type ClassType<P, T extends Component<P, {}>, C extends ComponentClass<P>> =
+        C &
+        (new() => T) &
+        (new() => { props: P });
 
     //
     // Component Specs and Lifecycle
