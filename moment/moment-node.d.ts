@@ -574,7 +574,22 @@ declare module moment {
     interface MomentStatic {
         version: string;
         fn: Moment;
-
+        
+        default(): Moment;
+        default(date: number): Moment;
+        default(date: number[]): Moment;
+        default(date: string, format?: string, strict?: boolean): Moment;
+        default(date: string, format?: string, language?: string, strict?: boolean): Moment;
+        default(date: string, formats: string[], strict?: boolean): Moment;
+        default(date: string, formats: string[], language?: string, strict?: boolean): Moment;
+        default(date: string, specialFormat: () => void, strict?: boolean): Moment;
+        default(date: string, specialFormat: () => void, language?: string, strict?: boolean): Moment;
+        default(date: string, formatsIncludingSpecial: any[], strict?: boolean): Moment;
+        default(date: string, formatsIncludingSpecial: any[], language?: string, strict?: boolean): Moment;
+        default(date: Date): Moment;
+        default(date: Moment): Moment;
+        default(date: Object): Moment;
+        
         (): Moment;
         (date: number): Moment;
         (date: number[]): Moment;
