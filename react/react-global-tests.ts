@@ -1,6 +1,6 @@
 /// <reference path="react-global.d.ts" />
 
-interface Props extends React.Props<MyComponent> {
+interface Props {
     hello: string;
     world?: string;
     foo: number;
@@ -24,7 +24,7 @@ interface MyComponent extends React.Component<Props, State> {
     reset(): void;
 }
 
-var props: Props = {
+var props: Props & React.ClassAttributes<{}> = {
     key: 42,
     ref: "myComponent42",
     hello: "world",

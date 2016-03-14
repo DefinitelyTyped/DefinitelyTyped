@@ -23,7 +23,7 @@ import TestUtils = require("react-addons-test-utils");
 import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 
-interface Props extends React.Props<MyComponent> {
+interface Props {
     hello: string;
     world?: string;
     foo: number;
@@ -46,7 +46,7 @@ interface MyComponent extends React.Component<Props, State> {
     reset(): void;
 }
 
-var props: Props = {
+var props: Props & React.ClassAttributes<{}> = {
     key: 42,
     ref: "myComponent42",
     hello: "world",
@@ -138,7 +138,7 @@ class ModernComponent extends React.Component<Props, State>
     }
 }
 
-interface SCProps extends React.Props<{}> {
+interface SCProps {
     foo?: number;
 }
 
@@ -250,12 +250,9 @@ myComponent.reset();
 
 //
 // Refs
-// NB: to infer the correct type for callback refs, your component's Props
-// interface must extend React.Props<T> where T is your component type (or
-// an interface that it implements).
 // --------------------------------------------------------------------------
 
-interface RCProps extends React.Props<RefComponent> {
+interface RCProps {
 }
 
 class RefComponent extends React.Component<RCProps, {}> {
