@@ -18,8 +18,20 @@ declare module ReactDropzone {
         className?: string;
         activeClassName?: string;
         rejectClassName?: string;
+        /**
+        * Clicking the <Dropzone> brings up the browser file picker. To disable, set to true.
+        */
         disableClick?: boolean;
+        /**
+        * To accept only a single file, set this to false.
+        */
         multiple?: boolean;
+        /**
+        * Filters the file types that are valid. It should have a valid MIME type according to input element, for example:
+        * application/pdf
+        * image/*
+        * audio/aiff,audio/midi
+        */
         accept?: string;
     }
 
@@ -32,3 +44,4 @@ declare module "react-dropzone" {
     const Dropzone: typeof ReactDropzone.Dropzone;
     export = Dropzone;
 }
+
