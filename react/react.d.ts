@@ -1965,6 +1965,7 @@ declare namespace __React {
         multiple?: boolean;
         muted?: boolean;
         name?: string;
+        nonce?: string;
         noValidate?: boolean;
         open?: boolean;
         optimum?: number;
@@ -1976,6 +1977,7 @@ declare namespace __React {
         readOnly?: boolean;
         rel?: string;
         required?: boolean;
+        reversed?: boolean;
         role?: string;
         rows?: number;
         rowSpan?: number;
