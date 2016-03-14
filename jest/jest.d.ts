@@ -1,4 +1,4 @@
-// Type definitions for Jest 0.1.18
+// Type definitions for Jest 0.9.0
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -26,15 +26,15 @@ declare module jest {
     function autoMockOn(): void;
     function clearAllTimers(): void;
     function currentTestPath(): string;
+    function fn<T>(implementation?: Function): Mock<T>;
     function dontMock(moduleName: string): void;
     function genMockFromModule<T>(moduleName: string): Mock<T>;
-    function genMockFunction<T>(): Mock<T>;
-    function genMockFn<T>(): Mock<T>;
     function mock(moduleName: string): void;
     function runAllTicks(): void;
     function runAllTimers(): void;
     function runOnlyPendingTimers(): void;
     function setMock<T>(moduleName: string, moduleExports: T): void;
+    function unmock(moduleName: string): void;
 
     interface EmptyFunction {
         (): void;
