@@ -10,10 +10,10 @@ declare namespace __React {
         function findDOMNode<E extends Element>(instance: ReactInstance): E;
         function findDOMNode(instance: ReactInstance): Element;
 
-        function render<P>(
-            element: DOMElement<P>,
+        function render<P extends DOMAttributes, T extends Element>(
+            element: DOMElement<P, T>,
             container: Element,
-            callback?: (element: Element) => any): Element;
+            callback?: (element: T) => any): T;
         function render<P, S>(
             element: ClassicElement<P>,
             container: Element,
@@ -31,11 +31,11 @@ declare namespace __React {
         function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
         function unstable_batchedUpdates(callback: () => any): void;
 
-        function unstable_renderSubtreeIntoContainer<P>(
+        function unstable_renderSubtreeIntoContainer<P extends DOMAttributes, T extends Element>(
             parentComponent: Component<any, any>,
-            nextElement: DOMElement<P>,
+            element: DOMElement<P, T>,
             container: Element,
-            callback?: (element: Element) => any): Element;
+            callback?: (element: T) => any): T;
         function unstable_renderSubtreeIntoContainer<P, S>(
             parentComponent: Component<any, any>,
             nextElement: ClassicElement<P>,

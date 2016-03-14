@@ -76,7 +76,6 @@ declare module reactInputCalendar {
     }
     interface ReactInputCalendarState { }
     export class ReactInputCalendar extends __React.Component<ReactInputCalendarProps, ReactInputCalendarState> {
-        render(): __React.DOMElement<any>;
     }
 }
 declare var ReactInputCalendar: typeof reactInputCalendar.ReactInputCalendar
