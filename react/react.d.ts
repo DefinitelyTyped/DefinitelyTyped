@@ -65,8 +65,7 @@ declare namespace __React {
     type ReactText = string | number;
     type ReactChild = ReactElement<any> | ReactText;
 
-    // Should be Array<ReactNode> but type aliases cannot be recursive
-    type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
+    interface ReactFragment extends Array<ReactNode> {}
     type ReactNode = ReactChild | ReactFragment | boolean;
 
     //
