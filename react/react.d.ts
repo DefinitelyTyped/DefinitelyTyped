@@ -13,11 +13,17 @@ declare namespace __React {
     type Key = string | number;
     type Ref<T> = string | ((instance: T) => any);
 
+    interface Attributes {
+        key?: Key;
+    }
+    interface ClassAttributes<T> extends Attributes {
+        ref?: Ref<T>;
+    }
+
     interface ReactElement<P extends Props<any>> {
         type: string | ComponentClass<P> | StatelessComponent<P>;
         props: P;
-        key: Key;
-        ref: Ref<Component<P, any> | Element>;
+        key?: Key;
     }
 
     interface ClassicElement<P> extends ReactElement<P> {
@@ -25,16 +31,16 @@ declare namespace __React {
         ref: Ref<ClassicComponent<P, any>>;
     }
 
-    interface DOMElement<P extends Props<Element>> extends ReactElement<P> {
+    interface DOMElement<P extends DOMAttributes> extends ReactElement<P> {
         type: string;
         ref: Ref<Element>;
     }
 
-    interface ReactHTMLElement extends DOMElement<HTMLProps<HTMLElement>> {
+    interface ReactHTMLElement extends DOMElement<HTMLAttributes> {
         ref: Ref<HTMLElement>;
     }
 
-    interface ReactSVGElement extends DOMElement<SVGProps> {
+    interface ReactSVGElement extends DOMElement<SVGAttributes> {
         ref: Ref<SVGElement>;
     }
 
@@ -43,19 +49,19 @@ declare namespace __React {
     // ----------------------------------------------------------------------
 
     interface Factory<P> {
-        (props?: P, ...children: ReactNode[]): ReactElement<P>;
+        (props?: P & Attributes, ...children: ReactNode[]): ReactElement<P>;
     }
 
     interface ClassicFactory<P> extends Factory<P> {
-        (props?: P, ...children: ReactNode[]): ClassicElement<P>;
+        (props?: P & ClassAttributes<ClassicComponent<P, {}>>, ...children: ReactNode[]): ClassicElement<P>;
     }
 
-    interface DOMFactory<P extends Props<Element>> extends Factory<P> {
-        (props?: P, ...children: ReactNode[]): DOMElement<P>;
+    interface DOMFactory<P extends DOMAttributes> {
+        (props?: P & ClassAttributes<Element>, ...children: ReactNode[]): DOMElement<P>;
     }
 
-    type HTMLFactory = DOMFactory<HTMLProps<HTMLElement>>;
-    type SVGFactory = DOMFactory<SVGProps>;
+    type HTMLFactory = DOMFactory<HTMLAttributes>;
+    type SVGFactory = DOMFactory<SVGAttributes>;
 
     //
     // React Nodes
@@ -79,37 +85,37 @@ declare namespace __React {
     function createFactory<P>(type: ClassicComponentClass<P>): ClassicFactory<P>;
     function createFactory<P>(type: ComponentClass<P> | StatelessComponent<P>): Factory<P>;
 
-    function createElement<P>(
+    function createElement<P extends DOMAttributes, T extends Element>(
         type: string,
-        props?: P,
+        props?: P & ClassAttributes<Element>,
         ...children: ReactNode[]): DOMElement<P>;
     function createElement<P>(
         type: ClassicComponentClass<P>,
-        props?: P,
+        props?: P & ClassAttributes<ClassicComponent<P, {}>>,
         ...children: ReactNode[]): ClassicElement<P>;
     function createElement<P>(
         type: ComponentClass<P> | StatelessComponent<P>,
-        props?: P,
+        props?: P & ClassAttributes<Component<P, {}>>,
         ...children: ReactNode[]): ReactElement<P>;
 
     function cloneElement(
         element: ReactHTMLElement,
-        props?: HTMLProps<HTMLElement>,
+        props?: HTMLAttributes & ClassAttributes<HTMLElement>,
         ...children: ReactNode[]): ReactHTMLElement;
     function cloneElement(
         element: ReactSVGElement,
-        props?: SVGProps,
+        props?: SVGAttributes & ClassAttributes<SVGElement>,
         ...children: ReactNode[]): ReactSVGElement;
     function cloneElement<P extends Q, Q>(
         element: ClassicElement<P>,
-        props?: Q,
+        props?: Q & ClassAttributes<ClassicComponent<P, {}>>,
         ...children: ReactNode[]): ClassicElement<P>;
     function cloneElement<P extends Q, Q>(
         element: ReactElement<P>,
-        props?: Q,
+        props?: Q & Attributes,
         ...children: ReactNode[]): ReactElement<P>;
 
-    function isValidElement(object: {}): boolean;
+    function isValidElement<P>(object: {}): object is ReactElement<P>;
 
     var DOM: ReactDOM;
     var PropTypes: ReactPropTypes;
@@ -128,7 +134,13 @@ declare namespace __React {
         setState(state: S, callback?: () => any): void;
         forceUpdate(callBack?: () => any): void;
         render(): JSX.Element;
-        props: P;
+
+        // React.Props<T> is now deprecated, which means that the `children`
+        // property is not available on `P` by default, even though you can
+        // always pass children as variadic arguments to `createElement`.
+        // In the future, if we can define its call signature conditionallly
+        // on the existence of `children` in `P`, then we should remove this.
+        props: P & { children?: ReactNode };
         state: S;
         context: {};
         refs: {
@@ -325,19 +337,34 @@ declare namespace __React {
     // Props / DOM Attributes
     // ----------------------------------------------------------------------
 
+    /**
+     * @deprecated. This was used to allow clients to pass `ref` and `key`
+     * to `createElement`, which is no longer necessary due to intersection
+     * types. If you need to declare a props object before passing it to
+     * `createElement` or a factory, use `ClassAttributes<T>`:
+     *
+     * ```ts
+     * var b: Button;
+     * var props: ButtonProps & ClassAttributes<Button> = {
+     *     ref: b => button = b, // ok!
+     *     label: "I'm a Button"
+     * };
+     * ```
+     */
     interface Props<T> {
         children?: ReactNode;
         key?: Key;
         ref?: Ref<T>;
     }
 
-    interface HTMLProps<T> extends HTMLAttributes, Props<T> {
+    interface HTMLProps<T> extends HTMLAttributes, ClassAttributes<T> {
     }
 
-    interface SVGProps extends SVGAttributes, Props<SVGElement> {
+    interface SVGProps extends SVGAttributes, ClassAttributes<SVGElement> {
     }
 
     interface DOMAttributes {
+        children?: ReactNode;
         dangerouslySetInnerHTML?: {
             __html: string;
         };
@@ -2256,13 +2283,8 @@ declare namespace JSX {
     }
     interface ElementAttributesProperty { props: {}; }
 
-    interface IntrinsicAttributes {
-        key?: React.Key;
-    }
-
-    interface IntrinsicClassAttributes<T> {
-        ref?: React.Ref<T>;
-    }
+    interface IntrinsicAttributes extends React.Attributes { }
+    interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
 
     interface IntrinsicElements {
         // HTML
