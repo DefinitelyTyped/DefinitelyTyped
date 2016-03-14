@@ -10,9 +10,8 @@ declare module "react-redux" {
   import { ComponentClass, Component, StatelessComponent, Props, ReactNode } from 'react';
   import { Store, Dispatch, ActionCreator } from 'redux';
 
-  /** Generic decorator, that receives T = original props, U = own props */
-  interface ComponentDecorator<T extends Props<any>, U extends Props<any>> {
-    (component: ComponentClass<T>): ComponentClass<U>;
+  interface ComponentDecorator<TOriginalProps extends Props<any>, TOwnProps extends Props<any>> {
+    (component: ComponentClass<TOriginalProps>): ComponentClass<TOwnProps>;
   }
 
   /**
@@ -35,7 +34,7 @@ declare module "react-redux" {
    *
    * - When 3rd param is passed, we don't know if ownProps propagate and whether they
    * should be valid component props, because it depends on mergeProps implementation.
-   * As such, it is the user's responsability to extend ownProps interface from state or
+   * As such, it is the user's responsibility to extend ownProps interface from state or
    * dispatch props or both when applicable
    *
    * @param mapStateToProps
@@ -44,31 +43,39 @@ declare module "react-redux" {
    * @param options
    */
   export function connect(): InferableComponentDecorator;
-  export function connect<T extends Props<any>, U extends Props<any>, V extends Props<any>>(
-    mapStateToProps: MapStateToProps<T, V>,
-    mapDispatchToProps?: MapDispatchToPropsFunction<U, V>|MapDispatchToPropsObject
-  ): ComponentDecorator<T & U, V>;
-  export function connect<T extends Props<any>, U extends Props<any>, V extends Props<any>>(
-    mapStateToProps: MapStateToProps<T, V>,
-    mapDispatchToProps: MapDispatchToPropsFunction<U, V>|MapDispatchToPropsObject,
-    mergeProps: MergeProps<T, U, V>,
+  export function connect<
+    TStateProps extends Props<any>,
+    TDispatchProps extends Props<any>,
+    TOwnProps extends Props<any>
+  >(
+    mapStateToProps: MapStateToProps<TStateProps, TOwnProps>,
+    mapDispatchToProps?: MapDispatchToPropsFunction<TDispatchProps, TOwnProps>|MapDispatchToPropsObject
+  ): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
+  export function connect<
+    TStateProps extends Props<any>,
+    TDispatchProps extends Props<any>,
+    TOwnProps extends Props<any>
+  >(
+    mapStateToProps: MapStateToProps<TStateProps, TOwnProps>,
+    mapDispatchToProps: MapDispatchToPropsFunction<TDispatchProps, TOwnProps>|MapDispatchToPropsObject,
+    mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps>,
     options?: Options
-  ): ComponentDecorator<T & U, V>;
+  ): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
 
-  interface MapStateToProps<T, V> {
-    (state: any, ownProps?: V): T;
+  interface MapStateToProps<TStateProps, TOwnProps> {
+    (state: any, ownProps?: TOwnProps): TStateProps;
   }
 
-  interface MapDispatchToPropsFunction<U, V> {
-    (dispatch: Dispatch, ownProps?: V): U;
+  interface MapDispatchToPropsFunction<TDispatchProps, TOwnProps> {
+    (dispatch: Dispatch, ownProps?: TOwnProps): TDispatchProps;
   }
 
   interface MapDispatchToPropsObject {
     [name: string]: ActionCreator;
   }
 
-  interface MergeProps<T, U, V> {
-    (stateProps: T, dispatchProps: U, ownProps: V): T & U;
+  interface MergeProps<TStateProps, TDispatchProps, TOwnProps> {
+    (stateProps: TStateProps, dispatchProps: TDispatchProps, ownProps: TOwnProps): TStateProps & TDispatchProps;
   }
 
   interface Options {
