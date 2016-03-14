@@ -1,13 +1,6 @@
 /// <reference path="inversify.d.ts" />
 
-import {
-    Kernel,
-    inject, tagged, named, paramNames,
-    IKernel, IKernelOptions, INewable,
-    IKernelModule, IFactory, IProvider, IRequest
-} from "inversify";
-
-module external_module_test {
+module global_module_test {
 
     interface INinja {
         fight(): string;
@@ -34,7 +27,7 @@ module external_module_test {
         }
     }
 
-    @inject("IKatana", "IShuriken")
+    @inversify.inject("IKatana", "IShuriken")
     class Ninja implements INinja {
 
         private _katana: IKatana;
@@ -50,7 +43,7 @@ module external_module_test {
 
     }
 
-    let kernel = new Kernel();
+    let kernel = new inversify.Kernel();
     kernel.bind<INinja>("INinja").to(Ninja);
     kernel.bind<IKatana>("IKatana").to(Katana);
     kernel.bind<IShuriken>("IShuriken").to(Shuriken).inSingletonScope();
@@ -63,18 +56,18 @@ module external_module_test {
     kernel.unbindAll();
 
     // Kernel modules
-    let module: IKernelModule = (k: IKernel) => {
+    let module: inversify.IKernelModule = (k: inversify.IKernel) => {
         k.bind<INinja>("INinja").to(Ninja);
         k.bind<IKatana>("IKatana").to(Katana).inTransientScope();
         k.bind<IShuriken>("IShuriken").to(Shuriken).inSingletonScope();
     };
 
-    let options: IKernelOptions = {
+    let options: inversify.IKernelOptions = {
         middleware: [],
         modules: [module]
     };
 
-    kernel = new Kernel(options);
+    kernel = new inversify.Kernel(options);
     let ninja2 = kernel.get<INinja>("INinja");
     console.log(ninja2);
 
@@ -82,17 +75,17 @@ module external_module_test {
     kernel.bind<IKatana>("IKatana").to(Katana);
     kernel.bind<IKatana>("IKatana").toValue(new Katana());
 
-    kernel.bind<INewable<IKatana>>("IKatana").toConstructor<IKatana>(Katana);
+    kernel.bind<inversify.INewable<IKatana>>("IKatana").toConstructor<IKatana>(Katana);
 
-    kernel.bind<IFactory<IKatana>>("IKatana").toFactory<IKatana>((context) => {
+    kernel.bind<inversify.IFactory<IKatana>>("IKatana").toFactory<IKatana>((context) => {
         return () => {
             return kernel.get<IKatana>("IKatana");
         };
     });
 
-    kernel.bind<IFactory<IKatana>>("IKatana").toAutoFactory<IKatana>();
+    kernel.bind<inversify.IFactory<IKatana>>("IKatana").toAutoFactory<IKatana>();
 
-    kernel.bind<IProvider<IKatana>>("IKatana").toProvider<IKatana>((context) => {
+    kernel.bind<inversify.IProvider<IKatana>>("IKatana").toProvider<IKatana>((context) => {
         return () => {
             return new Promise<IKatana>((resolve) => {
                 let katana = kernel.get<IKatana>("IKatana");
@@ -123,13 +116,13 @@ module external_module_test {
         shuriken: IWeapon;
     }
 
-    @inject("IWeapon", "IWeapon")
+    @inversify.inject("IWeapon", "IWeapon")
     class Samurai implements ISamurai {
         public katana: IWeapon;
         public shuriken: IWeapon;
         public constructor(
-            @tagged("canThrow", false) katana: IWeapon,
-            @tagged("canThrow", true) shuriken: IWeapon
+            @inversify.tagged("canThrow", false) katana: IWeapon,
+            @inversify.tagged("canThrow", true) shuriken: IWeapon
         ) {
             this.katana = katana;
             this.shuriken = shuriken;
@@ -140,10 +133,10 @@ module external_module_test {
     kernel.bind<IWeapon>("IWeapon").to(Katana).whenTargetTagged("canThrow", false);
     kernel.bind<IWeapon>("IWeapon").to(Shuriken).whenTargetTagged("canThrow", true);
 
-    let throwable = tagged("canThrow", true);
-    let notThrowable = tagged("canThrow", false);
+    let throwable = inversify.tagged("canThrow", true);
+    let notThrowable = inversify.tagged("canThrow", false);
 
-    @inject("IWeapon", "IWeapon")
+    @inversify.inject("IWeapon", "IWeapon")
     class Samurai2 implements ISamurai {
         public katana: IWeapon;
         public shuriken: IWeapon;
@@ -156,13 +149,13 @@ module external_module_test {
         }
     }
 
-    @inject("IWeapon", "IWeapon")
+    @inversify.inject("IWeapon", "IWeapon")
     class Samurai3 implements ISamurai {
         public katana: IWeapon;
         public shuriken: IWeapon;
         public constructor(
-            @named("strong") katana: IWeapon,
-            @named("weak") shuriken: IWeapon
+            @inversify.named("strong") katana: IWeapon,
+            @inversify.named("weak") shuriken: IWeapon
         ) {
             this.katana = katana;
             this.shuriken = shuriken;
@@ -173,8 +166,8 @@ module external_module_test {
     kernel.bind<IWeapon>("IWeapon").to(Katana).whenTargetNamed("strong");
     kernel.bind<IWeapon>("IWeapon").to(Shuriken).whenTargetNamed("weak");
 
-    @inject("IWeapon", "IWeapon")
-    @paramNames("katana", "shuriken")
+    @inversify.inject("IWeapon", "IWeapon")
+    @inversify.paramNames("katana", "shuriken")
     class Samurai4 implements ISamurai {
         public katana: IWeapon;
         public shuriken: IWeapon;
@@ -189,11 +182,11 @@ module external_module_test {
 
     kernel.bind<ISamurai>("ISamurai").to(Samurai4);
 
-    kernel.bind<IWeapon>("IWeapon").to(Katana).when((request: IRequest) => {
+    kernel.bind<IWeapon>("IWeapon").to(Katana).when((request: inversify.IRequest) => {
         return request.target.name.equals("katana");
     });
 
-    kernel.bind<IWeapon>("IWeapon").to(Shuriken).when((request: IRequest) => {
+    kernel.bind<IWeapon>("IWeapon").to(Shuriken).when((request: inversify.IRequest) => {
         return request.target.name.equals("shuriken");
     });
 
