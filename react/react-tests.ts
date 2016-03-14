@@ -142,27 +142,31 @@ interface SCProps {
     foo?: number;
 }
 
-var StatelessComponent = (props: SCProps) => {
+function StatelessComponent(props: SCProps) {
     return React.DOM.div(null, props.foo);
 };
+namespace StatelessComponent {
+    export var displayName = "StatelessComponent";
+    export var defaultProps = { foo: 42 };
+}
 
-// Must explicitly type-annotate to add displayName/defaultProps/contextTypes
-var StatelessComponent2: React.StatelessComponent<SCProps> =
-    (props: SCProps) => React.DOM.div(null, props.foo);
+var StatelessComponent2: React.SFC<SCProps> =
+    // props is contextually typed
+    props => React.DOM.div(null, props.foo);
 StatelessComponent2.displayName = "StatelessComponent2";
 StatelessComponent2.defaultProps = {
     foo: 42
 };
 
 // React.createFactory
-var factory: React.Factory<Props> =
+var factory: React.CFactory<Props, ModernComponent> =
     React.createFactory(ModernComponent);
-var factoryElement: React.ReactElement<Props> =
+var factoryElement: React.CElement<Props, ModernComponent> =
     factory(props);
 
-var statelessFactory: React.Factory<SCProps> =
+var statelessFactory: React.SFCFactory<SCProps> =
     React.createFactory(StatelessComponent);
-var statelessElement: React.ReactElement<SCProps> =
+var statelessElement: React.SFCElement<SCProps> =
     statelessFactory(props);
 
 var classicFactory: React.ClassicFactory<Props> =
@@ -176,9 +180,9 @@ var domFactoryElement: React.DOMElement<React.DOMAttributes, Element> =
     domFactory();
 
 // React.createElement
-var element: React.ReactElement<Props> =
+var element: React.CElement<Props, ModernComponent> =
     React.createElement(ModernComponent, props);
-var statelessElement: React.ReactElement<SCProps> =
+var statelessElement: React.SFCElement<SCProps> =
     React.createElement(StatelessComponent, props);
 var classicElement: React.ClassicElement<Props> =
     React.createElement(ClassicComponent, props);
@@ -186,9 +190,19 @@ var domElement: React.ReactHTMLElement<HTMLDivElement> =
     React.createElement("div");
 
 // React.cloneElement
-var clonedElement: React.ReactElement<Props> =
+var clonedElement: React.CElement<Props, ModernComponent> =
     React.cloneElement(element, { foo: 43 });
-var clonedStatelessElement: React.ReactElement<SCProps> =
+var clonedElement2: React.CElement<Props, ModernComponent> =
+    // known problem: cloning with key or ref requires cast
+    React.cloneElement(element, <React.ClassAttributes<ModernComponent>>{
+        ref: c => c.reset()
+    });
+var clonedElement3: React.CElement<Props, ModernComponent> =
+    React.cloneElement(element, <{ foo: number } & React.Attributes>{
+        key: "8eac7",
+        foo: 55
+    });
+var clonedStatelessElement: React.SFCElement<SCProps> =
     // known problem: cloning with optional props don't work properly
     // workaround: cast to actual props type
     React.cloneElement(statelessElement, <SCProps>{ foo: 44 });
@@ -200,7 +214,7 @@ var clonedDOMElement: React.ReactHTMLElement<HTMLDivElement> =
     });
 
 // React.render
-var component: React.Component<Props, any> =
+var component: ModernComponent =
     ReactDOM.render(element, container);
 var classicComponent: React.ClassicComponent<Props, any> =
     ReactDOM.render(classicElement, container);
@@ -224,7 +238,7 @@ var type: React.ComponentClass<Props> = element.type;
 var elementProps: Props = element.props;
 var key: React.Key = element.key;
 
-var t: React.ReactType<any>;
+var t: React.ReactType;
 var name = typeof t === "string" ? t : t.displayName;
 
 //
