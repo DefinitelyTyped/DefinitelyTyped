@@ -484,9 +484,31 @@ app.on('ready', () => {
 // https://github.com/atom/electron/blob/master/docs/api/protocol.md
 
 app.on('ready', () => {
-	protocol.registerProtocol('atom', (request: any) => {
-		var url = request.url.substr(7);
-		return new protocol.RequestFileJob(path.normalize(`${__dirname}/${url}`));
+	protocol.registerStandardSchemes(['https']);
+	protocol.registerServiceWorkerSchemes(['https']);
+
+	protocol.registerFileProtocol('atom', (request, callback) => {
+		callback(`${__dirname}/${request.url}`);
+	});
+
+	protocol.registerBufferProtocol('atom', (request, callback) => {
+		callback({mimeType: 'text/html', data: new Buffer('<h5>Response</h5>')});
+	});
+
+	protocol.registerStringProtocol('atom', (request, callback) => {
+		callback('Hello World!');
+	});
+
+	protocol.registerHttpProtocol('atom', (request, callback) => {
+		callback({url: request.url, method: request.method});
+	});
+
+	protocol.unregisterProtocol('atom', (error) => {
+		console.log(error ? error.message : 'ok');
+	});
+
+	protocol.isProtocolHandled('atom', (handled) => {
+		console.log(handled);
 	});
 });
 
