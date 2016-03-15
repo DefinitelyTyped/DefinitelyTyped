@@ -8,7 +8,8 @@
   },
   "main": "griddle-react.d.ts",
   "scripts": {
-    "test": "typings install file:$(npm root)/../griddle-react.d.ts --name griddle-react && webpack-dev-server"
+    "test": "typings install file:$(npm root)/../griddle-react.d.ts --name griddle-react && tsc",
+    "server": "webpack-dev-server"
   },
   "author": "",
   "license": "MIT",
