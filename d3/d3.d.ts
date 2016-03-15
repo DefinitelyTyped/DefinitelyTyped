@@ -2488,7 +2488,7 @@ declare module d3 {
         }
 
         interface Diagonal<Link, Node> {
-            (d: Link, i: number): string;
+            (d: Link, i?: number): string;
 
             source(): (d: Link, i: number) => Node;
             source(source: Node): Diagonal<Link, Node>;
