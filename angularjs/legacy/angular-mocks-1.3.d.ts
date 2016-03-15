@@ -1,9 +1,9 @@
-// Type definitions for Angular JS 1.5 (ngMock, ngMockE2E module)
+// Type definitions for Angular JS 1.3 (ngMock, ngMockE2E module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Tony Curtis <http://github.com/daltin>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="angular.d.ts" />
+/// <reference path="angular-1.4.d.ts" />
 
 declare module "angular-mocks/ngMock" {
     var _: string;
@@ -131,9 +131,8 @@ declare module angular {
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param data HTTP request body string, json object, regular expression or function that receives the data and returns true if the data matches the current expectation.
           * @param headers HTTP headers object or function that receives the headers and returns true if the headers match the current expectation.
-          * @param keys Array of keys to assign to regex matches in the request url.
           */
-        expect(method: string, url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object | ((object: Object) => boolean), keys?: Object[]) :mock.IRequestHandler;
+        expect(method: string, url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object | ((object: Object) => boolean)) :mock.IRequestHandler;
 
         /**
           * Creates a new request expectation for DELETE requests.
@@ -141,9 +140,8 @@ declare module angular {
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url is as expected.
           * @param headers HTTP headers object to be compared with the HTTP headers in the request.
-          * @param keys Array of keys to assign to regex matches in the request url.
         */
-        expectDELETE(url: string | RegExp | ((url: string) => boolean), headers?: Object, keys?: Object[]): mock.IRequestHandler;
+        expectDELETE(url: string | RegExp | ((url: string) => boolean), headers?: Object): mock.IRequestHandler;
 
         /**
           * Creates a new request expectation for GET requests.
@@ -151,9 +149,8 @@ declare module angular {
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param headers HTTP headers object to be compared with the HTTP headers in the request.
-          * @param keys Array of keys to assign to regex matches in the request url.
           */
-        expectGET(url: string | RegExp | ((url: string) => boolean), headers?: Object, keys?: Object[]): mock.IRequestHandler;
+        expectGET(url: string | RegExp | ((url: string) => boolean), headers?: Object): mock.IRequestHandler;
 
         /**
           * Creates a new request expectation for HEAD requests.
@@ -161,18 +158,16 @@ declare module angular {
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param headers HTTP headers object to be compared with the HTTP headers in the request.
-          * @param keys Array of keys to assign to regex matches in the request url.
           */
-        expectHEAD(url: string | RegExp | ((url: string) => boolean), headers?: Object, keys?: Object[]): mock.IRequestHandler;
+        expectHEAD(url: string | RegExp | ((url: string) => boolean), headers?: Object): mock.IRequestHandler;
         
         /**
           * Creates a new request expectation for JSONP requests.
           * Throws a preformatted error if expectation(s) don't match supplied string, regular expression, or if function returns false.
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
-          * @param keys Array of keys to assign to regex matches in the request url.
           */        
-        expectJSONP(url: string | RegExp | ((url: string) => boolean), keys?: Object[]): mock.IRequestHandler;
+        expectJSONP(url: string | RegExp | ((url: string) => boolean)): mock.IRequestHandler;
 
         /**
           * Creates a new request expectation for PATCH requests. 
@@ -181,9 +176,8 @@ declare module angular {
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param data HTTP request body string, json object, regular expression or function that receives the data and returns true if the data matches the current expectation.
           * @param headers HTTP headers object or function that receives the headers and returns true if the headers match the current expectation.
-          * @param keys Array of keys to assign to regex matches in the request url.
           */
-        expectPATCH(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object, keys?: Object[]): mock.IRequestHandler;
+        expectPATCH(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object): mock.IRequestHandler;
 
         /**
           * Creates a new request expectation for POST requests. 
@@ -192,9 +186,8 @@ declare module angular {
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param data HTTP request body string, json object, regular expression or function that receives the data and returns true if the data matches the current expectation.
           * @param headers HTTP headers object or function that receives the headers and returns true if the headers match the current expectation.
-          * @param keys Array of keys to assign to regex matches in the request url.
           */
-        expectPOST(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object, keys?: Object[]): mock.IRequestHandler;
+        expectPOST(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object): mock.IRequestHandler;
 
         /**
           * Creates a new request expectation for PUT requests. 
@@ -203,9 +196,8 @@ declare module angular {
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param data HTTP request body string, json object, regular expression or function that receives the data and returns true if the data matches the current expectation.
           * @param headers HTTP headers object or function that receives the headers and returns true if the headers match the current expectation.
-          * @param keys Array of keys to assign to regex matches in the request url.
           */
-        expectPUT(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object, keys?: Object[]): mock.IRequestHandler;
+        expectPUT(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object): mock.IRequestHandler;
 
         /**
           * Creates a new backend definition. 
@@ -214,46 +206,40 @@ declare module angular {
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param data HTTP request body string, json object, regular expression or function that receives the data and returns true if the data matches the current expectation.
           * @param headers HTTP headers object or function that receives the headers and returns true if the headers match the current expectation.
-          * @param keys Array of keys to assign to regex matches in the request url.
           */
-        when(method: string, url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object | ((object: Object) => boolean), keys?: Object[]): mock.IRequestHandler;
+        when(method: string, url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object | ((object: Object) => boolean)): mock.IRequestHandler;
 
         /**
           * Creates a new backend definition for DELETE requests. 
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param headers HTTP headers object or function that receives the headers and returns true if the headers match the current expectation.
-          * @param keys Array of keys to assign to regex matches in the request url.
           */
-        whenDELETE(url: string | RegExp | ((url: string) => boolean), headers?: Object | ((object: Object) => boolean), keys?: Object[]): mock.IRequestHandler;
+        whenDELETE(url: string | RegExp | ((url: string) => boolean), headers?: Object | ((object: Object) => boolean)): mock.IRequestHandler;
 
         /**
           * Creates a new backend definition for GET requests. 
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param headers HTTP headers object or function that receives the headers and returns true if the headers match the current expectation.
-          * @param keys Array of keys to assign to regex matches in request url described above
-          * @param keys Array of keys to assign to regex matches in the request url.
           */
-        whenGET(url: string | RegExp | ((url: string) => boolean), headers?: Object | ((object: Object) => boolean), keys?: Object[]): mock.IRequestHandler;
+        whenGET(url: string | RegExp | ((url: string) => boolean), headers?: Object | ((object: Object) => boolean)): mock.IRequestHandler;
 
         /**
           * Creates a new backend definition for HEAD requests. 
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param headers HTTP headers object or function that receives the headers and returns true if the headers match the current expectation.
-          * @param keys Array of keys to assign to regex matches in the request url.
           */
-        whenHEAD(url: string | RegExp | ((url: string) => boolean), headers?: Object | ((object: Object) => boolean), keys?: Object[]): mock.IRequestHandler;
+        whenHEAD(url: string | RegExp | ((url: string) => boolean), headers?: Object | ((object: Object) => boolean)): mock.IRequestHandler;
 
         /**
           * Creates a new backend definition for JSONP requests. 
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param headers HTTP headers object or function that receives the headers and returns true if the headers match the current expectation.
-          * @param keys Array of keys to assign to regex matches in the request url.
           */
-        whenJSONP(url: string | RegExp | ((url: string) => boolean), keys?: Object[]): mock.IRequestHandler;
+        whenJSONP(url: string | RegExp | ((url: string) => boolean)): mock.IRequestHandler;
 
         /**
           * Creates a new backend definition for PATCH requests. 
@@ -261,9 +247,8 @@ declare module angular {
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param data HTTP request body string, json object, regular expression or function that receives the data and returns true if the data matches the current expectation.
           * @param headers HTTP headers object or function that receives the headers and returns true if the headers match the current expectation.
-          * @param keys Array of keys to assign to regex matches in the request url.
           */
-        whenPATCH(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object | ((object: Object) => boolean), keys?: Object[]): mock.IRequestHandler;
+        whenPATCH(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object | ((object: Object) => boolean)): mock.IRequestHandler;
 
         /**
           * Creates a new backend definition for POST requests. 
@@ -271,9 +256,8 @@ declare module angular {
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param data HTTP request body string, json object, regular expression or function that receives the data and returns true if the data matches the current expectation.
           * @param headers HTTP headers object or function that receives the headers and returns true if the headers match the current expectation.
-          * @param keys Array of keys to assign to regex matches in the request url.
           */
-        whenPOST(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object | ((object: Object) => boolean), keys?: Object[]): mock.IRequestHandler;
+        whenPOST(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object | ((object: Object) => boolean)): mock.IRequestHandler;
 
         /**
           * Creates a new backend definition for PUT requests. 
@@ -281,9 +265,8 @@ declare module angular {
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param data HTTP request body string, json object, regular expression or function that receives the data and returns true if the data matches the current expectation.
           * @param headers HTTP headers object or function that receives the headers and returns true if the headers match the current expectation.
-          * @param keys Array of keys to assign to regex matches in the request url.
           */
-        whenPUT(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object | ((object: Object) => boolean), keys?: Object[]): mock.IRequestHandler;
+        whenPUT(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object | ((object: Object) => boolean)): mock.IRequestHandler;
     }
 
     export module mock {
@@ -293,9 +276,9 @@ declare module angular {
             /**
               * Controls the response for a matched request using a function to construct the response. 
               * Returns the RequestHandler object for possible overrides.
-              * @param func Function that receives the request HTTP method, url, data, headers, and an array of keys to regex matches in the request url and returns an array containing response status (number), data, headers, and status text.
+              * @param func Function that receives the request HTTP method, url, data, and headers and returns an array containing response status (number), data, headers, and status text.
               */
-            respond(func: ((method: string, url: string, data: string | Object, headers: Object, params?: any) => [number, string | Object, Object, string])): IRequestHandler;
+            respond(func: ((method: string, url: string, data: string | Object, headers: Object) => [number, string | Object, Object, string])): IRequestHandler;
 
             /**
               * Controls the response for a matched request using supplied static data to construct the response. 
