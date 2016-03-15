@@ -287,7 +287,9 @@ declare module angular.animate {
     interface IAnimateCssService {
         (element: JQuery, animateCssOptions: IAnimationOptions): IAnimateCssRunner;
     }
-
+}
+  
+declare module angular {
     interface IModule {
         animation(name: string, animationFactory: IAnimateFactory): IModule;
         animation(name: string, inlineAnnotatedFunction: any[]): IModule;
