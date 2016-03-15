@@ -1631,7 +1631,9 @@ declare module THREE {
 
     export interface Intersection {
         distance: number;
+        distanceToRay: number;
         point: Vector3;
+        index: number;
         face: Face3;
         object: Object3D;
     }
