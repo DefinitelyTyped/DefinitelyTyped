@@ -1754,7 +1754,7 @@ declare module "crypto" {
     }
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
-    export interface Cipher {
+    export interface Cipher extends NodeJS.ReadWriteStream {
         update(data: Buffer): Buffer;
         update(data: string, input_encoding: "utf8"|"ascii"|"binary"): Buffer;
         update(data: Buffer, input_encoding: any, output_encoding: "binary"|"base64"|"hex"): string;
@@ -1766,7 +1766,7 @@ declare module "crypto" {
     }
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
-    export interface Decipher {
+    export interface Decipher extends NodeJS.ReadWriteStream {
         update(data: Buffer): Buffer;
         update(data: string, input_encoding: "binary"|"base64"|"hex"): Buffer;
         update(data: Buffer, input_encoding: any, output_encoding: "utf8"|"ascii"|"binary"): string;
