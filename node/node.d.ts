@@ -552,6 +552,11 @@ declare module "http" {
         setNoDelay(noDelay?: boolean): void;
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
 
+        setHeader(name: string, value: string | string[]): void;
+        getHeader(name: string): string;
+        removeHeader(name: string): void;
+        addTrailers(headers: any): void;
+
         // Extended base methods
         end(): void;
         end(buffer: Buffer, cb?: Function): void;
