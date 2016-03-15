@@ -387,13 +387,10 @@ declare module FixedDataTable {
     }
 
     export class Table extends __React.Component<TableProps, {}> {
-         render(): __React.DOMElement<any>
     }
     export class Column extends __React.Component<ColumnProps, {}> {
-         render(): __React.DOMElement<any>
     }
     export class ColumnGroup extends __React.Component<ColumnGroupProps, {}> {
-         render(): __React.DOMElement<any>
     }
 }
 
