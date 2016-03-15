@@ -7,8 +7,6 @@
 // TODO sets
 // TODO gradients
 
-declare var SVG:svgjs.Library;
-
 declare module svgjs {
 
     export interface LinkedHTMLElement extends HTMLElement {
@@ -272,6 +270,7 @@ declare module svgjs {
     }
 }
 
+declare var SVG:svgjs.Library;
 declare module "svg.js" {
-    export = svgjs
+    export = SVG
 }
