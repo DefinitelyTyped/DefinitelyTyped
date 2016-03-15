@@ -170,17 +170,12 @@ declare namespace SignalR {
         host: string;
     }
     
-    interface JsonConverter {
-        stringify: (o: any) => string;
-        parse: (str: string) => any;
-    }
-
     interface Connection {
         clientProtocol: string;
         ajaxDataType: string;
         contentType: string;
         id: string;
-        json: JsonConverter;
+        json: JSON;
         logging: boolean;
         url: string;
         qs: string | Object;
