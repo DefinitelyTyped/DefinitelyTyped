@@ -61,19 +61,9 @@ interface IChannelDefinition<T> {
 	channel: string;
 }
 
-interface ISourceArg {
-	topic: string;
-	channel?: string;
-}
-
-interface IDestinationArg {
-	topic: string | ((topic: string) => string);
-	channel?: string;
-}
-
 interface IPostal {
 	subscriptions: {};
-	wiretaps: ICallback<any>[];
+	wireTaps: ICallback<any>[];
 
 	addWireTap(callback: ICallback<any>): () => void;
 
@@ -82,8 +72,6 @@ interface IPostal {
 	getSubscribersFor(): ISubscriptionDefinition<any>[];
 	getSubscribersFor(options: {channel?: string, topic?: string, context?: any}): ISubscriptionDefinition<any>[];
 	getSubscribersFor(predicateFn: (sub: ISubscriptionDefinition<any>) => boolean): ISubscriptionDefinition<any>[];
-
-	linkChannels(source: ISourceArg | ISourceArg[], destination: IDestinationArg | IDestinationArg[]): void;
 
 	publish(envelope: IEnvelope<any>): void;
 
