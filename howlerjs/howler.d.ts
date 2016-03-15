@@ -18,14 +18,21 @@ interface IHowlSoundSpriteDefinition {
     [name: string]: number[];
 }
 
+declare type HowlPos3d = [number, number, number]|[number, number, number, number];
+
 interface IHowlProperties {
     autoplay?: boolean;
     buffer?: boolean;
+    duration?: number;
     format?: string;
     loop?: boolean;
     sprite?: IHowlSoundSpriteDefinition;
+    src?: string;
+    pos3d?: HowlPos3d;
     volume?: number;
     urls?: string[];
+    rate?: number;
+    model?: 'equalpower'|'HRTF';
     onend?: Function;
     onload?: Function;
     onloaderror?: Function;
