@@ -6340,28 +6340,28 @@ namespace TestClone {
         let customizer: CloneCustomizer<number, string>;
         let result: string;
 
-        result = _.clone<number>(42, false, customizer);
-        result = _.clone<number>(42, false, customizer, any);
-        result = _.clone<number>(42, customizer);
-        result = _.clone<number>(42, customizer, any);
+        result = _.clone<string>(42, false, customizer);
+        result = _.clone<string>(42, false, customizer, any);
+        result = _.clone<string>(42, customizer);
+        result = _.clone<string>(42, customizer, any);
         result = _.clone<number, string>(42, false, customizer);
         result = _.clone<number, string>(42, false, customizer, any);
         result = _.clone<number, string>(42, customizer);
         result = _.clone<number, string>(42, customizer, any);
-        result = _(42).clone<number>(false, customizer);
-        result = _(42).clone<number>(false, customizer, any);
-        result = _(42).clone<number>(customizer);
-        result = _(42).clone<number>(customizer, any);
+        result = _(42).clone<string>(false, customizer);
+        result = _(42).clone<string>(false, customizer, any);
+        result = _(42).clone<string>(customizer);
+        result = _(42).clone<string>(customizer, any);
     }
 
     {
         let customizer: CloneCustomizer<number, string>;
         let result: _.LoDashExplicitWrapper<string>;
 
-        result = _(42).chain().clone<number>(false, customizer);
-        result = _(42).chain().clone<number>(false, customizer, any);
-        result = _(42).chain().clone<number>(customizer);
-        result = _(42).chain().clone<number>(customizer, any);
+        result = _(42).chain().clone<string>(false, customizer);
+        result = _(42).chain().clone<string>(false, customizer, any);
+        result = _(42).chain().clone<string>(customizer);
+        result = _(42).chain().clone<string>(customizer, any);
     }
 
     {
@@ -6386,28 +6386,28 @@ namespace TestClone {
         let customizer: CloneCustomizer<number[], string[]>;
         let result: string[];
 
-        result = _.clone<number[]>([42], false, customizer);
-        result = _.clone<number[]>([42], false, customizer, any);
-        result = _.clone<number[]>([42], customizer);
-        result = _.clone<number[]>([42], customizer, any);
+        result = _.clone<string[]>([42], false, customizer);
+        result = _.clone<string[]>([42], false, customizer, any);
+        result = _.clone<string[]>([42], customizer);
+        result = _.clone<string[]>([42], customizer, any);
         result = _.clone<number[], string[]>([42], false, customizer);
         result = _.clone<number[], string[]>([42], false, customizer, any);
         result = _.clone<number[], string[]>([42], customizer);
         result = _.clone<number[], string[]>([42], customizer, any);
-        result = _([42]).clone<number[]>(false, customizer);
-        result = _([42]).clone<number[]>(false, customizer, any);
-        result = _([42]).clone<number[]>(customizer);
-        result = _([42]).clone<number[]>(customizer, any);
+        result = _([42]).clone<string[]>(false, customizer);
+        result = _([42]).clone<string[]>(false, customizer, any);
+        result = _([42]).clone<string[]>(customizer);
+        result = _([42]).clone<string[]>(customizer, any);
     }
 
     {
         let customizer: CloneCustomizer<number[], string[]>;
         let result: _.LoDashExplicitArrayWrapper<string>;
 
-        result = _([42]).chain().clone<number[]>(false, customizer);
-        result = _([42]).chain().clone<number[]>(false, customizer, any);
-        result = _([42]).chain().clone<number[]>(customizer);
-        result = _([42]).chain().clone<number[]>(customizer, any);
+        result = _([42]).chain().clone<string>(false, customizer);
+        result = _([42]).chain().clone<string>(false, customizer, any);
+        result = _([42]).chain().clone<string>(customizer);
+        result = _([42]).chain().clone<string>(customizer, any);
     }
 
     {
@@ -6432,28 +6432,28 @@ namespace TestClone {
         let customizer: CloneCustomizer<{a: {b: number;};}, {a: {b: string;};}>;
         let result: {a: {b: string;};};
 
-        result = _.clone<{a: {b: number;};}>({a: {b: 42}}, false, customizer);
-        result = _.clone<{a: {b: number;};}>({a: {b: 42}}, false, customizer, any);
-        result = _.clone<{a: {b: number;};}>({a: {b: 42}}, customizer);
-        result = _.clone<{a: {b: number;};}>({a: {b: 42}}, customizer, any);
+        result = _.clone<{a: {b: string;};}>({a: {b: 42}}, false, customizer);
+        result = _.clone<{a: {b: string;};}>({a: {b: 42}}, false, customizer, any);
+        result = _.clone<{a: {b: string;};}>({a: {b: 42}}, customizer);
+        result = _.clone<{a: {b: string;};}>({a: {b: 42}}, customizer, any);
         result = _.clone<{a: {b: number;};}, {a: {b: string;};}>({a: {b: 42}}, false, customizer);
         result = _.clone<{a: {b: number;};}, {a: {b: string;};}>({a: {b: 42}}, false, customizer, any);
         result = _.clone<{a: {b: number;};}, {a: {b: string;};}>({a: {b: 42}}, customizer);
         result = _.clone<{a: {b: number;};}, {a: {b: string;};}>({a: {b: 42}}, customizer, any);
-        result = _({a: {b: 42}}).clone<{a: {b: number;};}>(false, customizer);
-        result = _({a: {b: 42}}).clone<{a: {b: number;};}>(false, customizer, any);
-        result = _({a: {b: 42}}).clone<{a: {b: number;};}>(customizer);
-        result = _({a: {b: 42}}).clone<{a: {b: number;};}>(customizer, any);
+        result = _({a: {b: 42}}).clone<{a: {b: string;};}>(false, customizer);
+        result = _({a: {b: 42}}).clone<{a: {b: string;};}>(false, customizer, any);
+        result = _({a: {b: 42}}).clone<{a: {b: string;};}>(customizer);
+        result = _({a: {b: 42}}).clone<{a: {b: string;};}>(customizer, any);
     }
 
     {
         let customizer: CloneCustomizer<{a: {b: number;};}, {a: {b: string;};}>;
         let result: _.LoDashExplicitObjectWrapper<{a: {b: string;};}>;
 
-        result = _({a: {b: 42}}).chain().clone<{a: {b: number;};}>(false, customizer);
-        result = _({a: {b: 42}}).chain().clone<{a: {b: number;};}>(false, customizer, any);
-        result = _({a: {b: 42}}).chain().clone<{a: {b: number;};}>(customizer);
-        result = _({a: {b: 42}}).chain().clone<{a: {b: number;};}>(customizer, any);
+        result = _({a: {b: 42}}).chain().clone<{a: {b: string;};}>(false, customizer);
+        result = _({a: {b: 42}}).chain().clone<{a: {b: string;};}>(false, customizer, any);
+        result = _({a: {b: 42}}).chain().clone<{a: {b: string;};}>(customizer);
+        result = _({a: {b: 42}}).chain().clone<{a: {b: string;};}>(customizer, any);
     }
 }
 
@@ -6475,27 +6475,27 @@ namespace TestCloneDeep {
         let customizer: CloneDeepCustomizer<number, number>;
         let result: _.LoDashExplicitWrapper<number>;
 
-        result = _(42).chain.cloneDeep();
+        result = _(42).chain().cloneDeep();
     }
 
     {
         let customizer: CloneDeepCustomizer<number, string>;
         let result: string;
 
-        result = _.cloneDeep<number>(42, customizer);
-        result = _.cloneDeep<number>(42, customizer, any);
+        result = _.cloneDeep<string>(42, customizer);
+        result = _.cloneDeep<string>(42, customizer, any);
         result = _.cloneDeep<number, string>(42, customizer);
         result = _.cloneDeep<number, string>(42, customizer, any);
-        result = _(42).cloneDeep<number>(customizer);
-        result = _(42).cloneDeep<number>(customizer, any);
+        result = _(42).cloneDeep<string>(customizer);
+        result = _(42).cloneDeep<string>(customizer, any);
     }
 
     {
         let customizer: CloneDeepCustomizer<number, string>;
         let result: _.LoDashExplicitWrapper<string>;
 
-        result = _(42).chain().cloneDeep<number>(customizer);
-        result = _(42).chain().cloneDeep<number>(customizer, any);
+        result = _(42).chain().cloneDeep<string>(customizer);
+        result = _(42).chain().cloneDeep<string>(customizer, any);
     }
 
     {
@@ -6517,20 +6517,20 @@ namespace TestCloneDeep {
         let customizer: CloneDeepCustomizer<number[], string[]>;
         let result: string[];
 
-        result = _.cloneDeep<number[]>([42], customizer);
-        result = _.cloneDeep<number[]>([42], customizer, any);
+        result = _.cloneDeep<string[]>([42], customizer);
+        result = _.cloneDeep<string[]>([42], customizer, any);
         result = _.cloneDeep<number[], string[]>([42], customizer);
         result = _.cloneDeep<number[], string[]>([42], customizer, any);
-        result = _([42]).cloneDeep<number[]>(customizer);
-        result = _([42]).cloneDeep<number[]>(customizer, any);
+        result = _([42]).cloneDeep<string[]>(customizer);
+        result = _([42]).cloneDeep<string[]>(customizer, any);
     }
 
     {
         let customizer: CloneDeepCustomizer<number[], string[]>;
         let result: _.LoDashExplicitArrayWrapper<string>;
 
-        result = _([42]).chain().cloneDeep<number[]>(customizer);
-        result = _([42]).chain().cloneDeep<number[]>(customizer, any);
+        result = _([42]).chain().cloneDeep<string>(customizer);
+        result = _([42]).chain().cloneDeep<string>(customizer, any);
     }
 
     {
@@ -6552,20 +6552,20 @@ namespace TestCloneDeep {
         let customizer: CloneDeepCustomizer<{a: {b: number;};}, {a: {b: string;};}>;
         let result: {a: {b: string;};};
 
-        result = _.cloneDeep<{a: {b: number;};}>({a: {b: 42}}, customizer);
-        result = _.cloneDeep<{a: {b: number;};}>({a: {b: 42}}, customizer, any);
+        result = _.cloneDeep<{a: {b: string;};}>({a: {b: 42}}, customizer);
+        result = _.cloneDeep<{a: {b: string;};}>({a: {b: 42}}, customizer, any);
         result = _.cloneDeep<{a: {b: number;};}, {a: {b: string;};}>({a: {b: 42}}, customizer);
         result = _.cloneDeep<{a: {b: number;};}, {a: {b: string;};}>({a: {b: 42}}, customizer, any);
-        result = _({a: {b: 42}}).cloneDeep<{a: {b: number;};}>(customizer);
-        result = _({a: {b: 42}}).cloneDeep<{a: {b: number;};}>(customizer, any);
+        result = _({a: {b: 42}}).cloneDeep<{a: {b: string;};}>(customizer);
+        result = _({a: {b: 42}}).cloneDeep<{a: {b: string;};}>(customizer, any);
     }
 
     {
         let customizer: CloneDeepCustomizer<{a: {b: number;};}, {a: {b: string;};}>;
         let result: _.LoDashExplicitObjectWrapper<{a: {b: string;};}>;
 
-        result = _({a: {b: 42}}).chain().cloneDeep<{a: {b: number;};}>(customizer);
-        result = _({a: {b: 42}}).chain().cloneDeep<{a: {b: number;};}>(customizer, any);
+        result = _({a: {b: 42}}).chain().cloneDeep<{a: {b: string;};}>(customizer);
+        result = _({a: {b: 42}}).chain().cloneDeep<{a: {b: string;};}>(customizer, any);
     }
 }
 
