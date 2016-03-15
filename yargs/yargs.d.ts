@@ -23,6 +23,7 @@ declare module "yargs" {
 			alias(aliases: { [shortName: string]: string[] }): Argv;
 			
 			array(key: string): Argv;
+			array(keys: string[]): Argv;
 
 			default(key: string, value: any): Argv;
 			default(defaults: { [key: string]: any}): Argv;
@@ -114,6 +115,7 @@ declare module "yargs" {
 			group(keys: string[], groupName: string): Argv;
 			
 			nargs(key: string, count: number): Argv;
+			nargs(nargs: { [key: string]: number }): Argv;
 
 			/* Undocumented */
 
@@ -138,9 +140,9 @@ declare module "yargs" {
 			require?: any;
 			default?: any;
 			defaultDescription?: string;
-			boolean?: any;
-			string?: any;
-			count?: any;
+			boolean?: boolean;
+			string?: boolean;
+			count?: boolean;
 			describe?: any;
 			description?: any;
 			desc?: any;
@@ -148,10 +150,7 @@ declare module "yargs" {
 			choices?:string[];
 			global?: boolean;
 			array?: boolean;
-			boolean?: boolean;
 			config?: boolean;
-			count?: boolean;
-			string?: boolean;
 			number?: boolean;
 			normalize?: boolean;
 			nargs?: number;
