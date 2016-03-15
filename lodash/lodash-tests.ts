@@ -7170,6 +7170,37 @@ module TestIsUndefined {
     }
 }
 
+// _.isWeakMap
+module TestIsWeakMap {
+    {
+        let value: number|WeakMap<string, number>;
+
+        if (_.isWeakMap<string, number>(value)) {
+            let result: WeakMap<string, number> = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isWeakMap(any);
+        result = _(1).isWeakMap();
+        result = _<any>([]).isWeakMap();
+        result = _({}).isWeakMap();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isWeakMap();
+        result = _<any>([]).chain().isWeakMap();
+        result = _({}).chain().isWeakMap();
+    }
+}
+
 // _.lt
 module TestLt {
     {
