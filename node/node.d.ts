@@ -496,6 +496,8 @@ declare module "http" {
         path?: string;
         headers?: { [key: string]: any };
         auth?: string;
+        requestCert?: boolean;
+        rejectUnauthorized?: boolean;
         agent?: Agent|boolean;
     }
 
