@@ -21,6 +21,8 @@ declare module "yargs" {
 			alias(shortName: string, longName: string): Argv;
 			alias(aliases: { [shortName: string]: string }): Argv;
 			alias(aliases: { [shortName: string]: string[] }): Argv;
+			
+			array(key: string): Argv;
 
 			default(key: string, value: any): Argv;
 			default(defaults: { [key: string]: any}): Argv;
@@ -90,6 +92,8 @@ declare module "yargs" {
 
 			help(): string;
 			help(option: string, description?: string): Argv;
+			
+			env(prefix?: string): Argv;
 
 			epilog(msg: string): Argv;
 			epilogue(msg: string): Argv;
@@ -102,6 +106,14 @@ declare module "yargs" {
 			showHelp(func?: (message: string) => any): Argv;
 
 			exitProcess(enabled:boolean): Argv;
+			
+			global(key: string): Argv;
+			global(keys: string[]): Argv;
+			
+			group(key: string, groupName: string): Argv;
+			group(keys: string[], groupName: string): Argv;
+			
+			nargs(key: string, count: number): Argv;
 
 			/* Undocumented */
 
@@ -119,11 +131,13 @@ declare module "yargs" {
 
 		interface Options {
 			type?: string;
+			group?: string;
 			alias?: any;
 			demand?: any;
 			required?: any;
 			require?: any;
 			default?: any;
+			defaultDescription?: string;
 			boolean?: any;
 			string?: any;
 			count?: any;
@@ -132,6 +146,15 @@ declare module "yargs" {
 			desc?: any;
 			requiresArg?: any;
 			choices?:string[];
+			global?: boolean;
+			array?: boolean;
+			boolean?: boolean;
+			config?: boolean;
+			count?: boolean;
+			string?: boolean;
+			number?: boolean;
+			normalize?: boolean;
+			nargs?: number;
 		}
 
 		type SyncCompletionFunction = (current: string, argv: any) => string[];
