@@ -3,8 +3,6 @@
 // Definitions by: Richard Hepburn <https://github.com/rwhepburn/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
-
 declare module Html2Canvas {
     interface Html2CanvasOptions {
         /** Whether to allow cross-origin images to taint the canvas */
