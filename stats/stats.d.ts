@@ -1,6 +1,6 @@
-// Type definitions for Stats.js r12
+// Type definitions for Stats.js r14
 // Project: http://github.com/mrdoob/stats.js
-// Definitions by: Gregory Dalton <https://github.com/gregolai>
+// Definitions by: Nicky Lenaers <https://github.com/nicky-lenaers>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare class Stats {
@@ -17,4 +17,10 @@ declare class Stats {
 	end(): number;
 	
 	update(): void;
+}
+
+declare var stats: Stats;
+
+declare module "stats" {
+  export = stats;
 }
