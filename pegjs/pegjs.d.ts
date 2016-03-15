@@ -1,5 +1,5 @@
 // Type definitions for PEG.js
-// Project: http://pegjs.majda.cz/
+// Project: http://pegjs.org/
 // Definitions by: vvakame <https://github.com/vvakame>, Tobias Kahlert <https://github.com/SrTobi>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
