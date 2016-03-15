@@ -653,7 +653,7 @@ declare module AceAjax {
          * @param type Identify the type of the marker
          * @param inFront Set to `true` to establish a front marker
         **/
-        addMarker(range: Range, clazz: string, type: Function, inFront: boolean): void;
+        addMarker(range: Range, clazz: string, type: Function, inFront: boolean): number;
 
         /**
          * Adds a new marker to the given `Range`. If `inFront` is `true`, a front marker is defined, and the `'changeFrontMarker'` event fires; otherwise, the `'changeBackMarker'` event fires.
@@ -662,7 +662,7 @@ declare module AceAjax {
          * @param type Identify the type of the marker
          * @param inFront Set to `true` to establish a front marker
         **/
-        addMarker(range: Range, clazz: string, type: string, inFront: boolean): void;
+        addMarker(range: Range, clazz: string, type: string, inFront: boolean): number;
 
         /**
          * Adds a dynamic marker to the session.
