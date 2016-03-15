@@ -395,6 +395,14 @@ declare module "react-router/lib/match" {
 
 }
 
+declare module "react-router/lib/useRouterHistory" {
+    interface CreateRouterHistory {
+        (options?: HistoryModule.HistoryOptions): HistoryModule.History & HistoryModule.HistoryQueries;
+    }
+
+    export default function useRouterHistory<T>(createHistory: HistoryModule.CreateHistory<T>): CreateRouterHistory;
+}
+
 
 declare module "react-router" {
 
@@ -434,6 +442,8 @@ declare module "react-router" {
 
     import match from "react-router/lib/match"
 
+    import useRouterHistory from "react-router/lib/useRouterHistory";
+
     // PlainRoute is defined in the API documented at:
     // https://github.com/rackt/react-router/blob/master/docs/API.md
     // but not included in any of the .../lib modules above.
@@ -472,7 +482,8 @@ declare module "react-router" {
         formatPattern,
         RouterContext,
         PropTypes,
-        match
+        match,
+        useRouterHistory
     }
 
     export default Router
