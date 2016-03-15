@@ -31,9 +31,9 @@ declare module angular.translate {
         key?: string;
     }
 
-    interface IPartialLoader<T> {
-        addPart(name : string, priority? : number) : T;
-        deletePart(name : string) : T;
+    interface IPartialLoader {
+        addPart(name : string, priority? : number) : IPartialLoader;
+        deletePart(name : string) : IPartialLoader;
         isPartAvailable(name : string) : boolean;
     }
 
