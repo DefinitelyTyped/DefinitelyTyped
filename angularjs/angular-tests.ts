@@ -272,6 +272,9 @@ module TestQ {
     {
         let result: angular.IPromise<any[]>;
         result = $q.all([promiseAny, promiseAny]);
+        // TS should infer that n1 and n2 are numbers and have toFixed.
+        $q.all([1, $q.when(2)]).then(([ n1, n2 ]) => n1.toFixed() + n2.toFixed());
+        $q.all([1, $q.when(2), '3']).then(([ n1, n2, n3 ]) => n1.toFixed() + n2.toFixed() + n3.slice(1));
     }
     {
         let result: angular.IPromise<TResult[]>;
