@@ -126,7 +126,7 @@ interface Async {
     during(test: (testCallback : (error: Error, truth: boolean) => void) => void, fn: AsyncVoidFunction, callback: (err: any) => void): void;
     doDuring(fn: AsyncVoidFunction, test: (testCallback: (error: Error, truth: boolean) => void) => void, callback: (err: any) => void): void;
     forever(next: (errCallback : (err: Error) => void) => void, errBack: (err: Error) => void) : void;
-    waterfall(tasks: Function[], callback?: (err: Error, results?: any) => void): void;
+    waterfall(tasks: Function[], callback?: (err: Error, ...results: any[]) => void): void;
     compose(...fns: Function[]): void;
     seq(...fns: Function[]): void;
     applyEach(fns: Function[], argsAndCallback: any[]): void;           // applyEach(fns, args..., callback). TS does not support ... for a middle argument. Callback is optional.
