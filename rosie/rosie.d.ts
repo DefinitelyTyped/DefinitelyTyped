@@ -2,7 +2,7 @@
 // Project: https://github.com/rosiejs/rosie
 // Definitions by: Abner Oliveira <https://github.com/abner/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-declare module rosie {
+declare namespace rosie {
   interface IFactoryStatic {
 
 

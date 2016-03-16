@@ -10,7 +10,7 @@ declare module "express-less" {
 
     function less(root: string, options?: less.Options): express.RequestHandler;
 
-    module less {
+    namespace less {
         export interface Options {
             debug?: boolean;
             compress?: boolean;

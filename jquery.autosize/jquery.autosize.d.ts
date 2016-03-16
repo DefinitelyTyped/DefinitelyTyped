@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
-declare module autosize {
+declare namespace autosize {
     interface AutosizeStatic {
         (el: Element): void;
         (el: NodeList): void;

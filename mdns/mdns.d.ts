@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module MDNS {
+declare namespace MDNS {
 
     // --- Error ---
 

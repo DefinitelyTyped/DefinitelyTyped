@@ -3,7 +3,7 @@
 // Definitions by: Marcin Porębski <https://github.com/marcinporebski/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module UrlTemplate
+declare namespace UrlTemplate
 {
     interface TemplateParser {
         parse(template: string): Template;

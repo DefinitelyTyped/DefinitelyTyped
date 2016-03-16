@@ -3,7 +3,7 @@
 // Definitions by: Makis Maropoulos <https://github.com/kataras>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Mongo {
+declare namespace Mongo {
 	var Collection: CollectionStatic;
 	interface CollectionStatic {
 		new <T>(name: string, options?: {
@@ -78,7 +78,7 @@ declare module Mongo {
 
 }
 
-declare module Meteor {
+declare namespace Meteor {
     var isServer: boolean;
     var isClient: boolean;
 }

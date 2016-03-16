@@ -4,18 +4,18 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-declare module dojox {
-    
+declare namespace dojox {
+
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/flash.html
      *
      * Deprecated.  Should require dojox/flash modules directly rather than trying to access them through
      * this module.
-     * 
+     *
      */
     interface flash {
     }
-    module flash {
+    namespace flash {
         module _base {
         }
 

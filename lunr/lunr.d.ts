@@ -9,7 +9,7 @@
  * MIT Licensed
  * @license
  */
-declare module lunr
+declare namespace lunr
 {
     var version:string;
 
@@ -42,7 +42,7 @@ declare module lunr
      */
     function stopWordFilter(token:string):string;
 
-    module stopWordFilter {
+    namespace stopWordFilter {
         var stopWords:SortedSet<string>;
     }
 

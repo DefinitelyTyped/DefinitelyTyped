@@ -6,7 +6,7 @@
 /// <reference path="umbraco.d.ts" />
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module umbraco.services {
+declare namespace umbraco.services {
 
     /**
     * @ngdoc service

@@ -11,7 +11,7 @@ interface Calq
     init(writeKey:string, options?:{[index:string]:any}):void;
 }
 
-declare module Calq
+declare namespace Calq
 {
     interface Action
     {

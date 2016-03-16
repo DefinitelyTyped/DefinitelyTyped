@@ -3,7 +3,7 @@
 // Definitions by: Chintan Shah <https://github.com/Promact>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module SvgPanZoom {
+declare namespace SvgPanZoom {
 
     interface OptionConfig {
         panEnabled?: boolean; // enable or disable panning (default enabled)

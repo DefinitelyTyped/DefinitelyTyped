@@ -2,7 +2,7 @@
 // Project: https://github.com/tgdwyer/WebCola
 // Definitions by: Qinfeng Chen <https://github.com/qinfchen>, Tim Dwyer <https://github.com/tgdwyer>, Noah Chen <https://github.com/nchen63>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-declare module cola {
+declare namespace cola {
     function applyPacking(graphs: Array<any>, w: any, h: any, node_size: any, desired_ratio?: number): void;
     /**
      * connected components of graph
@@ -10,7 +10,7 @@ declare module cola {
      */
     function separateGraphs(nodes: any, links: any): any[];
 }
-declare module cola.vpsc {
+declare namespace cola.vpsc {
     class PositionStats {
         scale: number;
         AB: number;
@@ -97,7 +97,7 @@ declare module cola.vpsc {
         solve(): number;
     }
 }
-declare module cola.vpsc {
+declare namespace cola.vpsc {
     class TreeBase {
         _root: any;
         size: any;
@@ -139,7 +139,7 @@ declare module cola.vpsc {
 }
 /// <reference path="vpsc.d.ts" />
 /// <reference path="rbtree.d.ts" />
-declare module cola.vpsc {
+declare namespace cola.vpsc {
     interface Point {
         x: number;
         y: number;
@@ -250,7 +250,7 @@ declare module cola.vpsc {
 }
 /// <reference path="vpsc.d.ts" />
 /// <reference path="rectangle.d.ts" />
-declare module cola.geom {
+declare namespace cola.geom {
     class Point {
         x: number;
         y: number;
@@ -345,7 +345,7 @@ declare module cola.geom {
 /**
  * @module cola
  */
-declare module cola {
+declare namespace cola {
     /**
      * Descent respects a collection of locks over nodes that should not move
      * @class Locks
@@ -467,7 +467,7 @@ declare module cola {
         getNextBetween(min: number, max: number): number;
     }
 }
-declare module cola.powergraph {
+declare namespace cola.powergraph {
     interface LinkAccessor<Link> {
         getSourceIndex(l: Link): number;
         getTargetIndex(l: Link): number;
@@ -537,7 +537,7 @@ declare module cola.powergraph {
 /**
  * @module cola
  */
-declare module cola {
+declare namespace cola {
     interface LinkAccessor<Link> {
         getSourceIndex(l: Link): number;
         getTargetIndex(l: Link): number;
@@ -645,7 +645,7 @@ declare class PriorityQueue<T> {
 /**
  * @module shortestpaths
  */
-declare module cola.shortestpaths {
+declare namespace cola.shortestpaths {
     /**
      * calculates all-pairs shortest paths or shortest paths from a single node
      * @class Calculator
@@ -688,7 +688,7 @@ declare module cola.shortestpaths {
 /**
  * @module cola
  */
-declare module cola {
+declare namespace cola {
     /**
      * The layout process fires three events:
      *  - start: layout iterations started
@@ -922,7 +922,7 @@ declare module cola {
     }
 }
 /// <reference path="layout.d.ts" />
-declare module cola {
+declare namespace cola {
     class LayoutAdaptor extends Layout {
         trigger(e: Event): void;
         kick(): void;
@@ -939,7 +939,7 @@ declare module cola {
      */
     function adaptor(options: any): LayoutAdaptor;
 }
-declare module cola {
+declare namespace cola {
     function gridify(pgLayout: any, nudgeGap: any, margin: any, groupMargin: any): geom.Point[][][];
     function powerGraphGridLayout(graph: {
         nodes: Node[];
@@ -950,7 +950,7 @@ declare module cola {
     };
 }
 /// <reference path="layout.d.ts" />
-declare module cola {
+declare namespace cola {
     class D3StyleLayoutAdaptor extends Layout {
         event: any;
         trigger(e: Event): void;
@@ -977,7 +977,7 @@ declare module cola {
 /// <reference path="shortestpaths.d.ts" />
 /// <reference path="geom.d.ts" />
 /// <reference path="vpsc.d.ts" />
-declare module cola {
+declare namespace cola {
     interface NodeAccessor<Node> {
         getChildren(v: Node): number[];
         getBounds(v: Node): cola.vpsc.Rectangle;
@@ -1057,7 +1057,7 @@ declare module cola {
  * Use cola to do a layout in 3D!! Yay.
  * Pretty simple for the moment.
  */
-declare module cola {
+declare namespace cola {
     class Link3D {
         source: number;
         target: number;

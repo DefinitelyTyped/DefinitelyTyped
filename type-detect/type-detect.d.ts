@@ -6,7 +6,7 @@
 declare module 'type-detect' {
 	function type(val: any): string;
 
-	module type {
+	namespace type {
 		export class Library {
 			of(val: any): string;
 			define (type: string, test: RegExp): void;

@@ -8,7 +8,7 @@
 /// <reference path="../q/Q.d.ts" />
 
 
-declare module TextBuffer {
+declare namespace TextBuffer {
 
 	interface IPointStatic {
 		new (row?:number, column?:number):IPoint;

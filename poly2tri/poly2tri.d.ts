@@ -3,7 +3,7 @@
 // Definitions by: Elemar Junior <https://github.com/elemarjr/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module poly2tri {
+declare namespace poly2tri {
 
     interface IPointLike {
         x: number;
@@ -30,7 +30,7 @@ declare module poly2tri {
         negate(): Point;
 
         add(n: IPointLike): Point;
-        
+
         sub(n: IPointLike): Point;
 
         mul(s: number): Point;

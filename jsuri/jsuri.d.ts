@@ -3,7 +3,7 @@
 // Definitions by: Chris Charabaruk <http://github.com/coldacid>, Florian Wagner <http://github.com/flqw>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module jsuri {
+declare namespace jsuri {
   type Primitive = string | number | boolean;
 
   export class Uri {

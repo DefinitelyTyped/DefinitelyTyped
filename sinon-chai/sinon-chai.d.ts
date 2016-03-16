@@ -6,7 +6,7 @@
 /// <reference path="../chai/chai.d.ts" />
 /// <reference path="../sinon/sinon.d.ts" />
 
-declare module Chai {
+declare namespace Chai {
 
     interface LanguageChains {
         always: Assertion;

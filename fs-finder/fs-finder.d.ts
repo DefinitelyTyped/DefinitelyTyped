@@ -3,7 +3,7 @@
 // Definitions by: Michael Zabka <https://github.com/misak113/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module FsFinder {
+declare namespace FsFinder {
 
 	type AsyncFunction = (paths: string|string[]) => void;
 	type Type = string; // 'all'|'directories'|'files'

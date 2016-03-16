@@ -81,7 +81,7 @@ declare class jDataView implements DataView {
 	writeFloat64(value: number, littleEndian?: boolean): void
 }
 
-declare module jDataView {
+declare namespace jDataView {
 	interface Bytes {
 		length: number;
 		[index: number]: number;

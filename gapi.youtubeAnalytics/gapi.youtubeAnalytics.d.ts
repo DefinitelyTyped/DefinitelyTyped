@@ -5,7 +5,7 @@
 
 /// <reference path="../gapi/gapi.d.ts" />
 
-declare module gapi.client.youtubeAnalytics {
+declare namespace gapi.client.youtubeAnalytics {
 
     export interface reports {
 
@@ -30,7 +30,7 @@ declare module gapi.client.youtubeAnalytics {
              */
             metrics: string;
             /**
-             * A comma-separated list of YouTube Analytics dimensions, such as views or ageGroup,gender. 
+             * A comma-separated list of YouTube Analytics dimensions, such as views or ageGroup,gender.
              */
             dimensions?: string;
             /**

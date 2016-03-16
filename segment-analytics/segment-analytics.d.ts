@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module SegmentAnalytics {
+declare namespace SegmentAnalytics {
 
   // Generic options object with integrations
   interface SegmentOpts {

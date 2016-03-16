@@ -5,7 +5,7 @@
 
 /// <reference path="rx.d.ts"/>
 
-declare module Rx {
+declare namespace Rx {
 
 	interface Observable<T> {
 		/**

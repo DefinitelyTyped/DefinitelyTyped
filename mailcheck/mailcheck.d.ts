@@ -7,7 +7,7 @@
 
 declare var Mailcheck: MailcheckModule.Static;
 
-declare module MailcheckModule {
+declare namespace MailcheckModule {
 
     export interface IDistanceFunction {
         (s1: string, s2: string): number;

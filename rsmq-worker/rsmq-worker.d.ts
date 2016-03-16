@@ -9,7 +9,7 @@ declare module "rsmq-worker" {
     import redis = require('redis');
     import events = require('events');
 
-    module RSMQWorker {
+    namespace RSMQWorker {
         export interface Client extends events.EventEmitter {
             start(): Client;
             stop(): Client;

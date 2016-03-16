@@ -216,7 +216,7 @@ declare module "adm-zip" {
          * @param targetPath Target location
          * @param overwrite If the file already exists at the target path, the file
          *   will be overwriten if this is true. Default is FALSE
-         * @param callback The callback function will be called afeter extraction 
+         * @param callback The callback function will be called afeter extraction
          */
         extractAllToAsync(targetPath: string, overwrite: boolean, callback: (error: Error) => void): void;
         /**
@@ -233,7 +233,7 @@ declare module "adm-zip" {
         toBuffer(): Buffer;
     }
 
-    module AdmZip {    
+    namespace AdmZip {
         /**
          * The ZipEntry is more than a structure representing the entry inside the
          * zip file. Beside the normal attributes and headers a entry can have, the

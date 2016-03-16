@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module oboe {
+declare namespace oboe {
 	interface OboeFunction extends Function {
 		drop: Object;
 		(url: string): Oboe;

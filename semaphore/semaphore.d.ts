@@ -7,7 +7,7 @@ declare module 'semaphore' {
 
   function semaphore(capacity?: number): semaphore.Semaphore;
 
-  module semaphore {
+  namespace semaphore {
 
     interface Task {
       (): void;

@@ -8,7 +8,7 @@
 /// <reference path="../moment/moment.d.ts" />
 /// <reference path="../node/node.d.ts" />
 /// <reference path="business-rules-engine.d.ts" />
-declare module Validators {
+declare namespace Validators {
     class LettersOnlyValidator implements Validation.IStringValidator {
         public isAcceptable(s: string): boolean;
         public tagName: string;

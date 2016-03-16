@@ -6,7 +6,7 @@
 declare module "json-pointer" {
 	function JSON_Pointer(object: Object): JSON_Pointer.JSON_PointerWrap;
 
-	module JSON_Pointer {
+	namespace JSON_Pointer {
 		/**
 		 *  Wrap an object with accessors
 		 */

@@ -3,7 +3,7 @@
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module GeometryDom {
+declare namespace GeometryDom {
     export interface DOMPointReadOnly {
         /**
          * x coordinate / readonly

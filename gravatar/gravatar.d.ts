@@ -3,7 +3,7 @@
 // Definitions by: Denis Sokolov <https://github.com/denis-sokolov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module GravatarModule {
+declare namespace GravatarModule {
   type Options = {
     d?: string
     default?: string

@@ -40,7 +40,7 @@ declare module "body-parser" {
         extended?: boolean;
     }): express.RequestHandler;
 
-    module bodyParser {
+    namespace bodyParser {
         export function json(options?: {
             /**
              * if deflated bodies will be inflated. (default: true)

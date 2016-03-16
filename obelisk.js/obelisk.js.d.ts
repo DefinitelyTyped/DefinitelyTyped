@@ -3,7 +3,7 @@
 // Definitions by: Brian Drupieski <https://github.com/bdrupieski/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module obelisk {
+declare namespace obelisk {
 
     export var version: string;
     export var author: string;

@@ -6,7 +6,7 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../mongodb/mongodb.d.ts" />
 
-declare module GridFSStream {
+declare namespace GridFSStream {
     export interface Range {
         startPos: number;
         endPos: number;
@@ -46,7 +46,7 @@ declare module "gridfs-stream" {
     // Merged declaration, g is both a callable function and a namespace
     function g(db: any, mongo: any): g.Grid;
 
-    module g {
+    namespace g {
 
         export class Grid {
 

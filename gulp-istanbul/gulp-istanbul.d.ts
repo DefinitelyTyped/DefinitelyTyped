@@ -8,7 +8,7 @@
 declare module "gulp-istanbul" {
     function GulpIstanbul(opts?: GulpIstanbul.Options): NodeJS.ReadWriteStream;
 
-    module GulpIstanbul {
+    namespace GulpIstanbul {
         export function hookRequire(): NodeJS.ReadWriteStream;
         export function summarizeCoverage(opts?: {coverageVariable?: string}): Coverage;
         export function writeReports(opts?: ReportOptions): NodeJS.ReadWriteStream;

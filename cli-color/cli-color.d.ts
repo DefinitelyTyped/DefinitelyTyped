@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "cli-color" {
-	module m {
+	namespace m {
 		export interface Format {
 			(...text: any[]): string;
 
@@ -83,7 +83,7 @@ declare module "cli-color/trim" {
 declare module "cli-color/throbber" {
 	import clc = require('cli-color');
 
-	module setupThrobber {
+	namespace setupThrobber {
 		export interface Throbber {
 			start(): void;
 			stop(): void;

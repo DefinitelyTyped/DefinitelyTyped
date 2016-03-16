@@ -6,7 +6,7 @@
 
 /// <reference path="../threejs/three.d.ts" />
 
-declare module Physijs {
+declare namespace Physijs {
     export function noConflict():Object;
     export function createMaterial(material: THREE.Material, friction?: number, restitution?: number): Material;
 

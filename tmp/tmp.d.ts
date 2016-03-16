@@ -5,7 +5,7 @@
 
 declare module "tmp" {
 
-	module tmp {
+	namespace tmp {
 		interface Options extends SimpleOptions {
 			mode?: number;
 		}

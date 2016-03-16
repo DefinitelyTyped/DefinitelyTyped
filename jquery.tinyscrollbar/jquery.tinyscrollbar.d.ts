@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module JQueryTinyScrollbar {
+declare namespace JQueryTinyScrollbar {
     export interface JQueryTinyScrollbarOptions {
         /**
         * Enable mobile invert style scrolling. (default: false)
@@ -34,7 +34,7 @@ declare module JQueryTinyScrollbar {
         /**
         * Set the size of the thumb to auto or a fixed number. (default: 'auto')
         */
-        sizethumb?: any; 
+        sizethumb?: any;
     }
 }
 interface JQuery {

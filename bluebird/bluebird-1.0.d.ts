@@ -580,7 +580,7 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => boolean): Promise<R[]>;
 }
 
-declare module Promise {
+declare namespace Promise {
 	export interface RangeError extends Error {
 	}
 	export interface CancellationError extends Error {

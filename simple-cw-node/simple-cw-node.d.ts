@@ -14,7 +14,7 @@ declare module "simple-cw-node" {
 	// Merged declaration, ChatWork is both a callable function and a namespace
 	function ChatWork():ChatWork.ChatWork;
 
-	module ChatWork {
+	namespace ChatWork {
 		interface ChatWorkInitOptions {
 			token:string;
 		}

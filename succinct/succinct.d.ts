@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module JQuerySuccinct {
+declare namespace JQuerySuccinct {
     interface Options {
         size?: number;
         omission?: string;

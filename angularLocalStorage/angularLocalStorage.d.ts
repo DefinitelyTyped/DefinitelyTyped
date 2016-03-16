@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts"/>
 
-declare module angular.localStorage {
+declare namespace angular.localStorage {
   interface ILocalStorageService {
     set(key: string, value: any): any;
     get(key: string): any;

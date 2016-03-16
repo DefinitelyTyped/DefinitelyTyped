@@ -7,7 +7,7 @@
 /// <reference path="../easy-jsend/easy-jsend.d.ts" />
 /// <reference path="../bunyan/bunyan.d.ts" />
 
-declare module Express {
+declare namespace Express {
     export interface Request {
         log: any;
     }

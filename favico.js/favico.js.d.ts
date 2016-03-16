@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-declare module favicojs {
+declare namespace favicojs {
 
     interface FavicoJsStatic {
         new (opt?: FavicoJsOptions): Favico;

@@ -3,7 +3,7 @@
 // Definitions by: RodneyJT <https://github.com/RodneyJT>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module google.feeds {
+declare namespace google.feeds {
     export class Feed {
         constructor();
         constructor(url: string);

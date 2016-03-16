@@ -10,7 +10,7 @@ declare module 'on-finished' {
 
     function onFinished(msg:NodeJS.EventEmitter, listener:Function): NodeJS.EventEmitter;
 
-    module onFinished {
+    namespace onFinished {
         export function isFinished(msg:NodeJS.EventEmitter):boolean;
     }
 

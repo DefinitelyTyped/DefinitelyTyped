@@ -3,7 +3,7 @@
 // Definitions by: Michael Zabka <https://github.com/misak113/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module ObjectHash {
+declare namespace ObjectHash {
 	export interface IOptions {
 		algorithm?: string;
 		encoding?: string;

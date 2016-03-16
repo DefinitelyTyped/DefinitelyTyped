@@ -7,7 +7,7 @@
 
 declare module "recursive-readdir" {
     import * as fs from "fs";
-    module RecursiveReaddir {
+    namespace RecursiveReaddir {
         interface readdir {
             (path: string, callback: (error: Error, files: string[]) => any): void;
             // ignorePattern supports glob syntax via https://github.com/isaacs/minimatch

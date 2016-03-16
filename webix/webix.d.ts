@@ -3,7 +3,7 @@
 // Definitions by: Maksim Kozhukh <http://github.com/mkozhukh>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module webix {
+declare namespace webix {
 
 type WebixTemplate = (...args: any[])=>string;
 type WebixCallback = (...args: any[])=>any;
@@ -996,7 +996,7 @@ interface VirtualRenderStack{
 var VirtualRenderStack:VirtualRenderStack;
 
 
-module ui {
+namespace ui {
 
 
 

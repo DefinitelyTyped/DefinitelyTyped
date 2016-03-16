@@ -6,7 +6,7 @@
 /// <reference path="../underscore/underscore.d.ts" />
 /// <reference path="../q/Q.d.ts" />
 /// <reference path="../moment/moment.d.ts" />
-declare module Validation {
+declare namespace Validation {
     /**
     * Custom message functions.
     */
@@ -159,7 +159,7 @@ declare module Validation {
         public tagName: string;
     }
 }
-declare module Validation {
+declare namespace Validation {
     /**
     * basic error structure
     */
@@ -329,7 +329,7 @@ declare module Validation {
         private traverse(node, indent);
     }
 }
-declare module Validation {
+declare namespace Validation {
     /**
     * @ngdoc module
     * @name Validation

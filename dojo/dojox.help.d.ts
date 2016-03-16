@@ -3,20 +3,20 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module dojox {
-    
-    module help {
+declare namespace dojox {
+
+    namespace help {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/help/_base.html
          *
-         * 
+         *
          */
         interface _base {
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/help/console.html
          *
-         * 
+         *
          */
         interface console {
         }

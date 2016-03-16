@@ -7,7 +7,7 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module "amqplib/properties" {
-    module Replies {
+    namespace Replies {
         interface Empty {
         }
         interface AssertQueue {
@@ -29,7 +29,7 @@ declare module "amqplib/properties" {
         }
     }
 
-    module Options {
+    namespace Options {
         interface AssertQueue {
             exclusive?: boolean;
             durable?: boolean;

@@ -5,7 +5,7 @@
 
 ///<reference path="../jquery/jquery.d.ts" />
 
-declare module ImagesLoaded {
+declare namespace ImagesLoaded {
   type ElementSelector = Element | NodeList | Array<Element> | string;
 
   /** interface for an image currently loading or completed */

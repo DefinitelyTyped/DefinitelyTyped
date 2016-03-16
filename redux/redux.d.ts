@@ -3,7 +3,7 @@
 // Definitions by: William Buchwalter <https://github.com/wbuchwalter/>, Vincent Prouillet <https://github.com/Keats/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Redux {
+declare namespace Redux {
 
     interface ActionCreator extends Function {
         (...args: any[]): any;

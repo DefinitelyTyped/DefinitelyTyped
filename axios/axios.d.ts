@@ -3,7 +3,7 @@
 // Definitions by: Marcel Buesing <https://github.com/marcelbuesing>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Axios {
+declare namespace Axios {
 
     interface IThenable<R> {
         then<U>(onFulfilled?: (value: R) => U | IThenable<U>, onRejected?: (error: any) => U | IThenable<U>): IThenable<U>;

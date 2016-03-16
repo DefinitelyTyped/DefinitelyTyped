@@ -325,7 +325,7 @@ interface HighlandStatic {
 	not<R>(a: any): boolean;
 }
 
-declare module Highland {
+declare namespace Highland {
 
 	interface Thenable<R> {
 		then<U>(onFulfilled: (value: R) => Thenable<U>,  onRejected: (error: any) => Thenable<U>): Thenable<U>;

@@ -10,7 +10,7 @@ declare module "nock" {
 
 	function nock (host: string, options?: nock.Options): nock.Scope;
 
-	module nock {
+	namespace nock {
 		export function cleanAll(): void;
 
 		export function disableNetConnect(): void;

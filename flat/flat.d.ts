@@ -3,7 +3,7 @@
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module FlatTypes {
+declare namespace FlatTypes {
 	interface FlattenOptions {
 		delimiter?: string;
 		safe?: boolean;

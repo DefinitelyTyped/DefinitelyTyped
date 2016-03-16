@@ -18,7 +18,7 @@ declare module "express-jwt" {
 
     type ICallback = <T>(req: express.Request, payload: T, done: IDoneCallback<boolean>) => void;
 
-    module jwt {
+    namespace jwt {
         export interface Options {
             secret: string|ICallback;
             userProperty?: string;

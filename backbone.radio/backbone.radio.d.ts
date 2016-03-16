@@ -5,7 +5,7 @@
 
 /// <reference path="../backbone/backbone.d.ts" />
 
-declare module Backbone {
+declare namespace Backbone {
     interface Radio {
         tuneIn(channelName: string): Radio;
         tuneOut(channelName: string): Radio;
@@ -13,7 +13,7 @@ declare module Backbone {
         channel(channelName: string): Radio.Channel;
     }
 
-    module Radio {
+    namespace Radio {
         var VERSION: string;
         var DEBUG: boolean;
 
@@ -89,4 +89,4 @@ declare module Backbone {
             stopReplying(commandName?: string, callback?: (...args: any[]) => any, context?: any): Requests;
         }
     }
-} 
+}

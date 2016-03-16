@@ -9,7 +9,7 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module FoundationSites {
+declare namespace FoundationSites {
 
     // http://foundation.zurb.com/sites/docs/abide.html#javascript-reference
     interface Abide {

@@ -3,8 +3,8 @@
 
 // borrowed from the Backbone.Associations tutorials
 // separated out into modules to avoid namespace clashes
-module Backbone.Associations.Tests {
-    module OneToOne {
+namespace Backbone.Associations.Tests {
+    namespace OneToOne {
         class EmployeeWithManager extends Backbone.AssociatedModel {
             constructor(options?) {
                 super(options);
@@ -28,7 +28,7 @@ module Backbone.Associations.Tests {
         }
     }
 
-    module OneToMany {
+    namespace OneToMany {
         class Location extends Backbone.AssociatedModel {
             defaults() {
                 return {

@@ -5,7 +5,7 @@
 
 declare module "yargs" {
 
-	module yargs {
+	namespace yargs {
 		interface Argv {
 			argv: any;
 			(...args: any[]): any;
@@ -15,7 +15,7 @@ declare module "yargs" {
 
 			locale(): string;
 			locale(loc:string): Argv;
-			
+
 			detectLocale(detect:boolean): Argv;
 
 			alias(shortName: string, longName: string): Argv;

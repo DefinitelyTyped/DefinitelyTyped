@@ -6,7 +6,7 @@
 declare module "update-notifier" {
 	function t(settings?:t.ISettings):t.IResult;
 
-	module t {
+	namespace t {
 
 		export interface IResult {
 			update: IUpdateInfo;

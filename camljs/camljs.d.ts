@@ -21,7 +21,7 @@ declare class CamlBuilder {
     */
     static Expression(): CamlBuilder.IFieldExpression;
 }
-declare module CamlBuilder {
+declare namespace CamlBuilder {
     interface IView extends IJoinable, IFinalizable {
         Query(): IQuery;
         RowLimit(limit: number, paged?: boolean): IView;

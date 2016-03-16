@@ -5,7 +5,7 @@
 
 // todo: jQuery plugin, RxJS Binding
 
-declare module linq {
+declare namespace linq {
 
     interface EnumerableStatic {
         Choice<T>(...contents: T[]): Enumerable<T>;

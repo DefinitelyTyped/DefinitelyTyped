@@ -3,7 +3,7 @@
 // Definitions by: James Frasca <https://github.com/Nycto>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Persona {
+declare namespace Persona {
 
     export interface WatchOptions {
         loggedInUser: String

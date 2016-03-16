@@ -32,8 +32,8 @@ declare var Notify: {
     permissionLevel: string;
 }
 
-declare module notifyjs {
-    
+declare namespace notifyjs {
+
     /**
      * Interface for Web Notifications API Wrapper.
      */
@@ -58,7 +58,7 @@ declare module notifyjs {
         onErrorNotification() : void;
         handleEvent(e : Event) : void;
     }
-    
+
     /**
      * Interface for the Notify's optional parameter.
      */
@@ -78,7 +78,7 @@ declare module notifyjs {
          * unique identifier to stop duplicate notifications
          */
         tag? : string;
-        
+
          /**
          * number of seconds to close the notification automatically
          */
