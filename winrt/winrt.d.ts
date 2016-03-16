@@ -10017,7 +10017,7 @@ declare module Windows {
             removableDevices: Windows.Storage.StorageFolder;
             videosLibrary: Windows.Storage.StorageFolder;
         }
-        export class StorageFolder implements Windows.Storage.IStorageFolder, Windows.Storage.IStorageItem, Windows.Storage.Search.IStorageFolderQueryOperations, Windows.Storage.IStorageItemProperties {
+        export class StorageFolder implements Windows.Storage.IStorageFolder, Windows.Storage.IStorageFolder2, Windows.Storage.IStorageItem, Windows.Storage.Search.IStorageFolderQueryOperations, Windows.Storage.IStorageItemProperties {
             attributes: Windows.Storage.FileAttributes;
             dateCreated: Date;
             name: string;
@@ -10063,6 +10063,7 @@ declare module Windows {
             getThumbnailAsync(mode: Windows.Storage.FileProperties.ThumbnailMode, requestedSize: number): Windows.Foundation.IAsyncOperation<Windows.Storage.FileProperties.StorageItemThumbnail>;
             getThumbnailAsync(mode: Windows.Storage.FileProperties.ThumbnailMode, requestedSize: number, options: Windows.Storage.FileProperties.ThumbnailOptions): Windows.Foundation.IAsyncOperation<Windows.Storage.FileProperties.StorageItemThumbnail>;
             static getFolderFromPathAsync(path: string): Windows.Foundation.IAsyncOperation<Windows.Storage.StorageFolder>;
+            tryGetItemAsync(name: string): Windows.Foundation.IAsyncOperation<IStorageItem>;
         }
         export class KnownFolders {
             static documentsLibrary: Windows.Storage.StorageFolder;
@@ -10211,6 +10212,9 @@ declare module Windows {
             getFoldersAsync(): Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IVectorView<Windows.Storage.StorageFolder>>;
             getItemsAsync(): Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IVectorView<Windows.Storage.IStorageItem>>;
             getItemsAsync(startIndex: number, maxItemsToRetrieve: number): Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IVectorView<Windows.Storage.IStorageItem>>;
+        }
+        export interface IStorageFolder2 {
+            tryGetItemAsync(name: string): Windows.Foundation.IAsyncOperation<IStorageItem>;
         }
         export interface IStorageFile extends Windows.Storage.IStorageItem, Windows.Storage.Streams.IRandomAccessStreamReference, Windows.Storage.Streams.IInputStreamReference {
             contentType: string;

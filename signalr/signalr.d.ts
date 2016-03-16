@@ -169,12 +169,13 @@ declare namespace SignalR {
         protocol: string;
         host: string;
     }
-
+    
     interface Connection {
         clientProtocol: string;
         ajaxDataType: string;
         contentType: string;
         id: string;
+        json: JSON;
         logging: boolean;
         url: string;
         qs: string | Object;
