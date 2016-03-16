@@ -1,7 +1,7 @@
 ﻿// Type definitions for spectrum 1.5.1
 // Project: https://github.com/bgrins/spectrum/
 // Definitions by: Mordechai Zuber <https://github.com/M-Zuber>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 /// <reference path="../tinycolor/tinycolor.d.ts"/>

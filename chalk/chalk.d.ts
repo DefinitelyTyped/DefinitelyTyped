@@ -1,7 +1,7 @@
 // Type definitions for chalk v0.4.0
 // Project: https://github.com/sindresorhus/chalk
 // Definitions by: Diullei Gomes <https://github.com/Diullei>, Bart van der Schoor <https://github.com/Bartvds>, Nico Jansen <https://github.com/nicojs>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module Chalk {
 

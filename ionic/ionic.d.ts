@@ -1,7 +1,7 @@
 // Type definitions for Ionic
 // Project: http://ionicframework.com
 // Definitions by: Spencer Williams <https://github.com/spencerwi/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 

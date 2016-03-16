@@ -1,7 +1,7 @@
 // Type definitions for DevExtreme 15.1.7
 // Project: http://js.devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
@@ -3036,7 +3036,7 @@ declare module DevExpress.ui {
         showInColumnChooser?: boolean;
         /** Specifies the identifier of the column. */
         name?: string;
-        // NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+        // NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
         text?: string;
         value?: any;
     }

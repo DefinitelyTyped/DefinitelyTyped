@@ -1,7 +1,7 @@
 // Type definitions for mobservable v0.6.10
 // Project: https://mweststrate.github.io/mobservable
 // Definitions by: Michel Weststrate <https://github.com/mweststrate/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 interface _IMobservableStatic {

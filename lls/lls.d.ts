@@ -1,7 +1,7 @@
 // Type definitions for LargeLocalStorage v0.1.3
 // Project: https://github.com/tantaman/LargeLocalStorage
 // Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module LargeLocalStorageInterfaces {    
     interface LargeLocalStorageService {
         new(options: Options): LargeLocalStorageService;

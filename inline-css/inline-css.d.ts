@@ -1,7 +1,7 @@
 // Type definitions for inline-css
 // Project: https://github.com/jonkemp/inline-css
 // Definitions by: Philip Spain <https://github.com/philipisapain>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../bluebird/bluebird.d.ts" />
 

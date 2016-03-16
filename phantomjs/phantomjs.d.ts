@@ -1,7 +1,7 @@
 // Type definitions for PhantomJS v1.9.0 API
 // Project: https://github.com/ariya/phantomjs/wiki/API-Reference
 // Definitions by: Jed Hunsaker <https://github.com/jedhunsaker>, Mike Keesey <https://github.com/keesey>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function require(module: string): any;
 

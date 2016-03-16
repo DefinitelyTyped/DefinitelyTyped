@@ -1,7 +1,7 @@
 // Type definitions for promises-a-plus
 // Project: http://promisesaplus.com/
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module PromisesAPlus {
 	interface PromiseCtor {

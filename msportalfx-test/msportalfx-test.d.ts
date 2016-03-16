@@ -1,7 +1,7 @@
 // Type definitions for msportalfx-test
 // Project: https://msazure.visualstudio.com/DefaultCollection/AzureUX/_git/portalfx-msportalfx-test
 // Definitions by: Julio Casal <https://github.com/julioct>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../q/Q.d.ts" />
 

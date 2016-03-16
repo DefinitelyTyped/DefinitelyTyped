@@ -1,7 +1,7 @@
 // Type definitions for ScrollToFixed
 // Project: https://github.com/bigspotteddog/ScrollToFixed
 // Definitions by: Ben Dixon <https://github.com/bmdixon>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 

@@ -1,7 +1,7 @@
 // Type definitions for amqplib 0.3.x
 // Project: https://github.com/squaremo/amqp.node
 // Definitions by: Michael Nahkies <https://github.com/mnahkies>, Ab Reitsma <https://github.com/abreits>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../when/when.d.ts" />
 /// <reference path="../node/node.d.ts" />

@@ -1,7 +1,7 @@
 // Type definitions for redux-thunk v2.0.1
 // Project: https://github.com/gaearon/redux-thunk
 // Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../redux/redux.d.ts" />
 

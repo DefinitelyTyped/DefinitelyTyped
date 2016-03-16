@@ -1,7 +1,7 @@
 // Type definitions for connect-flash
 // Project: https://github.com/jaredhanson/connect-flash
 // Definitions by: Andreas Gassmann <https://github.com/AndreasGassmann/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 

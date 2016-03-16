@@ -1,7 +1,7 @@
 // Type definitions for path-exists 1.0.0
 // Project: https://github.com/sindresorhus/path-exists
 // Definitions by: Shogo Iwano <https://github.com/shiwano>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "path-exists" {
     interface PathExists {

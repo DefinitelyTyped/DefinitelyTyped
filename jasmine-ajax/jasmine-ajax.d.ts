@@ -1,7 +1,7 @@
 // Type definitions for jasmine-ajax 3.1.1
 // Project: https://github.com/jasmine/jasmine-ajax
 // Definitions by: Louis Grignon <https://github.com/lgrignon>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface JasmineAjaxResponse {
 	status?: number;

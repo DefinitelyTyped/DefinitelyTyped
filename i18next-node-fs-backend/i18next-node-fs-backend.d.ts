@@ -1,7 +1,7 @@
 // Type definitions for i18next-node-fs-backend
 // Project: https://github.com/i18next/i18next-node-fs-backend
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../i18next/i18next.d.ts"/>
 

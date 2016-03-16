@@ -1,7 +1,7 @@
 // Type definitions for Vex v2.3.2
 // Project: https://github.com/HubSpot/vex
 // Definitions by: Greg Cohan <https://github.com/gdcohan>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts" />
 

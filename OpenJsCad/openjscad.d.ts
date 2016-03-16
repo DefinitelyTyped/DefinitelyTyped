@@ -1,7 +1,7 @@
 // Type definitions for OpenJsCad.js
 // Project: https://github.com/joostn/OpenJsCad
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="../threejs/three.d.ts" />
 
 declare module THREE {

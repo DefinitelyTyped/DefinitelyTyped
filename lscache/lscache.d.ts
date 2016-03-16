@@ -1,7 +1,7 @@
 ﻿// Type definitions for lscache v1.0.5
 // Project: https://github.com/pamelafox/lscache
 // Definitions by: Chris Martinez <https://github.com/Chris-Martinezz>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface LSCache {
 

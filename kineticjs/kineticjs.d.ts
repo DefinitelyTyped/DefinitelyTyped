@@ -1,7 +1,7 @@
 // Type definitions for KineticJS
 // Project: http://kineticjs.com/
 // Definitions by: Basarat Ali Syed <http://www.github.com/basarat>, Ralph de Ruijter <http://www.superdopey.nl/techblog/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module Kinetic {
 

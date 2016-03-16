@@ -1,7 +1,7 @@
 ﻿// Type definitions for jQuery tinycarousel 1.9
 // Project: http://baijs.nl/tinycarousel/
 // Definitions by: Christiaan Rakowski <https://github.com/csrakowski/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 

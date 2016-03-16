@@ -1,7 +1,7 @@
 // Type definitions for jasmine-expect 2.0.0-beta2
 // Project: https://github.com/JamieMason/Jasmine-Matchers
 // Definitions by: UserPixel <https://github.com/UserPixel>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jasmine/jasmine.d.ts" />
 

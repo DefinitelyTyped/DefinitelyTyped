@@ -1,7 +1,7 @@
 // Type definitions for Bacon.js 0.7.0
 // Project: https://baconjs.github.io/
 // Definitions by: Alexander Matsievsky <https://github.com/alexander-matsievsky>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../node/node.d.ts" />

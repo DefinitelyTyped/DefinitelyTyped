@@ -1,7 +1,7 @@
 // Type definitions for UI-Router Extras 0.0.14+ (ct.ui.router.extras module)
 // Project: https://github.com/christopherthielen/ui-router-extras
 // Definitions by: Michael Putters <https://github.com/mputters/>, Marcel van de Kamp <https://github.com/marcel-k/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angular-ui-router/angular-ui-router.d.ts" />
 

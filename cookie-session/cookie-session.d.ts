@@ -1,7 +1,7 @@
 // Type definitions for cookie-session v2.0.0-alpha.1
 // Project: https://github.com/expressjs/cookie-session
 // Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 

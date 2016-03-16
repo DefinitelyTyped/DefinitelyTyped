@@ -1,7 +1,7 @@
 // Type definitions for insight 0.4.3
 // Project: https://github.com/yeoman/insight
 // Definitions by: vvakame <http://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module insight {
     interface IOptions {

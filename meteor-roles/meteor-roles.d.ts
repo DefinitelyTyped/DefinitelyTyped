@@ -1,7 +1,7 @@
 // Type definitions for Meteor Roles 1.2.14
 // Project: https://github.com/alanning/meteor-roles/
 // Definitions by: Robbie Van Gorkom <https://github.com/vangorra>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../meteor/meteor.d.ts" />
 

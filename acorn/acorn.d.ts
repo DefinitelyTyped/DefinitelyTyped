@@ -1,7 +1,7 @@
 // Type definitions for Acorn v1.0.1
 // Project: https://github.com/marijnh/acorn
 // Definitions by: RReverser <https://github.com/RReverser>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../estree/estree.d.ts" />
 

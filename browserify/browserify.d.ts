@@ -1,7 +1,7 @@
 // Type definitions for Browserify v12.0.1
 // Project: http://browserify.org/
 // Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar/>, John Vilk <https://github.com/jvilk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

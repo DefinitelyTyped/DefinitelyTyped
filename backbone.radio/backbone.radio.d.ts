@@ -1,7 +1,7 @@
 ﻿// Type definitions for Backbone.Radio v0.8.3
 // Project: https://github.com/marionettejs/backbone.radio
 // Definitions by: Peter Palotas <https://github.com/alphaleonis/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../backbone/backbone.d.ts" />
 

@@ -1,7 +1,7 @@
 // Type definitions for Angular JS 1.5 component router
 // Project: http://angularjs.org
 // Definitions by: David Reher <http://github.com/davidreher>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./angular.d.ts" />
 

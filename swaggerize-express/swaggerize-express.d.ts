@@ -1,7 +1,7 @@
 // Type definitions for swaggerize-express 4.x
 // Project: https://github.com/krakenjs/swaggerize-express
 // Definitions by: TANAKA Koichi <https://github.com/mugeso/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
 

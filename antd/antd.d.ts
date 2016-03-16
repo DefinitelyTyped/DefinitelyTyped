@@ -1,7 +1,7 @@
 // Type definitions for Antd v0.12.10
 // Project: http://ant.design
 // Definitions by: bang88 <https://github.com/bang88>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../react/react.d.ts" />

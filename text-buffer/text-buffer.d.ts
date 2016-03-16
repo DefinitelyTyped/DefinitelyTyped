@@ -1,7 +1,7 @@
 // Type definitions for text-buffer
 // Project: https://github.com/atom/text-buffer
 // Definitions by: vvakame <https://github.com/vvakame/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../atom/atom.d.ts" />
 /// <reference path="../emissary/emissary.d.ts" />

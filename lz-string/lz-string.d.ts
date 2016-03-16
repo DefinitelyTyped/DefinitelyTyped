@@ -1,7 +1,7 @@
 ﻿// Type definitions for lz-string v1.3.3
 // Project: https://github.com/pieroxy/lz-string
 // Definitions by: Roman Nikitin <https://github.com/M0ns1gn0r>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var LZString: LZString.LZStringStatic;
 

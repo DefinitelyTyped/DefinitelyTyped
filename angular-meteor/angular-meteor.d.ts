@@ -1,7 +1,7 @@
 // Type definitions for Angular JS Meteor v0.8.8 (angular.meteor module)
 // Project: https://github.com/Urigo/angular-meteor
 // Definitions by: Peter Grman <https://github.com/pgrm>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../meteor/meteor.d.ts" />
 /// <reference path="../angularjs/angular.d.ts" />

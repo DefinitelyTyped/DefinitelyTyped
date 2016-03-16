@@ -1,7 +1,7 @@
 // Type definitions for Chance 0.7.3
 // Project: http://chancejs.com
 // Definitions by: Chris Bowdon <https://github.com/cbowdon/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module Chance {
 
     interface ChanceStatic {

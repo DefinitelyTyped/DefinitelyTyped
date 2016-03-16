@@ -1,7 +1,7 @@
 // Type definitions for simpleStorage v0.1.3
 // Project: https://github.com/andris9/simpleStorage
 // Definitions by: Áxel Costas Pena <https://github.com/axelcostaspena>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module simplestoragejs {
 

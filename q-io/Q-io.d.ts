@@ -1,7 +1,7 @@
 // Type definitions for Q-io
 // Project: https://github.com/kriskowal/q-io
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../node/node.d.ts" />
 ///<reference path="../q/Q.d.ts" />

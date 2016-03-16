@@ -1,7 +1,7 @@
 ﻿// Type definitions for jquery-handsontable
 // Project: http://handsontable.com
 // Definitions by: Ted John <https://github.com/intelorca>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 

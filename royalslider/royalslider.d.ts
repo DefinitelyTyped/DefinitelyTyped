@@ -1,7 +1,7 @@
 // Type definitions for jQuery royal-slider v9.4.0
 // Project: http://dimsemenov.com/plugins/royal-slider/documentation/
 // Definitions by: Christiaan Rakowski <https://github.com/csrakowski/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 

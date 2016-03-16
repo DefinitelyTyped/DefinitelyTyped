@@ -1,7 +1,7 @@
 // Type definitions for mkdirp 0.3.0
 // Project: http://github.com/substack/node-mkdirp
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'mkdirp' {
 

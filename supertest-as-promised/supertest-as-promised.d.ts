@@ -1,7 +1,7 @@
 // Type definitions for SuperTest as Promised v2.0.2
 // Project: https://github.com/WhoopInc/supertest-as-promised
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path='../superagent/superagent.d.ts' />
 /// <reference path="../bluebird/bluebird.d.ts" />

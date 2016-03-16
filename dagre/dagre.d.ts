@@ -1,7 +1,7 @@
 // Type definitions for dagre 0.7.0
 // Project: https://github.com/cpettitt/dagre
 // Definitions by: Qinfeng Chen <https://github.com/qinfchen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module Dagre{
     interface DagreFactory {
         graphlib: GraphLib;

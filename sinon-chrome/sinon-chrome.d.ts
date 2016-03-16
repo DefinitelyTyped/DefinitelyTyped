@@ -1,7 +1,7 @@
 // Type definitions for Sinon-Chrome v0.2.1
 // Project: https://github.com/vitalets/sinon-chrome
 // Definitions by: Tim Perry <https://github.com/pimterry>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../chrome/chrome.d.ts"/>
 /// <reference path="../sinon/sinon.d.ts"/>

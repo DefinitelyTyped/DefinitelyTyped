@@ -1,7 +1,7 @@
 // Type definitions for nvd3 1.8.1
 // Project: https://github.com/novus/nvd3
 // Definitions by: Peter Mitchell <https://github.com/PjMitchell/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../d3/d3.d.ts" />
 declare module nv {

@@ -1,7 +1,7 @@
 // Type definitions for ESTree AST specification
 // Project: https://github.com/estree/estree
 // Definitions by: RReverser <https://github.com/RReverser>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module ESTree {
   interface Node {

@@ -1,7 +1,7 @@
 // Type definitions for PubSubJS 1.5.2
 // Project: https://github.com/mroderick/PubSubJS
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module PubSubJS {
     interface Base extends Publish, Subscribe, Unsubscribe, ClearAllSubscriptions {

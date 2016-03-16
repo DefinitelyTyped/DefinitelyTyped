@@ -1,7 +1,7 @@
 // Type definitions for Marked
 // Project: https://github.com/chjj/marked
 // Definitions by: William Orr <https://github.com/worr>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface MarkedStatic {
     /**
