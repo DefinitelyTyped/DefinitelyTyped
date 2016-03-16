@@ -738,7 +738,7 @@ declare namespace Antd {
          *
          * @type {(MenuItem | MenuSubMenu)}
          */
-        children?: MenuItem | MenuSubMenu
+        children?: JSX.Element[]
     }
     export class MenuSubMenu extends React.Component<MenuSubMenuProps, {}> {
         render(): JSX.Element
@@ -756,7 +756,7 @@ declare namespace Antd {
          *
          * @type {MenuItem}
          */
-        children?: MenuItem
+        children?: JSX.Element[]
     }
     export class MenuItemGroup extends React.Component<MenuItemGroupProps, {}> {
         render(): JSX.Element
