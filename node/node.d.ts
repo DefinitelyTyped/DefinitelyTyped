@@ -227,8 +227,8 @@ declare module NodeJS {
         removeListener(event: string, listener: Function): this;
         removeAllListeners(event?: string): this;
     }
-    
-    export interface MemoryUsage { 
+
+    export interface MemoryUsage {
         rss: number;
         heapTotal: number;
         heapUsed: number;
@@ -965,16 +965,37 @@ declare module "child_process" {
         stdio?: any;
         customFds?: any;
         env?: any;
+        encoding: void;
+        timeout?: number;
+        maxBuffer?: number;
+        killSignal?: string;
+    }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+    export function exec(command: string, options: {
+        cwd?: string;
+        stdio?: any;
+        customFds?: any;
+        env?: any;
         encoding?: string;
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
-    }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function exec(command: string, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    }, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+    export function exec(command: string,
+        callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
     export function execFile(file: string,
-        callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+        callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
     export function execFile(file: string, args?: string[],
-        callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+        callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args?: string[], options?: {
+        cwd?: string;
+        stdio?: any;
+        customFds?: any;
+        env?: any;
+        encoding: void;
+        timeout?: number;
+        maxBuffer?: number;
+        killSignal?: string;
+    }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
     export function execFile(file: string, args?: string[], options?: {
         cwd?: string;
         stdio?: any;
@@ -984,7 +1005,7 @@ declare module "child_process" {
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
-    }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    }, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
     export function fork(modulePath: string, args?: string[], options?: {
         cwd?: string;
         env?: any;
