@@ -13,7 +13,7 @@ interface JQuery {
     glide(options?: JQueryGlide.IGlideOptions): JQuery;
 }
 
-declare module JQueryGlide {
+declare namespace JQueryGlide {
     interface IGlideOptions {
         /**
          * Default: 4000

@@ -13,7 +13,7 @@
  * Based on information from http://developers.dymo.com/2010/06/02/dymo-label-framework-overview/
  * which is © 2013 DYMO Label Inside Out
  */
-declare module dymo.label.framework {
+declare namespace dymo.label.framework {
 
 	/** Enumeration that specifies where to draw the Intellegent Mail barcode for an Address object. */
 	enum AddressBarcodePosition {

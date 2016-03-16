@@ -76,7 +76,7 @@ declare function npmPublishTask(name:string, packageFiles:string[]): jake.NpmPub
 declare function npmPublishTask(name:string, definition?:()=>void): jake.NpmPublishTask;
 
 
-declare module jake{
+declare namespace jake{
 
     ////////////////////////////////////////////////////////////////////////////////////
 	// File-utils //////////////////////////////////////////////////////////////////////
@@ -132,9 +132,9 @@ declare module jake{
 		 * stop execution on error, default true
 		 */
 		breakOnError?:boolean;
-		
+
 		/**
-		* 
+		*
 		*/
 		windowsVerbatimArguments?: boolean
 	}
@@ -195,7 +195,7 @@ declare module jake{
 		 * @default false
 		 */
 		async?: boolean;
-		
+
 		/**
 		 * number of parllel async tasks
 		*/

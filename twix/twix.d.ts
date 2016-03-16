@@ -5,7 +5,7 @@
 
 /// <reference path="../moment/moment.d.ts" />
 
-declare module moment {
+declare namespace moment {
     interface Moment {
         twix(date: Date): Twix;
         twix(date: Date, allDay: boolean): Twix;

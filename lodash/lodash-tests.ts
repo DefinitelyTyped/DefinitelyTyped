@@ -105,7 +105,7 @@ result = <(key: string) => boolean>testMapCache.has;
 result = <(key: string, value: any) => _.Dictionary<any>>testMapCache.set;
 
 // _
-module TestWrapper {
+namespace TestWrapper {
     {
         let result: _.LoDashImplicitWrapper<string>;
         result = _('');
@@ -146,7 +146,7 @@ result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
  *********/
 
 // _.chunk
-module TestChunk {
+namespace TestChunk {
     let array: TResult[];
     let list: _.List<TResult>;
 
@@ -182,7 +182,7 @@ module TestChunk {
 }
 
 // _.compact
-module TestCompact {
+namespace TestCompact {
     let array: TResult[];
     let list: _.List<TResult>;
 
@@ -210,7 +210,7 @@ module TestCompact {
 }
 
 // _.difference
-module TestDifference {
+namespace TestDifference {
     let array: TResult[];
     let list: _.List<TResult>;
 
@@ -258,7 +258,7 @@ module TestDifference {
 }
 
 // _.differenceBy
-module TestDifferenceBy {
+namespace TestDifferenceBy {
     let array: TResult[];
     let list: _.List<TResult>;
     let iteratee: (value: TResult) => any;
@@ -480,7 +480,7 @@ module TestDifferenceBy {
 }
 
 // _.dropRight
-module TestDropRight {
+namespace TestDropRight {
     let array: TResult[];
     let list: _.List<TResult>;
 
@@ -517,7 +517,7 @@ module TestDropRight {
 }
 
 // _.dropRightWhile
-module TestDropRightWhile {
+namespace TestDropRightWhile {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
@@ -578,7 +578,7 @@ module TestDropRightWhile {
 }
 
 // _.dropWhile
-module TestDropWhile {
+namespace TestDropWhile {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
@@ -639,7 +639,7 @@ module TestDropWhile {
 }
 
 // _.fill
-module TestFill {
+namespace TestFill {
     let array: number[];
     let list: _.List<number>;
 
@@ -693,7 +693,7 @@ module TestFill {
 }
 
 // _.findIndex
-module TestFindIndex {
+namespace TestFindIndex {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index?: number, collection?: _.List<TResult>) => boolean;
@@ -750,7 +750,7 @@ module TestFindIndex {
 }
 
 // _.findLastIndex
-module TestFindLastIndex {
+namespace TestFindLastIndex {
     let array: TResult[];
     let list: _.List<TResult>;
 
@@ -808,7 +808,7 @@ module TestFindLastIndex {
 }
 
 // _.first
-module TestFirst {
+namespace TestFirst {
     let array: TResult[];
     let list: _.List<TResult>;
     let result: TResult;
@@ -819,7 +819,7 @@ module TestFirst {
 }
 
 // _.flatten
-module TestFlatten {
+namespace TestFlatten {
     {
         let result: string[];
 
@@ -912,7 +912,7 @@ module TestFlatten {
 }
 
 // _.flattenDeep
-module TestFlattenDeep {
+namespace TestFlattenDeep {
     {
         let result: string[];
 
@@ -995,7 +995,7 @@ module TestFlattenDeep {
 }
 
 // _.head
-module TestHead {
+namespace TestHead {
     let array: TResult[];
     let list: _.List<TResult>;
     let result: TResult;
@@ -1006,7 +1006,7 @@ module TestHead {
 }
 
 // _.indexOf
-module TestIndexOf {
+namespace TestIndexOf {
     let array: TResult[];
     let list: _.List<TResult>;
     let value: TResult;
@@ -1045,7 +1045,7 @@ module TestIndexOf {
 }
 
 // _.sortedIndexOf
-module TestIndexOf {
+namespace TestIndexOf {
     let array: TResult[];
     let list: _.List<TResult>;
     let value: TResult;
@@ -1068,7 +1068,7 @@ module TestIndexOf {
 }
 
 //_.initial
-module TestInitial {
+namespace TestInitial {
     let array: TResult[];
     let list: _.List<TResult>;
 
@@ -1095,7 +1095,7 @@ module TestInitial {
 }
 
 // _.intersection
-module TestIntersection {
+namespace TestIntersection {
     let array: TResult[];
     let list: _.List<TResult>;
 
@@ -1163,7 +1163,7 @@ namespace TestJoin {
 }
 
 // _.last
-module TestLast {
+namespace TestLast {
     let array: TResult[];
     let list: _.List<TResult>;
 
@@ -1191,7 +1191,7 @@ module TestLast {
 }
 
 // _.lastIndexOf
-module TestLastIndexOf {
+namespace TestLastIndexOf {
     let array: TResult[];
     let list: _.List<TResult>;
     let value: TResult;
@@ -1230,7 +1230,7 @@ module TestLastIndexOf {
 }
 
 // _.pull
-module TestPull {
+namespace TestPull {
     let array: TResult[];
     let list: _.List<TResult>;
     let value: TResult;
@@ -1291,7 +1291,7 @@ module TestPull {
 }
 
 // _.pullAt
-module TestPullAt {
+namespace TestPullAt {
     let array: TResult[];
     let list: _.List<TResult>;
 
@@ -1339,7 +1339,7 @@ module TestPullAt {
 }
 
 // _.remove
-module TestRemove {
+namespace TestRemove {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index?: number, collection?: _.List<TResult>) => boolean;
@@ -1400,7 +1400,7 @@ module TestRemove {
 }
 
 // _.tail
-module TestTail {
+namespace TestTail {
     let array: TResult[];
     let list: _.List<TResult>;
 
@@ -1428,7 +1428,7 @@ module TestTail {
 }
 
 // _.slice
-module TestSlice {
+namespace TestSlice {
     let array: TResult[];
 
     {
@@ -1457,7 +1457,7 @@ module TestSlice {
 }
 
 // _.sortedIndex
-module TestSortedIndex {
+namespace TestSortedIndex {
     type SampleType = {a: number; b: string; c: boolean;};
 
     let array: SampleType[];
@@ -1499,7 +1499,7 @@ module TestSortedIndex {
 }
 
 // _.sortedIndexBy
-module TestSortedIndexBy {
+namespace TestSortedIndexBy {
     type SampleType = {a: number; b: string; c: boolean;};
 
     let array: SampleType[];
@@ -1560,7 +1560,7 @@ module TestSortedIndexBy {
 }
 
 // _.sortedLastIndex
-module TestSortedLastIndex {
+namespace TestSortedLastIndex {
     type SampleType = {a: number; b: string; c: boolean;};
 
     let array: SampleType[];
@@ -1600,7 +1600,7 @@ module TestSortedLastIndex {
 }
 
 // _.sortedLastIndexBy
-module TestSortedLastIndexBy {
+namespace TestSortedLastIndexBy {
     type SampleType = {a: number; b: string; c: boolean;};
 
     let array: SampleType[];
@@ -1661,7 +1661,7 @@ module TestSortedLastIndexBy {
 }
 
 // _.tail
-module TestTail {
+namespace TestTail {
     let array: TResult[];
     let list: _.List<TResult>;
 
@@ -1689,7 +1689,7 @@ module TestTail {
 }
 
 // _.take
-module TestTake {
+namespace TestTake {
     let array: TResult[];
     let list: _.List<TResult>;
 
@@ -1725,7 +1725,7 @@ module TestTake {
 }
 
 // _.takeRight
-module TestTakeRight {
+namespace TestTakeRight {
     let array: TResult[];
     let list: _.List<TResult>;
 
@@ -1761,7 +1761,7 @@ module TestTakeRight {
 }
 
 // _.takeRightWhile
-module TestTakeRightWhile {
+namespace TestTakeRightWhile {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
@@ -1822,7 +1822,7 @@ module TestTakeRightWhile {
 }
 
 // _.takeWhile
-module TestTakeWhile {
+namespace TestTakeWhile {
     let array: TResult[];
     let list: _.List<TResult>;
     let predicateFn: (value: TResult, index: number, collection: _.List<TResult>) => boolean;
@@ -1883,7 +1883,7 @@ module TestTakeWhile {
 }
 
 // _.union
-module TestUnion {
+namespace TestUnion {
     let array: TResult[];
     let list: _.List<TResult>;
 
@@ -2098,7 +2098,7 @@ namespace TestUnionBy {
 }
 
 // _.uniq
-module TestUniq {
+namespace TestUniq {
     type SampleObject = {a: number; b: string; c: boolean};
 
     let array: SampleObject[];
@@ -2148,7 +2148,7 @@ module TestUniq {
 
 
 // _.uniqBy
-module TestUniqBy {
+namespace TestUniqBy {
     type SampleObject = {a: number; b: string; c: boolean};
 
     let array: SampleObject[];
@@ -2222,7 +2222,7 @@ module TestUniqBy {
 }
 
 // _.sortedUniq
-module TestSortedUniq {
+namespace TestSortedUniq {
     type SampleObject = {a: number; b: string; c: boolean};
 
     let array: SampleObject[];
@@ -2266,7 +2266,7 @@ module TestSortedUniq {
 }
 
 // _.sortedUniqBy
-module TestSortedUniqBy {
+namespace TestSortedUniqBy {
     type SampleObject = {a: number; b: string; c: boolean};
 
     let array: SampleObject[];
@@ -2340,7 +2340,7 @@ module TestSortedUniqBy {
 }
 
 // _.upzip
-module TestUnzip {
+namespace TestUnzip {
     let array = [['a', 'b'], [1, 2], [true, false]];
 
     let list: _.List<_.List<string|number|boolean>> = {
@@ -2391,7 +2391,7 @@ module TestUnzip {
 }
 
 // _.without
-module TestWithout {
+namespace TestWithout {
     let array: number[];
     let list: _.List<number>;
 
@@ -2438,7 +2438,7 @@ module TestWithout {
 }
 
 // _.xor
-module TestXor {
+namespace TestXor {
     let array: TResult[];
     let list: _.List<TResult>;
 
@@ -2482,7 +2482,7 @@ module TestXor {
 }
 
 // _.zip
-module TestZip {
+namespace TestZip {
     let array: TResult[];
     let list: _.List<TResult>;
 
@@ -2520,7 +2520,7 @@ module TestZip {
 }
 
 // _.zipObject
-module TestZipObject {
+namespace TestZipObject {
     let arrayOfKeys: string[];
     let arrayOfValues: number[];
     let arrayOfKeyValuePairs: (string|number)[][]
@@ -2668,7 +2668,7 @@ result = <number[]>_([1, 2]).zipWith<number>([1, 2], [1, 2], [1, 2], [1, 2], [1,
  *********/
 
 // _.chain
-module TestChain {
+namespace TestChain {
     {
         let result: _.LoDashExplicitWrapper<string>;
 
@@ -2709,7 +2709,7 @@ module TestChain {
 }
 
 // _.tap
-module TestTap {
+namespace TestTap {
     {
         let interceptor: (value: string) => void;
         let result: string;
@@ -2802,7 +2802,7 @@ module TestTap {
 }
 
 // _.thru
-module TestThru {
+namespace TestThru {
     interface Interceptor<T> {
         (value: T): T;
     }
@@ -2897,7 +2897,7 @@ module TestThru {
 }
 
 // _.prototype.commit
-module TestCommit {
+namespace TestCommit {
     {
         let result: _.LoDashImplicitWrapper<number>;
         result = _(42).commit();
@@ -2930,7 +2930,7 @@ module TestCommit {
 }
 
 // _.prototype.concat
-module TestConcat {
+namespace TestConcat {
     {
         let result: _.LoDashImplicitArrayWrapper<number>;
 
@@ -3005,7 +3005,7 @@ module TestConcat {
 }
 
 // _.prototype.plant
-module TestPlant {
+namespace TestPlant {
     {
         let result: _.LoDashImplicitWrapper<number>;
         result = _(any).plant(42);
@@ -3068,7 +3068,7 @@ module TestPlant {
 }
 
 // _.prototype.reverse
-module TestReverse {
+namespace TestReverse {
     {
         let result: _.LoDashImplicitArrayWrapper<number>;
         result: _([42]).reverse();
@@ -3081,7 +3081,7 @@ module TestReverse {
 }
 
 // _.prototype.toJSON
-module TestToJSON {
+namespace TestToJSON {
     {
         let result: string;
 
@@ -3119,7 +3119,7 @@ module TestToJSON {
 }
 
 // _.prototype.toString
-module TestToString {
+namespace TestToString {
     let result: string;
 
     result = _('').toString();
@@ -3136,7 +3136,7 @@ module TestToString {
 }
 
 // _.prototype.value
-module TestValue {
+namespace TestValue {
     {
         let result: string;
 
@@ -3174,7 +3174,7 @@ module TestValue {
 }
 
 // _.prototype.valueOf
-module TestValueOf {
+namespace TestValueOf {
     {
         let result: string;
 
@@ -3216,7 +3216,7 @@ module TestValueOf {
  **************/
 
 // _.at
-module TestAt {
+namespace TestAt {
     let array: TResult[];
     let list: _.List<TResult>;
     let dictionary: _.Dictionary<TResult>;
@@ -3247,7 +3247,7 @@ module TestAt {
 }
 
 // _.countBy
-module TestCountBy {
+namespace TestCountBy {
     let array: TResult[];
     let list: _.List<TResult>;
     let dictionary: _.Dictionary<TResult>;
@@ -3380,7 +3380,7 @@ module TestCountBy {
 }
 
 // _.each
-module TestEach {
+namespace TestEach {
     let array: TResult[];
     let list: _.List<TResult>;
     let dictionary: _.Dictionary<TResult>;
@@ -3475,7 +3475,7 @@ module TestEach {
 }
 
 // _.eachRight
-module TestEachRight {
+namespace TestEachRight {
     let array: TResult[];
     let list: _.List<TResult>;
     let dictionary: _.Dictionary<TResult>;
@@ -3664,7 +3664,7 @@ namespace TestEvery {
 }
 
 // _.filter
-module TestFilter {
+namespace TestFilter {
     let array: TResult[];
     let list: _.List<TResult>;
     let dictionary: _.Dictionary<TResult>;
@@ -3762,7 +3762,7 @@ module TestFilter {
 }
 
 // _.find
-module TestFind {
+namespace TestFind {
     let array: TResult[];
     let list: _.List<TResult>;
     let dictionary: _.Dictionary<TResult>;
@@ -3822,7 +3822,7 @@ result = <IFoodCombined>_(foodsCombined).findLast({ 'type': 'vegetable' });
 result = <IFoodCombined>_(foodsCombined).findLast('organic');
 
 // _.forEach
-module TestForEach {
+namespace TestForEach {
     let array: TResult[];
     let list: _.List<TResult>;
     let dictionary: _.Dictionary<TResult>;
@@ -3917,7 +3917,7 @@ module TestForEach {
 }
 
 // _.forEachRight
-module TestForEachRight {
+namespace TestForEachRight {
     let array: TResult[];
     let list: _.List<TResult>;
     let dictionary: _.Dictionary<TResult>;
@@ -4012,7 +4012,7 @@ module TestForEachRight {
 }
 
 // _.groupBy
-module TestGroupBy {
+namespace TestGroupBy {
     type SampleType = {a: number; b: string; c: boolean;};
 
     let array: SampleType[];
@@ -4161,7 +4161,7 @@ module TestGroupBy {
 }
 
 // _.includes
-module TestIncludes {
+namespace TestIncludes {
     type SampleType = {a: string; b: number; c: boolean;};
 
     let array: SampleType[];
@@ -4207,7 +4207,7 @@ module TestIncludes {
 }
 
 // _.keyBy
-module TestKeyBy {
+namespace TestKeyBy {
     type SampleObject = {a: number; b: string; c: boolean;};
 
     let array: SampleObject[];
@@ -4352,7 +4352,7 @@ module TestKeyBy {
 }
 
 //_.invokeMap
-module TestInvokeMap {
+namespace TestInvokeMap {
     let numArray = [4, 2, 1, 3]
     let numDict: _.Dictionary<number> = {
         a: 1,
@@ -4400,7 +4400,7 @@ module TestInvokeMap {
 }
 
 // _.map
-module TestMap {
+namespace TestMap {
     let array: number[];
     let list: _.List<number>;
     let dictionary: _.Dictionary<number>;
@@ -4608,7 +4608,7 @@ result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).reduce<number, ABC>(function (r: ABC
 result = <number[]>_.reduceRight([[0, 1], [2, 3], [4, 5]], function (a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
 
 // _.reject
-module TestReject {
+namespace TestReject {
     let array: TResult[];
     let list: _.List<TResult>;
     let dictionary: _.Dictionary<TResult>;
@@ -4716,7 +4716,7 @@ result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sampleSize(2);
 result = <number[]>_([1, 2, 3, 4]).sampleSize(2).value();
 
 // _.shuffle
-module TestShuffle {
+namespace TestShuffle {
     let array: TResult[];
     let list: _.List<TResult>;
     let dictionary: _.Dictionary<TResult>;
@@ -4765,7 +4765,7 @@ module TestShuffle {
 }
 
 // _.size
-module TestSize {
+namespace TestSize {
     type SampleType = {a: string; b: number; c: boolean;};
 
     let array: SampleType[];
@@ -4891,7 +4891,7 @@ namespace TestSome {
 }
 
 // _.sortBy
-module TestSortBy {
+namespace TestSortBy {
     let array: TResult[];
     let list: _.List<TResult>;
     let dictionary: _.Dictionary<TResult>;
@@ -4965,7 +4965,7 @@ result = <IFoodOrganic[]>_(foodsOrganic).sortBy('organic', (food) => food.name, 
 
 
 // _.orderBy
-module TestorderBy {
+namespace TestorderBy {
     type SampleObject = {a: number; b: string; c: boolean};
 
     let array: SampleObject[];
@@ -5058,7 +5058,7 @@ module TestorderBy {
  * Date *
  ********/
 
-module TestNow {
+namespace TestNow {
     {
         let result: number;
 
@@ -5081,7 +5081,7 @@ module TestNow {
  * Functions *
  *************/
 // _.after
-module TestAfter {
+namespace TestAfter {
     interface Func {
         (a: string, b: number): boolean;
     }
@@ -5108,7 +5108,7 @@ module TestAfter {
 }
 
 // _.ary
-module TestAry {
+namespace TestAry {
     type SampleFunc = (a: number, b: string) => boolean;
 
     let func: SampleFunc;
@@ -5138,7 +5138,7 @@ module TestAry {
 }
 
 // _.before
-module TestBefore {
+namespace TestBefore {
     interface Func {
         (a: string, b: number): boolean;
     }
@@ -5165,7 +5165,7 @@ module TestBefore {
 }
 
 // _.bind
-module TestBind {
+namespace TestBind {
     type SampleFunc = (a: number, b: string) => boolean;
 
     let func: SampleFunc
@@ -5247,7 +5247,7 @@ module TestBind {
 }
 
 // _.bindAll
-module TestBindAll {
+namespace TestBindAll {
     interface SampleObject {
         a: Function;
         b: Function;
@@ -5285,7 +5285,7 @@ module TestBindAll {
 }
 
 // _.bindKey
-module TestBindKey {
+namespace TestBindKey {
     let object: {
         foo: (a: number, b: string) => boolean;
     }
@@ -5423,7 +5423,7 @@ curryResult8 = _.curryRight(testCurry2)(true);
 curryResult9 = _.curryRight(testCurry2);
 
 // _.debounce
-module TestDebounce {
+namespace TestDebounce {
     interface SampleFunc {
         (n: number, s: string): boolean;
     }
@@ -5468,7 +5468,7 @@ module TestDebounce {
 }
 
 // _.defer
-module TestDefer {
+namespace TestDefer {
     type SampleFunc = (a: number, b: string) => boolean;
 
     let func: SampleFunc;
@@ -5502,7 +5502,7 @@ module TestDefer {
 }
 
 // _.delay
-module TestDelay {
+namespace TestDelay {
     type SampleFunc = (a: number, b: string) => boolean;
 
     let func: SampleFunc;
@@ -5533,7 +5533,7 @@ module TestDelay {
 }
 
 // _.flip
-module TestFlip {
+namespace TestFlip {
     interface Func {
         (a: number, b: string): boolean;
     }
@@ -5560,7 +5560,7 @@ module TestFlip {
 }
 
 // _.flow
-module TestFlow {
+namespace TestFlow {
     let Fn1: (n: number) => number;
     let Fn2: (m: number, n: number) => number;
 
@@ -5590,7 +5590,7 @@ module TestFlow {
 }
 
 // _.flowRight
-module TestFlowRight {
+namespace TestFlowRight {
     let Fn1: (n: number) => number;
     let Fn2: (m: number, n: number) => number;
 
@@ -5644,7 +5644,7 @@ namespace TestMemoize {
 }
 
 // _.overArgs
-module TestOverArgs {
+namespace TestOverArgs {
     type Func1 = (a: boolean) => boolean;
     type Func2 = (a: boolean, b: boolean) => boolean;
 
@@ -5698,7 +5698,7 @@ module TestOverArgs {
 }
 
 // _.negate
-module TestNegate {
+namespace TestNegate {
     interface PredicateFn {
         (a1: number, a2: number): boolean;
     }
@@ -5732,7 +5732,7 @@ module TestNegate {
 }
 
 // _.once
-module TestOnce {
+namespace TestOnce {
     interface Func {
         (a: number, b: string): boolean;
     }
@@ -5783,7 +5783,7 @@ result = <string[]>(_(testReargFn).rearg<TestReargResultFn>(2, 0, 1).value())('b
 result = <string[]>(_(testReargFn).rearg<TestReargResultFn>([2, 0, 1]).value())('b', 'c', 'a');
 
 // _.rest
-module TestRest {
+namespace TestRest {
     type Func = (a: string, b: number[]) => boolean;
     type ResultFunc = (a: string, ...b: number[]) => boolean;
 
@@ -5815,7 +5815,7 @@ module TestRest {
 }
 
 //_.spread
-module TestSpread {
+namespace TestSpread {
     type SampleFunc = (args: (number|string)[]) => boolean;
     type SampleResult = (a: number, b: string) => boolean;
 
@@ -5842,7 +5842,7 @@ module TestSpread {
 }
 
 // _.throttle
-module TestThrottle {
+namespace TestThrottle {
     interface SampleFunc {
         (n: number, s: string): boolean;
     }
@@ -5886,7 +5886,7 @@ module TestThrottle {
 }
 
 // _.unary
-module TestUnary {
+namespace TestUnary {
     interface Func {
         (a: number, b: string): boolean;
     }
@@ -5913,7 +5913,7 @@ module TestUnary {
 }
 
 // _.wrap
-module TestWrap {
+namespace TestWrap {
     type SampleValue = {a: number; b: string; c: boolean}
     type SampleResult = (arg2: number, arg3: string) => boolean;
 
@@ -6230,7 +6230,7 @@ namespace TestCloneWith {
 }
 
 // _.eq
-module TestEq {
+namespace TestEq {
     let customizer: (value: any, other: any, indexOrKey?: number|string) => boolean;
 
     {
@@ -6249,7 +6249,7 @@ module TestEq {
 }
 
 // _.gt
-module TestGt {
+namespace TestGt {
     {
         let result: boolean;
 
@@ -6269,7 +6269,7 @@ module TestGt {
 }
 
 // _.gte
-module TestGte {
+namespace TestGte {
     {
         let result: boolean;
 
@@ -6289,7 +6289,7 @@ module TestGte {
 }
 
 // _.isArguments
-module TestisArguments {
+namespace TestisArguments {
     {
         let value: number|IArguments;
 
@@ -6320,7 +6320,7 @@ module TestisArguments {
 }
 
 // _.isArray
-module TestIsArray {
+namespace TestIsArray {
     {
         let value: number|string[]|boolean[];
 
@@ -6356,7 +6356,7 @@ module TestIsArray {
 }
 
 // _.isArrayBuffer
-module TestIsArrayBuffer {
+namespace TestIsArrayBuffer {
     {
         let value: ArrayBuffer|number;
 
@@ -6387,7 +6387,7 @@ module TestIsArrayBuffer {
 }
 
 // _.isArrayLike
-module TestIsArrayLike {
+namespace TestIsArrayLike {
     {
         let value: number|string[]|boolean[];
 
@@ -6423,7 +6423,7 @@ module TestIsArrayLike {
 }
 
 // _.isArrayLikeObject
-module TestIsArrayLikeObject {
+namespace TestIsArrayLikeObject {
     {
         let value: number|string[]|boolean[];
 
@@ -6459,7 +6459,7 @@ module TestIsArrayLikeObject {
 }
 
 // _.isBoolean
-module TestIsBoolean {
+namespace TestIsBoolean {
     {
         let value: number|boolean;
 
@@ -6490,7 +6490,7 @@ module TestIsBoolean {
 }
 
 // _.isBuffer
-module TestIsBuffer {
+namespace TestIsBuffer {
     {
         let result: boolean;
 
@@ -6510,7 +6510,7 @@ module TestIsBuffer {
 }
 
 // _.isDate
-module TestIsBoolean {
+namespace TestIsBoolean {
     {
         let value: number|Date;
 
@@ -6541,7 +6541,7 @@ module TestIsBoolean {
 }
 
 // _.isElement
-module TestIsElement {
+namespace TestIsElement {
     {
         let result: boolean;
 
@@ -6562,7 +6562,7 @@ module TestIsElement {
 }
 
 // _.isEmpty
-module TestIsEmpty {
+namespace TestIsEmpty {
     {
         let result: boolean;
 
@@ -6584,7 +6584,7 @@ module TestIsEmpty {
 }
 
 // _.isEqual
-module TestIsEqual {
+namespace TestIsEqual {
     let customizer: (value: any, other: any, indexOrKey?: number|string) => boolean;
 
     {
@@ -6603,7 +6603,7 @@ module TestIsEqual {
 }
 
 // _.isEqualWith
-module TestIsEqualWith {
+namespace TestIsEqualWith {
     let customizer: (value: any, other: any, indexOrKey?: number|string) => boolean;
 
     {
@@ -6622,7 +6622,7 @@ module TestIsEqualWith {
 }
 
 // _.isError
-module TestIsError {
+namespace TestIsError {
     {
         let value: number|Error;
 
@@ -6666,7 +6666,7 @@ module TestIsError {
 }
 
 // _.isFinite
-module TestIsFinite {
+namespace TestIsFinite {
     {
         let result: boolean;
 
@@ -6686,7 +6686,7 @@ module TestIsFinite {
 }
 
 // _.isFunction
-module TestIsFunction {
+namespace TestIsFunction {
     {
         let value: number|Function;
 
@@ -6717,7 +6717,7 @@ module TestIsFunction {
 }
 
 // _.isInteger
-module TestIsInteger {
+namespace TestIsInteger {
     {
         let result: boolean;
 
@@ -6738,7 +6738,7 @@ module TestIsInteger {
 }
 
 // _.isLength
-module TestIsLength {
+namespace TestIsLength {
     {
         let result: boolean;
 
@@ -6759,7 +6759,7 @@ module TestIsLength {
 }
 
 // _.isMap
-module TestIsMap {
+namespace TestIsMap {
     {
         let value: number|Map<string, number>;
 
@@ -6790,7 +6790,7 @@ module TestIsMap {
 }
 
 // _.isMatch
-module TestIsMatch {
+namespace TestIsMatch {
     let testIsMatchCustiomizerFn: (value: any, other: any, indexOrKey: number|string) => boolean;
 
     let result: boolean;
@@ -6801,7 +6801,7 @@ module TestIsMatch {
 
 
 // _.isMatchWith
-module TestIsMatchWith {
+namespace TestIsMatchWith {
     let testIsMatchCustiomizerFn: (value: any, other: any, indexOrKey: number|string) => boolean;
 
     let result: boolean;
@@ -6812,7 +6812,7 @@ module TestIsMatchWith {
 }
 
 // _.isNaN
-module TestIsNaN {
+namespace TestIsNaN {
     {
         let result: boolean;
 
@@ -6833,7 +6833,7 @@ module TestIsNaN {
 }
 
 // _.isNative
-module TestIsNative {
+namespace TestIsNative {
     {
         let value: number|Function;
 
@@ -6865,7 +6865,7 @@ module TestIsNative {
 }
 
 // _.isNil
-module TestIsNil {
+namespace TestIsNil {
     {
         let result: boolean;
 
@@ -6886,7 +6886,7 @@ module TestIsNil {
 }
 
 // _.isNull
-module TestIsNull {
+namespace TestIsNull {
     {
         let result: boolean;
 
@@ -6907,7 +6907,7 @@ module TestIsNull {
 }
 
 // _.isNumber
-module TestIsNumber {
+namespace TestIsNumber {
     {
         let value: string|number;
 
@@ -6939,7 +6939,7 @@ module TestIsNumber {
 }
 
 // _.isObject
-module TestIsObject {
+namespace TestIsObject {
     {
         let result: boolean;
 
@@ -6959,7 +6959,7 @@ module TestIsObject {
 }
 
 // _.isObjectLike
-module TestIsObjectLike {
+namespace TestIsObjectLike {
     {
         let result: boolean;
 
@@ -6979,7 +6979,7 @@ module TestIsObjectLike {
 }
 
 // _.isPlainObject
-module TestIsPlainObject {
+namespace TestIsPlainObject {
     {
         let result: boolean;
 
@@ -6999,7 +6999,7 @@ module TestIsPlainObject {
 }
 
 // _.isRegExp
-module TestIsRegExp {
+namespace TestIsRegExp {
     {
         let value: number|RegExp;
 
@@ -7030,7 +7030,7 @@ module TestIsRegExp {
 }
 
 // _.isSafeInteger
-module TestIsSafeInteger {
+namespace TestIsSafeInteger {
     {
         let result: boolean;
 
@@ -7051,7 +7051,7 @@ module TestIsSafeInteger {
 }
 
 // _.isSet
-module TestIsSet {
+namespace TestIsSet {
     {
         let value: number|Set<string>;
 
@@ -7082,7 +7082,7 @@ module TestIsSet {
 }
 
 // _.isString
-module TestIsString {
+namespace TestIsString {
     {
         let value: number|string;
 
@@ -7113,7 +7113,7 @@ module TestIsString {
 }
 
 // _.isSymbol
-module TestIsSymbol {
+namespace TestIsSymbol {
     {
         let result: boolean;
 
@@ -7134,7 +7134,7 @@ module TestIsSymbol {
 }
 
 // _.isTypedArray
-module TestIsTypedArray {
+namespace TestIsTypedArray {
     {
         let result: boolean;
 
@@ -7150,7 +7150,7 @@ module TestIsTypedArray {
 }
 
 // _.isUndefined
-module TestIsUndefined {
+namespace TestIsUndefined {
     {
         let result: boolean;
 
@@ -7171,7 +7171,7 @@ module TestIsUndefined {
 }
 
 // _.isWeakMap
-module TestIsWeakMap {
+namespace TestIsWeakMap {
     {
         let value: number|WeakMap<string, number>;
 
@@ -7202,7 +7202,7 @@ module TestIsWeakMap {
 }
 
 // _.lt
-module TestLt {
+namespace TestLt {
     {
         let result: boolean;
 
@@ -7222,7 +7222,7 @@ module TestLt {
 }
 
 // _.lte
-module TestLte {
+namespace TestLte {
     {
         let result: boolean;
 
@@ -7242,7 +7242,7 @@ module TestLte {
 }
 
 // _.toArray
-module TestToArray {
+namespace TestToArray {
     let array: TResult[];
     let list: _.List<TResult>;
     let dictionary: _.Dictionary<TResult>;
@@ -7297,7 +7297,7 @@ module TestToArray {
 }
 
 // _.toPlainObject
-module TestToPlainObject {
+namespace TestToPlainObject {
 
     {
         let result: TResult;
@@ -7322,7 +7322,7 @@ module TestToPlainObject {
 }
 
 // _.toInteger
-module TestToInteger {
+namespace TestToInteger {
    {
        let result: number;
        result = _.toInteger(true);
@@ -7345,7 +7345,7 @@ module TestToInteger {
 }
 
 // _.toLength
-module TestToLength {
+namespace TestToLength {
    {
        let result: number;
        result = _.toLength(true);
@@ -7368,7 +7368,7 @@ module TestToLength {
 }
 
 // _.toNumber
-module TestToNumber {
+namespace TestToNumber {
    {
        let result: number;
        result = _.toNumber(true);
@@ -7391,7 +7391,7 @@ module TestToNumber {
 }
 
 // _.toSafeInteger
-module TestToSafeInteger {
+namespace TestToSafeInteger {
    {
        let result: number;
        result = _.toSafeInteger(true);
@@ -7418,7 +7418,7 @@ module TestToSafeInteger {
  ********/
 
 // _.add
-module TestAdd {
+namespace TestAdd {
     {
         let result: number;
 
@@ -7434,7 +7434,7 @@ module TestAdd {
 }
 
 // _.ceil
-module TestCeil {
+namespace TestCeil {
     {
         let result: number;
 
@@ -7454,7 +7454,7 @@ module TestCeil {
 }
 
 // _.floor
-module TestFloor {
+namespace TestFloor {
     {
         let result: number;
 
@@ -7477,7 +7477,7 @@ module TestFloor {
 }
 
 // _.max
-module TestMax {
+namespace TestMax {
     let array: number[];
     let list: _.List<number>;
 
@@ -7491,7 +7491,7 @@ module TestMax {
 }
 
 // _.maxBy
-module TestMaxBy {
+namespace TestMaxBy {
     let array: number[];
     let list: _.List<number>;
     let dictionary: _.Dictionary<number>;
@@ -7533,7 +7533,7 @@ module TestMaxBy {
 }
 
 // _.mean
-module TestMean {
+namespace TestMean {
     let array: number[];
 
     let result: number;
@@ -7545,7 +7545,7 @@ module TestMean {
 }
 
 // _.min
-module TestMin {
+namespace TestMin {
     let array: number[];
     let list: _.List<number>;
 
@@ -7560,7 +7560,7 @@ module TestMin {
 }
 
 // _.minBy
-module TestMinBy {
+namespace TestMinBy {
     let array: number[];
     let list: _.List<number>;
     let dictionary: _.Dictionary<number>;
@@ -7602,7 +7602,7 @@ module TestMinBy {
 }
 
 // _.round
-module TestRound {
+namespace TestRound {
     {
         let result: number;
 
@@ -7622,7 +7622,7 @@ module TestRound {
 }
 
 // _.sum
-module TestSum {
+namespace TestSum {
     let array: number[];
     let list: _.List<number>;
     let dictionary: _.Dictionary<number>;
@@ -7658,7 +7658,7 @@ module TestSum {
 }
 
 // _.sumBy
-module TestSumBy {
+namespace TestSumBy {
     let array: number[];
     let list: _.List<number>;
     let dictionary: _.Dictionary<number>;
@@ -7711,7 +7711,7 @@ module TestSumBy {
  **********/
 
  // _.subtract
- module subtract {
+ namespace subtract {
      {
          let result: number;
 
@@ -7728,7 +7728,7 @@ module TestSumBy {
  }
 
 // _.clamp
-module TestInClamp {
+namespace TestInClamp {
     {
         let result: number;
 
@@ -7745,7 +7745,7 @@ module TestInClamp {
 }
 
 // _.inRange
-module TestInRange {
+namespace TestInRange {
     {
         let result: boolean;
 
@@ -7765,7 +7765,7 @@ module TestInRange {
 }
 
 // _.random
-module TestRandom {
+namespace TestRandom {
     {
         let result: number;
 
@@ -7799,7 +7799,7 @@ module TestRandom {
  **********/
 
 // _.assign
-module TestAssign {
+namespace TestAssign {
     interface Obj {a: string};
     interface S1 {a: number};
     interface S2 {b: number};
@@ -7926,7 +7926,7 @@ module TestAssign {
 }
 
 // _.assignWith
-module TestAssignWith {
+namespace TestAssignWith {
     interface Obj {a: string};
     interface S1 {a: number};
     interface S2 {b: number};
@@ -8038,7 +8038,7 @@ module TestAssignWith {
 }
 
 // _.assignIn
-module TestAssignIn {
+namespace TestAssignIn {
     interface Obj {a: string};
     interface S1 {a: number};
     interface S2 {b: number};
@@ -8165,7 +8165,7 @@ module TestAssignIn {
 }
 
 // _.assignInWith
-module TestAssignInWith {
+namespace TestAssignInWith {
     interface Obj {a: string};
     interface S1 {a: number};
     interface S2 {b: number};
@@ -8277,7 +8277,7 @@ module TestAssignInWith {
 }
 
 // _.create
-module TestCreate {
+namespace TestCreate {
     type SampleProto = {a: number};
     type SampleProps = {b: string};
 
@@ -8307,7 +8307,7 @@ module TestCreate {
 }
 
 // _.defaults
-module TestDefaults {
+namespace TestDefaults {
     interface Obj {a: string};
     interface S1 {a: number};
     interface S2 {b: number};
@@ -8444,7 +8444,7 @@ result = <DefaultsDeepResult>_.defaultsDeep(TestDefaultsDeepObject, TestDefaults
 result = <DefaultsDeepResult>_(TestDefaultsDeepObject).defaultsDeep<DefaultsDeepResult>(TestDefaultsDeepSource).value();
 
 // _.extend
-module TestExtend {
+namespace TestExtend {
     type Obj = {a: string};
     type S1 = {a: number};
     type S2 = {b: number};
@@ -8601,7 +8601,7 @@ module TestExtend {
 }
 
 // _.findKey
-module TestFindKey {
+namespace TestFindKey {
     {
         let predicateFn: (value: any, key?: string, object?: {}) => boolean;
         let result: string;
@@ -8666,7 +8666,7 @@ module TestFindKey {
 }
 
 // _.findLastKey
-module TestFindLastKey {
+namespace TestFindLastKey {
     {
         let predicateFn: (value: any, key?: string, object?: {}) => boolean;
         let result: string;
@@ -8731,7 +8731,7 @@ module TestFindLastKey {
 }
 
 // _.forIn
-module TestForIn {
+namespace TestForIn {
     type SampleObject = {a: number; b: string; c: boolean;};
 
     let dictionary: _.Dictionary<number>;
@@ -8774,7 +8774,7 @@ module TestForIn {
 }
 
 // _.forInRight
-module TestForInRight {
+namespace TestForInRight {
     type SampleObject = {a: number; b: string; c: boolean;};
 
     let dictionary: _.Dictionary<number>;
@@ -8817,7 +8817,7 @@ module TestForInRight {
 }
 
 // _.forOwn
-module TestForOwn {
+namespace TestForOwn {
     type SampleObject = {a: number; b: string; c: boolean;};
 
     let dictionary: _.Dictionary<number>;
@@ -8860,7 +8860,7 @@ module TestForOwn {
 }
 
 // _.forOwnRight
-module TestForOwnRight {
+namespace TestForOwnRight {
     type SampleObject = {a: number; b: string; c: boolean;};
 
     let dictionary: _.Dictionary<number>;
@@ -8903,7 +8903,7 @@ module TestForOwnRight {
 }
 
 // _.functions
-module TestFunctions {
+namespace TestFunctions {
     type SampleObject = {a: number; b: string; c: boolean;};
 
     let object: SampleObject;
@@ -8928,7 +8928,7 @@ module TestFunctions {
 }
 
 // _.functionsIn
-module TestFunctionsIn {
+namespace TestFunctionsIn {
     type SampleObject = {a: number; b: string; c: boolean;};
 
     let object: SampleObject;
@@ -8968,7 +8968,7 @@ result = <number>_.get<number>({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c');
 }
 
 // _.has
-module TestHas {
+namespace TestHas {
     type SampleObject = {a: number; b: string; c: boolean;};
 
     let object: SampleObject;
@@ -8998,7 +8998,7 @@ module TestHas {
 }
 
 // _.hasIn
-module TestHasIn {
+namespace TestHasIn {
     type SampleObject = {a: number; b: string; c: boolean;};
 
     let object: SampleObject;
@@ -9028,7 +9028,7 @@ module TestHasIn {
 }
 
 // _.invert
-module TestInvert {
+namespace TestInvert {
     {
         let result: TResult;
 
@@ -9150,7 +9150,7 @@ namespace TestInvertBy {
 }
 
 // _.keys
-module TestKeys {
+namespace TestKeys {
     let object: _.Dictionary<any>;
 
     {
@@ -9173,7 +9173,7 @@ module TestKeys {
 }
 
 // _.keysIn
-module TestKeysIn {
+namespace TestKeysIn {
     let object: _.Dictionary<any>;
 
     {
@@ -9196,7 +9196,7 @@ module TestKeysIn {
 }
 
 // _.mapKeys
-module TestMapKeys {
+namespace TestMapKeys {
     let array: TResult[];
     let list: _.List<TResult>;
     let dictionary: _.Dictionary<TResult>;
@@ -9281,7 +9281,7 @@ module TestMapKeys {
 }
 
 // _.merge
-module TestMerge {
+namespace TestMerge {
     type InitialValue = { a : number };
     type MergingValue = { b : string };
 
@@ -9372,7 +9372,7 @@ module TestMerge {
 }
 
 // _.mergeWith
-module TestMergeWith {
+namespace TestMergeWith {
     type InitialValue = { a : number };
     type MergingValue = { b : string };
 
@@ -9404,7 +9404,7 @@ module TestMergeWith {
 }
 
 // _.omit
-module TestOmit {
+namespace TestOmit {
     let predicate: (element: any, key: string, collection: any) => boolean;
 
     {
@@ -9436,7 +9436,7 @@ module TestOmit {
 }
 
 // _.omitBy
-module TestOmitBy {
+namespace TestOmitBy {
     let predicate: (element: any, key: string, collection: any) => boolean;
 
     {
@@ -9459,7 +9459,7 @@ module TestOmitBy {
 }
 
 // _.pick
-module TestPick {
+namespace TestPick {
     let predicate: (element: any, key: string, collection: any) => boolean;
 
     {
@@ -9491,7 +9491,7 @@ module TestPick {
 }
 
 // _.pickBy
-module TestPickBy {
+namespace TestPickBy {
     let predicate: (element: any, key: string, collection: any) => boolean;
 
     {
@@ -9525,7 +9525,7 @@ module TestPickBy {
 }
 
 // _.set
-module TestSet {
+namespace TestSet {
     type SampleObject = {a: {}};
     type SampleResult = {a: {b: number[]}};
 
@@ -9567,7 +9567,7 @@ module TestSet {
 }
 
 // _.setWith
-module TestSetWith {
+namespace TestSetWith {
     type SampleObject = {a: {}};
     type SampleResult = {a: {b: number[]}};
 
@@ -9706,7 +9706,7 @@ namespace TestToPairsIn {
 }
 
 // _.transform
-module TestTransform {
+namespace TestTransform {
     let array: number[];
     let dictionary: _.Dictionary<number>;
 
@@ -9800,7 +9800,7 @@ namespace TestUnset {
 }
 
 // _.values
-module TestValues {
+namespace TestValues {
     let object: _.Dictionary<TResult>;
 
     {
@@ -9823,7 +9823,7 @@ module TestValues {
 }
 
 // _.valuesIn
-module TestValuesIn {
+namespace TestValuesIn {
     let object: _.Dictionary<TResult>;
 
     {
@@ -10468,7 +10468,7 @@ namespace TestWords {
  ***********/
 
 // _.attempt
-module TestAttempt {
+namespace TestAttempt {
     let func: (...args: any[]) => {a: string};
 
     {
@@ -10489,7 +10489,7 @@ module TestAttempt {
 }
 
 // _.constant
-module TestConstant {
+namespace TestConstant {
     {
         let result: () => number;
         result: _.constant<number>(42);
@@ -10583,7 +10583,7 @@ module TestConstant {
 }
 
 // _.iteratee
-module TestIteratee {
+namespace TestIteratee {
     {
         let result: (...args: any[]) => TResult;
 
@@ -10649,7 +10649,7 @@ module TestIteratee {
 }
 
 // _.matches
-module TestMatches {
+namespace TestMatches {
     let source: TResult;
 
     {
@@ -10674,7 +10674,7 @@ module TestMatches {
 }
 
 // _.matchesProperty
-module TestMatches {
+namespace TestMatches {
     let path: {toString(): string;}|{toString(): string;}[];
     let source: TResult;
 
@@ -10716,7 +10716,7 @@ module TestMatches {
 }
 
 // _.method
-module TestMethod {
+namespace TestMethod {
     {
         let result: (object: any) => {a: string};
 
@@ -10803,7 +10803,7 @@ module TestMethod {
 }
 
 // _.methodOf
-module TestMethodOf {
+namespace TestMethodOf {
     type SampleObject = {a: {b: () => TResult}[]};
     type ResultFn = (path: _.StringRepresentable|_.StringRepresentable[]) => TResult;
 
@@ -10843,7 +10843,7 @@ module TestMethodOf {
 }
 
 // _.mixin
-module TestMixin {
+namespace TestMixin {
     let source: _.Dictionary<Function>;
     let options: {chain?: boolean};
 
@@ -10885,7 +10885,7 @@ module TestMixin {
 }
 
 // _.noop
-module TestNoop {
+namespace TestNoop {
     {
         let result: void;
 
@@ -11026,7 +11026,7 @@ namespace TestOverSome {
 }
 
 // _.property
-module TestProperty {
+namespace TestProperty {
     interface SampleObject {
         a: {
             b: number[];
@@ -11056,7 +11056,7 @@ module TestProperty {
 }
 
 // _.propertyOf
-module TestPropertyOf {
+namespace TestPropertyOf {
     interface SampleObject {
         a: {
             b: number[];
@@ -11086,7 +11086,7 @@ module TestPropertyOf {
 }
 
 // _.range
-module TestRange {
+namespace TestRange {
     {
         let result: number[];
 
@@ -11113,7 +11113,7 @@ module TestRange {
 }
 
 // _.rangeRight
-module TestRangeRight {
+namespace TestRangeRight {
     {
         let result: number[];
 
@@ -11148,7 +11148,7 @@ module TestRangeRight {
 }
 
 // _.times
-module TestTimes {
+namespace TestTimes {
     let iteratee: (num: number) => TResult;
 
     {
@@ -11179,7 +11179,7 @@ module TestTimes {
 }
 
 // _.toPath
-module TestToPath {
+namespace TestToPath {
    {
        let result: string[];
        result = _.toPath(true);
@@ -11202,7 +11202,7 @@ module TestToPath {
 }
 
 // _.uniqueId
-module TestUniqueId {
+namespace TestUniqueId {
     {
         let result: string;
 

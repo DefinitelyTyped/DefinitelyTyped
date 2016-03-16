@@ -6,11 +6,11 @@
 ///<reference path="../express/express.d.ts"/>
 ///<reference path="../i18next/i18next.d.ts"/>
 
-declare module I18next {
+declare namespace I18next {
     interface I18nextOptions extends i18nextExpressMiddleware.I18nextOptions { }
 }
 
-declare module i18nextExpressMiddleware {
+declare namespace i18nextExpressMiddleware {
     /**
      * @summary Interface for Language detector options.
      * @interface

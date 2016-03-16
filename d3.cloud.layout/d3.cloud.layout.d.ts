@@ -5,12 +5,12 @@
 
 /// <reference path="../d3/d3.d.ts" />
 
-declare module d3 {
-    module layout {
+declare namespace d3 {
+    namespace layout {
         export function cloud(): Cloud<cloud.Word>;
         export function cloud<T extends cloud.Word>(): Cloud<T>;
 
-        module cloud {
+        namespace cloud {
             interface Word {
                 text?: string;
                 font?: string;

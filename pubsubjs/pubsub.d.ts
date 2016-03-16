@@ -3,7 +3,7 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module PubSubJS {
+declare namespace PubSubJS {
     interface Base extends Publish, Subscribe, Unsubscribe, ClearAllSubscriptions {
         version: string;
         name: string;

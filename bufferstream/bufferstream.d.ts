@@ -64,7 +64,7 @@ declare module 'bufferstream' {
 		*/
 		length: number;
 	}
-	module BufferStream {
+	namespace BufferStream {
 
 		export interface Opts {
 			/*

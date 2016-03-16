@@ -11,7 +11,7 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module BootstrapSwitch {
+declare namespace BootstrapSwitch {
     interface BootstrapSwitchChangeEventObject extends JQueryEventObject {
         state: boolean
     }

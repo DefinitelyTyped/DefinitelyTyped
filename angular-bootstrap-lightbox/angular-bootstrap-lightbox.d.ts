@@ -3,7 +3,7 @@
 // Definitions by: Roland Zwaga <https://github.com/rolandzwaga>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module angular.bootstrap.lightbox {
+declare namespace angular.bootstrap.lightbox {
 
     export interface ILightboxImageInfo {
         url: string;

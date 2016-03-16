@@ -21,7 +21,7 @@ declare module "asciify" {
     function asciify(text: string, options: string, callback: AsciifyCallback): void;
     function asciify(text: string, options: AsciifyOptions, callback: AsciifyCallback): void;
 
-    module asciify {
+    namespace asciify {
         function getFonts(callback: (err: Error, fonts: string[]) => void): void;
     }
 

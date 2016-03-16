@@ -19,7 +19,7 @@ interface JQueryStatic {
 	Velocity: jquery.velocity.VelocityStatic;
 }
 
-declare module jquery.velocity {
+declare namespace jquery.velocity {
 	type Properties = Object;
 	type Easing = string|number[];
 	type ElementCallback = (elements: NodeListOf<HTMLElement>) => void;

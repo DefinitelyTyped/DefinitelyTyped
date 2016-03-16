@@ -78,7 +78,7 @@ declare module "serve-static" {
 
     import * as m from "mime";
 
-    module serveStatic {
+    namespace serveStatic {
         var mime: typeof m;
     }
 

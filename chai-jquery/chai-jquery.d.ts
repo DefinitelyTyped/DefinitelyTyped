@@ -6,7 +6,7 @@
 /// <reference path="../chai/chai.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module Chai {
+declare namespace Chai {
 
     interface Assertion {
         attr: (name: string, value?: string) => Assertion;

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // Project by: Szymon Nowak <https://github.com/szimek>
 
-declare module SignaturePad {
+declare namespace SignaturePad {
 	class Point {
 	    x: number;
 	    y: number;

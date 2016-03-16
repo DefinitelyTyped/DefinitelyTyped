@@ -3,7 +3,7 @@
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Mixto {
+declare namespace Mixto {
 	interface IMixinStatic {
 		includeInto(constructor:any):void;
 		extend(object:any):void;

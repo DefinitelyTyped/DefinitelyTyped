@@ -3,7 +3,7 @@
 // Definitions by: Patrick Mac Kay <https://github.com/patrick-mackay>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module ngWYSIWYG {
+declare namespace ngWYSIWYG {
     export interface Toolbar {
         name: string;
         items: string[];

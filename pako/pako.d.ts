@@ -3,7 +3,7 @@
 // Definitions by: Denis Cappellin <http://github.com/cappellin>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Pako {
+declare namespace Pako {
 
 	/**
 	 * Compress data with deflate algorithm and options.

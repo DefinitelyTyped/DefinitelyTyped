@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module commander {
+declare namespace commander {
     interface ICommandStatic {
         /**
          * Initialize a new `Command`.

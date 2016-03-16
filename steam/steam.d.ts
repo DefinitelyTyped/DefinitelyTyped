@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module Steam {
+declare namespace Steam {
     export var servers: any;
 
     export interface LogonOptions {

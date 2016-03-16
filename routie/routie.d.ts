@@ -3,7 +3,7 @@
 // Definitions by: Adilson <https://github.com/Adilson>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module routie {
+declare namespace routie {
     interface Route {
         constructor(path: string, name: string): Route;
         addHandler(fn: Function): void;

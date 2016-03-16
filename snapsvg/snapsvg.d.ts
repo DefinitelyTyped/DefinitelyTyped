@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare function mina(a:number, A:number, b:number, B:number, get:Function, set:Function, easing?:(num:number)=>number):mina.AnimationDescriptor;
-declare module mina {
+declare namespace mina {
     export interface MinaAnimation {
         id: string;
         duration: Function;
@@ -53,7 +53,7 @@ declare function Snap(width:number|string,height:number|string):Snap.Paper;
 declare function Snap(query:string):Snap.Paper;
 declare function Snap(DOM:SVGElement):Snap.Paper;
 
-declare module Snap {
+declare namespace Snap {
     export var filter:Filter;
     export var path:Path;
 

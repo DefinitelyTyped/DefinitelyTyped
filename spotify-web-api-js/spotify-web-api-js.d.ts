@@ -10,7 +10,7 @@
  */
 declare var SpotifyWebApi: SpotifyWebApiJs.SpotifyWebApiJsStatic;
 
-declare module SpotifyWebApiJs {
+declare namespace SpotifyWebApiJs {
     /**
      * An optional callback that receives 2 parameters. The first
      * one is the error object (null if no error), and the second is the value if the request succeeded.

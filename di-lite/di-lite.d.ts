@@ -3,7 +3,7 @@
 // Definitions by: Timothy Morris <https://github.com/dcrusader>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module DiLite {
+declare namespace DiLite {
     interface DiLiteStatic {
         version: string;
         createContext(): CreateContext;

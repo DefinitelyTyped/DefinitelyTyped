@@ -5,7 +5,7 @@
 
 /// <reference path="SlickGrid.d.ts" />
 
-declare module Slick {
+declare namespace Slick {
     export interface SlickGridAutoTooltipsOption extends PluginOptions {
         /**
          * Enable tooltip for grid cells

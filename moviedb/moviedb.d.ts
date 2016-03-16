@@ -4,12 +4,12 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // Ghost module for Types
-declare module MovieDB {
+declare namespace MovieDB {
     export interface IMovieDB {
         searchMovie(params: SearchOptions, callback: (err: any, movies: SearchResults) => void): void;
         movieInfo(options: InfoOptions, callback: (err: any, curMovie: Movie) => void): void;
 
-        // More methods TBD: 
+        // More methods TBD:
         // https://github.com/danzajdband/moviedb#available-methods
     }
 

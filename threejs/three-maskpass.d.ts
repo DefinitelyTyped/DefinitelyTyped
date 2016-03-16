@@ -5,7 +5,7 @@
 
 /// <reference path="./three.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
 	export class MaskPass {
 		constructor( scene: Scene, camera: Camera);
 

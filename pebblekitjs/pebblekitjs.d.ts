@@ -2,7 +2,7 @@
 // Project: https://developer.pebble.com/docs/js/Pebble/
 // Definitions by: Makoto Kawasaki <https://github.com/makotokw>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-declare module PebbleKit {
+declare namespace PebbleKit {
 
     interface Error {
         message: string;

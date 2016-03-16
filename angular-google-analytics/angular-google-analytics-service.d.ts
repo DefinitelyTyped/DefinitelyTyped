@@ -3,7 +3,7 @@
 // Definitions by: Matt Wheatley <https://github.com/terrawheat>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module angular.google.analytics {
+declare namespace angular.google.analytics {
   interface AnalyticsService {
     /**
      * @summary If logging is enabled then all outbound calls are accessible via an in-memory array.

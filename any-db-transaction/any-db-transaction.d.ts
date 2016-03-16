@@ -9,7 +9,7 @@
 declare module "any-db-transaction" {
     import anyDB = require("any-db");
 
-	module begin {
+	namespace begin {
 		/**
 		 * Transaction objects are are simple wrappers around a Connection that also implement the Queryable API,
 		 * but guarantee that all queries take place within a single database transaction or not at all. Note that

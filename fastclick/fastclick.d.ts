@@ -34,7 +34,7 @@ interface FastClickStatic {
 
 declare module "fastclick" {
 	function fastclick(layer: any, options?: FastClickOptions): FastClickObject;
-	module fastclick {
+	namespace fastclick {
 		var FastClick: FastClickStatic;
 	}
 

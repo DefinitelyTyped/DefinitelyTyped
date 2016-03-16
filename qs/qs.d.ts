@@ -3,7 +3,7 @@
 // Definitions by: Roman Korneev <https://github.com/RWander>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module QueryString {
+declare namespace QueryString {
     interface IStringifyOptions {
         delimiter?: string;
         strictNullHandling?: boolean;

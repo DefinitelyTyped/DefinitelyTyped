@@ -3,7 +3,7 @@
 // Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module XSockets {
+declare namespace XSockets {
     export class WebSocket {
         id: string;
         constructor(url: string, subprotocol?: string, settings?: any);

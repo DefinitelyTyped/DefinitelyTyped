@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery.validation/jquery.validation.d.ts" />
 
-declare module MicrosoftJQueryUnobtrusiveValidation {
+declare namespace MicrosoftJQueryUnobtrusiveValidation {
     type JQuerySelector = string | Document | Element | JQuery;
 
     interface Adapter {
@@ -31,7 +31,7 @@ declare module MicrosoftJQueryUnobtrusiveValidation {
     }
 }
 
-declare module JQueryValidation {
+declare namespace JQueryValidation {
     interface ValidatorStatic {
         unobtrusive: MicrosoftJQueryUnobtrusiveValidation.Validator;
     }

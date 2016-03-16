@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.hotkeys {
+declare namespace angular.hotkeys {
 
     interface HotkeysProvider {
         template: string;

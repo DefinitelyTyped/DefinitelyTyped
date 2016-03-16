@@ -43,7 +43,7 @@ declare module "colors" {
         random: Color;
     }
 
-    module e {
+    namespace e {
         export function setTheme(theme:any): void;
 
         export var black: Color;

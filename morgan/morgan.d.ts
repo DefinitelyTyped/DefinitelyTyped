@@ -8,7 +8,7 @@ declare module "morgan" {
 
     import express = require('express');
 
-    module morgan {
+    namespace morgan {
 
         export function token<T>(name: string, callback: (req: express.Request, res: express.Response) => T): express.RequestHandler;
 

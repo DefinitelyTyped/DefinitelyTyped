@@ -5,7 +5,7 @@
 //                 Andrew Brown <https://github.com/AGBrown>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Chai {
+declare namespace Chai {
 
     interface ChaiStatic {
         expect: ExpectStatic;

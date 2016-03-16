@@ -3,7 +3,7 @@
 // Definitions by: Daz Wilkin <https://github.com/DazWilkin/>, Ian Obermiller <http://ianobermiller.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module YT {
+declare namespace YT {
     interface EventArgs {
         target: Player;
         data: any;

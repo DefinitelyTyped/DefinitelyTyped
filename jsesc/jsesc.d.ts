@@ -7,7 +7,7 @@ declare module 'jsesc' {
 
 	function jsesc(str: string, opts?: any): string;
 
-	module jsesc {
+	namespace jsesc {
 		var version: string;
 
 		interface Opts {

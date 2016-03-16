@@ -82,7 +82,7 @@ angular.module('http-auth-interceptor', [])
     }]);
 
 
-module HttpAndRegularPromiseTests {
+namespace HttpAndRegularPromiseTests {
     interface Person {
         firstName: string;
         lastName: string;
@@ -151,7 +151,7 @@ module HttpAndRegularPromiseTests {
 
 // Test for AngularJS Syntax
 
-module My.Namespace {
+namespace My.Namespace {
     export var x; // need to export something for module to kick in
 }
 

@@ -17,7 +17,7 @@ declare module "easy-table" {
 		total(label: string, accumulator: EasyTable.Accumulator, totalPrinter: EasyTable.CellPrinter): void;
 	}
 
-	module EasyTable {
+	namespace EasyTable {
 		function printArray(array: any[], cellPrinter?: CellPrinter, tablePrinter?: Printer): string;
 		function printObject(object: any, cellPrinter?: CellPrinter, tablePrinter?: Printer): string;
 

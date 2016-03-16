@@ -3,7 +3,7 @@
 // Definitions by: Hendrik Maus <https://github.com/hendrikmaus>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Cordovardunio {
+declare namespace Cordovardunio {
     interface Serial {
         /**
          * Request permission to interact with the serial port.

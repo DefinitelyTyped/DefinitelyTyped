@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module JQuerySortable {
+declare namespace JQuerySortable {
 
 	interface Position {
 		top: number;

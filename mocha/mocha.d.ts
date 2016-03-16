@@ -138,7 +138,7 @@ declare class Mocha {
 }
 
 // merge the Mocha class declaration with a module
-declare module Mocha {
+declare namespace Mocha {
     /** Partial interface for Mocha's `Runnable` class. */
     interface IRunnable {
         title: string;

@@ -10,7 +10,7 @@ declare module "gm" {
 
 	function m(image: string): m.State;
 
-	module m {
+	namespace m {
 		export interface ClassOptions {
 			imageMagick?: boolean;
 			nativeAutoOrient?: boolean;

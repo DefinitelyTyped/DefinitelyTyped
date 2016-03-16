@@ -20,7 +20,7 @@ interface KnockoutComputedFunctions<T> {
 	toObservableWithReplyLatest(): Rx.Observable<T>;
 }
 
-declare module Rx {
+declare namespace Rx {
 	interface Observable<T> {
 		toKoSubscribable(): KnockoutSubscribable<T>;
 		toKoObservable(initialValue?: T): KnockoutObservable<T>;

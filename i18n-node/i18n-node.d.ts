@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
-declare module i18n {
+declare namespace i18n {
     export interface ConfigurationOptions {
         /** Setup some locales - other locales default to en silently */
         locales?: string[];
@@ -331,7 +331,7 @@ declare module "i18n" {
     export = i18n;
 }
 
-declare module Express {
+declare namespace Express {
     export interface Request extends i18nAPI {
         languages: string[];
         regions: string[];

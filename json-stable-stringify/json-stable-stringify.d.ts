@@ -7,7 +7,7 @@ declare module 'json-stable-stringify' {
 
   function stringify(obj: any, opts?: stringify.Comparator | stringify.Options): string;
 
-  module stringify {
+  namespace stringify {
 
     interface Element {
       key: string;

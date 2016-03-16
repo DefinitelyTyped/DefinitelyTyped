@@ -16,7 +16,7 @@ declare module 'promisify-supertest' {
 
   function supertest(app: express.Express): supertest.SuperTest;
 
-  module supertest {
+  namespace supertest {
     function agent(app?: any): supertest.SuperTest;
 
     interface SuperTest extends superagent.SuperAgent<Test> {

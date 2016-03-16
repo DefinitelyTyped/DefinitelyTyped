@@ -17,7 +17,7 @@
  *
  * Version 1.1 - fixed bug - makeEditable is now a function on .editable
  *               also refactored how the Editable classes inherit to simplify
- * 
+ *
  * Version 1.2 - amended callback on commmand.fail() method - accepts response,
  *               status and message values
  */
@@ -63,7 +63,7 @@ interface KnockoutBindingHandlers {
 //
 // namespace for ko.plus types
 //
-declare module KoPlus {
+declare namespace KoPlus {
 
     //#region Command types
 

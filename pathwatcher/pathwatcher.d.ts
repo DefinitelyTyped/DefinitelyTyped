@@ -6,7 +6,7 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../q/Q.d.ts" />
 
-declare module PathWatcher {
+declare namespace PathWatcher {
 	interface IFileStatic {
 		new (path:string, symlink?:boolean):IFile;
 	}

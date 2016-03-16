@@ -10,7 +10,7 @@ declare module "mock-fs" {
 
 	function mock(config?: mock.Config, options?: mock.Options): void;
 
-	module mock {
+	namespace mock {
 		function file(config: FileConfig): File;
 		function directory(config: DirectoryConfig): Directory;
 		function symlink(config: SymlinkConfig): Symlink;

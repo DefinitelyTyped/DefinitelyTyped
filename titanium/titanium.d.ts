@@ -3,7 +3,7 @@
 // Definitions by: Craig Younkins <https://github.com/cyounkins/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Ti {
+declare namespace Ti {
 	export var apiName : string;
 	export var bubbleParent : boolean;
 	export var buildDate : string;
@@ -6153,7 +6153,7 @@ declare class recurrenceEndDictionary  {
 	occurrenceCount : number;
 }
 
-declare module Global {
+declare namespace Global {
 	export function L (key: string, hint?: string) : string;
 	export function alert (message: string) : void;
 	export function clearInterval (timerId: number) : void;

@@ -14,7 +14,7 @@ interface Minilog {
 
 declare function Minilog(namespace: string): Minilog;
 
-declare module Minilog {
+declare namespace Minilog {
     export function enable(): Minilog;
     export function disable() : Minilog;
     export function pipe(dest: any): Transform;

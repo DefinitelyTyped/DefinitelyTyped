@@ -20,7 +20,7 @@ declare module "koa" {
   import * as http from "http";
   import * as net from "net";
 
-  module Koa {
+  namespace Koa {
     export interface Context extends Request, Response {
         body?: any;
         request?: Request;

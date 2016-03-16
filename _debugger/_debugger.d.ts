@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts"/>
 
-declare module NodeJS {
+declare namespace NodeJS {
     export module _debugger {
         export interface Packet {
             raw: string;

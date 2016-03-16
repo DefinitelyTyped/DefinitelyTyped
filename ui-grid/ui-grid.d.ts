@@ -16,7 +16,7 @@
 /// <reference path='../jquery/jquery.d.ts' />
 /// <reference path='../angularjs/angular.d.ts' />
 
-declare module uiGrid {
+declare namespace uiGrid {
     export interface IUiGridConstants {
         LOG_DEBUG_MESSAGES: boolean;
         LOG_WARN_MESSAGES: boolean;

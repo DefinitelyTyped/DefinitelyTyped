@@ -3,7 +3,7 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Peter Snider <https://github.com/psnider>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module tv4 {
+declare namespace tv4 {
 
     // Note that every top-level property is optional in json-schema
     export interface JsonSchema {

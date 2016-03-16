@@ -3,7 +3,7 @@
 // Definitions by: Michael Zabka <https://github.com/misak113/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module CryptoJS {
+declare namespace CryptoJS {
 	type Hash = (message: string, key?: string, ...options: any[]) => string;
 
 	export interface Hashes {

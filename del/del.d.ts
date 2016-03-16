@@ -14,7 +14,7 @@ declare module "del" {
     function Del(patterns: string[]): Promise<string[]>;
     function Del(patterns: string[], options: Del.Options): Promise<string[]>;
 
-    module Del {
+    namespace Del {
         function sync(pattern: string, options?: Options): string[];
         function sync(patterns: string[], options?: Options): string[];
 

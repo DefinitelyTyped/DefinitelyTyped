@@ -7,7 +7,7 @@ interface Document {
     addEventListener(type: 'deviceready', listener: (ev: Event) => any, useCapture?: boolean): void;
 }
 
-declare module PhoneGapNfc {
+declare namespace PhoneGapNfc {
 
     /**
      * Global object NFC.

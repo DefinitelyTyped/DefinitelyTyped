@@ -5,7 +5,7 @@
 
 ///<reference path="../jquery/jquery.d.ts" />
 
-declare module vex {
+declare namespace vex {
 
   interface ICSSAttributes {
     [property: string]: string | number;

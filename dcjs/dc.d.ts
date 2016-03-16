@@ -8,7 +8,7 @@
 ///<reference path="../d3/d3.d.ts" />
 ///<reference path="../crossfilter/crossfilter.d.ts" />
 
-declare module DC {
+declare namespace DC {
     // helper for get/set situation
     export interface IGetSet<T, V> {
         (): T;

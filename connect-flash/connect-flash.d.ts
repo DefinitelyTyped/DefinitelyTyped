@@ -5,7 +5,7 @@
 
 /// <reference path="../express/express.d.ts" />
 
-declare module Express {
+declare namespace Express {
     export interface Request {
         flash(message: string): any;
         flash(event: string, message: string): any;

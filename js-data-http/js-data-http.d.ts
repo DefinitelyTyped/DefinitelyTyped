@@ -5,7 +5,7 @@
 
 /// <reference path="../js-data/js-data.d.ts" />
 
-declare module JSData {
+declare namespace JSData {
 
     interface DSHttpAdapterOptions {
         serialize?: (resourceName:string, data:any)=>any;

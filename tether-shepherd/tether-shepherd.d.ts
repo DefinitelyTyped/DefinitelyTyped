@@ -3,7 +3,7 @@
 // Definitions by: Matt Gibbs <https://github.com/mtgibbs>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module TetherShepherd {
+declare namespace TetherShepherd {
 
     interface ShepherdStatic {
         on(eventName: string, handler: Function, context?: any): any;

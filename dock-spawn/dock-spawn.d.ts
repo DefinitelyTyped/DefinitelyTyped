@@ -4,7 +4,7 @@
 // Definitions by: Drew Noakes <https://drewnoakes.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped/dock-spawn
 
-declare module dockspawn
+declare namespace dockspawn
 {
     /**
      * Dock manager manages all the dock panels in a hierarchy, similar to Visual Studio.

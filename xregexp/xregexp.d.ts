@@ -9,7 +9,7 @@ declare module 'xregexp' {
 	function OuterXRegExp(pattern: string, flags?: string): RegExp;
 	function OuterXRegExp(pattern: RegExp): RegExp;
 
-	module OuterXRegExp {
+	namespace OuterXRegExp {
 		// scopes: 'default', 'class', or 'all'
 		/*
 		 Native flags:
@@ -87,7 +87,7 @@ declare module 'xregexp' {
 		var version: string;
 		// end API definitions
 
-		module XRegExp {
+		namespace XRegExp {
 			// begin API definitions
 			function addToken(regex: RegExp, handler: (matchArr: RegExpExecArray, scope: string) => string, options?: TokenOpts): void;
 

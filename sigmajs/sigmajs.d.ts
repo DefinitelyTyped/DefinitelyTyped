@@ -3,7 +3,7 @@
 // Definitions by: Qinfeng Chen <https://github.com/qinfchen>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module SigmaJs{
+declare namespace SigmaJs{
     interface Animation {
         camera(camera: Camera, target: { [index: string]: any }, options: { [index: string]: any }): number;
     }

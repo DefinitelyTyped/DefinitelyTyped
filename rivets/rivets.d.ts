@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module Rivets {
+declare namespace Rivets {
 
     interface View {
         build(): void;

@@ -10,7 +10,7 @@
 /// <reference path="../i18next-express-middleware/i18next-express-middleware.d.ts" />
 /// <reference path="../i18next-sprintf-postprocessor/i18next-sprintf-postprocessor.d.ts" />
 
-declare module I18next {
+declare namespace I18next {
     export interface I18nextStatic {}
     export interface I18nextOptions {}
 }

@@ -5,7 +5,7 @@
 
 /// <reference path="SlickGrid.d.ts" />
 
-declare module Slick {
+declare namespace Slick {
     class RowSelectionModel<T extends SlickData, E> extends SelectionModel<T, E> {
         constructor(options?:{selectActiveRow:boolean;});
 

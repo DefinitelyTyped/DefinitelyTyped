@@ -8,7 +8,7 @@
 declare module "cors" {
     import express = require('express');
 
-    module e {
+    namespace e {
         interface CorsOptions  {
             origin?: any;
             methods?: any;

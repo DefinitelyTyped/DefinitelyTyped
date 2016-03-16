@@ -91,7 +91,7 @@ angular.module('http-auth-interceptor', [])
     }]);
 
 
-module HttpAndRegularPromiseTests {
+namespace HttpAndRegularPromiseTests {
     interface Person {
         firstName: string;
         lastName: string;
@@ -174,7 +174,7 @@ module HttpAndRegularPromiseTests {
 
 // Test for AngularJS Syntax
 
-module My.Namespace {
+namespace My.Namespace {
     export var x: any; // need to export something for module to kick in
 }
 
@@ -247,7 +247,7 @@ foo.then((x) => {
 });
 
 // $q signature tests
-module TestQ {
+namespace TestQ {
     interface TResult {
         a: number;
         b: string;
@@ -346,7 +346,7 @@ httpFoo.success((data, status, headers, config) => {
 
 
 // Deferred signature tests
-module TestDeferred {
+namespace TestDeferred {
     var any: any;
 
     interface TResult {
@@ -386,7 +386,7 @@ module TestDeferred {
     }
 }
 
-module TestInjector {
+namespace TestInjector {
     let $injector: angular.auto.IInjectorService;
 
     $injector.strictDi = true;
@@ -397,7 +397,7 @@ module TestInjector {
 
 
 // Promise signature tests
-module TestPromise {
+namespace TestPromise {
     var result: any;
     var any: any;
 
@@ -479,7 +479,7 @@ var isolateScope: ng.IScope = element.isolateScope();
 
 
 // $timeout signature tests
-module TestTimeout {
+namespace TestTimeout {
     interface TResult {
         a: number;
         b: string;
@@ -920,7 +920,7 @@ angular.module('copyExample', [])
         $scope.reset();
     }]);
 
-module locationTests {
+namespace locationTests {
 
     var $location: ng.ILocationService;
 

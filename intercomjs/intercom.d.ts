@@ -3,7 +3,7 @@
 // Definitions by: spencerwi <http://github.com/spencerwi>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module intercom {
+declare namespace intercom {
     interface Intercom {
         /**
           * Broadcasts a message to all open windows (including the current window).

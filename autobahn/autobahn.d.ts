@@ -5,7 +5,7 @@
 
 /// <reference path="../when/when.d.ts" />
 
-declare module autobahn {
+declare namespace autobahn {
 
     export class Session {
         id: number;

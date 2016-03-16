@@ -14,7 +14,7 @@ declare module "through" {
             autoDestroy: boolean;
         }): through.ThroughStream;
 
-    module through {
+    namespace through {
         export interface ThroughStream extends stream.Transform {
             autoDestroy: boolean;
         }

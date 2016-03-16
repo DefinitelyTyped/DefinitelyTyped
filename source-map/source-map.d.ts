@@ -3,7 +3,7 @@
 // Definitions by: Morten Houston Ludvigsen <https://github.com/MortenHoustonLudvigsen>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module SourceMap {
+declare namespace SourceMap {
     interface StartOfSourceMap {
         file?: string;
         sourceRoot?: string;

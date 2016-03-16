@@ -7,7 +7,7 @@ declare module 'xml2js' {
 
     export = xml2js;
 
-    module xml2js {
+    namespace xml2js {
         function parseString(xml: string, callback: (err: any, result: any) => void): void;
         function parseString(xml: string, options: Options, callback: (err: any, result: any) => void): void;
 

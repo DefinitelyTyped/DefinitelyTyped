@@ -10,7 +10,7 @@
 /**
  * Module for bardjs functions
  */
-declare module bard {
+declare namespace bard {
     /**
      *  Replaces the ngMock'ed $httpBackend with the real one from ng thus
      *  restoring the ability to issue AJAX calls to the backend with $http.

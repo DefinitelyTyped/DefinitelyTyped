@@ -5,6 +5,6 @@
 
 /// <reference path="./three.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
 	export var CopyShader: Shader;
 }

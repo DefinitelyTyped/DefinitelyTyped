@@ -8,7 +8,7 @@
 /**
  * This is a wrapper "namespace" for the various types used by the UAirship module.
  */
-declare module UrbanAirshipPlugin {
+declare namespace UrbanAirshipPlugin {
 
     //#region API Definitions
 
