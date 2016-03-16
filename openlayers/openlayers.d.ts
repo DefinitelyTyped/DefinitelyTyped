@@ -4,6 +4,50 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module olx {
+    
+        interface StaticImageOptions {
+
+        /** Attributions */
+        attributions?: Array<ol.Attribution>
+        
+        /*** The crossOrigin attribute for loaded images. Note that you must provide a crossOrigin value if you are using the WebGL renderer or if you want to access pixel data with the Canvas renderer. See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail. */
+        crossOrigin?: string
+
+        /*** Extent of the image in map coordinates. This is the [left, bottom, right, top] map coordinates of your image.*/
+        imageExtent: ol.Extent;
+
+        /*** Size of the image in pixels.*/
+        imageSize?: ol.Size;
+
+        /*** experimental Optional function to load an image given a URL.*/
+        imageLoadFunction?: ol.TileLoadFunctionType;
+
+        /*** Optional logo.*/
+        logo?: olx.LogoOptions;
+
+        /*** experimental Projection.*/
+        projection: ol.proj.Projection;
+
+        /*** Image URL.*/
+        url: string;
+    }
+
+    interface ZoomToExtentOptions {
+        /*** Class name. Default is ol-zoom-extent.*/
+        className?: string;
+
+        /*** Target.*/
+        target?: Element;
+
+        /*** Text label to use for the button. Default is E. Instead of text, also a Node (e.g. a span element) can be used.*/
+        label?: string | Node;
+
+        /*** Text label to use for the button tip. Default is Zoom to extent.*/
+        tipLabel?: string;
+
+        /*** The extent to zoom to. If undefined the validity extent of the view projection is used.*/
+        extent: ol.Extent;
+    }
 
     interface AttributionOptions {
 
@@ -2374,8 +2418,9 @@ declare module ol {
 
         class ZoomSlider {
         }
-
+        
         class ZoomToExtent {
+            constructor(options?: olx.ZoomToExtentOptions);
         }
     }
 
@@ -4097,7 +4142,8 @@ declare module ol {
         class ImageMapGuide {
         }
 
-        class ImageStatic {
+        class ImageStatic extends ol.source.Image {
+            constructor(options?: olx.StaticImageOptions);
         }
 
         class ImageVector {
