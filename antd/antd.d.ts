@@ -1,6 +1,6 @@
 // Type definitions for Antd v0.12.10
 // Project: http://ant.design
-// Definitions by: bang88 <https://github.com/bang88>
+// Definitions by: bang88 <https://github.com/bang88>, Bruce Mitchener <https://github.com/waywardmonkeys/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
