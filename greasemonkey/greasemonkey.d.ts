@@ -1,7 +1,7 @@
 // Type definitions for Greasemonkey
 // Project: http://www.greasespot.net/
 // Definitions by: Kota Saito <https://github.com/kotas>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // This definition is based on the API reference of Greasemonkey.
 // http://wiki.greasespot.net/Greasemonkey_Manual:API

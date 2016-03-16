@@ -1,7 +1,7 @@
 // Type definitions for pikaday
 // Project: https://github.com/dbushell/Pikaday
 // Definitions by: Rudolph Gottesheim <http://midnight-design.at/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../moment/moment.d.ts" />
 

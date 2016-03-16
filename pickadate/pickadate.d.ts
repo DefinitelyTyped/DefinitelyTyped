@@ -1,7 +1,7 @@
 // Type definitions for pickadate.js 3.5.5
 // Project: https://github.com/amsul/pickadate.js
 // Definitions by: Theodore Brown <https://github.com/theodorejb/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts" />
 

@@ -1,7 +1,7 @@
 // Type definitions for Touch 2.2.1
 // Project: http://www.sencha.com/products/touch/
 // Definitions by: Brian Kotek <https://github.com/brian428/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module Ext {
 	export interface IAbstractComponent extends Ext.IEvented {

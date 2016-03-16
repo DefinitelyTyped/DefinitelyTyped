@@ -1,7 +1,7 @@
 // Type definitions for type-detect v0.1.2
 // Project: https://github.com/chaijs/type-detect
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'type-detect' {
 	function type(val: any): string;

@@ -1,7 +1,7 @@
 // Type definitions for ngKookes 0.2.0
 // Project: https://github.com/voronianski/ngKookies
 // Definitions by: Martin McWhorter <https://github.com/martinmcwhorter>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module angular.kookies {
 

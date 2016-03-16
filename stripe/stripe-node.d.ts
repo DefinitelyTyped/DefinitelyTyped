@@ -1,7 +1,7 @@
 // Type definitions for stripe-node
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'stripe' {    
     var out: typeof StripeNode.Stripe;

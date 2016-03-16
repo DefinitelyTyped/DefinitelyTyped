@@ -1,7 +1,7 @@
 // Type definitions for angular-loading-bar
 // Project: https://github.com/chieffancypants/angular-loading-bar
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 

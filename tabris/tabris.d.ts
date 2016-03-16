@@ -1,7 +1,7 @@
 // Type definitions for Tabris.js v1.2
 // Project: http://tabrisjs.com
 // Definitions by: Tabris.js team <http://github.com/eclipsesource/tabris>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module tabris {
 

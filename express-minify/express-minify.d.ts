@@ -1,7 +1,7 @@
 // Type definitions for express-minify v0.1.6
 // Project: https://github.com/SummerWish/express-minify
 // Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 /// <reference path="../uglify-js/uglify-js.d.ts" />

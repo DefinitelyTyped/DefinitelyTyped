@@ -1,7 +1,7 @@
 // Type definitions for ng-notify 0.7.1
 // Project: https://github.com/matowens/ng-notify
 // Definitions by: Nick Zamosenchuk <https://github.com/nzamosenchuk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path='../angularjs/angular.d.ts'/>
 
 declare module ngNotify {

@@ -1,7 +1,7 @@
 // Type definitions for Turf 2.0
 // Project: http://turfjs.org/
 // Definitions by: Guillaume Croteau <https://github.com/gcroteau>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../geojson/geojson.d.ts" />
 

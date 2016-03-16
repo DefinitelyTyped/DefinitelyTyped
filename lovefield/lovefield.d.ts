@@ -1,7 +1,7 @@
 // Type definitions for Lovefield v2.0.62
 // Project: http://google.github.io/lovefield/
 // Definitions by: freshp86 <https://github.com/freshp86>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module lf {
   export enum Order { ASC, DESC }

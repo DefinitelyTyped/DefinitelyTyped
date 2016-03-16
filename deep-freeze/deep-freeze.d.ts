@@ -1,7 +1,7 @@
 // Type definitions for deep-freeze
 // Project: https://github.com/substack/deep-freeze
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module DeepFreeze {
    export interface DeepFreezeInterface {

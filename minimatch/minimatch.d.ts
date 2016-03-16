@@ -1,7 +1,7 @@
 // Type definitions for Minimatch 2.0.8
 // Project: https://github.com/isaacs/minimatch
 // Definitions by: vvakame <https://github.com/vvakame/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "minimatch" {
 

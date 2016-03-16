@@ -1,10 +1,10 @@
 ﻿// Type definitions for CKEditor
 // Project: http://ckeditor.com/
 // Definitions by: Ondrej Sevcik <https://github.com/ondrejsevcik/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // WORK-IN-PROGRESS: Any contribution support welcomed.
-// See https://github.com/borisyankov/DefinitelyTyped/issues/1827 for more informations.
+// See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/1827 for more informations.
 declare module CKEDITOR {
 
     // Config options

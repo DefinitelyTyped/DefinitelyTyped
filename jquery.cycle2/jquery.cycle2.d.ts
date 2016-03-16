@@ -2,7 +2,7 @@
 // Project: http://jquery.malsup.com/cycle2/
 //          https://github.com/malsup/cycle2
 // Definitions by: Donny Nadolny <https://github.com/dnadolny/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>

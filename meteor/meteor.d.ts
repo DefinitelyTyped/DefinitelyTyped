@@ -1,7 +1,7 @@
 // Type definitions for Meteor 1.2.0.2
 // Project: http://www.meteor.com/
 // Definitions by: Dave Allen <https://github.com/fullflavedave>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * These are the common (for client and server) modules and interfaces that can't be automatically generated from the Meteor data.js file

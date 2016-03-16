@@ -1,7 +1,7 @@
 // Type definitions for uikit 2.23.0
 // Project: http://getuikit.org
 // Definitions by: Giovanni Silva <https://github.com/giovannicandido>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 

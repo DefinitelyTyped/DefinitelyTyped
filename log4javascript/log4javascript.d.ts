@@ -1,7 +1,7 @@
 ﻿// Type definitions for log4javascript v1.4.10
 // Project: http://log4javascript.org/
 // Definitions by: Markus Wagner <https://github.com/Ritzlgrmft/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module log4javascript {
 

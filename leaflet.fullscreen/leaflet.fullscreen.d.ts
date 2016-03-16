@@ -1,7 +1,7 @@
 // Type definitions for Leaflet.fullscreen v1.3.0
 // Project: https://github.com/brunob/leaflet.fullscreen
 // Definitions by: William Comartin <https://github.com/wcomartin>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../leaflet/leaflet.d.ts" />
 

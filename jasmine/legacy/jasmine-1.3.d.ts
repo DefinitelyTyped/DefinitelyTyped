@@ -1,7 +1,7 @@
 // Type definitions for Jasmine 1.3
 // Project: http://pivotal.github.com/jasmine/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 declare function describe(description: string, specDefinitions: () => void): void;

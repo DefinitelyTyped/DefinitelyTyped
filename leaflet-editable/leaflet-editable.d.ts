@@ -1,7 +1,7 @@
 // Type definitions for Leaflet.Editable 0.7
 // Project: https://github.com/yohanboniface/Leaflet.Editable
 // Definitions by: Dominic Alie <https://github.com/dalie>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../leaflet/leaflet.d.ts" />
 

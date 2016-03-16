@@ -1,7 +1,7 @@
 // Type definitions for Handlebars v3.0.3
 // Project: http://handlebarsjs.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 declare module Handlebars {

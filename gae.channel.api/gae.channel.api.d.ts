@@ -1,7 +1,7 @@
 // Type definitions for GoogleAppEngine's Channel API
 // Project: https://developers.google.com/appengine/docs/java/channel/javascript
 // Definitions by: vvakame <https://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module goog.appengine {
 	export class Channel {

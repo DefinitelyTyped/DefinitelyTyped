@@ -1,7 +1,7 @@
 // Type definitions for gl-matrix 2.2.2
 // Project: https://github.com/toji/gl-matrix
 // Definitions by: Tat <https://github.com/tatchx>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module GLM {
     interface IArray

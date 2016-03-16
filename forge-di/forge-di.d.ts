@@ -1,7 +1,7 @@
 // Type definitions for forge-di v0.9.5
 // Project: https://github.com/nkohari/forge
 // Definitions by: Adam Carr <https://github.com/adamcarr/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "forge-di" {
 	/**

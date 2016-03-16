@@ -1,7 +1,7 @@
 ﻿// Type definitions for Flux
 // Project: http://facebook.github.io/flux/
 // Definitions by: Steve Baker <https://github.com/stkb/>, Giedrius Grabauskas <https://github.com/QuatroDevOfficial/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts" />
 

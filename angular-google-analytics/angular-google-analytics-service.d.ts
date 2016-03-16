@@ -1,7 +1,7 @@
 // Type definitions for angular-google-analytics v1.1.0
 // Project: https://github.com/revolunet/angular-google-analytics
 // Definitions by: Matt Wheatley <https://github.com/terrawheat>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module angular.google.analytics {
   interface AnalyticsService {

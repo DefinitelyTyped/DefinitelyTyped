@@ -1,7 +1,7 @@
 // Type definitions for C3js
 // Project: http://c3js.org/
 // Definitions by: Marc Climent <https://github.com/mcliment>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../d3/d3.d.ts"/>
 

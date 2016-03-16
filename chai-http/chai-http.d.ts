@@ -1,7 +1,7 @@
 // Type definitions for chai-http
 // Project: https://github.com/chaijs/chai-http
 // Definitions by: Wim Looman <https://github.com/Nemo157>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../chai/chai.d.ts" />

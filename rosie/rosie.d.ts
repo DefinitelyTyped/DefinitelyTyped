@@ -1,7 +1,7 @@
 // Type definitions for rosie
 // Project: https://github.com/rosiejs/rosie
 // Definitions by: Abner Oliveira <https://github.com/abner/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module rosie {
   interface IFactoryStatic {
 

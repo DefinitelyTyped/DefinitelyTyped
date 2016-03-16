@@ -1,7 +1,7 @@
 ﻿// Type definitions for LaterJS
 // Project: http://bunkat.github.io/later/
 // Definitions by: Jason D Dryhurst-Smith <http://jasonds.co.uk/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module Later {
 

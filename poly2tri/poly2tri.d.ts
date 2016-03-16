@@ -1,7 +1,7 @@
 ﻿// Type definitions for poly2tri v0.9.10
 // Project: http://github.com/r3mi/poly2tri.js/
 // Definitions by: Elemar Junior <https://github.com/elemarjr/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module poly2tri {
 

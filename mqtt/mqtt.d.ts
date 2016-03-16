@@ -1,7 +1,7 @@
 // Type definitions for MQTT
 // Project: https://github.com/mqttjs/MQTT.js
 // Definitions by: Pekka Leppänen <https://github.com/PekkaPLeppanen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

@@ -1,7 +1,7 @@
 // Type definitions for SuperTest v1.1.0
 // Project: https://github.com/visionmedia/supertest
 // Definitions by: Alex Varju <https://github.com/varju/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path='../superagent/superagent.d.ts' />
 

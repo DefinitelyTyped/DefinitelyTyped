@@ -1,7 +1,7 @@
 // Type definitions for noble
 // Project: https://github.com/sandeepmistry/noble
 // Definitions by: Seon-Wook Park <https://github.com/swook>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

@@ -1,7 +1,7 @@
 // Type definitions for camljs
 // Project: http://camljs.codeplex.com
 // Definitions by: Andrey Markeev <http://markeev.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 declare class CamlBuilder {

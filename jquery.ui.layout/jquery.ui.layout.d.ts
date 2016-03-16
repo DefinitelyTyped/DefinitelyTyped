@@ -1,7 +1,7 @@
 // Type definitions for jQuery UI Layout Plug-in
 // Project: http://layout.jquery-dev.net/
 // Definitions by: Steve Fenton <https://github.com/Steve-Fenton>, Douglas Armstrong <https://github.com/drarmstr>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 /// <reference path="../jqueryui/jqueryui.d.ts"/>

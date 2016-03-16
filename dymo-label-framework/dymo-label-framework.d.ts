@@ -1,7 +1,7 @@
 // Type definitions for DYMO Label Framework v1.2.6
 // Project: http://www.labelwriter.com/software/dls/sdk/docs/DYMOLabelFrameworkJavaScriptHelp/index.html
 // Definitions by: Thijs Kuipers <https://github.com/thijskuipers>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * Top namespace for DYMO Label Framework JavaScript library.

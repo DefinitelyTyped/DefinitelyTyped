@@ -1,7 +1,7 @@
 ﻿// Type definitions for raygun4js 1.18.3
 // Project: https://github.com/MindscapeHQ/raygun4js
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module raygun {
 

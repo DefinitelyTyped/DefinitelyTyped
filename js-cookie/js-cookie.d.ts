@@ -1,7 +1,7 @@
 // Type definitions for js-cookie v2.0
 // Project: https://github.com/js-cookie/js-cookie
 // Definitions by: Theodore Brown <https://github.com/theodorejb>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module Cookies {
     interface CookieAttributes {

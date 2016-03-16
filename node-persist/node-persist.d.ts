@@ -1,7 +1,7 @@
 // Type definitions for node-persist
 // Project: https://github.com/simonlast/node-persist
 // Definitions by: Spencer Williams <http://spencerwi.com/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../q/Q.d.ts" />

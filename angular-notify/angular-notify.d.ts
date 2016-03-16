@@ -1,7 +1,7 @@
 // Type definitions for angular-notify 2.5.0
 // Project: https://github.com/cgross/angular-notify
 // Definitions by: Suwato <https://github.com/Suwato/DefinitelyTyped>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../angularjs/angular.d.ts" />
 

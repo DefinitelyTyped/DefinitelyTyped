@@ -1,7 +1,7 @@
 // Type definitions for Mapbox 1.6.3
 // Project: https://www.mapbox.com/mapbox.js/
 // Definitions by: Maxime Fabre <https://github.com/anahkiasen/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../leaflet/leaflet.d.ts"/>
 

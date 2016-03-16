@@ -1,7 +1,7 @@
 // Type definitions for react-intl 2.0.0-beta1
 // Project: http://formatjs.io/react/
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>, Christian Droulers <https://github.com/cdroulers>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path='../react/react.d.ts' />
 

@@ -1,7 +1,7 @@
 // Type definitions for universal-analytics v0.3.2
 // Project: https://github.com/peaksandpies/universal-analytics
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface UniversalAnalytics {
     (accountID:string, uuid?:string, opts?:Object):UniversalAnalytics.Client;

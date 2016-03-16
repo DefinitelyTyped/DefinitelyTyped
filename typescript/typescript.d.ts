@@ -1,7 +1,7 @@
 // Type definitions for TypeScript API v0.4.0
 // Project: http://www.typescriptlang.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved. 

@@ -1,7 +1,7 @@
 // Type definitions for xmldom 0.1.16
 // Project: https://github.com/jindw/xmldom.git
 // Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "xmldom" {
   namespace xmldom {

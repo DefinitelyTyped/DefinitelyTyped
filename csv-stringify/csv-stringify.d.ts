@@ -1,7 +1,7 @@
 ﻿// Type definitions for csv-stringify 0.0.6
 // Project: https://github.com/wdavidw/node-csv-stringify
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

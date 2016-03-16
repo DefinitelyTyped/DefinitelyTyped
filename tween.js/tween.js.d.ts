@@ -1,7 +1,7 @@
 // Type definitions for tween.js r12
 // Project: https://github.com/sole/tween.js/
 // Definitions by: sunetos <https://github.com/sunetos>, jzarnikov <https://github.com/jzarnikov>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module TWEEN {
   export var REVISION: string;

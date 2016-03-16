@@ -1,7 +1,7 @@
 // Type definitions for qtip2 v2.2.1
 // Project: http://qtip2.com/
 // Definitions by: Nathan Pitman <https://github.com/Seltzer>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Notes:
 //   - Type bindings for the QTip2 API and options are included. Bindings for global settings aren't required.
 //   - Deprecated functionality is not supported.

@@ -1,7 +1,7 @@
 // Type definitions for mathjs
 // Project: http://mathjs.org/
 // Definitions by: Ilya Shestakov <https://github.com/siavol/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var math: mathjs.IMathJsStatic;
 

@@ -1,7 +1,7 @@
 ﻿// Type definitions for i18n-node 0.5.0
 // Project: https://github.com/mashpie/i18n-node
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 declare module i18n {

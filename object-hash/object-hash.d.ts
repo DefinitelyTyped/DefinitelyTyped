@@ -1,7 +1,7 @@
 // Type definitions for object-hash v0.5.0
 // Project: https://github.com/puleos/object-hash
 // Definitions by: Michael Zabka <https://github.com/misak113/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module ObjectHash {
 	export interface IOptions {

@@ -1,7 +1,7 @@
 // Type definitions for materialize-css v0.97.5
 // Project: http://materializecss.com/
 // Definitions by: Erik Lieben <https://github.com/eriklieben>, Leon Yu <https://github.com/leonyu>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../pickadate/pickadate.d.ts" />
