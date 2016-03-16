@@ -1,6 +1,6 @@
 /// <reference path="react-global.d.ts" />
 
-interface Props extends React.Props<MyComponent> {
+interface Props {
     hello: string;
     world?: string;
     foo: number;
@@ -24,7 +24,7 @@ interface MyComponent extends React.Component<Props, State> {
     reset(): void;
 }
 
-var props: Props = {
+var props: Props & React.ClassAttributes<{}> = {
     key: 42,
     ref: "myComponent42",
     hello: "world",
@@ -115,9 +115,9 @@ class ModernComponent extends React.Component<Props, State>
 }
 
 // React.createFactory
-var factory: React.Factory<Props> =
+var factory: React.CFactory<Props, ModernComponent> =
     React.createFactory(ModernComponent);
-var factoryElement: React.ReactElement<Props> =
+var factoryElement: React.CElement<Props, ModernComponent> =
     factory(props);
 
 var classicFactory: React.ClassicFactory<Props> =
@@ -125,25 +125,25 @@ var classicFactory: React.ClassicFactory<Props> =
 var classicFactoryElement: React.ClassicElement<Props> =
     classicFactory(props);
 
-var domFactory: React.DOMFactory<any> =
+var domFactory: React.DOMFactory<React.DOMAttributes, Element> =
     React.createFactory("foo");
-var domFactoryElement: React.DOMElement<any> =
+var domFactoryElement: React.DOMElement<React.DOMAttributes, Element> =
     domFactory();
 
 // React.createElement
-var element: React.ReactElement<Props> =
+var element: React.CElement<Props, ModernComponent> =
     React.createElement(ModernComponent, props);
 var classicElement: React.ClassicElement<Props> =
     React.createElement(ClassicComponent, props);
-var domElement: React.ReactHTMLElement =
+var domElement: React.ReactHTMLElement<HTMLDivElement> =
     React.createElement("div");
 
 // React.cloneElement
-var clonedElement: React.ReactElement<Props> =
+var clonedElement: React.CElement<Props, ModernComponent> =
     React.cloneElement(element, props);
 var clonedClassicElement: React.ClassicElement<Props> =
     React.cloneElement(classicElement, props);
-var clonedDOMElement: React.ReactHTMLElement =
+var clonedDOMElement: React.ReactHTMLElement<HTMLDivElement> =
     React.cloneElement(domElement);
 
 // React.render

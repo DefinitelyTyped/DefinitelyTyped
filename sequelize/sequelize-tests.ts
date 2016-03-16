@@ -1157,6 +1157,7 @@ new Sequelize( 'sequelize', null, null, {
 } );
 
 s.model( 'Project' );
+s.models['Project'];
 s.define( 'Project', {
     name : Sequelize.STRING
 } );

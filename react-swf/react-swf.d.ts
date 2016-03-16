@@ -113,7 +113,6 @@ declare module rswf {
         flashvars?: Object | string
     }
     export class ReactSWF extends __React.Component<Props, State>{
-        render(): __React.DOMElement<any>
         /**
         * Returns the Flash Player object DOM node.
         * Should be prefered over `React.findDOMNode`.

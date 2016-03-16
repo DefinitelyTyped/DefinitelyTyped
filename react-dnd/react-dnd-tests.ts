@@ -262,7 +262,7 @@ module Board {
         };
 
         render() {
-            var squares: React.DOMElement<React.HTMLAttributes>[] = [];
+            var squares: React.ReactHTMLElement<HTMLDivElement>[] = [];
             for (let i = 0; i < 64; i++) {
                 squares.push(this._renderSquare(i));
             }

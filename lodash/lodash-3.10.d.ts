@@ -10240,7 +10240,7 @@ declare module _ {
          */
         clone(
             isDeep?: boolean
-        ): T;
+        ): T[];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -10519,7 +10519,7 @@ declare module _ {
         /**
          * @see _.cloneDeep
          */
-        cloneDeep(): T;
+        cloneDeep(): T[];
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -10565,9 +10565,7 @@ declare module _ {
         /**
          * @see _.cloneDeep
          */
-        cloneDeep(
-            isDeep?: boolean
-        ): LoDashExplicitWrapper<T>;
+        cloneDeep(): LoDashExplicitWrapper<T>;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
@@ -10598,9 +10596,7 @@ declare module _ {
         /**
          * @see _.cloneDeep
          */
-        cloneDeep(
-            isDeep?: boolean
-        ): LoDashExplicitArrayWrapper<T>;
+        cloneDeep(): LoDashExplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
@@ -10631,9 +10627,7 @@ declare module _ {
         /**
          * @see _.cloneDeep
          */
-        cloneDeep(
-            isDeep?: boolean
-        ): LoDashExplicitObjectWrapper<T>;
+        cloneDeep(): LoDashExplicitObjectWrapper<T>;
     }
 
     //_.eq

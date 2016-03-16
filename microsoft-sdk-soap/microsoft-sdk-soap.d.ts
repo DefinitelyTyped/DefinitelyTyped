@@ -2657,22 +2657,22 @@ declare module Sdk.Mdq
 
     export interface IEntityMetadata
     {
-        ActivityTypeMask: any;
+        ActivityTypeMask: number;
         Attributes: IAttributeMetadata[];
         AutoCreateAccessTeams: any;
         AutoRouteToOwnerQueue: boolean;
-        CanBeInManyToMany: boolean;
-        CanBePrimaryEntityInRelationship: boolean;
-        CanBeRelatedEntityInRelationship: boolean;
-        CanCreateAttributes: boolean;
-        CanCreateCharts: boolean;
-        CanCreateForms: boolean;
-        CanCreateViews: boolean;
-        CanModifyAdditionalSettings: boolean;
+        CanBeInManyToMany: ManagedProperty<boolean>;
+        CanBePrimaryEntityInRelationship: ManagedProperty<boolean>;
+        CanBeRelatedEntityInRelationship: ManagedProperty<boolean>;
+        CanCreateAttributes: ManagedProperty<boolean>;
+        CanCreateCharts: ManagedProperty<boolean>;
+        CanCreateForms: ManagedProperty<boolean>;
+        CanCreateViews: ManagedProperty<boolean>;
+        CanModifyAdditionalSettings: ManagedProperty<boolean>;
         CanTriggerWorkflow: boolean;
-        Description: string;
-        DisplayCollectionName: string;
-        DisplayName: string;
+        Description: Label;
+        DisplayCollectionName: Label;
+        DisplayName: Label;
         IconLargeName: string;
         IconMediumName: string;
         IconSmallName: string;
@@ -2680,60 +2680,145 @@ declare module Sdk.Mdq
         IsActivity: boolean;
         IsActivityParty: boolean;
         IsAIRUpdated: boolean;
-        IsAuditEnabled: boolean;
+        IsAuditEnabled: ManagedProperty<boolean>;
         IsAvailableOffline: boolean;
         IsBusinessProcessEnabled: boolean;
         IsChildEntity: boolean;
-        IsConnectionsEnabled: boolean;
+        IsConnectionsEnabled: ManagedProperty<boolean>;
         IsCustomEntity: boolean;
-        IsCustomizable: boolean;
+        IsCustomizable: ManagedProperty<boolean>;
         IsDocumentManagementEnabled: boolean;
-        IsDuplicateDetectionEnabled: boolean;
+        IsDuplicateDetectionEnabled: ManagedProperty<boolean>;
         IsEnabledForCharts: boolean;
         IsImportable: boolean;
         IsIntersect: boolean;
-        IsMailMergeEnabled: boolean;
+        IsMailMergeEnabled: ManagedProperty<boolean>;
         IsManaged: boolean;
-        IsMappable: boolean;
+        IsMappable: ManagedProperty<boolean>;
         IsQuickCreateEnabled: boolean;
         IsReadingPaneEnabled: boolean;
         IsRenameable: boolean;
         IsValidForAdvancedFind: boolean;
-        IsValidForQueue: boolean;
-        IsVisibleInMobile: boolean;
+        IsValidForQueue: ManagedProperty<boolean>;
+        IsVisibleInMobile: ManagedProperty<boolean>;
         IsVisibleInMobileClient: boolean;
         LogicalName: string;
-        ManyToManyRelationships: any;
-        ManyToOneRelationships: any;
+        ManyToManyRelationships: ManyToManyRelationshipMetadata;
+        ManyToOneRelationships: OneToManyRelationshipMetadata;
         MetadataId: string;
         ObjectTypeCode: number;
-        OneToManyRelationships: any;
-        OwnershipType: string;
+        OneToManyRelationships: OneToManyRelationshipMetadata;
+        OwnershipType: "BusinessOwned" | "BusinessParented" | "None	OrganizationOwned" | "TeamOwned	UserOwned";
         PrimaryIdAttribute: string;
         PrimaryImageAttribute: string;
         PrimaryNameAttribute: string;
-        Privileges: any;
+        Privileges: SecurityPrivilegeMetadata[];
         RecurrenceBaseEntityLogicalName: string;
         ReportViewName: string;
         SchemaName: string;
     }
 
+    export interface SecurityPrivilegeMetadata
+    {
+        CanBeBasic: boolean;
+        CanBeDeep: boolean;
+        CanBeEntityReference: boolean;
+        CanBeGlobal: boolean;
+        CanBeLocal: boolean;
+        CanBeParentEntityReference: boolean;
+        ExtensionData: boolean;
+        Name: string;
+        PrivilegeId: string;
+        PrivilegeType: "Append" | "AppendTo" | "Assign" | "Create" | "Delete" | "None" | "Read" | "Share" | "Write";
+    }
+
+    export interface OneToManyRelationshipMetadata
+    {
+        AssociatedMenuConfiguration: AssociatedMenuConfiguration;
+        CascadeConfiguration: CascadeConfiguration;
+        HasChanged: any;
+        IntroducedVersion: any;
+        IsCustomizable: ManagedProperty<boolean>;
+        IsCustomRelationship: boolean;
+        IsHierarchical: any;
+        IsManaged: boolean;
+        IsValidForAdvancedFind: boolean;
+        MetadataId: string;
+        ReferencedAttribute: string;
+        ReferencedEntity: string;
+        ReferencingAttribute: string;
+        ReferencingEntity: string;
+        RelationshipType: string;
+        SchemaName: string;
+        SecurityTypes: any;
+    }
+
+    export interface CascadeConfiguration
+    {
+        Assign: CascadeType;
+        Delete: CascadeType;
+        ExtensionData: CascadeType;
+        Merge: CascadeType;
+        Reparent: CascadeType;
+        Share: CascadeType;
+        Unshare: CascadeType;
+    }
+
+    export type CascadeType = "Active" | "Cascade" | "NoCascade" | "UserOwned";
+
+    export interface ManyToManyRelationshipMetadata
+    {
+        Entity1AssociatedMenuConfiguration: AssociatedMenuConfiguration;
+        Entity1IntersectAttribute: string;
+        Entity1LogicalName: string;
+        Entity2AssociatedMenuConfiguration: AssociatedMenuConfiguration;
+        Entity2IntersectAttribute: string;
+        Entity2LogicalName: string;
+        HasChanged: boolean;
+        IntersectEntityName: string;
+        IntroducedVersion: any;
+        IsCustomizable: ManagedProperty<boolean>;
+        IsCustomRelationship: boolean;
+        IsManaged: boolean;
+        IsValidForAdvancedFind: boolean;
+        MetadataId: string;
+        RelationshipType: RelationshipType;
+        SchemaName: string;
+        SecurityTypes: SecurityType;
+    }
+
+    export interface AssociatedMenuConfiguration
+    {
+        Behavior: AssociatedMenuBehavior;
+        Group: AssociatedMenuGroup;
+        Label: Label;
+        Order: number;
+    }
+
+    export type AssociatedMenuBehavior = "DoNotDisplay" | "UseCollectionName" | "UseLabel";
+
+    export type AssociatedMenuGroup = "Details" | "Marketing" | "Sales" | "Service";
+
+    export type RelationshipType = "Default" | "ManyToManyRelationship" | "OneToManyRelationship";
+
+    export type SecurityType = "Append" | "Inheritance" | "None" | "ParentChild" | "Pointer";
+
     export interface IAttributeMetadata
     {
-        AttributeOf: any;
-        AttributeType: any;
-        AttributeTypeName: string;
+        AttributeOf: string;
+        AttributeType: "Customer" | "DateTime" | "Decimal" | "Double" | "EntityName" | "Integer" | "Lookup" | "ManagedProperty" | "Memo" | "Money" | "Owner" | "PartyList" | "Picklist" | "State" | "Status" | "Uniqueidentifier" | "Virtual"
+        AttributeTypeName: "BigIntType" | "BooleanType" | "CalendarRulesType" | "CustomerType" | "DateTimeType" | "DecimalType" | "DoubleType" | "EntityNameType" | "ImageType" | "IntegerType" | "LookupType" | "ManagedPropertyType" | "MemoType" | "MoneyType" | "OwnerType" | "PartyListType" | "PicklistType" | "StateType	StatusType" | "StringType" | "UniqueidentifierType" | "VirtualType";
         CalculationOf: any;
         CanBeSecuredForCreate: boolean;
         CanBeSecuredForRead: boolean;
         CanBeSecuredForUpdate: boolean;
-        CanModifyAdditionalSettings: boolean;
+        CanModifyAdditionalSettings: ManagedProperty<boolean>;
         ColumnNumber: number;
         DefaultFormValue: any;
         DefaultValue: any;
         DeprecatedVersion: any;
-        Description: string;
-        DisplayName: string;
+        Description: Label;
+        DisplayName: Label;
         EntityLogicalName: string;
         Format: any;
         FormatName: string;
@@ -2741,13 +2826,13 @@ declare module Sdk.Mdq
         IntroducedVersion: any;
         IsAuditEnabled: boolean;
         IsCustomAttribute: boolean;
-        IsCustomizable: boolean;
+        IsCustomizable: ManagedProperty<boolean>;
         IsManaged: boolean;
         IsPrimaryId: boolean;
         IsPrimaryName: boolean;
-        IsRenameable: boolean;
+        IsRenameable: ManagedProperty<boolean>;
         IsSecured: boolean;
-        IsValidForAdvancedFind: boolean;
+        IsValidForAdvancedFind: ManagedProperty<boolean>;
         IsValidForCreate: boolean;
         IsValidForRead: boolean;
         IsValidForUpdate: boolean;
@@ -2760,10 +2845,32 @@ declare module Sdk.Mdq
         OptionSet: any;
         Precision: any;
         PrecisionSource: any;
-        RequiredLevel: any;
+        RequiredLevel: ManagedProperty<string>;
         SchemaName: string;
         Targets: string[];
         YomiOf: any;
+    }
+
+    export interface ManagedProperty<T>
+    {
+        CanBeChanged: boolean;
+        ManagedPropertyLogicalName: string;
+        Value: T;
+    }
+
+    export interface Label
+    {
+        LocalizedLabels: LocalizedLabel[];
+        UserLocalizedLabel: LocalizedLabel;
+    }
+
+    export interface LocalizedLabel
+    {
+        Label: string;
+        LangaugeCode: number;
+        MetadataId: string;
+        HasChanged: boolean;
+        IsManaged: boolean;
     }
 
     module ValueEnums

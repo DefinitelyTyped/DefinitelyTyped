@@ -20,6 +20,7 @@ interface MockJaxSettings {
     statusText?: string;
     responseTime?: number;
     isTimeout?: boolean;
+    dataType?: string;
     contentType?: string;
     response?: (settings: any) => void;
     responseText?: string | Object;

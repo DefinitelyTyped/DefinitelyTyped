@@ -444,6 +444,12 @@ declare module google {
             row?: number;
         }
 
+        export interface Candlestick {
+            hollowIsRising?: boolean;
+            fallingColor?: ChartStroke;
+            risingColor?: ChartStroke;
+        }
+
         class ChartBase {
             constructor(element: Element);
             getSelection(): VisualizationSelectionArray[];
@@ -1024,11 +1030,7 @@ declare module google {
             axisTitlesPosition?: string;
             backgroundColor?: any;
             bar?: GroupWidth;
-            candlestick?: {
-                hollowIsRising?: boolean;
-                fallingColor?: ChartStroke;
-                risingColor?: ChartStroke;
-            }
+            candlestick?: Candlestick;
             chartArea?: ChartArea;
             colors?: string[];
             enableInteractivity?: boolean;
@@ -1042,6 +1044,60 @@ declare module google {
             reverseCategories?: boolean;
             selectionMode?: string // single / multiple
             series?: any;
+            theme?: string;
+            title?: string;
+            titlePosition?: string;
+            titleTextStyle?: ChartTextStyle;
+            tooltip?: ChartTooltip;
+            vAxes?: any;
+            vAxis?: ChartAxis;
+            width?: number;
+        }
+
+        //#endregion
+        //#region ComboChart
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/combochart
+        export class ComboChart extends CoreChartBase {
+            draw(data: DataTable, options: ComboChartOptions): void;
+            draw(data: DataView, options: ComboChartOptions): void;
+        }
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/combochart#configuration-options
+        export interface ComboChartOptions {
+            aggregationTarget?: string;
+            animation?: TransitionAnimation;
+            annotations?: ChartAnnotations;
+            areaOpacity?: number;
+            axisTitlesPosition?: string; // in, out, none
+            backgroundColor?: any;
+            bar?: GroupWidth;
+            candlestick?: Candlestick;
+            chartArea?: ChartArea;
+            colors?: string[];
+            crosshair?: ChartCrosshair;
+            curveType?: string;
+            dataOpacity?: number;
+            enableInteractivity?: boolean;
+            focusTarget?: string;
+            fontSize?: number;
+            fontName?: string;
+            forceIFrame?: boolean;
+            hAxis?: ChartAxis;
+            height?: number;
+            interpolateNulls?: boolean;
+            isStacked?: boolean;
+            legend?: ChartLegend;
+            lineDashStyle?: number[];
+            lineWidth?: number;
+            orientation?: string;
+            pointShape?: string;
+            pointSize?: number;
+            pointsVisible?: boolean;
+            reverseCategories?: boolean;
+            selectionMode?: string;// single / multiple
+            series?: any;
+            seriesType?: string;
             theme?: string;
             title?: string;
             titlePosition?: string;
