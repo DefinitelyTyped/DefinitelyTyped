@@ -1539,8 +1539,6 @@ interface LokiJquerySyncAdapterError extends Error {
 /* ======== END jquery-sync-adapter.js ======== */
 
 
-
-
 declare var LokiCryptedFileAdapterConstructor: {
     new (): LokiCryptedFileAdapter;
 }
@@ -1568,14 +1566,4 @@ declare var LokiConstructor: {
 
 declare module "lokijs" {
     export = LokiConstructor;
-}
-
-
-declare var LokiIndexedAdapterConstructor: {
-    new (filename: string): LokiIndexedAdapter;
-};
-
-
-declare module "loki-indexed-adapter" {
-    export = LokiIndexedAdapterConstructor;
 }
