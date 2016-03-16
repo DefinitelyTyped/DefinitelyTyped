@@ -20,7 +20,7 @@ declare module "express-jwt" {
 
     module jwt {
         export interface Options {
-            secret: string|ICallback;
+            secret: string|Buffer|ICallback;
             userProperty?: string;
             skip?: string[];
             credentialsRequired?: boolean;
