@@ -11,7 +11,7 @@ declare module L {
 
         function icon(options: AwesomeMarkers.IconOptions): AwesomeMarkers.Icon;
 
-        export interface IconStatic extends L.IconStatic {
+        interface IconStatic extends L.IconStatic {
             /**
               * Creates an icon instance with the given options.
               */
