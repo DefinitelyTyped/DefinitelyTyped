@@ -114,7 +114,7 @@ declare module 'redux-saga/lib/runSaga' {
     subscribe: (cb: Function) => Function;
   }
 
-  export function storeIO(store: Store): IO;
+  export function storeIO(store: Store<any>): IO;
 
   export function runSaga(iterator: Iterable<any>,
                           io: IO,

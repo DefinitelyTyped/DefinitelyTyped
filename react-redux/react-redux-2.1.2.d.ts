@@ -36,7 +36,7 @@ declare module "react-redux" {
   }
 
   interface MapDispatchToPropsObject {
-    [name: string]: ActionCreator;
+    [name: string]: ActionCreator<any>;
   }
 
   interface MergeProps {
@@ -58,7 +58,7 @@ declare module "react-redux" {
     /**
      * The single Redux store in your application.
      */
-    store?: Store;
+    store?: Store<any>;
     children?: Function;
   }
 

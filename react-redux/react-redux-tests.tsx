@@ -77,7 +77,7 @@ ReactDOM.render((
 // API
 // https://github.com/rackt/react-redux/blob/master/docs/api.md
 //
-declare var store: Store;
+declare var store: Store<any>;
 declare var routerState: RouterState;
 declare var history: HistoryModule.History;
 class MyRootComponent extends Component<any, any> {

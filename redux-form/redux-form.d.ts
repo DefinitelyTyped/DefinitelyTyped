@@ -289,7 +289,7 @@ declare module 'redux-form' {
   }
 
   interface MapDispatchToPropsObject {
-    [name: string]: ActionCreator;
+    [name: string]: ActionCreator<any>;
   }
 
   export function reduxForm(config:ReduxFormConfig,
@@ -447,7 +447,7 @@ declare module 'redux-form' {
       [formName:string]: {
         [fieldName:string]: Normalizer
       }
-    }):Reducer;
+    }):Reducer<any>;
 
     /**
      * Returns a form reducer that will also pass each action through
@@ -456,6 +456,6 @@ declare module 'redux-form' {
      * passed to each reducer will only be the slice that pertains to that
      * form.
      */
-    plugin(reducers:{[formName:string]: Reducer}):Reducer;
+    plugin(reducers:{[formName:string]: Reducer<any>}):Reducer<any>;
   }
 }

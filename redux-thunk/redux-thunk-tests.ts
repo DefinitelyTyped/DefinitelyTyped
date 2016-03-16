@@ -2,11 +2,11 @@
 /// <reference path="../redux/redux.d.ts" />
 /// <reference path="../express/express.d.ts" />
 
-import { createStore, applyMiddleware, Store, Dispatch } from 'redux';
+import { createStore, applyMiddleware, Store, Dispatch, Reducer } from 'redux';
 import thunk from 'redux-thunk';
 import ThunkInterface = ReduxThunk.ThunkInterface;
 
-declare var rootReducer: Function;
+declare var rootReducer: Reducer<{}>;
 declare var fetch: any;
 
 // create a store that has redux-thunk middleware enabled
@@ -14,7 +14,7 @@ const createStoreWithMiddleware = applyMiddleware(
     thunk
 )(createStore);
 
-const store: Store = createStoreWithMiddleware(rootReducer);
+const store: Store<{}> = createStoreWithMiddleware(rootReducer);
 
 function fetchSecretSauce() {
     return fetch('https://www.google.com/search?q=secret+sauce');
@@ -82,7 +82,7 @@ store.dispatch(
 // It even takes care to return the thunk’s return value
 // from the dispatch, so I can chain Promises as long as I return them.
 
-store.dispatch(
+store.dispatch<ThunkInterface, Promise<void>>(
     makeASandwichWithSecretSauce('My wife')
 ).then(() => {
     console.log('Done!');
@@ -105,7 +105,7 @@ function makeSandwichesForEverybody(): ThunkInterface {
         // We can dispatch both plain object actions and other thunks,
         // which lets us compose the asynchronous actions in a single flow.
 
-        return dispatch(
+        return dispatch<ThunkInterface, Promise<void>>(
             makeASandwichWithSecretSauce('My Grandma')
         ).then(() =>
                 Promise.all([
