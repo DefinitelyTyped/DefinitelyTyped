@@ -442,18 +442,19 @@ declare module PhoneGapNfc {
     }
 }
 
+declare var nfc:PhoneGapNfc.Nfc;
+declare var ndef:PhoneGapNfc.Ndef;
+declare var util:PhoneGapNfc.Util;
+
 declare module 'nfc' {
-    var nfc:PhoneGapNfc.Nfc;
     export = nfc;
 }
 
 declare module 'ndef' {
-    var ndef:PhoneGapNfc.Ndef;
     export = ndef;
 }
 
 declare module 'util' {
-    var util:PhoneGapNfc.Util;
     export = util;
 }
 
