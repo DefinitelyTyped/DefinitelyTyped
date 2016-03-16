@@ -227,8 +227,8 @@ declare module NodeJS {
         removeListener(event: string, listener: Function): this;
         removeAllListeners(event?: string): this;
     }
-    
-    export interface MemoryUsage { 
+
+    export interface MemoryUsage {
         rss: number;
         heapTotal: number;
         heapUsed: number;
@@ -945,7 +945,7 @@ declare module "child_process" {
         stdin:  stream.Writable;
         stdout: stream.Readable;
         stderr: stream.Readable;
-        stdio: (stream.Readable|stream.Writable)[];
+        stdio: [stream.Writable, stream.Readable, stream.Readable];
         pid: number;
         kill(signal?: string): void;
         send(message: any, sendHandle?: any): void;
@@ -953,39 +953,46 @@ declare module "child_process" {
         unref(): void;
     }
 
-    export function spawn(command: string, args?: string[], options?: {
+    export interface SpawnOptions {
         cwd?: string;
-        stdio?: any;
-        custom?: any;
         env?: any;
+        stdio?: any;
         detached?: boolean;
-    }): ChildProcess;
-    export function exec(command: string, options: {
+        uid?: number;
+        gid?: number;
+        shell?: boolean | string;
+    }
+    export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
+
+    export interface ExecOptions {
         cwd?: string;
-        stdio?: any;
-        customFds?: any;
         env?: any;
         encoding?: string;
+        shell?: string;
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
-    }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+        uid?: number;
+        gid?: number;
+    }
+    export function exec(command: string, options: ExecOptions, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
     export function exec(command: string, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function execFile(file: string,
-        callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function execFile(file: string, args?: string[],
-        callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function execFile(file: string, args?: string[], options?: {
+
+    export interface ExecFileOptions {
         cwd?: string;
-        stdio?: any;
-        customFds?: any;
         env?: any;
         encoding?: string;
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
-    }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function fork(modulePath: string, args?: string[], options?: {
+        uid?: number;
+        gid?: number;
+    }
+    export function execFile(file: string, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    export function execFile(file: string, args?: string[], callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    export function execFile(file: string, args?: string[], options?: ExecFileOptions, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+
+    export interface ForkOptions {
         cwd?: string;
         env?: any;
         execPath?: string;
@@ -993,8 +1000,10 @@ declare module "child_process" {
         silent?: boolean;
         uid?: number;
         gid?: number;
-    }): ChildProcess;
-    export function spawnSync(command: string, args?: string[], options?: {
+    }
+    export function fork(modulePath: string, args?: string[], options?: ForkOptions): ChildProcess;
+
+    export interface SpawnSyncOptions {
         cwd?: string;
         input?: string | Buffer;
         stdio?: any;
@@ -1002,10 +1011,12 @@ declare module "child_process" {
         uid?: number;
         gid?: number;
         timeout?: number;
-        maxBuffer?: number;
         killSignal?: string;
+        maxBuffer?: number;
         encoding?: string;
-    }): {
+        shell?: boolean | string;
+    }
+    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptions): {
         pid: number;
         output: string[];
         stdout: string | Buffer;
@@ -1014,30 +1025,35 @@ declare module "child_process" {
         signal: string;
         error: Error;
     };
-    export function execSync(command: string, options?: {
+
+    export interface ExecSyncOptions {
         cwd?: string;
-        input?: string|Buffer;
+        input?: string | Buffer;
+        stdio?: any;
+        env?: any;
+        shell?: string;
+        uid?: number;
+        gid?: number;
+        timeout?: number;
+        killSignal?: string;
+        maxBuffer?: number;
+        encoding?: string;
+    }
+    export function execSync(command: string, options?: ExecSyncOptions): string | Buffer;
+
+    export interface ExecFileSyncOptions {
+        cwd?: string;
+        input?: string | Buffer;
         stdio?: any;
         env?: any;
         uid?: number;
         gid?: number;
         timeout?: number;
-        maxBuffer?: number;
         killSignal?: string;
-        encoding?: string;
-    }): string | Buffer;
-    export function execFileSync(command: string, args?: string[], options?: {
-        cwd?: string;
-        input?: string|Buffer;
-        stdio?: any;
-        env?: any;
-        uid?: number;
-        gid?: number;
-        timeout?: number;
         maxBuffer?: number;
-        killSignal?: string;
         encoding?: string;
-    }): string | Buffer;
+    }
+    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptions): string | Buffer;
 }
 
 declare module "url" {
