@@ -1635,6 +1635,7 @@ declare module THREE {
         point: Vector3;
         index: number;
         face: Face3;
+        faceIndex: number;
         object: Object3D;
     }
 
