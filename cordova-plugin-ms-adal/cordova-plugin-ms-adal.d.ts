@@ -92,7 +92,7 @@ declare namespace Microsoft {
             then(doneCallBack: (context: AuthenticationContext) => any, failCallBack?: (message: string) => any):any;
         }
 
-        class AuthenticationContext implements AuthenticationContext {
+        class AuthenticationContext {
             authority: string;
             validateAuthority: boolean;
             tokenCache: TokenCache;
