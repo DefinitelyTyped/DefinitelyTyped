@@ -415,6 +415,7 @@ declare namespace Electron {
 		loadURL(url: string, options?: {
 			httpReferrer?: string;
 			userAgent?: string;
+			extraHeaders?: string;
 		}): void;
 		/**
 		 * Same with webContents.reload.
@@ -558,6 +559,7 @@ declare namespace Electron {
 		loadURL(url: string, options?: {
 			httpReferrer?: string;
 			userAgent?: string;
+			extraHeaders?: string;
 		}): void;
 		/**
 		 * @returns The URL of current web page.
