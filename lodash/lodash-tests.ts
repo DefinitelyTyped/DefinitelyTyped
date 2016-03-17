@@ -7201,6 +7201,37 @@ module TestIsWeakMap {
     }
 }
 
+// _.isWeakSet
+module TestIsWeakSet {
+    {
+        let value: number|WeakSet<string>;
+
+        if (_.isWeakSet<string>(value)) {
+            let result: WeakSet<string> = value;
+        }
+        else {
+            let result: number = value;
+        }
+    }
+
+    {
+        let result: boolean;
+
+        result = _.isWeakSet(any);
+        result = _(1).isWeakSet();
+        result = _<any>([]).isWeakSet();
+        result = _({}).isWeakSet();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _(1).chain().isWeakSet();
+        result = _<any>([]).chain().isWeakSet();
+        result = _({}).chain().isWeakSet();
+    }
+}
+
 // _.lt
 module TestLt {
     {
