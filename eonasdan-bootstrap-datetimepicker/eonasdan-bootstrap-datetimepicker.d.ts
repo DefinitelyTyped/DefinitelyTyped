@@ -6,7 +6,7 @@
 /// <reference path="../jquery/jquery.d.ts"/>
 /// <reference path="../moment/moment.d.ts"/>
 
-declare module EonasdanBootstrapDatetimepicker {
+declare namespace EonasdanBootstrapDatetimepicker {
     type DateComparable = string | Date | moment.Moment;
 
     type UseCurrent = "year" | "month" | "day" | "hour" | "minute";
