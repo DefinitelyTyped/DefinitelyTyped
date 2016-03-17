@@ -1,7 +1,7 @@
 // Type definitions for Microsoft Parature extentions to Xrm.Page - available for CRM Online Only
 // Project: http://msdn.microsoft.com/en-us/library/gg328255.aspx
 // Definitions by: David Berry <https://github.com/6ix4our/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="xrm.d.ts" />
 

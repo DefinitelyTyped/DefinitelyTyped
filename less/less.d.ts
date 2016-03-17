@@ -1,7 +1,7 @@
 // Type definitions for LESS
 // Project: http://lesscss.org/
 // Definitions by: Tom Hasner <https://github.com/thasner>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Less {
     interface RootFileInfo {

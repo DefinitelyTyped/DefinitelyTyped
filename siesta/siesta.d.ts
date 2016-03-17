@@ -1,7 +1,7 @@
 // Type definitions for Siesta
 // Project: http://www.bryntum.com/products/siesta/
 // Definitions by: bquarmby <https://github.com/bquarmby>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Siesta {
     /**
@@ -611,7 +611,7 @@ declare namespace Siesta {
                 type(el: any, text: string, callback?: Function, scope?: any, options?: any): void;
             }
 
-            // NOTE https://github.com/borisyankov/DefinitelyTyped/pull/3135
+            // NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/3135
             var KeyCodes: {
                 '\b': number; // = 8,
                 'BACKSPACE': number; // = 8,

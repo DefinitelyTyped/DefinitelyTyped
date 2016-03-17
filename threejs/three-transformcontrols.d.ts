@@ -1,7 +1,7 @@
 // Type definitions for three.js (TransformControls.js)
 // Project: https://github.com/mrdoob/three.js/blob/master/examples/js/controls/TransformControls.js
 // Definitions by: Stefan Profanter <https://github.com/Pro>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./three.d.ts" />
 

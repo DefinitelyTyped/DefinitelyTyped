@@ -1,7 +1,7 @@
 // Type definitions for aws-sdk
 // Project: https://github.com/aws/aws-sdk-js
 // Definitions by: midknight41 <https://github.com/midknight41>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/aws-sdk.d.ts
 

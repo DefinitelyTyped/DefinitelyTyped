@@ -1,7 +1,7 @@
 // Type definitions for Angulartics v0.20.2
 // Project: http://luisfarzati.github.io/angulartics/
 // Definitions by: Steven Fan <https://github.com/stevenfan>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 declare namespace angulartics {

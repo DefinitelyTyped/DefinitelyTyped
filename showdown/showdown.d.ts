@@ -1,7 +1,7 @@
 // Type definitions for Showdown 0.3.1
 // Project: https://github.com/coreyti/showdown
 // Definitions by: cbowdon <https://github.com/cbowdon>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Showdown {
 

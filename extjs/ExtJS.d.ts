@@ -1,7 +1,7 @@
 // Type definitions for ExtJS 4.2.1
 // Project: http://www.sencha.com/products/extjs/
 // Definitions by: Brian Kotek <https://github.com/brian428/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Ext {
 	export interface IAbstractComponent extends Ext.IBase,Ext.util.IPositionable,Ext.util.IObservable,Ext.util.IAnimate,Ext.util.IElementContainer,Ext.util.IRenderable,Ext.state.IStateful {

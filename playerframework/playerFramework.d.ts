@@ -1,7 +1,7 @@
 ﻿// Type definitions for Player Framework (MMPPF)
 // Project: https://playerframework.codeplex.com/
 // Definitions by: Ricardo Sabino <https://github.com/ricardosabino>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 ///<reference path="../winrt/winrt.d.ts"/>

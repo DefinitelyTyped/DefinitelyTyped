@@ -1,7 +1,7 @@
 // Type definitions for angular-notifications
 // Project: https://github.com/DerekRies/angular-notifications
 // Definitions by: Tomasz Ducin <https://github.com/ducin/DefinitelyTyped>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 

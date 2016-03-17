@@ -1,7 +1,7 @@
 // Type definitions for MovieDB
 // Project: https://github.com/danzajdband/moviedb
 // Definitions by: Basarat Ali Syed <https://github.com/basarat>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Ghost module for Types
 declare namespace MovieDB {

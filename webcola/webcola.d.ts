@@ -1,7 +1,8 @@
 // Type definitions for webcola 3.1.1
 // Project: https://github.com/tgdwyer/WebCola
 // Definitions by: Qinfeng Chen <https://github.com/qinfchen>, Tim Dwyer <https://github.com/tgdwyer>, Noah Chen <https://github.com/nchen63>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare namespace cola {
     function applyPacking(graphs: Array<any>, w: any, h: any, node_size: any, desired_ratio?: number): void;
     /**

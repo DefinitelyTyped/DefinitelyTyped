@@ -1,7 +1,7 @@
 // Type definitions for del v2.2.0
 // Project: https://github.com/sindresorhus/del
 // Definitions by: Asana <https://asana.com>, Aya Morisawa <https://github.com/AyaMorisawa>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../glob/glob.d.ts"/>
 

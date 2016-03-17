@@ -1,7 +1,7 @@
 // Type definitions for gulp-typescript
 // Project: https://github.com/ivogabe/gulp-typescript
 // Definitions by: Asana <https://asana.com>, Thomas Corbière <https://github.com/tomc974>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
 

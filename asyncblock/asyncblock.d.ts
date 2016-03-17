@@ -1,7 +1,7 @@
 // Type definitions for asyncblock 2.1.23
 // Project: https://github.com/scriby/asyncblock
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 declare module "asyncblock" {

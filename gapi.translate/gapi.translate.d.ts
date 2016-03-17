@@ -1,7 +1,7 @@
 ﻿// Type definitions for Google Translate API
 // Project: https://developers.google.com/translate/
 // Definitions by: Frank M <https://github.com/sgtfrankieboy>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../gapi/gapi.d.ts" />
 

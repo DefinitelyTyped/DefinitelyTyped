@@ -1,7 +1,7 @@
 // Type definitions for objectPath v0.9.x
 // Project: https://github.com/mariocasciaro/object-path
 // Definitions by: Paulo Cesar <https://github.com/pocesar/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var objectPath: ObjectPathGlobal.IObjectPathStatic;
 

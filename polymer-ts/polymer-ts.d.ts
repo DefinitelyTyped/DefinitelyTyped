@@ -1,7 +1,7 @@
 // Type definitions for PolymerTS 0.1.19
 // Project: https://github.com/nippur72/PolymerTS
 // Definitions by: Louis Grignon <https://github.com/lgrignon/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace polymer {
     class PolymerBase extends HTMLElement {

@@ -1,7 +1,7 @@
 // Type definitions for dragula v2.1.2
 // Project: https://bitbucket.org/igor_sechyn/hystrixjs
 // Definitions by: Igor Sechyn <https://github.com/igorsechyn/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../q/Q.d.ts"/>
 ///<reference path="../rx/rx.d.ts"/>

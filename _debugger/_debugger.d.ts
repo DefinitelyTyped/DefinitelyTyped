@@ -1,7 +1,7 @@
 // Type definitions for Node.js debugger API
 // Project: http://nodejs.org/
 // Definitions by: Basarat Ali Syed <https://github.com/basarat>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
 

@@ -1,7 +1,7 @@
 // Type definitions for jasmine-matchers v0.2.1
 // Project: https://github.com/uxebu/jasmine-matchers
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
 Typings 2013 Bart van der Schoor

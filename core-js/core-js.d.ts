@@ -1,7 +1,7 @@
 ﻿// Type definitions for core-js v0.9.7
 // Project: https://github.com/zloirock/core-js/
 // Definitions by: Ron Buckton <http://github.com/rbuckton>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.

@@ -1,7 +1,7 @@
 // Type definitions for Farbtastic: jQuery Color Wheel v2.0.0-alpha.1
 // Project: http://mattfarina.github.io/farbtastic/
 // Definitions by: Matt Brooks <https://github.com/EnableSoftware>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 

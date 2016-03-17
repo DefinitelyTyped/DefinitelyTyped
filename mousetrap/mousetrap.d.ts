@@ -1,7 +1,7 @@
 // Type definitions for Mousetrap 1.5.x
 // Project: http://craig.is/killing/mice
 // Definitions by: Dániel Tar <https://github.com/qcz>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface ExtendedKeyboardEvent extends KeyboardEvent {
     returnValue: boolean; // IE returnValue

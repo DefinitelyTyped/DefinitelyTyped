@@ -1,7 +1,7 @@
 ﻿// Type definitions for Gridstack
 // Project: http://troolee.github.io/gridstack.js/
 // Definitions by: Pascal Senn <https://github.com/PascalSenn/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface JQuery {
     gridstack (options: IGridstackOptions):GridStack

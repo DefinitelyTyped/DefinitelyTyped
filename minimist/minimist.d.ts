@@ -1,7 +1,7 @@
 // Type definitions for minimist 1.1.3
 // Project: https://github.com/substack/minimist
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Necroskillz <https://github.com/Necroskillz>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'minimist' {
 	function minimist(args?: string[], opts?: minimist.Opts): minimist.ParsedArgs;

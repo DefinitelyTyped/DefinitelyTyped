@@ -1,7 +1,7 @@
 ﻿// Type definitions for pako 0.2.8
 // Project: https://github.com/nodeca/pako
 // Definitions by: Denis Cappellin <http://github.com/cappellin>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Pako {
 

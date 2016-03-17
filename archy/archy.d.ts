@@ -1,7 +1,7 @@
 // Type definitions for archy
 // Project: https://github.com/substack/node-archy
 // Definitions by: vvakame <https://github.com/vvakame/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "archy" {
     function archy(obj: archy.Data, prefix?: string, opts?: archy.Options): string;

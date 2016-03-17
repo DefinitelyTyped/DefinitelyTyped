@@ -1,7 +1,7 @@
 // Type definitions for project-oxford v0.1.3
 // Project: https://github.com/felixrieseberg/project-oxford
 // Definitions by: Scott Southwood <https://github.com/scsouthw/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="..\bluebird\bluebird.d.ts" />
 /// <reference path="..\node\node.d.ts" />

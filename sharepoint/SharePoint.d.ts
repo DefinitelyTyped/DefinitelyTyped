@@ -1,7 +1,7 @@
 // Type definitions for SharePoint 2010 and 2013
 // Project: https://github.com/gandjustas/sptypescript
 // Definitions by: Stanislav Vyshchepan <http://blog.gandjustas.ru>, Andrey Markeev <http://markeev.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../microsoft-ajax/microsoft.ajax.d.ts" />
 declare var _spBodyOnLoadFunctions: Function[];

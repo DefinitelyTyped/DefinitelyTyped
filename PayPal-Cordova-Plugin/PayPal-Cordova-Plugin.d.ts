@@ -1,7 +1,7 @@
 // Type definitions for PayPal-Cordova-Plugin 3.1.10
 // Project: https://github.com/paypal/PayPal-Cordova-Plugin
 // Definitions by: Justin Unterreiner <https://github.com/Justin-Credible>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 //#region paypal-mobile-js-helper.js
 

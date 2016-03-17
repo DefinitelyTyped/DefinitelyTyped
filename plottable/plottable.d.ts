@@ -1,7 +1,7 @@
 // Type definitions for Plottable v1.4.0
 // Project: http://plottablejs.org/
 // Definitions by: Plottable Team <https://github.com/palantir/plottable>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../d3/d3.d.ts" />
 

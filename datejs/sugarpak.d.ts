@@ -1,7 +1,7 @@
 ﻿// Type definitions for DateJS - SugarPak Extensions
 // Project: http://www.datejs.com/
 // Definitions by: David Khristepher Santos <http://github.com/rupertavery>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** SugarPak.js - Domain Specific Language -  Syntactical Sugar */
 declare namespace sugarpak {

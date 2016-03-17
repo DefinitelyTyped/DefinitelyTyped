@@ -1,7 +1,7 @@
 // Type definitions for SkyWay
 // Project: http://nttcom.github.io/skyway/
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path='../webrtc/RTCPeerConnection.d.ts' />
 

@@ -1,7 +1,7 @@
 // Type definitions for Ember.js 1.11.3
 // Project: http://emberjs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../handlebars/handlebars-1.0.0.d.ts" />

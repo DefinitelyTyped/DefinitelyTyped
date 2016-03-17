@@ -1,7 +1,7 @@
 // Type definitions for express-unless
 // Project: https://www.npmjs.org/package/express-unless
 // Definitions by: Wonshik Kim <https://github.com/wokim/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 

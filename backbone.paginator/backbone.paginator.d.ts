@@ -1,7 +1,7 @@
 // Type definitions for backbone.paginator 2.0.2
 // Project: https://github.com/backbone-paginator/backbone.paginator
 // Definitions by: Nyamazing <https://github.com/Nyamazing/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../backbone/backbone.d.ts" />
 

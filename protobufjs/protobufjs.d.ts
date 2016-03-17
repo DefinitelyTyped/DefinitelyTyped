@@ -1,7 +1,7 @@
 // Type definitions for ProtoBuf.js
 // Project: https://github.com/dcodeIO/ProtoBuf.js
 // Definitions by: Panu Horsmalahti <https://github.com/panuhorsmalahti>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -55,7 +55,7 @@ declare namespace ProtoBuf {
       isLong(obj: any): boolean;
     }
 
-    // Based on https://github.com/dcodeIO/Long.js and https://github.com/borisyankov/DefinitelyTyped/blob/master/long/long.d.ts
+    // Based on https://github.com/dcodeIO/Long.js and https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/long/long.d.ts
     export interface Long {
       high: number;
       low: number;

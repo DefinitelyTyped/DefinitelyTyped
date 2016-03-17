@@ -1,7 +1,7 @@
 ﻿// Type definitions for lokijs v1.2.5
 // Project: https://github.com/techfort/LokiJS
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // NOTE: definition last updated (2016-3-13) based on latest code as of https://github.com/techfort/LokiJS/commit/3d2cf9546cd22556444deeabc4df314f227ecf5c
 

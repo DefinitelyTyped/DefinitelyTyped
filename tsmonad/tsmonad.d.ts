@@ -1,7 +1,7 @@
 // Type definitions for TsMonad
 // Project: https://github.com/cbowdon/TsMonad
 // Definitions by: Chris Bowdon <https://github.com/cbowdon>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace TsMonad {
     /**

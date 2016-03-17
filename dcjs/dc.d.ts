@@ -1,7 +1,7 @@
 // Type definitions for DCJS
 // Project: https://github.com/dc-js/dc.js
 // Definitions by: hans windhoff <https://github.com/hansrwindhoff>, matt traynham <https://github.com/mtraynham>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // this makes only sense together with d3 and crossfilter so you need the d3.d.ts and crossfilter.d.ts files
 

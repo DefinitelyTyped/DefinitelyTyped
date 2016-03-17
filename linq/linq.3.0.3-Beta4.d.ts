@@ -1,7 +1,7 @@
 // Type definitions for linq.js v3.0.3-Beta4
 // Project: http://linqjs.codeplex.com/
 // Definitions by: neuecc <http://www.codeplex.com/site/users/view/neuecc>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace linqjs {
     interface IEnumerator {

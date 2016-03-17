@@ -1,7 +1,7 @@
 // Type definitions for simple-cw-node
 // Project: https://github.com/astronaughts/simple-cw-node
 // Definitions by: vvakame <https://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../superagent/superagent.d.ts" />
 

@@ -1,7 +1,7 @@
 // Type definitions for Google Realtime API
 // Project: https://developers.google.com/google-apps/realtime/
 // Definitions by: Dustin Wehr <http://cs.toronto.edu/~wehr>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // This definition file is merge-compatible with ../gapi/gapi.d.ts
 

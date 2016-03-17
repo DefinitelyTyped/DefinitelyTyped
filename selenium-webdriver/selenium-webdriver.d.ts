@@ -1,7 +1,7 @@
 // Type definitions for Selenium WebDriverJS 2.44.0
 // Project: https://code.google.com/p/selenium/
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>, Yuki Kokubun <https://github.com/Kuniwak>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace chrome {
     /**

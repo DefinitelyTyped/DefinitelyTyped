@@ -1,7 +1,7 @@
 // Type definitions for ArcGIS API for JavaScript v3.16
 // Project: http://js.arcgis.com
 // Definitions by: Esri <http://www.esri.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "esri" {
   import Graphic = require("esri/graphic");

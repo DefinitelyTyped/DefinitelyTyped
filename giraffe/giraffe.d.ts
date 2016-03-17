@@ -1,7 +1,7 @@
 // Type definitions for Giraffe
 // Project: https://github.com/barc/backbone.giraffe
 // Definitions by: Matt McCray <https://github.com/darthapo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../backbone/backbone.d.ts" />
 

@@ -1,7 +1,7 @@
 // Type definitions for status-bar
 // Project: https://github.com/atom/status-bar
 // Definitions by: vvakame <https://github.com/vvakame/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../space-pen/space-pen.d.ts" />
 /// <reference path="../text-buffer/text-buffer.d.ts" />

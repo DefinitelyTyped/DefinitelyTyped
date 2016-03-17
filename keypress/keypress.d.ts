@@ -1,7 +1,7 @@
 // Type definitions for Keypress v2.0.3
 // Project: https://github.com/dmauro/Keypress/
 // Definitions by: Roger Chen <https://github.com/rcchen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // A keyboard input capturing utility in which any key can be a modifier key.
 declare namespace Keypress {

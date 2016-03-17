@@ -1,7 +1,7 @@
 // Type definitions for SlickGrid RowSelectionModel Plugin 2.1.0
 // Project: https://github.com/mleibman/SlickGrid
 // Definitions by: Derek Cicerone <https://github.com/derekcicerone/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="SlickGrid.d.ts" />
 

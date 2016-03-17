@@ -1,7 +1,7 @@
 // Type definitions for GeoJSON Format Specification
 // Project: http://geojson.org/
 // Definitions by: Jacob Bruun <https://github.com/cobster/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GeoJSON {
 

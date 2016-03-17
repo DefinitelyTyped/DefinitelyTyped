@@ -1,7 +1,7 @@
 // Type definitions for dagre-d3.core.js
 // Project: https://github.com/cpettitt/dagre-d3
 // Definitions by: Mark Wong Siang Kai <https://github.com/markwongsk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../d3/d3.d.ts"/>
 /// <reference path="../dagre/dagre.d.ts"/>
