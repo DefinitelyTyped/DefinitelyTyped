@@ -18,11 +18,24 @@
 
 declare var Promise: PromiseConstructor;
 
+interface PromiseCancelHandlerSetter {
+    (handler: () => void): void;
+}
+
 interface PromiseConstructor {
     /**
-     * Create a new promise. The passed in function will receive functions `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
+     * Create a new promise. The passed in function will receive functions
+     * `resolve` and `reject` as its arguments which can be called to seal the
+     * fate of the created promise.
+     *
+     * If configured appropriately, it will also receive an `onCancel`
+     * function that can be used to configure a promise cancellation handler.
      */
-    new <T>(callback: (resolve: (thenableOrResult?: T | PromiseLike<T>) => void, reject: (error: any) => void) => void): Promise<T>;
+    new <T>(callback: (
+        resolve: (thenableOrResult?: T | PromiseLike<T>) => void,
+        reject: (error: any) => void,
+        onCancel: PromiseCancelHandlerSetter
+    ) => void): Promise<T>;
 
     // Ideally, we'd define e.g. "export class RangeError extends Error {}",
     // but as Error is defined as an interface (not a class), TypeScript doesn't
