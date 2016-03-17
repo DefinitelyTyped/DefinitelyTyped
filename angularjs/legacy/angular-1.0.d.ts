@@ -16,7 +16,7 @@ interface Function {
 ///////////////////////////////////////////////////////////////////////////////
 // ng module (angular.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module ng {
+declare namespace ng {
 
     // All service providers extend this interface
     interface IServiceProvider {
@@ -679,7 +679,7 @@ declare module ng {
         scope?: any;
         link?: Function;
         compile?: Function;
-        controller?: any; 
+        controller?: any;
     }
 
     ///////////////////////////////////////////////////////////////////////////

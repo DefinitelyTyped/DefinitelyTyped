@@ -7,7 +7,7 @@ declare module 'lru-cache' {
 	function LRU<T>(opts: LRU.Options<T>): LRU.Cache<T>;
 	function LRU<T>(max: number): LRU.Cache<T>;
 
-	module LRU {
+	namespace LRU {
 		interface Options<T> {
 			max?: number;
 			maxAge?: number;

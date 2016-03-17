@@ -3,7 +3,7 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module DeepFreeze {
+declare namespace DeepFreeze {
    export interface DeepFreezeInterface {
       <T>(obj: T): T;
     }

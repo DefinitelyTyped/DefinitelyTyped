@@ -3,7 +3,7 @@
 // Definitions by: Kai Toedter <https://github.com/toedter/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Atmosphere {
+declare namespace Atmosphere {
     interface Atmosphere {
         /**
          * The atmosphere API is a little bit special here: the first parameter can either be

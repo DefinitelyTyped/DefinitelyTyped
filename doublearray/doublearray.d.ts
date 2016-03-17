@@ -3,7 +3,7 @@
 // Definitions by: MIZUSHIMA Junki <https://github.com/mzsm>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module doublearray {
+declare namespace doublearray {
     interface KeyValue {
         k: string;
         v: number;

@@ -6,16 +6,16 @@
 // Change [0]: 2015/06/14 - Marcelo Camargo <https://github.com/haskellcamargo>
 
 declare module "prelude-ls" {
-	module PreludeLS {
+	namespace PreludeLS {
 		export function id<A>(x: A): A;
 		export function isType<A>(type: string): (x: A) => boolean;
 		export function isType<A>(type: string, x: A): boolean;
 		export function replicate<A>(n: number): (x: A) => A[];
 		export function replicate<A>(n: number, x: A): A[];
-		
-		
+
+
 		// List
-		
+
 		export function each<A>(f: (x: A) => void): (xs: A[]) => A[];
 		export function each<A>(f: (x: A) => void, xs: A[]): A[];
 		export function map<A, B>(f: (x: A) => B): (xs: A[]) => B[];
@@ -135,10 +135,10 @@ declare module "prelude-ls" {
 		export function findIndex<A>(f: (x: A) => boolean, xs: A[]): number;
 		export function findIndices<A>(f: (x: A) => boolean): (xs: A[]) => number[];
 		export function findIndices<A>(f: (x: A) => boolean, xs: A[]): number[];
-		
-		
+
+
 		// Obj
-		
+
 		export function keys<A>(object: { [key: string]: A }): string[];
 		export function keys<A>(object: { [key: number]: A }): number[];
 		export function values<A>(object: { [key: string]: A }): A[];

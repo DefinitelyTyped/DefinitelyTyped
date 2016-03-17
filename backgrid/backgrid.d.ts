@@ -5,7 +5,7 @@
 
 /// <reference path="../backbone/backbone.d.ts" />
 
-declare module Backgrid {
+declare namespace Backgrid {
 
     interface GridOptions {
         columns: Column[];

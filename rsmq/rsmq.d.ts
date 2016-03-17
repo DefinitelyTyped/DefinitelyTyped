@@ -5,7 +5,7 @@
 
 /// <reference path='../redis/redis.d.ts'/>
 
-declare module RedisSMQ {
+declare namespace RedisSMQ {
     interface CallbackT<R> {
         (e?:Error, res?:R): void;
     }

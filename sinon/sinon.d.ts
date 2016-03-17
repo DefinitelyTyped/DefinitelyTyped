@@ -3,7 +3,7 @@
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Sinon {
+declare namespace Sinon {
     interface SinonSpyCallApi {
         // Properties
         thisValue: any;

@@ -3,7 +3,7 @@
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module JsDiff {
+declare namespace JsDiff {
     interface IDiffResult {
         value: string;
         added?: boolean;

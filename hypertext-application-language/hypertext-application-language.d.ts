@@ -3,7 +3,7 @@
 // Definitions by: Maks3w <https://github.com/maks3w/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Hal {
+declare namespace Hal {
     /**
      * Describe a HAL Link object
      *

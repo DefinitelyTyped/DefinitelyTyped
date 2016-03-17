@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 /// <reference path="../wnumb/wnumb.d.ts"/>
 
-declare module noUiSlider {
+declare namespace noUiSlider {
     /**
      * To create a slider, call noUiSlider.create() with an element and your options.
      */

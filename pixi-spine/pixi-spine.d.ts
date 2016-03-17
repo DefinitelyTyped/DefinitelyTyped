@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../pixi.js/pixi.js.d.ts" />
-declare module PIXI {
+declare namespace PIXI {
 
     export module spine {
 

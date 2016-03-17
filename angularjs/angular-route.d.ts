@@ -13,7 +13,7 @@ declare module "angular-route" {
 ///////////////////////////////////////////////////////////////////////////////
 // ngRoute module (angular-route.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module angular.route {
+declare namespace angular.route {
 
     ///////////////////////////////////////////////////////////////////////////
     // RouteParamsService
@@ -35,7 +35,7 @@ declare module angular.route {
         // May not always be available. For instance, current will not be available
         // to a controller that was not initialized as a result of a route maching.
         current?: ICurrentRoute;
-        
+
         /**
          * Causes $route service to update the current URL, replacing current route parameters with those specified in newParams.
          * Provided property names that match the route's path segment definitions will be interpolated into the

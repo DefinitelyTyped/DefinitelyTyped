@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-declare module Dropbox {
+declare namespace Dropbox {
 
 
     interface QueryParams {
@@ -134,7 +134,7 @@ declare module Dropbox {
         rememberUser?: boolean;
     }
 
-    module Util {
+    namespace Util {
 
         class EventSource {
             constructor(options: { cancelable: boolean });
@@ -182,7 +182,7 @@ declare module Dropbox {
             onXdrError(): void;
         }
     }
-    module Http {
+    namespace Http {
         class AppInfo {
             static ICON_SMALL: number;
             static ICON_LARGE: number;
@@ -236,7 +236,7 @@ declare module Dropbox {
             toJSON(): {};
         }
     }
-    module File {
+    namespace File {
 
         interface StatOptions {
             version: number;
@@ -288,7 +288,7 @@ declare module Dropbox {
             toJSON(): {};
         }
     }
-    module AuthDriver {
+    namespace AuthDriver {
 
         /** Do not use class! TypeScript definition implementation detail : https://github.com/Microsoft/TypeScript/issues/371 */
         class IAuthDriver {

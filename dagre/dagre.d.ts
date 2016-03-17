@@ -2,7 +2,7 @@
 // Project: https://github.com/cpettitt/dagre
 // Definitions by: Qinfeng Chen <https://github.com/qinfchen>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-declare module Dagre{
+declare namespace Dagre{
     interface DagreFactory {
         graphlib: GraphLib;
         layout(graph: Graph): void;

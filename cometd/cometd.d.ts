@@ -3,7 +3,7 @@
 // Definitions by: Derek Cicerone <https://github.com/derekcicerone>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module CometD {
+declare namespace CometD {
 
     interface ConfigurationOptions {
         url: string;
@@ -41,7 +41,7 @@ interface CometD {
 
 
     disconnect(): void;
-    
+
 }
 
 

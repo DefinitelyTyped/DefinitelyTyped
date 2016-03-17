@@ -3,10 +3,10 @@
 // Definitions by: Eric Todd <https://github.com/ericrtodd>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Microsoft.Maps.Themes {
-    
+declare namespace Microsoft.Maps.Themes {
+
     export class BingTheme {
         constructor();
     }
 
-} 
+}

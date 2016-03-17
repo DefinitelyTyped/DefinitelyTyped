@@ -3,7 +3,7 @@
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module SharedWorker {
+declare namespace SharedWorker {
     interface AbstractWorker extends EventTarget {
         onerror: (ev: ErrorEvent) => any;
     }

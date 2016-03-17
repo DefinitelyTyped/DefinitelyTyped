@@ -5,7 +5,7 @@
 
 /// <reference path="./three.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
 	export class ShaderPass {
 		constructor( shader: Shader, textureID?: string );
 

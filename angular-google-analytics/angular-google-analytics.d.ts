@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.google.analytics {
+declare namespace angular.google.analytics {
     /**
      * @summary Interface for {@link AnalysticsProvider}.
      * @interface

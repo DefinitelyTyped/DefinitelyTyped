@@ -5,7 +5,7 @@
 
 declare module "which" {
   function when (cmd: string, cb: (err: Error, path: string) => void): void;
-  module when {
+  namespace when {
     function sync(cmd: string): string;
   }
 

@@ -5,7 +5,7 @@
 
 /// <reference path="./three.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
     export class VREffect {
         constructor(renderer: Renderer, callback?: (params: string)=>void);
         render(scene: Scene, camera: Camera): void;

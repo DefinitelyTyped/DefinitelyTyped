@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module MarkItUp {
+declare namespace MarkItUp {
     interface Options {
         /**
          * Apply a specific className to the wrapping Div. Useful to prevent CSS conflicts between instances.

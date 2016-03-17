@@ -5,7 +5,7 @@
 
 /// <reference path="../i18next/i18next.d.ts" />
 
-declare module angular.i18next {
+declare namespace angular.i18next {
     interface I18nextProvider {
         options: I18nextOptions;
     }

@@ -3,7 +3,7 @@
 // Definitions by: David Berry <https://github.com/6ix4our/>, Matt Ngan <https://github.com/mattngan/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Xrm
+declare namespace Xrm
 {
     /**
      * Interface for the client context.

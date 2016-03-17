@@ -5,7 +5,7 @@
 
 declare var colorbrewer: ColorBrewer.Base;
 
-declare module ColorBrewer {
+declare namespace ColorBrewer {
     interface ColorScheme {
         [n: number]: string[];
     }

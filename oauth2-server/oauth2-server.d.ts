@@ -18,7 +18,7 @@ declare module "oauth2-server" {
 
     function o(config : o.Config) : o.OAuth2Server;
 
-    module o {
+    namespace o {
         interface OAuth2Server {
             grant() : RequestHandler;
             authorise() : any;

@@ -14,7 +14,7 @@ declare module "clone" {
      */
     function clone<T>(val: T, circular?: boolean, depth?: number): T;
 
-    module clone {
+    namespace clone {
         /**
          * @param obj the object that you want to clone
          */

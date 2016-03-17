@@ -8,7 +8,7 @@ declare module 'bowser' {
     export = def;
 }
 
-declare module BowserModule {
+declare namespace BowserModule {
 
     export interface IBowserUA {
         msie: boolean;

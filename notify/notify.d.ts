@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module Notify {
+declare namespace Notify {
     interface Options {
         /**
          * Whether to hide the notification on click. Default is true.

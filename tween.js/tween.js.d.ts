@@ -3,7 +3,7 @@
 // Definitions by: sunetos <https://github.com/sunetos>, jzarnikov <https://github.com/jzarnikov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module TWEEN {
+declare namespace TWEEN {
   export var REVISION: string;
   export function getAll(): Tween[];
   export function removeAll(): void;

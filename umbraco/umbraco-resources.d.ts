@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module umbraco.resources{
+declare namespace umbraco.resources{
 
     /**
      * ResourcePromise object

@@ -4,16 +4,16 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-declare module dojox {
+declare namespace dojox {
 
-    module xml {
-        module parser {
+    namespace xml {
+        namespace parser {
         }
 
-        module Script {
+        namespace Script {
         }
 
-        module widgetParser {
+        namespace widgetParser {
         }
 
     }

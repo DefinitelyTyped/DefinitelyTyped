@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-declare module Utils {
+declare namespace Utils {
     class StringFce {
         static format(s: string, args: any): string;
     }

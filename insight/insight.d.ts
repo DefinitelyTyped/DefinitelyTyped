@@ -3,7 +3,7 @@
 // Definitions by: vvakame <http://github.com/vvakame>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module insight {
+declare namespace insight {
     interface IOptions {
         trackingCode:string;
         trackingProvider?:string;

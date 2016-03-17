@@ -8,7 +8,7 @@ declare class Fuse {
 	search(pattern: string): any[];
 }
 
-declare module fuse {
+declare namespace fuse {
 	interface IFuseOptions extends ISearchOptions {
 		caseSensitive?: boolean;
 		includeScore?: boolean;

@@ -12,71 +12,71 @@ interface JQuery {
     tipsy: JQueryTipsy.Tipsy;
 }
 
-declare module JQueryTipsy {
+declare namespace JQueryTipsy {
     interface Options {
         /**
         * delay before showing tooltip (ms)
-        * 
+        *
         * default: 0
         */
         delayIn?: number;
         /**
         * delay before hiding  tooltip (ms)
-        * 
+        *
         * default: 0
         */
         delayOut?: number;
         /**
         * fade tooltips in/out?
-        * 
+        *
         * default: false
         */
         fade?: boolean;
         /**
         * fallback text to use when no tooltip text
-        * 
+        *
         * default: ''
         */
         fallback?: string;
         /**
         * gravity
-        * 
+        *
         * default: 'n'
         */
         gravity?: any; // string or () => string
         /**
         * is tooltip content HTML?
-        * 
+        *
         * default: false
         */
         html?: boolean;
         /**
         * use live event support?
-        * 
+        *
         * default: false
         */
         live?: boolean;
         /**
         * pixel offset of tooltip from element
-        * 
+        *
         * default: 0
         */
         offset?: number;
         /**
         * opacity of tooltip
-        * 
+        *
         * default: 0.8
         */
         opacity?: number;
         /**
         * attribute/callback containing tooltip text
-        * 
+        *
         * default: 'title'
         */
         title?: any; // string or () => string
         /**
         * how tooltip is triggered - hover | focus | manual
-        * 
+        *
         * default: 'hover'
         */
         trigger?: string;

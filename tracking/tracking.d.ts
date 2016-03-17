@@ -3,7 +3,7 @@
 // Definitions by: Tim Perry <https://github.com/pimterry>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module tracking {
+declare namespace tracking {
   export class ColorTracker extends Tracker {
     constructor(colours: string[]);
 

@@ -5,7 +5,7 @@
 
 /// <reference path="../bluebird/bluebird.d.ts" />
 
-declare module RedlockTypes {
+declare namespace RedlockTypes {
 	interface LockError extends Error {}
 
 	interface NodeifyCallback<T> {

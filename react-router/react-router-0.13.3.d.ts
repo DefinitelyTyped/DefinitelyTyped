@@ -5,7 +5,7 @@
 
 ///<reference path='../react/react.d.ts' />
 
-declare module ReactRouter {
+declare namespace ReactRouter {
     import React = __React;
 
     //

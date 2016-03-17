@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 
-declare module svgjs {
+declare namespace svgjs {
 	export module draggable {
 		export interface DragDelta {
 			x: number

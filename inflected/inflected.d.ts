@@ -4,34 +4,34 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module "inflected" {
-  
-  module Options {
+
+  namespace Options {
     interface Humanize {
-      capitalize: boolean;   
+      capitalize: boolean;
     }
-    
+
     interface Transliterate {
       locale: string;
       replacement: string;
     }
-    
+
     interface Parameterize {
       separator: string;
     }
   }
-  
+
   interface Inflected {
     pluralize(word: string, locale?: string): string;
     singularize(word: string, locale?: string): string;
     camelize(term: string, uppercaseFirstLetter?: boolean): string;
     underscore(camelCaseWord: string): string;
-    humanize(lowerCaseAndUnderscoredWord: string, 
+    humanize(lowerCaseAndUnderscoredWord: string,
              options?: Options.Humanize): string;
     titleize(sentence: string): string;
     tableize(className: string): string;
     classify(tableName: string): string;
     dasherize(underscoredWord: string): string;
-    foreignKey(className: string, 
+    foreignKey(className: string,
                separateClassNameAndIdWithUnderscore?:boolean): string;
     ordinal(number: number): string;
     ordinalize(number: number): string;

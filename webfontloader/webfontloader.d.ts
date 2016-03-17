@@ -3,7 +3,7 @@
 // Definitions by: doskallemaskin <https://github.com/doskallemaskin/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module WebFont {
+declare namespace WebFont {
 	export function load(config:WebFont.Config):void;
 	export interface Config {
 		/** Setting this to false will disable html classes (defaults to true) */

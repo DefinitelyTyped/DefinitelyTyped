@@ -3,7 +3,7 @@
 // Definitions by: Louis Grignon <https://github.com/lgrignon/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module polymer {
+declare namespace polymer {
     class PolymerBase extends HTMLElement {
         $: any;
         $$: any;

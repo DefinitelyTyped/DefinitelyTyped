@@ -17,7 +17,7 @@ declare module 'through2' {
 
 	function through2(opts?: stream.DuplexOptions, transform?: TransformFunction, flush?: FlashCallback): NodeJS.ReadWriteStream;
 
-	module through2 {
+	namespace through2 {
 
 		export function obj(transform?: TransformFunction, flush?: FlashCallback): NodeJS.ReadWriteStream;
 

@@ -5,7 +5,7 @@
 
 /// <reference path="../moment/moment.d.ts" />
 
-declare module angular.bootstrap.calendar {
+declare namespace angular.bootstrap.calendar {
     interface IEvent {
         /**
          * The title of the event
@@ -110,7 +110,7 @@ declare module angular.bootstrap.calendar {
         badgeTotal: number;
     }
 
-    module events {
+    namespace events {
         interface IOnEventClick {
             (calendarEvent: IEvent): void;
         }

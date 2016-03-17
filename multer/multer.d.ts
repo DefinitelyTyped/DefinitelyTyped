@@ -5,7 +5,7 @@
 
 /// <reference path="../express/express.d.ts" />
 
-declare module Express {
+declare namespace Express {
     export interface Request {
         file: Multer.File;
         files: {
@@ -13,7 +13,7 @@ declare module Express {
         };
     }
 
-    module Multer {
+    namespace Multer {
         export interface File {
             /** Field name specified in the form */
             fieldname: string;
@@ -40,7 +40,7 @@ declare module Express {
 declare module "multer" {
     import express = require('express');
 
-    module multer {
+    namespace multer {
         interface Field {
             /** The field name. */
             name: string;

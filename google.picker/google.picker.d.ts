@@ -3,8 +3,8 @@
 // Definitions by: grapswiz <https://github.com/grapswiz>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module google {
-    module picker {
+declare namespace google {
+    namespace picker {
         export class PickerBuilder {
             constructor();
 

@@ -22,7 +22,7 @@ declare module "express" {
      */
     function e(): core.Express;
 
-    module e {
+    namespace e {
 
         /**
          * This is the only built-in middleware function in Express. It serves static files and is based on serve-static.

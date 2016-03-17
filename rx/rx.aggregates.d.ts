@@ -5,7 +5,7 @@
 
 ///<reference path="rx.d.ts" />
 
-declare module Rx {
+declare namespace Rx {
 	export interface Observable<T> {
 		finalValue(): Observable<T>;
 		aggregate(accumulator: (acc: T, value: T) => T): Observable<T>;

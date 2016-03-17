@@ -7,32 +7,32 @@
 
 declare module "connect-livereload" {
 	import { HandleFunction } from "connect";
-	
+
 	function livereload(): HandleFunction;
 	function livereload(options: livereload.Options): HandleFunction;
-	
-	module livereload {
+
+	namespace livereload {
 		export type FileMatcher = string | RegExp;
-		
+
 		export interface Rule {
 			match: RegExp;
 			fn: (w: string, s: string) => string;
 		}
-		
+
 		export interface Options {
 			ignore?: FileMatcher[];
 			excludeList?: FileMatcher[];
-			
+
 			include?: FileMatcher[];
 			html?: (val: string) => boolean;
 			rules?: Rule[];
 			disableCompression?: boolean;
-			
+
 			hostname?: string;
 			port?: number;
 			src?: string;
 		}
 	}
-	
+
 	export = livereload;
 }

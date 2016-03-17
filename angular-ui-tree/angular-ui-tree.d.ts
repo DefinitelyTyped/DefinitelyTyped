@@ -5,7 +5,7 @@
 
 /// <reference path='../angularjs/angular.d.ts' />
 
-declare module AngularUITree {
+declare namespace AngularUITree {
     interface IEventSourceInfo {
         cloneModel: any;
         index: number;

@@ -3,7 +3,7 @@
 // Definitions by: Pine Mizune <https://github.com/pine613>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module ContentType {
+declare namespace ContentType {
     interface MediaType {
         type: string;
         q?: number;

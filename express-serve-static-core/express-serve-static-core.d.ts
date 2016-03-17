@@ -5,7 +5,7 @@
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference path="../node/node.d.ts" />
 
-declare module Express {
+declare namespace Express {
 
     // These open interfaces may be extended in an application-specific manner via declaration merging.
     // See for example method-override.d.ts (https://github.com/borisyankov/DefinitelyTyped/blob/master/method-override/method-override.d.ts)

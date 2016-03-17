@@ -3,14 +3,14 @@
 // Definitions by: Robert Imig <https://github.com/rimig>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module GalleriaJS {
+declare namespace GalleriaJS {
 
 	interface GalleriaOptions {
         dataSource: GalleriaEntry[];
         autoplay?: boolean;
 		lightbox?: boolean;
 	}
-    
+
     interface GalleriaEntry {
         image?: string;
         thumbnail?: string;

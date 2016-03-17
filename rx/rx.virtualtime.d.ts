@@ -5,7 +5,7 @@
 
 ///<reference path="rx.d.ts" />
 
-declare module Rx {
+declare namespace Rx {
 	export interface VirtualTimeScheduler<TAbsolute, TRelative> extends Scheduler {
 		//protected constructor(initialClock: TAbsolute, comparer: (first: TAbsolute, second: TAbsolute) => number);
 

@@ -5,7 +5,7 @@
 
 /// <reference path='../angularjs/angular.d.ts' />
 
-declare module angular.local.storage {
+declare namespace angular.local.storage {
   interface ILocalStorageServiceProvider extends angular.IServiceProvider {
     /**
      * Setter for the prefix

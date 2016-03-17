@@ -5,11 +5,11 @@
 
 ///<reference path="../i18next/i18next.d.ts"/>
 
-declare module I18next {
+declare namespace I18next {
     interface I18nextOptions extends i18nextNodeFsBackEnd.I18nextOptions { }
 }
 
-declare module i18nextNodeFsBackEnd {
+declare namespace i18nextNodeFsBackEnd {
     /**
      * @summary Options for "i18next-node-fs-backend".
      * @interface

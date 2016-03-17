@@ -2,7 +2,7 @@
 // Project: http://www.ag-grid.com/
 // Definitions by: Niall Crosby <https://github.com/ceolter/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-declare module ag.grid {
+declare namespace ag.grid {
     class ColumnChangeEvent {
         private type;
         private column;
@@ -28,7 +28,7 @@ declare module ag.grid {
         isIndividualColumnResized(): boolean;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class Utils {
         private static isSafari;
         private static isIE;
@@ -84,7 +84,7 @@ declare module ag.grid {
         static isBrowserSafari(): boolean;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class Constants {
         static STEP_EVERYTHING: number;
         static STEP_FILTER: number;
@@ -109,7 +109,7 @@ declare module ag.grid {
         static KEY_RIGHT: number;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class Column {
         static colIdSequence: number;
         colDef: ColDef;
@@ -128,7 +128,7 @@ declare module ag.grid {
         setMinimum(): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class ColumnGroup {
         pinned: any;
         name: any;
@@ -146,7 +146,7 @@ declare module ag.grid {
         addToVisibleColumns(colsToAdd: any): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class GridOptionsWrapper {
         private gridOptions;
         private groupHeaders;
@@ -230,7 +230,7 @@ declare module ag.grid {
         private getCallbackForEvent(eventName);
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class LoggerFactory {
         private logging;
         init(gridOptionsWrapper: GridOptionsWrapper): void;
@@ -243,7 +243,7 @@ declare module ag.grid {
         log(message: string): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class Events {
         /** A new set of columns has been entered, everything has potentially changed. */
         static EVENT_COLUMN_EVERYTHING_CHANGED: string;
@@ -279,7 +279,7 @@ declare module ag.grid {
         static EVENT_READY: string;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class EventService {
         private allListeners;
         private globalListeners;
@@ -291,7 +291,7 @@ declare module ag.grid {
         dispatchEvent(eventType: string, event?: any): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class MasterSlaveService {
         private gridOptionsWrapper;
         private columnController;
@@ -308,7 +308,7 @@ declare module ag.grid {
         onColumnEvent(event: ColumnChangeEvent): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class ColumnApi {
         private _columnController;
         constructor(_columnController: ColumnController);
@@ -407,7 +407,7 @@ declare module ag.grid {
         private getTotalColWidth(includePinned);
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     interface CsvExportParams {
         skipHeader?: boolean;
         skipFooters?: boolean;
@@ -426,7 +426,7 @@ declare module ag.grid {
         private escape(value);
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class ExpressionService {
         private expressionToFunctionCache;
         private logger;
@@ -436,13 +436,13 @@ declare module ag.grid {
         private createFunctionBody(expression);
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     interface TextAndNumberFilterParameters {
         /** What to do when new rows are loaded. The default is to reset the filter, to keep it in line with 'set' filters. If you want to keep the selection, then set this value to 'keep'. */
         newRowsAction?: string;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class TextFilter implements Filter {
         private filterParams;
         private filterChangedCallback;
@@ -473,7 +473,7 @@ declare module ag.grid {
         private getApi();
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class NumberFilter implements Filter {
         private filterParams;
         private filterChangedCallback;
@@ -504,7 +504,7 @@ declare module ag.grid {
         private getApi();
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     interface ColDef {
         /** If sorting by default, set it here. Set to 'asc' or 'desc' */
         sort?: string;
@@ -594,7 +594,7 @@ declare module ag.grid {
         onCellContextMenu?: Function;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class SetFilterModel {
         private colDef;
         private filterParams;
@@ -635,7 +635,7 @@ declare module ag.grid {
     }
 }
 /** The filter parameters for set filter */
-declare module ag.grid {
+declare namespace ag.grid {
     interface SetFilterParameters {
         /** Same as cell renderer for grid (you can use the same one in both locations). Setting it separatly here allows for the value to be rendered differently in the filter. */
         cellRenderer?: Function;
@@ -649,7 +649,7 @@ declare module ag.grid {
         suppressRemoveEntries?: boolean;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class SetFilter implements Filter {
         private eGui;
         private filterParams;
@@ -697,7 +697,7 @@ declare module ag.grid {
         private createApi();
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class PopupService {
         private ePopupParent;
         init(ePopupParent: any): void;
@@ -705,7 +705,7 @@ declare module ag.grid {
         addAsModalPopup(eChild: any, closeOnEsc: boolean): (event: any) => void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     interface RowNode {
         /** Unique ID for the node. Can be though of as the index of the row in the original list,
          * however exceptions apply so don't depend on uniqueness. */
@@ -754,7 +754,7 @@ declare module ag.grid {
         _childrenMap?: {};
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class FilterManager {
         private $compile;
         private $scope;
@@ -793,7 +793,7 @@ declare module ag.grid {
         showFilter(column: Column, eventSource: any): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class TemplateService {
         templateCache: any;
         waitingCallbacks: any;
@@ -803,7 +803,7 @@ declare module ag.grid {
         handleHttpResult(httpResult: any, url: any): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class SelectionRendererFactory {
         private angularGrid;
         private selectionController;
@@ -811,7 +811,7 @@ declare module ag.grid {
         createSelectionCheckbox(node: any, rowIndex: any): HTMLInputElement;
     }
 }
-declare module ag.vdom {
+declare namespace ag.vdom {
     class VElement {
         static idSequence: number;
         private id;
@@ -824,7 +824,7 @@ declare module ag.vdom {
         toHtmlString(): string;
     }
 }
-declare module ag.vdom {
+declare namespace ag.vdom {
     class VHtmlElement extends VElement {
         private type;
         private classes;
@@ -855,7 +855,7 @@ declare module ag.vdom {
         fireElementAttachedToChildren(element: Element): void;
     }
 }
-declare module ag.vdom {
+declare namespace ag.vdom {
     class VWrapperElement extends VElement {
         private wrappedElement;
         constructor(wrappedElement: Element);
@@ -863,7 +863,7 @@ declare module ag.vdom {
         elementAttached(element: Element): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class RenderedCell {
         private vGridCell;
         private vSpanWithValue;
@@ -924,7 +924,7 @@ declare module ag.grid {
         private addClasses();
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class RenderedRow {
         vPinnedRow: any;
         vBodyRow: any;
@@ -974,7 +974,7 @@ declare module ag.grid {
         private addDynamicClasses();
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class SvgFactory {
         static theInstance: SvgFactory;
         static getInstance(): SvgFactory;
@@ -990,10 +990,10 @@ declare module ag.grid {
         createArrowUpDownSvg(): Element;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     function groupCellRendererFactory(gridOptionsWrapper: GridOptionsWrapper, selectionRendererFactory: SelectionRendererFactory, expressionService: ExpressionService): (params: any) => HTMLSpanElement;
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class RowRenderer {
         private columnModel;
         private gridOptionsWrapper;
@@ -1057,7 +1057,7 @@ declare module ag.grid {
         startEditingNextCell(rowIndex: any, column: any, shiftKey: any): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class SelectionController {
         private eParentsOfRows;
         private angularGrid;
@@ -1094,7 +1094,7 @@ declare module ag.grid {
         private updateGroupParentsIfNeeded();
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class RenderedHeaderElement {
         private eRoot;
         private dragStartX;
@@ -1110,7 +1110,7 @@ declare module ag.grid {
         stopDragging(listenersToRemove: any): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class RenderedHeaderCell extends RenderedHeaderElement {
         private static DEFAULT_SORTING_ORDER;
         private eHeaderCell;
@@ -1148,7 +1148,7 @@ declare module ag.grid {
         private addHeaderClassesFromCollDef();
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class RenderedHeaderGroupCell extends RenderedHeaderElement {
         private eHeaderGroup;
         private eHeaderGroupCell;
@@ -1178,7 +1178,7 @@ declare module ag.grid {
         onDragging(dragChange: any): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class HeaderRenderer {
         private gridOptionsWrapper;
         private columnController;
@@ -1200,7 +1200,7 @@ declare module ag.grid {
         onIndividualColumnResized(column: Column): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class GroupCreator {
         private valueService;
         init(valueService: ValueService): void;
@@ -1208,7 +1208,7 @@ declare module ag.grid {
         isExpanded(expandByDefault: any, level: any): boolean;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class InMemoryRowController {
         private gridOptionsWrapper;
         private columnController;
@@ -1257,7 +1257,7 @@ declare module ag.grid {
         private createFooterNode(groupNode);
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class VirtualPageRowController {
         rowRenderer: any;
         datasourceVersion: any;
@@ -1304,7 +1304,7 @@ declare module ag.grid {
         };
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class PaginationController {
         eGui: any;
         btNext: any;
@@ -1346,7 +1346,7 @@ declare module ag.grid {
         setupComponents(): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class BorderLayout {
         private eNorthWrapper;
         private eSouthWrapper;
@@ -1386,7 +1386,7 @@ declare module ag.grid {
         setSouthVisible(visible: any): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class GridPanel {
         private masterSlaveService;
         private gridOptionsWrapper;
@@ -1451,7 +1451,7 @@ declare module ag.grid {
         private scrollPinned(bodyTopPosition);
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class DragAndDropService {
         static theInstance: DragAndDropService;
         static getInstance(): DragAndDropService;
@@ -1464,7 +1464,7 @@ declare module ag.grid {
         addDropTarget(eDropTarget: any, dropTargetCallback: any): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class AgList {
         private eGui;
         private uniqueId;
@@ -1515,7 +1515,7 @@ declare module ag.grid {
         getGui(): any;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class ColumnSelectionPanel {
         private gridOptionsWrapper;
         private columnController;
@@ -1531,7 +1531,7 @@ declare module ag.grid {
         getGui(): any;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class GroupSelectionPanel {
         gridOptionsWrapper: any;
         columnController: ColumnController;
@@ -1547,7 +1547,7 @@ declare module ag.grid {
         private onItemMoved(fromIndex, toIndex);
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class AgDropdownList {
         private itemSelectedListeners;
         private eValue;
@@ -1571,7 +1571,7 @@ declare module ag.grid {
         setModel(model: any): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class ValuesSelectionPanel {
         private gridOptionsWrapper;
         private columnController;
@@ -1587,7 +1587,7 @@ declare module ag.grid {
         private beforeDropListener(newItem);
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class VerticalStack {
         isLayoutPanel: any;
         childPanels: any;
@@ -1598,14 +1598,14 @@ declare module ag.grid {
         doLayout(): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class ToolPanel {
         layout: any;
         constructor();
         init(columnController: any, inMemoryRowController: any, gridOptionsWrapper: GridOptionsWrapper, popupService: PopupService, eventService: EventService): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     interface GridOptions {
         virtualPaging?: boolean;
         toolPanelSuppressPivot?: boolean;
@@ -1692,7 +1692,7 @@ declare module ag.grid {
         columnApi?: ColumnApi;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class GridApi {
         private grid;
         private rowRenderer;
@@ -1789,7 +1789,7 @@ declare module ag.grid {
         refreshPivot(): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class ValueService {
         private gridOptionsWrapper;
         private expressionService;
@@ -1800,7 +1800,7 @@ declare module ag.grid {
         private getValueCallback(data, node, field);
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class Grid {
         private virtualRowCallbacks;
         private gridOptions;
@@ -1862,7 +1862,7 @@ declare module ag.grid {
         doLayout(): void;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class ComponentUtil {
         static SIMPLE_PROPERTIES: string[];
         static SIMPLE_NUMBER_PROPERTIES: string[];
@@ -1878,7 +1878,7 @@ declare module ag.grid {
         static toNumber(value: any): number;
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
     class AgGridNg2 {
         private elementDef;
         private _agGrid;
@@ -1973,11 +1973,11 @@ declare module ag.grid {
         private globalEventListener(eventType, event);
     }
 }
-declare module ag.grid {
+declare namespace ag.grid {
 }
 declare var exports: any;
 declare var module: any;
-declare module ag.grid {
+declare namespace ag.grid {
     interface Filter {
         getGui(): any;
         isFilterActive(): boolean;

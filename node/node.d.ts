@@ -165,7 +165,7 @@ declare var Buffer: {
 *               GLOBAL INTERFACES               *
 *                                               *
 ************************************************/
-declare module NodeJS {
+declare namespace NodeJS {
     export interface ErrnoException extends Error {
         errno?: number;
         code?: string;
@@ -2006,7 +2006,7 @@ declare module "util" {
 
 declare module "assert" {
     function internal (value: any, message?: string): void;
-    module internal {
+    namespace internal {
         export class AssertionError implements Error {
             name: string;
             message: string;

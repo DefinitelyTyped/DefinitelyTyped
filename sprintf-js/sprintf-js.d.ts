@@ -8,12 +8,12 @@
 
 Its prototype is simple:
 
-string sprintf(string format , [mixed arg1 [, mixed arg2 [ ,...]]]) 
+string sprintf(string format , [mixed arg1 [, mixed arg2 [ ,...]]])
 */
-declare module sprintf_js {
+declare namespace sprintf_js {
 	/** sprintf.js is a complete open source JavaScript sprintf implementation for the browser and node.js.
 Its prototype is simple:
-		string sprintf(string format , [mixed arg1 [, mixed arg2 [ ,...]]]) 
+		string sprintf(string format , [mixed arg1 [, mixed arg2 [ ,...]]])
 
 ==Placeholders==
 	The placeholders in the format string are marked by % and are followed by one or more of these elements.  see "fmt" arg for more docs on placeholders.

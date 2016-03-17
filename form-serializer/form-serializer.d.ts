@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module FormSerializer {
+declare namespace FormSerializer {
 
   interface FormSerializerPatterns {
     validate: RegExp;

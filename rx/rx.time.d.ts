@@ -6,7 +6,7 @@
 ///<reference path="rx.d.ts" />
 ///<reference path="rx.time-lite.d.ts" />
 
-declare module Rx {
+declare namespace Rx {
 	export interface Observable<T> {
 		delaySubscription(dueTime: number, scheduler?: IScheduler): Observable<T>;
 		delayWithSelector(delayDurationSelector: (item: T) => number): Observable<T>;

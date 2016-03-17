@@ -5,7 +5,7 @@
 
 /// <reference path="./three.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
     // Renderers / Renderables /////////////////////////////////////////////////////////////////////
     export class RenderableObject {
         constructor();

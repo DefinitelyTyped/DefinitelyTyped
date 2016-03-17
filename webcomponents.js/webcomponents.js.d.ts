@@ -3,7 +3,7 @@
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module webcomponents {
+declare namespace webcomponents {
 
     export interface CustomElementInit {
         prototype: HTMLElement;

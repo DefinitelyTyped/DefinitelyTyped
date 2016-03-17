@@ -13,7 +13,7 @@ declare module "angular-animate" {
 /**
  * ngAnimate module (angular-animate.js)
  */
-declare module angular.animate {
+declare namespace angular.animate {
     interface IAnimateFactory {
         (...args: any[]): IAnimateCallbackObject;
     }

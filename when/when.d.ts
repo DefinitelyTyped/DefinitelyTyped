@@ -11,7 +11,7 @@ declare function When<T, U>(value: When.Promise<T>, transform: (val: T) => U): W
 declare function When<T, U>(value: When.Thenable<T>, transform: (val: T) => U): When.Promise<U>;
 declare function When<T, U>(value: T, transform: (val: T) => U): When.Promise<U>;
 
-declare module When {
+declare namespace When {
     // Helper interfaces
     module _ {
         interface Fn0<T> { (): T }

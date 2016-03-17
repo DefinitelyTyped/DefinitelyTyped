@@ -2,7 +2,7 @@
 // Project: http://strophe.im/strophejs/
 // Definitions by: David Deutsch <https://github.com/DavidKDeutsch/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-declare module wrapper {
+declare namespace wrapper {
     /** Function: $build
      *  Create a Strophe.Builder.
      *  This is an alias for 'new Strophe.Builder(name, attrs)'.
@@ -14,7 +14,7 @@ declare module wrapper {
      *  Returns:
      *    A new Strophe.Builder object.
      */
-    function $build(name: string, attrs?: any): Strophe.Builder; 
+    function $build(name: string, attrs?: any): Strophe.Builder;
 
     /** Function: $msg
      *  Create a Strophe.Builder with a <message/> element as the root.
@@ -49,7 +49,7 @@ declare module wrapper {
      */
     function $pres(attrs?: any): Strophe.Builder;
 
-    module Strophe {
+    namespace Strophe {
         /** Constant: VERSION
          *  The version of the Strophe library. Unreleased builds will have
          *  a version of head-HASH where HASH is a partial revision.
@@ -152,7 +152,7 @@ declare module wrapper {
          *      referenced under Strophe.NS
          *    (String) value - The actual namespace.
          */
-        function addNamespace(name: string, value: string): void; 
+        function addNamespace(name: string, value: string): void;
 
         /** Function: forEachChild
          *  Map a function over some or all child elements of a given element.
@@ -168,7 +168,7 @@ declare module wrapper {
          *    (Function) func - The function to apply to each child.  This
          *      function should take a single argument, a DOM element.
          */
-        function forEachChild(elem: Element, elemName: string, func: (child: Element) => any): void; 
+        function forEachChild(elem: Element, elemName: string, func: (child: Element) => any): void;
 
         /** Function: isTagEqual
          *  Compare an element's tag name with a string.
@@ -212,7 +212,7 @@ declare module wrapper {
          *    A new XML DOM element.
          */
         function xmlElement(name: string, attrs?: any, text?: string): Element;
-        function xmlElement(name: string, text?: string, attrs?: any): Element; 
+        function xmlElement(name: string, text?: string, attrs?: any): Element;
 
         /*  Function: xmlescape
          *  Excapes invalid xml characters.
@@ -258,7 +258,7 @@ declare module wrapper {
          *  Returns:
          *    A new XML DOM text node.
          */
-        function xmlHtmlNode(html: string): Document; 
+        function xmlHtmlNode(html: string): Document;
 
         /** Function: getText
              *  Get the concatenation of all text children of an element.
@@ -283,7 +283,7 @@ declare module wrapper {
          *  Returns:
          *    A new, copied DOM element tree.
          */
-        function copyElement(elem: Element): Element; 
+        function copyElement(elem: Element): Element;
 
         /** Function: createHtml
          *  Copy an HTML DOM element into an XML DOM.
@@ -297,7 +297,7 @@ declare module wrapper {
          *  Returns:
          *    A new, copied DOM element tree.
          */
-        function createHtml(elem: Element): Element; 
+        function createHtml(elem: Element): Element;
 
         /** Function: escapeNode
          *  Escape the node part (also called local part) of a JID.
@@ -397,7 +397,7 @@ declare module wrapper {
         function log(level: LogLevel, msg: string): void;
 
         /** Functions: debug, info, warn, error
-         *  Log a message at the appropriate Strophe.LogLevel 
+         *  Log a message at the appropriate Strophe.LogLevel
          *
          *  Parameters:
          *    (String) msg - The log message.
@@ -406,7 +406,7 @@ declare module wrapper {
         function info(msg: string): void;
         function warn(msg: string): void;
         function error(msg: string): void;
-        function fatal(msg: string): void; 
+        function fatal(msg: string): void;
 
         /** Function: serialize
          *  Render a DOM element and all descendants to a String.
@@ -447,7 +447,7 @@ declare module wrapper {
             new (name: string, attrs?: any): Builder;
             prototype: any;
         }
-    
+
 
         /** Class: Strophe.Builder
          *  XML DOM builder.
@@ -1078,7 +1078,7 @@ declare module wrapper {
      *  Returns:
      *    A new Strophe.Builder object.
      */
-declare function $build(name: string, attrs?: any): wrapper.Strophe.Builder; 
+declare function $build(name: string, attrs?: any): wrapper.Strophe.Builder;
 
 /** Function: $msg
      *  Create a Strophe.Builder with a <message/> element as the root.

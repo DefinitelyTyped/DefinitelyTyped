@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.ui {
+declare namespace angular.ui {
 
     interface UISortableOptions<T> extends SortableOptions<T> {
         'ui-floating'?: string|boolean;

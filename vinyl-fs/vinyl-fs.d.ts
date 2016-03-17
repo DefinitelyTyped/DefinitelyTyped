@@ -7,7 +7,7 @@
 /// <reference path="../glob-stream/glob-stream.d.ts" />
 /// <reference path="../vinyl/vinyl.d.ts" />
 
-declare module NodeJS {
+declare namespace NodeJS {
    interface WritableStream {
       write(buffer: any/* Vinyl.File */, cb?: Function): boolean;
    }

@@ -1,6 +1,6 @@
 /// <reference path="../d3/d3.d.ts" />
 /// <reference path="nvd3.d.ts" />
-module nvd3_test_bulletChart {
+namespace nvd3_test_bulletChart {
     var width = 960,
         height = 80,
         margin = { top: 5, right: 40, bottom: 20, left: 120 };
@@ -28,9 +28,9 @@ module nvd3_test_bulletChart {
         "markerLabels": ['Target Inventory', 'Low Inventory'],
         "rangeLabels": ['Maximum Inventory', 'Average Inventory', 'Minimum Inventory'],
         "measureLabels": ['Current Inventory']
-    }]; 
+    }];
 
-    //TODO: to be consistent with other models, should be appending a g to an already made svg, not creating the svg element 
+    //TODO: to be consistent with other models, should be appending a g to an already made svg, not creating the svg element
     var vis = d3.select("#chart").selectAll("svg")
         .data(data)
         .enter().append("svg")

@@ -5,7 +5,7 @@
 
 /// <reference path="xrm.d.ts" />
 
-declare module Xrm.Page
+declare namespace Xrm.Page
 {
     /**
      * Interface for Parature's knowledge base search control.

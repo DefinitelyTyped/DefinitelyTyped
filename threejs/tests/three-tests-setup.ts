@@ -15,7 +15,7 @@
 /// <reference path="../three-shaderpass.d.ts" />
 /// <reference path="../three-copyshader.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
     var AWDLoader: any;
     var FlyControls: any;
     var BloomPass: any;
