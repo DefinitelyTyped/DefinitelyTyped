@@ -3,7 +3,7 @@
 // Definitions by: Kon <http://phyzkit.net/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Gamepad{
+declare namespace Gamepad{
     /**
      * This interface defines an individual gamepad device.
      */

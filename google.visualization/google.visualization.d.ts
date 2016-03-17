@@ -3,14 +3,14 @@
 // Definitions by: Dan Ludwig <https://github.com/danludwig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module google {
+declare namespace google {
 
     function load(visualization: string, version: string, packages: any): void;
     function setOnLoadCallback(handler: Function): void;
     function setOnLoadCallback(handler: () => void): void;
 
     //https://developers.google.com/chart/interactive/docs/reference
-    module visualization {
+    namespace visualization {
 
         export interface ChartSpecs {
             chartType: string;
@@ -1111,7 +1111,7 @@ declare module google {
         //#endregion
         //#region Events
 
-        module events {
+        namespace events {
             function addListener(visualization: any, eventName: string, callback: Function): any;
             function addListener(visualization: any, eventName: string, callback: (...args: any[]) => void): any;
             function removeListener(listener: any): void;

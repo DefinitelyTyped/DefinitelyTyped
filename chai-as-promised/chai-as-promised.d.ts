@@ -12,7 +12,7 @@ declare module 'chai-as-promised' {
     export = chaiAsPromised;
 }
 
-declare module Chai {
+declare namespace Chai {
 
     // For BDD API
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {

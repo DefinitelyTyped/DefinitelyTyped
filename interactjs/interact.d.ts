@@ -5,7 +5,7 @@
 
 // API documentation: http://interactjs.io/docs
 
-declare module Interact {
+declare namespace Interact {
     interface Interactable {
         // returns Element or string
         accept(): any;

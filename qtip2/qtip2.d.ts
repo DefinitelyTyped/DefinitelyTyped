@@ -10,7 +10,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module QTip2 {
+declare namespace QTip2 {
 	type EventApiFunc = (event: Event, api: Api) => void;
 
 

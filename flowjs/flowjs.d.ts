@@ -3,7 +3,7 @@
 // Definitions by: Ryan McNamara <https://github.com/ryan10132>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module flowjs {
+declare namespace flowjs {
     interface IFlow {
         support: boolean;
         supportDirectory: boolean;

@@ -1,5 +1,5 @@
 ﻿/// <reference path="nvd3.d.ts" />
-module nvd3_test_timeSeries {
+namespace nvd3_test_timeSeries {
     var data = [{
         values: []
     }];

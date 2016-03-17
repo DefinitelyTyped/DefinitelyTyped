@@ -5,22 +5,22 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module JQueryFarbtastic {
+declare namespace JQueryFarbtastic {
     type Placeholder = string | Element | JQuery;
-    type CallbackFunction = (color: string) => any; 
-    type Callback = CallbackFunction | Placeholder; 
-    
+    type CallbackFunction = (color: string) => any;
+    type Callback = CallbackFunction | Placeholder;
+
     interface Options {
         callback?: Callback;
         width?: number;
         wheelWidth?: number;
     }
-    
+
     interface Farbtastic {
         linked: CallbackFunction | JQuery;
         color: string;
         hsl: number[];
-        
+
         linkTo(callback: Callback): Farbtastic;
         setColor(color: string | number[]): Farbtastic;
         setHSL(hsl: number[]): Farbtastic;

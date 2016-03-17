@@ -3,7 +3,7 @@
 // Definitions by: Martin McWhorter <https://github.com/martinmcwhorter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module angular.kookies {
+declare namespace angular.kookies {
 
 	type Options = {
 		expires?: number|Date,

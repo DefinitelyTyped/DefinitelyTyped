@@ -11,7 +11,7 @@ declare module 'angular-ui-router-extras' {
     export = _;
 }
 
-declare module angular.ui {
+declare namespace angular.ui {
 
 
     /*

@@ -22,7 +22,7 @@ declare module "swaggerize-express" {
     import express = require('express');
     function swaggerize(options: swaggerize.Options): express.RequestHandler;
 
-    module swaggerize {
+    namespace swaggerize {
         export module Swagger {
             export interface ApiDefinition {
                 swagger: string

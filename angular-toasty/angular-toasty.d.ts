@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module toasty {
+declare namespace toasty {
 
     interface IToastyService {
         /**

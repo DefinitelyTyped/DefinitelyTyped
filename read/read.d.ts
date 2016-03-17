@@ -6,7 +6,7 @@
 declare module 'read' {
 	function Read(options: Read.Options, callback: (error: any, result: string, isDefault: boolean) => any): void;
 
-	module Read {
+	namespace Read {
 		interface Options {
 			prompt?: string;
 			silent?: boolean;

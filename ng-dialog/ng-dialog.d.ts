@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.dialog {
+declare namespace angular.dialog {
 
 	interface IDialogService {
 		getDefaults(): IDialogOptions;

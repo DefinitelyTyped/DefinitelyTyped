@@ -2,7 +2,8 @@
 // Project: http://chancejs.com
 // Definitions by: Chris Bowdon <https://github.com/cbowdon/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-declare module Chance {
+
+declare namespace Chance {
 
     interface ChanceStatic {
         (): Chance

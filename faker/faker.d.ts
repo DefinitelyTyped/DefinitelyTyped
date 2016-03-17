@@ -5,7 +5,7 @@
 
 declare var fakerStatic: Faker.FakerStatic;
 
-declare module Faker {
+declare namespace Faker {
 	interface FakerStatic {
 		locale: string;
 
@@ -171,7 +171,7 @@ declare module Faker {
 			uuid(): string;
 			boolean(): boolean;
 		};
-		
+
 		seed(value: number): void;
 	}
 

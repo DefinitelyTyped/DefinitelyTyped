@@ -11,7 +11,7 @@
 
 declare module "sequelize" {
 
-    module sequelize {
+    namespace sequelize {
 
         //
         //  Associations

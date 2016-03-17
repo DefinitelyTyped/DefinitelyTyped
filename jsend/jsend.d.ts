@@ -3,13 +3,13 @@
 // Definitions by: Federico Caselli <https://github.com/CaselIT> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Express {
+declare namespace Express {
   export interface Response {
     jsend: jsend.jsendExpress;
   }
 }
 
-declare module jsend {
+declare namespace jsend {
   interface JSendObject {
     status: string;
     code?: number;

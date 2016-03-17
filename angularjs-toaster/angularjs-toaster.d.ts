@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module ngtoaster {
+declare namespace ngtoaster {
   interface IToasterService {
     pop(params:IPopParams): void
     /**

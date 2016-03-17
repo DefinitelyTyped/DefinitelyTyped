@@ -104,7 +104,7 @@ class ExpressBrute {
     reset(ip: string, key: string, next: Function): express.RequestHandler;
 }
 
-module ExpressBrute {
+namespace ExpressBrute {
     /**
      * @summary In-memory store.
      * @class

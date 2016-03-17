@@ -5,7 +5,7 @@
 
 /// <reference path="../backbone/backbone.d.ts" />
 
-declare module Backbone {
+declare namespace Backbone {
     interface Serializer {
         serialize(item: any): any;
         deserialize(data: any): any;

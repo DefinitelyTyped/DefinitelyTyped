@@ -3,7 +3,7 @@
 // Definitions by: Diullei Gomes <https://github.com/Diullei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module AceAjax {
+declare namespace AceAjax {
 
     export interface Delta {
         action: string;

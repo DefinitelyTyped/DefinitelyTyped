@@ -9,7 +9,7 @@ declare module 'async-writer' {
 	import stream = require('stream');
 	import events = require('events');
 
-	module async_writer {
+	namespace async_writer {
 		interface EventFunction {
 			(event: string, callback: Function): void;
 		}

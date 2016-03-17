@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.jwt {
+declare namespace angular.jwt {
 
     interface JwtToken {
         iss: string;

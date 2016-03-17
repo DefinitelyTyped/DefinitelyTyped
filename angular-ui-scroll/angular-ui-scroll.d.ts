@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.ui {
+declare namespace angular.ui {
     interface IScrollDatasource<T> {
         /**
          * The datasource object implements methods and properties to be used by the directive to access the data

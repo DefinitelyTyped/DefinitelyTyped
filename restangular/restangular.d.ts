@@ -14,7 +14,7 @@ declare module 'restangular' {
 
 
 
-declare module restangular {
+declare namespace restangular {
 
   interface IPromise<T> extends angular.IPromise<T> {
     call(methodName: string, params?: any): IPromise<T>;

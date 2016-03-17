@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "node-polyglot" {
-	module Polyglot {
+	namespace Polyglot {
 		interface InterpolationOptions {
 			smart_count?: number | { length: number };
 			_?: string;

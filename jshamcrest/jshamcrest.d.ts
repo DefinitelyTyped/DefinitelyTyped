@@ -8,7 +8,7 @@
  *
  * @author Daniel Martins
  */
-declare module JsHamcrest {
+declare namespace JsHamcrest {
     /**
      * Library version.
      */
@@ -188,7 +188,7 @@ declare module JsHamcrest {
     /**
      * Provides the assertion, filtering, and currying methods.
      */
-    module Operators {
+    namespace Operators {
         /**
          * Defines the options accepted by assert().
          */
@@ -231,7 +231,7 @@ declare module JsHamcrest {
     /**
      * Defines all of the built-in matchers grouped into five categories.
      */
-    module Matchers {
+    namespace Matchers {
         //
         // Collection Matchers
         //
@@ -618,7 +618,7 @@ declare module JsHamcrest {
     /**
      * Provides methods for exposing matchers and operators for several testing frameworks.
      */
-    module Integration {
+    namespace Integration {
         /**
          * Copies all members of the Matchers and Operators modules to target.
          *

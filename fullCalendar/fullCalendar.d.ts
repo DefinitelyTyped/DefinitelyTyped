@@ -6,7 +6,7 @@
 /// <reference path="../jquery/jquery.d.ts"/>
 /// <reference path="../moment/moment.d.ts"/>
 
-declare module FullCalendar {
+declare namespace FullCalendar {
     export interface Calendar {
 
         /**
@@ -97,7 +97,7 @@ declare module FullCalendar {
         timeFormat?: any; // String/ViewOptionHash
         columnFormat?: any; // String/ViewOptionHash
         titleFormat?: any; // String/ViewOptionHash
-        
+
         buttonText?: ButtonTextObject;
         monthNames?: Array<string>;
         monthNamesShort?: Array<string>;

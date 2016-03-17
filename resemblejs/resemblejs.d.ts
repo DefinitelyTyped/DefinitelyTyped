@@ -3,7 +3,7 @@
 // Definitions by: Tim Perry <https://github.com/pimterry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Resemble {
+declare namespace Resemble {
   interface ResembleStatic {
     (image: string|ImageData): ResembleAnalysis;
     outputSettings(settings: OutputSettings): ResembleStatic;

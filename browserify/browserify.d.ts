@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module Browserify {
+declare namespace Browserify {
   /**
    * Options pertaining to an individual file.
    */

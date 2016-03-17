@@ -60,7 +60,7 @@ declare module "benchmark" {
         toString(): string;
     }
 
-    module Benchmark {
+    namespace Benchmark {
         export interface Options {
             async?: boolean;
             defer?: boolean;

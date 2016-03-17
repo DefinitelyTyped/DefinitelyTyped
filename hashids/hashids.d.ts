@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module Hashids {
+declare namespace Hashids {
 
     export interface IHashids {
         new(salt: string, minHashLength?: number, alphabet?: string): IHashids;

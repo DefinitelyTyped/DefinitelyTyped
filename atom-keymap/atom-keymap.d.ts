@@ -5,7 +5,7 @@
 
 /// <reference path="../event-kit/event-kit.d.ts" />
 
-declare module AtomKeymap {
+declare namespace AtomKeymap {
 	type Disposable = AtomEventKit.Disposable;
 
 	/** Instance side of KeyBinding class. */

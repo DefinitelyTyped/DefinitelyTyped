@@ -10,7 +10,7 @@ declare module "urlrouter" {
 
 	function UrlRouterInternal(handler:(app:UrlRouterInternal.App) => void):UrlRouterInternal.HttpHandler;
 
-	module UrlRouterInternal {
+	namespace UrlRouterInternal {
 
 
 		interface ServerRequest extends http.ServerRequest {

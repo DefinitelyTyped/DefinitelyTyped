@@ -5,7 +5,7 @@
 
 declare var doT: doT.doTStatic;
 
-declare module doT {
+declare namespace doT {
 
 	interface doTStatic {
 		/**

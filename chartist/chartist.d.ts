@@ -3,7 +3,7 @@
 // Definitions by: Matt Gibbs <https://github.com/mtgibbs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Chartist {
+declare namespace Chartist {
 
   interface ChartistStatic {
 

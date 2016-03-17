@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module TypeCheck {
+declare namespace TypeCheck {
 
   export interface CustomType {
     [typeName: string]: {

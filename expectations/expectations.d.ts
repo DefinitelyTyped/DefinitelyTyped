@@ -5,7 +5,7 @@
 
 declare var expect:Expectations.IExpectations;
 
-declare module Expectations {
+declare namespace Expectations {
     interface IExpectations {
         (value:any):Expect;
         addAssertion(name:string, matcher:Function):void;

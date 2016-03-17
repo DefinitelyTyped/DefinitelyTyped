@@ -7,7 +7,7 @@ declare var Lobibox: LobiboxModule.LobiboxStatic;
 declare module "Lobibox" {
     export = Lobibox;
 }
-declare module LobiboxModule {
+declare namespace LobiboxModule {
     interface MessageBoxesDefault {
         title?           : string;
         horizontalOffset?: number;

@@ -5,7 +5,7 @@
 
 ///<reference path="l2o.d.ts"/>
 
-declare module Ix {
+declare namespace Ix {
 
 	export interface Observer<T> {
 		onNext? (value: T): void;

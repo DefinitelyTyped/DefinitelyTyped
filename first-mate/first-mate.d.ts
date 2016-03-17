@@ -5,7 +5,7 @@
 
 /// <reference path="../event-kit/event-kit.d.ts" />
 
-declare module AtomFirstMate {
+declare namespace AtomFirstMate {
 	type Disposable = AtomEventKit.Disposable;
 
 	interface IToken {

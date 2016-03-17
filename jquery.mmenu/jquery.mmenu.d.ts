@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module JQueryMmenu {
+declare namespace JQueryMmenu {
 
     interface NavbarOptions {
 

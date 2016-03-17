@@ -6,7 +6,7 @@
 /// <reference path="../jquery/jquery.d.ts"/>
 /// <reference path="../jqueryui/jqueryui.d.ts"/>
 
-declare module JQueryUILayout {
+declare namespace JQueryUILayout {
 
     interface PaneOptions {
         applyDefaultStyles?: boolean;

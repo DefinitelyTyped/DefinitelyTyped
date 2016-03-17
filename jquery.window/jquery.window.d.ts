@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module JQueryWindow {
+declare namespace JQueryWindow {
     // Instance methods
     interface Window {
         /**
@@ -35,7 +35,7 @@ declare module JQueryWindow {
         /**
         set current window as screen center
         **/
-        alignCenter(): void;    
+        alignCenter(): void;
         /**
         set current window as horizontal center
         **/

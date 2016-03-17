@@ -14,7 +14,7 @@
  for full copyright notice and license terms.
  */
 
-declare module DDS {
+declare namespace DDS {
 
 
 	/**

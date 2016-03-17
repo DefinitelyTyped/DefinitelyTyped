@@ -6,7 +6,7 @@
 /// <reference path="../angularjs/angular.d.ts"/>
 /// <reference path="../angular-ui-bootstrap/angular-ui-bootstrap.d.ts"/>
 
-declare module angular.dialogservice {
+declare namespace angular.dialogservice {
 
   interface IDialogOptions {
     /**

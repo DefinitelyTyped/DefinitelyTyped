@@ -5,7 +5,7 @@
 
 /// <reference path="../express/express.d.ts" />
 
-declare module Express {
+declare namespace Express {
 
     interface MakePartialInput {
         model:any;

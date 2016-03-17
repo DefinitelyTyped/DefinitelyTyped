@@ -8,7 +8,7 @@
 declare module "tedious-connection-pool" {
     import tedious = require('tedious');
 
-    module tcp {
+    namespace tcp {
 
         /**
          * Extends Tedious Connection with release function

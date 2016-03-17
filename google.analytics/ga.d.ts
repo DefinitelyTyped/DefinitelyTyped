@@ -36,9 +36,9 @@ interface GoogleAnalytics {
     async: boolean;
 }
 
-declare module UniversalAnalytics {
+declare namespace UniversalAnalytics {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference
-    
+
     enum HitType {
         'pageview', 'screenview', 'event', 'transaction', 'item', 'social', 'exception', 'timing'
     }
@@ -46,7 +46,7 @@ declare module UniversalAnalytics {
     interface ga {
         l: number;
         q: any[];
-        
+
         (command: 'send', hitType: 'event', eventCategory: string, eventAction: string,
             eventLabel?: string, eventValue?: number, fieldsObject?: {}): void;
         (command: 'send', hitType: 'event', fieldsObject: {
@@ -73,18 +73,18 @@ declare module UniversalAnalytics {
             fieldsObject: {timingCategory: string, timingVar: string, timingValue: number}): void;
         (command: 'send', fieldsObject: {}): void;
         (command: string, hitType: HitType, ...fields: any[]): void;
-        
+
         (command: 'create', trackingId: string, cookieDomain?: string, name?: string, fieldsObject?: {}): void;
         (command: 'remove'): void;
-        
+
         (command: string, ...fields: any[]): void;
-        
+
         (readyCallback: (defaultTracker?: UniversalAnalytics.Tracker) => void): void;
-        
+
         create(trackingId: string, cookieDomain: string, name: string, fieldsObject?: {}): UniversalAnalytics.Tracker;
         create(trackingId: string, cookieDomain: string, fieldsObject?: {}): UniversalAnalytics.Tracker;
         create(trackingId: string, fieldsObject?: {}): UniversalAnalytics.Tracker;
-        
+
         getAll(): UniversalAnalytics.Tracker[];
         getByName(name: string): UniversalAnalytics.Tracker;
         remove(name:string): void;

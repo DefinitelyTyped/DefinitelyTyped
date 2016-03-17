@@ -46,7 +46,7 @@ declare module "ejs" {
             scanLine(line: string): any;
 
         }
-        module Template {
+        namespace Template {
             interface MODES {
                 EVAL: string;
                 ESCAPED: string;

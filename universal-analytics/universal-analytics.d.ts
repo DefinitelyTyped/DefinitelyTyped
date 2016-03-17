@@ -7,7 +7,7 @@ interface UniversalAnalytics {
     (accountID:string, uuid?:string, opts?:Object):UniversalAnalytics.Client;
 }
 
-declare module UniversalAnalytics {
+declare namespace UniversalAnalytics {
 
     interface Client {
         debug():UniversalAnalytics.Client;

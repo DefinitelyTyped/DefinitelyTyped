@@ -6,7 +6,7 @@
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
-declare module GoogleAppsScript {
+declare namespace GoogleAppsScript {
   export module JDBC {
     /**
      * The JDBC service allows scripts to connect to Google Cloud SQL, MySQL,
@@ -63,7 +63,7 @@ declare module GoogleAppsScript {
      * A JDBC CallableStatement. For documentation of this class, see
      *  java.sql.CallableStatement.
      * See also
-     * 
+     *
      *  CallableStatement
      */
     export interface JdbcCallableStatement {
@@ -794,7 +794,7 @@ declare module GoogleAppsScript {
     /**
      * A JDBC Savepoint. For documentation of this class, see java.sql.Savepoint.
      * See also
-     * 
+     *
      * Savepoint
      */
     export interface JdbcSavepoint {

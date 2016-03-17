@@ -7,7 +7,7 @@
 /// <reference path="../jquery/jquery.d.ts"/>
 /// <reference path="../jqueryui/jqueryui.d.ts"/>
 
-declare module JQueryUI {
+declare namespace JQueryUI {
     interface UI {
         dynatree: DynatreeNamespace
     }
@@ -178,7 +178,7 @@ interface DynaTreeDataModel {
 
 interface DynaTreeDNDOptions {
     autoExpandMS?: number; // Expand nodes after n milliseconds of hovering.
-    preventVoidMoves?: boolean; // Prevent dropping nodes 'before self', etc. 
+    preventVoidMoves?: boolean; // Prevent dropping nodes 'before self', etc.
     revert: boolean; // true: slide helper back to source if drop is rejected
 
     // Make tree nodes draggable:

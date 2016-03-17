@@ -5,7 +5,7 @@
 
 /// <reference path="../doublearray/doublearray.d.ts" />
 
-declare module kuromoji {
+declare namespace kuromoji {
 
     // dict/ConnectionCosts.js
     interface ConnectionCosts {

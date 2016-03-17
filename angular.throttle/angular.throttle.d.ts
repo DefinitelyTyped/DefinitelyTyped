@@ -5,7 +5,7 @@
 
 /// <reference path='../angularjs/angular.d.ts' />
 
-declare module angular {
+declare namespace angular {
 	interface IAngularStatic {
 		throttle:( fn:Function, throttle:number, options?:{leading?:boolean; trailing?:boolean;} ) => Function;
 	}

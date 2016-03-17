@@ -17,7 +17,7 @@ var list = [[0, 1], [2, 3], [4, 5]];
 //var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
 var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
-module TestFind {
+namespace TestFind {
 	let array: {a: string}[] = [{a: 'a'}, {a: 'b'}];
 	let list: _.List<{a: string}> = {0: {a: 'a'}, 1: {a: 'b'}, length: 2};
 	let dict: _.Dictionary<{a: string}> = {a: {a: 'a'}, b: {a: 'b'}};

@@ -8,7 +8,7 @@ declare module 'matter-js' {
     export = Matter;
 }
 
-declare module Matter {
+declare namespace Matter {
     /**
     * The `Matter.Axes` module contains methods for creating and manipulating sets of axes.
     *
@@ -496,8 +496,8 @@ declare module Matter {
          Default: a random colour
         */
         strokeStyle: string;
-		
-		
+
+
 		/*
 		 * Sets the opacity. 1.0 is fully opaque. 0.0 is fully translucent
 		 */

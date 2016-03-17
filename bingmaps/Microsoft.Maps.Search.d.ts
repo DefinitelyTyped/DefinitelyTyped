@@ -5,7 +5,7 @@
 
 /// <reference path="Microsoft.Maps.d.ts"/>
 
-declare module Microsoft.Maps.Search {
+declare namespace Microsoft.Maps.Search {
 
      export interface Address {
          addressLine: string;

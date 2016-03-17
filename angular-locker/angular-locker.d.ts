@@ -10,7 +10,7 @@ declare module "angular-locker" {
     export = _;
 }
 
-declare module angular.locker {
+declare namespace angular.locker {
     interface ILockerServicePutFunction {
         (current: any): any
     }
@@ -69,7 +69,7 @@ declare module angular.locker {
         * Add a new item to storage (even if it already exists)
         *
         * @param  {Mixed}  key    The key to add
-        * @param  {Mixed}  value  The value to add     
+        * @param  {Mixed}  value  The value to add
         */
         put(key: string, value: any): ILockerService | boolean;
         /**
@@ -77,7 +77,7 @@ declare module angular.locker {
         *
         * @param  {Mixed}  key    The key to add
         * @param  {Mixed}  putFunction    The default to pass to function if doesn't already exist
-        * @param  {Mixed}  value  The value to add     
+        * @param  {Mixed}  value  The value to add
         */
         put(key: string, putFunction: ILockerServicePutFunction, value: any): ILockerService | boolean;
         /**

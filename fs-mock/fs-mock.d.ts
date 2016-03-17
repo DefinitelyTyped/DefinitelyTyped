@@ -10,7 +10,7 @@ declare module "fs-mock" {
 	import events = require("events");
 	import fs = require("fs");
 
-	module FS {
+	namespace FS {
 		export interface Opts {
 			windows?: boolean;
 			drives?: string[];

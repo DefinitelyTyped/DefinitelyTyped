@@ -5,7 +5,7 @@
 
 declare function powerAssertFormatter(options?:powerAssertFormatter.Options):powerAssertFormatter.Formatter;
 
-declare module powerAssertFormatter {
+declare namespace powerAssertFormatter {
     export interface Options {
         lineDiffThreshold?: number;
         maxDepth?: number;

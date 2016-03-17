@@ -39,7 +39,7 @@ interface Mixpanel
     get_property(propertyName:string):any;
 }
 
-declare module Mixpanel
+declare namespace Mixpanel
 {
     interface People
     {

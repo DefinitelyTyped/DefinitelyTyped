@@ -3,7 +3,7 @@
 // Definitions by: Marcin Porębski <https://github.com/marcinporebski/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Traverson
+declare namespace Traverson
 {
     interface TraversonMethods
     {

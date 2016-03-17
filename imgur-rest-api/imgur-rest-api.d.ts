@@ -3,7 +3,7 @@
 // Definitions by: Luke William Westby <http://github.com/lukewestby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module ImgurRestApi {
+declare namespace ImgurRestApi {
 
     interface Response<T> {
         data: any; //T|Error;

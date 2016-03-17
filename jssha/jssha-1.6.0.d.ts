@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module jsSHA {
+declare namespace jsSHA {
     export interface OutputFormatOptions {
         outputUpper? : boolean;
         b64Pad? : string;

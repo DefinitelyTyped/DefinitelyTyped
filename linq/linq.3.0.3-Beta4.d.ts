@@ -3,7 +3,7 @@
 // Definitions by: neuecc <http://www.codeplex.com/site/users/view/neuecc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module linqjs {
+declare namespace linqjs {
     interface IEnumerator {
         current(): any;
         moveNext(): boolean;

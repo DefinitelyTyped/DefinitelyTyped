@@ -14,7 +14,7 @@ declare module 'angular-formly' {
 	export = angularFormlyDefaultExport;
 }
 
-declare module AngularFormly {
+declare namespace AngularFormly {
 
 	interface IFieldArray extends Array<IFieldConfigurationObject | IFieldGroup> {
 

@@ -6,12 +6,12 @@
 /// <reference path="../express/express.d.ts" />
 /// <reference path="../mysql/mysql.d.ts" />
 
-declare module mysql{
+declare namespace mysql{
   export interface IConnection {}
   export interface IError {}
 }
 
-declare module Express {
+declare namespace Express {
 
   export interface Request {
     getConnection?: (callback: (err: mysql.IError, connection: mysql.IConnection) => void) => void;

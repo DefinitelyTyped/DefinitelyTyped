@@ -1,6 +1,6 @@
 /// <reference path="navigation.d.ts" />
 
-module NavigationTests {
+namespace NavigationTests {
 	// History Manager
 	class LogHistoryManager extends Navigation.HashHistoryManager  {
 	    addHistory(state: Navigation.State, url: string) {
@@ -8,20 +8,20 @@ module NavigationTests {
 			super.addHistory(state, url);
 	    }
 	}
-	
+
 	// Crumb Trail Persister
 	class LogCrumbTrailPersister extends Navigation.CrumbTrailPersister {
 		load(crumbTrail: string): string {
 			console.log('load');
 			return crumbTrail;
 		}
-		
+
 		save(crumbTrail: string): string {
 			console.log('save');
 			return crumbTrail;
 		}
 	}
-	
+
 	// State Router
 	class LogStateRouter extends Navigation.StateRouter {
 	    getData(route: string): { state: Navigation.State; data: any } {
@@ -29,13 +29,13 @@ module NavigationTests {
 			return super.getData(route);
 	    }
 	}
-	
+
 	// Settings
 	Navigation.settings.router = new LogStateRouter();
 	Navigation.settings.historyManager = new LogHistoryManager();
 	Navigation.settings.crumbTrailPersister = new LogCrumbTrailPersister();
 	Navigation.settings.stateIdKey = 'state';
-	
+
 	// Configuration
 	Navigation.StateInfoConfig.build([
 		{ key: 'home', initial: 'page', help: 'home.htm', states: [
@@ -48,7 +48,7 @@ module NavigationTests {
 			{ key: 'details', route: 'person/{id}', trackTypes: false, defaultTypes: { id: 'number' } }
 		]}
 	]);
-	
+
 	// StateInfo
 	var dialogs = Navigation.StateInfoConfig.dialogs;
 	var home = dialogs['home'];
@@ -64,7 +64,7 @@ module NavigationTests {
 	personDetails = personListSelect.to;
 	var pageDefault = personList.defaults.page;
 	var idDefaultType = personDetails.defaultTypes.id;
-	
+
 	// StateNavigator
 	personList.dispose = () => {};
 	personList.navigating = (data, url, navigate) => {
@@ -75,7 +75,7 @@ module NavigationTests {
 		navigate();
 	};
 	personDetails.navigated = (data) => {};
-	
+
 	// State Handler
 	class LogStateHandler extends Navigation.StateHandler {
 		getNavigationLink(state: Navigation.State, data: any): string {
@@ -96,14 +96,14 @@ module NavigationTests {
 	homePage.stateHandler = new LogStateHandler();
 	personList.stateHandler = new LogStateHandler();
 	personDetails.stateHandler = new LogStateHandler();
-	
+
 	// Navigation Event
-	var navigationListener = 
+	var navigationListener =
 	(oldState: Navigation.State, state: Navigation.State, data: any) => {
 		Navigation.StateController.offNavigate(navigationListener);
 	};
 	Navigation.StateController.onNavigate(navigationListener);
-	
+
 	// Navigation
 	Navigation.start('home');
 	Navigation.StateController.navigate('person');
@@ -115,7 +115,7 @@ module NavigationTests {
 	var canGoBack: boolean = Navigation.StateController.canNavigateBack(1);
 	Navigation.StateController.navigateBack(1);
 	Navigation.StateController.clearStateContext();
-	
+
 	// Navigation Link
 	var link = Navigation.StateController.getNavigationLink('person');
 	link = Navigation.StateController.getRefreshLink();
@@ -129,7 +129,7 @@ module NavigationTests {
 	var crumb = Navigation.StateController.crumbs[0];
 	link = crumb.navigationLink;
 	Navigation.StateController.navigateLink(link, true, Navigation.HistoryAction.None);
-	
+
 	// StateContext
 	Navigation.StateController.navigate('home');
 	Navigation.StateController.navigate('person');
@@ -145,7 +145,7 @@ module NavigationTests {
 	personList = Navigation.StateContext.oldState;
 	page = Navigation.StateContext.oldData.page;
 	page = Navigation.StateContext.previousData.page;
-	
+
 	// Navigation Data
 	var data = Navigation.StateContext.includeCurrentData({ sort: 'name' }, ['page']);
 	Navigation.StateController.refresh(data);

@@ -15,7 +15,7 @@ declare module "glob" {
 	function G(pattern: string, cb: (err: Error, matches: string[]) => void): void;
 	function G(pattern: string, options: G.IOptions, cb: (err: Error, matches: string[]) => void): void;
 
-	module G {
+	namespace G {
 		function sync(pattern: string, options?: IOptions): string[];
 
 		function hasMagic(pattern: string, options?: IOptions): boolean;

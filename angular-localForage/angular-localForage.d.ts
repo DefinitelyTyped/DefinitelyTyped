@@ -6,7 +6,7 @@
 /// <reference path="../localForage/localForage.d.ts" />
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.localForage {
+declare namespace angular.localForage {
 
     interface LocalForageConfig {
         driver?:string;

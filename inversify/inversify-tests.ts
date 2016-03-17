@@ -7,7 +7,7 @@ import {
     IKernelModule, IFactory, IProvider, IRequest
 } from "inversify";
 
-module external_module_test {
+namespace external_module_test {
 
     interface INinja {
         fight(): string;

@@ -7,7 +7,7 @@
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../backbone/backbone.d.ts" />
 
-declare module Backbone {
+declare namespace Backbone {
     class RelationalModel extends Model {
         /**
         * Do not use, prefer TypeScript's extend functionality.

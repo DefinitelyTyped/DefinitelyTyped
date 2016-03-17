@@ -3,7 +3,7 @@
 // Definitions by: ZauberNerd <https://github.com/ZauberNerd/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module deepDiff {
+declare namespace deepDiff {
     interface IDiff {
         kind: string;
         path: string[];

@@ -5,7 +5,7 @@
 
 /// <reference path="./estree.d.ts" />
 
-declare module ESTree {
+declare namespace ESTree {
   interface FlowTypeAnnotation extends Node {}
 
   interface FlowBaseTypeAnnotation extends FlowTypeAnnotation {}

@@ -6,7 +6,7 @@
 ///<reference path="../q/Q.d.ts"/>
 ///<reference path="../rx/rx.d.ts"/>
 
-declare module HystrixJS {
+declare namespace HystrixJS {
 
      interface HystrixProperties {
         "hystrix.force.circuit.open"?: boolean,

@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module JsRender {
+declare namespace JsRender {
     interface Converters {
         (name: string, converterFn: (value: any) => any): any;
         (namedConverters: any, parentTemplate?: any): any;

@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module scaron_prettyPhoto {
+declare namespace scaron_prettyPhoto {
     /**
     * Pretty photo settings
     */

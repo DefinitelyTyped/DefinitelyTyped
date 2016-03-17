@@ -12,7 +12,7 @@ declare module "superagent" {
 
   var request: request.SuperAgentStatic;
 
-  module request {
+  namespace request {
     interface SuperAgentStatic extends SuperAgent<SuperAgentRequest> {
       (url: string): SuperAgentRequest;
       (method: string, url: string): SuperAgentRequest;

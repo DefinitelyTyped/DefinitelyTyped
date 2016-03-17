@@ -5,7 +5,7 @@
 
 /// <reference path="./three.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
 	class TransformControls extends Object3D {
 		constructor(object:Camera, domElement?:HTMLElement);
 

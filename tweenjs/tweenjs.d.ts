@@ -14,7 +14,7 @@
 
 /// <reference path="../createjs-lib/createjs-lib.d.ts" />
 
-declare module createjs {
+declare namespace createjs {
     export class CSSPlugin {
         constructor();
 

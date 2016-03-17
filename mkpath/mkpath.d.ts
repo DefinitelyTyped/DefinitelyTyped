@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'mkpath' {
-  module mkpath {
+  namespace mkpath {
     function sync(path: string, mode?: number): void;
   }
 

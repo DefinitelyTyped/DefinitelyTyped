@@ -4,16 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'xmltojson' {
-    
+
     export = xmltojson;
-    
-    module xmltojson {
+
+    namespace xmltojson {
         function grokType(sValue: any): any;
         function parseString(xmlString: string, opt: Options): Object;
         function parseXml(oXMLParent: Document, opt: Options): Object;
         function xmlToString(xmlDoc: Document): string;
         function stringToXml(xmlString: string): Document;
-        
+
         interface Options {
             mergeCDATA?: boolean,
             grokAttr?: boolean,
@@ -30,5 +30,5 @@ declare module 'xmltojson' {
             stripElemPrefix?: boolean,
             childrenAsArray?: boolean
         }
-    }    
+    }
 }

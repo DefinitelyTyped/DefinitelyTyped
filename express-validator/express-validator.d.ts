@@ -6,7 +6,7 @@
 /// <reference path="../express/express.d.ts" />
 
 // Add RequestValidation Interface on to Express's Request Interface.
-declare module Express {
+declare namespace Express {
 	interface Request extends ExpressValidator.RequestValidation {}
 }
 
@@ -24,7 +24,7 @@ declare module "express-validator" {
 }
 
 // Internal Module.
-declare module ExpressValidator {
+declare namespace ExpressValidator {
 
 	export interface ValidationError {
 		msg: string;

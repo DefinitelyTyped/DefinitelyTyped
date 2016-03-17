@@ -9,7 +9,7 @@ declare module 'from' {
 
 	var mod: mod.From;
 
-	module mod {
+	namespace mod {
 		interface From {
 			(getChunk: (count: number, next: () => any) => any): NodeJS.ReadableStream;
 			(chunks: any[]): NodeJS.ReadableStream;

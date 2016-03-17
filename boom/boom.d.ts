@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module Boom {
+declare namespace Boom {
 
     export interface BoomError {
         data: any;

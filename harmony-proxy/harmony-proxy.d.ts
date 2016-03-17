@@ -3,7 +3,7 @@
 // Definitions by: Remo Jansen <https://github.com/remojansen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module harmonyProxy {
+declare namespace harmonyProxy {
     type PropertyKey = string | number | symbol;
 
     interface ProxyHandler<T> {

@@ -13,7 +13,7 @@ declare module 'through2' {
 
 	function through2(opts?: stream.DuplexOptions, transform?: (chunk: any, enc: string, callback: () => void) => void, flush?: () => void): NodeJS.ReadWriteStream;
 
-	module through2 {
+	namespace through2 {
 
 		export function obj(transform?: (chunk: any, enc: string, callback: () => void) => void, flush?: () => void): NodeJS.ReadWriteStream;
 

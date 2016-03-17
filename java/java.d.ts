@@ -13,7 +13,7 @@ declare module 'java' {
   export = NodeJavaCore;
 }
 
-declare module NodeJavaCore {
+declare namespace NodeJavaCore {
   export interface Callback<T> {
     (err?: Error, result?: T): void;
   }

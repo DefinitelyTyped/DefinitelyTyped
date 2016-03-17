@@ -7,12 +7,12 @@
 /// <reference path="../rx/rx.d.ts" />
 /// <reference path="../rx/rx.time.d.ts" />
 
-declare module Rx {
+declare namespace Rx {
 
     interface IObservable<T> {
         safeApply($scope: ng.IScope, callback: (data: T) => void): Rx.Observable<T>;
     }
-    
+
     export interface ScopeScheduler extends IScheduler {
         constructor(scope: ng.IScope) : ScopeScheduler;
     }
@@ -24,10 +24,10 @@ declare module Rx {
     export var ScopeScheduler: ScopeSchedulerStatic;
 }
 
-declare module rx.angular {
-    
+declare namespace rx.angular {
+
     export interface IRxScope extends ng.IScope {
         $toObservable(property: string): Rx.Observable<any>;
-    }    
+    }
 }
-    
+

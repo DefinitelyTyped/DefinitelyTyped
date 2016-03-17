@@ -62,7 +62,7 @@ declare module "nightmare" {
     headers(headers: Object): Nightmare;
   }
 
-  module Nightmare {
+  namespace Nightmare {
     export interface IConstructorOptions {
       timeout?: any;  // number | string;
       interval?: any; // number | string;

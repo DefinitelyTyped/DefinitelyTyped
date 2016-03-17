@@ -23,7 +23,7 @@ interface Window {
 	profile(description:string, fn:Function):any; // return fn result
 }
 
-declare module AtomCore {
+declare namespace AtomCore {
 
 	// https://atom.io/docs/v0.84.0/advanced/view-system
 	interface IWorkspaceViewStatic {

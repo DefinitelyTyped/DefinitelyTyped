@@ -6,7 +6,7 @@
 ///<reference path="rx.d.ts" />
 ///<reference path="rx.async-lite.d.ts" />
 
-declare module Rx {
+declare namespace Rx {
     interface ObservableStatic {
 		start<T>(func: () => T, context?: any, scheduler?: IScheduler): Observable<T>;
 

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module JwtDecode {
+declare namespace JwtDecode {
     interface JwtDecodeStatic {
         (token: string): any;
     }

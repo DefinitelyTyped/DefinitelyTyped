@@ -10,7 +10,7 @@ declare module "ui-select" {
     export = _;
 }
 
-declare module angular.ui.select {
+declare namespace angular.ui.select {
     interface ISelectConfig {
         appendToBody: boolean;
         resetSearchInput: boolean;

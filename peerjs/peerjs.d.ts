@@ -6,7 +6,7 @@
 
 /// <reference path='../webrtc/RTCPeerConnection.d.ts' />
 
-declare module PeerJs{
+declare namespace PeerJs{
     interface PeerJSOption{
         key?: string;
         host?: string;

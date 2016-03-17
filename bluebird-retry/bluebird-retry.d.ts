@@ -9,7 +9,7 @@ declare module "bluebird-retry" {
 
 	function retry<T>(func:(param:T)=>void, options?:retry.Options):Promise<T>;
 
-	module retry {
+	namespace retry {
 		export interface Options {
 			interval?:number;
 			backoff?:number;

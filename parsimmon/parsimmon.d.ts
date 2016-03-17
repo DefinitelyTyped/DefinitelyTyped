@@ -6,8 +6,8 @@
 // TODO convert to generics
 
 declare module 'parsimmon' {
-	module Parsimmon {
-		
+	namespace Parsimmon {
+
 		export type StreamType = string;
 
 		export interface Mark<T> {

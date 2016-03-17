@@ -20,7 +20,7 @@ interface NativeMouseEvent extends MouseEvent {
 
 }
 
-declare module createjs {
+declare namespace createjs {
     export class AlphaMapFilter extends Filter {
         constructor(alphaMap: HTMLImageElement | HTMLCanvasElement);
 
@@ -382,7 +382,7 @@ declare module createjs {
     }
 
 
-    module Graphics
+    namespace Graphics
         {
         export class Arc
             {

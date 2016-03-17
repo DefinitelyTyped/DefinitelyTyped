@@ -8,7 +8,7 @@
 
 declare module 'bson' {
 
-  module bson {
+  namespace bson {
 
       export module BSONPure {
 

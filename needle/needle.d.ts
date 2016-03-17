@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module Needle {
+declare namespace Needle {
 	interface ReadableStream extends NodeJS.ReadableStream {
 	}
 

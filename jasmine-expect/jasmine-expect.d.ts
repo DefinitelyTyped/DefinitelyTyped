@@ -5,7 +5,7 @@
 
 /// <reference path="../jasmine/jasmine.d.ts" />
 
-declare module jasmine {
+declare namespace jasmine {
   interface Matchers {
     // These functions are written in the order defined in the src directory of jasmine-matchers
     // The type system is used smartly whenever it can provide value (by looking at the code of every matcher)

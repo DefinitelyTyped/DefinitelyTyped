@@ -3,7 +3,7 @@
 // Definitions by: Paul Welter <https://github.com/pwelter34/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module dragula {
+declare namespace dragula {
     interface DragulaOptions {
         containers?: Element[];
         isContainer?: (el?: Element) => boolean;

@@ -5,7 +5,7 @@
 
 /// <reference path="../js-signals/js-signals.d.ts" />
 
-declare module CrossroadsJs {
+declare namespace CrossroadsJs {
 
     export interface Route {
         matched: Signal;

@@ -38,7 +38,7 @@ declare namespace SignalR {
         webSockets: Transport;
     }
 
-    module Hub {
+    namespace Hub {
 
         interface Proxy {
             state: any;
@@ -87,7 +87,7 @@ declare namespace SignalR {
             /**
             * Creates a new proxy object for the given hub connection that can be used to invoke
             * methods on server hubs and handle client method invocation requests from the server.
-            * 
+            *
             * @param hubName The name of the hub on the server to create the proxy for.
             */
             createHubProxy(hubName: string): Proxy;
@@ -169,7 +169,7 @@ declare namespace SignalR {
         protocol: string;
         host: string;
     }
-    
+
     interface Connection {
         clientProtocol: string;
         ajaxDataType: string;

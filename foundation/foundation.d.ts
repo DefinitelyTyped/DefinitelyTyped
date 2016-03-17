@@ -6,7 +6,7 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module Foundation {
+declare namespace Foundation {
     // http://foundation.zurb.com/docs/components/abide.html#optional-javascript-configuration
     interface AbidePatterns {
         alpha? : RegExp;

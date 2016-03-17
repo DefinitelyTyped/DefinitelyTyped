@@ -3,7 +3,7 @@
 // Definitions by: Pavel Evsegneev <https://github.com/Ahineya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module "draft-js" {
-    module Draft {
+    namespace Draft {
         interface IEditor {
             new(): Editor
         }

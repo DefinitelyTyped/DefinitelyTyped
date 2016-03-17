@@ -8,7 +8,7 @@
 declare module "gulp-typescript" {
     function GulpTypescript(params?: GulpTypescript.Params, filters?: GulpTypescript.FilterSettings, reporter?: GulpTypescript.Reporter): GulpTypescript.CompilationStream;
 
-    module GulpTypescript {
+    namespace GulpTypescript {
         export function createProject(params?: Params): Project;
         export function createProject(file: string, params?: Params): Project;
         export function filter(filters: FilterSettings): CompilationStream;
@@ -62,7 +62,7 @@ declare module "gulp-typescript" {
             js: NodeJS.ReadWriteStream;
         }
 
-        module reporter {
+        namespace reporter {
             function nullReporter(): Reporter;
             function defaultReporter(): Reporter;
             function fullReporter(showFullFilename?: boolean): Reporter;

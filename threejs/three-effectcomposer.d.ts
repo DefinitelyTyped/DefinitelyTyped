@@ -7,7 +7,7 @@
 /// <reference path="./three-shaderpass.d.ts" />
 /// <reference path="./three-copyshader.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
 	export class EffectComposer {
 		constructor( renderer: WebGLRenderer, renderTarget?: WebGLRenderTarget);
 

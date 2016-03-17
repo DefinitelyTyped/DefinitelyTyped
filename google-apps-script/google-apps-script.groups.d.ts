@@ -6,15 +6,15 @@
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
-declare module GoogleAppsScript {
+declare namespace GoogleAppsScript {
   export module Groups {
     /**
      * A group object whose members and those members' roles within the group
      *  can be queried.
-     * 
+     *
      *  Here's an example which shows the members of a group. Before running it,
      *  replace the email address of the group with that of one on your domain.
-     * 
+     *
      *        function listGroupMembers() {
      *          var group = GroupsApp.getGroupByEmail("example@googlegroups.com");
      *          var s = group.getEmail() + ': ';
@@ -39,9 +39,9 @@ declare module GoogleAppsScript {
      * This class provides access to Google Groups information. It can be used to
      *  query information such as a group's email address, or the list of groups in
      *  which the user is a direct member.
-     * 
+     *
      *  Here's an example that shows how many groups the current user is a member of:
-     * 
+     *
      *        var groups = GroupsApp.getGroups();
      *        Logger.log('You belong to ' + groups.length + ' groups.');
      */
@@ -56,7 +56,7 @@ declare module GoogleAppsScript {
      *  Users subscribed to a group have exactly one role within the context of that
      *  group.
      * See also
-     * 
+     *
      * Group.getRole(email)
      */
     export enum Role { OWNER, MANAGER, MEMBER, INVITED, PENDING }

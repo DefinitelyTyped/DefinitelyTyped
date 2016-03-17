@@ -5,7 +5,7 @@
 
 ///<reference path="../react/react.d.ts"/>
 
-declare module AltJS {
+declare namespace AltJS {
 
   interface StoreReduce {
     action:any;

@@ -12,7 +12,7 @@ declare module "supertest" {
 
   function supertest(app: any): supertest.SuperTest;
 
-  module supertest {
+  namespace supertest {
     function agent(app?: any): supertest.SuperTest;
 
     interface SuperTest extends superagent.SuperAgent<Test> {
