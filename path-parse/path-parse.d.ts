@@ -1,6 +1,6 @@
 // Type definitions for path-parse v1.0.5
 // Project: https://github.com/jbgutierrez/path-parse
-// Definitions by: Dan Chao <http://dchao.co
+// Definitions by: Dan Chao <http://dchao.co>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
