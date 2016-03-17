@@ -1,7 +1,7 @@
 // Type definitions for Nightmare 1.6.5
 // Project: https://github.com/segmentio/nightmare
 // Definitions by: horiuchi <https://github.com/horiuchi/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "nightmare" {
 

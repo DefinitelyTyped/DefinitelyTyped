@@ -1,7 +1,7 @@
 // Type definitions for Leaflet.js 0.7.3
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Vladimir Zotov <https://github.com/rgripper>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace L {
     type LatLngExpression = LatLng | number[] | ({ lat: number; lng: number })

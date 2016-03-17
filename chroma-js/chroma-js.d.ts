@@ -1,7 +1,7 @@
 // Type definitions for Chroma.js v0.5.6
 // Project: https://github.com/gka/chroma.js
 // Definitions by: Sebastian Brückner <https://github.com/invliD>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * Chroma.js is a tiny library for all kinds of color conversions and color scales.

@@ -1,7 +1,7 @@
 // Type definitions for fixed-data-table 0.4.7
 // Project: https://github.com/facebook/fixed-data-table
 // Definitions by: Petar Paar <https://github.com/pepaar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts"/>
 

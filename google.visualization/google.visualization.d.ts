@@ -1,7 +1,7 @@
 // Type definitions for Google Visualisation Apis
 // Project: https://developers.google.com/chart/
 // Definitions by: Dan Ludwig <https://github.com/danludwig>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google {
 

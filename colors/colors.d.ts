@@ -1,7 +1,7 @@
 // Type definitions for Colors.js 0.6.0-1
 // Project: https://github.com/Marak/colors.js
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "colors" {
     interface Color {

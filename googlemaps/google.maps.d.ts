@@ -1,7 +1,7 @@
 // Type definitions for Google Maps JavaScript API 3.20
 // Project: https://developers.google.com/maps/
 // Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
 The MIT License

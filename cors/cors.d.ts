@@ -1,7 +1,7 @@
 // Type definitions for cors
 // Project: https://github.com/troygoode/node-cors/
 // Definitions by: Mihhail Lapushkin <https://github.com/mihhail-lapushkin/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 

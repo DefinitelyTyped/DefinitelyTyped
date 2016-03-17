@@ -1,7 +1,7 @@
 // Type definitions for jQuery cropbox
 // Project: https://github.com/acornejo/jquery-cropbox
 // Definitions by: Per Kastman <https://github.com/PerKastman/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 

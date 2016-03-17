@@ -1,7 +1,7 @@
 // Type definitions for connect-mongo
 // Project: https://github.com/kcbanner/connect-mongo
 // Definitions by: Mizuki Yamamoto <https://github.com/Syati>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 /// <reference path="../mongoose/mongoose.d.ts" />

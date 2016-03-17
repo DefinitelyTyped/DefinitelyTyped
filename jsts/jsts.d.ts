@@ -1,7 +1,7 @@
 ﻿// Type definitions for jsts 0.16.0
 // Project: https://github.com/bjornharrtell/jsts
 // Definitions by: Stephane Alie <https://github.com/StephaneAlie>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace jsts {
     export var version: string;

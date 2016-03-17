@@ -1,7 +1,7 @@
 // Type definitions for gridfs-stream 0.5.0
 // Project: https://github.com/aheckmann/gridfs-stream
 // Definitions by: Lior Mualem <https://github.com/liorm/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../mongodb/mongodb.d.ts" />

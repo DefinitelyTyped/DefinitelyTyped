@@ -1,7 +1,7 @@
 // Type definitions for Office.js
 // Project: http://dev.office.com
 // Definitions by: OfficeDev <https://github.com/OfficeDev>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
 office-js

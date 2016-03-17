@@ -1,7 +1,7 @@
 // Type definitions for PapaParse v4.1
 // Project: https://github.com/mholt/PapaParse
 // Definitions by: Pedro Flemming <https://github.com/torpedro>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace PapaParse {
     interface Static {

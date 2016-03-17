@@ -1,7 +1,7 @@
 // Type definitions for svg.js
 // Project: http://www.svgjs.com/
 // Definitions by: Sean Hess <https://seanhess.github.io/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Reference: http://documentup.com/wout/svg.js
 
 // TODO sets

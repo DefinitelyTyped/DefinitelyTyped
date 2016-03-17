@@ -1,7 +1,7 @@
 // Type definitions for angular-http-auth 1.2.1
 // Project: https://github.com/witoldsz/angular-http-auth
 // Definitions by: vvakame <https://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 

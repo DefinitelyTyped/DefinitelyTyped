@@ -1,7 +1,7 @@
 // Type definitions for FullCalendar 1.6.1
 // Project: http://arshaw.com/fullcalendar/
 // Definitions by: Neil Stalker <https://github.com/nestalk>, Marcelo Camargo <https://github.com/hasellcamargo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 /// <reference path="../moment/moment.d.ts"/>

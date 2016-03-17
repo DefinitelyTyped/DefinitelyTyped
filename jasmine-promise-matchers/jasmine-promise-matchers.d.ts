@@ -1,7 +1,7 @@
 // Type definitions for jasmine-promise-matchers
 // Project: https://github.com/bvaughn/jasmine-promise-matchers
 // Definitions by: Matthew Hill <https://github.com/matthewjh>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jasmine/jasmine.d.ts" />
 

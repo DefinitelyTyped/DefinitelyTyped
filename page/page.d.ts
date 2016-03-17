@@ -1,7 +1,7 @@
 ﻿// Type definitions for page v1.5.0
 // Project: http://visionmedia.github.io/page.js/
 // Definitions by: Alan Norbauer <http://alan.norbauer.com/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace PageJS {
     interface Static {

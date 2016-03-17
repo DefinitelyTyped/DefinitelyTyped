@@ -1,6 +1,6 @@
 /// <reference path="angular-1.2.d.ts" />
 
-// issue: https://github.com/borisyankov/DefinitelyTyped/issues/369
+// issue: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/369
 // https://github.com/witoldsz/angular-http-auth/blob/master/src/angular-http-auth.js
 /**
  * @license HTTP Auth Interceptor Module for AngularJS

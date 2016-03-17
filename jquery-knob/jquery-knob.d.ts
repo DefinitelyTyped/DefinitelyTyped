@@ -1,7 +1,7 @@
 // Type definitions for jQuery Knob 1.2.11
 // Project: http://anthonyterrien.com/knob/
 // Definitions by: Iain Buchanan <https://github.com/iain8/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 

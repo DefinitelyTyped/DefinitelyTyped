@@ -1,7 +1,7 @@
 // Type definitions for Fluxxor 1.5.2
 // Project: https://github.com/BinaryMuse/fluxxor
 // Definitions by: Yuichi Murata <https://github.com/mrk21>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path='../react/react.d.ts' />
 ///<reference path='../eventemitter3/eventemitter3.d.ts' />

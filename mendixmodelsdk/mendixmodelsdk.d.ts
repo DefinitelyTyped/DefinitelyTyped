@@ -1,7 +1,7 @@
 // Type definitions for mendixmodelsdk v0.0.1
 // Project: http://www.mendix.com
 // Definitions by: Mendix <https://github.com/mendix>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
                                  Apache License

@@ -1,7 +1,7 @@
 // Type definitions for WinRT
 // Project: http://msdn.microsoft.com/en-us/library/windows/apps/br211377.aspx
 // Definitions by: TypeScript samples <https://www.typescriptlang.org/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.

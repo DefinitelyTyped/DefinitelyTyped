@@ -1,7 +1,7 @@
 ﻿// Type definitions for jquery.fancytree 2.7.0
 // Project: https://github.com/mar10/fancytree
 // Definitions by: Peter Palotas <https://github.com/alphaleonis>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 ///<reference path="../jquery/jquery.d.ts" />

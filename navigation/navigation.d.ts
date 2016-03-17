@@ -1,7 +1,7 @@
 ﻿// Type definitions for Navigation 1.3.0
 // Project: http://grahammendick.github.io/navigation/
 // Definitions by: Graham Mendick <https://github.com/grahammendick>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module 'navigation' {
     export = Navigation;
 }

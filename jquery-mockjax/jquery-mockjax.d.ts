@@ -1,7 +1,7 @@
 // Type definitions for jQuery Mockjax 2.0.1
 // Project: https://github.com/jakerella/jquery-mockjax
 // Definitions by: Laszlo Jakab <https://github.com/laszlojakab/>, Vladimir Đokić <https://github.com/vladeck/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 

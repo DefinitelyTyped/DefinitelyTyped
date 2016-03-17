@@ -1,7 +1,7 @@
 // Type definitions for Bootstrap datetimepicker v3
 // Project: http://eonasdan.github.io/bootstrap-datetimepicker
 // Definitions by: Jesica N. Fera <https://github.com/bayitajesi>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * bootstrap-datetimepicker.js 3.0.0 Copyright (c) 2014 Jonathan Peterson

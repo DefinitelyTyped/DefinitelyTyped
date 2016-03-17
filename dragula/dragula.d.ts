@@ -1,7 +1,7 @@
 // Type definitions for dragula v2.1.2
 // Project: http://bevacqua.github.io/dragula/
 // Definitions by: Paul Welter <https://github.com/pwelter34/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace dragula {
     interface DragulaOptions {

@@ -1,7 +1,7 @@
 // Type definitions for rewire v2.5.1
 // Project: https://github.com/jhnns/rewire
 // Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace RewireInterfaces {
     interface Rewire {

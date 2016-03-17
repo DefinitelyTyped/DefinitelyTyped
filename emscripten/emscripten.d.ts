@@ -1,7 +1,7 @@
 // Type definitions for Emscripten
 // Project: http://kripken.github.io/emscripten-site/index.html
 // Definitions by: Kensuke Matsuzaki <https://github.com/zakki>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Emscripten {
     interface FileSystemType {

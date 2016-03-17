@@ -1,7 +1,7 @@
 // Type definitions for Angular Protractor 1.5.0
 // Project: https://github.com/angular/protractor
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../selenium-webdriver/selenium-webdriver.d.ts" />
 

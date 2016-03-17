@@ -1,7 +1,7 @@
 // Type definitions for Angular Material 1.0.0-rc5+ (angular.material module)
 // Project: https://github.com/angular/material
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 declare namespace angular.material {

@@ -1,7 +1,7 @@
 // Type definitions for polymer v1.1.6
 // Project: https://github.com/Polymer/polymer
 // Definitions by: Louis Grignon <https://github.com/lgrignon>, Suguru Inatomi <https://github.com/laco0416>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../webcomponents.js/webcomponents.js.d.ts"/>
 

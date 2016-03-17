@@ -1,7 +1,7 @@
 // Type definitions for CodeMirror
 // Project: https://github.com/marijnh/CodeMirror
 // Definitions by: mihailik <https://github.com/mihailik>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function CodeMirror(host: HTMLElement, options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
 declare function CodeMirror(callback: (host: HTMLElement) => void , options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;

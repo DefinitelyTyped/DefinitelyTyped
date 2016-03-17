@@ -1,7 +1,7 @@
 // Type definitions for sprintf-js
 // Project: https://www.npmjs.com/package/sprintf-js
 // Definitions by: Jason Swearingen <https://jasonswearingen.github.io>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /** sprintf.js is a complete open source JavaScript sprintf implementation for the browser and node.js.

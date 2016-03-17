@@ -1,7 +1,7 @@
 // Type definitions for CodeMirror
 // Project: https://github.com/marijnh/CodeMirror
 // Definitions by: Sixin Li <https://github.com/sixinli>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // See docs https://codemirror.net/doc/manual.html#addon_matchbrackets
 

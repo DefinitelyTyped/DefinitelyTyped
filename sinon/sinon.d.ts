@@ -1,7 +1,7 @@
 // Type definitions for Sinon 1.16.0
 // Project: http://sinonjs.org/
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Sinon {
     interface SinonSpyCallApi {

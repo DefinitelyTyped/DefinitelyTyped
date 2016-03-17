@@ -1,7 +1,7 @@
 // Type definitions for Imgur REST API v3
 // Project: https://api.imgur.com/
 // Definitions by: Luke William Westby <http://github.com/lukewestby>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace ImgurRestApi {
 

@@ -1,7 +1,7 @@
 // Type definitions for Atom API docs
 // Project: https://github.com/atom/atom/blob/master/build/tasks/docs-task.coffee
 // Definitions by: vvakame <https://github.com/vvakame/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
  How to generate.

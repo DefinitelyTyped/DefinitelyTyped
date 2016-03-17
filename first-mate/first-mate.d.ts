@@ -1,7 +1,7 @@
 // Type definitions for first-mate v4.1.7
 // Project: https://github.com/atom/first-mate/
 // Definitions by: Vadim Macagon <https://github.com/enlight/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../event-kit/event-kit.d.ts" />
 

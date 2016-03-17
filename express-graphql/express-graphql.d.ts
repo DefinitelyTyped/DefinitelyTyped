@@ -1,7 +1,7 @@
 // Type definitions for express-graphql
 // Project: https://www.npmjs.org/package/express-graphql
 // Definitions by: Isman Usoh <https://github.com/isman-usoh>, Nitin Tutlani <https://github.com/nitintutlani>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 

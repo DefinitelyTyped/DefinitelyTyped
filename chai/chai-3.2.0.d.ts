@@ -4,7 +4,7 @@
 //                 Bart van der Schoor <https://github.com/Bartvds>,
 //                 Andrew Brown <https://github.com/AGBrown>,
 //                 Olivier Chevet <https://github.com/olivr70>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // <reference path="../assertion-error/assertion-error.d.ts"/>
 

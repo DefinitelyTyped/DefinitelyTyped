@@ -1,7 +1,7 @@
 // Type definitions for Pdfkit v0.7.1
 // Project: http://pdfkit.org
 // Definitions by: Eric Hillah <https://github.com/erichillah>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

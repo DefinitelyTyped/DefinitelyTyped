@@ -1,7 +1,7 @@
 // Type definitions for MongoDB v2.1
 // Project: https://github.com/mongodb/node-mongodb-native/tree/2.1
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/
 

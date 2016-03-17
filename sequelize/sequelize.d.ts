@@ -1,7 +1,7 @@
 // Type definitions for Sequelize 3.4.1
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 

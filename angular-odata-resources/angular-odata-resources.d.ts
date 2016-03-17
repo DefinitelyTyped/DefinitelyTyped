@@ -1,7 +1,7 @@
 // Type definitions for OData Angular Resources
 // Project: https://github.com/devnixs/ODataAngularResources
 // Definitions by: Raphael ATALLAH <http://raphael.atallah.me>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 

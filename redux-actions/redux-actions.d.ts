@@ -1,7 +1,8 @@
 // Type definitions for redux-actions v0.8.0
 // Project: https://github.com/acdlite/redux-actions
 // Definitions by: Jack Hsu <https://github.com/jaysoo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare namespace ReduxActions {
     // FSA-compliant action.
     // See: https://github.com/acdlite/flux-standard-action

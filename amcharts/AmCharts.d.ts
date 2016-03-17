@@ -1,7 +1,7 @@
 // Type definitions for amCharts
 // Project: http://www.amcharts.com/
 // Definitions by: aleksey-bykov <https://github.com/aleksey-bykov>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// AmCharts object (it's not a class) is create automatically when amcharts.js or amstock.js file is included in a web page.
 declare namespace AmCharts {

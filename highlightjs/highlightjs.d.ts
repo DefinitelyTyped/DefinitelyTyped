@@ -1,7 +1,7 @@
 // Type definitions for highlight.js v9.1.0
 // Project: https://github.com/isagalaev/highlight.js
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee/>, Jeremy Hull <https://github.com/sourrust>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'highlight.js' {
     export = hljs;

@@ -1,7 +1,7 @@
 // Type definitions for Tracking.js v1.1.2
 // Project: https://github.com/eduardolundgren/tracking.js
 // Definitions by: Tim Perry <https://github.com/pimterry>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace tracking {
   export class ColorTracker extends Tracker {

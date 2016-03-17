@@ -1,7 +1,7 @@
 // Type definitions for Couchbase Node.js SDK 2.1.2
 // Project: https://github.com/couchbase/couchnode
 // Definitions by: Marwan Aouida <https://github.com/maouida>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
 

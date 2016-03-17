@@ -1,7 +1,7 @@
 // Type definitions for deep-diff
 // Project: https://github.com/flitbit/diff/
 // Definitions by: ZauberNerd <https://github.com/ZauberNerd/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace deepDiff {
     interface IDiff {

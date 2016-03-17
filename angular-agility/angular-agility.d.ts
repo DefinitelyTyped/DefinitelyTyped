@@ -1,7 +1,7 @@
 // Type definitions for AngularAgility
 // Project: https://github.com/AngularAgility/AngularAgility
 // Definitions by: Roland Zwaga <https://github.com/rolandzwaga>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path='../angularjs/angular.d.ts' />
 

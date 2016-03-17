@@ -1,7 +1,7 @@
 // Type definitions for tinycolor v1.1.1
 // Project: https://github.com/bgrins/TinyColor
 // Definitions by: Mordechai Zuber <https://github.com/M-Zuber>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var tinycolor: tinycolor;
 

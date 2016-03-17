@@ -1,7 +1,7 @@
 // Type definitions for node-uuid.js
 // Project: https://github.com/broofa/node-uuid
 // Definitions by: Jeff May <https://github.com/jeffmay>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** Common definitions for all environments */
 declare namespace __NodeUUID {

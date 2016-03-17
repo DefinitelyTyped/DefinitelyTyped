@@ -1,7 +1,7 @@
 // Type definitions for Atom
 // Project: https://atom.io/
 // Definitions by: vvakame <https://github.com/vvakame/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../q/Q.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />

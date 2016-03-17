@@ -1,7 +1,7 @@
 // Type definitions for commanderjs 2.3.0
 // Project: https://github.com/visionmedia/commander.js
 // Definitions by: Marcelo Dezem <http://github.com/mdezem>, vvakame <http://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

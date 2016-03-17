@@ -2,7 +2,7 @@
 // Project: https://github.com/RobertWHurst/KeyboardJS
 // Definitions by: Vincent Bortone <https://github.com/vbortone/>,
 //                 David Asmuth <https://github.com/piranha771>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // KeyboardJS is a library for use in the browser (node.js compatible).
 // It Allows developers to easily setup key bindings. Use key combos to setup complex bindings.

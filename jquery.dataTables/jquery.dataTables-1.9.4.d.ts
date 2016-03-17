@@ -1,7 +1,7 @@
 // Type definitions for JQuery DataTables 1.9.4
 // Project: http://www.datatables.net
 // Definitions by: Armin Sander <https://github.com/pragmatrix/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // missing:
 // - Static methods that are defined in JQueryStatic.fn are not typed.

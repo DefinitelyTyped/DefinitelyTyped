@@ -1,7 +1,7 @@
 // Type definitions for ua-parser-js v0.7.10
 // Project: https://github.com/faisalman/ua-parser-js
 // Definitions by: Viktor Miroshnikov <https://github.com/superduper>, Lucas Woo <https://github.com/legendecas>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace UAParser {
 

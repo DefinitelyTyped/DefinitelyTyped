@@ -1,7 +1,7 @@
 // Type definitions for ko-grid
 // Project: http://knockout-contrib.github.io/KoGrid/
 // Definitions by: huer12 <https://github.com/huer12/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // These are very definitely preliminary. Please feel free to improve.
 
