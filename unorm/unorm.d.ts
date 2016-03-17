@@ -3,7 +3,7 @@
 // Definitions by: Christopher Brown <https://github.com/chbrown>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module unorm {
+declare namespace unorm {
   interface Static {
     nfd(str: string): string;
     nfkd(str: string): string;

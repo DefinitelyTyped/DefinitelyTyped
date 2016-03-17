@@ -9,7 +9,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // ngResource module (angular-resource.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module ng.resource {
+declare namespace ng.resource {
 
     ///////////////////////////////////////////////////////////////////////////
     // ResourceService
@@ -20,7 +20,7 @@ declare module ng.resource {
     ///////////////////////////////////////////////////////////////////////////
     interface IResourceService {
     	(url: string, paramDefaults?: any,
-			/** example:  {update: { method: 'PUT' }, delete: deleteDescriptor } 
+			/** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
 			where deleteDescriptor : IActionDescriptor */
 			actionDescriptors?: any): IResourceClass;
     }
@@ -73,7 +73,7 @@ declare module ng.resource {
 }
 
 /** extensions to base ng based on using angular-resource */
-declare module ng {
+declare namespace ng {
 
     interface IModule {
         /** creating a resource service factory */

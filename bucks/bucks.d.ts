@@ -3,7 +3,7 @@
 // Definitions by: Shunsuke Ohtani <https://github.com/zaneli>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Bucks {
+declare namespace Bucks {
 
   interface BucksStatic {
 

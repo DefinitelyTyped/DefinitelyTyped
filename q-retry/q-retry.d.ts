@@ -5,7 +5,7 @@
 
 /// <reference path="../q/Q.d.ts" />
 
-declare module Q {
+declare namespace Q {
     export interface IRetryOptions {
         limit?: number;
         interval?: number;

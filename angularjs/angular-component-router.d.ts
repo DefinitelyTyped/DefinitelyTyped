@@ -5,7 +5,7 @@
 
 /// <reference path="./angular.d.ts" />
 
-declare module angular {
+declare namespace angular {
     /**
      * `Instruction` is a tree of {@link ComponentInstruction}s with all the information needed
      * to transition each component in the app to a given route, including all auxiliary routes.

@@ -207,7 +207,7 @@ declare var valerie: Valerie.Static;
 
 // additional types for Valerie (all inside this namespace)
 
-declare module Valerie {
+declare namespace Valerie {
     //
     // Static methods on valerie namespace
     //
@@ -718,7 +718,7 @@ declare module Valerie {
     }
 }
 
-declare module Valerie.Rules {
+declare namespace Valerie.Rules {
     /*
 
       Todo: add classes in valerie.rules namespace

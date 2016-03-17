@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.notifications {
+declare namespace angular.notifications {
 
   interface IAnimation {
     duration: number;

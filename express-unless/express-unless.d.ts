@@ -10,7 +10,7 @@ declare module "express-unless" {
 
     function unless(options:unless.Options): express.RequestHandler;
 
-    module unless {
+    namespace unless {
         export interface Options {
             custom?: (req: express.Request) => boolean;
             path?: any; // TODO: union type 'string|string[]' is not supported yet

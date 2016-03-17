@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module nodemailer {
+declare namespace nodemailer {
 
 	export interface AttachmentObject {
 		/**

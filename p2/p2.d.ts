@@ -7,7 +7,7 @@ declare module "p2" {
     export = p2;
 }
 
-declare module p2 {
+declare namespace p2 {
 
     export class AABB {
 

@@ -11,7 +11,7 @@ interface Navigator {
     requestMIDIAccess (options?: WebMidi.MidiOptions): Promise<WebMidi.MIDIAccess>;
 }
 
-declare module WebMidi{
+declare namespace WebMidi{
     /**
      * optional settings that may be provided to the requestMIDIAccess request.
      */

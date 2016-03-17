@@ -3,7 +3,7 @@
 // Definitions by: Diullei Gomes <https://github.com/Diullei>, Bart van der Schoor <https://github.com/Bartvds>, Nico Jansen <https://github.com/nicojs>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Chalk {
+declare namespace Chalk {
 
     export var enabled: boolean;
     export var supportsColor: boolean;

@@ -5,7 +5,7 @@
 
 /// <reference path='../signalr/signalr.d.ts' />
 
-declare module ngSignalr {
+declare namespace ngSignalr {
     interface HubFactory {
         /**
          * Creates a new Hub connection
@@ -56,7 +56,7 @@ declare module ngSignalr {
         logging?: boolean;
 
         /**
-         * Use a shared global connection or create a new one just for this hub, defaults to true 
+         * Use a shared global connection or create a new one just for this hub, defaults to true
          */
         useSharedConnection?: boolean;
 

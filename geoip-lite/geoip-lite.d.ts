@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 declare module 'geoip-lite' {
-	module mod {
+	namespace mod {
 		export interface Lookup {
 			range: Array<number>; // range start, end
 			country: string;

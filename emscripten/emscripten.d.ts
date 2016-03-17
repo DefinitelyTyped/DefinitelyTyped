@@ -3,12 +3,12 @@
 // Definitions by: Kensuke Matsuzaki <https://github.com/zakki>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Emscripten {
+declare namespace Emscripten {
     interface FileSystemType {
     }
 }
 
-declare module Module {
+declare namespace Module {
     function print(str: string): void;
     function printErr(str: string): void;
     var arguments: string[];
@@ -83,7 +83,7 @@ declare module Module {
     function _free(ptr: number): void;
 }
 
-declare module FS {
+declare namespace FS {
     interface Lookup {
         path: string;
         node: FSNode;

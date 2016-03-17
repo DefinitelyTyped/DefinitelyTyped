@@ -5,7 +5,7 @@
 
 declare function createStoryJS(config:knightlab.ITimeLineConfiguration):void;
 
-declare module knightlab {
+declare namespace knightlab {
 
     export interface ITimeLineConfiguration {
         width: string;

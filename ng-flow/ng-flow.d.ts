@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 /// <reference path="../flowjs/flowjs.d.ts" />
 
-declare module ng.flow {
+declare namespace ng.flow {
     interface IFlowFactory {
         create(options?: flowjs.IFlowOptions): flowjs.IFlow;
     }

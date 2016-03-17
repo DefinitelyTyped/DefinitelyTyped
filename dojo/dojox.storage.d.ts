@@ -3,11 +3,11 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module dojox {
+declare namespace dojox {
         /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/storage.html
      *
-     * 
+     *
      */
     interface storage {
     }

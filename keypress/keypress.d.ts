@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // A keyboard input capturing utility in which any key can be a modifier key.
-declare module Keypress {
+declare namespace Keypress {
 
     interface ListenerDefaults {
         keys: string;

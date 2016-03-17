@@ -67,7 +67,7 @@ interface JQueryColorpickerStatic {
     Color: { new (r?: number, g?: number, b?: number, a?: number): JQueryColorpickerStatic.Color; };
 }
 
-declare module JQueryColorpickerStatic {
+declare namespace JQueryColorpickerStatic {
     export interface CMYK {
         c: number;
         m: number;

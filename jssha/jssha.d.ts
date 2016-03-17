@@ -4,16 +4,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module jsSHA {
-    
+declare namespace jsSHA {
+
     export interface EncodingOptions {
         encoding? : string;
     }
-    
+
     export interface Options extends EncodingOptions {
         numRounds? : number;
     }
-    
+
     export interface OutputFormatOptions {
         outputUpper? : boolean;
         b64Pad? : string;
@@ -42,7 +42,7 @@ declare module jsSHA {
 		 *   of input format options
 		 */
         setHMACKey(key:string, inputFormat:string, encodingOpts?:EncodingOptions):void;
-        
+
         /**
 		 * Takes strString and hashes as many blocks as possible.  Stores the
 		 * rest for either a future update or getHash call.

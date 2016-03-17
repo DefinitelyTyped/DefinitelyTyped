@@ -5,7 +5,7 @@
 
 declare module "stack-mapper" {
 
-	module stackMapper {
+	namespace stackMapper {
 
 		export class StackMapper {
 

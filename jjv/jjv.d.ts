@@ -6,7 +6,7 @@
 declare module "jjv" {
 	function jjv(): jjv.Env;
 
-	module jjv {
+	namespace jjv {
 		interface Errors {
 			validation: {
 				[property: string]: {

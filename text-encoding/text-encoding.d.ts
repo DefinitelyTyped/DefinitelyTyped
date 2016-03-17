@@ -3,7 +3,7 @@
 // Definitions by: MIZUNE Pine <https://github.com/pine613/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module TextEncoding {
+declare namespace TextEncoding {
     interface TextDecoderOptions {
         fatal?: boolean;
         ignoreBOM?: boolean;

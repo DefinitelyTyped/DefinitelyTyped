@@ -5,7 +5,7 @@
 
 /// <reference path="../express/express.d.ts" />
 
-declare module Express {
+declare namespace Express {
     export interface Request {
         /**
          * @summary Clears the timeout on the request.
@@ -23,7 +23,7 @@ declare module Express {
 declare module "connect-timeout" {
     import express = require("express");
 
-    module e {
+    namespace e {
         /**
          * @summary Interface for timeout options.
          * @interface

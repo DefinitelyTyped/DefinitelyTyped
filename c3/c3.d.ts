@@ -5,7 +5,7 @@
 
 /// <reference path="../d3/d3.d.ts"/>
 
-declare module c3 {
+declare namespace c3 {
 
     type PrimitiveArray = Array<string | boolean | number>;
     type FormatFunction = (v: any, id: string, i: number, j: number) => void;

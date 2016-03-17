@@ -6,8 +6,8 @@
 /// <reference path="../jointjs/jointjs.d.ts" />
 /// <reference path="../backbone/backbone.d.ts" />
 
-declare module joint{
-    module ui{
+declare namespace joint{
+    namespace ui{
         interface Handle {
             name : string;
             position : string;

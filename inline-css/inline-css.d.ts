@@ -8,7 +8,7 @@
 declare module 'inline-css' {
 	import Promise = require('bluebird');
 
-	module InlineCss {
+	namespace InlineCss {
 		export interface Options {
 			url:string;
 			extraCss?:string;

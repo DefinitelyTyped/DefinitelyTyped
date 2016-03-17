@@ -7,7 +7,7 @@
 
 declare module "nodemailer-pickup-transport" {
 
-    module PickupTransport {
+    namespace PickupTransport {
         export interface Options {
             directory: string;
         }

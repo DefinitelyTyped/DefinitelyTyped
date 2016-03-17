@@ -3,7 +3,7 @@
 // Definitions by: Luke Forder <https://github.com/LukeForder>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module angular.progressLite {
+declare namespace angular.progressLite {
 
     export interface INgProgressLite {
         set(num: number): INgProgressLite;

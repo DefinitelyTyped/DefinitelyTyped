@@ -165,7 +165,7 @@ schemaMap = {
 
 anySchema = Joi.any();
 
-module common {
+namespace common {
 	anySchema = anySchema.allow(x);
 	anySchema = anySchema.allow(x, x);
 	anySchema = anySchema.allow([x, x, x]);
@@ -243,7 +243,7 @@ arrSchema = arrSchema.items([numSchema, strSchema]);
 
 // - - - - - - - -
 
-module common_copy_paste {
+namespace common_copy_paste {
 	// use search & replace from any
 	arrSchema = arrSchema.allow(x);
 	arrSchema = arrSchema.allow(x, x);
@@ -296,7 +296,7 @@ module common_copy_paste {
 boolSchema = Joi.bool();
 boolSchema = Joi.boolean();
 
-module common_copy_paste {
+namespace common_copy_paste {
 	boolSchema = boolSchema.allow(x);
 	boolSchema = boolSchema.allow(x, x);
 	boolSchema = boolSchema.allow([x, x, x]);
@@ -352,7 +352,7 @@ binSchema = binSchema.min(num);
 binSchema = binSchema.max(num);
 binSchema = binSchema.length(num);
 
-module common {
+namespace common {
 	binSchema = binSchema.allow(x);
 	binSchema = binSchema.allow(x, x);
 	binSchema = binSchema.allow([x, x, x]);
@@ -420,7 +420,7 @@ dateSchema = dateSchema.format(strArr);
 
 dateSchema = dateSchema.iso();
 
-module common {
+namespace common {
 	dateSchema = dateSchema.allow(x);
 	dateSchema = dateSchema.allow(x, x);
 	dateSchema = dateSchema.allow([x, x, x]);
@@ -489,7 +489,7 @@ numSchema = numSchema.multiple(num);
 numSchema = numSchema.positive();
 numSchema = numSchema.negative();
 
-module common {
+namespace common {
 	numSchema = numSchema.allow(x);
 	numSchema = numSchema.allow(x, x);
 	numSchema = numSchema.allow([x, x, x]);
@@ -598,7 +598,7 @@ objSchema = objSchema.optionalKeys(str);
 objSchema = objSchema.optionalKeys(str, str);
 objSchema = objSchema.optionalKeys(strArr);
 
-module common {
+namespace common {
 	objSchema = objSchema.allow(x);
 	objSchema = objSchema.allow(x, x);
 	objSchema = objSchema.allow([x, x, x]);
@@ -683,7 +683,7 @@ strSchema = strSchema.lowercase();
 strSchema = strSchema.uppercase();
 strSchema = strSchema.trim();
 
-module common {
+namespace common {
 	strSchema = strSchema.allow(x);
 	strSchema = strSchema.allow(x, x);
 	strSchema = strSchema.allow([x, x, x]);

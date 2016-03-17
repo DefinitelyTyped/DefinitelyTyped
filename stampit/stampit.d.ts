@@ -204,7 +204,7 @@ interface Stamp {
  * */
 declare function stampit(options?: Options): Stamp
 
-declare module stampit {
+declare namespace stampit {
 
     /**
      * A shortcut methods for stampit().methods()

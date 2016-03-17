@@ -3,7 +3,7 @@
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Ix {
+declare namespace Ix {
 	export interface Disposable {
 		dispose(): void;
 	}

@@ -2,7 +2,7 @@
 // Project: https://github.com/acdlite/redux-actions
 // Definitions by: Jack Hsu <https://github.com/jaysoo>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-declare module ReduxActions {
+declare namespace ReduxActions {
     // FSA-compliant action.
     // See: https://github.com/acdlite/flux-standard-action
     type Action = {

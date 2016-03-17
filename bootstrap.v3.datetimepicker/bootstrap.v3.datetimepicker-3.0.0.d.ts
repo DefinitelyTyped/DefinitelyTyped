@@ -1,4 +1,4 @@
-// Type definitions for Bootstrap datetimepicker v3 
+// Type definitions for Bootstrap datetimepicker v3
 // Project: http://eonasdan.github.io/bootstrap-datetimepicker
 // Definitions by: Jesica N. Fera <https://github.com/bayitajesi>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -12,7 +12,7 @@
 /// <reference path="../jquery/jquery.d.ts"/>
 /// <reference path="../moment/moment.d.ts"/>
 
-declare module BootstrapV3DatetimePicker {
+declare namespace BootstrapV3DatetimePicker {
     interface DatetimepickerChangeEventObject extends DatetimepickerEventObject {
         oldDate: moment.Moment;
     }

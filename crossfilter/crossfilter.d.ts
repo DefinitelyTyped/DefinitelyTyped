@@ -3,7 +3,7 @@
 // Definitions by: Schmulik Raskin <https://github.com/schmuli>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module CrossFilter {
+declare namespace CrossFilter {
 
     export interface Selector<T> {
         (value: T): any;

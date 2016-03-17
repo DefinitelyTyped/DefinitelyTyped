@@ -12,7 +12,7 @@ interface JQuery
 	dataTable(param? :DataTables.Options) : DataTables.DataTable;
 }
 
-declare module DataTables
+declare namespace DataTables
 {
 	export interface DataTable
 	{

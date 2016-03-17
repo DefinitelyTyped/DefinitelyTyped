@@ -3,7 +3,7 @@
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module jsonpatch {
+declare namespace jsonpatch {
     type OpPatch = AddPath | RemovePath | ReplacePath | MovePath | CopyPath | TestPath;
     interface Patch {
         op: string;

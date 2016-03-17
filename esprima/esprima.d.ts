@@ -5,7 +5,7 @@
 
 /// <reference path="../estree/estree.d.ts" />
 
-declare module esprima {
+declare namespace esprima {
 
     const version: string;
 

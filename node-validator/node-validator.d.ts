@@ -3,7 +3,7 @@
 // Definitions by: Ken Gorab <https://github.com/kengorab>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module ValidatorOptions {
+declare namespace ValidatorOptions {
     interface IsStringOptions {
         regex?: RegExp,
         message?: String
@@ -22,7 +22,7 @@ declare module ValidatorOptions {
     type Options = IsStringOptions | IsNumberOptions | IsDateOptions;
 }
 
-declare module Validator {
+declare namespace Validator {
     type ValidateFn = (value: any, onError: (message: String, childName: String, childValie: any) => void) => void;
 
     interface Validatable {

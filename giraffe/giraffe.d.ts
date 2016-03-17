@@ -5,7 +5,7 @@
 
 /// <reference path="../backbone/backbone.d.ts" />
 
-declare module Giraffe {
+declare namespace Giraffe {
 
   interface GiraffeObject {
     app: App;
@@ -141,7 +141,7 @@ declare module Giraffe {
     start( options?:any ): App;
   }
 
-  module Contrib {
+  namespace Contrib {
 
     class Controller extends Backbone.Events implements GiraffeObject {
       app: App;

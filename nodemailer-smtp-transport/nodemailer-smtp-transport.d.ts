@@ -10,7 +10,7 @@ declare module "nodemailer-smtp-transport" {
 
 	import tls = require("tls");
 
-	module smtpTransport {
+	namespace smtpTransport {
 		export interface AuthOptions {
 			user?: string;
 			pass?: string;

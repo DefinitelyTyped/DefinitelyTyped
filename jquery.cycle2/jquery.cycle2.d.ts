@@ -31,7 +31,7 @@ interface JQuery {
 }
 
 
-declare module JQueryCycle2 {
+declare namespace JQueryCycle2 {
     interface Cycle2 {
         (options?: Options): JQuery;
         (methodName: 'add', newSlide: any): JQuery; // string or JQuery

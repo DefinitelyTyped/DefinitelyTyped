@@ -10,7 +10,7 @@ declare module 'debug' {
     export = debug;
 }
 
-declare module debug {
+declare namespace debug {
     export interface IDebug {
         (namespace: string): debug.IDebugger,
         coerce: (val: any) => any,

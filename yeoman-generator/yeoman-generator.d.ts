@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 /// <reference path="../node/node.d.ts" />
 
-declare module yo {
+declare namespace yo {
     export interface IYeomanGenerator {
         argument(name: string, config: IArgumentConfig): void;
         composeWith(namespace: string, options: any, settings?: IComposeSetting): IYeomanGenerator;
@@ -225,7 +225,7 @@ declare module yo {
     var test: ITestHelper;
 
     // "generators" is deprecated
-    module generators {
+    namespace generators {
 
         export class NamedBase extends YeomanGeneratorBase implements INamedBase {
             constructor(args: string | string[], options: any);

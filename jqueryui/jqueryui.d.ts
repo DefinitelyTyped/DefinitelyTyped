@@ -6,7 +6,7 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module JQueryUI {
+declare namespace JQueryUI {
     // Accordion //////////////////////////////////////////////////
 
     interface AccordionOptions extends AccordionEvents {

@@ -3,7 +3,7 @@
 // Definitions by: Shunsuke Ohtani <https://github.com/zaneli>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module FingerprintJs {
+declare namespace FingerprintJs {
 
   interface FingerprintStatic {
     /**

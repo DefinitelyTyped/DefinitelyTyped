@@ -336,14 +336,14 @@ interface tinycolorInstance {
     clone(): tinycolorInstance;
 }
 
-declare module Readable {
+declare namespace Readable {
     interface Readable {
         brightness: number;
         color: number;
     }
 }
 
-declare module ColorFormats {
+declare namespace ColorFormats {
     interface RGB {
         r: number;
         g: number;

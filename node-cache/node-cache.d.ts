@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module NodeCacheTypes {
+declare namespace NodeCacheTypes {
 	interface NodeCache {
 		/** container for cached data */
 		data: Data;

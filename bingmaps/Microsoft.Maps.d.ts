@@ -3,7 +3,7 @@
 // Definitions by: Eric Todd <https://github.com/ericrtodd>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Microsoft.Maps {
+declare namespace Microsoft.Maps {
 
     export enum AltitudeReference {
         ground,

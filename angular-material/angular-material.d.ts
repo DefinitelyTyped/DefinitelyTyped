@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
-declare module angular.material {
+declare namespace angular.material {
 
     interface IBottomSheetOptions {
         templateUrl?: string;

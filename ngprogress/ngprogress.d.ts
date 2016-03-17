@@ -3,7 +3,7 @@
 // Definitions by: Martin McWhorter <https://github.com/martinmcwhorter>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module NgProgress {
+declare namespace NgProgress {
 
     export interface INgProgress {
         start(): void;
@@ -15,7 +15,7 @@ declare module NgProgress {
         reset(): void;
         complete(): void;
     }
-    
+
     export interface INgProgressFactory {
         createInstance(): INgProgress;
     }

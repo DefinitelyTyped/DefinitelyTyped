@@ -3,7 +3,7 @@
 // Definitions by: Frederico Galvão <https://github.com/fredgalvao>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module PhonegapPluginPush {
+declare namespace PhonegapPluginPush {
 	type EventResponse = RegistrationEventResponse | NotificationEventResponse | Error
 
 	interface PushNotification {
@@ -74,7 +74,7 @@ declare module PhonegapPluginPush {
 		 * @param errorHandler
 		 */
 		getApplicationIconBadgeNumber(successHandler: (count: number) => any, errorHandler: () => any): void
-		
+
 		/**
 		 * iOS only
 		 * Tells the OS that you are done processing a background push notification.

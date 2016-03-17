@@ -5,7 +5,7 @@
 
 // The definition file for event module.
 
-declare module cldr {
+declare namespace cldr {
     interface CldrStatic {
         on(event:string, listener:(path:string, value:any) => void): void;
         once(event:string, listener:(path:string, value:any) => void): void;

@@ -3,7 +3,7 @@
 // Definitions by: ryiwamoto <https://github.com/ryiwamoto/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Wolfy87EventEmitter {
+declare namespace Wolfy87EventEmitter {
 
     /**
      * Hash Object for manipulating multiple events.

@@ -3,7 +3,7 @@
 // Definitions by: Tom Hasner <https://github.com/thasner>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Less {
+declare namespace Less {
     interface RootFileInfo {
         filename: string;
         relativeUrls: boolean;

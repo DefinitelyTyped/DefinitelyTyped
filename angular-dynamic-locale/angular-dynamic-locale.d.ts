@@ -10,7 +10,7 @@ declare module "angular-dynamic-locale" {
 	export = ng;
 }
 
-declare module angular.dynamicLocale {
+declare namespace angular.dynamicLocale {
 
 	interface tmhDynamicLocaleService {
 		set(locale: string): void;

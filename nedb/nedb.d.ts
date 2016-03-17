@@ -152,7 +152,7 @@ declare module "nedb" {
     export = NeDBDataStore;
 }
 
-declare module NeDB {
+declare namespace NeDB {
 
     interface Cursor<T> {
         sort(query:any):Cursor<T>;

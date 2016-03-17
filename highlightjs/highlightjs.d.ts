@@ -7,7 +7,7 @@ declare module 'highlight.js' {
     export = hljs;
 }
 
-declare  module hljs
+declare  namespace hljs
 {
 	export function highlight(
 		name: string,

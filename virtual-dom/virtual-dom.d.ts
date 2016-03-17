@@ -3,7 +3,7 @@
 // Definitions by: Christopher Brown <https://github.com/chbrown>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module VirtualDOM {
+declare namespace VirtualDOM {
   interface VHook {
     hook(node: Element, propertyName: string): void;
     unhook(node: Element, propertyName: string): void;

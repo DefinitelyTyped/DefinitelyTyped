@@ -5,7 +5,7 @@
 
 /// <reference path="../leaflet/leaflet.d.ts" />
 
-declare module L {
+declare namespace L {
     /**
      * Make geometries editable in Leaflet.
      *
@@ -174,7 +174,7 @@ declare module L {
     export interface Polyline extends EditableMixin {
     }
 
-    module Map {
+    namespace Map {
         export interface MapOptions {
             /**
              * Whether to create a L.Editable instance at map init or not.

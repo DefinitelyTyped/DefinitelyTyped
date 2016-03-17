@@ -5,29 +5,29 @@
 
 // Release comments:
 // -----------------
-// TrackObjects and AlbumObjects is specified in the docs as always having the available_markets property, 
+// TrackObjects and AlbumObjects is specified in the docs as always having the available_markets property,
 // but when it is sent in https://developer.spotify.com/web-api/console/get-current-user-saved-tracks
 // the available_markets are missing. Therefore it is marked as optional in this source code.
 
 
-declare module SpotifyApi {
+declare namespace SpotifyApi {
 
-    // 
+    //
     // Parameter Objects for searching
     //
 
     /**
      * Object for search parameters for searching for tracks, playlists, artists or albums.
      * See: [Search for an item](https://developer.spotify.com/web-api/search-item/)
-     * 
+     *
      * q and type are not optional in the API, however they are marked as optional here, since various libraries
-     * implement them as function call parameters instead. This could be changed. 
-     * 
+     * implement them as function call parameters instead. This could be changed.
+     *
      * @param q Required. The search query's keywords (and optional field filters and operators).
      * @param type Required. A comma-separated list of item types to search across. Valid types are: album, artist, playlist, and track.
      * @param market Optional. An ISO 3166-1 alpha-2 country code or the string from_token
-     * @param limit Optional. The maximum number of results to return. Default: 20. Minimum: 1. Maximum: 50. 
-     * @param offset Optional. The index of the first result to return. Default: 0 (i.e., the first result). Maximum offset: 100.000. Use with limit to get the next page of search results. 
+     * @param limit Optional. The maximum number of results to return. Default: 20. Minimum: 1. Maximum: 50.
+     * @param offset Optional. The index of the first result to return. Default: 0 (i.e., the first result). Maximum offset: 100.000. Use with limit to get the next page of search results.
      */
     interface SearchForItemParameterObject {
         q?: string;
@@ -46,8 +46,8 @@ declare module SpotifyApi {
     // Generic interfaces for re-use:
 
     /**
-     * Void Response  
-     */ 
+     * Void Response
+     */
     interface VoidResponse {}
 
     /**
@@ -61,13 +61,13 @@ declare module SpotifyApi {
     // Spotify API Endpoints:
 
     /**
-     * Get an Album   
+     * Get an Album
      * GET /v1/albums/{id}
      */
     interface SingleAlbumResponse extends AlbumObjectFull {}
 
     /**
-     * Get Several Albums   
+     * Get Several Albums
      * GET /v1/albums
      */
     interface MultipleAlbumsResponse {
@@ -75,19 +75,19 @@ declare module SpotifyApi {
     }
 
     /**
-     * Get an Album’s Tracks   
+     * Get an Album’s Tracks
      * GET /v1/albums/{id}/tracks
      */
     interface AlbumTracksResponse extends PagingObject<TrackObjectSimplified> {}
 
     /**
-     * Get an Artist   
+     * Get an Artist
      * GET /v1/artists/{id}
      */
     interface SingleArtistResponse extends ArtistObjectFull {}
 
     /**
-     * Get Several Artists   
+     * Get Several Artists
      * GET /v1/artists
      */
     interface MultipleArtistsResponse {
@@ -95,13 +95,13 @@ declare module SpotifyApi {
     }
 
     /**
-     * Get an Artist’s Albums   
+     * Get an Artist’s Albums
      * GET /v1/artists/{id}/albums
      */
     interface ArtistsAlbumsResponse extends PagingObject<AlbumObjectSimplified> {}
 
     /**
-     * Get an Artist’s Top Tracks   
+     * Get an Artist’s Top Tracks
      * GET /v1/artists/{id}/top-tracks
      */
     interface ArtistsTopTracksResponse {
@@ -109,7 +109,7 @@ declare module SpotifyApi {
     }
 
     /**
-     * Get an Artist’s Related Artists   
+     * Get an Artist’s Related Artists
      * GET /v1/artists/{id}/related-artists
      */
     interface ArtistsRelatedArtistsResponse {
@@ -117,16 +117,16 @@ declare module SpotifyApi {
     }
 
     /**
-     * Get a list of featured playlists   
+     * Get a list of featured playlists
      * GET /v1/browse/featured-playlists
      */
     interface ListOfFeaturedPlaylistsResponse {
         message?: string,
         playlists: PagingObject<PlaylistObjectSimplified>
-    } 
+    }
 
     /**
-     * Get a list of new releases   
+     * Get a list of new releases
      * GET /v1/browse/new-releases
      */
     interface ListOfNewReleasesResponse {
@@ -135,7 +135,7 @@ declare module SpotifyApi {
     }
 
     /**
-     * Get a list of categories   
+     * Get a list of categories
      * GET /v1/browse/categories
      */
     interface MultipleCategoriesResponse {
@@ -143,13 +143,13 @@ declare module SpotifyApi {
     }
 
     /**
-     * Get a category   
+     * Get a category
      * GET /v1/browse/categories/{category_id}
      */
     interface SingleCategoryResponse extends CategoryObject {}
 
     /**
-     * Get a categorys playlists   
+     * Get a categorys playlists
      * GET /v1/browse/categories/{id}/playlists
      */
     interface CategoryPlaylistsReponse {
@@ -157,13 +157,13 @@ declare module SpotifyApi {
     }
 
     /**
-     * Get Current User’s Profile   
+     * Get Current User’s Profile
      * GET /v1/me
      */
     interface CurrentUsersProfileResponse extends UserObjectPrivate {}
 
     /**
-     * Get User’s Followed Artists   
+     * Get User’s Followed Artists
      * GET /v1/me/following?type=artist
      */
     interface UsersFollowedArtistsResponse {
@@ -171,13 +171,13 @@ declare module SpotifyApi {
     }
 
     /**
-     * Follow artists or users   
+     * Follow artists or users
      * PUT /v1/me/following
      */
     interface FollowArtistsOrUsersResponse extends VoidResponse {}
 
     /**
-     * Unfollow artists or users   
+     * Unfollow artists or users
      * DELETE /v1/me/following
      */
     interface UnfollowArtistsOrUsersResponse extends VoidResponse {}
@@ -207,7 +207,7 @@ declare module SpotifyApi {
     interface SaveTracksForUserResponse extends VoidResponse {}
 
     /**
-     * Get user's saved tracks   
+     * Get user's saved tracks
      * GET /v1/me/tracks
      */
     interface UsersSavedTracksResponse extends PagingObject<SavedTrackObject> {}
@@ -219,37 +219,37 @@ declare module SpotifyApi {
     interface RemoveUsersSavedTracksResponse extends VoidResponse {}
 
     /**
-     * Check User’s Saved Tracks    
+     * Check User’s Saved Tracks
      * GET /v1/me/tracks/contains
      */
     interface CheckUsersSavedTracksResponse extends Array<boolean> {}
-    
+
     /**
-     * Save albums for user   
+     * Save albums for user
      * PUT /v1/me/albums?ids={ids}
      */
     interface SaveAlbumsForUserResponse extends VoidResponse {}
 
     /**
-     * Get user's saved albums   
+     * Get user's saved albums
      * GET /v1/me/albums
      */
     interface UsersSavedAlbumsResponse extends PagingObject<AlbumObjectFull> {}
 
     /**
-     * Remove Albums for Current User   
+     * Remove Albums for Current User
      * DELETE /v1/me/albums?ids={ids}
      */
     interface RemoveAlbumsForUserResponse extends VoidResponse {}
 
     /**
-     * Check user's saved albums   
+     * Check user's saved albums
      * DELETE /v1/me/albums/contains?ids={ids}
      */
     interface CheckUserSavedAlbumsResponse extends Array<boolean> {}
-    
+
     /**
-     * Search for an album   
+     * Search for an album
      * GET /v1/search?type=album
      */
     interface AlbumSearchResponse {
@@ -257,7 +257,7 @@ declare module SpotifyApi {
     }
 
     /**
-     * Search for an artist   
+     * Search for an artist
      * GET /v1/search?type=artist
      */
     interface ArtistSearchResponse {
@@ -265,7 +265,7 @@ declare module SpotifyApi {
     }
 
     /**
-     * Search for a playlist   
+     * Search for a playlist
      * GET /v1/search?type=playlist
      */
     interface PlaylistSearchResponse {
@@ -273,7 +273,7 @@ declare module SpotifyApi {
     }
 
     /**
-     * Search for a track   
+     * Search for a track
      * GET /v1/search?type=track
      */
     interface TrackSearchResponse {
@@ -281,13 +281,13 @@ declare module SpotifyApi {
     }
 
     /**
-     * Get a track   
+     * Get a track
      * GET /v1/tracks/{id}
      */
     interface SingleTrackResponse extends TrackObjectFull {}
 
     /**
-     * Get multiple tracks   
+     * Get multiple tracks
      * GET /v1/tracks?ids={ids}
      */
     interface MultipleTracksResponse {
@@ -295,13 +295,13 @@ declare module SpotifyApi {
     }
 
     /**
-     * Get user profile   
-     * GET /v1/users/{user_id} 
+     * Get user profile
+     * GET /v1/users/{user_id}
      */
     interface UserProfileResponse extends UserObjectPublic {}
 
     /**
-     * Get a list of a user's playlists   
+     * Get a list of a user's playlists
      * GET /v1/users/{user_id}/playlists
      */
     interface ListOfUsersPlaylistsResponse extends PagingObject<PlaylistObjectSimplified> {}
@@ -313,55 +313,55 @@ declare module SpotifyApi {
     interface ListOfCurrentUsersPlaylistsResponse extends PagingObject<PlaylistObjectSimplified> {}
 
     /**
-     * Get a playlist   	
+     * Get a playlist
      * GET /v1/users/{user_id}/playlists/{playlist_id}
      */
     interface SinglePlaylistResponse extends PlaylistObjectFull {}
 
     /**
-     * Get a playlist's tracks   
+     * Get a playlist's tracks
      * GET /v1/users/{user_id}/playlists/{playlist_id}/tracks
      */
     interface PlaylistTrackResponse extends PagingObject<PlaylistTrackObject> {}
 
     /**
-     * Create a Playlist   
+     * Create a Playlist
      * POST /v1/users/{user_id}/playlists
      */
     interface CreatePlaylistResponse extends PlaylistObjectFull {}
 
     /**
-     * Change a Playlist’s Details   
+     * Change a Playlist’s Details
      * PUT /v1/users/{user_id}/playlists/{playlist_id}
      */
     interface ChangePlaylistDetailsReponse extends VoidResponse {}
 
     /**
-     * Add Tracks to a Playlist   
+     * Add Tracks to a Playlist
      * POST /v1/users/{user_id}/playlists/{playlist_id}/tracks
      */
     interface AddTracksToPlaylistResponse extends PlaylistSnapshotResponse {}
 
     /**
-     * Remove Tracks from a Playlist   
+     * Remove Tracks from a Playlist
      * DELETE /v1/users/{user_id}/playlists/{playlist_id}/tracks
      */
     interface RemoveTracksFromPlaylistResponse extends PlaylistSnapshotResponse {}
 
     /**
-     * Reorder a Playlist’s Tracks   
+     * Reorder a Playlist’s Tracks
      * PUT /v1/users/{user_id}/playlists/{playlist_id}/tracks
      */
     interface ReorderPlaylistTracksResponse extends PlaylistSnapshotResponse {}
 
     /**
-     * Replace a Playlist’s Tracks   
+     * Replace a Playlist’s Tracks
      * PUT /v1/users/{user_id}/playlists/{playlist_id}/tracks
      */
     interface ReplacePlaylistTracksResponse extends VoidResponse {}
 
     /**
-     * Check if Users Follow a Playlist   
+     * Check if Users Follow a Playlist
      * GET /v1/users/{user_id}/playlists/{playlist_id}/followers/contains
      */
     interface UsersFollowPlaylistReponse extends Array<boolean> {}
@@ -369,13 +369,13 @@ declare module SpotifyApi {
 
 
     //
-    // Objects from the Object Models of the Spotify Web Api 
+    // Objects from the Object Models of the Spotify Web Api
     // [Object Model](https://developer.spotify.com/web-api/object-model)
     //
 
     //
     // The Paging Object wrappers used for retrieving collections from the Spotify API.
-    // 
+    //
 
     /**
      * BasePagingObject which the IPagingObject and ICursorBasedPagingObject extend from.
@@ -403,12 +403,12 @@ declare module SpotifyApi {
      * [](https://developer.spotify.com/web-api/object-model/#cursor-based-paging-object)
      */
     interface CursorBasedPagingObject<T> extends BasePagingObject<T> {
-        cursors: CursorObject    
+        cursors: CursorObject
     }
 
 
 
-    // 
+    //
     // All other objects of the Object Models from the Spotify Web Api, ordered alphabetically.
     //
 
@@ -464,7 +464,7 @@ declare module SpotifyApi {
         id: string,
         name: string,
         type: string,
-        uri: string    
+        uri: string
     }
 
     /**
@@ -507,7 +507,7 @@ declare module SpotifyApi {
     /**
      * External Id object
      * [](https://developer.spotify.com/web-api/object-model/)
-     * 
+     *
      * Note that there might be other types available, it couldn't be found in the docs.
      */
     interface ExternalIdObject {
@@ -519,7 +519,7 @@ declare module SpotifyApi {
     /**
      * External Url Object
      * [](https://developer.spotify.com/web-api/object-model/)
-     * 
+     *
      * Note that there might be other types available, it couldn't be found in the docs.
      */
     interface ExternalUrlObject {

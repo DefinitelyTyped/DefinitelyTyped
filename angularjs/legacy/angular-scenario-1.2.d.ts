@@ -5,13 +5,13 @@
 
 /// <reference path="../../jquery/jquery.d.ts" />
 
-declare module ng {
+declare namespace ng {
     export interface IAngularStatic {
         scenario: any;
     }
 }
 
-declare module angularScenario {
+declare namespace angularScenario {
 
     export interface RunFunction {
         (functionToRun: any): any;

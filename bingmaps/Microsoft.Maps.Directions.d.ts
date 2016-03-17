@@ -5,7 +5,7 @@
 
 /// <reference path="Microsoft.Maps.d.ts"/>
 
-declare module Microsoft.Maps.Directions {
+declare namespace Microsoft.Maps.Directions {
 
     export interface BusinessDetails {
 

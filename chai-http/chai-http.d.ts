@@ -6,7 +6,7 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../chai/chai.d.ts" />
 
-declare module Chai {
+declare namespace Chai {
 
 	interface ChaiStatic {
 		request: ChaiHttpRequest;
@@ -37,7 +37,7 @@ declare module Chai {
 	}
 }
 
-declare module ChaiHttp {
+declare namespace ChaiHttp {
 	interface Promise<T> {
 		then<U>(onFulfilled: (value: T) => U, onRejected?: (reason: any) => U): Promise<U>;
 	}

@@ -3,7 +3,7 @@
 // Definitions by: Gia Bảo @ Sân Đình <https://github.com/giabao>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module YUITest {
+declare namespace YUITest {
     interface YUITestStatic{
         Assert: IAssert
         Case: TestCase

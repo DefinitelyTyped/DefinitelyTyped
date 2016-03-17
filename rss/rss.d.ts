@@ -3,7 +3,7 @@
 // Definitions by: Second Datke <https://github.com/secondwtq>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module NodeRSS {
+declare namespace NodeRSS {
     interface FeedOptions {
         /**
          * Title of your site or feed.

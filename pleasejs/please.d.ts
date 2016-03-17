@@ -5,7 +5,7 @@
 
 declare var Please: PleaseJS.Please;
 
-declare module PleaseJS{
+declare namespace PleaseJS{
     export interface Please{
         /***
          * generate and return a random hex string

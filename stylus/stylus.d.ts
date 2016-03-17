@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module Stylus {
+declare namespace Stylus {
 
     export interface Static {
         /**

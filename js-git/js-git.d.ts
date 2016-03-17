@@ -3,13 +3,13 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module JSGit {
+declare namespace JSGit {
 
 	interface GitObject {
 		type:string;
 		body:any;
 	}
-	
+
 	interface GitCommit {
 		tree:string;
 		author:GitAuthor;

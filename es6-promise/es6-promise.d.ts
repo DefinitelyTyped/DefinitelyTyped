@@ -40,7 +40,7 @@ declare class Promise<T> implements Thenable<T> {
 	catch<U>(onRejected?: (error: any) => U | Thenable<U>): Promise<U>;
 }
 
-declare module Promise {
+declare namespace Promise {
 	/**
 	 * Make a new promise from the thenable.
 	 * A thenable is promise-like in as far as it has a "then" method.
@@ -68,7 +68,7 @@ declare module Promise {
 
 declare module 'es6-promise' {
 	var foo: typeof Promise; // Temp variable to reference Promise in local context
-	module rsvp {
+	namespace rsvp {
 		export var Promise: typeof foo;
 	}
 	export = rsvp;

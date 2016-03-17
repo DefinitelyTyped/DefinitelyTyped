@@ -8,7 +8,7 @@
 
 declare module "nodemailer-direct-transport" {
 
-	module directTransport {
+	namespace directTransport {
 
 		export interface AuthOptions {
 			user?: string;

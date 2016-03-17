@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module SimpleModal {
+declare namespace SimpleModal {
     interface SimpleModalOptions {
         /** The jQuery selector to append the elements to. For ASP.NET, use 'form'. Default: 'body'. */
         appendTo?: string;
