@@ -5,8 +5,8 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module OData {
-    
+declare namespace OData {
+
     /**
      * Currently supported options for the $resource factory options argument.
      */

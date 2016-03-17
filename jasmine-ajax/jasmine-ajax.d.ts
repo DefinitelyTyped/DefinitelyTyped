@@ -77,6 +77,6 @@ declare class MockAjax {
 	stubs: JasmineAjaxStubTracker;
 }
 
-declare module jasmine {
+declare namespace jasmine {
 	export var Ajax: MockAjax;
 }

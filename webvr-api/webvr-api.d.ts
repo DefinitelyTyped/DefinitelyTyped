@@ -7,7 +7,7 @@
 
 declare type VREye = string;
 
-declare module WebVRApi {
+declare namespace WebVRApi {
     export interface VRFieldOfViewReadOnly {
         upDegrees: number;
         rightDegrees: number;

@@ -14,7 +14,7 @@ interface Window {
 
 declare var WebCLEvent: { new (): WEBCL.WebCLEvent; };
 
-declare module WEBCL {
+declare namespace WEBCL {
     // 3.6.1
     interface WebCLBuffer extends WebCLMemoryObject {
         createSubBuffer(memFlags: MemFlagsBits, origin: number, sizeInBytes: number): WebCLBuffer;

@@ -65,7 +65,7 @@ interface JQuery {
 }
 
 /** @module Bacon */
-declare module Bacon {
+declare namespace Bacon {
     /**
      * @function
      * @description Creates an [EventStream]{@link Bacon.EventStream} from a `promise` Promise object such as JQuery Ajax. This stream will contain a single value or an error, followed immediately by stream end. You can use the optional `abort` flag (i.e. ´Bacon.fromPromise(p, true)´ to have the `abort` method of the given promise be called when all subscribers have been removed from the created stream.

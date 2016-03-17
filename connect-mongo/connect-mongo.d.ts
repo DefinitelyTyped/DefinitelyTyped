@@ -16,7 +16,7 @@ declare module "connect-mongo" {
 
     function connectMongo(connect: (options?: session.SessionOptions) => express.RequestHandler): connectMongo.MongoStoreFactory;
 
-    module connectMongo {
+    namespace connectMongo {
 
         export interface DefaultOptions{
             /**

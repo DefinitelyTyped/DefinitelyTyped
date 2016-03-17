@@ -5,7 +5,7 @@
 
 declare var BetterCurry: BetterCurryModule.BetterCurry;
 
-declare module BetterCurryModule {
+declare namespace BetterCurryModule {
 
     export interface DelegateOptions {
         as?: string;

@@ -3,7 +3,7 @@
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped  
 
-declare module dat {
+declare namespace dat {
     export class GUI {
         constructor(option?: GUIParams);
 

@@ -6,7 +6,7 @@
 ///<reference path="rx.d.ts" />
 ///<reference path="rx.virtualtime.d.ts" />
 
-declare module Rx {
+declare namespace Rx {
 	export interface TestScheduler extends VirtualTimeScheduler<number, number> {
 		createColdObservable<T>(...records: Recorded[]): Observable<T>;
 		createHotObservable<T>(...records: Recorded[]): Observable<T>;

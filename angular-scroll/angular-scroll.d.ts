@@ -6,7 +6,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module duScroll {
+declare namespace duScroll {
 
     /**
      * Extends the angular.element object returned by the $document sercive with a few jQuery like functions.

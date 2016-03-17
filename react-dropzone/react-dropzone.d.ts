@@ -5,7 +5,7 @@
 
 ///<reference path='../react/react.d.ts' />
 
-declare module ReactDropzone {
+declare namespace ReactDropzone {
     import React = __React;
     interface DropzoneProps {
         onDrop?: Function;

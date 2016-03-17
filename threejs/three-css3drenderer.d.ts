@@ -8,7 +8,7 @@
 
 /// <reference path="./three.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
     class CSS3DObject extends Object3D {
         constructor(element: any);
 

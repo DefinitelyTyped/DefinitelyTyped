@@ -953,7 +953,7 @@ declare module 'plugins/http' {
 declare module 'plugins/observable' {
     function observable(obj: any, property: string): KnockoutObservable<any>;
 
-    module observable {
+    namespace observable {
         /**
          * Converts an entire object into an observable object by re-writing its attributes using ES5 getters and setters. Attributes beginning with '_' or '$' are ignored.
          * @param {object} obj The target object to convert.

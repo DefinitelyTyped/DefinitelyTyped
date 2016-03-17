@@ -33,7 +33,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 interface DOMEvent extends Event {}
 
-declare module Slick {
+declare namespace Slick {
 
 	/**
 	* slick.core.js

@@ -6,7 +6,7 @@
 ///<reference path="rx.d.ts" />
 ///<reference path="rx.coincidence-lite.d.ts" />
 
-declare module Rx {
+declare namespace Rx {
 
 	interface Observable<T> {
 		join<TRight, TDurationLeft, TDurationRight, TResult>(

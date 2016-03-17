@@ -20,7 +20,7 @@ interface NodeRequire {
     requireActual(moduleName: string): any;
 }
 
-declare module jest {
+declare namespace jest {
     function addMatchers(matchers: CustomMatcherFactories): void;
     function autoMockOff(): void;
     function autoMockOn(): void;

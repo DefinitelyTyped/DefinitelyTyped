@@ -6,7 +6,7 @@
 
 /// <reference path="../gapi/gapi.d.ts" />
 
-declare module gapi.client.youtube {
+declare namespace gapi.client.youtube {
 
     export interface activities {
 

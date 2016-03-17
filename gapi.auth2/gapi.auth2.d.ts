@@ -5,7 +5,7 @@
 
 /// <reference path="../gapi/gapi.d.ts" />
 
-declare module gapi.auth2 {
+declare namespace gapi.auth2 {
 
   /**
    * GoogleAuth is a singleton class that provides methods to allow the user to sign in with a Google account,
@@ -235,7 +235,7 @@ declare module gapi.auth2 {
   export function getAuthInstance(): GoogleAuth;
 }
 
-declare module gapi.signin2 {
+declare namespace gapi.signin2 {
 
   export function render(id: any, options: {
     /**

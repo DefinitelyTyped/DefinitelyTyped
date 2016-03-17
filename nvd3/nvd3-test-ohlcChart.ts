@@ -1,6 +1,6 @@
 /// <reference path="../d3/d3.d.ts" />
 /// <reference path="nvd3.d.ts" />
-module nvd3_test_ohlcChart {
+namespace nvd3_test_ohlcChart {
     var data = [{
         values: [
             { "date": 15707, "open": 145.11, "high": 146.15, "low": 144.73, "close": 146.06, "volume": 192059000, "adjusted": 144.65 },
@@ -13,14 +13,14 @@ module nvd3_test_ohlcChart {
             .x(function (d) { return d['date'] })
             .y(function (d) { return d['close'] })
             .duration(250)
-            .margin({ left: 75, bottom: 50 }); 
+            .margin({ left: 75, bottom: 50 });
 
-        // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately 
+        // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
         chart.xAxis
             .axisLabel("Dates")
-            .tickFormat(function (d) { 
-                // I didn't feel like changing all the above date values 
-                // so I hack it to make each value fall on a different date 
+            .tickFormat(function (d) {
+                // I didn't feel like changing all the above date values
+                // so I hack it to make each value fall on a different date
                 return d3.time.format('%x')(new Date(new Date().valueOf() - (20000 * 86400000) + (d * 86400000)));
             });
 

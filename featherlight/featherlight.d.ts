@@ -5,7 +5,7 @@
 
 ///<reference path="../jquery/jquery.d.ts" />
 
-declare module Featherlight {
+declare namespace Featherlight {
 	interface Config {
 		namespace?: string;
 		targetAttr?: string;

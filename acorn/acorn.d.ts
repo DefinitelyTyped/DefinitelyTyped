@@ -5,7 +5,7 @@
 
 /// <reference path="../estree/estree.d.ts" />
 
-declare module acorn {
+declare namespace acorn {
     var version: string;
     function parse(input: string, options?: Options): ESTree.Program;
     function parseExpressionAt(input: string, pos: number, options?: Options): ESTree.Expression;

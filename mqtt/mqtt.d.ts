@@ -7,7 +7,7 @@
 
 declare module 'mqtt' {
 
-    module mqtt {
+    namespace mqtt {
 
         import ReadableStream = NodeJS.ReadableStream;
         import EventEmitter = NodeJS.EventEmitter;

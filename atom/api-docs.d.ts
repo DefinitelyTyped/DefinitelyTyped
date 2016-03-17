@@ -16,7 +16,7 @@
  api.json example https://gist.github.com/vvakame/10f8d2f3884affc32476
  */
 
-declare module AtomDocTypes {
+declare namespace AtomDocTypes {
     interface Metadata {
         classes: { [className: string]: ClassInfo; };
     }

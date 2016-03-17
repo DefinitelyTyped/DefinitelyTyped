@@ -13,7 +13,7 @@ declare module "fibers" {
 
     function Fiber(fn: Function): Fiber;
 
-    module Fiber {
+    namespace Fiber {
         export var current: Fiber;
         export function yield(value?: any): any
     }

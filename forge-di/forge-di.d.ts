@@ -70,12 +70,12 @@ declare module "forge-di" {
 		 * Returns a string that represents all bindings within this forge instance.
 		 */
 		inspect(): string;
-		
+
 		resolve<T>(name: string, context?: Forge.IContext, hint?: string, all?: boolean, ...args: any[]): T | T[];
 		resolveBindings(context: Forge.IContext, bindings: Forge.IBinding[], hint: string, args: any[], unwrap: boolean): Forge.IBinding[];
 	}
 
-	module Forge {
+	namespace Forge {
 		interface IContext {
 			new (): IContext;
 			bindings: IBinding[];
@@ -84,11 +84,11 @@ declare module "forge-di" {
 			pop(): IBinding;
 			toString(indent: number): string;
 		}
-		
+
 		interface IType {
 			new (...args: any[]): any;
 		}
-		
+
 		/**
 		 * Represents arguments to help with resolving a binding.
 		 */

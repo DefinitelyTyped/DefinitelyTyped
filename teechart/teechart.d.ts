@@ -22,7 +22,7 @@
  */
 
 
-declare module Tee {
+declare namespace Tee {
 
   interface IPoint {
     x: number;

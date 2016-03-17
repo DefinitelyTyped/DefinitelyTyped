@@ -709,7 +709,7 @@ interface JQuery {
     off(events: "typeahead:asyncreceive", handler: (eventObject: JQueryEventObject) => any): JQuery;
 }
 
-declare module Twitter.Typeahead {
+declare namespace Twitter.Typeahead {
     interface Options {
         /**
           * If true, when suggestions are rendered, pattern matches for the current query in text nodes will be wrapped in a strong element with its class set to {{classNames.highlight}}.
@@ -887,7 +887,7 @@ declare module Twitter.Typeahead {
     }
 }
 
-declare module Bloodhound {
+declare namespace Bloodhound {
     interface BloodhoundOptions<T> {
         /**
          * Transforms a datum into an array of string tokens.

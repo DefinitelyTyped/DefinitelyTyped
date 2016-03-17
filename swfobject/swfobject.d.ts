@@ -5,7 +5,7 @@
 
 declare var swfobject: swfobject.SwfObject;
 
-declare module swfobject {
+declare namespace swfobject {
   export interface SwfObject {
     ua: {
       w3: boolean;

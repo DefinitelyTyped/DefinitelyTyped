@@ -6,9 +6,9 @@
 /// <reference path="../backbone/backbone.d.ts" />
 
 
-declare module joint {
+declare namespace joint {
 
-    module dia {
+    namespace dia {
 
         interface IElementSize {
             width: number;
@@ -106,10 +106,10 @@ declare module joint {
 
     }
 
-    module ui {}
+    namespace ui {}
 
-    module shapes {
-        module basic {
+    namespace shapes {
+        namespace basic {
             class Generic extends dia.Element {
             }
             class Rect extends Generic {
@@ -123,7 +123,7 @@ declare module joint {
         }
     }
 
-    module util {
+    namespace util {
         function uuid():string;
         function guid(obj:any):string;
         function mixin(objects:any[]):any;

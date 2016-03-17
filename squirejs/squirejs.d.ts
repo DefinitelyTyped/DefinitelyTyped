@@ -17,8 +17,8 @@ declare module 'Squire' {
         run(dependencies: string[], test: Function): (done: Function) => void;
     }
 
-    module Squire {
-        module Helpers {
+    namespace Squire {
+        namespace Helpers {
             export function returns<T>(what: T): () => T;
             export function constructs<T>(what: T): () => (() => T);
         }

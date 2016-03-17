@@ -10,7 +10,7 @@ declare module "sweetalert" {
     export = swal;
 }
 
-declare module SweetAlert {
+declare namespace SweetAlert {
     type AlertType = "warning" | "error" | "success" | "info";
 
     type PromtType = "input" | "prompt";

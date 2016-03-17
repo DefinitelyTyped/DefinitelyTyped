@@ -5,7 +5,7 @@
 
 /// <reference path="../react/react.d.ts" />
 
-declare module NotificationSystem {
+declare namespace NotificationSystem {
 
     import React = __React;
 

@@ -5,7 +5,7 @@
 
 /// <reference path="..\promises-a-plus\promises-a-plus.d.ts"/>
 
-declare module Stamplay {
+declare namespace Stamplay {
 
   export interface IStamplayModel {
     signup({}) : PromisesAPlus.Thenable<any>

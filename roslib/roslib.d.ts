@@ -10,7 +10,7 @@
 
  ---------------------------------- */
 
-declare module ROSLIB {
+declare namespace ROSLIB {
 	export class Ros {
 		/**
 		 * Manages connection to the server and all interactions with ROS.

@@ -6,7 +6,7 @@
 /// <reference path="../space-pen/space-pen.d.ts" />
 /// <reference path="../text-buffer/text-buffer.d.ts" />
 
-declare module StatusBar {
+declare namespace StatusBar {
 	interface IStatusBarViewStatic {
 		content():any;
 

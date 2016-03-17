@@ -5,7 +5,7 @@
 
 /// <reference path="../moment/moment.d.ts" />
 
-declare module moment {
+declare namespace moment {
 
     interface Moment {
 

@@ -6,7 +6,7 @@
 /// <reference path="../d3/d3.d.ts"/>
 /// <reference path="../dagre/dagre.d.ts"/>
 
-declare module Dagre {
+declare namespace Dagre {
 
     interface DagreD3Factory extends Dagre.DagreFactory {
         render: Render;

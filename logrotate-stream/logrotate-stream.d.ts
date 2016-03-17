@@ -8,7 +8,7 @@ declare module "logrotate-stream" {
 	import stream = require("stream");
 
 	// wrapper to be able to use "export =" while also exporting the Options interface
-	module logrotateStream {
+	namespace logrotateStream {
 
 		/**
 		 * Options object for the exported function.

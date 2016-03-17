@@ -10,7 +10,7 @@
 
 
 
-declare module dc {
+declare namespace dc {
 
   // helper for get/set situation
   interface IGetSet<T, V> {
@@ -66,14 +66,14 @@ export interface ILegendwidget {
     right: number;
     bottom: number;
     left: number;
-    
+
   }
 
   export interface IMarginable<T> {
     margins: IGetSet<ImarginObj, T>;
   }
 
-  // abstract interfaces  
+  // abstract interfaces
   export interface IAbstractColorChart<T> {
     colorDomain: IGetSet<number[], T>;
   }
@@ -90,7 +90,7 @@ export interface ILegendwidget {
     yAxisPadding: IGetSet<number, T>;
     xAxisPadding: IGetSet<number, T>;
     renderHorizontalGridLines: IGetSet<boolean, T>;
-    
+
   }
 
   export interface IAbstractBubblechart<T> {
@@ -112,8 +112,8 @@ export interface ILegendwidget {
   }
 
 
-  // chart interfaces  
-  
+  // chart interfaces
+
 
   export interface IBubblechart extends
   IBaseChart<IBubblechart>,

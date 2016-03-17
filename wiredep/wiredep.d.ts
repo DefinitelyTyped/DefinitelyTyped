@@ -27,7 +27,7 @@ declare module 'wiredep' {
    */
   function Wiredep(config: WiredepParams): PathFiles;
 
-  module Wiredep {
+  namespace Wiredep {
     export function stream(config: WiredepParams): NodeJS.ReadWriteStream;
   }
 

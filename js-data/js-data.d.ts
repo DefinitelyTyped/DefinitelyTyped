@@ -7,7 +7,7 @@
 // js-data module (js-data.js)
 ///////////////////////////////////////////////////////////////////////////////
 
-declare module JSData {
+declare namespace JSData {
 
     interface JSDataPromise<R> {
         then<U>(onFulfilled?:(value:R) => U | JSDataPromise<U>, onRejected?:(error:any) => U | JSDataPromise<U>): JSDataPromise<U>;

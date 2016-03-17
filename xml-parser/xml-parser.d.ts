@@ -7,7 +7,7 @@ declare module 'xml-parser' {
 
   function parse(xml: string): parse.Document;
 
-  module parse {
+  namespace parse {
     export interface Document {
       declaration: Declaration;
       root: Node;

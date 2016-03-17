@@ -6,7 +6,7 @@
 declare module "sanitize-filename" {
 	function sanitize(filename: string, options?: sanitize.Options): string;
 
-	module sanitize {
+	namespace sanitize {
 		interface Options {
 			replacement: string;
 		}

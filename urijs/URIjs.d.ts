@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module uri {
+declare namespace uri {
 
     interface URI {
         absoluteTo(path: string): URI;

@@ -5,12 +5,12 @@
 
 /// <reference path="../sinon/sinon.d.ts"/>
 
-declare module Sinon {
+declare namespace Sinon {
   interface SinonPromise {
     resolves(value?: any): void;
     rejects(value?: any): void;
   }
-  
+
   interface SinonStub {
     returnsPromise(): SinonPromise;
   }

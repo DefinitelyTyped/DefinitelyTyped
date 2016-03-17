@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module UIkit {
+declare namespace UIkit {
     interface ModalElement {
         /**
          * Show the modal

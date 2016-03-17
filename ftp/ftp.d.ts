@@ -10,7 +10,7 @@ declare module "ftp" {
 	import events = require("events");
 	import tls = require("tls");
 
-	module Client {
+	namespace Client {
 
 		/**
 		 * Options for Client#connect()

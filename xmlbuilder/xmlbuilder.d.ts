@@ -83,7 +83,7 @@ declare module 'xmlbuilder' {
         u(): XMLElementOrXMLNode;
     }
 
-    module xmlbuilder {
+    namespace xmlbuilder {
         function create(name: string, xmldec?: Object, doctype?: any, options?: Object): XMLElementOrXMLNode;
     }
 }

@@ -6,7 +6,7 @@
 ///<reference path='../react/react.d.ts' />
 ///<reference path='../eventemitter3/eventemitter3.d.ts' />
 
-declare module Fluxxor {
+declare namespace Fluxxor {
     class Dispatcher {
         constructor(stores: any);
         addStore(name: string, store: Store): void;

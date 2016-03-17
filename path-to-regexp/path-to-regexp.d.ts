@@ -7,7 +7,7 @@ declare module "path-to-regexp" {
 
     function pathToRegexp(path: string, keys?: string[], options?: pathToRegexp.Options): RegExp;
 
-    module pathToRegexp {
+    namespace pathToRegexp {
 
         interface Options {
             sensitive?: boolean;

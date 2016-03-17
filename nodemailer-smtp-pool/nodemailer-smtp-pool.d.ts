@@ -9,7 +9,7 @@
 declare module "nodemailer-smtp-pool" {
 	import tls = require("tls");
 
-	module smtpPool {
+	namespace smtpPool {
 
 		export interface AuthOptions {
 			user?: string;

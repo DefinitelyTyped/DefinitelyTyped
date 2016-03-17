@@ -3,7 +3,7 @@
 // Definitions by: Exceptionless <https://github.com/exceptionless>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module StackTrace {
+declare namespace StackTrace {
   export interface StackTraceOptions {
     filter?: (stackFrame:StackFrame) => boolean;
     sourceCache?: { URL:string };

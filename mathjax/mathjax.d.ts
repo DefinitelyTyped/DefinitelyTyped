@@ -6,7 +6,7 @@
 // These are slightly preliminary and can use some more strong typing here and there. Please feel free to improve.
 declare var MathJax:jax.IMathJax;
 
-declare module jax {
+declare namespace jax {
 
     export interface IMathJax {
         Hub?:IMathJaxHub;

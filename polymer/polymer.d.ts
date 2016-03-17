@@ -5,7 +5,7 @@
 
 ///<reference path="../webcomponents.js/webcomponents.js.d.ts"/>
 
-declare module polymer {
+declare namespace polymer {
 
   type PropConstructorType = StringConstructor|ObjectConstructor|BooleanConstructor|NumberConstructor|DateConstructor|ArrayConstructor;
 

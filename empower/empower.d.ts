@@ -5,7 +5,7 @@
 
 declare function empower(originalAssert:any, formatter:any, options?:empower.Options):any;
 
-declare module empower {
+declare namespace empower {
     export interface Options {
         destructive?: boolean;
         modifyMessageOnRethrow?: boolean;

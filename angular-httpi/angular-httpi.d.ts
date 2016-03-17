@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module Httpi {
+declare namespace Httpi {
     export interface HttpiPayload extends ng.IRequestShortcutConfig {
         method?: string;
         url?: string;

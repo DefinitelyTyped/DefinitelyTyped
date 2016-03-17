@@ -9,7 +9,7 @@ declare module 'jjve' {
 	import jjv  = require('jjv');
 
 	function jjve(jjv: jjv.Env): jjve.Env;
-	module jjve {
+	namespace jjve {
 		interface Issue {
 			code: string;
 			message: string;

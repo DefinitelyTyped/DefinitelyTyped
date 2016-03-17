@@ -7,7 +7,7 @@ declare module "archy" {
     function archy(obj: archy.Data, prefix?: string, opts?: archy.Options): string;
     function archy(obj: string, prefix?: string, opts?: archy.Options): string;
 
-    module archy {
+    namespace archy {
         interface Data {
             label: string;
             nodes?: (Data | string)[];

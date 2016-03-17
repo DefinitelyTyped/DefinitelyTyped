@@ -5,7 +5,7 @@
 
 /// <reference path="Microsoft.Maps.d.ts"/>
 
-declare module Microsoft.Maps.AdvancedShapes {
+declare namespace Microsoft.Maps.AdvancedShapes {
 
     export class EntityCollection {
 

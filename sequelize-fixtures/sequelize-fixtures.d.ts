@@ -9,7 +9,7 @@ declare module "sequelize-fixtures"
 {
     import * as Sequelize from "sequelize";
 
-    module SequelizeFixtures {
+    namespace SequelizeFixtures {
         interface Options {
             encoding?: string,
             log?: (message: string) => void,

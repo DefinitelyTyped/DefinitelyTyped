@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module NPM {
+declare namespace NPM {
     export interface Static extends NodeJS.EventEmitter {
         config: Config;
         commands: Commands;

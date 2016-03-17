@@ -3,7 +3,7 @@
 // Definitions by: Kii Consortium <http://jp.kii.com/consortium/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module KiiCloud {
+declare namespace KiiCloud {
     enum KiiACLAction {
         KiiACLBucketActionCreateObjects,
         KiiACLBucketActionQueryObjects,

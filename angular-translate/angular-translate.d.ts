@@ -10,7 +10,7 @@ declare module "angular-translate" {
     export = ngt;
 }
 
-declare module angular.translate {
+declare namespace angular.translate {
 
     interface ITranslationTable {
         [key: string]: any;
@@ -110,7 +110,7 @@ declare module angular.translate {
     }
 }
 
-declare module angular {
+declare namespace angular {
     interface IFilterService {
         (name:'translate'): {
             (translationId: string, interpolateParams?: any, interpolation?: string): string;

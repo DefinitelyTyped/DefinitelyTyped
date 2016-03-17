@@ -5,7 +5,7 @@
 
 declare function expect(target?: any): Expect.Root;
 
-declare module Expect {
+declare namespace Expect {
     interface Assertion {
         /**
          * Check if the value is truthy

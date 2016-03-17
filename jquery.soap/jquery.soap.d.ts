@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module JQuerySOAP {
+declare namespace JQuerySOAP {
     interface SOAPEnvelope {
         attributes: Object
         bodies: Array<SOAPObject>

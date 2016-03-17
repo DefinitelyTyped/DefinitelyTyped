@@ -5,7 +5,7 @@
 
 /// <reference path="../react/react.d.ts"/>
 
-declare module FixedDataTable {    
+declare namespace FixedDataTable {
     export var version: string;
 
     export interface TableProps extends __React.Props<Table> {
@@ -394,6 +394,6 @@ declare module FixedDataTable {
     }
 }
 
-declare module "fixed-data-table" {    
+declare module "fixed-data-table" {
     export = FixedDataTable;
 }

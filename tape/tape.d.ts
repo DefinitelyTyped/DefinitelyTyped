@@ -18,7 +18,7 @@ declare module 'tape' {
 	function tape(cb: tape.TestCase): void;
 	function tape(opts: tape.TestOptions, cb: tape.TestCase): void;
 
-	module tape {
+	namespace tape {
 
 		interface TestCase {
 			(test: Test): void;

@@ -3,7 +3,7 @@
 // Definitions by: cbowdon <https://github.com/cbowdon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Showdown {
+declare namespace Showdown {
 
     /** Defined for information only - used in union type */
     interface Replace {

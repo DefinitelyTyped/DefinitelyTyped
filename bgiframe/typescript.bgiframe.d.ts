@@ -12,7 +12,7 @@
  *       Copyright (c) 2013 Brandon Aaron (http://brandonaaron.net)
  */
 
-declare module BgiFrame {
+declare namespace BgiFrame {
     interface ISettings {
         top: string;
         left: string;

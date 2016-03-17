@@ -9,7 +9,7 @@ interface CordovaPlugins {
     locationManager: BeaconPlugin.LocationManager;
 }
 
-declare module BeaconPlugin {
+declare namespace BeaconPlugin {
 	/**
 	 * Beacon Plugin.
 	 */

@@ -5,7 +5,7 @@
 
 interface FileEntry {}
 
-declare module zip {
+declare namespace zip {
 	export var useWebWorkers: boolean;
 	export var workerScriptsPath: string;
 	export var workerScripts: {

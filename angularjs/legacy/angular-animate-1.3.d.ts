@@ -13,7 +13,7 @@ declare module "angular-animate" {
 /**
  * ngAnimate module (angular-animate.js)
  */
-declare module angular.animate {
+declare namespace angular.animate {
     interface IAnimateFactory extends Function {
         enter?: (element: ng.IAugmentedJQuery, doneFn: Function) => IAnimateCssRunner|void;
         leave?: (element: ng.IAugmentedJQuery, doneFn: Function) => IAnimateCssRunner|void;
@@ -254,7 +254,7 @@ declare module angular.animate {
 
 }
 
-declare module angular {
+declare namespace angular {
     interface IModule {
         animate(cssSelector: string, animateFactory: angular.animate.IAnimateFactory): IModule;
     }

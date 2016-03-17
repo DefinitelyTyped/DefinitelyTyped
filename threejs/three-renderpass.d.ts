@@ -5,7 +5,7 @@
 
 /// <reference path="./three.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
 	export class RenderPass {
 		constructor( scene: Scene, camera: Camera, overrideMaterial?: Material, clearColor?: Color, clearAlpha?: number );
 		constructor( scene: Scene, camera: Camera, overrideMaterial?: Material, clearColor?: string, clearAlpha?: number );

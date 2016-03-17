@@ -3,7 +3,7 @@
 // Definitions by: RReverser <https://github.com/RReverser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module ESTree {
+declare namespace ESTree {
   interface Node {
     type: string;
     loc?: SourceLocation;

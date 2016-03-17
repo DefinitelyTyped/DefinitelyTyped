@@ -5,7 +5,7 @@
 
 /// <reference path="../mixto/mixto.d.ts" />
 
-declare module Emissary {
+declare namespace Emissary {
 	interface IEmitterStatic extends Mixto.IMixinStatic {
 		new ():IEmitter;
 	}

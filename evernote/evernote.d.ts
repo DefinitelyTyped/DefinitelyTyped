@@ -8,7 +8,7 @@
 declare module "evernote" {
     import { Thrift } from "thrift";
 
-    module Evernote {
+    namespace Evernote {
         interface Callback<T> {
             (err: EDAMUserException|EDAMSystemException|EDAMNotFoundException, v: T): void
         }

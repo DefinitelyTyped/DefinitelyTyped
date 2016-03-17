@@ -9,7 +9,7 @@
 
 // <reference path="../assertion-error/assertion-error.d.ts"/>
 
-declare module Chai {
+declare namespace Chai {
 
     interface ChaiStatic {
         expect: ExpectStatic;

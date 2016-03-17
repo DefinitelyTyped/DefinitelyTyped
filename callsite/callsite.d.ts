@@ -5,7 +5,7 @@
 
 declare module "callsite" {
 
-    module Callsite{
+    namespace Callsite{
 
         interface CallSite {
             getThis(): any;

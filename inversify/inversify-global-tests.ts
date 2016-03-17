@@ -1,6 +1,6 @@
 /// <reference path="inversify.d.ts" />
 
-module global_module_test {
+namespace global_module_test {
 
     interface INinja {
         fight(): string;

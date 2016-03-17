@@ -1735,7 +1735,7 @@ declare module "react/addons" {
         totalTime: number;
     }
 
-    module ReactPerf {
+    namespace ReactPerf {
         export function start(): void;
         export function stop(): void;
         export function printInclusive(measurements: Measurements[]): void;
@@ -1753,7 +1753,7 @@ declare module "react/addons" {
         new(): any;
     }
 
-    module ReactTestUtils {
+    namespace ReactTestUtils {
         export import Simulate = ReactSimulate;
 
         export function renderIntoDocument<P>(
@@ -1847,7 +1847,7 @@ declare module "react/addons" {
         (component: Component<any, any>, eventData?: SyntheticEventData): void;
     }
 
-    module ReactSimulate {
+    namespace ReactSimulate {
         export var blur: EventSimulator;
         export var change: EventSimulator;
         export var click: EventSimulator;

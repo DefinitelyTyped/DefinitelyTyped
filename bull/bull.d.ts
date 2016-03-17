@@ -16,7 +16,7 @@ declare module "bull" {
     */
     function Bull(queueName: string, redisPort: number, redisHost: string, redisOpt?: Redis.ClientOpts): Bull.Queue;
 
-    module Bull {
+    namespace Bull {
 
         export interface DoneCallback {
             (error?: Error, value?: any): void
@@ -282,7 +282,7 @@ declare module "bull/lib/priority-queue" {
      */
     function PQueue(queueName: string, redisPort: number, redisHost: string, redisOpt?: Redis.ClientOpts): PQueue.PriorityQueue;
 
-    module PQueue {
+    namespace PQueue {
 
         export interface AddOptions extends Bull.AddOptions {
 

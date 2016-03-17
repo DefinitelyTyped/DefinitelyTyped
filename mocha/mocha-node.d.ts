@@ -6,7 +6,7 @@
 /// <reference path="mocha.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
-declare module Mocha {
+declare namespace Mocha {
     interface IRunnable extends NodeJS.EventEmitter {
     }
     interface ISuite extends NodeJS.EventEmitter {

@@ -7,13 +7,13 @@ declare module "minimatch" {
 
 	function M(target: string, pattern: string, options?: M.IOptions): boolean;
 
-	module M {
+	namespace M {
 		function match(list: string[], pattern: string, options?: IOptions): string[];
 		function filter(pattern: string, options?: IOptions): (element: string, indexed: number, array: string[]) => boolean;
 		function makeRe(pattern: string, options?: IOptions): RegExp;
 
 		var Minimatch: IMinimatchStatic;
-		
+
 		interface IOptions {
 			debug?: boolean;
 			nobrace?: boolean;

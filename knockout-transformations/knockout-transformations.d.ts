@@ -5,7 +5,7 @@
 
 /// <reference path="../knockout/knockout.d.ts" />
 
-declare module KnockoutTransformations {
+declare namespace KnockoutTransformations {
     interface Mapping<T, TResult> {
         (value: T): TResult;
     }

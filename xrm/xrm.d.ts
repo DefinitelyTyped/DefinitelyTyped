@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Xrm: Xrm.XrmStatic;
-declare function GetGlobalContext(): Xrm.Context; 
+declare function GetGlobalContext(): Xrm.Context;
 
 interface Window
 {
@@ -12,7 +12,7 @@ interface Window
     GetGlobalContext(): Xrm.Context;
 }
 
-declare module Xrm
+declare namespace Xrm
 {
     /**
      * Static xRM object.
@@ -2567,7 +2567,7 @@ declare module Xrm
     }
 }
 
-declare module XrmEnum
+declare namespace XrmEnum
 {
     /**
      * Enumeration of entity form states/types.

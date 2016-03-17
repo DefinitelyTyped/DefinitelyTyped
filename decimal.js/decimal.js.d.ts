@@ -10,7 +10,7 @@ declare module 'decimal.js' {
     export = Decimal;
 }
 
-declare module decimal {
+declare namespace decimal {
 
     enum RoundingMode {
         /**

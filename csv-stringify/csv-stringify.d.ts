@@ -7,7 +7,7 @@
 
 declare module "csv-stringify" {
 
-	module stringify {
+	namespace stringify {
 		interface StringifyOpts {
 			/**
 			 * List of fields, applied when transform returns an object, order matters, read the transformer documentation for additionnal information, columns are auto discovered when the user write object, see the "header" option on how to print columns names on the first line.

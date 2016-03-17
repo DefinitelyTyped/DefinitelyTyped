@@ -13,7 +13,7 @@ declare module "glob-expand" {
         cwd?: string;
 		  }
 
-    module expand {
+    namespace expand {
         var glob: typeof _glob;
         var VERSION: string;
     }

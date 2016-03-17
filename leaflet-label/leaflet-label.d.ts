@@ -5,7 +5,7 @@
 
 /// <reference path="../leaflet/leaflet.d.ts" />
 
-declare module L {
+declare namespace L {
     export interface IconOptions {
         labelAnchor?: Point;
     }

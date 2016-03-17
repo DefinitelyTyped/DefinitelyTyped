@@ -22,7 +22,7 @@ declare module "contextjs" {
         preventDoubleContext?: boolean;
     }
 
-    module context {
+    namespace context {
       function init(settings?: InitSettings): void;
       function destroy(selector: any): void;
       function attach(selector: any, menuObjects: MenuObject[]): void;

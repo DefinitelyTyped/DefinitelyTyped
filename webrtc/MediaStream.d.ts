@@ -31,7 +31,7 @@ interface MediaStreamConstraints {
     audio?: boolean | MediaTrackConstraints;
 }
 
-declare module W3C {
+declare namespace W3C {
     type LongRange = NumberRange;
     type DoubleRange = NumberRange;
     type ConstrainBoolean = boolean | ConstrainBooleanParameters;

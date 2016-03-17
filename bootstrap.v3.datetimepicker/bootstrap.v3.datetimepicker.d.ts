@@ -1,4 +1,4 @@
-﻿// Type definitions for Bootstrap 3 Datepicker v4.17.37 
+﻿// Type definitions for Bootstrap 3 Datepicker v4.17.37
 // Project: http://eonasdan.github.io/bootstrap-datetimepicker
 // Definitions by: Katona Péter <https://github.com/katonap>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,7 +13,7 @@
 /// <reference path="../jquery/jquery.d.ts"/>
 /// <reference path="../moment/moment.d.ts"/>
 
-declare module BootstrapV3DatetimePicker {
+declare namespace BootstrapV3DatetimePicker {
 
 	interface Datetimepicker {
 		/**Clears the datepicker by setting the value to null */
@@ -25,7 +25,7 @@ declare module BootstrapV3DatetimePicker {
 		 * Parsing of the newDate parameter is made using moment library with the options.format and options.useStrict components configuration.
 		 * Throws:
 		 * - TypeError - in case the newDate cannot be parsed
-		 * 
+		 *
 		 * Emits:
 		 * - dp.change - In case newDate is different from current moment
 		 */
@@ -202,7 +202,7 @@ declare module BootstrapV3DatetimePicker {
 		 * Throws:
 		 * - TypeError - if the parameter cannot be parsed using the options.format and options.useStrict configuration settings
 		 * - TypeError - if the parameter is before options.minDate
-		 * 
+		 *
 		 * Emits:
 		 * - dp.change - if the new maxDate is after currently selected moment
 		 * - dp.error - if the new maxDate is after currently selected moment
@@ -216,7 +216,7 @@ declare module BootstrapV3DatetimePicker {
 		 * Throws:
 		 * - TypeError - if the parameter cannot be parsed using the options.format and options.useStrict configuration settings
 		 * - TypeError - if the parameter is after options.maxDate
-		 * 
+		 *
 		 * Emits:
 		 * - dp.change - if the new minDate is after currently selected moment
 		 * - dp.error - if the new minDate is after currently selected moment
@@ -398,7 +398,7 @@ declare module BootstrapV3DatetimePicker {
 		 * @default: false
 		 */
 		keepOpen?: boolean;
-		/**See momentjs for valid locales. You must include moment-with-locales.js or a local js file. 
+		/**See momentjs for valid locales. You must include moment-with-locales.js or a local js file.
 		 * @default: moment.locale()
 		 */
         locale?: string;

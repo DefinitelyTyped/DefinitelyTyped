@@ -7,7 +7,7 @@ declare module "config" {
 
     var c: c.IConfig;
 
-    module c {
+    namespace c {
 
 			// see https://github.com/lorenwest/node-config/wiki/Using-Config-Utilities
 			interface IUtil {

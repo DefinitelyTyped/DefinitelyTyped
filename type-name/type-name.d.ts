@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function typeName(anyVar: any): string;
-declare module typeName {}
+declare namespace typeName {}
 
 declare module "type-name" {
   export = typeName;

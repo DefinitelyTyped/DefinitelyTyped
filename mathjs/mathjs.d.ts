@@ -5,7 +5,7 @@
 
 declare var math: mathjs.IMathJsStatic;
 
-declare module mathjs {
+declare namespace mathjs {
 
 	type MathArray = number[]|number[][];
 	type MathType = number|BigNumber|Fraction|Complex|Unit|MathArray|Matrix;

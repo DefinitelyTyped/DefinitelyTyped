@@ -3,7 +3,7 @@
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Sendgrid {
+declare namespace Sendgrid {
     //#region Options
 
     export interface UriParts {

@@ -6,7 +6,7 @@
 declare function cookie(key : string, fallback?: string) : string;
 declare function cookie(keys : string[], fallback?: string) : string;
 
-declare module cookie {
+declare namespace cookie {
   export function set(key : string, value : string, options? : any) : void;
   export function set(obj : any, options? : any) : void;
   export function remove(key : string) : void;

@@ -3,7 +3,7 @@
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module goog.appengine {
+declare namespace goog.appengine {
 	export class Channel {
 		/**
 		 * Create a channel object using the token returned by the createChannel() call on the server.

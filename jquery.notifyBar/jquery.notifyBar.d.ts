@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module JQueryNotifyBar {
+declare namespace JQueryNotifyBar {
 
     interface NotifyBarOptions {
         /**

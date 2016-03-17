@@ -5,7 +5,7 @@
 
 /// <reference path="Microsoft.Maps.d.ts"/>
 
-declare module Microsoft.Maps.VenueMaps {
+declare namespace Microsoft.Maps.VenueMaps {
 
     export interface MouseResponse {
         eventArgs: MouseEventArgs;

@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module JQueryQRCode {
+declare namespace JQueryQRCode {
     /**
      * One of the possible mode types.
      */

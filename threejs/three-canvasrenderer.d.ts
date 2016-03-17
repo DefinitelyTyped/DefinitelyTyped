@@ -5,7 +5,7 @@
 
 /// <reference path="./three.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
     export interface SpriteCanvasMaterialParameters extends MaterialParameters{
         color?: number;
         program?: (context: any, color: Color) => void;

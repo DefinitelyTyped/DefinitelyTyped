@@ -2,7 +2,8 @@
 // Project: http://www.hl7.org/fhir/2015Sep/index.html
 // Definitions by: Artifact Health <http://www.artifacthealth.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-declare module fhir {
+
+declare namespace fhir {
     type id = string;
     /**
      * String of characters used to identify a name or a resource

@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module ajaxChain {
+declare namespace ajaxChain {
 
     /**
      * Static members of JQueryAjaxChain
@@ -92,6 +92,6 @@ interface JQueryStatic {
     /**
      * JQueryAjaxChain constructor
      */
-    AjaxChain: ajaxChain.JQueryAjaxChainStatic; 
+    AjaxChain: ajaxChain.JQueryAjaxChainStatic;
 
 }

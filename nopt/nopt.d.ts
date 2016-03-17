@@ -18,7 +18,7 @@ declare module "nopt" {
 		validate: (data: CommandData, k: string, val: string) => boolean
 	}
 
-	module nopt {
+	namespace nopt {
 		export function clean(data: CommandData, types: FlagTypeMap, typeDefs?: TypeDefs): string
 		export var typeDefs: TypeDefs
 	}
@@ -36,7 +36,7 @@ declare module "nopt" {
 	interface OptionsParsed {
 		[k: string]: any
 		argv: {
-			remain: string[] 
+			remain: string[]
 			cooked: string[]
 			original: string[]
 		}

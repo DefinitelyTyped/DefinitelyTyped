@@ -5,7 +5,7 @@
 
 ///<reference path="../chai/chai.d.ts" />
 
-declare module Chai {
+declare namespace Chai {
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
         startsWith(expected: string, message?: string): Assertion;
         startWith(expected: string, message?: string): Assertion;

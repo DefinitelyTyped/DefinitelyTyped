@@ -5,7 +5,7 @@
 
 /// <reference path="../backbone/backbone.d.ts" />
 
-declare module Backbone {
+declare namespace Backbone {
     export module Associations {
         /** Defines a 1:Many relationship type */
         export var Many: string;
@@ -41,7 +41,7 @@ declare module Backbone {
             /** A transformation function to convert the value before it is assigned to the key on the relatedModel */
             map?: (...args: any[]) => any;
         }
-        
+
         /** A Backbone model with special provision for handling relations to other models */
         export class AssociatedModel extends Backbone.Model {
             /** Relations with their associated model */

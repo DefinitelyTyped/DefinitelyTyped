@@ -3,7 +3,7 @@
 // Definitions by: Vadim Macagon <https://github.com/enlight/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module AtomEventKit {
+declare namespace AtomEventKit {
 	interface IDisposable {
 		dispose(): void;
 	}

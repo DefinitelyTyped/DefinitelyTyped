@@ -16,7 +16,7 @@ declare module 'angular-ui-bootstrap' {
     export = _;
 }
 
-declare module angular.ui.bootstrap {
+declare namespace angular.ui.bootstrap {
 
     interface IAccordionConfig {
         /**

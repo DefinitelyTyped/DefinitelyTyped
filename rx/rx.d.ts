@@ -5,7 +5,7 @@
 
 ///<reference path="rx-lite.d.ts"/>
 
-declare module Rx {
+declare namespace Rx {
     export interface IScheduler {
 		catch(handler: (exception: any) => boolean): IScheduler;
 		catchException(handler: (exception: any) => boolean): IScheduler;

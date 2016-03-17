@@ -86,7 +86,7 @@ declare module "ws" {
         addListener(event: string, listener: () => void): this;
     }
 
-    module WebSocket {
+    namespace WebSocket {
         export interface IServerOptions {
             host?: string;
             port?: number;

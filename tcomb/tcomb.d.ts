@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Original Definitions by: Jed Mao <https://github.com/jedmao>
-declare module TComb {
+declare namespace TComb {
   export interface tcomb {
     format: (format: string, ...values: any[]) => string;
     getFunctionName: (fn: Function) => string;

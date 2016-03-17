@@ -6,7 +6,7 @@
 declare module 'minimist' {
 	function minimist(args?: string[], opts?: minimist.Opts): minimist.ParsedArgs;
 
-	module minimist {
+	namespace minimist {
 		export interface Opts {
 			// a string or array of strings argument names to always treat as strings
 			string?: string|string[];

@@ -10,7 +10,7 @@ declare module "react-swf" {
     export = ReactSWF;
 }
 declare var ReactSWF: typeof rswf.ReactSWF
-declare module rswf {
+declare namespace rswf {
     interface State {
 
     }
@@ -124,7 +124,7 @@ declare module rswf {
         * Must not be called in a non-browser environment.
         * @return {?string} 'X.Y.Z'-version or null.
         */
-        static getFPVersion(): string 
+        static getFPVersion(): string
         /**
         * Returns if installed Flash Player meets version requirement.
         * Must not be called in a non-browser environment.

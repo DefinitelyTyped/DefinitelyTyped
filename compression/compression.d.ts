@@ -8,7 +8,7 @@
 declare module "compression" {
     import express = require('express');
 
-    module e {
+    namespace e {
         interface CompressionOptions  {
             threshold?: number;
             filter?: Function;

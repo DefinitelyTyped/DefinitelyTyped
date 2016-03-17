@@ -5,10 +5,10 @@
 
 /// <reference path="Microsoft.Maps.d.ts"/>
 
-declare module Microsoft.Maps.Traffic {
-    
+declare namespace Microsoft.Maps.Traffic {
+
     export class TrafficManager {
-        
+
         constructor(map: Map);
 
         hide(): void;

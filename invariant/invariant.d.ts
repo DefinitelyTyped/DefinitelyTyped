@@ -9,7 +9,7 @@ declare module "invariant" {
   export = invariant;
 }
 
-declare module invariant {
+declare namespace invariant {
   interface InvariantStatic {
     (testValue:any, format?:string, ...extra:any[]):void;
   }

@@ -5,7 +5,7 @@
 
 /// <reference path="SlickGrid.d.ts" />
 
-declare module Slick {
+declare namespace Slick {
 
     export interface Column<T extends SlickData> {
         header?: Header;

@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.growl {
+declare namespace angular.growl {
 
     /**
      * Global Time-To-Leave configuration.
@@ -39,7 +39,7 @@ declare module angular.growl {
      */
     interface IGrowlMessage extends IGrowlMessageConfig {
         text: string;
-        
+
         /**
          * Destroy the message.
          */

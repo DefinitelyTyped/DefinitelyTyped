@@ -14,7 +14,7 @@ declare module 'umbraco' {
     export = umbraco;
 }
 
-declare module umbraco {
+declare namespace umbraco {
 
 }
 

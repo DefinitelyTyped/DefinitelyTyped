@@ -47,13 +47,13 @@ interface HandlebarsRuntimeStatic extends HandlebarsCommon {
     templates: HandlebarsTemplates;
 }
 
-declare module hbs {
+declare namespace hbs {
     class SafeString {
         constructor(str: string);
         static toString(): string;
     }
 
-    module Utils {
+    namespace Utils {
         function escapeExpression(str: string): string;
     }
 }
@@ -70,8 +70,8 @@ interface Logger {
     log(level: number, obj: string): void;
 }
 
-declare module hbs {
-    module AST {
+declare namespace hbs {
+    namespace AST {
         interface IStripInfo {
             left?: boolean;
             right?: boolean;

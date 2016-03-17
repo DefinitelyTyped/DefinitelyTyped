@@ -3,7 +3,7 @@
 // Definitions by: MichaelBennett <https://github.com/bennett000/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module mariasql {
+declare namespace mariasql {
     export interface MariaCallBackError {
         (error:Error):void
     }
