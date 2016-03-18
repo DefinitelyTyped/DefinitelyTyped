@@ -75,9 +75,27 @@ typedStore.clear().then(function() { });
 
 // Fetching
 
-// Getting a single object by ID
+// Getting a single object by key
 server.get<Person>('people', 5).then(function (results) { });
 typedStore.get(5).then(function (results) { });
+
+// Getting a single object by key range
+
+// With a MongoDB-style range:
+
+server.get<Person>('people', {gte: 1, lt: 3})
+    .then(function (results) { });
+typedStore.get({gte: 1, lt: 3})
+    .then(function (results) { });
+
+// With an IDBKeyRange :
+
+server.get<Person>('people', IDBKeyRange.bound(1, 3, false, true))
+    .then(function (results) { });
+typedStore.get(IDBKeyRange.bound(1, 3, false, true))
+    .then(function (results) { });
+
+// Querying
 
 // Querying all objects
 server.query<Person>('people')
@@ -181,6 +199,18 @@ server.query<Person>('people', 'firstName')
     .count()
     .execute()
     .then(function (results) { });
+    
+// With no arguments (count all items)
+server.count().then(function (ct) { });
+
+// With a key
+server.count('myKey').then(function (ct) { });
+
+// With a MongoDB-style range
+server.count({gte: 1, lt: 3}).then(function (ct) { });
+
+// With an IDBKeyRange range
+server.count(IDBKeyRange.bound(1, 3, false, true)).then(function (ct) { });
 
 // Atomic updates
 server.query('users', 'last_mod')
@@ -209,5 +239,21 @@ server.close();
 // Retrieving the indexedDB.open result object in use
 var storeNames = server.getIndexedDB().objectStoreNames;
 
+// Server event handlers
+
+server.addEventListener('abort', function (e: Event) { });
+server.addEventListener('error', function (err: Event) { });
+server.addEventListener('versionchange', function (e: Event) { });
+
+server
+    .abort(function (e) { })
+    .error(function (err) { })
+    .versionchange(function (e) { });
+
 // Deleting a database
 db.delete('dbName').then(function () { }, function (err: Error) { });
+db.delete('dbName').catch(function (err) { }).then(function (ev) { });
+
+// Comparing two keys
+
+db.cmp('key1', 'key2');

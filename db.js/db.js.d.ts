@@ -1,4 +1,4 @@
-// Type definitions for db.js v0.9.0
+// Type definitions for db.js v0.14.0
 // Project: https://github.com/aaronpowell/db.js/
 // Definitions by: Chris Wrench <https://github.com/cgwrench>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -6,6 +6,10 @@
 /// <reference path="../es6-promise/es6-promise.d.ts" />
 
 declare module DbJs {
+    interface ErrorListener {
+        (err: Error): void;
+    }
+    
     interface OpenOptions {
         server: string;
         version: number;
@@ -15,11 +19,10 @@ declare module DbJs {
     interface DbJsStatic {
         open(options: OpenOptions): Promise<Server>;
         delete(dbName: string): Promise<void>;
+        cmp(key1: any, key2: any): number;
     }
 
     // Query API
-
-    // TODO - complete the definition of the fluent API for query\indexed query.
 
     interface ExecutableQuery<T> {
         execute(): Promise<T[]>;
@@ -55,11 +58,12 @@ declare module DbJs {
     }
 
     interface DistinctableQuery<T> {
-        distinct(filter: (value: T) => boolean): DistinctQuery<T>;
+        distinct(filter?: (value: T) => boolean): DistinctQuery<T>;
     }
 
     interface ModifiableQuery<T> {
         modify(filter: (value: T) => boolean): ExecutableQuery<T>;
+        modify(modifyObj: any): ExecutableQuery<T>;
     }
 
     interface LimitableQuery<T> {
@@ -70,15 +74,15 @@ declare module DbJs {
         map<TMap>(fn: (value: T) => TMap): Query<TMap>;
     }
     
-    interface Query<T> extends KeyableQuery<T>, ExecutableQuery<T>, FilterableQuery<T>, DescableQuery<T>, DistinctableQuery<T>, ModifiableQuery<T>, LimitableQuery<T>, MappableQuery<T>, CountableQuery<T> {
+    interface Query<T> extends Promise<T>, KeyableQuery<T>, ExecutableQuery<T>, FilterableQuery<T>, DescableQuery<T>, DistinctableQuery<T>, ModifiableQuery<T>, LimitableQuery<T>, MappableQuery<T>, CountableQuery<T> {
     }
 
     interface IndexQuery<T> extends Query<T> {
-        only(): Query<T>;
-        bound(): Query<T>;
-        upperBound(): Query<T>;
-        lowerBound(): Query<T>;
-        range(opts): Query<T>;
+        only(...args: any[]): Query<T>;
+        bound(lowerBound: any, upperBound: any): Query<T>;
+        upperBound(upperBound: any): Query<T>;
+        lowerBound(lowerBound: any): Query<T>;
+        range(opts: any): Query<T>;
         all(): Query<T>;
     }
 
@@ -91,8 +95,6 @@ declare module DbJs {
         getIndexedDB(): IDBDatabase;
         close(): void;
     }
-
-    // TODO - Check typings for the count API as thses may not be correct.
 
     interface ObjectStoreServer {
         add<T>(table: string, entity: T): Promise<T>;
@@ -109,7 +111,16 @@ declare module DbJs {
         get<T>(table: string, key: any): Promise<T>;
         query<T>(table: string): IndexQuery<T>;
         query<T>(table: string, index: string): IndexQuery<T>;
+        count(): Promise<number>;
+        count(keyOrRange: any): Promise<number>;
         count(table: string, key: any): Promise<number>;
+        addEventListener(type: 'abort', listener: (ev: Event) => any): void;
+        addEventListener(type: 'versionchange', listener: (ev: Event) => any): void;
+        addEventListener(type: 'error', listener: (err: Error) => any): void;
+        addEventListener(type: string, listener: EventListener | ErrorListener): void;
+        abort(listener: (ev: Event) => any): ObjectStoreServer;
+        versionchange(listener: (ev: Event) => any): ObjectStoreServer;
+        error(listener: (ev: Error) => any): ObjectStoreServer;
     }
 
     interface TypedObjectStoreServer<T> {
