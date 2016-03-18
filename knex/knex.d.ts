@@ -409,7 +409,7 @@ declare module "knex" {
       debug?: boolean;
       client?: string;
       dialect?: string;
-      connection: string|ConnectionConfig|MariaSqlConnectionConfig|
+      connection?: string|ConnectionConfig|MariaSqlConnectionConfig|
         Sqlite3ConnectionConfig|SocketConnectionConfig;
       pool?: PoolConfig;
       migrations?: MigrationConfig;
