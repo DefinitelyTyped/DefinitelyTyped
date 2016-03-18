@@ -1,11 +1,11 @@
 // Type definitions for Angular Protractor 1.5.0
 // Project: https://github.com/angular/protractor
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../selenium-webdriver/selenium-webdriver.d.ts" />
 
-declare module protractor {
+declare namespace protractor {
     //region Wrapped webdriver Items
 
     class ActionSequence extends webdriver.ActionSequence {}
@@ -24,12 +24,12 @@ declare module protractor {
     var CommandName: webdriver.ICommandName;
     var Key: webdriver.IKey;
 
-    module error {
+    namespace error {
         class Error extends webdriver.error.Error {}
         var ErrorCode: webdriver.error.IErrorCode;
     }
 
-    module logging {
+    namespace logging {
         class Preferences extends webdriver.logging.Preferences { }
         class Entry extends webdriver.logging.Entry { }
 
@@ -40,7 +40,7 @@ declare module protractor {
         function getLevel(nameOrValue: number): webdriver.logging.ILevel;
     }
 
-    module promise {
+    namespace promise {
         class Thenable<T> extends webdriver.promise.Thenable<T> { }
         class Promise<T> extends webdriver.promise.Promise<T> { }
         class Deferred<T> extends webdriver.promise.Deferred<T> { }
@@ -283,7 +283,7 @@ declare module protractor {
         function setDefaultFlow(flow: webdriver.promise.ControlFlow): void;
     }
 
-    module stacktrace {
+    namespace stacktrace {
         class Frame extends webdriver.stacktrace.Frame { }
         class Snapshot extends webdriver.stacktrace.Snapshot { }
 
@@ -311,7 +311,7 @@ declare module protractor {
         var BROWSER_SUPPORTED: boolean;
     }
 
-    module until {
+    namespace until {
         class Condition<T> extends webdriver.until.Condition<T> { }
 
         /**
@@ -501,7 +501,7 @@ declare module protractor {
         function titleMatches(regex: RegExp): webdriver.until.Condition<boolean>;
     }
 
-    module ExpectedConditions {
+    namespace ExpectedConditions {
         /**
          * Negates the result of a promise.
          *

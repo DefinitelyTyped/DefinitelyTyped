@@ -12,7 +12,7 @@ declare module "anydb-sql" {
 
     interface Dictionary<T> { [key:string]:T; }
 
-    module anydbSQL {
+    namespace anydbSQL {
         export interface OrderByValueNode {}
         export interface ColumnDefinition {
             primaryKey?:boolean;

@@ -1,7 +1,7 @@
 // Type definitions for pg
 // Project: https://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <http://pspeter3.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

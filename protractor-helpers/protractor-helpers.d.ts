@@ -9,7 +9,7 @@
 
 // ElementArrayFinder
 
-declare module protractor {
+declare namespace protractor {
   interface ElementArrayFinder {
     getByText(text: string) : protractor.ElementFinder;
     $$data(hook: string) : protractor.ElementArrayFinder;
@@ -30,7 +30,7 @@ declare function $$data(hook: string) : protractor.ElementArrayFinder;
 
 // TODO - find out about result of querySelector and querySelector all.
 //        Are they Locator s?
-declare module protractor {
+declare namespace protractor {
 	interface IProtractorLocatorStrategy {
 		dataHook(hook: string, optParentElement?: protractor.ElementFinder, optRootSelector?: string) : webdriver.Locator;
 		dataHookAll(hook: string, optParentElement?: protractor.ElementFinder, optRootSelector?: string) : webdriver.Locator;
@@ -43,7 +43,7 @@ declare module protractor {
 //        Fixing this would require modifying the
 //        jasmine d.ts.
 
-declare module jasmine {
+declare namespace jasmine {
   interface Matchers {
     toBePresent() : boolean;
     toBeDisplayed() : boolean;

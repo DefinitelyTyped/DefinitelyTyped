@@ -1,7 +1,7 @@
 // Type definitions for wreck 7.0.0
 // Project: https://github.com/hapijs/wreck
 // Definitions by: Marcin Porębski <http://github.com/marcinporebski>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

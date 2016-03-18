@@ -1,7 +1,7 @@
 // Type definitions for react-router v2.0.0
 // Project: https://github.com/rackt/react-router
 // Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>, Nathan Brown <https://github.com/ngbrown>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../react/react.d.ts" />
@@ -395,6 +395,14 @@ declare module "react-router/lib/match" {
 
 }
 
+declare module "react-router/lib/useRouterHistory" {
+    interface CreateRouterHistory {
+        (options?: HistoryModule.HistoryOptions): HistoryModule.History & HistoryModule.HistoryQueries;
+    }
+
+    export default function useRouterHistory<T>(createHistory: HistoryModule.CreateHistory<T>): CreateRouterHistory;
+}
+
 
 declare module "react-router" {
 
@@ -434,6 +442,8 @@ declare module "react-router" {
 
     import match from "react-router/lib/match"
 
+    import useRouterHistory from "react-router/lib/useRouterHistory";
+
     // PlainRoute is defined in the API documented at:
     // https://github.com/rackt/react-router/blob/master/docs/API.md
     // but not included in any of the .../lib modules above.
@@ -472,7 +482,8 @@ declare module "react-router" {
         formatPattern,
         RouterContext,
         PropTypes,
-        match
+        match,
+        useRouterHistory
     }
 
     export default Router

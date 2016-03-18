@@ -1,16 +1,16 @@
 // Type definitions for oc.LazyLoad
 // Project: https://github.com/ocombe/ocLazyLoad
 // Definitions by: Roland Zwaga <https://github.com/rolandzwaga>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module oc {
+declare namespace oc {
 
     interface ILazyLoad {
         /**
          * Loads a module or a list of modules into Angular.
-         * 
+         *
          * @param module The name of a predefined module config object, or a module config object, or an array of either
          * @param config Options to be used when loading the modules
          */
@@ -40,7 +40,7 @@ declare module oc {
         isLoaded(moduleName: string|string[]): boolean;
 
         /**
-         * Injects a module with the associated name into Angular. Useful for manual injection when loading through RequireJS, SystemJS, etc. Useful in 
+         * Injects a module with the associated name into Angular. Useful for manual injection when loading through RequireJS, SystemJS, etc. Useful in
          * conjunction with the toggleWatch() method.
          */
         inject(moduleName: string|string[]): ng.IPromise<any>;
@@ -133,7 +133,7 @@ declare module oc {
     }
 }
 
-declare module angular {
+declare namespace angular {
     interface IAngularStatic {
         /**
          * The angular.module is a global place for creating, registering and retrieving Angular modules. All modules (angular core or 3rd party) that should be available to an application must be registered using this mechanism.

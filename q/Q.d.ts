@@ -1,7 +1,7 @@
 // Type definitions for Q
 // Project: https://github.com/kriskowal/q
 // Definitions by: Barrie Nemetchek <https://github.com/bnemetchek>, Andrew Gaspar <https://github.com/AndrewGaspar/>, John Reilly <https://github.com/johnnyreilly>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * If value is a Q promise, returns the promise.
@@ -13,7 +13,7 @@ declare function Q<T>(promise: Q.IPromise<T>): Q.Promise<T>;
  */
 declare function Q<T>(value: T): Q.Promise<T>;
 
-declare module Q {
+declare namespace Q {
     interface IPromise<T> {
         then<U>(onFulfill?: (value: T) => U | IPromise<U>, onReject?: (error: any) => U | IPromise<U>): IPromise<U>;
     }
@@ -206,7 +206,7 @@ declare module Q {
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
     export function all<T>(promises: IPromise<T>[]): Promise<T[]>;
-    
+
     /**
     * Returns a promise for the first of an array of promises to become settled.
     */

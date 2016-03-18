@@ -1,7 +1,7 @@
 // Type definitions for FabricJS v1.5.0
 // Project: http://fabricjs.com/
 // Definitions by: Oliver Klemencic <https://github.com/oklemencic/>, Joseph Livecchi <https://github.com/joewashear007/>, Michael Randolph <https://github.com/mrand01/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* tslint:disable:no-unused-variable */
 /* tslint:disable:whitespace */
@@ -12,7 +12,7 @@ declare module "fabric" {
   export = fabric;
 }
 
-declare module fabric {
+declare namespace fabric {
 
   var isLikelyNode: boolean;
   var isTouchSupported: boolean;
@@ -109,11 +109,11 @@ declare module fabric {
   // fabric Log
   // ---------------
   /**
-   * Wrapper around `console.log` (when available) 
+   * Wrapper around `console.log` (when available)
    */
   function log(...values: any[]): void;
   /**
-   * Wrapper around `console.warn` (when available) 
+   * Wrapper around `console.warn` (when available)
    */
   function warn(...values: any[]): void;
 
@@ -147,36 +147,36 @@ declare module fabric {
   var util: IUtil;
 
   ///////////////////////////////////////////////////////////////////////////////
-  // Data Object Interfaces - These intrface are not specific part of fabric, 
+  // Data Object Interfaces - These intrface are not specific part of fabric,
   // They are just helpful for for defining function paramters
   //////////////////////////////////////////////////////////////////////////////
   interface IDataURLOptions {
     /**
-     * The format of the output image. Either "jpeg" or "png" 
+     * The format of the output image. Either "jpeg" or "png"
      */
     format?: string;
     /**
-     * Quality level (0..1). Only used for jpeg 
+     * Quality level (0..1). Only used for jpeg
      */
     quality?: number;
     /**
-     * Multiplier to scale by 
+     * Multiplier to scale by
      */
     multiplier?: number;
     /**
-     * Cropping left offset. Introduced in v1.2.14 
+     * Cropping left offset. Introduced in v1.2.14
      */
     left?: number;
     /**
-     * Cropping top offset. Introduced in v1.2.14 
+     * Cropping top offset. Introduced in v1.2.14
      */
     top?: number;
     /**
-     * Cropping width. Introduced in v1.2.14 
+     * Cropping width. Introduced in v1.2.14
      */
     width?: number;
     /**
-     * Cropping height. Introduced in v1.2.14 
+     * Cropping height. Introduced in v1.2.14
      */
     height?: number;
   }
@@ -188,59 +188,59 @@ declare module fabric {
 
   interface IFillOptions {
     /**
-     * options.source Pattern source 
+     * options.source Pattern source
      */
     source: string | HTMLImageElement;
     /**
-     * Repeat property of a pattern (one of repeat, repeat-x, repeat-y or no-repeat) 
+     * Repeat property of a pattern (one of repeat, repeat-x, repeat-y or no-repeat)
      */
     repeat?: string;
     /**
-     * Pattern horizontal offset from object's left/top corner 
+     * Pattern horizontal offset from object's left/top corner
      */
     offsetX?: number;
     /**
-     * Pattern vertical offset from object's left/top corner  
+     * Pattern vertical offset from object's left/top corner
      */
     offsetY?: number;
   }
 
   interface IToSVGOptions {
     /**
-     * If true xml tag is not included 
+     * If true xml tag is not included
      */
     suppressPreamble: boolean;
     /**
-     * SVG viewbox object 
+     * SVG viewbox object
      */
     viewBox: IViewBox;
     /**
-     * Encoding of SVG output 
+     * Encoding of SVG output
      */
     encoding: string;
   }
 
   interface IViewBox {
     /**
-     * x-cooridnate of viewbox 
+     * x-cooridnate of viewbox
      */
     x: number;
     /**
-     * y-coordinate of viewbox 
+     * y-coordinate of viewbox
      */
     y: number;
     /**
-     * Width of viewbox 
+     * Width of viewbox
      */
     width: number;
     /**
-     * Height of viewbox  
+     * Height of viewbox
      */
     height: number;
   }
-  
+
   ///////////////////////////////////////////////////////////////////////////////
-  // Mixins Interfaces 
+  // Mixins Interfaces
   //////////////////////////////////////////////////////////////////////////////
   interface ICollection<T> {
     /**
@@ -321,7 +321,7 @@ declare module fabric {
   interface IObservable<T> {
     /**
      * Observes specified event
-     * @param eventName Event name (eg. 'after:render') 
+     * @param eventName Event name (eg. 'after:render')
      * @param handler Function that receives a notification when an event of the specified type occurs
      */
     on(eventName: string, handler: (e: IEvent) => any): T;
@@ -393,18 +393,18 @@ declare module fabric {
     /**
      * Animates object's properties
      * object.animate({ left: ..., top: ... }, { duration: ... });
-     * @param properties Properties to animate 
+     * @param properties Properties to animate
      * @param value Options object
      */
     animate(properties: any, options?: IAnimationOptions): IObject;
   }
   interface IAnimationOptions {
     /**
-     * Allows to specify starting value of animatable property (if we don't want current value to be used). 
+     * Allows to specify starting value of animatable property (if we don't want current value to be used).
      */
     from?: string|number;
     /**
-     * Defaults to 500 (ms). Can be used to change duration of an animation. 
+     * Defaults to 500 (ms). Can be used to change duration of an animation.
      */
     duration?: number;
     /**
@@ -417,7 +417,7 @@ declare module fabric {
     onComplete?: Function;
 
     /**
-     * Easing function. Default: fabric.util.ease.easeInSine 
+     * Easing function. Default: fabric.util.ease.easeInSine
      */
     easing?: Function;
     /**
@@ -427,46 +427,46 @@ declare module fabric {
   }
 
   ///////////////////////////////////////////////////////////////////////////////
-  // General Fabric Interfaces 
+  // General Fabric Interfaces
   //////////////////////////////////////////////////////////////////////////////
   interface IColor {
     /**
-     * Returns source of this color (where source is an array representation; ex: [200, 200, 100, 1]) 
+     * Returns source of this color (where source is an array representation; ex: [200, 200, 100, 1])
      */
     getSource(): number[];
 
     /**
-     * Sets source of this color (where source is an array representation; ex: [200, 200, 100, 1]) 
+     * Sets source of this color (where source is an array representation; ex: [200, 200, 100, 1])
      */
     setSource(source: number[]): void;
 
     /**
-     * Returns color represenation in RGB format ex: rgb(0-255,0-255,0-255) 
+     * Returns color represenation in RGB format ex: rgb(0-255,0-255,0-255)
      */
     toRgb(): string;
 
     /**
-     * Returns color represenation in RGBA format ex: rgba(0-255,0-255,0-255,0-1) 
+     * Returns color represenation in RGBA format ex: rgba(0-255,0-255,0-255,0-1)
      */
     toRgba(): string;
 
     /**
-     * Returns color represenation in HSL format ex: hsl(0-360,0%-100%,0%-100%) 
+     * Returns color represenation in HSL format ex: hsl(0-360,0%-100%,0%-100%)
      */
     toHsl(): string;
 
     /**
-     * Returns color represenation in HSLA format ex: hsla(0-360,0%-100%,0%-100%,0-1) 
+     * Returns color represenation in HSLA format ex: hsla(0-360,0%-100%,0%-100%,0-1)
      */
     toHsla(): string;
 
     /**
-     * Returns color represenation in HEX format ex: FF5555 
+     * Returns color represenation in HEX format ex: FF5555
      */
     toHex(): string;
 
     /**
-     * Gets value of alpha channel for this color 
+     * Gets value of alpha channel for this color
      */
     getAlpha(): number;
 
@@ -477,7 +477,7 @@ declare module fabric {
     setAlpha(alpha: number): void;
 
     /**
-     * Transforms color to its grayscale representation 
+     * Transforms color to its grayscale representation
      */
     toGrayscale(): IColor;
 
@@ -551,7 +551,7 @@ declare module fabric {
 
   interface IGradientOptions {
     /**
-     * @param {String} [options.type] Type of gradient 'radial' or 'linear' 
+     * @param {String} [options.type] Type of gradient 'radial' or 'linear'
      */
     type?: string;
     /**
@@ -625,11 +625,11 @@ declare module fabric {
 
   interface IIntersection {
     /**
-     * Appends a point to intersection 
+     * Appends a point to intersection
      */
     appendPoint(point: IPoint): void;
     /**
-     * Appends points to intersection 
+     * Appends points to intersection
      */
     appendPoints(points: IPoint[]): void;
   }
@@ -639,7 +639,7 @@ declare module fabric {
      */
     new (status?: string): void;
     /**
-     * Checks if polygon intersects another polygon 
+     * Checks if polygon intersects another polygon
      */
     intersectPolygonPolygon(points1: IPoint[], points2: IPoint[]): IIntersection;
     /**
@@ -651,24 +651,24 @@ declare module fabric {
      */
     intersectLineLine(a1: IPoint, a2: IPoint, b1: IPoint, b2: IPoint): IIntersection;
     /**
-     * Checks if polygon intersects rectangle 
+     * Checks if polygon intersects rectangle
      */
     intersectPolygonRectangle(points: IPoint[], r1: number, r2: number): IIntersection;
   }
 
   interface IPatternOptions {
     /**
-     * Repeat property of a pattern (one of repeat, repeat-x, repeat-y or no-repeat) 
+     * Repeat property of a pattern (one of repeat, repeat-x, repeat-y or no-repeat)
      */
     repeat: string;
 
     /**
-     * Pattern horizontal offset from object's left/top corner 
+     * Pattern horizontal offset from object's left/top corner
      */
     offsetX: number;
 
     /**
-     * Pattern vertical offset from object's left/top corner 
+     * Pattern vertical offset from object's left/top corner
      */
     offsetY: number;
     /**
@@ -867,38 +867,38 @@ declare module fabric {
 
   interface IShadowOptions {
     /**
-     * Whether the shadow should affect stroke operations 
+     * Whether the shadow should affect stroke operations
      */
     affectStrike: boolean;
     /**
-     * Shadow blur 
+     * Shadow blur
      */
     blur: number;
     /**
-     * Shadow color 
+     * Shadow color
      */
     color: string;
     /**
-     * Indicates whether toObject should include default values 
+     * Indicates whether toObject should include default values
      */
     includeDefaultValues: boolean;
     /**
-     * Shadow horizontal offset 
+     * Shadow horizontal offset
      */
     offsetX: number;
     /**
-     * Shadow vertical offset 
+     * Shadow vertical offset
      */
     offsetY: number;
   }
   interface IShadow extends IShadowOptions {
     initialize(options?: IShadowOptions|string): IShadow;
     /**
-     * Returns object representation of a shadow 
+     * Returns object representation of a shadow
      */
     toObject(): IObject;
     /**
-     * Returns a string representation of an instance, CSS3 text-shadow declaration 
+     * Returns a string representation of an instance, CSS3 text-shadow declaration
      */
     toString(): string;
     /**
@@ -908,7 +908,7 @@ declare module fabric {
     toSVG(object: IObject): string;
 
     /**
-     * Regex matching shadow offsetX, offsetY and blur, Static 
+     * Regex matching shadow offsetX, offsetY and blur, Static
      */
     reOffsetsAndBlur: RegExp
   }
@@ -922,11 +922,11 @@ declare module fabric {
   //////////////////////////////////////////////////////////////////////////////
   interface ICanvasDimensions {
     /**
-     * Width of canvas element 
+     * Width of canvas element
      */
     width: number;
     /**
-     * Height of canvas element 
+     * Height of canvas element
      */
     height: number;
   }
@@ -936,29 +936,29 @@ declare module fabric {
      */
     backstoreOnly?: boolean;
     /**
-     * Set the given dimensions only as css dimensions 
+     * Set the given dimensions only as css dimensions
      */
     cssOnly?: boolean;
   }
 
   interface IStaticCanvasOptions {
     /**
-     * Indicates whether the browser can be scrolled when using a touchscreen and dragging on the canvas 
+     * Indicates whether the browser can be scrolled when using a touchscreen and dragging on the canvas
      */
     allowTouchScrolling?: boolean;
     /**
-     * Indicates whether this canvas will use image smoothing, this is on by default in browsers    
+     * Indicates whether this canvas will use image smoothing, this is on by default in browsers
      */
     imageSmoothingEnabled?: boolean;
 
     /**
-     * Indicates whether objects should remain in current stack position when selected. 
-     * When false objects are brought to top and rendered as part of the selection group 
+     * Indicates whether objects should remain in current stack position when selected.
+     * When false objects are brought to top and rendered as part of the selection group
      */
     preserveObjectStacking?: boolean;
 
     /**
-     * The transformation (in the format of Canvas transform) which focuses the viewport 
+     * The transformation (in the format of Canvas transform) which focuses the viewport
      */
     viewportTransform?: number[];
 
@@ -966,8 +966,8 @@ declare module fabric {
     freeDrawingLineWidth?: number;
 
     /**
-     * Background color of canvas instance. 
-     * Should be set via setBackgroundColor 
+     * Background color of canvas instance.
+     * Should be set via setBackgroundColor
      */
     backgroundColor?: string|IPattern;
     /**
@@ -985,12 +985,12 @@ declare module fabric {
     clipTo?: (context: CanvasRenderingContext2D) => void;
 
     /**
-     * Indicates whether object controls (borders/controls) are rendered above overlay image 
+     * Indicates whether object controls (borders/controls) are rendered above overlay image
      */
     controlsAboveOverlay?: boolean;
 
     /**
-     * Indicates whether toObject/toDatalessObject should include default values 
+     * Indicates whether toObject/toDatalessObject should include default values
      */
     includeDefaultValues?: boolean;
     /**
@@ -1013,7 +1013,7 @@ declare module fabric {
      */
     renderOnAddRemove?: boolean;
     /**
-     * Indicates whether objects' state should be saved 
+     * Indicates whether objects' state should be saved
      */
     stateful?: boolean;
   }
@@ -1055,7 +1055,7 @@ declare module fabric {
     setBackgroundColor(backgroundColor: string|IPattern, callback: Function): IStaticCanvas;
 
     /**
-     * Returns canvas width (in px) 
+     * Returns canvas width (in px)
      */
     getWidth(): number;
 
@@ -1086,7 +1086,7 @@ declare module fabric {
     setDimensions(dimensions: ICanvasDimensions, options?: ICanvasDimensionsOptions): IStaticCanvas;
 
     /**
-     * Returns canvas zoom level 
+     * Returns canvas zoom level
      */
     getZoom(): number;
 
@@ -1122,17 +1122,17 @@ declare module fabric {
     relativePan(point: IPoint): IStaticCanvas;
 
     /**
-     * Returns <canvas> element corresponding to this instance 
+     * Returns <canvas> element corresponding to this instance
      */
     getElement(): HTMLCanvasElement;
 
     /**
-     * Returns currently selected object, if any 
+     * Returns currently selected object, if any
      */
     getActiveObject(): IObject;
 
     /**
-     * Returns currently selected group of object, if any 
+     * Returns currently selected group of object, if any
      */
     getActiveGroup(): IGroup;
 
@@ -1144,12 +1144,12 @@ declare module fabric {
     clearContext(ctx: CanvasRenderingContext2D): IStaticCanvas;
 
     /**
-     * Returns context of canvas where objects are drawn 
+     * Returns context of canvas where objects are drawn
      */
     getContext(): CanvasRenderingContext2D;
 
     /**
-     * Clears all contexts (background, main, top) of an instance 
+     * Clears all contexts (background, main, top) of an instance
      */
     clear(): IStaticCanvas;
 
@@ -1262,12 +1262,12 @@ declare module fabric {
     moveTo(object: IObject, index: number): IStaticCanvas;
 
     /**
-     * Clears a canvas element and removes all event listeners 
+     * Clears a canvas element and removes all event listeners
      */
     dispose(): IStaticCanvas;
 
     /**
-     * Returns a string representation of an instance 
+     * Returns a string representation of an instance
      */
     toString(): string;
 
@@ -1834,7 +1834,7 @@ declare module fabric {
     meetOrSlice: string;
 
     /**
-     * Image filter array 
+     * Image filter array
      */
     filters: IBaseFilter[];
   }
@@ -2018,92 +2018,92 @@ declare module fabric {
     type?: string;
 
     /**
-     * Horizontal origin of transformation of an object (one of "left", "right", "center") 
+     * Horizontal origin of transformation of an object (one of "left", "right", "center")
      */
     originX?: string;
 
     /**
-     * Vertical origin of transformation of an object (one of "top", "bottom", "center") 
+     * Vertical origin of transformation of an object (one of "top", "bottom", "center")
      */
     originY?: string;
 
     /**
-     * Top position of an object. Note that by default it's relative to object center. You can change this by setting originY={top/center/bottom} 
+     * Top position of an object. Note that by default it's relative to object center. You can change this by setting originY={top/center/bottom}
      */
     top?: number;
 
     /**
-     * Left position of an object. Note that by default it's relative to object center. You can change this by setting originX={left/center/right} 
+     * Left position of an object. Note that by default it's relative to object center. You can change this by setting originX={left/center/right}
      */
     left?: number;
 
     /**
-     * Object width 
+     * Object width
      */
     width?: number;
 
     /**
-     * Object height 
+     * Object height
      */
     height?: number;
 
     /**
-     * Object scale factor (horizontal) 
+     * Object scale factor (horizontal)
      */
     scaleX?: number;
 
     /**
-     * Object scale factor (vertical) 
+     * Object scale factor (vertical)
      */
     scaleY?: number;
 
     /**
-     * When true, an object is rendered as flipped horizontally 
+     * When true, an object is rendered as flipped horizontally
      */
     flipX?: boolean;
 
     /**
-     * When true, an object is rendered as flipped vertically 
+     * When true, an object is rendered as flipped vertically
      */
     flipY?: boolean;
 
     /**
-     * Opacity of an object 
+     * Opacity of an object
      */
     opacity?: number;
 
     /**
-     * Angle of rotation of an object (in degrees)   
+     * Angle of rotation of an object (in degrees)
      */
     angle?: number;
 
     /**
-     * Size of object's controlling corners (in pixels)   
+     * Size of object's controlling corners (in pixels)
      */
     cornerSize?: number;
 
     /**
-     * When true, object's controlling corners are rendered as transparent inside (i.e. stroke instead of fill)  
+     * When true, object's controlling corners are rendered as transparent inside (i.e. stroke instead of fill)
      */
     transparentCorners?: boolean;
 
     /**
-     * Default cursor value used when hovering over this object on canvas   
+     * Default cursor value used when hovering over this object on canvas
      */
     hoverCursor?: string;
 
     /**
-     * Padding between object and its controlling borders (in pixels)   
+     * Padding between object and its controlling borders (in pixels)
      */
     padding?: number;
 
     /**
-     * Color of controlling borders of an object (when it's active)   
+     * Color of controlling borders of an object (when it's active)
      */
     borderColor?: string;
 
     /**
-     * Color of controlling corners of an object (when it's active)   
+     * Color of controlling corners of an object (when it's active)
      */
     cornerColor?: string;
 
@@ -2122,7 +2122,7 @@ declare module fabric {
     centeredRotation?: boolean;
 
     /**
-     * Color of object's fill  
+     * Color of object's fill
      */
     fill?: string;
 
@@ -2134,67 +2134,67 @@ declare module fabric {
     fillRule?: string;
 
     /**
-     * Composite rule used for canvas globalCompositeOperation   
+     * Composite rule used for canvas globalCompositeOperation
      */
     globalCompositeOperation?: string;
 
     /**
-     * Background color of an object. Only works with text objects at the moment. 
+     * Background color of an object. Only works with text objects at the moment.
      */
     backgroundColor?: string;
 
     /**
-     * When defined, an object is rendered via stroke and this property specifies its color   
+     * When defined, an object is rendered via stroke and this property specifies its color
      */
     stroke?: string;
 
     /**
-     * Width of a stroke used to render this object  
+     * Width of a stroke used to render this object
      */
     strokeWidth?: number;
 
     /**
-     * Array specifying dash pattern of an object's stroke (stroke must be defined)   
+     * Array specifying dash pattern of an object's stroke (stroke must be defined)
      */
     strokeDashArray?: any[];
 
     /**
-     * Line endings style of an object's stroke (one of "butt", "round", "square") 
+     * Line endings style of an object's stroke (one of "butt", "round", "square")
      */
     strokeLineCap?: string;
 
     /**
-     * Corner style of an object's stroke (one of "bevil", "round", "miter")   
+     * Corner style of an object's stroke (one of "bevil", "round", "miter")
      */
     strokeLineJoin?: string;
 
     /**
-     * Maximum miter length (used for strokeLineJoin = "miter") of an object's stroke 
+     * Maximum miter length (used for strokeLineJoin = "miter") of an object's stroke
      */
     strokeMiterLimit?: number;
 
     /**
-     * Shadow object representing shadow of this shape 
+     * Shadow object representing shadow of this shape
      */
     shadow?: IShadow|string;
 
     /**
-     * Opacity of object's controlling borders when object is active and moving 
+     * Opacity of object's controlling borders when object is active and moving
      */
     borderOpacityWhenMoving?: number;
 
     /**
-     * Scale factor of object's controlling borders 
+     * Scale factor of object's controlling borders
      */
     borderScaleFactor?: number;
 
     /**
-     * Transform matrix (similar to SVG's transform matrix) 
+     * Transform matrix (similar to SVG's transform matrix)
      */
     transformMatrix?: any[];
 
     /**
-     * Minimum allowed scale value of an object 
+     * Minimum allowed scale value of an object
      */
     minScaleLimit?: number;
 
@@ -2205,42 +2205,42 @@ declare module fabric {
     selectable?: boolean;
 
     /**
-     * When set to `false`, an object can not be a target of events. All events propagate through it. Introduced in v1.3.4 
+     * When set to `false`, an object can not be a target of events. All events propagate through it. Introduced in v1.3.4
      */
     evented?: boolean;
 
     /**
-     * When set to `false`, an object is not rendered on canvas 
+     * When set to `false`, an object is not rendered on canvas
      */
     visible?: boolean;
 
     /**
-     * When set to `false`, object's controls are not displayed and can not be used to manipulate object 
+     * When set to `false`, object's controls are not displayed and can not be used to manipulate object
      */
     hasControls?: boolean;
 
     /**
-     * When set to `false`, object's controlling borders are not rendered 
+     * When set to `false`, object's controlling borders are not rendered
      */
     hasBorders?: boolean;
 
     /**
-     * When set to `false`, object's controlling rotating point will not be visible or selectable 
+     * When set to `false`, object's controlling rotating point will not be visible or selectable
      */
     hasRotatingPoint?: boolean;
 
     /**
-     * Offset for object's controlling rotating point (when enabled via `hasRotatingPoint`) 
+     * Offset for object's controlling rotating point (when enabled via `hasRotatingPoint`)
      */
     rotatingPointOffset?: number;
 
     /**
-     * When set to `true`, objects are "found" on canvas on per-pixel basis rather than according to bounding box 
+     * When set to `true`, objects are "found" on canvas on per-pixel basis rather than according to bounding box
      */
     perPixelTargetFind?: boolean;
 
     /**
-     * When `false`, default object's values are not included in its serialization 
+     * When `false`, default object's values are not included in its serialization
      */
     includeDefaultValues?: boolean;
 
@@ -2252,47 +2252,47 @@ declare module fabric {
     clipTo?: Function;
 
     /**
-     * When `true`, object horizontal movement is locked 
+     * When `true`, object horizontal movement is locked
      */
     lockMovementX?: boolean;
 
     /**
-     * When `true`, object vertical movement is locked 
+     * When `true`, object vertical movement is locked
      */
     lockMovementY?: boolean;
 
     /**
-     * When `true`, object rotation is locked 
+     * When `true`, object rotation is locked
      */
     lockRotation?: boolean;
 
     /**
-     * When `true`, object horizontal scaling is locked 
+     * When `true`, object horizontal scaling is locked
      */
     lockScalingX?: boolean;
 
     /**
-     * When `true`, object vertical scaling is locked 
+     * When `true`, object vertical scaling is locked
      */
     lockScalingY?: boolean;
 
     /**
-     * When `true`, object non-uniform scaling is locked 
+     * When `true`, object non-uniform scaling is locked
      */
     lockUniScaling?: boolean;
 
     /**
-     * When `true`, object cannot be flipped by scaling into negative values 
+     * When `true`, object cannot be flipped by scaling into negative values
      */
     lockScalingFlip?: boolean;
 
     /**
-     * Not used by fabric, just for convenience 
+     * Not used by fabric, just for convenience
      */
     name?: string;
 
     /**
-     * Not used by fabric, just for convenience 
+     * Not used by fabric, just for convenience
      */
     data?: any;
   }
@@ -2377,7 +2377,7 @@ declare module fabric {
     toDatalessObject(propertiesToInclude?: any[]): any;
 
     /**
-     * Returns a string representation of an instance 
+     * Returns a string representation of an instance
      */
     toString(): string;
 
@@ -2388,15 +2388,15 @@ declare module fabric {
     get(property: string): any;
 
     /**
-     * Sets property to a given value. 
+     * Sets property to a given value.
      * When changing position/dimension -related properties (left, top, scale, angle, etc.) `set` does not update position of object's borders/controls.
      * If you need to update those, call `setCoords()`.
-     * @param {String} key Property name 
+     * @param {String} key Property name
      * @param {Object|Function} value Property value (if function, the value is passed into it and its return value is used as a new one)
      */
     set(key: string, value: any|Function): IObject;
      /**
-     * Sets property to a given value. 
+     * Sets property to a given value.
      * When changing position/dimension -related properties (left, top, scale, angle, etc.) `set` does not update position of object's borders/controls.
      * If you need to update those, call `setCoords()`.
      * @param Object key Property object, iterate over the object properties
@@ -4114,7 +4114,7 @@ declare module fabric {
      * Ending value
      */
     endValue?: number;
-    /** 
+    /**
      * Value to modify the property by
      */
     byValue: number;

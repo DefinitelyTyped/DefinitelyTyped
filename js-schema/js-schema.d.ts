@@ -1,7 +1,7 @@
 // Type definitions for js-schema
 // Project: https://github.com/molnarg/js-schema
 // Definitions by: Marcin Porebski <https://github.com/marcinporebski>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 declare module 'js-schema'

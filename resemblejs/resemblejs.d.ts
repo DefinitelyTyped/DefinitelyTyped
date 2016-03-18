@@ -1,9 +1,9 @@
 // Type definitions for Resemble.js v1.3.0
 // Project: http://huddle.github.io/Resemble.js/
 // Definitions by: Tim Perry <https://github.com/pimterry>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Resemble {
+declare namespace Resemble {
   interface ResembleStatic {
     (image: string|ImageData): ResembleAnalysis;
     outputSettings(settings: OutputSettings): ResembleStatic;

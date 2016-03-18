@@ -1,7 +1,7 @@
 // Type definitions for flux-standard-action 0.5.0
 // Project: https://github.com/acdlite/flux-standard-action
 // Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "flux-standard-action" {
     export interface ErrorAction extends Action<Error> {

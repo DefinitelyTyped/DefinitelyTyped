@@ -1,7 +1,7 @@
 ﻿// Type definitions for jsonwebtoken 5.7.0
 // Project: https://github.com/auth0/node-jsonwebtoken
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>, Daniel Heim <https://github.com/danielheim>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
