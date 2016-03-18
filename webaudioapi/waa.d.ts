@@ -1,7 +1,7 @@
 // Type definitions for Web Audio API
 // Project: http://www.w3.org/TR/webaudio/
 // Definitions by: Baruch Berger <https://github.com/bbss>, Kon <http://phyzkit.net/>, kubosho <https://github.com/kubosho>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // This file refers to the latest published working draft (currently from 10 october 2013) http://www.w3.org/TR/2013/WD-webaudio-20131010/, not to be confused with the latest editor's draft http://webaudio.github.io/web-audio-api/
 

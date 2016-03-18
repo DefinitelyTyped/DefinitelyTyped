@@ -1,7 +1,7 @@
 // Type definitions for Angular Toastr v1.6.0
 // Project: https://github.com/Foxandxss/angular-toastr
 // Definitions by: Niko Kovačič <https://github.com/nkovacic>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
@@ -10,7 +10,7 @@ declare module "angular-toastr" {
     export = _;
 }
 
-declare module angular.toastr {
+declare namespace angular.toastr {
     interface IToastBaseConfig {
         allowHtml?: boolean;
         closeButton?: boolean;
@@ -77,13 +77,13 @@ declare module angular.toastr {
     interface IToastrService {
         /**
          * Return the number of active toasts in screen.
-         */      
+         */
         active(): number;
         /**
          * Remove toast from screen. If no toast is passed in, all toasts will be closed.
          *
          * @param {IToast} toast Optional toast object to delete
-         */ 
+         */
         clear(toast?: IToast): void;
         /**
          * Create error toast notification message.
@@ -91,7 +91,7 @@ declare module angular.toastr {
          * @param {String} message Message to show on toast
          * @param {String} title Title to show on toast
          * @param {IToastOptions} options Override default toast options
-         */ 
+         */
         error(message: string, title?: string, options?: IToastOptions): IToast;
         /**
          * Create info toast notification message.
@@ -99,7 +99,7 @@ declare module angular.toastr {
          * @param {String} message Message to show on toast
          * @param {String} title Title to show on toast
          * @param {IToastOptions} options Override default toast options
-         */ 
+         */
         info(message: string, title?: string, options?: IToastOptions): IToast;
         /**
          * Create success toast notification message.
@@ -107,7 +107,7 @@ declare module angular.toastr {
          * @param {String} message Message to show on toast
          * @param {String} title Title to show on toast
          * @param {IToastOptions} options Override default toast options
-         */ 
+         */
         success(message: string, title?: string, options?: IToastOptions): IToast;
         /**
          * Create warning toast notification message.
@@ -115,7 +115,7 @@ declare module angular.toastr {
          * @param {String} message Message to show on toast
          * @param {String} title Title to show on toast
          * @param {IToastOptions} options Override default toast options
-         */ 
+         */
         warning(message: string, title?: string, options?: IToastOptions): IToast;
     }
 }

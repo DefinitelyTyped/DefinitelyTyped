@@ -1,13 +1,13 @@
 // Type definitions for node-config
 // Project: https://github.com/lorenwest/node-config
 // Definitions by: Roman Korneev <https://github.com/RWander>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "config" {
 
     var c: c.IConfig;
 
-    module c {
+    namespace c {
 
 			// see https://github.com/lorenwest/node-config/wiki/Using-Config-Utilities
 			interface IUtil {

@@ -1,11 +1,11 @@
-// Type definitions for Kendo UI Professional v2016.1.226
+// Type definitions for Kendo UI Professional v2016.1.314
 // Project: http://www.telerik.com/kendo-ui
 // Definitions by: Telerik <https://github.com/telerik/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module kendo {
+declare namespace kendo {
     function culture(): {
         name: string;
         calendar: {
@@ -246,6 +246,8 @@ declare module kendo {
         };
     };
 
+    var version: string;
+
     interface TemplateOptions {
         paramName?: string;
         useWithBlock?: boolean;
@@ -301,7 +303,7 @@ declare module kendo {
 
     class Layout extends View {
         containers: { [selector: string]: ViewContainer; };
-        showIn(selector: string, view: View): void;
+        showIn(selector: string, view: View, transitionClass?: string): void;
     }
 
     class History extends Observable {
@@ -317,8 +319,13 @@ declare module kendo {
 
     interface RouterOptions {
         init?: (e: RouterEvent) => void;
-        routeMissing?: (e: RouterEvent) => void;
-        change?: (e: RouterEvent) => void;
+        pushState?: boolean;
+        hashBang?: boolean;
+        root?: string;
+        ignoreCase?: boolean;
+        change?(e: RouterChangeEvent): void;
+        routeMissing?(e: RouterRouteMissingEvent): void;
+        same?(e: RouterEvent): void;
     }
 
     interface RouterEvent {
@@ -326,6 +333,15 @@ declare module kendo {
         url: string;
         preventDefault: Function;
         isDefaultPrevented(): boolean;
+    }
+
+    interface RouterChangeEvent extends RouterEvent {
+        params: any;
+        backButtonPressed: boolean;
+    }
+
+    interface RouterRouteMissingEvent extends RouterEvent {
+        params: any;
     }
 
     class Route extends Class {
@@ -347,7 +363,10 @@ declare module kendo {
 
 }
 
-declare module kendo.effects {
+declare namespace kendo.effects {
+    function enable(): void;
+    function disable(): void;
+
     interface Element {
         expand(direction: string): effects.Expand;
         expandHorizontal(): effects.Expand;
@@ -445,7 +464,7 @@ declare module kendo.effects {
     }
 }
 
-declare module kendo.data {
+declare namespace kendo.data {
     interface ObservableObjectEvent {
         sender?: ObservableObject;
         field?: string;
@@ -487,7 +506,7 @@ declare module kendo.data {
         render(value: Object): string;
     }
 
-    module binders { }
+    namespace binders { }
 
     interface Bindings {
         [key: string]: Binding;
@@ -932,6 +951,7 @@ declare module kendo.data {
     interface DataSourceSchemaModel {
         id?: string;
         fields?: any;
+        [index: string]: any;
     }
 
     interface DataSourceSchemaModelWithFieldsArray extends DataSourceSchemaModel {
@@ -1242,11 +1262,11 @@ declare module kendo.data {
     }
 }
 
-declare module kendo.data.transports {
+declare namespace kendo.data.transports {
     var odata: DataSourceTransport;
 }
 
-declare module kendo.ui {
+declare namespace kendo.ui {
     function progress(container: JQuery, toggle: boolean): void;
 
     class Widget extends Observable {
@@ -1388,7 +1408,7 @@ declare module kendo.ui {
     }
 }
 
-declare module kendo.mobile {
+declare namespace kendo.mobile {
     function init(selector: string): void;
     function init(element: JQuery): void;
     function init(element: Element): void;
@@ -1424,7 +1444,7 @@ declare module kendo.mobile {
     }
 }
 
-declare module kendo.mobile.ui {
+declare namespace kendo.mobile.ui {
 
     class Widget extends kendo.ui.Widget {
     }
@@ -1448,24 +1468,24 @@ declare module kendo.mobile.ui {
         y?: number;
     }
 }
-declare module kendo.dataviz.ui {
+declare namespace kendo.dataviz.ui {
     function registerTheme(name: string, options: any): void;
 
     function plugin(widget: typeof kendo.ui.Widget): void;
     function plugin(widget: any): void;
 }
 
-declare module kendo.dataviz.map.layer {
+declare namespace kendo.dataviz.map.layer {
     class Shape {
     }
 }
 
-declare module kendo.drawing.pdf {
+declare namespace kendo.drawing.pdf {
     function saveAs(group: kendo.drawing.Group, fileName: string,
                     proxyUrl?: string, callback?: Function): void;
 }
 
-declare module kendo.geometry {
+declare namespace kendo.geometry {
     class Arc extends Observable {
 
 
@@ -1731,7 +1751,7 @@ declare module kendo.geometry {
 
 
 }
-declare module kendo.drawing {
+declare namespace kendo.drawing {
     class Arc extends kendo.drawing.Element {
 
 
@@ -2446,7 +2466,7 @@ declare module kendo.drawing {
 
 
 }
-declare module kendo.ui {
+declare namespace kendo.ui {
     class AutoComplete extends kendo.ui.Widget {
 
         static fn: AutoComplete;
@@ -4390,6 +4410,9 @@ declare module kendo.ui {
         landscape?: boolean;
         margin?: GridPdfMargin;
         paperSize?: string|any;
+        template?: string;
+        repeatHeaders?: boolean;
+        scale?: number|any|any;
         proxyURL?: string;
         proxyTarget?: string;
         subject?: string;
@@ -6555,7 +6578,14 @@ declare module kendo.ui {
         mergedCells?: any;
         rows?: SpreadsheetSheetRow[];
         selection?: string;
+        showGridLines?: boolean;
         sort?: SpreadsheetSheetSort;
+    }
+
+    interface SpreadsheetToolbar {
+        home?: boolean|any;
+        insert?: boolean|any;
+        data?: boolean|any;
     }
 
     interface SpreadsheetInsertSheetOptions {
@@ -6582,7 +6612,7 @@ declare module kendo.ui {
         rows?: number;
         sheets?: SpreadsheetSheet[];
         sheetsbar?: boolean;
-        toolbar?: boolean;
+        toolbar?: SpreadsheetToolbar;
         change?(e: SpreadsheetChangeEvent): void;
         render?(e: SpreadsheetRenderEvent): void;
         excelExport?(e: SpreadsheetExcelExportEvent): void;
@@ -7854,9 +7884,9 @@ declare module kendo.ui {
 
         center(): kendo.ui.Window;
         close(): kendo.ui.Window;
-        content(): any;
-        content(content?: string): void;
-        content(content?: JQuery): void;
+        content(): string;
+        content(content?: string): kendo.ui.Window;
+        content(content?: JQuery): kendo.ui.Window;
         destroy(): void;
         maximize(): kendo.ui.Window;
         minimize(): kendo.ui.Window;
@@ -7865,8 +7895,8 @@ declare module kendo.ui {
         refresh(options: any): kendo.ui.Window;
         restore(): kendo.ui.Window;
         setOptions(options: any): void;
-        title(): kendo.ui.Window;
-        title(text?: string): void;
+        title(): string;
+        title(text?: string): kendo.ui.Window;
         toFront(): kendo.ui.Window;
         toggleMaximization(): kendo.ui.Window;
         unpin(): void;
@@ -7956,7 +7986,7 @@ declare module kendo.ui {
 
 
 }
-declare module kendo.dataviz.ui {
+declare namespace kendo.dataviz.ui {
     class Barcode extends kendo.ui.Widget {
 
         static fn: Barcode;
@@ -10332,9 +10362,9 @@ declare module kendo.dataviz.ui {
         options: DiagramOptions;
 
         dataSource: kendo.data.DataSource;
-        connections: DiagramConnection[];
+        connections: kendo.dataviz.diagram.Connection[];
         connectionsDataSource: kendo.data.DataSource;
-        shapes: DiagramShape[];
+        shapes: kendo.dataviz.diagram.Shape[];
 
         element: JQuery;
         wrapper: JQuery;
@@ -14494,7 +14524,7 @@ declare module kendo.dataviz.ui {
 
 
 }
-declare module kendo.dataviz.map {
+declare namespace kendo.dataviz.map {
     class BingLayer extends kendo.dataviz.map.TileLayer {
 
 
@@ -14768,7 +14798,7 @@ declare module kendo.dataviz.map {
 
 
 }
-declare module kendo.dataviz {
+declare namespace kendo.dataviz {
     class ChartAxis extends Observable {
 
 
@@ -14801,7 +14831,7 @@ declare module kendo.dataviz {
 
 
 }
-declare module kendo.dataviz.diagram {
+declare namespace kendo.dataviz.diagram {
     class Circle extends Observable {
 
 
@@ -15581,7 +15611,7 @@ declare module kendo.dataviz.diagram {
 
 
 }
-declare module kendo {
+declare namespace kendo {
     class Color extends Observable {
 
 
@@ -15612,7 +15642,7 @@ declare module kendo {
     }
 
 
-    module drawing {
+    namespace drawing {
         function align(elements: any, rect: kendo.geometry.Rect, alignment: string): void;
         function drawDOM(element: JQuery, options: any): JQueryPromise<any>;
         function exportImage(group: kendo.drawing.Group, options: any): JQueryPromise<any>;
@@ -15626,7 +15656,7 @@ declare module kendo {
         function wrap(elements: any, rect: kendo.geometry.Rect): any;
     }
 
-    module effects {
+    namespace effects {
         function box(element: HTMLElement): any;
         function fillScale(firstElement: HTMLElement, secondElement: HTMLElement): number;
         function fitScale(firstElement: HTMLElement, secondElement: HTMLElement): number;
@@ -15668,12 +15698,12 @@ declare module kendo {
         function unbind(element: JQuery): void;
         function unbind(element: Element): void;
 
-    module pdf {
+    namespace pdf {
         function defineFont(map: any): void;
     }
 
 }
-declare module kendo.spreadsheet {
+declare namespace kendo.spreadsheet {
     class CustomFilter extends Observable {
 
 
@@ -15753,6 +15783,7 @@ declare module kendo.spreadsheet {
         fontFamily(value?: string): void;
         fontSize(): number;
         fontSize(value?: number): void;
+        forEachCell(callback: Function): void;
         format(): string;
         format(format?: string): void;
         formula(): string;
@@ -15824,6 +15855,8 @@ declare module kendo.spreadsheet {
         rowHeight(): void;
         rowHeight(index: number, width?: number): void;
         selection(): kendo.spreadsheet.Range;
+        showGridLines(): boolean;
+        showGridLines(showGridLiens?: boolean): void;
         toJSON(): void;
         unhideColumn(index: number): void;
         unhideRow(index: number): void;
@@ -15889,7 +15922,7 @@ declare module kendo.spreadsheet {
 
 
 }
-declare module kendo.mobile.ui {
+declare namespace kendo.mobile.ui {
     class ActionSheet extends kendo.mobile.ui.Widget {
 
         static fn: ActionSheet;
@@ -16868,7 +16901,7 @@ declare module kendo.mobile.ui {
 
 
 }
-declare module kendo.ooxml {
+declare namespace kendo.ooxml {
     class Workbook extends Observable {
 
 
@@ -16959,6 +16992,7 @@ declare module kendo.ooxml {
         filter?: WorkbookSheetFilter;
         name?: string;
         rows?: WorkbookSheetRow[];
+        showGridLines?: boolean;
         title?: string;
     }
 
@@ -16977,7 +17011,7 @@ declare module kendo.ooxml {
 
 }
 
-declare module kendo.dataviz.geometry {
+declare namespace kendo.dataviz.geometry {
     class Arc extends Observable {
 
 
@@ -17243,7 +17277,7 @@ declare module kendo.dataviz.geometry {
 
 
 }
-declare module kendo.dataviz.drawing {
+declare namespace kendo.dataviz.drawing {
     class Arc extends kendo.drawing.Element {
 
 

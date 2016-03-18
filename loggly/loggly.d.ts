@@ -1,7 +1,7 @@
 // Type definitions for loggly 1.0.8
 // Project: https://github.com/nodejitsu/node-loggly
 // Definitions by: Ray Martone <https://github.com/rmartone>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module "loggly" {
 
     interface LogglyOptions {

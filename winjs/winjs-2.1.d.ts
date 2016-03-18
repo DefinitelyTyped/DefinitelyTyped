@@ -1,7 +1,7 @@
 // Type definitions for WinJS
 // Project: http://try.buildwinjs.com/
 // Definitions by: TypeScript samples <https://www.typescriptlang.org/>, Adam Hewitt <https://github.com/adamhewitt627>, Craig Treasure <https://github.com/craigktreasure>, Jeff Fisher <https://github.com/xirzec>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -63,7 +63,7 @@ interface IOHelper {
 /**
  * Provides application-level functionality, for example activation, storage, and application events.
 **/
-declare module WinJS.Application {
+declare namespace WinJS.Application {
     //#region Objects
 
     /**
@@ -195,7 +195,7 @@ declare module WinJS.Application {
 /**
  * Provides functionality for data and template binding.
 **/
-declare module WinJS.Binding {
+declare namespace WinJS.Binding {
     //#region Properties
 
     /**
@@ -1161,7 +1161,7 @@ declare module WinJS.Binding {
 /**
  * Provides helper functions for defining Classes.
 **/
-declare module WinJS.Class {
+declare namespace WinJS.Class {
     //#region Functions
 
     /**
@@ -1197,7 +1197,7 @@ declare module WinJS.Class {
 /**
  * The WinJS namespace provides special Windows Library for JavaScript functionality, including Promise and xhr.
 **/
-declare module WinJS {
+declare namespace WinJS {
     //#region Properties
 
     /**
@@ -1513,7 +1513,7 @@ declare module WinJS {
 /**
  * Provides helper functions for defining namespaces. For more information, see Organizing your code with WinJS.Namespace.
 **/
-declare module WinJS.Namespace {
+declare namespace WinJS.Namespace {
     //#region Functions
 
     /**
@@ -1539,7 +1539,7 @@ declare module WinJS.Namespace {
 /**
  * Provides functionality for dealing with basic navigation, including the navigation stack.
 **/
-declare module WinJS.Navigation {
+declare namespace WinJS.Navigation {
     //#region Properties
 
     /**
@@ -1637,7 +1637,7 @@ declare module WinJS.Navigation {
 /**
  * Provides functions for accessing resources and localizing content.
 **/
-declare module WinJS.Resources {
+declare namespace WinJS.Resources {
     //#region Functions
 
     /**
@@ -1692,7 +1692,7 @@ declare module WinJS.Resources {
 /**
  * Provides access to the Windows animations. These functions provide developers with the ability to use animations in their custom controls that are consistent with animations used by Windows controls.
 **/
-declare module WinJS.UI.Animation {
+declare namespace WinJS.UI.Animation {
     //#region Functions
 
     /**
@@ -2077,7 +2077,7 @@ declare module WinJS.UI.Animation {
 /**
  * Provides controls and objects that manipulate data.
 **/
-declare module WinJS.UI {
+declare namespace WinJS.UI {
     //#region Enumerations
 
     /**
@@ -5790,7 +5790,7 @@ declare module WinJS.UI {
 /**
  * Provides functions to load HTML content programmatically.
 **/
-declare module WinJS.UI.Fragments {
+declare namespace WinJS.UI.Fragments {
     //#region Functions
 
     /**
@@ -5830,7 +5830,7 @@ declare module WinJS.UI.Fragments {
 /**
  * Provides methods for defining and displaying PageControl objects.
 **/
-declare module WinJS.UI.Pages {
+declare namespace WinJS.UI.Pages {
     //#region Interfaces
 
     /**
@@ -5928,7 +5928,7 @@ declare module WinJS.UI.Pages {
 /**
  * Provides methods for detecting when the user tabs to or from DOM elements.
 **/
-declare module WinJS.UI.TrackTabBehavior {
+declare namespace WinJS.UI.TrackTabBehavior {
     //#region Functions
 
     /**
@@ -5950,7 +5950,7 @@ declare module WinJS.UI.TrackTabBehavior {
 /**
  * Provides helper functions, for example, functions to add and remove CSS classes.
 **/
-declare module WinJS.Utilities {
+declare namespace WinJS.Utilities {
     //#region Enumerations
 
     /**
@@ -6857,7 +6857,7 @@ declare module WinJS.Utilities {
 /**
  * Provides functions and objects for scheduling and managing asynchronous tasks.
 **/
-declare module WinJS.Utilities.Scheduler {
+declare namespace WinJS.Utilities.Scheduler {
     //#region Enumerations
 
     /**

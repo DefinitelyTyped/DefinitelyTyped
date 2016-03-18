@@ -1,7 +1,7 @@
 // Type definitions for JSnoX
 // Project: https://github.com/af/jsnox
 // Definitions by: Steve Baker <https://github.com/stkb/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts" />
 
@@ -31,7 +31,7 @@ declare module 'jsnox' {
          * @param children A single React node (string or ReactElement) or array of nodes.
          * Note that unlike with React itself, multiple children must be placed into an array. 
          */
-        <P>(specString: string, children: React.ReactNode): React.DOMElement<P>
+        <P>(specString: string, children: React.ReactNode): React.DOMElement<P, Element>
 
         /**
          * Renders an HTML element from the given spec string, with optional props 
@@ -42,7 +42,7 @@ declare module 'jsnox' {
          * @param children A single React node (string or ReactElement) or array of nodes.
          * Note that unlike with React itself, multiple children must be placed into an array. 
          */
-        <P>(specString: string, props?: React.HTMLAttributes, children?: React.ReactNode): React.DOMElement<P>
+        <P>(specString: string, props?: React.HTMLAttributes, children?: React.ReactNode): React.DOMElement<P, Element>
 
 
         /**

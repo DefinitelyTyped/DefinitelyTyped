@@ -8,7 +8,7 @@
 /// <reference path="../pg/pg.d.ts" />
 
 
-declare module PgPromise {
+declare namespace PgPromise {
 }
 
 
@@ -32,7 +32,7 @@ declare module "pg-promise" {
 
 
 
-  module e {
+  namespace e {
 
     export interface PromiseClient {
 

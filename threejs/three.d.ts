@@ -1,9 +1,9 @@
 // Type definitions for three.js r73
 // Project: http://mrdoob.github.com/three.js/
 // Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module THREE {
+declare namespace THREE {
     export var REVISION: string;
 
     // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent.button
@@ -1631,8 +1631,11 @@ declare module THREE {
 
     export interface Intersection {
         distance: number;
+        distanceToRay: number;
         point: Vector3;
+        index: number;
         face: Face3;
+        faceIndex: number;
         object: Object3D;
     }
 

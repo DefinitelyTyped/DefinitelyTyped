@@ -1,7 +1,7 @@
 // Type definitions for Atom
 // Project: https://atom.io/
 // Definitions by: vvakame <https://github.com/vvakame/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../q/Q.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
@@ -23,7 +23,7 @@ interface Window {
 	profile(description:string, fn:Function):any; // return fn result
 }
 
-declare module AtomCore {
+declare namespace AtomCore {
 
 	// https://atom.io/docs/v0.84.0/advanced/view-system
 	interface IWorkspaceViewStatic {

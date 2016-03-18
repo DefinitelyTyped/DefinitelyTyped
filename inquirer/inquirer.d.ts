@@ -1,7 +1,7 @@
 // Type definitions for Inquirer.js
 // Project: https://github.com/SBoudrias/Inquirer.js
 // Definitions by: Qubo <https://github.com/tkQubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../rx/rx-lite.d.ts" />
 /// <reference path="../through/through.d.ts" />

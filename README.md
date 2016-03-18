@@ -32,7 +32,7 @@ Please see the [contribution guide](http://definitelytyped.org/guides/contributi
 
 ## Requested definitions
 
-Here is are the [currently requested definitions](https://github.com/borisyankov/DefinitelyTyped/labels/Definition%3ARequest).
+Here is are the [currently requested definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
 
 ## License
 

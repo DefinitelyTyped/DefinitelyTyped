@@ -1,7 +1,7 @@
 // Type definitions for Lo-Dash
 // Project: http://lodash.com/
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /**
@@ -12267,6 +12267,56 @@ declare module _ {
         isUndefined(): LoDashExplicitWrapper<boolean>;
     }
 
+    //_.isWeakMap
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a WeakMap object.
+         *
+         * @param value The value to check.
+         * @returns Returns true if value is correctly classified, else false.
+         */
+        isWeakMap<K, V>(value?: any): value is WeakMap<K, V>;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isSet
+         */
+        isWeakMap(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isSet
+         */
+        isWeakMap(): LoDashExplicitWrapper<boolean>;
+    }
+
+    //_.isWeakSet
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a WeakSet object.
+         *
+         * @param value The value to check.
+         * @returns Returns true if value is correctly classified, else false.
+         */
+        isWeakSet<T>(value?: any): value is WeakSet<T>;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isWeakSet
+         */
+        isWeakSet(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isWeakSet
+         */
+        isWeakSet(): LoDashExplicitWrapper<boolean>;
+    }
+
     //_.lt
     interface LoDashStatic {
         /**
@@ -18487,3 +18537,5 @@ declare module "lodash" {
 // Backward compatibility with --target es5
 interface Set<T> {}
 interface Map<K, V> {}
+interface WeakSet<T> {}
+interface WeakMap<K, V> {}

@@ -1,7 +1,7 @@
 /// <reference path="../angularjs/angular.d.ts" />
 /// <reference path="ng-stomp.d.ts" />
 
-module ngStompTesting {
+namespace ngStompTesting {
 
     "use strict";
     var ngStompTest = "ngStompTest";

@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module Electron {
+declare namespace Electron {
 	/**
 	 * This class is used to represent an image.
 	 */
@@ -57,7 +57,7 @@ declare module Electron {
 		isTemplateImage(): boolean;
 	}
 
-	module Clipboard {
+	namespace Clipboard {
 		/**
 		 * @returns The contents of the clipboard as a NativeImage.
 		 */
@@ -1193,7 +1193,7 @@ declare module Electron {
 		 quitAndInstall(): void;
 	}
 
-	module Dialog {
+	namespace Dialog {
 		/**
 		 * @param callback If supplied, the API call will be asynchronous.
 		 * @returns On success, returns an array of file paths chosen by the user,

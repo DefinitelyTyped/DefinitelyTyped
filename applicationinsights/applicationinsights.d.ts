@@ -1,7 +1,7 @@
 // Type definitions for Application Insights v0.15.8
 // Project: https://github.com/Microsoft/ApplicationInsights-node.js
 // Definitions by: Scott Southwood <https://github.com/scsouthw/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface AutoCollectConsole {
     constructor(client: Client): AutoCollectConsole;
@@ -28,7 +28,7 @@ interface AutoCollectRequests {
 }
 
 
-declare module ContractsModule {
+declare namespace ContractsModule {
     enum DataPointType {
         Measurement = 0,
         Aggregation = 1,
@@ -352,7 +352,7 @@ interface Client {
      * @param properties   map[string, string] - additional data used to filter events and metrics in the portal. Defaults to empty.
      * @param dependencyKind   ContractsModule.DependencyKind of this dependency. Defaults to Other.
      * @param async  True if the dependency was executed asynchronously, false otherwise. Defaults to false
-     * @param dependencySource  ContractsModule.DependencySourceType of this dependency. Defaults to Undefined. 
+     * @param dependencySource  ContractsModule.DependencySourceType of this dependency. Defaults to Undefined.
      */
     trackDependency(name: string, commandName: string, elapsedTimeMs: number, success: boolean, dependencyTypeName?: string, properties?: {}, dependencyKind?: any, async?: boolean, dependencySource?: number): void;
     /**

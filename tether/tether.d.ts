@@ -1,7 +1,7 @@
 // Type definitions for Tether v1.1
 // Project: http://github.hubspot.com/tether/
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // global Tether constructor
 declare class Tether {
