@@ -30,7 +30,7 @@ db.open({
     server = s;
 });
 
-var typedStore : DbJs.TypedObjectStoreServer<Person> = server['people'];
+var typedStore: DbJs.TypedObjectStoreServer<Person> = server['people'];
 
 /* Basic server operations */
 
@@ -227,7 +227,7 @@ server.query('users', 'changed')
 
 server.query('users', 'name')
     .lowerBound('marcy')
-    .modify({ views: function(profile) { return profile.views + 1; } })
+    .modify({ views: function(profile: any) { return profile.views + 1; } })
     .execute()
     .then(function () { });
         

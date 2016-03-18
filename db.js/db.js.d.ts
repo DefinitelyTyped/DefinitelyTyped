@@ -67,7 +67,7 @@ declare module DbJs {
     }
 
     interface LimitableQuery<T> {
-        limit(n, m): ExecutableQuery<T>;
+        limit(n: any, m: any): ExecutableQuery<T>;
     }
 
     interface MappableQuery<T> {
@@ -95,7 +95,11 @@ declare module DbJs {
         getIndexedDB(): IDBDatabase;
         close(): void;
     }
-
+    
+    interface IndexAccessibleServer {
+        [store: string]: TypedObjectStoreServer<any>;
+    }
+    
     interface ObjectStoreServer {
         add<T>(table: string, entity: T): Promise<T>;
         add<T>(table: string, ...entities: T[]): Promise<T[]>;
@@ -141,7 +145,7 @@ declare module DbJs {
         count(key: any): Promise<number>;
     }
     
-    type Server = DbJs.ObjectStoreServer & DbJs.BaseServer;
+    type Server = DbJs.IndexAccessibleServer & DbJs.ObjectStoreServer & DbJs.BaseServer;
 }
 
 declare module "db" {
