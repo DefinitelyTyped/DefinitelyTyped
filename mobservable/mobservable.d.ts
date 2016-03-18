@@ -1,7 +1,7 @@
 // Type definitions for mobservable v0.6.10
 // Project: https://mweststrate.github.io/mobservable
 // Definitions by: Michel Weststrate <https://github.com/mweststrate/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 interface _IMobservableStatic {
@@ -48,7 +48,7 @@ interface _IMobservableStatic {
      * @returns disposer function, which can be used to stop the view from being updated in the future.
      */
     observe(func: Mobservable.Lambda, scope?: any): Mobservable.Lambda;
-    
+
     /**
      * Deprecated, use mobservable.observe instead.
      */
@@ -102,7 +102,7 @@ interface IMakeReactive {
 interface IMobservableStatic extends _IMobservableStatic, IMakeReactive {
 }
 
-declare module Mobservable {
+declare namespace Mobservable {
     interface IMakeReactiveOptions {
         as?:  string /* "auto" | "reference" | TODO:  see #8 "structure" */
         scope?:  Object,

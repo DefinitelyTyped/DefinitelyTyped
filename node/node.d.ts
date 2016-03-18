@@ -1,7 +1,7 @@
 // Type definitions for Node.js v4.x
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/borisyankov/DefinitelyTyped>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
 *                                               *
@@ -14,9 +14,9 @@ interface Error {
 }
 
 
-// compat for TypeScript 1.5.3
+// compat for TypeScript 1.8
 // if you use with --target es3 or --target es5 and use below definitions,
-// use the lib.es6.d.ts that is bundled with TypeScript 1.5.3.
+// use the lib.es6.d.ts that is bundled with TypeScript 1.8.
 interface MapConstructor {}
 interface WeakMapConstructor {}
 interface SetConstructor {}
@@ -80,6 +80,7 @@ declare var SlowBuffer: {
 
 
 // Buffer class
+type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "binary" | "hex";
 interface Buffer extends NodeBuffer {}
 
 /**
@@ -164,7 +165,7 @@ declare var Buffer: {
 *               GLOBAL INTERFACES               *
 *                                               *
 ************************************************/
-declare module NodeJS {
+declare namespace NodeJS {
     export interface ErrnoException extends Error {
         errno?: number;
         code?: string;
@@ -174,12 +175,12 @@ declare module NodeJS {
     }
 
     export interface EventEmitter {
-        addListener(event: string, listener: Function): EventEmitter;
-        on(event: string, listener: Function): EventEmitter;
-        once(event: string, listener: Function): EventEmitter;
-        removeListener(event: string, listener: Function): EventEmitter;
-        removeAllListeners(event?: string): EventEmitter;
-        setMaxListeners(n: number): EventEmitter;
+        addListener(event: string, listener: Function): this;
+        on(event: string, listener: Function): this;
+        once(event: string, listener: Function): this;
+        removeListener(event: string, listener: Function): this;
+        removeAllListeners(event?: string): this;
+        setMaxListeners(n: number): this;
         getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
@@ -210,6 +211,29 @@ declare module NodeJS {
     }
 
     export interface ReadWriteStream extends ReadableStream, WritableStream {}
+
+    export interface Events extends EventEmitter { }
+
+    export interface Domain extends Events {
+        run(fn: Function): void;
+        add(emitter: Events): void;
+        remove(emitter: Events): void;
+        bind(cb: (err: Error, data: any) => any): any;
+        intercept(cb: (data: any) => any): any;
+        dispose(): void;
+
+        addListener(event: string, listener: Function): this;
+        on(event: string, listener: Function): this;
+        once(event: string, listener: Function): this;
+        removeListener(event: string, listener: Function): this;
+        removeAllListeners(event?: string): this;
+    }
+
+    export interface MemoryUsage {
+        rss: number;
+        heapTotal: number;
+        heapUsed: number;
+    }
 
     export interface Process extends EventEmitter {
         stdout: WritableStream;
@@ -270,14 +294,17 @@ declare module NodeJS {
         title: string;
         arch: string;
         platform: string;
-        memoryUsage(): { rss: number; heapTotal: number; heapUsed: number; };
+        memoryUsage(): MemoryUsage;
         nextTick(callback: Function): void;
         umask(mask?: number): number;
         uptime(): number;
         hrtime(time?:number[]): number[];
+        domain: Domain;
 
         // Worker
         send?(message: any, sendHandle?: any): void;
+        disconnect(): void;
+        connected: boolean;
     }
 
     export interface Global {
@@ -373,7 +400,7 @@ interface NodeBuffer {
     readUIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
     readIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
     readIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
-    readUInt8(offset: number, noAsset?: boolean): number;
+    readUInt8(offset: number, noAssert?: boolean): number;
     readUInt16LE(offset: number, noAssert?: boolean): number;
     readUInt16BE(offset: number, noAssert?: boolean): number;
     readUInt32LE(offset: number, noAssert?: boolean): number;
@@ -440,12 +467,12 @@ declare module "events" {
         static listenerCount(emitter: EventEmitter, event: string): number; // deprecated
         static defaultMaxListeners: number;
 
-        addListener(event: string, listener: Function): EventEmitter;
-        on(event: string, listener: Function): EventEmitter;
-        once(event: string, listener: Function): EventEmitter;
-        removeListener(event: string, listener: Function): EventEmitter;
-        removeAllListeners(event?: string): EventEmitter;
-        setMaxListeners(n: number): EventEmitter;
+        addListener(event: string, listener: Function): this;
+        on(event: string, listener: Function): this;
+        once(event: string, listener: Function): this;
+        removeListener(event: string, listener: Function): this;
+        removeAllListeners(event?: string): this;
+        setMaxListeners(n: number): this;
         getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
@@ -473,14 +500,10 @@ declare module "http" {
         agent?: Agent|boolean;
     }
 
-    export interface Server extends events.EventEmitter {
-        listen(port: number, hostname?: string, backlog?: number, callback?: Function): Server;
-        listen(port: number, hostname?: string, callback?: Function): Server;
-        listen(path: string, callback?: Function): Server;
-        listen(handle: any, listeningListener?: Function): Server;
-        close(cb?: any): Server;
-        address(): { port: number; family: string; address: string; };
+    export interface Server extends events.EventEmitter, net.Server {
+        setTimeout(msecs: number, callback: Function): void;
         maxHeadersCount: number;
+        timeout: number;
     }
     /**
      * @deprecated Use IncomingMessage
@@ -567,41 +590,41 @@ declare module "http" {
      */
     export interface ClientResponse extends IncomingMessage { }
 
-	export interface AgentOptions {
-		/**
-		 * Keep sockets around in a pool to be used by other requests in the future. Default = false
-		 */
-		keepAlive?: boolean;
-		/**
-		 * When using HTTP KeepAlive, how often to send TCP KeepAlive packets over sockets being kept alive. Default = 1000.
-		 * Only relevant if keepAlive is set to true.
-		 */
-		keepAliveMsecs?: number;
-		/**
-		 * Maximum number of sockets to allow per host. Default for Node 0.10 is 5, default for Node 0.12 is Infinity
-		 */
-		maxSockets?: number;
-		/**
-		 * Maximum number of sockets to leave open in a free state. Only relevant if keepAlive is set to true. Default = 256.
-		 */
-		maxFreeSockets?: number;
-	}
+    export interface AgentOptions {
+        /**
+         * Keep sockets around in a pool to be used by other requests in the future. Default = false
+         */
+        keepAlive?: boolean;
+        /**
+         * When using HTTP KeepAlive, how often to send TCP KeepAlive packets over sockets being kept alive. Default = 1000.
+         * Only relevant if keepAlive is set to true.
+         */
+        keepAliveMsecs?: number;
+        /**
+         * Maximum number of sockets to allow per host. Default for Node 0.10 is 5, default for Node 0.12 is Infinity
+         */
+        maxSockets?: number;
+        /**
+         * Maximum number of sockets to leave open in a free state. Only relevant if keepAlive is set to true. Default = 256.
+         */
+        maxFreeSockets?: number;
+    }
 
     export class Agent {
-		maxSockets: number;
-		sockets: any;
-		requests: any;
+        maxSockets: number;
+        sockets: any;
+        requests: any;
 
-		constructor(opts?: AgentOptions);
+        constructor(opts?: AgentOptions);
 
-		/**
-		 * Destroy any sockets that are currently in use by the agent.
-		 * It is usually not necessary to do this. However, if you are using an agent with KeepAlive enabled,
-		 * then it is best to explicitly shut down the agent when you know that it will no longer be used. Otherwise,
-		 * sockets may hang open for quite a long time before the server terminates them.
-		 */
-		destroy(): void;
-	}
+        /**
+         * Destroy any sockets that are currently in use by the agent.
+         * It is usually not necessary to do this. However, if you are using an agent with KeepAlive enabled,
+         * then it is best to explicitly shut down the agent when you know that it will no longer be used. Otherwise,
+         * sockets may hang open for quite a long time before the server terminates them.
+         */
+        destroy(): void;
+    }
 
     export var METHODS: string[];
 
@@ -624,6 +647,12 @@ declare module "cluster" {
         exec?: string;
         args?: string[];
         silent?: boolean;
+    }
+
+    export interface Address {
+        address: string;
+        port: number;
+        addressType: string;
     }
 
     export class Worker extends events.EventEmitter {
@@ -917,7 +946,7 @@ declare module "child_process" {
         stdin:  stream.Writable;
         stdout: stream.Readable;
         stderr: stream.Readable;
-        stdio: (stream.Readable|stream.Writable)[];
+        stdio: [stream.Writable, stream.Readable, stream.Readable];
         pid: number;
         kill(signal?: string): void;
         send(message: any, sendHandle?: any): void;
@@ -925,39 +954,66 @@ declare module "child_process" {
         unref(): void;
     }
 
-    export function spawn(command: string, args?: string[], options?: {
+    export interface SpawnOptions {
         cwd?: string;
-        stdio?: any;
-        custom?: any;
         env?: any;
+        stdio?: any;
         detached?: boolean;
-    }): ChildProcess;
-    export function exec(command: string, options: {
+        uid?: number;
+        gid?: number;
+        shell?: boolean | string;
+    }
+    export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
+
+    export interface ExecOptions {
         cwd?: string;
-        stdio?: any;
-        customFds?: any;
         env?: any;
-        encoding?: string;
+        shell?: string;
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
-    }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function exec(command: string, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function execFile(file: string,
-        callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function execFile(file: string, args?: string[],
-        callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function execFile(file: string, args?: string[], options?: {
+        uid?: number;
+        gid?: number;
+    }
+    export interface ExecOptionsWithStringEncoding extends ExecOptions {
+        encoding: BufferEncoding;
+    }
+    export interface ExecOptionsWithBufferEncoding extends ExecOptions {
+        encoding: string; // specify `null`.
+    }
+    export function exec(command: string, callback?: (error: Error, stdout: string, stderr: string) =>void ): ChildProcess;
+    export function exec(command: string, options: ExecOptionsWithStringEncoding, callback?: (error: Error, stdout: string, stderr: string) =>void ): ChildProcess;
+    // usage. child_process.exec("tsc", {encoding: null as string}, (err, stdout, stderr) => {});
+    export function exec(command: string, options: ExecOptionsWithBufferEncoding, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    export function exec(command: string, options: ExecOptions, callback?: (error: Error, stdout: string, stderr: string) =>void ): ChildProcess;
+
+    export interface ExecFileOptions {
         cwd?: string;
-        stdio?: any;
-        customFds?: any;
         env?: any;
-        encoding?: string;
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
-    }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function fork(modulePath: string, args?: string[], options?: {
+        uid?: number;
+        gid?: number;
+    }
+    export interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
+        encoding: BufferEncoding;
+    }
+    export interface ExecFileOptionsWithBufferEncoding extends ExecFileOptions {
+        encoding: string; // specify `null`.
+    }
+    export function execFile(file: string, callback?: (error: Error, stdout: string, stderr: string) =>void ): ChildProcess;
+    export function execFile(file: string, options?: ExecFileOptionsWithStringEncoding, callback?: (error: Error, stdout: string, stderr: string) =>void ): ChildProcess;
+    // usage. child_process.execFile("file.sh", {encoding: null as string}, (err, stdout, stderr) => {});
+    export function execFile(file: string, options?: ExecFileOptionsWithBufferEncoding, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    export function execFile(file: string, options?: ExecFileOptions, callback?: (error: Error, stdout: string, stderr: string) =>void ): ChildProcess;
+    export function execFile(file: string, args?: string[], callback?: (error: Error, stdout: string, stderr: string) =>void ): ChildProcess;
+    export function execFile(file: string, args?: string[], options?: ExecFileOptionsWithStringEncoding, callback?: (error: Error, stdout: string, stderr: string) =>void ): ChildProcess;
+    // usage. child_process.execFile("file.sh", ["foo"], {encoding: null as string}, (err, stdout, stderr) => {});
+    export function execFile(file: string, args?: string[], options?: ExecFileOptionsWithBufferEncoding, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    export function execFile(file: string, args?: string[], options?: ExecFileOptions, callback?: (error: Error, stdout: string, stderr: string) =>void ): ChildProcess;
+
+    export interface ForkOptions {
         cwd?: string;
         env?: any;
         execPath?: string;
@@ -965,8 +1021,10 @@ declare module "child_process" {
         silent?: boolean;
         uid?: number;
         gid?: number;
-    }): ChildProcess;
-    export function spawnSync(command: string, args?: string[], options?: {
+    }
+    export function fork(modulePath: string, args?: string[], options?: ForkOptions): ChildProcess;
+
+    export interface SpawnSyncOptions {
         cwd?: string;
         input?: string | Buffer;
         stdio?: any;
@@ -974,42 +1032,83 @@ declare module "child_process" {
         uid?: number;
         gid?: number;
         timeout?: number;
-        maxBuffer?: number;
         killSignal?: string;
+        maxBuffer?: number;
         encoding?: string;
-    }): {
+        shell?: boolean | string;
+    }
+    export interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
+        encoding: BufferEncoding;
+    }
+    export interface SpawnSyncOptionsWithBufferEncoding extends SpawnSyncOptions {
+        encoding: string; // specify `null`.
+    }
+    export interface SpawnSyncReturns<T> {
         pid: number;
         output: string[];
-        stdout: string | Buffer;
-        stderr: string | Buffer;
+        stdout: T;
+        stderr: T;
         status: number;
         signal: string;
         error: Error;
-    };
-    export function execSync(command: string, options?: {
+    }
+    export function spawnSync(command: string): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
+    export function spawnSync(command: string, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
+    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
+
+    export interface ExecSyncOptions {
         cwd?: string;
-        input?: string|Buffer;
+        input?: string | Buffer;
+        stdio?: any;
+        env?: any;
+        shell?: string;
+        uid?: number;
+        gid?: number;
+        timeout?: number;
+        killSignal?: string;
+        maxBuffer?: number;
+        encoding?: string;
+    }
+    export interface ExecSyncOptionsWithStringEncoding extends ExecSyncOptions {
+        encoding: BufferEncoding;
+    }
+    export interface ExecSyncOptionsWithBufferEncoding extends ExecSyncOptions {
+        encoding: string; // specify `null`.
+    }
+    export function execSync(command: string): Buffer;
+    export function execSync(command: string, options?: ExecSyncOptionsWithStringEncoding): string;
+    export function execSync(command: string, options?: ExecSyncOptionsWithBufferEncoding): Buffer;
+    export function execSync(command: string, options?: ExecSyncOptions): Buffer;
+
+    export interface ExecFileSyncOptions {
+        cwd?: string;
+        input?: string | Buffer;
         stdio?: any;
         env?: any;
         uid?: number;
         gid?: number;
         timeout?: number;
-        maxBuffer?: number;
         killSignal?: string;
-        encoding?: string;
-    }): string | Buffer;
-    export function execFileSync(command: string, args?: string[], options?: {
-        cwd?: string;
-        input?: string|Buffer;
-        stdio?: any;
-        env?: any;
-        uid?: number;
-        gid?: number;
-        timeout?: number;
         maxBuffer?: number;
-        killSignal?: string;
         encoding?: string;
-    }): string | Buffer;
+    }
+    export interface ExecFileSyncOptionsWithStringEncoding extends ExecFileSyncOptions {
+        encoding: BufferEncoding;
+    }
+    export interface ExecFileSyncOptionsWithBufferEncoding extends ExecFileSyncOptions {
+        encoding: string; // specify `null`.
+    }
+    export function execFileSync(command: string): Buffer;
+    export function execFileSync(command: string, options?: ExecFileSyncOptionsWithStringEncoding): string;
+    export function execFileSync(command: string, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    export function execFileSync(command: string, options?: ExecFileSyncOptions): Buffer;
+    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptionsWithStringEncoding): string;
+    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptions): Buffer;
 }
 
 declare module "url" {
@@ -1094,12 +1193,29 @@ declare module "net" {
         new (options?: { fd?: string; type?: string; allowHalfOpen?: boolean; }): Socket;
     };
 
+    export interface ListenOptions {
+        port?: number;
+        host?: string;
+        backlog?: number;
+        path?: string;
+        exclusive?: boolean;
+    }
+
     export interface Server extends Socket {
-        listen(port: number, host?: string, backlog?: number, listeningListener?: Function): Server;
+        listen(port: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
+        listen(port: number, hostname?: string, listeningListener?: Function): Server;
+        listen(port: number, backlog?: number, listeningListener?: Function): Server;
+        listen(port: number, listeningListener?: Function): Server;
+        listen(path: string, backlog?: number, listeningListener?: Function): Server;
         listen(path: string, listeningListener?: Function): Server;
+        listen(handle: any, backlog?: number, listeningListener?: Function): Server;
         listen(handle: any, listeningListener?: Function): Server;
+        listen(options: ListenOptions, listeningListener?: Function): Server;
         close(callback?: Function): Server;
         address(): { port: number; family: string; address: string; };
+        getConnections(cb: (error: Error, count: number) => void): void;
+        ref(): Server;
+        unref(): Server;
         maxConnections: number;
         connections: number;
     }
@@ -1327,7 +1443,8 @@ declare module "fs" {
     export function write(fd: number, data: any, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
     export function write(fd: number, data: any, offset: number, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
     export function write(fd: number, data: any, offset: number, encoding: string, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
-    export function writeSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
+    export function writeSync(fd: number, buffer: Buffer, offset: number, length: number, position?: number): number;
+    export function writeSync(fd: number, data: any, position?: number, enconding?: string): number;
     export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
     export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
     /*
@@ -1623,12 +1740,6 @@ declare module "tls" {
     }
 
     export interface Server extends net.Server {
-        // Extended base methods
-        listen(port: number, host?: string, backlog?: number, listeningListener?: Function): Server;
-        listen(path: string, listeningListener?: Function): Server;
-        listen(handle: any, listeningListener?: Function): Server;
-
-        listen(port: number, host?: string, callback?: Function): Server;
         close(): Server;
         address(): { port: number; family: string; address: string; };
         addContext(hostName: string, credentials: {
@@ -1716,19 +1827,25 @@ declare module "crypto" {
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
     export interface Cipher {
         update(data: Buffer): Buffer;
-        update(data: string, input_encoding?: string, output_encoding?: string): string;
+        update(data: string, input_encoding: "utf8"|"ascii"|"binary"): Buffer;
+        update(data: Buffer, input_encoding: any, output_encoding: "binary"|"base64"|"hex"): string;
+        update(data: string, input_encoding: "utf8"|"ascii"|"binary", output_encoding: "binary"|"base64"|"hex"): string;
         final(): Buffer;
         final(output_encoding: string): string;
         setAutoPadding(auto_padding: boolean): void;
+        getAuthTag(): Buffer;
     }
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
     export interface Decipher {
         update(data: Buffer): Buffer;
-        update(data: string, input_encoding?: string, output_encoding?: string): string;
+        update(data: string, input_encoding: "binary"|"base64"|"hex"): Buffer;
+        update(data: Buffer, input_encoding: any, output_encoding: "utf8"|"ascii"|"binary"): string;
+        update(data: string, input_encoding: "binary"|"base64"|"hex", output_encoding: "utf8"|"ascii"|"binary"): string;
         final(): Buffer;
         final(output_encoding: string): string;
         setAutoPadding(auto_padding: boolean): void;
+        setAuthTag(tag: Buffer): void;
     }
     export function createSign(algorithm: string): Signer;
     export interface Signer extends NodeJS.WritableStream {
@@ -1889,7 +2006,7 @@ declare module "util" {
 
 declare module "assert" {
     function internal (value: any, message?: string): void;
-    module internal {
+    namespace internal {
         export class AssertionError implements Error {
             name: string;
             message: string;
@@ -1951,19 +2068,13 @@ declare module "tty" {
 declare module "domain" {
     import * as events from "events";
 
-    export class Domain extends events.EventEmitter {
+    export class Domain extends events.EventEmitter implements NodeJS.Domain {
         run(fn: Function): void;
         add(emitter: events.EventEmitter): void;
         remove(emitter: events.EventEmitter): void;
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
         dispose(): void;
-
-        addListener(event: string, listener: Function): Domain;
-        on(event: string, listener: Function): Domain;
-        once(event: string, listener: Function): Domain;
-        removeListener(event: string, listener: Function): Domain;
-        removeAllListeners(event?: string): Domain;
     }
 
     export function create(): Domain;

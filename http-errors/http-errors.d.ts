@@ -1,7 +1,7 @@
 // Type definitions for http-errors v1.3.1
 // Project: https://github.com/jshttp/http-errors
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'http-errors' {
     namespace createHttpError {

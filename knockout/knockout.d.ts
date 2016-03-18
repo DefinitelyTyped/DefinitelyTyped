@@ -1,7 +1,7 @@
 ﻿// Type definitions for Knockout v3.2.0
 // Project: http://knockoutjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Igor Oleinikov <https://github.com/Igorbek/>, Clément Bourgeois <https://github.com/moonpyk/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 interface KnockoutSubscribableFunctions<T> {
@@ -553,7 +553,7 @@ interface KnockoutComputedContext {
 // refactored types into a namespace to reduce global pollution
 // and used Union Types to simplify overloads (requires TypeScript 1.4)
 //
-declare module KnockoutComponentTypes {
+declare namespace KnockoutComponentTypes {
 
     interface Config {
         viewModel?: ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;

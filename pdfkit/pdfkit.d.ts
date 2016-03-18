@@ -1,11 +1,11 @@
 // Type definitions for Pdfkit v0.7.1
 // Project: http://pdfkit.org
 // Definitions by: Eric Hillah <https://github.com/erichillah>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
-declare module PDFKit {
+declare namespace PDFKit {
     interface PDFGradient {
         new(document: any): PDFGradient ;
         stop(pos: number, color?: string|PDFKit.PDFGradient, opacity?: number): PDFGradient;
@@ -26,7 +26,7 @@ declare module PDFKit {
     }
 }
 
-declare module PDFKit.Mixins {
+declare namespace PDFKit.Mixins {
 
     interface AnnotationOption {
         Type?: string;
@@ -173,7 +173,7 @@ declare module PDFKit.Mixins {
     }
 }
 
-declare module PDFKit {
+declare namespace PDFKit {
     /**
     * PDFKit data
     */
@@ -212,7 +212,7 @@ declare module "pdfkit/js/data" {
     export = PDFKitData;
 }
 
-declare module PDFKit {
+declare namespace PDFKit {
     interface DocumentInfo {
         Producer?: string;
         Creator?: string;
@@ -296,7 +296,7 @@ declare module "pdfkit/js/gradient" {
     export = gradient;
 }
 
-declare module PDFKit {
+declare namespace PDFKit {
     /**
    * Represent a single page in the PDF document
    */
@@ -332,7 +332,7 @@ declare module "pdfkit/js/page" {
     export = PDFKitPage
 }
 
-declare module PDFKit {
+declare namespace PDFKit {
     /** PDFReference - represents a reference to another object in the PDF object heirarchy */
     class PDFKitReference {
         id: number;

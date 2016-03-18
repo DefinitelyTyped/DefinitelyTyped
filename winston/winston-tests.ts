@@ -158,9 +158,9 @@ profiler.start = new Date();
 let testRewriter : winston.MetadataRewriter;
 testRewriter = function(level: string, msg: string, meta: any) {
     return meta;
-}
+};
 
-winston.addRewriter(testRewriter);
+logger.rewriters.push(testRewriter);
 /**
  * New Logger instances with transports tests:
  */

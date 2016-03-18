@@ -1,7 +1,7 @@
 // Type definitions for chai-as-promised
 // Project: https://github.com/domenic/chai-as-promised/
 // Definitions by: jt000 <https://github.com/jt000>, Yuki Kokubun <https://github.com/Kuniwak>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../chai/chai.d.ts" />
 /// <reference path="../promises-a-plus/promises-a-plus.d.ts" />
@@ -12,7 +12,7 @@ declare module 'chai-as-promised' {
     export = chaiAsPromised;
 }
 
-declare module Chai {
+declare namespace Chai {
 
     // For BDD API
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
@@ -20,7 +20,7 @@ declare module Chai {
         become(expected: any): PromisedAssertion;
         fulfilled: PromisedAssertion;
         rejected: PromisedAssertion;
-        rejectedWith(expected: any, message?: string): PromisedAssertion;
+        rejectedWith(expected: any, message?: string | RegExp): PromisedAssertion;
         notify(fn: Function): PromisedAssertion;
     }
 
@@ -30,7 +30,7 @@ declare module Chai {
         become(expected: PromisesAPlus.Thenable<any>): PromisedAssertion;
         fulfilled: PromisedAssertion;
         rejected: PromisedAssertion;
-        rejectedWith(expected: any): PromisedAssertion;
+        rejectedWith(expected: any, message?: string | RegExp): PromisedAssertion;
         notify(fn: Function): PromisedAssertion;
 
         // From chai

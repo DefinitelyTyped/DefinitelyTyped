@@ -1,13 +1,13 @@
 // Type definitions for vinyl-fs
 // Project: https://github.com/wearefractal/vinyl-fs
 // Definitions by: vvakame <https://github.com/vvakame/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../glob-stream/glob-stream.d.ts" />
 /// <reference path="../vinyl/vinyl.d.ts" />
 
-declare module NodeJS {
+declare namespace NodeJS {
    interface WritableStream {
       write(buffer: any/* Vinyl.File */, cb?: Function): boolean;
    }

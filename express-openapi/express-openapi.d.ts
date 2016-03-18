@@ -1,7 +1,7 @@
-// Type definitions for express-openapi 0.6.x
+// Type definitions for express-openapi 0.11.x
 // Project: https://github.com/kogosoftwarellc/express-openapi
 // Definitions by: TANAKA Koichi <https://github.com/mugeso/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
  import express = require('express');
@@ -248,9 +248,14 @@ declare module "express-openapi" {
     }
 
     export interface Args {
-        apiDoc: OpenApi.ApiDefinition,
-        app: express.Application,
+        apiDoc: OpenApi.ApiDefinition
+        app: express.Application
         routes: string
+        docPath: string
+        errorTransformer(openapiError: OpenapiError, jsonschemaError: JsonschemaError): any
+        exposeApiDocs: boolean
+        validateApiDoc: boolean
+        customFormats: CustomFormats
     }
 
     export interface OperationFunction extends express.RequestHandler {
@@ -273,6 +278,33 @@ declare module "express-openapi" {
         patch?: Operation;
         options?: Operation;
         head?: Operation;
+    }
+
+    export interface OpenapiError {
+        errorCode: string
+        location: string
+        message: string
+        path: string
+    }
+
+    export interface CustomFormats {
+        [index: string]: CustomFormatValidator
+    }
+
+    // Following 2 interfaces are part of jsonschema package.
+    interface JsonschemaError {
+        property: string
+        message: string
+        schema: string|IJsonSchema
+        instance: any
+        name: string
+        argument: any
+        stack: string
+        toString(): string
+    }
+
+    interface CustomFormatValidator {
+        (input: any): boolean
     }
 
     interface IJsonSchema {

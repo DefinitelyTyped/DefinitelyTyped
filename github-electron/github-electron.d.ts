@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module Electron {
+declare namespace Electron {
 	/**
 	 * This class is used to represent an image.
 	 */
@@ -57,7 +57,7 @@ declare module Electron {
 		isTemplateImage(): boolean;
 	}
 
-	module Clipboard {
+	namespace Clipboard {
 		/**
 		 * @returns The contents of the clipboard as a NativeImage.
 		 */
@@ -97,12 +97,12 @@ declare module Electron {
 	}
 
 	class Screen implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): Screen;
-		on(event: string, listener: Function): Screen;
-		once(event: string, listener: Function): Screen;
-		removeListener(event: string, listener: Function): Screen;
-		removeAllListeners(event?: string): Screen;
-		setMaxListeners(n: number): Screen;
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
 		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
@@ -134,12 +134,12 @@ declare module Electron {
 	 * You can also create a window without chrome by using Frameless Window API.
 	 */
 	class BrowserWindow implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): WebContents;
-		on(event: string, listener: Function): WebContents;
-		once(event: string, listener: Function): WebContents;
-		removeListener(event: string, listener: Function): WebContents;
-		removeAllListeners(event?: string): WebContents;
-		setMaxListeners(n: number): WebContents;
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
 		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
@@ -541,12 +541,12 @@ declare module Electron {
 	 * A WebContents is responsible for rendering and controlling a web page.
 	 */
 	class WebContents implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): WebContents;
-		on(event: string, listener: Function): WebContents;
-		once(event: string, listener: Function): WebContents;
-		removeListener(event: string, listener: Function): WebContents;
-		removeAllListeners(event?: string): WebContents;
-		setMaxListeners(n: number): WebContents;
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
 		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
@@ -636,7 +636,7 @@ declare module Electron {
 		 * Evaluates code in page.
 		 * @param code Code to evaluate.
 		 */
-		executeJavaScript(code: string): void;
+		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): void;
 		/**
 		 * Executes Edit -> Undo command in page.
 		 */
@@ -959,12 +959,12 @@ declare module Electron {
 	}
 
 	class App implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): App;
-		on(event: string, listener: Function): App;
-		once(event: string, listener: Function): App;
-		removeListener(event: string, listener: Function): App;
-		removeAllListeners(event?: string): App;
-		setMaxListeners(n: number): App;
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
 		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
@@ -1166,12 +1166,12 @@ declare module Electron {
 	}
 
 	class AutoUpdater implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): AutoUpdater;
-		on(event: string, listener: Function): AutoUpdater;
-		once(event: string, listener: Function): AutoUpdater;
-		removeListener(event: string, listener: Function): AutoUpdater;
-		removeAllListeners(event?: string): AutoUpdater;
-		setMaxListeners(n: number): AutoUpdater;
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
 		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
@@ -1186,9 +1186,14 @@ declare module Electron {
 		 * before using this API
 		 */
 		checkForUpdates(): any;
+		/**
+		 * Restarts the app and installs the update after it has been downloaded.
+		 * It should only be called after update-downloaded has been emitted.
+		 */
+		 quitAndInstall(): void;
 	}
 
-	module Dialog {
+	namespace Dialog {
 		/**
 		 * @param callback If supplied, the API call will be asynchronous.
 		 * @returns On success, returns an array of file paths chosen by the user,
@@ -1286,12 +1291,12 @@ declare module Electron {
 	}
 
 	class Tray implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): Tray;
-		on(event: string, listener: Function): Tray;
-		once(event: string, listener: Function): Tray;
-		removeListener(event: string, listener: Function): Tray;
-		removeAllListeners(event?: string): Tray;
-		setMaxListeners(n: number): Tray;
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
 		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
@@ -1478,12 +1483,12 @@ declare module Electron {
 	// Type definitions for renderer process
 
 	export class IpcRenderer implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): IpcRenderer;
-		on(event: string, listener: Function): IpcRenderer;
-		once(event: string, listener: Function): IpcRenderer;
-		removeListener(event: string, listener: Function): IpcRenderer;
-		removeAllListeners(event?: string): IpcRenderer;
-		setMaxListeners(n: number): IpcRenderer;
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
 		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
@@ -1510,16 +1515,16 @@ declare module Electron {
 	}
 
 	class IPCMain implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): IPCMain;
-		once(event: string, listener: Function): IPCMain;
-		removeListener(event: string, listener: Function): IPCMain;
-		removeAllListeners(event?: string): IPCMain;
-		setMaxListeners(n: number): IPCMain;
+		addListener(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
 		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
 		listenerCount(type: string): number;
-		on(event: string, listener: (event: IPCMainEvent, ...args: any[]) => any): IPCMain;
+		on(event: string, listener: (event: IPCMainEvent, ...args: any[]) => any): this;
 	}
 
 	interface IPCMainEvent {
@@ -1536,6 +1541,10 @@ declare module Electron {
 		 * @returns The BrowserWindow object which this web page belongs to.
 		 */
 		getCurrentWindow(): BrowserWindow;
+		/**
+		 * @returns The WebContents object of this web page.
+		 */
+		getCurrentWebContents(): WebContents;
 		/**
 		 * @returns The global variable of name (e.g. global[name]) in the main process.
 		 */
@@ -1592,7 +1601,7 @@ declare module Electron {
  		 * invoked by a gesture from the user. Setting `userGesture` to `true` will remove
  		 * this limitation.
 		 */
-		executeJavaScript(code: string, userGesture?: boolean): void;
+		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): void;
 	}
 
 	// Type definitions for main process

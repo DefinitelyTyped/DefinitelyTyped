@@ -1,7 +1,7 @@
 // Type definitions for stripe
 // Project: https://stripe.com/
 // Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>, Eric J. Smith <https://github.com/ejsmith/>, Amrit Kahlon <https://github.com/amritk/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface StripeStatic {
     setPublishableKey(key: string): void;

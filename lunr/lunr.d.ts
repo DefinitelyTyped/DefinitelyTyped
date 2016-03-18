@@ -1,7 +1,7 @@
 // Type definitions for lunr.js 0.5.4
 // Project: https://github.com/olivernn/lunr.js
 // Definitions by: Sebastian Lenz <https://github.com/sebastian-lenz>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * lunr - http://lunrjs.com - A bit like Solr, but much smaller and not as bright - 0.5.4
@@ -9,7 +9,7 @@
  * MIT Licensed
  * @license
  */
-declare module lunr
+declare namespace lunr
 {
     var version:string;
 
@@ -42,7 +42,7 @@ declare module lunr
      */
     function stopWordFilter(token:string):string;
 
-    module stopWordFilter {
+    namespace stopWordFilter {
         var stopWords:SortedSet<string>;
     }
 

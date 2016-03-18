@@ -3,10 +3,11 @@
 
 // borrowed from the Backbone.Associations tutorials
 // separated out into modules to avoid namespace clashes
-module Backbone.Associations.Tests {
-    module OneToOne {
+namespace Backbone.Associations.Tests {
+    namespace OneToOne {
         class EmployeeWithManager extends Backbone.AssociatedModel {
             constructor(options?) {
+                super(options);
                 this.relations = [
                     {
                         type: Backbone.One, //nature of the relationship
@@ -14,7 +15,6 @@ module Backbone.Associations.Tests {
                         relatedModel: 'Employee' //AssociatedModel for attribute key
                     }
                 ];
-                super(options);
             }
 
             defaults() {
@@ -28,7 +28,7 @@ module Backbone.Associations.Tests {
         }
     }
 
-    module OneToMany {
+    namespace OneToMany {
         class Location extends Backbone.AssociatedModel {
             defaults() {
                 return {
@@ -48,6 +48,7 @@ module Backbone.Associations.Tests {
 
         class Project extends Backbone.AssociatedModel {
             constructor(options?) {
+                super(options);
                 this.relations = [
                     {
                         type: Backbone.Many, //nature of the relation
@@ -56,7 +57,6 @@ module Backbone.Associations.Tests {
                         relatedModel: Location //Optional
                     }
                 ];
-                super(options);
             }
 
             defaults() {
