@@ -48,11 +48,6 @@ declare namespace Resemble {
 
   interface ResembleComparison {
     /**
-     * Run the analysis and get the result
-     */
-    onComplete(callback: (result: ResembleAnalysisResult) => void): void;
-
-    /**
      * Run the analysis and get the comparison result
      */
     onComplete(callback: (result: ResembleComparisonResult) => void): void;
