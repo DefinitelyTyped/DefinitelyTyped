@@ -6,7 +6,7 @@
 declare namespace Resemble {
   interface ResembleStatic {
     /**
-     * Retrieve basic analysis on one image (add compareTo to compare with another).
+     * Retrieve basic analysis for a single image (add compareTo to compare with another).
      */
     (image: string|ImageData): ResembleAnalysis;
 
@@ -29,13 +29,13 @@ declare namespace Resemble {
 
   interface ResembleAnalysis {
     /**
-     * Run the analysis and get the result
+     * Run the analysis on this image and get the result
      */
     onComplete(callback: (result: ResembleAnalysisResult) => void): void;
 
     /**
      * Compare this image to another image, to get resemblance data
-     */ 
+     */
     compareTo(fileData: string|ImageData): ResembleComparison;
   }
 
@@ -60,15 +60,29 @@ declare namespace Resemble {
   }
 
   interface ResembleComparisonResult {
+    /**
+     * Do the two images have the same dimensions?
+     */
     isSameDimensions: boolean;
+
+    /**
+     * The difference in width and height between the dimensions of the two compared images
+     */
     dimensionDifference: {
       width: number;
       height: number;
     };
 
+    /**
+     * Get a data URL for the comparison image
+     */
     getImageDataUrl(): string;
 
+    /**
+     * The percentage of pixels which do not match between the images
+     */
     misMatchPercentage: number;
+
     diffBounds: {
       top: number;
       left: number;
