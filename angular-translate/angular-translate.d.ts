@@ -103,6 +103,8 @@ declare namespace angular.translate {
         useMissingTranslationHandlerLog(): ITranslateProvider;
         useMissingTranslationHandler(factory: string): ITranslateProvider;
         usePostCompiling(value: boolean): ITranslateProvider;
+        directivePriority(): number;
+        directivePriority(priority: number): ITranslateProvider;
         determinePreferredLanguage(fn?: () => void): ITranslateProvider;
         registerAvailableLanguageKeys(): string[];
         registerAvailableLanguageKeys(languageKeys: string[], aliases?: ILanguageKeyAlias): ITranslateProvider;
