@@ -871,7 +871,7 @@ declare namespace Antd {
             duration?: number
         }) => void
     /**
-     * #Notification
+     * #notification
     全局展示通知提醒信息。
 
     ## 何时使用
@@ -881,7 +881,7 @@ declare namespace Antd {
     - 较为复杂的通知内容。
     - 带有交互的通知，给出用户下一步的行动点。
     - 系统主动推送。*/
-    export const Notification: {
+    export const notification: {
         success: NotificationFunc
         error: NotificationFunc
         info: NotificationFunc
@@ -1911,8 +1911,8 @@ declare module 'antd/lib/message' {
 declare module 'antd/lib/Modal' {
     export default Antd.Modal
 }
-declare module 'antd/lib/Notification' {
-    export default Antd.Notification
+declare module 'antd/lib/notification' {
+    export default Antd.notification
 }
 declare module 'antd/lib/Pagination' {
     export default Antd.Pagination

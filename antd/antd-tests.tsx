@@ -23,7 +23,7 @@ import React = __React
     Menu,
     message,
     Modal,
-    Notification,
+    notification,
     Pagination,
     Popconfirm,
     Popover,
@@ -71,7 +71,7 @@ import Col from 'antd/lib/Col'
 import Menu from 'antd/lib/Menu'
 import message from 'antd/lib/message'
 import Modal from 'antd/lib/Modal'
-import Notification from 'antd/lib/Notification'
+import notification from 'antd/lib/notification'
 import Pagination from 'antd/lib/Pagination'
 import Popconfirm from 'antd/lib/Popconfirm'
 import Popover from 'antd/lib/Popover'
@@ -229,7 +229,7 @@ class App extends React.Component<any, any>{
 
         Modal.info({ title: 'hello' });
         Modal.success({ cancelText: 'No' })
-        Notification.success({
+        notification.success({
             message: 'hello',
             description: 'test'
         })
