@@ -97,8 +97,6 @@ interface HammerOptions extends HammerDefaults
 
 interface HammerManager
 {
-  new( element:HTMLElement, options?:any ):HammerManager;
-
   add( recogniser:Recognizer ):Recognizer;
   add( recogniser:Recognizer ):HammerManager;
   add( recogniser:Recognizer[] ):Recognizer;
