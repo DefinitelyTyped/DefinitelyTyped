@@ -1916,4 +1916,12 @@ declare namespace angular {
         }
 
     }
+
+    /**
+     * $http params serializer that converts objects to strings
+     * see https://docs.angularjs.org/api/ng/service/$httpParamSerializer
+     */
+    interface IHttpParamSerializer {
+        (obj: Object): string;
+    }
 }
