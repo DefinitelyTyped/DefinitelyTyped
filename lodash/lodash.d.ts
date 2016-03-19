@@ -16479,6 +16479,87 @@ declare module _ {
         unset(path: StringRepresentable|StringRepresentable[]): LoDashExplicitWrapper<boolean>;
     }
 
+    //_.update
+    interface LoDashStatic {
+        /**
+         * This method is like _.set except that accepts updater to produce the value to set. Use _.updateWith to
+         * customize path creation. The updater is invoked with one argument: (value).
+         *
+         * @param object The object to modify.
+         * @param path The path of the property to set.
+         * @param updater The function to produce the updated value.
+         * @return Returns object.
+         */
+        update<TResult>(
+            object: Object,
+            path: StringRepresentable|StringRepresentable[],
+            updater: Function
+        ): TResult;
+
+        /**
+         * @see _.update
+         */
+        update<U extends Function, TResult>(
+            object: Object,
+            path: StringRepresentable|StringRepresentable[],
+            updater: U
+        ): TResult;
+
+        /**
+         * @see _.update
+         */
+        update<O extends {}, TResult>(
+            object: O,
+            path: StringRepresentable|StringRepresentable[],
+            updater: Function
+        ): TResult;
+
+        /**
+         * @see _.update
+         */
+        update<O, U extends Function, TResult>(
+            object: O,
+            path: StringRepresentable|StringRepresentable[],
+            updater: U
+        ): TResult;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.update
+         */
+        update<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            updater: any
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.update
+         */
+        update<U extends Function, TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            updater: U
+        ): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.update
+         */
+        update<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            updater: any
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.update
+         */
+        update<U extends Function, TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            updater: U
+        ): LoDashExplicitObjectWrapper<TResult>;
+    }
+
     //_.values
     interface LoDashStatic {
         /**

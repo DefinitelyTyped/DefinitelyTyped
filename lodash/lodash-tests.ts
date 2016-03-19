@@ -9843,6 +9843,51 @@ namespace TestUnset {
     }
 }
 
+// _.update
+namespace TestUpdate {
+    type SampleObject = {a: {}};
+    type SampleResult = {a: {b: number[]}};
+
+    let object: SampleObject;
+    let updater: (value: any) => number;
+
+    {
+        let result: SampleResult;
+
+        result = _.update<SampleResult>(object, 'a.b[1]', updater);
+        result = _.update<SampleResult>(object, ['a', 'b', 1], updater);
+
+        result = _.update<(value: any) => number, SampleResult>(object, 'a.b[1]', updater);
+        result = _.update<(value: any) => number, SampleResult>(object, ['a', 'b', 1], updater);
+
+        result = _.update<SampleObject, SampleResult>(object, 'a.b[1]', updater);
+        result = _.update<SampleObject, SampleResult>(object, ['a', 'b', 1], updater);
+
+        result = _.update<SampleObject, (value: any) => number, SampleResult>(object, 'a.b[1]', updater);
+        result = _.update<SampleObject, (value: any) => number, SampleResult>(object, ['a', 'b', 1], updater);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
+
+        result = _(object).update<SampleResult>('a.b[1]', updater);
+        result = _(object).update<SampleResult>(['a', 'b', 1], updater);
+
+        result = _(object).update<(value: any) => number, SampleResult>('a.b[1]', updater);
+        result = _(object).update<(value: any) => number, SampleResult>(['a', 'b', 1], updater);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
+
+        result = _(object).chain().update<SampleResult>('a.b[1]', updater);
+        result = _(object).chain().update<SampleResult>(['a', 'b', 1], updater);
+
+        result = _(object).chain().update<(value: any) => number, SampleResult>('a.b[1]', updater);
+        result = _(object).chain().update<(value: any) => number, SampleResult>(['a', 'b', 1], updater);
+    }
+}
+
 // _.values
 namespace TestValues {
     let object: _.Dictionary<TResult>;
