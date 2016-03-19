@@ -23,6 +23,13 @@ interface PromiseConstructor {
      * Create a new promise. The passed in function will receive functions `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
      */
     new <T>(callback: (resolve: (thenableOrResult?: T | PromiseLike<T>) => void, reject: (error: any) => void) => void): Promise<T>;
+    
+    config(options: {
+        warnings?: boolean | {wForgottenReturn?: boolean};
+        longStackTraces?: boolean;
+        cancellation?: boolean;
+        monitoring?: boolean;
+    }): void;
 
     // Ideally, we'd define e.g. "export class RangeError extends Error {}",
     // but as Error is defined as an interface (not a class), TypeScript doesn't
