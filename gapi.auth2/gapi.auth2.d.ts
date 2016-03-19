@@ -15,7 +15,7 @@ declare namespace gapi.auth2 {
   export class GoogleAuth {
     isSignedIn: IsSignedIn;
 
-    curretUser: CurrentUser;
+    currentUser: CurrentUser;
 
     /**
      * Calls the onInit function when the GoogleAuth object is fully initialized, or calls the onFailure function if
