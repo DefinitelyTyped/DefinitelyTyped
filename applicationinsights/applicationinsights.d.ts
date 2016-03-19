@@ -1,4 +1,4 @@
-// Type definitions for Application Insights v0.15.8
+// Type definitions for Application Insights v0.15.12
 // Project: https://github.com/Microsoft/ApplicationInsights-node.js
 // Definitions by: Scott Southwood <https://github.com/scsouthw/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -338,7 +338,9 @@ interface Client {
      * @param max    the max sample for this set
      * @param stdDev the standard deviation of the set
      */
-    trackMetric(name: string, value: number, count?:number, min?: number, max?: number, stdDev?: number): void;
+    trackMetric(name: string, value: number, count?:number, min?: number, max?: number, stdDev?: number, properties?: {
+        [key: string]: string;
+    }): void;
     trackRequest(request: any /* http.ServerRequest */, response: any /* http.ServerResponse */, properties?: {
         [key: string]: string;
     }): void;
