@@ -6,6 +6,7 @@
 declare namespace JsDiff {
     interface IDiffResult {
         value: string;
+        count?: number;
         added?: boolean;
         removed?: boolean;
     }
