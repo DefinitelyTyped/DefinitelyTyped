@@ -90,9 +90,9 @@ declare namespace GeoJSON {
     /***
     * http://geojson.org/geojson-spec.html#feature-objects
     */
-    export interface Feature extends GeoJsonObject
+    export interface Feature<T extends GeometryObject> extends GeoJsonObject
     {
-        geometry: GeometryObject;
+        geometry: T;
         properties: any;
         id?: string;
     }
@@ -100,9 +100,9 @@ declare namespace GeoJSON {
     /***
     * http://geojson.org/geojson-spec.html#feature-collection-objects
     */
-    export interface FeatureCollection extends GeoJsonObject
+    export interface FeatureCollection<T extends GeometryObject> extends GeoJsonObject
     {
-        features: Feature[];
+        features: Feature<T>[];
     }
 
     /***
