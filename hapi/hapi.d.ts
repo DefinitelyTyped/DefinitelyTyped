@@ -1774,6 +1774,8 @@ Notes: 1. Default value. 2. Proposed code, not supported by all clients. */
 			}
 			});*/
             default(options: string): void;
+            default(options: { strategy: string }): void;
+            default(options: { strategies: string[] }): void;
 			/** server.auth.scheme(name, scheme)
 			Registers an authentication scheme where:
 			name - the scheme name.
