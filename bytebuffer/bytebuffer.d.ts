@@ -611,5 +611,6 @@ declare class ByteBuffer
 }
 
 declare module 'bytebuffer' {
+    namespace ByteBuffer {}
     export = ByteBuffer;
 }
