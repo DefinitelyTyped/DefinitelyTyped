@@ -1,4 +1,4 @@
-// Type definitions for xmldom 0.1.16
+// Type definitions for xmldom 0.1.22
 // Project: https://github.com/jindw/xmldom.git
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,14 +6,22 @@
 declare module "xmldom" {
   namespace xmldom {
     var DOMParser: DOMParserStatic;
+    var XMLSerializer: XMLSerializerStatic;
 
     interface DOMParserStatic {
       new(): DOMParser;
       new(options: Options): DOMParser;
     }
 
+    interface XMLSerializerStatic {
+      new(): XMLSerializer;
+    }
+
     interface DOMParser {
       parseFromString(xmlsource: string, mimeType?: string): Document;
+    }
+
+    interface XMLSerializer {
       serializeToString(node: Node): string;
     }
 
