@@ -505,6 +505,7 @@ app.on('ready', () => {
 	appIcon.setToolTip('This is my application.');
 	appIcon.setContextMenu(contextMenu);
 	appIcon.setImage('/path/to/new/icon');
+    appIcon.popUpContextMenu(contextMenu, {x: 100, y: 100});
 });
 
 // clipboard

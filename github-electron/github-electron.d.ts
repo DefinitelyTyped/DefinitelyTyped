@@ -1320,6 +1320,9 @@ declare namespace Electron {
 		}
 	}
 
+    /**
+     * A Tray represents an icon in an operating system's notification area.
+     */
 	class Tray implements NodeJS.EventEmitter {
 		addListener(event: string, listener: Function): this;
 		on(event: string, listener: Function): this;
@@ -1370,6 +1373,16 @@ declare namespace Electron {
 			title?: string;
 			content?: string;
 		}): void;
+        /**
+         * Popups the context menu of tray icon. When menu is passed,
+         * the menu will showed instead of the tray's context menu.
+         * The position is only available on Windows, and it is (0, 0) by default.
+         * Note: This is only implemented on OS X and Windows.
+         */
+        popUpContextMenu(menu?: Menu, position?: {
+           x: number;
+           y: number;
+        }): void;
 		/**
 		 * Sets the context menu for this icon.
 		 */
