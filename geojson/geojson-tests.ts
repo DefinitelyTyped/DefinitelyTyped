@@ -1,6 +1,6 @@
 /// <reference path="./geojson.d.ts" />
 
-var featureCollection: GeoJSON.FeatureCollection =  { 
+var featureCollection: GeoJSON.FeatureCollection<any> =  {
     type: "FeatureCollection",
     features: [   
         { 
