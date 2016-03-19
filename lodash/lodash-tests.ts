@@ -1168,6 +1168,13 @@ namespace TestLast {
     let list: _.List<TResult>;
 
     {
+        let result: string;
+
+        result = _.last('abc');
+        result = _('abc').last();
+    }
+
+    {
         let result: TResult;
 
         result = _.last<TResult>(array);
@@ -1178,15 +1185,21 @@ namespace TestLast {
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<TResult>;
+        let result: _.LoDashExplicitWrapper<string>;
 
-        result = _(array).chain().last();
+        result = _('abc').chain().last();
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
+        let result: _.LoDashExplicitObjectWrapper<TResult>;
 
-        result = _(list).chain().last<_.List<TResult>>();
+        result = _(array).chain().last<_.LoDashExplicitObjectWrapper<TResult>>();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<TResult>;
+
+        result = _(list).chain().last<_.LoDashExplicitObjectWrapper<TResult>>();
     }
 }
 
