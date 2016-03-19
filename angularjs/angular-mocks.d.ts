@@ -163,26 +163,17 @@ declare namespace angular {
           * @param headers HTTP headers object to be compared with the HTTP headers in the request.
           * @param keys Array of keys to assign to regex matches in the request url.
           */
-<<<<<<< HEAD
+
         expectHEAD(url: string | RegExp | ((url: string) => boolean), headers?: Object, keys?: Object[]): mock.IRequestHandler;
         
-=======
-        expectHEAD(url: string | RegExp | ((url: string) => boolean), headers?: Object): mock.IRequestHandler;
-
->>>>>>> upstream/master
         /**
           * Creates a new request expectation for JSONP requests.
           * Throws a preformatted error if expectation(s) don't match supplied string, regular expression, or if function returns false.
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
-<<<<<<< HEAD
           * @param keys Array of keys to assign to regex matches in the request url.
           */        
         expectJSONP(url: string | RegExp | ((url: string) => boolean), keys?: Object[]): mock.IRequestHandler;
-=======
-          */
-        expectJSONP(url: string | RegExp | ((url: string) => boolean)): mock.IRequestHandler;
->>>>>>> upstream/master
 
         /**
           * Creates a new request expectation for PATCH requests.
