@@ -1,7 +1,7 @@
 // Type definitions for JSnoX
 // Project: https://github.com/af/jsnox
 // Definitions by: Steve Baker <https://github.com/stkb/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts" />
 

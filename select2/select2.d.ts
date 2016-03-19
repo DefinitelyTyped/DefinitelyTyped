@@ -1,7 +1,7 @@
 // Type definitions for Select2 4.0.1
 // Project: http://ivaynberg.github.com/select2/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>

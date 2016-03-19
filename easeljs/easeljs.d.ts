@@ -1,7 +1,7 @@
 // Type definitions for EaselJS 0.8.0
 // Project: http://www.createjs.com/#!/EaselJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
     Copyright (c) 2012 Pedro Ferreira
@@ -20,7 +20,7 @@ interface NativeMouseEvent extends MouseEvent {
 
 }
 
-declare module createjs {
+declare namespace createjs {
     export class AlphaMapFilter extends Filter {
         constructor(alphaMap: HTMLImageElement | HTMLCanvasElement);
 
@@ -382,7 +382,7 @@ declare module createjs {
     }
 
 
-    module Graphics
+    namespace Graphics
         {
         export class Arc
             {

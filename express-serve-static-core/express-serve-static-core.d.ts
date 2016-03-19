@@ -1,14 +1,14 @@
 ﻿// Type definitions for Express 4.x
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference path="../node/node.d.ts" />
 
-declare module Express {
+declare namespace Express {
 
     // These open interfaces may be extended in an application-specific manner via declaration merging.
-    // See for example method-override.d.ts (https://github.com/borisyankov/DefinitelyTyped/blob/master/method-override/method-override.d.ts)
+    // See for example method-override.d.ts (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/method-override/method-override.d.ts)
     export interface Request { }
     export interface Response { }
     export interface Application { }

@@ -1,11 +1,11 @@
 // Type definitions for node-cache v3.0.0
 // Project: https://github.com/tcs-de/nodecache
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
-declare module NodeCacheTypes {
+declare namespace NodeCacheTypes {
 	interface NodeCache {
 		/** container for cached data */
 		data: Data;

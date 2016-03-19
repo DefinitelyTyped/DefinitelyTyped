@@ -1,7 +1,7 @@
 // Type definitions for UglifyJS 2 v2.6.1
 // Project: https://github.com/mishoo/UglifyJS2
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../source-map/source-map.d.ts" />
 

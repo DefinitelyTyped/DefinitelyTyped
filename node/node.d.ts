@@ -1,7 +1,7 @@
 // Type definitions for Node.js v4.x
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/borisyankov/DefinitelyTyped>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
 *                                               *
@@ -80,6 +80,7 @@ declare var SlowBuffer: {
 
 
 // Buffer class
+type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "binary" | "hex";
 interface Buffer extends NodeBuffer {}
 
 /**
@@ -164,7 +165,7 @@ declare var Buffer: {
 *               GLOBAL INTERFACES               *
 *                                               *
 ************************************************/
-declare module NodeJS {
+declare namespace NodeJS {
     export interface ErrnoException extends Error {
         errno?: number;
         code?: string;
@@ -227,8 +228,8 @@ declare module NodeJS {
         removeListener(event: string, listener: Function): this;
         removeAllListeners(event?: string): this;
     }
-    
-    export interface MemoryUsage { 
+
+    export interface MemoryUsage {
         rss: number;
         heapTotal: number;
         heapUsed: number;
@@ -551,6 +552,11 @@ declare module "http" {
         setTimeout(timeout: number, callback?: Function): void;
         setNoDelay(noDelay?: boolean): void;
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
+
+        setHeader(name: string, value: string | string[]): void;
+        getHeader(name: string): string;
+        removeHeader(name: string): void;
+        addTrailers(headers: any): void;
 
         // Extended base methods
         end(): void;
@@ -945,7 +951,7 @@ declare module "child_process" {
         stdin:  stream.Writable;
         stdout: stream.Readable;
         stderr: stream.Readable;
-        stdio: (stream.Readable|stream.Writable)[];
+        stdio: [stream.Writable, stream.Readable, stream.Readable];
         pid: number;
         kill(signal?: string): void;
         send(message: any, sendHandle?: any): void;
@@ -953,39 +959,66 @@ declare module "child_process" {
         unref(): void;
     }
 
-    export function spawn(command: string, args?: string[], options?: {
+    export interface SpawnOptions {
         cwd?: string;
-        stdio?: any;
-        custom?: any;
         env?: any;
+        stdio?: any;
         detached?: boolean;
-    }): ChildProcess;
-    export function exec(command: string, options: {
+        uid?: number;
+        gid?: number;
+        shell?: boolean | string;
+    }
+    export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
+
+    export interface ExecOptions {
         cwd?: string;
-        stdio?: any;
-        customFds?: any;
         env?: any;
-        encoding?: string;
+        shell?: string;
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
-    }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function exec(command: string, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function execFile(file: string,
-        callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function execFile(file: string, args?: string[],
-        callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function execFile(file: string, args?: string[], options?: {
+        uid?: number;
+        gid?: number;
+    }
+    export interface ExecOptionsWithStringEncoding extends ExecOptions {
+        encoding: BufferEncoding;
+    }
+    export interface ExecOptionsWithBufferEncoding extends ExecOptions {
+        encoding: string; // specify `null`.
+    }
+    export function exec(command: string, callback?: (error: Error, stdout: string, stderr: string) =>void ): ChildProcess;
+    export function exec(command: string, options: ExecOptionsWithStringEncoding, callback?: (error: Error, stdout: string, stderr: string) =>void ): ChildProcess;
+    // usage. child_process.exec("tsc", {encoding: null as string}, (err, stdout, stderr) => {});
+    export function exec(command: string, options: ExecOptionsWithBufferEncoding, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    export function exec(command: string, options: ExecOptions, callback?: (error: Error, stdout: string, stderr: string) =>void ): ChildProcess;
+
+    export interface ExecFileOptions {
         cwd?: string;
-        stdio?: any;
-        customFds?: any;
         env?: any;
-        encoding?: string;
         timeout?: number;
         maxBuffer?: number;
         killSignal?: string;
-    }, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
-    export function fork(modulePath: string, args?: string[], options?: {
+        uid?: number;
+        gid?: number;
+    }
+    export interface ExecFileOptionsWithStringEncoding extends ExecFileOptions {
+        encoding: BufferEncoding;
+    }
+    export interface ExecFileOptionsWithBufferEncoding extends ExecFileOptions {
+        encoding: string; // specify `null`.
+    }
+    export function execFile(file: string, callback?: (error: Error, stdout: string, stderr: string) =>void ): ChildProcess;
+    export function execFile(file: string, options?: ExecFileOptionsWithStringEncoding, callback?: (error: Error, stdout: string, stderr: string) =>void ): ChildProcess;
+    // usage. child_process.execFile("file.sh", {encoding: null as string}, (err, stdout, stderr) => {});
+    export function execFile(file: string, options?: ExecFileOptionsWithBufferEncoding, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    export function execFile(file: string, options?: ExecFileOptions, callback?: (error: Error, stdout: string, stderr: string) =>void ): ChildProcess;
+    export function execFile(file: string, args?: string[], callback?: (error: Error, stdout: string, stderr: string) =>void ): ChildProcess;
+    export function execFile(file: string, args?: string[], options?: ExecFileOptionsWithStringEncoding, callback?: (error: Error, stdout: string, stderr: string) =>void ): ChildProcess;
+    // usage. child_process.execFile("file.sh", ["foo"], {encoding: null as string}, (err, stdout, stderr) => {});
+    export function execFile(file: string, args?: string[], options?: ExecFileOptionsWithBufferEncoding, callback?: (error: Error, stdout: Buffer, stderr: Buffer) =>void ): ChildProcess;
+    export function execFile(file: string, args?: string[], options?: ExecFileOptions, callback?: (error: Error, stdout: string, stderr: string) =>void ): ChildProcess;
+
+    export interface ForkOptions {
         cwd?: string;
         env?: any;
         execPath?: string;
@@ -993,8 +1026,10 @@ declare module "child_process" {
         silent?: boolean;
         uid?: number;
         gid?: number;
-    }): ChildProcess;
-    export function spawnSync(command: string, args?: string[], options?: {
+    }
+    export function fork(modulePath: string, args?: string[], options?: ForkOptions): ChildProcess;
+
+    export interface SpawnSyncOptions {
         cwd?: string;
         input?: string | Buffer;
         stdio?: any;
@@ -1002,42 +1037,83 @@ declare module "child_process" {
         uid?: number;
         gid?: number;
         timeout?: number;
-        maxBuffer?: number;
         killSignal?: string;
+        maxBuffer?: number;
         encoding?: string;
-    }): {
+        shell?: boolean | string;
+    }
+    export interface SpawnSyncOptionsWithStringEncoding extends SpawnSyncOptions {
+        encoding: BufferEncoding;
+    }
+    export interface SpawnSyncOptionsWithBufferEncoding extends SpawnSyncOptions {
+        encoding: string; // specify `null`.
+    }
+    export interface SpawnSyncReturns<T> {
         pid: number;
         output: string[];
-        stdout: string | Buffer;
-        stderr: string | Buffer;
+        stdout: T;
+        stderr: T;
         status: number;
         signal: string;
         error: Error;
-    };
-    export function execSync(command: string, options?: {
+    }
+    export function spawnSync(command: string): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
+    export function spawnSync(command: string, options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string>;
+    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer>;
+    export function spawnSync(command: string, args?: string[], options?: SpawnSyncOptions): SpawnSyncReturns<Buffer>;
+
+    export interface ExecSyncOptions {
         cwd?: string;
-        input?: string|Buffer;
+        input?: string | Buffer;
+        stdio?: any;
+        env?: any;
+        shell?: string;
+        uid?: number;
+        gid?: number;
+        timeout?: number;
+        killSignal?: string;
+        maxBuffer?: number;
+        encoding?: string;
+    }
+    export interface ExecSyncOptionsWithStringEncoding extends ExecSyncOptions {
+        encoding: BufferEncoding;
+    }
+    export interface ExecSyncOptionsWithBufferEncoding extends ExecSyncOptions {
+        encoding: string; // specify `null`.
+    }
+    export function execSync(command: string): Buffer;
+    export function execSync(command: string, options?: ExecSyncOptionsWithStringEncoding): string;
+    export function execSync(command: string, options?: ExecSyncOptionsWithBufferEncoding): Buffer;
+    export function execSync(command: string, options?: ExecSyncOptions): Buffer;
+
+    export interface ExecFileSyncOptions {
+        cwd?: string;
+        input?: string | Buffer;
         stdio?: any;
         env?: any;
         uid?: number;
         gid?: number;
         timeout?: number;
-        maxBuffer?: number;
         killSignal?: string;
-        encoding?: string;
-    }): string | Buffer;
-    export function execFileSync(command: string, args?: string[], options?: {
-        cwd?: string;
-        input?: string|Buffer;
-        stdio?: any;
-        env?: any;
-        uid?: number;
-        gid?: number;
-        timeout?: number;
         maxBuffer?: number;
-        killSignal?: string;
         encoding?: string;
-    }): string | Buffer;
+    }
+    export interface ExecFileSyncOptionsWithStringEncoding extends ExecFileSyncOptions {
+        encoding: BufferEncoding;
+    }
+    export interface ExecFileSyncOptionsWithBufferEncoding extends ExecFileSyncOptions {
+        encoding: string; // specify `null`.
+    }
+    export function execFileSync(command: string): Buffer;
+    export function execFileSync(command: string, options?: ExecFileSyncOptionsWithStringEncoding): string;
+    export function execFileSync(command: string, options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    export function execFileSync(command: string, options?: ExecFileSyncOptions): Buffer;
+    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptionsWithStringEncoding): string;
+    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptionsWithBufferEncoding): Buffer;
+    export function execFileSync(command: string, args?: string[], options?: ExecFileSyncOptions): Buffer;
 }
 
 declare module "url" {
@@ -1754,7 +1830,7 @@ declare module "crypto" {
     }
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
-    export interface Cipher {
+    export interface Cipher extends NodeJS.ReadWriteStream {
         update(data: Buffer): Buffer;
         update(data: string, input_encoding: "utf8"|"ascii"|"binary"): Buffer;
         update(data: Buffer, input_encoding: any, output_encoding: "binary"|"base64"|"hex"): string;
@@ -1766,7 +1842,7 @@ declare module "crypto" {
     }
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
-    export interface Decipher {
+    export interface Decipher extends NodeJS.ReadWriteStream {
         update(data: Buffer): Buffer;
         update(data: string, input_encoding: "binary"|"base64"|"hex"): Buffer;
         update(data: Buffer, input_encoding: any, output_encoding: "utf8"|"ascii"|"binary"): string;
@@ -1935,7 +2011,7 @@ declare module "util" {
 
 declare module "assert" {
     function internal (value: any, message?: string): void;
-    module internal {
+    namespace internal {
         export class AssertionError implements Error {
             name: string;
             message: string;

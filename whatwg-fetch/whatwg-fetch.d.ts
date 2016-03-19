@@ -1,7 +1,7 @@
 ﻿// Type definitions for fetch API
 // Project: https://github.com/github/fetch
 // Definitions by: Ryan Graham <https://github.com/ryan-codingintrigue>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Request extends Body {
 	constructor(input: string|Request, init?:RequestInit);

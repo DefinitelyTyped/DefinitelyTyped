@@ -3,7 +3,7 @@
 // Definitions by: Sławomir Rosiek <https://github.com/rosieks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Oidc {
+declare namespace Oidc {
     class DefaultHttpRequest {
         getJSON(url: string, config: any): DefaultPromise;
     }
@@ -63,7 +63,7 @@ declare module Oidc {
         silent_redirect_uri?: string;
         silent_renew?: boolean;
     }
-    
+
     interface PopupSettings {
         features?: string;
         target?: string;
@@ -74,7 +74,7 @@ declare module Oidc {
         setPromiseFactory(promiseFactory: DefaultPromiseFactory): void;
         setHttpRequest(httpRequest: DefaultHttpRequest): void;
     }
-    
+
     interface OidcToken {
         profile: string;
         id_token: string;

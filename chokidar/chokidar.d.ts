@@ -1,7 +1,7 @@
 // Type definitions for chokidar 1.4.3
 // Project: https://github.com/paulmillr/chokidar
 // Definitions by: Stefan Steinhart <https://github.com/reppners/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

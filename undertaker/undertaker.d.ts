@@ -1,7 +1,7 @@
 // Type definitions for undertaker 0.12.0
 // Project: https://github.com/phated/undertaker
 // Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "undertaker" {
 

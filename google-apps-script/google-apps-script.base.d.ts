@@ -5,7 +5,7 @@
 
 /// <reference path="google-apps-script.types.d.ts" />
 
-declare module GoogleAppsScript {
+declare namespace GoogleAppsScript {
   export module Base {
     /**
      * A data interchange object for Apps Script services.
@@ -31,35 +31,35 @@ declare module GoogleAppsScript {
     /**
      * Interface for objects that can export their data as a Blob.
      * Implementing classes
-     * 
+     *
      * NameBrief description
-     * 
+     *
      * AttachmentA Sites Attachment such as a file attached to a page.
-     * 
+     *
      * BlobA data interchange object for Apps Script services.
-     * 
+     *
      * ChartA Chart object, which can be embedded into documents, UI elements, or used as a static image.
-     * 
+     *
      * DocumentA document, containing rich text and elements such as tables and lists.
-     * 
+     *
      * EmbeddedChartRepresents a chart that has been embedded into a Spreadsheet.
-     * 
+     *
      * FileA file in Google Drive.
-     * 
+     *
      * GmailAttachmentAn attachment from Gmail.
-     * 
+     *
      * HTTPResponseThis class allows users to access specific information on HTTP responses.
-     * 
+     *
      * HtmlOutputAn HtmlOutput object that can be served from a script.
-     * 
+     *
      * InlineImageAn element representing an embedded image.
-     * 
+     *
      * JdbcBlobA JDBC Blob.
-     * 
+     *
      * JdbcClobA JDBC Clob.
-     * 
+     *
      * SpreadsheetThis class allows users to access and modify Google Sheets files.
-     * 
+     *
      * StaticMapAllows for the creation and decoration of static map images.
      */
     export interface BlobSource {
@@ -69,10 +69,10 @@ declare module GoogleAppsScript {
 
     /**
      * This class provides access to Google Apps specific dialog boxes.
-     * 
+     *
      *  The methods in this class are only available for use in the context of a Google Spreadsheet.
      * See also
-     * 
+     *
      * ButtonSet
      */
     export interface Browser {
@@ -91,11 +91,11 @@ declare module GoogleAppsScript {
      *  indicate which button in a dialog the user clicked. These values cannot be set; to add buttons to
      *  an alert or
      *  prompt, use ButtonSet instead.
-     * 
+     *
      *      // Display a dialog box with a message and "Yes" and "No" buttons.
      *      var ui = DocumentApp.getUi();
      *      var response = ui.alert('Are you sure you want to continue?', ui.ButtonSet.YES_NO);
-     *     
+     *
      *      // Process the user's response.
      *      if (response == ui.Button.YES) {
      *        Logger.log('The user clicked "Yes."');
@@ -110,11 +110,11 @@ declare module GoogleAppsScript {
      *  added to an alert or a
      *  prompt. To determine which button the user
      *  clicked, use Button.
-     * 
+     *
      *      // Display a dialog box with a message and "Yes" and "No" buttons.
      *      var ui = DocumentApp.getUi();
      *      var response = ui.alert('Are you sure you want to continue?', ui.ButtonSet.YES_NO);
-     *     
+     *
      *      // Process the user's response.
      *      if (response == ui.Button.YES) {
      *        Logger.log('The user clicked "Yes."');
@@ -139,7 +139,7 @@ declare module GoogleAppsScript {
      *  with the UI for the current instance of an open document or form, and only if the script is
      *  container-bound to the document or form. For more
      *  information, see the guide to menus.
-     * 
+     *
      *      // Add a custom menu to the active spreadsheet, including a separator and a sub-menu.
      *      function onOpen(e) {
      *        SpreadsheetApp.getUi()
@@ -164,14 +164,14 @@ declare module GoogleAppsScript {
      *  explicitly. Any method that expects a MIME type rendered as a string (for example,
      *  'image/png') will also accept one of the values below, so long as the method
      *  supports the underlying MIME type.
-     * 
+     *
      *      // Use MimeType enum to log the name of every Google Doc in the user's Drive.
      *      var docs = DriveApp.getFilesByType(MimeType.GOOGLE_DOCS);
      *      while (docs.hasNext()) {
      *       var doc = docs.next();
      *       Logger.log(doc.getName())
      *      }
-     *     
+     *
      *      // Use plain string to log the size of every PNG in the user's Drive.
      *      var pngs = DriveApp.getFilesByType('image/png');
      *      while (pngs.hasNext()) {
@@ -190,12 +190,12 @@ declare module GoogleAppsScript {
      * A response to a prompt dialog displayed in the
      *  user-interface environment for a Google App. The response contains any text the user entered in
      *  the dialog's input field and indicates which button the user clicked to dismiss the dialog.
-     * 
+     *
      *      // Display a dialog box with a title, message, input field, and "Yes" and "No" buttons. The
      *      // user can also close the dialog by clicking the close button in its title bar.
      *      var ui = DocumentApp.getUi();
      *      var response = ui.prompt('Getting to know you', 'May I know your name?', ui.ButtonSet.YES_NO);
-     *     
+     *
      *      // Process the user's response.
      *      if (response.getSelectedButton() == ui.Button.YES) {
      *        Logger.log('The user\'s name is %s.', response.getResponseText());
@@ -228,12 +228,12 @@ declare module GoogleAppsScript {
      *  features like menus, dialogs, and sidebars. A script can only interact with the UI for the
      *  current instance of an open editor, and only if the script is
      *  container-bound to the editor.
-     * 
+     *
      *      // Display a dialog box with a title, message, input field, and "Yes" and "No" buttons. The
      *      // user can also close the dialog by clicking the close button in its title bar.
      *      var ui = SpreadsheetApp.getUi();
      *      var response = ui.prompt('Getting to know you', 'May I know your name?', ui.ButtonSet.YES_NO);
-     *     
+     *
      *      // Process the user's response.
      *      if (response.getSelectedButton() == ui.Button.YES) {
      *        Logger.log('The user\'s name is %s.', response.getResponseText());

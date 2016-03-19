@@ -1,7 +1,7 @@
 // Type definitions for BigInteger.js
 // Project: https://github.com/peterolson/BigInteger.js
 // Definitions by: Ingo Bürk <https://github.com/Airblader>, Roel van Uden <https://github.com/Deathspike>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface BigInteger {
     /** Returns the absolute value of a bigInt. */

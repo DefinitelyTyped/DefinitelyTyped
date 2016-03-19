@@ -9,7 +9,7 @@
 declare module "umzug" {
     import Sequelize = require("sequelize");
 
-    module umzug {
+    namespace umzug {
 
         interface MigrationOptions {
 

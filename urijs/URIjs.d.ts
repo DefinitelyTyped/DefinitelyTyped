@@ -1,11 +1,11 @@
 // Type definitions for URI.js 1.15.1
 // Project: https://github.com/medialize/URI.js
 // Definitions by: RodneyJT <https://github.com/RodneyJT>, Brian Surowiec <https://github.com/xt0rted>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module uri {
+declare namespace uri {
 
     interface URI {
         absoluteTo(path: string): URI;
