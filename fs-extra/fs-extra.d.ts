@@ -186,9 +186,9 @@ declare module "fs-extra" {
 	export type CopyFilter = CopyFilterFunction | RegExp;
 
 	export interface CopyOptions {
-		clobber: boolean
-		preserveTimestamps: boolean
-		filter: CopyFilter
+		clobber?: boolean
+		preserveTimestamps?: boolean
+		filter?: CopyFilter
 	}
 
 	export interface OpenOptions {
