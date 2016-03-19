@@ -1615,6 +1615,8 @@ declare module "hapi" {
 			}
 			});*/
 			default(options: string):void;
+            default(options: { strategy: string }): void;
+            default(options: { strategies: string[] }): void;
 			/** server.auth.scheme(name, scheme)
 			Registers an authentication scheme where:
 			name - the scheme name.
