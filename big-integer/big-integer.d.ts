@@ -134,24 +134,24 @@ interface BigInteger {
      * Performs a comparison between two numbers. If the numbers are equal, it returns 0.
      * If the first number is greater, it returns 1. If the first number is lesser, it returns -1.
      */
-    compare( number: number ): BigInteger;
+    compare( number: number ): number;
     /**
      * Performs a comparison between two numbers. If the numbers are equal, it returns 0.
      * If the first number is greater, it returns 1. If the first number is lesser, it returns -1.
      */
-    compare( number: BigInteger ): BigInteger;
+    compare( number: BigInteger ): number;
     /**
      * Performs a comparison between two numbers. If the numbers are equal, it returns 0.
      * If the first number is greater, it returns 1. If the first number is lesser, it returns -1.
      */
-    compare( number: string ): BigInteger;
+    compare( number: string ): number;
 
     /** Performs a comparison between the absolute value of two numbers. */
-    compareAbs( number: number ): BigInteger;
+    compareAbs( number: number ): number;
     /** Performs a comparison between the absolute value of two numbers. */
-    compareAbs( number: BigInteger ): BigInteger;
+    compareAbs( number: BigInteger ): number;
     /** Performs a comparison between the absolute value of two numbers. */
-    compareAbs( number: string ): BigInteger;
+    compareAbs( number: string ): number;
 
     /** Checks if two numbers are equal. */
     equals( number: number ): boolean;
