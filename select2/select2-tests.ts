@@ -9,6 +9,9 @@ $("#e2").select2({
 $("#e2_2").select2({
     placeholder: "Select a State"
 });
+$("#e2_3").select2({
+    placeholder: { id: "1", text: "Select options" }
+});
 $("#e3").select2({
     minimumInputLength: 2
 });
