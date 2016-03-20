@@ -826,10 +826,22 @@ declare namespace Electron {
 
 	/**
 	 * The Menu class is used to create native menus that can be used as application
-	 * menus and context menus. Each menu consists of multiple menu items, and each
-	 * menu item can have a submenu.
+	 * menus and context menus. This module is a main process module which can be used
+	 * in a render process via the remote module.
+	 *
+	 * Each menu consists of multiple menu items, and each menu item can have a submenu.
 	 */
-	class Menu {
+	class Menu implements NodeJS.EventEmitter {
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
+		getMaxListeners(): number;
+		listeners(event: string): Function[];
+		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
 		/**
 		 * Creates a new menu.
 		 */
@@ -840,9 +852,9 @@ declare namespace Electron {
 		 */
 		static setApplicationMenu(menu: Menu): void;
 		/**
-		 * Sends the action to the first responder of application, this is used for
-		 * emulating default Cocoa menu behaviors, usually you would just use the
-		 * selector property of MenuItem.
+		 * Sends the action to the first responder of application.
+		 * This is used for emulating default Cocoa menu behaviors,
+		 * usually you would just use the role property of MenuItem.
 		 *
 		 * Note: This method is OS X only.
 		 */
@@ -860,7 +872,7 @@ declare namespace Electron {
 		 * @param x Horizontal coordinate where the menu will be placed.
 		 * @param y Vertical coordinate where the menu will be placed.
 		 */
-		popup(browserWindow: BrowserWindow, x?: number, y?: number): void;
+		popup(browserWindow?: BrowserWindow, x?: number, y?: number): void;
 		/**
 		 * Appends the menuItem to the menu.
 		 */
@@ -869,27 +881,64 @@ declare namespace Electron {
 		 * Inserts the menuItem to the pos position of the menu.
 		 */
 		insert(position: number, menuItem: MenuItem): void;
+		/**
+		 * @returns an array containing the menu’s items.
+		 */
 		items: MenuItem[];
 	}
 
+	type MenuItemType = 'normal' | 'separator' | 'submenu' | 'checkbox' | 'radio';
+	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'selectall' | 'minimize' | 'close';
+	type MenuItemRoleMac = 'about' | 'hide' | 'hideothers' | 'unhide' | 'front' | 'window' | 'help' | 'services';
+
+	/**
+	 * The MenuItem allows you to add items to an application or context menu.
+	 */
 	class MenuItem {
-		constructor(options?: MenuItemOptions);
-		options: MenuItemOptions;
+		/**
+		 * Create a new menu item.
+		 */
+		constructor(options: MenuItemOptions);
+
+		click: (menuItem: MenuItem, browserWindow: BrowserWindow) => void;
+
+		/**
+		 * Read-only property.
+		 */
+		type: MenuItemType;
+		/**
+		 * Read-only property.
+		 */
+		role: MenuItemRole | MenuItemRoleMac;
+		/**
+		 * Read-only property.
+		 */
+		accelerator: string;
+		/**
+		 * Read-only property.
+		 */
+		icon: NativeImage | string;
+		/**
+		 * Read-only property.
+		 */
+		submenu: Menu | MenuItemOptions[];
+
+		label: string;
+		sublabel: string;
+		enabled: boolean;
+		visible: boolean;
+		checked: boolean;
 	}
 
 	interface MenuItemOptions {
 		/**
 		 * Callback when the menu item is clicked.
 		 */
-		click?: Function;
-		/**
-		 * Call the selector of first responder when clicked (OS X only).
-		 */
-		selector?: string;
+		click?: (menuItem: MenuItem, browserWindow: BrowserWindow) => void;
 		/**
 		 * Can be normal, separator, submenu, checkbox or radio.
 		 */
-		type?: string;
+		type?: MenuItemType;
 		label?: string;
 		sublabel?: string;
 		/**
@@ -956,7 +1005,7 @@ declare namespace Electron {
 		/**
 		 * Define the action of the menu item, when specified the click property will be ignored
 		 */
-		role?: string;
+		role?: MenuItemRole | MenuItemRoleMac;
 	}
 
 	class BrowserWindowProxy {
