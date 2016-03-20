@@ -1320,6 +1320,13 @@ declare namespace Electron {
 		}
 	}
 
+	interface Modifiers {
+		altKey: boolean;
+		shiftKey: boolean;
+		ctrlKey: boolean;
+		metaKey: boolean;
+	}
+
     /**
      * A Tray represents an icon in an operating system's notification area.
      */
@@ -1334,6 +1341,61 @@ declare namespace Electron {
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
 		listenerCount(type: string): number;
+		/**
+		 * Emitted when the tray icon is clicked.
+		 * Note: The bounds payload is only implemented on OS X and Windows.
+		 */
+		on(event: 'click', listener: (modifiers: Modifiers, bounds: Bounds) => void): this;
+		/**
+		 * Emitted when the tray icon is right clicked.
+         * Note: This is only implemented on OS X and Windows.
+		 */
+		on(event: 'right-click', listener: (modifiers: Modifiers, bounds: Bounds) => void): this;
+		/**
+		 * Emitted when the tray icon is double clicked.
+		 * Note: This is only implemented on OS X and Windows.
+		 */
+		on(event: 'double-click', listener: (modifiers: Modifiers, bounds: Bounds) => void): this;
+		/**
+		 * Emitted when the tray balloon shows.
+		 * Note: This is only implemented on Windows.
+		 */
+		on(event: 'balloon-show', listener: Function): this;
+		/**
+		 * Emitted when the tray balloon is clicked.
+		 * Note: This is only implemented on Windows.
+		 */
+		on(event: 'balloon-click', listener: Function): this;
+		/**
+		 * Emitted when the tray balloon is closed because of timeout or user manually closes it.
+		 * Note: This is only implemented on Windows.
+		 */
+		on(event: 'balloon-closed', listener: Function): this;
+		/**
+		 * Emitted when any dragged items are dropped on the tray icon.
+		 * Note: This is only implemented on OS X.
+		 */
+		on(event: 'drop', listener: Function): this;
+		/**
+		 * Emitted when dragged files are dropped in the tray icon.
+		 * Note: This is only implemented on OS X
+		 */
+		on(event: 'drop-files', listener: (event: any, files: string[]) => void): this;
+		/**
+		 * Emitted when a drag operation enters the tray icon.
+		 * Note: This is only implemented on OS X
+		 */
+		on(event: 'drag-enter', listener: Function): this;
+		/**
+		 * Emitted when a drag operation exits the tray icon.
+		 * Note: This is only implemented on OS X
+		 */
+		on(event: 'drag-leave', listener: Function): this;
+		/**
+		 * Emitted when a drag operation ends on the tray or ends at another location.
+		 * Note: This is only implemented on OS X
+		 */
+		on(event: 'drag-end', listener: Function): this;
 		/**
 		 * Creates a new tray icon associated with the image.
 		 */
