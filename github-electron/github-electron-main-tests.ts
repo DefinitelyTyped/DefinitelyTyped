@@ -10,6 +10,7 @@ import {
 	Menu,
 	MenuItem,
 	powerMonitor,
+	powerSaveBlocker,
 	protocol,
 	Tray,
 	clipboard,
@@ -479,6 +480,14 @@ app.on('ready', () => {
 		console.log('The system is going to sleep');
 	});
 });
+
+// power-save-blocker
+// https://github.com/atom/electron/blob/master/docs/api/power-save-blocker.md
+
+var id = powerSaveBlocker.start('prevent-display-sleep');
+console.log(powerSaveBlocker.isStarted(id));
+
+powerSaveBlocker.stop(id);
 
 // protocol
 // https://github.com/atom/electron/blob/master/docs/api/protocol.md
