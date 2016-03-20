@@ -68,7 +68,7 @@ app.on('ready', () => {
 	mainWindow.webContents.addWorkSpace('/path/to/workspace');
 	mainWindow.webContents.removeWorkSpace('/path/to/workspace');
 	var opened: boolean = mainWindow.webContents.isDevToolsOpened()
-    var focused = mainWindow.webContents.isDevToolsFocused();
+	var focused = mainWindow.webContents.isDevToolsFocused();
 	// Emitted when the window is closed.
 	mainWindow.on('closed', () => {
 		// Dereference the window object, usually you would store windows
@@ -76,11 +76,6 @@ app.on('ready', () => {
 		// when you should delete the corresponding element.
 		mainWindow = null;
 	});
-
-	mainWindow.print({silent: true, printBackground: false});
-	mainWindow.webContents.print({silent: true, printBackground: false});
-	mainWindow.print();
-	mainWindow.webContents.print();
 
 	mainWindow.print({silent: true, printBackground: false});
 	mainWindow.webContents.print({silent: true, printBackground: false});
@@ -118,6 +113,35 @@ app.on('ready', () => {
 	mainWindow.webContents.stopFindInPage('clearSelection');
 	mainWindow.webContents.stopFindInPage('keepSelection');
 	mainWindow.webContents.stopFindInPage('activateSelection');
+
+	mainWindow.loadURL('https://github.com');
+
+	mainWindow.webContents.on('did-finish-load', function() {
+		mainWindow.webContents.savePage('/tmp/test.html', 'HTMLComplete', function(error) {
+		if (!error)
+			console.log("Save page successfully");
+		});
+	});
+
+	try {
+		mainWindow.webContents.debugger.attach("1.1");
+	} catch(err) {
+		console.log("Debugger attach failed : ", err);
+	};
+
+	mainWindow.webContents.debugger.on('detach', function(event, reason) {
+		console.log("Debugger detached due to : ", reason);
+	});
+
+	mainWindow.webContents.debugger.on('message', function(event, method, params) {
+		if (method == "Network.requestWillBeSent") {
+			if (params.request.url == "https://www.github.com") {
+				win.webContents.debugger.detach();
+			}
+		}
+	});
+
+	mainWindow.webContents.debugger.sendCommand("Network.enable");
 });
 
 // Locale
