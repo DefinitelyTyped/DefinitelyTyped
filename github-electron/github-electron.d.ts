@@ -57,17 +57,6 @@ declare namespace Electron {
 		isTemplateImage(): boolean;
 	}
 
-	namespace Clipboard {
-		/**
-		 * @returns The contents of the clipboard as a NativeImage.
-		 */
-		function readImage(type?: string): NativeImage;
-		/**
-		 * Writes the image into the clipboard.
-		 */
-		function writeImage(image: NativeImage, type?: string): void;
-	}
-
 	interface Display {
 		id:number;
 		bounds:Bounds;
@@ -1376,37 +1365,72 @@ declare namespace Electron {
 		setContextMenu(menu: Menu): void;
 	}
 
+	type ClipboardType = '' | 'selection';
+
+	/**
+	 * The clipboard module provides methods to perform copy and paste operations.
+	 */
 	interface Clipboard {
 		/**
 		 * @returns The contents of the clipboard as plain text.
 		 */
-		readText(type?: string): string;
+		readText(type?: ClipboardType): string;
 		/**
 		 * Writes the text into the clipboard as plain text.
 		 */
-		writeText(text: string, type?: string): void;
+		writeText(text: string, type?: ClipboardType): void;
+		/**
+		 * @returns The contents of the clipboard as markup.
+		 */
+		readHtml(type?: ClipboardType): string;
+		/**
+		 * Writes markup to the clipboard.
+		 */
+		writeHtml(markup: string, type?: ClipboardType): void;
 		/**
 		 * @returns The contents of the clipboard as a NativeImage.
 		 */
-		readImage: typeof Electron.Clipboard.readImage;
+		readImage(type?: ClipboardType): NativeImage;
 		/**
 		 * Writes the image into the clipboard.
 		 */
-		writeImage: typeof Electron.Clipboard.writeImage;
+		writeImage(image: NativeImage, type?: ClipboardType): void;
+		/**
+		 * @returns The contents of the clipboard as RTF.
+		 */
+		readRtf(type?: ClipboardType): string;
+		/**
+		 * Writes the text into the clipboard in RTF.
+		 */
+		writeRtf(text: string, type?: ClipboardType): void;
 		/**
 		 * Clears everything in clipboard.
 		 */
-		clear(type?: string): void;
+		clear(type?: ClipboardType): void;
 		/**
+		 * @returns Array available formats for the clipboard type.
+		 */
+		availableFormats(type?: ClipboardType): string[];
+		/**
+		 * Returns whether the clipboard supports the format of specified data.
 		 * Note: This API is experimental and could be removed in future.
 		 * @returns Whether the clipboard has data in the specified format.
 		 */
-		has(format: string, type?: string): boolean;
+		has(format: string, type?: ClipboardType): boolean;
 		/**
 		 * Reads the data in the clipboard of the specified format.
 		 * Note: This API is experimental and could be removed in future.
 		 */
-		read(format: string, type?: string): any;
+		read(format: string, type?: ClipboardType): any;
+		/**
+		 * Writes data to the clipboard.
+		 */
+		write(data: {
+			text?: string;
+			rtf?: string;
+			html?: string;
+			image?: NativeImage;
+		}, type?: ClipboardType): void;
 	}
 
 	interface CrashReporterStartOptions {
