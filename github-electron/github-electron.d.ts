@@ -1823,6 +1823,30 @@ declare namespace Electron {
 		RequestBufferJob: typeof RequestBufferJob;
 	}
 
+	/**
+	 * The power-monitor module is used to monitor power state changes.
+	 * You should not use this module until the ready event of the app module is emitted.
+	 */
+	interface PowerMonitor extends NodeJS.EventEmitter {
+		/**
+		 * Emitted when the system is suspending.
+		 */
+		on(event: 'suspend', listener: Function): this;
+		/**
+		 * Emitted when system is resuming.
+		 */
+		on(event: 'resume', listener: Function): this;
+		/**
+		 * Emitted when the system changes to AC power.
+		 */
+		on(event: 'on-ac', listener: Function): this;
+		/**
+		 * Emitted when system changes to battery power.
+		 */
+		on(event: 'on-battery', listener: Function): this;
+		on(event: string, listener: Function): this;
+	}
+
 	interface PowerSaveBlocker {
 		start(type: string): number;
 		stop(id: number): void;
@@ -1879,7 +1903,7 @@ declare namespace Electron {
 		globalShortcut: Electron.GlobalShortcut;
 		Menu: typeof Electron.Menu;
 		MenuItem: typeof Electron.MenuItem;
-		powerMonitor: NodeJS.EventEmitter;
+		powerMonitor: Electron.PowerMonitor;
 		powerSaveBlocker: Electron.PowerSaveBlocker;
 		protocol: Electron.Protocol;
 		screen: Electron.Screen;
