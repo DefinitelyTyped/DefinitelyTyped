@@ -560,6 +560,18 @@ app.on('ready', () => {
 			y: externalDisplay.bounds.y + 50,
 		});
 	}
+
+	screen.on('display-added', (event, display) => {
+		console.log('display-added', display);
+	});
+
+	screen.on('display-removed', (event, display) => {
+		console.log('display-removed', display);
+	});
+
+	screen.on('display-metrics-changed', (event, display, changes) => {
+		console.log('display-metrics-changed', display, changes);
+	});
 });
 
 // shell
