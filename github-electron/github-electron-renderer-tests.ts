@@ -50,11 +50,27 @@ remote.getCurrentWindow().capturePage(buf => {
 // https://github.com/atom/electron/blob/master/docs/api/web-frame.md
 
 webFrame.setZoomFactor(2);
+console.log(webFrame.getZoomFactor());
+
+webFrame.setZoomLevel(200);
+console.log(webFrame.getZoomLevel());
+
+webFrame.setZoomLevelLimits(50, 200);
 
 webFrame.setSpellCheckProvider('en-US', true, {
 	spellCheck: text => {
 		return !(require('spellchecker').isMisspelled(text));
 	}
+});
+
+webFrame.registerURLSchemeAsSecure('app');
+webFrame.registerURLSchemeAsBypassingCSP('app');
+webFrame.registerURLSchemeAsPrivileged('app');
+
+webFrame.insertText('text');
+
+webFrame.executeJavaScript('JSON.stringify({})', false, (result) => {
+    console.log(result);
 });
 
 // clipboard
