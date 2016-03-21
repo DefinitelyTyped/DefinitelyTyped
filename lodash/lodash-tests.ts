@@ -4364,6 +4364,47 @@ namespace TestKeyBy {
     }
 }
 
+//_.invoke
+namespace TestInvoke {
+    let nestedDict: _.Dictionary<Array<number>> = {
+        a: [0, 1, 2]
+    }
+    let numDict: _.Dictionary<number> = {
+        a: 1,
+        b: 2,
+        c: 3,
+        d: 4
+    }
+
+    let result: any;
+    result = _.invoke<number>(numDict, "a.toString");
+    result = _.invoke<number>(numDict, "a.toString", 2);
+    result = _.invoke<number>(numDict, ["a", "toString"]);
+    result = _.invoke<number>(numDict, ["a", "toString"], 2);
+    result = _.invoke<Array<number>>(nestedDict, ["a[0].toString"]);
+    result = _.invoke<Array<number>>(nestedDict, ["a[0].toString"], 2);
+    result = _.invoke<Array<number>>(nestedDict, ["a", 0, "toString"]);
+    result = _.invoke<Array<number>>(nestedDict, ["a", 0, "toString"], 2);
+
+    result = _(numDict).invoke("a.toString");
+    result = _(numDict).invoke("a.toString", 2);
+    result = _(numDict).invoke(["a", "toString"]);
+    result = _(numDict).invoke(["a", "toString"], 2);
+    result = _(nestedDict).invoke("a[0].toString");
+    result = _(nestedDict).invoke("a[0].toString", 2);
+    result = _(nestedDict).invoke(["a", 0, "toString"]);
+    result = _(nestedDict).invoke(["a", 0, "toString"], 2);
+
+    result = _(numDict).chain().invoke("a.toString");
+    result = _(numDict).chain().invoke("a.toString", 2);
+    result = _(numDict).chain().invoke(["a", "toString"]);
+    result = _(numDict).chain().invoke(["a", "toString"], 2);
+    result = _(nestedDict).chain().invoke("a[0].toString");
+    result = _(nestedDict).chain().invoke("a[0].toString", 2);
+    result = _(nestedDict).chain().invoke(["a", 0, "toString"]);
+    result = _(nestedDict).chain().invoke(["a", 0, "toString"], 2);
+}
+
 //_.invokeMap
 namespace TestInvokeMap {
     let numArray = [4, 2, 1, 3]
