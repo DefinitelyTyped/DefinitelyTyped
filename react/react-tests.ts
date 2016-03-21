@@ -138,6 +138,8 @@ class ModernComponent extends React.Component<Props, State>
     }
 }
 
+class ModernComponentNoProps extends React.Component<Props, void> {}
+
 interface SCProps {
     foo?: number;
 }
