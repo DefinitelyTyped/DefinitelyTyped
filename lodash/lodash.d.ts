@@ -7831,6 +7831,38 @@ declare module _ {
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
     }
 
+    //_.invoke
+    interface LoDashStatic {
+        /**
+        * Invokes the method at path of object.
+        * @param object The object to query.
+        * @param path The path of the method to invoke.
+        * @param args The arguments to invoke the method with.
+        **/
+        invoke<TValue>(
+            object: Dictionary<TValue>,
+            path: string | Array<string | number>,
+            ...args: any[]): any;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+        * @see _.invoke
+        **/
+        invoke(
+            path: string | Array<string | number>,
+            ...args: any[]): any;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+        * @see _.invoke
+        **/
+        invoke(
+            path: string | Array<string | number>,
+            ...args: any[]): any;
+    }
+
     //_.invokeMap
     interface LoDashStatic {
         /**
