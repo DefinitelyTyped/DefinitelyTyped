@@ -156,6 +156,7 @@ function Argv$env() {
 	var argv = yargs
 		.env('YARGS_PREFIX_')
 		.env()
+		.env(true);
 }
 
 function Argv$array() {

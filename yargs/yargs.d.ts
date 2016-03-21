@@ -95,6 +95,7 @@ declare module "yargs" {
 			help(option: string, description?: string): Argv;
 			
 			env(prefix?: string): Argv;
+			env(enable: boolean): Argv;
 
 			epilog(msg: string): Argv;
 			epilogue(msg: string): Argv;
