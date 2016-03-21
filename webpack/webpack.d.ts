@@ -147,7 +147,7 @@ declare module "webpack" {
 
         interface Resolve {
             /** Replace modules by other modules or paths. */
-            alias: { [key: string]: string; };
+            alias?: { [key: string]: string; };
             /**
              * The directory (absolute path) that contains your modules.
              * May also be an array of directories.
@@ -536,4 +536,3 @@ declare module "webpack" {
     //export default webpack;
     export = webpack;
 }
-
