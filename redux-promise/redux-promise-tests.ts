@@ -1,9 +1,7 @@
 /// <reference path="redux-promise.d.ts" />
 /// <reference path="../redux/redux.d.ts" />
 /// <reference path="../redux-actions/redux-actions.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
 
-import {Promise} from 'es6-promise';
 import {createAction} from 'redux-actions';
 import { createStore, applyMiddleware } from 'redux';
 import promise from 'redux-promise';
