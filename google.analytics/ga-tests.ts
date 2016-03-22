@@ -23,6 +23,16 @@ describe('UniversalAnalytics', () => {
         ga('create', 'UA-65432-1', 'auto', {some: 'config'});
         ga('send', 'pageview');
         ga('send', 'pageview', {some: 'details'});
+        ga('send', 'event', 'Videos', 'play', 'Fall Campaign');
+        ga('send', {hitType: 'event', eventCategory: 'Videos', eventAction: 'play', eventLabel: 'Fall Campaign'});
+        ga('send', 'event', 'Videos', 'play', 'Fall Campaign', {nonInteraction: true});
+        ga('send', 'pageview', '/page');
+        ga('send', 'social', {'socialNetwork': 'facebook', 'socialAction': 'like', 'socialTarget': 'http://foo.com'});
+        ga('send', 'social', {'socialNetwork': 'google+', 'socialAction': 'plus', 'socialTarget': 'http://foo.com'});
+        ga('send', 'timing', {'timingCategory': 'category', 'timingVar': 'lookup', 'timingValue': 123});
+        ga('send', 'timing', {'timingCategory': 'category', 'timingVar': 'lookup', 'timingValue': 123, 'timingLabel': 'label'});
+        ga('trackerName.send', 'event', 'load');
+
         ga.create('UA-65432-1', 'auto');
         ga.create('UA-65432-1', {some: 'config'});
         ga.create('UA-65432-1', 'auto', {some: 'config'});
@@ -30,7 +40,7 @@ describe('UniversalAnalytics', () => {
         ga.getByName('aNamedTracker');
     });
     it('should excercise Tracker APIs', () => {
-        var tracker: UniversalAnalytics.Tracker = ga('create', 'UA-65432-1', 'auto');
+        var tracker: UniversalAnalytics.Tracker = ga.create('UA-65432-1', 'auto');
         var aString: string = tracker.get<string>('aString');
         var aNumber: number = tracker.get<number>('aNumber');
         var anObject: {} = tracker.get<{}>('anObject');

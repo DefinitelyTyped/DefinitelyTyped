@@ -30,7 +30,7 @@ import { Observable, ObservablePool, Stream, Property, Event, Emitter } from 'ke
 	let stream10: Stream<number, void> = Kefir.stream<number, void>(emitter => {
 		let count = 0;
 		emitter.emit(count);
-	
+
 		let intervalId = setInterval(() => {
 			count++;
 			if (count < 4) {
@@ -39,7 +39,7 @@ import { Observable, ObservablePool, Stream, Property, Event, Emitter } from 'ke
 				emitter.end();
 			}
 		}, 1000);
-	
+
 		return () => clearInterval(intervalId);
 	});
 }
@@ -77,6 +77,7 @@ import { Observable, ObservablePool, Stream, Property, Event, Emitter } from 'ke
 	let observable01: Stream<number, void> = Kefir.sequentially(100, [1, 2, 3]).map(x => x + 1);
 	let observable02: Stream<number, void> = Kefir.sequentially(100, [1, 2, 3]).filter(x => x > 1);
 	let observable03: Stream<number, void> = Kefir.sequentially(100, [1, 2, 3]).take(2);
+	let observable29: Stream<number, void> = Kefir.sequentially(100, [1, 2, 3]).takeErrors(2);
 	let observable04: Stream<number, void> = Kefir.sequentially(100, [1, 2, 3]).takeWhile(x => x < 3);
 	let observable05: Stream<number, void> = Kefir.sequentially(100, [1, 2, 3]).last();
 	let observable06: Stream<number, void> = Kefir.sequentially(100, [1, 2, 3]).skip(2);
@@ -103,14 +104,16 @@ import { Observable, ObservablePool, Stream, Property, Event, Emitter } from 'ke
 	}).endOnError();
 	let observable22: Stream<void, number> = Kefir.sequentially(100, [0, -1, 2, -3]).valuesToErrors(x => {
 		return {convert: x < 0, error: x};
-	}).skipValues();
+	}).ignoreValues();
 	let observable23: Stream<void, void> = Kefir.sequentially(100, [0, -1, 2, -3]).valuesToErrors(x => {
 		return {convert: x < 0, error: x};
-	}).skipErrors();
-	let observable24: Stream<number, void> = Kefir.sequentially(100, [1, 2, 3]).skipEnd();
+	}).ignoreErrors();
+	let observable24: Stream<number, void> = Kefir.sequentially(100, [1, 2, 3]).ignoreEnd();
 	let ovservable25: Stream<number, void> = Kefir.sequentially(100, [1, 2, 3]).beforeEnd(() => 0);
 	let observable26: Stream<number[], void> = Kefir.sequentially(100, [1, 2, 3, 4, 5]).slidingWindow(3, 2)
 	let observable27: Stream<number[], void> = Kefir.sequentially(100, [1, 2, 3, 4, 5]).bufferWhile(x => x !== 3);
+	let observable30: Stream<number[], void> = Kefir.sequentially(100, [1, 2, 3, 4, 5]).bufferWithCount(2);
+	let observable31: Stream<number[], void> = Kefir.sequentially(100, [1, 2, 3, 4, 5]).bufferWithTimeOrCount(330, 10);
 	{
 		var myTransducer: any;
 		let observable28: Stream<number, void> = Kefir.sequentially(100, [1, 2, 3, 4, 5, 6]).transduce<number>(myTransducer);

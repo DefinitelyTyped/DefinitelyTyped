@@ -1,9 +1,9 @@
 // Type definitions for GeoJSON Format Specification
 // Project: http://geojson.org/
 // Definitions by: Jacob Bruun <https://github.com/cobster/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module GeoJSON {
+declare namespace GeoJSON {
 
     /***
     * http://geojson.org/geojson-spec.html#geojson-objects
@@ -14,7 +14,7 @@ declare module GeoJSON {
         bbox?: number[];
         crs?: CoordinateReferenceSystem;
     }
-        
+
     /***
     * http://geojson.org/geojson-spec.html#positions
     */
@@ -108,12 +108,12 @@ declare module GeoJSON {
     /***
     * http://geojson.org/geojson-spec.html#coordinate-reference-system-objects
     */
-    export interface CoordinateReferenceSystem 
+    export interface CoordinateReferenceSystem
     {
         type: string;
         properties: any;
     }
-	
+
     export interface NamedCoordinateReferenceSystem extends CoordinateReferenceSystem
     {
         properties: { name: string }

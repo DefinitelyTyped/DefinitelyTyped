@@ -8,28 +8,19 @@
 
     var renderer, scene, camera, stats;
 
-    var sphere, uniforms, attributes;
+    var sphere, uniforms;
 
-    var noise = [];
-
-    var WIDTH = window.innerWidth,
-        HEIGHT = window.innerHeight;
+    var displacement, noise;
 
     init();
     animate();
 
     function init() {
 
-        camera = new THREE.PerspectiveCamera(30, WIDTH / HEIGHT, 1, 10000);
+        camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 10000);
         camera.position.z = 300;
 
         scene = new THREE.Scene();
-
-        attributes = {
-
-            displacement: { type: 'f', value: [] }
-
-        };
 
         uniforms = {
 
@@ -44,7 +35,6 @@
         var shaderMaterial = new THREE.ShaderMaterial({
 
             uniforms: uniforms,
-            attributes: attributes,
             vertexShader: document.getElementById('vertexshader').textContent,
             fragmentShader: document.getElementById('fragmentshader').textContent
 
@@ -52,27 +42,27 @@
 
 
         var radius = 50, segments = 128, rings = 64;
-        var geometry = new THREE.SphereGeometry(radius, segments, rings);
-        geometry.dynamic = true;
 
-        sphere = new THREE.Mesh(geometry, shaderMaterial);
+        var geometry = new THREE.SphereBufferGeometry( radius, segments, rings );
 
-        var vertices = sphere.geometry.vertices;
-        var values = attributes.displacement.value;
+        displacement = new Float32Array( geometry.attributes["position"].count );
+        noise = new Float32Array( geometry.attributes["position"].count );
 
-        for (var v = 0; v < vertices.length; v++) {
+        for ( var i = 0; i < displacement.length; i ++ ) {
 
-            values[v] = 0;
-            noise[v] = Math.random() * 5;
+            noise[ i ] = Math.random() * 5;
 
         }
 
+        geometry.addAttribute( 'displacement', new THREE.BufferAttribute( displacement, 1 ) );
+
+        sphere = new THREE.Mesh(geometry, shaderMaterial);
         scene.add(sphere);
 
         renderer = new THREE.WebGLRenderer();
         renderer.setClearColor(0x050505);
         renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(WIDTH, HEIGHT);
+        renderer.setSize(window.innerWidth, window.innerHeight);
 
         var container = document.getElementById('container');
         container.appendChild(renderer.domElement);
@@ -114,19 +104,19 @@
 
         uniforms.amplitude.value = 2.5 * Math.sin(sphere.rotation.y * 0.125);
         uniforms.color.value.offsetHSL(0.0005, 0, 0);
-
-        for (var i = 0; i < attributes.displacement.value.length; i++) {
-
-            attributes.displacement.value[i] = Math.sin(0.1 * i + time);
-
-            noise[i] += 0.5 * (0.5 - Math.random());
-            noise[i] = THREE.Math.clamp(noise[i], -5, 5);
-
-            attributes.displacement.value[i] += noise[i];
-
+        
+        for ( var i = 0; i < displacement.length; i ++ ) {
+        
+            displacement[ i ] = Math.sin( 0.1 * i + time );
+            
+            noise[ i ] += 0.5 * ( 0.5 - Math.random() );
+            noise[ i ] = THREE.Math.clamp( noise[ i ], -5, 5 );
+            
+            displacement[ i ] += noise[ i ];
+        
         }
 
-        attributes.displacement.needsUpdate = true;
+        sphere.geometry.attributes.displacement.needsUpdate = true;
 
         renderer.render(scene, camera);
 

@@ -1,11 +1,9 @@
 // Type definitions for stacktrace.js
 // Project: https://github.com/stacktracejs/stacktrace.js
 // Definitions by: Exceptionless <https://github.com/exceptionless>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../es6-promise/es6-promise.d.ts"/>
-
-declare module StackTrace {
+declare namespace StackTrace {
   export interface StackTraceOptions {
     filter?: (stackFrame:StackFrame) => boolean;
     sourceCache?: { URL:string };
@@ -63,4 +61,13 @@ declare module StackTrace {
    * @param fn {Function}
    */
   export function deinstrument(fn:() => void): void;
+
+  /**
+   * Given an Array of StackFrames, serialize and POST to given URL.
+   *
+   * @param stackframes - Array[StackFrame]
+   * @param url - URL as String
+   * @return Promise<any>
+   */
+  export function report(stackframes: StackFrame[], url: string): Promise<any>;
 }

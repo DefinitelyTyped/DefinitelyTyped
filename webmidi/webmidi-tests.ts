@@ -1,5 +1,4 @@
 /// <reference path="webmidi.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
 
 if (navigator.requestMIDIAccess !== undefined) {
     navigator.requestMIDIAccess().then(onSuccessCallback, onErrorCallback);

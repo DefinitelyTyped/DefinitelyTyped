@@ -1,12 +1,12 @@
 // Type definitions for cookie.js v1.0.0
 // Project: https://github.com/js-coder/cookie.js
 // Definitions by: Boltmade <https://github.com/Boltmade>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function cookie(key : string, fallback?: string) : string;
 declare function cookie(keys : string[], fallback?: string) : string;
 
-declare module cookie {
+declare namespace cookie {
   export function set(key : string, value : string, options? : any) : void;
   export function set(obj : any, options? : any) : void;
   export function remove(key : string) : void;
