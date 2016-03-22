@@ -1,7 +1,7 @@
 // Type definitions for Lo-Dash
 // Project: http://lodash.com/
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /**
@@ -2506,6 +2506,13 @@ declare module _ {
         last<T>(array: List<T>): T;
     }
 
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.last
+         */
+        last(): string;
+    }
+
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.last
@@ -2520,18 +2527,25 @@ declare module _ {
         last<T>(): T;
     }
 
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.last
+         */
+        last(): LoDashExplicitWrapper<string>;
+    }
+
     interface LoDashExplicitArrayWrapper<T> {
         /**
          * @see _.last
          */
-        last(): LoDashExplicitArrayWrapper<T>;
+        last<T>(): T;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.last
          */
-        last<T>(): LoDashExplicitObjectWrapper<T>;
+        last<T>(): T;
     }
 
     //_.lastIndexOf
@@ -12267,6 +12281,56 @@ declare module _ {
         isUndefined(): LoDashExplicitWrapper<boolean>;
     }
 
+    //_.isWeakMap
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a WeakMap object.
+         *
+         * @param value The value to check.
+         * @returns Returns true if value is correctly classified, else false.
+         */
+        isWeakMap<K, V>(value?: any): value is WeakMap<K, V>;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isSet
+         */
+        isWeakMap(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isSet
+         */
+        isWeakMap(): LoDashExplicitWrapper<boolean>;
+    }
+
+    //_.isWeakSet
+    interface LoDashStatic {
+        /**
+         * Checks if value is classified as a WeakSet object.
+         *
+         * @param value The value to check.
+         * @returns Returns true if value is correctly classified, else false.
+         */
+        isWeakSet<T>(value?: any): value is WeakSet<T>;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isWeakSet
+         */
+        isWeakSet(): boolean;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.isWeakSet
+         */
+        isWeakSet(): LoDashExplicitWrapper<boolean>;
+    }
+
     //_.lt
     interface LoDashStatic {
         /**
@@ -16415,6 +16479,87 @@ declare module _ {
         unset(path: StringRepresentable|StringRepresentable[]): LoDashExplicitWrapper<boolean>;
     }
 
+    //_.update
+    interface LoDashStatic {
+        /**
+         * This method is like _.set except that accepts updater to produce the value to set. Use _.updateWith to
+         * customize path creation. The updater is invoked with one argument: (value).
+         *
+         * @param object The object to modify.
+         * @param path The path of the property to set.
+         * @param updater The function to produce the updated value.
+         * @return Returns object.
+         */
+        update<TResult>(
+            object: Object,
+            path: StringRepresentable|StringRepresentable[],
+            updater: Function
+        ): TResult;
+
+        /**
+         * @see _.update
+         */
+        update<U extends Function, TResult>(
+            object: Object,
+            path: StringRepresentable|StringRepresentable[],
+            updater: U
+        ): TResult;
+
+        /**
+         * @see _.update
+         */
+        update<O extends {}, TResult>(
+            object: O,
+            path: StringRepresentable|StringRepresentable[],
+            updater: Function
+        ): TResult;
+
+        /**
+         * @see _.update
+         */
+        update<O, U extends Function, TResult>(
+            object: O,
+            path: StringRepresentable|StringRepresentable[],
+            updater: U
+        ): TResult;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.update
+         */
+        update<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            updater: any
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.update
+         */
+        update<U extends Function, TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            updater: U
+        ): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.update
+         */
+        update<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            updater: any
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.update
+         */
+        update<U extends Function, TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            updater: U
+        ): LoDashExplicitObjectWrapper<TResult>;
+    }
+
     //_.values
     interface LoDashStatic {
         /**
@@ -18487,3 +18632,5 @@ declare module "lodash" {
 // Backward compatibility with --target es5
 interface Set<T> {}
 interface Map<K, V> {}
+interface WeakSet<T> {}
+interface WeakMap<K, V> {}

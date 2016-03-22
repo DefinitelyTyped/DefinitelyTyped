@@ -3,7 +3,7 @@
 // Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module HubSpotPaceInterfaces {
+declare namespace HubSpotPaceInterfaces {
     interface PaceOptions {
         /**
          * How long should it take for the bar to animate to a new point after receiving it

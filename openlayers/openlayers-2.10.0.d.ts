@@ -1,9 +1,9 @@
 // Type definitions for OpenLayers.js 2.10
 // Project: https://github.com/openlayers/openlayers
 // Definitions by: Ilya Bolkhovsky <https://github.com/bolhovsky>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module OpenLayers {
+declare namespace OpenLayers {
 
     export interface MapOptions {
 
@@ -131,7 +131,7 @@ declare module OpenLayers {
          * (end)
          *
          * Parameters:
-         *  object - {Object}     
+         *  object - {Object}
          */
         on(object: any): void;
 
@@ -140,23 +140,23 @@ declare module OpenLayers {
          * Register an event on the events object.
          *
          * When the event is triggered, the 'func' function will be called, in the
-         * context of 'obj'. Imagine we were to register an event, specifying an 
-         * OpenLayers.Bounds Object as 'obj'. When the event is triggered, the 
+         * context of 'obj'. Imagine we were to register an event, specifying an
+         * OpenLayers.Bounds Object as 'obj'. When the event is triggered, the
          * context in the callback function will be our Bounds object. This means
-         * that within our callback function, we can access the properties and 
-         * methods of the Bounds object through the "this" variable. So our 
-         * callback could execute something like: 
+         * that within our callback function, we can access the properties and
+         * methods of the Bounds object through the "this" variable. So our
+         * callback could execute something like:
          * :    leftStr = "Left: " + this.left;
-         *   
+         *
          *                   or
-         *  
+         *
          * :    centerStr = "Center: " + this.getCenterLonLat();
          *
          * Parameters:
          * type - {String} Name of the event to register
          * obj - {Object} The object to bind the context to for the callback#.
          *     If no object is specified, default is the Events's 'object' property.
-         * func - {Function} The callback function. If no callback is 
+         * func - {Function} The callback function. If no callback is
          *     specified, this function does nothing.
          * priority - {Boolean|Object} If true, adds the new listener to the
          *     *front* of the events queue instead of to the end.
@@ -172,17 +172,17 @@ declare module OpenLayers {
          * APIMethod: registerPriority
          * Same as register() but adds the new listener to the *front* of the
          *     events queue instead of to the end.
-         *    
-         *     TODO: get rid of this in 3.0 - Decide whether listeners should be 
+         *
+         *     TODO: get rid of this in 3.0 - Decide whether listeners should be
          *     called in the order they were registered or in reverse order.
          *
          *
          * Parameters:
          * type - {String} Name of the event to register
          * obj - {Object} The object to bind the context to for the callback#.
-         *                If no object is specified, default is the Events's 
+         *                If no object is specified, default is the Events's
          *                'object' property.
-         * func - {Function} The callback function. If no callback is 
+         * func - {Function} The callback function. If no callback is
          *                   specified, this function does nothing.
          */
         registerPriority(type: string, obj: any, func: () => void): void;
@@ -219,28 +219,28 @@ declare module OpenLayers {
          * APIMethod: unregister
          *
          * Parameters:
-         * type - {String} 
+         * type - {String}
          * obj - {Object} If none specified, defaults to this.object
-         * func - {Function} 
+         * func - {Function}
          */
         unregister(type: string, obj: any, func: () => void): void;
 
-        /** 
+        /**
          * Method: remove
          * Remove all listeners for a given event type. If type is not registered,
          *     does nothing.
          *
          * Parameters:
-         * type - {String} 
+         * type - {String}
          */
         remove(type: string): void;
 
         /**
          * APIMethod: triggerEvent
-         * Trigger a specified registered event.  
-         * 
+         * Trigger a specified registered event.
+         *
          * Parameters:
-         * type - {String} 
+         * type - {String}
          * evt - {Event || Object} will be passed to the listeners.
          *
          * Returns:
@@ -251,21 +251,21 @@ declare module OpenLayers {
 
         /**
          * Method: handleBrowserEvent
-         * Basically just a wrapper to the triggerEvent() function, but takes 
-         *     care to set a property 'xy' on the event with the current mouse 
+         * Basically just a wrapper to the triggerEvent() function, but takes
+         *     care to set a property 'xy' on the event with the current mouse
          *     position.
          *
          * Parameters:
-         * evt - {Event} 
+         * evt - {Event}
          */
         handleBrowserEvent(evt: Event): void;
 
         /**
          * Method: getMousePosition
-         * 
+         *
          * Parameters:
-         * evt - {Event} 
-         * 
+         * evt - {Event}
+         *
          * Returns:
          * {<OpenLayers.Pixel>} The current xy coordinate of the mouse, adjusted
          *                      for offsets
@@ -391,7 +391,7 @@ declare module OpenLayers {
         map: Map;
 
         /**
-         * Whether or not the layer is a base layer. This should be set 
+         * Whether or not the layer is a base layer. This should be set
          *      individually by all subclasses. Default is false
          */
         isBaseLayer: boolean;
@@ -550,7 +550,7 @@ declare module OpenLayers {
 
         /**
          * This object can be used to store additional information on a
-         * layer object. 
+         * layer object.
          */
         metadata: Object;
 
@@ -1257,14 +1257,14 @@ declare module OpenLayers {
         /**
          * Scales the bounds around a pixel or lonlat. Note that the new
          * bounds may return non-integer properties, even if a pixel
-         * is passed. 
+         * is passed.
          */
         scale(ratio: number, origin?: Pixel): void;
 
         /**
          * Scales the bounds around a pixel or lonlat. Note that the new
          * bounds may return non-integer properties, even if a pixel
-         * is passed. 
+         * is passed.
          */
         scale(ratio: number, origin?: LonLat): void;
 
@@ -1387,17 +1387,17 @@ declare module OpenLayers {
           */
         clone(): LonLat;
 
-        /**   
+        /**
           * A new OpenLayers.LonLat object with the lon and lat passed-in added to this’s.
           */
         add(lon: number, lat: number): LonLat;
 
-        /**   
+        /**
           * Boolean value indicating whether the passed-in OpenLayers.LonLat object has the same lon and lat components as this.  Note: if ll passed in is null, returns false.
           */
         equals(ll: LonLat): boolean;
 
-        /**   
+        /**
           * Transform the LonLat object from source to dest.  This transformation is in place: if you want a new lonlat, use .clone() first.
           */
         transform(source: Projection, dest: Projection): LonLat;
@@ -2907,7 +2907,7 @@ declare module OpenLayers {
         CLASS_NAME: string;
     }
 
-    module Geometry {
+    namespace Geometry {
 
         export class Collection extends Geometry {
             /**
@@ -3149,7 +3149,7 @@ declare module OpenLayers {
         }
     }
 
-    module Control {
+    namespace Control {
         export class ArgParser {
 
             // TODO
@@ -3425,7 +3425,7 @@ declare module OpenLayers {
         }
     }
 
-    module Events {
+    namespace Events {
         export class buttonclick extends OpenLayers.Class {
 
             // TODO
@@ -3439,7 +3439,7 @@ declare module OpenLayers {
         }
     }
 
-    module Feature {
+    namespace Feature {
         export class Vector {
 
             // TODO
@@ -3447,7 +3447,7 @@ declare module OpenLayers {
         }
     }
 
-    module Filter {
+    namespace Filter {
         export class Comparison {
 
             // TODO
@@ -3479,7 +3479,7 @@ declare module OpenLayers {
         }
     }
 
-    module Format {
+    namespace Format {
         export class ArcXML {
             constructor();
         }
@@ -3623,7 +3623,7 @@ declare module OpenLayers {
             // TODO
         }
 
-        module ArcXML {
+        namespace ArcXML {
             export class Features extends OpenLayers.Class {
 
                 // TODO
@@ -3631,123 +3631,123 @@ declare module OpenLayers {
             }
         }
 
-        module CSWGetDomain {
+        namespace CSWGetDomain {
             export class v2_0_2 {
                 // TODO
             }
         }
 
-        module CSWGetRecords {
+        namespace CSWGetRecords {
             export class v2_0_2 {
                 // TODO
             }
         }
 
-        module Filter {
+        namespace Filter {
 
             // TODO
 
         }
 
-        module GML {
+        namespace GML {
 
             // TODO
 
         }
 
-        module OWSCommon {
+        namespace OWSCommon {
 
             // TODO
 
         }
 
-        module OWSContext {
+        namespace OWSContext {
 
             // TODO
 
         }
 
-        module SLD {
+        namespace SLD {
 
             // TODO
 
         }
 
-        module SOSCapabilities {
+        namespace SOSCapabilities {
 
             // TODO
 
         }
 
-        module WCSCapabilities {
+        namespace WCSCapabilities {
 
             // TODO
 
         }
 
-        module WCSDescribeCoverage {
+        namespace WCSDescribeCoverage {
 
             // TODO
 
         }
 
-        module WFSCapabilities {
+        namespace WFSCapabilities {
 
             // TODO
 
         }
 
-        module WFST {
+        namespace WFST {
 
             // TODO
 
         }
 
-        module WMC {
+        namespace WMC {
 
             // TODO
 
         }
 
-        module WMSCapabilities {
+        namespace WMSCapabilities {
 
             // TODO
 
 
         }
 
-        module WMSDescribeLayer {
+        namespace WMSDescribeLayer {
 
             // TODO
 
         }
 
-        module WMTSCapabilities {
+        namespace WMTSCapabilities {
 
             // TODO
 
         }
 
-        module WPSCapabilities {
+        namespace WPSCapabilities {
 
             // TODO
 
         }
 
-        module XLS {
+        namespace XLS {
 
             // TODO
 
         }
 
-        module XML {
+        namespace XML {
 
             // TODO
 
         }
     }
 
-    module Handler {
+    namespace Handler {
         export class Box {
 
             // TODO
@@ -3821,11 +3821,11 @@ declare module OpenLayers {
         }
     }
 
-    module Lang {
+    namespace Lang {
 
     }
 
-    module Layer {
+    namespace Layer {
         export interface WMSGetMapParams {
             version?: string;
             exceptions?: string;
@@ -4800,7 +4800,7 @@ declare module OpenLayers {
              * If true, the image format will not be automagicaly switched
              * from image/jpeg to image/png or image/gif when using
              * TRANSPARENT=TRUE. Also isBaseLayer will not changed by the
-             * constructor. Default false. 
+             * constructor. Default false.
              */
             noMagic: boolean;
 
@@ -5011,26 +5011,26 @@ declare module OpenLayers {
             // TODO
         }
 
-        module Google {
+        namespace Google {
             export class v3 {
                 // TODO
             }
         }
 
-        module Vector {
+        namespace Vector {
             export class RootContainer {
                 // TODO
             }
         }
     }
 
-    module Marker {
+    namespace Marker {
         export class Box {
             // TODO
         }
     }
 
-    module Popup {
+    namespace Popup {
         export class Anchored {
             // TODO
         }
@@ -5042,7 +5042,7 @@ declare module OpenLayers {
         }
     }
 
-    module Protocol {
+    namespace Protocol {
         export class CSW {
             // TODO
         }
@@ -5059,26 +5059,26 @@ declare module OpenLayers {
             // TODO
         }
 
-        module CSW {
+        namespace CSW {
             export class v2_0_2 {
                 // TODO
             }
         }
 
-        module SOS {
+        namespace SOS {
             export class v1_0_0 {
                 // TODO
             }
         }
 
-        module WFS {
+        namespace WFS {
             export class v2_0_0 {
                 // TODO
             }
         }
     }
 
-    module Renderer {
+    namespace Renderer {
         export class Canvas {
             // TODO
         }
@@ -5093,13 +5093,13 @@ declare module OpenLayers {
         }
     }
 
-    module Request {
+    namespace Request {
         export class XMLHttpRequest {
             // TODO
         }
     }
 
-    module Strategy {
+    namespace Strategy {
         export class BBOX {
             // TODO
         }
@@ -5123,7 +5123,7 @@ declare module OpenLayers {
         }
     }
 
-    module Symbolizer {
+    namespace Symbolizer {
         export class Line {
             // TODO
         }
@@ -5141,7 +5141,7 @@ declare module OpenLayers {
         }
     }
 
-    module Tile {
+    namespace Tile {
         export class Image {
             // TODO
         }
@@ -5149,14 +5149,14 @@ declare module OpenLayers {
             // TODO
         }
 
-        module Image {
+        namespace Image {
             export class IFrame {
                 // TODO
             }
         }
     }
 
-    module Util {
+    namespace Util {
         export class vendorPrefix {
             // TODO
         }

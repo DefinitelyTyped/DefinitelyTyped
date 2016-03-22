@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module Electron {
+declare namespace Electron {
 	/**
 	 * This class is used to represent an image.
 	 */
@@ -57,7 +57,7 @@ declare module Electron {
 		isTemplateImage(): boolean;
 	}
 
-	module Clipboard {
+	namespace Clipboard {
 		/**
 		 * @returns The contents of the clipboard as a NativeImage.
 		 */
@@ -415,6 +415,7 @@ declare module Electron {
 		loadURL(url: string, options?: {
 			httpReferrer?: string;
 			userAgent?: string;
+			extraHeaders?: string;
 		}): void;
 		/**
 		 * Same with webContents.reload.
@@ -537,6 +538,14 @@ declare module Electron {
 		height?: number;
 	}
 
+	interface FindInPageOptions {
+		forward?: boolean;
+		findNext?: boolean;
+		matchCase?: boolean;
+		wordStart?: boolean;
+		medialCapitalAsWordStart?: boolean;
+	}
+
 	/**
 	 * A WebContents is responsible for rendering and controlling a web page.
 	 */
@@ -558,6 +567,7 @@ declare module Electron {
 		loadURL(url: string, options?: {
 			httpReferrer?: string;
 			userAgent?: string;
+			extraHeaders?: string;
 		}): void;
 		/**
 		 * @returns The URL of current web page.
@@ -677,6 +687,26 @@ declare module Electron {
 		 * Executes Edit -> Replace Misspelling command in page.
 		 */
 		replaceMisspelling(text: string): void;
+		/**
+		 * Inserts text to the focused element.
+		 */
+		insertText(text: string): void;
+		/**
+		 * Starts a request to find all matches for the text in the web page and
+		 * returns an Integer representing the request id used for the request.
+		 * The result of the request can be obtained by subscribing to
+		 * found-in-page event.
+		 */
+		findInPage(text: string, options?: FindInPageOptions): void;
+		/**
+		 * Stops any findInPage request for the webContents with the provided
+		 * action.
+		 * @param action Specifies the action to take place when ending webContents.findInPage request.
+		 *   'clearSelection' - Translate the selection into a normal selection.
+		 *   'keepSelection' - Clear the selection.
+		 *   'activateSelection' - Focus and click the selection node.
+		 */
+		stopFindInPage(action: 'clearSelection' | 'keepSelection' | 'activateSelection'): void;
 		/**
 		 * Checks if any serviceworker is registered.
 		 */
@@ -1193,7 +1223,7 @@ declare module Electron {
 		 quitAndInstall(): void;
 	}
 
-	module Dialog {
+	namespace Dialog {
 		/**
 		 * @param callback If supplied, the API call will be asynchronous.
 		 * @returns On success, returns an array of file paths chosen by the user,

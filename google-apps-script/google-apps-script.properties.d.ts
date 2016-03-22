@@ -5,7 +5,7 @@
 
 /// <reference path="google-apps-script.types.d.ts" />
 
-declare module GoogleAppsScript {
+declare namespace GoogleAppsScript {
   export module Properties {
     /**
      * The properties object acts as the interface to access user, document, or script properties.
@@ -31,14 +31,14 @@ declare module GoogleAppsScript {
     /**
      * Allows scripts to store simple data in key-value pairs scoped to one script, one user of a
      *  script, or one document in which an add-on is used. Properties cannot be shared between scripts.
-     *  For more information about when to use each type of property, see the 
+     *  For more information about when to use each type of property, see the
      *  guide to the Properties service.
-     * 
+     *
      *      // Sets three properties of different types.
      *      var documentProperties = PropertiesService.getDocumentProperties();
      *      var scriptProperties = PropertiesService.getScriptProperties();
      *      var userProperties = PropertiesService.getUserProperties();
-     *     
+     *
      *      documentProperties.setProperty('DAYS_TO_FETCH', '5');
      *      scriptProperties.setProperty('SERVER_URL', 'http://www.example.com/MyWeatherService/');
      *      userProperties.setProperty('DISPLAY_UNITS', 'metric');
@@ -50,7 +50,7 @@ declare module GoogleAppsScript {
     }
 
     /**
-     * 
+     *
      * Deprecated. This class is deprecated and should not be used in new scripts.
      * Script Properties are key-value pairs stored by a script in a persistent store. Script Properties
      *  are scoped per script, regardless of which user runs the script.
@@ -67,7 +67,7 @@ declare module GoogleAppsScript {
     }
 
     /**
-     * 
+     *
      * Deprecated. This class is deprecated and should not be used in new scripts.
      * User Properties are key-value pairs unique to a user. User Properties are scoped per user; any
      *  script running under the identity of a user can access User Properties for that user only.

@@ -1,7 +1,7 @@
 // Type definitions for redux-immutable v3.0.5
 // Project: https://github.com/fisshy/react-scroll
 // Definitions by: Pedro Pereira <https://github.com/oizie>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts" />
 

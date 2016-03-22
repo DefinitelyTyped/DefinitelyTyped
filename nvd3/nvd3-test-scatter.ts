@@ -1,5 +1,5 @@
 ﻿/// <reference path="nvd3.d.ts" />
-module nvd3_test_scatter {
+namespace nvd3_test_scatter {
     nv.addGraph(function () {
 
         var chart = nv.models.scatter()

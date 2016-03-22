@@ -1,7 +1,7 @@
 // Type definitions for hapi 8.2.0
 // Project: http://github.com/spumko/hapi
 // Definitions by: Jason Swearingen <http://github.com/jasonswearingen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 //This is a total rewrite of Hakubo's original hapi.d.ts, as it was out of date/incomplete.
 

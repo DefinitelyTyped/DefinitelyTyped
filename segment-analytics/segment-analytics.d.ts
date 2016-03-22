@@ -1,11 +1,11 @@
 // Type definitions for Segment's analytics.js
 // Project: https://segment.com/docs/libraries/analytics.js/
 // Definitions by: Andrew Fong <https://github.com/fongandrew>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module SegmentAnalytics {
+declare namespace SegmentAnalytics {
 
   // Generic options object with integrations
   interface SegmentOpts {

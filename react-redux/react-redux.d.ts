@@ -1,45 +1,81 @@
 // Type definitions for react-redux 4.4.0
 // Project: https://github.com/rackt/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts" />
 /// <reference path="../redux/redux.d.ts" />
 
 declare module "react-redux" {
-  import { ComponentClass, Component, StatelessComponent } from 'react';
+  import { ComponentClass, Component, StatelessComponent, Props, ReactNode } from 'react';
   import { Store, Dispatch, ActionCreator } from 'redux';
 
-  export interface ComponentConstructDecorator<P> {
-    <TComponentConstruct extends (ComponentClass<P>|StatelessComponent<P>)>(component: TComponentConstruct): TComponentConstruct
+  interface ComponentDecorator<TOriginalProps extends Props<any>, TOwnProps extends Props<any>> {
+    (component: ComponentClass<TOriginalProps>): ComponentClass<TOwnProps>;
+  }
+
+  /**
+   * Decorator that infers the type from the original component
+   *
+   * Can't use the above decorator because it would default the type to {}
+   */
+  export interface InferableComponentDecorator {
+    <P, TComponentConstruct extends (ComponentClass<P>|StatelessComponent<P>)>(component: TComponentConstruct): TComponentConstruct;
   }
 
   /**
    * Connects a React component to a Redux store.
+   *
+   * - Without arguments, just wraps the component, without changing the behavior / props
+   *
+   * - If 2 params are passed (3rd param, mergeProps, is skipped), default behavior
+   * is to override ownProps (as stated in the docs), so what remains is everything that's
+   * not a state or dispatch prop
+   *
+   * - When 3rd param is passed, we don't know if ownProps propagate and whether they
+   * should be valid component props, because it depends on mergeProps implementation.
+   * As such, it is the user's responsibility to extend ownProps interface from state or
+   * dispatch props or both when applicable
+   *
    * @param mapStateToProps
    * @param mapDispatchToProps
    * @param mergeProps
    * @param options
-     */
-  export function connect<P>(mapStateToProps?: MapStateToProps,
-                             mapDispatchToProps?: MapDispatchToPropsFunction|MapDispatchToPropsObject,
-                             mergeProps?: MergeProps,
-                             options?: Options): ComponentConstructDecorator<P>;
+   */
+  export function connect(): InferableComponentDecorator;
+  export function connect<
+    TStateProps extends Props<any>,
+    TDispatchProps extends Props<any>,
+    TOwnProps extends Props<any>
+  >(
+    mapStateToProps: MapStateToProps<TStateProps, TOwnProps>,
+    mapDispatchToProps?: MapDispatchToPropsFunction<TDispatchProps, TOwnProps>|MapDispatchToPropsObject
+  ): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
+  export function connect<
+    TStateProps extends Props<any>,
+    TDispatchProps extends Props<any>,
+    TOwnProps extends Props<any>
+  >(
+    mapStateToProps: MapStateToProps<TStateProps, TOwnProps>,
+    mapDispatchToProps: MapDispatchToPropsFunction<TDispatchProps, TOwnProps>|MapDispatchToPropsObject,
+    mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps>,
+    options?: Options
+  ): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
 
-  interface MapStateToProps {
-    (state: any, ownProps?: any): any;
+  interface MapStateToProps<TStateProps, TOwnProps> {
+    (state: any, ownProps?: TOwnProps): TStateProps;
   }
 
-  interface MapDispatchToPropsFunction {
-    (dispatch: Dispatch, ownProps?: any): any;
+  interface MapDispatchToPropsFunction<TDispatchProps, TOwnProps> {
+    (dispatch: Dispatch, ownProps?: TOwnProps): TDispatchProps;
   }
 
   interface MapDispatchToPropsObject {
     [name: string]: ActionCreator;
   }
 
-  interface MergeProps {
-    (stateProps: any, dispatchProps: any, ownProps: any): any;
+  interface MergeProps<TStateProps, TDispatchProps, TOwnProps> {
+    (stateProps: TStateProps, dispatchProps: TDispatchProps, ownProps: TOwnProps): TStateProps & TDispatchProps;
   }
 
   interface Options {
@@ -53,16 +89,16 @@ declare module "react-redux" {
     pure: boolean;
   }
 
-  export interface Property {
+  export interface ProviderProps extends Props<Provider> {
     /**
      * The single Redux store in your application.
      */
     store?: Store;
-    children?: Function;
+    children?: ReactNode;
   }
 
   /**
    * Makes the Redux store available to the connect() calls in the component hierarchy below.
    */
-  export class Provider extends Component<Property, {}> { }
+  export class Provider extends Component<ProviderProps, {}> { }
 }

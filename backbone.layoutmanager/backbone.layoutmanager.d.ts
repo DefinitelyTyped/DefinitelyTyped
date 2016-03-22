@@ -7,13 +7,13 @@
 /// <reference path="../underscore/underscore.d.ts" />
 /// <reference path="../backbone/backbone.d.ts" />
 
-declare module Backbone {
+declare namespace Backbone {
 
 	interface LayoutOptions<TModel extends Model> extends ViewOptions<TModel> {
 		template?: string;
         views?: { [viewName: string]: View<TModel> };
 	}
-	
+
 	interface LayoutManagerOptions {
 		manage?: boolean;
 		el?: boolean;
@@ -26,11 +26,11 @@ declare module Backbone {
 		beforeRender(): void;
 		afterRender(): void;
 		cleanup(): void;
-		
+
 		fetchTemplate(path: string): (context:any)=>string;
 		async():(compiled:(context:any)=>void)=>void;
 		promise(): JQueryPromise<any>;
-	
+
 		getAllOptions(): LayoutOptions<TModel>;
 
 		getView(fn?:any): any;
@@ -41,13 +41,13 @@ declare module Backbone {
 
 		remove(): Layout<TModel>;
 		removeView(fn:any): Layout<TModel>;
-		
+
 		render(): Layout<TModel>; // return this
 		renderViews(): Layout<TModel>; // return this
 		setView<U>(name: any, view: U, insert?:boolean): U; // return view
 		setViews(views:any): Layout<TModel>; // return this
 		then(fn:()=>void):void;
-		
+
 		static cache(path: string, contents?: any): any;
 		static cleanViews(views: any): void;
 		static configure(options: LayoutManagerOptions): void;

@@ -1,7 +1,7 @@
 // Type definitions for Angular JS 1.5
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts" />
@@ -23,7 +23,7 @@ declare module 'angular' {
 ///////////////////////////////////////////////////////////////////////////////
 // ng module (angular.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module angular {
+declare namespace angular {
 
     // not directly implemented, but ensures that constructed class implements $get
     interface IServiceProviderClass {
@@ -1006,7 +1006,16 @@ declare module angular {
          *
          * @param promises An array of promises.
          */
-        all<T>(promises: IPromise<any>[]): IPromise<T[]>;
+        all<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>, T3 | IPromise<T3>, T4 | IPromise <T4>, T5 | IPromise<T5>, T6 | IPromise<T6>, T7 | IPromise<T7>, T8 | IPromise<T8>, T9 | IPromise<T9>, T10 | IPromise<T10>]): IPromise<[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]>;
+        all<T1, T2, T3, T4, T5, T6, T7, T8, T9>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>, T3 | IPromise<T3>, T4 | IPromise <T4>, T5 | IPromise<T5>, T6 | IPromise<T6>, T7 | IPromise<T7>, T8 | IPromise<T8>, T9 | IPromise<T9>]): IPromise<[T1, T2, T3, T4, T5, T6, T7, T8, T9]>;
+        all<T1, T2, T3, T4, T5, T6, T7, T8>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>, T3 | IPromise<T3>, T4 | IPromise <T4>, T5 | IPromise<T5>, T6 | IPromise<T6>, T7 | IPromise<T7>, T8 | IPromise<T8>]): IPromise<[T1, T2, T3, T4, T5, T6, T7, T8]>;
+        all<T1, T2, T3, T4, T5, T6, T7>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>, T3 | IPromise<T3>, T4 | IPromise <T4>, T5 | IPromise<T5>, T6 | IPromise<T6>, T7 | IPromise<T7>]): IPromise<[T1, T2, T3, T4, T5, T6, T7]>;
+        all<T1, T2, T3, T4, T5, T6>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>, T3 | IPromise<T3>, T4 | IPromise <T4>, T5 | IPromise<T5>, T6 | IPromise<T6>]): IPromise<[T1, T2, T3, T4, T5, T6]>;
+        all<T1, T2, T3, T4, T5>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>, T3 | IPromise<T3>, T4 | IPromise <T4>, T5 | IPromise<T5>]): IPromise<[T1, T2, T3, T4, T5]>;
+        all<T1, T2, T3, T4>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>, T3 | IPromise<T3>, T4 | IPromise <T4>]): IPromise<[T1, T2, T3, T4]>;
+        all<T1, T2, T3>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>, T3 | IPromise<T3>]): IPromise<[T1, T2, T3]>;
+        all<T1, T2>(values: [T1 | IPromise<T1>, T2 | IPromise<T2>]): IPromise<[T1, T2]>;
+        all<TAll>(promises: IPromise<TAll>[]): IPromise<TAll[]>;
         /**
          * Combines multiple promises into a single promise that is resolved when all of the input promises are resolved.
          *
@@ -1698,8 +1707,9 @@ declare module angular {
         /**
          * Controller constructor function that should be associated with newly created scope or the name of a registered
          * controller if passed as a string. Empty function by default.
+         * Use the array form to define dependencies (necessary if strictDi is enabled and you require dependency injection)
          */
-        controller?: string | Function;
+        controller?: string | Function | (string | Function)[];
         /**
          * An identifier name for a reference to the controller. If present, the controller will be published to scope under
          * the controllerAs name. If not present, this will default to be the same as the component name.
@@ -1712,15 +1722,17 @@ declare module angular {
          * If template is a function, then it is injected with the following locals:
          * $element - Current element
          * $attrs - Current attributes object for the element
+         * Use the array form to define dependencies (necessary if strictDi is enabled and you require dependency injection)
          */
-        template?: string | Function;
+        template?: string | Function | (string | Function)[];
         /**
          * path or function that returns a path to an html template that should be used as the contents of this component.
          * If templateUrl is a function, then it is injected with the following locals:
          * $element - Current element
          * $attrs - Current attributes object for the element
+         * Use the array form to define dependencies (necessary if strictDi is enabled and you require dependency injection)
          */
-        templateUrl?: string | Function;
+        templateUrl?: string | Function | (string | Function)[];
         /**
          * Define DOM attribute binding to component properties. Component properties are always bound to the component
          * controller and not to the scope.
