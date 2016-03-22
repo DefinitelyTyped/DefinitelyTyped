@@ -13,10 +13,10 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../cookies/cookies.d.ts" />
 
-declare module Koa {
+declare namespace Koa {
 
     // These open interfaces may be extended in an application-specific manner via declaration merging.
-    // See for example method-override.d.ts (https://github.com/borisyankov/DefinitelyTyped/blob/master/method-override/method-override.d.ts)
+    // See for example method-override.d.ts (https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/method-override/method-override.d.ts)
     export interface Request { }
     export interface Response { }
     export interface Application { }
@@ -402,7 +402,7 @@ declare module "koa" {
             writable: boolean;
     }
 
-    module koa {
+    namespace koa {
         interface BaseRequest extends IRequest {
             /**
              * Get the charset when present or undefined.

@@ -1,7 +1,7 @@
 // Type definitions for Mapbox 1.6.3
 // Project: https://www.mapbox.com/mapbox.js/
 // Definitions by: Maxime Fabre <https://github.com/anahkiasen/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../leaflet/leaflet.d.ts"/>
 
@@ -12,7 +12,7 @@
 // Map
 //////////////////////////////////////////////////////////////////////
 
-declare module L.mapbox {
+declare namespace L.mapbox {
 	var accessToken: string;
 
 	/**
@@ -57,7 +57,7 @@ declare module L.mapbox {
 // TileLayer
 //////////////////////////////////////////////////////////////////////
 
-declare module L.mapbox {
+declare namespace L.mapbox {
 
 	/**
 	 * You can add a tiled layer to your map with L.mapbox.tileLayer(), a simple interface to layers from Mapbox and elsewhere.
@@ -88,7 +88,7 @@ declare module L.mapbox {
 // GridLayer
 //////////////////////////////////////////////////////////////////////
 
-declare module L.mapbox {
+declare namespace L.mapbox {
 
 	/**
 	 * An L.mapbox.gridLayer loads UTFGrid tiles of interactivity into your map, which you can easily access with L.mapbox.gridControl.
@@ -125,7 +125,7 @@ declare module L.mapbox {
 // FeatureLayer
 //////////////////////////////////////////////////////////////////////
 
-declare module L.mapbox {
+declare namespace L.mapbox {
 
 	/**
 	 * L.mapbox.featureLayer provides an easy way to integrate GeoJSON from Mapbox and elsewhere into your map.
@@ -186,7 +186,7 @@ declare module L.mapbox {
 // Geocoder
 //////////////////////////////////////////////////////////////////////
 
-declare module L.mapbox {
+declare namespace L.mapbox {
 
 	/**
 	 * A low-level interface to geocoding, useful for more complex uses and reverse-geocoding.
@@ -218,7 +218,7 @@ declare module L.mapbox {
 //////////////////////////////// CONTROLS ////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-declare module L.mapbox {
+declare namespace L.mapbox {
 	interface ControlOptions extends L.ControlOptions {
 		sanitizer?: (template: string) => string;
 	}
@@ -227,7 +227,7 @@ declare module L.mapbox {
 // InfoControl
 //////////////////////////////////////////////////////////////////////
 
-declare module L.mapbox {
+declare namespace L.mapbox {
 
 	/**
 	 * A map control that shows a toggleable info container. If set, attribution is auto-detected from active layers and added to the info container.
@@ -256,7 +256,7 @@ declare module L.mapbox {
 // LegendControl
 //////////////////////////////////////////////////////////////////////
 
-declare module L.mapbox {
+declare namespace L.mapbox {
 
 	/**
 	 * A map control that shows legends added to maps in Mapbox.
@@ -285,7 +285,7 @@ declare module L.mapbox {
 // GridControl
 //////////////////////////////////////////////////////////////////////
 
-declare module L.mapbox {
+declare namespace L.mapbox {
 
 	/**
 	 * Interaction is what we call interactive parts of maps that are created with
@@ -323,7 +323,7 @@ declare module L.mapbox {
 // GeocoderControl
 //////////////////////////////////////////////////////////////////////
 
-declare module L.mapbox {
+declare namespace L.mapbox {
 
 	/**
 	 * Adds geocoder functionality as well as a UI element to a map. This uses the Mapbox Geocoding API.
@@ -367,7 +367,7 @@ declare module L.mapbox {
 // ShareControl
 //////////////////////////////////////////////////////////////////////
 
-declare module L.mapbox {
+declare namespace L.mapbox {
 
 	/**
 	 * Adds a "Share" button to the map, which can be used to share the map to Twitter or Facebook, or generate HTML for a map embed.
@@ -390,7 +390,7 @@ declare module L.mapbox {
 ////////////////////////////// MARKERS ///////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-declare module L.mapbox.marker {
+declare namespace L.mapbox.marker {
 
 	/**
 	 * A core icon generator used in L.mapbox.marker.style
@@ -408,7 +408,7 @@ declare module L.mapbox.marker {
 ////////////////////////////// SIMPLESTYLE ///////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-declare module L.mapbox.simplestyle {
+declare namespace L.mapbox.simplestyle {
 
 	/**
 	 * Given a GeoJSON Feature with optional simplestyle-spec properties, return an options object formatted to be used as Leaflet Path options.
@@ -421,7 +421,7 @@ declare module L.mapbox.simplestyle {
 /////////////////////////////// UTILITY //////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-declare module L.mapbox {
+declare namespace L.mapbox {
 
 	/**
 	 * A HTML sanitization function, with the same effect as the default value of the sanitizer option of L.mapbox.featureLayer, L.mapbox.gridControl, and L.mapbox.legendControl.
@@ -439,7 +439,7 @@ declare module L.mapbox {
 ///////////////////////////// CONFIGURATION //////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-declare module L.mapbox {
+declare namespace L.mapbox {
 	export class config {
 
 		static FORCE_HTTPS: boolean;

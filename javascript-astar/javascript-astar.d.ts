@@ -22,7 +22,7 @@ interface Heuristics {
     diagonal: Heuristic;
 }
 
-declare module astar {
+declare namespace astar {
     function search(
         graph: Graph,
         start: {x: number, y: number},

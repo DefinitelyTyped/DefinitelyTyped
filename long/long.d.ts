@@ -1,7 +1,7 @@
 // Type definitions for long.js 3.0.2
 // Project: https://github.com/dcodeIO/long.js
 // Definitions by: Peter Kooijmans <https://github.com/peterkooijmans/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions by: Denis Cappellin <http://github.com/cappellin>
 
 declare class Long

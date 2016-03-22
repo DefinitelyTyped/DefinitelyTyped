@@ -1,10 +1,10 @@
 // Type definitions for OpenJsCad.js
 // Project: https://github.com/joostn/OpenJsCad
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="../threejs/three.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
     var CSG: {
         fromCSG: (csg: CSG, defaultColor: any) => {
             colorMesh: Mesh;
@@ -144,7 +144,7 @@ declare module THREE {
     function RenderableSprite(): void;
     function Projector(): void;
 }
-declare module OpenJsCad {
+declare namespace OpenJsCad {
     interface ILog {
         (x: string): void;
         prevLogTime?: number;
@@ -404,7 +404,7 @@ declare class CSG extends CxG implements ICenter {
     toStlString(): string;
     toAMFString(m: IAMFStringOptions): Blob;
 }
-declare module CSG {
+declare namespace CSG {
     function fnNumberSort(a: any, b: any): number;
     function parseOption(options: any, optionname: any, defaultvalue: any): any;
     function parseOptionAs3DVector(options: any, optionname: any, defaultvalue: any): Vector3D;
@@ -546,7 +546,7 @@ declare module CSG {
         toStlString(): string;
     }
 }
-declare module CSG.Polygon {
+declare namespace CSG.Polygon {
     class Shared {
         color: any;
         tag: any;
@@ -557,7 +557,7 @@ declare module CSG.Polygon {
         getHash(): any;
     }
 }
-declare module CSG {
+declare namespace CSG {
     class PolygonTreeNode {
         parent: any;
         children: any;
@@ -869,7 +869,7 @@ declare class CAG extends CxG implements ICenter {
     toDxf(): Blob;
     static PathsToDxf(paths: CSG.Path2D[]): Blob;
 }
-declare module CAG {
+declare namespace CAG {
     class Vertex {
         pos: CSG.Vector2D;
         tag: number;
@@ -905,7 +905,7 @@ interface CAG_extrude_options {
     twistangle?: number;
     twiststeps?: number;
 }
-declare module CSG {
+declare namespace CSG {
     class Polygon2D extends CAG {
         constructor(points: Vector2D[]);
     }

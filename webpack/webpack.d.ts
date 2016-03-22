@@ -1,7 +1,7 @@
 // Type definitions for webpack 1.12.9
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../uglify-js/uglify-js.d.ts"/>
 
