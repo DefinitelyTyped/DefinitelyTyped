@@ -332,4 +332,31 @@ declare module "winston" {
     start: Date;
     done: (msg: string) => LoggerInstance;
   }
+  
+  export interface SyslogConfig {
+    levels: {
+      emerg: number;
+      alert: number;
+      crit: number;
+      error: number;
+      warning: number;
+      notice: number;
+      info: number;
+      debug: number;
+    };
+    colors: {
+      emerg: string;
+      alert: string;
+      crit: string;
+      error: string;
+      warning: string;
+      notice: string;
+      info: string;
+      debug: string;
+    };
+  }
+
+  export interface Config {
+    syslog:SyslogConfig;
+  }
 }
