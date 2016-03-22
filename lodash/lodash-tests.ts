@@ -4366,9 +4366,12 @@ namespace TestKeyBy {
 
 //_.invoke
 namespace TestInvoke {
+    let boolArray: boolean[] = [true, false];
+
     let nestedDict: _.Dictionary<Array<number>> = {
         a: [0, 1, 2]
     }
+
     let numDict: _.Dictionary<number> = {
         a: 1,
         b: 2,
@@ -4376,33 +4379,71 @@ namespace TestInvoke {
         d: 4
     }
 
-    let result: any;
-    result = _.invoke<number>(numDict, "a.toString");
-    result = _.invoke<number>(numDict, "a.toString", 2);
-    result = _.invoke<number>(numDict, ["a", "toString"]);
-    result = _.invoke<number>(numDict, ["a", "toString"], 2);
-    result = _.invoke<Array<number>>(nestedDict, ["a[0].toString"]);
-    result = _.invoke<Array<number>>(nestedDict, ["a[0].toString"], 2);
-    result = _.invoke<Array<number>>(nestedDict, ["a", 0, "toString"]);
-    result = _.invoke<Array<number>>(nestedDict, ["a", 0, "toString"], 2);
+    let result: string;
 
-    result = _(numDict).invoke("a.toString");
-    result = _(numDict).invoke("a.toString", 2);
-    result = _(numDict).invoke(["a", "toString"]);
-    result = _(numDict).invoke(["a", "toString"], 2);
-    result = _(nestedDict).invoke("a[0].toString");
-    result = _(nestedDict).invoke("a[0].toString", 2);
-    result = _(nestedDict).invoke(["a", 0, "toString"]);
-    result = _(nestedDict).invoke(["a", 0, "toString"], 2);
+    result = _.invoke<string>(boolArray, "[1]");
+    result = _.invoke<string>(boolArray, "[1]", 2);
+    result = _.invoke<string>(boolArray, [1, "toString"]);
+    result = _.invoke<string>(boolArray, [1, "toString"], 2);
 
-    result = _(numDict).chain().invoke("a.toString");
-    result = _(numDict).chain().invoke("a.toString", 2);
-    result = _(numDict).chain().invoke(["a", "toString"]);
-    result = _(numDict).chain().invoke(["a", "toString"], 2);
-    result = _(nestedDict).chain().invoke("a[0].toString");
-    result = _(nestedDict).chain().invoke("a[0].toString", 2);
-    result = _(nestedDict).chain().invoke(["a", 0, "toString"]);
-    result = _(nestedDict).chain().invoke(["a", 0, "toString"], 2);
+    result = _.invoke<boolean, string>(boolArray, "[1]");
+    result = _.invoke<boolean, string>(boolArray, "[1]", 2);
+    result = _.invoke<boolean, string>(boolArray, [1, "toString"]);
+    result = _.invoke<boolean, string>(boolArray, [1, "toString"], 2);
+
+    result = _.invoke<string>(numDict, "a.toString");
+    result = _.invoke<string>(numDict, "a.toString", 2);
+    result = _.invoke<string>(numDict, ["a", "toString"]);
+    result = _.invoke<string>(numDict, ["a", "toString"], 2);
+
+    result = _.invoke<number, string>(numDict, "a.toString");
+    result = _.invoke<number, string>(numDict, "a.toString", 2);
+    result = _.invoke<number, string>(numDict, ["a", "toString"]);
+    result = _.invoke<number, string>(numDict, ["a", "toString"], 2);
+
+    result = _.invoke<string>(nestedDict, ["a[0].toString"]);
+    result = _.invoke<string>(nestedDict, ["a[0].toString"], 2);
+    result = _.invoke<string>(nestedDict, ["a", 0, "toString"]);
+    result = _.invoke<string>(nestedDict, ["a", 0, "toString"], 2);
+
+    result = _.invoke<Array<number>, string>(nestedDict, ["a[0].toString"]);
+    result = _.invoke<Array<number>, string>(nestedDict, ["a[0].toString"], 2);
+    result = _.invoke<Array<number>, string>(nestedDict, ["a", 0, "toString"]);
+    result = _.invoke<Array<number>, string>(nestedDict, ["a", 0, "toString"], 2);
+
+    result = _(boolArray).invoke<string>("[1]");
+    result = _(boolArray).invoke<string>("[1]", 2);
+    result = _(boolArray).invoke<string>([1, "toString"]);
+    result = _(boolArray).invoke<string>([1, "toString"], 2);
+
+    result = _(numDict).invoke<string>("a.toString");
+    result = _(numDict).invoke<string>("a.toString", 2);
+    result = _(numDict).invoke<string>(["a", "toString"]);
+    result = _(numDict).invoke<string>(["a", "toString"], 2);
+
+    result = _(nestedDict).invoke<string>("a[0].toString");
+    result = _(nestedDict).invoke<string>("a[0].toString", 2);
+    result = _(nestedDict).invoke<string>(["a", 0, "toString"]);
+    result = _(nestedDict).invoke<string>(["a", 0, "toString"], 2);
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _(boolArray).chain().invoke<_.LoDashExplicitWrapper<string>>("[1]");
+        result = _(boolArray).chain().invoke<_.LoDashExplicitWrapper<string>>("[1]", 2);
+        result = _(boolArray).chain().invoke<_.LoDashExplicitWrapper<string>>([1, "toString"]);
+        result = _(boolArray).chain().invoke<_.LoDashExplicitWrapper<string>>([1, "toString"], 2);
+
+        result = _(numDict).chain().invoke<_.LoDashExplicitWrapper<string>>("a.toString");
+        result = _(numDict).chain().invoke<_.LoDashExplicitWrapper<string>>("a.toString", 2);
+        result = _(numDict).chain().invoke<_.LoDashExplicitWrapper<string>>(["a", "toString"]);
+        result = _(numDict).chain().invoke<_.LoDashExplicitWrapper<string>>(["a", "toString"], 2);
+
+        result = _(nestedDict).chain().invoke<_.LoDashExplicitWrapper<string>>("a[0].toString");
+        result = _(nestedDict).chain().invoke<_.LoDashExplicitWrapper<string>>("a[0].toString", 2);
+        result = _(nestedDict).chain().invoke<_.LoDashExplicitWrapper<string>>(["a", 0, "toString"]);
+        result = _(nestedDict).chain().invoke<_.LoDashExplicitWrapper<string>>(["a", 0, "toString"], 2);
+    }
 }
 
 //_.invokeMap
