@@ -1110,3 +1110,46 @@ function doBootstrap(element: Element | JQuery, mode: string): ng.auto.IInjector
         debugInfoEnabled: false
     });
 }
+
+angular.module('test-interceptor')
+// Adapted from https://docs.angularjs.org/api/ng/service/$http
+    .factory('myHttpInterceptor', function($q: ng.IQService) {
+        return <ng.IHttpInterceptor>{
+            // optional method
+            request: function(config: ng.IRequestConfig) {
+            // do something on success
+            return config;
+        },
+
+        // optional method
+        requestError: function(rejection: any) {
+            // do something on error
+            if (canRecover(rejection)) {
+                return responseOrNewPromise(rejection)
+            }
+            return $q.reject(rejection);
+        },
+
+        // optional method
+        response: function <T>(response: ng.IHttpPromiseCallbackArg<T>) {
+            // do something on success
+            return response;
+        },
+
+        // optional method
+        responseError: function <T>(rejection: any) {
+            // do something on error
+            if (canRecover(rejection)) {
+                return responseOrNewPromise(rejection)
+            }
+            return $q.reject(rejection);
+        }
+    };
+
+    function canRecover(rejection: any): boolean {
+        return true;
+    }
+    function responseOrNewPromise<T>(rejection: any): ng.IPromise<T> | T {
+        return $q.resolve(rejection);
+    }
+});
