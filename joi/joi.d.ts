@@ -99,7 +99,7 @@ declare module 'joi' {
 		/**
 		 * the required condition joi type.
 		 */
-		is: Schema;
+		is: any;
 		/**
 		 * the alternative schema type if the condition is true. Required if otherwise is missing.
 		 */
