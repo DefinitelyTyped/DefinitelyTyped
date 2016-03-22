@@ -917,3 +917,7 @@ declare namespace PhotoSwipeUI_Default {
         title?: string;
     }
 }
+
+declare module "photoswipe" {
+    export default PhotoSwipe;
+}
