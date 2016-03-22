@@ -1,7 +1,7 @@
 // Type definitions for kue 0.9.x
 // Project: https://github.com/Automattic/kue
 // Definitions by: Nicholas Penree <http://github.com/drudge>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../redis/redis.d.ts" />

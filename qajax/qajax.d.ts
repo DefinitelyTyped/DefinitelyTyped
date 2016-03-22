@@ -1,7 +1,7 @@
 // Type definitions for Qajax
 // Project: https://github.com/gre/qajax
 // Definitions by: Boltmade <https://github.com/Boltmade>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../q/Q.d.ts" />
 
@@ -9,7 +9,7 @@ declare function Qajax(url : string) : Q.Promise<XMLHttpRequest>;
 declare function Qajax(options : any) : Q.Promise<XMLHttpRequest>;
 declare function Qajax(url : string, options : any) : Q.Promise<XMLHttpRequest>;
 
-declare module Qajax {
+declare namespace Qajax {
 	export var defaults : any;
 	export function filterStatus(validStatus : number) : (xhr : XMLHttpRequest) => Q.Promise<XMLHttpRequest>;
 	export function filterStatus(validStatus : (status : number) => boolean) : (xhr : XMLHttpRequest) => Q.Promise<XMLHttpRequest>;

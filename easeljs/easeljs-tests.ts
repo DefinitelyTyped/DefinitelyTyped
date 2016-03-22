@@ -42,6 +42,7 @@ function test_animation() {
 function test_graphics() {
     var g = new createjs.Graphics();
     g.setStrokeStyle(1);
+    g.setStrokeDash([20, 10], 20);
     g.beginStroke(createjs.Graphics.getRGB(0, 0, 0));
     g.beginFill(createjs.Graphics.getRGB(255, 0, 0));
     g.drawCircle(0, 0, 3);

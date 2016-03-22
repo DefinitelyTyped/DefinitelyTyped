@@ -19,7 +19,7 @@ var firstCurrency = currencyPair[0];
 var secondCurrency = currencyPair[1];
 
 // Mixins can be used with on-the-fly type declaration
-declare module Chance {
+declare namespace Chance {
     interface Chance {
         time(): string;
     }
@@ -34,3 +34,6 @@ chance.mixin({
 });
 
 var timeString: string = chance.time();
+
+var chanceConstructedWithSeed100 = new Chance(100);
+var chanceCalledWithSeed100 = Chance()

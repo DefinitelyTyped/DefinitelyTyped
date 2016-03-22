@@ -1,18 +1,18 @@
-// Type definitions for SuperTest 0.14.0
+// Type definitions for SuperTest v1.1.0
 // Project: https://github.com/visionmedia/supertest
 // Definitions by: Alex Varju <https://github.com/varju/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path='../superagent/superagent.d.ts' />
 
 declare module "supertest" {
   import superagent = require('superagent');
 
-  type CallbackHandler = { (err: any, res: supertest.Response): void; }|{ (res: supertest.Response): void; };
+  type CallbackHandler = (err: any, res: supertest.Response) => void;
 
   function supertest(app: any): supertest.SuperTest;
 
-  module supertest {
+  namespace supertest {
     function agent(app?: any): supertest.SuperTest;
 
     interface SuperTest extends superagent.SuperAgent<Test> {
@@ -29,6 +29,7 @@ declare module "supertest" {
       expect(field: string, val: string, callback?: CallbackHandler): Test;
       expect(field: string, val: RegExp, callback?: CallbackHandler): Test;
       expect(checker: (res: Response) => any): Test;
+      end(callback?: CallbackHandler): Test;
     }
 
     interface Response extends superagent.Response {

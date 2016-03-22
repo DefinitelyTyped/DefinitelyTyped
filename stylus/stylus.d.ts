@@ -1,11 +1,11 @@
 ﻿// Type definitions for stylus 0.48.1
 // Project: https://github.com/LearnBoost/stylus
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
-declare module Stylus {
+declare namespace Stylus {
 
     export interface Static {
         /**
@@ -648,6 +648,11 @@ declare module Stylus {
         render(callback: RenderCallback): void;
 
         /**
+         * Parse and evaluate AST and return the result.
+         */
+        render(): string;
+
+        /**
          * Get dependencies of the compiled file.
          */
         deps(filename: string): string[];
@@ -693,14 +698,16 @@ declare module Stylus {
         import(file: string): Renderer;
 
         //#region EventEmitter Members
-        addListener(event: string, listener: Function): Renderer;
-        on(event: string, listener: Function): Renderer;
-        once(event: string, listener: Function): Renderer;
-        removeListener(event: string, listener: Function): Renderer;
-        removeAllListeners(event?: string): Renderer;
-        setMaxListeners(n: number): void;
+        addListener(event: string, listener: Function): this;
+        on(event: string, listener: Function): this;
+        once(event: string, listener: Function): this;
+        removeListener(event: string, listener: Function): this;
+        removeAllListeners(event?: string): this;
+        setMaxListeners(n: number): this;
+        getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
+        listenerCount(type: string): number;
         //#endregion
     }
 

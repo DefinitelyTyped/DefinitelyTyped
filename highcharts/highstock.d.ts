@@ -1,7 +1,7 @@
-﻿// Type definitions for Highstock 2.1.5
+// Type definitions for Highstock 2.1.5
 // Project: http://www.highcharts.com/
 // Definitions by: David Deutsch <http://github.com/DavidKDeutsch>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="highcharts.d.ts" />
 
@@ -30,7 +30,7 @@ interface HighstockNavigatorOptions {
 
 interface RangeSelectorButton {
     type: string; //Defines the timespan, can be one of 'millisecond', 'second', 'minute', 'day', 'week', 'month', 'ytd' (year to date), 'year' and 'all'.
-    count: number;
+    count?: number;
     text: string;
     dataGrouping?: any; //not sure how this works
 }

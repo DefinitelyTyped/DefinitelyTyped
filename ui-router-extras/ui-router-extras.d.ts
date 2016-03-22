@@ -1,7 +1,7 @@
 // Type definitions for UI-Router Extras 0.0.14+ (ct.ui.router.extras module)
 // Project: https://github.com/christopherthielen/ui-router-extras
 // Definitions by: Michael Putters <https://github.com/mputters/>, Marcel van de Kamp <https://github.com/marcel-k/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angular-ui-router/angular-ui-router.d.ts" />
 
@@ -11,7 +11,7 @@ declare module 'angular-ui-router-extras' {
     export = _;
 }
 
-declare module angular.ui {
+declare namespace angular.ui {
 
 
     /*
@@ -21,7 +21,7 @@ declare module angular.ui {
         /*
          * This method resets stored $deepStateRedirect data so following transitions will behave like there have not been previous transitions.
          * @param stateParams Can be passed in to select specific states to reset:
-         *  { 
+         *  {
          *    'paramName': 'paramvalue' | ['list', 'of', 'possible', 'paramvalues']
          *  }
          */
@@ -33,13 +33,13 @@ declare module angular.ui {
      */
     interface IDeepStateRedirectConfig {
         /*
-         * If no deep state has been recorded, DSR will instead redirect to the default substate and params that you specify. 
+         * If no deep state has been recorded, DSR will instead redirect to the default substate and params that you specify.
          * If default is a string it is interpreted as the substate.
          */
         default?: string | IRedirectParams;
         /*
          * Specify params: true if your DSR state takes parameters.
-         * If only a subset of the parameters should be included in the parameter grouping for recording deep states, 
+         * If only a subset of the parameters should be included in the parameter grouping for recording deep states,
          * specify an array of parameter names.
          */
         params?: boolean | string[];
@@ -58,8 +58,8 @@ declare module angular.ui {
     /*
      * Previous state
      */
-    interface IPreviousState {      
-        state: IState;     
+    interface IPreviousState {
+        state: IState;
         params?: ui.IStateParamsService;
     }
 
@@ -96,7 +96,7 @@ declare module angular.ui {
          * @param memoName Memo name
          */
         forget(memoName: string): void;
-    }    
+    }
 
     /**
     * Sticky state
@@ -128,7 +128,7 @@ declare module angular.ui {
         /*
          * Note: named views are mandatory when using sticky states!
          */
-        views?: {};
+        views?: { [name:string]: angular.ui.IState };
     }
 
 

@@ -1,7 +1,7 @@
 // Type definitions for nopt 3.0.1
 // Project: https://github.com/npm/nopt
 // Definitions by: jbondc <https://github.com/jbondc>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "nopt" {
 
@@ -18,7 +18,7 @@ declare module "nopt" {
 		validate: (data: CommandData, k: string, val: string) => boolean
 	}
 
-	module nopt {
+	namespace nopt {
 		export function clean(data: CommandData, types: FlagTypeMap, typeDefs?: TypeDefs): string
 		export var typeDefs: TypeDefs
 	}
@@ -36,7 +36,7 @@ declare module "nopt" {
 	interface OptionsParsed {
 		[k: string]: any
 		argv: {
-			remain: string[] 
+			remain: string[]
 			cooked: string[]
 			original: string[]
 		}

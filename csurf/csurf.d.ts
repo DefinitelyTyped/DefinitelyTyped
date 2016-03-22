@@ -1,11 +1,11 @@
 // Type definitions for csurf
 // Project: https://www.npmjs.org/package/csurf
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 
-declare module Express {
+declare namespace Express {
   export interface Request {
     csrfToken(): string;
   }
@@ -16,10 +16,10 @@ declare module "csurf" {
 
   function csurf(options?: {
     value?: (req: express.Request) => string;
-    cookie?: csurf.CookieOptions;
+    cookie?: csurf.CookieOptions | boolean;
   }): express.RequestHandler;
 
-  module csurf {
+  namespace csurf {
     export interface CookieOptions extends express.CookieOptions {
       key: string;
     }
@@ -27,4 +27,3 @@ declare module "csurf" {
 
   export = csurf;
 }
-

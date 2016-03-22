@@ -1,18 +1,39 @@
 /// <reference path="angular-resource.d.ts" />
 
-interface IMyResource extends angular.resource.IResource<IMyResource> { };
-interface IMyResourceClass extends angular.resource.IResourceClass<IMyResource> { };
+
+import IHttpPromiseCallbackArg = angular.IHttpPromiseCallbackArg;
+
+interface IMyData {}
+interface IMyHttpPromiseCallbackArg extends IHttpPromiseCallbackArg<IMyData> {}
+interface IMyResource extends angular.resource.IResource<IMyResource> { }
+interface IMyResourceClass extends angular.resource.IResourceClass<IMyResource> { }
 
 ///////////////////////////////////////
 // IActionDescriptor
 ///////////////////////////////////////
 var actionDescriptor: angular.resource.IActionDescriptor;
 
-actionDescriptor.url = '/api/test-url/'
-actionDescriptor.headers = { header: 'value' };
-actionDescriptor.isArray = true;
-actionDescriptor.method = 'method action';
-actionDescriptor.params = { key: 'value' };
+angular.injector(['ng']).invoke(function ($cacheFactory: angular.ICacheFactoryService) {
+    actionDescriptor.method = 'method action';
+    actionDescriptor.params = { key: 'value' };
+    actionDescriptor.url = '/api/test-url/';
+    actionDescriptor.isArray = true;
+    actionDescriptor.transformRequest = function () { };
+    actionDescriptor.transformRequest = [function () { }];
+    actionDescriptor.transformResponse = function () { };
+    actionDescriptor.transformResponse = [function () { }];
+    actionDescriptor.headers = { header: 'value' };
+    actionDescriptor.cache = true;
+    actionDescriptor.cache = $cacheFactory('cacheId');
+    actionDescriptor.timeout = 1000;
+    actionDescriptor.withCredentials = true;
+    actionDescriptor.responseType = 'response type';
+    actionDescriptor.interceptor = {
+        response: function<IMyData> () { return <IMyHttpPromiseCallbackArg>{}; },
+        responseError: function () {}
+    };
+    actionDescriptor.cancellable = true;
+});
 
 
 ///////////////////////////////////////
@@ -31,6 +52,7 @@ resource = resourceClass.delete({ key: 'value' }, { key: 'value' });
 resource = resourceClass.delete({ key: 'value' }, { key: 'value' }, function () { });
 resource = resourceClass.delete({ key: 'value' }, { key: 'value' }, function () { }, function () { });
 resource.$promise.then(function(data: IMyResource) {});
+resource.$cancelRequest();
 
 resource = resourceClass.get();
 resource = resourceClass.get({ key: 'value' });
@@ -76,6 +98,9 @@ resource = resourceClass.save({ key: 'value' }, { key: 'value' }, function () { 
 
 var promise : angular.IPromise<IMyResource>;
 var arrayPromise : angular.IPromise<IMyResource[]>;
+var json: {
+  [index: string]: any;
+};
 
 promise = resource.$delete();
 promise = resource.$delete({ key: 'value' });
@@ -113,6 +138,8 @@ promise = resource.$save({ key: 'value' }, function () { });
 promise = resource.$save(function () { });
 promise = resource.$save(function () { }, function () { });
 promise = resource.$save({ key: 'value' }, function () { }, function () { });
+
+json    = resource.toJSON();
 
 ///////////////////////////////////////
 // IResourceService

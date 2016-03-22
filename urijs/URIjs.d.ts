@@ -1,11 +1,11 @@
 // Type definitions for URI.js 1.15.1
 // Project: https://github.com/medialize/URI.js
 // Definitions by: RodneyJT <https://github.com/RodneyJT>, Brian Surowiec <https://github.com/xt0rted>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module uri {
+declare namespace uri {
 
     interface URI {
         absoluteTo(path: string): URI;
@@ -28,8 +28,10 @@ declare module uri {
         domain(domain: boolean): string;
         domain(domain: string): URI;
 
+        duplicateQueryParameters(val: boolean): URI;
+
         equals(): boolean;
-        equals(url: string): boolean;
+        equals(url: string | URI): boolean;
 
         filename(): string;
         filename(file: boolean): string;
@@ -226,5 +228,13 @@ interface JQuery {
 declare var URI: uri.URIStatic;
 
 declare module 'URI' {
+    export = URI;
+}
+
+declare module 'urijs' {
+    export = URI;
+}
+
+declare module 'urijs/src/URITemplate' {
     export = URI;
 }
