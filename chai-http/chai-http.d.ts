@@ -1,12 +1,12 @@
 // Type definitions for chai-http
 // Project: https://github.com/chaijs/chai-http
 // Definitions by: Wim Looman <https://github.com/Nemo157>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../chai/chai.d.ts" />
 
-declare module Chai {
+declare namespace Chai {
 
 	interface ChaiStatic {
 		request: ChaiHttpRequest;
@@ -37,7 +37,7 @@ declare module Chai {
 	}
 }
 
-declare module ChaiHttp {
+declare namespace ChaiHttp {
 	interface Promise<T> {
 		then<U>(onFulfilled: (value: T) => U, onRejected?: (reason: any) => U): Promise<U>;
 	}

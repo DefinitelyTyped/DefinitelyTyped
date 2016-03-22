@@ -1,7 +1,7 @@
 // Type definitions for iScroll 5
 // Project: http://cubiq.org/iscroll-5-ready-for-beta-test
 // Definitions by: Christiaan Rakowski <https://github.com/csrakowski/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface IScrollOptions {
 	//hScroll?: boolean;

@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module JQueryEasyLoading {
+declare namespace JQueryEasyLoading {
 
     interface Static {
 

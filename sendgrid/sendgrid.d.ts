@@ -5,7 +5,7 @@
 
 /// <reference path="../smtpapi/smtpapi.d.ts" />
 
-declare module Sendgrid {
+declare namespace Sendgrid {
     //#region Options
 
     export interface UriParts {

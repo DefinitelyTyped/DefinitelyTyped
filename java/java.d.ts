@@ -1,7 +1,7 @@
 // Type definitions for java 0.5.4
 // Project: https://github.com/joeferner/node-java
 // Definitions by: Jim Lloyd <https://github.com/jimlloyd>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -13,7 +13,7 @@ declare module 'java' {
   export = NodeJavaCore;
 }
 
-declare module NodeJavaCore {
+declare namespace NodeJavaCore {
   export interface Callback<T> {
     (err?: Error, result?: T): void;
   }

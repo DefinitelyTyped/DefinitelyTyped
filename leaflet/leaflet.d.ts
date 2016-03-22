@@ -1,14 +1,14 @@
 // Type definitions for Leaflet.js 0.7.3
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Vladimir Zotov <https://github.com/rgripper>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module L {
+declare namespace L {
     type LatLngExpression = LatLng | number[] | ({ lat: number; lng: number })
     type LatLngBoundsExpression = LatLngBounds | LatLngExpression[];
 }
 
-declare module L {
+declare namespace L {
 
     export interface AttributionOptions {
 
@@ -27,7 +27,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
         * Creates a Bounds object from two coordinates (usually top-left and bottom-right
@@ -103,9 +103,9 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
-    module Browser {
+    namespace Browser {
 
         /**
           * true for all Internet Explorer versions.
@@ -178,7 +178,7 @@ declare module L {
 }
 
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a circle object given a geographical point, a radius in meters
@@ -224,7 +224,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a circle marker given a geographical point and optionally
@@ -262,7 +262,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
     export interface ClassExtendOptions {
         /**
           * Your class's constructor function, meaning that it gets called when you do 'new MyClass(...)'.
@@ -315,7 +315,7 @@ declare module L {
       * L.Class powers the OOP facilities of Leaflet and is used to create
       * almost all of the Leaflet classes documented.
       */
-    module Class {
+    namespace Class {
         /**
           * You use L.Class.extend to define new classes, but you can use the
           * same method on any class to inherit from it.
@@ -325,7 +325,7 @@ declare module L {
 
 }
 
-declare module L {
+declare namespace L {
     export interface ControlStatic extends ClassStatic {
         /**
           * Creates a control with the given options.
@@ -1845,7 +1845,7 @@ declare namespace L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletLocationEvent extends LeafletEvent {
 

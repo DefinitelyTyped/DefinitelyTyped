@@ -265,7 +265,7 @@ function sample4() {
 }
 
 
-module fabric {
+namespace fabric {
   export interface CircleWithLineInfos extends ICircle {
     line1?: ILine;
     line2?: ILine;
@@ -359,7 +359,7 @@ function sample6() {
   });
 }
 
-module fabric {
+namespace fabric {
   export interface ImageWithInfo extends IImage {
     movingLeft: boolean;
   }

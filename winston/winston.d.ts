@@ -1,11 +1,15 @@
 // Type definitions for winston
 // Project: https://github.com/flatiron/winston
 // Definitions by: bonnici <https://github.com/bonnici>, Peter Harris <https://github.com/codeanimal>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/winston.d.ts
 
 /// <reference path="../node/node.d.ts" />
+
+///******************
+///  Winston v2.2.x
+///******************
 
 declare module "winston" {
   export var transports: Transports;
@@ -14,6 +18,8 @@ declare module "winston" {
   export var Container: ContainerStatic;
   export var loggers: ContainerInstance;
   export var defaultLogger: LoggerInstance;
+
+  export var exception: Exception;
 
   export var exitOnError: boolean;
   export var level: string;
@@ -46,10 +52,54 @@ declare module "winston" {
   export function addColors(target: any): any;
   export function setLevels(target: any): any;
   export function cli(): LoggerInstance;
-  export function addRewriter(rewriter: MetadataRewriter): void;
+  export function close(): void;
+
+  export interface ExceptionProcessInfo {
+    pid: number;
+    uid?: number;
+    gid?: number;
+    cwd: string;
+    execPath: string;
+    version: string;
+    argv: string;
+    memoryUsage: NodeJS.MemoryUsage;
+  }
+
+  export interface ExceptionOsInfo {
+    loadavg: [number, number, number];
+    uptime: number;
+  }
+
+  export interface ExceptionTrace {
+    column: number;
+    file: string;
+    "function": string;
+    line: number;
+    method: string;
+    native: boolean;
+  }
+
+  export interface ExceptionAllInfo {
+    date: Date;
+    process: ExceptionProcessInfo;
+    os: ExceptionOsInfo;
+    trace: Array<ExceptionTrace>;
+    stack: Array<string>;
+  }
+
+  export interface Exception {
+    getAllInfo(err: Error): ExceptionAllInfo;
+    getProcessInfo(): ExceptionProcessInfo;
+    getOsInfo(): ExceptionOsInfo;
+    getTrace(err: Error): Array<ExceptionTrace>;
+  }
 
   export interface MetadataRewriter {
     (level: string, msg: string, meta: any): any;
+  }
+
+  export interface MetadataFilter {
+    (level: string, msg: string, meta: any): string | {msg: any; meta: any;};
   }
 
   export interface LoggerStatic {
@@ -57,6 +107,10 @@ declare module "winston" {
   }
 
   export interface LoggerInstance extends NodeJS.EventEmitter {
+    rewriters: Array<MetadataRewriter>;
+    filters: Array<MetadataFilter>;
+    transports: Array<TransportInstance>;
+
     extend(target: any): LoggerInstance;
 
     log(level: string, msg: string, meta: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
@@ -81,7 +135,6 @@ declare module "winston" {
     handleExceptions(...transports: TransportInstance[]): void;
     unhandleExceptions(...transports: TransportInstance[]): void;
     add(transport: TransportInstance, options?: TransportOptions, created?: boolean): LoggerInstance;
-    addRewriter(rewriter: MetadataRewriter): void;
     clear(): void;
     remove(transport: TransportInstance): LoggerInstance;
     startTimer(): ProfileHandler;
@@ -129,6 +182,7 @@ declare module "winston" {
 
   export interface FileTransportInstance extends TransportInstance {
     new (options?: FileTransportOptions): FileTransportInstance;
+    close(): void;
   }
 
   export interface HttpTransportInstance extends TransportInstance {
@@ -269,10 +323,7 @@ declare module "winston" {
     start?: number;
     from?: Date;
     until?: Date;
-    /**
-     * 'asc' or 'desc'
-     */
-    order?: string;
+    order?: "asc" | "desc";
     fields: any;
   }
 

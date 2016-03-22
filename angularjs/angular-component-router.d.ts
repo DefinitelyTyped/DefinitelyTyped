@@ -1,11 +1,11 @@
 // Type definitions for Angular JS 1.5 component router
 // Project: http://angularjs.org
 // Definitions by: David Reher <http://github.com/davidreher>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./angular.d.ts" />
 
-declare module angular {
+declare namespace angular {
     /**
      * `Instruction` is a tree of {@link ComponentInstruction}s with all the information needed
      * to transition each component in the app to a given route, including all auxiliary routes.

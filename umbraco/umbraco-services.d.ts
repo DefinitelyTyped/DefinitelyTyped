@@ -1,12 +1,12 @@
 // Type definitions for Umbraco v7.2.8
 // Project: https://github.com/umbraco
 // Definitions by: DeCareSystemsIreland <https://github.com/DeCareSystemsIreland>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="umbraco.d.ts" />
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module umbraco.services {
+declare namespace umbraco.services {
 
     /**
     * @ngdoc service

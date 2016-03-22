@@ -1,9 +1,9 @@
 // Type definitions for PhotoSwipe 4.0.8
 // Project: http://photoswipe.com/
 // Definitions by: Xiaohan Zhang <https://github.com/hellochar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module PhotoSwipe {
+declare namespace PhotoSwipe {
     /**
      * A specific slide in the PhotoSwipe gallery. The terms "item", "slide", and "slide object" are used interchangeably.
      */
@@ -647,7 +647,7 @@ declare class PhotoSwipeUI_Default implements PhotoSwipe.UI<PhotoSwipeUI_Default
     update(): void;
 }
 
-declare module PhotoSwipeUI_Default {
+declare namespace PhotoSwipeUI_Default {
     /**
      * Options for the PhotoSwipe Default UI. Derived from http://photoswipe.com/documentation/options.html
      */

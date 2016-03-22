@@ -3,8 +3,8 @@
 // Definitions by: Lars Michaelis and Stephan Zerhusen <https://github.com/ButterFaces/ButterFaces>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module jsf {
-    module ajax {
+declare namespace jsf {
+    namespace ajax {
 
         interface RequestData {
             status: string;

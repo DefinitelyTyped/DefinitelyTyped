@@ -1,11 +1,11 @@
 // Type definitions for yargs
 // Project: https://github.com/chevex/yargs
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "yargs" {
 
-	module yargs {
+	namespace yargs {
 		interface Argv {
 			argv: any;
 			(...args: any[]): any;
@@ -15,7 +15,7 @@ declare module "yargs" {
 
 			locale(): string;
 			locale(loc:string): Argv;
-			
+
 			detectLocale(detect:boolean): Argv;
 
 			alias(shortName: string, longName: string): Argv;

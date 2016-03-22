@@ -5,7 +5,7 @@
 
 /// <reference path='../angularjs/angular.d.ts' />
 
-declare module angular.storage {
+declare namespace angular.storage {
 
     export interface ILocalStorageService {
         $default(items: any):ILocalStorageService;

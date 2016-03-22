@@ -1,84 +1,84 @@
 ﻿// Type definitions for Dojo v1.9
 // Project: http://dojotoolkit.org
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module dojox {
-    
+declare namespace dojox {
+
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/collections.html
      *
      * Deprecated.  Should require dojox/collections modules directly rather than trying to access them through
      * this module.
-     * 
+     *
      */
     interface collections {
     }
-    module collections {
+    namespace collections {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/collections/_base.html
          *
-         * 
+         *
          */
         interface _base {
             /**
-             * 
+             *
              */
             Set: Object;
             /**
              * Returns a new object of type dojox.collections.ArrayList
-             * 
-             * @param arr               Optional            
+             *
+             * @param arr               Optional
              */
             ArrayList(arr: any[]): void;
             /**
-             * 
-             * @param data             
+             *
+             * @param data
              */
             BinaryTree(data: any): void;
             /**
              * Returns an object of type dojox.collections.Dictionary
-             * 
-             * @param dictionary               Optional            
+             *
+             * @param dictionary               Optional
              */
             Dictionary(dictionary: dojox.collections.Dictionary): void;
             /**
              * return an object of type dojox.collections.DictionaryEntry
-             * 
-             * @param k             
-             * @param v             
+             *
+             * @param k
+             * @param v
              */
             DictionaryEntry(k: String, v: Object): void;
             /**
              * return an object of type dojox.collections.DictionaryIterator
-             * 
-             * @param obj             
+             *
+             * @param obj
              */
             DictionaryIterator(obj: Object): void;
             /**
              * return an object of type dojox.collections.Iterator
-             * 
-             * @param a             
+             *
+             * @param a
              */
             Iterator(a: any[]): void;
             /**
              * return an object of type dojox.collections.Queue
-             * 
-             * @param arr               Optional            
+             *
+             * @param arr               Optional
              */
             Queue(arr: any[]): void;
             /**
              * creates a collection that acts like a dictionary but is also internally sorted.
              * Note that the act of adding any elements forces an internal resort, making this object potentially slow.
-             * 
-             * @param dictionary               Optional            
+             *
+             * @param dictionary               Optional
              */
             SortedList(dictionary: Object): void;
             /**
              * returns an object of type dojox.collections.Stack
-             * 
-             * @param arr               Optional            
+             *
+             * @param arr               Optional
              */
             Stack(arr: any[]): void;
         }
@@ -86,38 +86,38 @@ declare module dojox {
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/collections/ArrayList.html
          *
          * Returns a new object of type dojox.collections.ArrayList
-         * 
-         * @param arr       Optional    
+         *
+         * @param arr       Optional
          */
         interface ArrayList{(arr?: any[]): void}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/collections/BinaryTree.html
          *
-         * 
-         * @param data     
+         *
+         * @param data
          */
         interface BinaryTree{(data: any): void}
-        module BinaryTree {
+        namespace BinaryTree {
             /**
-             * 
+             *
              */
             var TraversalMethods: Object
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/collections/BinaryTree.TraversalMethods.html
              *
-             * 
+             *
              */
             interface TraversalMethods {
                 /**
-                 * 
+                 *
                  */
                 Inorder: number;
                 /**
-                 * 
+                 *
                  */
                 Postorder: number;
                 /**
-                 * 
+                 *
                  */
                 Preorder: number;
             }
@@ -127,16 +127,16 @@ declare module dojox {
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/collections/Dictionary.html
          *
          * Returns an object of type dojox.collections.Dictionary
-         * 
-         * @param dictionary       Optional    
+         *
+         * @param dictionary       Optional
          */
         interface Dictionary{(dictionary?: dojox.collections.Dictionary): void}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/collections/Queue.html
          *
          * return an object of type dojox.collections.Queue
-         * 
-         * @param arr       Optional    
+         *
+         * @param arr       Optional
          */
         interface Queue{(arr?: any[]): void}
         /**
@@ -144,16 +144,16 @@ declare module dojox {
          *
          * creates a collection that acts like a dictionary but is also internally sorted.
          * Note that the act of adding any elements forces an internal resort, making this object potentially slow.
-         * 
-         * @param dictionary       Optional    
+         *
+         * @param dictionary       Optional
          */
         interface SortedList{(dictionary?: Object): void}
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/collections/Stack.html
          *
          * returns an object of type dojox.collections.Stack
-         * 
-         * @param arr       Optional    
+         *
+         * @param arr       Optional
          */
         interface Stack{(arr?: any[]): void}
     }
