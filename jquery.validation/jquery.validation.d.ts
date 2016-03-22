@@ -213,6 +213,8 @@ declare namespace JQueryValidation
          * Validates the form, returns true if it is valid, false otherwise.
          */
         form(): boolean;
+        
+        elementValue(element: Element): any;
 
         invalidElements(): HTMLElement[];
 
