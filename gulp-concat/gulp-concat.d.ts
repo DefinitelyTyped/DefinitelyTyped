@@ -1,7 +1,7 @@
 // Type definitions for gulp-concat
 // Project: http://github.com/wearefractal/gulp-concat
 // Definitions by: Keita Kagurazaka <https://github.com/k-kagurazaka>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -35,8 +35,11 @@ declare module "gulp-concat" {
         contents?: NodeJS.ReadableStream | Buffer;
     }
 
-    function concat(filename: string, options?: IOptions): NodeJS.ReadWriteStream;
-    function concat(options: IVinylOptions): NodeJS.ReadWriteStream;
+    interface IConcat {
+        (filename: string, options?: IOptions): NodeJS.ReadWriteStream;
+        (options: IVinylOptions): NodeJS.ReadWriteStream;
+    }
 
-    export = concat;
+    var _tmp: IConcat;
+    export = _tmp;
 }

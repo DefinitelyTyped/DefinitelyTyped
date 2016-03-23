@@ -1,7 +1,7 @@
 // Type definitions for jBinary
 // Project: https://github.com/jDataView/jBinary
 // Definitions by: Tim Bureck <https://github.com/tbureck>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Additional notes:
 // Method stubs and types are taken from the official jBinary documentation, which can be found here:
@@ -12,6 +12,12 @@
 
 declare class jBinary
 {
+
+    static loadData(source:any, callback?: (error:string, data:any) => any):any;
+    static load(source:any, typeSet?:any, callback?: (error:string, data:any) => any):any;
+
+    static saveAs(destination:any, mimeType?:string, callback?: (error:string, data:any) => any):any;
+    static toURI(mimeType?:string):any;
 
     constructor(data:Array<number>);
     constructor(data:jDataView, typeSet:Object);

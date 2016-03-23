@@ -1,9 +1,9 @@
 // Type definitions for intercom.js
 // Project: https://github.com/diy/intercom.js
 // Definitions by: spencerwi <http://github.com/spencerwi>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module intercom {
+declare namespace intercom {
     interface Intercom {
         /**
           * Broadcasts a message to all open windows (including the current window).
@@ -17,6 +17,12 @@ declare module intercom {
           * @param fn The listener method to invoke.
           */
         on(name: string, fn: Function): void;
+        /**
+         * Remove a registered event listener
+         * @param name The string event listener name.
+         * @param fn The listener method to remove.
+         */
+        off(name: string, fn: Function): void;
         /**
           * Given a unique key to represent the function, fn will be invoked in only one window. The ttl argument represents the number of seconds before the function can be called again.
           * @param key The unique function identifier key

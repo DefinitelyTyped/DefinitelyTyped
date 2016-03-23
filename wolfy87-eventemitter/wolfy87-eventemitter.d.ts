@@ -1,9 +1,9 @@
 // Type definitions for wolfy87-eventemitter v4.2.9
 // Project: https://github.com/Wolfy87/EventEmitter
 // Definitions by: ryiwamoto <https://github.com/ryiwamoto/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Wolfy87EventEmitter {
+declare namespace Wolfy87EventEmitter {
 
     /**
      * Hash Object for manipulating multiple events.
@@ -505,8 +505,9 @@ declare module Wolfy87EventEmitter {
 }
 
 declare module "wolfy87-eventemitter" {
+    class EventEmitter extends Wolfy87EventEmitter.EventEmitter {}
     export = EventEmitter;
 }
 
-declare var EventEmitter: typeof Wolfy87EventEmitter.EventEmitter;
+//declare var EventEmitter: typeof Wolfy87EventEmitter.EventEmitter;
 

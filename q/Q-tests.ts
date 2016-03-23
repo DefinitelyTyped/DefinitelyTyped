@@ -64,6 +64,15 @@ Q.allResolved([])
     })
 });
 
+Q(42)
+    .tap(() => "hello")
+    .tap(x => {
+        console.log(x);
+    })
+    .then(x => {
+        console.log("42 == " + x);
+    });
+
 declare var arrayPromise: Q.IPromise<number[]>;
 declare var stringPromise: Q.IPromise<string>;
 declare function returnsNumPromise(text: string): Q.Promise<number>;
@@ -145,7 +154,7 @@ Q.nbind(kitty.find, kitty)({ cute: true }).done((kitties: any[]) => {});
 /*
  * Test: Can "rethrow" rejected promises
  */
-module TestCanRethrowRejectedPromises {
+namespace TestCanRethrowRejectedPromises {
 
     interface Foo {
         a: number;

@@ -2,7 +2,7 @@
 /// <reference path="../gulp/gulp.d.ts" />
 
 import gulp = require("gulp");
-import concat = require("gulp-concat");
+import * as concat from "gulp-concat";
 
 gulp.task("concat:simple", () => {
     gulp.src(["file*.txt"])
@@ -18,6 +18,6 @@ gulp.task("concat:newLine", () => {
 
 gulp.task("concat:vinyl", () => {
     gulp.src(["file*.txt"])
-        .pipe(concat({ path: "file.txt", stat: { mode: 0666 } }))
+        .pipe(concat({ path: "file.txt", stat: { mode: parseInt("0666", 8) } }))
         .pipe(gulp.dest("build"));
 });

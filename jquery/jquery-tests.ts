@@ -120,6 +120,11 @@ function test_ajax() {
         alert("Data Saved: " + msg);
     });
     $.ajax({
+        method: "POST",
+        url: "some.php",
+        data: { name: "John", location: "Boston" }
+    });
+    $.ajax({
         url: "test.html",
         cache: false
     }).done(function (html) {
@@ -193,6 +198,11 @@ function test_ajax() {
     }, (jqXHR, textStatus, errorThrown) => {
         console.log(jqXHR, textStatus, errorThrown);
     });
+
+    // generic then method
+    var p: JQueryPromise<number> = $.ajax({ url: "test.js" })
+        .then(() => "Hello")
+        .then((x) => x.length);
 
     // jqXHR object
     var jqXHR = $.ajax({
@@ -1131,6 +1141,13 @@ function test_jQuery_removeData() {
     $("span:eq(3)").text("" + jQuery.data(div, "test2"));
 }
 
+function test_removeDataAll() {
+    var el = $("div");
+    el.data("test1", "VALUE-1");
+    el.data("test2", "VALUE-2");
+    el.removeData();
+}
+
 function test_dblclick() {
     $('#target').dblclick(function () {
         alert('Handler for .dblclick() called.');
@@ -1696,6 +1713,20 @@ function test_focusout() {
         $("#b")
             .text("blur fired: " + b + "x");
     });
+}
+
+function test_easing() {
+    const easing = jQuery.easing;
+
+    function test_easing_function( name: string, fn: JQueryEasingFunction ) {
+        const step = Math.pow( 2, -3 ); // use power of 2 to prevent floating point rounding error
+        for( let i = 0; i <= 1; i += step ) {
+            console.log( `$.easing.${name}(${i}): ${fn.call(easing, i)}` );
+        }
+    }
+
+    test_easing_function( "linear", easing.linear );
+    test_easing_function( "swing", easing.swing );
 }
 
 function test_fx() {
@@ -2511,10 +2542,10 @@ function test_jQuery() {
     $foo.triggerHandler('eventName');
     $("div > p").css("border", "1px solid gray");
     $("input:radio", document.forms[0]);
-	var xml: any;
+    var xml: any;
     $("div", xml.responseXML);
     $(document.body).css("background", "black");
-	var myForm: any;
+    var myForm: any;
     $(myForm.elements).hide();
     $('<p id="test">My <em>new</em> text</p>').appendTo('body');
     $('<img />');
@@ -2537,6 +2568,10 @@ function test_jQuery() {
         }
     }).appendTo("body");
     jQuery(function ($) {
+        // Your code using failsafe $ alias here...
+    });
+    jQuery(document).ready(function ($) {
+        // Your code using failsafe $ alias here...
     });
 }
 
@@ -3112,6 +3147,7 @@ function test_val() {
     $("#single").val("Single2");
     $("#multiple").val(["Multiple2", "Multiple3"]);
     $("input").val(["check1", "check2", "radio1"]);
+    $("input").val(1);
 }
 
 function test_selector() {
@@ -3201,6 +3237,10 @@ function test_not() {
     $("p").not("#selected");
 
     $("p").not($("div p.selected"));
+    
+    var el1 = $("<div/>")[0];
+    var el2 = $("<div/>")[0];
+    $("p").not([el1, el2]);
 }
 
 function test_EventIsNewable() {
@@ -3219,7 +3259,7 @@ var f1 = $.when("fetch"); // Is type JQueryPromise<string>
 var f2: JQueryPromise<string[]> = f1.then(s => [s, s]);
 var f3: JQueryPromise<number> = f2.then(v => 3);
 
-// ISSUE: https://github.com/borisyankov/DefinitelyTyped/issues/742
+// ISSUE: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/742
 // http://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax#answer-5976031
 $.ajax({
     url: 'php/upload.php',
@@ -3350,7 +3390,7 @@ function test_promise_then_change_type() {
 		var def = $.Deferred<any>();
 		var promise = def.promise(null);
 
-		def.rejectWith(this, new Error());
+		def.rejectWith(this, [new Error()]);
 
 		return promise;
 	}

@@ -1,21 +1,23 @@
 // Type definitions for prelude.ls 1.1.1
 // Project: http://www.preludels.com
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// Change [0]: 2015/06/14 - Marcelo Camargo <https://github.com/haskellcamargo>
 
 declare module "prelude-ls" {
-	module PreludeLS {
+	namespace PreludeLS {
 		export function id<A>(x: A): A;
 		export function isType<A>(type: string): (x: A) => boolean;
 		export function isType<A>(type: string, x: A): boolean;
 		export function replicate<A>(n: number): (x: A) => A[];
 		export function replicate<A>(n: number, x: A): A[];
-		
-		
+
+
 		// List
-		
-		export function each<A>(f: (x: A) => void): (xs: A[]) => void;
-		export function each<A>(f: (x: A) => void, xs: A[]): void;
+
+		export function each<A>(f: (x: A) => void): (xs: A[]) => A[];
+		export function each<A>(f: (x: A) => void, xs: A[]): A[];
 		export function map<A, B>(f: (x: A) => B): (xs: A[]) => B[];
 		export function map<A, B>(f: (x: A) => B, xs: A[]): B[];
 		export function compact<A>(xs: A[]): A[];
@@ -25,11 +27,11 @@ declare module "prelude-ls" {
 		export function reject<A>(f: (x: A) => boolean, xs: A[]): A[];
 		export function partition<A>(f: (x: A) => Boolean): (xs: A[]) => [A[], A[]];
 		export function partition<A>(f: (x: A) => Boolean, xs: A[]): [A[], A[]];
-		export function find<A>(f: (x: A) => Boolean): (xs: A[]) => (A | void);
-		export function find<A>(f: (x: A) => Boolean, xs: A[]): (A | void);
-		export function head<A>(xs: A[]): (A | void);
+		export function find<A>(f: (x: A) => Boolean): (xs: A[]) => A;
+		export function find<A>(f: (x: A) => Boolean, xs: A[]): A;
+		export function head<A>(xs: A[]): A;
 		export function tail<A>(xs: A[]): A[];
-		export function last<A>(xs: A[]): (A | void);
+		export function last<A>(xs: A[]): A;
 		export function initial<A>(xs: A[]): A[];
 		export function empty<A>(xs: A[]): boolean;
 		export function reverse<A>(xs: A[]): A[];
@@ -58,8 +60,8 @@ declare module "prelude-ls" {
 		export function concatMap<A, B>(f: (x: A) => B[], xs: A[]): B[];
 		export function flatten(xs: any[]): any[];
 		export function difference<A>(...xss: A[][]): A[];
-		export function intersection<A>(...xss: A[]): A[];
-		export function union<A>(...xss: A[]): A[];
+		export function intersection<A>(...xss: A[][]): A[];
+		export function union<A>(...xss: A[][]): A[];
 		export function countBy<A, B>(f: (x: A) => B): (xs: A[]) => any;
 		export function countBy<A, B>(f: (x: A) => B, xs: A[]): any;
 		export function groupBy<A, B>(f: (x: A) => B): (xs: A[]) => any;
@@ -73,11 +75,11 @@ declare module "prelude-ls" {
 		export function sort<A>(xs: A[]): A[];
 		export function sortWith<A>(f: (x: A) => (y: A) => number): (xs: A[]) => A[];
 		export function sortWith<A>(f: (x: A) => (y: A) => number, xs: A[]): A[];
-		export function sortBy<A, B>(f: (x: A) => B): (xs: A[]) => A;
-		export function sortBy<A, B>(f: (x: A) => B, xs: A[]): A;
-		export function sum(xs: number[]): number[];
-		export function product(xs: number[]): number[];
-		export function mean(xs: number[]): number[];
+		export function sortBy<A, B>(f: (x: A) => B): (xs: A[]) => A[];
+		export function sortBy<A, B>(f: (x: A) => B, xs: A[]): A[];
+		export function sum(xs: number[]): number;
+		export function product(xs: number[]): number;
+		export function mean(xs: number[]): number;
 		export function maximum<A>(xs: A[]): A;
 		export function minimum<A>(xs: A[]): A;
 		export function maximumBy<A, B>(f: (x: A) => B): (xs: A[]) => A;
@@ -133,10 +135,10 @@ declare module "prelude-ls" {
 		export function findIndex<A>(f: (x: A) => boolean, xs: A[]): number;
 		export function findIndices<A>(f: (x: A) => boolean): (xs: A[]) => number[];
 		export function findIndices<A>(f: (x: A) => boolean, xs: A[]): number[];
-		
-		
+
+
 		// Obj
-		
+
 		export function keys<A>(object: { [key: string]: A }): string[];
 		export function keys<A>(object: { [key: number]: A }): number[];
 		export function values<A>(object: { [key: string]: A }): A[];

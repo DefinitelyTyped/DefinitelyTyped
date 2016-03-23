@@ -13,7 +13,7 @@ interface TestScope extends ng.IScope {
 }
 
 export class TestController {
-  constructor($scope: TestScope, localStorageService: ng.local.storage.ILocalStorageService<string>) {
+  constructor($scope: TestScope, localStorageService: ng.local.storage.ILocalStorageService) {
     // isSupported
     if (localStorageService.isSupported) {
       // do something
@@ -29,7 +29,7 @@ export class TestController {
 
     // get
     $scope.getItem = (key) => {
-      return localStorageService.get(key);
+      return localStorageService.get<string>(key);
     };
 
     // remove
