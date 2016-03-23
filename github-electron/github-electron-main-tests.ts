@@ -505,6 +505,19 @@ app.on('ready', () => {
 	appIcon.setToolTip('This is my application.');
 	appIcon.setContextMenu(contextMenu);
 	appIcon.setImage('/path/to/new/icon');
+    appIcon.popUpContextMenu(contextMenu, {x: 100, y: 100});
+
+	appIcon.on('click', (event, bounds) => {
+		console.log('click', event, bounds);
+	});
+
+	appIcon.on('ballon-show', () => {
+		console.log('ballon-show');
+	});
+
+	appIcon.displayBalloon({
+		title: 'Hello World!'
+	});
 });
 
 // clipboard
