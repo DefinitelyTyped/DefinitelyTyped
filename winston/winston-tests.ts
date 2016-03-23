@@ -76,14 +76,19 @@ winston.exitOnError = bool;
 
 winston.log(str, str);
 winston.log(str, str, metadata);
+winston.log(str, str, metadata, metadata, metadata);
 winston.debug(str);
 winston.debug(str, metadata);
+winston.debug(str, metadata, metadata, metadata);
 winston.info(str);
 winston.info(str, metadata);
+winston.info(str, metadata, metadata, metadata);
 winston.warn(str);
 winston.warn(str, metadata);
+winston.warn(str, metadata, metadata, metadata);
 winston.error(str);
 winston.error(str, metadata);
+winston.error(str, metadata, metadata, metadata);
 
 winston.query(queryOptions, (err: Error, results: any): void => {
 
@@ -94,6 +99,7 @@ winston.query((err: Error, results: any): void => {
 
 logger = winston.add(transport, transportOptions);
 logger = winston.remove(transport);
+logger = winston.add(transport, {filename: 'path/to/file.log'});
 
 winston.clear();
 logger = winston.profile(str, str, metadata, (err: Error, level: string, msg: string, meta: any):void => {
@@ -118,14 +124,19 @@ readableStream.on('log', function (log:any):void {
 logger = logger.extend(obj);
 logger.log(str, str);
 logger.log(str, str, metadata);
+logger.log(str, str, metadata, metadata, metadata);
 logger.debug(str);
 logger.debug(str, metadata);
+logger.debug(str, metadata, metadata, metadata);
 logger.info(str);
 logger.info(str, metadata);
+logger.info(str, metadata, metadata, metadata);
 logger.warn(str);
 logger.warn(str, metadata);
+logger.warn(str, metadata, metadata, metadata);
 logger.error(str);
 logger.error(str, metadata);
+logger.error(str, metadata, metadata, metadata);
 
 logger.query(queryOptions, (err: Error, results: any): void => {
 
@@ -140,6 +151,7 @@ logger.handleExceptions(transport);
 logger.unhandleExceptions(transport);
 logger = logger.add(transport, transportOptions, bool);
 logger = logger.add(transport);
+logger = logger.add(transport, {filename: 'path/to/file.log'});
 
 logger.clear();
 logger = logger.remove(transport);
