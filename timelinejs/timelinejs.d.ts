@@ -1,11 +1,11 @@
 // Type definitions for timelinejs
 // Project: https://github.com/NUKnightLab/TimelineJS
 // Definitions by: Roland Zwaga <https://github.com/rolandzwaga>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function createStoryJS(config:knightlab.ITimeLineConfiguration):void;
 
-declare module knightlab {
+declare namespace knightlab {
 
     export interface ITimeLineConfiguration {
         width: string;

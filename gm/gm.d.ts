@@ -1,7 +1,7 @@
 ﻿// Type definitions for gm 1.17.0
 // Project: https://github.com/aheckmann/gm
 // Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
 
@@ -10,9 +10,10 @@ declare module "gm" {
 
 	function m(image: string): m.State;
 
-	module m {
+	namespace m {
 		export interface ClassOptions {
 			imageMagick?: boolean;
+			nativeAutoOrient?: boolean;
 		}
 
 		export interface CompareCallback {

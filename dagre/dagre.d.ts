@@ -1,8 +1,9 @@
 // Type definitions for dagre 0.7.0
 // Project: https://github.com/cpettitt/dagre
 // Definitions by: Qinfeng Chen <https://github.com/qinfchen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-declare module Dagre{
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+declare namespace Dagre{
     interface DagreFactory {
         graphlib: GraphLib;
         layout(graph: Graph): void;
@@ -10,20 +11,28 @@ declare module Dagre{
 
     interface Graph {
         new (): Graph;
-        edges(): string[];
-        edge(id: string): any;
+        edges(): Edge[];
+        edge(id: any): any;
         nodes(): string[];
-        node(id: string): any;
-        setDefaultEdgeLabel(callback: () => void): void;
-        setEdge(sourceId: string, targetId: string): void;
-        setGraph(options: { [key: string]: any }): void;
-        setNode(id: string, node: { [key: string]: any }): void;
+        node(id: any): any;
+        setDefaultEdgeLabel(callback: () => void): Graph;
+        setEdge(sourceId: string, targetId: string): Graph;
+        setGraph(options: { [key: string]: any }): Graph;
+        setNode(id: string, node: { [key: string]: any }): Graph;
+    }
+
+    interface Edge {
+        v: string;
+        w: string;
     }
 
     interface GraphLib {
-        Graph: Graph
+        Graph: Graph;
     }
 }
 
 declare var dagre: Dagre.DagreFactory;
 
+declare module "dagre" {
+    export = dagre;
+}

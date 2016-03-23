@@ -1,15 +1,22 @@
 // Type definitions for yargs
 // Project: https://github.com/chevex/yargs
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "yargs" {
 
-	module yargs {
+	namespace yargs {
 		interface Argv {
 			argv: any;
 			(...args: any[]): any;
 			parse(...args: any[]): any;
+
+			reset(): Argv;
+
+			locale(): string;
+			locale(loc:string): Argv;
+
+			detectLocale(detect:boolean): Argv;
 
 			alias(shortName: string, longName: string): Argv;
 			alias(aliases: { [shortName: string]: string }): Argv;
@@ -53,16 +60,26 @@ declare module "yargs" {
 			usage(message: string, options?: { [key: string]: Options }): Argv;
 			usage(options?: { [key: string]: Options }): Argv;
 
+			command(command: string, description: string): Argv;
+			command(command: string, description: string, fn: (args: Argv) => void): Argv;
+
+			completion(cmd: string, fn?: SyncCompletionFunction): Argv;
+			completion(cmd: string, description?: string, fn?: SyncCompletionFunction): Argv;
+			completion(cmd: string, fn?: AsyncCompletionFunction): Argv;
+			completion(cmd: string, description?: string, fn?: AsyncCompletionFunction): Argv;
+
 			example(command: string, description: string): Argv;
 
-			check(func: (argv: { [key: string]: any }, aliases: { [alias: string]: string }) => boolean): Argv;
-			check(func: (argv: { [key: string]: any }, aliases: { [alias: string]: string }) => string): Argv;
+			check(func: (argv: any, aliases: { [alias: string]: string }) => any): Argv;
 
 			boolean(key: string): Argv;
 			boolean(keys: string[]): Argv;
 
 			string(key: string): Argv;
 			string(keys: string[]): Argv;
+
+			choices(choices: Object): Argv;
+			choices(key: string, values:any[]): Argv;
 
 			config(key: string): Argv;
 			config(keys: string[]): Argv;
@@ -74,11 +91,17 @@ declare module "yargs" {
 			help(): string;
 			help(option: string, description?: string): Argv;
 
-			version(version: string, option: string, description?: string): Argv;
+			epilog(msg: string): Argv;
+			epilogue(msg: string): Argv;
+
+			version(version: string, option?: string, description?: string): Argv;
+			version(version: () => string, option?: string, description?: string): Argv;
 
 			showHelpOnFail(enable: boolean, message?: string): Argv;
 
 			showHelp(func?: (message: string) => any): Argv;
+
+			exitProcess(enabled:boolean): Argv;
 
 			/* Undocumented */
 
@@ -108,7 +131,11 @@ declare module "yargs" {
 			description?: any;
 			desc?: any;
 			requiresArg?: any;
+			choices?:string[];
 		}
+
+		type SyncCompletionFunction = (current: string, argv: any) => string[];
+		type AsyncCompletionFunction = (current: string, argv: any, done: (completion: string[]) => void) => void;
 	}
 
 	var yargs: yargs.Argv;

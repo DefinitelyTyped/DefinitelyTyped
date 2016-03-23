@@ -1,7 +1,7 @@
 ﻿// Type definitions for Masked Input plugin for jQuery
 // Project: http://digitalbush.com/projects/masked-input-plugin
 // Definitions by: Lokesh Peta <https://github.com/lokeshpeta/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts" />
 
@@ -47,9 +47,9 @@ interface MaskedInputDefaults {
 }
 
 interface JQueryStatic {
-    inputmask: MaskedInputStatic;
+    mask: MaskedInputStatic;
 }
 
 interface JQuery {
-    inputmask(mask: string, options?: JQueryMaskedInputOptions): JQuery;
+    mask(mask: string, options?: JQueryMaskedInputOptions): JQuery;
 }

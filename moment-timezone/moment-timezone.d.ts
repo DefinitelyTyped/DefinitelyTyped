@@ -1,13 +1,16 @@
 // Type definitions for moment-timezone.js 0.2.5
 // Project: http://momentjs.com/timezone/
 // Definitions by: Michel Salib <https://github.com/michelsalib>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../moment/moment.d.ts" />
 
-declare module moment {
+declare namespace moment {
     interface Moment {
+        tz(): string;
         tz(timezone: string): Moment;
+        zoneAbbr() :Moment;
+        zoneName() :Moment;
     }
 
     interface MomentStatic {
@@ -27,9 +30,27 @@ interface MomentZone {
 }
 
 interface MomentTimezone {
+    (): moment.Moment;
+    (timezone: string): moment.Moment;
     (date: number, timezone: string): moment.Moment;
     (date: number[], timezone: string): moment.Moment;
+    (date: string, timezone: string): moment.Moment;
     (date: string, format: string, timezone: string): moment.Moment;
+    (date: string, format: string, strict: boolean, timezone: string): moment.Moment;
+    (date: string, format: string, language: string, timezone: string): moment.Moment;
+    (date: string, format: string, language: string, strict: boolean, timezone: string): moment.Moment;
+    (date: string, formats: string[], timezone: string): moment.Moment;
+    (date: string, formats: string[], strict: boolean, timezone: string): moment.Moment;
+    (date: string, formats: string[], language: string, timezone: string): moment.Moment;
+    (date: string, formats: string[], language: string, strict: boolean, timezone: string): moment.Moment;
+    (date: string, specialFormat: () => void, timezone: string): moment.Moment;
+    (date: string, specialFormat: () => void, strict: boolean, timezone: string): moment.Moment;
+    (date: string, specialFormat: () => void, language: string, timezone: string): moment.Moment;
+    (date: string, specialFormat: () => void, language: string, strict: boolean, timezone: string): moment.Moment;
+    (date: string, formatsIncludingSpecial: any[], timezone: string): moment.Moment;
+    (date: string, formatsIncludingSpecial: any[], strict: boolean, timezone: string): moment.Moment;
+    (date: string, formatsIncludingSpecial: any[], language: string, timezone: string): moment.Moment;
+    (date: string, formatsIncludingSpecial: any[], language: string, strict: boolean, timezone: string): moment.Moment;
     (date: Date, timezone: string): moment.Moment;
     (date: moment.Moment, timezone: string): moment.Moment;
     (date: Object, timezone: string): moment.Moment;
@@ -49,6 +70,9 @@ interface MomentTimezone {
     }): void;
 
     names(): string[];
+    guess(): string;
+
+    setDefault(timezone: string): void;
 }
 
 declare module 'moment-timezone' {

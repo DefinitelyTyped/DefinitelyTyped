@@ -1,7 +1,7 @@
 // Type definitions for EventEmitter2 v0.14.4
 // Project: https://github.com/asyncly/EventEmitter2
 // Definitions by: ryiwamoto <https://github.com/ryiwamoto/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface EventEmitter2Configuration {
     /**
@@ -55,7 +55,7 @@ declare class EventEmitter2 {
      * Removes the listener that will be fired when any event is emitted.
      * @param listener
      */
-    offAny(listener: Function): EventEmitter2;
+    offAny(listener?: Function): EventEmitter2;
 
     /**
      * Adds a one time listener for the event.

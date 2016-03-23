@@ -1,7 +1,7 @@
 // Type definitions for express-jwt
 // Project: https://www.npmjs.org/package/express-jwt
 // Definitions by: Wonshik Kim <https://github.com/wokim/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 /// <reference path="../express-unless/express-unless.d.ts" />
@@ -12,12 +12,22 @@ declare module "express-jwt" {
 
     function jwt(options: jwt.Options): jwt.RequestHandler;
 
-    module jwt {
+    interface IDoneCallback<T> {
+        (err: Error, result: T): void;
+    }
+
+    type ICallback = <T>(req: express.Request, payload: T, done: IDoneCallback<boolean>) => void;
+
+    namespace jwt {
         export interface Options {
-            secret: string;
+            secret: string|Buffer|ICallback;
             userProperty?: string;
             skip?: string[];
             credentialsRequired?: boolean;
+            isRevoked?: boolean;
+            requestProperty?: string;
+            getToken?: ICallback;
+            [property: string]: any;
         }
         export interface RequestHandler extends express.RequestHandler {
             unless?: typeof unless;

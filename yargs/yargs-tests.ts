@@ -1,7 +1,7 @@
 ﻿// Type definition tests for yargs
 // Project: https://github.com/chevex/yargs
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="yargs.d.ts" />
 
@@ -134,6 +134,59 @@ function Argv$options() {
 	;
 }
 
+function Argv$choices() {
+	// example from documentation
+	var argv = yargs
+	  .alias('i', 'ingredient')
+	  .describe('i', 'choose your sandwich ingredients')
+	  .choices('i', ['peanut-butter', 'jelly', 'banana', 'pickles'])
+	  .help('help')
+	  .argv
+}
+
+function command() {
+	var argv = yargs
+		.usage('npm <command>')
+		.command('install', 'tis a mighty fine package to install')
+		.command('publish', 'shiver me timbers, should you be sharing all that', yargs => {
+			argv = yargs.option('f', {
+				alias: 'force',
+				description: 'yar, it usually be a bad idea'
+			})
+			.help('help')
+			.argv;
+		})
+		.help('help')
+		.argv;
+}
+
+function completion_sync() {
+	var argv = yargs
+		.completion('completion', (current, argv) => {
+			// 'current' is the current command being completed.
+			// 'argv' is the parsed arguments so far.
+			// simply return an array of completions.
+			return [
+				'foo',
+				'bar'
+			];
+		})
+		.argv;
+}
+
+function completion_async() {
+	var argv = yargs
+		.completion('completion', (current, argv, done) => {
+			setTimeout(function() {
+				done([
+					'apple',
+					'banana'
+				]);
+			}, 500);
+		})
+		.argv;
+}
+
 function Argv$help() {
 	var yargs1 = yargs
 		.usage("$0 -operand1 number -operand2 number -operation [add|subtract]");
@@ -154,4 +207,69 @@ function Argv$showHelp() {
 	var yargs1 = yargs
 		.usage("$0 -operand1 number -operand2 number -operation [add|subtract]");
 	yargs1.showHelp();
+}
+
+function Argv$version() {
+	var argv1 = yargs
+		.version('1.0.0');
+
+	var argv2 = yargs
+		.version('1.0.0', '--version');
+
+	var argv3 = yargs
+		.version('1.0.0', '--version', 'description');
+
+	var argv4 = yargs
+		.version( function() { return '1.0.0'; }, '--version', 'description');
+}
+
+function Argv$locale() {
+	var argv = yargs
+		.usage('./$0 - follow ye instructions true')
+		.option('option', {
+		alias: 'o',
+		describe: "'tis a mighty fine option",
+		demand: true
+		})
+		.command('run', "Arrr, ya best be knowin' what yer doin'")
+		.example('$0 run foo', "shiver me timbers, here's an example for ye")
+		.help('help')
+		.wrap(70)
+		.locale('pirate')
+		.argv
+}
+
+function Argv$epilogue() {
+	var argv = yargs
+  		.epilogue('for more information, find our manual at http://example.com');
+}
+
+function Argv$reset() {
+	var ya = yargs
+		.usage('$0 command')
+		.command('hello', 'hello command')
+		.command('world', 'world command')
+		.demand(1, 'must provide a valid command'),
+		argv = yargs.argv,
+		command = argv._[0];
+
+	if (command === 'hello') {
+		ya.reset()
+			.usage('$0 hello')
+			.help('h')
+			.example('$0 hello', 'print the hello message!')
+			.argv
+
+		console.log('hello!');
+	} else if (command === 'world'){
+		ya.reset()
+			.usage('$0 world')
+			.help('h')
+			.example('$0 world', 'print the world message!')
+			.argv
+
+		console.log('world!');
+	} else {
+		ya.showHelp();
+	}
 }
