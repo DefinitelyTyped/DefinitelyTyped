@@ -17,6 +17,7 @@ import {
 	nativeImage,
 	screen,
 	shell,
+	session,
 	hideInternalModules
 } from 'electron';
 
@@ -566,3 +567,69 @@ app.on('ready', () => {
 // https://github.com/atom/electron/blob/master/docs/api/shell.md
 
 shell.openExternal('https://github.com');
+
+// session
+// https://github.com/atom/electron/blob/master/docs/api/session.md
+
+session.defaultSession.on('will-download', (event, item, webContents) => {
+	event.preventDefault();
+	require('request')(item.getURL(), (data: any) => {
+		require('fs').writeFileSync('/somewhere', data);
+	});
+});
+
+// Query all cookies.
+session.defaultSession.cookies.get({}, (error, cookies) => {
+	console.log(cookies);
+});
+
+// Query all cookies associated with a specific url.
+session.defaultSession.cookies.get({ url : "http://www.github.com" }, (error, cookies) => {
+	console.log(cookies);
+});
+
+// Set a cookie with the given cookie data;
+// may overwrite equivalent cookies if they exist.
+var cookie = { url : "http://www.github.com", name : "dummy_name", value : "dummy" };
+session.defaultSession.cookies.set(cookie, (error) => {
+	if (error) {
+    	console.error(error);
+	}
+});
+
+// In the main process.
+session.defaultSession.on('will-download', (event, item, webContents) => {
+	// Set the save path, making Electron not to prompt a save dialog.
+	item.setSavePath('/tmp/save.pdf');
+	console.log(item.getMimeType());
+	console.log(item.getFilename());
+	console.log(item.getTotalBytes());
+
+	item.on('updated', function() {
+		console.log('Received bytes: ' + item.getReceivedBytes());
+	});
+
+	item.on('done', function(e, state) {
+		if (state == "completed") {
+			console.log("Download successfully");
+		} else {
+			console.log("Download is cancelled or interrupted that can't be resumed");
+		}
+	});
+});
+
+// To emulate a GPRS connection with 50kbps throughput and 500 ms latency.
+session.defaultSession.enableNetworkEmulation({
+	latency: 500,
+	downloadThroughput: 6400,
+	uploadThroughput: 6400
+});
+
+// To emulate a network outage.
+session.defaultSession.enableNetworkEmulation({
+	offline: true
+});
+
+session.defaultSession.setCertificateVerifyProc((hostname, cert, callback) => {
+	callback((hostname === 'github.com') ? true : false);
+});
