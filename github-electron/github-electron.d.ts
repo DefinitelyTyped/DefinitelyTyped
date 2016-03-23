@@ -539,10 +539,27 @@ declare namespace Electron {
 	}
 
 	interface FindInPageOptions {
+		/**
+		 * Whether to search forward or backward, defaults to true
+		 */
 		forward?: boolean;
+		/**
+		 * Whether the operation is first request or a follow up, defaults to false.
+		 */
 		findNext?: boolean;
+		/**
+		 * Whether search should be case-sensitive, defaults to false.
+		 */
 		matchCase?: boolean;
+		/**
+		 * Whether to look only at the start of words. defaults to false.
+		 */
 		wordStart?: boolean;
+		/**
+		 * When combined with wordStart, accepts a match in the middle of a word
+		 * if the match begins with an uppercase letter followed by a lowercase
+		 * or non-letter. Accepts several other intra-word matches, defaults to false.
+		 */
 		medialCapitalAsWordStart?: boolean;
 	}
 
@@ -569,6 +586,11 @@ declare namespace Electron {
 			userAgent?: string;
 			extraHeaders?: string;
 		}): void;
+		/**
+		 * Initiates a download of the resource at url without navigating.
+		 * The will-download event of session will be triggered.
+		 */
+		downloadURL(url: string): void;
 		/**
 		 * @returns The URL of current web page.
 		 */
@@ -615,6 +637,10 @@ declare namespace Electron {
 		 */
 		canGoToOffset(offset: number): boolean;
 		/**
+		 * Clears the navigation history.
+		 */
+		clearHistory(): void;
+		/**
 		 * Makes the web page go back.
 		 */
 		goBack(): void;
@@ -639,6 +665,10 @@ declare namespace Electron {
 		 */
 		setUserAgent(userAgent: string): void;
 		/**
+		 * @returns The user agent for this web page.
+		 */
+		getUserAgent(): string;
+		/**
 		 * Injects CSS into this page.
 		 */
 		insertCSS(css: string): void;
@@ -647,6 +677,14 @@ declare namespace Electron {
 		 * @param code Code to evaluate.
 		 */
 		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): void;
+		/**
+		 * Mute the audio on the current web page.
+		 */
+		setAudioMuted(muted: boolean): void;
+		/**
+		 * @returns Whether this page has been muted.
+		 */
+		isAudioMuted(): boolean;
 		/**
 		 * Executes Edit -> Undo command in page.
 		 */
@@ -667,6 +705,10 @@ declare namespace Electron {
 		 * Executes Edit -> Paste command in page.
 		 */
 		paste(): void;
+		/**
+		 * Executes Edit -> Paste and Match Style in page.
+		 */
+		pasteAndMatchStyle(): void;
 		/**
 		 * Executes Edit -> Delete command in page.
 		 */
@@ -813,6 +855,10 @@ declare namespace Electron {
 		 */
 		inspectElement(x: number, y: number): void;
 		/**
+		 * Opens the developer tools for the service worker context.
+		 */
+		inspectServiceWorker(): void;
+		/**
 		 * Send args.. to the web page via channel in asynchronous message, the web page
 		 * can handle it by listening to the channel event of ipc module.
 		 * Note:
@@ -822,6 +868,203 @@ declare namespace Electron {
 		 *      to a renderer process, because it would be very easy to cause dead locks.
 		 */
 		send(channel: string, ...args: any[]): void;
+		/**
+		 * Enable device emulation with the given parameters.
+		 */
+		enableDeviceEmulation(parameters: DeviceEmulationParameters): void;
+		/**
+		 * Disable device emulation.
+		 */
+		disableDeviceEmulation(): void;
+		/**
+		 * Sends an input event to the page.
+		 */
+		sendInputEvent(event: SendInputEvent): void;
+		/**
+		 * Begin subscribing for presentation events and captured frames,
+		 * The callback will be called when there is a presentation event.
+		 */
+		beginFrameSubscription(callback: (
+			/**
+			 * The frameBuffer is a Buffer that contains raw pixel data.
+			 * On most machines, the pixel data is effectively stored in 32bit BGRA format,
+			 * but the actual representation depends on the endianness of the processor
+			 * (most modern processors are little-endian, on machines with big-endian
+			 * processors the data is in 32bit ARGB format).
+			 */
+			frameBuffer: Buffer
+		) => void): void;
+		/**
+		 * End subscribing for frame presentation events.
+		 */
+		endFrameSubscription(): void;
+		/**
+		 * @returns If the process of saving page has been initiated successfully.
+		 */
+		savePage(fullPath: string, saveType: 'HTMLOnly' | 'HTMLComplete' | 'MHTML', callback?: (eror: Error) => void): boolean;
+		/**
+		 * @returns The session object used by this webContents.
+		 */
+		session: Session;
+		/**
+		 * @returns The WebContents that might own this WebContents.
+		 */
+		hostWebContents: WebContents;
+		/**
+		 * @returns The WebContents of DevTools for this WebContents.
+		 * Note: Users should never store this object because it may become null
+		 * when the DevTools has been closed.
+		 */
+		devToolsWebContents: WebContents;
+		/**
+		 * @returns Debugger API
+		 */
+		debugger: Debugger;
+	}
+
+	interface DeviceEmulationParameters {
+		/**
+		 * Specify the screen type to emulated
+		 * Default: desktop
+		 */
+		screenPosition?: 'desktop' | 'mobile';
+		/**
+		 * Set the emulated screen size (screenPosition == mobile)
+		 */
+		screenSize?: {
+			/**
+			 * Set the emulated screen width
+			 */
+			width: number;
+			/**
+			 * Set the emulated screen height
+			 */
+			height: number;
+		};
+		/**
+		 * Position the view on the screen (screenPosition == mobile)
+		 * Default: {x: 0, y: 0}
+		 */
+		viewPosition?: {
+			/**
+			 * Set the x axis offset from top left corner
+			 */
+			x: number;
+			/**
+			 * Set the y axis offset from top left corner
+			 */
+			y: number;
+		};
+		/**
+		 * Set the device scale factor (if zero defaults to original device scale factor)
+		 * Default: 0
+		 */
+		deviceScaleFactor: number;
+		/**
+		 * Set the emulated view size (empty means no override).
+		 */
+		viewSize?: {
+			/**
+			 * Set the emulated view width
+			 */
+			width: number;
+			/**
+			 * Set the emulated view height
+			 */
+			height: number;
+		};
+		/**
+		 * Whether emulated view should be scaled down if necessary to fit into available space
+		 * Default: false
+		 */
+		fitToView?: boolean;
+		/**
+		 * Offset of the emulated view inside available space (not in fit to view mode)
+		 * Default: {x: 0, y: 0}
+		 */
+		offset?: {
+			/**
+			 * Set the x axis offset from top left corner
+			 */
+			x: number;
+			/**
+			 * Set the y axis offset from top left corner
+			 */
+			y: number;
+		};
+		/**
+		 * Scale of emulated view inside available space (not in fit to view mode)
+		 * Default: 1
+		 */
+		scale: number;
+	}
+
+	interface SendInputEvent {
+		type: 'mouseDown' | 'mouseUp' | 'mouseEnter' | 'mouseLeave' | 'contextMenu' | 'mouseWheel' | 'mouseMove' | 'keyDown' | 'keyUp' | 'char';
+		modifiers: ('shift' | 'control' | 'alt' | 'meta' | 'isKeypad' | 'isAutoRepeat' | 'leftButtonDown' | 'middleButtonDown' | 'rightButtonDown' | 'capsLock' | 'numLock' | 'left' | 'right')[];
+	}
+
+	interface SendInputKeyboardEvent extends SendInputEvent {
+		keyCode: string;
+	}
+
+	interface SendInputMouseEvent extends SendInputEvent {
+		x: number;
+		y: number;
+		button?: 'left' | 'middle' | 'right';
+		globalX?: number;
+		globalY?: number;
+		movementX?: number;
+		movementY?: number;
+		clickCount?: number;
+	}
+
+	interface SendInputMouseWheelEvent extends SendInputEvent {
+		deltaX?: number;
+		deltaY?: number;
+		wheelTicksX?: number;
+		wheelTicksY?: number;
+		accelerationRatioX?: number;
+		accelerationRatioY?: number;
+		hasPreciseScrollingDeltas?: number;
+		canScroll?: boolean;
+	}
+
+	/**
+	 * Debugger API serves as an alternate transport for remote debugging protocol.
+	 */
+	interface Debugger extends NodeJS.EventEmitter {
+		/**
+		 * Attaches the debugger to the webContents.
+		 * @param protocolVersion Requested debugging protocol version.
+		 */
+		attach(protocolVersion?: string): void;
+		/**
+		 * @returns Whether a debugger is attached to the webContents.
+		 */
+		isAttached(): boolean;
+		/**
+		 * Detaches the debugger from the webContents.
+		 */
+		detach(): void;
+		/**
+		 * Send given command to the debugging target.
+		 * @param method Method name, should be one of the methods defined by the remote debugging protocol.
+		 * @param commandParams JSON object with request parameters.
+		 * @param callback Response defined by the ‘returns’ attribute of the command description in the remote debugging protocol.
+		 */
+		sendCommand(method: string, commandParams?: any, callback?: (error: Error, result: any) => void): void;
+		/**
+		 * Emitted when debugging session is terminated. This happens either when
+		 * webContents is closed or devtools is invoked for the attached webContents.
+		 */
+		on(event: 'detach', listener: (event: any, reason: string) => void): this;
+		/**
+		 * Emitted whenever debugging target issues instrumentation event.
+		 * Event parameters defined by the ‘parameters’ attribute in the remote debugging protocol.
+		 */
+		on(event: 'message', listener: (event: any, method: string, params: any) => void): this;
+		on(event: string, listener: Function): this;
 	}
 
 	/**
