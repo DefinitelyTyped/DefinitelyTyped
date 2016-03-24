@@ -1,7 +1,6 @@
 // Type definitions for soap
 // Project: https://www.npmjs.com/package/soap
-// Definitions by: Nicole Wang <https://github.com/nicoleWjie>
-// Definitions by: Cage Fox <https://github.com/cagefox>
+// Definitions by: Nicole Wang <https://github.com/nicoleWjie>, Cage Fox <https://github.com/cagefox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
