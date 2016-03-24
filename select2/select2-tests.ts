@@ -99,7 +99,7 @@ $("#e7").select2({
     ajax: {
         url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
         dataType: 'jsonp',
-        quietMillis: 100,
+        delay: 100,
         data: function (term, page) {
             return {
                 q: term,
