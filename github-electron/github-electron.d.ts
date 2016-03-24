@@ -1846,10 +1846,12 @@ declare namespace Electron {
 		(hostname: string, cert: any, callback: (accepted: boolean) => any): any;
 	}
 
-	class Session {
-		static fromPartition(partition: string): Session;
-		static defaultSession: Session;
+	class SessionModule {
+		fromPartition(partition: string): Session;
+		defaultSession: Session;
+    }
 
+	class Session {
 		cookies: any;
 		clearCache(callback: Function): void;
 		clearStorageData(callback: Function): void;
@@ -1883,7 +1885,7 @@ declare namespace Electron {
 		powerSaveBlocker: Electron.PowerSaveBlocker;
 		protocol: Electron.Protocol;
 		screen: Electron.Screen;
-		session: Electron.Session;
+		session: Electron.SessionModule;
 		Tray: typeof Electron.Tray;
 		hideInternalModules(): void;
 	}
