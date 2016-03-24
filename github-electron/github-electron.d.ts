@@ -1877,6 +1877,20 @@ declare namespace Electron {
 		webRequest: any;
 	}
 
+	interface DownloadItem extends NodeJS.EventEmitter {
+		setSavePath(path:string):void;
+		pause():void;
+		resume():void;
+		cancel():void;
+		getURL():string;
+		getMimeType():string;
+		hasUserGesture():boolean;
+		getFilename():string;
+		getTotalBytes():number;
+		getReceivedBytes():number;
+		getContentDisposition():string;
+	}
+
 	interface CommonElectron {
 		clipboard: Electron.Clipboard;
 		crashReporter: Electron.CrashReporter;
