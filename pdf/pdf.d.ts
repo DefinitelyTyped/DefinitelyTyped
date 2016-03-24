@@ -195,6 +195,7 @@ interface PDFRenderImageLayer {
 
 interface PDFRenderParams {
 	canvasContext: CanvasRenderingContext2D;
+	viewport?: PDFPageViewport;
 	textLayer?: PDFRenderTextLayer;
 	imageLayer?: PDFRenderImageLayer;
 	continueCallback?: (_continue: () => void) => void;
