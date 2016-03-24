@@ -1627,9 +1627,9 @@ declare namespace Electron {
 		insertText(text: string): void;
 		/**
 		 * Evaluates `code` in page.
- 		 * In the browser window some HTML APIs like `requestFullScreen` can only be
- 		 * invoked by a gesture from the user. Setting `userGesture` to `true` will remove
- 		 * this limitation.
+		 * In the browser window some HTML APIs like `requestFullScreen` can only be
+		 * invoked by a gesture from the user. Setting `userGesture` to `true` will remove
+		 * this limitation.
 		 */
 		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): void;
 	}
@@ -1849,7 +1849,7 @@ declare namespace Electron {
 	class SessionModule {
 		fromPartition(partition: string): Session;
 		defaultSession: Session;
-    }
+	}
 
 	class Session implements NodeJS.EventEmitter {
 		addListener(event: string, listener: Function): this;
@@ -1941,6 +1941,21 @@ declare namespace Electron {
 	}
 
 	interface HTMLWebviewElement extends HTMLElement {
+		src: string;
+		autosize: boolean;
+		minwidth: number;
+		minheight: number;
+		maxwidth: number;
+		maxheight: number;
+		nodeintegration: boolean;
+		plugins: boolean;
+		preload: string;
+		useragent: string;
+		disablewebsecurity: boolean;
+		partition: string;
+		allowpopus: boolean;
+		blinkfeatures: string;
+
 		/**
 		 * Loads the url in the window.
 		 * @param url Must contain the protocol prefix (e.g., the http:// or file://).
