@@ -1,5 +1,4 @@
-﻿/// <reference path="./github-electron.d.ts" />
-import {
+﻿import {
 	app,
 	autoUpdater,
 	BrowserWindow,
@@ -17,7 +16,8 @@ import {
 	nativeImage,
 	screen,
 	shell,
-	hideInternalModules
+	hideInternalModules,
+    session
 } from 'electron';
 
 import * as path from 'path';
@@ -566,3 +566,41 @@ app.on('ready', () => {
 // https://github.com/atom/electron/blob/master/docs/api/shell.md
 
 shell.openExternal('https://github.com');
+
+// session + download-item
+// https://github.com/atom/electron/blob/master/docs/api/session.md
+
+var ses = session.fromPartition('persist:name');
+
+ses.cookies.get({}, function(error, cookies) {
+	console.log(cookies);
+});
+ses.cookies.get({ url : "http://www.github.com" }, function(error, cookies) {
+	console.log(cookies);
+});
+var cookie = { url : "http://www.github.com", name : "dummy_name", value : "dummy" };
+ses.cookies.set(cookie, function(error) {
+	if (error)
+		console.error(error);
+});
+
+// download-item
+// https://github.com/atom/electron/blob/master/docs/api/download-item.md
+
+session.defaultSession.on('will-download', function(event, item, webContents) {
+	// Set the save path, making Electron not to prompt a save dialog.
+	item.setSavePath('/tmp/save.pdf');
+	console.log(item.getMimeType());
+	console.log(item.getFilename());
+	console.log(item.getTotalBytes());
+	item.on('updated', function () {
+		console.log('Received bytes: ' + item.getReceivedBytes());
+	});
+	item.on('done', function (e, state) {
+		if (state == "completed") {
+			console.log("Download successfully");
+		} else {
+			console.log("Download is cancelled or interrupted that can't be resumed");
+		}
+	});
+});

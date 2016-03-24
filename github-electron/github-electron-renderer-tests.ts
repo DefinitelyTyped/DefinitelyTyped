@@ -118,3 +118,31 @@ app.on('ready', () => {
 // https://github.com/atom/electron/blob/master/docs/api/shell.md
 
 shell.openExternal('https://github.com');
+
+// webview
+// https://github.com/atom/electron/blob/master/docs/api/web-view-tag.md
+
+var onload = function() {
+	var webview:Electron.HTMLWebviewElement = <Electron.HTMLWebviewElement>document.getElementById("foo");
+	var indicator:HTMLElement = <HTMLElement>document.querySelector(".indicator");
+
+	var loadstart = function() {
+		indicator.innerText = "loading...";
+	};
+	var loadstop = function() {
+		indicator.innerText = "";
+	};
+	webview.addEventListener("did-start-loading", loadstart);
+	webview.addEventListener("did-stop-loading", loadstop);
+
+	webview.addEventListener("dom-ready", function() {
+		webview.openDevTools();
+	});
+
+	webview.findInPage("test");
+	webview.send('ping');
+
+	webview.partition = 'persist:main';
+	webview.src = 'about:blank';
+	webview.blinkfeatures = 'PreciseMemoryInfo, CSSVariables';
+};
