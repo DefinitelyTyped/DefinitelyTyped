@@ -10,16 +10,19 @@ interface IJsenFormats {
 interface IJSenSettings {
     missing$Ref?: boolean;
     greedy?: boolean;
-    copy?: boolean;
-    additionalProperties?: boolean;
     formats?: IJsenFormats;
     schemas?: any;
 }
 
+interface IJsenBuildSettings extends IJSenSettings {
+    copy?: boolean;
+    additionalProperties?: boolean;
+}
+
 interface IJsenValidator {
     (data?: any): boolean;
-    build(initial?: any, options?: any): any;
-    errors?: IValidateError[];
+    build(initial?: any, options?: IJsenBuildSettings): any;
+    errors: IValidateError[];
 }
 
 interface IValidateError {
