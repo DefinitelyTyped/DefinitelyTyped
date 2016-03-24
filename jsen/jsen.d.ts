@@ -7,14 +7,14 @@ interface IJsenFormats {
     [key: string]: string | RegExp | Function;
 }
 
-interface IJSenSettings {
+interface IJsenSettings {
     missing$Ref?: boolean;
     greedy?: boolean;
     formats?: IJsenFormats;
     schemas?: any;
 }
 
-interface IJsenBuildSettings extends IJSenSettings {
+interface IJsenBuildSettings {
     copy?: boolean;
     additionalProperties?: boolean;
 }
@@ -36,7 +36,7 @@ interface IJsenUnique {
     findIndex(array: any[], value: any, comparator: (obj1: any, obj2: any) => boolean): number;
 }
 interface IJsen {
-    (schema?: any, options?: IJSenSettings): IJsenValidator;
+    (schema?: any, options?: IJsenSettings): IJsenValidator;
     clone(data: any): any;
     equal(a: any, b: any): boolean;
     unique: IJsenUnique;
