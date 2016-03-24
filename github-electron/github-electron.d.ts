@@ -1852,16 +1852,16 @@ declare namespace Electron {
     }
 
 	class Session implements NodeJS.EventEmitter {
-        addListener(event: string, listener: Function): this;
-        on(event: string, listener: Function): this;
-        once(event: string, listener: Function): this;
-        removeListener(event: string, listener: Function): this;
-        removeAllListeners(event?: string): this;
-        setMaxListeners(n: number): this;
-        getMaxListeners(): number;
-        listeners(event: string): Function[];
-        emit(event: string, ...args: any[]): boolean;
-        listenerCount(type: string): number;
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
+		getMaxListeners(): number;
+		listeners(event: string): Function[];
+		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
 
 		cookies: any;
 		clearCache(callback: Function): void;
@@ -2149,41 +2149,41 @@ declare namespace Electron {
 		 * Prints windows' web page as PDF with Chromium's preview printing custom settings.
 		 */
 		printToPDF(options: {
+				/**
+				 * Specify the type of margins to use. Default is 0.
+				 *   0 - default
+				 *   1 - none
+				 *   2 - minimum
+				 */
+				marginsType?: number;
+				/**
+				 * String - Specify page size of the generated PDF. Default is A4.
+				 *   A4
+				 *   A3
+				 *   Legal
+				 *   Letter
+				 *   Tabloid
+				 */
+				pageSize?: string;
+				/**
+				 * Whether to print CSS backgrounds. Default is false.
+				 */
+				printBackground?: boolean;
+				/**
+				 * Whether to print selection only. Default is false.
+				 */
+				printSelectionOnly?: boolean;
+				/**
+				 * true for landscape, false for portrait.  Default is false.
+				 */
+				landscape?: boolean;
+			},
 			/**
-			 * Specify the type of margins to use. Default is 0.
-			 *   0 - default
-			 *   1 - none
-			 *   2 - minimum
+			 * Callback function on completed converting to PDF.
+			 *   error Error
+			 *   data Buffer - PDF file content
 			 */
-			marginsType?: number;
-			/**
-			 * String - Specify page size of the generated PDF. Default is A4.
-			 *   A4
-			 *   A3
-			 *   Legal
-			 *   Letter
-			 *   Tabloid
-			 */
-			pageSize?: string;
-			/**
-			 * Whether to print CSS backgrounds. Default is false.
-			 */
-			printBackground?: boolean;
-			/**
-			 * Whether to print selection only. Default is false.
-			 */
-			printSelectionOnly?: boolean;
-			/**
-			 * true for landscape, false for portrait.  Default is false.
-			 */
-			landscape?: boolean;
-		},
-				   /**
-					* Callback function on completed converting to PDF.
-					*   error Error
-					*   data Buffer - PDF file content
-					*/
-				   callback: (error: Error, data: Buffer) => void): void;
+			callback: (error: Error, data: Buffer) => void): void;
 		/**
 		 * Send args.. to the web page via channel in asynchronous message, the web page
 		 * can handle it by listening to the channel event of ipc module.
