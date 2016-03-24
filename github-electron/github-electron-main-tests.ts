@@ -573,22 +573,10 @@ shell.openExternal('https://github.com');
 
 var ses = session.fromPartition('persist:name');
 
-ses.cookies.get({}, function(error, cookies) {
-	console.log(cookies);
-});
-ses.cookies.get({ url : "http://www.github.com" }, function(error, cookies) {
-	console.log(cookies);
-});
-var cookie = { url : "http://www.github.com", name : "dummy_name", value : "dummy" };
-ses.cookies.set(cookie, function(error) {
-	if (error)
-		console.error(error);
-});
-
 // download-item
 // https://github.com/atom/electron/blob/master/docs/api/download-item.md
 
-session.defaultSession.on('will-download', function(event, item, webContents) {
+session.defaultSession.on('will-download', function(event:Event, item:Electron.DownloadItem, webContents:Electron.WebContents) {
 	// Set the save path, making Electron not to prompt a save dialog.
 	item.setSavePath('/tmp/save.pdf');
 	console.log(item.getMimeType());
@@ -597,7 +585,7 @@ session.defaultSession.on('will-download', function(event, item, webContents) {
 	item.on('updated', function () {
 		console.log('Received bytes: ' + item.getReceivedBytes());
 	});
-	item.on('done', function (e, state) {
+	item.on('done', function (e:Event, state:string) {
 		if (state == "completed") {
 			console.log("Download successfully");
 		} else {
