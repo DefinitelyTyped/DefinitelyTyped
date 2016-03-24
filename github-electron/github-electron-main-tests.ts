@@ -1,4 +1,5 @@
-﻿import {
+﻿/// <reference path="./github-electron.d.ts" />
+import {
 	app,
 	autoUpdater,
 	BrowserWindow,
@@ -17,7 +18,7 @@
 	screen,
 	shell,
 	hideInternalModules,
-    session
+	session
 } from 'electron';
 
 import * as path from 'path';
@@ -68,7 +69,7 @@ app.on('ready', () => {
 	mainWindow.webContents.addWorkSpace('/path/to/workspace');
 	mainWindow.webContents.removeWorkSpace('/path/to/workspace');
 	var opened: boolean = mainWindow.webContents.isDevToolsOpened()
-    var focused = mainWindow.webContents.isDevToolsFocused();
+	var focused = mainWindow.webContents.isDevToolsFocused();
 	// Emitted when the window is closed.
 	mainWindow.on('closed', () => {
 		// Dereference the window object, usually you would store windows
