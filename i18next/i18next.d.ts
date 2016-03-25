@@ -1,7 +1,7 @@
 // Type definitions for i18next v2.0.17
 // Project: http://i18next.com
 // Definitions by: Maarten Docter <https://github.com/mdocter>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Sources: https://github.com/jamuhl/i18next/
 
@@ -10,7 +10,7 @@
 /// <reference path="../i18next-express-middleware/i18next-express-middleware.d.ts" />
 /// <reference path="../i18next-sprintf-postprocessor/i18next-sprintf-postprocessor.d.ts" />
 
-declare module I18next {
+declare namespace I18next {
     export interface I18nextStatic {}
     export interface I18nextOptions {}
 }
@@ -27,7 +27,7 @@ interface IResourceStoreKey {
 
 interface I18nTranslateOptions extends I18nextOptions {
     defaultValue?: any; // normally a string
-    // NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+    // NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
     toAdd?: any;
     child?: any;
     sprintf?: any;
@@ -81,7 +81,7 @@ interface I18nextOptions extends I18next.I18nextOptions {
 
     postProcess?: string;                   // Default value: undefined
 
-    // NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+    // NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
     replace?: any;
 }
 

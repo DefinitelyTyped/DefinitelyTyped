@@ -1,7 +1,7 @@
 ﻿// Type definitions for cordova-plugin-ibeacon v3.3.0
 // Project: https://github.com/petermetz/cordova-plugin-ibeacon
 // Definitions by: Markus Wagner <https://github.com/Ritzlgrmft/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../q/Q.d.ts" />
 
@@ -9,7 +9,7 @@ interface CordovaPlugins {
     locationManager: BeaconPlugin.LocationManager;
 }
 
-declare module BeaconPlugin {
+declare namespace BeaconPlugin {
 	/**
 	 * Beacon Plugin.
 	 */

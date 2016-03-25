@@ -158,8 +158,8 @@ function test_collection() {
 
 Backbone.history.start();
 
-module v1Changes {
-    module events {
+namespace v1Changes {
+    namespace events {
         function test_once() {
             var model = new Employee;
             model.once('invalid', () => { }, this);
@@ -187,7 +187,7 @@ module v1Changes {
         }
     }
 
-    module ModelAndCollection {
+    namespace ModelAndCollection {
         function test_url() {
             Employee.prototype.url = () => '/employees';
             EmployeeCollection.prototype.url = () => '/employees';
@@ -215,7 +215,7 @@ module v1Changes {
         }
     }
 
-    module Model {
+    namespace Model {
         function test_validationError() {
             var model = new Employee;
             if (model.validationError) {
@@ -287,7 +287,7 @@ module v1Changes {
         }
     }
 
-    module Collection {
+    namespace Collection {
         function test_fetch() {
             var collection = new EmployeeCollection;
             collection.fetch({ reset: true });
@@ -303,7 +303,7 @@ module v1Changes {
         }
     }
 
-    module Router {
+    namespace Router {
         function test_navigate() {
             var router = new Backbone.Router;
 

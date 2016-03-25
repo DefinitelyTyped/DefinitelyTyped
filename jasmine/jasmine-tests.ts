@@ -840,7 +840,7 @@ var customMatchers: jasmine.CustomMatcherFactories = {
     }
 };
 // add the custom matchers to interface jasmine.Matchers via TypeScript declaration merging
-declare module jasmine {
+declare namespace jasmine {
     interface Matchers {
         toBeGoofy(expected?: any): boolean;
     }

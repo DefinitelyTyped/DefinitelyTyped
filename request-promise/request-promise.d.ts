@@ -1,7 +1,7 @@
 // Type definitions for request-promise v0.4.2
 // Project: https://www.npmjs.com/package/request-promise
 // Definitions by: Christopher Glantschnig <https://github.com/cglantschnig/>, Joe Skeen <http://github.com/joeskeen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Change [0]: 2015/08/20 - Aya Morisawa <https://github.com/AyaMorisawa>
 

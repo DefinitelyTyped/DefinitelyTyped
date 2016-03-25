@@ -1,7 +1,7 @@
 // Type definitions for ws
 // Project: https://github.com/einaros/ws
 // Definitions by: Paul Loyd <https://github.com/loyd>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -86,7 +86,7 @@ declare module "ws" {
         addListener(event: string, listener: () => void): this;
     }
 
-    module WebSocket {
+    namespace WebSocket {
         export interface IServerOptions {
             host?: string;
             port?: number;

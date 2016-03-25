@@ -3,7 +3,7 @@
 // Definitions by: Gustavo Di Pietro <https://github.com/pistacchio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module random {
+declare namespace random {
     export function Engine(): number;
     export interface Engine {
 

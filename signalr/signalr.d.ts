@@ -1,7 +1,7 @@
 // Type definitions for SignalR 2.2.0
 // Project: http://www.asp.net/signalr
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, T. Michael Keesey <https://github.com/keesey/>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts" />
@@ -38,7 +38,7 @@ declare namespace SignalR {
         webSockets: Transport;
     }
 
-    module Hub {
+    namespace Hub {
 
         interface Proxy {
             state: any;
@@ -87,7 +87,7 @@ declare namespace SignalR {
             /**
             * Creates a new proxy object for the given hub connection that can be used to invoke
             * methods on server hubs and handle client method invocation requests from the server.
-            * 
+            *
             * @param hubName The name of the hub on the server to create the proxy for.
             */
             createHubProxy(hubName: string): Proxy;
@@ -175,6 +175,7 @@ declare namespace SignalR {
         ajaxDataType: string;
         contentType: string;
         id: string;
+        json: JSON;
         logging: boolean;
         url: string;
         qs: string | Object;

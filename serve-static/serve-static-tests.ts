@@ -1,4 +1,5 @@
 /// <reference path="serve-static.d.ts" />
+/// <reference path="../express/express.d.ts" />
 
 import * as express from 'express';
 import * as serveStatic from 'serve-static';

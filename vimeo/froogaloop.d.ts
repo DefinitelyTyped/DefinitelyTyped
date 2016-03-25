@@ -1,7 +1,7 @@
 // Type definitions for Vimeo
 // Project: http://developer.vimeo.com/player/js-api
 // Definitions by: Daz Wilkin <https://github.com/DazWilkin/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface VimeoParams {
 	name:string;

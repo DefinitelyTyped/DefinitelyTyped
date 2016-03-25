@@ -1,7 +1,7 @@
-// Type definitions for Jest 0.1.18
+// Type definitions for Jest 0.9.0
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -20,21 +20,21 @@ interface NodeRequire {
     requireActual(moduleName: string): any;
 }
 
-declare module jest {
+declare namespace jest {
     function addMatchers(matchers: CustomMatcherFactories): void;
     function autoMockOff(): void;
     function autoMockOn(): void;
     function clearAllTimers(): void;
     function currentTestPath(): string;
+    function fn<T>(implementation?: Function): Mock<T>;
     function dontMock(moduleName: string): void;
     function genMockFromModule<T>(moduleName: string): Mock<T>;
-    function genMockFunction<T>(): Mock<T>;
-    function genMockFn<T>(): Mock<T>;
     function mock(moduleName: string): void;
     function runAllTicks(): void;
     function runAllTimers(): void;
     function runOnlyPendingTimers(): void;
     function setMock<T>(moduleName: string, moduleExports: T): void;
+    function unmock(moduleName: string): void;
 
     interface EmptyFunction {
         (): void;
@@ -67,7 +67,7 @@ declare module jest {
 
     interface Mock<T> {
         new (): T;
-        (...args: any[]): any; // TODO please fix this line! added for TypeScript 1.1.0-1 https://github.com/borisyankov/DefinitelyTyped/pull/2932
+        (...args: any[]): any; // TODO please fix this line! added for TypeScript 1.1.0-1 https://github.com/DefinitelyTyped/DefinitelyTyped/pull/2932
         mock: MockContext<T>;
         mockClear(): void;
         mockImplementation(fn: Function): Mock<T>;
