@@ -1512,12 +1512,17 @@ declare namespace Electron {
 
 	// Type definitions for renderer process
 
+	/**
+	 * The ipcRenderer module provides a few methods so you can send synchronous
+	 * and asynchronous messages from the render process (web page) to the main process.
+	 * You can also receive replies from the main process.
+	 */
 	export class IpcRenderer implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): this;
-		on(event: string, listener: Function): this;
-		once(event: string, listener: Function): this;
-		removeListener(event: string, listener: Function): this;
-		removeAllListeners(event?: string): this;
+		addListener(channel: string, listener: IpcRendererEventListener): this;
+		on(channel: string, listener: IpcRendererEventListener): this;
+		once(channel: string, listener: IpcRendererEventListener): this;
+		removeListener(channel: string, listener: IpcRendererEventListener): this;
+		removeAllListeners(channel?: string): this;
 		setMaxListeners(n: number): this;
 		getMaxListeners(): number;
 		listeners(event: string): Function[];
@@ -1536,7 +1541,7 @@ declare namespace Electron {
 		 * message would block the whole renderer process.
 		 * @returns The result sent from the main process.
 		 */
-		sendSync(channel: string, ...args: any[]): string;
+		sendSync(channel: string, ...args: any[]): any;
 		/**
 		 * Like ipc.send but the message will be sent to the host page instead of the main process.
 		 * This is mainly used by the page in <webview> to communicate with host page.
@@ -1544,21 +1549,44 @@ declare namespace Electron {
 		sendToHost(channel: string, ...args: any[]): void;
 	}
 
-	class IPCMain implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): this;
-		once(event: string, listener: Function): this;
-		removeListener(event: string, listener: Function): this;
-		removeAllListeners(event?: string): this;
+	type IpcRendererEventListener = (event: IpcRendererEvent, ...args: any[]) => void;
+
+	interface IpcRendererEvent {
+		/**
+		 * You can call sender.send to reply to the asynchronous message.
+		 */
+		sender: IpcRenderer;
+	}
+
+	/**
+	 * The ipcMain module handles asynchronous and synchronous messages
+	 * sent from a renderer process (web page).
+	 * Messages sent from a renderer will be emitted to this module.
+	 */
+	class IpcMain implements NodeJS.EventEmitter {
+		addListener(channel: string, listener: IpcMainEventListener): this;
+		on(channel: string, listener: IpcMainEventListener): this;
+		once(channel: string, listener: IpcMainEventListener): this;
+		removeListener(channel: string, listener: IpcMainEventListener): this;
+		removeAllListeners(channel?: string): this;
 		setMaxListeners(n: number): this;
 		getMaxListeners(): number;
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
 		listenerCount(type: string): number;
-		on(event: string, listener: (event: IPCMainEvent, ...args: any[]) => any): this;
 	}
 
-	interface IPCMainEvent {
+	type IpcMainEventListener = (event: IpcMainEvent, ...args: any[]) => void;
+
+	interface IpcMainEvent {
+		/**
+		 * Set this to the value to be returned in a synchronous message.
+		 */
 		returnValue?: any;
+		/**
+		 * Returns the webContents that sent the message, you can call sender.send
+		 * to reply to the asynchronous message.
+		 */
 		sender: WebContents;
 	}
 
@@ -1875,7 +1903,7 @@ declare namespace Electron {
 		BrowserWindow: typeof Electron.BrowserWindow;
 		contentTracing: Electron.ContentTracing;
 		dialog: Electron.Dialog;
-		ipcMain: Electron.IPCMain;
+		ipcMain: Electron.IpcMain;
 		globalShortcut: Electron.GlobalShortcut;
 		Menu: typeof Electron.Menu;
 		MenuItem: typeof Electron.MenuItem;
