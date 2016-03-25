@@ -527,6 +527,9 @@ crashReporter.start({
 	}
 });
 
+console.log(crashReporter.getLastCrashReport());
+console.log(crashReporter.getUploadedReports());
+
 // nativeImage
 // https://github.com/atom/electron/blob/master/docs/api/native-image.md
 
