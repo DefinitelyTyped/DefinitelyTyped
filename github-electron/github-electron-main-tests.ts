@@ -462,7 +462,7 @@ var template = <Electron.MenuItemOptions[]>[
 			{
 				label: 'Reload',
 				accelerator: 'Command+R',
-				click: () => { BrowserWindow.getFocusedWindow().reloadIgnoringCache(); }
+				click: () => { BrowserWindow.getFocusedWindow().webContents.reloadIgnoringCache(); }
 			},
 			{
 				label: 'Toggle DevTools',
