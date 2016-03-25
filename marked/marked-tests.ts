@@ -1,6 +1,6 @@
 /// <reference path="marked.d.ts" />
 
-import marked = require('marked');
+import * as marked from 'marked';
 
 var options: MarkedOptions = {
     gfm: true,
