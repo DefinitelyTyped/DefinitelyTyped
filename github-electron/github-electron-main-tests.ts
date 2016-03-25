@@ -308,12 +308,12 @@ globalShortcut.unregisterAll();
 // ipcMain
 // https://github.com/atom/electron/blob/master/docs/api/ipc-main-process.md
 
-ipcMain.on('asynchronous-message', (event: Electron.IPCMainEvent, arg: any) => {
+ipcMain.on('asynchronous-message', (event: Electron.IpcMainEvent, arg: any) => {
 	console.log(arg);  // prints "ping"
 	event.sender.send('asynchronous-reply', 'pong');
 });
 
-ipcMain.on('synchronous-message', (event: Electron.IPCMainEvent, arg: any) => {
+ipcMain.on('synchronous-message', (event: Electron.IpcMainEvent, arg: any) => {
 	console.log(arg);  // prints "ping"
 	event.returnValue = 'pong';
 });
