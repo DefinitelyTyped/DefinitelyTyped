@@ -6,16 +6,28 @@
 /// <reference path="github-electron.event-emitter.d.ts" />
 
 declare namespace Electron {
-
+	/**
+	 * The Display object represents a physical display connected to the system.
+	 * A fake Display may exist on a headless system, or a Display may correspond to a remote, virtual display.
+	 */
 	interface Display {
+		/**
+		 * Unique identifier associated with the display.
+		 */
 		id: number;
 		bounds: Bounds;
 		workArea: Bounds;
 		size: Dimension;
 		workAreaSize: Dimension;
+		/**
+		 * Output device’s pixel scale factor.
+		 */
 		scaleFactor: number;
+		/**
+		 * Can be 0, 1, 2, 3, each represents screen rotation in clock-wise degrees of 0, 90, 180, 270.
+		 */
 		rotation: number;
-		touchSupport: string;
+		touchSupport: 'available' | 'unavailable' | 'unknown';
 	}
 
 	interface Bounds {
@@ -35,7 +47,26 @@ declare namespace Electron {
 		y: number;
 	}
 
+	type DisplayMetrics = 'bounds' | 'workArea' | 'scaleFactor' | 'rotation';
+
+	/**
+	 * The screen module retrieves information about screen size, displays, cursor position, etc.
+	 * You should not use this module until the ready event of the app module is emitted.
+	 */
 	class Screen extends EventEmitter {
+		/**
+		 * Emitted when newDisplay has been added.
+		 */
+		on(event: 'display-added', listener: (event: Event, newDisplay: Display) => void): this;
+		/**
+		 * Emitted when oldDisplay has been removed.
+		 */
+		on(event: 'display-removed', listener: (event: Event, oldDisplay: Display) => void): this;
+		/**
+		 * Emitted when one or more metrics change in a display.
+		 */
+		on(event: 'display-metrics-changed', listener: (event: Event, display: Display, changedMetrics: DisplayMetrics[]) => void): this;
+		on(event: string, listener: Function): this;
 		/**
 		 * @returns The current absolute position of the mouse pointer.
 		 */
