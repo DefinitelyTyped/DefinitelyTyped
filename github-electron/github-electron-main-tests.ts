@@ -478,6 +478,15 @@ app.on('ready', () => {
 	powerMonitor.on('suspend', () => {
 		console.log('The system is going to sleep');
 	});
+	powerMonitor.on('resume', () => {
+		console.log('The system has resumed from sleep');
+	});
+	powerMonitor.on('on-ac', () => {
+		console.log('The system changed to AC power')
+	});
+	powerMonitor.on('on-battery', () => {
+		console.log('The system changed to battery power');
+	});
 });
 
 // protocol
