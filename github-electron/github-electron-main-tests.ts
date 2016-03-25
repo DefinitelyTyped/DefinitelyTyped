@@ -289,21 +289,27 @@ openDialogResult = dialog.showOpenDialog(win, {
 // global-shortcut
 // https://github.com/atom/electron/blob/master/docs/api/global-shortcut.md
 
-// Register a 'ctrl+x' shortcut listener.
-var ret = globalShortcut.register('ctrl+x', () => {
-	console.log('ctrl+x is pressed');
+app.on('ready', function() {
+	// Register a 'ctrl+x' shortcut listener.
+	var ret = globalShortcut.register('ctrl+x', function() {
+		console.log('ctrl+x is pressed');
+ 	});
+
+  	if (!ret) {
+		console.log('registration failed');
+  	}
+
+  	// Check whether a shortcut is registered.
+  	console.log(globalShortcut.isRegistered('ctrl+x'));
 });
-if (!ret)
-	console.log('registerion fails');
 
-// Check whether a shortcut is registered.
-console.log(globalShortcut.isRegistered('ctrl+x'));
+app.on('will-quit', function() {
+	// Unregister a shortcut.
+  	globalShortcut.unregister('ctrl+x');
 
-// Unregister a shortcut.
-globalShortcut.unregister('ctrl+x');
-
-// Unregister all shortcuts.
-globalShortcut.unregisterAll();
+  	// Unregister all shortcuts.
+  	globalShortcut.unregisterAll();
+});
 
 // ipcMain
 // https://github.com/atom/electron/blob/master/docs/api/ipc-main-process.md
