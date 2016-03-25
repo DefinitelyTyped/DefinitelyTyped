@@ -6,6 +6,19 @@
 /// <reference path="../node/node.d.ts" />
 
 declare namespace Electron {
+    class EventEmitter implements NodeJS.EventEmitter {
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
+		getMaxListeners(): number;
+		listeners(event: string): Function[];
+		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
+    }
+
 	/**
 	 * This class is used to represent an image.
 	 */
@@ -96,17 +109,7 @@ declare namespace Electron {
 		y:number;
 	}
 
-	class Screen implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): this;
-		on(event: string, listener: Function): this;
-		once(event: string, listener: Function): this;
-		removeListener(event: string, listener: Function): this;
-		removeAllListeners(event?: string): this;
-		setMaxListeners(n: number): this;
-		getMaxListeners(): number;
-		listeners(event: string): Function[];
-		emit(event: string, ...args: any[]): boolean;
-		listenerCount(type: string): number;
+	class Screen extends EventEmitter {
 		/**
 		 * @returns The current absolute position of the mouse pointer.
 		 */
@@ -133,17 +136,7 @@ declare namespace Electron {
 	 * The BrowserWindow class gives you ability to create a browser window.
 	 * You can also create a window without chrome by using Frameless Window API.
 	 */
-	class BrowserWindow implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): this;
-		on(event: string, listener: Function): this;
-		once(event: string, listener: Function): this;
-		removeListener(event: string, listener: Function): this;
-		removeAllListeners(event?: string): this;
-		setMaxListeners(n: number): this;
-		getMaxListeners(): number;
-		listeners(event: string): Function[];
-		emit(event: string, ...args: any[]): boolean;
-		listenerCount(type: string): number;
+	class BrowserWindow extends EventEmitter {
 		constructor(options?: BrowserWindowOptions);
 		/**
 		 * @returns All opened browser windows.
@@ -549,17 +542,7 @@ declare namespace Electron {
 	/**
 	 * A WebContents is responsible for rendering and controlling a web page.
 	 */
-	class WebContents implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): this;
-		on(event: string, listener: Function): this;
-		once(event: string, listener: Function): this;
-		removeListener(event: string, listener: Function): this;
-		removeAllListeners(event?: string): this;
-		setMaxListeners(n: number): this;
-		getMaxListeners(): number;
-		listeners(event: string): Function[];
-		emit(event: string, ...args: any[]): boolean;
-		listenerCount(type: string): number;
+	class WebContents extends EventEmitter {
 		/**
 		 * Loads the url in the window.
 		 * @param url Must contain the protocol prefix (e.g., the http:// or file://).
@@ -988,17 +971,7 @@ declare namespace Electron {
 		postMessage(message: string, targetOrigin: string): void;
 	}
 
-	class App implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): this;
-		on(event: string, listener: Function): this;
-		once(event: string, listener: Function): this;
-		removeListener(event: string, listener: Function): this;
-		removeAllListeners(event?: string): this;
-		setMaxListeners(n: number): this;
-		getMaxListeners(): number;
-		listeners(event: string): Function[];
-		emit(event: string, ...args: any[]): boolean;
-		listenerCount(type: string): number;
+	class App extends EventEmitter {
 		/**
 		 * Try to close all windows. The before-quit event will first be emitted.
 		 * If all windows are successfully closed, the will-quit event will be emitted
@@ -1195,17 +1168,7 @@ declare namespace Electron {
 		dock?: Dock;
 	}
 
-	class AutoUpdater implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): this;
-		on(event: string, listener: Function): this;
-		once(event: string, listener: Function): this;
-		removeListener(event: string, listener: Function): this;
-		removeAllListeners(event?: string): this;
-		setMaxListeners(n: number): this;
-		getMaxListeners(): number;
-		listeners(event: string): Function[];
-		emit(event: string, ...args: any[]): boolean;
-		listenerCount(type: string): number;
+	class AutoUpdater extends EventEmitter {
 		/**
 		 * Set the url and initialize the auto updater.
 		 * The url cannot be changed once it is set.
@@ -1320,17 +1283,7 @@ declare namespace Electron {
 		}
 	}
 
-	class Tray implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): this;
-		on(event: string, listener: Function): this;
-		once(event: string, listener: Function): this;
-		removeListener(event: string, listener: Function): this;
-		removeAllListeners(event?: string): this;
-		setMaxListeners(n: number): this;
-		getMaxListeners(): number;
-		listeners(event: string): Function[];
-		emit(event: string, ...args: any[]): boolean;
-		listenerCount(type: string): number;
+	class Tray extends EventEmitter {
 		/**
 		 * Creates a new tray icon associated with the image.
 		 */
@@ -1512,17 +1465,7 @@ declare namespace Electron {
 
 	// Type definitions for renderer process
 
-	export class IpcRenderer implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): this;
-		on(event: string, listener: Function): this;
-		once(event: string, listener: Function): this;
-		removeListener(event: string, listener: Function): this;
-		removeAllListeners(event?: string): this;
-		setMaxListeners(n: number): this;
-		getMaxListeners(): number;
-		listeners(event: string): Function[];
-		emit(event: string, ...args: any[]): boolean;
-		listenerCount(type: string): number;
+	export class IpcRenderer extends EventEmitter {
 		/**
 		 * Send ...args to the renderer via channel in asynchronous message, the main
 		 * process can handle it by listening to the channel event of ipc module.
@@ -1544,16 +1487,7 @@ declare namespace Electron {
 		sendToHost(channel: string, ...args: any[]): void;
 	}
 
-	class IPCMain implements NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): this;
-		once(event: string, listener: Function): this;
-		removeListener(event: string, listener: Function): this;
-		removeAllListeners(event?: string): this;
-		setMaxListeners(n: number): this;
-		getMaxListeners(): number;
-		listeners(event: string): Function[];
-		emit(event: string, ...args: any[]): boolean;
-		listenerCount(type: string): number;
+	class IPCMain extends EventEmitter {
 		on(event: string, listener: (event: IPCMainEvent, ...args: any[]) => any): this;
 	}
 
