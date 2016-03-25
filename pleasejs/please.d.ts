@@ -1,11 +1,11 @@
 // Type definitions for PleaseJS
 // Project: http://www.checkman.io/please/
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Please: PleaseJS.Please;
 
-declare module PleaseJS{
+declare namespace PleaseJS{
     export interface Please{
         /***
          * generate and return a random hex string

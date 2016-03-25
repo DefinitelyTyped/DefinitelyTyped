@@ -1,7 +1,7 @@
 // Type definitions for passport-facebook-token 0.4.0
 // Project: https://github.com/drudge/passport-facebook-token
 // Definitions by: Ray Martone <https://github.com/rmartone>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../passport/passport.d.ts"/>
 

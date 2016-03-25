@@ -1,7 +1,7 @@
 // Type definitions for Angular UI Bootstrap 0.13.3
 // Project: https://github.com/angular-ui/bootstrap
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
@@ -16,7 +16,7 @@ declare module 'angular-ui-bootstrap' {
     export = _;
 }
 
-declare module angular.ui.bootstrap {
+declare namespace angular.ui.bootstrap {
 
     interface IAccordionConfig {
         /**

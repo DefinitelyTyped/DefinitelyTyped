@@ -1,7 +1,7 @@
 // Type definitions for EventEmitter2 v0.14.4
 // Project: https://github.com/asyncly/EventEmitter2
 // Definitions by: ryiwamoto <https://github.com/ryiwamoto/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface EventEmitter2Configuration {
     /**

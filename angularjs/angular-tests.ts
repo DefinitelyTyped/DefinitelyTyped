@@ -1,6 +1,6 @@
 /// <reference path="angular.d.ts" />
 
-// issue: https://github.com/borisyankov/DefinitelyTyped/issues/369
+// issue: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/369
 // https://github.com/witoldsz/angular-http-auth/blob/master/src/angular-http-auth.js
 /**
  * @license HTTP Auth Interceptor Module for AngularJS
@@ -62,6 +62,10 @@ angular.module('http-auth-interceptor', [])
  */
     .config(['$httpProvider', 'authServiceProvider', <any>function ($httpProvider: ng.IHttpProvider, authServiceProvider: any) {
 
+        $httpProvider.defaults.headers.common = {'Authorization': 'Bearer token'};
+        $httpProvider.defaults.headers.get['Authorization'] = 'Bearer token';
+        $httpProvider.defaults.headers.post['Authorization'] = function (config:ng.IRequestConfig):string { return 'Bearer token'; }
+
         var interceptor = ['$rootScope', '$q', <any>function ($rootScope: ng.IScope, $q: ng.IQService) {
             function success(response: ng.IHttpPromiseCallbackArg<any>) {
                 return response;
@@ -87,7 +91,7 @@ angular.module('http-auth-interceptor', [])
     }]);
 
 
-module HttpAndRegularPromiseTests {
+namespace HttpAndRegularPromiseTests {
     interface Person {
         firstName: string;
         lastName: string;
@@ -170,7 +174,7 @@ module HttpAndRegularPromiseTests {
 
 // Test for AngularJS Syntax
 
-module My.Namespace {
+namespace My.Namespace {
     export var x: any; // need to export something for module to kick in
 }
 
@@ -243,7 +247,7 @@ foo.then((x) => {
 });
 
 // $q signature tests
-module TestQ {
+namespace TestQ {
     interface TResult {
         a: number;
         b: string;
@@ -268,6 +272,9 @@ module TestQ {
     {
         let result: angular.IPromise<any[]>;
         result = $q.all([promiseAny, promiseAny]);
+        // TS should infer that n1 and n2 are numbers and have toFixed.
+        $q.all([1, $q.when(2)]).then(([ n1, n2 ]) => n1.toFixed() + n2.toFixed());
+        $q.all([1, $q.when(2), '3']).then(([ n1, n2, n3 ]) => n1.toFixed() + n2.toFixed() + n3.slice(1));
     }
     {
         let result: angular.IPromise<TResult[]>;
@@ -339,7 +346,7 @@ httpFoo.success((data, status, headers, config) => {
 
 
 // Deferred signature tests
-module TestDeferred {
+namespace TestDeferred {
     var any: any;
 
     interface TResult {
@@ -379,9 +386,18 @@ module TestDeferred {
     }
 }
 
+namespace TestInjector {
+    let $injector: angular.auto.IInjectorService;
+
+    $injector.strictDi = true;
+
+    $injector.annotate(() => {});
+    $injector.annotate(() => {}, true);
+}
+
 
 // Promise signature tests
-module TestPromise {
+namespace TestPromise {
     var result: any;
     var any: any;
 
@@ -463,7 +479,7 @@ var isolateScope: ng.IScope = element.isolateScope();
 
 
 // $timeout signature tests
-module TestTimeout {
+namespace TestTimeout {
     interface TResult {
         a: number;
         b: string;
@@ -510,6 +526,7 @@ test_IAttributes({
     $normalize: function (classVal){ return "foo" },
     $addClass: function (classVal){},
     $removeClass: function(classVal){},
+    $updateClass: function(newClass, oldClass){},
     $set: function(key, value){},
     $observe: function(name: any, fn: any){
         return fn;
@@ -748,6 +765,7 @@ angular.module('docsTransclusionExample', [])
         };
     });
 
+
 angular.module('docsIsoFnBindExample', [])
     .controller('Controller', ['$scope', '$timeout', function($scope: any, $timeout: any) {
         $scope.name = 'Tobias';
@@ -847,6 +865,30 @@ angular.module('docsTabsExample', [])
         };
     });
 
+angular.module('componentExample', [])
+    .component('counter', {
+        require: ['^ctrl'],
+        bindings: {
+            count: '='
+        },
+        controller: 'CounterCtrl',
+        controllerAs: 'counterCtrl',
+        template: function () {
+            return '';
+        },
+        transclude: {
+            'el': 'target'
+        }
+    })
+    .component('anotherCounter', {
+        controller: function(){},
+        require: {
+            'parent': '^parentCtrl'
+        },
+        template: '',
+        transclude: true
+    });
+
 interface copyExampleUser {
     name?: string;
     email?: string;
@@ -878,7 +920,7 @@ angular.module('copyExample', [])
         $scope.reset();
     }]);
 
-module locationTests {
+namespace locationTests {
 
     var $location: ng.ILocationService;
 
@@ -957,7 +999,7 @@ function NgModelControllerTyping() {
     };
 }
 
-var $filter:  angular.IFilterService;
+var $filter: angular.IFilterService;
 
 function testFilter() {
 

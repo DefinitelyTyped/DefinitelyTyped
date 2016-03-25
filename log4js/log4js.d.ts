@@ -1,7 +1,7 @@
 // Type definitions for log4js
 // Project: https://github.com/nomiddlename/log4js-node
 // Definitions by: Kentaro Okuno <http://github.com/armorik83>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 

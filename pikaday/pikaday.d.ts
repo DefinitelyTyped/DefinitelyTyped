@@ -1,7 +1,7 @@
 // Type definitions for pikaday
 // Project: https://github.com/dbushell/Pikaday
 // Definitions by: Rudolph Gottesheim <http://midnight-design.at/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../moment/moment.d.ts" />
 
@@ -66,7 +66,7 @@ declare class Pikaday {
      * Go to the previous month (this will change year if necessary).
      */
     prevMonth(): void;
-    
+
     /**
      * Change the year being viewed.
      */
@@ -87,7 +87,7 @@ declare class Pikaday {
      * select a date range.
      */
     setStartRange(date: Date): void;
-    
+
     /**
      * Update the range end date. For using two Pikaday instances to select
      * a date range.
@@ -121,7 +121,7 @@ declare class Pikaday {
 }
 
 // merge the Pikaday class declaration with a module
-declare module Pikaday {
+declare namespace Pikaday {
     interface PikadayI18nConfig {
         previousMonth: string;
         nextMonth: string;
@@ -135,146 +135,146 @@ declare module Pikaday {
          * Bind the datepicker to a form field.
          */
         field?: HTMLElement;
-        
+
         /**
          * The default output format for toString() and field value.
          * Requires Moment.js for custom formatting.
          */
         format?: string;
-        
+
         /**
          * Use a different element to trigger opening the datepicker.
          * Default: field element.
          */
         trigger?: HTMLElement;
-        
+
         /**
          * Automatically show/hide the datepicker on field focus.
          * Default: true if field is set.
          */
         bound?: boolean;
-        
+
         /**
          * Preferred position of the datepicker relative to the form field
          * (e.g. 'top right'). Automatic adjustment may occur to avoid
          * displaying outside the viewport. Default: 'bottom left'.
          */
         position?: string;
-        
+
         /**
          * Can be set to false to not reposition the datepicker within the
          * viewport, forcing it to take the configured position. Default: true.
          */
         reposition?: boolean;
-        
+
         /**
          * DOM node to render calendar into, see container example.
          * Default: undefined.
          */
         container?: HTMLElement;
-        
+
         /**
          * The initial date to view when first opened.
          */
         defaultDate?: Date;
-        
+
         /**
          * Make the defaultDate the initial selected value.
          */
         setDefaultDate?: boolean;
-        
+
         /**
          * First day of the week (0: Sunday, 1: Monday, etc).
          */
         firstDay?: number;
-        
+
         /**
          * The earliest date that can be selected (this should be a native
          * Date object - e.g. new Date() or moment().toDate()).
          */
         minDate?: Date;
-        
+
         /**
          * The latest date that can be selected (this should be a native
          * Date object - e.g. new Date() or moment().toDate()).
          */
         maxDate?: Date;
-        
+
         /**
          * Disallow selection of Saturdays and Sundays.
          */
         disableWeekends?: boolean;
-        
+
         /**
          * Callback function that gets passed a Date object for each day
          * in view. Should return true to disable selection of that day.
          */
         disableDayFn?: (date: Date) => boolean;
-        
+
         /**
          * Number of years either side (e.g. 10) or array of upper/lower range
          * (e.g. [1900, 2015]).
          */
         yearRange?: number | number[];
-        
+
         /**
          * Show the ISO week number at the head of the row. Default: false.
          */
         showWeekNumber?: boolean;
-        
+
         /**
          * Reverse the calendar for right-to-left languages. Default: false.
          */
         isRTL?: boolean;
-        
+
         /**
          * Language defaults for month and weekday names.
          */
         i18n?: PikadayI18nConfig;
-        
+
         /**
          * Additional text to append to the year in the title.
          */
         yearSuffix?: string;
-        
+
         /**
          * Render the month after the year in the title. Default: false.
          */
         showMonthAfterYear?: boolean;
-        
+
         /**
          * Number of visible calendars.
          */
         numberOfMonths?: number;
-        
+
         /**
          * When numberOfMonths is used, this will help you to choose where the
          * main calendar will be (default left, can be set to right). Only used
          * for the first display or when a selected date is not already visible.
          */
         mainCalendar?: string;
-        
+
         /**
          * Define a class name that can be used as a hook for styling different
          * themes. Default: null.
          */
         theme?: string;
-        
+
         /**
          * Callback function for when a date is selected.
          */
         onSelect?: (date: Date) => void;
-        
+
         /**
          * Callback function for when the picker becomes visible.
          */
         onOpen?: () => void;
-        
+
         /**
          * Callback function for when the picker is hidden.
          */
         onClose?: () => void;
-        
+
         /**
          * Callback function for when the picker draws a new month.
          */

@@ -1,7 +1,7 @@
 // Type definitions for Google Realtime API
 // Project: https://developers.google.com/google-apps/realtime/
 // Definitions by: Dustin Wehr <http://cs.toronto.edu/~wehr>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // This definition file is merge-compatible with ../gapi/gapi.d.ts
 
@@ -15,7 +15,7 @@
 // See section "Type Aliases" of http://www.typescriptlang.org/Content/TypeScript%20Language%20Specification.pdf
 
 // gapi is a global var introduced by https://apis.google.com/js/api.js
-declare module gapi.drive.realtime {
+declare namespace gapi.drive.realtime {
 
 	type GoogEventHandler = ((evt:ObjectChangedEvent) => void) | ((e:Event) => void) | EventListener;
 
@@ -516,7 +516,7 @@ declare module gapi.drive.realtime {
 }
 
 
-declare module gapi.drive.realtime.databinding {
+declare namespace gapi.drive.realtime.databinding {
 	// COMPLETE
 	// https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime.databinding.Binding
 	export interface  Binding {
@@ -536,7 +536,7 @@ declare module gapi.drive.realtime.databinding {
 }
 
 
-declare module gapi.drive.realtime.EventType {
+declare namespace gapi.drive.realtime.EventType {
 	export var TEXT_INSERTED: string
 	export var TEXT_DELETED: string
 	export var OBJECT_CHANGED: string
@@ -544,7 +544,7 @@ declare module gapi.drive.realtime.EventType {
 
 
 // rtclient is a global var introduced by realtime-client-utils.js
-declare module rtclient {
+declare namespace rtclient {
 	// INCOMPLETE
 	export interface RealtimeLoader {
 		start():void;
@@ -633,7 +633,7 @@ declare module rtclient {
 }
 
 // INCOMPLETE
-declare module rtclient.params {
+declare namespace rtclient.params {
 	// string containing one or more file ids separated by spaces.
 	export var fileIds:string
 }

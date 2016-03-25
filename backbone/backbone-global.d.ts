@@ -1,11 +1,11 @@
 // Type definitions for Backbone 1.0.0
 // Project: http://backbonejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Natan Vivo <https://github.com/nvivo/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module Backbone {
+declare namespace Backbone {
 
     interface AddOptions extends Silenceable {
         at?: number;

@@ -1,7 +1,7 @@
 // Type definitions for Sequelize 3.4.1
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
@@ -11,7 +11,7 @@
 
 declare module "sequelize" {
 
-    module sequelize {
+    namespace sequelize {
 
         //
         //  Associations
@@ -3325,6 +3325,20 @@ declare module "sequelize" {
              */
             logging? : boolean | Function;
 
+            /**
+             * Transaction to run query under
+             */
+            transaction? : Transaction;
+
+            /**
+             * An optional parameter to specify the schema search_path (Postgres only)
+             */
+            searchPath? : string;
+
+            /**
+             * Print query execution time in milliseconds when logging SQL.
+             */
+            benchmark? : boolean;
         }
 
         /**
@@ -5381,6 +5395,9 @@ declare module "sequelize" {
         }
 
         interface QueryOptionsTransactionRequired { }
+        interface ModelsHashInterface {
+            [name: string]: Model<any, any>;
+        }
 
         /**
          * This is the main class, the entry point to sequelize. To use it, you just need to
@@ -5400,6 +5417,11 @@ declare module "sequelize" {
              * A reference to Sequelize constructor from sequelize. Useful for accessing DataTypes, Errors etc.
              */
             Sequelize: SequelizeStatic;
+
+            /**
+             * Defined models.
+             */
+            models: ModelsHashInterface;
 
             /**
              * Returns the specified dialect.

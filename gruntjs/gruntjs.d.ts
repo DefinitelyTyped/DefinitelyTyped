@@ -19,7 +19,7 @@ interface String {
     blue: string;
 }
 
-declare module node {
+declare namespace node {
 
     /**
      * {@link http://npmjs.org/doc/json.html}
@@ -36,7 +36,7 @@ declare module node {
 /**
  * {@link http://github.com/isaacs/minimatch}
  */
-declare module minimatch {
+declare namespace minimatch {
 
     /**
      * A minimal matching utility options.
@@ -114,16 +114,16 @@ declare module minimatch {
 /* GRUNT CONFIGURATION
  *********************/
 
-declare module grunt {
+declare namespace grunt {
 
-    module config {
-       
+    namespace config {
+
         /**
          * {@link http://gruntjs.com/sample-gruntfile}
          */
         interface IProjectConfig{
             [plugin: string]: any;
-        }                
+        }
 
         /**
          * {@link http://gruntjs.com/api/grunt.config}
@@ -192,7 +192,7 @@ declare module grunt {
              */
             requires(prop: string, ...andProps: string[]): void
             requires(prop: string[], ...andProps: string[][]): void
-            
+
             /**
              * Recursively merges properties of the specified configObject into the current project configuration.
              * You can use this method to append configuration options, targets, etc., to already defined tasks.
@@ -201,7 +201,7 @@ declare module grunt {
         }
     }
 
-    module event {
+    namespace event {
         /**
          * {@link http://github.com/hij1nx/EventEmitter2}
          */
@@ -276,7 +276,7 @@ declare module grunt {
         }
     }
 
-    module fail {
+    namespace fail {
 
         enum ErrorCode {
             NoError = 0,
@@ -305,7 +305,7 @@ declare module grunt {
         }
     }
 
-    module file {
+    namespace file {
 
         /**
          * {@link http://gruntjs.com/api/grunt.file#grunt.file.defaultencoding}
@@ -646,7 +646,7 @@ declare module grunt {
         }
     }
 
-    module log {
+    namespace log {
 
         /**
          * Grunt output should look consistent, and maybe even pretty.
@@ -727,7 +727,7 @@ declare module grunt {
         }
     }
 
-    module option {
+    namespace option {
 
         /**
          * {@link http://gruntjs.com/api/grunt.option}
@@ -760,7 +760,7 @@ declare module grunt {
 
     }
 
-    module task {
+    namespace task {
 
         /**
          * {@link http://gruntjs.com/api/grunt.task}
@@ -796,14 +796,14 @@ declare module grunt {
              */
             registerMultiTask(taskName: string, taskFunction: Function): void
             registerMultiTask(taskName: string, taskDescription: string, taskFunction: Function): void
-            
+
             /**
              * Check with the name, if a task exists in the registered tasks.
              * @param name The task name to check.
              * @since 0.4.5
              */
             exists(name: string): boolean;
-            
+
             /**
              * Rename a task. This might be useful if you want to override the default behavior of a task, while retaining the old name.
              * Note that if a task has been renamed, the this.name and this.nameArgs properties will change accordingly.
@@ -1012,7 +1012,7 @@ declare module grunt {
         interface ITaskCompactOptions extends grunt.task.ITaskOptions, grunt.file.IFilesConfig {}
     }
 
-    module template {
+    namespace template {
 
         interface TemplateModule {
 
@@ -1069,7 +1069,7 @@ declare module grunt {
         }
     }
 
-    module util {
+    namespace util {
 
         /**
          * {@link http://gruntjs.com/api/grunt.util}
