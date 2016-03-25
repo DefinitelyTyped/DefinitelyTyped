@@ -239,10 +239,16 @@ app.commandLine.appendSwitch('vmodule', 'console=0');
 // https://github.com/atom/electron/blob/master/docs/api/auto-updater.md
 
 autoUpdater.setFeedURL('http://mycompany.com/myapp/latest?version=' + app.getVersion());
-
 autoUpdater.checkForUpdates();
-
 autoUpdater.quitAndInstall();
+
+autoUpdater.on('error', (error) => {
+	console.log('error', error);
+});
+
+autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName, releaseDate, updateURL) => {
+	console.log('update-downloaded', releaseNotes, releaseName, releaseDate, updateURL);
+});
 
 // browser-window
 // https://github.com/atom/electron/blob/master/docs/api/browser-window.md
