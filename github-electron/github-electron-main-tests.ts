@@ -16,12 +16,11 @@ import {
 	crashReporter,
 	nativeImage,
 	screen,
-	shell
+	shell,
+	hideInternalModules
 } from 'electron';
 
-require('electron').hideInternalModules();
-
-import path = require('path');
+import * as path from 'path';
 
 // Quick start
 // https://github.com/atom/electron/blob/master/docs/tutorial/quick-start.md
@@ -106,6 +105,19 @@ app.on('ready', () => {
 
 	mainWindow.printToPDF({}, (err, data) => {});
 	mainWindow.webContents.printToPDF({}, (err, data) => {});
+
+	mainWindow.webContents.executeJavaScript('return true;');
+	mainWindow.webContents.executeJavaScript('return true;', true);
+	mainWindow.webContents.executeJavaScript('return true;', true, (result: boolean) => console.log(result));
+	mainWindow.webContents.insertText('blah, blah, blah');
+	mainWindow.webContents.findInPage('blah');
+	mainWindow.webContents.findInPage('blah', {
+		forward: true,
+		matchCase: false,
+	});
+	mainWindow.webContents.stopFindInPage('clearSelection');
+	mainWindow.webContents.stopFindInPage('keepSelection');
+	mainWindow.webContents.stopFindInPage('activateSelection');
 });
 
 // Locale

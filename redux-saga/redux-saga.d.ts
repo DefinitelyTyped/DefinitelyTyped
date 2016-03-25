@@ -1,7 +1,7 @@
 // Type definitions for redux-saga 0.9.1
 // Project: https://github.com/yelouafi/redux-saga
 // Definitions by: Daniel Lytkin <https://github.com/aikoven>, Dimitri Rosenberg <https://github.com/rosendi>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../redux/redux.d.ts" />
 

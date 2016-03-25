@@ -1,7 +1,7 @@
 // Type definitions for js-combinatorics v0.5.0
 // Project: https://github.com/dankogai/js-combinatorics
 // Definitions by: Vasya Aksyonov <https://github.com/outring>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace __Combinatorics {
 

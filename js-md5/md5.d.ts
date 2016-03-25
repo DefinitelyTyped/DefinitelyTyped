@@ -1,7 +1,7 @@
 // Type definitions for js-md5 v0.3.0
 // Project: https://github.com/emn178/js-md5
 // Definitions by: Roland Greim <https://github.com/tigerxy>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped/
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
 
 /// <reference path="../jquery/jquery.d.ts"/>
 

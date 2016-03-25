@@ -1,7 +1,7 @@
 // Type definitions for once v1.3.3
 // Project: https://github.com/isaacs/once
 // Definitions by: Denis Sokolov <https://github.com/denis-sokolov>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface SimpleFunction<Result> {
   (...args: any[]): Result;

@@ -1,7 +1,7 @@
 // Type definitions for pg
 // Project: https://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <http://pspeter3.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -84,5 +84,9 @@ declare module "pg" {
     export class Events extends events.EventEmitter {
         public on(event: "error", listener: (err: Error, client: Client) => void): this;
         public on(event: string, listener: Function): this;
+    }
+
+    namespace types {
+        function setTypeParser<T>(typeId: number, parser: (value: string) => T): void;
     }
 }

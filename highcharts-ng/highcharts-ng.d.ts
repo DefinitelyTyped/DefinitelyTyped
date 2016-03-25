@@ -1,7 +1,7 @@
 // Type definitions for highcharts-ng 0.0.8
 // Project: https://github.com/pablojim/highcharts-ng
 // Definitions by: Scott Hatcher <https://github.com/scatcher>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../highcharts/highcharts.d.ts" />
 

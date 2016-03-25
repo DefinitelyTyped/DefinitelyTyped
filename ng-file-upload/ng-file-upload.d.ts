@@ -1,7 +1,7 @@
 ﻿// Type definitions for Angular File Upload 11.1.1
 // Project: https://github.com/danialfarid/ng-file-upload
 // Definitions by: John Reilly <https://github.com/johnnyreilly>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
@@ -10,7 +10,7 @@ declare module "ng-file-upload" {
     export = angularFileUploadDefaultExport;
 }
 
-declare module angular.angularFileUpload  {
+declare namespace angular.angularFileUpload  {
     interface ImageDimensions {
         height: number;
         width: number;
@@ -94,17 +94,17 @@ declare module angular.angularFileUpload  {
 
     interface IUploadService {
         /**
-         * Convert a single file or array of files to a single or array of 
+         * Convert a single file or array of files to a single or array of
          * base64 data url representation of the file(s).
          * Could be used to send file in base64 format inside json to the databases
-         * 
+         *
          * @param  {Array<File>}
          * @return {angular.IPromise}
          */
         base64DataUrl(files: File | Array<File>): angular.IPromise<Array<string> | string>;
         /**
          * Convert the file to blob url object or base64 data url based on boolean disallowObjectUrl value
-         * 
+         *
          * @param {File} file
          * @param  {boolean} [disallowObjectUrl]
          * @return {angular.IPromise<string>}
@@ -114,54 +114,54 @@ declare module angular.angularFileUpload  {
          * Alternative way of uploading, send the file binary with the file's content-type.
          * Could be used to upload files to CouchDB, imgur, etc... html5 FileReader is needed.
          * This is equivalent to angular $http() but allow you to listen to the progress event for HTML5 browsers.
-         * 
+         *
          * @param {IRequestConfig} config
          * @return {angular.IPromise<ImageDimensions>}
          */
         http<T>(config: IRequestConfig): IUploadPromise<T>;
         /**
          * Get image file dimensions
-         * 
+         *
          * @param  {File} file
          * @return {angular.IPromise<ImageDimensions>}
          */
         imageDimensions(file: File): angular.IPromise<ImageDimensions>;
         /**
          * Returns boolean showing if image resize is supported by this browser
-         * 
+         *
          * @return {boolean}
          */
         isResizeSupported(): boolean;
         /**
          * Returns boolean showing if resumable upload is supported by this browser
-         * 
+         *
          * @return {boolean}
          */
         isResumeSupported(): boolean;
         /**
          * Returns true if there is an upload in progress. Can be used to prompt user before closing browser tab
-         * 
+         *
          * @return {boolean}
          */
         isUploadInProgress(): boolean;
         /**
          * Converts the value to json to send data as json string. Same as angular.toJson(obj)
-         * 
+         *
          * @param  {Object} obj
          * @return {string}
          */
         json(obj: Object): string;
         /**
-         * Converts the object to a Blob object with application/json content type 
+         * Converts the object to a Blob object with application/json content type
          * for jsob byte streaming support
-         * 
+         *
          * @param  {Object} obj
          * @return {Blob}
          */
         jsonBlob(obj: Object): Blob;
         /**
          * Returns a file which will be uploaded with the newName instead of original file name
-         * 
+         *
          * @param  {File} file
          * @param  {string} newName
          * @return {File}
@@ -169,7 +169,7 @@ declare module angular.angularFileUpload  {
         rename(file: File, newName: string): File;
         /**
          * Resizes an image. Returns a promise
-         * 
+         *
          * @param  {File} file
          * @param  {number} [width]
          * @param  {number} [height]
@@ -183,7 +183,7 @@ declare module angular.angularFileUpload  {
             ratio?: number | string, centerCrop?: boolean): angular.IPromise<string>;
         /**
          * Set the default values for ngf-select and ngf-drop directives
-         * 
+         *
          * @param {FileUploadOptions} defaultFileUploadOptions
          */
         setDefaults(defaultFileUploadOptions: FileUploadOptions): void;
@@ -199,14 +199,14 @@ declare module angular.angularFileUpload  {
     interface IUploadPromise<T> extends IHttpPromise<T> {
         /**
          * Cancel/abort the upload in progress.
-         * 
+         *
          * @return {IUploadPromise<T>}
          */
         abort(): IUploadPromise<T>;
         progress(callback: IHttpPromiseCallback<T>): IUploadPromise<T>;
         /**
          * Access or attach event listeners to the underlying XMLHttpRequest
-         * 
+         *
          * @param  {IHttpPromiseCallback<T>}
          * @return {IUploadPromise<T>}
          */
@@ -223,7 +223,7 @@ declare module angular.angularFileUpload  {
          * {file: file, info: Upload.json({id: id, name: name, ...})} send fields as json string
          * {file: file, info: Upload.jsonBlob({id: id, name: name, ...})} send fields as json blob, 'application/json' content_type
          * {picFile: Upload.rename(file, 'profile.jpg'), title: title} send file with picFile key and profile.jpg file name
-         * 
+         *
          * @type {Object}
          */
         data: any;
@@ -234,15 +234,15 @@ declare module angular.angularFileUpload  {
         url: string;
         /**
          * This is to accommodate server implementations expecting nested data object keys in .key or [key] format.
-         * Example: data: {rec: {name: 'N', pic: file}} sent as: rec[name] -> N, rec[pic] -> file  
+         * Example: data: {rec: {name: 'N', pic: file}} sent as: rec[name] -> N, rec[pic] -> file
          * data: {rec: {name: 'N', pic: file}, objectKey: '.k'} sent as: rec.name -> N, rec.pic -> file
          * @type {string}
          */
         objectKey?: string;
         /**
-         * This is to accommodate server implementations expecting array data object keys in '[i]' or '[]' or 
+         * This is to accommodate server implementations expecting array data object keys in '[i]' or '[]' or
          * ''(multiple entries with same key) format.
-         * Example: data: {rec: [file[0], file[1], ...]} sent as: rec[0] -> file[0], rec[1] -> file[1],...  
+         * Example: data: {rec: [file[0], file[1], ...]} sent as: rec[0] -> file[0], rec[1] -> file[1],...
          * data: {rec: {rec: [f[0], f[1], ...], arrayKey: '[]'} sent as: rec[] -> f[0], rec[] -> f[1],...
          * @type {string}
          */
