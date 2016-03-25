@@ -16,9 +16,11 @@ import * as fs from 'fs';
 // https://github.com/atom/electron/blob/master/docs/api/ipc-renderer.md
 console.log(ipcRenderer.sendSync('synchronous-message', 'ping')); // prints "pong"
 
-ipcRenderer.on('asynchronous-reply', (arg: any) => {
+ipcRenderer.on('asynchronous-reply', (event: Electron.IpcRendererEvent, arg: any) => {
 	console.log(arg); // prints "pong"
+	event.sender.send('another-message', 'Hello World!');
 });
+
 ipcRenderer.send('asynchronous-message', 'ping');
 
 // remote
