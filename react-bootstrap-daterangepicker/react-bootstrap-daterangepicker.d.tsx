@@ -6,7 +6,7 @@
 /// <reference path="../react/react.d.ts" />
 /// <reference path="../bootstrap.datepicker/bootstrap.datepicker.d.ts" />
 
-declare module ReactBootstrapDaterangepicker {
+declare namespace ReactBootstrapDaterangepicker {
     export interface EventHandler { (event?: any, picker?: any): any; }
 
     export interface Props extends DatepickerOptions {

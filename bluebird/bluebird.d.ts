@@ -1,13 +1,13 @@
 // Type definitions for bluebird 2.0.0
 // Project: https://github.com/petkaantonov/bluebird
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, falsandtru <https://github.com/falsandtru>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // ES6 model with generics overload was sourced and trans-multiplied from es6-promises.d.ts
 // By: Campredon <https://github.com/fdecampredon/>
 
 // Warning: recommended to use `tsc > v0.9.7` (critical bugs in earlier generic code):
-// - https://github.com/borisyankov/DefinitelyTyped/issues/1563
+// - https://github.com/DefinitelyTyped/DefinitelyTyped/issues/1563
 
 // Note: replicate changes to all overloads in both definition and test file
 // Note: keep both static and instance members inline (so similar)
@@ -23,6 +23,13 @@ interface PromiseConstructor {
      * Create a new promise. The passed in function will receive functions `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
      */
     new <T>(callback: (resolve: (thenableOrResult?: T | PromiseLike<T>) => void, reject: (error: any) => void) => void): Promise<T>;
+    
+    config(options: {
+        warnings?: boolean | {wForgottenReturn?: boolean};
+        longStackTraces?: boolean;
+        cancellation?: boolean;
+        monitoring?: boolean;
+    }): void;
 
     // Ideally, we'd define e.g. "export class RangeError extends Error {}",
     // but as Error is defined as an interface (not a class), TypeScript doesn't

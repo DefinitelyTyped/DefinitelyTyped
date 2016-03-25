@@ -1,7 +1,7 @@
 // Type definitions for react-intl 1.2.0
 // Project: http://formatjs.io/react/
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path='../react/react.d.ts' />
 
@@ -9,7 +9,7 @@ declare module "react-intl" {
 
     import * as React from 'react'
 
-    module ReactIntl {
+    namespace ReactIntl {
 
 
         interface IIntlMixin extends React.Mixin<any,any> {
@@ -18,7 +18,7 @@ declare module "react-intl" {
 
         var IntlMixin: IIntlMixin
 
-        module IntlComponent {
+        namespace IntlComponent {
             interface Props {
                 locales?: string[]
                 messages?: {[key: string]: any}
@@ -30,7 +30,7 @@ declare module "react-intl" {
         }
 
 
-        module FormattedDate {
+        namespace FormattedDate {
             export interface Props extends IntlComponent.Props {
                 value: Date
                 day?: string
@@ -43,7 +43,7 @@ declare module "react-intl" {
         }
 
 
-        module FormattedTime {
+        namespace FormattedTime {
             export interface Props extends IntlComponent.Props  {
                 value: Date
                 day?: string
@@ -57,7 +57,7 @@ declare module "react-intl" {
         }
 
 
-        module FormattedRelative {
+        namespace FormattedRelative {
             export interface Props extends IntlComponent.Props  {
                 value: number
                 units?: string //"second", "minute", "hour", "day", "month" or "year"
@@ -70,7 +70,7 @@ declare module "react-intl" {
         }
 
 
-        module FormattedMessage {
+        namespace FormattedMessage {
             export interface Props extends IntlComponent.Props  {
                 message: string;
                 [prop: string]: any
@@ -81,7 +81,7 @@ declare module "react-intl" {
         }
 
 
-        module FormattedHTMLMessage {
+        namespace FormattedHTMLMessage {
             export interface Props extends IntlComponent.Props  {
                 message: string;
                 [prop: string]: any
@@ -92,7 +92,7 @@ declare module "react-intl" {
         }
 
 
-        module FormattedNumber {
+        namespace FormattedNumber {
             export interface Props extends IntlComponent.Props  {
                 value: number
                 style?: string

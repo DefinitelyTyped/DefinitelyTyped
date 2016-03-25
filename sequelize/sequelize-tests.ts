@@ -902,7 +902,7 @@ User.findOne( { where : { name : 'worker' }, include : [User] } );
 User.findOne( { where : { name : 'Boris' }, include : [User, { model : User, as : 'Photos' }] } );
 User.findOne( { where : { username : 'someone' }, include : [User] } );
 User.findOne( { where : { username : 'barfooz' }, raw : true } );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 User.findOne( { updatedAt : { ne : null } } );
  */
 User.find( { where : { intVal : { gt : 5 } } } );
@@ -956,7 +956,7 @@ User.findOrInitialize( { where : { username : 'foo' }, defaults : { foo : 'asd' 
 
 User.findOrCreate( { where : { a : 'b' }, defaults : { json : { a : { b : 'c' }, d : [1, 2, 3] } } } );
 User.findOrCreate( { where : { a : 'b' }, defaults : { json : 'a', data : 'b' } } );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 User.findOrCreate( { where : { a : 'b' }, transaction : t, lock : t.LOCK.UPDATE } );
  */
 User.findOrCreate( { where : { a : 'b' }, logging : function(  ) { } } );
@@ -1038,7 +1038,7 @@ queryInterface.dropAllTables();
 queryInterface.showAllTables( { logging : function() { } } );
 queryInterface.createTable( 'table', { name : Sequelize.STRING }, { logging : function() { } } );
 queryInterface.createTable( 'skipme', { name : Sequelize.STRING } );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 queryInterface.dropAllTables( { skip : ['skipme'] } );
  */
 queryInterface.dropTable( 'Group', { logging : function() { } } );
@@ -1046,7 +1046,7 @@ queryInterface.addIndex( 'Group', ['username', 'isAdmin'], { logging : function(
 queryInterface.showIndex( 'Group', { logging : function() { } } );
 queryInterface.removeIndex( 'Group', ['username', 'isAdmin'], { logging : function() { } } );
 queryInterface.showIndex( 'Group' );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 queryInterface.createTable( 'table', { name : { type : Sequelize.STRING } }, { schema : 'schema' } );
  */
 queryInterface.addIndex( { schema : 'a', tableName : 'c' }, ['d', 'e'], { logging : function() {} }, 'schema_table' );
@@ -1054,13 +1054,13 @@ queryInterface.showIndex( { schema : 'schema', tableName : 'table' }, { logging 
 queryInterface.addIndex( 'Group', ['from'] );
 queryInterface.describeTable( '_Users', { logging : function() {} } );
 queryInterface.createTable( 's', { table_id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 queryInterface.insert( null, 'TableWithPK', {}, { raw : true, returning : true, plain : true } );
  */
 queryInterface.createTable( 'SomeTable', { someEnum : Sequelize.ENUM( 'value1', 'value2', 'value3' ) } );
 queryInterface.createTable( 'SomeTable', { someEnum : { type : Sequelize.ENUM, values : ['b1', 'b2', 'b3'] } } );
 queryInterface.createTable( 't', { someEnum : { type : Sequelize.ENUM, values : ['c1', 'c2', 'c3'], field : 'd' } } );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 queryInterface.createTable( 'User', { name : { type : Sequelize.STRING } }, { schema : 'hero' } );
 queryInterface.rawSelect( 'User', { schema : 'hero', logging : function() {} }, 'name' );
  */
@@ -1157,6 +1157,7 @@ new Sequelize( 'sequelize', null, null, {
 } );
 
 s.model( 'Project' );
+s.models['Project'];
 s.define( 'Project', {
     name : Sequelize.STRING
 } );
@@ -1245,7 +1246,7 @@ s.define( 'UserWithUniqueUsername', {
     username : { type : Sequelize.STRING, unique : { name : 'user_and_email', msg : 'User and email must be unique' } },
     email : { type : Sequelize.STRING, unique : 'user_and_email' }
 } );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 s.define( 'UserWithUniqueUsername', {
     user_id : { type : Sequelize.INTEGER },
     email : { type : Sequelize.STRING }

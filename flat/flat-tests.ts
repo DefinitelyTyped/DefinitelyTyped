@@ -2,7 +2,7 @@
 
 import {flatten, unflatten} from "flat";
 
-module TestFlatten {
+namespace TestFlatten {
 	let options: {
 		delimiter?: string;
 		safe?: boolean;
@@ -29,7 +29,7 @@ module TestFlatten {
 	result = flatten<Target, Result>(target, options);
 }
 
-module TestUnflatten {
+namespace TestUnflatten {
 	let options: {
 		delimiter?: string;
 		object?: boolean;

@@ -25,12 +25,12 @@ class MyComponent extends Component<MyComponentProps, MyComponentState> {
 }
 
 // API
-module SpyLifecycleTest {
+namespace SpyLifecycleTest {
     spyLifecycle(MyComponent);
 }
 
 // ShallowWrapper
-module ShallowWrapperTest {
+namespace ShallowWrapperTest {
     var shallowWrapper: ShallowWrapper<MyComponentProps, MyComponentState> =
         shallow<MyComponentProps, MyComponentState>(<MyComponent propsProperty="value"/>);
 
@@ -219,7 +219,7 @@ module ShallowWrapperTest {
 
 
 // ReactWrapper
-module ReactWrapperTest {
+namespace ReactWrapperTest {
     var reactWrapper: ReactWrapper<MyComponentProps, MyComponentState> =
         mount<MyComponentProps, MyComponentState>(<MyComponent propsProperty="value"/>);
 
@@ -398,7 +398,7 @@ module ReactWrapperTest {
 }
 
 // CheerioWrapper
-module CheerioWrapperTest {
+namespace CheerioWrapperTest {
     var cheerioWrapper: CheerioWrapper<MyComponentProps, MyComponentState> =
         render<MyComponentProps, MyComponentState>(<MyComponent propsProperty="value"/>);
 

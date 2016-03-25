@@ -1,7 +1,7 @@
 // Type definitions for Angular Translate v2.4.0 (pascalprecht.translate module)
 // Project: https://github.com/PascalPrecht/angular-translate
 // Definitions by: Michel Salib <https://github.com/michelsalib>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
@@ -10,7 +10,7 @@ declare module "angular-translate" {
     export = ngt;
 }
 
-declare module angular.translate {
+declare namespace angular.translate {
 
     interface ITranslationTable {
         [key: string]: any;
@@ -103,6 +103,8 @@ declare module angular.translate {
         useMissingTranslationHandlerLog(): ITranslateProvider;
         useMissingTranslationHandler(factory: string): ITranslateProvider;
         usePostCompiling(value: boolean): ITranslateProvider;
+        directivePriority(): number;
+        directivePriority(priority: number): ITranslateProvider;
         determinePreferredLanguage(fn?: () => void): ITranslateProvider;
         registerAvailableLanguageKeys(): string[];
         registerAvailableLanguageKeys(languageKeys: string[], aliases?: ILanguageKeyAlias): ITranslateProvider;
@@ -110,7 +112,7 @@ declare module angular.translate {
     }
 }
 
-declare module angular {
+declare namespace angular {
     interface IFilterService {
         (name:'translate'): {
             (translationId: string, interpolateParams?: any, interpolation?: string): string;

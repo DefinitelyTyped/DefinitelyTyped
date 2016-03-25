@@ -1,10 +1,10 @@
 // Type definitions for nouislider v8.0.2
 // Project: https://github.com/leongersen/noUiSlider
 // Definitions by: Patrick Davies <https://github.com/bleuarg>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="../wnumb/wnumb.d.ts"/>
 
-declare module noUiSlider {
+declare namespace noUiSlider {
     /**
      * To create a slider, call noUiSlider.create() with an element and your options.
      */

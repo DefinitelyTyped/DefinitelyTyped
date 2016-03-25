@@ -1,7 +1,7 @@
 // Type definitions for Chrome packaged application development
 // Project: http://developer.chrome.com/apps/
 // Definitions by: Adam Lay <https://github.com/AdamLay>, MIZUNE Pine <https://github.com/pine613>, MIZUSHIMA Junki <https://github.com/mzsm>, Ingvar Stepanyan <https://github.com/RReverser>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="chrome.d.ts"/>
 /// <reference path='../filesystem/filesystem.d.ts'/>
@@ -9,7 +9,7 @@
 ////////////////////
 // App Runtime
 ////////////////////
-declare module chrome.app.runtime {
+declare namespace chrome.app.runtime {
     interface LaunchData {
         id?: string;
         items?: LaunchDataItem[];
@@ -34,7 +34,7 @@ declare module chrome.app.runtime {
 ////////////////////
 // App Window
 ////////////////////
-declare module chrome.app.window {
+declare namespace chrome.app.window {
     interface ContentBounds {
         left?: number;
         top?: number;
@@ -146,7 +146,7 @@ declare module chrome.app.window {
 ////////////////////
 // fileSystem
 ////////////////////
-declare module chrome.fileSystem {
+declare namespace chrome.fileSystem {
 
     interface AcceptOptions {
         description?: string;
@@ -177,11 +177,11 @@ declare module chrome.fileSystem {
 ////////////////////
 // Media Galleries
 ////////////////////
-declare module chrome.mediaGalleries {
+declare namespace chrome.mediaGalleries {
     interface MediaFileSystemsOptions {
         interactive?: 'no' | 'yes' | 'if_needed';
     }
-    
+
     interface MediaFileSystemMetadata {
         name: string;
         galleryId: string;
@@ -190,7 +190,7 @@ declare module chrome.mediaGalleries {
         isMediaDevice: boolean;
         isAvailable: boolean;
     }
-    
+
     interface MetadataOptions {
         metadataType: 'all' | 'mimeTypeAndTags' | 'mimeTypeOnly';
     }
@@ -199,7 +199,7 @@ declare module chrome.mediaGalleries {
         type: string;
         tags: { [name: string]: string; };
     }
-    
+
     interface Metadata {
         // The browser sniffed mime type.
         mimeType: string;
@@ -236,17 +236,17 @@ declare module chrome.mediaGalleries {
         // The images embedded in the media file's metadata. This is most often used for album art or video thumbnails.
         attachedImages: Blob[];
     }
-    
+
     interface GalleryWatchResult {
         galleryId: string;
         success: boolean;
     }
-    
+
     interface GalleryChangedEventArgs {
         type: 'contents_changed' | 'watch_dropped';
         galleryId: string;
     }
-    
+
     interface ScanProgressEventArgs {
         // The type of progress event, i.e. start, finish, etc.
         type: 'start' | 'cancel' | 'finish' | 'error';
@@ -257,7 +257,7 @@ declare module chrome.mediaGalleries {
         imageCount?: number;
         videoCount?: number;
     }
-    
+
     export function getMediaFileSystems(callback: (mediaFileSystems: FileSystem[]) => void): void;
     export function getMediaFileSystems(options: MediaFileSystemsOptions, callback: (mediaFileSystems: FileSystem[]) => void): void;
     export function addUserSelectedFolder(callback: (mediaFileSystems: FileSystem[], selectedFileSystemName: string) => void): void;
@@ -273,7 +273,7 @@ declare module chrome.mediaGalleries {
     export function removeGalleryWatch(galleryId: string): void;
     export function getAllGalleryWatch(callback: (galleryIds: string[]) => void): void;
     export function removeAllGalleryWatch(): void;
-    
+
     var onGalleryChanged: chrome.events.Event<(args: GalleryChangedEventArgs) => void>;
     var onScanProgress: chrome.events.Event<(args: ScanProgressEventArgs) => void>;
 }
@@ -281,7 +281,7 @@ declare module chrome.mediaGalleries {
 ////////////////////
 // Sockets
 ////////////////////
-declare module chrome.sockets.tcp {
+declare namespace chrome.sockets.tcp {
     interface CreateInfo {
         socketId: number;
     }
@@ -344,7 +344,7 @@ declare module chrome.sockets.tcp {
     var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
 }
 
-declare module chrome.sockets.udp {
+declare namespace chrome.sockets.udp {
     interface CreateInfo {
         socketId: number;
     }
@@ -403,7 +403,7 @@ declare module chrome.sockets.udp {
     var onReceiveError: chrome.events.Event<(args: ReceiveErrorEventArgs) => void>;
 }
 
-declare module chrome.sockets.tcpServer {
+declare namespace chrome.sockets.tcpServer {
     interface CreateInfo {
         socketId: number;
     }
@@ -459,7 +459,7 @@ declare module chrome.sockets.tcpServer {
  * Permissions: "system.display"
  * @since Chrome 30.
  */
-declare module chrome.system.display {
+declare namespace chrome.system.display {
     interface Bounds {
         /**  The x-coordinate of the upper-left corner. */
         left: number;
@@ -539,7 +539,7 @@ declare module chrome.system.display {
 ////////////////////
 // System - Network
 ////////////////////
-declare module chrome.system.network {
+declare namespace chrome.system.network {
     interface NetworkInterface {
         name: string;
         address: string;
@@ -549,7 +549,7 @@ declare module chrome.system.network {
     export function getNetworkInterfaces(callback: (networkInterfaces: NetworkInterface[]) => void): void;
 }
 
-declare module chrome.runtime {
+declare namespace chrome.runtime {
 	interface Manifest {
 		app?: {
 			background?: {
@@ -598,7 +598,7 @@ declare module chrome.runtime {
 ////////////////////
 // USB
 ////////////////////
-declare module chrome.usb {
+declare namespace chrome.usb {
 	type Direction = 'in' | 'out';
 
 	interface Device {

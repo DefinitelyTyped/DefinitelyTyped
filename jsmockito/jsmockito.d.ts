@@ -312,7 +312,7 @@
  * verifyNoMoreInteractions(mockArray);
  * </pre>
  */
-declare module JsMockito {
+declare namespace JsMockito {
 
     /**
      * Library version.
@@ -458,7 +458,7 @@ declare module JsMockito {
      */
     export function mock<T>(Obj: { new(): T ;}): T;
 
-    module Verifiers {
+    namespace Verifiers {
 
         /**
          * Test that a invocation never occurred. For example:
@@ -507,7 +507,7 @@ declare module JsMockito {
         export function once(): Verifier;
     }
 
-    module Integration {
+    namespace Integration {
 
         /**
          * Import the public JsMockito API into the specified object (namespace)

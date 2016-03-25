@@ -1,7 +1,7 @@
 // Type definitions for vuejs 1.0.16
 // Project: https://github.com/vuejs/vue
 // Definitions by: odangosan <https://github.com/odangosan>, kaorun343 <https://github.com/kaorun343>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Array<T> {
     $remove(item: T): Array<T>;

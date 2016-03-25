@@ -1,11 +1,11 @@
 ﻿// Type definitions for CKEditor
 // Project: http://ckeditor.com/
 // Definitions by: Ondrej Sevcik <https://github.com/ondrejsevcik/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // WORK-IN-PROGRESS: Any contribution support welcomed.
-// See https://github.com/borisyankov/DefinitelyTyped/issues/1827 for more informations.
-declare module CKEDITOR {
+// See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/1827 for more informations.
+declare namespace CKEDITOR {
 
     // Config options
     var disableAutoInline: boolean;
@@ -88,7 +88,7 @@ declare module CKEDITOR {
     function replaceAll(assertionFunction: (textarea: HTMLTextAreaElement, config: config) => boolean): void;
 
 
-    module dom {
+    namespace dom {
 
         class comment {
 
@@ -506,7 +506,7 @@ declare module CKEDITOR {
     }
 
 
-    module ajax {
+    namespace ajax {
 
         // Methods
         function load(url: string, callback?: Function): string;
@@ -556,7 +556,7 @@ declare module CKEDITOR {
         groups?: string[];
     }
 
-    module config {
+    namespace config {
         interface styleObject {
             name?: string;
             element: string;
@@ -842,7 +842,7 @@ declare module CKEDITOR {
     }
 
 
-    module plugins {
+    namespace plugins {
 
         class contextMenu extends menu {
             constructor(editor: editor);
@@ -851,7 +851,7 @@ declare module CKEDITOR {
         }
 
 
-        module link {
+        namespace link {
             var emptyAnchorFix: boolean;
             var fakeAnchor: boolean;
             var synAnchorSelector: boolean;
@@ -861,9 +861,9 @@ declare module CKEDITOR {
         }
 
 
-        module widget {
+        namespace widget {
 
-            module nestedEditable {
+            namespace nestedEditable {
                 interface definition {
                     allowedContent?: any;
                     pathName?: string;
@@ -1127,7 +1127,7 @@ declare module CKEDITOR {
         updateElement(): void;
     }
 
-    module editor {
+    namespace editor {
         interface eventObject {
             activeEnterModeChange?: (evt: CKEDITOR.eventInfo) => void;
             activeFilterChange?: (evt: CKEDITOR.eventInfo) => void;
@@ -1288,8 +1288,8 @@ declare module CKEDITOR {
         addHandler(type: Object, handler: Object): void;
     }
 
-    module ui {
-        module dialog {
+    namespace ui {
+        namespace dialog {
             class uiElement {
                 eventProcessors: any;
 
@@ -1465,9 +1465,9 @@ declare module CKEDITOR {
     }
 
 
-    module dialog {
+    namespace dialog {
 
-        module definition {
+        namespace definition {
 
             interface button extends uiElement {
                 disabled?: boolean;
@@ -1619,7 +1619,7 @@ declare module CKEDITOR {
     }
 
 
-    module htmlParser {
+    namespace htmlParser {
 
         class basicWriter {
             constructor();
@@ -1759,12 +1759,12 @@ declare module CKEDITOR {
     }
 
 
-    module tools {
+    namespace tools {
         var callFunction: Function;
     }
 
 
-    module lang {
+    namespace lang {
         var languages: any;
         var rtl: any;
 

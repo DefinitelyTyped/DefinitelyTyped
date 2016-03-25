@@ -1,7 +1,7 @@
 // Type definitions for utils-merge
 // Project: https://github.com/jaredhanson/utils-merge
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "utils-merge" {
 	function merge<TA, TB, TResult>(a: TA, b: TB): TResult;

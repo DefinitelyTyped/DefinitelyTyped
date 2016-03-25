@@ -6,16 +6,16 @@
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../jquery.dataTables/jquery.dataTables.d.ts"/>
 
-declare module DataTables {
-    export interface Settings {       
+declare namespace DataTables {
+    export interface Settings {
         /**
          * Buttons extension options
          */
         buttons?: boolean | string[] | ButtonSettings[];
     }
-	
+
     //#region "button-settings"
-    
+
     /**
     * Buttons extension options
     */

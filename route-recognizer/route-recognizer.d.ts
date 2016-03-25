@@ -1,7 +1,7 @@
 // Type definitions for route-recognizer
 // Project: https://github.com/tildeio/route-recognizer
 // Definitions by: Dave Keen <http://www.keendevelopment.ch>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "route-recognizer" {
 	

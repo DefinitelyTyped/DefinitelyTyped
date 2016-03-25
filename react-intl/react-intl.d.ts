@@ -1,11 +1,11 @@
 // Type definitions for react-intl 2.0.0-beta1
 // Project: http://formatjs.io/react/
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>, Christian Droulers <https://github.com/cdroulers>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path='../react/react.d.ts' />
 
-declare module ReactIntl {
+declare namespace ReactIntl {
     import React = __React;
 
     interface Locale {
@@ -46,7 +46,7 @@ declare module ReactIntl {
         formatHTMLMessage?: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Object) => string;
     }
 
-    module IntlComponent {
+    namespace IntlComponent {
         interface DateTimeFormatProps {
             /*
             * one of "best fit" (default) | "lookup"
@@ -98,7 +98,7 @@ declare module ReactIntl {
     }
 
 
-    module FormattedDate {
+    namespace FormattedDate {
         export interface PropsBase extends IntlComponent.DateTimeFormatProps {
             format?: string;
         }
@@ -112,7 +112,7 @@ declare module ReactIntl {
     }
 
 
-    module FormattedTime {
+    namespace FormattedTime {
         export interface PropsBase extends IntlComponent.DateTimeFormatProps {
             format?: string;
         }
@@ -126,7 +126,7 @@ declare module ReactIntl {
     }
 
 
-    module FormattedRelative {
+    namespace FormattedRelative {
         export interface PropsBase {
             /*
             * one of "second", "minute", "hour", "day", "month" or "year"
@@ -150,7 +150,7 @@ declare module ReactIntl {
     }
 
 
-    module FormattedMessage {
+    namespace FormattedMessage {
         export interface MessageDescriptor {
             id: string;
             description?: string;
@@ -172,7 +172,7 @@ declare module ReactIntl {
     }
 
 
-    module FormattedNumber {
+    namespace FormattedNumber {
         export interface PropsBase {
             format?: string;
             /*
@@ -205,7 +205,7 @@ declare module ReactIntl {
     }
 
 
-    module FormattedPlural {
+    namespace FormattedPlural {
         export interface PropsBase {
             /*
             * one of "cardinal" (default) | "ordinal"
@@ -228,7 +228,7 @@ declare module ReactIntl {
     }
 
 
-    module IntlProvider {
+    namespace IntlProvider {
         export interface Props {
             locale?: string;
             formats?: Object;

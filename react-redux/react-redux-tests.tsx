@@ -55,6 +55,7 @@ connect(
 
 @connect(mapStateToProps)
 class CounterContainer extends Component<any, any> {
+
     render(): JSX.Element {
         return null;
     }
@@ -83,11 +84,13 @@ declare var store: Store;
 declare var routerState: RouterState;
 declare var history: HistoryModule.History;
 class MyRootComponent extends Component<any, any> {
+
     render(): JSX.Element {
         return null;
     }
 }
 class TodoApp extends Component<any, any> {
+
     render(): JSX.Element {
         return null;
     }
@@ -100,6 +103,7 @@ interface TodoProps {
 }
 interface DispatchProps {
     addTodo(userId: number, text: string): void;
+    action: Function;
 }
 declare var actionCreators: () => {
     action: Function;
@@ -285,15 +289,6 @@ class NonComponent {}
 // this doesn't compile
 //connect()(NonComponent);
 
-// connect()(SomeClass) has the same constructor as SomeClass itself
-class SomeClass extends Component<any, any> {
-    constructor(public foo: string) { super() }
-    public bar: number;
-    render(): JSX.Element {
-        return null;
-    }
-}
-let bar: number = new (connect()(SomeClass))("foo").bar;
 
 
 // stateless functions

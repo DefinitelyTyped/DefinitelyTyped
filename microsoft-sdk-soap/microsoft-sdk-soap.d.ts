@@ -1,11 +1,11 @@
 // Type definitions for Sdk.Soap.js
 // Project: https://code.msdn.microsoft.com/SdkSoapjs-9b51b99a
 // Definitions by: Markus Mauch <https://github.com/markusmauch/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../q/Q.d.ts"/>
 
-declare module Sdk
+declare namespace Sdk
 {
     interface IEntityView
     {
@@ -22,7 +22,7 @@ declare module Sdk
         entities: Array<IEntityView>;
         minActiveRowVersion: string;
         moreRecords: boolean;
-        pagingCookie: string; 
+        pagingCookie: string;
         totalRecordCount: number;
         totalRecordCountLimitExceeded: boolean;
     }
@@ -112,7 +112,7 @@ declare module Sdk
     class ColumnSet
     {
         /**
-         * Specifies the attributes for which non- null values are returned from a query. 
+         * Specifies the attributes for which non- null values are returned from a query.
          * @param columns Comma separated string values for attribute logical names.
          */
         constructor( ...columns: string[] );
@@ -162,22 +162,22 @@ declare module Sdk
          * Gets the number of columns.
          */
         getCount(): number;
-        
-        
+
+
         /// prototype methods
-        
+
         /**
-         * Removes a column from the ColumnSet. 
-         * @param columnName The logical name of an attribute to be removed from the ColumnSet. 
-         * @param errorIfNotFound Whether to throw an error when the column to remove is not found. The default is false 
+         * Removes a column from the ColumnSet.
+         * @param columnName The logical name of an attribute to be removed from the ColumnSet.
+         * @param errorIfNotFound Whether to throw an error when the column to remove is not found. The default is false
          */
         removeColumn( columnName: string, errorIfNotFound?: boolean ): void;
- 
+
         /**
-         * The XML node with "<d:columnSet>" as the root element. 
+         * The XML node with "<d:columnSet>" as the root element.
          */
-        toXml(): string; 
- 
+        toXml(): string;
+
         /**
          * XML nodes for columnSet properties.
          */
@@ -236,7 +236,7 @@ declare module Sdk
          * @param predicate A predicate function that takes a collection item as argument and returns a boolean.
          */
         select( predicate: ( item: T ) => boolean ): Collection<T>;
-        
+
         /**
          * Applies the action contained within a delegate function.
          * @param fn Delegate function with parameters for item and index.
@@ -394,33 +394,33 @@ declare module Sdk
          * Contains a collection of EntityReference instances.
          * @param entityReferences Initializes a new instance of the EntityReferenceCollection class setting the Sdk.Collection of Sdk.EntityReference objects.
          */
-        constructor( entityReferences?: Sdk.Collection<EntityReference> ); 
- 
+        constructor( entityReferences?: Sdk.Collection<EntityReference> );
+
         /**
          * Gets the collection of entity references.
          */
-        getEntityReferences(): Sdk.Collection<EntityReference>; 
-	
+        getEntityReferences(): Sdk.Collection<EntityReference>;
+
         /**
          * Sets the collection of entity references.
          * @param entityReferences The entity references
          */
         setEntityReferences( entityReferences: Sdk.Collection<EntityReference> ): void;
-        
-        
+
+
         /// prototype methods
-        
+
         /**
          * Removes an entity reference to the collection.
          * @param entityReference The entity reference to remove.
          */
-        remove( entityReference: Sdk.EntityReference ): void; 
- 
+        remove( entityReference: Sdk.EntityReference ): void;
+
         /**
          * Returns a view of the data in an entity reference collection instance.
          */
-        view(): IEntityReferenceCollectionView; 
- 
+        view(): IEntityReferenceCollectionView;
+
         /**
          * Returns the values of serialized entity reference collection as XML nodes.
          */
@@ -434,7 +434,7 @@ declare module Sdk
     class AttributeCollection extends Collection<AttributeBase>
     {
         constructor();
-        
+
         /**
          * Adds an attribute to the Attribute Collection.
          * @param attribute The attribute to add.
@@ -446,10 +446,10 @@ declare module Sdk
          * Gets the attributes in the collection.
           */
         getAttributes(): Collection<AttributeBase>;
-        
-        
+
+
         /// prototype methods
-        
+
         /**
          * Allows for a delegate function to be applied to each attribute in the collection.
          * @param fm The function to be applied. Function should have parameters for the attribute and the iterator i.e.: '(att,i)'
@@ -466,29 +466,29 @@ declare module Sdk
          * @param attribuetName
          */
         get( attribuetName: string ): AttributeBase;
-        
+
         /**
          * Returns the attribute with matching index.
          * @param attribuetName
          */
         get( index: number ): AttributeBase;
-        
+
         /**
          * Gets an attribute at a given index.
          * @param index The index.
          */
-        getAttributeByIndex( index: number ): AttributeBase; 
- 
+        getAttributeByIndex( index: number ): AttributeBase;
+
         /**
          * Gets an attribute with a given name.
          * @param name The Logical name of the attribute.
          */
-        getAttributeByName( name: string ): AttributeBase; 
- 
+        getAttributeByName( name: string ): AttributeBase;
+
         /**
          * Gets an array of the names of attributes in a collection.
          */
-        getNames(): Array<string>; 
+        getNames(): Array<string>;
         /**
          * The XML for an attribute collection.
          */
@@ -554,7 +554,7 @@ declare module Sdk
          * @param name The value of the attribute.
          */
         setValue( value: any ): void;
-        
+
         /// prototype methods
         /**
          * XML node for Attribute.
@@ -570,7 +570,7 @@ declare module Sdk
          * @param value The value of the managed property.
          */
         constructor( name: string, value?: boolean )
- 
+
         /**
          * Gets the value of a Boolean attribute.
          */
@@ -578,7 +578,7 @@ declare module Sdk
 
         /**
          * Sets the value of a Boolean attribute.
-         * @param value 
+         * @param value
          */
         setValue( value: boolean ): void;
     }
@@ -591,7 +591,7 @@ declare module Sdk
          * @param value The value of the attribute.
          */
         constructor( name: string, value?: Date );
-	   
+
         /**
          * Gets the value of a DateTime attribute.
          */
@@ -612,7 +612,7 @@ declare module Sdk
          * @param value The value of the attribute.
          */
         constructor( name: string, value?: number );
-	   
+
         /**
          * Gets the value of a Decimal attribute.
          */
@@ -633,7 +633,7 @@ declare module Sdk
          * @param value The value of the attribute.
          */
         constructor( name: string, value?: number );
-	   
+
         /**
          * Gets the value of a Double attribute.
          */
@@ -675,7 +675,7 @@ declare module Sdk
          * @param value The value of the attribute.
          */
         constructor( name: string, value?: number );
-	   
+
         /**
          * Gets the value of an Integer attribute.
          */
@@ -696,7 +696,7 @@ declare module Sdk
          * @param value The value of the attribute.
          */
         constructor( name: string, value?: number );
-	   
+
         /**
          * Gets the value of a Long attribute.
          */
@@ -717,7 +717,7 @@ declare module Sdk
          * @param value The value of the attribute.
          */
         constructor( name: string, value?: EntityReference );
-	   
+
         /**
          * Gets the value of a Lookup attribute.
          */
@@ -738,7 +738,7 @@ declare module Sdk
          * @param value The value of the attribute.
          */
         constructor( name: string, value?: number );
-	   
+
         /**
          * Gets the value of a Money attribute.
          */
@@ -759,7 +759,7 @@ declare module Sdk
          * @param value The value of the attribute.
          */
         constructor( name: string, value?: number );
-	   
+
         /**
          * Gets the value of a OptionSet attribute.
          */
@@ -780,7 +780,7 @@ declare module Sdk
          * @param value The value of the attribute.
          */
         constructor( name: string, value?: EntityCollection );
-	   
+
         /**
          * Gets the value of a PartyList attribute.
          */
@@ -801,7 +801,7 @@ declare module Sdk
          * @param value The value of the attribute.
          */
         constructor( name: string, value?: string );
-	   
+
         /**
          * Gets the value of a String attribute.
          */
@@ -1029,22 +1029,22 @@ declare module Sdk
          * @param name The primary attribute value of the referenced entity.
          */
         setName( name: string ): void;
-        
-        
+
+
         /// prototype methods
-        
+
         /**
          * Returns a serialized entity reference where the root element is <a:EntityReference>.
          */
-        toXml(): string; 
+        toXml(): string;
 
         /**
          * Returns the values of serialized entity reference as XML nodes.
          */
-        toValueXml(): string; 
- 
+        toValueXml(): string;
+
         /**
-         * Returns a view of the data in an EntityReference 
+         * Returns a view of the data in an EntityReference
          */
         view(): IEntityReferenceView;
     }
@@ -1056,12 +1056,12 @@ declare module Sdk
          * @param xml The request XML.
          */
         setRequestXml( xml: string ): void;
-    
+
         /**
          * Gets the request XML.
          */
         getRequestXml(): string;
-        
+
         /**
          * Sets the response type.
          * @param type A class that inherits from Sdk.OrganizationResponse.
@@ -1085,10 +1085,10 @@ declare module Sdk
     class FetchXmlToQueryExpressionRequest extends Sdk.OrganizationRequest
     {
         constructor( fetchXml: string );
-        
+
         /**
-         * Sets the query to convert. 
-         * @param The query to convert. 
+         * Sets the query to convert.
+         * @param The query to convert.
          */
         setFetchXml( value: string ): void;
     }
@@ -1108,7 +1108,7 @@ declare module Sdk
     }
 
     /**
-     * Contains the data that is needed to  convert a query, which is represented as a QueryExpression class, to its equivalent query, which is represented as FetchXML. 
+     * Contains the data that is needed to  convert a query, which is represented as a QueryExpression class, to its equivalent query, which is represented as FetchXML.
      * @param query The query.
      */
     class QueryExpressionToFetchXmlRequest extends Sdk.OrganizationRequest
@@ -1159,17 +1159,17 @@ declare module Sdk
         constructor( responseXml: string );
 
         /***
-         * 
+         *
          */
         public getEntityMetadata(): Array<Mdq.IEntityMetadata>;
-    
+
         /***
-         * 
+         *
          */
         public getServerVersionStamp(): string;
-    
+
         /***
-         * 
+         *
          */
         public getDeletedMetadata(): any;
     }
@@ -1203,7 +1203,7 @@ declare module Sdk
          */
         setStatus( value: number ): void;
     }
-    
+
     /**
      * Response to SetStateRequest.
      */
@@ -1213,7 +1213,7 @@ declare module Sdk
     }
 }
 
-declare module Sdk.Query
+declare namespace Sdk.Query
 {
     class QueryBase
     {
@@ -1284,7 +1284,7 @@ declare module Sdk.Query
          * @param columnName The logical name of an attribute to be removed from the ColumnSet.
          * @param errorIfNotFound Whether to throw an error when the column to remove is not found. The default is false.
          */
-        removeColumn( columnName: string, errorIfNotFound?: boolean ): void; 
+        removeColumn( columnName: string, errorIfNotFound?: boolean ): void;
 
         /**
          * Gets an Sdk.Collection of Sdk.Query.OrderExpression instances that define the order in which the entity instances are returned from the query.
@@ -1317,11 +1317,11 @@ declare module Sdk.Query
     {
         /**
          * Initializes a new instance of the QueryByAttribute class setting the entity name.
-         * @param entityName The logical name of the entity. 
-         * 
+         * @param entityName The logical name of the entity.
+         *
          */
         constructor( entityName: string );
-        
+
         /**
          * Gets An Sdk.Collection of Sdk.AttributeBase attributes.
          */
@@ -1332,27 +1332,27 @@ declare module Sdk.Query
          * @param orders An Sdk.Collection of Sdk.Query.OrderExpression instances that define the order in which the entity instances are returned from the query.
          */
         setOrders( orders: Sdk.Collection<Sdk.Query.OrderExpression> ): void;
-        
+
         /// prototype methods
-        
+
         /**
          * Adds the attribute with values to include in the query.
-         * @param attributeValue One of the classes that inherit from Sdk.AttributeBase including the value to use as criteria. 
+         * @param attributeValue One of the classes that inherit from Sdk.AttributeBase including the value to use as criteria.
          */
-        addAttributeValue( attributeValue: Sdk.AttributeBase ): void; 
- 
+        addAttributeValue( attributeValue: Sdk.AttributeBase ): void;
+
         /**
          * Adds an order to apply to the results of the query.
          * @param order An order expression.
          */
-        addOrder( order: Sdk.Query.OrderExpression ): void; 
- 
+        addOrder( order: Sdk.Query.OrderExpression ): void;
+
         /**
          * Removes an attribute with values to include in the query.
          * @param attributeValue One of the classes that inherit from Sdk.AttributeBase including the value to use as criteria.
          * @param errorIfNotFound Whether to throw an error when the attribute to remove is not found. The default is false.
          */
-        removeAttributeValue( attributeValue: Sdk.AttributeBase, errorIfNotFound?: boolean ): void; 
+        removeAttributeValue( attributeValue: Sdk.AttributeBase, errorIfNotFound?: boolean ): void;
     }
 
     class QueryExpression extends QueryBase
@@ -1478,18 +1478,18 @@ declare module Sdk.Query
          * Returns the logical name of the entity in the condition expression.
          */
         getEntityName(): string;
-        
+
         /**
          * Sets the logical name of the entity in the condition expression.
          * @param name The logical name of the entity in the condition expression.
          */
         setEntityName( name: string ): void;
-        
+
         /**
          * Returns the logical name of the attribute in the condition expression.
          */
         getAttributeName(): string;
-    
+
         /**
          * Sets the logical name of the attribute in the condition expression.
          * @param name The logical name of the attribute in the condition expression.
@@ -1511,7 +1511,7 @@ declare module Sdk.Query
          * Returns the values for the attribute.
          */
         getValues(): ValueBase;
-    
+
         /**
          * Sets the values for the attribute.
          * @param The value(s) to compare
@@ -1533,28 +1533,28 @@ declare module Sdk.Query
     }
 
     /**
-     * Specifies complex condition and logical filter expressions used for filtering the results of the query.  
+     * Specifies complex condition and logical filter expressions used for filtering the results of the query.
      * @param logicalOperator The filter operator.
      */
     class FilterExpression
     {
         constructor( logicalOperator: LogicalOperator );
 
-        /** 
+        /**
          * Adds a condition to the filter expression setting the attribute name, condition operator, and values.
          * @param conditionExpression The expression that will set the condition.
          */
         public addCondition( firstParam: ConditionExpression ): void;
 
-        /** 
+        /**
          * Adds a condition to the filter expression setting the attribute name, condition operator, and values.
          * @param entityName The entityName of the new ConditionExpression that will be instantiated using the other parameters.
          * @param attributeName The attribute name to use in the condition expression.
          * @param conditionOperator The condition operator if the first parameter is a string.
          * @param values The value(s) to compare.
-         *  Use one of the following classes that 
+         *  Use one of the following classes that
          *  - Sdk.Query.Booleans
-         *  - Sdk.Query.BooleanManagedProperties 
+         *  - Sdk.Query.BooleanManagedProperties
          *  - Sdk.Query.Dates
          *  - Sdk.Query.Decimals
          *  - Sdk.Query.Doubles
@@ -1605,10 +1605,10 @@ declare module Sdk.Query
          * @param filterOperator The filter operator.
          */
         setFilterOperator( filterOperator: LogicalOperator ): void;
-    
+
         /**
          * Sets whether the expression is part of a quick find query.
-         * @param isQuickFind True if the filter is part of a quick find query; otherwise, false. 
+         * @param isQuickFind True if the filter is part of a quick find query; otherwise, false.
          */
         setIsQuickFindFilter( isQuickFind: boolean ): void;
     }
@@ -1621,12 +1621,12 @@ declare module Sdk.Query
         constructor( fetchXml: string );
 
         /**
-         * Gets the FetchXml to be used in a query. 
+         * Gets the FetchXml to be used in a query.
          */
         public getFetchXml(): string;
-        
+
         /**
-         * Sets the FetchXml to be used in a query. 
+         * Sets the FetchXml to be used in a query.
          * @param fetchXml The FetchXml to be used in a query.
          */
         public setFetchXml( fetchXml: string ): void;
@@ -1658,7 +1658,7 @@ declare module Sdk.Query
         public addLink( linkEntity: Sdk.Query.LinkEntity ): void;
 
         /**
-         * Gets the column set. 
+         * Gets the column set.
          */
         public getColumns(): Sdk.ColumnSet;
 
@@ -1681,10 +1681,10 @@ declare module Sdk.Query
         public setColumns( ...columns: string[] ): void;
 
         /**
-         * Gets the alias for the entity. 
+         * Gets the alias for the entity.
          */
         public getEntityAlias(): string;
-        
+
         /**
          * Sets the alias for the entity.
          * @param alias The alias for the entity.
@@ -1695,10 +1695,10 @@ declare module Sdk.Query
          * Gets the join operator.
          */
         public getJoinOperator(): Sdk.Query.JoinOperator;
-    
+
         /**
          * Sets the join operator.
-         * @param operator The join operator. 
+         * @param operator The join operator.
          */
         public setJoinOperator( operator: Sdk.Query.JoinOperator ): void;
 
@@ -1706,7 +1706,7 @@ declare module Sdk.Query
          * Gets the complex condition and logical filter expressions that filter the results of the query.
          */
         public getLinkCriteria(): Sdk.Query.FilterExpression;
-    
+
         /**
          * Sets the complex condition and logical filter expressions that filter the results of the query.
          * @param criteria The complex condition and logical filter expressions that filter the results of the query.
@@ -1717,48 +1717,48 @@ declare module Sdk.Query
          * Gets the collection of Sdk.Query.LinkEntity that define links between multiple entity types.
          */
         public getLinkEntities(): Sdk.Collection<Sdk.Query.LinkEntity>;
-        
+
         /**
          * Gets the logical name of the attribute of the entity that you are linking from.
          */
         public getLinkFromAttributeName(): string;
-    
+
         /**
          * Sets the logical name of the attribute of the entity that you are linking from.
          * @param name The logical name of the attribute of the entity that you are linking from.
          */
         public setLinkFromAttributeName( name: string ): void;
-        
+
         /**
-         * Gets the logical name of the entity that you are linking from. 
+         * Gets the logical name of the entity that you are linking from.
          */
         public getLinkFromEntityName(): string;
-    
+
         /**
          * Sets the logical name of the entity that you are linking from.
          * @param name The logical name of the entity that you are linking from.
          */
         public setLinkFromEntityName( name: string ): void;
-        
+
         /**
          * Gets the logical name of the attribute of the entity that you are linking to
          */
         public getLinkToAttributeName(): string;
-    
+
         /**
          * Sets the logical name of the attribute of the entity that you are linking to.
          * @param name The logical name of the attribute of the entity that you are linking to.
          */
         public setLinkToAttributeName( name: string ): void;
-    
+
         /**
          * Gets the logical name of the entity that you are linking to.
          */
         public getLinkToEntityName(): string;
-    
+
         /**
          * Sets the logical name of the entity that you are linking to.
-         * @param name The logical name of the entity that you are linking to. 
+         * @param name The logical name of the entity that you are linking to.
          */
         public setLinkToEntityName( name: string ): void;
 
@@ -1779,7 +1779,7 @@ declare module Sdk.Query
          * Gets the number of entity instances returned per page.
          */
         getCount(): number;
-    
+
         /**
          * Sets the number of entity instances returned per page.
          * @param The number of entity instances returned per page
@@ -1790,7 +1790,7 @@ declare module Sdk.Query
          * Gets the number of pages returned from the query.
          */
         getPageNumber(): number;
-    
+
         /**
          * Sets the number of pages returned from the query.
          * @param The number of pages returned from the query.
@@ -1801,7 +1801,7 @@ declare module Sdk.Query
          * Gets the info used to page large result sets.
          */
         getPagingCookie(): string;
-    
+
         /**
          * Sets the info used to page large result sets.
          */
@@ -1818,14 +1818,14 @@ declare module Sdk.Query
          */
         setReturnTotalRecordCount( returnTotalRecordsCount: boolean ): void;
 
-        
+
         /// prototype methods
 
         /**
          * Gets the serialized paging info.
          *
         toXml():string;
- 
+
         /**
          * Gets the serialized paging info values.
          */
@@ -1958,12 +1958,12 @@ declare module Sdk.Query
     class Dates extends ValueBase
     {
         constructor( args: Date[] );
-        
+
         /**
          * Returns the type of value with namespace prefix.
          */
         public getType(): string;
-        
+
         /**
          * Returns an Sdk.Collection of Date values.
          */
@@ -1983,12 +1983,12 @@ declare module Sdk.Query
     class Decimals extends ValueBase
     {
         constructor( args: number[] );
-        
+
         /**
          * Returns the type of value with namespace prefix.
          */
         public getType(): string;
-        
+
         /**
          * Returns an Sdk.Collection of number values.
          */
@@ -2008,12 +2008,12 @@ declare module Sdk.Query
     class Doubles extends ValueBase
     {
         constructor( args: number[] );
-        
+
         /**
          * Returns the type of value with namespace prefix.
          */
         public getType(): string;
-        
+
         /**
          * Returns an Sdk.Collection of number values.
          */
@@ -2033,12 +2033,12 @@ declare module Sdk.Query
     class Ints extends ValueBase
     {
         constructor( args: number[] );
-        
+
         /**
          * Returns the type of value with namespace prefix.
          */
         public getType(): string;
-        
+
         /**
          * Returns an Sdk.Collection of number values.
          */
@@ -2058,12 +2058,12 @@ declare module Sdk.Query
     class Longs extends ValueBase
     {
         constructor( args: number[] );
-        
+
         /**
          * Returns the type of value with namespace prefix.
          */
         public getType(): string;
-        
+
         /**
          * Returns an Sdk.Collection of number values.
          */
@@ -2083,12 +2083,12 @@ declare module Sdk.Query
     class EntityReferences extends ValueBase
     {
         constructor( args: Sdk.EntityReference[] );
-        
+
         /**
          * Returns the type of value with namespace prefix.
          */
         public getType(): string;
-        
+
         /**
          * Returns an Sdk.Collection of Sdk.EntityReference values.
          */
@@ -2100,7 +2100,7 @@ declare module Sdk.Query
          */
         public setValues( setValueArgs: Sdk.EntityReference[] ): void;
     }
-    
+
     /**
      * Specifies the Sdk.Query.Guids values to be compared in the query.
      * @param args An array of GUID string values.
@@ -2108,12 +2108,12 @@ declare module Sdk.Query
     class Guids extends ValueBase
     {
         constructor( args: string[] );
-        
+
         /**
          * Returns the type of value with namespace prefix.
          */
         public getType(): string;
-        
+
         /**
          * Returns an Sdk.Collection of GUID string values.
          */
@@ -2133,12 +2133,12 @@ declare module Sdk.Query
     class Money extends ValueBase
     {
         constructor( args: number[] );
-        
+
         /**
          * Returns the type of value with namespace prefix.
          */
         public getType(): string;
-        
+
         /**
          * Returns an Sdk.Collection of number values.
          */
@@ -2158,12 +2158,12 @@ declare module Sdk.Query
     class OptionSets extends ValueBase
     {
         constructor( args: number[] );
-        
+
         /**
          * Returns the type of value with namespace prefix.
          */
         public getType(): string;
-        
+
         /**
          * Returns an Sdk.Collection of number values.
          */
@@ -2189,12 +2189,12 @@ declare module Sdk.Query
          */
         public getType(): string;
 
-        /** 
+        /**
          * Returns an Sdk.Collection of String values.
          */
         public getValues(): Sdk.Collection<string>;
-        
-        /** 
+
+        /**
          * Specifies the String values to be compared in the query.
          * @param setValueArgs An array of String values.
          */
@@ -2208,59 +2208,59 @@ declare module Sdk.Query
     }
 }
 
-declare module Sdk.Util
+declare namespace Sdk.Util
 {
     /**
      * Verifies the parameter is a string formatted as a GUID.
      * @param value The value to check.
      */
-    function isGuid( value: string ): boolean; 
- 
+    function isGuid( value: string ): boolean;
+
     /**
      * Verifies the parameter is a string formatted as a GUID or null.
      * @param value The value to check.
      */
-    function isGuidOrNull( value: string ): boolean; 
- 
+    function isGuidOrNull( value: string ): boolean;
+
     /**
      * Verifies the parameter is a valid enum value.
      * @param enumeration The enumeration.
      * @param value The value to check.
      */
- 
+
     /**
      * Returns an empty GUID.
      */
-    function getEmptyGuid(): string; 
- 
+    function getEmptyGuid(): string;
+
     /**
      * Formats a string with the arguments from an array.
      * @param string The string containing placeholders for items in the array.
      * @param args An array of strings to replace the placeholders.
      */
-    function format( string: string, args: string[] ): string; 
- 
+    function format( string: string, args: string[] ): string;
+
     /**
-     * 
+     *
      */
     function getError( resp: any ): string;
- 
+
     /**
      * Returns the clinent URL.
      */
-    function getClientUrl(): string; 
- 
-    /**
-     * Provides a way to override the client Url when a client-side context is not available.
-     * @param url The client URL to use instead of the default. 
-     */
-    function setClientUrl( url: string ): void; 
+    function getClientUrl(): string;
 
     /**
-     * 
+     * Provides a way to override the client Url when a client-side context is not available.
+     * @param url The client URL to use instead of the default.
      */
-    function getXMLHttpRequest( action: string, async: boolean ): any; 
- 
+    function setClientUrl( url: string ): void;
+
+    /**
+     *
+     */
+    function getXMLHttpRequest( action: string, async: boolean ): any;
+
     /**
      * Creates an entity from XML.
      * @param The serialized entity returned from the SOAP service as XML.
@@ -2268,11 +2268,11 @@ declare module Sdk.Util
     function createEntityFromNode( node: string ): void;
 }
 
-declare module Sdk.Xml
+declare namespace Sdk.Xml
 {
 }
 
-declare module Sdk.Mdq
+declare namespace Sdk.Mdq
 {
     /**
      * Defines a complex query to retrieve entity metadata.
@@ -2307,7 +2307,7 @@ declare module Sdk.Mdq
     }
 
     /**
-     * Specifies complex condition and logical filter expressions used for filtering the results of a metadata query. 
+     * Specifies complex condition and logical filter expressions used for filtering the results of a metadata query.
      * @param filterOperator The logical AND/OR filter operator.
      */
 
@@ -2657,22 +2657,22 @@ declare module Sdk.Mdq
 
     export interface IEntityMetadata
     {
-        ActivityTypeMask: any;
+        ActivityTypeMask: number;
         Attributes: IAttributeMetadata[];
         AutoCreateAccessTeams: any;
         AutoRouteToOwnerQueue: boolean;
-        CanBeInManyToMany: boolean;
-        CanBePrimaryEntityInRelationship: boolean;
-        CanBeRelatedEntityInRelationship: boolean;
-        CanCreateAttributes: boolean;
-        CanCreateCharts: boolean;
-        CanCreateForms: boolean;
-        CanCreateViews: boolean;
-        CanModifyAdditionalSettings: boolean;
+        CanBeInManyToMany: ManagedProperty<boolean>;
+        CanBePrimaryEntityInRelationship: ManagedProperty<boolean>;
+        CanBeRelatedEntityInRelationship: ManagedProperty<boolean>;
+        CanCreateAttributes: ManagedProperty<boolean>;
+        CanCreateCharts: ManagedProperty<boolean>;
+        CanCreateForms: ManagedProperty<boolean>;
+        CanCreateViews: ManagedProperty<boolean>;
+        CanModifyAdditionalSettings: ManagedProperty<boolean>;
         CanTriggerWorkflow: boolean;
-        Description: string;
-        DisplayCollectionName: string;
-        DisplayName: string;
+        Description: Label;
+        DisplayCollectionName: Label;
+        DisplayName: Label;
         IconLargeName: string;
         IconMediumName: string;
         IconSmallName: string;
@@ -2680,60 +2680,145 @@ declare module Sdk.Mdq
         IsActivity: boolean;
         IsActivityParty: boolean;
         IsAIRUpdated: boolean;
-        IsAuditEnabled: boolean;
+        IsAuditEnabled: ManagedProperty<boolean>;
         IsAvailableOffline: boolean;
         IsBusinessProcessEnabled: boolean;
         IsChildEntity: boolean;
-        IsConnectionsEnabled: boolean;
+        IsConnectionsEnabled: ManagedProperty<boolean>;
         IsCustomEntity: boolean;
-        IsCustomizable: boolean;
+        IsCustomizable: ManagedProperty<boolean>;
         IsDocumentManagementEnabled: boolean;
-        IsDuplicateDetectionEnabled: boolean;
+        IsDuplicateDetectionEnabled: ManagedProperty<boolean>;
         IsEnabledForCharts: boolean;
         IsImportable: boolean;
         IsIntersect: boolean;
-        IsMailMergeEnabled: boolean;
+        IsMailMergeEnabled: ManagedProperty<boolean>;
         IsManaged: boolean;
-        IsMappable: boolean;
+        IsMappable: ManagedProperty<boolean>;
         IsQuickCreateEnabled: boolean;
         IsReadingPaneEnabled: boolean;
         IsRenameable: boolean;
         IsValidForAdvancedFind: boolean;
-        IsValidForQueue: boolean;
-        IsVisibleInMobile: boolean;
+        IsValidForQueue: ManagedProperty<boolean>;
+        IsVisibleInMobile: ManagedProperty<boolean>;
         IsVisibleInMobileClient: boolean;
         LogicalName: string;
-        ManyToManyRelationships: any;
-        ManyToOneRelationships: any;
+        ManyToManyRelationships: ManyToManyRelationshipMetadata;
+        ManyToOneRelationships: OneToManyRelationshipMetadata;
         MetadataId: string;
         ObjectTypeCode: number;
-        OneToManyRelationships: any;
-        OwnershipType: string;
+        OneToManyRelationships: OneToManyRelationshipMetadata;
+        OwnershipType: "BusinessOwned" | "BusinessParented" | "None	OrganizationOwned" | "TeamOwned	UserOwned";
         PrimaryIdAttribute: string;
         PrimaryImageAttribute: string;
         PrimaryNameAttribute: string;
-        Privileges: any;
+        Privileges: SecurityPrivilegeMetadata[];
         RecurrenceBaseEntityLogicalName: string;
         ReportViewName: string;
         SchemaName: string;
     }
 
+    export interface SecurityPrivilegeMetadata
+    {
+        CanBeBasic: boolean;
+        CanBeDeep: boolean;
+        CanBeEntityReference: boolean;
+        CanBeGlobal: boolean;
+        CanBeLocal: boolean;
+        CanBeParentEntityReference: boolean;
+        ExtensionData: boolean;
+        Name: string;
+        PrivilegeId: string;
+        PrivilegeType: "Append" | "AppendTo" | "Assign" | "Create" | "Delete" | "None" | "Read" | "Share" | "Write";
+    }
+
+    export interface OneToManyRelationshipMetadata
+    {
+        AssociatedMenuConfiguration: AssociatedMenuConfiguration;
+        CascadeConfiguration: CascadeConfiguration;
+        HasChanged: any;
+        IntroducedVersion: any;
+        IsCustomizable: ManagedProperty<boolean>;
+        IsCustomRelationship: boolean;
+        IsHierarchical: any;
+        IsManaged: boolean;
+        IsValidForAdvancedFind: boolean;
+        MetadataId: string;
+        ReferencedAttribute: string;
+        ReferencedEntity: string;
+        ReferencingAttribute: string;
+        ReferencingEntity: string;
+        RelationshipType: string;
+        SchemaName: string;
+        SecurityTypes: any;
+    }
+
+    export interface CascadeConfiguration
+    {
+        Assign: CascadeType;
+        Delete: CascadeType;
+        ExtensionData: CascadeType;
+        Merge: CascadeType;
+        Reparent: CascadeType;
+        Share: CascadeType;
+        Unshare: CascadeType;
+    }
+
+    export type CascadeType = "Active" | "Cascade" | "NoCascade" | "UserOwned";
+
+    export interface ManyToManyRelationshipMetadata
+    {
+        Entity1AssociatedMenuConfiguration: AssociatedMenuConfiguration;
+        Entity1IntersectAttribute: string;
+        Entity1LogicalName: string;
+        Entity2AssociatedMenuConfiguration: AssociatedMenuConfiguration;
+        Entity2IntersectAttribute: string;
+        Entity2LogicalName: string;
+        HasChanged: boolean;
+        IntersectEntityName: string;
+        IntroducedVersion: any;
+        IsCustomizable: ManagedProperty<boolean>;
+        IsCustomRelationship: boolean;
+        IsManaged: boolean;
+        IsValidForAdvancedFind: boolean;
+        MetadataId: string;
+        RelationshipType: RelationshipType;
+        SchemaName: string;
+        SecurityTypes: SecurityType;
+    }
+
+    export interface AssociatedMenuConfiguration
+    {
+        Behavior: AssociatedMenuBehavior;
+        Group: AssociatedMenuGroup;
+        Label: Label;
+        Order: number;
+    }
+
+    export type AssociatedMenuBehavior = "DoNotDisplay" | "UseCollectionName" | "UseLabel";
+
+    export type AssociatedMenuGroup = "Details" | "Marketing" | "Sales" | "Service";
+
+    export type RelationshipType = "Default" | "ManyToManyRelationship" | "OneToManyRelationship";
+
+    export type SecurityType = "Append" | "Inheritance" | "None" | "ParentChild" | "Pointer";
+
     export interface IAttributeMetadata
     {
-        AttributeOf: any;
-        AttributeType: any;
-        AttributeTypeName: string;
+        AttributeOf: string;
+        AttributeType: "Customer" | "DateTime" | "Decimal" | "Double" | "EntityName" | "Integer" | "Lookup" | "ManagedProperty" | "Memo" | "Money" | "Owner" | "PartyList" | "Picklist" | "State" | "Status" | "Uniqueidentifier" | "Virtual"
+        AttributeTypeName: "BigIntType" | "BooleanType" | "CalendarRulesType" | "CustomerType" | "DateTimeType" | "DecimalType" | "DoubleType" | "EntityNameType" | "ImageType" | "IntegerType" | "LookupType" | "ManagedPropertyType" | "MemoType" | "MoneyType" | "OwnerType" | "PartyListType" | "PicklistType" | "StateType	StatusType" | "StringType" | "UniqueidentifierType" | "VirtualType";
         CalculationOf: any;
         CanBeSecuredForCreate: boolean;
         CanBeSecuredForRead: boolean;
         CanBeSecuredForUpdate: boolean;
-        CanModifyAdditionalSettings: boolean;
+        CanModifyAdditionalSettings: ManagedProperty<boolean>;
         ColumnNumber: number;
         DefaultFormValue: any;
         DefaultValue: any;
         DeprecatedVersion: any;
-        Description: string;
-        DisplayName: string;
+        Description: Label;
+        DisplayName: Label;
         EntityLogicalName: string;
         Format: any;
         FormatName: string;
@@ -2741,13 +2826,13 @@ declare module Sdk.Mdq
         IntroducedVersion: any;
         IsAuditEnabled: boolean;
         IsCustomAttribute: boolean;
-        IsCustomizable: boolean;
+        IsCustomizable: ManagedProperty<boolean>;
         IsManaged: boolean;
         IsPrimaryId: boolean;
         IsPrimaryName: boolean;
-        IsRenameable: boolean;
+        IsRenameable: ManagedProperty<boolean>;
         IsSecured: boolean;
-        IsValidForAdvancedFind: boolean;
+        IsValidForAdvancedFind: ManagedProperty<boolean>;
         IsValidForCreate: boolean;
         IsValidForRead: boolean;
         IsValidForUpdate: boolean;
@@ -2760,13 +2845,35 @@ declare module Sdk.Mdq
         OptionSet: any;
         Precision: any;
         PrecisionSource: any;
-        RequiredLevel: any;
+        RequiredLevel: ManagedProperty<string>;
         SchemaName: string;
         Targets: string[];
         YomiOf: any;
     }
 
-    module ValueEnums
+    export interface ManagedProperty<T>
+    {
+        CanBeChanged: boolean;
+        ManagedPropertyLogicalName: string;
+        Value: T;
+    }
+
+    export interface Label
+    {
+        LocalizedLabels: LocalizedLabel[];
+        UserLocalizedLabel: LocalizedLabel;
+    }
+
+    export interface LocalizedLabel
+    {
+        Label: string;
+        LangaugeCode: number;
+        MetadataId: string;
+        HasChanged: boolean;
+        IsManaged: boolean;
+    }
+
+    namespace ValueEnums
     {
         export enum OwnershipType
         {
@@ -2859,5 +2966,5 @@ declare module Sdk.Mdq
     }
 }
 
-declare module Sdk.Mdq.ValueEnums
+declare namespace Sdk.Mdq.ValueEnums
 { }
