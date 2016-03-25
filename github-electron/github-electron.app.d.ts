@@ -7,10 +7,137 @@
 /// <reference path="github-electron.event-emitter.d.ts" />
 /// <reference path="github-electron.menu.d.ts" />
 /// <reference path="github-electron.native-image.d.ts" />
+/// <reference path="github-electron.web-contents.d.ts" />
 
 declare namespace Electron {
-
+	/**
+	 * The app module is responsible for controlling the application's lifecycle.
+	 */
 	class App extends EventEmitter {
+		/**
+		 * Emitted when the application has finished basic startup.
+		 * On Windows and Linux, the will-finish-launching event
+		 * is the same as the ready event; on OS X, this event represents
+		 * the applicationWillFinishLaunching notification of NSApplication.
+		 * You would usually set up listeners for the open-file and open-url events here,
+		 * and start the crash reporter and auto updater.
+		 *
+		 * In most cases, you should just do everything in the ready event handler.
+		 */
+		on(event: 'will-finish-launching', listener: Function): this;
+		/**
+		 * Emitted when Electron has finished initialization.
+		 */
+		on(event: 'ready', listener: Function): this;
+		/**
+		 * Emitted when all windows have been closed.
+		 *
+		 * This event is only emitted when the application is not going to quit.
+		 * If the user pressed Cmd + Q, or the developer called app.quit(),
+		 * Electron will first try to close all the windows and then emit the will-quit event,
+		 * and in this case the window-all-closed event would not be emitted.
+		 */
+		on(event: 'window-all-closed', listener: Function): this;
+		/**
+		 * Emitted before the application starts closing its windows.
+		 * Calling event.preventDefault() will prevent the default behaviour, which is terminating the application.
+		 */
+		on(event: 'before-quit', listener: (event: Event) => void): this;
+		/**
+		 * Emitted when all windows have been closed and the application will quit.
+		 * Calling event.preventDefault() will prevent the default behaviour, which is terminating the application.
+		 */
+		on(event: 'will-quit', listener: (event: Event) => void): this;
+		/**
+		 * Emitted when the application is quitting.
+		 */
+		on(event: 'quit', listener: (event: Event, exitCode: number) => void): this;
+		/**
+		 * Emitted when the user wants to open a file with the application.
+		 * The open-file event is usually emitted when the application is already open
+		 * and the OS wants to reuse the application to open the file.
+		 * open-file is also emitted when a file is dropped onto the dock and the application
+		 * is not yet running. Make sure to listen for the open-file event very early
+		 * in your application startup to handle this case (even before the ready event is emitted).
+		 *
+		 * You should call event.preventDefault() if you want to handle this event.
+		 *
+		 * Note: This is only implemented on OS X.
+		 */
+		on(event: 'open-file', listener: (event: Event, url: string) => void): this;
+		/**
+		 * Emitted when the user wants to open a URL with the application.
+		 * The URL scheme must be registered to be opened by your application.
+		 *
+		 * You should call event.preventDefault() if you want to handle this event.
+		 *
+		 * Note: This is only implemented on OS X.
+		 */
+		on(event: 'open-url', listener: (event: Event, url: string) => void): this;
+		/**
+		 * Emitted when the application is activated, which usually happens when clicks on the applications’s dock icon.
+		 * Note: This is only implemented on OS X.
+		 */
+		on(event: 'activate', listener: Function): this;
+		/**
+		 * Emitted when a browserWindow gets blurred.
+		 */
+		on(event: 'browser-window-blur', listener: (event: Event, browserWindow: BrowserWindow) => void): this;
+		/**
+		 * Emitted when a browserWindow gets focused.
+		 */
+		on(event: 'browser-window-focus', listener: (event: Event, browserWindow: BrowserWindow) => void): this;
+		/**
+		 * Emitted when a new browserWindow is created.
+		 */
+		on(event: 'browser-window-created', listener: (event: Event, browserWindow: BrowserWindow) => void): this;
+		/**
+		 * Emitted when failed to verify the certificate for url, to trust the certificate
+		 * you should prevent the default behavior with event.preventDefault() and call callback(true).
+		 */
+		on(event: 'certificate-error', listener: (event: Event,
+			webContents: WebContents,
+			url: string,
+			error: string,
+			certificate: Certificate,
+			callback: (trust: boolean) => void
+		) => void): this;
+		/**
+		 * Emitted when a client certificate is requested.
+		 *
+		 * The url corresponds to the navigation entry requesting the client certificate
+		 * and callback needs to be called with an entry filtered from the list.
+		 * Using event.preventDefault() prevents the application from using the first certificate from the store.
+		 */
+		on(event: 'select-client-certificate', listener: (event: Event,
+			webContents: WebContents,
+			url: string,
+			certificateList: Certificate[],
+			callback: (certificate: Certificate) => void
+		) => void): this;
+		/**
+		 * Emitted when webContents wants to do basic auth.
+		 *
+		 * The default behavior is to cancel all authentications, to override this
+		 * you should prevent the default behavior with event.preventDefault()
+		 * and call callback(username, password) with the credentials.
+		 */
+		on(event: 'login', listener: (event: Event,
+			webContents: WebContents,
+			request: LoginRequest,
+			authInfo: LoginAuthInfo,
+			callback: (username: string, password: string) => void
+		) => void): this;
+		/**
+		 * Emitted when the gpu process crashes.
+		 */
+		on(event: 'gpu-process-crashed', listener: Function): this;
+		/**
+		 * Emitted when the system’s Dark Mode theme is toggled.
+		 * Note: This is only implemented on OS X.
+		 */
+		on(event: 'platform-theme-changed', listener: Function): this;
+		on(event: string, listener: Function): this;
 		/**
 		 * Try to close all windows. The before-quit event will first be emitted.
 		 * If all windows are successfully closed, the will-quit event will be emitted
@@ -22,20 +149,36 @@ declare namespace Electron {
 		 */
 		quit(): void;
 		/**
-		 * Quit the application directly, it will not try to close all windows so
-		 * cleanup code will not run.
+		 * Exits immediately with exitCode.
+		 * All windows will be closed immediately without asking user
+		 * and the before-quit and will-quit events will not be emitted.
 		 */
-		terminate(): void;
+		exit(exitCode: number): void;
+		/**
+		 * On Linux, focuses on the first visible window.
+		 * On OS X, makes the application the active app.
+		 * On Windows, focuses on the application’s first window.
+		 */
+		focus(): void;
+		/**
+		 * Hides all application windows without minimizing them.
+		 * Note: This is only implemented on OS X.
+		 */
+		hide(): void;
+		/**
+		 * Shows application windows after they were hidden. Does not automatically focus them.
+		 * Note: This is only implemented on OS X.
+		 */
+		show(): void;
 		/**
 		 * Returns the current application directory.
 		 */
 		getAppPath(): string;
 		/**
-		 * @param name One of: home, appData, userData, cache, userCache, temp, userDesktop, exe, module
 		 * @returns The path to a special directory or file associated with name.
 		 * On failure an Error would throw.
 		 */
-		getPath(name: string): string;
+		getPath(name: AppPathName): string;
 		/**
 		 * Overrides the path to a special directory or file associated with name.
 		 * If the path specifies a directory that does not exist, the directory will
@@ -47,7 +190,7 @@ declare namespace Electron {
 		 * directory, if you want to change this location, you have to override the
 		 * userData path before the ready event of app module gets emitted.
 		 */
-		setPath(name: string, path: string): void;
+		setPath(name: AppPathName, path: string): void;
 		/**
 		 * @returns The version of loaded application, if no version is found in
 		 * application's package.json, the version of current bundle or executable.
@@ -67,19 +210,18 @@ declare namespace Electron {
 		  **/
 		getLocale(): string;
 		/**
-		 * Resolves the proxy information for url, the callback would be called with
-		 * callback(proxy) when the request is done.
-		 */
-		resolveProxy(url: string, callback: Function): void;
-		/**
 		 * Adds path to recent documents list.
 		 *
 		 * This list is managed by the system, on Windows you can visit the list from
 		 * task bar, and on Mac you can visit it from dock menu.
+		 *
+		 * Note: This is only implemented on OS X and Windows.
 		 */
 		addRecentDocument(path: string): void;
 		/**
 		 * Clears the recent documents list.
+		 *
+		 * Note: This is only implemented on OS X and Windows.
 		 */
 		clearRecentDocuments(): void;
 		/**
@@ -88,16 +230,45 @@ declare namespace Electron {
 		 * Note: This API is only available on Windows.
 		 */
 		setUserTasks(tasks: Task[]): void;
-		dock: Dock;
-		commandLine: CommandLine;
+		/**
+		 * Dynamically sets whether to always send credentials for HTTP NTLM or Negotiate authentication.
+		 * Normally, Electron will only send NTLM/Kerberos credentials for URLs that fall under
+		 * "Local Intranet" sites (i.e. are in the same domain as you).
+		 * However, this detection often fails when corporate networks are badly configured,
+		 * so this lets you co-opt this behavior and enable it for all URLs.
+		 */
+		allowNTLMCredentialsForAllDomains(allow: boolean): void;
 		/**
 		 * This method makes your application a Single Instance Application instead of allowing
 		 * multiple instances of your app to run, this will ensure that only a single instance
 		 * of your app is running, and other instances signal this instance and exit.
 		 */
 		makeSingleInstance(callback: (args: string[], workingDirectory: string) => boolean): boolean;
+		/**
+		 * Changes the Application User Model ID to id.
+		 */
 		setAppUserModelId(id: string): void;
+		/**
+		 * This method returns true if DWM composition (Aero Glass) is enabled,
+		 * and false otherwise. You can use it to determine if you should create
+		 * a transparent window or not (transparent windows won’t work correctly when DWM composition is disabled).
+		 *
+		 * Note: This is only implemented on Windows.
+		 */
+		isAeroGlassEnabled(): boolean;
+		/**
+		 * @returns If the system is in Dark Mode.
+		 * Note: This is only implemented on OS X.
+		 */
+		isDarkMode(): boolean;
+		commandLine: CommandLine;
+		/**
+		 * Note: This API is only available on Mac.
+		 */
+		dock: Dock;
 	}
+
+	type AppPathName = 'home'|'appData'|'userData'|'temp'|'exe'|'module'|'desktop'|'documents'|'downloads'|'music'|'pictures'|'videos';
 
 	interface CommandLine {
 		/**
@@ -121,14 +292,13 @@ declare namespace Electron {
 		 * application becomes active or the request is canceled.
 		 *
 		 * When informational is passed, the dock icon will bounce for one second.
-		 * The request, though, remains active until either the application becomes
+		 * However, the request remains active until either the application becomes
 		 * active or the request is canceled.
 		 *
-		 * Note: This API is only available on Mac.
-		 * @param type Can be critical or informational, the default is informational.
-		 * @returns An ID representing the request
+		 * @param type The default is informational.
+		 * @returns An ID representing the request.
 		 */
-		bounce(type?: string): number;
+		bounce(type?: 'critical' | 'informational'): number;
 		/**
 		 * Cancel the bounce of id.
 		 *
@@ -203,7 +373,5 @@ declare namespace Electron {
 		 * one icon, this value is 0.
 		 */
 		iconIndex?: number;
-		commandLine?: CommandLine;
-		dock?: Dock;
 	}
 }
