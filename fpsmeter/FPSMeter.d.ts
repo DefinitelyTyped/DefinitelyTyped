@@ -1,7 +1,7 @@
 // Type definitions for FPSmeter v0.3.0
 // Project: http://darsa.in/fpsmeter/
 // Definitions by: Aaron Lampros <http://github.com/alampros/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface FPSMeterOptions {
 	interval?: number; 		// Update interval in milliseconds.

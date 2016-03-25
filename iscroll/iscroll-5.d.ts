@@ -1,7 +1,7 @@
 // Type definitions for iScroll 5
 // Project: http://cubiq.org/iscroll-5-ready-for-beta-test
 // Definitions by: Christiaan Rakowski <https://github.com/csrakowski/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface IScrollOptions {
 	//hScroll?: boolean;
@@ -79,7 +79,7 @@ declare class IScroll {
 	scrollTo(x: number, y: number, time?: number, relative?: boolean): void;
 	scrollToElement(element: string, time?: number): void;
 	scrollToElement(element: HTMLElement, time?: number): void;
-	scrollToPage(pageX: number, pageY: number, time?: number): void;
+	goToPage(pageX: number, pageY: number, time?: number): void;
 	disable(): void;
 	enable(): void;
 	stop(): void;
