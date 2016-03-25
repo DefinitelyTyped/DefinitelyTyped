@@ -9,7 +9,10 @@
 /// <reference path="github-electron.web-contents.d.ts" />
 
 declare namespace Electron {
-
+	/**
+	 * The remote module provides a simple way to do inter-process communication (IPC)
+	 * between the renderer process (web page) and the main process.
+	 */
 	interface Remote extends CommonElectron {
 		/**
 		 * @returns The object returned by require(module) in the main process.
