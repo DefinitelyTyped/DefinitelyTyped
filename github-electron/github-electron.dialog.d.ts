@@ -7,128 +7,135 @@
 /// <reference path="github-electron.native-image.d.ts" />
 
 declare namespace Electron {
-
+	/**
+	 * The dialog module provides APIs to show native system dialogs, such as opening files or alerting,
+	 * so web applications can deliver the same user experience as native applications.
+	 */
 	interface Dialog {
 		/**
+		 * Note: On Windows and Linux an open dialog can not be both a file selector and a directory selector,
+		 * so if you set properties to ['openFile', 'openDirectory'] on these platforms, a directory selector will be shown.
+		 *
 		 * @param callback If supplied, the API call will be asynchronous.
 		 * @returns On success, returns an array of file paths chosen by the user,
 		 * otherwise returns undefined.
 		 */
-		showOpenDialog: typeof Electron.Dialog.showOpenDialog;
+		showOpenDialog(browserWindow: BrowserWindow, options: OpenDialogOptions, callback?: (fileNames: string[]) => void): string[];
+		/**
+		 * Note: On Windows and Linux an open dialog can not be both a file selector and a directory selector,
+		 * so if you set properties to ['openFile', 'openDirectory'] on these platforms, a directory selector will be shown.
+		 *
+		 * @param callback If supplied, the API call will be asynchronous.
+		 * @returns On success, returns an array of file paths chosen by the user,
+		 * otherwise returns undefined.
+		 */
+		showOpenDialog(options: OpenDialogOptions, callback?: (fileNames: string[]) => void): string[];
 		/**
 		 * @param callback If supplied, the API call will be asynchronous.
 		 * @returns On success, returns the path of file chosen by the user, otherwise
 		 * returns undefined.
 		 */
-		showSaveDialog: typeof Electron.Dialog.showSaveDialog;
+		showSaveDialog(browserWindow: BrowserWindow, options: SaveDialogOptions, callback?: (fileName: string) => void): string;
 		/**
-		 * Shows a message box. It will block until the message box is closed. It returns .
+		 * @param callback If supplied, the API call will be asynchronous.
+		 * @returns On success, returns the path of file chosen by the user, otherwise
+		 * returns undefined.
+		 */
+		showSaveDialog(options: SaveDialogOptions, callback?: (fileName: string) => void): string;
+		/**
+		 * Shows a message box. It will block until the message box is closed.
 		 * @param callback If supplied, the API call will be asynchronous.
 		 * @returns The index of the clicked button.
 		 */
-		showMessageBox: typeof Electron.Dialog.showMessageBox;
+		showMessageBox(browserWindow: BrowserWindow, options: ShowMessageBoxOptions, callback?: (response: any) => void): number;
 		/**
-		 * Runs a modal dialog that shows an error message. This API can be called safely
-		 * before the ready event of app module emits, it is usually used to report errors
-		 * in early stage of startup.
+		 * Shows a message box. It will block until the message box is closed.
+		 * @param callback If supplied, the API call will be asynchronous.
+		 * @returns The index of the clicked button.
+		 */
+		showMessageBox(options: ShowMessageBoxOptions, callback?: (response: any) => void): number;
+		/**
+		 * Displays a modal dialog that shows an error message.
+		 *
+		 * This API can be called safely before the ready event the app module emits,
+		 * it is usually used to report errors in early stage of startup.
+		 * If called before the app readyevent on Linux, the message will be emitted to stderr,
+		 * and no GUI dialog will appear.
 		 */
 		showErrorBox(title: string, content: string): void;
 	}
 
-	namespace Dialog {
+	interface OpenDialogOptions {
+		title?: string;
+		defaultPath?: string;
 		/**
-		 * @param callback If supplied, the API call will be asynchronous.
-		 * @returns On success, returns an array of file paths chosen by the user,
-		 * otherwise returns undefined.
+		 * File types that can be displayed or selected.
 		 */
-		export function showOpenDialog(
-			browserWindow?: BrowserWindow,
-			options?: OpenDialogOptions,
-			callback?: (fileNames: string[]) => void
-			): string[];
-		export function showOpenDialog(
-			options?: OpenDialogOptions,
-			callback?: (fileNames: string[]) => void
-			): string[];
-
-		interface OpenDialogOptions {
-			title?: string;
-			defaultPath?: string;
+		filters?: {
+			name: string;
 			/**
-			 * File types that can be displayed or selected.
+			 * Extensions without wildcards or dots (e.g. 'png' is good but '.png' and '*.png' are bad).
+			 * To show all files, use the '*' wildcard (no other wildcard is supported).
 			 */
-			filters?: {
-				name: string;
-				extensions: string[];
-			}[];
-			/**
-			 * Contains which features the dialog should use, can contain openFile,
-			 * openDirectory, multiSelections and createDirectory
-			 */
-			properties?: string|string[];
-		}
-
-		interface SaveDialogOptions {
-			title?: string;
-			defaultPath?: string;
-			/**
-			 * File types that can be displayed, see dialog.showOpenDialog for an example.
-			 */
-
-			filters?: {
-				name: string;
-				extensions: string[];
-			}[];
-		}
-
+			extensions: string[];
+		}[];
 		/**
-		 * @param browserWindow
-		 * @param options
-		 * @param callback If supplied, the API call will be asynchronous.
-		 * @returns On success, returns the path of file chosen by the user, otherwise
-		 * returns undefined.
+		 * Contains which features the dialog should use.
 		 */
-		export function showSaveDialog(browserWindow?: BrowserWindow, options?: SaveDialogOptions, callback?: (fileName: string) => void): string;
+		properties?: ('openFile' | 'openDirectory' | 'multiSelections' | 'createDirectory')[];
+	}
 
+	interface SaveDialogOptions {
+		title?: string;
+		defaultPath?: string;
 		/**
-		 * Shows a message box. It will block until the message box is closed. It returns .
-		 * @param callback If supplied, the API call will be asynchronous.
-		 * @returns The index of the clicked button.
+		 * File types that can be displayed, see dialog.showOpenDialog for an example.
 		 */
-		export function showMessageBox(
-			browserWindow?: BrowserWindow,
-			options?: ShowMessageBoxOptions,
-			callback?: (response: any) => void
-			): number;
-		export function showMessageBox(
-			options: ShowMessageBoxOptions,
-			callback?: (response: any) => void
-			): number;
+		filters?: {
+			name: string;
+			extensions: string[];
+		}[];
+	}
 
-		export interface ShowMessageBoxOptions {
-			/**
-			 * Can be "none", "info" or "warning".
-			 */
-			type?: string;
-			/**
-			 * Texts for buttons.
-			 */
-			buttons?: string[];
-			/**
-			 * Title of the message box (some platforms will not show it).
-			 */
-			title?: string;
-			/**
-			 * Contents of the message box.
-			 */
-			message?: string;
-			/**
-			 * Extra information of the message.
-			 */
-			detail?: string;
-			icon?: NativeImage;
-			noLink?: boolean;
-			cancelId?: number;
-		}
+	interface ShowMessageBoxOptions {
+		/**
+		 * On Windows, "question" displays the same icon as "info", unless you set an icon using the "icon" option.
+		 */
+		type?: 'none' | 'info' | 'error' | 'question' | 'warning';
+		/**
+		 * Texts for buttons.
+		 */
+		buttons?: string[];
+		/**
+		 * Index of the button in the buttons array which will be selected by default when the message box opens.
+		 */
+		defaultId?: number;
+		/**
+		 * Title of the message box (some platforms will not show it).
+		 */
+		title?: string;
+		/**
+		 * Contents of the message box.
+		 */
+		message?: string;
+		/**
+		 * Extra information of the message.
+		 */
+		detail?: string;
+		icon?: NativeImage;
+		/**
+		 * The value will be returned when user cancels the dialog instead of clicking the buttons of the dialog.
+		 * By default it is the index of the buttons that have "cancel" or "no" as label,
+		 * or 0 if there is no such buttons. On OS X and Windows the index of "Cancel" button
+		 * will always be used as cancelId, not matter whether it is already specified.
+		 */
+		cancelId?: number;
+		/**
+		 * On Windows Electron will try to figure out which one of the buttons are common buttons
+		 * (like "Cancel" or "Yes"), and show the others as command links in the dialog.
+		 * This can make the dialog appear in the style of modern Windows apps.
+		 * If you don’t like this behavior, you can set noLink to true.
+		 */
+		noLink?: boolean;
 	}
 }
