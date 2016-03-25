@@ -260,6 +260,57 @@ app.commandLine.appendSwitch('host-rules', 'MAP * 127.0.0.1');
 app.commandLine.appendSwitch('v', -1);
 app.commandLine.appendSwitch('vmodule', 'console=0');
 
+// app
+// https://github.com/atom/electron/blob/master/docs/api/app.md
+
+var browserOptions = {
+	width: 1000,
+	height: 800,
+	transparent: false,
+	frame: true
+};
+
+// Make the window transparent only if the platform supports it.
+if (process.platform !== 'win32' || app.isAeroGlassEnabled()) {
+	browserOptions.transparent = true;
+	browserOptions.frame = false;
+}
+
+// Create the window.
+var win = new BrowserWindow(browserOptions);
+
+// Navigate.
+if (browserOptions.transparent) {
+	win.loadURL('file://' + __dirname + '/index.html');
+} else {
+  	// No transparency, so we load a fallback that uses basic styles.
+  	win.loadURL('file://' + __dirname + '/fallback.html');
+}
+
+app.on('platform-theme-changed', () => {
+	console.log(app.isDarkMode());
+});
+
+app.on('certificate-error', function(event, webContents, url, error, certificate, callback) {
+	if (url == "https://github.com") {
+		// Verification logic.
+		event.preventDefault();
+		callback(true);
+	} else {
+		callback(false);
+	}
+});
+
+app.on('select-client-certificate', function(event, webContents, url, list, callback) {
+	event.preventDefault();
+	callback(list[0]);
+});
+
+app.on('login', function(event, webContents, request, authInfo, callback) {
+	event.preventDefault();
+	callback('username', 'secret');
+});
+
 // auto-updater
 // https://github.com/atom/electron/blob/master/docs/api/auto-updater.md
 
