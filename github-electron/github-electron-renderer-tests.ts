@@ -100,6 +100,41 @@ crashReporter.start({
 	autoSubmit: true
 });
 
+// desktopCapturer
+// https://github.com/atom/electron/blob/master/docs/api/desktop-capturer.md
+
+var desktopCapturer = require('electron').desktopCapturer;
+
+desktopCapturer.getSources({types: ['window', 'screen']}, function(error, sources) {
+	if (error) throw error;
+	for (var i = 0; i < sources.length; ++i) {
+		if (sources[i].name == "Electron") {
+				(navigator as any).webkitGetUserMedia({
+				audio: false,
+				video: {
+					mandatory: {
+						chromeMediaSource: 'desktop',
+						chromeMediaSourceId: sources[i].id,
+						minWidth: 1280,
+						maxWidth: 1280,
+						minHeight: 720,
+						maxHeight: 720
+					}
+				}
+			}, gotStream, getUserMediaError);
+			return;
+		}
+	}
+});
+
+function gotStream(stream: any) {
+	(document.querySelector('video') as HTMLVideoElement).src = URL.createObjectURL(stream);
+}
+
+function getUserMediaError(error: Error) {
+	console.log('getUserMediaError', error);
+}
+
 // nativeImage
 // https://github.com/atom/electron/blob/master/docs/api/native-image.md
 
