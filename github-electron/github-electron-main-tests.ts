@@ -513,6 +513,14 @@ app.on('ready', () => {
 clipboard.writeText('Example String');
 clipboard.writeText('Example String', 'selection');
 console.log(clipboard.readText('selection'));
+console.log(clipboard.availableFormats());
+clipboard.clear();
+
+clipboard.write({
+	html: '<html></html>',
+	text: 'Hello World!',
+	image: clipboard.readImage()
+});
 
 // crash-reporter
 // https://github.com/atom/electron/blob/master/docs/api/crash-reporter.md
