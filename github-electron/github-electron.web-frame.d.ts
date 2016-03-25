@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Electron {
-
+	/**
+	 * The web-frame module allows you to customize the rendering of the current web page.
+	 */
 	interface WebFrame {
 		/**
 		 * Changes the zoom factor to the specified factor, zoom factor is
@@ -26,6 +28,10 @@ declare namespace Electron {
 		 */
 		getZoomLevel(): number;
 		/**
+		 * Sets the maximum and minimum zoom level.
+		 */
+		setZoomLevelLimits(minimumLevel: number, maximumLevel: number): void;
+		/**
 		 * Sets a provider for spell checking in input fields and text areas.
 		 */
 		setSpellCheckProvider(language: string, autoCorrectWord: boolean, provider: {
@@ -40,6 +46,15 @@ declare namespace Electron {
 		 * corrupted by active network attackers.
 		 */
 		registerURLSchemeAsSecure(scheme: string): void;
+		/**
+		 * Resources will be loaded from this scheme regardless of the current page’s Content Security Policy.
+		 */
+		registerURLSchemeAsBypassingCSP(scheme: string): void;
+		/**
+		 * Registers the scheme as secure, bypasses content security policy for resources,
+		 * allows registering ServiceWorker and supports fetch API.
+		 */
+		registerURLSchemeAsPrivileged(scheme: string): void;
 		/**
 		 * Inserts text to the focused element.
 		 */
