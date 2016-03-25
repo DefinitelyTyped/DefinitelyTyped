@@ -1476,14 +1476,23 @@ declare namespace Electron {
 		upload_file_minidump: File;
 	}
 
+	/**
+	 * The crash-reporter module enables sending your app's crash reports.
+	 */
 	interface CrashReporter {
+		/**
+		 * You are required to call this method before using other crashReporter APIs.
+		 */
 		start(options: CrashReporterStartOptions): void;
-
 		/**
 		 * @returns The date and ID of the last crash report. When there was no crash report
 		 * sent or the crash reporter is not started, null will be returned.
 		 */
 		getLastCrashReport(): CrashReporterPayload;
+		/**
+		 * @returns All uploaded crash reports. Each report contains the date and uploaded ID.
+		 */
+		getUploadedReports(): CrashReporterPayload[];
 	}
 
 	interface Shell {
