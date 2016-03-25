@@ -325,6 +325,16 @@ ipcMain.on('synchronous-message', (event: Electron.IpcMainEvent, arg: any) => {
 	event.returnValue = 'pong';
 });
 
+// menu-item
+// https://github.com/atom/electron/blob/master/docs/api/menu-item.md
+
+var menuItem = new MenuItem({});
+
+menuItem.label = 'Hello World!';
+menuItem.click = (menuItem, browserWindow) => {
+    console.log('click', menuItem, browserWindow);
+};
+
 // menu
 // https://github.com/atom/electron/blob/master/docs/api/menu.md
 
@@ -332,22 +342,29 @@ var menu = new Menu();
 menu.append(new MenuItem({ label: 'MenuItem1', click: () => { console.log('item 1 clicked'); } }));
 menu.append(new MenuItem({ type: 'separator' }));
 menu.append(new MenuItem({ label: 'MenuItem2', type: 'checkbox', checked: true }));
+menu.insert(0, menuItem);
+
+console.log(menu.items);
+
+var pos = screen.getCursorScreenPoint();
+menu.popup(null, pos.x, pos.y);
 
 // main.js
-var template = [
+var template = <Electron.MenuItemOptions[]>[
 	{
 		label: 'Electron',
 		submenu: [
 			{
 				label: 'About Electron',
-				selector: 'orderFrontStandardAboutPanel:'
+				role: 'about'
 			},
 			{
 				type: 'separator'
 			},
 			{
 				label: 'Services',
-				submenu: <any[]>[]
+				role: 'services',
+				submenu: []
 			},
 			{
 				type: 'separator'
@@ -355,16 +372,16 @@ var template = [
 			{
 				label: 'Hide Electron',
 				accelerator: 'Command+H',
-				selector: 'hide:'
+				role: 'hide'
 			},
 			{
 				label: 'Hide Others',
 				accelerator: 'Command+Shift+H',
-				selector: 'hideOtherApplications:'
+				role: 'hideothers'
 			},
 			{
 				label: 'Show All',
-				selector: 'unhideAllApplications:'
+				role: 'unhide'
 			},
 			{
 				type: 'separator'
@@ -382,12 +399,12 @@ var template = [
 			{
 				label: 'Undo',
 				accelerator: 'Command+Z',
-				selector: 'undo:'
+				role: 'undo'
 			},
 			{
 				label: 'Redo',
 				accelerator: 'Shift+Command+Z',
-				selector: 'redo:'
+				role: 'redo'
 			},
 			{
 				type: 'separator'
@@ -395,22 +412,22 @@ var template = [
 			{
 				label: 'Cut',
 				accelerator: 'Command+X',
-				selector: 'cut:'
+				role: 'cut'
 			},
 			{
 				label: 'Copy',
 				accelerator: 'Command+C',
-				selector: 'copy:'
+				role: 'copy'
 			},
 			{
 				label: 'Paste',
 				accelerator: 'Command+V',
-				selector: 'paste:'
+				role: 'paste'
 			},
 			{
 				label: 'Select All',
 				accelerator: 'Command+A',
-				selector: 'selectAll:'
+				role: 'selectall'
 			}
 		]
 	},
@@ -435,19 +452,19 @@ var template = [
 			{
 				label: 'Minimize',
 				accelerator: 'Command+M',
-				selector: 'performMiniaturize:'
+				role: 'minimize'
 			},
 			{
 				label: 'Close',
 				accelerator: 'Command+W',
-				selector: 'performClose:'
+				role: 'close'
 			},
 			{
 				type: 'separator'
 			},
 			{
 				label: 'Bring All to Front',
-				selector: 'arrangeInFront:'
+				role: 'front'
 			}
 		]
 	},

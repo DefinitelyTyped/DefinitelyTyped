@@ -3,29 +3,62 @@
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="github-electron.browser-window.d.ts" />
 /// <reference path="github-electron.menu.d.ts" />
 /// <reference path="github-electron.native-image.d.ts" />
 
 declare namespace Electron {
-
+	/**
+	 * The MenuItem allows you to add items to an application or context menu.
+	 */
 	class MenuItem {
-		constructor(options?: MenuItemOptions);
-		options: MenuItemOptions;
+		/**
+		 * Create a new menu item.
+		 */
+		constructor(options: MenuItemOptions);
+
+		click: (menuItem: MenuItem, browserWindow: BrowserWindow) => void;
+		/**
+		 * Read-only property.
+		 */
+		type: MenuItemType;
+		/**
+		 * Read-only property.
+		 */
+		role: MenuItemRole | MenuItemRoleMac;
+		/**
+		 * Read-only property.
+		 */
+		accelerator: string;
+		/**
+		 * Read-only property.
+		 */
+		icon: NativeImage | string;
+		/**
+		 * Read-only property.
+		 */
+		submenu: Menu | MenuItemOptions[];
+
+		label: string;
+		sublabel: string;
+		enabled: boolean;
+		visible: boolean;
+		checked: boolean;
 	}
+
+	type MenuItemType = 'normal' | 'separator' | 'submenu' | 'checkbox' | 'radio';
+	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'selectall' | 'minimize' | 'close';
+	type MenuItemRoleMac = 'about' | 'hide' | 'hideothers' | 'unhide' | 'front' | 'window' | 'help' | 'services';
 
 	interface MenuItemOptions {
 		/**
 		 * Callback when the menu item is clicked.
 		 */
-		click?: Function;
-		/**
-		 * Call the selector of first responder when clicked (OS X only).
-		 */
-		selector?: string;
+		click?: (menuItem: MenuItem, browserWindow: BrowserWindow) => void;
 		/**
 		 * Can be normal, separator, submenu, checkbox or radio.
 		 */
-		type?: string;
+		type?: MenuItemType;
 		label?: string;
 		sublabel?: string;
 		/**
@@ -92,6 +125,6 @@ declare namespace Electron {
 		/**
 		 * Define the action of the menu item, when specified the click property will be ignored
 		 */
-		role?: string;
+		role?: MenuItemRole | MenuItemRoleMac;
 	}
 }
