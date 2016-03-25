@@ -1,9 +1,9 @@
-// Type definitions for semver v2.2.1
-// Project: https://github.com/isaacs/node-semver
+// Type definitions for semver v4.3.4
+// Project: https://github.com/npm/node-semver
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/semver
 
-declare module SemVerModule {
+declare namespace SemVerModule {
     /**
      * Return the parsed version, or null if it's not valid.
      */
@@ -12,6 +12,18 @@ declare module SemVerModule {
      * Return the version incremented by the release type (major, minor, patch, or prerelease), or null if it's not valid.
      */
     function inc(v: string, release: string, loose?: boolean): string;
+    /**
+     * Return the major version number.
+     */
+    function major(v: string, loose?: boolean): number;
+    /**
+     * Return the minor version number.
+     */
+    function minor(v: string, loose?: boolean): number;
+    /**
+     * Return the patch version number.
+     */
+    function patch(v: string, loose?: boolean): number;
 
     // Comparison
     /**
@@ -50,6 +62,10 @@ declare module SemVerModule {
      * The reverse of compare. Sorts an array of versions in descending order when passed to Array.sort().
      */
     function rcompare(v1: string, v2: string, loose?: boolean): number;
+    /**
+     * Returns difference between two versions by the release type (major, premajor, minor, preminor, patch, prepatch, or prerelease), or null if the versions are the same.
+     */
+    function diff(v1: string, v2: string, loose?: boolean): string;
 
     // Ranges
     /**
@@ -119,6 +135,39 @@ declare module SemVerModule {
         test(version: SemVer): boolean;
     }
 }
+
+interface SemVerStatic {
+    SemVer(version: string, loose?: boolean): SemVerModule.SemVer;
+    Comparator(comp: string, loose?: boolean): SemVerModule.Comparator;
+    Range(range: string, loose?: boolean): SemVerModule.Range;
+    clean(version: string, loose?: boolean): string;
+
+    SEMVER_SPEC_VERSION: string;
+
+    valid(v: string, loose?: boolean): string;
+    inc(v: string, release: string, loose?: boolean): string;
+    major(v: string, loose?: boolean): number;
+    minor(v: string, loose?: boolean): number;
+    patch(v: string, loose?: boolean): number;
+    gt(v1: string, v2: string, loose?: boolean): boolean;
+    gte(v1: string, v2: string, loose?: boolean): boolean;
+    lt(v1: string, v2: string, loose?: boolean): boolean;
+    lte(v1: string, v2: string, loose?: boolean): boolean;
+    eq(v1: string, v2: string, loose?: boolean): boolean;
+    neq(v1: string, v2: string, loose?: boolean): boolean;
+    cmp(v1: string, comparator: any, v2: string, loose?: boolean): boolean;
+    compare(v1: string, v2: string, loose?: boolean): number;
+    rcompare(v1: string, v2: string, loose?: boolean): number;
+    diff(v1: string, v2: string, loose?: boolean): string;
+    validRange(range: string, loose?: boolean): string;
+    satisfies(version: string, range: string, loose?: boolean): boolean;
+    maxSatisfying(versions: string[], range: string, loose?: boolean): string;
+    gtr(version: string, range: string, loose?: boolean): boolean;
+    ltr(version: string, range: string, loose?: boolean): boolean;
+    outside(version: string, range: string, hilo: string, loose?: boolean): boolean;
+}
+
+declare var semver: SemVerStatic;
 
 declare module "semver" {
     export = SemVerModule;

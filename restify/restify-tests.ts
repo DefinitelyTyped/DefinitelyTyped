@@ -92,12 +92,14 @@ server.put( '/hello', send);
 server.del( '/hello', send);
 server.get( '/hello', send);
 server.head('/hello', send);
+server.opts('/hello', send);
 
 server.post(/(.*)/, send);
 server.put( /(.*)/, send);
 server.del( /(.*)/, send);
 server.get( /(.*)/, send);
 server.head(/(.*)/, send);
+server.opts(/(.*)/, send);
 
 
 new restify.BadRequestError();

@@ -1,7 +1,7 @@
 // Type definitions for Livestamp.js
 // Project: http://mattbradley.github.com/livestampjs/
 // Definitions by: Vincent Bortone <https://github.com/vbortone/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // A simple, unobtrusive jQuery plugin that provides auto-updating timeago text to your timestamped HTML elements using Moment.js.
 

@@ -1,7 +1,7 @@
 // Type definitions for react-swf
 // Project: https://github.com/syranide/react-swf
 // Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts"/>
 
@@ -10,7 +10,7 @@ declare module "react-swf" {
     export = ReactSWF;
 }
 declare var ReactSWF: typeof rswf.ReactSWF
-declare module rswf {
+declare namespace rswf {
     interface State {
 
     }
@@ -113,7 +113,6 @@ declare module rswf {
         flashvars?: Object | string
     }
     export class ReactSWF extends __React.Component<Props, State>{
-        render(): __React.DOMElement<any>
         /**
         * Returns the Flash Player object DOM node.
         * Should be prefered over `React.findDOMNode`.
@@ -125,7 +124,7 @@ declare module rswf {
         * Must not be called in a non-browser environment.
         * @return {?string} 'X.Y.Z'-version or null.
         */
-        static getFPVersion(): string 
+        static getFPVersion(): string
         /**
         * Returns if installed Flash Player meets version requirement.
         * Must not be called in a non-browser environment.

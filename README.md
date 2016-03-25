@@ -1,4 +1,4 @@
-# DefinitelyTyped [![Build Status](https://travis-ci.org/borisyankov/DefinitelyTyped.png?branch=master)](https://travis-ci.org/borisyankov/DefinitelyTyped)
+# DefinitelyTyped [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.png?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
 
 [![Join the chat at https://gitter.im/borisyankov/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/borisyankov/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -16,13 +16,13 @@ Include a line like this:
 
 ## Contributions
 
-DefinitelyTyped only works because of contributions by users like you! 
+DefinitelyTyped only works because of contributions by users like you!
 
 Please see the [contribution guide](http://definitelytyped.org/guides/contributing.html) on how to contribute to DefinitelyTyped.
 
 ## How to get the definitions
 
-* Directly from the Github repos
+* Directly from the GitHub repos
 * [NuGet packages](http://nuget.org/packages?q=DefinitelyTyped)
 * [TypeScript Definition manager](https://github.com/DefinitelyTyped/tsd)
 
@@ -32,9 +32,9 @@ Please see the [contribution guide](http://definitelytyped.org/guides/contributi
 
 ## Requested definitions
 
-Here is are the [currently requested definitions](https://github.com/borisyankov/DefinitelyTyped/labels/Definition%3ARequest).
+Here is are the [currently requested definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
 
-## Licence
+## License
 
 This project is licensed under the MIT license.
 

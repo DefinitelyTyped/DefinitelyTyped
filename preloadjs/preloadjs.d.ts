@@ -1,7 +1,7 @@
 // Type definitions for PreloadJS 0.6.0
 // Project: http://www.createjs.com/#!/PreloadJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
     Copyright (c) 2012 Pedro Ferreira
@@ -14,7 +14,7 @@
 
 /// <reference path="../createjs-lib/createjs-lib.d.ts" />
 
-declare module createjs {
+declare namespace createjs {
     export class AbstractLoader extends EventDispatcher {
         // properties
         static BINARY: string;
@@ -145,7 +145,7 @@ declare module createjs {
         static create(value: LoadItem | string | Object): Object | LoadItem;
         set(props: Object): LoadItem;
         }
-    
+
     export class LoadQueue extends AbstractLoader
         {
         constructor(preferXHR?: boolean, basePath?: string, crossOrigin?: string | boolean);

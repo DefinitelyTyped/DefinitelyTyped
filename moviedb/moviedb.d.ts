@@ -1,15 +1,15 @@
 // Type definitions for MovieDB
 // Project: https://github.com/danzajdband/moviedb
 // Definitions by: Basarat Ali Syed <https://github.com/basarat>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Ghost module for Types
-declare module MovieDB {
+declare namespace MovieDB {
     export interface IMovieDB {
         searchMovie(params: SearchOptions, callback: (err: any, movies: SearchResults) => void): void;
         movieInfo(options: InfoOptions, callback: (err: any, curMovie: Movie) => void): void;
 
-        // More methods TBD: 
+        // More methods TBD:
         // https://github.com/danzajdband/moviedb#available-methods
     }
 

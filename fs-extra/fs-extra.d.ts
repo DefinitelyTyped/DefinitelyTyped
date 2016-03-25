@@ -1,7 +1,7 @@
 // Type definitions for fs-extra
 // Project: https://github.com/jprichardson/node-fs-extra
 // Definitions by: midknight41 <https://github.com/midknight41>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/fs-extra.d.ts
 
@@ -65,13 +65,13 @@ declare module "fs-extra" {
 	export function outputJsonSync(file: string, data: any): void;
 	export function outputJSONSync(file: string, data: any): void;
 
-	export function readJson(file: string, callback?: (err: Error) => void): void;
-	export function readJson(file: string, options?: OpenOptions, callback?: (err: Error) => void): void;
-	export function readJSON(file: string, callback?: (err: Error) => void): void;
-	export function readJSON(file: string, options?: OpenOptions, callback?: (err: Error) => void): void;
+	export function readJson(file: string, callback: (err: Error, jsonObject: any) => void): void;
+	export function readJson(file: string, options: OpenOptions, callback: (err: Error, jsonObject: any) => void): void;
+	export function readJSON(file: string, callback: (err: Error, jsonObject: any) => void): void;
+	export function readJSON(file: string, options: OpenOptions, callback: (err: Error, jsonObject: any) => void): void;
 
-	export function readJsonSync(file: string, options?: OpenOptions): void;
-	export function readJSONSync(file: string, options?: OpenOptions): void;
+	export function readJsonSync(file: string, options?: OpenOptions): any;
+	export function readJSONSync(file: string, options?: OpenOptions): any;
 
 	export function remove(dir: string, callback?: (err: Error) => void): void;
 	export function removeSync(dir: string): void;
@@ -167,6 +167,15 @@ declare module "fs-extra" {
 	export function exists(path: string, callback?: (exists: boolean) => void ): void;
 	export function existsSync(path: string): boolean;
     export function ensureDir(path: string, cb: (err: Error) => void): void;
+    export function ensureDirSync(path: string): void;
+	export function ensureFile(path: string, cb: (err: Error) => void): void;
+	export function ensureFileSync(path: string): void;
+	export function ensureLink(path: string, cb: (err: Error) => void): void;
+	export function ensureLinkSync(path: string): void;
+	export function ensureSymlink(path: string, cb: (err: Error) => void): void;
+	export function ensureSymlinkSync(path: string): void;
+    export function emptyDir(path: string, callback?: (err: Error) => void): void;
+    export function emptyDirSync(path: string): boolean;
 
 	export interface OpenOptions {
 		encoding?: string;
@@ -192,4 +201,5 @@ declare module "fs-extra" {
 	}
 	export function createReadStream(path: string, options?: ReadStreamOptions): ReadStream;
 	export function createWriteStream(path: string, options?: WriteStreamOptions): WriteStream;
+	export function createOutputStream(path: string, options?: WriteStreamOptions): WriteStream;
 }
