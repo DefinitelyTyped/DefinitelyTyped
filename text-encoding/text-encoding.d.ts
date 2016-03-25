@@ -32,14 +32,29 @@ declare namespace TextEncoding {
     interface TextEncodeOptions {
         stream?: boolean;
     }
+
+    interface TextEncoderStatic {
+        (utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
+        new (utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
+    }
+
+    interface TextDecoderStatic {
+        (label?: string, options?: TextDecoderOptions): TextDecoder;
+        new (label?: string, options?: TextDecoderOptions): TextDecoder;
+    }
+
+    interface TextEncodingStatic {
+        TextEncoder: TextEncoderStatic;
+        TextDecoder: TextDecoderStatic;
+    }
 }
 
-declare var TextDecoder: {
-    (label?: string, options?: TextEncoding.TextDecoderOptions): TextEncoding.TextDecoder;
-    new (label?: string, options?: TextEncoding.TextDecoderOptions): TextEncoding.TextDecoder;
-};
+declare var TextDecoder: TextEncoding.TextDecoderStatic;
 
-declare var TextEncoder: {
-    (utfLabel?: string, options?: TextEncoding.TextEncoderOptions): TextEncoding.TextEncoder;
-    new (utfLabel?: string, options?: TextEncoding.TextEncoderOptions): TextEncoding.TextEncoder;
-};
+declare var TextEncoder: TextEncoding.TextEncoderStatic;
+
+declare var TextEncoding: TextEncoding.TextEncodingStatic;
+
+declare module "text-encoding" {
+    export = TextEncoding;
+}
