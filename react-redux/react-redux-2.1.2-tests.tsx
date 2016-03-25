@@ -55,7 +55,9 @@ connect(
 
 @connect(mapStateToProps)
 class CounterContainer extends Component<any, any> {
-
+    render(): JSX.Element {
+        return null;
+    }
 }
 
 class App extends Component<any, any> {
@@ -81,10 +83,14 @@ declare var routes: Route;
 declare var store: Store;
 declare var routerState: RouterState;
 class MyRootComponent extends Component<any, any> {
-
+    render(): JSX.Element {
+        return null;
+    }
 }
 class TodoApp extends Component<any, any> {
-
+    render(): JSX.Element {
+        return null;
+    }
 }
 interface TodoState {
     todos: string[]|string;
@@ -254,7 +260,11 @@ interface TestState {
     isLoaded: boolean;
     state1: number;
 }
-class TestComponent extends Component<TestProp, TestState> { }
+class TestComponent extends Component<TestProp, TestState> {
+    render(): JSX.Element {
+        return null;
+    }
+}
 const WrappedTestComponent = connect()(TestComponent);
 
 // return value of the connect()(TestComponent) is of the type TestComponent
@@ -275,6 +285,9 @@ class NonComponent {}
 class SomeClass extends Component<any, any> {
     constructor(public foo: string) { super() }
     public bar: number;
+    render(): JSX.Element {
+        return null;
+    }
 }
 let bar: number = new (connect()(SomeClass))("foo").bar;
 

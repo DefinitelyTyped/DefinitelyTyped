@@ -61,6 +61,7 @@ declare namespace ReactDayPicker {
         showMonth(month: Date): void;
         showPreviousMonth(): void;
         showNextMonth(): void;
+        render(): React.ReactElement<any>;
     }
 
     namespace DayPicker {

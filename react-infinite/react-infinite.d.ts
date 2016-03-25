@@ -32,5 +32,6 @@ declare namespace ReactInfinite {
 
 	export class Infinite extends React.Component<InfiniteProps, {}> {
 		static containerHeightScaleFactor(n: number): any;
+		render(): React.ReactElement<any>;
 	}
 }

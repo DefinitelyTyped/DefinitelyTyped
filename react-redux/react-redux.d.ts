@@ -7,7 +7,7 @@
 /// <reference path="../redux/redux.d.ts" />
 
 declare module "react-redux" {
-  import { ComponentClass, Component, StatelessComponent } from 'react';
+  import { ComponentClass, Component, StatelessComponent, ReactElement } from 'react';
   import { Store, Dispatch, ActionCreator } from 'redux';
 
   export interface ComponentConstructDecorator<P> {
@@ -64,5 +64,7 @@ declare module "react-redux" {
   /**
    * Makes the Redux store available to the connect() calls in the component hierarchy below.
    */
-  export class Provider extends Component<Property, {}> { }
+  export class Provider extends Component<Property, {}> {
+    render(): ReactElement<any>;
+  }
 }

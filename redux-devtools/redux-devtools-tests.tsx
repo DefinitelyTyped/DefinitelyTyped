@@ -8,7 +8,10 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import { createDevTools, persistState } from 'redux-devtools'
 
-class DevToolsMonitor extends React.Component<any, any> {  
+class DevToolsMonitor extends React.Component<any, any> {
+  render(): React.ReactElement<any> {
+    return null;
+  }
 }
 
 const DevTools = createDevTools(

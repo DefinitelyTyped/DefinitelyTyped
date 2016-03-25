@@ -12,8 +12,16 @@ declare var m1: Middleware;
 declare var m2: Middleware;
 declare var m3: Middleware;
 declare var reducer: Reducer;
-class CounterApp extends Component<any, any> { };
-class Provider extends Component<{ store: any }, any> { };
+class CounterApp extends Component<any, any> {
+    render(): JSX.Element {
+        return null;
+    }
+};
+class Provider extends Component<{ store: any }, any> {
+    render(): JSX.Element {
+        return null;
+    }
+};
 
 const finalCreateStore = compose(
     // Enables your middleware:

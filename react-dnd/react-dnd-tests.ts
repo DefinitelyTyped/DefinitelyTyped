@@ -207,7 +207,7 @@ module BoardSquare {
 module CustomDragLayer {
     interface CustomDragLayerP extends React.Props<CustomDragLayer> {
         isDragging?: boolean;
-        item?: Object;
+        item?: React.ReactNode;
     }
 
     function dragLayerCollect(monitor: ReactDnd.DragLayerMonitor) {

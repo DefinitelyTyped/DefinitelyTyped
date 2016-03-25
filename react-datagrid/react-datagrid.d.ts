@@ -306,5 +306,6 @@ declare namespace ReactDataGrid {
     }
 
     export class DataGrid extends __React.Component<DataGridProps, {}> {
+        render(): __React.ReactElement<any>;
     }
 }

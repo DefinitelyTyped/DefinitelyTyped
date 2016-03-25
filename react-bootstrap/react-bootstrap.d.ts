@@ -79,6 +79,7 @@ declare module "react-bootstrap" {
         title?: any; // TODO: Add more specific type
     }
     class DropdownButton extends React.Component<DropdownButtonProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <SplitButton />
@@ -99,6 +100,7 @@ declare module "react-bootstrap" {
         title?: any; // TODO: Add more specific type
     }
     class SplitButton extends React.Component<SplitButtonProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <MenuItem />
@@ -118,6 +120,7 @@ declare module "react-bootstrap" {
         title?: string;
     }
     class MenuItem extends React.Component<MenuItemProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <Panel />
@@ -188,6 +191,7 @@ declare module "react-bootstrap" {
         // undefined?: string;
     }
     class ModalHeader extends React.Component<ModalHeaderProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <Modal.Title/>
@@ -197,6 +201,7 @@ declare module "react-bootstrap" {
         modalClassName?: string;
     }
     class ModalTitle extends React.Component<ModalTitleProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <Modal.Body />
@@ -206,6 +211,7 @@ declare module "react-bootstrap" {
         modalClassName?: string;
     }
     class ModalBody extends React.Component<ModalBodyProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <Modal.Footer />
@@ -215,6 +221,7 @@ declare module "react-bootstrap" {
         modalClassName?: string;
     }
     class ModalFooter extends React.Component<ModalFooterProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <Modal />
@@ -329,6 +336,7 @@ declare module "react-bootstrap" {
         target?: Function;
     }
     class Overlay extends React.Component<OverlayProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <ProgressBar />
@@ -348,6 +356,7 @@ declare module "react-bootstrap" {
         striped?: boolean;
     }
     class ProgressBar extends React.Component<ProgressBarProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <Nav />
@@ -374,6 +383,7 @@ declare module "react-bootstrap" {
         ulId?: string;
     }
     class Nav extends React.Component<NavProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <NavItem />
@@ -413,6 +423,7 @@ declare module "react-bootstrap" {
     interface NavbarBrandProps extends React.Props<NavbarBrand> {
     }
     class NavbarBrand extends React.Component<NavbarBrandProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <Navbar.Collapse />
@@ -474,6 +485,7 @@ declare module "react-bootstrap" {
         id?: string;
     }
     class NavDropdown extends React.Component<NavDropdownProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <Tabs />
@@ -669,6 +681,7 @@ declare module "react-bootstrap" {
         fill?: boolean; // TODO: Add more specific type
     }
     class ListGroup extends React.Component<ListGroupProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <ListGroupItem />
@@ -688,6 +701,7 @@ declare module "react-bootstrap" {
         target?: string;
     }
     class ListGroupItem extends React.Component<ListGroupItemProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <Label />
@@ -698,6 +712,7 @@ declare module "react-bootstrap" {
         className?: string;
     }
     class Label extends React.Component<LabelProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <Badge />
@@ -724,6 +739,7 @@ declare module "react-bootstrap" {
         className?: string;
     }
     class PageHeader extends React.Component<PageHeaderProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <Well />
@@ -734,6 +750,7 @@ declare module "react-bootstrap" {
         className?: string;
     }
     class Well extends React.Component<WellProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <Glyphicon />
@@ -792,6 +809,7 @@ declare module "react-bootstrap" {
     }
     // TODO: extends InputBase
     class Input extends React.Component<InputProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <ButtonInput />
@@ -820,6 +838,7 @@ declare module "react-bootstrap" {
     }
     // TODO: extends InputBase
     class ButtonInput extends React.Component<ButtonInputProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
 
@@ -873,6 +892,7 @@ declare module "react-bootstrap" {
         unmountOnExit?: boolean;
     }
     class Position extends React.Component<PositionProps, {}> {
+        render(): React.ReactElement<any>;
     }
 
     // <Fade />
@@ -890,5 +910,6 @@ declare module "react-bootstrap" {
         unmountOnExit?: boolean;
     }
     class Fade extends React.Component<FadeProps, {}> {
+        render(): React.ReactElement<any>;
     }
 }

@@ -35,6 +35,9 @@ reactMixin.onClass(Foo2, mixin);
 
 @reactMixin.decorate(mixin)
 class Foo3 extends React.Component<any, any> {
+    render(): JSX.Element {
+        return null;
+    }
 }
 
 function autobind(methodNames: string[]): React.Mixin<any, any> {
@@ -50,6 +53,9 @@ function autobind(methodNames: string[]): React.Mixin<any, any> {
 @reactMixin.decorate(mixin)
 @reactMixin.decorate(autobind(Object.keys(mixin)))
 class Foo4 extends React.Component<any, any> {
+    render(): JSX.Element {
+        return null;
+    }
 }
 
 

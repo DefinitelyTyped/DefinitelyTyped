@@ -262,6 +262,9 @@ class RefComponent extends React.Component<RCProps, {}> {
     static create = React.createFactory(RefComponent);
     refMethod() {
     }
+    render(): React.ReactElement<any> {
+        return null;
+    }
 }
 
 var componentRef: RefComponent;

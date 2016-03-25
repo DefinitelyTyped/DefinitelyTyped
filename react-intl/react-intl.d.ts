@@ -107,7 +107,9 @@ declare module ReactIntl {
             value: Date;
         }
     }
-    class FormattedDate extends React.Component<FormattedDate.Props, any> { }
+    class FormattedDate extends React.Component<FormattedDate.Props, any> {
+        render(): React.ReactElement<any>;
+    }
 
 
     module FormattedTime {
@@ -119,7 +121,9 @@ declare module ReactIntl {
             value: Date;
         }
     }
-    class FormattedTime extends React.Component<FormattedTime.Props, any> { }
+    class FormattedTime extends React.Component<FormattedTime.Props, any> {
+        render(): React.ReactElement<any>;
+    }
 
 
     module FormattedRelative {
@@ -141,7 +145,9 @@ declare module ReactIntl {
             value: number;
         }
     }
-    class FormattedRelative extends React.Component<FormattedRelative.Props, any> { }
+    class FormattedRelative extends React.Component<FormattedRelative.Props, any> {
+        render(): React.ReactElement<any>;
+    }
 
 
     module FormattedMessage {
@@ -156,10 +162,14 @@ declare module ReactIntl {
             tagName?: string;
         }
     }
-    class FormattedMessage extends React.Component<FormattedMessage.Props, any> { }
+    class FormattedMessage extends React.Component<FormattedMessage.Props, any> {
+        render(): React.ReactElement<any>;
+    }
 
 
-    class FormattedHTMLMessage extends React.Component<FormattedMessage.Props, any> { }
+    class FormattedHTMLMessage extends React.Component<FormattedMessage.Props, any> {
+        render(): React.ReactElement<any>;
+    }
 
 
     module FormattedNumber {
@@ -190,7 +200,9 @@ declare module ReactIntl {
             value: number;
         }
     }
-    class FormattedNumber extends React.Component<FormattedNumber.Props, any> { }
+    class FormattedNumber extends React.Component<FormattedNumber.Props, any> {
+        render(): React.ReactElement<any>;
+    }
 
 
     module FormattedPlural {
@@ -211,7 +223,9 @@ declare module ReactIntl {
             value: number;
         }
     }
-    class FormattedPlural extends React.Component<FormattedPlural.Props, any> { }
+    class FormattedPlural extends React.Component<FormattedPlural.Props, any> {
+        render(): React.ReactElement<any>;
+    }
 
 
     module IntlProvider {
@@ -223,7 +237,9 @@ declare module ReactIntl {
             defaultFormats?: Object;
         }
     }
-    class IntlProvider extends React.Component<IntlProvider.Props, any> { }
+    class IntlProvider extends React.Component<IntlProvider.Props, any> {
+        render(): React.ReactElement<any>;
+    }
 
     class LocaleData extends Array<Locale> {
     }

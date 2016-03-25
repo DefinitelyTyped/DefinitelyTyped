@@ -15,11 +15,13 @@ declare module __ReactDnd {
         getDecoratedComponentInstance(): React.Component<P, S>;
         // Note: getManager is not yet documented on the React DnD docs.
         getManager(): any;
+        render(): React.ReactElement<any>;
     }
 
     class DndComponent<P, S> extends React.Component<P, S> {
         getDecoratedComponentInstance(): React.Component<P, S>;
         getHandlerId(): Identifier;
+        render(): React.ReactElement<any>;
     }
 
     interface ContextComponentClass<P> extends React.ComponentClass<P> {

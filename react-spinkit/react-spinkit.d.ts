@@ -12,7 +12,9 @@ declare module "react-spinkit" {
         spinnerName?: string;
     }
 
-    class Spinner extends Component<Props, {}> { }
+    class Spinner extends Component<Props, {}> {
+        render(): JSX.Element;
+    }
 
     export default Spinner;
 }

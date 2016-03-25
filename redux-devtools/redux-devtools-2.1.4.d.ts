@@ -15,7 +15,7 @@ declare module "redux-devtools/lib/react" {
     import * as React from 'react';
 
     export class DevTools extends React.Component<any, any> {
-
+        render(): React.ReactElement<any>;
     }
 
     export interface DevToolsProps {
@@ -29,9 +29,12 @@ declare module "redux-devtools/lib/react" {
 
     export class DevToolStore extends React.Component<any, any> {
         dispatch: Function;
+        render(): React.ReactElement<any>;
     }
 
-    export class DebugPanel extends React.Component<DebugPanelProps, any> { }
+    export class DebugPanel extends React.Component<DebugPanelProps, any> {
+        render(): React.ReactElement<any>;
+    }
 
     export interface DebugPanelProps {
         position?: string;
@@ -52,7 +55,9 @@ declare module "redux-devtools/lib/react" {
         getStyle?: () => DebugPanelProps;
     }
 
-    export class LogMonitor extends React.Component<LogMonitorProps, any> { }
+    export class LogMonitor extends React.Component<LogMonitorProps, any> {
+        render(): React.ReactElement<any>;
+    }
 
     export interface LogMonitorProps {
         computedStates?: ComputedState[];

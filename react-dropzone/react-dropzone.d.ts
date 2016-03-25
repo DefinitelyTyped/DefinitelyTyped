@@ -28,6 +28,7 @@ declare module "react-dropzone" {
     }
 
     export class Dropzone extends React.Component<DropzoneProps, {}> {
+      render(): React.ReactElement<any>;
     }
 
   }
