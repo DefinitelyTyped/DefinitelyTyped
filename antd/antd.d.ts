@@ -1,6 +1,6 @@
 // Type definitions for Antd v0.12.10
 // Project: http://ant.design
-// Definitions by: bang88 <https://github.com/bang88>
+// Definitions by: bang88 <https://github.com/bang88>, Bruce Mitchener <https://github.com/waywardmonkeys/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -738,7 +738,7 @@ declare namespace Antd {
          *
          * @type {(MenuItem | MenuSubMenu)}
          */
-        children?: MenuItem | MenuSubMenu
+        children?: JSX.Element[]
     }
     export class MenuSubMenu extends React.Component<MenuSubMenuProps, {}> {
         render(): JSX.Element
@@ -756,7 +756,7 @@ declare namespace Antd {
          *
          * @type {MenuItem}
          */
-        children?: MenuItem
+        children?: JSX.Element[]
     }
     export class MenuItemGroup extends React.Component<MenuItemGroupProps, {}> {
         render(): JSX.Element
