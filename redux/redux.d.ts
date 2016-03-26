@@ -5,45 +5,63 @@
 
 declare namespace Redux {
 
-    interface ActionCreator extends Function {
-        (...args: any[]): any;
+    interface ActionBase {
+        type: string;
     }
 
-    interface Reducer extends Function {
-        (state: any, action: any): any;
+    interface ActionCreator<TAction> {
+        (...args: any[]): TAction;
     }
 
-    interface Dispatch extends Function {
-        (action: any): any;
+    interface Reducer<TState> {
+        (state: TState, action: ActionBase): TState;
     }
 
-    interface StoreMethods {
-        dispatch: Dispatch;
-        getState(): any;
+    interface MiddlewareDispatch {
+        <TMiddlewareAction, TMiddlewareActionResult>(action: TMiddlewareAction): TMiddlewareActionResult;
     }
 
+    interface Dispatch extends MiddlewareDispatch {
+        (action: ActionBase): ActionBase;
+    }
 
     interface MiddlewareArg {
         dispatch: Dispatch;
-        getState: Function;
+        getState<T>(): T;
     }
 
-    interface Middleware extends Function {
-        (obj: MiddlewareArg): Function;
+    interface Middleware {
+        (obj: MiddlewareArg): (next: MiddlewareDispatch) => MiddlewareDispatch;
     }
 
-    class Store {
-        getReducer(): Reducer;
-        replaceReducer(nextReducer: Reducer): void;
-        dispatch(action: any): any;
-        getState(): any;
-        subscribe(listener: Function): Function;
+    interface UnsubscribeFn {
+        (): void;
     }
 
-    function createStore(reducer: Reducer, initialState?: any, enhancer?: ()=>any): Store;
+    interface CreateStore<TState> {
+        (reducer: Reducer<TState>, initialState?: TState, enhancer?: StoreEnhancer<TState>): Store<TState>;
+    }
+
+    interface StoreEnhancer<TState> {
+         (createStore: CreateStore<TState>): (reducer: Reducer<TState>, initialState?: TState) => Store<TState>;
+    }
+
+    class Store<TState> {
+        getReducer(): Reducer<TState>;
+        replaceReducer(nextReducer: Reducer<TState>): void;
+        dispatch: Dispatch;
+        getState(): TState;
+        subscribe(listener: () => any): UnsubscribeFn;
+    }
+
+    interface ReducerMap<TState> {
+        [key: string]: Reducer<TState>;
+    }
+
+    function createStore<TState>(reducer: Reducer<TState>, initialState?: TState, enhancer?: StoreEnhancer<TState>): Store<TState>;
     function bindActionCreators<T>(actionCreators: T, dispatch: Dispatch): T;
-    function combineReducers(reducers: any): Reducer;
-    function applyMiddleware(...middlewares: Middleware[]): Function;
+    function combineReducers<TState>(reducers: ReducerMap<TState>): Reducer<TState>;
+    function applyMiddleware<TState>(...middlewares: Middleware[]): StoreEnhancer<TState>;
     function compose<T extends Function>(...functions: Function[]): T;
 }
 
