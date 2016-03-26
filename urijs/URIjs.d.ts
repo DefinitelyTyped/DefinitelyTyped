@@ -105,6 +105,8 @@ declare namespace uri {
         setQuery(qry: Object): URI;
         setSearch(key: string, value: string): URI;
         setSearch(qry: Object): URI;
+        hasQuery(name: string | any, value?: string | number | boolean | Function | Array<string> | Array<number> | Array<boolean> | RegExp, withinArray?: boolean): boolean;
+        hasSearch(name: string | any, value?: string | number | boolean | Function | Array<string> | Array<number> | Array<boolean> | RegExp, withinArray?: boolean): boolean;
         subdomain(): string;
         subdomain(subdomain: string): URI;
         suffix(): string;
