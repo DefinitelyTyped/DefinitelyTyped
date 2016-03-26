@@ -17,7 +17,8 @@ import {
 	nativeImage,
 	screen,
 	shell,
-	hideInternalModules
+	hideInternalModules,
+	session
 } from 'electron';
 
 import * as path from 'path';
@@ -68,7 +69,7 @@ app.on('ready', () => {
 	mainWindow.webContents.addWorkSpace('/path/to/workspace');
 	mainWindow.webContents.removeWorkSpace('/path/to/workspace');
 	var opened: boolean = mainWindow.webContents.isDevToolsOpened()
-    var focused = mainWindow.webContents.isDevToolsFocused();
+	var focused = mainWindow.webContents.isDevToolsFocused();
 	// Emitted when the window is closed.
 	mainWindow.on('closed', () => {
 		// Dereference the window object, usually you would store windows
@@ -566,3 +567,29 @@ app.on('ready', () => {
 // https://github.com/atom/electron/blob/master/docs/api/shell.md
 
 shell.openExternal('https://github.com');
+
+// session + download-item
+// https://github.com/atom/electron/blob/master/docs/api/session.md
+
+var ses = session.fromPartition('persist:name');
+
+// download-item
+// https://github.com/atom/electron/blob/master/docs/api/download-item.md
+
+session.defaultSession.on('will-download', function(event:Event, item:Electron.DownloadItem, webContents:Electron.WebContents) {
+	// Set the save path, making Electron not to prompt a save dialog.
+	item.setSavePath('/tmp/save.pdf');
+	console.log(item.getMimeType());
+	console.log(item.getFilename());
+	console.log(item.getTotalBytes());
+	item.on('updated', function () {
+		console.log('Received bytes: ' + item.getReceivedBytes());
+	});
+	item.on('done', function (e:Event, state:string) {
+		if (state == "completed") {
+			console.log("Download successfully");
+		} else {
+			console.log("Download is cancelled or interrupted that can't be resumed");
+		}
+	});
+});

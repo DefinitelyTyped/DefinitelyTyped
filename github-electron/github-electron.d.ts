@@ -1627,9 +1627,9 @@ declare namespace Electron {
 		insertText(text: string): void;
 		/**
 		 * Evaluates `code` in page.
- 		 * In the browser window some HTML APIs like `requestFullScreen` can only be
- 		 * invoked by a gesture from the user. Setting `userGesture` to `true` will remove
- 		 * this limitation.
+		 * In the browser window some HTML APIs like `requestFullScreen` can only be
+		 * invoked by a gesture from the user. Setting `userGesture` to `true` will remove
+		 * this limitation.
 		 */
 		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): void;
 	}
@@ -1846,9 +1846,22 @@ declare namespace Electron {
 		(hostname: string, cert: any, callback: (accepted: boolean) => any): any;
 	}
 
-	class Session {
-		static fromPartition(partition: string): Session;
-		static defaultSession: Session;
+	class SessionModule {
+		fromPartition(partition: string): Session;
+		defaultSession: Session;
+	}
+
+	class Session implements NodeJS.EventEmitter {
+		addListener(event: string, listener: Function): this;
+		on(event: string, listener: Function): this;
+		once(event: string, listener: Function): this;
+		removeListener(event: string, listener: Function): this;
+		removeAllListeners(event?: string): this;
+		setMaxListeners(n: number): this;
+		getMaxListeners(): number;
+		listeners(event: string): Function[];
+		emit(event: string, ...args: any[]): boolean;
+		listenerCount(type: string): number;
 
 		cookies: any;
 		clearCache(callback: Function): void;
@@ -1862,6 +1875,20 @@ declare namespace Electron {
 		disableNetworkEmulation(): void;
 		setCertificateVerifyProc(proc: CertificateVerifyProc): void;
 		webRequest: any;
+	}
+
+	interface DownloadItem extends NodeJS.EventEmitter {
+		setSavePath(path:string):void;
+		pause():void;
+		resume():void;
+		cancel():void;
+		getURL():string;
+		getMimeType():string;
+		hasUserGesture():boolean;
+		getFilename():string;
+		getTotalBytes():number;
+		getReceivedBytes():number;
+		getContentDisposition():string;
 	}
 
 	interface CommonElectron {
@@ -1883,7 +1910,7 @@ declare namespace Electron {
 		powerSaveBlocker: Electron.PowerSaveBlocker;
 		protocol: Electron.Protocol;
 		screen: Electron.Screen;
-		session: Electron.Session;
+		session: Electron.SessionModule;
 		Tray: typeof Electron.Tray;
 		hideInternalModules(): void;
 	}
@@ -1911,6 +1938,281 @@ declare namespace Electron {
 		ipcRenderer: Electron.IpcRenderer;
 		remote: Electron.Remote;
 		webFrame: Electron.WebFrame;
+	}
+
+	interface HTMLWebviewElement extends HTMLElement {
+		src: string;
+		autosize: boolean;
+		minwidth: number;
+		minheight: number;
+		maxwidth: number;
+		maxheight: number;
+		nodeintegration: boolean;
+		plugins: boolean;
+		preload: string;
+		useragent: string;
+		disablewebsecurity: boolean;
+		partition: string;
+		allowpopus: boolean;
+		blinkfeatures: string;
+
+		/**
+		 * Loads the url in the window.
+		 * @param url Must contain the protocol prefix (e.g., the http:// or file://).
+		 */
+		loadURL(url: string, options?: {
+			httpReferrer?: string;
+			userAgent?: string;
+			extraHeaders?: string;
+		}): void;
+		/**
+		 * @returns The URL of current web page.
+		 */
+		getURL(): string;
+		/**
+		 * @returns The title of web page.
+		 */
+		getTitle(): string;
+		/**
+		 * @returns Whether web page is still loading resources.
+		 */
+		isLoading(): boolean;
+		/**
+		 * @returns Whether web page is waiting for a first-response for the main
+		 * resource of the page.
+		 */
+		isWaitingForResponse(): boolean;
+		/**
+		 * Stops any pending navigation.
+		 */
+		stop(): void;
+		/**
+		 * Reloads current page.
+		 */
+		reload(): void;
+		/**
+		 * Reloads current page and ignores cache.
+		 */
+		reloadIgnoringCache(): void;
+		/**
+		 * @returns Whether the web page can go back.
+		 */
+		canGoBack(): boolean;
+		/**
+		 * @returns Whether the web page can go forward.
+		 */
+		canGoForward(): boolean;
+		/**
+		 * @returns Whether the web page can go to offset.
+		 */
+		canGoToOffset(offset: number): boolean;
+		/**
+		 * clear the history
+		 */
+		clearHistory(): void;
+		/**
+		 * Makes the web page go back.
+		 */
+		goBack(): void;
+		/**
+		 * Makes the web page go forward.
+		 */
+		goForward(): void;
+		/**
+		 * Navigates to the specified absolute index.
+		 */
+		goToIndex(index: number): void;
+		/**
+		 * Navigates to the specified offset from the "current entry".
+		 */
+		goToOffset(offset: number): void;
+		/**
+		 * @returns Whether the renderer process has crashed.
+		 */
+		isCrashed(): boolean;
+		/**
+		 * Overrides the user agent for this page.
+		 */
+		setUserAgent(userAgent: string): void;
+		/**
+		 * @returns the user agent.
+		 */
+		getUserAgent(): string;
+		/**
+		 * Injects CSS into this page.
+		 */
+		insertCSS(css: string): void;
+		/**
+		 * Evaluates code in page.
+		 * @param code Code to evaluate.
+		 */
+		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): void;
+		/**
+		 * Opens the developer tools.
+		 */
+		openDevTools(): void;
+		/**
+		 * Closes the developer tools.
+		 */
+		closeDevTools(): void;
+		/**
+		 * Returns whether the developer tools are opened.
+		 */
+		isDevToolsOpened(): boolean;
+		/**
+		 * Returns whether the developer tools are focussed.
+		 */
+		isDevToolsFocused(): boolean;
+		/**
+		 * Starts inspecting element at position (x, y).
+		 */
+		inspectElement(x: number, y: number): void;
+		/**
+		 * Opens the DevTools for the service worker context present in the guest page.
+		 */
+		inspectServiceWorker(): void;
+		/**
+		 * Set guest page muted.
+		 */
+		setAudioMuted(muted:boolean): void;
+		/**
+		 * @returns whether guest page has been muted.
+		 */
+		isAudioMuted(): boolean;
+		/**
+		 * Executes Edit -> Undo command in page.
+		 */
+		undo(): void;
+		/**
+		 * Executes Edit -> Redo command in page.
+		 */
+		redo(): void;
+		/**
+		 * Executes Edit -> Cut command in page.
+		 */
+		cut(): void;
+		/**
+		 * Executes Edit -> Copy command in page.
+		 */
+		copy(): void;
+		/**
+		 * Executes Edit -> Paste command in page.
+		 */
+		paste(): void;
+		/**
+		 * Executes editing command pasteAndMatchStyle in page.
+		 */
+		pasteAndMatchStyle(): void;
+		/**
+		 * Executes Edit -> Delete command in page.
+		 */
+		delete(): void;
+		/**
+		 * Executes Edit -> Select All command in page.
+		 */
+		selectAll(): void;
+		/**
+		 * Executes Edit -> Unselect command in page.
+		 */
+		unselect(): void;
+		/**
+		 * Executes Edit -> Replace command in page.
+		 */
+		replace(text: string): void;
+		/**
+		 * Executes Edit -> Replace Misspelling command in page.
+		 */
+		replaceMisspelling(text: string): void;
+		/**
+		 * Inserts text to the focused element.
+		 */
+		insertText(text: string): void;
+		/**
+		 * Starts a request to find all matches for the text in the web page and
+		 * returns an Integer representing the request id used for the request.
+		 * The result of the request can be obtained by subscribing to
+		 * found-in-page event.
+		 */
+		findInPage(text: string, options?: FindInPageOptions): void;
+		/**
+		 * Stops any findInPage request for the webContents with the provided
+		 * action.
+		 * @param action Specifies the action to take place when ending webContents.findInPage request.
+		 *   'clearSelection' - Translate the selection into a normal selection.
+		 *   'keepSelection' - Clear the selection.
+		 *   'activateSelection' - Focus and click the selection node.
+		 */
+		stopFindInPage(action: 'clearSelection' | 'keepSelection' | 'activateSelection'): void;
+		/**
+		 *
+		 * Prints window's web page. When silent is set to false, Electron will pick up system's default printer and default settings for printing.
+		 * Calling window.print() in web page is equivalent to call WebContents.print({silent: false, printBackground: false}).
+		 * Note:
+		 *   On Windows, the print API relies on pdf.dll. If your application doesn't need print feature, you can safely remove pdf.dll in saving binary size.
+		 */
+		print(options?: {
+			/**
+			 *  Don't ask user for print settings, defaults to false
+			 */
+			silent?: boolean;
+			/**
+			 * Also prints the background color and image of the web page, defaults to false.
+			 */
+			printBackground: boolean;
+		}): void;
+		/**
+		 * Prints windows' web page as PDF with Chromium's preview printing custom settings.
+		 */
+		printToPDF(options: {
+				/**
+				 * Specify the type of margins to use. Default is 0.
+				 *   0 - default
+				 *   1 - none
+				 *   2 - minimum
+				 */
+				marginsType?: number;
+				/**
+				 * String - Specify page size of the generated PDF. Default is A4.
+				 *   A4
+				 *   A3
+				 *   Legal
+				 *   Letter
+				 *   Tabloid
+				 */
+				pageSize?: string;
+				/**
+				 * Whether to print CSS backgrounds. Default is false.
+				 */
+				printBackground?: boolean;
+				/**
+				 * Whether to print selection only. Default is false.
+				 */
+				printSelectionOnly?: boolean;
+				/**
+				 * true for landscape, false for portrait.  Default is false.
+				 */
+				landscape?: boolean;
+			},
+			/**
+			 * Callback function on completed converting to PDF.
+			 *   error Error
+			 *   data Buffer - PDF file content
+			 */
+			callback: (error: Error, data: Buffer) => void): void;
+		/**
+		 * Send args.. to the web page via channel in asynchronous message, the web page
+		 * can handle it by listening to the channel event of ipc module.
+		 * Note:
+		 *   1. The IPC message handler in web pages do not have a event parameter,
+		 *      which is different from the handlers on the main process.
+		 *   2. There is no way to send synchronous messages from the main process
+		 *      to a renderer process, because it would be very easy to cause dead locks.
+		 */
+		send(channel: string, ...args: any[]): void;
+		/**
+		 * @returns the WebContents associated with this webview.
+		 */
+		getWebContents(): WebContents;
 	}
 }
 
