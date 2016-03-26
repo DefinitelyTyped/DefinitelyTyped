@@ -9774,7 +9774,7 @@ declare namespace WinJS.Utilities {
     /**
      * Represents the result of a query selector, and provides various operations that perform actions over the elements of the collection.
     **/
-    class QueryCollection<T> implements Array<T> {
+    class QueryCollection<T> extends Array<T> {
         //#region Methods
 
         /**
