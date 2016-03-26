@@ -97,9 +97,9 @@ uriOpts = {scheme: expArr};
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-var whenOpts: Joi.WhenOptions = null;
+var whenOpts: Joi.WhenOptions<any> = null;
 
-whenOpts = {is: schema};
+whenOpts = {is: x};
 whenOpts = {is: schema, then: schema};
 whenOpts = {is: schema, otherwise: schema};
 
