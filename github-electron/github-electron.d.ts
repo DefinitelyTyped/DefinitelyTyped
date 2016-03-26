@@ -569,6 +569,7 @@ declare namespace Electron {
 			userAgent?: string;
 			extraHeaders?: string;
 		}): void;
+        downloadURL(url: string): void;
 		/**
 		 * @returns The URL of current web page.
 		 */
