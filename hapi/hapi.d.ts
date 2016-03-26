@@ -12,7 +12,6 @@ declare module "hapi" {
     import http = require("http");
     import stream = require("stream");
     import Events = require("events");
-    import BoomError = Boom.BoomError;
 
     interface IDictionary<T> {
         [key: string]: T;
