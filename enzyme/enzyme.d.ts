@@ -7,7 +7,7 @@
 
 declare module "enzyme" {
 
-    import {ReactElement, Component} from "react";
+    import {ReactElement, Component, StatelessComponent, ComponentClass, HTMLAttributes} from "react";
 
     export class ElementClass extends Component<any, any> {
     }
@@ -22,30 +22,34 @@ declare module "enzyme" {
      */
     export type EnzymeSelector = String | typeof ElementClass;
 
-    interface CommonWrapper<T, P, S> {
+    interface CommonWrapper<P, S> {
         /**
          * Find every node in the render tree that matches the provided selector.
          * @param selector The selector to match.
          */
-        find(selector: EnzymeSelector): T;
+        find<P2>(component: ComponentClass<P2>): CommonWrapper<P2, any>;
+        find<P2>(statelessComponent: StatelessComponent<P2>): CommonWrapper<P2, {}>;
+        find(selector: string): CommonWrapper<HTMLAttributes, any>;
 
         /**
          * Finds every node in the render tree that returns true for the provided predicate function.
          * @param predicate
          */
-        findWhere(predicate: (shallowWrapper: ShallowWrapper<P, S>) => Boolean): T;
+        findWhere(predicate: (wrapper: CommonWrapper<any, any>) => Boolean): CommonWrapper<any, any>;
 
         /**
          * Removes nodes in the current wrapper that do not match the provided selector.
          * @param selector The selector to match.
          */
-        filter(selector: EnzymeSelector): T;
+        filter<P2>(component: ComponentClass<P2>): CommonWrapper<P2, any>;
+        filter<P2>(statelessComponent: StatelessComponent<P2>): CommonWrapper<P2, {}>;
+        filter(selector: string): CommonWrapper<HTMLAttributes, any>;
 
         /**
          * Returns a new wrapper with only the nodes of the current wrapper that, when passed into the provided predicate function, return true.
          * @param predicate
          */
-        filterWhere(predicate: (shallowWrapper: ShallowWrapper<P, S>) => Boolean): T;
+        filterWhere(predicate: (wrapper: this) => Boolean): this;
 
         /**
          * Returns whether or not the current wrapper has a node anywhere in it's render tree that looks like the one passed in.
@@ -70,14 +74,17 @@ declare module "enzyme" {
          * This method is effectively the negation or inverse of filter.
          * @param selector
          */
-        not(selector: EnzymeSelector): T;
+        not(selector: EnzymeSelector): this;
 
         /**
          * Returns a new wrapper with all of the children of the node(s) in the current wrapper. Optionally, a selector
          * can be provided and it will filter the children by this selector.
          * @param [selector]
          */
-        children(selector?: EnzymeSelector): T;
+        children<P2>(component: ComponentClass<P2>): CommonWrapper<P2, any>;
+        children<P2>(statelessComponent: StatelessComponent<P2>): CommonWrapper<P2, {}>;
+        children(selector: string): CommonWrapper<HTMLAttributes, any>;
+        children(): CommonWrapper<any, any>;
 
         /**
          * Returns a wrapper around all of the parents/ancestors of the wrapper. Does not include the node in the
@@ -86,12 +93,15 @@ declare module "enzyme" {
          * Note: can only be called on a wrapper of a single node.
          * @param [selector]
          */
-        parents(selector?: EnzymeSelector): T;
+        parents<P2>(component: ComponentClass<P2>): CommonWrapper<P2, any>;
+        parents<P2>(statelessComponent: StatelessComponent<P2>): CommonWrapper<P2, {}>;
+        parents(selector: string): CommonWrapper<HTMLAttributes, any>;
+        parents(): CommonWrapper<any, any>;
 
         /**
          * Returns a wrapper with the direct parent of the node in the current wrapper.
          */
-        parent(): T;
+        parent(): CommonWrapper<any, any>;
 
         /**
          * Returns a wrapper of the first element that matches the selector by traversing up through the current node's
@@ -100,7 +110,9 @@ declare module "enzyme" {
          * Note: can only be called on a wrapper of a single node.
          * @param selector
          */
-        closest(selector: EnzymeSelector): T;
+        closest<P2>(component: ComponentClass<P2>): CommonWrapper<P2, any>;
+        closest<P2>(statelessComponent: StatelessComponent<P2>): CommonWrapper<P2, {}>;
+        closest(selector: string): CommonWrapper<HTMLAttributes, any>;
 
         /**
          * Returns a string of the rendered text of the current render tree. This function should be looked at with
@@ -128,17 +140,17 @@ declare module "enzyme" {
          * Returns a wrapper around the node at a given index of the current wrapper.
          * @param index
          */
-        at(index: number): T;
+        at(index: number): this;
 
         /**
          * Reduce the set of matched nodes to the first in the set.
          */
-        first(): T;
+        first(): this;
 
         /**
          * Reduce the set of matched nodes to the last in the set.
          */
-        last(): T;
+        last(): this;
 
         /**
          * Returns the state hash for the root node of the wrapper. Optionally pass in a prop name and it will return just that value.
@@ -151,7 +163,7 @@ declare module "enzyme" {
          *
          * NOTE: can only be called on a wrapper of a single node.
          */
-        props(): Object;
+        props(): P;
 
         /**
          * Returns the prop value for the node of the current wrapper with the provided key.
@@ -167,7 +179,7 @@ declare module "enzyme" {
          * @param event
          * @param args?
          */
-        simulate(event: String, ...args: any[]): T;
+        simulate(event: string, ...args: any[]): this;
 
         /**
          * A method to invoke setState() on the root component instance similar to how you might in the definition of
@@ -180,7 +192,7 @@ declare module "enzyme" {
          * NOTE: can only be called on a wrapper instance that is also the root instance.
          * @param state
          */
-        setState(state: S): T;
+        setState(state: S): this;
 
         /**
          * A method that sets the props of the root component, and re-renders. Useful for when you are wanting to test
@@ -193,7 +205,7 @@ declare module "enzyme" {
          * NOTE: can only be called on a wrapper instance that is also the root instance.
          * @param state
          */
-        setProps(state: Object): T;
+        setProps(props: P): this;
 
         /**
          * A method that sets the context of the root component, and re-renders. Useful for when you are wanting to
@@ -203,7 +215,7 @@ declare module "enzyme" {
          * NOTE: can only be called on a wrapper instance that is also the root instance.
          * @param state
          */
-        setContext(state: Object): T;
+        setContext(context: Object): this;
 
         /**
          * Gets the instance of the component being rendered as the root node passed into shallow().
@@ -219,7 +231,7 @@ declare module "enzyme" {
          *
          * NOTE: can only be called on a wrapper instance that is also the root instance.
          */
-        update(): T;
+        update(): this;
 
         /**
          * Returns an html-like string of the wrapper for debugging purposes. Useful to print out to the console when
@@ -243,7 +255,7 @@ declare module "enzyme" {
          * @param fn A callback to be run for every node in the collection. Should expect a ShallowWrapper as the first
          *              argument, and will be run with a context of the original instance.
          */
-        forEach(fn: (wrapper: ShallowWrapper<P, S>) => void): T;
+        forEach(fn: (wrapper: this) => any): this;
 
         /**
          * Maps the current array of nodes to another array. Each node is passed in as a ShallowWrapper to the map
@@ -253,7 +265,7 @@ declare module "enzyme" {
          *              to the returned array. Should expect a ShallowWrapper as the first argument, and will be run
          *              with a context of the original instance.
          */
-        map(fn: (wrapper: ShallowWrapper<P, S>) => any): Array<any>;
+        map<V>(fn: (wrapper: this) => V): V[];
 
         /**
          * Applies the provided reducing function to every node in the wrapper to reduce to a single value. Each node
@@ -261,7 +273,7 @@ declare module "enzyme" {
          * @param fn
          * @param initialValue
          */
-        reduce<R>(fn: (prevVal: R, wrapper: ShallowWrapper<P, S>, index: number) => R, initialValue?: R): R[];
+        reduce<R>(fn: (prevVal: R, wrapper: this, index: number) => R, initialValue?: R): R[];
 
         /**
          * Applies the provided reducing function to every node in the wrapper to reduce to a single value.
@@ -269,7 +281,7 @@ declare module "enzyme" {
          * @param fn
          * @param initialValue
          */
-        reduceRight<R>(fn: (prevVal: R, wrapper: ShallowWrapper<P, S>, index: number) => R, initialValue?: R): R[];
+        reduceRight<R>(fn: (prevVal: R, wrapper: this, index: number) => R, initialValue?: R): R[];
 
         /**
          * Returns whether or not any of the nodes in the wrapper match the provided selector.
@@ -281,7 +293,7 @@ declare module "enzyme" {
          * Returns whether or not any of the nodes in the wrapper pass the provided predicate function.
          * @param fn
          */
-        someWhere(fn: (wrapper: ShallowWrapper<P, S>) => Boolean): Boolean;
+        someWhere(fn: (wrapper: this) => Boolean): Boolean;
 
         /**
          * Returns whether or not all of the nodes in the wrapper match the provided selector.
@@ -293,22 +305,81 @@ declare module "enzyme" {
          * Returns whether or not any of the nodes in the wrapper pass the provided predicate function.
          * @param fn
          */
-        everyWhere(fn: (wrapper: ShallowWrapper<P, S>) => Boolean): Boolean;
+        everyWhere(fn: (wrapper: this) => Boolean): Boolean;
 
         length: number;
     }
 
-    export interface ShallowWrapper<P, S> extends CommonWrapper<ShallowWrapper<P, S>, P, S> {
+    export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
         shallow(): ShallowWrapper<P, S>;
-
         render(): CheerioWrapper<P, S>;
+
+        /**
+         * Find every node in the render tree that matches the provided selector.
+         * @param selector The selector to match.
+         */
+        find<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
+        find<P2>(statelessComponent: (props: P2) => JSX.Element): ShallowWrapper<P2, {}>;
+        find(selector: string): ShallowWrapper<HTMLAttributes, any>;
+
+        /**
+         * Removes nodes in the current wrapper that do not match the provided selector.
+         * @param selector The selector to match.
+         */
+        filter<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
+        filter<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, {}>;
+        filter(selector: string): ShallowWrapper<HTMLAttributes, any>;
+
+        /**
+         * Finds every node in the render tree that returns true for the provided predicate function.
+         * @param predicate
+         */
+        findWhere(predicate: (wrapper: CommonWrapper<any, any>) => Boolean): ShallowWrapper<any, any>;
+
+        /**
+         * Returns a new wrapper with all of the children of the node(s) in the current wrapper. Optionally, a selector
+         * can be provided and it will filter the children by this selector.
+         * @param [selector]
+         */
+        children<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
+        children<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, {}>;
+        children(selector: string): ShallowWrapper<HTMLAttributes, any>;
+        children(): ShallowWrapper<any, any>;
+
+        /**
+         * Returns a wrapper around all of the parents/ancestors of the wrapper. Does not include the node in the
+         * current wrapper. Optionally, a selector can be provided and it will filter the parents by this selector.
+         *
+         * Note: can only be called on a wrapper of a single node.
+         * @param [selector]
+         */
+        parents<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
+        parents<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, {}>;
+        parents(selector: string): ShallowWrapper<HTMLAttributes, any>;
+        parents(): ShallowWrapper<any, any>;
+
+        /**
+         * Returns a wrapper of the first element that matches the selector by traversing up through the current node's
+         * ancestors in the tree, starting with itself.
+         *
+         * Note: can only be called on a wrapper of a single node.
+         * @param selector
+         */
+        closest<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
+        closest<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, {}>;
+        closest(selector: string): ShallowWrapper<HTMLAttributes, any>;
+
+        /**
+         * Returns a wrapper with the direct parent of the node in the current wrapper.
+         */
+        parent(): ShallowWrapper<any, any>;
     }
 
-    export interface ReactWrapper<P, S> extends CommonWrapper<ReactWrapper<P, S>, P, S> {
+    export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
 
     }
 
-    export interface CheerioWrapper<P, S> extends CommonWrapper<CheerioWrapper<P, S>, P, S> {
+    export interface CheerioWrapper<P, S> extends CommonWrapper<P, S> {
 
     }
 
