@@ -20,3 +20,10 @@ app.get("/", function(req, res) {
 
     res.end(userAgentString);
 });
+
+app.get("/parse", function(req, res) {
+    const source = req.headers['user-agent'],
+    const ua = useragent.parse(source);
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end(JSON.stringify(ua));
+});
