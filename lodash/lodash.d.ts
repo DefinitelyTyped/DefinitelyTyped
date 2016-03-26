@@ -7887,6 +7887,72 @@ declare module _ {
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
     }
 
+    //_.invoke
+    interface LoDashStatic {
+        /**
+        * Invokes the method at path of object.
+        * @param object The object to query.
+        * @param path The path of the method to invoke.
+        * @param args The arguments to invoke the method with.
+        **/
+        invoke<TObject extends Object, TResult>(
+            object: TObject,
+            path: StringRepresentable|StringRepresentable[],
+            ...args: any[]): TResult;
+
+        /**
+        * @see _.invoke
+        **/
+        invoke<TValue, TResult>(
+            object: Dictionary<TValue>|TValue[],
+            path: StringRepresentable|StringRepresentable[],
+            ...args: any[]): TResult;
+
+        /**
+        * @see _.invoke
+        **/
+        invoke<TResult>(
+            object: any,
+            path: StringRepresentable|StringRepresentable[],
+            ...args: any[]): TResult;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+        * @see _.invoke
+        **/
+        invoke<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            ...args: any[]): TResult;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+        * @see _.invoke
+        **/
+        invoke<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            ...args: any[]): TResult;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+        * @see _.invoke
+        **/
+        invoke<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            ...args: any[]): TResult;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+        * @see _.invoke
+        **/
+        invoke<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            ...args: any[]): TResult;
+    }
+
     //_.invokeMap
     interface LoDashStatic {
         /**
