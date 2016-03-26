@@ -809,6 +809,7 @@ declare namespace Electron {
 		 * Toggle the developer tools.
 		 */
 		toggleDevTools(): void;
+        savePage(fullpath:string, saveType:'HTMLOnly'|'HTMLComplete'|'MHTML', callback:(e:any) => void): void;
 		/**
 		 * Starts inspecting element at position (x, y).
 		 */
