@@ -123,6 +123,12 @@ function Argv$options() {
 		.options('f', {
 			alias: 'file',
 			default: '/etc/passwd',
+			defaultDescription: 'The /etc/passwd file',
+			group: 'files',
+			normalize: true,
+			global: false,
+			array: true,
+			nargs: 3
 		})
 		.argv
 	;
@@ -132,6 +138,37 @@ function Argv$options() {
 		.default('f', '/etc/passwd')
 		.argv
 	;
+}
+
+function Argv$global() {
+	var argv = yargs
+		.global('foo')
+		.global(['bar', 'baz', 'fizz', 'buzz'])
+}
+
+function Argv$group() {
+	var argv = yargs
+		.group('foo', 'foogroup')
+		.group(['bing', 'bang', 'buzz'], 'onomatopoeia')
+}
+
+function Argv$env() {
+	var argv = yargs
+		.env('YARGS_PREFIX_')
+		.env()
+		.env(true);
+}
+
+function Argv$array() {
+	var argv = yargs
+		.array('foo')
+		.array(['bar', 'baz'])
+}
+
+function Argv$nargs() {
+	var argv = yargs
+		.nargs('foo', 12)
+		.nargs({'bing': 3, 'bang': 2, 'buzz': 4})
 }
 
 function Argv$choices() {
@@ -241,7 +278,7 @@ function Argv$locale() {
 
 function Argv$epilogue() {
 	var argv = yargs
-  		.epilogue('for more information, find our manual at http://example.com');
+		.epilogue('for more information, find our manual at http://example.com');
 }
 
 function Argv$reset() {
