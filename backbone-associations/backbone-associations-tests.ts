@@ -41,7 +41,7 @@ namespace Backbone.Associations.Tests {
         }
 
         class Locations extends Backbone.Collection<Location> {
-            comparator(c: Backbone.Model) {
+            comparator = (c: Backbone.Model) => {
                 return c.get("Number");
             }
         }
