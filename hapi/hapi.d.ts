@@ -12,6 +12,7 @@ declare module "hapi" {
     import http = require("http");
     import stream = require("stream");
     import Events = require("events");
+    import BoomError = Boom.BoomError;
 
     interface IDictionary<T> {
         [key: string]: T;
@@ -1452,7 +1453,7 @@ declare module "hapi" {
         }): Response;
 
        /** hold() - puts the response on hold until response.send() is called. Available only after reply() is called and until response.hold() is invoked once. */
-       hold();
+       hold():Response;
 
 		/** location(uri) - sets the HTTP 'Location' header where:
 		uri - an absolute or relative URI used as the 'Location' header value.*/
@@ -1474,9 +1475,9 @@ declare module "hapi" {
 		value - the cookie value. If no encoding is defined, must be a string.
 		options - optional configuration. If the state was previously registered with the server using server.state(), the specified keys in options override those same keys in the server definition (but not others).*/
         state(name: string, value: string, options?: any): Response;
-       
+
         /** send() - resume the response which will be transmitted in the next tick. Available only after response.hold() is called and until response.send() is invoked once. */
-        send();
+        send():void;
 
         /** sets a string suffix when the response is process via JSON.stringify().*/
         suffix(suffix: string): void;
