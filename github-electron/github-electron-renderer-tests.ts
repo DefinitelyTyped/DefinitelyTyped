@@ -205,3 +205,40 @@ app.on('ready', () => {
 // https://github.com/atom/electron/blob/master/docs/api/shell.md
 
 shell.openExternal('https://github.com');
+
+// <webview>
+// https://github.com/atom/electron/blob/master/docs/api/web-view-tag.md
+
+var webview = document.createElement('webview');
+webview.loadURL('https://github.com');
+
+webview.addEventListener('console-message', function(e) {
+	console.log('Guest page logged a message:', e.message);
+});
+
+webview.addEventListener('found-in-page', function(e) {
+	if (e.result.finalUpdate) {
+		webview.stopFindInPage("keepSelection");
+	}
+});
+
+var rquestId = webview.findInPage("test");
+
+webview.addEventListener('new-window', function(e) {
+	require('electron').shell.openExternal(e.url);
+});
+
+webview.addEventListener('close', function() {
+	webview.src = 'about:blank';
+});
+
+// In embedder page.
+webview.addEventListener('ipc-message', function(event) {
+	console.log(event.channel); // Prints "pong"
+});
+webview.send('ping');
+
+// In guest page.
+ipcRenderer.on('ping', function() {
+	ipcRenderer.sendToHost('pong');
+});
