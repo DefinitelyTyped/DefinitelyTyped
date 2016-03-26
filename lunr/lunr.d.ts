@@ -806,6 +806,32 @@ declare namespace lunr
          */
         static load(serialisedData:any):TokenStore;
     }
+
+    /**
+     * A namespace containing utils for the rest of the lunr library
+     */
+    module utils {
+        /**
+         * Print a warning message to the console.
+         *
+         * @param {String} message The message to be printed.
+         * @memberOf Utils
+         */
+        function warn(message: any): void;
+
+        /**
+         * Convert an object to a string.
+         *
+         * In the case of `null` and `undefined` the function returns
+         * the empty string, in all other cases the result of calling
+         * `toString` on the passed object is returned.
+         *
+         * @param {Any} obj The object to convert to a string.
+         * @return {String} string representation of the passed object.
+         * @memberOf Utils
+         */
+        function asString(obj: any): string;
+    }
 }
 
 
