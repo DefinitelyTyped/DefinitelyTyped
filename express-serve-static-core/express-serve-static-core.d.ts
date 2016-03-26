@@ -783,8 +783,7 @@ declare module "express-serve-static-core" {
     }
 
     interface NextFunction {
-        (): void;
-        (err: any): void;
+        (err?: any): void;
     }
 
     interface ErrorRequestHandler {
