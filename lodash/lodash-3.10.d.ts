@@ -1166,6 +1166,13 @@ declare module _ {
         first<T>(array: List<T>): T;
     }
 
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.first
+         */
+        first(): string;
+    }
+
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.first
@@ -1177,7 +1184,28 @@ declare module _ {
         /**
          * @see _.first
          */
-        first<TResult>(): TResult;
+        first<T>(): T;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.first
+         */
+        first(): LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.first
+         */
+        first<T>(): T;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.first
+         */
+        first<T>(): T;
     }
 
     interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
@@ -1309,6 +1337,13 @@ declare module _ {
         head<T>(array: List<T>): T;
     }
 
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.first
+         */
+        head(): string;
+    }
+
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.first
@@ -1320,7 +1355,28 @@ declare module _ {
         /**
          * @see _.first
          */
-        head<TResult>(): TResult;
+        head<T>(): T;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.first
+         */
+        head(): LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.first
+         */
+        head<T>(): T;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.first
+         */
+        head<T>(): T;
     }
 
     //_.indexOf
