@@ -25,7 +25,7 @@ interface Select2AjaxOptions {
     */
     url?: any;
     dataType?: string;
-    quietMillis?: number;
+    delay?: number;
     cache?: boolean;
     data?: (term: string, page: number, context: any) => any;
     results?: (term: any, page: number, context: any) => any;
