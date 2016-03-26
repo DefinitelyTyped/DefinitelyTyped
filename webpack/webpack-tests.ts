@@ -247,6 +247,12 @@ configuration = {
     devtool: "#inline-source-map"
 };
 
+configuration = {
+  resolve: {
+    root: __dirname
+  }
+};
+
 loader = {
     test: /\.jsx$/,
     include: [
