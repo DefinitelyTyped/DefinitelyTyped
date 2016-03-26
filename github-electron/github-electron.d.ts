@@ -214,7 +214,6 @@ declare namespace Electron {
 		 */
 		getVersion(): string;
 		/**
-		 *
 		 * @returns The current application's name, the name in package.json would be used.
 		 * Usually the name field of package.json is a short lowercased name, according to
 		 * the spec of npm modules. So usually you should also specify a productName field,
@@ -224,7 +223,7 @@ declare namespace Electron {
 		getName(): string;
 		/**
 		  * @returns The current application locale.
-		  **/
+		  */
 		getLocale(): string;
 		/**
 		 * Adds path to recent documents list.
@@ -662,10 +661,7 @@ declare namespace Electron {
 		 *
 		 * Note: This API is available only on OS X.
 		 */
-		setAspectRatio(aspectRatio: number, extraSize?: {
-			width: number,
-			height: number
-		}): void;
+		setAspectRatio(aspectRatio: number, extraSize?: Dimension): void;
 		/**
 		 * Resizes and moves the window to width, height, x, y.
 		 */
@@ -868,28 +864,15 @@ declare namespace Electron {
 		/**
 		 * Same with webContents.print([options])
 		 */
-		print(options?: {
-			silent?: boolean;
-			printBackground?: boolean;
-		}): void;
+		print(options?: PrintOptions): void;
 		/**
 		 * Same with webContents.printToPDF([options])
 		 */
-		printToPDF(options: {
-			marginsType?: number;
-			pageSize?: string;
-			printBackground?: boolean;
-			printSelectionOnly?: boolean;
-			landscape?: boolean;
-		}, callback: (error: Error, data: Buffer) => void): void;
+		printToPDF(options: PrintToPDFOptions, callback: (error: Error, data: Buffer) => void): void;
 		/**
 		 * Same with webContents.loadURL(url).
 		 */
-		loadURL(url: string, options?: {
-			httpReferrer?: string;
-			userAgent?: string;
-			extraHeaders?: string;
-		}): void;
+		loadURL(url: string, options?: LoadURLOptions): void;
 		/**
 		 * Same with webContents.reload.
 		 */
@@ -1148,7 +1131,8 @@ declare namespace Electron {
 		/**
 		 * The width and height would be used as web page’s size, which means
 		 * the actual window’s size will include window frame’s size and be slightly larger.
-		 * Default: false. */
+		 * Default: false.
+		 */
 		useContentSize?: boolean;
 		/**
 		 * Show window in the center of the screen.
@@ -1236,7 +1220,7 @@ declare namespace Electron {
 		 */
 		title?: string;
 		/**
-		 *The window icon, when omitted on Windows the executable’s icon would be used as window icon.
+		 * The window icon, when omitted on Windows the executable’s icon would be used as window icon.
 		 */
 		icon?: NativeImage|string;
 		/**
@@ -1586,10 +1570,7 @@ declare namespace Electron {
 		 * The suggested size that thumbnail should be scaled.
 		 * Default: {width: 150, height: 150}
 		 */
-		thumbnailSize?: {
-			width: number;
-			height: number;
-		};
+		thumbnailSize?: Dimension;
 	}
 
 	interface DesktopCapturerSource {
@@ -2818,10 +2799,7 @@ declare namespace Electron {
 		 * The position is only available on Windows, and it is (0, 0) by default.
 		 * Note: This is only implemented on OS X and Windows.
 		 */
-		popUpContextMenu(menu?: Menu, position?: {
-		   x: number;
-		   y: number;
-		}): void;
+		popUpContextMenu(menu?: Menu, position?: Point): void;
 		/**
 		 * Sets the context menu for this icon.
 		 */
@@ -3039,11 +3017,7 @@ declare namespace Electron {
 		 * Loads the url in the window.
 		 * @param url Must contain the protocol prefix (e.g., the http:// or file://).
 		 */
-		loadURL(url: string, options?: {
-			httpReferrer?: string;
-			userAgent?: string;
-			extraHeaders?: string;
-		}): void;
+		loadURL(url: string, options?: LoadURLOptions): void;
 		/**
 		 * Initiates a download of the resource at url without navigating.
 		 * The will-download event of session will be triggered.
@@ -3192,21 +3166,15 @@ declare namespace Electron {
 		 */
 		insertText(text: string): void;
 		/**
-		 * Starts a request to find all matches for the text in the web page and
-		 * returns an Integer representing the request id used for the request.
-		 * The result of the request can be obtained by subscribing to
-		 * found-in-page event.
+		 * Starts a request to find all matches for the text in the web page.
+		 * The result of the request can be obtained by subscribing to found-in-page event.
+		 * @returns The request id used for the request.
 		 */
-		findInPage(text: string, options?: FindInPageOptions): void;
+		findInPage(text: string, options?: FindInPageOptions): number;
 		/**
-		 * Stops any findInPage request for the webContents with the provided
-		 * action.
-		 * @param action Specifies the action to take place when ending webContents.findInPage request.
-		 *   'clearSelection' - Translate the selection into a normal selection.
-		 *   'keepSelection' - Clear the selection.
-		 *   'activateSelection' - Focus and click the selection node.
+		 * Stops any findInPage request for the webContents with the provided action.
 		 */
-		stopFindInPage(action: 'clearSelection' | 'keepSelection' | 'activateSelection'): void;
+		stopFindInPage(action: StopFindInPageAtion): void;
 		/**
 		 * Checks if any serviceworker is registered.
 		 */
@@ -3214,67 +3182,17 @@ declare namespace Electron {
 		/**
 		 * Unregisters any serviceworker if present.
 		 */
-		unregisterServiceWorker(callback:
-			/**
-			 * @param isFulfilled Whether the JS promise is fulfilled.
-			 */
-			(isFulfilled: boolean) => void): void;
+		unregisterServiceWorker(callback: (isFulfilled: boolean) => void): void;
 		/**
-		 *
 		 * Prints window's web page. When silent is set to false, Electron will pick up system's default printer and default settings for printing.
 		 * Calling window.print() in web page is equivalent to call WebContents.print({silent: false, printBackground: false}).
-		 * Note:
-		 *   On Windows, the print API relies on pdf.dll. If your application doesn't need print feature, you can safely remove pdf.dll in saving binary size.
+		 * Note: On Windows, the print API relies on pdf.dll. If your application doesn't need print feature, you can safely remove pdf.dll in saving binary size.
 		 */
-		print(options?: {
-			/**
-			 *  Don't ask user for print settings, defaults to false
-			 */
-			silent?: boolean;
-			/**
-			 * Also prints the background color and image of the web page, defaults to false.
-			 */
-			printBackground: boolean;
-		}): void;
+		print(options?: PrintOptions): void;
 		/**
 		 * Prints windows' web page as PDF with Chromium's preview printing custom settings.
 		 */
-		printToPDF(options: {
-			/**
-			 * Specify the type of margins to use. Default is 0.
-			 *   0 - default
-			 *   1 - none
-			 *   2 - minimum
-			 */
-			marginsType?: number;
-			/**
-			 * String - Specify page size of the generated PDF. Default is A4.
-			 *   A4
-			 *   A3
-			 *   Legal
-			 *   Letter
-			 *   Tabloid
-			 */
-			pageSize?: string;
-			/**
-			 * Whether to print CSS backgrounds. Default is false.
-			 */
-			printBackground?: boolean;
-			/**
-			 * Whether to print selection only. Default is false.
-			 */
-			printSelectionOnly?: boolean;
-			/**
-			 * true for landscape, false for portrait.  Default is false.
-			 */
-			landscape?: boolean;
-		},
-		/**
-		 * Callback function on completed converting to PDF.
-		 *   error Error
-		 *   data Buffer - PDF file content
-		 */
-		callback: (error: Error, data: Buffer) => void): void;
+		printToPDF(options: PrintToPDFOptions, callback: (error: Error, data: Buffer) => void): void;
 		/**
 		 * Adds the specified path to DevTools workspace.
 		 */
@@ -3380,7 +3298,74 @@ declare namespace Electron {
 		debugger: Debugger;
 	}
 
+	/**
+	 * Specifies the action to take place when ending webContents.findInPage request.
+	 * 'clearSelection' - Translate the selection into a normal selection.
+	 * 'keepSelection' - Clear the selection.
+	 * 'activateSelection' - Focus and click the selection node.
+	 */
+	type StopFindInPageAtion = 'clearSelection' | 'keepSelection' | 'activateSelection';
+
 	type CursorType = 'default' | 'crosshair' | 'pointer' | 'text' | 'wait' | 'help' | 'e-resize' | 'n-resize' | 'ne-resize' | 'nw-resize' | 's-resize' | 'se-resize' | 'sw-resize' | 'w-resize' | 'ns-resize' | 'ew-resize' | 'nesw-resize' | 'nwse-resize' | 'col-resize' | 'row-resize' | 'm-panning' | 'e-panning' | 'n-panning' | 'ne-panning' | 'nw-panning' | 's-panning' | 'se-panning' |'sw-panning' | 'w-panning' | 'move' | 'vertical-text' | 'cell' | 'context-menu' | 'alias' | 'progress' | 'nodrop' | 'copy' | 'none' | 'not-allowed' | 'zoom-in' | 'zoom-out' | 'grab' | 'grabbing' | 'custom';
+
+	interface LoadURLOptions {
+		/**
+		 * HTTP Referrer URL.
+		 */
+		httpReferrer?: string;
+		/**
+		 * User agent originating the request.
+		 */
+		userAgent?: string;
+		/**
+		 * Extra headers separated by "\n"
+		 */
+		extraHeaders?: string;
+	}
+
+	interface PrintOptions {
+		/**
+		 * Don't ask user for print settings.
+		 * Defaults: false.
+		 */
+		silent?: boolean;
+		/**
+		 * Also prints the background color and image of the web page.
+		 * Defaults: false.
+		 */
+		printBackground?: boolean;
+	}
+
+	interface PrintToPDFOptions {
+		/**
+		 * Specify the type of margins to use.
+		 *   0 - default
+		 *   1 - none
+		 *   2 - minimum
+		 * Default: 0
+		 */
+		marginsType?: number;
+		/**
+		 * Specify page size of the generated PDF.
+		 * Default: A4.
+		 */
+		pageSize?: 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid';
+		/**
+		 * Whether to print CSS backgrounds.
+		 * Default: false.
+		 */
+		printBackground?: boolean;
+		/**
+		 * Whether to print selection only.
+		 * Default: false.
+		 */
+		printSelectionOnly?: boolean;
+		/**
+		 * true for landscape, false for portrait.
+		 * Default: false.
+		 */
+		landscape?: boolean;
+	}
 
 	interface Certificate {
 		/**
@@ -3438,30 +3423,12 @@ declare namespace Electron {
 		/**
 		 * Set the emulated screen size (screenPosition == mobile)
 		 */
-		screenSize?: {
-			/**
-			 * Set the emulated screen width
-			 */
-			width: number;
-			/**
-			 * Set the emulated screen height
-			 */
-			height: number;
-		};
+		screenSize?: Dimension;
 		/**
 		 * Position the view on the screen (screenPosition == mobile)
 		 * Default: {x: 0, y: 0}
 		 */
-		viewPosition?: {
-			/**
-			 * Set the x axis offset from top left corner
-			 */
-			x: number;
-			/**
-			 * Set the y axis offset from top left corner
-			 */
-			y: number;
-		};
+		viewPosition?: Point;
 		/**
 		 * Set the device scale factor (if zero defaults to original device scale factor)
 		 * Default: 0
@@ -3470,16 +3437,7 @@ declare namespace Electron {
 		/**
 		 * Set the emulated view size (empty means no override).
 		 */
-		viewSize?: {
-			/**
-			 * Set the emulated view width
-			 */
-			width: number;
-			/**
-			 * Set the emulated view height
-			 */
-			height: number;
-		};
+		viewSize?: Dimension;
 		/**
 		 * Whether emulated view should be scaled down if necessary to fit into available space
 		 * Default: false
@@ -3489,16 +3447,7 @@ declare namespace Electron {
 		 * Offset of the emulated view inside available space (not in fit to view mode)
 		 * Default: {x: 0, y: 0}
 		 */
-		offset?: {
-			/**
-			 * Set the x axis offset from top left corner
-			 */
-			x: number;
-			/**
-			 * Set the y axis offset from top left corner
-			 */
-			y: number;
-		};
+		offset?: Point;
 		/**
 		 * Scale of emulated view inside available space (not in fit to view mode)
 		 * Default: 1
