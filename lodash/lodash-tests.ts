@@ -4817,10 +4817,12 @@ namespace TestSome {
     let list: _.List<SampleObject>;
     let dictionary: _.Dictionary<SampleObject>;
     let numericDictionary: _.NumericDictionary<SampleObject>;
+    let sampleObject: SampleObject;
 
     let listIterator: (value: SampleObject, index: number, collection: _.List<SampleObject>) => boolean;
     let dictionaryIterator: (value: SampleObject, key: string, collection: _.Dictionary<SampleObject>) => boolean;
     let numericDictionaryIterator: (value: SampleObject, key: number, collection: _.NumericDictionary<SampleObject>) => boolean;
+    let objectIterator: (value: any, key: string, collection: any) => boolean;
 
     {
         let result: boolean;
@@ -4849,6 +4851,12 @@ namespace TestSome {
         result = _.some<SampleObject>(numericDictionary, ['a', 42]);
         result = _.some<{a: number}, SampleObject>(numericDictionary, {a: 42});
 
+        result = _.some(sampleObject);
+        result = _.some(sampleObject, objectIterator);
+        result = _.some(sampleObject, 'a');
+        result = _.some(sampleObject, ['a', 42]);
+        result = _.some<{a: number}>(sampleObject, {a: 42});
+
         result = _(array).some();
         result = _(array).some(listIterator);
         result = _(array).some('a');
@@ -4872,6 +4880,12 @@ namespace TestSome {
         result = _(numericDictionary).some('a');
         result = _(numericDictionary).some(['a', 42]);
         result = _(numericDictionary).some<{a: number}>({a: 42});
+
+        result = _(sampleObject).some();
+        result = _(sampleObject).some(objectIterator);
+        result = _(sampleObject).some('a');
+        result = _(sampleObject).some(['a', 42]);
+        result = _(sampleObject).some<{a: number}>({a: 42});
     }
 
     {
@@ -4900,6 +4914,12 @@ namespace TestSome {
         result = _(numericDictionary).chain().some('a');
         result = _(numericDictionary).chain().some(['a', 42]);
         result = _(numericDictionary).chain().some<{a: number}>({a: 42});
+
+        result = _(sampleObject).chain().some();
+        result = _(sampleObject).chain().some(objectIterator);
+        result = _(sampleObject).chain().some('a');
+        result = _(sampleObject).chain().some(['a', 42]);
+        result = _(sampleObject).chain().some<{a: number}>({a: 42});
     }
 }
 

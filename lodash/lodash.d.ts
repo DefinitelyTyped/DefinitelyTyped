@@ -8845,9 +8845,26 @@ declare module _ {
         /**
          * @see _.some
          */
+        some(
+            collection: Object,
+            predicate?: ObjectIterator<any, boolean>
+        ): boolean;
+
+        /**
+         * @see _.some
+         */
         some<T>(
             collection: List<T>|Dictionary<T>|NumericDictionary<T>,
-            predicate?: string|any[]
+            predicate?: string|[string, any]
+        ): boolean;
+
+
+        /**
+         * @see _.some
+         */
+        some(
+            collection: Object,
+            predicate?: string|[string, any]
         ): boolean;
 
         /**
@@ -8855,6 +8872,22 @@ declare module _ {
          */
         some<TObject extends {}, T>(
             collection: List<T>|Dictionary<T>|NumericDictionary<T>,
+            predicate?: TObject
+        ): boolean;
+
+        /**
+         * @see _.some
+         */
+        some<T>(
+            collection: List<T>|Dictionary<T>|NumericDictionary<T>,
+            predicate?: Object
+        ): boolean;
+
+        /**
+         * @see _.some
+         */
+        some<TObject extends {}>(
+            collection: Object,
             predicate?: TObject
         ): boolean;
     }
@@ -8871,7 +8904,7 @@ declare module _ {
          * @see _.some
          */
         some(
-            predicate?: string|any[]
+            predicate?: string|[string, any]
         ): boolean;
 
         /**
@@ -8887,14 +8920,14 @@ declare module _ {
          * @see _.some
          */
         some<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>|ObjectIterator<any, boolean>
         ): boolean;
 
         /**
          * @see _.some
          */
         some(
-            predicate?: string|any[]
+            predicate?: string|[string, any]
         ): boolean;
 
         /**
@@ -8917,7 +8950,7 @@ declare module _ {
          * @see _.some
          */
         some(
-            predicate?: string|any[]
+            predicate?: string|[string, any]
         ): LoDashExplicitWrapper<boolean>;
 
         /**
@@ -8933,14 +8966,14 @@ declare module _ {
          * @see _.some
          */
         some<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>|ObjectIterator<any, boolean>
         ): LoDashExplicitWrapper<boolean>;
 
         /**
          * @see _.some
          */
         some(
-            predicate?: string|any[]
+            predicate?: string|[string, any]
         ): LoDashExplicitWrapper<boolean>;
 
         /**
