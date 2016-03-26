@@ -73,7 +73,7 @@ interface MarkedRenderer {
     code(code: string, language: string): string;
     blockquote(quote: string): string;
     html(html: string): string;
-    heading(text: string, level: number): string;
+    heading(text: string, level: number, raw: string): string;
     hr(): string;
     list(body: string, ordered: boolean): string;
     listitem(text: string): string;
