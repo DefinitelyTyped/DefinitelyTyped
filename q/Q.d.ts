@@ -21,6 +21,7 @@ declare namespace Q {
     interface Deferred<T> {
         promise: Promise<T>;
         resolve(value?: T): void;
+        resolve(value?: IPromise<T>): void;
         reject(reason: any): void;
         notify(value: any): void;
         makeNodeResolver(): (reason: any, value: T) => void;
