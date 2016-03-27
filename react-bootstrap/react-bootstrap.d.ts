@@ -5,10 +5,8 @@
 
 ///<reference path="../react/react.d.ts"/>
 
-declare module "react-bootstrap" {
-    // Import React
-    import React = require("react");
-
+declare namespace ReactBootstrap {
+    import React = __React;
 
     // <Button />
     // ----------------------------------------
@@ -761,4 +759,8 @@ declare module "react-bootstrap" {
     }
     class Fade extends React.Component<FadeProps, {}> {
     }
+}
+
+declare module "react-bootstrap" {
+    export = ReactBootstrap;
 }
