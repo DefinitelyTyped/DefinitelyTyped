@@ -2862,7 +2862,7 @@ declare namespace Electron {
 			headers: any
 		) => void): this;
 		/**
-		 *
+		 * Emitted when a redirect is received while requesting a resource.
 		 */
 		on(event: 'did-get-redirect-request', listener: (event: Event,
 			oldURL: string,
