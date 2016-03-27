@@ -164,7 +164,7 @@ holder.ondrop = function (e) {
 // nativeImage
 // https://github.com/atom/electron/blob/master/docs/api/native-image.md
 
-var Tray: typeof Electron.Tray = remote.require('Tray');
+var Tray: Electron.Tray = remote.require('Tray');
 var appIcon2 = new Tray('/Users/somebody/images/icon.png');
 var window2 = new BrowserWindow({ icon: '/Users/somebody/images/window.png' });
 var image = clipboard.readImage();
