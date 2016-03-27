@@ -2892,11 +2892,8 @@ declare namespace Electron {
 		on(event: 'new-window', listener: (event: Event,
 			url: string,
 			frameName: string,
-			disposition: 'default' | 'foreground-tab' | 'background-tab' | 'new-window' | 'other',
-			/**
-			 * The options which will be used for creating the new BrowserWindow.
-			 */
-			options: any
+			disposition: NewWindowDisposition,
+			options: BrowserWindowOptions
 		) => void): this;
 		/**
 		 * Emitted when a user or the page wants to start navigation.
@@ -2981,25 +2978,7 @@ declare namespace Electron {
 		/**
 		 * Emitted when a result is available for webContents.findInPage request.
 		 */
-		on(event: 'found-in-page', listener: (event: Event, result: {
-			requestId: number;
-			/**
-			 * ndicates if more responses are to follow.
-			 */
-			finalUpdate: boolean;
-			/**
-			 * Position of the active match.
-			 */
-			activeMatchOrdinal?: number;
-			/**
-			 * Number of Matches.
-			 */
-			matches?: number;
-			/**
-			 * Coordinates of first match region.
-			 */
-			selectionArea?: any;
-		}) => void): this;
+		on(event: 'found-in-page', listener: (event: Event, result: FoundInPageResult) => void): this;
 		/**
 		 * Emitted when media starts playing.
 		 */
@@ -3305,6 +3284,8 @@ declare namespace Electron {
 		debugger: Debugger;
 	}
 
+	type NewWindowDisposition = 'default' | 'foreground-tab' | 'background-tab' | 'new-window' | 'other';
+
 	/**
 	 * Specifies the action to take place when ending webContents.findInPage request.
 	 * 'clearSelection' - Translate the selection into a normal selection.
@@ -3419,6 +3400,26 @@ declare namespace Electron {
 		 * or non-letter. Accepts several other intra-word matches, defaults to false.
 		 */
 		medialCapitalAsWordStart?: boolean;
+	}
+
+	interface FoundInPageResult {
+		requestId: number;
+		/**
+		 * Indicates if more responses are to follow.
+		 */
+		finalUpdate: boolean;
+		/**
+		 * Position of the active match.
+		 */
+		activeMatchOrdinal?: number;
+		/**
+		 * Number of Matches.
+		 */
+		matches?: number;
+		/**
+		 * Coordinates of first match region.
+		 */
+		selectionArea?: any;
 	}
 
 	interface DeviceEmulationParameters {
@@ -3875,68 +3876,68 @@ declare namespace Electron {
 		 * Fired when a load has committed. This includes navigation within the current document
 		 * as well as subframe document-level loads, but does not include asynchronous resource loads.
 		 */
-		addEventListener(type: 'load-commit', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'load-commit', listener: (event: WebViewElement.LoadCommitEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when the navigation is done, i.e. the spinner of the tab will stop spinning, and the onload event is dispatched.
 		 */
-		addEventListener(type: 'did-finish-load', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-finish-load', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
 		/**
 		 * This event is like did-finish-load, but fired when the load failed or was cancelled, e.g. window.stop() is invoked.
 		 */
-		addEventListener(type: 'did-fail-load', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-fail-load', listener: (event: WebViewElement.DidFailLoadEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when a frame has done navigation.
 		 */
-		addEventListener(type: 'did-frame-finish-load', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-frame-finish-load', listener: (event: WebViewElement.DidFrameFinishLoadEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Corresponds to the points in time when the spinner of the tab starts spinning.
 		 */
-		addEventListener(type: 'did-start-loading', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-start-loading', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
 		/**
 		 * Corresponds to the points in time when the spinner of the tab stops spinning.
 		 */
-		addEventListener(type: 'did-stop-loading', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-stop-loading', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when details regarding a requested resource is available.
 		 * status indicates socket connection to download the resource.
 		 */
-		addEventListener(type: 'did-get-response-details', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-get-response-details', listener: (event: WebViewElement.DidGetResponseRetails) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when a redirect was received while requesting a resource.
 		 */
-		addEventListener(type: 'did-get-redirect-request', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-get-redirect-request', listener: (event: WebViewElement.DidGetRedirectRequestEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when document in the given frame is loaded.
 		 */
-		addEventListener(type: 'dom-ready', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'dom-ready', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when page title is set during navigation. explicitSet is false when title is synthesized from file URL.
 		 */
-		addEventListener(type: 'page-title-updated', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'page-title-updated', listener: (event: WebViewElement.PageTitleUpdatedEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when page receives favicon URLs.
 		 */
-		addEventListener(type: 'page-favicon-updated', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'page-favicon-updated', listener: (event: WebViewElement.PageFaviconUpdatedEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when page enters fullscreen triggered by HTML API.
 		 */
-		addEventListener(type: 'enter-html-full-screen', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'enter-html-full-screen', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when page leaves fullscreen triggered by HTML API.
 		 */
-		addEventListener(type: 'leave-html-full-screen', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'leave-html-full-screen', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when the guest window logs a console message.
 		 */
-		addEventListener(type: 'console-message', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'console-message', listener: (event: WebViewElement.ConsoleMessageEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when a result is available for webview.findInPage request.
 		 */
-		addEventListener(type: 'found-in-page', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'found-in-page', listener: (event: WebViewElement.FoundInPageEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when the guest page attempts to open a new browser window.
 		 */
-		addEventListener(type: 'new-window', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'new-window', listener: (event: WebViewElement.NewWindowEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Emitted when a user or the page wants to start navigation.
 		 * It can happen when the window.location object is changed or a user clicks a link in the page.
@@ -3949,14 +3950,14 @@ declare namespace Electron {
 		 *
 		 * Calling event.preventDefault() does NOT have any effect.
 		 */
-		addEventListener(type: 'will-navigate', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'will-navigate', listener: (event: WebViewElement.NavigateEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Emitted when a navigation is done.
 		 *
 		 * This event is not emitted for in-page navigations, such as clicking anchor links
 		 * or updating the window.location.hash. Use did-navigate-in-page event for this purpose.
 		 */
-		addEventListener(type: 'did-navigate', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-navigate', listener: (event: WebViewElement.NavigateEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Emitted when an in-page navigation happened.
 		 *
@@ -3964,57 +3965,137 @@ declare namespace Electron {
 		 * navigation outside of the page. Examples of this occurring are when anchor links
 		 * are clicked or when the DOM hashchange event is triggered.
 		 */
-		addEventListener(type: 'did-navigate-in-page', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-navigate-in-page', listener: (event: WebViewElement.NavigateEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when the guest page attempts to close itself.
 		 */
-		addEventListener(type: 'close', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'close', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when the guest page has sent an asynchronous message to embedder page.
 		 */
-		addEventListener(type: 'ipc-message', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'ipc-message', listener: (event: WebViewElement.IpcMessageEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when the renderer process is crashed.
 		 */
-		addEventListener(type: 'crashed', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'crashed', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when the gpu process is crashed.
 		 */
-		addEventListener(type: 'gpu-crashed', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'gpu-crashed', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when a plugin process is crashed.
 		 */
-		addEventListener(type: 'plugin-crashed', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'plugin-crashed', listener: (event: WebViewElement.PluginCrashedEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when the WebContents is destroyed.
 		 */
-		addEventListener(type: 'destroyed', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'destroyed', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
 		/**
 		 * Emitted when media starts playing.
 		 */
-		addEventListener(type: 'media-started-playing', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'media-started-playing', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
 		/**
 		 * Emitted when media is paused or done playing.
 		 */
-		addEventListener(type: 'media-paused', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'media-paused', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
 		/**
 		 * Emitted when a page's theme color changes. This is usually due to encountering a meta tag:
 		 * <meta name='theme-color' content='#ff0000'>
 		 */
-		addEventListener(type: 'did-change-theme-color', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-change-theme-color', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
 		/**
 		 * Emitted when DevTools is opened.
 		 */
-		addEventListener(type: 'devtools-opened', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'devtools-opened', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
 		/**
 		 * Emitted when DevTools is closed.
 		 */
-		addEventListener(type: 'devtools-closed', listener: (event: any) => void, useCapture?: boolean): void;
+		addEventListener(type: 'devtools-closed', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
 		/**
 		 * Emitted when DevTools is focused / opened.
 		 */
-		addEventListener(type: 'devtools-focused', listener: (event: any) => void, useCapture?: boolean): void;
-		addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+		addEventListener(type: 'devtools-focused', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
+		addEventListener(type: string, listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
+	}
+
+	namespace WebViewElement {
+		type Event = ElectronPrivate.GlobalEvent;
+
+		interface LoadCommitEvent extends Event  {
+			url: string;
+			isMainFrame: string;
+		}
+
+		interface DidFailLoadEvent extends Event  {
+			errorCode: number;
+			errorDescription: string;
+			validatedURL: string;
+		}
+
+		interface DidFrameFinishLoadEvent extends Event  {
+			isMainFrame: boolean;
+		}
+
+		interface DidGetResponseRetails extends Event  {
+			status: boolean;
+			newURL: string;
+			originalURL: string;
+			httpResponseCode: number;
+			requestMethod: string;
+			referrer: string;
+			headers: any;
+		}
+
+		interface DidGetRedirectRequestEvent extends Event {
+			oldURL: string;
+			newURL: string;
+			isMainFrame: boolean;
+			httpResponseCode: number;
+			requestMethod: string;
+			referrer: string;
+			headers: any;
+		}
+
+		interface PageTitleUpdatedEvent extends Event {
+			title: string;
+			explicitSet: string;
+		}
+
+		interface PageFaviconUpdatedEvent extends Event {
+			favicons: string[];
+		}
+
+		interface ConsoleMessageEvent extends Event {
+			level: number;
+			message: string;
+			line: number;
+			sourceId: string;
+		}
+
+		interface FoundInPageEvent extends Event {
+			result: FoundInPageResult;
+		}
+
+		interface NewWindowEvent extends Event {
+			url: string;
+			frameName: string;
+			disposition: NewWindowDisposition;
+			options: BrowserWindowOptions;
+		}
+
+		interface NavigateEvent extends Event {
+			url: string;
+		}
+
+		interface IpcMessageEvent extends Event {
+			channel: string;
+			args: any[];
+		}
+
+		interface PluginCrashedEvent extends Event {
+			name: string;
+			version: string;
+		}
 	}
 
 	/**
@@ -4081,6 +4162,10 @@ declare namespace Electron {
 		remote: Electron.Remote;
 		webFrame: Electron.WebFrame;
 	}
+}
+
+declare namespace ElectronPrivate {
+	type GlobalEvent = Event;
 }
 
 interface Document {
