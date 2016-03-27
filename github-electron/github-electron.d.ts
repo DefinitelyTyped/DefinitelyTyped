@@ -1,4 +1,4 @@
-// Type definitions for Electron v0.37.2
+// Type definitions for Electron v0.37.3
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -221,6 +221,10 @@ declare namespace Electron {
 		 * name by Electron.
 		 */
 		getName(): string;
+		/**
+		 * Overrides the current application's name.
+		 */
+		setName(name: string): void;
 		/**
 		  * @returns The current application locale.
 		  */
@@ -2118,6 +2122,12 @@ declare namespace Electron {
 		 * @returns string The data URL of the image.
 		 */
 		toDataURL(): string;
+		/**
+		 * The native type of the handle is NSImage* on OS X.
+		 * Note: This is only implemented on OS X.
+		 * @returns The platform-specific handle of the image as Buffer.
+		 */
+		getNativeHandle(): Buffer;
 		/**
 		 * @returns boolean Whether the image is empty.
 		 */
