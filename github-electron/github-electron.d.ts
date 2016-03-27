@@ -30,7 +30,7 @@ declare namespace Electron {
 	/**
 	 * The app module is responsible for controlling the application's lifecycle.
 	 */
-	class App extends EventEmitter {
+	interface App extends NodeJS.EventEmitter {
 		/**
 		 * Emitted when the application has finished basic startup.
 		 * On Windows and Linux, the will-finish-launching event
@@ -396,7 +396,7 @@ declare namespace Electron {
 	/**
 	 * This module provides an interface for the Squirrel auto-updater framework.
 	 */
-	class AutoUpdater extends EventEmitter {
+	interface AutoUpdater extends NodeJS.EventEmitter {
 		/**
 		 * Emitted when there is an error while updating.
 		 */
@@ -1730,7 +1730,7 @@ declare namespace Electron {
 	/**
 	 * DownloadItem represents a download item in Electron.
 	 */
-	class DownloadItem extends EventEmitter {
+	interface DownloadItem extends NodeJS.EventEmitter {
 		/**
 		 * Emits when the downloadItem gets updated.
 		 */
@@ -1834,7 +1834,7 @@ declare namespace Electron {
 	 * sent from a renderer process (web page).
 	 * Messages sent from a renderer will be emitted to this module.
 	 */
-	class IpcMain extends EventEmitter {
+	interface IpcMain extends NodeJS.EventEmitter {
 		addListener(channel: string, listener: IpcMainEventListener): this;
 		on(channel: string, listener: IpcMainEventListener): this;
 		once(channel: string, listener: IpcMainEventListener): this;
@@ -1863,7 +1863,7 @@ declare namespace Electron {
 	 * and asynchronous messages from the render process (web page) to the main process.
 	 * You can also receive replies from the main process.
 	 */
-	class IpcRenderer extends EventEmitter {
+	interface IpcRenderer extends NodeJS.EventEmitter {
 		addListener(channel: string, listener: IpcRendererEventListener): this;
 		on(channel: string, listener: IpcRendererEventListener): this;
 		once(channel: string, listener: IpcRendererEventListener): this;
@@ -2247,7 +2247,7 @@ declare namespace Electron {
 		uninterceptProtocol(scheme: string, completion?: (error: Error) => void): void;
 	}
 
-	type ProtocolRequest = {
+	interface ProtocolRequest {
 		url: string;
 		referrer: string;
 		method: string;
@@ -2358,19 +2358,19 @@ declare namespace Electron {
 		touchSupport: 'available' | 'unavailable' | 'unknown';
 	}
 
-	interface Bounds {
+	type Bounds = {
 		x: number;
 		y: number;
 		width: number;
 		height: number;
 	}
 
-	interface Dimension {
+	type Dimension = {
 		width: number;
 		height: number;
 	}
 
-	interface Point {
+	type Point = {
 		x: number;
 		y: number;
 	}
@@ -2381,7 +2381,7 @@ declare namespace Electron {
 	 * The screen module retrieves information about screen size, displays, cursor position, etc.
 	 * You should not use this module until the ready event of the app module is emitted.
 	 */
-	class Screen extends EventEmitter {
+	interface Screen extends NodeJS.EventEmitter {
 		/**
 		 * Emitted when newDisplay has been added.
 		 */
@@ -2704,7 +2704,7 @@ declare namespace Electron {
 	/**
 	 * A Tray represents an icon in an operating system's notification area.
 	 */
-	class Tray extends EventEmitter {
+	interface Tray extends NodeJS.EventEmitter {
 		/**
 		 * Emitted when the tray icon is clicked.
 		 * Note: The bounds payload is only implemented on OS X and Windows.
@@ -2764,7 +2764,7 @@ declare namespace Electron {
 		/**
 		 * Creates a new tray icon associated with the image.
 		 */
-		constructor(image: NativeImage|string);
+		new(image: NativeImage|string): Tray;
 		/**
 		 * Destroys the tray icon immediately.
 		 */
@@ -2825,7 +2825,7 @@ declare namespace Electron {
 	/**
 	 * A WebContents is responsible for rendering and controlling a web page.
 	 */
-	class WebContents extends EventEmitter {
+	interface WebContents extends NodeJS.EventEmitter {
 		/**
 		 * Emitted when the navigation is done, i.e. the spinner of the tab has stopped spinning,
 		 * and the onload event was dispatched.
@@ -4020,7 +4020,7 @@ declare namespace Electron {
 	/**
 	 * The BrowserWindowProxy object is returned from window.open and provides limited functionality with the child window.
 	 */
-	class BrowserWindowProxy {
+	interface BrowserWindowProxy {
 		/**
 		 * Removes focus from the child window.
 		 */
@@ -4071,7 +4071,7 @@ declare namespace Electron {
 		protocol: Electron.Protocol;
 		screen: Electron.Screen;
 		session: typeof Electron.Session;
-		Tray: typeof Electron.Tray;
+		Tray: Electron.Tray;
 		hideInternalModules(): void;
 	}
 
@@ -4092,7 +4092,6 @@ interface Document {
 interface Window {
 	/**
 	 * Creates a new window.
-	 * @returns An instance of BrowserWindowProxy class.
 	 */
 	open(url: string, frameName?: string, features?: string): Electron.BrowserWindowProxy;
 }
