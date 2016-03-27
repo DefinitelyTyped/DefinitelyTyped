@@ -1,7 +1,7 @@
 ﻿// Type definitions for adm-zip v0.4.4
 // Project: https://github.com/cthackers/adm-zip
-// Definitions by: John Vilk <https://github.com/jvilk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: John Vilk <https://github.com/jvilk>, Abner Oliveira <https://github.com/abner>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -212,6 +212,14 @@ declare module "adm-zip" {
          */
         extractAllTo(targetPath: string, overwrite?: boolean): void;
         /**
+         * Extracts the entire archive to the given location
+         * @param targetPath Target location
+         * @param overwrite If the file already exists at the target path, the file
+         *   will be overwriten if this is true. Default is FALSE
+         * @param callback The callback function will be called afeter extraction
+         */
+        extractAllToAsync(targetPath: string, overwrite: boolean, callback: (error: Error) => void): void;
+        /**
          * Writes the newly created zip file to disk at the specified location or
          * if a zip was opened and no ``targetFileName`` is provided, it will
          * overwrite the opened zip
@@ -225,7 +233,7 @@ declare module "adm-zip" {
         toBuffer(): Buffer;
     }
 
-    module AdmZip {    
+    namespace AdmZip {
         /**
          * The ZipEntry is more than a structure representing the entry inside the
          * zip file. Beside the normal attributes and headers a entry can have, the

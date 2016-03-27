@@ -6,9 +6,8 @@ import express = require('express');
 import exphbs = require('express-handlebars');
 
 var app = express();
-var hbs: Exphbs = exphbs.create({defaultLayout: 'main'});
 
-app.engine('handlebars', hbs.engine);
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 app.listen(1337);

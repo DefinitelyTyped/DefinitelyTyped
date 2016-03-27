@@ -1,7 +1,7 @@
 // Type definitions for Google Maps JavaScript API 3.20
 // Project: https://developers.google.com/maps/
 // Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
 The MIT License
@@ -27,7 +27,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-declare module google.maps {
+declare namespace google.maps {
     /***** Map *****/
     export class Map extends MVCObject {
         constructor(mapDiv: Element, opts?: MapOptions);fitBounds(bounds: LatLngBounds): void;
@@ -170,8 +170,8 @@ declare module google.maps {
         contains(feature: Data.Feature): boolean;
         forEach(callback: (feature: Data.Feature) => void): void;
         getControlPosition(): ControlPosition;
-        getControls(): string[]; 
-        getDrawingMode(): string;        
+        getControls(): string[];
+        getDrawingMode(): string;
         getFeatureById(id: number|string): Data.Feature;
         getMap(): Map;
         getStyle(): Data.StylingFunction|Data.StyleOptions;
@@ -241,91 +241,91 @@ declare module google.maps {
         export class Geometry {
             getType(): string;
         }
-        
+
         export class Point extends Data.Geometry {
             constructor(latLng: LatLng|LatLngLiteral);
             get(): LatLng;
         }
-        
+
         export class MultiPoint extends Data.Geometry {
             constructor(elements: (LatLng|LatLngLiteral)[]);
             getArray(): LatLng[];
             getAt(n: number): LatLng;
             getLength(): number;
         }
-        
+
         export class LineString extends Data.Geometry {
             constructor(elements: (LatLng|LatLngLiteral)[]);
             getArray(): LatLng[];
             getAt(n: number): LatLng;
             getLength(): number;
         }
-        
+
         export class MultiLineString extends Data.Geometry {
-            constructor(elements: (Data.LineString|(LatLng|LatLngLiteral)[])[]); 
+            constructor(elements: (Data.LineString|(LatLng|LatLngLiteral)[])[]);
             getArray(): Data.LineString[];
             getAt(n: number): Data.LineString;
             getLength(): number;
         }
-        
+
         export class LinearRing extends Data.Geometry {
-            constructor(elements: (LatLng|LatLngLiteral)[]); 
+            constructor(elements: (LatLng|LatLngLiteral)[]);
             getArray(): LatLng[];
             getAt(n: number): LatLng;
             getLength(): number;
         }
-        
+
         export class Polygon extends Data.Geometry {
-            constructor(elements: (Data.LinearRing|(LatLng|LatLngLiteral)[])[]); 
+            constructor(elements: (Data.LinearRing|(LatLng|LatLngLiteral)[])[]);
             getArray(): Data.LinearRing[];
             getAt(n: number): Data.LinearRing;
             getLength(): number;
         }
-        
+
         export class MultiPolygon extends Data.Geometry {
             constructor(elements: (Data.Polygon|(LinearRing|(LatLng|LatLngLiteral)[])[])[]);
             getArray(): Data.Polygon[];
             getAt(n: number): Data.Polygon;
             getLength(): number;
         }
-        
+
         export class GeometryCollection extends Data.Geometry {
             constructor(elements: (Data.Geometry[]|LatLng[]|LatLngLiteral)[]);
             getArray(): Data.Geometry[];
             getAt(n: number): Data.Geometry;
             getLength(): number;
         }
-        
+
         export interface MouseEvent extends google.maps.MouseEvent {
             feature: Data.Feature;
         }
-        
+
         export interface AddFeatureEvent {
             feature: Data.Feature;
         }
-        
+
         export interface RemoveFeatureEvent {
             feature: Data.Feature;
         }
-        
+
         export interface SetGeometryEvent  {
             feature: Data.Feature;
             newGeometry: Data.Geometry;
             oldGeometry: Data.Geometry;
         }
-        
+
         export interface SetPropertyEvent  {
             feature: Data.Feature;
             name: string;
             newValue: any;
             oldValue: any;
-        } 
-        
+        }
+
         export interface RemovePropertyEvent  {
             feature: Data.Feature;
             name: string;
             oldValue: any;
-        }           
+        }
     }
 
     /***** Overlays *****/
@@ -353,7 +353,7 @@ declare module google.maps {
         setDraggable(flag: boolean): void;
         setIcon(icon: string|Icon|Symbol): void;
         setMap(map: Map|StreetViewPanorama): void;
-        getOpacity(opacity: number): void;
+        setOpacity(opacity: number): void;
         setOptions(options: MarkerOptions): void;
         setPlace(place: Place): void;
         setPosition(latlng: LatLng|LatLngLiteral): void;
@@ -365,26 +365,26 @@ declare module google.maps {
 
     export interface MarkerOptions {
         /**
-         * The offset from the marker's position to the tip of an InfoWindow 
+         * The offset from the marker's position to the tip of an InfoWindow
          * that has been opened with the marker as anchor.
          */
         anchorPoint?: Point;
         /** Which animation to play when marker is added to a map. */
         animation?: Animation;
-        /** 
+        /**
          * If true, the marker receives mouse and touch events.
          * @default true
          */
         clickable?: boolean;
         /** Mouse cursor to show on hover. */
         cursor?: string;
-        /** 
+        /**
          * If true, the marker can be dragged.
          * @default false
          */
         draggable?: boolean;
        /**
-         * Icon for the foreground. 
+         * Icon for the foreground.
          * If a string is provided, it is treated as though it were an Icon with the string as url.
          * @type {(string|Icon|Symbol)}
          */
@@ -392,7 +392,7 @@ declare module google.maps {
         /**
          * Map on which to display Marker.
          * @type {(Map|StreetViewPanorama)}
-         * 
+         *
          */
         map?: Map|StreetViewPanorama;
         /** The marker's opacity between 0.0 and 1.0. */
@@ -406,7 +406,7 @@ declare module google.maps {
          */
         optimized?: boolean;
         /**
-         * Place information, used to identify and describe the place 
+         * Place information, used to identify and describe the place
          * associated with this Marker. In this context, 'place' means a
          * business, point of interest or geographic location. To allow a user
          * to save this place, open an info window anchored on this marker.
@@ -426,9 +426,9 @@ declare module google.maps {
         /** If true, the marker is visible. */
         visible?: boolean;
         /**
-         * All markers are displayed on the map in order of their zIndex, 
+         * All markers are displayed on the map in order of their zIndex,
          * with higher values displaying in front of markers with lower values.
-         * By default, markers are displayed according to their vertical position on screen, 
+         * By default, markers are displayed according to their vertical position on screen,
          * with lower markers appearing in front of markers further up the screen.
          */
         zIndex?: number;
@@ -474,15 +474,15 @@ declare module google.maps {
 
     export interface Symbol {
         /**
-         * The position of the symbol relative to the marker or polyline. 
-         * The coordinates of the symbol's path are translated left and up by the anchor's x and y coordinates respectively. 
-         * By default, a symbol is anchored at (0, 0). 
+         * The position of the symbol relative to the marker or polyline.
+         * The coordinates of the symbol's path are translated left and up by the anchor's x and y coordinates respectively.
+         * By default, a symbol is anchored at (0, 0).
          * The position is expressed in the same coordinate system as the symbol's path.
          */
         anchor?: Point;
         /**
-         * The symbol's fill color. 
-         * All CSS3 colors are supported except for extended named colors. For symbol markers, this defaults to 'black'. 
+         * The symbol's fill color.
+         * All CSS3 colors are supported except for extended named colors. For symbol markers, this defaults to 'black'.
          * For symbols on polylines, this defaults to the stroke color of the corresponding polyline.
          */
         fillColor?: string;
@@ -497,26 +497,26 @@ declare module google.maps {
          */
         path?: SymbolPath|string;
         /**
-         * The angle by which to rotate the symbol, expressed clockwise in degrees. 
-         * Defaults to 0. 
+         * The angle by which to rotate the symbol, expressed clockwise in degrees.
+         * Defaults to 0.
          * A symbol in an IconSequence where fixedRotation is false is rotated relative to the angle of the edge on which it lies.
          */
         rotation?: number;
         /**
-         * The amount by which the symbol is scaled in size. 
-         * For symbol markers, this defaults to 1; after scaling, the symbol may be of any size. 
-         * For symbols on a polyline, this defaults to the stroke weight of the polyline; 
+         * The amount by which the symbol is scaled in size.
+         * For symbol markers, this defaults to 1; after scaling, the symbol may be of any size.
+         * For symbols on a polyline, this defaults to the stroke weight of the polyline;
          * after scaling, the symbol must lie inside a square 22 pixels in size centered at the symbol's anchor.
          */
         scale?: number;
         /**
-         * The symbol's stroke color. All CSS3 colors are supported except for extended named colors. 
+         * The symbol's stroke color. All CSS3 colors are supported except for extended named colors.
          * For symbol markers, this defaults to 'black'.
          * For symbols on a polyline, this defaults to the stroke color of the polyline.
          */
         strokeColor?: string;
         /**
-         * The symbol's stroke opacity. For symbol markers, this defaults to 1. 
+         * The symbol's stroke opacity. For symbol markers, this defaults to 1.
          * For symbols on a polyline, this defaults to the stroke opacity of the polyline.
          */
         strokeOpacity?: number;
@@ -545,14 +545,14 @@ declare module google.maps {
 
     /**
      * An overlay that looks like a bubble and is often connected to a marker.
-     * This class extends MVCObject. 
+     * This class extends MVCObject.
      */
     export class InfoWindow extends MVCObject {
         /**
          * Creates an info window with the given options. An InfoWindow can be
          * placed on a map at a particular position or above a marker,
          * depending on what is specified in the options. Unless auto-pan is
-         * disabled, an InfoWindow will pan the map to make itself visible 
+         * disabled, an InfoWindow will pan the map to make itself visible
          * when it is opened. After constructing an InfoWindow, you must call
          * open to display it on the map. The user can click the close button
          * on the InfoWindow to remove it from the map, or the developer can
@@ -567,7 +567,7 @@ declare module google.maps {
         /**
          * Opens this InfoWindow on the given map. Optionally, an InfoWindow can be associated with an anchor.
          * In the core API, the only anchor is the Marker class.
-         * However, an anchor can be any MVCObject that exposes a LatLng position property and optionally 
+         * However, an anchor can be any MVCObject that exposes a LatLng position property and optionally
          * a Point anchorPoint property for calculating the pixelOffset (see InfoWindowOptions).
          * The anchorPoint is the offset from the anchor's position to the tip of the InfoWindow.
          */
@@ -597,8 +597,8 @@ declare module google.maps {
          */
         maxWidth?: number;
         /**
-         * The offset, in pixels, of the tip of the info window from the point on the map 
-         * at whose geographical coordinates the info window is anchored. 
+         * The offset, in pixels, of the tip of the info window from the point on the map
+         * at whose geographical coordinates the info window is anchored.
          * If an InfoWindow is opened with an anchor, the pixelOffset will be calculated from the anchor's anchorPoint property.
          */
         pixelOffset?: Size;
@@ -607,9 +607,9 @@ declare module google.maps {
          */
         position?: LatLng|LatLngLiteral;
         /**
-         * All InfoWindows are displayed on the map in order of their zIndex, 
-         * with higher values displaying in front of InfoWindows with lower values. 
-         * By default, InfoWindows are displayed according to their latitude, 
+         * All InfoWindows are displayed on the map in order of their zIndex,
+         * with higher values displaying in front of InfoWindows with lower values.
+         * By default, InfoWindows are displayed according to their latitude,
          * with InfoWindows of lower latitudes appearing in front of InfoWindows at higher latitudes.
          * InfoWindows are always displayed in front of markers.
          */
@@ -675,20 +675,61 @@ declare module google.maps {
         setVisible(visible: boolean): void;
     }
 
-    export interface  PolygonOptions {
+    export interface PolygonOptions {
+        /** Indicates whether this Polygon handles mouse events. Defaults to true. */
         clickable?: boolean;
+        /**
+         * If set to true, the user can drag this shape over the map.
+         * The geodesic property defines the mode of dragging. Defaults to false.
+         */
         draggable?: boolean;
+        /**
+         * If set to true, the user can edit this shape by dragging the control points
+         * shown at the vertices and on each segment. Defaults to false.
+         */
         editable?: boolean;
+        /** The fill color. All CSS3 colors are supported except for extended named colors. */
         fillColor?: string;
+        /** The fill opacity between 0.0 and 1.0 */
         fillOpacity?: number;
+        /**
+         * When true, edges of the polygon are interpreted as geodesic and will follow
+         * the curvature of the Earth. When false, edges of the polygon are rendered as
+         * straight lines in screen space. Note that the shape of a geodesic polygon may
+         * appear to change when dragged, as the dimensions are maintained relative to
+         * the surface of the earth. Defaults to false.
+         */
         geodesic?: boolean;
+        /** Map on which to display Polygon. */
         map?: Map;
+        /**
+         * The ordered sequence of coordinates that designates a closed loop. Unlike
+         * polylines, a polygon may consist of one or more paths. As a result, the paths
+         * property may specify one or more arrays of LatLng coordinates. Paths are
+         * closed automatically; do not repeat the first vertex of the path as the last
+         * vertex. Simple polygons may be defined using a single array of LatLngs. More
+         * complex polygons may specify an array of arrays. Any simple arrays are
+         * converted into MVCArrays. Inserting or removing LatLngs from the MVCArray
+         * will automatically update the polygon on the map.
+         */
         paths?: any[]; // MVCArray<MVCArray<LatLng>>|MVCArray<LatLng>|Array<Array<LatLng|LatLngLiteral>>|Array<LatLng|LatLngLiteral>
+        /**
+         * The stroke color.
+         * All CSS3 colors are supported except for extended named colors.
+         */
         strokeColor?: string;
+        /** The stroke opacity between 0.0 and 1.0 */
         strokeOpacity?: number;
+        /**
+         * The stroke position. Defaults to CENTER.
+         * This property is not supported on Internet Explorer 8 and earlier.
+         */
         strokePosition?: StrokePosition;
+        /** The stroke width in pixels. */
         strokeWeight?: number;
+        /** Whether this polygon is visible on the map. Defaults to true. */
         visible?: boolean;
+        /** The zIndex compared to other polys. */
         zIndex?: number;
     }
 
@@ -764,9 +805,18 @@ declare module google.maps {
         zIndex?: number;
     }
 
+    /**
+     * The possible positions of the stroke on a polygon.
+     */
     export enum StrokePosition {
+        /**
+         * The stroke is centered on the polygon's path, with half the stroke inside
+         * the polygon and half the stroke outside the polygon.
+         */
         CENTER,
+        /** The stroke lies inside the polygon. */
         INSIDE,
+        /** The stroke lies outside the polygon. */
         OUTSIDE
     }
 
@@ -849,7 +899,7 @@ declare module google.maps {
         formatted_address: string;
         geometry: GeocoderGeometry;
         partial_match: boolean;
-        postcode_localities: string[];        
+        postcode_localities: string[];
         types: string[];
     }
 
@@ -948,14 +998,14 @@ declare module google.maps {
         SUBWAY,
         TRAIN,
         TRAM
-    } 
-    
+    }
+
     export enum TransitRoutePreference
     {
         FEWER_TRANSFERS,
         LESS_WALKING
     }
-    
+
     export interface TransitFare { }
 
     export interface DirectionsWaypoint {
@@ -986,7 +1036,7 @@ declare module google.maps {
         overview_path: LatLng[];
         overview_polyline: string;
         warnings: string[];
-        waypoint_order: number[];        
+        waypoint_order: number[];
     }
 
     export interface DirectionsLeg {
@@ -1070,7 +1120,7 @@ declare module google.maps {
         name: string;
         type: VehicleType;
     }
-    
+
     export enum VehicleType
     {
         BUS,
@@ -1183,7 +1233,7 @@ declare module google.maps {
         OK,
         ZERO_RESULTS
     }
-    
+
     /***** Save to Google Maps *****/
     export interface Attribution {
         iosDeepLinkId?: string;
@@ -1196,16 +1246,16 @@ declare module google.maps {
         placeId?: string;
         query?: string;
     }
-    
+
     export class SaveWidget {
         constructor(container: Node, opts?: SaveWidgetOptions);
         getAttribution(): Attribution;
         getPlace(): Place;
         setAttribution(attribution: Attribution): void;
         setOptions(opts: SaveWidgetOptions): void;
-        setPlace(place: Place): void;        
+        setPlace(place: Place): void;
     }
-    
+
     export interface SaveWidgetOptions{
         attribution?: Attribution;
         place?: Place;
@@ -1284,7 +1334,7 @@ declare module google.maps {
             man_made?: string;
             natural?: {
               landcover?: string;
-              terrain?: string;  
+              terrain?: string;
             };
         };
         poi?: {
@@ -1581,7 +1631,7 @@ declare module google.maps {
         UNKNOWN_ERROR,
         ZERO_RESULTS
     }
-    
+
     export class StreetViewCoverageLayer extends MVCObject  {
         getMap(): Map;
         setMap(map: Map): void;
@@ -1591,13 +1641,42 @@ declare module google.maps {
     export interface MapsEventListener { }
 
     export class event {
+        /**
+         * Cross browser event handler registration. This listener is removed by calling
+         * removeListener(handle) for the handle that is returned by this function.
+         */
         static addDomListener(instance: Object, eventName: string, handler: Function, capture?: boolean): MapsEventListener;
+        /**
+         * Wrapper around addDomListener that removes the listener after the first event.
+         */
         static addDomListenerOnce(instance: Object, eventName: string, handler: Function, capture?: boolean): MapsEventListener;
+        /**
+         * Adds the given listener function to the given event name for the given object
+         * instance. Returns an identifier for this listener that can be used with
+         * removeListener().
+         */
         static addListener(instance: Object, eventName: string, handler: Function): MapsEventListener;
+        /**
+         * Like addListener, but the handler removes itself after handling the first event.
+         */
         static addListenerOnce(instance: Object, eventName: string, handler: Function): MapsEventListener;
+        /**
+         * Removes all listeners for all events for the given instance.
+         */
         static clearInstanceListeners(instance: Object): void;
+        /**
+         * Removes all listeners for the given event for the given instance.
+         */
         static clearListeners(instance: Object, eventName: string): void;
+        /**
+         * Removes the given listener, which should have been returned by addListener above.
+         * Equivalent to calling listener.remove().
+         */
         static removeListener(listener: MapsEventListener): void;
+        /**
+         * Triggers the given event. All arguments after eventName are passed as arguments to
+         * the listeners.
+         */
         static trigger(instance: any, eventName: string, ...args: any[]): void;
     }
 
@@ -1610,7 +1689,7 @@ declare module google.maps {
 
     /**
      * A LatLng is a point in geographical coordinates: latitude and longitude.
-     * 
+     *
      * * Latitude ranges between -90 and 90 degrees, inclusive. Values above or
      *   below this range will be clamped to the range [-90, 90]. This means
      *   that if the value specified is less than -90, it will be set to -90.
@@ -1620,7 +1699,7 @@ declare module google.maps {
      *   range. For example, a value of -190 will be converted to 170. A value
      *   of 190 will be converted to -170. This reflects the fact that
      *   longitudes wrap around the globe.
-     * 
+     *
      * Although the default map projection associates longitude with the
      * x-coordinate of the map, and latitude with the y-coordinate, the
      * latitude coordinate is always written first, followed by the longitude.
@@ -1722,14 +1801,55 @@ declare module google.maps {
             static encodePath(path: any[]): string; // LatLng[]|MVCArray<LatLng>
         }
 
+        /**
+         * Utility functions for computing geodesic angles, distances and areas.
+         * The default radius is Earth's radius of 6378137 meters.
+         */
         export class spherical {
+            /**
+             * Returns the area of a closed path.
+             * The computed area uses the same units as the radius.
+             * The radius defaults to the Earth's radius in meters,
+             * in which case the area is in square meters.
+             */
             static computeArea(path: any[], radius?: number): number; // LatLng[]|MVCArray<LatLng>
+            /**
+             * Returns the distance, in meters, between two LatLngs.
+             * You can optionally specify a custom radius.
+             * The radius defaults to the radius of the Earth.
+             */
             static computeDistanceBetween(from: LatLng, to: LatLng, radius?: number): number;
+            /**
+             * Returns the heading from one LatLng to another LatLng.
+             * Headings are expressed in degrees clockwise from North within the range [-180,180).
+             */
             static computeHeading(from: LatLng, to: LatLng): number;
+            /**
+             * Returns the length of the given path.
+             */
             static computeLength(path: any[], radius?: number): number; // LatLng[]|MVCArray<LatLng>
+            /**
+             * Returns the LatLng resulting from moving a distance from an origin in the
+             * specified heading (expressed in degrees clockwise from north).
+             */
             static computeOffset(from: LatLng, distance: number, heading: number, radius?: number): LatLng;
+            /**
+             * Returns the location of origin when provided with a LatLng destination, meters
+             * travelled and original heading. Headings are expressed in degrees clockwise from
+             * North. This function returns null when no solution is available.
+             */
             static computeOffsetOrigin(to: LatLng, distance: number, heading: number, radius?: number): LatLng;
+            /**
+             * Returns the signed area of a closed path. The signed area may be used to determine
+             * the orientation of the path. The computed area uses the same units as the radius.
+             * The radius defaults to the Earth's radius in meters, in which case the area is in
+             * square meters.
+             */
             static computeSignedArea(loop: any[], radius?: number): number; // LatLng[]|MVCArray<LatLng>
+            /**
+             * Returns the LatLng which lies the given fraction of the way between the origin
+             * LatLng and the destination LatLng.
+             */
             static interpolate(from: LatLng, to: LatLng, fraction: number): LatLng;
         }
 
@@ -1750,7 +1870,7 @@ declare module google.maps {
             getFormat(): AdFormat;
             getMap(): Map;
             getPosition(): ControlPosition;
-            getPublisherId(): string;            
+            getPublisherId(): string;
             getTextColor(): string;
             getTitleColor(): string;
             getUrlColor(): string;
@@ -1824,17 +1944,17 @@ declare module google.maps {
             terms: PredictionTerm[];
             types: string[];
         }
-        
+
         export interface PredictionTerm {
             offset: number;
             value: string;
         }
-           
+
         export interface PredictionSubstring {
             length: number;
             offset: number;
-        }       
-        
+        }
+
         export class AutocompleteService {
             constructor();
             getPlacePredictions(request: AutocompletionRequest, callback: (result: AutocompletePrediction[], status: PlacesServiceStatus) => void): void;
@@ -1844,13 +1964,13 @@ declare module google.maps {
         export interface AutocompletionRequest {
             bounds?: LatLngBounds;
             componentRestrictions?: ComponentRestrictions;
-            input: string;            
+            input: string;
             location?: LatLng;
             offset?: number;
             radius?: number;
             types?: string[];
         }
-        
+
         export interface ComponentRestrictions {
             country: string;
         }
@@ -1859,11 +1979,11 @@ declare module google.maps {
             rating: number;
             type: string;
         }
-        
+
         export interface PlaceDetailsRequest  {
             placeId: string;
         }
-        
+
         export interface PlaceGeometry {
             location: LatLng;
             viewport: LatLngBounds;
@@ -1875,7 +1995,7 @@ declare module google.maps {
             width: number;
             getUrl(opts: PhotoOptions): string;
         }
-        
+
         export interface PhotoOptions {
             maxHeight?: number;
             maxWidth?: number;
@@ -1910,7 +2030,7 @@ declare module google.maps {
             language: string;
             text: string;
         }
-        
+
         export interface PlaceSearchPagination {
             nextPage(): void;
             hasNextPage: boolean;
@@ -2057,7 +2177,7 @@ declare module google.maps {
             setOptions(options: MapsEngineLayerOptions): void;
             setZIndex(zIndex: number): void;
         }
-        
+
         export interface MapsEngineLayerOptions {
             accessToken?: string;
             clickable?: boolean;
@@ -2070,24 +2190,24 @@ declare module google.maps {
             suppressInfoWindows?: boolean;
             zIndex?: number;
         }
-        
+
         export interface MapsEngineLayerProperties {
             name: string;
         }
-        
+
         export interface MapsEngineMouseEvent {
             featureId?: string;
             infoWindowHtml?: string;
             latLng?: LatLng;
             pixelOffset?: Size;
         }
-        
+
         export enum MapsEngineStatus {
             INVALID_LAYER,
             OK,
-            UNKNOWN_ERROR   
+            UNKNOWN_ERROR
         }
-        
+
         export class HeatmapLayer extends MVCObject {
             constructor(opts?: HeatmapLayerOptions);
             getData(): MVCArray;

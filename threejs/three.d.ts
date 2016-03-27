@@ -1,9 +1,9 @@
 // Type definitions for three.js r73
 // Project: http://mrdoob.github.com/three.js/
 // Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module THREE {
+declare namespace THREE {
     export var REVISION: string;
 
     // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent.button
@@ -310,18 +310,6 @@ declare module THREE {
         compareValues( value0: any, value1: any ): boolean;
         clone(): BooleanKeyframeTrack;
         parse( json: any ): BooleanKeyframeTrack;
-    }
-
-    export class ColorKeyframeTrack extends KeyframeTrack {
-        constructor(name: string, keys: any[]);
-
-        result: any;
-
-        setResult( value: any ): void;
-        lerpValues( value0: any, value1: any, alpha: number ): any;
-        compareValues( value0: any, value1: any ): boolean;
-        clone(): ColorKeyframeTrack;
-        parse( json: any ): ColorKeyframeTrack;
     }
 
     export class NumberKeyframeTrack {
@@ -1227,7 +1215,7 @@ declare module THREE {
          */
         computeBoundingSphere(): void;
 
-        merge( geometry: Geometry, matrix: Matrix, materialIndexOffset: number): void;
+        merge( geometry: Geometry, matrix: Matrix, materialIndexOffset?: number): void;
 
         mergeMesh( mesh: Mesh ): void;
 
@@ -1410,9 +1398,9 @@ declare module THREE {
          */
         scale: Vector3;
 
-        modelViewMatrix: { value: Matrix4 };
+        modelViewMatrix: Matrix4;
 
-        normalMatrix: { value: Matrix3 };
+        normalMatrix: Matrix3;
 
         /**
          * When this is set, then the rotationMatrix gets calculated every frame.
@@ -1606,11 +1594,11 @@ declare module THREE {
 
         raycast(raycaster: Raycaster, intersects: any): void;
 
-        traverse(callback: (object: Object3D) => any): void;
+        traverse(callback: (object: Object3D) => void): void;
 
-        traverseVisible(callback: (object: Object3D) => any): void;
+        traverseVisible(callback: (object: Object3D) => void): void;
 
-        traverseAncestors(callback: (object: Object3D) => any): void;
+        traverseAncestors(callback: (object: Object3D) => void): void;
 
         /**
          * Updates local transform.
@@ -1643,8 +1631,11 @@ declare module THREE {
 
     export interface Intersection {
         distance: number;
+        distanceToRay: number;
         point: Vector3;
+        index: number;
         face: Face3;
+        faceIndex: number;
         object: Object3D;
     }
 
@@ -1677,7 +1668,7 @@ declare module THREE {
      * Abstract base class for lights.
      */
     export class Light extends Object3D {
-        constructor(hex?: number);
+        constructor(hex?: number|string);
 
         color: Color;
         receiveShadow: boolean;
@@ -1727,7 +1718,7 @@ declare module THREE {
          * This creates a Ambientlight with a color.
          * @param hex Numeric value of the RGB component of the color.
          */
-        constructor(hex?: number);
+        constructor(hex?: number|string);
 
         clone(recursive?: boolean): AmbientLight;
         copy(source: AmbientLight): AmbientLight;
@@ -1746,7 +1737,7 @@ declare module THREE {
      */
     export class DirectionalLight extends Light {
 
-        constructor(hex?: number, intensity?: number);
+        constructor(hex?: number|string, intensity?: number);
 
         /**
          * Target used for shadow camera orientation.
@@ -1766,7 +1757,7 @@ declare module THREE {
     }
 
     export class HemisphereLight extends Light {
-        constructor(skyColorHex?: number, groundColorHex?: number, intensity?: number);
+        constructor(skyColorHex?: number|string, groundColorHex?: number|string, intensity?: number);
 
         groundColor: Color;
         intensity: number;
@@ -1784,7 +1775,7 @@ declare module THREE {
      * scene.add( light );
      */
     export class PointLight extends Light {
-        constructor(hex?: number, intensity?: number, distance?: number, decay?: number);
+        constructor(hex?: number|string, intensity?: number, distance?: number, decay?: number);
 
         /*
          * Light's intensity.
@@ -1810,7 +1801,7 @@ declare module THREE {
      * A point light that can cast shadow in one direction.
      */
     export class SpotLight extends Light {
-        constructor(hex?: number, intensity?: number, distance?: number, angle?: number, exponent?: number, decay?: number);
+        constructor(hex?: number|string, intensity?: number, distance?: number, angle?: number, exponent?: number, decay?: number);
 
         /**
          * Spotlight focus points at target.position.
@@ -1910,15 +1901,6 @@ declare module THREE {
         get(file: string):Loader;
     }
 
-    export class AnimationLoader {
-        constructor(manager?: LoadingManager);
-
-        manager: LoadingManager;
-        load(url: string, onLoad: (animations: AnimationClip[]) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
-        setCrossOrigin(crossOrigin: string): void;
-        parse(json: any, onLoad: (animations: AnimationClip[])=>void): void;
-    }
-
     export class BinaryTextureLoader {
         constructor(manager?: LoadingManager);
 
@@ -1959,7 +1941,7 @@ declare module THREE {
         constructor(manager?: LoadingManager);
 
         manager: LoadingManager;
-        load(url: string, onLoad: (texture: CubeTexture) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
+        load(urls: Array<string>, onLoad?: (texture: CubeTexture) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
         setCrossOrigin(crossOrigin: string): void;
 
     }
@@ -2030,6 +2012,8 @@ declare module THREE {
         itemError(url: string): void;
     }
 
+    export var DefaultLoadingManager: LoadingManager;
+
     export class MaterialLoader {
         constructor(manager?: LoadingManager);
 
@@ -2076,7 +2060,7 @@ declare module THREE {
          *
          * @param url
          */
-        load(url: string, onLoad: (texture: Texture) => void): Texture;
+        load(url: string, onLoad?: (texture: Texture) => void): Texture;
         setCrossOrigin(crossOrigin: string): void;
     }
 
@@ -2244,7 +2228,7 @@ declare module THREE {
     }
 
     export interface LineBasicMaterialParameters extends MaterialParameters {
-        color?: number;
+        color?: number|string;
         linewidth?: number;
         linecap?: string;
         linejoin?: string;
@@ -2267,7 +2251,7 @@ declare module THREE {
     }
 
     export interface LineDashedMaterialParameters extends MaterialParameters {
-        color?: number;
+        color?: number|string;
         linewidth?: number;
         scale?: number;
         dashSize?: number;
@@ -2295,7 +2279,7 @@ declare module THREE {
      * parameters is an object with one or more properties defining the material's appearance.
      */
     export interface MeshBasicMaterialParameters extends MaterialParameters{
-        color?: number;
+        color?: number|string;
         opacity?: number;
         map?: Texture;
         aoMap?: Texture;
@@ -2361,7 +2345,7 @@ declare module THREE {
     }
 
     export interface MeshLambertMaterialParameters extends MaterialParameters{
-        color?: number;
+        color?: number|string;
         emissive?: number;
         opacity?: number;
         map?: Texture;
@@ -2433,7 +2417,7 @@ declare module THREE {
 
     export interface MeshPhongMaterialParameters extends MaterialParameters {
         /** geometry color in hexadecimal. Default is 0xffffff. */
-        color?: number;
+        color?: number | string;
         emissive?: number;
         specular?: number;
         shininess?: number;
@@ -2461,7 +2445,7 @@ declare module THREE {
         blending?: Blending;
         depthTest?: boolean;
         depthWrite?: boolean;
-        wireframe?: string;
+        wireframe?: boolean;
         wireframeLinewidth?: number;
         vertexColors?: Colors;
         skinning?: boolean;
@@ -2528,7 +2512,7 @@ declare module THREE {
     }
 
     export interface PointsMaterialParameters extends MaterialParameters{
-        color?: number;
+        color?: number|string;
         opacity?: number;
         map?: Texture;
         size?: number;
@@ -2604,7 +2588,7 @@ declare module THREE {
     }
 
     export interface SpriteMaterialParameters extends MaterialParameters {
-        color?: number;
+        color?: number|string;
         opacity?: number;
         map?: Texture;
         blending?: Blending;
@@ -2971,6 +2955,8 @@ declare module THREE {
     }
 
     export class Euler {
+        static DefaultOrder: string;
+
         constructor(x?: number, y?: number, z?: number, order?: string);
 
         x: number;
@@ -4166,7 +4152,7 @@ declare module THREE {
          * http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
          * @param m assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
          */
-        setAxisAngleFromRotationMatrix(m: Matrix3): Vector4;
+        setAxisAngleFromRotationMatrix(m: Matrix4): Vector4;
 
         min(v: Vector4): Vector4;
         max(v: Vector4): Vector4;
@@ -4470,6 +4456,11 @@ declare module THREE {
         clearAlpha?: number;
 
         devicePixelRatio?: number;
+
+        /**
+         * default is false.
+         */
+        logarithmicDepthBuffer?: boolean;
     }
 
 
@@ -4611,7 +4602,7 @@ declare module THREE {
         getMaxAnisotropy(): number;
         getPixelRatio(): number;
         setPixelRatio(value: number): void;
-        
+
         getSize(): { width: number; height: number; };
 
         /**
@@ -4666,7 +4657,7 @@ declare module THREE {
 
         /**
          * Tells the renderer to clear its color, depth or stencil drawing buffer(s).
-         * If no parameters are passed, no buffer will be cleared.
+         * Arguments default to true
          */
         clear(color?: boolean, depth?: boolean, stencil?: boolean): void;
 
@@ -4918,42 +4909,39 @@ declare module THREE {
     }
 
     interface WebGLGeometriesInstance {
-        new (gl: any, properties: any, info: any): void;
         get( object: any ): any;
     }
     interface WebGLGeometriesStatic{
-        (_gl: any, extensions: any, _infoRender: any): WebGLGeometriesInstance;
+        new (gl: any, properties: any, info: any): WebGLGeometriesInstance;
     }
     export var WebGLGeometries: WebGLGeometriesStatic;
 
 
     interface WebGLIndexedBufferRendererInstance {
-        new (gl: any, properties: any, info: any): void;
         setMode( value: any ): void;
         setIndex( index: any ): void;
         render( start: any, count: any ): void;
         renderInstances( geometry: any ): void;
     }
     interface WebGLIndexedBufferRendererStatic{
-        (_gl: any, extensions: any, _infoRender: any): WebGLIndexedBufferRendererInstance;
+        new (gl: any, properties: any, info: any): WebGLIndexedBufferRendererInstance;
     }
     export var WebGLIndexedBufferRenderer: WebGLIndexedBufferRendererStatic;
 
 
     interface WebGLObjectsInstance {
-        new (gl: any, properties: any, info: any): void;
         getAttributeBuffer( attribute: any ): any;
         getWireframeAttribute(geometry: any): any;
         update(object: any): void;
     }
     interface WebGLObjectsStatic{
-        (gl: any, properties: any, info: any): WebGLObjectsInstance;
+        new (gl: any, properties: any, info: any): WebGLObjectsInstance;
     }
     export var WebGLObjects: WebGLObjectsStatic;
 
     export class WebGLProgram{
         constructor(renderer: WebGLRenderer, code: string, material: ShaderMaterial, parameters: WebGLRendererParameters);
-        
+
         getUniforms(): any;
         getAttributes(): any;
 
@@ -4971,27 +4959,23 @@ declare module THREE {
     }
 
     interface WebGLProgramsInstance {
-        new (renderer: WebGLRenderer, capabilities: any): void;
-
         getParameters( material: any, lights: any, fog: any, object: any ): any[];
         getProgramCode( material: any, parameters: any ): any;
         acquireProgram( material: any, parameters: any, code: any ): any;
         releaseProgram( program: any ): void;
     }
     interface WebGLProgramsStatic{
-        (): WebGLProgramsInstance;
+        new (renderer: WebGLRenderer, capabilities: any): WebGLProgramsInstance;
     }
     export var WebGLPrograms: WebGLProgramsStatic;
 
     interface WebGLPropertiesInstance {
-        new (): void;
-
         get(object: any): any;
         delete(object: any): void;
         clear(): void;
     }
     interface WebGLPropertiesStatic{
-        (): WebGLPropertiesInstance;
+        new (): WebGLPropertiesInstance;
     }
     export var WebGLProperties: WebGLPropertiesStatic;
 
@@ -5000,8 +4984,6 @@ declare module THREE {
     }
 
     interface WebGLShadowMapInstance{
-        new ( _renderer: Renderer, _lights: any[], _objects: any[] ): void;
-
         enabled: boolean;
         autoUpdate: boolean;
         needsUpdate: boolean;
@@ -5011,12 +4993,11 @@ declare module THREE {
         render( scene: Scene ): void;
     }
     interface WebGLShadowMapStatic{
-        ( _renderer: Renderer, _lights: any[], _objects: any[] ): WebGLStateInstance;
+        new ( _renderer: Renderer, _lights: any[], _objects: any[] ): WebGLStateInstance;
     }
     export var WebGLShadowMap: WebGLShadowMapStatic;
 
     interface WebGLStateInstance{
-        new ( gl: any, extensions: any, paramThreeToGL: Function ): void;
         init(): void;
         initAttributes(): void;
         enableAttribute(attribute: string): void;
@@ -5041,7 +5022,7 @@ declare module THREE {
         reset(): void;
     }
     interface WebGLStateStatic{
-        ( gl: any, extensions: any, paramThreeToGL: Function ): WebGLStateInstance;
+        new ( gl: any, extensions: any, paramThreeToGL: Function ): WebGLStateInstance;
     }
     export var WebGLState: WebGLStateStatic;
 
@@ -5106,7 +5087,7 @@ declare module THREE {
      * This class contains the parameters that define linear fog, i.e., that grows exponentially denser with the distance.
      */
     export class FogExp2 implements IFog {
-        constructor(hex: number, density?: number);
+        constructor(hex: number|string, density?: number);
 
         name: string;
         color: Color;
@@ -5711,7 +5692,7 @@ declare module THREE {
         constructor(shape?: Shape, options?: any);
         constructor(shapes?: Shape[], options?: any);
 
-        WorldUVGenerator: {
+        static WorldUVGenerator: {
             generateTopUV(geometry: Geometry, indexA: number, indexB: number, indexC: number): Vector2[];
             generateSideWallUV(geometry: Geometry, indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
         };

@@ -1,7 +1,7 @@
 // Type definitions for Restangular v1.4.0
 // Project: https://github.com/mgonto/restangular
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../angularjs/angular.d.ts" />
@@ -14,7 +14,7 @@ declare module 'restangular' {
 
 
 
-declare module restangular {
+declare namespace restangular {
 
   interface IPromise<T> extends angular.IPromise<T> {
     call(methodName: string, params?: any): IPromise<T>;

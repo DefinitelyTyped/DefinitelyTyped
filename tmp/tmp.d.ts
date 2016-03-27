@@ -1,15 +1,15 @@
 ﻿// Type definitions for tmp v0.0.28
 // Project: https://www.npmjs.com/package/tmp
 // Definitions by: Jared Klopper <https://github.com/optical>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "tmp" {
 
-	module tmp {
+	namespace tmp {
 		interface Options extends SimpleOptions {
 			mode?: number;
 		}
-		
+
 		interface SimpleOptions {
 			prefix?: string;
 			postfix?: string;
@@ -19,7 +19,7 @@ declare module "tmp" {
 			keep?: boolean;
 			unsafeCleanup?: boolean;
 		}
-		
+
 		interface SynchrounousResult {
 			name: string;
 			fd: number;
@@ -28,9 +28,9 @@ declare module "tmp" {
 
 		function file(callback: (err: any, path: string, fd: number, cleanupCallback: () => void) => void): void;
 		function file(config: Options, callback?: (err: any, path: string, fd: number, cleanupCallback: () => void) => void): void;
-		
+
 		function fileSync(config?: Options): SynchrounousResult;
-				
+
 		function dir(callback: (err: any, path: string, cleanupCallback: () => void) => void): void;
 		function dir(config: Options, callback?: (err: any, path: string, cleanupCallback: () => void) => void): void;
 

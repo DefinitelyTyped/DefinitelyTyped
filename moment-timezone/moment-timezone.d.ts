@@ -1,14 +1,16 @@
 // Type definitions for moment-timezone.js 0.2.5
 // Project: http://momentjs.com/timezone/
 // Definitions by: Michel Salib <https://github.com/michelsalib>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../moment/moment.d.ts" />
 
-declare module moment {
+declare namespace moment {
     interface Moment {
         tz(): string;
         tz(timezone: string): Moment;
+        zoneAbbr() :Moment;
+        zoneName() :Moment;
     }
 
     interface MomentStatic {
@@ -68,6 +70,7 @@ interface MomentTimezone {
     }): void;
 
     names(): string[];
+    guess(): string;
 
     setDefault(timezone: string): void;
 }

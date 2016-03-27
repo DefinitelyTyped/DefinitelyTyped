@@ -1,7 +1,7 @@
 // Type definitions for PDF.js
 // Project: https://github.com/mozilla/pdf.js
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
 Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/pdf.d.ts
@@ -195,6 +195,7 @@ interface PDFRenderImageLayer {
 
 interface PDFRenderParams {
 	canvasContext: CanvasRenderingContext2D;
+	viewport?: PDFPageViewport;
 	textLayer?: PDFRenderTextLayer;
 	imageLayer?: PDFRenderImageLayer;
 	continueCallback?: (_continue: () => void) => void;
@@ -221,22 +222,22 @@ interface PDFPageProxy {
 	/**
 	 * Page number of the page.  First page is 1.
 	 **/
-	pageNumber(): number;
+	pageNumber: number;
 
 	/**
 	 * The number of degrees the page is rotated clockwise.
 	 **/
-	rotate(): number;
+	rotate: number;
 
 	/**
 	 * The reference that points to this page.
 	 **/
-	ref(): PDFRef;
+	ref: PDFRef;
 
 	/**
 	 * @return An array of the visible portion of the PDF page in the user space units - [x1, y1, x2, y2].
 	 **/
-	view(): number[];
+	view: number[];
 
 	/**
 	 * @param scale The desired scale of the viewport.

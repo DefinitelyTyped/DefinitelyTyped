@@ -1,11 +1,12 @@
 // Type definitions for Handlebars v3.0.3
 // Project: http://handlebarsjs.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module Handlebars {
+declare namespace Handlebars {
     export function registerHelper(name: string, fn: Function, inverse?: boolean): void;
+    export function registerHelper(name: Object): void;
     export function registerPartial(name: string, str: any): void;
     export function unregisterHelper(name: string): void;
     export function unregisterPartial(name: string): void;
@@ -80,13 +81,13 @@ interface HandlebarsTemplates {
     [index: string]: HandlebarsTemplateDelegate;
 }
 
-declare module hbs {
+declare namespace hbs {
     class SafeString {
         constructor(str: string);
         static toString(): string;
     }
 
-    module Utils {
+    namespace Utils {
         function escapeExpression(str: string): string;
     }
 }
@@ -103,8 +104,8 @@ interface Logger {
     log(level: number, obj: string): void;
 }
 
-declare module hbs {
-    module AST {
+declare namespace hbs {
+    namespace AST {
         interface Node {
             type: string;
             loc: SourceLocation;

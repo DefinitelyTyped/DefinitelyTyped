@@ -1,11 +1,11 @@
 ﻿// Type definitions for steam
 // Project: https://github.com/seishun/node-steam
 // Definitions by: Andrey Kurdyumov <https://github.com/kant2002>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
-declare module Steam {
+declare namespace Steam {
     export var servers: any;
 
     export interface LogonOptions {
@@ -47,14 +47,16 @@ declare module Steam {
         setPersonaName(name: string): void;
 
         // Event emitter
-        addListener(event: string, listener: Function): NodeJS.EventEmitter;
-        on(event: string, listener: Function): NodeJS.EventEmitter;
-        once(event: string, listener: Function): NodeJS.EventEmitter;
-        removeListener(event: string, listener: Function): NodeJS.EventEmitter;
-        removeAllListeners(event?: string): NodeJS.EventEmitter;
-        setMaxListeners(n: number): void;
+        addListener(event: string, listener: Function): this;
+        on(event: string, listener: Function): this;
+        once(event: string, listener: Function): this;
+        removeListener(event: string, listener: Function): this;
+        removeAllListeners(event?: string): this;
+        setMaxListeners(n: number): this;
+        getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
+        listenerCount(type: string): number;
     }
 }
 

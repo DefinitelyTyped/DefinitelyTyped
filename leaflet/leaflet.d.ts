@@ -1,14 +1,14 @@
 // Type definitions for Leaflet.js 0.7.3
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Vladimir Zotov <https://github.com/rgripper>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module L {
+declare namespace L {
     type LatLngExpression = LatLng | number[] | ({ lat: number; lng: number })
     type LatLngBoundsExpression = LatLngBounds | LatLngExpression[];
 }
 
-declare module L {
+declare namespace L {
 
     export interface AttributionOptions {
 
@@ -27,7 +27,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
         * Creates a Bounds object from two coordinates (usually top-left and bottom-right
@@ -41,7 +41,7 @@ declare module L {
     export function bounds(points: Point[]): Bounds;
 
 
-    export interface BoundsStatic extends ClassStatic {
+    export interface BoundsStatic {
         /**
           * Creates a Bounds object from two coordinates (usually top-left and bottom-right
           * corners).
@@ -103,9 +103,9 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
-    module Browser {
+    namespace Browser {
 
         /**
           * true for all Internet Explorer versions.
@@ -178,7 +178,7 @@ declare module L {
 }
 
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a circle object given a geographical point, a radius in meters
@@ -224,7 +224,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     /**
       * Instantiates a circle marker given a geographical point and optionally
@@ -262,7 +262,7 @@ declare module L {
     }
 }
 
-declare module L {
+declare namespace L {
     export interface ClassExtendOptions {
         /**
           * Your class's constructor function, meaning that it gets called when you do 'new MyClass(...)'.
@@ -315,7 +315,7 @@ declare module L {
       * L.Class powers the OOP facilities of Leaflet and is used to create
       * almost all of the Leaflet classes documented.
       */
-    module Class {
+    namespace Class {
         /**
           * You use L.Class.extend to define new classes, but you can use the
           * same method on any class to inherit from it.
@@ -325,7 +325,7 @@ declare module L {
 
 }
 
-declare module L {
+declare namespace L {
     export interface ControlStatic extends ClassStatic {
         /**
           * Creates a control with the given options.
@@ -513,10 +513,10 @@ declare module L {
         /**
           * Creates a control with the given options.
           */
-        function (options?: ControlOptions): Control;
+        (options?: ControlOptions): Control;
     }
 
-    namespace control {
+    export namespace control {
 
         /**
           * Creates a zoom control.
@@ -805,13 +805,6 @@ declare namespace L {
 }
 
 declare namespace L {
-
-    /**
-      * Creates a Draggable object for moving the given element when you start dragging
-      * the dragHandle element (equals the element itself by default).
-      */
-    function draggable(element: HTMLElement, dragHandle?: HTMLElement): Draggable;
-
     export interface DraggableStatic extends ClassStatic {
         /**
           * Creates a Draggable object for moving the given element when you start dragging
@@ -1453,7 +1446,7 @@ declare namespace L {
       */
     function latLng(coords: LatLngExpression): LatLng;
 
-    export interface LatLngStatic extends ClassStatic {
+    export interface LatLngStatic {
         /**
           * Creates an object representing a geographical point with the given latitude
           * and longitude.
@@ -1539,7 +1532,7 @@ declare namespace L {
       */
     function latLngBounds(latlngs: LatLngBoundsExpression): LatLngBounds;
 
-    export interface LatLngBoundsStatic extends ClassStatic {
+    export interface LatLngBoundsStatic {
         /**
           * Creates a LatLngBounds object by defining south-west and north-east corners
           * of the rectangle.
@@ -1852,7 +1845,7 @@ declare namespace L {
     }
 }
 
-declare module L {
+declare namespace L {
 
     export interface LeafletLocationEvent extends LeafletEvent {
 
@@ -2440,6 +2433,12 @@ declare namespace L {
           * Map state options
           */
         options: Map.MapOptions;
+
+        /**
+          * Iterates over the layers of the map, optionally specifying context
+		  * of the iterator function.
+          */
+        eachLayer(fn: (layer: ILayer) => void, context?: any): Map;
 
         ////////////////
         ////////////////
@@ -3052,7 +3051,7 @@ declare namespace L {
       */
     function multiPolygon(latlngs: LatLng[][], options?: PolylineOptions): MultiPolygon;
 
-    export interface MultiPolylgonStatic extends ClassStatic {
+    export interface MultiPolygonStatic extends ClassStatic {
         /**
           * Instantiates a multi-polyline object given an array of latlngs arrays (one
           * for each individual polygon) and optionally an options object (the same
@@ -3060,7 +3059,7 @@ declare namespace L {
           */
         new(latlngs: LatLng[][], options?: PolylineOptions): MultiPolygon;
     }
-    export var MultiPolylgon: MultiPolylgonStatic;
+    export var MultiPolygon: MultiPolygonStatic;
 
     export interface MultiPolygon extends FeatureGroup<Polygon> {
         /**
@@ -3261,7 +3260,7 @@ declare namespace L {
         off(eventMap?: any, context?: any): Path;
     }
 
-    namespace Path {
+    export namespace Path {
         /**
           * True if SVG is used for vector rendering (true for most modern browsers).
           */
@@ -3395,7 +3394,7 @@ declare namespace L {
       */
     function point(x: number, y: number, round?: boolean): Point;
 
-    export interface PointStatic extends ClassStatic {
+    export interface PointStatic {
         /**
           * Creates a Point object with the given x and y coordinates. If optional round
           * is set to true, rounds the x and y values.
@@ -4176,7 +4175,7 @@ declare namespace L {
           * When this option is set, the TileLayer only loads tiles that are in the given geographical bounds.
           */
         bounds?: LatLngBounds;
-        
+
         /**
           * Custom keys may be specified in TileLayerOptions so they can be used in a provided URL template.
           */
@@ -4185,7 +4184,7 @@ declare namespace L {
 }
 
 declare namespace L {
-    export interface TransformationStatic extends ClassStatic {
+    export interface TransformationStatic {
         /**
           * Creates a transformation object with the given coefficients.
           */
