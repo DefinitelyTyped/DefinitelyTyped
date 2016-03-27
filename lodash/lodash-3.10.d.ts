@@ -14898,6 +14898,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * This method returns the first argument provided to it.
+         *
          * @param value Any value.
          * @return Returns value.
          */
@@ -14923,6 +14924,27 @@ declare module _ {
          * @see _.identity
          */
         identity(): T;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.identity
+         */
+        identity(): LoDashExplicitWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.identity
+         */
+        identity(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.identity
+         */
+        identity(): LoDashExplicitObjectWrapper<T>;
     }
 
     //_.iteratee
