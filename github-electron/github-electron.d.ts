@@ -2669,7 +2669,7 @@ declare namespace Electron {
 		/**
 		 * Removes the cookies matching url and name.
 		 */
-		remove(url: string, name: string, callback: Function): void;
+		remove(url: string, name: string, callback: (error: Error) => void): void;
 	}
 
 	// https://github.com/atom/electron/blob/master/docs/api/shell.md
