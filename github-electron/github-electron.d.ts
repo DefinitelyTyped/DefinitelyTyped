@@ -1962,16 +1962,22 @@ declare namespace Electron {
 		 *   Command+A
 		 *   Ctrl+Shift+Z
 		 *
-		 * Platform notice: On Linux and Windows, the Command key would not have any effect,
-		 * you can use CommandOrControl which represents Command on OS X and Control on
-		 * Linux and Windows to define some accelerators.
+		 * Platform notice:
+		 *   On Linux and Windows, the Command key would not have any effect,
+		 *   you can use CommandOrControl which represents Command on OS X and Control on
+		 *   Linux and Windows to define some accelerators.
+		 *
+		 *   The Super key is mapped to the Windows key on Windows and Linux and Cmd on OS X.
 		 *
 		 * Available modifiers:
 		 *   Command (or Cmd for short)
 		 *   Control (or Ctrl for short)
 		 *   CommandOrControl (or CmdOrCtrl for short)
 		 *   Alt
+		 *   Option
+		 *   AltGr
 		 *   Shift
+		 *   Super
 		 *
 		 * Available key codes:
 		 *   0 to 9
@@ -1990,6 +1996,7 @@ declare namespace Electron {
 		 *   Escape (or Esc for short)
 		 *   VolumeUp, VolumeDown and VolumeMute
 		 *   MediaNextTrack, MediaPreviousTrack, MediaStop and MediaPlayPause
+		 *   PrintScreen
 		 */
 		accelerator?: string;
 		/**
