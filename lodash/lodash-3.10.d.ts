@@ -13181,26 +13181,88 @@ declare module _ {
     //_.get
     interface LoDashStatic {
         /**
-         * Gets the property value at path of object. If the resolved
-         * value is undefined the defaultValue is used in its place.
+         * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
+         * in its place.
+         *
          * @param object The object to query.
          * @param path The path of the property to get.
          * @param defaultValue The value returned if the resolved value is undefined.
          * @return Returns the resolved value.
-         **/
-        get<TResult>(object: Object,
-               path: string|number|boolean|Array<string|number|boolean>,
-               defaultValue?:TResult
+         */
+        get<TObject, TResult>(
+            object: TObject,
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult
+        ): TResult;
+
+        /**
+         * @see _.get
+         */
+        get<TResult>(
+            object: any,
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult
+        ): TResult;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.get
+         */
+        get<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult
+        ): TResult;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.get
+         */
+        get<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult
         ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.get
-         **/
-        get<TResult>(path: string|number|boolean|Array<string|number|boolean>,
-                     defaultValue?: TResult
+         */
+        get<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult
         ): TResult;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.get
+         */
+        get<TResultWrapper>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: any
+        ): TResultWrapper;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.get
+         */
+        get<TResultWrapper>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: any
+        ): TResultWrapper;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.get
+         */
+        get<TResultWrapper>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: any
+        ): TResultWrapper;
     }
 
     //_.has

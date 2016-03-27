@@ -8546,18 +8546,90 @@ namespace TestFunctions {
 }
 
 // _.get
-result = <number>_.get<number>({ 'a': [{ 'b': { 'c': 3 } }] }, 'a[0].b.c');
+namespace TestGet {
+    {
+        let result: string;
 
-{
-    let result: TResult;
-    result = _.get<TResult>({}, '');
-    result = _.get<TResult>({}, 42);
-    result = _.get<TResult>({}, true);
-    result = _.get<TResult>({}, ['', 42, true]);
-    result = _({}).get<TResult>('');
-    result = _({}).get<TResult>(42);
-    result = _({}).get<TResult>(true);
-    result = _({}).get<TResult>(['', 42, true]);
+        result = _.get<string, string>('abc', '0');
+        result = _.get<string, string>('abc', '0', '_');
+        result = _.get<string, string>('abc', ['0']);
+        result = _.get<string, string>('abc', ['0'], '_');
+
+        result = _.get<string>('abc', '0');
+        result = _.get<string>('abc', '0', '_');
+        result = _.get<string>('abc', ['0']);
+        result = _.get<string>('abc', ['0'], '_');
+
+        result = _('abc').get<string>('0');
+        result = _('abc').get<string>('0', '_');
+        result = _('abc').get<string>(['0']);
+        result = _('abc').get<string>(['0'], '_');
+    }
+
+    {
+        let result: number;
+
+        result = _.get<number[], number>([42], '0');
+        result = _.get<number[], number>([42], '0', -1);
+        result = _.get<number[], number>([42], ['0']);
+        result = _.get<number[], number>([42], ['0'], -1);
+
+        result = _.get<number>([42], '0');
+        result = _.get<number>([42], '0', -1);
+        result = _.get<number>([42], ['0']);
+        result = _.get<number>([42], ['0'], -1);
+
+        result = _([42]).get<number>('0');
+        result = _([42]).get<number>('0', -1);
+        result = _([42]).get<number>(['0']);
+        result = _([42]).get<number>(['0'], -1);
+    }
+
+    {
+        let result: boolean;
+
+        result = _.get<{a: boolean}, boolean>({a: true}, 'a');
+        result = _.get<{a: boolean}, boolean>({a: true}, 'a', false);
+        result = _.get<{a: boolean}, boolean>({a: true}, ['a']);
+        result = _.get<{a: boolean}, boolean>({a: true}, ['a'], false);
+
+        result = _.get<boolean>({a: true}, 'a');
+        result = _.get<boolean>({a: true}, 'a', false);
+        result = _.get<boolean>({a: true}, ['a']);
+        result = _.get<boolean>({a: true}, ['a'], false);
+
+        result = _({a: true}).get<boolean>('a');
+        result = _({a: true}).get<boolean>('a', false);
+        result = _({a: true}).get<boolean>(['a']);
+        result = _({a: true}).get<boolean>(['a'], false);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('abc').chain().get<_.LoDashExplicitWrapper<string>>('0');
+        result = _('abc').chain().get<_.LoDashExplicitWrapper<string>>('0', '_');
+        result = _('abc').chain().get<_.LoDashExplicitWrapper<string>>(['0']);
+        result = _('abc').chain().get<_.LoDashExplicitWrapper<string>>(['0'], '_');
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _([42]).chain().get<_.LoDashExplicitWrapper<number>>('0');
+        result = _([42]).chain().get<_.LoDashExplicitWrapper<number>>('0', -1);
+        result = _([42]).chain().get<_.LoDashExplicitWrapper<number>>(['0']);
+        result = _([42]).chain().get<_.LoDashExplicitWrapper<number>>(['0'], -1);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<boolean>;
+
+        result = _({a: true}).chain().get<_.LoDashExplicitWrapper<boolean>>('a');
+        result = _({a: true}).chain().get<_.LoDashExplicitWrapper<boolean>>('a', false);
+        result = _({a: true}).chain().get<_.LoDashExplicitWrapper<boolean>>(['a']);
+        result = _({a: true}).chain().get<_.LoDashExplicitWrapper<boolean>>(['a'], false);
+    }
 }
 
 // _.has
