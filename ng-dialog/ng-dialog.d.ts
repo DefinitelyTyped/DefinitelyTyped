@@ -1,11 +1,11 @@
 // Type definitions for ngDialog
 // Project: https://github.com/likeastore/ngDialog
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.dialog {
+declare namespace angular.dialog {
 
 	interface IDialogService {
 		getDefaults(): IDialogOptions;

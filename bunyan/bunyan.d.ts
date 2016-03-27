@@ -1,7 +1,7 @@
 // Type definitions for node-bunyan
 // Project: https://github.com/trentm/node-bunyan
 // Definitions by: Alex Mikhalev <https://github.com/amikhalev>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

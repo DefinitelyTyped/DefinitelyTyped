@@ -1,9 +1,9 @@
 // Type definitions for freedom v0.6.26
 // Project: https://github.com/freedomjs/freedom
 // Definitions by: Jonathan Pevarnek <https://github.com/jpevarnek/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module freedom {
+declare namespace freedom {
     // Common on/emit for message passing interfaces.
     interface EventDispatchFn<T> { (eventType: string, value?: T): void; }
     interface EventHandlerFn<T> {
@@ -164,7 +164,7 @@ declare module freedom {
     }
 }
 
-declare module freedom.Console {
+declare namespace freedom.Console {
     interface Console {
         log(source: string, message: string): Promise<void>;
         debug(source: string, message: string): Promise<void>;
@@ -174,7 +174,7 @@ declare module freedom.Console {
     }
 }
 
-declare module freedom.RTCDataChannel {
+declare namespace freedom.RTCDataChannel {
     interface Message {
         // Exactly one of the below must be specified.
         text?: string;
@@ -209,7 +209,7 @@ declare module freedom.RTCDataChannel {
     }
 }
 
-declare module freedom.RTCPeerConnection {
+declare namespace freedom.RTCPeerConnection {
     interface RTCIceServer {
         urls: string[];
         username?: string;
@@ -299,7 +299,7 @@ declare module freedom.RTCPeerConnection {
     }
 }
 
-declare module freedom.Storage {
+declare namespace freedom.Storage {
     interface Storage {
         // Fetch array of all keys.
         keys(): Promise<string[]>;
@@ -315,7 +315,7 @@ declare module freedom.Storage {
     }  // class Storage
 }
 
-declare module freedom.TcpSocket {
+declare namespace freedom.TcpSocket {
     interface DisconnectInfo {
         errcode: string;
         message: string;
@@ -363,7 +363,7 @@ declare module freedom.TcpSocket {
     }
 }
 
-declare module freedom.UdpSocket {
+declare namespace freedom.UdpSocket {
     // Type for the chrome.socket.getInfo callback:
     //   https://developer.chrome.com/apps/sockets_udp#type-SocketInfo
     // This is also the type returned by getInfo().
@@ -400,7 +400,7 @@ declare module freedom.UdpSocket {
     }
 }
 
-declare module freedom.PgpProvider {
+declare namespace freedom.PgpProvider {
     interface PublicKey {
         key: string;
         fingerprint: string;
@@ -432,7 +432,7 @@ declare module freedom.PgpProvider {
     }
 }
 
-declare module freedom.PortControl {
+declare namespace freedom.PortControl {
     interface Mapping {
         internalIp: string;
         internalPort: number;
@@ -482,7 +482,7 @@ declare module freedom.PortControl {
     }
 }
 
-declare module freedom.Social {
+declare namespace freedom.Social {
     // Status of a client connected to a social network.
     interface ClientState {
         userId: string;

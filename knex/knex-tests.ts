@@ -55,6 +55,16 @@ var knex = Knex({
   }
 });
 
+// Pure Query Builder without a connection
+var knex = Knex({});
+
+// Pure Query Builder without a connection, using a specific flavour of SQL
+var knex = Knex({
+  client: 'pg'
+});
+
+knex('books').insert({title: 'Test'}).returning('*').toString();
+
 // Migrations
 var knex = Knex({
   client: 'mysql',

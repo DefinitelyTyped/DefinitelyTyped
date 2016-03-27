@@ -1,7 +1,7 @@
 ﻿// Type definitions for Mozilla's localForage
 // Project: https://github.com/mozilla/localforage
 // Definitions by: yuichi david pichsenmeister <https://github.com/3x14159265>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface LocalForageOptions {
     driver?: string | LocalForageDriver | LocalForageDriver[];

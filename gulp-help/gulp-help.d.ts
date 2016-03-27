@@ -1,7 +1,7 @@
 // Type definitions for gulp-help
 // Project: https://github.com/chmontgomery/gulp-help
 // Definitions by: Qubo <https://github.com/tkQubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />

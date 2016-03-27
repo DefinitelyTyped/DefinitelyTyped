@@ -1,9 +1,9 @@
 // Type definitions for ua-parser-js v0.7.10
 // Project: https://github.com/faisalman/ua-parser-js
 // Definitions by: Viktor Miroshnikov <https://github.com/superduper>, Lucas Woo <https://github.com/legendecas>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module UAParser {
+declare namespace UAParser {
 
     export interface IBrowser {
         /**
@@ -95,10 +95,10 @@ declare module UAParser {
         os: IOS;
         cpu: ICPU;
     }
-    
+
     export interface BROWSER {
         NAME: string,
-        
+
         // Deprecated
         MAJOR: string,
         VERSION: string
@@ -129,7 +129,7 @@ declare module UAParser {
         NAME: string,
         VERSION: string
     }
-    
+
 }
 
 declare module "ua-parser-js" {
@@ -141,7 +141,7 @@ declare module "ua-parser-js" {
         static DEVICE: UAParser.DEVICE;
         static ENGINE: UAParser.ENGINE;
         static OS: UAParser.OS;
-        
+
         /**
         *  Returns browser information
         */
@@ -180,11 +180,11 @@ declare module "ua-parser-js" {
         *  Returns parse result
         */
         getResult(): UAParser.IResult;
-        
+
         /**
          * Create a new parser with UA prepopulated and extensions extended
          */
         constructor(uastring?: string, extensions?: any);
     }
-    
+
 }

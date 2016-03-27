@@ -1,39 +1,42 @@
 ﻿// Type definitions for fetch API
 // Project: https://github.com/github/fetch
 // Definitions by: Ryan Graham <https://github.com/ryan-codingintrigue>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Request extends Body {
 	constructor(input: string|Request, init?:RequestInit);
 	method: string;
 	url: string;
 	headers: Headers;
-	context: string|RequestContext;
+	context: RequestContext;
 	referrer: string;
-	mode: string|RequestMode;
-	credentials: string|RequestCredentials;
-	cache: string|RequestCache;
+	mode: RequestMode;
+	credentials: RequestCredentials;
+	cache: RequestCache;
 }
 
 interface RequestInit {
 	method?: string;
 	headers?: HeaderInit|{ [index: string]: string };
 	body?: BodyInit;
-	mode?: string|RequestMode;
-	credentials?: string|RequestCredentials;
-	cache?: string|RequestCache;
+	mode?: RequestMode;
+	credentials?: RequestCredentials;
+	cache?: RequestCache;
 }
 
-declare enum RequestContext {
-	"audio", "beacon", "cspreport", "download", "embed", "eventsource", "favicon", "fetch",
-	"font", "form", "frame", "hyperlink", "iframe", "image", "imageset", "import",
-	"internal", "location", "manifest", "object", "ping", "plugin", "prefetch", "script",
-	"serviceworker", "sharedworker", "subresource", "style", "track", "video", "worker",
-	"xmlhttprequest", "xslt"
-}
-declare enum RequestMode { "same-origin", "no-cors", "cors" }
-declare enum RequestCredentials { "omit", "same-origin", "include" }
-declare enum RequestCache { "default", "no-store", "reload", "no-cache", "force-cache", "only-if-cached" }
+type RequestContext =
+	"audio" | "beacon" | "cspreport" | "download" | "embed" |
+	"eventsource" | "favicon" | "fetch" | "font" | "form" | "frame" |
+	"hyperlink" | "iframe" | "image" | "imageset" | "import" |
+	"internal" | "location" | "manifest" | "object" | "ping" | "plugin" |
+	"prefetch" | "script" | "serviceworker" | "sharedworker" |
+	"subresource" | "style" | "track" | "video" | "worker" |
+	"xmlhttprequest" | "xslt";
+type RequestMode = "same-origin" | "no-cors" | "cors";
+type RequestCredentials = "omit" | "same-origin" | "include";
+type RequestCache =
+	"default" | "no-store" | "reload" | "no-cache" |
+	"force-cache" | "only-if-cached";
 
 declare class Headers {
 	append(name: string, value: string): void;
@@ -42,6 +45,7 @@ declare class Headers {
 	getAll(name: string): Array<string>;
 	has(name: string): boolean;
 	set(name: string, value: string): void;
+	forEach(callback: (value: string, name: string) => void): void;
 }
 
 declare class Body {
@@ -57,7 +61,7 @@ declare class Response extends Body {
 	constructor(body?: BodyInit, init?: ResponseInit);
 	error(): Response;
 	redirect(url: string, status: number): Response;
-	type: string|ResponseType;
+	type: ResponseType;
 	url: string;
 	status: number;
 	ok: boolean;
@@ -66,7 +70,7 @@ declare class Response extends Body {
 	clone(): Response;
 }
 
-declare enum ResponseType { "basic", "cors", "default", "error", "opaque" }
+type ResponseType = "basic" | "cors" | "default" | "error" | "opaque";
 
 interface ResponseInit {
 	status: number;

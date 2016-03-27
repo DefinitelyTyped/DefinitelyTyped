@@ -3,7 +3,7 @@
 // Definitions by: ryoppy <https://github.com/ryoppy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module scalike {
+declare namespace scalike {
 
     export interface Either<A, B> {
         value: A | B;

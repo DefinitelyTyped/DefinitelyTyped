@@ -1,9 +1,9 @@
 // Type definitions for stacktrace.js
 // Project: https://github.com/stacktracejs/stacktrace.js
 // Definitions by: Exceptionless <https://github.com/exceptionless>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module StackTrace {
+declare namespace StackTrace {
   export interface StackTraceOptions {
     filter?: (stackFrame:StackFrame) => boolean;
     sourceCache?: { URL:string };

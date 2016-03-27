@@ -2,7 +2,7 @@
 /// <reference path="../angularjs/angular.d.ts" />
 /// <reference path="../cordova/cordova.d.ts" />
 
-module ngCordova {
+namespace ngCordova {
     'use strict';
 
 

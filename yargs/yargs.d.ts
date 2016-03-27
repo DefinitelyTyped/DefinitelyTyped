@@ -1,11 +1,11 @@
 // Type definitions for yargs
 // Project: https://github.com/chevex/yargs
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "yargs" {
 
-	module yargs {
+	namespace yargs {
 		interface Argv {
 			argv: any;
 			(...args: any[]): any;
@@ -15,12 +15,15 @@ declare module "yargs" {
 
 			locale(): string;
 			locale(loc:string): Argv;
-			
+
 			detectLocale(detect:boolean): Argv;
 
 			alias(shortName: string, longName: string): Argv;
 			alias(aliases: { [shortName: string]: string }): Argv;
 			alias(aliases: { [shortName: string]: string[] }): Argv;
+			
+			array(key: string): Argv;
+			array(keys: string[]): Argv;
 
 			default(key: string, value: any): Argv;
 			default(defaults: { [key: string]: any}): Argv;
@@ -90,6 +93,9 @@ declare module "yargs" {
 
 			help(): string;
 			help(option: string, description?: string): Argv;
+			
+			env(prefix?: string): Argv;
+			env(enable: boolean): Argv;
 
 			epilog(msg: string): Argv;
 			epilogue(msg: string): Argv;
@@ -102,6 +108,15 @@ declare module "yargs" {
 			showHelp(func?: (message: string) => any): Argv;
 
 			exitProcess(enabled:boolean): Argv;
+			
+			global(key: string): Argv;
+			global(keys: string[]): Argv;
+			
+			group(key: string, groupName: string): Argv;
+			group(keys: string[], groupName: string): Argv;
+			
+			nargs(key: string, count: number): Argv;
+			nargs(nargs: { [key: string]: number }): Argv;
 
 			/* Undocumented */
 
@@ -119,19 +134,27 @@ declare module "yargs" {
 
 		interface Options {
 			type?: string;
+			group?: string;
 			alias?: any;
 			demand?: any;
 			required?: any;
 			require?: any;
 			default?: any;
-			boolean?: any;
-			string?: any;
-			count?: any;
+			defaultDescription?: string;
+			boolean?: boolean;
+			string?: boolean;
+			count?: boolean;
 			describe?: any;
 			description?: any;
 			desc?: any;
 			requiresArg?: any;
 			choices?:string[];
+			global?: boolean;
+			array?: boolean;
+			config?: boolean;
+			number?: boolean;
+			normalize?: boolean;
+			nargs?: number;
 		}
 
 		type SyncCompletionFunction = (current: string, argv: any) => string[];

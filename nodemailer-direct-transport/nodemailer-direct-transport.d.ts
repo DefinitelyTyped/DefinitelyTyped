@@ -1,14 +1,14 @@
 ﻿// Type definitions for nodemailer-direct-transport 1.0.2
 // Project: https://github.com/andris9/nodemailer-direct-transport
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../nodemailer/nodemailer-types.d.ts" />
 
 declare module "nodemailer-direct-transport" {
 
-	module directTransport {
+	namespace directTransport {
 
 		export interface AuthOptions {
 			user?: string;

@@ -5,7 +5,7 @@
 
 /// <reference path="../selenium-webdriver/selenium-webdriver.d.ts" />
 
-declare module mock {
+declare namespace mock {
     interface ProtractorHttpMock {
         /**
          * Instantiate mock module. This must be done before the browser connects.
@@ -67,7 +67,7 @@ declare module mock {
         method: string;
     }
 
-    module requests {
+    namespace requests {
         /**
          * Base request mock used for all mocks.
          */
