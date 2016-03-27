@@ -3,7 +3,7 @@
 // Definitions by: Martin Bukovics <https://github.com/marinewater>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module FromNow {
+declare namespace FromNow {
     interface FromNowOpts {
         maxChunks?: number,
         useAgo?: boolean,

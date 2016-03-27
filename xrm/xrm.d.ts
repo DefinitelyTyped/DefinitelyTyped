@@ -1,10 +1,215 @@
-﻿// Type definitions for Microsoft Dynamics xRM API v7.1
+// Type definitions for Microsoft Dynamics xRM API v7.1
 // Project: http://www.microsoft.com/en-us/download/details.aspx?id=44567
-// Definitions by: David Berry <https://github.com/6ix4our/>, Matt Ngan <https://github.com/mattngan/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: David Berry <https://github.com/6ix4our/>, Matt Ngan <https://github.com/mattngan/>, Markus Mauch <https://github.com/markusmauch/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Xrm
+declare var Xrm: Xrm.XrmStatic;
+declare function GetGlobalContext(): Xrm.Context;
+
+interface Window
 {
+    Xrm: Xrm.XrmStatic;
+    GetGlobalContext(): Xrm.Context;
+}
+
+declare namespace Xrm
+{
+    /**
+     * Static xRM object.
+     */
+    export interface XrmStatic
+    {
+        /**
+         * Provides a namespace container for the context, data and ui objects.
+         */
+        Page: {
+            /**
+             * Provides methods to retrieve information specific to an organization, a user, or parameters passed to a page.
+             */
+            context: Context;
+
+            /**
+             * Provides methods to work with the form.
+             */
+            data: Data;
+
+            /**
+             * Contains properties and methods to retrieve information about the user interface as well as collections for several subcomponents of the form.
+             */
+            ui: Ui;
+
+            /**
+             * Gets all attributes.
+             *
+             * @return  An array of attributes.
+             */
+            getAttribute(): Page.Attribute[];
+
+            /**
+             * Gets an attribute matching attributeName.
+             *
+             * @tparam  T   An Attribute type.
+             * @param   {string}    attributeName   Name of the attribute.
+             *
+             * @return  The attribute.
+             */
+            getAttribute<T extends Page.Attribute>( attributeName: string ): T;
+
+            /**
+             * Gets an attribute matching attributeName.
+             *
+             * @param   {string}    attributeName   Name of the attribute.
+             *
+             * @return  The attribute.
+             */
+            getAttribute( attributeName: string ): Page.Attribute;
+
+            /**
+             * Gets an attribute by index.
+             *
+             * @param   {number}    index   The attribute index.
+             *
+             * @return  The attribute.
+             */
+            getAttribute( index: number ): Page.Attribute;
+
+            /**
+             * Gets an attribute.
+             *
+             * @param   {Collection.MatchingDelegate{Attribute}}    delegateFunction    A matching delegate function
+             *
+             * @return  An array of attribute.
+             */
+            getAttribute( delegateFunction: Collection.MatchingDelegate<Page.Attribute> ): Page.Attribute[];
+
+            /**
+             * Gets all controls.
+             *
+             * @return  An array of controls.
+             */
+            getControl(): Page.Control[];
+
+            /**
+             * Gets a control matching controlName.
+             *
+             * @tparam  T   A Control type
+             * @param   {string}    controlName Name of the control.
+             *
+             * @return  The control.
+             */
+            getControl<T extends Page.Control>( controlName: string ): T;
+
+            /**
+             * Gets a control matching controlName.
+             *
+             * @param   {string}    controlName Name of the control.
+             *
+             * @return  The control.
+             */
+            getControl( controlName: string ): Page.Control;
+
+            /**
+             * Gets a control by index.
+             *
+             * @param   {number}    index   The control index.
+             *
+             * @return  The control.
+             */
+            getControl( index: number ): Page.Control;
+
+            /**
+             * Gets a control.
+             *
+             * @param   {Collection.MatchingDelegate{Control}}  delegateFunction    A matching delegate function.
+             *
+             * @return  An array of control.
+             */
+            getControl( delegateFunction: Collection.MatchingDelegate<Page.Control> ): Page.Control[];
+        }
+
+        /**
+         * Provides a container for useful functions not directly related to the current page.
+         */
+        Utility: {
+            /**
+             * Displays an alert dialog, with an "OK" button.
+             *
+             * @param   {string}        message         The message.
+             * @param   {function()}    onCloseCallback The "OK" callback.
+             */
+            alertDialog( message: string, onCloseCallback: () => void ): void;
+
+            /**
+             * Displays a confirmation dialog, with "OK" and "Cancel" buttons.
+             *
+             * @param   {string}        message             The message.
+             * @param   {function()}    yesCloseCallback    The "OK" callback.
+             * @param   {function()}    noCloseCallback     The "Cancel" callback.
+             */
+            confirmDialog( message: string, yesCloseCallback: () => void, noCloseCallback: () => void ): void;
+
+            /**
+             * Query if 'entityType' is an Activity entity.
+             *
+             * @param   {string}    entityType  Type of the entity.
+             *
+             * @return  true if the entity is an Activity, false if not.
+             */
+            isActivityType( entityType: string ): boolean;
+
+            /**
+             * Opens quick create.
+             *
+             * @param   {Function}  callback                    The function that will be called when a record is created. This
+             *                                                  function is passed a LookupValue object as a parameter.
+             * @param   {string}    entityLogicalName           The logical name of the entity to create.
+             * @param   {Page.LookupValue}  createFromEntity    (Optional) Designates a record that will provide default values
+             *                                                  based on mapped attribute values.
+             * @param   {OpenParameters}    parameters          (Optional) A dictionary object that passes extra query string
+             *                                                  parameters to the form. Invalid query string parameters will cause an
+             *                                                  error.
+             */
+            openQuickCreate(
+                callback: ( recordReference: Page.LookupValue ) => void,
+                entityLogicalName: string,
+                createFromEntity?: Page.LookupValue,
+                parameters?: Utility.OpenParameters ): void;
+
+            /**
+             * Opens an entity form.
+             *
+             * @param   {string}    name                The entity's logical name.
+             * @param   {string}    id                  (Optional) The unique identifier for the record.
+             * @param   {FormParameters}    parameters  (Optional) A dictionary object that passes extra query string parameters to the form.
+             * @param   {WindowOptions} windowOptions   (Optional) Options for controlling the window.
+             */
+            openEntityForm( name: string, id?: string, parameters?: Utility.FormOpenParameters, windowOptions?: Utility.WindowOptions ): void;
+
+            /**
+             * Opens an HTML Web Resource in a new browser window.
+             *
+             * @param   {string}    webResourceName Name of the HTML web resource. Can be used to pass URL
+             *                                      parameters.  See Remarks.
+             * @param   {string}    webResourceData (Optional) Data to pass into the Web Resource's data parameter.
+             *                                                 It is advised to use encodeURIcomponent() to encode the value.
+             * @param   {number}    width           (Optional) The width of the new window.
+             * @param   {number}    height          (Optional) The height of the new window.
+             *
+             * @return  A Window reference, containing the opened Web Resource.
+             *
+             * @remarks This function will not work with Microsoft Dynamics CRM for tablets.
+             *          Valid WebResource URL Parameters:   typename
+             *                                              type
+             *                                              id
+             *                                              orgname
+             *                                              userlcid
+             *                                              data (identical to this method's webResourceData parameter)
+             *                                              formid
+             */
+            openWebResource( webResourceName: string, webResourceData?: string, width?: number, height?: number ): Window;
+        }
+    }
+
     /**
      * Interface for the client context.
      */
@@ -28,7 +233,7 @@ declare module Xrm
     /**
      * Interface for the xRM application context.
      */
-    export interface Context
+    interface Context
     {
         /**
          * The client's context instance.
@@ -137,6 +342,170 @@ declare module Xrm
          * @remarks Format: "/"+ OrgName + sPath
          */
         prependOrgName( sPath: string ): string;
+    }
+
+    /**
+     * Interface for the Xrm.Page.data object.
+     */
+    export interface Data
+    {
+        /**
+         * Asynchronously refreshes data on the form, without reloading the page.
+         *
+         * @param   {boolean}   save    true to save the record, after the refresh.
+         *
+         * @return  An Async.XrmPromise.
+         */
+        refresh( save: boolean ): Async.XrmPromise;
+
+        /**
+         * Asynchronously saves the record.
+         *
+         * @return  An Async.XrmPromise.
+         */
+        save(): Async.XrmPromise;
+
+        /**
+         * The record context of the form.
+         */
+        entity: Page.Entity;
+
+        /**
+         * The process API for Xrm.Page.data.
+         *
+         * @remarks This member may be undefined when Process Flows are not used by the current entity.
+         */
+        process: Page.data.ProcessManager;
+    }
+
+    /**
+     * Interface for the Xrm.Page.ui object.
+     */
+    export interface Ui
+    {
+        /**
+         * Clears the form notification described by uniqueId.
+         *
+         * @param   {string}    uniqueId    Unique identifier.
+         *
+         * @return  true if it succeeds, otherwise false.
+         */
+        clearFormNotification( uniqueId: string ): boolean;
+
+        /**
+         * Closes the form.
+         */
+        close(): void;
+
+        /**
+         * Gets form type.
+         *
+         * @return  The form type.
+         *
+         * @remarks     Values returned are: 0  Undefined
+         *                                   1  Create
+         *                                   2  Update
+         *                                   3  Read Only
+         *                                   4  Disabled
+         *                                   6  Bulk Edit
+         *              Deprecated values are 5 (Quick Create), and 11 (Read Optimized)
+         */
+        getFormType(): XrmEnum.FormType;
+
+        /**
+         * Gets view port height.
+         *
+         * @return  The view port height, in pixels.
+         *
+         * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
+         */
+        getViewPortHeight(): number;
+
+        /**
+         * Gets view port width.
+         *
+         * @return  The view port width, in pixels.
+         *
+         * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
+         */
+        getViewPortWidth(): number;
+
+        /**
+         * Re-evaluates the ribbon's configured EnableRules
+         *
+         * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
+         */
+        refreshRibbon(): void;
+
+        /**
+         * Sets a form-level notification.
+         *
+         * @param   {string}    message     The message.
+         * @param   {"ERROR"}   level       An error message.
+         * @param   {string}    uniqueId    A unique identifier for the message.
+         *
+         * @return  true if it succeeds, false if it fails.
+         */
+        setFormNotification( message: string, level: "ERROR", uniqueId: string ): boolean;
+
+        /**
+         * Sets a form-level notification.
+         *
+         * @param   {string}    message     The message.
+         * @param   {"WARNING"} level       A warning message.
+         * @param   {string}    uniqueId    A unique identifier for the message.
+         *
+         * @return  true if it succeeds, false if it fails.
+         */
+        setFormNotification( message: string, level: "WARNING", uniqueId: string ): boolean;
+
+        /**
+         * Sets a form-level notification.
+         *
+         * @param   {string}    message     The message.
+         * @param   {"INFO"}    level       An informational message.
+         * @param   {string}    uniqueId    A unique identifier for the message.
+         *
+         * @return  true if it succeeds, false if it fails.
+         */
+        setFormNotification( message: string, level: "INFO", uniqueId: string ): boolean;
+
+        /**
+         * Sets a form-level notification.
+         *
+         * @param   {string}    message     The message.
+         * @param   {string}    level       The level, as either "ERROR", "WARNING", or "INFO".
+         * @param   {string}    uniqueId    A unique identifier for the message.
+         *
+         * @return  true if it succeeds, otherwise false.
+         */
+        setFormNotification( message: string, level: string, uniqueId: string ): boolean;
+
+        process: Page.data.ProcessManager;
+
+        /**
+         * A reference to the collection of controls on the form.
+         */
+        controls: Collection.ItemCollection<Page.Control>;
+
+        /**
+         * The form selector API.
+         *
+         * @remarks This API does not exist with Microsoft Dynamics CRM for tablets.
+         */
+        formSelector: Page.FormSelector;
+
+        /**
+         * The navigation API.
+         *
+         * @remarks This API does not exist with Microsoft Dynamics CRM for tablets.
+         */
+        navigation: Page.Navigation;
+
+        /**
+         * A reference to the collection of tabs on the form.
+         */
+        tabs: Collection.ItemCollection<Page.Tab>;
     }
 
     /**
@@ -278,63 +647,6 @@ declare module Xrm
     export module Page
     {
         /**
-         * Enumeration of entity form states/types.
-         */
-        export const enum FormType
-        {
-            Undefined = 0,
-            Create = 1,
-            Update = 2,
-            ReadOnly = 3,
-            Disabled = 4,
-            BulkEdit = 6
-        }
-
-        /**
-         * Enumeration of entity form save modes.
-         */
-        export const enum SaveMode
-        {
-            Save = 1,
-            SaveAndClose = 2,
-            SaveAndNew = 59,
-            AutoSave = 70,
-            SaveAsCompleted = 58,
-            Deactivate = 5,
-            Reactivate = 6,
-            Assign = 47,
-            Send = 7,
-            Qualify = 16,
-            Disqualify = 15
-        }
-
-        /**
-         * Enumeration of stage categories.
-         */
-        export const enum StageCategory
-        {
-            Qualify = 0,
-            Develop = 1,
-            Propose = 2,
-            Close = 3,
-            Identify = 4,
-            Research = 5,
-            Resolve = 6
-        }
-
-        /**
-         * Enumeration of grid control context resolutions.
-         */
-        export const enum GridControlContext
-        {
-            Unknown = 0,
-            RibbonContextForm = 1,
-            RibbonContextListing = 2,
-            FormContextUnrelated = 3,
-            FormContextRelated = 4
-        }
-
-        /**
          * Interface for a CRM Business Process Flow instance.
          */
         export interface Process
@@ -381,7 +693,7 @@ declare module Xrm
              *
              * @return  The stage category.
              */
-            getCategory(): { getValue(): StageCategory };
+            getCategory(): { getValue(): XrmEnum.StageCategory };
 
             /**
              * Returns the logical name of the entity associated with the stage.
@@ -486,7 +798,7 @@ declare module Xrm
              *
              * @return  The event source.
              */
-            getEventSource(): Xrm.Page.Attribute | Xrm.Page.Entity;
+            getEventSource(): Page.Attribute | Page.Entity;
 
             /**
              * Gets the shared variable with the specified key.
@@ -1164,7 +1476,7 @@ declare module Xrm
              *                               16     Qualify (Lead)
              *                               15     Disqualify (Lead)
              */
-            getSaveMode(): SaveMode;
+            getSaveMode(): XrmEnum.SaveMode;
 
             /**
              * Returns a boolean value to indicate if the record's save has been prevented.
@@ -1302,34 +1614,6 @@ declare module Xrm
              * Represents a key-value pair, where the key is the Process Flow's ID, and the value is the name thereof.
              */
             export type ProcessDictionary = { [index: string]: string };
-
-            /**
-             * Asynchronously refreshes data on the form, without reloading the page.
-             *
-             * @param   {boolean}   save    true to save the record, after the refresh.
-             *
-             * @return  An Async.XrmPromise.
-             */
-            export function refresh( save: boolean ): Async.XrmPromise;
-
-            /**
-             * Asynchronously saves the record.
-             *
-             * @return  An Async.XrmPromise.
-             */
-            export function save(): Async.XrmPromise;
-
-            /**
-             * The record context of the form.
-             */
-            export var entity: Entity;
-
-            /**
-             * The process API for Xrm.Page.data.
-             *
-             * @remarks This member may be undefined when Process Flows are not used by the current entity.
-             */
-            export var process: ProcessManager;
         }
 
         /**
@@ -1612,7 +1896,7 @@ declare module Xrm
              *
              * @return  The context type.
              */
-            getContextType(): GridControlContext;
+            getContextType(): XrmEnum.GridControlContext;
 
             /**
              * Use this method to get the logical name of the entity data displayed in the grid.
@@ -1767,7 +2051,7 @@ declare module Xrm
              *
              * @return  The parent.
              */
-            getParent(): typeof ui;
+            getParent(): Ui;
 
             /**
              * Sets display state of the tab.
@@ -1996,130 +2280,6 @@ declare module Xrm
                  */
                 getEntityReference(): LookupValue;
             }
-
-            /**
-             * Clears the form notification described by uniqueId.
-             *
-             * @param   {string}    uniqueId    Unique identifier.
-             *
-             * @return  true if it succeeds, otherwise false.
-             */
-            export function clearFormNotification( uniqueId: string ): boolean;
-
-            /**
-             * Closes the form.
-             */
-            export function close(): void;
-
-            /**
-             * Gets form type.
-             *
-             * @return  The form type.
-             *
-             * @remarks     Values returned are: 0  Undefined
-             *                                   1  Create
-             *                                   2  Update
-             *                                   3  Read Only
-             *                                   4  Disabled
-             *                                   6  Bulk Edit
-             *              Deprecated values are 5 (Quick Create), and 11 (Read Optimized)
-             */
-            export function getFormType(): FormType;
-
-            /**
-             * Gets view port height.
-             *
-             * @return  The view port height, in pixels.
-             *
-             * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
-             */
-            export function getViewPortHeight(): number;
-
-            /**
-             * Gets view port width.
-             *
-             * @return  The view port width, in pixels.
-             *
-             * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
-             */
-            export function getViewPortWidth(): number;
-
-            /**
-             * Re-evaluates the ribbon's configured EnableRules
-             *
-             * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
-             */
-            export function refreshRibbon(): void;
-
-            /**
-             * Sets a form-level notification.
-             *
-             * @param   {string}    message     The message.
-             * @param   {"ERROR"}   level       An error message.
-             * @param   {string}    uniqueId    A unique identifier for the message.
-             *
-             * @return  true if it succeeds, false if it fails.
-             */
-            export function setFormNotification( message: string, level: "ERROR", uniqueId: string ): boolean;
-
-            /**
-             * Sets a form-level notification.
-             *
-             * @param   {string}    message     The message.
-             * @param   {"WARNING"} level       A warning message.
-             * @param   {string}    uniqueId    A unique identifier for the message.
-             *
-             * @return  true if it succeeds, false if it fails.
-             */
-            export function setFormNotification( message: string, level: "WARNING", uniqueId: string ): boolean;
-
-            /**
-             * Sets a form-level notification.
-             *
-             * @param   {string}    message     The message.
-             * @param   {"INFO"}    level       An informational message.
-             * @param   {string}    uniqueId    A unique identifier for the message.
-             *
-             * @return  true if it succeeds, false if it fails.
-             */
-            export function setFormNotification( message: string, level: "INFO", uniqueId: string ): boolean;
-
-            /**
-             * Sets a form-level notification.
-             *
-             * @param   {string}    message     The message.
-             * @param   {string}    level       The level, as either "ERROR", "WARNING", or "INFO".
-             * @param   {string}    uniqueId    A unique identifier for the message.
-             *
-             * @return  true if it succeeds, otherwise false.
-             */
-            export function setFormNotification( message: string, level: string, uniqueId: string ): boolean;
-
-            export var process: ProcessManager;
-
-            /**
-             * A reference to the collection of controls on the form.
-             */
-            export var controls: Collection.ItemCollection<Control>;
-
-            /**
-             * The form selector API.
-             *
-             * @remarks This API does not exist with Microsoft Dynamics CRM for tablets.
-             */
-            export var formSelector: FormSelector;
-
-            /**
-             * The navigation API.
-             *
-             * @remarks This API does not exist with Microsoft Dynamics CRM for tablets.
-             */
-            export var navigation: Navigation;
-
-            /**
-             * A reference to the collection of tabs on the form.
-             */
-            export var tabs: Collection.ItemCollection<Tab>;
         }
 
         /**
@@ -2193,99 +2353,6 @@ declare module Xrm
              */
             items: Collection.ItemCollection<FormItem>;
         }
-
-        /**
-         * A reference to the xRM application context.
-         */
-        export var context: Context;
-
-        /**
-         * Gets all attributes.
-         *
-         * @return  An array of attributes.
-         */
-        export function getAttribute(): Attribute[];
-
-        /**
-         * Gets an attribute matching attributeName.
-         *
-         * @tparam  T   An Attribute type.
-         * @param   {string}    attributeName   Name of the attribute.
-         *
-         * @return  The attribute.
-         */
-        export function getAttribute<T extends Attribute>( attributeName: string ): T;
-
-        /**
-         * Gets an attribute matching attributeName.
-         *
-         * @param   {string}    attributeName   Name of the attribute.
-         *
-         * @return  The attribute.
-         */
-        export function getAttribute( attributeName: string ): Attribute;
-
-        /**
-         * Gets an attribute by index.
-         *
-         * @param   {number}    index   The attribute index.
-         *
-         * @return  The attribute.
-         */
-        export function getAttribute( index: number ): Attribute;
-
-        /**
-         * Gets an attribute.
-         *
-         * @param   {Collection.MatchingDelegate{Attribute}}    delegateFunction    A matching delegate function
-         *
-         * @return  An array of attribute.
-         */
-        export function getAttribute( delegateFunction: Collection.MatchingDelegate<Attribute> ): Attribute[];
-
-        /**
-         * Gets all controls.
-         *
-         * @return  An array of controls.
-         */
-        export function getControl(): Control[];
-
-        /**
-         * Gets a control matching controlName.
-         *
-         * @tparam  T   A Control type
-         * @param   {string}    controlName Name of the control.
-         *
-         * @return  The control.
-         */
-        export function getControl<T extends Control>( controlName: string ): T;
-
-        /**
-         * Gets a control matching controlName.
-         *
-         * @param   {string}    controlName Name of the control.
-         *
-         * @return  The control.
-         */
-        export function getControl( controlName: string ): Control;
-
-        /**
-         * Gets a control by index.
-         *
-         * @param   {number}    index   The control index.
-         *
-         * @return  The control.
-         */
-        export function getControl( index: number ): Control;
-
-        /**
-         * Gets a control.
-         *
-         * @param   {Collection.MatchingDelegate{Control}}  delegateFunction    A matching delegate function.
-         *
-         * @return  An array of control.
-         */
-        export function getControl( delegateFunction: Collection.MatchingDelegate<Control> ): Control[];
     }
 
     /**
@@ -2295,15 +2362,6 @@ declare module Xrm
      */
     export module Url
     {
-        /**
-         * An enumeration for view types.
-         */
-        export const enum ViewType
-        {
-            SystemView = 1039,
-            UserView = 4230
-        }
-
         /**
          * Interface for defining parameters on a request to open a form with main.aspx (as with
          * window.open). Useful for parsing the keys and values into a string of the format:
@@ -2376,7 +2434,7 @@ declare module Xrm
              * @remarks  Accepted values are:    1039    System View
              *                                   4230    User View.
              */
-            viewtype: ViewType;
+            viewtype: XrmEnum.ViewType;
 
             /**
              * Controls whether the command bar is displayed.
@@ -2506,89 +2564,74 @@ declare module Xrm
              */
             openInNewWindow: boolean;
         }
-
-        /**
-         * Displays an alert dialog, with an "OK" button.
-         *
-         * @param   {string}        message         The message.
-         * @param   {function()}    onCloseCallback The "OK" callback.
-         */
-        export function alertDialog( message: string, onCloseCallback: () => void ): void;
-
-        /**
-         * Displays a confirmation dialog, with "OK" and "Cancel" buttons.
-         *
-         * @param   {string}        message             The message.
-         * @param   {function()}    yesCloseCallback    The "OK" callback.
-         * @param   {function()}    noCloseCallback     The "Cancel" callback.
-         */
-        export function confirmDialog( message: string, yesCloseCallback: () => void, noCloseCallback: () => void ): void;
-
-        /**
-         * Query if 'entityType' is an Activity entity.
-         *
-         * @param   {string}    entityType  Type of the entity.
-         *
-         * @return  true if the entity is an Activity, false if not.
-         */
-        export function isActivityType( entityType: string ): boolean;
-
-        /**
-         * Opens an entity form.
-         *
-         * @param   {string}    name                The entity's logical name.
-         * @param   {string}    id                  (Optional) The unique identifier for the record.
-         * @param   {FormParameters}    parameters  (Optional) A dictionary object that passes extra query string parameters to the form.
-         * @param   {WindowOptions} windowOptions   (Optional) Options for controlling the window.
-         */
-        export function openEntityForm( name: string, id?: string, parameters?: FormOpenParameters, windowOptions?: WindowOptions ): void;
-
-        /**
-         * Opens quick create.
-         *
-         * @param   {Function}  callback                    The function that will be called when a record is created. This
-         *                                                  function is passed a LookupValue object as a parameter.
-         * @param   {string}    entityLogicalName           The logical name of the entity to create.
-         * @param   {Page.LookupValue}  createFromEntity    (Optional) Designates a record that will provide default values
-         *                                                  based on mapped attribute values.
-         * @param   {OpenParameters}    parameters          (Optional) A dictionary object that passes extra query string
-         *                                                  parameters to the form. Invalid query string parameters will cause an
-         *                                                  error.
-         */
-        export function openQuickCreate( callback: ( recordReference: Page.LookupValue ) => void,
-            entityLogicalName: string,
-            createFromEntity?: Page.LookupValue,
-            parameters?: OpenParameters ): void;
-
-        /**
-         * Opens an HTML Web Resource in a new browser window.
-         *
-         * @param   {string}    webResourceName Name of the HTML web resource. Can be used to pass URL
-         *                                      parameters.  See Remarks.
-         * @param   {string}    webResourceData (Optional) Data to pass into the Web Resource's data parameter.
-         *                                                 It is advised to use encodeURIcomponent() to encode the value.
-         * @param   {number}    width           (Optional) The width of the new window.
-         * @param   {number}    height          (Optional) The height of the new window.
-         *
-         * @return  A Window reference, containing the opened Web Resource.
-         *
-         * @remarks This function will not work with Microsoft Dynamics CRM for tablets.
-         *          Valid WebResource URL Parameters:   typename
-         *                                              type
-         *                                              id
-         *                                              orgname
-         *                                              userlcid
-         *                                              data (identical to this method's webResourceData parameter)
-         *                                              formid
-         */
-        export function openWebResource( webResourceName: string, webResourceData?: string, width?: number, height?: number ): Window;
     }
 }
 
-/**
- * Gets the xRM application context, for HTML web resources, included by ClientGlobalContext.js.aspx
- * @returns {Xrm.Context}   The application context for the user's current session.
- * @remarks The ClientGlobalContext.js.aspx page will include some global event handlers. These event handlers will
- *          cancel the onselectstart, contextmenu, and ondragstart events.
- */
-declare function GetGlobalContext(): Xrm.Context;
+declare namespace XrmEnum
+{
+    /**
+     * Enumeration of entity form states/types.
+     */
+    export const enum FormType
+    {
+        Undefined = 0,
+        Create = 1,
+        Update = 2,
+        ReadOnly = 3,
+        Disabled = 4,
+        BulkEdit = 6
+    }
+
+    /**
+     * Enumeration of entity form save modes.
+     */
+    export const enum SaveMode
+    {
+        Save = 1,
+        SaveAndClose = 2,
+        SaveAndNew = 59,
+        AutoSave = 70,
+        SaveAsCompleted = 58,
+        Deactivate = 5,
+        Reactivate = 6,
+        Assign = 47,
+        Send = 7,
+        Qualify = 16,
+        Disqualify = 15
+    }
+
+    /**
+     * Enumeration of stage categories.
+     */
+    export const enum StageCategory
+    {
+        Qualify = 0,
+        Develop = 1,
+        Propose = 2,
+        Close = 3,
+        Identify = 4,
+        Research = 5,
+        Resolve = 6
+    }
+
+    /**
+     * Enumeration of grid control context resolutions.
+     */
+    export const enum GridControlContext
+    {
+        Unknown = 0,
+        RibbonContextForm = 1,
+        RibbonContextListing = 2,
+        FormContextUnrelated = 3,
+        FormContextRelated = 4
+    }
+
+    /**
+     * An enumeration for view types.
+     */
+    export const enum ViewType
+    {
+        SystemView = 1039,
+        UserView = 4230
+    }
+}

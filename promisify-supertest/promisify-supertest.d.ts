@@ -1,7 +1,7 @@
 // Type definitions for promisify-supertest v1.0.0
 // Project: https://www.npmjs.com/package/promisify-supertest
 // Definitions by: Leo Liang <https://github.com/aleung/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path='../superagent/superagent.d.ts' />
 /// <reference path="../express/express.d.ts" />
@@ -16,7 +16,7 @@ declare module 'promisify-supertest' {
 
   function supertest(app: express.Express): supertest.SuperTest;
 
-  module supertest {
+  namespace supertest {
     function agent(app?: any): supertest.SuperTest;
 
     interface SuperTest extends superagent.SuperAgent<Test> {

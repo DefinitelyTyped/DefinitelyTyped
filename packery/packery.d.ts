@@ -1,7 +1,7 @@
 // Type definitions for Packery v1.4.1
 // Project: http://packery.metafizzy.co
 // Definitions by: Piraveen Kamalathas from Kilix <https://github.com/piraveen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "packery" {
 	interface PackeryOptions {

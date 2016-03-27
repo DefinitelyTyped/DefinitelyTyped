@@ -1,7 +1,7 @@
 // Type definitions for router5
 // Project: https://github.com/router5/router5
 // Definitions by: Matthew Dahl <https://github.com/sandersky>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'router5' {
     interface constants {

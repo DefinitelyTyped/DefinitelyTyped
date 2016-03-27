@@ -1,7 +1,7 @@
 // Type definitions for mobservable v0.1.8
 // Project: https://github.com/mweststrate/mobservable-react
 // Definitions by: Michel Weststrate <https://github.com/mweststrate/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react-global.d.ts" />
 
