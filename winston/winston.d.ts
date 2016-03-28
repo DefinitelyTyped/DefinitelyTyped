@@ -38,6 +38,7 @@ declare module "winston" {
   export function unhandleExceptions(...transports: TransportInstance[]): void;
   export function add(transport: TransportInstance, options?: TransportOptions, created?: boolean): LoggerInstance;
   export function clear(): void;
+  export function remove(transport: string): LoggerInstance;
   export function remove(transport: TransportInstance): LoggerInstance;
   export function startTimer(): ProfileHandler;
   export function profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;

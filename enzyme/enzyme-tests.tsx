@@ -3,13 +3,18 @@
 
 import { shallow, mount, render, describeWithDOM, spyLifecycle } from "enzyme";
 import * as React from "react";
-import {Component, ReactElement} from "react";
+import {Component, ReactElement, HTMLAttributes} from "react";
 import {ShallowWrapper, ReactWrapper, CheerioWrapper} from "enzyme";
 
 
 // Help classes/interfaces
 interface MyComponentProps {
     propsProperty: any;
+    numberProp?: number;
+}
+
+interface StatelessProps {
+    stateless: any;
 }
 
 interface MyComponentState {
@@ -24,6 +29,8 @@ class MyComponent extends Component<MyComponentProps, MyComponentState> {
     }
 }
 
+const MyStatelessComponent = (props: StatelessProps) => <span />;
+
 // API
 namespace SpyLifecycleTest {
     spyLifecycle(MyComponent);
@@ -37,11 +44,14 @@ namespace ShallowWrapperTest {
     var reactElement: ReactElement<any>,
         objectVal: Object,
         boolVal: Boolean,
-        stringVal: String;
+        stringVal: String,
+        elementWrapper: ShallowWrapper<HTMLAttributes, {}>
 
     function test_find() {
-        shallowWrapper = shallowWrapper.find('.selector');
+        elementWrapper = shallowWrapper.find('.selector');
         shallowWrapper = shallowWrapper.find(MyComponent);
+        shallowWrapper.find(MyStatelessComponent).props().stateless;
+        shallowWrapper.find(MyStatelessComponent).shallow();
     }
 
     function test_findWhere() {
@@ -50,13 +60,16 @@ namespace ShallowWrapperTest {
     }
 
     function test_filter() {
-        shallowWrapper = shallowWrapper.filter('.selector');
-        shallowWrapper = shallowWrapper.filter(MyComponent);
+        elementWrapper = shallowWrapper.filter('.selector');
+        shallowWrapper = shallowWrapper.filter(MyComponent).shallow();
     }
 
     function test_filterWhere() {
         shallowWrapper =
-            shallowWrapper.filterWhere((aShallowWrapper: ShallowWrapper<MyComponentProps, MyComponentState>) => true);
+            shallowWrapper.filterWhere(wrapper => {
+                wrapper.props().propsProperty;
+                return true;
+            });
     }
 
     function test_contains() {
@@ -72,11 +85,12 @@ namespace ShallowWrapperTest {
     }
 
     function test_not() {
-        shallowWrapper = shallowWrapper.find('.foo').not('.bar');
+        elementWrapper = shallowWrapper.find('.foo').not('.bar');
     }
 
     function test_children() {
         shallowWrapper = shallowWrapper.children();
+        shallowWrapper.children(MyStatelessComponent).props().stateless;
     }
 
     function test_parents() {
@@ -88,7 +102,7 @@ namespace ShallowWrapperTest {
     }
 
     function test_closest() {
-        shallowWrapper = shallowWrapper.closest('.selector');
+        elementWrapper = shallowWrapper.closest('.selector');
         shallowWrapper = shallowWrapper.closest(MyComponent);
     }
 
@@ -174,20 +188,18 @@ namespace ShallowWrapperTest {
 
     function test_forEach() {
         shallowWrapper =
-            shallowWrapper.forEach((aShallowWrapper: ShallowWrapper<MyComponentProps, MyComponentState>)=> {
-            });
+            shallowWrapper.forEach(wrapper => wrapper.shallow().props().propsProperty);
     }
 
     function test_map() {
-        var arrayVal: Array<any> =
-            shallowWrapper.map((aShallowWrapper: ShallowWrapper<MyComponentProps, MyComponentState>)=> {
-            });
+        var arrayNumbers: Array<Number> =
+            shallowWrapper.map(wrapper => wrapper.props().numberProp);
     }
 
     function test_reduce() {
         const total: number[] =
-            shallowWrapper.reduce<number>(
-                (amount: number, n: ShallowWrapper<MyComponentProps, MyComponentState>) => amount + n.prop('amount')
+            shallowWrapper.reduce(
+                (amount: number, n: ShallowWrapper<MyComponentProps, MyComponentState>) => amount + n.props().numberProp
             );
     }
 
@@ -226,11 +238,13 @@ namespace ReactWrapperTest {
     var reactElement: ReactElement<any>,
         objectVal: Object,
         boolVal: Boolean,
-        stringVal: String;
+        stringVal: String,
+        elementWrapper: ReactWrapper<HTMLAttributes, {}>
 
     function test_find() {
-        reactWrapper = reactWrapper.find('.selector');
+        elementWrapper = reactWrapper.find('.selector');
         reactWrapper = reactWrapper.find(MyComponent);
+        reactWrapper.find(MyStatelessComponent).props().stateless;
     }
 
     function test_findWhere() {
@@ -239,13 +253,16 @@ namespace ReactWrapperTest {
     }
 
     function test_filter() {
-        reactWrapper = reactWrapper.filter('.selector');
+        elementWrapper = reactWrapper.filter('.selector');
         reactWrapper = reactWrapper.filter(MyComponent);
     }
 
     function test_filterWhere() {
         reactWrapper =
-            reactWrapper.filterWhere((aReactWrapper: ReactWrapper<MyComponentProps, MyComponentState>) => true);
+            reactWrapper.filterWhere(wrapper => {
+                wrapper.props().propsProperty;
+                return true;
+            });
     }
 
     function test_contains() {
@@ -261,7 +278,7 @@ namespace ReactWrapperTest {
     }
 
     function test_not() {
-        reactWrapper = reactWrapper.find('.foo').not('.bar');
+        elementWrapper = reactWrapper.find('.foo').not('.bar');
     }
 
     function test_children() {
@@ -277,7 +294,7 @@ namespace ReactWrapperTest {
     }
 
     function test_closest() {
-        reactWrapper = reactWrapper.closest('.selector');
+        elementWrapper = reactWrapper.closest('.selector');
         reactWrapper = reactWrapper.closest(MyComponent);
     }
 
@@ -354,14 +371,12 @@ namespace ReactWrapperTest {
 
     function test_forEach() {
         reactWrapper =
-            reactWrapper.forEach((aReactWrapper: ReactWrapper<MyComponentProps, MyComponentState>)=> {
-            });
+            reactWrapper.forEach(wrapper => wrapper.props().propsProperty);
     }
 
     function test_map() {
-        var arrayVal: Array<any> =
-            reactWrapper.map((aReactWrapper: ReactWrapper<MyComponentProps, MyComponentState>)=> {
-            });
+        var arrayNumbers: Array<Number> =
+            reactWrapper.map(wrapper => wrapper.props().numberProp);
     }
 
     function test_reduce() {
@@ -405,11 +420,13 @@ namespace CheerioWrapperTest {
     var reactElement: ReactElement<any>,
         objectVal: Object,
         boolVal: Boolean,
-        stringVal: String;
+        stringVal: String,
+        elementWrapper: ReactWrapper<HTMLAttributes, {}>
 
     function test_find() {
-        cheerioWrapper = cheerioWrapper.find('.selector');
+        elementWrapper = cheerioWrapper.find('.selector');
         cheerioWrapper = cheerioWrapper.find(MyComponent);
+        cheerioWrapper.find(MyStatelessComponent).props().stateless;
     }
 
     function test_findWhere() {
@@ -418,13 +435,16 @@ namespace CheerioWrapperTest {
     }
 
     function test_filter() {
-        cheerioWrapper = cheerioWrapper.filter('.selector');
+        elementWrapper = cheerioWrapper.filter('.selector');
         cheerioWrapper = cheerioWrapper.filter(MyComponent);
     }
 
     function test_filterWhere() {
         cheerioWrapper =
-            cheerioWrapper.filterWhere((aCheerioWrapper: CheerioWrapper<MyComponentProps, MyComponentState>) => true);
+            cheerioWrapper.filterWhere(wrapper => {
+                wrapper.props().propsProperty;
+                return true;
+            });
     }
 
     function test_contains() {
@@ -440,7 +460,7 @@ namespace CheerioWrapperTest {
     }
 
     function test_not() {
-        cheerioWrapper = cheerioWrapper.find('.foo').not('.bar');
+        elementWrapper = cheerioWrapper.find('.foo').not('.bar');
     }
 
     function test_children() {
@@ -456,7 +476,7 @@ namespace CheerioWrapperTest {
     }
 
     function test_closest() {
-        cheerioWrapper = cheerioWrapper.closest('.selector');
+        elementWrapper = cheerioWrapper.closest('.selector');
         cheerioWrapper = cheerioWrapper.closest(MyComponent);
     }
 
@@ -538,9 +558,8 @@ namespace CheerioWrapperTest {
     }
 
     function test_map() {
-        var arrayVal: Array<any> =
-            cheerioWrapper.map((aCheerioWrapper: CheerioWrapper<MyComponentProps, MyComponentState>)=> {
-            });
+        var arrayNumbers: Array<Number> =
+            cheerioWrapper.map(wrapper => wrapper.props().numberProp);
     }
 
     function test_reduce() {

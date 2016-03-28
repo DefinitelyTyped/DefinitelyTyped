@@ -25,7 +25,7 @@ interface Select2AjaxOptions {
     */
     url?: any;
     dataType?: string;
-    quietMillis?: number;
+    delay?: number;
     cache?: boolean;
     data?: (term: string, page: number, context: any) => any;
     results?: (term: any, page: number, context: any) => any;
@@ -42,7 +42,7 @@ interface Select2Options {
     minimumInputLength?: number;
     minimumResultsForSearch?: number;
     maximumSelectionSize?: number;
-    placeholder?: string;
+    placeholder?: string | IdTextPair;
     separator?: string;
     allowClear?: boolean;
     multiple?: boolean;

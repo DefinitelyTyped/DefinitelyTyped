@@ -120,6 +120,16 @@ class Library extends Backbone.Collection<Book> {
     // This model definition is here only to test type compatibility of the model, but it
     // is not necessary in working code as it is automatically inferred through generics.
     model: typeof Book;
+
+    constructor(models?: Book[] | Object[], options?: any) {
+        super(models, options);
+
+        // Test comparator allowed types.
+        this.comparator = "title";
+        this.comparator = (model: Book) => { return 1; };
+        this.comparator = (model: Book) => { return "Title"; };
+        this.comparator = (model1: Book, model2: Book) => { return 1; };
+    }
 }
 
 class Books extends Backbone.Collection<Book> { }

@@ -42,6 +42,7 @@ declare namespace joint {
 
         class Element extends Cell {
             position(x:number, y:number):Element;
+            position(): {x:number, y:number}; 
             translate(tx:number, ty?:number):Element;
             resize(width:number, height:number):Element;
             rotate(angle:number, options : {absolute : boolean; origin: {x:number;y:number}}):Element;

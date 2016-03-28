@@ -95,11 +95,11 @@ declare module 'joi' {
 		scheme ?: string | RegExp | Array<string | RegExp>;
 	}
 
-	export interface WhenOptions {
+	export interface WhenOptions<T> {
 		/**
 		 * the required condition joi type.
 		 */
-		is: Schema;
+		is: T;
 		/**
 		 * the alternative schema type if the condition is true. Required if otherwise is missing.
 		 */
@@ -269,8 +269,8 @@ declare module 'joi' {
 		/**
 		 * Converts the type into an alternatives type where the conditions are merged into the type definition where:
 		 */
-		when(ref: string, options: WhenOptions): AlternativesSchema;
-		when(ref: Reference, options: WhenOptions): AlternativesSchema;
+		when<U>(ref: string, options: WhenOptions<U>): AlternativesSchema;
+		when<U>(ref: Reference, options: WhenOptions<U>): AlternativesSchema;
 
 		/**
 		 * Overrides the key name in error messages.
@@ -691,8 +691,8 @@ declare module 'joi' {
 
 	export interface AlternativesSchema extends AnySchema<FunctionSchema> {
 		try(schemas: Schema[]): AlternativesSchema;
-		when(ref: string, options: WhenOptions): AlternativesSchema;
-		when(ref: Reference, options: WhenOptions): AlternativesSchema;
+		when<T>(ref: string, options: WhenOptions<T>): AlternativesSchema;
+		when<T>(ref: Reference, options: WhenOptions<T>): AlternativesSchema;
 	}
 
 	// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

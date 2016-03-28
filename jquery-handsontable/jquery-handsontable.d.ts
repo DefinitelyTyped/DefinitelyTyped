@@ -807,7 +807,7 @@ declare namespace Handsontable {
         /**
          * Return index of the currently selected cells as an array [startRow, startCol, endRow, endCol]. Start row and start col are the coordinates of the active cell (where the selection was started).
          */
-        getSelected(): void;
+        getSelected(): number[];
 
         /**
          * Returns current selection as a WalkontableCellRange object. Returns undefined if there is no selection.
