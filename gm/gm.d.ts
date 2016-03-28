@@ -10,7 +10,7 @@ declare module "gm" {
 
 	function m(image: string): m.State;
 	function m(stream:NodeJS.ReadableStream, image?: string): m.State;
-	function m(stream:Buffer, image?: string): m.State;
+	function m(buffer:Buffer, image?: string): m.State;
 	function m(width:number, height:number, color?:string): m.State;
 
 	namespace m {
