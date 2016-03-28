@@ -480,7 +480,9 @@ React.createFactory(CSSTransitionGroup)({
     transitionName: "transition",
     transitionAppear: false,
     transitionEnter: true,
-    transitionLeave: true
+    transitionLeave: true,
+    id: "some-id",
+    className: "some-class"
 });
 
 React.createFactory(CSSTransitionGroup)({
