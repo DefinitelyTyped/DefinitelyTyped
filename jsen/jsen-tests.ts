@@ -1,5 +1,8 @@
 /// <reference path="jsen.d.ts"/>
 
+import jsen = require("jsen");
+import JsenSettings = Jsen.JsenSettings;
+
 // any
 {
     // passes validation on any type
@@ -372,10 +375,8 @@
             { default: Math.PI }
         ];
 
-        let validate: IJsenValidator;
-
         schemas.forEach((schema) => {
-            validate = jsen(schema);
+            let validate = jsen(schema);
             console.assert(validate.build() === schema.default);
         });
     }
@@ -389,12 +390,9 @@
             { default: new Date('05/14/2015') }
         ];
 
-        let validate: IJsenValidator;
-        let def: any;
-
         schemas.forEach((schema) => {
-            validate = jsen(schema);
-            def = validate.build();
+            let validate = jsen(schema);
+            let def = validate.build();
 
             console.assert(def !== schema.default);
             console.assert(JSON.stringify(def) === JSON.stringify(schema.default));
@@ -590,10 +588,8 @@
             [null, {}, 'baz', false]
         ];
 
-        let validate: IJsenValidator;
-
         schemas.forEach((schema, index) => {
-            validate = jsen(schema);
+            let validate = jsen(schema);
             console.assert(JSON.stringify(validate.build(defaults[index])) === JSON.stringify(expected[index]));
         });
     }
@@ -1322,12 +1318,9 @@
                 ['b']
             ];
 
-            let validate: IJsenValidator;
-            let valid: boolean;
-
             schemas.forEach((schema, index) => {
-                validate = jsen(schema);
-                valid = validate(data[index]);
+                let validate = jsen(schema);
+                let valid = validate(data[index]);
 
                 console.assert(!valid);
 
@@ -1362,12 +1355,9 @@
                 ['dependencies']
             ];
 
-            let validate: IJsenValidator;
-            let valid: boolean;
-
             schemas.forEach((schema, index) => {
-                validate = jsen(schema);
-                valid = validate(data[index]);
+                let validate = jsen(schema);
+                let valid = validate(data[index]);
 
                 console.assert(!valid);
 
@@ -1560,13 +1550,10 @@
             'c is invalid'
         ];
 
-        let validate: IJsenValidator;
-        let valid: boolean;
-
         schemas.forEach((schema, index) => {
             //it(expectedMessages[index], function () {
-            validate = jsen(schema);
-            valid = validate(data[index]);
+            let validate = jsen(schema);
+            let valid = validate(data[index]);
 
             console.assert(!valid);
             console.assert(validate.errors.length === 1);
@@ -1764,13 +1751,9 @@
                 schemas[24].messages.not
             ];
 
-            let validate: IJsenValidator;
-            let valid: boolean;
-
             schemas.forEach((schema: any, index: number) => {
-                validate = jsen(schema);
-
-                valid = validate(data[index]);
+                let validate = jsen(schema);
+                let valid = validate(data[index]);
 
                 console.assert(!valid);
                 console.assert(validate.errors[validate.errors.length - 1].message === expectedMessages[index]);
@@ -1971,14 +1954,11 @@ const doesNotThrow = (func: Function) => {
             }
         };
 
-        let validate: IJsenValidator;
-
         console.assert(doesNotThrow(() => {
-                validate = jsen(schema);
+                let validate = jsen(schema);
+                console.assert(validate({ 123: true }));
             })
         );
-
-        console.assert(validate({ 123: true }));
     }
 
     // Fix cannot dereference schema when ids change resolution scope (#14)
@@ -1993,15 +1973,14 @@ const doesNotThrow = (func: Function) => {
             }
         };
 
-        let validate: IJsenValidator;
-
         console.assert(doesNotThrow(() => {
-                validate = jsen(schema);
+                let validate = jsen(schema);
+
+                console.assert(validate('abc'));
+                console.assert(!validate(123));
             })
         );
 
-        console.assert(validate('abc'));
-        console.assert(!validate(123));
 
         schema = {
             $ref: '#child/definitions/subchild',
@@ -2018,7 +1997,7 @@ const doesNotThrow = (func: Function) => {
         };
 
         console.assert(doesThrow(() => {
-                validate = jsen(schema);
+                let validate = jsen(schema);
             })
         );
     }
@@ -2261,7 +2240,7 @@ const doesNotThrow = (func: Function) => {
         {
             let schema = { format: 'custom' },
                 callCount = 0,
-                options = <IJsenSettings>{
+                options = <JsenSettings>{
                     formats: {
                         custom: () => {
                             callCount++;
@@ -2298,7 +2277,7 @@ const doesNotThrow = (func: Function) => {
                     maximum: 10
                 },
                 callCount = 0,
-                options = <IJsenSettings>{
+                options = <JsenSettings>{
                     formats: {
                         custom: () => {
                             callCount++;
@@ -2334,7 +2313,7 @@ const doesNotThrow = (func: Function) => {
                         },
                         format: 'passwordsMatch'
                     },
-                    options = <IJsenSettings>{
+                    options = <JsenSettings>{
                         formats: {
                             passwordsMatch: (obj: any) => {
                                 callCount++;
