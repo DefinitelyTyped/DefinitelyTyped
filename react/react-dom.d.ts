@@ -18,14 +18,14 @@ declare namespace __React {
             element: SFCElement<P>,
             container: Element,
             callback?: () => any): void;
-        function render<P, T extends Component<P, State>>(
+        function render<P, T extends Component<P, ComponentState>>(
             element: CElement<P, T>,
             container: Element,
             callback?: (component: T) => any): T;
         function render<P>(
             element: ReactElement<P>,
             container: Element,
-            callback?: (component?: Component<P, State> | Element) => any): Component<P, State> | Element | void;
+            callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
 
         function unmountComponentAtNode(container: Element): boolean;
 
@@ -40,7 +40,7 @@ declare namespace __React {
             element: DOMElement<P, T>,
             container: Element,
             callback?: (element: T) => any): T;
-        function unstable_renderSubtreeIntoContainer<P, T extends Component<P, State>>(
+        function unstable_renderSubtreeIntoContainer<P, T extends Component<P, ComponentState>>(
             parentComponent: Component<any, any>,
             element: CElement<P, T>,
             container: Element,
@@ -54,7 +54,7 @@ declare namespace __React {
             parentComponent: Component<any, any>,
             element: ReactElement<P>,
             container: Element,
-            callback?: (component?: Component<P, State> | Element) => any): Component<P, State> | Element | void;
+            callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
     }
 
     namespace __DOMServer {
