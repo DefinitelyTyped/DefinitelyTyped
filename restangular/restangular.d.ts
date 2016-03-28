@@ -29,9 +29,9 @@ declare namespace restangular {
     $object: T[];
   }
 
-  interface IResponse {
+  interface IResponse<T> {
     status: number;
-    data: any;
+    data: T;
     headers(name: string): string;
     config: {
         method: string;
@@ -49,14 +49,14 @@ declare namespace restangular {
     addElementTransformer(route: string, isCollection: boolean, transformer: Function): void;
     setTransformOnlyServerElements(active: boolean): void;
     setOnElemRestangularized(callback: (elem: any, isCollection: boolean, what: string, restangular: IService) => any): void;
-    setResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): void;
-    setResponseExtractor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): void;
-    addResponseInterceptor(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse, deferred: angular.IDeferred<any>) => any): void;
+    setResponseInterceptor<T>(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse<T>, deferred: angular.IDeferred<any>) => any): void;
+    setResponseExtractor<T>(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse<T>, deferred: angular.IDeferred<any>) => any): void;
+    addResponseInterceptor<T>(responseInterceptor: (data: any, operation: string, what: string, url: string, response: IResponse<T>, deferred: angular.IDeferred<any>) => any): void;
     setRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): void;
     addRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): void;
     setFullRequestInterceptor(fullRequestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {element: any; headers: any; params: any}): void;
     addFullRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {headers: any; params: any; element: any; httpConfig: angular.IRequestShortcutConfig}): void;
-    setErrorInterceptor(errorInterceptor: (response: IResponse, deferred: angular.IDeferred<any>) => any): void;
+    setErrorInterceptor<E>(errorInterceptor: (response: IResponse<E>, deferred: angular.IDeferred<any>) => any): void;
     setRestangularFields(fields: {[fieldName: string]: string}): void;
     setMethodOverriders(overriders: string[]): void;
     setJsonp(jsonp: boolean): void;

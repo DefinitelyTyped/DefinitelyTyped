@@ -27,6 +27,10 @@ myApp.config((RestangularProvider: restangular.IProvider) => {
       return elem;
   });
 
+  RestangularProvider.setResponseInterceptor<string>((data, operation, what, url, response, deferred) => {
+    response.data.substring(0, 1);
+  });
+
   RestangularProvider.setRestangularFields({
     id: "_id",
     route: "restangularRoute",
@@ -81,7 +85,7 @@ myApp.controller('TestCtrl', (
   Restangular.one('accounts', 123).one('buildings', 456).get<String>();
   Restangular.one('accounts', 123).getList('buildings');
   Restangular.one('accounts', 123).getList<String>('buildings');
-  
+
   Restangular.setBaseUrl('/api/v1');
   Restangular.setExtraFields(['name']);
   Restangular.setResponseExtractor(function (response, operation) {
