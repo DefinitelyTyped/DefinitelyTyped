@@ -1,7 +1,7 @@
 /// <reference path="wampy.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
-import Wampy = require('wampy');
+import Wampy from 'wampy';
 
 var ws = new Wampy('http://wamp.router.url', {realm: 'WAMPRealm'});
 
