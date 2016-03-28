@@ -1845,6 +1845,11 @@ declare namespace angular {
         controller(name: string): any;
         injector(): any;
         scope(): IScope;
+        
+        /**
+        *   Overload for custom scope interfaces
+        */
+        scope<T extends IScope>(): T;
         isolateScope(): IScope;
 
         inheritedData(key: string, value: any): JQuery;
