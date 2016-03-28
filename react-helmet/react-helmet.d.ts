@@ -6,7 +6,7 @@
 /// <reference path="../react/react.d.ts" />
 
 declare module 'react-helmet' {
-    import { Component } from 'react';
+    import { Component, ReactElement } from 'react';
 
     interface HelmetProps {
         title?: string;
@@ -33,6 +33,7 @@ declare module 'react-helmet' {
 
     class Helmet extends Component<HelmetProps, any> {
         static rewind(): HelmetData
+        render(): ReactElement<any>
     }
 
     export default Helmet;

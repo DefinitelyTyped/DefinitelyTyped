@@ -76,6 +76,7 @@ declare namespace reactInputCalendar {
     }
     interface ReactInputCalendarState { }
     export class ReactInputCalendar extends __React.Component<ReactInputCalendarProps, ReactInputCalendarState> {
+        render(): __React.ReactElement<any>;
     }
 }
 declare var ReactInputCalendar: typeof reactInputCalendar.ReactInputCalendar

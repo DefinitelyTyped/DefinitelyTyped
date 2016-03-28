@@ -131,6 +131,7 @@ declare namespace rswf {
         * @return {boolean} true if supported
         */
         static isFPVersionSupported(versionString: string): boolean
+        render(): __React.ReactElement<any>
     }
 
 }

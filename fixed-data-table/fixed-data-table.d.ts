@@ -483,12 +483,16 @@ declare namespace FixedDataTable {
     }
 
     export class Table extends __React.Component<TableProps, {}> {
+        render(): __React.ReactElement<any>;
     }
     export class Column extends __React.Component<ColumnProps, {}> {
+        render(): __React.ReactElement<any>;
     }
     export class ColumnGroup extends __React.Component<ColumnGroupProps, {}> {
+        render(): __React.ReactElement<any>;
     }
     export class Cell extends __React.Component<CellProps, {}> {
+        render(): __React.ReactElement<any>;
     }
 }
 
