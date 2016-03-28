@@ -42,10 +42,12 @@ declare module "fs-extra" {
 
 	//extended methods
 	export function copy(src: string, dest: string, callback?: (err: Error) => void): void;
-	export function copy(src: string, dest: string, filter: (src: string) => boolean, callback?: (err: Error) => void): void;
+	export function copy(src: string, dest: string, filter: CopyFilter, callback?: (err: Error) => void): void;
+	export function copy(src: string, dest: string, options: CopyOptions, callback?: (err: Error) => void): void;
 
 	export function copySync(src: string, dest: string): void;
-	export function copySync(src: string, dest: string, filter: (src: string) => boolean): void;
+	export function copySync(src: string, dest: string, filter: CopyFilter): void;
+	export function copySync(src: string, dest: string, options: CopyOptions): void;
 
 	export function createFile(file: string, callback?: (err: Error) => void): void;
 	export function createFileSync(file: string): void;
@@ -176,6 +178,18 @@ declare module "fs-extra" {
 	export function ensureSymlinkSync(path: string): void;
     export function emptyDir(path: string, callback?: (err: Error) => void): void;
     export function emptyDirSync(path: string): boolean;
+
+	export interface CopyFilterFunction {
+		(src: string): boolean
+	}
+
+	export type CopyFilter = CopyFilterFunction | RegExp;
+
+	export interface CopyOptions {
+		clobber?: boolean
+		preserveTimestamps?: boolean
+		filter?: CopyFilter
+	}
 
 	export interface OpenOptions {
 		encoding?: string;

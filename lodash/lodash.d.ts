@@ -1871,10 +1871,17 @@ declare module _ {
 
     //_.first
     interface LoDashStatic {
-		/**
+        /**
          * @see _.head
          */
         first<T>(array: List<T>): T;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.head
+         */
+        first(): string;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -1888,39 +1895,32 @@ declare module _ {
         /**
          * @see _.head
          */
-        first<TResult>(): TResult;
+        first<T>(): T;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.head
+         */
+        first(): LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.head
+         */
+        first<T>(): T;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.head
+         */
+        first<T>(): T;
     }
 
     interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
     interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
-
-    //_.flatMap DUMMY
-    interface LoDashStatic {
-        /**
-         * Creates an array of flattened values by running each element in `array`
-         * through `iteratee` and concating its result to the other mapped values.
-         * The iteratee is invoked with three arguments: (value, index|key, array).
-         *
-         * @static
-         * @memberOf _
-         * @category Array
-         * @param {Array} array The array to iterate over.
-         * @param {Function|Object|string} [iteratee=_.identity] The function invoked per iteration.
-         * @returns {Array} Returns the new array.
-         * @example
-         *
-         * function duplicate(n) {
-         *   return [n, n];
-         * }
-         *
-         * _.flatMap([1, 2], duplicate);
-         * // => [1, 1, 2, 2]
-         */
-        flatMap(
-            array: any[]|List<any>,
-            ...values: any[]
-        ): any[];
-    }
 
     //_.flatten
     interface LoDashStatic {
@@ -2074,18 +2074,46 @@ declare module _ {
         head<T>(array: List<T>): T;
     }
 
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.head
+         */
+        head(): string;
+    }
+
     interface LoDashImplicitArrayWrapper<T> {
         /**
-         * @see _.first
+         * @see _.head
          */
         head(): T;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-         * @see _.first
+         * @see _.head
          */
-        head<TResult>(): TResult;
+        head<T>(): T;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.head
+         */
+        head(): LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.head
+         */
+        head<T>(): T;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.head
+         */
+        head<T>(): T;
     }
 
     //_.indexOf
@@ -7049,6 +7077,272 @@ declare module _ {
             pluckValue: string): T;
     }
 
+    //_.flatMap
+    interface LoDashStatic {
+        /**
+         * Creates an array of flattened values by running each element in collection through iteratee
+         * and concating its result to the other mapped values. The iteratee is invoked with three arguments:
+         * (value, index|key, collection).
+         *
+         * @param collection The collection to iterate over.
+         * @param iteratee The function invoked per iteration.
+         * @return Returns the new flattened array.
+         */
+        flatMap<T, TResult>(
+            collection: List<T>,
+            iteratee?: ListIterator<T, TResult|TResult[]>
+        ): TResult[];
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(
+            collection: List<any>,
+            iteratee?: ListIterator<any, TResult|TResult[]>
+        ): TResult[];
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<T, TResult>(
+            collection: Dictionary<T>,
+            iteratee?: DictionaryIterator<T, TResult|TResult[]>
+        ): TResult[];
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(
+            collection: Dictionary<any>,
+            iteratee?: DictionaryIterator<any, TResult|TResult[]>
+        ): TResult[];
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<T, TResult>(
+            collection: NumericDictionary<T>,
+            iteratee?: NumericDictionaryIterator<T, TResult|TResult[]>
+        ): TResult[];
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(
+            collection: NumericDictionary<any>,
+            iteratee?: NumericDictionaryIterator<any, TResult|TResult[]>
+        ): TResult[];
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TObject extends Object, TResult>(
+            collection: TObject,
+            iteratee?: ObjectIterator<any, TResult|TResult[]>
+        ): TResult[];
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(
+            collection: Object,
+            iteratee?: ObjectIterator<any, TResult|TResult[]>
+        ): TResult[];
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TWhere extends Object, TObject extends Object>(
+            collection: TObject,
+            iteratee: TWhere
+        ): boolean[];
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TObject extends Object, TResult>(
+            collection: TObject,
+            iteratee: Object|string
+        ): TResult[];
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TObject extends Object>(
+            collection: TObject,
+            iteratee: [string, any]
+        ): boolean[];
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(
+            collection: string
+        ): string[];
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(
+            collection: Object,
+            iteratee?: Object|string
+        ): TResult[];
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(
+            iteratee: ListIterator<string, TResult|TResult[]>
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap(): LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(
+            iteratee: ListIterator<T, TResult|TResult[]>|string
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TWhere extends Object>(
+            iteratee: TWhere
+        ): LoDashImplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap(
+            iteratee: [string, any]
+        ): LoDashImplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.flatMap
+         */
+        flatMap<T, TResult>(
+            iteratee: ListIterator<T, TResult|TResult[]>|DictionaryIterator<T, TResult|TResult[]>|NumericDictionaryIterator<T, TResult|TResult[]>
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(
+            iteratee: ObjectIterator<any, TResult|TResult[]>|string
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TWhere extends Object>(
+            iteratee: TWhere
+        ): LoDashImplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap(
+            iteratee: [string, any]
+        ): LoDashImplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(
+            iteratee: ListIterator<string, TResult|TResult[]>
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap(): LoDashExplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(
+            iteratee: ListIterator<T, TResult|TResult[]>|string
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TWhere extends Object>(
+            iteratee: TWhere
+        ): LoDashExplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap(
+            iteratee: [string, any]
+        ): LoDashExplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(): LoDashExplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.flatMap
+         */
+        flatMap<T, TResult>(
+            iteratee: ListIterator<T, TResult|TResult[]>|DictionaryIterator<T, TResult|TResult[]>|NumericDictionaryIterator<T, TResult|TResult[]>
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(
+            iteratee: ObjectIterator<any, TResult|TResult[]>|string
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TWhere extends Object>(
+            iteratee: TWhere
+        ): LoDashExplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap(
+            iteratee: [string, any]
+        ): LoDashExplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<TResult>(): LoDashExplicitArrayWrapper<TResult>;
+    }
+
     //_.forEach
     interface LoDashStatic {
         /**
@@ -7829,6 +8123,72 @@ declare module _ {
         keyBy<T>(
             iteratee?: Object
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
+    }
+
+    //_.invoke
+    interface LoDashStatic {
+        /**
+        * Invokes the method at path of object.
+        * @param object The object to query.
+        * @param path The path of the method to invoke.
+        * @param args The arguments to invoke the method with.
+        **/
+        invoke<TObject extends Object, TResult>(
+            object: TObject,
+            path: StringRepresentable|StringRepresentable[],
+            ...args: any[]): TResult;
+
+        /**
+        * @see _.invoke
+        **/
+        invoke<TValue, TResult>(
+            object: Dictionary<TValue>|TValue[],
+            path: StringRepresentable|StringRepresentable[],
+            ...args: any[]): TResult;
+
+        /**
+        * @see _.invoke
+        **/
+        invoke<TResult>(
+            object: any,
+            path: StringRepresentable|StringRepresentable[],
+            ...args: any[]): TResult;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+        * @see _.invoke
+        **/
+        invoke<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            ...args: any[]): TResult;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+        * @see _.invoke
+        **/
+        invoke<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            ...args: any[]): TResult;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+        * @see _.invoke
+        **/
+        invoke<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            ...args: any[]): TResult;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+        * @see _.invoke
+        **/
+        invoke<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            ...args: any[]): TResult;
     }
 
     //_.invokeMap
@@ -8845,9 +9205,26 @@ declare module _ {
         /**
          * @see _.some
          */
+        some(
+            collection: Object,
+            predicate?: ObjectIterator<any, boolean>
+        ): boolean;
+
+        /**
+         * @see _.some
+         */
         some<T>(
             collection: List<T>|Dictionary<T>|NumericDictionary<T>,
-            predicate?: string|any[]
+            predicate?: string|[string, any]
+        ): boolean;
+
+
+        /**
+         * @see _.some
+         */
+        some(
+            collection: Object,
+            predicate?: string|[string, any]
         ): boolean;
 
         /**
@@ -8855,6 +9232,22 @@ declare module _ {
          */
         some<TObject extends {}, T>(
             collection: List<T>|Dictionary<T>|NumericDictionary<T>,
+            predicate?: TObject
+        ): boolean;
+
+        /**
+         * @see _.some
+         */
+        some<T>(
+            collection: List<T>|Dictionary<T>|NumericDictionary<T>,
+            predicate?: Object
+        ): boolean;
+
+        /**
+         * @see _.some
+         */
+        some<TObject extends {}>(
+            collection: Object,
             predicate?: TObject
         ): boolean;
     }
@@ -8871,7 +9264,7 @@ declare module _ {
          * @see _.some
          */
         some(
-            predicate?: string|any[]
+            predicate?: string|[string, any]
         ): boolean;
 
         /**
@@ -8887,14 +9280,14 @@ declare module _ {
          * @see _.some
          */
         some<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>|ObjectIterator<any, boolean>
         ): boolean;
 
         /**
          * @see _.some
          */
         some(
-            predicate?: string|any[]
+            predicate?: string|[string, any]
         ): boolean;
 
         /**
@@ -8917,7 +9310,7 @@ declare module _ {
          * @see _.some
          */
         some(
-            predicate?: string|any[]
+            predicate?: string|[string, any]
         ): LoDashExplicitWrapper<boolean>;
 
         /**
@@ -8933,14 +9326,14 @@ declare module _ {
          * @see _.some
          */
         some<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>|ObjectIterator<any, boolean>
         ): LoDashExplicitWrapper<boolean>;
 
         /**
          * @see _.some
          */
         some(
-            predicate?: string|any[]
+            predicate?: string|[string, any]
         ): LoDashExplicitWrapper<boolean>;
 
         /**
@@ -15109,26 +15502,88 @@ declare module _ {
     //_.get
     interface LoDashStatic {
         /**
-         * Gets the property value at path of object. If the resolved
-         * value is undefined the defaultValue is used in its place.
+         * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
+         * in its place.
+         *
          * @param object The object to query.
          * @param path The path of the property to get.
          * @param defaultValue The value returned if the resolved value is undefined.
          * @return Returns the resolved value.
-         **/
-        get<TResult>(object: Object,
-               path: string|number|boolean|Array<string|number|boolean>,
-               defaultValue?:TResult
+         */
+        get<TObject, TResult>(
+            object: TObject,
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult
+        ): TResult;
+
+        /**
+         * @see _.get
+         */
+        get<TResult>(
+            object: any,
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult
+        ): TResult;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.get
+         */
+        get<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult
+        ): TResult;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.get
+         */
+        get<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult
         ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.get
-         **/
-        get<TResult>(path: string|number|boolean|Array<string|number|boolean>,
-                     defaultValue?: TResult
+         */
+        get<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult
         ): TResult;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.get
+         */
+        get<TResultWrapper>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: any
+        ): TResultWrapper;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.get
+         */
+        get<TResultWrapper>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: any
+        ): TResultWrapper;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.get
+         */
+        get<TResultWrapper>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: any
+        ): TResultWrapper;
     }
 
     //_.has
@@ -16129,19 +16584,78 @@ declare module _ {
          */
         result<TObject, TResult>(
             object: TObject,
-            path: number|string|boolean|Array<number|string|boolean>,
-            defaultValue?: TResult
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult|((...args: any[]) => TResult)
         ): TResult;
-    }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.result
          */
         result<TResult>(
-            path: number|string|boolean|Array<number|string|boolean>,
-            defaultValue?: TResult
+            object: any,
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult|((...args: any[]) => TResult)
         ): TResult;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.result
+         */
+        result<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult|((...args: any[]) => TResult)
+        ): TResult;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.result
+         */
+        result<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult|((...args: any[]) => TResult)
+        ): TResult;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.result
+         */
+        result<TResult>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: TResult|((...args: any[]) => TResult)
+        ): TResult;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.result
+         */
+        result<TResultWrapper>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: any
+        ): TResultWrapper;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.result
+         */
+        result<TResultWrapper>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: any
+        ): TResultWrapper;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.result
+         */
+        result<TResultWrapper>(
+            path: StringRepresentable|StringRepresentable[],
+            defaultValue?: any
+        ): TResultWrapper;
     }
 
     //_.set
@@ -17663,6 +18177,7 @@ declare module _ {
     interface LoDashStatic {
         /**
          * This method returns the first argument provided to it.
+         *
          * @param value Any value.
          * @return Returns value.
          */
@@ -17688,6 +18203,27 @@ declare module _ {
          * @see _.identity
          */
         identity(): T;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.identity
+         */
+        identity(): LoDashExplicitWrapper<T>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.identity
+         */
+        identity(): LoDashExplicitArrayWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.identity
+         */
+        identity(): LoDashExplicitObjectWrapper<T>;
     }
 
     //_.iteratee

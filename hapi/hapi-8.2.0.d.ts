@@ -237,7 +237,7 @@ declare module "hapi" {
 		<T>(result: string|number|boolean|Buffer|stream.Stream | Promise<T> | T): Response;
 
 		/** Returns control back to the framework without setting a response. If called in the handler, the response defaults to an empty payload with status code 200.
-		  * The data argument is only used for passing back authentication data and is ignored elsewhere. */
+		* The data argument is only used for passing back authentication data and is ignored elsewhere. */
 		continue(credentialData?: any): void;
 
 		/** Transmits a file from the file system. The 'Content-Type' header defaults to the matching mime type based on filename extension.  The response flow control rules do not apply. */
@@ -1615,6 +1615,8 @@ declare module "hapi" {
 			}
 			});*/
 			default(options: string):void;
+			default(options: { strategy: string }): void;
+			default(options: { strategies: string[] }): void;
 			/** server.auth.scheme(name, scheme)
 			Registers an authentication scheme where:
 			name - the scheme name.

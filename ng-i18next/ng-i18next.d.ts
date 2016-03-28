@@ -3,7 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../i18next/i18next.d.ts" />
+/// <reference path="../i18next/i18next-2.0.17.d.ts" />
 
 declare namespace angular.i18next {
     interface I18nextProvider {

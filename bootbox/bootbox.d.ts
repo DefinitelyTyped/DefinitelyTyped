@@ -39,6 +39,7 @@ interface BootboxConfirmOptions extends BootboxDialogOptions {
 /** Bootbox options available for prompt modals */
 interface BootboxPromptOptions extends BootboxBaseOptions {
 	title: string;
+	value?: string;
 	callback: (result: string) => any;
 	buttons?: BootboxConfirmPromptButtonMap;
 }
@@ -98,3 +99,7 @@ interface BootboxStatic {
 }
 
 declare var bootbox: BootboxStatic;
+
+declare module "bootbox" {
+    export = bootbox;
+}
