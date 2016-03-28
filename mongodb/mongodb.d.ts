@@ -642,7 +642,7 @@ declare module "mongodb" {
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#initializeOrderedBulkOp
     initializeOrderedBulkOp(options: CollectionOptions): OrderedBulkOperation;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#initializeUnorderedBulkOp
-    initializeUnorderedBulkOp(options: CollectionOptions): OrderedBulkOperation;
+    initializeUnorderedBulkOp(options: CollectionOptions): UnorderedBulkOperation;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#insertMany
     insertMany(docs: Object[], callback: MongoCallback<InsertWriteOpResult>): void
     insertMany(docs: Object[], options?: CollectionInsertManyOptions): Promise<InsertWriteOpResult>;
