@@ -128,6 +128,14 @@ declare namespace gapi.auth {
 
 declare namespace gapi.client {
     /**
+    * Loads the client library interface to a particular API. If a callback is not provided, a promise is returned.
+    * @param name The name of the API to load.
+    * @param version The version of the API to load.
+    * @return promise The promise that get's resolved after the request is finished.
+    */
+    export function load(name: string, version: string): Promise<void>
+
+    /**
     * Loads the client library interface to a particular API. The new API interface will be in the form gapi.client.api.collection.method.
     * @param name The name of the API to load.
     * @param version The version of the API to load
