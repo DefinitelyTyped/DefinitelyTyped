@@ -89,5 +89,5 @@ declare module "wampy" {
 
     var wampy: WampyInstance;
 
-    export = wampy;
+    export default wampy;
 }
