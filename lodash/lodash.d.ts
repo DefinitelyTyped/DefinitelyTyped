@@ -13181,6 +13181,20 @@ declare module _ {
         max<T>(): T;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.max
+         */
+        max(): LoDashExplicitWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.max
+         */
+        max<T>(): LoDashExplicitWrapper<T>;
+    }
+
     //_.maxBy
     interface LoDashStatic {
         /**
@@ -13344,6 +13358,20 @@ declare module _ {
          * @see _.min
          */
         min<T>(): T;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.min
+         */
+        min(): LoDashExplicitWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.min
+         */
+        min<T>(): LoDashExplicitWrapper<T>;
     }
 
     //_.minBy
