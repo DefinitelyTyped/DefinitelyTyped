@@ -8,6 +8,9 @@ declare namespace angular.matchmedia {
 
     interface IScreenSize {
 
+        // Returns a value indicating if the current device has a retina screen
+        isRetina: boolean;
+    
         is(list: Array<string> | string): boolean;
 
         // Executes the callback function on window resize with the match truthiness as the first argument.

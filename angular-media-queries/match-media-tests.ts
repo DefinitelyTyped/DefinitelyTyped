@@ -10,6 +10,11 @@ myApp.controller('TestController', ($log: angular.ILogService,
         $log.info(`Result: ${result}`);
     }
     
+    // '.isRetina' examples
+    if(screenSize.isRetina) {
+        $log.info("Retina screen detected")
+    }
+    
     // '.is(...)' examples
     var res = screenSize.is(["xs", "sm"]);
     fnCallback(res);
