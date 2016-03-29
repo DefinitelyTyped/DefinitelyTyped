@@ -5,10 +5,7 @@
 
 // Sources: https://github.com/jamuhl/i18next/
 
-/// <reference path="../express/express.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../i18next-express-middleware/i18next-express-middleware.d.ts" />
-/// <reference path="../i18next-sprintf-postprocessor/i18next-sprintf-postprocessor.d.ts" />
 
 declare namespace I18next {
     export interface I18nextStatic {}
