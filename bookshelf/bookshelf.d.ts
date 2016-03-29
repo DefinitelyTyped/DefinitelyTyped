@@ -1,7 +1,7 @@
 // Type definitions for bookshelfjs v0.8.2
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <http://github.com/arcticwaters>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path='../lodash/lodash-3.10.d.ts' />

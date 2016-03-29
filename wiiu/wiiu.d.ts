@@ -3,7 +3,7 @@
 // Definitions by: MIZUSHIMA Junki <https://github.com/mzsm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module wiiu {
+declare namespace wiiu {
     const enum TPValidity {
         VALID = 0,
         X_INVALID = 1,

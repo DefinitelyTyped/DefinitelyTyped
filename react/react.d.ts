@@ -1,7 +1,7 @@
 // Type definitions for React v0.14
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace __React {
 
@@ -167,7 +167,7 @@ declare namespace __React {
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
         // always pass children as variadic arguments to `createElement`.
-        // In the future, if we can define its call signature conditionallly
+        // In the future, if we can define its call signature conditionally
         // on the existence of `children` in `P`, then we should remove this.
         props: P & { children?: ReactNode };
         state: S;

@@ -1,12 +1,13 @@
 // Type definitions for Knockout-ES5
 // Project: https://github.com/SteveSanderson/knockout-es5
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../knockout/knockout.d.ts" />
 
 interface KnockoutStatic {
     track(obj: any, propertyNames?: Array<string>): any;
+    untrack(obj: any, propertyNames?: Array<string>): any;
     defineProperty(obj: any, propertyName: string, evaluator: Function): any;
     defineProperty(obj: any, propertyName: string, options: KnockoutDefinePropertyOptions): any;
     getObservable(obj: any, propertyName: string): KnockoutObservable<any>;

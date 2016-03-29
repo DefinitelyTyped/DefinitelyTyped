@@ -18,7 +18,7 @@ interface JQuery {
 declare var w2popup: W2UI.W2Popup
 declare var w2ui: W2UI.W2UI
 
-declare module W2UI {
+declare namespace W2UI {
 
     interface W2Event {
         target: string;
@@ -105,7 +105,7 @@ declare module W2UI {
         unlock(panel: string): void;
     }
 
-    module W2Grid {
+    namespace W2Grid {
         interface Columns { }
         interface Ranges { }
         interface Records { }

@@ -1,6 +1,6 @@
 /// <reference path="devexpress-web.d.ts" />
 
-module Tests.Globals {
+namespace Tests.Globals {
     function ASPxTest(): void {
         ASPx.RunStartupScripts();
     }
@@ -60,7 +60,7 @@ module Tests.Globals {
     }
 }
 
-module Tests.Controls {
+namespace Tests.Controls {
     declare var comboBox: DevExpress.Web.Scripts.ASPxClientComboBox;
 
     function ASPxClientComboBoxTest() {

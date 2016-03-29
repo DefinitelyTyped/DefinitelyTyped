@@ -10,7 +10,7 @@ declare var ASPxClientUtils: DevExpress.Web.Scripts.ASPxClientUtils;
 declare var ASPxClientGlobalEvents: DevExpress.Web.Scripts.ASPxClientGlobalEvents;
 declare var ASPxClientEdit: DevExpress.Web.Scripts.ASPxClientEditStatic;
 
-declare module DevExpress.Web.Scripts {
+declare namespace DevExpress.Web.Scripts {
     export interface ASPxStatic {
         RunStartupScripts(): void;
     }
@@ -78,7 +78,7 @@ declare module DevExpress.Web.Scripts {
         // Events
         Init: ASPxClientEvent;
     }
-    
+
     export interface ASPxClientEditBase extends ASPxClientControl {
         GetCaption(): string;
         SetCaption(caption: string): void;
@@ -311,7 +311,7 @@ declare module DevExpress.Web.Scripts {
     export interface ASPxClientProcessingModeEventArgs extends ASPxClientEventArgs {
         processOnServer: boolean;
     }
-    
+
     export interface ASPxClientDateEdit extends ASPxClientEdit {
         GetDate(): Date;
         SetDate(date: Date): any;
@@ -454,7 +454,7 @@ declare module DevExpress.Web.Scripts {
     }
 }
 
-declare module DevExpress.XtraCharts.Web.Scripts {
+declare namespace DevExpress.XtraCharts.Web.Scripts {
     export interface ASPxClientWebChartElement {
         chart: ASPxClientWebChart;
     }

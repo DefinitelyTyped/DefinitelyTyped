@@ -3,8 +3,8 @@
 // Definitions by: Stefan Huber <https://github.com/stefanhuber/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module bip21 {
-    export function decode(uri:string) : {address:string,amount?:number}; 
+declare namespace bip21 {
+    export function decode(uri:string) : {address:string,amount?:number};
     export function encode(address:string,options?:any) : string;
 }
 

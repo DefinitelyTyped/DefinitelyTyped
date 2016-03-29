@@ -1,7 +1,7 @@
 // Type definitions for Antd v0.12.10
 // Project: http://ant.design
-// Definitions by: bang88 <https://github.com/bang88>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: bang88 <https://github.com/bang88>, Bruce Mitchener <https://github.com/waywardmonkeys/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../react/react.d.ts" />
@@ -10,7 +10,7 @@ declare namespace Antd {
     import React = __React
 
     // Affix
-    interface AffixProps extends React.Props<Affix> {
+    interface AffixProps {
         /**
          * 达到指定偏移量后触发
          */
@@ -23,11 +23,13 @@ declare namespace Antd {
      * 当内容区域比较长，需要滚动页面时，这部分内容对应的操作或者导航需要在滚动范围内始终展现。常用于侧边菜单和按钮组合。
      * 页面可视范围过小时，慎用此功能以免遮挡页面内容。
      */
-    export class Affix extends React.Component<AffixProps, {}>{ }
+    export class Affix extends React.Component<AffixProps, {}> {
+        render(): JSX.Element
+    }
 
 
     // Alert
-    interface AlertProps extends React.Props<Alert> {
+    interface AlertProps {
         /**
          * 必选参数，指定警告提示的样式，有四种选择`success`、`info`、`warn`、`error`
          */
@@ -56,7 +58,9 @@ declare namespace Antd {
      * - 当某个页面需要向用户显示警告的信息时。
      * - 非浮层的静态展现形式，始终展现，不会自动消失，用户可以点击关闭。
      * */
-    export class Alert extends React.Component<AlertProps, {}>{ }
+    export class Alert extends React.Component<AlertProps, {}> {
+        render(): JSX.Element
+    }
 
 
     // Badge
@@ -70,8 +74,10 @@ declare namespace Antd {
      * 一般出现在通知图标或头像的右上角，用于显示需要处理的消息条数，通过醒目视觉形式吸引用户处理。
      *
     */
-    export class Badge extends React.Component<BadgeProps, {}>{ }
-    interface BadgeProps extends React.Props<Badge> {
+    export class Badge extends React.Component<BadgeProps, {}> {
+        render(): JSX.Element
+    }
+    interface BadgeProps {
         /** 展示的数字，大于 overflowCount 时显示为 `${overflowCount}+`，为 0 时隐藏*/
         count: number,
         /** 展示封顶的数字值*/
@@ -82,7 +88,7 @@ declare namespace Antd {
 
 
     // Button
-    interface ButtonProps extends React.Props<Button> {
+    interface ButtonProps {
         /** 设置按钮类型，可选值为 `primary` `ghost` 或者不设 */
         type?: ButtonType | string,
         /** 设置按钮形状，可选值为 `circle` `circle-outline` 或者不设*/
@@ -106,7 +112,7 @@ declare namespace Antd {
         dashed
     }
 
-    interface ButtonGroupProps extends React.Props<ButtonGroup> {
+    interface ButtonGroupProps {
         /** 设置按钮大小，可选值为 `small` `large` 或者不设*/
         size?: string
 
@@ -116,8 +122,8 @@ declare namespace Antd {
     可以将多个 `Button` 放入 `Button.Group` 的容器中。
 
     通过设置 `size` 为 `large` `small` 分别把按钮组合设为大、小尺寸。若不设置 `size`，则尺寸为中。*/
-    class ButtonGroup extends React.Component<ButtonGroupProps, {}>{
-
+    class ButtonGroup extends React.Component<ButtonGroupProps, {}> {
+        render(): JSX.Element
     }
 
     /**
@@ -127,21 +133,24 @@ declare namespace Antd {
     ## 何时使用
 
     标记了一个（或封装一组）操作命令，响应用户点击行为，触发相应的业务逻辑。*/
-    export class Button extends React.Component<ButtonProps, {}>{
+    export class Button extends React.Component<ButtonProps, {}> {
         static Group: typeof ButtonGroup
+        render(): JSX.Element
     }
 
 
 
     // Breadcrumb
 
-    interface BreadcrumbItemProps extends React.Props<BreadcrumbItem> {
+    interface BreadcrumbItemProps {
         /** 链接，如不传则不可点击   */
         href?: string
     }
-    export class BreadcrumbItem extends React.Component<BreadcrumbItemProps, {}>{ }
+    export class BreadcrumbItem extends React.Component<BreadcrumbItemProps, {}> {
+        render(): JSX.Element
+    }
 
-    interface BreadcrumbProps extends React.Props<Breadcrumb> {
+    interface BreadcrumbProps {
         /** router 的路由栈信息 */
         routes?: Array<React.ReactNode>,
         /** 路由的参数*/
@@ -158,13 +167,14 @@ declare namespace Antd {
     - 当系统拥有超过两级以上的层级结构时；
     - 当需要告知用户“你在哪里”时；
     - 当需要向上导航的功能时。*/
-    export class Breadcrumb extends React.Component<BreadcrumbProps, {}>{
+    export class Breadcrumb extends React.Component<BreadcrumbProps, {}> {
         static Item: typeof BreadcrumbItem
+        render(): JSX.Element
     }
 
 
     // Calendar
-    interface CalendarProps extends React.Props<Calendar> {
+    interface CalendarProps {
         /** 自定义渲染月单元格*/
         monthCellRender?: Function,
         /** 自定义渲染日期单元格*/
@@ -193,11 +203,13 @@ declare namespace Antd {
 
     当数据是日期或按照日期划分时，例如日程、课表、价格日历等，农历等。目前支持年/月切换。
     */
-    export class Calendar extends React.Component<CalendarProps, {}>{ }
+    export class Calendar extends React.Component<CalendarProps, {}> {
+        render(): JSX.Element
+    }
 
 
     // Carousel
-    interface CarouselProps extends React.Props<Carousel> {
+    interface CarouselProps {
         /** 动画效果函数，可取 scrollx, fade*/
         effect?: string,
         /** 是否显示面板指示点*/
@@ -223,12 +235,14 @@ declare namespace Antd {
     - 当内容空间不足时，可以用走马灯的形式进行收纳，进行轮播展现。
     - 常用于一组图片或卡片轮播。
     */
-    export class Carousel extends React.Component<CarouselProps, {}>{ }
+    export class Carousel extends React.Component<CarouselProps, {}> {
+        render(): JSX.Element
+    }
 
 
 
     // Cascader
-    interface CascaderProps extends React.Props<Cascader> {
+    interface CascaderProps {
         /** 可选项数据源*/
         options: Object,
         /** 默认的选中项*/
@@ -267,13 +281,15 @@ declare namespace Antd {
     - 需要从一组相关联的数据集合进行选择，例如省市区，公司层级，事物分类等。
     - 从一个较大的数据集合中进行选择时，用多级分类进行分隔，方便选择。
     - 比起 Select 组件，可以在同一个浮层中完成选择，有较好的体验。*/
-    export class Cascader extends React.Component<CascaderProps, {}>{ }
+    export class Cascader extends React.Component<CascaderProps, {}> {
+        render(): JSX.Element
+    }
 
 
 
 
     // Checkbox
-    interface CheckboxProps extends React.Props<Checkbox> {
+    interface CheckboxProps {
         /** 指定当前是否选中*/
         checked?: boolean,
         /** 初始是否选中*/
@@ -282,7 +298,7 @@ declare namespace Antd {
         onChange?: Function
     }
 
-    interface CheckboxGroupProps extends React.Props<CheckboxGroup> {
+    interface CheckboxGroupProps {
         /** 默认选中的选项*/
         defaultValue?: Array<any>,
         /** 指定选中的选项*/
@@ -293,7 +309,9 @@ declare namespace Antd {
         onChange?: Function
     }
     /** Checkbox 组*/
-    class CheckboxGroup extends React.Component<CheckboxGroupProps, {}>{ }
+    class CheckboxGroup extends React.Component<CheckboxGroupProps, {}> {
+        render(): JSX.Element
+    }
     /**
      * #Checkbox
     多选框。
@@ -303,15 +321,16 @@ declare namespace Antd {
     - 在一组可选项中进行多项选择时；
     - 单独使用可以表示两种状态之间的切换，和 `switch` 类似。区别在于切换 `switch` 会直接触发状态改变，而 `checkbox` 一般用于状态标记，需要和提交操作配合。
     */
-    export class Checkbox extends React.Component<CheckboxProps, {}>{
+    export class Checkbox extends React.Component<CheckboxProps, {}> {
         static Group: typeof CheckboxGroup
+        render(): JSX.Element
     }
 
 
 
     // Collapse
 
-    interface CollapseProps extends React.Props<Collapse> {
+    interface CollapseProps {
         /** 当前激活 tab 面板的 key*/
         activeKey?: Array<any> | string,
         /** 初始化选中面板的key */
@@ -325,7 +344,9 @@ declare namespace Antd {
         key: string,
         /** 面板头内容*/
         header: React.ReactNode | string
-    }, {}>{ }
+    }, {}> {
+        render(): JSX.Element
+    }
     /**
      * #Collapse
     可以折叠/展开的内容区域。
@@ -334,14 +355,15 @@ declare namespace Antd {
 
     - 对复杂区域进行分组和隐藏，保持页面的整洁。
     - `手风琴` 是一种特殊的折叠面板，只允许单个内容区域展开。*/
-    export class Collapse extends React.Component<CollapseProps, {}>{
+    export class Collapse extends React.Component<CollapseProps, {}> {
         static Panel: typeof CollapsePanel
+        render(): JSX.Element
     }
 
 
 
     // DatePicker
-    interface DatePickerProps<T> extends React.Props<DatePicker> {
+    interface DatePickerProps<T> {
 
         value?: string | Date,
         defaultValue?: string | Date,
@@ -371,8 +393,12 @@ declare namespace Antd {
     interface RangePickProps extends DatePickerProps<RangePicker> {
 
     }
-    class RangePicker extends React.Component<RangePickProps, {}>{ }
-    class MonthPicker extends React.Component<RangePickProps, {}>{ }
+    class RangePicker extends React.Component<RangePickProps, {}> {
+        render(): JSX.Element
+    }
+    class MonthPicker extends React.Component<RangePickProps, {}> {
+        render(): JSX.Element
+    }
     /**
      * #DatePicker
     输入或选择日期的控件。
@@ -380,9 +406,10 @@ declare namespace Antd {
     ## 何时使用
 
     当用户需要输入一个日期，可以点击标准输入框，弹出日期面板进行选择。*/
-    export class DatePicker extends React.Component<DatePickerProps<any>, {}>{
+    export class DatePicker extends React.Component<DatePickerProps<any>, {}> {
         static RangePicker: typeof RangePicker
         static MonthPicker: typeof MonthPicker
+        render(): JSX.Element
     }
 
 
@@ -390,7 +417,7 @@ declare namespace Antd {
 
     // Dropdown
 
-    interface DropdownProps extends React.Props<Dropdown> {
+    interface DropdownProps {
         /** 触发下拉的行为  ['click'] or ['hover']*/
         trigger?: Array<string>,
         /** 菜单节点*/
@@ -407,7 +434,9 @@ declare namespace Antd {
         trigger?: string,
         /** 菜单节点*/
         overlay: React.ReactNode
-    }, {}>{ }
+    }, {}> {
+        render(): JSX.Element
+    }
     /**
      * #Dropdown
     向下弹出的列表。
@@ -416,15 +445,16 @@ declare namespace Antd {
 
     当页面上的操作命令过多时，用此组件可以收纳操作元素。点击或移入触点，会出现一个下拉菜单。可在列表中进行选择，并执行相应的命令。
     */
-    export class Dropdown extends React.Component<DropdownProps, {}>{
+    export class Dropdown extends React.Component<DropdownProps, {}> {
         static Button: typeof DropdownButton
+        render(): JSX.Element
     }
 
 
 
     // Form
 
-    interface FormItemProps extends React.Props<FormItem> {
+    interface FormItemProps {
         prefixCls?: string,
         /**  label 标签的文本*/
         label?: React.ReactNode,
@@ -448,11 +478,15 @@ declare namespace Antd {
     表单一定会包含表单域，表单域可以是输入控件，标准表单域，标签，下拉菜单，文本域等。
 
     这里我们分别封装了表单域 `<Form.Item />` 和输入控件 `<Input />`。*/
-    export class FormItem extends React.Component<FormItemProps, {}>{ }
-    interface FormComponentProps extends React.Props<FormComponent> {
+    export class FormItem extends React.Component<FormItemProps, {}> {
+        render(): JSX.Element
+    }
+    interface FormComponentProps {
         form: CreateFormOptions
     }
-    export class FormComponent extends React.Component<FormComponentProps, {}>{ }
+    export class FormComponent extends React.Component<FormComponentProps, {}> {
+        render(): JSX.Element
+    }
 
     // function  create
     type CreateFormOptions = {
@@ -496,7 +530,7 @@ declare namespace Antd {
     interface ComponentDecorator {
         <T extends (typeof FormComponent)>(component: T): T;
     }
-    interface FormProps extends React.Props<Form> {
+    interface FormProps {
         prefixCls?: string,
         /** 水平排列布局*/
         horizontal?: boolean,
@@ -518,7 +552,7 @@ declare namespace Antd {
     - 水平排列：可以实现 `label` 标签和表单控件的水平排列;
     - 行内排列：使其表现为 `inline-block` 级别的控件。
     */
-    export class Form extends React.Component<FormProps, {}>{
+    export class Form extends React.Component<FormProps, {}> {
         static Item: typeof FormItem
         static create(options?: {
             /**
@@ -528,6 +562,7 @@ declare namespace Antd {
             /**  把 props 转为对应的值，可用于把 Redux store 中的值读出 */
             mapPropsToFields?: (props: Object) => void
         }): ComponentDecorator
+        render(): JSX.Element
     }
 
 
@@ -535,7 +570,7 @@ declare namespace Antd {
 
 
     // Icon
-    interface IconProps extends React.Props<Icon> {
+    interface IconProps {
         /** 图标类型*/
         type: string
     }
@@ -564,13 +599,15 @@ declare namespace Antd {
     ```html
     <i class="anticon anticon-${type}"></i>
     ```*/
-    export class Icon extends React.Component<IconProps, {}>{ }
+    export class Icon extends React.Component<IconProps, {}> {
+        render(): JSX.Element
+    }
 
 
 
 
     // Input
-    interface InputProps extends React.Props<Input> {
+    interface InputProps {
         /**  【必须】声明 input 类型，同原生 input 标签的 type 属性*/
         type?: string,
         id: string | number,
@@ -589,13 +626,15 @@ declare namespace Antd {
         prefixCls?: string,
         placeholder?: string
     }
-    export class Input extends React.Component<InputProps, {}>{ }
+    export class Input extends React.Component<InputProps, {}> {
+        render(): JSX.Element
+    }
 
 
 
 
     // InputNumber
-    interface InputNumberProps extends React.Props<InputNumber> {
+    interface InputNumberProps {
         /** 最小值*/
         min: number,
         /** 最大值*/
@@ -621,21 +660,25 @@ declare namespace Antd {
     ## 何时使用
 
     当需要获取标准数值时。*/
-    export class InputNumber extends React.Component<InputNumberProps, {}>{ }
+    export class InputNumber extends React.Component<InputNumberProps, {}> {
+        render(): JSX.Element
+    }
 
 
     // Layout
     // Row
-    interface RowProps extends React.Props<Row> {
+    interface RowProps {
         type?: string,
         align?: string,
         justify?: string,
         className?: string
     }
-    export class Row extends React.Component<RowProps, {}>{ }
+    export class Row extends React.Component<RowProps, {}> {
+        render(): JSX.Element
+    }
 
     // Col
-    interface ColProps extends React.Props<Col> {
+    interface ColProps {
         span?: string,
         order?: string,
         offset?: string,
@@ -662,13 +705,15 @@ declare namespace Antd {
     我们的栅格化系统支持 Flex 布局，允许子元素在父节点内的水平对齐方式 - 居左、居中、居右、等宽排列、分散排列。子元素与子元素之间，支持顶部对齐、垂直居中对齐、底部对齐的方式。同时，支持使用 order 来定义元素的排列顺序。
 
     Flex 布局是基于 24 栅格来定义每一个“盒子”的宽度，但排版则不拘泥于栅格。*/
-    export class Col extends React.Component<ColProps, {}>{ }
+    export class Col extends React.Component<ColProps, {}> {
+        render(): JSX.Element
+    }
 
 
 
 
     // Menu
-    interface MenuItemProps extends React.Props<MenuItem> {
+    interface MenuItemProps {
         /**
          * (是否禁用)
          *
@@ -677,9 +722,11 @@ declare namespace Antd {
         disabled?: boolean,
         key: string
     }
-    export class MenuItem extends React.Component<MenuItemProps, {}>{ }
+    export class MenuItem extends React.Component<MenuItemProps, {}> {
+        render(): JSX.Element
+    }
 
-    interface MenuSubMenuProps extends React.Props<MenuSubMenu> {
+    interface MenuSubMenuProps {
         /**
          * (子菜单项值)
          *
@@ -691,11 +738,13 @@ declare namespace Antd {
          *
          * @type {(MenuItem | MenuSubMenu)}
          */
-        children?: MenuItem | MenuSubMenu
+        children?: JSX.Element[]
     }
-    export class MenuSubMenu extends React.Component<MenuSubMenuProps, {}>{ }
+    export class MenuSubMenu extends React.Component<MenuSubMenuProps, {}> {
+        render(): JSX.Element
+    }
 
-    interface MenuItemGroupProps extends React.Props<MenuItemGroup> {
+    interface MenuItemGroupProps {
         /**
          * (分组标题)
          *
@@ -707,9 +756,11 @@ declare namespace Antd {
          *
          * @type {MenuItem}
          */
-        children?: MenuItem
+        children?: JSX.Element[]
     }
-    export class MenuItemGroup extends React.Component<MenuItemGroupProps, {}>{ }
+    export class MenuItemGroup extends React.Component<MenuItemGroupProps, {}> {
+        render(): JSX.Element
+    }
 
 
     // enum
@@ -722,7 +773,7 @@ declare namespace Antd {
         horizontal,
         inline
     }
-    interface MenuProps extends React.Props<Menu> {
+    interface MenuProps {
         /** 主题颜色*/
         theme?: MenuTheme | string,
         /** 菜单类型  enum: `vertical` `horizontal` `inline`*/
@@ -757,11 +808,12 @@ declare namespace Antd {
     导航菜单是一个网站的灵魂，用户依赖导航在各个页面中进行跳转。一般分为顶部导航和侧边导航，顶部导航提供全局性的类目和功能，侧边导航提供多级结构来收纳和排列网站架构。
 
     更多布局和导航的范例可以参考：[常用布局](/spec/layout)。*/
-    export class Menu extends React.Component<MenuProps, {}>{
+    export class Menu extends React.Component<MenuProps, {}> {
         static Item: typeof MenuItem
         static SubMenu: typeof MenuSubMenu
         static ItemGroup: typeof MenuItemGroup
         static Divider: typeof React.Component
+        render(): JSX.Element
     }
 
 
@@ -810,7 +862,7 @@ declare namespace Antd {
         cancelText?: string
     }) => void
 
-    interface ModalProps extends React.Props<Modal> {
+    interface ModalProps {
         /** 对话框是否可见*/
         visible?: boolean,
         /** 确定按钮 loading*/
@@ -844,11 +896,12 @@ declare namespace Antd {
     需要用户处理事务，又不希望跳转页面以致打断工作流程时，可以使用 `Modal` 在当前页面正中打开一个浮层，承载相应的操作。
 
     另外当需要一个简洁的确认框询问用户时，可以使用精心封装好的 `ant.Modal.confirm()` 等方法。*/
-    export class Modal extends React.Component<ModalProps, {}>{
+    export class Modal extends React.Component<ModalProps, {}> {
         static info: ModalFunc
         static success: ModalFunc
         static error: ModalFunc
         static confirm: ModalFunc
+        render(): JSX.Element
     }
 
 
@@ -871,7 +924,7 @@ declare namespace Antd {
             duration?: number
         }) => void
     /**
-     * #Notification
+     * #notification
     全局展示通知提醒信息。
 
     ## 何时使用
@@ -881,7 +934,7 @@ declare namespace Antd {
     - 较为复杂的通知内容。
     - 带有交互的通知，给出用户下一步的行动点。
     - 系统主动推送。*/
-    export const Notification: {
+    export const notification: {
         success: NotificationFunc
         error: NotificationFunc
         info: NotificationFunc
@@ -899,7 +952,7 @@ declare namespace Antd {
 
 
     // Pagination
-    interface PaginationProps extends React.Props<Pagination> {
+    interface PaginationProps {
         /** 当前页数*/
         current?: number,
         /** 默认的当前页数*/
@@ -935,7 +988,9 @@ declare namespace Antd {
 
     - 当加载/渲染所有数据将花费很多时间时；
     - 可切换页码浏览数据。*/
-    export class Pagination extends React.Component<PaginationProps, {}>{ }
+    export class Pagination extends React.Component<PaginationProps, {}> {
+        render(): JSX.Element
+    }
 
 
 
@@ -944,7 +999,7 @@ declare namespace Antd {
     enum Placement {
         top, left, right, bottom
     }
-    interface PopconfirmProps extends React.Props<Popconfirm> {
+    interface PopconfirmProps {
         /**
          * 气泡框位置，可选 `top/left/right/bottom`
          *
@@ -973,7 +1028,9 @@ declare namespace Antd {
 
     和 `confirm` 弹出的全屏居中模态对话框相比，交互形式更轻量。
     */
-    export class Popconfirm extends React.Component<PopconfirmProps, {}>{ }
+    export class Popconfirm extends React.Component<PopconfirmProps, {}> {
+        render(): JSX.Element
+    }
 
 
 
@@ -988,7 +1045,7 @@ declare namespace Antd {
         topLeft, topRight, bottomLeft, bottomRight,
         leftTop, leftBottom, rightTop, rightBottom
     }
-    interface PopoverProps extends React.Props<Popover> {
+    interface PopoverProps {
         /** 触发行为，可选 `hover/focus/click` */
         trigger?: Trigger | string,
         /** 气泡框位置，可选 `top/left/right/bottom` `topLeft/topRight/bottomLeft/bottomRight` `leftTop/leftBottom/rightTop/rightBottom`*/
@@ -1013,7 +1070,9 @@ declare namespace Antd {
 
     和 `Tooltip` 的区别是，用户可以对浮层上的元素进行操作，因此它可以承载更复杂的内容，比如链接或按钮等。
     */
-    export class Popover extends React.Component<PopoverProps, {}>{ }
+    export class Popover extends React.Component<PopoverProps, {}> {
+        render(): JSX.Element
+    }
 
 
 
@@ -1025,7 +1084,7 @@ declare namespace Antd {
         active
     }
 
-    interface LineProps extends React.Props<Line> {
+    interface LineProps {
         /** 百分比*/
         percent: number,
         /** 内容的模板函数*/
@@ -1037,9 +1096,11 @@ declare namespace Antd {
         /** 是否显示进度数值和状态图标*/
         showInfo?: boolean
     }
-    export class Line extends React.Component<LineProps, {}>{ }
+    export class Line extends React.Component<LineProps, {}> {
+        render(): JSX.Element
+    }
 
-    interface CircleProps extends React.Props<Circle> {
+    interface CircleProps {
         /** 百分比*/
         percent: number,
         /** 内容的模板函数*/
@@ -1051,7 +1112,9 @@ declare namespace Antd {
         /** 必填，进度条画布宽度，单位px。这里没有提供height属性设置，Line型高度就是strokeWidth，Circle型高度等于width*/
         width?: number
     }
-    export class Circle extends React.Component<CircleProps, {}>{ }
+    export class Circle extends React.Component<CircleProps, {}> {
+        render(): JSX.Element
+    }
     /**
      * #Progress
     展示操作的当前进度。
@@ -1069,7 +1132,7 @@ declare namespace Antd {
 
 
     // QueueAnim
-    interface QueueAnimProps extends React.Props<QueueAnim> {
+    interface QueueAnimProps {
         /** 动画内置参数 `left` `right` `top` `bottom` `scale` `scaleBig` `scaleX` `scaleY`*/
         type?: string | Array<string>,
         /** 配置动画参数 如 `{opacity:[1, 0],translateY:[0, -30]}` 具体参考 [velocity](http://julian.com/research/velocity) 的写法*/
@@ -1101,7 +1164,9 @@ declare namespace Antd {
 
     - 特别适合首页和需要视觉展示效果的宣传页，以及单页应用的切换页面动效。
     */
-    export class QueueAnim extends React.Component<QueueAnimProps, {}>{ }
+    export class QueueAnim extends React.Component<QueueAnimProps, {}> {
+        render(): JSX.Element
+    }
 
 
 
@@ -1112,7 +1177,7 @@ declare namespace Antd {
         default,
         small
     }
-    interface RadioGroupProps extends React.Props<RadioGroup> {
+    interface RadioGroupProps {
         /** 选项变化时的回调函数*/
         onChange?: (e: Event) => void,
         /** 用于设置当前选中的值*/
@@ -1122,10 +1187,12 @@ declare namespace Antd {
         /**  大小，只对按钮样式生效*/
         size?: RadioGroupSize | string
     }
-    export class RadioGroup extends React.Component<RadioGroupProps, {}>{ }
+    export class RadioGroup extends React.Component<RadioGroupProps, {}> {
+        render(): JSX.Element
+    }
 
 
-    interface RadioProps extends React.Props<Radio> {
+    interface RadioProps {
         /** 指定当前是否选中*/
         checked?: boolean,
         /** 初始是否选中*/
@@ -1142,15 +1209,16 @@ declare namespace Antd {
     - 用于在多个备选项中选中单个状态。
     - 和 Select 的区别是，Radio 所有选项默认可见，方便用户在比较中选择，因此选项不宜过多。
     */
-    export class Radio extends React.Component<RadioProps, {}>{
+    export class Radio extends React.Component<RadioProps, {}> {
         static Group: typeof RadioGroup
         static Button: typeof Button
+        render(): JSX.Element
     }
 
 
 
     // Select
-    interface SelectOptionProps extends React.Props<SelectOption> {
+    interface SelectOptionProps {
         /** 是否禁用*/
         disabled?: boolean,
         /** 如果 react 需要你设置此项，此项值与 value 的值相同，然后可以省略 value 设置*/
@@ -1158,16 +1226,20 @@ declare namespace Antd {
         /** 默认根据此属性值进行筛选*/
         value: string
     }
-    export class SelectOption extends React.Component<SelectOptionProps, {}>{ }
+    export class SelectOption extends React.Component<SelectOptionProps, {}> {
+        render(): JSX.Element
+    }
 
-    interface SelectOptGroupProps extends React.Props<SelectOptGroup> {
+    interface SelectOptGroupProps {
         /** 组名*/
         label: string | React.ReactNode,
         key?: string
     }
-    export class SelectOptGroup extends React.Component<SelectOptGroupProps, {}>{ }
+    export class SelectOptGroup extends React.Component<SelectOptGroupProps, {}> {
+        render(): JSX.Element
+    }
 
-    interface SelectProps extends React.Props<Select> {
+    interface SelectProps {
         /** 指定当前选中的条目*/
         value?: string | Array<any>,
         /** 指定默认选中的条目*/
@@ -1215,15 +1287,16 @@ declare namespace Antd {
     ## 何时使用
 
     弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。*/
-    export class Select extends React.Component<SelectProps, {}>{
+    export class Select extends React.Component<SelectProps, {}> {
         static Option: typeof SelectOption
         static OptGroup: typeof SelectOptGroup
+        render(): JSX.Element
     }
 
 
 
     // Slider
-    interface SliderProps extends React.Props<Slider> {
+    interface SliderProps {
         /** 最小值*/
         min?: number,
         /** 最大值*/
@@ -1257,13 +1330,15 @@ declare namespace Antd {
     ## 何时使用
 
     当用户需要在数值区间/自定义区间内进行选择时，可为连续或离散值。*/
-    export class Slider extends React.Component<SliderProps, {}>{ }
+    export class Slider extends React.Component<SliderProps, {}> {
+        render(): JSX.Element
+    }
 
 
 
 
     // Spin
-    interface SpinProps extends React.Props<Spin> {
+    interface SpinProps {
         /** spin组件中点的大小，可选值为 small default large*/
         size?: string,
         /** 用于内嵌其他组件的模式，可以关闭 loading 效果*/
@@ -1277,7 +1352,9 @@ declare namespace Antd {
 
     页面局部处于等待异步数据或正在渲染过程时，合适的加载动效会有效缓解用户的焦虑。
     */
-    export class Spin extends React.Component<SpinProps, {}>{ }
+    export class Spin extends React.Component<SpinProps, {}> {
+        render(): JSX.Element
+    }
 
 
 
@@ -1286,7 +1363,7 @@ declare namespace Antd {
     enum StepStatus {
         wait, process, finish
     }
-    interface StepProps extends React.Props<Step> {
+    interface StepProps {
         /** 可选参数，指定状态。当不配置该属性时，会使用父Steps元素的current来自动指定状态。*/
         status?: StepStatus | string,
         /** 必要参数，标题。*/
@@ -1296,9 +1373,11 @@ declare namespace Antd {
         /** 可选参数，步骤的Icon。如果不指定，则使用默认的样式。*/
         icon?: string | React.ReactNode
     }
-    export class Step extends React.Component<StepProps, {}>{ }
+    export class Step extends React.Component<StepProps, {}> {
+        render(): JSX.Element
+    }
 
-    interface StepsProps extends React.Props<Steps> {
+    interface StepsProps {
         /** 可选参数，指定当前处理正在执行状态的步骤，从0开始记数。在子Step元素中，可以通过status属性覆盖状态。*/
         current?: number,
         /** 可选参数，指定大小（目前只支持普通和迷你两种大小）。 small, default */
@@ -1316,14 +1395,15 @@ declare namespace Antd {
     ## 何时使用
 
     当任务复杂或者存在先后关系时，将其分解成一系列步骤，从而简化任务。*/
-    export class Steps extends React.Component<StepsProps, {}>{
+    export class Steps extends React.Component<StepsProps, {}> {
         static Step: typeof Step
+        render(): JSX.Element
     }
 
 
 
     // Switch
-    interface SwitchProps extends React.Props<Switch> {
+    interface SwitchProps {
         /** 指定当前是否选中*/
         checked?: boolean,
         /** 初始是否选中*/
@@ -1346,7 +1426,9 @@ declare namespace Antd {
     - 需要表示开关状态/两种状态之间的切换时；
     - 和 `checkbox `的区别是，切换 `switch` 会直接触发状态改变，而 `checkbox` 一般用于状态标记，需要和提交操作配合。
     */
-    export class Switch extends React.Component<SwitchProps, {}>{ }
+    export class Switch extends React.Component<SwitchProps, {}> {
+        render(): JSX.Element
+    }
 
 
 
@@ -1389,7 +1471,7 @@ declare namespace Antd {
         /** 列的 className*/
         className?: string
     }
-    interface TableProps extends React.Props<Table> {
+    interface TableProps {
         /** 列表项是否可选择*/
         rowSelection?: RowSelection,
         /** 分页器*/
@@ -1434,16 +1516,20 @@ declare namespace Antd {
 
     - 当有大量结构化的数据需要展现时；
     - 当需要对数据进行排序、搜索、分页、自定义操作等复杂行为时。*/
-    export class Table extends React.Component<TableProps, {}>{ }
+    export class Table extends React.Component<TableProps, {}> {
+        render(): JSX.Element
+    }
 
 
 
     // Tabs
-    interface TabPaneProps extends React.Props<TabPane> {
+    interface TabPaneProps {
         /** 选项卡头显示文字*/
         tab: React.ReactNode | string
     }
-    export class TabPane extends React.Component<TabPaneProps, {}>{ }
+    export class TabPane extends React.Component<TabPaneProps, {}> {
+        render(): JSX.Element
+    }
 
     enum TabsType {
         line, card, 'editable-card'
@@ -1454,7 +1540,7 @@ declare namespace Antd {
         bottom,
         left
     }
-    interface TabsProps extends React.Props<Tabs> {
+    interface TabsProps {
         /** 当前激活 tab 面板的 key    */
         activeKey?: string,
         /** 初始化选中面板的 key，如果没有设置 activeKey*/
@@ -1485,15 +1571,16 @@ declare namespace Antd {
     - 卡片式的页签，提供可关闭的样式，常用于容器顶部。
     - 标准线条式页签，用于容器内部的主功能切换，这是最常用的 Tabs。
     - [RadioButton](/components/radio/#demo-radiobutton) 可作为更次级的页签来使用。*/
-    export class Tabs extends React.Component<TabsProps, {}>{
+    export class Tabs extends React.Component<TabsProps, {}> {
         static TabPane: typeof TabPane
+        render(): JSX.Element
     }
 
 
 
 
     // Tag
-    interface TagProps extends React.Props<Tag> {
+    interface TagProps {
         /** 标签是否可以关闭*/
         closable?: boolean,
         /** 关闭时的回调*/
@@ -1511,7 +1598,9 @@ declare namespace Antd {
     
     - 用于标记事物的属性和维度。
     - 进行分类。*/
-    export class Tag extends React.Component<TagProps, {}>{ }
+    export class Tag extends React.Component<TagProps, {}> {
+        render(): JSX.Element
+    }
 
 
 
@@ -1519,7 +1608,7 @@ declare namespace Antd {
 
 
     // TimePicker
-    interface TimePickerProps extends React.Props<TimePicker> {
+    interface TimePickerProps {
         /** 默认时间*/
         value?: string | Date,
         /** 初始默认时间*/
@@ -1553,19 +1642,23 @@ declare namespace Antd {
     
     当用户需要输入一个时间，可以点击标准输入框，弹出时间面板进行选择。
     */
-    export class TimePicker extends React.Component<TimePickerProps, {}>{ }
+    export class TimePicker extends React.Component<TimePickerProps, {}> {
+        render(): JSX.Element
+    }
 
 
 
 
     // Timeline
-    interface TimeLineItemProps extends React.Props<TimeLineItem> {
+    interface TimeLineItemProps {
         /** 指定圆圈颜色。*/
         color?: string
     }
-    export class TimeLineItem extends React.Component<TimeLineItemProps, {}>{ }
+    export class TimeLineItem extends React.Component<TimeLineItemProps, {}> {
+        render(): JSX.Element
+    }
 
-    interface TimelineProps extends React.Props<Timeline> {
+    interface TimelineProps {
         /** 指定最后一个幽灵节点是否存在或内容*/
         pending?: boolean | React.ReactNode
     }
@@ -1577,15 +1670,16 @@ declare namespace Antd {
     
     - 当有一系列信息需要从上至下按时间排列时；
     - 需要有一条时间轴进行视觉上的串联时；*/
-    export class Timeline extends React.Component<TimelineProps, {}>{
+    export class Timeline extends React.Component<TimelineProps, {}> {
         static Item: typeof TimeLineItem
+        render(): JSX.Element
     }
 
 
 
     // Tooltip
 
-    interface TooltipProps extends React.Props<Tooltip> {
+    interface TooltipProps {
         /** 气泡框位置，可选 `top` `left` `right` `bottom` `topLeft` `topRight` `bottomLeft` `bottomRight` `leftTop` `leftBottom` `rightTop` `rightBottom`*/
         placement?: PopoverPlacement | string,
         /** 提示文字*/
@@ -1600,14 +1694,16 @@ declare namespace Antd {
     鼠标移入则显示提示，移出消失，气泡浮层不承载复杂文本和操作。
     
     可用来代替系统默认的 `title` 提示，提供一个`按钮/文字/操作`的文案解释。*/
-    export class Tooltip extends React.Component<TooltipProps, {}>{ }
+    export class Tooltip extends React.Component<TooltipProps, {}> {
+        render(): JSX.Element
+    }
 
 
 
 
 
     // Transfer
-    interface TransferProps extends React.Props<Transfer> {
+    interface TransferProps {
         /** 数据源*/
         dataSource: Array<any>,
         /** 每行数据渲染函数*/
@@ -1641,23 +1737,27 @@ declare namespace Antd {
     
     用直观的方式在两栏中移动元素，完成选择行为。
     */
-    export class Transfer extends React.Component<TransferProps, {}>{ }
+    export class Transfer extends React.Component<TransferProps, {}> {
+        render(): JSX.Element
+    }
 
 
 
 
 
     // Tree
-    interface TreeNodeProps extends React.Props<TreeNode> {
+    interface TreeNodeProps {
         disabled?: boolean,
         disableCheckbox?: boolean,
         title?: string | React.ReactNode,
         key?: string,
         isLeaf?: boolean
     }
-    export class TreeNode extends React.Component<TreeNodeProps, {}>{ }
+    export class TreeNode extends React.Component<TreeNodeProps, {}> {
+        render(): JSX.Element
+    }
 
-    interface TreeProps extends React.Props<Tree> {
+    interface TreeProps {
         showLine?: boolean,
         className?: string,
         /** 是否支持多选*/
@@ -1707,8 +1807,9 @@ declare namespace Antd {
      * #Tree
      * 文件夹、组织架构、生物分类、国家地区等等，世间万物的大多数结构都是树形结构。使用`树控件`可以完整展现其中的层级关系，并具有展开收起选择等交互功能。
     */
-    export class Tree extends React.Component<TreeProps, {}>{
+    export class Tree extends React.Component<TreeProps, {}> {
         static TreeNode: typeof TreeNode
+        render(): JSX.Element
     }
 
 
@@ -1716,7 +1817,7 @@ declare namespace Antd {
 
 
     // TreeSelect
-    interface TreeSelectTreeNodeProps extends React.Props<TreeSelectTreeNode> {
+    interface TreeSelectTreeNodeProps {
         disabled?: boolean,
         /** 此项必须设置（其值在整个树范围内唯一）*/
         key: string,
@@ -1727,10 +1828,12 @@ declare namespace Antd {
         /** 是否是叶子节点*/
         isLeaf?: boolean
     }
-    export class TreeSelectTreeNode extends React.Component<TreeSelectTreeNodeProps, {}>{ }
+    export class TreeSelectTreeNode extends React.Component<TreeSelectTreeNodeProps, {}> {
+        render(): JSX.Element
+    }
 
     type TreeData = Array<{ value: any, label: string, children: TreeData }>
-    interface TreeSelectProps extends React.Props<TreeSelect> {
+    interface TreeSelectProps {
         style?: Object,
         /** 指定当前选中的条目*/
         value?: string | Array<any>,
@@ -1787,8 +1890,9 @@ declare namespace Antd {
     
     类似 Select 的选择控件，可选择的数据结构是一个树形结构时，可以使用 TreeSelect，例如公司层级、学科系统、分类目录等等。
     */
-    export class TreeSelect extends React.Component<TreeSelectProps, {}>{
+    export class TreeSelect extends React.Component<TreeSelectProps, {}> {
         static TreeNode: typeof TreeSelectTreeNode
+        render(): JSX.Element
     }
 
 
@@ -1797,7 +1901,7 @@ declare namespace Antd {
 
 
     // Upload
-    interface UploadProps extends React.Props<Upload> {
+    interface UploadProps {
         /** 可选参数, 上传的文件  */
         name?: string,
         /** 必选参数, 上传的地址   */
@@ -1833,7 +1937,9 @@ declare namespace Antd {
     - 当需要上传一个或一些文件时。
     - 当需要展现上传的进度时。
     - 当需要使用拖拽交互时。*/
-    export class Upload extends React.Component<UploadProps, {}>{ }
+    export class Upload extends React.Component<UploadProps, {}> {
+        render(): JSX.Element
+    }
 
 
 
@@ -1911,8 +2017,8 @@ declare module 'antd/lib/message' {
 declare module 'antd/lib/Modal' {
     export default Antd.Modal
 }
-declare module 'antd/lib/Notification' {
-    export default Antd.Notification
+declare module 'antd/lib/notification' {
+    export default Antd.notification
 }
 declare module 'antd/lib/Pagination' {
     export default Antd.Pagination

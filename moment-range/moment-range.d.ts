@@ -1,11 +1,11 @@
 // Type definitions for Moment.js 2.0.3
 // Project: https://github.com/gf3/moment-range
 // Definitions by: Bart van den Burg <https://github.com/Burgov>, Wilgert Velinga <https://github.com/wilgert>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../moment/moment.d.ts" />
 
-declare module moment {
+declare namespace moment {
 
     interface Moment {
 
