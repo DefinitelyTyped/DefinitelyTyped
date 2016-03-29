@@ -12,8 +12,8 @@ var oauth = oauthserver({
 
 var app = express();
 
-app.all('/oauth/token', oauth.grant());
-app.get('/', oauth.authorise(), function (req, res) {
+app.all('/oauth/token', oauth.token());
+app.get('/', oauth.authenticate(), function (req, res) {
     res.send('Secret area');
 });
-app.use(oauth.errorHandler());
+//app.use(oauth.errorHandler());
