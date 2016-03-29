@@ -1,10 +1,10 @@
 // Type definitions for react-input-calendar
 // Project: https://github.com/Rudeg/react-input-calendar
 // Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts"/>
-declare module reactInputCalendar {
+declare namespace reactInputCalendar {
     export interface ReactInputCalendarProps {
         /**
         * Format of date, which display in input and set in date property.

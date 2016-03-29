@@ -1,7 +1,7 @@
 // Type definitions for pify
 // Project: https://github.com/sindresorhus/pify
 // Definitions by: Sam Verschueren <https://github.com/samverschueren>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "pify" {
     interface PifyOptions {

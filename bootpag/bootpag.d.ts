@@ -5,7 +5,7 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module JqueryBootpag {
+declare namespace JqueryBootpag {
     /**
      * Bootpag plugin interface options
      */
@@ -31,12 +31,12 @@ declare module JqueryBootpag {
         leaps?: boolean;
 
         /**
-         * next button text (default "»")
+         * next button text (default "ï¿½")
          */
         next?: string;
 
         /**
-         * prev button text (default "«")
+         * prev button text (default "ï¿½")
          */
         prev?: string;
 

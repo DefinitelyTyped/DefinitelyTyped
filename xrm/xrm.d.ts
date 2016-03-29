@@ -1,10 +1,10 @@
 // Type definitions for Microsoft Dynamics xRM API v7.1
 // Project: http://www.microsoft.com/en-us/download/details.aspx?id=44567
 // Definitions by: David Berry <https://github.com/6ix4our/>, Matt Ngan <https://github.com/mattngan/>, Markus Mauch <https://github.com/markusmauch/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Xrm: Xrm.XrmStatic;
-declare function GetGlobalContext(): Xrm.Context; 
+declare function GetGlobalContext(): Xrm.Context;
 
 interface Window
 {
@@ -12,7 +12,7 @@ interface Window
     GetGlobalContext(): Xrm.Context;
 }
 
-declare module Xrm
+declare namespace Xrm
 {
     /**
      * Static xRM object.
@@ -2567,7 +2567,7 @@ declare module Xrm
     }
 }
 
-declare module XrmEnum
+declare namespace XrmEnum
 {
     /**
      * Enumeration of entity form states/types.

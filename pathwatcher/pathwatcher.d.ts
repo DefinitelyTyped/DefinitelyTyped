@@ -1,12 +1,12 @@
 // Type definitions for pathwatcher
 // Project: https://github.com/atom/node-pathwatcher
 // Definitions by: vvakame <https://github.com/vvakame/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../q/Q.d.ts" />
 
-declare module PathWatcher {
+declare namespace PathWatcher {
 	interface IFileStatic {
 		new (path:string, symlink?:boolean):IFile;
 	}

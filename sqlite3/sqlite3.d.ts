@@ -1,7 +1,7 @@
 // Type definitions for sqlite3 2.2.3
 // Project: https://github.com/mapbox/node-sqlite3
 // Definitions by: Nick Malaguti <https://github.com/nmalaguti/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

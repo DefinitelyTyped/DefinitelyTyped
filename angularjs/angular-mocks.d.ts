@@ -1,7 +1,7 @@
 // Type definitions for Angular JS 1.3 (ngMock, ngMockE2E module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Tony Curtis <http://github.com/daltin>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="angular.d.ts" />
 
@@ -23,7 +23,7 @@ declare module "angular-mocks/ngAnimateMock" {
 ///////////////////////////////////////////////////////////////////////////////
 // ngMock module (angular-mocks.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module angular {
+declare namespace angular {
 
     ///////////////////////////////////////////////////////////////////////////
     // AngularStatic
@@ -32,7 +32,7 @@ declare module angular {
     interface IAngularStatic {
         mock: IMockStatic;
     }
-    
+
     // see https://docs.angularjs.org/api/ngMock/function/angular.mock.inject
     interface IInjectStatic {
         (...fns: Function[]): any;
@@ -98,33 +98,44 @@ declare module angular {
     }
 
     ///////////////////////////////////////////////////////////////////////////
+    // ComponentControllerService
+    // see https://docs.angularjs.org/api/ngMock/service/$componentController
+    ///////////////////////////////////////////////////////////////////////////
+    interface IComponentControllerService {
+      // TBinding is an interface exposed by a component as per John Papa's style guide
+      // https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#accessible-members-up-top
+      <T, TBinding>(componentName: string, locals: { $scope: IScope, [key: string]: any }, bindings?: TBinding, ident?: string): T;
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
     // HttpBackendService
     // see https://docs.angularjs.org/api/ngMock/service/$httpBackend
     ///////////////////////////////////////////////////////////////////////////
     interface IHttpBackendService {
         /**
           * Flushes all pending requests using the trained responses.
-          * @param count Number of responses to flush (in the order they arrived). If undefined, all pending requests will be flushed. 
+          * @param count Number of responses to flush (in the order they arrived). If undefined, all pending requests will be flushed.
           */
         flush(count?: number): void;
-        
+
         /**
           * Resets all request expectations, but preserves all backend definitions.
           */
         resetExpectations(): void;
-        
+
         /**
           * Verifies that all of the requests defined via the expect api were made. If any of the requests were not made, verifyNoOutstandingExpectation throws an exception.
           */
         verifyNoOutstandingExpectation(): void;
-        
+
         /**
           * Verifies that there are no outstanding requests that need to be flushed.
           */
         verifyNoOutstandingRequest(): void;
 
         /**
-          * Creates a new request expectation. 
+          * Creates a new request expectation.
           * Throws a preformatted error if expectation(s) don't match supplied string, regular expression, object, or if function returns false.
           * Returns an object with respond method that controls how a matched request is handled.
           * @param method HTTP method.
@@ -160,17 +171,17 @@ declare module angular {
           * @param headers HTTP headers object to be compared with the HTTP headers in the request.
           */
         expectHEAD(url: string | RegExp | ((url: string) => boolean), headers?: Object): mock.IRequestHandler;
-        
+
         /**
           * Creates a new request expectation for JSONP requests.
           * Throws a preformatted error if expectation(s) don't match supplied string, regular expression, or if function returns false.
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
-          */        
+          */
         expectJSONP(url: string | RegExp | ((url: string) => boolean)): mock.IRequestHandler;
 
         /**
-          * Creates a new request expectation for PATCH requests. 
+          * Creates a new request expectation for PATCH requests.
           * Throws a preformatted error if expectation(s) don't match supplied string, regular expression, object, or if function returns false.
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
@@ -180,7 +191,7 @@ declare module angular {
         expectPATCH(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object): mock.IRequestHandler;
 
         /**
-          * Creates a new request expectation for POST requests. 
+          * Creates a new request expectation for POST requests.
           * Throws a preformatted error if expectation(s) don't match supplied string, regular expression, object, or if function returns false.
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
@@ -190,7 +201,7 @@ declare module angular {
         expectPOST(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object): mock.IRequestHandler;
 
         /**
-          * Creates a new request expectation for PUT requests. 
+          * Creates a new request expectation for PUT requests.
           * Throws a preformatted error if expectation(s) don't match supplied string, regular expression, object, or if function returns false.
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
@@ -200,7 +211,7 @@ declare module angular {
         expectPUT(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object): mock.IRequestHandler;
 
         /**
-          * Creates a new backend definition. 
+          * Creates a new backend definition.
           * Returns an object with respond method that controls how a matched request is handled.
           * @param method HTTP method.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
@@ -210,7 +221,7 @@ declare module angular {
         when(method: string, url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object | ((object: Object) => boolean)): mock.IRequestHandler;
 
         /**
-          * Creates a new backend definition for DELETE requests. 
+          * Creates a new backend definition for DELETE requests.
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param headers HTTP headers object or function that receives the headers and returns true if the headers match the current expectation.
@@ -218,7 +229,7 @@ declare module angular {
         whenDELETE(url: string | RegExp | ((url: string) => boolean), headers?: Object | ((object: Object) => boolean)): mock.IRequestHandler;
 
         /**
-          * Creates a new backend definition for GET requests. 
+          * Creates a new backend definition for GET requests.
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param headers HTTP headers object or function that receives the headers and returns true if the headers match the current expectation.
@@ -226,7 +237,7 @@ declare module angular {
         whenGET(url: string | RegExp | ((url: string) => boolean), headers?: Object | ((object: Object) => boolean)): mock.IRequestHandler;
 
         /**
-          * Creates a new backend definition for HEAD requests. 
+          * Creates a new backend definition for HEAD requests.
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param headers HTTP headers object or function that receives the headers and returns true if the headers match the current expectation.
@@ -234,7 +245,7 @@ declare module angular {
         whenHEAD(url: string | RegExp | ((url: string) => boolean), headers?: Object | ((object: Object) => boolean)): mock.IRequestHandler;
 
         /**
-          * Creates a new backend definition for JSONP requests. 
+          * Creates a new backend definition for JSONP requests.
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param headers HTTP headers object or function that receives the headers and returns true if the headers match the current expectation.
@@ -242,7 +253,7 @@ declare module angular {
         whenJSONP(url: string | RegExp | ((url: string) => boolean)): mock.IRequestHandler;
 
         /**
-          * Creates a new backend definition for PATCH requests. 
+          * Creates a new backend definition for PATCH requests.
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param data HTTP request body string, json object, regular expression or function that receives the data and returns true if the data matches the current expectation.
@@ -251,7 +262,7 @@ declare module angular {
         whenPATCH(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object | ((object: Object) => boolean)): mock.IRequestHandler;
 
         /**
-          * Creates a new backend definition for POST requests. 
+          * Creates a new backend definition for POST requests.
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param data HTTP request body string, json object, regular expression or function that receives the data and returns true if the data matches the current expectation.
@@ -260,7 +271,7 @@ declare module angular {
         whenPOST(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object | ((object: Object) => boolean)): mock.IRequestHandler;
 
         /**
-          * Creates a new backend definition for PUT requests. 
+          * Creates a new backend definition for PUT requests.
           * Returns an object with respond method that controls how a matched request is handled.
           * @param url HTTP url string, regular expression or function that receives a url and returns true if the url matches the current expctation.
           * @param data HTTP request body string, json object, regular expression or function that receives the data and returns true if the data matches the current expectation.
@@ -272,16 +283,16 @@ declare module angular {
     export module mock {
         // returned interface by the the mocked HttpBackendService expect/when methods
         interface IRequestHandler {
-          
+
             /**
-              * Controls the response for a matched request using a function to construct the response. 
+              * Controls the response for a matched request using a function to construct the response.
               * Returns the RequestHandler object for possible overrides.
               * @param func Function that receives the request HTTP method, url, data, and headers and returns an array containing response status (number), data, headers, and status text.
               */
             respond(func: ((method: string, url: string, data: string | Object, headers: Object) => [number, string | Object, Object, string])): IRequestHandler;
 
             /**
-              * Controls the response for a matched request using supplied static data to construct the response. 
+              * Controls the response for a matched request using supplied static data to construct the response.
               * Returns the RequestHandler object for possible overrides.
               * @param status HTTP status code to add to the response.
               * @param data Data to add to the response.
@@ -291,7 +302,7 @@ declare module angular {
             respond(status: number, data: string | Object, headers?: Object, responseText?: string): IRequestHandler;
 
             /**
-              * Controls the response for a matched request using the HTTP status code 200 and supplied static data to construct the response. 
+              * Controls the response for a matched request using the HTTP status code 200 and supplied static data to construct the response.
               * Returns the RequestHandler object for possible overrides.
               * @param data Data to add to the response.
               * @param headers Headers object to add to the response.

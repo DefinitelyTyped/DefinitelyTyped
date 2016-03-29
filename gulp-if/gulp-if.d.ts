@@ -1,7 +1,7 @@
 // Type definitions for gulp-if
 // Project: https://github.com/robrich/gulp-if
 // Definitions by: Asana <https://asana.com>, Joe Skeen <http://github.com/joeskeen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
 /// <reference path="../vinyl/vinyl.d.ts"/>

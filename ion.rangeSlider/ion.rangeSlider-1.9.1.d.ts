@@ -1,7 +1,7 @@
 // Type definitions for for Ion.RangeSlider 1.9.1
 // Project: https://github.com/IonDen/ion.rangeSlider/
 // Definitions by: Douglas Eichelberger <https://github.com/dduugg>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // API documentation: http://ionden.com/a/plugins/ion.rangeSlider/en.html
 
