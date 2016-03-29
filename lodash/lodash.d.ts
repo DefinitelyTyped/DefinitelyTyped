@@ -2058,7 +2058,23 @@ declare module _ {
          */
         fromPairs(
             array: any[]|List<any>
-        ): any[];
+        ): Dictionary<any>;
+    }
+
+    //_.fromPairs DUMMY
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.fromPairs
+         */
+        fromPairs(): LoDashImplicitObjectWrapper<any>;
+    }
+
+    //_.fromPairs DUMMY
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.fromPairs
+         */
+        fromPairs(): LoDashExplicitObjectWrapper<any>;
     }
 
     //_.head
