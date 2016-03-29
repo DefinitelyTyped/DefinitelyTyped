@@ -458,11 +458,11 @@ declare namespace FixedDataTable {
      *   />
      * );
      */
-    export interface CellProps {
+    export interface CellProps extends __React.HTMLAttributes {
         /**
          * The row index of the cell.
          */
-        rowIndex?: number
+        rowIndex?: number;
 
         /**
          * Outer height of the cell.
