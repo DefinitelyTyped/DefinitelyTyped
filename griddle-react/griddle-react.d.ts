@@ -26,13 +26,28 @@ export interface CustomPagerComponentProps {
   setPage(number: number): void;
 }
 
+export interface CustomHeaderComponentProps {
+  filterByColumn?(filter: string, columnName: string): void;
+  columnName: string;
+  displayName: string;
+}
+
+export interface CustomFilterComponentProps {
+  placeholderText?: string;
+  changeFilter(val: any): void;
+}
+
 export interface ColumnMetaData<T> {
   columnName: string;
-  order?: number;
-  locked?: boolean;
   cssClassName?: string;
-  displayName?: string;
   customComponent?: ReactClass<CustomColumnComponentProps<T>>;
+  customHeaderComponent?: ReactClass<CustomHeaderComponentProps>;
+  customHeaderComponentProps?: {};
+  displayName?: string;
+  locked?: boolean;
+  order?: number;
+  sortable?: boolean;
+  visible?: boolean;
 }
 
 export interface BodyCssClassNameFunction<T> {
@@ -67,10 +82,14 @@ export interface GriddleProps<T> {
   useCustomRowComponent?: boolean;
   useCustomGridComponent?: boolean;
   useCustomPagerComponent?: boolean;
+  useCustomFilterer?: boolean;
+  useCustomFilterComponent?: boolean;
   useGriddleStyles?: boolean;
   customRowComponent?: ReactClass<CustomRowComponentProps<T>>
   customGridComponent?: ReactClass<CustomGridComponentProps<T>>
   customPagerComponent?: ReactClass<CustomPagerComponentProps>
+  customFilterComponent?: ReactClass<CustomFilterComponentProps>
+  customFilterer?(items: T[], query: any): T[];
   enableToggleCustom?: boolean;
   noDataMessage?: string;
   noDataClassName?: string;

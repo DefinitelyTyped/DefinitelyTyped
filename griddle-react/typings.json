@@ -2,6 +2,7 @@
   "name": "griddle-react",
   "main": "griddle-react.d.ts",
   "ambientDevDependencies": {
+    "lodash": "registry:dt/lodash#3.10.0+20160327004937",
     "react": "registry:dt/react#0.14.0+20160302224448",
     "react-dom": "registry:dt/react-dom#0.14.0+20151118193745"
   }
