@@ -17,9 +17,6 @@
 // enums.
 // https://typescript.codeplex.com/discussions/549207
 
-// TODO(2): get Typescript to have union types as WebRtc uses them.
-// https://typescript.codeplex.com/workitem/1364
-
 interface RTCConfiguration {
   iceServers: RTCIceServer[];
 }
@@ -76,12 +73,12 @@ interface RTCMediaOfferConstraints {
 }
 
 interface RTCSessionDescriptionInit {
-  type: string;  // RTCSdpType; See TODO(1)
+  type: RTCSdpType;
   sdp: string;
 }
 
 interface RTCSessionDescription {
-  type?: string;  // RTCSdpType; See TODO(1)
+  type?: RTCSdpType;
   sdp?: string;
 }
 declare var RTCSessionDescription: {
@@ -121,33 +118,19 @@ interface RTCDataChannelInit {
 }
 
 // TODO(1)
-declare enum RTCSdpType {
-  // http://dev.w3.org/2011/webrtc/editor/webrtc.html#rtcsdptype
-  'offer',
-  'pranswer',
-  'answer'
-}
+type RTCSdpType = 'offer' | 'pranswer' | 'answer' | 'rollback';
 
 interface RTCMessageEvent {
-  // http://dev.w3.org/2011/webrtc/editor/webrtc.html#event-datachannel-message
-  // At present, this can be an: ArrayBuffer, a string, or a Blob.
-  // See TODO(2)
-  data: any;
+  data: ArrayBuffer | string | Blob;
 }
 
 // TODO(1)
-declare enum RTCDataChannelState {
-  // http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCDataChannelState
-  'connecting',
-  'open',
-  'closing',
-  'closed'
-}
+type RTCDataChannelState = 'connecting' | 'open' | 'closing' | 'closed';
 
 interface RTCDataChannel extends EventTarget {
   label: string;
   reliable: boolean;
-  readyState: string; // RTCDataChannelState; see TODO(1)
+  readyState: RTCDataChannelState;
   bufferedAmount: number;
   binaryType: string;
 
@@ -163,6 +146,7 @@ interface RTCDataChannel extends EventTarget {
   send(data: ArrayBufferView): void;
   send(data: Blob): void;
 }
+
 declare var RTCDataChannel: {
   prototype: RTCDataChannel;
   new (): RTCDataChannel;
@@ -202,35 +186,13 @@ interface RTCPeerConnectionErrorCallback {
 }
 
 // TODO(1)
-declare enum RTCIceGatheringState {
-  // http://dev.w3.org/2011/webrtc/editor/webrtc.html#rtcicegatheringstate-enum
-  'new',
-  'gathering',
-  'complete'
-}
+type RTCIceGatheringState = 'new' | 'gathering' | 'complete';
 
 // TODO(1)
-declare enum RTCIceConnectionState {
-  // http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCIceConnectionState
-  'new',
-  'checking',
-  'connected',
-  'completed',
-  'failed',
-  'disconnected',
-  'closed'
-}
+type RTCIceConnectionState = 'new' | 'checking' | 'connected' | 'completed' | 'failed' | 'disconnected' | 'closed';
 
 // TODO(1)
-declare enum RTCSignalingState {
-  // http://dev.w3.org/2011/webrtc/editor/webrtc.html#idl-def-RTCSignalingState
-  'stable',
-  'have-local-offer',
-  'have-remote-offer',
-  'have-local-pranswer',
-  'have-remote-pranswer',
-  'closed'
-}
+type RTCSignalingState = 'stable' | 'have-local-offer' | 'have-remote-offer' | 'have-local-pranswer' | 'have-remote-pranswer' | 'closed';
 
 // This is based on the current implementation of WebRtc in Chrome; the spec is
 // a little unclear on this.
@@ -258,14 +220,14 @@ interface RTCPeerConnection {
                         successCallback?: RTCVoidCallback,
                         failureCallback?: RTCPeerConnectionErrorCallback): void;
   remoteDescription: RTCSessionDescription;
-  signalingState: string; // RTCSignalingState; see TODO(1)
+  signalingState: RTCSignalingState;
   updateIce(configuration?: RTCConfiguration,
             constraints?: RTCMediaConstraints): void;
   addIceCandidate(candidate:RTCIceCandidate,
                   successCallback:() => void,
                   failureCallback:RTCPeerConnectionErrorCallback): void;
-  iceGatheringState: string;  // RTCIceGatheringState; see TODO(1)
-  iceConnectionState: string;  // RTCIceConnectionState; see TODO(1)
+  iceGatheringState: RTCIceGatheringState;
+  iceConnectionState: RTCIceConnectionState;
   getLocalStreams(): MediaStream[];
   getRemoteStreams(): MediaStream[];
   createDataChannel(label?: string,
