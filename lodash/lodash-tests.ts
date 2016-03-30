@@ -1019,24 +1019,6 @@ namespace TestFlattenDeep {
     }
 }
 
-// _.fromPairs
-namespace TestFromPairs {
-    let array: string[][];
-    let result: _.Dictionary<any>;
-
-    {
-        result = _.fromPairs(array);
-    }
-
-    {
-        result = _(array).fromPairs().value();
-    }
-
-    {
-        result = _.chain(array).fromPairs().value();
-    }
-}
-
 // _.head
 namespace TestHead {
     let array: TResult[];
