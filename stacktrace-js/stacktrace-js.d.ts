@@ -69,7 +69,7 @@ declare namespace StackTrace {
    *
    * @param stackframes - Array[StackFrame]
    * @param url - URL as String
-   * @return Promise<any>
+   * @return Promise<string>
    */
-  export function report(stackframes: StackFrame[], url: string): Promise<any>;
+  export function report(stackframes: StackFrame[], url: string): Promise<string>;
 }
