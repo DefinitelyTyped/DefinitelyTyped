@@ -36,7 +36,7 @@ peerConnection.createOffer(
   error => console.log("Error creating offer: " + error));
 
 var type: RTCSdpType = 'offer';
-var offer: RTCSessionDescriptionInit = { type: RTCSdpType, sdp: "some sdp" };
+var offer: RTCSessionDescriptionInit = { type: type, sdp: "some sdp" };
 var sessionDescription = new RTCSessionDescription(offer);
 
 peerConnection.setRemoteDescription(sessionDescription, () => {
