@@ -131,6 +131,13 @@ dropzoneWithOptionsVariations = new Dropzone(".test", {
 	clickable: ["test", document.getElementById("test")]
 });
 
+dropzoneWithOptionsVariations = new Dropzone(".test", {
+    success: (file:DropzoneFile, response:Object) => console.log(file, response)
+});
+dropzoneWithOptionsVariations = new Dropzone(".test", {
+    success: (file:DropzoneFile, response:string) => console.log(file, response)
+});
+
 const dropzone = new Dropzone(".test");
 
 dropzone.enable();

@@ -85,15 +85,15 @@ var bazProm: Promise<Baz>;
 
 // - - - - - - - - - - - - - - - - -
 
-var numThen: Promise.Thenable<number>;
-var strThen: Promise.Thenable<string>;
-var anyThen: Promise.Thenable<any>;
-var boolThen: Promise.Thenable<boolean>;
-var objThen: Promise.Thenable<Object>;
-var voidThen: Promise.Thenable<void>;
+var numThen: PromiseLike<number>;
+var strThen: PromiseLike<string>;
+var anyThen: PromiseLike<any>;
+var boolThen: PromiseLike<boolean>;
+var objThen: PromiseLike<Object>;
+var voidThen: PromiseLike<void>;
 
-var fooThen: Promise.Thenable<Foo>;
-var barThen: Promise.Thenable<Bar>;
+var fooThen: PromiseLike<Foo>;
+var barThen: PromiseLike<Bar>;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -106,12 +106,12 @@ var barArrProm: Promise<Bar[]>;
 
 // - - - - - - - - - - - - - - - - -
 
-var numArrThen: Promise.Thenable<number[]>;
-var strArrThen: Promise.Thenable<string[]>;
-var anyArrThen: Promise.Thenable<any[]>;
+var numArrThen: PromiseLike<number[]>;
+var strArrThen: PromiseLike<string[]>;
+var anyArrThen: PromiseLike<any[]>;
 
-var fooArrThen: Promise.Thenable<Foo[]>;
-var barArrThen: Promise.Thenable<Bar[]>;
+var fooArrThen: PromiseLike<Foo[]>;
+var barArrThen: PromiseLike<Bar[]>;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -124,18 +124,18 @@ var barPromArr: Promise<Bar>[];
 
 // - - - - - - - - - - - - - - - - -
 
-var numThenArr: Promise.Thenable<number>[];
-var strThenArr: Promise.Thenable<string>[];
-var anyThenArr: Promise.Thenable<any>[];
+var numThenArr: PromiseLike<number>[];
+var strThenArr: PromiseLike<string>[];
+var anyThenArr: PromiseLike<any>[];
 
-var fooThenArr: Promise.Thenable<Foo>[];
-var barThenArr: Promise.Thenable<Bar>[];
+var fooThenArr: PromiseLike<Foo>[];
+var barThenArr: PromiseLike<Bar>[];
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // booya!
-var fooThenArrThen: Promise.Thenable<Promise.Thenable<Foo>[]>;
-var barThenArrThen: Promise.Thenable<Promise.Thenable<Bar>[]>;
+var fooThenArrThen: PromiseLike<PromiseLike<Foo>[]>;
+var barThenArrThen: PromiseLike<PromiseLike<Bar>[]>;
 
 var fooResolver: Promise.Resolver<Foo>;
 var barResolver: Promise.Resolver<Bar>;
@@ -291,9 +291,9 @@ fooProm = fooProm.caught((error: any) => {
 
 fooProm = fooProm.catch((reason: any) => {
 	//handle multiple valid return types simultaneously
-	if (true) {
+	if (foo === null) {
 		return;
-	} else if (false) {
+	} else if (!reason) {
 		return voidProm;
 	} else if (foo) {
 		return foo;
@@ -607,19 +607,19 @@ Promise.all([fooProm, barProm, fooProm]).then(result => {
 
 //TODO fix collection inference
 
-barArrProm = fooProm.map<Foo, Bar>((item: Foo, index: number, arrayLength: number) => {
+barArrProm = fooArrProm.map<Foo, Bar>((item: Foo, index: number, arrayLength: number) => {
 	return bar;
 });
-barArrProm = fooProm.map<Foo, Bar>((item: Foo) => {
+barArrProm = fooArrProm.map<Foo, Bar>((item: Foo) => {
 	return bar;
 });
 
-barArrProm = fooProm.map<Foo, Bar>((item: Foo, index: number, arrayLength: number) => {
+barArrProm = fooArrProm.map<Foo, Bar>((item: Foo, index: number, arrayLength: number) => {
 	return bar;
 }, {
 	concurrency: 1
 });
-barArrProm = fooProm.map<Foo, Bar>((item: Foo) => {
+barArrProm = fooArrProm.map<Foo, Bar>((item: Foo) => {
 	return bar;
 }, {
 	concurrency: 1
@@ -627,10 +627,20 @@ barArrProm = fooProm.map<Foo, Bar>((item: Foo) => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-barProm = fooProm.reduce<Foo, Bar>((memo: Bar, item: Foo, index: number, arrayLength: number) => {
+barArrProm = fooArrProm.mapSeries<Foo, Bar>((item: Foo, index: number, arrayLength: number) => {
+	return bar;
+});
+barArrProm = fooArrProm.mapSeries<Foo, Bar>((item: Foo) => {
+	return bar;
+});
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+barProm = fooArrProm.reduce<Foo, Bar>((memo: Bar, item: Foo, index: number, arrayLength: number) => {
 	return memo;
 });
-barProm = fooProm.reduce<Foo, Bar>((memo: Bar, item: Foo) => {
+barProm = fooArrProm.reduce<Foo, Bar>((memo: Bar, item: Foo) => {
 	return memo;
 }, bar);
 
@@ -663,7 +673,16 @@ fooArrProm = fooArrProm.each<Foo, Bar>((item: Foo, index: number, arrayLength: n
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+function getMaybePromise(): Foo|Promise<Foo> {
+    return foo;
+}
 
+fooProm = Promise.try(() => {
+	return getMaybePromise();
+});
+fooProm = Promise.try<Foo>(() => {
+	return getMaybePromise();
+});
 fooProm = Promise.try(() => {
 	return foo;
 });
@@ -686,8 +705,23 @@ fooProm = Promise.try(() => {
 	return fooThen;
 }, arr, x);
 
+// - - - - - - - - - - - - - - - - -
+
+fooProm = Promise.try(() => {
+    if (fooProm) {
+        return fooProm;
+    }
+    return foo;
+});
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+fooProm = Promise.attempt(() => {
+	return getMaybePromise();
+});
+fooProm = Promise.attempt<Foo>(() => {
+	return getMaybePromise();
+});
 fooProm = Promise.attempt(() => {
 	return foo;
 });
@@ -697,6 +731,15 @@ fooProm = Promise.attempt(() => {
 fooProm = Promise.attempt(() => {
 	return foo;
 }, arr, x);
+
+// - - - - - - - - - - - - - - - - -
+
+fooProm = Promise.attempt(() => {
+    if (fooProm) {
+        return fooProm;
+    }
+    return foo;
+});
 
 // - - - - - - - - - - - - - - - - -
 
@@ -744,8 +787,8 @@ Promise.longStackTraces();
 
 //TODO enable delay
 
-fooProm = Promise.delay(fooThen, num);
-fooProm = Promise.delay(foo, num);
+fooProm = Promise.delay(num, fooThen);
+fooProm = Promise.delay(num, foo);
 voidProm = Promise.delay(num);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -756,6 +799,13 @@ func = Promise.promisify(f, obj);
 obj = Promise.promisifyAll(obj);
 anyProm = Promise.fromNode(callback => nodeCallbackFunc(callback));
 anyProm = Promise.fromNode(callback => nodeCallbackFuncErrorOnly(callback));
+anyProm = Promise.fromNode(callback => nodeCallbackFunc(callback), {multiArgs : true});
+anyProm = Promise.fromNode(callback => nodeCallbackFuncErrorOnly(callback), {multiArgs : true});
+
+anyProm = Promise.fromCallback(callback => nodeCallbackFunc(callback));
+anyProm = Promise.fromCallback(callback => nodeCallbackFuncErrorOnly(callback));
+anyProm = Promise.fromCallback(callback => nodeCallbackFunc(callback), {multiArgs : true});
+anyProm = Promise.fromCallback(callback => nodeCallbackFuncErrorOnly(callback), {multiArgs : true});
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -1007,6 +1057,81 @@ barArrProm = Promise.map(fooArr, (item: Foo, index: number, arrayLength: number)
 }, {
 	concurrency: 1
 });
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// mapSeries()
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// fooThenArrThen
+
+barArrProm = Promise.mapSeries(fooThenArrThen, (item: Foo) => {
+	return bar;
+});
+barArrProm = Promise.mapSeries(fooThenArrThen, (item: Foo) => {
+	return barThen;
+});
+barArrProm = Promise.mapSeries(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
+	return bar;
+});
+barArrProm = Promise.mapSeries(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
+	return barThen;
+});
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// fooArrThen
+
+barArrProm = Promise.mapSeries(fooArrThen, (item: Foo) => {
+	return bar;
+});
+barArrProm = Promise.mapSeries(fooArrThen, (item: Foo) => {
+	return barThen;
+});
+barArrProm = Promise.mapSeries(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
+	return bar;
+});
+barArrProm = Promise.mapSeries(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
+	return barThen;
+});
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// fooThenArr
+
+barArrProm = Promise.mapSeries(fooThenArr, (item: Foo) => {
+	return bar;
+});
+barArrProm = Promise.mapSeries(fooThenArr, (item: Foo) => {
+	return barThen;
+});
+barArrProm = Promise.mapSeries(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
+	return bar;
+});
+barArrProm = Promise.mapSeries(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
+	return barThen;
+});
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// fooArr
+
+barArrProm = Promise.mapSeries(fooArr, (item: Foo) => {
+	return bar;
+});
+barArrProm = Promise.mapSeries(fooArr, (item: Foo) => {
+	return barThen;
+});
+barArrProm = Promise.mapSeries(fooArr, (item: Foo, index: number, arrayLength: number) => {
+	return bar;
+});
+barArrProm = Promise.mapSeries(fooArr, (item: Foo, index: number, arrayLength: number) => {
+	return barThen;
+});
+
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

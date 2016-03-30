@@ -110,6 +110,9 @@ fooPar = P.succeed(foo);
 fooArrPar = P.seq(fooPar, fooPar);
 anyArrPar = P.seq(barPar, fooPar, numPar);
 
+fooPar = P.custom<Foo>((success, failure) => (stream, i) => { str = stream; num = i; return success(num, foo); });
+fooPar = P.custom<Foo>((success, failure) => (stream, i) => failure(num, str));
+
 fooPar = P.alt(fooPar, fooPar);
 anyPar = P.alt(barPar, fooPar, numPar);
 

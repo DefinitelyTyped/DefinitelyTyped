@@ -39,10 +39,14 @@ var annotation: CodeMirror.Annotation = {
         ch: 0,
         line: 0
     },
-    to: {
-        ch: 1,
-        line: 0
-    },
+    to: CodeMirror.Pos(1),
     message: "test",
     severity: "warning"
 };
+
+myCodeMirror.getValue();
+myCodeMirror.getValue("foo")
+myCodeMirror.setValue("bar");
+
+CodeMirror.registerHelper("lint", "javascript", {});
+

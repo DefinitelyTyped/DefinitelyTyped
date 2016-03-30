@@ -1,10 +1,10 @@
 // Type definitions for Angular Material 1.0.0-rc5+ (angular.material module)
 // Project: https://github.com/angular/material
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
-declare module angular.material {
+declare namespace angular.material {
 
     interface IBottomSheetOptions {
         templateUrl?: string;
@@ -16,6 +16,7 @@ declare module angular.material {
         targetEvent?: MouseEvent;
         resolve?: {[index: string]: angular.IPromise<any>}
         controllerAs?: string;
+        bindToController?: boolean;
         parent?: string|Element|JQuery; // default: root node
         disableParentScroll?: boolean; // default: true
     }
@@ -62,7 +63,10 @@ declare module angular.material {
     interface IDialogOptions {
         templateUrl?: string;
         template?: string;
+        autoWrap?: boolean; // default: true
         targetEvent?: MouseEvent;
+        openFrom?: any;
+        closeTo?: any;
         scope?: angular.IScope; // default: new child scope
         preserveScope?: boolean; // default: false
         disableParentScroll?: boolean; // default: true
@@ -76,7 +80,10 @@ declare module angular.material {
         resolve?: {[index: string]: angular.IPromise<any>}
         controllerAs?: string;
         parent?: string|Element|JQuery; // default: root node
+        onShowing?: Function;
         onComplete?: Function;
+        onRemoving?: Function;
+        fullscreen?: boolean;
     }
 
     interface IDialogService {
@@ -119,6 +126,7 @@ declare module angular.material {
         textContent(content: string): T;
         action(action: string): T;
         highlightAction(highlightAction: boolean): T;
+        highlightClass(highlightClass: string): T;
         capsule(capsule: boolean): T;
         theme(theme: string): T;
         hideDelay(delay: number): T;
@@ -132,6 +140,7 @@ declare module angular.material {
     interface IToastOptions {
         templateUrl?: string;
         template?: string;
+        autoWrap?:boolean;
         scope?: angular.IScope; // default: new child scope
         preserveScope?: boolean; // default: false
         hideDelay?: number; // default (ms): 3000
@@ -222,7 +231,7 @@ declare module angular.material {
         setDefaultTheme(theme: string): void;
         alwaysWatchTheme(alwaysWatch: boolean): void;
     }
-    
+
     interface IDateLocaleProvider {
         months: string[];
         shortMonths: string[];
@@ -236,5 +245,9 @@ declare module angular.material {
         weekNumberFormatter(weekNumber: number): string;
         msgCalendar: string;
         msgOpenCalendar: string;
+    }
+
+    interface IMenuService {
+        hide(response?: any, options?: any): angular.IPromise<any>;
     }
 }
