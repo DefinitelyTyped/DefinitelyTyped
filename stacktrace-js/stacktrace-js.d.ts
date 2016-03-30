@@ -22,14 +22,17 @@ declare namespace StackTrace {
   }
 
   export interface StackFrame {
-    constructor(functionName:string, args:any, fileName:string, lineNumber:number, columnNumber:number): StackFrame;
+    constructor(functionName: string, args: any, fileName: string, lineNumber: number, columnNumber: number): StackFrame;
 
-    functionName?:string;
-    args?:any;
-    fileName?:string;
-    lineNumber?:number;
-    columnNumber?:number;
-    toString():string;
+    functionName: string;
+    args:         any;
+    fileName:     string;
+    lineNumber:   number;
+    columnNumber: number;
+    source:       string;
+    isEval:       boolean;
+    isNative:     boolean;
+    toString():   string;
   }
 
   /**
