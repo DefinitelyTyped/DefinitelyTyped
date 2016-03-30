@@ -1,11 +1,11 @@
 // Type definitions for faker
 // Project: http://marak.com/faker.js/
 // Definitions by: Bas Pennings <https://github.com/basp/>, Yuki Kokubun <https://github.com/Kuniwak>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var fakerStatic: Faker.FakerStatic;
 
-declare module Faker {
+declare namespace Faker {
 	interface FakerStatic {
 		locale: string;
 
@@ -171,7 +171,7 @@ declare module Faker {
 			uuid(): string;
 			boolean(): boolean;
 		};
-		
+
 		seed(value: number): void;
 	}
 

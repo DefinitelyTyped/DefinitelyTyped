@@ -30,7 +30,7 @@ const MESSAGES: {[key: string] : { [lang: string]: string }} = {
 }
 
 
-module I18nDirect {
+namespace I18nDirect {
 
     export interface Props extends IntlComponent.Props {}
 }
@@ -100,7 +100,7 @@ class I18nDirect extends React.Component<I18nDirect.Props, any> {
 ////////////////////////////////////////////////////////////////////////////
 
 
-module I18nMixin {
+namespace I18nMixin {
 
     export interface Props extends IntlComponent.Props {}
 }

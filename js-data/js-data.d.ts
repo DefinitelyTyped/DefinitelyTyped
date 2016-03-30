@@ -1,13 +1,13 @@
 // Type definitions for JSData v2.8.0
 // Project: https://github.com/js-data/js-data
 // Definitions by: Stefan Steinhart <https://github.com/reppners>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///////////////////////////////////////////////////////////////////////////////
 // js-data module (js-data.js)
 ///////////////////////////////////////////////////////////////////////////////
 
-declare module JSData {
+declare namespace JSData {
 
     interface JSDataPromise<R> {
         then<U>(onFulfilled?:(value:R) => U | JSDataPromise<U>, onRejected?:(error:any) => U | JSDataPromise<U>): JSDataPromise<U>;

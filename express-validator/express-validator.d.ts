@@ -1,12 +1,12 @@
 // Type definitions for express-validator 2.9.0
 // Project: https://github.com/ctavan/express-validator
 // Definitions by: Nathan Ridley <https://github.com/axefrog/>, Jonathan Häberle <http://dreampulse.de>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 
 // Add RequestValidation Interface on to Express's Request Interface.
-declare module Express {
+declare namespace Express {
 	interface Request extends ExpressValidator.RequestValidation {}
 }
 
@@ -24,7 +24,7 @@ declare module "express-validator" {
 }
 
 // Internal Module.
-declare module ExpressValidator {
+declare namespace ExpressValidator {
 
 	export interface ValidationError {
 		msg: string;

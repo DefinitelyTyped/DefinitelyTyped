@@ -1,7 +1,7 @@
 // Type definitions for EaselJS 0.8.0
 // Project: http://www.createjs.com/#!/EaselJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
     Copyright (c) 2012 Pedro Ferreira
@@ -20,7 +20,7 @@ interface NativeMouseEvent extends MouseEvent {
 
 }
 
-declare module createjs {
+declare namespace createjs {
     export class AlphaMapFilter extends Filter {
         constructor(alphaMap: HTMLImageElement | HTMLCanvasElement);
 
@@ -52,7 +52,7 @@ declare module createjs {
         // methods
         clone(): Bitmap;
     }
-    
+
 
     export class BitmapText extends DisplayObject {
         constructor(text?:string, spriteSheet?:SpriteSheet);
@@ -66,7 +66,7 @@ declare module createjs {
         spriteSheet: SpriteSheet;
         text: string;
     }
-    
+
     export class BlurFilter extends Filter {
         constructor(blurX?: number, blurY?: number, quality?: number);
 
@@ -115,7 +115,7 @@ declare module createjs {
         greenOffset: number;
         redMultiplier: number;
         redOffset: number;
-        
+
         // methods
         clone(): ColorFilter;
     }
@@ -139,7 +139,7 @@ declare module createjs {
         toArray(): number[];
         toString(): string;
     }
-    
+
     export class ColorMatrixFilter extends Filter {
         constructor(matrix: number[] | ColorMatrix);
 
@@ -149,7 +149,7 @@ declare module createjs {
         // methods
         clone(): ColorMatrixFilter;
     }
-    
+
 
     export class Container extends DisplayObject {
         constructor();
@@ -161,9 +161,16 @@ declare module createjs {
         tickChildren: boolean;
 
         // methods
-        addChild(...child: DisplayObject[]): DisplayObject;
-        addChildAt(child: DisplayObject, index: number): DisplayObject; // add this for the common case
-        addChildAt(...childOrIndex: any[]): DisplayObject; // actually (...child: DisplayObject[], index: number)
+        addChild<T extends DisplayObject>(child: T): T;
+        addChild<T extends DisplayObject>(child0: DisplayObject, lastChild: T): T;
+        addChild<T extends DisplayObject>(child0: DisplayObject, child1: DisplayObject, lastChild: T): T;
+        addChild<T extends DisplayObject>(child0: DisplayObject, child1: DisplayObject, child2: DisplayObject, lastChild: T): T;
+        addChild(...children: DisplayObject[]): DisplayObject;
+        addChildAt<T extends DisplayObject>(child: T, index: number): T;
+        addChildAt<T extends DisplayObject>(child0: DisplayObject, lastChild: T, index: number): T;
+        addChildAt<T extends DisplayObject>(child0: DisplayObject, child1: DisplayObject, lastChild: T, index: number): T;
+        addChildAt(...childOrIndex: (DisplayObject|number)[]): DisplayObject; // actually (...child: DisplayObject[], index: number)
+
         clone(recursive?: boolean): Container;
         contains(child: DisplayObject): boolean;
         getChildAt(index: number): DisplayObject;
@@ -183,7 +190,7 @@ declare module createjs {
         swapChildren(child1: DisplayObject, child2: DisplayObject): void;
         swapChildrenAt(index1: number, index2: number): void;
     }
-    
+
     export class DisplayObject extends EventDispatcher {
         constructor();
 
@@ -268,7 +275,7 @@ declare module createjs {
 
         // properties
         htmlElement: HTMLElement;
-        
+
         // methods
         clone(): DisplayObject; // throw error
         set(props: Object): DOMElement;
@@ -382,7 +389,7 @@ declare module createjs {
     }
 
 
-    module Graphics
+    namespace Graphics
         {
         export class Arc
             {
@@ -591,7 +598,7 @@ declare module createjs {
 
     export class MouseEvent extends Event {
         constructor(type: string, bubbles: boolean, cancelable: boolean, stageX: number, stageY: number, nativeEvent: NativeMouseEvent, pointerID: number, primary: boolean, rawX: number, rawY: number);
-        
+
         // properties
         isTouch: boolean;
         localX: number;
@@ -603,10 +610,11 @@ declare module createjs {
         rawY: number;
         stageX: number;
         stageY: number;
-        
+        mouseMoveOutside: boolean;
+
         // methods
         clone(): MouseEvent;
-        
+
         // EventDispatcher mixins
         addEventListener(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): Function;
         addEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): Function;
@@ -672,12 +680,12 @@ declare module createjs {
         play(): void;
         stop(): void;
     }
-    
+
     export class MovieClipPlugin {
         // methods
         tween(tween: Tween, prop: string, value: string | number | boolean, startValues: any[], endValues: any[], ratio: number, wait: Object, end: Object): void;
     }
-    
+
     export class Point {
         constructor(x?: number, y?: number);
 
@@ -758,7 +766,7 @@ declare module createjs {
         offset: number;
         paused: boolean;
         spriteSheet: SpriteSheet;
-        
+
         // methods
         advance(time?: number): void;
         clone(): Sprite;
@@ -769,7 +777,7 @@ declare module createjs {
         set(props: Object): Sprite;
         setTransform(x?: number, y?: number, scaleX?: number, scaleY?: number, rotation?: number, skewX?: number, skewY?: number, regX?: number, regY?: number): Sprite;
         stop(): void;
-        
+
     }
 
     export class SpriteContainer extends Container
@@ -800,7 +808,7 @@ declare module createjs {
         animations: string[];
         complete: boolean;
         framerate: number;
-        
+
         // methods
         clone(): SpriteSheet;
         getAnimation(name: string): SpriteSheetAnimation;
@@ -885,7 +893,7 @@ declare module createjs {
         preventSelection: boolean;
         snapToPixelEnabled: boolean;  // deprecated
         tickOnUpdate: boolean;
-        
+
         // methods
         clear(): void;
         clone(): Stage;
@@ -894,7 +902,7 @@ declare module createjs {
         tick(props?: Object): void;
         toDataURL(backgroundColor: string, mimeType: string): string;
         update(...arg: any[]): void;
-        
+
     }
 
 
