@@ -4539,18 +4539,18 @@ declare namespace THREE {
     export class Points extends Object3D {
 
         /**
-         * @param geometry An instance of Geometry.
+         * @param geometry An instance of Geometry or BufferGeometry.
          * @param material An instance of Material (optional).
          */
         constructor(
-            geometry: Geometry | BufferGeometry,
-            material?: PointsMaterial | ShaderMaterial
+            geometry?: Geometry | BufferGeometry,
+            material?: Material
         );
 
         /**
-         * An instance of Geometry, where each vertex designates the position of a particle in the system.
+         * An instance of Geometry or BufferGeometry, where each vertex designates the position of a particle in the system.
          */
-        geometry: Geometry;
+        geometry: Geometry | BufferGeometry;
 
         /**
          * An instance of Material, defining the object's appearance. Default is a PointsMaterial with randomised colour.
