@@ -1,7 +1,7 @@
 // Type definitions for msnodesql 0.2.1
 // Project: https://github.com/WindowsAzure/node-sqlserver
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Maxime LUCE <https://github.com/SomaticIT>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 ///<reference path='../node/node.d.ts' />

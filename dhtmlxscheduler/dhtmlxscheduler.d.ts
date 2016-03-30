@@ -1,7 +1,7 @@
 // Type definitions for dhtmlxScheduler 4.0
 // Project: http://dhtmlx.com/docs/products/dhtmlxScheduler
 // Definitions by: Maksim Kozhukh <http://github.com/mkozhukh>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 interface SchedulerTemplates{

@@ -1,7 +1,7 @@
 // Type definitions for Highstock 2.1.5
 // Project: http://www.highcharts.com/
 // Definitions by: David Deutsch <http://github.com/DavidKDeutsch>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="highcharts.d.ts" />
 

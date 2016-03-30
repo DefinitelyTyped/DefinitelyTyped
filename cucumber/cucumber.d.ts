@@ -3,7 +3,7 @@
 // Definitions by: Abraão Alves <https://github.com/abraaoalves>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module cucumber {
+declare namespace cucumber {
 
 	export interface CallbackStepDefinition{
 		pending : () => PromiseLike<any>;

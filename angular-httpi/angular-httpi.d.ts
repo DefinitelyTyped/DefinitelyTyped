@@ -1,11 +1,11 @@
 // Type definitions for angular-httpi
 // Project: https://github.com/bennadel/httpi
 // Definitions by: Andrew Camilleri <https://github.com/Kukks>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module Httpi {
+declare namespace Httpi {
     export interface HttpiPayload extends ng.IRequestShortcutConfig {
         method?: string;
         url?: string;

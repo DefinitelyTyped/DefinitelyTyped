@@ -1,7 +1,7 @@
 // Type definitions for knockout-paging
 // Project: https://github.com/ErikSchierboom/knockout-paging
 // Definitions by: Erik Schierboom <https://github.com/ErikSchierboom>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../knockout/knockout.d.ts" />
 

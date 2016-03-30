@@ -1,7 +1,7 @@
 // Type definitions for easy-api-request
 // Project: https://github.com/DeadAlready/easy-api-request
 // Definitions by: Karl Düüna <https://github.com/DeadAlready/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../q/Q.d.ts" />
 /// <reference path="../node/node.d.ts" />

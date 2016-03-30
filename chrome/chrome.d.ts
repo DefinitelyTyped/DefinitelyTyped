@@ -1,7 +1,7 @@
 // Type definitions for Chrome extension development
 // Project: http://developer.chrome.com/extensions/
 // Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path='../webrtc/MediaStream.d.ts'/>
 /// <reference path='../filesystem/filesystem.d.ts' />
@@ -22,7 +22,7 @@ interface Window {
  * Permissions: "accessibilityFeatures.read"
  * Important: This API works only on Chrome OS.
  */
-declare module chrome.accessibilityFeatures {
+declare namespace chrome.accessibilityFeatures {
 	interface AccessibilityFeaturesGetArg {
 		/** Optional. Whether to return the value that applies to the incognito session (default false).  */
 		incognito?: boolean;
@@ -116,7 +116,7 @@ declare module chrome.accessibilityFeatures {
  * Availability: Since Chrome 22.
  * Permissions:  "alarms"
  */
-declare module chrome.alarms {
+declare namespace chrome.alarms {
     interface AlarmCreateInfo {
 		/** Optional. Length of time in minutes after which the onAlarm event should fire.  */
         delayInMinutes?: number;
@@ -199,7 +199,7 @@ declare module chrome.alarms {
  * Use the chrome.browser API to interact with the Chrome browser associated with
  * the current application and Chrome profile.
  */
-declare module chrome.browser {
+declare namespace chrome.browser {
     interface Options {
         /** The URL to navigate to when the new tab is initially opened. */
         url: string;
@@ -232,7 +232,7 @@ declare module chrome.browser {
  * Availability: Since Chrome 5.
  * Permissions:  "bookmarks"
  */
-declare module chrome.bookmarks {
+declare namespace chrome.bookmarks {
 	/** A node (either a bookmark or a folder) in the bookmark tree. Child nodes are ordered within their parent folder. */
     interface BookmarkTreeNode {
 		/** Optional. The 0-based position of this node within its parent folder.  */
@@ -433,7 +433,7 @@ declare module chrome.bookmarks {
  * Availability: Since Chrome 5.
  * Manifest:  "browser_action": {...}
  */
-declare module chrome.browserAction {
+declare namespace chrome.browserAction {
     interface BadgeBackgroundColorDetails {
 		/** An array of four integers in the range [0,255] that make up the RGBA color of the badge. For example, opaque red is [255, 0, 0, 255]. Can also be a string with a CSS value, with opaque red being #FF0000 or #F00. */
         color: any;
@@ -545,7 +545,7 @@ declare module chrome.browserAction {
  * Availability: Since Chrome 19.
  * Permissions:  "browsingData"
  */
-declare module chrome.browsingData {
+declare namespace chrome.browsingData {
     interface OriginTypes {
 		/** Optional. Websites that have been installed as hosted applications (be careful!).  */
         protectedWeb?: boolean;
@@ -723,7 +723,7 @@ declare module chrome.browsingData {
  * Availability: Since Chrome 25.
  * Manifest:  "commands": {...}
  */
-declare module chrome.commands {
+declare namespace chrome.commands {
 	interface Command {
 		/** Optional. The name of the Extension Command  */
 		name?: string;
@@ -755,7 +755,7 @@ declare module chrome.commands {
  * Availability: Since Chrome 16.
  * Permissions:  "contentSettings"
  */
-declare module chrome.contentSettings {
+declare namespace chrome.contentSettings {
     interface ClearDetails {
 		/**
 		 * Optional.
@@ -941,7 +941,7 @@ declare module chrome.contentSettings {
  * Availability: Since Chrome 6.
  * Permissions:  "contextMenus"
  */
-declare module chrome.contextMenus {
+declare namespace chrome.contextMenus {
     interface OnClickData {
 		/**
 		 * Optional.
@@ -1130,7 +1130,7 @@ declare module chrome.contextMenus {
  * Availability: Since Chrome 6.
  * Permissions:  "cookies", host permissions
  */
-declare module chrome.cookies {
+declare namespace chrome.cookies {
 	/** Represents information about an HTTP cookie. */
     interface Cookie {
 		/** The domain of the cookie (e.g. "www.google.com", "example.com"). */
@@ -1377,7 +1377,7 @@ declare module "chrome.debugger" {
  * Availability: Since Chrome 33.
  * Permissions:  "declarativeContent"
  */
-declare module chrome.declarativeContent {
+declare namespace chrome.declarativeContent {
 	interface PageStateUrlDetails {
 		/** Optional. Matches if the host name of the URL contains a specified string. To test whether a host name component has a prefix 'foo', use hostContains: '.foo'. This matches 'www.foobar.com' and 'foo.com', because an implicit dot is added at the beginning of the host name. Similarly, hostContains can be used to match against component suffix ('foo.') and to exactly match against components ('.foo.'). Suffix- and exact-matching for the last components need to be done separately using hostSuffix, because no implicit dot is added at the end of the host name.  */
 		hostContains?: string;
@@ -1439,7 +1439,7 @@ declare module chrome.declarativeContent {
 ////////////////////
 // Declarative Web Request
 ////////////////////
-declare module chrome.declarativeWebRequest {
+declare namespace chrome.declarativeWebRequest {
     interface HeaderFilter {
         nameEquals?: string;
         valueContains?: any;
@@ -1553,7 +1553,7 @@ declare module chrome.declarativeWebRequest {
  * Availability: Since Chrome 34.
  * Permissions:  "desktopCapture"
  */
-declare module chrome.desktopCapture {
+declare namespace chrome.desktopCapture {
 	/**
 	 * Shows desktop media picker UI with the specified set of sources.
 	 * @param sources Set of sources that should be shown to the user.
@@ -1585,7 +1585,7 @@ declare module chrome.desktopCapture {
  * Use the chrome.devtools.inspectedWindow API to interact with the inspected window: obtain the tab ID for the inspected page, evaluate the code in the context of the inspected window, reload the page, or obtain the list of resources within the page.
  * Availability: Since Chrome 18.
  */
-declare module chrome.devtools.inspectedWindow {
+declare namespace chrome.devtools.inspectedWindow {
 	/** A resource within the inspected page, such as a document, a script, or an image. */
     interface Resource {
 		/** The URL of the resource. */
@@ -1681,7 +1681,7 @@ declare module chrome.devtools.inspectedWindow {
  * Use the chrome.devtools.network API to retrieve the information about network requests displayed by the Developer Tools in the Network panel.
  * Availability: Since Chrome 18.
  */
-declare module chrome.devtools.network {
+declare namespace chrome.devtools.network {
 	/** Represents a network request for a document resource (script, image and so on). See HAR Specification for reference. */
     interface Request {
 		/**
@@ -1721,7 +1721,7 @@ declare module chrome.devtools.network {
  * Use the chrome.devtools.panels API to integrate your extension into Developer Tools window UI: create your own panels, access existing panels, and add sidebars.
  * Availability: Since Chrome 18.
  */
-declare module chrome.devtools.panels {
+declare namespace chrome.devtools.panels {
     interface PanelShownEvent extends chrome.events.Event<(window: chrome.windows.Window) => void> {}
 
     interface PanelHiddenEvent extends chrome.events.Event<() => void> {}
@@ -1899,7 +1899,7 @@ declare module chrome.devtools.panels {
  * Permissions:  "documentScan"
  * Important: This API works only on Chrome OS.
  */
-declare module chrome.documentScan {
+declare namespace chrome.documentScan {
 	interface DocumentScanOptions {
 		/** Optional. The MIME types that are accepted by the caller.  */
 		mimeTypes?: string[];
@@ -1932,7 +1932,7 @@ declare module chrome.documentScan {
  * Availability: Since Chrome 31.
  * Permissions:  "downloads"
  */
-declare module chrome.downloads {
+declare namespace chrome.downloads {
     interface HeaderNameValuePair {
 		/** Name of the HTTP header. */
         name: string;
@@ -2232,7 +2232,7 @@ declare module chrome.downloads {
  * Important: This API works only on Chrome OS.
  * Note:  This API is only for extensions pre-installed by policy.
  */
-declare module chrome.enterprise.platformKeys {
+declare namespace chrome.enterprise.platformKeys {
 	interface Token {
 		/**
 		 * Uniquely identifies this Token.
@@ -2291,7 +2291,7 @@ declare module chrome.enterprise.platformKeys {
  * The chrome.events namespace contains common types used by APIs dispatching events to notify you when something interesting happens.
  * Availability: Since Chrome 21.
  */
-declare module chrome.events {
+declare namespace chrome.events {
 	/** Filters URLs for various criteria. See event filtering. All criteria are case sensitive. */
     interface UrlFilter {
 		/** Optional. Matches if the scheme of the URL is equal to any of the schemes specified in the array.  */
@@ -2434,7 +2434,7 @@ declare module chrome.events {
  * The chrome.extension API has utilities that can be used by any extension page. It includes support for exchanging messages between an extension and its content scripts or between extensions, as described in detail in Message Passing.
  * Availability: Since Chrome 5.
  */
-declare module chrome.extension {
+declare namespace chrome.extension {
     interface FetchProperties {
 		/** Optional. The window to restrict the search to. If omitted, returns all views.  */
         windowId?: number;
@@ -2531,7 +2531,7 @@ declare module chrome.extension {
  * Permissions:  "fileBrowserHandler"
  * Important: This API works only on Chrome OS.
  */
-declare module chrome.fileBrowserHandler {
+declare namespace chrome.fileBrowserHandler {
     interface SelectionParams {
 		/**
 		 * Optional.
@@ -2584,7 +2584,7 @@ declare module chrome.fileBrowserHandler {
  * Permissions:  "fileSystemProvider"
  * Important: This API works only on Chrome OS.
  */
-declare module chrome.fileSystemProvider {
+declare namespace chrome.fileSystemProvider {
 	interface OpenedFileInfo {
 		/** A request ID to be be used by consecutive read/write and close requests. */
 		openRequestId: number;
@@ -2935,7 +2935,7 @@ declare module chrome.fileSystemProvider {
  * Availability: Since Chrome 22.
  * Permissions:  "fontSettings"
  */
-declare module chrome.fontSettings {
+declare namespace chrome.fontSettings {
 	/** Represents a font name. */
     interface FontName {
 		/** The display name of the font. */
@@ -3102,7 +3102,7 @@ declare module chrome.fontSettings {
  * Availability: Since Chrome 35.
  * Permissions:  "gcm"
  */
-declare module chrome.gcm {
+declare namespace chrome.gcm {
 	interface OutgoingMessage {
 		/** The ID of the server to send the message to as assigned by Google API Console. */
 		destinationId: string;
@@ -3190,7 +3190,7 @@ declare module chrome.gcm {
  * Availability: Since Chrome 5.
  * Permissions:  "history"
  */
-declare module chrome.history {
+declare namespace chrome.history {
 	/** An object encapsulating one visit to a URL. */
     interface VisitItem {
 		/** The transition type for this visit from its referrer. */
@@ -3305,7 +3305,7 @@ declare module chrome.history {
  * Use the chrome.i18n infrastructure to implement internationalization across your whole app or extension.
  * @since Chrome 5.
  */
-declare module chrome.i18n {
+declare namespace chrome.i18n {
 	/**
 	 * Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use i18n.getUILanguage.
 	 * @param callback The callback parameter should be a function that looks like this:
@@ -3334,7 +3334,7 @@ declare module chrome.i18n {
  * Permissions:  "identity"
  * @since Chrome 29.
  */
-declare module chrome.identity {
+declare namespace chrome.identity {
 	/** @since Chrome 32. */
 	interface AccountInfo {
 		/** A unique identifier for the account. This ID will not change for the lifetime of the account. */
@@ -3453,7 +3453,7 @@ declare module chrome.identity {
  * Permissions:  "idle"
  * @since Chrome 6.
  */
-declare module chrome.idle {
+declare namespace chrome.idle {
     interface IdleStateChangedEvent extends chrome.events.Event<(newState: string) => void> {}
 
 	/**
@@ -3483,7 +3483,7 @@ declare module chrome.idle {
  * Permissions:  "input"
  * @since Chrome 21.
  */
-declare module chrome.input.ime {
+declare namespace chrome.input.ime {
 	/** See http://www.w3.org/TR/DOM-Level-3-Events/#events-KeyboardEvent */
     interface KeyboardEvent {
 		/**
@@ -3880,7 +3880,7 @@ declare module chrome.input.ime {
  * Permissions:  "management"
  * @since Chrome 8.
  */
-declare module chrome.management {
+declare namespace chrome.management {
 	/** Information about an installed extension, app, or theme. */
     interface ExtensionInfo {
 		/**
@@ -4130,7 +4130,7 @@ declare module chrome.management {
  * Important: This API works only on Chrome OS.
  * @since Chrome 43.
  */
-declare module chrome.networking.config {
+declare namespace chrome.networking.config {
 	interface NetworkInfo {
 		/** Currently only WiFi supported. */
 		Type: string;
@@ -4183,7 +4183,7 @@ declare module chrome.networking.config {
  * Permissions:  "notifications"
  * @since Chrome 28.
  */
-declare module chrome.notifications {
+declare namespace chrome.notifications {
     interface ButtonOptions {
         title: string;
         iconUrl?: string;
@@ -4339,7 +4339,7 @@ declare module chrome.notifications {
  * Manifest:  "omnibox": {...}
  * @since Chrome 9.
  */
-declare module chrome.omnibox {
+declare namespace chrome.omnibox {
 	/** A suggest result. */
     interface SuggestResult {
 		/** The text that is put into the URL bar, and that is sent to the extension when the user chooses this entry. */
@@ -4385,7 +4385,7 @@ declare module chrome.omnibox {
  * Manifest:  "page_action": {...}
  * @since Chrome 5.
  */
-declare module chrome.pageAction {
+declare namespace chrome.pageAction {
     interface PageActionClickedEvent extends chrome.events.Event<(tab: chrome.tabs.Tab) => void> {}
 
     interface TitleDetails {
@@ -4474,7 +4474,7 @@ declare module chrome.pageAction {
  * Permissions:  "pageCapture"
  * @since Chrome 18.
  */
-declare module chrome.pageCapture {
+declare namespace chrome.pageCapture {
     interface SaveDetails {
 		/** The id of the tab to save as MHTML. */
         tabId: number;
@@ -4497,7 +4497,7 @@ declare module chrome.pageCapture {
  * Use the chrome.permissions API to request declared optional permissions at run time rather than install time, so users understand why the permissions are needed and grant only those that are necessary.
  * @since Chrome 16.
  */
-declare module chrome.permissions {
+declare namespace chrome.permissions {
     interface Permissions {
 		/**
 		 * Optional.
@@ -4573,7 +4573,7 @@ declare module chrome.permissions {
  * Important: This API works only on Chrome OS.
  * @since Chrome 45.
  */
-declare module chrome.platformKeys {
+declare namespace chrome.platformKeys {
 	interface Match {
 		/** The DER encoding of a X.509 certificate. */
 		certificate: ArrayBuffer;
@@ -4652,7 +4652,7 @@ declare module chrome.platformKeys {
  * Permissions:  "power"
  * @since Chrome 27.
  */
-declare module chrome.power {
+declare namespace chrome.power {
 	/** Requests that power management be temporarily disabled. |level| describes the degree to which power management should be disabled. If a request previously made by the same app is still active, it will be replaced by the new request. */
 	export function requestKeepAwake(level: string): void;
 	/** Releases a request previously made via requestKeepAwake(). */
@@ -4667,7 +4667,7 @@ declare module chrome.power {
  * Permissions:  "printerProvider"
  * @since Chrome 44.
  */
-declare module chrome.printerProvider {
+declare namespace chrome.printerProvider {
 	interface PrinterInfo {
 		/** Unique printer ID. */
 		id: string;
@@ -4726,7 +4726,7 @@ declare module chrome.printerProvider {
  * The Chrome Privacy Whitepaper gives background detail regarding the features which this API can control.
  * @since Chrome 18.
  */
-declare module chrome.privacy {
+declare namespace chrome.privacy {
     interface Services {
 		/** since Chrome 20. */
         spellingServiceEnabled: chrome.types.ChromeSetting;
@@ -4776,7 +4776,7 @@ declare module chrome.privacy {
  * Permissions:  "proxy"
  * @since Chrome 13.
  */
-declare module chrome.proxy {
+declare namespace chrome.proxy {
     /** An object holding proxy auto-config information. Exactly one of the fields should be non-empty. */
     interface PacScript {
         /** Optional. URL of the PAC file to be used. */
@@ -4852,7 +4852,7 @@ declare module chrome.proxy {
  * Use the chrome.runtime API to retrieve the background page, return details about the manifest, and listen for and respond to events in the app or extension lifecycle. You can also use this API to convert the relative path of URLs to fully-qualified URLs.
  * @since Chrome 22
  */
-declare module chrome.runtime {
+declare namespace chrome.runtime {
     /** This will be defined during an API method callback if there was an error */
     var lastError: LastError;
     /** The ID of the extension/app. */
@@ -4981,17 +4981,17 @@ declare module chrome.runtime {
     interface RuntimeRestartRequiredEvent extends chrome.events.Event<(reason: string) => void> {}
 
     interface RuntimeUpdateAvailableEvent extends chrome.events.Event<(details: UpdateAvailableDetails) => void> {}
-	
+
 	interface ManifestIcons {
 		[size: number]: string;
 	}
-	
+
 	interface ManifestAction {
 		default_icon?: ManifestIcons;
 		default_title?: string;
 		default_popup?: string;
 	}
-	
+
 	interface SearchProvider {
 		name?: string;
 		keyword?: string;
@@ -5009,7 +5009,7 @@ declare module chrome.runtime {
 		prepopulated_id?: number;
 		is_default?: boolean;
 	}
-	
+
 	interface Manifest {
 		// Required
 		manifest_version: number;
@@ -5312,7 +5312,7 @@ declare module chrome.runtime {
 	 * Fired when a connection is made from another extension.
 	 * @since Chrome 26.
 	 */
-	var onConnectExternal: RuntimeEvent;
+	var onConnectExternal: ExtensionConnectEvent;
 	/** Sent to the event page just before it is unloaded. This gives the extension opportunity to do some clean up. Note that since the page is unloading, any asynchronous operations started while handling this event are not guaranteed to complete. If more activity for the event page occurs before it gets unloaded the onSuspendCanceled event will be sent and the page won't be unloaded. */
 	var onSuspend: RuntimeEvent;
 	/**
@@ -5354,7 +5354,7 @@ declare module chrome.runtime {
 ////////////////////
 // Script Badge
 ////////////////////
-declare module chrome.scriptBadge {
+declare namespace chrome.scriptBadge {
     interface GetPopupDetails {
         tabId: number;
     }
@@ -5385,7 +5385,7 @@ declare module chrome.scriptBadge {
  * Permissions:  "sessions"
  * @since Chrome 37.
  */
-declare module chrome.sessions {
+declare namespace chrome.sessions {
 	interface Filter {
 		/**
 		 * Optional.
@@ -5466,7 +5466,7 @@ declare module chrome.sessions {
  * Permissions:  "storage"
  * @since Chrome 20.
  */
-declare module chrome.storage {
+declare namespace chrome.storage {
 	interface StorageArea {
 		/**
 		 * Gets the amount of space (in bytes) being used by one or more items.
@@ -5599,7 +5599,7 @@ declare module chrome.storage {
 ////////////////////
 // Socket
 ////////////////////
-declare module chrome.socket {
+declare namespace chrome.socket {
     interface CreateInfo {
         socketId: number;
     }
@@ -5664,7 +5664,7 @@ declare module chrome.socket {
  * Permissions: "system.cpu"
  * @since Chrome 32.
  */
-declare module chrome.system.cpu {
+declare namespace chrome.system.cpu {
 	interface ProcessorUsage {
 		/** The cumulative time used by userspace programs on this processor. */
 		user: number;
@@ -5709,7 +5709,7 @@ declare module chrome.system.cpu {
  * Permissions:  "system.memory"
  * @since Chrome 32.
  */
-declare module chrome.system.memory {
+declare namespace chrome.system.memory {
 	interface MemoryInfo {
 		/** The total amount of physical memory capacity, in bytes. */
 		capacity: number;
@@ -5729,7 +5729,7 @@ declare module chrome.system.memory {
  * Permissions:  "system.storage"
  * @since Chrome 30.
  */
-declare module chrome.system.storage {
+declare namespace chrome.system.storage {
 	interface StorageUnitInfo {
 		/** The transient ID that uniquely identifies the storage device. This ID will be persistent within the same run of a single application. It will not be a persistent identifier between different runs of an application, or between different applications. */
 		id: string;
@@ -5785,7 +5785,7 @@ declare module chrome.system.storage {
  * Permissions:  "tabCapture"
  * @since Chrome 31.
  */
-declare module chrome.tabCapture {
+declare namespace chrome.tabCapture {
     interface CaptureInfo {
 		/** The id of the tab whose status changed. */
         tabId: number;
@@ -5835,7 +5835,7 @@ declare module chrome.tabCapture {
  * Permissions: The majority of the chrome.tabs API can be used without declaring any permission. However, the "tabs" permission is required in order to populate the url, title, and favIconUrl properties of Tab.
  * @since Chrome 5.
  */
-declare module chrome.tabs {
+declare namespace chrome.tabs {
 	/**
 	 * Tab muted state and the reason for the last state change.
 	 * @since Chrome 46. Warning: this is the current Beta channel.
@@ -6580,7 +6580,7 @@ declare module chrome.tabs {
  * Permissions:  "topSites"
  * @since Chrome 19.
  */
-declare module chrome.topSites {
+declare namespace chrome.topSites {
 	/** An object encapsulating a most visited URL, such as the URLs on the new tab page. */
     interface MostVisitedURL {
 		/** The most visited URL. */
@@ -6601,7 +6601,7 @@ declare module chrome.topSites {
  * Permissions:  "tts"
  * @since Chrome 14.
  */
-declare module chrome.tts {
+declare namespace chrome.tts {
 	/** An event from the TTS engine to communicate the status of an utterance. */
     interface TtsEvent {
 		/** Optional. The index of the current character in the utterance. */
@@ -6716,7 +6716,7 @@ declare module chrome.tts {
  * Permissions:  "ttsEngine"
  * @since Chrome 14.
  */
-declare module chrome.ttsEngine {
+declare namespace chrome.ttsEngine {
     interface SpeakOptions {
 		/** Optional. The language to be used for synthesis, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'. */
         lang?: string;
@@ -6763,7 +6763,7 @@ declare module chrome.ttsEngine {
  * The chrome.types API contains type declarations for Chrome.
  * @since Chrome 13.
  */
-declare module chrome.types {
+declare namespace chrome.types {
     interface ChromeSettingClearDetails {
 		/**
 		 * Optional.
@@ -6857,7 +6857,7 @@ declare module chrome.types {
  * Important: This API works only on Chrome OS.
  * @since Chrome 43.
  */
-declare module chrome.vpnProvider {
+declare namespace chrome.vpnProvider {
 	interface VpnSessionParameters {
 		/** IP address for the VPN interface in CIDR notation. IPv4 is currently the only supported mode. */
 		address: string;
@@ -6944,7 +6944,7 @@ declare module chrome.vpnProvider {
  * Important: This API works only on Chrome OS.
  * @since Chrome 43.
  */
-declare module chrome.wallpaper {
+declare namespace chrome.wallpaper {
 	interface WallpaperDetails {
 		/** Optional. The jpeg or png encoded wallpaper image. */
 		data?: any;
@@ -6977,7 +6977,7 @@ declare module chrome.wallpaper {
  * Permissions:  "webNavigation"
  * @since Chrome 16.
  */
-declare module chrome.webNavigation {
+declare namespace chrome.webNavigation {
     interface GetFrameDetails {
 		/**
 		 * The ID of the process runs the renderer for this tab.
@@ -7145,7 +7145,7 @@ declare module chrome.webNavigation {
  * Permissions:  "webRequest", host permissions
  * @since Chrome 17.
  */
-declare module chrome.webRequest {
+declare namespace chrome.webRequest {
     interface AuthCredentials {
         username: string;
         password: string;
@@ -7371,7 +7371,7 @@ declare module chrome.webRequest {
  * Use the chrome.webstore API to initiate app and extension installations "inline" from your site.
  * @since Chrome 15.
  */
-declare module chrome.webstore {
+declare namespace chrome.webstore {
 	/**
 	 * @param url Optional. If you have more than one <link> tag on your page with the chrome-webstore-item relation, you can choose which item you'd like to install by passing in its URL here. If it is omitted, then the first (or only) link will be used. An exception will be thrown if the passed in URL does not exist on the page.
 	 * @param successCallback Optional. This function is invoked when inline installation successfully completes (after the dialog is shown and the user agrees to add the item to Chrome). You may wish to use this to hide the user interface element that prompted the user to install the app or extension.
@@ -7472,7 +7472,7 @@ declare module chrome.webstore {
  * Permissions: The chrome.windows API can be used without declaring any permission. However, the "tabs" permission is required in order to populate the url, title, and favIconUrl properties of Tab objects.
  * @since Chrome 5.
  */
-declare module chrome.windows {
+declare namespace chrome.windows {
     interface Window {
 		/** Array of tabs.Tab objects representing the current tabs in the window. */
         tabs?: chrome.tabs.Tab[];
