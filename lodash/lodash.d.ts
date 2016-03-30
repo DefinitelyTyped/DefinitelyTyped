@@ -16104,13 +16104,6 @@ declare module _ {
 
         /**
          * @see _.mapValues
-         * TResult is the type of the properties on the object specified by pluck.
-         * T should be a Dictionary<Dictionary<Dictionary<TResult>>>
-         */
-        mapValues<TResult>(pluck: string, where: Dictionary<TResult>): LoDashImplicitArrayWrapper<Dictionary<boolean>>;
-
-        /**
-         * @see _.mapValues
          * TResult is the type of the properties of each object in the values of T
          * T should be a Dictionary<Dictionary<TResult>>
          */
@@ -16131,13 +16124,6 @@ declare module _ {
          * T should be a Dictionary<Dictionary<TResult>>
          */
         mapValues<TResult>(pluck: string): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
-
-        /**
-         * @see _.mapValues
-         * TResult is the type of the properties on the object specified by pluck.
-         * T should be a Dictionary<Dictionary<Dictionary<TResult>>>
-         */
-        mapValues<TResult>(pluck: string, where: Dictionary<TResult>): LoDashExplicitObjectWrapper<Dictionary<boolean>>;
 
         /**
          * @see _.mapValues
