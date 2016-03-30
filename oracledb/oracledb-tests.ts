@@ -23,6 +23,7 @@ OracleDB.getConnection(
 					console.error(err.message); return;
 				}
 				console.log(result.rows);
+                console.log(result.rows[0].department_id); // when outFormet is OBJECT
 			}
 		);
 	}
