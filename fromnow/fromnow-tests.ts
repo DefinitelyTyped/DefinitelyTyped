@@ -6,6 +6,10 @@ function dateOnly() {
     fromnow( '2015-12-31' );
 }
 
+function dateObjectOnly() {
+    fromnow( new Date() );
+}
+
 function maxChunks() {
     fromnow( '2015-12-31', {
         maxChunks: 12
