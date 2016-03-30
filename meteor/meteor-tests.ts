@@ -644,7 +644,7 @@ var loginOpts: Meteor.LoginWithExternalServiceOptions = {
   profile: "asdfasdf",
   email: "asdf@ASDf.com"
 };
-Meteor.loginWithMeteorDeveloperAccount(loginOpts, function(error, result) {});
+Meteor.loginWithMeteorDeveloperAccount(loginOpts, function(error: Meteor.Error) {});
 
 Accounts.emailTemplates.siteName = "AwesomeSite";
 Accounts.emailTemplates.from = "AwesomeSite Admin <accounts@example.com>";
