@@ -70,8 +70,9 @@ declare namespace angular.toastr {
         toastId: number;
     }
 
-    interface IToastOptions extends IToastBaseConfig, IToastContainerConfig {
+    interface IToastOptions extends IToastBaseConfig {
         iconClass?: string;
+        target?: string;
     }
 
     interface IToastrService {
