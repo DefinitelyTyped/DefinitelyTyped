@@ -49,18 +49,20 @@ declare namespace StackTrace {
    *
    * @param {Function} fn to be instrumented
    * @param {Function} callback function to call with a stack trace on invocation
-   * @param {Function} errorCallback optional function to call with error if unable to get stack trace.
+   * @param {Function} errback optional function to call with error if unable to get stack trace.
    * @param {Object} thisArg optional context object (e.g. window)
+   * @return {Function} instrumented function
    */
-  export function instrument(fn:() => void, callback:(stackFrames:StackFrame[]) => void, errorCallback:(error:Error) => void, thisArg?:any): void;
+  export function instrument<TFunc extends Function>(fn: TFunc, callback: (stackFrames:StackFrame[]) => void, errback?: (error: Error) => void, thisArg?: any): TFunc;
 
   /**
    * Given a function that has been instrumented,
    * revert the function to it's original (non-instrumented) state.
    *
    * @param fn {Function}
+   * @return {Function} original function
    */
-  export function deinstrument(fn:() => void): void;
+  export function deinstrument<TFunc extends Function>(fn: TFunc): TFunc;
 
   /**
    * Given an Array of StackFrames, serialize and POST to given URL.
