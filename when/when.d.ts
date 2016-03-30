@@ -1,7 +1,7 @@
 // Type definitions for When 2.4.0
 // Project: https://github.com/cujojs/when
 // Definitions by: Derek Cicerone <https://github.com/derekcicerone>, Wim Looman <https://github.com/Nemo157>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function When<T>(value: When.Promise<T>): When.Promise<T>;
 declare function When<T>(value: When.Thenable<T>): When.Promise<T>;
@@ -11,7 +11,7 @@ declare function When<T, U>(value: When.Promise<T>, transform: (val: T) => U): W
 declare function When<T, U>(value: When.Thenable<T>, transform: (val: T) => U): When.Promise<U>;
 declare function When<T, U>(value: T, transform: (val: T) => U): When.Promise<U>;
 
-declare module When {
+declare namespace When {
     // Helper interfaces
     module _ {
         interface Fn0<T> { (): T }

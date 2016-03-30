@@ -1,9 +1,9 @@
 // Type definitions for angular-storage v0.0.11
 // Project: https://github.com/auth0/angular-storage
 // Definitions by: Matthew DeKrey <https://github.com/mdekrey>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module angular.a0.storage {
+declare namespace angular.a0.storage {
 	interface IStoreService extends INamespacedStoreService {
 		/**
 		 * Returns a namespaced store
@@ -15,34 +15,34 @@ declare module angular.a0.storage {
 		 */
 		getNamespacedStore(namespace: string, storage?: string, delimiter?: string): INamespacedStoreService;
 	}
-	
+
 	interface INamespacedStoreService {
 		/**
 		 * Sets a new value to the storage with the key name. It can be any object.
-		 * 
+		 *
 		 * @param {String} name - The key name for the location of the value
 		 * @param value - The value to store
 		 */
 		set(name: string, value: any): void;
-		
+
 		/**
-		 * Returns the saved value with they key name. 
-		 * 
+		 * Returns the saved value with they key name.
+		 *
 		 * @param {String} name - The key name for the location of the value
 		 * @returns The saved value; if you saved an object, you get an object
 		 */
 		get(name: string): any;
-		
+
 		/**
 		 * Deletes the saved value with the key name
-		 * 
+		 *
 		 * @param {String} name - The key name for the location of the value to remove
 		 */
-		remove(name: string): void;		
+		remove(name: string): void;
 	}
-	
+
 	interface IStoreProvider {
-		
+
 	    /**
 	     * Sets the storage.
 	     *

@@ -35,7 +35,10 @@ class EventEmitterTest {
     constructor() {
         this.v = new EventEmitter();
         this.v = new EventEmitter3ImportedAsES6Module();
-        var n: NodeJS.EventEmitter = this.v;
+
+        // Some methods are missing or incompatible with current implementation (v4.2.x) of NodeJS.EventEmitter
+        // (e.g. getMaxListenters or listeners)
+        // var n: NodeJS.EventEmitter = this.v;
     }
 
     listeners() {
@@ -99,6 +102,10 @@ describe('EventEmitter', function tests() {
 
   it('inherits when used with require(util).inherits', function () {
     class Beast extends EventEmitter {
+      /* rawr, i'm a beast */
+    }
+
+    class BeastES6 extends EventEmitter3ImportedAsES6Module {
       /* rawr, i'm a beast */
     }
 

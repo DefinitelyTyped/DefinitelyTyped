@@ -1,11 +1,11 @@
 // Type definitions for commanderjs 2.3.0
 // Project: https://github.com/visionmedia/commander.js
 // Definitions by: Marcelo Dezem <http://github.com/mdezem>, vvakame <http://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
-declare module commander {
+declare namespace commander {
     interface ICommandStatic {
         /**
          * Initialize a new `Command`.
@@ -65,10 +65,11 @@ declare module commander {
          *
          * @param {String} name
          * @param {String} [desc]
+         * @param {Mixed} [opts]
          * @return {Command} the new command
          * @api public
          */
-        command(name:string, desc?:string):ICommand;
+        command(name:string, desc?:string, opts?: any):ICommand;
 
         /**
          * Add an implicit `help [cmd]` subcommand

@@ -126,7 +126,7 @@ namespace TestInstanceProperty {
 
 namespace TestInscanceMethods {
   "use strict";
-  
+
   var vm = new Vue({el: '#app'});
   vm.$watch('a.b.c', function(newVal: string, oldVal: number) {});
   vm.$watch(function() {return this.a + this.b}, function(newVal: string, oldVal: string) {});
@@ -141,7 +141,7 @@ namespace TestInscanceMethods {
   s = vm.$interpolate('{{msg}} world!');
   vm.$log();
   vm.$log('item');
-  
+
   vm
     .$on('test', (msg: any) => {})
     .$once('testOnce', (msg: any) => {})
@@ -149,13 +149,13 @@ namespace TestInscanceMethods {
     .$emit("event", 1, 2)
     .$dispatch("event", 1, 2, 3)
     .$broadcast("event", 1, 2, 3, 4)
-    
+
     .$appendTo(document.createElement("div"), () => {})
     .$before('#app', () => {})
     .$after(document.getElementById('app'))
     .$remove(() => {})
     .$nextTick(() => {});
-    
+
   vm
     .$mount('#app')
     .$destroy(false);
@@ -163,7 +163,7 @@ namespace TestInscanceMethods {
 
 namespace TestVueUtil {
   "use strict";
-  
+
   var _ = Vue.util;
   var target = document.createElement('div');
   var child = document.createElement('div');
@@ -221,6 +221,15 @@ namespace TestExplicitExtend {
         },
         methods: {
           action: this.action
+        },
+        props: {
+            propA: Object,
+            propB: {
+                type: Application,
+                default: () => new Application(),
+                twoWay: true,
+                coerce(value: any) {}
+            }
         }
       });
     }

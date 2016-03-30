@@ -1,7 +1,7 @@
 // Type definitions for gulp-watch v4.1.1
 // Project: https://github.com/floatdrop/gulp-watch
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -22,6 +22,6 @@ declare module 'gulp-watch' {
     }
 
     function watch(glob: string | Array<string>, options?: IOptions, callback?: Function): IWatchStream;
-
+    namespace watch {}
     export = watch;
 }

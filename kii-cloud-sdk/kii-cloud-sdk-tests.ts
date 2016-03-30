@@ -46,4 +46,15 @@ function main() {
     object.set("foo", 1);
 
     object.save();
+
+    KiiGroup.registerGroupWithID("Group ID", "Group Name", [user], {
+        success: function(theSavedGroup: KiiGroup) {
+            theSavedGroup.saveWithOwner("user ID");
+        },
+        failure: function(theGroup: KiiGroup,
+                          anErrorString: String,
+                          addMembersArray: KiiUser[],
+                          removeMembersArray: KiiUser[]) {
+        }
+    });
 }
