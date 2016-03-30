@@ -166,6 +166,11 @@ interface MediaStreamError {
     constraintName: string;
 }
 
+
+interface MediaStreamEvent extends Event {
+    stream: MediaStream;
+}
+
 interface NavigatorGetUserMedia {
     (constraints: MediaStreamConstraints,
      successCallback: (stream: MediaStream) => void,
