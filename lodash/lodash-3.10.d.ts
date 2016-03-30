@@ -15430,6 +15430,13 @@ declare module _ {
         noConflict(): typeof _;
     }
 
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.noConflict
+         */
+        noConflict(): LoDashExplicitObjectWrapper<typeof _>;
+    }
+
     //_.noop
     interface LoDashStatic {
         /**
