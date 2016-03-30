@@ -48,7 +48,7 @@ declare namespace StackTrace {
    * @param options Object for options
    * @return Array[StackFrame]
    */
-  export function fromError(error:Error, options?:StackTraceOptions): Promise<StackFrame[]>;
+  export function fromError(error: Error, options?: StackTraceOptions): Promise<StackFrame[]>;
 
   /**
    * Use StackGenerator to generate a backtrace.
