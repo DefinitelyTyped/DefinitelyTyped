@@ -141,7 +141,7 @@ declare namespace gapi.client {
     * @param version The version of the API to load
     * @param callback the function that is called once the API interface is loaded
     */
-    export function load(name: string, version: string, callback?: () => any): void;
+    export function load(name: string, version: string, callback: () => any): void;
     /**
     * Creates a HTTP request for making RESTful requests.
     * An object encapsulating the various arguments for this method.
