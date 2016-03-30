@@ -495,8 +495,8 @@ query.then(function(x: any) {
     return x;
 });
 
-knex.select('name').from('users').limit(10).then(function (rows: any[]) {
-  return rows.map(function (row: string) {
+knex.select('name').from('users').limit(10).then(function (rows: any[]): string[] {
+  return rows.map(function (row: any): string {
     return row.name;
   });
 }).then(function(names: string) {
