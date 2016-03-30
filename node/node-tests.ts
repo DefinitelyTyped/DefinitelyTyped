@@ -33,7 +33,8 @@ assert.notDeepStrictEqual({ x: { y: "3" } }, { x: { y: 3 } }, "uses === comparat
 assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
 
 assert.doesNotThrow(() => {
-    if (false) { throw "a hammer at your face"; }
+    const b = false;
+    if (b) { throw "a hammer at your face"; }
 }, undefined, "What the...*crunch*");
 
 ////////////////////////////////////////////////////
@@ -692,7 +693,7 @@ namespace vm_tests {
             count: 2
         };
 
-        const context = new vm.createContext(sandbox);
+        const context = vm.createContext(sandbox);
         console.log(vm.isContext(context));
         const script = new vm.Script('count += 1; name = "kitty"');
 
@@ -713,21 +714,10 @@ namespace vm_tests {
 
         sandboxes.forEach((sandbox) => {
             script.runInNewContext(sandbox);
+            script.runInThisContext();
         });
 
         console.log(util.inspect(sandboxes));
-    }
-
-    {
-        global.globalVar = 0;
-
-        const script = new vm.Script('globalVar += 1', { filename: 'myfile.vm' });
-
-        for (var i = 0; i < 1000; ++i) {
-            script.runInThisContext();
-        }
-
-        console.log(globalVar);
 
         var localVar = 'initial value';
         vm.runInThisContext('localVar = "vm";');
@@ -737,6 +727,6 @@ namespace vm_tests {
 
     {
         const Debug = vm.runInDebugContext('Debug');
-        Debug.scripts().forEach(function(script) { console.log(script.name); });
+        Debug.scripts().forEach(function(script: any) { console.log(script.name); });
     }
 }

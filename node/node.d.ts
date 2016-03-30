@@ -939,7 +939,7 @@ declare module "vm" {
         displayErrors?: boolean;
         timeout?: number;
         cachedData?: Buffer;
-        produceCachedData: boolean;
+        produceCachedData?: boolean;
     }
     export interface RunningScriptOptions {
         filename?: string;
