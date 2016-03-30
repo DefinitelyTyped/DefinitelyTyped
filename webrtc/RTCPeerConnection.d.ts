@@ -89,7 +89,7 @@ declare var RTCSessionDescription: {
 };
 
 interface webkitRTCSessionDescription extends RTCSessionDescription{
-  type?: string;
+  type?: RTCSdpType;
   sdp?: string;
 }
 declare var webkitRTCSessionDescription: {
@@ -98,7 +98,7 @@ declare var webkitRTCSessionDescription: {
 };
 
 interface mozRTCSessionDescription extends RTCSessionDescription{
-  type?: string;
+  type?: RTCSdpType;
   sdp?: string;
 }
 declare var mozRTCSessionDescription: {
