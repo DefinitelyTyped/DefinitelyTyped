@@ -67,7 +67,7 @@ declare namespace StackTrace {
    * @param {Object} thisArg optional context object (e.g. window)
    * @return {Function} instrumented function
    */
-  export function instrument<TFunc extends Function>(fn: TFunc, callback: (stackFrames:StackFrame[]) => void, errback?: (error: Error) => void, thisArg?: any): TFunc;
+  export function instrument<TFunc extends Function>(fn: TFunc, callback: (stackFrames: StackFrame[]) => void, errback?: (error: Error) => void, thisArg?: any): TFunc;
 
   /**
    * Given a function that has been instrumented,
