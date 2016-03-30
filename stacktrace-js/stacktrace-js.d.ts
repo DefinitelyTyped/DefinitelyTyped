@@ -73,3 +73,7 @@ declare namespace StackTrace {
    */
   export function report(stackframes: StackFrame[], url: string): Promise<string>;
 }
+
+declare module "stacktrace-js" {
+    export = StackTrace;
+}
