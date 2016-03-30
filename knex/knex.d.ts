@@ -3,12 +3,12 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
 declare module "knex" {
-  import Promise = require("bluebird");
-  import events = require("events");
+  // import Promise = require("bluebird");
+  import * as events from "events";
 
   type Callback = Function;
   type Client = Function;
