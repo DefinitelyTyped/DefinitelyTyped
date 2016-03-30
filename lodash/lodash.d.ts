@@ -16629,7 +16629,7 @@ declare module _ {
          */
         pickBy<TResult extends {}, T extends {}>(
             object: T,
-            predicate?: ObjectIterator<any, boolean>
+            predicate: ObjectIterator<any, boolean>
         ): TResult;
     }
 
@@ -16638,7 +16638,7 @@ declare module _ {
          * @see _.pickBy
          */
         pickBy<TResult extends {}>(
-            predicate?: ObjectIterator<any, boolean>
+            predicate: ObjectIterator<any, boolean>
         ): LoDashImplicitObjectWrapper<TResult>;
     }
 
@@ -16647,7 +16647,7 @@ declare module _ {
          * @see _.pickBy
          */
         pickBy<TResult extends {}>(
-            predicate?: ObjectIterator<any, boolean>
+            predicate: ObjectIterator<any, boolean>
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
