@@ -4658,7 +4658,7 @@ result = <number>_([1, 2, 3]).reduce<number>(function (sum: number, num: number)
 result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).reduce<number, ABC>(function (r: ABC, num: number, key: string) {
     r[key] = num * 3;
     return r;
-}, {});
+}, <ABC> {});
 
 result = <number[]>_.reduceRight([[0, 1], [2, 3], [4, 5]], function (a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
 
