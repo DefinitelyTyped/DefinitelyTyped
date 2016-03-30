@@ -499,7 +499,7 @@ knex.select('name').from('users').limit(10).then(function (rows: any[]): string[
   return rows.map(function (row: any): string {
     return row.name;
   });
-}).then(function(names: string) {
+}).then(function(names: string[]) {
   console.log(names);
 }).catch(function(e: Error) {
   console.error(e);
@@ -519,18 +519,15 @@ knex.select('name').from('users').limit(10).then(function (rows: any[]) {
 
 knex.select('name').from('users')
   .limit(10)
-  .bind(console)
-  .then(console.log)
-  .catch(console.error);
+  .then(console.log.bind(console))
+  .catch(console.error.bind(console));
 
 var values: any[];
-// Without return:
+
 knex.insert(values).into('users')
   .then(function() {
     return {inserted: true};
   });
-
-knex.insert(values).into('users').return({inserted: true});
 
 knex.select('name').from('users')
   .where('id', '>', 20)
