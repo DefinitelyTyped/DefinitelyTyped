@@ -329,11 +329,11 @@ knex.transaction(function(trx) {
     .insert({name: 'Old Books'}, 'id')
     .into('catalogues')
     .then(function(ids) {
-      return Promise.map(books, function(book) {
+      return Promise.all(books.map(function (book: any) {
         book.catalogue_id = ids[0];
         // Some validation could take place here.
         return trx.insert(info).into('books');
-      });
+      }));
     });
 })
 .then(function(inserts) {
@@ -359,13 +359,13 @@ knex.transaction(function(trx) {
     .into('catalogues')
     .transacting(trx)
     .then(function(ids) {
-      return Promise.map(books, function(book) {
+      return Promise.all(books.map(function(book: any) {
         book.catalogue_id = ids[0];
 
         // Some validation could take place here.
 
         return knex.insert(info).into('books').transacting(trx);
-      });
+      }));
     })
     .then(trx.commit)
     .catch(trx.rollback);
@@ -497,9 +497,9 @@ query.then(function(x: any) {
 
 knex.select('name').from('users').limit(10).map(function(row: any) {
   return row.name;
-}).then(function(names) {
+}).then(function(names: string) {
   console.log(names);
-}).catch(function(e) {
+}).catch(function(e: Error) {
   console.error(e);
 });
 
@@ -507,9 +507,9 @@ knex.select('name').from('users').limit(10).reduce(function(memo: any, row: any)
   memo.names.push(row.name);
   memo.count++;
   return memo;
-}, {count: 0, names: []}).then(function(obj) {
+}, {count: 0, names: []}).then(function(obj: any) {
   console.log(obj);
-}).catch(function(e) {
+}).catch(function(e: Error) {
   console.error(e);
 });
 
