@@ -5042,14 +5042,103 @@ namespace TestReject {
 }
 
 // _.sample
-result = <number>_.sample([1, 2, 3, 4]);
-result = <_.LoDashImplicitWrapper<number>>_([1, 2, 3, 4]).sample();
-result = <number>_([1, 2, 3, 4]).sample().value();
+namespace TestSample {
+    let array: string[];
+    let list: _.List<string>;
+    let dictionary: _.Dictionary<string>;
+    let numericDictionary: _.NumericDictionary<string>;
+
+    {
+        let result: string;
+
+        result = _.sample('abc');
+        result = _.sample(array);
+        result = _.sample(list);
+        result = _.sample(dictionary);
+        result = _.sample(numericDictionary);
+        result = _.sample<{a: string}, string>({a: 'foo'});
+        result = _.sample<string>({a: 'foo'});
+
+        result = _('abc').sample();
+        result = _(array).sample();
+        result = _(list).sample<string>();
+        result = _(dictionary).sample<string>();
+        result = _(numericDictionary).sample<string>();
+        result = _({a: 'foo'}).sample<string>();
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('abc').chain().sample();
+        result = _(array).chain().sample<_.LoDashExplicitWrapper<string>>();
+        result = _(list).chain().sample<_.LoDashExplicitWrapper<string>>();
+        result = _(dictionary).chain().sample<_.LoDashExplicitWrapper<string>>();
+        result = _(numericDictionary).chain().sample<_.LoDashExplicitWrapper<string>>();
+        result = _({a: 'foo'}).chain().sample<_.LoDashExplicitWrapper<string>>();
+    }
+}
 
 // _.sampleSize
-result = <number[]>_.sampleSize([1, 2, 3, 4], 2);
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sampleSize(2);
-result = <number[]>_([1, 2, 3, 4]).sampleSize(2).value();
+namespace TestSampleSize {
+    let array: string[];
+    let list: _.List<string>;
+    let dictionary: _.Dictionary<string>;
+    let numericDictionary: _.NumericDictionary<string>;
+
+    {
+        let result: string[];
+
+        result = _.sampleSize('abc');
+        result = _.sampleSize('abc', 42);
+        result = _.sampleSize(array);
+        result = _.sampleSize(array, 42);
+        result = _.sampleSize(list);
+        result = _.sampleSize(list, 42);
+        result = _.sampleSize(dictionary);
+        result = _.sampleSize(dictionary, 42);
+        result = _.sampleSize(numericDictionary);
+        result = _.sampleSize(numericDictionary, 42);
+        result = _.sampleSize<{a: string}, string>({a: 'foo'});
+        result = _.sampleSize<{a: string}, string>({a: 'foo'}, 42);
+        result = _.sampleSize<string>({a: 'foo'});
+        result = _.sampleSize<string>({a: 'foo'}, 42);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _('abc').sampleSize();
+        result = _('abc').sampleSize(42);
+        result = _(array).sampleSize();
+        result = _(array).sampleSize(42);
+        result = _(list).sampleSize<string>();
+        result = _(list).sampleSize<string>(42);
+        result = _(dictionary).sampleSize<string>();
+        result = _(dictionary).sampleSize<string>(42);
+        result = _(numericDictionary).sampleSize<string>();
+        result = _(numericDictionary).sampleSize<string>(42);
+        result = _({a: 'foo'}).sampleSize<string>();
+        result = _({a: 'foo'}).sampleSize<string>(42);
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _('abc').chain().sampleSize();
+        result = _('abc').chain().sampleSize(42);
+        result = _(array).chain().sampleSize();
+        result = _(array).chain().sampleSize(42);
+        result = _(list).chain().sampleSize<string>();
+        result = _(list).chain().sampleSize<string>(42);
+        result = _(dictionary).chain().sampleSize<string>();
+        result = _(dictionary).chain().sampleSize<string>(42);
+        result = _(numericDictionary).chain().sampleSize<string>();
+        result = _(numericDictionary).chain().sampleSize<string>(42);
+        result = _({a: 'foo'}).chain().sampleSize<string>();
+        result = _({a: 'foo'}).chain().sampleSize<string>(42);
+    }
+}
 
 // _.shuffle
 namespace TestShuffle {
