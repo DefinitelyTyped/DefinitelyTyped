@@ -1,6 +1,5 @@
 /// <reference path="../jquery-ajax-chain/jquery-ajax-chain.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../core-js/core-js.d.ts" />
 
 function test_public_methods(): void {
 

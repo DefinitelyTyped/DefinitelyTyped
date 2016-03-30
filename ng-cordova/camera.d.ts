@@ -6,7 +6,7 @@
 /// <reference path="../cordova/plugins/Camera.d.ts" />
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module ngCordova {
+declare namespace ngCordova {
     export interface ICameraService {
         getPicture(options?: CameraOptions): ng.IPromise<string>;
         cleanup(): ng.IPromise<void>;

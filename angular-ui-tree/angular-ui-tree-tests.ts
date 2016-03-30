@@ -78,5 +78,6 @@ var droppedCallback: AngularUITree.IDroppedCallback = (eventInfo: AngularUITree.
 
 var callbacks: AngularUITree.ICallbacks = {
     accept: acceptCallback,
+    dragStart: droppedCallback,
     dropped: droppedCallback
 };

@@ -25,7 +25,7 @@ type CObjOrStr = CollaborativeObject | string;
 type CMapOfCObjOrStr = CollaborativeMap<CObjOrStr>;
 
 
-module GRealtime {
+namespace GRealtime {
 
 
 

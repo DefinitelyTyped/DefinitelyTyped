@@ -5,7 +5,7 @@
 
 /// <reference path='../node/node.d.ts' />
 
-declare module IMAP {
+declare namespace IMAP {
 
     // The property names of these interfaces match the documentation (where type names were given).
 
@@ -246,9 +246,11 @@ declare module IMAP {
         once(event: string, listener: Function): this;
         removeListener(event: string, listener: Function): this;
         removeAllListeners(event?: string): this;
-        setMaxListeners(n: number): void;
+        setMaxListeners(n: number): this;
+        getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
+        listenerCount(type: string): number;
 
         // from MessageFunctions
         /** Searches the currently open mailbox for messages using given criteria. criteria is a list describing what you want to find. For criteria types that require arguments, use an array instead of just the string criteria type name (e.g. ['FROM', 'foo@bar.com']). Prefix criteria types with an "!" to negate. */

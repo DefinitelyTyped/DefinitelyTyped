@@ -1,7 +1,7 @@
 // Type definitions for sockjs-client 1.0.3
 // Project: https://github.com/sockjs/sockjs-client
 // Definitions by: Emil Ivanov <https://github.com/vladev>, Alexander Rusakov <https://github.com/arusakov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace __SockJSClient {
   interface BaseEvent {
