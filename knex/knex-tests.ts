@@ -495,19 +495,23 @@ query.then(function(x: any) {
     return x;
 });
 
-knex.select('name').from('users').limit(10).map(function(row: any) {
-  return row.name;
+knex.select('name').from('users').limit(10).then(function (rows: any[]) {
+  return rows.map(function (row: string) {
+    return row.name;
+  });
 }).then(function(names: string) {
   console.log(names);
 }).catch(function(e: Error) {
   console.error(e);
 });
 
-knex.select('name').from('users').limit(10).reduce(function(memo: any, row: any) {
-  memo.names.push(row.name);
-  memo.count++;
-  return memo;
-}, {count: 0, names: []}).then(function(obj: any) {
+knex.select('name').from('users').limit(10).then(function (rows: any[]) {
+  return rows.reduce(function(memo: any, row: any) {
+    memo.names.push(row.name);
+    memo.count++;
+    return memo;
+  }, {count: 0, names: []})
+}).then(function(obj: any) {
   console.log(obj);
 }).catch(function(e: Error) {
   console.error(e);
