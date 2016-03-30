@@ -1902,7 +1902,7 @@ declare module _ {
         /**
          * @see _.head
          */
-        first<T>(): LoDashExplicitWrapper<T>;
+        first(): LoDashExplicitWrapper<T>;
     }
 
     interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
@@ -2101,7 +2101,7 @@ declare module _ {
         /**
          * @see _.head
          */
-        head<T>(): LoDashExplicitWrapper<T>;
+        head(): LoDashExplicitWrapper<T>;
     }
 
     //_.indexOf
