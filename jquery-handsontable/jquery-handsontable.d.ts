@@ -280,7 +280,7 @@ declare namespace Handsontable {
         /**
          * Setting to true enables the autoColumnSize plugin, which makes sure each column gets enough space to show its content.
          */
-        autoColumnSize?: boolean;
+        autoColumnSize?: boolean | Object;
 
         /**
          * Setting to true enables the observeChanges plugin, which automatically renders the table when a change in the data source is observed.
