@@ -1,12 +1,12 @@
 // Type definitions for YouTube Data API v3
 // Project: https://developers.google.com/youtube/v3/
 // Definitions by: Frank M <https://github.com/sgtfrankieboy>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../gapi/gapi.d.ts" />
 
-declare module gapi.client.youtube {
+declare namespace gapi.client.youtube {
 
     export interface activities {
 

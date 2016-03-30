@@ -1,12 +1,12 @@
 // Type definitions for tooltipster
 // Project: https://github.com/iamceege/tooltipster
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
 
-declare module JQueryTooltipster {
+declare namespace JQueryTooltipster {
 	/**
 	* Tooltipster options @see http://iamceege.github.io/tooltipster/
 	*/

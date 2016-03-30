@@ -130,7 +130,6 @@
             scene.add( mesh );
 
             var mixer = new THREE.AnimationMixer( mesh );
-            mixer.addAction( new THREE.AnimationAction( geometry.animations[ 0 ] ).warpToDuration( 1 ) );
             mixers.push( mixer );
 
         } );

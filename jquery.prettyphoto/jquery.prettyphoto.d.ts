@@ -1,11 +1,11 @@
 ﻿// Type definitions for jQuery prettyPhoto 3.1.5
 // Project: https://github.com/scaron/prettyphoto
 // Definitions by: pgaske <https://github.com/pgaske>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module scaron_prettyPhoto {
+declare namespace scaron_prettyPhoto {
     /**
     * Pretty photo settings
     */

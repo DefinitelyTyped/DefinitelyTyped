@@ -1,7 +1,7 @@
 // Type definitions for React v0.14 (react-dom)
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="react.d.ts" />
 
@@ -10,18 +10,22 @@ declare namespace __React {
         function findDOMNode<E extends Element>(instance: ReactInstance): E;
         function findDOMNode(instance: ReactInstance): Element;
 
+        function render<P extends DOMAttributes, T extends Element>(
+            element: DOMElement<P, T>,
+            container: Element,
+            callback?: (element: T) => any): T;
         function render<P>(
-            element: DOMElement<P>,
+            element: SFCElement<P>,
             container: Element,
-            callback?: (element: Element) => any): Element;
-        function render<P, S>(
-            element: ClassicElement<P>,
+            callback?: () => any): void;
+        function render<P, T extends Component<P, {}>>(
+            element: CElement<P, T>,
             container: Element,
-            callback?: (component: ClassicComponent<P, S>) => any): ClassicComponent<P, S>;
-        function render<P, S>(
+            callback?: (component: T) => any): T;
+        function render<P>(
             element: ReactElement<P>,
             container: Element,
-            callback?: (component: Component<P, S>) => any): Component<P, S>;
+            callback?: (component?: Component<P, {}> | Element) => any): Component<P, {}> | Element | void;
 
         function unmountComponentAtNode(container: Element): boolean;
 
@@ -31,21 +35,26 @@ declare namespace __React {
         function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
         function unstable_batchedUpdates(callback: () => any): void;
 
+        function unstable_renderSubtreeIntoContainer<P extends DOMAttributes, T extends Element>(
+            parentComponent: Component<any, any>,
+            element: DOMElement<P, T>,
+            container: Element,
+            callback?: (element: T) => any): T;
+        function unstable_renderSubtreeIntoContainer<P, T extends Component<P, {}>>(
+            parentComponent: Component<any, any>,
+            element: CElement<P, T>,
+            container: Element,
+            callback?: (component: T) => any): T;
+        function render<P>(
+            parentComponent: Component<any, any>,
+            element: SFCElement<P>,
+            container: Element,
+            callback?: () => any): void;
         function unstable_renderSubtreeIntoContainer<P>(
             parentComponent: Component<any, any>,
-            nextElement: DOMElement<P>,
+            element: ReactElement<P>,
             container: Element,
-            callback?: (element: Element) => any): Element;
-        function unstable_renderSubtreeIntoContainer<P, S>(
-            parentComponent: Component<any, any>,
-            nextElement: ClassicElement<P>,
-            container: Element,
-            callback?: (component: ClassicComponent<P, S>) => any): ClassicComponent<P, S>;
-        function unstable_renderSubtreeIntoContainer<P, S>(
-            parentComponent: Component<any, any>,
-            nextElement: ReactElement<P>,
-            container: Element,
-            callback?: (component: Component<P, S>) => any): Component<P, S>;
+            callback?: (component?: Component<P, {}> | Element) => any): Component<P, {}> | Element | void;
     }
 
     namespace __DOMServer {

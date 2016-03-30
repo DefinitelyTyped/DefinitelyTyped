@@ -1,7 +1,7 @@
 // Type definitions for node-email-templates
 // Project: https://github.com/niftylettuce/node-email-templates
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * @summary Interface for result of email template.

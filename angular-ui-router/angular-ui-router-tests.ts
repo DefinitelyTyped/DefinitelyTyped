@@ -208,7 +208,7 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
 
 myApp.service("urlLocatorTest", UrlLocatorTestService);
 
-module UiViewScrollProviderTests {
+namespace UiViewScrollProviderTests {
     var app = angular.module("uiViewScrollProviderTests", ["ui.router"]);
 
     app.config(['$uiViewScrollProvider', function($uiViewScrollProvider: ng.ui.IUiViewScrollProvider) {
@@ -227,7 +227,7 @@ interface ITestUserService {
     handleLogin: () => ng.IPromise<{}>;
 }
 
-module UrlRouterProviderTests {
+namespace UrlRouterProviderTests {
     var app = angular.module("urlRouterProviderTests", ["ui.router"]);
 
     app.config(($urlRouterProvider: ng.ui.IUrlRouterProvider) => {

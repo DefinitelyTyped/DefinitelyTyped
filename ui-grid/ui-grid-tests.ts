@@ -41,6 +41,9 @@ columnDef.filter = {
     selectOptions: [{value: 4, label: 'test'}],
     disableCancelButton: false
 };
+columnDef.filter.condition = (searchTerm: string, cellValue: any, row: uiGrid.IGridRow, column: uiGrid.IGridColumn): boolean => {
+    return true;
+};
 columnDef.filterCellFiltered = false;
 columnDef.filterHeaderTemplate = '<div blah="test"></div>';
 columnDef.filters = [columnDef.filter];

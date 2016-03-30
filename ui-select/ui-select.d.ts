@@ -1,7 +1,7 @@
 // Type definitions for ui-select 0.13.2
 // Project: https://github.com/angular-ui/ui-select
 // Definitions by: Niko Kovačič <https://github.com/nkovacic>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped 
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped 
 
 /// <reference path="../angularjs/angular.d.ts" />
 
@@ -10,7 +10,7 @@ declare module "ui-select" {
     export = _;
 }
 
-declare module angular.ui.select {
+declare namespace angular.ui.select {
     interface ISelectConfig {
         appendToBody: boolean;
         resetSearchInput: boolean;

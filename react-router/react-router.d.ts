@@ -1,7 +1,7 @@
-// Type definitions for react-router v2.0.0-rc5
+// Type definitions for react-router v2.0.0
 // Project: https://github.com/rackt/react-router
-// Definitions by: Sergey Buturlakin <http://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>, Nathan Brown <https://github.com/ngbrown>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../react/react.d.ts" />
@@ -195,6 +195,10 @@ declare namespace ReactRouter {
     interface IndexRedirectElement extends React.ReactElement<IndexRedirectProps> {}
     const IndexRedirect: IndexRedirect
 
+    interface RouterOnContext extends H.History {
+        setRouteLeaveHook(route: PlainRoute, hook?: RouteHook): () => void;
+        isActive(pathOrLoc: H.LocationDescriptor, indexOnly?: boolean): boolean;
+    }
 
     /* mixins */
 
@@ -220,6 +224,7 @@ declare namespace ReactRouter {
         listenBeforeLeavingRoute(route: PlainRoute, hook: RouteHook): void
         match(location: H.Location, callback: (error: any, nextState: RouterState, nextLocation: H.Location) => void): void
         isActive(pathname: H.Pathname, query?: H.Query, indexOnly?: boolean): boolean
+        setRouteLeaveHook(route: PlainRoute, callback: RouteHook): void
     }
 
     function useRoutes<T>(createHistory: HistoryModule.CreateHistory<T>): HistoryModule.CreateHistory<T & HistoryRoutes>
@@ -390,6 +395,14 @@ declare module "react-router/lib/match" {
 
 }
 
+declare module "react-router/lib/useRouterHistory" {
+    interface CreateRouterHistory {
+        (options?: HistoryModule.HistoryOptions): HistoryModule.History & HistoryModule.HistoryQueries;
+    }
+
+    export default function useRouterHistory<T>(createHistory: HistoryModule.CreateHistory<T>): CreateRouterHistory;
+}
+
 
 declare module "react-router" {
 
@@ -429,6 +442,8 @@ declare module "react-router" {
 
     import match from "react-router/lib/match"
 
+    import useRouterHistory from "react-router/lib/useRouterHistory";
+
     // PlainRoute is defined in the API documented at:
     // https://github.com/rackt/react-router/blob/master/docs/API.md
     // but not included in any of the .../lib modules above.
@@ -447,6 +462,7 @@ declare module "react-router" {
     export type RouterListener = ReactRouter.RouterListener
     export type RouterState = ReactRouter.RouterState
     export type HistoryBase = ReactRouter.HistoryBase
+    export type RouterOnContext = ReactRouter.RouterOnContext
 
     export {
         Router,
@@ -466,7 +482,8 @@ declare module "react-router" {
         formatPattern,
         RouterContext,
         PropTypes,
-        match
+        match,
+        useRouterHistory
     }
 
     export default Router

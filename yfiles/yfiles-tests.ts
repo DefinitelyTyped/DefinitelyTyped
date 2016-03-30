@@ -1,6 +1,6 @@
 /// <reference path="yfiles.d.ts"/>
 
-module yfilesTest {
+namespace yfilesTest {
 
     export class BasicTest {
         private graphControl:yfiles.canvas.GraphControl;
