@@ -6162,20 +6162,42 @@ namespace TestFlowRight {
 
 // _.memoize
 namespace TestMemoize {
-    var testMemoizedFunction: _.MemoizedFunction;
-    var cache = <_.MapCache>testMemoizedFunction.cache;
-    interface TestMemoizedResultFn extends _.MemoizedFunction {
+    {
+        let memoizedFunction: _.MemoizedFunction;
+        let cache: _.MapCache = memoizedFunction.cache;
+    }
+
+    interface MemoizedResultFn extends _.MemoizedFunction {
         (a1: string, a2: number): boolean;
     }
-    var testMemoizeFn = (a1: string, a2: number) => a1.length > a2;
-    var testMemoizeResolverFn = (a1: string, a2: number) => a1 + a2;
-    var result: TestMemoizedResultFn;
-    result = _.memoize(testMemoizeFn);
-    result = _.memoize(testMemoizeFn, testMemoizeResolverFn);
-    result = _(testMemoizeFn).memoize().value();
-    result = _(testMemoizeFn).memoize(testMemoizeResolverFn).value();
-    result('foo', 1);
-    result.cache.get('foo1');
+
+    let memoizeFn: (a1: string, a2: number) => boolean;
+    let memoizeResolverFn: (a1: string, a2: number) => string;
+
+    {
+        let result: MemoizedResultFn;
+
+        result = _.memoize(memoizeFn);
+        result = _.memoize(memoizeFn, memoizeResolverFn);
+
+        result('foo', 1);
+        result.cache.get('foo1');
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<MemoizedResultFn>;
+
+        result = _(memoizeFn).memoize();
+        result = _(memoizeFn).memoize(memoizeResolverFn);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<MemoizedResultFn>;
+
+        result = _(memoizeFn).chain().memoize();
+        result = _(memoizeFn).chain().memoize(memoizeResolverFn);
+    }
+
     _.memoize.Cache = {
         delete: key => false,
         get: key => undefined,
