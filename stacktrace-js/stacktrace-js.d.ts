@@ -4,10 +4,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace StackTrace {
+
+  export interface SourceCache {
+    [key: string]: string | Promise<string>;
+  }
+
+  /**
+   * Options for StackTrace
+   * @param filter Function(StackFrame => Boolean) - Only include stack entries matching for which filter returns true
+   * @param sourceCache Object (String URL => String Source) - Pre-populate source cache to avoid network requests
+   * @param offline Boolean (default: false) - Set to true to prevent all network requests
+   */
   export interface StackTraceOptions {
-    filter?: (stackFrame:StackFrame) => boolean;
-    sourceCache?: { URL:string };
-    offline?: boolean;
+    filter?:      (stackFrame: StackFrame) => boolean;
+    sourceCache?: SourceCache;
+    offline?:     boolean;
   }
 
   export interface StackFrame {
