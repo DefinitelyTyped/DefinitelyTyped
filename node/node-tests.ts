@@ -16,6 +16,7 @@ import * as path from "path";
 import * as readline from "readline";
 import * as childProcess from "child_process";
 import * as os from "os";
+import * as vm from "vm";
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
 
@@ -32,7 +33,8 @@ assert.notDeepStrictEqual({ x: { y: "3" } }, { x: { y: 3 } }, "uses === comparat
 assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
 
 assert.doesNotThrow(() => {
-    if (false) { throw "a hammer at your face"; }
+    const b = false;
+    if (b) { throw "a hammer at your face"; }
 }, undefined, "What the...*crunch*");
 
 ////////////////////////////////////////////////////
@@ -677,5 +679,54 @@ namespace os_tests {
         let result: {[index: string]: os.NetworkInterfaceInfo[]};
 
         result = os.networkInterfaces();
+    }
+}
+
+////////////////////////////////////////////////////
+/// vm tests : https://nodejs.org/api/vm.html
+////////////////////////////////////////////////////
+
+namespace vm_tests {
+    {
+        const sandbox = {
+            animal: 'cat',
+            count: 2
+        };
+
+        const context = vm.createContext(sandbox);
+        console.log(vm.isContext(context));
+        const script = new vm.Script('count += 1; name = "kitty"');
+
+        for (let i = 0; i < 10; ++i) {
+            script.runInContext(context);
+        }
+
+        console.log(util.inspect(sandbox));
+
+        vm.runInNewContext('count += 1; name = "kitty"', sandbox);
+        console.log(util.inspect(sandbox));
+    }
+
+    {
+        const sandboxes = [{}, {}, {}];
+
+        const script = new vm.Script('globalVar = "set"');
+
+        sandboxes.forEach((sandbox) => {
+            script.runInNewContext(sandbox);
+            script.runInThisContext();
+        });
+
+        console.log(util.inspect(sandboxes));
+
+        var localVar = 'initial value';
+        vm.runInThisContext('localVar = "vm";');
+
+        console.log(localVar);
+    }
+
+    {
+        const Debug = vm.runInDebugContext('Debug');
+        Debug.scripts().forEach(function(script: any) { console.log(script.name); });
     }
 }
