@@ -1,7 +1,7 @@
 // Type definitions for node-schedule
 // Project: https://github.com/tejasmanohar/node-schedule/
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "node-schedule" {
     import nodeSchedule = require('node-schedule');

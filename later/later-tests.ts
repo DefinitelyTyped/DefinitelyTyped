@@ -1,7 +1,7 @@
 ﻿/// <reference path="./later.d.ts"/>
 
 
-module LaterTest_DefineSchedule {
+namespace LaterTest_DefineSchedule {
 
     // define a new schedule
     var textSched = later.parse.text('at 10:15am every weekday');
@@ -21,7 +21,7 @@ module LaterTest_DefineSchedule {
         .on(3).month();
 }
 
-module LaterTest_ConfigureTimezone {
+namespace LaterTest_ConfigureTimezone {
 
     // set later to use UTC (the default)
     later.date.UTC();
@@ -30,7 +30,7 @@ module LaterTest_ConfigureTimezone {
     later.date.localTime();
 }
 
-module LaterTest_TimePeriods {
+namespace LaterTest_TimePeriods {
     export function second() {
         var d = new Date('2013-03-22T10:02:05Z');
 
@@ -502,7 +502,7 @@ module LaterTest_TimePeriods {
     }
 }
 
-module LaterTest_GenerateRecurences {
+namespace LaterTest_GenerateRecurences {
 
     export function on_method() {
         // fires on the 2nd minute every hour
@@ -594,7 +594,7 @@ module LaterTest_GenerateRecurences {
 
 }
 
-module LaterTest_CalculateOccurences {
+namespace LaterTest_CalculateOccurences {
 
     // Initialise next variable.
     var next: Date[] = [];
@@ -610,7 +610,7 @@ module LaterTest_CalculateOccurences {
     next = later.schedule(cronSched).prev(1, new Date(2013, 2, 21));
 }
 
-module LaterTest_ExecuteCodeUsingSchedule {
+namespace LaterTest_ExecuteCodeUsingSchedule {
 
     // will fire every 5 minutes
     var textSched = later.parse.text('every 5 min');

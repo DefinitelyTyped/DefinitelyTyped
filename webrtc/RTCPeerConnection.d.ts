@@ -1,7 +1,7 @@
 // Type definitions for WebRTC
 // Project: http://dev.w3.org/2011/webrtc/
 // Definitions by: Ken Smith <https://github.com/smithkl42/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Definitions taken from http://dev.w3.org/2011/webrtc/editor/webrtc.html
 //
@@ -29,7 +29,7 @@ declare var RTCConfiguration: {
 };
 
 interface RTCIceServer {
-  url: string;
+  urls: string;
   credential?: string;
 }
 declare var RTCIceServer: {

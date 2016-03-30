@@ -422,7 +422,7 @@ User4.create({name: 'John'}, {
     }
 });
 
-module CustomAdapterTest {
+namespace CustomAdapterTest {
 
     class MyCustomAdapter implements JSData.IDSAdapter {
 
@@ -505,7 +505,7 @@ interface MyResourceDefinition {
 
 }
 
-module JSData {
+namespace JSData {
 
     interface DS {
 

@@ -31,19 +31,22 @@ function tester1() {
 }
 
 function tester2() {
-    var m1 = Snap.Matrix(1,2,3,4,5,6);
+    var m1 = Snap.matrix(1,2,3,4,5,6);
 
     m1.add(m1).add(m1);
 
-    var m2 = Snap.Matrix(0,0,0,0,0,0);
+    var m2 = Snap.matrix(0,0,0,0,0,0);
     m2.add(1,-1,1,-1,1,-1).add(-1,1,-1,1,-1,1);
 
-    var m3 = Snap.Matrix(1,1,1,1,1,1);
-    m3.add(Snap.Matrix(0,0,0,0,0,0)).add(m2);
+    var m3 = Snap.matrix(1,1,1,1,1,1);
+    m3.add(Snap.matrix(0,0,0,0,0,0)).add(m2);
+
+    var m4 = Snap.matrix();
 
     console.log(m1.toString());
     console.log(m2.toString());
     console.log(m3.toString());
+    console.log(m4.toString());
 }
 
 function tester3() {

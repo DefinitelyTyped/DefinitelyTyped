@@ -1,9 +1,9 @@
 // Type definitions for crypto-js v3.1.3
 // Project: https://github.com/evanvosberg/crypto-js
 // Definitions by: Michael Zabka <https://github.com/misak113/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module CryptoJS {
+declare namespace CryptoJS {
 	type Hash = (message: string, key?: string, ...options: any[]) => string;
 
 	export interface Hashes {

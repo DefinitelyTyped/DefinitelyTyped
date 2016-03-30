@@ -1,13 +1,13 @@
 // Type definitions for gulp-load-plugins
 // Project: https://github.com/jackfranklin/gulp-load-plugins
 // Definitions by: Joe Skeen <http://github.com/joeskeen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
 /** Loads in any gulp plugins and attaches them to an object, freeing you up from having to manually require each gulp plugin. */
 declare module 'gulp-load-plugins' {
-	
+
 	interface IOptions {
 		/** the glob(s) to search for, default ['gulp-*', 'gulp.*'] */
 		pattern?: string[];
@@ -24,14 +24,16 @@ declare module 'gulp-load-plugins' {
 		/** a mapping of plugins to rename, the key being the NPM name of the package, and the value being an alias you define */
 		rename?: IPluginNameMappings;
 	}
-	
+
 	interface IPluginNameMappings {
 		[npmPackageName: string]: string
 	}
-	
+
 	/** Loads in any gulp plugins and attaches them to an object, freeing you up from having to manually require each gulp plugin. */
 	function gulpLoadPlugins<T extends IGulpPlugins>(options?: IOptions): T;
-	
+
+	namespace gulpLoadPlugins {}
+
 	export = gulpLoadPlugins;
 }
 

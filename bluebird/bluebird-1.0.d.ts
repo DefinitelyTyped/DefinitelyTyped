@@ -1,13 +1,13 @@
 // Type definitions for bluebird 1.0.0
 // Project: https://github.com/petkaantonov/bluebird
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // ES6 model with generics overload was sourced and trans-multiplied from es6-promises.d.ts
 // By: Campredon <https://github.com/fdecampredon/>
 
 // Warning: recommended to use `tsc > v0.9.7` (critical bugs in earlier generic code):
-// - https://github.com/borisyankov/DefinitelyTyped/issues/1563
+// - https://github.com/DefinitelyTyped/DefinitelyTyped/issues/1563
 
 // Note: replicate changes to all overloads in both definition and test file
 // Note: keep both static and instance members inline (so similar)
@@ -319,11 +319,9 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	 *
 	 * Alias for `attempt();` for compatibility with earlier ECMAScript version.
 	 */
-	static try<R>(fn: () => Promise.Thenable<R>, args?: any[], ctx?: any): Promise<R>;
-	static try<R>(fn: () => R, args?: any[], ctx?: any): Promise<R>;
+	static try<R>(fn: () => R | Promise.Thenable<R>, args?: any[], ctx?: any): Promise<R>;
 
-	static attempt<R>(fn: () => Promise.Thenable<R>, args?: any[], ctx?: any): Promise<R>;
-	static attempt<R>(fn: () => R, args?: any[], ctx?: any): Promise<R>;
+	static attempt<R>(fn: () => R | Promise.Thenable<R>, args?: any[], ctx?: any): Promise<R>;
 
 	/**
 	 * Returns a new function that wraps the given function `fn`. The new function will always return a promise that is fulfilled with the original functions return values or rejected with thrown exceptions from the original function.
@@ -582,7 +580,7 @@ declare class Promise<R> implements Promise.Thenable<R> {
 	static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => boolean): Promise<R[]>;
 }
 
-declare module Promise {
+declare namespace Promise {
 	export interface RangeError extends Error {
 	}
 	export interface CancellationError extends Error {

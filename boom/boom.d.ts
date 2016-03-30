@@ -1,11 +1,11 @@
 // Type definitions for boom
 // Project: http://github.com/hapijs/boom
 // Definitions by: Igor Rogatty <http://github.com/rogatty>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
-declare module Boom {
+declare namespace Boom {
 
     export interface BoomError {
         data: any;

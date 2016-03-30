@@ -3,7 +3,7 @@
 // This file contains common part of defintions for rx.d.ts and rx.lite.d.ts
 // Do not include the file separately.
 
-declare module Rx {
+declare namespace Rx {
 	export module internals {
 		function isEqual(left: any, right: any): boolean;
 		function addRef<T>(xs: Observable<T>, r: { getDisposable(): IDisposable; }): Observable<T>;

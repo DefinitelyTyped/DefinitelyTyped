@@ -1,7 +1,7 @@
 // Type definitions for RxJS-jQuery
 // Project: https://github.com/Reactive-Extensions/RxJS-jQuery/
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts"/>
 ///<reference path="../rx/rx.d.ts"/>

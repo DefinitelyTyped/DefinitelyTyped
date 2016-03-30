@@ -1,4 +1,5 @@
 /// <reference path="../../jasmine/jasmine.d.ts" />
+/// <reference path="jasmine.extensions.d.ts" />
 /// <reference path="../knockout.d.ts" />
 /// <reference path="../../knockout.mapping/knockout.mapping.d.ts" />
 

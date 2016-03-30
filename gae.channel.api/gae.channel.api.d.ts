@@ -1,9 +1,9 @@
 // Type definitions for GoogleAppEngine's Channel API
 // Project: https://developers.google.com/appengine/docs/java/channel/javascript
 // Definitions by: vvakame <https://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module goog.appengine {
+declare namespace goog.appengine {
 	export class Channel {
 		/**
 		 * Create a channel object using the token returned by the createChannel() call on the server.

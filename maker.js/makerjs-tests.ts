@@ -42,15 +42,28 @@ function test() {
 		makerjs.exporter.toDXF(model);
 		makerjs.exporter.toOpenJsCad(model);
 		makerjs.exporter.toSTL(model);
-		makerjs.exporter.toSVG(model);
+		makerjs.exporter.toSVG(model, 
+            { 
+                annotate: true, 
+                fontSize: '', 
+                origin: [], 
+                scale: 9.9, 
+                stroke: '', 
+                strokeWidth: '', 
+                svgAttrs: {}, 
+                units: '', 
+                useSvgPathOnly: false,
+                viewBox: false
+             });
 		makerjs.exporter.tryGetModelUnits(model);
 	}
 	
 	function testKit() {
 		makerjs.kit.construct(null, null);
 		makerjs.kit.getParameterValues(null);
-		(<MakerJs.kit.IMetaParameter>{}).max;
-		(<MakerJs.kit.IKit>{}).metaParameters;
+		(<MakerJs.IMetaParameter>{}).max;
+		(<MakerJs.IKit>{}).metaParameters;
+		(<MakerJs.IKit>{}).notes;
 	}
 	
 	function testMeasure() {
@@ -66,11 +79,14 @@ function test() {
 	}
 	
 	function testModel(){
-		makerjs.model.combine(model, model, true, false, true, false);
+		makerjs.model.breakPathsAtIntersections(model, { paths:{ } });
+		var opts: MakerJs.ICombineOptions = { trimDeadEnds: true, pointMatchingDistance: 2 };
+		makerjs.model.combine(model, model, true, false, true, false, opts);
 		makerjs.model.convertUnits(model, makerjs.unitType.Centimeter);
 		makerjs.model.countChildModels(model);
 		makerjs.model.detachLoop(model);
 		makerjs.model.findLoops(model);
+		makerjs.model.getSimilarModelId(model, 'foo');
 		makerjs.model.getSimilarPathId(model, 'foo');
 		makerjs.model.isPathInsideModel(paths.line, model);
 		makerjs.model.mirror(model, false, true);
@@ -80,6 +96,7 @@ function test() {
 		makerjs.model.rotate(makerjs.model.scale(model, 6), 45, [0,0]);
 		makerjs.model.scale(model, 7);
 		makerjs.model.walkPaths(model, (modelContext: MakerJs.IModel, pathId: string, pathContext: MakerJs.IPath) => {});
+        model.exporterOptions = { foo: 'bar' };
 	}
 
 	function testModels(): MakerJs.IModel[] {
@@ -89,19 +106,20 @@ function test() {
 			new makerjs.models.ConnectTheDots(true, [ [0,0], [1,1] ]),
 			new makerjs.models.Dome(5, 7),
 			new makerjs.models.Oval(7, 7),
-			new makerjs.models.OvalArc(6, 4, 2, 12),
+			new makerjs.models.OvalArc(6, 4, 2, 12, true),
 			new makerjs.models.Polygon(7, 5),
 			new makerjs.models.Rectangle(8, 9),
 			new makerjs.models.Ring(7, 7),
 			new makerjs.models.RoundRectangle(2, 2, 0),
 			new makerjs.models.SCurve(5, .9),
+			new makerjs.models.Slot([0, 0], [1, 1], 7),
 			new makerjs.models.Square(8),
 			new makerjs.models.Star(5, 10, 5)
 		];
 	}
 	
 	function testPath() {
-		makerjs.path.areEqual(paths.line, paths.circle);
+		makerjs.path.areEqual(paths.line, paths.circle, 4);
 		makerjs.path.breakAtPoint(paths.arc, [0,0]).type;
 		makerjs.path.dogbone(paths.line, paths.line, 7);
 		makerjs.path.fillet(paths.arc, paths.line, 4);
@@ -140,6 +158,7 @@ function test() {
 		makerjs.point.add(p1, p2);
 		makerjs.point.areEqual(p1, p2);
 		makerjs.point.areEqualRounded(p1, p2);
+		makerjs.point.average(p1, p2);
 		makerjs.point.clone(p1);
 		makerjs.point.closest([0,0], [p1, p2]);
 		makerjs.point.fromAngleOnCircle(22, paths.circle);
