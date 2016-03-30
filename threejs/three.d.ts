@@ -753,10 +753,10 @@ declare namespace THREE {
         dispose(): void;
 
         // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: any) => void ): void;
-        hasEventListener(type: string, listener: (event: any) => void): void;
-        removeEventListener(type: string, listener: (event: any) => void): void;
-        dispatchEvent(event: { type: string; target: any; }): void;
+        addEventListener(type: string, listener: (event: Event) => void ): void;
+        hasEventListener(type: string, listener: (event: Event) => void): void;
+        removeEventListener(type: string, listener: (event: Event) => void): void;
+        dispatchEvent(event: { type: string; }): void;
 
         addIndex(index: any): void; // deprecated, use setIndex()
         addAttribute(name: any, array: any, itemSize: any): any; // deprecated
@@ -860,10 +860,10 @@ declare namespace THREE {
         dispose(): void;
 
         // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: any) => void ): void;
-        hasEventListener(type: string, listener: (event: any) => void): void;
-        removeEventListener(type: string, listener: (event: any) => void): void;
-        dispatchEvent(event: { type: string; target: any; }): void;
+        addEventListener(type: string, listener: (event: Event) => void ): void;
+        hasEventListener(type: string, listener: (event: Event) => void): void;
+        removeEventListener(type: string, listener: (event: Event) => void): void;
+        dispatchEvent(event: { type: string; }): void;
     }
 
 
@@ -905,27 +905,32 @@ declare namespace THREE {
          * @param type The type of the listener that gets removed.
          * @param listener The listener function that gets removed.
          */
-        addEventListener(type: string, listener: (event: any) => void ): void;
+        addEventListener(type: string, listener: (event: Event) => void ): void;
 
         /**
          * Adds a listener to an event type.
          * @param type The type of the listener that gets removed.
          * @param listener The listener function that gets removed.
          */
-        hasEventListener(type: string, listener: (event: any) => void): void;
+        hasEventListener(type: string, listener: (event: Event) => void): void;
 
         /**
          * Removes a listener from an event type.
          * @param type The type of the listener that gets removed.
          * @param listener The listener function that gets removed.
          */
-        removeEventListener(type: string, listener: (event: any) => void): void;
+        removeEventListener(type: string, listener: (event: Event) => void): void;
 
         /**
          * Fire an event type.
          * @param type The type of event that gets fired.
          */
-        dispatchEvent(event: { type: string; target: any; }): void;
+        dispatchEvent(event: { type: string; }): void;
+    }
+
+    export interface Event {
+        type: string;
+        target: any;
     }
 
     /**
@@ -1235,10 +1240,10 @@ declare namespace THREE {
         animations: AnimationClip[];
 
         // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: any) => void ): void;
-        hasEventListener(type: string, listener: (event: any) => void): void;
-        removeEventListener(type: string, listener: (event: any) => void): void;
-        dispatchEvent(event: { type: string; target: any; }): void;
+        addEventListener(type: string, listener: (event: Event) => void ): void;
+        hasEventListener(type: string, listener: (event: Event) => void): void;
+        removeEventListener(type: string, listener: (event: Event) => void): void;
+        dispatchEvent(event: { type: string; }): void;
     }
 
     export namespace GeometryUtils { // deprecated
@@ -1611,10 +1616,10 @@ declare namespace THREE {
         copy(source: Object3D, recursive?: boolean): Object3D;
 
         // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: any) => void ): void;
-        hasEventListener(type: string, listener: (event: any) => void): void;
-        removeEventListener(type: string, listener: (event: any) => void): void;
-        dispatchEvent(event: { type: string; target: any; }): void;
+        addEventListener(type: string, listener: (event: Event) => void ): void;
+        hasEventListener(type: string, listener: (event: Event) => void): void;
+        removeEventListener(type: string, listener: (event: Event) => void): void;
+        dispatchEvent(event: { type: string; }): void;
 
         getChildByName(name: string): Object3D; // deprecated, use getObjectByName()
     }
@@ -2252,10 +2257,10 @@ declare namespace THREE {
         dispose(): void;
 
         // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: any) => void ): void;
-        hasEventListener(type: string, listener: (event: any) => void): void;
-        removeEventListener(type: string, listener: (event: any) => void): void;
-        dispatchEvent(event: { type: string; target: any; }): void;
+        addEventListener(type: string, listener: (event: Event) => void ): void;
+        hasEventListener(type: string, listener: (event: Event) => void): void;
+        removeEventListener(type: string, listener: (event: Event) => void): void;
+        dispatchEvent(event: { type: string; }): void;
     }
 
     export interface LineBasicMaterialParameters extends MaterialParameters {
@@ -4942,10 +4947,10 @@ declare namespace THREE {
         dispose(): void;
 
         // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: any) => void ): void;
-        hasEventListener(type: string, listener: (event: any) => void): void;
-        removeEventListener(type: string, listener: (event: any) => void): void;
-        dispatchEvent(event: { type: string; target: any; }): void;
+        addEventListener(type: string, listener: (event: Event) => void ): void;
+        hasEventListener(type: string, listener: (event: Event) => void): void;
+        removeEventListener(type: string, listener: (event: Event) => void): void;
+        dispatchEvent(event: { type: string; }): void;
     }
 
     export class WebGLRenderTargetCube extends WebGLRenderTarget {
@@ -5435,10 +5440,10 @@ declare namespace THREE {
         transformUv(uv: Vector): void;
 
         // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: any) => void ): void;
-        hasEventListener(type: string, listener: (event: any) => void): void;
-        removeEventListener(type: string, listener: (event: any) => void): void;
-        dispatchEvent(event: { type: string; target: any; }): void;
+        addEventListener(type: string, listener: (event: Event) => void ): void;
+        hasEventListener(type: string, listener: (event: Event) => void): void;
+        removeEventListener(type: string, listener: (event: Event) => void): void;
+        dispatchEvent(event: { type: string; }): void;
     }
 
     export class CanvasTexture extends Texture {
