@@ -16116,7 +16116,7 @@ declare module _ {
          * TValue is the type of the property values of T.
          * TResult is the type output by the ObjectIterator function
          */
-        mapValues<TValue, TResult>(callback: ObjectIterator<TValue, TResult>, thisArg?: any): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
+        mapValues<TValue, TResult>(callback: ObjectIterator<TValue, TResult>): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
 
         /**
          * @see _.mapValues
