@@ -1638,7 +1638,10 @@ declare namespace google.maps {
     }
 
     /***** Events *****/
-    export interface MapsEventListener { }
+    export interface MapsEventListener {
+        /** Removes the listener.  Equivalent to calling google.maps.event.removeListener(listener). */
+        remove(): void;
+    }
 
     export class event {
         /**
