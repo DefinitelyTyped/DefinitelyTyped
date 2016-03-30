@@ -1,7 +1,7 @@
-﻿// Type definitions for axios 0.5.2
+﻿// Type definitions for revalidator 0.3.1
 
 // Definitions by:  Jason Turner<https://github.com/brewsoftware>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module Revalidator {
     interface RevalidatorStatic {
