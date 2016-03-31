@@ -297,7 +297,7 @@ namespace TestTOwnPropsInference {
 
     class OwnPropsComponent extends React.Component<OwnProps & StateProps, {}> {
         render() {
-            return null;
+            return <div/>;
         }
     }
 
