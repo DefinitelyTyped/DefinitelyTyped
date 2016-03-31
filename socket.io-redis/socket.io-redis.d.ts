@@ -5,14 +5,15 @@
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../redis/redis.d.ts" />
-
-import { RedisClient } from 'redis';
+/// <reference path="../socket.io/socket.io.d.ts" />
 
 declare module 'socket.io-redis' {
 	var io: SocketIORedisStatic;
 
 	export = io;
 }
+
+import { RedisClient } from 'redis';
 
 interface SocketIORedisStatic {
 	/**
