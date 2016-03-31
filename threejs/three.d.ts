@@ -5939,6 +5939,21 @@ declare namespace THREE {
         };
     }
 
+    export class CylinderBufferGeometry extends BufferGeometry {
+        constructor(radiusTop?: number, radiusBottom?: number, height?: number, radialSegments?: number, heightSegments?: number, openEnded?: boolean, thetaStart?: number, thetaLength?: number);
+
+        parameters: {
+            radiusTop: number;
+            radiusBottom: number;
+            height: number;
+            radialSegments: number;
+            heightSegments: number;
+            openEnded: boolean;
+            thetaStart: number;
+            thetaLength: number;
+        };
+    }
+
     export class CylinderGeometry extends Geometry {
         /**
          * @param radiusTop — Radius of the cylinder at the top.
