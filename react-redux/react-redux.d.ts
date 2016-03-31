@@ -1,6 +1,6 @@
 // Type definitions for react-redux 4.4.0
 // Project: https://github.com/rackt/react-redux
-// Definitions by: Qubo <https://github.com/tkqubo>
+// Definitions by: Qubo <https://github.com/tkqubo>, Sean Kelley <https://github.com/seansfkelley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts" />
