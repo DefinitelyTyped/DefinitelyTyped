@@ -8008,56 +8008,6 @@ declare module _ {
         reject<W, T>(predicate: W): LoDashExplicitArrayWrapper<T>;
     }
 
-    //_.sample
-    interface LoDashStatic {
-        /**
-        * Retrieves a random element or n random elements from a collection.
-        * @param collection The collection to sample.
-        * @return Returns the random sample(s) of collection.
-        **/
-        sample<T>(collection: Array<T>): T;
-
-        /**
-        * @see _.sample
-        **/
-        sample<T>(collection: List<T>): T;
-
-        /**
-        * @see _.sample
-        **/
-        sample<T>(collection: Dictionary<T>): T;
-
-        /**
-        * @see _.sample
-        * @param n The number of elements to sample.
-        **/
-        sample<T>(collection: Array<T>, n: number): T[];
-
-        /**
-        * @see _.sample
-        * @param n The number of elements to sample.
-        **/
-        sample<T>(collection: List<T>, n: number): T[];
-
-        /**
-        * @see _.sample
-        * @param n The number of elements to sample.
-        **/
-        sample<T>(collection: Dictionary<T>, n: number): T[];
-    }
-
-    interface LoDashImplicitArrayWrapper<T> {
-        /**
-         * @see _.sample
-         **/
-        sample(n: number): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.sample
-         **/
-        sample(): LoDashImplicitWrapper<T>;
-    }
-
     //_.select
     interface LoDashStatic {
         /**
@@ -8215,6 +8165,141 @@ declare module _ {
          * @see _.filter
          */
         select<W, T>(predicate: W): LoDashExplicitArrayWrapper<T>;
+    }
+
+    //_.sample
+    interface LoDashStatic {
+        /**
+         * Gets a random element or n random elements from a collection.
+         *
+         * @param collection The collection to sample.
+         * @return Returns the random sample(s) of collection.
+         */
+        sample<T>(
+            collection: List<T>|Dictionary<T>|NumericDictionary<T>,
+            n: number
+        ): T[];
+
+        /**
+         * @see _.sample
+         */
+        sample<O extends Object, T>(
+            collection: O,
+            n: number
+        ): T[];
+
+        /**
+         * @see _.sample
+         */
+        sample<T>(
+            collection: Object,
+            n: number
+        ): T[];
+
+        /**
+         * @see _.sample
+         */
+        sample<T>(
+            collection: List<T>|Dictionary<T>|NumericDictionary<T>
+        ): T;
+
+        /**
+         * @see _.sample
+         */
+        sample<O extends Object, T>(
+            collection: O
+        ): T;
+
+        /**
+         * @see _.sample
+         */
+        sample<T>(
+            collection: Object
+        ): T;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.sample
+         */
+        sample(
+            n: number
+        ): LoDashImplicitArrayWrapper<string>;
+
+        /**
+         * @see _.sample
+         */
+        sample(): string;
+    }
+
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.sample
+         */
+        sample(
+            n: number
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sample
+         */
+        sample(): T;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.sample
+         */
+        sample<T>(
+            n: number
+        ): LoDashImplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sample
+         */
+        sample<T>(): T;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.sample
+         */
+        sample(
+            n: number
+        ): LoDashExplicitArrayWrapper<string>;
+
+        /**
+         * @see _.sample
+         */
+        sample(): LoDashExplicitWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.sample
+         */
+        sample(
+            n: number
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sample
+         */
+        sample<TWrapper>(): TWrapper;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.sample
+         */
+        sample<T>(
+            n: number
+        ): LoDashExplicitArrayWrapper<T>;
+
+        /**
+         * @see _.sample
+         */
+        sample<TWrapper>(): TWrapper;
     }
 
     //_.shuffle
@@ -9735,6 +9820,7 @@ declare module _ {
          * storing the result based on the arguments provided to the memoized function. By default, the first argument
          * provided to the memoized function is coerced to a string and used as the cache key. The func is invoked with
          * the this binding of the memoized function.
+         *
          * @param func The function to have its output memoized.
          * @param resolver The function to resolve the cache key.
          * @return Returns the new memoizing function.
@@ -9750,6 +9836,13 @@ declare module _ {
          * @see _.memoize
          */
         memoize(resolver?: Function): LoDashImplicitObjectWrapper<T & MemoizedFunction>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.memoize
+         */
+        memoize(resolver?: Function): LoDashExplicitObjectWrapper<T & MemoizedFunction>;
     }
 
     //_.modArgs
@@ -15428,6 +15521,13 @@ declare module _ {
          * @see _.noConflict
          */
         noConflict(): typeof _;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.noConflict
+         */
+        noConflict(): LoDashExplicitObjectWrapper<typeof _>;
     }
 
     //_.noop

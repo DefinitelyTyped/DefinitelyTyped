@@ -12,13 +12,13 @@ declare namespace FromNow {
     export interface FromNowStatic {
         /**
          * Get readable time differences from now vs past or future dates.
-         * @param {string} date
+         * @param {string|Date} date
          * @param {object} [opts]
          * @param {number} [opts.maxChucks=10]
          * @param {boolean} [opts.useAgo=false]
          * @param {boolean} [opts.useAnd=false]
          */
-        (date: string, opts?: FromNowOpts): string
+        (date: string|Date, opts?: FromNowOpts): string
     }
 }
 
