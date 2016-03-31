@@ -756,7 +756,7 @@ declare namespace THREE {
         addEventListener(type: string, listener: (event: Event) => void ): void;
         hasEventListener(type: string, listener: (event: Event) => void): void;
         removeEventListener(type: string, listener: (event: Event) => void): void;
-        dispatchEvent(event: { type: string; }): void;
+        dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
 
         addIndex(index: any): void; // deprecated, use setIndex()
         addAttribute(name: any, array: any, itemSize: any): any; // deprecated
@@ -863,7 +863,7 @@ declare namespace THREE {
         addEventListener(type: string, listener: (event: Event) => void ): void;
         hasEventListener(type: string, listener: (event: Event) => void): void;
         removeEventListener(type: string, listener: (event: Event) => void): void;
-        dispatchEvent(event: { type: string; }): void;
+        dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
     }
 
 
@@ -925,7 +925,7 @@ declare namespace THREE {
          * Fire an event type.
          * @param type The type of event that gets fired.
          */
-        dispatchEvent(event: { type: string; }): void;
+        dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
     }
 
     export interface Event {
@@ -1243,7 +1243,7 @@ declare namespace THREE {
         addEventListener(type: string, listener: (event: Event) => void ): void;
         hasEventListener(type: string, listener: (event: Event) => void): void;
         removeEventListener(type: string, listener: (event: Event) => void): void;
-        dispatchEvent(event: { type: string; }): void;
+        dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
     }
 
     export namespace GeometryUtils { // deprecated
@@ -1619,7 +1619,7 @@ declare namespace THREE {
         addEventListener(type: string, listener: (event: Event) => void ): void;
         hasEventListener(type: string, listener: (event: Event) => void): void;
         removeEventListener(type: string, listener: (event: Event) => void): void;
-        dispatchEvent(event: { type: string; }): void;
+        dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
 
         getChildByName(name: string): Object3D; // deprecated, use getObjectByName()
     }
@@ -2260,7 +2260,7 @@ declare namespace THREE {
         addEventListener(type: string, listener: (event: Event) => void ): void;
         hasEventListener(type: string, listener: (event: Event) => void): void;
         removeEventListener(type: string, listener: (event: Event) => void): void;
-        dispatchEvent(event: { type: string; }): void;
+        dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
     }
 
     export interface LineBasicMaterialParameters extends MaterialParameters {
@@ -4950,7 +4950,7 @@ declare namespace THREE {
         addEventListener(type: string, listener: (event: Event) => void ): void;
         hasEventListener(type: string, listener: (event: Event) => void): void;
         removeEventListener(type: string, listener: (event: Event) => void): void;
-        dispatchEvent(event: { type: string; }): void;
+        dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
     }
 
     export class WebGLRenderTargetCube extends WebGLRenderTarget {
@@ -5443,7 +5443,7 @@ declare namespace THREE {
         addEventListener(type: string, listener: (event: Event) => void ): void;
         hasEventListener(type: string, listener: (event: Event) => void): void;
         removeEventListener(type: string, listener: (event: Event) => void): void;
-        dispatchEvent(event: { type: string; }): void;
+        dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
     }
 
     export class CanvasTexture extends Texture {
