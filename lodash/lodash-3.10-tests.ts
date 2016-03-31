@@ -5003,13 +5003,6 @@ namespace TestReject {
     }
 }
 
-result = <number>_.sample([1, 2, 3, 4]);
-result = <number[]>_.sample([1, 2, 3, 4], 2);
-result = <_.LoDashImplicitWrapper<number>>_([1, 2, 3, 4]).sample();
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sample(2);
-result = <number>_([1, 2, 3, 4]).sample().value();
-result = <number[]>_([1, 2, 3, 4]).sample(2).value();
-
 // _.select
 namespace TestSelect {
     let array: TResult[];
@@ -5105,6 +5098,78 @@ namespace TestSelect {
         result = _(dictionary).chain().select<TResult>('');
         result = _(dictionary).chain().select<TResult>('', any);
         result = _(dictionary).chain().select<{a: number}, TResult>({a: 42});
+    }
+}
+
+// _.sample
+namespace TestSample {
+    let array: string[];
+    let list: _.List<string>;
+    let dictionary: _.Dictionary<string>;
+    let numericDictionary: _.NumericDictionary<string>;
+
+    {
+        let result: string;
+
+        result = _.sample('abc');
+        result = _.sample(array);
+        result = _.sample(list);
+        result = _.sample(dictionary);
+        result = _.sample(numericDictionary);
+        result = _.sample<{a: string}, string>({a: 'foo'});
+        result = _.sample<string>({a: 'foo'});
+
+        result = _('abc').sample();
+        result = _(array).sample();
+        result = _(list).sample<string>();
+        result = _(dictionary).sample<string>();
+        result = _(numericDictionary).sample<string>();
+        result = _({a: 'foo'}).sample<string>();
+    }
+
+    {
+        let result: string[];
+
+        result = _.sample('abc', 42);
+        result = _.sample(array, 42);
+        result = _.sample(list, 42);
+        result = _.sample(dictionary, 42);
+        result = _.sample(numericDictionary, 42);
+        result = _.sample<{a: string}, string>({a: 'foo'}, 42);
+        result = _.sample<string>({a: 'foo'}, 42);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _('abc').sample(42);
+        result = _(array).sample(42);
+        result = _(list).sample<string>(42);
+        result = _(dictionary).sample<string>(42);
+        result = _(numericDictionary).sample<string>(42);
+        result = _({a: 'foo'}).sample<string>(42);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<string>;
+
+        result = _('abc').chain().sample();
+        result = _(array).chain().sample<_.LoDashExplicitWrapper<string>>();
+        result = _(list).chain().sample<_.LoDashExplicitWrapper<string>>();
+        result = _(dictionary).chain().sample<_.LoDashExplicitWrapper<string>>();
+        result = _(numericDictionary).chain().sample<_.LoDashExplicitWrapper<string>>();
+        result = _({a: 'foo'}).chain().sample<_.LoDashExplicitWrapper<string>>();
+    }
+
+    {
+        let result: _.LoDashExplicitArrayWrapper<string>;
+
+        result = _('abc').chain().sample(42);
+        result = _(array).chain().sample(42);
+        result = _(list).chain().sample<string>(42);
+        result = _(dictionary).chain().sample<string>(42);
+        result = _(numericDictionary).chain().sample<string>(42);
+        result = _({a: 'foo'}).chain().sample<string>(42);
     }
 }
 
@@ -6097,20 +6162,42 @@ namespace TestFlowRight {
 
 // _.memoize
 namespace TestMemoize {
-    var testMemoizedFunction: _.MemoizedFunction;
-    var cache = <_.MapCache>testMemoizedFunction.cache;
-    interface TestMemoizedResultFn extends _.MemoizedFunction {
+    {
+        let memoizedFunction: _.MemoizedFunction;
+        let cache: _.MapCache = memoizedFunction.cache;
+    }
+
+    interface MemoizedResultFn extends _.MemoizedFunction {
         (a1: string, a2: number): boolean;
     }
-    var testMemoizeFn = (a1: string, a2: number) => a1.length > a2;
-    var testMemoizeResolverFn = (a1: string, a2: number) => a1 + a2;
-    var result: TestMemoizedResultFn;
-    result = _.memoize(testMemoizeFn);
-    result = _.memoize(testMemoizeFn, testMemoizeResolverFn);
-    result = _(testMemoizeFn).memoize().value();
-    result = _(testMemoizeFn).memoize(testMemoizeResolverFn).value();
-    result('foo', 1);
-    result.cache.get('foo1');
+
+    let memoizeFn: (a1: string, a2: number) => boolean;
+    let memoizeResolverFn: (a1: string, a2: number) => string;
+
+    {
+        let result: MemoizedResultFn;
+
+        result = _.memoize(memoizeFn);
+        result = _.memoize(memoizeFn, memoizeResolverFn);
+
+        result('foo', 1);
+        result.cache.get('foo1');
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<MemoizedResultFn>;
+
+        result = _(memoizeFn).memoize();
+        result = _(memoizeFn).memoize(memoizeResolverFn);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<MemoizedResultFn>;
+
+        result = _(memoizeFn).chain().memoize();
+        result = _(memoizeFn).chain().memoize(memoizeResolverFn);
+    }
+
     _.memoize.Cache = {
         delete: key => false,
         get: key => undefined,
@@ -10270,12 +10357,23 @@ namespace TestMixin {
 }
 
 // _.noConflict
-{
-    let result: typeof _;
-    result = _.noConflict();
-    result = _(42).noConflict();
-    result = _<any>([]).noConflict();
-    result = _({}).noConflict();
+namespace TestNoConflict {
+    {
+        let result: typeof _;
+
+        result = _.noConflict();
+        result = _(42).noConflict();
+        result = _<any>([]).noConflict();
+        result = _({}).noConflict();
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<typeof _>;
+
+        result = _(42).chain().noConflict();
+        result = _<any>([]).chain().noConflict();
+        result = _({}).chain().noConflict();
+    }
 }
 
 // _.noop
