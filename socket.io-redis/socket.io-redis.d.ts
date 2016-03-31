@@ -1,4 +1,4 @@
-// Type definitions for socket.io-redis 1.
+// Type definitions for socket.io-redis 1.0.0
 // Project: https://github.com/socketio/socket.io-redis
 // Definitions by: Philipp Holzer <https://github.com/nupplaphil/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,7 +6,7 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../redis/redis.d.ts" />
 
-import { RedisClient } from "redis";
+import { RedisClient } from 'redis';
 
 declare module 'socket.io-redis' {
 	var io: SocketIORedisStatic;
