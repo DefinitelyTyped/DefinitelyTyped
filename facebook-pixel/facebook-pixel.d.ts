@@ -23,9 +23,6 @@ declare module facebook.Pixel {
         (eventType:string, eventName:string, parameters:facebook.Pixel.DPA.AddToCartParameters):void;
         (eventType:string, eventName:string, parameters:facebook.Pixel.DPA.PurchaseParameters):void;
         (eventType:string, eventName:string, parameters:facebook.Pixel.DPA.ViewContentParameters):void;
-
-        // custom event
-        //(eventType:string, eventName:string, parameters:any):void;
     }
 
 
