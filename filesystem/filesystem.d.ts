@@ -1,7 +1,7 @@
-// Type Definitions for File API: Directories and System (File System API)
+// Type definitions for File System API
 // Project: http://www.w3.org/TR/file-system-api/
 // Definitions by: Kon <http://phyzkit.net/> 
-// Definitions: https://github.com/borisyankov/DefinitelyTyped 
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped 
 
 /// <reference path="../filewriter/filewriter.d.ts" />
 
@@ -88,12 +88,12 @@ interface Flags {
     /**
      * Used to indicate that the user wants to create a file or directory if it was not previously there.
      */
-    create?:bool;
+    create?:boolean;
 
     /**
      * By itself, exclusive must have no effect. Used with create, it must cause getFile and getDirectory to fail if the target path already exists.
      */
-    exclusive?:bool;
+    exclusive?:boolean;
 }
 
 /** 
@@ -110,7 +110,7 @@ interface FileSystem{
      * The root directory of the file system.
      * @readonly
      */
-    root:any;
+    root: DirectoryEntry;
 }
 
 interface Entry {
@@ -118,12 +118,12 @@ interface Entry {
     /**
      * Entry is a file.
      */
-    isFile:bool;
+    isFile:boolean;
 
     /**
      * Entry is a directory.
      */
-    isDirectory:bool;
+    isDirectory:boolean;
 
     /**
      * Look up metadata about this entry.
@@ -161,7 +161,7 @@ interface Entry {
      * A move of a file on top of an existing file must attempt to delete and replace that file.
      * A move of a directory on top of an existing empty directory must attempt to delete and replace that directory.
      */
-    moveTo(parent:DirectoryEntry, newName?:string, successCallback?:EntryCallback, errorCallback?:ErrorCallback):string;
+    moveTo(parent:DirectoryEntry, newName?:string, successCallback?:EntryCallback, errorCallback?:ErrorCallback):void;
     
     /**
      * Copy an entry to a different location on the file system. It is an error to try to:
@@ -178,7 +178,7 @@ interface Entry {
      *
      * Directory copies are always recursive--that is, they copy all contents of the directory.
      */
-    copyTo(parent:DirectoryEntry, newName?:string, successCallback?:EntryCallback, errorCallback?:ErrorCallback):string;
+    copyTo(parent:DirectoryEntry, newName?:string, successCallback?:EntryCallback, errorCallback?:ErrorCallback):void;
     
     /**
      * Returns a URL that can be used to identify this entry. Unlike the URN defined in [FILE-API-ED], it has no specific expiration; as it describes a location on disk, it should be valid at least as long as that location exists.
@@ -197,7 +197,7 @@ interface Entry {
      * @param successCallback A callback that is called to return the parent Entry.
      * @param errorCallback A callback that is called when errors happen.
      */
-    getParent(successCallback:EntryCallback, errorCallback?:ErrorCallback):void;
+    getParent(successCallback:DirectoryEntryCallback, errorCallback?:ErrorCallback):void;
 }
 
 /**
@@ -223,7 +223,7 @@ interface DirectoryEntry extends Entry {
      * @param successCallback A callback that is called to return the File selected or created.
      * @param errorCallback A callback that is called when errors happen.
      */
-    getFile(path:string, options?:Flags, successCallback?:EntryCallback, errorCallback?:ErrorCallback):void;
+    getFile(path:string, options?:Flags, successCallback?:FileEntryCallback, errorCallback?:ErrorCallback):void;
     
     /**
      * Creates or looks up a directory.
@@ -240,7 +240,7 @@ interface DirectoryEntry extends Entry {
      * @param errorCallback A callback that is called when errors happen.
      * 
      */
-    getDirectory(path:string, options?:Flags, successCallback?:EntryCallback, errorCallback?:ErrorCallback):void;
+    getDirectory(path:string, options?:Flags, successCallback?:DirectoryEntryCallback, errorCallback?:ErrorCallback):void;
     
     /**
      * Deletes a directory and all of its contents, if any. In the event of an error [e.g. trying to delete a directory that contains a file that cannot be removed], some of the contents of the directory may be deleted. It is an error to attempt to delete the root directory of a filesystem.
@@ -305,6 +305,26 @@ interface EntryCallback {
      * @param entry
      */
     (entry:Entry):void;
+}
+
+/**
+ * This interface is the callback used to look up FileEntry objects.
+ */
+interface FileEntryCallback {
+    /**
+     * @param entry
+     */
+    (entry:FileEntry):void;
+}
+
+/**
+ * This interface is the callback used to look up DirectoryEntry objects.
+ */
+interface DirectoryEntryCallback {
+    /**
+     * @param entry
+     */
+    (entry:DirectoryEntry):void;
 }
 
 /**
@@ -373,13 +393,13 @@ interface EntrySync{
      * EntrySync is a file.
      * @readonly
      */
-    isFile:bool;
+    isFile:boolean;
 
     /**
      * EntrySync is a directory.
      * @readonly
      */
-    isDirectory:bool;
+    isDirectory:boolean;
 
     /**
      * Look up metadata about this entry.

@@ -1,3 +1,8 @@
+// Type definitions for logg
+// Project: https://github.com/dpup/node-logg
+// Definitions by: Bret Little <https://github.com/blittle/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 interface Logger {
     setLogLevel: (level: number)=> void;
     getLogLevel: ()=> number;
@@ -10,7 +15,7 @@ interface Logger {
     info: (...var_args: any[])=> void;
     warn: (...var_args: any[])=> void;
     error: (...var_args: any[])=> void;
-    isLoggable: (level: number)=> bool;
+    isLoggable: (level: number)=> boolean;
 }
 
 interface loggingLevels {

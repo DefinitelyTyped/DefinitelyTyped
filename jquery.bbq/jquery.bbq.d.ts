@@ -1,11 +1,11 @@
 // Type definitions for jquery.bbq 1.2
 // Project: http://benalman.com/projects/jquery-bbq-plugin/
 // Definitions by: Adam R. Smith <https://github.com/sunetos>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-module JQueryBbq {
+declare namespace JQueryBbq {
 
     interface JQuery {
         /**
@@ -29,9 +29,9 @@ module JQueryBbq {
         * @name key An optional state key for which to return a value.
         * @name coerce If true, coerces any numbers or true, false, null, and undefined to their actual value. Defaults to false
         */
-        getState(key?: string, coerce?: bool): any;
+        getState(key?: string, coerce?: boolean): any;
 
-        getState(coerce?: bool): any;
+        getState(coerce?: boolean): any;
 
         /**
         * Remove one or more keys from the current browser history 'state', creating
@@ -62,10 +62,10 @@ module JQueryBbq {
 
         /**
         * TODO: DESCRIBE
-        * 
+        *
         * @name state TODO: DESCRIBE
         */
-        ajaxCrawlable(state?: bool): bool;
+        ajaxCrawlable(state?: boolean): boolean;
     }
 
     interface JQueryDeparam {
@@ -73,38 +73,38 @@ module JQueryBbq {
         * Deserialize a params string into an object, optionally coercing numbers,
         * booleans, null and undefined values; this method is the counterpart to the
         * internal jQuery.param method.
-        * 
+        *
         * @name params A params string to be parsed.
         * @name coerce If true, coerces any numbers or true, false, null, and undefined to their actual value. Defaults to false if omitted.
         */
-        (params: string, coerce?: bool): any;
+        (params: string, coerce?: boolean): any;
 
 
         /**
         * Parse the query string from a URL or the current window.location.href,
         * deserializing it into an object, optionally coercing numbers, booleans,
         * null and undefined values.
-        * 
+        *
         * @name url An optional params string or URL containing query string params to be parsed. If url is omitted, the current window.location.href is used.
         * @name coerce If true, coerces any numbers or true, false, null, and undefined to their actual value. Defaults to false if omitted.
         */
-        querystring(url?: string, coerce?: bool): any;
+        querystring(url?: string, coerce?: boolean): any;
 
         /**
         * Parse the fragment (hash) from a URL or the current window.location.href,
         * deserializing it into an object, optionally coercing numbers, booleans,
         * null and undefined values.
-        * 
+        *
         * @name url An optional params string or URL containing fragment (hash) params to be parsed. If url is omitted, the current window.location.href is used.
         * @name coerce If true, coerces any numbers or true, false, null, and undefined to their actual value. Defaults to false if omitted.
         */
-        fragment(url?: string, coerce?: bool): any;
+        fragment(url?: string, coerce?: boolean): any;
     }
 
-    interface EventObject extends JQueryEventObject { 
+    interface EventObject extends JQueryEventObject {
         fragment: string;
 
-        getState( key?: string, coerce? :bool );
+        getState(key?: string, coerce?: boolean);
     }
 }
 
@@ -113,26 +113,26 @@ interface JQueryParam {
     * Parse the query string from a URL or the current window.location.href,
     * deserializing it into an object, optionally coercing numbers, booleans,
     * null and undefined values.
-    * 
+    *
     * @name url An optional params string or URL containing query string params to be parsed. If url is omitted, the current window.location.href is used.
     * @name coerce (Boolean) If true, coerces any numbers or true, false, null, and undefined to their actual value. Defaults to false if omitted.
-    * @name merge_mode An object representing the deserialized params string. 
+    * @name merge_mode An object representing the deserialized params string.
     */
-    querystring(url?: string, coerce?: bool, merge_mode?: number): string;
+    querystring(url?: string, coerce?: boolean, merge_mode?: number): string;
 
     querystring(url?: string, coerce?: any, merge_mode?: number): string;
 
     fragment: JQueryBbq.ParamFragment;
 
-    /** 
+    /**
     * Returns a params string equivalent to that returned by the internal
     * jQuery.param method, but sorted, which makes it suitable for use as a
     * cache key.
-    * 
+    *
     * @name obj An object to be serialized.
     * @name traditional Params deep/shallow serialization mode. See the documentation at http://api.jquery.com/jQuery.param/ for more detail.
     */
-    sorted(obj: any, traditional?: bool): string;
+    sorted(obj: any, traditional?: boolean): string;
 }
 
 interface JQueryStatic {
@@ -143,7 +143,7 @@ interface JQueryStatic {
     /**
     * Get the internal "Default URL attribute per tag" list, or augment the list
     * with additional tag-attribute pairs, in case the defaults are insufficient.
-    * 
+    *
     * @name tag_attr An object containing a list of tag names and their associated default attribute names in the format { tag: 'attr', ... } to be merged into the internal tag-attribute list.
     */
     elemUrlAttr(tag_attr?: any): any;

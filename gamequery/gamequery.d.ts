@@ -1,7 +1,7 @@
 // Type definitions for gameQuery 0.7.0
 // Project: http://gamequeryjs.com/
 // Definitions by: David Laubreiter <https://github.com/Laubi/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
@@ -9,10 +9,10 @@ interface PlaygroundOptions{
     height?: number;
     width?: number;
     refreshRate?: number;
-    keyTracker?: bool;
-    mouseTracker?: bool;
+    keyTracker?: boolean;
+    mouseTracker?: boolean;
     position?: string;
-    disableCollision?: bool;
+    disableCollision?: boolean;
 }
 
 interface Coordinate3D{
@@ -87,7 +87,7 @@ interface GameQuery {
 
     Animation: Animation;
 
-    keyTracker: bool[];
+    keyTracker: boolean[];
 
     spriteCssClass: string;
     groupCssClass: string;
@@ -108,40 +108,40 @@ interface JQuery{
     
     registerCallback(callback: () => void , rate: number): JQuery;
     registerCallback(callback: () => number , rate: number): JQuery;
-    registerCallback(callback: () => bool , rate: number): JQuery;
+    registerCallback(callback: () => boolean , rate: number): JQuery;
     
     clearScenegraph(): JQuery;
-    clearAll(clearCallbacks?: bool): JQuery;
+    clearAll(clearCallbacks?: boolean): JQuery;
 
     loadCallback(callback: (percent: number) => void ): JQuery;
 
-    rotate(angle: number, relative?: bool): JQuery;
-    scale(ratio: number, relative?: bool): JQuery;
-    flipv(flip?: bool): JQuery;
-    fliph(flip?: bool): JQuery;
+    rotate(angle: number, relative?: boolean): JQuery;
+    scale(ratio: number, relative?: boolean): JQuery;
+    flipv(flip?: boolean): JQuery;
+    fliph(flip?: boolean): JQuery;
 
-    xyz(x: number, y: number, z: number, relative?: bool): JQuery;
+    xyz(x: number, y: number, z: number, relative?: boolean): JQuery;
     xyz(): Coordinate3D;
 
-    xy(x: number, y: number, relative?: bool): JQuery;
+    xy(x: number, y: number, relative?: boolean): JQuery;
     xy(): Coordinate3D;
 
-    x(value: number, relative?: bool): JQuery;
+    x(value: number, relative?: boolean): JQuery;
     x(): number;
 
-    y(value: number, relative?: bool): JQuery;
+    y(value: number, relative?: boolean): JQuery;
     y(): number;
 
-    z(value: number, relative?: bool): JQuery;
+    z(value: number, relative?: boolean): JQuery;
     z(): number;
 
-    wh(width: number, height: number, relative?: bool): JQuery;
+    wh(width: number, height: number, relative?: boolean): JQuery;
     wh(): Size;
 
-    w(value: number, relative?: bool): JQuery;
+    w(value: number, relative?: boolean): JQuery;
     w(): number;
 
-    h(value: number, relative?: bool): JQuery;
+    h(value: number, relative?: boolean): JQuery;
     h(): number;
 
     addSprite(name: string, options: SpriteOptions): JQuery;

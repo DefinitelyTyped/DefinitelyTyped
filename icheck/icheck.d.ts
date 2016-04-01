@@ -1,9 +1,9 @@
 // Type definitions for iCheck v0.8
 // Project: http://damirfoy.com/iCheck/
-// Definitions by: Dániel Tar https://github.com/qcz
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Dániel Tar <https://github.com/qcz>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare interface ICheckOptions {
+interface ICheckOptions {
 	/**
 	* 'checkbox' or 'radio' to style only checkboxes or radio buttons, both by default
 	*/
@@ -79,7 +79,7 @@ declare interface ICheckOptions {
 	/**
 	* Adds hoverClass to customized input on label hover and labelHoverClass to label on input hover
 	*/
-	labelHover?: bool;
+	labelHover?: boolean;
 	/**
 	* Class added to label if labelHover set to true
 	*/
@@ -91,22 +91,22 @@ declare interface ICheckOptions {
 	/**
 	* True to set 'pointer' CSS cursor over enabled inputs and 'default' over disabled
 	*/
-	cursor?: bool;
+	cursor?: boolean;
 	/**
 	* Set true to inherit original input's class name
 	*/
-	inheritClass?: bool;
+	inheritClass?: boolean;
 	/**
 	* If set to true, input's id is prefixed with 'iCheck-' and attached
 	*/
-	inheritID?: bool;
+	inheritID?: boolean;
 	/**
 	* Add HTML code or text inside customized input
 	*/
 	insert?: string;
 }
 
-declare interface JQuery {
+interface JQuery {
 	iCheck(options?: ICheckOptions): JQuery;
-	iCheck(command: string): void;
+	iCheck(command: string, callback?: () => void): void;
 }

@@ -47,9 +47,9 @@ var
             i;
 
         for (i = 0; i < 3; i++) {
-            upcoming = gallery.masterPages[i].dataset.upcomingPageIndex;
+            upcoming = (<any>gallery.masterPages[i].dataset).upcomingPageIndex;
 
-            if (upcoming != gallery.masterPages[i].dataset.pageIndex) {
+            if (upcoming != (<any>gallery.masterPages[i].dataset).pageIndex) {
                 el = gallery.masterPages[i].querySelector('img');
                 el.className = 'loading';
                 el.src = slides[upcoming].img;
@@ -104,9 +104,9 @@ var carousel: SwipeView,
             i;
 
         for (i = 0; i < 3; i++) {
-            upcoming = carousel.masterPages[i].dataset.upcomingPageIndex;
+            upcoming = (<any>carousel.masterPages[i].dataset).upcomingPageIndex;
 
-            if (upcoming != carousel.masterPages[i].dataset.pageIndex) {
+            if (upcoming != (<any>carousel.masterPages[i].dataset).pageIndex) {
                 el = carousel.masterPages[i].querySelector('span');
                 el.innerHTML = slides[upcoming];
             }
@@ -216,8 +216,8 @@ function demo3() {
                     ereader.slider.removeChild(container);
 
                     ereader.updatePageCount(pages.length);
-                    ereader.masterPages[0].dataset.pageIndex = pages.length - 1;
-                    ereader.masterPages[0].dataset.upcomingPageIndex = ereader.masterPages[0].dataset.pageIndex;
+                    (<any>ereader.masterPages[0].dataset).pageIndex = pages.length - 1;
+                    (<any>ereader.masterPages[0].dataset).upcomingPageIndex = (<any>ereader.masterPages[0].dataset).pageIndex;
 
                     // Load initial data
                     for (i = 0; i < 3; i++) {
@@ -240,9 +240,9 @@ function demo3() {
                 i;
 
             for (i = 0; i < 3; i++) {
-                upcoming = ereader.masterPages[i].dataset.upcomingPageIndex;
+                upcoming = (<any>ereader.masterPages[i].dataset).upcomingPageIndex;
 
-                if (upcoming != ereader.masterPages[i].dataset.pageIndex) {
+                if (upcoming != (<any>ereader.masterPages[i].dataset).pageIndex) {
                     el = ereader.masterPages[i].querySelector('div');
                     el.innerHTML = pages[upcoming];
                 }

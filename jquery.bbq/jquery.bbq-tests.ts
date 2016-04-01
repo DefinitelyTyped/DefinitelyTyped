@@ -112,7 +112,7 @@ var params_obj = { a:['4','5','6'], b:{x:['7'], y:'8', z:['9','0','true','false'
   params_obj_bang_coerce = { "!a":[4], a:[5,6] };//, b:{x:[7], y:8, z:[9,0,true,false,undefined,'']}, c:1 };
 
 test( 'jQuery.param.sorted', function() {
-  var tests = [
+  var tests: any[] = [
     {
       obj: {z:1,b:2,ab:3,bc:4,ba:5,aa:6,a1:7,x:8},
       traditional: false,
@@ -149,7 +149,7 @@ test( 'jQuery.param.sorted', function() {
   
   expect( tests.length * 2 + 6 );
   
-  $.each( tests, function(i,test){
+  $.each( tests, function(i,test: any){
     var unsorted = $.param( test.obj, test.traditional ),
       sorted = $.param.sorted( test.obj, test.traditional );
     
@@ -587,7 +587,7 @@ QUnit.module( 'jQuery.fn' );
 $.elemUrlAttr({ span: 'arbitrary_attr' });
 var test_elems = 'a form link span'.split(' ');
 
-function init_url_attr( container, url ) {
+function init_url_attr( _, url ) {
   var container = $('<div/>').hide().appendTo('body');
   $.each( test_elems, function(i,v){
     $('<' + v + '/>')

@@ -1,8 +1,7 @@
 /// <reference path="../../jasmine/jasmine.d.ts" />
+/// <reference path="jasmine.extensions.d.ts" />
 /// <reference path="../knockout.d.ts" />
 /// <reference path="../../knockout.mapping/knockout.mapping.d.ts" />
-
-declare var $;
 
 var dummyTemplateEngine = function (templates?) {
     var inMemoryTemplates = templates || {};
@@ -137,7 +136,7 @@ describe('Templating', function() {
     });
 
     it('Should automatically rerender into DOM element when dependencies change', function () {
-        var dependency = new ko.observable("A");
+        var dependency = ko.observable("A");
         ko.setTemplateEngine(new dummyTemplateEngine({ someTemplate: function () {
             return "Value = " + dependency();
         }
@@ -153,7 +152,7 @@ describe('Templating', function() {
     });
 
     it('Should not rerender DOM element if observable accessed in \'afterRender\' callaback is changed', function () {
-        var observable = new ko.observable("A"), count = 0;
+        var observable = ko.observable("A"), count = 0;
         var myCallback = function(elementsArray, dataItem) {
             observable();   // access observable in callback
         };
@@ -171,7 +170,7 @@ describe('Templating', function() {
     });
 
     it('If the supplied data item is observable, evaluates it and has subscription on it', function () {
-        var observable = new ko.observable("A");
+        var observable = ko.observable("A");
         ko.setTemplateEngine(new dummyTemplateEngine({ someTemplate: function (data) {
             return "Value = " + data;
         }
@@ -184,7 +183,7 @@ describe('Templating', function() {
     });
 
     it('Should stop updating DOM nodes when the dependency next changes if the DOM node has been removed from the document', function () {
-        var dependency = new ko.observable("A");
+        var dependency = ko.observable("A");
         var template = { someTemplate: function () { return "Value = " + dependency() } };
         ko.setTemplateEngine(new dummyTemplateEngine(template));
 
@@ -275,7 +274,7 @@ describe('Templating', function() {
     });
 
     it('Should rerender chained templates when their dependencies change, without rerendering parent templates', function () {
-        var observable = new ko.observable("ABC");
+        var observable = ko.observable("ABC");
         var timesRenderedOuter = 0, timesRenderedInner = 0;
         ko.setTemplateEngine(new dummyTemplateEngine({
             outerTemplate: function () { timesRenderedOuter++; return "outer template output, [renderTemplate:innerTemplate]" }, // [renderTemplate:...] is special syntax supported by dummy template engine
@@ -365,11 +364,11 @@ describe('Templating', function() {
         // and external (non-rewritten) ones
         var originalBindingProvider = ko.bindingProvider.instance;
         ko.bindingProvider.instance = {
-            nodeHasBindings: function(node, bindingContext) {
-                return (node.tagName == 'EM') || originalBindingProvider.nodeHasBindings(node, bindingContext);
+            nodeHasBindings: function(node) {
+                return ((<Element>node).tagName == 'EM') || originalBindingProvider.nodeHasBindings(node);
             },
             getBindings: function(node, bindingContext) {
-                if (node.tagName == 'EM')
+                if ((<Element>node).tagName == 'EM')
                     return { text: ++model.numBindings };
                 return originalBindingProvider.getBindings(node, bindingContext);
             }
@@ -390,7 +389,7 @@ describe('Templating', function() {
     });
 
     it('Data binding syntax should support \'foreach\' option, whereby it renders for each item in an array but doesn\'t rerender everything if you push or splice', function () {
-        var myArray = new ko.observableArray([{ personName: "Bob" }, { personName: "Frank"}]);
+        var myArray = ko.observableArray([{ personName: "Bob" }, { personName: "Frank"}]);
         ko.setTemplateEngine(new dummyTemplateEngine({ itemTemplate: "<div>The item is [js: personName]</div>" }));
         testNode.innerHTML = "<div data-bind='template: { name: \"itemTemplate\", foreach: myCollection }'></div>";
 
@@ -406,7 +405,7 @@ describe('Templating', function() {
     });
 
     it('Data binding \'foreach\' option should apply bindings within the context of each item in the array', function () {
-        var myArray = new ko.observableArray([{ personName: "Bob" }, { personName: "Frank"}]);
+        var myArray = ko.observableArray([{ personName: "Bob" }, { personName: "Frank"}]);
         ko.setTemplateEngine(new dummyTemplateEngine({ itemTemplate: "The item is <span data-bind='text: personName'></span>" }));
         testNode.innerHTML = "<div data-bind='template: { name: \"itemTemplate\", foreach: myCollection }'></div>";
 
@@ -479,7 +478,7 @@ describe('Templating', function() {
     });
 
     it('Data binding \'foreach\' option should apply bindings with an $index in the context', function () {
-        var myArray = new ko.observableArray([{ personName: "Bob" }, { personName: "Frank"}]);
+        var myArray = ko.observableArray([{ personName: "Bob" }, { personName: "Frank"}]);
         ko.setTemplateEngine(new dummyTemplateEngine({ itemTemplate: "The item # is <span data-bind='text: $index'></span>" }));
         testNode.innerHTML = "<div data-bind='template: { name: \"itemTemplate\", foreach: myCollection }'></div>";
 
@@ -488,7 +487,7 @@ describe('Templating', function() {
     });
 
     it('Data binding \'foreach\' option should update bindings that reference an $index if the list changes', function () {
-        var myArray = new ko.observableArray([{ personName: "Bob" }, { personName: "Frank"}]);
+        var myArray = ko.observableArray([{ personName: "Bob" }, { personName: "Frank"}]);
         ko.setTemplateEngine(new dummyTemplateEngine({ itemTemplate: "The item <span data-bind='text: personName'></span>is <span data-bind='text: $index'></span>" }));
         testNode.innerHTML = "<div data-bind='template: { name: \"itemTemplate\", foreach: myCollection }'></div>";
 
@@ -504,7 +503,7 @@ describe('Templating', function() {
     });
 
     it('Data binding \'foreach\' option should accept array with "undefined" and "null" items', function () {
-        var myArray = new ko.observableArray([undefined, null]);
+        var myArray = ko.observableArray([undefined, null]);
         ko.setTemplateEngine(new dummyTemplateEngine({ itemTemplate: "The item is <span data-bind='text: String($data)'></span>" }));
         testNode.innerHTML = "<div data-bind='template: { name: \"itemTemplate\", foreach: myCollection }'></div>";
 
@@ -513,8 +512,8 @@ describe('Templating', function() {
     });
 
     it('Data binding \'foreach\' option should update DOM nodes when a dependency of their mapping function changes', function() {
-        var myObservable = new ko.observable("Steve");
-        var myArray = new ko.observableArray([{ personName: "Bob" }, { personName: myObservable }, { personName: "Another" }]);
+        var myObservable = ko.observable("Steve");
+        var myArray = ko.observableArray([{ personName: "Bob" }, { personName: myObservable }, { personName: "Another" }]);
         ko.setTemplateEngine(new dummyTemplateEngine({ itemTemplate: "<div>The item is [js: ko.utils.unwrapObservable(personName)]</div>" }));
         testNode.innerHTML = "<div data-bind='template: { name: \"itemTemplate\", foreach: myCollection }'></div>";
 
@@ -535,7 +534,7 @@ describe('Templating', function() {
     });
 
     it('Data binding \'foreach\' option should treat a null parameter as meaning \'no items\'', function() {
-        var myArray = new ko.observableArray(["A", "B"]);
+        var myArray = ko.observableArray(["A", "B"]);
         ko.setTemplateEngine(new dummyTemplateEngine({ itemTemplate: "hello" }));
         testNode.innerHTML = "<div data-bind='template: { name: \"itemTemplate\", foreach: myCollection }'></div>";
 
@@ -551,7 +550,7 @@ describe('Templating', function() {
     it('Data binding \'foreach\' option should accept an \"as\" option to define an alias for the iteration variable', function() {
         // Note: There are more detailed specs (e.g., covering nesting) associated with the "foreach" binding which
         // uses this templating functionality internally.
-        var myArray = new ko.observableArray(["A", "B"]);
+        var myArray = ko.observableArray(["A", "B"]);
         ko.setTemplateEngine(new dummyTemplateEngine({ itemTemplate: "[js:myAliasedItem]" }));
         testNode.innerHTML = "<div data-bind='template: { name: \"itemTemplate\", foreach: myCollection, as: \"myAliasedItem\" }'></div>";
 
@@ -561,7 +560,7 @@ describe('Templating', function() {
 
     it('Data binding \'foreach\' option should stop tracking inner observables when the container node is removed', function() {
         var innerObservable = ko.observable("some value");
-        var myArray = new ko.observableArray([{obsVal:innerObservable}, {obsVal:innerObservable}]);
+        var myArray = ko.observableArray([{obsVal:innerObservable}, {obsVal:innerObservable}]);
         ko.setTemplateEngine(new dummyTemplateEngine({ itemTemplate: "The item is [js: ko.utils.unwrapObservable(obsVal)]" }));
         testNode.innerHTML = "<div data-bind='template: { name: \"itemTemplate\", foreach: myCollection }'></div>";
 
@@ -574,7 +573,7 @@ describe('Templating', function() {
 
     it('Data binding \'foreach\' option should stop tracking inner observables related to each array item when that array item is removed', function() {
         var innerObservable = ko.observable("some value");
-        var myArray = new ko.observableArray([{obsVal:innerObservable}, {obsVal:innerObservable}]);
+        var myArray = ko.observableArray([{obsVal:innerObservable}, {obsVal:innerObservable}]);
         ko.setTemplateEngine(new dummyTemplateEngine({ itemTemplate: "The item is [js: ko.utils.unwrapObservable(obsVal)]" }));
         testNode.innerHTML = "<div data-bind='template: { name: \"itemTemplate\", foreach: myCollection }'></div>";
 
@@ -588,7 +587,7 @@ describe('Templating', function() {
     });
 
     it('Data binding syntax should omit any items whose \'_destroy\' flag is set (unwrapping the flag if it is observable)', function() {
-        var myArray = new ko.observableArray([{ someProp: 1 }, { someProp: 2, _destroy: 'evals to true' }, { someProp : 3 }, { someProp: 4, _destroy: ko.observable(false) }]);
+        var myArray = ko.observableArray([{ someProp: 1 }, { someProp: 2, _destroy: 'evals to true' }, { someProp : 3 }, { someProp: 4, _destroy: ko.observable(false) }]);
         ko.setTemplateEngine(new dummyTemplateEngine({ itemTemplate: "<div>someProp=[js: someProp]</div>" }));
         testNode.innerHTML = "<div data-bind='template: { name: \"itemTemplate\", foreach: myCollection }'></div>";
 
@@ -597,7 +596,7 @@ describe('Templating', function() {
     });
 
     it('Data binding syntax should include any items whose \'_destroy\' flag is set if you use includeDestroyed', function() {
-        var myArray = new ko.observableArray([{ someProp: 1 }, { someProp: 2, _destroy: 'evals to true' }, { someProp : 3 }]);
+        var myArray = ko.observableArray([{ someProp: 1 }, { someProp: 2, _destroy: 'evals to true' }, { someProp : 3 }]);
         ko.setTemplateEngine(new dummyTemplateEngine({ itemTemplate: "<div>someProp=[js: someProp]</div>" }));
         testNode.innerHTML = "<div data-bind='template: { name: \"itemTemplate\", foreach: myCollection, includeDestroyed: true }'></div>";
 
@@ -677,7 +676,7 @@ describe('Templating', function() {
     });
 
     it('Should be able to render a different template for each array entry by passing a function as template name, with the array entry\'s binding context available as a second parameter', function() {
-        var myArray = new ko.observableArray([
+        var myArray = ko.observableArray([
             { preferredTemplate: 1, someProperty: 'firstItemValue' },
             { preferredTemplate: 2, someProperty: 'secondItemValue' }
         ]);
@@ -700,7 +699,7 @@ describe('Templating', function() {
     it('Data binding \'templateOptions\' should be passed to template', function() {
         var myModel = {
             someAdditionalData: { myAdditionalProp: "someAdditionalValue" },
-            people: new ko.observableArray([
+            people: ko.observableArray([
                 { name: "Alpha" },
                 { name: "Beta" }
             ])

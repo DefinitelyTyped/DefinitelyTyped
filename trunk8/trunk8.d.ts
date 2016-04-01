@@ -1,7 +1,7 @@
 // Type definitions for trunk8
 // Project: https://github.com/rviscomi/trunk8
 // Definitions by: Blake Niemyjski <https://github.com/niemyjski/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
@@ -25,7 +25,7 @@ interface Trunk8Options {
     (Default: true) When true, the title attribute of the targeted HTML element will be set to the original, untruncated string. Valid values include true and false.
     @param {bool} tooltip
     */
-    tooltip?: bool;
+    tooltip?: boolean;
     /**
     (Default: 'auto') The width, in characters, of the desired text. When set to 'auto', trunk8 will maximize the amount of text without spilling over.
     @param {string} width

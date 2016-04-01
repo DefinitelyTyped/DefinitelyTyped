@@ -1,71 +1,82 @@
-// Type definitions for Bootstrap 2.2
+// Type definitions for Bootstrap 3.3.5
 // Project: http://twitter.github.com/bootstrap/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
 interface ModalOptions {
-    backdrop?: bool;
-    keyboard?: bool;
-    show?: bool;
+    backdrop?: boolean|string;
+    keyboard?: boolean;
+    show?: boolean;
     remote?: string;
 }
 
 interface ModalOptionsBackdropString {
     backdrop?: string; // for "static"
-    keyboard?: bool;
-    show?: bool;
+    keyboard?: boolean;
+    show?: boolean;
     remote?: string;
 }
 
 interface ScrollSpyOptions {
     offset?: number;
+    target?: string;
 }
 
 interface TooltipOptions {
-    animation?: bool;
-    html?: bool;
-    placement?: any;
+    animation?: boolean;
+    html?: boolean;
+    placement?: string | Function;
     selector?: string;
-    title?: any;
+    title?: string | Function;
     trigger?: string;
-    delay?: any;
+    template?: string;
+    delay?: number | Object;
+    container?: string | boolean;
+    viewport?: string | Function | Object;
 }
 
 interface PopoverOptions {
-    animation?: bool;
-    html?: bool;
-    placement?: any;
+    animation?: boolean;
+    html?: boolean;
+    placement?: string | Function;
     selector?: string;
     trigger?: string;
-    title?: any;
+    title?: string | Function;
+    template?: string;
     content?: any;
-    delay?: any;   
+    delay?: number | Object;
+    container?: string | boolean;
+    viewport?: string | Function | Object;
 }
 
 interface CollapseOptions {
     parent?: any;    
-    toggle?: bool;
+    toggle?: boolean;
 }
 
 interface CarouselOptions {
     interval?: number;
     pause?: string;
+    wrap?: boolean;
+    keybord?: boolean;
 }
 
 interface TypeaheadOptions {
     source?: any;
     items?: number;
     minLength?: number;
-    matcher?: () => any;
-    sorter?: () => any;
-    highlighter?: () => any;
+    matcher?: (item: any) => boolean;
+    sorter?: (items: any[]) => any[];
+    updater?: (item: any) => any;
+    highlighter?: (item: any) => string;
 }
 
 interface AffixOptions {
-    offset?: any;
+    offset?: number | Function | Object;
+    target?: any;
 }
 
 interface JQuery {
@@ -103,4 +114,7 @@ interface JQuery {
     typeahead(options?: TypeaheadOptions): JQuery;
 
     affix(options?: AffixOptions): JQuery;
+}
+
+declare module "bootstrap" {
 }

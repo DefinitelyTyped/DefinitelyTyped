@@ -1,7 +1,7 @@
 ﻿/// <reference path="azure.d.ts" />
 
 
-import Azure = module("azure");
+import Azure = require("azure");
 
 var ts = new Azure.TableService();
 
@@ -10,4 +10,13 @@ ts.createTable("babbsies", function (error, table) {
         function () {
             ts.deleteEntity(table.TableName, { PartitionKey: "Midwest", RowKey: "1" });
         });
+});
+
+Azure.RoleEnvironment.on('stopping', () => {
+});
+
+Azure.RoleEnvironment.getDeploymentId((error, id) => { 
+});
+
+Azure.RoleEnvironment.isAvailable((error, available) => { 
 });

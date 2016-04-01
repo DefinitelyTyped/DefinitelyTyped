@@ -1,6 +1,8 @@
 /// <reference path="../ace.d.ts" />
 
-exports = {
+var assert: any;
+var mode: any;
+var exports = {
     "test: token iterator initialization in JavaScript document": function () {
         var lines = [
             "function foo(items) {",
@@ -9,7 +11,7 @@ exports = {
             "    } // Real Tab.",
             "}"
         ];
-        var session = new AceAjax.EditSession(lines.join("\n"), new JavaScriptMode());
+        var session = new AceAjax.EditSession(lines.join("\n"),mode);
 
         var iterator = new AceAjax.TokenIterator(session, 0, 0);
         assert.equal(iterator.getCurrentToken().value, "function");
@@ -96,7 +98,7 @@ exports = {
             "    } // Real Tab.",
             "}"
         ];
-        var session = new AceAjax.EditSession(lines.join("\n"), new JavaScriptMode());
+        var session = new AceAjax.EditSession(lines.join("\n"),mode);
 
         var tokens = [];
         var len = session.getLength();
@@ -118,7 +120,7 @@ exports = {
             "     } // Real Tab.",
             "}"
         ];
-        var session = new AceAjax.EditSession(lines.join("\n"), new JavaScriptMode());
+        var session = new AceAjax.EditSession(lines.join("\n"),mode);
 
         var tokens = [];
         var len = session.getLength();
@@ -140,7 +142,7 @@ exports = {
             "    } // Real Tab.",
             "}"
         ];
-        var session = new AceAjax.EditSession(lines.join("\n"), new JavaScriptMode());
+        var session = new AceAjax.EditSession(lines.join("\n"),mode);
 
         var iterator = new AceAjax.TokenIterator(session, 0, 0);
 

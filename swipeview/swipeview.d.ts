@@ -1,7 +1,7 @@
 // Type definitions for SwipeView 1.0
 // Project: http://cubiq.org/swipeview
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 interface SwipeViewEvent {
@@ -12,17 +12,13 @@ interface SwipeViewOptions {
     text?: string;
     numberOfPages?: number;
     snapThreshold?: number;
-    hastyPageFlip?: bool;
-    loop?: bool;
+    hastyPageFlip?: boolean;
+    loop?: boolean;
 }
 
-interface PageHTMLElement extends HTMLElement {
-    dataset: any;
-}
+declare class SwipeView {
 
-class SwipeView {
-
-    masterPages: PageHTMLElement[];
+    masterPages: HTMLElement[];
     currentMasterPage: number;
     wrapper: HTMLElement;
     slider: HTMLElement;
