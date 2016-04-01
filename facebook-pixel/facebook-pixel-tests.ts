@@ -6,7 +6,6 @@ fbq('track', 'PageView');
 // Standard event (can be used for conversion tracking
 // and optimizing in addition to audience building)
 var purchaseParam:facebook.Pixel.PurchaseParameters = {currency: 'EUR', value: 15.23};
-purchaseParam["Test"] = 44; // add custom parameter
 fbq('track', 'Purchase', purchaseParam);
 
 // Legacy conversion event (can only be used for conversion
