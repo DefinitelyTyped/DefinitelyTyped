@@ -24,21 +24,21 @@ app.controller('LocalCtrl', function ($localStorage: angular.storage.IStorageSer
 
 app.controller('SessionCtrl', function ($sessionStorage: angular.storage.IStorageService) {
 
-    $localStorage.set('MyKey', 'value');
+    $sessionStorage.set('MyKey', 'value');
 
-    $localStorage.get('MyKey');
+    $sessionStorage.get('MyKey');
 
-    $localStorage.$default({
+    $sessionStorage.$default({
         counter: 1
     });
 
-    $localStorage.$reset({
+    $sessionStorage.$reset({
         counter: 1
     });
     
-    $localStorage.$reset();
+    $sessionStorage.$reset();
 
-    $localStorage.$apply();
+    $sessionStorage.$apply();
 });
 
 app.config(['$localStorageProvider', function ($localStorageProvider: angular.storage.IStorageProvider) {
