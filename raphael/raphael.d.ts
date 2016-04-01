@@ -294,3 +294,6 @@ interface RaphaelStatic {
 }
 
 declare var Raphael: RaphaelStatic;
+declare module "raphael" {
+    export = Raphael;
+}
