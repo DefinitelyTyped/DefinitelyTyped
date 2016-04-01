@@ -14,7 +14,7 @@ fbq('track', 'Purchase', purchaseParam);
 
 // Custom event (can only be used for audience building)
 
-var custom_params:any = {custom_param: 'custom_value'};
+var custom_params = {custom_param: 'custom_value'};
 fbq('trackCustom', 'MyCustomEvent', custom_params);
 
 // Reach customers that viewed a product in the 'Shoes' category
