@@ -27,6 +27,8 @@ declare module THREE {
 		dynamicDampingFactor:number;
 		keys:number[];
 
+		target: THREE.Vector3;
+
 		position0: THREE.Vector3;
 		target0: THREE.Vector3;
 		up0: THREE.Vector3;
