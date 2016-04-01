@@ -1,6 +1,7 @@
 /// <reference path="../ace.d.ts" />
 
 var lang: any;
+var assert: any;
 
 function createFoldTestSession() {
     var lines = [
@@ -26,7 +27,7 @@ function assertArray(a, b) {
     }
 }
 
-exports = {
+var exports = {
 
    "test: find matching opening bracket in Text mode": function() {
        var session = new AceAjax.EditSession(["(()(", "())))"]);

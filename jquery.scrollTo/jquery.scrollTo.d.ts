@@ -1,7 +1,7 @@
 // Type definitions for jQuery.scrollTo.js 1.4.4
 // Project: https://github.com/flesler/jquery.scrollTo
 // Definitions by: Neil Stalker <https://github.com/nestalk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
@@ -21,7 +21,7 @@ interface ScrollToOptions {
     /**
     * If true, the margin of the target element will be deducted from the final position.
     */
-    margin?: bool;
+    margin?: boolean;
     /**
     * Add/deduct from the end position. 
     * One number for both axes or { top:x, left:y }.
@@ -36,7 +36,7 @@ interface ScrollToOptions {
     * If true, and both axis are given.
     * The 2nd axis will only be animated after the first one ends.
     */
-    queue?: bool;
+    queue?: boolean;
     /**
     * Function to be called after the scrolling ends. 
     */

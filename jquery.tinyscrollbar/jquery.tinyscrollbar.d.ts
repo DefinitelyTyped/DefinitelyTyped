@@ -1,16 +1,16 @@
 ﻿// Type definitions for jQuery tinyscrollbar 1.8
 // Project: http://baijs.nl/tinyscrollbar/
 // Definitions by: Christiaan Rakowski <https://github.com/csrakowski/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-module JQueryTinyScrollbar {
+declare namespace JQueryTinyScrollbar {
     export interface JQueryTinyScrollbarOptions {
         /**
         * Enable mobile invert style scrolling. (default: false)
         */
-        invertscroll?: bool;
+        invertscroll?: boolean;
         /**
         * Vertical or horizontal scroller? 'x' or 'y'. (default: 'x')
         */
@@ -22,11 +22,11 @@ module JQueryTinyScrollbar {
         /**
         * Enable or disable the mousewheel. (default: true)
         */
-        scroll?: bool;
+        scroll?: boolean;
         /**
         * Return scrollwheel event to browser if there is no more content. (default: true)
         */
-        lockscroll?: bool;
+        lockscroll?: boolean;
         /**
         * Set the size of the scrollbar to auto or a fixed number. (default: 'auto')
         */
@@ -34,7 +34,7 @@ module JQueryTinyScrollbar {
         /**
         * Set the size of the thumb to auto or a fixed number. (default: 'auto')
         */
-        sizethumb?: any; 
+        sizethumb?: any;
     }
 }
 interface JQuery {

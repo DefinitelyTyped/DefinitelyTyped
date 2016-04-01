@@ -1,7 +1,7 @@
 // Type definitions for twitter-bootstrap-wizard
 // Project: https://github.com/VinceG/twitter-bootstrap-wizard
 // Definitions by: Blake Niemyjski <https://github.com/niemyjski>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
@@ -13,12 +13,12 @@ interface WizardOptions {
     lastSelector?: string;
     onShow?: (activeTab: any, navigation: any, nextIndex: number) => void;
     onInit?: (activeTab: any, navigation: any, currentIndex: number) => void;
-    onNext?: (activeTab: any, navigation: any, nextIndex: number) => bool;
-    onPrevious?: (activeTab: any, navigation: any, previousIndex: number) => bool;
-    onLast?: (activeTab: any, navigation: any, lastIndex: number) => bool;
-    onFirst?: (activeTab: any, navigation: any, firstIndex: number) => bool;
-    onTabClick?: (activeTab: any, navigation: any, currentIndex: number) => bool;
-    onTabShow?: (activeTab: any, navigation: any, currentIndex: number) => bool;
+    onNext?: (activeTab: any, navigation: any, nextIndex: number) => boolean;
+    onPrevious?: (activeTab: any, navigation: any, previousIndex: number) => boolean;
+    onLast?: (activeTab: any, navigation: any, lastIndex: number) => boolean;
+    onFirst?: (activeTab: any, navigation: any, firstIndex: number) => boolean;
+    onTabClick?: (activeTab: any, navigation: any, currentIndex: number) => boolean;
+    onTabShow?: (activeTab: any, navigation: any, currentIndex: number) => boolean;
 }
 
 interface Wizard {

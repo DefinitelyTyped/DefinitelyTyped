@@ -1,6 +1,6 @@
 /// <reference path="globalize.d.ts" />
 
-Globalize.culture("fr");
+/*Globalize.culture("fr");
 console.log(Globalize.culture().name);
 
 Globalize.culture("fr-FR");
@@ -22,14 +22,20 @@ Globalize.addCultureInfo("fr", { messages: { "translate": "traduire" } });
 console.log(Globalize.localize("translate", "fr"));
 
 Globalize.parseInt("1,234.56"); 
-Globalize.parseInt("1.234,56");
+Globalize.parseInt("1.234,56", 10);
+Globalize.parseInt("1.234,56", 10, "de");
 Globalize.parseFloat("1,234.56"); 
-Globalize.parseFloat("1.234,56");
+Globalize.parseFloat("1.234,56", 10);
+Globalize.parseFloat("1.234,56", 10, "de");
 Globalize.parseDate("1/2/2003");
+Globalize.parseDate("15 Jun 2012", "dd MMM yyyy");
+Globalize.parseDate("15 Jun 2012", ["dd MMM yyyy"]);
 Globalize.culture("fr");
 Globalize.parseDate("1/2/2003"); 
 
+Globalize.addCultureInfo({ numberFormat: { billionZeroes: 12 } });
 Globalize.addCultureInfo("fr", { numberFormat: { billionZeroes: 12 } });
+Globalize.addCultureInfo("de-DE", "de", { numberFormat: { billionZeroes: 12 } });
 
 //Globalize.culture().calendar = Globalize.culture().calendars.SomeOtherCalendar;
 //Globalize.culture().calendar = Globalize.culture().calendars.standard;
@@ -60,7 +66,7 @@ Globalize.format(new Date(2012, 1, 20), 'd');
 Globalize.format(new Date(2012, 1, 20), 'D');
 
 
-Globalize.cultures[ "default" ] = {
+Globalize.load[ "default" ] = {
     name: "English",
     englishName: "English",
     nativeName: "English",
@@ -126,4 +132,4 @@ Globalize.cultures[ "default" ] = {
         }
     },
     messages: {}
-}
+}*/

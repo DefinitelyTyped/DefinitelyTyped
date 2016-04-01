@@ -1,7 +1,7 @@
 // Type definitions for linkedin dustjs 1.2.1
 // Project: https://github.com/linkedin/dustjs
 // Definitions by: Marcelo Dezem <http://github.com/mdezem>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 //
 // Due to a lack of documentation it's not possible
@@ -107,7 +107,7 @@ declare module "dustjs-linkedin" {
     * @param name the name used to register the compiled template into the internal cache. See render().
     * @strip strip whitespaces from the output. Defaults to false.
     */
-    export function compile(source: string, name: string, strip?: bool): string;
+    export function compile(source: string, name: string, strip?: boolean): string;
 
     /**
     * Compiles source directly into a JavaScript function that takes a context and an optional callback (see dust.renderSource). Registers the template under [name] if this argument is supplied.
@@ -158,11 +158,11 @@ declare module "dustjs-linkedin" {
     export function escapeHtml(html: string): string;
     export function escapeJs(js: string): string;
 
-    declare var helpers: {
+    var helpers: {
         [key: string]: (chk: Chunk, ctx: Context, bodies?: any, params?: any) => any;
     };
 
-    declare var filters: {
+    var filters: {
         [key: string]: (value: string) => string;
     };
 }

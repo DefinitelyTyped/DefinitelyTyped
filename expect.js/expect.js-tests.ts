@@ -28,7 +28,7 @@ function test_expect_properties() {
     expect(0).to.not.include;
     expect(0).to.not.only.have.own;
     expect(0).to.only.have.own;
-    expect(0).be
+    expect(0).be;
 }
 
 function test_ok() {
@@ -99,6 +99,12 @@ function test_throwException() {
     });
     expect(fn).to.throwException(/matches the exception message/);
     expect(fn).to.not.throwException();
+}
+
+function test_withArgs() {
+    var fn = () => {};
+    expect(fn).withArgs().to.throwException();
+    expect(fn).withArgs(true, 1, '').to.throwException();
 }
 
 function test_within() {

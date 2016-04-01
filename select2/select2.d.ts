@@ -1,7 +1,7 @@
-// Type definitions for Select2 3.2
+// Type definitions for Select2 4.0.1
 // Project: http://ivaynberg.github.com/select2/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
@@ -10,7 +10,7 @@ interface Select2QueryOptions {
     term?: string;
     page?: number;
     context?: any;
-    callback?: (result: { results: any; more: bool; context: any; }) => void;
+    callback?: (result: { results: any; more?: boolean; context?: any; }) => void;
 }
 
 interface AjaxFunction {
@@ -20,9 +20,13 @@ interface AjaxFunction {
 
 interface Select2AjaxOptions {
     transport?: AjaxFunction;
-    url?: string;
+    /**
+    * Url to make request to, Can be string or a function returning a string.
+    */
+    url?: any;
     dataType?: string;
-    quietMillis?: number;
+    delay?: number;
+    cache?: boolean;
     data?: (term: string, page: number, context: any) => any;
     results?: (term: any, page: number, context: any) => any;
 }
@@ -34,19 +38,20 @@ interface IdTextPair {
 
 interface Select2Options {
     width?: string;
+    dropdownAutoWidth?: boolean;
     minimumInputLength?: number;
     minimumResultsForSearch?: number;
     maximumSelectionSize?: number;
-    placeholder?: string;
+    placeholder?: string | IdTextPair;
     separator?: string;
-    allowClear?: bool;
-    multiple?: bool;
-    closeOnSelect?: bool;
-    openOnEnter?: bool;
+    allowClear?: boolean;
+    multiple?: boolean;
+    closeOnSelect?: boolean;
+    openOnEnter?: boolean;
     id?: (object: any) => string;
-    matcher?: (term: string, text: string, option: JQuery) => bool;
-    formatSelection?: (object: any, container: JQuery) => string;
-    formatResult?: (object: any, container: JQuery, query: any) => string;
+    matcher?: (term: string, text: string, option: any) => boolean;
+    formatSelection?: (object: any, container: JQuery, escapeMarkup:(markup: string) => string) => string;
+    formatResult?: (object: any, container: JQuery, query: any, escapeMarkup: (markup: string) => string) => string;
     formatResultCssClass?: (object: any) => string;
     formatNoMatches?: (term: string) => string;
     formatSearching?: () => string;
@@ -66,14 +71,121 @@ interface Select2Options {
     dropdownCss?: any;
     dropdownCssClass?: any;
     escapeMarkup?: (markup: string) => string;
+    theme?: string;
+    /**
+    * Template can return both plain string that will be HTML escaped and a jquery object that can render HTML
+    */
+    templateSelection?: (object: Select2SelectionObject) => any;
+    templateResult?: (object: Select2SelectionObject) => any;
+	language?: string;
+}
+
+interface Select2JQueryEventObject extends JQueryEventObject {
+    val: any;
+    added: any;
+    removed: any;
+    choice: {
+        id: any;
+        text: string;
+    };
+}
+
+interface Select2SelectionObject {
+	loading: boolean,
+    disabled: boolean,
+    element: HTMLOptionElement,
+    id: string,
+    selected: boolean,
+    text: string,
+    title: string,
 }
 
 interface JQuery {
+    off(events?: "change", selector?: any, handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+
+    on(events: "change", selector?: string, data?: any, handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "change", selector?: string, handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "change", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-opening", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-open", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-close", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-highlight", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-selecting", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-removing", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-removed", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-loaded", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-focus", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-blur", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-opening", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-open", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-close", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-highlight", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-selecting", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-removing", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-removed", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-loaded", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-focus", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-blur", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+
     select2(): JQuery;
     select2(it: IdTextPair): JQuery;
+
+    /**
+    * Get the id value of the current selection
+    */
+    select2(method: 'val'): any;
+    /**
+    * Set the id value of the current selection
+    * @params value Value to set the id to
+    * @params triggerChange Should a change event be triggered
+    */
+    select2(method: 'val', value: any, triggerChange?: boolean): any;
+    /**
+    * Get the data object of the current selection
+    */
+    select2(method: 'data'): any;
+    /**
+    * Set the data of the current selection
+    * @params value Object to set the data to
+    * @params triggerChange Should a change event be triggered
+    */
+    select2(method: 'data', value: any, triggerChange?: boolean): any;
+    /**
+    * Reverts changes to DOM done by Select2. Any selection done via Select2 will be preserved.
+    */
+    select2(method: 'destroy'): JQuery;
+    /**
+    * Opens the dropdown
+    */
+    select2(method: 'open'): JQuery;
+    /**
+    * Closes the dropdown
+    */
+    select2(method: 'close'): JQuery;
+    /**
+    * Enables or disables Select2 and its underlying form component
+    * @param value True if it should be enabled false if it should be disabled
+    */
+    select2(method: 'enable', value: boolean): JQuery;
+    /**
+    * Toggles readonly mode on Select2 and its underlying form component
+    * @param value True if it should be readonly false if it should be read write
+    */
+    select2(method: 'readonly', value: boolean): JQuery;
+    /**
+    * Retrieves the main container element that wraps all of DOM added by Select2
+    */
+    select2(method: 'container'): JQuery;
+    /**
+    * Notifies Select2 that a drag and drop sorting operation has started
+    */
+    select2(method: 'onSortStart'): JQuery;
+    /**
+    * Notifies Select2 that a drag and drop sorting operation has finished
+    */
+    select2(method: 'onSortEnd'): JQuery;
+
+    select2(method: string): any;
+    select2(method: string, value: any, trigger?: boolean): any;
     select2(options: Select2Options): JQuery;
-    select2(method: string, something: string): JQuery;
-    select2(method: string, something: string[]): JQuery;
-    select2(method: string, something: IdTextPair[]): JQuery;
-    select2(method: string, options: IdTextPair): JQuery;
 }

@@ -1,7 +1,7 @@
-// Type definitions for Spin.js 1.3
+// Type definitions for Spin.js 2.3.2
 // Project: http://fgnass.github.com/spin.js/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 interface SpinnerOptions {
@@ -12,22 +12,39 @@ interface SpinnerOptions {
     corners?: number; // Corner roundness (0..1)
     rotate?: number; // The rotation offset
     direction?: number; // 1: clockwise, -1: counterclockwise
-    color?: string; // #rgb or #rrggbb
+    color?: any; // #rgb or #rrggbb or array of colors
     speed?: number; // Rounds per second
     trail?: number; // Afterglow percentage
-    shadow?: bool; // Whether to render a shadow
-    hwaccel?: bool; // Whether to use hardware acceleration
+    shadow?: boolean; // Whether to render a shadow
+    hwaccel?: boolean; // Whether to use hardware acceleration
     className?: string; // The CSS class to assign to the spinner
     zIndex?: number; // The z-index (defaults to 2000000000)
     top?: string; // Top position relative to parent in px
     left?: string; // Left position relative to parent in px
+    scale?: number; // Scales overall size of the spinner
+    opacity?: number; // Opacity of the lines
+    fps?: number; // Frames per second when using setTimeout() as a fallback for CSS
+    position?: string; // Element positioning
 }
 
 
 declare class Spinner {
-    constructor (options?: SpinnerOptions);
-    spin(target?: any);
-    stop();
-    lines(el, o);
-    opacity(el, i, val);
+    /** The Spinner's HTML element - can be used to manually insert the spinner into the DOM  */
+    public el: HTMLElement;
+    constructor(options?: SpinnerOptions);
+
+    /**
+     * Adds the spinner to the given target element. If this instance is already
+     * spinning, it is automatically removed from its previous target by calling
+     * stop() internally.
+     */
+    spin(target?: HTMLElement): Spinner;
+
+    /**
+     * Stops and removes the Spinner.
+     * Stopped spinners may be reused by calling spin() again.
+     */
+    stop(): Spinner;
+    lines(el:HTMLElement, o:SpinnerOptions):HTMLElement;
+    opacity(el:HTMLElement, i:number, val:number, o:SpinnerOptions):void;
 }
