@@ -1,6 +1,6 @@
 // Type definitions for jwt-simple v0.5.0
 // Project: https://github.com/hokaccha/node-jwt-simple
-// Definitions by: Gael Magnan <https://github.com/GaelMagnan>
+// Definitions by: Ken Fukuyama <https://github.com/kenfdev>, Gael Magnan <https://github.com/GaelMagnan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module "jwt-simple" {
   /**
