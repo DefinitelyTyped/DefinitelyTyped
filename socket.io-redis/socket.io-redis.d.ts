@@ -3,19 +3,21 @@
 // Definitions by: Philipp Holzer <https://github.com/nupplaphil/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
 /// <reference path="../redis/redis.d.ts" />
 /// <reference path="../socket.io/socket.io.d.ts" />
 
 declare module 'socket.io-redis' {
-	var io: SocketIORedisStatic;
+	var redis: SocketIORedisStatic;
 
-	export = io;
+	export = redis;
 }
 
-import { RedisClient } from 'redis';
-
 interface SocketIORedisStatic {
+	/**
+	 * Default Redis Adapter constructor
+	 */
+	(): SocketIORedis.RedisAdapter;
+
 	/**
 	 * Creates a new Redis Adapter
 	 * @param uri Is a string like localhost:6379 where your redis server is located.
@@ -30,6 +32,10 @@ interface SocketIORedisStatic {
 	(opts: SocketIORedis.SocketIORedisOptions): SocketIORedis.RedisAdapter;
 }
 
+/**
+ * TODO: return Value for pubClient and subClient is RedisClient, but the im port throws errors because of "invalid module name in augmenatition"
+ *
+ */
 declare namespace SocketIORedis {
 	/**
 	 * Options to pass to the redis server when creating it
@@ -57,12 +63,12 @@ declare namespace SocketIORedis {
 		/**
 		 * The optional redis client to publish events on
 		 */
-		pubClient?: RedisClient;
+		pubClient?: any;
 
 		/**
 		 * The optional redis client to subscribe to events on
 		 */
-		subClient?: RedisClient;
+		subClient?: any;
 	}
 
 	interface RedisAdapter extends SocketIO.Adapter {
@@ -80,20 +86,20 @@ declare namespace SocketIORedis {
 		/**
 		 * Optional, the redis client to publish events on
 		 */
-		pubClient?: RedisClient;
+		pubClient?: any;
 
 		/**
 		 * Optional, the redis client to subscribe to events on
 		 */
-		subClient?: RedisClient;
+		subClient?: any;
 
 		/**
 		 * Broadcasts a packet
 		 * @param packet The packet to broadcast
 		 * @param opts Any options to send along:
-		 * 	- rooms: An optional list of rooms to broadcast to. If empty, the packet is broadcast to all sockets
-		 * 	- except: A list of Socket IDs to exclude
-		 * 	- flags: Any flags that we want to send along ('json', 'volatile', 'broadcast')
+		 *    - rooms: An optional list of rooms to broadcast to. If empty, the packet is broadcast to all sockets
+		 *    - except: A list of Socket IDs to exclude
+		 *    - flags: Any flags that we want to send along ('json', 'volatile', 'broadcast')
 		 * @param remote The optional flag, whether the packet came from another node
 		 */
 		broadcast: {
@@ -107,8 +113,8 @@ declare namespace SocketIORedis {
 		 * @param callback An optional callback to call when the socket has been
 		 */
 		delAll: {
-			( id: string ): void;
-			( id: string, callback?: ( err?: any ) => void ): void;
+			(id: string): void;
+			(id: string, callback?: (err?: any) => void): void;
 		};
 	}
 }
