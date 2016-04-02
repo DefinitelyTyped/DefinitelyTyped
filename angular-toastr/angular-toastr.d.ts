@@ -72,6 +72,7 @@ declare namespace angular.toastr {
 
     interface IToastOptions extends IToastBaseConfig {
         iconClass?: string;
+        target?: string;
     }
 
     interface IToastrService {
