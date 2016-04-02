@@ -22,5 +22,5 @@ declare module 'windows-1251' {
         labels: string[];
     }
 
-    export default windows1251;
+    export = windows1251;
 }
