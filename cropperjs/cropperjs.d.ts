@@ -182,48 +182,48 @@ declare module cropperjs {
         /**
         * Show the crop box manually.
         */
-        crop();
+        crop(): void;
         /**
         * Clear the crop box.
         */
-        reset();
+        reset(): void;
         /**
         * Replace the image's src and rebuild the cropper.
         * @param url A new image url
         */
-        replace(url: string);
+        replace(url: string): void;
         /**
         * Enable (unfreeze) the cropper.
         */
-        enable();
+        enable(): void;
         /**
         * Disable (freeze) the cropper
         */
-        disable();
+        disable(): void;
         /**
         * Destroy the cropper and remove the instance from the image.
         */
-        destroy();
+        destroy(): void;
         /**
         * Move the canvas (image wrapper) with relative offsets.
         * @param offsetX Moving size (px) in the horizontal direction.
         * @param offsetY Moving size (px) in the vertical direction.
         * If not present, its default value is offsetX.
         */
-        move(offsetX: number, offsetY?: number);
+        move(offsetX: number, offsetY?: number): void;
         /**
         * Move the canvas (image wrapper) to an absolute point.
         * @param x The left value of the canvas
         * @param y The top value of the canvas
         * If not present, its default value is x.
         */
-        moveTo(x: number, y?: number);
+        moveTo(x: number, y?: number): void;
         /**
         * Zoom the canvas (image wrapper) with a relative ratio.
         * Zoom in: requires a positive number (ratio > 0)
         * Zoom out: requires a negative number (ratio < 0)
         */
-        zoom(ratio: number);
+        zoom(ratio: number): void;
 
     }
 }
