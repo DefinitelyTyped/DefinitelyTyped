@@ -1,7 +1,7 @@
 // Type definitions for SlickGrid 2.1.0
 // Project: https://github.com/mleibman/SlickGrid
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
 SlickGrid-2.1.d.ts may be freely distributed under the MIT license.
@@ -33,7 +33,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 interface DOMEvent extends Event {}
 
-declare module Slick {
+declare namespace Slick {
 
 	/**
 	* slick.core.js

@@ -1,7 +1,7 @@
 // Type definitions for EaselJS 0.8.0
 // Project: http://www.createjs.com/#!/EaselJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
     Copyright (c) 2012 Pedro Ferreira
@@ -20,7 +20,7 @@ interface NativeMouseEvent extends MouseEvent {
 
 }
 
-declare module createjs {
+declare namespace createjs {
     export class AlphaMapFilter extends Filter {
         constructor(alphaMap: HTMLImageElement | HTMLCanvasElement);
 
@@ -161,9 +161,16 @@ declare module createjs {
         tickChildren: boolean;
 
         // methods
-        addChild(...child: DisplayObject[]): DisplayObject;
-        addChildAt(child: DisplayObject, index: number): DisplayObject; // add this for the common case
-        addChildAt(...childOrIndex: any[]): DisplayObject; // actually (...child: DisplayObject[], index: number)
+        addChild<T extends DisplayObject>(child: T): T;
+        addChild<T extends DisplayObject>(child0: DisplayObject, lastChild: T): T;
+        addChild<T extends DisplayObject>(child0: DisplayObject, child1: DisplayObject, lastChild: T): T;
+        addChild<T extends DisplayObject>(child0: DisplayObject, child1: DisplayObject, child2: DisplayObject, lastChild: T): T;
+        addChild(...children: DisplayObject[]): DisplayObject;
+        addChildAt<T extends DisplayObject>(child: T, index: number): T;
+        addChildAt<T extends DisplayObject>(child0: DisplayObject, lastChild: T, index: number): T;
+        addChildAt<T extends DisplayObject>(child0: DisplayObject, child1: DisplayObject, lastChild: T, index: number): T;
+        addChildAt(...childOrIndex: (DisplayObject|number)[]): DisplayObject; // actually (...child: DisplayObject[], index: number)
+
         clone(recursive?: boolean): Container;
         contains(child: DisplayObject): boolean;
         getChildAt(index: number): DisplayObject;
@@ -382,7 +389,7 @@ declare module createjs {
     }
 
 
-    module Graphics
+    namespace Graphics
         {
         export class Arc
             {

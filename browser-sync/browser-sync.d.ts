@@ -1,7 +1,7 @@
 // Type definitions for browser-sync
 // Project: http://www.browsersync.io/
 // Definitions by: Asana <https://asana.com>, Joe Skeen <http://github.com/joeskeen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../chokidar/chokidar.d.ts"/>
 /// <reference path="../node/node.d.ts" />

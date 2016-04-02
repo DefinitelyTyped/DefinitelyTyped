@@ -1,12 +1,12 @@
 // Type definitions for CodeMirror
 // Project: https://github.com/marijnh/CodeMirror
 // Definitions by: mihailik <https://github.com/mihailik>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function CodeMirror(host: HTMLElement, options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
 declare function CodeMirror(callback: (host: HTMLElement) => void , options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
 
-declare module CodeMirror {
+declare namespace CodeMirror {
     export var Doc : CodeMirror.DocConstructor;
     export var Pos: CodeMirror.PositionConstructor;
     export var Pass: any;
@@ -32,6 +32,11 @@ declare module CodeMirror {
     whenever a new CodeMirror instance is initialized. */
     function defineInitHook(func: Function): void;
 
+    /** Registers a helper value with the given name in the given namespace (type). This is used to define functionality
+    that may be looked up by mode. Will create (if it doesn't already exist) a property on the CodeMirror object for
+    the given type, pointing to an object that maps names to values. I.e. after doing
+    CodeMirror.registerHelper("hint", "foo", myFoo), the value CodeMirror.hint.foo will point to myFoo. */
+    function registerHelper(namespace: string, name: string, helper: any): void;
 
 
     function on(element: any, eventName: string, handler: Function): void;
@@ -486,8 +491,8 @@ declare module CodeMirror {
         It may be "start" , "end" , "head"(the side of the selection that moves when you press shift + arrow),
         or "anchor"(the fixed side of the selection).Omitting the argument is the same as passing "head".A { line , ch } object will be returned. */
         getCursor(start?: string): CodeMirror.Position;
-        
-        /** Retrieves a list of all current selections. These will always be sorted, and never overlap (overlapping selections are merged). 
+
+        /** Retrieves a list of all current selections. These will always be sorted, and never overlap (overlapping selections are merged).
         Each object in the array contains anchor and head properties referring to {line, ch} objects. */
         listSelections(): { anchor: CodeMirror.Position; head: CodeMirror.Position }[];
 
@@ -651,15 +656,15 @@ declare module CodeMirror {
     }
 
     interface PositionConstructor {
-        new (line: number, ch: number): Position;
-        (line: number, ch: number): Position;
+        new (line: number, ch?: number): Position;
+        (line: number, ch?: number): Position;
     }
-    
+
     interface Range{
         from: CodeMirror.Position;
         to: CodeMirror.Position;
     }
-    
+
     interface Position {
         ch: number;
         line: number;
@@ -811,8 +816,8 @@ declare module CodeMirror {
         /** Optional lint configuration to be used in conjunction with CodeMirror's linter addon. */
         lint?: boolean | LintOptions;
 
-	/** Optional value to be used in conduction with CodeMirror’s placeholder add-on. */
-	placeholder?: string;
+        /** Optional value to be used in conjunction with CodeMirror’s placeholder add-on. */
+        placeholder?: string;
     }
 
     interface TextMarkerOptions {

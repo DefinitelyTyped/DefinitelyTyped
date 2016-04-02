@@ -27,7 +27,7 @@ function retrieveWebsite(resultpanel:HTMLElement) {
 }
 
 function retrieveWebsiteProps(resultpanel: HTMLElement) {
-    
+
     var clientContext = SP.ClientContext.get_current();
     var oWebsite = clientContext.get_web();
 
@@ -87,7 +87,7 @@ function readAllProps(resultpanel: HTMLElement) {
     function successHandler() {
 
         var listEnumerator = collList.getEnumerator();
-        
+
         var listInfo = "";
         while (listEnumerator.moveNext()) {
             var oList = listEnumerator.get_current();
@@ -118,7 +118,7 @@ function readSpecificProps(resultpanel: HTMLElement) {
     );
 
     function successHandler() {
-       
+
         var listEnumerator = collList.getEnumerator();
 
         var listInfo = "";
@@ -156,7 +156,7 @@ function readColl(resultpanel: HTMLElement) {
             listInfo += "Title: " + oList.get_title() +
                 " ID: " + oList.get_id().toString() + "<br/>";
         }
-        
+
         resultpanel.innerHTML = listInfo;
     }
 
@@ -468,7 +468,7 @@ function createListItem(resultpanel: HTMLElement) {
     oListItem.set_item("Title", "My New Item!");
     oListItem.set_item("Body", "Hello World!");
     oListItem.update();
-    
+
     clientContext.load(oListItem);
     clientContext.executeQueryAsync(
       successHandler,
@@ -533,7 +533,7 @@ function deleteListItem(resultpanel: HTMLElement) {
 
 
 /** Lightweight client-side rendering template overrides.*/
-module CSR {
+namespace CSR {
 
     export interface UpdatedValueCallback {
         (value: any, fieldSchema?: SPClientTemplates.FieldSchema_InForm): void;
@@ -1090,7 +1090,7 @@ module CSR {
 
 
                     ctx.executeQueryAsync((o, e) => {
-                        var selected = false; 
+                        var selected = false;
 
                         while (_dropdownElt.options.length) {
                             (_dropdownElt.options as any /* TODO remove `as any` */).remove(0);
@@ -1166,7 +1166,7 @@ module CSR {
 
 
                 if (dependencyFields) {
-                    dependencyFields.forEach(dependencyField => { 
+                    dependencyFields.forEach(dependencyField => {
                             if (!vm[dependencyField]) {
                                 vm[dependencyField] = ko.observable(CSR.getFieldValue(rCtx, dependencyField));
                             }
@@ -1175,7 +1175,7 @@ module CSR {
                             });
                     });
                 }
-                
+
 
                 if (!vm.value) {
                     vm.value = ko.observable<any>();
@@ -1673,7 +1673,7 @@ module CSR {
         */
         seachLookup(fieldName: string): ICSR;
 
-        /** Adds link to add new value to lookup list. 
+        /** Adds link to add new value to lookup list.
             @param fieldName Internal name of the field.
             @param prompt Text to display as a link to add new value.
             @param contentTypeID Default content type for new item.
@@ -1741,7 +1741,7 @@ if (typeof SP == 'object' && SP && typeof SP.SOD == 'object' && SP.SOD) {
 
 
 
-module spdevlab {
+namespace spdevlab {
     export module mQuery {
         export class DynamicTable {
 
@@ -1867,7 +1867,7 @@ module _ {
         }
     });
 
-    //Load the people picker 
+    //Load the people picker
     function loadPeoplePicker(peoplePickerElementId: string) {
         var schema: ISPClientPeoplePickerSchema = {
             PrincipalAccountType: "User",
@@ -1978,7 +1978,7 @@ module _ {
 }
 
 //taxonomy
-module SP {
+namespace SP {
 
     // Class
     export class ClientContextPromise extends SP.ClientContext {
@@ -2016,7 +2016,7 @@ module _ {
     var termStore: SP.Taxonomy.TermStore;
     var groups: SP.Taxonomy.TermGroupCollection;
 
-    // This code runs when the DOM is ready and creates a context object 
+    // This code runs when the DOM is ready and creates a context object
     // which is needed to use the SharePoint object model.
     // It also wires up the click handlers for the two HTML buttons in Default.aspx.
     $(document).ready(function () {
@@ -2039,7 +2039,7 @@ module _ {
     }
 
     // Runs when the executeQueryAsync method in the listGroups function has succeeded.
-    // In this case, get and load the groups associated with the term store that we 
+    // In this case, get and load the groups associated with the term store that we
     // know we now have a reference to.
     function onListTaxonomySession() {
         groups = termStore.get_groups();
@@ -2051,7 +2051,7 @@ module _ {
     // In this case, loop through all the groups and add a clickable div element to the report area
     // for each group.
     // NOTE: We clear the report area first to ensure we have a clean place to write to.
-    // Also note how we create a click event handler for each div on-the-fly, and that we pass in the 
+    // Also note how we create a click event handler for each div on-the-fly, and that we pass in the
     // current group ID to that function. So when the user clicks one of these divs, we will know which
     // one was clicked.
     function onRetrieveGroups() {
@@ -2100,9 +2100,9 @@ module _ {
         context.executeQueryPromise()
                .then(
                     () => {
-                        // The group is now available becuase this is the 
+                        // The group is now available becuase this is the
                         // success callback. So now we'll load and populate the
-                        // term set collection. We have to do this before we can 
+                        // term set collection. We have to do this before we can
                         // iterate through the collection, so we can do this
                         // with the following nested executeQueryAsync method call.
                        termSets = currentGroup.get_termSets();
@@ -2110,11 +2110,11 @@ module _ {
                        return context.executeQueryPromise()
                     })
                .then(() => {
-                    // The term sets are now available becuase this is the 
+                    // The term sets are now available becuase this is the
                     // success callback. So now we'll iterate through the collection
-                    // and create the clickable div. Also note how we create a 
-                    // click event handler for each div on-the-fly, and that we pass in the 
-                    // current group ID and term set ID to that function. So when the user 
+                    // and create the clickable div. Also note how we create a
+                    // click event handler for each div on-the-fly, and that we pass in the
+                    // current group ID and term set ID to that function. So when the user
                     // clicks one of these divs, we will know which
                     // one was clicked by its term set ID, and to which group it belongs by its
                     // group ID. We also pass in the event object, so that we can cancel the bubble
@@ -2122,7 +2122,7 @@ module _ {
                     // don't want the parent's event to fire.
                     var termSetEnum = termSets.getEnumerator();
                     while (termSetEnum.moveNext()) {
-                        (() => {                                    
+                        (() => {
                             var currentTermSet = termSetEnum.get_current();
                             var termSetName = document.createElement("div");
                             termSetName.appendChild(document.createTextNode(" + " + currentTermSet.get_name()));
@@ -2170,9 +2170,9 @@ module _ {
         context
             .executeQueryPromise()
             .then(() => {
-                    // The group is now available becuase this is the 
+                    // The group is now available becuase this is the
                     // success callback. So now we'll load and populate the
-                    // term set collection. We have to do this before we can 
+                    // term set collection. We have to do this before we can
                     // iterate through the collection, so we can do this
                     // with the following nested executeQueryAsync method call.
                     termSets = currentGroup.get_termSets();
@@ -2180,7 +2180,7 @@ module _ {
                     return context.executeQueryPromise();
                 })
             .then(() => {
-                    currentTermSet = termSets.getById(termSetID); 
+                    currentTermSet = termSets.getById(termSetID);
                     context.load(currentTermSet);
                     return context.executeQueryPromise();
                 })
@@ -2189,7 +2189,7 @@ module _ {
                     context.load(terms);
                     return context.executeQueryPromise();
                 })
-            .then(() => { 
+            .then(() => {
                     var termsEnum = terms.getEnumerator();
                     while (termsEnum.moveNext()) {
                         var currentTerm = termsEnum.get_current();
@@ -2200,7 +2200,7 @@ module _ {
                         parentDiv.appendChild(term);
                     }
                 })
-            .fail(() => parentDiv.appendChild(document.createTextNode("An error occurred when trying to retrieve terms in this term set")));       
+            .fail(() => parentDiv.appendChild(document.createTextNode("An error occurred when trying to retrieve terms in this term set")));
     }
 
     // Runs when the executeQueryAsync method in the onListTaxonomySession function has failed.
@@ -2299,7 +2299,7 @@ function createPage(evt) {
     SP.SOD.execute('sp.js', 'SP.ClientConext', () => {
         SP.SOD.execute('sp.publishing.js', 'SP.Publishing', () => {
         var context = SP.ClientContext.get_current();
-        
+
 
         var hostUrl = decodeURIComponent(JSRequest.QueryString["SPHostUrl"]);
         var hostcontext = new SP.AppContextSite(context, hostUrl);
@@ -2323,7 +2323,7 @@ function createPage(evt) {
                                 context.load(listItem);
                                 context.executeQueryAsync(
 
-                                    // Success callback after getting the actual list item that is 
+                                    // Success callback after getting the actual list item that is
                                     // represented by the Publishing Page.
                                     // We can now get its FieldValues, one of which is its FileLeafRef value.
                                     // We can then use that value to build the Url to the new page
@@ -2334,7 +2334,7 @@ function createPage(evt) {
                                         link.innerText = "Go to new page!";
                                     },
 
-                                    // Failure callback after getting the actual list item that is 
+                                    // Failure callback after getting the actual list item that is
                                     // represented by the Publishing Page.
                                     function (sender, args) {
                                         alert('Failed to get new page: ' + args.get_message());
@@ -2357,7 +2357,7 @@ function createPage(evt) {
 }
 
 //likes
-module SampleReputation {
+namespace SampleReputation {
 
     interface MyList extends SPClientTemplates.RenderContext_InView {
         listId: string;
@@ -2453,13 +2453,13 @@ module SampleReputation {
 
 
 //code from https://github.com/gandjustas/SharePointAngularTS
-module App {
+namespace App {
     "use strict";
 var app = angular.module("app", []);
 }
 
 // Install the angularjs.TypeScript.DefinitelyTyped NuGet package
-module App {
+namespace App {
     "use strict";
 
     interface Iappcontroller {
@@ -2494,13 +2494,13 @@ module App {
 
 
 
-module App {
+namespace App {
     "use strict";
 
     export interface ISharePoint {
         getLists: () => ng.IPromise<SP.List[]>;
     }
-    
+
     class SharePointServcie implements ISharePoint {
         static $inject: string[] = ["$q"];
 
@@ -2535,7 +2535,7 @@ module App {
 
 
 // Install the angularjs.TypeScript.DefinitelyTyped NuGet package
-module App {
+namespace App {
     "use strict";
 
     export interface ISpNotify {
@@ -2543,7 +2543,7 @@ module App {
         show(msg: string, sticky?: boolean): string;
         remove(id: string):void;
     }
-    
+
     class SpNotify implements ISpNotify {
         static $inject: string[] = [];
 
