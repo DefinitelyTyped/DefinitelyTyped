@@ -1,6 +1,6 @@
 // Type definitions for cropperjs
 // Project: https://github.com/fengyuanchen/cropperjs
-// Definitions by: https://github.com/stepancar
+// Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module cropperjs {
     export enum CropperViewMods {
