@@ -35,5 +35,7 @@ declare module "redux-devtools-log-monitor" {
     preserveScrollTop?: boolean
   }
 
-  export default class LogMonitor extends React.Component<ILogMonitorProps, any> {}
+  export default class LogMonitor extends React.Component<ILogMonitorProps, any> {
+    render(): React.ReactElement<any>;
+  }
 }

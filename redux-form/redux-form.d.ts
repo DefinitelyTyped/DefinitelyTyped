@@ -275,6 +275,7 @@ declare module 'redux-form' {
   }
 
   class ElementClass extends Component<any, any> {
+    render(): JSX.Element;
   }
   interface ClassDecorator {
     <T extends (typeof ElementClass)>(component:T): T;

@@ -7,7 +7,7 @@
 /// <reference path="../redux/redux.d.ts" />
 
 declare module "react-redux" {
-  import { ComponentClass, Component, StatelessComponent, Props, ReactNode } from 'react';
+  import { ComponentClass, Component, StatelessComponent, ReactElement, Props, ReactNode } from 'react';
   import { Store, Dispatch, ActionCreator } from 'redux';
 
   interface ComponentDecorator<TOriginalProps extends Props<any>, TOwnProps extends Props<any>> {
@@ -41,7 +41,7 @@ declare module "react-redux" {
    * @param mapDispatchToProps
    * @param mergeProps
    * @param options
-   */
+     */
   export function connect(): InferableComponentDecorator;
   export function connect<
     TStateProps extends Props<any>,
@@ -100,5 +100,7 @@ declare module "react-redux" {
   /**
    * Makes the Redux store available to the connect() calls in the component hierarchy below.
    */
-  export class Provider extends Component<ProviderProps, {}> { }
+  export class Provider extends Component<ProviderProps, {}> {
+    render(): ReactElement<any>;
+  }
 }

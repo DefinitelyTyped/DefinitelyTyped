@@ -13,5 +13,8 @@ import { propTypes, defaultProps } from 'react-props-decorators';
     bar: 100
 })
 class Baz extends React.Component<any, any> {
-    /* ... */
+    render(): React.ReactElement<any> {
+        /* ... */
+        return null;
+    }
 }

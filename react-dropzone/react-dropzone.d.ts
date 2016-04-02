@@ -36,6 +36,7 @@ declare namespace ReactDropzone {
     }
 
     export class Dropzone extends React.Component<DropzoneProps, {}> {
+      render(): React.ReactElement<any>;
     }
 
 }

@@ -24,6 +24,9 @@ interface MyComponentState {
 class MyComponent extends Component<MyComponentProps, MyComponentState> {
     setState(...args: any[]) {
     }
+    render(): ReactElement<any> {
+        return null;
+    }
 }
 
 const MyStatelessComponent = (props: StatelessProps) => <span />;

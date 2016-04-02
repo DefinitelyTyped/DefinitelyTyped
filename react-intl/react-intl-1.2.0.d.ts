@@ -38,7 +38,9 @@ declare module "react-intl" {
                 year?: string
             }
         }
-        class FormattedDate extends React.Component<FormattedDate.Props,any> {}
+        class FormattedDate extends React.Component<FormattedDate.Props,any> {
+            render(): React.ReactElement<any>;
+        }
 
 
         namespace FormattedTime {
@@ -50,7 +52,9 @@ declare module "react-intl" {
                 format?: string
             }
         }
-        class FormattedTime extends React.Component<FormattedTime.Props,any> {}
+        class FormattedTime extends React.Component<FormattedTime.Props,any> {
+            render(): React.ReactElement<any>;
+        }
 
 
         namespace FormattedRelative {
@@ -61,7 +65,9 @@ declare module "react-intl" {
                 format?: string
             }
         }
-        class FormattedRelative extends React.Component<FormattedRelative.Props,any> {}
+        class FormattedRelative extends React.Component<FormattedRelative.Props,any> {
+            render(): React.ReactElement<any>;
+        }
 
 
         namespace FormattedMessage {
@@ -70,7 +76,9 @@ declare module "react-intl" {
                 [prop: string]: any
             }
         }
-        class FormattedMessage extends React.Component<FormattedMessage.Props,any> {}
+        class FormattedMessage extends React.Component<FormattedMessage.Props,any> {
+            render(): React.ReactElement<any>;
+        }
 
 
         namespace FormattedHTMLMessage {
@@ -79,7 +87,9 @@ declare module "react-intl" {
                 [prop: string]: any
             }
         }
-        class FormattedHTMLMessage extends React.Component<FormattedHTMLMessage.Props,any> {}
+        class FormattedHTMLMessage extends React.Component<FormattedHTMLMessage.Props,any> {
+            render(): React.ReactElement<any>;
+        }
 
 
         namespace FormattedNumber {
@@ -90,7 +100,9 @@ declare module "react-intl" {
                 format?: string
             }
         }
-        class FormattedNumber extends React.Component<FormattedNumber.Props,any> {}
+        class FormattedNumber extends React.Component<FormattedNumber.Props,any> {
+            render(): React.ReactElement<any>;
+        }
 
     }
 

@@ -29,6 +29,7 @@ declare namespace ReactSwipeableViews {
     }
 
     export class SwipeableViews extends React.Component<SwipeableViewsProps, SwipeableViewsState> {
+        render(): React.ReactElement<any>;
     }
 }
 

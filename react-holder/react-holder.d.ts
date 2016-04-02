@@ -28,7 +28,7 @@ declare module "react-holder" {
   }
 
   class ReactHolder extends React.Component<ReactHolderProp, any> {
-
+    render(): React.ReactElement<any>;
   }
   export default ReactHolder;
 }

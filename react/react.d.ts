@@ -10,7 +10,6 @@ declare namespace __React {
     // ----------------------------------------------------------------------
 
     type ReactType = string | ComponentClass<any> | StatelessComponent<any>;
-
     type Key = string | number;
     type Ref<T> = string | ((instance: T) => any);
 
@@ -87,8 +86,7 @@ declare namespace __React {
     type ReactText = string | number;
     type ReactChild = ReactElement<any> | ReactText;
 
-    // Should be Array<ReactNode> but type aliases cannot be recursive
-    type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
+    interface ReactFragment extends Array<ReactNode> {}
     type ReactNode = ReactChild | ReactFragment | boolean;
 
     //
@@ -157,12 +155,12 @@ declare namespace __React {
     type ReactInstance = Component<any, any> | Element;
 
     // Base component for plain JS classes
-    class Component<P, S> implements ComponentLifecycle<P, S> {
+    abstract class Component<P, S> implements ComponentLifecycle<P, S> {
         constructor(props?: P, context?: any);
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
         forceUpdate(callBack?: () => any): void;
-        render(): JSX.Element;
+        abstract render(): JSX.Element;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -223,7 +221,6 @@ declare namespace __React {
         C &
         (new() => T) &
         (new() => { props: P });
-
     //
     // Component Specs and Lifecycle
     // ----------------------------------------------------------------------

@@ -14,7 +14,9 @@ declare namespace __ReduxRouter {
     /**
     * A component that renders a React Router app using router state from a Redux store.
     */
-    export class ReduxRouter extends React.Component<any, any> { }
+    export class ReduxRouter extends React.Component<any, any> {
+        render(): React.ReactElement<any>;
+    }
     /**
     * A Redux store enhancer that adds router state to the store.
     */

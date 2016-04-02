@@ -10,6 +10,7 @@ declare module "enzyme" {
     import {ReactElement, Component, StatelessComponent, ComponentClass, HTMLAttributes} from "react";
 
     export class ElementClass extends Component<any, any> {
+        render(): ReactElement<any>;
     }
 
     /**
