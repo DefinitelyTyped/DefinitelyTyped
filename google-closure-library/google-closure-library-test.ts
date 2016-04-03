@@ -1,4 +1,4 @@
-/// <reference path="closure-library.d.ts" />
+/// <reference path="google-closure-library.d.ts" />
 goog.require('goog.dom');
 function sayHi() {
 	let newHeader = goog.dom.createDom('h1', {
