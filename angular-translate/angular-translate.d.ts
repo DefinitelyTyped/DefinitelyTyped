@@ -5,16 +5,15 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
+declare module "angular-translate" {
+    var _: string;
+    export = _;
+}
+
 declare module angular.translate {
-    
-    interface ITranslatePartialLoaderService {
-        addPart(name: string): ITranslatePartialLoaderService;
-        deletePart(name: string, removeData?: boolean): ITranslatePartialLoaderService;
-        isPartAvailable(name: string): boolean;
-    }
-  
+
     interface ITranslationTable {
-        [key: string]: string;
+        [key: string]: any;
     }
 
     interface ILanguageKeyAlias {
@@ -26,15 +25,30 @@ declare module angular.translate {
         set(name: string, value: string): void;
     }
 
-    interface ISTaticFilesLoaderOptions {
+    interface IStaticFilesLoaderOptions {
         prefix: string;
         suffix: string;
         key?: string;
     }
 
+    interface IPartialLoader<T> {
+        addPart(name : string, priority? : number) : T;
+        deletePart(name : string) : T;
+        isPartAvailable(name : string) : boolean;
+    }
+
+    interface ITranslatePartialLoaderService extends IPartialLoader<ITranslatePartialLoaderService> {
+        getRegisteredParts() : Array<string>;
+        isPartLoaded(name : string, lang : string) : boolean;
+    }
+
+    interface ITranslatePartialLoaderProvider extends angular.IServiceProvider, IPartialLoader<ITranslatePartialLoaderProvider> {
+        setPart(lang : string, part : string, table : ITranslationTable) : ITranslatePartialLoaderProvider;
+    }
+
     interface ITranslateService {
-        (translationId: string, interpolateParams?: any, interpolationId?: string): ng.IPromise<string>;
-        (translationId: string[], interpolateParams?: any, interpolationId?: string): ng.IPromise<{ [key: string]: string }>;
+        (translationId: string, interpolateParams?: any, interpolationId?: string): angular.IPromise<string>;
+        (translationId: string[], interpolateParams?: any, interpolationId?: string): angular.IPromise<{ [key: string]: string }>;
         cloakClassName(): string;
         cloakClassName(name: string): ITranslateProvider;
         fallbackLanguage(langKey?: string): string;
@@ -44,17 +58,17 @@ declare module angular.translate {
         isPostCompilingEnabled(): boolean;
         preferredLanguage(langKey?: string): string;
         proposedLanguage(): string;
-        refresh(langKey?: string): ng.IPromise<void>;
+        refresh(langKey?: string): angular.IPromise<void>;
         storage(): IStorage;
         storageKey(): string;
         use(): string;
-        use(key: string): ng.IPromise<string>;
+        use(key: string): angular.IPromise<string>;
         useFallbackLanguage(langKey?: string): void;
         versionInfo(): string;
         loaderCache(): any;
     }
 
-    interface ITranslateProvider extends ng.IServiceProvider {
+    interface ITranslateProvider extends angular.IServiceProvider {
         translations(): ITranslationTable;
         translations(key: string, translationTable: ITranslationTable): ITranslateProvider;
         cloakClassName(): string;
@@ -78,8 +92,8 @@ declare module angular.translate {
         storageKey(): string;
         storageKey(key: string): void; // JeroMiya - the library should probably return ITranslateProvider but it doesn't here
         useUrlLoader(url: string): ITranslateProvider;
-        useStaticFilesLoader(options: ISTaticFilesLoaderOptions): ITranslateProvider;
-        useLoader(loaderFactory: string, options: any): ITranslateProvider;
+        useStaticFilesLoader(options: IStaticFilesLoaderOptions): ITranslateProvider;
+        useLoader(loaderFactory: string, options?: any): ITranslateProvider;
         useLocalStorage(): ITranslateProvider;
         useCookieStorage(): ITranslateProvider;
         useStorage(storageFactory: any): ITranslateProvider;

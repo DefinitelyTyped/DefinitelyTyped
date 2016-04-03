@@ -33,6 +33,8 @@ declare module "oboe" {
 			removeListener(event: string, pattern: string, callback: CallbackSignature): Oboe;
 
 			start(callback: (status: number, headers: Object) => void): Oboe;
+			
+			abort():void;
 
 			source: string;
 		}

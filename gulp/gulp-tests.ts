@@ -1,6 +1,8 @@
 /// <reference path="gulp.d.ts" />
+/// <reference path="../browser-sync/browser-sync.d.ts"/>
 
 import gulp = require("gulp");
+import browserSync = require("browser-sync");
 
 var typescript: IGulpPlugin = null; // this would be the TypeScript compiler
 var jasmine: IGulpPlugin = null; // this would be the jasmine test runner
@@ -27,3 +29,40 @@ gulp.task('test', ['compile', 'compile2'], function()
 });
 
 gulp.task('default', ['compile', 'test']);
+
+
+var opts = {};
+
+gulp.watch('*.html', 'compile');
+gulp.watch('*.html', ['compile', 'test']);
+gulp.watch('*.html', () => {});
+gulp.watch('*.html', [() => {}, (event) => {}]);
+gulp.watch('*.html', ['compile', () => {}]);
+
+gulp.watch('*.html', opts, 'compile');
+gulp.watch('*.html', opts, ['compile', 'test']);
+gulp.watch('*.html', opts, () => {});
+gulp.watch('*.html', opts, [() => {}, (event) => {}]);
+gulp.watch('*.html', opts, ['compile', () => {}]);
+
+gulp.watch(['*.html', '*.ts'], 'compile');
+gulp.watch(['*.html', '*.ts'], ['compile', 'test']);
+gulp.watch(['*.html', '*.ts'], () => {});
+gulp.watch(['*.html', '*.ts'], [() => {}, (event) => {}]);
+gulp.watch(['*.html', '*.ts'], ['compile', () => {}]);
+
+gulp.watch(['*.html', '*.ts'], opts, 'compile');
+gulp.watch(['*.html', '*.ts'], opts, ['compile', 'test']);
+gulp.watch(['*.html', '*.ts'], opts, () => {});
+gulp.watch(['*.html', '*.ts'], opts, [() => {}, (event) => {}]);
+gulp.watch(['*.html', '*.ts'], opts, ['compile', () => {}]);
+
+var watcher = gulp.watch('*.html', event => {
+    console.log('Event type: ' + event.type);
+    console.log('Event path: ' + event.path);
+});
+
+gulp.task('serve', ['compile'], () => {
+    var browser = browserSync.create();
+    gulp.watch(['*.html', '*.ts'], ['compile', browser.reload]);
+});

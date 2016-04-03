@@ -52,8 +52,10 @@ declare module "fs-extra" {
 
 	export function mkdirs(dir: string, callback?: (err: Error) => void): void;
 	export function mkdirp(dir: string, callback?: (err: Error) => void): void;
-	export function mkdirsSync(dir: string): void;
-	export function mkdirpSync(dir: string): void;
+	export function mkdirs(dir: string, options?: MkdirOptions, callback?: (err: Error) => void): void;
+	export function mkdirp(dir: string, options?: MkdirOptions, callback?: (err: Error) => void): void;
+	export function mkdirsSync(dir: string, options?: MkdirOptions): void;
+	export function mkdirpSync(dir: string, options?: MkdirOptions): void;
 
 	export function outputFile(file: string, data: any, callback?: (err: Error) => void): void;
 	export function outputFileSync(file: string, data: any): void;
@@ -169,6 +171,11 @@ declare module "fs-extra" {
 	export interface OpenOptions {
 		encoding?: string;
 		flag?: string;
+	}
+
+	export interface MkdirOptions {
+		fs?: any;
+		mode?: number;
 	}
 
 	export interface ReadStreamOptions {

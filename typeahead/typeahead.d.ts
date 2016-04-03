@@ -352,7 +352,7 @@ declare module Bloodhound
 }
 
 declare class Bloodhound<T> {
-  constructor(options: Bloodhound.BloodhoundOptions<T>)
+  constructor(options: Bloodhound.BloodhoundOptions<T>);
   /**
   * wraps the suggestion engine in an adapter that is compatible with the typeahead jQuery plugin
   */

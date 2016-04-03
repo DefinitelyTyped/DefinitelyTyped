@@ -1,4 +1,4 @@
-// Type definitions for Angular Material 0.8.3+ (ng.material module)
+// Type definitions for Angular Material 0.10.1-rc1+ (angular.material module)
 // Project: https://github.com/angular/material
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -6,126 +6,154 @@
 /// <reference path="../angularjs/angular.d.ts" />
 declare module angular.material {
 
-    interface MDBottomSheetOptions {
+    interface IBottomSheetOptions {
         templateUrl?: string;
         template?: string;
-        controller?: any;
+        scope?: angular.IScope; // default: new child scope
+        preserveScope?: boolean; // default: false
+        controller?: string|Function;
         locals?: {[index: string]: any};
-        targetEvent?: any;
-        resolve?: {[index: string]: ng.IPromise<any>}
+        targetEvent?: MouseEvent;
+        resolve?: {[index: string]: angular.IPromise<any>}
         controllerAs?: string;
-        parent?: Element;
-        disableParentScroll?: boolean;
+        parent?: string|Element|JQuery; // default: root node
+        disableParentScroll?: boolean; // default: true
     }
 
-    interface MDBottomSheetService {
-        show(options: MDBottomSheetOptions): ng.IPromise<any>;
+    interface IBottomSheetService {
+        show(options: IBottomSheetOptions): angular.IPromise<any>;
         hide(response?: any): void;
         cancel(response?: any): void;
     }
 
-    interface MDPresetDialog<T> {
+    interface IPresetDialog<T> {
         title(title: string): T;
         content(content: string): T;
-        ok(content: string): T;
+        ok(ok: string): T;
         theme(theme: string): T;
+        templateUrl(templateUrl?: string): T;
+        template(template?: string): T;
+        targetEvent(targetEvent?: MouseEvent): T;
+        scope(scope?: angular.IScope): T; // default: new child scope
+        preserveScope(preserveScope?: boolean): T; // default: false
+        disableParentScroll(disableParentScroll?: boolean): T; // default: true
+        hasBackdrop(hasBackdrop?: boolean): T; // default: true
+        clickOutsideToClose(clickOutsideToClose?: boolean): T; // default: false
+        escapeToClose(escapeToClose?: boolean): T; // default: true
+        focusOnOpen(focusOnOpen?: boolean): T; // default: true
+        controller(controller?: string|Function): T;
+        locals(locals?: {[index: string]: any}): T;
+        bindToController(bindToController?: boolean): T; // default: false
+        resolve(resolve?: {[index: string]: angular.IPromise<any>}): T;
+        controllerAs(controllerAs?: string): T;
+        parent(parent?: string|Element|JQuery): T; // default: root node
+        onComplete(onComplete?: Function): T;
+        ariaLabel(ariaLabel: string): T;
     }
 
-    interface MDAlertDialog extends MDPresetDialog<MDAlertDialog> {
+    interface IAlertDialog extends IPresetDialog<IAlertDialog> {
     }
 
-    interface MDConfirmDialog extends MDPresetDialog<MDConfirmDialog> {
-        cancel(reason?: string): MDConfirmDialog;
+    interface IConfirmDialog extends IPresetDialog<IConfirmDialog> {
+        cancel(cancel: string): IConfirmDialog;
     }
 
-    interface MDDialogOptions {
+    interface IDialogOptions {
         templateUrl?: string;
         template?: string;
-        domClickEvent?: any;
-        disableParentScroll?: boolean;
-        clickOutsideToClose?: boolean;
-        hasBackdrop?: boolean;
-        escapeToClose?: boolean;
-        controller?: any;
+        targetEvent?: MouseEvent;
+        scope?: angular.IScope; // default: new child scope
+        preserveScope?: boolean; // default: false
+        disableParentScroll?: boolean; // default: true
+        hasBackdrop?: boolean // default: true
+        clickOutsideToClose?: boolean; // default: false
+        escapeToClose?: boolean; // default: true
+        focusOnOpen?: boolean; // default: true
+        controller?: string|Function;
         locals?: {[index: string]: any};
-        bindToController?: boolean;
-        resolve?: {[index: string]: ng.IPromise<any>}
+        bindToController?: boolean; // default: false
+        resolve?: {[index: string]: angular.IPromise<any>}
         controllerAs?: string;
-        parent?: Element;
+        parent?: string|Element|JQuery; // default: root node
         onComplete?: Function;
     }
 
-    interface MDDialogService {
-        show(dialog: MDDialogOptions|MDPresetDialog<any>): ng.IPromise<any>;
-        confirm(): MDConfirmDialog;
-        alert(): MDAlertDialog;
+    interface IDialogService {
+        show(dialog: IDialogOptions|IAlertDialog|IConfirmDialog): angular.IPromise<any>;
+        confirm(): IConfirmDialog;
+        alert(): IAlertDialog;
         hide(response?: any): void;
         cancel(response?: any): void;
     }
 
-    interface MDIcon {
-        (path: string): ng.IPromise<Element>;
+    interface IIcon {
+        (id: string): angular.IPromise<Element>; // id is a unique ID or URL
     }
 
-    interface MDIconProvider {
-        icon(id: string, url: string, iconSize?: string): MDIconProvider;
-        iconSet(id: string, url: string, iconSize?: string): MDIconProvider;
-        defaultIconSet(url: string, iconSize?: string): MDIconProvider;
-        defaultIconSize(iconSize: string): MDIconProvider;
+    interface IIconProvider {
+        icon(id: string, url: string, viewBoxSize?: number): IIconProvider; // viewBoxSize default: 24
+        iconSet(id: string, url: string, viewBoxSize?: number): IIconProvider; // viewBoxSize default: 24
+        defaultIconSet(url: string, viewBoxSize?: number): IIconProvider; // viewBoxSize default: 24
+        defaultViewBoxSize(viewBoxSize: number): IIconProvider; // default: 24
+        defaultFontSet(name: string): IIconProvider;
     }
 
-    interface MDMedia {
+    interface IMedia {
         (media: string): boolean;
     }
 
-    interface MDSidenavObject {
-        toggle(): void;
-        open(): void;
-        close(): void;
+    interface ISidenavObject {
+        toggle(): angular.IPromise<void>;
+        open(): angular.IPromise<void>;
+        close(): angular.IPromise<void>;
         isOpen(): boolean;
         isLockedOpen(): boolean;
     }
 
-    interface MDSidenavService {
-        (component: string): MDSidenavObject;
+    interface ISidenavService {
+        (component: string): ISidenavObject;
     }
 
-    interface MDToastPreset<T> {
+    interface IToastPreset<T> {
         content(content: string): T;
         action(action: string): T;
         highlightAction(highlightAction: boolean): T;
         capsule(capsule: boolean): T;
         theme(theme: string): T;
         hideDelay(delay: number): T;
+        position(position: string): T;
+        parent(parent?: string|Element|JQuery): T; // default: root node
     }
 
-    interface MDSimpleToastPreset extends MDToastPreset<MDSimpleToastPreset> {
+    interface ISimpleToastPreset extends IToastPreset<ISimpleToastPreset> {
     }
 
-    interface MDToastOptions {
+    interface IToastOptions {
         templateUrl?: string;
         template?: string;
-        hideDelay?: number;
-        position?: string;
-        controller?: any;
+        scope?: angular.IScope; // default: new child scope
+        preserveScope?: boolean; // default: false
+        hideDelay?: number; // default (ms): 3000
+        position?: string; // any combination of 'bottom'/'left'/'top'/'right'/'fit'; default: 'bottom left'
+        controller?: string|Function;
         locals?: {[index: string]: any};
-        bindToController?: boolean;
-        resolve?: {[index: string]: ng.IPromise<any>}
+        bindToController?: boolean; // default: false
+        resolve?: {[index: string]: angular.IPromise<any>}
         controllerAs?: string;
-        parent?: Element;
+        parent?: string|Element|JQuery; // default: root node
     }
 
-    interface MDToastService {
-        show(optionsOrPreset: MDToastOptions|MDToastPreset<any>): ng.IPromise<any>;
-        showSimple(): ng.IPromise<any>;
-        simple(): MDSimpleToastPreset;
-        build(): MDToastPreset<any>;
+    interface IToastService {
+        show(optionsOrPreset: IToastOptions|IToastPreset<any>): angular.IPromise<any>;
+        showSimple(content: string): angular.IPromise<any>;
+        simple(): ISimpleToastPreset;
+        build(): IToastPreset<any>;
         updateContent(): void;
         hide(response?: any): void;
         cancel(response?: any): void;
     }
 
-    interface MDPalette {
+    interface IPalette {
         0?: string;
         50?: string;
         100?: string;
@@ -142,30 +170,30 @@ declare module angular.material {
         A400?: string;
         A700?: string;
         contrastDefaultColor?: string;
-        contrastDarkColors?: string;
-        contrastStrongLightColors?: string;
+        contrastDarkColors?: string|string[];
+        contrastLightColors?: string|string[];
     }
 
-    interface MDThemeHues {
+    interface IThemeHues {
         default?: string;
         'hue-1'?: string;
         'hue-2'?: string;
         'hue-3'?: string;
     }
 
-    interface MDThemePalette {
+    interface IThemePalette {
         name: string;
-        hues: MDThemeHues;
+        hues: IThemeHues;
     }
 
-    interface MDThemeColors {
-        accent: MDThemePalette;
-        background: MDThemePalette;
-        primary: MDThemePalette;
-        warn: MDThemePalette;
+    interface IThemeColors {
+        accent: IThemePalette;
+        background: IThemePalette;
+        primary: IThemePalette;
+        warn: IThemePalette;
     }
 
-    interface MDThemeGrayScalePalette {
+    interface IThemeGrayScalePalette {
         1: string;
         2: string;
         3: string;
@@ -173,22 +201,23 @@ declare module angular.material {
         name: string;
     }
 
-    interface MDTheme {
+    interface ITheme {
         name: string;
-        colors: MDThemeColors;
-        foregroundPalette: MDThemeGrayScalePalette;
+        isDark: boolean;
+        colors: IThemeColors;
+        foregroundPalette: IThemeGrayScalePalette;
         foregroundShadow: string;
-        accentPalette(name: string, hues?: MDThemeHues): MDTheme;
-        primaryPalette(name: string, hues?: MDThemeHues): MDTheme;
-        warnPalette(name: string, hues?: MDThemeHues): MDTheme;
-        backgroundPalette(name: string, hues?: MDThemeHues): MDTheme;
-        dark(isDark?: boolean): MDTheme;
+        accentPalette(name: string, hues?: IThemeHues): ITheme;
+        primaryPalette(name: string, hues?: IThemeHues): ITheme;
+        warnPalette(name: string, hues?: IThemeHues): ITheme;
+        backgroundPalette(name: string, hues?: IThemeHues): ITheme;
+        dark(isDark?: boolean): ITheme;
     }
 
-    interface MDThemingProvider {
-        theme(name: string, inheritFrom?: string): MDTheme;
-        definePalette(name: string, palette: MDPalette): MDThemingProvider;
-        extendPalette(name: string, palette: MDPalette): MDPalette;
+    interface IThemingProvider {
+        theme(name: string, inheritFrom?: string): ITheme;
+        definePalette(name: string, palette: IPalette): IThemingProvider;
+        extendPalette(name: string, palette: IPalette): IPalette;
         setDefaultTheme(theme: string): void;
         alwaysWatchTheme(alwaysWatch: boolean): void;
     }

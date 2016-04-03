@@ -4,12 +4,12 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 interface StripeStatic {
-    setPublishableKey(key: string);
+    setPublishableKey(key: string): void;
     validateCardNumber(cardNumber: string): boolean;
     validateExpiry(month: string, year: string): boolean;
     validateCVC(cardCVC: string): boolean;
     cardType(cardNumber: string): string;
-    getToken(token: string, responseHandler: (status: number, response: StripeTokenResponse) => void);
+    getToken(token: string, responseHandler: (status: number, response: StripeTokenResponse) => void): void;
     card: StripeCardData;
 }
 
@@ -58,7 +58,7 @@ interface StripeCardData {
     address_zip?: string;
     address_country?: string;
 
-    createToken(data: StripeTokenData, responseHandler: (status: number, response: StripeTokenResponse) => void);
+    createToken(data: StripeTokenData, responseHandler: (status: number, response: StripeTokenResponse) => void): void;
 }
 
 declare var Stripe: StripeStatic;

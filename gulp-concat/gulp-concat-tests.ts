@@ -18,6 +18,6 @@ gulp.task("concat:newLine", () => {
 
 gulp.task("concat:vinyl", () => {
     gulp.src(["file*.txt"])
-        .pipe(concat({ path: "file.txt", stat: { mode: 0666 } }))
+        .pipe(concat({ path: "file.txt", stat: { mode: parseInt("0666", 8) } }))
         .pipe(gulp.dest("build"));
 });

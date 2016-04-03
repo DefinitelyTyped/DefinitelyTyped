@@ -7,6 +7,7 @@
 
 declare module Rx {
 	export interface BehaviorSubject<T> extends Subject<T> {
+		getValue(): T;
 	}
 
 	interface BehaviorSubjectStatic {

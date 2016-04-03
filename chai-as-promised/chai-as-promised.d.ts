@@ -6,21 +6,22 @@
 /// <reference path="../chai/chai.d.ts" />
 
 declare module 'chai-as-promised' {
-    import chai = require('chai');
-
     function chaiAsPromised(chai: any, utils: any): void;
-
     export = chaiAsPromised;
 }
 
-declare module chai {
+declare module Chai {
+
+    interface Assertion {
+        become(expected: any): Assertion;
+        fulfilled: Assertion;
+        rejected: Assertion;
+        rejectedWith(expected: any): Assertion;
+        notify(fn: Function): Assertion;
+    }
 
     interface LanguageChains {
-        become(expected: any): Expect;
-        eventually: Expect;
-        rejected: Expect;
-        rejectedWith(expected: any): Expect;
-        notify(fn: Function): Expect;
+        eventually: Assertion;
     }
 
     interface Assert {

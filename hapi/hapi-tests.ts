@@ -4,9 +4,9 @@ import Hapi = require("hapi");
 
 // Create a server with a host and port
 var server = new Hapi.Server();
-server.connection({
+server.connection(<Hapi.IServerConnectionOptions>{
 	host: "localhost",
-	port: 8000,
+	port: 8000
 });
 
 // Add plugins
@@ -24,7 +24,7 @@ plugin.register.attributes = {
 // optional options parameter
 server.register({}, function (err) {});
 
-// optional options.routes.vhost parameter 
+// optional options.routes.vhost parameter
 server.register({}, { select: 'api', routes: { prefix: '/prefix' } }, function (err) {});
 
 //server.pack.register(plugin, (err: Object) => {
@@ -80,6 +80,32 @@ server.route([{
 	handler: function (request: Hapi.Request, reply: Function) {
 		reply('hello world2');
 	}
+}]);
+
+// config.validate parameters should be optional
+server.route([{
+    method: 'GET',
+    path: '/hello2',
+    handler: function(request: Hapi.Request, reply: Function) {
+        reply('hello world2');
+    },
+    config: {
+        validate: {
+        }
+    }
+}]);
+
+// Should be able to chain reply options
+server.route([{
+    method: 'GET',
+    path: '/chained-notation',
+    handler: function(request: Hapi.Request, reply: Hapi.IReply) {
+        reply('chained-notation')
+            .bytes(16)
+            .code(200)
+            .type('text/plain')
+            .header('X-Custom', 'some-value');
+    }
 }]);
 
 // Start the server

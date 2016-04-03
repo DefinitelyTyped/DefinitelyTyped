@@ -106,6 +106,17 @@ async.series<number>({
 },
 function (err, results) { });
 
+async.times(5, function(n, next) {
+    next(null, n)
+}, function(err, results) {
+    console.log(results)
+})
+
+async.timesSeries(5, function(n, next) {
+    next(null, n)
+}, function(err, results) {
+    console.log(results)
+})
 
 async.parallel([
     function (callback) {

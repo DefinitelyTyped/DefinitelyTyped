@@ -6,6 +6,9 @@
 /// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path='../node/node.d.ts'/>
 
+/// <reference path='../redis/redis.d.ts'/>
+/// <reference path="../mongodb/mongodb.d.ts" />
+
 declare module "acl" {
   import http = require('http');
   import Promise = require("bluebird");
@@ -113,6 +116,33 @@ declare module "acl" {
   interface NoOp {
     params: (...types: string[]) => NoOp;
     end: () => void;
+  }
+
+  // for redis backend
+  import redis = require('redis');
+
+  interface AclStatic {
+    redisBackend: RedisBackendStatic;
+  }
+
+  interface RedisBackend extends Backend<redis.RedisClient> { }
+  interface RedisBackendStatic {
+    new(redis: redis.RedisClient, prefix: string): RedisBackend;
+    new(redis: redis.RedisClient): RedisBackend;
+  }
+
+  // for mongodb backend
+  import mongo = require('mongodb');
+
+  interface AclStatic {
+    mongodbBackend: MongodbBackendStatic;
+  }
+
+  interface MongodbBackend extends Backend<Callback> { }
+  interface MongodbBackendStatic {
+    new(db: mongo.Db, prefix: string, useSingle: boolean): MongodbBackend;
+    new(db: mongo.Db, prefix: string): MongodbBackend;
+    new(db: mongo.Db): MongodbBackend;
   }
 
   var _: AclStatic;

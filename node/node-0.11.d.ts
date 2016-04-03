@@ -83,6 +83,7 @@ declare module NodeJS {
         code?: string;
         path?: string;
         syscall?: string;
+        stack?: string;
     }
 
     export interface EventEmitter {
@@ -569,7 +570,7 @@ declare module "readline" {
     import stream = require("stream");
 
     export interface ReadLine extends events.EventEmitter {
-        setPrompt(prompt: string, length: number): void;
+        setPrompt(prompt: string): void;
         prompt(preserveCursor?: boolean): void;
         question(query: string, callback: Function): void;
         pause(): void;

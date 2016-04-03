@@ -272,7 +272,7 @@ Posts.allow({
 Posts.deny({
   update: function (userId, docs, fields, modifier) {
     // can't change owners
-    return docs.userId = userId;
+    return docs.userId !== userId;
   },
   remove: function (userId, doc) {
     // can't remove locked documents

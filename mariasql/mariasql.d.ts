@@ -24,12 +24,22 @@ declare module mariasql {
         (result:Object):void
     }
 
+    export interface MariaCallBackInfo {
+        (result:MariaInfo):void
+    }
+
     export interface MariaCallBackVoid {
         ():void
     }
 
     export interface Dictionary {
         [index: string]: any;
+    }
+
+    export interface MariaInfo {
+        affectedRows: number;
+        insertId: number;
+        numRows: number
     }
 
     export interface MariaPreparedQuery {
@@ -57,18 +67,20 @@ declare module mariasql {
     }
 
     export interface MariaResult {
-        on(signal:string, cb:MariaCallBackObject):MariaResult; // signal 'end'
-        on(signal:string, cb:MariaCallBackError):MariaResult;  // signal 'error'
-        on(signal:string, cb:MariaCallBackRow):MariaResult;    // signal 'row'
-        on(signal:string, cb:MariaCallBackVoid):MariaResult;   // signal 'abort'
+        on(signal:'end', cb:MariaCallBackInfo):MariaResult;
+        on(signal:'error', cb:MariaCallBackError):MariaResult;
+        on(signal:'row', cb:MariaCallBackRow):MariaResult;
+        on(signal:'abort', cb:MariaCallBackVoid):MariaResult;
+        on(signal:string, cb:MariaCallBackVoid):MariaResult;
         abort():void;
     }
 
     export interface MariaQuery {
-        on(signal:string, cb:MariaCallBackResult):MariaQuery; // signal 'result'
-        on(signal:string, cb:MariaCallBackVoid):MariaQuery;   // signal 'end'
-        on(signal:string, cb:MariaCallBackVoid):MariaQuery;   // signal 'abort'
-        on(signal:string, cb:MariaCallBackError):MariaQuery;  // signal 'error'
+        on(signal:'result', cb:MariaCallBackResult):MariaQuery;
+        on(signal:'end', cb:MariaCallBackVoid):MariaQuery;
+        on(signal:'abort', cb:MariaCallBackVoid):MariaQuery;
+        on(signal:'error', cb:MariaCallBackError):MariaQuery;
+        on(signal:string, cb:MariaCallBackVoid):MariaQuery;
         abort():void;
     }
 
@@ -82,9 +94,10 @@ declare module mariasql {
         query(q:string, useArray?:boolean):MariaQuery;
         prepare(query:string): MariaPreparedQuery;
         isMariaDB():boolean;
-        on(signal:string, cb:MariaCallBackError): MariaClient;    // signal 'error'
-        on(signal:string, cb:MariaCallBackObject): MariaClient;   // signal 'close'
-        on(signal:string, cb:MariaCallBackVoid): MariaClient;     // signal 'connect'
+        on(signal:'error', cb:MariaCallBackError): MariaClient;
+        on(signal:'close', cb:MariaCallBackObject): MariaClient;
+        on(signal:'connect', cb:MariaCallBackVoid): MariaClient;
+        on(signal:string, cb:MariaCallBackVoid): MariaClient;
         connected: boolean;
         threadId: string;
     }

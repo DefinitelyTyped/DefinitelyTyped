@@ -34,6 +34,16 @@ declare module jquery.velocity {
 		animate(options: {elements: NodeListOf<HTMLElement>; properties: Object; options: VelocityOptions}): void;
 		animate(elements: NodeListOf<HTMLElement>, properties: Object, options: VelocityOptions): void;
 		animate(element: HTMLElement, properties: Object, options: VelocityOptions): void;
+		/** 
+        	 * Get a hook value. Hooks are the subvalues of multi-value CSS properties.
+        	 * It features the same API as $.css().
+        	 */
+        	hook(element: HTMLElement|JQuery, cssKey: string): string;
+        	/** 
+        	 * Set a hook value. Hooks are the subvalues of multi-value CSS properties.
+        	 * It features the same API as $.css().
+        	 */
+        	hook(element: HTMLElement|JQuery, cssKey: string, cssValue: string): void;
 	}
 
 	interface VelocityOptions {
@@ -48,5 +58,8 @@ declare module jquery.velocity {
 		delay?: any;
 		mobileHA?: boolean;
 		_cacheValues?: boolean;
+		container?: JQuery;
+		axis?: string;
+		offset?: number;
 	}
 }

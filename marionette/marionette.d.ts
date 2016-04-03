@@ -38,7 +38,7 @@ declare module Backbone {
         include(value: any): boolean;
         initial(): View<TModel>;
         initial(n: number): View<TModel>[];
-        invoke(methodName: string, arguments?: any[]): any;
+        invoke(methodName: string, args?: any[]): any;
         isEmpty(object: any): boolean;
         last(): View<TModel>;
         last(n: number): View<TModel>[];
@@ -533,7 +533,7 @@ declare module Marionette {
          * Calls the method named by methodName on each value in the collection. Any extra 
          * arguments passed to invoke will be forwarded on to the method invocation. 
          */
-        invoke(methodName: string, arguments?: any[]): any;
+        invoke(methodName: string, args?: any[]): any;
 
         /**
          * Returns true if the RegionManager contains no regions.
@@ -1128,6 +1128,9 @@ declare module Marionette {
          * Add multiple regions as a {name: definition, name2: def2} object literal.
          */
         addRegions(regions: any): any;
+        
+	/** Returns a region from the layout view */
+        getRegion(name: string): Region;
 
         /**
          * Renders the view.
@@ -1291,6 +1294,15 @@ declare module Marionette {
 
         options: any;
 
+		/**
+         * Behaviors can have their own ui hash, which will be mixed into the ui
+         * hash of its associated View instance. ui elements defined on either the
+         * Behavior or the View will be made available within events and triggers.
+         * They also are attached directly to the Behavior and can be accessed within
+         * Behavior methods as this.ui.
+         */
+        ui: any;
+		
         /**
          * Any triggers you define on the Behavior will be triggered in response to the appropriate event on the view.
          */

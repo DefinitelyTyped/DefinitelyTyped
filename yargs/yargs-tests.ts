@@ -155,3 +155,14 @@ function Argv$showHelp() {
 		.usage("$0 -operand1 number -operand2 number -operation [add|subtract]");
 	yargs1.showHelp();
 }
+
+function Argv$version() {
+	var argv1 = yargs
+		.version('1.0.0');
+
+	var argv2 = yargs
+		.version('1.0.0', '--version');
+
+	var argv3 = yargs
+		.version('1.0.0', '--version', 'description');
+}

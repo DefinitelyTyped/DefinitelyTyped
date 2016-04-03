@@ -82,7 +82,7 @@ interface noUiSliderOptions {
     animate?: boolean;
     /**
      * All values on the slider are part of a range. The range has a minimum and maximum value.
-     *
+     */
     behaviour?: string;
     /**
      * To format the slider output, noUiSlider offers a format option. 

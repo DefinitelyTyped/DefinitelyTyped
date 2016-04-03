@@ -51,7 +51,7 @@ declare class Body {
 	arrayBuffer(): Promise<ArrayBuffer>;
 	blob(): Promise<Blob>;
 	formData(): Promise<FormData>;
-	json(): Promise<JSON>;
+	json(): Promise<any>;
 	text(): Promise<string>;
 }
 declare class Response extends Body {

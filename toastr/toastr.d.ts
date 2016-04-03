@@ -197,3 +197,6 @@ interface Toastr {
 }
 
 declare var toastr: Toastr;
+declare module "toastr" {
+	export = toastr;
+}

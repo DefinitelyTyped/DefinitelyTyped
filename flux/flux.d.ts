@@ -3,14 +3,14 @@
 // Definitions by: Steve Baker <https://github.com/stkb/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module 'flux' {
+declare module Flux {
 
     /**
     * Dispatcher class
     * Create an instance to use throughout the application.
     * Or extend it to create a derived dispatcher class.
     *
-    * Specify a type in the 'TPayload' generic argument to use strongly-typed payloads, 
+    * Specify a type in the 'TPayload' generic argument to use strongly-typed payloads,
     * otherwise specify 'any'
     *
     * Examples:
@@ -23,41 +23,45 @@ declare module 'flux' {
         /**
         * Create an instance of the Dispatcher class to use throughout the application.
         *
-        * Specify a type in the 'TPayload' generic argument to use strongly-typed payloads, 
+        * Specify a type in the 'TPayload' generic argument to use strongly-typed payloads,
         * otherwise specify 'any'
         *
         * Examples:
         *     var dispatcher = new flux.Dispatcher<any>()
         *     var typedDispatcher = new flux.Dispatcher<MyCustomActionType>()
         */
-        constructor()
+        constructor();
 
         /**
         * Registers a callback that will be invoked with every payload sent to the dispatcher.
         * Returns a string token to identify the callback to be used with waitFor() or unregister.
         */
-        register(callback: (payload: TPayload) => void): string
-        
+        register(callback: (payload: TPayload) => void): string;
+
         /**
         * Unregisters a callback with the given ID token
         */
-        unregister(id: string): void
+        unregister(id: string): void;
 
         /**
         * Waits for the callbacks with the specified IDs to be invoked before continuing execution
-        * of the current callback. This method should only be used by a callback in response 
+        * of the current callback. This method should only be used by a callback in response
         * to a dispatched payload.
         */
-        waitFor(IDs: string[]): void 
+        waitFor(IDs: string[]): void;
 
         /**
         * Dispatches a payload to all registered callbacks
         */
-        dispatch(payload: TPayload): void 
+        dispatch(payload: TPayload): void;
 
         /**
         * Gets whether the dispatcher is currently dispatching
         */
-        isDispatching(): boolean
+        isDispatching(): boolean;
     }
+}
+
+declare module "flux" {
+    export = Flux;
 }

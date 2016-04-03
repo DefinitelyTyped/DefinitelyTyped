@@ -7,7 +7,7 @@
 /// <reference path="../jquery/jquery.d.ts"/>
 
 interface ModalOptions {
-    backdrop?: boolean;
+    backdrop?: boolean|string;
     keyboard?: boolean;
     show?: boolean;
     remote?: string;

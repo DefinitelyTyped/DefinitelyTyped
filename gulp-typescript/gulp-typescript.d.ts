@@ -10,6 +10,7 @@ declare module "gulp-typescript" {
 
     module GulpTypescript {
         export function createProject(params: Params): Params;
+        export function createProject(file: string, params: Params): Params;
         export function filter(filters: FilterSettings): CompilationStream;
         interface Params {
             declarationFiles?: boolean;

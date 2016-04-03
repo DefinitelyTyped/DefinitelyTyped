@@ -69,9 +69,9 @@ var customizedAssert2 = assert.customize({
         circular: '#@Circular#',
         lineSeparator: '\n',
         ambiguousEastAsianCharWidth: 2,
-        widthOf: () => null,
-        stringify: () => null,
-        diff: () => null,
+        widthOf: () => false,
+        stringify: () => false,
+        diff: () => false,
         writerClass: null,
         renderers: [
             './built-in/file',

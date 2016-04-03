@@ -43,7 +43,7 @@ declare module Snap {
 	export function ajax(url:string,callback:Function,scope?:Object):XMLHttpRequest;
 	export function format(token:string,json:Object):string;
 	export function fragment(varargs:any):Fragment;
-	export function getElementByPoint(x:number,y:number):Object;
+	export function getElementByPoint(x:number,y:number):Snap.Element;
 	export function is(o:any,type:string):boolean;
 	export function load(url:string,callback:Function,scope?:Object):void;
 	export function plugin(f:Function):void;
@@ -131,6 +131,7 @@ declare module Snap {
 		getSubpath(from:number,to:number):string;
 		getTotalLength():number;
 		hasClass(value:string):boolean;
+		id:string;		
 		inAnim():Object;
 		innerSVG():string;
 		insertAfter(el:Snap.Element):Snap.Element;

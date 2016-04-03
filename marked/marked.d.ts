@@ -64,6 +64,13 @@ interface MarkedStatic {
 
 interface MarkedOptions {
     /**
+     * Type: object Default: new Renderer()
+     *
+     * An object containing functions to render tokens to HTML.
+     */
+    renderer?: Object; 
+
+    /**
      * Enable GitHub flavored markdown.
      */
     gfm?: boolean;

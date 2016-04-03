@@ -50,7 +50,7 @@ interface amplifyRequest {
     *   success (optional): Function to invoke on success.
     *   error (optional): Function to invoke on error.
     */
-    (settings: amplifyRequestSettings);
+    (settings: amplifyRequestSettings): any;
 
     /***
     * Define a resource.

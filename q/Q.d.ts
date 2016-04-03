@@ -122,6 +122,12 @@ declare module Q {
          * A sugar method, equivalent to promise.then(function () { throw reason; }).
          */
         thenReject(reason: any): Promise<T>;
+
+        /**
+         * Attaches a handler that will observe the value of the promise when it becomes fulfilled, returning a promise for that same value, perhaps deferred but not replaced by the promise returned by the onFulfilled handler.
+         */
+        tap(onFulfilled: (value: T) => any): Promise<T>;
+
         timeout(ms: number, message?: string): Promise<T>;
         /**
          * Returns a promise that will have the same result as promise, but will only be fulfilled or rejected after at least ms milliseconds have passed.
@@ -310,6 +316,13 @@ declare module Q {
      * Calling resolve with a non-promise value causes promise to be fulfilled with that value.
      */
     export function resolve<T>(object: T): Promise<T>;
+
+	/**
+	 * Resets the global "Q" variable to the value it has before Q was loaded.
+	 * This will either be undefined if there was no version or the version of Q which was already loaded before.
+	 * @returns { The last version of Q. } 
+	 */
+	export function noConflict(): typeof Q;
 }
 
 declare module "q" {

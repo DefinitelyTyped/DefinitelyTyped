@@ -106,7 +106,7 @@ declare module "websocket" {
 
         /**
          * If this is true, websocket connections will be accepted regardless of the path
-         * and protocol specified by the client. The protocol accepted will be the first 
+         * and protocol specified by the client. The protocol accepted will be the first
          * that was requested by the client.
          * @default false
          */
@@ -118,7 +118,7 @@ declare module "websocket" {
          * together before going onto the wire. This however comes at the cost of latency.
          * @default true
          */
-        disableNagleAlgorithm?: boolean; 
+        disableNagleAlgorithm?: boolean;
     }
 
     export class server extends events.EventEmitter {
@@ -188,7 +188,7 @@ declare module "websocket" {
         key: string;
         /** Parsed resource, including the query string parameters */
         resourceURL: url.Url;
-        
+
         /**
          * Client's IP. If an `X-Forwarded-For` header is present, the value will be taken
          * from that header to facilitate WebSocket servers that live behind a reverse-proxy
@@ -226,7 +226,7 @@ declare module "websocket" {
          * After inspecting the `request` properties, call this function on the
          * request object to accept the connection. If you don't have a particular subprotocol
          * you wish to speak, you may pass `null` for the `acceptedProtocol` parameter.
-         * 
+         *
          * @param [acceptedProtocol] case-insensitive value that was requested by the client
          */
         accept(acceptedProtocol?: string, allowedOrigin?: string, cookies?: ICookie[]): connection;
@@ -321,7 +321,7 @@ declare module "websocket" {
          */
         closeReasonCode: number;
 
-        /** 
+        /**
          * The subprotocol that was chosen to be spoken on this connection. This field
          * will have been converted to lower case.
          */
@@ -451,13 +451,13 @@ declare module "websocket" {
          * a Protocol Error on the receiving peer.
          */
         rsv1: boolean;
-        
+
         /**
          * Represents the RSV1 field in the framing. Setting this to true will result in
          * a Protocol Error on the receiving peer.
          */
         rsv2: boolean;
-        
+
         /**
          * Represents the RSV1 field in the framing. Setting this to true will result in
          * a Protocol Error on the receiving peer.
@@ -473,7 +473,7 @@ declare module "websocket" {
 
         /**
          * Identifies which kind of frame this is.
-         * 
+         *
          * Hex  - Dec - Description
          * 0x00 -   0 - Continuation
          * 0x01 -   1 - Text Frame
@@ -548,7 +548,7 @@ declare module "websocket" {
         /**
          * Establish a connection. The remote server will select the best subprotocol that
          * it supports and send that back when establishing the connection.
-         * 
+         *
          * @param [origin] can be used in user-agent scenarios to identify the page containing
          *                 any scripting content that caused the connection to be requested.
          * @param requestUrl should be a standard websocket url
@@ -565,6 +565,90 @@ declare module "websocket" {
         addListener(event: string, listener: () => void): client;
         addListener(event: 'connect', cb: (connection: connection) => void): client;
         addListener(event: 'connectFailed', cb: (err: Error) => void): client;
+    }
+
+    class routerRequest extends events.EventEmitter {
+
+      /** A reference to the original Node HTTP request object */
+      httpRequest: http.ClientRequest;
+      /** A string containing the path that was requested by the client */
+      resource: string;
+      /** Parsed resource, including the query string parameters */
+      resourceURL: url.Url;
+
+      /**
+       * Client's IP. If an `X-Forwarded-For` header is present, the value will be taken
+       * from that header to facilitate WebSocket servers that live behind a reverse-proxy
+       */
+      remoteAddress: string;
+
+      /**
+       * If the client is a web browser, origin will be a string containing the URL
+       * of the page containing the script that opened the connection.
+       * If the client is not a web browser, origin may be `null` or "*".
+       */
+      origin: string;
+
+      /** The version of the WebSocket protocol requested by the client */
+      webSocketVersion: number;
+      /** An array containing a list of extensions requested by the client */
+      requestedExtensions: any[];
+
+      cookies: ICookie[];
+
+      constructor(webSocketRequest: request, resolvedProtocol: string);
+
+      /**
+       * After inspecting the `request` properties, call this function on the
+       * request object to accept the connection. If you don't have a particular subprotocol
+       * you wish to speak, you may pass `null` for the `acceptedProtocol` parameter.
+       *
+       * @param [acceptedProtocol] case-insensitive value that was requested by the client
+       */
+      accept(acceptedProtocol?: string, allowedOrigin?: string, cookies?: ICookie[]): connection;
+
+      /**
+       * Reject connection.
+       * You may optionally pass in an HTTP Status code (such as 404) and a textual
+       * description that will be sent to the client in the form of an
+       * `X-WebSocket-Reject-Reason` header.
+       */
+      reject(httpStatus?: number, reason?: string): void;
+
+      // Events
+      on(event: string, listener: () => void): request;
+      on(event: 'requestAccepted', cb: (connection: connection) => void): request;
+      on(event: 'requestRejected', cb: () => void): request;
+      addListener(event: string, listener: () => void): request;
+      addListener(event: 'requestAccepted', cb: (connection: connection) => void): request;
+      addListener(event: 'requestRejected', cb: () => void): request;
+    }
+
+    interface IRouterConfig {
+      /*
+       * The WebSocketServer instance to attach to.
+       */
+      server: server
+    }
+
+    class router extends events.EventEmitter {
+
+      constructor(config?: IRouterConfig);
+
+      /** Attach to WebSocket server */
+      attachServer(server: server): void;
+
+      /** Detach from WebSocket server */
+      detachServer(): void;
+
+      mount(path: string, cb: (request: routerRequest) => void): void;
+      mount(path: string, protocol: string, cb: (request: routerRequest) => void): void;
+      mount(path: RegExp, cb: (request: routerRequest) => void): void;
+      mount(path: RegExp, protocol: string, cb: (request: routerRequest) => void): void;
+
+      unmount(path: string, protocol?: string): void;
+      unmount(path: RegExp, protocol?: string): void;
+
     }
 
     export var version: string;

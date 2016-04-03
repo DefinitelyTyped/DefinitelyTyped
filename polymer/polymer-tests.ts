@@ -1,101 +1,58 @@
 /// <reference path="polymer.d.ts"/>
 
-class AbstractPolymerElement implements PolymerElement {
-	$: { [id: string]: HTMLElement }; //polymer object for elements that have an ID
+Polymer({
+  is: "my-element",
 
-	// inargs is the [args] for the callback.. need to update function def
-	async(inMethod: () => void, inArgs?: Array<any>, inTimeout?: number): void { }
-	job(jobName: string, inMethod: () => void, inTimeout?: number): void { }
-	fire(eventName: string, details?: any, targetNode?: any, bubbles?: boolean, cancelable?: boolean): void { }
-	asyncFire(eventName: string, details?: any, targetNode?: any, bubbles?: boolean, cancelable?: boolean): void { }
+  properties: {
+    prop1: String,
+    prop2: {
+      type: Boolean,
+      value: true,
+      readOnly: false,
+      reflectToAttribute: true,
+      notify: true,
+      computed: "__prop2()"
+    }
+  },
 
-	cancelUnbindAll(): void { }
-		
-	/**
-	 * User must call from attached callback
-	 */
-	resizableAttachedHandler(): void {}
+  hostAttributes: {
+    "string-attribute": 'Value',
+    "boolean-attribute": true,
+    tabindex: 0
+  },
 
-	/**
-	 * User must call from detached callback
-	 */
-	resizableDetachedHandler(): void {}
+  ready: function () {
+    this.textContent = 'My element!';
+    this.$.name.textContent = this.name;
+    this.serialize({});
+    this.async(function () {
+      // access sibling or parent elements here
+    });
+  },
 
-	/**
-	 * User must call from attached callback
-	 */
-	resizerAttachedHandler(): void {}
+  __prop2: function () {
+    var toLight = document.createElement('div');
+    Polymer.dom(this).appendChild(toLight);
 
-	/**
-	 * User must call from detached callback
-	 */
-	resizerDetachedHandler(): void {}
+    var toLocal = document.createElement('div');
+    var beforeNode = Polymer.dom(this.root).childNodes[0];
+    Polymer.dom(this.root).insertBefore(toLocal, beforeNode);
 
-	/**
-	 * User should call when resizing or un-hiding children
-	 */
-	notifyResize(): void {}
-}
+    var allSpans = Polymer.dom(this).querySelectorAll('span');
+  }
+});
 
-class AbstractWebComponent extends AbstractPolymerElement {
+var MyElement = Polymer.Class(<polymer.Base>{
+  is: 'my-element',
 
-	public name: string;
+  created: function () {
+    this.textContent = 'My element!';
+  }
 
-	constructor(name: string) {
-		super();
-		this.name = name;
-	}
+});
 
-	protected get(): HTMLElement {
-		return <any>this;
-	}
-}
+document.registerElement('my-element', MyElement);
 
-function registerWebComponent(webComponentClass: Function, ...mixins: any[]): void {
-		
-	// we need a flat object, without prototype in order to polymer to work on our components
-	var flattenedComponent: any = {};
-	if (mixins) {
-		// apply mixins
-		mixins.forEach(mixin => {
-			for (var i in mixin) {
-				if (mixin.hasOwnProperty(i)) {
-					webComponentClass.prototype[i] = mixin[i];
-				}
-			}
-		});
-	}
-	var webComponent: AbstractWebComponent = new (<any>webComponentClass)();
-	for (var i in webComponent) {
-		// do not include polymer functions
-		if (i != "async" && i != "job" && i != "fire" && i != "asyncFire" && i != "cancelUnbindAll") {
-			var attribute: any = (<any>webComponent)[i];
-			flattenedComponent[i] = attribute;
-		}
-	}
-
-	console.debug('registering web component', webComponent, flattenedComponent);
-	Polymer(webComponent.name, flattenedComponent);
-}
-
-class Spinner extends AbstractWebComponent {
-	private pendingRequestsCount: number;
-
-	constructor() {
-		super('test-spinner');
-	}
-
-	public ready(): void {
-		this.pendingRequestsCount = 0;
-		this.updateUI();
-	}
-
-	private updateUI(): void {
-		var spinnerHidden: boolean = this.pendingRequestsCount == 0;
-		if (spinnerHidden) {
-			this.get().setAttribute('hidden', 'true');
-		} else {
-			this.get().removeAttribute('hidden');
-		}
-	}
-}
+// Equivalent:
+var el1 = new MyElement();
+var el2 = document.createElement('my-element');

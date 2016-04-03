@@ -9,49 +9,49 @@ interface tinycolor {
 
     /**
      * Create a tinycolor instance of the color named.
-     * 
+     *
      * @param color - the color as a string to create an instance for.
      */
     (color: string): tinycolorInstance;
 
     /**
      * Create a tinycolor instance with the given RGB values.
-     * 
+     *
      * @param color - the rgb values to apply to the new instance.
      */
     (color: ColorFormats.RGB): tinycolorInstance;
 
     /**
      * Create a tinycolor instance with the given RGBA values.
-     * 
+     *
      * @param color - the rgba values to apply to the new instance.
      */
     (color: ColorFormats.RGBA): tinycolorInstance;
 
     /**
      * Create a tinycolor instance with the given HSL values.
-     * 
+     *
      * @param color - the hsl values to apply to the new instance.
      */
     (color: ColorFormats.HSL): tinycolorInstance;
 
     /**
      * Create a tinycolor instance with the given HSLA values.
-     * 
+     *
      * @param color - the hsla values to apply to the new instance.
      */
     (color: ColorFormats.HSLA): tinycolorInstance;
 
     /**
      * Create a tinycolor instance with the given HSV values.
-     * 
+     *
      * @param color - the hsv values to apply to the new instance.
      */
     (color: ColorFormats.HSV): tinycolorInstance;
 
     /**
      * Create a tinycolor instance with the given HSVA values.
-     * 
+     *
      * @param color - the hsva values to apply to the new instance.
      */
     (color: ColorFormats.HSVA): tinycolorInstance;
@@ -59,14 +59,14 @@ interface tinycolor {
     /**
      * Create a tinycolor instance based off the relative values.
      * Works with any color formats
-     * 
+     *
      * @param ratio - the relative color/hue values to apply to the new instance.
      */
     fromRatio(ratio: any): tinycolorInstance; // any of the interfaces defined in the ColorFormats module.
 
     /**
      * Compares the two colors and returns the difference between their brightness and color/hue
-     * 
+     *
      * @param firstColor - the first color to be used in the comparison.
      * @param secondColor - the second color to be used in the comparison.
      */
@@ -74,7 +74,7 @@ interface tinycolor {
 
     /**
      * Ensure that foreground and background color combinations provide sufficient contrast.
-     * 
+     *
      * @param foreColor - the fore color wanted.
      * @param backCOlor - the back color wanted.
      */
@@ -83,7 +83,7 @@ interface tinycolor {
     /**
      * Given a base color and a list of possible foreground or background colors for that base,
      *  returns the most readable color.
-     * 
+     *
      * @param color - the base color.
      * @param colorsToCompare - array of colors to pick the most readable one from.
      */
@@ -93,7 +93,7 @@ interface tinycolor {
     mix(color1: tinycolorInstance, color2: tinycolorInstance, amount?: number): tinycolorInstance;
 
     /**
-     * Returns a random color 
+     * Returns a random color
      */
     random(): tinycolorInstance;
 
@@ -113,7 +113,7 @@ interface tinycolor {
 interface tinycolorInstance {
 
     /**
-     * Return an indication whether the color was successfully parsed. 
+     * Return an indication whether the color was successfully parsed.
      */
     isValid(): boolean;
 
@@ -148,8 +148,8 @@ interface tinycolorInstance {
     getBrightness(): number;
 
     /**
-     * Sets the alpha value on the current color. 
-     * 
+     * Sets the alpha value on the current color.
+     *
      * @param alpha - The new alpha value. The accepted range is 0-1.
      */
     setAlpha(alpha: number): tinycolorInstance;
@@ -185,7 +185,7 @@ interface tinycolorInstance {
      * Returns the hex value of the color -with a # appened.
      */
     toHexString(): string;
-    
+
     /**
      * Returns the hex 8 value of the color.
      */
@@ -229,8 +229,8 @@ interface tinycolorInstance {
     toFilter(): string;
 
     /**
-     * String representation of the color.   
-     * 
+     * String representation of the color.
+     *
      * @param format - The format to be used when displaying the string representation.
      *  The accepted values are: "rgb", "prgb", "hex6", "hex3", "hex8", "name", "hsl", "hsv".
      */
@@ -238,7 +238,7 @@ interface tinycolorInstance {
 
     /**
      * Lighten the color a given amount. Providing 100 will always return white.
-     * 
+     *
      * @param amount - The amount to lighten by. The valid range is 0 to 100.
      *  Default value: 10.
      */
@@ -246,7 +246,7 @@ interface tinycolorInstance {
 
     /**
      * Brighten the color a given amount.
-     * 
+     *
      * @param amount - The amount to brighten by. The valid range is 0 to 100.
      *  Default value: 10.
      */
@@ -255,7 +255,7 @@ interface tinycolorInstance {
     /**
      * Darken the color a given amount.
      *  Providing 100 will always return black.
-     * 
+     *
      * @param amount - The amount to darken by. The valid range is 0 to 100.
      *  Default value: 10.
      */
@@ -264,7 +264,7 @@ interface tinycolorInstance {
     /**
      * Desaturate the color a given amount.
      *  Providing 100 will is the same as calling greyscale.
-     * 
+     *
      * @param amount - The amount to desaturate by. The valid range is 0 to 100.
      *  Default value: 10.
      */
@@ -272,21 +272,21 @@ interface tinycolorInstance {
 
     /**
      * Saturate the color a given amount.
-     * 
+     *
      * @param amount - The amount to saturate by. The valid range is 0  to 100.
      *  Default value: 10.
      */
     saturate(amount?: number): tinycolorInstance;
 
     /**
-     * Completely desaturates a color into greyscale. 
+     * Completely desaturates a color into greyscale.
      * Same as calling desaturate(100).
      */
     greyscale(): tinycolorInstance;
 
     /**
      * Spin the hue a given amount. Calling with 0, 360, or -360 will do nothing.
-     * 
+     *
      * @param amount - The amount to spin by. The valid range is -360 to 360.
      *  Default value: 0.
      */
@@ -294,7 +294,7 @@ interface tinycolorInstance {
 
     /**
      * Gets an analogous color scheme based off of the current color.
-     * 
+     *
      * @param results - The amount of results to return.
      *  Default value: 6.
      * @param slices - The amount to slice the input color by.
@@ -304,7 +304,7 @@ interface tinycolorInstance {
 
     /**
      * Gets a monochromatic color scheme based off of the current color.
-     * 
+     *
      * @param results - The amount of results to return.
      *  Default value: 6.
      */
@@ -368,4 +368,8 @@ declare module ColorFormats {
     interface HSVA extends HSV {
         a: number;
     }
+}
+
+declare module 'tinycolor2' {
+    export = tinycolor;
 }

@@ -248,9 +248,9 @@ interface KnockoutUtils {
 
         removeDisposeCallback(node: Element, callback: Function): void;
 
-        cleanNode(node: Element): Element;
+        cleanNode(node: Node): Element;
 
-        removeNode(node: Element): void;
+        removeNode(node: Node): void;
     };
 
     //////////////////////////////////
@@ -280,8 +280,6 @@ interface KnockoutUtils {
     arrayPushAll<T>(array: KnockoutObservableArray<T>, valuesToPush: T[]): T[];
 
     extend(target: Object, source: Object): Object;
-
-    emptyDomNode(domNode: HTMLElement): void;
 
     moveCleanedNodesToContainerElement(nodes: any[]): HTMLElement;
 
@@ -576,6 +574,7 @@ declare module KnockoutComponentTypes {
     interface Config {
         viewModel?: ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
         template: string | Node[]| DocumentFragment | TemplateElement | AMDModule;
+        synchronous?: boolean;
     }
 
     interface ComponentConfig {
