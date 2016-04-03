@@ -57,7 +57,7 @@ declare module "incremental-dom" {
     /**
      * Closes an open virtual Element.
      */
-    export var elementClose: () => void;
+    export var elementClose: (tag: string) => void;
     /**
      * Declares a virtual Element at the current location in the document that has
      * no children.

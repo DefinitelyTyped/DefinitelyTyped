@@ -6,6 +6,6 @@
 /// <reference path="./mousetrap.d.ts" />
 
 interface MousetrapStatic {
-    globalBind(keys: string, callback: (e: ExtendedKeyboardEvent, combo: string) => any, action?: string): void;
-    globalBind(keyArray: string[], callback: (e: ExtendedKeyboardEvent, combo: string) => any, action?: string): void;
+    bindGlobal(keys: string, callback: (e: ExtendedKeyboardEvent, combo: string) => any, action?: string): void;
+    bindGlobal(keyArray: string[], callback: (e: ExtendedKeyboardEvent, combo: string) => any, action?: string): void;
 }

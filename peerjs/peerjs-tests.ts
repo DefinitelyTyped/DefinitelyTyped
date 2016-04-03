@@ -4,8 +4,10 @@
 var peerByOption: PeerJs.Peer = new Peer({
     key: 'peerKey',
     debug: 3,
-    logFunction: ()=>{
-    }
+});
+
+peerByOption.on("connection", dataConnection => {
+    var type: string = dataConnection.type;
 });
 
 peerByOption.listAllPeers(function(items){
@@ -21,9 +23,10 @@ var peerByIdAndOption: PeerJs.Peer = new Peer(
     {
         key: 'peerKey',
         debug: 3,
-        logFunction: ()=>{
-        }
     });
+peerByIdAndOption.on("call", mediaConnection => {
+    var isOpen: boolean = mediaConnection.open;
+});
 
 var id = peerByOption.id;
 var connections = peerByOption.connections;

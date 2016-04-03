@@ -1,4 +1,4 @@
-﻿// Type definitions for OpenLayers v3.6.0
+// Type definitions for OpenLayers v3.6.0
 // Project: http://openlayers.org/
 // Definitions by: Wouter Goedhart <https://github.com/woutergd>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -22,23 +22,23 @@ declare module olx {
     interface FrameState {
 
         /**
-         * 
+         *
          */
         pixelRatio: number;
 
         /**
-         * 
+         *
          */
         time: number;
 
         /**
-         * 
+         *
          */
         viewState: olx.ViewState;
     }
 
     interface FeatureOverlayOptions {
-        
+
         /**
          * Features
          */
@@ -86,6 +86,102 @@ declare module olx {
 
         /** The target size of the graticule cells, in pixels. Default value is 100 pixels. */
         targetSize?: number;
+    }
+
+    interface BaseWMSOptions {
+
+        /** Attributions. */
+        attributions?: Array<ol.Attribution>;
+
+        /** WMS request parameters. At least a LAYERS param is required. STYLES is '' by default. VERSION is 1.3.0 by default. WIDTH, HEIGHT, BBOX and CRS (SRS for WMS version < 1.3.0) will be set dynamically. */
+        params?: any;
+
+        /** The crossOrigin attribute for loaded images. Note that you must provide a crossOrigin value if you are using the WebGL renderer or if you want to access pixel data with the Canvas renderer. See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail. */
+        crossOrigin?: string;
+
+        /** experimental Use the ol.Map#pixelRatio value when requesting the image from the remote server. Default is true. */
+        hidpi?: boolean;
+
+        /** experimental The type of the remote WMS server: mapserver, geoserver or qgis. Only needed if hidpi is true. Default is undefined. */
+        serverType?: ol.source.wms.ServerType;
+
+        /** WMS service URL. */
+        url?: string;
+
+        /** Logo. */
+        logo?: olx.LogoOptions;
+
+        /** experimental Projection. */
+        projection?: ol.proj.ProjectionLike;
+    }
+
+    interface ImageWMSOptions extends BaseWMSOptions {
+
+        /** experimental Optional function to load an image given a URL. */
+        imageLoadFunction?: ol.ImageLoadFunctionType;
+
+        /** Ratio. 1 means image requests are the size of the map viewport, 2 means twice the width and height of the map viewport, and so on. Must be 1 or higher. Default is 1.5. */
+        ratio?: number;
+
+        /** Resolutions. If specified, requests will be made for these resolutions only. */
+        resolutions?: Array<number>;
+    }
+
+    interface TileWMSOptions {
+
+        attributions?: Array<ol.Attribution>;
+        
+        /**WMS request parameters. At least a LAYERS param is required. STYLES is '' by default. VERSION is 1.3.0 by default. WIDTH, HEIGHT, BBOX and CRS (SRS for WMS version < 1.3.0) will be set dynamically. Required.*/
+        params: Object;
+        /**The crossOrigin attribute for loaded images. Note that you must provide a crossOrigin value if you are using the WebGL renderer or if you want to access pixel data with the Canvas renderer. See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail.*/
+        crossOrigin?: string;
+        
+        /** The size in pixels of the gutter around image tiles to ignore. By setting this property to a non-zero value, images will be requested that are wider and taller than the tile size by a value of 2 x gutter. Defaults to zero. Using a non-zero value allows artifacts of rendering at tile edges to be ignored. If you control the WMS service it is recommended to address "artifacts at tile edges" issues by properly configuring the WMS service. For example, MapServer has a tile_map_edge_buffer configuration parameter for this. See http://mapserver.org/output/tile_mode.html. */
+        gutter?: number;
+
+        /** Use the ol.Map#pixelRatio value when requesting the image from the remote server. Default is true.*/
+        hidpi?: boolean;
+
+        logo?: string | olx.LogoOptions;
+        
+        /** Tile grid. Base this on the resolutions, tilesize and extent supported by the server. If this is not defined, a default grid will be used: if there is a projection extent, the grid will be based on that; if not, a grid based on a global extent with origin at 0,0 will be used. */
+        tileGrid?: ol.tilegrid.TileGrid;
+
+        /** experimental Maximum zoom. */
+        maxZoom?: number;
+
+        projection?: ol.proj.ProjectionLike;
+        reprojectionErrorThreshold?: number;
+                
+        /** experimental Optional function to load a tile given a URL. */
+        tileLoadFunction?: ol.TileLoadFunctionType;
+
+        /** WMS service URL. */
+        url?: string;
+
+        /** WMS service urls. Use this instead of url when the WMS supports multiple urls for GetMap requests. */
+        urls?: Array<string>;
+
+        /** experimental The type of the remote WMS server. Currently only used when hidpi is true. Default is undefined. */
+        serverType?: ol.source.wms.ServerType;
+
+        /** experimental Whether to wrap the world horizontally. When set to false, only one world will be rendered. When true, tiles will be requested for one world only, but they will be wrapped horizontally to render multiple worlds. The default is true. */
+        wrapX?: boolean;
+    }
+    /**
+     * Object literal with config options for the map logo.
+     */
+    interface LogoOptions {
+		/**
+		* Link url for the logo. Will be followed when the logo is clicked.
+		*/
+		href: string;
+
+		/**
+		* Image src for the logo
+		*/
+		src: string;
+
     }
 
     interface MapOptions {
@@ -223,30 +319,69 @@ declare module olx {
     interface ViewState {
 
         /**
-         * 
+         *
          */
         center: ol.Coordinate;
 
         /**
-         * 
+         *
          */
         projection: ol.proj.Projection;
 
         /**
-         * 
+         *
          */
         resolution: number;
 
         /**
-         * 
+         *
          */
         rotation: number;
+    }
+
+    interface Projection {
+        /**
+         * The SRS identifier code, e.g. EPSG:4326.
+         */
+        code: string;
+
+        /**
+        * Units. Required unless a proj4 projection is defined for code.
+        */
+        units?: ol.proj.Units;
+
+        /**
+        * The validity extent for the SRS.
+        */
+        extent?: Array<number>;
+
+        /**
+        * The axis orientation as specified in Proj4. The default is enu.
+        */
+        axisOrientation?: string;
+
+        /**
+        * Whether the projection is valid for the whole globe. Default is false.
+        */
+        global?: boolean;
+
+        /**
+        * experimental The world extent for the SRS.
+        */
+        worldExtent?: ol.Extent;
+
+        /**
+        *  experimental Function to determine resolution at a point. The function is called with
+        *  a {number} view resolution and an {ol.Coordinate} as arguments, and returns the {number}
+        *  resolution at the passed coordinate.
+        */
+        getPointResolution?: (resolution: number, coordinate: ol.Coordinate) => number;
     }
 
     module animation {
 
         interface BounceOptions {
-            
+
             /**
              * The resolution to start the bounce from, typically map.getView().getResolution().
              */
@@ -269,7 +404,7 @@ declare module olx {
         }
 
         interface PanOptions {
-            
+
             /**
              * The resolution to start the bounce from, typically map.getView().getResolution().
              */
@@ -292,7 +427,7 @@ declare module olx {
         }
 
         interface RotateOptions {
-            
+
             /**
              * The rotation value (in radians) to begin rotating from, typically map.getView().getRotation(). If undefined then 0 is assumed.
              */
@@ -320,7 +455,7 @@ declare module olx {
         }
 
         interface ZoomOptions {
-            
+
             /**
              * The resolution to begin zooming from, typically map.getView().getResolution().
              */
@@ -368,48 +503,73 @@ declare module olx {
              */
             //TODO: Replace with olx.control.RotateOptions
             rotateOptions?: any;
-            
+
             /**
              * Zoom. Default is true
              */
             zoom?: boolean;
 
             /**
-             * 
+             *
              */
             //TODO: Replace with olx.control.ZoomOptions
             zoomOptions?: any;
         }
     }
 
+    module interaction {
+        interface DefaultsOptions {
+            altShiftDragRotate?: boolean;
+            doubleClickZoom?: boolean;
+            keyboard?: boolean;
+            mouseWheelZoom?: boolean;
+            shiftDragZoom?: boolean;
+            dragPan?: boolean;
+            pinchRotate?: boolean;
+            pinchZoom?: boolean;
+            zoomDelta?: number;
+            zoomDuration?: number;
+        }
+        interface ModifyOptions {
+            deleteCondition?: ol.events.ConditionType;
+            pixelTolerance?: number;
+            style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
+            features: ol.Collection<ol.Feature>;
+            wrapX?: boolean;
+        }
+        interface DrawOptions {
+            clickTolerance?: number;
+            features?: ol.Collection<ol.Feature>;
+            source?: ol.source.Vector;
+            snapTolerance?: number;
+            type: ol.geom.GeometryType;
+            maxPoints?: number;
+            minPoints?: number;
+            style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
+            geometryFunction?: ol.interaction.DrawGeometryFunctionType;
+            wrapX?: boolean;
+        }
+        interface SelectOptions {
+            addCondition?: ol.events.ConditionType;
+            condition?: ol.events.ConditionType;
+            layers?: Array<ol.layer.Layer>;
+            style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
+            removeCondition?: ol.events.ConditionType;
+            toggleCondition?: ol.events.ConditionType;
+            multi?: boolean;
+            features?: ol.Collection<ol.Feature>
+            filter?: ol.interaction.SelectFilterFunction;
+            wrapX?: boolean;
+        }
+    }
+
     module layer {
 
         interface BaseOptions {
-
-            /**
-             * Brightness. Default is 0.
-             */
-            brightness?: number;
-
-            /**
-             * Contrast. Default is 1.
-             */
-            contrast?: number;
-
-            /**
-             * Hue. Default is 0.
-             */
-            hue?: number;
-
             /**
              * Opacity (0, 1). Default is 1.
              */
             opacity?: number;
-
-            /**
-             * Saturation. Default is 1.
-             */
-            saturation?: number;
 
             /**
              * Visibility. Default is true.
@@ -421,6 +581,7 @@ declare module olx {
              */
             extent?: ol.Extent;
 
+            zIndex?: number;
             /**
              * The minimum resolution (inclusive) at which this layer will be visible.
              */
@@ -527,6 +688,151 @@ declare module olx {
         }
     }
 
+    module source {
+
+        interface VectorOptions {
+            /**
+             * Attributions.
+             */
+            attributions?: Array<ol.Attribution>;
+
+            /**
+             * Features. If provided as {@link ol.Collection}, the features in the source
+             * and the collection will stay in sync.
+             */
+            features?: Array<ol.Feature> | ol.Collection<ol.Feature>;
+
+            /**
+             * The feature format used by the XHR feature loader when `url` is set.
+             * Required if `url` is set, otherwise ignored. Default is `undefined`.
+             */
+            format?: ol.format.Feature;
+
+            /**
+             * The loader function used to load features, from a remote source for example.
+             * Note that the source will create and use an XHR feature loader when `url` is
+             * set.
+             */
+            loader?: ol.FeatureLoader;
+
+            /**
+             * Logo.
+             */
+            logo?: string | olx.LogoOptions;
+
+            /**
+             * The loading strategy to use. By default an {@link ol.loadingstrategy.all}
+             * strategy is used, a one-off strategy which loads all features at once.
+             */
+            strategy?: ol.LoadingStrategy;
+
+            /**
+             * Setting this option instructs the source to use an XHR loader (see
+             * {@link ol.featureloader.xhr}) and an {@link ol.loadingstrategy.all} for a
+             * one-off download of all features from that URL.
+             * Requires `format` to be set as well.
+             */
+            url?: string;
+
+            /**
+             * By default, an RTree is used as spatial index. When features are removed and
+             * added frequently, and the total number of features is low, setting this to
+             * `false` may improve performance.
+             */
+            useSpatialIndex?: boolean;
+
+            /**
+             * Wrap the world horizontally. Default is `true`. For vector editing across the
+             * -180° and 180° meridians to work properly, this should be set to `false`. The
+             * resulting geometry coordinates will then exceed the world bounds.
+             */
+            wrapX?: boolean;
+        }
+        interface WMTSOptions {
+            attributions?: Array<ol.Attribution>;
+            crossOrigin?: string;
+            logo?: string | olx.LogoOptions;
+            tileGrid: ol.tilegrid.WMTS;     // REQUIRED !
+            projection?: ol.proj.ProjectionLike;
+            reprojectionErrorThreshold?: number;
+            requestEncoding?: ol.source.WMTSRequestEncoding;
+            layer: string;      //REQUIRED
+            style: string;      //REQUIRED
+            tileClass?: Function;
+            tilePixelRatio?: number;
+            version?: string;
+            format?: string;
+            matrixSet: string;  //REQUIRED
+            dimensions?: Object;
+            url?: string;
+            maxZoom?: number;
+            tileLoadFunction?: ol.TileLoadFunctionType;
+            urls?: Array<string>;
+            wrapX: boolean;
+        }
+    }
+
+    module style {
+
+        interface FillOptions {
+            color?: ol.Color | string;
+        }
+
+        interface StyleOptions {
+            geometry?: string | ol.geom.Geometry | ol.style.GeometryFunction;
+            fill?: ol.style.Fill;
+            image?: ol.style.Image;
+            stroke?: ol.style.Stroke;
+            text?: ol.style.Text;
+            zIndex?: number;
+        }
+
+        interface TextOptions {
+            font?: string;
+            offsetX?: number;
+            offsetY?: number;
+            scale?: number;
+            rotation?: number;
+            text?: string;
+            textAlign?: string;
+            textBaseline?: string;
+            fill?: ol.style.Fill;
+            stroke?: ol.style.Stroke;
+        }
+        interface StrokeOptions {
+            color?: ol.Color | string;
+            lineCap?: string;
+            lineJoin?: string;
+            lineDash?: Array<number>;
+            miterLimit?: number;
+            width?: number;
+        }
+        interface IconOptions {
+            anchor?: Array<number>;
+            anchorOrigin?: string;
+            anchorXUnits?: string;
+            anchorYUnits?: string;
+            crossOrigin?: string;
+            img?: ol.Image | HTMLCanvasElement;
+            offset?: Array<number>;
+            offsetOrigin?: string;
+            opacity?: number;
+            scale?: number;
+            snapToPixel?: boolean;
+            rotateWithView?: boolean;
+            rotation?: number;
+            size?: ol.Size;
+            imgSize?: ol.Size;
+            src?: string;
+        }
+        interface CircleOptions {
+            fill?: ol.style.Fill;
+            radius: number;
+            snapToPixel?: boolean;
+            stroke?: ol.style.Stroke;
+        }
+    }
+
     module tilegrid {
 
         interface TileGridOptions {
@@ -608,7 +914,7 @@ declare module olx {
              * Tile sizes. The length of this array needs to match the length of the resolutions array.
              */
             tileSizes?: Array<number | ol.Size>;
-            
+
             /**
              * Number of tile columns that cover the grid's extent for each zoom level. Only required when used with a source that has wrapX set to true, and only when the grid's origin differs from the one of the projection's extent. The array length has to match the length of the resolutions array, i.e. each resolution will have a matching entry here.
              */
@@ -679,6 +985,12 @@ declare module olx {
     }
 
     module format {
+        interface WKTOptions {
+            /**
+             * Whether to split GeometryCollections into multiple features on reading. Default is false.
+             */
+            splitCollection?: boolean;
+        }
 
         interface GeoJSONOptions {
 
@@ -731,6 +1043,10 @@ declare module olx {
  */
 declare module ol {
 
+    interface TileLoadFunctionType { (image: ol.Image, url: string): void }
+
+    interface ImageLoadFunctionType { (image: ol.Image, url: string): void }
+
     /**
      * An attribution for a layer source.
      */
@@ -741,13 +1057,13 @@ declare module ol {
          */
         constructor(options: olx.AttributionOptions);
 
-        /** 
-         * Get the attribution markup. 
+        /**
+         * Get the attribution markup.
          * @returns The attribution HTML.
          */
         getHTML(): string;
     }
-    
+
     /**
      * An expanded version of standard JS Array, adding convenience methods for manipulation. Add and remove changes to the Collection trigger a Collection event. Note that this does not cover changes to the objects within the Collection; they trigger events on the appropriate object, not on the Collection as a whole.
      */
@@ -804,7 +1120,7 @@ declare module ol {
          */
         item(index: number): T;
 
-        /** 
+        /**
          * Remove the last element of the collection and return it. Return undefined if the collection is empty.
          * @returns Element
          */
@@ -831,7 +1147,7 @@ declare module ol {
          */
         removeAt(index: number): T;
 
-        /** 
+        /**
          * Set the element at the provided index.
          * @param index Index.
          * @param elem Element.
@@ -863,7 +1179,7 @@ declare module ol {
 
         /**
          * Rotation around the device z-axis (in radians).
-         * @returns The euler angle in radians of the device from the standard Z axis. 
+         * @returns The euler angle in radians of the device from the standard Z axis.
          */
         getAlpha(): number;
 
@@ -875,7 +1191,7 @@ declare module ol {
 
         /**
          * Rotation around the device y-axis (in radians).
-         * @returns The euler angle in radians of the device from the planar Y axis. 
+         * @returns The euler angle in radians of the device from the planar Y axis.
          */
         getGamma(): number;
 
@@ -893,11 +1209,11 @@ declare module ol {
 
         /**
          * Enable or disable tracking of device orientation events.
-         * @param tracking The status of tracking changes to alpha, beta and gamma. If true, changes are tracked and reported immediately. 
+         * @param tracking The status of tracking changes to alpha, beta and gamma. If true, changes are tracked and reported immediately.
          */
         setTracking(tracking: boolean): void;
     }
-    
+
     /**
      * Events emitted by ol.interaction.DragBox instances are instances of this type.
      */
@@ -967,18 +1283,12 @@ declare module ol {
          * @param name The property name of the default geometry.
          */
         setGeometryName(name: string): void;
-
+        
         /**
          * Set the feature id. The feature id is considered stable and may be used when requesting features or comparing identifiers returned from a remote source. The feature id can be used with the ol.source.Vector#getFeatureById method.
          * @param id The feature id.
          */
-        setId(id: number): void;
-
-        /**
-         * Set the feature id. The feature id is considered stable and may be used when requesting features or comparing identifiers returned from a remote source. The feature id can be used with the ol.source.Vector#getFeatureById method.
-         * @param id The feature id.
-         */
-        setId(id: string): void;
+        setId(id: string | number): void;
 
         /**
          * Set the style for the feature. This can be a single style object, an array of styles, or a function that takes a resolution and returns an array of styles. If it is null the feature has no style (a null style).
@@ -1024,7 +1334,7 @@ declare module ol {
 
         /**
          * Get the map associated with the overlay.
-         * @returns The map with which this feature overlay is associated. 
+         * @returns The map with which this feature overlay is associated.
          */
         getMap(): ol.Map;
 
@@ -1096,19 +1406,19 @@ declare module ol {
 
         /**
          * Get a geometry of the position accuracy.
-         * @returns A geometry of the position accuracy. 
+         * @returns A geometry of the position accuracy.
          */
         getAccuracyGeometry(): ol.geom.Geometry;
 
         /**
          * Get the altitude associated with the position.
-         * @returns The altitude of the position in meters above mean sea level. 
+         * @returns The altitude of the position in meters above mean sea level.
          */
         getAltitude(): number;
 
         /**
          * Get the altitude accuracy of the position.
-         * @returns The accuracy of the altitude measurement in meters. 
+         * @returns The accuracy of the altitude measurement in meters.
          */
         getAltitudeAccuracy(): number;
 
@@ -1126,7 +1436,7 @@ declare module ol {
 
         /**
          * Get the projection associated with the position.
-         * @returns The projection the position is reported in. 
+         * @returns The projection the position is reported in.
          */
         getProjection(): ol.proj.Projection;
 
@@ -1138,7 +1448,7 @@ declare module ol {
 
         /**
          * Determine if the device location is being tracked.
-         * @returns The device location is being tracked. 
+         * @returns The device location is being tracked.
          */
         getTracking(): boolean;
 
@@ -1177,33 +1487,33 @@ declare module ol {
          */
         constructor(options?: olx.GraticuleOptions);
 
-        /** 
-         * Get the map associated with this graticule. 
+        /**
+         * Get the map associated with this graticule.
          * @returns The map.
          */
         getMap(): Map;
 
-        /** 
-         * Get the list of meridians. Meridians are lines of equal longitude. 
+        /**
+         * Get the list of meridians. Meridians are lines of equal longitude.
          * @returns The meridians.
          */
         getMeridians(): Array<ol.geom.LineString>;
 
-        /** 
-         * Get the list of parallels. Pallels are lines of equal latitude. 
+        /**
+         * Get the list of parallels. Pallels are lines of equal latitude.
          * @returns The parallels.
          */
         getParallels(): Array<ol.geom.LineString>;
-    
-        /** 
-         * Set the map for this graticule.The graticule will be rendered on the provided map. 
+
+        /**
+         * Set the map for this graticule.The graticule will be rendered on the provided map.
          * @param map Map
          */
         setMap(map: Map): void;
     }
-    
+
     /**
-     * 
+     *
      */
     class Image extends ol.ImageBase {
 
@@ -1230,13 +1540,13 @@ declare module ol {
     }
 
     /**
-     * 
+     *
      */
     class ImageBase {
     }
 
     /**
-     * 
+     *
      */
     class ImageTile extends ol.Tile {
 
@@ -1325,7 +1635,7 @@ declare module ol {
          * @param ref Value to use as this when executing callback.
          * @param layerFilter Layer filter function. The filter function will receive one argument, the layer-candidate and it should return a boolean value. Only layers which are visible and for which this function returns true will be tested for features. By default, all visible layers will be tested. Feature overlays will always be tested.
          * @param ref2 Value to use as this when executing layerFilter.
-         * @returns Callback result, i.e. the return value of last callback execution, or the first truthy callback return value. 
+         * @returns Callback result, i.e. the return value of last callback execution, or the first truthy callback return value.
          */
         forEachFeatureAtPixel(pixel: ol.Pixel, callback: (feature: ol.Feature, layer: ol.layer.Layer) => any, ref?: any, layerFilter?: (layerCandidate: ol.layer.Layer) => boolean, ref2?: any): void;
 
@@ -1336,7 +1646,7 @@ declare module ol {
          * @param ref Value to use as this when executing callback.
          * @param layerFilter Layer filter function. The filter function will receive one argument, the layer-candidate and it should return a boolean value. Only layers which are visible and for which this function returns true will be tested for features. By default, all visible layers will be tested. Feature overlays will always be tested.
          * @param ref2 Value to use as this when executing layerFilter.
-         * @returns Callback result, i.e. the return value of last callback execution, or the first truthy callback return value. 
+         * @returns Callback result, i.e. the return value of last callback execution, or the first truthy callback return value.
          */
         forEachLayerAtPixel(pixel: ol.Pixel, callback: (layer: ol.layer.Layer) => any, ref?: any, layerFilter?: (layerCandidate: ol.layer.Layer) => boolean, ref2?: any): void;
 
@@ -1349,7 +1659,7 @@ declare module ol {
         /**
          * Get the coordinate for a given pixel. This returns a coordinate in the map view projection.
          * @param pixel Pixel position in the map viewport.
-         * @returns The coordinate for the pixel position. 
+         * @returns The coordinate for the pixel position.
          */
         getCoordinateFromPixel(pixel: ol.Pixel): ol.Coordinate;
 
@@ -1375,7 +1685,7 @@ declare module ol {
 
         /**
          * Get the layergroup associated with this map.
-         * @returns A layer group containing the layers in this map. 
+         * @returns A layer group containing the layers in this map.
          */
         getLayerGroup(): ol.layer.Group;
 
@@ -1400,13 +1710,13 @@ declare module ol {
 
         /**
          * Get the size of this map.
-         * @returns The size in pixels of the map in the DOM. 
+         * @returns The size in pixels of the map in the DOM.
          */
         getSize(): ol.Size;
 
         /**
          * Get the target in which this map is rendered. Note that this returns what is entered as an option or in setTarget: if that was an element, it returns an element; if a string, it returns that.
-         * @returns The Element or id of the Element that the map is rendered in. 
+         * @returns The Element or id of the Element that the map is rendered in.
          */
         getTarget(): Element | string;
 
@@ -1416,8 +1726,8 @@ declare module ol {
          */
         getTargetElement(): Element;
 
-        /** 
-         * Get the view associated with this map. A view manages properties such as center and resolution. 
+        /**
+         * Get the view associated with this map. A view manages properties such as center and resolution.
          * @returns The view that controls this map.
          */
         getView(): View;
@@ -1440,21 +1750,21 @@ declare module ol {
         /**
          * Remove the given control from the map.
          * @param Control.
-         * @returns The removed control (or undefined if the control was not found). 
+         * @returns The removed control (or undefined if the control was not found).
          */
         removeControl(control: ol.control.Control): ol.control.Control;
 
         /**
          * Remove the given interaction from the map.
          * @param interaction Interaction to remove.
-         * @returns The removed interaction (or undefined if the interaction was not found). 
+         * @returns The removed interaction (or undefined if the interaction was not found).
          */
         removeInteraction(interaction: ol.interaction.Interaction): ol.interaction.Interaction;
 
         /**
          * Removes the given layer from the map.
          * @param Layer.
-         * @returns The removed layer (or undefined if the layer was not found). 
+         * @returns The removed layer (or undefined if the layer was not found).
          */
         removeLayer(layer: ol.layer.Base): ol.layer.Base;
 
@@ -1499,18 +1809,18 @@ declare module ol {
          */
         setTarget(target: string): void;
 
-        /** 
-         * Set the view for this map. 
+        /**
+         * Set the view for this map.
          * @param view The view that controls this map.
          */
         setView(view: View): void;
 
-        /** 
-         * Force a recalculation of the map viewport size. This should be called when third-party code changes the size of the map viewport. 
+        /**
+         * Force a recalculation of the map viewport size. This should be called when third-party code changes the size of the map viewport.
          * */
         updateSize(): void;
     }
-   
+
     /**
      * Events emitted as map browser events are instances of this type. See ol.Map for which events trigger a map browser event.
      */
@@ -1525,7 +1835,7 @@ declare module ol {
          * Indicates if the map is currently being dragged. Only set for POINTERDRAG and POINTERMOVE events. Default is false.
          */
         dragging: boolean;
-        
+
         /**
          * The frame state at the time of the event
          */
@@ -1541,12 +1851,12 @@ declare module ol {
          */
         originalEvent: Event;
 
-        /** 
+        /**
          * The pixel of the original browser event.
          */
         pixel: Pixel;
 
-        
+
         // Methods
 
         /**
@@ -1594,13 +1904,13 @@ declare module ol {
          */
         get(key: string): any;
 
-        /** 
+        /**
          * Get a list of object property names.
          * @returns List of property names.
          */
         getKeys(): Array<string>;
 
-        /** 
+        /**
          * Get an object of all property names and values.
          * @returns Object.
          */
@@ -1611,14 +1921,14 @@ declare module ol {
          */
         getRevision(): number;
 
-        /** 
+        /**
          * Sets a value.
          * @param key Key name.
          * @param value Value.
          */
         set(key: string, value: any): void;
 
-        /** 
+        /**
          * Sets a collection of key-value pairs. Note that this changes any existing properties and adds new ones (it does not remove any existing properties).
          * @param Values.
          */
@@ -1789,7 +2099,7 @@ declare module ol {
          */
         setPositioning(positioning: ol.OverlayPositioning): void;
     }
-    
+
     /**
      * Events emitted by ol.interaction.Select instances are instances of this type.
      */
@@ -1893,19 +2203,12 @@ declare module ol {
         constrainResolution(resolution: number, delta?: number, direction?: number): number;
 
         /**
-         * Fit the map view to the passed extent and size. The size is pixel dimensions of the box to fit the extent into. In most cases you will want to use the map size, that is map.getSize().
-         * @param extent Extent.
-         * @param size Box pixel size.
-         */
-        fitExtent(extent: ol.Extent, size: ol.Size): void;
-
-        /**
-         * Fit the given geometry into the view based on the given map size and border.
-         * @param geometry Geometry.
-         * @param size Box pixel size.
-         * @param options Options
-         */
-        fitGeometry(geometry: ol.geom.SimpleGeometry, size: ol.Size, options?: olx.view.FitGeometryOptions): void;
+          * Fit the map view to the passed extent and size. The size is pixel dimensions of the box to fit the extent into. In most cases you will want to use the map size, that is map.getSize().
+          * @param extent Extent.
+          * @param size Box pixel size.
+          * @param options Options
+          */
+        fit(geometry: ol.geom.SimpleGeometry | ol.Extent, size: ol.Size, opt_options?: olx.view.FitGeometryOptions): void;
 
         /**
          * Get the view center.
@@ -1968,7 +2271,7 @@ declare module ol {
          */
         setZoom(zoom: number): void;
     }
-    
+
     // NAMESPACES
 
     /**
@@ -1981,7 +2284,7 @@ declare module ol {
          * @param options Bounce options.
          */
         function bounce(options: olx.animation.BounceOptions): ol.PreRenderFunction;
-        
+
         /**
          * Generate an animated transition while updating the view center.
          * @param options Pan options.
@@ -2039,7 +2342,7 @@ declare module ol {
          * @returns Control.s
          */
         function defaults(options?: olx.control.DefaultsOptions): ol.Collection<ol.control.Control>;
-        
+
         /**
          * Units for the scale line. Supported values are 'degrees', 'imperial', 'nautical', 'metric', 'us'.
          */
@@ -2082,7 +2385,7 @@ declare module ol {
          * Add delta to coordinate. coordinate is modified in place and returned by the function.
          * @param coordinate Coordinate
          * @param delta Delta
-         * @returns The input coordinate adjusted by the given delta. 
+         * @returns The input coordinate adjusted by the given delta.
          */
         function add(coordinate: ol.Coordinate, delta: ol.Coordinate): ol.Coordinate;
 
@@ -2113,7 +2416,7 @@ declare module ol {
         /**
          * Format a geographic coordinate with the hemisphere, degrees, minutes, and seconds.
          * @param coordinate COordinate
-         * @returns Hemisphere, degrees, minutes and seconds. 
+         * @returns Hemisphere, degrees, minutes and seconds.
          */
         function toStringHDMS(coordinate?: ol.Coordinate): string;
 
@@ -2150,7 +2453,7 @@ declare module ol {
         * @param number Input between 0 and 1
         * @returns Output between 0 and 1
         */
-        function inAndOut (t: number): number;
+        function inAndOut(t: number): number;
 
         /**
         * Maintain a constant speed over time.
@@ -2169,7 +2472,21 @@ declare module ol {
 
     module events {
         module condition {
+            function altKeyOnly(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function altShiftKeyOnly(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function always(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function click(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function doubleClick(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function mouseOnly(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function never(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function noModifierKeys(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function platformModifierKeyOnly(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function pointerMove(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function shiftKeyOnly(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function singleClick(mapBrowserEvent: ol.MapBrowserEvent): boolean;
+            function targetNotEditable(mapBrowserEvent: ol.MapBrowserEvent): boolean;
         }
+        interface ConditionType { (mapBrowseEvent: ol.MapBrowserEvent): boolean; }
     }
 
     module extent {
@@ -2220,7 +2537,7 @@ declare module ol {
          * @param extent Extent
          * @param x X coordinate
          * @param y Y coordinate
-         * @returns The x, y values are contained in the extent. 
+         * @returns The x, y values are contained in the extent.
          */
         function containsXY(extent: ol.Extent, x: number, y: number): boolean;
 
@@ -2357,7 +2674,7 @@ declare module ol {
          * Feature format for reading and writing data in the GeoJSON format.
          */
         class GeoJSON extends ol.format.JSONFeature {
-            
+
             /**
              * @constructor
              * @param Options
@@ -2371,7 +2688,7 @@ declare module ol {
              * @returns Feature
              */
             readFeature(source: Document | Node | JSON | string, options?: olx.format.ReadOptions): ol.Feature;
-    
+
             /**
              * Read all features from a GeoJSON source. Works with both Feature and FeatureCollection sources.
              * @param source Source
@@ -2481,9 +2798,59 @@ declare module ol {
         }
 
         class WFS {
+            readFeatures(source: Document | Node | Object | string, option?: olx.format.ReadOptions): Array<ol.Feature>;
         }
 
         class WKT {
+            constructor(opt_options?: olx.format.WKTOptions);
+
+            /**
+             * Read a feature from a WKT source.
+             * @param source Source
+             * @param options Read options
+             * @returns Feature
+             */
+            readFeature(source: Document | Node | JSON | string, opt_options?: olx.format.ReadOptions): ol.Feature;
+
+            /**
+             * Read all features from a WKT source.
+             * @param source Source
+             * @param options Read options
+             * @returns Features
+             */
+            readFeatures(source: Document | Node | JSON | string, options?: olx.format.ReadOptions): Array<ol.Feature>;
+
+            /**
+             * Read a geometry from a GeoJSON source.
+             * @param source Source
+             * @param options Read options
+             * @returns Geometry
+             */
+            readGeometry(source: Document | Node | JSON | string, options?: olx.format.ReadOptions): ol.geom.Geometry;
+
+            /**
+             * Encode a feature as a WKT string.
+             * @param feature Feature
+             * @param options Write options
+             * @returns GeoJSON
+             */
+            writeFeature(feature: ol.Feature, options?: olx.format.WriteOptions): string;
+
+            /**
+             * Encode an array of features as a WKT string.
+             * @param features Features
+             * @param options Write options
+             * @returns GeoJSON
+             */
+            writeFeatures(features: Array<ol.Feature>, options?: olx.format.WriteOptions): string;
+
+            /**
+             * Write a single geometry as a WKT string.
+             * @param geometry Geometry
+             * @param options Write options
+             * @returns GeoJSON
+             */
+            writeGeometry(geometry: ol.geom.Geometry, options?: olx.format.WriteOptions): string;
         }
 
         class WMSCapabilities {
@@ -2507,8 +2874,37 @@ declare module ol {
         // Type definitions
         interface GeometryLayout extends String { }
         interface GeometryType extends String { }
+        
+        /**
+         * Abstract base class; only used for creating subclasses; do not instantiate
+         * in apps, as cannot be rendered.
+         */
+        class Circle extends ol.geom.SimpleGeometry {
 
-        class Circle {
+            /**
+            * Test if the geometry and the passed extent intersect.
+            * @param extent Extent
+            * @returns true if the geometry and the extent intersect. 
+            */
+            intersectsExtent(extent: ol.Extent): boolean;
+
+            /**
+             * Transform each coordinate of the circle from one coordinate reference system
+             * to another. The geometry is modified in place.
+             * If you do not want the geometry modified in place, first clone() it and
+             * then use this function on the clone.
+             *
+             * Internally a circle is currently represented by two points: the center of
+             * the circle `[cx, cy]`, and the point to the right of the circle
+             * `[cx + r, cy]`. This `transform` function just transforms these two points.
+             * So the resulting geometry is also a circle, and that circle does not
+             * correspond to the shape that would be obtained by transforming every point
+             * of the original circle.
+             * @param source The current projection.  Can be a string identifier or a {@link ol.proj.Projection} object.
+             * @param destination The desired projection.  Can be a string identifier or a {@link ol.proj.Projection} object.
+             * @returns This geometry.  Note that original geometry is  modified in place.
+             */
+            transform(source: ol.proj.ProjectionLike, destination: ol.proj.ProjectionLike): ol.geom.Circle;
         }
 
         /**
@@ -2530,34 +2926,603 @@ declare module ol {
              * @returns Extent
              */
             getExtent(extent?: ol.Extent): ol.Extent;
+            
+            /**
+             * Transform each coordinate of the geometry from one coordinate reference system to another.
+             * The geometry is modified in place. For example, a line will be transformed to a line and a
+             * circle to a circle. If you do not want the geometry modified in place, first clone() it and
+             * then use this function on the clone.
+             * @param source The current projection. Can be a string identifier or a ol.proj.Projection object.
+             * @param destination The desired projection. Can be a string identifier or a ol.proj.Projection object.
+             * @return This geometry. Note that original geometry is modified in place. 
+             */
+            transform(source: ol.proj.ProjectionLike, destination: ol.proj.ProjectionLike): ol.geom.Geometry;
         }
 
-        class GeometryCollection {
+        /**
+        * An array of ol.geom.Geometry objects.
+        */
+        class GeometryCollection extends ol.geom.Geometry {
+
+            /**
+             * constructor
+             * @param geometries Geometries.
+             */
+            constructor(geometries?: Array<ol.geom.Geometry>);
+
+            /**
+             * Apply a transform function to each coordinate of the geometry. The geometry is modified in place.
+             * If you do not want the geometry modified in place, first clone() it and then use this function on the clone.
+             * @param transformFn TransformFunction
+             */
+            applyTransform(transformFn: ol.TransformFunction): void;
+
+            /**
+             * Make a complete copy of the geometry.
+             * @returns Clone.
+             */
+            clone(): ol.geom.GeometryCollection;
+
+            /**
+             * Return the geometries that make up this geometry collection.
+             * @returns Geometries.
+             */
+            getGeometries(): Array<Geometry>;
+
+            /**
+             * Get the type of this geometry.
+             * @returns Geometry type
+             */
+            getType(): ol.geom.GeometryType;
+
+            /**
+             * Test if the geometry and the passed extent intersect.
+             * @param extent Extent
+             * @returns true if the geometry and the extent intersect. 
+             */
+            intersectsExtent(extent: ol.Extent): boolean;
+
+            /**
+             * Set the geometries that make up this geometry collection.
+             * @param geometries Geometries.
+             */
+            setGeometries(geometries: Array<ol.geom.Geometry>): void;
+
         }
 
-        class LinearRing {
+        /**
+        * Linear ring geometry. Only used as part of polygon; cannot be rendered
+        * on its own.
+        */
+        class LinearRing extends SimpleGeometry {
+
+            /**
+             * constructor
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            constructor(coordinates: Array<ol.Coordinate>, layout?: ol.geom.GeometryLayout);
+
+            /**
+             * Make a complete copy of the geometry.
+             * @returns Clone.
+             */
+            clone(): ol.geom.LinearRing;
+
+            /**
+             * Return the area of the linear ring on projected plane.
+             * @returns Area (on projected plane).
+             */
+            getArea(): number;
+            
+            /**
+             * Return the coordinates of the linear ring.
+             * @returns Coordinates.
+             */
+            getCoordinates(): Array<ol.Coordinate>;
+
+            /**
+             * Get the type of this geometry.
+             * @returns Geometry type
+             */
+            getType(): ol.geom.GeometryType;
+
+            /**
+            * @Set the coordinates of the linear ring
+            * @param coordinates Coordinates.
+            * @param layout Layout.
+            */
+            setCoordinates(coordinates: Array<ol.Coordinate>, layout?: any): void;
+
         }
 
-        class LineString {
-            new(): LineString;
+        /**
+        * Linestring geometry.
+        */
+        class LineString extends ol.geom.SimpleGeometry {
+
+            /**
+             * constructor
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            constructor(coordinates: Array<ol.Coordinate>, layout?: ol.geom.GeometryLayout);
+
+            /**
+             * Append the passed coordinate to the coordinates of the linestring.
+             * @param coordinate Coordinate.
+             */
+            appendCoordinate(coordinate: ol.Coordinate): void;
+
+            /**
+             * Make a complete copy of the geometry.
+             * @returns Clone.
+             */
+            clone(): ol.geom.LineString;
+
+            /**
+             * Returns the coordinate at `m` using linear interpolation, or `null` if no
+             * such coordinate exists.
+             *
+             * `extrapolate` controls extrapolation beyond the range of Ms in the
+             * MultiLineString. If `extrapolate` is `true` then Ms less than the first
+             * M will return the first coordinate and Ms greater than the last M will
+             * return the last coordinate.
+             *
+             * @param m M.
+             * @param extrapolate Extrapolate. Default is `false`.
+             * @returns Coordinate.
+             */
+            getCoordinateAtM(m: number, extrapolate?: boolean): ol.Coordinate;
+
+            /**
+             * Return the coordinates of the linestring.
+             * @returns Coordinates.
+             */
+            getCoordinates(): Array<ol.Coordinate>;
+
+            /**
+             * Return the length of the linestring on projected plane.
+             * @returns Length (on projected plane).
+             */
+            getLength(): number;
+
+            /**
+             * Get the type of this geometry.
+             * @returns Geometry type
+             */
+            getType(): ol.geom.GeometryType;
+
+            /**
+             * Test if the geometry and the passed extent intersect.
+             * @param extent Extent
+             * @returns true if the geometry and the extent intersect. 
+             */
+            intersectsExtent(extent: ol.Extent): boolean;
+
+            /**
+             * Set the coordinates of the linestring.
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            setCoordinates(coordinates: Array<ol.Coordinate>, layout?: ol.geom.GeometryLayout): void;
         }
 
-        class MultiLineString {
+        /**
+        * Multi-linestring geometry.
+        */
+        class MultiLineString extends ol.geom.SimpleGeometry {
+
+            /**
+             * constructor
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            constructor(coordinates: Array<Array<ol.Coordinate>>, layout?: ol.geom.GeometryLayout);
+
+            /**
+             * Append the passed linestring to the multilinestring.
+             * @param lineString LineString.
+             */
+            appendLineString(lineString: ol.geom.LineString): void;
+
+            /**
+             * Make a complete copy of the geometry.
+             * @returns Clone.
+             */
+            clone(): ol.geom.MultiLineString;
+
+            /**
+             * Returns the coordinate at `m` using linear interpolation, or `null` if no
+             * such coordinate exists.
+             *
+             * `extrapolate` controls extrapolation beyond the range of Ms in the
+             * MultiLineString. If `extrapolate` is `true` then Ms less than the first
+             * M will return the first coordinate and Ms greater than the last M will
+             * return the last coordinate.
+             *
+             * `interpolate` controls interpolation between consecutive LineStrings
+             * within the MultiLineString. If `interpolate` is `true` the coordinates
+             * will be linearly interpolated between the last coordinate of one LineString
+             * and the first coordinate of the next LineString.  If `interpolate` is
+             * `false` then the function will return `null` for Ms falling between
+             * LineStrings.
+             *
+             * @param m M.
+             * @param extrapolate Extrapolate. Default is `false`.
+             * @param interpolate Interpolate. Default is `false`.
+             * @returns Coordinate.
+             */
+            getCoordinateAtM(m: number, extrapolate?: boolean, interpolate?: boolean): ol.Coordinate;
+
+            /**
+             * Return the coordinates of the multilinestring.
+             * @returns Coordinates.
+             */
+            getCoordinates(): Array<Array<ol.Coordinate>>;
+
+            /**
+             * Return the linestring at the specified index.
+             * @param index Index.
+             * @returns LineString.
+             */
+            getLineString(index: number): ol.geom.LineString;
+
+            /**
+             * Return the linestrings of this multilinestring.
+             * @returns LineStrings.
+             */
+            getLineStrings(): Array<ol.geom.LineString>;
+
+            /**
+             * Get the type of this geometry.
+             * @returns Geometry type
+             */
+            getType(): ol.geom.GeometryType;
+
+            /**
+             * Test if the geometry and the passed extent intersect.
+             * @param extent Extent
+             * @returns true if the geometry and the extent intersect. 
+             */
+            intersectsExtent(extent: ol.Extent): boolean;
+
+            /**
+             * Set the coordinates of the multilinestring.
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            setCoordinates(coordinates: Array<Array<ol.Coordinate>>, layout?: ol.geom.GeometryLayout): void;
         }
 
-        class MultiPoint {
+        /**
+        * Multi-point geometry.
+        */
+        class MultiPoint extends ol.geom.SimpleGeometry {
+
+            /**
+             * constructor
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            constructor(coordinates: Array<ol.Coordinate>, layout?: ol.geom.GeometryLayout);
+
+            /**
+             * Append the passed point to this multipoint.
+             * @param {ol.geom.Point} point Point.
+             */
+            appendPoint(point: ol.geom.Point): void;
+
+            /**
+             * Make a complete copy of the geometry.
+             * @returns Clone.
+             */
+            clone(): ol.geom.MultiPoint;
+
+            /**
+             * Return the coordinates of the multipoint.
+             * @returns Coordinates.
+             */
+            getCoordinates(): Array<ol.Coordinate>;
+
+            /**
+             * Return the point at the specified index.
+             * @param index Index.
+             * @returns Point.
+             */
+            getPoint(index: number): ol.geom.Point;
+
+            /**
+             * Return the points of this multipoint.
+             * @returns Points.
+             */
+            getPoints(): Array<ol.geom.Point>;
+
+            /**
+             * Get the type of this geometry.
+             * @returns Geometry type
+             */
+            getType(): ol.geom.GeometryType;
+
+            /**
+             * Test if the geometry and the passed extent intersect.
+             * @param extent Extent
+             * @returns true if the geometry and the extent intersect. 
+             */
+            intersectsExtent(extent: ol.Extent): boolean;
+
+            /**
+             * Set the coordinates of the multipoint.
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            setCoordinates(coordinates: Array<ol.Coordinate>, layout?: ol.geom.GeometryLayout): void;
+        }
+        
+        /**
+         * Multi-polygon geometry.
+         */
+        class MultiPolygon extends ol.geom.SimpleGeometry {
+            
+            /**
+             * constructor
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            constructor(coordinates: Array<Array<Array<ol.Coordinate>>>, layout?: ol.geom.GeometryLayout);
+            
+            /**
+             * Append the passed polygon to this multipolygon.
+             * @param polygon Polygon.
+             */
+            appendPolygon(polygon: ol.geom.Polygon): void;
+            
+            /**
+             * Make a complete copy of the geometry.
+             * @returns Clone.
+             */
+            clone(): ol.geom.MultiPolygon;
+            
+            /**
+             * Return the area of the multipolygon on projected plane.
+             * @returns Area (on projected plane).
+             */
+            getArea(): number;
+            
+            /**
+             * Get the coordinate array for this geometry.  This array has the structure
+             * of a GeoJSON coordinate array for multi-polygons.
+             *
+             * @param right Orient coordinates according to the right-hand
+             *     rule (counter-clockwise for exterior and clockwise for interior rings).
+             *     If `false`, coordinates will be oriented according to the left-hand rule
+             *     (clockwise for exterior and counter-clockwise for interior rings).
+             *     By default, coordinate orientation will depend on how the geometry was
+             *     constructed.
+             * @returns Coordinates.
+             */
+            getCoordinates(right?: boolean): Array<Array<Array<ol.Coordinate>>>;
+            
+            /**
+             * Return the interior points as {@link ol.geom.MultiPoint multipoint}.
+             * @returns Interior points.
+             */
+            getInteriorPoints(): ol.geom.MultiPoint;
+            
+            /**
+             * Return the polygon at the specified index.
+             * @param index Index.
+             * @returns  Polygon.
+             */
+            getPolygon(index: number): ol.geom.Polygon;
+            
+            /**
+             * Return the polygons of this multipolygon.
+             * @returns Polygons.
+             */
+            getPolygons(): Array<ol.geom.Polygon>;
+            
+            /**
+             * Get the type of this geometry.
+             * @returns Geometry type
+             */
+            getType(): ol.geom.GeometryType;
+            
+            /**
+             * Test if the geometry and the passed extent intersect.
+             * @param extent Extent
+             * @returns true if the geometry and the extent intersect. 
+             */
+            intersectsExtent(extent: ol.Extent): boolean;
+
+            /**
+             * Set the coordinates of the multipolygon.
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            setCoordinates(coordinates: Array<Array<Array<ol.Coordinate>>>, layout?: ol.geom.GeometryLayout): void;
         }
 
-        class MultiPolygon {
+        /**
+        * Point geometry.
+        */
+        class Point extends SimpleGeometry {
+
+            /**
+             * constructor
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            constructor(coordinates: ol.Coordinate, layout?: ol.geom.GeometryLayout);
+
+            /**
+             * Make a complete copy of the geometry.
+             * @returns Clone.
+             */
+            clone(): ol.geom.Point;
+
+            /**
+             * Return the coordinate of the point.
+             * @returns Coordinates.
+             */
+            getCoordinates(): ol.Coordinate;
+
+            /**
+             * Get the type of this geometry.
+             * @returns Geometry type
+             */
+            getType(): ol.geom.GeometryType;
+
+            /**
+             * Test if the geometry and the passed extent intersect.
+             * @param extent Extent
+             * @returns true if the geometry and the extent intersect. 
+             */
+            intersectsExtent(extent: ol.Extent): boolean;
+
+            /**
+             * Set the coordinate of the point.
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            setCoordinates(coordinates: ol.Coordinate, layout?: ol.geom.GeometryLayout): void;
         }
 
-        class Point {
-        }
+        /**
+        * Polygon geometry.
+        */
+        class Polygon extends SimpleGeometry {
 
-        class Polygon {
-        }
+            /**
+             * constructor
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            constructor(coordinates: Array<Array<ol.Coordinate>>, layout?: ol.geom.GeometryLayout);
 
-        class SimpleGeometry {
+            /**
+             * Create an approximation of a circle on the surface of a sphere.
+             * @param sphere The sphere.
+             * @param center Center (`[lon, lat]` in degrees).
+             * @param radius The great-circle distance from the center to the polygon vertices.
+             * @param n Optional number of vertices for the resulting polygon. Default is `32`.
+             * @returns The "circular" polygon.
+             */
+            static circular(sphere: ol.Sphere, center: ol.Coordinate, radius: number, n?: number): ol.geom.Polygon;
+
+            /**
+             * Append the passed linear ring to this polygon.
+             * @param linearRing Linear ring.
+             */
+            appendLinearRing(linearRing: ol.geom.LinearRing): void;
+
+            /**
+             * Make a complete copy of the geometry.
+             * @returns Clone.
+             */
+            clone(): ol.geom.Polygon;
+
+            /**
+             * Return the area of the polygon on projected plane.
+             * @returns Area (on projected plane).
+             */
+            getArea(): number;
+
+            /**
+             * Get the coordinate array for this geometry.  This array has the structure
+             * of a GeoJSON coordinate array for polygons.
+             *
+             * @param right Orient coordinates according to the right-hand
+             *     rule (counter-clockwise for exterior and clockwise for interior rings).
+             *     If `false`, coordinates will be oriented according to the left-hand rule
+             *     (clockwise for exterior and counter-clockwise for interior rings).
+             *     By default, coordinate orientation will depend on how the geometry was
+             *     constructed.
+             * @returns Coordinates.
+             */
+            getCoordinates(right?: boolean): Array<Array<ol.Coordinate>>;
+
+            /**
+             * Return an interior point of the polygon.
+             * @returns Interior point.
+             */
+            getInteriorPoint(): ol.geom.Point;
+
+            /**
+             * Return the Nth linear ring of the polygon geometry. Return `null` if the
+             * given index is out of range.
+             * The exterior linear ring is available at index `0` and the interior rings
+             * at index `1` and beyond.
+             *
+             * @param index Index.
+             * @returns Linear ring.
+             */
+            getLinearRing(index: number): ol.geom.LinearRing;
+
+            /**
+             * Return the linear rings of the polygon.
+             * @returns Linear rings.
+             */
+            getLinearRings(): Array<ol.geom.LinearRing>;
+
+            /**
+             * Get the type of this geometry.
+             * @returns Geometry type
+             */
+            getType(): ol.geom.GeometryType;
+
+            /**
+             * Test if the geometry and the passed extent intersect.
+             * @param extent Extent
+             * @returns true if the geometry and the extent intersect. 
+             */
+            intersectsExtent(extent: ol.Extent): boolean;
+
+            /**
+             * Set the coordinates of the polygon.
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
+            setCoordinates(coordinates: Array<Array<ol.Coordinate>>, layout?: ol.geom.GeometryLayout): void;
+        }
+        /**
+         * Abstract base class; only used for creating subclasses; do not instantiate
+         * in apps, as cannot be rendered.
+         */
+        class SimpleGeometry extends ol.geom.Geometry {
+
+            /**
+             * Apply a transform function to each coordinate of the geometry. The geometry is modified in place.
+             * If you do not want the geometry modified in place, first clone() it and then use this function on the clone.
+             * @param transformFn TransformFunction
+             */
+            applyTransform(transformFn: ol.TransformFunction): void;
+
+            /**
+             * Return the first coordinate of the geometry.
+             * @returns First coordinate.
+             */
+            getFirstCoordinate(): ol.Coordinate;
+
+            /**
+             * Return the last coordinate of the geometry.
+             * @returns Last point.
+             */
+            getLastCoordinate(): ol.Coordinate;
+
+            /**
+             * Return the {@link ol.geom.GeometryLayout layout} of the geometry.
+             * @returns Layout.
+             */
+            getLayout(): ol.geom.GeometryLayout;
+
+            /** 
+            * Translate the geometry. This modifies the geometry coordinates in place. 
+            * If instead you want a new geometry, first clone() this geometry.
+            * @param deltaX Delta X
+            * @param deltaY Delta Y
+            */
+            translate(deltaX: number, deltaY: number): void;
         }
     }
 
@@ -2590,13 +3555,14 @@ declare module ol {
         class DragZoom {
         }
 
-        class Draw {
+        class Draw extends ol.interaction.Pointer {
+            constructor(opt_options?: olx.interaction.DrawOptions)
         }
 
         class DrawEvent {
         }
 
-        class Interaction {
+        class Interaction extends ol.Object {
         }
 
         class KeyboardPan {
@@ -2605,7 +3571,8 @@ declare module ol {
         class KeyboardZoom {
         }
 
-        class Modify {
+        class Modify extends ol.interaction.Pointer {
+            constructor(opt_options?: olx.interaction.ModifyOptions)
         }
 
         class MouseWheelZoom {
@@ -2617,14 +3584,21 @@ declare module ol {
         class PinchZoom {
         }
 
-        class Pointer {
+        class Pointer extends ol.interaction.Interaction {
         }
 
-        class Select {
+        class Select extends ol.interaction.Interaction {
+            constructor(opt_options?: olx.interaction.SelectOptions);
+            getLayer(): ol.layer.Layer;
+            getFeatures(): ol.Collection<ol.Feature>;
         }
 
         class Snap {
         }
+
+        function defaults(opts: olx.interaction.DefaultsOptions): ol.Collection<ol.interaction.Interaction>;
+        interface DrawGeometryFunctionType { (coordinates: ol.Coordinate, geom?: ol.geom.Geometry): ol.geom.Geometry; }
+        interface SelectFilterFunction { (feature: ol.Feature | ol.render.Feature, layer: ol.layer.Layer): boolean; }
     }
 
     module layer {
@@ -2672,7 +3646,7 @@ declare module ol {
 
             /**
              * Return the minimum resolution of the layer.
-             * @returns The minimum resolution of the layer. 
+             * @returns The minimum resolution of the layer.
              */
             getMinResolution(): number;
 
@@ -2845,7 +3819,7 @@ declare module ol {
         class Layer extends ol.layer.Base {
 
             /**
-             * @constructor 
+             * @constructor
              * @param options Layer options
              */
             constructor(options?: olx.layer.LayerOptions);
@@ -2862,7 +3836,7 @@ declare module ol {
              */
             setSource(source: ol.source.Source): void;
         }
-        
+
         /**
          * For layer sources that provide pre-rendered, tiled images in grids that are organized by zoom levels for specific resolutions. Note that any property set in the options is set as a ol.Object property on the layer object; for example, setting title: 'My Title' in the options means that title is observable, and has get/set accessors.
          */
@@ -2955,6 +3929,15 @@ declare module ol {
              * @param Layer style
              */
             setStyle(style: ol.style.StyleFunction): void;
+            
+            /**
+             * Sets the layer to be rendered on top of other layers on a map. The map will not manage this layer
+             * in its layers collection, and the callback in ol.Map#forEachLayerAtPixel will receive null as
+             * layer. This is useful for temporary layers. To remove an unmanaged layer from the map, use #setMap(null).
+             * To add the layer to a map and have it managed by the map, use ol.Map#addLayer instead.
+             * @argument map.
+             */
+            setMap(map: ol.Map): void;
         }
     }
 
@@ -3067,7 +4050,8 @@ declare module ol {
          */
         function transformExtent(extent: Extent, source: ProjectionLike, destination: ProjectionLike): Extent;
 
-        interface Projection {
+        class Projection {
+            constructor(options: olx.Projection)
         }
     }
 
@@ -3078,7 +4062,13 @@ declare module ol {
 
         class VectorContext {
         }
-
+        class Feature {
+            get(key: string): any;
+            getExtent(): ol.Extent;
+            getGeometry(): ol.geom.Geometry;
+            getProperties: Object[];
+            getType(): ol.geom.GeometryType;
+        }
         module canvas {
             class Immediate {
             }
@@ -3112,6 +4102,7 @@ declare module ol {
         }
 
         class ImageWMS {
+            constructor(options: olx.ImageWMSOptions);
         }
 
         class MapQuest {
@@ -3152,15 +4143,55 @@ declare module ol {
         }
 
         class TileWMS {
+            constructor(options: olx.TileWMSOptions);
         }
 
         class Vector {
+            constructor(opts?: olx.source.VectorOptions)
+            /**
+             * Add a single feature to the source. If you want to add a batch of features at once,
+             * call source.addFeatures() instead.
+             */
+            addFeature(feature: ol.Feature): void;
+           
+            /**
+             * Add a batch of features to the source.
+             */
+            addFeatures(features: ol.Feature[]): void;
+            
+            /**
+             * Remove all features from the source.
+             * @param Skip dispatching of removefeature events.
+             */
+            clear(fast?: boolean): void;
+            /**
+             * Get the extent of the features currently in the source.
+             */
+            getExtent(): ol.Extent;
+          
+            /**
+             * Get all features in the provided extent. Note that this returns all features whose bounding boxes
+             * intersect the given extent (so it may include features whose geometries do not intersect the extent).
+             * This method is not available when the source is configured with useSpatialIndex set to false.
+             */
+            getFeaturesInExtent(extent: ol.Extent): ol.Feature[];
+          
+            /**
+             * Get all features on the source
+             */
+            getFeatures(): ol.Feature[];
+
+            /**
+             * Get all features whose geometry intersects the provided coordinate.
+             */
+            getFeaturesAtCoordinate(coordinate: ol.Coordinate): ol.Feature[];
         }
 
         class VectorEvent {
         }
 
         class WMTS {
+            constructor(options: olx.source.WMTSOptions);
         }
 
         class XYZ {
@@ -3184,29 +4215,158 @@ declare module ol {
         class AtlasManager {
         }
 
-        class Circle {
+        class Circle extends Image {
+            constructor(opt_options?: olx.style.CircleOptions);
         }
 
+        /**
+         * Set fill style for vector features.
+         */
         class Fill {
+
+            constructor(opt_options?: olx.style.FillOptions);
+
+            getColor(): ol.Color | string;
+
+            /**
+             * Set the color.
+             */
+            setColor(color: ol.Color | string): void;
+
+            getChecksum(): string;
         }
 
-        class Icon {
+        class Icon extends Image {
+            constructor(option: olx.style.IconOptions)
         }
 
         class Image {
+            getOpacity(): number;
+            getRotateWithView(): boolean;
+            getRotation(): number;
+            getScale(): number;
+            getSnapToPiexl(): boolean;
+
+            setOpacity(opacity: number): void;
+            setRotation(rotation: number): void;
+            setScale(scale: number): void;
+        }
+
+        interface GeometryFunction {
+            (feature: Feature): ol.geom.Geometry
         }
 
         class RegularShape {
         }
 
         class Stroke {
-            constructor();
+            constructor(opts?: olx.style.StrokeOptions);
+            getColor(): ol.Color | string;
+            getLineCap(): string;
+            getLineDash(): number[];
+            getLineJoin(): string;
+            getMitterLimit(): number;
+            getWidth(): number;
+            setColor(color: ol.Color | string): void;
+            setLineCap(lineCap: string): void;
+            setLineDash(lineDash: number[]): void;
+            setLineJoin(lineJoin: string): void;
+            setMiterLimit(miterLimit: number): void;
+            setWidth(width: number): void;
         }
 
+        /**
+         * Container for vector feature rendering styles. Any changes made to the style
+         * or its children through `set*()` methods will not take effect until the
+         * feature, layer or FeatureOverlay that uses the style is re-rendered.
+         */
         class Style {
+            constructor(opts: olx.style.StyleOptions);
+
+            getFill(): ol.style.Fill;
+            /***
+             * Get the geometry to be rendered.
+             * @return Feature property or geometry or function that returns the geometry that will
+             * be rendered with this style. 
+             */
+            getGeometry(): string | ol.geom.Geometry | ol.style.GeometryFunction;
+            getGeometryFunction(): ol.style.GeometryFunction;
+            getImage(): ol.style.Image;
+            getStroke(): ol.style.Stroke;
+            getText(): ol.style.Text;
+            getZIndex(): number;
+
+            setGeometry(geometry: string | ol.geom.Geometry | ol.style.GeometryFunction): void;
+            setZIndex(zIndex: number): void;
         }
 
+        /**
+         * Set text style for vector features.
+         */
         class Text {
+            constructor(opt?: olx.style.TextOptions);
+
+            getFont(): string;
+            getOffsetX(): number;
+            getOffsetY(): number;
+            getFill(): Fill;
+            getRotation(): number;
+            getScale(): number;
+            getStroke(): Stroke;
+            getText(): string;
+            getTextAlign(): string;
+            getTextBaseline(): string;
+
+            /**
+             * Set the font.
+             */
+            setFont(font: string): void;
+
+            /**
+             * Set the x offset.
+             */
+            setOffsetX(offsetX: number): void;
+
+            /**
+             * Set the y offset.
+             */
+            setOffsetY(offsetY: number): void;
+
+            /**
+             * Set the fill.
+             */
+            setFill(fill: Fill): void;
+
+            /**
+             * Set the rotation.
+             */
+            setRotation(rotation: number): void;
+
+            /**
+             * Set the scale.
+             */
+            setScale(scale: number): void;
+
+            /**
+             * Set the stroke.
+             *
+             */
+            setStroke(stroke: Stroke): void;
+
+            /**
+             * Set the text.
+             */
+            setText(text: string): void;
+
+            /**
+             * Set the text alignment.
+             */
+            setTextAlign(textAlign: string): void;
+
+            /**
+             * Set the text baseline.
+             */
+            setTextBaseline(textBaseline: string): void;
         }
 
         /**
@@ -3290,7 +4450,7 @@ declare module ol {
              */
             getTileSize(z: number): number | ol.Size;
         }
-        
+
         /**
          * Set the grid pattern for sources accessing WMTS tiled-image servers.
          */
@@ -3316,7 +4476,7 @@ declare module ol {
              */
             getMatrixIds(): Array<string>;
         }
-        
+
         /**
          * Set the grid pattern for sources accessing Zoomify tiled-image servers.
          */
@@ -3348,7 +4508,7 @@ declare module ol {
              */
             constructor(canvas: HTMLCanvasElement, gl: WebGLRenderingContext);
 
-            /** 
+            /**
             Get the WebGL rendering context
              @returns The rendering context.
             */
@@ -3371,62 +4531,62 @@ declare module ol {
 
     // Type definitions
 
-    /** 
-     * A function returning the canvas element ({HTMLCanvasElement}) used by the source as an image. The arguments passed to the function are: ol.Extent the image extent, {number} the image resolution, {number} the device pixel ratio, ol.Size the image size, and ol.proj.Projection the image projection. The canvas returned by this function is cached by the source. The this keyword inside the function references the ol.source.ImageCanvas. 
+    /**
+     * A function returning the canvas element ({HTMLCanvasElement}) used by the source as an image. The arguments passed to the function are: ol.Extent the image extent, {number} the image resolution, {number} the device pixel ratio, ol.Size the image size, and ol.proj.Projection the image projection. The canvas returned by this function is cached by the source. The this keyword inside the function references the ol.source.ImageCanvas.
      */
     function CanvasFunctionType(extent: Extent, resolution: number, pixelRatio: number, size: Size, projection: proj.Projection): HTMLCanvasElement;
 
-    /** 
-     * A color represented as a short array [red, green, blue, alpha]. red, green, and blue should be integers in the range 0..255 inclusive. alpha should be a float in the range 0..1 inclusive. 
+    /**
+     * A color represented as a short array [red, green, blue, alpha]. red, green, and blue should be integers in the range 0..255 inclusive. alpha should be a float in the range 0..1 inclusive.
      */
     interface Color extends Array<number> { }
-    
+
     /**
-     * An array of numbers representing an xy coordinate. Example: [16, 48]. 
+     * An array of numbers representing an xy coordinate. Example: [16, 48].
      */
     interface Coordinate extends Array<number> { }
 
-    /** 
-     * An array of numbers representing an extent: [minx, miny, maxx, maxy]. 
+    /**
+     * An array of numbers representing an extent: [minx, miny, maxx, maxy].
      */
     interface Extent extends Array<number> { }
 
-    /** 
-     * Overlay position: 'bottom-left', 'bottom-center', 'bottom-right', 'center-left', 'center-center', 'center-right', 'top-left', 'top-center', 'top-right' 
+    /**
+     * Overlay position: 'bottom-left', 'bottom-center', 'bottom-right', 'center-left', 'center-center', 'center-right', 'top-left', 'top-center', 'top-right'
      */
     interface OverlayPositioning extends String { }
 
     /**
-     * An array with two elements, representing a pixel. The first element is the x-coordinate, the second the y-coordinate of the pixel. 
+     * An array with two elements, representing a pixel. The first element is the x-coordinate, the second the y-coordinate of the pixel.
      */
     interface Pixel extends Array<number> { }
 
-    /** 
-     * Available renderers: 'canvas', 'dom' or 'webgl'. 
+    /**
+     * Available renderers: 'canvas', 'dom' or 'webgl'.
      */
     interface RendererType extends String { }
-    
-    /** 
-     * An array of numbers representing a size: [width, height]. 
+
+    /**
+     * An array of numbers representing a size: [width, height].
      */
     interface Size extends Array<number> { }
 
-    /** 
-     * An array of three numbers representing the location of a tile in a tile grid. The order is z, x, and y. z is the zoom level. 
+    /**
+     * An array of three numbers representing the location of a tile in a tile grid. The order is z, x, and y. z is the zoom level.
      */
     interface TileCoord extends Array<number> { }
 
-    // Functions 
+    // Functions
 
-    /** 
-     * A function that takes a ol.Coordinate and transforms it into a {string}. 
+    /**
+     * A function that takes a ol.Coordinate and transforms it into a {string}.
      */
     interface CoordinateFormatType { (coordinate?: Coordinate): string; }
 
     /**
      * Implementation based on the code of OpenLayers, no documentation available (yet). If it is incorrect, please create an issue and I will change it.
      */
-    interface FeatureLoader { (extent: ol.Extent, number: number, projection: ol.proj.Projection): Array<Feature> }
+    interface FeatureLoader { (extent: ol.Extent, number: number, projection: ol.proj.Projection): string }
 
     /**
      * A function that returns a style given a resolution. The this keyword inside the function references the ol.Feature to be styled.
@@ -3447,4 +4607,8 @@ declare module ol {
      * A transform function accepts an array of input coordinate values, an optional output array, and an optional dimension (default should be 2). The function transforms the input coordinate values, populates the output array, and returns the output array.
      */
     interface TransformFunction { (input: Array<number>, output?: Array<number>, dimension?: number): Array<number> }
+}
+
+declare module "openlayers" {
+    export = ol;
 }

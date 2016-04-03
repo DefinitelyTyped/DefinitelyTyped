@@ -8,7 +8,6 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module "winston" {
-
   export var transports: Transports;
   export var Transport: TransportStatic;
   export var Logger: LoggerStatic;
@@ -47,7 +46,11 @@ declare module "winston" {
   export function addColors(target: any): any;
   export function setLevels(target: any): any;
   export function cli(): LoggerInstance;
+  export function addRewriter(rewriter: MetadataRewriter): void;
 
+  export interface MetadataRewriter {
+    (level: string, msg: string, meta: any): any;
+  }
 
   export interface LoggerStatic {
     new (options?: LoggerOptions): LoggerInstance;
@@ -78,7 +81,7 @@ declare module "winston" {
     handleExceptions(...transports: TransportInstance[]): void;
     unhandleExceptions(...transports: TransportInstance[]): void;
     add(transport: TransportInstance, options?: TransportOptions, created?: boolean): LoggerInstance;
-    addRewriter(rewriter: TransportInstance): TransportInstance[];
+    addRewriter(rewriter: MetadataRewriter): void;
     clear(): void;
     remove(transport: TransportInstance): LoggerInstance;
     startTimer(): ProfileHandler;
@@ -98,6 +101,11 @@ declare module "winston" {
      * @type {(boolean|(err: Error) => void)}
      */
     exitOnError?: any;
+
+    // TODO: Need to make instances specific,
+    //       and need to get options for each instance.
+    //       Unfortunately, the documentation is unhelpful.
+    [optionName: string]: any;
   }
 
   export interface TransportStatic {
@@ -105,10 +113,38 @@ declare module "winston" {
   }
 
   export interface TransportInstance extends TransportStatic, NodeJS.EventEmitter {
-    formatQuery(query: any): any;
+    formatQuery(query: (string|Object)): (string|Object);
     normalizeQuery(options: QueryOptions): QueryOptions;
-    formatResults(results: any, options: any): any;
-    logException(msg: string, meta: any, callback: () => void): void;
+    formatResults(results: (Object|Array<any>), options?: Object): (Object|Array<any>);
+    logException(msg: string, meta: Object, callback: () => void): void;
+  }
+
+  export interface ConsoleTransportInstance extends TransportInstance {
+    new (options?: ConsoleTransportOptions): ConsoleTransportInstance;
+  }
+
+  export interface DailyRotateFileTransportInstance extends TransportInstance {
+    new (options?: DailyRotateFileTransportOptions): DailyRotateFileTransportInstance;
+  }
+
+  export interface FileTransportInstance extends TransportInstance {
+    new (options?: FileTransportOptions): FileTransportInstance;
+  }
+
+  export interface HttpTransportInstance extends TransportInstance {
+    new (options?: HttpTransportOptions): HttpTransportInstance;
+  }
+
+  export interface MemoryTransportInstance extends TransportInstance {
+    new (options?: MemoryTransportOptions): MemoryTransportInstance;
+  }
+
+  export interface WebhookTransportInstance extends TransportInstance {
+    new (options?: WebhookTransportOptions): WebhookTransportInstance;
+  }
+
+  export interface WinstonModuleTrasportInstance extends TransportInstance {
+    new (options?: WinstonModuleTransportOptions): WinstonModuleTrasportInstance;
   }
 
   export interface ContainerStatic {
@@ -126,13 +162,13 @@ declare module "winston" {
   }
 
   export interface Transports {
-    File: TransportInstance;
-    Console: TransportInstance;
-    Loggly: TransportInstance;
-    DailyRotateFile: TransportInstance;
-    Http: TransportInstance;
-    Memory: TransportInstance;
-    Webhook: TransportInstance;
+    File: FileTransportInstance;
+    Console: ConsoleTransportInstance;
+    Loggly: WinstonModuleTrasportInstance;
+    DailyRotateFile: DailyRotateFileTransportInstance;
+    Http: HttpTransportInstance;
+    Memory: MemoryTransportInstance;
+    Webhook: WebhookTransportInstance;
   }
 
   export interface TransportOptions {
@@ -140,7 +176,91 @@ declare module "winston" {
     silent?: boolean;
     raw?: boolean;
     name?: string;
+    formatter?: Function;
     handleExceptions?: boolean;
+    exceptionsLevel?: string;
+    humanReadableUnhandledException?: boolean;
+  }
+
+  export interface GenericTextTransportOptions {
+    json?: boolean;
+    colorize?: boolean;
+    colors?: any;
+    prettyPrint?: boolean;
+    timestamp?: (Function|boolean);
+    showLevel?: boolean;
+    label?: string;
+    depth?: number;
+    stringify?: Function;
+  }
+
+  export interface GenericNetworkTransportOptions {
+    host?: string;
+    port?: number;
+    auth?: {
+      username: string;
+      password: string;
+    };
+    path?: string;
+  }
+
+  export interface ConsoleTransportOptions extends TransportOptions, GenericTextTransportOptions {
+    logstash?: boolean;
+    debugStdout?: boolean;
+  }
+
+  export interface DailyRotateFileTransportOptions extends TransportOptions, GenericTextTransportOptions {
+    logstash?: boolean;
+    maxsize?: number;
+    maxFiles?: number;
+    eol?: string;
+    maxRetries?: number;
+    datePattern?: string;
+    filename?: string;
+    dirname?: string;
+    options?: {
+      flags?: string;
+      highWaterMark?: number;
+    };
+    stream?: NodeJS.WritableStream;
+  }
+
+  export interface FileTransportOptions extends TransportOptions, GenericTextTransportOptions {
+    logstash?: boolean;
+    maxsize?: number;
+    rotationFormat?: boolean;
+    zippedArchive?: boolean;
+    maxFiles?: number;
+    eol?: string;
+    tailable?: boolean;
+    maxRetries?: number;
+    filename?: string;
+    dirname?: string;
+    options?: {
+      flags?: string;
+      highWaterMark?: number;
+    };
+    stream?: NodeJS.WritableStream;
+  }
+
+  export interface HttpTransportOptions extends TransportOptions, GenericNetworkTransportOptions {
+    ssl?: boolean;
+  }
+
+  export interface MemoryTransportOptions extends TransportOptions, GenericTextTransportOptions {
+  }
+
+  export interface WebhookTransportOptions extends TransportOptions, GenericNetworkTransportOptions {
+    method?: string;
+    ssl?: {
+      key?: any;
+      cert?: any;
+      ca: any;
+    };
+  }
+
+  export interface WinstonModuleTransportOptions extends TransportOptions {
+    [optionName: string]: any;
   }
 
   export interface QueryOptions {

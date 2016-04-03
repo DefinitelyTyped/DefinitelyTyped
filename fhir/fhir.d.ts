@@ -1,11 +1,8 @@
-// Type definitions for FHIR DSTU2 v0.5.0
-// Project: http://www.hl7.org/fhir/2015May/index.html
-// Definitions by: Artifact Health <www.artifacthealth.com>
+// Type definitions for FHIR DSTU2 v1.0.0
+// Project: http://www.hl7.org/fhir/2015Sep/index.html
+// Definitions by: Artifact Health <http://www.artifacthealth.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module fhir {
-    /**
-     * Any combination of lowercase letters, numerals, "-" and ".", with a length limit of 36 characters.  (This might be an integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Systems SHALL send ids as lower-case but SHOULD interpret them case-insensitively.
-     */
     type id = string;
     /**
      * String of characters used to identify a name or a resource
@@ -20,29 +17,51 @@ declare module fhir {
      */
     type decimal = number;
     /**
-     * A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a time zone SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.  Dates SHALL be valid dates.
+     * A stream of bytes
      */
-    type dateTime = string;
-    /**
-     * A date, or partial date (e.g. just year or year + month). There is no time zone. The format is a union of the schema types gYear, gYearMonth and date.  Dates SHALL be valid dates.
-     */
-    type date = string;
+    type base64Binary = string;
     /**
      * An instant in time - known at least to the second
      */
     type instant = string;
     /**
+     * A date, or partial date (e.g. just year or year + month). There is no time zone. The format is a union of the schema types gYear, gYearMonth and date.                 Dates SHALL be valid dates.
+     */
+    type date = string;
+    /**
+     * A date, date-time or partial date (e.g. just year or year + month).  If hours and minutes are specified, a time zone SHALL be populated. The format is a union of the schema types gYear, gYearMonth, date and dateTime. Seconds must be provided due to schema type constraints but may be zero-filled and may be ignored.                 Dates SHALL be valid dates.
+     */
+    type dateTime = string;
+    /**
      * A time during the day, with no date specified
      */
     type time = string;
-    /**
-     * A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents
-     */
     type code = string;
+    type oid = string;
+    type unsignedInt = number;
+    type positiveInt = number;
+    type markdown = string;
     /**
-     * A stream of bytes
+     * A reference from one resource to another
      */
-    type base64Binary = string;
+    interface Reference extends Element {
+        /**
+         * Relative, internal or absolute URL reference
+         */
+        reference?: string;
+        /**
+         * Contains reference's id, extensions, and comments.
+         */
+        _reference?: Element;
+        /**
+         * Text alternative for the resource
+         */
+        display?: string;
+        /**
+         * Contains display's id, extensions, and comments.
+         */
+        _display?: Element;
+    }
     /**
      * A reference to a code defined by a terminology system
      */
@@ -52,21 +71,41 @@ declare module fhir {
          */
         system?: uri;
         /**
+         * Contains system's id, extensions, and comments.
+         */
+        _system?: Element;
+        /**
          * Version of the system - if relevant
          */
         version?: string;
+        /**
+         * Contains version's id, extensions, and comments.
+         */
+        _version?: Element;
         /**
          * Symbol in syntax defined by the system
          */
         code?: code;
         /**
+         * Contains code's id, extensions, and comments.
+         */
+        _code?: Element;
+        /**
          * Representation defined by the system
          */
         display?: string;
         /**
-         * If this code was chosen directly by the user
+         * Contains display's id, extensions, and comments.
          */
-        primary?: boolean;
+        _display?: Element;
+        /**
+         * If this coding was chosen directly by the user
+         */
+        userSelected?: boolean;
+        /**
+         * Contains userSelected's id, extensions, and comments.
+         */
+        _userSelected?: Element;
     }
     /**
      * Concept - reference to a terminology or just  text
@@ -80,47 +119,10 @@ declare module fhir {
          * Plain text representation of the concept
          */
         text?: string;
-    }
-    /**
-     * An integer with a value that is not negative (e.g. >= 0)
-     */
-    type unsignedInt = number;
-    /**
-     * Content in a format defined elsewhere
-     */
-    interface Attachment extends Element {
         /**
-         * Mime type of the content, with charset etc.
+         * Contains text's id, extensions, and comments.
          */
-        contentType?: code;
-        /**
-         * Human language of the content (BCP-47)
-         */
-        language?: code;
-        /**
-         * Data inline, base64ed
-         */
-        data?: base64Binary;
-        /**
-         * Uri where the data can be found
-         */
-        url?: uri;
-        /**
-         * Number of bytes of content (if url provided)
-         */
-        size?: unsignedInt;
-        /**
-         * Hash of the data (sha-1, base64ed )
-         */
-        hash?: base64Binary;
-        /**
-         * Label to display in place of the data
-         */
-        title?: string;
-        /**
-         * Date attachment was first created
-         */
-        creation?: dateTime;
+        _text?: Element;
     }
     /**
      * Time range defined by start and end date/time
@@ -131,39 +133,54 @@ declare module fhir {
          */
         start?: dateTime;
         /**
+         * Contains start's id, extensions, and comments.
+         */
+        _start?: Element;
+        /**
          * End time with inclusive boundary, if not ongoing
          */
         end?: dateTime;
-    }
-    /**
-     * A reference from one resource to another
-     */
-    interface Reference extends Element {
         /**
-         * Relative, internal or absolute URL reference
+         * Contains end's id, extensions, and comments.
          */
-        reference?: string;
-        /**
-         * Text alternative for the resource
-         */
-        display?: string;
+        _end?: Element;
     }
     /**
      * Details of a Technology mediated contact point (phone, fax, email, etc)
      */
     interface ContactPoint extends Element {
         /**
-         * phone | fax | email | url
+         * phone | fax | email | pager | other
          */
         system?: code;
+        /**
+         * Contains system's id, extensions, and comments.
+         */
+        _system?: Element;
         /**
          * The actual contact point details
          */
         value?: string;
         /**
+         * Contains value's id, extensions, and comments.
+         */
+        _value?: Element;
+        /**
          * home | work | temp | old | mobile - purpose of this contact point
          */
         use?: code;
+        /**
+         * Contains use's id, extensions, and comments.
+         */
+        _use?: Element;
+        /**
+         * Specify preferred order of use (1 = highest)
+         */
+        rank?: positiveInt;
+        /**
+         * Contains rank's id, extensions, and comments.
+         */
+        _rank?: Element;
         /**
          * Time period when the contact point was/is in use
          */
@@ -178,29 +195,73 @@ declare module fhir {
          */
         use?: code;
         /**
+         * Contains use's id, extensions, and comments.
+         */
+        _use?: Element;
+        /**
+         * postal | physical | both
+         */
+        type?: code;
+        /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
+        /**
          * Text representation of the address
          */
         text?: string;
+        /**
+         * Contains text's id, extensions, and comments.
+         */
+        _text?: Element;
         /**
          * Street name, number, direction & P.O. Box etc
          */
         line?: string[];
         /**
+         * Contains line's id, extensions, and comments.
+         */
+        _line?: Element[];
+        /**
          * Name of city, town etc.
          */
         city?: string;
+        /**
+         * Contains city's id, extensions, and comments.
+         */
+        _city?: Element;
+        /**
+         * District name (aka county)
+         */
+        district?: string;
+        /**
+         * Contains district's id, extensions, and comments.
+         */
+        _district?: Element;
         /**
          * Sub-unit of country (abreviations ok)
          */
         state?: string;
         /**
+         * Contains state's id, extensions, and comments.
+         */
+        _state?: Element;
+        /**
          * Postal code for area
          */
         postalCode?: string;
         /**
+         * Contains postalCode's id, extensions, and comments.
+         */
+        _postalCode?: Element;
+        /**
          * Country (can be ISO 3166 3 letter code)
          */
         country?: string;
+        /**
+         * Contains country's id, extensions, and comments.
+         */
+        _country?: Element;
         /**
          * Time period when address was/is in use
          */
@@ -236,25 +297,49 @@ declare module fhir {
          */
         use?: code;
         /**
+         * Contains use's id, extensions, and comments.
+         */
+        _use?: Element;
+        /**
          * Text representation of the full name
          */
         text?: string;
+        /**
+         * Contains text's id, extensions, and comments.
+         */
+        _text?: Element;
         /**
          * Family name (often called 'Surname')
          */
         family?: string[];
         /**
+         * Contains family's id, extensions, and comments.
+         */
+        _family?: Element[];
+        /**
          * Given names (not always 'first'). Includes middle names
          */
         given?: string[];
+        /**
+         * Contains given's id, extensions, and comments.
+         */
+        _given?: Element[];
         /**
          * Parts that come before the name
          */
         prefix?: string[];
         /**
+         * Contains prefix's id, extensions, and comments.
+         */
+        _prefix?: Element[];
+        /**
          * Parts that come after the name
          */
         suffix?: string[];
+        /**
+         * Contains suffix's id, extensions, and comments.
+         */
+        _suffix?: Element[];
         /**
          * Time period when name was/is in use
          */
@@ -269,13 +354,25 @@ declare module fhir {
          */
         identifier?: Identifier[];
         /**
-         * Name used for the organization
+         * Whether the organization's record is still in active use
          */
-        name?: string;
+        active?: boolean;
+        /**
+         * Contains active's id, extensions, and comments.
+         */
+        _active?: Element;
         /**
          * Kind of organization
          */
         type?: CodeableConcept;
+        /**
+         * Name used for the organization
+         */
+        name?: string;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
         /**
          * A contact detail for the organization
          */
@@ -292,10 +389,6 @@ declare module fhir {
          * Contact for the organization for a certain purpose
          */
         contact?: OrganizationContact[];
-        /**
-         * Whether the organization's record is still in active use
-         */
-        active?: boolean;
     }
     /**
      * An identifier intended for computation
@@ -306,6 +399,10 @@ declare module fhir {
          */
         use?: code;
         /**
+         * Contains use's id, extensions, and comments.
+         */
+        _use?: Element;
+        /**
          * Description of identifier
          */
         type?: CodeableConcept;
@@ -314,9 +411,17 @@ declare module fhir {
          */
         system?: uri;
         /**
+         * Contains system's id, extensions, and comments.
+         */
+        _system?: Element;
+        /**
          * The value that is unique
          */
         value?: string;
+        /**
+         * Contains value's id, extensions, and comments.
+         */
+        _value?: Element;
         /**
          * Time period when id is/was valid for use
          */
@@ -327,117 +432,73 @@ declare module fhir {
         assigner?: Reference;
     }
     /**
-     * A measured or measurable amount
+     * Content in a format defined elsewhere
      */
-    interface Quantity extends Element {
+    interface Attachment extends Element {
         /**
-         * Numerical value (with implicit precision)
+         * Mime type of the content, with charset etc.
          */
-        value?: decimal;
+        contentType?: code;
         /**
-         * < | <= | >= | > - how to understand the value
+         * Contains contentType's id, extensions, and comments.
          */
-        comparator?: code;
+        _contentType?: Element;
         /**
-         * Unit representation
+         * Human language of the content (BCP-47)
          */
-        units?: string;
+        language?: code;
         /**
-         * System that defines coded unit form
+         * Contains language's id, extensions, and comments.
          */
-        system?: uri;
+        _language?: Element;
         /**
-         * Coded form of the unit
+         * Data inline, base64ed
          */
-        code?: code;
-    }
-    /**
-     * Set of values bounded by low and high
-     */
-    interface Range extends Element {
+        data?: base64Binary;
         /**
-         * Low limit
+         * Contains data's id, extensions, and comments.
          */
-        low?: Quantity;
+        _data?: Element;
         /**
-         * High limit
+         * Uri where the data can be found
          */
-        high?: Quantity;
-    }
-    /**
-     * A ratio of two Quantity values - a numerator and a denominator
-     */
-    interface Ratio extends Element {
+        url?: uri;
         /**
-         * Numerator value
+         * Contains url's id, extensions, and comments.
          */
-        numerator?: Quantity;
+        _url?: Element;
         /**
-         * Denominator value
+         * Number of bytes of content (if url provided)
          */
-        denominator?: Quantity;
-    }
-    /**
-     * When the event is to occur
-     */
-    interface TimingRepeat extends Element {
+        size?: unsignedInt;
         /**
-         * Start and/or end limits
+         * Contains size's id, extensions, and comments.
          */
-        bounds?: Period;
+        _size?: Element;
         /**
-         * Number of times to repeat
+         * Hash of the data (sha-1, base64ed )
          */
-        count?: integer;
+        hash?: base64Binary;
         /**
-         * How long when it happens
+         * Contains hash's id, extensions, and comments.
          */
-        duration?: decimal;
+        _hash?: Element;
         /**
-         * s | min | h | d | wk | mo | a - unit of time (UCUM)
+         * Label to display in place of the data
          */
-        durationUnits?: code;
+        title?: string;
         /**
-         * Event occurs frequency times per duration
+         * Contains title's id, extensions, and comments.
          */
-        frequency?: integer;
+        _title?: Element;
         /**
-         * Event occurs frequency times per duration
+         * Date attachment was first created
          */
-        frequencyMax?: integer;
+        creation?: dateTime;
         /**
-         * Event occurs frequency times per period
+         * Contains creation's id, extensions, and comments.
          */
-        period?: decimal;
-        /**
-         * Upper limit of period (3-4 hours)
-         */
-        periodMax?: decimal;
-        /**
-         * s | min | h | d | wk | mo | a - unit of time (UCUM)
-         */
-        periodUnits?: code;
-        /**
-         * Regular life events the event is tied to
-         */
-        when?: code;
-    }
-    /**
-     * A timing schedule that specifies an event that may occur multiple times
-     */
-    interface Timing extends Element {
-        /**
-         * When the event occurs
-         */
-        event?: dateTime[];
-        /**
-         * When the event is to occur
-         */
-        repeat?: TimingRepeat;
-        /**
-         * BID | TID | QID | AM | PM +
-         */
-        code?: CodeableConcept;
+        _creation?: Element;
     }
     /**
      * The list of Roles/Organizations that the Practitioner is associated with
@@ -477,13 +538,25 @@ declare module fhir {
          */
         longitude: decimal;
         /**
+         * Contains longitude's id, extensions, and comments.
+         */
+        _longitude?: Element;
+        /**
          * Latitude with WGS84 datum
          */
         latitude: decimal;
         /**
+         * Contains latitude's id, extensions, and comments.
+         */
+        _latitude?: Element;
+        /**
          * Altitude with WGS84 datum
          */
         altitude?: decimal;
+        /**
+         * Contains altitude's id, extensions, and comments.
+         */
+        _altitude?: Element;
     }
     /**
      * Details and position information for a physical place
@@ -494,17 +567,37 @@ declare module fhir {
          */
         identifier?: Identifier[];
         /**
+         * active | suspended | inactive
+         */
+        status?: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * Name of the location as used by humans
          */
         name?: string;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
         /**
          * Description of the Location, which helps in finding or referencing the place
          */
         description?: string;
         /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
          * instance | kind
          */
         mode?: code;
+        /**
+         * Contains mode's id, extensions, and comments.
+         */
+        _mode?: Element;
         /**
          * Indicates the type of function performed at the location
          */
@@ -533,10 +626,6 @@ declare module fhir {
          * Another Location which this Location is physically part of
          */
         partOf?: Reference;
-        /**
-         * active | suspended | inactive
-         */
-        status?: code;
     }
     /**
      * A specific type of service that may be delivered or performed
@@ -560,17 +649,33 @@ declare module fhir {
          */
         daysOfWeek?: code[];
         /**
+         * Contains daysOfWeek's id, extensions, and comments.
+         */
+        _daysOfWeek?: Element[];
+        /**
          * Is this always available? (hence times are irrelevant) e.g. 24 hour service
          */
         allDay?: boolean;
+        /**
+         * Contains allDay's id, extensions, and comments.
+         */
+        _allDay?: Element;
         /**
          * The opening time of day. Note: If the AllDay flag is set, then this time is ignored
          */
         availableStartTime?: time;
         /**
+         * Contains availableStartTime's id, extensions, and comments.
+         */
+        _availableStartTime?: Element;
+        /**
          * The closing time of day. Note: If the AllDay flag is set, then this time is ignored
          */
         availableEndTime?: time;
+        /**
+         * Contains availableEndTime's id, extensions, and comments.
+         */
+        _availableEndTime?: Element;
     }
     /**
      * The HealthcareService is not available during this period of time due to the provided reason
@@ -580,6 +685,10 @@ declare module fhir {
          * The reason that can be presented to the user as to why this time is not available
          */
         description: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
         /**
          * Service is not available (seasonally or for a public holiday) from this date
          */
@@ -598,10 +707,6 @@ declare module fhir {
          */
         providedBy?: Reference;
         /**
-         * The location where this healthcare service may be provided
-         */
-        location: Reference;
-        /**
          * Identifies the broad category of service being performed or delivered. Selecting a Service Category then determines the list of relevant service types that can be selected in the Primary Service Type
          */
         serviceCategory?: CodeableConcept;
@@ -610,17 +715,33 @@ declare module fhir {
          */
         serviceType?: HealthcareServiceServiceType[];
         /**
+         * The location where this healthcare service may be provided
+         */
+        location: Reference;
+        /**
          * Further description of the service as it would be presented to a consumer while searching
          */
         serviceName?: string;
+        /**
+         * Contains serviceName's id, extensions, and comments.
+         */
+        _serviceName?: Element;
         /**
          * Any additional description of the service and/or any specific issues not covered by the other attributes, which can be displayed as further detail under the serviceName
          */
         comment?: string;
         /**
+         * Contains comment's id, extensions, and comments.
+         */
+        _comment?: Element;
+        /**
          * Extra details about the service that can't be placed in the other fields
          */
         extraDetails?: string;
+        /**
+         * Contains extraDetails's id, extensions, and comments.
+         */
+        _extraDetails?: Element;
         /**
          * If there is a photo/symbol associated with this HealthcareService, it may be included here to facilitate quick identification of the service in a list
          */
@@ -646,9 +767,17 @@ declare module fhir {
          */
         eligibilityNote?: string;
         /**
+         * Contains eligibilityNote's id, extensions, and comments.
+         */
+        _eligibilityNote?: Element;
+        /**
          * Program Names that can be used to categorize the service
          */
         programName?: string[];
+        /**
+         * Contains programName's id, extensions, and comments.
+         */
+        _programName?: Element[];
         /**
          * Collection of Characteristics (attributes)
          */
@@ -662,9 +791,17 @@ declare module fhir {
          */
         publicKey?: string;
         /**
+         * Contains publicKey's id, extensions, and comments.
+         */
+        _publicKey?: Element;
+        /**
          * Indicates if an appointment is required for access to this service
          */
         appointmentRequired?: boolean;
+        /**
+         * Contains appointmentRequired's id, extensions, and comments.
+         */
+        _appointmentRequired?: Element;
         /**
          * A Collection of times that the Service Site is available
          */
@@ -677,6 +814,10 @@ declare module fhir {
          * A description of Site availability exceptions, e.g., public holiday availability. Succinctly describing all possible exceptions to normal Site availability as details in the Available Times and Not Available Times
          */
         availabilityExceptions?: string;
+        /**
+         * Contains availabilityExceptions's id, extensions, and comments.
+         */
+        _availabilityExceptions?: Element;
     }
     /**
      * Qualifications obtained by training and certification
@@ -708,6 +849,14 @@ declare module fhir {
          */
         identifier?: Identifier[];
         /**
+         * Whether this practitioner's record is in active use
+         */
+        active?: boolean;
+        /**
+         * Contains active's id, extensions, and comments.
+         */
+        _active?: Element;
+        /**
          * A name associated with the person
          */
         name?: HumanName;
@@ -724,9 +873,17 @@ declare module fhir {
          */
         gender?: code;
         /**
-         * The date  of birth for the practitioner
+         * Contains gender's id, extensions, and comments.
+         */
+        _gender?: Element;
+        /**
+         * The date  on which the practitioner was born
          */
         birthDate?: date;
+        /**
+         * Contains birthDate's id, extensions, and comments.
+         */
+        _birthDate?: Element;
         /**
          * Image of the person
          */
@@ -769,6 +926,10 @@ declare module fhir {
          */
         gender?: code;
         /**
+         * Contains gender's id, extensions, and comments.
+         */
+        _gender?: Element;
+        /**
          * Organization that is associated with the contact
          */
         organization?: Reference;
@@ -778,7 +939,7 @@ declare module fhir {
         period?: Period;
     }
     /**
-     * If this patient is an animal (non-human)
+     * This patient is known to be an animal (non-human)
      */
     interface PatientAnimal extends Element {
         /**
@@ -806,6 +967,10 @@ declare module fhir {
          * Language preference indicator
          */
         preferred?: boolean;
+        /**
+         * Contains preferred's id, extensions, and comments.
+         */
+        _preferred?: Element;
     }
     /**
      * Link to another patient resource that concerns the same actual person
@@ -819,6 +984,10 @@ declare module fhir {
          * replace | refer | seealso - type of link
          */
         type: code;
+        /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
     }
     /**
      * Information about an individual or animal receiving health care services
@@ -828,6 +997,14 @@ declare module fhir {
          * An identifier for this patient
          */
         identifier?: Identifier[];
+        /**
+         * Whether this patient's record is in active use
+         */
+        active?: boolean;
+        /**
+         * Contains active's id, extensions, and comments.
+         */
+        _active?: Element;
         /**
          * A name associated with the patient
          */
@@ -841,17 +1018,33 @@ declare module fhir {
          */
         gender?: code;
         /**
+         * Contains gender's id, extensions, and comments.
+         */
+        _gender?: Element;
+        /**
          * The date of birth for the individual
          */
         birthDate?: date;
+        /**
+         * Contains birthDate's id, extensions, and comments.
+         */
+        _birthDate?: Element;
         /**
          * Indicates if the individual is deceased or not
          */
         deceasedBoolean?: boolean;
         /**
+         * Contains deceasedBoolean's id, extensions, and comments.
+         */
+        _deceasedBoolean?: Element;
+        /**
          * Indicates if the individual is deceased or not
          */
         deceasedDateTime?: dateTime;
+        /**
+         * Contains deceasedDateTime's id, extensions, and comments.
+         */
+        _deceasedDateTime?: Element;
         /**
          * Addresses for the individual
          */
@@ -865,9 +1058,17 @@ declare module fhir {
          */
         multipleBirthBoolean?: boolean;
         /**
+         * Contains multipleBirthBoolean's id, extensions, and comments.
+         */
+        _multipleBirthBoolean?: Element;
+        /**
          * Whether patient is part of a multiple birth
          */
         multipleBirthInteger?: integer;
+        /**
+         * Contains multipleBirthInteger's id, extensions, and comments.
+         */
+        _multipleBirthInteger?: Element;
         /**
          * Image of the patient
          */
@@ -877,7 +1078,7 @@ declare module fhir {
          */
         contact?: PatientContact[];
         /**
-         * If this patient is an animal (non-human)
+         * This patient is known to be an animal (non-human)
          */
         animal?: PatientAnimal;
         /**
@@ -885,7 +1086,7 @@ declare module fhir {
          */
         communication?: PatientCommunication[];
         /**
-         * Patient's nominated care provider
+         * Patient's nominated primary care provider
          */
         careProvider?: Reference[];
         /**
@@ -896,10 +1097,6 @@ declare module fhir {
          * Link to another patient resource that concerns the same actual person
          */
         link?: PatientLink[];
-        /**
-         * Whether this patient's record is in active use
-         */
-        active?: boolean;
     }
     /**
      * An person that is related to a patient, but who is not a direct target of care
@@ -930,9 +1127,21 @@ declare module fhir {
          */
         gender?: code;
         /**
+         * Contains gender's id, extensions, and comments.
+         */
+        _gender?: Element;
+        /**
+         * The date on which the related person was born
+         */
+        birthDate?: date;
+        /**
+         * Contains birthDate's id, extensions, and comments.
+         */
+        _birthDate?: Element;
+        /**
          * Address where the related person can be contacted or visited
          */
-        address?: Address;
+        address?: Address[];
         /**
          * Image of the person
          */
@@ -943,7 +1152,278 @@ declare module fhir {
         period?: Period;
     }
     /**
-     * An XML digital Signature
+     * Text node with attribution
+     */
+    interface Annotation extends Element {
+        /**
+         * Individual responsible for the annotation
+         */
+        authorReference?: Reference;
+        /**
+         * Individual responsible for the annotation
+         */
+        authorString?: string;
+        /**
+         * Contains authorString's id, extensions, and comments.
+         */
+        _authorString?: Element;
+        /**
+         * When the annotation was made
+         */
+        time?: dateTime;
+        /**
+         * Contains time's id, extensions, and comments.
+         */
+        _time?: Element;
+        /**
+         * The annotation  - text content
+         */
+        text: string;
+        /**
+         * Contains text's id, extensions, and comments.
+         */
+        _text?: Element;
+    }
+    /**
+     * A measured or measurable amount
+     */
+    interface Quantity extends Element {
+        /**
+         * Numerical value (with implicit precision)
+         */
+        value?: decimal;
+        /**
+         * Contains value's id, extensions, and comments.
+         */
+        _value?: Element;
+        /**
+         * < | <= | >= | > - how to understand the value
+         */
+        comparator?: code;
+        /**
+         * Contains comparator's id, extensions, and comments.
+         */
+        _comparator?: Element;
+        /**
+         * Unit representation
+         */
+        unit?: string;
+        /**
+         * Contains unit's id, extensions, and comments.
+         */
+        _unit?: Element;
+        /**
+         * System that defines coded unit form
+         */
+        system?: uri;
+        /**
+         * Contains system's id, extensions, and comments.
+         */
+        _system?: Element;
+        /**
+         * Coded form of the unit
+         */
+        code?: code;
+        /**
+         * Contains code's id, extensions, and comments.
+         */
+        _code?: Element;
+    }
+    /**
+     * A fixed quantity (no comparator)
+     */
+    interface SimpleQuantity extends Quantity {
+    }
+    /**
+     * Set of values bounded by low and high
+     */
+    interface Range extends Element {
+        /**
+         * Low limit
+         */
+        low?: Quantity;
+        /**
+         * High limit
+         */
+        high?: Quantity;
+    }
+    /**
+     * A ratio of two Quantity values - a numerator and a denominator
+     */
+    interface Ratio extends Element {
+        /**
+         * Numerator value
+         */
+        numerator?: Quantity;
+        /**
+         * Denominator value
+         */
+        denominator?: Quantity;
+    }
+    /**
+     * A series of measurements taken by a device
+     */
+    interface SampledData extends Element {
+        /**
+         * Zero value and units
+         */
+        origin: Quantity;
+        /**
+         * Number of milliseconds between samples
+         */
+        period: decimal;
+        /**
+         * Contains period's id, extensions, and comments.
+         */
+        _period?: Element;
+        /**
+         * Multiply data by this before adding to origin
+         */
+        factor?: decimal;
+        /**
+         * Contains factor's id, extensions, and comments.
+         */
+        _factor?: Element;
+        /**
+         * Lower limit of detection
+         */
+        lowerLimit?: decimal;
+        /**
+         * Contains lowerLimit's id, extensions, and comments.
+         */
+        _lowerLimit?: Element;
+        /**
+         * Upper limit of detection
+         */
+        upperLimit?: decimal;
+        /**
+         * Contains upperLimit's id, extensions, and comments.
+         */
+        _upperLimit?: Element;
+        /**
+         * Number of sample points at each time point
+         */
+        dimensions: positiveInt;
+        /**
+         * Contains dimensions's id, extensions, and comments.
+         */
+        _dimensions?: Element;
+        /**
+         * Decimal values with spaces, or "E" | "U" | "L"
+         */
+        data: string;
+        /**
+         * Contains data's id, extensions, and comments.
+         */
+        _data?: Element;
+    }
+    /**
+     * An instance of a manufactured thing that is used in the provision of healthcare
+     */
+    interface Device extends DomainResource {
+        /**
+         * Instance id from manufacturer, owner, and others
+         */
+        identifier?: Identifier[];
+        /**
+         * What kind of device this is
+         */
+        type: CodeableConcept;
+        /**
+         * Device notes and comments
+         */
+        note?: Annotation[];
+        /**
+         * available | not-available | entered-in-error
+         */
+        status?: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * Name of device manufacturer
+         */
+        manufacturer?: string;
+        /**
+         * Contains manufacturer's id, extensions, and comments.
+         */
+        _manufacturer?: Element;
+        /**
+         * Model id assigned by the manufacturer
+         */
+        model?: string;
+        /**
+         * Contains model's id, extensions, and comments.
+         */
+        _model?: Element;
+        /**
+         * Version number (i.e. software)
+         */
+        version?: string;
+        /**
+         * Contains version's id, extensions, and comments.
+         */
+        _version?: Element;
+        /**
+         * Manufacture date
+         */
+        manufactureDate?: dateTime;
+        /**
+         * Contains manufactureDate's id, extensions, and comments.
+         */
+        _manufactureDate?: Element;
+        /**
+         * Date and time of expiry of this device (if applicable)
+         */
+        expiry?: dateTime;
+        /**
+         * Contains expiry's id, extensions, and comments.
+         */
+        _expiry?: Element;
+        /**
+         * FDA Mandated Unique Device Identifier
+         */
+        udi?: string;
+        /**
+         * Contains udi's id, extensions, and comments.
+         */
+        _udi?: Element;
+        /**
+         * Lot number of manufacture
+         */
+        lotNumber?: string;
+        /**
+         * Contains lotNumber's id, extensions, and comments.
+         */
+        _lotNumber?: Element;
+        /**
+         * Organization responsible for device
+         */
+        owner?: Reference;
+        /**
+         * Where the resource is found
+         */
+        location?: Reference;
+        /**
+         * If the resource is affixed to a person
+         */
+        patient?: Reference;
+        /**
+         * Details for human/organization for support
+         */
+        contact?: ContactPoint[];
+        /**
+         * Network address to contact device
+         */
+        url?: uri;
+        /**
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
+    }
+    /**
+     * A digital Signature - XML DigSig, JWT, Graphical image of signature, etc
      */
     interface Signature extends Element {
         /**
@@ -955,78 +1435,302 @@ declare module fhir {
          */
         when: instant;
         /**
+         * Contains when's id, extensions, and comments.
+         */
+        _when?: Element;
+        /**
          * Who signed the signature
          */
         whoUri?: uri;
+        /**
+         * Contains whoUri's id, extensions, and comments.
+         */
+        _whoUri?: Element;
         /**
          * Who signed the signature
          */
         whoReference?: Reference;
         /**
-         * The actual XML Dig-Sig
+         * The technical format of the signature
+         */
+        contentType: code;
+        /**
+         * Contains contentType's id, extensions, and comments.
+         */
+        _contentType?: Element;
+        /**
+         * The actual signature content (XML DigSig. JWT, picture, etc)
          */
         blob: base64Binary;
+        /**
+         * Contains blob's id, extensions, and comments.
+         */
+        _blob?: Element;
     }
     /**
-     * Optional Extensions Element - found in all resources.
+     * When the event is to occur
      */
+    interface TimingRepeat extends Element {
+        /**
+         * Length/Range of lengths, or (Start and/or end) limits
+         */
+        boundsQuantity?: Quantity;
+        /**
+         * Length/Range of lengths, or (Start and/or end) limits
+         */
+        boundsRange?: Range;
+        /**
+         * Length/Range of lengths, or (Start and/or end) limits
+         */
+        boundsPeriod?: Period;
+        /**
+         * Number of times to repeat
+         */
+        count?: integer;
+        /**
+         * Contains count's id, extensions, and comments.
+         */
+        _count?: Element;
+        /**
+         * How long when it happens
+         */
+        duration?: decimal;
+        /**
+         * Contains duration's id, extensions, and comments.
+         */
+        _duration?: Element;
+        /**
+         * How long when it happens (Max)
+         */
+        durationMax?: decimal;
+        /**
+         * Contains durationMax's id, extensions, and comments.
+         */
+        _durationMax?: Element;
+        /**
+         * s | min | h | d | wk | mo | a - unit of time (UCUM)
+         */
+        durationUnits?: code;
+        /**
+         * Contains durationUnits's id, extensions, and comments.
+         */
+        _durationUnits?: Element;
+        /**
+         * Event occurs frequency times per period
+         */
+        frequency?: integer;
+        /**
+         * Contains frequency's id, extensions, and comments.
+         */
+        _frequency?: Element;
+        /**
+         * Event occurs up to frequencyMax times per period
+         */
+        frequencyMax?: integer;
+        /**
+         * Contains frequencyMax's id, extensions, and comments.
+         */
+        _frequencyMax?: Element;
+        /**
+         * Event occurs frequency times per period
+         */
+        period?: decimal;
+        /**
+         * Contains period's id, extensions, and comments.
+         */
+        _period?: Element;
+        /**
+         * Upper limit of period (3-4 hours)
+         */
+        periodMax?: decimal;
+        /**
+         * Contains periodMax's id, extensions, and comments.
+         */
+        _periodMax?: Element;
+        /**
+         * s | min | h | d | wk | mo | a - unit of time (UCUM)
+         */
+        periodUnits?: code;
+        /**
+         * Contains periodUnits's id, extensions, and comments.
+         */
+        _periodUnits?: Element;
+        /**
+         * Regular life events the event is tied to
+         */
+        when?: code;
+        /**
+         * Contains when's id, extensions, and comments.
+         */
+        _when?: Element;
+    }
+    /**
+     * A length of time
+     */
+    interface Duration extends Quantity {
+    }
+    /**
+     * A timing schedule that specifies an event that may occur multiple times
+     */
+    interface Timing extends Element {
+        /**
+         * When the event occurs
+         */
+        event?: dateTime[];
+        /**
+         * Contains event's id, extensions, and comments.
+         */
+        _event?: Element[];
+        /**
+         * When the event is to occur
+         */
+        repeat?: TimingRepeat;
+        /**
+         * QD | QOD | Q4H | Q6H | BID | TID | QID | AM | PM +
+         */
+        code?: CodeableConcept;
+    }
     interface Extension extends Element {
         /**
          * identifies the meaning of the extension
          */
         url: uri;
         /**
-         * Value of extension
+         * Contains url's id, extensions, and comments.
          */
-        valueInteger?: integer;
-        /**
-         * Value of extension
-         */
-        valueDecimal?: decimal;
-        /**
-         * Value of extension
-         */
-        valueDateTime?: dateTime;
-        /**
-         * Value of extension
-         */
-        valueDate?: date;
-        /**
-         * Value of extension
-         */
-        valueInstant?: instant;
-        /**
-         * Value of extension
-         */
-        valueTime?: time;
-        /**
-         * Value of extension
-         */
-        valueString?: string;
-        /**
-         * Value of extension
-         */
-        valueUri?: uri;
+        _url?: Element;
         /**
          * Value of extension
          */
         valueBoolean?: boolean;
         /**
+         * Contains valueBoolean's id, extensions, and comments.
+         */
+        _valueBoolean?: Element;
+        /**
          * Value of extension
          */
-        valueCode?: code;
+        valueInteger?: integer;
+        /**
+         * Contains valueInteger's id, extensions, and comments.
+         */
+        _valueInteger?: Element;
+        /**
+         * Value of extension
+         */
+        valueDecimal?: decimal;
+        /**
+         * Contains valueDecimal's id, extensions, and comments.
+         */
+        _valueDecimal?: Element;
         /**
          * Value of extension
          */
         valueBase64Binary?: base64Binary;
         /**
-         * Value of extension
+         * Contains valueBase64Binary's id, extensions, and comments.
          */
-        valueCoding?: Coding;
+        _valueBase64Binary?: Element;
         /**
          * Value of extension
          */
-        valueCodeableConcept?: CodeableConcept;
+        valueInstant?: instant;
+        /**
+         * Contains valueInstant's id, extensions, and comments.
+         */
+        _valueInstant?: Element;
+        /**
+         * Value of extension
+         */
+        valueString?: string;
+        /**
+         * Contains valueString's id, extensions, and comments.
+         */
+        _valueString?: Element;
+        /**
+         * Value of extension
+         */
+        valueUri?: uri;
+        /**
+         * Contains valueUri's id, extensions, and comments.
+         */
+        _valueUri?: Element;
+        /**
+         * Value of extension
+         */
+        valueDate?: date;
+        /**
+         * Contains valueDate's id, extensions, and comments.
+         */
+        _valueDate?: Element;
+        /**
+         * Value of extension
+         */
+        valueDateTime?: dateTime;
+        /**
+         * Contains valueDateTime's id, extensions, and comments.
+         */
+        _valueDateTime?: Element;
+        /**
+         * Value of extension
+         */
+        valueTime?: time;
+        /**
+         * Contains valueTime's id, extensions, and comments.
+         */
+        _valueTime?: Element;
+        /**
+         * Value of extension
+         */
+        valueCode?: code;
+        /**
+         * Contains valueCode's id, extensions, and comments.
+         */
+        _valueCode?: Element;
+        /**
+         * Value of extension
+         */
+        valueOid?: oid;
+        /**
+         * Contains valueOid's id, extensions, and comments.
+         */
+        _valueOid?: Element;
+        /**
+         * Value of extension
+         */
+        valueId?: id;
+        /**
+         * Contains valueId's id, extensions, and comments.
+         */
+        _valueId?: Element;
+        /**
+         * Value of extension
+         */
+        valueUnsignedInt?: unsignedInt;
+        /**
+         * Contains valueUnsignedInt's id, extensions, and comments.
+         */
+        _valueUnsignedInt?: Element;
+        /**
+         * Value of extension
+         */
+        valuePositiveInt?: positiveInt;
+        /**
+         * Contains valuePositiveInt's id, extensions, and comments.
+         */
+        _valuePositiveInt?: Element;
+        /**
+         * Value of extension
+         */
+        valueMarkdown?: markdown;
+        /**
+         * Contains valueMarkdown's id, extensions, and comments.
+         */
+        _valueMarkdown?: Element;
+        /**
+         * Value of extension
+         */
+        valueAnnotation?: Annotation;
         /**
          * Value of extension
          */
@@ -1035,6 +1739,14 @@ declare module fhir {
          * Value of extension
          */
         valueIdentifier?: Identifier;
+        /**
+         * Value of extension
+         */
+        valueCodeableConcept?: CodeableConcept;
+        /**
+         * Value of extension
+         */
+        valueCoding?: Coding;
         /**
          * Value of extension
          */
@@ -1054,6 +1766,14 @@ declare module fhir {
         /**
          * Value of extension
          */
+        valueSampledData?: SampledData;
+        /**
+         * Value of extension
+         */
+        valueSignature?: Signature;
+        /**
+         * Value of extension
+         */
         valueHumanName?: HumanName;
         /**
          * Value of extension
@@ -1070,20 +1790,32 @@ declare module fhir {
         /**
          * Value of extension
          */
-        valueSignature?: Signature;
+        valueReference?: Reference;
         /**
          * Value of extension
          */
-        valueReference?: Reference;
+        valueMeta?: Meta;
     }
     /**
      * Base for all elements
      */
     interface Element {
         /**
+         * Content that would be comments in an XML.
+         */
+        fhir_comments?: string[];
+        /**
+         * Contains fhir_comments's id, extensions, and comments.
+         */
+        _fhir_comments?: Element[];
+        /**
          * xml:id (or equivalent in JSON)
          */
         id?: id;
+        /**
+         * Contains id's id, extensions, and comments.
+         */
+        _id?: Element;
         /**
          * Additional Content defined by implementations
          */
@@ -1098,13 +1830,25 @@ declare module fhir {
          */
         versionId?: id;
         /**
+         * Contains versionId's id, extensions, and comments.
+         */
+        _versionId?: Element;
+        /**
          * When the resource version last changed
          */
         lastUpdated?: instant;
         /**
+         * Contains lastUpdated's id, extensions, and comments.
+         */
+        _lastUpdated?: Element;
+        /**
          * Profiles this resource claims to conform to
          */
         profile?: uri[];
+        /**
+         * Contains profile's id, extensions, and comments.
+         */
+        _profile?: Element[];
         /**
          * Security Labels applied to this resource
          */
@@ -1117,11 +1861,23 @@ declare module fhir {
     /**
      * Base Resource
      */
-    interface Resource {
+    interface ResourceBase {
         /**
-         * Logical id of this artefact
+         * The type of the resource.
+         */
+        resourceType?: code;
+        /**
+         * Contains resourceType's id, extensions, and comments.
+         */
+        _resourceType?: Element;
+        /**
+         * Logical id of this artifact
          */
         id?: id;
+        /**
+         * Contains id's id, extensions, and comments.
+         */
+        _id?: Element;
         /**
          * Metadata about the resource
          */
@@ -1131,9 +1887,17 @@ declare module fhir {
          */
         implicitRules?: uri;
         /**
+         * Contains implicitRules's id, extensions, and comments.
+         */
+        _implicitRules?: Element;
+        /**
          * Language of the resource content
          */
         language?: code;
+        /**
+         * Contains language's id, extensions, and comments.
+         */
+        _language?: Element;
     }
     /**
      * A human-readable formatted text, including images
@@ -1144,18 +1908,22 @@ declare module fhir {
          */
         status: code;
         /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * Limited xhtml content
          */
         div: string;
+        /**
+         * Contains div's id, extensions, and comments.
+         */
+        _div?: Element;
     }
     /**
      * A resource with narrative, extensions, and contained resources
      */
-    interface DomainResource extends Resource {
-        /**
-         * The type of the resource.
-         */
-        resourceType?: code;
+    interface DomainResource extends ResourceBase {
         /**
          * Text summary of the resource, for human interpretation
          */
@@ -1174,9 +1942,72 @@ declare module fhir {
         modifierExtension?: Extension[];
     }
     /**
+     * An amount of money. With regard to precision, see [Decimal Precision](datatypes.html#precision)
+     */
+    interface Money extends Quantity {
+    }
+    interface Account extends DomainResource {
+        /**
+         * Account number
+         */
+        identifier?: Identifier[];
+        /**
+         * Human-readable label
+         */
+        name?: string;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
+         * E.g. patient, expense, depreciation
+         */
+        type?: CodeableConcept;
+        /**
+         * active | inactive
+         */
+        status?: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * Valid from..to
+         */
+        activePeriod?: Period;
+        /**
+         * Base currency in which balance is tracked
+         */
+        currency?: Coding;
+        /**
+         * How much is in account?
+         */
+        balance?: Quantity;
+        /**
+         * Transaction window
+         */
+        coveragePeriod?: Period;
+        /**
+         * What is account tied to?
+         */
+        subject?: Reference;
+        /**
+         * Who is responsible?
+         */
+        owner?: Reference;
+        /**
+         * Explanation of purpose/use
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+    }
+    /**
      * Adverse Reaction Events linked to exposure to substance
      */
-    interface AllergyIntoleranceEvent extends Element {
+    interface AllergyIntoleranceReaction extends Element {
         /**
          * Specific substance considered to be responsible for event
          */
@@ -1186,6 +2017,10 @@ declare module fhir {
          */
         certainty?: code;
         /**
+         * Contains certainty's id, extensions, and comments.
+         */
+        _certainty?: Element;
+        /**
          * Clinical symptoms/signs associated with the Event
          */
         manifestation: CodeableConcept[];
@@ -1194,17 +2029,25 @@ declare module fhir {
          */
         description?: string;
         /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
          * Date(/time) when manifestations showed
          */
         onset?: dateTime;
         /**
-         * How long Manifestations persisted
+         * Contains onset's id, extensions, and comments.
          */
-        duration?: Duration;
+        _onset?: Element;
         /**
          * mild | moderate | severe (of event as a whole)
          */
         severity?: code;
+        /**
+         * Contains severity's id, extensions, and comments.
+         */
+        _severity?: Element;
         /**
          * How the subject was exposed to the substance
          */
@@ -1212,12 +2055,7 @@ declare module fhir {
         /**
          * Text about event not captured in other fields
          */
-        comment?: string;
-    }
-    /**
-     * A length of time
-     */
-    interface Duration extends Quantity {
+        note?: Annotation;
     }
     /**
      * Allergy or Intolerance (generally: Risk Of Adverse reaction to a substance)
@@ -1228,9 +2066,21 @@ declare module fhir {
          */
         identifier?: Identifier[];
         /**
+         * Date(/time) when manifestations showed
+         */
+        onset?: dateTime;
+        /**
+         * Contains onset's id, extensions, and comments.
+         */
+        _onset?: Element;
+        /**
          * When recorded
          */
         recordedDate?: dateTime;
+        /**
+         * Contains recordedDate's id, extensions, and comments.
+         */
+        _recordedDate?: Element;
         /**
          * Who recorded the sensitivity
          */
@@ -1248,33 +2098,53 @@ declare module fhir {
          */
         substance: CodeableConcept;
         /**
-         * unconfirmed | confirmed | resolved | refuted | entered-in-error
+         * active | unconfirmed | confirmed | inactive | resolved | refuted | entered-in-error
          */
         status?: code;
         /**
-         * low | high | unassessible - Estimated potential clinical harm
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * CRITL | CRITH | CRITU
          */
         criticality?: code;
         /**
-         * immune | non-immune - Underlying mechanism (if known)
+         * Contains criticality's id, extensions, and comments.
+         */
+        _criticality?: Element;
+        /**
+         * allergy | intolerance - Underlying mechanism (if known)
          */
         type?: code;
         /**
-         * food | medication | environment - Category of Substance
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
+        /**
+         * food | medication | environment | other - Category of Substance
          */
         category?: code;
+        /**
+         * Contains category's id, extensions, and comments.
+         */
+        _category?: Element;
         /**
          * Date(/time) of last known occurence of a reaction
          */
         lastOccurence?: dateTime;
         /**
+         * Contains lastOccurence's id, extensions, and comments.
+         */
+        _lastOccurence?: Element;
+        /**
          * Additional text not captured in other fields
          */
-        comment?: string;
+        note?: Annotation;
         /**
          * Adverse Reaction Events linked to exposure to substance
          */
-        event?: AllergyIntoleranceEvent[];
+        reaction?: AllergyIntoleranceReaction[];
     }
     /**
      * A container for slot(s) of time that may be available for booking appointments
@@ -1300,6 +2170,10 @@ declare module fhir {
          * Comments on the availability to describe any extended information. Such as custom constraints on the slot(s) that may be associated
          */
         comment?: string;
+        /**
+         * Contains comment's id, extensions, and comments.
+         */
+        _comment?: Element;
     }
     /**
      * A slot of time on a schedule that may be available for booking appointments
@@ -1318,367 +2192,45 @@ declare module fhir {
          */
         schedule: Reference;
         /**
-         * BUSY | FREE | BUSY-UNAVAILABLE | BUSY-TENTATIVE
+         * busy | free | busy-unavailable | busy-tentative
          */
         freeBusyType: code;
+        /**
+         * Contains freeBusyType's id, extensions, and comments.
+         */
+        _freeBusyType?: Element;
         /**
          * Date/Time that the slot is to begin
          */
         start: instant;
         /**
+         * Contains start's id, extensions, and comments.
+         */
+        _start?: Element;
+        /**
          * Date/Time that the slot is to conclude
          */
         end: instant;
+        /**
+         * Contains end's id, extensions, and comments.
+         */
+        _end?: Element;
         /**
          * This slot has already been overbooked, appointments are unlikely to be accepted for this time
          */
         overbooked?: boolean;
         /**
+         * Contains overbooked's id, extensions, and comments.
+         */
+        _overbooked?: Element;
+        /**
          * Comments on the slot to describe any extended information. Such as custom constraints on the slot
          */
         comment?: string;
-    }
-    /**
-     * Trait of group members
-     */
-    interface GroupCharacteristic extends Element {
         /**
-         * Kind of characteristic
+         * Contains comment's id, extensions, and comments.
          */
-        code: CodeableConcept;
-        /**
-         * Value held by characteristic
-         */
-        valueCodeableConcept?: CodeableConcept;
-        /**
-         * Value held by characteristic
-         */
-        valueBoolean?: boolean;
-        /**
-         * Value held by characteristic
-         */
-        valueQuantity?: Quantity;
-        /**
-         * Value held by characteristic
-         */
-        valueRange?: Range;
-        /**
-         * Group includes or excludes
-         */
-        exclude: boolean;
-    }
-    /**
-     * An instance of a manufactured thing that is used in the provision of healthcare
-     */
-    interface Device extends DomainResource {
-        /**
-         * Instance id from manufacturer, owner, and others
-         */
-        identifier?: Identifier[];
-        /**
-         * What kind of device this is
-         */
-        type: CodeableConcept;
-        /**
-         * available | not-available | entered-in-error
-         */
-        status?: code;
-        /**
-         * Name of device manufacturer
-         */
-        manufacturer?: string;
-        /**
-         * Model id assigned by the manufacturer
-         */
-        model?: string;
-        /**
-         * Version number (i.e. software)
-         */
-        version?: string;
-        /**
-         * Manufacture date
-         */
-        manufactureDate?: dateTime;
-        /**
-         * Date and time of expiry of this device (if applicable)
-         */
-        expiry?: dateTime;
-        /**
-         * FDA Mandated Unique Device Identifier
-         */
-        udi?: string;
-        /**
-         * Lot number of manufacture
-         */
-        lotNumber?: string;
-        /**
-         * Organization responsible for device
-         */
-        owner?: Reference;
-        /**
-         * Where the resource is found
-         */
-        location?: Reference;
-        /**
-         * If the resource is affixed to a person
-         */
-        patient?: Reference;
-        /**
-         * Details for human/organization for support
-         */
-        contact?: ContactPoint[];
-        /**
-         * Network address to contact device
-         */
-        url?: uri;
-    }
-    /**
-     * Administrable medication details
-     */
-    interface MedicationProduct extends Element {
-        /**
-         * powder | tablets | carton +
-         */
-        form?: CodeableConcept;
-        /**
-         * Active or inactive ingredient
-         */
-        ingredient?: MedicationProductIngredient[];
-        /**
-         * Information about a group of medication produced or packaged from one production run.
-         */
-        batch?: MedicationProductBatch[];
-    }
-    /**
-     * Active or inactive ingredient
-     */
-    interface MedicationProductIngredient extends Element {
-        /**
-         * The product contained
-         */
-        item: Reference;
-        /**
-         * How much ingredient in product
-         */
-        amount?: Ratio;
-    }
-    /**
-     * If this describes a specific package/container of the substance
-     */
-    interface SubstanceInstance extends Element {
-        /**
-         * Identifier of the package/container
-         */
-        identifier?: Identifier;
-        /**
-         * When no longer valid to use
-         */
-        expiry?: dateTime;
-        /**
-         * Amount of substance in the package
-         */
-        quantity?: Quantity;
-    }
-    /**
-     * Composition information about the substance
-     */
-    interface SubstanceIngredient extends Element {
-        /**
-         * Optional amount (concentration)
-         */
-        quantity?: Ratio;
-        /**
-         * A component of the substance
-         */
-        substance: Reference;
-    }
-    /**
-     * A homogeneous material with a definite composition
-     */
-    interface Substance extends DomainResource {
-        /**
-         * What kind of substance this is
-         */
-        type: CodeableConcept;
-        /**
-         * Textual description of the substance, comments
-         */
-        description?: string;
-        /**
-         * If this describes a specific package/container of the substance
-         */
-        instance?: SubstanceInstance;
-        /**
-         * Composition information about the substance
-         */
-        ingredient?: SubstanceIngredient[];
-    }
-    /**
-     * Information about a group of medication produced or packaged from one production run.
-     */
-    interface MedicationProductBatch extends Element {
-        /**
-         * The assigned lot number of a batch of the specified product.
-         */
-        lotNumber?: string;
-        /**
-         * When this specific batch of product will expire.
-         */
-        expirationDate?: dateTime;
-    }
-    /**
-     * Details about packaged medications
-     */
-    interface MedicationPackage extends Element {
-        /**
-         * E.g. box, vial, blister-pack
-         */
-        container?: CodeableConcept;
-        /**
-         * What is  in the package?
-         */
-        content?: MedicationPackageContent[];
-    }
-    /**
-     * What is  in the package?
-     */
-    interface MedicationPackageContent extends Element {
-        /**
-         * A product in the package
-         */
-        item: Reference;
-        /**
-         * How many are in the package?
-         */
-        amount?: Quantity;
-    }
-    /**
-     * Definition of a Medication
-     */
-    interface Medication extends DomainResource {
-        /**
-         * Common / Commercial name
-         */
-        name?: string;
-        /**
-         * Codes that identify this medication
-         */
-        code?: CodeableConcept;
-        /**
-         * True if a brand
-         */
-        isBrand?: boolean;
-        /**
-         * Manufacturer of the item
-         */
-        manufacturer?: Reference;
-        /**
-         * product | package
-         */
-        kind?: code;
-        /**
-         * Administrable medication details
-         */
-        product?: MedicationProduct;
-        /**
-         * Details about packaged medications
-         */
-        package?: MedicationPackage;
-    }
-    /**
-     * Group of multiple entities
-     */
-    interface Group extends DomainResource {
-        /**
-         * Unique id
-         */
-        identifier?: Identifier;
-        /**
-         * person | animal | practitioner | device | medication | substance
-         */
-        type: code;
-        /**
-         * Descriptive or actual
-         */
-        actual: boolean;
-        /**
-         * Kind of Group members
-         */
-        code?: CodeableConcept;
-        /**
-         * Label for Group
-         */
-        name?: string;
-        /**
-         * Number of members
-         */
-        quantity?: unsignedInt;
-        /**
-         * Trait of group members
-         */
-        characteristic?: GroupCharacteristic[];
-        /**
-         * Who or what is in group
-         */
-        member?: Reference[];
-    }
-    /**
-     * When order should be fulfilled
-     */
-    interface OrderWhen extends Element {
-        /**
-         * Code specifies when request should be done. The code may simply be a priority code
-         */
-        code?: CodeableConcept;
-        /**
-         * A formal schedule
-         */
-        schedule?: Timing;
-    }
-    /**
-     * A request to perform an action
-     */
-    interface Order extends DomainResource {
-        /**
-         * Identifiers assigned to this order by the orderer or by the receiver
-         */
-        identifier?: Identifier[];
-        /**
-         * When the order was made
-         */
-        date?: dateTime;
-        /**
-         * Patient this order is about
-         */
-        subject?: Reference;
-        /**
-         * Who initiated the order
-         */
-        source?: Reference;
-        /**
-         * Who is intended to fulfill the order
-         */
-        target?: Reference;
-        /**
-         * Text - why the order was made
-         */
-        reasonCodeableConcept?: CodeableConcept;
-        /**
-         * Text - why the order was made
-         */
-        reasonReference?: Reference;
-        /**
-         * If required by policy
-         */
-        authority?: Reference;
-        /**
-         * When order should be fulfilled
-         */
-        when?: OrderWhen;
-        /**
-         * What action is being ordered
-         */
-        detail: Reference[];
+        _comment?: Element;
     }
     /**
      * List of participants involved in the appointment
@@ -1697,9 +2249,17 @@ declare module fhir {
          */
         required?: code;
         /**
+         * Contains required's id, extensions, and comments.
+         */
+        _required?: Element;
+        /**
          * accepted | declined | tentative | needs-action
          */
         status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
     }
     /**
      * A booking of a healthcare event among patient(s), practitioner(s), related person(s) and/or device(s) for a specific date/time. This may result in one or more Encounter(s)
@@ -1710,9 +2270,13 @@ declare module fhir {
          */
         identifier?: Identifier[];
         /**
-         * pending | booked | arrived | fulfilled | cancelled | noshow
+         * proposed | pending | booked | arrived | fulfilled | cancelled | noshow
          */
         status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
         /**
          * The type of appointment that is being booked
          */
@@ -1726,17 +2290,41 @@ declare module fhir {
          */
         priority?: unsignedInt;
         /**
+         * Contains priority's id, extensions, and comments.
+         */
+        _priority?: Element;
+        /**
          * The brief description of the appointment as would be shown on a subject line in a meeting request, or appointment list. Detailed or expanded information should be put in the comment field
          */
         description?: string;
         /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
          * Date/Time that the appointment is to take place
          */
-        start: instant;
+        start?: instant;
+        /**
+         * Contains start's id, extensions, and comments.
+         */
+        _start?: Element;
         /**
          * Date/Time that the appointment is to conclude
          */
-        end: instant;
+        end?: instant;
+        /**
+         * Contains end's id, extensions, and comments.
+         */
+        _end?: Element;
+        /**
+         * Number of minutes that the appointment is to take. This can be less than the duration between the start and end times (where actual time of appointment is only an estimate or is a planned appointment request)
+         */
+        minutesDuration?: positiveInt;
+        /**
+         * Contains minutesDuration's id, extensions, and comments.
+         */
+        _minutesDuration?: Element;
         /**
          * The slot that this appointment is filling. If provided then the schedule will not be provided as slots are not recursive, and the start/end values MUST be the same as from the slot
          */
@@ -1746,9 +2334,9 @@ declare module fhir {
          */
         comment?: string;
         /**
-         * An Order that lead to the creation of this appointment
+         * Contains comment's id, extensions, and comments.
          */
-        order?: Reference;
+        _comment?: Element;
         /**
          * List of participants involved in the appointment
          */
@@ -1767,6 +2355,22 @@ declare module fhir {
          */
         appointment: Reference;
         /**
+         * Date/Time that the appointment is to take place, or requested new start time
+         */
+        start?: instant;
+        /**
+         * Contains start's id, extensions, and comments.
+         */
+        _start?: Element;
+        /**
+         * Date/Time that the appointment is to conclude, or requested new end time
+         */
+        end?: instant;
+        /**
+         * Contains end's id, extensions, and comments.
+         */
+        _end?: Element;
+        /**
          * Role of participant in the appointment
          */
         participantType?: CodeableConcept[];
@@ -1779,17 +2383,17 @@ declare module fhir {
          */
         participantStatus: code;
         /**
+         * Contains participantStatus's id, extensions, and comments.
+         */
+        _participantStatus?: Element;
+        /**
          * Additional comments about the appointment
          */
         comment?: string;
         /**
-         * Date/Time that the appointment is to take place, or requested new start time
+         * Contains comment's id, extensions, and comments.
          */
-        start?: instant;
-        /**
-         * Date/Time that the appointment is to conclude, or requested new end time
-         */
-        end?: instant;
+        _comment?: Element;
     }
     /**
      * What was done
@@ -1798,27 +2402,43 @@ declare module fhir {
         /**
          * Type/identifier of event
          */
-        type: CodeableConcept;
+        type: Coding;
         /**
          * More specific type/id for the event
          */
-        subtype?: CodeableConcept[];
+        subtype?: Coding[];
         /**
          * Type of action performed during the event
          */
         action?: code;
         /**
+         * Contains action's id, extensions, and comments.
+         */
+        _action?: Element;
+        /**
          * Time when the event occurred on source
          */
         dateTime: instant;
+        /**
+         * Contains dateTime's id, extensions, and comments.
+         */
+        _dateTime?: Element;
         /**
          * Whether the event succeeded or failed
          */
         outcome?: code;
         /**
+         * Contains outcome's id, extensions, and comments.
+         */
+        _outcome?: Element;
+        /**
          * Description of the event outcome
          */
         outcomeDesc?: string;
+        /**
+         * Contains outcomeDesc's id, extensions, and comments.
+         */
+        _outcomeDesc?: Element;
         /**
          * The purposeOfUse of the event
          */
@@ -1839,19 +2459,31 @@ declare module fhir {
         /**
          * Unique identifier for the user
          */
-        userId?: string;
+        userId?: Identifier;
         /**
          * Alternative User id e.g. authentication
          */
         altId?: string;
         /**
+         * Contains altId's id, extensions, and comments.
+         */
+        _altId?: Element;
+        /**
          * Human-meaningful name for the user
          */
         name?: string;
         /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
          * Whether user is initiator
          */
         requestor: boolean;
+        /**
+         * Contains requestor's id, extensions, and comments.
+         */
+        _requestor?: Element;
         /**
          * Where
          */
@@ -1861,6 +2493,10 @@ declare module fhir {
          */
         policy?: uri[];
         /**
+         * Contains policy's id, extensions, and comments.
+         */
+        _policy?: Element[];
+        /**
          * Type of media
          */
         media?: Coding;
@@ -1869,7 +2505,7 @@ declare module fhir {
          */
         network?: AuditEventParticipantNetwork;
         /**
-         * Participant purposeOfUse
+         * Reason given for this user
          */
         purposeOfUse?: Coding[];
     }
@@ -1880,11 +2516,19 @@ declare module fhir {
         /**
          * Identifier for the network access point of the user device
          */
-        identifier?: string;
+        address?: string;
+        /**
+         * Contains address's id, extensions, and comments.
+         */
+        _address?: Element;
         /**
          * The type of network access point
          */
         type?: code;
+        /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
     }
     /**
      * Application systems and processes
@@ -1895,9 +2539,13 @@ declare module fhir {
          */
         site?: string;
         /**
-         * The id of source where event originated
+         * Contains site's id, extensions, and comments.
          */
-        identifier: string;
+        _site?: Element;
+        /**
+         * The identity of source detecting the event
+         */
+        identifier: Identifier;
         /**
          * The type of source where event originated
          */
@@ -1918,31 +2566,43 @@ declare module fhir {
         /**
          * Type of object involved
          */
-        type?: code;
+        type?: Coding;
         /**
          * What role the Object played
          */
-        role?: code;
+        role?: Coding;
         /**
          * Life-cycle stage for the object
          */
-        lifecycle?: code;
+        lifecycle?: Coding;
         /**
-         * Policy-defined sensitivity for the object
+         * Security labels applied to the object
          */
-        sensitivity?: CodeableConcept;
+        securityLabel?: Coding[];
         /**
          * Instance-specific descriptor for Object
          */
         name?: string;
         /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
          * Descriptive text
          */
         description?: string;
         /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
          * Actual query for object
          */
         query?: base64Binary;
+        /**
+         * Contains query's id, extensions, and comments.
+         */
+        _query?: Element;
         /**
          * Additional Information about the Object
          */
@@ -1957,9 +2617,17 @@ declare module fhir {
          */
         type: string;
         /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
+        /**
          * Property value
          */
         value: base64Binary;
+        /**
+         * Contains value's id, extensions, and comments.
+         */
+        _value?: Element;
     }
     /**
      * Event record kept for security purposes
@@ -1995,7 +2663,7 @@ declare module fhir {
          */
         code: CodeableConcept;
         /**
-         * Identifies the
+         * Identifies the focus of this resource
          */
         subject?: Reference;
         /**
@@ -2006,19 +2674,31 @@ declare module fhir {
          * When created
          */
         created?: date;
+        /**
+         * Contains created's id, extensions, and comments.
+         */
+        _created?: Element;
     }
     /**
      * Pure binary content defined by sime other format than FHIR
      */
-    interface Binary extends Resource {
+    interface Binary extends ResourceBase {
         /**
          * MimeType of the binary content
          */
         contentType: code;
         /**
+         * Contains contentType's id, extensions, and comments.
+         */
+        _contentType?: Element;
+        /**
          * The actual content
          */
         content: base64Binary;
+        /**
+         * Contains content's id, extensions, and comments.
+         */
+        _content?: Element;
     }
     /**
      * Specific and identified anatomical location
@@ -2045,6 +2725,10 @@ declare module fhir {
          */
         description?: string;
         /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
          * Attached images
          */
         image?: Attachment[];
@@ -2058,24 +2742,36 @@ declare module fhir {
          */
         relation: string;
         /**
+         * Contains relation's id, extensions, and comments.
+         */
+        _relation?: Element;
+        /**
          * Reference details for the link
          */
         url: uri;
+        /**
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
     }
     /**
      * Entry in the bundle - will have a resource, or information
      */
     interface BundleEntry extends Element {
         /**
-         * Base URL, if different to bundle base
-         */
-        base?: uri;
-        /**
          * Links related to this entry
          */
         link?: BundleLink[];
         /**
-         * Resources in this bundle
+         * Absolute URL for resource (server address, or UUID/OID)
+         */
+        fullUrl?: uri;
+        /**
+         * Contains fullUrl's id, extensions, and comments.
+         */
+        _fullUrl?: Element;
+        /**
+         * A resource in the bundle
          */
         resource?: Resource;
         /**
@@ -2085,91 +2781,143 @@ declare module fhir {
         /**
          * Transaction Related Information
          */
-        transaction?: BundleEntryTransaction;
+        request?: BundleEntryRequest;
         /**
          * Transaction Related Information
          */
-        transactionResponse?: BundleEntryTransactionResponse;
+        response?: BundleEntryResponse;
     }
     /**
      * Search related information
      */
     interface BundleEntrySearch extends Element {
         /**
-         * match | include - why this is in the result set
+         * match | include | outcome - why this is in the result set
          */
         mode?: code;
+        /**
+         * Contains mode's id, extensions, and comments.
+         */
+        _mode?: Element;
         /**
          * Search ranking (between 0 and 1)
          */
         score?: decimal;
+        /**
+         * Contains score's id, extensions, and comments.
+         */
+        _score?: Element;
     }
     /**
      * Transaction Related Information
      */
-    interface BundleEntryTransaction extends Element {
+    interface BundleEntryRequest extends Element {
         /**
          * GET | POST | PUT | DELETE
          */
         method: code;
         /**
-         * The URL for the transaction
+         * Contains method's id, extensions, and comments.
+         */
+        _method?: Element;
+        /**
+         * URL for HTTP equivalent of this entry
          */
         url: uri;
+        /**
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
         /**
          * For managing cache currency
          */
         ifNoneMatch?: string;
         /**
-         * For managing update contention
+         * Contains ifNoneMatch's id, extensions, and comments.
          */
-        ifMatch?: string;
+        _ifNoneMatch?: Element;
         /**
          * For managing update contention
          */
         ifModifiedSince?: instant;
         /**
+         * Contains ifModifiedSince's id, extensions, and comments.
+         */
+        _ifModifiedSince?: Element;
+        /**
+         * For managing update contention
+         */
+        ifMatch?: string;
+        /**
+         * Contains ifMatch's id, extensions, and comments.
+         */
+        _ifMatch?: Element;
+        /**
          * For conditional creates
          */
         ifNoneExist?: string;
+        /**
+         * Contains ifNoneExist's id, extensions, and comments.
+         */
+        _ifNoneExist?: Element;
     }
     /**
      * Transaction Related Information
      */
-    interface BundleEntryTransactionResponse extends Element {
+    interface BundleEntryResponse extends Element {
         /**
          * Status return code for entry
          */
         status: string;
         /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * The location, if the operation returns a location
          */
         location?: uri;
+        /**
+         * Contains location's id, extensions, and comments.
+         */
+        _location?: Element;
         /**
          * The etag for the resource (if relevant)
          */
         etag?: string;
         /**
+         * Contains etag's id, extensions, and comments.
+         */
+        _etag?: Element;
+        /**
          * Server's date time modified
          */
         lastModified?: instant;
+        /**
+         * Contains lastModified's id, extensions, and comments.
+         */
+        _lastModified?: Element;
     }
     /**
      * Contains a collection of resources
      */
-    interface Bundle extends Resource {
+    interface Bundle extends ResourceBase {
         /**
-         * document | message | transaction | transaction-response | history | searchset | collection
+         * document | message | transaction | transaction-response | batch | batch-response | history | searchset | collection
          */
         type: code;
         /**
-         * Stated Base URL
+         * Contains type's id, extensions, and comments.
          */
-        base?: uri;
+        _type?: Element;
         /**
          * If search, the total number of matches
          */
         total?: unsignedInt;
+        /**
+         * Contains total's id, extensions, and comments.
+         */
+        _total?: Element;
         /**
          * Links related to this Bundle
          */
@@ -2179,9 +2927,285 @@ declare module fhir {
          */
         entry?: BundleEntry[];
         /**
-         * XML Digital Signature (base64 encoded)
+         * Digital Signature
          */
-        signature?: base64Binary;
+        signature?: Signature;
+    }
+    /**
+     * Trait of group members
+     */
+    interface GroupCharacteristic extends Element {
+        /**
+         * Kind of characteristic
+         */
+        code: CodeableConcept;
+        /**
+         * Value held by characteristic
+         */
+        valueCodeableConcept?: CodeableConcept;
+        /**
+         * Value held by characteristic
+         */
+        valueBoolean?: boolean;
+        /**
+         * Contains valueBoolean's id, extensions, and comments.
+         */
+        _valueBoolean?: Element;
+        /**
+         * Value held by characteristic
+         */
+        valueQuantity?: Quantity;
+        /**
+         * Value held by characteristic
+         */
+        valueRange?: Range;
+        /**
+         * Group includes or excludes
+         */
+        exclude: boolean;
+        /**
+         * Contains exclude's id, extensions, and comments.
+         */
+        _exclude?: Element;
+        /**
+         * Period over which characteristic is tested
+         */
+        period?: Period;
+    }
+    /**
+     * Who or what is in group
+     */
+    interface GroupMember extends Element {
+        /**
+         * Reference to the group member
+         */
+        entity: Reference;
+        /**
+         * Period member belonged to the group
+         */
+        period?: Period;
+        /**
+         * If member is no longer in group
+         */
+        inactive?: boolean;
+        /**
+         * Contains inactive's id, extensions, and comments.
+         */
+        _inactive?: Element;
+    }
+    /**
+     * Administrable medication details
+     */
+    interface MedicationProduct extends Element {
+        /**
+         * powder | tablets | carton +
+         */
+        form?: CodeableConcept;
+        /**
+         * Active or inactive ingredient
+         */
+        ingredient?: MedicationProductIngredient[];
+        batch?: MedicationProductBatch[];
+    }
+    /**
+     * Active or inactive ingredient
+     */
+    interface MedicationProductIngredient extends Element {
+        /**
+         * The product contained
+         */
+        item: Reference;
+        /**
+         * How much ingredient in product
+         */
+        amount?: Ratio;
+    }
+    /**
+     * If this describes a specific package/container of the substance
+     */
+    interface SubstanceInstance extends Element {
+        /**
+         * Identifier of the package/container
+         */
+        identifier?: Identifier;
+        /**
+         * When no longer valid to use
+         */
+        expiry?: dateTime;
+        /**
+         * Contains expiry's id, extensions, and comments.
+         */
+        _expiry?: Element;
+        /**
+         * Amount of substance in the package
+         */
+        quantity?: Quantity;
+    }
+    /**
+     * Composition information about the substance
+     */
+    interface SubstanceIngredient extends Element {
+        /**
+         * Optional amount (concentration)
+         */
+        quantity?: Ratio;
+        /**
+         * A component of the substance
+         */
+        substance: Reference;
+    }
+    /**
+     * A homogeneous material with a definite composition
+     */
+    interface Substance extends DomainResource {
+        /**
+         * Unique identifier
+         */
+        identifier?: Identifier[];
+        /**
+         * What class/type of substance this is
+         */
+        category?: CodeableConcept[];
+        /**
+         * What substance this is
+         */
+        code: CodeableConcept;
+        /**
+         * Textual description of the substance, comments
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * If this describes a specific package/container of the substance
+         */
+        instance?: SubstanceInstance[];
+        /**
+         * Composition information about the substance
+         */
+        ingredient?: SubstanceIngredient[];
+    }
+    interface MedicationProductBatch extends Element {
+        lotNumber?: string;
+        /**
+         * Contains lotNumber's id, extensions, and comments.
+         */
+        _lotNumber?: Element;
+        expirationDate?: dateTime;
+        /**
+         * Contains expirationDate's id, extensions, and comments.
+         */
+        _expirationDate?: Element;
+    }
+    /**
+     * Details about packaged medications
+     */
+    interface MedicationPackage extends Element {
+        /**
+         * E.g. box, vial, blister-pack
+         */
+        container?: CodeableConcept;
+        /**
+         * What is  in the package?
+         */
+        content?: MedicationPackageContent[];
+    }
+    /**
+     * What is  in the package?
+     */
+    interface MedicationPackageContent extends Element {
+        /**
+         * A product in the package
+         */
+        item: Reference;
+        /**
+         * How many are in the package?
+         */
+        amount?: Quantity;
+    }
+    /**
+     * Definition of a Medication
+     */
+    interface Medication extends DomainResource {
+        /**
+         * Codes that identify this medication
+         */
+        code?: CodeableConcept;
+        /**
+         * True if a brand
+         */
+        isBrand?: boolean;
+        /**
+         * Contains isBrand's id, extensions, and comments.
+         */
+        _isBrand?: Element;
+        /**
+         * Manufacturer of the item
+         */
+        manufacturer?: Reference;
+        /**
+         * Administrable medication details
+         */
+        product?: MedicationProduct;
+        /**
+         * Details about packaged medications
+         */
+        package?: MedicationPackage;
+    }
+    /**
+     * Group of multiple entities
+     */
+    interface Group extends DomainResource {
+        /**
+         * Unique id
+         */
+        identifier?: Identifier[];
+        /**
+         * person | animal | practitioner | device | medication | substance
+         */
+        type: code;
+        /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
+        /**
+         * Descriptive or actual
+         */
+        actual: boolean;
+        /**
+         * Contains actual's id, extensions, and comments.
+         */
+        _actual?: Element;
+        /**
+         * Kind of Group members
+         */
+        code?: CodeableConcept;
+        /**
+         * Label for Group
+         */
+        name?: string;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
+         * Number of members
+         */
+        quantity?: unsignedInt;
+        /**
+         * Contains quantity's id, extensions, and comments.
+         */
+        _quantity?: Element;
+        /**
+         * Trait of group members
+         */
+        characteristic?: GroupCharacteristic[];
+        /**
+         * Who or what is in group
+         */
+        member?: GroupMember[];
     }
     /**
      * List of Encounter statuses
@@ -2192,12 +3216,16 @@ declare module fhir {
          */
         status: code;
         /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * The time that the episode was in the specified status
          */
         period: Period;
     }
     /**
-     * The status history for the EpisodeOfCare
+     * The history of statuses that the EpisodeOfCare has been through (without requiring processing the history of the resource)
      */
     interface EpisodeOfCareStatusHistory extends Element {
         /**
@@ -2205,300 +3233,13 @@ declare module fhir {
          */
         status: code;
         /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * The period during this EpisodeOfCare that the specific status applied
          */
         period: Period;
-    }
-    /**
-     * A request for referral or transfer of care
-     */
-    interface ReferralRequest extends DomainResource {
-        /**
-         * draft | requested | active | cancelled | accepted | rejected | completed
-         */
-        status: code;
-        /**
-         * Identifier of request
-         */
-        identifier?: Identifier[];
-        /**
-         * Referral/Transition of care request type
-         */
-        type?: CodeableConcept;
-        /**
-         * The clinical specialty (discipline) that the referral is requested for
-         */
-        specialty?: CodeableConcept;
-        /**
-         * Urgency of referral / transfer of care request
-         */
-        priority?: CodeableConcept;
-        /**
-         * Patient referred to care or transfer
-         */
-        patient?: Reference;
-        /**
-         * Requester of referral / transfer of care
-         */
-        requester?: Reference;
-        /**
-         * Receiver of referral / transfer of care request
-         */
-        recipient?: Reference[];
-        /**
-         * Encounter
-         */
-        encounter?: Reference;
-        /**
-         * Date referral/transfer of care request is sent
-         */
-        dateSent?: dateTime;
-        /**
-         * Reason for referral / Transfer of care request
-         */
-        reason?: CodeableConcept;
-        /**
-         * A textual description of the referral
-         */
-        description?: string;
-        /**
-         * Service(s) requested
-         */
-        serviceRequested?: CodeableConcept[];
-        /**
-         * Additonal information to support referral or transfer of care request
-         */
-        supportingInformation?: Reference[];
-        /**
-         * Requested service(s) fulfillment time
-         */
-        fulfillmentTime?: Period;
-    }
-    /**
-     * The list of practitioners that may be facilitating this episode of care for specific purposes
-     */
-    interface EpisodeOfCareCareTeam extends Element {
-        /**
-         * The practitioner (or Organization) within the team
-         */
-        member?: Reference;
-        /**
-         * The role that this team member is taking within this episode of care
-         */
-        role?: CodeableConcept[];
-        /**
-         * The period of time that this practitioner is performing some role within the episode of care
-         */
-        period?: Period;
-    }
-    /**
-     * An association of a Patient with an Organization and  Healthcare Provider(s) for a period of time that the Organization assumes some level of responsibility
-     */
-    interface EpisodeOfCare extends DomainResource {
-        /**
-         * Identifier(s) by which this EpisodeOfCare is known
-         */
-        identifier?: Identifier[];
-        /**
-         * planned | waitlist | active | onhold | finished | cancelled
-         */
-        status: code;
-        /**
-         * The status history for the EpisodeOfCare
-         */
-        statusHistory?: EpisodeOfCareStatusHistory[];
-        /**
-         * Specific type of EpisodeOfCare
-         */
-        type?: CodeableConcept[];
-        /**
-         * The patient that this EpisodeOfCare applies to
-         */
-        patient: Reference;
-        /**
-         * The organization that has assumed the specific responsibilities for the specified duration
-         */
-        managingOrganization?: Reference;
-        /**
-         * The interval during which the managing organization assumes the defined responsibility
-         */
-        period?: Period;
-        /**
-         * A list of conditions/problems/diagnoses that this episode of care is intended to be providing care for
-         */
-        condition?: Reference[];
-        /**
-         * Referral Request(s) that this EpisodeOfCare manages activities within
-         */
-        referralRequest?: Reference[];
-        /**
-         * The practitioner that is the care manager/care co-ordinator for this patient
-         */
-        careManager?: Reference;
-        /**
-         * The list of practitioners that may be facilitating this episode of care for specific purposes
-         */
-        careTeam?: EpisodeOfCareCareTeam[];
-    }
-    /**
-     * List of participants involved in the encounter
-     */
-    interface EncounterParticipant extends Element {
-        /**
-         * Role of participant in encounter
-         */
-        type?: CodeableConcept[];
-        /**
-         * Period of time during the encounter participant was present
-         */
-        period?: Period;
-        /**
-         * Persons involved in the encounter other than the patient
-         */
-        individual?: Reference;
-    }
-    /**
-     * Details about an admission to a clinic
-     */
-    interface EncounterHospitalization extends Element {
-        /**
-         * Pre-admission identifier
-         */
-        preAdmissionIdentifier?: Identifier;
-        /**
-         * The location from which the patient came before admission
-         */
-        origin?: Reference;
-        /**
-         * From where patient was admitted (physician referral, transfer)
-         */
-        admitSource?: CodeableConcept;
-        /**
-         * Diet preferences reported by the patient
-         */
-        dietPreference?: CodeableConcept;
-        /**
-         * Special courtesies (VIP, board member)
-         */
-        specialCourtesy?: CodeableConcept[];
-        /**
-         * Wheelchair, translator, stretcher, etc
-         */
-        specialArrangement?: CodeableConcept[];
-        /**
-         * Location to which the patient is discharged
-         */
-        destination?: Reference;
-        /**
-         * Category or kind of location after discharge
-         */
-        dischargeDisposition?: CodeableConcept;
-        /**
-         * The final diagnosis given a patient before release from the hospital after all testing, surgery, and workup are complete
-         */
-        dischargeDiagnosis?: Reference;
-        /**
-         * Is this hospitalization a readmission?
-         */
-        reAdmission?: boolean;
-    }
-    /**
-     * List of locations the patient has been at
-     */
-    interface EncounterLocation extends Element {
-        /**
-         * Location the encounter takes place
-         */
-        location: Reference;
-        /**
-         * planned | present | reserved
-         */
-        status?: code;
-        /**
-         * Time period during which the patient was present at the location
-         */
-        period?: Period;
-    }
-    /**
-     * An interaction during which services are provided to the patient
-     */
-    interface Encounter extends DomainResource {
-        /**
-         * Identifier(s) by which this encounter is known
-         */
-        identifier?: Identifier[];
-        /**
-         * planned | arrived | in-progress | onleave | finished | cancelled
-         */
-        status: code;
-        /**
-         * List of Encounter statuses
-         */
-        statusHistory?: EncounterStatusHistory[];
-        /**
-         * inpatient | outpatient | ambulatory | emergency +
-         */
-        class?: code;
-        /**
-         * Specific type of encounter
-         */
-        type?: CodeableConcept[];
-        /**
-         * The patient present at the encounter
-         */
-        patient?: Reference;
-        /**
-         * An episode of care that this encounter should be recorded against
-         */
-        episodeOfCare?: Reference;
-        /**
-         * Incoming Referral Request
-         */
-        incomingReferralRequest?: Reference[];
-        /**
-         * List of participants involved in the encounter
-         */
-        participant?: EncounterParticipant[];
-        /**
-         * The appointment that scheduled this encounter
-         */
-        fulfills?: Reference;
-        /**
-         * The start and end time of the encounter
-         */
-        period?: Period;
-        /**
-         * Quantity of time the encounter lasted (less time absent)
-         */
-        length?: Duration;
-        /**
-         * Reason the encounter takes place (code)
-         */
-        reason?: CodeableConcept[];
-        /**
-         * Reason the encounter takes place (resource)
-         */
-        indication?: Reference[];
-        /**
-         * Indicates the urgency of the encounter
-         */
-        priority?: CodeableConcept;
-        /**
-         * Details about an admission to a clinic
-         */
-        hospitalization?: EncounterHospitalization;
-        /**
-         * List of locations the patient has been at
-         */
-        location?: EncounterLocation[];
-        /**
-         * The custodian organization of this Encounter record
-         */
-        serviceProvider?: Reference;
-        /**
-         * Another Encounter this encounter is part of
-         */
-        partOf?: Reference;
     }
     /**
      * A duration (length of time) with a UCUM code
@@ -2532,43 +3273,6 @@ declare module fhir {
         item?: Reference[];
     }
     /**
-     * An integer with a value that is positive (e.g. >0)
-     */
-    type positiveInt = number;
-    /**
-     * A series of measurements taken by a device
-     */
-    interface SampledData extends Element {
-        /**
-         * Zero value and units
-         */
-        origin: Quantity;
-        /**
-         * Number of milliseconds between samples
-         */
-        period: decimal;
-        /**
-         * Multiply data by this before adding to origin
-         */
-        factor?: decimal;
-        /**
-         * Lower limit of detection
-         */
-        lowerLimit?: decimal;
-        /**
-         * Upper limit of detection
-         */
-        upperLimit?: decimal;
-        /**
-         * Number of sample points at each time point
-         */
-        dimensions: positiveInt;
-        /**
-         * Decimal values with spaces, or "E" | "U" | "L"
-         */
-        data: string;
-    }
-    /**
      * Collection details
      */
     interface SpecimenCollection extends Element {
@@ -2581,9 +3285,17 @@ declare module fhir {
          */
         comment?: string[];
         /**
+         * Contains comment's id, extensions, and comments.
+         */
+        _comment?: Element[];
+        /**
          * Collection time
          */
         collectedDateTime?: dateTime;
+        /**
+         * Contains collectedDateTime's id, extensions, and comments.
+         */
+        _collectedDateTime?: Element;
         /**
          * Collection time
          */
@@ -2599,11 +3311,7 @@ declare module fhir {
         /**
          * Anatomical collection site
          */
-        bodySiteCodeableConcept?: CodeableConcept;
-        /**
-         * Anatomical collection site
-         */
-        bodySiteReference?: Reference;
+        bodySite?: CodeableConcept;
     }
     /**
      * Treatment and processing step details
@@ -2613,6 +3321,10 @@ declare module fhir {
          * Textual description of procedure
          */
         description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
         /**
          * Indicates the treatment or processing step  applied to the specimen
          */
@@ -2634,6 +3346,10 @@ declare module fhir {
          * Textual description of the container
          */
         description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
         /**
          * Kind of container directly associated with specimen
          */
@@ -2664,6 +3380,14 @@ declare module fhir {
          */
         identifier?: Identifier[];
         /**
+         * available | unavailable | unsatisfactory | entered-in-error
+         */
+        status?: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * Kind of material that forms the specimen
          */
         type?: CodeableConcept;
@@ -2683,6 +3407,10 @@ declare module fhir {
          * The time when specimen was received for processing
          */
         receivedTime?: dateTime;
+        /**
+         * Contains receivedTime's id, extensions, and comments.
+         */
+        _receivedTime?: Element;
         /**
          * Collection details
          */
@@ -2712,6 +3440,10 @@ declare module fhir {
          * A printable string defining the component
          */
         productionSpec?: string;
+        /**
+         * Contains productionSpec's id, extensions, and comments.
+         */
+        _productionSpec?: Element;
     }
     /**
      * An instance of a medical-related component of a medical device
@@ -2729,6 +3461,10 @@ declare module fhir {
          * Recent system change timestamp
          */
         lastSystemChange: instant;
+        /**
+         * Contains lastSystemChange's id, extensions, and comments.
+         */
+        _lastSystemChange?: Element;
         /**
          * A source device of this component
          */
@@ -2750,6 +3486,10 @@ declare module fhir {
          */
         measurementPrinciple?: code;
         /**
+         * Contains measurementPrinciple's id, extensions, and comments.
+         */
+        _measurementPrinciple?: Element;
+        /**
          * Production specification of the component
          */
         productionSpecification?: DeviceComponentProductionSpecification[];
@@ -2767,13 +3507,25 @@ declare module fhir {
          */
         type?: code;
         /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
+        /**
          * not-calibrated | calibration-required | calibrated | unspecified
          */
         state?: code;
         /**
+         * Contains state's id, extensions, and comments.
+         */
+        _state?: Element;
+        /**
          * Describes the time last calibration has been performed
          */
         time?: instant;
+        /**
+         * Contains time's id, extensions, and comments.
+         */
+        _time?: Element;
     }
     /**
      * Measurement, calculation or setting capability of a medical device
@@ -2804,13 +3556,25 @@ declare module fhir {
          */
         operationalStatus?: code;
         /**
+         * Contains operationalStatus's id, extensions, and comments.
+         */
+        _operationalStatus?: Element;
+        /**
          * black | red | green | yellow | blue | magenta | cyan | white
          */
         color?: code;
         /**
+         * Contains color's id, extensions, and comments.
+         */
+        _color?: Element;
+        /**
          * measurement | setting | calculation | unspecified
          */
         category: code;
+        /**
+         * Contains category's id, extensions, and comments.
+         */
+        _category?: Element;
         /**
          * Describes the measurement repetition time
          */
@@ -2844,157 +3608,48 @@ declare module fhir {
          * Text based reference range in an observation
          */
         text?: string;
+        /**
+         * Contains text's id, extensions, and comments.
+         */
+        _text?: Element;
     }
     /**
-     * Observations related to this observation
+     * Resource related to this observation
      */
     interface ObservationRelated extends Element {
         /**
-         * has-component | has-member | derived-from | sequel-to | replaces | qualified-by | interfered-by
+         * has-member | derived-from | sequel-to | replaces | qualified-by | interfered-by
          */
         type?: code;
         /**
-         * Observation that is related to this one
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
+        /**
+         * Resource that is related to this one
          */
         target: Reference;
-    }
-    /**
-     * Measurements and simple assertions
-     */
-    interface Observation extends DomainResource {
-        /**
-         * Type of observation (code / type)
-         */
-        code: CodeableConcept;
-        /**
-         * Actual result
-         */
-        valueQuantity?: Quantity;
-        /**
-         * Actual result
-         */
-        valueCodeableConcept?: CodeableConcept;
-        /**
-         * Actual result
-         */
-        valueString?: string;
-        /**
-         * Actual result
-         */
-        valueRange?: Range;
-        /**
-         * Actual result
-         */
-        valueRatio?: Ratio;
-        /**
-         * Actual result
-         */
-        valueSampledData?: SampledData;
-        /**
-         * Actual result
-         */
-        valueAttachment?: Attachment;
-        /**
-         * Actual result
-         */
-        valueTime?: time;
-        /**
-         * Actual result
-         */
-        valueDateTime?: dateTime;
-        /**
-         * Actual result
-         */
-        valuePeriod?: Period;
-        /**
-         * Why the result is missing
-         */
-        dataAbsentReason?: CodeableConcept;
-        /**
-         * High, low, normal, etc.
-         */
-        interpretation?: CodeableConcept;
-        /**
-         * Comments about result
-         */
-        comments?: string;
-        /**
-         * Physiologically Relevant time/time-period for observation
-         */
-        appliesDateTime?: dateTime;
-        /**
-         * Physiologically Relevant time/time-period for observation
-         */
-        appliesPeriod?: Period;
-        /**
-         * Date/Time this was made available
-         */
-        issued?: instant;
-        /**
-         * registered | preliminary | final | amended +
-         */
-        status: code;
-        /**
-         * ok | ongoing | early | questionable | calibrating | error +
-         */
-        reliability?: code;
-        /**
-         * Observed body part
-         */
-        bodySiteCodeableConcept?: CodeableConcept;
-        /**
-         * Observed body part
-         */
-        bodySiteReference?: Reference;
-        /**
-         * How it was done
-         */
-        method?: CodeableConcept;
-        /**
-         * Unique Id for this particular observation
-         */
-        identifier?: Identifier[];
-        /**
-         * Who and/or what this is about
-         */
-        subject?: Reference;
-        /**
-         * Specimen used for this observation
-         */
-        specimen?: Reference;
-        /**
-         * Who did the observation
-         */
-        performer?: Reference[];
-        /**
-         * (Measurement) Device
-         */
-        device?: Reference;
-        /**
-         * Healthcare event during which this observation is made
-         */
-        encounter?: Reference;
-        /**
-         * Provides guide for interpretation
-         */
-        referenceRange?: ObservationReferenceRange[];
-        /**
-         * Observations related to this observation
-         */
-        related?: ObservationRelated[];
     }
     /**
      * Grouped questions
      */
     interface QuestionnaireGroup extends Element {
         /**
-         * To link questionnaire with questionnaire answers
+         * To link questionnaire with questionnaire response
          */
         linkId?: string;
+        /**
+         * Contains linkId's id, extensions, and comments.
+         */
+        _linkId?: Element;
         /**
          * Name to be displayed for group
          */
         title?: string;
+        /**
+         * Contains title's id, extensions, and comments.
+         */
+        _title?: Element;
         /**
          * Concept that represents this section on a questionnaire
          */
@@ -3004,13 +3659,25 @@ declare module fhir {
          */
         text?: string;
         /**
+         * Contains text's id, extensions, and comments.
+         */
+        _text?: Element;
+        /**
          * Must group be included in data results?
          */
         required?: boolean;
         /**
+         * Contains required's id, extensions, and comments.
+         */
+        _required?: Element;
+        /**
          * Whether the group may repeat
          */
         repeats?: boolean;
+        /**
+         * Contains repeats's id, extensions, and comments.
+         */
+        _repeats?: Element;
         /**
          * Nested questionnaire group
          */
@@ -3025,9 +3692,13 @@ declare module fhir {
      */
     interface QuestionnaireGroupQuestion extends Element {
         /**
-         * To link questionnaire with questionnaire answers
+         * To link questionnaire with questionnaire response
          */
         linkId?: string;
+        /**
+         * Contains linkId's id, extensions, and comments.
+         */
+        _linkId?: Element;
         /**
          * Concept that represents this question on a questionnaire
          */
@@ -3037,21 +3708,41 @@ declare module fhir {
          */
         text?: string;
         /**
+         * Contains text's id, extensions, and comments.
+         */
+        _text?: Element;
+        /**
          * boolean | decimal | integer | date | dateTime +
          */
         type?: code;
+        /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
         /**
          * Must question be answered in data results?
          */
         required?: boolean;
         /**
+         * Contains required's id, extensions, and comments.
+         */
+        _required?: Element;
+        /**
          * Can question  have multiple answers?
          */
         repeats?: boolean;
         /**
-         * Valueset containing the possible options
+         * Contains repeats's id, extensions, and comments.
+         */
+        _repeats?: Element;
+        /**
+         * Valueset containing permitted answers
          */
         options?: Reference;
+        /**
+         * Permitted answer
+         */
+        option?: Coding[];
         /**
          * Nested questionnaire group
          */
@@ -3066,68 +3757,104 @@ declare module fhir {
          */
         name?: string;
         /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
          * Contact details for individual or publisher
          */
         telecom?: ContactPoint[];
     }
     /**
-     * When value set defines its own codes
+     * An inline code system - part of this value set
      */
-    interface ValueSetDefine extends Element {
+    interface ValueSetCodeSystem extends Element {
         /**
-         * URI to identify the code system
+         * URI to identify the code system (e.g. in Coding.system)
          */
         system: uri;
         /**
-         * Version of this system
+         * Contains system's id, extensions, and comments.
+         */
+        _system?: Element;
+        /**
+         * Version (for use in Coding.version)
          */
         version?: string;
+        /**
+         * Contains version's id, extensions, and comments.
+         */
+        _version?: Element;
         /**
          * If code comparison is case sensitive
          */
         caseSensitive?: boolean;
         /**
+         * Contains caseSensitive's id, extensions, and comments.
+         */
+        _caseSensitive?: Element;
+        /**
          * Concepts in the code system
          */
-        concept?: ValueSetDefineConcept[];
+        concept: ValueSetCodeSystemConcept[];
     }
     /**
      * Concepts in the code system
      */
-    interface ValueSetDefineConcept extends Element {
+    interface ValueSetCodeSystemConcept extends Element {
         /**
          * Code that identifies concept
          */
         code: code;
         /**
+         * Contains code's id, extensions, and comments.
+         */
+        _code?: Element;
+        /**
          * If this code is not for use as a real concept
          */
         abstract?: boolean;
+        /**
+         * Contains abstract's id, extensions, and comments.
+         */
+        _abstract?: Element;
         /**
          * Text to Display to the user
          */
         display?: string;
         /**
+         * Contains display's id, extensions, and comments.
+         */
+        _display?: Element;
+        /**
          * Formal Definition
          */
         definition?: string;
         /**
+         * Contains definition's id, extensions, and comments.
+         */
+        _definition?: Element;
+        /**
          * Additional representations for the concept
          */
-        designation?: ValueSetDefineConceptDesignation[];
+        designation?: ValueSetCodeSystemConceptDesignation[];
         /**
-         * Child Concepts (is-a / contains)
+         * Child Concepts (is-a / contains / categorises)
          */
-        concept?: ValueSetDefineConcept[];
+        concept?: ValueSetCodeSystemConcept[];
     }
     /**
      * Additional representations for the concept
      */
-    interface ValueSetDefineConceptDesignation extends Element {
+    interface ValueSetCodeSystemConceptDesignation extends Element {
         /**
-         * Language of the designation
+         * Human language of the designation
          */
         language?: code;
+        /**
+         * Contains language's id, extensions, and comments.
+         */
+        _language?: Element;
         /**
          * Details how this designation would be used
          */
@@ -3136,6 +3863,10 @@ declare module fhir {
          * The text value for this designation
          */
         value: string;
+        /**
+         * Contains value's id, extensions, and comments.
+         */
+        _value?: Element;
     }
     /**
      * When value set includes codes from elsewhere
@@ -3145,6 +3876,10 @@ declare module fhir {
          * Import the contents of another value set
          */
         import?: uri[];
+        /**
+         * Contains import's id, extensions, and comments.
+         */
+        _import?: Element[];
         /**
          * Include one or more codes from a code system
          */
@@ -3163,9 +3898,17 @@ declare module fhir {
          */
         system: uri;
         /**
+         * Contains system's id, extensions, and comments.
+         */
+        _system?: Element;
+        /**
          * Specific version of the code system referred to
          */
         version?: string;
+        /**
+         * Contains version's id, extensions, and comments.
+         */
+        _version?: Element;
         /**
          * A concept defined in the system
          */
@@ -3184,13 +3927,21 @@ declare module fhir {
          */
         code: code;
         /**
+         * Contains code's id, extensions, and comments.
+         */
+        _code?: Element;
+        /**
          * Test to display for this code for this value set
          */
         display?: string;
         /**
+         * Contains display's id, extensions, and comments.
+         */
+        _display?: Element;
+        /**
          * Additional representations for this valueset
          */
-        designation?: ValueSetDefineConceptDesignation[];
+        designation?: ValueSetCodeSystemConceptDesignation[];
     }
     /**
      * Select codes/concepts by their properties (including relationships)
@@ -3201,13 +3952,25 @@ declare module fhir {
          */
         property: code;
         /**
+         * Contains property's id, extensions, and comments.
+         */
+        _property?: Element;
+        /**
          * = | is-a | is-not-a | regex | in | not-in
          */
         op: code;
         /**
+         * Contains op's id, extensions, and comments.
+         */
+        _op?: Element;
+        /**
          * Code from the system, or regex criteria
          */
         value: code;
+        /**
+         * Contains value's id, extensions, and comments.
+         */
+        _value?: Element;
     }
     /**
      * Used when the value set is "expanded"
@@ -3218,9 +3981,33 @@ declare module fhir {
          */
         identifier: uri;
         /**
+         * Contains identifier's id, extensions, and comments.
+         */
+        _identifier?: Element;
+        /**
          * Time valueset expansion happened
          */
         timestamp: dateTime;
+        /**
+         * Contains timestamp's id, extensions, and comments.
+         */
+        _timestamp?: Element;
+        /**
+         * Total number of codes in the expansion
+         */
+        total?: integer;
+        /**
+         * Contains total's id, extensions, and comments.
+         */
+        _total?: Element;
+        /**
+         * Offset at which this resource starts
+         */
+        offset?: integer;
+        /**
+         * Contains offset's id, extensions, and comments.
+         */
+        _offset?: Element;
         /**
          * Parameter that controlled the expansion process
          */
@@ -3239,29 +4026,57 @@ declare module fhir {
          */
         name: string;
         /**
-         * Value of the parameter
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
+         * Value of the named parameter
          */
         valueString?: string;
         /**
-         * Value of the parameter
+         * Contains valueString's id, extensions, and comments.
+         */
+        _valueString?: Element;
+        /**
+         * Value of the named parameter
          */
         valueBoolean?: boolean;
         /**
-         * Value of the parameter
+         * Contains valueBoolean's id, extensions, and comments.
+         */
+        _valueBoolean?: Element;
+        /**
+         * Value of the named parameter
          */
         valueInteger?: integer;
         /**
-         * Value of the parameter
+         * Contains valueInteger's id, extensions, and comments.
+         */
+        _valueInteger?: Element;
+        /**
+         * Value of the named parameter
          */
         valueDecimal?: decimal;
         /**
-         * Value of the parameter
+         * Contains valueDecimal's id, extensions, and comments.
+         */
+        _valueDecimal?: Element;
+        /**
+         * Value of the named parameter
          */
         valueUri?: uri;
         /**
-         * Value of the parameter
+         * Contains valueUri's id, extensions, and comments.
+         */
+        _valueUri?: Element;
+        /**
+         * Value of the named parameter
          */
         valueCode?: code;
+        /**
+         * Contains valueCode's id, extensions, and comments.
+         */
+        _valueCode?: Element;
     }
     /**
      * Codes in the value set
@@ -3272,23 +4087,43 @@ declare module fhir {
          */
         system?: uri;
         /**
+         * Contains system's id, extensions, and comments.
+         */
+        _system?: Element;
+        /**
          * If user cannot select this entry
          */
         abstract?: boolean;
+        /**
+         * Contains abstract's id, extensions, and comments.
+         */
+        _abstract?: Element;
         /**
          * Version in which this code / display is defined
          */
         version?: string;
         /**
+         * Contains version's id, extensions, and comments.
+         */
+        _version?: Element;
+        /**
          * Code - if blank, this is not a choosable code
          */
         code?: code;
+        /**
+         * Contains code's id, extensions, and comments.
+         */
+        _code?: Element;
         /**
          * User display for the concept
          */
         display?: string;
         /**
-         * Codes contained in this concept
+         * Contains display's id, extensions, and comments.
+         */
+        _display?: Element;
+        /**
+         * Codes contained under this entry
          */
         contains?: ValueSetExpansionContains[];
     }
@@ -3301,6 +4136,10 @@ declare module fhir {
          */
         url?: uri;
         /**
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
+        /**
          * Additional identifier for the value set (v2 / CDA)
          */
         identifier?: Identifier;
@@ -3309,9 +4148,69 @@ declare module fhir {
          */
         version?: string;
         /**
+         * Contains version's id, extensions, and comments.
+         */
+        _version?: Element;
+        /**
          * Informal name for this value set
          */
         name?: string;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
+         * draft | active | retired
+         */
+        status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * If for testing purposes, not real usage
+         */
+        experimental?: boolean;
+        /**
+         * Contains experimental's id, extensions, and comments.
+         */
+        _experimental?: Element;
+        /**
+         * Name of the publisher (Organization or individual)
+         */
+        publisher?: string;
+        /**
+         * Contains publisher's id, extensions, and comments.
+         */
+        _publisher?: Element;
+        /**
+         * Contact details of the publisher
+         */
+        contact?: ValueSetContact[];
+        /**
+         * Date for given status
+         */
+        date?: dateTime;
+        /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * Fixed date for all referenced code systems and value sets
+         */
+        lockedDate?: date;
+        /**
+         * Contains lockedDate's id, extensions, and comments.
+         */
+        _lockedDate?: Element;
+        /**
+         * Human language description of the value set
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
         /**
          * Content intends to support these contexts
          */
@@ -3321,49 +4220,37 @@ declare module fhir {
          */
         immutable?: boolean;
         /**
-         * Name of the publisher (Organization or individual)
+         * Contains immutable's id, extensions, and comments.
          */
-        publisher?: string;
-        /**
-         * Contact details of the publisher
-         */
-        contact?: ValueSetContact[];
-        /**
-         * Human language description of the value set
-         */
-        description?: string;
+        _immutable?: Element;
         /**
          * Why is this needed?
          */
         requirements?: string;
         /**
+         * Contains requirements's id, extensions, and comments.
+         */
+        _requirements?: Element;
+        /**
          * Use and/or Publishing restrictions
          */
         copyright?: string;
         /**
-         * draft | active | retired
+         * Contains copyright's id, extensions, and comments.
          */
-        status: code;
-        /**
-         * If for testing purposes, not real usage
-         */
-        experimental?: boolean;
+        _copyright?: Element;
         /**
          * Whether this is intended to be used with an extensible binding
          */
         extensible?: boolean;
         /**
-         * Date for given status
+         * Contains extensible's id, extensions, and comments.
          */
-        date?: dateTime;
+        _extensible?: Element;
         /**
-         * Fixed date for all referenced code systems and value sets
+         * An inline code system - part of this value set
          */
-        lockedDate?: date;
-        /**
-         * When value set defines its own codes
-         */
-        define?: ValueSetDefine;
+        codeSystem?: ValueSetCodeSystem;
         /**
          * When value set includes codes from elsewhere
          */
@@ -3386,21 +4273,45 @@ declare module fhir {
          */
         version?: string;
         /**
+         * Contains version's id, extensions, and comments.
+         */
+        _version?: Element;
+        /**
          * draft | published | retired
          */
         status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
         /**
          * Date this version was authored
          */
         date?: dateTime;
         /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
          * Organization/individual who designed the questionnaire
          */
         publisher?: string;
         /**
+         * Contains publisher's id, extensions, and comments.
+         */
+        _publisher?: Element;
+        /**
          * Contact information of the publisher
          */
         telecom?: ContactPoint[];
+        /**
+         * Resource that can be subject of QuestionnaireResponse
+         */
+        subjectType?: code[];
+        /**
+         * Contains subjectType's id, extensions, and comments.
+         */
+        _subjectType?: Element[];
         /**
          * Grouped questions
          */
@@ -3409,93 +4320,145 @@ declare module fhir {
     /**
      * Grouped questions
      */
-    interface QuestionnaireAnswersGroup extends Element {
+    interface QuestionnaireResponseGroup extends Element {
         /**
          * Corresponding group within Questionnaire
          */
         linkId?: string;
         /**
+         * Contains linkId's id, extensions, and comments.
+         */
+        _linkId?: Element;
+        /**
          * Name for this group
          */
         title?: string;
+        /**
+         * Contains title's id, extensions, and comments.
+         */
+        _title?: Element;
         /**
          * Additional text for the group
          */
         text?: string;
         /**
+         * Contains text's id, extensions, and comments.
+         */
+        _text?: Element;
+        /**
          * The subject this group's answers are about
          */
         subject?: Reference;
         /**
-         * Nested questionnaire answers group
+         * Nested questionnaire response group
          */
-        group?: QuestionnaireAnswersGroup[];
+        group?: QuestionnaireResponseGroup[];
         /**
          * Questions in this group
          */
-        question?: QuestionnaireAnswersGroupQuestion[];
+        question?: QuestionnaireResponseGroupQuestion[];
     }
     /**
      * Questions in this group
      */
-    interface QuestionnaireAnswersGroupQuestion extends Element {
+    interface QuestionnaireResponseGroupQuestion extends Element {
         /**
          * Corresponding question within Questionnaire
          */
         linkId?: string;
         /**
+         * Contains linkId's id, extensions, and comments.
+         */
+        _linkId?: Element;
+        /**
          * Text of the question as it is shown to the user
          */
         text?: string;
         /**
+         * Contains text's id, extensions, and comments.
+         */
+        _text?: Element;
+        /**
          * The response(s) to the question
          */
-        answer?: QuestionnaireAnswersGroupQuestionAnswer[];
-        /**
-         * Nested questionnaire group
-         */
-        group?: QuestionnaireAnswersGroup[];
+        answer?: QuestionnaireResponseGroupQuestionAnswer[];
     }
     /**
      * The response(s) to the question
      */
-    interface QuestionnaireAnswersGroupQuestionAnswer extends Element {
+    interface QuestionnaireResponseGroupQuestionAnswer extends Element {
         /**
          * Single-valued answer to the question
          */
         valueBoolean?: boolean;
         /**
+         * Contains valueBoolean's id, extensions, and comments.
+         */
+        _valueBoolean?: Element;
+        /**
          * Single-valued answer to the question
          */
         valueDecimal?: decimal;
+        /**
+         * Contains valueDecimal's id, extensions, and comments.
+         */
+        _valueDecimal?: Element;
         /**
          * Single-valued answer to the question
          */
         valueInteger?: integer;
         /**
+         * Contains valueInteger's id, extensions, and comments.
+         */
+        _valueInteger?: Element;
+        /**
          * Single-valued answer to the question
          */
         valueDate?: date;
+        /**
+         * Contains valueDate's id, extensions, and comments.
+         */
+        _valueDate?: Element;
         /**
          * Single-valued answer to the question
          */
         valueDateTime?: dateTime;
         /**
+         * Contains valueDateTime's id, extensions, and comments.
+         */
+        _valueDateTime?: Element;
+        /**
          * Single-valued answer to the question
          */
         valueInstant?: instant;
+        /**
+         * Contains valueInstant's id, extensions, and comments.
+         */
+        _valueInstant?: Element;
         /**
          * Single-valued answer to the question
          */
         valueTime?: time;
         /**
+         * Contains valueTime's id, extensions, and comments.
+         */
+        _valueTime?: Element;
+        /**
          * Single-valued answer to the question
          */
         valueString?: string;
         /**
+         * Contains valueString's id, extensions, and comments.
+         */
+        _valueString?: Element;
+        /**
          * Single-valued answer to the question
          */
         valueUri?: uri;
+        /**
+         * Contains valueUri's id, extensions, and comments.
+         */
+        _valueUri?: Element;
         /**
          * Single-valued answer to the question
          */
@@ -3512,11 +4475,15 @@ declare module fhir {
          * Single-valued answer to the question
          */
         valueReference?: Reference;
+        /**
+         * Nested questionnaire group
+         */
+        group?: QuestionnaireResponseGroup[];
     }
     /**
      * A structured set of questions and their answers
      */
-    interface QuestionnaireAnswers extends DomainResource {
+    interface QuestionnaireResponse extends DomainResource {
         /**
          * Unique id for this set of answers
          */
@@ -3530,6 +4497,10 @@ declare module fhir {
          */
         status: code;
         /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * The subject of the questions
          */
         subject?: Reference;
@@ -3542,6 +4513,10 @@ declare module fhir {
          */
         authored?: dateTime;
         /**
+         * Contains authored's id, extensions, and comments.
+         */
+        _authored?: Element;
+        /**
          * The person who answered the questions
          */
         source?: Reference;
@@ -3552,7 +4527,229 @@ declare module fhir {
         /**
          * Grouped questions
          */
-        group?: QuestionnaireAnswersGroup;
+        group?: QuestionnaireResponseGroup;
+    }
+    /**
+     * Component results
+     */
+    interface ObservationComponent extends Element {
+        /**
+         * Type of component observation (code / type)
+         */
+        code: CodeableConcept;
+        /**
+         * Actual component result
+         */
+        valueQuantity?: Quantity;
+        /**
+         * Actual component result
+         */
+        valueCodeableConcept?: CodeableConcept;
+        /**
+         * Actual component result
+         */
+        valueString?: string;
+        /**
+         * Contains valueString's id, extensions, and comments.
+         */
+        _valueString?: Element;
+        /**
+         * Actual component result
+         */
+        valueRange?: Range;
+        /**
+         * Actual component result
+         */
+        valueRatio?: Ratio;
+        /**
+         * Actual component result
+         */
+        valueSampledData?: SampledData;
+        /**
+         * Actual component result
+         */
+        valueAttachment?: Attachment;
+        /**
+         * Actual component result
+         */
+        valueTime?: time;
+        /**
+         * Contains valueTime's id, extensions, and comments.
+         */
+        _valueTime?: Element;
+        /**
+         * Actual component result
+         */
+        valueDateTime?: dateTime;
+        /**
+         * Contains valueDateTime's id, extensions, and comments.
+         */
+        _valueDateTime?: Element;
+        /**
+         * Actual component result
+         */
+        valuePeriod?: Period;
+        /**
+         * Why the component result is missing
+         */
+        dataAbsentReason?: CodeableConcept;
+        /**
+         * Provides guide for interpretation ofcomponent result
+         */
+        referenceRange?: ObservationReferenceRange[];
+    }
+    /**
+     * Measurements and simple assertions
+     */
+    interface Observation extends DomainResource {
+        /**
+         * Unique Id for this particular observation
+         */
+        identifier?: Identifier[];
+        /**
+         * registered | preliminary | final | amended +
+         */
+        status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * Classification of  type of observation
+         */
+        category?: CodeableConcept;
+        /**
+         * Type of observation (code / type)
+         */
+        code: CodeableConcept;
+        /**
+         * Who and/or what this is about
+         */
+        subject?: Reference;
+        /**
+         * Healthcare event during which this observation is made
+         */
+        encounter?: Reference;
+        /**
+         * Clinically Relevant time/time-period for observation
+         */
+        effectiveDateTime?: dateTime;
+        /**
+         * Contains effectiveDateTime's id, extensions, and comments.
+         */
+        _effectiveDateTime?: Element;
+        /**
+         * Clinically Relevant time/time-period for observation
+         */
+        effectivePeriod?: Period;
+        /**
+         * Date/Time this was made available
+         */
+        issued?: instant;
+        /**
+         * Contains issued's id, extensions, and comments.
+         */
+        _issued?: Element;
+        /**
+         * Who is responsible for the observation
+         */
+        performer?: Reference[];
+        /**
+         * Actual result
+         */
+        valueQuantity?: Quantity;
+        /**
+         * Actual result
+         */
+        valueCodeableConcept?: CodeableConcept;
+        /**
+         * Actual result
+         */
+        valueString?: string;
+        /**
+         * Contains valueString's id, extensions, and comments.
+         */
+        _valueString?: Element;
+        /**
+         * Actual result
+         */
+        valueRange?: Range;
+        /**
+         * Actual result
+         */
+        valueRatio?: Ratio;
+        /**
+         * Actual result
+         */
+        valueSampledData?: SampledData;
+        /**
+         * Actual result
+         */
+        valueAttachment?: Attachment;
+        /**
+         * Actual result
+         */
+        valueTime?: time;
+        /**
+         * Contains valueTime's id, extensions, and comments.
+         */
+        _valueTime?: Element;
+        /**
+         * Actual result
+         */
+        valueDateTime?: dateTime;
+        /**
+         * Contains valueDateTime's id, extensions, and comments.
+         */
+        _valueDateTime?: Element;
+        /**
+         * Actual result
+         */
+        valuePeriod?: Period;
+        /**
+         * Why the result is missing
+         */
+        dataAbsentReason?: CodeableConcept;
+        /**
+         * High, low, normal, etc.
+         */
+        interpretation?: CodeableConcept;
+        /**
+         * Comments about result
+         */
+        comments?: string;
+        /**
+         * Contains comments's id, extensions, and comments.
+         */
+        _comments?: Element;
+        /**
+         * Observed body part
+         */
+        bodySite?: CodeableConcept;
+        /**
+         * How it was done
+         */
+        method?: CodeableConcept;
+        /**
+         * Specimen used for this observation
+         */
+        specimen?: Reference;
+        /**
+         * (Measurement) Device
+         */
+        device?: Reference;
+        /**
+         * Provides guide for interpretation
+         */
+        referenceRange?: ObservationReferenceRange[];
+        /**
+         * Resource related to this observation
+         */
+        related?: ObservationRelated[];
+        /**
+         * Component results
+         */
+        component?: ObservationComponent[];
     }
     /**
      * Condition that the related person had
@@ -3561,7 +4758,7 @@ declare module fhir {
         /**
          * Condition suffered by relation
          */
-        type: CodeableConcept;
+        code: CodeableConcept;
         /**
          * deceased | permanent disability | etc.
          */
@@ -3569,7 +4766,7 @@ declare module fhir {
         /**
          * When condition first manifested
          */
-        onsetAge?: Age;
+        onsetQuantity?: Quantity;
         /**
          * When condition first manifested
          */
@@ -3577,11 +4774,19 @@ declare module fhir {
         /**
          * When condition first manifested
          */
+        onsetPeriod?: Period;
+        /**
+         * When condition first manifested
+         */
         onsetString?: string;
+        /**
+         * Contains onsetString's id, extensions, and comments.
+         */
+        _onsetString?: Element;
         /**
          * Extra information about condition
          */
-        note?: string;
+        note?: Annotation;
     }
     /**
      * Information about patient's relatives, relevant for patient
@@ -3600,9 +4805,25 @@ declare module fhir {
          */
         date?: dateTime;
         /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * partial | completed | entered-in-error | health-unknown
+         */
+        status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * The family member described
          */
         name?: string;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
         /**
          * Relationship to the subject
          */
@@ -3612,6 +4833,10 @@ declare module fhir {
          */
         gender?: code;
         /**
+         * Contains gender's id, extensions, and comments.
+         */
+        _gender?: Element;
+        /**
          * (approximate) date of birth
          */
         bornPeriod?: Period;
@@ -3620,13 +4845,21 @@ declare module fhir {
          */
         bornDate?: date;
         /**
+         * Contains bornDate's id, extensions, and comments.
+         */
+        _bornDate?: Element;
+        /**
          * (approximate) date of birth
          */
         bornString?: string;
         /**
+         * Contains bornString's id, extensions, and comments.
+         */
+        _bornString?: Element;
+        /**
          * (approximate) age
          */
-        ageAge?: Age;
+        ageQuantity?: Quantity;
         /**
          * (approximate) age
          */
@@ -3636,13 +4869,21 @@ declare module fhir {
          */
         ageString?: string;
         /**
+         * Contains ageString's id, extensions, and comments.
+         */
+        _ageString?: Element;
+        /**
          * Dead? How old/when?
          */
         deceasedBoolean?: boolean;
         /**
+         * Contains deceasedBoolean's id, extensions, and comments.
+         */
+        _deceasedBoolean?: Element;
+        /**
          * Dead? How old/when?
          */
-        deceasedAge?: Age;
+        deceasedQuantity?: Quantity;
         /**
          * Dead? How old/when?
          */
@@ -3652,13 +4893,21 @@ declare module fhir {
          */
         deceasedDate?: date;
         /**
+         * Contains deceasedDate's id, extensions, and comments.
+         */
+        _deceasedDate?: Element;
+        /**
          * Dead? How old/when?
          */
         deceasedString?: string;
         /**
+         * Contains deceasedString's id, extensions, and comments.
+         */
+        _deceasedString?: Element;
+        /**
          * General note about related person
          */
-        note?: string;
+        note?: Annotation;
         /**
          * Condition that the related person had
          */
@@ -3673,14 +4922,35 @@ declare module fhir {
          */
         code: code;
         /**
+         * Contains code's id, extensions, and comments.
+         */
+        _code?: Element;
+        /**
          * Target of the relationship
          */
         target: Reference;
     }
     /**
+     * Document referenced
+     */
+    interface DocumentReferenceContent extends Element {
+        /**
+         * Where to access the document
+         */
+        attachment: Attachment;
+        /**
+         * Format/content rules for the document
+         */
+        format?: Coding[];
+    }
+    /**
      * Clinical context of document
      */
     interface DocumentReferenceContext extends Element {
+        /**
+         * Context of the document  content
+         */
+        encounter?: Reference;
         /**
          * Main Clinical Acts Documented
          */
@@ -3698,20 +4968,20 @@ declare module fhir {
          */
         practiceSetting?: CodeableConcept;
         /**
-         * Source patient info
+         * Patient demographics from source
          */
         sourcePatientInfo?: Reference;
         /**
-         * Related things
+         * Related identifiers or resources
          */
         related?: DocumentReferenceContextRelated[];
     }
     /**
-     * Related things
+     * Related identifiers or resources
      */
     interface DocumentReferenceContextRelated extends Element {
         /**
-         * Related Identifier
+         * Identifer of related objects or events
          */
         identifier?: Identifier;
         /**
@@ -3736,7 +5006,7 @@ declare module fhir {
          */
         subject?: Reference;
         /**
-         * Kind of document
+         * Kind of document (LOINC if possible)
          */
         type: CodeableConcept;
         /**
@@ -3744,13 +5014,9 @@ declare module fhir {
          */
         class?: CodeableConcept;
         /**
-         * Format/content rules for the document
-         */
-        format?: uri[];
-        /**
          * Who and/or what authored the document
          */
-        author: Reference[];
+        author?: Reference[];
         /**
          * Org which maintains the document
          */
@@ -3764,13 +5030,25 @@ declare module fhir {
          */
         created?: dateTime;
         /**
+         * Contains created's id, extensions, and comments.
+         */
+        _created?: Element;
+        /**
          * When this document reference created
          */
         indexed: instant;
         /**
-         * current | superceded | entered-in-error
+         * Contains indexed's id, extensions, and comments.
+         */
+        _indexed?: Element;
+        /**
+         * current | superseded | entered-in-error
          */
         status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
         /**
          * preliminary | final | appended | amended | entered-in-error
          */
@@ -3784,13 +5062,17 @@ declare module fhir {
          */
         description?: string;
         /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
          * Document security-tags
          */
-        confidentiality?: CodeableConcept[];
+        securityLabel?: CodeableConcept[];
         /**
-         * Where to access the document
+         * Document referenced
          */
-        content: Attachment[];
+        content: DocumentReferenceContent[];
         /**
          * Clinical context of document
          */
@@ -3805,6 +5087,10 @@ declare module fhir {
          */
         status: code;
         /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * More information about the event and its context
          */
         description?: CodeableConcept;
@@ -3812,6 +5098,10 @@ declare module fhir {
          * The date at which the event happened
          */
         dateTime: dateTime;
+        /**
+         * Contains dateTime's id, extensions, and comments.
+         */
+        _dateTime?: Element;
         /**
          * Who recorded or did this
          */
@@ -3832,15 +5122,15 @@ declare module fhir {
         /**
          * Location of requested test (if applicable)
          */
-        bodySiteCodeableConcept?: CodeableConcept;
-        /**
-         * Location of requested test (if applicable)
-         */
-        bodySiteReference?: Reference;
+        bodySite?: CodeableConcept;
         /**
          * proposed | draft | planned | requested | received | accepted | in-progress | review | completed | cancelled | suspended | rejected | failed
          */
         status?: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
         /**
          * Events specific to this item
          */
@@ -3869,7 +5159,7 @@ declare module fhir {
         /**
          * Explanation/Justification for test
          */
-        clinicalNotes?: string;
+        reason?: CodeableConcept[];
         /**
          * Additional clinical information
          */
@@ -3883,9 +5173,17 @@ declare module fhir {
          */
         status?: code;
         /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * routine | urgent | stat | asap
          */
         priority?: code;
+        /**
+         * Contains priority's id, extensions, and comments.
+         */
+        _priority?: Element;
         /**
          * A list of events of interest in the lifecycle
          */
@@ -3894,45 +5192,386 @@ declare module fhir {
          * The items the orderer requested
          */
         item?: DiagnosticOrderItem[];
+        /**
+         * Other notes and comments
+         */
+        note?: Annotation[];
     }
     /**
-     * An oid represented as a URI
+     * A request for a procedure to be performed
      */
-    type oid = string;
+    interface ProcedureRequest extends DomainResource {
+        /**
+         * Identifier
+         */
+        identifier?: Identifier[];
+        /**
+         * Subject
+         */
+        subject: Reference;
+        /**
+         * Procedure Code
+         */
+        code: CodeableConcept;
+        /**
+         * Target body sites
+         */
+        bodySite?: CodeableConcept[];
+        /**
+         * Indication
+         */
+        reasonCodeableConcept?: CodeableConcept;
+        /**
+         * Indication
+         */
+        reasonReference?: Reference;
+        /**
+         * Procedure timing schedule
+         */
+        scheduledDateTime?: dateTime;
+        /**
+         * Contains scheduledDateTime's id, extensions, and comments.
+         */
+        _scheduledDateTime?: Element;
+        /**
+         * Procedure timing schedule
+         */
+        scheduledPeriod?: Period;
+        /**
+         * Procedure timing schedule
+         */
+        scheduledTiming?: Timing;
+        /**
+         * Encounter
+         */
+        encounter?: Reference;
+        /**
+         * Performer
+         */
+        performer?: Reference;
+        /**
+         * proposed | draft | requested | received | accepted | in-progress | completed | suspended | rejected | aborted
+         */
+        status?: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * Notes
+         */
+        notes?: Annotation[];
+        /**
+         * PRN
+         */
+        asNeededBoolean?: boolean;
+        /**
+         * Contains asNeededBoolean's id, extensions, and comments.
+         */
+        _asNeededBoolean?: Element;
+        /**
+         * PRN
+         */
+        asNeededCodeableConcept?: CodeableConcept;
+        /**
+         * When Requested
+         */
+        orderedOn?: dateTime;
+        /**
+         * Contains orderedOn's id, extensions, and comments.
+         */
+        _orderedOn?: Element;
+        /**
+         * Ordering Party
+         */
+        orderer?: Reference;
+        /**
+         * routine | urgent | stat | asap
+         */
+        priority?: code;
+        /**
+         * Contains priority's id, extensions, and comments.
+         */
+        _priority?: Element;
+    }
+    /**
+     * A request for referral or transfer of care
+     */
+    interface ReferralRequest extends DomainResource {
+        /**
+         * draft | requested | active | cancelled | accepted | rejected | completed
+         */
+        status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * Business Identifier
+         */
+        identifier?: Identifier[];
+        /**
+         * Date of creation/activation
+         */
+        date?: dateTime;
+        /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * Referral/Transition of care request type
+         */
+        type?: CodeableConcept;
+        /**
+         * The clinical specialty (discipline) that the referral is requested for
+         */
+        specialty?: CodeableConcept;
+        /**
+         * Urgency of referral / transfer of care request
+         */
+        priority?: CodeableConcept;
+        /**
+         * Patient referred to care or transfer
+         */
+        patient?: Reference;
+        /**
+         * Requester of referral / transfer of care
+         */
+        requester?: Reference;
+        /**
+         * Receiver of referral / transfer of care request
+         */
+        recipient?: Reference[];
+        /**
+         * Originating encounter
+         */
+        encounter?: Reference;
+        /**
+         * Date referral/transfer of care request is sent
+         */
+        dateSent?: dateTime;
+        /**
+         * Contains dateSent's id, extensions, and comments.
+         */
+        _dateSent?: Element;
+        /**
+         * Reason for referral / Transfer of care request
+         */
+        reason?: CodeableConcept;
+        /**
+         * A textual description of the referral
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * What actions are requested as part of referral?
+         */
+        serviceRequested?: CodeableConcept[];
+        /**
+         * Additonal information to support referral or transfer of care request
+         */
+        supportingInformation?: Reference[];
+        /**
+         * Requested service(s) fulfillment time
+         */
+        fulfillmentTime?: Period;
+    }
+    /**
+     * The people who performed the procedure
+     */
+    interface ProcedurePerformer extends Element {
+        /**
+         * The reference to the practitioner
+         */
+        actor?: Reference;
+        /**
+         * The role the actor was in
+         */
+        role?: CodeableConcept;
+    }
+    /**
+     * Device changed in procedure
+     */
+    interface ProcedureFocalDevice extends Element {
+        /**
+         * Kind of change to device
+         */
+        action?: CodeableConcept;
+        /**
+         * Device that was changed
+         */
+        manipulated: Reference;
+    }
+    /**
+     * An action that was or is currently being performed on a patient
+     */
+    interface Procedure extends DomainResource {
+        /**
+         * External Ids for this procedure
+         */
+        identifier?: Identifier[];
+        /**
+         * Who procedure was performed on
+         */
+        subject: Reference;
+        /**
+         * in-progress | aborted | completed | entered-in-error
+         */
+        status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * Classification of the procedure
+         */
+        category?: CodeableConcept;
+        /**
+         * Identification of the procedure
+         */
+        code: CodeableConcept;
+        /**
+         * True if procedure was not performed as scheduled
+         */
+        notPerformed?: boolean;
+        /**
+         * Contains notPerformed's id, extensions, and comments.
+         */
+        _notPerformed?: Element;
+        /**
+         * Reason procedure not performed
+         */
+        reasonNotPerformed?: CodeableConcept[];
+        /**
+         * Target body sites
+         */
+        bodySite?: CodeableConcept[];
+        /**
+         * Reason procedure performed
+         */
+        reasonCodeableConcept?: CodeableConcept;
+        /**
+         * Reason procedure performed
+         */
+        reasonReference?: Reference;
+        /**
+         * The people who performed the procedure
+         */
+        performer?: ProcedurePerformer[];
+        /**
+         * Date/Period the procedure was performed
+         */
+        performedDateTime?: dateTime;
+        /**
+         * Contains performedDateTime's id, extensions, and comments.
+         */
+        _performedDateTime?: Element;
+        /**
+         * Date/Period the procedure was performed
+         */
+        performedPeriod?: Period;
+        /**
+         * The encounter when procedure performed
+         */
+        encounter?: Reference;
+        /**
+         * Where the procedure happened
+         */
+        location?: Reference;
+        /**
+         * What was result of procedure?
+         */
+        outcome?: CodeableConcept;
+        /**
+         * Any report that results from the procedure
+         */
+        report?: Reference[];
+        /**
+         * Complication following the procedure
+         */
+        complication?: CodeableConcept[];
+        /**
+         * Instructions for follow up
+         */
+        followUp?: CodeableConcept[];
+        /**
+         * A request for this procedure
+         */
+        request?: Reference;
+        /**
+         * Additional information about procedure
+         */
+        notes?: Annotation[];
+        /**
+         * Device changed in procedure
+         */
+        focalDevice?: ProcedureFocalDevice[];
+        /**
+         * Items used during procedure
+         */
+        used?: Reference[];
+    }
     /**
      * Each study has one or more series of instances
      */
     interface ImagingStudySeries extends Element {
         /**
-         * Numeric identifier of this series (0020,0011)
+         * Numeric identifier of this series
          */
         number?: unsignedInt;
         /**
-         * The modality of the instances in the series (0008,0060)
+         * Contains number's id, extensions, and comments.
          */
-        modality: code;
+        _number?: Element;
         /**
-         * Formal identifier for this series (0020,000E)
+         * The modality of the instances in the series
+         */
+        modality: Coding;
+        /**
+         * Formal identifier for this series
          */
         uid: oid;
         /**
-         * A description of the series (0008,103E)
+         * Contains uid's id, extensions, and comments.
+         */
+        _uid?: Element;
+        /**
+         * A description of the series
          */
         description?: string;
         /**
-         * Number of Series Related Instances (0020,1209)
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * Number of Series Related Instances
          */
         numberOfInstances: unsignedInt;
         /**
-         * ONLINE | OFFLINE | NEARLINE | UNAVAILABLE (0008,0056)
+         * Contains numberOfInstances's id, extensions, and comments.
+         */
+        _numberOfInstances?: Element;
+        /**
+         * ONLINE | OFFLINE | NEARLINE | UNAVAILABLE
          */
         availability?: code;
         /**
-         * Retrieve URI (0008,1115 > 0008,1190)
+         * Contains availability's id, extensions, and comments.
+         */
+        _availability?: Element;
+        /**
+         * Location of the referenced instance(s)
          */
         url?: uri;
         /**
-         * Body part examined (Map from 0018,0015)
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
+        /**
+         * Body part examined
          */
         bodySite?: Coding;
         /**
@@ -3942,36 +5581,60 @@ declare module fhir {
         /**
          * When the series started
          */
-        dateTime?: dateTime;
+        started?: dateTime;
         /**
-         * A single instance taken from a patient (image or other)
+         * Contains started's id, extensions, and comments.
+         */
+        _started?: Element;
+        /**
+         * A single SOP instance from the series
          */
         instance?: ImagingStudySeriesInstance[];
     }
     /**
-     * A single instance taken from a patient (image or other)
+     * A single SOP instance from the series
      */
     interface ImagingStudySeriesInstance extends Element {
         /**
-         * The number of this instance in the series (0020,0013)
+         * The number of this instance in the series
          */
         number?: unsignedInt;
         /**
-         * Formal identifier for this instance (0008,0018)
+         * Contains number's id, extensions, and comments.
+         */
+        _number?: Element;
+        /**
+         * Formal identifier for this instance
          */
         uid: oid;
         /**
-         * DICOM class type (0008,0016)
+         * Contains uid's id, extensions, and comments.
          */
-        sopclass: oid;
+        _uid?: Element;
         /**
-         * Type of instance (image etc) (0004,1430)
+         * DICOM class type
+         */
+        sopClass: oid;
+        /**
+         * Contains sopClass's id, extensions, and comments.
+         */
+        _sopClass?: Element;
+        /**
+         * Type of instance (image etc)
          */
         type?: string;
         /**
-         * Description (0070,0080 | 0040,A043 > 0008,0104 | 0042,0010 | 0008,0008)
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
+        /**
+         * Description of instance
          */
         title?: string;
+        /**
+         * Contains title's id, extensions, and comments.
+         */
+        _title?: Element;
         /**
          * Content of the instance
          */
@@ -3982,23 +5645,31 @@ declare module fhir {
      */
     interface ImagingStudy extends DomainResource {
         /**
-         * When the study was started (0008,0020)+(0008,0030)
+         * When the study was started
          */
         started?: dateTime;
+        /**
+         * Contains started's id, extensions, and comments.
+         */
+        _started?: Element;
         /**
          * Who the images are of
          */
         patient: Reference;
         /**
-         * Formal identifier for the study (0020,000D)
+         * Formal identifier for the study
          */
         uid: oid;
         /**
-         * Accession Number (0008,0050)
+         * Contains uid's id, extensions, and comments.
+         */
+        _uid?: Element;
+        /**
+         * Related workflow identifier ("Accession Number")
          */
         accession?: Identifier;
         /**
-         * Other identifiers for the study (0020,0010)
+         * Other identifiers for the study
          */
         identifier?: Identifier[];
         /**
@@ -4008,7 +5679,7 @@ declare module fhir {
         /**
          * All series.modality if actual acquisition modalities
          */
-        modalityList?: code[];
+        modalityList?: Coding[];
         /**
          * Referring physician (0008,0090)
          */
@@ -4018,37 +5689,206 @@ declare module fhir {
          */
         availability?: code;
         /**
-         * Retrieve URI (0008,1190)
+         * Contains availability's id, extensions, and comments.
+         */
+        _availability?: Element;
+        /**
+         * Retrieve URI
          */
         url?: uri;
         /**
-         * Number of Study Related Series (0020,1206)
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
+        /**
+         * Number of Study Related Series
          */
         numberOfSeries: unsignedInt;
         /**
-         * Number of Study Related Instances (0020,1208)
+         * Contains numberOfSeries's id, extensions, and comments.
+         */
+        _numberOfSeries?: Element;
+        /**
+         * Number of Study Related Instances
          */
         numberOfInstances: unsignedInt;
         /**
-         * Diagnoses etc with request (0040,1002)
+         * Contains numberOfInstances's id, extensions, and comments.
          */
-        clinicalInformation?: string;
+        _numberOfInstances?: Element;
         /**
-         * Type of procedure performed (0008,1032)
+         * Type of procedure performed
          */
-        procedure?: Coding[];
+        procedure?: Reference[];
         /**
-         * Who interpreted images (0008,1060)
+         * Who interpreted images
          */
         interpreter?: Reference;
         /**
-         * Institution-generated description (0008,1030)
+         * Institution-generated description
          */
         description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
         /**
          * Each study has one or more series of instances
          */
         series?: ImagingStudySeries[];
+    }
+    /**
+     * Study identity of the selected instances
+     */
+    interface ImagingObjectSelectionStudy extends Element {
+        /**
+         * Study instance UID
+         */
+        uid: oid;
+        /**
+         * Contains uid's id, extensions, and comments.
+         */
+        _uid?: Element;
+        /**
+         * Retrieve study URL
+         */
+        url?: uri;
+        /**
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
+        /**
+         * Reference to ImagingStudy
+         */
+        imagingStudy?: Reference;
+        /**
+         * Series identity of the selected instances
+         */
+        series: ImagingObjectSelectionStudySeries[];
+    }
+    /**
+     * Series identity of the selected instances
+     */
+    interface ImagingObjectSelectionStudySeries extends Element {
+        /**
+         * Series instance UID
+         */
+        uid?: oid;
+        /**
+         * Contains uid's id, extensions, and comments.
+         */
+        _uid?: Element;
+        /**
+         * Retrieve series URL
+         */
+        url?: uri;
+        /**
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
+        /**
+         * The selected instance
+         */
+        instance: ImagingObjectSelectionStudySeriesInstance[];
+    }
+    /**
+     * The selected instance
+     */
+    interface ImagingObjectSelectionStudySeriesInstance extends Element {
+        /**
+         * SOP class UID of instance
+         */
+        sopClass: oid;
+        /**
+         * Contains sopClass's id, extensions, and comments.
+         */
+        _sopClass?: Element;
+        /**
+         * Selected instance UID
+         */
+        uid: oid;
+        /**
+         * Contains uid's id, extensions, and comments.
+         */
+        _uid?: Element;
+        /**
+         * Retrieve instance URL
+         */
+        url: uri;
+        /**
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
+        /**
+         * The frame set
+         */
+        frames?: ImagingObjectSelectionStudySeriesInstanceFrames[];
+    }
+    /**
+     * The frame set
+     */
+    interface ImagingObjectSelectionStudySeriesInstanceFrames extends Element {
+        /**
+         * Frame numbers
+         */
+        frameNumbers: unsignedInt[];
+        /**
+         * Contains frameNumbers's id, extensions, and comments.
+         */
+        _frameNumbers?: Element[];
+        /**
+         * Retrieve frame URL
+         */
+        url: uri;
+        /**
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
+    }
+    /**
+     * Key Object Selection
+     */
+    interface ImagingObjectSelection extends DomainResource {
+        /**
+         * Instance UID
+         */
+        uid: oid;
+        /**
+         * Contains uid's id, extensions, and comments.
+         */
+        _uid?: Element;
+        /**
+         * Patient of the selected objects
+         */
+        patient: Reference;
+        /**
+         * Reason for selection
+         */
+        title: CodeableConcept;
+        /**
+         * Description text
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * Author (human or machine)
+         */
+        author?: Reference;
+        /**
+         * Authoring time of the selection
+         */
+        authoringTime?: dateTime;
+        /**
+         * Contains authoringTime's id, extensions, and comments.
+         */
+        _authoringTime?: Element;
+        /**
+         * Study identity of the selected instances
+         */
+        study: ImagingObjectSelectionStudy[];
     }
     /**
      * Key images associated with this report
@@ -4058,6 +5898,10 @@ declare module fhir {
          * Comment about the image (e.g. explanation)
          */
         comment?: string;
+        /**
+         * Contains comment's id, extensions, and comments.
+         */
+        _comment?: Element;
         /**
          * Reference to the image source
          */
@@ -4071,6 +5915,10 @@ declare module fhir {
          * photo | video | audio
          */
         type: code;
+        /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
         /**
          * The type of acquisition equipment/process
          */
@@ -4096,21 +5944,41 @@ declare module fhir {
          */
         deviceName?: string;
         /**
+         * Contains deviceName's id, extensions, and comments.
+         */
+        _deviceName?: Element;
+        /**
          * Height of the image in pixels(photo/video)
          */
         height?: positiveInt;
+        /**
+         * Contains height's id, extensions, and comments.
+         */
+        _height?: Element;
         /**
          * Width of the image in pixels (photo/video)
          */
         width?: positiveInt;
         /**
+         * Contains width's id, extensions, and comments.
+         */
+        _width?: Element;
+        /**
          * Number of frames if > 1 (photo)
          */
         frames?: positiveInt;
         /**
+         * Contains frames's id, extensions, and comments.
+         */
+        _frames?: Element;
+        /**
          * Length in seconds (audio / video)
          */
         duration?: unsignedInt;
+        /**
+         * Contains duration's id, extensions, and comments.
+         */
+        _duration?: Element;
         /**
          * Actual Media - reference or data
          */
@@ -4121,49 +5989,61 @@ declare module fhir {
      */
     interface DiagnosticReport extends DomainResource {
         /**
-         * Name/Code for this diagnostic report
+         * Id for external references to this report
          */
-        name: CodeableConcept;
+        identifier?: Identifier[];
         /**
          * registered | partial | final | corrected | appended | cancelled | entered-in-error
          */
         status: code;
         /**
-         * Date this version was released
+         * Contains status's id, extensions, and comments.
          */
-        issued: dateTime;
+        _status?: Element;
+        /**
+         * Service category
+         */
+        category?: CodeableConcept;
+        /**
+         * Name/Code for this diagnostic report
+         */
+        code: CodeableConcept;
         /**
          * The subject of the report, usually, but not always, the patient
          */
         subject: Reference;
         /**
-         * Responsible Diagnostic Service
-         */
-        performer: Reference;
-        /**
          * Health care event when test ordered
          */
         encounter?: Reference;
         /**
-         * Id for external references to this report
+         * Clinically Relevant time/time-period for report
          */
-        identifier?: Identifier[];
+        effectiveDateTime?: dateTime;
+        /**
+         * Contains effectiveDateTime's id, extensions, and comments.
+         */
+        _effectiveDateTime?: Element;
+        /**
+         * Clinically Relevant time/time-period for report
+         */
+        effectivePeriod?: Period;
+        /**
+         * DateTime this version was released
+         */
+        issued: instant;
+        /**
+         * Contains issued's id, extensions, and comments.
+         */
+        _issued?: Element;
+        /**
+         * Responsible Diagnostic Service
+         */
+        performer: Reference;
         /**
          * What was requested
          */
-        requestDetail?: Reference[];
-        /**
-         * Biochemistry, Hematology etc.
-         */
-        serviceCategory?: CodeableConcept;
-        /**
-         * Physiologically Relevant time/time-period for report
-         */
-        diagnosticDateTime?: dateTime;
-        /**
-         * Physiologically Relevant time/time-period for report
-         */
-        diagnosticPeriod?: Period;
+        request?: Reference[];
         /**
          * Specimens this report is based on
          */
@@ -4185,6 +6065,10 @@ declare module fhir {
          */
         conclusion?: string;
         /**
+         * Contains conclusion's id, extensions, and comments.
+         */
+        _conclusion?: Element;
+        /**
          * Codes for the conclusion
          */
         codedDiagnosis?: CodeableConcept[];
@@ -4205,6 +6089,10 @@ declare module fhir {
          * Which investigations support finding
          */
         cause?: string;
+        /**
+         * Contains cause's id, extensions, and comments.
+         */
+        _cause?: Element;
     }
     /**
      * Diagnosis considered not possible
@@ -4218,6 +6106,10 @@ declare module fhir {
          * Grounds for elimination
          */
         reason?: string;
+        /**
+         * Contains reason's id, extensions, and comments.
+         */
+        _reason?: Element;
     }
     /**
      * Message payload
@@ -4227,6 +6119,10 @@ declare module fhir {
          * Message part content
          */
         contentString?: string;
+        /**
+         * Contains contentString's id, extensions, and comments.
+         */
+        _contentString?: Element;
         /**
          * Message part content
          */
@@ -4261,11 +6157,11 @@ declare module fhir {
          */
         payload?: CommunicationRequestPayload[];
         /**
-         * Communication medium
+         * A channel of communication
          */
         medium?: CodeableConcept[];
         /**
-         * Requester of communication
+         * An individual who requested a communication
          */
         requester?: Reference;
         /**
@@ -4273,13 +6169,25 @@ declare module fhir {
          */
         status?: code;
         /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * Encounter leading to message
          */
         encounter?: Reference;
         /**
          * When scheduled
          */
-        scheduledTime?: dateTime;
+        scheduledDateTime?: dateTime;
+        /**
+         * Contains scheduledDateTime's id, extensions, and comments.
+         */
+        _scheduledDateTime?: Element;
+        /**
+         * When scheduled
+         */
+        scheduledPeriod?: Period;
         /**
          * Indication for message
          */
@@ -4287,7 +6195,11 @@ declare module fhir {
         /**
          * When ordered or proposed
          */
-        orderedOn?: dateTime;
+        requestedOn?: dateTime;
+        /**
+         * Contains requestedOn's id, extensions, and comments.
+         */
+        _requestedOn?: Element;
         /**
          * Focus of message
          */
@@ -4314,6 +6226,10 @@ declare module fhir {
          */
         status?: code;
         /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * Device requested
          */
         device: Reference;
@@ -4334,6 +6250,10 @@ declare module fhir {
          */
         notes?: string[];
         /**
+         * Contains notes's id, extensions, and comments.
+         */
+        _notes?: Element[];
+        /**
          * PRN
          */
         prnReason?: CodeableConcept[];
@@ -4342,9 +6262,17 @@ declare module fhir {
          */
         orderedOn?: dateTime;
         /**
+         * Contains orderedOn's id, extensions, and comments.
+         */
+        _orderedOn?: Element;
+        /**
          * When recorded
          */
         recordedOn?: dateTime;
+        /**
+         * Contains recordedOn's id, extensions, and comments.
+         */
+        _recordedOn?: Element;
         /**
          * Focus of request
          */
@@ -4362,18 +6290,30 @@ declare module fhir {
          */
         timingDateTime?: dateTime;
         /**
+         * Contains timingDateTime's id, extensions, and comments.
+         */
+        _timingDateTime?: Element;
+        /**
          * routine | urgent | stat | asap
          */
         priority?: code;
+        /**
+         * Contains priority's id, extensions, and comments.
+         */
+        _priority?: Element;
     }
     /**
      * How medication should be taken
      */
-    interface MedicationPrescriptionDosageInstruction extends Element {
+    interface MedicationOrderDosageInstruction extends Element {
         /**
          * Dosage instructions expressed as text
          */
         text?: string;
+        /**
+         * Contains text's id, extensions, and comments.
+         */
+        _text?: Element;
         /**
          * Supplemental instructions - e.g. "with meals"
          */
@@ -4381,27 +6321,27 @@ declare module fhir {
         /**
          * When medication should be administered
          */
-        scheduledDateTime?: dateTime;
+        timing?: Timing;
         /**
-         * When medication should be administered
-         */
-        scheduledPeriod?: Period;
-        /**
-         * When medication should be administered
-         */
-        scheduledTiming?: Timing;
-        /**
-         * Take "as needed" f(or x)
+         * Take "as needed" (for x)
          */
         asNeededBoolean?: boolean;
         /**
-         * Take "as needed" f(or x)
+         * Contains asNeededBoolean's id, extensions, and comments.
+         */
+        _asNeededBoolean?: Element;
+        /**
+         * Take "as needed" (for x)
          */
         asNeededCodeableConcept?: CodeableConcept;
         /**
          * Body site to administer to
          */
-        site?: CodeableConcept;
+        siteCodeableConcept?: CodeableConcept;
+        /**
+         * Body site to administer to
+         */
+        siteReference?: Reference;
         /**
          * How drug should enter body
          */
@@ -4421,7 +6361,11 @@ declare module fhir {
         /**
          * Amount of medication per unit of time
          */
-        rate?: Ratio;
+        rateRatio?: Ratio;
+        /**
+         * Amount of medication per unit of time
+         */
+        rateRange?: Range;
         /**
          * Upper limit on medication per unit of time
          */
@@ -4430,11 +6374,15 @@ declare module fhir {
     /**
      * Medication supply authorization
      */
-    interface MedicationPrescriptionDispense extends Element {
+    interface MedicationOrderDispenseRequest extends Element {
         /**
          * Product to be supplied
          */
-        medication?: Reference;
+        medicationCodeableConcept?: CodeableConcept;
+        /**
+         * Product to be supplied
+         */
+        medicationReference?: Reference;
         /**
          * Time period supply is authorized for
          */
@@ -4444,18 +6392,22 @@ declare module fhir {
          */
         numberOfRepeatsAllowed?: positiveInt;
         /**
+         * Contains numberOfRepeatsAllowed's id, extensions, and comments.
+         */
+        _numberOfRepeatsAllowed?: Element;
+        /**
          * Amount of medication to supply per dispense
          */
         quantity?: Quantity;
         /**
          * Days supply per dispense
          */
-        expectedSupplyDuration?: Duration;
+        expectedSupplyDuration?: Quantity;
     }
     /**
      * Any restrictions on medication substitution?
      */
-    interface MedicationPrescriptionSubstitution extends Element {
+    interface MedicationOrderSubstitution extends Element {
         /**
          * generic | formulary +
          */
@@ -4468,7 +6420,7 @@ declare module fhir {
     /**
      * Prescription of medication to for patient
      */
-    interface MedicationPrescription extends DomainResource {
+    interface MedicationOrder extends DomainResource {
         /**
          * External identifier
          */
@@ -4478,9 +6430,29 @@ declare module fhir {
          */
         dateWritten?: dateTime;
         /**
-         * active | on-hold | completed | entered-in-error | stopped | superceded | draft
+         * Contains dateWritten's id, extensions, and comments.
+         */
+        _dateWritten?: Element;
+        /**
+         * active | on-hold | completed | entered-in-error | stopped | draft
          */
         status?: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * When prescription was stopped
+         */
+        dateEnded?: dateTime;
+        /**
+         * Contains dateEnded's id, extensions, and comments.
+         */
+        _dateEnded?: Element;
+        /**
+         * Why prescription was stopped
+         */
+        reasonEnded?: CodeableConcept;
         /**
          * Who prescription is for
          */
@@ -4506,21 +6478,33 @@ declare module fhir {
          */
         note?: string;
         /**
+         * Contains note's id, extensions, and comments.
+         */
+        _note?: Element;
+        /**
          * Medication to be taken
          */
-        medication?: Reference;
+        medicationCodeableConcept?: CodeableConcept;
+        /**
+         * Medication to be taken
+         */
+        medicationReference?: Reference;
         /**
          * How medication should be taken
          */
-        dosageInstruction?: MedicationPrescriptionDosageInstruction[];
+        dosageInstruction?: MedicationOrderDosageInstruction[];
         /**
          * Medication supply authorization
          */
-        dispense?: MedicationPrescriptionDispense;
+        dispenseRequest?: MedicationOrderDispenseRequest;
         /**
          * Any restrictions on medication substitution?
          */
-        substitution?: MedicationPrescriptionSubstitution;
+        substitution?: MedicationOrderSubstitution;
+        /**
+         * An order/prescription that this supersedes
+         */
+        priorPrescription?: Reference;
     }
     /**
      * Oral diet components
@@ -4533,7 +6517,7 @@ declare module fhir {
         /**
          * Scheduled frequency of diet
          */
-        scheduled?: Timing;
+        schedule?: Timing[];
         /**
          * Required  nutrient modifications
          */
@@ -4550,6 +6534,10 @@ declare module fhir {
          * Instructions or additional information about the oral diet
          */
         instruction?: string;
+        /**
+         * Contains instruction's id, extensions, and comments.
+         */
+        _instruction?: Element;
     }
     /**
      * Required  nutrient modifications
@@ -4590,9 +6578,13 @@ declare module fhir {
          */
         productName?: string;
         /**
+         * Contains productName's id, extensions, and comments.
+         */
+        _productName?: Element;
+        /**
          * Scheduled frequency of supplement
          */
-        scheduled?: Timing;
+        schedule?: Timing[];
         /**
          * Amount of the nutritional supplement
          */
@@ -4601,15 +6593,15 @@ declare module fhir {
          * Instructions or additional information about the oral supplement
          */
         instruction?: string;
+        /**
+         * Contains instruction's id, extensions, and comments.
+         */
+        _instruction?: Element;
     }
     /**
      * Enteral formula components
      */
     interface NutritionOrderEnteralFormula extends Element {
-        /**
-         * Formula feeding instructions expressed as text
-         */
-        administrationInstructions?: string;
         /**
          * Type of enteral or infant formula
          */
@@ -4619,9 +6611,9 @@ declare module fhir {
          */
         baseFormulaProductName?: string;
         /**
-         * Scheduled frequency of enteral feeding
+         * Contains baseFormulaProductName's id, extensions, and comments.
          */
-        scheduled?: Timing;
+        _baseFormulaProductName?: Element;
         /**
          * Type of modular component to add to the feeding
          */
@@ -4631,6 +6623,10 @@ declare module fhir {
          */
         additiveProductName?: string;
         /**
+         * Contains additiveProductName's id, extensions, and comments.
+         */
+        _additiveProductName?: Element;
+        /**
          * Amount of energy per specified volume that is required
          */
         caloricDensity?: Quantity;
@@ -4639,21 +6635,42 @@ declare module fhir {
          */
         routeofAdministration?: CodeableConcept;
         /**
+         * Formula feeding instruction as structured data
+         */
+        administration?: NutritionOrderEnteralFormulaAdministration[];
+        /**
+         * Upper limit on formula volume per unit of time
+         */
+        maxVolumeToDeliver?: Quantity;
+        /**
+         * Formula feeding instructions expressed as text
+         */
+        administrationInstruction?: string;
+        /**
+         * Contains administrationInstruction's id, extensions, and comments.
+         */
+        _administrationInstruction?: Element;
+    }
+    /**
+     * Formula feeding instruction as structured data
+     */
+    interface NutritionOrderEnteralFormulaAdministration extends Element {
+        /**
+         * Scheduled frequency of enteral feeding
+         */
+        schedule?: Timing;
+        /**
          * The volume of formula to provide
          */
         quantity?: Quantity;
         /**
          * Speed with which the formula is provided per period of time
          */
-        rate?: Ratio;
+        rateQuantity?: Quantity;
         /**
-         * Change in the rate of administration over a given time
+         * Speed with which the formula is provided per period of time
          */
-        rateAdjustment?: Quantity;
-        /**
-         * Upper limit on formula volume per unit of time
-         */
-        maxVolumeToDeliver?: Quantity;
+        rateRatio?: Ratio;
     }
     /**
      * A request for a diet, formula or nutritional supplement
@@ -4680,9 +6697,17 @@ declare module fhir {
          */
         dateTime: dateTime;
         /**
+         * Contains dateTime's id, extensions, and comments.
+         */
+        _dateTime?: Element;
+        /**
          * proposed | draft | planned | requested | active | on-hold | completed | cancelled
          */
         status?: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
         /**
          * List of the patient's food and nutrition-related allergies and intolerances
          */
@@ -4709,90 +6734,62 @@ declare module fhir {
         enteralFormula?: NutritionOrderEnteralFormula;
     }
     /**
-     * Target body sites
+     * When order should be fulfilled
      */
-    interface ProcedureRequestBodySite extends Element {
+    interface OrderWhen extends Element {
         /**
-         * Target body site
+         * Code specifies when request should be done. The code may simply be a priority code
          */
-        siteCodeableConcept?: CodeableConcept;
+        code?: CodeableConcept;
         /**
-         * Target body site
+         * A formal schedule
          */
-        siteReference?: Reference;
+        schedule?: Timing;
     }
     /**
-     * A request for a procedure to be performed
+     * A request to perform an action
      */
-    interface ProcedureRequest extends DomainResource {
+    interface Order extends DomainResource {
         /**
-         * Identifier
+         * Identifiers assigned to this order by the orderer or by the receiver
          */
         identifier?: Identifier[];
         /**
-         * Subject
+         * When the order was made
          */
-        subject: Reference;
+        date?: dateTime;
         /**
-         * Procedure Type
+         * Contains date's id, extensions, and comments.
          */
-        type: CodeableConcept;
+        _date?: Element;
         /**
-         * Target body sites
+         * Patient this order is about
          */
-        bodySite?: ProcedureRequestBodySite[];
+        subject?: Reference;
         /**
-         * Indication
+         * Who initiated the order
          */
-        indication?: CodeableConcept[];
+        source?: Reference;
         /**
-         * Procedure timing schedule
+         * Who is intended to fulfill the order
          */
-        timingDateTime?: dateTime;
+        target?: Reference;
         /**
-         * Procedure timing schedule
+         * Text - why the order was made
          */
-        timingPeriod?: Period;
+        reasonCodeableConcept?: CodeableConcept;
         /**
-         * Procedure timing schedule
+         * Text - why the order was made
          */
-        timingTiming?: Timing;
+        reasonReference?: Reference;
         /**
-         * Encounter
+         * When order should be fulfilled
          */
-        encounter?: Reference;
+        when?: OrderWhen;
         /**
-         * Performer
+         * What action is being ordered
          */
-        performer?: Reference;
-        /**
-         * proposed | draft | requested | received | accepted | in-progress | completed | suspended | rejected | aborted
-         */
-        status?: code;
-        /**
-         * Notes
-         */
-        notes?: string[];
-        /**
-         * PRN
-         */
-        asNeededBoolean?: boolean;
-        /**
-         * PRN
-         */
-        asNeededCodeableConcept?: CodeableConcept;
-        /**
-         * When Requested
-         */
-        orderedOn?: dateTime;
-        /**
-         * Ordering Party
-         */
-        orderer?: Reference;
-        /**
-         * routine | urgent | stat | asap
-         */
-        priority?: code;
+        detail: Reference[];
     }
     /**
      * Items to re-adjudicate
@@ -4802,6 +6799,10 @@ declare module fhir {
          * Service instance
          */
         sequenceLinkId: integer;
+        /**
+         * Contains sequenceLinkId's id, extensions, and comments.
+         */
+        _sequenceLinkId?: Element;
     }
     /**
      * Process request
@@ -4811,6 +6812,10 @@ declare module fhir {
          * cancel | poll | reprocess | status
          */
         action: code;
+        /**
+         * Contains action's id, extensions, and comments.
+         */
+        _action?: Element;
         /**
          * Business Identifier
          */
@@ -4827,6 +6832,10 @@ declare module fhir {
          * Creation date
          */
         created?: dateTime;
+        /**
+         * Contains created's id, extensions, and comments.
+         */
+        _created?: Element;
         /**
          * Target of the request
          */
@@ -4852,9 +6861,17 @@ declare module fhir {
          */
         nullify?: boolean;
         /**
+         * Contains nullify's id, extensions, and comments.
+         */
+        _nullify?: Element;
+        /**
          * Reference number/string
          */
         reference?: string;
+        /**
+         * Contains reference's id, extensions, and comments.
+         */
+        _reference?: Element;
         /**
          * Items to re-adjudicate
          */
@@ -4864,87 +6881,91 @@ declare module fhir {
          */
         include?: string[];
         /**
+         * Contains include's id, extensions, and comments.
+         */
+        _include?: Element[];
+        /**
          * Resource type(s) to exclude
          */
         exclude?: string[];
+        /**
+         * Contains exclude's id, extensions, and comments.
+         */
+        _exclude?: Element[];
         /**
          * Period
          */
         period?: Period;
     }
     /**
-     * Supply details
+     * When the request should be fulfilled
      */
-    interface SupplyDispense extends Element {
+    interface SupplyRequestWhen extends Element {
         /**
-         * External identifier
+         * Fulfilment code
          */
-        identifier?: Identifier;
+        code?: CodeableConcept;
         /**
-         * in-progress | dispensed | abandoned
+         * Formal fulfillment schedule
          */
-        status?: code;
-        /**
-         * Category of dispense event
-         */
-        type?: CodeableConcept;
-        /**
-         * Amount dispensed
-         */
-        quantity?: Quantity;
-        /**
-         * Medication, Substance, or Device supplied
-         */
-        suppliedItem?: Reference;
-        /**
-         * Dispenser
-         */
-        supplier?: Reference;
-        /**
-         * Dispensing time
-         */
-        whenPrepared?: Period;
-        /**
-         * Handover time
-         */
-        whenHandedOver?: dateTime;
-        /**
-         * Where the Supply was sent
-         */
-        destination?: Reference;
-        /**
-         * Who collected the Supply
-         */
-        receiver?: Reference[];
+        schedule?: Timing;
     }
     /**
-     * A supply -  request and provision
+     * Request for a medication, substance or device
      */
-    interface Supply extends DomainResource {
-        /**
-         * The kind of supply (central, non-stock, etc)
-         */
-        kind?: CodeableConcept;
-        /**
-         * Unique identifier
-         */
-        identifier?: Identifier;
-        /**
-         * requested | dispensed | received | failed | cancelled
-         */
-        status?: code;
-        /**
-         * Medication, Substance, or Device requested to be supplied
-         */
-        orderedItem?: Reference;
+    interface SupplyRequest extends DomainResource {
         /**
          * Patient for whom the item is supplied
          */
         patient?: Reference;
         /**
-         * Supply details
+         * Who initiated this order
          */
-        dispense?: SupplyDispense[];
+        source?: Reference;
+        /**
+         * When the request was made
+         */
+        date?: dateTime;
+        /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * Unique identifier
+         */
+        identifier?: Identifier;
+        /**
+         * requested | completed | failed | cancelled
+         */
+        status?: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * The kind of supply (central, non-stock, etc)
+         */
+        kind?: CodeableConcept;
+        /**
+         * Medication, Substance, or Device requested to be supplied
+         */
+        orderedItem?: Reference;
+        /**
+         * Who is intended to fulfill the request
+         */
+        supplier?: Reference[];
+        /**
+         * Why the supply item was requested
+         */
+        reasonCodeableConcept?: CodeableConcept;
+        /**
+         * Why the supply item was requested
+         */
+        reasonReference?: Reference;
+        /**
+         * When the request should be fulfilled
+         */
+        when?: SupplyRequestWhen;
     }
     /**
      * Vision supply authorization
@@ -4959,41 +6980,81 @@ declare module fhir {
          */
         eye?: code;
         /**
+         * Contains eye's id, extensions, and comments.
+         */
+        _eye?: Element;
+        /**
          * Lens sphere
          */
         sphere?: decimal;
+        /**
+         * Contains sphere's id, extensions, and comments.
+         */
+        _sphere?: Element;
         /**
          * Lens cylinder
          */
         cylinder?: decimal;
         /**
+         * Contains cylinder's id, extensions, and comments.
+         */
+        _cylinder?: Element;
+        /**
          * Lens axis
          */
         axis?: integer;
+        /**
+         * Contains axis's id, extensions, and comments.
+         */
+        _axis?: Element;
         /**
          * Lens prism
          */
         prism?: decimal;
         /**
+         * Contains prism's id, extensions, and comments.
+         */
+        _prism?: Element;
+        /**
          * up | down | in | out
          */
         base?: code;
+        /**
+         * Contains base's id, extensions, and comments.
+         */
+        _base?: Element;
         /**
          * Lens add
          */
         add?: decimal;
         /**
+         * Contains add's id, extensions, and comments.
+         */
+        _add?: Element;
+        /**
          * Contact Lens power
          */
         power?: decimal;
+        /**
+         * Contains power's id, extensions, and comments.
+         */
+        _power?: Element;
         /**
          * Contact lens back curvature
          */
         backCurve?: decimal;
         /**
+         * Contains backCurve's id, extensions, and comments.
+         */
+        _backCurve?: Element;
+        /**
          * Contact Lens diameter
          */
         diameter?: decimal;
+        /**
+         * Contains diameter's id, extensions, and comments.
+         */
+        _diameter?: Element;
         /**
          * Lens wear duration
          */
@@ -5003,13 +7064,25 @@ declare module fhir {
          */
         color?: string;
         /**
+         * Contains color's id, extensions, and comments.
+         */
+        _color?: Element;
+        /**
          * Lens add
          */
         brand?: string;
         /**
+         * Contains brand's id, extensions, and comments.
+         */
+        _brand?: Element;
+        /**
          * Notes for coatings
          */
         notes?: string;
+        /**
+         * Contains notes's id, extensions, and comments.
+         */
+        _notes?: Element;
     }
     /**
      * Prescription for Vision correction products for a patient
@@ -5023,6 +7096,10 @@ declare module fhir {
          * When prescription was authorized
          */
         dateWritten?: dateTime;
+        /**
+         * Contains dateWritten's id, extensions, and comments.
+         */
+        _dateWritten?: Element;
         /**
          * Who prescription is for
          */
@@ -5049,727 +7126,11 @@ declare module fhir {
         dispense?: VisionPrescriptionDispense[];
     }
     /**
-     * Precise location details
-     */
-    interface ProcedureBodySite extends Element {
-        /**
-         * Precise location details
-         */
-        siteCodeableConcept?: CodeableConcept;
-        /**
-         * Precise location details
-         */
-        siteReference?: Reference;
-    }
-    /**
-     * The people who performed the procedure
-     */
-    interface ProcedurePerformer extends Element {
-        /**
-         * The reference to the practitioner
-         */
-        person?: Reference;
-        /**
-         * The role the person was in
-         */
-        role?: CodeableConcept;
-    }
-    /**
-     * A procedure that is related to this one
-     */
-    interface ProcedureRelatedItem extends Element {
-        /**
-         * caused-by | because-of
-         */
-        type?: code;
-        /**
-         * The related item - e.g. a procedure
-         */
-        target?: Reference;
-    }
-    /**
-     * Administration / non-administration reasons
-     */
-    interface ImmunizationExplanation extends Element {
-        /**
-         * Why immunization occurred
-         */
-        reason?: CodeableConcept[];
-        /**
-         * Why immunization did not occur
-         */
-        reasonNotGiven?: CodeableConcept[];
-    }
-    /**
-     * Details of a reaction that follows immunization
-     */
-    interface ImmunizationReaction extends Element {
-        /**
-         * When did reaction start?
-         */
-        date?: dateTime;
-        /**
-         * Additional information on reaction
-         */
-        detail?: Reference;
-        /**
-         * Was reaction self-reported?
-         */
-        reported?: boolean;
-    }
-    /**
-     * What protocol was followed
-     */
-    interface ImmunizationVaccinationProtocol extends Element {
-        /**
-         * What dose number within series?
-         */
-        doseSequence: positiveInt;
-        /**
-         * Details of vaccine protocol
-         */
-        description?: string;
-        /**
-         * Who is responsible for protocol
-         */
-        authority?: Reference;
-        /**
-         * Name of vaccine series
-         */
-        series?: string;
-        /**
-         * Recommended number of doses for immunity
-         */
-        seriesDoses?: positiveInt;
-        /**
-         * Disease immunized against
-         */
-        doseTarget: CodeableConcept;
-        /**
-         * Does dose count towards immunity?
-         */
-        doseStatus: CodeableConcept;
-        /**
-         * Why does does count/not count?
-         */
-        doseStatusReason?: CodeableConcept;
-    }
-    /**
-     * Immunization event information
-     */
-    interface Immunization extends DomainResource {
-        /**
-         * Business identifier
-         */
-        identifier?: Identifier[];
-        /**
-         * Vaccination administration date
-         */
-        date: dateTime;
-        /**
-         * Vaccine product administered
-         */
-        vaccineType: CodeableConcept;
-        /**
-         * Who was immunized?
-         */
-        patient: Reference;
-        /**
-         * Was immunization given?
-         */
-        wasNotGiven: boolean;
-        /**
-         * Is this a self-reported record?
-         */
-        reported: boolean;
-        /**
-         * Who administered vaccine?
-         */
-        performer?: Reference;
-        /**
-         * Who ordered vaccination?
-         */
-        requester?: Reference;
-        /**
-         * Encounter administered as part of
-         */
-        encounter?: Reference;
-        /**
-         * Vaccine manufacturer
-         */
-        manufacturer?: Reference;
-        /**
-         * Where did vaccination occur?
-         */
-        location?: Reference;
-        /**
-         * Vaccine lot number
-         */
-        lotNumber?: string;
-        /**
-         * Vaccine expiration date
-         */
-        expirationDate?: date;
-        /**
-         * Body site vaccine  was administered
-         */
-        site?: CodeableConcept;
-        /**
-         * How vaccine entered body
-         */
-        route?: CodeableConcept;
-        /**
-         * Amount of vaccine administered
-         */
-        doseQuantity?: Quantity;
-        /**
-         * Administration / non-administration reasons
-         */
-        explanation?: ImmunizationExplanation;
-        /**
-         * Details of a reaction that follows immunization
-         */
-        reaction?: ImmunizationReaction[];
-        /**
-         * What protocol was followed
-         */
-        vaccinationProtocol?: ImmunizationVaccinationProtocol[];
-    }
-    /**
-     * Vaccine administration recommendations
-     */
-    interface ImmunizationRecommendationRecommendation extends Element {
-        /**
-         * Date recommendation created
-         */
-        date: dateTime;
-        /**
-         * Vaccine recommendation applies to
-         */
-        vaccineType: CodeableConcept;
-        /**
-         * Recommended dose number
-         */
-        doseNumber?: positiveInt;
-        /**
-         * Vaccine administration status
-         */
-        forecastStatus: CodeableConcept;
-        /**
-         * Dates governing proposed immunization
-         */
-        dateCriterion?: ImmunizationRecommendationRecommendationDateCriterion[];
-        /**
-         * Protocol used by recommendation
-         */
-        protocol?: ImmunizationRecommendationRecommendationProtocol;
-        /**
-         * Past immunizations supporting recommendation
-         */
-        supportingImmunization?: Reference[];
-        /**
-         * Patient observations supporting recommendation
-         */
-        supportingPatientInformation?: Reference[];
-    }
-    /**
-     * Dates governing proposed immunization
-     */
-    interface ImmunizationRecommendationRecommendationDateCriterion extends Element {
-        /**
-         * Type of date
-         */
-        code: CodeableConcept;
-        /**
-         * Recommended date
-         */
-        value: dateTime;
-    }
-    /**
-     * Protocol used by recommendation
-     */
-    interface ImmunizationRecommendationRecommendationProtocol extends Element {
-        /**
-         * Number of dose within sequence
-         */
-        doseSequence?: integer;
-        /**
-         * Protocol details
-         */
-        description?: string;
-        /**
-         * Who is responsible for protocol
-         */
-        authority?: Reference;
-        /**
-         * Name of vaccination series
-         */
-        series?: string;
-    }
-    /**
-     * Guidance or advice relating to an immunization
-     */
-    interface ImmunizationRecommendation extends DomainResource {
-        /**
-         * Business identifier
-         */
-        identifier?: Identifier[];
-        /**
-         * Who this profile is for
-         */
-        patient: Reference;
-        /**
-         * Vaccine administration recommendations
-         */
-        recommendation: ImmunizationRecommendationRecommendation[];
-    }
-    /**
-     * Details of how medication was taken
-     */
-    interface MedicationAdministrationDosage extends Element {
-        /**
-         * Dosage Instructions
-         */
-        text?: string;
-        /**
-         * Body site administered to
-         */
-        site?: CodeableConcept;
-        /**
-         * Path of substance into body
-         */
-        route?: CodeableConcept;
-        /**
-         * How drug was administered
-         */
-        method?: CodeableConcept;
-        /**
-         * Amount administered in one dose
-         */
-        quantity?: Quantity;
-        /**
-         * Dose quantity per unit of time
-         */
-        rate?: Ratio;
-    }
-    /**
-     * Administration of medication to a patient
-     */
-    interface MedicationAdministration extends DomainResource {
-        /**
-         * External identifier
-         */
-        identifier?: Identifier[];
-        /**
-         * in-progress | on-hold | completed | entered-in-error | stopped
-         */
-        status: code;
-        /**
-         * Who received medication?
-         */
-        patient: Reference;
-        /**
-         * Who administered substance?
-         */
-        practitioner?: Reference;
-        /**
-         * Encounter administered as part of
-         */
-        encounter?: Reference;
-        /**
-         * Order administration performed against
-         */
-        prescription?: Reference;
-        /**
-         * True if medication not administered
-         */
-        wasNotGiven?: boolean;
-        /**
-         * Reason administration not performed
-         */
-        reasonNotGiven?: CodeableConcept[];
-        /**
-         * Reason administration performed
-         */
-        reasonGiven?: CodeableConcept[];
-        /**
-         * Start and end time of administration
-         */
-        effectiveTimeDateTime?: dateTime;
-        /**
-         * Start and end time of administration
-         */
-        effectiveTimePeriod?: Period;
-        /**
-         * What was administered?
-         */
-        medication?: Reference;
-        /**
-         * Device used to administer
-         */
-        device?: Reference[];
-        /**
-         * Information about the administration
-         */
-        note?: string;
-        /**
-         * Details of how medication was taken
-         */
-        dosage?: MedicationAdministrationDosage;
-    }
-    /**
-     * Medicine administration instructions to the patient/carer
-     */
-    interface MedicationDispenseDosageInstruction extends Element {
-        /**
-         * E.g. "Take with food"
-         */
-        additionalInstructions?: CodeableConcept;
-        /**
-         * When medication should be administered
-         */
-        scheduleDateTime?: dateTime;
-        /**
-         * When medication should be administered
-         */
-        schedulePeriod?: Period;
-        /**
-         * When medication should be administered
-         */
-        scheduleTiming?: Timing;
-        /**
-         * Take "as needed" f(or x)
-         */
-        asNeededBoolean?: boolean;
-        /**
-         * Take "as needed" f(or x)
-         */
-        asNeededCodeableConcept?: CodeableConcept;
-        /**
-         * Body site to administer to
-         */
-        site?: CodeableConcept;
-        /**
-         * How drug should enter body
-         */
-        route?: CodeableConcept;
-        /**
-         * Technique for administering medication
-         */
-        method?: CodeableConcept;
-        /**
-         * Amount of medication per dose
-         */
-        doseRange?: Range;
-        /**
-         * Amount of medication per dose
-         */
-        doseQuantity?: Quantity;
-        /**
-         * Amount of medication per unit of time
-         */
-        rate?: Ratio;
-        /**
-         * Upper limit on medication per unit of time
-         */
-        maxDosePerPeriod?: Ratio;
-    }
-    /**
-     * Deals with substitution of one medicine for another
-     */
-    interface MedicationDispenseSubstitution extends Element {
-        /**
-         * Type of substitiution
-         */
-        type: CodeableConcept;
-        /**
-         * Why was substitution made
-         */
-        reason?: CodeableConcept[];
-        /**
-         * Who is responsible for the substitution
-         */
-        responsibleParty?: Reference[];
-    }
-    /**
-     * Dispensing a medication to a named patient
-     */
-    interface MedicationDispense extends DomainResource {
-        /**
-         * External identifier
-         */
-        identifier?: Identifier;
-        /**
-         * in-progress | on-hold | completed | entered-in-error | stopped
-         */
-        status?: code;
-        /**
-         * Who the dispense is for
-         */
-        patient?: Reference;
-        /**
-         * Practitioner responsible for dispensing medication
-         */
-        dispenser?: Reference;
-        /**
-         * Medication order that authorizes the dispense
-         */
-        authorizingPrescription?: Reference[];
-        /**
-         * Trial fill, partial fill, emergency fill, etc.
-         */
-        type?: CodeableConcept;
-        /**
-         * Amount dispensed
-         */
-        quantity?: Quantity;
-        /**
-         * Days Supply
-         */
-        daysSupply?: Quantity;
-        /**
-         * What medication was supplied
-         */
-        medication?: Reference;
-        /**
-         * Dispense processing time
-         */
-        whenPrepared?: dateTime;
-        /**
-         * Handover time
-         */
-        whenHandedOver?: dateTime;
-        /**
-         * Where the medication was sent
-         */
-        destination?: Reference;
-        /**
-         * Who collected the medication
-         */
-        receiver?: Reference[];
-        /**
-         * Information about the dispense
-         */
-        note?: string;
-        /**
-         * Medicine administration instructions to the patient/carer
-         */
-        dosageInstruction?: MedicationDispenseDosageInstruction[];
-        /**
-         * Deals with substitution of one medicine for another
-         */
-        substitution?: MedicationDispenseSubstitution;
-    }
-    /**
-     * Details of how medication was taken
-     */
-    interface MedicationStatementDosage extends Element {
-        /**
-         * Dosage Instructions
-         */
-        text?: string;
-        /**
-         * When/how often was medication taken?
-         */
-        schedule?: Timing;
-        /**
-         * Take "as needed" f(or x)
-         */
-        asNeededBoolean?: boolean;
-        /**
-         * Take "as needed" f(or x)
-         */
-        asNeededCodeableConcept?: CodeableConcept;
-        /**
-         * Where on body was medication administered?
-         */
-        site?: CodeableConcept;
-        /**
-         * How did the medication enter the body?
-         */
-        route?: CodeableConcept;
-        /**
-         * Technique used to administer medication
-         */
-        method?: CodeableConcept;
-        /**
-         * Amount administered in one dose
-         */
-        quantity?: Quantity;
-        /**
-         * Dose quantity per unit of time
-         */
-        rate?: Ratio;
-        /**
-         * Maximum dose that was consumed per unit of time
-         */
-        maxDosePerPeriod?: Ratio;
-    }
-    /**
-     * Administration of medication to a patient
-     */
-    interface MedicationStatement extends DomainResource {
-        /**
-         * External Identifier
-         */
-        identifier?: Identifier[];
-        /**
-         * Who was/is taking medication
-         */
-        patient?: Reference;
-        /**
-         * The person who provided the information about the taking of this medication.
-         */
-        informationSource?: Reference;
-        /**
-         * When the statement was asserted?
-         */
-        dateAsserted?: dateTime;
-        /**
-         * in-progress | completed | entered-in-error
-         */
-        status: code;
-        /**
-         * True if medication is/was not being taken
-         */
-        wasNotGiven?: boolean;
-        /**
-         * True if asserting medication was not given
-         */
-        reasonNotGiven?: CodeableConcept[];
-        /**
-         * A reason for why the medication is being/was taken.
-         */
-        reasonForUseCodeableConcept?: CodeableConcept;
-        /**
-         * A reason for why the medication is being/was taken.
-         */
-        reasonForUseReference?: Reference;
-        /**
-         * Over what period was medication consumed?
-         */
-        effectiveDateTime?: dateTime;
-        /**
-         * Over what period was medication consumed?
-         */
-        effectivePeriod?: Period;
-        /**
-         * Further information about the statement
-         */
-        note?: string;
-        /**
-         * What medication was taken?
-         */
-        medication?: Reference;
-        /**
-         * Details of how medication was taken
-         */
-        dosage?: MedicationStatementDosage[];
-    }
-    /**
-     * Device changed in procedure
-     */
-    interface ProcedureDevice extends Element {
-        /**
-         * Kind of change to device
-         */
-        action?: CodeableConcept;
-        /**
-         * Device that was changed
-         */
-        manipulated: Reference;
-    }
-    /**
-     * An action that was or is currently being performed on a patient
-     */
-    interface Procedure extends DomainResource {
-        /**
-         * External Ids for this procedure
-         */
-        identifier?: Identifier[];
-        /**
-         * Who procedure was performed on
-         */
-        patient: Reference;
-        /**
-         * in-progress | aborted | completed | entered-in-error
-         */
-        status: code;
-        /**
-         * Classification of the procedure
-         */
-        category?: CodeableConcept;
-        /**
-         * Identification of the procedure
-         */
-        type: CodeableConcept;
-        /**
-         * Precise location details
-         */
-        bodySite?: ProcedureBodySite[];
-        /**
-         * Reason procedure performed
-         */
-        indication?: CodeableConcept[];
-        /**
-         * The people who performed the procedure
-         */
-        performer?: ProcedurePerformer[];
-        /**
-         * Date/Period the procedure was performed
-         */
-        performedDateTime?: dateTime;
-        /**
-         * Date/Period the procedure was performed
-         */
-        performedPeriod?: Period;
-        /**
-         * The encounter when procedure performed
-         */
-        encounter?: Reference;
-        /**
-         * Where the procedure happened
-         */
-        location?: Reference;
-        /**
-         * What was result of procedure?
-         */
-        outcome?: CodeableConcept;
-        /**
-         * Any report that results from the procedure
-         */
-        report?: Reference[];
-        /**
-         * Complication following the procedure
-         */
-        complication?: CodeableConcept[];
-        /**
-         * Instructions for follow up
-         */
-        followUp?: CodeableConcept[];
-        /**
-         * A procedure that is related to this one
-         */
-        relatedItem?: ProcedureRelatedItem[];
-        /**
-         * Additional information about procedure
-         */
-        notes?: string;
-        /**
-         * Device changed in procedure
-         */
-        device?: ProcedureDevice[];
-        /**
-         * Items used during procedure
-         */
-        used?: Reference[];
-    }
-    /**
      * A clinical assessment performed when planning treatments and management strategies for a patient
      */
     interface ClinicalImpression extends DomainResource {
         /**
-         * The patient being asssesed
+         * The patient being assessed
          */
         patient: Reference;
         /**
@@ -5781,13 +7142,25 @@ declare module fhir {
          */
         status: code;
         /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * When the assessment occurred
          */
         date?: dateTime;
         /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
          * Why/how the assessment was performed
          */
         description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
         /**
          * Reference to last assessment
          */
@@ -5813,9 +7186,17 @@ declare module fhir {
          */
         protocol?: uri;
         /**
+         * Contains protocol's id, extensions, and comments.
+         */
+        _protocol?: Element;
+        /**
          * Summary of the assessment
          */
         summary?: string;
+        /**
+         * Contains summary's id, extensions, and comments.
+         */
+        _summary?: Element;
         /**
          * Possible or likely findings and diagnoses
          */
@@ -5832,6 +7213,10 @@ declare module fhir {
          * Estimate of likely outcome
          */
         prognosis?: string;
+        /**
+         * Contains prognosis's id, extensions, and comments.
+         */
+        _prognosis?: Element;
         /**
          * Plan of action after assessment
          */
@@ -5855,45 +7240,6 @@ declare module fhir {
         detail?: Reference[];
     }
     /**
-     * Anatomical location, if relevant
-     */
-    interface ConditionLocation extends Element {
-        /**
-         * Location - may include laterality
-         */
-        siteCodeableConcept?: CodeableConcept;
-        /**
-         * Location - may include laterality
-         */
-        siteReference?: Reference;
-    }
-    /**
-     * Causes for this Condition
-     */
-    interface ConditionDueTo extends Element {
-        /**
-         * Relationship target by means of a predefined code
-         */
-        code?: CodeableConcept;
-        /**
-         * Relationship target resource
-         */
-        target?: Reference;
-    }
-    /**
-     * Precedent for this Condition
-     */
-    interface ConditionOccurredFollowing extends Element {
-        /**
-         * Relationship target by means of a predefined code
-         */
-        code?: CodeableConcept;
-        /**
-         * Relationship target resource
-         */
-        target?: Reference;
-    }
-    /**
      * Detailed information about conditions, problems or diagnoses
      */
     interface Condition extends DomainResource {
@@ -5914,21 +7260,37 @@ declare module fhir {
          */
         asserter?: Reference;
         /**
-         * When first detected/suspected/entered
+         * When first entered
          */
-        dateAsserted?: date;
+        dateRecorded?: date;
+        /**
+         * Contains dateRecorded's id, extensions, and comments.
+         */
+        _dateRecorded?: Element;
         /**
          * Identification of the condition, problem or diagnosis
          */
         code: CodeableConcept;
         /**
-         * E.g. complaint | symptom | finding | diagnosis
+         * complaint | symptom | finding | diagnosis
          */
         category?: CodeableConcept;
         /**
-         * provisional | working | confirmed | refuted | entered-in-error | unknown
+         * active | relapse | remission | resolved
          */
-        clinicalStatus: code;
+        clinicalStatus?: code;
+        /**
+         * Contains clinicalStatus's id, extensions, and comments.
+         */
+        _clinicalStatus?: Element;
+        /**
+         * provisional | differential | confirmed | refuted | entered-in-error | unknown
+         */
+        verificationStatus: code;
+        /**
+         * Contains verificationStatus's id, extensions, and comments.
+         */
+        _verificationStatus?: Element;
         /**
          * Subjective severity of condition
          */
@@ -5938,9 +7300,13 @@ declare module fhir {
          */
         onsetDateTime?: dateTime;
         /**
+         * Contains onsetDateTime's id, extensions, and comments.
+         */
+        _onsetDateTime?: Element;
+        /**
          * Estimated or actual date,  date-time, or age
          */
-        onsetAge?: Age;
+        onsetQuantity?: Quantity;
         /**
          * Estimated or actual date,  date-time, or age
          */
@@ -5954,17 +7320,29 @@ declare module fhir {
          */
         onsetString?: string;
         /**
-         * If/when in resolution/remission
+         * Contains onsetString's id, extensions, and comments.
          */
-        abatementDate?: date;
+        _onsetString?: Element;
         /**
          * If/when in resolution/remission
          */
-        abatementAge?: Age;
+        abatementDateTime?: dateTime;
+        /**
+         * Contains abatementDateTime's id, extensions, and comments.
+         */
+        _abatementDateTime?: Element;
+        /**
+         * If/when in resolution/remission
+         */
+        abatementQuantity?: Quantity;
         /**
          * If/when in resolution/remission
          */
         abatementBoolean?: boolean;
+        /**
+         * Contains abatementBoolean's id, extensions, and comments.
+         */
+        _abatementBoolean?: Element;
         /**
          * If/when in resolution/remission
          */
@@ -5978,6 +7356,10 @@ declare module fhir {
          */
         abatementString?: string;
         /**
+         * Contains abatementString's id, extensions, and comments.
+         */
+        _abatementString?: Element;
+        /**
          * Stage/grade, usually assessed formally
          */
         stage?: ConditionStage;
@@ -5988,19 +7370,278 @@ declare module fhir {
         /**
          * Anatomical location, if relevant
          */
-        location?: ConditionLocation[];
-        /**
-         * Causes for this Condition
-         */
-        dueTo?: ConditionDueTo[];
-        /**
-         * Precedent for this Condition
-         */
-        occurredFollowing?: ConditionOccurredFollowing[];
+        bodySite?: CodeableConcept[];
         /**
          * Additional information about the Condition
          */
         notes?: string;
+        /**
+         * Contains notes's id, extensions, and comments.
+         */
+        _notes?: Element;
+    }
+    /**
+     * The list of practitioners that may be facilitating this episode of care for specific purposes
+     */
+    interface EpisodeOfCareCareTeam extends Element {
+        /**
+         * The role that this team member is taking within this episode of care
+         */
+        role?: CodeableConcept[];
+        /**
+         * The period of time that this practitioner is performing some role within the episode of care
+         */
+        period?: Period;
+        /**
+         * The practitioner (or Organization) within the team
+         */
+        member?: Reference;
+    }
+    /**
+     * An association of a Patient with an Organization and  Healthcare Provider(s) for a period of time that the Organization assumes some level of responsibility
+     */
+    interface EpisodeOfCare extends DomainResource {
+        /**
+         * Identifier(s) by which this EpisodeOfCare is known
+         */
+        identifier?: Identifier[];
+        /**
+         * planned | waitlist | active | onhold | finished | cancelled
+         */
+        status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * The history of statuses that the EpisodeOfCare has been through (without requiring processing the history of the resource)
+         */
+        statusHistory?: EpisodeOfCareStatusHistory[];
+        /**
+         * Specific type of EpisodeOfCare
+         */
+        type?: CodeableConcept[];
+        /**
+         * A list of conditions/problems/diagnoses that this episode of care is intended to be providing care for
+         */
+        condition?: Reference[];
+        /**
+         * The patient that this EpisodeOfCare applies to
+         */
+        patient: Reference;
+        /**
+         * The organization that has assumed the specific responsibilities for the specified duration
+         */
+        managingOrganization?: Reference;
+        /**
+         * The interval during which the managing organization assumes the defined responsibility
+         */
+        period?: Period;
+        /**
+         * Referral Request(s) that this EpisodeOfCare manages activities within
+         */
+        referralRequest?: Reference[];
+        /**
+         * The practitioner that is the care manager/care co-ordinator for this patient
+         */
+        careManager?: Reference;
+        /**
+         * The list of practitioners that may be facilitating this episode of care for specific purposes
+         */
+        careTeam?: EpisodeOfCareCareTeam[];
+    }
+    /**
+     * List of participants involved in the encounter
+     */
+    interface EncounterParticipant extends Element {
+        /**
+         * Role of participant in encounter
+         */
+        type?: CodeableConcept[];
+        /**
+         * Period of time during the encounter participant was present
+         */
+        period?: Period;
+        /**
+         * Persons involved in the encounter other than the patient
+         */
+        individual?: Reference;
+    }
+    /**
+     * Details about the admission to a healthcare service
+     */
+    interface EncounterHospitalization extends Element {
+        /**
+         * Pre-admission identifier
+         */
+        preAdmissionIdentifier?: Identifier;
+        /**
+         * The location from which the patient came before admission
+         */
+        origin?: Reference;
+        /**
+         * From where patient was admitted (physician referral, transfer)
+         */
+        admitSource?: CodeableConcept;
+        /**
+         * The admitting Diagnosis as reported by admitting practitioner
+         */
+        admittingDiagnosis?: Reference[];
+        /**
+         * The type of hospital re-admission that has occurred (if any). If the value is absent, then this is not identified as a readmission
+         */
+        reAdmission?: CodeableConcept;
+        /**
+         * Diet preferences reported by the patient
+         */
+        dietPreference?: CodeableConcept[];
+        /**
+         * Special courtesies (VIP, board member)
+         */
+        specialCourtesy?: CodeableConcept[];
+        /**
+         * Wheelchair, translator, stretcher, etc
+         */
+        specialArrangement?: CodeableConcept[];
+        /**
+         * Location to which the patient is discharged
+         */
+        destination?: Reference;
+        /**
+         * Category or kind of location after discharge
+         */
+        dischargeDisposition?: CodeableConcept;
+        /**
+         * The final diagnosis given a patient before release from the hospital after all testing, surgery, and workup are complete
+         */
+        dischargeDiagnosis?: Reference[];
+    }
+    /**
+     * List of locations the patient has been at
+     */
+    interface EncounterLocation extends Element {
+        /**
+         * Location the encounter takes place
+         */
+        location: Reference;
+        /**
+         * planned | active | reserved | completed
+         */
+        status?: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * Time period during which the patient was present at the location
+         */
+        period?: Period;
+    }
+    /**
+     * An interaction during which services are provided to the patient
+     */
+    interface Encounter extends DomainResource {
+        /**
+         * Identifier(s) by which this encounter is known
+         */
+        identifier?: Identifier[];
+        /**
+         * planned | arrived | in-progress | onleave | finished | cancelled
+         */
+        status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * List of Encounter statuses
+         */
+        statusHistory?: EncounterStatusHistory[];
+        /**
+         * inpatient | outpatient | ambulatory | emergency +
+         */
+        class?: code;
+        /**
+         * Contains class's id, extensions, and comments.
+         */
+        _class?: Element;
+        /**
+         * Specific type of encounter
+         */
+        type?: CodeableConcept[];
+        /**
+         * Indicates the urgency of the encounter
+         */
+        priority?: CodeableConcept;
+        /**
+         * The patient present at the encounter
+         */
+        patient?: Reference;
+        /**
+         * Episode(s) of care that this encounter should be recorded against
+         */
+        episodeOfCare?: Reference[];
+        /**
+         * The Referral that initiated this encounter
+         */
+        incomingReferral?: Reference[];
+        /**
+         * List of participants involved in the encounter
+         */
+        participant?: EncounterParticipant[];
+        /**
+         * The appointment that scheduled this encounter
+         */
+        appointment?: Reference;
+        /**
+         * The start and end time of the encounter
+         */
+        period?: Period;
+        /**
+         * Quantity of time the encounter lasted (less time absent)
+         */
+        length?: Quantity;
+        /**
+         * Reason the encounter takes place (code)
+         */
+        reason?: CodeableConcept[];
+        /**
+         * Reason the encounter takes place (resource)
+         */
+        indication?: Reference[];
+        /**
+         * Details about the admission to a healthcare service
+         */
+        hospitalization?: EncounterHospitalization;
+        /**
+         * List of locations the patient has been at
+         */
+        location?: EncounterLocation[];
+        /**
+         * The custodian organization of this Encounter record
+         */
+        serviceProvider?: Reference;
+        /**
+         * Another Encounter this encounter is part of
+         */
+        partOf?: Reference;
+    }
+    /**
+     * Plans related to this one
+     */
+    interface CarePlanRelatedPlan extends Element {
+        /**
+         * includes | replaces | fulfills
+         */
+        code?: code;
+        /**
+         * Contains code's id, extensions, and comments.
+         */
+        _code?: Element;
+        /**
+         * Plan relationship exists with
+         */
+        plan: Reference;
     }
     /**
      * Who's involved in plan?
@@ -6013,7 +7654,152 @@ declare module fhir {
         /**
          * Who is involved
          */
-        member: Reference;
+        member?: Reference;
+    }
+    /**
+     * Details of how medication was taken
+     */
+    interface MedicationStatementDosage extends Element {
+        /**
+         * Reported dosage information
+         */
+        text?: string;
+        /**
+         * Contains text's id, extensions, and comments.
+         */
+        _text?: Element;
+        /**
+         * When/how often was medication taken?
+         */
+        timing?: Timing;
+        /**
+         * Take "as needed" f(or x)
+         */
+        asNeededBoolean?: boolean;
+        /**
+         * Contains asNeededBoolean's id, extensions, and comments.
+         */
+        _asNeededBoolean?: Element;
+        /**
+         * Take "as needed" f(or x)
+         */
+        asNeededCodeableConcept?: CodeableConcept;
+        /**
+         * Where on body was medication administered?
+         */
+        siteCodeableConcept?: CodeableConcept;
+        /**
+         * Where on body was medication administered?
+         */
+        siteReference?: Reference;
+        /**
+         * How did the medication enter the body?
+         */
+        route?: CodeableConcept;
+        /**
+         * Technique used to administer medication
+         */
+        method?: CodeableConcept;
+        /**
+         * Amount administered in one dose
+         */
+        quantityQuantity?: Quantity;
+        /**
+         * Amount administered in one dose
+         */
+        quantityRange?: Range;
+        /**
+         * Dose quantity per unit of time
+         */
+        rateRatio?: Ratio;
+        /**
+         * Dose quantity per unit of time
+         */
+        rateRange?: Range;
+        /**
+         * Maximum dose that was consumed per unit of time
+         */
+        maxDosePerPeriod?: Ratio;
+    }
+    /**
+     * Record of medication being taken by a patient
+     */
+    interface MedicationStatement extends DomainResource {
+        /**
+         * External Identifier
+         */
+        identifier?: Identifier[];
+        /**
+         * Who was/is taking medication
+         */
+        patient: Reference;
+        informationSource?: Reference;
+        /**
+         * When the statement was asserted?
+         */
+        dateAsserted?: dateTime;
+        /**
+         * Contains dateAsserted's id, extensions, and comments.
+         */
+        _dateAsserted?: Element;
+        /**
+         * active | completed | entered-in-error | intended
+         */
+        status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * True if medication is/was not being taken
+         */
+        wasNotTaken?: boolean;
+        /**
+         * Contains wasNotTaken's id, extensions, and comments.
+         */
+        _wasNotTaken?: Element;
+        /**
+         * True if asserting medication was not given
+         */
+        reasonNotTaken?: CodeableConcept[];
+        reasonForUseCodeableConcept?: CodeableConcept;
+        reasonForUseReference?: Reference;
+        /**
+         * Over what period was medication consumed?
+         */
+        effectiveDateTime?: dateTime;
+        /**
+         * Contains effectiveDateTime's id, extensions, and comments.
+         */
+        _effectiveDateTime?: Element;
+        /**
+         * Over what period was medication consumed?
+         */
+        effectivePeriod?: Period;
+        /**
+         * Further information about the statement
+         */
+        note?: string;
+        /**
+         * Contains note's id, extensions, and comments.
+         */
+        _note?: Element;
+        /**
+         * Additional supporting information
+         */
+        supportingInformation?: Reference[];
+        /**
+         * What medication was taken?
+         */
+        medicationCodeableConcept?: CodeableConcept;
+        /**
+         * What medication was taken?
+         */
+        medicationReference?: Reference;
+        /**
+         * Details of how medication was taken
+         */
+        dosage?: MedicationStatementDosage[];
     }
     /**
      * Outcome predicted
@@ -6028,6 +7814,10 @@ declare module fhir {
          */
         probabilityDecimal?: decimal;
         /**
+         * Contains probabilityDecimal's id, extensions, and comments.
+         */
+        _probabilityDecimal?: Element;
+        /**
          * Likelihood of specified outcome
          */
         probabilityRange?: Range;
@@ -6040,6 +7830,10 @@ declare module fhir {
          */
         relativeRisk?: decimal;
         /**
+         * Contains relativeRisk's id, extensions, and comments.
+         */
+        _relativeRisk?: Element;
+        /**
          * Timeframe or age range
          */
         whenPeriod?: Period;
@@ -6051,6 +7845,10 @@ declare module fhir {
          * Explanation of prediction
          */
         rationale?: string;
+        /**
+         * Contains rationale's id, extensions, and comments.
+         */
+        _rationale?: Element;
     }
     /**
      * Potential outcomes for a subject with likelihood
@@ -6065,9 +7863,17 @@ declare module fhir {
          */
         date?: dateTime;
         /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
          * Condition assessed
          */
         condition?: Reference;
+        /**
+         * Where was assessment performed?
+         */
+        encounter?: Reference;
         /**
          * Who did assessment?
          */
@@ -6092,22 +7898,26 @@ declare module fhir {
          * How to reduce risk
          */
         mitigation?: string;
+        /**
+         * Contains mitigation's id, extensions, and comments.
+         */
+        _mitigation?: Element;
     }
     /**
      * What was end result of goal?
      */
     interface GoalOutcome extends Element {
         /**
-         * Code or observation that resulted from gual
+         * Code or observation that resulted from goal
          */
         resultCodeableConcept?: CodeableConcept;
         /**
-         * Code or observation that resulted from gual
+         * Code or observation that resulted from goal
          */
         resultReference?: Reference;
     }
     /**
-     * Describes the intended objective(s) of patient care
+     * Describes the intended objective(s) for a patient, group or organization
      */
     interface Goal extends DomainResource {
         /**
@@ -6115,25 +7925,65 @@ declare module fhir {
          */
         identifier?: Identifier[];
         /**
-         * The patient for whom this goal is intended for
+         * Who this goal is intended for
          */
-        patient?: Reference;
+        subject?: Reference;
+        /**
+         * When goal pursuit begins
+         */
+        startDate?: date;
+        /**
+         * Contains startDate's id, extensions, and comments.
+         */
+        _startDate?: Element;
+        /**
+         * When goal pursuit begins
+         */
+        startCodeableConcept?: CodeableConcept;
         /**
          * Reach goal on or before
          */
         targetDate?: date;
         /**
+         * Contains targetDate's id, extensions, and comments.
+         */
+        _targetDate?: Element;
+        /**
+         * Reach goal on or before
+         */
+        targetQuantity?: Quantity;
+        /**
+         * E.g. Treatment, dietary, behavioral, etc.
+         */
+        category?: CodeableConcept[];
+        /**
          * What's the desired outcome?
          */
         description: string;
         /**
-         * proposed | planned | in-progress | achieved | sustaining | cancelled | accepted | rejected
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * proposed | planned | accepted | rejected | in-progress | achieved | sustaining | on-hold | cancelled
          */
         status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
         /**
          * When goal status took effect
          */
         statusDate?: date;
+        /**
+         * Contains statusDate's id, extensions, and comments.
+         */
+        _statusDate?: Element;
+        /**
+         * Reason for current status
+         */
+        statusReason?: CodeableConcept;
         /**
          * Who's responsible for creating Goal?
          */
@@ -6143,13 +7993,13 @@ declare module fhir {
          */
         priority?: CodeableConcept;
         /**
-         * Health issues this goal addresses
+         * Issues addressed by this goal
          */
-        concern?: Reference[];
+        addresses?: Reference[];
         /**
          * Comments about the goal
          */
-        notes?: string;
+        note?: Annotation[];
         /**
          * What was end result of goal?
          */
@@ -6164,9 +8014,9 @@ declare module fhir {
          */
         actionResulting?: Reference[];
         /**
-         * Comments about the activity
+         * Comments about the activity status/progress
          */
-        notes?: string;
+        progress?: Annotation[];
         /**
          * Activity details defined in specific resource
          */
@@ -6183,7 +8033,7 @@ declare module fhir {
         /**
          * diet | drug | encounter | observation | procedure | supply | other
          */
-        category: code;
+        category?: CodeableConcept;
         /**
          * Detail type of activity
          */
@@ -6191,11 +8041,11 @@ declare module fhir {
         /**
          * Why activity should be done
          */
-        reasonCodeableConcept?: CodeableConcept;
+        reasonCode?: CodeableConcept[];
         /**
-         * Why activity should be done
+         * Condition triggering need for activity
          */
-        reasonReference?: Reference;
+        reasonReference?: Reference[];
         /**
          * Goals this activity relates to
          */
@@ -6205,6 +8055,10 @@ declare module fhir {
          */
         status?: code;
         /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * Reason for current status
          */
         statusReason?: CodeableConcept;
@@ -6212,6 +8066,10 @@ declare module fhir {
          * Do NOT do
          */
         prohibited: boolean;
+        /**
+         * Contains prohibited's id, extensions, and comments.
+         */
+        _prohibited?: Element;
         /**
          * When activity is to occur
          */
@@ -6225,6 +8083,10 @@ declare module fhir {
          */
         scheduledString?: string;
         /**
+         * Contains scheduledString's id, extensions, and comments.
+         */
+        _scheduledString?: Element;
+        /**
          * Where it should happen
          */
         location?: Reference;
@@ -6235,7 +8097,11 @@ declare module fhir {
         /**
          * What is to be administered/supplied
          */
-        product?: Reference;
+        productCodeableConcept?: CodeableConcept;
+        /**
+         * What is to be administered/supplied
+         */
+        productReference?: Reference;
         /**
          * How to consume/day?
          */
@@ -6245,12 +8111,16 @@ declare module fhir {
          */
         quantity?: Quantity;
         /**
-         * Extra info on activity occurrence
+         * Extra info describing activity to perform
          */
-        note?: string;
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
     }
     /**
-     * Healthcare plan for patient
+     * Healthcare plan for patient or group
      */
     interface CarePlan extends DomainResource {
         /**
@@ -6260,17 +8130,25 @@ declare module fhir {
         /**
          * Who care plan is for
          */
-        patient?: Reference;
+        subject?: Reference;
         /**
-         * planned | active | completed
+         * proposed | draft | active | completed | cancelled
          */
         status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * Created in context of
+         */
+        context?: Reference;
         /**
          * Time period plan covers
          */
         period?: Period;
         /**
-         * Who is responsible for plan
+         * Who is responsible for contents of the plan
          */
         author?: Reference[];
         /**
@@ -6278,17 +8156,33 @@ declare module fhir {
          */
         modified?: dateTime;
         /**
+         * Contains modified's id, extensions, and comments.
+         */
+        _modified?: Element;
+        /**
          * Type of plan
          */
         category?: CodeableConcept[];
         /**
+         * Summary of nature of plan
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
          * Health issues this plan addresses
          */
-        concern?: Reference[];
+        addresses?: Reference[];
         /**
          * Information considered as part of plan
          */
         support?: Reference[];
+        /**
+         * Plans related to this one
+         */
+        relatedPlan?: CarePlanRelatedPlan[];
         /**
          * Who's involved in plan?
          */
@@ -6304,7 +8198,7 @@ declare module fhir {
         /**
          * Comments about the plan
          */
-        notes?: string;
+        note?: Annotation;
     }
     /**
      * Payee
@@ -6336,6 +8230,10 @@ declare module fhir {
          */
         sequence: positiveInt;
         /**
+         * Contains sequence's id, extensions, and comments.
+         */
+        _sequence?: Element;
+        /**
          * Patient's list of diagnosis
          */
         diagnosis: Coding;
@@ -6349,9 +8247,17 @@ declare module fhir {
          */
         sequence: positiveInt;
         /**
+         * Contains sequence's id, extensions, and comments.
+         */
+        _sequence?: Element;
+        /**
          * Is the focal Coverage
          */
         focal: boolean;
+        /**
+         * Contains focal's id, extensions, and comments.
+         */
+        _focal?: Element;
         /**
          * Insurance information
          */
@@ -6361,6 +8267,10 @@ declare module fhir {
          */
         businessArrangement?: string;
         /**
+         * Contains businessArrangement's id, extensions, and comments.
+         */
+        _businessArrangement?: Element;
+        /**
          * Patient relationship to subscriber
          */
         relationship: Coding;
@@ -6368,6 +8278,10 @@ declare module fhir {
          * Pre-Authorization/Determination Reference
          */
         preAuthRef?: string[];
+        /**
+         * Contains preAuthRef's id, extensions, and comments.
+         */
+        _preAuthRef?: Element[];
         /**
          * Adjudication results
          */
@@ -6411,30 +8325,37 @@ declare module fhir {
          */
         effectiveTime?: dateTime;
         /**
+         * Contains effectiveTime's id, extensions, and comments.
+         */
+        _effectiveTime?: Element;
+        /**
          * Count of Contract Valued Items
          */
         quantity?: Quantity;
         /**
          * Contract Valued Item fee, charge, or cost
          */
-        unitPrice?: Money;
+        unitPrice?: Quantity;
         /**
          * Contract Valued Item Price Scaling Factor
          */
         factor?: decimal;
         /**
+         * Contains factor's id, extensions, and comments.
+         */
+        _factor?: Element;
+        /**
          * Contract Valued Item Difficulty Scaling Factor
          */
         points?: decimal;
         /**
+         * Contains points's id, extensions, and comments.
+         */
+        _points?: Element;
+        /**
          * Total Contract Valued Item Value
          */
-        net?: Money;
-    }
-    /**
-     * An amount of money. With regard to precision, see [[X]]
-     */
-    interface Money extends Quantity {
+        net?: Quantity;
     }
     /**
      * Contract Signer
@@ -6452,6 +8373,10 @@ declare module fhir {
          * Contract Documentation Signature
          */
         signature: string;
+        /**
+         * Contains signature's id, extensions, and comments.
+         */
+        _signature?: Element;
     }
     /**
      * Contract Term List
@@ -6465,6 +8390,10 @@ declare module fhir {
          * Contract Term Issue Date Time
          */
         issued?: dateTime;
+        /**
+         * Contains issued's id, extensions, and comments.
+         */
+        _issued?: Element;
         /**
          * Contract Term Effective Time
          */
@@ -6497,6 +8426,10 @@ declare module fhir {
          * Human readable Contract term text
          */
         text?: string;
+        /**
+         * Contains text's id, extensions, and comments.
+         */
+        _text?: Element;
         /**
          * Contract Term Valued Item
          */
@@ -6540,25 +8473,37 @@ declare module fhir {
          */
         effectiveTime?: dateTime;
         /**
+         * Contains effectiveTime's id, extensions, and comments.
+         */
+        _effectiveTime?: Element;
+        /**
          * Contract Term Valued Item Count
          */
         quantity?: Quantity;
         /**
          * Contract Term Valued Item fee, charge, or cost
          */
-        unitPrice?: Money;
+        unitPrice?: Quantity;
         /**
          * Contract Term Valued Item Price Scaling Factor
          */
         factor?: decimal;
         /**
+         * Contains factor's id, extensions, and comments.
+         */
+        _factor?: Element;
+        /**
          * Contract Term Valued Item Difficulty Scaling Factor
          */
         points?: decimal;
         /**
+         * Contains points's id, extensions, and comments.
+         */
+        _points?: Element;
+        /**
          * Total Contract Term Valued Item Value
          */
-        net?: Money;
+        net?: Quantity;
     }
     /**
      * Attests to accuracy of composition
@@ -6569,9 +8514,17 @@ declare module fhir {
          */
         mode: code[];
         /**
+         * Contains mode's id, extensions, and comments.
+         */
+        _mode?: Element[];
+        /**
          * When composition attested
          */
         time?: dateTime;
+        /**
+         * Contains time's id, extensions, and comments.
+         */
+        _time?: Element;
         /**
          * Who attested the composition
          */
@@ -6590,7 +8543,7 @@ declare module fhir {
          */
         period?: Period;
         /**
-         * Full details for the event(s) the composition consents
+         * The event(s) being documented
          */
         detail?: Reference[];
     }
@@ -6603,91 +8556,41 @@ declare module fhir {
          */
         title?: string;
         /**
+         * Contains title's id, extensions, and comments.
+         */
+        _title?: Element;
+        /**
          * Classification of section (recommended)
          */
         code?: CodeableConcept;
         /**
-         * The Content of the section (narrative + data entries)
+         * Text summary of the section, for human interpretation
          */
-        content?: Reference;
+        text?: Narrative;
+        /**
+         * working | snapshot | changes
+         */
+        mode?: code;
+        /**
+         * Contains mode's id, extensions, and comments.
+         */
+        _mode?: Element;
+        /**
+         * What order the section entries are in
+         */
+        orderedBy?: CodeableConcept;
+        /**
+         * A reference to data that supports this section
+         */
+        entry?: Reference[];
+        /**
+         * Why the section is empty
+         */
+        emptyReason?: CodeableConcept;
         /**
          * Nested Section
          */
         section?: CompositionSection[];
-    }
-    /**
-     * Entries in the list
-     */
-    interface ListEntry extends Element {
-        /**
-         * Workflow information about this item
-         */
-        flag?: CodeableConcept[];
-        /**
-         * If this item is actually marked as deleted
-         */
-        deleted?: boolean;
-        /**
-         * When item added to list
-         */
-        date?: dateTime;
-        /**
-         * Actual entry
-         */
-        item: Reference;
-    }
-    /**
-     * Information summarized from a list of other resources
-     */
-    interface List extends DomainResource {
-        /**
-         * Business identifier
-         */
-        identifier?: Identifier[];
-        /**
-         * Descriptive name for the list
-         */
-        title?: string;
-        /**
-         * What the purpose of this list is
-         */
-        code?: CodeableConcept;
-        /**
-         * If all resources have the same subject
-         */
-        subject?: Reference;
-        /**
-         * Who and/or what defined the list contents
-         */
-        source?: Reference;
-        /**
-         * current | retired | entered-in-error
-         */
-        status: code;
-        /**
-         * When the list was prepared
-         */
-        date?: dateTime;
-        /**
-         * What order the list has
-         */
-        orderedBy?: CodeableConcept;
-        /**
-         * working | snapshot | changes
-         */
-        mode: code;
-        /**
-         * Comments about the note
-         */
-        note?: string;
-        /**
-         * Entries in the list
-         */
-        entry?: ListEntry[];
-        /**
-         * Why list is empty
-         */
-        emptyReason?: CodeableConcept;
     }
     /**
      * A set of resources composed into a single coherent clinical statement with clinical attestation
@@ -6702,6 +8605,10 @@ declare module fhir {
          */
         date: dateTime;
         /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
          * Kind of composition (LOINC if possible)
          */
         type: CodeableConcept;
@@ -6712,15 +8619,27 @@ declare module fhir {
         /**
          * Human Readable name/title
          */
-        title?: string;
+        title: string;
         /**
-         * preliminary | final | appended | amended | entered-in-error
+         * Contains title's id, extensions, and comments.
+         */
+        _title?: Element;
+        /**
+         * preliminary | final | amended | entered-in-error
          */
         status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
         /**
          * As defined by affinity domain
          */
         confidentiality?: code;
+        /**
+         * Contains confidentiality's id, extensions, and comments.
+         */
+        _confidentiality?: Element;
         /**
          * Who and/or what the composition is about
          */
@@ -6801,6 +8720,10 @@ declare module fhir {
          * When this Contract was issued
          */
         issued?: dateTime;
+        /**
+         * Contains issued's id, extensions, and comments.
+         */
+        _issued?: Element;
         /**
          * Effective time
          */
@@ -6903,21 +8826,41 @@ declare module fhir {
          */
         group?: string;
         /**
+         * Contains group's id, extensions, and comments.
+         */
+        _group?: Element;
+        /**
          * An identifier for the plan
          */
         plan?: string;
+        /**
+         * Contains plan's id, extensions, and comments.
+         */
+        _plan?: Element;
         /**
          * An identifier for the subsection of the plan
          */
         subPlan?: string;
         /**
+         * Contains subPlan's id, extensions, and comments.
+         */
+        _subPlan?: Element;
+        /**
          * The dependent number
          */
         dependent?: positiveInt;
         /**
+         * Contains dependent's id, extensions, and comments.
+         */
+        _dependent?: Element;
+        /**
          * The plan instance or sequence counter
          */
         sequence?: positiveInt;
+        /**
+         * Contains sequence's id, extensions, and comments.
+         */
+        _sequence?: Element;
         /**
          * Plan holder information
          */
@@ -6940,9 +8883,17 @@ declare module fhir {
          */
         sequenceLinkId: positiveInt;
         /**
+         * Contains sequenceLinkId's id, extensions, and comments.
+         */
+        _sequenceLinkId?: Element;
+        /**
          * List of note numbers which apply
          */
         noteNumber?: positiveInt[];
+        /**
+         * Contains noteNumber's id, extensions, and comments.
+         */
+        _noteNumber?: Element[];
         /**
          * Adjudication details
          */
@@ -6961,13 +8912,17 @@ declare module fhir {
          */
         code: Coding;
         /**
-         * Monitary amount
+         * Monetary amount
          */
-        amount?: Money;
+        amount?: Quantity;
         /**
          * Non-monitory value
          */
         value?: decimal;
+        /**
+         * Contains value's id, extensions, and comments.
+         */
+        _value?: Element;
     }
     /**
      * Detail line items
@@ -6977,6 +8932,10 @@ declare module fhir {
          * Service instance
          */
         sequenceLinkId: positiveInt;
+        /**
+         * Contains sequenceLinkId's id, extensions, and comments.
+         */
+        _sequenceLinkId?: Element;
         /**
          * Detail adjudication
          */
@@ -6995,13 +8954,17 @@ declare module fhir {
          */
         code: Coding;
         /**
-         * Monitary amount
+         * Monetary amount
          */
-        amount?: Money;
+        amount?: Quantity;
         /**
          * Non-monitory value
          */
         value?: decimal;
+        /**
+         * Contains value's id, extensions, and comments.
+         */
+        _value?: Element;
     }
     /**
      * Subdetail line items
@@ -7011,6 +8974,10 @@ declare module fhir {
          * Service instance
          */
         sequenceLinkId: positiveInt;
+        /**
+         * Contains sequenceLinkId's id, extensions, and comments.
+         */
+        _sequenceLinkId?: Element;
         /**
          * Subdetail adjudication
          */
@@ -7025,13 +8992,17 @@ declare module fhir {
          */
         code: Coding;
         /**
-         * Monitary amount
+         * Monetary amount
          */
-        amount?: Money;
+        amount?: Quantity;
         /**
          * Non-monitory value
          */
         value?: decimal;
+        /**
+         * Contains value's id, extensions, and comments.
+         */
+        _value?: Element;
     }
     /**
      * Insurer added line items
@@ -7042,17 +9013,25 @@ declare module fhir {
          */
         sequenceLinkId?: positiveInt[];
         /**
+         * Contains sequenceLinkId's id, extensions, and comments.
+         */
+        _sequenceLinkId?: Element[];
+        /**
          * Group, Service or Product
          */
         service: Coding;
         /**
          * Professional fee or Product charge
          */
-        fee?: Money;
+        fee?: Quantity;
         /**
          * List of note numbers which apply
          */
         noteNumberLinkId?: positiveInt[];
+        /**
+         * Contains noteNumberLinkId's id, extensions, and comments.
+         */
+        _noteNumberLinkId?: Element[];
         /**
          * Added items adjudication
          */
@@ -7071,13 +9050,17 @@ declare module fhir {
          */
         code: Coding;
         /**
-         * Monitary amount
+         * Monetary amount
          */
-        amount?: Money;
+        amount?: Quantity;
         /**
          * Non-monitory value
          */
         value?: decimal;
+        /**
+         * Contains value's id, extensions, and comments.
+         */
+        _value?: Element;
     }
     /**
      * Added items details
@@ -7090,7 +9073,7 @@ declare module fhir {
         /**
          * Professional fee or Product charge
          */
-        fee?: Money;
+        fee?: Quantity;
         /**
          * Added items detail adjudication
          */
@@ -7105,13 +9088,17 @@ declare module fhir {
          */
         code: Coding;
         /**
-         * Monitary amount
+         * Monetary amount
          */
-        amount?: Money;
+        amount?: Quantity;
         /**
          * Non-monitory value
          */
         value?: decimal;
+        /**
+         * Contains value's id, extensions, and comments.
+         */
+        _value?: Element;
     }
     /**
      * Processing errors
@@ -7122,13 +9109,25 @@ declare module fhir {
          */
         sequenceLinkId?: positiveInt;
         /**
+         * Contains sequenceLinkId's id, extensions, and comments.
+         */
+        _sequenceLinkId?: Element;
+        /**
          * Detail sequence number
          */
         detailSequenceLinkId?: positiveInt;
         /**
+         * Contains detailSequenceLinkId's id, extensions, and comments.
+         */
+        _detailSequenceLinkId?: Element;
+        /**
          * Subdetail sequence number
          */
         subdetailSequenceLinkId?: positiveInt;
+        /**
+         * Contains subdetailSequenceLinkId's id, extensions, and comments.
+         */
+        _subdetailSequenceLinkId?: Element;
         /**
          * Error code detailing processing issues
          */
@@ -7143,6 +9142,10 @@ declare module fhir {
          */
         number?: positiveInt;
         /**
+         * Contains number's id, extensions, and comments.
+         */
+        _number?: Element;
+        /**
          * display | print | printoper
          */
         type?: Coding;
@@ -7150,6 +9153,10 @@ declare module fhir {
          * Note explanitory text
          */
         text?: string;
+        /**
+         * Contains text's id, extensions, and comments.
+         */
+        _text?: Element;
     }
     /**
      * Insurance or medical plan
@@ -7160,9 +9167,17 @@ declare module fhir {
          */
         sequence: positiveInt;
         /**
+         * Contains sequence's id, extensions, and comments.
+         */
+        _sequence?: Element;
+        /**
          * Is the focal Coverage
          */
         focal: boolean;
+        /**
+         * Contains focal's id, extensions, and comments.
+         */
+        _focal?: Element;
         /**
          * Insurance information
          */
@@ -7172,6 +9187,10 @@ declare module fhir {
          */
         businessArrangement?: string;
         /**
+         * Contains businessArrangement's id, extensions, and comments.
+         */
+        _businessArrangement?: Element;
+        /**
          * Patient relationship to subscriber
          */
         relationship: Coding;
@@ -7179,6 +9198,10 @@ declare module fhir {
          * Pre-Authorization/Determination Reference
          */
         preAuthRef?: string[];
+        /**
+         * Contains preAuthRef's id, extensions, and comments.
+         */
+        _preAuthRef?: Element[];
         /**
          * Adjudication results
          */
@@ -7213,6 +9236,10 @@ declare module fhir {
          */
         created?: dateTime;
         /**
+         * Contains created's id, extensions, and comments.
+         */
+        _created?: Element;
+        /**
          * Insurer
          */
         organization?: Reference;
@@ -7229,9 +9256,17 @@ declare module fhir {
          */
         outcome?: code;
         /**
+         * Contains outcome's id, extensions, and comments.
+         */
+        _outcome?: Element;
+        /**
          * Disposition Message
          */
         disposition?: string;
+        /**
+         * Contains disposition's id, extensions, and comments.
+         */
+        _disposition?: Element;
         /**
          * Party to be paid any benefits payable
          */
@@ -7251,19 +9286,19 @@ declare module fhir {
         /**
          * Total Cost of service from the Claim
          */
-        totalCost?: Money;
+        totalCost?: Quantity;
         /**
          * Unallocated deductable
          */
-        unallocDeductable?: Money;
+        unallocDeductable?: Quantity;
         /**
          * Total benefit payable for the Claim
          */
-        totalBenefit?: Money;
+        totalBenefit?: Quantity;
         /**
          * Payment adjustment for non-Claim issues
          */
-        paymentAdjustment?: Money;
+        paymentAdjustment?: Quantity;
         /**
          * Reason for Payment adjustment
          */
@@ -7273,9 +9308,13 @@ declare module fhir {
          */
         paymentDate?: date;
         /**
+         * Contains paymentDate's id, extensions, and comments.
+         */
+        _paymentDate?: Element;
+        /**
          * Payment amount
          */
-        paymentAmount?: Money;
+        paymentAmount?: Quantity;
         /**
          * Payment identifier
          */
@@ -7306,6 +9345,10 @@ declare module fhir {
          */
         sequence: positiveInt;
         /**
+         * Contains sequence's id, extensions, and comments.
+         */
+        _sequence?: Element;
+        /**
          * Group or type of product or service
          */
         type: Coding;
@@ -7318,6 +9361,10 @@ declare module fhir {
          */
         diagnosisLinkId?: positiveInt[];
         /**
+         * Contains diagnosisLinkId's id, extensions, and comments.
+         */
+        _diagnosisLinkId?: Element[];
+        /**
          * Item Code
          */
         service: Coding;
@@ -7326,25 +9373,37 @@ declare module fhir {
          */
         serviceDate?: date;
         /**
+         * Contains serviceDate's id, extensions, and comments.
+         */
+        _serviceDate?: Element;
+        /**
          * Count of Products or Services
          */
         quantity?: Quantity;
         /**
          * Fee, charge or cost per point
          */
-        unitPrice?: Money;
+        unitPrice?: Quantity;
         /**
          * Price scaling factor
          */
         factor?: decimal;
         /**
+         * Contains factor's id, extensions, and comments.
+         */
+        _factor?: Element;
+        /**
          * Difficulty scaling factor
          */
         points?: decimal;
         /**
+         * Contains points's id, extensions, and comments.
+         */
+        _points?: Element;
+        /**
          * Total item cost
          */
-        net?: Money;
+        net?: Quantity;
         /**
          * Unique Device Identifier
          */
@@ -7379,6 +9438,10 @@ declare module fhir {
          */
         sequence: positiveInt;
         /**
+         * Contains sequence's id, extensions, and comments.
+         */
+        _sequence?: Element;
+        /**
          * Group or type of product or service
          */
         type: Coding;
@@ -7393,19 +9456,27 @@ declare module fhir {
         /**
          * Fee, charge or cost per point
          */
-        unitPrice?: Money;
+        unitPrice?: Quantity;
         /**
          * Price scaling factor
          */
         factor?: decimal;
         /**
+         * Contains factor's id, extensions, and comments.
+         */
+        _factor?: Element;
+        /**
          * Difficulty scaling factor
          */
         points?: decimal;
         /**
+         * Contains points's id, extensions, and comments.
+         */
+        _points?: Element;
+        /**
          * Total additional item cost
          */
-        net?: Money;
+        net?: Quantity;
         /**
          * Unique Device Identifier
          */
@@ -7424,6 +9495,10 @@ declare module fhir {
          */
         sequence: positiveInt;
         /**
+         * Contains sequence's id, extensions, and comments.
+         */
+        _sequence?: Element;
+        /**
          * Type of product or service
          */
         type: Coding;
@@ -7438,19 +9513,27 @@ declare module fhir {
         /**
          * Fee, charge or cost per point
          */
-        unitPrice?: Money;
+        unitPrice?: Quantity;
         /**
          * Price scaling factor
          */
         factor?: decimal;
         /**
+         * Contains factor's id, extensions, and comments.
+         */
+        _factor?: Element;
+        /**
          * Difficulty scaling factor
          */
         points?: decimal;
         /**
+         * Contains points's id, extensions, and comments.
+         */
+        _points?: Element;
+        /**
          * Net additional item cost
          */
-        net?: Money;
+        net?: Quantity;
         /**
          * Unique Device Identifier
          */
@@ -7465,9 +9548,17 @@ declare module fhir {
          */
         initial?: boolean;
         /**
+         * Contains initial's id, extensions, and comments.
+         */
+        _initial?: Element;
+        /**
          * Initial service Date
          */
         priorDate?: date;
+        /**
+         * Contains priorDate's id, extensions, and comments.
+         */
+        _priorDate?: Element;
         /**
          * Prosthetic Material
          */
@@ -7489,6 +9580,10 @@ declare module fhir {
          * Date of Extraction
          */
         extractionDate?: date;
+        /**
+         * Contains extractionDate's id, extensions, and comments.
+         */
+        _extractionDate?: Element;
     }
     /**
      * Claim, Pre-determination or Pre-authorization
@@ -7498,6 +9593,10 @@ declare module fhir {
          * institutional | oral | pharmacy | professional | vision
          */
         type: code;
+        /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
         /**
          * Claim number
          */
@@ -7515,6 +9614,10 @@ declare module fhir {
          */
         created?: dateTime;
         /**
+         * Contains created's id, extensions, and comments.
+         */
+        _created?: Element;
+        /**
          * Insurer
          */
         target?: Reference;
@@ -7530,6 +9633,10 @@ declare module fhir {
          * complete | proposed | exploratory | other
          */
         use?: code;
+        /**
+         * Contains use's id, extensions, and comments.
+         */
+        _use?: Element;
         /**
          * Desired processing priority
          */
@@ -7587,9 +9694,17 @@ declare module fhir {
          */
         school?: string;
         /**
+         * Contains school's id, extensions, and comments.
+         */
+        _school?: Element;
+        /**
          * Accident Date
          */
         accident?: date;
+        /**
+         * Contains accident's id, extensions, and comments.
+         */
+        _accident?: Element;
         /**
          * Accident Type
          */
@@ -7619,6 +9734,10 @@ declare module fhir {
          * Message part content
          */
         contentString?: string;
+        /**
+         * Contains contentString's id, extensions, and comments.
+         */
+        _contentString?: Element;
         /**
          * Message part content
          */
@@ -7653,13 +9772,17 @@ declare module fhir {
          */
         payload?: CommunicationPayload[];
         /**
-         * Communication medium
+         * A channel of communication
          */
         medium?: CodeableConcept[];
         /**
          * in-progress | completed | suspended | rejected | failed
          */
         status?: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
         /**
          * Encounter leading to message
          */
@@ -7669,9 +9792,17 @@ declare module fhir {
          */
         sent?: dateTime;
         /**
+         * Contains sent's id, extensions, and comments.
+         */
+        _sent?: Element;
+        /**
          * When received
          */
         received?: dateTime;
+        /**
+         * Contains received's id, extensions, and comments.
+         */
+        _received?: Element;
         /**
          * Indication for message
          */
@@ -7680,6 +9811,10 @@ declare module fhir {
          * Focus of message
          */
         subject?: Reference;
+        /**
+         * CommunicationRequest producing this message
+         */
+        requestDetail?: Reference;
     }
     /**
      * Contact details of the publisher
@@ -7689,6 +9824,10 @@ declare module fhir {
          * Name of a individual to contact
          */
         name?: string;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
         /**
          * Contact details for individual or publisher
          */
@@ -7703,6 +9842,10 @@ declare module fhir {
          */
         name?: string;
         /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
          * Contact details for individual or publisher
          */
         telecom?: ContactPoint[];
@@ -7716,17 +9859,33 @@ declare module fhir {
          */
         identity: id;
         /**
+         * Contains identity's id, extensions, and comments.
+         */
+        _identity?: Element;
+        /**
          * Identifies what this mapping refers to
          */
         uri?: uri;
+        /**
+         * Contains uri's id, extensions, and comments.
+         */
+        _uri?: Element;
         /**
          * Names what this mapping refers to
          */
         name?: string;
         /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
          * Versions, Issues, Scope limitations etc
          */
         comments?: string;
+        /**
+         * Contains comments's id, extensions, and comments.
+         */
+        _comments?: Element;
     }
     /**
      * Snapshot view of the structure
@@ -7746,17 +9905,62 @@ declare module fhir {
          */
         discriminator?: string[];
         /**
+         * Contains discriminator's id, extensions, and comments.
+         */
+        _discriminator?: Element[];
+        /**
          * Text description of how slicing works (or not)
          */
         description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
         /**
          * If elements must be in same order as slices
          */
         ordered?: boolean;
         /**
+         * Contains ordered's id, extensions, and comments.
+         */
+        _ordered?: Element;
+        /**
          * closed | open | openAtEnd
          */
         rules: code;
+        /**
+         * Contains rules's id, extensions, and comments.
+         */
+        _rules?: Element;
+    }
+    /**
+     * Base definition information for tools
+     */
+    interface ElementDefinitionBase extends Element {
+        /**
+         * Path that identifies the base element
+         */
+        path: string;
+        /**
+         * Contains path's id, extensions, and comments.
+         */
+        _path?: Element;
+        /**
+         * Min cardinality of the base element
+         */
+        min: integer;
+        /**
+         * Contains min's id, extensions, and comments.
+         */
+        _min?: Element;
+        /**
+         * Max cardinality of the base element
+         */
+        max: string;
+        /**
+         * Contains max's id, extensions, and comments.
+         */
+        _max?: Element;
     }
     /**
      * Data type and Profile for this element
@@ -7767,13 +9971,25 @@ declare module fhir {
          */
         code: code;
         /**
-         * Profile.structure to apply
+         * Contains code's id, extensions, and comments.
          */
-        profile?: uri;
+        _code?: Element;
+        /**
+         * Profile (StructureDefinition) to apply (or IG)
+         */
+        profile?: uri[];
+        /**
+         * Contains profile's id, extensions, and comments.
+         */
+        _profile?: Element[];
         /**
          * contained | referenced | bundled - how aggregated
          */
         aggregation?: code[];
+        /**
+         * Contains aggregation's id, extensions, and comments.
+         */
+        _aggregation?: Element[];
     }
     /**
      * Condition that must evaluate to true
@@ -7784,42 +10000,70 @@ declare module fhir {
          */
         key: id;
         /**
-         * Short human label
+         * Contains key's id, extensions, and comments.
          */
-        name?: string;
+        _key?: Element;
+        /**
+         * Why this constraint necessary or appropriate
+         */
+        requirements?: string;
+        /**
+         * Contains requirements's id, extensions, and comments.
+         */
+        _requirements?: Element;
         /**
          * error | warning
          */
         severity: code;
         /**
+         * Contains severity's id, extensions, and comments.
+         */
+        _severity?: Element;
+        /**
          * Human description of constraint
          */
         human: string;
         /**
+         * Contains human's id, extensions, and comments.
+         */
+        _human?: Element;
+        /**
          * XPath expression of constraint
          */
         xpath: string;
+        /**
+         * Contains xpath's id, extensions, and comments.
+         */
+        _xpath?: Element;
     }
     /**
      * ValueSet details if this is coded
      */
     interface ElementDefinitionBinding extends Element {
         /**
-         * Descriptive Name
-         */
-        name: string;
-        /**
          * required | extensible | preferred | example
          */
         strength: code;
+        /**
+         * Contains strength's id, extensions, and comments.
+         */
+        _strength?: Element;
         /**
          * Human explanation of the value set
          */
         description?: string;
         /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
          * Source of value set
          */
         valueSetUri?: uri;
+        /**
+         * Contains valueSetUri's id, extensions, and comments.
+         */
+        _valueSetUri?: Element;
         /**
          * Source of value set
          */
@@ -7834,16 +10078,28 @@ declare module fhir {
          */
         identity: id;
         /**
+         * Contains identity's id, extensions, and comments.
+         */
+        _identity?: Element;
+        /**
          * Computable language of mapping
          */
         language?: code;
         /**
+         * Contains language's id, extensions, and comments.
+         */
+        _language?: Element;
+        /**
          * Details of the mapping
          */
         map: string;
+        /**
+         * Contains map's id, extensions, and comments.
+         */
+        _map?: Element;
     }
     /**
-     * Definition of an elements in a resource or extension
+     * Definition of an element in a resource or extension
      */
     interface ElementDefinition extends Element {
         /**
@@ -7851,17 +10107,33 @@ declare module fhir {
          */
         path: string;
         /**
+         * Contains path's id, extensions, and comments.
+         */
+        _path?: Element;
+        /**
          * How this element is represented in instances
          */
         representation?: code[];
+        /**
+         * Contains representation's id, extensions, and comments.
+         */
+        _representation?: Element[];
         /**
          * Name for this particular element definition (reference target)
          */
         name?: string;
         /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
          * Name for element to display with or prompt for element
          */
         label?: string;
+        /**
+         * Contains label's id, extensions, and comments.
+         */
+        _label?: Element;
         /**
          * Defining code
          */
@@ -7875,29 +10147,61 @@ declare module fhir {
          */
         short?: string;
         /**
+         * Contains short's id, extensions, and comments.
+         */
+        _short?: Element;
+        /**
          * Full formal definition as narrative text
          */
-        definition?: string;
+        definition?: markdown;
+        /**
+         * Contains definition's id, extensions, and comments.
+         */
+        _definition?: Element;
         /**
          * Comments about the use of this element
          */
-        comments?: string;
+        comments?: markdown;
+        /**
+         * Contains comments's id, extensions, and comments.
+         */
+        _comments?: Element;
         /**
          * Why is this needed?
          */
-        requirements?: string;
+        requirements?: markdown;
+        /**
+         * Contains requirements's id, extensions, and comments.
+         */
+        _requirements?: Element;
         /**
          * Other names
          */
         alias?: string[];
         /**
+         * Contains alias's id, extensions, and comments.
+         */
+        _alias?: Element[];
+        /**
          * Minimum Cardinality
          */
         min?: integer;
         /**
+         * Contains min's id, extensions, and comments.
+         */
+        _min?: Element;
+        /**
          * Maximum Cardinality (a number or *)
          */
         max?: string;
+        /**
+         * Contains max's id, extensions, and comments.
+         */
+        _max?: Element;
+        /**
+         * Base definition information for tools
+         */
+        base?: ElementDefinitionBase;
         /**
          * Data type and Profile for this element
          */
@@ -7907,57 +10211,141 @@ declare module fhir {
          */
         nameReference?: string;
         /**
-         * Specified value it missing from instance
+         * Contains nameReference's id, extensions, and comments.
          */
-        defaultValueInteger?: integer;
-        /**
-         * Specified value it missing from instance
-         */
-        defaultValueDecimal?: decimal;
-        /**
-         * Specified value it missing from instance
-         */
-        defaultValueDateTime?: dateTime;
-        /**
-         * Specified value it missing from instance
-         */
-        defaultValueDate?: date;
-        /**
-         * Specified value it missing from instance
-         */
-        defaultValueInstant?: instant;
-        /**
-         * Specified value it missing from instance
-         */
-        defaultValueTime?: time;
-        /**
-         * Specified value it missing from instance
-         */
-        defaultValueString?: string;
-        /**
-         * Specified value it missing from instance
-         */
-        defaultValueUri?: uri;
+        _nameReference?: Element;
         /**
          * Specified value it missing from instance
          */
         defaultValueBoolean?: boolean;
         /**
+         * Contains defaultValueBoolean's id, extensions, and comments.
+         */
+        _defaultValueBoolean?: Element;
+        /**
          * Specified value it missing from instance
          */
-        defaultValueCode?: code;
+        defaultValueInteger?: integer;
+        /**
+         * Contains defaultValueInteger's id, extensions, and comments.
+         */
+        _defaultValueInteger?: Element;
+        /**
+         * Specified value it missing from instance
+         */
+        defaultValueDecimal?: decimal;
+        /**
+         * Contains defaultValueDecimal's id, extensions, and comments.
+         */
+        _defaultValueDecimal?: Element;
         /**
          * Specified value it missing from instance
          */
         defaultValueBase64Binary?: base64Binary;
         /**
-         * Specified value it missing from instance
+         * Contains defaultValueBase64Binary's id, extensions, and comments.
          */
-        defaultValueCoding?: Coding;
+        _defaultValueBase64Binary?: Element;
         /**
          * Specified value it missing from instance
          */
-        defaultValueCodeableConcept?: CodeableConcept;
+        defaultValueInstant?: instant;
+        /**
+         * Contains defaultValueInstant's id, extensions, and comments.
+         */
+        _defaultValueInstant?: Element;
+        /**
+         * Specified value it missing from instance
+         */
+        defaultValueString?: string;
+        /**
+         * Contains defaultValueString's id, extensions, and comments.
+         */
+        _defaultValueString?: Element;
+        /**
+         * Specified value it missing from instance
+         */
+        defaultValueUri?: uri;
+        /**
+         * Contains defaultValueUri's id, extensions, and comments.
+         */
+        _defaultValueUri?: Element;
+        /**
+         * Specified value it missing from instance
+         */
+        defaultValueDate?: date;
+        /**
+         * Contains defaultValueDate's id, extensions, and comments.
+         */
+        _defaultValueDate?: Element;
+        /**
+         * Specified value it missing from instance
+         */
+        defaultValueDateTime?: dateTime;
+        /**
+         * Contains defaultValueDateTime's id, extensions, and comments.
+         */
+        _defaultValueDateTime?: Element;
+        /**
+         * Specified value it missing from instance
+         */
+        defaultValueTime?: time;
+        /**
+         * Contains defaultValueTime's id, extensions, and comments.
+         */
+        _defaultValueTime?: Element;
+        /**
+         * Specified value it missing from instance
+         */
+        defaultValueCode?: code;
+        /**
+         * Contains defaultValueCode's id, extensions, and comments.
+         */
+        _defaultValueCode?: Element;
+        /**
+         * Specified value it missing from instance
+         */
+        defaultValueOid?: oid;
+        /**
+         * Contains defaultValueOid's id, extensions, and comments.
+         */
+        _defaultValueOid?: Element;
+        /**
+         * Specified value it missing from instance
+         */
+        defaultValueId?: id;
+        /**
+         * Contains defaultValueId's id, extensions, and comments.
+         */
+        _defaultValueId?: Element;
+        /**
+         * Specified value it missing from instance
+         */
+        defaultValueUnsignedInt?: unsignedInt;
+        /**
+         * Contains defaultValueUnsignedInt's id, extensions, and comments.
+         */
+        _defaultValueUnsignedInt?: Element;
+        /**
+         * Specified value it missing from instance
+         */
+        defaultValuePositiveInt?: positiveInt;
+        /**
+         * Contains defaultValuePositiveInt's id, extensions, and comments.
+         */
+        _defaultValuePositiveInt?: Element;
+        /**
+         * Specified value it missing from instance
+         */
+        defaultValueMarkdown?: markdown;
+        /**
+         * Contains defaultValueMarkdown's id, extensions, and comments.
+         */
+        _defaultValueMarkdown?: Element;
+        /**
+         * Specified value it missing from instance
+         */
+        defaultValueAnnotation?: Annotation;
         /**
          * Specified value it missing from instance
          */
@@ -7966,6 +10354,14 @@ declare module fhir {
          * Specified value it missing from instance
          */
         defaultValueIdentifier?: Identifier;
+        /**
+         * Specified value it missing from instance
+         */
+        defaultValueCodeableConcept?: CodeableConcept;
+        /**
+         * Specified value it missing from instance
+         */
+        defaultValueCoding?: Coding;
         /**
          * Specified value it missing from instance
          */
@@ -7985,6 +10381,14 @@ declare module fhir {
         /**
          * Specified value it missing from instance
          */
+        defaultValueSampledData?: SampledData;
+        /**
+         * Specified value it missing from instance
+         */
+        defaultValueSignature?: Signature;
+        /**
+         * Specified value it missing from instance
+         */
         defaultValueHumanName?: HumanName;
         /**
          * Specified value it missing from instance
@@ -8001,67 +10405,151 @@ declare module fhir {
         /**
          * Specified value it missing from instance
          */
-        defaultValueSignature?: Signature;
+        defaultValueReference?: Reference;
         /**
          * Specified value it missing from instance
          */
-        defaultValueReference?: Reference;
+        defaultValueMeta?: Meta;
         /**
          * Implicit meaning when this element is missing
          */
-        meaningWhenMissing?: string;
+        meaningWhenMissing?: markdown;
         /**
-         * Value must be exactly this
+         * Contains meaningWhenMissing's id, extensions, and comments.
          */
-        fixedInteger?: integer;
-        /**
-         * Value must be exactly this
-         */
-        fixedDecimal?: decimal;
-        /**
-         * Value must be exactly this
-         */
-        fixedDateTime?: dateTime;
-        /**
-         * Value must be exactly this
-         */
-        fixedDate?: date;
-        /**
-         * Value must be exactly this
-         */
-        fixedInstant?: instant;
-        /**
-         * Value must be exactly this
-         */
-        fixedTime?: time;
-        /**
-         * Value must be exactly this
-         */
-        fixedString?: string;
-        /**
-         * Value must be exactly this
-         */
-        fixedUri?: uri;
+        _meaningWhenMissing?: Element;
         /**
          * Value must be exactly this
          */
         fixedBoolean?: boolean;
         /**
+         * Contains fixedBoolean's id, extensions, and comments.
+         */
+        _fixedBoolean?: Element;
+        /**
          * Value must be exactly this
          */
-        fixedCode?: code;
+        fixedInteger?: integer;
+        /**
+         * Contains fixedInteger's id, extensions, and comments.
+         */
+        _fixedInteger?: Element;
+        /**
+         * Value must be exactly this
+         */
+        fixedDecimal?: decimal;
+        /**
+         * Contains fixedDecimal's id, extensions, and comments.
+         */
+        _fixedDecimal?: Element;
         /**
          * Value must be exactly this
          */
         fixedBase64Binary?: base64Binary;
         /**
-         * Value must be exactly this
+         * Contains fixedBase64Binary's id, extensions, and comments.
          */
-        fixedCoding?: Coding;
+        _fixedBase64Binary?: Element;
         /**
          * Value must be exactly this
          */
-        fixedCodeableConcept?: CodeableConcept;
+        fixedInstant?: instant;
+        /**
+         * Contains fixedInstant's id, extensions, and comments.
+         */
+        _fixedInstant?: Element;
+        /**
+         * Value must be exactly this
+         */
+        fixedString?: string;
+        /**
+         * Contains fixedString's id, extensions, and comments.
+         */
+        _fixedString?: Element;
+        /**
+         * Value must be exactly this
+         */
+        fixedUri?: uri;
+        /**
+         * Contains fixedUri's id, extensions, and comments.
+         */
+        _fixedUri?: Element;
+        /**
+         * Value must be exactly this
+         */
+        fixedDate?: date;
+        /**
+         * Contains fixedDate's id, extensions, and comments.
+         */
+        _fixedDate?: Element;
+        /**
+         * Value must be exactly this
+         */
+        fixedDateTime?: dateTime;
+        /**
+         * Contains fixedDateTime's id, extensions, and comments.
+         */
+        _fixedDateTime?: Element;
+        /**
+         * Value must be exactly this
+         */
+        fixedTime?: time;
+        /**
+         * Contains fixedTime's id, extensions, and comments.
+         */
+        _fixedTime?: Element;
+        /**
+         * Value must be exactly this
+         */
+        fixedCode?: code;
+        /**
+         * Contains fixedCode's id, extensions, and comments.
+         */
+        _fixedCode?: Element;
+        /**
+         * Value must be exactly this
+         */
+        fixedOid?: oid;
+        /**
+         * Contains fixedOid's id, extensions, and comments.
+         */
+        _fixedOid?: Element;
+        /**
+         * Value must be exactly this
+         */
+        fixedId?: id;
+        /**
+         * Contains fixedId's id, extensions, and comments.
+         */
+        _fixedId?: Element;
+        /**
+         * Value must be exactly this
+         */
+        fixedUnsignedInt?: unsignedInt;
+        /**
+         * Contains fixedUnsignedInt's id, extensions, and comments.
+         */
+        _fixedUnsignedInt?: Element;
+        /**
+         * Value must be exactly this
+         */
+        fixedPositiveInt?: positiveInt;
+        /**
+         * Contains fixedPositiveInt's id, extensions, and comments.
+         */
+        _fixedPositiveInt?: Element;
+        /**
+         * Value must be exactly this
+         */
+        fixedMarkdown?: markdown;
+        /**
+         * Contains fixedMarkdown's id, extensions, and comments.
+         */
+        _fixedMarkdown?: Element;
+        /**
+         * Value must be exactly this
+         */
+        fixedAnnotation?: Annotation;
         /**
          * Value must be exactly this
          */
@@ -8070,6 +10558,14 @@ declare module fhir {
          * Value must be exactly this
          */
         fixedIdentifier?: Identifier;
+        /**
+         * Value must be exactly this
+         */
+        fixedCodeableConcept?: CodeableConcept;
+        /**
+         * Value must be exactly this
+         */
+        fixedCoding?: Coding;
         /**
          * Value must be exactly this
          */
@@ -8089,6 +10585,14 @@ declare module fhir {
         /**
          * Value must be exactly this
          */
+        fixedSampledData?: SampledData;
+        /**
+         * Value must be exactly this
+         */
+        fixedSignature?: Signature;
+        /**
+         * Value must be exactly this
+         */
         fixedHumanName?: HumanName;
         /**
          * Value must be exactly this
@@ -8105,63 +10609,143 @@ declare module fhir {
         /**
          * Value must be exactly this
          */
-        fixedSignature?: Signature;
+        fixedReference?: Reference;
         /**
          * Value must be exactly this
          */
-        fixedReference?: Reference;
-        /**
-         * Value must have at least these property values
-         */
-        patternInteger?: integer;
-        /**
-         * Value must have at least these property values
-         */
-        patternDecimal?: decimal;
-        /**
-         * Value must have at least these property values
-         */
-        patternDateTime?: dateTime;
-        /**
-         * Value must have at least these property values
-         */
-        patternDate?: date;
-        /**
-         * Value must have at least these property values
-         */
-        patternInstant?: instant;
-        /**
-         * Value must have at least these property values
-         */
-        patternTime?: time;
-        /**
-         * Value must have at least these property values
-         */
-        patternString?: string;
-        /**
-         * Value must have at least these property values
-         */
-        patternUri?: uri;
+        fixedMeta?: Meta;
         /**
          * Value must have at least these property values
          */
         patternBoolean?: boolean;
         /**
+         * Contains patternBoolean's id, extensions, and comments.
+         */
+        _patternBoolean?: Element;
+        /**
          * Value must have at least these property values
          */
-        patternCode?: code;
+        patternInteger?: integer;
+        /**
+         * Contains patternInteger's id, extensions, and comments.
+         */
+        _patternInteger?: Element;
+        /**
+         * Value must have at least these property values
+         */
+        patternDecimal?: decimal;
+        /**
+         * Contains patternDecimal's id, extensions, and comments.
+         */
+        _patternDecimal?: Element;
         /**
          * Value must have at least these property values
          */
         patternBase64Binary?: base64Binary;
         /**
-         * Value must have at least these property values
+         * Contains patternBase64Binary's id, extensions, and comments.
          */
-        patternCoding?: Coding;
+        _patternBase64Binary?: Element;
         /**
          * Value must have at least these property values
          */
-        patternCodeableConcept?: CodeableConcept;
+        patternInstant?: instant;
+        /**
+         * Contains patternInstant's id, extensions, and comments.
+         */
+        _patternInstant?: Element;
+        /**
+         * Value must have at least these property values
+         */
+        patternString?: string;
+        /**
+         * Contains patternString's id, extensions, and comments.
+         */
+        _patternString?: Element;
+        /**
+         * Value must have at least these property values
+         */
+        patternUri?: uri;
+        /**
+         * Contains patternUri's id, extensions, and comments.
+         */
+        _patternUri?: Element;
+        /**
+         * Value must have at least these property values
+         */
+        patternDate?: date;
+        /**
+         * Contains patternDate's id, extensions, and comments.
+         */
+        _patternDate?: Element;
+        /**
+         * Value must have at least these property values
+         */
+        patternDateTime?: dateTime;
+        /**
+         * Contains patternDateTime's id, extensions, and comments.
+         */
+        _patternDateTime?: Element;
+        /**
+         * Value must have at least these property values
+         */
+        patternTime?: time;
+        /**
+         * Contains patternTime's id, extensions, and comments.
+         */
+        _patternTime?: Element;
+        /**
+         * Value must have at least these property values
+         */
+        patternCode?: code;
+        /**
+         * Contains patternCode's id, extensions, and comments.
+         */
+        _patternCode?: Element;
+        /**
+         * Value must have at least these property values
+         */
+        patternOid?: oid;
+        /**
+         * Contains patternOid's id, extensions, and comments.
+         */
+        _patternOid?: Element;
+        /**
+         * Value must have at least these property values
+         */
+        patternId?: id;
+        /**
+         * Contains patternId's id, extensions, and comments.
+         */
+        _patternId?: Element;
+        /**
+         * Value must have at least these property values
+         */
+        patternUnsignedInt?: unsignedInt;
+        /**
+         * Contains patternUnsignedInt's id, extensions, and comments.
+         */
+        _patternUnsignedInt?: Element;
+        /**
+         * Value must have at least these property values
+         */
+        patternPositiveInt?: positiveInt;
+        /**
+         * Contains patternPositiveInt's id, extensions, and comments.
+         */
+        _patternPositiveInt?: Element;
+        /**
+         * Value must have at least these property values
+         */
+        patternMarkdown?: markdown;
+        /**
+         * Contains patternMarkdown's id, extensions, and comments.
+         */
+        _patternMarkdown?: Element;
+        /**
+         * Value must have at least these property values
+         */
+        patternAnnotation?: Annotation;
         /**
          * Value must have at least these property values
          */
@@ -8170,6 +10754,14 @@ declare module fhir {
          * Value must have at least these property values
          */
         patternIdentifier?: Identifier;
+        /**
+         * Value must have at least these property values
+         */
+        patternCodeableConcept?: CodeableConcept;
+        /**
+         * Value must have at least these property values
+         */
+        patternCoding?: Coding;
         /**
          * Value must have at least these property values
          */
@@ -8189,6 +10781,14 @@ declare module fhir {
         /**
          * Value must have at least these property values
          */
+        patternSampledData?: SampledData;
+        /**
+         * Value must have at least these property values
+         */
+        patternSignature?: Signature;
+        /**
+         * Value must have at least these property values
+         */
         patternHumanName?: HumanName;
         /**
          * Value must have at least these property values
@@ -8205,63 +10805,143 @@ declare module fhir {
         /**
          * Value must have at least these property values
          */
-        patternSignature?: Signature;
+        patternReference?: Reference;
         /**
          * Value must have at least these property values
          */
-        patternReference?: Reference;
-        /**
-         * Example value: [as defined for type]
-         */
-        exampleInteger?: integer;
-        /**
-         * Example value: [as defined for type]
-         */
-        exampleDecimal?: decimal;
-        /**
-         * Example value: [as defined for type]
-         */
-        exampleDateTime?: dateTime;
-        /**
-         * Example value: [as defined for type]
-         */
-        exampleDate?: date;
-        /**
-         * Example value: [as defined for type]
-         */
-        exampleInstant?: instant;
-        /**
-         * Example value: [as defined for type]
-         */
-        exampleTime?: time;
-        /**
-         * Example value: [as defined for type]
-         */
-        exampleString?: string;
-        /**
-         * Example value: [as defined for type]
-         */
-        exampleUri?: uri;
+        patternMeta?: Meta;
         /**
          * Example value: [as defined for type]
          */
         exampleBoolean?: boolean;
         /**
+         * Contains exampleBoolean's id, extensions, and comments.
+         */
+        _exampleBoolean?: Element;
+        /**
          * Example value: [as defined for type]
          */
-        exampleCode?: code;
+        exampleInteger?: integer;
+        /**
+         * Contains exampleInteger's id, extensions, and comments.
+         */
+        _exampleInteger?: Element;
+        /**
+         * Example value: [as defined for type]
+         */
+        exampleDecimal?: decimal;
+        /**
+         * Contains exampleDecimal's id, extensions, and comments.
+         */
+        _exampleDecimal?: Element;
         /**
          * Example value: [as defined for type]
          */
         exampleBase64Binary?: base64Binary;
         /**
-         * Example value: [as defined for type]
+         * Contains exampleBase64Binary's id, extensions, and comments.
          */
-        exampleCoding?: Coding;
+        _exampleBase64Binary?: Element;
         /**
          * Example value: [as defined for type]
          */
-        exampleCodeableConcept?: CodeableConcept;
+        exampleInstant?: instant;
+        /**
+         * Contains exampleInstant's id, extensions, and comments.
+         */
+        _exampleInstant?: Element;
+        /**
+         * Example value: [as defined for type]
+         */
+        exampleString?: string;
+        /**
+         * Contains exampleString's id, extensions, and comments.
+         */
+        _exampleString?: Element;
+        /**
+         * Example value: [as defined for type]
+         */
+        exampleUri?: uri;
+        /**
+         * Contains exampleUri's id, extensions, and comments.
+         */
+        _exampleUri?: Element;
+        /**
+         * Example value: [as defined for type]
+         */
+        exampleDate?: date;
+        /**
+         * Contains exampleDate's id, extensions, and comments.
+         */
+        _exampleDate?: Element;
+        /**
+         * Example value: [as defined for type]
+         */
+        exampleDateTime?: dateTime;
+        /**
+         * Contains exampleDateTime's id, extensions, and comments.
+         */
+        _exampleDateTime?: Element;
+        /**
+         * Example value: [as defined for type]
+         */
+        exampleTime?: time;
+        /**
+         * Contains exampleTime's id, extensions, and comments.
+         */
+        _exampleTime?: Element;
+        /**
+         * Example value: [as defined for type]
+         */
+        exampleCode?: code;
+        /**
+         * Contains exampleCode's id, extensions, and comments.
+         */
+        _exampleCode?: Element;
+        /**
+         * Example value: [as defined for type]
+         */
+        exampleOid?: oid;
+        /**
+         * Contains exampleOid's id, extensions, and comments.
+         */
+        _exampleOid?: Element;
+        /**
+         * Example value: [as defined for type]
+         */
+        exampleId?: id;
+        /**
+         * Contains exampleId's id, extensions, and comments.
+         */
+        _exampleId?: Element;
+        /**
+         * Example value: [as defined for type]
+         */
+        exampleUnsignedInt?: unsignedInt;
+        /**
+         * Contains exampleUnsignedInt's id, extensions, and comments.
+         */
+        _exampleUnsignedInt?: Element;
+        /**
+         * Example value: [as defined for type]
+         */
+        examplePositiveInt?: positiveInt;
+        /**
+         * Contains examplePositiveInt's id, extensions, and comments.
+         */
+        _examplePositiveInt?: Element;
+        /**
+         * Example value: [as defined for type]
+         */
+        exampleMarkdown?: markdown;
+        /**
+         * Contains exampleMarkdown's id, extensions, and comments.
+         */
+        _exampleMarkdown?: Element;
+        /**
+         * Example value: [as defined for type]
+         */
+        exampleAnnotation?: Annotation;
         /**
          * Example value: [as defined for type]
          */
@@ -8270,6 +10950,14 @@ declare module fhir {
          * Example value: [as defined for type]
          */
         exampleIdentifier?: Identifier;
+        /**
+         * Example value: [as defined for type]
+         */
+        exampleCodeableConcept?: CodeableConcept;
+        /**
+         * Example value: [as defined for type]
+         */
+        exampleCoding?: Coding;
         /**
          * Example value: [as defined for type]
          */
@@ -8289,6 +10977,14 @@ declare module fhir {
         /**
          * Example value: [as defined for type]
          */
+        exampleSampledData?: SampledData;
+        /**
+         * Example value: [as defined for type]
+         */
+        exampleSignature?: Signature;
+        /**
+         * Example value: [as defined for type]
+         */
         exampleHumanName?: HumanName;
         /**
          * Example value: [as defined for type]
@@ -8305,19 +11001,419 @@ declare module fhir {
         /**
          * Example value: [as defined for type]
          */
-        exampleSignature?: Signature;
+        exampleReference?: Reference;
         /**
          * Example value: [as defined for type]
          */
-        exampleReference?: Reference;
+        exampleMeta?: Meta;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueBoolean?: boolean;
+        /**
+         * Contains minValueBoolean's id, extensions, and comments.
+         */
+        _minValueBoolean?: Element;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueInteger?: integer;
+        /**
+         * Contains minValueInteger's id, extensions, and comments.
+         */
+        _minValueInteger?: Element;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueDecimal?: decimal;
+        /**
+         * Contains minValueDecimal's id, extensions, and comments.
+         */
+        _minValueDecimal?: Element;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueBase64Binary?: base64Binary;
+        /**
+         * Contains minValueBase64Binary's id, extensions, and comments.
+         */
+        _minValueBase64Binary?: Element;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueInstant?: instant;
+        /**
+         * Contains minValueInstant's id, extensions, and comments.
+         */
+        _minValueInstant?: Element;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueString?: string;
+        /**
+         * Contains minValueString's id, extensions, and comments.
+         */
+        _minValueString?: Element;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueUri?: uri;
+        /**
+         * Contains minValueUri's id, extensions, and comments.
+         */
+        _minValueUri?: Element;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueDate?: date;
+        /**
+         * Contains minValueDate's id, extensions, and comments.
+         */
+        _minValueDate?: Element;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueDateTime?: dateTime;
+        /**
+         * Contains minValueDateTime's id, extensions, and comments.
+         */
+        _minValueDateTime?: Element;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueTime?: time;
+        /**
+         * Contains minValueTime's id, extensions, and comments.
+         */
+        _minValueTime?: Element;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueCode?: code;
+        /**
+         * Contains minValueCode's id, extensions, and comments.
+         */
+        _minValueCode?: Element;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueOid?: oid;
+        /**
+         * Contains minValueOid's id, extensions, and comments.
+         */
+        _minValueOid?: Element;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueId?: id;
+        /**
+         * Contains minValueId's id, extensions, and comments.
+         */
+        _minValueId?: Element;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueUnsignedInt?: unsignedInt;
+        /**
+         * Contains minValueUnsignedInt's id, extensions, and comments.
+         */
+        _minValueUnsignedInt?: Element;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValuePositiveInt?: positiveInt;
+        /**
+         * Contains minValuePositiveInt's id, extensions, and comments.
+         */
+        _minValuePositiveInt?: Element;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueMarkdown?: markdown;
+        /**
+         * Contains minValueMarkdown's id, extensions, and comments.
+         */
+        _minValueMarkdown?: Element;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueAnnotation?: Annotation;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueAttachment?: Attachment;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueIdentifier?: Identifier;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueCodeableConcept?: CodeableConcept;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueCoding?: Coding;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueQuantity?: Quantity;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueRange?: Range;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValuePeriod?: Period;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueRatio?: Ratio;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueSampledData?: SampledData;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueSignature?: Signature;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueHumanName?: HumanName;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueAddress?: Address;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueContactPoint?: ContactPoint;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueTiming?: Timing;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueReference?: Reference;
+        /**
+         * Minimum Allowed Value (for some types)
+         */
+        minValueMeta?: Meta;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueBoolean?: boolean;
+        /**
+         * Contains maxValueBoolean's id, extensions, and comments.
+         */
+        _maxValueBoolean?: Element;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueInteger?: integer;
+        /**
+         * Contains maxValueInteger's id, extensions, and comments.
+         */
+        _maxValueInteger?: Element;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueDecimal?: decimal;
+        /**
+         * Contains maxValueDecimal's id, extensions, and comments.
+         */
+        _maxValueDecimal?: Element;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueBase64Binary?: base64Binary;
+        /**
+         * Contains maxValueBase64Binary's id, extensions, and comments.
+         */
+        _maxValueBase64Binary?: Element;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueInstant?: instant;
+        /**
+         * Contains maxValueInstant's id, extensions, and comments.
+         */
+        _maxValueInstant?: Element;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueString?: string;
+        /**
+         * Contains maxValueString's id, extensions, and comments.
+         */
+        _maxValueString?: Element;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueUri?: uri;
+        /**
+         * Contains maxValueUri's id, extensions, and comments.
+         */
+        _maxValueUri?: Element;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueDate?: date;
+        /**
+         * Contains maxValueDate's id, extensions, and comments.
+         */
+        _maxValueDate?: Element;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueDateTime?: dateTime;
+        /**
+         * Contains maxValueDateTime's id, extensions, and comments.
+         */
+        _maxValueDateTime?: Element;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueTime?: time;
+        /**
+         * Contains maxValueTime's id, extensions, and comments.
+         */
+        _maxValueTime?: Element;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueCode?: code;
+        /**
+         * Contains maxValueCode's id, extensions, and comments.
+         */
+        _maxValueCode?: Element;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueOid?: oid;
+        /**
+         * Contains maxValueOid's id, extensions, and comments.
+         */
+        _maxValueOid?: Element;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueId?: id;
+        /**
+         * Contains maxValueId's id, extensions, and comments.
+         */
+        _maxValueId?: Element;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueUnsignedInt?: unsignedInt;
+        /**
+         * Contains maxValueUnsignedInt's id, extensions, and comments.
+         */
+        _maxValueUnsignedInt?: Element;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValuePositiveInt?: positiveInt;
+        /**
+         * Contains maxValuePositiveInt's id, extensions, and comments.
+         */
+        _maxValuePositiveInt?: Element;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueMarkdown?: markdown;
+        /**
+         * Contains maxValueMarkdown's id, extensions, and comments.
+         */
+        _maxValueMarkdown?: Element;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueAnnotation?: Annotation;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueAttachment?: Attachment;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueIdentifier?: Identifier;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueCodeableConcept?: CodeableConcept;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueCoding?: Coding;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueQuantity?: Quantity;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueRange?: Range;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValuePeriod?: Period;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueRatio?: Ratio;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueSampledData?: SampledData;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueSignature?: Signature;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueHumanName?: HumanName;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueAddress?: Address;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueContactPoint?: ContactPoint;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueTiming?: Timing;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueReference?: Reference;
+        /**
+         * Maximum Allowed Value (for some types)
+         */
+        maxValueMeta?: Meta;
         /**
          * Max length for strings
          */
         maxLength?: integer;
         /**
+         * Contains maxLength's id, extensions, and comments.
+         */
+        _maxLength?: Element;
+        /**
          * Reference to invariant about presence
          */
         condition?: id[];
+        /**
+         * Contains condition's id, extensions, and comments.
+         */
+        _condition?: Element[];
         /**
          * Condition that must evaluate to true
          */
@@ -8327,13 +11423,25 @@ declare module fhir {
          */
         mustSupport?: boolean;
         /**
+         * Contains mustSupport's id, extensions, and comments.
+         */
+        _mustSupport?: Element;
+        /**
          * If this modifies the meaning of other elements
          */
         isModifier?: boolean;
         /**
+         * Contains isModifier's id, extensions, and comments.
+         */
+        _isModifier?: Element;
+        /**
          * Include when _summary = true?
          */
         isSummary?: boolean;
+        /**
+         * Contains isSummary's id, extensions, and comments.
+         */
+        _isSummary?: Element;
         /**
          * ValueSet details if this is coded
          */
@@ -8361,6 +11469,10 @@ declare module fhir {
          */
         url: uri;
         /**
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
+        /**
          * Other identifiers for the StructureDefinition
          */
         identifier?: Identifier[];
@@ -8369,81 +11481,153 @@ declare module fhir {
          */
         version?: string;
         /**
+         * Contains version's id, extensions, and comments.
+         */
+        _version?: Element;
+        /**
          * Informal name for this StructureDefinition
          */
         name: string;
         /**
-         * Content intends to support these contexts
+         * Contains name's id, extensions, and comments.
          */
-        useContext?: CodeableConcept[];
+        _name?: Element;
         /**
          * Use this name when displaying the value
          */
         display?: string;
         /**
-         * Name of the publisher (Organization or individual)
+         * Contains display's id, extensions, and comments.
          */
-        publisher?: string;
-        /**
-         * Contact details of the publisher
-         */
-        contact?: StructureDefinitionContact[];
-        /**
-         * Natural language description of the StructureDefinition
-         */
-        description?: string;
-        /**
-         * Scope and Usage this structure definition is for
-         */
-        requirements?: string;
-        /**
-         * Use and/or Publishing restrictions
-         */
-        copyright?: string;
-        /**
-         * Assist with indexing and finding
-         */
-        code?: Coding[];
+        _display?: Element;
         /**
          * draft | active | retired
          */
         status: code;
         /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * If for testing purposes, not real usage
          */
         experimental?: boolean;
+        /**
+         * Contains experimental's id, extensions, and comments.
+         */
+        _experimental?: Element;
+        /**
+         * Name of the publisher (Organization or individual)
+         */
+        publisher?: string;
+        /**
+         * Contains publisher's id, extensions, and comments.
+         */
+        _publisher?: Element;
+        /**
+         * Contact details of the publisher
+         */
+        contact?: StructureDefinitionContact[];
         /**
          * Date for this version of the StructureDefinition
          */
         date?: dateTime;
         /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * Natural language description of the StructureDefinition
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * Content intends to support these contexts
+         */
+        useContext?: CodeableConcept[];
+        /**
+         * Scope and Usage this structure definition is for
+         */
+        requirements?: string;
+        /**
+         * Contains requirements's id, extensions, and comments.
+         */
+        _requirements?: Element;
+        /**
+         * Use and/or Publishing restrictions
+         */
+        copyright?: string;
+        /**
+         * Contains copyright's id, extensions, and comments.
+         */
+        _copyright?: Element;
+        /**
+         * Assist with indexing and finding
+         */
+        code?: Coding[];
+        /**
          * FHIR Version this StructureDefinition targets
          */
         fhirVersion?: id;
+        /**
+         * Contains fhirVersion's id, extensions, and comments.
+         */
+        _fhirVersion?: Element;
         /**
          * External specification that the content is mapped to
          */
         mapping?: StructureDefinitionMapping[];
         /**
-         * type | resource | constraint | extension
+         * datatype | resource | logical
          */
-        type: code;
+        kind: code;
+        /**
+         * Contains kind's id, extensions, and comments.
+         */
+        _kind?: Element;
+        /**
+         * Any datatype or resource, including abstract ones
+         */
+        constrainedType?: code;
+        /**
+         * Contains constrainedType's id, extensions, and comments.
+         */
+        _constrainedType?: Element;
         /**
          * Whether the structure is abstract
          */
         abstract: boolean;
         /**
+         * Contains abstract's id, extensions, and comments.
+         */
+        _abstract?: Element;
+        /**
          * resource | datatype | mapping | extension
          */
         contextType?: code;
+        /**
+         * Contains contextType's id, extensions, and comments.
+         */
+        _contextType?: Element;
         /**
          * Where the extension can be used in instances
          */
         context?: string[];
         /**
+         * Contains context's id, extensions, and comments.
+         */
+        _context?: Element[];
+        /**
          * Structure that this set of constraints applies to
          */
         base?: uri;
+        /**
+         * Contains base's id, extensions, and comments.
+         */
+        _base?: Element;
         /**
          * Snapshot view of the structure
          */
@@ -8462,59 +11646,95 @@ declare module fhir {
          */
         codeSystem?: uri;
         /**
+         * Contains codeSystem's id, extensions, and comments.
+         */
+        _codeSystem?: Element;
+        /**
          * Identifies element being mapped
          */
         code?: code;
         /**
-         * Other elements required for this mapping (from context)
+         * Contains code's id, extensions, and comments.
          */
-        dependsOn?: ConceptMapElementDependsOn[];
+        _code?: Element;
         /**
-         * Target of this map
+         * Concept in target system for element
          */
-        map?: ConceptMapElementMap[];
+        target?: ConceptMapElementTarget[];
     }
     /**
-     * Other elements required for this mapping (from context)
+     * Concept in target system for element
      */
-    interface ConceptMapElementDependsOn extends Element {
-        /**
-         * Reference to element/field/valueset mapping depends on
-         */
-        element: uri;
-        /**
-         * Code System (if necessary)
-         */
-        codeSystem: uri;
-        /**
-         * Value of the referenced element
-         */
-        code: string;
-    }
-    /**
-     * Target of this map
-     */
-    interface ConceptMapElementMap extends Element {
+    interface ConceptMapElementTarget extends Element {
         /**
          * System of the target (if necessary)
          */
         codeSystem?: uri;
         /**
+         * Contains codeSystem's id, extensions, and comments.
+         */
+        _codeSystem?: Element;
+        /**
          * Code that identifies the target element
          */
         code?: code;
         /**
-         * equivalent | equal | wider | subsumes | narrower | specialises | inexact | unmatched | disjoint
+         * Contains code's id, extensions, and comments.
+         */
+        _code?: Element;
+        /**
+         * equivalent | equal | wider | subsumes | narrower | specializes | inexact | unmatched | disjoint
          */
         equivalence: code;
+        /**
+         * Contains equivalence's id, extensions, and comments.
+         */
+        _equivalence?: Element;
         /**
          * Description of status/issues in mapping
          */
         comments?: string;
         /**
+         * Contains comments's id, extensions, and comments.
+         */
+        _comments?: Element;
+        /**
+         * Other elements required for this mapping (from context)
+         */
+        dependsOn?: ConceptMapElementTargetDependsOn[];
+        /**
          * Other concepts that this mapping also produces
          */
-        product?: ConceptMapElementDependsOn[];
+        product?: ConceptMapElementTargetDependsOn[];
+    }
+    /**
+     * Other elements required for this mapping (from context)
+     */
+    interface ConceptMapElementTargetDependsOn extends Element {
+        /**
+         * Reference to element/field/valueset mapping depends on
+         */
+        element: uri;
+        /**
+         * Contains element's id, extensions, and comments.
+         */
+        _element?: Element;
+        /**
+         * Code System (if necessary)
+         */
+        codeSystem: uri;
+        /**
+         * Contains codeSystem's id, extensions, and comments.
+         */
+        _codeSystem?: Element;
+        /**
+         * Value of the referenced element
+         */
+        code: string;
+        /**
+         * Contains code's id, extensions, and comments.
+         */
+        _code?: Element;
     }
     /**
      * A map from one set of concepts to one or more other concepts
@@ -8525,6 +11745,10 @@ declare module fhir {
          */
         url?: uri;
         /**
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
+        /**
          * Additional identifier for the concept map
          */
         identifier?: Identifier;
@@ -8533,49 +11757,89 @@ declare module fhir {
          */
         version?: string;
         /**
+         * Contains version's id, extensions, and comments.
+         */
+        _version?: Element;
+        /**
          * Informal name for this concept map
          */
         name?: string;
         /**
-         * Content intends to support these contexts
+         * Contains name's id, extensions, and comments.
          */
-        useContext?: CodeableConcept[];
-        /**
-         * Name of the publisher (Organization or individual)
-         */
-        publisher?: string;
-        /**
-         * Contact details of the publisher
-         */
-        contact?: ConceptMapContact[];
-        /**
-         * Human language description of the concept map
-         */
-        description?: string;
-        /**
-         * Why is this needed?
-         */
-        requirements?: string;
-        /**
-         * Use and/or Publishing restrictions
-         */
-        copyright?: string;
+        _name?: Element;
         /**
          * draft | active | retired
          */
         status: code;
         /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * If for testing purposes, not real usage
          */
         experimental?: boolean;
+        /**
+         * Contains experimental's id, extensions, and comments.
+         */
+        _experimental?: Element;
+        /**
+         * Name of the publisher (Organization or individual)
+         */
+        publisher?: string;
+        /**
+         * Contains publisher's id, extensions, and comments.
+         */
+        _publisher?: Element;
+        /**
+         * Contact details of the publisher
+         */
+        contact?: ConceptMapContact[];
         /**
          * Date for given status
          */
         date?: dateTime;
         /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * Human language description of the concept map
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * Content intends to support these contexts
+         */
+        useContext?: CodeableConcept[];
+        /**
+         * Why is this needed?
+         */
+        requirements?: string;
+        /**
+         * Contains requirements's id, extensions, and comments.
+         */
+        _requirements?: Element;
+        /**
+         * Use and/or Publishing restrictions
+         */
+        copyright?: string;
+        /**
+         * Contains copyright's id, extensions, and comments.
+         */
+        _copyright?: Element;
+        /**
          * Identifies the source of the concepts which are being mapped
          */
         sourceUri?: uri;
+        /**
+         * Contains sourceUri's id, extensions, and comments.
+         */
+        _sourceUri?: Element;
         /**
          * Identifies the source of the concepts which are being mapped
          */
@@ -8584,6 +11848,10 @@ declare module fhir {
          * Provides context to the mappings
          */
         targetUri?: uri;
+        /**
+         * Contains targetUri's id, extensions, and comments.
+         */
+        _targetUri?: Element;
         /**
          * Provides context to the mappings
          */
@@ -8602,6 +11870,10 @@ declare module fhir {
          */
         name?: string;
         /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
          * Contact details for individual or publisher
          */
         telecom?: ContactPoint[];
@@ -8615,13 +11887,25 @@ declare module fhir {
          */
         name: string;
         /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
          * Version covered by this statement
          */
         version?: string;
         /**
+         * Contains version's id, extensions, and comments.
+         */
+        _version?: Element;
+        /**
          * Date this version released
          */
         releaseDate?: dateTime;
+        /**
+         * Contains releaseDate's id, extensions, and comments.
+         */
+        _releaseDate?: Element;
     }
     /**
      * If this describes a specific instance
@@ -8632,9 +11916,17 @@ declare module fhir {
          */
         description: string;
         /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
          * Base URL for the installation
          */
         url?: uri;
+        /**
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
     }
     /**
      * If the endpoint is a RESTful one
@@ -8645,9 +11937,17 @@ declare module fhir {
          */
         mode: code;
         /**
+         * Contains mode's id, extensions, and comments.
+         */
+        _mode?: Element;
+        /**
          * General description of implementation
          */
         documentation?: string;
+        /**
+         * Contains documentation's id, extensions, and comments.
+         */
+        _documentation?: Element;
         /**
          * Information about security of implementation
          */
@@ -8661,17 +11961,29 @@ declare module fhir {
          */
         interaction?: ConformanceRestInteraction[];
         /**
+         * not-supported | batch | transaction | both
+         */
+        transactionMode?: code;
+        /**
+         * Contains transactionMode's id, extensions, and comments.
+         */
+        _transactionMode?: Element;
+        /**
+         * Search params for searching all resources
+         */
+        searchParam?: ConformanceRestResourceSearchParam[];
+        /**
          * Definition of an operation or a custom query
          */
         operation?: ConformanceRestOperation[];
         /**
-         * How documents are accepted in /Mailbox
-         */
-        documentMailbox?: uri[];
-        /**
          * Compartments served/used by system
          */
         compartment?: uri[];
+        /**
+         * Contains compartment's id, extensions, and comments.
+         */
+        _compartment?: Element[];
     }
     /**
      * Information about security of implementation
@@ -8682,13 +11994,21 @@ declare module fhir {
          */
         cors?: boolean;
         /**
-         * OAuth | OAuth2 | NTLM | Basic | Kerberos
+         * Contains cors's id, extensions, and comments.
+         */
+        _cors?: Element;
+        /**
+         * OAuth | SMART-on-FHIR | NTLM | Basic | Kerberos | Certificates
          */
         service?: CodeableConcept[];
         /**
          * General description of how security works
          */
         description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
         /**
          * Certificates associated with security profiles
          */
@@ -8703,9 +12023,17 @@ declare module fhir {
          */
         type?: code;
         /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
+        /**
          * Actual certificate
          */
         blob?: base64Binary;
+        /**
+         * Contains blob's id, extensions, and comments.
+         */
+        _blob?: Element;
     }
     /**
      * Resource served on the REST interface
@@ -8716,7 +12044,11 @@ declare module fhir {
          */
         type: code;
         /**
-         * What structural features are supported
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
+        /**
+         * Base System profile for all uses of resource
          */
         profile?: Reference;
         /**
@@ -8728,29 +12060,65 @@ declare module fhir {
          */
         versioning?: code;
         /**
+         * Contains versioning's id, extensions, and comments.
+         */
+        _versioning?: Element;
+        /**
          * Whether vRead can return past versions
          */
         readHistory?: boolean;
+        /**
+         * Contains readHistory's id, extensions, and comments.
+         */
+        _readHistory?: Element;
         /**
          * If update can commit to a new identity
          */
         updateCreate?: boolean;
         /**
+         * Contains updateCreate's id, extensions, and comments.
+         */
+        _updateCreate?: Element;
+        /**
          * If allows/uses conditional create
          */
         conditionalCreate?: boolean;
+        /**
+         * Contains conditionalCreate's id, extensions, and comments.
+         */
+        _conditionalCreate?: Element;
         /**
          * If allows/uses conditional update
          */
         conditionalUpdate?: boolean;
         /**
-         * If allows/uses conditional delete
+         * Contains conditionalUpdate's id, extensions, and comments.
          */
-        conditionalDelete?: boolean;
+        _conditionalUpdate?: Element;
+        /**
+         * not-supported | single | multiple - how conditional delete is supported
+         */
+        conditionalDelete?: code;
+        /**
+         * Contains conditionalDelete's id, extensions, and comments.
+         */
+        _conditionalDelete?: Element;
         /**
          * _include values supported by the server
          */
         searchInclude?: string[];
+        /**
+         * Contains searchInclude's id, extensions, and comments.
+         */
+        _searchInclude?: Element[];
+        /**
+         * _revinclude values supported by the server
+         */
+        searchRevInclude?: string[];
+        /**
+         * Contains searchRevInclude's id, extensions, and comments.
+         */
+        _searchRevInclude?: Element[];
         /**
          * Search params supported by implementation
          */
@@ -8765,9 +12133,17 @@ declare module fhir {
          */
         code: code;
         /**
+         * Contains code's id, extensions, and comments.
+         */
+        _code?: Element;
+        /**
          * Anything special about operation behavior
          */
         documentation?: string;
+        /**
+         * Contains documentation's id, extensions, and comments.
+         */
+        _documentation?: Element;
     }
     /**
      * Search params supported by implementation
@@ -8778,25 +12154,57 @@ declare module fhir {
          */
         name: string;
         /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
          * Source of definition for parameter
          */
         definition?: uri;
+        /**
+         * Contains definition's id, extensions, and comments.
+         */
+        _definition?: Element;
         /**
          * number | date | string | token | reference | composite | quantity | uri
          */
         type: code;
         /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
+        /**
          * Server-specific usage
          */
         documentation?: string;
+        /**
+         * Contains documentation's id, extensions, and comments.
+         */
+        _documentation?: Element;
         /**
          * Types of resource (if a resource reference)
          */
         target?: code[];
         /**
+         * Contains target's id, extensions, and comments.
+         */
+        _target?: Element[];
+        /**
+         * missing | exact | contains | not | text | in | not-in | below | above | type
+         */
+        modifier?: code[];
+        /**
+         * Contains modifier's id, extensions, and comments.
+         */
+        _modifier?: Element[];
+        /**
          * Chained names supported
          */
         chain?: string[];
+        /**
+         * Contains chain's id, extensions, and comments.
+         */
+        _chain?: Element[];
     }
     /**
      * What operations are supported?
@@ -8807,9 +12215,17 @@ declare module fhir {
          */
         code: code;
         /**
+         * Contains code's id, extensions, and comments.
+         */
+        _code?: Element;
+        /**
          * Anything special about operation behavior
          */
         documentation?: string;
+        /**
+         * Contains documentation's id, extensions, and comments.
+         */
+        _documentation?: Element;
     }
     /**
      * Definition of an operation or a custom query
@@ -8819,6 +12235,10 @@ declare module fhir {
          * Name by which the operation/query is invoked
          */
         name: string;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
         /**
          * The defined operation/query
          */
@@ -8833,6 +12253,10 @@ declare module fhir {
          */
         name?: string;
         /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
          * Contact details for individual or publisher
          */
         telecom?: ContactPoint[];
@@ -8842,66 +12266,90 @@ declare module fhir {
      */
     interface OperationDefinitionParameter extends Element {
         /**
-         * Name of the parameter
+         * Name in Parameters.parameter.name or in URL
          */
         name: code;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
         /**
          * in | out
          */
         use: code;
         /**
+         * Contains use's id, extensions, and comments.
+         */
+        _use?: Element;
+        /**
          * Minimum Cardinality
          */
         min: integer;
         /**
+         * Contains min's id, extensions, and comments.
+         */
+        _min?: Element;
+        /**
          * Maximum Cardinality (a number or *)
          */
         max: string;
+        /**
+         * Contains max's id, extensions, and comments.
+         */
+        _max?: Element;
         /**
          * Description of meaning/use
          */
         documentation?: string;
         /**
-         * What type this parameter hs
+         * Contains documentation's id, extensions, and comments.
+         */
+        _documentation?: Element;
+        /**
+         * What type this parameter has
          */
         type?: code;
         /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
+        /**
          * Profile on the type
          */
         profile?: Reference;
+        /**
+         * ValueSet details if this is coded
+         */
+        binding?: OperationDefinitionParameterBinding;
         /**
          * Parts of a Tuple Parameter
          */
-        part?: OperationDefinitionParameterPart[];
+        part?: OperationDefinitionParameter[];
     }
     /**
-     * Parts of a Tuple Parameter
+     * ValueSet details if this is coded
      */
-    interface OperationDefinitionParameterPart extends Element {
+    interface OperationDefinitionParameterBinding extends Element {
         /**
-         * Name of the parameter
+         * required | extensible | preferred | example
          */
-        name: code;
+        strength: code;
         /**
-         * Minimum Cardinality
+         * Contains strength's id, extensions, and comments.
          */
-        min: unsignedInt;
+        _strength?: Element;
         /**
-         * Maximum Cardinality (a number or *)
+         * Source of value set
          */
-        max: string;
+        valueSetUri?: uri;
         /**
-         * Description of meaning/use
+         * Contains valueSetUri's id, extensions, and comments.
          */
-        documentation?: string;
+        _valueSetUri?: Element;
         /**
-         * What type this parameter hs
+         * Source of value set
          */
-        type: code;
-        /**
-         * Profile on the type
-         */
-        profile?: Reference;
+        valueSetReference?: Reference;
     }
     /**
      * Definition of an operation or a named query
@@ -8912,57 +12360,109 @@ declare module fhir {
          */
         url?: uri;
         /**
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
+        /**
          * Logical id for this version of the operation definition
          */
         version?: string;
         /**
-         * Informal name for this profile
+         * Contains version's id, extensions, and comments.
+         */
+        _version?: Element;
+        /**
+         * Informal name for this operation
          */
         name: string;
         /**
-         * Name of the publisher (Organization or individual)
+         * Contains name's id, extensions, and comments.
          */
-        publisher?: string;
-        /**
-         * Contact details of the publisher
-         */
-        contact?: OperationDefinitionContact[];
-        /**
-         * Natural language description of the operation
-         */
-        description?: string;
-        /**
-         * Why is this needed?
-         */
-        requirements?: string;
+        _name?: Element;
         /**
          * draft | active | retired
          */
         status: code;
         /**
-         * If for testing purposes, not real usage
+         * Contains status's id, extensions, and comments.
          */
-        experimental?: boolean;
-        /**
-         * Date for this version of the operation definition
-         */
-        date?: dateTime;
+        _status?: Element;
         /**
          * operation | query
          */
         kind: code;
         /**
-         * Whether operation causes changes to content
+         * Contains kind's id, extensions, and comments.
+         */
+        _kind?: Element;
+        /**
+         * If for testing purposes, not real usage
+         */
+        experimental?: boolean;
+        /**
+         * Contains experimental's id, extensions, and comments.
+         */
+        _experimental?: Element;
+        /**
+         * Name of the publisher (Organization or individual)
+         */
+        publisher?: string;
+        /**
+         * Contains publisher's id, extensions, and comments.
+         */
+        _publisher?: Element;
+        /**
+         * Contact details of the publisher
+         */
+        contact?: OperationDefinitionContact[];
+        /**
+         * Date for this version of the operation definition
+         */
+        date?: dateTime;
+        /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * Natural language description of the operation
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * Why is this needed?
+         */
+        requirements?: string;
+        /**
+         * Contains requirements's id, extensions, and comments.
+         */
+        _requirements?: Element;
+        /**
+         * Whether content is unchanged by operation
          */
         idempotent?: boolean;
+        /**
+         * Contains idempotent's id, extensions, and comments.
+         */
+        _idempotent?: Element;
         /**
          * Name used to invoke the operation
          */
         code: code;
         /**
+         * Contains code's id, extensions, and comments.
+         */
+        _code?: Element;
+        /**
          * Additional information about use
          */
         notes?: string;
+        /**
+         * Contains notes's id, extensions, and comments.
+         */
+        _notes?: Element;
         /**
          * Marks this as a profile of the base
          */
@@ -8972,13 +12472,25 @@ declare module fhir {
          */
         system: boolean;
         /**
+         * Contains system's id, extensions, and comments.
+         */
+        _system?: Element;
+        /**
          * Invoke at resource level for these type
          */
         type?: code[];
         /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element[];
+        /**
          * Invoke on an instance?
          */
         instance: boolean;
+        /**
+         * Contains instance's id, extensions, and comments.
+         */
+        _instance?: Element;
         /**
          * Parameters for the operation/query
          */
@@ -8989,21 +12501,46 @@ declare module fhir {
      */
     interface ConformanceMessaging extends Element {
         /**
-         * Actual endpoint being described
+         * A messaging service end point
          */
-        endpoint?: uri;
+        endpoint?: ConformanceMessagingEndpoint[];
         /**
          * Reliable Message Cache Length (min)
          */
         reliableCache?: unsignedInt;
         /**
+         * Contains reliableCache's id, extensions, and comments.
+         */
+        _reliableCache?: Element;
+        /**
          * Messaging interface behavior details
          */
         documentation?: string;
         /**
+         * Contains documentation's id, extensions, and comments.
+         */
+        _documentation?: Element;
+        /**
          * Declare support for this event
          */
         event: ConformanceMessagingEvent[];
+    }
+    /**
+     * A messaging service end point
+     */
+    interface ConformanceMessagingEndpoint extends Element {
+        /**
+         * http | ftp | mllp +
+         */
+        protocol: Coding;
+        /**
+         * Address of end point
+         */
+        address: uri;
+        /**
+         * Contains address's id, extensions, and comments.
+         */
+        _address?: Element;
     }
     /**
      * Declare support for this event
@@ -9018,17 +12555,25 @@ declare module fhir {
          */
         category?: code;
         /**
+         * Contains category's id, extensions, and comments.
+         */
+        _category?: Element;
+        /**
          * sender | receiver
          */
         mode: code;
         /**
-         * http | ftp | mllp +
+         * Contains mode's id, extensions, and comments.
          */
-        protocol?: Coding[];
+        _mode?: Element;
         /**
          * Resource that's focus of message
          */
         focus: code;
+        /**
+         * Contains focus's id, extensions, and comments.
+         */
+        _focus?: Element;
         /**
          * Profile that describes the request
          */
@@ -9041,6 +12586,10 @@ declare module fhir {
          * Endpoint-specific event documentation
          */
         documentation?: string;
+        /**
+         * Contains documentation's id, extensions, and comments.
+         */
+        _documentation?: Element;
     }
     /**
      * Document definition
@@ -9051,9 +12600,17 @@ declare module fhir {
          */
         mode: code;
         /**
+         * Contains mode's id, extensions, and comments.
+         */
+        _mode?: Element;
+        /**
          * Description of document support
          */
         documentation?: string;
+        /**
+         * Contains documentation's id, extensions, and comments.
+         */
+        _documentation?: Element;
         /**
          * Constraint on a resource used in the document
          */
@@ -9068,45 +12625,93 @@ declare module fhir {
          */
         url?: uri;
         /**
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
+        /**
          * Logical id for this version of the statement
          */
         version?: string;
+        /**
+         * Contains version's id, extensions, and comments.
+         */
+        _version?: Element;
         /**
          * Informal name for this conformance statement
          */
         name?: string;
         /**
-         * Name of the publisher (Organization or individual)
+         * Contains name's id, extensions, and comments.
          */
-        publisher?: string;
-        /**
-         * Contact details of the publisher
-         */
-        contact?: ConformanceContact[];
-        /**
-         * Human description of the conformance statement
-         */
-        description?: string;
-        /**
-         * Why is this needed?
-         */
-        requirements?: string;
-        /**
-         * Use and/or Publishing restrictions
-         */
-        copyright?: string;
+        _name?: Element;
         /**
          * draft | active | retired
          */
         status?: code;
         /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * If for testing purposes, not real usage
          */
         experimental?: boolean;
         /**
+         * Contains experimental's id, extensions, and comments.
+         */
+        _experimental?: Element;
+        /**
+         * Name of the publisher (Organization or individual)
+         */
+        publisher?: string;
+        /**
+         * Contains publisher's id, extensions, and comments.
+         */
+        _publisher?: Element;
+        /**
+         * Contact details of the publisher
+         */
+        contact?: ConformanceContact[];
+        /**
          * Publication Date(/time)
          */
         date: dateTime;
+        /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * Human description of the conformance statement
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * Why is this needed?
+         */
+        requirements?: string;
+        /**
+         * Contains requirements's id, extensions, and comments.
+         */
+        _requirements?: Element;
+        /**
+         * Use and/or Publishing restrictions
+         */
+        copyright?: string;
+        /**
+         * Contains copyright's id, extensions, and comments.
+         */
+        _copyright?: Element;
+        /**
+         * instance | capability | requirements
+         */
+        kind: code;
+        /**
+         * Contains kind's id, extensions, and comments.
+         */
+        _kind?: Element;
         /**
          * Software that is covered by this conformance statement
          */
@@ -9116,19 +12721,31 @@ declare module fhir {
          */
         implementation?: ConformanceImplementation;
         /**
-         * FHIR Version
+         * FHIR Version the system uses
          */
         fhirVersion: id;
         /**
-         * True if application accepts unknown elements
+         * Contains fhirVersion's id, extensions, and comments.
          */
-        acceptUnknown: boolean;
+        _fhirVersion?: Element;
+        /**
+         * no | extensions | elements | both
+         */
+        acceptUnknown: code;
+        /**
+         * Contains acceptUnknown's id, extensions, and comments.
+         */
+        _acceptUnknown?: Element;
         /**
          * formats supported (xml | json | mime type)
          */
         format: code[];
         /**
-         * Profiles supported by the system
+         * Contains format's id, extensions, and comments.
+         */
+        _format?: Element[];
+        /**
+         * Profiles for use cases supported
          */
         profile?: Reference[];
         /**
@@ -9145,68 +12762,6 @@ declare module fhir {
         document?: ConformanceDocument[];
     }
     /**
-     * Step taken to address
-     */
-    interface ContraindicationMitigation extends Element {
-        /**
-         * What mitigation?
-         */
-        action: CodeableConcept;
-        /**
-         * Date committed
-         */
-        date?: dateTime;
-        /**
-         * Who is committing?
-         */
-        author?: Reference;
-    }
-    /**
-     * Clinical issue with action
-     */
-    interface Contraindication extends DomainResource {
-        /**
-         * Associated patient
-         */
-        patient?: Reference;
-        /**
-         * E.g. Drug-drug, duplicate therapy, etc.
-         */
-        category?: CodeableConcept;
-        /**
-         * high | medium | low
-         */
-        severity?: code;
-        /**
-         * Problem resource
-         */
-        implicated?: Reference[];
-        /**
-         * Description and context
-         */
-        detail?: string;
-        /**
-         * When identified
-         */
-        date?: dateTime;
-        /**
-         * Who found issue?
-         */
-        author?: Reference;
-        /**
-         * Unique id for the contraindication
-         */
-        identifier?: Identifier;
-        /**
-         * Authority for issue
-         */
-        reference?: uri;
-        /**
-         * Step taken to address
-         */
-        mitigation?: ContraindicationMitigation[];
-    }
-    /**
      * Contact details of the publisher
      */
     interface DataElementContact extends Element {
@@ -9214,6 +12769,10 @@ declare module fhir {
          * Name of a individual to contact
          */
         name?: string;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
         /**
          * Contact details for individual or publisher
          */
@@ -9228,17 +12787,33 @@ declare module fhir {
          */
         identity: id;
         /**
+         * Contains identity's id, extensions, and comments.
+         */
+        _identity?: Element;
+        /**
          * Identifies what this mapping refers to
          */
         uri?: uri;
+        /**
+         * Contains uri's id, extensions, and comments.
+         */
+        _uri?: Element;
         /**
          * Names what this mapping refers to
          */
         name?: string;
         /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
          * Versions, Issues, Scope limitations etc
          */
         comments?: string;
+        /**
+         * Contains comments's id, extensions, and comments.
+         */
+        _comments?: Element;
     }
     /**
      * Resource data element
@@ -9249,49 +12824,85 @@ declare module fhir {
          */
         url?: uri;
         /**
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
+        /**
          * Logical id to reference this data element
          */
-        identifier?: Identifier;
+        identifier?: Identifier[];
         /**
          * Logical id for this version of the data element
          */
         version?: string;
         /**
+         * Contains version's id, extensions, and comments.
+         */
+        _version?: Element;
+        /**
          * Descriptive label for this element definition
          */
         name?: string;
         /**
-         * Content intends to support these contexts
+         * Contains name's id, extensions, and comments.
          */
-        useContext?: CodeableConcept[];
-        /**
-         * If for testing purposes, not real usage
-         */
-        experimental?: boolean;
+        _name?: Element;
         /**
          * draft | active | retired
          */
         status: code;
         /**
-         * Date for this version of the data element
+         * Contains status's id, extensions, and comments.
          */
-        date?: dateTime;
+        _status?: Element;
         /**
-         * Use and/or Publishing restrictions
+         * If for testing purposes, not real usage
          */
-        copyright?: string;
+        experimental?: boolean;
+        /**
+         * Contains experimental's id, extensions, and comments.
+         */
+        _experimental?: Element;
         /**
          * Name of the publisher (Organization or individual)
          */
         publisher?: string;
         /**
+         * Contains publisher's id, extensions, and comments.
+         */
+        _publisher?: Element;
+        /**
          * Contact details of the publisher
          */
         contact?: DataElementContact[];
         /**
+         * Date for this version of the data element
+         */
+        date?: dateTime;
+        /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * Content intends to support these contexts
+         */
+        useContext?: CodeableConcept[];
+        /**
+         * Use and/or Publishing restrictions
+         */
+        copyright?: string;
+        /**
+         * Contains copyright's id, extensions, and comments.
+         */
+        _copyright?: Element;
+        /**
          * comparable | fully-specified | equivalent | convertable | scaleable | flexible
          */
-        specificity?: code;
+        stringency?: code;
+        /**
+         * Contains stringency's id, extensions, and comments.
+         */
+        _stringency?: Element;
         /**
          * External specification mapped to
          */
@@ -9302,8 +12913,87 @@ declare module fhir {
         element: ElementDefinition[];
     }
     /**
-     * A record of a device being used by a patient where the record is the result of a report from the patient or another clinician.
+     * Step taken to address
      */
+    interface DetectedIssueMitigation extends Element {
+        /**
+         * What mitigation?
+         */
+        action: CodeableConcept;
+        /**
+         * Date committed
+         */
+        date?: dateTime;
+        /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * Who is committing?
+         */
+        author?: Reference;
+    }
+    /**
+     * Clinical issue with action
+     */
+    interface DetectedIssue extends DomainResource {
+        /**
+         * Associated patient
+         */
+        patient?: Reference;
+        /**
+         * E.g. Drug-drug, duplicate therapy, etc.
+         */
+        category?: CodeableConcept;
+        /**
+         * high | moderate | low
+         */
+        severity?: code;
+        /**
+         * Contains severity's id, extensions, and comments.
+         */
+        _severity?: Element;
+        /**
+         * Problem resource
+         */
+        implicated?: Reference[];
+        /**
+         * Description and context
+         */
+        detail?: string;
+        /**
+         * Contains detail's id, extensions, and comments.
+         */
+        _detail?: Element;
+        /**
+         * When identified
+         */
+        date?: dateTime;
+        /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * The provider or device that identified the issue
+         */
+        author?: Reference;
+        /**
+         * Unique id for the detected issue
+         */
+        identifier?: Identifier;
+        /**
+         * Authority for issue
+         */
+        reference?: uri;
+        /**
+         * Contains reference's id, extensions, and comments.
+         */
+        _reference?: Element;
+        /**
+         * Step taken to address
+         */
+        mitigation?: DetectedIssueMitigation[];
+    }
     interface DeviceUseStatement extends DomainResource {
         /**
          * Target body site
@@ -9313,49 +13003,31 @@ declare module fhir {
          * Target body site
          */
         bodySiteReference?: Reference;
-        /**
-         * The time period over which the device was used.
-         */
         whenUsed?: Period;
-        /**
-         * The details of the device used.
-         */
         device: Reference;
-        /**
-         * An external identifier for this statement such as an IRI.
-         */
         identifier?: Identifier[];
-        /**
-         * Reason or justification for the use of the device.
-         */
         indication?: CodeableConcept[];
-        /**
-         * Details about the device statement that were not represented at all or sufficiently in one of the attributes provided in a class. These may include for example a comment, an instruction, or a note associated with the statement.
-         */
         notes?: string[];
         /**
-         * The time at which the statement was made/recorded.
+         * Contains notes's id, extensions, and comments.
          */
+        _notes?: Element[];
         recordedOn?: dateTime;
         /**
-         * The patient who used the device.
+         * Contains recordedOn's id, extensions, and comments.
          */
+        _recordedOn?: Element;
         subject: Reference;
-        /**
-         * How often the device was used.
-         */
         timingTiming?: Timing;
-        /**
-         * How often the device was used.
-         */
         timingPeriod?: Period;
-        /**
-         * How often the device was used.
-         */
         timingDateTime?: dateTime;
+        /**
+         * Contains timingDateTime's id, extensions, and comments.
+         */
+        _timingDateTime?: Element;
     }
     /**
-     * Contents of the manifest
+     * The items included
      */
     interface DocumentManifestContent extends Element {
         /**
@@ -9372,7 +13044,7 @@ declare module fhir {
      */
     interface DocumentManifestRelated extends Element {
         /**
-         * Related Identifier
+         * Identifiers of things that are related
          */
         identifier?: Identifier;
         /**
@@ -9405,7 +13077,7 @@ declare module fhir {
          */
         type?: CodeableConcept;
         /**
-         * Who and/or what authored the document
+         * Who and/or what authored the manifest
          */
         author?: Reference[];
         /**
@@ -9413,19 +13085,35 @@ declare module fhir {
          */
         created?: dateTime;
         /**
+         * Contains created's id, extensions, and comments.
+         */
+        _created?: Element;
+        /**
          * The source system/application/software
          */
         source?: uri;
         /**
-         * current | superceded | entered-in-error
+         * Contains source's id, extensions, and comments.
+         */
+        _source?: Element;
+        /**
+         * current | superseded | entered-in-error
          */
         status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
         /**
          * Human-readable description (title)
          */
         description?: string;
         /**
-         * Contents of the manifest
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * The items included
          */
         content: DocumentManifestContent[];
         /**
@@ -9453,6 +13141,10 @@ declare module fhir {
          * Creation date
          */
         created?: dateTime;
+        /**
+         * Contains created's id, extensions, and comments.
+         */
+        _created?: Element;
         /**
          * Insurer
          */
@@ -9483,9 +13175,17 @@ declare module fhir {
          */
         outcome?: code;
         /**
+         * Contains outcome's id, extensions, and comments.
+         */
+        _outcome?: Element;
+        /**
          * Disposition Message
          */
         disposition?: string;
+        /**
+         * Contains disposition's id, extensions, and comments.
+         */
+        _disposition?: Element;
         /**
          * Resource version
          */
@@ -9498,6 +13198,10 @@ declare module fhir {
          * Creation date
          */
         created?: dateTime;
+        /**
+         * Contains created's id, extensions, and comments.
+         */
+        _created?: Element;
         /**
          * Insurer
          */
@@ -9531,6 +13235,10 @@ declare module fhir {
          * Creation date
          */
         created?: dateTime;
+        /**
+         * Contains created's id, extensions, and comments.
+         */
+        _created?: Element;
         /**
          * Insurer
          */
@@ -9573,9 +13281,17 @@ declare module fhir {
          */
         outcome?: code;
         /**
+         * Contains outcome's id, extensions, and comments.
+         */
+        _outcome?: Element;
+        /**
          * Disposition Message
          */
         disposition?: string;
+        /**
+         * Contains disposition's id, extensions, and comments.
+         */
+        _disposition?: Element;
         /**
          * Resource version
          */
@@ -9588,6 +13304,10 @@ declare module fhir {
          * Creation date
          */
         created?: dateTime;
+        /**
+         * Contains created's id, extensions, and comments.
+         */
+        _created?: Element;
         /**
          * Insurer
          */
@@ -9618,9 +13338,17 @@ declare module fhir {
          */
         outcome?: code;
         /**
+         * Contains outcome's id, extensions, and comments.
+         */
+        _outcome?: Element;
+        /**
          * Disposition Message
          */
         disposition?: string;
+        /**
+         * Contains disposition's id, extensions, and comments.
+         */
+        _disposition?: Element;
         /**
          * Resource version
          */
@@ -9633,6 +13361,10 @@ declare module fhir {
          * Creation date
          */
         created?: dateTime;
+        /**
+         * Contains created's id, extensions, and comments.
+         */
+        _created?: Element;
         /**
          * Insurer
          */
@@ -9663,13 +13395,21 @@ declare module fhir {
          */
         status: code;
         /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * Time period when flag is active
          */
         period?: Period;
         /**
-         * Who is flag about?
+         * Who/What is flag about?
          */
-        patient: Reference;
+        subject: Reference;
+        /**
+         * Alert relevant during encounter
+         */
+        encounter?: Reference;
         /**
          * Flag creator
          */
@@ -9680,105 +13420,1034 @@ declare module fhir {
         code: CodeableConcept;
     }
     /**
-     * Study identity of the selected instances
+     * Administration / non-administration reasons
      */
-    interface ImagingObjectSelectionStudy extends Element {
+    interface ImmunizationExplanation extends Element {
         /**
-         * Study instance uid
+         * Why immunization occurred
          */
-        uid: oid;
+        reason?: CodeableConcept[];
         /**
-         * Retrieve URL
+         * Why immunization did not occur
          */
-        url?: uri;
-        /**
-         * Series identity of the selected instances
-         */
-        series: ImagingObjectSelectionStudySeries[];
+        reasonNotGiven?: CodeableConcept[];
     }
     /**
-     * Series identity of the selected instances
+     * Details of a reaction that follows immunization
      */
-    interface ImagingObjectSelectionStudySeries extends Element {
+    interface ImmunizationReaction extends Element {
         /**
-         * Series instance uid
+         * When did reaction start?
          */
-        uid?: oid;
+        date?: dateTime;
         /**
-         * Retrieve URL
+         * Contains date's id, extensions, and comments.
          */
-        url?: uri;
+        _date?: Element;
         /**
-         * The selected instance
+         * Additional information on reaction
          */
-        instance: ImagingObjectSelectionStudySeriesInstance[];
+        detail?: Reference;
+        /**
+         * Was reaction self-reported?
+         */
+        reported?: boolean;
+        /**
+         * Contains reported's id, extensions, and comments.
+         */
+        _reported?: Element;
     }
     /**
-     * The selected instance
+     * What protocol was followed
      */
-    interface ImagingObjectSelectionStudySeriesInstance extends Element {
+    interface ImmunizationVaccinationProtocol extends Element {
         /**
-         * SOP class uid of instance
+         * What dose number within series?
          */
-        sopClass: oid;
+        doseSequence: positiveInt;
         /**
-         * Uid of the selected instance
+         * Contains doseSequence's id, extensions, and comments.
          */
-        uid: oid;
+        _doseSequence?: Element;
         /**
-         * Retrieve URL
-         */
-        url: uri;
-        /**
-         * The frame set
-         */
-        frames?: ImagingObjectSelectionStudySeriesInstanceFrames[];
-    }
-    /**
-     * The frame set
-     */
-    interface ImagingObjectSelectionStudySeriesInstanceFrames extends Element {
-        /**
-         * Frame numbers
-         */
-        frameNumbers: unsignedInt[];
-        /**
-         * Retrieve URL
-         */
-        url: uri;
-    }
-    /**
-     * Key Object Selection
-     */
-    interface ImagingObjectSelection extends DomainResource {
-        /**
-         * Instance UID
-         */
-        uid: oid;
-        /**
-         * Patient of the selected objects
-         */
-        patient: Reference;
-        /**
-         * Reason for selection
-         */
-        title: CodeableConcept;
-        /**
-         * Description text
+         * Details of vaccine protocol
          */
         description?: string;
         /**
-         * Author (human or machine)
+         * Contains description's id, extensions, and comments.
          */
-        author?: Reference;
+        _description?: Element;
         /**
-         * Authoring time of the selection
+         * Who is responsible for protocol
          */
-        authoringTime?: dateTime;
+        authority?: Reference;
         /**
-         * Study identity of the selected instances
+         * Name of vaccine series
          */
-        study: ImagingObjectSelectionStudy[];
+        series?: string;
+        /**
+         * Contains series's id, extensions, and comments.
+         */
+        _series?: Element;
+        /**
+         * Recommended number of doses for immunity
+         */
+        seriesDoses?: positiveInt;
+        /**
+         * Contains seriesDoses's id, extensions, and comments.
+         */
+        _seriesDoses?: Element;
+        /**
+         * Disease immunized against
+         */
+        targetDisease: CodeableConcept[];
+        /**
+         * Does dose count towards immunity?
+         */
+        doseStatus: CodeableConcept;
+        /**
+         * Why does does count/not count?
+         */
+        doseStatusReason?: CodeableConcept;
+    }
+    /**
+     * Immunization event information
+     */
+    interface Immunization extends DomainResource {
+        /**
+         * Business identifier
+         */
+        identifier?: Identifier[];
+        /**
+         * in-progress | on-hold | completed | entered-in-error | stopped
+         */
+        status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * Vaccination administration date
+         */
+        date?: dateTime;
+        /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * Vaccine product administered
+         */
+        vaccineCode: CodeableConcept;
+        /**
+         * Who was immunized?
+         */
+        patient: Reference;
+        /**
+         * Flag for whether immunization was given
+         */
+        wasNotGiven: boolean;
+        /**
+         * Contains wasNotGiven's id, extensions, and comments.
+         */
+        _wasNotGiven?: Element;
+        /**
+         * Is this a self-reported record?
+         */
+        reported: boolean;
+        /**
+         * Contains reported's id, extensions, and comments.
+         */
+        _reported?: Element;
+        /**
+         * Who administered vaccine?
+         */
+        performer?: Reference;
+        /**
+         * Who ordered vaccination?
+         */
+        requester?: Reference;
+        /**
+         * Encounter administered as part of
+         */
+        encounter?: Reference;
+        /**
+         * Vaccine manufacturer
+         */
+        manufacturer?: Reference;
+        /**
+         * Where did vaccination occur?
+         */
+        location?: Reference;
+        /**
+         * Vaccine lot number
+         */
+        lotNumber?: string;
+        /**
+         * Contains lotNumber's id, extensions, and comments.
+         */
+        _lotNumber?: Element;
+        /**
+         * Vaccine expiration date
+         */
+        expirationDate?: date;
+        /**
+         * Contains expirationDate's id, extensions, and comments.
+         */
+        _expirationDate?: Element;
+        /**
+         * Body site vaccine  was administered
+         */
+        site?: CodeableConcept;
+        /**
+         * How vaccine entered body
+         */
+        route?: CodeableConcept;
+        /**
+         * Amount of vaccine administered
+         */
+        doseQuantity?: Quantity;
+        /**
+         * Vaccination notes
+         */
+        note?: Annotation[];
+        /**
+         * Administration / non-administration reasons
+         */
+        explanation?: ImmunizationExplanation;
+        /**
+         * Details of a reaction that follows immunization
+         */
+        reaction?: ImmunizationReaction[];
+        /**
+         * What protocol was followed
+         */
+        vaccinationProtocol?: ImmunizationVaccinationProtocol[];
+    }
+    /**
+     * Vaccine administration recommendations
+     */
+    interface ImmunizationRecommendationRecommendation extends Element {
+        /**
+         * Date recommendation created
+         */
+        date: dateTime;
+        /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * Vaccine recommendation applies to
+         */
+        vaccineCode: CodeableConcept;
+        /**
+         * Recommended dose number
+         */
+        doseNumber?: positiveInt;
+        /**
+         * Contains doseNumber's id, extensions, and comments.
+         */
+        _doseNumber?: Element;
+        /**
+         * Vaccine administration status
+         */
+        forecastStatus: CodeableConcept;
+        /**
+         * Dates governing proposed immunization
+         */
+        dateCriterion?: ImmunizationRecommendationRecommendationDateCriterion[];
+        /**
+         * Protocol used by recommendation
+         */
+        protocol?: ImmunizationRecommendationRecommendationProtocol;
+        /**
+         * Past immunizations supporting recommendation
+         */
+        supportingImmunization?: Reference[];
+        /**
+         * Patient observations supporting recommendation
+         */
+        supportingPatientInformation?: Reference[];
+    }
+    /**
+     * Dates governing proposed immunization
+     */
+    interface ImmunizationRecommendationRecommendationDateCriterion extends Element {
+        /**
+         * Type of date
+         */
+        code: CodeableConcept;
+        /**
+         * Recommended date
+         */
+        value: dateTime;
+        /**
+         * Contains value's id, extensions, and comments.
+         */
+        _value?: Element;
+    }
+    /**
+     * Protocol used by recommendation
+     */
+    interface ImmunizationRecommendationRecommendationProtocol extends Element {
+        /**
+         * Number of dose within sequence
+         */
+        doseSequence?: integer;
+        /**
+         * Contains doseSequence's id, extensions, and comments.
+         */
+        _doseSequence?: Element;
+        /**
+         * Protocol details
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * Who is responsible for protocol
+         */
+        authority?: Reference;
+        /**
+         * Name of vaccination series
+         */
+        series?: string;
+        /**
+         * Contains series's id, extensions, and comments.
+         */
+        _series?: Element;
+    }
+    /**
+     * Guidance or advice relating to an immunization
+     */
+    interface ImmunizationRecommendation extends DomainResource {
+        /**
+         * Business identifier
+         */
+        identifier?: Identifier[];
+        /**
+         * Who this profile is for
+         */
+        patient: Reference;
+        /**
+         * Vaccine administration recommendations
+         */
+        recommendation: ImmunizationRecommendationRecommendation[];
+    }
+    /**
+     * Contact details of the publisher
+     */
+    interface ImplementationGuideContact extends Element {
+        /**
+         * Name of a individual to contact
+         */
+        name?: string;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
+         * Contact details for individual or publisher
+         */
+        telecom?: ContactPoint[];
+    }
+    /**
+     * Another Implementation guide this depends on
+     */
+    interface ImplementationGuideDependency extends Element {
+        /**
+         * reference | inclusion
+         */
+        type: code;
+        /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
+        /**
+         * Where to find dependency
+         */
+        uri: uri;
+        /**
+         * Contains uri's id, extensions, and comments.
+         */
+        _uri?: Element;
+    }
+    /**
+     * Group of resources as used in .page.package
+     */
+    interface ImplementationGuidePackage extends Element {
+        /**
+         * Name used .page.package
+         */
+        name: string;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
+         * Human readable text describing the package
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * Resource in the implementation guide
+         */
+        resource: ImplementationGuidePackageResource[];
+    }
+    /**
+     * Resource in the implementation guide
+     */
+    interface ImplementationGuidePackageResource extends Element {
+        /**
+         * example | terminology | profile | extension | dictionary | logical
+         */
+        purpose: code;
+        /**
+         * Contains purpose's id, extensions, and comments.
+         */
+        _purpose?: Element;
+        /**
+         * Human Name for the resource
+         */
+        name?: string;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
+         * Reason why included in guide
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * Short code to identify the resource
+         */
+        acronym?: string;
+        /**
+         * Contains acronym's id, extensions, and comments.
+         */
+        _acronym?: Element;
+        /**
+         * Location of the resource
+         */
+        sourceUri?: uri;
+        /**
+         * Contains sourceUri's id, extensions, and comments.
+         */
+        _sourceUri?: Element;
+        /**
+         * Location of the resource
+         */
+        sourceReference?: Reference;
+        /**
+         * Resource this is an example of (if applicable)
+         */
+        exampleFor?: Reference;
+    }
+    /**
+     * Profiles that apply globally
+     */
+    interface ImplementationGuideGlobal extends Element {
+        /**
+         * Type this profiles applies to
+         */
+        type: code;
+        /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
+        /**
+         * Profile that all resources must conform to
+         */
+        profile: Reference;
+    }
+    /**
+     * Page/Section in the Guide
+     */
+    interface ImplementationGuidePage extends Element {
+        /**
+         * Where to find that page
+         */
+        source: uri;
+        /**
+         * Contains source's id, extensions, and comments.
+         */
+        _source?: Element;
+        /**
+         * Short name shown for navigational assistance
+         */
+        name: string;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
+         * page | example | list | include | directory | dictionary | toc | resource
+         */
+        kind: code;
+        /**
+         * Contains kind's id, extensions, and comments.
+         */
+        _kind?: Element;
+        /**
+         * Kind of resource to include in the list
+         */
+        type?: code[];
+        /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element[];
+        /**
+         * Name of package to include
+         */
+        package?: string[];
+        /**
+         * Contains package's id, extensions, and comments.
+         */
+        _package?: Element[];
+        /**
+         * Format of the page (e.g. html, markdown etc)
+         */
+        format?: code;
+        /**
+         * Contains format's id, extensions, and comments.
+         */
+        _format?: Element;
+        /**
+         * Nested Pages / Sections
+         */
+        page?: ImplementationGuidePage[];
+    }
+    /**
+     * A set of rules about how FHIR is used
+     */
+    interface ImplementationGuide extends DomainResource {
+        /**
+         * Literal URL used to reference this Implementation Guide
+         */
+        url: uri;
+        /**
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
+        /**
+         * Logical id for this version of the Implementation Guide
+         */
+        version?: string;
+        /**
+         * Contains version's id, extensions, and comments.
+         */
+        _version?: Element;
+        /**
+         * Informal name for this Implementation Guide
+         */
+        name: string;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
+         * draft | active | retired
+         */
+        status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * If for testing purposes, not real usage
+         */
+        experimental?: boolean;
+        /**
+         * Contains experimental's id, extensions, and comments.
+         */
+        _experimental?: Element;
+        /**
+         * Name of the publisher (Organization or individual)
+         */
+        publisher?: string;
+        /**
+         * Contains publisher's id, extensions, and comments.
+         */
+        _publisher?: Element;
+        /**
+         * Contact details of the publisher
+         */
+        contact?: ImplementationGuideContact[];
+        /**
+         * Date for this version of the Implementation Guide
+         */
+        date?: dateTime;
+        /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * Natural language description of the Implementation Guide
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * The implementation guide is intended to support these contexts
+         */
+        useContext?: CodeableConcept[];
+        /**
+         * Use and/or Publishing restrictions
+         */
+        copyright?: string;
+        /**
+         * Contains copyright's id, extensions, and comments.
+         */
+        _copyright?: Element;
+        /**
+         * FHIR Version this Implementation Guide targets
+         */
+        fhirVersion?: id;
+        /**
+         * Contains fhirVersion's id, extensions, and comments.
+         */
+        _fhirVersion?: Element;
+        /**
+         * Another Implementation guide this depends on
+         */
+        dependency?: ImplementationGuideDependency[];
+        /**
+         * Group of resources as used in .page.package
+         */
+        package: ImplementationGuidePackage[];
+        /**
+         * Profiles that apply globally
+         */
+        global?: ImplementationGuideGlobal[];
+        /**
+         * Image, css, script, etc
+         */
+        binary?: uri[];
+        /**
+         * Contains binary's id, extensions, and comments.
+         */
+        _binary?: Element[];
+        /**
+         * Page/Section in the Guide
+         */
+        page: ImplementationGuidePage;
+    }
+    /**
+     * Entries in the list
+     */
+    interface ListEntry extends Element {
+        /**
+         * Status/Workflow information about this item
+         */
+        flag?: CodeableConcept;
+        /**
+         * If this item is actually marked as deleted
+         */
+        deleted?: boolean;
+        /**
+         * Contains deleted's id, extensions, and comments.
+         */
+        _deleted?: Element;
+        /**
+         * When item added to list
+         */
+        date?: dateTime;
+        /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * Actual entry
+         */
+        item: Reference;
+    }
+    /**
+     * Information summarized from a list of other resources
+     */
+    interface List extends DomainResource {
+        /**
+         * Business identifier
+         */
+        identifier?: Identifier[];
+        /**
+         * Descriptive name for the list
+         */
+        title?: string;
+        /**
+         * Contains title's id, extensions, and comments.
+         */
+        _title?: Element;
+        /**
+         * What the purpose of this list is
+         */
+        code?: CodeableConcept;
+        /**
+         * If all resources have the same subject
+         */
+        subject?: Reference;
+        /**
+         * Who and/or what defined the list contents (aka Author)
+         */
+        source?: Reference;
+        /**
+         * Context in which list created
+         */
+        encounter?: Reference;
+        /**
+         * current | retired | entered-in-error
+         */
+        status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * When the list was prepared
+         */
+        date?: dateTime;
+        /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * What order the list has
+         */
+        orderedBy?: CodeableConcept;
+        /**
+         * working | snapshot | changes
+         */
+        mode: code;
+        /**
+         * Contains mode's id, extensions, and comments.
+         */
+        _mode?: Element;
+        /**
+         * Comments about the list
+         */
+        note?: string;
+        /**
+         * Contains note's id, extensions, and comments.
+         */
+        _note?: Element;
+        /**
+         * Entries in the list
+         */
+        entry?: ListEntry[];
+        /**
+         * Why list is empty
+         */
+        emptyReason?: CodeableConcept;
+    }
+    /**
+     * Details of how medication was taken
+     */
+    interface MedicationAdministrationDosage extends Element {
+        /**
+         * Dosage Instructions
+         */
+        text?: string;
+        /**
+         * Contains text's id, extensions, and comments.
+         */
+        _text?: Element;
+        /**
+         * Body site administered to
+         */
+        siteCodeableConcept?: CodeableConcept;
+        /**
+         * Body site administered to
+         */
+        siteReference?: Reference;
+        /**
+         * Path of substance into body
+         */
+        route?: CodeableConcept;
+        /**
+         * How drug was administered
+         */
+        method?: CodeableConcept;
+        /**
+         * Amount administered in one dose
+         */
+        quantity?: Quantity;
+        /**
+         * Dose quantity per unit of time
+         */
+        rateRatio?: Ratio;
+        /**
+         * Dose quantity per unit of time
+         */
+        rateRange?: Range;
+    }
+    /**
+     * Administration of medication to a patient
+     */
+    interface MedicationAdministration extends DomainResource {
+        /**
+         * External identifier
+         */
+        identifier?: Identifier[];
+        /**
+         * in-progress | on-hold | completed | entered-in-error | stopped
+         */
+        status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * Who received medication?
+         */
+        patient: Reference;
+        /**
+         * Who administered substance?
+         */
+        practitioner?: Reference;
+        /**
+         * Encounter administered as part of
+         */
+        encounter?: Reference;
+        /**
+         * Order administration performed against
+         */
+        prescription?: Reference;
+        /**
+         * True if medication not administered
+         */
+        wasNotGiven?: boolean;
+        /**
+         * Contains wasNotGiven's id, extensions, and comments.
+         */
+        _wasNotGiven?: Element;
+        /**
+         * Reason administration not performed
+         */
+        reasonNotGiven?: CodeableConcept[];
+        /**
+         * Reason administration performed
+         */
+        reasonGiven?: CodeableConcept[];
+        /**
+         * Start and end time of administration
+         */
+        effectiveTimeDateTime?: dateTime;
+        /**
+         * Contains effectiveTimeDateTime's id, extensions, and comments.
+         */
+        _effectiveTimeDateTime?: Element;
+        /**
+         * Start and end time of administration
+         */
+        effectiveTimePeriod?: Period;
+        /**
+         * What was administered?
+         */
+        medicationCodeableConcept?: CodeableConcept;
+        /**
+         * What was administered?
+         */
+        medicationReference?: Reference;
+        /**
+         * Device used to administer
+         */
+        device?: Reference[];
+        /**
+         * Information about the administration
+         */
+        note?: string;
+        /**
+         * Contains note's id, extensions, and comments.
+         */
+        _note?: Element;
+        /**
+         * Details of how medication was taken
+         */
+        dosage?: MedicationAdministrationDosage;
+    }
+    /**
+     * Medicine administration instructions to the patient/carer
+     */
+    interface MedicationDispenseDosageInstruction extends Element {
+        /**
+         * Dosage Instructions
+         */
+        text?: string;
+        /**
+         * Contains text's id, extensions, and comments.
+         */
+        _text?: Element;
+        /**
+         * E.g. "Take with food"
+         */
+        additionalInstructions?: CodeableConcept;
+        /**
+         * When medication should be administered
+         */
+        timing?: Timing;
+        /**
+         * Take "as needed" f(or x)
+         */
+        asNeededBoolean?: boolean;
+        /**
+         * Contains asNeededBoolean's id, extensions, and comments.
+         */
+        _asNeededBoolean?: Element;
+        /**
+         * Take "as needed" f(or x)
+         */
+        asNeededCodeableConcept?: CodeableConcept;
+        /**
+         * Body site to administer to
+         */
+        siteCodeableConcept?: CodeableConcept;
+        /**
+         * Body site to administer to
+         */
+        siteReference?: Reference;
+        /**
+         * How drug should enter body
+         */
+        route?: CodeableConcept;
+        /**
+         * Technique for administering medication
+         */
+        method?: CodeableConcept;
+        /**
+         * Amount of medication per dose
+         */
+        doseRange?: Range;
+        /**
+         * Amount of medication per dose
+         */
+        doseQuantity?: Quantity;
+        /**
+         * Amount of medication per unit of time
+         */
+        rateRatio?: Ratio;
+        /**
+         * Amount of medication per unit of time
+         */
+        rateRange?: Range;
+        /**
+         * Upper limit on medication per unit of time
+         */
+        maxDosePerPeriod?: Ratio;
+    }
+    /**
+     * Deals with substitution of one medicine for another
+     */
+    interface MedicationDispenseSubstitution extends Element {
+        /**
+         * Type of substitiution
+         */
+        type: CodeableConcept;
+        /**
+         * Why was substitution made
+         */
+        reason?: CodeableConcept[];
+        /**
+         * Who is responsible for the substitution
+         */
+        responsibleParty?: Reference[];
+    }
+    /**
+     * Dispensing a medication to a named patient
+     */
+    interface MedicationDispense extends DomainResource {
+        /**
+         * External identifier
+         */
+        identifier?: Identifier;
+        /**
+         * in-progress | on-hold | completed | entered-in-error | stopped
+         */
+        status?: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * Who the dispense is for
+         */
+        patient?: Reference;
+        /**
+         * Practitioner responsible for dispensing medication
+         */
+        dispenser?: Reference;
+        /**
+         * Medication order that authorizes the dispense
+         */
+        authorizingPrescription?: Reference[];
+        /**
+         * Trial fill, partial fill, emergency fill, etc.
+         */
+        type?: CodeableConcept;
+        /**
+         * Amount dispensed
+         */
+        quantity?: Quantity;
+        /**
+         * Days Supply
+         */
+        daysSupply?: Quantity;
+        /**
+         * What medication was supplied
+         */
+        medicationCodeableConcept?: CodeableConcept;
+        /**
+         * What medication was supplied
+         */
+        medicationReference?: Reference;
+        /**
+         * Dispense processing time
+         */
+        whenPrepared?: dateTime;
+        /**
+         * Contains whenPrepared's id, extensions, and comments.
+         */
+        _whenPrepared?: Element;
+        /**
+         * Handover time
+         */
+        whenHandedOver?: dateTime;
+        /**
+         * Contains whenHandedOver's id, extensions, and comments.
+         */
+        _whenHandedOver?: Element;
+        /**
+         * Where the medication was sent
+         */
+        destination?: Reference;
+        /**
+         * Who collected the medication
+         */
+        receiver?: Reference[];
+        /**
+         * Information about the dispense
+         */
+        note?: string;
+        /**
+         * Contains note's id, extensions, and comments.
+         */
+        _note?: Element;
+        /**
+         * Medicine administration instructions to the patient/carer
+         */
+        dosageInstruction?: MedicationDispenseDosageInstruction[];
+        /**
+         * Deals with substitution of one medicine for another
+         */
+        substitution?: MedicationDispenseSubstitution;
     }
     /**
      * If this is a reply to prior message
@@ -9789,9 +14458,17 @@ declare module fhir {
          */
         identifier: id;
         /**
+         * Contains identifier's id, extensions, and comments.
+         */
+        _identifier?: Element;
+        /**
          * ok | transient-error | fatal-error
          */
         code: code;
+        /**
+         * Contains code's id, extensions, and comments.
+         */
+        _code?: Element;
         /**
          * Specific list of hints/warnings/errors
          */
@@ -9806,17 +14483,37 @@ declare module fhir {
          */
         severity: code;
         /**
+         * Contains severity's id, extensions, and comments.
+         */
+        _severity?: Element;
+        /**
          * Error or warning code
          */
-        code: CodeableConcept;
+        code: code;
+        /**
+         * Contains code's id, extensions, and comments.
+         */
+        _code?: Element;
+        /**
+         * Additional details about the error
+         */
+        details?: CodeableConcept;
         /**
          * Additional diagnostic information about the issue
          */
-        details?: string;
+        diagnostics?: string;
+        /**
+         * Contains diagnostics's id, extensions, and comments.
+         */
+        _diagnostics?: Element;
         /**
          * XPath of element(s) related to issue
          */
         location?: string[];
+        /**
+         * Contains location's id, extensions, and comments.
+         */
+        _location?: Element[];
     }
     /**
      * Information about the success/failure of an action
@@ -9836,13 +14533,25 @@ declare module fhir {
          */
         name?: string;
         /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
          * Name of software running the system
          */
         software?: string;
         /**
+         * Contains software's id, extensions, and comments.
+         */
+        _software?: Element;
+        /**
          * Version of software running
          */
         version?: string;
+        /**
+         * Contains version's id, extensions, and comments.
+         */
+        _version?: Element;
         /**
          * Human contact for problems
          */
@@ -9851,6 +14560,10 @@ declare module fhir {
          * Actual message source address or id
          */
         endpoint: uri;
+        /**
+         * Contains endpoint's id, extensions, and comments.
+         */
+        _endpoint?: Element;
     }
     /**
      * Message Destination Application(s)
@@ -9861,6 +14574,10 @@ declare module fhir {
          */
         name?: string;
         /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
          * Particular delivery destination within the destination
          */
         target?: Reference;
@@ -9868,19 +14585,23 @@ declare module fhir {
          * Actual destination address or id
          */
         endpoint: uri;
+        /**
+         * Contains endpoint's id, extensions, and comments.
+         */
+        _endpoint?: Element;
     }
     /**
      * A resource that describes a message that is exchanged between systems
      */
     interface MessageHeader extends DomainResource {
         /**
-         * Id of this message
-         */
-        identifier: id;
-        /**
          * Time that the message was sent
          */
         timestamp: instant;
+        /**
+         * Contains timestamp's id, extensions, and comments.
+         */
+        _timestamp?: Element;
         /**
          * Code for the event this message represents
          */
@@ -9923,27 +14644,6 @@ declare module fhir {
         data?: Reference[];
     }
     /**
-     * Unique identifiers used for system
-     */
-    interface NamingSystemUniqueId extends Element {
-        /**
-         * oid | uuid | uri | other
-         */
-        type: code;
-        /**
-         * The unique identifier
-         */
-        value: string;
-        /**
-         * Is this the id that should be used for this type
-         */
-        preferred?: boolean;
-        /**
-         * When is identifier valid?
-         */
-        period?: Period;
-    }
-    /**
      * Contact details of the publisher
      */
     interface NamingSystemContact extends Element {
@@ -9952,62 +14652,131 @@ declare module fhir {
          */
         name?: string;
         /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
          * Contact details for individual or publisher
          */
         telecom?: ContactPoint[];
+    }
+    /**
+     * Unique identifiers used for system
+     */
+    interface NamingSystemUniqueId extends Element {
+        /**
+         * oid | uuid | uri | other
+         */
+        type: code;
+        /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
+        /**
+         * The unique identifier
+         */
+        value: string;
+        /**
+         * Contains value's id, extensions, and comments.
+         */
+        _value?: Element;
+        /**
+         * Is this the id that should be used for this type
+         */
+        preferred?: boolean;
+        /**
+         * Contains preferred's id, extensions, and comments.
+         */
+        _preferred?: Element;
+        /**
+         * When is identifier valid?
+         */
+        period?: Period;
     }
     /**
      * System of unique identification
      */
     interface NamingSystem extends DomainResource {
         /**
-         * codesystem | identifier | root
-         */
-        type: code;
-        /**
          * Human-readable label
          */
         name: string;
         /**
-         * Publication Date(/time)
+         * Contains name's id, extensions, and comments.
          */
-        date: dateTime;
+        _name?: Element;
         /**
          * draft | active | retired
          */
         status: code;
         /**
-         * ISO 3-char country code
+         * Contains status's id, extensions, and comments.
          */
-        country?: code;
+        _status?: Element;
         /**
-         * e.g. driver,  provider,  patient, bank etc
+         * codesystem | identifier | root
          */
-        category?: CodeableConcept;
+        kind: code;
         /**
-         * Who maintains system namespace?
+         * Contains kind's id, extensions, and comments.
          */
-        responsible?: string;
-        /**
-         * What does namingsystem identify?
-         */
-        description?: string;
-        /**
-         * How/where is it used
-         */
-        usage?: string;
-        /**
-         * Unique identifiers used for system
-         */
-        uniqueId: NamingSystemUniqueId[];
+        _kind?: Element;
         /**
          * Name of the publisher (Organization or individual)
          */
         publisher?: string;
         /**
+         * Contains publisher's id, extensions, and comments.
+         */
+        _publisher?: Element;
+        /**
          * Contact details of the publisher
          */
         contact?: NamingSystemContact[];
+        /**
+         * Who maintains system namespace?
+         */
+        responsible?: string;
+        /**
+         * Contains responsible's id, extensions, and comments.
+         */
+        _responsible?: Element;
+        /**
+         * Publication Date(/time)
+         */
+        date: dateTime;
+        /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * e.g. driver,  provider,  patient, bank etc
+         */
+        type?: CodeableConcept;
+        /**
+         * What does namingsystem identify?
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * Content intends to support these contexts
+         */
+        useContext?: CodeableConcept[];
+        /**
+         * How/where is it used
+         */
+        usage?: string;
+        /**
+         * Contains usage's id, extensions, and comments.
+         */
+        _usage?: Element;
+        /**
+         * Unique identifiers used for system
+         */
+        uniqueId: NamingSystemUniqueId[];
         /**
          * Use this instead
          */
@@ -10030,25 +14799,29 @@ declare module fhir {
          */
         date?: dateTime;
         /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
          * Who made the response
          */
         who?: Reference;
-        /**
-         * If required by policy
-         */
-        authorityCodeableConcept?: CodeableConcept;
-        /**
-         * If required by policy
-         */
-        authorityReference?: Reference;
         /**
          * pending | review | rejected | error | accepted | cancelled | replaced | aborted | completed
          */
         orderStatus: code;
         /**
+         * Contains orderStatus's id, extensions, and comments.
+         */
+        _orderStatus?: Element;
+        /**
          * Additional description of the response
          */
         description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
         /**
          * Details of the outcome of performing the order
          */
@@ -10063,57 +14836,141 @@ declare module fhir {
          */
         name: string;
         /**
-         * If parameter is a data type
+         * Contains name's id, extensions, and comments.
          */
-        valueInteger?: integer;
-        /**
-         * If parameter is a data type
-         */
-        valueDecimal?: decimal;
-        /**
-         * If parameter is a data type
-         */
-        valueDateTime?: dateTime;
-        /**
-         * If parameter is a data type
-         */
-        valueDate?: date;
-        /**
-         * If parameter is a data type
-         */
-        valueInstant?: instant;
-        /**
-         * If parameter is a data type
-         */
-        valueTime?: time;
-        /**
-         * If parameter is a data type
-         */
-        valueString?: string;
-        /**
-         * If parameter is a data type
-         */
-        valueUri?: uri;
+        _name?: Element;
         /**
          * If parameter is a data type
          */
         valueBoolean?: boolean;
         /**
+         * Contains valueBoolean's id, extensions, and comments.
+         */
+        _valueBoolean?: Element;
+        /**
          * If parameter is a data type
          */
-        valueCode?: code;
+        valueInteger?: integer;
+        /**
+         * Contains valueInteger's id, extensions, and comments.
+         */
+        _valueInteger?: Element;
+        /**
+         * If parameter is a data type
+         */
+        valueDecimal?: decimal;
+        /**
+         * Contains valueDecimal's id, extensions, and comments.
+         */
+        _valueDecimal?: Element;
         /**
          * If parameter is a data type
          */
         valueBase64Binary?: base64Binary;
         /**
-         * If parameter is a data type
+         * Contains valueBase64Binary's id, extensions, and comments.
          */
-        valueCoding?: Coding;
+        _valueBase64Binary?: Element;
         /**
          * If parameter is a data type
          */
-        valueCodeableConcept?: CodeableConcept;
+        valueInstant?: instant;
+        /**
+         * Contains valueInstant's id, extensions, and comments.
+         */
+        _valueInstant?: Element;
+        /**
+         * If parameter is a data type
+         */
+        valueString?: string;
+        /**
+         * Contains valueString's id, extensions, and comments.
+         */
+        _valueString?: Element;
+        /**
+         * If parameter is a data type
+         */
+        valueUri?: uri;
+        /**
+         * Contains valueUri's id, extensions, and comments.
+         */
+        _valueUri?: Element;
+        /**
+         * If parameter is a data type
+         */
+        valueDate?: date;
+        /**
+         * Contains valueDate's id, extensions, and comments.
+         */
+        _valueDate?: Element;
+        /**
+         * If parameter is a data type
+         */
+        valueDateTime?: dateTime;
+        /**
+         * Contains valueDateTime's id, extensions, and comments.
+         */
+        _valueDateTime?: Element;
+        /**
+         * If parameter is a data type
+         */
+        valueTime?: time;
+        /**
+         * Contains valueTime's id, extensions, and comments.
+         */
+        _valueTime?: Element;
+        /**
+         * If parameter is a data type
+         */
+        valueCode?: code;
+        /**
+         * Contains valueCode's id, extensions, and comments.
+         */
+        _valueCode?: Element;
+        /**
+         * If parameter is a data type
+         */
+        valueOid?: oid;
+        /**
+         * Contains valueOid's id, extensions, and comments.
+         */
+        _valueOid?: Element;
+        /**
+         * If parameter is a data type
+         */
+        valueId?: id;
+        /**
+         * Contains valueId's id, extensions, and comments.
+         */
+        _valueId?: Element;
+        /**
+         * If parameter is a data type
+         */
+        valueUnsignedInt?: unsignedInt;
+        /**
+         * Contains valueUnsignedInt's id, extensions, and comments.
+         */
+        _valueUnsignedInt?: Element;
+        /**
+         * If parameter is a data type
+         */
+        valuePositiveInt?: positiveInt;
+        /**
+         * Contains valuePositiveInt's id, extensions, and comments.
+         */
+        _valuePositiveInt?: Element;
+        /**
+         * If parameter is a data type
+         */
+        valueMarkdown?: markdown;
+        /**
+         * Contains valueMarkdown's id, extensions, and comments.
+         */
+        _valueMarkdown?: Element;
+        /**
+         * If parameter is a data type
+         */
+        valueAnnotation?: Annotation;
         /**
          * If parameter is a data type
          */
@@ -10122,6 +14979,14 @@ declare module fhir {
          * If parameter is a data type
          */
         valueIdentifier?: Identifier;
+        /**
+         * If parameter is a data type
+         */
+        valueCodeableConcept?: CodeableConcept;
+        /**
+         * If parameter is a data type
+         */
+        valueCoding?: Coding;
         /**
          * If parameter is a data type
          */
@@ -10141,6 +15006,14 @@ declare module fhir {
         /**
          * If parameter is a data type
          */
+        valueSampledData?: SampledData;
+        /**
+         * If parameter is a data type
+         */
+        valueSignature?: Signature;
+        /**
+         * If parameter is a data type
+         */
         valueHumanName?: HumanName;
         /**
          * If parameter is a data type
@@ -10157,11 +15030,11 @@ declare module fhir {
         /**
          * If parameter is a data type
          */
-        valueSignature?: Signature;
+        valueReference?: Reference;
         /**
          * If parameter is a data type
          */
-        valueReference?: Reference;
+        valueMeta?: Meta;
         /**
          * If parameter is a whole resource
          */
@@ -10169,125 +15042,12 @@ declare module fhir {
         /**
          * Named part of a parameter (e.g. Tuple)
          */
-        part?: ParametersParameterPart[];
-    }
-    /**
-     * Named part of a parameter (e.g. Tuple)
-     */
-    interface ParametersParameterPart extends Element {
-        /**
-         * Name from the definition
-         */
-        name: string;
-        /**
-         * Value of the part
-         */
-        valueInteger?: integer;
-        /**
-         * Value of the part
-         */
-        valueDecimal?: decimal;
-        /**
-         * Value of the part
-         */
-        valueDateTime?: dateTime;
-        /**
-         * Value of the part
-         */
-        valueDate?: date;
-        /**
-         * Value of the part
-         */
-        valueInstant?: instant;
-        /**
-         * Value of the part
-         */
-        valueTime?: time;
-        /**
-         * Value of the part
-         */
-        valueString?: string;
-        /**
-         * Value of the part
-         */
-        valueUri?: uri;
-        /**
-         * Value of the part
-         */
-        valueBoolean?: boolean;
-        /**
-         * Value of the part
-         */
-        valueCode?: code;
-        /**
-         * Value of the part
-         */
-        valueBase64Binary?: base64Binary;
-        /**
-         * Value of the part
-         */
-        valueCoding?: Coding;
-        /**
-         * Value of the part
-         */
-        valueCodeableConcept?: CodeableConcept;
-        /**
-         * Value of the part
-         */
-        valueAttachment?: Attachment;
-        /**
-         * Value of the part
-         */
-        valueIdentifier?: Identifier;
-        /**
-         * Value of the part
-         */
-        valueQuantity?: Quantity;
-        /**
-         * Value of the part
-         */
-        valueRange?: Range;
-        /**
-         * Value of the part
-         */
-        valuePeriod?: Period;
-        /**
-         * Value of the part
-         */
-        valueRatio?: Ratio;
-        /**
-         * Value of the part
-         */
-        valueHumanName?: HumanName;
-        /**
-         * Value of the part
-         */
-        valueAddress?: Address;
-        /**
-         * Value of the part
-         */
-        valueContactPoint?: ContactPoint;
-        /**
-         * Value of the part
-         */
-        valueTiming?: Timing;
-        /**
-         * Value of the part
-         */
-        valueSignature?: Signature;
-        /**
-         * Value of the part
-         */
-        valueReference?: Reference;
-        /**
-         * If part is a whole resource
-         */
-        resource?: Resource;
+        part?: ParametersParameter[];
     }
     /**
      * Operation Request or Response
      */
-    interface Parameters extends Resource {
+    interface Parameters extends ResourceBase {
         /**
          * Operation Parameter
          */
@@ -10313,6 +15073,10 @@ declare module fhir {
          * Creation date
          */
         created?: dateTime;
+        /**
+         * Contains created's id, extensions, and comments.
+         */
+        _created?: Element;
         /**
          * Insurer or Regulatory body
          */
@@ -10367,9 +15131,13 @@ declare module fhir {
          */
         date?: date;
         /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
          * Detail amount
          */
-        amount?: Money;
+        amount?: Quantity;
     }
     /**
      * Note text
@@ -10383,6 +15151,10 @@ declare module fhir {
          * Notes text
          */
         text?: string;
+        /**
+         * Contains text's id, extensions, and comments.
+         */
+        _text?: Element;
     }
     /**
      * PaymentReconciliation resource
@@ -10401,9 +15173,17 @@ declare module fhir {
          */
         outcome?: code;
         /**
+         * Contains outcome's id, extensions, and comments.
+         */
+        _outcome?: Element;
+        /**
          * Disposition Message
          */
         disposition?: string;
+        /**
+         * Contains disposition's id, extensions, and comments.
+         */
+        _disposition?: Element;
         /**
          * Resource version
          */
@@ -10416,6 +15196,10 @@ declare module fhir {
          * Creation date
          */
         created?: dateTime;
+        /**
+         * Contains created's id, extensions, and comments.
+         */
+        _created?: Element;
         /**
          * Period covered
          */
@@ -10443,7 +15227,7 @@ declare module fhir {
         /**
          * Total amount of Payment
          */
-        total: Money;
+        total: Quantity;
         /**
          * Note text
          */
@@ -10461,6 +15245,10 @@ declare module fhir {
          * level1 | level2 | level3 | level4
          */
         assurance?: code;
+        /**
+         * Contains assurance's id, extensions, and comments.
+         */
+        _assurance?: Element;
     }
     /**
      * A generic person record
@@ -10483,9 +15271,17 @@ declare module fhir {
          */
         gender?: code;
         /**
-         * The birth date for the person
+         * Contains gender's id, extensions, and comments.
          */
-        birthDate?: dateTime;
+        _gender?: Element;
+        /**
+         * The date on which the person was born
+         */
+        birthDate?: date;
+        /**
+         * Contains birthDate's id, extensions, and comments.
+         */
+        _birthDate?: Element;
         /**
          * One or more addresses for the person
          */
@@ -10503,6 +15299,10 @@ declare module fhir {
          */
         active?: boolean;
         /**
+         * Contains active's id, extensions, and comments.
+         */
+        _active?: Element;
+        /**
          * Link to a resource that concerns the same actual person
          */
         link?: PersonLink[];
@@ -10519,6 +15319,10 @@ declare module fhir {
          * Notes text
          */
         text?: string;
+        /**
+         * Contains text's id, extensions, and comments.
+         */
+        _text?: Element;
     }
     /**
      * ProcessResponse resource
@@ -10541,6 +15345,10 @@ declare module fhir {
          */
         disposition?: string;
         /**
+         * Contains disposition's id, extensions, and comments.
+         */
+        _disposition?: Element;
+        /**
          * Resource version
          */
         ruleset?: Coding;
@@ -10552,6 +15360,10 @@ declare module fhir {
          * Creation date
          */
         created?: dateTime;
+        /**
+         * Contains created's id, extensions, and comments.
+         */
+        _created?: Element;
         /**
          * Authoring Organization
          */
@@ -10582,25 +15394,38 @@ declare module fhir {
      */
     interface ProvenanceAgent extends Element {
         /**
-         * Agents Role
+         * What the agents involvement was
          */
         role: Coding;
         /**
-         * Agent Type
+         * Individual, device or organization playing role
          */
-        type: Coding;
+        actor?: Reference;
         /**
-         * Identity of agent
+         * Authorization-system identifier for the agent
          */
-        referenceUri?: uri;
+        userId?: Identifier;
         /**
-         * Identity of agent
+         * Track delegation between agents
          */
-        referenceReference?: Reference;
+        relatedAgent?: ProvenanceAgentRelatedAgent[];
+    }
+    /**
+     * Track delegation between agents
+     */
+    interface ProvenanceAgentRelatedAgent extends Element {
         /**
-         * Human description of participant
+         * Type of relationship between agents
          */
-        display?: string;
+        type: CodeableConcept;
+        /**
+         * Reference to other agent in this resource by id
+         */
+        target: uri;
+        /**
+         * Contains target's id, extensions, and comments.
+         */
+        _target?: Element;
     }
     /**
      * An entity used in this activity
@@ -10611,7 +15436,11 @@ declare module fhir {
          */
         role: code;
         /**
-         * Entity Type
+         * Contains role's id, extensions, and comments.
+         */
+        _role?: Element;
+        /**
+         * The type of resource in this entity
          */
         type: Coding;
         /**
@@ -10619,9 +15448,17 @@ declare module fhir {
          */
         reference: uri;
         /**
+         * Contains reference's id, extensions, and comments.
+         */
+        _reference?: Element;
+        /**
          * Human description of entity
          */
         display?: string;
+        /**
+         * Contains display's id, extensions, and comments.
+         */
+        _display?: Element;
         /**
          * Entity is attributed to this agent
          */
@@ -10644,9 +15481,17 @@ declare module fhir {
          */
         recorded: instant;
         /**
+         * Contains recorded's id, extensions, and comments.
+         */
+        _recorded?: Element;
+        /**
          * Reason the activity is occurring
          */
-        reason?: CodeableConcept;
+        reason?: CodeableConcept[];
+        /**
+         * Activity that occurred
+         */
+        activity?: CodeableConcept;
         /**
          * Where the activity occurred, if relevant
          */
@@ -10655,6 +15500,10 @@ declare module fhir {
          * Policy or plan the activity was defined by
          */
         policy?: uri[];
+        /**
+         * Contains policy's id, extensions, and comments.
+         */
+        _policy?: Element[];
         /**
          * Agents involved in creating resource
          */
@@ -10677,6 +15526,10 @@ declare module fhir {
          */
         name?: string;
         /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
          * Contact details for individual or publisher
          */
         telecom?: ContactPoint[];
@@ -10690,53 +15543,117 @@ declare module fhir {
          */
         url: uri;
         /**
-         * Name of search parameter
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
+        /**
+         * Informal name for this search parameter
          */
         name: string;
         /**
-         * Name of the publisher (Organization or individual)
+         * Contains name's id, extensions, and comments.
          */
-        publisher?: string;
-        /**
-         * Contact details of the publisher
-         */
-        contact?: SearchParameterContact[];
-        /**
-         * Why this search parameter is defined
-         */
-        requirements?: string;
+        _name?: Element;
         /**
          * draft | active | retired
          */
         status?: code;
         /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * If for testing purposes, not real usage
          */
         experimental?: boolean;
+        /**
+         * Contains experimental's id, extensions, and comments.
+         */
+        _experimental?: Element;
+        /**
+         * Name of the publisher (Organization or individual)
+         */
+        publisher?: string;
+        /**
+         * Contains publisher's id, extensions, and comments.
+         */
+        _publisher?: Element;
+        /**
+         * Contact details of the publisher
+         */
+        contact?: SearchParameterContact[];
         /**
          * Publication Date(/time)
          */
         date?: dateTime;
         /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * Why this search parameter is defined
+         */
+        requirements?: string;
+        /**
+         * Contains requirements's id, extensions, and comments.
+         */
+        _requirements?: Element;
+        /**
+         * Code used in URL
+         */
+        code: code;
+        /**
+         * Contains code's id, extensions, and comments.
+         */
+        _code?: Element;
+        /**
          * The resource type this search parameter applies to
          */
         base: code;
+        /**
+         * Contains base's id, extensions, and comments.
+         */
+        _base?: Element;
         /**
          * number | date | string | token | reference | composite | quantity | uri
          */
         type: code;
         /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
+        /**
          * Documentation for  search parameter
          */
         description: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
         /**
          * XPath that extracts the values
          */
         xpath?: string;
         /**
+         * Contains xpath's id, extensions, and comments.
+         */
+        _xpath?: Element;
+        /**
+         * normal | phonetic | nearby | distance | other
+         */
+        xpathUsage?: code;
+        /**
+         * Contains xpathUsage's id, extensions, and comments.
+         */
+        _xpathUsage?: Element;
+        /**
          * Types of resource (if a resource reference)
          */
         target?: code[];
+        /**
+         * Contains target's id, extensions, and comments.
+         */
+        _target?: Element[];
     }
     /**
      * The channel on which to report matches to the criteria
@@ -10747,17 +15664,33 @@ declare module fhir {
          */
         type: code;
         /**
+         * Contains type's id, extensions, and comments.
+         */
+        _type?: Element;
+        /**
          * Where the channel points to
          */
         endpoint?: uri;
+        /**
+         * Contains endpoint's id, extensions, and comments.
+         */
+        _endpoint?: Element;
         /**
          * Mimetype to send, or blank for no payload
          */
         payload: string;
         /**
+         * Contains payload's id, extensions, and comments.
+         */
+        _payload?: Element;
+        /**
          * Usage depends on the channel type
          */
         header?: string;
+        /**
+         * Contains header's id, extensions, and comments.
+         */
+        _header?: Element;
     }
     /**
      * A server push subscription criteria
@@ -10768,6 +15701,10 @@ declare module fhir {
          */
         criteria: string;
         /**
+         * Contains criteria's id, extensions, and comments.
+         */
+        _criteria?: Element;
+        /**
          * Contact details for source (e.g. troubleshooting)
          */
         contact?: ContactPoint[];
@@ -10776,13 +15713,25 @@ declare module fhir {
          */
         reason: string;
         /**
+         * Contains reason's id, extensions, and comments.
+         */
+        _reason?: Element;
+        /**
          * requested | active | error | off
          */
         status: code;
         /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
          * Latest error note
          */
         error?: string;
+        /**
+         * Contains error's id, extensions, and comments.
+         */
+        _error?: Element;
         /**
          * The channel on which to report matches to the criteria
          */
@@ -10792,8 +15741,733 @@ declare module fhir {
          */
         end?: instant;
         /**
+         * Contains end's id, extensions, and comments.
+         */
+        _end?: Element;
+        /**
          * A tag to add to matching resources
          */
         tag?: Coding[];
     }
+    /**
+     * Delivery of Supply
+     */
+    interface SupplyDelivery extends DomainResource {
+        /**
+         * External identifier
+         */
+        identifier?: Identifier;
+        /**
+         * in-progress | completed | abandoned
+         */
+        status?: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * Patient for whom the item is supplied
+         */
+        patient?: Reference;
+        /**
+         * Category of dispense event
+         */
+        type?: CodeableConcept;
+        /**
+         * Amount dispensed
+         */
+        quantity?: Quantity;
+        /**
+         * Medication, Substance, or Device supplied
+         */
+        suppliedItem?: Reference;
+        /**
+         * Dispenser
+         */
+        supplier?: Reference;
+        /**
+         * Dispensing time
+         */
+        whenPrepared?: Period;
+        /**
+         * Handover time
+         */
+        time?: dateTime;
+        /**
+         * Contains time's id, extensions, and comments.
+         */
+        _time?: Element;
+        /**
+         * Where the Supply was sent
+         */
+        destination?: Reference;
+        /**
+         * Who collected the Supply
+         */
+        receiver?: Reference[];
+    }
+    /**
+     * Contact details of the publisher
+     */
+    interface TestScriptContact extends Element {
+        /**
+         * Name of a individual to contact
+         */
+        name?: string;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
+         * Contact details for individual or publisher
+         */
+        telecom?: ContactPoint[];
+    }
+    /**
+     * Required capability that is assumed to function correctly on the FHIR server being tested
+     */
+    interface TestScriptMetadata extends Element {
+        /**
+         * Links to the FHIR specification
+         */
+        link?: TestScriptMetadataLink[];
+        /**
+         * Capabiltities that are assumed to function correctly on the FHIR server being tested
+         */
+        capability: TestScriptMetadataCapability[];
+    }
+    /**
+     * Links to the FHIR specification
+     */
+    interface TestScriptMetadataLink extends Element {
+        /**
+         * URL to the specification
+         */
+        url: uri;
+        /**
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
+        /**
+         * Short description
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+    }
+    /**
+     * Capabiltities that are assumed to function correctly on the FHIR server being tested
+     */
+    interface TestScriptMetadataCapability extends Element {
+        /**
+         * Are the capabilities required?
+         */
+        required?: boolean;
+        /**
+         * Contains required's id, extensions, and comments.
+         */
+        _required?: Element;
+        /**
+         * Are the capabilities validated?
+         */
+        validated?: boolean;
+        /**
+         * Contains validated's id, extensions, and comments.
+         */
+        _validated?: Element;
+        /**
+         * The expected capabilities of the server
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * Which server these requirements apply to
+         */
+        destination?: integer;
+        /**
+         * Contains destination's id, extensions, and comments.
+         */
+        _destination?: Element;
+        /**
+         * Links to the FHIR specification
+         */
+        link?: uri[];
+        /**
+         * Contains link's id, extensions, and comments.
+         */
+        _link?: Element[];
+        /**
+         * Required Conformance
+         */
+        conformance: Reference;
+    }
+    /**
+     * Fixture in the test script - by reference (uri)
+     */
+    interface TestScriptFixture extends Element {
+        /**
+         * Whether or not to implicitly create the fixture during setup
+         */
+        autocreate?: boolean;
+        /**
+         * Contains autocreate's id, extensions, and comments.
+         */
+        _autocreate?: Element;
+        /**
+         * Whether or not to implicitly delete the fixture during teardown
+         */
+        autodelete?: boolean;
+        /**
+         * Contains autodelete's id, extensions, and comments.
+         */
+        _autodelete?: Element;
+        /**
+         * Reference of the resource
+         */
+        resource?: Reference;
+    }
+    /**
+     * Placeholder for evaluated elements
+     */
+    interface TestScriptVariable extends Element {
+        /**
+         * Descriptive name for this variable
+         */
+        name: string;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
+         * HTTP header field name for source
+         */
+        headerField?: string;
+        /**
+         * Contains headerField's id, extensions, and comments.
+         */
+        _headerField?: Element;
+        /**
+         * XPath or JSONPath against the fixture body
+         */
+        path?: string;
+        /**
+         * Contains path's id, extensions, and comments.
+         */
+        _path?: Element;
+        /**
+         * Fixture Id of source expression or headerField within this variable
+         */
+        sourceId?: id;
+        /**
+         * Contains sourceId's id, extensions, and comments.
+         */
+        _sourceId?: Element;
+    }
+    /**
+     * A series of required setup operations before tests are executed
+     */
+    interface TestScriptSetup extends Element {
+        /**
+         * Capabiltities that are assumed to function correctly on the FHIR server being tested
+         */
+        metadata?: TestScriptMetadata;
+        /**
+         * A setup operation or assert to perform
+         */
+        action: TestScriptSetupAction[];
+    }
+    /**
+     * A setup operation or assert to perform
+     */
+    interface TestScriptSetupAction extends Element {
+        /**
+         * The setup operation to perform
+         */
+        operation?: TestScriptSetupActionOperation;
+        /**
+         * The assertion to perform
+         */
+        assert?: TestScriptSetupActionAssert;
+    }
+    /**
+     * The setup operation to perform
+     */
+    interface TestScriptSetupActionOperation extends Element {
+        /**
+         * The setup operation type that will be executed
+         */
+        type?: Coding;
+        /**
+         * Resource type
+         */
+        resource?: code;
+        /**
+         * Contains resource's id, extensions, and comments.
+         */
+        _resource?: Element;
+        /**
+         * Tracking/logging operation label
+         */
+        label?: string;
+        /**
+         * Contains label's id, extensions, and comments.
+         */
+        _label?: Element;
+        /**
+         * Tracking/reporting operation description
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * xml | json
+         */
+        accept?: code;
+        /**
+         * Contains accept's id, extensions, and comments.
+         */
+        _accept?: Element;
+        /**
+         * xml | json
+         */
+        contentType?: code;
+        /**
+         * Contains contentType's id, extensions, and comments.
+         */
+        _contentType?: Element;
+        /**
+         * Which server to perform the operation on
+         */
+        destination?: integer;
+        /**
+         * Contains destination's id, extensions, and comments.
+         */
+        _destination?: Element;
+        /**
+         * Whether or not to send the request url in encoded format
+         */
+        encodeRequestUrl?: boolean;
+        /**
+         * Contains encodeRequestUrl's id, extensions, and comments.
+         */
+        _encodeRequestUrl?: Element;
+        /**
+         * Explicitly defined path parameters
+         */
+        params?: string;
+        /**
+         * Contains params's id, extensions, and comments.
+         */
+        _params?: Element;
+        /**
+         * Each operation can have one ore more header elements
+         */
+        requestHeader?: TestScriptSetupActionOperationRequestHeader[];
+        /**
+         * Fixture Id of mapped response
+         */
+        responseId?: id;
+        /**
+         * Contains responseId's id, extensions, and comments.
+         */
+        _responseId?: Element;
+        /**
+         * Fixture Id of body for PUT and POST requests
+         */
+        sourceId?: id;
+        /**
+         * Contains sourceId's id, extensions, and comments.
+         */
+        _sourceId?: Element;
+        /**
+         * Id of fixture used for extracting the [id],  [type], and [vid] for GET requests
+         */
+        targetId?: id;
+        /**
+         * Contains targetId's id, extensions, and comments.
+         */
+        _targetId?: Element;
+        /**
+         * Request URL
+         */
+        url?: string;
+        /**
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
+    }
+    /**
+     * Each operation can have one ore more header elements
+     */
+    interface TestScriptSetupActionOperationRequestHeader extends Element {
+        /**
+         * HTTP header field name
+         */
+        field: string;
+        /**
+         * Contains field's id, extensions, and comments.
+         */
+        _field?: Element;
+        /**
+         * HTTP headerfield value
+         */
+        value: string;
+        /**
+         * Contains value's id, extensions, and comments.
+         */
+        _value?: Element;
+    }
+    /**
+     * The assertion to perform
+     */
+    interface TestScriptSetupActionAssert extends Element {
+        /**
+         * Tracking/logging assertion label
+         */
+        label?: string;
+        /**
+         * Contains label's id, extensions, and comments.
+         */
+        _label?: Element;
+        /**
+         * Tracking/reporting assertion description
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * response | request
+         */
+        direction?: code;
+        /**
+         * Contains direction's id, extensions, and comments.
+         */
+        _direction?: Element;
+        /**
+         * Id of fixture used to compare the "sourceId/path" evaluations to
+         */
+        compareToSourceId?: string;
+        /**
+         * Contains compareToSourceId's id, extensions, and comments.
+         */
+        _compareToSourceId?: Element;
+        /**
+         * XPath or JSONPath expression against fixture used to compare the "sourceId/path" evaluations to
+         */
+        compareToSourcePath?: string;
+        /**
+         * Contains compareToSourcePath's id, extensions, and comments.
+         */
+        _compareToSourcePath?: Element;
+        /**
+         * xml | json
+         */
+        contentType?: code;
+        /**
+         * Contains contentType's id, extensions, and comments.
+         */
+        _contentType?: Element;
+        /**
+         * HTTP header field name
+         */
+        headerField?: string;
+        /**
+         * Contains headerField's id, extensions, and comments.
+         */
+        _headerField?: Element;
+        /**
+         * Fixture Id of minimum content resource
+         */
+        minimumId?: string;
+        /**
+         * Contains minimumId's id, extensions, and comments.
+         */
+        _minimumId?: Element;
+        /**
+         * Perform validation on navigation links?
+         */
+        navigationLinks?: boolean;
+        /**
+         * Contains navigationLinks's id, extensions, and comments.
+         */
+        _navigationLinks?: Element;
+        /**
+         * equals | notEquals | in | notIn | greaterThan | lessThan | empty | notEmpty | contains | notContains
+         */
+        operator?: code;
+        /**
+         * Contains operator's id, extensions, and comments.
+         */
+        _operator?: Element;
+        /**
+         * XPath or JSONPath expression
+         */
+        path?: string;
+        /**
+         * Contains path's id, extensions, and comments.
+         */
+        _path?: Element;
+        /**
+         * Resource type
+         */
+        resource?: code;
+        /**
+         * Contains resource's id, extensions, and comments.
+         */
+        _resource?: Element;
+        /**
+         * okay | created | noContent | notModified | bad | forbidden | notFound | methodNotAllowed | conflict | gone | preconditionFailed | unprocessable
+         */
+        response?: code;
+        /**
+         * Contains response's id, extensions, and comments.
+         */
+        _response?: Element;
+        /**
+         * HTTP response code to test
+         */
+        responseCode?: string;
+        /**
+         * Contains responseCode's id, extensions, and comments.
+         */
+        _responseCode?: Element;
+        /**
+         * Fixture Id of source expression or headerField
+         */
+        sourceId?: id;
+        /**
+         * Contains sourceId's id, extensions, and comments.
+         */
+        _sourceId?: Element;
+        /**
+         * Profile Id of validation profile reference
+         */
+        validateProfileId?: id;
+        /**
+         * Contains validateProfileId's id, extensions, and comments.
+         */
+        _validateProfileId?: Element;
+        /**
+         * The value to compare to
+         */
+        value?: string;
+        /**
+         * Contains value's id, extensions, and comments.
+         */
+        _value?: Element;
+        /**
+         * Will this assert produce a warning only on error?
+         */
+        warningOnly?: boolean;
+        /**
+         * Contains warningOnly's id, extensions, and comments.
+         */
+        _warningOnly?: Element;
+    }
+    /**
+     * A test in this script
+     */
+    interface TestScriptTest extends Element {
+        /**
+         * Tracking/logging name of this test
+         */
+        name?: string;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
+         * Tracking/reporting short description of the test
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * Capabiltities that are expected to function correctly on the FHIR server being tested
+         */
+        metadata?: TestScriptMetadata;
+        /**
+         * A test operation or assert to perform
+         */
+        action: TestScriptTestAction[];
+    }
+    /**
+     * A test operation or assert to perform
+     */
+    interface TestScriptTestAction extends Element {
+        /**
+         * The setup operation to perform
+         */
+        operation?: TestScriptSetupActionOperation;
+        /**
+         * The setup assertion to perform
+         */
+        assert?: TestScriptSetupActionAssert;
+    }
+    /**
+     * A series of required clean up steps
+     */
+    interface TestScriptTeardown extends Element {
+        /**
+         * One or more teardown operations to perform
+         */
+        action: TestScriptTeardownAction[];
+    }
+    /**
+     * One or more teardown operations to perform
+     */
+    interface TestScriptTeardownAction extends Element {
+        /**
+         * The teardown operation to perform
+         */
+        operation?: TestScriptSetupActionOperation;
+    }
+    /**
+     * Describes a set of tests
+     */
+    interface TestScript extends DomainResource {
+        /**
+         * Literal URL used to reference this TestScript
+         */
+        url: uri;
+        /**
+         * Contains url's id, extensions, and comments.
+         */
+        _url?: Element;
+        /**
+         * Logical id for this version of the TestScript
+         */
+        version?: string;
+        /**
+         * Contains version's id, extensions, and comments.
+         */
+        _version?: Element;
+        /**
+         * Informal name for this TestScript
+         */
+        name: string;
+        /**
+         * Contains name's id, extensions, and comments.
+         */
+        _name?: Element;
+        /**
+         * draft | active | retired
+         */
+        status: code;
+        /**
+         * Contains status's id, extensions, and comments.
+         */
+        _status?: Element;
+        /**
+         * External identifier
+         */
+        identifier?: Identifier;
+        /**
+         * If for testing purposes, not real usage
+         */
+        experimental?: boolean;
+        /**
+         * Contains experimental's id, extensions, and comments.
+         */
+        _experimental?: Element;
+        /**
+         * Name of the publisher (Organization or individual)
+         */
+        publisher?: string;
+        /**
+         * Contains publisher's id, extensions, and comments.
+         */
+        _publisher?: Element;
+        /**
+         * Contact details of the publisher
+         */
+        contact?: TestScriptContact[];
+        /**
+         * Date for this version of the TestScript
+         */
+        date?: dateTime;
+        /**
+         * Contains date's id, extensions, and comments.
+         */
+        _date?: Element;
+        /**
+         * Natural language description of the TestScript
+         */
+        description?: string;
+        /**
+         * Contains description's id, extensions, and comments.
+         */
+        _description?: Element;
+        /**
+         * Content intends to support these contexts
+         */
+        useContext?: CodeableConcept[];
+        /**
+         * Scope and Usage this Test Script is for
+         */
+        requirements?: string;
+        /**
+         * Contains requirements's id, extensions, and comments.
+         */
+        _requirements?: Element;
+        /**
+         * Use and/or Publishing restrictions
+         */
+        copyright?: string;
+        /**
+         * Contains copyright's id, extensions, and comments.
+         */
+        _copyright?: Element;
+        /**
+         * Required capability that is assumed to function correctly on the FHIR server being tested
+         */
+        metadata?: TestScriptMetadata;
+        /**
+         * Whether or not the tests apply to more than one FHIR server
+         */
+        multiserver?: boolean;
+        /**
+         * Contains multiserver's id, extensions, and comments.
+         */
+        _multiserver?: Element;
+        /**
+         * Fixture in the test script - by reference (uri)
+         */
+        fixture?: TestScriptFixture[];
+        /**
+         * Reference of the validation profile
+         */
+        profile?: Reference[];
+        /**
+         * Placeholder for evaluated elements
+         */
+        variable?: TestScriptVariable[];
+        /**
+         * A series of required setup operations before tests are executed
+         */
+        setup?: TestScriptSetup;
+        /**
+         * A test in this script
+         */
+        test?: TestScriptTest[];
+        /**
+         * A series of required clean up steps
+         */
+        teardown?: TestScriptTeardown;
+    }
+    /**
+     * Reference to a sub-type of ResourceBase. This is needed for stricter object literal typing introduced in TypeScript 1.6.
+     */
+    type Resource = (DomainResource|Organization|Location|HealthcareService|Practitioner|Patient|RelatedPerson|Device|Account|AllergyIntolerance|Schedule|Slot|Appointment|AppointmentResponse|AuditEvent|Basic|BodySite|Substance|Medication|Group|Specimen|DeviceComponent|DeviceMetric|ValueSet|Questionnaire|QuestionnaireResponse|Observation|FamilyMemberHistory|DocumentReference|DiagnosticOrder|ProcedureRequest|ReferralRequest|Procedure|ImagingStudy|ImagingObjectSelection|Media|DiagnosticReport|CommunicationRequest|DeviceUseRequest|MedicationOrder|NutritionOrder|Order|ProcessRequest|SupplyRequest|VisionPrescription|ClinicalImpression|Condition|EpisodeOfCare|Encounter|MedicationStatement|RiskAssessment|Goal|CarePlan|Composition|Contract|Coverage|ClaimResponse|Claim|Communication|StructureDefinition|ConceptMap|OperationDefinition|Conformance|DataElement|DetectedIssue|DeviceUseStatement|DocumentManifest|EligibilityRequest|EligibilityResponse|EnrollmentRequest|EnrollmentResponse|ExplanationOfBenefit|Flag|Immunization|ImmunizationRecommendation|ImplementationGuide|List|MedicationAdministration|MedicationDispense|OperationOutcome|MessageHeader|NamingSystem|OrderResponse|PaymentNotice|PaymentReconciliation|Person|ProcessResponse|Provenance|SearchParameter|Subscription|SupplyDelivery|TestScript|Binary|Bundle|Parameters);
 }

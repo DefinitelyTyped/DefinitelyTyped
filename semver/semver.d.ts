@@ -1,7 +1,9 @@
-// Type definitions for semver v2.2.1
-// Project: https://github.com/isaacs/node-semver
+// Type definitions for semver v4.3.4
+// Project: https://github.com/npm/node-semver
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/semver
+
+declare var semver: SemVerModule.SemVer;
 
 declare module SemVerModule {
     /**
@@ -12,6 +14,18 @@ declare module SemVerModule {
      * Return the version incremented by the release type (major, minor, patch, or prerelease), or null if it's not valid.
      */
     function inc(v: string, release: string, loose?: boolean): string;
+    /**
+     * Return the major version number.
+     */
+    function major(v: string, loose?: boolean): number;
+    /**
+     * Return the minor version number.
+     */
+    function minor(v: string, loose?: boolean): number;
+    /**
+     * Return the patch version number.
+     */
+    function patch(v: string, loose?: boolean): number;
 
     // Comparison
     /**
@@ -50,6 +64,10 @@ declare module SemVerModule {
      * The reverse of compare. Sorts an array of versions in descending order when passed to Array.sort().
      */
     function rcompare(v1: string, v2: string, loose?: boolean): number;
+    /**
+     * Returns difference between two versions by the release type (major, premajor, minor, preminor, patch, prepatch, or prerelease), or null if the versions are the same.
+     */
+    function diff(v1: string, v2: string, loose?: boolean): string;
 
     // Ranges
     /**

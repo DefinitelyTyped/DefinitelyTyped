@@ -22,6 +22,6 @@ declare module 'gulp-watch' {
     }
 
     function watch(glob: string | Array<string>, options?: IOptions, callback?: Function): IWatchStream;
-
+    namespace watch {}
     export = watch;
 }

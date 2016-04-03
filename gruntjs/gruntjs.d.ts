@@ -192,6 +192,12 @@ declare module grunt {
              */
             requires(prop: string, ...andProps: string[]): void
             requires(prop: string[], ...andProps: string[][]): void
+            
+            /**
+             * Recursively merges properties of the specified configObject into the current project configuration.
+             * You can use this method to append configuration options, targets, etc., to already defined tasks.
+             */
+            merge<T>(configObject: T): void;
         }
     }
 
@@ -1166,7 +1172,7 @@ declare module grunt {
             /**
              * The command to execute. It should be in the system path.
              */
-            cmd: string
+            cmd?: string
 
             /**
              * If specified, the same grunt bin that is currently running will be

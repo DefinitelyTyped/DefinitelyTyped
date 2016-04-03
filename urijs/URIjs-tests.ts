@@ -34,3 +34,29 @@ URI('').setSearch('foo', 'bar');
 URI('').setSearch({ foo: 'bar' });
 
 var uri: uri.URI = $('a').uri();
+
+URI('http://example.org/foo/hello.html').segment('bar');
+URI('http://example.org/foo/hello.html').segment(0, 'bar');
+URI('http://example.org/foo/hello.html').segment(['foo', 'bar', 'foobar.html']);
+
+var withDuplicates = URI("?bar=1&bar=1")
+  .duplicateQueryParameters(true)
+  .normalizeQuery()
+  .toString();
+
+/*
+ To enable `URI.expand` when using `URI.js` via `npm`, include the following:
+
+ ```
+ import * as URI from "urijs";
+ import * as URITemplate from "urijs/src/URITemplate";
+ void URITemplate;
+ ```
+ */
+URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag').equals(
+    URI.expand('http://user:pass@example.org:80{/p*}{?q*}{#h}', {
+        p: ["foo", "bar.html"],
+        q: {foo: "bar", bar: "baz"},
+        h: "frag"
+    })
+);

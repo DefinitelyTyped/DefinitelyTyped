@@ -39,7 +39,7 @@ module bardTests {
         var myService: MyService;
         var $rootScope: angular.IRootScopeService;
 
-        beforeEach(module(bard.$httpBackend, 'myModule'));
+        beforeEach(angular.mock.module(bard.$httpBackend, 'myModule'));
 
         beforeEach(inject(function(_myService_: MyService, _$rootScope_: angular.IRootScopeService) {
             myService = _myService_;
@@ -63,7 +63,7 @@ module bardTests {
     function test_$q() {
         var myService: MyService;
 
-        beforeEach(module(bard.$q, bard.$httpBackend, 'myModule'));
+        beforeEach(angular.mock.module(bard.$q, bard.$httpBackend, 'myModule'));
 
         beforeEach(inject(function(_myService_: MyService) {
             myService = _myService_;
@@ -139,7 +139,7 @@ module bardTests {
      * bard.fakeLogger
      */
     function test_fakeLogger() {
-        beforeEach(module('myModule', bard.fakeLogger));
+        beforeEach(angular.mock.module('myModule', bard.fakeLogger));
         ////
         beforeEach(bard.appModule('myModule', bard.fakeLogger));
         ////
@@ -150,7 +150,7 @@ module bardTests {
      * bard.fakeRouteHelperProvider
      */
     function test_fakeRouteHelperProvider() {
-        beforeEach(module('myModule', bard.fakeRouteHelperProvider));
+        beforeEach(angular.mock.module('myModule', bard.fakeRouteHelperProvider));
         ////
         beforeEach(bard.appModule('myModule', bard.fakeRouteHelperProvider));
         ////
@@ -161,7 +161,7 @@ module bardTests {
      * bard.fakeRouteProvider
      */
     function test_fakeRouteProvider() {
-        beforeEach(module('myModule', bard.fakeRouteProvider));
+        beforeEach(angular.mock.module('myModule', bard.fakeRouteProvider));
         ////
         beforeEach(bard.appModule('myModule', bard.fakeRouteProvider));
         ////
@@ -172,7 +172,7 @@ module bardTests {
      * bard.fakeStateProvider
      */
     function test_fakeStateProvider() {
-        beforeEach(module('myModule', bard.fakeStateProvider));
+        beforeEach(angular.mock.module('myModule', bard.fakeStateProvider));
         ////
         beforeEach(bard.appModule('myModule', bard.fakeStateProvider));
         ////
@@ -183,7 +183,7 @@ module bardTests {
      * bard.fakeToastr
      */
     function test_fakeToastr() {
-        beforeEach(module('myModule', bard.fakeToastr));
+        beforeEach(angular.mock.module('myModule', bard.fakeToastr));
         ////
         beforeEach(bard.appModule('myModule', bard.fakeToastr));
         ////
@@ -232,7 +232,7 @@ module bardTests {
                 _default: $q.when([])
             });
 
-            controller = $controller('MyController');
+            controller = $controller<MyController>('MyController');
             $rootScope.$apply();
         });
     }
@@ -264,7 +264,7 @@ module bardTests {
                 _default: $q.when([])
             });
 
-            controller = $controller('MyController');
+            controller = $controller<MyController>('MyController');
             $rootScope.$apply();
         });
 

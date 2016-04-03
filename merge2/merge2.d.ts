@@ -12,10 +12,13 @@ declare module 'merge2' {
     }
 
     interface IMerge2Stream extends NodeJS.ReadWriteStream {
-      add(...args: Array<NodeJS.ReadWriteStream | IMerge2Stream | Array<NodeJS.ReadWriteStream | IMerge2Stream | IOptions>>): IMerge2Stream;
+        add(...args: Array<NodeJS.ReadWriteStream | IMerge2Stream | Array<NodeJS.ReadWriteStream | IMerge2Stream | IOptions>>): IMerge2Stream;
     }
 
-    function merge2(...args: Array<NodeJS.ReadWriteStream | IMerge2Stream | Array<NodeJS.ReadWriteStream | IMerge2Stream> | IOptions>): IMerge2Stream;
+    interface IMerge2 {
+        (...args: Array<NodeJS.ReadWriteStream | IMerge2Stream | Array<NodeJS.ReadWriteStream | IMerge2Stream> | IOptions>): IMerge2Stream;
+    }
 
-    export = merge2;
+    var _tmp: IMerge2;
+    export = _tmp;
 }

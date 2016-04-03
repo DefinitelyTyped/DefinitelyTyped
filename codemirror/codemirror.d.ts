@@ -145,7 +145,11 @@ declare module CodeMirror {
         /** Attach a new document to the editor. Returns the old document, which is now no longer associated with an editor. */
         swapDoc(doc: CodeMirror.Doc): CodeMirror.Doc;
 
+        /** Get the content of the current editor document. You can pass it an optional argument to specify the string to be used to separate lines (defaults to "\n"). */
+        getValue(seperator?: string): string;
 
+        /** Set the content of the current editor document. */
+        setValue(content: string): void;
 
         /** Sets the gutter marker for the given gutter (identified by its CSS class, see the gutters option) to the given value.
         Value can be either null, to clear the marker, or a DOM element, to set it. The DOM element will be shown in the specified gutter next to the specified line. */
@@ -227,6 +231,14 @@ declare module CodeMirror {
         /** Scrolls the given element into view. pos is a { left , top , right , bottom } object, in editor-local coordinates.
         The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
         scrollIntoView(pos: { left: number; top: number; right: number; bottom: number; }, margin: number): void;
+
+        /** Scrolls the given element into view. pos is a { line, ch } object, in editor-local coordinates.
+        The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
+        scrollIntoView(pos: { line: number, ch: number }, margin?: number): void;
+
+        /** Scrolls the given element into view. pos is a { from, to } object, in editor-local coordinates.
+        The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
+        scrollIntoView(pos: { from: CodeMirror.Position, to: CodeMirror.Position }, margin: number): void;
 
         /** Returns an { left , top , bottom } object containing the coordinates of the cursor position.
         If mode is "local" , they will be relative to the top-left corner of the editable document.
@@ -382,6 +394,9 @@ declare module CodeMirror {
         The handler may mess with the style of the resulting element, or add event handlers, but should not try to change the state of the editor. */
         on(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: number, element: HTMLElement) => void ): void;
         off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: number, element: HTMLElement) => void ): void;
+
+        /** Expose the state object, so that the Editor.state.completionActive property is reachable*/
+        state: any;
     }
 
     interface EditorFromTextArea extends Editor {
@@ -581,6 +596,8 @@ declare module CodeMirror {
         /** The reverse of posFromIndex. */
         indexFromPos(object: CodeMirror.Position): number;
 
+        /** Expose the state object, so that the Doc.state.completionActive property is reachable*/
+        state: any;
     }
 
     interface LineHandle {
@@ -593,7 +610,7 @@ declare module CodeMirror {
 
         /** Returns a {from, to} object (both holding document positions), indicating the current position of the marked range,
         or undefined if the marker is no longer in the document. */
-        find(): CodeMirror.Position;
+        find(): CodeMirror.Range;
 
         /**  Returns an object representing the options for the marker. If copyWidget is given true, it will clone the value of the replacedWith option, if any. */
         getOptions(copyWidget: boolean): CodeMirror.TextMarkerOptions;
@@ -637,7 +654,12 @@ declare module CodeMirror {
         new (line: number, ch: number): Position;
         (line: number, ch: number): Position;
     }
-
+    
+    interface Range{
+        from: CodeMirror.Position;
+        to: CodeMirror.Position;
+    }
+    
     interface Position {
         ch: number;
         line: number;
@@ -787,7 +809,10 @@ declare module CodeMirror {
         viewportMargin?: number;
 
         /** Optional lint configuration to be used in conjunction with CodeMirror's linter addon. */
-        lint?: LintOptions;
+        lint?: boolean | LintOptions;
+
+	/** Optional value to be used in conduction with CodeMirror’s placeholder add-on. */
+	placeholder?: string;
     }
 
     interface TextMarkerOptions {
@@ -1089,4 +1114,8 @@ declare module CodeMirror {
         severity?: string;
         to?: Position;
     }
+}
+
+declare module "codemirror" {
+    export = CodeMirror;
 }

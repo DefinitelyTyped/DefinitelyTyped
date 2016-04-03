@@ -11,8 +11,9 @@ var r = React.DOM;
 
 import DragSource = ReactDnd.DragSource;
 import DropTarget = ReactDnd.DropTarget;
+import DragLayer = ReactDnd.DragLayer;
 import DragDropContext = ReactDnd.DragDropContext;
-import HTML5Backend = require('react-dnd/modules/backends/HTML5');
+import HTML5Backend, { getEmptyImage } from 'react-dnd/modules/backends/HTML5';
 import TestBackend = require('react-dnd/modules/backends/Test');
 
 // Game Component
@@ -80,10 +81,12 @@ module Knight {
     }
 
     export class Knight extends React.Component<KnightP, {}> {
+        static defaultProps: KnightP;
+
         static create = React.createFactory(Knight);
 
         componentDidMount() {
-            var img = HTML5Backend.getEmptyImage();
+            var img = getEmptyImage();
             img.onload = () => this.props.connectDragPreview(img);
         }
 
@@ -153,6 +156,8 @@ module BoardSquare {
     }
 
     export class BoardSquare extends React.Component<BoardSquareP, {}> {
+        static defaultProps: BoardSquareP;
+
         private _renderOverlay = (color: string) => {
             return r.div({
                 style: {
@@ -197,6 +202,32 @@ module BoardSquare {
     export var create = React.createFactory(DndBoardSquare);
 }
 
+// Custom Drag Layer Component
+// ----------------------------------------------------------------------
+module CustomDragLayer {
+    interface CustomDragLayerP extends React.Props<CustomDragLayer> {
+        isDragging?: boolean;
+        item?: Object;
+    }
+
+    function dragLayerCollect(monitor: ReactDnd.DragLayerMonitor) {
+        return {
+            isDragging: monitor.isDragging(),
+            item: monitor.getItem(),
+        };
+    }
+
+    export class CustomDragLayer extends React.Component<CustomDragLayerP, {}> {
+        render() {
+            return r.div(null, this.props.isDragging ? this.props.item : null);
+        }
+    }
+
+    export var dragLayer = DragLayer(dragLayerCollect)(CustomDragLayer);
+
+    export var create = React.createFactory(dragLayer);
+}
+
 // Board Component
 // ----------------------------------------------------------------------
 
@@ -237,13 +268,18 @@ module Board {
             }
 
             return r.div({
-                style: {
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    flexWrap: 'wrap'
-                },
-                children: squares
+                children: [
+                    CustomDragLayer.create(),
+                    r.div({
+                        style: {
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            flexWrap: 'wrap'
+                        },
+                        children: squares
+                    })
+                ]
             });
         }
     }

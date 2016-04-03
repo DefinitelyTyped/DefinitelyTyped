@@ -1,3 +1,5 @@
+/// <reference path="./dragula.d.ts" />
+
 import dragula = require("dragula");
 
 // containers

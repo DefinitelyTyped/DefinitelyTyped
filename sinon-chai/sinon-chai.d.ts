@@ -80,5 +80,6 @@ declare module Chai {
 
 declare module "sinon-chai" {
     function sinonChai(chai: any, utils: any): void;
+    namespace sinonChai { }
     export = sinonChai;
 }

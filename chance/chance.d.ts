@@ -5,7 +5,10 @@
 declare module Chance {
 
     interface ChanceStatic {
-        Chance(): Chance;
+        (): Chance
+        (seed: number): Chance
+        (generator: () => any): Chance
+
         new(): Chance;
         new(seed: number): Chance;
         new(generator: () => any): Chance;
@@ -209,5 +212,10 @@ declare var Chance: Chance.ChanceStatic;
 
 // import Chance = require('chance');
 declare module 'chance' {
+    interface ExportedChance extends Chance.ChanceStatic {
+        Chance: ExportedChance;
+    }
+    var Chance: ExportedChance;
+
     export = Chance;
 }

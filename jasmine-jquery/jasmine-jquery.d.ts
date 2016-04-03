@@ -195,8 +195,8 @@ declare module jasmine {
          * // returns true
          * expect($('<div><ul></ul><h1>header</h1></div>')).toContainHtml('<ul></ul>')
          */
-        //toContainHtml(html: string): boolean;
-        
+        toContainHtml(html: string): boolean;
+
         /**
          * Check if DOM element has the given Text.
          * @param text Accepts a string or regular expression
@@ -213,8 +213,8 @@ declare module jasmine {
          * // returns true
          * expect($('<div><ul></ul><h1>header</h1></div>')).toContainText('header')
          */
-        //toContainText(text: string): boolean;
-        
+        toContainText(text: string): boolean;
+
         /**
          * Check if DOM element has the given value.
          * This can only be applied for element on with jQuery val() can be called.

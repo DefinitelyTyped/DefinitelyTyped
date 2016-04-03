@@ -154,11 +154,11 @@ interface JQueryStatic {
 }
 
 interface JQuery {
-    colorpicker(options?: JQueryColorpickerOptions): JQuery;
-    colorpicker(method: string): JQuery;
-    colorpicker(method: string, param: any): JQuery;
     colorpicker(method: "close"): JQuery;
     colorpicker(method: "destroy"): JQuery;
     colorpicker(method: "open"): JQuery;
+    colorpicker(method: string): JQuery;
     colorpicker(method: "setColor", color: any): JQuery;
+    colorpicker(method: string, param: any): JQuery;
+    colorpicker(options?: JQueryColorpickerOptions): JQuery;
 }

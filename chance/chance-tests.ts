@@ -34,3 +34,6 @@ chance.mixin({
 });
 
 var timeString: string = chance.time();
+
+var chanceConstructedWithSeed100 = new Chance(100);
+var chanceCalledWithSeed100 = Chance()

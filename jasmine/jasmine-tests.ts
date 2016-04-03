@@ -512,21 +512,21 @@ describe("A spy", function () {
     it("can provide the context and arguments to all calls", function () {
         foo.setBar(123);
 
-        expect(foo.setBar.calls.all()).toEqual([{ object: foo, args: [123] }]);
+        expect(foo.setBar.calls.all()).toEqual([{ object: foo, args: [123], returnValue: undefined }]);
     });
 
     it("has a shortcut to the most recent call", function () {
         foo.setBar(123);
         foo.setBar(456, "baz");
 
-        expect(foo.setBar.calls.mostRecent()).toEqual({ object: foo, args: [456, "baz"] });
+        expect(foo.setBar.calls.mostRecent()).toEqual({ object: foo, args: [456, "baz"], returnValue: undefined });
     });
 
     it("has a shortcut to the first call", function () {
         foo.setBar(123);
         foo.setBar(456, "baz");
 
-        expect(foo.setBar.calls.first()).toEqual({ object: foo, args: [123] });
+        expect(foo.setBar.calls.first()).toEqual({ object: foo, args: [123], returnValue: undefined });
     });
 
     it("can be reset", function () {
@@ -813,7 +813,7 @@ var customMatchers: jasmine.CustomMatcherFactories = {
                 if (expected === undefined) {
                     expected = '';
                 }
-                var result: jasmine.CustomMatcherResult = { pass: false, message: ''};
+                var result: jasmine.CustomMatcherResult = { pass: false };
 
                 result.pass = util.equals(actual.hyuk, "gawrsh" + expected, customEqualityTesters);
 

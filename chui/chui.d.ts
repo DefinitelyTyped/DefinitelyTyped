@@ -1,8 +1,8 @@
-// Type definitions for chui v3.9.0
+// Type definitions for chui v3.9.1
 // Project: https://github.com/chocolatechipui/chocolatechip-ui
 // Definitions by: Robert Biggs <http://chocolatechip-ui.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// ChocolateChip-UI 3.9.0
+// ChocolateChip-UI 3.9.1
 /**
  These TypeScript delcarations for ChocolateChip-UI contain interfaces for both ChocolateChipJS and jQuery. Depending on which library you are using, you will get the type interfaces appropriate for it.
 */
@@ -88,6 +88,17 @@ interface ChocolateChipStatic {
    * Determine whether navigation is in progress or not.
    */
   isNavigating: boolean;
+
+  /**
+   * Tell ChocolateChip-UI to not modify window hash during navigation.
+   * The default value is false.
+   */
+  UIBrowserHashModification: boolean;
+
+  /**
+   * Method to tell ChocolateChip-UI to register navigation history on Window hash.
+   */
+  UIEnableBrowserHashModification(): void;
 
   /**
    * Navigate to the article indicated by the provided destination ID. This enters the destination into the navigation history array.
@@ -785,6 +796,17 @@ interface JQueryStatic {
   isNavigating: boolean;
 
   /**
+   * Tell ChocolateChip-UI to not modify window hash during navigation.
+   * The default value is false.
+   */
+  UIBrowserHashModification: boolean;
+
+  /**
+   * Method to tell ChocolateChip-UI to register navigation history on Window hash.
+   */
+  UIEnableBrowserHashModification(): void;
+
+  /**
    * Navigate to the article indicated by the provided destination ID. This enters the destination into the navigation history array.
    *
    * @param destination An id for the article to navigate to.
@@ -1014,6 +1036,54 @@ interface JQueryStatic {
    */
   UIUnBindData(controller?: string): void;
 
+  /**
+   * Object used to store string templates and parsed templates.
+   *
+   * @param string A string defining the template.
+   * @param string A label used to access an object's properties in the template. If none is provided it defaults to "data": [[= data.name]].
+   * @return void
+   */
+  templates: Object;
+
+  /**
+   * This method returns a parsed template.
+   *
+   */
+  template: {
+
+    /**
+     * This method parses a string and an optoinal variable name and returns a parsed template in the form of a function. You can then pass this function data to get rendered nodes.
+     *
+     * @param template A string of markup to use as a template.
+     * @param variable An option name to use in the template. If it were "myData": [[= myData.name]]. Otherwise it defaults to "data": [[= data.name]].
+     * @return A function.
+     */
+    (template: string, variable?: string): Function;
+
+    /**
+     * A method to repeated output a template.
+     *
+     * @param element The target container into which the content will be inserted.
+     * @param template A string of markup.
+     * @param data The iterable data the template will consume.
+     * @return void.
+     */
+    repeater: (element: JQuery, template: string, data: any) => void;
+
+    /**
+     * A object that holds the reference to the controller for a repeater.
+     * This is used to cache the data that a repeater uses. After the repeater is rendered, the reference is deleted from this object.
+     *
+     */
+    data: {
+        repeaterName?: any;
+    };
+  
+    /**
+     * Use this value to output an index value in a template repeater.
+     */
+    index: number;
+  };
 }
 
 /**

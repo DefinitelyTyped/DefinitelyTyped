@@ -5,11 +5,11 @@
 
 //These type definitions are not complete, although basic usage should be typed.
 interface Minilog {
-    debug(msg: any): Minilog;
-    info(msg: any): Minilog;
-    log(msg: any): Minilog;
-    warn(msg: any): Minilog;
-    error(msg: any): Minilog;
+    debug(...msg: any[]): Minilog;
+    info(...msg: any[]): Minilog;
+    log(...msg: any[]): Minilog;
+    warn(...msg: any[]): Minilog;
+    error(...msg: any[]): Minilog;
 }
 
 declare function Minilog(namespace: string): Minilog;
@@ -47,8 +47,8 @@ declare module Minilog {
         test(name:any, level:any): boolean;
 
         /**
-        * specifies the behavior when a log line doesn't match either the whitelist or the blacklist. 
-        The default is true (= "allow by default") - lines that do not match the whitelist or the blacklist are not filtered (e.g. ). 
+        * specifies the behavior when a log line doesn't match either the whitelist or the blacklist.
+        The default is true (= "allow by default") - lines that do not match the whitelist or the blacklist are not filtered (e.g. ).
         If you want to flip the default so that lines are filtered unless they are on the whitelist, set this to false (= "deny by default").
         */
         defaultResult: boolean;
@@ -58,7 +58,7 @@ declare module Minilog {
         */
         enabled: boolean;
     }
-    
+
 
     export interface MinilogBackends {
         array: any;
@@ -95,4 +95,8 @@ declare module Minilog {
         mixin(dest: any): void;
     }
 
+}
+
+declare module 'minilog' {
+    export = Minilog;
 }

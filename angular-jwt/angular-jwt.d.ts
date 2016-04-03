@@ -25,6 +25,6 @@ declare module angular.jwt {
     }
 
     interface IJwtInterceptor {
-        tokenGetter(): string;
+        tokenGetter(...params : any[]): string;
     }
 }

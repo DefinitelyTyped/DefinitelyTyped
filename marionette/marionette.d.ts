@@ -9,49 +9,49 @@
 declare module Backbone {
 
     // Backbone.BabySitter
-    class ChildViewContainer<TModel extends Backbone.Model> {
+    class ChildViewContainer<TView extends View<Backbone.Model>> {
 
         constructor(initialViews?: any[]);
 
-        add(view: View<TModel>, customIndex?: number): void;
-        findByModel(model: TModel): View<TModel>;
-        findByModelCid(modelCid: string): View<TModel>;
-        findByCustom(index: number): View<TModel>;
-        findByIndex(index: number): View<TModel>;
-        findByCid(cid: string): View<TModel>;
-        remove(view: View<TModel>): void;
+        add(view: TView, customIndex?: number): void;
+        findByModel<TModel extends Backbone.Model>(model: TModel): TView;
+        findByModelCid(modelCid: string): TView;
+        findByCustom(index: number): TView;
+        findByIndex(index: number): TView;
+        findByCid(cid: string): TView;
+        remove(view: TView): void;
         call(method: any): void;
         apply(method: any, args?: any[]): void;
 
         //mixins from Collection (copied from Backbone's Collection declaration)
 
-        all(iterator: (element: View<TModel>, index: number) => boolean, context?: any): boolean;
-        any(iterator: (element: View<TModel>, index: number) => boolean, context?: any): boolean;
+        all(iterator: (element: TView, index: number) => boolean, context?: any): boolean;
+        any(iterator: (element: TView, index: number) => boolean, context?: any): boolean;
         contains(value: any): boolean;
         detect(iterator: (item: any) => boolean, context?: any): any;
-        each(iterator: (element: View<TModel>, index: number, list?: any) => void, context?: any): any;
-        every(iterator: (element: View<TModel>, index: number) => boolean, context?: any): boolean;
-        filter(iterator: (element: View<TModel>, index: number) => boolean, context?: any): View<TModel>[];
-        find(iterator: (element: View<TModel>, index: number) => boolean, context?: any): View<TModel>;
-        first(): View<TModel>;
-        forEach(iterator: (element: View<TModel>, index: number, list?: any) => void, context?: any): void;
+        each(iterator: (element: TView, index: number, list?: any) => void, context?: any): any;
+        every(iterator: (element: TView, index: number) => boolean, context?: any): boolean;
+        filter(iterator: (element: TView, index: number) => boolean, context?: any): TView[];
+        find(iterator: (element: TView, index: number) => boolean, context?: any): TView;
+        first(): TView;
+        forEach(iterator: (element: TView, index: number, list?: any) => void, context?: any): void;
         include(value: any): boolean;
-        initial(): View<TModel>;
-        initial(n: number): View<TModel>[];
+        initial(): TView;
+        initial(n: number): TView[];
         invoke(methodName: string, args?: any[]): any;
         isEmpty(object: any): boolean;
-        last(): View<TModel>;
-        last(n: number): View<TModel>[];
-        lastIndexOf(element: View<TModel>, fromIndex?: number): number;
-        map<U>(iterator: (element: View<TModel>, index: number, context?: any) => U, context?: any): U[];
+        last(): TView;
+        last(n: number): TView[];
+        lastIndexOf(element: TView, fromIndex?: number): number;
+        map<U>(iterator: (element: TView, index: number, context?: any) => U, context?: any): U[];
         pluck(attribute: string): any[];
-        reject(iterator: (element: View<TModel>, index: number) => boolean, context?: any): View<TModel>[];
-        rest(): View<TModel>;
-        rest(n: number): View<TModel>[];
+        reject(iterator: (element: TView, index: number) => boolean, context?: any): TView[];
+        rest(): TView;
+        rest(n: number): TView[];
         select(iterator: any, context?: any): any[];
-        some(iterator: (element: View<TModel>, index: number) => boolean, context?: any): boolean;
+        some(iterator: (element: TView, index: number) => boolean, context?: any): boolean;
         toArray(): any[];
-        without(...values: any[]): View<TModel>[];
+        without(...values: any[]): TView[];
     }
 
     // Backbone.Wreqr
@@ -348,6 +348,10 @@ declare module Marionette {
          */
         empty(): any;
 
+        /**
+         * @returns view that this region has.
+         */
+        currentView: Backbone.View<Backbone.Model>;
     }
 
     interface RegionDefaults {
@@ -792,6 +796,13 @@ declare module Marionette {
          * This event / callback is useful for DOM-dependent UI plugins such as jQueryUI or KendoUI.
          */
         onDomRefresh(): void;
+
+        /**
+         * Internal properties extended in Marionette.View.
+         */
+        isDestroyed: boolean;
+        supportsRenderLifecycle: boolean;
+        supportsDestroyLifecycle: boolean;
     }
 
     /**
@@ -846,6 +857,23 @@ declare module Marionette {
          * on initialize.
          */
         sort?: boolean;
+
+        /**
+         * This option is useful when you have performance issues when you
+         * resort your CollectionView. Without this option, your CollectionView
+         * will be completely re-rendered, which can be costly if you have a
+         * large number of elements or if your ChildViews are complex. If this
+         * option is activated, when you sort your Collection, there will be no
+         * re-rendering, only the DOM nodes will be reordered. This can be a
+         * problem if your ChildViews use their collection's index in their
+         * rendering. In this case, you cannot use this option as you need to
+         * re-render each ChildView.
+         *
+         * If you combine this option with a filter that changes the views that
+         * are to be displayed, reorderOnSort will be bypassed to render new
+         * children and remove those that are rejected by the filter.
+         */
+        reorderOnSort?: boolean;
     }
 
     /**
@@ -856,7 +884,7 @@ declare module Marionette {
      * DOM. This behavior can be disabled by specifying {sort: false} on 
      * initialize.
      */
-    class CollectionView<TModel extends Backbone.Model> extends View<TModel> {
+    class CollectionView<TModel extends Backbone.Model, TView extends View<Backbone.Model>> extends View<TModel> {
         constructor(options?: CollectionViewOptions<TModel>);
 
         /**
@@ -864,7 +892,7 @@ declare module Marionette {
          * Backbone view object definition, not an instance. It can be any 
          * Backbone.View or be derived from Marionette.ItemView
          */
-        childView: any;
+        childView: new (...args:any[]) => TView;
 
         /**
          * There may be scenarios where you need to pass data from your parent 
@@ -918,14 +946,14 @@ declare module Marionette {
          * collection view, iterate them, find them by a given indexer such as the 
          * view's model or collection, and more.
          */
-        children: Backbone.ChildViewContainer<TModel>;
+        children: Backbone.ChildViewContainer<TView>;
 
         /**
          * The render method of the collection view is responsible for rendering the 
          * entire collection. It loops through each of the children in the collection 
          * and renders them individually as an childView.
          */
-        render(): CollectionView<TModel>;
+        render(): CollectionView<TModel, TView>;
 
         /**
          * The addChild method is responsible for rendering the childViews and 
@@ -933,9 +961,10 @@ declare module Marionette {
          * responsible for triggering the events per ChildView. In most cases you 
          * should not override this method.
          */
-        addChild(item: any, ChildView: Backbone.View<TModel>, index: Number): void;
+        addChild(item: any, ChildView: TView, index: Number): void;
 
-        renderChildView(view: Backbone.View<TModel>, index: Number): void;
+        /** Render the child view */
+        renderChildView(view: TView, index: Number): void;
 
         /**
          * When a custom view instance needs to be created for the childView that 
@@ -943,13 +972,13 @@ declare module Marionette {
          * takes three parameters and returns a view instance to be used as the 
          * child view.
          */
-        buildChildView(child: any, ItemViewType: any, itemViewOptions: any): View<TModel>;
+        buildChildView(child: any, ItemViewType: any, itemViewOptions: any): TView;
 
         /** 
          * Remove the child view and destroy it. This function also updates the indices of
          * later views in the collection in order to keep the children in sync with the collection.
          */
-        removeChildView(view: any): void;
+        removeChildView(view: TView): TView;
 
         /**
          * Determines if the view is empty. If you want to control when the empty 
@@ -962,7 +991,11 @@ declare module Marionette {
          */
         checkEmpty(): void;
 
-        destroyChildren(): void;
+        /**
+         * Destroy the child views that this collection view
+         * is holding on to, if any. This returns destroyed children.
+         */
+        destroyChildren(): Backbone.ChildViewContainer<TView>;
 
         /**
          * By default the CollectionView will maintain the order of its collection 
@@ -988,20 +1021,65 @@ declare module Marionette {
          * a collection and displaying the sorted list in the correct order on the 
          * screen.
          */
-        attachHtml(collectionView: CollectionView<TModel>, childView: Backbone.View<TModel>, index: number): void;
+        attachHtml(collectionView: CollectionView<TModel, TView>, childView: TView, index: number): void;
 
         /**
          * The value returned by this method is the ChildView class that will be 
          * instantiated when a Model needs to be initially rendered. This method 
          * also gives you the ability to customize per Model ChildViews.
          */
-        getChildView(item: TModel): any;
+        getChildView<M extends Backbone.Model>(item: M): new (...args:any[]) => TView;
 
         /**
          * If you need the emptyView's class chosen dynamically, specify 
          * getEmptyView.
          */
         getEmptyView(): any;
+
+        /** Serialize a collection by serializing each of its models. */
+        serializeCollection(): any;
+
+        /**
+         * Attaches the content of a given view.
+        * This method can be overridden to optimize rendering,
+        * or to render in a non standard way.
+        *
+        * For example, using `innerHTML` instead of `$el.html`
+        *
+        * @example
+        * attachElContent: function(html) {
+        *   this.el.innerHTML = html;
+        *   return this;
+        * }
+        */
+        attachElContent(html: string): ItemView<TModel>;
+
+        /**
+         * Reorder DOM after sorting. When your element's rendering
+         * do not use their index, you can pass reorderOnSort: true
+         * to only reorder the DOM after a sort instead of rendering
+         * all the collectionView
+         */
+        reorder(): void;
+
+        /**
+         * Render and show the emptyView. Similar to addChild method
+         * but "add:child" events are not fired, and the event from
+         * emptyView are not forwarded
+         */
+        addEmptyView(child: TModel, EmptyView: new (...args: any[]) => any): void;
+
+        /**
+         * Handle cleanup and other destroying needs for the collection of views
+         */
+        destroy(): CollectionView<TModel, TView>;
+
+        /**
+         * Set up the child view event forwarding. Uses a "childview:"
+         * prefix in front of all forwarded events.
+         * @param view it might be ChildView or EmptyView.
+         */
+        proxyChildEvents(view: any): void;
 
         /**
          * Called just prior to rendering the collection view.
@@ -1020,27 +1098,27 @@ declare module Marionette {
          * instance is about to be added to the collection view. It provides 
          * access to the view instance for the child that was added.
          */
-        onBeforeAddChild(view: any): void;
+        onBeforeAddChild(childView: TView): void;
 
         /**
          * This callback function allows you to know when a child / child view 
          * instance has been added to the collection view. It provides access to 
          * the view instance for the child that was added.
          */
-        onAddChild(childView: any): void;
+        onAddChild(childView: TView): void;
 
         /**
          * This callback function allows you to know when a childView instance is 
          * about to be removed from the collectionView. It provides access to the 
          * view instance for the child that was removed.
          */
-        onBeforeRemoveChild(childView: any): void;
+        onBeforeRemoveChild(childView: TView): void;
 
         /**
          * This callback function allows you to know when a child / childView 
          * instance has been deleted or removed from the collection.
          */
-        onRemoveChild(childView: any): void;
+        onRemoveChild(childView: TView): void;
     }
 
     /**
@@ -1049,7 +1127,7 @@ declare module Marionette {
      * structure, or for scenarios where a collection needs to be rendered within 
      * a wrapper template.
      */
-    class CompositeView<TModel extends Backbone.Model> extends CollectionView<TModel> {
+    class CompositeView<TModel extends Backbone.Model, TView extends View<Backbone.Model>> extends CollectionView<TModel, TView> {
 
         constructor(options?: CollectionViewOptions<TModel>);
 
@@ -1058,7 +1136,7 @@ declare module Marionette {
          * CompositeView's template is rendered and the childView's templates are 
          * added to this.
          */
-        childView: any;
+        childView: new (...args:any[]) => TView;
 
         /**
          * By default the composite view uses the same attachHtml method that the 
@@ -1074,7 +1152,7 @@ declare module Marionette {
         /**
         * Renders the view.
         */
-        render(): CompositeView<TModel>;
+        render(): CompositeView<TModel, TView>;
 
         /**
          * Invoked before the model has been rendered
@@ -1097,29 +1175,55 @@ declare module Marionette {
         onRenderCollection(): void;
     }
 
+    interface LayoutViewOptions<TModel extends Backbone.Model> extends Backbone.ViewOptions<TModel> {
+        /**
+         * The LayoutView takes an additional parameter where you can pass the regions as option on creation.
+         */
+        regions?:any;
+
+        /**
+         * This option removes the layoutView from the DOM before destroying the
+         * children preventing repaints as each option is removed. However, it
+         * makes it difficult to do close animations for a child view (false by
+         * default)
+         */
+        destroyImmediate?: boolean;
+    }
+
     /**
-     * A LayoutView is a hybrid of an ItemView and a collection of Region objects. 
-     * They are ideal for rendering application layouts with multiple sub-regions 
+     * A LayoutView is a hybrid of an ItemView and a collection of Region objects.
+     * They are ideal for rendering application layouts with multiple sub-regions
      * managed by specified region managers.
-     * A layoutView can also act as a composite-view to aggregate multiple views 
-     * and sub-application areas of the screen allowing applications to attach 
+     * A layoutView can also act as a composite-view to aggregate multiple views
+     * and sub-application areas of the screen allowing applications to attach
      * multiple region managers to dynamically rendered HTML.
      * You can create complex views by nesting layoutView managers within Regions.
      */
     class LayoutView<TModel extends Backbone.Model> extends ItemView<TModel> {
         /**
-         * f you have the need to replace the Region with a region class of your 
-         * own implementation, you can specify an alternate class to use with this 
+         * If you have the need to replace the Region with a region class of your
+         * own implementation, you can specify an alternate class to use with this
          * property.
          */
         regionClass: any;
 
         /**
          * Constructor.
-         * A hash that can contain a regions hash that allows you to specify regions per 
+         * A hash that can contain a regions hash that allows you to specify regions per
          * LayoutView instance.
          */
-        constructor(options?: any);
+        constructor(options?: LayoutViewOptions<TModel>);
+
+        /**
+         * Handle destroying regions, and then destroy the view itself.
+         */
+        destroy(): LayoutView<TModel>;
+
+        /**
+         * Regions hash or a method returning the regions hash that maps
+         * regions/selectors to methods on your View.
+         **/
+        regions(): any;
 
         /** Adds a region to the layout view. */
         addRegion(name: string, definition: any): Region;
@@ -1128,26 +1232,52 @@ declare module Marionette {
          * Add multiple regions as a {name: definition, name2: def2} object literal.
          */
         addRegions(regions: any): any;
-        
-	/** Returns a region from the layout view */
+
+        /** Returns a region from the layout view */
         getRegion(name: string): Region;
 
         /**
-         * Renders the view.
+         * Renders the view. It will use the existing region objects the first
+         * time it is called. Subsequent calls will destroy the views that the
+         * regions are showing and then reset the `el` for the regions to the
+         * newly rendered DOM elements.
          */
         render(): LayoutView<TModel>;
 
-        /** 
+        /**
          * Removes the region with the specified name.
          * @param name the name of the region to remove.
          */
-        removeRegion(name: string): any;
+        removeRegion(name: string): Region;
 
         /** Enable easy overriding of the default `RegionManager`
           * for customized region interactions and business specific
           * view logic for better control over single regions.
           */
-        getRegionManager(): any;
+        getRegionManager(): RegionManager;
+
+        /**
+         * Show a view into the region specified by `regionName`.
+         */
+        showChildView(regionName: string, view: any, options?: RegionShowOptions): void;
+
+        /**
+         * Get the current view that is shown in the region specified by
+         * `regionName`.
+         */
+        getChildView(regionName: string): Backbone.View<TModel>;
+
+        /**
+         * Returns all regions from the layout view. The results contains an
+         * Object hash that has `string`s as keys and `Region`s as values.
+         */
+        getRegions(): {[key: string]: Region};
+
+        /**
+         * You can customize the event prefix for events that are forwarded through
+         * the layout view with this property.
+         */
+        childViewEventPrefix: string;
     }
 
     interface AppRouterOptions extends Backbone.RouterOptions {
@@ -1203,6 +1333,8 @@ declare module Marionette {
      * directly, although you can extend it to add your own functionality.
      */
     class Application extends Backbone.Events {
+
+        constructor(options?: any);
 
         /**
          * The Event Aggregator is available through this property. It is 

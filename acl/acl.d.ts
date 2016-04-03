@@ -7,7 +7,7 @@
 /// <reference path='../node/node.d.ts'/>
 
 /// <reference path='../redis/redis.d.ts'/>
-/// <reference path="../mongodb/mongodb.d.ts" />
+/// <reference path="../mongodb/mongodb-1.4.9.d.ts" />
 
 declare module "acl" {
   import http = require('http');

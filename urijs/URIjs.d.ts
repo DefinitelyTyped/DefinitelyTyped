@@ -28,8 +28,10 @@ declare module uri {
         domain(domain: boolean): string;
         domain(domain: string): URI;
 
+        duplicateQueryParameters(val: boolean): URI;
+
         equals(): boolean;
-        equals(url: string): boolean;
+        equals(url: string | URI): boolean;
 
         filename(): string;
         filename(file: boolean): string;
@@ -95,10 +97,10 @@ declare module uri {
         search(qry: boolean): any;
         search(qry: Object): URI;
         segment(): string[];
-        segment(segments: string[]): string;
+        segment(segments: string[]): URI;
         segment(position: number): string;
-        segment(position: number, level: string): string;
-        segment(level: string): string;
+        segment(position: number, level: string): URI;
+        segment(segment: string): URI;
         setQuery(key: string, value: string): URI;
         setQuery(qry: Object): URI;
         setSearch(key: string, value: string): URI;
@@ -226,5 +228,13 @@ interface JQuery {
 declare var URI: uri.URIStatic;
 
 declare module 'URI' {
+    export = URI;
+}
+
+declare module 'urijs' {
+    export = URI;
+}
+
+declare module 'urijs/src/URITemplate' {
     export = URI;
 }

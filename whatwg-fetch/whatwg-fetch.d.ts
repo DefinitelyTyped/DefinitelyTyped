@@ -3,27 +3,25 @@
 // Definitions by: Ryan Graham <https://github.com/ryan-codingintrigue>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../es6-promise/es6-promise.d.ts" />
-
-declare class Request {
+declare class Request extends Body {
 	constructor(input: string|Request, init?:RequestInit);
 	method: string;
 	url: string;
 	headers: Headers;
-	context: RequestContext;
+	context: string|RequestContext;
 	referrer: string;
-	mode: RequestMode;
-	credentials: RequestCredentials;
-	cache: RequestCache;
+	mode: string|RequestMode;
+	credentials: string|RequestCredentials;
+	cache: string|RequestCache;
 }
 
 interface RequestInit {
 	method?: string;
 	headers?: HeaderInit|{ [index: string]: string };
 	body?: BodyInit;
-	mode?: RequestMode;
-	credentials?: RequestCredentials;
-	cache?: RequestCache;
+	mode?: string|RequestMode;
+	credentials?: string|RequestCredentials;
+	cache?: string|RequestCache;
 }
 
 declare enum RequestContext {
@@ -44,6 +42,7 @@ declare class Headers {
 	getAll(name: string): Array<string>;
 	has(name: string): boolean;
 	set(name: string, value: string): void;
+	forEach(callback: (value: string, name: string) => void): void;
 }
 
 declare class Body {
@@ -52,13 +51,14 @@ declare class Body {
 	blob(): Promise<Blob>;
 	formData(): Promise<FormData>;
 	json(): Promise<any>;
+	json<T>(): Promise<T>;
 	text(): Promise<string>;
 }
 declare class Response extends Body {
 	constructor(body?: BodyInit, init?: ResponseInit);
 	error(): Response;
 	redirect(url: string, status: number): Response;
-	type: ResponseType;
+	type: string|ResponseType;
 	url: string;
 	status: number;
 	ok: boolean;
@@ -69,10 +69,10 @@ declare class Response extends Body {
 
 declare enum ResponseType { "basic", "cors", "default", "error", "opaque" }
 
-declare class ResponseInit {
+interface ResponseInit {
 	status: number;
-	statusText: string;
-	headers: HeaderInit;
+	statusText?: string;
+	headers?: HeaderInit;
 }
 
 declare type HeaderInit = Headers|Array<string>;
@@ -80,5 +80,7 @@ declare type BodyInit = Blob|FormData|string;
 declare type RequestInfo = Request|string;
 
 interface Window {
-	fetch(url: string, init?: RequestInit): Promise<Response>;
+	fetch(url: string|Request, init?: RequestInit): Promise<Response>;
 }
+
+declare var fetch: typeof window.fetch;

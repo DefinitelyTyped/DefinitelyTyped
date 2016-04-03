@@ -18,10 +18,10 @@ declare module "sequelize-fixtures"
         }
 
         interface SequelizeFixturesStatic {
-            loadFile(file: string, models: any, options?: Options): Sequelize.Promise;
-            loadFiles(files: string[], models: any, options?: Options): Sequelize.Promise;
-            loadFixture(fixture: any, models: any, options?: Options): Sequelize.Promise;
-            loadFixtures(fixtures: any[], models: any, options?: Options): Sequelize.Promise;
+            loadFile(file: string, models: any, options?: Options): Promise<any>;
+            loadFiles(files: string[], models: any, options?: Options): Promise<any>;
+            loadFixture(fixture: any, models: any, options?: Options): Promise<any>;
+            loadFixtures(fixtures: any[], models: any, options?: Options): Promise<any>;
         }
     }
 

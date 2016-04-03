@@ -205,9 +205,9 @@ declare module linq {
     }
 
     interface OrderedEnumerable<T> extends Enumerable<T> {
-        ThenBy(keySelector: ($) => T): OrderedEnumerable<T>;
+        ThenBy(keySelector: ($: T) => any): OrderedEnumerable<T>;
         ThenBy(keySelector: string): OrderedEnumerable<T>;
-        ThenByDescending(keySelector: ($) => T): OrderedEnumerable<T>;
+        ThenByDescending(keySelector: ($: T) => any): OrderedEnumerable<T>;
         ThenByDescending(keySelector: string): OrderedEnumerable<T>;
     }
 

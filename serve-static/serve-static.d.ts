@@ -15,22 +15,22 @@
 
 declare module "serve-static" {
     import * as express from "express";
-    
+
     /**
-     * Create a new middleware function to serve files from within a given root directory. 
-     * The file to serve will be determined by combining req.url with the provided root directory. 
+     * Create a new middleware function to serve files from within a given root directory.
+     * The file to serve will be determined by combining req.url with the provided root directory.
      * When a file is not found, instead of sending a 404 response, this module will instead call next() to move on to the next middleware, allowing for stacking and fall-backs.
      */
     function serveStatic(root: string, options?: {
         /**
-        * Set how "dotfiles" are treated when encountered. A dotfile is a file or directory that begins with a dot ("."). 
-        * Note this check is done on the path itself without checking if the path actually exists on the disk. 
-        * If root is specified, only the dotfiles above the root are checked (i.e. the root itself can be within a dotfile when when set to "deny").
-        * The default value is 'ignore'.
-        * 'allow' No special treatment for dotfiles
-        * 'deny' Send a 403 for any request for a dotfile
-        * 'ignore' Pretend like the dotfile does not exist and call next()
-        */
+         * Set how "dotfiles" are treated when encountered. A dotfile is a file or directory that begins with a dot (".").
+         * Note this check is done on the path itself without checking if the path actually exists on the disk.
+         * If root is specified, only the dotfiles above the root are checked (i.e. the root itself can be within a dotfile when when set to "deny").
+         * The default value is 'ignore'.
+         * 'allow' No special treatment for dotfiles
+         * 'deny' Send a 403 for any request for a dotfile
+         * 'ignore' Pretend like the dotfile does not exist and call next()
+         */
         dotfiles?: string;
 
         /**

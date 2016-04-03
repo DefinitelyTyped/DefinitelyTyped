@@ -13,5 +13,7 @@ declare module 'gulp-debug' {
 
     function debug(options?: IOptions): NodeJS.ReadWriteStream;
 
+    namespace debug {}
+
     export = debug;
 }

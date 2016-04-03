@@ -60,10 +60,6 @@ function bookmarksExample() {
                         resizable: false,
                         height: 140,
                         modal: true,
-                        overlay: {
-                            backgroundColor: '#000',
-                            opacity: 0.5
-                        },
                         buttons: {
                             'Yes, Delete It!': function () {
                                 chrome.bookmarks.remove(String(bookmarkNode.id));
@@ -249,3 +245,20 @@ function contentSettings() {
     }
   });
 }
+
+// https://developer.chrome.com/extensions/runtime#method-openOptionsPage
+function testOptionsPage() {
+  chrome.runtime.openOptionsPage();
+  chrome.runtime.openOptionsPage(function() {
+    // Do a thing ...
+  });
+}
+
+chrome.storage.sync.get("myKey", function (loadedData) {
+  var myValue: { x: number } = loadedData["myKey"];
+});
+
+chrome.storage.onChanged.addListener(function (changes) {
+  var myNewValue: { x: number } = changes["myKey"].newValue;
+  var myOldValue: { x: number } = changes["myKey"].oldValue;
+});

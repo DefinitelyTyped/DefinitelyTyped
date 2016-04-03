@@ -1,4 +1,4 @@
-// Type definitions for Durandal 2.1.0
+﻿// Type definitions for Durandal 2.1.0
 // Project: http://durandaljs.com
 // Definitions by: Blue Spire <https://github.com/BlueSpire>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -11,6 +11,18 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../knockout/knockout.d.ts" />
+
+// By default, Durandal uses JQuery's Defer/Promise implementation, but durandal supports injecting/configuring
+// usage of different JavaScript Defer/Promise libraries (f.ex. Q or ES6 Promise polyfills).
+// You might therefore want to use a different interface from a community typings file or your custom unified interface.
+// When using f.ex. Q as Defer/Promise library replace the lines below with:
+
+// <reference path="../q/Q.d.ts" />
+// interface DurandalPromise<T> extends Q.Promise<T>
+// interface DurandalDeferred<T> extends Q.Deferred<T>
+
+interface DurandalPromise<T> extends JQueryPromise<T> { }
+interface DurandalDeferred<T> extends JQueryDeferred<T> { }
 
 /**
  * The system module encapsulates the most basic features used by other modules.
@@ -45,7 +57,7 @@ interface DurandalSystemModule {
      * @param {object} obj The object whose module id you wish to set.
      * @param {string} id The id to set for the specified object.
      */
-    setModuleId(obj, id: string): void;
+    setModuleId(obj: any, id: string): void;
 
     /**
      * Resolves the default object instance for a module. If the module is an object, the module is returned. If the module is a function, that function is called with `new` and it's result is returned.
@@ -89,9 +101,9 @@ interface DurandalSystemModule {
     /**
      * Creates a deferred object which can be used to create a promise. Optionally pass a function action to perform which will be passed an object used in resolving the promise.
      * @param {function} [action] The action to defer. You will be passed the deferred object as a paramter.
-     * @returns {JQueryDeferred} The deferred object.
+     * @returns {Deferred} The deferred object.
      */
-    defer<T>(action?: (dfd: JQueryDeferred<T>) => void): JQueryDeferred<T>;
+    defer<T>(action?: (dfd: DurandalDeferred<T>) => void): DurandalDeferred<T>;
 
     /**
      * Creates a simple V4 UUID. This should not be used as a PK in your database. It can be used to generate internal, unique ids. For a more robust solution see [node-uuid](https://github.com/broofa/node-uuid).
@@ -102,23 +114,23 @@ interface DurandalSystemModule {
     /**
      * Uses require.js to obtain a module. This function returns a promise which resolves with the module instance.
      * @param {string} moduleId The id of the module to load.
-     * @returns {JQueryPromise} A promise for the loaded module.
+     * @returns {Promise} A promise for the loaded module.
      */
-    acquire(moduleId: string): JQueryPromise<any>;
+    acquire(moduleId: string): DurandalPromise<any>;
 
     /**
      * Uses require.js to obtain an array of modules. This function returns a promise which resolves with the modules instances in an array.
      * @param {string[]} moduleIds The ids of the modules to load.
-     * @returns {JQueryPromise} A promise for the loaded module.
+     * @returns {Promise} A promise for the loaded module.
      */
-    acquire(modules: string[]): JQueryPromise<any[]>;
+    acquire(modules: string[]): DurandalPromise<any[]>;
 
     /**
      * Uses require.js to obtain multiple modules. This function returns a promise which resolves with the module instances in an array.
      * @param {string} moduleIds* The ids of the modules to load.
-     * @returns {JQueryPromise} A promise for the loaded module.
+     * @returns {Promise} A promise for the loaded module.
      */
-    acquire(...moduleIds: string[]): JQueryPromise<any[]>;
+    acquire(...moduleIds: string[]): DurandalPromise<any[]>;
 
     /**
      * Extends the first object with the properties of the following objects.
@@ -130,9 +142,9 @@ interface DurandalSystemModule {
     /**
      * Uses a setTimeout to wait the specified milliseconds.
      * @param {number} milliseconds The number of milliseconds to wait.
-     * @returns {JQueryPromise}
+     * @returns {Promise}
     */
-    wait(milliseconds: number): JQueryPromise<any>;
+    wait(milliseconds: number): DurandalPromise<any>;
 
     /**
      * Gets all the owned keys of the specified object.
@@ -295,14 +307,14 @@ interface DurandalViewEngineModule {
      * @param {string} id The view id whose view should be cached.
      * @param {DOMElement} view The view to cache.
      */
-    putViewInCache(id: string, view: HTMLElement);
+    putViewInCache(id: string, view: HTMLElement): void;
 
     /**
      * Creates the view associated with the view id.
      * @param {string} viewId The view id whose view should be created.
-     * @returns {JQueryPromise<HTMLElement>} A promise of the view.
+     * @returns {DurandalPromise<HTMLElement>} A promise of the view.
     */
-    createView(viewId: string): JQueryPromise<HTMLElement>;
+    createView(viewId: string): DurandalPromise<HTMLElement>;
 
     /**
      * Called when a view cannot be found to provide the opportunity to locate or generate a fallback view. Mainly used to ease development.
@@ -311,7 +323,7 @@ interface DurandalViewEngineModule {
      * @param {Error} requirePath The error that was returned from the attempt to locate the default view.
      * @returns {Promise} A promise for the fallback view.
     */
-    createFallbackView(viewId: string, requirePath: string, err: Error): JQueryPromise<HTMLElement>;
+    createFallbackView(viewId: string, requirePath: string, err: Error): DurandalPromise<HTMLElement>;
 }
 
 /**
@@ -439,7 +451,7 @@ interface DurandalViewLocatorModule {
      * @param {DOMElement[]} [elementsToSearch] An existing set of elements to search first.
      * @returns {Promise} A promise of the view.
     */
-    locateViewForObject(obj: any, area: string, elementsToSearch?: HTMLElement[]): JQueryPromise<HTMLElement>;
+    locateViewForObject(obj: any, area: string, elementsToSearch?: HTMLElement[]): DurandalPromise<HTMLElement>;
 
     /**
      * Converts a module id into a view id. By default the ids are the same.
@@ -470,7 +482,7 @@ interface DurandalViewLocatorModule {
      * @param {DOMElement[]} [elementsToSearch] An existing set of elements to search first.
      * @returns {Promise} A promise of the view.
     */
-    locateView(view: HTMLElement, area?: string, elementsToSearch?: HTMLElement[]): JQueryPromise<HTMLElement>;
+    locateView(view: HTMLElement, area?: string, elementsToSearch?: HTMLElement[]): DurandalPromise<HTMLElement>;
 
     /**
      * Locates the specified view.
@@ -479,7 +491,7 @@ interface DurandalViewLocatorModule {
      * @param {DOMElement[]} [elementsToSearch] An existing set of elements to search first.
      * @returns {Promise} A promise of the view.
     */
-    locateView(viewUrlOrId: string, area?: string, elementsToSearch?: HTMLElement[]): JQueryPromise<HTMLElement>;
+    locateView(viewUrlOrId: string, area?: string, elementsToSearch?: HTMLElement[]): DurandalPromise<HTMLElement>;
 }
 
 /**
@@ -514,7 +526,7 @@ declare module 'durandal/composition' {
         area?: string;
         preserveContext?: boolean;
         activate?: boolean;
-        strategy?: (context: CompositionContext) => JQueryPromise<HTMLElement>;
+        strategy?: (context: CompositionContext) => DurandalPromise<HTMLElement>;
         composingNewView: boolean;
         child: HTMLElement;
         binding?: (child: HTMLElement, parent: HTMLElement, context: CompositionContext) => void;
@@ -547,7 +559,7 @@ declare module 'durandal/composition' {
      * @param {object} [config] The binding handler instance. If none is provided, the name will be used to look up an existing handler which will then be converted to a composition handler.
      * @param {function} [initOptionsFactory] If the registered binding needs to return options from its init call back to knockout, this function will server as a factory for those options. It will receive the same parameters that the init function does.
     */
-    export function addBindingHandler(name, config?: KnockoutBindingHandler, initOptionsFactory?: (element?: HTMLElement, valueAccessor?: any, allBindingsAccessor?: any, viewModel?: any, bindingContext?: KnockoutBindingContext) => any);
+    export function addBindingHandler(name: string, config?: KnockoutBindingHandler, initOptionsFactory?: (element?: HTMLElement, valueAccessor?: any, allBindingsAccessor?: any, viewModel?: any, bindingContext?: KnockoutBindingContext) => any): void;
 
     /**
      * Gets an object keyed with all the elements that are replacable parts, found within the supplied elements. The key will be the part name and the value will be the element itself.
@@ -568,7 +580,7 @@ declare module 'durandal/composition' {
      * @param {object} context The composition context containing the model and possibly existing viewElements.
      * @returns {promise} A promise for the view.
     */
-    export var defaultStrategy: (context: CompositionContext) => JQueryPromise<HTMLElement>;
+    export var defaultStrategy: (context: CompositionContext) => DurandalPromise<HTMLElement>;
 
     /**
      * Initiates a composition.
@@ -663,13 +675,13 @@ declare module 'plugins/dialog' {
          * In this function, you are expected to add a DOM element to the tree which will serve as the "host" for the modal's composed view. You must add a property called host to the modalWindow object which references the dom element. It is this host which is passed to the composition module.
          * @param {Dialog} theDialog The dialog model.
         */
-        addHost(theDialog: Dialog);
+        addHost(theDialog: Dialog): void;
 
         /**
          * This function is expected to remove any DOM machinery associated with the specified dialog and do any other necessary cleanup.
          * @param {Dialog} theDialog The dialog model.
         */
-        removeHost(theDialog: Dialog);
+        removeHost(theDialog: Dialog): void;
 
         /**
          * This function is called after the modal is fully composed into the DOM, allowing your implementation to do any final modifications, such as positioning or animation. You can obtain the original dialog object by using `getDialog` on context.model.
@@ -677,14 +689,14 @@ declare module 'plugins/dialog' {
          * @param {DOMElement} parent The parent view.
          * @param {object} context The composition context.
         */
-        compositionComplete(child: HTMLElement, parent: HTMLElement, context: composition.CompositionContext);
+        compositionComplete(child: HTMLElement, parent: HTMLElement, context: composition.CompositionContext): void;
     }
 
     interface Dialog {
         owner: any;
         context: DialogContext;
         activator: DurandalActivator<any>;
-        close(): JQueryPromise<any>;
+        close(): DurandalPromise<any>;
         settings: composition.CompositionContext;
     }
 
@@ -745,7 +757,7 @@ declare module 'plugins/dialog' {
      * @param {string} [context] The name of the dialog context to use. Uses the default context if none is specified.
      * @returns {Promise} A promise that resolves when the dialog is closed and returns any data passed at the time of closing.
     */
-    export function show(obj: any, activationData?: any, context?: string): JQueryPromise<any>;
+    export function show(obj: any, activationData?: any, context?: string): DurandalPromise<any>;
 
     /**
      * Shows a message box.
@@ -756,7 +768,7 @@ declare module 'plugins/dialog' {
      * @param {Object} [settings] Custom settings for this instance of the messsage box, used to change classes and styles.
      * @returns {Promise} A promise that resolves when the message box is closed and returns the selected option.
     */
-    export function showMessage(message: string, title?: string, options?: string[], autoclose?: boolean, settings?: Object): JQueryPromise<string>;
+    export function showMessage(message: string, title?: string, options?: string[], autoclose?: boolean, settings?: Object): DurandalPromise<string>;
 
     /**
      * Shows a message box.
@@ -767,7 +779,7 @@ declare module 'plugins/dialog' {
      * @param {Object} [settings] Custom settings for this instance of the messsage box, used to change classes and styles.
      * @returns {Promise} A promise that resolves when the message box is closed and returns the selected option.
     */
-    export function showMessage(message: string, title?: string, options?: DialogButton[], autoclose?: boolean, settings?: Object): JQueryPromise<any>;
+    export function showMessage(message: string, title?: string, options?: DialogButton[], autoclose?: boolean, settings?: Object): DurandalPromise<any>;
 
     /**
      * Installs this module into Durandal; called by the framework. Adds `app.showDialog` and `app.showMessage` convenience methods.
@@ -890,7 +902,7 @@ declare module 'plugins/http' {
      * @param {object} [headers] The data to add to the request header.  It will be converted to JSON. If the data contains Knockout observables, they will be converted into normal properties before serialization.
      * @returns {Promise} A promise of the get response data.
     */
-    export function get(url: string, query?: Object, headers?: Object): JQueryPromise<any>;
+    export function get(url: string, query?: Object, headers?: Object): DurandalPromise<any>;
 
     /**
      * Makes an JSONP request.
@@ -900,7 +912,7 @@ declare module 'plugins/http' {
      * @param {object} [headers] The data to add to the request header.  It will be converted to JSON. If the data contains Knockout observables, they will be converted into normal properties before serialization.
      * @returns {Promise} A promise of the response data.
     */
-    export function jsonp(url: string, query?: Object, callbackParam?: string, headers?: Object): JQueryPromise<any>;
+    export function jsonp(url: string, query?: Object, callbackParam?: string, headers?: Object): DurandalPromise<any>;
 
     /**
      * Makes an HTTP POST request.
@@ -909,7 +921,7 @@ declare module 'plugins/http' {
      * @param {object} [headers] The data to add to the request header.  It will be converted to JSON. If the data contains Knockout observables, they will be converted into normal properties before serialization.
      * @returns {Promise} A promise of the response data.
     */
-    export function post(url: string, data: Object, headers?: Object): JQueryPromise<any>;
+    export function post(url: string, data: Object, headers?: Object): DurandalPromise<any>;
 
     /**
     * Makes an HTTP PUT request.
@@ -919,7 +931,7 @@ declare module 'plugins/http' {
     * @param {object} [headers] The data to add to the request header.  It will be converted to JSON. If the data contains Knockout observables, they will be converted into normal properties before serialization.
     * @return {Promise} A promise of the response data.
     */
-    export function put(url: string, data: Object, headers?: Object): JQueryPromise<any>;
+    export function put(url: string, data: Object, headers?: Object): DurandalPromise<any>;
 
     /**
     * Makes an HTTP DELETE request.
@@ -929,7 +941,7 @@ declare module 'plugins/http' {
     * @param {object} [headers] The data to add to the request header.  It will be converted to JSON. If the data contains Knockout observables, they will be converted into normal properties before serialization.
     * @return {Promise} A promise of the get response data.
     */
-    export function remove(url: string, query?: Object, headers?: Object): JQueryPromise<any>;
+    export function remove(url: string, query?: Object, headers?: Object): DurandalPromise<any>;
 }
 
 /**
@@ -964,7 +976,7 @@ declare module 'plugins/observable' {
          * @param {function|object} evaluatorOrOptions The Knockout computed function or computed options object.
          * @returns {KnockoutComputed} The underlying computed observable.
          */
-        export function defineProperty<T>(obj: any, propertyName: string, evaluatorOrOptions?: KnockoutComputedDefine<T>);
+        export function defineProperty<T>(obj: any, propertyName: string, evaluatorOrOptions?: KnockoutComputedDefine<T>): KnockoutComputed<T>;
 
         /**
          * Installs the plugin into the view model binder's `beforeBind` hook so that objects are automatically converted before being bound.
@@ -1046,7 +1058,7 @@ declare module 'plugins/serializer' {
      * @param {object} [settings] Settings can specify a replacer or space to override the serializer defaults.
      * @returns {string} The JSON string.
     */
-    export function serialize(object: any, settings?: string);
+    export function serialize(object: any, settings?: string): string;
 
     /**
      * Serializes the object.
@@ -1054,7 +1066,7 @@ declare module 'plugins/serializer' {
      * @param {object} [settings] Settings can specify a replacer or space to override the serializer defaults.
      * @returns {string} The JSON string.
     */
-    export function serialize(object: any, settings?: number);
+    export function serialize(object: any, settings?: number): string;
 
     /**
      * Serializes the object.
@@ -1062,7 +1074,7 @@ declare module 'plugins/serializer' {
      * @param {object} [settings] Settings can specify a replacer or space to override the serializer defaults.
      * @returns {string} The JSON string.
     */
-    export function serialize(object: any, settings?: SerializerOptions);
+    export function serialize(object: any, settings?: SerializerOptions): string;
 
     /**
      * Gets the type id for an object instance, using the configured `typeAttribute`.
@@ -1081,7 +1093,7 @@ declare module 'plugins/serializer' {
     * @param {string} typeId The type id.
     * @param {function} constructor The constructor.
     */
-    export function registerType(typeId: string, constructor: () => any);
+    export function registerType(typeId: string, constructor: () => any): void;
 
     /**
      * The default reviver function used during deserialization. By default is detects type properties on objects and uses them to re-construct the correct object using the provided constructor mapping.
@@ -1091,7 +1103,7 @@ declare module 'plugins/serializer' {
      * @param {object} getConstructor A custom function used to get the constructor function associated with a type id.
      * @returns {object} The value.
     */
-    export function reviver(key: string, value: any, getTypeId: (value: any) => string, getConstructor: (string) => () => any): any;
+    export function reviver(key: string, value: any, getTypeId: (value: any) => string, getConstructor: (id: string) => () => any): any;
 
     /**
      * Deserialize the JSON.
@@ -1128,7 +1140,7 @@ declare module 'plugins/widget' {
      * Creates a ko binding handler for the specified kind.
      * @param {string} kind The kind to create a custom binding handler for.
     */
-    export function registerKind(kind: string);
+    export function registerKind(kind: string): void;
 
     /**
      * Maps views and module to the kind identifier if a non-standard pattern is desired.
@@ -1136,7 +1148,7 @@ declare module 'plugins/widget' {
      * @param {string} [viewId] The unconventional view id to map the kind to.
      * @param {string} [moduleId] The unconventional module id to map the kind to.
     */
-    export function mapKind(kind: string, viewId?: string, moduleId?: string);
+    export function mapKind(kind: string, viewId?: string, moduleId?: string): void;
 
     /**
      * Maps a kind name to it's module id. First it looks up a custom mapped kind, then falls back to `convertKindToModulePath`.
@@ -1172,7 +1184,7 @@ declare module 'plugins/widget' {
      * @param {object} settings The widget settings.
      * @param {object} [bindingContext] The current binding context.
     */
-    export function create(element: HTMLElement, settings: WidgetSettings, bindingContext?: KnockoutBindingContext);
+    export function create(element: HTMLElement, settings: WidgetSettings, bindingContext?: KnockoutBindingContext): void;
 }
 
 /**
@@ -1279,14 +1291,14 @@ interface DurandalAppModule extends DurandalEventSupport<DurandalAppModule> {
      * @param {string} [context] The name of the dialog context to use. Uses the default context if none is specified.
      * @returns {Promise} A promise that resolves when the dialog is closed and returns any data passed at the time of closing.
     */
-    showDialog(obj: any, activationData?: any, context?: string): JQueryPromise<any>;
+    showDialog(obj: any, activationData?: any, context?: string): DurandalPromise<any>;
 
     /**
      * Closes the dialog associated with the specified object. via the dialog plugin.
      * @param {object} obj The object whose dialog should be closed.
      * @param {object} results* The results to return back to the dialog caller after closing.
      */
-    closeDialog(obj: any, ...results);
+    closeDialog(obj: any, ...results: any[]): void;
 
     /**
      * Shows a message box via the dialog plugin.
@@ -1297,7 +1309,7 @@ interface DurandalAppModule extends DurandalEventSupport<DurandalAppModule> {
      * @param {Object} [settings] Custom settings for this instance of the messsage box, used to change classes and styles.
      * @returns {Promise} A promise that resolves when the message box is closed and returns the selected option.
      */
-    showMessage(message: string, title?: string, options?: string[], autoclose?: boolean, settings?: Object): JQueryPromise<string>;
+    showMessage(message: string, title?: string, options?: string[], autoclose?: boolean, settings?: Object): DurandalPromise<string>;
 
     /**
      * Shows a message box.
@@ -1308,7 +1320,7 @@ interface DurandalAppModule extends DurandalEventSupport<DurandalAppModule> {
      * @param {Object} [settings] Custom settings for this instance of the messsage box, used to change classes and styles.
      * @returns {Promise} A promise that resolves when the message box is closed and returns the selected option.
      */
-    showMessage(message: string, title?: string, options?: DialogButton[], autoclose?: boolean, settings?: Object): JQueryPromise<any>;
+    showMessage(message: string, title?: string, options?: DialogButton[], autoclose?: boolean, settings?: Object): DurandalPromise<any>;
 
     /**
      * Configures one or more plugins to be loaded and installed into the application.
@@ -1322,7 +1334,7 @@ interface DurandalAppModule extends DurandalEventSupport<DurandalAppModule> {
      * Starts the application.
      * @returns {promise}
     */
-    start(): JQueryPromise<any>;
+    start(): DurandalPromise<any>;
 
     /**
      * Sets the root module/view for the application.
@@ -1404,7 +1416,7 @@ interface DurandalActivator<T> extends KnockoutComputed<T> {
      * @param {boolean} close Whether or not to check if close is possible.
      * @returns {promise}
     */
-    canDeactivateItem(item: T, close: boolean): JQueryPromise<boolean>;
+    canDeactivateItem(item: T, close: boolean): DurandalPromise<boolean>;
 
     /**
      * Deactivates the specified item.
@@ -1412,7 +1424,7 @@ interface DurandalActivator<T> extends KnockoutComputed<T> {
      * @param {boolean} close Whether or not to close the item.
      * @returns {promise}
     */
-    deactivateItem(item: T, close: boolean): JQueryPromise<boolean>;
+    deactivateItem(item: T, close: boolean): DurandalPromise<boolean>;
 
     /**
      * Determines whether or not the specified item can be activated.
@@ -1420,7 +1432,7 @@ interface DurandalActivator<T> extends KnockoutComputed<T> {
      * @param {object} activationData Data associated with the activation.
      * @returns {promise}
     */
-    canActivateItem(newItem: T, activationData?: any): JQueryPromise<boolean>;
+    canActivateItem(newItem: T, activationData?: any): DurandalPromise<boolean>;
 
     /**
      * Activates the specified item.
@@ -1428,31 +1440,31 @@ interface DurandalActivator<T> extends KnockoutComputed<T> {
      * @param {object} newActivationData Data associated with the activation.
      * @returns {promise}
     */
-    activateItem(newItem: T, activationData?: any): JQueryPromise<boolean>;
+    activateItem(newItem: T, activationData?: any): DurandalPromise<boolean>;
 
     /**
      * Determines whether or not the activator, in its current state, can be activated.
      * @returns {promise}
     */
-    canActivate(): JQueryPromise<boolean>;
+    canActivate(): DurandalPromise<boolean>;
 
     /**
      * Activates the activator, in its current state.
      * @returns {promise}
     */
-    activate(): JQueryPromise<boolean>;
+    activate(): DurandalPromise<boolean>;
 
     /**
      * Determines whether or not the activator, in its current state, can be deactivated.
      * @returns {promise}
     */
-    canDeactivate(close: boolean): JQueryPromise<boolean>;
+    canDeactivate(close: boolean): DurandalPromise<boolean>;
 
     /**
      * Deactivates the activator, in its current state.
      * @returns {promise}
     */
-    deactivate(close: boolean): JQueryPromise<boolean>;
+    deactivate(close: boolean): DurandalPromise<boolean>;
 
     /**
       * Adds canActivate, activate, canDeactivate and deactivate functions to the provided model which pass through to the corresponding functions on the activator.
@@ -1462,7 +1474,7 @@ interface DurandalActivator<T> extends KnockoutComputed<T> {
     /**
       * Sets up a collection representing a pool of objects which the activator will activate. See below for details. Activators without an item bool always close their values on deactivate. Activators with an items pool only deactivate, but do not close them.
       */
-    forItems(items): DurandalActivator<T>;
+    forItems(items: any[]): DurandalActivator<T>;
 }
 
 interface DurandalHistoryOptions {
@@ -1509,7 +1521,7 @@ interface DurandalRouteConfiguration {
     title?: any;
     moduleId?: string;
     hash?: string;
-    route?: string|string[];
+    route?: string | string[];
     routePattern?: RegExp;
     isActive?: KnockoutComputed<boolean>;
     nav?: any;
@@ -1529,6 +1541,7 @@ interface DurandalRelativeRouteSettings {
     moduleId?: string;
     route?: string;
     fromParent?: boolean;
+	dynamicHash?: string;
 }
 
 interface DurandalRouterBase<T> extends DurandalEventSupport<T> {
@@ -1765,7 +1778,7 @@ interface DurandalRouterBase<T> extends DurandalEventSupport<T> {
      * @param {object} instruction The route instruction. The instruction object has config, fragment, queryString, params and queryParams properties.
      * @returns {Promise|Boolean|String} If a boolean, determines whether or not the route should activate or be cancelled. If a string, causes a redirect to the specified route. Can also be a promise for either of these value types.
      */
-    guardRoute?: (instance: Object, instruction: DurandalRouteInstruction) => JQueryPromise<boolean|string>|boolean|string;
+    guardRoute?: (instance: Object, instruction: DurandalRouteInstruction) => DurandalPromise<boolean | string> | boolean | string;
 
     /**
      * Parent router of the current child router.
@@ -1785,7 +1798,7 @@ interface DurandalRootRouter extends DurandalRouterBase<DurandalRootRouter> {
      * Activates the router and the underlying history tracking mechanism.
      * @returns {Promise} A promise that resolves when the router is ready.
      */
-    activate(options?: DurandalHistoryOptions): JQueryPromise<any>;
+    activate(options?: DurandalHistoryOptions): DurandalPromise<any>;
 
     /**
      * Disable history, perhaps temporarily. Not useful in a real app, but possibly useful for unit testing Routers.

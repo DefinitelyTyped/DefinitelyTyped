@@ -34,15 +34,15 @@ var todo = {
     view: function(ctrl: any) {
         return m("html", [
             m("body", [
-                m("input", {onchange: m.withAttr("value", ctrl.description), value: ctrl.description()}),
-                m("button", {onclick: ctrl.add}, "Add"),
+                m("input", {onchange: m.withAttr("value", ctrl.description), value: ctrl.description()} as any /* TODO remove `as any` */),
+                m("button", {onclick: ctrl.add} as any /* TODO remove `as any` */, "Add"),
                 m("table", [
                     ctrl.list.map(function(task: any) {
                         return m("tr", [
                             m("td", [
-                                m("input[type=checkbox]", {onclick: m.withAttr("checked", task.done), checked: task.done()})
+                                m("input[type=checkbox]", {onclick: m.withAttr("checked", task.done), checked: task.done()} as any /* TODO remove `as any` */)
                             ]),
-                            m("td", {style: {textDecoration: task.done() ? "line-through" : "none"}}, task.description()),
+                            m("td", {style: {textDecoration: task.done() ? "line-through" : "none"}} as any /* TODO remove `as any` */, task.description()),
                         ])
                     })
                 ])

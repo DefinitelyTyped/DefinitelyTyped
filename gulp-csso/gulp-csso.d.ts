@@ -7,6 +7,6 @@
 
 declare module 'gulp-csso' {
     function csso(structureMinimization?: boolean): NodeJS.ReadWriteStream;
-
+    namespace csso {}
     export = csso;
 }

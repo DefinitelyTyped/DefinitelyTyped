@@ -1,4 +1,4 @@
-// Type definitions for jQuery.gridster 0.1.0
+// Type definitions for jQuery.gridster 0.5.6
 // Project: https://github.com/jbaldwin/gridster
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -32,13 +32,26 @@ OTHER DEALINGS IN THE SOFTWARE.
 /// <reference path="../jquery/jquery.d.ts"/>
 
 interface GridsterDraggable {
-	items: any;
-	distance: number;
-	limit: boolean;
-	offset_left: number;
-	drag: (event: Event, ui: GridsterUi) => void;
-	start: (event: Event, ui: { helper: JQuery; }) => void;
-	stop: (event: Event, ui: { helper: JQuery; }) => void;
+	items?: any;
+	distance?: number;
+	limit?: boolean;
+	offset_left?: number;
+	handle?: string;
+	drag?: (event: Event, ui: GridsterUi) => void;
+	start?: (event: Event, ui: { helper: JQuery; }) => void;
+	stop?: (event: Event, ui: { helper: JQuery; }) => void;
+}
+
+interface GridsterResizable {
+    enabled?: boolean;
+    axes?: string[];
+    handle_append_to?: string;
+    handle_class?: string;
+    max_size?: number[];
+    min_size?: number[];
+    resize?: (event: Event, ui: GridsterUi, $el: JQuery) => void;
+    start?: (event: Event, ui: { helper: JQuery; }, $el: JQuery) => void;
+    stop?: (event: Event, ui: { helper: JQuery; }, $el: JQuery) => void;
 }
 
 interface GridsterUi {
@@ -78,7 +91,7 @@ interface GridsterOptions {
 	* Type => HTMLElement[]
 	* Default = 'li'
 	**/
-	widget_selector?: any;
+	widget_selector?: string|HTMLElement[];
 
 	/**
 	* Margin between widgets.  The first index for the horizontal margin (left, right) and the second for the vertical margin (top, bottom).
@@ -154,6 +167,21 @@ interface GridsterOptions {
 	* An object with all options for Draggable class you want to overwrite.  @see GridsterDraggable or docs for more info.
 	**/
 	draggable?: GridsterDraggable;
+
+	/**
+	* A string to differentiate one gridster from another
+	**/
+	namespace?: string;
+
+    /**
+     * A boolean to specify if the stylesheet should be generated or not
+     **/
+    autogenerate_stylesheet?: boolean;
+
+    /**
+     * An object with all options for Resizable class you want to overwrite.  @see GridsterResizable or docs for more info.
+     **/
+    resize?: GridsterResizable;
 }
 
 interface JQuery {
@@ -189,6 +217,12 @@ interface Gridster {
 	**/
 	add_widget(html: JQuery, size_x?: number, size_y?: number, col?: number, row?: number): JQuery;
 
+    /**
+     * Get the highest occupied cell.
+     * @return Returns the farthest position {row: number, col: number} occupied in the grid.
+     **/
+    get_highest_occupied_cell(): GridsterCoords;
+
 	/**
 	* Change the size of a widget.
 	* @param $widget The jQuery wrapped HTMLElement that represents the widget is going to be resized.
@@ -198,6 +232,14 @@ interface Gridster {
 	* @return Returns $widget.
 	**/
 	resize_widget($widget: JQuery, size_x?: number, size_y?: number, callback?: (size_x: number, size_y: number) => void): JQuery;
+
+
+    /**
+     * Resize all the widgets in the grid.
+     * @param options The options to use to resize the widgets.
+     * @return Returns the instance of the Gridster class.
+     **/
+    resize_widget_dimensions(options: GridsterOptions): Gridster;
 
 	/**
 	* Remove a widget from the grid.
@@ -223,6 +265,14 @@ interface Gridster {
 	**/
 	remove_widget(el: JQuery, callback: (el: HTMLElement) => void): Gridster;
 
+    /**
+     * Resize a widget in the grid.
+     * @param widget The index of the widget to be resized.
+     * @param size An array representing the size (x, y) to set on the widget.
+     * @return Returns the instance of the Gridster class.
+     **/
+    set_widget_min_size(widget: number, size: number[]): Gridster;
+
 	/**
 	* Returns a serialized array of the widgets in the grid.
 	* @param $widgets The collection of jQuery wrap ed HTMLElements you want to serialize.  If no argument is passed a l widgets will be serialized.
@@ -247,4 +297,10 @@ interface Gridster {
 	* @return Returns the instance of the Gridster class.
 	**/
 	disable(): Gridster;
+
+    /**
+    * Returns the options used to initialize the grid
+    * @return Returns the options used to initialize the grid
+    **/
+    options: GridsterOptions;
 }

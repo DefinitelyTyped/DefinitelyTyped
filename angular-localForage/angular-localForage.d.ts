@@ -22,8 +22,8 @@ declare module angular.localForage {
     }
 
     interface ILocalForageService {
-        setDriver(driver:string):angular.IPromise<void>;
-        driver<T>():lf.ILocalForage<T>;
+        driver(): LocalForageDriver;
+        setDriver(name: string | string[]): angular.IPromise<void>;
 
         setItem(key:string, value:any):angular.IPromise<void>;
         setItem(keys:Array<string>, values:Array<any>):angular.IPromise<void>;

@@ -73,3 +73,5 @@ interface StatusBar {
     */
     isVisible: boolean;
 }
+
+declare var StatusBar: StatusBar;

@@ -4,6 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
+/// <reference path="../glob-stream/glob-stream.d.ts" />
 /// <reference path="../vinyl/vinyl.d.ts" />
 
 declare module NodeJS {
@@ -15,13 +16,14 @@ declare module NodeJS {
 declare module "vinyl-fs" {
    import _events = require("events");
    import File = require("vinyl");
+   import globStream = require("glob-stream");
 
-   interface ISrcOptions {
+   interface ISrcOptions extends globStream.Options {
       /** Specifies the working directory the folder is relative to */
       cwd?: string;
 
       /**
-      * Specifies the folder relative to the cwd 
+      * Specifies the folder relative to the cwd
       * This is used to determine the file names when saving in .dest()
       * Default is where the glob begins
       */
@@ -34,16 +36,16 @@ declare module "vinyl-fs" {
       */
       buffer?: boolean;
 
-      /** 
+      /**
       * Setting this to false will ignore the contents of the file and disable writing to disk to speed up operations
-      * Defaults to true 
+      * Defaults to true
       */
       read?: boolean;
 
       /**  Only find files that have been modified since the time specified */
       since?: Date|number;
 
-      /** Setting this to true will create a duplex stream, one that passes through items and emits globbed files. 
+      /** Setting this to true will create a duplex stream, one that passes through items and emits globbed files.
       * Defaults to false */
       passthrough?: boolean;
 
@@ -63,7 +65,7 @@ declare module "vinyl-fs" {
 
    /**
    * This is just a glob-watcher
-   * 
+   *
    * @param globs Takes a glob string or an array of glob strings as the first argument
    * Globs are executed in order, so negations should follow positive globs
    * fs.src(['!b*.js', '*.js']) would not exclude any files, but this would: fs.src(['*.js', '!b*.js'])
@@ -72,7 +74,7 @@ declare module "vinyl-fs" {
 
    /**
    * This is just a glob-watcher
-   * 
+   *
    * @param globs Takes a glob string or an array of glob strings as the first argument
    * Globs are executed in order, so negations should follow positive globs
    * fs.src(['!b*.js', '*.js']) would not exclude any files, but this would: fs.src(['*.js', '!b*.js'])
@@ -89,8 +91,8 @@ declare module "vinyl-fs" {
    * @param folder destination folder
    */
    function dest(folder: string, opt?: {
-      /** Specify the working directory the folder is relative to 
-      * Default is process.cwd() 
+      /** Specify the working directory the folder is relative to
+      * Default is process.cwd()
       */
       cwd?: string;
 
@@ -125,14 +127,17 @@ declare module "vinyl-fs" {
    * cwd, base, and path will be overwritten to match the folder
    */
    function symlink(folder: string, opts?: {
-      /** 
-      * Specify the working directory the folder is relative to 
+      /**
+      * Specify the working directory the folder is relative to
       * Default is process.cwd()
       */
       cwd?: string;
 
-      /** 
-      * Specify the mode the directory should be created with 
+      /** Specify the mode the directory should be created with. Default is the process mode */
+      mode?: number|string;
+
+      /**
+      * Specify the mode the directory should be created with
       * Default is the process mode
       */
       dirMode?: number
@@ -146,14 +151,14 @@ declare module "vinyl-fs" {
    */
    function symlink(getFolderPath: (File: File) => string, opts?:
       {
-         /** 
-         * Specify the working directory the folder is relative to 
+         /**
+         * Specify the working directory the folder is relative to
          * Default is process.cwd()
          */
          cwd?: string;
 
-         /** 
-         * Specify the mode the directory should be created with 
+         /**
+         * Specify the mode the directory should be created with
          * Default is the process mode
          */
          dirMode?: number

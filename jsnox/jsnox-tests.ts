@@ -19,7 +19,7 @@ var clickHandler: React.MouseEventHandler
 
 // Tests with spec string
 function spec_string () {
-    var result: React.HTMLComponent
+    var result: React.ReactHTMLElement
     
     // just spec string
     result = $('div')

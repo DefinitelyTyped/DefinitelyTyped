@@ -1,11 +1,19 @@
-// Type definitions for i18next v1.5.10
+// Type definitions for i18next v2.0.17
 // Project: http://i18next.com
 // Definitions by: Maarten Docter <https://github.com/mdocter>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // Sources: https://github.com/jamuhl/i18next/
 
+/// <reference path="../express/express.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="../i18next-express-middleware/i18next-express-middleware.d.ts" />
+/// <reference path="../i18next-sprintf-postprocessor/i18next-sprintf-postprocessor.d.ts" />
+
+declare module I18next {
+    export interface I18nextStatic {}
+    export interface I18nextOptions {}
+}
 
 interface IResourceStore {
     [language: string]: IResourceStoreLanguage;
@@ -17,7 +25,17 @@ interface IResourceStoreKey {
     [key: string]: any;
 }
 
-interface I18nextOptions {
+interface I18nTranslateOptions extends I18nextOptions {
+    defaultValue?: any; // normally a string
+    // NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+    toAdd?: any;
+    child?: any;
+    sprintf?: any;
+    count?: any;
+    context?: any;
+}
+
+interface I18nextOptions extends I18next.I18nextOptions {
     lng?: string;                           // Default value: undefined
     load?: string;                          // Default value: 'all'
     preload?: string[];                     // Default value: []
@@ -62,9 +80,12 @@ interface I18nextOptions {
     cookieName?: string;                    // Default value: 'i18next'
 
     postProcess?: string;                   // Default value: undefined
+
+    // NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+    replace?: any;
 }
 
-interface I18nextStatic {
+interface I18nextStatic extends I18next.I18nextStatic {
 
     addPostProcessor(name: string, fn: (value: any, key: string, options: any) => string): void;
     addResources(language: string, namespace: string, resources: IResourceStoreKey): void;
@@ -108,9 +129,10 @@ interface I18nextStatic {
         load: (languages: string[], options: I18nextOptions, callback: (err: Error, store: IResourceStore) => void ) => void;
         postMissing: (language: string, namespace: string, key: string, defaultValue: any, languages: string[]) => void;
     };
-    t(key: string, options?: any): string;
-    translate(key: string, options?: any): string;
+    t(key: string, options?: I18nTranslateOptions): string;
+    translate(key: string, options?: I18nTranslateOptions): string;
     exists(key: string, options?: any): boolean;
+    use(module: any): I18nextStatic;
 }
 
 // jQuery extensions

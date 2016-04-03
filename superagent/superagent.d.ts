@@ -1,4 +1,4 @@
-// Type definitions for SuperAgent 0.15.4
+// Type definitions for SuperAgent v1.4.0
 // Project: https://github.com/visionmedia/superagent
 // Definitions by: Alex Varju <https://github.com/varju/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -8,7 +8,7 @@
 declare module "superagent" {
   import stream = require('stream');
 
-  type CallbackHandler = { (err: any, res: request.Response): void; }|{ (res: request.Response): void; };
+  type CallbackHandler = (err: any, res: request.Response) => void;
 
   var request: request.SuperAgentStatic;
 
@@ -102,6 +102,7 @@ declare module "superagent" {
       set(field: Object): Req;
       timeout(ms: number): Req;
       type(val: string): Req;
+      use(fn: Function): Req;
       withCredentials(): Req;
       write(data: string, encoding?: string): Req;
       write(data: Buffer, encoding?: string): Req;
