@@ -23,7 +23,7 @@ declare module "noble" {
         uuid:          string;
         advertisement: Advertisement;
         rssi:          number;
-        services:      string[];
+        services:      Service[];
         state:         string;
 
         connect(callback?: (error: string) => void): void;
