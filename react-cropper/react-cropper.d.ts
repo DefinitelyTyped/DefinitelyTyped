@@ -132,7 +132,7 @@ declare namespace ReactCropper {
 
         setDragMode(): void;
 
-        on(eventname: string, callback: ()=> void): void;
+        on(eventname: string, callback: (any?) => void): void;
     }
 
 }
