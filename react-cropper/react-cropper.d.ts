@@ -120,19 +120,19 @@ declare namespace ReactCropper {
 
         getCanvasData(): void;
 
-        setCanvasData(data);
+        setCanvasData(data: any);
 
         getCropBoxData(): void;
 
-        setCropBoxData(data): void;
+        setCropBoxData(data: any): void;
 
-        getCroppedCanvas(options?): void;
+        getCroppedCanvas(options? any): void;
 
-        setAspectRatio(aspectRatio): void;
+        setAspectRatio(aspectRatio: number): void;
 
         setDragMode(): void;
 
-        on(eventname, callback): void;
+        on(eventname: string, callback: ()=> void): void;
     }
 
 }
