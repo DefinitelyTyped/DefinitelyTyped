@@ -284,3 +284,32 @@ function HelloMessage(props: HelloMessageProps) {
 let ConnectedHelloMessage = connect()(HelloMessage);
 ReactDOM.render(<HelloMessage name="Sebastian" />, document.getElementById('content'));
 ReactDOM.render(<ConnectedHelloMessage name="Sebastian" />, document.getElementById('content'));
+
+
+// stateless component example
+
+interface CounterStateProps {
+    count: number;
+}
+
+interface CounterDispatchProps {
+    onClick: Function;
+}
+
+const StatelessCounter: React.StatelessComponent<CounterStateProps & CounterDispatchProps> = ({count, onClick}) => (
+  <div>
+    <h1>Counter below</h1>
+    <p onClick={onClick}>{count}</p>
+  </div>
+);
+
+function mapStateToStateProps(state: any): CounterStateProps {
+    return { count: state.counter };
+};
+
+function mapDispatchToDispatchProps(dispatch: Dispatch): CounterDispatchProps {
+    return { onClick: dispatch({}) };
+};
+
+const CounterComponent = connect<CounterStateProps, CounterDispatchProps, {}>(mapStateToStateProps, mapDispatchToDispatchProps)(StatelessCounter);
+
