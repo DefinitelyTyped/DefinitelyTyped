@@ -1,7 +1,7 @@
 // Type definitions for ui-grid
 // Project: http://www.ui-grid.info/
 // Definitions by: Ben Tesser <https://github.com/btesser>, Joe Skeen <http://github.com/joeskeen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // These are very definitely preliminary. Please feel free to improve.
 
@@ -16,7 +16,7 @@
 /// <reference path='../jquery/jquery.d.ts' />
 /// <reference path='../angularjs/angular.d.ts' />
 
-declare module uiGrid {
+declare namespace uiGrid {
     export interface IUiGridConstants {
         LOG_DEBUG_MESSAGES: boolean;
         LOG_WARN_MESSAGES: boolean;
@@ -3024,7 +3024,7 @@ declare module uiGrid {
              * @param {number} numValue Numeric value of the field
              * @param {IGridRow} row Row objet
              */
-            customerTreeAggregationFn?: (aggregation: IGridTreeBaseAggregationObject, fieldValue: any, numValue: number,
+            customTreeAggregationFn?: (aggregation: IGridTreeBaseAggregationObject, fieldValue: any, numValue: number,
                 row: IGridRowOf<TEntity>) => void;
             /**
              * A custom label to use for this aggregation.  If providedm, we don't use native i18n

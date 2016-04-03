@@ -6,24 +6,25 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
-import Select from "react-select"
+import * as Select from "react-select"
 
 class SelectTest extends React.Component<React.Props<{}>, {}> {
 
-	render() {
-		return <div>
-	       <Select />
-		</div>
-	}
+    render() {
+        const options: ReactSelect.Option[] = [{ label: "Foo", value: "bar" }]
+        return <div>
+           <Select options={options} />
+        </div>
+    }
 
 }
 
 class SelectAsyncTest extends React.Component<React.Props<{}>, {}> {
 
-	render() {
-		return <div>
-	       <Select.Async />
-		</div>
-	}
+    render() {
+        return <div>
+           <Select.Async />
+        </div>
+    }
 
 }

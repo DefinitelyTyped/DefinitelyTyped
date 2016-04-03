@@ -1,7 +1,7 @@
 // Type definitions for highcharts-ng 0.0.8
 // Project: https://github.com/pablojim/highcharts-ng
 // Definitions by: Scott Hatcher <https://github.com/scatcher>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../highcharts/highcharts.d.ts" />
 
@@ -17,7 +17,7 @@ interface HighChartsNGConfig {
     };
     //Boolean to control showng loading status on chart (optional)
     //Could be a string if you want to show specific loading text.
-    loading?: boolean;
+    loading?: boolean | string;
     //Configuration for the xAxis (optional). Currently only one x axis can be dynamically controlled.
     //properties currentMin and currentMax provied 2-way binding to the chart's maximimum and minimum
     xAxis?: {

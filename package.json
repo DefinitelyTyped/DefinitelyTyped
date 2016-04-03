@@ -27,9 +27,8 @@
     "refmap": "dt --dry --print-refmap",
     "help": "dt -h"
   },
-  "dependencies": {},
   "devDependencies": {
-    "definition-tester": "0.5.1",
-    "typescript": "1.8.2"
+    "definition-tester": "0.5.2",
+    "typescript": "1.8.7"
   }
 }

@@ -1,9 +1,9 @@
 // Type definitions for deployJava.js
 // Project: https://www.java.com/js/deployJava.txt
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module DeployJava {
+declare namespace DeployJava {
     /**
      * @summary Interface for {@link deployJava} object.
      * @author  Cyril Schumacher
@@ -65,7 +65,7 @@ declare module DeployJava {
         returnPage: string;
 
         /**
-         * @summary Determines if the browser has allowed the Java plugin. 
+         * @summary Determines if the browser has allowed the Java plugin.
          * @return  {boolean} True if the Java plugin is allowed, otherwise, False.
          */
         allowPlugin(): boolean;
@@ -289,12 +289,12 @@ declare module DeployJava {
          */
         versionCheck(versionPattern: string): boolean;
 
-        /**     
+        /**
          * @summary Write in outputs an applet tag for applet with the specified attributes and parameters.
          *
-         * Each key/value pair in attributes becomes an attribute of the applet tag 
+         * Each key/value pair in attributes becomes an attribute of the applet tag
          * itself, while key/value pairs in parameters become <PARAM> tags.
-         * No version checking or other special behaviors are performed; the tag is 
+         * No version checking or other special behaviors are performed; the tag is
          * simply written to the page using document.writeln().
          * As document.writeln() is generally only safe to use while the page is
          * being rendered, you should never call this function after the page
@@ -311,5 +311,5 @@ declare module DeployJava {
         writeEmbedTag(): void;
     }
 }
-    
+
 declare var deployJava: DeployJava.DeployJavaStatic;

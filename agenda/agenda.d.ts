@@ -435,7 +435,7 @@ declare module "agenda" {
         stop(cb: Callback): void;
     }
 
-    module Agenda {
+    namespace Agenda {
 
     }
 

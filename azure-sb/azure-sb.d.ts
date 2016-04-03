@@ -3,11 +3,11 @@
 // Definitions by: Microsoft Azure <https://github.com/Azure/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Azure.ServiceBus {
+declare namespace Azure.ServiceBus {
     interface Callback {
         (error: any, response: any): void;
     }
-    
+
     interface NotificationHubRegistration {
         RegistrationId: string;
         ChannelUri?: string;
@@ -19,7 +19,7 @@ declare module Azure.ServiceBus {
         MpnsHeaders?: any;
         Expiry?: Date;
     }
-    
+
     export class NotificationHubService {
         new(hubName: string, endpointOrConnectionString: string, sharedAccessKeyName?: string, sharedAccessKeyValue?: string): NotificationHubService;
         hubName: string;
@@ -46,7 +46,7 @@ declare module Azure.ServiceBus {
         */
     }
 
-    export module Apns {    
+    export module Apns {
         interface Payload {
             expiry?: Date;
             aps?: Object;
@@ -55,7 +55,7 @@ declare module Azure.ServiceBus {
             sound?: string;
             payload: Object;
         }
-        
+
         interface Service {
             new(service: NotificationHubService): Service;
             send(tags: string | string[], payload: Apns.Payload, callback?: Callback): void;
@@ -79,31 +79,31 @@ declare module Azure.ServiceBus {
             listRegistrationsByGcmRegistrationId(gcmRegistrationId: string, optionsOrCallback?: { top: number, skip: number } | Callback, callback?: Callback): void;
         }
     }
-    
+
     export module Mpns { interface Service { } }
-    
+
     export module Wns {
         interface Payload {
-            text1?: string;            
-            text2?: string;            
-            text3?: string;            
+            text1?: string;
+            text2?: string;
+            text3?: string;
             text4?: string;
-            image1src?: string;            
-            image1alt?: string;            
-            image2src?: string;            
-            image2alt?: string;            
-            image3src?: string;            
-            image3alt?: string;            
-            image4src?: string;            
+            image1src?: string;
+            image1alt?: string;
+            image2src?: string;
+            image2alt?: string;
+            image3src?: string;
+            image3alt?: string;
+            image4src?: string;
             image4alt?: string;
             lang?: string;
-            type?: string;            
+            type?: string;
         }
-        
+
         interface Options {
             headers: Object;
         }
-        
+
         interface Service {
             new(service: NotificationHubService): Service;
             sendTileSquareBlock(tags: string | string[], payload: any, optionsOrCallback?: Options | Callback, callback?: Callback): void;
