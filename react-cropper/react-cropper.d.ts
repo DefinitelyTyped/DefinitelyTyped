@@ -7,69 +7,47 @@
 /// <reference path="../cropperjs/cropperjs.d.ts"/>
 
 declare module 'react-cropper' {
-    const Cropper: typeof ReactCropper.ReactCropper;
-    export default Cropper;
-    export {Cropper};
-}
+    import Data = cropperjs.Data;
+    import ContainerData = cropperjs.ContainerData;
+    import ImageData = cropperjs.ImageData;
+    import CanvasData = cropperjs.CanvasData;
+    import CropBoxData = cropperjs.CropBoxData;
+    import CroppedCanvasOptions = cropperjs.CroppedCanvasOptions;
+    type ReactCropperProps = cropperjs.CropperOptions & __React.HTMLProps<HTMLImageElement>;
 
-declare namespace ReactCropper {
-    interface Data {
-        /**
-        * the offset left of the cropped area
-        */
-        x: number;
-        /**
-        * the offset top of the cropped area
-        */
-        y: number;
-        /**
-        * the width of the cropped area
-        */
-        width: number;
-        /**
-        * the height of the cropped area
-        */
-        height: number;
-        /**
-        * the rotated degrees of the image
-        */
-        rotate: number;
-        /**
-        * the scaling factor to apply on the abscissa of the image
-        */
-        scaleX: number;
-        /**
-        * the scaling factor to apply on the ordinate of the image
-        */
-        scaleY: number;
-    }
-    export type Props = cropperjs.CropperOptions & __React.HTMLProps<HTMLImageElement>;
-    export class ReactCropper extends __React.Component<Props, {}> {
+    class ReactCropper extends __React.Component<ReactCropperProps, {}> implements cropperjs.Cropper {
+
         /**
          * Show the crop box manually.
          */
         crop(): void;
+
         /**
         * Clear the crop box.
         */
         reset(): void;
+
         /**
         * Replace the image's src and rebuild the cropper.
         * @param url A new image url
         */
         replace(url: string): void;
+
         /**
         * Enable (unfreeze) the cropper.
         */
         enable(): void;
+
         /**
         * Disable (freeze) the cropper
         */
         disable(): void;
+
         /**
         * Destroy the cropper and remove the instance from the image.
         */
         destroy(): void;
+
         /**
         * Move the canvas (image wrapper) with relative offsets.
         * @param offsetX Moving size (px) in the horizontal direction.
@@ -77,6 +55,7 @@ declare namespace ReactCropper {
         * If not present, its default value is offsetX.
         */
         move(offsetX: number, offsetY?: number): void;
+
         /**
         * Move the canvas (image wrapper) to an absolute point.
         * @param x The left value of the canvas
@@ -84,6 +63,7 @@ declare namespace ReactCropper {
         * If not present, its default value is x.
         */
         moveTo(x: number, y?: number): void;
+
         /**
         * Zoom the canvas (image wrapper) with a relative ratio.
         * Zoom in: requires a positive number (ratio > 0)
@@ -107,32 +87,67 @@ declare namespace ReactCropper {
         * Output the cropped area position and size data (base on the original image).
         */
         getData(rounded?: boolean): Data;
+
         /**
         * Change the cropped area position and size with new data (base on the original image).
         */
         setData(data: Data): void;
+
         /**
-        *
+        * Output the container size data.
         */
-        getContainerData(): void;
+        getContainerData(): ContainerData;
 
-        getImageData(): void;
+        /**
+        * Output the image position, size and other related data.
+        */
+        getImageData(): ImageData;
 
-        getCanvasData(): void;
+        /**
+        * Output the canvas (image wrapper) position and size data.
+        */
+        getCanvasData(): CanvasData & {
+            /**
+            * the natural width of the canvas (read only)
+            */
+            naturalWidth: number;
+            /**
+            * the natural height of the canvas (read only)
+            */
+            naturalHeight: number;
+        };
 
-        setCanvasData(data: any): void;
+        /**
+        * Change the canvas (image wrapper) position and size with new data.
+        */
+        setCanvasData(data: CanvasData): void;
 
-        getCropBoxData(): void;
+        /**
+        * Output the crop box position and size data.
+        */
+        getCropBoxData(): CropBoxData;
 
-        setCropBoxData(data: any): void;
+        /**
+        * Change the crop box position and size with new data.
+        */
+        setCropBoxData(data: CropBoxData): void;
 
-        getCroppedCanvas(options?: any): void;
+        /**
+        * Get a canvas drawn the cropped image.
+        */
+        getCroppedCanvas(options?: CroppedCanvasOptions): HTMLCanvasElement;
 
+        /**
+        * Change the aspect ratio of the crop box.
+        */
         setAspectRatio(aspectRatio: number): void;
 
-        setDragMode(): void;
+        /**
+        * Change the drag mode.
+        */
+        setDragMode(mode?: 'none' | 'crop' | 'move'): void;
 
         on(eventname: string, callback: () => void): void;
     }
-
+    export default ReactCropper;
 }
