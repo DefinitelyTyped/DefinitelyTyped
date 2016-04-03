@@ -120,7 +120,7 @@ declare namespace ReactCropper {
 
         getCanvasData(): void;
 
-        setCanvasData(data: any);
+        setCanvasData(data: any): void;
 
         getCropBoxData(): void;
 
@@ -132,7 +132,7 @@ declare namespace ReactCropper {
 
         setDragMode(): void;
 
-        on(eventname: string, callback: (any?) => void): void;
+        on(eventname: string, callback: () => void): void;
     }
 
 }
