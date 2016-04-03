@@ -1,6 +1,6 @@
 /// <reference path="node-schedule.d.ts"/>
 
-import {nodeSchedule} from "node-schedule";
+import nodeSchedule = require("node-schedule");
 
 /**
  * Test for {@link Job} class.

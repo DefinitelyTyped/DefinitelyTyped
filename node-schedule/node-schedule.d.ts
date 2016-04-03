@@ -1,11 +1,11 @@
-// Type definitions for node-schedule
+// Type definitions for node-schedule 1.1.0
 // Project: https://github.com/tejasmanohar/node-schedule/
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Florian Plattner<https://github.com/flowpl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {EventEmitter} from "events";
-declare module "node-schedule" {
+declare module 'node-schedule' {
     import nodeSchedule = require('node-schedule');
+    import {EventEmitter} from 'events';
 
     /**
      * The callback executed by a Job
