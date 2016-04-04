@@ -30,7 +30,7 @@ declare module Revalidator {
         uniqueItems?: boolean;
         enum?: any;
         format?: string;
-        conform?: (data) => boolean;
+        conform?: (data:any) => boolean;
         depdendencies?: string;
 
     }
