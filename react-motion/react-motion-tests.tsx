@@ -1,6 +1,6 @@
 
 /// <reference path="../react/react.d.ts" />
-/// <reference path="./react-motion.ts"/>
+/// <reference path="./react-motion.d.ts"/>
 
 import * as React from 'react';
 import {Motion, spring} from 'react-motion';
