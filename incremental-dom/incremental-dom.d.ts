@@ -1,6 +1,6 @@
 // Type definitions for Incremetal DOM
 // Project: https://github.com/google/incremental-dom
-// Definitions by:  Definitions by: Basarat Ali Syed <https://github.com/basarat>, Markus Lanthaler <https://github.com/lanthaler>
+// Definitions by: Basarat Ali Syed <https://github.com/basarat>, Markus Lanthaler <https://github.com/lanthaler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "incremental-dom" {
