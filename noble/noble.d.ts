@@ -4,7 +4,7 @@
 // Additions by: Hans Bakker <https://github.com/wind-rider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference path="../node/index.d.ts" />
 
 declare module "noble" {
     import events = require("events");
