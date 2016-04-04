@@ -1,3 +1,3 @@
 /// <reference path="./revalidator.d.ts" />
 
-// revalidator.revalidate(values, this.state.validationSchema, null)
+revalidator.validate(null, null, null);
