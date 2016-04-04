@@ -5,6 +5,7 @@
 
 ///<reference path="../react/react.d.ts"/>
 declare module 'react-bootstrap-validation' { 
+declare module 'react-bootstrap-validation' {
     import React = require("react");
 
     // Form component
@@ -12,12 +13,13 @@ declare module 'react-bootstrap-validation' {
     interface Form extends React.ReactElement<FormProps> { }
     interface FormClass extends React.ComponentClass<FormProps> { }
     interface FormProps extends React.Props<FormClass> {
-        
+
         validateOne?: any;
         validateAll?: any;
-        errorHelp?: string | any; 
+        errorHelp?: string | any;
         validationEvent?: string; //Input event that triggers field validation. Can be one of onChange, onBlur or onFocus. Default value is onChange.
         onValidSubmit: any;
+        model?:any;
         id?: string | any;
     }
 
@@ -31,24 +33,37 @@ declare module 'react-bootstrap-validation' {
         validate: any;
         type: any;
         label: any;
-        errorHelp: any;
+        errorHelp?: any;
+        maxLength?: string;
         id?: string | number;
         placeholder?: string;
     }
 
-    // Radio Component
+    // Radio ComponentA
     var Radio: RadioClass;
     interface Radio extends React.ReactElement<RadioProps> { }
     interface RadioClass extends React.ComponentClass<RadioProps> { }
-    interface RadioProps extends ValidatedInputProps {
+    interface RadioProps extends RadioClass {
+        name?: string;
+        type?: string;
+        value: string;
+        label: string;
+        className?: string;
     }
 
     // Radio Group Component
     var RadioGroup: RadioGroupClass;
     interface RadioGroup extends React.ReactElement<RadioGroupProps> { }
     interface RadioGroupClass extends React.ComponentClass<RadioGroupProps> { }
-    interface RadioGroupProps extends ValidatedInputProps {
-        validationEvent: any;
+    interface RadioGroupProps extends React.Props<RadioGroupClass> {
+        name?: string;
+        value?: any;
+        label?: any;
+        validate?: string;
+        errorHelp?: string;
+
+        labelClassName?: string;
+        wrapperClassName?: string;
     }
 
 
@@ -60,7 +75,7 @@ declare module 'react-bootstrap-validation' {
         validationEvent: any;
     }
 
-    
+
 // TODO: Map out the following items below
     //var FileValidator: FileValidatorClass;
     //interface FileValidatorClass extends ValidatedInputClass {
