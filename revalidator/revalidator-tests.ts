@@ -1,4 +1,3 @@
-
-import * as revalidator from 'revalidator';
+/// <reference path="./revalidator.d.ts" />
 
 // revalidator.revalidate(values, this.state.validationSchema, null)
