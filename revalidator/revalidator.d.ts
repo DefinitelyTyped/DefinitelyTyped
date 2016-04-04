@@ -8,9 +8,14 @@ declare module Revalidator {
         validate(object: any, schema: ISchema, options: any): IReturnMessage;
     }
 
+    interface IErrrorProperty {
+        property: string;
+        message: string;
+    }
+
     interface IReturnMessage {
         valid: boolean;
-        errors: string[];
+        errors: IErrrorProperty[];
     }
 
     interface ISchema {
