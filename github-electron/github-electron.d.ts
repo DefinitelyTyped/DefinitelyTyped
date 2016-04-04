@@ -1,4 +1,4 @@
-// Type definitions for Electron v0.37.3
+// Type definitions for Electron v0.37.4
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -244,6 +244,22 @@ declare namespace Electron {
 		 * Note: This is only implemented on OS X and Windows.
 		 */
 		clearRecentDocuments(): void;
+		/**
+		 * Sets the current executable as the default handler for a protocol (aka URI scheme).
+		 * Once registered, all links with your-protocol:// will be openend with the current executable.
+		 * The whole link, including protocol, will be passed to your application as a parameter.
+		 *
+		 * Note: This is only implemented on OS X and Windows.
+		 *       On OS X, you can only register protocols that have been added to your app's info.plist.
+		 */
+		setAsDefaultProtocolClient(protocol: string): void;
+		/**
+		 * Removes the current executable as the default handler for a protocol (aka URI scheme).
+		 *
+		 * Note: This API is only available on Windows.
+		 *       On OS X, removing the app will automatically remove the app as the default protocol handler.
+		 */
+		removeAsDefaultProtocolClient(protocol: string): void;
 		/**
 		 * Adds tasks to the Tasks category of JumpList on Windows.
 		 *
@@ -543,6 +559,11 @@ declare namespace Electron {
 		 * Note: This is only implemented on OS X.
 		 */
 		on(event: 'scroll-touch-end', listener: Function): this;
+		/**
+		 * Emitted on 3-finger swipe.
+		 * Note: This is only implemented on OS X.
+		 */
+		on(event: 'swipe', listener: (event: Event, direction: SwipeDirection) => void): this;
 		on(event: string, listener: Function): this;
 		constructor(options?: BrowserWindowOptions);
 		/**
@@ -961,6 +982,8 @@ declare namespace Electron {
 		 */
 		setIgnoreMouseEvents(ignore: boolean): void;
 	}
+
+	type SwipeDirection = 'up' | 'right' | 'down' | 'left';
 
 	type ThumbarButtonFlags = 'enabled' | 'disabled' | 'dismissonclick' | 'nobackground' | 'hidden' | 'noninteractive';
 
