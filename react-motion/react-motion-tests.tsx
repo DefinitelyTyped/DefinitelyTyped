@@ -10,7 +10,7 @@ class Root extends React.Component<{}, {}> {
     render() {
         return (
             <Motion defaultStyle={{ x: 0 }} style = {{ x: spring(10) }}>
-                {value => <div>{ value.x } </div>}
+                {(value: any) => <div>{ value.x } </div>}
             </Motion>
         );
     }
