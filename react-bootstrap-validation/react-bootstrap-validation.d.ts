@@ -1,3 +1,8 @@
+// Type definitions for react-bootstrap-validation 0.1.11
+// Project: https://github.com/heilhead/react-bootstrap-validation
+// Definitions by: Jason Turner <https://github.com/brewsoftware>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 ///<reference path="./react/react.d.ts"/>
 declare module 'react-bootstrap-validation' { 
     import React = require("react");
