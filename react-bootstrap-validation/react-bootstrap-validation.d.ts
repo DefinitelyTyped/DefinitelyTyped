@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../react/react.d.ts"/>
-declare module 'react-bootstrap-validation' { 
 declare module 'react-bootstrap-validation' {
     import React = require("react");
 
