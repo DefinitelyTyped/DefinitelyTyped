@@ -5,7 +5,34 @@
 
 declare module Revalidator {
     interface RevalidatorStatic {
-        validate(object: any, schema: any, options: any): any;
+        validate(object: any, schema: ISchema, options: any): IReturnMessage;
+    }
+
+    interface IReturnMessage {
+        valid: boolean;
+        errors: string[];
+    }
+
+    interface ISchema {
+        required?: boolean;
+        type: string;
+        pattern?: any;
+        maxLength?: number;
+        minLength?: number;
+        minimum?: number;
+        maximum?: number;
+        allowEmpty: boolean;
+        exclusiveMinimum: number;
+        exclusiveMaximum?: number;
+        divisibleBy?: number;
+        minItems?: number;
+        maxItems?: number;
+        uniqueItems?: boolean;
+        enum?: any;
+        format?: string;
+        conform?: (data) => boolean;
+        depdendencies?: string;
+
     }
 }
 
