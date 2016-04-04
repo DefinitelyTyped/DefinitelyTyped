@@ -3,7 +3,7 @@
 // Definitions by: Jason Turner <https://github.com/brewsoftware>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="./react/react.d.ts"/>
+///<reference path="../react/react.d.ts"/>
 declare module 'react-bootstrap-validation' { 
     import React = require("react");
 
