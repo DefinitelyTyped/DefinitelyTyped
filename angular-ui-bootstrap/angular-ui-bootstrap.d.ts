@@ -308,7 +308,7 @@ declare namespace angular.ui.bootstrap {
         /**
          * a controller for a modal instance - it can initialize scope used by modal.
          * A controller can be injected with `$modalInstance`
-         * Can use array notation for dependency injection.
+         * If value is an array, it must be in Inline Array Annotation format for injection (strings followed by factory method)
          */
         controller?: string | Function | Array<string | Function>;
 
@@ -327,6 +327,7 @@ declare namespace angular.ui.bootstrap {
 
         /**
          * members that will be resolved and passed to the controller as locals; it is equivalent of the `resolve` property for AngularJS routes
+         * If object property value is an array, it must be in Inline Array Annotation format for injection (strings followed by factory method)
          */
         resolve?: { [ key: string ]: string | Function | Array<string | Function> };
 
