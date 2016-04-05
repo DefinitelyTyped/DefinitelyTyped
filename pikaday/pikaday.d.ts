@@ -242,10 +242,10 @@ declare namespace Pikaday {
          */
         showMonthAfterYear?: boolean;
 		
-		/**
-         * render days of the calendar grid that fall in the next or previous months to the current month instead of rendering an empty table cell (default: false).
+        /**
+         * Render days of the calendar grid that fall in the next or previous months to the current month instead of rendering an empty table cell. Default: false.
          */
-		showDaysInNextAndPreviousMonths ?: boolean;
+        showDaysInNextAndPreviousMonths?: boolean;
 
         /**
          * Number of visible calendars.
