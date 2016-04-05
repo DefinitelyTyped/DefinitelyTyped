@@ -17,6 +17,8 @@ function helmetTest() {
  */
 function xssFilterTest() {
     app.use(helmet.xssFilter());
+    app.use(helmet.xssFilter({}));
+    app.use(helmet.xssFilter({ setOnOldIE: false }));
     app.use(helmet.xssFilter({ setOnOldIE: true }));
 }
 

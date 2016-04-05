@@ -24,7 +24,11 @@ declare module "helmet" {
         disableAndroid? : boolean;
         directives? : IHelmetCspDirectives
     }
-    
+
+    interface IHelmetXssFilterConfiguration {
+        setOnOldIE? : boolean;
+    }
+
     /**
      * @summary Interface for helmet class.
      * @interface
@@ -82,11 +86,11 @@ declare module "helmet" {
         publicKeyPins(options ?: Object):express.RequestHandler;
 
         /**
-         * @summary Prevent Cross-site scripting attacks.
+         * @summary Mitigate cross-site scripting attacks with the "X-XSS-Protection" header.
          * @return {RequestHandler} The Request handler.
          * @param {Object} options The options.
          */
-        xssFilter(options ?: Object):express.RequestHandler;
+        xssFilter(options ?: IHelmetXssFilterConfiguration):express.RequestHandler;
 
         /**
          * @summary Set policy around third-party content via headers
