@@ -239,4 +239,4 @@ declare namespace Validation {
         static GetValidationMessage(validator: any): string;
     }
 }
-declare module "business-rule-engine" {export = Validation;}
+declare module "business-rules-engine" {export = Validation;}

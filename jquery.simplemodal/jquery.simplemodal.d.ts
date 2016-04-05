@@ -116,8 +116,3 @@ interface JQueryStatic {
 interface JQuery {
     modal: SimpleModal.JQueryExtension;
 }
-
-/** Ambient wrapper so it can be loaded through require. */
-declare module 'simplemodal' {
-    export = SimpleModal;
-}

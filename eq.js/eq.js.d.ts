@@ -6,7 +6,7 @@
 declare var eqjs: eq.EqjsStatic;
 
 // Support AMD require
-declare module 'eqjs' {
+declare module 'eq.js' {
 	export = eqjs;
 }
 

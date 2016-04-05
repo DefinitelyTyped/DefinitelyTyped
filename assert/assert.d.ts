@@ -51,13 +51,3 @@ declare namespace assert {
 
     export function ifError(value:any):void;
 }
-
-// duplicate to node.d.ts
-// declare module "assert" {
-//     export = assert;
-// }
-
-// move to power-assert.d.ts. do not use this definition file.
-declare module "power-assert" {
-    export = assert;
-}

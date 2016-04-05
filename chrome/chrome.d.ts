@@ -1,4 +1,4 @@
-// Type definitions for Chrome extension development
+﻿// Type definitions for Chrome extension development
 // Project: http://developer.chrome.com/extensions/
 // Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1272,7 +1272,7 @@ declare namespace chrome.cookies {
  * Availability: Since Chrome 18.
  * Permissions:  "debugger"
  */
-declare module "chrome.debugger" {
+declare module chrome.debugger {
 	/** Debuggee identifier. Either tabId or extensionId must be specified */
     interface Debuggee {
 		/** Optional. The id of the tab which you intend to debug.  */

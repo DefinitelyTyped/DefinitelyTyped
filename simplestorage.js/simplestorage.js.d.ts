@@ -1,4 +1,4 @@
-// Type definitions for simpleStorage v0.1.3
+﻿// Type definitions for simpleStorage v0.1.3
 // Project: https://github.com/andris9/simpleStorage
 // Definitions by: Áxel Costas Pena <https://github.com/axelcostaspena>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -96,7 +96,7 @@ declare namespace simplestoragejs {
 
 }
 
-declare module "simpleStorage" {
+declare module "simplestorage.js" {
     export = simpleStorage;
 }
 

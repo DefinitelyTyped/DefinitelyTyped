@@ -9,7 +9,7 @@ declare var multiplex: multiplex.MultiplexStatic;
 
 
 // Support AMD require
-declare module 'multiplex' {
+declare module 'multiplexjs' {
     export = multiplex;
 }
 

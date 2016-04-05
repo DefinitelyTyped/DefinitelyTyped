@@ -42,7 +42,3 @@ interface Auth0Options {
 }
 
 declare var Auth0Widget: Auth0WidgetStatic;
-
-declare module "Auth0Widget" {
-    export = Auth0Widget
-}
