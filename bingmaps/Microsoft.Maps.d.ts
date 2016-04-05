@@ -505,10 +505,21 @@ declare namespace Microsoft.Maps {
     export interface PositionOptionsErrorCallbackResult {
         internalError: PositionError;
         errorCode:number;
-}
+		}
+    
+    export interface PositionOptionsSuccessCallbackResult {
+        center: Location;
+        position: Position;
+    }
+
     export interface PositionOptions {
         enableHighAccuracy?: boolean;
-        errorCallback?:(result:PositionOptionsErrorCallbackResult)=>void;
+        errorCallback?: (result: PositionOptionsErrorCallbackResult) => void;
+        showAccuracyCircle?: boolean;
+        timeout?: number;
+        updateMapView?: boolean;
+        maximumAge?: number;
+        successCallback?: (result: PositionOptionsSuccessCallbackResult) => void;
     }
 
     export interface PositionCircleOptions {
