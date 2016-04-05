@@ -327,9 +327,9 @@ declare namespace angular.ui.bootstrap {
 
         /**
          * members that will be resolved and passed to the controller as locals; it is equivalent of the `resolve` property for AngularJS routes
-         * If object property value is an array, it must be in Inline Array Annotation format for injection (strings followed by factory method)
+         * If property value is an array, it must be in Inline Array Annotation format for injection (strings followed by factory method)
          */
-        resolve?: { [ key: string ]: string | Function | Array<string | Function> };
+        resolve?: { [ key: string ]: string | Function | Array<string | Function> | Object };
 
         /**
          * Set to false to disable animations on new modal/backdrop. Does not toggle animations for modals/backdrops that are already displayed.
