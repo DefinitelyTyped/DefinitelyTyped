@@ -30,7 +30,8 @@ THE SOFTWARE.
 declare namespace google.maps {
     /***** Map *****/
     export class Map extends MVCObject {
-        constructor(mapDiv: Element, opts?: MapOptions);fitBounds(bounds: LatLngBounds): void;
+        constructor(mapDiv: Element, opts?: MapOptions);
+        fitBounds(bounds: LatLngBounds): void;
         getBounds(): LatLngBounds;
         getCenter(): LatLng;
         getDiv(): Element;
@@ -58,7 +59,7 @@ declare namespace google.maps {
 
     export interface MapOptions {
         backgroundColor?: string;
-        center?: LatLng;
+        center?: LatLng|LatLngLiteral;
         disableDefaultUI?: boolean;
         disableDoubleClickZoom?: boolean;
         draggable?: boolean;
