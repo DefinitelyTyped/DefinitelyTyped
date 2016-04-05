@@ -8,20 +8,35 @@
 declare module "helmet" {
     import express = require("express");
     
+    interface IHelmetCspDirectiveFunction {
+      (req: express.Request, res: express.Response): string;
+    }
+    type HelmetCspDirectiveValue = string | IHelmetCspDirectiveFunction;
+
     interface IHelmetCspDirectives {
-        defaultSrc? : string[];
-        scriptSrc? : string[];
-        styleSrc? : string[];
-        imgSrc? : string[];
-        sandbox? : string[];
-        reportUri? : string;
-        objectSrc? : string[];
+        baseUri? : HelmetCspDirectiveValue[],
+        childSrc? : HelmetCspDirectiveValue[],
+        connectSrc? : HelmetCspDirectiveValue[],
+        defaultSrc? : HelmetCspDirectiveValue[],
+        fontSrc? : HelmetCspDirectiveValue[],
+        formAction? : HelmetCspDirectiveValue[],
+        frameAncestors? : HelmetCspDirectiveValue[],
+        frameSrc? : HelmetCspDirectiveValue[],
+        imgSrc? : HelmetCspDirectiveValue[],
+        mediaSrc? : HelmetCspDirectiveValue[],
+        objectSrc? : HelmetCspDirectiveValue[],
+        pluginTypes? : HelmetCspDirectiveValue[],
+        reportUri?: string,
+        sandbox? : HelmetCspDirectiveValue[],
+        scriptSrc? : HelmetCspDirectiveValue[],
+        styleSrc? : HelmetCspDirectiveValue[]
     }
     
     interface IHelmetCspConfiguration {
         reportOnly? : boolean;
         setAllHeaders? : boolean;
         disableAndroid? : boolean;
+        browserSniff?: boolean;
         directives? : IHelmetCspDirectives
     }
 
