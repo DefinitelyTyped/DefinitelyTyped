@@ -5928,7 +5928,7 @@ declare namespace THREE {
         };
     }
 
-    export class CircleBufferGeometry extends Geometry {
+    export class CircleBufferGeometry extends BufferGeometry {
         constructor(radius?: number, segments?: number, thetaStart?: number, thetaLength?: number);
 
         parameters: {
