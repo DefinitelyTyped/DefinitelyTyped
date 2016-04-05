@@ -29,7 +29,7 @@ declare namespace keyboardjs {
         /**
 		 * Keyevent
 		 */
-        (e: KeyEvent): void;
+        (e?: KeyEvent): void;
     }
 
     // ---------- Key Binding ---------- //
