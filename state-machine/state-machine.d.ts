@@ -31,7 +31,7 @@ interface StateMachineStatic {
 
     VERSION: string; 		        // = "2.2.0"
     WILDCARD: string;		        // = '*'
-    ASYNC: string;			        // = 'async'   
+    ASYNC: string;			        // = 'async'
 
     Result: {
         SUCCEEDED: number;	        // = 1, the event transitioned successfully from one state to another
@@ -69,15 +69,20 @@ interface StateMachine {
     cannot: StateMachineCan;
     error: StateMachineErrorCallback;
 
-    /*  transition - only available when performing async state transitions; otherwise null. Can be a: 
+    /*  transition - only available when performing async state transitions; otherwise null. Can be a:
         [1] fsm.transition(); // called from async callback
-        [2] fsm.transition.cancel(); 
+        [2] fsm.transition.cancel();
     */
     transition: StateMachineTransition;
 }
 
 declare var StateMachine: StateMachineStatic;
 
-declare module "state-machine" { 
-    export = StateMachine; 
+declare module "state-machine" {
+    export = StateMachine;
+}
+
+declare module "javascript-state-machine" {
+
+    export let StateMachine: StateMachineStatic;
 }
