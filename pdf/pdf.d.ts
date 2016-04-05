@@ -460,7 +460,3 @@ interface PDFJSStatic {
 }
 
 declare var PDFJS: PDFJSStatic;
-
-declare module "PDFJS" {
-	export = PDFJS;
-}

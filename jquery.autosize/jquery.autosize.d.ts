@@ -13,7 +13,3 @@ declare namespace autosize {
 }
 
 declare var autosize: autosize.AutosizeStatic;
-
-declare module 'autosize' {
-    export = autosize;
-}
