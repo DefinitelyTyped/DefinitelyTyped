@@ -92,6 +92,6 @@ declare namespace raygun {
 
 declare var Raygun: raygun.RaygunStatic;
 
-declare module 'Raygun' {
+declare module 'raygun4js' {
     export = Raygun;
 }

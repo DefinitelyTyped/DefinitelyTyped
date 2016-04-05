@@ -33,7 +33,3 @@ declare namespace Stamplay {
 }
 
 declare var Stamplay: Stamplay.StamplayStatic;
-
-declare module "Stamplay" {
-    export = Stamplay;
-}

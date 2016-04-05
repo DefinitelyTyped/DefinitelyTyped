@@ -3,7 +3,7 @@
 // Definitions by: Antonio Morales <https://github.com/a-morales>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "naturalSort" {
+declare module "natural-sort" {
   function naturalSort<T>(a: T, b: T): number;
   export = naturalSort;
 }

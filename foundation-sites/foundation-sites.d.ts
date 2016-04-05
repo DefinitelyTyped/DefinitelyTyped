@@ -451,6 +451,6 @@ interface JQuery {
 
 declare var Foundation:FoundationSites.FoundationSitesStatic;
 
-declare module "Foundation" {
+declare module "foundation-sites" {
     export = Foundation;
 }

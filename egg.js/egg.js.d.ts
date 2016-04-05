@@ -5,10 +5,6 @@
 
 declare var egg: Egg;
 
-declare module "egg" {
-    export = egg;
-}
-
 /**
  * Egg.js is a simple JS library that has no prerequisites and allows you to easily add web easter
  * eggs by watching the user's key strokes.

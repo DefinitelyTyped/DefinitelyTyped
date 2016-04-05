@@ -3,7 +3,7 @@
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'Squire' {
+declare module 'squirejs' {
     class Squire {
         constructor();
         constructor(context: string);

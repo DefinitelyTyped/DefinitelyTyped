@@ -61,6 +61,6 @@ interface JQuery {
 	toggleAsObservable(duration: number): Rx.Observable<any>;
 }
 
-declare module "rx.jquery" {
+declare module "rx-jquery" {
 	export = Rx;
 }

@@ -104,10 +104,6 @@ declare namespace JQueryAjaxFile {
 
 declare var AjaxFile: JQueryAjaxFile.IAjaxFileStatic;
 
-declare module 'ajaxfile' {
-    export = AjaxFile;
-}
-
 declare namespace AjaxFileKnockout {
     interface IFileInputWrapper {
         getElement(): HTMLInputElement;

@@ -226,7 +226,7 @@ interface Window{
     fbAsyncInit() : any;
 }
 
-declare module "FB" {
+declare module "fb" {
     export = FB;
 }
 
