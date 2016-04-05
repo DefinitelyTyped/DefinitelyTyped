@@ -217,7 +217,7 @@ declare namespace PIXI {
         width: number;
         height: number;
 
-        addChild(child: DisplayObject): DisplayObject;
+        addChild(...child: DisplayObject[]): DisplayObject;
         addChildAt(child: DisplayObject, index: number): DisplayObject;
         swapChildren(child: DisplayObject, child2: DisplayObject): void;
         getChildIndex(child: DisplayObject): number;
