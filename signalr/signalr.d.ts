@@ -8,6 +8,13 @@
 
 
 declare namespace SignalR {
+    
+    const enum ConnectionState {
+        conneting = 0,
+        connected = 1,
+        reconnecting = 2,
+        disconnected = 4
+    }
 
     interface AvailableEvents {
         onStart: string;
