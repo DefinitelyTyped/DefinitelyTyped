@@ -160,6 +160,7 @@ interface Cheerio {
     replaceWith(content: CheerioElement): Cheerio;
     replaceWith(content: CheerioElement[]): Cheerio;
     replaceWith(content: Cheerio): Cheerio;
+    replaceWith(content: () => Cheerio): Cheerio;
 
     empty(): Cheerio;
 
