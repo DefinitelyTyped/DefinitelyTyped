@@ -179,7 +179,7 @@ declare module "hapi" {
         relativeTo?: string;
 
         /**layout - if set to true or a layout filename, layout support is enabled.A layout is a single template file used as the parent template for other view templates in the same engine.If true, the layout template name must be 'layout.ext' where 'ext' is the engine's extension. Otherwise, the provided filename is suffixed with the engine's extension and loaded.Disable layout when using Jade as it will handle including any layout files independently.Defaults to false.*/
-        layout?: boolean;
+        layout?: boolean | string;
         /**layoutPath - the root file path where layout templates are located (using the relativeTo prefix if present). Defaults to path.*/
         layoutPath?: string;
         /**layoutKeyword - the key used by the template engine to denote where primary template content should go.Defaults to 'content'.*/
