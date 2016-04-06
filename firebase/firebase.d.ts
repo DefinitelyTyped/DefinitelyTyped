@@ -334,6 +334,9 @@ interface FirebaseAuthData {
 	expires: number;
 	auth: Object;
 	google?: FirebaseAuthDataGoogle;
+	github?: any;
+	twitter?: any;
+	facebook?: any;
 }
 
 interface FirebaseAuthDataGoogle {
