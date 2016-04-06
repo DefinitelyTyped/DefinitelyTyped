@@ -161,9 +161,16 @@ declare namespace createjs {
         tickChildren: boolean;
 
         // methods
-        addChild(...child: DisplayObject[]): DisplayObject;
-        addChildAt(child: DisplayObject, index: number): DisplayObject; // add this for the common case
-        addChildAt(...childOrIndex: any[]): DisplayObject; // actually (...child: DisplayObject[], index: number)
+        addChild<T extends DisplayObject>(child: T): T;
+        addChild<T extends DisplayObject>(child0: DisplayObject, lastChild: T): T;
+        addChild<T extends DisplayObject>(child0: DisplayObject, child1: DisplayObject, lastChild: T): T;
+        addChild<T extends DisplayObject>(child0: DisplayObject, child1: DisplayObject, child2: DisplayObject, lastChild: T): T;
+        addChild(...children: DisplayObject[]): DisplayObject;
+        addChildAt<T extends DisplayObject>(child: T, index: number): T;
+        addChildAt<T extends DisplayObject>(child0: DisplayObject, lastChild: T, index: number): T;
+        addChildAt<T extends DisplayObject>(child0: DisplayObject, child1: DisplayObject, lastChild: T, index: number): T;
+        addChildAt(...childOrIndex: (DisplayObject|number)[]): DisplayObject; // actually (...child: DisplayObject[], index: number)
+
         clone(recursive?: boolean): Container;
         contains(child: DisplayObject): boolean;
         getChildAt(index: number): DisplayObject;

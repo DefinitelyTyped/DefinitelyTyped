@@ -1110,3 +1110,10 @@ function doBootstrap(element: Element | JQuery, mode: string): ng.auto.IInjector
         debugInfoEnabled: false
     });
 }
+
+function testIHttpParamSerializerJQLikeProvider() {
+    let serializer: angular.IHttpParamSerializer;
+    serializer({
+        a: "b"
+    });
+}

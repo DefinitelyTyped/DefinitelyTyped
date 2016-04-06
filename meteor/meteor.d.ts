@@ -1,4 +1,4 @@
-// Type definitions for Meteor 1.2.0.2
+// Type definitions for Meteor 1.3
 // Project: http://www.meteor.com/
 // Definitions by: Dave Allen <https://github.com/fullflavedave>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -127,13 +127,18 @@ declare namespace Random {
 	function choice(str:string):string; // @param str, @return a random char in str
 }
 
+declare namespace Accounts {
+	function loginServicesConfigured(): boolean;
+
+	function onPageLoadLogin(func: Function): void;
+}
 /**
  * These are the client modules and interfaces that can't be automatically generated from the Meteor data.js file
  */
 
 declare namespace Meteor {
 	/** Start definitions for Template **/
-	interface Event {
+	export interface Event {
 		type:string;
 		target:HTMLElement;
 		currentTarget:HTMLElement;
@@ -157,10 +162,13 @@ declare namespace Meteor {
 
 	interface LoginWithExternalServiceOptions {
 		requestPermissions?: string[];
-		requestOfflineToken?: Boolean;
-		forceApprovalPrompt?: Boolean;
-		userEmail?: string;
+		requestOfflineToken?: boolean;
+		loginUrlParameters?: {[param: string]: any}
+		loginHint?: string;
 		loginStyle?: string;
+		redirectUrl?: "popup" | "redirect";
+		profile?: any;
+		email?: string;
 	}
 
 	function loginWithMeteorDeveloperAccount(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
@@ -170,6 +178,7 @@ declare namespace Meteor {
 	function loginWithMeetup(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
 	function loginWithTwitter(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
 	function loginWithWeibo(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
+	function _sleepForMs(milliseconds: number): void;
 
 	interface SubscriptionHandle {
 		stop(): void;
@@ -244,16 +253,19 @@ declare namespace BrowserPolicy {
 
 declare namespace Meteor {
 	interface EmailFields {
-		subject?: Function;
-		text?: Function;
+		from?: () => string;
+		subject?: (user: Meteor.User) => string;
+		text?: (user: Meteor.User, url: string) => string;
+		html?: (user: Meteor.User, url: string) => string;
 	}
 
 	interface EmailTemplates {
-		from: string;
-		siteName: string;
-		resetPassword: Meteor.EmailFields;
-		enrollAccount:  Meteor.EmailFields;
-		verifyEmail:  Meteor.EmailFields;
+		from?: string;
+		siteName?: string;
+		headers?: { [id: string]: string };  // TODO: should define IHeaders interface
+		resetPassword?: Meteor.EmailFields;
+		enrollAccount?:  Meteor.EmailFields;
+		verifyEmail?:  Meteor.EmailFields;
 	}
 
 	interface Connection {
@@ -262,6 +274,16 @@ declare namespace Meteor {
 		onClose: Function;
 		clientAddress: string;
 		httpHeaders: Object;
+	}
+
+	interface IValidateLoginAttemptCbOpts {
+		type: string;
+		allowed: boolean;
+		error: Error;
+		user: Meteor.User;
+		connection: Meteor.Connection;
+		methodName: string;
+		methodArguments: any[];
 	}
 }
 
@@ -272,6 +294,18 @@ declare namespace Mongo {
 		remove?: (userId: string, doc: any) => boolean;
 		fetch?: string[];
 		transform?: Function;
+	}
+}
+
+declare namespace Accounts {
+	interface IValidateLoginAttemptCbOpts {
+		type?: string;
+		allowed?: boolean;
+		error?: Meteor.Error;
+		user?: Meteor.User;
+		connection?: Meteor.Connection;
+		methodName?: string;
+		methodArguments?: any[];
 	}
 }
 
@@ -392,14 +426,13 @@ declare namespace Accounts {
 	function logout(callback?: Function): void;
 	function logoutOtherClients(callback?: Function): void;
 	function onCreateUser(func: Function): void;
-	function validateLoginAttempt(func: Function): { stop: () => void };
+	function validateLoginAttempt(cb: (params: Accounts.IValidateLoginAttemptCbOpts) => boolean): { stop: () => void };
 	function validateNewUser(func: Function): boolean;
-	function loginServicesConfigured(): boolean;
- 	function onPageLoadLogin(func: Function): void;
 }
 
 declare namespace App {
-	function accessRule(domainRule: string, options?: {
+	function accessRule(pattern: string, options?: {
+		type?: string;
 		launchExternal?: boolean;
 	}): void;
 	function configurePlugin(id: string, config: Object): void;
@@ -546,13 +579,15 @@ declare namespace Meteor {
 	function disconnect(): void;
 	var isClient: boolean;
 	var isCordova: boolean;
+	var isDevelopment: boolean;
+	var isProduction: boolean;
 	var isServer: boolean;
 	function loggingIn(): boolean;
 	function loginWith<ExternalService>(options?: {
 		requestPermissions?: string[];
 		requestOfflineToken?: boolean;
 		loginUrlParameters?: Object;
-		userEmail?: string;
+		loginHint?: string;
 		loginStyle?: string;
 		redirectUrl?: string;
 	}, callback?: Function): void;
@@ -566,7 +601,7 @@ declare namespace Meteor {
 	var release: string;
 	function setInterval(func: Function, delay: number): number;
 	function setTimeout(func: Function, delay: number): number;
-	var settings: {[id:string]: any};
+	var settings: { public: {[id:string]: any}, private: {[id:string]: any}, [id:string]: any};
 	function startup(func: Function): void;
 	function status(): Meteor.StatusEnum;
 	function subscribe(name: string, ...args: any[]): Meteor.SubscriptionHandle;
@@ -607,6 +642,9 @@ declare namespace Mongo {
 			fields?: Mongo.FieldSpecifier;
 			reactive?: boolean;
 			transform?: Function;
+			disableOplog?: boolean;
+			pollingIntervalMs?: number;
+			pollingThrottleMs?: number;
 		}): Mongo.Cursor<T>;
 		findOne(selector?: Mongo.Selector | Mongo.ObjectID | string, options?: {
 			sort?: Mongo.SortSpecifier;
@@ -665,6 +703,7 @@ declare namespace Package {
 		documentation?: string;
 		debugOnly?: boolean;
 		prodOnly?: boolean;
+		testOnly?: boolean;
 	}): void;
 	function onTest(func: Function): void;
 	function onUse(func: Function): void;
@@ -731,6 +770,7 @@ declare namespace HTTP {
 	}, asyncCallback?: Function): HTTP.HTTPResponse;
 	function del(url: string, callOptions?: Object, asyncCallback?: Function): HTTP.HTTPResponse;
 	function get(url: string, callOptions?: Object, asyncCallback?: Function): HTTP.HTTPResponse;
+	function patch(url: string, callOptions?: Object, asyncCallback?: Function): HTTP.HTTPResponse;
 	function post(url: string, callOptions?: Object, asyncCallback?: Function): HTTP.HTTPResponse;
 	function put(url: string, callOptions?: Object, asyncCallback?: Function): HTTP.HTTPResponse;
 }
@@ -837,6 +877,7 @@ interface TemplateStatic {
 	$:any;
 	body: Template;
 	currentData(): {};
+	deregisterHelper(name: string): void;
 	instance(): Blaze.TemplateInstance;
 	parentData(numLevels?: number): {};
 	registerHelper(name: string, helperFunction: Function): void;

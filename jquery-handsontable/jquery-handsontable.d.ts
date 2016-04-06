@@ -280,7 +280,7 @@ declare namespace Handsontable {
         /**
          * Setting to true enables the autoColumnSize plugin, which makes sure each column gets enough space to show its content.
          */
-        autoColumnSize?: boolean;
+        autoColumnSize?: boolean | Object;
 
         /**
          * Setting to true enables the observeChanges plugin, which automatically renders the table when a change in the data source is observed.
@@ -807,7 +807,7 @@ declare namespace Handsontable {
         /**
          * Return index of the currently selected cells as an array [startRow, startCol, endRow, endCol]. Start row and start col are the coordinates of the active cell (where the selection was started).
          */
-        getSelected(): void;
+        getSelected(): number[];
 
         /**
          * Returns current selection as a WalkontableCellRange object. Returns undefined if there is no selection.

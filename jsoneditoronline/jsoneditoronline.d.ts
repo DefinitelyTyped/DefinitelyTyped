@@ -10,13 +10,13 @@ interface JSONEditorOptions {
 	history?: boolean;
 	mode?: string;
 	name?: string;
-	search?: boolean;	
+	search?: boolean;
 }
 
-declare class JSONEditorHistory {	
-	constructor(editor: JSONEditor);	
+declare class JSONEditorHistory {
+	constructor(editor: JSONEditor);
 	onChange(): void;
-	add(action: string, params: Object);
+	add(action: string, params: Object): void;
 	clear(): void;
 	canUndo(): boolean;
 	canRedo(): boolean;
@@ -72,7 +72,7 @@ declare class JSONEditorNode {
 	setHighlight(highlight: boolean): void;
 	updateValue(value: any): void;
 	updateField(field: string): void;
-	updateDom(options): void;
+	updateDom(): void;
 	onEvent(event: Event): void;
 	types: JSONEditorNodeType[];
 	getAppend(): HTMLElement;
@@ -137,7 +137,6 @@ declare class JSONEditor {
 	search(text: string): any[];
 	expandAll(): void;
 	collapseAll(): void;
-	onAction(action: string, params: JSONEditorActionParams);
 	focus(): void;
 	scrollTo(top: number): void;
 	History: JSONEditorHistory;
@@ -145,15 +144,14 @@ declare class JSONEditor {
 	SearchBox: JSONEditorSearchBox;
 	static focusNode: JSONEditorNode;
 	static freezeHighlight: boolean;
-	static showDropDownList(params): void;
 	static getNodeFromTarget(target: HTMLElement): JSONEditorNode;
 	static getAbsoluteLeft(elem: HTMLElement): number;
-	static getAbsoluteTop(elem: HTMLElement); number;
+	static getAbsoluteTop(elem: HTMLElement): number;
 	static addClassName(elem: HTMLElement, className: string): void;
 	static removeClassName(elem: HTMLElement, className: string): void;
 	static stripFormatting(divElement: HTMLElement): void;
 	static setEndOfContentEditable(contentEditableElement: HTMLElement): void;
-	static getInnerText(element: HTMLElement, buffer: JSONEditorBuffer): string;	
+	static getInnerText(element: HTMLElement, buffer: JSONEditorBuffer): string;
 	static getInternetExplorerVersion(): number;
 	Events: {
 		addEventListener(element: HTMLElement, action: string, listener:(event?: Event) => void, useCapture:boolean): (event?: Event) => void;
@@ -173,7 +171,7 @@ interface JSONFormatterOptions {
 
 declare class JSONFormatter {
 	constructor(container: HTMLElement, options?: JSONFormatterOptions, json?: any);
-	set(json: Object);
+	set(json: Object): void;
 	get(): Object;
 	setText(jsonString: string): void;
 	getText(): string;

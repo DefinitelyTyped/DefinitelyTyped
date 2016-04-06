@@ -24,7 +24,7 @@ declare namespace SignalR {
         name: string;
         supportsKeepAlive(): boolean;
         send(connection: SignalR.Connection, data: any): void;
-        start(connection: SignalR.Connection, onSuccess: () => void, onFailed: (error?: any) => void): void;
+        start(connection: SignalR.Connection, onSuccess: () => void, onFailed: (error?: ConnectionError) => void): void;
         reconnect(connection: SignalR.Connection): void;
         lostConnection(connection: SignalR.Connection): void;
         stop(connection: SignalR.Connection): void;
@@ -169,6 +169,18 @@ declare namespace SignalR {
         protocol: string;
         host: string;
     }
+    
+    interface ConnectionErrorContext {
+        readyState: number;
+        responseText: string;
+        status: number;
+        statusText: string;
+    }
+
+    interface ConnectionError extends Error {
+        context: ConnectionErrorContext;
+        transport?: string;
+    }
 
     interface Connection {
         clientProtocol: string;
@@ -256,7 +268,7 @@ declare namespace SignalR {
         *
         * @param calback A callback function to execute when an error occurs on the connection
         */
-        error(callback: (error: Error) => void): Connection;
+        error(callback: (error: ConnectionError) => void): Connection;
 
         /**
         * Adds a callback that will be invoked when the client disconnects
@@ -306,7 +318,7 @@ declare namespace SignalR {
 
         hub: Hub.Connection;
 
-        lastError: any;
+        lastError: ConnectionError;
         resources: Resources;
     }
 }

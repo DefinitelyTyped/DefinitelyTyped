@@ -847,7 +847,7 @@ export class ReactBootstrapTest extends Component<any, any> {
 
                 <div style={style}>
                   <form>
-                    <Input type="text" ref="input" onChange={this.callback} />
+                    <Input type="text" name="text" ref="input" onChange={this.callback} />
                       <ButtonInput bsSize="small">Child Text</ButtonInput>
                       <ButtonInput type="reset" bsStyle="primary" onClick={this.callback} />
                       <ButtonInput type="submit" value="Submit Your Input" bsStyle="success" bsSize="large" disabled={false} />
