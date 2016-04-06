@@ -417,12 +417,12 @@ interface KnockoutStatic {
     observableArray: KnockoutObservableArrayStatic;
 
     contextFor(node: any): any;
-    isSubscribable(instance: any): boolean;
+    isSubscribable(instance: any): instance is KnockoutSubscribable<any>;
     toJSON(viewModel: any, replacer?: Function, space?: any): string;
     toJS(viewModel: any): any;
-    isObservable(instance: any): boolean;
-    isWriteableObservable(instance: any): boolean;
-    isComputed(instance: any): boolean;
+    isObservable(instance: any): instance is KnockoutObservable<any>;
+    isWriteableObservable(instance: any): instance is KnockoutObservable<any>;
+    isComputed(instance: any): instance is KnockoutComputed<any>;
     dataFor(node: any): any;
     removeNode(node: Element): void;
     cleanNode(node: Element): Element;
