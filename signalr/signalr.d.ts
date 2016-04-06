@@ -180,6 +180,7 @@ declare namespace SignalR {
     interface ConnectionError extends Error {
         context: ConnectionErrorContext;
         transport?: string;
+        source?: string;
     }
 
     interface Connection {
