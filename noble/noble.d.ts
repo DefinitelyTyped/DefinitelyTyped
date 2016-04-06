@@ -1,6 +1,6 @@
 // Type definitions for noble
 // Project: https://github.com/sandeepmistry/noble
-// Definitions by: Seon-Wook Park <https://github.com/swook>
+// Definitions by: Seon-Wook Park <https://github.com/swook>, Hans Bakker <https://github.com/wind-rider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
@@ -23,7 +23,7 @@ declare module "noble" {
         uuid:          string;
         advertisement: Advertisement;
         rssi:          number;
-        services:      string[];
+        services:      Service[];
         state:         string;
 
         connect(callback?: (error: string) => void): void;
@@ -33,8 +33,8 @@ declare module "noble" {
         discoverAllServicesAndCharacteristics(callback?: (error: string, services: Service[], characteristics: Characteristic[]) => void): void;
         discoverSomeServicesAndCharacteristics(serviceUUIDs: string[], characteristicUUIDs: string[], callback?: (error: string, services: Service[], characteristics: Characteristic[]) => void): void;
 
-        readHandle(handle: NodeBuffer, callback: (error: string, data: NodeBuffer) => void): void;
-        writeHandle(handle: NodeBuffer, data: NodeBuffer, withoutResponse: boolean, callback: (error: string) => void): void;
+        readHandle(handle: Buffer, callback: (error: string, data: Buffer) => void): void;
+        writeHandle(handle: Buffer, data: Buffer, withoutResponse: boolean, callback: (error: string) => void): void;
         toString(): string;
 
         on(event: string, listener: Function): this;
@@ -46,9 +46,9 @@ declare module "noble" {
 
     export interface Advertisement {
         localName:        string;
-        serviceData:      NodeBuffer;
+        serviceData:      Buffer;
         txPowerLevel:     number;
-        manufacturerData: NodeBuffer;
+        manufacturerData: Buffer;
         serviceUuids:     string[];
     }
 
@@ -75,8 +75,8 @@ declare module "noble" {
         properties:  string[];
         descriptors: Descriptor[];
 
-        read(callback?: (error: string, data: NodeBuffer) => void): void;
-        write(data: NodeBuffer, notify: boolean, callback?: (error: string) => void): void;
+        read(callback?: (error: string, data: Buffer) => void): void;
+        write(data: Buffer, notify: boolean, callback?: (error: string) => void): void;
         broadcast(broadcast: boolean, callback?: (error: string) => void): void;
         notify(notify: boolean, callback?: (error: string) => void): void;
         discoverDescriptors(callback?: (error: string, descriptors: Descriptor[]) => void): void;
@@ -84,7 +84,7 @@ declare module "noble" {
 
         on(event: string, listener: Function): this;
         on(event: string, option: boolean, listener: Function): this;
-        on(event: "read", listener: (data: NodeBuffer, isNotification: boolean) => void): this;
+        on(event: "read", listener: (data: Buffer, isNotification: boolean) => void): this;
         on(event: "write", withoutResponse: boolean, listener: (error: string) => void): this;
         on(event: "broadcast", listener: (state: string) => void): this;
         on(event: "notify", listener: (state: string) => void): this;
@@ -96,12 +96,12 @@ declare module "noble" {
         name: string;
         type: string;
 
-        readValue(callback?: (error: string, data: NodeBuffer) => void): void;
-        writeValue(data: NodeBuffer, callback?: (error: string) => void): void;
+        readValue(callback?: (error: string, data: Buffer) => void): void;
+        writeValue(data: Buffer, callback?: (error: string) => void): void;
         toString(): string;
 
         on(event: string, listener: Function): this;
-        on(event: "valueRead", listener: (error: string, data: NodeBuffer) => void): this;
+        on(event: "valueRead", listener: (error: string, data: Buffer) => void): this;
         on(event: "valueWrite", listener: (error: string) => void): this;
     }
 }
