@@ -285,6 +285,37 @@ let ConnectedHelloMessage = connect()(HelloMessage);
 ReactDOM.render(<HelloMessage name="Sebastian" />, document.getElementById('content'));
 ReactDOM.render(<ConnectedHelloMessage name="Sebastian" />, document.getElementById('content'));
 
+// stateless functions that uses mapStateToProps and mapDispatchToProps
+namespace TestStatelessFunctionWithMapArguments {
+    interface GreetingProps {
+        name: string;
+        onClick: () => void;
+    }
+
+    function Greeting(props: GreetingProps) {
+        return <div>Hello {props.name}</div>;
+    }
+
+    const mapStateToProps = (state: any, ownProps: GreetingProps) => {
+        return {
+            name: 'Connected! ' + ownProps.name
+        };
+    };
+
+    const mapDispatchToProps = (dispatch: Dispatch, ownProps: GreetingProps) => {
+        return {
+            onClick: () => {
+                dispatch({ type: 'GREETING', name: ownProps.name });
+            }
+        };
+    };
+
+    const ConnectedGreeting = connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(Greeting);
+}
+
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/8787
 namespace TestTOwnPropsInference {
     interface OwnProps {
