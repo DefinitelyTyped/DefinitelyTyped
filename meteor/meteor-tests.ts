@@ -131,12 +131,15 @@ Meteor.methods({
 /**
  * From Methods, Meteor.Error section
  */
-throw new Meteor.Error("logged-out",
-    "The user must be logged in to post a comment.");
+function meteorErrorTestFunction1() {
+  throw new Meteor.Error("logged-out",
+      "The user must be logged in to post a comment.");
+}
 
-throw new Meteor.Error(403,
-    "The user must be logged in to post a comment.");
-
+function meteorErrorTestFunction2() {
+  throw new Meteor.Error(403,
+      "The user must be logged in to post a comment.");
+}
 
 Meteor.call("methodName", function (error: Meteor.Error) {
   if (error.error === "logged-out") {
@@ -623,3 +626,53 @@ var reactiveVar2 = new ReactiveVar<string>('test value', function(oldVal:any) { 
 
 var varValue: string = reactiveVar1.get();
 reactiveVar1.set('new value');
+
+// Covers this PR:  https://github.com/DefinitelyTyped/DefinitelyTyped/pull/8233
+var isConfigured: boolean = Accounts.loginServicesConfigured();
+Accounts.onPageLoadLogin(function() {
+  // do something
+});
+
+// Covers this PR:  https://github.com/DefinitelyTyped/DefinitelyTyped/pull/8065
+var loginOpts: Meteor.LoginWithExternalServiceOptions = {
+  requestPermissions: ["a", "b"],
+  requestOfflineToken: true,
+  loginUrlParameters: {asdf: 1, qwer: "1234"},
+  loginHint: "Help me",
+  loginStyle: "Bold and powerful",
+  redirectUrl: "popup",
+  profile: "asdfasdf",
+  email: "asdf@ASDf.com"
+};
+Meteor.loginWithMeteorDeveloperAccount(loginOpts, function(error: Meteor.Error) {});
+
+Accounts.emailTemplates.siteName = "AwesomeSite";
+Accounts.emailTemplates.from = "AwesomeSite Admin <accounts@example.com>";
+Accounts.emailTemplates.headers = { asdf: 'asdf', qwer: 'qwer' };
+
+Accounts.emailTemplates.enrollAccount.subject = function (user) {
+  return "Welcome to Awesome Town, " + user.profile.name;
+};
+Accounts.emailTemplates.enrollAccount.html = function (user, url) {
+  return "<h1>Some html here</h1>";
+};
+Accounts.emailTemplates.enrollAccount.from = function() {
+  return "asdf@asdf.com";
+};
+Accounts.emailTemplates.enrollAccount.text = function (user, url) {
+  return "You have been selected to participate in building a better future!"
+        + " To activate your account, simply click the link below:\n\n"
+        + url;
+};
+
+var handle = Accounts.validateLoginAttempt(function(attemptInfoObject: Accounts.IValidateLoginAttemptCbOpts) {
+  var type: string = attemptInfoObject.type;
+  var allowed: boolean = attemptInfoObject.allowed;
+  var error: Meteor.Error = attemptInfoObject.error;
+  var user: Meteor.User = attemptInfoObject.user;
+  var connection: Meteor.Connection = attemptInfoObject.connection;
+  var methodName: string = attemptInfoObject.methodName;
+  var methodArguments: any[] = attemptInfoObject.methodArguments;
+  return true;
+});
+handle.stop();

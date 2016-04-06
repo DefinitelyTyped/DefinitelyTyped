@@ -2000,11 +2000,11 @@ declare namespace L {
         export function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
 
         /**
-          * Clips the segment a to b by rectangular bounds (modifying the segment points
-          * directly!). Used by Leaflet to only show polyline points that are on the screen
-          * or near, increasing performance.
+          * Clips the segment a to b by rectangular bounds. Used by Leaflet to only show 
+          * polyline points that are on the screen or near, increasing performance. Returns
+          * either false or a length-2 array of clipped points.
           */
-        export function clipSegment(a: Point, b: Point, bounds: Bounds): void;
+        export function clipSegment(a: Point, b: Point, bounds: Bounds): Point[] | boolean;
 
     }
 }

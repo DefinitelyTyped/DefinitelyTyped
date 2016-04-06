@@ -1845,6 +1845,11 @@ declare namespace angular {
         controller(name: string): any;
         injector(): any;
         scope(): IScope;
+        
+        /**
+        *   Overload for custom scope interfaces
+        */
+        scope<T extends IScope>(): T;
         isolateScope(): IScope;
 
         inheritedData(key: string, value: any): JQuery;
@@ -1915,5 +1920,13 @@ declare namespace angular {
             value(name: string, value: any): IServiceProvider;
         }
 
+    }
+
+    /**
+     * $http params serializer that converts objects to strings
+     * see https://docs.angularjs.org/api/ng/service/$httpParamSerializer
+     */
+    interface IHttpParamSerializer {
+        (obj: Object): string;
     }
 }

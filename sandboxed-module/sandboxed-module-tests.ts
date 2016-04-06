@@ -10,6 +10,12 @@ import SandboxedModule = require("sandboxed-module");
 var sandboxedModule:SandboxedModule = SandboxedModule.load("foo");
 var sandboxedModuleExports:any = SandboxedModule.require("foo");
 
+SandboxedModule.configure({
+    globals: {Math}
+});
+
+SandboxedModule.registerBuiltInSourceTransformer("coffee");
+
 var sandboxedModuleExportsWithOptions:any = SandboxedModule.require("foo", {
     requires: {
         someDep: {}

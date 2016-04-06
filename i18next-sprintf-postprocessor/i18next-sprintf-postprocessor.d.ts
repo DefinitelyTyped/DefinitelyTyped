@@ -3,29 +3,32 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../express/express.d.ts"/>
 ///<reference path="../i18next/i18next.d.ts"/>
 
 declare namespace I18next {
-	interface I18nextOptions extends i18nextSprintfPostProcessor.I18nextOptions {}
-}
-
-declare namespace i18nextSprintfPostProcessor {
-    interface I18nextOptions {
-        overloadTranslationOptionHandler?(args: Array<any>): void;
-        process?(value: any, key: string, options: Object): void;
-    }
+  interface I18n {
+    t(key: string, ...args: any[]): string;
+  }
 }
 
 declare module "i18next-sprintf-postprocessor" {
     import i18next = require("i18next");
 
-    interface i18nextSprintfPostProcessor {
-        (): any;
-        process(value: any, key: string, options: Object): void;
-        overloadTranslationOptionHandler(args: Array<any>): void;
+    interface I18nextSprintfPostProcessor {
+        name: string;
+        type: string;
+        process(value: any, key: string, options: any): any;
+        overloadTranslationOptionHandler(args: string[]): {
+          postProcess: "sprintf",
+          sprintf: string[]
+        };
     }
 
-    var sprintf: i18nextSprintfPostProcessor;
+    var sprintf: I18nextSprintfPostProcessor;
+    export = sprintf;
+}
+
+declare module "i18next-sprintf-postprocessor/dist/commonjs" {
+    import sprintf = require("i18next-sprintf-postprocessor");
     export default sprintf;
 }

@@ -4186,6 +4186,7 @@ declare namespace kendo.ui {
         name?: string;
         text?: GridColumnCommandItemText;
         className?: string;
+        imageClass?: string;
         click?: Function;
     }
 
@@ -4461,7 +4462,7 @@ declare namespace kendo.ui {
         scrollable?: GridScrollable;
         selectable?: boolean|string;
         sortable?: GridSortable;
-        toolbar?: GridToolbarItem[];
+        toolbar?: string | ((...args:any[]) => string) | GridToolbarItem[];
         cancel?(e: GridCancelEvent): void;
         change?(e: GridChangeEvent): void;
         columnHide?(e: GridColumnHideEvent): void;

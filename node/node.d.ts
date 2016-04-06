@@ -932,15 +932,34 @@ declare module "readline" {
 
 declare module "vm" {
     export interface Context { }
-    export interface Script {
-        runInThisContext(): void;
-        runInNewContext(sandbox?: Context): void;
+    export interface ScriptOptions {
+        filename?: string;
+        lineOffset?: number;
+        columnOffset?: number;
+        displayErrors?: boolean;
+        timeout?: number;
+        cachedData?: Buffer;
+        produceCachedData?: boolean;
     }
-    export function runInThisContext(code: string, filename?: string): void;
-    export function runInNewContext(code: string, sandbox?: Context, filename?: string): void;
-    export function runInContext(code: string, context: Context, filename?: string): void;
-    export function createContext(initSandbox?: Context): Context;
-    export function createScript(code: string, filename?: string): Script;
+    export interface RunningScriptOptions {
+        filename?: string;
+        lineOffset?: number;
+        columnOffset?: number;
+        displayErrors?: boolean;
+        timeout?: number;
+    }
+    export class Script {
+        constructor(code: string, options?: ScriptOptions);
+        runInContext(contextifiedSandbox: Context, options?: RunningScriptOptions): any;
+        runInNewContext(sandbox?: Context, options?: RunningScriptOptions): any;
+        runInThisContext(options?: RunningScriptOptions): any;
+    }
+    export function createContext(sandbox?: Context): Context;
+    export function isContext(sandbox: Context): boolean;
+    export function runInContext(code: string, contextifiedSandbox: Context, options?: RunningScriptOptions): any;
+    export function runInDebugContext(code: string): any;
+    export function runInNewContext(code: string, sandbox?: Context, options?: RunningScriptOptions): any;
+    export function runInThisContext(code: string, options?: RunningScriptOptions): any;
 }
 
 declare module "child_process" {

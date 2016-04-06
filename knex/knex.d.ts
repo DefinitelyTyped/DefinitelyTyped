@@ -3,12 +3,12 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
 declare module "knex" {
-  import Promise = require("bluebird");
-  import events = require("events");
+  // import Promise = require("bluebird");
+  import * as events from "events";
 
   type Callback = Function;
   type Client = Function;
@@ -409,7 +409,7 @@ declare module "knex" {
       debug?: boolean;
       client?: string;
       dialect?: string;
-      connection: string|ConnectionConfig|MariaSqlConnectionConfig|
+      connection?: string|ConnectionConfig|MariaSqlConnectionConfig|
         Sqlite3ConnectionConfig|SocketConnectionConfig;
       pool?: PoolConfig;
       migrations?: MigrationConfig;

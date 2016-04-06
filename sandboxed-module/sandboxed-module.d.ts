@@ -97,6 +97,24 @@ declare module "sandboxed-module" {
          * @param options the requiring options
          */
         static require(moduleId:string, options?:SandboxOptions):any
+        /**
+         * Sets options globally across all uses of {@link SandboxedModule.load()} and {@link SandboxedModule.require()}.
+         * This way, a commonly needed require, global, local, or sourceTransformer can be specified once across all
+         * sandboxed modules.
+         * @param options the loading and requiring default options
+         */
+        static configure(options:SandboxOptions):void
+        /**
+         * Enables a built-in source transformer by name. Currently, SandboxedModule ships with two built in source
+         * transformers:
+         *  * "coffee" - Compiles source with CoffeeScript [Enabled by default for backwards compatibility].
+         *    Be sure to run require('coffee-script').register() or require('coffee-script/register') as well.
+         *  * "istanbul" - Instruments sources via istanbul when istanbul code coverage is running.
+         *    For example, if you'd like to use SandboxedModule in conjunction with istanbul, just run
+         *    SandboxedModule.registerBuiltInSourceTransformer('istanbul').
+         * @param name The name of the built-in source transformer
+         */
+        static registerBuiltInSourceTransformer(name:String):void
     }
 
     export = SandboxedModule;

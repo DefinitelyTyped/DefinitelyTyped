@@ -57,6 +57,24 @@ declare namespace mock {
              */
             protractorConfig?: string;
         };
+
+        /**
+         * Add mock dynamically.
+         * Returns a promise that will be resolved with a true boolean
+         * when mocks have been added.
+         *
+         * @param mocks An array of mock modules to load into the application.
+         */
+        add<T>(mocks: Array<requests.BaseRequest<T>>): webdriver.promise.Promise<boolean>;
+
+        /**
+         * Remove mock dynamically.
+         * Returns a promise that will be resolved with a true boolean
+         * when mocks have been removed.
+         *
+         * @param mocks An array of mock modules to remove from the application.
+         */
+        remove<T>(mocks: Array<requests.BaseRequest<T>>): webdriver.promise.Promise<boolean>;
     }
 
     /**
@@ -69,11 +87,16 @@ declare namespace mock {
 
     namespace requests {
         /**
+         * Request methods type
+         */
+        type Method = "GET" | "POST" | "DELETE" | "PUT" | "HEAD" | "PATCH" | "JSONP";
+
+        /**
          * Base request mock used for all mocks.
          */
         interface BaseRequest<TResponse> {
             request: {
-                method: string;
+                method: Method;
                 path: string;
             };
             response: {
@@ -87,7 +110,7 @@ declare namespace mock {
          */
         interface Get<TResponse> extends BaseRequest<TResponse> {
             request: {
-                method: string;
+                method: Method;
                 path: string;
                 params?: Object;
                 queryString?: Object;
@@ -107,7 +130,7 @@ declare namespace mock {
         interface PostData<TResponse, TPayload> extends BaseRequest<TResponse> {
             request: {
                 path: string;
-                method: string;
+                method: Method;
                 data: TPayload;
             };
             response: {
@@ -122,7 +145,7 @@ declare namespace mock {
         interface Post<TResponse> extends BaseRequest<TResponse> {
             request: {
                 path: string;
-                method: string;
+                method: Method;
             };
             response: {
                 status: number;
@@ -136,7 +159,7 @@ declare namespace mock {
         interface Head<TResponse> extends BaseRequest<TResponse> {
             request: {
                 path: string;
-                method: string;
+                method: Method;
             };
             response: {
                 status: number;
@@ -150,7 +173,7 @@ declare namespace mock {
         interface Delete<TResponse> extends BaseRequest<TResponse> {
             request: {
                 path: string;
-                method: string;
+                method: Method;
             };
             response: {
                 status: number;
@@ -164,7 +187,7 @@ declare namespace mock {
         interface Put<TResponse> extends BaseRequest<TResponse> {
             request: {
                 path: string;
-                method: string;
+                method: Method;
             };
             response: {
                 status: number;
@@ -178,7 +201,7 @@ declare namespace mock {
         interface Patch<TResponse> extends BaseRequest<TResponse> {
             request: {
                 path: string;
-                method: string;
+                method: Method;
             };
             response: {
                 status: number;
@@ -192,7 +215,7 @@ declare namespace mock {
         interface Jsonp<TResponse> extends BaseRequest<TResponse> {
             request: {
                 path: string;
-                method: string;
+                method: Method;
             };
             response: {
                 status: number;
@@ -204,6 +227,6 @@ declare namespace mock {
 
 declare var mock: mock.ProtractorHttpMock;
 
-declare module 'protractor-http-mock' {
+declare module "protractor-http-mock" {
     export = mock;
 }

@@ -87,6 +87,16 @@ logCall = logService.warn;
 
 logs = logCall.logs;
 
+///////////////////////////////////////
+// IComponentControllerService
+///////////////////////////////////////
+var $componentController: ng.IComponentControllerService;
+$componentController<{}, {}>('Test controller', { $scope: <ng.IScope>{} });
+$componentController<{}, {}>('Test controller', { $scope: <ng.IScope>{}, test: true });
+$componentController<{}, { test: boolean }>('Test controller', { $scope: <ng.IScope>{} }, { test: true});
+$componentController<{}, { test?: boolean }>('Test controller', { $scope: <ng.IScope>{} }, {});
+$componentController<{}, {}>('Test controller', { $scope: <ng.IScope>{} }, {}, 'identity');
+$componentController<{ cb: () => void }, {}>('Test controller', { $scope: <ng.IScope>{} });
 
 ///////////////////////////////////////
 // IHttpBackendService
