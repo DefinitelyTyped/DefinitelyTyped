@@ -1,7 +1,7 @@
-// Type definitions for joi v4.6.0
+// Type definitions for joi v6.5.0
 // Project: https://github.com/spumko/joi
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>, Christopher Glantschnig <https://github.com/cglantschnig>, David Broder-Rodgers <https://github.com/DavidBR-SW>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TODO express type of Schema in a type-parameter (.default, .valid, .example etc)
 
@@ -95,11 +95,11 @@ declare module 'joi' {
 		scheme ?: string | RegExp | Array<string | RegExp>;
 	}
 
-	export interface WhenOptions {
+	export interface WhenOptions<T> {
 		/**
 		 * the required condition joi type.
 		 */
-		is: Schema;
+		is: T;
 		/**
 		 * the alternative schema type if the condition is true. Required if otherwise is missing.
 		 */
@@ -120,7 +120,7 @@ declare module 'joi' {
 		cidr?: string
 	}
 
-	export interface ValidationError {
+	export interface ValidationError extends Error {
 		message: string;
 		details: ValidationErrorItem[];
 		simple(): string;
@@ -269,8 +269,8 @@ declare module 'joi' {
 		/**
 		 * Converts the type into an alternatives type where the conditions are merged into the type definition where:
 		 */
-		when(ref: string, options: WhenOptions): AlternativesSchema;
-		when(ref: Reference, options: WhenOptions): AlternativesSchema;
+		when<U>(ref: string, options: WhenOptions<U>): AlternativesSchema;
+		when<U>(ref: Reference, options: WhenOptions<U>): AlternativesSchema;
 
 		/**
 		 * Overrides the key name in error messages.
@@ -584,8 +584,8 @@ declare module 'joi' {
 		/**
 		 * Verifies an assertion where.
 		 */
-		assert(ref: string, schema: Schema, message: string): ObjectSchema;
-		assert(ref: Reference, schema: Schema, message: string): ObjectSchema;
+		assert(ref: string, schema: Schema, message?: string): ObjectSchema;
+		assert(ref: Reference, schema: Schema, message?: string): ObjectSchema;
 
 		/**
 		 * Overrides the handling of unknown keys for the scope of the current object only (does not apply to children).
@@ -691,8 +691,8 @@ declare module 'joi' {
 
 	export interface AlternativesSchema extends AnySchema<FunctionSchema> {
 		try(schemas: Schema[]): AlternativesSchema;
-		when(ref: string, options: WhenOptions): AlternativesSchema;
-		when(ref: Reference, options: WhenOptions): AlternativesSchema;
+		when<T>(ref: string, options: WhenOptions<T>): AlternativesSchema;
+		when<T>(ref: Reference, options: WhenOptions<T>): AlternativesSchema;
 	}
 
 	// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

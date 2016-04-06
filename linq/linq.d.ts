@@ -1,11 +1,11 @@
 // Type definitions for linq.js 2.2
 // Project: http://linqjs.codeplex.com/
 // Definitions by: Marcin Najder <https://github.com/marcinnajder>, Sebastiaan Dammann <https://github.com/Sebazzz>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // todo: jQuery plugin, RxJS Binding
 
-declare module linq {
+declare namespace linq {
 
     interface EnumerableStatic {
         Choice<T>(...contents: T[]): Enumerable<T>;
@@ -205,9 +205,9 @@ declare module linq {
     }
 
     interface OrderedEnumerable<T> extends Enumerable<T> {
-        ThenBy(keySelector: ($) => T): OrderedEnumerable<T>;
+        ThenBy(keySelector: ($: T) => any): OrderedEnumerable<T>;
         ThenBy(keySelector: string): OrderedEnumerable<T>;
-        ThenByDescending(keySelector: ($) => T): OrderedEnumerable<T>;
+        ThenByDescending(keySelector: ($: T) => any): OrderedEnumerable<T>;
         ThenByDescending(keySelector: string): OrderedEnumerable<T>;
     }
 

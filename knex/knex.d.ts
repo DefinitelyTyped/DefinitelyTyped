@@ -1,14 +1,14 @@
 // Type definitions for Knex.js
 // Project: https://github.com/tgriesser/knex
 // Definitions by: Qubo <https://github.com/tkQubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
 declare module "knex" {
-  import Promise = require("bluebird");
-  import events = require("events");
+  // import Promise = require("bluebird");
+  import * as events from "events";
 
   type Callback = Function;
   type Client = Function;
@@ -39,7 +39,7 @@ declare module "knex" {
     //
     // QueryInterface
     //
-    
+
     interface QueryInterface {
       select: Select;
       as: As;
@@ -49,7 +49,7 @@ declare module "knex" {
       into: Table;
       table: Table;
       distinct: Distinct;
-    
+
       // Joins
       join: Join;
       joinRaw: JoinRaw;
@@ -61,7 +61,7 @@ declare module "knex" {
       outerJoin: Join;
       fullOuterJoin: Join;
       crossJoin: Join;
-    
+
       // Wheres
       where: Where;
       andWhere: Where;
@@ -86,29 +86,29 @@ declare module "knex" {
       whereNotBetween: WhereBetween;
       orWhereBetween: WhereBetween;
       orWhereNotBetween: WhereBetween;
-    
+
       // Group by
       groupBy: GroupBy;
       groupByRaw: RawQueryBuilder;
-    
+
       // Order by
       orderBy: OrderBy;
       orderByRaw: RawQueryBuilder;
-    
+
       // Union
       union: Union;
       unionAll(callback: Function): QueryBuilder;
-    
+
       // Having
       having: Having;
       havingRaw: RawQueryBuilder;
       orHaving: Having;
       orHavingRaw: RawQueryBuilder;
-    
+
       // Paging
       offset(offset: number): QueryBuilder;
       limit(limit: number): QueryBuilder;
-    
+
       // Aggregation
       count(columnName?: string): QueryBuilder;
       min(columnName: string): QueryBuilder;
@@ -117,41 +117,43 @@ declare module "knex" {
       avg(columnName: string): QueryBuilder;
       increment(columnName: string, amount?: number): QueryBuilder;
       decrement(columnName: string, amount?: number): QueryBuilder;
-    
+
       // Others
       first(...columns: string[]): QueryBuilder;
-    
+
       debug(enabled?: boolean): QueryBuilder;
       pluck(column: string): QueryBuilder;
-    
+
       insert(data: any, returning?: string | string[]): QueryBuilder;
       update(data: any, returning?: string | string[]): QueryBuilder;
       update(columnName: string, value: Value, returning?: string | string[]): QueryBuilder;
       returning(column: string): QueryBuilder;
-    
+
       del(returning?: string | string[]): QueryBuilder;
       delete(returning?: string | string[]): QueryBuilder;
       truncate(): QueryBuilder;
-    
+
       transacting(trx: Transaction): QueryBuilder;
       connection(connection: any): QueryBuilder;
+
+      clone(): QueryBuilder;
     }
-    
+
     interface As {
       (columnName: string): QueryBuilder;
     }
-    
+
     interface Select extends ColumnNameQueryBuilder {
     }
-    
+
     interface Table {
       (tableName: string): QueryBuilder;
       (callback: Function): QueryBuilder;
     }
-    
+
     interface Distinct extends ColumnNameQueryBuilder {
     }
-    
+
     interface Join {
       (raw: Raw): QueryBuilder;
       (tableName: string, callback: Function): QueryBuilder;
@@ -159,126 +161,126 @@ declare module "knex" {
       (tableName: string, column1: string, raw: Raw): QueryBuilder;
       (tableName: string, column1: string, operator: string, column2: string): QueryBuilder;
     }
-    
+
     interface JoinRaw {
       (tableName: string, binding?: Value): QueryBuilder;
     }
-    
+
     interface Where extends WhereRaw, WhereWrapped, WhereNull {
       (object: Object): QueryBuilder;
       (columnName: string, value: Value): QueryBuilder;
       (columnName: string, operator: string, value: Value): QueryBuilder;
       (columnName: string, operator: string, query: QueryBuilder): QueryBuilder;
     }
-    
+
     interface WhereRaw extends RawQueryBuilder {
       (condition: boolean): QueryBuilder;
     }
-    
+
     interface WhereWrapped {
       (callback: Function): QueryBuilder;
     }
-    
+
     interface WhereNull {
       (columnName: string): QueryBuilder;
     }
-    
+
     interface WhereIn {
       (columnName: string, values: Value[]): QueryBuilder;
       (columnName: string, callback: Function): QueryBuilder;
       (columnName: string, query: QueryBuilder): QueryBuilder;
     }
-    
+
     interface WhereBetween {
       (columnName: string, range: [Value, Value]): QueryBuilder;
     }
-    
+
     interface WhereExists {
       (callback: Function): QueryBuilder;
       (query: QueryBuilder): QueryBuilder;
     }
-    
+
     interface WhereNull {
       (columnName: string): QueryBuilder;
     }
-    
+
     interface WhereIn {
       (columnName: string, values: Value[]): QueryBuilder;
     }
-    
+
     interface GroupBy extends RawQueryBuilder, ColumnNameQueryBuilder {
     }
-    
+
     interface OrderBy {
       (columnName: string, direction?: string): QueryBuilder;
     }
-    
+
     interface Union {
       (callback: Function, wrap?: boolean): QueryBuilder;
       (callbacks: Function[], wrap?: boolean): QueryBuilder;
       (...callbacks: Function[]): QueryBuilder;
       // (...callbacks: Function[], wrap?: boolean): QueryInterface;
     }
-    
+
     interface Having extends RawQueryBuilder, WhereWrapped {
       (tableName: string, column1: string, operator: string, column2: string): QueryBuilder;
     }
-    
+
     // commons
-    
+
     interface ColumnNameQueryBuilder {
       (...columnNames: ColumnName[]): QueryBuilder;
       (columnNames: ColumnName[]): QueryBuilder;
     }
-    
+
     interface RawQueryBuilder {
       (sql: string, ...bindings: Value[]): QueryBuilder;
       (sql: string, bindings: Value[]): QueryBuilder;
       (raw: Raw): QueryBuilder;
     }
-    
+
     // Raw
-    
+
     interface Raw extends events.EventEmitter, ChainableInterface {
       wrap(before: string, after: string): Raw;
     }
-    
+
     interface RawBuilder {
       (value: Value): Raw;
       (sql: string, ...bindings: Value[]): Raw;
       (sql: string, bindings: Value[]): Raw;
     }
-    
+
     //
     // QueryBuilder
     //
-    
+
     interface QueryBuilder extends QueryInterface, ChainableInterface {
       or: QueryBuilder;
       and: QueryBuilder;
-    
+
       //TODO: Promise?
       columnInfo(column?: string): Promise<ColumnInfo>;
-    
+
       forUpdate(): QueryBuilder;
       forShare(): QueryBuilder;
-    
+
       toSQL(): Sql;
-    
+
       on(event: string, callback: Function): QueryBuilder;
     }
-    
+
     interface Sql {
       method: string;
       options: any;
       bindings: Value[];
       sql: string;
     }
-    
+
     //
     // Chainable interface
     //
-    
+
     interface ChainableInterface extends Promise<any> {
       toQuery(): string;
       options(options: any): QueryBuilder;
@@ -287,16 +289,16 @@ declare module "knex" {
       pipe(writable: any): QueryBuilder;
       exec(callback: Function): QueryBuilder;
     }
-    
+
     interface Transaction extends QueryBuilder {
       commit: any;
       rollback: any;
     }
-    
+
     //
     // Schema builder
     //
-    
+
     interface SchemaBuilder {
       createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): Promise<void>;
       renameTable(oldTableName: string, newTableName: string): Promise<void>;
@@ -307,7 +309,7 @@ declare module "knex" {
       dropTableIfExists(tableName: string): Promise<void>;
       raw(statement: string): SchemaBuilder;
     }
-    
+
     interface TableBuilder {
       increments(columnName?: string): ColumnBuilder;
       dropColumn(columnName: string): TableBuilder;
@@ -326,32 +328,34 @@ declare module "knex" {
       timestamp(columnName: string): ColumnBuilder;
       timestamps(): ColumnBuilder;
       binary(columnName: string): ColumnBuilder;
-      enum(columnName: string): ColumnBuilder;
-      enu(columnName: string): ColumnBuilder;
+      enum(columnName: string, values: Value[]): ColumnBuilder;
+      enu(columnName: string, values: Value[]): ColumnBuilder;
       json(columnName: string): ColumnBuilder;
       uuid(columnName: string): ColumnBuilder;
       comment(val: string): TableBuilder;
       specificType(columnName: string, type: string): ColumnBuilder;
       primary(columnNames: string[]) : TableBuilder;
       index(columnNames: string[], indexName?: string, indexType?: string) : TableBuilder;
-      unique(columnNames: string[], indexName?: string) : TableBuilder;    
+      unique(columnNames: string[], indexName?: string) : TableBuilder;
+      foreign(column: string): ForeignConstraintBuilder;
+      foreign(columns: string[]): MultikeyForeignConstraintBuilder;
     }
-    
+
     interface CreateTableBuilder extends TableBuilder {
     }
-    
+
     interface MySqlTableBuilder extends CreateTableBuilder {
       engine(val: string): CreateTableBuilder;
       charset(val: string): CreateTableBuilder;
       collate(val: string): CreateTableBuilder;
     }
-    
+
     interface AlterTableBuilder extends TableBuilder {
     }
-    
+
     interface MySqlAlterTableBuilder extends AlterTableBuilder {
     }
-    
+
     interface ColumnBuilder {
       index(indexName?: string): ColumnBuilder;
       primary(): ColumnBuilder;
@@ -366,42 +370,51 @@ declare module "knex" {
       comment(value: string): ColumnBuilder;
     }
     
+    interface ForeignConstraintBuilder {
+        references(columnName: string): ReferencingColumnBuilder;
+    }
+    
+    interface MultikeyForeignConstraintBuilder {
+        references(columnNames: string[]): ReferencingColumnBuilder;
+    }
+    
     interface PostgreSqlColumnBuilder extends ColumnBuilder {
       index(indexName?: string, indexType?: string): ColumnBuilder;
     }
-    
+
     interface ReferencingColumnBuilder {
       inTable(tableName: string): ColumnBuilder;
     }
-    
+
     interface AlterColumnBuilder extends ColumnBuilder {
     }
-    
+
     interface MySqlAlterColumnBuilder extends AlterColumnBuilder {
       first(): AlterColumnBuilder;
       after(columnName: string): AlterColumnBuilder;
     }
-    
+
     //
     // Configurations
     //
-    
+
     interface ColumnInfo {
       defaultValue: Value;
       type: string;
       maxLength: number;
       nullable: boolean;
     }
-    
+
     interface Config {
+      debug?: boolean;
       client?: string;
       dialect?: string;
-      connection: string|ConnectionConfig|
+      connection?: string|ConnectionConfig|MariaSqlConnectionConfig|
         Sqlite3ConnectionConfig|SocketConnectionConfig;
       pool?: PoolConfig;
       migrations?: MigrationConfig;
     }
-    
+
     interface ConnectionConfig {
       host: string;
       user: string;
@@ -409,13 +422,45 @@ declare module "knex" {
       database: string;
       debug?: boolean;
     }
-    
+
+    // Config object for mariasql: https://github.com/mscdex/node-mariasql#client-methods
+    interface MariaSqlConnectionConfig {
+      user?: string;
+      password?: string;
+      host?: string;
+      port?: number;
+      unixSocket?: string;
+      protocol?: string;
+      db?: string;
+      keepQueries?: boolean;
+      multiStatements?: boolean;
+      connTimeout?: number;
+      pingInterval?: number;
+      secureAuth?: boolean;
+      compress?: boolean;
+      ssl?: boolean|MariaSslConfiguration;
+      local_infile?: boolean;
+      read_default_file?: string;
+      read_default_group?: string;
+      charset?: string;
+      streamHWM?: number;
+    }
+
+    interface MariaSslConfiguration {
+      key?: string;
+      cert?: string;
+      ca?: string;
+      capath?: string;
+      cipher?: string;
+      rejectUnauthorized?: boolean;
+    }
+
     /** Used with SQLite3 adapter */
     interface Sqlite3ConnectionConfig {
       filename: string;
       debug?: boolean;
     }
-    
+
     interface SocketConnectionConfig {
       socketPath: string;
       user: string;
@@ -423,11 +468,13 @@ declare module "knex" {
       database: string;
       debug?: boolean;
     }
-    
+
     interface PoolConfig {
       name?: string;
       create?: Function;
+      afterCreate?: Function;
       destroy?: Function;
+      beforeDestroy?: Function;
       min?: number;
       max?: number;
       refreshIdle?: boolean;
@@ -438,7 +485,7 @@ declare module "knex" {
       validate?: Function;
       log?: boolean;
     }
-    
+
     interface MigrationConfig {
       database?: string;
       directory?: string;

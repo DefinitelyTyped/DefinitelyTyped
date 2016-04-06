@@ -1,11 +1,10 @@
 // Type definitions for Bacon.js 0.7.0
 // Project: https://baconjs.github.io/
 // Definitions by: Alexander Matsievsky <https://github.com/alexander-matsievsky>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../node/node-0.11.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 interface JQuery {
     /**
@@ -66,7 +65,7 @@ interface JQuery {
 }
 
 /** @module Bacon */
-declare module Bacon {
+declare namespace Bacon {
     /**
      * @function
      * @description Creates an [EventStream]{@link Bacon.EventStream} from a `promise` Promise object such as JQuery Ajax. This stream will contain a single value or an error, followed immediately by stream end. You can use the optional `abort` flag (i.e. ´Bacon.fromPromise(p, true)´ to have the `abort` method of the given promise be called when all subscribers have been removed from the created stream.

@@ -1,11 +1,11 @@
 // Type definitions for Umbraco v7.2.8
 // Project: https://github.com/umbraco
 // Definitions by: DeCareSystemsIreland <https://github.com/DeCareSystemsIreland>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module umbraco.resources{
+declare namespace umbraco.resources{
 
     /**
      * ResourcePromise object

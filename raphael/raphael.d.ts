@@ -1,7 +1,7 @@
 // Type definitions for Raphael 2.1
 // Project: http://raphaeljs.com
 // Definitions by: CheCoxshall <https://github.com/CheCoxshall>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 interface BoundingBox {
@@ -19,7 +19,9 @@ interface RaphaelAnimation {
 }
 
 interface RaphaelFont {
-
+    w:number;
+    face:any;
+    glyphs:any;
 }
 
 interface RaphaelElement {
@@ -42,8 +44,8 @@ interface RaphaelElement {
     hide(): RaphaelElement;
     hover(f_in: Function, f_out: Function, icontext?: any, ocontext?: any): RaphaelElement;
     id: string;
-    insertAfter(): RaphaelElement;
-    insertBefore(): RaphaelElement;
+    insertAfter(el: RaphaelElement): RaphaelElement;
+    insertBefore(el: RaphaelElement): RaphaelElement;
     isPointInside(x: number, y: number): boolean;
     isVisible(): boolean;
     matrix: RaphaelMatrix;
@@ -62,6 +64,7 @@ interface RaphaelElement {
     remove(): void;
     removeData(key?: string): RaphaelElement;
     resume(anim?: RaphaelAnimation): RaphaelElement;
+    rotate(deg: number, cx?: number, cy?: number): RaphaelElement;
     setTime(anim: RaphaelAnimation): void;
     setTime(anim: RaphaelAnimation, value: number): RaphaelElement;
     show(): RaphaelElement;
@@ -129,8 +132,8 @@ interface RaphaelSet {
     hide(): RaphaelSet;
     hover(f_in: Function, f_out: Function, icontext?: any, ocontext?: any): RaphaelSet;
     id: string;
-    insertAfter(): RaphaelSet;
-    insertBefore(): RaphaelSet;
+    insertAfter(el: RaphaelElement): RaphaelSet;
+    insertBefore(el: RaphaelElement): RaphaelSet;
     isPointInside(x: number, y: number): boolean;
     isVisible(): boolean;
     matrix: RaphaelMatrix;
@@ -291,3 +294,6 @@ interface RaphaelStatic {
 }
 
 declare var Raphael: RaphaelStatic;
+declare module "raphael" {
+    export = Raphael;
+}

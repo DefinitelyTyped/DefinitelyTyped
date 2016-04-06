@@ -1,7 +1,7 @@
 // Type definitions for Pouch 0.1
 // Project: http://pouchdb.com
 // Definitions by: Bill Sears <https://github.com/MrBigDog2U/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface PouchError {
 	status: number;

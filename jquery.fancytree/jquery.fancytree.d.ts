@@ -1,13 +1,13 @@
 ﻿// Type definitions for jquery.fancytree 2.7.0
 // Project: https://github.com/mar10/fancytree
 // Definitions by: Peter Palotas <https://github.com/alphaleonis>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 ///<reference path="../jquery/jquery.d.ts" />
 ///<reference path="../jqueryui/jqueryui.d.ts" />
 
-declare module JQueryUI {
+declare namespace JQueryUI {
     interface UI {
         fancytree: Fancytree.FancytreeStatic;
     }
@@ -18,32 +18,32 @@ interface JQuery {
     fancytree(option?: string, ...rest: any[]): any;
 }
 
-declare module Fancytree {
+declare namespace Fancytree {
     interface Fancytree {
         $div: JQuery;
 
         rootNode: FancytreeNode;
-        
-        /** Activate node with a given key and fire focus and 
-         * activate events. A prevously activated node will be 
-         * deactivated. If activeVisible option is set, all parents 
-         * will be expanded as necessary. Pass key = false, to deactivate 
+
+        /** Activate node with a given key and fire focus and
+         * activate events. A prevously activated node will be
+         * deactivated. If activeVisible option is set, all parents
+         * will be expanded as necessary. Pass key = false, to deactivate
          * the current node only.
-         * 
+         *
          * @returns {FancytreeNode} activate node (null, if not found)
          */
         activateKey(key: string): FancytreeNode;
 
-        /** (experimental) 
-         * 
-         * @returns resolved, when all patches have been applied 
+        /** (experimental)
+         *
+         * @returns resolved, when all patches have been applied
          */
         applyPatch(patchList: NodePatch[]): JQueryPromise<any>;
 
         /** [ext-clones] Replace a refKey with a new one. */
         changeRefKey(oldRefKey: string, newRefKey: string): void;
 
-        /** [ext-persist] Remove persistence cookies of the given type(s). 
+        /** [ext-persist] Remove persistence cookies of the given type(s).
          *  Called like $("#tree").fancytree("getTree").clearCookies("active expanded focus selected"); */
         clearCookies(): void;
 
@@ -56,35 +56,35 @@ declare module Fancytree {
         /** Write to browser console if debugLevel >= 2 (prepending tree name)  */
         debug(msg: any): void;
 
-        /** [ext-filter] Dimm or hide whole branches. 
+        /** [ext-filter] Dimm or hide whole branches.
          * @returns {integer} count
          */
         filterBranches(filter: string): number;
 
-        /** [ext-filter] Dimm or hide whole branches. 
+        /** [ext-filter] Dimm or hide whole branches.
          * @returns {integer} count
          */
         filterBranches(filter: (node: FancytreeNode) => boolean): number;
 
-        /** [ext-filter] Dimm or hide nodes. 
+        /** [ext-filter] Dimm or hide nodes.
          * @returns {integer} count
          */
         filterNodes(filter: string, leavesOnly?: boolean): number;
 
-        /** [ext-filter] Dimm or hide nodes. 
+        /** [ext-filter] Dimm or hide nodes.
          * @returns {integer} count
          */
         filterNodes(filter: (node: FancytreeNode) => boolean, leavesOnly?: boolean): number;
 
-        /** Find the next visible node that starts with `match`, starting at `startNode` and wrap-around at the end. 
-         * 
-         * @returns matching node or null 
+        /** Find the next visible node that starts with `match`, starting at `startNode` and wrap-around at the end.
+         *
+         * @returns matching node or null
          */
         findNextNode(match: string, startNode?: FancytreeNode): FancytreeNode;
 
-        /** Find the next visible node that starts with `match`, starting at `startNode` and wrap-around at the end. 
-         * 
-         * @returns matching node or null 
+        /** Find the next visible node that starts with `match`, starting at `startNode` and wrap-around at the end.
+         *
+         * @returns matching node or null
          */
         findNextNode(match: (node: FancytreeNode) => boolean, startNode?: FancytreeNode): FancytreeNode;
 
@@ -98,19 +98,19 @@ declare module Fancytree {
         getFirstChild(): FancytreeNode;
 
         /** Return node that has keyboard focus.
-         * 
+         *
          * @param ifTreeHasFocus (default: false) (not yet implemented)
          */
         getFocusNode(ifTreeHasFocus?: boolean): FancytreeNode;
 
-        /** Return node with a given key or null if not found. 
-         * 
+        /** Return node with a given key or null if not found.
+         *
          * @param searchRoot (optional) only search below this node.
          */
         getNodeByKey(key: string, searchRoot?: FancytreeNode): FancytreeNode;
 
-        /** [ext-clones] Return all nodes with a given refKey (null if not found). 
-         * 
+        /** [ext-clones] Return all nodes with a given refKey (null if not found).
+         *
          * @param rootNode optionally restrict results to descendants of this node.
          */
         getNodesByRef(refKey: string, rootNode?: FancytreeNode): FancytreeNode[];
@@ -121,8 +121,8 @@ declare module Fancytree {
         /** Return the invisible system root node.  */
         getRootNode(): FancytreeNode;
 
-        /** Return an array of selected nodes.  
-         * 
+        /** Return an array of selected nodes.
+         *
          * @param stopOnParents only return the topmost selected node (useful with selectMode 3)
          */
         getSelectedNodes(stopOnParents?: boolean): FancytreeNode[];
@@ -136,15 +136,15 @@ declare module Fancytree {
         /**  [ext-edit] Check if any node in this tree in edit mode. */
         isEditing(): FancytreeNode;
 
-        /** Make sure that a node with a given ID is loaded, by traversing - and loading - its parents. This method is ment for lazy hierarchies. A callback is executed for every node as we go.  
-         * 
+        /** Make sure that a node with a given ID is loaded, by traversing - and loading - its parents. This method is ment for lazy hierarchies. A callback is executed for every node as we go.
+         *
          * @param keyPathList one or more key paths  (e.g. '/3/2_1/7')
          * @param callback callback(node, status) is called for every visited node ('loading', 'loaded', 'ok', 'error')
          */
         loadKeyPath(keyPathList: string[], callback: (node: FancytreeNode, status: string) => void): JQueryPromise<any>;
 
-        /** Make sure that a node with a given ID is loaded, by traversing - and loading - its parents. This method is ment for lazy hierarchies. A callback is executed for every node as we go.  
-         * 
+        /** Make sure that a node with a given ID is loaded, by traversing - and loading - its parents. This method is ment for lazy hierarchies. A callback is executed for every node as we go.
+         *
          * @param keyPath a key path (e.g. '/3/2_1/7')
          * @param callback callback(node, status) is called for every visited node ('loading', 'loaded', 'ok', 'error')
          */
@@ -153,14 +153,14 @@ declare module Fancytree {
         /** Re-fire beforeActivate and activate events. */
         reactivate(): void;
 
-        /** Reload tree from source and return a promise. 
-         * 
+        /** Reload tree from source and return a promise.
+         *
          * @param source optional new source (defaults to initial source data)
          */
         reload(source?: any): JQueryPromise<any>;
 
-        /** Render tree (i.e. create DOM elements for all top-level nodes). 
-         * 
+        /** Render tree (i.e. create DOM elements for all top-level nodes).
+         *
          * @param force create DOM elements, even is parent is collapsed (default = false)
          * @param deep (default = false)
          */
@@ -169,17 +169,17 @@ declare module Fancytree {
         /** @param flag (default = true) */
         setFocus(flag?: boolean): void;
 
-        /** Return all nodes as nested list of NodeData. 
-         * 
+        /** Return all nodes as nested list of NodeData.
+         *
          * @param callback Called for every node
          * @param includeRoot Returns the hidden system root node (and its children) (default = false)
          */
         toDict(includeRoot?: boolean, callback?: (node: FancytreeNode) => void): any;
 
-        /** Call fn(node) for all nodes. 
-         * 
+        /** Call fn(node) for all nodes.
+         *
          * @param fn the callback function. Return false to stop iteration, return "skip" to skip this node and children only.
-         * @returns false, if the iterator was stopped. 
+         * @returns false, if the iterator was stopped.
          */
         visit(fn: (node: FancytreeNode) => any): boolean;
 
@@ -218,48 +218,48 @@ declare module Fancytree {
 
         //#region Methods
         /**
-         * Append (or insert) a list of child nodes. 
-         * 
+         * Append (or insert) a list of child nodes.
+         *
          * @param children array of child node definitions (also single child accepted)
          * @param insertBefore child node to insert nodes before. If omitted, the new children is appended.
          * @returns The first child added.
          */
         addChildren(children: Fancytree.NodeData[], insertBefore?: FancytreeNode): FancytreeNode;
         /**
-         * Append (or insert) a list of child nodes. 
-         * 
+         * Append (or insert) a list of child nodes.
+         *
          * @param children array of child node definitions (also single child accepted)
          * @param insertBefore key of the child node to insert nodes before. If omitted, the new children is appended.
          * @returns The first child added.
          */
         addChildren(children: Fancytree.NodeData[], insertBefore?: string): FancytreeNode;
         /**
-         * Append (or insert) a list of child nodes. 
-         * 
+         * Append (or insert) a list of child nodes.
+         *
          * @param children array of child node definitions (also single child accepted)
          * @param insertBefore index of the child node to insert nodes before. If omitted, the new children is appended.
          * @returns The first child added.
          */
         addChildren(children: Fancytree.NodeData[], insertBefore?: number): FancytreeNode;
         /**
-         * Append (or insert) a single child node. 
-         * 
+         * Append (or insert) a single child node.
+         *
          * @param child node to add
          * @param insertBefore child node to insert this node before. If omitted, the new child is appended.
          * @returns The child added.
          */
         addChildren(child: Fancytree.NodeData, insertBefore?: FancytreeNode): FancytreeNode;
         /**
-         * Append (or insert) a single child node. 
-         * 
+         * Append (or insert) a single child node.
+         *
          * @param child node to add
          * @param insertBefore key of the child node to insert this node before. If omitted, the new child is appended.
          * @returns The child added.
          */
         addChildren(child: Fancytree.NodeData, insertBefore?: string): FancytreeNode;
         /**
-         * Append (or insert) a single child node. 
-         * 
+         * Append (or insert) a single child node.
+         *
          * @param child node to add
          * @param insertBefore index of the child node to insert this node before. If omitted, the new child is appended.
          * @returns The child added.
@@ -267,9 +267,9 @@ declare module Fancytree {
         addChildren(child: Fancytree.NodeData, insertBefore?: number): FancytreeNode;
 
 
-        /** Append or prepend a node, or append a child node. This a convenience function that calls addChildren()  
-         * 
-         * @param mode 'before', 'after', 'firstChild', or 'child' ('over' is a synonym for 'child') (default='child')         
+        /** Append or prepend a node, or append a child node. This a convenience function that calls addChildren()
+         *
+         * @param mode 'before', 'after', 'firstChild', or 'child' ('over' is a synonym for 'child') (default='child')
          * @returns new node.
          */
         addNode(node: NodeData, mode?: string): FancytreeNode;
@@ -280,8 +280,8 @@ declare module Fancytree {
         /** Collapse all sibling nodes. */
         collapseSiblings(): JQueryPromise<any>;
 
-        /** Copy this node as sibling or child of `node`. 
-         * 
+        /** Copy this node as sibling or child of `node`.
+         *
          * @param node source node
          * @param mode 'before' | 'after' | 'child' (default='child')
          * @param map callback function(NodeData) that could modify the new node
@@ -289,8 +289,8 @@ declare module Fancytree {
          */
         copyTo(node: FancytreeNode, mode?: string, map?: (node: NodeData) => void) : FancytreeNode;
 
-        /** Count direct and indirect children. 
-         * 
+        /** Count direct and indirect children.
+         *
          * @param deep pass 'false' to only count direct children. (default=true)
          */
         countChildren(deep?: boolean): number;
@@ -298,15 +298,15 @@ declare module Fancytree {
         /** Write to browser console if debugLevel >= 2 (prepending node info) */
         debug(msg: any): void;
 
-        /** [ext-edit] Create a new child or sibling node and start edit mode. 
-         * 
+        /** [ext-edit] Create a new child or sibling node and start edit mode.
+         *
          * @param mode 'before', 'after', or 'child' (default='child')
          * @param init NodeData (or simple title string)
          */
         editCreateNode(mode?: string, init?: Object): void;
 
-        /** [ext-edit] Stop inline editing. 
-         * 
+        /** [ext-edit] Stop inline editing.
+         *
          * @param applyChanges false: cancel edit, true: save (if modified)
          */
         editEnd(applyChanges: boolean): void;
@@ -314,26 +314,26 @@ declare module Fancytree {
         /** [ext-edit] Start inline editing of current node title.  */
         editStart(): void;
 
-        /** Find all nodes that contain `match` in the title. 
-         * 
+        /** Find all nodes that contain `match` in the title.
+         *
          * @param match string to search for
          */
         findAll(match: string): FancytreeNode[];
 
-        /** Find all nodes that contain `match` in the title. 
-          * 
+        /** Find all nodes that contain `match` in the title.
+          *
           * @param match a function that returns `true` if a node is matched.
           */
         findAll(match: (node: FancytreeNode) => boolean): FancytreeNode[];
 
-        /** Find first node that contains `match` in the title (not including self). 
-         * 
+        /** Find first node that contains `match` in the title (not including self).
+         *
          * @param match string to search for
          */
         findFirst(match: string): FancytreeNode;
 
-        /** Find first node that contains `match` in the title (not including self). 
-          * 
+        /** Find first node that contains `match` in the title (not including self).
+          *
           * @param match a function that returns `true` if a node is matched.
           */
         findFirst(match: (node: FancytreeNode) => boolean): FancytreeNode;
@@ -377,8 +377,8 @@ declare module Fancytree {
         /** Return the parent node (null for the system root node).  */
         getParent(): FancytreeNode;
 
-        /**Return an array of all parent nodes (top-down). 
-         * 
+        /**Return an array of all parent nodes (top-down).
+         *
          * @param includeRoot Include the invisible system root node. (default=false)
          * @param includeSelf Include the node itself (default=false).
           */
@@ -450,20 +450,20 @@ declare module Fancytree {
         /** Return true if all parent nodes are expanded. Note: this does not check whether the node is scrolled into the visible part of the screen. */
         isVisible(): boolean;
 
-        /** Load all children of a lazy node if neccessary. The *expanded* state is maintained. 
-         * 
+        /** Load all children of a lazy node if neccessary. The *expanded* state is maintained.
+         *
          * @param forceReload Pass true to discard any existing nodes before.
          */
         load(forceReload?: boolean): JQueryPromise<any>;
 
-        /** Expand all parents and optionally scroll into visible area as neccessary. Promise is resolved, when lazy loading and animations are done. 
-         * 
+        /** Expand all parents and optionally scroll into visible area as neccessary. Promise is resolved, when lazy loading and animations are done.
+         *
          * @param opts passed to `setExpanded()`. Defaults to {noAnimation: false, noEvents: false, scrollIntoView: true}
          */
         makeVisible(opts?: Object): JQueryPromise<any>;
 
-        /** Move this node to targetNode. 
-         * 
+        /** Move this node to targetNode.
+         *
          * @param mode 'child': append this node as last child of targetNode.
          *                       This is the default. To be compatble with the D'n'd
          *                       hitMode, we also accept 'over'.
@@ -474,8 +474,8 @@ declare module Fancytree {
          */
         moveTo(targetNode: FancytreeNode, mode: string, map?: (node: FancytreeNode) => void): void;
 
-        /** Set focus relative to this node and optionally activate. 
-         * 
+        /** Set focus relative to this node and optionally activate.
+         *
          * @param where The keyCode that would normally trigger this move, e.g. `$.ui.keyCode.LEFT` would collapse the node if it is expanded or move to the parent oterwise.
          * @param activate (default=true)
          */
@@ -488,12 +488,12 @@ declare module Fancytree {
         removeChild(childNode: FancytreeNode): void;
 
         /** Remove all child nodes and descendents. This converts the node into a leaf.
-         * If this was a lazy node, it is still considered 'loaded'; call node.resetLazy() in order to trigger lazyLoad on next expand. 
+         * If this was a lazy node, it is still considered 'loaded'; call node.resetLazy() in order to trigger lazyLoad on next expand.
          */
         removeChildren(): void;
 
         /** This method renders and updates all HTML markup that is required to display this node in its current state.
-         * 
+         *
          * @param force re-render, even if html markup was already created
          * @param deep  also render all descendants, even if parent is collapsed
          */
@@ -514,47 +514,47 @@ declare module Fancytree {
         /** Schedule activity for delayed execution (cancel any pending request). scheduleAction('cancel') will only cancel a pending request (if any). */
         scheduleAction(mode: string, ms: number) : void;
 
-        /** 
+        /**
          * @param effects animation options.
          * @param options {topNode: null, effects: ..., parent: ...} this node will remain visible in any case, even if `this` is outside the scroll pane.
          */
         scrollIntoView(effects?: boolean, options?: Object): JQueryPromise<any>;
 
-        /** 
-         * @param effects animation options. 
+        /**
+         * @param effects animation options.
          * @param options {topNode: null, effects: ..., parent: ...} this node will remain visible in any case, even if `this` is outside the scroll pane.
          */
         scrollIntoView(effects?: Object, options?: Object): JQueryPromise<any>;
 
-        /** 
+        /**
          * @param flag pass false to deactivate
          * @param opts additional options. Defaults to {noEvents: false}
          */
         setActive(flag?: boolean, opts?: Object): JQueryPromise<any>;
 
-        /** 
+        /**
          * @param flag pass false to collapse.
          * @param opts additional options. Defaults to {noAnimation:false, noEvents:false}
          */
         setExpanded(flag?: boolean, opts?: Object): JQueryPromise<any>;
 
-        /** 
-         * Set keyboard focus to this node. 
-         * 
+        /**
+         * Set keyboard focus to this node.
+         *
          * @param flag pass false to blur.
          */
         setFocus(flag?: boolean): void;
 
-        /** 
-         * Select this node, i.e. check the checkbox. 
-         * 
+        /**
+         * Select this node, i.e. check the checkbox.
+         *
          * @param flag pass false to deselect.
          */
         setSelected(flag?: boolean): void;
 
-        /** 
-         * Mark a lazy node as 'error', 'loading', or 'ok'. 
-         * 
+        /**
+         * Mark a lazy node as 'error', 'loading', or 'ok'.
+         *
          * @param status 'error', 'ok'
          */
         setStatus(status: string, message?: string, details?: string): void;
@@ -562,17 +562,17 @@ declare module Fancytree {
         /** Rename this node. */
         setTitle(title: string): void;
 
-        /** 
-         * Sort child list by title. 
-         * 
+        /**
+         * Sort child list by title.
+         *
          * @param cmp custom compare function(a, b) that returns -1, 0, or 1 (defaults to sort by title).
          * @param deep pass true to sort all descendant nodes
          */
         sortChildren(cmp?: (a: FancytreeNode, b: FancytreeNode) => number, deep?: boolean): void;
 
-        /** 
-         * Convert node (or whole branch) into a plain object. The result is compatible with node.addChildren(). 
-         * 
+        /**
+         * Convert node (or whole branch) into a plain object. The result is compatible with node.addChildren().
+         *
          * @param recursive include child nodes.
          * @param callback callback(dict) is called for every node, in order to allow modifications
          */
@@ -584,11 +584,11 @@ declare module Fancytree {
         /** Flip selection status. */
         toggleSelected(): void;
 
-        /** 
+        /**
          * Call fn(node) for all child nodes.
-         * Stop iteration, if fn() returns false. Skip current branch, 
-         * if fn() returns "skip". Return false if iteration was stopped. 
-         * 
+         * Stop iteration, if fn() returns false. Skip current branch,
+         * if fn() returns "skip". Return false if iteration was stopped.
+         *
          * @param fn the callback function. Return false to stop iteration, return "skip" to skip this node and its children only.
          * @param includeSelf (default=false)
          */
@@ -596,9 +596,9 @@ declare module Fancytree {
 
         /**
          * Call fn(node) for all child nodes and recursively load lazy children.
-         * Note: If you need this method, you probably should consider to review your architecture! Recursivley loading nodes is 
-         * a perfect way for lazy programmers to flood the server with requests ;-)          
-         * 
+         * Note: If you need this method, you probably should consider to review your architecture! Recursivley loading nodes is
+         * a perfect way for lazy programmers to flood the server with requests ;-)
+         *
          * @param fn the callback function. Return false to stop iteration, return "skip" to skip this node and its children only.
          * @param includeSelf (default=false)
          */
@@ -607,15 +607,15 @@ declare module Fancytree {
         /**
          * Call fn(node) for all parent nodes, bottom-up, including invisible system root.
          * Stop iteration, if fn() returns false.
-         * Return false if iteration was stopped. 
-         * 
+         * Return false if iteration was stopped.
+         *
          * @param fn the callback function. Return false to stop iteration, return "skip" to skip this node and its children only.
          * @param includeSelf (default=false)
          */
         visitParents(fn: (node: FancytreeNode) => any, includeSelf?: boolean): boolean;
 
-        /** 
-         * Write warning to browser console (prepending node info) 
+        /**
+         * Write warning to browser console (prepending node info)
          */
         warn(msg: any): void;
         //#endregion
@@ -646,7 +646,7 @@ declare module Fancytree {
         originalEvent: JQueryEventObject;
         /** The node that this call applies to (`null` for tree events) */
         node: FancytreeNode;
-        /** (output parameter) Event handlers can return values back to the 
+        /** (output parameter) Event handlers can return values back to the
           * caller. Used by `lazyLoad`, `postProcess`, ... */
         result: any;
         /** (only for click and dblclick events) 'title' | 'prefix' | 'expander' | 'checkbox' | 'icon' */
@@ -804,7 +804,7 @@ declare module Fancytree {
         data?: Object;
     }
 
-    /** Data object similar to NodeData, but with additional options. 
+    /** Data object similar to NodeData, but with additional options.
       * May be passed to FancytreeNode#applyPatch (Every property that is omitted (or set to undefined) will be ignored)  */
     interface NodePatch {
         /** (not yet implemented) */

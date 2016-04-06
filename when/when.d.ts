@@ -1,7 +1,7 @@
 // Type definitions for When 2.4.0
 // Project: https://github.com/cujojs/when
 // Definitions by: Derek Cicerone <https://github.com/derekcicerone>, Wim Looman <https://github.com/Nemo157>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function When<T>(value: When.Promise<T>): When.Promise<T>;
 declare function When<T>(value: When.Thenable<T>): When.Promise<T>;
@@ -11,7 +11,7 @@ declare function When<T, U>(value: When.Promise<T>, transform: (val: T) => U): W
 declare function When<T, U>(value: When.Thenable<T>, transform: (val: T) => U): When.Promise<U>;
 declare function When<T, U>(value: T, transform: (val: T) => U): When.Promise<U>;
 
-declare module When {
+declare namespace When {
     // Helper interfaces
     module _ {
         interface Fn0<T> { (): T }
@@ -140,6 +140,23 @@ declare module When {
                         handler: (value: U) => Promise<any> | void,
                         seed: U | Promise<U>): Promise<U>;
 
+
+    /**
+     * Similar to when/iterate, when.unfold generates a potentially infinite stream of promises by repeatedly calling
+     * unspool until predicate becomes true. when.unfold allows you to thread additional state information through the iteration.
+     * @memberOf when
+     * @param unspool function that, given a seed, returns a [valueToSendToHandler, newSeed] pair.
+     * May return an array, array of promises, promise for an array, or promise for an array of promises.
+     * @param predicate function that receives the current seed, and should return truthy when the unfold should stop
+     * @param handler function that receives the valueToSendToHandler of the current iteration.
+     * This function can process valueToSendToHandler in whatever way you need.
+     * It may return a promise to delay the next iteration of the unfold.
+     * @param seed initial value provided to the first unspool invocation. May be a promise.
+     */
+    function unfold<T, U>(unspool: (seed: U) => [T | Promise<T>, U | Promise<U>] | Promise<[T | Promise<T>, U | Promise<U>]>,
+                          predicate: (value: U) => boolean | Promise<boolean>,
+                          handler: (value: T) => Promise<any> | void,
+                          seed: U | Promise<U>): Promise<void>;
 
     /**
      * Creates a {promise, resolver} pair, either or both of which
@@ -299,12 +316,12 @@ declare module "when/node" {
     ): when.Promise<T>;
 
 
-    function apply<T>(fn: _.NodeFn0<T>, args: any[]): when.Promise<T>;
-    function apply<T>(fn: _.NodeFn1<any, T>, args: any[]): when.Promise<T>;
-    function apply<T>(fn: _.NodeFn2<any, any, T>, args: any[]): when.Promise<T>;
-    function apply<T>(fn: _.NodeFn3<any, any, any, T>, args: any[]): when.Promise<T>;
-    function apply<T>(fn: _.NodeFn4<any, any, any, any, T>, args: any[]): when.Promise<T>;
-    function apply<T>(fn: _.NodeFn5<any, any, any, any, any, T>, args: any[]): when.Promise<T>;
+    function apply<T>(fn: _.NodeFn0<T>, args: any[] | IArguments): when.Promise<T>;
+    function apply<T>(fn: _.NodeFn1<any, T>, args: any[] | IArguments): when.Promise<T>;
+    function apply<T>(fn: _.NodeFn2<any, any, T>, args: any[] | IArguments): when.Promise<T>;
+    function apply<T>(fn: _.NodeFn3<any, any, any, T>, args: any[] | IArguments): when.Promise<T>;
+    function apply<T>(fn: _.NodeFn4<any, any, any, any, T>, args: any[] | IArguments): when.Promise<T>;
+    function apply<T>(fn: _.NodeFn5<any, any, any, any, any, T>, args: any[] | IArguments): when.Promise<T>;
 
 
     function liftAll(srcApi: any, transform?: (destApi: any, liftedFunc: Function, name: string) => any, destApi?: any): any;

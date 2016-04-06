@@ -8,7 +8,7 @@ import Sequelize = require("sequelize");
 //
 
 interface AnyAttributes { };
-interface AnyInstance extends Sequelize.Instance<AnyInstance, AnyAttributes> { };
+interface AnyInstance extends Sequelize.Instance<AnyAttributes> { };
 
 var s         = new Sequelize( '' );
 var sequelize = s;
@@ -32,7 +32,7 @@ interface GUserAttributes {
     username? : string;
 }
 
-interface GUserInstance extends Sequelize.Instance<GUserInstance, GUserAttributes> {}
+interface GUserInstance extends Sequelize.Instance<GUserAttributes> {}
 var GUser = s.define<GUserInstance, GUserAttributes>( 'user', { id: Sequelize.INTEGER, username : Sequelize.STRING });
 GUser.create({ id : 1, username : 'one' }).then( ( guser ) => guser.save() );
 
@@ -47,7 +47,7 @@ interface GTaskAttributes {
     revision? : number;
     name? : string;
 }
-interface GTaskInstance extends Sequelize.Instance<GTaskInstance, GTaskAttributes> {
+interface GTaskInstance extends Sequelize.Instance<GTaskAttributes> {
   upRevision(): void;
 }
 var GTask = s.define<GTaskInstance, GTaskAttributes>( 'task', { revision : Sequelize.INTEGER, name : Sequelize.STRING });
@@ -152,6 +152,317 @@ Post.belongsToMany( Post, { through : { model : Post, unique : false }, foreignK
 Post.belongsToMany( Post, { as : 'Parents', through : 'Family', foreignKey : 'ChildId', otherKey : 'PersonId' } );
 
 //
+// Mixins
+// ~~~~~~
+//
+//  https://github.com/sequelize/sequelize/tree/v3.4.1/test/integration/associations
+//
+
+var Product = s.define<ProductInstance, ProductAttributes>('product', {});
+var product = Product.build();
+
+var Barcode = s.define<BarcodeInstance, BarcodeAttributes>('barcode', {});
+var barcode = Barcode.build();
+
+var Warehouse = s.define<WarehouseInstance, WarehouseAttributes>('warehouse', {});
+var warehouse = Warehouse.build();
+
+var Branch = s.define<BranchInstance, BranchAttributes>('brach', {});
+var branch = Branch.build();
+
+var WarehouseBranch = s.define<WarehouseBranchInstance, WarehouseBranchAttributes>('warehouseBranch', {});
+
+var Customer = s.define<CustomerInstance, CustomerAttributes>('customer', {});
+var customer = Customer.build();
+
+Product.hasOne(Barcode);
+Barcode.belongsTo(Product);
+
+Warehouse.hasMany(Product);
+Product.belongsTo(Warehouse);
+
+Warehouse.belongsToMany(Branch, { through: WarehouseBranch });
+Branch.belongsToMany(Warehouse, { through: WarehouseBranch });
+
+Branch.belongsToMany(Customer, { through: 'branchCustomer' });
+Customer.belongsToMany(Branch, { through: 'branchCustomer' });
+
+// hasOne
+product.getBarcode();
+product.getBarcode({ scope: null }).then(b => b.code);
+
+product.setBarcode();
+product.setBarcode(1);
+product.setBarcode(barcode);
+product.setBarcode(barcode, { save: true }).then(() => { });
+
+product.createBarcode();
+product.createBarcode({ id: 1, code: '1434-2' });
+product.createBarcode({ id: 1 }, { save: true, silent: true }).then(() => { });
+
+// belongsTo
+barcode.getProduct();
+barcode.getProduct({ scope: 'foo' }).then(p => p.name);
+
+barcode.setProduct();
+barcode.setProduct(1);
+barcode.setProduct(product);
+barcode.setProduct(product, { save: true }).then(() => { });
+
+barcode.createProduct();
+barcode.createProduct({ id: 1, name: 'Crowbar' });
+barcode.createProduct({ id: 1 }, { save: true, silent: true }).then(() => { });
+
+product.getWarehouse();
+product.getWarehouse({ scope: null }).then(w => w.capacity);
+
+product.setWarehouse();
+product.setWarehouse(1);
+product.setWarehouse(warehouse);
+product.setWarehouse(warehouse, { save: true }).then(() => { });
+
+product.createWarehouse();
+product.createWarehouse({ id: 1, capacity: 10000 });
+product.createWarehouse({ id: 1 }, { save: true, silent: true }).then(() => { });
+
+// hasMany
+warehouse.getProducts();
+warehouse.getProducts({ where: {}, scope: false });
+warehouse.getProducts({ where: {}, scope: false }).then((products) => products[0].id);
+
+warehouse.setProducts();
+warehouse.setProducts([product]);
+warehouse.setProducts([product], { validate: true }).then(() => { });
+
+warehouse.addProducts();
+warehouse.addProducts([product]);
+warehouse.addProducts([product, 2], { validate: false }).then(() => { });
+
+warehouse.addProduct();
+warehouse.addProduct(product);
+warehouse.addProduct(2, { validate: true }).then(() => { });
+
+warehouse.createProduct();
+warehouse.createProduct({ id: 1, name: 'baz' });
+warehouse.createProduct({ id: 1 }, { silent: true }).then(() => { });
+
+warehouse.removeProducts();
+warehouse.removeProducts([product]);
+warehouse.removeProducts([product, 2], { validate: false }).then(() => { });
+
+warehouse.removeProduct();
+warehouse.removeProduct(product);
+warehouse.removeProduct(2, { validate: true }).then(() => { });
+
+warehouse.hasProducts([product]);
+warehouse.hasProducts([product, 2], { scope: 'bar' }).then((result: boolean) => { });
+
+warehouse.hasProduct(product);
+warehouse.hasProduct(2, { scope: 'baz' }).then((result: boolean) => { });
+
+warehouse.countProducts();
+warehouse.countProducts({ scope: 'baz' }).then((result: number) => { });
+
+// belongsToMany <Model>
+warehouse.getBranches();
+warehouse.getBranches({ where: {} });
+warehouse.getBranches({ where: {} }).then((branches) => branches[0].rank);
+
+warehouse.setBranches();
+warehouse.setBranches([branch]);
+warehouse.setBranches([branch, 2], { validate: true, distance: 1 }).then(() => { });
+
+warehouse.addBranches();
+warehouse.addBranches([branch]);
+warehouse.addBranches([branch, 2], { validate: false, distance: 1 }).then(() => { });
+
+warehouse.addBranch();
+warehouse.addBranch(branch);
+warehouse.addBranch(2, { validate: true, distance: 1 }).then(() => { });
+
+warehouse.createBranch();
+warehouse.createBranch({ id: 1, address: 'baz' });
+warehouse.createBranch({ id: 1 }, { silent: true, distance: 1 }).then(() => { });
+
+warehouse.removeBranches();
+warehouse.removeBranches([branch]);
+warehouse.removeBranches([branch, 2], { validate: false }).then(() => { });
+
+warehouse.removeBranch();
+warehouse.removeBranch(branch);
+warehouse.removeBranch(2, { validate: true }).then(() => { });
+
+warehouse.hasBranches([branch]);
+warehouse.hasBranches([branch, 2], { scope: 'bar' }).then((result: boolean) => { });
+
+warehouse.hasBranch(branch);
+warehouse.hasBranch(2, { scope: 'baz' }).then((result: boolean) => { });
+
+warehouse.countBranches();
+warehouse.countBranches({ scope: 'baz' }).then((result: number) => { });
+
+// belongsToMany <void>
+customer.getBranches();
+customer.getBranches({ where: {} });
+customer.getBranches({ where: {} }).then((branches) => branches[0].rank);
+
+customer.setBranches();
+customer.setBranches([branch]);
+customer.setBranches([branch, 2], { validate: true }).then(() => { });
+
+customer.addBranches();
+customer.addBranches([branch]);
+customer.addBranches([branch, 2], { validate: false }).then(() => { });
+
+customer.addBranch();
+customer.addBranch(branch);
+customer.addBranch(2, { validate: true }).then(() => { });
+
+customer.createBranch();
+customer.createBranch({ id: 1, address: 'baz' });
+customer.createBranch({ id: 1 }, { silent: true }).then(() => { });
+
+customer.removeBranches();
+customer.removeBranches([branch]);
+customer.removeBranches([branch, 2], { validate: false }).then(() => { });
+
+customer.removeBranch();
+customer.removeBranch(branch);
+customer.removeBranch(2, { validate: true }).then(() => { });
+
+customer.hasBranches([branch]);
+customer.hasBranches([branch, 2], { scope: 'bar' }).then((result: boolean) => { });
+
+customer.hasBranch(branch);
+customer.hasBranch(2, { scope: 'baz' }).then((result: boolean) => { });
+
+customer.countBranches();
+customer.countBranches({ scope: 'baz' }).then((result: number) => { });
+
+
+
+interface ProductAttributes {
+    id?: number;
+    name?: string;
+    price?: number;
+};
+
+interface ProductInstance extends Sequelize.Instance<ProductAttributes>, ProductAttributes {
+    // hasOne association mixins:
+    getBarcode: Sequelize.HasOneGetAssociationMixin<BarcodeInstance>;
+    setBarcode: Sequelize.HasOneSetAssociationMixin<BarcodeInstance, number>;
+    createBarcode: Sequelize.HasOneCreateAssociationMixin<BarcodeAttributes>;
+
+    // belongsTo association mixins:
+    getWarehouse: Sequelize.BelongsToGetAssociationMixin<WarehouseInstance>;
+    setWarehouse: Sequelize.BelongsToSetAssociationMixin<WarehouseInstance, number>;
+    createWarehouse: Sequelize.BelongsToCreateAssociationMixin<WarehouseAttributes>;
+};
+
+interface BarcodeAttributes {
+    id?: number;
+    code?: string;
+    dateIssued?: Date;
+};
+
+interface BarcodeInstance extends Sequelize.Instance<BarcodeAttributes>, BarcodeAttributes {
+    // belongsTo association mixins:
+    getProduct: Sequelize.BelongsToGetAssociationMixin<ProductInstance>;
+    setProduct: Sequelize.BelongsToSetAssociationMixin<ProductInstance, number>;
+    createProduct: Sequelize.BelongsToCreateAssociationMixin<ProductAttributes>;
+};
+
+interface WarehouseAttributes {
+    id?: number;
+    address?: string;
+    capacity?: number;
+};
+
+interface WarehouseInstance extends Sequelize.Instance<WarehouseAttributes>, WarehouseAttributes {
+    // hasMany association mixins:
+    getProducts: Sequelize.HasManyGetAssociationsMixin<ProductInstance>;
+    setProducts: Sequelize.HasManySetAssociationsMixin<ProductInstance, number>;
+    addProducts: Sequelize.HasManyAddAssociationsMixin<ProductInstance, number>;
+    addProduct: Sequelize.HasManyAddAssociationMixin<ProductInstance, number>;
+    createProduct: Sequelize.HasManyCreateAssociationMixin<ProductAttributes>;
+    removeProduct: Sequelize.HasManyRemoveAssociationMixin<ProductInstance, number>;
+    removeProducts: Sequelize.HasManyRemoveAssociationsMixin<ProductInstance, number>;
+    hasProduct: Sequelize.HasManyHasAssociationMixin<ProductInstance, number>;
+    hasProducts: Sequelize.HasManyHasAssociationsMixin<ProductInstance, number>;
+    countProducts: Sequelize.HasManyCountAssociationsMixin;
+
+    // belongsToMany association mixins:
+    getBranches: Sequelize.BelongsToManyGetAssociationsMixin<BranchInstance>;
+    setBranches: Sequelize.BelongsToManySetAssociationsMixin<BranchInstance, number, WarehouseBranchAttributes>;
+    addBranches: Sequelize.BelongsToManyAddAssociationsMixin<BranchInstance, number, WarehouseBranchAttributes>;
+    addBranch: Sequelize.BelongsToManyAddAssociationMixin<BranchInstance, number, WarehouseBranchAttributes>;
+    createBranch: Sequelize.BelongsToManyCreateAssociationMixin<BranchAttributes, WarehouseBranchAttributes>;
+    removeBranch: Sequelize.BelongsToManyRemoveAssociationMixin<BranchInstance, number>;
+    removeBranches: Sequelize.BelongsToManyRemoveAssociationsMixin<BranchInstance, number>;
+    hasBranch: Sequelize.BelongsToManyHasAssociationMixin<BranchInstance, number>;
+    hasBranches: Sequelize.BelongsToManyHasAssociationsMixin<BranchInstance, number>;
+    countBranches: Sequelize.BelongsToManyCountAssociationsMixin;
+};
+
+interface BranchAttributes {
+    id?: number;
+    address?: string;
+    rank?: number;
+};
+
+interface BranchInstance extends Sequelize.Instance<BranchAttributes>, BranchAttributes {
+    // belongsToMany association mixins:
+    getWarehouses: Sequelize.BelongsToManyGetAssociationsMixin<WarehouseInstance>;
+    setWarehouses: Sequelize.BelongsToManySetAssociationsMixin<WarehouseInstance, number, WarehouseBranchAttributes>;
+    addWarehouses: Sequelize.BelongsToManyAddAssociationsMixin<WarehouseInstance, number, WarehouseBranchAttributes>;
+    addWarehouse: Sequelize.BelongsToManyAddAssociationMixin<WarehouseInstance, number, WarehouseBranchAttributes>;
+    createWarehouse: Sequelize.BelongsToManyCreateAssociationMixin<WarehouseAttributes, WarehouseBranchAttributes>;
+    removeWarehouse: Sequelize.BelongsToManyRemoveAssociationMixin<WarehouseInstance, number>;
+    removeWarehouses: Sequelize.BelongsToManyRemoveAssociationsMixin<WarehouseInstance, number>;
+    hasWarehouse: Sequelize.BelongsToManyHasAssociationMixin<WarehouseInstance, number>;
+    hasWarehouses: Sequelize.BelongsToManyHasAssociationsMixin<WarehouseInstance, number>;
+    countWarehouses: Sequelize.BelongsToManyCountAssociationsMixin;
+
+    // belongsToMany association mixins:
+    getCustomers: Sequelize.BelongsToManyGetAssociationsMixin<CustomerInstance>;
+    setCustomers: Sequelize.BelongsToManySetAssociationsMixin<CustomerInstance, number, void>;
+    addCustomers: Sequelize.BelongsToManyAddAssociationsMixin<CustomerInstance, number, void>;
+    addCustomer: Sequelize.BelongsToManyAddAssociationMixin<CustomerInstance, number, void>;
+    createCustomer: Sequelize.BelongsToManyCreateAssociationMixin<CustomerAttributes, void>;
+    removeCustomer: Sequelize.BelongsToManyRemoveAssociationMixin<CustomerInstance, number>;
+    removeCustomers: Sequelize.BelongsToManyRemoveAssociationsMixin<CustomerInstance, number>;
+    hasCustomer: Sequelize.BelongsToManyHasAssociationMixin<CustomerInstance, number>;
+    hasCustomers: Sequelize.BelongsToManyHasAssociationsMixin<CustomerInstance, number>;
+    countCustomers: Sequelize.BelongsToManyCountAssociationsMixin;
+};
+
+interface WarehouseBranchAttributes {
+    distance?: number;
+};
+
+interface WarehouseBranchInstance extends Sequelize.Instance<WarehouseBranchAttributes>, WarehouseBranchAttributes { };
+
+interface CustomerAttributes {
+    id?: number;
+    fullname?: string;
+    credit?: number;
+};
+
+interface CustomerInstance extends Sequelize.Instance<CustomerAttributes>, CustomerAttributes {
+    // belongsToMany association mixins:
+    getBranches: Sequelize.BelongsToManyGetAssociationsMixin<BranchInstance>;
+    setBranches: Sequelize.BelongsToManySetAssociationsMixin<BranchInstance, number, void>;
+    addBranches: Sequelize.BelongsToManyAddAssociationsMixin<BranchInstance, number, void>;
+    addBranch: Sequelize.BelongsToManyAddAssociationMixin<BranchInstance, number, void>;
+    createBranch: Sequelize.BelongsToManyCreateAssociationMixin<BranchAttributes, void>;
+    removeBranch: Sequelize.BelongsToManyRemoveAssociationMixin<BranchInstance, number>;
+    removeBranches: Sequelize.BelongsToManyRemoveAssociationsMixin<BranchInstance, number>;
+    hasBranch: Sequelize.BelongsToManyHasAssociationMixin<BranchInstance, number>;
+    hasBranches: Sequelize.BelongsToManyHasAssociationsMixin<BranchInstance, number>;
+    countBranches: Sequelize.BelongsToManyCountAssociationsMixin;
+};
+
+//
 //  DataTypes
 // ~~~~~~~~~~~
 //
@@ -175,6 +486,7 @@ Sequelize.CHAR( 12 ).BINARY;
 Sequelize.CHAR.BINARY;
 Sequelize.BOOLEAN;
 Sequelize.DATE;
+Sequelize.DATE(6);
 Sequelize.UUID;
 Sequelize.UUIDV1;
 Sequelize.UUIDV4;
@@ -270,6 +582,9 @@ Sequelize.GEOMETRY( 'POINT' );
 Sequelize.GEOMETRY( 'LINESTRING' );
 Sequelize.GEOMETRY( 'POLYGON' );
 Sequelize.GEOMETRY( 'POINT', 4326 );
+Sequelize.VIRTUAL;
+new Sequelize.VIRTUAL( Sequelize.STRING );
+new Sequelize.VIRTUAL( Sequelize.DATE , ['property1', 'property2']);
 
 //
 //  Deferrable
@@ -322,11 +637,11 @@ new s.ConnectionTimedOutError( new Error( 'original connection error message' ) 
 //  https://github.com/sequelize/sequelize/blob/v3.4.1/test/integration/hooks.test.js
 //
 
-User.addHook( 'afterCreate', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function ) { next(); } );
-User.addHook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function) { next(); } );
+User.addHook( 'afterCreate', function( instance : Sequelize.Instance<any>, options : Object, next : Function ) { next(); } );
+User.addHook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any>, options : Object, next : Function) { next(); } );
 s.addHook( 'beforeInit', function( config : Object, options : Object ) { } );
-User.hook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function) { next(); } );
-User.hook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function ) { next(); } );
+User.hook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any>, options : Object, next : Function) { next(); } );
+User.hook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any>, options : Object, next : Function ) { next(); } );
 
 User.removeHook( 'afterCreate', 'myHook' );
 
@@ -587,7 +902,7 @@ User.findOne( { where : { name : 'worker' }, include : [User] } );
 User.findOne( { where : { name : 'Boris' }, include : [User, { model : User, as : 'Photos' }] } );
 User.findOne( { where : { username : 'someone' }, include : [User] } );
 User.findOne( { where : { username : 'barfooz' }, raw : true } );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 User.findOne( { updatedAt : { ne : null } } );
  */
 User.find( { where : { intVal : { gt : 5 } } } );
@@ -595,7 +910,7 @@ User.find( { where : { intVal : { lte : 5 } } } );
 
 User.count();
 User.count( { transaction : t } );
-User.count().then( function( c ) { c.toFixed() } );
+User.count().then( function( c ) { c.toFixed(); } );
 User.count( { where : ["username LIKE '%us%'"] } );
 User.count( { include : [{ model : User, required : false }] } );
 User.count( { distinct : true, include : [{ model : User, required : false }] } );
@@ -641,7 +956,7 @@ User.findOrInitialize( { where : { username : 'foo' }, defaults : { foo : 'asd' 
 
 User.findOrCreate( { where : { a : 'b' }, defaults : { json : { a : { b : 'c' }, d : [1, 2, 3] } } } );
 User.findOrCreate( { where : { a : 'b' }, defaults : { json : 'a', data : 'b' } } );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 User.findOrCreate( { where : { a : 'b' }, transaction : t, lock : t.LOCK.UPDATE } );
  */
 User.findOrCreate( { where : { a : 'b' }, logging : function(  ) { } } );
@@ -723,7 +1038,7 @@ queryInterface.dropAllTables();
 queryInterface.showAllTables( { logging : function() { } } );
 queryInterface.createTable( 'table', { name : Sequelize.STRING }, { logging : function() { } } );
 queryInterface.createTable( 'skipme', { name : Sequelize.STRING } );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 queryInterface.dropAllTables( { skip : ['skipme'] } );
  */
 queryInterface.dropTable( 'Group', { logging : function() { } } );
@@ -731,7 +1046,7 @@ queryInterface.addIndex( 'Group', ['username', 'isAdmin'], { logging : function(
 queryInterface.showIndex( 'Group', { logging : function() { } } );
 queryInterface.removeIndex( 'Group', ['username', 'isAdmin'], { logging : function() { } } );
 queryInterface.showIndex( 'Group' );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 queryInterface.createTable( 'table', { name : { type : Sequelize.STRING } }, { schema : 'schema' } );
  */
 queryInterface.addIndex( { schema : 'a', tableName : 'c' }, ['d', 'e'], { logging : function() {} }, 'schema_table' );
@@ -739,13 +1054,13 @@ queryInterface.showIndex( { schema : 'schema', tableName : 'table' }, { logging 
 queryInterface.addIndex( 'Group', ['from'] );
 queryInterface.describeTable( '_Users', { logging : function() {} } );
 queryInterface.createTable( 's', { table_id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 queryInterface.insert( null, 'TableWithPK', {}, { raw : true, returning : true, plain : true } );
  */
 queryInterface.createTable( 'SomeTable', { someEnum : Sequelize.ENUM( 'value1', 'value2', 'value3' ) } );
 queryInterface.createTable( 'SomeTable', { someEnum : { type : Sequelize.ENUM, values : ['b1', 'b2', 'b3'] } } );
 queryInterface.createTable( 't', { someEnum : { type : Sequelize.ENUM, values : ['c1', 'c2', 'c3'], field : 'd' } } );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 queryInterface.createTable( 'User', { name : { type : Sequelize.STRING } }, { schema : 'hero' } );
 queryInterface.rawSelect( 'User', { schema : 'hero', logging : function() {} }, 'name' );
  */
@@ -811,7 +1126,7 @@ s.query( '', { raw : true, nest : false } );
 s.query( 'select ? as foo, ? as bar', { type : this.sequelize.QueryTypes.SELECT, replacements : [1, 2] } );
 s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { type : s.QueryTypes.SELECT } );
 s.query( 'select :one as foo, :two as bar', { raw : true, replacements : { one : 1, two : 2 } } );
-s.transaction().then( function( t ) { s.set( { foo : 'bar' }, { transaction : t } ) } );
+s.transaction().then( function( t ) { s.set( { foo : 'bar' }, { transaction : t } ); } );
 s.define( 'foo', { bar : Sequelize.STRING }, { collate : 'utf8_bin' } );
 s.define( 'Foto', { name : Sequelize.STRING }, { tableName : 'photos' } );
 s.databaseVersion().then( function( version ) { } );
@@ -842,6 +1157,7 @@ new Sequelize( 'sequelize', null, null, {
 } );
 
 s.model( 'Project' );
+s.models['Project'];
 s.define( 'Project', {
     name : Sequelize.STRING
 } );
@@ -930,7 +1246,7 @@ s.define( 'UserWithUniqueUsername', {
     username : { type : Sequelize.STRING, unique : { name : 'user_and_email', msg : 'User and email must be unique' } },
     email : { type : Sequelize.STRING, unique : 'user_and_email' }
 } );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 s.define( 'UserWithUniqueUsername', {
     user_id : { type : Sequelize.INTEGER },
     email : { type : Sequelize.STRING }
@@ -985,7 +1301,7 @@ s.define( 'ProductWithSettersAndGetters2', {
 s.define( 'post', {
     title : Sequelize.STRING,
     authorId : { type : Sequelize.INTEGER, references : testModel, referencesKey : 'id' }
-} );
+} as any /* TODO please remove `as any` */);
 s.define( 'post', {
     title : Sequelize.STRING,
     authorId : { type : Sequelize.INTEGER, references : { model : testModel, key : 'id' } }
@@ -1252,3 +1568,13 @@ s.transaction( function() {
 s.transaction( { isolationLevel : 'SERIALIZABLE' }, function( t ) { return Promise.resolve(); } );
 s.transaction( { isolationLevel : s.Transaction.ISOLATION_LEVELS.SERIALIZABLE }, (t) => Promise.resolve() );
 s.transaction( { isolationLevel : s.Transaction.ISOLATION_LEVELS.READ_COMMITTED }, (t) => Promise.resolve() );
+
+// transaction types
+new Sequelize( '', { transactionType: 'DEFERRED' } );
+new Sequelize( '', { transactionType: Sequelize.Transaction.TYPES.DEFERRED} );
+new Sequelize( '', { transactionType: Sequelize.Transaction.TYPES.IMMEDIATE} );
+new Sequelize( '', { transactionType: Sequelize.Transaction.TYPES.EXCLUSIVE} );
+s.transaction( { type : 'DEFERRED' }, (t) => Promise.resolve() );
+s.transaction( { type : s.Transaction.TYPES.DEFERRED }, (t) => Promise.resolve() );
+s.transaction( { type : s.Transaction.TYPES.IMMEDIATE }, (t) => Promise.resolve() );
+s.transaction( { type : s.Transaction.TYPES.EXCLUSIVE }, (t) => Promise.resolve() );

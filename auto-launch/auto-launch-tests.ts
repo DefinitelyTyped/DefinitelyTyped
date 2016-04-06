@@ -14,4 +14,11 @@ var a2 = new AutoLaunch({
 
 a1.enable();
 a2.disable();
-var enabled: boolean = a1.isEnabled();
+
+a1.isEnabled(function(enabled: boolean) {
+    if (enabled) {
+        return;
+    }
+
+    a1.enable(function(err){ console.log(err.message); });
+});

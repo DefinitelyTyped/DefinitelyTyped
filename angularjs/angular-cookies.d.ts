@@ -1,7 +1,7 @@
 // Type definitions for Angular JS 1.4 (ngCookies module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Anthony Ciccarello <http://github.com/aciccarello>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="angular.d.ts" />
@@ -14,7 +14,34 @@ declare module "angular-cookies" {
 /**
  * ngCookies module (angular-cookies.js)
  */
-declare module angular.cookies {
+declare namespace angular.cookies {
+
+    /**
+    * Cookies options
+    * see https://docs.angularjs.org/api/ngCookies/provider/$cookiesProvider#defaults
+    */
+    interface ICookiesOptions {
+        /**
+        * The cookie will be available only for this path and its sub-paths.
+        * By default, this would be the URL that appears in your base tag.
+        */
+        path?: string;
+        /**
+        * The cookie will be available only for this domain and its sub-domains.
+        * For obvious security reasons the user agent will not accept the cookie if the
+        * current domain is not a sub domain or equals to the requested domain.
+        */
+        domain?: string;
+        /**
+        * String of the form "Wdy, DD Mon YYYY HH:MM:SS GMT" or a Date object
+        * indicating the exact date/time this cookie will expire.
+        */
+        expires?: string|Date;
+        /**
+        * The cookie will be available only in secured connection.
+        */
+        secure?: boolean;
+    }
 
     /**
      * CookieService
@@ -31,10 +58,11 @@ declare module angular.cookies {
     interface ICookiesService {
         get(key: string): string;
         getObject(key: string): any;
+        getObject<T>(key: string): T;
         getAll(): any;
-        put(key: string, value: string, options?: any): void;
-        putObject(key: string, value: any, options?: any): void;
-        remove(key: string, options?: any): void;
+        put(key: string, value: string, options?: ICookiesOptions): void;
+        putObject(key: string, value: any, options?: ICookiesOptions): void;
+        remove(key: string, options?: ICookiesOptions): void;
     }
 
     /**

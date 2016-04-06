@@ -1,7 +1,7 @@
 // Type definitions for jQuery Mobile 1.4
 // Project: http://jquerymobile.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
@@ -171,6 +171,7 @@ interface SelectMenuOptions {
     iconshadow?: boolean;
     initSelector?: string;
     inline?: boolean;
+    hidePlaceholderMenuItems: boolean;
     mini?: boolean;
     nativeMenu?: boolean;
     overlayTheme?: string;
@@ -463,8 +464,8 @@ interface JQuery {
     selectmenu(): JQuery;
     selectmenu(command: string): JQuery;
     selectmenu(command: string, update: boolean): JQuery;
-    selectmenu(options: CheckboxRadioOptions): JQuery;
-    selectmenu(events: CheckboxRadioEvents): JQuery;
+    selectmenu(options: SelectMenuOptions): JQuery;
+    selectmenu(events: SelectMenuEvents): JQuery;
 
     listview(): JQuery;
     listview(command: string): JQuery;

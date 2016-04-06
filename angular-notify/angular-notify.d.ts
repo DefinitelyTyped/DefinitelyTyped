@@ -1,11 +1,11 @@
-// Type definitions for angular-notify 2.0.2
+// Type definitions for angular-notify 2.5.0
 // Project: https://github.com/cgross/angular-notify
 // Definitions by: Suwato <https://github.com/Suwato/DefinitelyTyped>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../angularjs/angular.d.ts" />
 
-declare module angular.cgNotify {
+declare namespace angular.cgNotify {
 
     interface INotifyService {
 
@@ -53,6 +53,11 @@ declare module angular.cgNotify {
             position? : string;
 
             /**
+             * Optional. The duration (in milliseconds) of the message. A duration of 0 will prevent the message from closing automatically.
+             */
+            duration? : number;
+
+            /**
              * Optional. Element that contains each notification. Defaults to document.body.
              */
             container? : any;
@@ -94,6 +99,11 @@ declare module angular.cgNotify {
              * The default element that contains each notification. Defaults to document.body.
              */
             container? : any;
+
+            /**
+             * The maximum number of total notifications that can be visible at one time. Older notifications will be closed when the maximum is reached.
+             */
+            maximumOpen? : number;
         }):void;
 
         /**

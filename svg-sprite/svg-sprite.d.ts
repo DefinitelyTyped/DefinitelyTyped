@@ -1,7 +1,7 @@
 // Type definitions for svg-sprite
 // Project: https://github.com/jkphl/svg-sprite
 // Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../vinyl/vinyl.d.ts" />
@@ -291,12 +291,12 @@ declare module "svg-sprite" {
              * which all reside in the directory tmpl/css. Example: {css: true, scss: {dest: '_sprite.scss'}}
              * @default {}
              */
-            render?: { [key: string]: RenderingConfiguration };
+            render?: { [key: string]: RenderingConfiguration|boolean };
             /**
              * Enabling this will trigger the creation of an HTML document demoing the usage of the sprite. Please see below for details on [rendering configurations](#rendering-configurations).
              * @default false
              */
-            example?: RenderingConfiguration;
+            example?: RenderingConfiguration|boolean;
             /**
              * Specify svg-sprite which output mode to use with this configuration
              */

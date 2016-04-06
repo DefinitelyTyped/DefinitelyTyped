@@ -1,11 +1,15 @@
 // Type definitions for Chance 0.7.3
 // Project: http://chancejs.com
 // Definitions by: Chris Bowdon <https://github.com/cbowdon/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-declare module Chance {
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+declare namespace Chance {
 
     interface ChanceStatic {
-        Chance(): Chance;
+        (): Chance
+        (seed: number): Chance
+        (generator: () => any): Chance
+
         new(): Chance;
         new(seed: number): Chance;
         new(generator: () => any): Chance;
@@ -209,5 +213,10 @@ declare var Chance: Chance.ChanceStatic;
 
 // import Chance = require('chance');
 declare module 'chance' {
+    interface ExportedChance extends Chance.ChanceStatic {
+        Chance: ExportedChance;
+    }
+    var Chance: ExportedChance;
+
     export = Chance;
 }
