@@ -262,8 +262,10 @@ declare namespace kendo {
         static fn: Observable;
         static extend(prototype: Object): Observable;
 
+        init(...args: any[]): void
         bind(eventName: string, handler: Function): Observable;
         one(eventName: string, handler: Function): Observable;
+        first(eventName: string, handler: Function): Observable;
         trigger(eventName: string, e?: any): boolean;
         unbind(eventName: string, handler?: any): Observable;
     }
