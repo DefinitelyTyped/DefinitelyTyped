@@ -9,21 +9,22 @@ pg.raw.types.setTypeParser(20, (val) => Number(val));
 
 // Client pooling
 pg.connect(conString)
-  .then(function (client) {
+  .spread(function (client: pg.Client, done: () => void) {
     client.query("SELECT $1::int AS number", ["1"]).promise
       .then(function (result) {
         // done
       }, function (err) {
         console.error("Error running query", err);
-      });
+      })
+      .finally(done);
   }, function (err) {
     return console.error("Error fetching client from pool", err);
-  });
+  }).done();
 
 // Simple
 var client = new pg.Client(conString);
 client.connect()
-  .then(function () {
+  .spread(function (client: pg.Client, done: () => void) {
     client.query("SELECT NOW() AS 'theTime'").promise
       .then(function (result) {
         console.log(result.rows[0]["theTime"]);
@@ -34,4 +35,4 @@ client.connect()
       });
   }, function (err) {
     return console.error("Could not connect to postgres", err);
-  });
+  }).done();
