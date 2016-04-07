@@ -576,7 +576,7 @@ declare namespace __MaterialUI {
     export class EnhancedButton extends React.Component<EnhancedButtonProps, {}> {
     }
 
-    interface FlatButtonProps extends SharedEnhancedButtonProps<FlatButton> {
+    interface FlatButtonProps extends React.HTMLAttributes, SharedEnhancedButtonProps<FlatButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
         backgroundColor?: string;
         disabled?: boolean;
@@ -843,7 +843,7 @@ declare namespace __MaterialUI {
         ref?: string;
         text: string;
     }
-    interface DialogProps extends React.Props<Dialog> {
+    interface DialogProps extends React.HtmlAttributes, React.Props<Dialog> {
         /** @deprecated use a custom `actions` property instead */
         actionFocus?: string;
         actions?: Array<DialogAction | React.ReactElement<any>>;
