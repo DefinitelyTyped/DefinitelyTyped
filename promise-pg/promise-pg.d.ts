@@ -21,7 +21,7 @@ declare module "promise-pg" {
   export function end(): Q.Promise<void>;
 
   export interface QueryConfig extends pg.QueryConfig {
-    buffer: boolean;
+    buffer?: boolean;
   }
 
   export class Client {
