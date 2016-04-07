@@ -5,4 +5,4 @@ node_js:
 sudo: false
 
 notifications:
-  email: false
+  email: mathikp@yahoo.com
