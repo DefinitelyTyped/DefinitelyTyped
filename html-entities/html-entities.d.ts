@@ -5,10 +5,10 @@
 
 declare module "html-entities" {
     abstract class Entities {
-        encode(toEncode: string);
-        encodeNonUTF(toEncode: string);
-        encodeNonASCII(toEncode: string);
-        decode(toDecode: string);
+        encode(toEncode: string): string;
+        encodeNonUTF(toEncode: string): string;
+        encodeNonASCII(toEncode: string): string;
+        decode(toDecode: string): string;
     }
     class XmlEntities extends Entities {}
     class Html4Entities extends Entities {}
