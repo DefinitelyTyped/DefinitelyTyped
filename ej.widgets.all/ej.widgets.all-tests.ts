@@ -12,13 +12,13 @@ $(document).ready(function () {
 });
 //Events
 
-function ondrag1(args) {
+function ondrag1() {
     console.log("The mouse is moved during the dragging.");
 }
-function ondragstart1(args) {
+function ondragstart1() {
     console.log("To handle the drag start event as an init option.");
 }
-function ondragstop1(args ) {
+function ondragstop1() {
     console.log("The mouse is moved during the dragging..");
 }
 
@@ -37,13 +37,13 @@ $(document).ready(function () {
 });
 //Events
 
-function ondrag2(args) {
+function ondrag2() {
     console.log("The mouse is moved during the dragging.");
 }
-function ondragstart2(args) {
+function ondragstart2() {
     console.log("To handle the drag start event as an init option.");
 }
-function ondragstop2(args ) {
+function ondragstop2() {
     console.log("The mouse is moved during the dragging..");
 }
 
@@ -58,10 +58,10 @@ $(document).ready(function () {
    
 });
 //Events
-function onresizestart(args) {
+function onresizestart() {
     console.log("The resizing is start");
 }
-function onresizestop(args) {
+function onresizestop() {
     console.log("The resizing is stop");
 }
 
@@ -77,7 +77,7 @@ $(document).ready(function () {
 
 });
 //Events
-function onScrollCreate(args) {
+function onScrollCreate() {
     console.log("control created");
 }
 
@@ -91,7 +91,7 @@ $(document).ready(function () {
 function AccordionCreate() { 
     console.log("create");
 }
-function AccordionActivate(args){
+function AccordionActivate(){
     console.log("activate")
 }
 
@@ -104,7 +104,7 @@ $(document).ready(function () {
 function onButtoncreate() { 
     console.log("create");
 }
-function onButtonclick(args){
+function onButtonclick(){
     console.log("click")
 }
 $(document).ready(function () {
@@ -115,10 +115,10 @@ $(document).ready(function () {
 
 });
 //Events
-function onlistBoxcreate(args) {
+function onlistBoxcreate() {
     console.log("control created");
 }
-function onlistBoxcheckchange(args) {
+function onlistBoxcheckchange() {
     console.log("list item is checked or unchecked");
 }
 
@@ -136,7 +136,7 @@ $(document).ready(function () {
 function onCheckboxcreate() { 
     console.log("create");
 }
-function onCheckboxchange(args){
+function onCheckboxchange(){
     console.log("change")
 }
 
@@ -233,7 +233,7 @@ $(document).ready(function () {
 function onEditorcreate() { 
     console.log("create");
 }
-function onEditorchange(args){
+function onEditorchange(){
     console.log("change")
 }
 
@@ -245,10 +245,10 @@ $(document).ready(function () {
 
 });
 //Events
-function onlistViewmouseup(args) {
+function onlistViewmouseup() {
     console.log("mouse up happens on the item.");
 }
-function onlistViewmousedown(args) {
+function onlistViewmousedown() {
     console.log("mouse down happens on the item.");
 }
 
@@ -268,7 +268,7 @@ $(document).ready(function () {
 function onmaskEditcreate() { 
     console.log("create");
 }
-function onmaskEditchange(args){
+function onmaskEditchange(){
     console.log("change")
 }
 $(document).ready(function () {
@@ -279,10 +279,10 @@ $(document).ready(function () {
 
 });
 //Events
-function onMenucreate(args) {
+function onMenucreate() {
     console.log("control created");
 }
-function onMenuclick(args) {
+function onMenuclick() {
     console.log("mouse click on menu items");
 }
 
@@ -308,7 +308,7 @@ $(document).ready(function () {
 function ProgressBarCreate() { 
     console.log("create");
 }
-function ProgressBarChange(args){
+function ProgressBarChange(){
     console.log("change");
 }
 
@@ -318,10 +318,10 @@ $(document).ready(function () {
     $("#r3").ejRadioButton({ text: "RadioButton1", enabled: false });  
 });
 
-function onradioButtonchange(args) {    
+function onradioButtonchange() {    
     console.log("Change triggered");
 }
-function onradioButtoncreate(args) {    
+function onradioButtoncreate() {    
     console.log("Create triggered");
 }
 $(document).ready(function () {
@@ -329,10 +329,10 @@ $(document).ready(function () {
     $("#Div2").ejRating({ incrementStep: 1, change: RatingvalueChanged });    
 });
 
-function RatingvalueChanged(test) {
-    console.log("value changed");
+function RatingvalueChanged() {
+    console.log("Value changed");
 }
-function onRatingclick(test) {
+function onRatingclick() {
     console.log("Entered");
 }
 $(document).ready(function () {
@@ -427,10 +427,10 @@ $(document).ready(function () {
     $("#rteSample").ejRTE({ change: onRtechange , execute: onRteExecute });   
 });
 
-function onRtechange(args) {    
+function onRtechange() {    
     console.log("Change triggered");
 }
-function onRteExecute(args) {    
+function onRteExecute() {    
     console.log("Executed");
 }
 $(document).ready(function() {
@@ -441,8 +441,8 @@ $(document).ready(function() {
     $("#test5").ejSlider({ enabled: false });
     $("#test6").ejSlider({ slide: onSliderslide });   
 });
-function Sliderstart(test) {
-    console.log(test.value);
+function Sliderstart() {
+    console.log("Slider Started");
 }
 function onSliderslide() {
     console.log("Moving");
@@ -548,8 +548,6 @@ $(function () {
        console.log("create");
     }
  
-
-
 $(function () {// document ready
         // Toolbar control creation 
         $("#ToolbarItem").ejToolbar({
@@ -578,7 +576,7 @@ $(document).ready(function () {
 function TreeViewCreate() { 
     console.log("create");
 }
-function TreeViewClick(args){
+function TreeViewClick(){
     console.log("click");
 }
 
@@ -590,10 +588,10 @@ $(document).ready(function () {
 
 });
 //Events
-function onuploadBoxcreate(args) {
+function onuploadBoxcreate() {
     console.log("control created");
 }
-function onuploadBoxfileselect(args) {
+function onuploadBoxfileselect() {
     console.log("file has been selected");
 }
 
@@ -613,7 +611,7 @@ $(document).ready(function () {
 
 });
 //Events
-function onwaitingPopupcreate(args) {
+function onwaitingPopupcreate() {
     console.log("control created");
 }
 

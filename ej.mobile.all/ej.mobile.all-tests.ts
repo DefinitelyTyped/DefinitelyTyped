@@ -1,7 +1,6 @@
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="ej.mobile.all.d.ts" />
 
-
 $(document).ready(function () {
    
   $("#CoreLinearGauge").ejLinearGauge({
