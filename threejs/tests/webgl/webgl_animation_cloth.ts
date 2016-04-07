@@ -86,8 +86,8 @@
         light.castShadow = true;
         //light.shadowCameraVisible = true;
 
-        light.shadowMapWidth = 2048;
-        light.shadowMapHeight = 2048;
+        light.shadowMapWidth = 1024;
+        light.shadowMapHeight = 1024;
 
         var d = 300;
 
@@ -101,18 +101,13 @@
 
         scene.add(light);
 
-        light = new THREE.DirectionalLight(0x3dff0c, 0.35);
-        light.position.set(0, -1, 0);
-
-        scene.add(light);
-
         // cloth material
 
         var clothTexture = THREE.ImageUtils.loadTexture('textures/patterns/circuit_pattern.png');
         clothTexture.wrapS = clothTexture.wrapT = THREE.RepeatWrapping;
         clothTexture.anisotropy = 16;
 
-        var clothMaterial = new THREE.MeshPhongMaterial({ alphaTest: 0.5, ambient: 0xffffff, color: 0xffffff, specular: 0x030303, emissive: 0x111111, shiness: 10, map: clothTexture, side: THREE.DoubleSide });
+        var clothMaterial = new THREE.MeshPhongMaterial({ alphaTest: 0.5, color: 0xffffff, specular: 0x030303, emissive: 0x111111, shininess: 10, map: clothTexture, side: THREE.DoubleSide });
 
         // cloth geometry
         clothGeometry = new THREE.ParametricGeometry(clothFunction, cloth.w, cloth.h);
@@ -151,17 +146,14 @@
 
         // ground
 
-        var initColor = new THREE.Color(0x497f13);
-        var initTexture = THREE.ImageUtils.generateDataTexture(1, 1, initColor);
-
-        var groundMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff, specular: 0x111111, map: initTexture });
-
-        var groundTexture = THREE.ImageUtils.loadTexture("textures/terrain/grasslight-big.jpg", undefined, function () { groundMaterial.map = groundTexture });
+        var groundTexture = THREE.ImageUtils.loadTexture("textures/terrain/grasslight-big.jpg");
         groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
         groundTexture.repeat.set(25, 25);
         groundTexture.anisotropy = 16;
 
-        var mesh = new THREE.Mesh(new THREE.PlaneGeometry(20000, 20000), groundMaterial);
+        var groundMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff, specular: 0x111111, map: groundTexture });
+
+        var mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(20000, 20000), groundMaterial);
         mesh.position.y = -250;
         mesh.rotation.x = - Math.PI / 2;
         mesh.receiveShadow = true;
@@ -170,7 +162,7 @@
         // poles
 
         var poleGeo = new THREE.BoxGeometry(5, 375, 5);
-        var poleMat = new THREE.MeshPhongMaterial({ color: 0xffffff, specular: 0x111111, shiness: 100 });
+        var poleMat = new THREE.MeshPhongMaterial({ color: 0xffffff, specular: 0x111111, shininess: 100 });
 
         var mesh = new THREE.Mesh(poleGeo, poleMat);
         mesh.position.x = -125;
@@ -211,6 +203,7 @@
         //
 
         renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setClearColor(scene.fog.color);
 

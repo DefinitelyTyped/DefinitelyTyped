@@ -1,9 +1,20 @@
 ﻿// Type definitions for node-ip
 // Project: https://github.com/indutny/node-ip
 // Definitions by: Peter Harris <https://github.com/codeanimal>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface NodeBuffer { }
+
+interface SubnetInfo {
+    networkAddress: string;
+    firstAddress: string;
+    lastAddress: string;
+    broadcastAddress: string;
+    subnetMask: string;
+    subnetMaskLength: number;
+    numHosts: number;
+    length: number;
+}
 
 declare module "ip" {
     /**
@@ -88,4 +99,17 @@ declare module "ip" {
      * Convert an IPv4 IP address from its the long numeric value to a string.
      **/
     export function fromLong(ip: number): string;
+
+    /**
+     * Get the subnet information.
+     * @param ip IP address.
+     * @param subnet Subnet address.
+     */
+    export function subnet(ip: string, subnet: string): SubnetInfo;
+
+    /**
+     * Get the subnet information.
+     * @param cidr CIDR address.
+     */
+    export function cidrSubnet(cidr: string): SubnetInfo;
 }

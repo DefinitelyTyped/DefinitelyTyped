@@ -1,7 +1,7 @@
 // Type definitions for knockout.rx 1.0
 // Project: https://github.com/Igorbek/knockout.rx
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../knockout/knockout.d.ts"/>
 /// <reference path="../rx/rx.d.ts"/>
@@ -20,7 +20,7 @@ interface KnockoutComputedFunctions<T> {
 	toObservableWithReplyLatest(): Rx.Observable<T>;
 }
 
-declare module Rx {
+declare namespace Rx {
 	interface Observable<T> {
 		toKoSubscribable(): KnockoutSubscribable<T>;
 		toKoObservable(initialValue?: T): KnockoutObservable<T>;

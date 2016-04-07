@@ -21,7 +21,7 @@ var sample = new Sample();
 var unwrappedProperties = ko.utils.unwrapProperties(sample);
 
 var kts: KnockoutTemplateSources;
-var stringTemplate = kts.stringTemplate('string-template');
+var stringTemplate = new kts.stringTemplate('string-template');
 var stname = stringTemplate.templateName;
 
 ko.stringTemplateEngine.instance.allowTemplateRewriting = true;

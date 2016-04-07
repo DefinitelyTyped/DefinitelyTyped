@@ -1,16 +1,16 @@
 // Type definitions for tween.js r12
 // Project: https://github.com/sole/tween.js/
 // Definitions by: sunetos <https://github.com/sunetos>, jzarnikov <https://github.com/jzarnikov>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module TWEEN {
+declare namespace TWEEN {
   export var REVISION: string;
   export function getAll(): Tween[];
   export function removeAll(): void;
   export function add(tween:Tween): void;
   export function remove(tween:Tween): void;
   export function update(time?:number): boolean;
-  
+
   export class Tween {
     constructor(object?:any);
     to(properties:any, duration:number): Tween;
@@ -95,6 +95,6 @@ interface TweenInterpolation {
   Utils: {
     Linear(p0:number, p1:number, t:number): number;
     Bernstein(n:number, i:number): number;
-    Factorial(n): number;
+    Factorial(n:number): number;
   };
 }

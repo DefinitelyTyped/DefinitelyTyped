@@ -13,6 +13,7 @@
 *.map
 *.swp
 .DS_Store
+npm-debug.log
 
 _Resharper.DefinitelyTyped
 bin
@@ -28,8 +29,9 @@ _infrastructure/tests/build
 .idea
 *.iml
 *.js.map
-
-#rx.js
-!rx.js
+!*.js/
 
 node_modules
+
+.sublimets
+.settings/launch.json

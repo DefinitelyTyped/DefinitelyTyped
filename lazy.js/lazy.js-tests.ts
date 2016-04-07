@@ -3,10 +3,10 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 interface Foo {
-	foo(): string;
+    foo(): string;
 }
 interface Bar {
-	bar(): string;
+    bar(): string;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -28,6 +28,7 @@ var anyObjectSeq: LazyJS.ObjectLikeSequence<any>;
 var fooAsyncSeq: LazyJS.AsyncSequence<Foo>;
 
 var strSequence: LazyJS.Sequence<string>;
+var anySequence: LazyJS.Sequence<any>;
 var stringSeq: LazyJS.StringLikeSequence;
 
 var obj: Object;
@@ -44,45 +45,48 @@ function fnCallback(): void {
 }
 
 function fnErrorCallback(error: any): void {
-
 }
 
 function fnValueCallback(value: Foo): void {
 }
 
 function fnGetKeyCallback(value: Foo): string {
-	return str;
+    return str;
 }
 
 function fnTestCallback(value: Foo): boolean {
-	return bool;
+    return bool;
 }
 
 function fnMapCallback(value: Foo): Bar {
-	return bar;
+    return bar;
 }
 
 function fnMapStringCallback(value: string): string {
-	return str;
+    return str;
 }
 
 function fnNumberCallback(value: Foo): number {
-	return num;
+    return num;
 }
 
 function fnMemoCallback(memo: Bar, value: Foo): Bar {
-	return bar;
+    return bar;
+}
+
+function fnCompareCallback(x: any, y: any): number {
+    return num;
 }
 
 function fnGeneratorCallback(index: number): Foo {
-	return foo;
+    return foo;
 }
 
 // Lazy
 
 fooArraySeq = Lazy(fooArr);
-fooObjectSeq = Lazy<Foo>({a:foo, b:foo});
-anyObjectSeq = Lazy<any>({a:num, b:str});
+fooObjectSeq = Lazy<Foo>({a: foo, b: foo});
+anyObjectSeq = Lazy<any>({a: num, b: str});
 stringSeq = Lazy(str);
 
 // Strict
@@ -104,8 +108,8 @@ fooSequence = fooSequence.dropWhile(fnTestCallback);
 fooSequence = fooSequence.each(fnValueCallback);
 bool = fooSequence.every(fnTestCallback);
 fooSequence = fooSequence.filter(fnTestCallback);
-fooSequence = fooSequence.find(fnTestCallback);
-fooSequence = fooSequence.findWhere(obj);
+foo = fooSequence.find(fnTestCallback);
+foo = fooSequence.findWhere(obj);
 
 x = fooSequence.first();
 fooSequence = fooSequence.first(num);
@@ -130,7 +134,7 @@ foo = fooSequence.max();
 foo = fooSequence.max(fnNumberCallback);
 foo = fooSequence.min();
 foo = fooSequence.min(fnNumberCallback);
-fooSequence = fooSequence.pluck(str);
+anySequence = fooSequence.pluck(str);
 bar = fooSequence.reduce(fnMemoCallback);
 bar = fooSequence.reduce(fnMemoCallback, bar);
 bar = fooSequence.reduceRight(fnMemoCallback, bar);
@@ -140,14 +144,21 @@ fooSequence = fooSequence.reverse();
 fooSequence = fooSequence.shuffle();
 bool = fooSequence.some();
 bool = fooSequence.some(fnTestCallback);
+fooSequence = fooSequence.sort();
+fooSequence = fooSequence.sort(fnCompareCallback);
+fooSequence = fooSequence.sort(fnCompareCallback, bool);
+fooSequence = fooSequence.sortBy(str);
+fooSequence = fooSequence.sortBy(str, bool);
 fooSequence = fooSequence.sortBy(fnNumberCallback);
+fooSequence = fooSequence.sortBy(fnNumberCallback, bool);
 fooSequence = fooSequence.sortedIndex(foo);
-fooSequence = fooSequence.sum();
-fooSequence = fooSequence.sum(fnNumberCallback);
+foo = fooSequence.sum();
+foo = fooSequence.sum(fnNumberCallback);
 fooSequence = fooSequence.takeWhile(fnTestCallback);
 fooSequence = fooSequence.union(fooArr);
 fooSequence = fooSequence.uniq();
 fooSequence = fooSequence.where(obj);
+fooSequence = fooSequence.without(foo, foo);
 fooSequence = fooSequence.without(fooArr);
 fooSequence = fooSequence.zip(arr);
 
@@ -156,7 +167,7 @@ obj = fooSequence.toObject();
 
 // ArrayLikeSequence
 
-fooArraySeq = fooArraySeq.concat();
+fooArraySeq = fooArraySeq.concat(fooArr);
 fooArraySeq = fooArraySeq.first();
 fooArraySeq = fooArraySeq.first(num);
 foo = fooArraySeq.get(num);

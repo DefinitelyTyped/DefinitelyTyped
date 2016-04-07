@@ -24,6 +24,11 @@ token = jwt.sign({ foo: 'bar' }, 'shhhhh');
 cert = fs.readFileSync('private.key');  // get private key
 token = jwt.sign({ foo: 'bar' }, cert, { algorithm: 'RS256'});
 
+// sign asynchronously
+jwt.sign({ foo: 'bar' }, cert, { algorithm: 'RS256' }, function(token: string) {
+  console.log(token);
+});
+
 /**
  * jwt.verify
  * https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
@@ -57,8 +62,26 @@ jwt.verify(token, cert, { audience: 'urn:foo', issuer: 'urn:issuer' }, function(
   // if issuer mismatch, err == invalid issuer
 });
 
+// verify algorithm
+cert = fs.readFileSync('public.pem');  // get public key
+jwt.verify(token, cert, { algorithms: ['RS256'] }, function(err, decoded) {
+  // if algorithm mismatch, err == invalid algorithm
+});
+
+// verify without expiration check
+cert = fs.readFileSync('public.pem');  // get public key
+jwt.verify(token, cert, { ignoreExpiration: true }, function(err, decoded) {
+  // if ignoreExpration == false and token is expired, err == expired token
+});
+
 /**
  * jwt.decode
  * https://github.com/auth0/node-jsonwebtoken#jwtdecodetoken
  */
 var decoded = jwt.decode(token);
+
+decoded = jwt.decode(token, { complete: false });
+
+decoded = jwt.decode(token, { json: false });
+
+decoded = jwt.decode(token, { complete: false, json: false });

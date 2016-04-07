@@ -1,5 +1,11 @@
 
 ///<reference path="colors.d.ts" />
 
-var test:string = 'test';
-var arr:string[] = ['color', 'odd'.italic.zebra, 'radical'.bold.rainbow, test.underline + 'super'.green];
+import colors = require("colors");
+
+console.log(colors.black.underline('test'));
+console.log(colors.rainbow.black.blue.gray('test'));
+console.log(colors.random.reset.bgWhite.dim('test'));
+console.log('test'.black.underline);
+console.log('test'.rainbow.black.blue.gray);
+console.log('test'.random.reset.bgWhite.dim);

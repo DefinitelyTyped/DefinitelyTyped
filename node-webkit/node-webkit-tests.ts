@@ -1,7 +1,9 @@
 ///<reference path="../node/node.d.ts"/>
 ///<reference path="node-webkit.d.ts"/>
+
 // Load native UI library
-var gui: typeof nw.gui;
+// See docs: https://github.com/rogerwang/node-webkit/wiki/Shell
+import gui = require("nw.gui");
 
 
 /* WINDOW */
@@ -109,7 +111,7 @@ var gui: typeof nw.gui;
 
 /* MENU ITEM */
 
-    var itemc:nw.gui.MenuItem;
+    var itemc:gui.MenuItem;
 
     // Create a separator
     itemc = new gui.MenuItem({ type: 'separator' });

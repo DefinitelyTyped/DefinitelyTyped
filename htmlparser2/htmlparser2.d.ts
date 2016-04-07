@@ -1,7 +1,7 @@
 // Type definitions for htmlparser2 v3.7.x
 // Project: https://github.com/fb55/htmlparser2/
 // Definitions by: James Roland Cabresos <https://github.com/staticfunction/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 declare module "htmlparser2" {
@@ -61,18 +61,26 @@ declare module "htmlparser2" {
     }
 
     export class Parser {
-        constructor(handler: Handler);
+        constructor(handler: Handler, options?: Options);
 
         /***
          * Parses a chunk of data and calls the corresponding callbacks.
          * @param input
          */
         write(input:string):void;
+        /***
+         * alias for backwards compat
+         */
+        parseChunk(input:string):void;
 
         /***
          * Parses the end of the buffer and clears the stack, calls onend.
          */
         end():void;
+        /***
+         * alias for backwards compat
+         */
+        done():void;
 
 
         /***
