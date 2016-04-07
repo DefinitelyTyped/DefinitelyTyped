@@ -200,14 +200,14 @@ declare module "mssql" {
         public constructor(transaction: Transaction);
         public constructor(preparedStatement: PreparedStatement);
         public execute(procedure: string): Promise<recordSet>;
-        public execute<Entity>(procedure: string, callback: (err?: any, recordsets?: Entity[], returnValue?: any, rowsAffected: number) => void): void;
+        public execute<Entity>(procedure: string, callback: (err?: any, recordsets?: Entity[], returnValue?: any, rowsAffected?: number) => void): void;
         public input(name: string, value: any): void;
         public input(name: string, type: any, value: any): void;
         public output(name: string, type: any, value?: any): void;
         public pipe(stream: NodeJS.WritableStream): void;
         public query(command: string): Promise<void>;
         public query<Entity>(command: string): Promise<Entity[]>;
-        public query(command: string, callback: (err?: any, recordset?: any, rowsAffected: number) => void): void;
+        public query(command: string, callback: (err?: any, recordset?: any, rowsAffected?: number) => void): void;
         public query<Entity>(command: string, callback: (err?: any, recordset?: Entity[]) => void): void;
         public batch(batch: string): Promise<recordSet>;
         public batch<Entity>(batch: string): Promise<Entity[]>;
