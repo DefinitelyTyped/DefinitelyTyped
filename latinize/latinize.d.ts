@@ -1,6 +1,6 @@
 // Type definitions for latinize
 // Project: https://github.com/dundalek/latinize
-// Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas/>
+// Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Latinize {
