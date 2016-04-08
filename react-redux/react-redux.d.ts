@@ -11,7 +11,7 @@ declare module "react-redux" {
   import { Store, Dispatch, ActionCreator } from 'redux';
 
   interface ComponentDecorator<TOriginalProps, TOwnProps> {
-    (component: ComponentClass<TOriginalProps>): ComponentClass<TOwnProps>;
+    (component: ComponentClass<TOriginalProps>|StatelessComponent<TOriginalProps>): ComponentClass<TOwnProps>;
   }
 
   /**

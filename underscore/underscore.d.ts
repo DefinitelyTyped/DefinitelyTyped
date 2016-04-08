@@ -5064,30 +5064,30 @@ interface _Chain<T> {
 	/**
 	* @see _.all
 	**/
-	every(iterator?: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+	every(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.any
 	**/
-	any(iterator?: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+	any(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
 
 	/**
 	* @see _.any
 	**/
-	some(iterator?: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+	some(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.contains
 	**/
-	contains(value: T): _Chain<T>;
+	contains(value: T): _ChainSingle<boolean>;
 
 	/**
 	* Alias for 'contains'.
 	* @see contains
 	**/
-	include(value: T): _Chain<T>;
+	include(value: T): _ChainSingle<boolean>;
 
 	/**
 	* Wrapped type `any[]`.

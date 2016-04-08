@@ -22,8 +22,8 @@ declare namespace NotificationSystem {
     export interface Notification {
         title?: string;
         message?: string;
-        level?: string;
-        position?: string;
+        level?: "error" | "warning" | "info" | "success";
+        position?: "tr" | "tl" | "tc" | "br" | "bl" | "bc";
         autoDismiss?: number;
         dismissible?: boolean;
         action?: ActionObject;

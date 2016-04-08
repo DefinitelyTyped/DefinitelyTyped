@@ -308,8 +308,9 @@ declare namespace angular.ui.bootstrap {
         /**
          * a controller for a modal instance - it can initialize scope used by modal.
          * A controller can be injected with `$modalInstance`
+         * If value is an array, it must be in Inline Array Annotation format for injection (strings followed by factory method)
          */
-        controller?: any;
+        controller?: string | Function | Array<string | Function>;
 
         /**
          *  an alternative to the controller-as syntax, matching the API of directive definitions.
@@ -326,8 +327,9 @@ declare namespace angular.ui.bootstrap {
 
         /**
          * members that will be resolved and passed to the controller as locals; it is equivalent of the `resolve` property for AngularJS routes
+         * If property value is an array, it must be in Inline Array Annotation format for injection (strings followed by factory method)
          */
-        resolve?: any;
+        resolve?: { [ key: string ]: string | Function | Array<string | Function> | Object };
 
         /**
          * Set to false to disable animations on new modal/backdrop. Does not toggle animations for modals/backdrops that are already displayed.
