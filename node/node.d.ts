@@ -109,6 +109,14 @@ declare var Buffer: {
      */
     new (array: Uint8Array): Buffer;
     /**
+     * Produces a Buffer backed by the same allocated memory as
+     * the given {ArrayBuffer}.
+     * 
+     *
+     * @param arrayBuffer The ArrayBuffer with which to share memory.
+     */
+    new (arrayBuffer: ArrayBuffer): Buffer;
+    /**
      * Allocates a new buffer containing the given {array} of octets.
      *
      * @param array The octets to store.

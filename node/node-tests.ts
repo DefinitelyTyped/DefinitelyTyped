@@ -138,6 +138,7 @@ function bufferTests() {
     var base64Buffer = new Buffer('','base64');
     var octets: Uint8Array = null;
     var octetBuffer = new Buffer(octets);
+    var sharedBuffer = new Buffer(octets.buffer);
     var copiedBuffer = new Buffer(utf8Buffer);
     console.log(Buffer.isBuffer(octetBuffer));
     console.log(Buffer.isEncoding('utf8'));
