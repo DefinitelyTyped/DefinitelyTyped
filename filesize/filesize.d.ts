@@ -52,7 +52,7 @@ declare namespace Filesize {
         * Dictionary of SI/JEDEC symbols to replace for localization, defaults to english if no match is found
         * @deprecated: use 'symbols'
         */
-        suffixes?: { [name: string]: string };
+        suffixes?: SiJedec;
         /**
         * Dictionary of SI/JEDEC symbols to replace for localization, defaults to english if no match is found
         */
