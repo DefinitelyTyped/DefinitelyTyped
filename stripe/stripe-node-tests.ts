@@ -132,7 +132,7 @@ stripe.customers.createCard(
 stripe.customers.createSource(
     "cus_5rfJKDJkuxzh5Q",
     { source: "tok_15V2YhEe31JkLCeQy9iUgsJX" },
-    function (err, card: StripeNode.ICard) {
+    function (err: StripeNode.IStripeError, card: StripeNode.ICard) {
         // asynchronously called
         if (card) {
             card.brand;
@@ -159,7 +159,7 @@ stripe.customers.createSource(
 stripe.customers.createSource(
     "cus_5rfJKDJkuxzh5Q",
     { source: "btok_8E264Lxsbyvj3E" },
-    function (err, bankAcc: StripeNode.IBankAccount) {
+    function (err: StripeNode.IStripeError, bankAcc: StripeNode.IBankAccount) {
         // asynchronously called
         bankAcc.bank_name;
     }

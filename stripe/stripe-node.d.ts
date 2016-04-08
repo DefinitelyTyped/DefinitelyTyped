@@ -468,7 +468,7 @@ declare namespace StripeNode {
             /**
              * ID of the Connect Application that earned the fee. [Expandable]
              */
-            application: string; //TODO: Implement IApplication interface and reference type here.
+            application: string; //TODO: Implement IApplication interface and reference type here for expansion:- "string | IApplication"
             
             /**
              * Balance transaction that describes the impact of this collected application 
@@ -5861,8 +5861,8 @@ declare namespace StripeNode {
             listReversals(transferId: string, options: IListOptions, response?: IResponseFn<IList<transferReversals.IReversal>>): Promise<IList<transferReversals.IReversal>>;
             listReversals(transferId: string, response?: IResponseFn<IList<transferReversals.IReversal>>): Promise<IList<transferReversals.IReversal>>;
             
-            setMetadata(); //TODO: Implement placeholder method
-            getMetadata(); //TODO: Implement placeholder method
+            setMetadata(): void; //TODO: Implement placeholder method
+            getMetadata(): void; //TODO: Implement placeholder method
         }
         
         class TransferReversals extends StripeResource {
