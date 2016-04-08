@@ -1,6 +1,6 @@
 /// <reference path="latinize.d.ts" />
 
-import latinize = require('latinize')
+import latinize = require('latinize');
 
 latinize('ỆᶍǍᶆṔƚÉ áéíóúýčďěňřšťžů'); // => 'ExAmPlE aeiouycdenrstzu'
 
