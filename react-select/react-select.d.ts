@@ -210,12 +210,16 @@ declare namespace ReactSelect {
     }
 
     interface ReactSelect extends  __React.ReactElement<ReactSelectProps> { }
-    interface ReactSelectClass extends __React.ComponentClass<ReactSelectProps> {
-        Async: __React.ComponentClass<ReactAsyncSelectProps>;
+    interface ReactSelectAsyncClass extends __React.ComponentClass<ReactAsyncSelectProps> {
     }
+    const Async: ReactSelectAsyncClass;
+    interface ReactSelectClass extends __React.ComponentClass<ReactSelectProps> {
+        Async: ReactSelectAsyncClass;
+    }
+
 }
 
 declare module "react-select" {
-    var select: ReactSelect.ReactSelectClass;
+    const select: ReactSelect.ReactSelectClass;
     export = select;
 }
