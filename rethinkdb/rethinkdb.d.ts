@@ -1,13 +1,14 @@
 // Type definitions for Rethinkdb 1.10.0
 // Project: http://rethinkdb.com/
 // Definitions by: Sean Hess <https://seanhess.github.io/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Reference: http://www.rethinkdb.com/api/#js
 // TODO: Document manipulation and below
+///<reference path="../bluebird/bluebird.d.ts"/>
 
 declare module "rethinkdb" {
 
-  export function connect(host:ConnectionOptions, cb:(err:Error, conn:Connection)=>void);
+  export function connect(host:ConnectionOptions, cb?:(err:Error, conn:Connection)=>void):Promise<Connection>;
 
   export function dbCreate(name:string):Operation<CreateResult>;
   export function dbDrop(name:string):Operation<DropResult>;
@@ -50,7 +51,7 @@ declare module "rethinkdb" {
 
   interface Connection {
     close();
-    reconnect(cb:(err:Error, conn:Connection)=>void);
+    reconnect(cb?:(err:Error, conn:Connection)=>void):Promise<Connection>;
     use(dbName:string);
     addListener(event:string, cb:Function);
     on(event:string, cb:Function);
@@ -139,11 +140,11 @@ declare module "rethinkdb" {
   }
 
   interface ExpressionFunction<U> {
-    (doc:Expression<any>):Expression<U>; 
+    (doc:Expression<any>):Expression<U>;
   }
 
   interface JoinFunction<U> {
-    (left:Expression<any>, right:Expression<any>):Expression<U>; 
+    (left:Expression<any>, right:Expression<any>):Expression<U>;
   }
 
   interface ReduceFunction<U> {
@@ -159,7 +160,7 @@ declare module "rethinkdb" {
   interface UpdateOptions {
     non_atomic: boolean;
     durability: string; // 'soft'
-    return_vals: boolean; // false    
+    return_vals: boolean; // false
   }
 
   interface WriteResult {
@@ -193,7 +194,7 @@ declare module "rethinkdb" {
   }
 
   interface Expression<T> extends Writeable, Operation<T> {
-      (prop:string):Expression<any>; 
+      (prop:string):Expression<any>;
       merge(query:Expression<Object>):Expression<Object>;
       append(prop:string):Expression<Object>;
       contains(prop:string):Expression<boolean>;
@@ -221,7 +222,7 @@ declare module "rethinkdb" {
   }
 
   interface Operation<T> {
-   run(conn:Connection, cb:(err:Error, result:T)=>void); 
+   run(conn:Connection, cb?:(err:Error, result:T)=>void):Promise<T>;
   }
 
   interface Aggregator {}

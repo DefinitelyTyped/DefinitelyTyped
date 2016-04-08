@@ -38,5 +38,5 @@ function test_statusLine(): void {
 
 function test_headers(): void {
     var result: { [key: string]: string } =
-        parser.parseHeaders("Content-Type: text/html; charset=utf-8\r\nContent-Length: 256\r\n");
+        parser.parseHeaders(["Content-Type: text/html; charset=utf-8", "Content-Length: 256"]);
 }

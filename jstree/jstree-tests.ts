@@ -75,6 +75,8 @@ a.search('test', false, true);
 //test redraw node
 a.redraw_node($('#node1'), false, false, false);
 
+//test clear buffer
+a.clear_buffer();
 
 //tree with new unique plugin parameters
 var treeWithUnique = $('#treeWithUnique').jstree({
@@ -101,4 +103,9 @@ var treeWithNewCheckboxProperties = $('#treeWithNewCheckboxProperties').jstree({
         tie_selection: true
     }
 });
+
+
+var tree = $('a').jstree();
+tree.move_node('a', 'b', 0, (node: any, new_par: any, pos: any) => { }, true, true);
+tree.copy_node('a', 'b', 0, (node: any, new_par: any, pos: any) => { }, true, true);
 

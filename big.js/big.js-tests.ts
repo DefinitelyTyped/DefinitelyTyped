@@ -1,7 +1,7 @@
 // Type definitions for big.js
 // Project: https://github.com/MikeMcl/big.js/
 // Definitions by: Steve Ognibene <https://github.com/nycdotnet/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 ///<reference path="big.js.d.ts" />
 
 /*
@@ -230,4 +230,21 @@ function propertiesTest3() {
     y.c                        // '0'    [0].toString()
     y.e                        // 0
     y.s                        // -1
+}
+
+// see http://mikemcl.github.io/big.js/#faq
+// "How can I simultaneously use different decimal places and/or rounding mode settings for different Big numbers?"
+function testMultipleConstructors() {
+
+	var Big10 = Big();
+
+	// Set the decimal places of division operations for each constructor.
+	Big.DP = 3;
+	Big10.DP = 10;
+
+	var x = Big(5);
+	var y = Big10(5);
+
+	x.div(3)     // 1.667
+	y.div(3)     // 1.6666666667
 }

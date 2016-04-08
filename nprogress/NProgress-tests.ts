@@ -3,6 +3,7 @@
 function test_basics() {
     NProgress.start();
     NProgress.inc();
+    NProgress.inc(0.2);
     NProgress.done();
     NProgress.set(0.5);
 

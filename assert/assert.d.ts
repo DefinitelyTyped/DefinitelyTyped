@@ -2,12 +2,12 @@
 // Project: https://github.com/Jxck/assert
 // Project: https://github.com/twada/power-assert
 // Definitions by: vvakame <https://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // copy from assert external module in node.d.ts
 
 declare function assert(value:any, message?:string):void;
-declare module assert {
+declare namespace assert {
     export class AssertionError implements Error {
         name:string;
         message:string;
@@ -57,6 +57,7 @@ declare module assert {
 //     export = assert;
 // }
 
+// move to power-assert.d.ts. do not use this definition file.
 declare module "power-assert" {
     export = assert;
 }

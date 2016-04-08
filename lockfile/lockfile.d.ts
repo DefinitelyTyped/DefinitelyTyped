@@ -1,7 +1,7 @@
 // Type definitions for lockfile v0.4.2
 // Project: https://github.com/isaacs/lockfile
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'lockfile' {
 	export interface Options {
@@ -18,7 +18,7 @@ declare module 'lockfile' {
 	export function unlock(path: string, callback: (err: Error) => void): void;
 	export function unlockSync(path: string):void;
 
-	export function check(path: string, opts: Options, callback: (err: Error) => void): void;
-	export function check(path: string, callback: (err: Error) => void): void;
+	export function check(path: string, opts: Options, callback: (err: Error, isLocked: boolean) => void): void;
+	export function check(path: string, callback: (err: Error, isLocked: boolean) => void): void;
 	export function checkSync(path: string, opts: Options): boolean;
 }

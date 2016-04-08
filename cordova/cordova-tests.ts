@@ -1,5 +1,5 @@
 // Copyright (c) Microsoft Open Technologies, Inc.
-// Licensed under the MIT license. 
+// Licensed under the MIT license.
 
 /// <reference path="cordova.d.ts"/>
 
@@ -7,6 +7,8 @@
 //----------------------------------------------------------------------
 
 console.log('cordova.version: ' + cordova.version + ', cordova.platformId: ' + cordova.platformId);
+
+console.log(typeof window.cordova);
 
 cordova.exec(null, null, "NativeClassName", "MethodName");
 
@@ -174,8 +176,26 @@ file.download('http://some.server.com/download.php',
             console.error('Failed with exception ' + err.exception);
         }
     },
-    { headers: null },
+    true,
+    {
+      headers: {
+        "Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
+      }
+    });
+
+file.upload('cdvfile://localhost/persistent/path/to/downloads/',
+    'http://some.server.com/download.php',
+    (result: FileUploadResult)=> { console.log('File uploaded. Bytes uploaded: ' + result.bytesSent); },
+    (err: FileTransferError) => {
+        console.error('Error ' + err.code);
+        if (err.exception) {
+            console.error('Failed with exception ' + err.exception);
+        }
+    },
+    { headers: {"X-Email": "user@mail.com", 'X-Token': "asdf3w234"}, httpMethod: "PUT" },
     true);
+
+file.abort();
 
 file.abort();
 
@@ -183,7 +203,7 @@ file.abort();
 // InAppBrowser plugin
 //----------------------------------------------------------------------
 
-// signature of window.open() added by InAppBrowser plugin 
+// signature of window.open() added by InAppBrowser plugin
 // is similar to native window.open signature, so the compiler can's
 // select proper overload, but we cast result to InAppBrowser manually.
 var iab = <InAppBrowser>window.open('google.com', '_self');
@@ -287,3 +307,28 @@ db.transaction(
 navigator.notification.vibrate(100);
 navigator.notification.vibrateWithPattern([100, 200, 200, 150, 50], 3);
 setTimeout(navigator.notification.cancelVibration, 1000);
+
+// Keyboard plugin
+//----------------------------------------------------------------------
+Keyboard.shrinkView(true);
+Keyboard.shrinkView(false);
+Keyboard.hideFormAccessoryBar(true);
+Keyboard.hideFormAccessoryBar(false);
+Keyboard.disableScrollingInShrinkView(true);
+Keyboard.disableScrollingInShrinkView(false);
+if (Keyboard.isVisible) {
+    console.log('Keyboard is visible');
+}
+Keyboard.automaticScrollToTopOnHiding = true;
+Keyboard.onshow = function () {
+    console.log('onshow');
+};
+Keyboard.onhide = function () {
+    console.log('onhide');
+};
+Keyboard.onshowing = function () {
+    console.log('onshowing');
+};
+Keyboard.onhiding= function () {
+    console.log('onhiding');
+};

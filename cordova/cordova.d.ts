@@ -1,10 +1,10 @@
 // Type definitions for Apache Cordova
 // Project: http://cordova.apache.org
 // Definitions by: Microsoft Open Technologies Inc. <http://msopentech.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-// 
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+//
 // Copyright (c) Microsoft Open Technologies, Inc.
-// Licensed under the MIT license. 
+// Licensed under the MIT license.
 
 /// <reference path="plugins/BatteryStatus.d.ts"/>
 /// <reference path="plugins/Camera.d.ts"/>
@@ -22,8 +22,10 @@
 /// <reference path="plugins/NetworkInformation.d.ts"/>
 /// <reference path="plugins/Push.d.ts"/>
 /// <reference path="plugins/Splashscreen.d.ts"/>
+/// <reference path="plugins/StatusBar.d.ts"/>
 /// <reference path="plugins/Vibration.d.ts"/>
 /// <reference path="plugins/WebSQL.d.ts"/>
+/// <reference path="plugins/Keyboard.d.ts"/>
 
 interface Cordova {
     /** Invokes native functionality by specifying corresponding service name, action and optional parameters.
@@ -42,7 +44,11 @@ interface Cordova {
     define(moduleName: string, factory: (require: any, exports: any, module: any) => any): void;
     /** Access a Cordova module by name. */
     require(moduleName: string): any;
+    /** Namespace for Cordova plugin functionality */
+    plugins:CordovaPlugins;
 }
+
+interface CordovaPlugins {}
 
 interface Document {
     addEventListener(type: "deviceready", listener: (ev: Event) => any, useCapture?: boolean): void;
@@ -71,6 +77,10 @@ interface Document {
     removeEventListener(type: string, listener: (ev: Event) => any, useCapture?: boolean): void;
 }
 
+interface Window {
+  cordova:Cordova;
+}
+
 // cordova/argscheck module
 interface ArgsCheck {
     checkArgs(argsSpec: string, functionName: string, args: any[], callee?: any): void;
@@ -85,3 +95,7 @@ interface UrlUtil {
 
 /** Apache Cordova instance */
 declare var cordova: Cordova;
+
+declare module 'cordova' {
+    export = cordova;
+}

@@ -35,7 +35,7 @@
         map.wrapS = map.wrapT = THREE.RepeatWrapping;
         map.anisotropy = 16;
 
-        var material = new THREE.MeshLambertMaterial({ ambient: 0xbbbbbb, map: map, side: THREE.DoubleSide });
+        var material = new THREE.MeshLambertMaterial({ map: map, side: THREE.DoubleSide });
 
         //
 
@@ -110,6 +110,7 @@
         //
 
         renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
 
         container.appendChild(renderer.domElement);

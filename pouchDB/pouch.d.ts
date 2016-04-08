@@ -1,7 +1,7 @@
 // Type definitions for Pouch 0.1
 // Project: http://pouchdb.com
 // Definitions by: Bill Sears <https://github.com/MrBigDog2U/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface PouchError {
 	status: number;
@@ -217,6 +217,12 @@ interface PouchDB extends PouchApi {
 }
 
 declare var PouchDB: PouchDB;
+
+// Support AMD require
+declare module 'pouchdb' {
+  export = PouchDB;
+}
+
 //
 // emit is the function that the PouchFilter.map function should call in order to add a particular item to
 // a filter view.

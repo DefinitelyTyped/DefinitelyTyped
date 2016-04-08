@@ -1,12 +1,12 @@
 // Type definitions for Flot
 // Project: http://www.flotcharts.org/
 // Definitions by: Matt Burland <https://github.com/burlandm>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module jquery.flot {
+declare namespace jquery.flot {
     interface plotOptions {
         colors?: any[];
         series?: seriesOptions;
@@ -16,7 +16,7 @@ declare module jquery.flot {
         xaxes?: axisOptions[];
         yaxes?: axisOptions[];
         grid?: gridOptions;
-        interfaction?: interaction;
+        interaction?: interaction;
         hooks?: hooks;
     }
 
@@ -92,6 +92,8 @@ declare module jquery.flot {
     interface axisOptions {
         show?: boolean;            // null or true/false
         position?: string;      // "bottom" or "top" or "left" or "right"
+        mode?: string;          // "time"
+        monthNames?: string[];  // array of month names
 
         color?: any;            // null or color spec
         tickColor?: any;        // null or color spec
@@ -107,7 +109,7 @@ declare module jquery.flot {
         ticks?: any;                                    // null or number or ticks array or (fn: axis -> ticks array)
         tickSize?: any;                                 // number or array
         minTickSize?: any;                              // number or array
-        tickFormatter?: (t: number) => string;                            // (fn: number, object -> string) or string
+        tickFormatter?: (t: number, a?: axis) => string;                            // (fn: number, object -> string) or string
         tickDecimals?: number;
 
         labelWidth?: number;
@@ -173,6 +175,11 @@ declare module jquery.flot {
         y: number;
     }
 
+    interface offset {
+        left: number;
+        top: number;
+    }
+
     interface canvasPoint {
         top: number;
         left: number;
@@ -188,34 +195,49 @@ declare module jquery.flot {
     }
 
     interface axis extends axisOptions {
-        p2c(point):canvasPoint;
-        c2p(canvasPoint):point;
+        options: axisOptions;
+        p2c(point: point):canvasPoint;
+        c2p(canvasPoint: canvasPoint):point;
+    }
+
+    interface plugin {
+        init(options: plotOptions): any;
+        options?: any;
+        name?: string;
+        version?: string;
     }
 
     interface plot {
-        highlight(series: dataSeries, datapoint: item);
-        unhightlight();
-        unhighlight(series: dataSeries, datapoint: item);
-        setData(data: any);
-        setupGrid();
-        draw();
-        triggerRedrawOverlay();
-        width();
-        height();
-        offset();
-        pointOffset(point: point);
-        resize();
-        shutdown();
+        highlight(series: dataSeries, datapoint: item): void;
+        unhighlight(): void;
+        unhighlight(series: dataSeries, datapoint: item): void;
+        setData(data: any): void;
+        setupGrid(): void;
+        draw(): void;
+        triggerRedrawOverlay(): void;
+        width(): number;
+        height(): number;
+        offset(): JQueryCoordinates;
+        pointOffset(point: point): offset;
+        resize(): void;
+        shutdown(): void;
         getData(): dataSeries[];
         getAxes(): axes;
+        getXAxes(): axis[];
+        getYAxes(): axis[];
         getPlaceholder(): JQuery;
         getCanvas(): HTMLCanvasElement;
         getPlotOffset(): canvasPoint;
         getOptions(): plotOptions;
     }
+
+    interface plotStatic {
+        (placeholder: JQuery, data: dataSeries[], options?: plotOptions): plot;
+        (placeholder: JQuery, data: any[], options?: plotOptions): plot;
+        plugins: plugin[];
+    }
 }
 
 interface JQueryStatic {
-    plot(placeholder: JQuery, data: jquery.flot.dataSeries[], options?: jquery.flot.plotOptions): jquery.flot.plot;
-    plot(placeholder: JQuery, data: any[], options?: jquery.flot.plotOptions): jquery.flot.plot;
+    plot: jquery.flot.plotStatic;
 }

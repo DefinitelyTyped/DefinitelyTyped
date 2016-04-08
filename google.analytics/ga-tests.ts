@@ -2,24 +2,54 @@
 /// <reference path="../jasmine/jasmine.d.ts" />
 
 describe("tester Google Analytics Tracker _gat object", () => {
-
     it("can set ga script element", () => {
-        ga = <HTMLScriptElement>document.createElement("script");
+        gaClassic = <HTMLScriptElement>document.createElement("script");
     });
-
     it("can set aync to true", () => {
-        ga.async = true;        
-    });
-
+        gaClassic.async = true;
+     });
     it("can set src to string url", () => {
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';;
+        gaClassic.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     });
-
     it("can set type", () => {
-        ga.type = 'text/javascript';        
+        gaClassic.type = 'text/javascript';
     });
-    
+});
 
+describe('UniversalAnalytics', () => {
+    it('should exercise all ga APIs', () => {
+        ga('create', 'UA-65432-1', 'auto');
+        ga('create', 'UA-65432-1', {some: 'config'});
+        ga('create', 'UA-65432-1', 'auto', {some: 'config'});
+        ga('send', 'pageview');
+        ga('send', 'pageview', {some: 'details'});
+        ga('send', 'event', 'Videos', 'play', 'Fall Campaign');
+        ga('send', {hitType: 'event', eventCategory: 'Videos', eventAction: 'play', eventLabel: 'Fall Campaign'});
+        ga('send', 'event', 'Videos', 'play', 'Fall Campaign', {nonInteraction: true});
+        ga('send', 'pageview', '/page');
+        ga('send', 'social', {'socialNetwork': 'facebook', 'socialAction': 'like', 'socialTarget': 'http://foo.com'});
+        ga('send', 'social', {'socialNetwork': 'google+', 'socialAction': 'plus', 'socialTarget': 'http://foo.com'});
+        ga('send', 'timing', {'timingCategory': 'category', 'timingVar': 'lookup', 'timingValue': 123});
+        ga('send', 'timing', {'timingCategory': 'category', 'timingVar': 'lookup', 'timingValue': 123, 'timingLabel': 'label'});
+        ga('trackerName.send', 'event', 'load');
+
+        ga.create('UA-65432-1', 'auto');
+        ga.create('UA-65432-1', {some: 'config'});
+        ga.create('UA-65432-1', 'auto', {some: 'config'});
+        ga.getAll();
+        ga.getByName('aNamedTracker');
+    });
+    it('should excercise Tracker APIs', () => {
+        var tracker: UniversalAnalytics.Tracker = ga.create('UA-65432-1', 'auto');
+        var aString: string = tracker.get<string>('aString');
+        var aNumber: number = tracker.get<number>('aNumber');
+        var anObject: {} = tracker.get<{}>('anObject');
+        tracker.send('pageview');
+        tracker.send('pageview', {some: 'details'});
+        tracker.set('aString', aString);
+        tracker.set('aNumber', aNumber);
+        tracker.set('anObject', anObject);
+    });
 });
 
 describe("tester Google Analytics Tracker _gat object", () => {
@@ -27,7 +57,7 @@ describe("tester Google Analytics Tracker _gat object", () => {
         _gat._createTracker('UA-65432-1');
         _gat._createTracker('UA-65432-2', 't2');
     });
-    
+
     it("can create _getTrackerByName", () => {
         _gat._getTrackerByName();
         _gat._getTrackerByName('t2');
@@ -36,7 +66,7 @@ describe("tester Google Analytics Tracker _gat object", () => {
     it("can create _anonymizeIp", () => {
         _gat._anonymizeIp();
     });
-    
+
 });
 
 describe("tester Google Analytics Code  _gaq object", () => {
@@ -50,12 +80,12 @@ describe("tester Google Analytics Code  _gaq object", () => {
                 tracker._trackPageview();
             }
         );
-    });    
+    });
 });
 
 
 describe("tester Google Analytics Code  Tracker object", () => {
-    it("can create Tracker object and call methods", () => {               
+    it("can create Tracker object and call methods", () => {
         var tracker = _gat._getTrackerByName('UA-65432-1');
         tracker._trackPageview();
         tracker._getName();
@@ -71,6 +101,3 @@ describe("tester Google Analytics Code  Tracker object", () => {
         tracker._trackPageLoadTime();
     });
 });
-
-
-

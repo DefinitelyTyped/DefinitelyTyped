@@ -1,7 +1,7 @@
-// Type definitions for Select2 3.2
+// Type definitions for Select2 4.0.1
 // Project: http://ivaynberg.github.com/select2/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
@@ -25,7 +25,8 @@ interface Select2AjaxOptions {
     */
     url?: any;
     dataType?: string;
-    quietMillis?: number;
+    delay?: number;
+    cache?: boolean;
     data?: (term: string, page: number, context: any) => any;
     results?: (term: any, page: number, context: any) => any;
 }
@@ -41,7 +42,7 @@ interface Select2Options {
     minimumInputLength?: number;
     minimumResultsForSearch?: number;
     maximumSelectionSize?: number;
-    placeholder?: string;
+    placeholder?: string | IdTextPair;
     separator?: string;
     allowClear?: boolean;
     multiple?: boolean;
@@ -70,12 +71,33 @@ interface Select2Options {
     dropdownCss?: any;
     dropdownCssClass?: any;
     escapeMarkup?: (markup: string) => string;
+    theme?: string;
+    /**
+    * Template can return both plain string that will be HTML escaped and a jquery object that can render HTML
+    */
+    templateSelection?: (object: Select2SelectionObject) => any;
+    templateResult?: (object: Select2SelectionObject) => any;
+	language?: string;
 }
 
 interface Select2JQueryEventObject extends JQueryEventObject {
     val: any;
     added: any;
     removed: any;
+    choice: {
+        id: any;
+        text: string;
+    };
+}
+
+interface Select2SelectionObject {
+	loading: boolean,
+    disabled: boolean,
+    element: HTMLOptionElement,
+    id: string,
+    selected: boolean,
+    text: string,
+    title: string,
 }
 
 interface JQuery {
@@ -84,6 +106,26 @@ interface JQuery {
     on(events: "change", selector?: string, data?: any, handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
     on(events: "change", selector?: string, handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
     on(events: "change", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-opening", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-open", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-close", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-highlight", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-selecting", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-removing", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-removed", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-loaded", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-focus", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-blur", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-opening", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-open", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-close", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-highlight", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-selecting", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-removing", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-removed", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-loaded", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-focus", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
+    on(events: "select2-blur", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
 
     select2(): JQuery;
     select2(it: IdTextPair): JQuery;

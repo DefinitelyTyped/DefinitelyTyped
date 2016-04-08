@@ -1,60 +1,69 @@
 # Meteor Type Definitions
 
-These are the definitions for version 0.9.1 of Meteor.  Although these definitions can be downloaded separately for use, the recommended way to use these 
-definitions in a Meteor application is by installing the [typescript-libs](https://atmosphere.meteor.com/package/typescript-libs) Meteor smart package.  
-The smart package contains TypeScript definitions forMeteor, common third-party libraries (e.g. jquery, underscore, d3 etc.), and common smart packages 
-(e.g. iron-router).
-
-From within any Meteor application that is version 0.9.0 or later, install this package in the standard manner:
-
-    $ meteor add typescript-libs
+These are the definitions for version 1.3 of Meteor.  These definitions were generated from the from the same [Meteor data.js file] (https://github.com/meteor/meteor/blob/devel/docs/client/data.js) that is used to generate the official [Meteor docs] (http://docs.meteor.com/).  The code that generates these definitions can be found [here](https://github.com/meteor-typescript/meteor-typescript-libs/).
 
 
+## Upcoming Meteor `typescript` package
 
-## Usage Overview
-For most applications, there are 4 specific steps you will have to take to write your Meteor application in TypeScript using this package:
+There is currently an effort supported by the Meteor Development Group to create a TypeScript build compiler package, and an early version of the package can be tested using [`barbatus:typescript`](https://atmospherejs.com/barbatus/typescript).
 
-1. [Reference the definitions] (#usage-type-definition-references)
-2. [Declare functions for Templates in a special way] (#usage-templates)
-3. [Declare Collections in a special way] (#usage-collections)
-4. [Create custom definitions for code you write] (#usage-creating-definitions)
-5. [Transpile your .ts files into .js files] (#usage-transpilation)
+From within any Meteor application that is version 1.2.1 or later, install this package in the standard manner:
+
+    $ meteor add barbatus:typescript
+
+This package will eventually incorporated as a Meteor core package (e.g. like the `coffeescript` package).  It appears that the eventual recommended practice for adding definitions using that package will be to add them using the [`typings`](https://github.com/typings/typings) tool.
+
+You can follow discussion about this effort [here](https://github.com/Urigo/angular2-meteor/issues/102#issuecomment-200915763).
 
 
 
-## Usage: Type Definition References
-Within any TypeScript file, you can reference the Meteor definition file with this line:
+##  TypeScript/Meteor coding style
 
-    ///<reference path="/path/to/packages/typescript-libs/meteor.d.ts" />
+### References
 
+Meteor code can run on the client and the server, for this reason you should try to stay away from referencing *file.ts* directly: you may get unexpected results.
 
+Rather generate a *file.d.ts* using `tsc --declaration file.ts`, and reference it in your file.
 
-## Usage: Templates
-When specifying template functions, you will need to use "bracket notation" instead of "dot notation":
+Compilation will be much faster and code will be cleaner - it's always better to split definition from implementation anyways.
 
-    Template['myTemplateName']['rendered'] = function ( ) { ... }
+### Templates
 
-    Template['myTemplateName']['helpers']({
+With the exception of the **body** and **head** templates, Meteor's Template dot notation cannot be used (ie. *Template.mytemplate*). Thanks to Typescript static typing checks, you will need to use the *bracket notation* to access the Template.
+
+    Template['myTemplateName'].helpers({
       foo: function () {
         return Session.get("foo");
       }
     });
 
-    Template['myTemplateName']['foo'] = function () {
-      return Session.get("foo");
-    };
+    Template['myTemplateName'].onRendered(function ( ) { ... });
 
 
-For "dot" notation, TypeScript requires properties be specified on a variable (but not for bracket notation), and it will throw an error saying "myTemplateName" 
-does not exist on Template.
+The same is true for `Meteor.settings`:
+
+    Meteor.settings.public['<some config>']
 
 
+### Form fields
 
-## Usage: Collections
-The majority of extra work required to use TypeScript with Meteor is creating and maintaining the collection interfaces.  However, doing so also provides the 
-additional benefit of succinctly documenting collection schema definitions (that are actually enforced).
+Form fields typically need to be cast to `<HTMLInputElement>`. For instance to read a form field value, use `(<HTMLInputElement>evt.target).value`.
 
-To define collections, you will need to create an interface representing the collection, and then declare a Collection type variable with that interface type (as a generic):
+
+### Global variables
+
+Preface any global variable declarations with a TypeScript `declare var` statement (or place the statement in a definition file):
+
+    declare var NavbarHelpers;
+    NavbarHelpers = {};
+    NavbarHelpers.someMethod = function() {...}
+
+
+### Collections
+
+The majority of extra work required to use TypeScript with Meteor is creating and maintaining the collection interfaces.  However, doing so also provides the additional benefit of succinctly documenting collection schema definitions (that are actually enforced).
+
+To define collections, you will need to create an interface representing the collection and then declare a Collection type variable with that interface type (as a generic):
 
     interface JobDAO {
       _id?: string;
@@ -63,39 +72,11 @@ To define collections, you will need to create an interface representing the col
       queuedAt?: string;
     }
 
-    declare var Jobs: Meteor.Collection<JobDAO>;
-    Jobs = new Meteor.Collection<JobDAO>('jobs');
+    declare var Jobs: Mongo.Collection<JobDAO>;
+    Jobs = new Mongo.Collection<JobDAO>('jobs');
 
 
 Finally, any TypeScript file using collections will need to contain a reference at the top pointing to the collection definitions:
 
-    /// <reference path="../packages/typescript-libs/meteor.d.ts"/>
-    /// <reference path="../packages/typescript-libs/underscore.d.ts"/>
-    /// <reference path="models/models.ts"/>
-
-
-If you choose to define collections (using the code above) in a separate file (e.g. collections/models/models.ts) and then create a separate file per collection 
-with the methods and permissions for that collection (e.g. collections/jobs.ts), the collection definitions should be one directory deeper than the collection 
-method/permission declarations so that Meteor can find the variable declarations before use. (e.g. collections/models/models.ts).
-
-
-
-## Usage: Creating Definitions
-Here is a guide to creating definitions: <http://www.typescriptlang.org/Handbook#writing-dts-files>
-
-
-
-## Usage: Transpilation
-WebStorm is good TypeScript-aware editor.  It can automatically transpile your TypeScript code into JavaScript every time you save a file.  To enable this
-feature in WebStorm on OSX, first install the TypeScript transpiler on your system:
-
-    $ [sudo -H] npm install -g typescript
-
-Then, within WebStorm, go to Preferences -> File Watchers -> "+" symbol and add TypeScript.
-
-If you are not using a TypeScript-aware editor, you can transpile the files using the [Meteor Typescript Compiler](https://github.com/orefalo/meteor-typescript-compiler).
-
-
-
-## Example/Reference Projects
-* [TypeScript demos](https://github.com/orefalo/meteor-typescript-demos)
+    /// <reference path=".typescript/package_defs/meteor.d.ts"/>
+    /// <reference path=".typescript/custom_defs/collections.ts"/>
