@@ -64,8 +64,8 @@ declare namespace ExpressUseragent {
         source: string;
     }
 
-    export function parse(source: string): UserAgent;
-    export function express(): (req: express.Request, res: express.Response, next?: Function) => void;
+    function parse(source: string): UserAgent;
+    function express(): (req: express.Request, res: express.Response, next?: Function) => void;
 }
 
 declare module "express-useragent" {
