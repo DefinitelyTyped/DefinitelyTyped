@@ -1,7 +1,7 @@
 // Type definitions for react-props-decorators 0.1.0
 // Project: https://github.com/popkirby/react-props-decorators
 // Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts" />
 

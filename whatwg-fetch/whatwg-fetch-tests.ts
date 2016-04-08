@@ -1,5 +1,4 @@
 ﻿/// <reference path="whatwg-fetch.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
 
 function test_fetchUrlWithOptions() {
 	var headers = new Headers();

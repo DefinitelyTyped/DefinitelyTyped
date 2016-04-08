@@ -1,7 +1,7 @@
 // Type definitions for jquery.color.js v2.1.2
 // Project: https://github.com/jquery/jquery-color
 // Definitions by: Derek Cicerone <https://github.com/derekcicerone/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 

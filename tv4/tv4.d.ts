@@ -1,10 +1,10 @@
 // Type definitions for Tiny Validator tv4 1.2.5
 // Project: https://github.com/geraintluff/tv4
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Peter Snider <https://github.com/psnider>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module tv4 {
-    
+declare namespace tv4 {
+
     // Note that every top-level property is optional in json-schema
     export interface JsonSchema {
         [key: string]: any;
@@ -15,7 +15,7 @@ declare module tv4 {
         type?: string;
         items?: any;
         properties?: any;
-        patternProperties?: any; 
+        patternProperties?: any;
         additionalProperties?: boolean;
         required?: string[];
         definitions?: any;

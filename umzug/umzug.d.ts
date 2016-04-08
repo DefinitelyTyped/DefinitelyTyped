@@ -1,4 +1,4 @@
-// Type definitions for Umzug v1.7.0
+// Type definitions for Umzug v1.8.0
 // Project: https://github.com/sequelize/umzug
 // Definitions by: Ivan Drinchev <https://github.com/drinchev/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,7 +9,7 @@
 declare module "umzug" {
     import Sequelize = require("sequelize");
 
-    module umzug {
+    namespace umzug {
 
         interface MigrationOptions {
 
@@ -146,36 +146,41 @@ declare module "umzug" {
 
         }
 
+        interface Migration {
+            path: string;
+            file: string;
+        }
+
         interface Umzug {
             /**
              * The execute method is a general purpose function that runs for
              * every specified migrations the respective function.
              */
-            execute(options? : ExecuteOptions) : Promise<Array<string>>;
+            execute(options? : ExecuteOptions) : Promise<Migration[]>;
 
             /**
              * You can get a list of pending/not yet executed migrations like this:
              */
-            pending() : Promise<Array<string>>;
+            pending() : Promise<Migration[]>;
 
             /**
              * You can get a list of already executed migrations like this:
              */
-            executed() : Promise<Array<string>>;
+            executed() : Promise<Migration[]>;
 
             /**
              * The up method can be used to execute all pending migrations.
              */
-            up(migration?: string) : Promise<string>;
-            up(migrations?: Array<string>) : Promise<Array<string>>;
-            up(options?: UpDownToOptions | UpDownMigrationsOptions ) : Promise<Array<string>>;
+            up(migration?: string) : Promise<Migration[]>;
+            up(migrations?: string[]) : Promise<Migration[]>;
+            up(options?: UpDownToOptions | UpDownMigrationsOptions ) : Promise<Migration[]>;
 
             /**
              * The down method can be used to revert the last executed migration.
              */
-            down(migration?: string) : Promise<string>;
-            down(migrations?: Array<string>) : Promise<Array<string>>;
-            down(options?: UpDownToOptions | UpDownMigrationsOptions ) : Promise<Array<string>>;
+            down(migration?: string) : Promise<Migration[]>;
+            down(migrations?: string[]) : Promise<Migration[]>;
+            down(options?: UpDownToOptions | UpDownMigrationsOptions ) : Promise<Migration[]>;
 
         }
 

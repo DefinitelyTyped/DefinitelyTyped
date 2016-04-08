@@ -3,7 +3,7 @@
 // Definitions by: Adam Meadows <https://github.com/job13er>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module ZSchema {
+declare namespace ZSchema {
 
     export interface Options {
         asyncTimeout?: number;

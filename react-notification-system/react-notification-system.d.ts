@@ -1,17 +1,17 @@
 // Type definitions for React Notification System v0.2.6
 // Project: https://www.npmjs.com/package/react-notification-system
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>, Deividas Bakanas <https://github.com/DeividasBakanas>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts" />
 
-declare module NotificationSystem {
+declare namespace NotificationSystem {
 
     import React = __React;
 
     export interface System extends React.Component<any, any> {
-        addNotification(notification: Notification): Notification;   
-        removeNotification(notification: Notification): void;        
+        addNotification(notification: Notification): Notification;
+        removeNotification(notification: Notification): void;
         removeNotification(uid: string): void;
     }
 
@@ -22,8 +22,8 @@ declare module NotificationSystem {
     export interface Notification {
         title?: string;
         message?: string;
-        level?: string;
-        position?: string;
+        level?: "error" | "warning" | "info" | "success";
+        position?: "tr" | "tl" | "tc" | "br" | "bl" | "bc";
         autoDismiss?: number;
         dismissible?: boolean;
         action?: ActionObject;
@@ -34,7 +34,7 @@ declare module NotificationSystem {
 
     export interface ActionObject {
         label: string;
-        callback?: Function;
+        callback?: () => void;
     }
 
     export interface ContainersStyle {
@@ -75,15 +75,10 @@ declare module NotificationSystem {
         ref?: string;
         style?: Style | boolean;
     }
-    
-
-    export interface Component {
-        (): React.ReactElement<Attributes>;
-    }
 }
 
 
 declare module 'react-notification-system' {
-    var component: NotificationSystem.Component;
+    var component: __React.ClassicComponentClass<NotificationSystem.Attributes>;
     export = component;
 }

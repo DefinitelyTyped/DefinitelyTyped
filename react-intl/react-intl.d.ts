@@ -1,11 +1,11 @@
 // Type definitions for react-intl 2.0.0-beta1
 // Project: http://formatjs.io/react/
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>, Christian Droulers <https://github.com/cdroulers>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path='../react/react.d.ts' />
 
-declare module ReactIntl {
+declare namespace ReactIntl {
     import React = __React;
 
     interface Locale {
@@ -24,7 +24,7 @@ declare module ReactIntl {
         [key: string]: FormattedMessage.MessageDescriptor
     }
 
-    function defineMessages<T extends Messages>(messages: Messages): T;
+    function defineMessages<T extends Messages>(messages: T): T;
 
     interface IntlShape extends React.Requireable<any> {
     }
@@ -46,7 +46,7 @@ declare module ReactIntl {
         formatHTMLMessage?: (messageDescriptor: FormattedMessage.MessageDescriptor, values?: Object) => string;
     }
 
-    module IntlComponent {
+    namespace IntlComponent {
         interface DateTimeFormatProps {
             /*
             * one of "best fit" (default) | "lookup"
@@ -98,7 +98,7 @@ declare module ReactIntl {
     }
 
 
-    module FormattedDate {
+    namespace FormattedDate {
         export interface PropsBase extends IntlComponent.DateTimeFormatProps {
             format?: string;
         }
@@ -110,7 +110,7 @@ declare module ReactIntl {
     class FormattedDate extends React.Component<FormattedDate.Props, any> { }
 
 
-    module FormattedTime {
+    namespace FormattedTime {
         export interface PropsBase extends IntlComponent.DateTimeFormatProps {
             format?: string;
         }
@@ -122,7 +122,7 @@ declare module ReactIntl {
     class FormattedTime extends React.Component<FormattedTime.Props, any> { }
 
 
-    module FormattedRelative {
+    namespace FormattedRelative {
         export interface PropsBase {
             /*
             * one of "second", "minute", "hour", "day", "month" or "year"
@@ -144,7 +144,7 @@ declare module ReactIntl {
     class FormattedRelative extends React.Component<FormattedRelative.Props, any> { }
 
 
-    module FormattedMessage {
+    namespace FormattedMessage {
         export interface MessageDescriptor {
             id: string;
             description?: string;
@@ -162,7 +162,7 @@ declare module ReactIntl {
     class FormattedHTMLMessage extends React.Component<FormattedMessage.Props, any> { }
 
 
-    module FormattedNumber {
+    namespace FormattedNumber {
         export interface PropsBase {
             format?: string;
             /*
@@ -193,7 +193,7 @@ declare module ReactIntl {
     class FormattedNumber extends React.Component<FormattedNumber.Props, any> { }
 
 
-    module FormattedPlural {
+    namespace FormattedPlural {
         export interface PropsBase {
             /*
             * one of "cardinal" (default) | "ordinal"
@@ -214,7 +214,7 @@ declare module ReactIntl {
     class FormattedPlural extends React.Component<FormattedPlural.Props, any> { }
 
 
-    module IntlProvider {
+    namespace IntlProvider {
         export interface Props {
             locale?: string;
             formats?: Object;

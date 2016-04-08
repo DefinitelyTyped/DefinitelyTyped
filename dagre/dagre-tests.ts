@@ -1,5 +1,5 @@
 /// <reference path="dagre.d.ts"/>
-module DagreTests {
+namespace DagreTests {
   var gDagre = new dagre.graphlib.Graph();
   gDagre.setGraph({})
     .setDefaultEdgeLabel(function(){ return ; })

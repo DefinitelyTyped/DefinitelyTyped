@@ -5,7 +5,7 @@ var vox: VoxImplant.Client = VoxImplant.getInstance(),
 	room: string;
 
 vox.init({
-	micRequired: true 
+	micRequired: true
 });
 
 vox.addEventListener(VoxImplant.Events.SDKReady, function(event: VoxImplant.Events.SDKReady) {

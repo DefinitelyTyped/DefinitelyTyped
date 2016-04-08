@@ -1,11 +1,11 @@
 // Type definitions for mCustomScrollbar 2.8.2
 // Project: https://github.com/malihu/malihu-custom-scrollbar-plugin
 // Definitions by: Sarah Williams <https://github.com/flurg>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module MCustomScrollbar {
+declare namespace MCustomScrollbar {
     interface CustomScrollbarOptions {
         /**
         * Set the width of your content (overwrites CSS width), value in pixels (integer) or percentage (string)
@@ -75,7 +75,7 @@ declare module MCustomScrollbar {
             */
             updateOnBrowserResize?: boolean;
             /**
-            * Auto-update scrollbars on content resize (useful when adding/changing content progrmatically), value: true, false. Setting this to true makes the script check for content 
+            * Auto-update scrollbars on content resize (useful when adding/changing content progrmatically), value: true, false. Setting this to true makes the script check for content
             * length changes (every few milliseconds) and automatically call plugin's update method to adjust the scrollbar accordingly
             */
             updateOnContentResize?: boolean;
@@ -102,7 +102,7 @@ declare module MCustomScrollbar {
         */
         callbacks?: {
             /**
-            * User defined callback function, triggered on scroll start event. You can call your own function(s) each time a scroll event begins 
+            * User defined callback function, triggered on scroll start event. You can call your own function(s) each time a scroll event begins
             */
             onScrollStart?: () => void;
             /**
@@ -150,7 +150,7 @@ declare module MCustomScrollbar {
         */
         scrollInertia?: number;
         /**
-        * Scroll-to animation easing, values: "linear", "easeOut", "easeInOut". 
+        * Scroll-to animation easing, values: "linear", "easeOut", "easeInOut".
         */
         scrollEasing?: string;
         /**

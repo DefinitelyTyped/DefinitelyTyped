@@ -1,10 +1,10 @@
 // Type definitions for pixi-spine 1.0.4
 // Project: https://github.com/pixijs/pixi-spine/
 // Definitions by: martijncroezen <https://github.com/pixijs/pixi-typescript>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../pixi.js/pixi.js.d.ts" />
-declare module PIXI {
+declare namespace PIXI {
 
     export module spine {
 

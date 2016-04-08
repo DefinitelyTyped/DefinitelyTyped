@@ -1,7 +1,7 @@
 ﻿// Type definitions for serve-static 1.7.1
 // Project: https://github.com/expressjs/serve-static
 // Definitions by: Uros Smolnik <https://github.com/urossmolnik/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
 
@@ -10,11 +10,11 @@
 
  =============================================== */
 
-/// <reference path="../express/express.d.ts" />
+/// <reference path="../express-serve-static-core/express-serve-static-core.d.ts" />
 /// <reference path="../mime/mime.d.ts" />
 
 declare module "serve-static" {
-    import * as express from "express";
+    import * as express from "express-serve-static-core";
 
     /**
      * Create a new middleware function to serve files from within a given root directory.
@@ -78,7 +78,7 @@ declare module "serve-static" {
 
     import * as m from "mime";
 
-    module serveStatic {
+    namespace serveStatic {
         var mime: typeof m;
     }
 

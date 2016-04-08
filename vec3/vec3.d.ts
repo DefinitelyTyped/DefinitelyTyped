@@ -1,7 +1,7 @@
 // Type definitions for Vec3 Librairy
 // Project: https://www.npmjs.com/package/vec3
 // Definitions by: Xavier Stouder <https://github.com/xstoudi/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "vec3" {
     class Vec3 {
@@ -9,7 +9,7 @@ declare module "vec3" {
         constructor(location: number[]);
         constructor(location: {x: number; y: number; z: number});
         constructor(locationStr: string);
-        
+
         set(x: number, y: number, z: number): Vec3;
         update(other: Vec3): Vec3;
         floored(): Vec3;

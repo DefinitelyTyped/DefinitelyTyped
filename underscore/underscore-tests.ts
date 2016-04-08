@@ -17,7 +17,7 @@ var list = [[0, 1], [2, 3], [4, 5]];
 //var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
 var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
-module TestFind {
+namespace TestFind {
 	let array: {a: string}[] = [{a: 'a'}, {a: 'b'}];
 	let list: _.List<{a: string}> = {0: {a: 'a'}, 1: {a: 'b'}, length: 2};
 	let dict: _.Dictionary<{a: string}> = {a: {a: 'a'}, b: {a: 'b'}};
@@ -295,6 +295,10 @@ var exclaim = function (statement) { return statement + "!"; };
 var welcome = _.compose(exclaim, greet);
 welcome('moe');
 
+var partialApplicationTestFunction = (a: string, b: number, c: boolean, d: string, e: number, f: string) => {  }
+var partialApplicationResult = _.partial(partialApplicationTestFunction, "", 1);
+var parametersCanBeStubbed = _.partial(partialApplicationResult, _, _, _, "");
+
 ///////////////////////////////////////////////////////////////////////////////////////
 
 _.keys({ one: 1, two: 2, three: 3 });
@@ -382,6 +386,32 @@ _.isNull(undefined);
 
 _.isUndefined((<any>window).missingVariable);
 
+//////////////////////////////////// User Defined Guard tests
+
+function useElement(arg: Element) {};
+function useArguments(arg: IArguments) {};
+function useFunction(arg: Function) {};
+function useError(arg: Error) {};
+function useString(arg: String) {};
+function useNumber(arg: Number) {};
+function useBoolean(arg: Boolean) {};
+function useDate(arg: Date) {};
+function useRegExp(arg: RegExp) {};
+function useArray<T>(arg: T[]) {};
+
+var guardedType: {};
+if(_.isElement(guardedType)) useElement(guardedType);
+if(_.isArray(guardedType)) useArray(guardedType);
+if(_.isArray<String>(guardedType)) useArray(guardedType);
+if(_.isArguments(guardedType)) useArguments(guardedType);
+if(_.isFunction(guardedType)) useFunction(guardedType);
+if(_.isError(guardedType)) useError(guardedType);
+if(_.isString(guardedType)) useString(guardedType);
+if(_.isNumber(guardedType)) useNumber(guardedType);
+if(_.isBoolean(guardedType)) useBoolean(guardedType);
+if(_.isDate(guardedType)) useDate(guardedType);
+if(_.isRegExp(guardedType)) useRegExp(guardedType);
+
 ///////////////////////////////////////////////////////////////////////////////////////
 
 var UncleMoe = { name: 'moe' };
@@ -432,6 +462,7 @@ var template2 = _.template("Hello {{ name }}!");
 template2({ name: "Mustache" });
 _.template("Using 'with': <%= data.answer %>", oldTemplateSettings)({ variable: 'data' });
 
+_.template("Using 'with': <%= data.answer %>", { variable: 'data' })({ answer: 'no' });
 
 _(['test', 'test']).pick(['test2', 'test2']);
 
@@ -462,7 +493,7 @@ function chain_tests() {
 		.flatten()
 		.find(num => num % 2 == 0)
 		.value();
-		
+
 	var firstVal: number = _.chain([1, 2, 3])
 		.first()
 		.value();

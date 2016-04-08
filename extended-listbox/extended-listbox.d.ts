@@ -1,4 +1,4 @@
-// Type definitions for extended-listbox 1.0.6
+// Type definitions for extended-listbox 1.1.x
 // Project: https://github.com/code-chris/extended-listbox
 // Definitions by: Christian Kotzbauer <https://github.com/code-chris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -59,27 +59,125 @@ interface ListBoxOptions {
     getItems?: () => any;
 
     /** callback for selection changes */
-    onValueChanged?: (value: ListboxItem|ListboxItem[]) => void;
+    onValueChanged?: (event: ListboxEvent) => void;
 
     /** callback for searchBar text changes */
-    onFilterChanged?: (value: string) => void;
+    onFilterChanged?: (event: ListboxEvent) => void;
 
     /** callback for item changes (item added, item removed, item order) */
-    onItemsChanged?: (value: ListboxItem[]) => void;
+    onItemsChanged?: (event: ListboxEvent) => void;
+
+    /** callback for enter keyPress event on an item */
+    onItemEnterPressed?: (event: ListboxEvent) => void;
+
+    /** callback for doubleClick event on an item */
+    onItemDoubleClicked?: (event: ListboxEvent) => void;
+}
+
+interface ListboxEvent {
+    /** unique event name */
+    eventName: string;
+
+    /** target object for which event is triggered */
+    target: JQuery;
+
+    /** any object */
+    args: any;
+}
+
+interface ExtendedListboxInstance {
+    /** DOM element of the listbox root */
+    target: JQuery;
+
+    /** Adds a new item to the list */
+    addItem(item: string|ListboxItem): string;
+
+    /** Removes a item from the list */
+    removeItem(identifier: string): void;
+
+    /** Reverts all changes from the DOM */
+    destroy(): void;
+
+    /** Resets the selection state of all items */
+    clearSelection(): void;
+
+    /** Returns a item object for the given id or display text */
+    getItem(identifier: string): ListboxItem;
+
+    /** Returns all item objects */
+    getItems(): ListboxItem[];
+
+    /** Returns all ListboxItem's which are selected */
+    getSelection(): ListboxItem[];
+
+    /** Decreases the index of the matching item by one */
+    moveItemUp(identifier: string): number;
+
+    /** Increases the index of the matching item by one */
+    moveItemDown(identifier: string): number;
+
+    /** Moves item to the bottom of the list */
+    moveItemToBottom(identifier: string): number;
+
+    /** Moves item to the top of the list */
+    moveItemToTop(identifier: string): number;
+
+    /** Enables or disables the whole list and all childs */
+    enable(state: boolean): void;
+
+    /** callback for selection changes */
+    onValueChanged(callback: (event: ListboxEvent) => void): void;
+
+    /** callback for item changes (item added, item removed, item order) */
+    onItemsChanged(callback: (event: ListboxEvent) => void): void;
+
+    /** callback for searchBar text changes */
+    onFilterChanged(callback: (event: ListboxEvent) => void): void;
+
+    /** callback for enter keyPress event on an item */
+    onItemEnterPressed(callback: (event: ListboxEvent) => void): void;
+
+    /** callback for doubleClick event on an item */
+    onItemDoubleClicked(callback: (event: ListboxEvent) => void): void;
 }
 
 interface JQuery {
-    listbox(): JQuery;
+    /** constructs a new instance of Listbox on the given DOM item or returns existing */
+    listbox(): ExtendedListboxInstance|ExtendedListboxInstance[];
+
+    /** constructs a new instance of Listbox on the given DOM item */
+    listbox(options: ListBoxOptions): ExtendedListboxInstance|ExtendedListboxInstance[];
+
+    /** @deprecated: use method in ExtendedListboxInstance */
     listbox(methodName: 'addItem'): string;
+
+    /** @deprecated: use method in ExtendedListboxInstance */
     listbox(methodName: 'removeItem'): void;
+
+    /** @deprecated: use method in ExtendedListboxInstance */
     listbox(methodName: 'destroy'): void;
+
+    /** @deprecated: use method in ExtendedListboxInstance */
     listbox(methodName: 'getItem'): ListboxItem;
+
+    /** @deprecated: use method in ExtendedListboxInstance */
     listbox(methodName: 'getItems'): ListboxItem[];
+
+    /** @deprecated: use method in ExtendedListboxInstance */
     listbox(methodName: 'moveItemUp'): number;
+
+    /** @deprecated: use method in ExtendedListboxInstance */
     listbox(methodName: 'moveItemDown'): number;
+
+    /** @deprecated: use method in ExtendedListboxInstance */
     listbox(methodName: 'clearSelection'): void;
+
+    /** @deprecated: use method in ExtendedListboxInstance */
     listbox(methodName: 'enable'): void;
+
+    /** @deprecated: use method in ExtendedListboxInstance */
     listbox(methodName: string): any;
+
+    /** @deprecated: use method in ExtendedListboxInstance */
     listbox(methodName: string, methodParameter: any): any;
-    listbox(options: ListBoxOptions): JQuery;
 }

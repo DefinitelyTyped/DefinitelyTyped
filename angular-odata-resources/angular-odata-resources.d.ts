@@ -1,12 +1,12 @@
 // Type definitions for OData Angular Resources
 // Project: https://github.com/devnixs/ODataAngularResources
 // Definitions by: Raphael ATALLAH <http://raphael.atallah.me>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module OData {
-    
+declare namespace OData {
+
     /**
      * Currently supported options for the $resource factory options argument.
      */
@@ -281,6 +281,7 @@ declare module OData {
         constructor(callback: ProviderCallback<T>);
         filter(operand1: any, operand2?: any, operand3?: any): Provider<T>;
         orderBy(arg1: string, arg2?: string): Provider<T>;
+        transformUrl(transformMethod : (url:string)=>string): Provider<T>;
         take(amount: number): Provider<T>;
         skip(amount: number): Provider<T>;
         private execute();
