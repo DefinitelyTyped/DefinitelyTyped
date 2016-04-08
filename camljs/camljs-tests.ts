@@ -31,8 +31,8 @@ caml = new CamlBuilder().Where()
 	)
 	.ToString();
 
-caml = new CamlBuilder().Where()
-	.LookupIdField("Category").In([2, 3, 10])
+var caml = new CamlBuilder().Where()
+	.LookupField("Category").Id().In([2, 3, 10])
 	.And()
 	.DateField("ExpirationDate").GreaterThan(CamlBuilder.CamlValues.Now)
 	.OrderBy("ExpirationDate")

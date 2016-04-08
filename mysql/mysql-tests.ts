@@ -1,6 +1,8 @@
 ﻿/// <reference path="mysql.d.ts" />
 
+import fs = require('fs');
 import mysql = require('mysql');
+import stream = require('stream');
 
 /// Connections
 var connection = mysql.createConnection({
@@ -107,6 +109,10 @@ var sql = "SELECT * FROM ?? WHERE ?? = ?";
 var inserts = ['users', 'id', userId];
 sql = mysql.format(sql, inserts);
 
+var sql = "INSERT INTO posts SET ?";
+var post = { id: 1, title: 'Hello MySQL' };
+sql = mysql.format(sql, post);
+
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
     return query.replace(/\:(\w+)/g, function (txt: string, key: string) {
@@ -118,6 +124,8 @@ connection.config.queryFormat = function (query, values) {
 };
 
 connection.query("UPDATE posts SET title = :title", { title: "Hello MySQL" });
+
+var s: stream.Readable = connection.query("UPDATE posts SET title = :title", { title: "Hello MySQL" }).stream({ highWaterMark: 5 });
 
 connection.query('INSERT INTO posts SET ?', { title: 'test' }, function (err, result) {
     if (err) throw err;
@@ -214,6 +222,13 @@ var pool = poolCluster.of('SLAVE*', 'RANDOM');
 pool.getConnection(function (err, connection) { });
 pool.getConnection(function (err, connection) { });
 
+var poolClusterWithOptions = mysql.createPoolCluster({
+    canRetry: true,
+    removeNodeErrorCount: 3,
+    restoreNodeTimeout: 1000,
+    defaultSelector: 'RR'
+});
+
 // destroy
 poolCluster.end();
 
@@ -243,9 +258,10 @@ query
         // all rows have been received
     });
 
+var writable = fs.createWriteStream('file.txt');
 connection.query('SELECT * FROM posts')
     .stream({ highWaterMark: 5 })
-    .pipe(() => { });
+    .pipe(writable);
 
 connection = mysql.createConnection({ multipleStatements: true });
 

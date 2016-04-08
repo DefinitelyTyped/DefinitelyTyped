@@ -1,6 +1,6 @@
 /// <reference path="../../stats/stats.d.ts" />
 /// <reference path="../physijs.d.ts" />
-
+/// <reference path="../../threejs/three-projector.d.ts" />
 
 Physijs.scripts.worker = '../physijs_worker.js';
 Physijs.scripts.ammo = 'examples/js/ammo.js';
@@ -85,7 +85,7 @@ initScene = function() {
 
     // Materials
     table_material = Physijs.createMaterial(
-        new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture( 'images/wood.jpg' ), ambient: 0xFFFFFF }),
+        new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture( 'images/wood.jpg' ) }),
         .9, // high friction
         .2 // low restitution
     );
@@ -93,7 +93,7 @@ initScene = function() {
     table_material.map.repeat.set( 5, 5 );
 
     block_material = Physijs.createMaterial(
-        new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture( 'images/plywood.jpg' ), ambient: 0xFFFFFF }),
+        new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture( 'images/plywood.jpg' ) }),
         .4, // medium friction
         .4 // medium restitution
     );

@@ -16,6 +16,10 @@ Q.when(delay(1000), function (val: void) {
     return;
 });
 
+// Note from Q documentation: a deferred can be resolved with a value or a promise.
+var otherPromise = Q.defer<string>().promise;
+Q.defer<string>().resolve(otherPromise);
+
 Q.timeout(Q(new Date()), 1000, "My dates never arrived. :(").then(d => d.toJSON());
 
 Q.delay(Q(8), 1000).then(x => x.toExponential());
@@ -64,9 +68,19 @@ Q.allResolved([])
     })
 });
 
+Q(42)
+    .tap(() => "hello")
+    .tap(x => {
+        console.log(x);
+    })
+    .then(x => {
+        console.log("42 == " + x);
+    });
+
 declare var arrayPromise: Q.IPromise<number[]>;
 declare var stringPromise: Q.IPromise<string>;
 declare function returnsNumPromise(text: string): Q.Promise<number>;
+declare function returnsNumPromise(text: string): JQueryPromise<number>;
 
 Q<number[]>(arrayPromise) // type specification required
     .then(arr => arr.join(','))
@@ -94,6 +108,7 @@ Q.fbind((dateString?: string) => new Date(dateString), "11/11/1991")().then(d =>
 
 Q.when(8, num => num + "!");
 Q.when(Q(8), num => num + "!").then(str => str.split(','));
+var voidPromise: Q.Promise<void> = Q.when();
 
 declare function saveToDisk(): Q.Promise<any>;
 declare function saveToCloud(): Q.Promise<any>;
@@ -138,3 +153,49 @@ class Repo {
 
 var kitty = new Repo();
 Q.nbind(kitty.find, kitty)({ cute: true }).done((kitties: any[]) => {});
+
+
+/*
+ * Test: Can "rethrow" rejected promises
+ */
+namespace TestCanRethrowRejectedPromises {
+
+    interface Foo {
+        a: number;
+    }
+
+    function nestedBar(): Q.Promise<Foo> {
+        var deferred = Q.defer<Foo>();
+
+        return deferred.promise;
+    }
+
+    function bar(): Q.Promise<Foo> {
+        return nestedBar()
+            .then((foo:Foo) => {
+                console.log("Lorem ipsum");
+            })
+            .fail((error) => {
+                console.log("Intermediate error handling");
+
+                /*
+                 * Cannot do this, because:
+                 *     error TS2322: Type 'Promise<void>' is not assignable to type 'Promise<Foo>'
+                 */
+                //throw error;
+
+                return Q.reject<Foo>(error);
+            })
+        ;
+    }
+
+    bar()
+        .finally(() => {
+            console.log("Cleanup")
+        })
+        .done()
+    ;
+
+}
+
+

@@ -1,7 +1,7 @@
 ﻿// Type definitions for http-string-parser
 // Project: https://github.com/apiaryio/http-string-parser
 // Definitions by: MIZUNE Pine <https://github.com/pine613>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "http-string-parser" {
     interface ParseRequestResult {
@@ -34,5 +34,5 @@ declare module "http-string-parser" {
     export function parseResponse(responseString: string): ParseResponseResult;
     export function parseRequestLine(requestLineString: string): ParseRequestLineResult;
     export function parseStatusLine(statusLine: string): ParseStatusLineResult;
-    export function parseHeaders(headerLines: string): { [key: string]: string };
+    export function parseHeaders(headerLines: string[]): { [key: string]: string };
 }

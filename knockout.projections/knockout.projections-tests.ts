@@ -26,3 +26,39 @@ sourceItems.push(9);
 
 sourceItems.push(10);
 // evenSquares now contains [36, 16, 4, 100]
+
+// Testing mapping options
+
+interface IComplexItem {
+    value: string;
+    dispose(): void;
+}
+
+var complexItems = sourceItems.map({
+    mapping: x => {
+        var item: IComplexItem = {
+            value: (x * x).toString(),
+            dispose: () => { }
+        };
+
+        return item;
+    },
+    disposeItem: (item: IComplexItem) => item.dispose()
+});
+
+var complexItems2 = sourceItems.map({
+    mappingWithDisposeCallback: x => {
+        return {
+            mappedValue: (x * x).toString(),
+            dispose: () => { }
+        };
+    }
+});
+
+// Test disposal
+
+evenSquares.dispose();
+
+complexItems.dispose();
+
+complexItems2.dispose();

@@ -1,20 +1,22 @@
 // Type definitions for Apache Cordova Push plugin.
 // Project: https://github.com/phonegap-build/PushPlugin
 // Definitions by: Microsoft Open Technologies, Inc. <http://msopentech.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // 
 // Copyright (c) Microsoft Open Technologies, Inc.
 // Licensed under the MIT license.
 
 interface Window {
-    plugins: {
-        /**
-         * This plugin allows to receive push notifications. The Android implementation uses
-         * Google's GCM (Google Cloud Messaging) service,
-         * whereas the iOS version is based on Apple APNS Notifications
-         */
-        pushNotification: PushNotification
-    }
+    plugins: Plugins
+}
+
+interface Plugins {
+    /**
+     * This plugin allows to receive push notifications. The Android implementation uses
+     * Google's GCM (Google Cloud Messaging) service,
+     * whereas the iOS version is based on Apple APNS Notifications
+     */
+    pushNotification: PushNotification
 }
 
 /**

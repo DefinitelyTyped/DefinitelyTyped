@@ -7,180 +7,185 @@ import File = require('vinyl');
 import Stream = require('stream');
 import fs = require('fs');
 
-import should = require('should');
+declare var fakeStream: NodeJS.ReadWriteStream;
 
-describe('File', function() {
+describe('File', () => {
 
-	describe('constructor()', function() {
-		it('should default cwd to process.cwd', function(done) {
+	describe('constructor()', () => {
+
+		it('should default cwd to process.cwd', done => {
 			var file = new File();
 			file.cwd.should.equal(process.cwd());
 			done();
 		});
 
-		it('should default base to cwd', function(done) {
+		it('should default base to cwd', done => {
 			var cwd = "/";
 			var file = new File({cwd: cwd});
-			file.base.should.equal(cwd);
+			file.basename.should.equal(cwd);
 			done();
 		});
 
-		it('should default base to cwd even when none is given', function(done) {
+		it('should default base to cwd even when none is given', done => {
 			var file = new File();
-			file.base.should.equal(process.cwd());
+			file.basename.should.equal(process.cwd());
 			done();
 		});
 
-		it('should default path to null', function(done) {
+		it('should default path to null', done => {
 			var file = new File();
 			should.not.exist(file.path);
 			done();
 		});
 
-		it('should default stat to null', function(done) {
+		it('should default stat to null', done => {
 			var file = new File();
 			should.not.exist(file.stat);
 			done();
 		});
 
-		it('should default contents to null', function(done) {
+		it('should default contents to null', done => {
 			var file = new File();
 			should.not.exist(file.contents);
 			done();
 		});
 
-		it('should set base to given value', function(done) {
+		it('should set base to given value', done => {
 			var val = "/";
 			var file = new File({base: val});
-			file.base.should.equal(val);
+			file.basename.should.equal(val);
 			done();
 		});
 
-		it('should set cwd to given value', function(done) {
+		it('should set cwd to given value', done => {
 			var val = "/";
 			var file = new File({cwd: val});
 			file.cwd.should.equal(val);
 			done();
 		});
 
-		it('should set path to given value', function(done) {
+		it('should set path to given value', done => {
 			var val = "/test.coffee";
 			var file = new File({path: val});
 			file.path.should.equal(val);
 			done();
 		});
 
-		it('should set stat to given value', function(done) {
+		it('should set stat to given value', done => {
 			var val = {};
-			var file = new File({stat: val});
+			var file = new File(<fs.Stats><any>{stat: val});
 			file.stat.should.equal(val);
 			done();
 		});
 
-		it('should set contents to given value', function(done) {
+		it('should set contents to given value', done => {
 			var val = new Buffer("test");
 			var file = new File({contents: val});
 			file.contents.should.equal(val);
 			done();
 		});
+
+		it('should default basename to cwd', done => {
+			var cwd = "/";
+			var file = new File({cwd: cwd});
+			file.basename.should.equal(cwd);
+			done();
+		});
+
+		it('should default basename to cwd even when none is given', done => {
+			var file = new File();
+			file.basename.should.equal(process.cwd());
+			done();
+		});
+
+		it('should set basename to given value', done => {
+			var val = "/";
+			var file = new File({base: val});
+			file.basename.should.equal(val);
+			done();
+		});
+
+		it('should default extname to null', done => {
+			var cwd = "/";
+			var file = new File({cwd: cwd});
+			should.not.exist(file.path);
+			done();
+		});
+
+		it('should default dirname to null', done => {
+			var cwd = "/";
+			var file = new File({cwd: cwd});
+			should.not.exist(file.dirname);
+			done();
+		});
+
 	});
 
-	describe('isBuffer()', function() {
-		it('should return true when the contents are a Buffer', function(done) {
+	describe('isBuffer()', () => {
+		it('should return true when the contents are a Buffer', done => {
 			var val = new Buffer("test");
 			var file = new File({contents: val});
 			file.isBuffer().should.equal(true);
 			done();
 		});
 
-		it('should return false when the contents are a Stream', function(done) {
-			var val: NodeJS.ReadWriteStream; // = new Stream();
-			var file = new File({contents: val});
+		it('should return false when the contents are a Stream', done => {
+			var file = new File({ contents: fakeStream});
 			file.isBuffer().should.equal(false);
 			done();
 		});
 
-		it('should return false when the contents are a null', function(done) {
+		it('should return false when the contents are a null', done => {
 			var file = new File({contents: null});
 			file.isBuffer().should.equal(false);
 			done();
 		});
 	});
 
-	describe('isStream()', function() {
-		it('should return false when the contents are a Buffer', function(done) {
+	describe('isStream()', () => {
+		it('should return false when the contents are a Buffer', done => {
 			var val = new Buffer("test");
 			var file = new File({contents: val});
 			file.isStream().should.equal(false);
 			done();
 		});
 
-		it('should return true when the contents are a Stream', function(done) {
-			var val: NodeJS.ReadWriteStream; // = new Stream();
-			var file = new File({contents: val});
+		it('should return true when the contents are a Stream', done => {
+			var file = new File({ contents: fakeStream});
 			file.isStream().should.equal(true);
 			done();
 		});
 
-		it('should return false when the contents are a null', function(done) {
+		it('should return false when the contents are a null', done => {
 			var file = new File({contents: null});
 			file.isStream().should.equal(false);
 			done();
 		});
 	});
 
-	describe('isNull()', function() {
-		it('should return false when the contents are a Buffer', function(done) {
+	describe('isNull()', () => {
+		it('should return false when the contents are a Buffer', done => {
 			var val = new Buffer("test");
 			var file = new File({contents: val});
 			file.isNull().should.equal(false);
 			done();
 		});
 
-		it('should return false when the contents are a Stream', function(done) {
-			var val: NodeJS.ReadWriteStream; // = new Stream();
-			var file = new File({contents: val});
+		it('should return false when the contents are a Stream', done => {
+			var file = new File({ contents: fakeStream});
 			file.isNull().should.equal(false);
 			done();
 		});
 
-		it('should return true when the contents are a null', function(done) {
+		it('should return true when the contents are a null', done => {
 			var file = new File({contents: null});
 			file.isNull().should.equal(true);
 			done();
 		});
 	});
 
-	describe('isDirectory()', function() {
-		var fakeStat = {
-			isDirectory: function() {
-				return true;
-			}
-		};
-
-		it('should return false when the contents are a Buffer', function(done) {
-			var val = new Buffer("test");
-			var file = new File({contents: val, stat: fakeStat});
-			file.isDirectory().should.equal(false);
-			done();
-		});
-
-		it('should return false when the contents are a Stream', function(done) {
-			var val: NodeJS.ReadWriteStream; // = new Stream();
-			var file = new File({contents: val, stat: fakeStat});
-			file.isDirectory().should.equal(false);
-			done();
-		});
-
-		it('should return true when the contents are a null', function(done) {
-			var file = new File({contents: null, stat: fakeStat});
-			file.isDirectory().should.equal(true);
-			done();
-		});
-	});
-
-	describe('clone()', function() {
-		it('should copy all attributes over with Buffer', function(done) {
+	describe('clone()', () => {
+		it('should copy all attributes over with Buffer', done => {
 			var options = {
 				cwd: "/",
 				base: "/test/",
@@ -192,50 +197,62 @@ describe('File', function() {
 
 			file2.should.not.equal(file, 'refs should be different');
 			file2.cwd.should.equal(file.cwd);
-			file2.base.should.equal(file.base);
+			file2.basename.should.equal(file.basename);
 			file2.path.should.equal(file.path);
-			file2.contents.should.not.equal(file.contents, 'buffer ref should be different');
-			file2.contents.toString('utf8').should.equal(file.contents.toString('utf8'));
+
+			let fileContents = file.contents;
+			let file2Contents = file2.contents;
+
+			file2Contents.should.not.equal(fileContents, 'buffer ref should be different');
+
+			let fileUtf8Contents = fileContents instanceof Buffer ?
+				fileContents.toString('utf8') :
+				(<NodeJS.ReadableStream>fileContents).toString();
+			let file2Utf8Contents = file2Contents instanceof Buffer ?
+				file2Contents.toString('utf8') :
+				(<NodeJS.ReadableStream>file2Contents).toString();
+
+			file2Utf8Contents.should.equal(fileUtf8Contents);
 			done();
 		});
 
-		it('should copy all attributes over with Stream', function(done) {
+		it('should copy all attributes over with Stream', done => {
 			var options = {
 				cwd: "/",
 				base: "/test/",
 				path: "/test/test.coffee",
-				contents: <NodeJS.ReadWriteStream>null // new Stream()
+				contents: fakeStream
 			};
 			var file = new File(options);
 			var file2 = file.clone();
 
 			file2.should.not.equal(file, 'refs should be different');
 			file2.cwd.should.equal(file.cwd);
-			file2.base.should.equal(file.base);
+			file2.basename.should.equal(file.basename);
 			file2.path.should.equal(file.path);
 			file2.contents.should.equal(file.contents, 'stream ref should be the same');
 			done();
 		});
 
-		it('should copy all attributes over with null', function(done) {
+		it('should copy all attributes over with null', done => {
 			var options = {
 				cwd: "/",
 				base: "/test/",
 				path: "/test/test.coffee",
-				contents: <any>null
+				contents: fakeStream
 			};
 			var file = new File(options);
 			var file2 = file.clone();
 
 			file2.should.not.equal(file, 'refs should be different');
 			file2.cwd.should.equal(file.cwd);
-			file2.base.should.equal(file.base);
+			file2.basename.should.equal(file.basename);
 			file2.path.should.equal(file.path);
 			should.not.exist(file2.contents);
 			done();
 		});
 
-		it('should properly clone the `stat` property', function(done) {
+		it('should properly clone the `stat` property', done => {
 			var options = {
 				cwd: "/",
 				base: "/test/",
@@ -247,17 +264,16 @@ describe('File', function() {
 			var file = new File(options);
 			var copy = file.clone();
 
+			// ReSharper disable WrongExpressionStatement
 			copy.stat.isFile().should.be.true;
-			copy.stat.isDirectory().should.be.false;
-			// should(file.stat instanceof fs.Stats).be.true;
-			// should(copy.stat instanceof fs.Stats).be.true;
+			// ReSharper restore WrongExpressionStatement
 
 			done();
 		});
 	});
 
-	describe('pipe()', function() {
-		it('should write to stream with Buffer', function(done) {
+	describe('pipe()', () => {
+		it('should write to stream with Buffer', done => {
 			var options = {
 				cwd: "/",
 				base: "/test/",
@@ -266,19 +282,19 @@ describe('File', function() {
 			};
 			var file = new File(options);
 			var stream = new Stream.PassThrough();
-			stream.on('data', function(chunk:any) {
+			stream.on('data', (chunk: any) => {
 				should.exist(chunk);
 				(chunk instanceof Buffer).should.equal(true, 'should write as a buffer');
 				chunk.toString('utf8').should.equal(options.contents.toString('utf8'));
 			});
-			stream.on('end', function(chunk:any) {
+			stream.on('end', () => {
 				done();
 			});
 			var ret = file.pipe(stream);
 			ret.should.equal(stream, 'should return the stream');
 		});
 
-		it('should pipe to stream with Stream', function(done) {
+		it('should pipe to stream with Stream', done => {
 			var testChunk = new Buffer("test");
 			var options = {
 				cwd: "/",
@@ -288,7 +304,7 @@ describe('File', function() {
 			};
 			var file = new File(options);
 			var stream = new Stream.PassThrough();
-			stream.on('data', function(chunk:any) {
+			stream.on('data', (chunk: any) => {
 				should.exist(chunk);
 				(chunk instanceof Buffer).should.equal(true, 'should write as a buffer');
 				chunk.toString('utf8').should.equal(testChunk.toString('utf8'));
@@ -297,29 +313,32 @@ describe('File', function() {
 			var ret = file.pipe(stream);
 			ret.should.equal(stream, 'should return the stream');
 
-			file.contents.write(testChunk);
+			let fileContents = file.contents;
+			if (fileContents instanceof Buffer) {
+				fileContents.write(testChunk.toString());
+			}
 		});
 
-		it('should do nothing with null', function(done) {
+		it('should do nothing with null', done => {
 			var options = {
 				cwd: "/",
 				base: "/test/",
 				path: "/test/test.coffee",
-				contents: <any>null
+				contents: fakeStream
 			};
 			var file = new File(options);
 			var stream = new Stream.PassThrough();
-			stream.on('data', function(chunk:any) {
+			stream.on('data', () => {
 				throw new Error("should not write");
 			});
-			stream.on('end', function() {
+			stream.on('end', () => {
 				done();
 			});
 			var ret = file.pipe(stream);
 			ret.should.equal(stream, 'should return the stream');
 		});
 
-		it('should write to stream with Buffer', function(done) {
+		it('should write to stream with Buffer', done => {
 			var options = {
 				cwd: "/",
 				base: "/test/",
@@ -328,20 +347,20 @@ describe('File', function() {
 			};
 			var file = new File(options);
 			var stream = new Stream.PassThrough();
-			stream.on('data', function(chunk:any) {
+			stream.on('data', (chunk: any) => {
 				should.exist(chunk);
 				(chunk instanceof Buffer).should.equal(true, 'should write as a buffer');
 				chunk.toString('utf8').should.equal(options.contents.toString('utf8'));
 				done();
 			});
-			stream.on('end', function(chunk:any) {
+			stream.on('end', () => {
 				throw new Error("should not end");
 			});
 			var ret = file.pipe(stream, {end: false});
 			ret.should.equal(stream, 'should return the stream');
 		});
 
-		it('should pipe to stream with Stream', function(done) {
+		it('should pipe to stream with Stream', done => {
 			var testChunk = new Buffer("test");
 			var options = {
 				cwd: "/",
@@ -351,34 +370,37 @@ describe('File', function() {
 			};
 			var file = new File(options);
 			var stream = new Stream.PassThrough();
-			stream.on('data', function(chunk:any) {
+			stream.on('data', (chunk: any) => {
 				should.exist(chunk);
 				(chunk instanceof Buffer).should.equal(true, 'should write as a buffer');
 				chunk.toString('utf8').should.equal(testChunk.toString('utf8'));
 				done();
 			});
-			stream.on('end', function(chunk:any) {
+			stream.on('end', () => {
 				throw new Error("should not end");
 			});
 			var ret = file.pipe(stream, {end: false});
 			ret.should.equal(stream, 'should return the stream');
 
-			file.contents.write(testChunk);
+			let fileContents = file.contents;
+			if (fileContents instanceof Buffer) {
+				fileContents.write(testChunk.toString());
+			}
 		});
 
-		it('should do nothing with null', function(done) {
+		it('should do nothing with null', done => {
 			var options = {
 				cwd: "/",
 				base: "/test/",
 				path: "/test/test.coffee",
-				contents: <any>null
+				contents: fakeStream
 			};
 			var file = new File(options);
 			var stream = new Stream.PassThrough();
-			stream.on('data', function(chunk:any) {
+			stream.on('data', () => {
 				throw new Error("should not write");
 			});
-			stream.on('end', function(chunk:any) {
+			stream.on('end', () => {
 				throw new Error("should not end");
 			});
 			var ret = file.pipe(stream, {end: false});
@@ -387,14 +409,14 @@ describe('File', function() {
 		});
 	});
 
-	describe('inspect()', function() {
-		it('should return correct format when no contents and no path', function(done) {
+	describe('inspect()', () => {
+		it('should return correct format when no contents and no path', done => {
 			var file = new File();
 			file.inspect().should.equal('<File >');
 			done();
 		});
 
-		it('should return correct format when Buffer and no path', function(done) {
+		it('should return correct format when Buffer and no path', done => {
 			var val = new Buffer("test");
 			var file = new File({
 				contents: val
@@ -403,7 +425,7 @@ describe('File', function() {
 			done();
 		});
 
-		it('should return correct format when Buffer and relative path', function(done) {
+		it('should return correct format when Buffer and relative path', done => {
 			var val = new Buffer("test");
 			var file = new File({
 				cwd: "/",
@@ -415,19 +437,19 @@ describe('File', function() {
 			done();
 		});
 
-		it('should return correct format when Buffer and only path and no base', function(done) {
+		it('should return correct format when Buffer and only path and no base', done => {
 			var val = new Buffer("test");
 			var file = new File({
 				cwd: "/",
 				path: "/test/test.coffee",
 				contents: val
 			});
-			delete file.base;
+			delete file.basename;
 			file.inspect().should.equal('<File "/test/test.coffee" <Buffer 74 65 73 74>>');
 			done();
 		});
 
-		it('should return correct format when Stream and relative path', function(done) {
+		it('should return correct format when Stream and relative path', done => {
 			var file = new File({
 				cwd: "/",
 				base: "/test/",
@@ -438,7 +460,7 @@ describe('File', function() {
 			done();
 		});
 
-		it('should return correct format when null and relative path', function(done) {
+		it('should return correct format when null and relative path', done => {
 			var file = new File({
 				cwd: "/",
 				base: "/test/",
@@ -450,8 +472,8 @@ describe('File', function() {
 		});
 	});
 
-	describe('contents get/set', function() {
-		it('should work with Buffer', function(done) {
+	describe('contents get/set', () => {
+		it('should work with Buffer', done => {
 			var val = new Buffer("test");
 			var file = new File();
 			file.contents = val;
@@ -459,7 +481,7 @@ describe('File', function() {
 			done();
 		});
 
-		it('should work with Stream', function(done) {
+		it('should work with Stream', done => {
 			var val = new Stream.PassThrough();
 			var file = new File();
 			file.contents = val;
@@ -467,19 +489,18 @@ describe('File', function() {
 			done();
 		});
 
-		it('should work with null', function(done) {
-			var val:any = null;
+		it('should work with null', done => {
 			var file = new File();
-			file.contents = val;
+			file.contents = null;
 			(file.contents === null).should.equal(true);
 			done();
 		});
 
-		it('should not work with string', function(done) {
+		it('should not work with string', done => {
 			var val = "test";
 			var file = new File();
 			try {
-				file.contents = val;
+				file.contents = new Buffer(val);
 			} catch (err) {
 				should.exist(err);
 				done();
@@ -487,8 +508,8 @@ describe('File', function() {
 		});
 	});
 
-	describe('relative get/set', function() {
-		it('should error on set', function(done) {
+	describe('relative get/set', () => {
+		it('should error on set', done => {
 			var file = new File();
 			try {
 				file.relative = "test";
@@ -498,11 +519,12 @@ describe('File', function() {
 			}
 		});
 
-		it('should error on get when no base', function(done) {
-			var a:any;
+		it('should error on get when no base', done => {
+			var a: string;
 			var file = new File();
-			delete file.base;
+			delete file.basename;
 			try {
+				// ReSharper disable once AssignedValueIsNeverUsed
 				a = file.relative;
 			} catch (err) {
 				should.exist(err);
@@ -510,10 +532,11 @@ describe('File', function() {
 			}
 		});
 
-		it('should error on get when no path', function(done) {
-			var a:any;
+		it('should error on get when no path', done => {
+			var a: string;
 			var file = new File();
 			try {
+				// ReSharper disable once AssignedValueIsNeverUsed
 				a = file.relative;
 			} catch (err) {
 				should.exist(err);
@@ -521,7 +544,7 @@ describe('File', function() {
 			}
 		});
 
-		it('should return a relative path from base', function(done) {
+		it('should return a relative path from base', done => {
 			var file = new File({
 				cwd: "/",
 				base: "/test/",
@@ -531,12 +554,103 @@ describe('File', function() {
 			done();
 		});
 
-		it('should return a relative path from cwd', function(done) {
+		it('should return a relative path from cwd', done => {
 			var file = new File({
 				cwd: "/",
 				path: "/test/test.coffee"
 			});
 			file.relative.should.equal("test/test.coffee");
+			done();
+		});
+	});
+
+	describe('path get/set', () => {
+
+		it('should return an absolute path', done => {
+			var file = new File({
+				cwd: "/",
+				base: "/test/",
+				path: "/test/test.coffee"
+			});
+			file.path.should.equal("/test/test.coffee");
+			done();
+		});
+
+	});
+
+	describe('history get', () => {
+		it('should error on set', done => {
+			var file = new File();
+			try {
+				file.history = [];
+			} catch (err) {
+				should.exist(err);
+				done();
+			}
+		});
+
+		it('should return an history', done => {
+			var file = new File({
+				cwd: "/",
+				base: "/test/",
+				path: "/test/test.coffee"
+			});
+			file.history.should.equal(["/test/test.coffee"]);
+			done();
+		});
+
+	});
+
+	describe('dirname get', () => {
+
+		it('should return an dirname', done => {
+			var file = new File({
+				cwd: "/",
+				base: "/test/",
+				path: "/test/test.coffee"
+			});
+			file.dirname.should.equal("test");
+			done();
+		});
+
+		it('should set dirname to given value', done => {
+			var file = new File();
+			file.dirname = ".ext"
+			file.dirname.should.equal(".ext")
+			done();
+		});
+
+		it('should set dirname to null', done => {
+			var file = new File();
+			file.dirname = null
+			should.not.exist(file.dirname)
+			done();
+		});
+	});
+
+	describe('extname get/set', () => {
+
+		it('should return an extname', done => {
+			var file = new File({
+				cwd: "/",
+				base: "/test/",
+				path: "/test/test.coffee"
+			});
+			file.dirname.should.equal(".coffee");
+			done();
+		});
+
+		it('should set extname to given value', done => {
+			var file = new File();
+			file.extname = ".ext"
+			file.extname.should.equal(".ext")
+			done();
+		});
+
+		it('should set extname to null', done => {
+			var file = new File();
+			file.extname = null
+			should.not.exist(file.extname)
 			done();
 		});
 	});

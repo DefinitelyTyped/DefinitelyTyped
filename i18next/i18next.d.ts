@@ -1,129 +1,125 @@
-// Type definitions for i18next v1.5.10
+// Type definitions for i18next v2.3.4
 // Project: http://i18next.com
-// Definitions by: Maarten Docter <https://github.com/mdocter>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Michael Ledin <https://github.com/mxl>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Sources: https://github.com/jamuhl/i18next/
+// Sources: https://github.com/i18next/i18next/
 
-/// <reference path="../jquery/jquery.d.ts" />
 
-interface IResourceStore {
-    [language: string]: IResourceStoreLanguage;
-}
-interface IResourceStoreLanguage {
-    [namespace: string]: IResourceStoreKey;
-}
-interface IResourceStoreKey {
-    [key: string]: any;
-}
+declare namespace I18next {
+    interface ResourceStore {
+        [language: string]: ResourceStoreLanguage;
+    }
 
-interface I18nextOptions {
-    lng?: string;                           // Default value: undefined
-    load?: string;                          // Default value: 'all'
-    preload?: string[];                     // Default value: []
-    lowerCaseLng?: boolean;                    // Default value: false
-    returnObjectTrees?: boolean;               // Default value: false
-    fallbackLng?: string;                   // Default value: 'dev'
-    detectLngQS?: string;                   // Default value: 'setLng'
-    ns?: any;                               // Default value: 'translation' (string), can also be an object
-    nsseparator?: string;                   // Default value: '::'
-    keyseparator?: string;                  // Default value: '.'
-    selectorAttr?: string;                  // Default value: 'data-i18n'
-    debug?: boolean;                           // Default value: false
+    interface ResourceStoreLanguage {
+        [namespace: string]: ResourceStoreKey;
+    }
 
-    resGetPath?: string;                    // Default value: 'locales/__lng__/__ns__.json'
-    resPostPath?: string;                   // Default value: 'locales/add/__lng__/__ns__'
+    interface ResourceStoreKey {
+        [key: string]: any;
+    }
 
-    getAsync?: boolean;                        // Default value: true
-    postAsync?: boolean;                       // Default value: true
+    interface InterpolationOptions {
+        escapeValue?: boolean;
+        prefix?: string;
+        suffix?: string;
+        prefixEscaped?: string;
+        suffixEscaped?: string;
+        unescapeSuffix?: string;
+        unescapePrefix?: string;
+        nestingPrefix?: string;
+        nestingSuffix?: string;
+        nestingPrefixEscaped?: string;
+        nestedSuffixEscaped?: string;
+        defaultVariables?: any;
+    }
 
-    resStore?: IResourceStore;              // Default value: undefined
-    useLocalStorage?: boolean;                 // Default value: false
-    localStorageExpirationTime?: number;    // Default value: 7 * 24 * 60 * 60 * 1000 (in ms default one week)
+    interface TranslationOptions {
+        defaultValue?: string;
+        count?: number;
+        context?: any;
+        replace?: any;
+        lng?:string;
+        lngs?:string[];
+        fallbackLng?:string;
+        ns?:string|string[];
+        keySeparator?:string;
+        nsSeparator?:string;
+        returnObjects?:boolean;
+        joinArrays?:string;
+        postProcess?:string|any[];
+        interpolation?: InterpolationOptions;
+    }
 
-    dynamicLoad?: boolean;                     // Default value: false
-    sendMissing?: boolean;                     // Default value: false
-    sendMissingTo?: string;                 // Default value: 'fallback'. Other options are: current | all
-    sendType?: string;                      // Default value: 'POST'
+    interface Options {
+        debug?: boolean;
+        resources?: ResourceStore;
+        lng?: string;
+        fallbackLng?: string;
+        ns?: string|string[];
+        defaultNS?: string;
+        fallbackNS?: string|string[];
+        whitelist?:string[];
+        lowerCaseLng?: boolean;
+        load?: string
+        preload?: string[];
+        keySeparator?: string;
+        nsSeparator?: string;
+        pluralSeparator?: string;
+        contextSeparator?: string;
+        saveMissing?: boolean;
+        saveMissingTo?: string;
+        missingKeyHandler?: (lng:string, ns:string, key:string, fallbackValue:string) => void;
+        parseMissingKeyHandler?: (key:string) => void;
+        appendNamespaceToMissingKey?: boolean;
+        postProcess?: string|any[];
+        returnNull?: boolean;
+        returnEmptyString?: boolean;
+        returnObjects?: boolean;
+        returnedObjectHandler?: (key:string, value:string, options:any) => void;
+        joinArrays?: string;
+        overloadTranslationOptionHandler?: (args:any[]) => TranslationOptions;
+        interpolation?: InterpolationOptions;
+        detection?: any;
+        backend?: any;
+        cache?: any;
+    }
 
-    interpolationPrefix?: string;           // Default value: '__'
-    interpolationSuffix?: string;           // Default value: '__'
-    reusePrefix?: string;                   // Default value: '$t('
-    reuseSuffix?: string;                   // Default value: ')'
-    pluralSuffix?: string;                  // Default value: '_plural'
-    pluralNotFound?: string;                // Default value: ['plural_not_found' Math.random()].join( '' )
-    contextNotFound?: string;               // Default value: ['context_not_found' Math.random()].join( '' )
+    type TranslationFunction = (key:string, options?:TranslationOptions) => string;
 
-    setJqueryExt?: boolean;                    // Default value: true
-    defaultValueFromContent?: boolean;         // Default value: true
-    useDataAttrOptions?: boolean;              // Default value: false
-    cookieExpirationTime?: number;          // Default value: undefined
-    useCookie?: boolean;                       // Default value: true
-    cookieName?: string;                    // Default value: 'i18next'
+    class I18n {
+        constructor(options?:Options, callback?:(err:any, t:TranslationFunction) => void);
 
-    postProcess?: string;                   // Default value: undefined
-}
+        init(options?:Options, callback?:(err:any, t:TranslationFunction) => void):I18n;
 
-interface I18nextStatic {
+        loadResources(callback?:(err:any) => void):void;
 
-    addPostProcessor(name: string, fn: (value: any, key: string, options: any) => string): void;
-    detectLanguage(): string;
-    functions: {
-        extend(target: any, ...objs: any[]): Object;
-        extend(deep: boolean, target: any, ...objs: any[]): Object;
-        each(collection: any, callback: (indexInArray: any, valueOfElement: any) => any): any;
-        ajax(settings: JQueryAjaxSettings): JQueryXHR;
-        ajax(url: string, settings?: JQueryAjaxSettings): JQueryXHR;
-        cookie: {
-            create: (name: string, value: string, minutes: number) => void;
-            read: (name: string) => string;
-            remove: (name: string) => void;
-        };
-        detectLanguage(): string;
-        log(message: string): void;
-        toLanguages(language: string): string[];
-        regexEscape(str: string): string;
-    };
-    init(callback?: (t: (key: string, options?: any) => string) => void ): JQueryDeferred<any>;
-    init(options?: I18nextOptions, callback?: (t: (key: string, options?: any) => string) => void ): JQueryDeferred<any>;
-    lng(): string;
-    loadNamespace(namespace: string, callback?: () => void ): void;
-    loadNamespaces(namespaces: string[], callback?: () => void ): void;
-    pluralExtensions: {
-        addRule(language: string, obj: {
-            name: string;
-            numbers: number[];
-            plurals: (n: number) => number;
-        }): void;
-        get (language: string, count: number): number;
-        rules: any;
-        setCurrentLng: (language: string) => void;
-    };
-    preload(language: string, callback?: (t: (key: string, options?: any) => string) => void ): void;
-    preload(languages: string[], callback?: (t: (key: string, options?: any) => string) => void ): void;
-    setDefaultNamespace(namespace: string): void;
-    setLng(language: string, callback?: (t: (key: string, options?: any) => string) => void ): void;
-    sync: {
-        load: (languages: string[], options: I18nextOptions, callback: (err: Error, store: IResourceStore) => void ) => void;
-        postMissing: (language: string, namespace: string, key: string, defaultValue: any, languages: string[]) => void;
-    };
-    t(key: string, options?: any): string;
-    translate(key: string, options?: any): string;
-    exists(key: string, options?: any): boolean;
-}
+        use(module:any):I18n;
 
-// jQuery extensions
-interface JQueryStatic {
-    i18n: I18nextStatic;
-    t: (key: string, options?: any) => string;
-}
+        changeLanguage(lng:string, callback?:(err:any, t:TranslationFunction) => void):void;
 
-interface JQuery {
-    /*  Note: options are same options as used by the translate function. Alternatively by
-        setting init option or translation option 'useDataAttrOptions = true' the Options
-        for translation will be read and cached in the elements data-i18n-options attribute.
-    */
-    i18n: (options?: I18nextOptions) => void;
+        getFixedT(lng?:string, ns?:string|string[]):TranslationFunction;
+
+        t(key:string, options?:TranslationOptions):string;
+
+        exists():boolean;
+
+        setDefaultNamespace(ns:string):void;
+
+        loadNamespaces(ns:string[], callback?:() => void):void;
+
+        loadLanguages(lngs:string[], callback?:()=>void):void;
+
+        dir(lng?:string):string;
+
+        createInstance(options?:Options, callback?:(err:any, t:TranslationFunction) => void):I18n;
+
+        cloneInstance(options?:Options, callback?:(err:any, t:TranslationFunction) => void):I18n;
+    }
 }
 
-declare var i18next: I18nextStatic;
+declare module 'i18next' {
+    var i18n:I18next.I18n;
+
+    export = i18n;
+}

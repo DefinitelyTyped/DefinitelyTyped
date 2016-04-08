@@ -1,7 +1,7 @@
 ﻿// Type definitions for Sugar 1.3.9
 // Project: http://sugarjs.com/
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /*
 sugar-1.3.9.d.ts may be freely distributed under the MIT license.
 
@@ -2820,7 +2820,7 @@ interface Array<T> {
 	* @see subtract
 	**/
 	subtract(args: T[]): T[];
-	
+
 	/**
 	* Sums all values in the array.
 	* @param map Property on each element in the array or callback function to sum up the elements.
@@ -2835,6 +2835,11 @@ interface Array<T> {
 	*   [{age:35},{age:12},{age:12}].sum('age') -> 59
 	**/
 	sum(map: string): number;
+
+    /**
+    * @see sum
+    **/
+	sum(): number;
 
 	/**
 	* @see sum
@@ -3400,7 +3405,7 @@ interface Object {
 	*   Object.extended({ happy:true, pappy:false }).keys() -> ['happy','pappy']
 	*   Object.extended({ happy:true, pappy:false }).values() -> [true, false]
 	**/
-	extended(): Object;
+	extended(obj?: any): Object;
 
 	/**
 	* Returns true if <obj> is an object of that type.

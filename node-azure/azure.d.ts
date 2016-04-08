@@ -1,9 +1,9 @@
-// Type definitions for Azure SDK for Node - v0.9.16
+// Type definitions for Azure SDK for Node v0.9.16
 // Project: https://github.com/WindowsAzure/azure-sdk-for-node
 // Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar>,
 //                 Anti Veeranna <https://github.com/antiveeranna>,
 //                 Maxime LUCE <https://github.com/SomaticIT>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -159,13 +159,13 @@ declare module "azure" {
         //#region Service Methods
 
         /**
-        * Gets the properties of a storage account’s Blob service, including Azure Storage Analytics.
+        * Gets the properties of a storage accountï¿½s Blob service, including Azure Storage Analytics.
         */
         getServiceProperties(callback: StorageServicePropertiesCallback): void;
         getServiceProperties(options: TimeoutIntervalOptions, callback: StorageServicePropertiesCallback): void;
 
         /**
-        * Sets the properties of a storage account’s Blob service, including Azure Storage Analytics.
+        * Sets the properties of a storage accountï¿½s Blob service, including Azure Storage Analytics.
         * You can also use this operation to set the default request version for all incoming requests that do not have a version specified.
         */
         setServiceProperties(serviceProperties: StorageServiceProperties, callback: StorageCallbackVoid): void;
@@ -521,13 +521,13 @@ declare module "azure" {
         //#region Service Methods
 
         /**
-        * Gets the properties of a storage account’s Blob service, including Azure Storage Analytics.
+        * Gets the properties of a storage accountï¿½s Blob service, including Azure Storage Analytics.
         */
         getServiceProperties(callback: StorageServicePropertiesCallback): void;
         getServiceProperties(options: TimeoutIntervalOptions, callback: StorageServicePropertiesCallback): void;
 
         /**
-        * Sets the properties of a storage account’s Blob service, including Azure Storage Analytics.
+        * Sets the properties of a storage accountï¿½s Blob service, including Azure Storage Analytics.
         * You can also use this operation to set the default request version for all incoming requests that do not have a version specified.
         */
         setServiceProperties(serviceProperties: StorageServiceProperties, callback: StorageCallbackVoid): void;
@@ -832,8 +832,8 @@ declare module "azure" {
         whereKeys(partitionKey: string, rowKey: string): TableQuery;
         whereNextKeys(partitionKey: string, rowKey: string): TableQuery;
         where(condition: string, ...values: string[]): TableQuery;
-        and(condition: string, ...arguments: string[]): TableQuery;
-        or(condition: string, ...arguments: string[]): TableQuery;
+        and(condition: string, ...args: string[]): TableQuery;
+        or(condition: string, ...args: string[]): TableQuery;
         top(integer: number): TableQuery;
         toQueryObject(): any;
         toPath(): string;
@@ -844,7 +844,7 @@ declare module "azure" {
         container: string;
 
         etag: string;
-        lastModified: Date;
+        lastModified: string;
         contentType: string;
         contentEncoding: string;
         contentLanguage: string;
@@ -894,7 +894,7 @@ declare module "azure" {
         publicAccessLevel: string;
 
         etag: string;
-        lastModified: Date;
+        lastModified: string;
         leaseStatus: string;
         leaseDuration: string;
         leaseState: string;
@@ -916,15 +916,15 @@ declare module "azure" {
         container: string;
         blob: string;
         id: string;
-        time: Date;
+        time: string;
         etag: string;
-        lastModified: Date;
+        lastModified: string;
 
         constructor();
         constructor(container: string);
         constructor(container: string, blob: string);
         constructor(container: string, blob: string, id: string);
-        constructor(container: string, blob: string, id: string, time: Date);
+        constructor(container: string, blob: string, id: string, time: string);
 
         getPropertiesFromHeaders(header: any): void;
     }
@@ -945,6 +945,11 @@ declare module "azure" {
 
     export class QueueMessageResult {
         queue: string;
+        insertiontime: string;
+        expirationtime: string;
+        timenextvisible: string;
+        messagetext: string;
+        dequeuecount: string;
         messageid: string;
         popreceipt: string;
         metadata: StorageMetadata;
@@ -1622,6 +1627,7 @@ declare module "azure" {
         RowKey: string;
         Timestamp?: Date;
         etag?: string;
+        [property: string]: string | number | boolean | Date;
     }
     //#endregion
     //#region BlobService Interfaces

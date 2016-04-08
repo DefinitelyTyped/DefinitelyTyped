@@ -1,7 +1,7 @@
 // Type definitions for watch
 // Project: https://github.com/mikeal/watch
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/watch.d.ts
 
@@ -30,6 +30,7 @@ declare module "watch" {
 
 	export function watchTree(root: string, callback: (f: any, curr: fs.Stats, prev: fs.Stats) => void): void;
 	export function watchTree(root: string, options: Options, callback: (f: any, curr: fs.Stats, prev: fs.Stats) => void): void;
+	export function unwatchTree(root: string): void;
 	export function createMonitor(root: string, callback: (monitor: Monitor) => void): void;
 	export function createMonitor(root: string, options: Options, callback: (monitor: Monitor) => void): void;
 }

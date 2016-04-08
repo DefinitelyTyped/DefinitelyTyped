@@ -1,7 +1,7 @@
 // Type definitions for NProgress
 // Project: https://github.com/rstacruz/nprogress
 // Definitions by: Judah Gabriel Himango <http://debuggerdotbreak.wordpress.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface NProgressStatic {
     /**
@@ -22,6 +22,13 @@ interface NProgressStatic {
      * @returns {NProgressConfigureOptions} The current NProgress object, useful for chaining.
      */
     inc(): NProgressStatic;
+
+    /**
+     * Increments the progress bar with a set amount.
+     * @param {number} amount This will get the current status value and adds the value until status is max 0.994
+     * @returns {NProgressConfigureOptions} The current NProgress object, useful for chaining.
+     */
+    inc(amount: number): NProgressStatic;
 
     /**
      * Removes the progress indicator.
@@ -103,3 +110,7 @@ interface NProgressConfigureOptions {
 }
 
 declare var NProgress: NProgressStatic;
+
+declare module "nprogress" {
+    export = NProgress;
+}
