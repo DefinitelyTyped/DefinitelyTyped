@@ -435,7 +435,12 @@ interface NodeBuffer extends Uint8Array {
     writeDoubleLE(value: number, offset: number, noAssert?: boolean): number;
     writeDoubleBE(value: number, offset: number, noAssert?: boolean): number;
     fill(value: any, offset?: number, end?: number): Buffer;
+    // TODO: encoding param
     indexOf(value: string | number | Buffer, byteOffset?: number): number;
+    // TODO: entries
+    // TODO: includes
+    // TODO: keys
+    // TODO: values
 }
 
 /************************************************
