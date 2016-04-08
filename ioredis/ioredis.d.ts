@@ -18,7 +18,7 @@ declare module "ioredis" {
         defineCommand(name: string, definition: {
             numberOfKeys?: number;
             lua?: string;
-        });
+        }): any;
         sendCommand(): void;
     }
 
