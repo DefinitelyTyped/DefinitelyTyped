@@ -181,6 +181,12 @@ function bufferTests() {
         let sb = new ImportedSlowBuffer(43);
         b.writeUInt8(0, 6);
     }
+
+    // Buffer has Uint8Array's buffer field (an ArrayBuffer).
+    {
+      let buffer = new Buffer('123');
+      let octets = new Uint8Array(buffer.buffer);
+    }
 }
 
 
