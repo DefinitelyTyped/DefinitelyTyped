@@ -1,3 +1,5 @@
+/// <reference path="filesize.d.ts" />
+
 import filesize = require("filesize");
 
 filesize(500);                        // "500 B" 
