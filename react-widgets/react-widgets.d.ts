@@ -22,7 +22,7 @@ declare module "react-widgets/lib/Combobox" {
 		emptyFilter: string | ((props: ComboBoxProps) => string);
 	}
 
-	interface ComboBoxProps extends React.Props<ComboBoxClass> {
+	interface ComboBoxProps extends __React.Props<ComboBoxClass> {
 		/**
 		 * The current value of the Combobox. This can be an object (such as a member of the data
 		 * array) or a primitive value, hinted to by the valueField. The widget value does not need
@@ -64,7 +64,7 @@ declare module "react-widgets/lib/Combobox" {
 		 * This component is used to render each possible item in the Combobox. The default
 		 * component renders the text of the selected item (specified by textfield)
 		 */
-		itemComponent?: React.ReactElement<any>;
+		itemComponent?: __React.ReactElement<any>;
 		/**
 		 * Disable the widget, if an Array of values is passed in only those values will be
 		 * disabled.
@@ -84,7 +84,7 @@ declare module "react-widgets/lib/Combobox" {
 		 * This component is used to render each option group, when groupBy is specified. By default
 		 * the groupBy value will be used.
 		 */
-		groupComponent?: React.ReactElement<any>;
+		groupComponent?: __React.ReactElement<any>;
 		/**
 		 * When true the Combobox will suggest, or fill in, values as you type. The suggestions are
 		 * always "startsWith", meaning it will search from the start of the textField property
@@ -143,15 +143,15 @@ declare module "react-widgets/lib/Combobox" {
 		messages?: ComboBoxMessages;
 	}
 
-	interface ComboBox extends React.ReactElement<ComboBoxProps> { }
-	interface ComboBoxClass extends React.ComponentClass<ComboBoxProps> { }
+	interface ComboBox extends __React.ReactElement<ComboBoxProps> { }
+	interface ComboBoxClass extends __React.ComponentClass<ComboBoxProps> { }
 	var ComboBox: ComboBoxClass;
 	export = ComboBox;
 }
 
 declare module "react-widgets/lib/DateTimePicker" {
 
-	interface DateTimePickerProps extends React.Props<DateTimePickerClass> {
+	interface DateTimePickerProps extends __React.Props<DateTimePickerClass> {
 		/**
 		 * Whether to show the date picker button. 
 		 * @default true
@@ -280,14 +280,14 @@ declare module "react-widgets/lib/DateTimePicker" {
 		timeButton?: string;
 	}
 
-	interface DateTimePicker extends React.ReactElement<DateTimePickerProps> { }
-	interface DateTimePickerClass extends React.ComponentClass<DateTimePickerProps> { }
+	interface DateTimePicker extends __React.ReactElement<DateTimePickerProps> { }
+	interface DateTimePickerClass extends __React.ComponentClass<DateTimePickerProps> { }
 	var DateTimePicker: DateTimePickerClass;
 	export = DateTimePicker;
 }
 
 declare module "react-widgets/lib/Multiselect" {
-	interface MultiselectProps extends React.Props<MultiselectClass> {
+	interface MultiselectProps extends __React.Props<MultiselectClass> {
 		/**
 		 * The current values of the Multiselect. The value should can null, or an array of
 		 * valueField values, or an array of objects (such as a few items in the data array)
@@ -333,12 +333,12 @@ declare module "react-widgets/lib/Multiselect" {
 		 * This component is used to render each selected item. The default component renders the
 		 * text of the selected item (specified by textfield).
 		 */
-		tagComponent?: React.ReactElement<any>;
+		tagComponent?: __React.ReactElement<any>;
 		/**
 		 * This component is used to render each possible item in the list. The default component
 		 * renders the text of the selected item (specified by textfield).
 		 */
-		itemComponent?: React.ReactElement<any>;
+		itemComponent?: __React.ReactElement<any>;
 		/**
 		 * Determines how to group the Multiselect values. Providing a string will group the data
 		 * array by that property. You can also provide a 'function' which should return the group
@@ -349,7 +349,7 @@ declare module "react-widgets/lib/Multiselect" {
 		 * This component is used to render each option group, when groupBy is specified. By default
 		 * the groupBy value will be used.
 		 */
-		groupComponent?: React.ReactElement<any>;
+		groupComponent?: __React.ReactElement<any>;
 		/**
 		 * The same as an input placeholder, only works in browsers that support the placeholder
 		 * attribute for inputs
@@ -452,14 +452,14 @@ declare module "react-widgets/lib/Multiselect" {
 		emptyFilter?: string | ((props: MultiselectProps) => string);
 	}
 
-	interface Multiselect extends React.ReactElement<MultiselectProps> { }
-	interface MultiselectClass extends React.ComponentClass<MultiselectProps> { }
+	interface Multiselect extends __React.ReactElement<MultiselectProps> { }
+	interface MultiselectClass extends __React.ComponentClass<MultiselectProps> { }
 	var Multiselect: MultiselectClass;
 	export = Multiselect;
 }
 
 declare module "react-widgets/lib/NumberPicker" {
-	interface NumberPickerProps extends React.Props<NumberPickerClass> {
+	interface NumberPickerProps extends __React.Props<NumberPickerClass> {
 		/**
 		 * The current value of the NumberPicker.
 		 */
@@ -527,14 +527,14 @@ declare module "react-widgets/lib/NumberPicker" {
 		decrement?: string;
 	}
 
-	interface NumberPicker extends React.ReactElement<NumberPickerProps> { }
-	interface NumberPickerClass extends React.ComponentClass<NumberPickerProps> { }
+	interface NumberPicker extends __React.ReactElement<NumberPickerProps> { }
+	interface NumberPickerClass extends __React.ComponentClass<NumberPickerProps> { }
 	var NumberPicker: NumberPickerClass;
 	export = NumberPicker;
 }
 
 declare module "react-widgets/lib/SelectList" {
-	interface SelectListProps extends React.Props<SelectListClass> {
+	interface SelectListProps extends __React.Props<SelectListClass> {
 		/**
 		 * The current value or values of the SelectList. This can be an object (such as a member of
 		 * the data array) or a primitive value, hinted to by the valueField. The widget value does
@@ -575,7 +575,7 @@ declare module "react-widgets/lib/SelectList" {
 		 * This component is used to render each item in the SelectList. The default component
 		 * renders the text of the selected item (specified by textfield)
 		 */
-		itemComponent?: React.ReactElement<any>;
+		itemComponent?: __React.ReactElement<any>;
 		/**
 		 * Determines how to group the SelectList dropdown list. Providing a string will group the
 		 * data array by that property. You can also provide a 'function' which should return the
@@ -586,7 +586,7 @@ declare module "react-widgets/lib/SelectList" {
 		 * This component is used to render each option group, when groupBy is specified. By default
 		 * the groupBy value will be used.
 		 */
-		groupComponent?: React.ReactElement<any>;
+		groupComponent?: __React.ReactElement<any>;
 		/**
 		 * A handler called when focus shifts on the SelectList. Internally this is used to ensure
 		 * the focused item is in view. If you want to define your own "scrollTo" behavior or just
@@ -631,14 +631,14 @@ declare module "react-widgets/lib/SelectList" {
 		emptyList?: string | ((props: SelectListProps) => string)
 	}
 
-	interface SelectList extends React.ReactElement<SelectListProps> { }
-	interface SelectListClass extends React.ComponentClass<SelectListProps> { }
+	interface SelectList extends __React.ReactElement<SelectListProps> { }
+	interface SelectListClass extends __React.ComponentClass<SelectListProps> { }
 	var SelectList: SelectListClass;
 	export = SelectList;
 }
 
 declare module "react-widgets/lib/Calendar" {
-	interface CalendarProps extends React.Props<CalendarClass> {
+	interface CalendarProps extends __React.Props<CalendarClass> {
 		/**
 		 * The current selected date, should be a Date object or null.
 		 */
@@ -684,7 +684,7 @@ declare module "react-widgets/lib/Calendar" {
 		 * - label: a formatted String of the date to render. To adjust the format of the label
 		 *          string use the dateFormat prop, listed below.
 		 */
-		dayComponent?: React.ReactElement<any>;
+		dayComponent?: __React.ReactElement<any>;
 		/**
 		 * The starting and lowest level view the calendar can navigate down to.
 		 * @enum "month" "year" "decade" "century"
@@ -753,14 +753,14 @@ declare module "react-widgets/lib/Calendar" {
 		moveForward?: string;
 	}
 
-	interface Calendar extends React.ReactElement<CalendarProps> { }
-	interface CalendarClass extends React.ComponentClass<CalendarProps> { }
+	interface Calendar extends __React.ReactElement<CalendarProps> { }
+	interface CalendarClass extends __React.ComponentClass<CalendarProps> { }
 	var Calendar: CalendarClass;
 	export = Calendar;
 }
 
 declare module "react-widgets/lib/DropdownList" {
-	interface DropdownListProps extends React.Props<DropdownListClass> {
+	interface DropdownListProps extends __React.Props<DropdownListClass> {
 		/**
 		 * The current value of the DropdownList. This can be an object (such as a member of the
 		 * data array) or a primitive value, hinted to by the valueField. The widget value does not
@@ -800,12 +800,12 @@ declare module "react-widgets/lib/DropdownList" {
 		 * This component is used to render the selected value of the DropdownList. The default
 		 * component renders the text of the selected item (specified by textfield)
 		 */
-		valueComponent?: React.ReactElement<any>;
+		valueComponent?: __React.ReactElement<any>;
 		/**
 		 * This component is used to render each possible item in the DropdownList. The default
 		 * component renders the text of the selected item (specified by textfield)
 		 */
-		itemComponent?: React.ReactElement<any>;
+		itemComponent?: __React.ReactElement<any>;
 		/**
 		 * Disable the widget, if an Array of values is passed in only those values will be disabled.
 		 */
@@ -824,7 +824,7 @@ declare module "react-widgets/lib/DropdownList" {
 		 * This component is used to render each option group, when groupBy is specified. By default
 		 * the groupBy value will be used.
 		 */
-		groupComponent?: React.ReactElement<any>;
+		groupComponent?: __React.ReactElement<any>;
 		/**
 		 * Text to display when the value is empty.
 		 */
@@ -918,8 +918,8 @@ declare module "react-widgets/lib/DropdownList" {
 		emptyFilter?: string | ((props: DropdownListProps) => string);
 	}
 
-	interface DropdownList extends React.ReactElement<DropdownListProps> { }
-	interface DropdownListClass extends React.ComponentClass<DropdownListProps> { }
+	interface DropdownList extends __React.ReactElement<DropdownListProps> { }
+	interface DropdownListClass extends __React.ComponentClass<DropdownListProps> { }
 	var DropdownList: DropdownListClass;
 	export = DropdownList;
 }
