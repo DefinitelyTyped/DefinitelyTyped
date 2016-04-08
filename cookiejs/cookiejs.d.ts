@@ -15,6 +15,8 @@ declare namespace cookie {
   export function empty() : void;
   export function get(key : string, fallback?: string) : string;
   export function get(keys : string[], fallback?: string) : string;
+  export function getJSON(key : string, fallback?: string) : Object;
+  export function getJSON(keys : string[], fallback?: string) : Object;
   export function all() : any;
   export function enabled() : boolean;
 }
