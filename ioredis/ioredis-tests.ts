@@ -9,7 +9,7 @@ redis.get('foo', function(err, result) {
 });
 
 // Or using a promise if the last argument isn't a function
-redis.get('foo').then(function(result) {
+redis.get('foo').then(function(result: any) {
     console.log(result);
 });
 
@@ -33,7 +33,7 @@ new Redis({
 })
 
 var pub = new Redis();
-redis.subscribe('news', 'music', function(err, count) {
+redis.subscribe('news', 'music', function(err: any, count: any) {
     // Now we are subscribed to both the 'news' and 'music' channels.
     // `count` represents the number of channels we are currently subscribed to.
 
@@ -41,7 +41,7 @@ redis.subscribe('news', 'music', function(err, count) {
     pub.publish('music', 'Hello again!');
 });
 
-redis.on('message', function(channel, message) {
+redis.on('message', function(channel: any, message: any) {
     // Receive message Hello world! from channel news
     // Receive message Hello again! from channel music
     console.log('Receive message %s from channel %s', message, channel);
@@ -49,6 +49,6 @@ redis.on('message', function(channel, message) {
 
 // There's also an event called 'messageBuffer', which is the same as 'message' except
 // it returns buffers instead of strings.
-redis.on('messageBuffer', function(channel, message) {
+redis.on('messageBuffer', function(channel: any, message: any) {
     // Both `channel` and `message` are buffers.
 });
