@@ -6,6 +6,7 @@
 /// <reference path="../react/react.d.ts"/>
 
 declare namespace ReactSelect {
+
     interface Option {
         /** Text for rendering */
         label: string;
@@ -199,14 +200,91 @@ declare namespace ReactSelect {
          * @default false
          */
         valueRenderer?: () => void;
+        /**
+         *  optional style to apply to the control
+         */
+        style?: any;
+
+        /**
+         *  optional tab index of the control
+         */
+        tabIndex?: string;
+
+        /**
+         *  value component to render
+         */
+        valueComponent?: Function;
+
+        /**
+         *  optional style to apply to the component wrapper
+         */
+        wrapperStyle?: any;
+
+        /**
+         * onClick handler for value labels: function (value, event) {}
+         */
+        onValueClick?: Function;
+
+        /**
+         *  pass the value to onChange as a simple value (legacy pre 1.0 mode), defaults to false
+         */
+        simpleValue?: boolean;
     }
 
-    interface ReactAsyncSelectProps extends __React.Props<ReactSelect> {
+    interface ReactAsyncSelectProps extends ReactSelectProps {
+        /**
+         *  object to use to cache results; can be null to disable cache
+         */
         cache?: any;
-        loadOptions?: () => void;
+
+        /**
+         *  whether to strip diacritics when filtering (shared with Select)
+         */
         ignoreAccents?: boolean;
+
+        /**
+         *  whether to perform case-insensitive filtering (shared with Select)
+         */
+        ignoreCase?: boolean;
+
+        /**
+         *  overrides the isLoading state when set to true
+         */
         isLoading?: boolean;
+
+        /**
+         *  function to call to load options asynchronously
+         */
+        loadOptions: (input: string, callback: (options: Option[]) => any) => any;
+
+        /**
+         *  replaces the placeholder while options are loading
+         */
         loadingPlaceholder?: string;
+
+        /**
+         *  the minimum number of characters that trigger loadOptions
+         */
+        minimumInput?: number;
+
+        /**
+         *  placeholder displayed when there are no matching search results (shared with Select)
+         */
+        noResultsText?: string;
+        /**
+         *  field placeholder; displayed when there's no value (shared with Select)
+         */
+        placeholder?: string;
+
+        /**
+         *  label to prompt for search input
+         */
+        searchPromptText?: string;
+
+        /**
+         *  message to display while options are loading
+         */
+        searchingText?: string;
     }
 
     interface ReactSelect extends  __React.ReactElement<ReactSelectProps> { }
