@@ -2,9 +2,11 @@
 
 import StripeNode = require('stripe');
 
-var stripe = new StripeNode("sk_test_BF573NobVn98OiIsPAv7A04K");
 
-stripe.setApiVersion('2015-02-18');
+var stripeTor = new StripeNode("sk_test_BF573NobVn98OiIsPAv7A04K");
+var stripe = StripeNode("sk_test_BF573NobVn98OiIsPAv7A04K")
+
+stripe.setApiVersion('2016-03-07');
 stripe.customers.list({ limit: 3 }, function (err, customers) {
     // asynchronously called
 });
@@ -83,8 +85,24 @@ stripe.customers.retrieve(
     "cus_5rfJKDJkuxzh5Q",
     function (err, customer) {
         // asynchronously called
+        customer.cards.create(
+            { card: "tok_15V2YhEe31JkLCeQy9iUgsJX" },
+            function(err, card) {
+                // asynchronously called
+                card.brand;
+            }
+        );
     }
-    );
+);
+
+stripe.customers.retrieve("cus_5rfJKDJkuxzh5Q").then(function (customer) {
+    // asynchronously called
+    
+    return customer.cards.create({ card: "tok_15V2YhEe31JkLCeQy9iUgsJX" }).then(function(card) {
+        // asynchronously called
+        card.brand;
+    });
+});
 
 stripe.customers.update("cus_5rfJKDJkuxzh5Q", {
     description: "Customer for test@example.com"
@@ -111,21 +129,57 @@ stripe.customers.createCard(
     }
     );
 
-stripe.customers.retrieveCard(
+stripe.customers.createSource(
     "cus_5rfJKDJkuxzh5Q",
-    "card_15fvyXEe31JkLCeQ9KMktP5S",
+    { source: "tok_15V2YhEe31JkLCeQy9iUgsJX" },
+    function (err, card: StripeNode.ICard) {
+        // asynchronously called
+        if (card) {
+            card.brand;
+        }
+    }
+);
+
+stripe.customers.createSource(
+    "cus_5rfJKDJkuxzh5Q",
+    { 
+        source: {
+            object: "card",
+            exp_month: 1,
+            exp_year: 16,
+            number: 4242424242424242
+        }
+    },
     function (err, card) {
         // asynchronously called
+        card.brand;
     }
-    );
+);
+
+stripe.customers.createSource(
+    "cus_5rfJKDJkuxzh5Q",
+    { source: "btok_8E264Lxsbyvj3E" },
+    function (err, bankAcc: StripeNode.IBankAccount) {
+        // asynchronously called
+        bankAcc.bank_name;
+    }
+);
 
 stripe.customers.retrieveCard(
     "cus_5rfJKDJkuxzh5Q",
     "card_15fvyXEe31JkLCeQ9KMktP5S",
     function (err, card) {
         // asynchronously called
+        card.brand;
     }
     );
+
+stripe.customers.retrieveCard(
+    "cus_5rfJKDJkuxzh5Q",
+    "card_15fvyXEe31JkLCeQ9KMktP5S").then(function(card) {
+        // asynchronously called
+        card.brand;
+    });
 
 stripe.customers.updateCard(
     "cus_5rfJKDJkuxzh5Q",
@@ -139,11 +193,9 @@ stripe.customers.updateCard(
 stripe.customers.updateCard(
     "cus_5rfJKDJkuxzh5Q",
     "card_15fvyXEe31JkLCeQ9KMktP5S",
-    { name: "Jane Austen" },
-    function (err, card) {
+    { name: "Jane Austen" }).then(function (card) {
         // asynchronously called
-    }
-    );
+    });
 
 stripe.customers.deleteCard(
     "cus_5rfJKDJkuxzh5Q",
@@ -152,8 +204,22 @@ stripe.customers.deleteCard(
         // asynchronously called
     }
     );
+    
+stripe.customers.deleteCard(
+    "cus_5rfJKDJkuxzh5Q",
+    "card_15fvyXEe31JkLCeQ9KMktP5S").then(function (confirmation) {
+        // asynchronously called
+    });
 
 stripe.customers.listCards('cu_15fvyVEe31JkLCeQvr155iqc', null, function (err, cards) {
+    // asynchronously called
+});
+
+stripe.customers.listCards('cu_15fvyVEe31JkLCeQvr155iqc', function (err, cards) {
+    // asynchronously called
+});
+
+stripe.customers.listCards('cu_15fvyVEe31JkLCeQvr155iqc', null).then(function (cards) {
     // asynchronously called
 });
 
@@ -208,7 +274,7 @@ stripe.plans.update("platypi-dev", {
     name: "New plan name"
 }, function (err, plan) {
         // asynchronously called
-    });
+});
 
 stripe.plans.del(
     "platypi-dev",
@@ -308,3 +374,19 @@ stripe.invoices.list(
         // asynchronously called
     }
     );
+
+stripe.charges.retrieve("ch_15fvyXEe31JkLCeQOo0SwFk9").then(function(charge) {
+    // asynchronously called
+}).catch(function(err){
+    // asynchronously called
+});
+
+stripe.account.createExternalAccount("", { external_account: "btok_8E264Lxsbyvj3E" }).then(function(bankAcc: StripeNode.IBankAccount) {
+    // asynchronously called
+    bankAcc.bank_name;
+});
+
+stripe.account.createExternalAccount("", { external_account: "tok_15V2YhEe31JkLCeQy9iUgsJX" }).then(function(bankAcc: StripeNode.ICard) {
+    // asynchronously called
+    bankAcc.brand;
+});
