@@ -1896,6 +1896,7 @@ declare namespace Electron {
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/menu-item.md
+	// https://github.com/electron/electron/blob/master/docs/api/accelerator.md
 
 	/**
 	 * The MenuItem allows you to add items to an application or context menu.
@@ -1955,13 +1956,16 @@ declare namespace Electron {
 		 * multiple modifiers and key codes, combined by the + character.
 		 *
 		 * Examples:
-		 *   Command+A
-		 *   Ctrl+Shift+Z
+		 *   CommandOrControl+A
+		 *   CommandOrControl+Shift+Z
 		 *
 		 * Platform notice:
 		 *   On Linux and Windows, the Command key would not have any effect,
 		 *   you can use CommandOrControl which represents Command on OS X and Control on
 		 *   Linux and Windows to define some accelerators.
+		 *
+		 *   Use Alt instead of Option. The Option key only exists on OS X, whereas
+		 *   the Alt key is available on all platforms.
 		 *
 		 *   The Super key is mapped to the Windows key on Windows and Linux and Cmd on OS X.
 		 *
@@ -2000,8 +2004,17 @@ declare namespace Electron {
 		 * or NativeImage instances. When passing null, an empty image will be used.
 		 */
 		icon?: NativeImage|string;
+		/**
+		 * If false, the menu item will be greyed out and unclickable.
+		 */
 		enabled?: boolean;
+		/**
+		 * If false, the menu item will be entirely hidden.
+		 */
 		visible?: boolean;
+		/**
+		 * Should only be specified for 'checkbox' or 'radio' type menu items.
+		 */
 		checked?: boolean;
 		/**
 		 * Should be specified for submenu type menu item, when it's specified the
