@@ -835,7 +835,7 @@ declare namespace StripeNode {
             /**
              * A list of refunds that have been applied to the charge.
              */
-            refunds: IList<refunds.IRefund>;
+            refunds: IChargeRefunds;
             
             /**
              * Shipping information for the charge.
@@ -1031,6 +1031,8 @@ declare namespace StripeNode {
                 object: "all" | "alipay_account" | "bitcoin_receiver" | "card";
             }
         }
+
+        interface IChargeRefunds extends IList<refunds.IRefund>, resources.ChargeRefunds { }
     }
     
     namespace coupons {
@@ -4830,6 +4832,54 @@ declare namespace StripeNode {
             markAsFraudulent(chargeId: string, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
         }
 
+        class ChargeRefunds extends StripeResource {
+            /**
+             * When you create a new refund, you must specify a charge to create it on.
+             * 
+             * Creating a new refund will refund a charge that has previously been created but not yet refunded. 
+             * Funds will be refunded to the credit or debit card that was originally charged. 
+             * The fees you were originally charged are also refunded.
+             * 
+             * You can optionally refund only part of a charge. 
+             * You can do so as many times as you wish until the entire charge has been refunded.
+             * 
+             * Once entirely refunded, a charge can't be refunded again. 
+             * This method will throw an error when called on an already-refunded charge, or when trying to refund more money than is left on a charge.
+             */
+            create(data: refunds.IRefundCreationOptions, options: HeaderOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+            create(data: refunds.IRefundCreationOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+            create(options: HeaderOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+            create(response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+
+            /**
+             * Retrieves the details of an existing refund.
+             */
+            retrieve(id: string, data: IDataOptions, options: HeaderOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+            retrieve(id: string, data: IDataOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+            retrieve(id: string, options: HeaderOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+            retrieve(id: string, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+
+
+            /**
+             * Updates the specified refund by setting the values of the parameters passed.
+             * Any parameters not provided will be left unchanged.
+             * 
+             * This request only accepts metadata as an argument.
+             */
+            update(id: string, data: IDataOptionsWithMetadata, options: HeaderOptions, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+            update(id: string, data: IDataOptionsWithMetadata, response?: IResponseFn<refunds.IRefund>): Promise<refunds.IRefund>;
+
+            /**
+             * Returns a list of all refunds you’ve previously created. The refunds are returned in sorted order, 
+             * with the most recent refunds appearing first. 
+             * For convenience, the 10 most recent refunds are always available by default on the charge object.
+             */
+            list(data: refunds.IRefundListOptions, options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
+            list(data: refunds.IRefundListOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
+            list(response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
+        }
+
         class Coupons extends StripeResource {
             /**
              * You can create coupons easily via the coupon management page of the Stripe dashboard. Coupon creation is also accessible via the API if
@@ -4967,8 +5017,8 @@ declare namespace StripeNode {
              *
              * @param cardId The ID of the card to be retrieved.
              */
-            del(customerId: string, cardId: string, options: HeaderOptions, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
-            del(customerId: string, cardId: string, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
+            del(cardId: string, options: HeaderOptions, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
+            del(cardId: string, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
         }
         
         class Customers extends StripeResource {
