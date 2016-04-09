@@ -1,9 +1,9 @@
 ///<reference path="./iconv.d.ts" />
 
-import {Iconv, IconvClass} from "iconv";
+import {Iconv} from "iconv";
 
-const iconv: IconvClass = new Iconv("utf-8", "cp932");
-const iconvFromFunction: IconvClass = Iconv("utf-8", "cp932");
+const iconv: Iconv.Iconv = new Iconv("utf-8", "cp932");
+const iconvFromFunction: Iconv.Iconv = Iconv("utf-8", "cp932");
 
 iconv.writable = true;
 

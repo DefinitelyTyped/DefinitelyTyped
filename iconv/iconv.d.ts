@@ -5,24 +5,37 @@
 
 ///<reference path="../node/node.d.ts" />
 
-declare module "iconv" {
+declare namespace Iconv {
 
-    import {Stream} from "stream";
+    interface Static {
 
-    interface IconvStatic {
-
-        new(fromEncoding: string, toEncoding: string): IconvClass;
-        (fromEncoding: string, toEncoding: string): IconvClass;
+        new(fromEncoding: string, toEncoding: string): Iconv;
+        (fromEncoding: string, toEncoding: string): Iconv;
     }
 
-    class IconvClass extends Stream {
+    class Iconv {
 
         constructor(fromEncoding: string, toEncoding: string);
         writable: boolean;
         convert(input: string | Buffer, encoding?: string): Buffer;
         write(input: string | Buffer, encoding?: string): boolean;
         end(input?: string | Buffer, encoding?: string): void;
-    }
 
-    var Iconv: IconvStatic;
+        // copy from NodeJS.EventEmitter
+        addListener(event: string, listener: Function): this;
+        on(event: string, listener: Function): this;
+        once(event: string, listener: Function): this;
+        removeListener(event: string, listener: Function): this;
+        removeAllListeners(event?: string): this;
+        setMaxListeners(n: number): this;
+        getMaxListeners(): number;
+        listeners(event: string): Function[];
+        emit(event: string, ...args: any[]): boolean;
+        listenerCount(type: string): number;
+    }
+}
+
+declare module "iconv" {
+
+    var Iconv: Iconv.Static;
 }
