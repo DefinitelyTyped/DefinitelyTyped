@@ -43,7 +43,7 @@ declare namespace StripeNode {
     type ICard = cards.ICard;
     
     interface Stripe extends StripeStatic {
-        account: resources.Account;
+        accounts: resources.Accounts;
         balance: resources.Balance;
         charges: resources.Charges;
         coupons: resources.Coupons;
@@ -86,7 +86,7 @@ declare namespace StripeNode {
         getClientUserAgent(response: (userAgent: string) => void): void;
     }
     
-    namespace account { 
+    namespace accounts { 
         interface IAccount extends IResourceObject, IAccountShared {
             /**
              * Value is "account"
@@ -453,7 +453,7 @@ declare namespace StripeNode {
             /**
              * ID of the Stripe account this fee was taken from. [Expandable]
              */
-            account: string | account.IAccount;
+            account: string | accounts.IAccount;
             
             /**
              * Amount earned, in cents/pence.
@@ -3257,7 +3257,7 @@ declare namespace StripeNode {
             /**
              * ID of the bank account, card, or Stripe account the transfer was sent to. [Expandable]
              */
-            destination: string | bankAccounts.IBankAccount | cards.ICardHash | account.IAccount;
+            destination: string | bankAccounts.IBankAccount | cards.ICardHash | accounts.IAccount;
             
             /**
              * If the destination is a Stripe account, this will be the ID of the 
@@ -3786,7 +3786,7 @@ declare namespace StripeNode {
              * card object if the card belongs to a customer or recipient instead.
              * [Expandable]
              */
-            account?: string | account.IAccount;
+            account?: string | accounts.IAccount;
             
             /**
              * Only applicable on accounts (not customers or recipients). The 
@@ -4404,22 +4404,22 @@ declare namespace StripeNode {
     }
     
     namespace resources {
-        class Account extends StripeResource {
+        class Accounts extends StripeResource {
             /**
              * With Connect, you can create Stripe accounts for your users. To do this, you'll first need to register your platform.
              */
-            create(data: account.IAccountCreationOptions, options: HeaderOptions, response?: IResponseFn<account.IAccount>): Promise<account.IAccount>;
-            create(data: account.IAccountCreationOptions, response?: IResponseFn<account.IAccount>): Promise<account.IAccount>;
+            create(data: accounts.IAccountCreationOptions, options: HeaderOptions, response?: IResponseFn<accounts.IAccount>): Promise<accounts.IAccount>;
+            create(data: accounts.IAccountCreationOptions, response?: IResponseFn<accounts.IAccount>): Promise<accounts.IAccount>;
             
             /**
              * Retrieves the details of the account.
              */
-            retrieve(id: string, data: IDataOptions, options: HeaderOptions, response?: IResponseFn<account.IAccount>): Promise<account.IAccount>;
-            retrieve(id: string, data: IDataOptions, response?: IResponseFn<account.IAccount>): Promise<account.IAccount>;
-            retrieve(id: string, options: HeaderOptions, response?: IResponseFn<account.IAccount>): Promise<account.IAccount>;
-            retrieve(id: string, response?: IResponseFn<account.IAccount>): Promise<account.IAccount>;
-            retrieve(options: HeaderOptions, response?: IResponseFn<account.IAccount>): Promise<account.IAccount>;
-            retrieve(response?: IResponseFn<account.IAccount>): Promise<account.IAccount>;
+            retrieve(id: string, data: IDataOptions, options: HeaderOptions, response?: IResponseFn<accounts.IAccount>): Promise<accounts.IAccount>;
+            retrieve(id: string, data: IDataOptions, response?: IResponseFn<accounts.IAccount>): Promise<accounts.IAccount>;
+            retrieve(id: string, options: HeaderOptions, response?: IResponseFn<accounts.IAccount>): Promise<accounts.IAccount>;
+            retrieve(id: string, response?: IResponseFn<accounts.IAccount>): Promise<accounts.IAccount>;
+            retrieve(options: HeaderOptions, response?: IResponseFn<accounts.IAccount>): Promise<accounts.IAccount>;
+            retrieve(response?: IResponseFn<accounts.IAccount>): Promise<accounts.IAccount>;
             
             /**
              * Updates an account by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -4427,8 +4427,8 @@ declare namespace StripeNode {
              * You may only update accounts that you manage. To update your own account, you can currently only do so via the dashboard. 
              * For more information on updating managed accounts, see our guide.
              */
-            update(id: string, data: account.IAccountUpdateOptions, options: HeaderOptions, response?: IResponseFn<account.IAccount>): Promise<account.IAccount>;
-            update(id: string, data: account.IAccountUpdateOptions, response?: IResponseFn<account.IAccount>): Promise<account.IAccount>;
+            update(id: string, data: accounts.IAccountUpdateOptions, options: HeaderOptions, response?: IResponseFn<accounts.IAccount>): Promise<accounts.IAccount>;
+            update(id: string, data: accounts.IAccountUpdateOptions, response?: IResponseFn<accounts.IAccount>): Promise<accounts.IAccount>;
             
             /**
              * With Connect, you may delete Stripe accounts you manage.
@@ -4449,16 +4449,16 @@ declare namespace StripeNode {
              * Managed accounts created using test-mode keys can be rejected at any time. Managed accounts created using live-mode keys may only be 
              * rejected once all balances are zero.
              */
-            reject(id: string, data: account.IRejectReason, options: HeaderOptions, response?: IResponseFn<account.IAccount>): Promise<account.IAccount>;
-            reject(id: string, data: account.IRejectReason, response?: IResponseFn<account.IAccount>): Promise<account.IAccount>;
+            reject(id: string, data: accounts.IRejectReason, options: HeaderOptions, response?: IResponseFn<accounts.IAccount>): Promise<accounts.IAccount>;
+            reject(id: string, data: accounts.IRejectReason, response?: IResponseFn<accounts.IAccount>): Promise<accounts.IAccount>;
             
             /**
              * Returns a list of accounts connected to your platform via Connect. If you’re not a platform, the list will be empty.
              */
-            list(data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<account.IAccount>>): Promise<IList<account.IAccount>>;
-            list(data: IListOptions, response?: IResponseFn<IList<account.IAccount>>): Promise<IList<account.IAccount>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<account.IAccount>>): Promise<IList<account.IAccount>>;
-            list(response?: IResponseFn<IList<account.IAccount>>): Promise<IList<account.IAccount>>;
+            list(data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<accounts.IAccount>>): Promise<IList<accounts.IAccount>>;
+            list(data: IListOptions, response?: IResponseFn<IList<accounts.IAccount>>): Promise<IList<accounts.IAccount>>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<accounts.IAccount>>): Promise<IList<accounts.IAccount>>;
+            list(response?: IResponseFn<IList<accounts.IAccount>>): Promise<IList<accounts.IAccount>>;
             
             /**
              * When you create a new bank account or credit card, you must specify a managed account to create it on.
@@ -4471,8 +4471,8 @@ declare namespace StripeNode {
              * default then it will not change. To change the default, you should set default_for_currency to true when creating a card for a 
              * managed account.
              */
-            createExternalAccount(accId: string, data: account.IExternalAccountCreationOptions, options: HeaderOptions, response?: IResponseFn<cards.ICard | bankAccounts.IBankAccount>): Promise<cards.ICard | bankAccounts.IBankAccount>;
-            createExternalAccount(accId: string, data: account.IExternalAccountCreationOptions, response?: IResponseFn<cards.ICard | bankAccounts.IBankAccount>): Promise<cards.ICard | bankAccounts.IBankAccount>;
+            createExternalAccount(accId: string, data: accounts.IExternalAccountCreationOptions, options: HeaderOptions, response?: IResponseFn<cards.ICard | bankAccounts.IBankAccount>): Promise<cards.ICard | bankAccounts.IBankAccount>;
+            createExternalAccount(accId: string, data: accounts.IExternalAccountCreationOptions, response?: IResponseFn<cards.ICard | bankAccounts.IBankAccount>): Promise<cards.ICard | bankAccounts.IBankAccount>;
             
             /**
              * By default, you can see the 10 most recent bank accounts stored on a managed account directly on the object, but you can also 
@@ -4492,8 +4492,8 @@ declare namespace StripeNode {
              * Updates the metadata of a bank account belonging to a managed account, and optionally sets it as the default for its currency. 
              * Other bank account details are not editable by design.
              */
-            updateExternalAccount(accId: string, bankAccId: string, data: account.IExternalAccountUpdateOptions, options: HeaderOptions, response?: IResponseFn<bankAccounts.IBankAccount>): Promise<bankAccounts.IBankAccount>;
-            updateExternalAccount(accId: string, bankAccId: string, data: account.IExternalAccountUpdateOptions, response?: IResponseFn<bankAccounts.IBankAccount>): Promise<bankAccounts.IBankAccount>;
+            updateExternalAccount(accId: string, bankAccId: string, data: accounts.IExternalAccountUpdateOptions, options: HeaderOptions, response?: IResponseFn<bankAccounts.IBankAccount>): Promise<bankAccounts.IBankAccount>;
+            updateExternalAccount(accId: string, bankAccId: string, data: accounts.IExternalAccountUpdateOptions, response?: IResponseFn<bankAccounts.IBankAccount>): Promise<bankAccounts.IBankAccount>;
             /**
              * If you need to update only some card details, like the billing address or expiration date, you can do so without having to re-enter the 
              * full card details. Stripe also works directly with card networks so that your customers can continue using your service without 
@@ -4518,16 +4518,16 @@ declare namespace StripeNode {
              * available by default on the corresponding Stripe object. If you need more than those 10, you can use this API method and the limit 
              * and starting_after parameters to page through additional bank accounts.
              */
-            listExternalAccounts(accId: string, data: account.IBankAccountListOptions, options: HeaderOptions, response?: IResponseFn<IList<bankAccounts.IBankAccount>>): Promise<IList<bankAccounts.IBankAccount>>;
-            listExternalAccounts(accId: string, data: account.IBankAccountListOptions, response?: IResponseFn<IList<bankAccounts.IBankAccount>>): Promise<IList<bankAccounts.IBankAccount>>;
+            listExternalAccounts(accId: string, data: accounts.IBankAccountListOptions, options: HeaderOptions, response?: IResponseFn<IList<bankAccounts.IBankAccount>>): Promise<IList<bankAccounts.IBankAccount>>;
+            listExternalAccounts(accId: string, data: accounts.IBankAccountListOptions, response?: IResponseFn<IList<bankAccounts.IBankAccount>>): Promise<IList<bankAccounts.IBankAccount>>;
             
             /**
              * You can see a list of the cards belonging to a managed account. Note that the 10 most recent external accounts are available on the 
              * account object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page 
              * through additional cards.
              */
-            listExternalAccounts(accId: string, data: account.ICardListOptions, options: HeaderOptions, response?: IResponseFn<IList<cards.ICard>>): Promise<IList<cards.ICard>>;
-            listExternalAccounts(accId: string, data: account.ICardListOptions, response?: IResponseFn<IList<cards.ICard>>): Promise<IList<cards.ICard>>;
+            listExternalAccounts(accId: string, data: accounts.ICardListOptions, options: HeaderOptions, response?: IResponseFn<IList<cards.ICard>>): Promise<IList<cards.ICard>>;
+            listExternalAccounts(accId: string, data: accounts.ICardListOptions, response?: IResponseFn<IList<cards.ICard>>): Promise<IList<cards.ICard>>;
         }
         
         class ApplicationFees extends StripeResource {
@@ -4623,7 +4623,7 @@ declare namespace StripeNode {
              * By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details 
              * about a specific refund stored on the application fee.
              */
-            retrieve(refundId: string, options: IDataOptions, options: HeaderOptions, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
+            retrieve(refundId: string, data: IDataOptions, options: HeaderOptions, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
             retrieve(refundId: string, options: IDataOptions, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
             retrieve(refundId: string, options: HeaderOptions, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
             retrieve(refundId: string, response?: IResponseFn<applicationFees.IApplicationFeeRefund>): Promise<applicationFees.IApplicationFeeRefund>;
@@ -4996,6 +4996,7 @@ declare namespace StripeNode {
              * @param data Allows you to filter the customers you want.
              */
             list(data: IListOptionsCreated, options: HeaderOptions, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
+            list(data: IListOptionsCreated, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
             list(options: HeaderOptions, response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
             list(response?: IResponseFn<IList<customers.ICustomer>>): Promise<IList<customers.ICustomer>>;
             
