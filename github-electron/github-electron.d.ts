@@ -1407,47 +1407,40 @@ declare namespace Electron {
 	interface ContentTracing {
 		/**
 		 * Get a set of category groups. The category groups can change as new code paths are reached.
-		 * @param callback Called once all child processes have acked to the getCategories request.
+		 *
+		 * @param callback Called once all child processes have acknowledged the getCategories request.
 		 */
 		getCategories(callback: (categoryGroups: any[]) => void): void;
 		/**
-		 * Start recording on all processes. Recording begins immediately locally, and asynchronously
+		 * Start recording on all processes. Recording begins immediately locally and asynchronously
 		 * on child processes as soon as they receive the EnableRecording request.
-		 * @param categoryFilter A filter to control what category groups should be traced.
-		 * A filter can have an optional "-" prefix to exclude category groups that contain
-		 * a matching category. Having both included and excluded category patterns in the
-		 * same list would not be supported.
-		 * @param options controls what kind of tracing is enabled, it could be a OR-ed
-		 * combination of tracing.DEFAULT_OPTIONS, tracing.ENABLE_SYSTRACE, tracing.ENABLE_SAMPLING
-		 * and tracing.RECORD_CONTINUOUSLY.
-		 * @param callback Called once all child processes have acked to the startRecording request.
+		 *
+		 * @param callback Called once all child processes have acknowledged the startRecording request.
 		 */
-		startRecording(categoryFilter: string, options: number, callback: Function): void;
+		startRecording(options: ContentTracingOptions, callback: Function): void;
 		/**
 		 * Stop recording on all processes. Child processes typically are caching trace data and
 		 * only rarely flush and send trace data back to the main process. That is because it may
 		 * be an expensive operation to send the trace data over IPC, and we would like to avoid
 		 * much runtime overhead of tracing. So, to end tracing, we must asynchronously ask all
 		 * child processes to flush any pending trace data.
+		 *
 		 * @param resultFilePath Trace data will be written into this file if it is not empty,
 		 * or into a temporary file.
-		 * @param callback Called once all child processes have acked to the stopRecording request.
+		 * @param callback Called once all child processes have acknowledged the stopRecording request.
 		 */
-		stopRecording(resultFilePath: string, callback:
-			/**
-			 * @param filePath A file that contains the traced data.
-			 */
-			(filePath: string) => void
-			): void;
+		stopRecording(resultFilePath: string, callback: (filePath: string) => void): void;
 		/**
-		 * Start monitoring on all processes. Monitoring begins immediately locally, and asynchronously
+		 * Start monitoring on all processes. Monitoring begins immediately locally and asynchronously
 		 * on child processes as soon as they receive the startMonitoring request.
+		 *
 		 * @param callback Called once all child processes have acked to the startMonitoring request.
 		 */
-		startMonitoring(categoryFilter: string, options: number, callback: Function): void;
+		startMonitoring(options: ContentTracingOptions, callback: Function): void;
 		/**
 		 * Stop monitoring on all processes.
-		 * @param callback Called once all child processes have acked to the stopMonitoring request.
+		 *
+		 * @param callback Called once all child processes have acknowledged the stopMonitoring request.
 		 */
 		stopMonitoring(callback: Function): void;
 		/**
@@ -1456,17 +1449,13 @@ declare namespace Electron {
 		 * be an expensive operation to send the trace data over IPC, and we would like to avoid much
 		 * runtime overhead of tracing. So, to end tracing, we must asynchronously ask all child
 		 * processes to flush any pending trace data.
-		 * @param callback Called once all child processes have acked to the captureMonitoringSnapshot request.
+		 *
+		 * @param callback Called once all child processes have acknowledged the captureMonitoringSnapshot request.
 		 */
-		captureMonitoringSnapshot(resultFilePath: string, callback:
-			/**
-			 * @param filePath A file that contains the traced data
-			 * @returns {}
-			 */
-			(filePath: string) => void
-			): void;
+		captureMonitoringSnapshot(resultFilePath: string, callback: (filePath: string) => void): void;
 		/**
-		 * Get the maximum across processes of trace buffer percent full state.
+		 * Get the maximum usage across processes of trace buffer as a percentage of the full state.
+		 *
 		 * @param callback Called when the TraceBufferUsage value is determined.
 		 */
 		getTraceBufferUsage(callback: Function): void;
@@ -1475,13 +1464,44 @@ declare namespace Electron {
 		 */
 		setWatchEvent(categoryName: string, eventName: string, callback: Function): void;
 		/**
-		 * Cancel the watch event. If tracing is enabled, this may race with the watch event callback.
+		 * Cancel the watch event. This may lead to a race condition with the watch event callback if tracing is enabled.
 		 */
 		cancelWatchEvent(): void;
-		DEFAULT_OPTIONS: number;
-		ENABLE_SYSTRACE: number;
-		ENABLE_SAMPLING: number;
-		RECORD_CONTINUOUSLY: number;
+	}
+
+	interface ContentTracingOptions {
+		/**
+		 * Filter to control what category groups should be traced.
+		 * A filter can have an optional - prefix to exclude category groups
+		 * that contain a matching category. Having both included and excluded
+		 * category patterns in the same list is not supported.
+		 *
+		 * Examples:
+		 *   test_MyTest*
+		 *   test_MyTest*,test_OtherStuff
+		 *   -excluded_category1,-excluded_category2
+		 */
+		categoryFilter: string;
+		/**
+		 * Controls what kind of tracing is enabled, it is a comma-delimited list.
+		 *
+		 * Possible options are:
+		 *   record-until-full
+		 *   record-continuously
+		 *   trace-to-console
+		 *   enable-sampling
+		 *   enable-systrace
+		 *
+		 * The first 3 options are trace recoding modes and hence mutually exclusive.
+		 * If more than one trace recording modes appear in the traceOptions string,
+		 * the last one takes precedence. If none of the trace recording modes are specified,
+		 * recording mode is record-until-full.
+		 *
+		 * The trace option will first be reset to the default option (record_mode set
+		 * to record-until-full, enable_sampling and enable_systrace set to false)
+		 * before options parsed from traceOptions are applied on it.
+		 */
+		traceOptions: string;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/crash-reporter.md
