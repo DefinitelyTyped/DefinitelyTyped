@@ -1991,7 +1991,7 @@ declare namespace StripeNode {
             /**
              * A string identifying the type of the source of this line item, either an invoiceitem or a subscription
              */
-            type: string;
+            type: "invoiceitem" | "subscription";
         }
         
         interface IInvoiceCreationOptions extends IDataOptionsWithMetadata {
@@ -5287,7 +5287,10 @@ declare namespace StripeNode {
              */
             deleteSource(customerId: string, sourceId: string, options: HeaderOptions, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
             deleteSource(customerId: string, sourceId: string, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;
-            
+
+
+            verifySource(customerId: string, sourceId: string, options: HeaderOptions): Promise<{}>; //TODO: This still needs properly implementing.
+            verifySource(customerId: string, sourceId: string): Promise<{}>; //TODO: This still needs properly implementing.
             
             
             /**
