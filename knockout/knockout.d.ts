@@ -535,6 +535,16 @@ interface KnockoutStatic {
     };
 
     components: KnockoutComponents;
+    
+    /////////////////////////////////
+    // options.js
+    /////////////////////////////////
+    
+    options: {
+        deferUpdates: boolean,
+        
+        useOnlyNativeEvents: boolean
+    }
 }
 
 interface KnockoutBindingProvider {
