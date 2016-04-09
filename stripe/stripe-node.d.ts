@@ -4823,9 +4823,11 @@ declare namespace StripeNode {
              */
             listRefunds(chargeId: string, data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
             listRefunds(chargeId: string, data: IListOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
+            listRefunds(chargeId: string, options: HeaderOptions, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
+            listRefunds(chargeId: string, response?: IResponseFn<IList<refunds.IRefund>>): Promise<IList<refunds.IRefund>>;
             
-            markAsSafe(chargeId: string): Promise<charges.ICharge>;
-            markAsFraudulent(chargeId: string): Promise<charges.ICharge>;
+            markAsSafe(chargeId: string, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
+            markAsFraudulent(chargeId: string, response?: IResponseFn<charges.ICharge>): Promise<charges.ICharge>;
         }
 
         class Coupons extends StripeResource {
@@ -5403,8 +5405,8 @@ declare namespace StripeNode {
              * @param subscriptionId The ID of the subscription to update.
              * @param data The fields to update
              */
-            updateSubscription(subscriptionId: string, data: customerSubscriptions.ISubscriptionUpdateOptions, options: HeaderOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
-            updateSubscription(subscriptionId: string, data: customerSubscriptions.ISubscriptionUpdateOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
+            update(subscriptionId: string, data: customerSubscriptions.ISubscriptionUpdateOptions, options: HeaderOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
+            update(subscriptionId: string, data: customerSubscriptions.ISubscriptionUpdateOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
             
             /**
              * Cancels a customer's subscription. If you set the at_period_end parameter to true, the subscription will remain active until
@@ -5439,10 +5441,10 @@ declare namespace StripeNode {
              *
              * @param data Filtering options
              */
-            listSubscriptions(data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<customerSubscriptions.ISubscription>>): Promise<IList<customerSubscriptions.ISubscription>>;
-            listSubscriptions(data: IListOptions, response?: IResponseFn<IList<customerSubscriptions.ISubscription>>): Promise<IList<customerSubscriptions.ISubscription>>;
-            listSubscriptions(options: HeaderOptions, response?: IResponseFn<IList<customerSubscriptions.ISubscription>>): Promise<IList<customerSubscriptions.ISubscription>>;
-            listSubscriptions(response?: IResponseFn<IList<customerSubscriptions.ISubscription>>): Promise<IList<customerSubscriptions.ISubscription>>;
+            list(data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<customerSubscriptions.ISubscription>>): Promise<IList<customerSubscriptions.ISubscription>>;
+            list(data: IListOptions, response?: IResponseFn<IList<customerSubscriptions.ISubscription>>): Promise<IList<customerSubscriptions.ISubscription>>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<customerSubscriptions.ISubscription>>): Promise<IList<customerSubscriptions.ISubscription>>;
+            list(response?: IResponseFn<IList<customerSubscriptions.ISubscription>>): Promise<IList<customerSubscriptions.ISubscription>>;
             
             /**
              * Removes the currently applied discount on a subscription.
