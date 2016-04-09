@@ -11,6 +11,24 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module "ioredis" {
+
+
+    interface RedisStatic {
+        new (port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
+        new (host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
+        new (options: IORedis.RedisOptions): IORedis.Redis;
+        new (url: string): IORedis.Redis;
+        (port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
+        (host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
+        (options: IORedis.RedisOptions): IORedis.Redis;
+        (url: string): IORedis.Redis;
+        Cluster: IORedis.Cluster;
+    }
+
+    var redis: RedisStatic;
+    export = redis;
+}
+declare module IORedis {
     interface Commander {
         new (): Commander;
         getBuiltinCommands(): string[];
@@ -592,22 +610,6 @@ declare module "ioredis" {
         (err: Error, res: R): void;
     }
 
-    interface RedisStatic {
-        new (port?: number, host?: string, options?: IORedis.RedisOptions): Redis;
-        new (host?: string, options?: IORedis.RedisOptions): Redis;
-        new (options: IORedis.RedisOptions): Redis;
-        new (url: string): Redis;
-        (port?: number, host?: string, options?: IORedis.RedisOptions): Redis;
-        (host?: string, options?: IORedis.RedisOptions): Redis;
-        (options: IORedis.RedisOptions): Redis;
-        (url: string): Redis;
-        Cluster: Cluster;
-    }
-
-    var redis: RedisStatic;
-    export = redis;
-}
-declare module IORedis {
     interface RedisOptions {
         port?: number;
         host?: string;
