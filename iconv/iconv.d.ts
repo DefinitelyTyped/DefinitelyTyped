@@ -13,25 +13,15 @@ declare namespace Iconv {
         (fromEncoding: string, toEncoding: string): Iconv;
     }
 
-    class Iconv {
+    interface Iconv extends NodeJS.EventEmitter {
 
-        constructor(fromEncoding: string, toEncoding: string);
         writable: boolean;
         convert(input: string | Buffer, encoding?: string): Buffer;
         write(input: string | Buffer, encoding?: string): boolean;
         end(input?: string | Buffer, encoding?: string): void;
 
-        // copy from NodeJS.EventEmitter
-        addListener(event: string, listener: Function): this;
-        on(event: string, listener: Function): this;
-        once(event: string, listener: Function): this;
-        removeListener(event: string, listener: Function): this;
-        removeAllListeners(event?: string): this;
-        setMaxListeners(n: number): this;
-        getMaxListeners(): number;
-        listeners(event: string): Function[];
-        emit(event: string, ...args: any[]): boolean;
-        listenerCount(type: string): number;
+        // copy from stream.Stream
+        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
     }
 }
 
