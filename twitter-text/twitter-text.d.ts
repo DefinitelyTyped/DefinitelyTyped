@@ -51,8 +51,8 @@ declare module "twitter-text" {
 	export function extractCashtagsWithIndices(text: string): CashtagWithIndices[];
 	export function extractEntitiesWithIndices(text: string): EntityWithIndices[];
 
-	export function modifyIndicesFromUnicodeToUTF16<I>(i: I[]): I[];
-	export function modifyIndicesFromUTF16ToUnicode<I>(i: I[]): I[];
+	export function modifyIndicesFromUnicodeToUTF16<I>(i: I): I;
+	export function modifyIndicesFromUTF16ToUnicode<I>(i: I): I;
 
 	export interface UrlEntity {
 		url: string;
