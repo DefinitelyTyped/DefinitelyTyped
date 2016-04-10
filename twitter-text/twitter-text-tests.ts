@@ -1,3 +1,5 @@
+/// <reference path="./twitter-text.d.ts" />
+
 import * as twitter from "twitter-text";
 
 const text: string = twitter.htmlEscape("@you #hello < @world > https://github.com");
