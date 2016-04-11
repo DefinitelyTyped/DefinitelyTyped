@@ -115,7 +115,7 @@ declare namespace Backbone {
         * Default attributes for the model. It can be an object hash or a method returning an object hash.
         * That works only if you set it in the constructor or the initialize method.
         **/
-        defaults: () => ObjectHash | ObjectHash;
+        defaults: (() => ObjectHash) | ObjectHash;
         id: any;
         idAttribute: string;
         validationError: any;
