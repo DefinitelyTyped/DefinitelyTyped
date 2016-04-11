@@ -1,4 +1,4 @@
-// Type definitions for inversify 2.0.0-alpha.8
+// Type definitions for inversify 2.0.0-beta.1
 // Project: https://github.com/inversify/InversifyJS
 // Definitions by: inversify <https://github.com/inversify>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -28,15 +28,16 @@ declare namespace inversify {
     }
 
     export interface IKernel {
-        bind<T>(runtimeIdentifier: (string|Symbol|INewable<T>)): IBindingToSyntax<T>;
-        unbind(runtimeIdentifier: (string|Symbol|any)): void;
+        bind<T>(serviceIdentifier: (string|Symbol|INewable<T>)): IBindingToSyntax<T>;
+        unbind(serviceIdentifier: (string|Symbol|any)): void;
         unbindAll(): void;
-        get<T>(runtimeIdentifier: (string|Symbol|INewable<T>)): T;
-        getNamed<T>(runtimeIdentifier: (string|Symbol|INewable<T>), named: string): T;
-        getTagged<T>(runtimeIdentifier: (string|Symbol|INewable<T>), key: string, value: any): T;
-        getAll<T>(runtimeIdentifier: (string|Symbol|INewable<T>)): T[];
+        get<T>(serviceIdentifier: (string|Symbol|INewable<T>)): T;
+        getNamed<T>(serviceIdentifier: (string|Symbol|INewable<T>), named: string): T;
+        getTagged<T>(serviceIdentifier: (string|Symbol|INewable<T>), key: string, value: any): T;
+        getAll<T>(serviceIdentifier: (string|Symbol|INewable<T>)): T[];
         load(...modules: IKernelModule[]): void;
         applyMiddleware(...middleware: IMiddleware[]): void;
+        getServiceIdentifierAsString(serviceIdentifier: (string|Symbol|INewable<any>)): string;
     }
 
     export interface IKernelModule extends Function {
@@ -73,7 +74,7 @@ declare namespace inversify {
         toValue(value: T): IBindingWhenOnSyntax<T>;
         toConstructor<T2>(constructor: INewable<T2>): IBindingWhenOnSyntax<T>;
         toFactory<T2>(factory: IFactoryCreator<T2>): IBindingWhenOnSyntax<T>;
-        toAutoFactory<T2>(service: (string|Symbol|T2)): IBindingWhenOnSyntax<T>;
+        toAutoFactory<T2>(serviceIdentifier: (string|Symbol|T2)): IBindingWhenOnSyntax<T>;
         toProvider<T2>(provider: IProviderCreator<T2>): IBindingWhenOnSyntax<T>;
     }
 
@@ -112,21 +113,21 @@ declare namespace inversify {
     }
 
     export interface IRequest {
-        service: (string|Symbol|INewable<any>);
+        serviceIdentifier: (string|Symbol|INewable<any>);
         parentContext: IContext;
         parentRequest: IRequest;
         childRequests: IRequest[];
         target: ITarget;
         bindings: IBinding<any>[];
         addChildRequest(
-            service: (string|Symbol|INewable<any>),
+            serviceIdentifier: (string|Symbol|INewable<any>),
             bindings: (IBinding<any>|IBinding<any>[]),
             target: ITarget): IRequest;
     }
 
     export interface IBinding<T> {
         activated: boolean;
-        runtimeIdentifier: (string|Symbol|INewable<T>);
+        serviceIdentifier: (string|Symbol|INewable<T>);
         implementationType: INewable<T>;
         factory: IFactoryCreator<any>;
         provider: IProviderCreator<any>;
@@ -138,14 +139,14 @@ declare namespace inversify {
     }
 
     export interface ITarget {
-        service: (string|Symbol|INewable<any>);
+        serviceIdentifier: (string|Symbol|INewable<any>);
         name: IQueryableString;
         metadata: Array<IMetadata>;
         hasTag(key: string): boolean;
         isArray(): boolean;
+        matchesArray(name: string|Symbol|any): boolean;
         isNamed(): boolean;
         isTagged(): boolean;
-        getServiceAsString(): string;
         matchesNamedTag(name: string): boolean;
         matchesTag(key: string): (value: any) => boolean;
     }
@@ -169,8 +170,8 @@ declare namespace inversify {
     export function tagged(metadataKey: string, metadataValue: any): (target: any, targetKey: string, index: number) => any;
     export function named(name: string): (target: any, targetKey: string, index: number) => any;
     export function paramName(name: string): (target: any, targetKey: string, index: number) => any;
-    export function inject(typeIdentifier: (string|Symbol|any)): (target: any, targetKey: string, index: number) => any;
-    export function multiInject(typeIdentifier: (string|Symbol|any)): (target: any, targetKey: string, index: number) => any;
+    export function inject(serviceIdentifier: (string|Symbol|any)): (target: any, targetKey: string, index: number) => any;
+    export function multiInject(serviceIdentifier: (string|Symbol|any)): (target: any, targetKey: string, index: number) => any;
 
     // constraint helpers
     export var traverseAncerstors: (request: IRequest, constraint: (request: IRequest) => boolean) => boolean;
