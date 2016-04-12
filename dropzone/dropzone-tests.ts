@@ -26,10 +26,15 @@ const dropzoneWithOptions = new Dropzone(".test", {
 	clickable: true,
 	ignoreHiddenFiles: true,
 	acceptedFiles: "image/*",
+	renameFilename: function(name: string){
+		return name;
+	},
 	autoProcessQueue: true,
 	autoQueue: true,
 	addRemoveLinks: true,
+
 	previewsContainer: "<div></div>",
+	hiddenInputContainer: document.createElement("input"),
 	capture: "camera",
 
 	dictDefaultMessage: "",
@@ -132,10 +137,11 @@ dropzoneWithOptionsVariations = new Dropzone(".test", {
 });
 
 dropzoneWithOptionsVariations = new Dropzone(".test", {
-    success: (file:DropzoneFile, response:Object) => console.log(file, response)
+	clickable: ["test", document.getElementById("test")]
 });
+
 dropzoneWithOptionsVariations = new Dropzone(".test", {
-    success: (file:DropzoneFile, response:string) => console.log(file, response)
+    success: (file:DropzoneFile, response:Object) => console.log(file, response)
 });
 
 const dropzone = new Dropzone(".test");
