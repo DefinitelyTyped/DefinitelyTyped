@@ -47,7 +47,7 @@ interface DropzoneOptions {
 	clickable?: boolean|string|HTMLElement|(string|HTMLElement)[];
 	ignoreHiddenFiles?: boolean;
 	acceptedFiles?: string;
-	renameFilename?: RenameFilenameFunction;
+	renameFilename?(name:string): string;
 	autoProcessQueue?: boolean;
 	autoQueue?: boolean;
 	addRemoveLinks?: boolean;
