@@ -3383,6 +3383,11 @@ declare namespace L {
           */
         className?: string;
 
+	/**
+	 * Sets the radius of a circle marker. 
+	 */
+	radius?: number;
+
     }
 }
 
