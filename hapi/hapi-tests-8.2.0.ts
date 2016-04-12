@@ -22,10 +22,12 @@ plugin.register.attributes = {
 };
 
 // optional options parameter
-server.register({}, function (err) {});
+server.register({}, function (err) {
+});
 
 // optional options.routes.vhost parameter
-server.register({}, { select: 'api', routes: { prefix: '/prefix' } }, function (err) {});
+server.register({}, {select: 'api', routes: {prefix: '/prefix'}}, function (err) {
+});
 
 //server.pack.register(plugin, (err: Object) => {
 //	if (err) { throw err; }
@@ -77,28 +79,27 @@ server.route({
 server.route([{
 	method: 'GET',
 	path: '/hello2',
-	handler: function(request: Hapi.Request, reply: Function) {
+	handler: function (request: Hapi.Request, reply: Function) {
 		reply('hello world2');
 	}
 }]);
 
 // config.validate parameters should be optional
 server.route([{
-    method: 'GET',
-    path: '/hello2',
-    handler: function(request: Hapi.Request, reply: Function) {
-        reply('hello world2');
-    },
-    config: {
-        validate: {
-        }
-    }
+	method: 'GET',
+	path: '/hello2',
+	handler: function (request: Hapi.Request, reply: Function) {
+		reply('hello world2');
+	},
+	config: {
+		validate: {}
+	}
 }]);
 
 server.route([{
 	method: 'GET',
 	path: '/hello3',
-	handler: function(request: Hapi.Request, reply: Function) {
+	handler: function (request: Hapi.Request, reply: Function) {
 		reply().code(201);
 	}
 }]);
