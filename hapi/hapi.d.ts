@@ -293,10 +293,10 @@ declare module "hapi" {
         redirect(uri: string): ResponseRedirect;
 
         /** Sets a cookie on the response */
-        state(name: string, value: string, options?: any): void;
+        state(name: string, value: string, options?: any): Response;
 
         /** Clears a cookie on the response */
-        unstate(name: string, options?: any): void;
+        unstate(name: string, options?: any): Response;
     }
 
     export interface ISessionHandler {
@@ -1498,7 +1498,7 @@ declare module "hapi" {
         /** clears the HTTP cookie by setting an expired value where:
          name - the cookie name.
          options - optional configuration for expiring cookie. If the state was previously registered with the server using server.state(), the specified keys in options override those same keys in the server definition (but not others).*/
-        unstate(name: string, options?: { [key: string]: string }): void;
+        unstate(name: string, options?: { [key: string]: string }): Response;
 
         /** adds the provided header to the list of inputs affected the response generation via the HTTP 'Vary' header where:
          header - the HTTP request header name.*/
