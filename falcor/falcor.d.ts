@@ -61,29 +61,29 @@ declare namespace FalcorModel {
         cache?: JSONGraph;
         maxSize?: number;
         collectRatio?: number;
-        errorSelector?: modelErrorSelector;
-        onChange?: modelOnChange;
-        comparator?: modelComparator;
+        errorSelector?: ModelErrorSelector;
+        onChange?: ModelOnChange;
+        comparator?: ModelComparator;
     }
 
     /**
      * This callback is invoked when the Model's cache is changed.
      **/
-    interface modelOnChange {
+    interface ModelOnChange {
         (): void;
     }
 
     /**
      * This function is invoked on every JSONGraph Error retrieved from the DataSource. This function allows Error objects to be transformed before being stored in the Model's cache.
      **/
-    interface modelErrorSelector {
+    interface ModelErrorSelector {
         (jsonGraphError: any): any;
     }
 
     /**
      * This function is invoked every time a value in the Model cache is about to be replaced with a new value. If the function returns true, the existing value is replaced with a new value and the version flag on all of the value's ancestors in the tree are incremented.
      **/
-    interface modelComparator {
+    interface ModelComparator {
         (existingValue: any, newValue: any): boolean;
     }
 
@@ -230,32 +230,32 @@ declare namespace FalcorModel {
         /**
          * The forEach method is a synonym for {@link Observable.prototype.subscribe} and triggers the execution of the Observable, causing the values within to be pushed to a callback. An Observable is like a pipe of water that is closed. When forEach is called, we open the valve and the values within are pushed at us.  These values can be received using either callbacks or an {@link Observer} object.
          **/
-        forEach(onNext?: observableOnNextCallback<T>, onError?: observableOnErrorCallback, onCompleted?: observableOnCompletedCallback): Subscription;
+        forEach(onNext?: ObservableOnNextCallback<T>, onError?: ObservableOnErrorCallback , onCompleted?: ObservableOnCompletedCallback ): Subscription;
 
         /**
          * The subscribe method is a synonym for {@link Observable.prototype.forEach} and triggers the execution of the Observable, causing the values within to be pushed to a callback. An Observable is like a pipe of water that is closed. When forEach is called, we open the valve and the values within are pushed at us.  These values can be received using either callbacks or an {@link Observer} object.
          **/
-        subscribe(onNext?: observableOnNextCallback<T>, onError?: observableOnErrorCallback, onCompleted?: observableOnCompletedCallback): Subscription;
+        subscribe(onNext?: ObservableOnNextCallback<T>, onError?: ObservableOnErrorCallback , onCompleted?: ObservableOnCompletedCallback ): Subscription;
     }
 
     /**
      * This callback accepts a value that was emitted while evaluating the operation underlying the {@link Observable} stream.
      **/
-    interface observableOnNextCallback<T> {
+    interface ObservableOnNextCallback<T> {
         (value: T): void;
     }
 
     /**
      * This callback accepts an error that occurred while evaluating the operation underlying the {@link Observable} stream. When this callback is invoked, the {@link Observable} stream ends and no more values will be received by the {@link Observable~onNextCallback}.
      **/
-    interface observableOnErrorCallback {
+    interface ObservableOnErrorCallback  {
         (error: Error): void;
     }
 
     /**
      * This callback is invoked when the {@link Observable} stream ends. When this callback is invoked the {@link Observable} stream has ended, and therefore the {@link Observable~onNextCallback} will not receive any more values.
      **/
-    interface observableOnCompletedCallback {
+    interface ObservableOnCompletedCallback  {
         (): void;
     }
 
