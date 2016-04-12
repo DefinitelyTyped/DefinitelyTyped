@@ -146,7 +146,6 @@ declare namespace Backbone {
         /*private*/ set(attributeName: string, value: any, options?: ModelSetOptions): Model;
         set(obj: any, options?: ModelSetOptions): Model;
 
-        change(): any;
         changedAttributes(attributes?: any): any[];
         clear(options?: Silenceable): any;
         clone(): Model;
