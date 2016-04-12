@@ -1,7 +1,7 @@
 // Type definitions for es6-promise
 // Project: https://github.com/jakearchibald/ES6-Promise
 // Definitions by: François de Campredon <https://github.com/fdecampredon/>, vvakame <https://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Thenable<T> {
     then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
@@ -40,7 +40,7 @@ declare class Promise<T> implements Thenable<T> {
 	catch<U>(onRejected?: (error: any) => U | Thenable<U>): Promise<U>;
 }
 
-declare module Promise {
+declare namespace Promise {
 	/**
 	 * Make a new promise from the thenable.
 	 * A thenable is promise-like in as far as it has a "then" method.
@@ -68,7 +68,7 @@ declare module Promise {
 
 declare module 'es6-promise' {
 	var foo: typeof Promise; // Temp variable to reference Promise in local context
-	module rsvp {
+	namespace rsvp {
 		export var Promise: typeof foo;
 	}
 	export = rsvp;

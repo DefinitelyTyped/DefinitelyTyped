@@ -5,6 +5,6 @@
 
 /// <reference path="../meteor/meteor.d.ts" />
 
-declare module Meteor {
+declare namespace Meteor {
 	var isDevelopment : boolean;
 }

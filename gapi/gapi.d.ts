@@ -1,7 +1,7 @@
 ﻿// Type definitions for Google API Client
 // Project: https://code.google.com/p/google-api-javascript-client/
 // Definitions by: Frank M <https://github.com/sgtfrankieboy>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /**
@@ -30,10 +30,10 @@ interface GoogleApiOAuth2TokenObject {
  * Fix for #8215
  * https://github.com/DefinitelyTyped/DefinitelyTyped/issues/8215
  *
- * Usage example: 
+ * Usage example:
  * https://developers.google.com/identity/sign-in/web/session-state
  */
-declare module gapi {
+declare namespace gapi {
 
     /**
      * Pragmatically initialize gapi class member.
@@ -42,7 +42,7 @@ declare module gapi {
 
 }
 
-declare module gapi.auth {
+declare namespace gapi.auth {
     /**
      * Initiates the OAuth 2.0 authorization process. The browser displays a popup window prompting the user authenticate and authorize. After the user authorizes, the popup closes and the callback function fires.
      * @param params A key/value map of parameters for the request. If the key is not one of the expected OAuth 2.0 parameters, it is added to the URI as a query parameter.
@@ -126,14 +126,22 @@ declare module gapi.auth {
     export function signOut(): void;
 }
 
-declare module gapi.client {
+declare namespace gapi.client {
+    /**
+    * Loads the client library interface to a particular API. If a callback is not provided, a promise is returned.
+    * @param name The name of the API to load.
+    * @param version The version of the API to load.
+    * @return promise The promise that get's resolved after the request is finished.
+    */
+    export function load(name: string, version: string): Promise<void>
+
     /**
     * Loads the client library interface to a particular API. The new API interface will be in the form gapi.client.api.collection.method.
     * @param name The name of the API to load.
     * @param version The version of the API to load
     * @param callback the function that is called once the API interface is loaded
     */
-    export function load(name: string, version: string, callback?: () => any): void;
+    export function load(name: string, version: string, callback: () => any): void;
     /**
     * Creates a HTTP request for making RESTful requests.
     * An object encapsulating the various arguments for this method.

@@ -1,7 +1,7 @@
 // Type definitions for Smoothie Charts 1.25
 // Project: https://github.com/joewalnes/smoothie
 // Definitions by: Drew Noakes <https://drewnoakes.com>, Mike H. Hawley <https://github.com/mikehhawley>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped/smoothie
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/smoothie
 
 // NOTE this reference is here to make the DefinitelyTyped `npm test` suite pass and
 //      may be removed if you are using this module declaration in isolation from the

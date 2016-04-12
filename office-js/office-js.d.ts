@@ -1,14 +1,14 @@
 // Type definitions for Office.js
 // Project: http://dev.office.com
 // Definitions by: OfficeDev <https://github.com/OfficeDev>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
 office-js
 Copyright (c) Microsoft Corporation
 */
 
-declare module Office {
+declare namespace Office {
     export var context: Context;
     /**
      * This method is called after the Office API was loaded.
@@ -67,14 +67,14 @@ declare module Office {
         name: string;
     }
 }
-declare module OfficeExtension {
+declare namespace OfficeExtension {
     /** An abstract proxy object that represents an object in an Office document. You create proxy objects from the context (or from other proxy objects), add commands to a queue to act on the object, and then synchronize the proxy object state with the document by calling "context.sync()". */
     class ClientObject {
         /** The request context associated with the object */
         context: ClientRequestContext;
     }
 }
-declare module OfficeExtension {
+declare namespace OfficeExtension {
     interface LoadOption {
         select?: string | string[];
         expand?: string | string[];
@@ -94,14 +94,14 @@ declare module OfficeExtension {
         sync<T>(passThroughValue?: T): IPromise<T>;
     }
 }
-declare module OfficeExtension {
+declare namespace OfficeExtension {
     /** Contains the result for methods that return primitive types. The object's value property is retrieved from the document after "context.sync()" is invoked. */
     class ClientResult<T> {
         /** The value of the result that is retrieved from the document after "context.sync()" is invoked. */
         value: T;
     }
 }
-declare module OfficeExtension {
+declare namespace OfficeExtension {
     /** The error object returned by "context.sync()", if a promise is rejected due to an error while processing the request. */
     class Error {
         /** Error name: "OfficeExtension.Error".*/
@@ -121,14 +121,14 @@ declare module OfficeExtension {
         };
     }
 }
-declare module OfficeExtension {
+declare namespace OfficeExtension {
     class ErrorCodes {
         static accessDenied: string;
         static generalException: string;
         static activityLimitReached: string;
     }
 }
-declare module OfficeExtension {
+declare namespace OfficeExtension {
     /** A Promise object that represents a deferred interaction with the host Office application. Promises can be chained via ".then", and errors can be caught via ".catch".  Remember to always use a ".catch" on the outer promise, and to return intermediary promises so as not to break the promise chain. */
     interface IPromise<R> {
         /**
@@ -190,7 +190,7 @@ declare module OfficeExtension {
         catch<U>(onRejected?: (error: any) => void): IPromise<U>;
     }
 }
-declare module OfficeExtension {
+declare namespace OfficeExtension {
     /** Collection of tracked objects, contained within a request context. See "context.trackedObjects" for more information. */
     class TrackedObjects {
         /** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
@@ -204,7 +204,7 @@ declare module OfficeExtension {
     }
 }
 
-declare module Office {
+declare namespace Office {
     /**
      * Returns a promise of an object described in the expression. Callback is invoked only if method fails.
      * @param expression The object to be retrieved. Example "bindings#BindingName", retrieves a binding promise for a binding named 'BindingName'
@@ -322,7 +322,7 @@ declare module Office {
          */
         Text,
         /**
-         * Returns the file as a byte array 
+         * Returns the file as a byte array
          */
         Compressed,
         /**
@@ -389,9 +389,9 @@ declare module Office {
         id: string;
         type: BindingType;
         /**
-         * Adds an event handler to the object using the specified event type.  
-         * @param eventType The event type. For binding it can be 'bindingDataChanged' and 'bindingSelectionChanged' 
-         * @param handler The name of the handler 
+         * Adds an event handler to the object using the specified event type.
+         * @param eventType The event type. For binding it can be 'bindingDataChanged' and 'bindingSelectionChanged'
+         * @param handler The name of the handler
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
          * @param callback The optional callback method
@@ -412,8 +412,8 @@ declare module Office {
          */
         getDataAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Removes an event handler from the object using the specified event type.  
-         * @param eventType The event type. For binding can be 'bindingDataChanged' and 'bindingSelectionChanged' 
+         * Removes an event handler from the object using the specified event type.
+         * @param eventType The event type. For binding can be 'bindingDataChanged' and 'bindingSelectionChanged'
          * @param options Syntax example: {handler:eventHandler}
          *       handler: Indicates a specific handler to be removed, if not specified all handlers are removed
          *       asyncContext: Object keeping state for the callback
@@ -436,10 +436,10 @@ declare module Office {
         document: Document;
         /**
          * Creates a binding against a named object in the document
-         * @param itemName Name of the bindable object in the document. For Example 'MyExpenses' table in Excel." 
+         * @param itemName Name of the bindable object in the document. For Example 'MyExpenses' table in Excel."
          * @param bindingType The Office BindingType for the data
          * @param options Syntax example: {id: "BindingID"}
-         *       id: Name of the binding, autogenerated if not supplied. 
+         *       id: Name of the binding, autogenerated if not supplied.
          *       asyncContext: Object keeping state for the callback
          *       columns: The string[] of the columns involved in the binding
          * @param callback The optional callback method
@@ -499,7 +499,7 @@ declare module Office {
         namespaceUri: string;
         nodeType: string;
         /**
-         * Gets the nodes associated with the xPath expression.  
+         * Gets the nodes associated with the xPath expression.
          * @param xPath The xPath expression
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
@@ -514,7 +514,7 @@ declare module Office {
          */
         getNodeValueAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Asynchronously gets the text of an XML node in a custom XML part. 
+         * Asynchronously gets the text of an XML node in a custom XML part.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
          * @param callback The optional callback method
@@ -528,7 +528,7 @@ declare module Office {
          */
         getXmlAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Sets the node value.  
+         * Sets the node value.
          * @param value The value to be set on the node
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
@@ -536,7 +536,7 @@ declare module Office {
          */
         setNodeValueAsync(value: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Asynchronously sets the text of an XML node in a custom XML part. 
+         * Asynchronously sets the text of an XML node in a custom XML part.
          * @param text Required. The text value of the XML node.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
@@ -544,7 +544,7 @@ declare module Office {
          */
         setTextAsync(text: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Sets the node XML.  
+         * Sets the node XML.
          * @param xml The XML to be set on the node
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
@@ -557,23 +557,23 @@ declare module Office {
         id: string;
         namespaceManager: CustomXmlPrefixMappings;
         /**
-         * Adds an event handler to the object using the specified event type.  
-         * @param eventType The event type. For CustomXmlPartNode it can be 'nodeDeleted', 'nodeInserted' or 'nodeReplaced' 
-         * @param handler The name of the handler 
+         * Adds an event handler to the object using the specified event type.
+         * @param eventType The event type. For CustomXmlPartNode it can be 'nodeDeleted', 'nodeInserted' or 'nodeReplaced'
+         * @param handler The name of the handler
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
          * @param callback The optional callback method
          */
         addHandlerAsync(eventType: EventType, handler?: (result: any) => void, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Deletes the Custom XML Part.  
+         * Deletes the Custom XML Part.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
          * @param callback The optional callback method
          */
         deleteAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Gets the nodes associated with the xPath expression.  
+         * Gets the nodes associated with the xPath expression.
          * @param xPath The xPath expression
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
@@ -581,15 +581,15 @@ declare module Office {
          */
         getNodesAsync(xPath: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Gets the XML for the Custom XML Part.  
+         * Gets the XML for the Custom XML Part.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
          * @param callback The optional callback method
          */
         getXmlAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Removes an event handler from the object using the specified event type.  
-         * @param eventType The event type. For CustomXmlPartNode it can be 'nodeDeleted', 'nodeInserted' or 'nodeReplaced' 
+         * Removes an event handler from the object using the specified event type.
+         * @param eventType The event type. For CustomXmlPartNode it can be 'nodeDeleted', 'nodeInserted' or 'nodeReplaced'
          * @param options Syntax example: {handler:eventHandler}
          *       handler: Indicates a specific handler to be removed, if not specified all handlers are removed
          *       asyncContext: Object keeping state for the callback
@@ -615,7 +615,7 @@ declare module Office {
          */
         getByIdAsync(id: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Asynchronously gets the specified custom XML part(s) by its namespace. 
+         * Asynchronously gets the specified custom XML part(s) by its namespace.
          * @param ns  The namespace to search.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
@@ -625,7 +625,7 @@ declare module Office {
     }
     export interface CustomXmlPrefixMappings {
         /**
-         * Adds a namespace.  
+         * Adds a namespace.
          * @param prefix The namespace prefix
          * @param ns The namespace URI
          * @param options Syntax example: {asyncContext:context}
@@ -634,7 +634,7 @@ declare module Office {
          */
         addNamespaceAsync(prefix: string, ns: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Gets a namespace  with the specified prefix 
+         * Gets a namespace  with the specified prefix
          * @param prefix The namespace prefix
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
@@ -642,7 +642,7 @@ declare module Office {
          */
         getNamespaceAsync(prefix: string, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Gets a prefix  for  the specified URI 
+         * Gets a prefix  for  the specified URI
          * @param ns The namespace URI
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
@@ -657,9 +657,9 @@ declare module Office {
         settings: Settings;
         url: string;
         /**
-         * Adds an event handler for the specified event type. 
-         * @param eventType The event type. For document can be 'DocumentSelectionChanged' 
-         * @param handler The name of the handler 
+         * Adds an event handler for the specified event type.
+         * @param eventType The event type. For document can be 'DocumentSelectionChanged'
+         * @param handler The name of the handler
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
          * @param callback The optional callback method
@@ -708,11 +708,11 @@ declare module Office {
          */
         goToByIdAsync(id: string|number, goToType: GoToType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Removes an event handler for the specified event type. 
-         * @param eventType The event type. For document can be 'DocumentSelectionChanged' 
+         * Removes an event handler for the specified event type.
+         * @param eventType The event type. For document can be 'DocumentSelectionChanged'
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
-         *       handler: The name of the handler. If not specified all handlers are removed 
+         *       handler: The name of the handler. If not specified all handlers are removed
          * @param callback The optional callback method
          */
         removeHandlerAsync(eventType: EventType, options?: any, callback?: (result: AsyncResult) => void): void;
@@ -730,13 +730,13 @@ declare module Office {
         size: number;
         sliceCount: number;
         /**
-         * Closes the File. 
+         * Closes the File.
          * @param callback The optional callback method
          */
         closeAsync(callback?: (result: AsyncResult) => void): void;
         /**
-         * Gets the specified slice. 
-         * @param sliceIndex The index of the slice to be retrieved 
+         * Gets the specified slice.
+         * @param sliceIndex The index of the slice to be retrieved
          * @param callback The optional callback method
          */
         getSliceAsync(sliceIndex: number, callback?: (result: AsyncResult) => void): void;
@@ -753,9 +753,9 @@ declare module Office {
     }
     export interface Settings {
         /**
-         * Adds an event handler for the object using the specified event type. 
-         * @param eventType The event type. For settings can be 'settingsChanged' 
-         * @param handler The name of the handler 
+         * Adds an event handler for the object using the specified event type.
+         * @param eventType The event type. For settings can be 'settingsChanged'
+         * @param handler The name of the handler
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
          * @param callback The optional callback method
@@ -763,7 +763,7 @@ declare module Office {
         addHandlerAsync(eventType: EventType, handler: any, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Retrieves the setting with the specified name.
-         * @param settingName The name of the setting 
+         * @param settingName The name of the setting
          */
         get(name: string): any;
         /**
@@ -773,12 +773,12 @@ declare module Office {
         refreshAsync(callback?: (result: AsyncResult) => void): void;
         /**
          * Removes the setting with the specified name.
-         * @param settingName The name of the setting 
+         * @param settingName The name of the setting
          */
         remove(name: string): void;
         /**
-         * Removes an event handler for the specified event type. 
-         * @param eventType The event type. For settings can be 'settingsChanged' 
+         * Removes an event handler for the specified event type.
+         * @param eventType The event type. For settings can be 'settingsChanged'
          * @param options Syntax example: {handler:eventHandler}
          *       handler: Indicates a specific handler to be removed, if not specified all handlers are removed
          *       asyncContext: Object keeping state for the callback
@@ -810,16 +810,16 @@ declare module Office {
         hasHeaders: boolean;
         rowCount: number;
         /**
-         * Adds the specified columns to the table  
-         * @param tableData  A TableData object with the headers and rows 
+         * Adds the specified columns to the table
+         * @param tableData  A TableData object with the headers and rows
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
          * @param callback The optional callback method
          */
         addColumnsAsync(tableData: TableData|any[][], options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Adds the specified rows to the table  
-         * @param rows  A 2D array with the rows to add 
+         * Adds the specified rows to the table
+         * @param rows  A 2D array with the rows to add
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
          * @param callback The optional callback method
@@ -833,14 +833,14 @@ declare module Office {
          */
         deleteAllDataValuesAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Clears formatting on the bound table. 
+         * Clears formatting on the bound table.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
          * @param callback The optional callback method
          */
         clearFormatsAsync(options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Gets the formatting on specified items in the table. 
+         * Gets the formatting on specified items in the table.
          * @param cellReference An object literal containing name-value pairs that specify the range of cells to get formatting from.
          * @param formats An array specifying the format properties to get.
          * @param options Syntax example: {asyncContext:context}
@@ -849,7 +849,7 @@ declare module Office {
          */
         getFormatsAsync(cellReference?: any, formats?: any[], options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Sets formatting on specified items and data in the table. 
+         * Sets formatting on specified items and data in the table.
          * @param formatsInfo Array elements are themselves three-element arrays:[target, type, formats]
          *       target: The identifier of the item to format. String.
          *       type: The kind of item to format. String.
@@ -860,7 +860,7 @@ declare module Office {
          */
         setFormatsAsync(formatsInfo?: any[], options?: any, callback?: (result: AsyncResult) => void): void;
         /**
-         * Updates table formatting options on the bound table. 
+         * Updates table formatting options on the bound table.
          * @param tableOptions An object literal containing a list of property name-value pairs that define the table options to apply.
          * @param options Syntax example: {asyncContext:context}
          *       asyncContext: Object keeping state for the callback
@@ -1468,7 +1468,7 @@ declare module Office {
 }
 
 
-declare module Excel {
+declare namespace Excel {
     /**
      *
      * Represents the Excel application that manages the workbook.
@@ -4346,7 +4346,7 @@ declare module Excel {
          *
          * The first criterion used to filter data. Used as an operator in the case of "custom" filtering.
              For example ">50" for number greater than 50 or "=*s" for values ending in "s".
-            
+
              Used as a number in the case of top/bottom items/percents. E.g. "5" for the top 5 items if filterOn is set to "topItems"
          *
          * [Api set: ExcelApi 1.2]
@@ -4442,7 +4442,7 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module BindingType {
+    namespace BindingType {
         var range: string;
         var table: string;
         var text: string;
@@ -4450,7 +4450,7 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module BorderIndex {
+    namespace BorderIndex {
         var edgeTop: string;
         var edgeBottom: string;
         var edgeLeft: string;
@@ -4463,7 +4463,7 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module BorderLineStyle {
+    namespace BorderLineStyle {
         var none: string;
         var continuous: string;
         var dash: string;
@@ -4476,7 +4476,7 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module BorderWeight {
+    namespace BorderWeight {
         var hairline: string;
         var thin: string;
         var medium: string;
@@ -4485,7 +4485,7 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module CalculationMode {
+    namespace CalculationMode {
         var automatic: string;
         var automaticExceptTables: string;
         var manual: string;
@@ -4493,7 +4493,7 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module CalculationType {
+    namespace CalculationType {
         var recalculate: string;
         var full: string;
         var fullRebuild: string;
@@ -4501,7 +4501,7 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module ClearApplyTo {
+    namespace ClearApplyTo {
         var all: string;
         var formats: string;
         var contents: string;
@@ -4509,7 +4509,7 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module ChartDataLabelPosition {
+    namespace ChartDataLabelPosition {
         var invalid: string;
         var none: string;
         var center: string;
@@ -4526,7 +4526,7 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module ChartLegendPosition {
+    namespace ChartLegendPosition {
         var invalid: string;
         var top: string;
         var bottom: string;
@@ -4538,7 +4538,7 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module ChartSeriesBy {
+    namespace ChartSeriesBy {
         var auto: string;
         var columns: string;
         var rows: string;
@@ -4546,7 +4546,7 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module ChartType {
+    namespace ChartType {
         var invalid: string;
         var columnClustered: string;
         var columnStacked: string;
@@ -4625,21 +4625,21 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module ChartUnderlineStyle {
+    namespace ChartUnderlineStyle {
         var none: string;
         var single: string;
     }
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module DeleteShiftDirection {
+    namespace DeleteShiftDirection {
         var up: string;
         var left: string;
     }
     /**
      * [Api set: ExcelApi 1.2]
      */
-    module DynamicFilterCriteria {
+    namespace DynamicFilterCriteria {
         var unknown: string;
         var aboveAverage: string;
         var allDatesInPeriodApril: string;
@@ -4679,7 +4679,7 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.2]
      */
-    module FilterDatetimeSpecificity {
+    namespace FilterDatetimeSpecificity {
         var year: string;
         var month: string;
         var day: string;
@@ -4690,7 +4690,7 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.2]
      */
-    module FilterOn {
+    namespace FilterOn {
         var bottomItems: string;
         var bottomPercent: string;
         var cellColor: string;
@@ -4705,14 +4705,14 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.2]
      */
-    module FilterOperator {
+    namespace FilterOperator {
         var and: string;
         var or: string;
     }
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module HorizontalAlignment {
+    namespace HorizontalAlignment {
         var general: string;
         var left: string;
         var center: string;
@@ -4725,7 +4725,7 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.2]
      */
-    module IconSet {
+    namespace IconSet {
         var invalid: string;
         var threeArrows: string;
         var threeArrowsGray: string;
@@ -4751,7 +4751,7 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.2]
      */
-    module ImageFittingMode {
+    namespace ImageFittingMode {
         var fit: string;
         var fitAndCenter: string;
         var fill: string;
@@ -4759,14 +4759,14 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module InsertShiftDirection {
+    namespace InsertShiftDirection {
         var down: string;
         var right: string;
     }
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module NamedItemType {
+    namespace NamedItemType {
         var string: string;
         var integer: string;
         var double: string;
@@ -4776,7 +4776,7 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module RangeUnderlineStyle {
+    namespace RangeUnderlineStyle {
         var none: string;
         var single: string;
         var double: string;
@@ -4786,7 +4786,7 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module SheetVisibility {
+    namespace SheetVisibility {
         var visible: string;
         var hidden: string;
         var veryHidden: string;
@@ -4794,7 +4794,7 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module RangeValueType {
+    namespace RangeValueType {
         var unknown: string;
         var empty: string;
         var string: string;
@@ -4806,14 +4806,14 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.2]
      */
-    module SortOrientation {
+    namespace SortOrientation {
         var rows: string;
         var columns: string;
     }
     /**
      * [Api set: ExcelApi 1.2]
      */
-    module SortOn {
+    namespace SortOn {
         var value: string;
         var cellColor: string;
         var fontColor: string;
@@ -4822,21 +4822,21 @@ declare module Excel {
     /**
      * [Api set: ExcelApi 1.2]
      */
-    module SortDataOption {
+    namespace SortDataOption {
         var normal: string;
         var textAsNumber: string;
     }
     /**
      * [Api set: ExcelApi 1.2]
      */
-    module SortMethod {
+    namespace SortMethod {
         var pinYin: string;
         var strokeCount: string;
     }
     /**
      * [Api set: ExcelApi 1.1]
      */
-    module VerticalAlignment {
+    namespace VerticalAlignment {
         var top: string;
         var center: string;
         var bottom: string;
@@ -8564,7 +8564,7 @@ declare module Excel {
          */
         z_Test(array: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, sigma?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
     }
-    module ErrorCodes {
+    namespace ErrorCodes {
         var accessDenied: string;
         var badPassword: string;
         var generalException: string;
@@ -8580,7 +8580,7 @@ declare module Excel {
         var unsupportedOperation: string;
     }
 }
-declare module Excel {
+declare namespace Excel {
     /**
      * The RequestContext object facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the request context is required to get access to the Excel object model from the add-in.
      */
@@ -8597,7 +8597,7 @@ declare module Excel {
 }
 
 
-declare module Word {
+declare namespace Word {
     /**
      *
      * The Application object.
@@ -10316,7 +10316,7 @@ declare module Word {
      *
      * [Api set: WordApi ]
      */
-    module ContentControlType {
+    namespace ContentControlType {
         var richText: string;
     }
     /**
@@ -10325,7 +10325,7 @@ declare module Word {
      *
      * [Api set: WordApi ]
      */
-    module ContentControlAppearance {
+    namespace ContentControlAppearance {
         var boundingBox: string;
         var tags: string;
         var hidden: string;
@@ -10336,7 +10336,7 @@ declare module Word {
      *
      * [Api set: WordApi ]
      */
-    module UnderlineType {
+    namespace UnderlineType {
         var none: string;
         var single: string;
         var word: string;
@@ -10353,7 +10353,7 @@ declare module Word {
     /**
      * [Api set: WordApi ]
      */
-    module BreakType {
+    namespace BreakType {
         var page: string;
         var column: string;
         var next: string;
@@ -10371,7 +10371,7 @@ declare module Word {
      *
      * [Api set: WordApi ]
      */
-    module InsertLocation {
+    namespace InsertLocation {
         var before: string;
         var after: string;
         var start: string;
@@ -10381,7 +10381,7 @@ declare module Word {
     /**
      * [Api set: WordApi ]
      */
-    module Alignment {
+    namespace Alignment {
         var unknown: string;
         var left: string;
         var centered: string;
@@ -10391,7 +10391,7 @@ declare module Word {
     /**
      * [Api set: WordApi ]
      */
-    module HeaderFooterType {
+    namespace HeaderFooterType {
         var primary: string;
         var firstPage: string;
         var evenPages: string;
@@ -10399,7 +10399,7 @@ declare module Word {
     /**
      * [Api set: WordApi ]
      */
-    module SelectionMode {
+    namespace SelectionMode {
         var select: string;
         var start: string;
         var end: string;
@@ -10407,7 +10407,7 @@ declare module Word {
     /**
      * [Api set: WordApi ]
      */
-    module ImageFormat {
+    namespace ImageFormat {
         var unsupported: string;
         var undefined: string;
         var bmp: string;
@@ -10425,7 +10425,7 @@ declare module Word {
     /**
      * [Api set: WordApi ]
      */
-    module RangeLocation {
+    namespace RangeLocation {
         var whole: string;
         var start: string;
         var end: string;
@@ -10433,7 +10433,7 @@ declare module Word {
     /**
      * [Api set: WordApi ]
      */
-    module LocationRelation {
+    namespace LocationRelation {
         var unrelated: string;
         var equal: string;
         var containsStart: string;
@@ -10449,7 +10449,7 @@ declare module Word {
         var overlapsAfter: string;
         var after: string;
     }
-    module ErrorCodes {
+    namespace ErrorCodes {
         var accessDenied: string;
         var generalException: string;
         var invalidArgument: string;
@@ -10457,7 +10457,7 @@ declare module Word {
         var notImplemented: string;
     }
 }
-declare module Word {
+declare namespace Word {
     /**
      * The RequestContext object facilitates requests to the Word application. Since the Office add-in and the Word application run in two different processes, the request context is required to get access to the Word object model from the add-in.
      */
@@ -10475,7 +10475,7 @@ declare module Word {
     function run<T>(batch: (context: Word.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T>;
 }
 
-declare module Office.MailboxEnums {
+declare namespace Office.MailboxEnums {
     export enum BodyType {
         /**
          * The body is in HTML format
@@ -10486,7 +10486,7 @@ declare module Office.MailboxEnums {
          */
         text
     }
-    export enum EntityType { 
+    export enum EntityType {
         /**
          * Specifies that the entity is a meeting suggestion
          */
@@ -10526,7 +10526,7 @@ declare module Office.MailboxEnums {
          */
         Appointment
     }
-    export enum ResponseType { 
+    export enum ResponseType {
         /**
          * There has been no response from the attendee
          */
@@ -10577,7 +10577,7 @@ declare module Office.MailboxEnums {
         Item
     }
 }
-declare module Office {
+declare namespace Office {
     export module Types {
         export interface ItemRead extends Office.Item {
             subject: any;
@@ -10602,7 +10602,7 @@ declare module Office {
             getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
             /**
              * Returns well-known entities that pass the named filter defined in the manifest XML file
-             * @param name  A TableData object with the headers and rows 
+             * @param name  A TableData object with the headers and rows
              */
             getFilteredEntitiesByName(name: string): Office.Entities;
             /**
@@ -10701,7 +10701,7 @@ declare module Office {
             getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
             /**
              * Returns well-known entities that pass the named filter defined in the manifest XML file
-             * @param name  A TableData object with the headers and rows 
+             * @param name  A TableData object with the headers and rows
              */
             getFilteredEntitiesByName(name: string): Office.Entities;
             /**
@@ -10777,7 +10777,7 @@ declare module Office {
             getEntitiesByType(entityType: Office.MailboxEnums.EntityType): Office.Entities;
             /**
              * Returns well-known entities that pass the named filter defined in the manifest XML file
-             * @param name  A TableData object with the headers and rows 
+             * @param name  A TableData object with the headers and rows
              */
             getFilteredEntitiesByName(name: string): Office.Entities;
             /**
@@ -10819,7 +10819,7 @@ declare module Office {
         addresses: string[];
         contactString: string;
     }
-    
+
     export interface Context {
         mailbox: Mailbox;
         roamingSettings: RoamingSettings;
@@ -10885,7 +10885,7 @@ declare module Office {
     export interface Body {
         /**
          * Gets a value that indicates whether the content is in HTML or text format
-         * @param tableData  A TableData object with the headers and rows 
+         * @param tableData  A TableData object with the headers and rows
          * @param options Any optional parameters or state data passed to the method
          * @param callback The optional method to call when the getTypeAsync method returns
          */
@@ -10996,7 +10996,7 @@ declare module Office {
     export interface PhoneNumber {
         phoneString: string;
         originalPhoneString: string;
-        type: string;        
+        type: string;
     }
     export interface Recipients {
         /**

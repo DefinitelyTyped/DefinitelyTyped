@@ -1,7 +1,7 @@
 // Type definitions for Zepto 1.0-rc.1
 // Project: http://zeptojs.com/
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
 zepto-1.0rc1.d.ts may be freely distributed under the MIT license.

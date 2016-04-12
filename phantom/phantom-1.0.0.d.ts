@@ -1,7 +1,7 @@
 // Type definitions for PhantomJS bridge for NodeJS 0.7.0
 // Project: https://github.com/sgentle/phantomjs-node
 // Definitions by: horiuchi <https://github.com/horiuchi/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "phantom" {
 

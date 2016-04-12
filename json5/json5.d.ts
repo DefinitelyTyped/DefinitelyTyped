@@ -1,7 +1,7 @@
 ﻿// Type definitions for JSON5
 // Project: http://json5.org/
 // Definitions by: Jason Swearingen <https://jasonswearingen.github.io>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 //commonjs loader

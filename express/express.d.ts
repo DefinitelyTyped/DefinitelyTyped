@@ -1,7 +1,7 @@
 // Type definitions for Express 4.x
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
 
@@ -22,7 +22,7 @@ declare module "express" {
      */
     function e(): core.Express;
 
-    module e {
+    namespace e {
 
         /**
          * This is the only built-in middleware function in Express. It serves static files and is based on serve-static.

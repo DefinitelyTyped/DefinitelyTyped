@@ -1,7 +1,7 @@
 // Type definitions for Angular JS 1.5 (ngAnimate module)
 // Project: http://angularjs.org
 // Definitions by: Michel Salib <https://github.com/michelsalib>, Adi Dahiya <https://github.com/adidahiya>, Raphael Schweizer <https://github.com/rasch>, Cody Schaaf <https://github.com/codyschaaf>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="angular.d.ts" />
 
@@ -13,7 +13,7 @@ declare module "angular-animate" {
 /**
  * ngAnimate module (angular-animate.js)
  */
-declare module angular.animate {
+declare namespace angular.animate {
     interface IAnimateFactory {
         (...args: any[]): IAnimateCallbackObject;
     }
@@ -287,9 +287,11 @@ declare module angular.animate {
     interface IAnimateCssService {
         (element: JQuery, animateCssOptions: IAnimationOptions): IAnimateCssRunner;
     }
+}
 
+declare module angular {
     interface IModule {
-        animation(name: string, animationFactory: IAnimateFactory): IModule;
+        animation(name: string, animationFactory: angular.animate.IAnimateFactory): IModule;
         animation(name: string, inlineAnnotatedFunction: any[]): IModule;
         animation(object: Object): IModule;
     }
