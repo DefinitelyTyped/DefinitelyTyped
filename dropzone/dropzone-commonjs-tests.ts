@@ -29,6 +29,7 @@ const dropzoneWithOptions = new Dropzone(".test", {
 	autoQueue: true,
 	addRemoveLinks: true,
 	previewsContainer: "<div></div>",
+	hiddenInputContainer: document.createElement("input"),
 	capture: "camera",
 
 	dictDefaultMessage: "",
