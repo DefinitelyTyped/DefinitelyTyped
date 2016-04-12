@@ -289,6 +289,12 @@ declare module "hapi" {
         /** Redirects the client to the specified uri. Same as calling reply().redirect(uri).
          he response flow control rules apply. */
         redirect(uri: string): ResponseRedirect;
+
+        /** Sets a cookie on the response */
+        state(key: string, value: string, options?: any): void;
+
+        /** Clears a cookie on the response */
+        unstate(key: string, options?: any): void;
     }
 
     export interface ISessionHandler {

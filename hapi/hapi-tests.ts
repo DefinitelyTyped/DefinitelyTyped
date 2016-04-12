@@ -107,10 +107,12 @@ server.route([{
     method: 'GET',
     path: '/chained-notation',
     handler: function(request: Hapi.Request, reply: Hapi.IReply) {
+        reply.state('cookie_key', 'cookie_value');
         reply('chained-notation')
             .bytes(16)
             .code(200)
             .type('text/plain')
+            .unstate('cookie_to_remove')
             .header('X-Custom', 'some-value');
     }
 }]);
