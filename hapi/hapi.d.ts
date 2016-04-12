@@ -268,13 +268,15 @@ declare module "hapi" {
              }): void;
         /**  Concludes the handler activity by returning control over to the router with a templatized view response.
          the response flow control rules apply. */
-
         view(/**  the template filename and path, relative to the templates path configured via the server views manager. */
              template: string,
              /**  optional object used by the template to render context-specific result. Defaults to no context {}. */
              context?: {},
              /**  optional object used to override the server's views manager configuration for this response. Cannot override isCached, partialsPath, or helpersPath which are only loaded at initialization.  */
              options?: any): Response;
+        /** Sets a header on the response */
+        header(name: string, value: string, options?: {append?: boolean, separator?: string, override?: boolean, duplicate?: boolean});
+
         /** Concludes the handler activity by returning control over to the router and informing the router that a response has already been sent back directly via request.raw.res and that no further response action is needed
          The response flow control rules do not apply. */
         close(options?: {
@@ -291,10 +293,10 @@ declare module "hapi" {
         redirect(uri: string): ResponseRedirect;
 
         /** Sets a cookie on the response */
-        state(key: string, value: string, options?: any): void;
+        state(name: string, value: string, options?: any): void;
 
         /** Clears a cookie on the response */
-        unstate(key: string, options?: any): void;
+        unstate(name: string, options?: any): void;
     }
 
     export interface ISessionHandler {
