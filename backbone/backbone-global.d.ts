@@ -265,7 +265,6 @@ declare namespace Backbone {
         some(iterator: (element: TModel, index: number) => boolean, context?: any): boolean;
         sortBy(iterator: (element: TModel, index: number) => number, context?: any): TModel[];
         sortBy(attribute: string, context?: any): TModel[];
-        sortedIndex(element: TModel, iterator?: (element: TModel, index: number) => number): number;
         reduceRight(iterator: (memo: any, element: TModel, index: number) => any, initialMemo: any, context?: any): any[];
         reject(iterator: (element: TModel, index: number) => boolean, context?: any): TModel[];
         rest(): TModel;
