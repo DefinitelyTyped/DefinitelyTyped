@@ -1,7 +1,7 @@
 // Type definitions for gulp-tsd
 // Project: https://github.com/moznion/gulp-tsd
 // Definitions by: Keita Kagurazaka <https://github.com/k-kagurazaka>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />

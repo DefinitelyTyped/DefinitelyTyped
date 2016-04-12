@@ -13,7 +13,7 @@ declare module 'angular-resource' {
 ///////////////////////////////////////////////////////////////////////////////
 // ngResource module (angular-resource.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module angular.resource {
+declare namespace angular.resource {
 
     /**
      * Currently supported options for the $resource factory options argument.
@@ -74,7 +74,7 @@ declare module angular.resource {
         responseType?: string;
         interceptor?: IHttpInterceptor;
     }
-    
+
     // Allow specify more resource methods
     // No need to add duplicates for all four overloads.
     interface IResourceMethod<T> {
@@ -84,7 +84,7 @@ declare module angular.resource {
         (params: Object, success: Function, error?: Function): T;
         (params: Object, data: Object, success?: Function, error?: Function): T;
     }
-    
+
     // Allow specify resource moethod which returns the array
     // No need to add duplicates for all four overloads.
     interface IResourceArrayMethod<T> {
@@ -182,7 +182,7 @@ declare module angular.resource {
 }
 
 /** extensions to base ng based on using angular-resource */
-declare module angular {
+declare namespace angular {
 
     interface IModule {
         /** creating a resource service factory */

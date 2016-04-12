@@ -1,12 +1,12 @@
 // Type definitions for CodeMirror
 // Project: https://github.com/marijnh/CodeMirror
 // Definitions by: mihailik <https://github.com/mihailik>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function CodeMirror(host: HTMLElement, options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
 declare function CodeMirror(callback: (host: HTMLElement) => void , options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
 
-declare module CodeMirror {
+declare namespace CodeMirror {
     export var Doc : CodeMirror.DocConstructor;
     export var Pos: CodeMirror.PositionConstructor;
     export var Pass: any;
@@ -491,8 +491,8 @@ declare module CodeMirror {
         It may be "start" , "end" , "head"(the side of the selection that moves when you press shift + arrow),
         or "anchor"(the fixed side of the selection).Omitting the argument is the same as passing "head".A { line , ch } object will be returned. */
         getCursor(start?: string): CodeMirror.Position;
-        
-        /** Retrieves a list of all current selections. These will always be sorted, and never overlap (overlapping selections are merged). 
+
+        /** Retrieves a list of all current selections. These will always be sorted, and never overlap (overlapping selections are merged).
         Each object in the array contains anchor and head properties referring to {line, ch} objects. */
         listSelections(): { anchor: CodeMirror.Position; head: CodeMirror.Position }[];
 
@@ -659,12 +659,12 @@ declare module CodeMirror {
         new (line: number, ch?: number): Position;
         (line: number, ch?: number): Position;
     }
-    
+
     interface Range{
         from: CodeMirror.Position;
         to: CodeMirror.Position;
     }
-    
+
     interface Position {
         ch: number;
         line: number;

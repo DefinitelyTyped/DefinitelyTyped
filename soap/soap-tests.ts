@@ -1,6 +1,7 @@
 /// <reference path="soap.d.ts" />
 
 import * as soap from 'soap';
+import * as events from 'events';
 
 const url = 'http://example.com/wsdl?wsdl';
 const wsdlOptions = { name: 'value' };
@@ -15,5 +16,8 @@ soap.createClient(url, wsdlOptions, function(err: any, client: soap.Client) {
     client['create']({ name: 'value' }, function(err, result) {
         // result is an object
     }, {});
+    client.on('request', function(obj: any) {
+        //obj is an object
+    });
 });
 

@@ -1,9 +1,9 @@
 ﻿// Type definitions for Microsoft Dynamics xRM API v6
 // Project: http://msdn.microsoft.com/en-us/library/gg328255.aspx
 // Definitions by: David Berry <https://github.com/6ix4our/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Xrm
+declare namespace Xrm
 {
     /**
      * Interface for the client context.

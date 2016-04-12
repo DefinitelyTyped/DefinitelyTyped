@@ -3,7 +3,7 @@
 // Definitions by: Matt Wheatley <https://github.com/terrawheat>
 // Definitions: https://github.com/LiberisLabs
 
-declare module angular.environment {
+declare namespace angular.environment {
   interface ServiceProvider {
     /**
      * Sets the configuration object

@@ -1,7 +1,7 @@
 // Type definitions for Raphael 2.1
 // Project: http://raphaeljs.com
 // Definitions by: CheCoxshall <https://github.com/CheCoxshall>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 interface BoundingBox {
@@ -294,3 +294,6 @@ interface RaphaelStatic {
 }
 
 declare var Raphael: RaphaelStatic;
+declare module "raphael" {
+    export = Raphael;
+}

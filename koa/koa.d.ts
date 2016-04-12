@@ -1,7 +1,7 @@
 // Type definitions for Koa 2.x
 // Project: http://koajs.com
 // Definitions by: DavidCai1993 <https://github.com/DavidCai1993>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
 
@@ -20,7 +20,7 @@ declare module "koa" {
   import * as http from "http";
   import * as net from "net";
 
-  module Koa {
+  namespace Koa {
     export interface Context extends Request, Response {
         body?: any;
         request?: Request;

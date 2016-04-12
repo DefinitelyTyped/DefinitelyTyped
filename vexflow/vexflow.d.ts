@@ -1,7 +1,7 @@
 // Type definitions for VexFlow v1.2.27
 // Project: http://vexflow.com
 // Definitions by: Roman Quiring <https://github.com/rquiring>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 //inconsistent namespace: this is a helper funtion from tables.js and should not pollute the global namespace!
 declare function sanitizeDuration(duration : string) : string;

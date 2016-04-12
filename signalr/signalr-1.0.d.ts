@@ -1,7 +1,7 @@
 // Type definitions for SignalR 1.0
 // Project: http://www.asp.net/signalr
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, T. Michael Keesey <https://github.com/keesey/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts" />

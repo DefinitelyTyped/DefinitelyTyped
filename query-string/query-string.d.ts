@@ -1,7 +1,7 @@
 // Type definitions for query-string v3.0.0
 // Project: https://github.com/sindresorhus/query-string
 // Definitions by: Sam Verschueren <https://github.com/SamVerschueren>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "query-string" {
     /**
@@ -16,7 +16,7 @@ declare module "query-string" {
      *
      * @param obj
      */
-    export function stringify(obj: any): string;
+    export function stringify(obj: any, options?: {strict: boolean}): string;
 
     /**
      * Extract a query string from a URL that can be passed into .parse().

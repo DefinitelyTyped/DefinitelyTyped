@@ -16,9 +16,11 @@ import * as fs from 'fs';
 // https://github.com/atom/electron/blob/master/docs/api/ipc-renderer.md
 console.log(ipcRenderer.sendSync('synchronous-message', 'ping')); // prints "pong"
 
-ipcRenderer.on('asynchronous-reply', (arg: any) => {
+ipcRenderer.on('asynchronous-reply', (event: Electron.IpcRendererEvent, arg: any) => {
 	console.log(arg); // prints "pong"
+	event.sender.send('another-message', 'Hello World!');
 });
+
 ipcRenderer.send('asynchronous-message', 'ping');
 
 // remote
@@ -50,11 +52,27 @@ remote.getCurrentWindow().capturePage(buf => {
 // https://github.com/atom/electron/blob/master/docs/api/web-frame.md
 
 webFrame.setZoomFactor(2);
+console.log(webFrame.getZoomFactor());
+
+webFrame.setZoomLevel(200);
+console.log(webFrame.getZoomLevel());
+
+webFrame.setZoomLevelLimits(50, 200);
 
 webFrame.setSpellCheckProvider('en-US', true, {
 	spellCheck: text => {
 		return !(require('spellchecker').isMisspelled(text));
 	}
+});
+
+webFrame.registerURLSchemeAsSecure('app');
+webFrame.registerURLSchemeAsBypassingCSP('app');
+webFrame.registerURLSchemeAsPrivileged('app');
+
+webFrame.insertText('text');
+
+webFrame.executeJavaScript('JSON.stringify({})', false, (result) => {
+    console.log(result);
 });
 
 // clipboard
@@ -63,6 +81,14 @@ webFrame.setSpellCheckProvider('en-US', true, {
 clipboard.writeText('Example String');
 clipboard.writeText('Example String', 'selection');
 console.log(clipboard.readText('selection'));
+console.log(clipboard.availableFormats());
+clipboard.clear();
+
+clipboard.write({
+	html: '<html></html>',
+	text: 'Hello World!',
+	image: clipboard.readImage()
+});
 
 // crash-reporter
 // https://github.com/atom/electron/blob/master/docs/api/crash-reporter.md
@@ -74,10 +100,71 @@ crashReporter.start({
 	autoSubmit: true
 });
 
+// desktopCapturer
+// https://github.com/atom/electron/blob/master/docs/api/desktop-capturer.md
+
+var desktopCapturer = require('electron').desktopCapturer;
+
+desktopCapturer.getSources({types: ['window', 'screen']}, function(error, sources) {
+	if (error) throw error;
+	for (var i = 0; i < sources.length; ++i) {
+		if (sources[i].name == "Electron") {
+				(navigator as any).webkitGetUserMedia({
+				audio: false,
+				video: {
+					mandatory: {
+						chromeMediaSource: 'desktop',
+						chromeMediaSourceId: sources[i].id,
+						minWidth: 1280,
+						maxWidth: 1280,
+						minHeight: 720,
+						maxHeight: 720
+					}
+				}
+			}, gotStream, getUserMediaError);
+			return;
+		}
+	}
+});
+
+function gotStream(stream: any) {
+	(document.querySelector('video') as HTMLVideoElement).src = URL.createObjectURL(stream);
+}
+
+function getUserMediaError(error: Error) {
+	console.log('getUserMediaError', error);
+}
+
+// File object
+// https://github.com/atom/electron/blob/master/docs/api/file-object.md
+
+/*
+<div id="holder">
+  Drag your file here
+</div>
+*/
+
+var holder = document.getElementById('holder');
+
+holder.ondragover = function () {
+    return false;
+};
+
+holder.ondragleave = holder.ondragend = function () {
+    return false;
+};
+
+holder.ondrop = function (e) {
+    e.preventDefault();
+    var file = e.dataTransfer.files[0];
+    console.log('File you dragged here is', file.path);
+    return false;
+};
+
 // nativeImage
 // https://github.com/atom/electron/blob/master/docs/api/native-image.md
 
-var Tray: typeof Electron.Tray = remote.require('Tray');
+var Tray: Electron.Tray = remote.require('Tray');
 var appIcon2 = new Tray('/Users/somebody/images/icon.png');
 var window2 = new BrowserWindow({ icon: '/Users/somebody/images/window.png' });
 var image = clipboard.readImage();
@@ -118,3 +205,40 @@ app.on('ready', () => {
 // https://github.com/atom/electron/blob/master/docs/api/shell.md
 
 shell.openExternal('https://github.com');
+
+// <webview>
+// https://github.com/atom/electron/blob/master/docs/api/web-view-tag.md
+
+var webview = document.createElement('webview');
+webview.loadURL('https://github.com');
+
+webview.addEventListener('console-message', function(e) {
+	console.log('Guest page logged a message:', e.message);
+});
+
+webview.addEventListener('found-in-page', function(e) {
+	if (e.result.finalUpdate) {
+		webview.stopFindInPage("keepSelection");
+	}
+});
+
+var rquestId = webview.findInPage("test");
+
+webview.addEventListener('new-window', function(e) {
+	require('electron').shell.openExternal(e.url);
+});
+
+webview.addEventListener('close', function() {
+	webview.src = 'about:blank';
+});
+
+// In embedder page.
+webview.addEventListener('ipc-message', function(event) {
+	console.log(event.channel); // Prints "pong"
+});
+webview.send('ping');
+
+// In guest page.
+ipcRenderer.on('ping', function() {
+	ipcRenderer.sendToHost('pong');
+});
