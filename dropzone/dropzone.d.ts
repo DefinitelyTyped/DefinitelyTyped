@@ -26,8 +26,6 @@ interface DropzoneFile extends File {
 	accepted: boolean;
 }
 
-interface RenameFilenameFunction { (name: string): string }
-
 interface DropzoneOptions {
 	url?: string;
 	method?: string;
