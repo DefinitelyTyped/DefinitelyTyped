@@ -6,9 +6,12 @@
 /// <reference path="../angularjs/angular.d.ts" />
 /// <reference path="../angular-ui-router/angular-ui-router.d.ts" />
 
-declare module 'angular-permission' {}
+// Support AMD require
+declare module 'angular-permission' {
+  export = Permission;
+}
 
-declare module angular.permission {
+declare namespace Permission {
 
   export interface PermissionStore {
     /**
