@@ -4,6 +4,9 @@ import Dropzone = require("dropzone");
 
 const dropzoneFromString = new Dropzone(".test");
 const dropzoneFromElement = new Dropzone(document.getElementById("test"));
+const dropzoneRenameFunction = function(name: string){
+	return name;
+};
 
 const dropzoneWithOptions = new Dropzone(".test", {
 	url: "/some/url",
@@ -25,6 +28,7 @@ const dropzoneWithOptions = new Dropzone(".test", {
 	clickable: true,
 	ignoreHiddenFiles: true,
 	acceptedFiles: "image/*",
+	renameFilename: dropzoneRenameFunction,
 	autoProcessQueue: true,
 	autoQueue: true,
 	addRemoveLinks: true,
