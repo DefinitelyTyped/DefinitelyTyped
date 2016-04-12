@@ -2,8 +2,8 @@
 
 const dropzoneFromString = new Dropzone(".test");
 const dropzoneFromElement = new Dropzone(document.getElementById("test"));
-const dropzoneRenameFunction:RenameFilenameFunction = function(name: string){
-	return name;
+const dropzoneRenameFunction = function (name:string):string {
+  return name + 'new';
 };
 
 const dropzoneWithOptions = new Dropzone(".test", {
