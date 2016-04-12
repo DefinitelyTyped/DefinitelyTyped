@@ -28,6 +28,13 @@ declare module "hapi" {
         catch<U>(onRejected?: (error: any) => U | IThenable<U>): IPromise<U>;
     }
 
+    export interface IHeaderOptions {
+        append?: boolean;
+        separator?: string;
+        override?: boolean;
+        duplicate?: boolean;
+    }
+
     /** Boom Module for errors. https://github.com/hapijs/boom
      *  boom provides a set of utilities for returning HTTP errors. Each utility returns a Boom error response object (instance of Error) which includes the following properties:  */
     export interface IBoom extends Error {
@@ -275,7 +282,7 @@ declare module "hapi" {
              /**  optional object used to override the server's views manager configuration for this response. Cannot override isCached, partialsPath, or helpersPath which are only loaded at initialization.  */
              options?: any): Response;
         /** Sets a header on the response */
-        header(name: string, value: string, options?: {append?: boolean, separator?: string, override?: boolean, duplicate?: boolean});
+        header(name: string, value: string, options?: IHeaderOptions): Response;
 
         /** Concludes the handler activity by returning control over to the router and informing the router that a response has already been sent back directly via request.raw.res and that no further response action is needed
          The response flow control rules do not apply. */
@@ -292,11 +299,14 @@ declare module "hapi" {
          he response flow control rules apply. */
         redirect(uri: string): ResponseRedirect;
 
+        /** Replies with the specified response */
+        response(result: any): Response;
+
         /** Sets a cookie on the response */
-        state(name: string, value: string, options?: any): Response;
+        state(name: string, value: string, options?: any): void;
 
         /** Clears a cookie on the response */
-        unstate(name: string, options?: any): Response;
+        unstate(name: string, options?: any): void;
     }
 
     export interface ISessionHandler {
@@ -1447,14 +1457,10 @@ declare module "hapi" {
          name - the header name.
          value - the header value.
          options - optional settings where:
-         append - if true, the value is appended to any existing header value using separator. Defaults to false.
-         separator - string used as separator when appending to an exiting value. Defaults to ','.
-         override - if false, the header value is not set if an existing value present. Defaults to true.*/
-        header(name: string, value: string, options?: {
-            append: boolean;
-            separator: string;
-            override: boolean;
-        }): Response;
+             append - if true, the value is appended to any existing header value using separator. Defaults to false.
+             separator - string used as separator when appending to an exiting value. Defaults to ','.
+             override - if false, the header value is not set if an existing value present. Defaults to true.*/
+        header(name: string, value: string, options?: IHeaderOptions): Response;
 
         /** hold() - puts the response on hold until response.send() is called. Available only after reply() is called and until response.hold() is invoked once. */
         hold(): Response;
