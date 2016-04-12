@@ -311,7 +311,7 @@ declare namespace Backbone {
         start(options?: HistoryOptions): boolean;
 
         getHash(window?: Window): string;
-        getFragment(fragment?: string, forcePushState?: boolean): string;
+        getFragment(fragment?: string): string;
         stop(): void;
         route(route: string, callback: Function): number;
         checkUrl(e?: any): void;
