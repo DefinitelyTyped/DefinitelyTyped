@@ -153,9 +153,7 @@ declare namespace angular.resource {
         /** the promise of the original server interaction that created this instance. **/
         $promise : angular.IPromise<T>;
         $resolved : boolean;
-        toJSON: () => {
-          [index: string]: any;
-        }
+        toJSON(): T;
     }
 
     /**

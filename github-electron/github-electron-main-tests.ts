@@ -340,11 +340,15 @@ win.show();
 // content-tracing
 // https://github.com/atom/electron/blob/master/docs/api/content-tracing.md
 
-contentTracing.startRecording('*', contentTracing.DEFAULT_OPTIONS, () => {
-	console.log('Tracing started');
+const options = {
+	categoryFilter: '*',
+	traceOptions: 'record-until-full,enable-sampling'
+}
 
-	setTimeout(() => {
-		contentTracing.stopRecording('', path => {
+contentTracing.startRecording(options, function() {
+	console.log('Tracing started');
+	setTimeout(function() {
+		contentTracing.stopRecording('', function(path) {
 			console.log('Tracing data recorded to ' + path);
 		});
 	}, 5000);

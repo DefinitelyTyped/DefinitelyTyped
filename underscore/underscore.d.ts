@@ -39,7 +39,7 @@ declare module _ {
 		* Default value is '/<%-([\s\S]+?)%>/g'.
 		**/
 		escape?: RegExp;
-		
+
 		/**
 		* By default, 'template()' places the values from your data in the local scope via the 'with' statement.
 		* However, you can specify a single variable name with this setting.
@@ -5908,7 +5908,7 @@ interface _ChainSingle<T> {
 	value(): T;
 }
 interface _ChainOfArrays<T> extends _Chain<T[]> {
-	flatten(): _Chain<T>;
+	flatten(shallow?: boolean): _Chain<T>;
 }
 
 declare var _: UnderscoreStatic;

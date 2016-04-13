@@ -88,6 +88,15 @@ logCall = logService.warn;
 logs = logCall.logs;
 
 ///////////////////////////////////////
+// ControllerService mock
+///////////////////////////////////////
+var $controller: ng.IControllerService;
+$controller(class TestController {}, {}, {myBinding: 'works!'});
+$controller(function TestController() {}, {someLocal: 42}, {myBinding: 'works!'});
+$controller('TestController', {}, {myBinding: 'works!'});
+
+
+///////////////////////////////////////
 // IComponentControllerService
 ///////////////////////////////////////
 var $componentController: ng.IComponentControllerService;
