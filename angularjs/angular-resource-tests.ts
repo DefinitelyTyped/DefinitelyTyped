@@ -98,9 +98,7 @@ resource = resourceClass.save({ key: 'value' }, { key: 'value' }, function () { 
 
 var promise : angular.IPromise<IMyResource>;
 var arrayPromise : angular.IPromise<IMyResource[]>;
-var json: {
-  [index: string]: any;
-};
+var json: IMyResource;
 
 promise = resource.$delete();
 promise = resource.$delete({ key: 'value' });

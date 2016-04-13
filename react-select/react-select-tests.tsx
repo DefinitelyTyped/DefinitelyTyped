@@ -12,6 +12,8 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
     render() {
         const options: ReactSelect.Option[] = [{ label: "Foo", value: "bar" }];
         const onChange = (value: any) => console.log(value);
+        const onOpen = () => { return; };
+        const onClose = () => { return; };
         return <div>
             <Select
                 name="test-select"
@@ -22,6 +24,8 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
                 matchProp={"any"}
                 multi={true}
                 onValueClick={onChange}
+                onOpen={onOpen}
+                onClose={onClose}
                 valueKey="github"
                 labelKey="name"
                 onChange={onChange}

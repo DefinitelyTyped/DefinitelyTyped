@@ -154,9 +154,12 @@ declare namespace ReactSelect {
          */
         onBlurResetsInput?: boolean;
         onChange?: (newValue: Option | Option[]) => void;
+        onClose?: () => void;
         onFocus?: __React.FocusEventHandler;
         onInputChange?: (inputValue: string) => void;
+        onOpen?: () => void;
         onOptionLabelClick?: (value: string, event: Event) => void;
+
         /**
          * function which returns a custom way to render the options in the menu
          */
