@@ -20,7 +20,7 @@ declare module "koa-compress" {
     import * as Koa from "koa";
     import * as zlib from "zlib";
 
-    interface ICompressOptions extends zlib.ZlibOptions {
+    interface CompressOptions extends zlib.ZlibOptions {
         /**
          * An optional function that checks the response content type to decide whether to compress. By default, it uses compressible.
          */
@@ -35,7 +35,7 @@ declare module "koa-compress" {
     /**
      * Compress middleware for Koa
      */
-    function compress(options?: ICompressOptions): { (ctx: Koa.Context, next?: () => any): any };
+    function compress(options?: CompressOptions): { (ctx: Koa.Context, next?: () => any): any };
 
     export = compress;
 }
