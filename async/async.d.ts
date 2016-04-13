@@ -16,6 +16,7 @@ interface AsyncForEachOfIterator<T> { (item: T, key: number, callback: ErrorCall
 interface AsyncResultIterator<T, R> { (item: T, callback: AsyncResultCallback<R>): void; }
 interface AsyncMemoIterator<T, R> { (memo: R, item: T, callback: AsyncResultCallback<R>): void; }
 interface AsyncBooleanIterator<T> { (item: T, callback: (truthValue: boolean) => void): void; }
+interface AsyncIterCallback {err?: Error, }
 
 interface AsyncWorker<T> { (task: T, callback: ErrorCallback): void; }
 interface AsyncVoidFunction { (callback: ErrorCallback): void; }
@@ -120,7 +121,7 @@ interface Async {
     parallelLimit<T>(tasks: Array<AsyncFunction<T>>, limit: number, callback?: AsyncResultArrayCallback<T>): void;
     parallelLimit<T>(tasks: Dictionary<AsyncFunction<T>>, limit: number, callback?: AsyncResultObjectCallback<T>): void;
     whilst(test: () => boolean, fn: AsyncVoidFunction, callback: (err: any) => void): void;
-    doWhilst(fn: AsyncVoidFunction, test: () => boolean, callback: (err: any) => void): void;
+    doWhilst(fn: (Function), test: (data: any) => boolean, callback: (err: any) => void): void;
     until(test: () => boolean, fn: AsyncVoidFunction, callback: (err: any) => void): void;
     doUntil(fn: AsyncVoidFunction, test: () => boolean, callback: (err: any) => void): void;
     during(test: (testCallback : (error: Error, truth: boolean) => void) => void, fn: AsyncVoidFunction, callback: (err: any) => void): void;
