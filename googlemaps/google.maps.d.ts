@@ -391,6 +391,12 @@ declare namespace google.maps {
          */
         icon?: string|Icon|Symbol;
         /**
+         * Adds a label to the marker. The label can either be a string, or a MarkerLabel object. 
+         * Only the first character of the string will be displayed.
+         * @type {(string|MarkerLabel)}
+         */
+        label?: string|MarkerLabel;
+        /**
          * Map on which to display Marker.
          * @type {(Map|StreetViewPanorama)}
          *
@@ -468,6 +474,14 @@ declare namespace google.maps {
         url?: string;
     }
 
+    export interface MarkerLabel {
+        color?: string;
+        fontFamily?: string;
+        fontSize?: string;
+        fontWeight?: string;
+        text?: string;
+    }
+    
     export interface MarkerShape {
         coords?: number[];
         type?: string;
