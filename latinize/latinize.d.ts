@@ -3,8 +3,8 @@
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace Latinize {
-    export interface ILatinize {
+declare namespace LatinizeModule {
+    export interface Latinize {
         (str: string): string;
         characters: { [char: string]: string };
     }
@@ -12,6 +12,6 @@ declare namespace Latinize {
 
 
 declare module "latinize" {
-    let latinize: Latinize.ILatinize;
+    let latinize: LatinizeModule.Latinize;
     export = latinize;
 }
