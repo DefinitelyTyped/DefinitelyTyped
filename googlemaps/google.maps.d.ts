@@ -339,6 +339,7 @@ declare namespace google.maps {
         getCursor(): string;
         getDraggable(): boolean;
         getIcon(): string|Icon|Symbol;
+        getLabel(): MarkerLabel;
         getMap(): Map|StreetViewPanorama;
         getOpacity(): number;
         getPlace(): Place;
@@ -353,6 +354,7 @@ declare namespace google.maps {
         setCursor(cursor: string): void;
         setDraggable(flag: boolean): void;
         setIcon(icon: string|Icon|Symbol): void;
+        setLabel(label: string|MarkerLabel): void;
         setMap(map: Map|StreetViewPanorama): void;
         setOpacity(opacity: number): void;
         setOptions(options: MarkerOptions): void;
