@@ -6122,7 +6122,7 @@ declare namespace THREE {
 
     export interface TextGeometryParameters {
         font: Font;
-        site: number;
+        size: number;
         height: number;
         curveSegments: number;
         bevelEnabled: boolean;
@@ -6135,7 +6135,7 @@ declare namespace THREE {
 
         parameters: {
             font: Font;
-            site: number;
+            size: number;
             height: number;
             curveSegments: number;
             bevelEnabled: boolean;

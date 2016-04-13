@@ -98,6 +98,18 @@ declare namespace angular {
     }
 
     ///////////////////////////////////////////////////////////////////////////
+    // ControllerService mock
+    // see https://docs.angularjs.org/api/ngMock/service/$controller
+    // This interface extends http://docs.angularjs.org/api/ng.$controller
+    ///////////////////////////////////////////////////////////////////////////
+    interface IControllerService {
+      // Although the documentation doesn't state this, locals are optional
+      <T>(controllerConstructor: new (...args: any[]) => T, locals?: any, bindings?: any): T;
+      <T>(controllerConstructor: Function, locals?: any, bindings?: any): T;
+      <T>(controllerName: string, locals?: any, bindings?: any): T;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
     // ComponentControllerService
     // see https://docs.angularjs.org/api/ngMock/service/$componentController
     ///////////////////////////////////////////////////////////////////////////

@@ -1,4 +1,4 @@
-// Type definitions for http-status v0.1.8
+// Type definitions for http-status v0.2.1
 // Project: https://github.com/wdavidw/node-http-status
 // Definitions by: Michael Zabka <https://github.com/misak113/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -38,7 +38,9 @@ interface HttpStatus {
 	415: string;
 	416: string;
 	417: string;
+	422: string;
 	429: string;
+	451: string;
 	500: string;
 	501: string;
 	502: string;
@@ -79,7 +81,9 @@ interface HttpStatus {
 	UNSUPPORTED_MEDIA_TYPE: number;
 	REQUESTED_RANGE_NOT_SATISFIABLE: number;
 	EXPECTATION_FAILED: number;
+	UNPROCESSABLE_ENTITY: number;
 	TOO_MANY_REQUESTS: number;
+	UNAVAILABLE_FOR_LEGAL_REASONS: number;
 	INTERNAL_SERVER_ERROR: number;
 	NOT_IMPLEMENTED: number;
 	BAD_GATEWAY: number;
