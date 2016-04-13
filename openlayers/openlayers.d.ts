@@ -4054,6 +4054,8 @@ declare namespace ol {
             constructor(options: olx.Projection);
 
             getExtent(): Extent;
+            
+            setExtent(extent: Extent);
         }
     }
 
