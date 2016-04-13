@@ -475,10 +475,15 @@ declare namespace google.maps {
     }
 
     export interface MarkerLabel {
+        /** The color of the label text. Default color is black. */
         color?: string;
+        /** The font family of the label text (equivalent to the CSS font-family property). */
         fontFamily?: string;
+        /** The font size of the label text (equivalent to the CSS font-size property). Default size is 14px. */
         fontSize?: string;
+        /** The font weight of the label text (equivalent to the CSS font-weight property). */
         fontWeight?: string;
+        /** The text to be displayed in the label. Only the first character of this string will be shown. */
         text?: string;
     }
     
