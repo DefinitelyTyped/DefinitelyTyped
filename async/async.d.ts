@@ -16,7 +16,6 @@ interface AsyncForEachOfIterator<T> { (item: T, key: number, callback: ErrorCall
 interface AsyncResultIterator<T, R> { (item: T, callback: AsyncResultCallback<R>): void; }
 interface AsyncMemoIterator<T, R> { (memo: R, item: T, callback: AsyncResultCallback<R>): void; }
 interface AsyncBooleanIterator<T> { (item: T, callback: (truthValue: boolean) => void): void; }
-interface AsyncIterCallback {err?: Error, }
 
 interface AsyncWorker<T> { (task: T, callback: ErrorCallback): void; }
 interface AsyncVoidFunction { (callback: ErrorCallback): void; }
