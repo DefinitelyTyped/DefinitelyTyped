@@ -5,5 +5,5 @@
 
 declare module "z85" {
 	function encode(data:Buffer):string;
-	function decode(string:string):Buffer;
+	function decode(string:string):number[];
 }
