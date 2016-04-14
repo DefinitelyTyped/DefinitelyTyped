@@ -20,7 +20,8 @@ interface Cldr {
 interface GlobalizeStatic {
    load(jsonData: any): void;
    locale(locale: string): Cldr;
-
+ culture(culture: string): void;
+ 
    numberFormatter(options?: NumberFormatterOptions): (value: number) => string;
    formatNumber(value:number, options?: NumberFormatterOptions): string;
 }
