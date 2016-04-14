@@ -163,7 +163,7 @@ declare namespace ReactSelect {
         /**
          * function which returns a custom way to render the options in the menu
          */
-        optionRenderer?: () => void;
+        optionRenderer?: (option: Option) => JSX.Element;
         /**
          * array of Select options
          * @default false
