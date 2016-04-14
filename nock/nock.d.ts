@@ -19,38 +19,40 @@ declare module "nock" {
 		export function enableNetConnect(domain: string): void;
 
 		export var recorder: Recorder;
+		type FilterFunction = (uri:string)=>boolean;
+		type PathSpec = string|RegExp|FilterFunction;
 
 		export interface Scope {
-			get(path: string, data?: string): Scope;
+			get(path: PathSpec, data?: string): Scope;
 
-			post(path: string, data?: string): Scope;
-			post(path: string, data?: Object): Scope;
-			post(path: string, regex?: RegExp): Scope;
+			post(path: PathSpec, data?: string): Scope;
+			post(path: PathSpec, data?: Object): Scope;
+			post(path: PathSpec, regex?: RegExp): Scope;
 
-			patch(path: string, data?: string): Scope;
-			patch(path: string, data?: Object): Scope;
-			patch(path: string, regex?: RegExp): Scope;
+			patch(path: PathSpec, data?: string): Scope;
+			patch(path: PathSpec, data?: Object): Scope;
+			patch(path: PathSpec, regex?: RegExp): Scope;
 
-			put(path: string, data?: string): Scope;
-			put(path: string, data?: Object): Scope;
-			put(path: string, regex?: RegExp): Scope;
+			put(path: PathSpec, data?: string): Scope;
+			put(path: PathSpec, data?: Object): Scope;
+			put(path: PathSpec, regex?: RegExp): Scope;
 
-			head(path: string): Scope;
+			head(path: PathSpec): Scope;
 
-			delete(path: string, data?: string): Scope;
-			delete(path: string, data?: Object): Scope;
-			delete(path: string, regex?: RegExp): Scope;
+			delete(path: PathSpec, data?: string): Scope;
+			delete(path: PathSpec, data?: Object): Scope;
+			delete(path: PathSpec, regex?: RegExp): Scope;
 
-			merge(path: string, data?: string): Scope;
-			merge(path: string, data?: Object): Scope;
-			merge(path: string, regex?: RegExp): Scope;
+			merge(path: PathSpec, data?: string): Scope;
+			merge(path: PathSpec, data?: Object): Scope;
+			merge(path: PathSpec, regex?: RegExp): Scope;
 
 			query(params: any): Scope;
 			query(acceptAnyParams: boolean): Scope;
 
-			intercept(path: string, verb: string, body?: string, options?: any): Scope;
-			intercept(path: string, verb: string, body?: Object, options?: any): Scope;
-			intercept(path: string, verb: string, body?: RegExp, options?: any): Scope;
+			intercept(path: PathSpec, verb: string, body?: string, options?: any): Scope;
+			intercept(path: PathSpec, verb: string, body?: Object, options?: any): Scope;
+			intercept(path: PathSpec, verb: string, body?: RegExp, options?: any): Scope;
 
 			reply(responseCode: number, body?: string, headers?: Object): Scope;
 			reply(responseCode: number, body?: Object, headers?: Object): Scope;
