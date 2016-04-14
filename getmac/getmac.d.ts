@@ -1,6 +1,6 @@
 // Type definitions for getmac
 // Project: https://github.com/bevry/getmac
-// Definitions by: 0815fox https://github.com/0815fox
+// Definitions by: 0815fox <https://github.com/0815fox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "getmac" {
