@@ -1,7 +1,7 @@
 // Type definitions for stick 1.5.8
 // Project: http://kenwheeler.github.io/slick/
 // Definitions by: John Gouigouix <https://github.com/orchestra-ts/DefinitelyTyped/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 

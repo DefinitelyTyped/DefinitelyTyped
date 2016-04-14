@@ -6,24 +6,27 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
-import Select from "react-select"
+import * as Select from "react-select"
 
 class SelectTest extends React.Component<React.Props<{}>, {}> {
 
-	render() {
-		return <div>
-	       <Select />
-		</div>
-	}
+    render() {
+        const options: ReactSelect.Option[] = [{ label: "Foo", value: "bar" }]
+        const onOpen = () => { return; };
+        const onClose = () => { return; };
+        return <div>
+           <Select options={options} onOpen={onOpen} onClose={onClose} />
+        </div>
+    }
 
 }
 
 class SelectAsyncTest extends React.Component<React.Props<{}>, {}> {
 
-	render() {
-		return <div>
-	       <Select.Async />
-		</div>
-	}
+    render() {
+        return <div>
+           <Select.Async />
+        </div>
+    }
 
 }

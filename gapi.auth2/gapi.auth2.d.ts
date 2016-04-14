@@ -1,11 +1,11 @@
 // Type definitions for Google Sign-In API
 // Project: https://developers.google.com/identity/sign-in/web/
 // Definitions by: Derek Lawless <https://github.com/flawless2011>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../gapi/gapi.d.ts" />
 
-declare module gapi.auth2 {
+declare namespace gapi.auth2 {
 
   /**
    * GoogleAuth is a singleton class that provides methods to allow the user to sign in with a Google account,
@@ -15,7 +15,7 @@ declare module gapi.auth2 {
   export class GoogleAuth {
     isSignedIn: IsSignedIn;
 
-    curretUser: CurrentUser;
+    currentUser: CurrentUser;
 
     /**
      * Calls the onInit function when the GoogleAuth object is fully initialized, or calls the onFailure function if
@@ -235,7 +235,7 @@ declare module gapi.auth2 {
   export function getAuthInstance(): GoogleAuth;
 }
 
-declare module gapi.signin2 {
+declare namespace gapi.signin2 {
 
   export function render(id: any, options: {
     /**

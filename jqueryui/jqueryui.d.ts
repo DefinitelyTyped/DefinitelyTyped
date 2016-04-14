@@ -1,12 +1,12 @@
 // Type definitions for jQueryUI 1.9
 // Project: http://jqueryui.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, John Reilly <https://github.com/johnnyreilly>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module JQueryUI {
+declare namespace JQueryUI {
     // Accordion //////////////////////////////////////////////////
 
     interface AccordionOptions extends AccordionEvents {
@@ -1704,7 +1704,7 @@ interface JQuery {
     sortable(methodName: string): JQuery;
     sortable(options: JQueryUI.SortableOptions): JQuery;
     sortable(optionLiteral: string, optionName: string): any;
-    sortable(methodName: 'serialize', options: { key?: string; attribute?: string; expression?: RegExp }): string;
+    sortable(methodName: 'serialize', options?: { key?: string; attribute?: string; expression?: RegExp }): string;
     sortable(optionLiteral: string, options: JQueryUI.SortableOptions): any;
     sortable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 

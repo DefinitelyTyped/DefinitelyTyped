@@ -6,16 +6,16 @@
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../jquery.dataTables/jquery.dataTables.d.ts"/>
 
-declare module DataTables {
-    export interface Settings {       
+declare namespace DataTables {
+    export interface Settings {
         /**
          * Buttons extension options
          */
         buttons?: boolean | string[] | ButtonSettings[];
     }
-	
+
     //#region "button-settings"
-    
+
     /**
     * Buttons extension options
     */
@@ -82,6 +82,7 @@ declare module DataTables {
 
         exportOptions?: ButtonExportOptions;
         autoPrint?: boolean;
+        customize?: FunctionButtonCustomize;
     }
 
     export interface FunctionButtonAvailable {
@@ -108,6 +109,10 @@ declare module DataTables {
     // api object?
     export interface FunctionButtonAction {
         (e: any, dt: DataTables.DataTable, node: JQuery, config: any): void
+    }
+
+    export interface FunctionButtonCustomize {
+        (win: Window): void
     }
     //#endregion "button-settings
 }

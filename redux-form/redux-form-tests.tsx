@@ -6,7 +6,7 @@ import {createStore, combineReducers} from 'redux';
 import {reduxForm, reducer as reduxFormReducer, ReduxFormProps} from 'redux-form';
 
 
-module SimpleForm {
+namespace SimpleForm {
   export const fields = ['firstName', 'lastName', 'email', 'sex', 'favoriteColor', 'employed', 'notes'];
 
   class SimpleForm extends Component<ReduxFormProps, void> {
@@ -99,7 +99,7 @@ module SimpleForm {
 }
 
 
-module SynchronousValidation {
+namespace SynchronousValidation {
   export const fields = ['username', 'email', 'age'];
 
   const validate = (values:any) => {
@@ -177,7 +177,7 @@ module SynchronousValidation {
 }
 
 
-module SumbitValidation {
+namespace SumbitValidation {
   export const fields = ['username', 'password'];
 
   const submit = (values:any, dispatch:any) => {
@@ -241,7 +241,7 @@ module SumbitValidation {
 }
 
 
-module InitializingFromState {
+namespace InitializingFromState {
   const LOAD = 'redux-form-examples/account/LOAD';
   const loadAccount = (data:any) => ({type: LOAD, data});
   export const fields = ['firstName', 'lastName', 'age', 'bio'];
@@ -319,7 +319,7 @@ module InitializingFromState {
 }
 
 
-module NormalizingFormData {
+namespace NormalizingFormData {
   const reducer = combineReducers({
     // other reducers
     form: reduxFormReducer.normalize({

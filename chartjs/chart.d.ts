@@ -1,7 +1,7 @@
 // Type definitions for Chart.js
 // Project: https://github.com/nnnick/Chart.js
 // Definitions by: Steve Fenton <https://github.com/Steve-Fenton>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface ChartDataSet {
     label: string;

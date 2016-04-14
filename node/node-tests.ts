@@ -16,6 +16,7 @@ import * as path from "path";
 import * as readline from "readline";
 import * as childProcess from "child_process";
 import * as os from "os";
+import * as vm from "vm";
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
 
@@ -32,14 +33,15 @@ assert.notDeepStrictEqual({ x: { y: "3" } }, { x: { y: 3 } }, "uses === comparat
 assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
 
 assert.doesNotThrow(() => {
-    if (false) { throw "a hammer at your face"; }
+    const b = false;
+    if (b) { throw "a hammer at your face"; }
 }, undefined, "What the...*crunch*");
 
 ////////////////////////////////////////////////////
 /// Events tests : http://nodejs.org/api/events.html
 ////////////////////////////////////////////////////
 
-module events_tests {
+namespace events_tests {
     let emitter: events.EventEmitter;
     let event: string;
     let listener: Function;
@@ -136,6 +138,7 @@ function bufferTests() {
     var base64Buffer = new Buffer('','base64');
     var octets: Uint8Array = null;
     var octetBuffer = new Buffer(octets);
+    var sharedBuffer = new Buffer(octets.buffer);
     var copiedBuffer = new Buffer(utf8Buffer);
     console.log(Buffer.isBuffer(octetBuffer));
     console.log(Buffer.isEncoding('utf8'));
@@ -162,7 +165,7 @@ function bufferTests() {
 
     // fill returns the input buffer.
     b.fill('a').fill('b');
-   
+
     {
         let buffer = new Buffer('123');
         let index: number;
@@ -178,6 +181,12 @@ function bufferTests() {
         b.writeUInt8(0, 6);
         let sb = new ImportedSlowBuffer(43);
         b.writeUInt8(0, 6);
+    }
+
+    // Buffer has Uint8Array's buffer field (an ArrayBuffer).
+    {
+      let buffer = new Buffer('123');
+      let octets = new Uint8Array(buffer.buffer);
     }
 }
 
@@ -295,7 +304,7 @@ request.abort();
 ////////////////////////////////////////////////////
 /// Http tests : http://nodejs.org/api/http.html
 ////////////////////////////////////////////////////
-module http_tests {
+namespace http_tests {
     // Status codes
     var code = 100;
     var codeMessage = http.STATUS_CODES['400'];
@@ -325,7 +334,7 @@ module http_tests {
 /// TTY tests : http://nodejs.org/api/tty.html
 ////////////////////////////////////////////////////
 
-module tty_tests {
+namespace tty_tests {
     let rs: tty.ReadStream;
     let ws: tty.WriteStream;
 
@@ -352,7 +361,7 @@ ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: numb
 ///Querystring tests : https://nodejs.org/api/querystring.html
 ////////////////////////////////////////////////////
 
-module querystring_tests {
+namespace querystring_tests {
     type SampleObject = {a: string; b: number;}
 
     {
@@ -395,7 +404,7 @@ module querystring_tests {
 /// path tests : http://nodejs.org/api/path.html
 ////////////////////////////////////////////////////
 
-module path_tests {
+namespace path_tests {
 
     path.normalize('/foo/bar//baz/asdf/quux/..');
 
@@ -534,7 +543,7 @@ module path_tests {
 /// readline tests : https://nodejs.org/api/readline.html
 ////////////////////////////////////////////////////
 
-module readline_tests {
+namespace readline_tests {
     let rl: readline.ReadLine;
 
     {
@@ -638,7 +647,7 @@ childProcess.spawnSync("echo test");
 /// os tests : https://nodejs.org/api/os.html
 ////////////////////////////////////////////////////
 
-module os_tests {
+namespace os_tests {
     {
         let result: string;
 
@@ -677,5 +686,54 @@ module os_tests {
         let result: {[index: string]: os.NetworkInterfaceInfo[]};
 
         result = os.networkInterfaces();
+    }
+}
+
+////////////////////////////////////////////////////
+/// vm tests : https://nodejs.org/api/vm.html
+////////////////////////////////////////////////////
+
+namespace vm_tests {
+    {
+        const sandbox = {
+            animal: 'cat',
+            count: 2
+        };
+
+        const context = vm.createContext(sandbox);
+        console.log(vm.isContext(context));
+        const script = new vm.Script('count += 1; name = "kitty"');
+
+        for (let i = 0; i < 10; ++i) {
+            script.runInContext(context);
+        }
+
+        console.log(util.inspect(sandbox));
+
+        vm.runInNewContext('count += 1; name = "kitty"', sandbox);
+        console.log(util.inspect(sandbox));
+    }
+
+    {
+        const sandboxes = [{}, {}, {}];
+
+        const script = new vm.Script('globalVar = "set"');
+
+        sandboxes.forEach((sandbox) => {
+            script.runInNewContext(sandbox);
+            script.runInThisContext();
+        });
+
+        console.log(util.inspect(sandboxes));
+
+        var localVar = 'initial value';
+        vm.runInThisContext('localVar = "vm";');
+
+        console.log(localVar);
+    }
+
+    {
+        const Debug = vm.runInDebugContext('Debug');
+        Debug.scripts().forEach(function(script: any) { console.log(script.name); });
     }
 }

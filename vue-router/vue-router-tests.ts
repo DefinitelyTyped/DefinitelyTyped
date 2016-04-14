@@ -8,8 +8,15 @@ namespace TestBasic {
     var Foo = Vue.extend({
         template: "<p>This is foo!</p>",
         route: {
-            canActivate(transition: vuerouter.Transition<any, any, any, any, any>) {
+            canActivate(transition: vuejs.Transition<any, any, any, any, any>) {
                 return true;
+            },
+            activate: function() {
+                var p: PromiseLike<any>;
+                return p;
+            },
+            deactivate: function(transition: vuejs.Transition<any, any, any, any, any>) {
+                transition.next();
             }
         }
     });
@@ -43,7 +50,7 @@ namespace TestAdvanced {
 
     namespace App {
 
-        export class App {
+        export class App extends Vue {
             authenticating: boolean;
 
             data() {
@@ -55,25 +62,12 @@ namespace TestAdvanced {
     }
 
     namespace Inbox {
-        export class Index {
-            static route: vuerouter.TransitionHook<App.App, any, any, { id: number }, any> = {
-                canActivate: function(transition) {
-                    var n: number = transition.to.params.id;
-                    transition.next();
-                },
-                activate: function() {
-                    var p: PromiseLike<any>;
-                    return p;
-                },
-                deactivate: function({next}) {
-                    next();
-                }
-            };
+        export class Index extends Vue {
         }
     }
 
     namespace RouteConfig {
-        export function configRouter(router: vuerouter.Router<App.App>) {
+        export function configRouter(router: vuejs.Router<App.App>) {
             router.map({
                 "/about": {
                     component: {},

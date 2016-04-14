@@ -1,11 +1,11 @@
 ﻿// Type definitions for CKEditor
 // Project: http://ckeditor.com/
 // Definitions by: Ondrej Sevcik <https://github.com/ondrejsevcik/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // WORK-IN-PROGRESS: Any contribution support welcomed.
-// See https://github.com/borisyankov/DefinitelyTyped/issues/1827 for more informations.
-declare module CKEDITOR {
+// See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/1827 for more informations.
+declare namespace CKEDITOR {
 
     // Config options
     var disableAutoInline: boolean;
@@ -88,7 +88,7 @@ declare module CKEDITOR {
     function replaceAll(assertionFunction: (textarea: HTMLTextAreaElement, config: config) => boolean): void;
 
 
-    module dom {
+    namespace dom {
 
         class comment {
 
@@ -167,7 +167,7 @@ declare module CKEDITOR {
             // Properties
             type: number;
 
-            // Methods            
+            // Methods
             constructor(element: string, ownerDocument?: document);
             constructor(element: HTMLElement, ownerDocument?: document);
             addClass(className: string): void;
@@ -506,7 +506,7 @@ declare module CKEDITOR {
     }
 
 
-    module ajax {
+    namespace ajax {
 
         // Methods
         function load(url: string, callback?: Function): string;
@@ -556,7 +556,7 @@ declare module CKEDITOR {
         groups?: string[];
     }
 
-    module config {
+    namespace config {
         interface styleObject {
             name?: string;
             element: string;
@@ -842,7 +842,7 @@ declare module CKEDITOR {
     }
 
 
-    module plugins {
+    namespace plugins {
 
         class contextMenu extends menu {
             constructor(editor: editor);
@@ -851,7 +851,7 @@ declare module CKEDITOR {
         }
 
 
-        module link {
+        namespace link {
             var emptyAnchorFix: boolean;
             var fakeAnchor: boolean;
             var synAnchorSelector: boolean;
@@ -861,9 +861,9 @@ declare module CKEDITOR {
         }
 
 
-        module widget {
+        namespace widget {
 
-            module nestedEditable {
+            namespace nestedEditable {
                 interface definition {
                     allowedContent?: any;
                     pathName?: string;
@@ -1024,7 +1024,7 @@ declare module CKEDITOR {
         function get(name: string): any;
         function getFilePath(name: string): string;
         function getPath(name: string): string;
-        function load(name: string, callback: string, scope: any): void;
+        function load(name: string, callback: Function, scope?: Object): void;
         function setLang(pluginName: string, languageCode: string, languageEntries: any): void;
 
     }
@@ -1127,7 +1127,7 @@ declare module CKEDITOR {
         updateElement(): void;
     }
 
-    module editor {
+    namespace editor {
         interface eventObject {
             activeEnterModeChange?: (evt: CKEDITOR.eventInfo) => void;
             activeFilterChange?: (evt: CKEDITOR.eventInfo) => void;
@@ -1288,8 +1288,8 @@ declare module CKEDITOR {
         addHandler(type: Object, handler: Object): void;
     }
 
-    module ui {
-        module dialog {
+    namespace ui {
+        namespace dialog {
             class uiElement {
                 eventProcessors: any;
 
@@ -1460,14 +1460,14 @@ declare module CKEDITOR {
         show(): void;
         showPage(id: string): void;
         updateStyle(): void;
-        
+
         // NOTE: Static methods are added to dialog module
     }
 
 
-    module dialog {
+    namespace dialog {
 
-        module definition {
+        namespace definition {
 
             interface button extends uiElement {
                 disabled?: boolean;
@@ -1619,7 +1619,7 @@ declare module CKEDITOR {
     }
 
 
-    module htmlParser {
+    namespace htmlParser {
 
         class basicWriter {
             constructor();
@@ -1759,12 +1759,12 @@ declare module CKEDITOR {
     }
 
 
-    module tools {
+    namespace tools {
         var callFunction: Function;
     }
 
 
-    module lang {
+    namespace lang {
         var languages: any;
         var rtl: any;
 

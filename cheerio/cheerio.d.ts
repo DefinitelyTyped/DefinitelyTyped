@@ -1,7 +1,7 @@
 // Type definitions for Cheerio v0.17.0
 // Project: https://github.com/cheeriojs/cheerio
 // Definitions by: Bret Little <https://github.com/blittle>, VILIC VANE <http://vilic.info>, Wayne Maurer <https://github.com/wmaurer>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Cheerio {
     // Document References
@@ -106,6 +106,7 @@ interface Cheerio {
 
     eq(index: number): Cheerio;
 
+    get(): string[];
     get(): CheerioElement[];
     get(index: number): CheerioElement;
 
@@ -160,6 +161,7 @@ interface Cheerio {
     replaceWith(content: CheerioElement): Cheerio;
     replaceWith(content: CheerioElement[]): Cheerio;
     replaceWith(content: Cheerio): Cheerio;
+    replaceWith(content: () => Cheerio): Cheerio;
 
     empty(): Cheerio;
 

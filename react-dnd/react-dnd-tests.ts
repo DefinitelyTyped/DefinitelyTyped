@@ -19,7 +19,7 @@ import TestBackend = require('react-dnd/modules/backends/Test');
 // Game Component
 // ----------------------------------------------------------------------
 
-module Game {
+namespace Game {
     var knightPosition = [0, 0];
     var observer: any = null;
 
@@ -59,7 +59,7 @@ var ItemTypes = {
 // Knight Component
 // ----------------------------------------------------------------------
 
-module Knight {
+namespace Knight {
     interface KnightP extends React.Props<Knight> {
         connectDragSource: ReactDnd.ConnectDragSource;
         connectDragPreview: ReactDnd.ConnectDragPreview;
@@ -111,7 +111,7 @@ module Knight {
 // Square Component
 // ----------------------------------------------------------------------
 
-module Square {
+namespace Square {
     interface SquareP extends React.Props<Square> {
         black: boolean;
     }
@@ -133,7 +133,7 @@ module Square {
 // BoardSquare Component
 // ----------------------------------------------------------------------
 
-module BoardSquare {
+namespace BoardSquare {
     interface BoardSquareP extends React.Props<BoardSquare> {
         x: number;
         y: number;
@@ -204,7 +204,7 @@ module BoardSquare {
 
 // Custom Drag Layer Component
 // ----------------------------------------------------------------------
-module CustomDragLayer {
+namespace CustomDragLayer {
     interface CustomDragLayerP extends React.Props<CustomDragLayer> {
         isDragging?: boolean;
         item?: Object;
@@ -231,7 +231,7 @@ module CustomDragLayer {
 // Board Component
 // ----------------------------------------------------------------------
 
-module Board {
+namespace Board {
     interface BoardP extends React.Props<Board> {
         knightPosition: number[];
     }
@@ -262,7 +262,7 @@ module Board {
         };
 
         render() {
-            var squares: React.DOMElement<React.HTMLAttributes>[] = [];
+            var squares: React.ReactHTMLElement<HTMLDivElement>[] = [];
             for (let i = 0; i < 64; i++) {
                 squares.push(this._renderSquare(i));
             }

@@ -1,9 +1,9 @@
 // Type definitions for Moment.js 2.11.1
 // Project: https://github.com/timrwood/moment
 // Definitions by: Michael Lakerveld <https://github.com/Lakerfield>, Aaron King <https://github.com/kingdango>, Hiroki Horiuchi <https://github.com/horiuchi>, Dick van den Brink <https://github.com/DickvdBrink>, Adi Dahiya <https://github.com/adidahiya>, Matt Brooks <https://github.com/EnableSoftware>, Gal Talmor <https://github.com/galtalmor>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module moment {
+declare namespace moment {
 
     type MomentComparable = Moment | string | number | Date | number[];
 
@@ -326,6 +326,10 @@ declare module moment {
         locale(reset: boolean): Moment;
         locale(): string;
 
+        /**
+         * @since 2.12.0+
+         */
+        locales() : string[];
         localeData(language: string): Moment;
         localeData(reset: boolean): Moment;
         localeData(): MomentLanguage;
@@ -379,10 +383,16 @@ declare module moment {
         meridiem?: (hour: number, minute: number, isLowercase: boolean) => string;
         calendar?: MomentCalendar;
         ordinal?: (num: number) => string;
+        week?: MomentLanguageWeek;
     }
 
     interface MomentLanguage extends BaseMomentLanguage {
         longDateFormat?: MomentLongDateFormat;
+    }
+
+    interface MomentLanguageWeek {
+        dow?: number;
+        doy?: number;
     }
 
     interface MomentLanguageData {
@@ -561,6 +571,12 @@ declare module moment {
         yy: any;
     }
 
+    interface MomentBuiltinFormat {
+        __momentBuiltinFormatBrand: any;
+    }
+
+    type MomentFormatSpecification = string | MomentBuiltinFormat | (string | MomentBuiltinFormat)[];
+
     interface MomentStatic {
         version: string;
         fn: Moment;
@@ -568,14 +584,8 @@ declare module moment {
         (): Moment;
         (date: number): Moment;
         (date: number[]): Moment;
-        (date: string, format?: string, strict?: boolean): Moment;
-        (date: string, format?: string, language?: string, strict?: boolean): Moment;
-        (date: string, formats: string[], strict?: boolean): Moment;
-        (date: string, formats: string[], language?: string, strict?: boolean): Moment;
-        (date: string, specialFormat: () => void, strict?: boolean): Moment;
-        (date: string, specialFormat: () => void, language?: string, strict?: boolean): Moment;
-        (date: string, formatsIncludingSpecial: any[], strict?: boolean): Moment;
-        (date: string, formatsIncludingSpecial: any[], language?: string, strict?: boolean): Moment;
+        (date: string, format?: MomentFormatSpecification, strict?: boolean): Moment;
+        (date: string, format?: MomentFormatSpecification, language?: string, strict?: boolean): Moment;
         (date: Date): Moment;
         (date: Moment): Moment;
         (date: Object): Moment;
@@ -665,7 +675,7 @@ declare module moment {
         /**
          * Constant used to enable explicit ISO_8601 format parsing.
          */
-        ISO_8601(): void;
+        ISO_8601: MomentBuiltinFormat;
 
         defaultFormat: string;
     }

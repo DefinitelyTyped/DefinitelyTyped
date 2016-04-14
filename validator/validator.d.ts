@@ -1,7 +1,7 @@
 // Type definitions for validator.js v4.5.1
 // Project: https://github.com/chriso/validator.js
 // Definitions by: tgfjt <https://github.com/tgfjt>, Ilya Mochalov <https://github.com/chrootsu>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace ValidatorJS {
   interface ValidatorStatic {

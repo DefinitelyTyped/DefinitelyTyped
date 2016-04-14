@@ -1,7 +1,7 @@
 // Type definitions for keytar 3.0.0
 // Project: http://atom.github.io/node-keytar/
 // Definitions by: Milan Burda <https://github.com/miniak/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'keytar' {
     /**
