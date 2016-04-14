@@ -12,8 +12,10 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
 
     render() {
         const options: ReactSelect.Option[] = [{ label: "Foo", value: "bar" }]
+        const onOpen = () => { return; };
+        const onClose = () => { return; };
         return <div>
-           <Select options={options} />
+           <Select options={options} onOpen={onOpen} onClose={onClose} />
         </div>
     }
 

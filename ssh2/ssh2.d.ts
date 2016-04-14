@@ -9,7 +9,7 @@ declare module "ssh2" {
     import stream = require('stream');
 
     namespace ssh2 {
-        interface Client {
+        interface Client extends NodeJS.EventEmitter {
             Server: ServerStatic;
             new(): Client;
             /**
@@ -326,8 +326,99 @@ declare module "ssh2" {
                 EXCL: number;
             }
 
+            interface Attributes {
+                mode: number;
+                uid: number;
+                gid: number;
+                size: number;
+                atime: number;
+                mtime: number;
+            }
+            interface InputAttributes {
+                mode?: number;
+                uid?: number;
+                gid?: number;
+                size?: number;
+                atime?: number;
+                mtime?: number;
+            }
+            interface Stats extends Attributes {
+                isDirectory(): boolean;
+                isFile(): boolean;
+                isBlockDevice(): boolean;
+                isCharacterDevice(): boolean;
+                isSymbloicLink(): boolean;
+                isFIFO(): boolean;
+                isSocket(): boolean;
+            }
+
             interface Wrapper extends NodeJS.EventEmitter {
-                //TODO: extends `ssh2-streams.SFTPStream`
+                fastGet(remotePath: string, localPath: string, callback: (err: any) => void): void;
+                fastGet(remotePath: string, localPath: string, options: TransferOptions, callback: (err: any) => void): void;
+                fastPut(localPath: string, remotePath: string, callback: (err: any) => void): void;
+                fastPut(localPath: string, remotePath: string, options: TransferOptions, callback: (err: any) => void): void;
+
+                createReadStream(path: string, options?: ReadStreamOptions): stream.Readable;
+                createWriteStream(path: string, options?: WriteStreamOptions): stream.Writable;
+                open(filename: string, mode: string, callback: (err: any, handle: Buffer) => void): boolean;
+                open(filename: string, mode: string, attributes: InputAttributes, callback: (err: any, handle: Buffer) => void): boolean;
+                close(handle: Buffer, callback: (err: any) => void): boolean;
+                readData(handle: Buffer, buffer: Buffer, offset: number, length: number, position: number,
+                        callback: (err: any, bytesRead: number, buffer: Buffer, position: number) => void): boolean;
+                writeData(handle: Buffer, buffer: Buffer, offset: number, length: number, position: number,
+                        callback: (err: any) => void): boolean;
+                fstat(handle: Buffer, callback: (err: any, stats: Stats) => void): boolean;
+                fsetstat(handle: Buffer, attributes: InputAttributes, callback: (err: any) => void): boolean;
+                futimes(handle: Buffer, atime: number | Date, mtime: number | Date, callback: (err: any) => void): boolean;
+                fchown(handle: Buffer, uid: number, gid: number, callback: (err: any) => void): boolean;
+                fchmod(handle: Buffer, mode: number | string, callback: (err: any) => void): boolean;
+                opendir(path: string, callback: (err: any, handle: Buffer) => void): boolean;
+                readdir(location: string | Buffer, callback: (err: any, list: ReadDirItem[]) => void): boolean;
+                unlink(path: string, callback: (err: any) => void): boolean;
+                rename(srcPath: string, destPath: string, callback: (err: any) => void): boolean;
+                mkdir(path: string, callback: (err: any) => void): boolean;
+                mkdir(path: string, attributes: InputAttributes, callback: (err: any) => void): boolean;
+                rmdir(path: string, callback: (err: any) => void): boolean;
+                stat(path: string, callback: (err: any, stats: Stats) => void): boolean;
+                lstat(path: string, callback: (err: any, stats: Stats) => void): boolean;
+                setstat(path: string, attributes: InputAttributes, callback: (err: any) => void): boolean;
+                utimes(path: string, atime: number | Date, mtime: number | Date, callback: (err: any) => void): boolean;
+                chown(path: string, uid: number, gid: number, callback: (err: any) => void): boolean;
+                chmod(path: string, mode: number | string, callback: (err: any) => void): boolean;
+                readlink(path: string, callback: (err: any, target: string) => void): boolean;
+                symlink(targetPath: string, linkPath: string, callback: (err: any) => void): boolean;
+                realpath(path: string, callback: (err: any, absPath: string) => void): boolean;
+
+                ext_openssh_rename(srcPath: string, destPath: string, callback: (err: any) => void): boolean;
+                ext_openssh_statvfs(path: string, callback: (err: any, fsInfo: any) => void): boolean;
+                ext_openssh_fstatvfs(handle: Buffer, callback: (err: any, fsInfo: any) => void): boolean;
+                ext_openssh_hardlink(targetPath: string, linkPath: string, callback: (err: any) => void): boolean;
+                ext_openssh_fsync(handle: Buffer, callback: (err: any, fsInfo: any) => void): boolean;
+            }
+
+            interface TransferOptions {
+                concurrency?: number;
+                chunkSize?: number;
+                step?: (total_transferred: number, chunk: number, total: number) => void;
+            }
+            interface ReadStreamOptions {
+                flags?: string;
+                encoding?: string;
+                handle?: Buffer;
+                mode?: number;
+                autoClose?: boolean;
+                start?: number;
+                end?: number;
+            }
+            interface WriteStreamOptions {
+                flags?: string;
+                encoding?: string;
+                mode?: number;
+            }
+            interface ReadDirItem {
+              filename: string;
+              longname: string;
+              attrs: Attributes;
             }
         }
     }
