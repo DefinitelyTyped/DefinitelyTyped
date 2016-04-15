@@ -174,3 +174,7 @@ declare namespace noUiSlider {
         noUiSlider: noUiSlider
     }
 }
+
+declare module "nouislider" {
+    export = noUiSlider;
+}

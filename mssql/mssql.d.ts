@@ -1,6 +1,6 @@
-// Type definitions for mssql v2.2.0
+// Type definitions for mssql v3.1.0
 // Project: https://www.npmjs.com/package/mssql
-// Definitions by: COLSA Corporation <http://www.colsa.com/>, Ben Farr <https://github.com/jaminfarr>
+// Definitions by: COLSA Corporation <http://www.colsa.com/>, Ben Farr <https://github.com/jaminfarr>, Vitor Buzinaro <https://github.com/buzinas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
@@ -199,14 +199,14 @@ declare module "mssql" {
         public constructor(transaction: Transaction);
         public constructor(preparedStatement: PreparedStatement);
         public execute(procedure: string): Promise<recordSet>;
-        public execute<Entity>(procedure: string, callback: (err?: any, recordsets?: Entity[], returnValue?: any) => void): void;
+        public execute<Entity>(procedure: string, callback: (err?: any, recordsets?: Entity[], returnValue?: any, rowsAffected?: number) => void): void;
         public input(name: string, value: any): void;
         public input(name: string, type: any, value: any): void;
         public output(name: string, type: any, value?: any): void;
         public pipe(stream: NodeJS.WritableStream): void;
         public query(command: string): Promise<void>;
         public query<Entity>(command: string): Promise<Entity[]>;
-        public query(command: string, callback: (err?: any, recordset?: any) => void): void;
+        public query(command: string, callback: (err?: any, recordset?: any, rowsAffected?: number) => void): void;
         public query<Entity>(command: string, callback: (err?: any, recordset?: Entity[]) => void): void;
         public batch(batch: string): Promise<recordSet>;
         public batch<Entity>(batch: string): Promise<Entity[]>;
@@ -258,7 +258,7 @@ declare module "mssql" {
         public prepare(statement?: string, callback?: (err?: any) => void): void;
         public execute(values: Object): Promise<recordSet>;
         public execute<Entity>(values: Object): Promise<Entity[]>;
-        public execute(values: Object, callback: (err: any, recordSet: recordSet) => void): void;
+        public execute(values: Object, callback: (err: any, recordSet: recordSet, rowsAffected: number) => void): void;
         public execute<Entity>(values: Object, callback: (err: any, recordSet: Entity[]) => void): void;
         public unprepare(): Promise<void>;
         public unprepare(callback: (err?: any) => void): void;

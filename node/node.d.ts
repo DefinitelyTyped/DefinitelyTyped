@@ -109,6 +109,14 @@ declare var Buffer: {
      */
     new (array: Uint8Array): Buffer;
     /**
+     * Produces a Buffer backed by the same allocated memory as
+     * the given {ArrayBuffer}.
+     * 
+     *
+     * @param arrayBuffer The ArrayBuffer with which to share memory.
+     */
+    new (arrayBuffer: ArrayBuffer): Buffer;
+    /**
      * Allocates a new buffer containing the given {array} of octets.
      *
      * @param array The octets to store.
@@ -382,12 +390,10 @@ declare namespace NodeJS {
 /**
  * @deprecated
  */
-interface NodeBuffer {
-    [index: number]: number;
+interface NodeBuffer extends Uint8Array {
     write(string: string, offset?: number, length?: number, encoding?: string): number;
     toString(encoding?: string, start?: number, end?: number): string;
     toJSON(): any;
-    length: number;
     equals(otherBuffer: Buffer): boolean;
     compare(otherBuffer: Buffer): number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
@@ -429,7 +435,12 @@ interface NodeBuffer {
     writeDoubleLE(value: number, offset: number, noAssert?: boolean): number;
     writeDoubleBE(value: number, offset: number, noAssert?: boolean): number;
     fill(value: any, offset?: number, end?: number): Buffer;
+    // TODO: encoding param
     indexOf(value: string | number | Buffer, byteOffset?: number): number;
+    // TODO: entries
+    // TODO: includes
+    // TODO: keys
+    // TODO: values
 }
 
 /************************************************
