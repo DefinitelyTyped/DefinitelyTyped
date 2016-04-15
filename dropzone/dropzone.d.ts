@@ -1,7 +1,7 @@
-// Type definitions for Dropzone 4.0.1
+// Type definitions for Dropzone 4.3.0
 // Project: http://www.dropzonejs.com/
-// Definitions by: Natan Vivo <https://github.com/nvivo>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>, Vasya Aksyonov <https://github.com/outring>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Natan Vivo <https://github.com/nvivo>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>, Vasya Aksyonov <https://github.com/outring>, Simon Huber <https://github.com/renuo>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
@@ -45,10 +45,12 @@ interface DropzoneOptions {
 	clickable?: boolean|string|HTMLElement|(string|HTMLElement)[];
 	ignoreHiddenFiles?: boolean;
 	acceptedFiles?: string;
+	renameFilename?(name:string): string;
 	autoProcessQueue?: boolean;
 	autoQueue?: boolean;
 	addRemoveLinks?: boolean;
 	previewsContainer?: boolean|string|HTMLElement;
+	hiddenInputContainer?: HTMLElement;
 	capture?: string;
 
 	dictDefaultMessage?: string;
@@ -96,7 +98,7 @@ interface DropzoneOptions {
 	sending?(file:DropzoneFile, xhr:XMLHttpRequest, formData:{}):void;
 	sendingmultiple?(files:DropzoneFile[], xhr:XMLHttpRequest, formData:{}):void;
 
-	success?(file:DropzoneFile, responseText:string):void;
+	success?(file: DropzoneFile, response: Object|string): void;
 	successmultiple?(files:DropzoneFile[], responseText:string):void;
 
 	canceled?(file:DropzoneFile):void;

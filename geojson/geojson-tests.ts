@@ -1,6 +1,6 @@
 /// <reference path="./geojson.d.ts" />
 
-var featureCollection: GeoJSON.FeatureCollection =  { 
+var featureCollection: GeoJSON.FeatureCollection<any> =  {
     type: "FeatureCollection",
     features: [   
         { 
@@ -54,7 +54,7 @@ var featureCollection: GeoJSON.FeatureCollection =  {
     }
 }
 
-var feature: GeoJSON.Feature = { 
+var feature: GeoJSON.Feature<GeoJSON.Polygon> = {
     type: "Feature",
     bbox: [-180.0, -90.0, 180.0, 90.0],
     geometry: {

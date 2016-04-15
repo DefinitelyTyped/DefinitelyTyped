@@ -149,6 +149,7 @@ class IonicTestController {
         ionicModalController.initialize(modalOptions);
         ionicModalController.show().then(() => console.log("shown modal"))
         ionicModalController.hide().then(() => console.log("hid modal"))
+        ionicModalController.remove().then(() => console.log("removed modal"))
         var isShown: boolean = ionicModalController.isShown();
 
         this.$ionicModal.fromTemplateUrl("templateUrl", modalOptions)
@@ -199,8 +200,9 @@ class IonicTestController {
         };
         var ionicPopoverController: ionic.popover.IonicPopoverController = this.$ionicPopover.fromTemplate("template", popoverOptions);
         ionicPopoverController.initialize(popoverOptions);
-        ionicPopoverController.show(angular.element("body")).then(() => console.log("shown popover"))
-        ionicPopoverController.hide().then(() => console.log("hid popover"))
+        ionicPopoverController.show(angular.element("body")).then(() => console.log("shown popover"));
+        ionicPopoverController.hide().then(() => console.log("hid popover"));
+        ionicPopoverController.remove().then(() => console.log("removed popover"));
         var isShown: boolean = ionicPopoverController.isShown();
 
         this.$ionicPopover.fromTemplateUrl("templateUrl", popoverOptions)
@@ -360,6 +362,8 @@ class IonicTestController {
         this.$ionicTabsDelegate.select(1);
         var selectedIndex: number = this.$ionicTabsDelegate.selectedIndex();
         var ionicTabsDelegate: ionic.tabs.IonicTabsDelegate = this.$ionicTabsDelegate.$getByHandle("handle");
+        this.$ionicTabsDelegate.showBar(true);
+        var isBarShown: boolean = this.$ionicTabsDelegate.showBar();
     }
     private testUtility(): void {
         var {top: number, left: number, width: number, height: number} = this.$ionicPositionService.position(angular.element("body"));

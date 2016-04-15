@@ -1,17 +1,36 @@
-// Type definitions for Drop v0.5.7
+// Type definitions for Drop v1.4
 // Project: http://github.hubspot.com/drop/
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../tether/tether.d.ts" />
 
-declare module drop {
+// global Drop constructor
+declare class Drop {
+    constructor(options: Drop.IDropOptions);
 
-    interface DropStatic {
-        new(options: IDropOptions): Drop;
-        createContext(options: IDropContextOptions): DropStatic;
-    }
+    public content: HTMLElement;
+    public element: HTMLElement;
+    public tether: Tether;
+    public open(): void;
+    public close(): void;
+    public remove(): void;
+    public toggle(): void;
+    public isOpened(): boolean;
+    public position(): void;
+    public destroy(): void;
 
+    /*
+     * Drop instances fire "open" and "close" events.
+     */
+    public on(event: string, handler: Function, context?: any): void;
+    public once(event: string, handler: Function, context?: any): void;
+    public off(event: string, handler?: Function): void;
+
+    public static createContext(options: Drop.IDropContextOptions): Drop;
+}
+
+declare namespace Drop {
     interface IDropContextOptions {
         classPrefix?: string;
         defaults?: IDropOptions;
@@ -26,32 +45,12 @@ declare module drop {
         constrainToWindow?: boolean;
         constrainToScrollParent?: boolean;
         remove?: boolean;
-        tetherOptions?: tether.ITetherOptions;
+        beforeClose?: () => boolean;
+        tetherOptions?: Tether.ITetherOptions;
     }
-
-    interface Drop {
-        content: HTMLElement;
-        element: HTMLElement;
-        tether: tether.Tether;
-        open(): void;
-        close(): void;
-        remove(): void;
-        toggle(): void;
-        position(): void;
-        destroy(): void;
-        /*
-         * Drop instances fire "open" and "close" events.
-         */
-        on(event: string, handler: Function, context?: any): void;
-        once(event: string, handler: Function, context?: any): void;
-        off(event: string, handler?: Function): void;
-    }
-
 }
 
 declare module "drop" {
-    export = drop;
+    export = Drop;
 }
-
-declare var Drop: drop.DropStatic;
 

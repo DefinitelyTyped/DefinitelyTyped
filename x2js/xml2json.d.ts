@@ -1,7 +1,7 @@
 // Type definitions for x2js
 // Project: https://code.google.com/p/x2js/
 // Definitions by: Horiuchi_H <https://github.com/horiuchi>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface IX2JS {
   new (config?: IX2JSOption): IX2JS;

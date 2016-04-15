@@ -1,14 +1,22 @@
 // Type definitions for Angular UI Bootstrap 0.13.3
 // Project: https://github.com/angular-ui/bootstrap
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
 // Support for AMD require
-declare module 'angular-bootstrap' {}
+declare module 'angular-bootstrap' {
+    let _: string;
+    export = _;
+}
 
-declare module angular.ui.bootstrap {
+declare module 'angular-ui-bootstrap' {
+    let _: string;
+    export = _;
+}
+
+declare namespace angular.ui.bootstrap {
 
     interface IAccordionConfig {
         /**
@@ -300,8 +308,9 @@ declare module angular.ui.bootstrap {
         /**
          * a controller for a modal instance - it can initialize scope used by modal.
          * A controller can be injected with `$modalInstance`
+         * If value is an array, it must be in Inline Array Annotation format for injection (strings followed by factory method)
          */
-        controller?: any;
+        controller?: string | Function | Array<string | Function>;
 
         /**
          *  an alternative to the controller-as syntax, matching the API of directive definitions.
@@ -318,8 +327,9 @@ declare module angular.ui.bootstrap {
 
         /**
          * members that will be resolved and passed to the controller as locals; it is equivalent of the `resolve` property for AngularJS routes
+         * If property value is an array, it must be in Inline Array Annotation format for injection (strings followed by factory method)
          */
-        resolve?: any;
+        resolve?: { [ key: string ]: string | Function | Array<string | Function> | Object };
 
         /**
          * Set to false to disable animations on new modal/backdrop. Does not toggle animations for modals/backdrops that are already displayed.

@@ -4,6 +4,10 @@
  */
 ///<reference path="howler.d.ts"/>
 
+import * as howler from "howler";
+
+howler.Howler = Howler;
+howler.Howl = Howl;
 
 Howler.codecs('ogg');
 Howler.iOSAutoEnable = true;
