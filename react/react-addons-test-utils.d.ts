@@ -6,7 +6,7 @@
 /// <reference path="react.d.ts" />
 
 declare namespace __React {
-    interface SyntheticEventData {
+    interface SyntheticEventData extends Event {
         altKey?: boolean;
         button?: number;
         buttons?: number;
@@ -41,8 +41,7 @@ declare namespace __React {
     }
 
     interface EventSimulator {
-        (element: Element, eventData?: SyntheticEventData): void;
-        (component: Component<any, any>, eventData?: SyntheticEventData): void;
+        (element: Element | Component<any, any>, eventData?: SyntheticEventData): void;
     }
 
     interface MockedComponentClass {
