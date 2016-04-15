@@ -100,6 +100,7 @@ $controller('TestController', {}, {myBinding: 'works!'});
 // IComponentControllerService
 ///////////////////////////////////////
 var $componentController: ng.IComponentControllerService;
+$componentController<{}, {}>('Test controller', {});
 $componentController<{}, {}>('Test controller', { $scope: <ng.IScope>{} });
 $componentController<{}, {}>('Test controller', { $scope: <ng.IScope>{}, test: true });
 $componentController<{}, { test: boolean }>('Test controller', { $scope: <ng.IScope>{} }, { test: true});

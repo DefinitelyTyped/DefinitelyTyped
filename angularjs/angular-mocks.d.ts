@@ -114,9 +114,9 @@ declare namespace angular {
     // see https://docs.angularjs.org/api/ngMock/service/$componentController
     ///////////////////////////////////////////////////////////////////////////
     interface IComponentControllerService {
-      // TBinding is an interface exposed by a component as per John Papa's style guide
+      // TBinding is an interface exposed by a component as recommended by John Papa's style guide
       // https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#accessible-members-up-top
-      <T, TBinding>(componentName: string, locals: { $scope: IScope, [key: string]: any }, bindings?: TBinding, ident?: string): T;
+      <T, TBinding>(componentName: string, locals: { $scope?: IScope, [key: string]: any }, bindings?: TBinding, ident?: string): T;
     }
 
 
