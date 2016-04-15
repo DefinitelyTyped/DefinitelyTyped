@@ -12,6 +12,7 @@ declare module "hapi" {
 	import http = require("http");
 	import stream = require("stream");
 	import Events = require("events");
+	import url = require("url");
 
 	interface IDictionary<T> {
 		[key: string]: T;
@@ -1250,8 +1251,7 @@ declare module "hapi" {
 		request.setUrl('/test');
 		return reply.continue();
 		});*/
-		setUrl(url: string): void;
-
+		setUrl(url: string | url.Url): void;
 		/** request.setMethod(method)
 
 		 Available only in 'onRequest' extension methods.
