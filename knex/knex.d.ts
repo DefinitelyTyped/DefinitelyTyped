@@ -494,5 +494,5 @@ declare module "knex" {
     }
   }
 
-  export = Knex;
+  export default Knex;
 }
