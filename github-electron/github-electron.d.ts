@@ -2544,7 +2544,7 @@ declare namespace Electron {
 		/**
 		 * The webRequest API set allows to intercept and modify contents of a request at various stages of its lifetime.
 		 */
-		webRequest: any;
+		webRequest: WebRequest;
 	}
 
 	type Permission = 'media' | 'geolocation' | 'notifications' | 'midiSysex' | 'pointerLock' | 'fullscreen';
@@ -2705,6 +2705,188 @@ declare namespace Electron {
 		 * Removes the cookies matching url and name.
 		 */
 		remove(url: string, name: string, callback: (error: Error) => void): void;
+	}
+
+	/**
+	 * Each API accepts an optional filter and a listener, the listener will be called when the API's event has happened.
+	 * Passing null as listener will unsubscribe from the event.
+	 *
+	 * The filter will be used to filter out the requests that do not match the URL patterns.
+	 * If the filter is omitted then all requests will be matched.
+	 *
+	 * For certain events the listener is passed with a callback,
+	 * which should be called with an response object when listener has done its work.
+	 */
+	interface WebRequest {
+		/**
+		 * The listener will be called when a request is about to occur.
+		 */
+		onBeforeRequest(listener: (details: WebRequest.BeforeRequestDetails, callback: WebRequest.BeforeRequestCallback) => void): void;
+		/**
+		 * The listener will be called when a request is about to occur.
+		 */
+		onBeforeRequest(filter: WebRequest.Filter, listener: (details: WebRequest.BeforeRequestDetails, callback: WebRequest.BeforeRequestCallback) => void): void;
+		/**
+		 * The listener will be called before sending an HTTP request, once the request headers are available.
+		 * This may occur after a TCP connection is made to the server, but before any http data is sent.
+		 */
+		onBeforeSendHeaders(listener: (details: WebRequest.BeforeSendHeadersDetails, callback: WebRequest.BeforeSendHeadersCallback) => void): void;
+		/**
+		 * The listener will be called before sending an HTTP request, once the request headers are available.
+		 * This may occur after a TCP connection is made to the server, but before any http data is sent.
+		 */
+		onBeforeSendHeaders(filter: WebRequest.Filter, listener: (details: WebRequest.BeforeSendHeadersDetails, callback: WebRequest.BeforeSendHeadersCallback) => void): void;
+		/**
+		 * The listener will be called just before a request is going to be sent to the server,
+		 * modifications of previous onBeforeSendHeaders response are visible by the time this listener is fired.
+		 */
+		onSendHeaders(listener: (details: WebRequest.SendHeadersDetails) => void): void;
+		/**
+		 * The listener will be called just before a request is going to be sent to the server,
+		 * modifications of previous onBeforeSendHeaders response are visible by the time this listener is fired.
+		 */
+		onSendHeaders(filter: WebRequest.Filter, listener: (details: WebRequest.SendHeadersDetails) => void): void;
+		/**
+		 * The listener will be called when HTTP response headers of a request have been received.
+		 */
+		onHeadersReceived(listener: (details: WebRequest.HeadersReceivedDetails, callback: WebRequest.HeadersReceivedCallback) => void): void;
+		/**
+		 * The listener will be called when HTTP response headers of a request have been received.
+		 */
+		onHeadersReceived(filter: WebRequest.Filter, listener: (details: WebRequest.HeadersReceivedDetails, callback: WebRequest.HeadersReceivedCallback) => void): void;
+		/**
+		 * The listener will be called when first byte of the response body is received.
+		 * For HTTP requests, this means that the status line and response headers are available.
+		 */
+		onResponseStarted(listener: (details: WebRequest.ResponseStartedDetails) => void): void;
+		/**
+		 * The listener will be called when first byte of the response body is received.
+		 * For HTTP requests, this means that the status line and response headers are available.
+		 */
+		onResponseStarted(filter: WebRequest.Filter, listener: (details: WebRequest.ResponseStartedDetails) => void): void;
+		/**
+		 * The listener will be called when a server initiated redirect is about to occur.
+		 */
+		onBeforeRedirect(listener: (details: WebRequest.BeforeRedirectDetails) => void): void;
+		/**
+		 * The listener will be called when a server initiated redirect is about to occur.
+		 */
+		onBeforeRedirect(filter: WebRequest.Filter, listener: (details: WebRequest.BeforeRedirectDetails) => void): void;
+		/**
+		 * The listener will be called when a request is completed.
+		 */
+		onCompleted(listener: (details: WebRequest.CompletedDetails) => void): void;
+		/**
+		 * The listener will be called when a request is completed.
+		 */
+		onCompleted(filter: WebRequest.Filter, listener: (details: WebRequest.CompletedDetails) => void): void;
+		/**
+		 * The listener will be called when an error occurs.
+		 */
+		onErrorOccurred(listener: (details: WebRequest.ErrorOccurredDetails) => void): void;
+		/**
+		 * The listener will be called when an error occurs.
+		 */
+		onErrorOccurred(filter: WebRequest.Filter, listener: (details: WebRequest.ErrorOccurredDetails) => void): void;
+	}
+
+	namespace WebRequest {
+		interface Filter {
+			urls: string[];
+		}
+
+		interface Details {
+			id: number;
+			url: string;
+			method: string;
+			resourceType: string;
+			timestamp: number;
+		}
+
+		interface UploadData {
+			/**
+			 * Content being sent.
+			 */
+			bytes: Buffer;
+			/**
+			 * Path of file being uploaded.
+			 */
+			file: string;
+		}
+
+		interface BeforeRequestDetails extends Details {
+			uploadData?: UploadData[];
+		}
+
+		type BeforeRequestCallback = (response: {
+			cancel?: boolean;
+			/**
+			 * The original request is prevented from being sent or completed, and is instead redirected to the given URL.
+			 */
+			redirectURL?: string;
+		}) => void;
+
+		interface BeforeSendHeadersDetails extends Details {
+			requestHeaders: Object;
+		}
+
+		type BeforeSendHeadersCallback = (response: {
+			cancel?: boolean;
+			/**
+			 * When provided, request will be made with these headers.
+			 */
+			requestHeaders?: Object;
+		}) => void;
+
+		interface SendHeadersDetails extends Details {
+			requestHeaders: Object;
+		}
+
+		interface HeadersReceivedDetails extends Details {
+			statusLine: string;
+			statusCode: number;
+			responseHeaders: Object;
+		}
+
+		type HeadersReceivedCallback = (response: {
+			cancel?: boolean;
+			/**
+			 * When provided, the server is assumed to have responded with these headers.
+			 */
+			responseHeaders?: Object;
+			/**
+			 * Should be provided when overriding responseHeaders to change header status
+			 * otherwise original response header's status will be used.
+			 */
+			statusLine?: string;
+		}) => void;
+
+		interface ResponseStartedDetails extends Details {
+			responseHeaders: Object;
+			fromCache: boolean;
+			statusCode: number;
+			statusLine: string;
+		}
+
+		interface BeforeRedirectDetails extends Details {
+			redirectURL: string;
+			statusCode: number;
+			ip?: string;
+			fromCache: boolean;
+			responseHeaders: Object;
+		}
+
+		interface CompletedDetails extends Details {
+			responseHeaders: Object;
+			fromCache: boolean;
+			statusCode: number;
+			statusLine: string;
+		}
+
+		interface ErrorOccurredDetails extends Details {
+			fromCache: boolean;
+			error: string;
+		}
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/shell.md

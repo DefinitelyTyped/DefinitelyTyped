@@ -830,3 +830,13 @@ session.defaultSession.setPermissionRequestHandler(function(webContents, permiss
 
 	callback(true);
 });
+
+// Modify the user agent for all requests to the following urls.
+var filter = {
+	urls: ["https://*.github.com/*", "*://electron.github.io"]
+};
+
+session.defaultSession.webRequest.onBeforeSendHeaders(filter, function(details, callback) {
+	details.requestHeaders['User-Agent'] = "MyAgent";
+	callback({cancel: false, requestHeaders: details.requestHeaders});
+});
