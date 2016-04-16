@@ -115,3 +115,12 @@ function publicKeyPinsTest() {
         reportUri: "http://example.com"
     }));
 }
+
+/**
+ * @summary Test for {@see helmet#dnsPrefetchControl} function.
+ */
+function dnsPrefetchControlTest() {
+    app.use(helmet.dnsPrefetchControl());
+    app.use(helmet.dnsPrefetchControl({ allow: false }));
+    app.use(helmet.dnsPrefetchControl({ allow: true }));
+}
