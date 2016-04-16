@@ -2827,7 +2827,7 @@ declare namespace Electron {
 		}) => void;
 
 		interface BeforeSendHeadersDetails extends Details {
-			requestHeaders: Object;
+			requestHeaders: Headers;
 		}
 
 		type BeforeSendHeadersCallback = (response: {
@@ -2835,17 +2835,17 @@ declare namespace Electron {
 			/**
 			 * When provided, request will be made with these headers.
 			 */
-			requestHeaders?: Object;
+			requestHeaders?: Headers;
 		}) => void;
 
 		interface SendHeadersDetails extends Details {
-			requestHeaders: Object;
+			requestHeaders: Headers;
 		}
 
 		interface HeadersReceivedDetails extends Details {
 			statusLine: string;
 			statusCode: number;
-			responseHeaders: Object;
+			responseHeaders: Headers;
 		}
 
 		type HeadersReceivedCallback = (response: {
@@ -2853,7 +2853,7 @@ declare namespace Electron {
 			/**
 			 * When provided, the server is assumed to have responded with these headers.
 			 */
-			responseHeaders?: Object;
+			responseHeaders?: Headers;
 			/**
 			 * Should be provided when overriding responseHeaders to change header status
 			 * otherwise original response header's status will be used.
@@ -2862,7 +2862,7 @@ declare namespace Electron {
 		}) => void;
 
 		interface ResponseStartedDetails extends Details {
-			responseHeaders: Object;
+			responseHeaders: Headers;
 			fromCache: boolean;
 			statusCode: number;
 			statusLine: string;
@@ -2873,11 +2873,11 @@ declare namespace Electron {
 			statusCode: number;
 			ip?: string;
 			fromCache: boolean;
-			responseHeaders: Object;
+			responseHeaders: Headers;
 		}
 
 		interface CompletedDetails extends Details {
-			responseHeaders: Object;
+			responseHeaders: Headers;
 			fromCache: boolean;
 			statusCode: number;
 			statusLine: string;
@@ -3086,7 +3086,7 @@ declare namespace Electron {
 			httpResponseCode: number,
 			requestMethod: string,
 			referrer: string,
-			headers: Object,
+			headers: Headers,
 			resourceType: string
 		) => void): this;
 		/**
@@ -3099,7 +3099,7 @@ declare namespace Electron {
 			httpResponseCode: number,
 			requestMethod: string,
 			referrer: string,
-			headers: Object
+			headers: Headers
 		) => void): this;
 		/**
 		 * Emitted when the document in the given frame is loaded.
@@ -3510,6 +3510,10 @@ declare namespace Electron {
 		 * @returns Debugger API
 		 */
 		debugger: Debugger;
+	}
+
+	interface Headers {
+		[key: string]: string;
 	}
 
 	type NewWindowDisposition = 'default' | 'foreground-tab' | 'background-tab' | 'new-window' | 'other';
@@ -4272,7 +4276,7 @@ declare namespace Electron {
 			httpResponseCode: number;
 			requestMethod: string;
 			referrer: string;
-			headers: Object;
+			headers: Headers;
 			resourceType: string;
 		}
 
@@ -4283,7 +4287,7 @@ declare namespace Electron {
 			httpResponseCode: number;
 			requestMethod: string;
 			referrer: string;
-			headers: Object;
+			headers: Headers;
 		}
 
 		interface PageTitleUpdatedEvent extends Event {
