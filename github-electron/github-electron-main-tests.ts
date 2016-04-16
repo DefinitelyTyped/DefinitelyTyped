@@ -412,7 +412,7 @@ var menuItem = new MenuItem({});
 
 menuItem.label = 'Hello World!';
 menuItem.click = (menuItem, browserWindow) => {
-    console.log('click', menuItem, browserWindow);
+	console.log('click', menuItem, browserWindow);
 };
 
 // menu
@@ -648,7 +648,7 @@ app.on('ready', () => {
 	appIcon.setToolTip('This is my application.');
 	appIcon.setContextMenu(contextMenu);
 	appIcon.setImage('/path/to/new/icon');
-    appIcon.popUpContextMenu(contextMenu, {x: 100, y: 100});
+	appIcon.popUpContextMenu(contextMenu, {x: 100, y: 100});
 
 	appIcon.on('click', (event, bounds) => {
 		console.log('click', event, bounds);
@@ -749,7 +749,7 @@ shell.openItem('/home/user/Desktop/test.txt');
 shell.moveItemToTrash('/home/user/Desktop/test.txt');
 
 shell.openExternal('https://github.com', {
-    activate: false
+	activate: false
 });
 
 shell.beep();
@@ -779,7 +779,7 @@ session.defaultSession.cookies.get({ url : "http://www.github.com" }, (error, co
 var cookie = { url : "http://www.github.com", name : "dummy_name", value : "dummy" };
 session.defaultSession.cookies.set(cookie, (error) => {
 	if (error) {
-    	console.error(error);
+		console.error(error);
 	}
 });
 
@@ -818,4 +818,15 @@ session.defaultSession.enableNetworkEmulation({
 
 session.defaultSession.setCertificateVerifyProc((hostname, cert, callback) => {
 	callback((hostname === 'github.com') ? true : false);
+});
+
+session.defaultSession.setPermissionRequestHandler(function(webContents, permission, callback) {
+	if (webContents.getURL() === 'github.com') {
+		if (permission == "notifications") {
+			callback(false);
+			return;
+		}
+	}
+
+	callback(true);
 });

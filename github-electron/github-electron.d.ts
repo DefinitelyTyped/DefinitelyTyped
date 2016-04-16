@@ -2527,9 +2527,16 @@ declare namespace Electron {
 		 */
 		disableNetworkEmulation(): void;
 		/**
-		 * Sets the certificate verify proc for session.
+		 * Sets the certificate verify proc for session, the proc will be called
+		 * whenever a server certificate verification is requested.
+		 *
+		 * Calling setCertificateVerifyProc(null) will revert back to default certificate verify proc.
 		 */
 		setCertificateVerifyProc(proc: (hostname: string, cert: Certificate, callback: (accepted: boolean) => void) => void): void;
+		/**
+		 * Sets the handler which can be used to respond to permission requests for the session.
+		 */
+		setPermissionRequestHandler(handler: (webContents: WebContents, permission: Permission, callback: (allow: boolean) => void) => void): void;
 		/**
 		 * Clears the host resolver cache.
 		 */
@@ -2539,6 +2546,8 @@ declare namespace Electron {
 		 */
 		webRequest: any;
 	}
+
+	type Permission = 'media' | 'geolocation' | 'notifications' | 'midiSysex' | 'pointerLock' | 'fullscreen';
 
 	interface ClearStorageDataOptions {
 		/**
