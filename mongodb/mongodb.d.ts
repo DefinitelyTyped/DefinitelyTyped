@@ -1,4 +1,4 @@
-// Type definitions for MongoDB v2.1
+// Type definitions for MongoDB v2.1 and newer
 // Project: https://github.com/mongodb/node-mongodb-native/tree/2.1
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -604,7 +604,8 @@ declare module "mongodb" {
     dropIndexes(): Promise<any>;
     dropIndexes(callback?: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#find
-    find(query: Object): Cursor;
+    //https://docs.mongodb.org/manual/reference/method/db.collection.find/#db.collection.find
+    find(query: Object, projection?: Object): Cursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOneAndDelete
     findOneAndDelete(filter: Object, callback: MongoCallback<FindAndModifyWriteOpResultObject>): void;
     findOneAndDelete(filter: Object, options?: { projection?: Object, sort?: Object, maxTimeMS?: number }): Promise<FindAndModifyWriteOpResultObject>;
