@@ -730,8 +730,10 @@ declare namespace __React {
         radialGradient: SVGFactory;
         rect: SVGFactory;
         stop: SVGFactory;
+        symbol: SVGFactory;
         text: SVGFactory;
         tspan: SVGFactory;
+        use: SVGFactory;
     }
 
     //
@@ -1538,8 +1540,10 @@ declare module "react/addons" {
         radialGradient: SVGFactory;
         rect: SVGFactory;
         stop: SVGFactory;
+        symbol: SVGFactory;
         text: SVGFactory;
         tspan: SVGFactory;
+        use: SVGFactory;
     }
 
     //
@@ -2032,7 +2036,9 @@ declare namespace JSX {
         radialGradient: React.SVGAttributes;
         rect: React.SVGAttributes;
         stop: React.SVGAttributes;
+        symbol: React.SVGAttributes;
         text: React.SVGAttributes;
         tspan: React.SVGAttributes;
+        use: React.SVGAttributes;
     }
 }
