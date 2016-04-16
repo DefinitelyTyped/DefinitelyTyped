@@ -14,7 +14,7 @@
 /// <reference path="../mime/mime.d.ts" />
 
 declare module "serve-static" {
-    import * as express from "express-serve-static-core";
+    import express from "express-serve-static-core";
 
     /**
      * Create a new middleware function to serve files from within a given root directory.
