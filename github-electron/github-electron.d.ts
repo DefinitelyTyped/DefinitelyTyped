@@ -319,7 +319,7 @@ declare namespace Electron {
 		 *
 		 * Note: This will not affect process.argv.
 		 */
-		appendArgument(value: any): void;
+		appendArgument(value: string): void;
 	}
 
 	interface Dock {
@@ -448,7 +448,7 @@ declare namespace Electron {
 		 * Ask the server whether there is an update, you have to call setFeedURL
 		 * before using this API
 		 */
-		checkForUpdates(): any;
+		checkForUpdates(): void;
 		/**
 		 * Restarts the app and installs the update after it has been downloaded.
 		 * It should only be called after update-downloaded has been emitted.
@@ -1388,7 +1388,7 @@ declare namespace Electron {
 		 * Reads the data in the clipboard of the specified format.
 		 * Note: This API is experimental and could be removed in future.
 		 */
-		read(format: string, type?: ClipboardType): any;
+		read(format: string, type?: ClipboardType): string | NativeImage;
 		/**
 		 * Writes data to the clipboard.
 		 */
@@ -1415,7 +1415,7 @@ declare namespace Electron {
 		 *
 		 * @param callback Called once all child processes have acknowledged the getCategories request.
 		 */
-		getCategories(callback: (categoryGroups: any[]) => void): void;
+		getCategories(callback: (categoryGroups: string[]) => void): void;
 		/**
 		 * Start recording on all processes. Recording begins immediately locally and asynchronously
 		 * on child processes as soon as they receive the EnableRecording request.
@@ -1579,7 +1579,7 @@ declare namespace Electron {
 		 * Note: There is no guarantee that the size of source.thumbnail is always
 		 * the same as the thumnbailSize in options. It also depends on the scale of the screen or window.
 		 */
-		getSources(options: any, callback: (error: Error, sources: DesktopCapturerSource[]) => any): void;
+		getSources(options: DesktopCapturerOptions, callback: (error: Error, sources: DesktopCapturerSource[]) => any): void;
 	}
 
 	interface DesktopCapturerOptions {
@@ -1654,13 +1654,13 @@ declare namespace Electron {
 		 * @param callback If supplied, the API call will be asynchronous.
 		 * @returns The index of the clicked button.
 		 */
-		showMessageBox(browserWindow: BrowserWindow, options: ShowMessageBoxOptions, callback?: (response: any) => void): number;
+		showMessageBox(browserWindow: BrowserWindow, options: ShowMessageBoxOptions, callback?: (response: number) => void): number;
 		/**
 		 * Shows a message box. It will block until the message box is closed.
 		 * @param callback If supplied, the API call will be asynchronous.
 		 * @returns The index of the clicked button.
 		 */
-		showMessageBox(options: ShowMessageBoxOptions, callback?: (response: any) => void): number;
+		showMessageBox(options: ShowMessageBoxOptions, callback?: (response: number) => void): number;
 		/**
 		 * Displays a modal dialog that shows an error message.
 		 *
@@ -2165,7 +2165,7 @@ declare namespace Electron {
 		/**
 		 * @returns {} The size of the image.
 		 */
-		getSize(): any;
+		getSize(): Dimension;
 		/**
 		 * Marks the image as template image.
 		 */
@@ -2511,7 +2511,7 @@ declare namespace Electron {
 		/**
 		 * Resolves the proxy information for url.
 		 */
-		resolveProxy(url: URL, callback: (proxy: any) => any): void;
+		resolveProxy(url: URL, callback: (proxy: string) => void): void;
 		/**
 		 * Sets download saving directory.
 		 * By default, the download directory will be the Downloads under the respective app folder.
@@ -2529,7 +2529,7 @@ declare namespace Electron {
 		/**
 		 * Sets the certificate verify proc for session.
 		 */
-		setCertificateVerifyProc(proc: CertificateVerifyProc): void;
+		setCertificateVerifyProc(proc: (hostname: string, cert: Certificate, callback: (accepted: boolean) => void) => void): void;
 		/**
 		 * Clears the host resolver cache.
 		 */
@@ -2572,10 +2572,6 @@ declare namespace Electron {
 		 * Upload rate in Bps.
 		 */
 		uploadThroughput?: number;
-	}
-
-	interface CertificateVerifyProc {
-		(hostname: string, cert: any, callback: (accepted: boolean) => any): any;
 	}
 
 	interface CookieFilter {
@@ -2899,7 +2895,7 @@ declare namespace Electron {
 			httpResponseCode: number,
 			requestMethod: string,
 			referrer: string,
-			headers: any,
+			headers: Object,
 			resourceType: string
 		) => void): this;
 		/**
@@ -2912,7 +2908,7 @@ declare namespace Electron {
 			httpResponseCode: number,
 			requestMethod: string,
 			referrer: string,
-			headers: any
+			headers: Object
 		) => void): this;
 		/**
 		 * Emitted when the document in the given frame is loaded.
@@ -3460,7 +3456,7 @@ declare namespace Electron {
 		/**
 		 * Coordinates of first match region.
 		 */
-		selectionArea?: any;
+		selectionArea?: Bounds;
 	}
 
 	interface DeviceEmulationParameters {
@@ -4085,7 +4081,7 @@ declare namespace Electron {
 			httpResponseCode: number;
 			requestMethod: string;
 			referrer: string;
-			headers: any;
+			headers: Object;
 			resourceType: string;
 		}
 
@@ -4096,7 +4092,7 @@ declare namespace Electron {
 			httpResponseCode: number;
 			requestMethod: string;
 			referrer: string;
-			headers: any;
+			headers: Object;
 		}
 
 		interface PageTitleUpdatedEvent extends Event {
