@@ -408,5 +408,5 @@ declare namespace commander {
 
 declare module "commander" {
     var _tmp:commander.IExportedCommand;
-    export = _tmp;
+    export default _tmp;
 }
