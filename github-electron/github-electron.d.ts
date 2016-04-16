@@ -1,4 +1,4 @@
-// Type definitions for Electron v0.37.4
+// Type definitions for Electron v0.37.6
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1132,6 +1132,11 @@ declare namespace Electron {
 		 * Default: ISO-8859-1.
 		 */
 		defaultEncoding?: string;
+		/**
+		 * Whether to throttle animations and timers when the page becomes background.
+		 * Default: true
+		 */
+		backgroundThrottling?: boolean;
 	}
 
 	interface BrowserWindowOptions extends Rectangle {
@@ -1282,7 +1287,7 @@ declare namespace Electron {
 		enableLargerThanScreen?: boolean;
 		/**
 		 * Window’s background color as Hexadecimal value, like #66CD00 or #FFF or #80FFFFFF (alpha is supported).
-		 * Default: #000 (black) for Linux and Windows, #FFF for Mac (or clear if transparent).
+		 * Default: #FFF (white).
 		 */
 		backgroundColor?: string;
 		/**
@@ -2870,7 +2875,7 @@ declare namespace Electron {
 		 * This event is like did-finish-load but emitted when the load failed or was cancelled,
 		 * e.g. window.stop() is invoked.
 		 */
-		on(event: 'did-fail-load', listener: (event: Event, errorCode: number, errorDescription: string, validatedURL: string) => void): this;
+		on(event: 'did-fail-load', listener: (event: Event, errorCode: number, errorDescription: string, validatedURL: string, isMainFrame: boolean) => void): this;
 		/**
 		 * Emitted when a frame has done navigation.
 		 */
@@ -2894,7 +2899,8 @@ declare namespace Electron {
 			httpResponseCode: number,
 			requestMethod: string,
 			referrer: string,
-			headers: any
+			headers: any,
+			resourceType: string
 		) => void): this;
 		/**
 		 * Emitted when a redirect is received while requesting a resource.
@@ -3936,7 +3942,7 @@ declare namespace Electron {
 		 * Fired when details regarding a requested resource is available.
 		 * status indicates socket connection to download the resource.
 		 */
-		addEventListener(type: 'did-get-response-details', listener: (event: WebViewElement.DidGetResponseRetails) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-get-response-details', listener: (event: WebViewElement.DidGetResponseDetails) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when a redirect was received while requesting a resource.
 		 */
@@ -4065,13 +4071,14 @@ declare namespace Electron {
 			errorCode: number;
 			errorDescription: string;
 			validatedURL: string;
+			isMainFrame: boolean;
 		}
 
 		interface DidFrameFinishLoadEvent extends Event  {
 			isMainFrame: boolean;
 		}
 
-		interface DidGetResponseRetails extends Event  {
+		interface DidGetResponseDetails extends Event  {
 			status: boolean;
 			newURL: string;
 			originalURL: string;
@@ -4079,6 +4086,7 @@ declare namespace Electron {
 			requestMethod: string;
 			referrer: string;
 			headers: any;
+			resourceType: string;
 		}
 
 		interface DidGetRedirectRequestEvent extends Event {
