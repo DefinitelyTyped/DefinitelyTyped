@@ -87,7 +87,7 @@ declare namespace ReactSelect {
         /**
          * method to filter the options array
          */
-        filterOptions?: (options: Array<Option>, filter: string, currentValues: (string | number)[]) => Array<Option>;
+        filterOptions?: boolean | ((options: Array<Option>, filter: string, currentValues: (string | number | Option)[]) => Array<Option>);
         /**
          * whether to perform case-insensitive filtering
          * @default true
@@ -109,10 +109,6 @@ declare namespace ReactSelect {
          * @default "label"
          */
         labelKey?: string;
-        /**
-         * function that calls a callback with the options
-         */
-        loadOptions?: (input: string, callback: (options: Option[]) => any) => any;
         /**
          * (any, start) match the start or entire string when filtering
          * @default "any"
@@ -258,7 +254,7 @@ declare namespace ReactSelect {
         /**
          *  function to call to load options asynchronously
          */
-        loadOptions: (input: string, callback: (options: Option[]) => any) => any;
+        loadOptions: (input: string, callback: (error: string, options: Option[]) => any) => any;
 
         /**
          *  replaces the placeholder while options are loading
