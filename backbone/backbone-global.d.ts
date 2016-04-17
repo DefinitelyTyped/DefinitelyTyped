@@ -328,6 +328,7 @@ declare namespace Backbone {
        // TODO: quickfix, this can't be fixed easy. The collection does not need to have the same model as the parent view.
       collection?: Backbone.Collection<any>; //was: Collection<TModel>;
       el?: any;
+      events?: EventsHash;
       id?: string;
       className?: string;
       tagName?: string;
