@@ -269,7 +269,9 @@ declare namespace Rx {
 		concatMap<T2, R>(selector: (value: T, index: number) => IPromise<T2>, resultSelector: (value1: T, value2: T2, index: number) => R): Observable<R>;	// alias for selectConcat
 		concatMap<R>(selector: (value: T, index: number) => Observable<R>): Observable<R>;	// alias for selectConcat
 		concatMap<R>(selector: (value: T, index: number) => IPromise<R>): Observable<R>;	// alias for selectConcat
+		concatMap<R>(selector: (value: T, index: number) => R[]): Observable<R>;	// alias for selectConcat
 		concatMap<R>(sequence: Observable<R>): Observable<R>;	// alias for selectConcat
+		concatMap<R>(sequence: R[]): Observable<R>;	// alias for selectConcat
 		merge(maxConcurrent: number): T;
 		merge(other: Observable<T>): Observable<T>;
 		merge(other: IPromise<T>): Observable<T>;
