@@ -1512,6 +1512,11 @@ declare namespace uiGrid {
              */
             expandableRowHeight?: number;
             /**
+             * ExpandableRowScope can be used to add variables to the scope of expanded grid. 
+             * These variables can then be accessed from expandableRowTemplate.
+             */
+            expandableRowScope?: ng.IScope | Object;
+            /**
              * Mandatory. The template for your expanded row
              */
             expandableRowTemplate?: string;
