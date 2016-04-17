@@ -861,7 +861,7 @@ declare namespace uiGrid {
          * By default it returns the `$$hashKey` property if it exists. If it doesn't it uses gridUtil.nextUid()
          * to generate one
          */
-        rowIdentity?(): any;
+        rowIdentity?(row: IGridRowOf<TEntity>): any;
     }
     export interface IGridCoreApi<TEntity> {
         // Methods
