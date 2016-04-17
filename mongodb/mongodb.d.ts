@@ -184,9 +184,8 @@ declare module "mongodb" {
     collections(): Promise<Collection[]>;
     collections(callback: MongoCallback<Collection[]>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#command
-    command(command: Object, callback?: MongoCallback<any>): void;
-    command(command: Object, options?: { readPreference: ReadPreference | string }): Promise<any>;
-    command(command: Object, options: { readPreference: ReadPreference | string }, callback: MongoCallback<any>): void;
+    command(command: Object, callback: MongoCallback<any>): void;
+    command(command: Object, options?: { readPreference: ReadPreference | string }, callback?: MongoCallback<any>): Promise<any>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#createCollection
     createCollection(name: string, callback: MongoCallback<Collection>): void;
     createCollection(name: string, options?: CollectionCreateOptions): Promise<Collection>;
@@ -564,8 +563,8 @@ declare module "mongodb" {
     // Get current index hint for collection.
     hint: any;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#aggregate
-    aggregate(pipeline: Object[], callback: MongoCallback<any>): void | AggregationCursor;
-    aggregate(pipeline: Object[], options: CollectionAggrigationOptions, callback: MongoCallback<any>): void | AggregationCursor;
+    aggregate(pipeline: Object[], callback?: MongoCallback<any>): AggregationCursor;
+    aggregate(pipeline: Object[], options: CollectionAggregationOptions, callback?: MongoCallback<any>): AggregationCursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#bulkWrite
     bulkWrite(operations: Object[], callback: MongoCallback<BulkWriteOpResultObject>): void
     bulkWrite(operations: Object[], options?: CollectionBluckWriteOptions): Promise<BulkWriteOpResultObject>
@@ -605,6 +604,9 @@ declare module "mongodb" {
     dropIndexes(callback?: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#find
     find(query: Object): Cursor;
+    find(query: Object, fields?: any, skip?: number, limit?: number, timeout?: number): Cursor;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOne
+    findOne(selector?: Object, fields?: any, skip?: number, limit?: number, timeout?: number, callback?: MongoCallback<any>): Promise<any>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOneAndDelete
     findOneAndDelete(filter: Object, callback: MongoCallback<FindAndModifyWriteOpResultObject>): void;
     findOneAndDelete(filter: Object, options?: { projection?: Object, sort?: Object, maxTimeMS?: number }): Promise<FindAndModifyWriteOpResultObject>;
@@ -640,9 +642,12 @@ declare module "mongodb" {
     indexInformation(options?: { full: boolean }): Promise<any>;
     indexInformation(options: { full: boolean }, callback: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#initializeOrderedBulkOp
-    initializeOrderedBulkOp(options: CollectionOptions): OrderedBulkOperation;
+    initializeOrderedBulkOp(options?: {fsync?: boolean; useLegacyOps?: boolean;}): OrderedBulkOperation;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#initializeUnorderedBulkOp
-    initializeUnorderedBulkOp(options: CollectionOptions): UnorderedBulkOperation;
+    initializeUnorderedBulkOp(options?: {fsync?: boolean; useLegacyOps?: boolean;}): UnorderedBulkOperation;     
+    
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#insert
+    insert(docs: Object, options?: CollectionInsertOneOptions, callback?: MongoCallback<number>): Promise<number>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#insertMany
     insertMany(docs: Object[], callback: MongoCallback<InsertWriteOpResult>): void
     insertMany(docs: Object[], options?: CollectionInsertManyOptions): Promise<InsertWriteOpResult>;
@@ -682,6 +687,8 @@ declare module "mongodb" {
     stats(callback: MongoCallback<CollStats>): void;
     stats(options?: { scale: number }): Promise<CollStats>;
     stats(options: { scale: number }, callback: MongoCallback<CollStats>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#update
+    update(filter: Object, update: any, options?: {multi?:boolean;}, callback?: MongoCallback<number>): Promise<number>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#updateMany
     updateMany(filter: Object, update: Object, callback: MongoCallback<UpdateWriteOpResult>): void;
     updateMany(filter: Object, update: Object, options?: { upsert?: boolean; w?: any; wtimeout?: number; j?: boolean; }): Promise<UpdateWriteOpResult>;
@@ -727,7 +734,7 @@ declare module "mongodb" {
   }
 
   //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#aggregate
-  export interface CollectionAggrigationOptions {
+  export interface CollectionAggregationOptions {
     readPreference?: ReadPreference | string;
     // Return the query as cursor, on 2.6 > it returns as a real cursor
     // on pre 2.6 it returns as an emulated cursor.
@@ -875,8 +882,7 @@ declare module "mongodb" {
     length: number;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/OrderedBulkOperation.html#execute
     execute(callback: MongoCallback<BulkWriteResult>): void;
-    execute(options: FSyncOptions): Promise<BulkWriteResult>;
-    execute(options: FSyncOptions, callback: MongoCallback<BulkWriteResult>): void;
+    execute(options?: FSyncOptions, callback?: MongoCallback<BulkWriteResult>): Promise<BulkWriteResult>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/OrderedBulkOperation.html#find
     find(selector: Object): FindOperatorsOrdered;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/OrderedBulkOperation.html#insert
@@ -936,8 +942,7 @@ declare module "mongodb" {
   export interface UnorderedBulkOperation {
     //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html#execute
     execute(callback: MongoCallback<BulkWriteResult>): void;
-    execute(options: FSyncOptions): Promise<BulkWriteResult>;
-    execute(options: FSyncOptions, callback: MongoCallback<BulkWriteResult>): void;
+    execute(options?: FSyncOptions, callback?: MongoCallback<BulkWriteResult>): Promise<BulkWriteResult>;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html#find
     find(selector: Object): FindOperatorsUnordered;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html#insert
