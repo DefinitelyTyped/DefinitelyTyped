@@ -550,14 +550,10 @@ React.createClass({
 
 var inst: ModernComponent = TestUtils.renderIntoDocument<ModernComponent>(element);
 var node: Element = TestUtils.renderIntoDocument(React.DOM.div());
-var eventData = {} as React.SyntheticEventData;
-
-eventData.key = "Enter";
-eventData.cancelable = false;
 
 TestUtils.Simulate.click(node);
 TestUtils.Simulate.change(node);
-TestUtils.Simulate.keyDown(node, eventData);
+TestUtils.Simulate.keyDown(node, { key: "Enter", cancelable: false });
 
 var renderer: React.ShallowRenderer =
     TestUtils.createRenderer();

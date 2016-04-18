@@ -418,14 +418,10 @@ React.createClass({
 // TestUtils addon
 // --------------------------------------------------------------------------
 var node: Element;
-var eventData = {} as React.SyntheticEventData;
-
-eventData.key = "Enter";
-eventData.cancelable = false;
 
 React.addons.TestUtils.Simulate.click(node);
 React.addons.TestUtils.Simulate.change(node);
-React.addons.TestUtils.Simulate.keyDown(node, eventData);
+React.addons.TestUtils.Simulate.keyDown(node, { key: "Enter", cancelable: false });
 
 var renderer: React.ShallowRenderer =
     React.addons.TestUtils.createRenderer();
