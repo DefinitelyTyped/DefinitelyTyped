@@ -87,6 +87,7 @@ declare namespace Chai {
         that: PromisedAssertion;
         which: PromisedAssertion;
         and: PromisedAssertion;
+        all: PromisedAssertion;
         has: PromisedAssertion;
         have: PromisedAssertion;
         with: PromisedAssertion;
