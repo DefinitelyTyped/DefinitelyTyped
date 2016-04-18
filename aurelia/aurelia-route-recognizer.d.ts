@@ -3,6 +3,8 @@
 // Definitions by: Behzad abbai <https://github.com/behzad888>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="./aurelia-path.d.ts" />
+
 declare module 'aurelia-route-recognizer' {
   import {
     buildQueryString,

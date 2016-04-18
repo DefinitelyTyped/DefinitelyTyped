@@ -3,6 +3,12 @@
 // Definitions by: Behzad abbai <https://github.com/behzad888>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="./aurelia-logging.d.ts" />
+/// <reference path="./aurelia-route-recognizer.d.ts" />
+/// <reference path="./aurelia-dependency-injection.d.ts" />
+/// <reference path="./aurelia-history.d.ts" />
+/// <reference path="./aurelia-event-aggregator.d.ts" />
+
 declare module 'aurelia-router' {
   import * as LogManager from 'aurelia-logging';
   import {

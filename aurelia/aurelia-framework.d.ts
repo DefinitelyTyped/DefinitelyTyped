@@ -3,6 +3,53 @@
 // Definitions by: Behzad abbai <https://github.com/behzad888>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="./aurelia-logging.d.ts" />
+/// <reference path="./aurelia-dependency-injection.d.ts" />
+/// <reference path="./aurelia-loader.d.ts" />
+/// <reference path="./aurelia-templating.d.ts" />
+/// <reference path="./aurelia-pal.d.ts" />
+/// <reference path="./aurelia-path.d.ts" />
+
+declare module 'aurelia-framework' {
+  import * as TheLogManager from 'aurelia-logging';
+  import {
+    Container
+  } from 'aurelia-dependency-injection';
+  import {
+    Loader
+  } from 'aurelia-loader';
+  import {
+    BindingLanguage,
+    ViewSlot,
+    ViewResources,
+    TemplatingEngine,
+    CompositionTransaction,
+    ViewEngine
+  } from 'aurelia-templating';
+  import {
+    DOM,
+    PLATFORM
+  } from 'aurelia-pal';
+  import {
+    join
+  } from 'aurelia-path';
+
+  /**
+   * The framework core that provides the main Aurelia object.
+   */
+  export class Aurelia {
+
+    /**
+       * The loader used by the application.
+       */
+    loader: Loader;
+
+    /**
+       * The root DI container used by the application.
+       */
+    container: Container;
+
+    /**
        * The global view resources used by the application.
        */
     resources: ViewResources;

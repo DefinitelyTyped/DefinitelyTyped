@@ -3,6 +3,15 @@
 // Definitions by: Behzad abbai <https://github.com/behzad888>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="./aurelia-logging.d.ts" />
+/// <reference path="./aurelia-pal.d.ts" />
+/// <reference path="./aurelia-metadata.d.ts" />
+/// <reference path="./aurelia-path.d.ts" />
+/// <reference path="./aurelia-loader.d.ts" />
+/// <reference path="./aurelia-binding.d.ts" />
+/// <reference path="./aurelia-dependency-injection.d.ts" />
+/// <reference path="./aurelia-task-queue.d.ts" />
+
 declare module 'aurelia-templating' {
   import * as LogManager from 'aurelia-logging';
   import {

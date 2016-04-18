@@ -3,6 +3,8 @@
 // Definitions by: Behzad abbai <https://github.com/behzad888>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="./aurelia-templating.d.ts" />
+
 /**
  * An implementation of the templating engine's BindingLanguage abstraction which
  * uses a pluggable command syntax.

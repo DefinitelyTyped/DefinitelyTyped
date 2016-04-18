@@ -3,6 +3,10 @@
 // Definitions by: Behzad abbai <https://github.com/behzad888>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="./aurelia-loader.d.ts" />
+/// <reference path="./aurelia-pal.d.ts" />
+/// <reference path="./aurelia-metadata.d.ts" />
+
 declare module 'aurelia-loader-default' {
   import {
     TemplateRegistryEntry,

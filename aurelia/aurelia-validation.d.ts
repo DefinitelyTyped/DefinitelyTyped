@@ -3,6 +3,12 @@
 // Definitions by: Behzad abbai <https://github.com/behzad888>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="./aurelia-metadata.d.ts" />
+/// <reference path="./aurelia-dependency-injection.d.ts" />
+/// <reference path="./aurelia-templating.d.ts" />
+/// <reference path="./aurelia-loader.d.ts" />
+/// <reference path="./aurelia-binding.d.ts" />
+
 declare module 'aurelia-validation' {
   import {
     metadata

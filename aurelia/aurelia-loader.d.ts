@@ -3,6 +3,9 @@
 // Definitions by: Behzad abbai <https://github.com/behzad888>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="./aurelia-path.d.ts" />
+/// <reference path="./aurelia-metadata.d.ts" />
+
 declare module 'aurelia-loader' {
   import {
     relativeToFile

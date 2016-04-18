@@ -3,6 +3,7 @@
 // Definitions by: Behzad abbai <https://github.com/behzad888>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="./aurelia-dependency-injection.d.ts" />
 
 /**
  * A modern databinding library for JavaScript and HTML.

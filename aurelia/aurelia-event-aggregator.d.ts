@@ -3,6 +3,8 @@
 // Definitions by: Behzad abbai <https://github.com/behzad888>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="./aurelia-logging.d.ts" />
+
 declare module 'aurelia-event-aggregator' {
   import * as LogManager from 'aurelia-logging';
   

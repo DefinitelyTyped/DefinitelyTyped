@@ -3,6 +3,9 @@
 // Definitions by: Behzad abbai <https://github.com/behzad888>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="./aurelia-pal.d.ts" />
+/// <reference path="./aurelia-pal-browser.d.ts" />
+
 declare module 'aurelia-bootstrapper' {
   import 'aurelia-polyfills';
   import {
