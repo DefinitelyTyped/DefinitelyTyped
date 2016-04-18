@@ -1,7 +1,7 @@
 // Type definitions for Kefir 3.2.0
 // Project: http://rpominov.github.io/kefir/
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

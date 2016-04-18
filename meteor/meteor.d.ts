@@ -1,7 +1,7 @@
 // Type definitions for Meteor 1.3
 // Project: http://www.meteor.com/
 // Definitions by: Dave Allen <https://github.com/fullflavedave>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "meteor/check" {
 	export module Match {
@@ -90,7 +90,9 @@ declare module "meteor/meteor" {
 			requestPermissions?: string[];
 			requestOfflineToken?: Boolean;
 			forceApprovalPrompt?: Boolean;
-			userEmail?: string;
+			loginUrlParameters?: Object;
+			redirectUrl?: string;
+			loginHint?: string;
 			loginStyle?: string;
 		}
 		function loginWithMeteorDeveloperAccount(options?: Meteor.LoginWithExternalServiceOptions, callback?: Function): void;
@@ -116,12 +118,18 @@ declare module "meteor/meteor" {
 
 		/** Email **/
 		interface EmailFields {
+			from?: () => string;
 			subject?: Function;
 			text?: Function;
+			html?: (user: Meteor.User, url: string) => string;
+		}
+		interface Header {
+			[id: string]: string;
 		}
 		interface EmailTemplates {
 			from: string;
 			siteName: string;
+			headers?: Header;
 			resetPassword: Meteor.EmailFields;
 			enrollAccount: Meteor.EmailFields;
 			verifyEmail: Meteor.EmailFields;
@@ -628,11 +636,22 @@ declare module "meteor/accounts-base" {
 		function validateNewUser(func: Function): boolean;
 		function loginServicesConfigured(): boolean;
 		function onPageLoadLogin(func: Function): void;
+
+		interface IValidateLoginAttemptCbOpts {
+			type: string;
+			allowed: boolean;
+			error: Meteor.Error;
+			user: Meteor.User;
+			connection: Meteor.Connection;
+			methodName: string;
+			methodArguments: any[];
+		}
 	}
 }
 
-declare module App {
-	function accessRule(domainRule: string, options?: {
+declare namespace App {
+	function accessRule(pattern: string, options?: {
+		type?: string;
 		launchExternal?: boolean;
 	}): void;
 	function configurePlugin(id: string, config: Object): void;
@@ -649,7 +668,6 @@ declare module App {
 	function launchScreens(launchScreens: Object): void;
 	function setPreference(name: string, value: string, platform?: string): void;
 }
-
 
 interface EJSONableCustomType {
   clone(): EJSONableCustomType;
@@ -781,7 +799,6 @@ declare module "meteor/templating" {
 	import {Blaze} from "meteor/blaze";
 	import {Meteor} from "meteor/meteor";
 
-	//export var Template: Map<string, TemplateStatic>;
 	class Template extends Blaze.Template {
     static body: Template;
     [index: string]: any | Template;
@@ -817,7 +834,7 @@ declare module Npm {
 	function require(name: string): any;
 }
 
-declare module Package {
+declare namespace Package {
 	function describe(options: {
 		summary?: string;
 		version?: string;
@@ -826,6 +843,7 @@ declare module Package {
 		documentation?: string;
 		debugOnly?: boolean;
 		prodOnly?: boolean;
+		testOnly?: boolean;
 	}): void;
 	function onTest(func: (api: PackageAPI) => void): void;
 	function onUse(func: (api: PackageAPI) => void): void;
@@ -838,6 +856,7 @@ declare module Package {
 }
 
 declare var PackageAPI: PackageAPI;
+
 interface PackageAPI {
 	new (): PackageAPI;
 	addAssets(filenames: string | string[], architecture: string | string[]): void;

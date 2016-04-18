@@ -1,9 +1,9 @@
 ﻿// Type definitions for ngprogress-lite
 // Project: https://github.com/voronianski/ngprogress-lite
 // Definitions by: Luke Forder <https://github.com/LukeForder>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module angular.progressLite {
+declare namespace angular.progressLite {
 
     export interface INgProgressLite {
         set(num: number): INgProgressLite;

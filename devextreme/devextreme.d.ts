@@ -1,7 +1,7 @@
-// Type definitions for DevExtreme 15.2.5
+// Type definitions for DevExtreme 15.2.9
 // Project: http://js.devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
@@ -427,6 +427,9 @@ declare module DevExpress {
             /** A handler for the loadError event. */
             onLoadError?: (e?: Error) => void;
         }
+        export interface OperationPromise<T> extends JQueryPromise<T> {
+            operationId: number;
+        }
         /** An object that provides access to a data web service or local data storage for collection container widgets. */
         export class DataSource implements EventsMixin<DataSource> {
             constructor(url: string);
@@ -454,9 +457,9 @@ declare module DevExpress {
             /** Returns the key expression. */
             key(): any;
             /** Starts loading data. */
-            load(): JQueryPromise<Array<any>>;
+            load(): OperationPromise<Array<any>>;
             /** Clears currently loaded DataSource items and calls the load() method. */
-            reload(): JQueryPromise<Array<any>>;
+            reload(): OperationPromise<Array<any>>;
             /** Returns an object that would be passed to the load() method of the underlying Store according to the current data shaping option values of the current DataSource instance. */
             loadOptions(): Object;
             /** Returns the current pageSize option value. */
@@ -499,6 +502,7 @@ declare module DevExpress {
             store(): Store;
             /** Returns the number of data items available in an underlying Store after the last load() operation without paging. */
             totalCount(): number;
+            cancel(operationId: number): boolean;
             on(eventName: "loadingChanged", eventHandler: (isLoading: boolean) => void): DataSource;
             on(eventName: "loadError", eventHandler: (e?: Error) => void): DataSource;
             on(eventName: "changed", eventHandler: () => void): DataSource;
@@ -1197,7 +1201,7 @@ declare module DevExpress.ui {
         /** Updates the dimensions of the scrollable contents. */
         update(): void;
     }
-    export interface dxRadioGroupOptions extends CollectionWidgetOptions, DataExpressionMixinOptions {
+    export interface dxRadioGroupOptions extends EditorOptions, DataExpressionMixinOptions {
         activeStateEnabled?: boolean;
         /** Specifies the radio group layout. */
         layout?: string;
@@ -1300,6 +1304,7 @@ declare module DevExpress.ui {
         onShowing?: Function;
         /** A handler for the shown event. */
         onShown?: Function;
+        onContentReady?: Function;
         /** A Boolean value specifying whether or not the widget is visible. */
         visible?: boolean;
         /** The widget width in pixels. */
@@ -1334,6 +1339,8 @@ declare module DevExpress.ui {
         step?: number;
         /** The current number box value. */
         value?: number;
+        /** The "mode" attribute value of the actual HTML input element representing the widget. */
+        mode?: string;
     }
     /** A textbox widget that enables a user to enter numeric values. */
     export class dxNumberBox extends dxTextEditor {
@@ -1366,7 +1373,7 @@ declare module DevExpress.ui {
         constructor(element: Element, options?: dxMultiViewOptions);
     }
     export interface dxMapOptions extends WidgetOptions {
-        /** Specifies whether or not the widget automatically adjusts center and zoom option values when adding a new marker or route. */
+        /** Specifies whether or not the widget automatically adjusts center and zoom option values when adding a new marker or route, or when creating a widget if it initially contains markers or routes. */
         autoAdjust?: boolean;
         center?: {
             /** The latitude location displayed in the center of the widget. */
@@ -1502,6 +1509,8 @@ declare module DevExpress.ui {
         onTitleRendered?: Function;
         /** A Boolean value specifying whether or not to display the title in the popup window. */
         showPopupTitle?: boolean;
+        /** The template to be used for rendering the widget text field. */
+        fieldTemplate?: any;
     }
     /** A widget that allows a user to select predefined values from a lookup window. */
     export class dxLookup extends dxDropDownList {
@@ -1764,6 +1773,10 @@ declare module DevExpress.ui {
         invalidDateMessage?: string;
         /** Specifies the message displayed if the specified date is later than the max value or earlier than the min value. */
         dateOutOfRangeMessage?: string;
+        /** The text displayed on the Apply button. */
+        applyButtonText?: string;
+        /** The text displayed on the Cancel button. */
+        cancelButtonText?: string;
     }
     /** A date box widget. */
     export class dxDateBox extends dxDropDownEditor {
@@ -2055,6 +2068,10 @@ declare module DevExpress.ui {
         /** Specifies the number of columns spanned by the item. */
         colSpan?: number;
     }
+    export interface dxFormEmptyItem extends dxFormItem {
+        /** Specifies the form item name. */
+        name?: string;
+    }
     export interface dxFormSimpleItem extends dxFormItem {
         /** Specifies the path to the formData object field bound to the current form item. */
         dataField?: string;
@@ -2096,6 +2113,16 @@ declare module DevExpress.ui {
         alignItemLabels?: boolean;
         /** Holds an array of form items displayed within the tab. */
         items?: Array<dxFormItem>;
+        /** Specifies a badge text for the tab. */
+        badge?: string;
+        /** A Boolean value specifying whether or not the tab can respond to user interaction. */
+        disabled?: boolean;
+        /** Specifies the icon to be displayed on the tab. */
+        icon?: string;
+        /** The template to be used for rendering the tab. */
+        tabTemplate?: any;
+        /** The template to be used for rendering the tab content. */
+        template?: any;
     }
     export interface dxFormTabbedItem extends dxFormItem {
         /** Holds a configuration object for the dxTabPanel widget used to display the current form item. */
@@ -2126,7 +2153,7 @@ declare module DevExpress.ui {
         alignItemLabelsInAllGroups?: boolean;
         /** Specifies whether or not a colon is displayed at the end of form labels. */
         showColonAfterLabel?: boolean;
-        /** Specifies whether or not the required mark is displayed for optional fields. */
+        /** Specifies whether or not the required mark is displayed for required fields. */
         showRequiredMark?: boolean;
         /** Specifies whether or not the optional mark is displayed for optional fields. */
         showOptionalMark?: boolean;
@@ -2134,6 +2161,8 @@ declare module DevExpress.ui {
         requiredMark?: string;
         /** The text displayed for optional fields. */
         optionalMark?: string;
+        /** Specifies the message that is shown for end-users if a required field value is not specified. */
+        requiredMessage?: string;
         /** Specifies whether or not the total validation summary is displayed on the form. */
         showValidationSummary?: boolean;
         /** Holds an array of form items. */
@@ -2381,7 +2410,7 @@ interface JQuery {
     dxForm(options: "instance"): DevExpress.ui.dxForm;
     dxForm(options: string): any;
     dxForm(options: string, ...params: any[]): any;
-    dxForm(options: DevExpress.ui.dxForm): JQuery;
+    dxForm(options: DevExpress.ui.dxFormOptions): JQuery;
 }
 
 declare module DevExpress.ui {
@@ -2629,6 +2658,7 @@ declare module DevExpress.data {
         catalog?: string;
         /** The cube name. */
         cube?: string;
+        /** A function used to customize a web request before it is sent. */
         beforeSend?: (request: Object) => void;
     }
     /** A Store that provides access to an OLAP cube using the XMLA standard. */
@@ -2667,11 +2697,11 @@ declare module DevExpress.data {
         groupName?: string;
         /** The index of the field within a group. */
         groupIndex?: number;
-        /** Specifies the initial sort order of field values. */
+        /** Specifies the sort order of field values. */
         sortOrder?: string;
         /** Specifies how field data should be sorted. Can be used for the XmlaStore store type only. */
         sortBy?: string;
-        /** Specifies the data field against which the header items of this field should be sorted. */
+        /** Sorts the header items of this field by the summary values of another field. */
         sortBySummaryField?: string;
         /** The array of field names that specify a path to column/row whose summary field is used for sorting of this field's header items. */
         sortBySummaryPath?: Array<any>;
@@ -2847,7 +2877,7 @@ declare module DevExpress.ui {
         showAllDayPanel?: boolean;
         /** Specifies cell duration in minutes. */
         cellDuration?: number;
-        /** Specifies the edit mode for recurrent appointments. */
+        /** Specifies the edit mode for recurring appointments. */
         recurrenceEditMode?: string;
         /** Specifies which editing operations an end-user can perform on appointments. */
         editing?: {
@@ -2910,11 +2940,11 @@ declare module DevExpress.ui {
         horizontalScrollingEnabled?: boolean;
         /** Specifies whether a user can switch views using tabs or a drop-down menu. */
         useDropDownViewSwitcher?: boolean;
-        /** Specifies the name of the data source item field that defines the start of the appointment. */
+        /** Specifies the name of the data source item field that defines the start of an appointment. */
         startDateExpr?: string;
-        /** Specifies the name of the data source item field that defines the ending of the appointment. */
+        /** Specifies the name of the data source item field that defines the ending of an appointment. */
         endDateExpr?: string;
-        /** Specifies the name of the data source item field that holds the subject of the appointment. */
+        /** Specifies the name of the data source item field that holds the subject of an appointment. */
         textExpr?: string;
         /** Specifies the name of the data source item field whose value holds the description of the corresponding appointment. */
         descriptionExpr?: string;
@@ -2937,10 +2967,10 @@ declare module DevExpress.ui {
         updateAppointment(target: Object, appointment: Object): void;
         /** Deletes the appointment defined by the parameter from the the data associated with the widget. */
         deleteAppointment(appointment: Object): void;
-        /** Scrolls the scheduler work space to the specified time. */
-        scrollToTime(hours: number, minutes: number): void;
-        /** Displays the Appointment Details popup. */
-        showAppointmentPopup(appointmentData: Object, createNewAppointment?: boolean): void;
+        /** Scrolls the scheduler work space to the specified time of the specified day. */
+        scrollToTime(hours: number, minutes: number, date: Date): void;
+        /** Displayes the Appointment Details popup. */
+        showAppointmentPopup(appointmentData: Object, createNewAppointment?: boolean, currentAppointmentData?: Object): void;
     }
     export interface dxColorBoxOptions extends dxDropDownEditorOptions {
         /** Specifies the text displayed on the button that applies changes and closes the drop-down editor. */
@@ -3088,7 +3118,7 @@ declare module DevExpress.ui {
         showFirstSubmenuMode?: {
             /** Specifies the mode name. */
             name?: string;
-            /** Specifies the delay of submenu showing and hiding. */
+            /** Specifies the delay in submenu showing and hiding. */
             delay?: {
                 /** The time span after which the submenu is shown. */
                 show?: number;
@@ -3161,6 +3191,16 @@ declare module DevExpress.ui {
         grouping?: boolean;
         /** Specifies whether or not summaries calculation must be performed on the server side. */
         summary?: boolean;
+    }
+    export interface dxDataGridRow {
+        /** The data object represented by the row. */
+        data: Object;
+        /** The key of the data object represented by the row. */
+        key: any;
+        /** The visible index of the row. */
+        rowIndex: number;
+        /** The type of the row. */
+        rowType: string;
     }
     export interface dxDataGridColumn {
         /** Specifies the content alignment within column cells. */
@@ -3634,7 +3674,6 @@ declare module DevExpress.ui {
         /** A handler for the exporting event. */
         onExporting?: (e: {
             fileName: string;
-            format: string;
             cancel: boolean;
         }) => void;
         /** A handler for the fileSaving event. */
@@ -3736,6 +3775,8 @@ declare module DevExpress.ui {
                 summaryType?: string;
                 /** Specifies a format for the summary item value. */
                 valueFormat?: string;
+                /** Specifies whether or not to skip empty strings, null and undefined values when calculating a summary. */
+                skipEmptyValues?: boolean;
             }>;
             /** Specifies items of the total summary. */
             totalItems?: Array<{
@@ -3762,7 +3803,11 @@ declare module DevExpress.ui {
                 summaryType?: string;
                 /** Specifies a format for the summary item value. */
                 valueFormat?: string;
+                /** Specifies whether or not to skip empty strings, null and undefined values when calculating a summary. */
+                skipEmptyValues?: boolean;
             }>;
+            /** Specifies whether or not to skip empty strings, null and undefined values when calculating a summary. */
+            skipEmptyValues?: boolean;
             /** Allows you to use a custom aggregate function to calculate the value of a summary item. */
             calculateCustomSummary?: (options: {
                 component: dxDataGrid;
@@ -4002,7 +4047,7 @@ declare module DevExpress.ui {
             /** The string to display as an Export to Excel file context menu item. */
             exportToExcel?: string;
         };
-        /** The Load panel configuration options. */
+        /** Specifies options configuring the load panel. */
         loadPanel?: {
             /** Enables or disables the load panel. */
             enabled?: boolean;
@@ -4037,7 +4082,6 @@ declare module DevExpress.ui {
         /** A handler for the exporting event. */
         onExporting?: (e: {
             fileName: string;
-            format: string;
             cancel: boolean;
         }) => void;
         /** A handler for the fileSaving event. */
@@ -5704,6 +5748,8 @@ declare module DevExpress.viz.charts {
         equalBarWidth?: boolean;
         /** Specifies a common bar width as a percentage from 0 to 1. */
         barWidth?: number;
+        /** Forces the widget to treat negative values as zeroes. Applies to stacked-like series only. */
+        negativesAsZeroes?: boolean;
     }
     export interface Legend extends AdvancedLegend {
         /** Specifies whether the legend is located outside or inside the chart's plot. */
@@ -5757,9 +5803,15 @@ declare module DevExpress.viz.charts {
                 visible?: boolean;
                 /** Specifies font options for the text of the crosshair labels. */
                 font?: viz.core.Font;
+                /** Specifies the format of the values displayed by crosshair labels. */
+                format?: string;
+                /** Specifies a precision for formatted values. */
+                precision?: number;
+                /** Customizes the text displayed by the crosshair labels. */
+                customizeText?: (info: { value: any; valueText: string; point: ChartPoint; }) => string;
             }
         };
-        /** Specifies a default pane for the chart's series. */
+        /** Specifies a default pane for the chart series. */
         defaultPane?: string;
         /** Specifies a coefficient determining the diameter of the largest bubble. */
         maxBubbleSize?: number;
@@ -5815,6 +5867,12 @@ declare module DevExpress.viz.charts {
             visible?: boolean;
             /** Specifies font options for the text of the label that belongs to the horizontal crosshair line. */
             font?: viz.core.Font;
+            /** Specifies the format of the values displayed by crosshair labels. */
+            format?: string;
+            /** Specifies a precision for formatted values. */
+            precision?: number;
+            /** Customizes the text displayed by the crosshair label that accompany the horizontal line. */
+            customizeText?: (info: { value: any; valueText: string; point: ChartPoint; }) => string;
         }
     }
     export interface PolarChartTooltip extends BaseChartTooltip {
@@ -6379,6 +6437,8 @@ declare module DevExpress.viz.rangeSelector {
             equalBarWidth?: boolean;
             /** Specifies a common bar width as a percentage from 0 to 1. */
             barWidth?: number;
+            /** Forces the widget to treat negative values as zeroes. Applies to stacked-like series only. */
+            negativesAsZeroes?: boolean;
             /** Sets the name of the palette to be used in the range selector's chart. Alternatively, an array of colors can be set as a custom palette to be used within this chart. */
             palette?: any;
             /** An object defining the chart’s series. */

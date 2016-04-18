@@ -1,7 +1,7 @@
 // Type definitions for DataStream.js
 // Project: https://github.com/kig/DataStream.js
 // Definitions by: Tat <https://github.com/tatchx/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class DataStream {
 

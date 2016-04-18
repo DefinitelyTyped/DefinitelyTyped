@@ -1,7 +1,7 @@
 // Type definitions for Spin.js 2.3.2
 // Project: http://fgnass.github.com/spin.js/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 interface SpinnerOptions {

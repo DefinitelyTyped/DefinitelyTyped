@@ -1,7 +1,7 @@
 // Type definitions for notify.js 1.2.8
 // Project: https://github.com/alexgibson/notify.js
 // Definitions by: soundTricker <https://github.com/soundTricker>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Notify: {
     new (title : string , options? : notifyjs.INotifyOption): notifyjs.INotify;
@@ -32,8 +32,8 @@ declare var Notify: {
     permissionLevel: string;
 }
 
-declare module notifyjs {
-    
+declare namespace notifyjs {
+
     /**
      * Interface for Web Notifications API Wrapper.
      */
@@ -58,7 +58,7 @@ declare module notifyjs {
         onErrorNotification() : void;
         handleEvent(e : Event) : void;
     }
-    
+
     /**
      * Interface for the Notify's optional parameter.
      */
@@ -78,7 +78,7 @@ declare module notifyjs {
          * unique identifier to stop duplicate notifications
          */
         tag? : string;
-        
+
          /**
          * number of seconds to close the notification automatically
          */

@@ -1,5 +1,5 @@
 ﻿/// <reference path="nvd3.d.ts" />
-module nvd3_test_monitoringChart {
+namespace nvd3_test_monitoringChart {
 
     var testdata1 = [
         { key: "Updated", y: 0 },
@@ -131,5 +131,5 @@ module nvd3_test_monitoringChart {
         return chart;
 
     });
-   
+
 }

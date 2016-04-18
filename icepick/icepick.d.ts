@@ -1,7 +1,7 @@
 // Type definitions for icepick v1.1.0
 // Project: https://github.com/aearly/icepick
 // Definitions by: Nathan Brown <https://github.com/ngbrown>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "icepick" {
   export function freeze<T>(collection: T): T;

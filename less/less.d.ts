@@ -1,9 +1,9 @@
 // Type definitions for LESS
 // Project: http://lesscss.org/
 // Definitions by: Tom Hasner <https://github.com/thasner>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Less {
+declare namespace Less {
     interface RootFileInfo {
         filename: string;
         relativeUrls: boolean;

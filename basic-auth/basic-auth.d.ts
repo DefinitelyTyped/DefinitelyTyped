@@ -1,7 +1,7 @@
 // Type definitions for basic-auth
 // Project: https://github.com/jshttp/basic-auth
 // Definitions by: Clément Bourgeois <https://github.com/moonpyk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 

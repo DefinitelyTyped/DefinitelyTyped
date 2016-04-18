@@ -1,13 +1,13 @@
 // Type definitions for WebVR API
 // Project: http://mozvr.github.io/webvr-spec/webvr.html
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../geometry-dom/geometry-dom.d.ts" />
 
 declare type VREye = string;
 
-declare module WebVRApi {
+declare namespace WebVRApi {
     export interface VRFieldOfViewReadOnly {
         upDegrees: number;
         rightDegrees: number;

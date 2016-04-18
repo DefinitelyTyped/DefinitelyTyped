@@ -1,7 +1,7 @@
 // Type definitions for bufferstream v0.6.2
 // Project: https://github.com/dodo/node-bufferstream
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -64,7 +64,7 @@ declare module 'bufferstream' {
 		*/
 		length: number;
 	}
-	module BufferStream {
+	namespace BufferStream {
 
 		export interface Opts {
 			/*

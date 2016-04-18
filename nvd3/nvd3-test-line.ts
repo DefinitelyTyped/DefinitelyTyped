@@ -1,5 +1,5 @@
 ﻿/// <reference path="nvd3.d.ts" />
-module nvd3_test_line {
+namespace nvd3_test_line {
     nv.addGraph({
         generate: function () {
             var width = nv.utils.windowSize().width - 40,
