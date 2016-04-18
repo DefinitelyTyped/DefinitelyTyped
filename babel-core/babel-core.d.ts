@@ -21,7 +21,7 @@ declare module "babel-core" {
     export function transform(code: string, opts?: TransformOptions): BabelFileResult;
 
     /** Asynchronously transforms the entire contents of a file. */
-    export function transformFile(filename: string, opts: TransformOptions | undefined, callback: (err, result: BabelFileResult) => void): void;
+    export function transformFile(filename: string, opts: TransformOptions, callback: (err: any, result: BabelFileResult) => void): void;
 
     /** Synchronous version of `babel.transformFile`. Returns the transformed contents of the `filename`. */
     export function transformFileSync(filename: string, opts?: TransformOptions): BabelFileResult;
@@ -139,6 +139,6 @@ declare module "babel-core" {
     export interface BabelFileResult {
         ast?: Node;
         code?: string;
-        map?: Object | null;
+        map?: Object;
     }
 }

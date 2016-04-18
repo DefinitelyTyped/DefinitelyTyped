@@ -70,7 +70,7 @@ declare module "babel-traverse" {
 
         registerBinding(kind: string, path: NodePath<Node>, bindingPath?: NodePath<Node>): void;
 
-        addGlobal(node: Node);
+        addGlobal(node: Node): void;
 
         hasUid(name: string): boolean;
 
@@ -326,19 +326,19 @@ declare module "babel-traverse" {
         shouldStop: boolean;
         removed: boolean;
         state: any;
-        opts: Object | null | undefined;
-        skipKeys: Object | null | undefined;
-        parentPath: NodePath<Node> | null | undefined;
+        opts: Object;
+        skipKeys: Object;
+        parentPath: NodePath<Node>;
         context: TraversalContext;
-        container: Object | Object[] | null | undefined;
-        listKey: string | null | undefined;
+        container: Object | Object[];
+        listKey: string;
         inList: boolean;
-        parentKey: string | null | undefined;
-        key: string | null | undefined;
-        node: T | null | undefined;
+        parentKey: string;
+        key: string;
+        node: T;
         scope: Scope;
-        type: string | null | undefined;
-        typeAnnotation: Object | null | undefined;
+        type: string;
+        typeAnnotation: Object;
 
         getScope(scope: Scope): Scope;
 
@@ -354,7 +354,7 @@ declare module "babel-traverse" {
 
         getPathLocation(): string;
 
-        debug(buildMessage: Function);
+        debug(buildMessage: Function): void;
 
         // ------------------------- ancestry -------------------------
         /**
@@ -400,7 +400,7 @@ declare module "babel-traverse" {
 
         couldBeBaseType(name: string): boolean;
 
-        baseTypeStrictlyMatches(right: NodePath<Node>);
+        baseTypeStrictlyMatches(right: NodePath<Node>): boolean;
 
         isGenericType(genericName: string): boolean;
 
@@ -952,7 +952,7 @@ declare module "babel-traverse" {
     }
 
     export class Hub {
-        constructor(file, options);
+        constructor(file: any, options: any);
         file: any;
         options: any;
     }

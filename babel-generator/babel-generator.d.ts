@@ -96,7 +96,7 @@ declare module "babel-generator" {
     }
 
     export interface GeneratorResult {
-        map: Object | null | undefined;
+        map: Object;
         code: string;
     }
 }

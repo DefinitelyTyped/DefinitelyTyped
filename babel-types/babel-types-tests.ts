@@ -10,8 +10,9 @@ let ast: t.Node;
 
 traverse(ast, {
     enter(path) {
-        if (t.isIdentifier(path.node, { name: "n" })) {
-            path.node.name = "x";
+        let node = path.node;
+        if (t.isIdentifier(node, { name: "n" })) {
+            node.name = "x";
         }
     }
 });
