@@ -2036,9 +2036,7 @@ declare namespace JSX {
         radialGradient: React.SVGAttributes;
         rect: React.SVGAttributes;
         stop: React.SVGAttributes;
-        symbol: React.SVGAttributes;
         text: React.SVGAttributes;
         tspan: React.SVGAttributes;
-        use: React.SVGAttributes;
     }
 }
