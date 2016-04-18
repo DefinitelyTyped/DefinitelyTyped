@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Thenable<T> {
-    then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
-    then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => void): Thenable<U>;
+    then<U>(onFulfilled?: (value: T | Thenable<T>) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Thenable<T|U>;
+    then<U>(onFulfilled?: (value: T | Thenable<T>) => U | Thenable<U>, onRejected?: (error: any) => void): Thenable<T|U>;
     catch<U>(onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
 }
 
@@ -29,8 +29,8 @@ declare class Promise<T> implements Thenable<T> {
 	 * @param onFulfilled called when/if "promise" resolves
 	 * @param onRejected called when/if "promise" rejects
 	 */
-    then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Promise<U>;
-    then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => void): Promise<U>;
+    then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Promise<T|U>;
+    then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => void): Promise<T|U>;
 
 	/**
 	 * Sugar for promise.then(undefined, onRejected)
