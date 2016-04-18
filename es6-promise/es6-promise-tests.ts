@@ -32,22 +32,22 @@ var rejectResult = Promise.reject('there is an error');
 promiseAny = rejectResult;
 
 //all test
-var allResult = Promise.all(arrayOfPromise);
+var allResult = Promise.all<string>(arrayOfPromise);
 promiseStringArr = allResult;
 
 //race test
-var raceResult = Promise.race(arrayOfPromise);
+var raceResult = Promise.race<string>(arrayOfPromise);
 promiseString = raceResult;
 
 
 //then test
-var thenWithPromiseResult = promiseString.then(word => Promise.resolve(word.length));
+var thenWithPromiseResult = promiseString.then<number>(word => Promise.resolve(word.length));
 promiseNumber = thenWithPromiseResult;
 
-var thenWithPromiseResultAndPromiseReject = promiseString.then(word => Promise.resolve(word.length), error => Promise.resolve(10));
+var thenWithPromiseResultAndPromiseReject = promiseString.then<number>(word => Promise.resolve(word.length), error => Promise.resolve(10));
 promiseNumber = thenWithPromiseResultAndPromiseReject;
 
-var thenWithPromiseResultAndSimpleReject = promiseString.then(word => Promise.resolve(word.length), error => 10);
+var thenWithPromiseResultAndSimpleReject = promiseString.then<number>(word => Promise.resolve(word.length), error => 10);
 promiseNumber = thenWithPromiseResultAndSimpleReject;
 
 var thenWithSimpleResult = promiseString.then(word => word.length);
@@ -77,7 +77,7 @@ var voidPromise = new Promise<void>(function (resolve) { resolve(); });
 var catchWithSimpleResult = promiseString.catch(error => 10);
 promiseNumber = catchWithSimpleResult;
 
-var catchWithPromiseResult = promiseString.catch(error => Promise.resolve(10));
+var catchWithPromiseResult = promiseString.catch<number>(error => Promise.resolve(10));
 promiseNumber = catchWithPromiseResult;
 
 promiseString = promiseString.catch<string>(function () {
