@@ -3,8 +3,6 @@
 // Definitions by: Behzad abbai <https://github.com/behzad888>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./aurelia-pal.d.ts" />
-
 declare module 'aurelia-pal' {
   
   /**
