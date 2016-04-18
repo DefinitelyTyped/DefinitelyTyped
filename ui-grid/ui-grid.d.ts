@@ -1514,7 +1514,7 @@ declare namespace uiGrid {
             /**
              * reference to the parent grid scope (the parent scope of the sub-grid element)
              */
-            expandableRowScope?: Object;
+            expandableRowScope?: ng.IScope | Object;
             /**
              * Mandatory. The template for your expanded row
              */
