@@ -66,10 +66,10 @@ declare namespace __React {
 
 declare module "react-dom" {
     import DOM = __React.__DOM;
-    export = DOM;
+    export default DOM;
 }
 
 declare module "react-dom/server" {
     import DOMServer = __React.__DOMServer;
-    export = DOMServer;
+    export default DOMServer;
 }
