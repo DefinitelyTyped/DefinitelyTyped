@@ -1,4 +1,4 @@
-// Type definitions for jquery-backstretch v 2.0.4
+// Type definitions for backstretch v 2.0.4
 // Project: https://github.com/srobbin/jquery-backstretch
 // Definitions by: Dmytro Kulyk <lnkvisitor.ts@gmail.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -78,7 +78,7 @@ declare namespace JQueryBackStretch {
          *
          * @param {boolean} preserveBackground
          */
-        destroy(preserveBackground?:boolean);
+        destroy(preserveBackground?:boolean):void;
     }
 }
 

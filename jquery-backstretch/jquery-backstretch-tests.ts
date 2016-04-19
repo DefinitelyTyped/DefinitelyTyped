@@ -1,4 +1,7 @@
-var backstretch = $.backstretch(['image.png'], {
+/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="jquery-backstretch.d.ts"/>
+
+var backstretch = jQuery.backstretch(['image.png'], {
     centeredX: false,
     centeredY: false,
     duration: 'normal',
