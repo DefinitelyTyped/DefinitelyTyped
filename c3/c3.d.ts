@@ -1067,7 +1067,3 @@ declare namespace c3 {
 
     export function generate(config: ChartConfiguration): ChartAPI;
 }
-
-declare module "c3" {
-    export = c3;
-}
