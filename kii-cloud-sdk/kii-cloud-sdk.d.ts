@@ -1,4 +1,4 @@
-// Type definitions for Kii Cloud SDK v2.4.0
+// Type definitions for Kii Cloud SDK v2.4.3
 // Project: http://en.kii.com/
 // Definitions by: Kii Consortium <http://jp.kii.com/consortium/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -164,6 +164,33 @@ declare namespace KiiCloud {
         emailAddress?: string;
         phoneNumber?: string;
         username?: string;
+    }
+
+    interface KiiAccessTokenObject {
+        access_token: string;
+        expires_at: Date;
+    }
+
+    interface KiiGcmInstallationResponse {
+        installationID: string;
+    }
+
+    interface KiiMqttInstallationResponse {
+        installationID: string;
+        installationRegistrationID: string;
+    }
+
+    interface KiiMqttEndpoint {
+        installationID: string;
+        username: string;
+        password: string;
+        mqttTopic: string;
+        host: string;
+        "X-MQTT-TTL": number;
+        portTCP: number;
+        portSSL: number;
+        portWS: number;
+        portWSS: number;
     }
 
     /**
@@ -623,6 +650,7 @@ declare namespace KiiCloud {
          * KiiACLAction.KiiACLBucketActionCreateObjects,<br>
          * KiiACLAction.KiiACLBucketActionQueryObjects,  <br>
          * KiiACLAction.KiiACLBucketActionDropBucket,<br>
+         * KiiACLAction.KiiACLBucketActionReadObjects,<br>
          * KiiACLAction.KiiACLObjectActionRead,<br>
          * KiiACLAction.KiiACLObjectActionWrite,<br>
          * KiiACLAction.KiiACLSubscribeToTopic,<br>
@@ -1998,7 +2026,7 @@ declare namespace KiiCloud {
          * @example
          *     // example to use callbacks directly
          *     var bucket = . . .; // a KiiBucket
-         *     bucket['delete']({
+         *     bucket.delete({
          *         success: function(deletedBucket) {
          *             // do something with the result
          *         },
@@ -2010,7 +2038,7 @@ declare namespace KiiCloud {
          *
          *     // example to use Promise
          *     var bucket = . . .; // a KiiBucket
-         *     bucket['delete']({
+         *     bucket.delete({
          *         success: function(deletedBucket) {
          *             // do something with the result
          *         },
@@ -2394,7 +2422,7 @@ declare namespace KiiCloud {
          *     </li>
          *     <li>reject callback function: function(error). error is an Error instance.
          *       <ul>
-         *         <li>error.target is the KiiACL instance which this method was called on.</li>
+         *         <li>error.target is the KiiGroup instance which this method was called on.</li>
          *         <li>error.message</li>
          *       </ul>
          *     </li>
@@ -2512,15 +2540,7 @@ declare namespace KiiCloud {
          *
          *     // example to use Promise
          *     var group = . . .; // a KiiGroup
-         *     group.save({
-         *         success: function(theSavedGroup) {
-         *             // do something with the saved group
-         *         },
-         *
-         *         failure: function(theGroup, anErrorString, addMembersArray, removeMembersArray) {
-         *             // do something with the error response
-         *         }
-         *     }).then(
+         *     group.save().then(
          *         function(theSavedGroup) {
          *             // do something with the saved group
          *         },
@@ -2571,15 +2591,7 @@ declare namespace KiiCloud {
          *
          *     // example to use Promise
          *     var group = . . .; // a KiiGroup
-         *     group.saveWithOwner("UserID of owner", {
-         *         success: function(theSavedGroup) {
-         *             // do something with the saved group
-         *         },
-         *
-         *         failure: function(theGroup, anErrorString, addMembersArray, removeMembersArray) {
-         *             // do something with the error response
-         *         }
-         *     }).then(
+         *     group.saveWithOwner("UserID of owner").then(
          *         function(theSavedGroup) {
          *             // do something with the saved group
          *         },
@@ -2656,7 +2668,7 @@ declare namespace KiiCloud {
          * @example
          *     // example to use callbacks directly
          *     var group = . . .; // a KiiGroup
-         *     group['delete']({
+         *     group.delete({
          *         success: function(theDeletedGroup) {
          *             // do something
          *         },
@@ -2668,7 +2680,7 @@ declare namespace KiiCloud {
          *
          *     // example to use Promise
          *     var group = . . .; // a KiiGroup
-         *     group['delete']({
+         *     group.delete({
          *         success: function(theDeletedGroup) {
          *         },
          *
@@ -2890,6 +2902,13 @@ declare namespace KiiCloud {
          * @return
          */
         getUUID(): string;
+
+        /**
+         * Get Id of the object or null if the object ID hasn't been assigned.
+         *
+         * @return
+         */
+        getID(): string;
 
         /**
          * Get the server's creation date of this object
@@ -3179,7 +3198,7 @@ declare namespace KiiCloud {
          * @example
          *     // example to use callbacks directly
          *     var obj = . . .; // a KiiObject
-         *     obj['delete']({
+         *     obj.delete({
          *         success: function(theDeletedObject) {
          *             // do something
          *         },
@@ -3191,7 +3210,7 @@ declare namespace KiiCloud {
          *
          *     // example to use Promise
          *     var obj = . . .; // a KiiObject
-         *     obj['delete']().then(
+         *     obj.delete().then(
          *         function(theDeletedObject) {
          *             // do something
          *         },
@@ -3419,7 +3438,7 @@ declare namespace KiiCloud {
          *             // Obtaind body contents as bodyBlob.
          *             // content-type managed in Kii Cloud can be obtained from type attr.
          *             // It is same as obj.getBodyContentType();
-         *             var obj = param[0];
+         *             var obj = params[0];
          *             var bodyBlob = params[1];
          *             var contentType = bodyBlob.type;
          *         },
@@ -3649,6 +3668,144 @@ declare namespace KiiCloud {
          * @return true if given ID is valid, false otherwise.
          */
         static isValidObjectID(objectID: string): boolean;
+    }
+
+    /**
+     * Represents a KiiPushInstallation object
+     */
+    export class KiiPushInstallation {
+        /**
+         * Register the id issued by GCM to the Kii cloud for current logged in user.
+         *
+         * @param installationRegistrationID The ID of registration that identifies the installation externally.
+         * @param development Indicates if the installation is for development or production environment.
+         * @param callbacks An object with callback methods defined
+         *
+         * @return return promise object.
+         *   <ul>
+         *     <li>fulfill callback function: function(response).
+         *       <ul>
+         *         <li>response.installationID is ID of the installation in the platform.</li>
+         *       </ul>
+         *     </li>
+         *     <li>reject callback function: function(error). error is an Error instance.
+         *       <ul>
+         *         <li>error.message</li>
+         *       </ul>
+         *     </li>
+         *   </ul>
+         *
+         * @example
+         *
+         */
+        installGcm(installationRegistrationID: string, development: boolean, callbacks?: { success(response: KiiGcmInstallationResponse): any; failure(error: Error): any; }): Promise<KiiGcmInstallationResponse>;
+
+        /**
+         * Register a MQTT installation to the Kii cloud for current logged in user.
+         *
+         * @param development Indicates if the installation is for development or production environment.
+         * @param callbacks An object with callback methods defined
+         *
+         * @return return promise object.
+         *   <ul>
+         *     <li>fulfill callback function: function(response).
+         *       <ul>
+         *         <li>response.installationID is ID of the installation in the platform.</li>
+         *         <li>response.installationRegistrationID is ID of registration that identifies the installation externally.</li>
+         *       </ul>
+         *     </li>
+         *     <li>reject callback function: function(error). error is an Error instance.
+         *       <ul>
+         *         <li>error.message</li>
+         *       </ul>
+         *     </li>
+         *   </ul>
+         *
+         * @example
+         *
+         */
+        installMqtt(development: boolean, callbacks?: { success(response: KiiMqttInstallationResponse): any; failure(error: Error): any; }): Promise<KiiMqttInstallationResponse>;
+
+        /**
+         * Get MQTT endpoint.
+         * If the MQTT endpoint is not ready, this method retries request up to three times.
+         * <br><br>
+         * Note that only MQTT over tls is supported currently.<br>
+         * Don't use portSSL, portWS or portWSS until we support it.
+         *
+         * @param installationID The ID of the installation in the platform.
+         * @param callbacks An object with callback methods defined
+         *
+         * @return return promise object.
+         *   <ul>
+         *     <li>fulfill callback function: function(response).
+         *       <ul>
+         *         <li>response.installationID is ID of the installation in the platform.</li>
+         *         <li>response.username is username to use for connecting to the MQTT broker.</li>
+         *         <li>response.password is assword to use for connecting to the MQTT broker.</li>
+         *         <li>response.mqttTopic is topic to subscribe in the MQTT broker.</li>
+         *         <li>response.host is URL of the MQTT broker host to connect.</li>
+         *         <li>response.X-MQTT-TTL is the amount of time in seconds that specifies how long the mqttTopic will be valid, after that the client needs to request new MQTT endpoint info.</li>
+         *         <li>response.portTCP is port to connect using plain TCP.</li>
+         *         <li>response.portSSL is port to connect using SSL/TLS.</li>
+         *         <li>response.portWS is port to connect using plain Websocket.</li>
+         *         <li>response.portWSS is port to connect using SSL/TLS Websocket.</li>
+         *       </ul>
+         *     </li>
+         *     <li>reject callback function: function(error). error is an Error instance.
+         *       <ul>
+         *         <li>error.message</li>
+         *       </ul>
+         *     </li>
+         *   </ul>
+         *
+         * @example
+         *
+         */
+        getMqttEndpoint(installationID: string, callbacks?: { success(response: KiiMqttEndpoint): any; failure(error: Error): any; }): Promise<KiiMqttEndpoint>;
+
+        /**
+         * Unregister the push settings by the id(issued by push provider) that is used for installation.
+         *
+         * @param installationRegistrationID The ID of registration that identifies the installation externally.
+         * @param deviceType The type of the installation, current implementation only supports "ANDROID" and "MQTT".
+         * @param callbacks An object with callback methods defined
+         *
+         * @return return promise object.
+         *   <ul>
+         *     <li>fulfill callback function: function().</li>
+         *     <li>reject callback function: function(error). error is an Error instance.
+         *       <ul>
+         *         <li>error.message</li>
+         *       </ul>
+         *     </li>
+         *   </ul>
+         *
+         * @example
+         *
+         */
+        uninstall(installationRegistrationID: string, deviceType: string, callbacks?: { success(): any; failure(error: Error): any; }): Promise<void>;
+
+        /**
+         * Unregister the push settings by the id(issued by KiiCloud) that is used for installation.
+         *
+         * @param installationID The ID of the installation issued by KiiCloud.
+         * @param callbacks An object with callback methods defined
+         *
+         * @return return promise object.
+         *   <ul>
+         *     <li>fulfill callback function: function().</li>
+         *     <li>reject callback function: function(error). error is an Error instance.
+         *       <ul>
+         *         <li>error.message</li>
+         *       </ul>
+         *     </li>
+         *   </ul>
+         *
+         * @example
+         *
+         */
+        uninstallByInstallationID(installationID: string, callbacks?: { success(): any; failure(error: Error): any; }): Promise<void>;
     }
 
     /**
@@ -5997,7 +6154,7 @@ declare namespace KiiCloud {
          *
          * @return Access token and token expires in a object.
          */
-        getAccessTokenObject(): { access_token: string, expires_at: Date };
+        getAccessTokenObject(): KiiAccessTokenObject;
 
         /**
          * Get a specifically formatted string referencing the user
@@ -7161,7 +7318,7 @@ declare namespace KiiCloud {
          * @example
          *     // example to use callbacks directly
          *     var user = Kii.getCurrentUser(); // a KiiUser
-         *     user['delete']({
+         *     user.delete({
          *         success: function(theDeletedUser) {
          *             // do something
          *         },
@@ -7173,7 +7330,7 @@ declare namespace KiiCloud {
          *
          *     // example to use Promise
          *     var user = Kii.getCurrentUser(); // a KiiUser
-         *     user['delete']().then(
+         *     user.delete().then(
          *         function(theDeletedUser) {
          *             // do something
          *         },
@@ -7430,6 +7587,184 @@ declare namespace KiiCloud {
          * @return push subscription object.
          */
         pushSubscription(): KiiPushSubscription;
+
+        /**
+         * Instantiate push installation for this user.
+         *
+         * @return push installation object.
+         */
+        pushInstallation(): KiiPushInstallation;
+    }
+
+    /**
+     * Represents a KiiUser builder
+     */
+    export class KiiUserBuilder {
+        /**
+         * Create a KiiUser builder with identifier.
+         *
+         * <br><br>Create a KiiUser builder. This constructor is received
+         * identifier. The identifier is one of user name, email address or
+         * phone number. This constructor automatically identity What is
+         * identifier and build proper KiiUser object on build method.
+         *
+         * <br><br> Some strings can be accepted as both user name and phone
+         * number. If such string is passed to this constructor as
+         * identifier, then phone number is prior to user name. String of
+         * email address is in different class against user name and phone
+         * number. So Email address is always identified correctly.
+         *
+         * @param identifier The user's user name, email address or phone
+         *   number. Must be string. Must not be null or undefined.
+         * @param password for the user. Must be string. Must not be null or
+         *   undefined.
+         *
+         * @return KiiUser object builder.
+         *
+         * @throws If Identifier is not user name,
+         *     email address or phone number.
+         * @throws If the password is not in the
+         *     proper format
+         */
+        static builderWithIdentifier(identifier: string, password: string): KiiUserBuilder;
+
+        /**
+         * Create KiiUser builder with email address
+         *
+         * <br><br>Create a KiiUser builder with email address.
+         *
+         * @param emailAddress email address.
+         * @param password for the user. Must be string. Must not be null or
+         *   undefined.
+         *
+         * @return KiiUser object builder.
+         *
+         * @throws If the email address is not in the proper format
+         * @throws If the password is not in the
+         *     proper format
+         */
+        static builderWithEmailAddress(emailAddress: string, password: string): KiiUserBuilder;
+
+        /**
+         * Create KiiUser builder with global phone number
+         *
+         * <br><br>Create a KiiUser builder with global phone number.
+         *
+         * @param phoneNumber global phone number.
+         * @param password
+         *
+         * @return KiiUser object builder.
+         *
+         * @throws If the phone number is not in the proper format
+         */
+        static builderWithGlobalPhoneNumber(phoneNumber: string, password: string): KiiUserBuilder;
+
+        /**
+         * Create KiiUser builder with local phone number
+         *
+         * <br><br>Create a KiiUser builder with local phone number.
+         *
+         * @param phoneNumber local phone number.
+         * @param country country code
+         * @param password for the user. Must be string. Must not be null or
+         *   undefined.
+         *
+         * @return KiiUser object builder.
+         *
+         * @throws If the phone number is not in the proper format
+         * @throws If the country code is not a valid format
+         * @throws If the password is not in the
+         *     proper format
+         */
+        static builderWithLocalPhoneNumber(phoneNumber: string, country: string, password: string): KiiUserBuilder;
+
+        /**
+         * Create KiiUser builder with user name
+         *
+         * <br><br>Create a KiiUser builder with user name.
+         *
+         * @param username user name.
+         * @param password for the user. Must be string. Must not be null or
+         *   undefined.
+         *
+         * @return KiiUser object builder.
+         *
+         * @throws If the username is not in the proper format
+         * @throws If the password is not in the
+         *     proper format
+         */
+        static builderWithUsername(username: string, password: string): KiiUserBuilder;
+
+        /**
+         * Set user name.
+         *
+         * <br><br>Set user name. If null or undefined is passed. It is
+         * ignored. Previous user name is remained.
+         *
+         * @param username user name.
+         *
+         * @return this builder object.
+         *
+         * @throws If the username is not in the
+         *     proper format
+         */
+        setUsername(username: string): KiiUserBuilder;
+
+        /**
+         * Set email address.
+         *
+         * <br><br>Set email address. If null or undefined is passed. It is
+         * ignored. Previous email address is remained.
+         *
+         * @param emailAddress email address.
+         *
+         * @return this builder object.
+         *
+         * @throws If the email address is not in the
+         *     proper format
+         */
+        setEmailAddress(emailAddress: string): KiiUserBuilder;
+
+        /**
+         * Set global phone number.
+         *
+         * <br><br>Set global phone number. If null or undefined is
+         * passed. It is ignored. Previous phone number is remained.
+         *
+         * @param phoneNumber global phone number.
+         *
+         * @return this builder object.
+         *
+         * @throws If the phone number is not
+         *     in the proper format
+         */
+        setGlobalPhoneNumber(phoneNumber: string): KiiUserBuilder;
+
+        /**
+         * Set local phone number.
+         *
+         * <br><br>Set local phone number. If null or undefined is
+         * passed. It is ignored. Previous phone number is remained.
+         *
+         * @param phoneNumber local phone number.
+         * @param country country code
+         *
+         * @return this builder object.
+         *
+         * @throws If the phone number is not
+         *     in the proper format
+         * @throws If the country code is not a valid format
+         */
+        setLocalPhoneNumber(phoneNumber: string, country: string): KiiUserBuilder;
+
+        /**
+         * Build KiiUser object.
+         *
+         * <br><br> Build KiiUser object. This method verify set values.
+         *
+         * @return a working KiiUser object.
+         */
+        build(): KiiUser;
     }
 }
 
@@ -7449,6 +7784,7 @@ import KiiClause = KiiCloud.KiiClause;
 import KiiGeoPoint = KiiCloud.KiiGeoPoint;
 import KiiGroup = KiiCloud.KiiGroup;
 import KiiObject = KiiCloud.KiiObject;
+import KiiPushInstallation = KiiCloud.KiiPushInstallation;
 import KiiPushMessageBuilder = KiiCloud.KiiPushMessageBuilder;
 import KiiPushSubscription = KiiCloud.KiiPushSubscription;
 import KiiQuery = KiiCloud.KiiQuery;
@@ -7458,3 +7794,4 @@ import KiiSocialConnect = KiiCloud.KiiSocialConnect;
 import KiiThing = KiiCloud.KiiThing;
 import KiiTopic = KiiCloud.KiiTopic;
 import KiiUser = KiiCloud.KiiUser;
+import KiiUserBuilder = KiiCloud.KiiUserBuilder;

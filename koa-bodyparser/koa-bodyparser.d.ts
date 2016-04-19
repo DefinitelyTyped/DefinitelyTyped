@@ -60,5 +60,6 @@ declare module "koa-bodyparser" {
         onerror?: (err: Error, ctx: Koa.Context) => void;
     }): { (ctx: Koa.Context, next?: () => any): any };
 
+    namespace bodyParser {}
     export = bodyParser;
 }

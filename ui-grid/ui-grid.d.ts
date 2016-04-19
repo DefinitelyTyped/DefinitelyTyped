@@ -399,7 +399,7 @@ declare namespace uiGrid {
          * ALL
          * @returns {Function} deregister function - a function that can be called to deregister this callback
          */
-        registerDataChangeCallback(callback: (grid: IGridInstanceOf<TEntity>) => void, types: Array<string>): Function;
+        registerDataChangeCallback(callback: (grid: IGridInstanceOf<TEntity>) => void, types?: Array<string>): Function;
         /**
          * When the build creates rows from gridOptions.data, the rowBuilders will be called to add
          * additional properties to the row.
@@ -861,7 +861,7 @@ declare namespace uiGrid {
          * By default it returns the `$$hashKey` property if it exists. If it doesn't it uses gridUtil.nextUid()
          * to generate one
          */
-        rowIdentity?(): any;
+        rowIdentity?(row: IGridRowOf<TEntity>): any;
     }
     export interface IGridCoreApi<TEntity> {
         // Methods
