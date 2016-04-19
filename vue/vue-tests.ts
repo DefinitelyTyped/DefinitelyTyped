@@ -8,7 +8,6 @@ namespace TestConfig {
   Vue.config.unsafeDelimiters = ['{!!', '!!}'];
   Vue.config.silent = true;
   Vue.config.async = false;
-  Vue.config.convertAllProperties = true;
 }
 
 namespace TestGlobalAPI {
@@ -16,54 +15,56 @@ namespace TestGlobalAPI {
 
   var AppConstructor = Vue.extend({});
   var extendedApp = new AppConstructor();
-  Vue.nextTick(() => {});
+  Vue.nextTick(() => { });
   Vue.set({}, "key", "value");
   Vue.delete({}, "key");
   Vue.directive("directive", {
-    bind: function() {},
-    update: function(val: any, oldVal: any) {},
-    unbind: function() {},
+    bind: function () { },
+    update: function (val: any, oldVal: any) { },
+    unbind: function () { },
     params: ['a'],
     paramWatchers: {
-      a: function(val: any, oldVal: any) {}
+      a: function (val: any, oldVal: any) { }
     },
     twoWay: true,
     acceptStatement: true,
     priority: 1,
     count: 30
   });
-  Vue.directive("my-directive", () => {});
+  Vue.directive("my-directive", () => { });
   var myDirective = Vue.directive("my-directive");
+  var on = Vue.directive("on");
+  on.keyCodes.f1 = 112;
   var elementDirective = Vue.elementDirective("element-directive");
   Vue.elementDirective("element-directive", elementDirective);
   Vue.elementDirective("element-directive", {
-    bind: function() {},
-    unbind: function() {}
+    bind: function () { },
+    unbind: function () { }
   });
   var filter = Vue.filter("filter");
   Vue.filter("filter", filter);
-  Vue.filter("filter", function(val: any) {
+  Vue.filter("filter", function (val: any) {
     return val;
   });
   Vue.filter("filter", {
-    read: function(val: any) {},
-    write: function(val: any, oldVal: any) {}
+    read: function (val: any) { },
+    write: function (val: any, oldVal: any) { }
   });
   var Component = Vue.component("component");
   Vue.component("component", Component);
   Vue.component("component", {
-    data: function() {
+    data: function () {
       return { d: 0 }
     },
     methods: {
-      action: function() {}
+      action: function () { }
     },
     props: ["a", "b"],
     computed: {
-      a: function() { return this.d; },
+      a: function () { return this.d; },
       b: {
-        get: function() { return this.a; },
-        set: function(val: number) { this.d = val; }
+        get: function () { return this.a; },
+        set: function (val: number) { this.d = val; }
       }
     }
   });
@@ -71,22 +72,22 @@ namespace TestGlobalAPI {
   Vue.transition("transition", transition);
   Vue.transition("transition", {
     css: false,
-    stagger: function(index) {
+    stagger: function (index) {
       return index;
     },
-    beforeEnter: function(el) {
+    beforeEnter: function (el) {
       el.textContent = 'beforeEnter';
     },
-    enter: function(el, done) {
+    enter: function (el, done) {
       el.textContent = 'enter';
-      setTimeout(function() {
+      setTimeout(function () {
         done();
       }, 1000);
     },
-    afterEnter: function(el) {
+    afterEnter: function (el) {
       el.textContent = 'afterEnter';
     },
-    enterCancelled: function(el) {
+    enterCancelled: function (el) {
       el.textContent = 'enterCancelled';
     },
     beforeLeave: function (el) {
@@ -105,15 +106,15 @@ namespace TestGlobalAPI {
   });
   var myPartial: string = Vue.partial("my-partial", "<div>Hello</div>");
   myPartial = Vue.partial("my-partial");
-  Vue.use(() => {}, {});
-  Vue.use({install: () => {}, option: () => {}});
-  Vue.mixin({ready() {}});
+  Vue.use(() => { }, {});
+  Vue.use({ install: () => { }, option: () => { } });
+  Vue.mixin({ ready() { } });
 }
 
 namespace TestInstanceProperty {
   "use strict";
 
-  var vm = new Vue({el: '#app'});
+  var vm = new Vue({ el: '#app' });
   var data: any = vm.$data;
   var el: HTMLElement = vm.$el;
   var options: any = vm.$options;
@@ -127,13 +128,13 @@ namespace TestInstanceProperty {
 namespace TestInscanceMethods {
   "use strict";
 
-  var vm = new Vue({el: '#app'});
-  vm.$watch('a.b.c', function(newVal: string, oldVal: number) {});
-  vm.$watch(function() {return this.a + this.b}, function(newVal: string, oldVal: string) {});
-  var unwatch = vm.$watch('a', (value: any) => {});
+  var vm = new Vue({ el: '#app' });
+  vm.$watch('a.b.c', function (newVal: string, oldVal: number) { });
+  vm.$watch(function () { return this.a + this.b }, function (newVal: string, oldVal: string) { });
+  var unwatch = vm.$watch('a', (value: any) => { });
   unwatch();
-  vm.$watch('someObject', (value: any) => {}, {deep: true});
-  vm.$watch('a', (value: any) => {}, {immidiate: true});
+  vm.$watch('someObject', (value: any) => { }, { deep: true });
+  vm.$watch('a', (value: any) => { }, { immidiate: true });
   vm.$get('a.b');
   vm.$set('a.b', 2);
   vm.$delete('a');
@@ -143,18 +144,18 @@ namespace TestInscanceMethods {
   vm.$log('item');
 
   vm
-    .$on('test', (msg: any) => {})
-    .$once('testOnce', (msg: any) => {})
-    .$off("event", () => {})
+    .$on('test', (msg: any) => { })
+    .$once('testOnce', (msg: any) => { })
+    .$off("event", () => { })
     .$emit("event", 1, 2)
     .$dispatch("event", 1, 2, 3)
     .$broadcast("event", 1, 2, 3, 4)
 
-    .$appendTo(document.createElement("div"), () => {})
-    .$before('#app', () => {})
+    .$appendTo(document.createElement("div"), () => { })
+    .$before('#app', () => { })
     .$after(document.getElementById('app'))
-    .$remove(() => {})
-    .$nextTick(() => {});
+    .$remove(() => { })
+    .$nextTick(() => { });
 
   vm
     .$mount('#app')
@@ -183,11 +184,11 @@ namespace TestVueUtil {
   _.remove(target);
   _.prepend(target, parent);
   _.replace(child, target);
-  _.on(target, 'click', () => {});
-  _.off(target, 'click', () => {});
+  _.on(target, 'click', () => { });
+  _.off(target, 'click', () => { });
   _.removeClass(target, 'header');
   _.addClass(target, 'header');
-  _.nextTick(() => {}, {});
+  _.nextTick(() => { }, {});
   b = _.isLiteral('123');
   s = _._toString('hi');
   var ns: number | string = _.toNumber('12');
@@ -195,15 +196,15 @@ namespace TestVueUtil {
   s = _.camelize('abc');
   s = _.hyphenate('whatsUp');
   s = _.classify('abc');
-  f = _.bind(() => {}, {});
+  f = _.bind(() => { }, {});
   a = _.toAarray(document.getElementsByClassName('target'));
-  o = _.extend({}, {a: 1, b: 2});
+  o = _.extend({}, { a: 1, b: 2 });
   b = _.isObject({});
   b = _.isPlainObject({});
   b = _.isArray([]);
   _.def({}, 'test', 123);
   _.def({}, 'test2', 123, true);
-  f = _.debounce(() => {}, 100);
+  f = _.debounce(() => { }, 100);
   b = _.looseEqual(1, '1');
 }
 
@@ -212,30 +213,10 @@ namespace TestExplicitExtend {
 
   export class Application extends Vue {
     text: string;
-    constructor() {
-      super();
-      this._init({
-        // data is necessary to always write in init()
-        data: {
-          text: "hello world."
-        },
-        methods: {
-          action: this.action
-        },
-        props: {
-            propA: Object,
-            propB: {
-                type: Application,
-                default: () => new Application(),
-                twoWay: true,
-                coerce(value: any) {}
-            }
-        }
-      });
-    }
+
     action(): void {
       console.log("action");
-      this.$on("event", (value: any) => {}).anotherAction();
+      this.$on("event", (value: any) => { }).anotherAction();
     }
     anotherAction(): void {
       this.$emit("event");

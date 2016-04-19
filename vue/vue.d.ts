@@ -1,4 +1,4 @@
-// Type definitions for vuejs 1.0.16
+// Type definitions for vuejs 1.0.21
 // Project: https://github.com/vuejs/vue
 // Definitions by: odangosan <https://github.com/odangosan>, kaorun343 <https://github.com/kaorun343>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,8 +10,10 @@ interface Array<T> {
 
 declare namespace vuejs {
 
+    type PropType = ({ new (...args: any[]): any; } | { new (...args: any[]): any; }[]);
+
     interface PropOption {
-        type?: { new (...args: any[]): any; };
+        type?: PropType;
         required?: boolean;
         default?: any;
         twoWay?: boolean;
@@ -68,7 +70,7 @@ declare namespace vuejs {
 
     interface ComponentOption {
         data?: { [key: string]: any } | Function;
-        props?: string[] | { [key: string]: (PropOption | { new (...args: any[]): any; }) };
+        props?: string[] | { [key: string]: (PropOption | PropType) };
         computed?: { [key: string]: (Function | ComputedOption) };
         methods?: { [key: string]: Function };
         watch?: { [key: string]: ((val: any, oldVal: any) => void) | string | WatchOption };
@@ -133,8 +135,6 @@ declare namespace vuejs {
         $mount(elementOrSelector?: (HTMLElement | string)): this;
         $destroy(remove?: boolean): void;
         $compile(el: Element | DocumentFragment, host?: Vue): Function;
-
-        _init(options?: ComponentOption): void;
     }
 
     interface VueConfig {
@@ -143,7 +143,6 @@ declare namespace vuejs {
         unsafeDelimiters: [string, string];
         silent: boolean;
         async: boolean;
-        convertAllProperties: boolean;
     }
 
     interface VueUtil {
@@ -234,7 +233,8 @@ declare namespace vuejs {
         mixin(mixin: Object): void;
 
         directive<T extends (Function | DirectiveOption)>(id: string, definition: T): T;
-        directive(id: string): any;
+        directive(id: string): (Function | DirectiveOption);
+        directive(id: "on"): DirectiveOption & { keyCodes: any };
         elementDirective<T extends (Function | DirectiveOption)>(id: string, definition: T): T;
         elementDirective(id: string): any;
         filter<T extends (Function | FilterOption)>(id: string, definition: T): T;
