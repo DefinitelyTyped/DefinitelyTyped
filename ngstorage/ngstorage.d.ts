@@ -7,22 +7,22 @@
 
 declare namespace angular.storage {
 
-    export interface ILocalStorageService {
-        $default(items: any):ILocalStorageService;
-        $reset(items: any):ILocalStorageService;
-        $apply():void;
+    export interface IStorageService {
+        $default(items: {}): IStorageService;
+        $reset(items?: {}): IStorageService;
+        $apply(): void;
 
         get<T>(key: string): T;
         set<T>(key: string, value: T): T;
     }
 
-    export interface ILocalStorageProvider extends angular.IServiceProvider {
+    export interface IStorageProvider extends angular.IServiceProvider {
 
         get<T>(key:string): T;
         set<T>(key:string, value:T): T;
 
-        setKeyPrefix(prefix: string):void;
-        setSerializer(serializer: (value: any)=>string):void;
-        setDeserializer(deserializer: (value: string)=>any):void;
+        setKeyPrefix(prefix: string): void;
+        setSerializer(serializer: (value: any)=>string): void;
+        setDeserializer(deserializer: (value: string)=>any): void;
     }
 }

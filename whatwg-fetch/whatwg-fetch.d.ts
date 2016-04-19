@@ -59,8 +59,8 @@ declare class Body {
 }
 declare class Response extends Body {
 	constructor(body?: BodyInit, init?: ResponseInit);
-	error(): Response;
-	redirect(url: string, status: number): Response;
+	static error(): Response;
+	static redirect(url: string, status: number): Response;
 	type: ResponseType;
 	url: string;
 	status: number;

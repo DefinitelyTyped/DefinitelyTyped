@@ -36,6 +36,9 @@ declare namespace Html2Canvas {
 
         /** Whether to attempt to load cross-origin images as CORS served, before reverting back to proxy. */
         useCORS?: boolean;
+        
+        /** Use svg powered rendering where available (FF11+). */
+        svgRendering?: boolean;
 
         /** Callback providing the rendered canvas element after rendering */
         onrendered?(canvas: HTMLCanvasElement): void;

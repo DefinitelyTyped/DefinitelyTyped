@@ -106,6 +106,10 @@ interface KnockoutValidationGroup {
     isAnyMessageShown?: () => boolean;
 }
 
+interface KnockoutValidationLocalizationDictionary {
+    [key: string]: string;
+}
+
 interface KnockoutValidationStatic {
     init(options?: KnockoutValidationConfiguration, force?: boolean): void;
     reset(): void;
@@ -127,7 +131,9 @@ interface KnockoutValidationStatic {
     registerExtenders(): void;
     utils: KnockoutValidationUtils;
 
-    localize(msgTranslations: any): void;
+    localize(msgTranslations: KnockoutValidationLocalizationDictionary): void;
+    defineLocale(newLocale: string, msgTranslations: KnockoutValidationLocalizationDictionary): KnockoutValidationLocalizationDictionary;
+    locale(newLocale: string): string;
     validateObservable(observable: KnockoutObservable<any>): boolean;
 }
 

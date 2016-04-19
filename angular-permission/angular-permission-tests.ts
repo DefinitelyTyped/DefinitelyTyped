@@ -1,6 +1,6 @@
 /// <reference path="./angular-permission.d.ts" />
 
-import * as permission from 'angular-permission';
+import permission = angular.permission;
 
 angular
   .module('fooModule', ['permission', 'user'])
