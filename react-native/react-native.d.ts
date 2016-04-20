@@ -3351,7 +3351,7 @@ declare namespace  __React {
        * mechanism at a time.  Using a new mechanism (e.g. starting a new animation,
        * or calling `setValue`) will stop any previous ones.
        */
-      export class Value {
+      export class AnimatedValue {
         constructor(value: number);
         setValue(value: number): void;
 
@@ -3393,6 +3393,10 @@ declare namespace  __React {
         interpolate(config: InterpolationConfigType): AnimatedInterpolation;
       }
 
+      export class AnimatedValueXY {
+        // TODO
+      }
+
       class Animated {
         // Internal class, no public API.
       }
@@ -3404,6 +3408,40 @@ declare namespace  __React {
       class AnimatedInterpolation extends AnimatedWithChildren {
         interpolate(config: InterpolationConfigType): AnimatedInterpolation;
       }
+
+      type EndResult = {finished: boolean};
+      type EndCallback = (result: EndResult) => void;
+
+      interface CompositeAnimation {
+        start: (callback?: EndCallback) => void;
+        stop: () => void;
+      }
+
+      type AnimationConfig = {
+        isInteraction?: boolean;
+        useNativeDriver?: boolean;
+      };
+
+      type SpringAnimationConfig = AnimationConfig & {
+        toValue: number | AnimatedValue | {x: number, y: number} | AnimatedValueXY;
+        overshootClamping?: boolean;
+        restDisplacementThreshold?: number;
+        restSpeedThreshold?: number;
+        velocity?: number | {x: number, y: number};
+        bounciness?: number;
+        speed?: number;
+        tension?: number;
+        friction?: number;
+      };
+
+      /**
+       * Spring animation based on Rebound and Origami.  Tracks velocity state to
+       * create fluid motions as the `toValue` updates, and can be chained together.
+       */
+      export var spring: (
+        value: AnimatedValue | AnimatedValueXY,
+        config: SpringAnimationConfig
+      ) => CompositeAnimation;
     }
 
     //////////////////////////////////////////////////////////////////////////
