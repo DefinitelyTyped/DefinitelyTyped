@@ -3484,6 +3484,20 @@ declare namespace  __React {
         value: AnimatedValue | AnimatedValueXY,
         config: SpringAnimationConfig
       ) => CompositeAnimation;
+
+      type ParallelConfig = {
+        stopTogether?: boolean; // If one is stopped, stop all.  default: true
+      }
+
+      /**
+       * Starts an array of animations all at the same time.  By default, if one
+       * of the animations is stopped, they will all be stopped.  You can override
+       * this with the `stopTogether` flag.
+       */
+      var parallel: (
+        animations: Array<CompositeAnimation>,
+        config?: ParallelConfig
+      ) => CompositeAnimation;
     }
 
     //////////////////////////////////////////////////////////////////////////
