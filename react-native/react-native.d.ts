@@ -3331,6 +3331,81 @@ declare namespace  __React {
         vibrate(): void
     }
 
+    export module Animated {
+      type ExtrapolateType = 'extend' | 'identity' | 'clamp';
+
+      type InterpolationConfigType = {
+        inputRange: number[];
+        outputRange: (number[] | string[]);
+        easing?: ((input: number) => number);
+        extrapolate?: ExtrapolateType;
+        extrapolateLeft?: ExtrapolateType;
+        extrapolateRight?: ExtrapolateType;
+      };
+
+      type ValueListenerCallback = (state: {value: number}) => void;
+
+      /**
+       * Standard value for driving animations.  One `Animated.Value` can drive
+       * multiple properties in a synchronized fashion, but can only be driven by one
+       * mechanism at a time.  Using a new mechanism (e.g. starting a new animation,
+       * or calling `setValue`) will stop any previous ones.
+       */
+      export class Value {
+        constructor(value: number);
+        setValue(value: number): void;
+
+        /**
+         * Sets an offset that is applied on top of whatever value is set, whether via
+         * `setValue`, an animation, or `Animated.event`.  Useful for compensating
+         * things like the start of a pan gesture.
+         */
+        setOffset(offset: number): void;
+
+        /**
+         * Merges the offset value into the base value and resets the offset to zero.
+         * The final output of the value is unchanged.
+         */
+        flattenOffset(): void;
+
+        /**
+         * Adds an asynchronous listener to the value so you can observe updates from
+         * animations.  This is useful because there is no way to
+         * synchronously read the value because it might be driven natively.
+         */
+        addListener(callback: ValueListenerCallback): string;
+
+        removeListener(id: string): void;
+
+        removeAllListeners(): void;
+
+        /**
+         * Stops any running animation or tracking.  `callback` is invoked with the
+         * final value after stopping the animation, which is useful for updating
+         * state to match the animation position with layout.
+         */
+        stopAnimation(callback?: (value: number) => void): void;
+
+        /**
+         * Interpolates the value before updating the property, e.g. mapping 0-1 to
+         * 0-10.
+         */
+        interpolate(config: InterpolationConfigType): AnimatedInterpolation;
+      }
+
+      class Animated {
+        // Internal class, no public API.
+      }
+
+      class AnimatedWithChildren extends Animated {
+        // Internal class, no public API.
+      }
+
+      class AnimatedInterpolation extends AnimatedWithChildren {
+        interpolate(config: InterpolationConfigType): AnimatedInterpolation;
+      }
+    }
+
     //////////////////////////////////////////////////////////////////////////
     //
     //  R E - E X P O R T S
