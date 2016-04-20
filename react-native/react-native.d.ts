@@ -3393,8 +3393,50 @@ declare namespace  __React {
         interpolate(config: InterpolationConfigType): AnimatedInterpolation;
       }
 
+      type ValueXYListenerCallback = (value: {x: number; y: number}) => void;
+      /**
+       * 2D Value for driving 2D animations, such as pan gestures.  Almost identical
+       * API to normal `Animated.Value`, but multiplexed.  Contains two regular
+       * `Animated.Value`s under the hood.
+       */
       export class AnimatedValueXY {
-        // TODO
+        x: AnimatedValue;
+        y: AnimatedValue;
+
+        constructor(valueIn?: {x: number | AnimatedValue; y: number | AnimatedValue});
+
+        setValue(value: {x: number; y: number});
+
+        setOffset(offset: {x: number; y: number});
+
+        flattenOffset(): void
+
+        stopAnimation(callback?: () => number): void;
+
+        addListener(callback: ValueXYListenerCallback): string;
+
+        removeListener(id: string): void;
+
+        /**
+         * Converts `{x, y}` into `{left, top}` for use in style, e.g.
+         *
+         *```javascript
+         *  style={this.state.anim.getLayout()}
+         *```
+         */
+        getLayout(): { left: AnimatedValue, top: AnimatedValue };
+
+        /**
+         * Converts `{x, y}` into a useable translation transform, e.g.
+         *
+         *```javascript
+         *  style={{
+         *    transform: this.state.anim.getTranslateTransform()
+         *  }}
+         *```
+         */
+        getTranslateTransform(): {[key: string]: AnimatedValue}[];
+
       }
 
       class Animated {
