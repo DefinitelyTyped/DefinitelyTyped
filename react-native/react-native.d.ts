@@ -3467,12 +3467,12 @@ declare namespace  __React {
         stop: () => void;
       }
 
-      type AnimationConfig = {
+      interface AnimationConfig {
         isInteraction?: boolean;
         useNativeDriver?: boolean;
-      };
+      }
 
-      type TimingAnimationConfig =  AnimationConfig & {
+      interface TimingAnimationConfig extends AnimationConfig {
         toValue: number | AnimatedValue | {x: number, y: number} | AnimatedValueXY;
         easing?: (value: number) => number;
         duration?: number;
@@ -3488,7 +3488,7 @@ declare namespace  __React {
         config: TimingAnimationConfig
       ) => CompositeAnimation;
 
-      type SpringAnimationConfig = AnimationConfig & {
+      interface SpringAnimationConfig extends AnimationConfig {
         toValue: number | AnimatedValue | {x: number, y: number} | AnimatedValueXY;
         overshootClamping?: boolean;
         restDisplacementThreshold?: number;
@@ -3524,7 +3524,9 @@ declare namespace  __React {
       ) => CompositeAnimation;
 
       type Mapping = {[key: string]: Mapping} | AnimatedValue;
-      type EventConfig = {listener?: Function};
+      interface EventConfig {
+        listener?: Function
+      };
 
       /**
        *  Takes an array of mappings and extracts values from each arg accordingly,
