@@ -1,7 +1,7 @@
 /// <reference path="survey.d.ts" />
-module Survey.Tests {
+module SurveyTests {
     function createFromCodeTests() {
-        var survey = new SurveyModel();
+        var survey = new Survey.SurveyModel();
         var page = survey.addNewPage("Page 1");
         page.addNewQuestion("text", "question1");
         page.addNewQuestion("comment", "question2");
@@ -11,7 +11,7 @@ module Survey.Tests {
         return survey;
     }
     function createFromJSONTests() {
-        var survey = new SurveyModel({
+        var survey = new Survey.SurveyModel({
             pages: [{
                 "name": "page1",
                 "questions": [{ "type": "text", "name": "textQuestion", "isRequired": "true" }, { "type": "checkbox", "name": "checkboxQuestion", "isRequired": "true", "choices": ["red", "white"] }]
