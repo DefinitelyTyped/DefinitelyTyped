@@ -35,7 +35,7 @@ interface IonicStatic {
         /**
          * Check if the platform name provided is detected.
          */
-        is(Platform: string): bool;
+        is(platformName: string): boolean;
         /**
          * Check if we are running within a WebView (such as Cordova).
          */
