@@ -3522,6 +3522,14 @@ declare namespace  __React {
         argMapping: Mapping[],
         config?: EventConfig
       ) => (...args: any[]) => void;
+
+      /**
+       * Animated variants of the basic native views. Accepts Animated.Value for
+       * props and style.
+       */
+      export var View: any;
+      export var Image: any;
+      export var Text: any;
     }
 
     //////////////////////////////////////////////////////////////////////////
