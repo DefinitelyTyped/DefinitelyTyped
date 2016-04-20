@@ -3472,6 +3472,22 @@ declare namespace  __React {
         useNativeDriver?: boolean;
       };
 
+      type TimingAnimationConfig =  AnimationConfig & {
+        toValue: number | AnimatedValue | {x: number, y: number} | AnimatedValueXY;
+        easing?: (value: number) => number;
+        duration?: number;
+        delay?: number;
+      };
+
+      /**
+       * Animates a value along a timed easing curve.  The `Easing` module has tons
+       * of pre-defined curves, or you can use your own function.
+       */
+      export var timing: (
+        value: AnimatedValue | AnimatedValueXY,
+        config: TimingAnimationConfig
+      ) => CompositeAnimation;
+
       type SpringAnimationConfig = AnimationConfig & {
         toValue: number | AnimatedValue | {x: number, y: number} | AnimatedValueXY;
         overshootClamping?: boolean;
