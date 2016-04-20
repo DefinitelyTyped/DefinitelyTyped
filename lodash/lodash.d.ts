@@ -1,6 +1,6 @@
 // Type definitions for Lo-Dash
 // Project: http://lodash.com/
-// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>
+// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -19257,1413 +19257,1835 @@ declare module _ {
 // Named exports
 
 declare module "lodash/after" {
-   export = _.after;
+   const after: typeof _.after;
+   export = after;
 }
 
 
 declare module "lodash/ary" {
-   export = _.ary;
+   const ary: typeof _.ary;
+   export = ary;
 }
 
 
 declare module "lodash/assign" {
-   export = _.assign;
+   const assign: typeof _.assign;
+   export = assign;
 }
 
 
 declare module "lodash/assignIn" {
-   export = _.assignIn;
+   const assignIn: typeof _.assignIn;
+   export = assignIn;
 }
 
 
 declare module "lodash/assignInWith" {
-   export = _.assignInWith;
+   const assignInWith: typeof _.assignInWith;
+   export = assignInWith;
 }
 
 
 declare module "lodash/assignWith" {
-   export = _.assignWith;
+   const assignWith: typeof _.assignWith;
+   export = assignWith;
 }
 
 
 declare module "lodash/at" {
-   export = _.at;
+   const at: typeof _.at;
+   export = at;
 }
 
 
 declare module "lodash/before" {
-   export = _.before;
+   const before: typeof _.before;
+   export = before;
 }
 
 
 declare module "lodash/bind" {
-   export = _.bind;
+   const bind: typeof _.bind;
+   export = bind;
 }
 
 
 declare module "lodash/bindAll" {
-   export = _.bindAll;
+   const bindAll: typeof _.bindAll;
+   export = bindAll;
 }
 
 
 declare module "lodash/bindKey" {
-   export = _.bindKey;
+   const bindKey: typeof _.bindKey;
+   export = bindKey;
 }
 
 
 declare module "lodash/castArray" {
-   export = _.castArray;
+   const castArray: typeof _.castArray;
+   export = castArray;
 }
 
 
 declare module "lodash/chain" {
-   export = _.chain;
+   const chain: typeof _.chain;
+   export = chain;
 }
 
 
 declare module "lodash/chunk" {
-   export = _.chunk;
+   const chunk: typeof _.chunk;
+   export = chunk;
 }
 
 
 declare module "lodash/compact" {
-   export = _.compact;
+   const compact: typeof _.compact;
+   export = compact;
 }
 
 
 declare module "lodash/concat" {
-   export = _.concat;
+   const concat: typeof _.concat;
+   export = concat;
 }
 
+/**
+* uncoment it if definition exists
+*/
+/*
+declare module "lodash/cond" {
+   const cond: typeof _.cond;
+   export = cond;
+}
+*/
+
+/**
+* uncoment it if definition exists
+*/
+/*
+declare module "lodash/conforms" {
+   const conforms: typeof _.conforms;
+   export = conforms;
+}
+*/
 
 declare module "lodash/constant" {
-   export = _.constant;
+   const constant: typeof _.constant;
+   export = constant;
 }
 
 
 declare module "lodash/countBy" {
-   export = _.countBy;
+   const countBy: typeof _.countBy;
+   export = countBy;
 }
 
 
 declare module "lodash/create" {
-   export = _.create;
+   const create: typeof _.create;
+   export = create;
 }
 
 
 declare module "lodash/curry" {
-   export = _.curry;
+   const curry: typeof _.curry;
+   export = curry;
 }
 
 
 declare module "lodash/curryRight" {
-   export = _.curryRight;
+   const curryRight: typeof _.curryRight;
+   export = curryRight;
 }
 
 
 declare module "lodash/debounce" {
-   export = _.debounce;
+   const debounce: typeof _.debounce;
+   export = debounce;
 }
 
 
 declare module "lodash/defaults" {
-   export = _.defaults;
+   const defaults: typeof _.defaults;
+   export = defaults;
 }
 
 
 declare module "lodash/defaultsDeep" {
-   export = _.defaultsDeep;
+   const defaultsDeep: typeof _.defaultsDeep;
+   export = defaultsDeep;
 }
 
 
 declare module "lodash/defer" {
-   export = _.defer;
+   const defer: typeof _.defer;
+   export = defer;
 }
 
 
 declare module "lodash/delay" {
-   export = _.delay;
+   const delay: typeof _.delay;
+   export = delay;
 }
 
 
 declare module "lodash/difference" {
-   export = _.difference;
+   const difference: typeof _.difference;
+   export = difference;
 }
 
 
 declare module "lodash/differenceBy" {
-   export = _.differenceBy;
+   const differenceBy: typeof _.differenceBy;
+   export = differenceBy;
 }
 
 
 declare module "lodash/differenceWith" {
-   export = _.differenceWith;
+   const differenceWith: typeof _.differenceWith;
+   export = differenceWith;
 }
 
 
 declare module "lodash/drop" {
-   export = _.drop;
+   const drop: typeof _.drop;
+   export = drop;
 }
 
 
 declare module "lodash/dropRight" {
-   export = _.dropRight;
+   const dropRight: typeof _.dropRight;
+   export = dropRight;
 }
 
 
 declare module "lodash/dropRightWhile" {
-   export = _.dropRightWhile;
+   const dropRightWhile: typeof _.dropRightWhile;
+   export = dropRightWhile;
 }
 
 
 declare module "lodash/dropWhile" {
-   export = _.dropWhile;
+   const dropWhile: typeof _.dropWhile;
+   export = dropWhile;
 }
 
 
 declare module "lodash/fill" {
-   export = _.fill;
+   const fill: typeof _.fill;
+   export = fill;
 }
 
 
 declare module "lodash/filter" {
-   export = _.filter;
+   const filter: typeof _.filter;
+   export = filter;
 }
 
 
 declare module "lodash/flatMap" {
-   export = _.flatMap;
+   const flatMap: typeof _.flatMap;
+   export = flatMap;
 }
 
+/**
+* uncoment it if definition exists
+*/
+/*
+declare module "lodash/flatMapDeep" {
+   const flatMapDeep: typeof _.flatMapDeep;
+   export = flatMapDeep;
+}
+*/
+/**
+* uncoment it if definition exists
+*/
+/*
+declare module "lodash/flatMapDepth" {
+   const flatMapDepth: typeof _.flatMapDepth;
+   export = flatMapDepth;
+}
+*/
 
 declare module "lodash/flatten" {
-   export = _.flatten;
+   const flatten: typeof _.flatten;
+   export = flatten;
 }
 
 
 declare module "lodash/flattenDeep" {
-   export = _.flattenDeep;
+   const flattenDeep: typeof _.flattenDeep;
+   export = flattenDeep;
 }
 
+/**
+* uncoment it if definition exists
+*/
+/*
+declare module "lodash/flattenDepth" {
+   const flattenDepth: typeof _.flattenDepth;
+   export = flattenDepth;
+}
+*/
 
 declare module "lodash/flip" {
-   export = _.flip;
+   const flip: typeof _.flip;
+   export = flip;
 }
 
 
 declare module "lodash/flow" {
-   export = _.flow;
+   const flow: typeof _.flow;
+   export = flow;
 }
 
 
 declare module "lodash/flowRight" {
-   export = _.flowRight;
+   const flowRight: typeof _.flowRight;
+   export = flowRight;
 }
 
 
 declare module "lodash/fromPairs" {
-   export = _.fromPairs;
+   const fromPairs: typeof _.fromPairs;
+   export = fromPairs;
 }
 
 
 declare module "lodash/functions" {
-   export = _.functions;
+   const functions: typeof _.functions;
+   export = functions;
 }
 
 
 declare module "lodash/functionsIn" {
-   export = _.functionsIn;
+   const functionsIn: typeof _.functionsIn;
+   export = functionsIn;
 }
 
 
 declare module "lodash/groupBy" {
-   export = _.groupBy;
+   const groupBy: typeof _.groupBy;
+   export = groupBy;
 }
 
 
 declare module "lodash/initial" {
-   export = _.initial;
+   const initial: typeof _.initial;
+   export = initial;
 }
 
 
 declare module "lodash/intersection" {
-   export = _.intersection;
+   const intersection: typeof _.intersection;
+   export = intersection;
 }
 
 
 declare module "lodash/intersectionBy" {
-   export = _.intersectionBy;
+   const intersectionBy: typeof _.intersectionBy;
+   export = intersectionBy;
 }
 
 
 declare module "lodash/intersectionWith" {
-   export = _.intersectionWith;
+   const intersectionWith: typeof _.intersectionWith;
+   export = intersectionWith;
 }
 
 
 declare module "lodash/invert" {
-   export = _.invert;
+   const invert: typeof _.invert;
+   export = invert;
 }
 
 
 declare module "lodash/invertBy" {
-   export = _.invertBy;
+   const invertBy: typeof _.invertBy;
+   export = invertBy;
 }
 
 
 declare module "lodash/invokeMap" {
-   export = _.invokeMap;
+   const invokeMap: typeof _.invokeMap;
+   export = invokeMap;
 }
 
 
 declare module "lodash/iteratee" {
-   export = _.iteratee;
+   const iteratee: typeof _.iteratee;
+   export = iteratee;
 }
 
 
 declare module "lodash/keyBy" {
-   export = _.keyBy;
+   const keyBy: typeof _.keyBy;
+   export = keyBy;
 }
 
 
 declare module "lodash/keys" {
-   export = _.keys;
+   const keys: typeof _.keys;
+   export = keys;
 }
 
 
 declare module "lodash/keysIn" {
-   export = _.keysIn;
+   const keysIn: typeof _.keysIn;
+   export = keysIn;
 }
 
 
 declare module "lodash/map" {
-   export = _.map;
+   const map: typeof _.map;
+   export = map;
 }
 
 
 declare module "lodash/mapKeys" {
-   export = _.mapKeys;
+   const mapKeys: typeof _.mapKeys;
+   export = mapKeys;
 }
 
 
 declare module "lodash/mapValues" {
-   export = _.mapValues;
+   const mapValues: typeof _.mapValues;
+   export = mapValues;
 }
 
 
 declare module "lodash/matches" {
-   export = _.matches;
+   const matches: typeof _.matches;
+   export = matches;
 }
 
 
 declare module "lodash/matchesProperty" {
-   export = _.matchesProperty;
+   const matchesProperty: typeof _.matchesProperty;
+   export = matchesProperty;
 }
 
 
 declare module "lodash/memoize" {
-   export = _.memoize;
+   const memoize: typeof _.memoize;
+   export = memoize;
 }
 
 
 declare module "lodash/merge" {
-   export = _.merge;
+   const merge: typeof _.merge;
+   export = merge;
 }
 
 
 declare module "lodash/mergeWith" {
-   export = _.mergeWith;
+   const mergeWith: typeof _.mergeWith;
+   export = mergeWith;
 }
 
 
 declare module "lodash/method" {
-   export = _.method;
+   const method: typeof _.method;
+   export = method;
 }
 
 
 declare module "lodash/methodOf" {
-   export = _.methodOf;
+   const methodOf: typeof _.methodOf;
+   export = methodOf;
 }
 
 
 declare module "lodash/mixin" {
-   export = _.mixin;
+   const mixin: typeof _.mixin;
+   export = mixin;
 }
 
 
 declare module "lodash/negate" {
-   export = _.negate;
+   const negate: typeof _.negate;
+   export = negate;
 }
 
 
 declare module "lodash/nthArg" {
-   export = _.nthArg;
+   const nthArg: typeof _.nthArg;
+   export = nthArg;
 }
 
 
 declare module "lodash/omit" {
-   export = _.omit;
+   const omit: typeof _.omit;
+   export = omit;
 }
 
 
 declare module "lodash/omitBy" {
-   export = _.omitBy;
+   const omitBy: typeof _.omitBy;
+   export = omitBy;
 }
 
 
 declare module "lodash/once" {
-   export = _.once;
+   const once: typeof _.once;
+   export = once;
 }
 
 
 declare module "lodash/orderBy" {
-   export = _.orderBy;
+   const orderBy: typeof _.orderBy;
+   export = orderBy;
 }
 
 
 declare module "lodash/over" {
-   export = _.over;
+   const over: typeof _.over;
+   export = over;
 }
 
 
 declare module "lodash/overArgs" {
-   export = _.overArgs;
+   const overArgs: typeof _.overArgs;
+   export = overArgs;
 }
 
 
 declare module "lodash/overEvery" {
-   export = _.overEvery;
+   const overEvery: typeof _.overEvery;
+   export = overEvery;
 }
 
 
 declare module "lodash/overSome" {
-   export = _.overSome;
+   const overSome: typeof _.overSome;
+   export = overSome;
 }
 
 
 declare module "lodash/partial" {
-   export = _.partial;
+   const partial: typeof _.partial;
+   export = partial;
 }
 
 
 declare module "lodash/partialRight" {
-   export = _.partialRight;
+   const partialRight: typeof _.partialRight;
+   export = partialRight;
 }
 
 
 declare module "lodash/partition" {
-   export = _.partition;
+   const partition: typeof _.partition;
+   export = partition;
 }
 
 
 declare module "lodash/pick" {
-   export = _.pick;
+   const pick: typeof _.pick;
+   export = pick;
 }
 
 
 declare module "lodash/pickBy" {
-   export = _.pickBy;
+   const pickBy: typeof _.pickBy;
+   export = pickBy;
 }
 
 
 declare module "lodash/property" {
-   export = _.property;
+   const property: typeof _.property;
+   export = property;
 }
 
 
 declare module "lodash/propertyOf" {
-   export = _.propertyOf;
+   const propertyOf: typeof _.propertyOf;
+   export = propertyOf;
 }
 
 
 declare module "lodash/pull" {
-   export = _.pull;
+   const pull: typeof _.pull;
+   export = pull;
 }
 
 
 declare module "lodash/pullAll" {
-   export = _.pullAll;
+   const pullAll: typeof _.pullAll;
+   export = pullAll;
 }
 
 
 declare module "lodash/pullAllBy" {
-   export = _.pullAllBy;
+   const pullAllBy: typeof _.pullAllBy;
+   export = pullAllBy;
 }
 
+/**
+* uncoment it if definition exists
+*/
+/*
+declare module "lodash/pullAllWith" {
+   const pullAllWith: typeof _.pullAllWith;
+   export = pullAllWith;
+}
+*/
 
 declare module "lodash/pullAt" {
-   export = _.pullAt;
+   const pullAt: typeof _.pullAt;
+   export = pullAt;
 }
 
 
 declare module "lodash/range" {
-   export = _.range;
+   const range: typeof _.range;
+   export = range;
 }
 
 
 declare module "lodash/rangeRight" {
-   export = _.rangeRight;
+   const rangeRight: typeof _.rangeRight;
+   export = rangeRight;
 }
 
 
 declare module "lodash/rearg" {
-   export = _.rearg;
+   const rearg: typeof _.rearg;
+   export = rearg;
 }
 
 
 declare module "lodash/reject" {
-   export = _.reject;
+   const reject: typeof _.reject;
+   export = reject;
 }
 
 
 declare module "lodash/remove" {
-   export = _.remove;
+   const remove: typeof _.remove;
+   export = remove;
 }
 
 
 declare module "lodash/rest" {
-   export = _.rest;
+   const rest: typeof _.rest;
+   export = rest;
 }
 
 
 declare module "lodash/reverse" {
-   export = _.reverse;
+   const reverse: typeof _.reverse;
+   export = reverse;
 }
 
 
 declare module "lodash/sampleSize" {
-   export = _.sampleSize;
+   const sampleSize: typeof _.sampleSize;
+   export = sampleSize;
 }
 
 
 declare module "lodash/set" {
-   export = _.set;
+   const set: typeof _.set;
+   export = set;
 }
 
 
 declare module "lodash/setWith" {
-   export = _.setWith;
+   const setWith: typeof _.setWith;
+   export = setWith;
 }
 
 
 declare module "lodash/shuffle" {
-   export = _.shuffle;
+   const shuffle: typeof _.shuffle;
+   export = shuffle;
 }
 
 
 declare module "lodash/slice" {
-   export = _.slice;
+   const slice: typeof _.slice;
+   export = slice;
 }
 
 
 declare module "lodash/sortBy" {
-   export = _.sortBy;
+   const sortBy: typeof _.sortBy;
+   export = sortBy;
 }
 
 
 declare module "lodash/sortedUniq" {
-   export = _.sortedUniq;
+   const sortedUniq: typeof _.sortedUniq;
+   export = sortedUniq;
 }
 
 
 declare module "lodash/sortedUniqBy" {
-   export = _.sortedUniqBy;
+   const sortedUniqBy: typeof _.sortedUniqBy;
+   export = sortedUniqBy;
 }
 
 
 declare module "lodash/split" {
-   export = _.split;
+   const split: typeof _.split;
+   export = split;
 }
 
 
 declare module "lodash/spread" {
-   export = _.spread;
+   const spread: typeof _.spread;
+   export = spread;
 }
 
 
 declare module "lodash/tail" {
-   export = _.tail;
+   const tail: typeof _.tail;
+   export = tail;
 }
 
 
 declare module "lodash/take" {
-   export = _.take;
+   const take: typeof _.take;
+   export = take;
 }
 
 
 declare module "lodash/takeRight" {
-   export = _.takeRight;
+   const takeRight: typeof _.takeRight;
+   export = takeRight;
 }
 
 
 declare module "lodash/takeRightWhile" {
-   export = _.takeRightWhile;
+   const takeRightWhile: typeof _.takeRightWhile;
+   export = takeRightWhile;
 }
 
 
 declare module "lodash/takeWhile" {
-   export = _.takeWhile;
+   const takeWhile: typeof _.takeWhile;
+   export = takeWhile;
 }
 
 
 declare module "lodash/tap" {
-   export = _.tap;
+   const tap: typeof _.tap;
+   export = tap;
 }
 
 
 declare module "lodash/throttle" {
-   export = _.throttle;
+   const throttle: typeof _.throttle;
+   export = throttle;
 }
 
 
 declare module "lodash/thru" {
-   export = _.thru;
+   const thru: typeof _.thru;
+   export = thru;
 }
 
 
 declare module "lodash/toArray" {
-   export = _.toArray;
+   const toArray: typeof _.toArray;
+   export = toArray;
 }
 
 
 declare module "lodash/toPairs" {
-   export = _.toPairs;
+   const toPairs: typeof _.toPairs;
+   export = toPairs;
 }
 
 
 declare module "lodash/toPairsIn" {
-   export = _.toPairsIn;
+   const toPairsIn: typeof _.toPairsIn;
+   export = toPairsIn;
 }
 
 
 declare module "lodash/toPath" {
-   export = _.toPath;
+   const toPath: typeof _.toPath;
+   export = toPath;
 }
 
 
 declare module "lodash/toPlainObject" {
-   export = _.toPlainObject;
+   const toPlainObject: typeof _.toPlainObject;
+   export = toPlainObject;
 }
 
 
 declare module "lodash/transform" {
-   export = _.transform;
+   const transform: typeof _.transform;
+   export = transform;
 }
 
 
 declare module "lodash/unary" {
-   export = _.unary;
+   const unary: typeof _.unary;
+   export = unary;
 }
 
 
 declare module "lodash/union" {
-   export = _.union;
+   const union: typeof _.union;
+   export = union;
 }
 
 
 declare module "lodash/unionBy" {
-   export = _.unionBy;
+   const unionBy: typeof _.unionBy;
+   export = unionBy;
 }
 
 
 declare module "lodash/unionWith" {
-   export = _.unionWith;
+   const unionWith: typeof _.unionWith;
+   export = unionWith;
 }
 
 
 declare module "lodash/uniq" {
-   export = _.uniq;
+   const uniq: typeof _.uniq;
+   export = uniq;
 }
 
 
 declare module "lodash/uniqBy" {
-   export = _.uniqBy;
+   const uniqBy: typeof _.uniqBy;
+   export = uniqBy;
 }
 
 
 declare module "lodash/uniqWith" {
-   export = _.uniqWith;
+   const uniqWith: typeof _.uniqWith;
+   export = uniqWith;
 }
 
 
 declare module "lodash/unset" {
-   export = _.unset;
+   const unset: typeof _.unset;
+   export = unset;
 }
 
 
 declare module "lodash/unzip" {
-   export = _.unzip;
+   const unzip: typeof _.unzip;
+   export = unzip;
 }
 
 
 declare module "lodash/unzipWith" {
-   export = _.unzipWith;
+   const unzipWith: typeof _.unzipWith;
+   export = unzipWith;
 }
 
 
 declare module "lodash/update" {
-   export = _.update;
+   const update: typeof _.update;
+   export = update;
 }
 
+/**
+* uncoment it if definition exists
+*/
+/*
+declare module "lodash/updateWith" {
+   const updateWith: typeof _.updateWith;
+   export = updateWith;
+}
+*/
 
 declare module "lodash/values" {
-   export = _.values;
+   const values: typeof _.values;
+   export = values;
 }
 
 
 declare module "lodash/valuesIn" {
-   export = _.valuesIn;
+   const valuesIn: typeof _.valuesIn;
+   export = valuesIn;
 }
 
 
 declare module "lodash/without" {
-   export = _.without;
+   const without: typeof _.without;
+   export = without;
 }
 
 
 declare module "lodash/words" {
-   export = _.words;
+   const words: typeof _.words;
+   export = words;
 }
 
 
 declare module "lodash/wrap" {
-   export = _.wrap;
+   const wrap: typeof _.wrap;
+   export = wrap;
 }
 
 
 declare module "lodash/xor" {
-   export = _.xor;
+   const xor: typeof _.xor;
+   export = xor;
 }
 
 
 declare module "lodash/xorBy" {
-   export = _.xorBy;
+   const xorBy: typeof _.xorBy;
+   export = xorBy;
 }
 
 
 declare module "lodash/xorWith" {
-   export = _.xorWith;
+   const xorWith: typeof _.xorWith;
+   export = xorWith;
 }
 
 
 declare module "lodash/zip" {
-   export = _.zip;
+   const zip: typeof _.zip;
+   export = zip;
 }
 
 
 declare module "lodash/zipObject" {
-   export = _.zipObject;
+   const zipObject: typeof _.zipObject;
+   export = zipObject;
 }
+
+/**
+* uncoment it if definition exists
+*/
+/*
+declare module "lodash/zipObjectDeep" {
+   const zipObjectDeep: typeof _.zipObjectDeep;
+   export = zipObjectDeep;
+}
+*/
 
 
 declare module "lodash/zipWith" {
-   export = _.zipWith;
+   const zipWith: typeof _.zipWith;
+   export = zipWith;
 }
+
+/**
+* uncoment it if definition exists
+*/
+/*
+declare module "lodash/entries" {
+   const entries: typeof _.entries;
+   export = entries;
+}
+*/
+/**
+* uncoment it if definition exists
+*/
+/*
+declare module "lodash/entriesIn" {
+   const entriesIn: typeof _.entriesIn;
+   export = entriesIn;
+}
+*/
 
 
 declare module "lodash/extend" {
-   export = _.extend;
+   const extend: typeof _.extend;
+   export = extend;
 }
 
+/**
+* uncoment it if definition exists
+*/
+/*
+declare module "lodash/extendWith" {
+   const extendWith: typeof _.extendWith;
+   export = extendWith;
+}
+*/
 
 declare module "lodash/add" {
-   export = _.add;
+   const add: typeof _.add;
+   export = add;
 }
 
 
 declare module "lodash/attempt" {
-   export = _.attempt;
+   const attempt: typeof _.attempt;
+   export = attempt;
 }
 
 
 declare module "lodash/camelCase" {
-   export = _.camelCase;
+   const camelCase: typeof _.camelCase;
+   export = camelCase;
 }
 
 
 declare module "lodash/capitalize" {
-   export = _.capitalize;
+   const capitalize: typeof _.capitalize;
+   export = capitalize;
 }
 
 
 declare module "lodash/ceil" {
-   export = _.ceil;
+   const ceil: typeof _.ceil;
+   export = ceil;
 }
 
 
 declare module "lodash/clamp" {
-   export = _.clamp;
+   const clamp: typeof _.clamp;
+   export = clamp;
 }
 
 
 declare module "lodash/clone" {
-   export = _.clone;
+   const clone: typeof _.clone;
+   export = clone;
 }
 
 
 declare module "lodash/cloneDeep" {
-   export = _.cloneDeep;
+   const cloneDeep: typeof _.cloneDeep;
+   export = cloneDeep;
 }
 
 
 declare module "lodash/cloneDeepWith" {
-   export = _.cloneDeepWith;
+   const cloneDeepWith: typeof _.cloneDeepWith;
+   export = cloneDeepWith;
 }
 
 
 declare module "lodash/cloneWith" {
-   export = _.cloneWith;
+   const cloneWith: typeof _.cloneWith;
+   export = cloneWith;
 }
 
 
 declare module "lodash/deburr" {
-   export = _.deburr;
+   const deburr: typeof _.deburr;
+   export = deburr;
 }
 
+/**
+* uncoment it if definition exists
+*/
+/*
+declare module "lodash/divide" {
+   const divide: typeof _.divide;
+   export = divide;
+}
+*/
 
 declare module "lodash/endsWith" {
-   export = _.endsWith;
+   const endsWith: typeof _.endsWith;
+   export = endsWith;
 }
 
 
 declare module "lodash/eq" {
-   export = _.eq;
+   const eq: typeof _.eq;
+   export = eq;
 }
 
 
 declare module "lodash/escape" {
-   export = _.escape;
+   const escape: typeof _.escape;
+   export = escape;
 }
 
 
 declare module "lodash/escapeRegExp" {
-   export = _.escapeRegExp;
+   const escapeRegExp: typeof _.escapeRegExp;
+   export = escapeRegExp;
 }
 
 
 declare module "lodash/every" {
-   export = _.every;
+   const every: typeof _.every;
+   export = every;
 }
 
 
 declare module "lodash/find" {
-   export = _.find;
+   const find: typeof _.find;
+   export = find;
 }
 
 
 declare module "lodash/findIndex" {
-   export = _.findIndex;
+   const findIndex: typeof _.findIndex;
+   export = findIndex;
 }
 
 
 declare module "lodash/findKey" {
-   export = _.findKey;
+   const findKey: typeof _.findKey;
+   export = findKey;
 }
 
 
 declare module "lodash/findLast" {
-   export = _.findLast;
+   const findLast: typeof _.findLast;
+   export = findLast;
 }
 
 
 declare module "lodash/findLastIndex" {
-   export = _.findLastIndex;
+   const findLastIndex: typeof _.findLastIndex;
+   export = findLastIndex;
 }
 
 
 declare module "lodash/findLastKey" {
-   export = _.findLastKey;
+   const findLastKey: typeof _.findLastKey;
+   export = findLastKey;
 }
 
 
 declare module "lodash/floor" {
-   export = _.floor;
+   const floor: typeof _.floor;
+   export = floor;
 }
 
 
 declare module "lodash/forEach" {
-   export = _.forEach;
+   const forEach: typeof _.forEach;
+   export = forEach;
 }
 
 
 declare module "lodash/forEachRight" {
-   export = _.forEachRight;
+   const forEachRight: typeof _.forEachRight;
+   export = forEachRight;
 }
 
 
 declare module "lodash/forIn" {
-   export = _.forIn;
+   const forIn: typeof _.forIn;
+   export = forIn;
 }
 
 
 declare module "lodash/forInRight" {
-   export = _.forInRight;
+   const forInRight: typeof _.forInRight;
+   export = forInRight;
 }
 
 
 declare module "lodash/forOwn" {
-   export = _.forOwn;
+   const forOwn: typeof _.forOwn;
+   export = forOwn;
 }
 
 
 declare module "lodash/forOwnRight" {
-   export = _.forOwnRight;
+   const forOwnRight: typeof _.forOwnRight;
+   export = forOwnRight;
 }
 
 
 declare module "lodash/get" {
-   export = _.get;
+   const get: typeof _.get;
+   export = get;
 }
 
 
 declare module "lodash/gt" {
-   export = _.gt;
+   const gt: typeof _.gt;
+   export = gt;
 }
 
 
 declare module "lodash/gte" {
-   export = _.gte;
+   const gte: typeof _.gte;
+   export = gte;
 }
 
 
 declare module "lodash/has" {
-   export = _.has;
+   const has: typeof _.has;
+   export = has;
 }
 
 
 declare module "lodash/hasIn" {
-   export = _.hasIn;
+   const hasIn: typeof _.hasIn;
+   export = hasIn;
 }
 
 
 declare module "lodash/head" {
-   export = _.head;
+   const head: typeof _.head;
+   export = head;
 }
 
 
 declare module "lodash/identity" {
-   export = _.identity;
+   const identity: typeof _.identity;
+   export = identity;
 }
 
 
 declare module "lodash/includes" {
-   export = _.includes;
+   const includes: typeof _.includes;
+   export = includes;
 }
 
 
 declare module "lodash/indexOf" {
-   export = _.indexOf;
+   const indexOf: typeof _.indexOf;
+   export = indexOf;
 }
 
 
 declare module "lodash/inRange" {
-   export = _.inRange;
+   const inRange: typeof _.inRange;
+   export = inRange;
 }
 
 
 declare module "lodash/invoke" {
-   export = _.invoke;
+   const invoke: typeof _.invoke;
+   export = invoke;
 }
 
 
 declare module "lodash/isArguments" {
-   export = _.isArguments;
+   const isArguments: typeof _.isArguments;
+   export = isArguments;
 }
 
 
 declare module "lodash/isArray" {
-   export = _.isArray;
+   const isArray: typeof _.isArray;
+   export = isArray;
 }
 
 
 declare module "lodash/isArrayBuffer" {
-   export = _.isArrayBuffer;
+   const isArrayBuffer: typeof _.isArrayBuffer;
+   export = isArrayBuffer;
 }
 
 
 declare module "lodash/isArrayLike" {
-   export = _.isArrayLike;
+   const isArrayLike: typeof _.isArrayLike;
+   export = isArrayLike;
 }
 
 
 declare module "lodash/isArrayLikeObject" {
-   export = _.isArrayLikeObject;
+   const isArrayLikeObject: typeof _.isArrayLikeObject;
+   export = isArrayLikeObject;
 }
 
 
 declare module "lodash/isBoolean" {
-   export = _.isBoolean;
+   const isBoolean: typeof _.isBoolean;
+   export = isBoolean;
 }
 
 
 declare module "lodash/isBuffer" {
-   export = _.isBuffer;
+   const isBuffer: typeof _.isBuffer;
+   export = isBuffer;
 }
 
 
 declare module "lodash/isDate" {
-   export = _.isDate;
+   const isDate: typeof _.isDate;
+   export = isDate;
 }
 
 
 declare module "lodash/isElement" {
-   export = _.isElement;
+   const isElement: typeof _.isElement;
+   export = isElement;
 }
 
 
 declare module "lodash/isEmpty" {
-   export = _.isEmpty;
+   const isEmpty: typeof _.isEmpty;
+   export = isEmpty;
 }
 
 
 declare module "lodash/isEqual" {
-   export = _.isEqual;
+   const isEqual: typeof _.isEqual;
+   export = isEqual;
 }
 
 
 declare module "lodash/isEqualWith" {
-   export = _.isEqualWith;
+   const isEqualWith: typeof _.isEqualWith;
+   export = isEqualWith;
 }
 
 
 declare module "lodash/isError" {
-   export = _.isError;
+   const isError: typeof _.isError;
+   export = isError;
 }
 
 
 declare module "lodash/isFinite" {
-   export = _.isFinite;
+   const isFinite: typeof _.isFinite;
+   export = isFinite;
 }
 
 
 declare module "lodash/isFunction" {
-   export = _.isFunction;
+   const isFunction: typeof _.isFunction;
+   export = isFunction;
 }
 
 
 declare module "lodash/isInteger" {
-   export = _.isInteger;
+   const isInteger: typeof _.isInteger;
+   export = isInteger;
 }
 
 
 declare module "lodash/isLength" {
-   export = _.isLength;
+   const isLength: typeof _.isLength;
+   export = isLength;
 }
 
 
 declare module "lodash/isMap" {
-   export = _.isMap;
+   const isMap: typeof _.isMap;
+   export = isMap;
 }
 
 
 declare module "lodash/isMatch" {
-   export = _.isMatch;
+   const isMatch: typeof _.isMatch;
+   export = isMatch;
 }
 
 
 declare module "lodash/isMatchWith" {
-   export = _.isMatchWith;
+   const isMatchWith: typeof _.isMatchWith;
+   export = isMatchWith;
 }
 
 
 declare module "lodash/isNaN" {
-   export = _.isNaN;
+   const isNaN: typeof _.isNaN;
+   export = isNaN;
 }
 
 
 declare module "lodash/isNative" {
-   export = _.isNative;
+   const isNative: typeof _.isNative;
+   export = isNative;
 }
 
 
 declare module "lodash/isNil" {
-   export = _.isNil;
+   const isNil: typeof _.isNil;
+   export = isNil;
 }
 
 
 declare module "lodash/isNull" {
-   export = _.isNull;
+   const isNull: typeof _.isNull;
+   export = isNull;
 }
 
 
 declare module "lodash/isNumber" {
-   export = _.isNumber;
+   const isNumber: typeof _.isNumber;
+   export = isNumber;
 }
 
 
 declare module "lodash/isObject" {
-   export = _.isObject;
+   const isObject: typeof _.isObject;
+   export = isObject;
 }
 
 
 declare module "lodash/isObjectLike" {
-   export = _.isObjectLike;
+   const isObjectLike: typeof _.isObjectLike;
+   export = isObjectLike;
 }
 
 
 declare module "lodash/isPlainObject" {
-   export = _.isPlainObject;
+   const isPlainObject: typeof _.isPlainObject;
+   export = isPlainObject;
 }
 
 
 declare module "lodash/isRegExp" {
-   export = _.isRegExp;
+   const isRegExp: typeof _.isRegExp;
+   export = isRegExp;
 }
 
 
 declare module "lodash/isSafeInteger" {
-   export = _.isSafeInteger;
+   const isSafeInteger: typeof _.isSafeInteger;
+   export = isSafeInteger;
 }
 
 
 declare module "lodash/isSet" {
-   export = _.isSet;
+   const isSet: typeof _.isSet;
+   export = isSet;
 }
 
 
 declare module "lodash/isString" {
-   export = _.isString;
+   const isString: typeof _.isString;
+   export = isString;
 }
 
 
 declare module "lodash/isSymbol" {
-   export = _.isSymbol;
+   const isSymbol: typeof _.isSymbol;
+   export = isSymbol;
 }
 
 
 declare module "lodash/isTypedArray" {
-   export = _.isTypedArray;
+   const isTypedArray: typeof _.isTypedArray;
+   export = isTypedArray;
 }
 
 
 declare module "lodash/isUndefined" {
-   export = _.isUndefined;
+   const isUndefined: typeof _.isUndefined;
+   export = isUndefined;
 }
 
 
 declare module "lodash/isWeakMap" {
-   export = _.isWeakMap;
+   const isWeakMap: typeof _.isWeakMap;
+   export = isWeakMap;
 }
 
 
 declare module "lodash/isWeakSet" {
-   export = _.isWeakSet;
+   const isWeakSet: typeof _.isWeakSet;
+   export = isWeakSet;
 }
 
 
 declare module "lodash/join" {
-   export = _.join;
+   const join: typeof _.join;
+   export = join;
 }
 
 
 declare module "lodash/kebabCase" {
-   export = _.kebabCase;
+   const kebabCase: typeof _.kebabCase;
+   export = kebabCase;
 }
 
 
 declare module "lodash/last" {
-   export = _.last;
+   const last: typeof _.last;
+   export = last;
 }
 
 
 declare module "lodash/lastIndexOf" {
-   export = _.lastIndexOf;
+   const lastIndexOf: typeof _.lastIndexOf;
+   export = lastIndexOf;
 }
 
 
 declare module "lodash/lowerCase" {
-   export = _.lowerCase;
+   const lowerCase: typeof _.lowerCase;
+   export = lowerCase;
 }
 
 
 declare module "lodash/lowerFirst" {
-   export = _.lowerFirst;
+   const lowerFirst: typeof _.lowerFirst;
+   export = lowerFirst;
 }
 
 
 declare module "lodash/lt" {
-   export = _.lt;
+   const lt: typeof _.lt;
+   export = lt;
 }
 
 
 declare module "lodash/lte" {
-   export = _.lte;
+   const lte: typeof _.lte;
+   export = lte;
 }
 
 
 declare module "lodash/max" {
-   export = _.max;
+   const max: typeof _.max;
+   export = max;
 }
 
 
 declare module "lodash/maxBy" {
-   export = _.maxBy;
+   const maxBy: typeof _.maxBy;
+   export = maxBy;
 }
 
 
 declare module "lodash/mean" {
-   export = _.mean;
+   const mean: typeof _.mean;
+   export = mean;
 }
 
+/**
+* uncoment it if definition exists
+*/
+/*
+declare module "lodash/meanBy" {
+   const meanBy: typeof _.meanBy;
+   export = meanBy;
+}
+*/
 
 declare module "lodash/min" {
-   export = _.min;
+   const min: typeof _.min;
+   export = min;
 }
 
 
 declare module "lodash/minBy" {
-   export = _.minBy;
+   const minBy: typeof _.minBy;
+   export = minBy;
 }
 
+/**
+* uncoment it if definition exists
+*/
+/*
+declare module "lodash/multiply" {
+   const multiply: typeof _.multiply;
+   export = multiply;
+}
+*/
+
+/**
+* uncoment it if definition exists
+*/
+/*
+declare module "lodash/nth" {
+   const nth: typeof _.nth;
+   export = nth;
+}
+*/
 
 declare module "lodash/noConflict" {
-   export = _.noConflict;
+   const noConflict: typeof _.noConflict;
+   export = noConflict;
 }
 
 
 declare module "lodash/noop" {
-   export = _.noop;
+   const noop: typeof _.noop;
+   export = noop;
 }
 
 
 declare module "lodash/now" {
-   export = _.now;
+   const now: typeof _.now;
+   export = now;
 }
 
 
 declare module "lodash/pad" {
-   export = _.pad;
+   const pad: typeof _.pad;
+   export = pad;
 }
 
 
 declare module "lodash/padEnd" {
-   export = _.padEnd;
+   const padEnd: typeof _.padEnd;
+   export = padEnd;
 }
 
 
 declare module "lodash/padStart" {
-   export = _.padStart;
+   const padStart: typeof _.padStart;
+   export = padStart;
 }
 
 
 declare module "lodash/parseInt" {
-   export = _.parseInt;
+   const parseInt: typeof _.parseInt;
+   export = parseInt;
 }
 
 
 declare module "lodash/random" {
-   export = _.random;
+   const random: typeof _.random;
+   export = random;
 }
 
 
 declare module "lodash/reduce" {
-   export = _.reduce;
+   const reduce: typeof _.reduce;
+   export = reduce;
 }
 
 
 declare module "lodash/reduceRight" {
-   export = _.reduceRight;
+   const reduceRight: typeof _.reduceRight;
+   export = reduceRight;
 }
 
 
 declare module "lodash/repeat" {
-   export = _.repeat;
+   const repeat: typeof _.repeat;
+   export = repeat;
 }
 
 
 declare module "lodash/replace" {
-   export = _.replace;
+   const replace: typeof _.replace;
+   export = replace;
 }
 
 
 declare module "lodash/result" {
-   export = _.result;
+   const result: typeof _.result;
+   export = result;
 }
 
 
 declare module "lodash/round" {
-   export = _.round;
+   const round: typeof _.round;
+   export = round;
 }
 
 
 declare module "lodash/runInContext" {
-   export = _.runInContext;
+   const runInContext: typeof _.runInContext;
+   export = runInContext;
 }
 
 
 declare module "lodash/sample" {
-   export = _.sample;
+   const sample: typeof _.sample;
+   export = sample;
 }
 
 
 declare module "lodash/size" {
-   export = _.size;
+   const size: typeof _.size;
+   export = size;
 }
 
 
 declare module "lodash/snakeCase" {
-   export = _.snakeCase;
+   const snakeCase: typeof _.snakeCase;
+   export = snakeCase;
 }
 
 
 declare module "lodash/some" {
-   export = _.some;
+   const some: typeof _.some;
+   export = some;
 }
 
 
 declare module "lodash/sortedIndex" {
-   export = _.sortedIndex;
+   const sortedIndex: typeof _.sortedIndex;
+   export = sortedIndex;
 }
 
 
 declare module "lodash/sortedIndexBy" {
-   export = _.sortedIndexBy;
+   const sortedIndexBy: typeof _.sortedIndexBy;
+   export = sortedIndexBy;
 }
 
 
 declare module "lodash/sortedIndexOf" {
-   export = _.sortedIndexOf;
+   const sortedIndexOf: typeof _.sortedIndexOf;
+   export = sortedIndexOf;
 }
 
 
 declare module "lodash/sortedLastIndex" {
-   export = _.sortedLastIndex;
+   const sortedLastIndex: typeof _.sortedLastIndex;
+   export = sortedLastIndex;
 }
 
 
 declare module "lodash/sortedLastIndexBy" {
-   export = _.sortedLastIndexBy;
+   const sortedLastIndexBy: typeof _.sortedLastIndexBy;
+   export = sortedLastIndexBy;
 }
 
 
 declare module "lodash/sortedLastIndexOf" {
-   export = _.sortedLastIndexOf;
+   const sortedLastIndexOf: typeof _.sortedLastIndexOf;
+   export = sortedLastIndexOf;
 }
 
 
 declare module "lodash/startCase" {
-   export = _.startCase;
+   const startCase: typeof _.startCase;
+   export = startCase;
 }
 
 
 declare module "lodash/startsWith" {
-   export = _.startsWith;
+   const startsWith: typeof _.startsWith;
+   export = startsWith;
 }
 
 
 declare module "lodash/subtract" {
-   export = _.subtract;
+   const subtract: typeof _.subtract;
+   export = subtract;
 }
 
 
 declare module "lodash/sum" {
-   export = _.sum;
+   const sum: typeof _.sum;
+   export = sum;
 }
 
 
 declare module "lodash/sumBy" {
-   export = _.sumBy;
+   const sumBy: typeof _.sumBy;
+   export = sumBy;
 }
 
 
 declare module "lodash/template" {
-   export = _.template;
+   const template: typeof _.template;
+   export = template;
 }
 
 
 declare module "lodash/times" {
-   export = _.times;
+   const times: typeof _.times;
+   export = times;
 }
 
 
 declare module "lodash/toInteger" {
-   export = _.toInteger;
+   const toInteger: typeof _.toInteger;
+   export = toInteger;
 }
 
 
 declare module "lodash/toLength" {
-   export = _.toLength;
+   const toLength: typeof _.toLength;
+   export = toLength;
 }
 
 
 declare module "lodash/toLower" {
-   export = _.toLower;
+   const toLower: typeof _.toLower;
+   export = toLower;
 }
 
 
 declare module "lodash/toNumber" {
-   export = _.toNumber;
+   const toNumber: typeof _.toNumber;
+   export = toNumber;
 }
 
 
 declare module "lodash/toSafeInteger" {
-   export = _.toSafeInteger;
+   const toSafeInteger: typeof _.toSafeInteger;
+   export = toSafeInteger;
 }
 
 
 declare module "lodash/toString" {
-   export = _.toString;
+   const toString: typeof _.toString;
+   export = toString;
 }
 
 
 declare module "lodash/toUpper" {
-   export = _.toUpper;
+   const toUpper: typeof _.toUpper;
+   export = toUpper;
 }
 
 
 declare module "lodash/trim" {
-   export = _.trim;
+   const trim: typeof _.trim;
+   export = trim;
 }
 
 
 declare module "lodash/trimEnd" {
-   export = _.trimEnd;
+   const trimEnd: typeof _.trimEnd;
+   export = trimEnd;
 }
 
 
 declare module "lodash/trimStart" {
-   export = _.trimStart;
+   const trimStart: typeof _.trimStart;
+   export = trimStart;
 }
 
 
 declare module "lodash/truncate" {
-   export = _.truncate;
+   const truncate: typeof _.truncate;
+   export = truncate;
 }
 
 
 declare module "lodash/unescape" {
-   export = _.unescape;
+   const unescape: typeof _.unescape;
+   export = unescape;
 }
 
 
 declare module "lodash/uniqueId" {
-   export = _.uniqueId;
+   const uniqueId: typeof _.uniqueId;
+   export = uniqueId;
 }
 
 
 declare module "lodash/upperCase" {
-   export = _.upperCase;
+   const upperCase: typeof _.upperCase;
+   export = upperCase;
 }
 
 
 declare module "lodash/upperFirst" {
-   export = _.upperFirst;
+   const upperFirst: typeof _.upperFirst;
+   export = upperFirst;
 }
 
 
 declare module "lodash/each" {
-   export = _.each;
+   const each: typeof _.each;
+   export = each;
 }
 
 
 declare module "lodash/eachRight" {
-   export = _.eachRight;
+   const eachRight: typeof _.eachRight;
+   export = eachRight;
 }
 
 
 declare module "lodash/first" {
-   export = _.first;
+   const first: typeof _.first;
+   export = first;
 }
+
 
 declare module "lodash" {
     export = _;
