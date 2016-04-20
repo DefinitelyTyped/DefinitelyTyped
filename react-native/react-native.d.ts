@@ -22,7 +22,7 @@
 import React = __React;
 
 //react-native "extends" react
-declare namespace  __React {
+declare module "react-native" {
 
 
     /**
@@ -120,6 +120,11 @@ declare namespace  __React {
 
     // @see lib.es6.d.ts
     export var Promise: PromiseConstructor;
+
+    // class Component<P, S> implements ComponentLifecycle<P, S> {
+    export class Component<P, S> extends React.Component<P, S> {
+      setNativeProps: ( props: Object ) => void
+    }
 
     //TODO: BGR: Replace with ComponentClass ?
     // node_modules/react-tools/src/classic/class/ReactClass.js
@@ -3497,14 +3502,6 @@ declare namespace  __React {
         export var TestModule: TestModuleStatic
         export type TestModule = TestModuleStatic
     }
-
-
-}
-
-declare module "react-native" {
-
-    import ReactNative = __React
-    export = ReactNative
 }
 
 declare var global: __React.GlobalStatic

@@ -54,6 +54,9 @@ var styles = StyleSheet.create(
 
 class Welcome extends React.Component<any,any> {
 
+    testNativeMethods() {
+      this.setNativeProps({});
+    }
 
     render() {
 
