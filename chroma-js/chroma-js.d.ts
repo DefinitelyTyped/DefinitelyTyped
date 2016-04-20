@@ -66,7 +66,7 @@ declare namespace Chroma {
         hsv(h: number, s: number, v: number): Color;
 
         /** */
-        lab(...args: any[]): Color;
+        lab(lightness: number, a: number, b: number, alpha?: number): Color;
 
         /** */
         lch(l: number, c: number, h: number): Color;
