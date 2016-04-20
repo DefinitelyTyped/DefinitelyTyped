@@ -3332,6 +3332,8 @@ declare namespace  __React {
     }
 
     export module Animated {
+      type Property = Value | AnimatedInterpolation;
+
       type ExtrapolateType = 'extend' | 'identity' | 'clamp';
 
       type InterpolationConfigType = {
@@ -3351,8 +3353,9 @@ declare namespace  __React {
        * mechanism at a time.  Using a new mechanism (e.g. starting a new animation,
        * or calling `setValue`) will stop any previous ones.
        */
-      export class AnimatedValue {
+      export class Value {
         constructor(value: number);
+
         setValue(value: number): void;
 
         /**
@@ -3393,13 +3396,16 @@ declare namespace  __React {
         interpolate(config: InterpolationConfigType): AnimatedInterpolation;
       }
 
+      type AnimatedValue = Value;
+
       type ValueXYListenerCallback = (value: {x: number; y: number}) => void;
+
       /**
        * 2D Value for driving 2D animations, such as pan gestures.  Almost identical
        * API to normal `Animated.Value`, but multiplexed.  Contains two regular
        * `Animated.Value`s under the hood.
        */
-      export class AnimatedValueXY {
+      export class ValueXY {
         x: AnimatedValue;
         y: AnimatedValue;
 
@@ -3438,6 +3444,8 @@ declare namespace  __React {
         getTranslateTransform(): {[key: string]: AnimatedValue}[];
 
       }
+
+      type AnimatedValueXY = ValueXY;
 
       class Animated {
         // Internal class, no public API.
