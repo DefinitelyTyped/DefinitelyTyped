@@ -3331,8 +3331,20 @@ declare namespace  __React {
         vibrate(): void
     }
 
+    export type AnimatedValue = Animated.Animated;
+    type AnimatedValueXY = Animated.ValueXY;
+
     export module Animated {
-      type Property = Value | AnimatedInterpolation;
+      // Most (all?) functions where AnimatedValue is used any subclass of Animated can be used as well.
+
+      class Animated {
+        // Internal class, no public API.
+      }
+
+      class AnimatedWithChildren extends Animated {
+        // Internal class, no public API.
+      }
+
 
       type ExtrapolateType = 'extend' | 'identity' | 'clamp';
 
