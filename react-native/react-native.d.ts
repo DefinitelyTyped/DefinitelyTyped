@@ -3477,7 +3477,7 @@ declare namespace  __React {
         easing?: (value: number) => number;
         duration?: number;
         delay?: number;
-      };
+      }
 
       /**
        * Animates a value along a timed easing curve.  The `Easing` module has tons
@@ -3498,7 +3498,7 @@ declare namespace  __React {
         speed?: number;
         tension?: number;
         friction?: number;
-      };
+      }
 
       /**
        * Spring animation based on Rebound and Origami.  Tracks velocity state to
@@ -3526,7 +3526,7 @@ declare namespace  __React {
       type Mapping = {[key: string]: Mapping} | AnimatedValue;
       interface EventConfig {
         listener?: Function
-      };
+      }
 
       /**
        *  Takes an array of mappings and extracts values from each arg accordingly,
