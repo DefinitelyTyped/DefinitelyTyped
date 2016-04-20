@@ -1,4 +1,4 @@
-/// <reference path="chroma-js.d.ts" />
+/// <reference path="chroma-js-0.5.6.d.ts" />
 
 function test_chroma() {
     chroma("red");
