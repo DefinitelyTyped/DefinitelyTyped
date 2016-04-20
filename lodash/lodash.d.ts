@@ -19254,6 +19254,1417 @@ declare module _ {
     }
 }
 
+// Named exports
+
+declare module "lodash/after" {
+   export = _.after;
+}
+
+
+declare module "lodash/ary" {
+   export = _.ary;
+}
+
+
+declare module "lodash/assign" {
+   export = _.assign;
+}
+
+
+declare module "lodash/assignIn" {
+   export = _.assignIn;
+}
+
+
+declare module "lodash/assignInWith" {
+   export = _.assignInWith;
+}
+
+
+declare module "lodash/assignWith" {
+   export = _.assignWith;
+}
+
+
+declare module "lodash/at" {
+   export = _.at;
+}
+
+
+declare module "lodash/before" {
+   export = _.before;
+}
+
+
+declare module "lodash/bind" {
+   export = _.bind;
+}
+
+
+declare module "lodash/bindAll" {
+   export = _.bindAll;
+}
+
+
+declare module "lodash/bindKey" {
+   export = _.bindKey;
+}
+
+
+declare module "lodash/castArray" {
+   export = _.castArray;
+}
+
+
+declare module "lodash/chain" {
+   export = _.chain;
+}
+
+
+declare module "lodash/chunk" {
+   export = _.chunk;
+}
+
+
+declare module "lodash/compact" {
+   export = _.compact;
+}
+
+
+declare module "lodash/concat" {
+   export = _.concat;
+}
+
+
+declare module "lodash/constant" {
+   export = _.constant;
+}
+
+
+declare module "lodash/countBy" {
+   export = _.countBy;
+}
+
+
+declare module "lodash/create" {
+   export = _.create;
+}
+
+
+declare module "lodash/curry" {
+   export = _.curry;
+}
+
+
+declare module "lodash/curryRight" {
+   export = _.curryRight;
+}
+
+
+declare module "lodash/debounce" {
+   export = _.debounce;
+}
+
+
+declare module "lodash/defaults" {
+   export = _.defaults;
+}
+
+
+declare module "lodash/defaultsDeep" {
+   export = _.defaultsDeep;
+}
+
+
+declare module "lodash/defer" {
+   export = _.defer;
+}
+
+
+declare module "lodash/delay" {
+   export = _.delay;
+}
+
+
+declare module "lodash/difference" {
+   export = _.difference;
+}
+
+
+declare module "lodash/differenceBy" {
+   export = _.differenceBy;
+}
+
+
+declare module "lodash/differenceWith" {
+   export = _.differenceWith;
+}
+
+
+declare module "lodash/drop" {
+   export = _.drop;
+}
+
+
+declare module "lodash/dropRight" {
+   export = _.dropRight;
+}
+
+
+declare module "lodash/dropRightWhile" {
+   export = _.dropRightWhile;
+}
+
+
+declare module "lodash/dropWhile" {
+   export = _.dropWhile;
+}
+
+
+declare module "lodash/fill" {
+   export = _.fill;
+}
+
+
+declare module "lodash/filter" {
+   export = _.filter;
+}
+
+
+declare module "lodash/flatMap" {
+   export = _.flatMap;
+}
+
+
+declare module "lodash/flatten" {
+   export = _.flatten;
+}
+
+
+declare module "lodash/flattenDeep" {
+   export = _.flattenDeep;
+}
+
+
+declare module "lodash/flip" {
+   export = _.flip;
+}
+
+
+declare module "lodash/flow" {
+   export = _.flow;
+}
+
+
+declare module "lodash/flowRight" {
+   export = _.flowRight;
+}
+
+
+declare module "lodash/fromPairs" {
+   export = _.fromPairs;
+}
+
+
+declare module "lodash/functions" {
+   export = _.functions;
+}
+
+
+declare module "lodash/functionsIn" {
+   export = _.functionsIn;
+}
+
+
+declare module "lodash/groupBy" {
+   export = _.groupBy;
+}
+
+
+declare module "lodash/initial" {
+   export = _.initial;
+}
+
+
+declare module "lodash/intersection" {
+   export = _.intersection;
+}
+
+
+declare module "lodash/intersectionBy" {
+   export = _.intersectionBy;
+}
+
+
+declare module "lodash/intersectionWith" {
+   export = _.intersectionWith;
+}
+
+
+declare module "lodash/invert" {
+   export = _.invert;
+}
+
+
+declare module "lodash/invertBy" {
+   export = _.invertBy;
+}
+
+
+declare module "lodash/invokeMap" {
+   export = _.invokeMap;
+}
+
+
+declare module "lodash/iteratee" {
+   export = _.iteratee;
+}
+
+
+declare module "lodash/keyBy" {
+   export = _.keyBy;
+}
+
+
+declare module "lodash/keys" {
+   export = _.keys;
+}
+
+
+declare module "lodash/keysIn" {
+   export = _.keysIn;
+}
+
+
+declare module "lodash/map" {
+   export = _.map;
+}
+
+
+declare module "lodash/mapKeys" {
+   export = _.mapKeys;
+}
+
+
+declare module "lodash/mapValues" {
+   export = _.mapValues;
+}
+
+
+declare module "lodash/matches" {
+   export = _.matches;
+}
+
+
+declare module "lodash/matchesProperty" {
+   export = _.matchesProperty;
+}
+
+
+declare module "lodash/memoize" {
+   export = _.memoize;
+}
+
+
+declare module "lodash/merge" {
+   export = _.merge;
+}
+
+
+declare module "lodash/mergeWith" {
+   export = _.mergeWith;
+}
+
+
+declare module "lodash/method" {
+   export = _.method;
+}
+
+
+declare module "lodash/methodOf" {
+   export = _.methodOf;
+}
+
+
+declare module "lodash/mixin" {
+   export = _.mixin;
+}
+
+
+declare module "lodash/negate" {
+   export = _.negate;
+}
+
+
+declare module "lodash/nthArg" {
+   export = _.nthArg;
+}
+
+
+declare module "lodash/omit" {
+   export = _.omit;
+}
+
+
+declare module "lodash/omitBy" {
+   export = _.omitBy;
+}
+
+
+declare module "lodash/once" {
+   export = _.once;
+}
+
+
+declare module "lodash/orderBy" {
+   export = _.orderBy;
+}
+
+
+declare module "lodash/over" {
+   export = _.over;
+}
+
+
+declare module "lodash/overArgs" {
+   export = _.overArgs;
+}
+
+
+declare module "lodash/overEvery" {
+   export = _.overEvery;
+}
+
+
+declare module "lodash/overSome" {
+   export = _.overSome;
+}
+
+
+declare module "lodash/partial" {
+   export = _.partial;
+}
+
+
+declare module "lodash/partialRight" {
+   export = _.partialRight;
+}
+
+
+declare module "lodash/partition" {
+   export = _.partition;
+}
+
+
+declare module "lodash/pick" {
+   export = _.pick;
+}
+
+
+declare module "lodash/pickBy" {
+   export = _.pickBy;
+}
+
+
+declare module "lodash/property" {
+   export = _.property;
+}
+
+
+declare module "lodash/propertyOf" {
+   export = _.propertyOf;
+}
+
+
+declare module "lodash/pull" {
+   export = _.pull;
+}
+
+
+declare module "lodash/pullAll" {
+   export = _.pullAll;
+}
+
+
+declare module "lodash/pullAllBy" {
+   export = _.pullAllBy;
+}
+
+
+declare module "lodash/pullAt" {
+   export = _.pullAt;
+}
+
+
+declare module "lodash/range" {
+   export = _.range;
+}
+
+
+declare module "lodash/rangeRight" {
+   export = _.rangeRight;
+}
+
+
+declare module "lodash/rearg" {
+   export = _.rearg;
+}
+
+
+declare module "lodash/reject" {
+   export = _.reject;
+}
+
+
+declare module "lodash/remove" {
+   export = _.remove;
+}
+
+
+declare module "lodash/rest" {
+   export = _.rest;
+}
+
+
+declare module "lodash/reverse" {
+   export = _.reverse;
+}
+
+
+declare module "lodash/sampleSize" {
+   export = _.sampleSize;
+}
+
+
+declare module "lodash/set" {
+   export = _.set;
+}
+
+
+declare module "lodash/setWith" {
+   export = _.setWith;
+}
+
+
+declare module "lodash/shuffle" {
+   export = _.shuffle;
+}
+
+
+declare module "lodash/slice" {
+   export = _.slice;
+}
+
+
+declare module "lodash/sortBy" {
+   export = _.sortBy;
+}
+
+
+declare module "lodash/sortedUniq" {
+   export = _.sortedUniq;
+}
+
+
+declare module "lodash/sortedUniqBy" {
+   export = _.sortedUniqBy;
+}
+
+
+declare module "lodash/split" {
+   export = _.split;
+}
+
+
+declare module "lodash/spread" {
+   export = _.spread;
+}
+
+
+declare module "lodash/tail" {
+   export = _.tail;
+}
+
+
+declare module "lodash/take" {
+   export = _.take;
+}
+
+
+declare module "lodash/takeRight" {
+   export = _.takeRight;
+}
+
+
+declare module "lodash/takeRightWhile" {
+   export = _.takeRightWhile;
+}
+
+
+declare module "lodash/takeWhile" {
+   export = _.takeWhile;
+}
+
+
+declare module "lodash/tap" {
+   export = _.tap;
+}
+
+
+declare module "lodash/throttle" {
+   export = _.throttle;
+}
+
+
+declare module "lodash/thru" {
+   export = _.thru;
+}
+
+
+declare module "lodash/toArray" {
+   export = _.toArray;
+}
+
+
+declare module "lodash/toPairs" {
+   export = _.toPairs;
+}
+
+
+declare module "lodash/toPairsIn" {
+   export = _.toPairsIn;
+}
+
+
+declare module "lodash/toPath" {
+   export = _.toPath;
+}
+
+
+declare module "lodash/toPlainObject" {
+   export = _.toPlainObject;
+}
+
+
+declare module "lodash/transform" {
+   export = _.transform;
+}
+
+
+declare module "lodash/unary" {
+   export = _.unary;
+}
+
+
+declare module "lodash/union" {
+   export = _.union;
+}
+
+
+declare module "lodash/unionBy" {
+   export = _.unionBy;
+}
+
+
+declare module "lodash/unionWith" {
+   export = _.unionWith;
+}
+
+
+declare module "lodash/uniq" {
+   export = _.uniq;
+}
+
+
+declare module "lodash/uniqBy" {
+   export = _.uniqBy;
+}
+
+
+declare module "lodash/uniqWith" {
+   export = _.uniqWith;
+}
+
+
+declare module "lodash/unset" {
+   export = _.unset;
+}
+
+
+declare module "lodash/unzip" {
+   export = _.unzip;
+}
+
+
+declare module "lodash/unzipWith" {
+   export = _.unzipWith;
+}
+
+
+declare module "lodash/update" {
+   export = _.update;
+}
+
+
+declare module "lodash/values" {
+   export = _.values;
+}
+
+
+declare module "lodash/valuesIn" {
+   export = _.valuesIn;
+}
+
+
+declare module "lodash/without" {
+   export = _.without;
+}
+
+
+declare module "lodash/words" {
+   export = _.words;
+}
+
+
+declare module "lodash/wrap" {
+   export = _.wrap;
+}
+
+
+declare module "lodash/xor" {
+   export = _.xor;
+}
+
+
+declare module "lodash/xorBy" {
+   export = _.xorBy;
+}
+
+
+declare module "lodash/xorWith" {
+   export = _.xorWith;
+}
+
+
+declare module "lodash/zip" {
+   export = _.zip;
+}
+
+
+declare module "lodash/zipObject" {
+   export = _.zipObject;
+}
+
+
+declare module "lodash/zipWith" {
+   export = _.zipWith;
+}
+
+
+declare module "lodash/extend" {
+   export = _.extend;
+}
+
+
+declare module "lodash/add" {
+   export = _.add;
+}
+
+
+declare module "lodash/attempt" {
+   export = _.attempt;
+}
+
+
+declare module "lodash/camelCase" {
+   export = _.camelCase;
+}
+
+
+declare module "lodash/capitalize" {
+   export = _.capitalize;
+}
+
+
+declare module "lodash/ceil" {
+   export = _.ceil;
+}
+
+
+declare module "lodash/clamp" {
+   export = _.clamp;
+}
+
+
+declare module "lodash/clone" {
+   export = _.clone;
+}
+
+
+declare module "lodash/cloneDeep" {
+   export = _.cloneDeep;
+}
+
+
+declare module "lodash/cloneDeepWith" {
+   export = _.cloneDeepWith;
+}
+
+
+declare module "lodash/cloneWith" {
+   export = _.cloneWith;
+}
+
+
+declare module "lodash/deburr" {
+   export = _.deburr;
+}
+
+
+declare module "lodash/endsWith" {
+   export = _.endsWith;
+}
+
+
+declare module "lodash/eq" {
+   export = _.eq;
+}
+
+
+declare module "lodash/escape" {
+   export = _.escape;
+}
+
+
+declare module "lodash/escapeRegExp" {
+   export = _.escapeRegExp;
+}
+
+
+declare module "lodash/every" {
+   export = _.every;
+}
+
+
+declare module "lodash/find" {
+   export = _.find;
+}
+
+
+declare module "lodash/findIndex" {
+   export = _.findIndex;
+}
+
+
+declare module "lodash/findKey" {
+   export = _.findKey;
+}
+
+
+declare module "lodash/findLast" {
+   export = _.findLast;
+}
+
+
+declare module "lodash/findLastIndex" {
+   export = _.findLastIndex;
+}
+
+
+declare module "lodash/findLastKey" {
+   export = _.findLastKey;
+}
+
+
+declare module "lodash/floor" {
+   export = _.floor;
+}
+
+
+declare module "lodash/forEach" {
+   export = _.forEach;
+}
+
+
+declare module "lodash/forEachRight" {
+   export = _.forEachRight;
+}
+
+
+declare module "lodash/forIn" {
+   export = _.forIn;
+}
+
+
+declare module "lodash/forInRight" {
+   export = _.forInRight;
+}
+
+
+declare module "lodash/forOwn" {
+   export = _.forOwn;
+}
+
+
+declare module "lodash/forOwnRight" {
+   export = _.forOwnRight;
+}
+
+
+declare module "lodash/get" {
+   export = _.get;
+}
+
+
+declare module "lodash/gt" {
+   export = _.gt;
+}
+
+
+declare module "lodash/gte" {
+   export = _.gte;
+}
+
+
+declare module "lodash/has" {
+   export = _.has;
+}
+
+
+declare module "lodash/hasIn" {
+   export = _.hasIn;
+}
+
+
+declare module "lodash/head" {
+   export = _.head;
+}
+
+
+declare module "lodash/identity" {
+   export = _.identity;
+}
+
+
+declare module "lodash/includes" {
+   export = _.includes;
+}
+
+
+declare module "lodash/indexOf" {
+   export = _.indexOf;
+}
+
+
+declare module "lodash/inRange" {
+   export = _.inRange;
+}
+
+
+declare module "lodash/invoke" {
+   export = _.invoke;
+}
+
+
+declare module "lodash/isArguments" {
+   export = _.isArguments;
+}
+
+
+declare module "lodash/isArray" {
+   export = _.isArray;
+}
+
+
+declare module "lodash/isArrayBuffer" {
+   export = _.isArrayBuffer;
+}
+
+
+declare module "lodash/isArrayLike" {
+   export = _.isArrayLike;
+}
+
+
+declare module "lodash/isArrayLikeObject" {
+   export = _.isArrayLikeObject;
+}
+
+
+declare module "lodash/isBoolean" {
+   export = _.isBoolean;
+}
+
+
+declare module "lodash/isBuffer" {
+   export = _.isBuffer;
+}
+
+
+declare module "lodash/isDate" {
+   export = _.isDate;
+}
+
+
+declare module "lodash/isElement" {
+   export = _.isElement;
+}
+
+
+declare module "lodash/isEmpty" {
+   export = _.isEmpty;
+}
+
+
+declare module "lodash/isEqual" {
+   export = _.isEqual;
+}
+
+
+declare module "lodash/isEqualWith" {
+   export = _.isEqualWith;
+}
+
+
+declare module "lodash/isError" {
+   export = _.isError;
+}
+
+
+declare module "lodash/isFinite" {
+   export = _.isFinite;
+}
+
+
+declare module "lodash/isFunction" {
+   export = _.isFunction;
+}
+
+
+declare module "lodash/isInteger" {
+   export = _.isInteger;
+}
+
+
+declare module "lodash/isLength" {
+   export = _.isLength;
+}
+
+
+declare module "lodash/isMap" {
+   export = _.isMap;
+}
+
+
+declare module "lodash/isMatch" {
+   export = _.isMatch;
+}
+
+
+declare module "lodash/isMatchWith" {
+   export = _.isMatchWith;
+}
+
+
+declare module "lodash/isNaN" {
+   export = _.isNaN;
+}
+
+
+declare module "lodash/isNative" {
+   export = _.isNative;
+}
+
+
+declare module "lodash/isNil" {
+   export = _.isNil;
+}
+
+
+declare module "lodash/isNull" {
+   export = _.isNull;
+}
+
+
+declare module "lodash/isNumber" {
+   export = _.isNumber;
+}
+
+
+declare module "lodash/isObject" {
+   export = _.isObject;
+}
+
+
+declare module "lodash/isObjectLike" {
+   export = _.isObjectLike;
+}
+
+
+declare module "lodash/isPlainObject" {
+   export = _.isPlainObject;
+}
+
+
+declare module "lodash/isRegExp" {
+   export = _.isRegExp;
+}
+
+
+declare module "lodash/isSafeInteger" {
+   export = _.isSafeInteger;
+}
+
+
+declare module "lodash/isSet" {
+   export = _.isSet;
+}
+
+
+declare module "lodash/isString" {
+   export = _.isString;
+}
+
+
+declare module "lodash/isSymbol" {
+   export = _.isSymbol;
+}
+
+
+declare module "lodash/isTypedArray" {
+   export = _.isTypedArray;
+}
+
+
+declare module "lodash/isUndefined" {
+   export = _.isUndefined;
+}
+
+
+declare module "lodash/isWeakMap" {
+   export = _.isWeakMap;
+}
+
+
+declare module "lodash/isWeakSet" {
+   export = _.isWeakSet;
+}
+
+
+declare module "lodash/join" {
+   export = _.join;
+}
+
+
+declare module "lodash/kebabCase" {
+   export = _.kebabCase;
+}
+
+
+declare module "lodash/last" {
+   export = _.last;
+}
+
+
+declare module "lodash/lastIndexOf" {
+   export = _.lastIndexOf;
+}
+
+
+declare module "lodash/lowerCase" {
+   export = _.lowerCase;
+}
+
+
+declare module "lodash/lowerFirst" {
+   export = _.lowerFirst;
+}
+
+
+declare module "lodash/lt" {
+   export = _.lt;
+}
+
+
+declare module "lodash/lte" {
+   export = _.lte;
+}
+
+
+declare module "lodash/max" {
+   export = _.max;
+}
+
+
+declare module "lodash/maxBy" {
+   export = _.maxBy;
+}
+
+
+declare module "lodash/mean" {
+   export = _.mean;
+}
+
+
+declare module "lodash/min" {
+   export = _.min;
+}
+
+
+declare module "lodash/minBy" {
+   export = _.minBy;
+}
+
+
+declare module "lodash/noConflict" {
+   export = _.noConflict;
+}
+
+
+declare module "lodash/noop" {
+   export = _.noop;
+}
+
+
+declare module "lodash/now" {
+   export = _.now;
+}
+
+
+declare module "lodash/pad" {
+   export = _.pad;
+}
+
+
+declare module "lodash/padEnd" {
+   export = _.padEnd;
+}
+
+
+declare module "lodash/padStart" {
+   export = _.padStart;
+}
+
+
+declare module "lodash/parseInt" {
+   export = _.parseInt;
+}
+
+
+declare module "lodash/random" {
+   export = _.random;
+}
+
+
+declare module "lodash/reduce" {
+   export = _.reduce;
+}
+
+
+declare module "lodash/reduceRight" {
+   export = _.reduceRight;
+}
+
+
+declare module "lodash/repeat" {
+   export = _.repeat;
+}
+
+
+declare module "lodash/replace" {
+   export = _.replace;
+}
+
+
+declare module "lodash/result" {
+   export = _.result;
+}
+
+
+declare module "lodash/round" {
+   export = _.round;
+}
+
+
+declare module "lodash/runInContext" {
+   export = _.runInContext;
+}
+
+
+declare module "lodash/sample" {
+   export = _.sample;
+}
+
+
+declare module "lodash/size" {
+   export = _.size;
+}
+
+
+declare module "lodash/snakeCase" {
+   export = _.snakeCase;
+}
+
+
+declare module "lodash/some" {
+   export = _.some;
+}
+
+
+declare module "lodash/sortedIndex" {
+   export = _.sortedIndex;
+}
+
+
+declare module "lodash/sortedIndexBy" {
+   export = _.sortedIndexBy;
+}
+
+
+declare module "lodash/sortedIndexOf" {
+   export = _.sortedIndexOf;
+}
+
+
+declare module "lodash/sortedLastIndex" {
+   export = _.sortedLastIndex;
+}
+
+
+declare module "lodash/sortedLastIndexBy" {
+   export = _.sortedLastIndexBy;
+}
+
+
+declare module "lodash/sortedLastIndexOf" {
+   export = _.sortedLastIndexOf;
+}
+
+
+declare module "lodash/startCase" {
+   export = _.startCase;
+}
+
+
+declare module "lodash/startsWith" {
+   export = _.startsWith;
+}
+
+
+declare module "lodash/subtract" {
+   export = _.subtract;
+}
+
+
+declare module "lodash/sum" {
+   export = _.sum;
+}
+
+
+declare module "lodash/sumBy" {
+   export = _.sumBy;
+}
+
+
+declare module "lodash/template" {
+   export = _.template;
+}
+
+
+declare module "lodash/times" {
+   export = _.times;
+}
+
+
+declare module "lodash/toInteger" {
+   export = _.toInteger;
+}
+
+
+declare module "lodash/toLength" {
+   export = _.toLength;
+}
+
+
+declare module "lodash/toLower" {
+   export = _.toLower;
+}
+
+
+declare module "lodash/toNumber" {
+   export = _.toNumber;
+}
+
+
+declare module "lodash/toSafeInteger" {
+   export = _.toSafeInteger;
+}
+
+
+declare module "lodash/toString" {
+   export = _.toString;
+}
+
+
+declare module "lodash/toUpper" {
+   export = _.toUpper;
+}
+
+
+declare module "lodash/trim" {
+   export = _.trim;
+}
+
+
+declare module "lodash/trimEnd" {
+   export = _.trimEnd;
+}
+
+
+declare module "lodash/trimStart" {
+   export = _.trimStart;
+}
+
+
+declare module "lodash/truncate" {
+   export = _.truncate;
+}
+
+
+declare module "lodash/unescape" {
+   export = _.unescape;
+}
+
+
+declare module "lodash/uniqueId" {
+   export = _.uniqueId;
+}
+
+
+declare module "lodash/upperCase" {
+   export = _.upperCase;
+}
+
+
+declare module "lodash/upperFirst" {
+   export = _.upperFirst;
+}
+
+
+declare module "lodash/each" {
+   export = _.each;
+}
+
+
+declare module "lodash/eachRight" {
+   export = _.eachRight;
+}
+
+
+declare module "lodash/first" {
+   export = _.first;
+}
+
 declare module "lodash" {
     export = _;
 }
