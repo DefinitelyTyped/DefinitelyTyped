@@ -74,10 +74,15 @@ declare namespace Chroma {
         /** */
         rgb(r: number, g: number, b: number): Color;
 
-        /** */
+        /** 
+         * GL is a variant of RGB(A), with the only difference that the components are normalized to the range of 0..1.
+        */
         gl(red: number, green: number, blue: number, alpha?: number): Color;
 
-        /** */
+        /** 
+         * light 2000K, bright sunlight 6000K. Based on Neil Bartlett's implementation. 
+         * https://github.com/neilbartlett/color-temperature
+        */
         temperature(t: number): Color;
 
         /** */
@@ -87,15 +92,18 @@ declare namespace Chroma {
         interpolate(col1: string | Color, col2: string | Color, f?: number, colorSpace?: string): Color;
 
         /**
-         * blendMode: multiply, darken, lighten, screen, overlay, burn, and dogde.
+         * Blends two colors using RGB channel-wise blend functions. Valid blend modes are multiply, darken, lighten, screen, overlay, burn, and dogde.
          */
         blend(col1: string, col2: string, blendMode: string): Color;
 
-        /** */
+        /**
+         * Returns a random color.
+        */
         random(): Color;
 
         /**
-          * Calculate the contrast ratio of two colors.
+          * Computes the WCAG contrast ratio between two colors. 
+          * A minimum contrast of 4.5:1 is recommended to ensure that text is still readable against a background color.
           *
           * @param color1 The first color.
           * @param color2 The second color.
@@ -105,7 +113,10 @@ declare namespace Chroma {
 
         bezier(colors: string[]): Scale;
 
-        /** */
+        /**
+         * chroma.brewer is an map of ColorBrewer scales that are included in chroma.js for convenience. 
+         * chroma.scale uses the colors to construct.
+        */
         brewer: {
             OrRd: string[];
             PuBu: string[];
@@ -145,7 +156,8 @@ declare namespace Chroma {
         };
 
         /**
-         * mode: e|q|k
+         * Helper function that computes class breaks for you, based on actual data. 
+         * Supports three different modes: equidistant breaks, quantiles breaks and breaks based on k-means clusting.
          */
         limits(data: number[], mode: string, c: number): number[];
 
@@ -172,25 +184,19 @@ declare namespace Chroma {
     }
 
     export interface Color {
-        /** */
         alpha(a?: number): Color;
-
-        /** */
-        darken(d?: number): Color;
-
-        /** */
-        brighten(b?: number): Color;
-
-        /** */
+        darken(f?: number): Color;
+        brighten(f?: number): Color;
         saturate(s?: number): Color;
-
-        /** */
         desaturate(s?: number): Color;
-
-        /** */
+        /**
+         * Set a channel of a color space.
+        */
         set(modechan: string, v: number | string): Color;
 
-        /** */
+        /** 
+         * Get a channel of a color space.
+         */
         get(modechan: string): number;
 
         /** */
