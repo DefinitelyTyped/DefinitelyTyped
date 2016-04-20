@@ -135,7 +135,7 @@ declare module "react-native" {
         x: number,
         y: number,
         width: number,
-        height: number,
+        height: number
       ) => void
 
       type MeasureLayoutOnSuccessCallback = (
@@ -2182,7 +2182,7 @@ declare module "react-native" {
     }
 
     export interface Route {
-        component?: ComponentClass<ViewProperties>
+        component?: React.ComponentClass<ViewProperties>
         id?: string
         title?: string
         passProps?: Object;
