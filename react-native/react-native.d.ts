@@ -3498,6 +3498,30 @@ declare namespace  __React {
         animations: Array<CompositeAnimation>,
         config?: ParallelConfig
       ) => CompositeAnimation;
+
+      type Mapping = {[key: string]: Mapping} | AnimatedValue;
+      type EventConfig = {listener?: Function};
+
+      /**
+       *  Takes an array of mappings and extracts values from each arg accordingly,
+       *  then calls `setValue` on the mapped outputs.  e.g.
+       *
+       *```javascript
+       *  onScroll={Animated.event(
+       *    [{nativeEvent: {contentOffset: {x: this._scrollX}}}]
+       *    {listener},          // Optional async listener
+       *  )
+       *  ...
+       *  onPanResponderMove: Animated.event([
+       *    null,                // raw event arg ignored
+       *    {dx: this._panX},    // gestureState arg
+       *  ]),
+       *```
+       */
+      var event: (
+        argMapping: Mapping[],
+        config?: EventConfig
+      ) => (...args: any[]) => void;
     }
 
     //////////////////////////////////////////////////////////////////////////
