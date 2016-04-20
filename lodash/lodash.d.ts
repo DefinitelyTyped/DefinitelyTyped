@@ -21086,6 +21086,9 @@ declare module "lodash/first" {
    export = first;
 }
 
+declare module "lodash/fp" {
+    export = _;
+}
 
 declare module "lodash" {
     export = _;
