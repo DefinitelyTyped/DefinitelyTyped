@@ -3570,19 +3570,6 @@ declare module "react-native" {
 
     export function __spread( target: any, ...sources: any[] ): any;
 
-
-    export interface GlobalStatic {
-
-        /**
-         * Accepts a function as its only argument and calls that function before the next repaint.
-         * It is an essential building block for animations that underlies all of the JavaScript-based animation APIs.
-         * In general, you shouldn't need to call this yourself - the animation API's will manage frame updates for you.
-         * @see https://facebook.github.io/react-native/docs/animations.html#requestanimationframe
-         */
-        requestAnimationFrame( fn: () => void ) : void;
-
-    }
-
     //
     // Add-Ons
     //
@@ -3601,7 +3588,18 @@ declare module "react-native" {
     }
 }
 
-declare var global: __React.GlobalStatic
+declare interface ReactNativeGlobalStatic {
+  /**
+   * Accepts a function as its only argument and calls that function before the next repaint.
+   * It is an essential building block for animations that underlies all of the JavaScript-based animation APIs.
+   * In general, you shouldn't need to call this yourself - the animation API's will manage frame updates for you.
+   * @see https://facebook.github.io/react-native/docs/animations.html#requestanimationframe
+   */
+  requestAnimationFrame( fn: () => void ) : void;
+}
+
+
+declare var global: ReactNativeGlobalStatic;
 
 declare function require( name: string ): any
 
