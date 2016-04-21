@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 import * as React from 'react';
 import { Component, CSSProperties } from 'react';
-import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput, FormControls } from 'react-bootstrap';
+import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput, FormControls, Form, FormGroup, ControlLabel, FormControl, HelpBlock, Radio, Checkbox } from 'react-bootstrap';
 
 
 export class ReactBootstrapTest extends Component<any, any> {
@@ -910,6 +910,37 @@ export class ReactBootstrapTest extends Component<any, any> {
                       </Col>
                     </Row>
                   </Input>
+                </div>
+                
+                <div style={style}>
+                  <Form>
+                    <FormGroup
+                      controlId="formBasicText"
+                    >
+                      <ControlLabel>Control Label</ControlLabel>
+                      <FormControl
+                        type="text"                        
+                        placeholder="Enter text"
+                      />
+                      <FormControl.Feedback />
+                      <HelpBlock>Help block message.</HelpBlock>
+                    </FormGroup>
+                    
+                    <FormGroup>
+                      <Checkbox name="checkbox" inline>1</Checkbox>
+                      {' '}
+                      <Checkbox name="checkbox" inline>2</Checkbox>
+                      {' '}
+                      <Checkbox name="checkbox" inline>3</Checkbox>
+                    </FormGroup>
+                    <FormGroup>
+                      <Radio name="radio" inline>1</Radio>
+                      {' '}
+                      <Radio name="radio" inline>2</Radio>
+                      {' '}
+                      <Radio name="radio" inline>3</Radio>
+                    </FormGroup>
+                  </Form>
                 </div>
             </div>
         );
