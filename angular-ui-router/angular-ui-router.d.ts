@@ -100,6 +100,12 @@ declare namespace angular.ui {
         cache?: boolean;
     }
 
+    interface IUnfoundState {
+        to: string,
+        toParams: {},
+        options: IStateOptions
+    }
+    
     interface IStateProvider extends angular.IServiceProvider {
         state(name:string, config:IState): IStateProvider;
         state(config:IState): IStateProvider;

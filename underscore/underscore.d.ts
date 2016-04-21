@@ -39,7 +39,7 @@ declare module _ {
 		* Default value is '/<%-([\s\S]+?)%>/g'.
 		**/
 		escape?: RegExp;
-		
+
 		/**
 		* By default, 'template()' places the values from your data in the local scope via the 'with' statement.
 		* However, you can specify a single variable name with this setting.
@@ -5064,30 +5064,30 @@ interface _Chain<T> {
 	/**
 	* @see _.all
 	**/
-	every(iterator?: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+	every(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.any
 	**/
-	any(iterator?: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+	any(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
 
 	/**
 	* @see _.any
 	**/
-	some(iterator?: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+	some(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.contains
 	**/
-	contains(value: T): _Chain<T>;
+	contains(value: T): _ChainSingle<boolean>;
 
 	/**
 	* Alias for 'contains'.
 	* @see contains
 	**/
-	include(value: T): _Chain<T>;
+	include(value: T): _ChainSingle<boolean>;
 
 	/**
 	* Wrapped type `any[]`.
@@ -5908,7 +5908,7 @@ interface _ChainSingle<T> {
 	value(): T;
 }
 interface _ChainOfArrays<T> extends _Chain<T[]> {
-	flatten(): _Chain<T>;
+	flatten(shallow?: boolean): _Chain<T>;
 }
 
 declare var _: UnderscoreStatic;

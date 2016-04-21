@@ -30,7 +30,8 @@ THE SOFTWARE.
 declare namespace google.maps {
     /***** Map *****/
     export class Map extends MVCObject {
-        constructor(mapDiv: Element, opts?: MapOptions);fitBounds(bounds: LatLngBounds): void;
+        constructor(mapDiv: Element, opts?: MapOptions);
+        fitBounds(bounds: LatLngBounds): void;
         getBounds(): LatLngBounds;
         getCenter(): LatLng;
         getDiv(): Element;
@@ -58,7 +59,7 @@ declare namespace google.maps {
 
     export interface MapOptions {
         backgroundColor?: string;
-        center?: LatLng;
+        center?: LatLng|LatLngLiteral;
         disableDefaultUI?: boolean;
         disableDoubleClickZoom?: boolean;
         draggable?: boolean;
@@ -338,6 +339,7 @@ declare namespace google.maps {
         getCursor(): string;
         getDraggable(): boolean;
         getIcon(): string|Icon|Symbol;
+        getLabel(): MarkerLabel;
         getMap(): Map|StreetViewPanorama;
         getOpacity(): number;
         getPlace(): Place;
@@ -352,6 +354,7 @@ declare namespace google.maps {
         setCursor(cursor: string): void;
         setDraggable(flag: boolean): void;
         setIcon(icon: string|Icon|Symbol): void;
+        setLabel(label: string|MarkerLabel): void;
         setMap(map: Map|StreetViewPanorama): void;
         setOpacity(opacity: number): void;
         setOptions(options: MarkerOptions): void;
@@ -389,6 +392,12 @@ declare namespace google.maps {
          * @type {(string|Icon|Symbol)}
          */
         icon?: string|Icon|Symbol;
+        /**
+         * Adds a label to the marker. The label can either be a string, or a MarkerLabel object. 
+         * Only the first character of the string will be displayed.
+         * @type {(string|MarkerLabel)}
+         */
+        label?: string|MarkerLabel;
         /**
          * Map on which to display Marker.
          * @type {(Map|StreetViewPanorama)}
@@ -467,6 +476,19 @@ declare namespace google.maps {
         url?: string;
     }
 
+    export interface MarkerLabel {
+        /** The color of the label text. Default color is black. */
+        color?: string;
+        /** The font family of the label text (equivalent to the CSS font-family property). */
+        fontFamily?: string;
+        /** The font size of the label text (equivalent to the CSS font-size property). Default size is 14px. */
+        fontSize?: string;
+        /** The font weight of the label text (equivalent to the CSS font-weight property). */
+        fontWeight?: string;
+        /** The text to be displayed in the label. Only the first character of this string will be shown. */
+        text?: string;
+    }
+    
     export interface MarkerShape {
         coords?: number[];
         type?: string;

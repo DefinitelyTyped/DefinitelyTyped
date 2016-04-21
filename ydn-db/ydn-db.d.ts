@@ -35,7 +35,7 @@ interface StoreSchemaJson {
 interface DatabaseSchemaJson {
   version?: number;
   stores: StoreSchemaJson[];
-  fullTextCatalogs?: FullTextCatalog;
+  fullTextCatalogs?: FullTextCatalog[];
 }
 
 interface StorageOptions {
@@ -237,7 +237,7 @@ declare namespace ydn.db {
 
     run(callback: (iStorage: ydn.db.Storage) => void, store_names: string[], mode: TransactionMode): Request;
 
-    search(catalog_name: string): Request;
+    search(catalog_name: string, query: string, limit?: number, threshold?: number): Request;
 
     setName(name: string): any;
 

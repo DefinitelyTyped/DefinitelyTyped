@@ -3,155 +3,88 @@
 namespace NavigationTests {
 	// History Manager
 	class LogHistoryManager extends Navigation.HashHistoryManager  {
-	    addHistory(state: Navigation.State, url: string) {
+	    addHistory(url: string) {
 			console.log('add history');
-			super.addHistory(state, url);
+			super.addHistory(url, false);
 	    }
 	}
-
-	// Crumb Trail Persister
-	class LogCrumbTrailPersister extends Navigation.CrumbTrailPersister {
-		load(crumbTrail: string): string {
-			console.log('load');
-			return crumbTrail;
-		}
-
-		save(crumbTrail: string): string {
-			console.log('save');
-			return crumbTrail;
-		}
-	}
-
-	// State Router
-	class LogStateRouter extends Navigation.StateRouter {
-	    getData(route: string): { state: Navigation.State; data: any } {
-			console.log('get data');
-			return super.getData(route);
-	    }
-	}
-
-	// Settings
-	Navigation.settings.router = new LogStateRouter();
-	Navigation.settings.historyManager = new LogHistoryManager();
-	Navigation.settings.crumbTrailPersister = new LogCrumbTrailPersister();
-	Navigation.settings.stateIdKey = 'state';
-
+	
 	// Configuration
-	Navigation.StateInfoConfig.build([
-		{ key: 'home', initial: 'page', help: 'home.htm', states: [
-			{ key: 'page', route: '', help: 'page.htm' }
-		]},
-		{ key: 'person', initial: 'list', states: [
-			{ key: 'list', route: ['people/{page}', 'people/{page}/sort/{sort}'], transitions: [
-				{ key: 'select', to: 'details' }
-			], defaults: { page: 1 }, trackCrumbTrail: false },
-			{ key: 'details', route: 'person/{id}', trackTypes: false, defaultTypes: { id: 'number' } }
-		]}
-	]);
-
-	// StateInfo
-	var dialogs = Navigation.StateInfoConfig.dialogs;
-	var home = dialogs['home'];
-	var homePage = home.states['page'];
-	var homeKey = home.key;
-	var homePageKey = homePage.key;
-	homePage = home.initial;
-	var person = dialogs['person'];
-	var personList = person.states['list'];
-	var personDetails = person.states['details'];
-	var personListSelect = personList.transitions['select'];
-	personList = personListSelect.parent;
-	personDetails = personListSelect.to;
-	var pageDefault = personList.defaults.page;
-	var idDefaultType = personDetails.defaultTypes.id;
-
-	// StateNavigator
-	personList.dispose = () => {};
-	personList.navigating = (data, url, navigate) => {
+	var config = [
+        { key: 'people', route: ['people/{page}', 'people/{page}/sort/{sort}'], defaults: { page: 1 }, help: 'people.htm' },
+        { key: 'person', route: 'person/{id}', trackTypes: false, defaultTypes: { id: 'number' }, trackCrumbTrail: true }
+	];
+    var stateNavigator = new Navigation.StateNavigator(config);
+    stateNavigator.configure(config, new LogHistoryManager());
+	
+	// States
+	var states = stateNavigator.states;
+	var people = states['people'];
+	var person = states['person'];
+    var help = people['help'];
+	var pageDefault = people.defaults.page;
+	var idDefaultType = person.defaultTypes.id;
+	
+	// State Controller
+	people.dispose = () => {};
+	people.navigating = (data, url, navigate) => {
 		navigate([]);
 	};
-	personList.navigated = (data, asyncData) => {};
-	personDetails.navigating = (data, url, navigate) => {
+	people.navigated = (data, asyncData) => {};
+	person.navigating = (data, url, navigate) => {
 		navigate();
 	};
-	personDetails.navigated = (data) => {};
-
-	// State Handler
-	class LogStateHandler extends Navigation.StateHandler {
-		getNavigationLink(state: Navigation.State, data: any): string {
-			console.log('get navigation link');
-			return super.getNavigationLink(state, data, { ids: [] });
-		}
-	    getNavigationData(state: Navigation.State, url: string): any {
-			console.log('get navigation data');
-			super.getNavigationData(state, url, {});
-	    }
-        urlEncode(state: Navigation.State, key: string, val: string, queryString: boolean): string {
-            return queryString ? val.replace(/\s/g, '+') : super.urlEncode(state, key, val, queryString);
-        }
-        urlDecode(state: Navigation.State, key: string, val: string, queryString: boolean): string {
-            return queryString ? val.replace(/\+/g, ' ') : super.urlDecode(state, key, val, queryString);
-        }
-	}
-	homePage.stateHandler = new LogStateHandler();
-	personList.stateHandler = new LogStateHandler();
-	personDetails.stateHandler = new LogStateHandler();
-
+	person.navigated = (data) => {};
+    person.urlEncode = function urlEncode(state: Navigation.State, key: string, val: string, queryString: boolean): string {
+        return queryString ? val.replace(/\s/g, '+') : encodeURIComponent(val);
+    }
+    person.urlDecode = function urlDecode(state: Navigation.State, key: string, val: string, queryString: boolean): string {
+        return queryString ? val.replace(/\+/g, ' ') : decodeURIComponent(val);
+    }
+	
 	// Navigation Event
-	var navigationListener =
+	var navigationListener = 
 	(oldState: Navigation.State, state: Navigation.State, data: any) => {
-		Navigation.StateController.offNavigate(navigationListener);
+		stateNavigator.offNavigate(navigationListener);
 	};
-	Navigation.StateController.onNavigate(navigationListener);
-
+	stateNavigator.onNavigate(navigationListener);
+	
 	// Navigation
-	Navigation.start('home');
-	Navigation.StateController.navigate('person');
-	Navigation.StateController.navigate('person', null, Navigation.HistoryAction.Add);
-	Navigation.StateController.refresh();
-	Navigation.StateController.refresh({ page: 3 });
-	Navigation.StateController.refresh({ page: 2 }, Navigation.HistoryAction.Replace);
-	Navigation.StateController.navigate('select', { id: 10 });
-	var canGoBack: boolean = Navigation.StateController.canNavigateBack(1);
-	Navigation.StateController.navigateBack(1);
-	Navigation.StateController.clearStateContext();
-
+	stateNavigator.navigate('people');
+	stateNavigator.navigate('people', null, 'add');
+	stateNavigator.refresh();
+	stateNavigator.refresh({ page: 3 });
+	stateNavigator.refresh({ page: 2 }, 'replace');
+	stateNavigator.navigate('person', { id: 10 });
+	var canGoBack: boolean = stateNavigator.canNavigateBack(1);
+	stateNavigator.navigateBack(1);
+	stateNavigator.stateContext.clear();
+	
 	// Navigation Link
-	var link = Navigation.StateController.getNavigationLink('person');
-	link = Navigation.StateController.getRefreshLink();
-	link = Navigation.StateController.getRefreshLink({ page: 2 });
-	Navigation.StateController.navigateLink(link);
-	link = Navigation.StateController.getNavigationLink('select', { id: 10 });
-	var nextDialog = Navigation.StateController.getNextState('select').parent;
-	person = nextDialog;
-	Navigation.StateController.navigateLink(link, false);
-	link = Navigation.StateController.getNavigationBackLink(1);
-	var crumb = Navigation.StateController.crumbs[0];
-	link = crumb.navigationLink;
-	Navigation.StateController.navigateLink(link, true, Navigation.HistoryAction.None);
-
-	// StateContext
-	Navigation.StateController.navigate('home');
-	Navigation.StateController.navigate('person');
-	home = Navigation.StateContext.previousDialog;
-	homePage = Navigation.StateContext.previousState;
-	person === Navigation.StateContext.dialog;
-	personList === Navigation.StateContext.state;
-	var url: string = Navigation.StateContext.url;
-	var title: string = Navigation.StateContext.title;
-	var page: number = Navigation.StateContext.data.page;
-	Navigation.StateController.refresh({ page: 2 });
-	person = Navigation.StateContext.oldDialog;
-	personList = Navigation.StateContext.oldState;
-	page = Navigation.StateContext.oldData.page;
-	page = Navigation.StateContext.previousData.page;
-
+	var link = stateNavigator.getNavigationLink('people');
+	link = stateNavigator.getRefreshLink();
+	link = stateNavigator.getRefreshLink({ page: 2 });
+	stateNavigator.navigateLink(link);
+	link = stateNavigator.getNavigationLink('person', { id: 10 });
+	stateNavigator.navigateLink(link, 'replace');
+	link = stateNavigator.getNavigationBackLink(1);
+	var crumb = stateNavigator.stateContext.crumbs[0];
+	link = crumb.url;
+	stateNavigator.navigateLink(link, 'none', true);
+	
+	// State Context
+	var state: Navigation.State = stateNavigator.stateContext.state;
+	var url: string = stateNavigator.stateContext.url;
+	var title: string = stateNavigator.stateContext.title;
+	var page: number = stateNavigator.stateContext.data.page;
+	state = stateNavigator.stateContext.oldState;
+	page = stateNavigator.stateContext.oldData.page;
+	state = stateNavigator.stateContext.previousState;
+	page = stateNavigator.stateContext.previousData.page;
+	
 	// Navigation Data
-	var data = Navigation.StateContext.includeCurrentData({ sort: 'name' }, ['page']);
-	Navigation.StateController.refresh(data);
-	Navigation.StateContext.clear('sort');
-	var data = Navigation.StateContext.includeCurrentData({ pageSize: 10 });
-	Navigation.StateController.refresh(data);
-	Navigation.StateContext.clear();
-	Navigation.StateController.refresh();
+	var data = stateNavigator.stateContext.includeCurrentData({ sort: 'name' }, ['page']);
+	stateNavigator.refresh(data);
+	var data = stateNavigator.stateContext.includeCurrentData({ pageSize: 10 });
+	stateNavigator.refresh(data);
 }

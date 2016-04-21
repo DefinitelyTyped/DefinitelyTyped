@@ -1,17 +1,17 @@
 // Type definitions for react-redux 4.4.0
 // Project: https://github.com/rackt/react-redux
-// Definitions by: Qubo <https://github.com/tkqubo>
+// Definitions by: Qubo <https://github.com/tkqubo>, Sean Kelley <https://github.com/seansfkelley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts" />
 /// <reference path="../redux/redux.d.ts" />
 
 declare module "react-redux" {
-  import { ComponentClass, Component, StatelessComponent, Props, ReactNode } from 'react';
+  import { ComponentClass, Component, StatelessComponent, ReactNode } from 'react';
   import { Store, Dispatch, ActionCreator } from 'redux';
 
-  interface ComponentDecorator<TOriginalProps extends Props<any>, TOwnProps extends Props<any>> {
-    (component: ComponentClass<TOriginalProps>): ComponentClass<TOwnProps>;
+  interface ComponentDecorator<TOriginalProps, TOwnProps> {
+    (component: ComponentClass<TOriginalProps>|StatelessComponent<TOriginalProps>): ComponentClass<TOwnProps>;
   }
 
   /**
@@ -43,19 +43,13 @@ declare module "react-redux" {
    * @param options
    */
   export function connect(): InferableComponentDecorator;
-  export function connect<
-    TStateProps extends Props<any>,
-    TDispatchProps extends Props<any>,
-    TOwnProps extends Props<any>
-  >(
+
+  export function connect<TStateProps, TDispatchProps, TOwnProps>(
     mapStateToProps: MapStateToProps<TStateProps, TOwnProps>,
     mapDispatchToProps?: MapDispatchToPropsFunction<TDispatchProps, TOwnProps>|MapDispatchToPropsObject
   ): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
-  export function connect<
-    TStateProps extends Props<any>,
-    TDispatchProps extends Props<any>,
-    TOwnProps extends Props<any>
-  >(
+
+  export function connect<TStateProps, TDispatchProps, TOwnProps>(
     mapStateToProps: MapStateToProps<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsFunction<TDispatchProps, TOwnProps>|MapDispatchToPropsObject,
     mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps>,
@@ -89,7 +83,7 @@ declare module "react-redux" {
     pure: boolean;
   }
 
-  export interface ProviderProps extends Props<Provider> {
+  export interface ProviderProps {
     /**
      * The single Redux store in your application.
      */
