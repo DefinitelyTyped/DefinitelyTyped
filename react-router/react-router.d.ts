@@ -248,6 +248,7 @@ declare namespace ReactRouter {
         location?: H.Location
         parseQueryString?: ParseQueryString
         stringifyQuery?: StringifyQuery
+        basename?: string
     }
     interface MatchState extends RouterState {
         history: History
