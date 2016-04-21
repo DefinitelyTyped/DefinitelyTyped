@@ -303,7 +303,7 @@ declare module "hapi" {
 		response(result: any): Response;
 
 		/** Sets a cookie on the response */
-		state(name: string, value: string, options?: any): void;
+		state(name: string, value: any, options?: any): void;
 
 		/** Clears a cookie on the response */
 		unstate(name: string, options?: any): void;
