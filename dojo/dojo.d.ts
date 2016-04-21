@@ -5505,11 +5505,7 @@ declare namespace dojo {
              *
              * @param args An object with the following properties:properties (Object, optional): A hash map of style properties to Objects describing the transition,such as the properties of _Line with an additional 'units' propertynode (DOMNode|String): The node referenced in the animationduration (Integer, optional): Duration of the animation in milliseconds.easing (Function, optional): An easing function.
              */
-<<<<<<< HEAD
             animateProperty(args?: Object): any;
-=======
-            animateProperty  (args?: Object): any ;
->>>>>>> upstream/master
 
             /**
              * Returns an animation that will fade node defined in 'args' from
