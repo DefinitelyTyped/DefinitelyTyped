@@ -199,8 +199,8 @@ declare module "mongodb" {
     db(dbName: string): Db;
     db(dbName: string, options: { noListener?: boolean, returnNonCachedInstance?: boolean }): Db;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#dropCollection
-    dropCollection(name: string): Promise<any>;
-    dropCollection(name: string, callback: MongoCallback<any>): void;
+    dropCollection(name: string): Promise<boolean>;
+    dropCollection(name: string, callback: MongoCallback<boolean>): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#dropDatabase
     dropDatabase(): Promise<any>;
     dropDatabase(callback: MongoCallback<any>): void;
@@ -1290,8 +1290,8 @@ declare module "mongodb" {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#sort
     sort(document: Object): AggregationCursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#toArray
-    toArray(): Promise<Object[]>;
-    toArray(callback: MongoCallback<Object[]>): void;
+    toArray(): Promise<any[]>;
+    toArray(callback: MongoCallback<any[]>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#unpipe
     unpipe(destination?: Writable): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#unshift
@@ -1335,8 +1335,8 @@ declare module "mongodb" {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#setReadPreference
     setReadPreference(readPreference: string | ReadPreference): CommandCursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#toArray
-    toArray(): Promise<Object[]>;
-    toArray(callback: MongoCallback<Object[]>): void;
+    toArray(): Promise<any[]>;
+    toArray(callback: MongoCallback<any[]>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#unpipe
     unpipe(destination?: Writable): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#unshift
