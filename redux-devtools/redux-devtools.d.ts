@@ -5,18 +5,17 @@
 
 /// <reference path="../react/react.d.ts" />
 
-declare module "redux-devtools" {
-  import * as React from 'react'
 
-  interface IDevTools {
+import * as React from 'react'
+
+interface IDevTools {
     new (): JSX.ElementClass
     instrument(): Function
-  }
-
-  export function createDevTools(el: React.ReactElement<any>): IDevTools
-  export function persistState(debugSessionKey: string): Function
-
-  var factory: { instrument(): Function }
-
-  export default factory;
 }
+
+declare export function createDevTools(el: React.ReactElement<any>): IDevTools
+declare export function persistState(debugSessionKey: string): Function
+
+declare var factory: { instrument(): Function }
+
+export default factory;

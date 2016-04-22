@@ -3,23 +3,22 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'jsesc' {
 
-	function jsesc(str: string, opts?: any): string;
 
-	namespace jsesc {
-		var version: string;
+declare function jsesc(str: string, opts?: any): string;
 
-		interface Opts {
-			quotes?: string;
-			wrap?: boolean;
-			es6?: boolean;
-			escapeEverything?: boolean;
-			compact?: boolean;
-			indent?: string;
-			json?: boolean;
-		}
-	}
+declare namespace jsesc {
+    var version: string;
 
-	export = jsesc;
+    interface Opts {
+        quotes?: string;
+        wrap?: boolean;
+        es6?: boolean;
+        escapeEverything?: boolean;
+        compact?: boolean;
+        indent?: string;
+        json?: boolean;
+    }
 }
+
+export = jsesc;

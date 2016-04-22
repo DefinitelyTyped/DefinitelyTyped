@@ -9,42 +9,42 @@
 /// <reference path='../redis/redis.d.ts'/>
 /// <reference path="../mongodb/mongodb-1.4.9.d.ts" />
 
-declare module "acl" {
-  import http = require('http');
-  import Promise = require("bluebird");
 
-  type strings = string|string[];
-  type Value = string|number;
-  type Values = Value|Value[];
-  type Action = () => any;
-  type Callback = (err: Error) => any;
-  type AnyCallback = (err: Error, obj: any) => any;
-  type AllowedCallback = (err: Error, allowed: boolean) => any;
-  type GetUserId = (req: http.ServerRequest, res: http.ServerResponse) => Value;
+import http = require('http');
+import Promise = require("bluebird");
 
-  interface AclStatic {
+type strings = string | string[];
+type Value = string | number;
+type Values = Value | Value[];
+type Action = () => any;
+type Callback = (err: Error) => any;
+type AnyCallback = (err: Error, obj: any) => any;
+type AllowedCallback = (err: Error, allowed: boolean) => any;
+type GetUserId = (req: http.ServerRequest, res: http.ServerResponse) => Value;
+
+interface AclStatic {
     new (backend: Backend<any>, logger: Logger, options: Option): Acl;
     new (backend: Backend<any>, logger: Logger): Acl;
     new (backend: Backend<any>): Acl;
     memoryBackend: MemoryBackendStatic;
-  }
+}
 
-  interface Logger {
-    debug: (msg: string)=>any;
-  }
+interface Logger {
+    debug: (msg: string) => any;
+}
 
-  interface Acl {
+interface Acl {
     addUserRoles: (userId: Value, roles: strings, cb?: Callback) => Promise<void>;
     removeUserRoles: (userId: Value, roles: strings, cb?: Callback) => Promise<void>;
-    userRoles: (userId: Value, cb?: (err: Error, roles: string[])=>any) => Promise<string[]>;
-    roleUsers: (role: Value, cb?: (err: Error, users: Values)=>any) => Promise<any>;
-    hasRole: (userId: Value, role: string, cb?: (err: Error, isInRole: boolean)=>any) => Promise<boolean>;
+    userRoles: (userId: Value, cb?: (err: Error, roles: string[]) => any) => Promise<string[]>;
+    roleUsers: (role: Value, cb?: (err: Error, users: Values) => any) => Promise<any>;
+    hasRole: (userId: Value, role: string, cb?: (err: Error, isInRole: boolean) => any) => Promise<boolean>;
     addRoleParents: (role: string, parents: Values, cb?: Callback) => Promise<void>;
     removeRole: (role: string, cb?: Callback) => Promise<void>;
     removeResource: (resource: string, cb?: Callback) => Promise<void>;
     allow: {
-      (roles: Values, resources: strings, permissions: strings, cb?: Callback): Promise<void>;
-      (aclSets: AclSet|AclSet[]): Promise<void>;
+        (roles: Values, resources: strings, permissions: strings, cb?: Callback): Promise<void>;
+        (aclSets: AclSet | AclSet[]): Promise<void>;
     }
     removeAllow: (role: string, resources: strings, permissions: strings, cb?: Callback) => Promise<void>;
     removePermissions: (role: string, resources: strings, permissions: strings, cb?: Function) => Promise<void>;
@@ -53,41 +53,41 @@ declare module "acl" {
     areAnyRolesAllowed: (roles: strings, resource: strings, permissions: strings, cb?: AllowedCallback) => Promise<any>;
     whatResources: (roles: strings, permissions: strings, cb?: AnyCallback) => Promise<any>;
     permittedResources: (roles: strings, permissions: strings, cb?: Function) => Promise<void>;
-    middleware: (numPathComponents: number, userId: Value|GetUserId, actions: strings) => Promise<any>;
-  }
+    middleware: (numPathComponents: number, userId: Value | GetUserId, actions: strings) => Promise<any>;
+}
 
-  interface Option {
+interface Option {
     buckets?: BucketsOption;
-  }
+}
 
-  interface BucketsOption {
+interface BucketsOption {
     meta?: string;
     parents?: string;
     permissions?: string;
     resources?: string;
     roles?: string;
     users?: string;
-  }
+}
 
-  interface AclSet {
+interface AclSet {
     roles: strings;
     allows: AclAllow[];
-  }
+}
 
-  interface AclAllow {
+interface AclAllow {
     resources: strings;
     permissions: strings;
-  }
+}
 
-  interface MemoryBackend extends Backend<Action[]> { }
-  interface MemoryBackendStatic {
-    new(): MemoryBackend;
-  }
+interface MemoryBackend extends Backend<Action[]> { }
+interface MemoryBackendStatic {
+    new (): MemoryBackend;
+}
 
-  //
-  // For internal use
-  //
-  interface Backend<T> {
+//
+// For internal use
+//
+interface Backend<T> {
     begin: () => T;
     end: (transaction: T, cb?: Action) => void;
     clean: (cb?: Action) => void;
@@ -101,50 +101,49 @@ declare module "acl" {
     getAsync: Function;
     cleanAsync: Function;
     unionAsync: Function;
-  }
+}
 
-  interface Contract {
-    (args: IArguments): Contract|NoOp;
+interface Contract {
+    (args: IArguments): Contract | NoOp;
     debug: boolean;
     fulfilled: boolean;
     args: any[];
     checkedParams: string[];
-    params: (...types: string[]) => Contract|NoOp;
+    params: (...types: string[]) => Contract | NoOp;
     end: () => void;
-  }
+}
 
-  interface NoOp {
+interface NoOp {
     params: (...types: string[]) => NoOp;
     end: () => void;
-  }
-
-  // for redis backend
-  import redis = require('redis');
-
-  interface AclStatic {
-    redisBackend: RedisBackendStatic;
-  }
-
-  interface RedisBackend extends Backend<redis.RedisClient> { }
-  interface RedisBackendStatic {
-    new(redis: redis.RedisClient, prefix: string): RedisBackend;
-    new(redis: redis.RedisClient): RedisBackend;
-  }
-
-  // for mongodb backend
-  import mongo = require('mongodb');
-
-  interface AclStatic {
-    mongodbBackend: MongodbBackendStatic;
-  }
-
-  interface MongodbBackend extends Backend<Callback> { }
-  interface MongodbBackendStatic {
-    new(db: mongo.Db, prefix: string, useSingle: boolean): MongodbBackend;
-    new(db: mongo.Db, prefix: string): MongodbBackend;
-    new(db: mongo.Db): MongodbBackend;
-  }
-
-  var _: AclStatic;
-  export = _;
 }
+
+// for redis backend
+import redis = require('redis');
+
+interface AclStatic {
+    redisBackend: RedisBackendStatic;
+}
+
+interface RedisBackend extends Backend<redis.RedisClient> { }
+interface RedisBackendStatic {
+    new (redis: redis.RedisClient, prefix: string): RedisBackend;
+    new (redis: redis.RedisClient): RedisBackend;
+}
+
+// for mongodb backend
+import mongo = require('mongodb');
+
+interface AclStatic {
+    mongodbBackend: MongodbBackendStatic;
+}
+
+interface MongodbBackend extends Backend<Callback> { }
+interface MongodbBackendStatic {
+    new (db: mongo.Db, prefix: string, useSingle: boolean): MongodbBackend;
+    new (db: mongo.Db, prefix: string): MongodbBackend;
+    new (db: mongo.Db): MongodbBackend;
+}
+
+declare var _: AclStatic;
+export = _;

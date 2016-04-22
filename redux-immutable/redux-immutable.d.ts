@@ -3,6 +3,5 @@
 // Definitions by: Pedro Pereira <https://github.com/oizie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "redux-immutable" {
-    export function combineReducers(reducers : Object): Object;
-}
+
+declare export function combineReducers(reducers: Object): Object;

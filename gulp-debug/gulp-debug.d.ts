@@ -5,15 +5,14 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module 'gulp-debug' {
-    interface IOptions {
-        title?: string;
-        minimal?: boolean;
-    }
 
-    function debug(options?: IOptions): NodeJS.ReadWriteStream;
-
-    namespace debug {}
-
-    export = debug;
+interface IOptions {
+    title?: string;
+    minimal?: boolean;
 }
+
+declare function debug(options?: IOptions): NodeJS.ReadWriteStream;
+
+declare namespace debug { }
+
+export = debug;

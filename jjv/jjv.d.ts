@@ -3,40 +3,39 @@
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "jjv" {
-	function jjv(): jjv.Env;
 
-	namespace jjv {
-		interface Errors {
-			validation: {
-				[property: string]: {
-					required?: boolean;
-					type?: string;
-				}
-			};
-		}
+declare function jjv(): jjv.Env;
 
-		interface Options {
-			checkRequired?: boolean;
-			useDefault?: boolean;
-			useCoerce?: boolean;
-			removeAdditional?: boolean;
-		}
+declare namespace jjv {
+    interface Errors {
+        validation: {
+            [property: string]: {
+                required?: boolean;
+                type?: string;
+            }
+        };
+    }
 
-		interface Env {
-			defaultOptions: Options;
+    interface Options {
+        checkRequired?: boolean;
+        useDefault?: boolean;
+        useCoerce?: boolean;
+        removeAdditional?: boolean;
+    }
 
-			addSchema(name: string, schema: Object): void;
+    interface Env {
+        defaultOptions: Options;
 
-			addType(name: string, parse: (input: any) => any): void;
-			addFormat(name: string, parse: (input: any) => any): void;
-			addCheck(name: string, check: (input: any, comparator: any) => any): void;
-			addTypeCoercion(name: string, coerce: (input: any) => any): void;
+        addSchema(name: string, schema: Object): void;
 
-			validate(name: string, object: any, options?: Options): Errors;
-			validate(schema: Object, object: any, options?: Options): Errors;
-		}
-	}
+        addType(name: string, parse: (input: any) => any): void;
+        addFormat(name: string, parse: (input: any) => any): void;
+        addCheck(name: string, check: (input: any, comparator: any) => any): void;
+        addTypeCoercion(name: string, coerce: (input: any) => any): void;
 
-	export = jjv;
+        validate(name: string, object: any, options?: Options): Errors;
+        validate(schema: Object, object: any, options?: Options): Errors;
+    }
 }
+
+export = jjv;

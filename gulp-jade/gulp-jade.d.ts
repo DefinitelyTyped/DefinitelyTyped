@@ -3,11 +3,11 @@
 // Definitions by: berwyn <https://github.com/berwyn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "gulp-jade" {
 
-  function GulpJade(params?: GulpJade.Params): any;
 
-  namespace GulpJade {
+declare function GulpJade(params?: GulpJade.Params): any;
+
+declare namespace GulpJade {
     interface Params {
         /*******
         * JADE API OPTIONS
@@ -27,7 +27,7 @@ declare module "gulp-jade" {
         * If a string is specified, that will be used as
         * indentation instead (e.g. '\t').
         */
-        pretty?: boolean|string;
+        pretty?: boolean | string;
 
         /**
         * Use a self namespace to hold the locals (false by default)
@@ -46,13 +46,13 @@ declare module "gulp-jade" {
         * in development). It is enabled by default unless used with
         * express in production mode.
         */
-        compileDebug?:boolean;
+        compileDebug?: boolean;
 
         /**
         * If set to true, compiled functions are cached. filename
         * must be set as the cache key.
         */
-        cache?:boolean;
+        cache?: boolean;
 
         /*******
         * GULP-JADE OPTIONS
@@ -81,7 +81,6 @@ declare module "gulp-jade" {
         */
         data?: any;
     }
-  }
-
-  export = GulpJade;
 }
+
+export = GulpJade;

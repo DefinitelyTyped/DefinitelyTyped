@@ -5,15 +5,14 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "gulp-flatten" {
 
-    interface IOptions {
-        newPath: string;
-    }
 
-    function flatten(options?: IOptions): NodeJS.ReadWriteStream;
-
-    namespace flatten {}
-
-    export = flatten;
+interface IOptions {
+    newPath: string;
 }
+
+declare function flatten(options?: IOptions): NodeJS.ReadWriteStream;
+
+declare namespace flatten { }
+
+export = flatten;

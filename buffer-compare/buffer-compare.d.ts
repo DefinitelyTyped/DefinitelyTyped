@@ -3,15 +3,14 @@
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "buffer-compare" {
-	interface List {
-		[index: number]: any;
-		length: number
-	}
 
-	function compare(cmp: List, to: List): number;
-	function compare<T>(cmp: T, to: T): number;
-	function compare<C, T>(cmp: C, to: T): number;
-
-	export = compare;
+interface List {
+    [index: number]: any;
+    length: number
 }
+
+declare function compare(cmp: List, to: List): number;
+declare function compare<T>(cmp: T, to: T): number;
+declare function compare<C, T>(cmp: C, to: T): number;
+
+export = compare;

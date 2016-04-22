@@ -6,124 +6,123 @@
 /**
  * Type Script Declaration for node-getopt
  */
-declare module "node-getopt" {
 
-    interface StringMap {
-        [index: string]: string;
-    }
+
+interface StringMap {
+    [index: string]: string;
+}
+
+/**
+ * Parsed options.
+ */
+declare class ParsedOption {
+    public argv: string[];
+    public options: StringMap;
+
+    constructor(argv: string[], options: StringMap);
+    public empty(): boolean;
+}
+
+interface EventCallback {
+    (arguments: string[], options: StringMap): void;
+}
+
+interface ErrorFunc {
+    (exception: Error): void;
+}
+
+interface OptionConfigurationArray {
+    [index: number]: string[];
+}
+
+declare class Getopt {
+    static HAS_ARGUMENT: boolean;
+    static NO_ARGUMENT: boolean;
+    static MULTI_SUPPORTED: boolean;
+    static SINGLE_ONLY: boolean;
+    static VERSION: string;
 
     /**
-     * Parsed options.
+     * options is a set of option. each option contains 3 fields.
+     *    [short_name, long_name_with_definition, comment]
+     *    Definition:
+     *    * '=ARG':   has argument
+     *    * '[=ARG]': has argument but optional
+     *    * '+':      multiple option supported
+     *
+     *    ARG can be replaced by any word.
+     * @param options
      */
-    class ParsedOption {
-        public argv: string[];
-        public options: StringMap;
+    public constructor(options: any[]);
 
-        constructor(argv: string[], options: StringMap);
-        public empty() : boolean;
-    }
+    /**
+     * after parsing, trigger the action if optionName is found.
+     * the 'this' in action will be the instance of Getopt.
+     * @param name
+     * @param cb
+     */
+    public on(name: string, cb: EventCallback): Getopt;
 
-    interface EventCallback {
-        (arguments: string[], options: StringMap) : void;
-    }
+    public emit(name: string, cb: EventCallback): Getopt;
 
-    interface ErrorFunc {
-        (exception: Error): void;
-    }
+    /**
+     * parse argv
+     *
+     * Returns: {argv: '...', options: {...}}
+     *
+     */
+    public parse(argv: string[]): ParsedOption;
 
-    interface OptionConfigurationArray {
-        [index: number]: string[];
-    }
+    /**
+     * alias of parse(process.argv.slice(2))
+     */
+    public parse_system(): ParsedOption;
 
-    class Getopt {
-        static HAS_ARGUMENT : boolean;
-        static NO_ARGUMENT : boolean;
-        static MULTI_SUPPORTED : boolean;
-        static SINGLE_ONLY : boolean;
-        static VERSION : string;
+    public parseSystem(): ParsedOption;
 
-        /**
-         * options is a set of option. each option contains 3 fields.
-         *    [short_name, long_name_with_definition, comment]
-         *    Definition:
-         *    * '=ARG':   has argument
-         *    * '[=ARG]': has argument but optional
-         *    * '+':      multiple option supported
-         *
-         *    ARG can be replaced by any word.
-         * @param options
-         */
-        public constructor(options: any[]);
+    /**
+     * Set help template. the placeholders will be replaced by getopt.
+     *
+     * Placeholders:
+     *    * [[OPTIONS]] - The options list
+     *
+     * Returns: String
+     * @param help
+     */
+    public setHelp(help: string): Getopt;
 
-        /**
-         * after parsing, trigger the action if optionName is found.
-         * the 'this' in action will be the instance of Getopt.
-         * @param name
-         * @param cb
-         */
-        public on(name: string, cb: EventCallback) : Getopt;
+    /**
+     * console.info(getopt.getHelp());
+     */
+    public showHelp(): Getopt;
 
-        public emit(name: string, cb: EventCallback) : Getopt;
+    /**
+     * Get the help generated.
+     */
+    public getHelp(): string;
 
-        /**
-         * parse argv
-         *
-         * Returns: {argv: '...', options: {...}}
-         *
-         */
-        public parse(argv: string[]): ParsedOption;
+    /**
+     * set help template to HELP if HELP is not empty.
+     * bind 'help' option to default action, show help and exit with 0.
+     * @param help
+     */
+    public bindHelp(help?: string): Getopt;
 
-        /**
-         * alias of parse(process.argv.slice(2))
-         */
-        public parse_system(): ParsedOption;
+    public getVersion(): string;
 
-        public parseSystem():ParsedOption;
+    static getVersion(): string;
 
-        /**
-         * Set help template. the placeholders will be replaced by getopt.
-         *
-         * Placeholders:
-         *    * [[OPTIONS]] - The options list
-         *
-         * Returns: String
-         * @param help
-         */
-        public setHelp(help: string): Getopt;
+    /**
+     * when parse failed callback will be trigger. default is display error message and exit with 1.
+     * @param errorFunc
+     */
+    public error(errorFunc: ErrorFunc): Getopt;
 
-        /**
-         * console.info(getopt.getHelp());
-         */
-        public showHelp():Getopt;
-
-        /**
-         * Get the help generated.
-         */
-        public getHelp(): string;
-
-        /**
-         * set help template to HELP if HELP is not empty.
-         * bind 'help' option to default action, show help and exit with 0.
-         * @param help
-         */
-        public bindHelp(help?:string): Getopt;
-
-        public getVersion(): string;
-
-        static getVersion():string;
-
-        /**
-         * when parse failed callback will be trigger. default is display error message and exit with 1.
-         * @param errorFunc
-         */
-        public error(errorFunc: ErrorFunc) : Getopt;
-
-        /**
-         * equals new Getopt(options)
-         * @param options
-         */
-        static create(options: string[]): Getopt;
-    }
-
-    export = Getopt;
+    /**
+     * equals new Getopt(options)
+     * @param options
+     */
+    static create(options: string[]): Getopt;
 }
+
+export = Getopt;

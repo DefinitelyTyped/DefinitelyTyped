@@ -3,7 +3,6 @@
 // Definitions by: Christopher Brown <https://github.com/chbrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "object-assign" {
-  function objectAssign(target: any, ...sources: any[]): any;
-  export = objectAssign;
-}
+
+declare function objectAssign(target: any, ...sources: any[]): any;
+export = objectAssign;

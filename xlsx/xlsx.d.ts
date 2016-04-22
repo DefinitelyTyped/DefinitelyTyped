@@ -3,134 +3,132 @@
 // Definitions by: themauveavenger <https://github.com/themauveavenger/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'xlsx' {
 
-    export function readFile(filename:string, opts?:IParsingOptions):IWorkBook;
-    export function read(data:any, opts?:IParsingOptions):IWorkBook;
-    export var utils:IUtils;
 
-    export interface IProperties {
-        LastAuthor?:string
-        Author?:string;
-        CreatedDate?:Date;
-        ModifiedDate?:Date
-        Application?:string;
-        AppVersion?:string;
-        Company?:string;
-        DocSecurity?:string;
-        Manager?:string;
-        HyperlinksChanged?: boolean;
-        SharedDoc?:boolean;
-        LinksUpToDate?:boolean;
-        ScaleCrop?:boolean;
-        Worksheets?:number;
-        SheetNames?:string[];
-    }
+declare export function readFile(filename: string, opts?: IParsingOptions): IWorkBook;
+declare export function read(data: any, opts?: IParsingOptions): IWorkBook;
+declare export var utils: IUtils;
 
-    export interface IParsingOptions {
-        cellFormula?:boolean;
-        cellHTML?:boolean;
-        cellNF?:boolean;
-        cellStyles?:boolean;
-        cellDates?:boolean;
-        sheetStubs?:boolean;
-        sheetRows?:number;
-        bookDeps?:boolean;
-        bookFiles?:boolean;
-        bookProps?:boolean;
-        bookSheets?:boolean;
-        bookVBA?:boolean;
-        password?:string;
+export interface IProperties {
+    LastAuthor?: string
+    Author?: string;
+    CreatedDate?: Date;
+    ModifiedDate?: Date
+    Application?: string;
+    AppVersion?: string;
+    Company?: string;
+    DocSecurity?: string;
+    Manager?: string;
+    HyperlinksChanged?: boolean;
+    SharedDoc?: boolean;
+    LinksUpToDate?: boolean;
+    ScaleCrop?: boolean;
+    Worksheets?: number;
+    SheetNames?: string[];
+}
 
-        /**
-         * Possible options: 'binary', 'base64', 'buffer', 'file'
-         */
-        type?:string;
-    }
-
-    export interface IWorkBook {
-        /**
-         * A dictionary of the worksheets in the workbook.
-         * Use SheetNames to reference these.
-         */
-        Sheets:{[sheet:string]:IWorkSheet};
-
-        /**
-         * ordered list of the sheet names in the workbook
-         */
-        SheetNames:string[];
-
-        /**
-         * an object storing the standard properties. wb.Custprops stores custom properties.
-         * Since the XLS standard properties deviate from the XLSX standard, XLS parsing stores core properties in both places.
-         */
-        Props:IProperties;
-    }
+export interface IParsingOptions {
+    cellFormula?: boolean;
+    cellHTML?: boolean;
+    cellNF?: boolean;
+    cellStyles?: boolean;
+    cellDates?: boolean;
+    sheetStubs?: boolean;
+    sheetRows?: number;
+    bookDeps?: boolean;
+    bookFiles?: boolean;
+    bookProps?: boolean;
+    bookSheets?: boolean;
+    bookVBA?: boolean;
+    password?: string;
 
     /**
-     * object representing the worksheet
+     * Possible options: 'binary', 'base64', 'buffer', 'file'
      */
-    export interface IWorkSheet {
-        [cell:string]:IWorkSheetCell;
-    }
+    type?: string;
+}
 
-    export interface IWorkSheetCell {
-        /**
-         * The Excel Data Type of the cell.
-         * b Boolean, n Number, e error, s String, d Date
-         */
-        t: string;
+export interface IWorkBook {
+    /**
+     * A dictionary of the worksheets in the workbook.
+     * Use SheetNames to reference these.
+     */
+    Sheets: { [sheet: string]: IWorkSheet };
 
-        /**
-         * The raw value of the cell.
-         */
-        v: string;
+    /**
+     * ordered list of the sheet names in the workbook
+     */
+    SheetNames: string[];
 
-        /**
-         * rich text encoding (if applicable)
-         */
-        r?: string;
+    /**
+     * an object storing the standard properties. wb.Custprops stores custom properties.
+     * Since the XLS standard properties deviate from the XLSX standard, XLS parsing stores core properties in both places.
+     */
+    Props: IProperties;
+}
 
-        /**
-         * HTML rendering of the rich text (if applicable)
-         */
-        h?: string;
+/**
+ * object representing the worksheet
+ */
+export interface IWorkSheet {
+    [cell: string]: IWorkSheetCell;
+}
 
-        /**
-         * formatted text (if applicable)
-         */
-        w?: string;
+export interface IWorkSheetCell {
+    /**
+     * The Excel Data Type of the cell.
+     * b Boolean, n Number, e error, s String, d Date
+     */
+    t: string;
 
-        /**
-         * cell formula (if applicable)
-         */
-        f?: string;
+    /**
+     * The raw value of the cell.
+     */
+    v: string;
 
-        /**
-         * comments associated with the cell **
-         */
-        c?: string;
+    /**
+     * rich text encoding (if applicable)
+     */
+    r?: string;
 
-        /**
-         * number format string associated with the cell (if requested)
-         */
-        z?: string;
+    /**
+     * HTML rendering of the rich text (if applicable)
+     */
+    h?: string;
 
-        /**
-         * cell hyperlink object (.Target holds link, .tooltip is tooltip)
-         */
-        l?: string;
+    /**
+     * formatted text (if applicable)
+     */
+    w?: string;
 
-        /**
-         * the style/theme of the cell (if applicable)
-         */
-        s?: string;
-    }
+    /**
+     * cell formula (if applicable)
+     */
+    f?: string;
 
-    export interface IUtils {
-        sheet_to_json<T>(worksheet:IWorkSheet):T[];
-        sheet_to_csv(worksheet:IWorkSheet):any;
-        sheet_to_formulae(worksheet:IWorkSheet):any;
-    }
+    /**
+     * comments associated with the cell **
+     */
+    c?: string;
 
+    /**
+     * number format string associated with the cell (if requested)
+     */
+    z?: string;
+
+    /**
+     * cell hyperlink object (.Target holds link, .tooltip is tooltip)
+     */
+    l?: string;
+
+    /**
+     * the style/theme of the cell (if applicable)
+     */
+    s?: string;
+}
+
+export interface IUtils {
+    sheet_to_json<T>(worksheet: IWorkSheet): T[];
+    sheet_to_csv(worksheet: IWorkSheet): any;
+    sheet_to_formulae(worksheet: IWorkSheet): any;
 }

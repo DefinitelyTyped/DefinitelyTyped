@@ -8,68 +8,67 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../bluebird/bluebird.d.ts" />
 
-declare module "consolidate" {
-	var cons: Consolidate;
 
-	export = cons;
+declare var cons: Consolidate;
 
-	interface Consolidate {
-		/**
- 		 * expose the instance of the engine
-	   */
-		requires: Object;
+export = cons;
 
-		/**
-		 * Clear the cache.
-		 *
-		 * @api public
-		 */
-		clearCache(): void;
-		// template engines
-		atpl: RendererInterface;
-		dot: RendererInterface;
-		dust: RendererInterface;
-		eco: RendererInterface;
-		ejs: RendererInterface;
-		ect: RendererInterface;
-		haml: RendererInterface;
-		// TODO figure out how to do haml-coffee
-		hamlet: RendererInterface;
-		handlebars: RendererInterface;
-		hogan: RendererInterface;
-		htmling: RendererInterface;
-		jade: RendererInterface;
-		jazz: RendererInterface;
-		jqtpl: RendererInterface;
-		just: RendererInterface;
-		liquid: RendererInterface;
-		liquor: RendererInterface;
-		lodash: RendererInterface;
-		mote: RendererInterface;
-		mustache: RendererInterface;
-		nunjucks: RendererInterface;
-		qejs: RendererInterface;
-		ractive: RendererInterface;
-		react: RendererInterface;
-		swig: RendererInterface;
-		templayed: RendererInterface;
-		toffee: RendererInterface;
-		underscore: RendererInterface;
-		walrus: RendererInterface;
-		whiskers: RendererInterface;
-	}
+interface Consolidate {
+    /**
+         * expose the instance of the engine
+   */
+    requires: Object;
 
-	interface RendererInterface {
-		render(path: String, fn: (err: Error, html: String) => any): any;
+    /**
+     * Clear the cache.
+     *
+     * @api public
+     */
+    clearCache(): void;
+    // template engines
+    atpl: RendererInterface;
+    dot: RendererInterface;
+    dust: RendererInterface;
+    eco: RendererInterface;
+    ejs: RendererInterface;
+    ect: RendererInterface;
+    haml: RendererInterface;
+    // TODO figure out how to do haml-coffee
+    hamlet: RendererInterface;
+    handlebars: RendererInterface;
+    hogan: RendererInterface;
+    htmling: RendererInterface;
+    jade: RendererInterface;
+    jazz: RendererInterface;
+    jqtpl: RendererInterface;
+    just: RendererInterface;
+    liquid: RendererInterface;
+    liquor: RendererInterface;
+    lodash: RendererInterface;
+    mote: RendererInterface;
+    mustache: RendererInterface;
+    nunjucks: RendererInterface;
+    qejs: RendererInterface;
+    ractive: RendererInterface;
+    react: RendererInterface;
+    swig: RendererInterface;
+    templayed: RendererInterface;
+    toffee: RendererInterface;
+    underscore: RendererInterface;
+    walrus: RendererInterface;
+    whiskers: RendererInterface;
+}
 
-		render(path: String, options: {cache?: boolean, [otherOptions: string]: any}, fn: (err: Error, html: String) => any): any;
+interface RendererInterface {
+    render(path: String, fn: (err: Error, html: String) => any): any;
 
-		render(path: String, options?: { cache?: boolean, [otherOptions: string]: any }): Promise<String>;
+    render(path: String, options: { cache?: boolean, [otherOptions: string]: any }, fn: (err: Error, html: String) => any): any;
 
-		(path: String, fn: (err: Error, html: String) => any): any;
+    render(path: String, options?: { cache?: boolean, [otherOptions: string]: any }): Promise<String>;
 
-		(path: String, options: { cache?: boolean, [otherOptions: string]: any }, fn: (err: Error, html: String) => any): any;
+    (path: String, fn: (err: Error, html: String) => any): any;
 
-		(path: String, options?: { cache?: boolean, [otherOptions: string]: any }): Promise<String>;
-	}
+    (path: String, options: { cache?: boolean, [otherOptions: string]: any }, fn: (err: Error, html: String) => any): any;
+
+    (path: String, options?: { cache?: boolean, [otherOptions: string]: any }): Promise<String>;
 }

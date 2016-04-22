@@ -5,36 +5,35 @@
 
 /// <reference path='../superagent/superagent.d.ts' />
 
-declare module "supertest" {
-  import superagent = require('superagent');
 
-  type CallbackHandler = (err: any, res: supertest.Response) => void;
+import superagent = require('superagent');
 
-  function supertest(app: any): supertest.SuperTest;
+type CallbackHandler = (err: any, res: supertest.Response) => void;
 
-  namespace supertest {
+declare function supertest(app: any): supertest.SuperTest;
+
+declare namespace supertest {
     function agent(app?: any): supertest.SuperTest;
 
     interface SuperTest extends superagent.SuperAgent<Test> {
     }
 
     interface Test extends superagent.Request<Test> {
-      url: string;
-      serverAddress(app: any, path: string): string;
-      expect(status: number, callback?: CallbackHandler): Test;
-      expect(status: number, body: string, callback?: CallbackHandler): Test;
-      expect(body: string, callback?: CallbackHandler): Test;
-      expect(body: RegExp, callback?: CallbackHandler): Test;
-      expect(body: Object, callback?: CallbackHandler): Test;
-      expect(field: string, val: string, callback?: CallbackHandler): Test;
-      expect(field: string, val: RegExp, callback?: CallbackHandler): Test;
-      expect(checker: (res: Response) => any): Test;
-      end(callback?: CallbackHandler): Test;
+        url: string;
+        serverAddress(app: any, path: string): string;
+        expect(status: number, callback?: CallbackHandler): Test;
+        expect(status: number, body: string, callback?: CallbackHandler): Test;
+        expect(body: string, callback?: CallbackHandler): Test;
+        expect(body: RegExp, callback?: CallbackHandler): Test;
+        expect(body: Object, callback?: CallbackHandler): Test;
+        expect(field: string, val: string, callback?: CallbackHandler): Test;
+        expect(field: string, val: RegExp, callback?: CallbackHandler): Test;
+        expect(checker: (res: Response) => any): Test;
+        end(callback?: CallbackHandler): Test;
     }
 
     interface Response extends superagent.Response {
     }
-  }
-
-  export = supertest;
 }
+
+export = supertest;

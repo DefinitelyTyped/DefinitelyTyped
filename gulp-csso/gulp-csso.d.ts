@@ -5,8 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module 'gulp-csso' {
-    function csso(structureMinimization?: boolean): NodeJS.ReadWriteStream;
-    namespace csso {}
-    export = csso;
-}
+
+declare function csso(structureMinimization?: boolean): NodeJS.ReadWriteStream;
+declare namespace csso { }
+export = csso;

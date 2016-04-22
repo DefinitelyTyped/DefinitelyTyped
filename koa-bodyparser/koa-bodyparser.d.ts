@@ -15,51 +15,50 @@
 
 /// <reference path="../koa/koa.d.ts" />
 
-declare module "koa-bodyparser" {
 
-    import * as Koa from "koa";
 
-    function bodyParser(opts?: {
-        /**
-         * requested encoding. Default is utf-8 by co-body
-         */
-        encode?: string;
+import * as Koa from "koa";
 
-        /**
-         * limit of the urlencoded body. If the body ends up being larger than this limit
-         * a 413 error code is returned. Default is 56kb
-         */
-        formLimit?: string;
+declare function bodyParser(opts?: {
+    /**
+     * requested encoding. Default is utf-8 by co-body
+     */
+    encode?: string;
 
-        /**
-         * limit of the json body. Default is 1mb
-         */
-        jsonLimit?: string;
+    /**
+     * limit of the urlencoded body. If the body ends up being larger than this limit
+     * a 413 error code is returned. Default is 56kb
+     */
+    formLimit?: string;
 
-        /**
-         * when set to true, JSON parser will only accept arrays and objects. Default is true
-         */
-        strict?: boolean;
+    /**
+     * limit of the json body. Default is 1mb
+     */
+    jsonLimit?: string;
 
-        /**
-         * custom json request detect function. Default is null
-         */
-        detectJSON?: (ctx: Koa.Context) => boolean;
+    /**
+     * when set to true, JSON parser will only accept arrays and objects. Default is true
+     */
+    strict?: boolean;
 
-        /**
-         * support extend types
-         */
-        extendTypes?: {
-            json?: string[];
-            form?: string[];
-        }
+    /**
+     * custom json request detect function. Default is null
+     */
+    detectJSON?: (ctx: Koa.Context) => boolean;
 
-        /**
-         * support custom error handle
-         */
-        onerror?: (err: Error, ctx: Koa.Context) => void;
-    }): { (ctx: Koa.Context, next?: () => any): any };
+    /**
+     * support extend types
+     */
+    extendTypes?: {
+        json?: string[];
+        form?: string[];
+    }
 
-    namespace bodyParser {}
-    export = bodyParser;
-}
+    /**
+     * support custom error handle
+     */
+    onerror?: (err: Error, ctx: Koa.Context) => void;
+}): { (ctx: Koa.Context, next?: () => any): any };
+
+declare namespace bodyParser { }
+export = bodyParser;

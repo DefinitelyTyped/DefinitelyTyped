@@ -5,10 +5,10 @@
 
 /// <reference path="../react/react.d.ts" />
 
-declare module "redux-devtools-log-monitor" {
-  import * as React from 'react'
 
-  interface ILogMonitorProps {
+import * as React from 'react'
+
+interface ILogMonitorProps {
     /**
      * Either a string referring to one of the themes provided by 
      * redux-devtools-themes or a custom object of the same format.
@@ -33,7 +33,6 @@ declare module "redux-devtools-log-monitor" {
      * @default true
      */
     preserveScrollTop?: boolean
-  }
-
-  export default class LogMonitor extends React.Component<ILogMonitorProps, any> {}
 }
+
+declare export default class LogMonitor extends React.Component<ILogMonitorProps, any> { }

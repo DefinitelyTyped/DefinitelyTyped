@@ -5,15 +5,14 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module 'ncp' {
-	function ncp (source: string, destination: string, callback: (err: Error) => void): void;
-	function ncp (source: string, destination: string, options: Options, callback: (err: Error) => void): void;
 
-	interface Options {
-		filter? : RegExp;
-		transform? : (read: NodeJS.ReadableStream, write: NodeJS.WritableStream) => void;
-		clobber? : boolean;
-		stopOnErr? : boolean;
-		errs? : NodeJS.WritableStream;
-	}
+declare function ncp(source: string, destination: string, callback: (err: Error) => void): void;
+declare function ncp(source: string, destination: string, options: Options, callback: (err: Error) => void): void;
+
+interface Options {
+    filter?: RegExp;
+    transform?: (read: NodeJS.ReadableStream, write: NodeJS.WritableStream) => void;
+    clobber?: boolean;
+    stopOnErr?: boolean;
+    errs?: NodeJS.WritableStream;
 }

@@ -3,11 +3,10 @@
 // Definitions by: Dylan R. E. Moonfire <https://github.com/dmoonfire/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "strip-json-comments" {
-    interface StripJsonOptions {
-        whitespace?: boolean;
-    }
 
-    function stripJsonComments(input: string, opts?: StripJsonOptions): string;
-    export = stripJsonComments;
+interface StripJsonOptions {
+    whitespace?: boolean;
 }
+
+declare function stripJsonComments(input: string, opts?: StripJsonOptions): string;
+export = stripJsonComments;

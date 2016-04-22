@@ -3,682 +3,677 @@
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "git" {
-    // lib/git/git.js
-    export class Git {
 
-        constructor(gitDirectory:any);
+// lib/git/git.js
+declare export class Git {
 
-        refs(options:any, prefix:string, callback:(err:any, data:string)=>void):void;
+    constructor(gitDirectory: any);
 
-        fs_read(gitDirectory:string, file:string, callback:(err:any, data:any)=>void):void;
+    refs(options: any, prefix: string, callback: (err: any, data: string) => void): void;
 
-        transform_options(options:any):string[];
+    fs_read(gitDirectory: string, file: string, callback: (err: any, data: any) => void): void;
 
-        git(functionName:any, options:any, ...args:any[]):void; // last element is callback
+    transform_options(options: any): string[];
 
-        call_git(prefix:string, command:any, postfix:string, options:any, args:any, callback: (error: any, result: string) => void):void;
+    git(functionName: any, options: any, ...args: any[]): void; // last element is callback
 
-        rev_list(callback:Function):void;
+    call_git(prefix: string, command: any, postfix: string, options: any, args: any, callback: (error: any, result: string) => void): void;
 
-        rev_list(options:any, callback:Function):void;
+    rev_list(callback: Function): void;
 
-        rev_list(options:any, reference:string, callback:Function):void;
+    rev_list(options: any, callback: Function): void;
 
-        rev_parse(options:any, str:string, callback:Function):void;
+    rev_list(options: any, reference: string, callback: Function): void;
 
-        rev_parse(options:any, str:string, level:number, callback:Function):void;
+    rev_parse(options: any, str: string, callback: Function): void;
 
-        ls_tree(treeish:any, callback:Function):void;
+    rev_parse(options: any, str: string, level: number, callback: Function): void;
 
-        ls_tree(treeish:any, paths:any[], callback:Function):void;
+    ls_tree(treeish: any, callback: Function): void;
 
-        ls_tree(treeish:any, paths:any[], options:any, callback:Function):void;
+    ls_tree(treeish: any, paths: any[], callback: Function): void;
 
-        cat_file(type:any, ref:any, callback:Function):void;
+    ls_tree(treeish: any, paths: any[], options: any, callback: Function): void;
 
-        file_size(ref:any, callback:Function):void;
+    cat_file(type: any, ref: any, callback: Function): void;
 
-        fs_mkdir(dir:any, callback:Function):void;
+    file_size(ref: any, callback: Function): void;
 
-        init(options:any, callback:Function):void;
+    fs_mkdir(dir: any, callback: Function): void;
 
-        // not implemented!
-        clone(options:any, originalPath:any, targetPath:any, callback:Function):void;
+    init(options: any, callback: Function): void;
 
-        diff(commit1:any, commit2:any, callback: (error: any, patch: string) => void):void;
+    // not implemented!
+    clone(options: any, originalPath: any, targetPath: any, callback: Function): void;
 
-		diff(commit1: any, commit2: any, options: any, callback: (error: any, patch: string) => void):void;
+    diff(commit1: any, commit2: any, callback: (error: any, patch: string) => void): void;
 
-        fs_exist(path:any, callback:Function):void;
+    diff(commit1: any, commit2: any, options: any, callback: (error: any, patch: string) => void): void;
 
-        fs_write(file:any, content:any, callback:Function):void;
+    fs_exist(path: any, callback: Function): void;
 
-        log(commit:any, path:any, options:any, callback:Function):void;
+    fs_write(file: any, content: any, callback: Function): void;
 
-        select_existing_objects(objectIds:any[], callback:Function):void;
+    log(commit: any, path: any, options: any, callback: Function): void;
 
-        format_patch(options:any, reference:any, callback:Function):void;
+    select_existing_objects(objectIds: any[], callback: Function): void;
 
-        blame(callback:Function):void;
+    format_patch(options: any, reference: any, callback: Function): void;
 
-        blame(options:any, callback:Function):void;
+    blame(callback: Function): void;
 
-        blame_tree(commit:any, callback:Function):void;
+    blame(options: any, callback: Function): void;
 
-        blame_tree(commit:any, path:any, callback:Function):void;
+    blame_tree(commit: any, callback: Function): void;
 
-        looking_for(commit:any, callback:Function):void;
+    blame_tree(commit: any, path: any, callback: Function): void;
 
-        looking_for(commit:any, path:any, callback:Function):void;
+    looking_for(commit: any, callback: Function): void;
 
-        commit(...args:any[]):void; // last element is callback
+    looking_for(commit: any, path: any, callback: Function): void;
 
-        commit(options:any, ...args:any[]):void; // last element is callback
+    commit(...args: any[]): void; // last element is callback
 
-        config(...args:any[]):void; // last element is callback
+    commit(options: any, ...args: any[]): void; // last element is callback
 
-        config(options:any, ...args:any[]):void; // last element is callback
+    config(...args: any[]): void; // last element is callback
 
-        add(...args:any[]):void; // last element is callback
+    config(options: any, ...args: any[]): void; // last element is callback
 
-        add(options:any, ...args:any[]):void; // last element is callback
+    add(...args: any[]): void; // last element is callback
 
-        remove(...args:any[]):void; // last element is callback
+    add(options: any, ...args: any[]): void; // last element is callback
 
-        remove(options:any, ...args:any[]):void; // last element is callback
+    remove(...args: any[]): void; // last element is callback
 
-        ls_files(...args:any[]):void; // last element is callback
+    remove(options: any, ...args: any[]): void; // last element is callback
 
-        ls_files(options:any, ...args:any[]):void; // last element is callback
+    ls_files(...args: any[]): void; // last element is callback
 
-        diff_files(...args:any[]):void; // last element is callback
+    ls_files(options: any, ...args: any[]): void; // last element is callback
 
-        diff_files(options:any, ...args:any[]):void; // last element is callback
+    diff_files(...args: any[]): void; // last element is callback
 
-        diff_index(...args:any[]):void; // last element is callback
+    diff_files(options: any, ...args: any[]): void; // last element is callback
 
-        diff_index(options:any, ...args:any[]):void; // last element is callback
+    diff_index(...args: any[]): void; // last element is callback
 
-        file_type(...args:any[]):void; // last element is callback
+    diff_index(options: any, ...args: any[]): void; // last element is callback
 
-        file_type(options:any, ...args:any[]):void; // last element is callback
+    file_type(...args: any[]): void; // last element is callback
 
-        put_raw_object(...args:any[]):void; // last element is callback
+    file_type(options: any, ...args: any[]): void; // last element is callback
 
-        put_raw_object(options:any, ...args:any[]):void; // last element is callback
+    put_raw_object(...args: any[]): void; // last element is callback
 
-        commit_from_sha(id:string):any;
-    }
+    put_raw_object(options: any, ...args: any[]): void; // last element is callback
 
-    // lib/git/actor.js
-    export class Actor {
-        name:string;
-        email:string;
+    commit_from_sha(id: string): any;
+}
 
-        constructor(name:string, email:string);
+// lib/git/actor.js
+declare export class Actor {
+    name: string;
+    email: string;
 
-        static from_string(str:string):Actor;
-    }
+    constructor(name: string, email: string);
 
-    // lib/git/blame.js
-    export class Blame {
-        repo:Repo;
-        file:string;
-        commit:string;
-        lines:BlameLine[];
+    static from_string(str: string): Actor;
+}
 
-        constructor(repo:Repo, file:string, callback:(err:any, blame:Blame)=>void);
+// lib/git/blame.js
+declare export class Blame {
+    repo: Repo;
+    file: string;
+    commit: string;
+    lines: BlameLine[];
 
-        constructor(repo:Repo, file:string, commit:string, callback:(err:any, blame:Blame)=>void);
-    }
+    constructor(repo: Repo, file: string, callback: (err: any, blame: Blame) => void);
 
-    // lib/git/blame_line.js
-    export class BlameLine {
-        lineno:number;
-        oldlineno:number;
-        commit:any;
-        line:string;
+    constructor(repo: Repo, file: string, commit: string, callback: (err: any, blame: Blame) => void);
+}
 
-        constructor(lineno:number, oldlineno:number, commit:any, line:string);
-    }
+// lib/git/blame_line.js
+declare export class BlameLine {
+    lineno: number;
+    oldlineno: number;
+    commit: any;
+    line: string;
 
-    // lib/git/blob.js
-    export class Blob {
-        repo:Repo;
-        id:any;
-        mode:any;
-        name:any;
-        data:any;
-        size:any;
-        mine_type:any;
-        basename:any;
+    constructor(lineno: number, oldlineno: number, commit: any, line: string);
+}
 
-        constructor(repo:any, id:any, mode:any, name:any);
+// lib/git/blob.js
+declare export class Blob {
+    repo: Repo;
+    id: any;
+    mode: any;
+    name: any;
+    data: any;
+    size: any;
+    mine_type: any;
+    basename: any;
 
-        static blame(repo:any, commit:any, file:any, callback:Function):void;
-    }
+    constructor(repo: any, id: any, mode: any, name: any);
 
-    // lib/git/commit.js
-    export class Commit {
-        repo:Repo;
-        id:string;
-        parents:any[];
-        tree:any;
-        author:Actor;
-        sha:string; // synonym to id
-        authored_date:string;
-        committer:Actor;
-        committed_date:string;
-        message:string;
-        filechanges:any;
-        short_message:string;
-        _id_abbrev:any;
+    static blame(repo: any, commit: any, file: any, callback: Function): void;
+}
 
-        constructor(repo:Repo, id:string, parents:any[], tree:any, author:Actor, authoredDate:string, committer:Actor, committedDate:string, message:string, filechanges:any);
+// lib/git/commit.js
+declare export class Commit {
+    repo: Repo;
+    id: string;
+    parents: any[];
+    tree: any;
+    author: Actor;
+    sha: string; // synonym to id
+    authored_date: string;
+    committer: Actor;
+    committed_date: string;
+    message: string;
+    filechanges: any;
+    short_message: string;
+    _id_abbrev: any;
 
-        load(callback:Function):void;
+    constructor(repo: Repo, id: string, parents: any[], tree: any, author: Actor, authoredDate: string, committer: Actor, committedDate: string, message: string, filechanges: any);
 
-        id_abbrev(callback:Function):void;
+    load(callback: Function): void;
 
-        static list_from_string(repo:any, text:any):Commit[];
+    id_abbrev(callback: Function): void;
 
-        static find_all(repo:any, callback:Function):void;
+    static list_from_string(repo: any, text: any): Commit[];
 
-        static find_all(repo:any, reference:any, callback:Function):void;
+    static find_all(repo: any, callback: Function): void;
 
-        static find_all(repo:any, reference:any, options:any, callback:Function):void;
+    static find_all(repo: any, reference: any, callback: Function): void;
 
-        static count(repo:any, ref:any, callback:Function):void;
+    static find_all(repo: any, reference: any, options: any, callback: Function): void;
 
-        static diff(repo:any, a:any, callback:Function):void;
+    static count(repo: any, ref: any, callback: Function): void;
 
-        static diff(repo:any, a:any, b:any, callback:Function):void;
+    static diff(repo: any, a: any, callback: Function): void;
 
-        static diff(repo:any, a:any, b:any, paths:any, callback:Function):void;
+    static diff(repo: any, a: any, b: any, callback: Function): void;
 
-        show(callback:Function):void;
+    static diff(repo: any, a: any, b: any, paths: any, callback: Function): void;
 
-        diffs(callback:Function):void;
+    show(callback: Function): void;
 
-        toPatch(callback:Function):void;
-    }
+    diffs(callback: Function): void;
 
-    // lib/git/commit_stats.js
-    export class CommitStats {
-        repo:any;
-        id:any;
-        files:any[];
-        additions:any;
-        deletions:any;
-        total:any;
+    toPatch(callback: Function): void;
+}
 
-        constructor(repo:any, id:any, files:any[]);
+// lib/git/commit_stats.js
+declare export class CommitStats {
+    repo: any;
+    id: any;
+    files: any[];
+    additions: any;
+    deletions: any;
+    total: any;
 
-        static find_all(repo:any, reference:any, callback:Function):void;
+    constructor(repo: any, id: any, files: any[]);
 
-        static find_all(repo:any, reference:any, options:any, callback:Function):void;
+    static find_all(repo: any, reference: any, callback: Function): void;
 
-        static list_from_string(repo:any, text:string):CommitStats[];
-    }
+    static find_all(repo: any, reference: any, options: any, callback: Function): void;
 
-    // lib/git/config.js
-    export class Config {
-        repo:any;
-        data:any;
+    static list_from_string(repo: any, text: string): CommitStats[];
+}
 
-        constructor(repo:any);
+// lib/git/config.js
+declare export class Config {
+    repo: any;
+    data: any;
 
-        fetch(key:any, defaultValue:any):any
+    constructor(repo: any);
 
-        set(key:any, value:any, callback:Function):void;
-    }
+    fetch(key: any, defaultValue: any): any
 
-    // lib/git/diff.js
-    export class Diff {
-        repo:any;
-        a_path:any;
-        b_path:any;
-        a_blob:any;
-        b_blob:any;
-        a_mode:any;
-        b_mode:any;
-        new_file:any;
-        deleted_file:any;
-        diff:any;
+    set(key: any, value: any, callback: Function): void;
+}
 
-        constructor(repo:any, aPath:any, bPath:any, aBlob:any, bBlob:any, aMode:any, bMode:any, newFile:any, deletedFile:any, diff:any);
+// lib/git/diff.js
+declare export class Diff {
+    repo: any;
+    a_path: any;
+    b_path: any;
+    a_blob: any;
+    b_blob: any;
+    a_mode: any;
+    b_mode: any;
+    new_file: any;
+    deleted_file: any;
+    diff: any;
 
-        static list_from_string(repo:any, text:any, callback:Function):void;
-    }
+    constructor(repo: any, aPath: any, bPath: any, aBlob: any, bBlob: any, aMode: any, bMode: any, newFile: any, deletedFile: any, diff: any);
 
-    // lib/git/file_index/js
-    export class FileIndex {
-        repo_path:any;
-        index_file:any;
-        sha_count:any;
-        commit_index:any;
-        commit_order:any;
-        all_files:any;
+    static list_from_string(repo: any, text: any, callback: Function): void;
+}
 
-        constructor(repoPath:any, callback:Function);
+// lib/git/file_index/js
+declare export class FileIndex {
+    repo_path: any;
+    index_file: any;
+    sha_count: any;
+    commit_index: any;
+    commit_order: any;
+    all_files: any;
 
-        commits_from(commitSha:any, callback:Function):void;
+    constructor(repoPath: any, callback: Function);
 
-        sort_commits(shaArray:any[]):any[];
+    commits_from(commitSha: any, callback: Function): void;
 
-        files(commitSha:any, callback:Function):void;
+    sort_commits(shaArray: any[]): any[];
 
-        count_all(callback:Function):void;
+    files(commitSha: any, callback: Function): void;
 
-        count(commitSha:any, callback:Function):void;
+    count_all(callback: Function): void;
 
-        commits_for(file:any, callback:Function):void;
+    count(commitSha: any, callback: Function): void;
 
-        last_commits(commitSha:any, filesMatcher:any, callback:Function):void;
-    }
+    commits_for(file: any, callback: Function): void;
 
-    // lib/git/file_window.js
-    export class FileWindow {
-        idxfile:any;
-        version:any;
-        global_offset:any;
-        offset:any;
-        seek_offset:any;
+    last_commits(commitSha: any, filesMatcher: any, callback: Function): void;
+}
 
-        constructor(idxfile:any, version:any);
+// lib/git/file_window.js
+declare export class FileWindow {
+    idxfile: any;
+    version: any;
+    global_offset: any;
+    offset: any;
+    seek_offset: any;
 
-        unmap():void;
+    constructor(idxfile: any, version: any);
 
-        index(idx:number):void;
+    unmap(): void;
 
-        index(idx:any[]):void;
+    index(idx: number): void;
 
-        close():void;
-    }
+    index(idx: any[]): void;
 
-    // lib/git/git_file_operations.js
-    export class GitFileOperations {
-        static glob_streaming(path:any):any;
+    close(): void;
+}
 
-        static glob(path:any, callback:Function):void;
+// lib/git/git_file_operations.js
+declare export class GitFileOperations {
+    static glob_streaming(path: any): any;
 
-        static glob(path:any, files:any, callback:Function):void;
+    static glob(path: any, callback: Function): void;
 
-        static fs_read(path:any, file:any, callback:Function):void;
+    static glob(path: any, files: any, callback: Function): void;
 
-        static fs_mkdir(dir:any, callback:Function):void;
+    static fs_read(path: any, file: any, callback: Function): void;
 
-        static fs_exist(dir:any, path:any, callback:Function):void;
+    static fs_mkdir(dir: any, callback: Function): void;
 
-        static fs_rmdir_r(dir:any, callback:Function):void;
+    static fs_exist(dir: any, path: any, callback: Function): void;
 
-        static fs_write(dir:any, file:any, content:any, callback:Function):void;
-    }
+    static fs_rmdir_r(dir: any, callback: Function): void;
 
-    // lib/git/git_index.js
-    export class GitIndex {
-        repo:any;
-        tree:any;
-        current_tree:any;
+    static fs_write(dir: any, file: any, content: any, callback: Function): void;
+}
 
-        constructor(repo:any);
+// lib/git/git_index.js
+declare export class GitIndex {
+    repo: any;
+    tree: any;
+    current_tree: any;
 
-        read_tree(tree:any, callback:Function):void;
+    constructor(repo: any);
 
-        add(filePath:any, data:any):void;
+    read_tree(tree: any, callback: Function): void;
 
-        commit(message:any, callback:Function):void;
+    add(filePath: any, data: any): void;
 
-        commit(message:any, parents:any, callback:Function):void;
+    commit(message: any, callback: Function): void;
 
-        commit(message:any, parents:any, actor:any, callback:Function):void;
+    commit(message: any, parents: any, callback: Function): void;
 
-        commit(message:any, parents:any, actor:any, lastTree:any, callback:Function):void;
+    commit(message: any, parents: any, actor: any, callback: Function): void;
 
-        write_tree(tree:any, callback:Function):any;
+    commit(message: any, parents: any, actor: any, lastTree: any, callback: Function): void;
 
-        write_tree(tree:any, nowTree:any, callback:Function):any;
+    write_tree(tree: any, callback: Function): any;
 
-        write_blob(data:any):any;
-    }
+    write_tree(tree: any, nowTree: any, callback: Function): any;
 
-    // lib/git/git_object.js
-    export class GitObject {
-        static from_raw(rawObject:any, repository:any):any;
-    }
+    write_blob(data: any): any;
+}
 
-    // lib/git/head.js
-    export class Head {
-        name:string;
-        commit:any; // string or Commit or ...?
+// lib/git/git_object.js
+declare export class GitObject {
+    static from_raw(rawObject: any, repository: any): any;
+}
 
-        constructor(name:string, commit:any);
+// lib/git/head.js
+declare export class Head {
+    name: string;
+    commit: any; // string or Commit or ...?
 
-        static current(repo:any, callback:Function):void;
+    constructor(name: string, commit: any);
 
-        static current(repo:any, options:any, callback:Function):void;
+    static current(repo: any, callback: Function): void;
 
-        static find_all(repo:any, callback:Function):void;
+    static current(repo: any, options: any, callback: Function): void;
 
-        static find_all(repo:any, options:any, callback:Function):void;
-    }
+    static find_all(repo: any, callback: Function): void;
 
-    // lib/git/loose_storage.js
-    export class LooseStorage {
-        directory:any;
+    static find_all(repo: any, options: any, callback: Function): void;
+}
 
-        constructor(directory:any);
+// lib/git/loose_storage.js
+declare export class LooseStorage {
+    directory: any;
 
-        find(sha1:any):RawObject;
+    constructor(directory: any);
 
-        get_raw_object(buf:any):RawObject;
+    find(sha1: any): RawObject;
 
-        unpack_object_header_gently(buf:any):any[];
+    get_raw_object(buf: any): RawObject;
 
-        is_legacy_loose_object(buf:any):boolean;
+    unpack_object_header_gently(buf: any): any[];
 
-        put_raw_object(content:any, type:any, callback:Function):void;
+    is_legacy_loose_object(buf: any): boolean;
 
-        static verify_header(type:any, size:any):void;
-    }
+    put_raw_object(content: any, type: any, callback: Function): void;
 
-    // lib/git/merge.js
-    export class Merge {
-        static STATUS_BOTH:string;
-        static STATUS_OURS:string;
-        static STATUS_THEIRS:string;
+    static verify_header(type: any, size: any): void;
+}
 
-        conflicts:any;
-        text:any;
-        sections:any;
+// lib/git/merge.js
+declare export class Merge {
+    static STATUS_BOTH: string;
+    static STATUS_OURS: string;
+    static STATUS_THEIRS: string;
 
-        constructor(str:string);
-    }
+    conflicts: any;
+    text: any;
+    sections: any;
 
-    // lib/git/pack_storage.js
-    export class PackStorage {
-        name:any;
-        cache:any;
-        version:any;
-        offsets:any;
-        size:any;
+    constructor(str: string);
+}
 
-        constructor(file:any);
+// lib/git/pack_storage.js
+declare export class PackStorage {
+    name: any;
+    cache: any;
+    version: any;
+    offsets: any;
+    size: any;
 
-        find(sha1:any):RawObject;
+    constructor(file: any);
 
-        close():void;
+    find(sha1: any): RawObject;
 
-        parse_object(pack:any, offset:any):RawObject;
+    close(): void;
 
-        unpack_object(pack:any, packfile:any, offset:any, options:any):any[];
+    parse_object(pack: any, offset: any): RawObject;
 
-        unpack_deltified(packfile:any, type:any, offset:any, objOffset:any, size:any, options:any):any;
-    }
+    unpack_object(pack: any, packfile: any, offset: any, options: any): any[];
 
-    // lib/git/raw.js
-    export class RawObject {
-        type:any;
-        content:any;
+    unpack_deltified(packfile: any, type: any, offset: any, objOffset: any, size: any, options: any): any;
+}
 
-        constructor(type:any, content:any);
+// lib/git/raw.js
+declare export class RawObject {
+    type: any;
+    content: any;
 
-        sha1(encoding?:string):any;
+    constructor(type: any, content: any);
 
-        sha1_hex():any;
-    }
+    sha1(encoding?: string): any;
 
-    // lib/git/ref.js
-    export class Ref {
-    }
+    sha1_hex(): any;
+}
 
-    // lib/git/remote.js
-    export class Remote {
-        constructor(name:any, commit:any);
+// lib/git/ref.js
+declare export class Ref {
+}
 
-        find_all(repo:any, callback:Function):void;
+// lib/git/remote.js
+declare export class Remote {
+    constructor(name: any, commit: any);
 
-        find_all(repo:any, options:any, callback:Function):void;
-    }
+    find_all(repo: any, callback: Function): void;
 
-    // lib/git/repo.js
-    export class Repo {
-        path:string;
-        options:any;
-        git:any;
-        config_object:any;
-        bare:any;
-        working_directory:any;
+    find_all(repo: any, options: any, callback: Function): void;
+}
 
-        constructor(path:string, callback:(err:any, repo:Repo)=>void);
+// lib/git/repo.js
+declare export class Repo {
+    path: string;
+    options: any;
+    git: any;
+    config_object: any;
+    bare: any;
+    working_directory: any;
 
-        constructor(path:string, options:any, callback:(err:any, repo:Repo)=>void);
+    constructor(path: string, callback: (err: any, repo: Repo) => void);
 
-        head(callback:(err:any, head:Head)=>void):void;
+    constructor(path: string, options: any, callback: (err: any, repo: Repo) => void);
 
-        heads(callback:(err:any, heads:Head[])=>void):void;
+    head(callback: (err: any, head: Head) => void): void;
 
-        tags(callback:Function):void;
+    heads(callback: (err: any, heads: Head[]) => void): void;
 
-        commits(callback:Function):void;
+    tags(callback: Function): void;
 
-        commits(start:string, callback:Function):void;
+    commits(callback: Function): void;
 
-        commits(start:string, maxCount:number, callback:Function):void;
+    commits(start: string, callback: Function): void;
 
-        commits(start:string, maxCount:number, skip:any, callback:Function):void;
+    commits(start: string, maxCount: number, callback: Function): void;
 
-        commit(id:string, callback:Function):void;
+    commits(start: string, maxCount: number, skip: any, callback: Function): void;
 
-        commit_count(start:any, callback:Function):void;
+    commit(id: string, callback: Function): void;
 
-        tree(callback:Function):void;
+    commit_count(start: any, callback: Function): void;
 
-        tree(treeish:string, callback:Function):void;
+    tree(callback: Function): void;
 
-        tree(treeish:string, paths:any, callback:Function):void;
+    tree(treeish: string, callback: Function): void;
 
-        blob(id:string, callback:Function):void;
+    tree(treeish: string, paths: any, callback: Function): void;
 
-        init_bare(path:any, gitOptions:any, repoOptions:any, callback:Function):void;
+    blob(id: string, callback: Function): void;
 
-        fork_bare(path:any, callback:Function):void;
+    init_bare(path: any, gitOptions: any, repoOptions: any, callback: Function): void;
 
-        fork_bare(path:any, options:any, callback:Function):void;
+    fork_bare(path: any, callback: Function): void;
 
-        // buggy?
-		diff(a: string, callback: (error: any, patch: string) => void):void;
+    fork_bare(path: any, options: any, callback: Function): void;
 
-		diff(a: string, b: string, callback: (error: any, patch: string) => void):void;
+    // buggy?
+    diff(a: string, callback: (error: any, patch: string) => void): void;
 
-		diff(a: string, b: string, paths: any, callback: (error: any, patch: string) => void):void;
+    diff(a: string, b: string, callback: (error: any, patch: string) => void): void;
 
-        commit_diff(commit:string, callback:Function):void;
+    diff(a: string, b: string, paths: any, callback: (error: any, patch: string) => void): void;
 
-        alternates(callback:Function):void;
+    commit_diff(commit: string, callback: Function): void;
 
-        set_alternates(alts:any, callback:Function):void;
+    alternates(callback: Function): void;
 
-        log(callback:(err:any, commits:Commit[])=>void):void;
+    set_alternates(alts: any, callback: Function): void;
 
-        log(commit:string, callback:(err:any, commits:Commit[])=>void):void;
+    log(callback: (err: any, commits: Commit[]) => void): void;
 
-        log(commit:string, path:any, callback:(err:any, commits:Commit[])=>void):void;
+    log(commit: string, callback: (err: any, commits: Commit[]) => void): void;
 
-        log(commit:string, path:any, options:any, callback:(err:any, commits:Commit[])=>void):void;
+    log(commit: string, path: any, callback: (err: any, commits: Commit[]) => void): void;
 
-        commit_deltas_from(otherRepo:any, callback:Function):void;
+    log(commit: string, path: any, options: any, callback: (err: any, commits: Commit[]) => void): void;
 
-        commit_deltas_from(otherRepo:any, reference:any, callback:Function):void;
+    commit_deltas_from(otherRepo: any, callback: Function): void;
 
-        commit_deltas_from(otherRepo:any, reference:any, otherReference:any, callback:Function):void;
+    commit_deltas_from(otherRepo: any, reference: any, callback: Function): void;
 
-        refs(callback:Function):void;
+    commit_deltas_from(otherRepo: any, reference: any, otherReference: any, callback: Function): void;
 
-        description(callback:Function):void;
+    refs(callback: Function): void;
 
-        update_ref(head:any, commitSha:any, callback:Function):void;
+    description(callback: Function): void;
 
-        get_head(headName:any, callback:Function):void;
+    update_ref(head: any, commitSha: any, callback: Function): void;
 
-        blame(file:string, commit:string, callback:(err:any, blame:Blame)=>void):void;
+    get_head(headName: any, callback: Function): void;
 
-        commit_stats(callback:Function):void;
+    blame(file: string, commit: string, callback: (err: any, blame: Blame) => void): void;
 
-        commit_stats(start:any, callback:Function):void;
+    commit_stats(callback: Function): void;
 
-        commit_stats(start:any, maxCount:any, callback:Function):void;
+    commit_stats(start: any, callback: Function): void;
 
-        commit_stats(start:any, maxCount:any, skip:any, callback:Function):void;
+    commit_stats(start: any, maxCount: any, callback: Function): void;
 
-        commit_index(message:any, callback:Function):void;
+    commit_stats(start: any, maxCount: any, skip: any, callback: Function): void;
 
-        commit_all(message:any, callback:Function):void;
+    commit_index(message: any, callback: Function): void;
 
-        config(callback:Function):void;
+    commit_all(message: any, callback: Function): void;
 
-        add(files:any, callback:Function):void;
+    config(callback: Function): void;
 
-        remove(files:any, callback:Function):void;
+    add(files: any, callback: Function): void;
 
-        status(callback:Function):void;
+    remove(files: any, callback: Function): void;
 
-        is_head(headName:any, callback:Function):void;
+    status(callback: Function): void;
 
-        index(callback:Function):void;
-    }
+    is_head(headName: any, callback: Function): void;
 
-    // lib/git/repository.js
-    export class Repository {
-        git_directory:any;
-        options:any;
-        already_searched:any;
-        packs:any;
-        loose:any;
+    index(callback: Function): void;
+}
 
-        constructor(gitDirectory:any, options?:any);
+// lib/git/repository.js
+declare export class Repository {
+    git_directory: any;
+    options: any;
+    already_searched: any;
+    packs: any;
+    loose: any;
 
-        get_object_by_sha1(sha1:string):any;
+    constructor(gitDirectory: any, options?: any);
 
-        files_changed(treeSha1:any, treeSha2:any, pathLimiter:any):boolean;
+    get_object_by_sha1(sha1: string): any;
 
-        cat_file(sha:any):any;
+    files_changed(treeSha1: any, treeSha2: any, pathLimiter: any): boolean;
 
-        cat_file_size(sha:any):number;
+    cat_file(sha: any): any;
 
-        cat_file_type(sha:any):any;
+    cat_file_size(sha: any): number;
 
-        ls_tree(sha:any, paths:any, recursive:any):any;
+    cat_file_type(sha: any): any;
 
-        get_raw_tree(sha:any, recursive:any):any;
+    ls_tree(sha: any, paths: any, recursive: any): any;
 
-        get_raw_trees(sha:any, path:any):string;
+    get_raw_tree(sha: any, recursive: any): any;
 
-        ls_tree_path(sha:any, path:any, append:any):any
+    get_raw_trees(sha: any, path: any): string;
 
-        quick_diff(tree1:any, tree2:any, path:any, recurse:any):any[];
+    ls_tree_path(sha: any, path: any, append: any): any
 
-        list_tree(sha:any):any;
+    quick_diff(tree1: any, tree2: any, path: any, recurse: any): any[];
 
-        rev_list(sha:any, options:any, callback:Function):void;
+    list_tree(sha: any): any;
 
-        object_exists(sha1:any, callback:Function):void;
+    rev_list(sha: any, options: any, callback: Function): void;
 
-        in_packs(shaHex:any, callback:Function):void;
+    object_exists(sha1: any, callback: Function): void;
 
-        in_loose(shaHex:any, callback:Function):void;
+    in_packs(shaHex: any, callback: Function): void;
 
-        get_subtree(commitSha:any, path:any, callback:Function):void;
+    in_loose(shaHex: any, callback: Function): void;
 
-        static init(dir:any, bare:any, callback:Function):void;
+    get_subtree(commitSha: any, path: any, callback: Function): void;
 
-        put_raw_object(content:any, type:any, callback:Function):any;
-    }
+    static init(dir: any, bare: any, callback: Function): void;
 
-    // lib/git/status.js
-    export class Status {
-        repo:any;
-        files:any[];
+    put_raw_object(content: any, type: any, callback: Function): any;
+}
 
-        constructor(repo:any, callback:Function);
+// lib/git/status.js
+declare export class Status {
+    repo: any;
+    files: any[];
 
-        index(file:any):any;
-    }
+    constructor(repo: any, callback: Function);
 
-    // lib/git/status_file.js
-    export class StatusFile {
-        repo:any;
-        path:any;
-        type:any;
-        stage:any;
-        mode_index:any;
-        mode_repo:any;
-        sha_index:any;
-        sha_repo:any;
-        untracked:any;
+    index(file: any): any;
+}
 
-        constructor(repo:any, hash:any);
-    }
+// lib/git/status_file.js
+declare export class StatusFile {
+    repo: any;
+    path: any;
+    type: any;
+    stage: any;
+    mode_index: any;
+    mode_repo: any;
+    sha_index: any;
+    sha_repo: any;
+    untracked: any;
 
-    // lib/git/sub_module.js
-    export class Submodule {
-        repo:any;
-        id:any;
-        mode:any;
-        name:any;
-        basename:any;
+    constructor(repo: any, hash: any);
+}
 
-        constructor(repo:any, id:any, mode:any, name:any);
+// lib/git/sub_module.js
+declare export class Submodule {
+    repo: any;
+    id: any;
+    mode: any;
+    name: any;
+    basename: any;
 
-        static create(repo:any, attributes:any, callback:Function):void;
+    constructor(repo: any, id: any, mode: any, name: any);
 
-        static config(repo:any, ref:any, callback:Function):void;
-    }
+    static create(repo: any, attributes: any, callback: Function): void;
 
-    // lib/git/tag.js
-    export class Tag {
-        name:any;
-        commit:any;
+    static config(repo: any, ref: any, callback: Function): void;
+}
 
-        constructor(name:any, commit:any);
+// lib/git/tag.js
+declare export class Tag {
+    name: any;
+    commit: any;
 
-        static find_all(repo:any, callback:Function):void;
+    constructor(name: any, commit: any);
 
-        static find_all(repo:any, options:any, callback:Function):void;
-    }
+    static find_all(repo: any, callback: Function): void;
 
-    // lib/git/tree.js
-    export class Tree {
-        repo:any;
-        id:any;
-        mode:any;
-        name:any;
-        contents:any;
-        basename:any;
+    static find_all(repo: any, options: any, callback: Function): void;
+}
 
-        constructor(repo:any, id:any, mode:any, name:any, contents:any);
+// lib/git/tree.js
+declare export class Tree {
+    repo: any;
+    id: any;
+    mode: any;
+    name: any;
+    contents: any;
+    basename: any;
 
-        static content_from_string(repo:any, text:any, callback:Function):void;
+    constructor(repo: any, id: any, mode: any, name: any, contents: any);
 
-        find(file:string):any;
+    static content_from_string(repo: any, text: any, callback: Function): void;
 
-        static create(repo:any, callback:Function):void;
+    find(file: string): any;
 
-        static create(repo:any, attributes:any, callback:Function):void;
-    }
+    static create(repo: any, callback: Function): void;
 
-    // lib/git/user_info.js
-    export class UserInfo {
-        name:any;
-        email:any;
-        date:any;
-        offset:any;
+    static create(repo: any, attributes: any, callback: Function): void;
+}
 
-        constructor(str:string);
-    }
+// lib/git/user_info.js
+declare export class UserInfo {
+    name: any;
+    email: any;
+    date: any;
+    offset: any;
 
-    // lib/zlib/
-    // lib/sprintf/
-    // lib/diff/
+    constructor(str: string);
 }

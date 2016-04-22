@@ -7,31 +7,31 @@
 /// <reference path="../mongoose/mongoose.d.ts" />
 
 
-declare module 'rest-io' {
+
 import {Router, Application, Response, Request} from 'express';
 
 import {Mongoose, Schema, Model, Document, Types, Promise} from 'mongoose';
 
-  function restIO(app: Application, config?: IRestIOConfig): RestIO;
+declare function restIO(app: Application, config?: IRestIOConfig): RestIO;
 
-  export interface RestIO {
+export interface RestIO {
     resource: ResourceModule
-  }
+}
 
-  export interface IRestIOConfig {
+export interface IRestIOConfig {
     resources: string;
     db?: Mongoose;
-  }
+}
 
-  export interface ResourceModule {
+export interface ResourceModule {
     Resource: Resource;
     AuthorizedResource: AuthorizedResource;
     authorizedResource: AuthorizedResourceModule;
     UserResource: UserResource;
     SubResource: SubResource;
-  }
+}
 
-  export class Resource {
+declare export class Resource {
     baseUrl: string;
     url: string;
     parameterizedUrl: string;
@@ -66,30 +66,30 @@ import {Mongoose, Schema, Model, Document, Types, Promise} from 'mongoose';
     del(req: Request, res: Response): void;
 
     errorHandler(err: Error, res: Response): void;
-  }
+}
 
-  export interface IResource {
+export interface IResource {
     name: string;
     model: any;
     parentRef?: string;
     populate?: string;
     plural?: string;
     parentResource?: Resource;
-  }
+}
 
-  export interface AuthorizedResourceModule {
+export interface AuthorizedResourceModule {
     AuthorizedResource: AuthorizedResource
     ROLES: Roles
-  }
+}
 
-  export interface Roles {
+export interface Roles {
     USER: string;
     SUPER_USER: string;
     MODERATOR: string;
     ADMIN: string;
-  }
+}
 
-  export class AuthorizedResource extends Resource {
+declare export class AuthorizedResource extends Resource {
     methodAccess: IMethodAccess;
 
     maxDays: number;
@@ -107,17 +107,17 @@ import {Mongoose, Schema, Model, Document, Types, Promise} from 'mongoose';
     isAuthorized(req: Request, authorizedRoles: Array<string>): boolean;
 
     sendUnauthorized(error: Error, res: Response): void;
-  }
+}
 
-  export interface IMethodAccess {
+export interface IMethodAccess {
     getAll: Array<string>;
     getById: Array<string>;
     create: Array<string>;
     update: Array<string>;
     del: Array<string>;
-  }
+}
 
-  export class UserResource extends AuthorizedResource {
+declare export class UserResource extends AuthorizedResource {
     ensureBaseUserModel(model: any): void;
 
     createRoleModel(): void;
@@ -125,9 +125,9 @@ import {Mongoose, Schema, Model, Document, Types, Promise} from 'mongoose';
     isSelf(req: Request): boolean;
 
     login(req: Request, res: Response): void;
-  }
+}
 
-  export class SubResource extends Resource {
+declare export class SubResource extends Resource {
     constructor(resDef: ISubResource);
 
     createProjectionQuery(req: Request): any;
@@ -137,12 +137,11 @@ import {Mongoose, Schema, Model, Document, Types, Promise} from 'mongoose';
     createFindQuery(req: Request): any;
 
     createSubUpdateQuery(req: Request): any;
-  }
+}
 
-  export interface ISubResource {
+export interface ISubResource {
     name: string;
     plural?: string;
     parentResource: Resource;
     populate?: string;
-  }
 }

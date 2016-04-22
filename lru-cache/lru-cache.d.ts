@@ -3,32 +3,31 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'lru-cache' {
-	function LRU<T>(opts: LRU.Options<T>): LRU.Cache<T>;
-	function LRU<T>(max: number): LRU.Cache<T>;
 
-	namespace LRU {
-		interface Options<T> {
-			max?: number;
-			maxAge?: number;
-			length?: (value: T) => number;
-			dispose?: (key: string, value: T) => void;
-			stale?: boolean;
-		}
+declare function LRU<T>(opts: LRU.Options<T>): LRU.Cache<T>;
+declare function LRU<T>(max: number): LRU.Cache<T>;
 
-		interface Cache<T> {
-			set(key: string, value: T): void;
-			get(key: string): T;
-			peek(key: string): T;
-			has(key: string): boolean
-			del(key: string): void;
-			reset(): void;
-			forEach(iter: (value: T, key: string, cache: Cache<T>) => void, thisp?: any): void;
+declare namespace LRU {
+    interface Options<T> {
+        max?: number;
+        maxAge?: number;
+        length?: (value: T) => number;
+        dispose?: (key: string, value: T) => void;
+        stale?: boolean;
+    }
 
-			keys(): string[];
-			values(): T[];
-		}
-	}
+    interface Cache<T> {
+        set(key: string, value: T): void;
+        get(key: string): T;
+        peek(key: string): T;
+        has(key: string): boolean
+        del(key: string): void;
+        reset(): void;
+        forEach(iter: (value: T, key: string, cache: Cache<T>) => void, thisp?: any): void;
 
-	export = LRU;
+        keys(): string[];
+        values(): T[];
+    }
 }
+
+export = LRU;

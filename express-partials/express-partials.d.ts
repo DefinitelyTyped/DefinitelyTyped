@@ -5,10 +5,9 @@
 
 /// <reference path="../express/express.d.ts" />
 
-declare module "express-partials" {
-    import express = require('express');
 
-    function expressPartials(options?: any): express.RequestHandler;
+import express = require('express');
 
-    export = expressPartials;
-}
+declare function expressPartials(options?: any): express.RequestHandler;
+
+export = expressPartials;

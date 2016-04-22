@@ -5,16 +5,15 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "finalhandler" {
-	import {ServerRequest, ServerResponse} from "http";
 
-	export interface Options {
-		message?: boolean|((err: any, status: number) => string);
-		onerror?: (err: any, req: ServerRequest, res: ServerResponse) => void;
-		stacktrace?: boolean;
-	}
+import {ServerRequest, ServerResponse} from "http";
 
-	function finalHandler(req: ServerRequest, res: ServerResponse, options?: Options): (err: any) => void;
-
-	export default finalHandler;
+export interface Options {
+    message?: boolean | ((err: any, status: number) => string);
+    onerror?: (err: any, req: ServerRequest, res: ServerResponse) => void;
+    stacktrace?: boolean;
 }
+
+declare function finalHandler(req: ServerRequest, res: ServerResponse, options?: Options): (err: any) => void;
+
+export default finalHandler;

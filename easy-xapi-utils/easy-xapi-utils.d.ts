@@ -7,10 +7,9 @@
 /// <reference path="../easy-jsend/easy-jsend.d.ts" />
 /// <reference path="../easy-x-headers/easy-x-headers.d.ts" />
 
-declare module "easy-xapi-utils" {
-    import express = require('express');
 
-    export function isLoggedIn(role?: string): express.RequestHandler;
-    export function isLoggedOut(): express.RequestHandler;
-    export function hasRole(role: string): express.RequestHandler;
-}
+import express = require('express');
+
+declare export function isLoggedIn(role?: string): express.RequestHandler;
+declare export function isLoggedOut(): express.RequestHandler;
+declare export function hasRole(role: string): express.RequestHandler;

@@ -5,20 +5,19 @@
 
 /// <reference path="../node/node.d.ts"/>
 
-declare module "gulp-rename" {
-    interface ParsedPath {
-        dirname?: string;
-        basename?: string;
-        extname?: string;
-    }
 
-    interface Options extends ParsedPath {
-        prefix?: string;
-        suffix?: string;
-    }
-
-    function rename(name: string): NodeJS.ReadWriteStream;
-    function rename(callback: (path: ParsedPath) => any): NodeJS.ReadWriteStream;
-    function rename(opts: Options): NodeJS.ReadWriteStream;
-    export = rename;
+interface ParsedPath {
+    dirname?: string;
+    basename?: string;
+    extname?: string;
 }
+
+interface Options extends ParsedPath {
+    prefix?: string;
+    suffix?: string;
+}
+
+declare function rename(name: string): NodeJS.ReadWriteStream;
+declare function rename(callback: (path: ParsedPath) => any): NodeJS.ReadWriteStream;
+declare function rename(opts: Options): NodeJS.ReadWriteStream;
+export = rename;

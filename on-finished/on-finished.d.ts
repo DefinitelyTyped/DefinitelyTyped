@@ -6,13 +6,12 @@
 /// <reference path="../node/node.d.ts" />
 
 
-declare module 'on-finished' {
 
-    function onFinished(msg:NodeJS.EventEmitter, listener:Function): NodeJS.EventEmitter;
 
-    namespace onFinished {
-        export function isFinished(msg:NodeJS.EventEmitter):boolean;
-    }
+declare function onFinished(msg: NodeJS.EventEmitter, listener: Function): NodeJS.EventEmitter;
 
-    export = onFinished;
+declare namespace onFinished {
+    export function isFinished(msg: NodeJS.EventEmitter): boolean;
 }
+
+export = onFinished;

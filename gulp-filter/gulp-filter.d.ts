@@ -7,27 +7,26 @@
 /// <reference path="../vinyl/vinyl.d.ts"/>
 /// <reference path="../minimatch/minimatch.d.ts"/>
 
-declare module 'gulp-filter' {
-  import File = require('vinyl');
-  import * as Minimatch from 'minimatch';
 
-  namespace filter {
+import File = require('vinyl');
+import * as Minimatch from 'minimatch';
+
+declare namespace filter {
     interface FileFunction {
-      (file: File): boolean;
+        (file: File): boolean;
     }
 
     interface Options extends Minimatch.IOptions {
-      restore?: boolean;
-      passthrough?: boolean;
+        restore?: boolean;
+        passthrough?: boolean;
     }
 
     // A transform stream with a .restore object
     interface Filter extends NodeJS.ReadWriteStream {
-      restore: NodeJS.ReadWriteStream
+        restore: NodeJS.ReadWriteStream
     }
-  }
-
-  function filter(pattern: string | string[] | filter.FileFunction, options?: filter.Options): filter.Filter;
-
-  export = filter;
 }
+
+declare function filter(pattern: string | string[] | filter.FileFunction, options?: filter.Options): filter.Filter;
+
+export = filter;

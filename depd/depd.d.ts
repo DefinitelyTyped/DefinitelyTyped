@@ -4,14 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module 'depd' {
-    function depd(namespace: string): Deprecate;
 
-    interface Deprecate {
-        (message: string): void;
-        function(fn: Function, message?: string): Function;
-        property(obj: Object, prop: string, message: string): void;
-    }
+declare function depd(namespace: string): Deprecate;
 
-    export = depd;
+interface Deprecate {
+    (message: string): void;
+    function(fn: Function, message?: string): Function;
+    property(obj: Object, prop: string, message: string): void;
 }
+
+export = depd;

@@ -5,34 +5,33 @@
 
 /// <reference path="../passport/passport.d.ts"/>
 
-declare module 'passport-facebook-token' {
 
-    import passport = require('passport');
-    import express = require('express');
 
-    interface Profile extends passport.Profile {
-        gender: string;
-        profileUrl: string;
-    }
+import passport = require('passport');
+import express = require('express');
 
-    interface StrategyOptions {
-        clientID: string;
-        clientSecret: string;
-        authorizationURL?: string;
-        tokenURL?: string;
-        scopeSeparator?: string;
-        passReqToCallback?: Function;
-        enableProof?: boolean;
-        profileFields?: any[];
-    }
+interface Profile extends passport.Profile {
+    gender: string;
+    profileUrl: string;
+}
 
-    class Strategy implements passport.Strategy {
-        constructor(options: StrategyOptions,
-                    verify: (accessToken: string,
-                             refreshToken: string,
-                             profile: Profile,
-                             done: (err: any, user?: any) => void) => void);
-        name: string;
-        authenticate: (req: express.Request, options?: any) => void;
-    }
+interface StrategyOptions {
+    clientID: string;
+    clientSecret: string;
+    authorizationURL?: string;
+    tokenURL?: string;
+    scopeSeparator?: string;
+    passReqToCallback?: Function;
+    enableProof?: boolean;
+    profileFields?: any[];
+}
+
+declare class Strategy implements passport.Strategy {
+    constructor(options: StrategyOptions,
+        verify: (accessToken: string,
+            refreshToken: string,
+            profile: Profile,
+            done: (err: any, user?: any) => void) => void);
+    name: string;
+    authenticate: (req: express.Request, options?: any) => void;
 }

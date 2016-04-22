@@ -6,45 +6,44 @@
 /// <reference path="../node/node.d.ts"/>
 /// <reference path="../vinyl/vinyl.d.ts"/>
 
-declare module "gulp-tslint" {
-    import vinyl = require("vinyl");
 
-    namespace gulpTsLint {
-        interface GulpTsLint {
-            (options?: Options): NodeJS.ReadWriteStream;
-            report(reporter?: Reporter, options?: ReportOptions): NodeJS.ReadWriteStream;
-            report(options?: ReportOptions): NodeJS.ReadWriteStream;
-        }
+import vinyl = require("vinyl");
 
-        interface Options {
-            configuration?: {},
-            rulesDirectory?: string,
-            tslint?: GulpTsLint
-        }
-
-        interface ReportOptions {
-            emitError?: boolean,
-            reportLimit?: number,
-            summarizeFailureOutput?: boolean
-        }
-
-        interface Position {
-            position: number;
-            line: number;
-            character: number;
-        }
-
-        interface Output {
-            name: string;
-            failure: string;
-            startPosition: Position;
-            endPosition: Position;
-            ruleName: string;
-        }
-
-        type Reporter = string|((output: Output[], file: vinyl, options: ReportOptions) => any);
+declare namespace gulpTsLint {
+    interface GulpTsLint {
+        (options?: Options): NodeJS.ReadWriteStream;
+        report(reporter?: Reporter, options?: ReportOptions): NodeJS.ReadWriteStream;
+        report(options?: ReportOptions): NodeJS.ReadWriteStream;
     }
 
-    var gulpTsLint: gulpTsLint.GulpTsLint;
-    export = gulpTsLint;
+    interface Options {
+        configuration?: {},
+        rulesDirectory?: string,
+        tslint?: GulpTsLint
+    }
+
+    interface ReportOptions {
+        emitError?: boolean,
+        reportLimit?: number,
+        summarizeFailureOutput?: boolean
+    }
+
+    interface Position {
+        position: number;
+        line: number;
+        character: number;
+    }
+
+    interface Output {
+        name: string;
+        failure: string;
+        startPosition: Position;
+        endPosition: Position;
+        ruleName: string;
+    }
+
+    type Reporter = string | ((output: Output[], file: vinyl, options: ReportOptions) => any);
 }
+
+declare var gulpTsLint: gulpTsLint.GulpTsLint;
+export = gulpTsLint;

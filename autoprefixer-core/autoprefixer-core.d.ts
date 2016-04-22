@@ -3,42 +3,41 @@
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "autoprefixer-core" {
-    interface Config {
-        browsers?: string[];
-        cascade?: boolean;
-        remove?: boolean;
-    }
 
-    interface Options {
-        from?: string;
-        to?: string;
-        safe?: boolean;
-        map?: {
-            inline?: boolean;
-            prev?: string | Object;
-        }
-    }
-
-    interface Result {
-        css: string;
-        map: string;
-        opts: Options;
-    }
-
-    interface Processor {
-        postcss: any;
-        info(): string;
-        process(css: string, opts?: Options): Result;
-    }
-
-    interface Exports {
-        (config: Config): Processor;
-        postcss: any;
-        info(): string;
-        process(css: string, opts?: Options): Result;
-    }
-
-    var exports: Exports;
-    export = exports;
+interface Config {
+    browsers?: string[];
+    cascade?: boolean;
+    remove?: boolean;
 }
+
+interface Options {
+    from?: string;
+    to?: string;
+    safe?: boolean;
+    map?: {
+        inline?: boolean;
+        prev?: string | Object;
+    }
+}
+
+interface Result {
+    css: string;
+    map: string;
+    opts: Options;
+}
+
+interface Processor {
+    postcss: any;
+    info(): string;
+    process(css: string, opts?: Options): Result;
+}
+
+interface Exports {
+    (config: Config): Processor;
+    postcss: any;
+    info(): string;
+    process(css: string, opts?: Options): Result;
+}
+
+declare var exports: Exports;
+export = exports;

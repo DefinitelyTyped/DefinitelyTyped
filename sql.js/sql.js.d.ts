@@ -5,63 +5,61 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "sql.js" {
 
-    class Database {
-        constructor(data: Buffer);
-        constructor(data: Uint8Array);
-        constructor(data: number[]);
 
-        run(sql: string): Database;
-        run(sql: string, params: { [key: string]: number | string | Uint8Array }): Database;
-        run(sql: string, params: (number | string | Uint8Array)[]): Database;
+declare class Database {
+    constructor(data: Buffer);
+    constructor(data: Uint8Array);
+    constructor(data: number[]);
 
-        exec(sql: string): QueryResults[];
+    run(sql: string): Database;
+    run(sql: string, params: { [key: string]: number | string | Uint8Array }): Database;
+    run(sql: string, params: (number | string | Uint8Array)[]): Database;
 
-        each(sql: string, callback: (obj: { [columnName: string]: number | string | Uint8Array }) => void, done: () => void): void;
-        each(sql: string, params: { [key: string]: number | string | Uint8Array }, callback: (obj: { [columnName: string]: number | string | Uint8Array }) => void, done: () => void): void;
-        each(sql: string, params: (number | string | Uint8Array)[], callback: (obj: { [columnName: string]: number | string | Uint8Array }) => void, done: () => void): void;
+    exec(sql: string): QueryResults[];
 
-        prepare(sql: string): Statement;
-        prepare(sql: string, params: { [key: string]: number | string | Uint8Array }): Statement;
-        prepare(sql: string, params: (number | string | Uint8Array)[]): Statement;
+    each(sql: string, callback: (obj: { [columnName: string]: number | string | Uint8Array }) => void, done: () => void): void;
+    each(sql: string, params: { [key: string]: number | string | Uint8Array }, callback: (obj: { [columnName: string]: number | string | Uint8Array }) => void, done: () => void): void;
+    each(sql: string, params: (number | string | Uint8Array)[], callback: (obj: { [columnName: string]: number | string | Uint8Array }) => void, done: () => void): void;
 
-        export(): Uint8Array;
+    prepare(sql: string): Statement;
+    prepare(sql: string, params: { [key: string]: number | string | Uint8Array }): Statement;
+    prepare(sql: string, params: (number | string | Uint8Array)[]): Statement;
 
-        close(): void;
-    }
+    export(): Uint8Array;
 
-    class Statement {
-        bind(): boolean;
-        bind(values: { [key: string]: number | string | Uint8Array }): boolean;
-        bind(values: (number | string | Uint8Array)[]): boolean;
+    close(): void;
+}
 
-        step(): boolean;
+declare class Statement {
+    bind(): boolean;
+    bind(values: { [key: string]: number | string | Uint8Array }): boolean;
+    bind(values: (number | string | Uint8Array)[]): boolean;
 
-        get(): (number | string | Uint8Array)[];
-        get(params: { [key: string]: number | string | Uint8Array }): (number | string | Uint8Array)[];
-        get(params: (number | string | Uint8Array)[]): (number | string | Uint8Array)[];
+    step(): boolean;
 
-        getColumnNames(): string[];
+    get(): (number | string | Uint8Array)[];
+    get(params: { [key: string]: number | string | Uint8Array }): (number | string | Uint8Array)[];
+    get(params: (number | string | Uint8Array)[]): (number | string | Uint8Array)[];
 
-        getAsObject(): { [columnName: string]: number | string | Uint8Array };
-        getAsObject(params: { [key: string]: number | string | Uint8Array }): { [columnName: string]: number | string | Uint8Array };
-        getAsObject(params: (number | string | Uint8Array)[]): { [columnName: string]: number | string | Uint8Array };
+    getColumnNames(): string[];
 
-        run(): void;
-        run(values: { [key: string]: number | string | Uint8Array }): void;
-        run(values: (number | string | Uint8Array)[]): void;
+    getAsObject(): { [columnName: string]: number | string | Uint8Array };
+    getAsObject(params: { [key: string]: number | string | Uint8Array }): { [columnName: string]: number | string | Uint8Array };
+    getAsObject(params: (number | string | Uint8Array)[]): { [columnName: string]: number | string | Uint8Array };
 
-        reset(): void;
+    run(): void;
+    run(values: { [key: string]: number | string | Uint8Array }): void;
+    run(values: (number | string | Uint8Array)[]): void;
 
-        freemem(): void;
+    reset(): void;
 
-        free(): boolean;
-    }
+    freemem(): void;
 
-    interface QueryResults {
-        columns: string[];
-        values: (number | string | Uint8Array)[][];
-    }
+    free(): boolean;
+}
 
+interface QueryResults {
+    columns: string[];
+    values: (number | string | Uint8Array)[][];
 }

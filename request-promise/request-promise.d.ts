@@ -8,26 +8,25 @@
 /// <reference path="../request/request.d.ts" />
 /// <reference path="../bluebird/bluebird.d.ts" />
 
-declare module 'request-promise' {
-    import request = require('request');
-    import http = require('http');
-        
-    interface RequestPromise extends request.Request {
-        then<TResult>(onfulfilled?: (value: any) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => TResult | PromiseLike<TResult>): Promise<TResult>;
-        then<TResult>(onfulfilled?: (value: any) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => void): Promise<TResult>;
-        catch(onrejected?: (reason: any) => any | PromiseLike<any>): Promise<any>;
-        catch(onrejected?: (reason: any) => void): Promise<any>;
-        finally<TResult>(handler: () => PromiseLike<TResult>): Promise<any>;
-        finally<TResult>(handler: () => TResult): Promise<any>;
-        promise(): Promise<any>;
-    }
-    
-    interface RequestPromiseOptions extends request.CoreOptions {
-        simple?: boolean;
-        transform?: (body: any, response: http.IncomingMessage) => any;
-        resolveWithFullResponse?: boolean;
-    }
-    
-    var requestPromise: request.RequestAPI<RequestPromise, RequestPromiseOptions, request.RequiredUriUrl>;
-	export = requestPromise;
+
+import request = require('request');
+import http = require('http');
+
+interface RequestPromise extends request.Request {
+    then<TResult>(onfulfilled?: (value: any) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => TResult | PromiseLike<TResult>): Promise<TResult>;
+    then<TResult>(onfulfilled?: (value: any) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => void): Promise<TResult>;
+    catch(onrejected?: (reason: any) => any | PromiseLike<any>): Promise<any>;
+    catch(onrejected?: (reason: any) => void): Promise<any>;
+    finally<TResult>(handler: () => PromiseLike<TResult>): Promise<any>;
+    finally<TResult>(handler: () => TResult): Promise<any>;
+    promise(): Promise<any>;
 }
+
+interface RequestPromiseOptions extends request.CoreOptions {
+    simple?: boolean;
+    transform?: (body: any, response: http.IncomingMessage) => any;
+    resolveWithFullResponse?: boolean;
+}
+
+declare var requestPromise: request.RequestAPI<RequestPromise, RequestPromiseOptions, request.RequiredUriUrl>;
+export = requestPromise;

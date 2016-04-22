@@ -3,7 +3,6 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "sentence-case" {
-	function sentenceCase(string: string, locale?: string, repl?: string): string;
-	export = sentenceCase;
-}
+
+declare function sentenceCase(string: string, locale?: string, repl?: string): string;
+export = sentenceCase;

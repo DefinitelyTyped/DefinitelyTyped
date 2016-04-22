@@ -3,7 +3,6 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "is-lower-case" {
-	function isLowerCase(string: string): boolean;
-	export = isLowerCase;
-}
+
+declare function isLowerCase(string: string): boolean;
+export = isLowerCase;

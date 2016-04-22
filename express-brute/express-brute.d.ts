@@ -5,66 +5,66 @@
 
 /// <reference path="../express/express.d.ts" />
 
-declare module "express-brute" {
-    import express = require("express");
+
+import express = require("express");
+
+/**
+ * @summary Options for {@link MemoryStore} class.
+ * @interface
+ */
+interface MemoryStoreOptions {
+    /**
+     * @summary Key prefix.
+     * @type {string}
+     */
+    prefix: string;
+}
+
+/**
+ * @summary Options for {@link ExpressBrute#getMiddleware} class.
+ * @interface
+ */
+interface ExpressBruteMiddleware {
+    /**
+     * @summary Allows you to override the value of failCallback for this middleware.
+     * @type {Function}
+     */
+    failCallback: Function;
 
     /**
-     * @summary Options for {@link MemoryStore} class.
-     * @interface
+     * @summary Disregard IP address when matching requests if set to true. Defaults to false.
+     * @type {boolean}
      */
-    interface MemoryStoreOptions {
-        /**
-         * @summary Key prefix.
-         * @type {string}
-         */
-        prefix: string;
-    }
+    ignoreIP: boolean;
 
     /**
-     * @summary Options for {@link ExpressBrute#getMiddleware} class.
-     * @interface
+     * @summary Key.
+     * @type {any}
      */
-    interface ExpressBruteMiddleware {
-        /**
-         * @summary Allows you to override the value of failCallback for this middleware.
-         * @type {Function}
-         */
-        failCallback: Function;
+    key: any;
+}
 
-        /**
-         * @summary Disregard IP address when matching requests if set to true. Defaults to false.
-         * @type {boolean}
-         */
-        ignoreIP: boolean;
-
-        /**
-         * @summary Key.
-         * @type {any}
-         */
-        key: any;
-    }
-
-    /**
-     * @summary Options for {@link ExpressBrute} class.
-     * @interface
-     */
-    interface ExpressBruteOptions {
-        freeRetries: number;
-        proxyDepth: number;
-        attachResetToRequest: boolean;
-        refreshTimeoutOnRequest: boolean;
-        minWait: number;
-        maxWait: number;
-        lifetime: number;
-        failCallback: (req: express.Request, res: express.Response, next: Function, nextValidRequestDate: any) => void;
-        handleStoreError: any;
+/**
+ * @summary Options for {@link ExpressBrute} class.
+ * @interface
+ */
+interface ExpressBruteOptions {
+    freeRetries: number;
+    proxyDepth: number;
+    attachResetToRequest: boolean;
+    refreshTimeoutOnRequest: boolean;
+    minWait: number;
+    maxWait: number;
+    lifetime: number;
+    failCallback: (req: express.Request, res: express.Response, next: Function, nextValidRequestDate: any) => void;
+    handleStoreError: any;
 }
 
 /**
  * @summary Middleware.
  * @class
  */
-class ExpressBrute {
+declare class ExpressBrute {
     /**
      * @summary Constructor.
      * @constructor
@@ -104,7 +104,7 @@ class ExpressBrute {
     reset(ip: string, key: string, next: Function): express.RequestHandler;
 }
 
-namespace ExpressBrute {
+declare namespace ExpressBrute {
     /**
      * @summary In-memory store.
      * @class
@@ -142,4 +142,3 @@ namespace ExpressBrute {
 }
 
 export = ExpressBrute;
-}

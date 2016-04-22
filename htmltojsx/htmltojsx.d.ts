@@ -3,15 +3,14 @@
 // Definitions by: Basarat Ali Syed <https://github.com/basarat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'htmltojsx' {
-    class HTMLtoJSX {
-        constructor(options?: {
-            createClass?: boolean;
-            outputClassName?: string;
-            /** as a string e.g. '    ' or '\t' */
-            indent?: string;
-        });
-        convert(html: string): string;
-    }
-    export = HTMLtoJSX;
+
+declare class HTMLtoJSX {
+    constructor(options?: {
+        createClass?: boolean;
+        outputClassName?: string;
+        /** as a string e.g. '    ' or '\t' */
+        indent?: string;
+    });
+    convert(html: string): string;
 }
+export = HTMLtoJSX;

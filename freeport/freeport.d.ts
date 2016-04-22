@@ -3,8 +3,7 @@
 // Definitions by: Arne Schubert <https://github.com/atd-schubert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'freeport' {
-	function freeport(cb: (err: Error, port: number) => void): void;
-	
-	export = freeport;
-}
+
+declare function freeport(cb: (err: Error, port: number) => void): void;
+
+export = freeport;

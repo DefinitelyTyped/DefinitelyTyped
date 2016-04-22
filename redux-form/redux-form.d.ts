@@ -7,15 +7,15 @@
 /// <reference path="../react/react.d.ts" />
 /// <reference path="../redux/redux.d.ts" />
 
-declare module 'redux-form' {
-  import { Component, SyntheticEvent, FormEventHandler } from 'react';
-  import { Dispatch, ActionCreator, Reducer } from 'redux';
 
-  export type FieldValue = any;
+import { Component, SyntheticEvent, FormEventHandler } from 'react';
+import { Dispatch, ActionCreator, Reducer } from 'redux';
 
-  export type FormData = {[fieldName:string]: FieldValue};
+export type FieldValue = any;
 
-  export interface FieldProp {
+export type FormData = { [fieldName: string]: FieldValue };
+
+export interface FieldProp {
     /**
      * true if this field currently has focus. It will only work if you are
      * passing onFocus to your input element.
@@ -64,38 +64,38 @@ declare module 'redux-form' {
      * either receive the React SyntheticEvent or the current value of the
      * field.
      */
-    onBlur(eventOrValue:SyntheticEvent|FieldValue):void;
+    onBlur(eventOrValue: SyntheticEvent | FieldValue): void;
 
     /**
      * A function to call when the form field is changed. It expects to either
      * receive the React SyntheticEvent or the new value of the field.
      * @param eventOrValue
      */
-    onChange(eventOrValue:SyntheticEvent|FieldValue):void;
+    onChange(eventOrValue: SyntheticEvent | FieldValue): void;
 
     /**
      * A function to call when the form field receives a 'dragStart' event.
      * Saves the field value in the event for giving the field it is dropped
      * into.
      */
-    onDragStart():void;
+    onDragStart(): void;
 
     /**
      * A function to call when the form field receives a drop event.
      */
-    onDrop():void;
+    onDrop(): void;
 
     /**
      * A function to call when the form field receives focus.
      */
-    onFocus():void;
+    onFocus(): void;
 
     /**
      * An alias for onChange. Provided for convenience of destructuring the
      * whole field object into the props of a form element. Added to provide
      * out-of-the-box support for Belle components' onUpdate API.
      */
-    onUpdate():void;
+    onUpdate(): void;
 
     /**
      * true if the field value is the same as its initialized value. Opposite
@@ -126,9 +126,9 @@ declare module 'redux-form' {
      * passing onFocus to your input element.
      */
     visited: boolean;
-  }
+}
 
-  export interface ReduxFormProps {
+export interface ReduxFormProps {
     /**
      * The name of the currently active (with focus) field.
      */
@@ -150,7 +150,7 @@ declare module 'redux-form' {
      * Destroys the form state in the Redux store. By default, this will be
      * called for you in componentWillUnmount().
      */
-    destroyForm?():void;
+    destroyForm?(): void;
 
     /**
      * true if the form data has changed from its initialized values. Opposite
@@ -171,7 +171,7 @@ declare module 'redux-form' {
      * props, e.g. <input type="text" {...field.name}/>. Each field Object has
      * the following properties:
      */
-    fields?: {[field:string]: FieldProp};
+    fields?: { [field: string]: FieldProp };
 
     /**
      * A function meant to be passed to <form onSubmit={handleSubmit}> or to
@@ -190,10 +190,10 @@ declare module 'redux-form' {
      * that as if it were the error for a field called _error, and it will be
      * given as the error prop.
      */
-    handleSubmit?(event:SyntheticEvent):void;
+    handleSubmit?(event: SyntheticEvent): void;
 
-    handleSubmit?(submit:(data:FormData, dispatch?:Dispatch)
-      => Promise<any>|void):FormEventHandler;
+    handleSubmit?(submit: (data: FormData, dispatch?: Dispatch)
+        => Promise<any> | void): FormEventHandler;
 
     /**
      * Initializes the form data to the given values. All dirty and pristine
@@ -201,7 +201,7 @@ declare module 'redux-form' {
      * initialized values.
      * @param data
      */
-    initializeForm?(data:FormData):void;
+    initializeForm?(data: FormData): void;
 
     /**
      * true if the form has validation errors. Opposite of valid.
@@ -218,7 +218,7 @@ declare module 'redux-form' {
      * Resets all the values in the form to the initialized state, making it
      * pristine again.
      */
-    resetForm?():void;
+    resetForm?(): void;
 
     /**
      * The same formKey prop that was passed in. See Editing Multiple Records.
@@ -243,24 +243,24 @@ declare module 'redux-form' {
      * Marks the given fields as "touched" to show errors.
      * @param field
      */
-    touch?(...field:string[]):void;
+    touch?(...field: string[]): void;
 
     /**
      * Marks all fields as "touched" to show errors. This will automatically
      * happen on form submission.
      */
-    touchAll?():void;
+    touchAll?(): void;
 
     /**
      * Clears the "touched" flag for the given fields
      * @param field
      */
-    untouch?(...field:string[]):void;
+    untouch?(...field: string[]): void;
 
     /**
      * Clears the "touched" flag for the all fields
      */
-    untouchAll?():void;
+    untouchAll?(): void;
 
     /**
      * true if the form passes validation (has no validation errors). Opposite
@@ -272,31 +272,31 @@ declare module 'redux-form' {
      * All of your values in the form { field1: <string>, field2: <string> }.
      */
     values?: FormData;
-  }
+}
 
-  class ElementClass extends Component<any, any> {
-  }
-  interface ClassDecorator {
-    <T extends (typeof ElementClass)>(component:T): T;
-  }
+declare class ElementClass extends Component<any, any> {
+}
+interface ClassDecorator {
+    <T extends (typeof ElementClass)>(component: T): T;
+}
 
-  interface MapStateToProps {
-    (state:any, ownProps?:any): any;
-  }
+interface MapStateToProps {
+    (state: any, ownProps?: any): any;
+}
 
-  interface MapDispatchToPropsFunction {
-    (dispatch:Dispatch, ownProps?:any): any;
-  }
+interface MapDispatchToPropsFunction {
+    (dispatch: Dispatch, ownProps?: any): any;
+}
 
-  interface MapDispatchToPropsObject {
+interface MapDispatchToPropsObject {
     [name: string]: ActionCreator;
-  }
+}
 
-  export function reduxForm(config:ReduxFormConfig,
-                            mapStateToProps?:MapStateToProps,
-                            mapDispatchToProps?:MapDispatchToPropsFunction|MapDispatchToPropsObject):ClassDecorator;
+declare export function reduxForm(config: ReduxFormConfig,
+    mapStateToProps?: MapStateToProps,
+    mapDispatchToProps?: MapDispatchToPropsFunction | MapDispatchToPropsObject): ClassDecorator;
 
-  export interface ReduxFormConfig {
+export interface ReduxFormConfig {
     /**
      * a list of all your fields in your form. You may change these dynamically
      * at runtime.
@@ -325,8 +325,8 @@ declare module 'redux-form' {
      *
      * See Asynchronous Blur Validation Example for more details.
      */
-    asyncValidate?(values:FormData, dispatch:Dispatch, props:Object):
-      Promise<any>;
+    asyncValidate?(values: FormData, dispatch: Dispatch, props: Object):
+        Promise<any>;
 
     /**
      * Whether or not to automatically destroy your form's state in the Redux
@@ -349,7 +349,7 @@ declare module 'redux-form' {
      * state as something other than plain javascript objects, e.g. an
      * Immutable.Map.
      */
-    getFormState?(state:any, reduxMountPoint:string): any;
+    getFormState?(state: any, reduxMountPoint: string): any;
 
     /**
      * The values with which to initialize your form in componentWillMount().
@@ -357,7 +357,7 @@ declare module 'redux-form' {
      * with single-record forms. The values should be in the form
      * { field1: 'value1', field2: 'value2' }.
      */
-    initialValues?: {[field:string]: FieldValue};
+    initialValues?: { [field: string]: FieldValue };
 
     /**
      * The function to call with the form data when the handleSubmit() is fired
@@ -365,7 +365,7 @@ declare module 'redux-form' {
      * you must pass it as a parameter to handleSubmit() inside your form
      * component.
      */
-    onSubmit?(values:FormData, dispatch?:Dispatch):any;
+    onSubmit?(values: FormData, dispatch?: Dispatch): any;
 
     /**
      * If specified, all the props normally passed into your decorated
@@ -418,23 +418,23 @@ declare module 'redux-form' {
      * { field1: <String>, field2: <String> }.
      * Defaults to (values, props) => ({}).
      */
-    validate?(values:FormData, props:{[fieldName:string]: FieldProp}):Object;
-  }
+    validate?(values: FormData, props: { [fieldName: string]: FieldProp }): Object;
+}
 
-  /**
-   * @param value The current value of the field.
-   * @param previousValue The previous value of the field before the current
-   * action was dispatched.
-   * @param allValues All the values of the current form.
-   * @param previousAllValues All the values of the form before the current
-   * change. Useful to change one field based on a change in another.
-   */
-  export type Normalizer =
-    (value:FieldValue, previousValue:FieldValue,
-     allValues:FormData, previousAllValues:FormData) => any;
+/**
+ * @param value The current value of the field.
+ * @param previousValue The previous value of the field before the current
+ * action was dispatched.
+ * @param allValues All the values of the current form.
+ * @param previousAllValues All the values of the form before the current
+ * change. Useful to change one field based on a change in another.
+ */
+export type Normalizer =
+    (value: FieldValue, previousValue: FieldValue,
+        allValues: FormData, previousAllValues: FormData) => any;
 
-  export const reducer:{
-    (state:any, action:any): any;
+declare export const reducer: {
+    (state: any, action: any): any;
 
     /**
      * Returns a form reducer that will also pass each form value through the
@@ -443,11 +443,11 @@ declare module 'redux-form' {
      * The normalizer function is given four parameters and expected to return
      * the normalized value of the field.
      */
-    normalize(normalizers:{
-      [formName:string]: {
-        [fieldName:string]: Normalizer
-      }
-    }):Reducer;
+    normalize(normalizers: {
+        [formName: string]: {
+            [fieldName: string]: Normalizer
+        }
+    }): Reducer;
 
     /**
      * Returns a form reducer that will also pass each action through
@@ -456,6 +456,5 @@ declare module 'redux-form' {
      * passed to each reducer will only be the slice that pertains to that
      * form.
      */
-    plugin(reducers:{[formName:string]: Reducer}):Reducer;
-  }
+    plugin(reducers: { [formName: string]: Reducer }): Reducer;
 }

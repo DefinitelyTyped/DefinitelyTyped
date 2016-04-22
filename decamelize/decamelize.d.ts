@@ -3,8 +3,7 @@
 // Definitions by: Sam Verschueren <https://github.com/samverschueren>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "decamelize" {
-	function decamelize(input: string, separator?: string): string;
-	namespace decamelize {}
-	export = decamelize;
-}
+
+declare function decamelize(input: string, separator?: string): string;
+declare namespace decamelize { }
+export = decamelize;

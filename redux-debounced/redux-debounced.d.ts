@@ -5,7 +5,6 @@
 
 /// <reference path="../redux/redux.d.ts" />
 
-declare module "redux-debounced" {
-  import { Middleware } from 'redux';
-  export default function createDebounce(): Middleware;
-}
+
+import { Middleware } from 'redux';
+declare export default function createDebounce(): Middleware;

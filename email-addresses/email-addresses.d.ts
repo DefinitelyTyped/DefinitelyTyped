@@ -3,7 +3,6 @@
 // Definitions by: John Grimsey <https://github.com/johngrimsey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "email-addresses" {
-    function parseOneAddress(opts: any): any;
-    function parseAddressList(opts: any): any;
-}
+
+declare function parseOneAddress(opts: any): any;
+declare function parseAddressList(opts: any): any;

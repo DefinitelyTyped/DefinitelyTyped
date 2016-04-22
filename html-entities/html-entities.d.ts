@@ -3,15 +3,14 @@
 // Definitions by: Xavier Stouder <https://github.com/xstoudi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "html-entities" {
-    abstract class Entities {
-        encode(toEncode: string): string;
-        encodeNonUTF(toEncode: string): string;
-        encodeNonASCII(toEncode: string): string;
-        decode(toDecode: string): string;
-    }
-    class XmlEntities extends Entities {}
-    class Html4Entities extends Entities {}
-    class Html5Entities extends Entities {}
-    class AllHtmlEntities extends Entities {}
+
+declare abstract class Entities {
+    encode(toEncode: string): string;
+    encodeNonUTF(toEncode: string): string;
+    encodeNonASCII(toEncode: string): string;
+    decode(toDecode: string): string;
 }
+declare class XmlEntities extends Entities { }
+declare class Html4Entities extends Entities { }
+declare class Html5Entities extends Entities { }
+declare class AllHtmlEntities extends Entities { }

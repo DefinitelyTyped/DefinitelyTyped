@@ -3,7 +3,6 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "title-case" {
-	function titleCase(string1: string, string2?: string): string;
-	export = titleCase;
-}
+
+declare function titleCase(string1: string, string2?: string): string;
+export = titleCase;

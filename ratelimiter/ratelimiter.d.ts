@@ -5,57 +5,56 @@
 
 /// <reference path="../redis/redis.d.ts" />
 
-declare module "ratelimiter" {
-	import { RedisClient } from 'redis';
 
-	interface LimiterOption {
-		/**
-		 * The identifier to limit against (typically a user id)
-		 */
-		id: string;
+import { RedisClient } from 'redis';
 
-		/**
-		 * Redis connection instance
-		 */
-		db: RedisClient;
+interface LimiterOption {
+    /**
+     * The identifier to limit against (typically a user id)
+     */
+    id: string;
 
-		/**
-		 * Max requests within duration
-		 */
-		max?: number;
+    /**
+     * Redis connection instance
+     */
+    db: RedisClient;
 
-		/**
-		 * Duration of limit in milliseconds
-		 */
-		duration?: number;
-	}
+    /**
+     * Max requests within duration
+     */
+    max?: number;
 
-	interface LimiterInfo {
-		/**
-		 * max value
-		 */
-		total: number;
-
-		/**
-		 * Number of calls left in current duration without decreasing current get
-		 */
-		remaining: number;
-
-		/**
-		 * Time in milliseconds until the end of current duration
-		 */
-		reset: number;
-	}
-
-	class Limiter {
-		constructor(opts: LimiterOption);
-
-		inspect(): string;
-
-		get(fn: (err: any, info: LimiterInfo) => void): void;
-	}
-
-	namespace Limiter {}
-
-	export = Limiter;
+    /**
+     * Duration of limit in milliseconds
+     */
+    duration?: number;
 }
+
+interface LimiterInfo {
+    /**
+     * max value
+     */
+    total: number;
+
+    /**
+     * Number of calls left in current duration without decreasing current get
+     */
+    remaining: number;
+
+    /**
+     * Time in milliseconds until the end of current duration
+     */
+    reset: number;
+}
+
+declare class Limiter {
+    constructor(opts: LimiterOption);
+
+    inspect(): string;
+
+    get(fn: (err: any, info: LimiterInfo) => void): void;
+}
+
+declare namespace Limiter { }
+
+export = Limiter;

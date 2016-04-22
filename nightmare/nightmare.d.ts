@@ -3,9 +3,9 @@
 // Definitions by: horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "nightmare" {
 
-  class Nightmare {
+
+declare class Nightmare {
     constructor(options?: Nightmare.IConstructorOptions);
 
     // Interact
@@ -60,62 +60,60 @@ declare module "nightmare" {
     viewport(width: number, height: number): Nightmare;
     zoom(zoomFactor: number): Nightmare;
     headers(headers: Object): Nightmare;
-  }
+}
 
-  namespace Nightmare {
+declare namespace Nightmare {
     export interface IConstructorOptions {
-      timeout?: any;  // number | string;
-      interval?: any; // number | string;
-      port?: number;
-      weak?: boolean;
-      loadImages?: boolean;
-      ignoreSslErrors?: boolean;
-      sslProtocol?: string;
-      webSecurity?: boolean;
-      proxy?: string;
-      proxyType?: string;
-      proxyAuth?: string;
-      cookiesFile?: string;
-      phantomPath?: string;
+        timeout?: any;  // number | string;
+        interval?: any; // number | string;
+        port?: number;
+        weak?: boolean;
+        loadImages?: boolean;
+        ignoreSslErrors?: boolean;
+        sslProtocol?: string;
+        webSecurity?: boolean;
+        proxy?: string;
+        proxyType?: string;
+        proxyAuth?: string;
+        cookiesFile?: string;
+        phantomPath?: string;
     }
 
     export interface IRequest {
-      id: number;
-      method: string;
-      url: string;
-      time: Date;
-      headers: Object;
+        id: number;
+        method: string;
+        url: string;
+        time: Date;
+        headers: Object;
     }
     export interface INetwordRequest {
-      abort(): void;
-      changeUrl(url: string): void;
-      setHeader(key: string, value: string): void;
+        abort(): void;
+        changeUrl(url: string): void;
+        setHeader(key: string, value: string): void;
     }
     export interface IResponse {
-      id: number;
-      url: string;
-      time: Date;
-      headers: Object;
-      bodySize: number;
-      contentType: string;
-      redirectURL: string;
-      stage: string;
-      status: number;
-      statusText: string;
+        id: number;
+        url: string;
+        time: Date;
+        headers: Object;
+        bodySize: number;
+        contentType: string;
+        redirectURL: string;
+        stage: string;
+        status: number;
+        statusText: string;
     }
     export interface IResourceError {
-      id: number;
-      url: string;
-      errorCode: number;
-      errorString: string;
+        id: number;
+        url: string;
+        errorCode: number;
+        errorString: string;
     }
     export interface IStackTrace {
-      file: string;
-      line: number;
-      function?: string;
+        file: string;
+        line: number;
+        function?: string;
     }
-  }
-
-  export = Nightmare;
 }
 
+export = Nightmare;

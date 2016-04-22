@@ -5,16 +5,15 @@
 
 /// <reference path="../chai/chai.d.ts" />
 
-declare module 'jsx-chai' {
-    interface JsxChaiStatic {
-        jsxChai: jsxChaiFunction;
-    }
 
-    interface jsxChaiFunction {
-        (chai: any, utils: any): void;
-    }
-
-    var jsxChai: JsxChaiStatic;
-
-    export = jsxChai;
+interface JsxChaiStatic {
+    jsxChai: jsxChaiFunction;
 }
+
+interface jsxChaiFunction {
+    (chai: any, utils: any): void;
+}
+
+declare var jsxChai: JsxChaiStatic;
+
+export = jsxChai;

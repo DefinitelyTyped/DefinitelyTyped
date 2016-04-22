@@ -3,12 +3,11 @@
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "os-locale" {
-	function osLocale(options: {spawn?: boolean}, cb: (err: any, locale: string) => void): void;
-	function osLocale(cb: (err: any, locale: string) => void): void;
-	function osLocaleSync(): string;
-	function osLocaleSync(options: {spawn?: boolean}): string;
 
-	export { osLocaleSync as sync };
-	export default osLocale;
-}
+declare function osLocale(options: { spawn?: boolean }, cb: (err: any, locale: string) => void): void;
+declare function osLocale(cb: (err: any, locale: string) => void): void;
+declare function osLocaleSync(): string;
+declare function osLocaleSync(options: { spawn?: boolean }): string;
+
+export { osLocaleSync as sync };
+export default osLocale;

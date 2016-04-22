@@ -5,24 +5,23 @@
 
 /// <reference path="../node/node.d.ts"/>
 
-declare module "gulp-sourcemaps" {
-    interface InitOptions {
-        loadMaps?: boolean;
-        debug?: boolean;
-    }
 
-    interface WriteMapper {
-        (file: string): string;
-    }
-
-    interface WriteOptions {
-        addComment?: boolean;
-        includeContent?: boolean;
-        sourceRoot?: string | WriteMapper;
-        sourceMappingURLPrefix?: string | WriteMapper;
-    }
-
-    export function init(opts?: InitOptions): NodeJS.ReadWriteStream;
-    export function write(path?: string, opts?: WriteOptions): NodeJS.ReadWriteStream;
-    export function write(opts?: WriteOptions): NodeJS.ReadWriteStream;
+interface InitOptions {
+    loadMaps?: boolean;
+    debug?: boolean;
 }
+
+interface WriteMapper {
+    (file: string): string;
+}
+
+interface WriteOptions {
+    addComment?: boolean;
+    includeContent?: boolean;
+    sourceRoot?: string | WriteMapper;
+    sourceMappingURLPrefix?: string | WriteMapper;
+}
+
+declare export function init(opts?: InitOptions): NodeJS.ReadWriteStream;
+declare export function write(path?: string, opts?: WriteOptions): NodeJS.ReadWriteStream;
+declare export function write(opts?: WriteOptions): NodeJS.ReadWriteStream;

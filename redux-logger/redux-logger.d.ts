@@ -5,30 +5,30 @@
 
 /// <reference path="../redux/redux.d.ts" />
 
-declare module 'redux-logger' {
 
-  type LoggerPredicate = (getState: () => any, action: any) => boolean;
 
-  type StateToString = (state: any) => string;
-  type ActionToString = (action: any) => string;
-  type ErrorToString = (error: any, prevState: any) => string;
+type LoggerPredicate = (getState: () => any, action: any) => boolean;
 
-  interface ColorsObject {
+type StateToString = (state: any) => string;
+type ActionToString = (action: any) => string;
+type ErrorToString = (error: any, prevState: any) => string;
+
+interface ColorsObject {
     title?: boolean | ActionToString;
     prevState?: boolean | StateToString;
     action?: boolean | ActionToString;
     nextState?: boolean | StateToString;
     error?: boolean | ErrorToString;
-  }
+}
 
-  interface LevelObject {
+interface LevelObject {
     prevState?: string | boolean | StateToString;
     action?: string | boolean | ActionToString;
     nextState?: string | boolean | StateToString;
     error?: string | boolean | ErrorToString;
-  }
+}
 
-  interface ReduxLoggerOptions {
+interface ReduxLoggerOptions {
     level?: string | ActionToString | LevelObject;
     duration?: boolean;
     timestamp?: boolean;
@@ -40,11 +40,10 @@ declare module 'redux-logger' {
     stateTransformer?: (state: any) => any;
     actionTransformer?: (action: any) => any;
     errorTransformer?: (error: any) => any;
-  }
-
-  // Trickery to get TypeScript to accept that our anonymous, non-default export is a function.
-  // see https://github.com/Microsoft/TypeScript/issues/3612 for more
-  namespace createLogger {}
-  function createLogger(options?: ReduxLoggerOptions): Redux.Middleware;
-  export = createLogger;
 }
+
+// Trickery to get TypeScript to accept that our anonymous, non-default export is a function.
+// see https://github.com/Microsoft/TypeScript/issues/3612 for more
+declare namespace createLogger { }
+declare function createLogger(options?: ReduxLoggerOptions): Redux.Middleware;
+export = createLogger;

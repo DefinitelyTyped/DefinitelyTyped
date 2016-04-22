@@ -5,7 +5,6 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "inherits" {
-	import {inherits} from "util";
-	export = inherits;
-}
+
+import {inherits} from "util";
+export = inherits;

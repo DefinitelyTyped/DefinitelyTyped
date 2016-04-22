@@ -5,24 +5,23 @@
 
 /// <reference path="../glob/glob.d.ts"/>
 
-declare module "del" {
-    import glob = require("glob");
 
-    function Del(pattern: string): Promise<string[]>;
-    function Del(pattern: string, options: Del.Options): Promise<string[]>;
+import glob = require("glob");
 
-    function Del(patterns: string[]): Promise<string[]>;
-    function Del(patterns: string[], options: Del.Options): Promise<string[]>;
+declare function Del(pattern: string): Promise<string[]>;
+declare function Del(pattern: string, options: Del.Options): Promise<string[]>;
 
-    namespace Del {
-        function sync(pattern: string, options?: Options): string[];
-        function sync(patterns: string[], options?: Options): string[];
+declare function Del(patterns: string[]): Promise<string[]>;
+declare function Del(patterns: string[], options: Del.Options): Promise<string[]>;
 
-        interface Options extends glob.IOptions {
-            force?: boolean;
-            dryRun?: boolean;
-        }
+declare namespace Del {
+    function sync(pattern: string, options?: Options): string[];
+    function sync(patterns: string[], options?: Options): string[];
+
+    interface Options extends glob.IOptions {
+        force?: boolean;
+        dryRun?: boolean;
     }
-
-    export = Del;
 }
+
+export = Del;

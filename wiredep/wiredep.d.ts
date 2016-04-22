@@ -5,34 +5,34 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module 'wiredep' {
 
-  interface PathFiles{
+
+interface PathFiles {
     [type: string]: string[];
-  }
+}
 
-  /**
-   * @return {PathFiles} paths to your files by extension
-   * @example:
-   *  {
-   *     js: [
-   *       'paths/to/your/js/files.js',
-   *       'in/their/order/of/dependency.js'
-   *     ],
-   *     css: [
-   *       'paths/to/your/css/files.css'
-   *     ],
-   *     // etc.
-   *   }
-   */
-  function Wiredep(config: WiredepParams): PathFiles;
+/**
+ * @return {PathFiles} paths to your files by extension
+ * @example:
+ *  {
+ *     js: [
+ *       'paths/to/your/js/files.js',
+ *       'in/their/order/of/dependency.js'
+ *     ],
+ *     css: [
+ *       'paths/to/your/css/files.css'
+ *     ],
+ *     // etc.
+ *   }
+ */
+declare function Wiredep(config: WiredepParams): PathFiles;
 
-  namespace Wiredep {
+declare namespace Wiredep {
     export function stream(config: WiredepParams): NodeJS.ReadWriteStream;
-  }
+}
 
 
-  interface WiredepParams {
+interface WiredepParams {
     src?: string | string[];
     /**
      * the directory of your Bower packages.
@@ -113,10 +113,10 @@ declare module 'wiredep' {
      */
     onMainNotFound?: (pkg: string) => void;
 
-    fileTypes?  : FileTypes;
-  }
+    fileTypes?: FileTypes;
+}
 
-  interface FileObject {
+interface FileObject {
     /**
      * type of wiredep block ('js', 'css', etc)
      */
@@ -129,244 +129,243 @@ declare module 'wiredep' {
      * path to file that was injected
      */
     path: string
-  }
+}
 
-  interface FileTypes {
+interface FileTypes {
     fileExtension: {
-      /**
-       *  match the beginning-to-end of a bower block in this type of file
-       */
-      block: RegExp;
-      detect: {
         /**
-         * match the way this type of file is included
+         *  match the beginning-to-end of a bower block in this type of file
          */
-        typeOfBowerFile: RegExp;
-      };
-      replace: {
-        /**
-         * <format for this {{filePath}} to be injected>
-         */
-        typeOfBowerFile: string;
-        /**
-         * @exemple:
-         *   return '<script class="random-' + Math.random() + '" src="' + filePath + '"></script>'
-         */
-        anotherTypeOfBowerFile: (filePath: string) => string;
-      }
+        block: RegExp;
+        detect: {
+            /**
+             * match the way this type of file is included
+             */
+            typeOfBowerFile: RegExp;
+        };
+        replace: {
+            /**
+             * <format for this {{filePath}} to be injected>
+             */
+            typeOfBowerFile: string;
+            /**
+             * @exemple:
+             *   return '<script class="random-' + Math.random() + '" src="' + filePath + '"></script>'
+             */
+            anotherTypeOfBowerFile: (filePath: string) => string;
+        }
     };
 
     // defaults:
     html: {
-      /**
-       * @example:
-       *  /(([ \t]*)<!--\s*bower:*(\S*)\s*-->)(\n|\r|.)*?(<!--\s*endbower\s*-->)/gi
-       */
-      block: RegExp;
+        /**
+         * @example:
+         *  /(([ \t]*)<!--\s*bower:*(\S*)\s*-->)(\n|\r|.)*?(<!--\s*endbower\s*-->)/gi
+         */
+        block: RegExp;
 
-      detect: {
-        /**
-         * @example:
-         *  /<script.*src=['"]([^'"]+)/gi
-         */
-        js: RegExp;
-        /**
-         * @example:
-         *  /<link.*href=['"]([^'"]+)/gi
-         */
-        css: RegExp;
-      };
+        detect: {
+            /**
+             * @example:
+             *  /<script.*src=['"]([^'"]+)/gi
+             */
+            js: RegExp;
+            /**
+             * @example:
+             *  /<link.*href=['"]([^'"]+)/gi
+             */
+            css: RegExp;
+        };
 
-      replace: {
-        /**
-         * @example:
-         *  '<script src="{{filePath}}"></script>'
-         */
-        js: string;
-        /**
-         * @example:
-         *  '<link rel="stylesheet" href="{{filePath}}" />'
-         */
-        css: string;
-      };
+        replace: {
+            /**
+             * @example:
+             *  '<script src="{{filePath}}"></script>'
+             */
+            js: string;
+            /**
+             * @example:
+             *  '<link rel="stylesheet" href="{{filePath}}" />'
+             */
+            css: string;
+        };
     };
 
     jade: {
-      /**
-       * @example:
-       *  /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi
-       */
-      block: RegExp;
-      detect: {
         /**
          * @example:
-         *  /script\(.*src=['"]([^'"]+)/gi
+         *  /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi
          */
-        js: RegExp;
-        /**
-         * @example:
-         *  /link\(.*href=['"]([^'"]+)/gi
-         */
-        css: RegExp;
-      };
+        block: RegExp;
+        detect: {
+            /**
+             * @example:
+             *  /script\(.*src=['"]([^'"]+)/gi
+             */
+            js: RegExp;
+            /**
+             * @example:
+             *  /link\(.*href=['"]([^'"]+)/gi
+             */
+            css: RegExp;
+        };
 
-      replace: {
-        /**
-         * @example:
-         *  'script(src=\'{{filePath}}\')'
-         */
-        js: string;
-        /**
-         * @example:
-         *  'link(rel=\'stylesheet\', href=\'{{filePath}}\')'
-         */
-        css: string;
-      }
+        replace: {
+            /**
+             * @example:
+             *  'script(src=\'{{filePath}}\')'
+             */
+            js: string;
+            /**
+             * @example:
+             *  'link(rel=\'stylesheet\', href=\'{{filePath}}\')'
+             */
+            css: string;
+        }
     };
 
     less: {
-      /**
-       * @example:
-       *  /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi
-       */
-      block: RegExp;
-      detect: {
         /**
          * @example:
-         *  /@import\s['"](.+css)['"]/gi
+         *  /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi
          */
-        css: RegExp;
-        /**
-         * @example:
-         *  /@import\s['"](.+less)['"]/gi
-         */
-        less: RegExp
-      };
+        block: RegExp;
+        detect: {
+            /**
+             * @example:
+             *  /@import\s['"](.+css)['"]/gi
+             */
+            css: RegExp;
+            /**
+             * @example:
+             *  /@import\s['"](.+less)['"]/gi
+             */
+            less: RegExp
+        };
 
-      replace: {
-        /**
-         * @example:
-         *  '@import "{{filePath}}";'
-         */
-        css: string;
-        /**
-         * @example:
-         *  '@import "{{filePath}}";'
-         */
-        less: string;
-      };
+        replace: {
+            /**
+             * @example:
+             *  '@import "{{filePath}}";'
+             */
+            css: string;
+            /**
+             * @example:
+             *  '@import "{{filePath}}";'
+             */
+            less: string;
+        };
     };
 
     scss: {
-      /**
-       * @example:
-       *  /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi
-       */
-      block: RegExp;
-      detect: {
         /**
          * @example:
-         *  /@import\s['"](.+css)['"]/gi
+         *  /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi
          */
-        css: RegExp;
-        /**
-         * @example:
-         *  /@import\s['"](.+sass)['"]/gi
-         */
-        sass: RegExp;
-        /**
-         * @example:
-         *  /@import\s['"](.+scss)['"]/gi
-         */
-        scss: RegExp;
-      },
-      replace: {
-        /**
-         * @example:
-         *  '@import "{{filePath}}";'
-         */
-        css: string;
-        /**
-         * @example:
-         *  '@import "{{filePath}}";'
-         */
-        sass: string;
-        /**
-         * @example:
-         *  '@import "{{filePath}}";'
-         */
-        scss: string;
-      }
+        block: RegExp;
+        detect: {
+            /**
+             * @example:
+             *  /@import\s['"](.+css)['"]/gi
+             */
+            css: RegExp;
+            /**
+             * @example:
+             *  /@import\s['"](.+sass)['"]/gi
+             */
+            sass: RegExp;
+            /**
+             * @example:
+             *  /@import\s['"](.+scss)['"]/gi
+             */
+            scss: RegExp;
+        },
+        replace: {
+            /**
+             * @example:
+             *  '@import "{{filePath}}";'
+             */
+            css: string;
+            /**
+             * @example:
+             *  '@import "{{filePath}}";'
+             */
+            sass: string;
+            /**
+             * @example:
+             *  '@import "{{filePath}}";'
+             */
+            scss: string;
+        }
     };
 
     styl: {
-      /**
-       * @example:
-       *  /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi
-       */
-      block: RegExp;
+        /**
+         * @example:
+         *  /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi
+         */
+        block: RegExp;
 
-      detect: {
-        /**
-         * @example:
-         *  /@import\s['"](.+css)['"]/gi
-         */
-        css: RegExp;
-        /**
-         * @example:
-         *   /@import\s['"](.+styl)['"]/gi
-         */
-        styl: RegExp;
-      };
-      replace: {
-        /**
-         * @example:
-         *  '@import "{{filePath}}"'
-         */
-        css: string;
-        /**
-         * @example:
-         *  '@import "{{filePath}}"'
-         */
-        styl: string;
-      };
+        detect: {
+            /**
+             * @example:
+             *  /@import\s['"](.+css)['"]/gi
+             */
+            css: RegExp;
+            /**
+             * @example:
+             *   /@import\s['"](.+styl)['"]/gi
+             */
+            styl: RegExp;
+        };
+        replace: {
+            /**
+             * @example:
+             *  '@import "{{filePath}}"'
+             */
+            css: string;
+            /**
+             * @example:
+             *  '@import "{{filePath}}"'
+             */
+            styl: string;
+        };
     };
 
     yaml: {
-      /**
-       * @example:
-       *  /(([ \t]*)#\s*bower:*(\S*))(\n|\r|.)*?(#\s*endbower)/gi
-       */
-      block: RegExp;
+        /**
+         * @example:
+         *  /(([ \t]*)#\s*bower:*(\S*))(\n|\r|.)*?(#\s*endbower)/gi
+         */
+        block: RegExp;
 
-      detect: {
-        /**
-         * @example:
-         *  /-\s(.+js)/gi
-         */
-        js: RegExp;
-        /**
-         * @example:
-         *  /-\s(.+css)/gi
-         */
-        css: RegExp;
-      };
+        detect: {
+            /**
+             * @example:
+             *  /-\s(.+js)/gi
+             */
+            js: RegExp;
+            /**
+             * @example:
+             *  /-\s(.+css)/gi
+             */
+            css: RegExp;
+        };
 
-      replace: {
-        /**
-         * @example:
-         *  '- {{filePath}}'
-         */
-        js: string;
-        /**
-         * @example:
-         *  '- {{filePath}}'
-         */
-        css: string;
-      };
+        replace: {
+            /**
+             * @example:
+             *  '- {{filePath}}'
+             */
+            js: string;
+            /**
+             * @example:
+             *  '- {{filePath}}'
+             */
+            css: string;
+        };
     };
-  }
+}
 
 
 export = Wiredep;
-}

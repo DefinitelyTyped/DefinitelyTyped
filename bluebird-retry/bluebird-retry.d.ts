@@ -4,21 +4,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../bluebird/bluebird.d.ts" />
-declare module "bluebird-retry" {
-	import Promise = require('bluebird');
 
-	function retry<T>(func:(param:T)=>void, options?:retry.Options):Promise<T>;
+import Promise = require('bluebird');
 
-	namespace retry {
-		export interface Options {
-			interval?:number;
-			backoff?:number;
-			max_interval?:number;
-			timeout?:number;
-			max_tries?:number;
-		}
+declare function retry<T>(func: (param: T) => void, options?: retry.Options): Promise<T>;
 
-	}
+declare namespace retry {
+    export interface Options {
+        interval?: number;
+        backoff?: number;
+        max_interval?: number;
+        timeout?: number;
+        max_tries?: number;
+    }
 
-	export = retry;
 }
+
+export = retry;

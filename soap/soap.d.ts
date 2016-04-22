@@ -5,17 +5,15 @@
 
 /// <reference path='../node/node.d.ts' />
 
-declare module 'soap' {
-    import * as events from 'events';
 
-    class WSSecurity {
-        constructor(username: string, password: string, options: any);
-    }
-    interface Client extends events.EventEmitter {
-        setSecurity(s: WSSecurity): void;
-        [method: string]: (args: any, fn: (err: any, result: any) => void, options?: any) => void;
-        addSoapHeader(headJSON: any): void;
-    }
-    function createClient(wsdlPath: string, options: any, fn: (err: any, client: Client) => void): void;
+import * as events from 'events';
 
+declare class WSSecurity {
+    constructor(username: string, password: string, options: any);
 }
+interface Client extends events.EventEmitter {
+    setSecurity(s: WSSecurity): void;
+    [method: string]: (args: any, fn: (err: any, result: any) => void, options?: any) => void;
+    addSoapHeader(headJSON: any): void;
+}
+declare function createClient(wsdlPath: string, options: any, fn: (err: any, client: Client) => void): void;

@@ -3,7 +3,6 @@
 // Definitions by: Leo Liang <https://github.com/aleung/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'field' {
-    export function get(topObj: any, fields: string): any;
-    export function set(topObj: any, fields: string, value: any): any;
-}
+
+declare export function get(topObj: any, fields: string): any;
+declare export function set(topObj: any, fields: string, value: any): any;

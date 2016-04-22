@@ -7,12 +7,12 @@
 /// <reference path="../redis/redis.d.ts" />
 /// <reference path="../express/express.d.ts" />
 
-declare module "kue" {
-  import events = require('events');
-  import express = require('express');
-  import redis = require('redis');
 
-  export class Queue extends events.EventEmitter {
+import events = require('events');
+import express = require('express');
+import redis = require('redis');
+
+declare export class Queue extends events.EventEmitter {
     name: string;
     id: string;
     promoter: any;
@@ -49,17 +49,17 @@ declare module "kue" {
     inactiveCount(type: string, fn: Function): Queue;
     activeCount(type: string, fn: Function): Queue;
     delayedCount(type: string, fn: Function): Queue;
-  }
+}
 
-  interface Priorities {
+interface Priorities {
     low: number;
     normal: number;
     medium: number;
     high: number;
     critical: number;
-  }
+}
 
-  export class Job extends events.EventEmitter {
+declare export class Job extends events.EventEmitter {
     public id: number;
     public type: string;
     public data: any;
@@ -83,16 +83,16 @@ declare module "kue" {
     set(key: string, val: string, fn?: Function): Job;
     get(key: string, fn?: Function): Job;
     progress(complete: number, total: number, data?: any): Job;
-    delay(ms:number|Date): Job;
+    delay(ms: number | Date): Job;
     removeOnComplete(param: any): void;
     backoff(param: any): void;
     ttl(param: any): void;
     private _getBackoffImpl(): void;
-    priority(level: string|number): Job;
+    priority(level: string | number): Job;
     attempt(fn: Function): Job;
     reattempt(attempt: number, fn?: Function): void;
     attempts(n: number): Job;
-    searchKeys(keys: string[]|string): Job;
+    searchKeys(keys: string[] | string): Job;
     remove(fn?: Function): Job;
     state(state: string, fn?: Function): Job;
     error(err: Error): Job;
@@ -104,9 +104,9 @@ declare module "kue" {
     save(fn?: Function): Job;
     update(fn?: Function): Job;
     subscribe(fn?: Function): Job;
-  }
+}
 
-  class Worker extends events.EventEmitter {
+declare class Worker extends events.EventEmitter {
     queue: Queue;
     type: string;
     client: redis.RedisClient;
@@ -123,27 +123,26 @@ declare module "kue" {
     shutdown(timeout: number, fn: Function): void;
     emitJobEvent(event: Object, job: Job, arg1: any, arg2: any): void;
     resume(): boolean;
-  }
+}
 
-  interface Redis {
+interface Redis {
     configureFactory(options: Object, queue: Queue): void;
     createClient(): redis.RedisClient;
     createClientFactory(options: Object): redis.RedisClient;
     client(): redis.RedisClient;
     pubsubClient(): redis.RedisClient;
     reset(): void;
-  }
+}
 
-  interface TestMode {
+interface TestMode {
     jobs: Job[];
     enter(): void;
     exit(): void;
     clear(): void;
-  }
-
-  export var app: express.Application;
-  export var redis: Redis;
-  export var workers: Worker[];
-
-  export function createQueue(options?: Object): Queue;
 }
+
+declare export var app: express.Application;
+declare export var redis: Redis;
+declare export var workers: Worker[];
+
+declare export function createQueue(options?: Object): Queue;

@@ -5,34 +5,33 @@
 
 /// <reference path="../react/react.d.ts" />
 
-declare module "react-scroll" {
-    import React = __React
 
-    interface Link extends React.ClassicComponentClass<any> {}
-    interface Element extends React.ClassicComponentClass<any> {}
+import React = __React
 
-    interface scrollEvnt {
-        register(evtName: string, callback: Function) : void,
-        remove(evtName: string) : void
-    }
+interface Link extends React.ClassicComponentClass<any> { }
+interface Element extends React.ClassicComponentClass<any> { }
 
-    interface Events {
-        scrollEvent: scrollEvnt
-    }
+interface scrollEvnt {
+    register(evtName: string, callback: Function): void,
+    remove(evtName: string): void
+}
 
-    interface scroller {
-        scrollTo(to: any, animate?: any, duration?: any, offset?: any) : void
-    }
+interface Events {
+    scrollEvent: scrollEvnt
+}
 
-    const Link: Link;
-    const Element: Element;
-    const Events: Events;
-    const scroller: scroller;
+interface scroller {
+    scrollTo(to: any, animate?: any, duration?: any, offset?: any): void
+}
 
-    export {
-        Link,
-        Element,
-        Events,
-        scroller
-    }
+declare const Link: Link;
+declare const Element: Element;
+declare const Events: Events;
+declare const scroller: scroller;
+
+export {
+Link,
+Element,
+Events,
+scroller
 }

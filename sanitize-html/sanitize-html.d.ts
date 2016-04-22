@@ -4,24 +4,23 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module "sanitize-html" {
 
-	function sanitizeHtml(s: string, opts?: {
-		allowedTags?: string[];
-		allowedSchemes?: string[];
-		allowedAttributes?: { [index: string]: string[] };
-		allowedClasses?: { [index: string]: string[] };
-		transformTags?: { [index: string]: any };
-		exclusiveFilter?: {
-			[index: string]: (frame: {
-				tag: string;
-				attribs: { [index: string]: string };
-				text: string;
-				tagPosition: number;
-			}) => boolean
-		};
 
-	}): string;
+declare function sanitizeHtml(s: string, opts?: {
+    allowedTags?: string[];
+    allowedSchemes?: string[];
+    allowedAttributes?: { [index: string]: string[] };
+    allowedClasses?: { [index: string]: string[] };
+    transformTags?: { [index: string]: any };
+    exclusiveFilter?: {
+        [index: string]: (frame: {
+            tag: string;
+            attribs: { [index: string]: string };
+            text: string;
+            tagPosition: number;
+        }) => boolean
+    };
 
-	export = sanitizeHtml;
-}
+}): string;
+
+export = sanitizeHtml;

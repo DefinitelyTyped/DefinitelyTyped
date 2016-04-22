@@ -3,7 +3,6 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "path-case" {
-	function pathCase(string: string, locale?: string): string;
-	export = pathCase;
-}
+
+declare function pathCase(string: string, locale?: string): string;
+export = pathCase;

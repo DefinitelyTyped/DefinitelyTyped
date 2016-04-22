@@ -3,8 +3,7 @@
 // Definitions by: Ryota Murohoshi <https://github.com/RyotaMurohoshi>
 // Definitions: https://github.com/RyotaMurohoshi/DefinitelyTyped
 
-declare module "is-url" {
-    export = isUrl
 
-    function isUrl(string: string): boolean;
-}
+export = isUrl
+
+declare function isUrl(string: string): boolean;

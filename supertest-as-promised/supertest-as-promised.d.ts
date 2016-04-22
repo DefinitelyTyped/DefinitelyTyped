@@ -6,40 +6,39 @@
 /// <reference path='../superagent/superagent.d.ts' />
 /// <reference path="../bluebird/bluebird.d.ts" />
 
-declare module "supertest-as-promised" {
-  // Mostly copy-pasted from supertest.d.ts
 
-  import * as superagent from 'superagent';
-  import * as PromiseBluebird from 'bluebird';
+// Mostly copy-pasted from supertest.d.ts
 
-  function supertest(app: any): supertest.SuperTest;
+import * as superagent from 'superagent';
+import * as PromiseBluebird from 'bluebird';
 
-  namespace supertest {
+declare function supertest(app: any): supertest.SuperTest;
+
+declare namespace supertest {
     function agent(app?: any): supertest.SuperTest;
 
     interface SuperTest extends superagent.SuperAgent<Test> {
     }
 
     interface Promise<T> extends PromiseBluebird<T> {
-      toPromise(): PromiseBluebird<T>;
+        toPromise(): PromiseBluebird<T>;
     }
 
     interface Test extends superagent.Request<Test> {
-      url: string;
-      serverAddress(app: any, path: string): string;
-      expect(status: number): Promise<supertest.Response>;
-      expect(status: number, body: string): Promise<supertest.Response>;
-      expect(body: string): Promise<supertest.Response>;
-      expect(body: RegExp): Promise<supertest.Response>;
-      expect(body: Object): Promise<supertest.Response>;
-      expect(field: string, val: string): Promise<supertest.Response>;
-      expect(field: string, val: RegExp): Promise<supertest.Response>;
-      expect(checker: (res: Response) => any): Promise<supertest.Response>;
+        url: string;
+        serverAddress(app: any, path: string): string;
+        expect(status: number): Promise<supertest.Response>;
+        expect(status: number, body: string): Promise<supertest.Response>;
+        expect(body: string): Promise<supertest.Response>;
+        expect(body: RegExp): Promise<supertest.Response>;
+        expect(body: Object): Promise<supertest.Response>;
+        expect(field: string, val: string): Promise<supertest.Response>;
+        expect(field: string, val: RegExp): Promise<supertest.Response>;
+        expect(checker: (res: Response) => any): Promise<supertest.Response>;
     }
 
     interface Response extends superagent.Response {
     }
-  }
-
-  export = supertest;
 }
+
+export = supertest;

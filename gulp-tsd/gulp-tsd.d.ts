@@ -6,19 +6,18 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-declare module "gulp-tsd" {
-    import gulp = require('gulp');
 
-    interface IOptions {
-        command?: string;
-        latest?: boolean;
-        config?: string;
-        opts?: Object;
-    }
+import gulp = require('gulp');
 
-    function tsd(opts?: IOptions, callback?: gulp.TaskCallback): NodeJS.ReadWriteStream;
-
-    namespace tsd {}
-
-    export = tsd;
+interface IOptions {
+    command?: string;
+    latest?: boolean;
+    config?: string;
+    opts?: Object;
 }
+
+declare function tsd(opts?: IOptions, callback?: gulp.TaskCallback): NodeJS.ReadWriteStream;
+
+declare namespace tsd { }
+
+export = tsd;

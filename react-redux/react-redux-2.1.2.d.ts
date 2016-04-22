@@ -6,44 +6,44 @@
 /// <reference path="../react/react.d.ts" />
 /// <reference path="../redux/redux.d.ts" />
 
-declare module "react-redux" {
-  import { Component } from 'react';
-  import { Store, Dispatch, ActionCreator } from 'redux';
 
-  export class ElementClass extends Component<any, any> { }
-  export interface ClassDecorator {
+import { Component } from 'react';
+import { Store, Dispatch, ActionCreator } from 'redux';
+
+declare export class ElementClass extends Component<any, any> { }
+export interface ClassDecorator {
     <T extends (typeof ElementClass)>(component: T): T
-  }
+}
 
-  /**
-   * Connects a React component to a Redux store.
-   * @param mapStateToProps
-   * @param mapDispatchToProps
-   * @param mergeProps
-   * @param options
-     */
-  export function connect(mapStateToProps?: MapStateToProps,
-                          mapDispatchToProps?: MapDispatchToPropsFunction|MapDispatchToPropsObject,
-                          mergeProps?: MergeProps,
-                          options?: Options): ClassDecorator;
+/**
+ * Connects a React component to a Redux store.
+ * @param mapStateToProps
+ * @param mapDispatchToProps
+ * @param mergeProps
+ * @param options
+   */
+declare export function connect(mapStateToProps?: MapStateToProps,
+    mapDispatchToProps?: MapDispatchToPropsFunction | MapDispatchToPropsObject,
+    mergeProps?: MergeProps,
+    options?: Options): ClassDecorator;
 
-  interface MapStateToProps {
+interface MapStateToProps {
     (state: any, ownProps?: any): any;
-  }
+}
 
-  interface MapDispatchToPropsFunction {
+interface MapDispatchToPropsFunction {
     (dispatch: Dispatch, ownProps?: any): any;
-  }
+}
 
-  interface MapDispatchToPropsObject {
+interface MapDispatchToPropsObject {
     [name: string]: ActionCreator;
-  }
+}
 
-  interface MergeProps {
+interface MergeProps {
     (stateProps: any, dispatchProps: any, ownProps: any): any;
-  }
+}
 
-  interface Options {
+interface Options {
     /**
      * If true, implements shouldComponentUpdate and shallowly compares the result of mergeProps,
      * preventing unnecessary updates, assuming that the component is a “pure” component
@@ -52,18 +52,17 @@ declare module "react-redux" {
      * @default true
      */
     pure: boolean;
-  }
+}
 
-  export interface Property {
+export interface Property {
     /**
      * The single Redux store in your application.
      */
     store?: Store;
     children?: Function;
-  }
-
-  /**
-   * Makes the Redux store available to the connect() calls in the component hierarchy below.
-   */
-  export class Provider extends Component<Property, {}> { }
 }
+
+/**
+ * Makes the Redux store available to the connect() calls in the component hierarchy below.
+ */
+declare export class Provider extends Component<Property, {}> { }

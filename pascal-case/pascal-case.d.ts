@@ -3,7 +3,6 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "pascal-case" {
-	function pascalCase(string: string, locale?: string): string;
-	export = pascalCase;
-}
+
+declare function pascalCase(string: string, locale?: string): string;
+export = pascalCase;
