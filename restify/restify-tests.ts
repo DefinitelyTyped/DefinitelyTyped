@@ -249,6 +249,14 @@ server.on('after', restify.auditLogger({
     log: ()=>{}
 }));
 
+server.on('after', (req: restify.Request, res: restify.Response, route: restify.Route, err: any) => {
+    route.spec.method === 'GET';
+    route.spec.name === 'routeName';
+    route.spec.path === '/some/path';
+    route.spec.versions === ['v1'];
+    restify.auditLogger({ log: ()=>{} })(req, res, route, err);
+});
+
 restify.defaultResponseHeaders = function(data: any) {
   this.header('Server', 'helloworld');
 };
