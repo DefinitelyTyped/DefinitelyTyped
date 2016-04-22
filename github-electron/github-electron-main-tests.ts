@@ -714,6 +714,18 @@ var image = clipboard.readImage();
 var appIcon3 = new Tray(image);
 var appIcon4 = new Tray('/Users/somebody/images/icon.png');
 
+// process
+// https://github.com/electron/electron/blob/master/docs/api/process.md
+
+console.log(process.type);
+console.log(process.resourcesPath);
+console.log(process.mas);
+console.log(process.windowsStore);
+process.noAsar = true;
+process.crash();
+process.hang();
+process.setFdLimit(8192);
+
 // screen
 // https://github.com/atom/electron/blob/master/docs/api/screen.md
 
