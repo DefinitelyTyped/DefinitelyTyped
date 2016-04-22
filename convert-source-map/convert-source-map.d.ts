@@ -3,25 +3,24 @@
 // Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "convert-source-map" {
-	export interface SourceMapConverter {
-		toObject(): any;
-		toJSON(space?: any): string;
-		toBase64(): string;
-		toComment(): string;
 
-		addProperty(key: string, value: any): SourceMapConverter;
-		setProperty(key: string, value: any): SourceMapConverter;
+export interface SourceMapConverter {
+    toObject(): any;
+    toJSON(space?: any): string;
+    toBase64(): string;
+    toComment(): string;
 
-		getProperty(key: string): any;
-	}
+    addProperty(key: string, value: any): SourceMapConverter;
+    setProperty(key: string, value: any): SourceMapConverter;
 
-	export function removeComments(src: string): string;
-	export var commentRegex: RegExp;
-
-	export function fromObject(obj: any): SourceMapConverter;
-	export function fromJSON(json: string): SourceMapConverter;
-	export function fromBase64(base64: string): SourceMapConverter;
-	export function fromComment(comment: string): SourceMapConverter;
-	export function fromSource(source: string): SourceMapConverter;
+    getProperty(key: string): any;
 }
+
+declare export function removeComments(src: string): string;
+declare export var commentRegex: RegExp;
+
+declare export function fromObject(obj: any): SourceMapConverter;
+declare export function fromJSON(json: string): SourceMapConverter;
+declare export function fromBase64(base64: string): SourceMapConverter;
+declare export function fromComment(comment: string): SourceMapConverter;
+declare export function fromSource(source: string): SourceMapConverter;

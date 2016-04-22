@@ -5,24 +5,23 @@
 
 /// <reference path="../bluebird/bluebird.d.ts" />
 
-declare module 'inline-css' {
-	import Promise = require('bluebird');
 
-	namespace InlineCss {
-		export interface Options {
-			url:string;
-			extraCss?:string;
-			applyStyleTags?:boolean;
-			applyLinkTags?:boolean;
-			removeStyleTags?:boolean;
-			removeLinkTags?:boolean;
-			preserveMediaQueries?:boolean;
-			applyWidthAttributes?:boolean;
-			applyTableAttributes?:boolean;
-		}
-	}
+import Promise = require('bluebird');
 
-	function InlineCss(html:string, options:InlineCss.Options):Promise<string>;
-
-	export = InlineCss;
+declare namespace InlineCss {
+    export interface Options {
+        url: string;
+        extraCss?: string;
+        applyStyleTags?: boolean;
+        applyLinkTags?: boolean;
+        removeStyleTags?: boolean;
+        removeLinkTags?: boolean;
+        preserveMediaQueries?: boolean;
+        applyWidthAttributes?: boolean;
+        applyTableAttributes?: boolean;
+    }
 }
+
+declare function InlineCss(html: string, options: InlineCss.Options): Promise<string>;
+
+export = InlineCss;

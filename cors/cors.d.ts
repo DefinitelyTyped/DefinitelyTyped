@@ -5,20 +5,19 @@
 
 /// <reference path="../express/express.d.ts" />
 
-declare module "cors" {
-    import express = require('express');
 
-    namespace e {
-        interface CorsOptions  {
-            origin?: any;
-            methods?: any;
-            allowedHeaders?: any;
-            exposedHeaders?: any;
-            credentials?: boolean;
-            maxAge?: number;
-        }
+import express = require('express');
+
+declare namespace e {
+    interface CorsOptions {
+        origin?: any;
+        methods?: any;
+        allowedHeaders?: any;
+        exposedHeaders?: any;
+        credentials?: boolean;
+        maxAge?: number;
     }
-
-    function e(options?: e.CorsOptions): express.RequestHandler;
-    export = e;
 }
+
+declare function e(options?: e.CorsOptions): express.RequestHandler;
+export = e;

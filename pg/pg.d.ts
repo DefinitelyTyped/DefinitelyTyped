@@ -5,88 +5,87 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "pg" {
-    import events = require("events");
-    import stream = require("stream");
 
-    export function connect(connection: string, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
-    export function connect(config: ClientConfig, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
-    export function end(): void;
+import events = require("events");
+import stream = require("stream");
 
-    export interface ConnectionConfig {
-        user?: string;
-        database?: string;
-        password?: string;
-        port?: number;
-        host?: string;
-    }
+declare export function connect(connection: string, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
+declare export function connect(config: ClientConfig, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
+declare export function end(): void;
 
-    export interface Defaults extends ConnectionConfig {
-        poolSize?: number;
-        poolIdleTimeout?: number;
-        reapIntervalMillis?: number;
-        binary?: boolean;
-        parseInt8?: boolean;
-    }
+export interface ConnectionConfig {
+    user?: string;
+    database?: string;
+    password?: string;
+    port?: number;
+    host?: string;
+}
 
-    export interface ClientConfig extends ConnectionConfig {
-        ssl?: boolean;
-    }
+export interface Defaults extends ConnectionConfig {
+    poolSize?: number;
+    poolIdleTimeout?: number;
+    reapIntervalMillis?: number;
+    binary?: boolean;
+    parseInt8?: boolean;
+}
 
-    export interface QueryConfig {
-        name?: string;
-        text: string;
-        values?: any[];
-    }
+export interface ClientConfig extends ConnectionConfig {
+    ssl?: boolean;
+}
 
-    export interface QueryResult {
-        rows: any[];
-    }
+export interface QueryConfig {
+    name?: string;
+    text: string;
+    values?: any[];
+}
 
-    export interface ResultBuilder extends QueryResult {
-        command: string;
-        rowCount: number;
-        oid: number;
-        addRow(row: any): void;
-    }
+export interface QueryResult {
+    rows: any[];
+}
 
-    export class Client extends events.EventEmitter {
-        constructor(connection: string);
-        constructor(config: ClientConfig);
+export interface ResultBuilder extends QueryResult {
+    command: string;
+    rowCount: number;
+    oid: number;
+    addRow(row: any): void;
+}
 
-        connect(callback?: (err:Error) => void): void;
-        end(): void;
+declare export class Client extends events.EventEmitter {
+    constructor(connection: string);
+    constructor(config: ClientConfig);
 
-        query(queryText: string, callback?: (err: Error, result: QueryResult) => void): Query;
-        query(config: QueryConfig, callback?: (err: Error, result: QueryResult) => void): Query;
-        query(queryText: string, values: any[], callback?: (err: Error, result: QueryResult) => void): Query;
+    connect(callback?: (err: Error) => void): void;
+    end(): void;
 
-        copyFrom(queryText: string): stream.Writable;
-        copyTo(queryText: string): stream.Readable;
+    query(queryText: string, callback?: (err: Error, result: QueryResult) => void): Query;
+    query(config: QueryConfig, callback?: (err: Error, result: QueryResult) => void): Query;
+    query(queryText: string, values: any[], callback?: (err: Error, result: QueryResult) => void): Query;
 
-        pauseDrain(): void;
-        resumeDrain(): void;
+    copyFrom(queryText: string): stream.Writable;
+    copyTo(queryText: string): stream.Readable;
 
-        public on(event: "drain", listener: () => void): this;
-        public on(event: "error", listener: (err: Error) => void): this;
-        public on(event: "notification", listener: (message: any) => void): this;
-        public on(event: "notice", listener: (message: any) => void): this;
-        public on(event: string, listener: Function): this;
-    }
+    pauseDrain(): void;
+    resumeDrain(): void;
 
-    export class Query extends events.EventEmitter {
-        public on(event: "row", listener: (row: any, result?: ResultBuilder) => void): this;
-        public on(event: "error", listener: (err: Error) => void): this;
-        public on(event: "end", listener: (result: ResultBuilder) => void): this;
-        public on(event: string, listener: Function): this;
-    }
+    public on(event: "drain", listener: () => void): this;
+    public on(event: "error", listener: (err: Error) => void): this;
+    public on(event: "notification", listener: (message: any) => void): this;
+    public on(event: "notice", listener: (message: any) => void): this;
+    public on(event: string, listener: Function): this;
+}
 
-    export class Events extends events.EventEmitter {
-        public on(event: "error", listener: (err: Error, client: Client) => void): this;
-        public on(event: string, listener: Function): this;
-    }
+declare export class Query extends events.EventEmitter {
+    public on(event: "row", listener: (row: any, result?: ResultBuilder) => void): this;
+    public on(event: "error", listener: (err: Error) => void): this;
+    public on(event: "end", listener: (result: ResultBuilder) => void): this;
+    public on(event: string, listener: Function): this;
+}
 
-    namespace types {
-        function setTypeParser<T>(typeId: number, parser: (value: string) => T): void;
-    }
+declare export class Events extends events.EventEmitter {
+    public on(event: "error", listener: (err: Error, client: Client) => void): this;
+    public on(event: string, listener: Function): this;
+}
+
+declare namespace types {
+    function setTypeParser<T>(typeId: number, parser: (value: string) => T): void;
 }

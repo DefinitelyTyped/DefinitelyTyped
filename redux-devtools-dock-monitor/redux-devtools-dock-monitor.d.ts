@@ -5,10 +5,10 @@
 
 /// <reference path="../react/react.d.ts" />
 
-declare module "redux-devtools-dock-monitor" {
-  import * as React from 'react'
 
-  interface IDockMonitorProps {
+import * as React from 'react'
+
+interface IDockMonitorProps {
     /**
      * Any valid Redux DevTools monitor.
      */
@@ -53,7 +53,6 @@ declare module "redux-devtools-dock-monitor" {
      * @default true
      */
     defaultIsVisible?: boolean
-  }
-
-  export default class DockMonitor extends React.Component<IDockMonitorProps, any> {}
 }
+
+declare export default class DockMonitor extends React.Component<IDockMonitorProps, any> { }

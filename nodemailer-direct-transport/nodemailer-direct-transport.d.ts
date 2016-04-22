@@ -6,30 +6,28 @@
 
 /// <reference path="../nodemailer/nodemailer-types.d.ts" />
 
-declare module "nodemailer-direct-transport" {
 
-	namespace directTransport {
 
-		export interface AuthOptions {
-			user?: string;
-			pass?: string;
-			xoauth2?: any;
-		}
+declare namespace directTransport {
 
-		export interface DirectOptions {
-			/**
-			 * optional hostname of the client, used for identifying to the server
-			 */
-			name?: string;
-			/**
-			 * if true, the connection emits all traffic between client and server as 'log' events
-			 */
-			debug?: boolean;
-		}
-	}
+    export interface AuthOptions {
+        user?: string;
+        pass?: string;
+        xoauth2?: any;
+    }
 
-	function directTransport(options: directTransport.DirectOptions): nodemailer.Transport;
-
-	export = directTransport;
-
+    export interface DirectOptions {
+        /**
+         * optional hostname of the client, used for identifying to the server
+         */
+        name?: string;
+        /**
+         * if true, the connection emits all traffic between client and server as 'log' events
+         */
+        debug?: boolean;
+    }
 }
+
+declare function directTransport(options: directTransport.DirectOptions): nodemailer.Transport;
+
+export = directTransport;

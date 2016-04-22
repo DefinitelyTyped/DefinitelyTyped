@@ -15,12 +15,12 @@
  =============================================== */
 /// <reference path="../node/node.d.ts" />
 
-declare module "koa" {
-  import { EventEmitter } from "events";
-  import * as http from "http";
-  import * as net from "net";
 
-  namespace Koa {
+import { EventEmitter } from "events";
+import * as http from "http";
+import * as net from "net";
+
+declare namespace Koa {
     export interface Context extends Request, Response {
         body?: any;
         request?: Request;
@@ -115,27 +115,26 @@ declare module "koa" {
         toJSON?: () => any;
         inspect?: () => any;
     }
-  }
-
-  class Koa extends EventEmitter {
-      keys: Array<string>;
-      subdomainOffset: number;
-      proxy: Boolean;
-      server: http.Server;
-      env: string;
-      context: Koa.Context;
-      request: Koa.Request;
-      response: Koa.Response;
-      silent: Boolean;
-      constructor();
-      use(middleware: (ctx: Koa.Context, next: Function) => any): Koa;
-      callback(): (req: http.IncomingMessage, res: http.ServerResponse) => void;
-      listen(port: number, callback?: Function): http.Server;
-      toJSON(): any;
-      inspect(): any;
-      onerror(err: any): void;
-  }
-
-  namespace Koa {}
-  export = Koa;
 }
+
+declare class Koa extends EventEmitter {
+    keys: Array<string>;
+    subdomainOffset: number;
+    proxy: Boolean;
+    server: http.Server;
+    env: string;
+    context: Koa.Context;
+    request: Koa.Request;
+    response: Koa.Response;
+    silent: Boolean;
+    constructor();
+    use(middleware: (ctx: Koa.Context, next: Function) => any): Koa;
+    callback(): (req: http.IncomingMessage, res: http.ServerResponse) => void;
+    listen(port: number, callback?: Function): http.Server;
+    toJSON(): any;
+    inspect(): any;
+    onerror(err: any): void;
+}
+
+declare namespace Koa { }
+export = Koa;

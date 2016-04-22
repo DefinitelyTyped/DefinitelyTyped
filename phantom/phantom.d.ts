@@ -3,16 +3,16 @@
 // Definitions by: horiuchi <https://github.com/horiuchi/>, Random <https://github.com/llRandom/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "phantom" {
 
-  function create(args?: string[]): Promise<PhantomJS>;
 
-  interface PhantomJS {
+declare function create(args?: string[]): Promise<PhantomJS>;
+
+interface PhantomJS {
     createPage(): Promise<WebPage>;
     exit(returnValue?: number): void;
-  }
+}
 
-  interface WebPage {
+interface WebPage {
     open(url: string): Promise<string>;
     close(): Promise<void>;
 
@@ -32,32 +32,31 @@ declare module "phantom" {
     renderBase64(type: string): Promise<string>;
 
     setContent(html: string, url: string): Promise<string>;
-    
+
     property<T>(key: string): Promise<T>;
     property<T>(key: string, value: T): Promise<void>;
-    
+
     setting<T>(key: string): Promise<T>;
-    
+
     addCookie(cookie: ICookie): Promise<boolean>;
     deleteCookie(cookieName: string): Promise<boolean>;
     clearCookies(): Promise<void>;
-  }
+}
 
-  interface ICookie {
-      name: string,
-      value: string,
-      domain?: string,
-      path: string,
-      httponly?: boolean,
-      secure?: boolean,
-      expires?: Date
-  }
+interface ICookie {
+    name: string,
+    value: string,
+    domain?: string,
+    path: string,
+    httponly?: boolean,
+    secure?: boolean,
+    expires?: Date
+}
 
-  interface IPaperSizeOptions {
+interface IPaperSizeOptions {
     width?: string;
     height?: string;
     format?: string;
     orientation?: string;
     margin?: any; // string | { top?: string; left?: string; bottom?: string; right?: string;  }
-  }
 }

@@ -5,39 +5,38 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module 'source-map-support' {
-	/**
-	 * Output of retrieveSourceMap().
-	 */
-	export interface UrlAndMap {
-		url: string;
-		map: string|Buffer;
-	}
 
-	/**
-	 * Options to install().
-	 */
-	export interface Options {
-		handleUncaughtExceptions?: boolean;
-		emptyCacheBetweenOperations?: boolean;
-		retrieveFile?: (path: string) => string;
-		retrieveSourceMap?: (source: string) => UrlAndMap;
-	}
-
-	export interface Position {
-		source: string;
-		line: number;
-		column: number;
-	}
-
-	export function wrapCallSite(frame: any /* StackFrame */): any /* StackFrame */;
-	export function getErrorSource(error: Error): string;
-	export function mapSourcePosition(position: Position): Position;
-	export function retrieveSourceMap(source: string): UrlAndMap;
-
-	/**
-	 * Install SourceMap support.
-	 * @param options Can be used to e.g. disable uncaughtException handler.
-	 */
-	export function install(options?: Options): void;
+/**
+ * Output of retrieveSourceMap().
+ */
+export interface UrlAndMap {
+    url: string;
+    map: string | Buffer;
 }
+
+/**
+ * Options to install().
+ */
+export interface Options {
+    handleUncaughtExceptions?: boolean;
+    emptyCacheBetweenOperations?: boolean;
+    retrieveFile?: (path: string) => string;
+    retrieveSourceMap?: (source: string) => UrlAndMap;
+}
+
+export interface Position {
+    source: string;
+    line: number;
+    column: number;
+}
+
+declare export function wrapCallSite(frame: any /* StackFrame */): any /* StackFrame */;
+declare export function getErrorSource(error: Error): string;
+declare export function mapSourcePosition(position: Position): Position;
+declare export function retrieveSourceMap(source: string): UrlAndMap;
+
+/**
+ * Install SourceMap support.
+ * @param options Can be used to e.g. disable uncaughtException handler.
+ */
+declare export function install(options?: Options): void;

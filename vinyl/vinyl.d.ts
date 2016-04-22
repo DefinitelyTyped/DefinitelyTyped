@@ -5,143 +5,141 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "vinyl" {
 
-	import fs = require("fs");
 
-	/**
-	 * A virtual file format.
-	 */
-	class File {
-		constructor(options?: {
+import fs = require("fs");
 
-			/**
-			* Default: process.cwd()
-			*/
-			cwd?: string;
+/**
+ * A virtual file format.
+ */
+declare class File {
+    constructor(options?: {
 
-			/**
-			 * Used for relative pathing. Typically where a glob starts.
-			 */
-			base?: string;
+        /**
+        * Default: process.cwd()
+        */
+        cwd?: string;
 
-			/**
-			 * Full path to the file.
-			 */
-			path?: string;
+        /**
+         * Used for relative pathing. Typically where a glob starts.
+         */
+        base?: string;
 
-			/**
-			 * Path history. Has no effect if options.path is passed.
-			 */
-			history?: string[];
+        /**
+         * Full path to the file.
+         */
+        path?: string;
 
-			/**
-			 * The result of an fs.stat call. See fs.Stats for more information.
-			 */
-			stat?: fs.Stats;
+        /**
+         * Path history. Has no effect if options.path is passed.
+         */
+        history?: string[];
 
-			/**
-			 * File contents.
-			 * Type: Buffer, Stream, or null
-			 */
-			contents?: Buffer | NodeJS.ReadWriteStream;
-		});
+        /**
+         * The result of an fs.stat call. See fs.Stats for more information.
+         */
+        stat?: fs.Stats;
 
-		/**
-		 * Default: process.cwd()
-		 */
-		public cwd: string;
+        /**
+         * File contents.
+         * Type: Buffer, Stream, or null
+         */
+        contents?: Buffer | NodeJS.ReadWriteStream;
+    });
 
-		/**
-		 * Used for relative pathing. Typically where a glob starts.
-		 */
-		public dirname: string;
-		public basename: string;
-		public base: string;
+    /**
+     * Default: process.cwd()
+     */
+    public cwd: string;
 
-		/**
-		 * Full path to the file.
-		 */
-		public path: string;
-		public stat: fs.Stats;
+    /**
+     * Used for relative pathing. Typically where a glob starts.
+     */
+    public dirname: string;
+    public basename: string;
+    public base: string;
 
-		/**
-		 * Gets and sets stem (filename without suffix) for the file path.
-		 */
-		public stem: string;
+    /**
+     * Full path to the file.
+     */
+    public path: string;
+    public stat: fs.Stats;
 
-		/**
-		 * Gets and sets path.extname for the file path
-		 */
-		public extname: string;
+    /**
+     * Gets and sets stem (filename without suffix) for the file path.
+     */
+    public stem: string;
 
-		/**
-		 * Array of path values the file object has had
-		 */
-		public history: string[];
+    /**
+     * Gets and sets path.extname for the file path
+     */
+    public extname: string;
 
-		/**
-		 * Type: Buffer|Stream|null (Default: null)
-		 */
-		public contents: Buffer | NodeJS.ReadableStream;
+    /**
+     * Array of path values the file object has had
+     */
+    public history: string[];
 
-		/**
-		 * Returns path.relative for the file base and file path.
-		 * Example:
-		 *  var file = new File({
-		 *    cwd: "/",
-		 *    base: "/test/",
-		 *    path: "/test/file.js"
-		 *  });
-		 *  console.log(file.relative); // file.js
-		 */
-		public relative: string;
+    /**
+     * Type: Buffer|Stream|null (Default: null)
+     */
+    public contents: Buffer | NodeJS.ReadableStream;
 
-		/**
-		 * Returns true if file.contents is a Buffer.
-		 */
-		public isBuffer(): boolean;
+    /**
+     * Returns path.relative for the file base and file path.
+     * Example:
+     *  var file = new File({
+     *    cwd: "/",
+     *    base: "/test/",
+     *    path: "/test/file.js"
+     *  });
+     *  console.log(file.relative); // file.js
+     */
+    public relative: string;
 
-		/**
-		 * Returns true if file.contents is a Stream.
-		 */
-		public isStream(): boolean;
+    /**
+     * Returns true if file.contents is a Buffer.
+     */
+    public isBuffer(): boolean;
 
-		/**
-		 * Returns true if file.contents is null.
-		 */
-		public isNull(): boolean;
+    /**
+     * Returns true if file.contents is a Stream.
+     */
+    public isStream(): boolean;
 
-		/**
-		 * Returns a new File object with all attributes cloned. Custom attributes are deep-cloned.
-		 */
-		public clone(opts?: { contents?: boolean, deep?:boolean }): File;
+    /**
+     * Returns true if file.contents is null.
+     */
+    public isNull(): boolean;
 
-		/**
-		 * If file.contents is a Buffer, it will write it to the stream.
-		 * If file.contents is a Stream, it will pipe it to the stream.
-		 * If file.contents is null, it will do nothing.
-		 */
-		public pipe<T extends NodeJS.ReadWriteStream>(
-			stream: T,
-			opts?: {
-				/**
-				 * If false, the destination stream will not be ended (same as node core).
-				 */
-				end?: boolean;
-			}): T;
+    /**
+     * Returns a new File object with all attributes cloned. Custom attributes are deep-cloned.
+     */
+    public clone(opts?: { contents?: boolean, deep?: boolean }): File;
 
-		/**
-		 * Returns a pretty String interpretation of the File. Useful for console.log.
-		 */
-		public inspect(): string;
+    /**
+     * If file.contents is a Buffer, it will write it to the stream.
+     * If file.contents is a Stream, it will pipe it to the stream.
+     * If file.contents is null, it will do nothing.
+     */
+    public pipe<T extends NodeJS.ReadWriteStream>(
+        stream: T,
+        opts?: {
+            /**
+             * If false, the destination stream will not be ended (same as node core).
+             */
+            end?: boolean;
+        }): T;
 
-		/**
-		 * Checks if a given object is a vinyl file.
-		 */
-		public static isVinyl(obj: any): boolean;
-	}
+    /**
+     * Returns a pretty String interpretation of the File. Useful for console.log.
+     */
+    public inspect(): string;
 
-	export = File;
-
+    /**
+     * Checks if a given object is a vinyl file.
+     */
+    public static isVinyl(obj: any): boolean;
 }
+
+export = File;

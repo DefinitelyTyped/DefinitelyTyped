@@ -5,34 +5,33 @@
 
 /// <reference path="../passport/passport.d.ts"/>
 
-declare module 'passport-facebook' {
 
-    import passport = require('passport');
-    import express = require('express');
 
-    interface Profile extends passport.Profile {
-        gender: string;
-        profileUrl: string;
-        username: string;
+import passport = require('passport');
+import express = require('express');
 
-        _raw: string;
-        _json: any;
-    }
+interface Profile extends passport.Profile {
+    gender: string;
+    profileUrl: string;
+    username: string;
 
-    interface IStrategyOption {
-        clientID: string;
-        clientSecret: string;
-        callbackURL: string;
+    _raw: string;
+    _json: any;
+}
 
-        scopeSeparator?: string;
-        enableProof?: boolean;
-        profileFields?: string[];
-    }
+interface IStrategyOption {
+    clientID: string;
+    clientSecret: string;
+    callbackURL: string;
 
-    class Strategy implements passport.Strategy {
-        constructor(options: IStrategyOption,
-                    verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
-        name: string;
-        authenticate: (req: express.Request, options?: Object) => void;
-    }
+    scopeSeparator?: string;
+    enableProof?: boolean;
+    profileFields?: string[];
+}
+
+declare class Strategy implements passport.Strategy {
+    constructor(options: IStrategyOption,
+        verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
+    name: string;
+    authenticate: (req: express.Request, options?: Object) => void;
 }

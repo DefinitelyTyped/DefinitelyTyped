@@ -3,7 +3,6 @@
 // Definitions by: Anton Karsten <https://github.com/antonkarsten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'contentful-resolve-response' {
-    function resolveResponse(response: any): any;
-    export = resolveResponse;
-}
+
+declare function resolveResponse(response: any): any;
+export = resolveResponse;

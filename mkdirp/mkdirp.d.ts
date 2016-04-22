@@ -3,13 +3,12 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'mkdirp' {
 
-	function mkdirp(dir: string, cb: (err: any, made: string) => void): void;
-	function mkdirp(dir: string, flags: any, cb: (err: any, made: string) => void): void;
 
-	namespace mkdirp {
-		function sync(dir: string, flags?: any): string;
-	}
-	export = mkdirp;
+declare function mkdirp(dir: string, cb: (err: any, made: string) => void): void;
+declare function mkdirp(dir: string, flags: any, cb: (err: any, made: string) => void): void;
+
+declare namespace mkdirp {
+    function sync(dir: string, flags?: any): string;
 }
+export = mkdirp;

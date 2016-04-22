@@ -4,18 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="../node/node.d.ts" />
 
-declare module "stream-meter" {
-    import {Transform} from 'stream';
 
-    function m(maxBytes?:number):m.StreamMeter;
+import {Transform} from 'stream';
 
-    namespace m {
-        export interface StreamMeter extends Transform {
-            constructor(maxBytes?: number): StreamMeter;
-            bytes: number;
-            maxBytes: number;
-        }
+declare function m(maxBytes?: number): m.StreamMeter;
+
+declare namespace m {
+    export interface StreamMeter extends Transform {
+        constructor(maxBytes?: number): StreamMeter;
+        bytes: number;
+        maxBytes: number;
     }
-
-   export = m;
 }
+
+export = m;

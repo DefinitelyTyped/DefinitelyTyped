@@ -5,47 +5,46 @@
 
 /// <reference path="../node/node.d.ts"/>
 
-declare module "gulp-istanbul" {
-    function GulpIstanbul(opts?: GulpIstanbul.Options): NodeJS.ReadWriteStream;
 
-    namespace GulpIstanbul {
-        export function hookRequire(): NodeJS.ReadWriteStream;
-        export function summarizeCoverage(opts?: {coverageVariable?: string}): Coverage;
-        export function writeReports(opts?: ReportOptions): NodeJS.ReadWriteStream;
+declare function GulpIstanbul(opts?: GulpIstanbul.Options): NodeJS.ReadWriteStream;
 
-        interface Options {
-            coverageVariable?: string;
-            includeUntested?: boolean;
-            embedSource?: boolean;
-            preserveComments?: boolean;
-            noCompact?: boolean;
-            noAutoWrap?: boolean;
-            codeGenerationOptions?: Object;
-            debug?: boolean;
-            walkDebug?: boolean;
-        }
+declare namespace GulpIstanbul {
+    export function hookRequire(): NodeJS.ReadWriteStream;
+    export function summarizeCoverage(opts?: { coverageVariable?: string }): Coverage;
+    export function writeReports(opts?: ReportOptions): NodeJS.ReadWriteStream;
 
-        interface Coverage {
-            lines: CoverageStats;
-            statements: CoverageStats;
-            functions: CoverageStats;
-            branches: CoverageStats;
-        }
-
-        interface CoverageStats {
-            total: number;
-            covered: number;
-            skipped: number;
-            pct: number;
-        }
-
-        interface ReportOptions {
-            dir?: string;
-            reporters?: string[];
-            reportOpts?: {dir?: string};
-            coverageVariable?: string;
-        }
+    interface Options {
+        coverageVariable?: string;
+        includeUntested?: boolean;
+        embedSource?: boolean;
+        preserveComments?: boolean;
+        noCompact?: boolean;
+        noAutoWrap?: boolean;
+        codeGenerationOptions?: Object;
+        debug?: boolean;
+        walkDebug?: boolean;
     }
 
-    export = GulpIstanbul;
+    interface Coverage {
+        lines: CoverageStats;
+        statements: CoverageStats;
+        functions: CoverageStats;
+        branches: CoverageStats;
+    }
+
+    interface CoverageStats {
+        total: number;
+        covered: number;
+        skipped: number;
+        pct: number;
+    }
+
+    interface ReportOptions {
+        dir?: string;
+        reporters?: string[];
+        reportOpts?: { dir?: string };
+        coverageVariable?: string;
+    }
 }
+
+export = GulpIstanbul;

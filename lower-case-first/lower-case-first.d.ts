@@ -3,7 +3,6 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "lower-case-first" {
-	function lowerCaseFirst(string: string, locale?: string): string;
-	export = lowerCaseFirst;
-}
+
+declare function lowerCaseFirst(string: string, locale?: string): string;
+export = lowerCaseFirst;

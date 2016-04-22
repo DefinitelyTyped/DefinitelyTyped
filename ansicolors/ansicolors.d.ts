@@ -3,7 +3,6 @@
 // Definitions by: rogierschouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "ansicolors" {
-	var colors: {[index: string]: (s: string) => string;};
-	export = colors;
-}
+
+declare var colors: { [index: string]: (s: string) => string; };
+export = colors;

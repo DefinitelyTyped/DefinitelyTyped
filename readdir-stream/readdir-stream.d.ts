@@ -5,7 +5,6 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module 'readdir-stream' {
-	function readdir(dir: string): NodeJS.ReadableStream;
-	export = readdir;
-}
+
+declare function readdir(dir: string): NodeJS.ReadableStream;
+export = readdir;

@@ -3,7 +3,6 @@
 // Definitions by: Mihhail Lapushkin <https://github.com/mihhail-lapushkin/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "tea-merge" {
-    function e(destination: Object, ...sources: Object[]): Object;
-    export = e;
-}
+
+declare function e(destination: Object, ...sources: Object[]): Object;
+export = e;

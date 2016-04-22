@@ -5,22 +5,21 @@
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/gently.d.ts
 
-declare module "gently" {
-	export = Gently;
 
-	class Gently {
-		constructor();
-		hijacked: any[];
+export = Gently;
 
-		expect(obj: any, method: string, stubFn?: (...args: any[]) => any): (...args: any[]) => any;
-		expect(obj: any, method: string, count: number, stubFn: (...args: any[]) => any): (...args: any[]) => any;
+declare class Gently {
+    constructor();
+    hijacked: any[];
 
-		restore(obj: any, method: string): void;
+    expect(obj: any, method: string, stubFn?: (...args: any[]) => any): (...args: any[]) => any;
+    expect(obj: any, method: string, count: number, stubFn: (...args: any[]) => any): (...args: any[]) => any;
 
-		hijack(realRequire: (id: string) => any): (id: string) => any;
+    restore(obj: any, method: string): void;
 
-		stub(location: string, exportsName?: string): any;
+    hijack(realRequire: (id: string) => any): (id: string) => any;
 
-		verify(msg?: string): void;
-	}
+    stub(location: string, exportsName?: string): any;
+
+    verify(msg?: string): void;
 }

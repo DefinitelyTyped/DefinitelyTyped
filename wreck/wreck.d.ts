@@ -5,37 +5,34 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "wreck"
-{
-    import http = require('http');
-    import stream = require('stream');
+
+import http = require('http');
+import stream = require('stream');
 
 
-    interface WreckObject
-    {
-        defaults: (options: any) => WreckObject;
+interface WreckObject {
+    defaults: (options: any) => WreckObject;
 
-        request: (method: string, uri: string, options: any, callback?: (err: any, response: http.IncomingMessage) => void) => http.ClientRequest;
+    request: (method: string, uri: string, options: any, callback?: (err: any, response: http.IncomingMessage) => void) => http.ClientRequest;
 
-        read: (response: http.IncomingMessage, options: any, callback: (err: any, payload: any) => void) => void;
+    read: (response: http.IncomingMessage, options: any, callback: (err: any, payload: any) => void) => void;
 
-        get: (uri: string, options: any, callback: (err: any, response: http.IncomingMessage, payload: any) => void) => http.ClientRequest;
-        post: (uri: string, options: any, callback: (err: any, response: http.IncomingMessage, payload: any) => void) => http.ClientRequest;
-        patch: (uri: string, options: any, callback: (err: any, response: http.IncomingMessage, payload: any) => void) => http.ClientRequest;
-        put: (uri: string, options: any, callback: (err: any, response: http.IncomingMessage, payload: any) => void) => http.ClientRequest;
-        delete: (uri: string, options: any, callback: (err: any, response: http.IncomingMessage, payload: any) => void) => http.ClientRequest;
+    get: (uri: string, options: any, callback: (err: any, response: http.IncomingMessage, payload: any) => void) => http.ClientRequest;
+    post: (uri: string, options: any, callback: (err: any, response: http.IncomingMessage, payload: any) => void) => http.ClientRequest;
+    patch: (uri: string, options: any, callback: (err: any, response: http.IncomingMessage, payload: any) => void) => http.ClientRequest;
+    put: (uri: string, options: any, callback: (err: any, response: http.IncomingMessage, payload: any) => void) => http.ClientRequest;
+    delete: (uri: string, options: any, callback: (err: any, response: http.IncomingMessage, payload: any) => void) => http.ClientRequest;
 
-        toReadableStream: (payload: any, encoding?: string) => stream.Readable;
+    toReadableStream: (payload: any, encoding?: string) => stream.Readable;
 
-        parseCacheControl: (field: string) => any;
+    parseCacheControl: (field: string) => any;
 
-        agents: {
-            http: http.Agent,
-            https: http.Agent
-        };
-    }
-
-    var wreck: WreckObject;
-
-    export = wreck;
+    agents: {
+        http: http.Agent,
+        https: http.Agent
+    };
 }
+
+declare var wreck: WreckObject;
+
+export = wreck;

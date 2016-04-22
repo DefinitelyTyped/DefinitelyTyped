@@ -5,41 +5,40 @@
 
 /// <reference path="../passport/passport.d.ts"/>
 
-declare module 'passport-local' {
 
-    import passport = require('passport');
-    import express = require('express');
 
-    interface IStrategyOptions {
-        usernameField?: string;
-        passwordField?: string;
-        passReqToCallback?: boolean;
-    }
+import passport = require('passport');
+import express = require('express');
 
-    interface IStrategyOptionsWithRequest {
-        usernameField?: string;
-        passwordField?: string;
-        passReqToCallback: boolean;
-    }
+interface IStrategyOptions {
+    usernameField?: string;
+    passwordField?: string;
+    passReqToCallback?: boolean;
+}
 
-    interface IVerifyOptions {
-        message: string;
-    }
+interface IStrategyOptionsWithRequest {
+    usernameField?: string;
+    passwordField?: string;
+    passReqToCallback: boolean;
+}
 
-    interface VerifyFunctionWithRequest {
-        (req: express.Request, username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void): void;
-    }
+interface IVerifyOptions {
+    message: string;
+}
 
-    interface VerifyFunction {
-        (username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void): void;
-    }
+interface VerifyFunctionWithRequest {
+    (req: express.Request, username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void): void;
+}
 
-    class Strategy implements passport.Strategy {
-        constructor(options: IStrategyOptionsWithRequest, verify: VerifyFunctionWithRequest);
-        constructor(options: IStrategyOptions, verify: VerifyFunction);
-        constructor(verify: VerifyFunction);
+interface VerifyFunction {
+    (username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void): void;
+}
 
-        name: string;
-        authenticate: (req: express.Request, options?: Object) => void;
-    }
+declare class Strategy implements passport.Strategy {
+    constructor(options: IStrategyOptionsWithRequest, verify: VerifyFunctionWithRequest);
+    constructor(options: IStrategyOptions, verify: VerifyFunction);
+    constructor(verify: VerifyFunction);
+
+    name: string;
+    authenticate: (req: express.Request, options?: Object) => void;
 }

@@ -3,23 +3,20 @@
 // Definitions by: Marcin Porębski <https://github.com/marcinporebski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "ini"
-{
-    interface EncodeOptions {
-        section: string
-        whitespace: boolean
-    }
 
-    function decode(inistring: string): any;
-
-    function parse(initstring: string): any;
-
-    function encode(object: any, options?: EncodeOptions): string;
-
-    function stringify(object: any, options?: EncodeOptions): string;
-
-    function safe(val: string): string;
-
-    function unsafe(val: string): string;
-
+interface EncodeOptions {
+    section: string
+    whitespace: boolean
 }
+
+declare function decode(inistring: string): any;
+
+declare function parse(initstring: string): any;
+
+declare function encode(object: any, options?: EncodeOptions): string;
+
+declare function stringify(object: any, options?: EncodeOptions): string;
+
+declare function safe(val: string): string;
+
+declare function unsafe(val: string): string;

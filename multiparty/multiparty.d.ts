@@ -5,12 +5,12 @@
 
 /// <reference path='../node/node.d.ts' />
 
-declare module "multiparty" {
-  import http = require('http');
-  import events = require('events');
-  import stream = require('stream');
 
-  export class Form extends events.EventEmitter {
+import http = require('http');
+import events = require('events');
+import stream = require('stream');
+
+declare export class Form extends events.EventEmitter {
     constructor(options?: FormOptions);
     /**
      * Parses an incoming node.js request containing form data.
@@ -19,9 +19,9 @@ declare module "multiparty" {
      * @param callback
      */
     parse(request: http.ServerRequest, callback?: (error: Error, fields: any, files: any) => any): void;
-  }
+}
 
-  export interface File {
+export interface File {
     /**
      * same as name - the field name for this file
      */
@@ -42,9 +42,9 @@ declare module "multiparty" {
      * size of the file in bytes
      */
     size: number;
-  }
+}
 
-  interface Part extends stream.Readable {
+interface Part extends stream.Readable {
     /**
      * the headers for this part. For example, you may be interested in content-type
      */
@@ -67,45 +67,44 @@ declare module "multiparty" {
      * If the part had a Content-Length header then that value is used here instead.
      */
     byteCount: number;
-  }
+}
 
-  export interface FormOptions {
+export interface FormOptions {
     /**
      * sets encoding for the incoming form fields. Defaults to utf8.
      */
-    encoding?:string;
+    encoding?: string;
     /**
      * Limits the amount of memory all fields (not files) can allocate in bytes.
      * If this value is exceeded, an error event is emitted. The default size is 2MB.
      */
-    maxFieldsSize?:number;
+    maxFieldsSize?: number;
     /**
      * Limits the number of fields that will be parsed before emitting an error event.
      * A file counts as a field in this case. Defaults to 1000.
      */
-    maxFields?:number;
+    maxFields?: number;
     /**
      * Only relevant when autoFiles is true.
      * Limits the total bytes accepted for all files combined.
      * If this value is exceeded, an error event is emitted.
      * The default is Infinity.
      */
-    maxFilesSize?:number;
+    maxFilesSize?: number;
     /**
      * Enables field events and disables part events for fields.
      * This is automatically set to true if you add a field listener.
      */
-    autoFields?:boolean;
+    autoFields?: boolean;
     /**
      * Enables file events and disables part events for files.
      * This is automatically set to true if you add a file listener.
      */
-    autoFiles?:boolean;
+    autoFiles?: boolean;
     /**
      * Only relevant when autoFiles is true.
      * The directory for placing file uploads in.
      * You can move them later using fs.rename(). Defaults to os.tmpDir().
      */
-    uploadDir?:string;
-  }
+    uploadDir?: string;
 }

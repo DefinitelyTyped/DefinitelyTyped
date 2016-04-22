@@ -3,21 +3,21 @@
 // Definitions by: Daniel Chao <http://dchao.co/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "cross-storage" {
-  interface CrossStorageClientOptions {
+
+interface CrossStorageClientOptions {
     timeout?: number;
     promise?: any;
     frameId?: string;
-  }
+}
 
-  type CrossStorageMethod = "get" | "set" | "del" | "getKeys" | "clear";
+type CrossStorageMethod = "get" | "set" | "del" | "getKeys" | "clear";
 
-  interface SubDomain {
+interface SubDomain {
     origin: RegExp;
     allow: CrossStorageMethod[];
-  }
+}
 
-  export class CrossStorageClient {
+declare export class CrossStorageClient {
 
     /**
      * Constructs a new cross storage client given the url to a hub. By default, an iframe is created 
@@ -27,33 +27,33 @@ declare module "cross-storage" {
      * install its listeners. If the promise key is supplied the constructor for a Promise, that Promise 
      * library will be used instead of the default window.Promise.
      */
-    constructor (hubUrl: string, opts: CrossStorageClientOptions)
+    constructor(hubUrl: string, opts: CrossStorageClientOptions)
 
     /**
      * Returns a promise that is fulfilled when a connection has been established with the cross storage 
      * hub. Its use is required to avoid sending any requests prior to initialization being complete.
      */
-    onConnect (): Promise<void>;
+    onConnect(): Promise<void>;
 
     /**
      * Sets a key to the specified value, optionally accepting a ttl to passively expire the key after a 
      * number of milliseconds. Returns a promise that is fulfilled on success, or rejected if any errors 
      * setting the key occurred, or the request timed out.
      */
-    set (key: string, value: any, ttl?: number): Promise<void>;
+    set(key: string, value: any, ttl?: number): Promise<void>;
     /**
      * Accepts one or more keys for which to retrieve their values. Returns a promise that is settled on 
      * hub response or timeout. On success, it is fulfilled with the value of the key if only passed a 
      * single argument. Otherwise it's resolved with an array of values. On failure, it is rejected with 
      * the corresponding error message.
      */
-    get (key: string): Promise<any>;
-    get (...keys: string[]): Promise<any[]>;
+    get(key: string): Promise<any>;
+    get(...keys: string[]): Promise<any[]>;
 
     /**
      * Accepts one or more keys for deletion. Returns a promise that is settled on hub response or timeout.
      */
-    del (...keys: string[]): Promise<void>;
+    del(...keys: string[]): Promise<void>;
 
     /**
      * Returns a promise that, when resolved, passes an array of keys currently in storage.
@@ -70,9 +70,9 @@ declare module "cross-storage" {
      * being invoked.
      */
     close(): void;
-  }
+}
 
-  export class CrossStorageHub {
+declare export class CrossStorageHub {
     /**
      * Accepts an array of objects with two keys: origin and allow. The value of origin is expected to be 
      * a RegExp, and allow, an array of strings. The cross storage hub is then initialized to accept requests 
@@ -80,7 +80,5 @@ declare module "cross-storage" {
      * include any of: get, set, del, getKeys and clear. A 'ready' message is sent to the parent window once 
      * complete.
      */
-    static init (subdomains: SubDomain[]): void;
-  }
-
+    static init(subdomains: SubDomain[]): void;
 }

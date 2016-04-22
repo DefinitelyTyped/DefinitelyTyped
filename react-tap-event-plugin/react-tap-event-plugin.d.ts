@@ -3,7 +3,6 @@
 // Definitions by: Michael Ledin <https://github.com/mxl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'react-tap-event-plugin'{
-    var exports:()=>any;
-    export = exports;
-}
+
+declare var exports: () => any;
+export = exports;

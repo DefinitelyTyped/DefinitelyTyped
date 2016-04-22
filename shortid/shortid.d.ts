@@ -3,10 +3,9 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "shortid" {
-	export function generate(): string;
-	export function characters(string: string): string;
-	export function isValid(id: any): boolean;
-	export function worker(integer: number): void;
-	export function seed(float: number): void;
-}
+
+declare export function generate(): string;
+declare export function characters(string: string): string;
+declare export function isValid(id: any): boolean;
+declare export function worker(integer: number): void;
+declare export function seed(float: number): void;

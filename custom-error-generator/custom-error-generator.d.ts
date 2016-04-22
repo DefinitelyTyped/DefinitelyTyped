@@ -3,9 +3,8 @@
 // Definitions by: Thierry Miceli <https://github.com/thmiceli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "custom-error-generator" {
-    function createError(name: string, parameters?: Object, Constructor?: any): any;
-    namespace createError {
-    }
-    export = createError;
+
+declare function createError(name: string, parameters?: Object, Constructor?: any): any;
+declare namespace createError {
 }
+export = createError;

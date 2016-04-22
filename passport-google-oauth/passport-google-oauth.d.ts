@@ -5,59 +5,58 @@
 
 /// <reference path="../passport/passport.d.ts"/>
 
-declare module 'passport-google-oauth' {
 
-    import passport = require('passport');
-    import express = require('express');
 
-    interface Profile extends passport.Profile {
-        gender: string;
+import passport = require('passport');
+import express = require('express');
 
-        _raw: string;
-        _json: any;
-    }
+interface Profile extends passport.Profile {
+    gender: string;
 
-    interface IOAuthStrategyOption {
-        consumerKey: string;
-        consumerSecret: string;
-        callbackURL: string;
+    _raw: string;
+    _json: any;
+}
 
-        reguestTokenURL?: string;
-        accessTokenURL?: string;
-        userAuthorizationURL?: string;
-        sessionKey?: string;
-    }
+interface IOAuthStrategyOption {
+    consumerKey: string;
+    consumerSecret: string;
+    callbackURL: string;
 
-    class OAuthStrategy implements passport.Strategy {
-        constructor(options: IOAuthStrategyOption,
-                    verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
-        name: string;
-        authenticate: (req: express.Request, options?: Object) => void;
-    }
+    reguestTokenURL?: string;
+    accessTokenURL?: string;
+    userAuthorizationURL?: string;
+    sessionKey?: string;
+}
 
-    interface IOAuth2StrategyOption {
-        clientID: string;
-        clientSecret: string;
-        callbackURL: string;
+declare class OAuthStrategy implements passport.Strategy {
+    constructor(options: IOAuthStrategyOption,
+        verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
+    name: string;
+    authenticate: (req: express.Request, options?: Object) => void;
+}
 
-        authorizationURL?: string;
-        tokenURL?: string;
+interface IOAuth2StrategyOption {
+    clientID: string;
+    clientSecret: string;
+    callbackURL: string;
 
-        accessType?: string;
-        approval_prompt?: string;
-        prompt?: string;
-        loginHint?: string;
-        userID?: string;
-        hostedDomain?: string;
-        display?: string;
-        requestVisibleActions?: string;
-        openIDRealm?: string;
-    }
+    authorizationURL?: string;
+    tokenURL?: string;
 
-    class OAuth2Strategy implements passport.Strategy {
-        constructor(options: IOAuth2StrategyOption,
-                    verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
-        name: string;
-        authenticate: (req: express.Request, options?: Object) => void;
-    }
+    accessType?: string;
+    approval_prompt?: string;
+    prompt?: string;
+    loginHint?: string;
+    userID?: string;
+    hostedDomain?: string;
+    display?: string;
+    requestVisibleActions?: string;
+    openIDRealm?: string;
+}
+
+declare class OAuth2Strategy implements passport.Strategy {
+    constructor(options: IOAuth2StrategyOption,
+        verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
+    name: string;
+    authenticate: (req: express.Request, options?: Object) => void;
 }

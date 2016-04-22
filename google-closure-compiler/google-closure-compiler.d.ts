@@ -5,34 +5,33 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module 'google-closure-compiler' {
-    import * as child_process from 'child_process';
 
-    // The "json_streams" compiler flag lets the compiler accept/produce
-    // arrays of JSON objects in this shape for input/output.
-    interface JSONStreamFile {
-        path: string;
-        src: string;
-        srcmap?: string;  // TODO(evan): pass through source maps.
-    }
+import * as child_process from 'child_process';
 
-    interface Compiler {
-        javaPath: string;
-        logger: (...args: any[]) => void;
-        spawnOptions: {[key:string]: string};
-
-        run(callback?: (exitCode: number, stdout: string, stderr: string) => void):
-        child_process.ChildProcess;
-        
-        getFullCommand(): string;
-    }
-    type CompileOptions = {[key: string]: string};
-    var compiler: {
-        new (opts: (CompileOptions|string[]),
-             extraCommandArgs?: string[]): Compiler;
-
-        JAR_PATH: string;
-        COMPILER_PATH: string;
-        CONTRIB_PATH: string;
-    };
+// The "json_streams" compiler flag lets the compiler accept/produce
+// arrays of JSON objects in this shape for input/output.
+interface JSONStreamFile {
+    path: string;
+    src: string;
+    srcmap?: string;  // TODO(evan): pass through source maps.
 }
+
+interface Compiler {
+    javaPath: string;
+    logger: (...args: any[]) => void;
+    spawnOptions: { [key: string]: string };
+
+    run(callback?: (exitCode: number, stdout: string, stderr: string) => void):
+        child_process.ChildProcess;
+
+    getFullCommand(): string;
+}
+type CompileOptions = { [key: string]: string };
+declare var compiler: {
+    new (opts: (CompileOptions | string[]),
+        extraCommandArgs?: string[]): Compiler;
+
+    JAR_PATH: string;
+    COMPILER_PATH: string;
+    CONTRIB_PATH: string;
+};

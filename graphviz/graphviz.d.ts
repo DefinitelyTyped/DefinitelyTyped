@@ -5,37 +5,37 @@
 
 // graphviz.d.ts
 
-declare module 'graphviz' {
 
-  export interface HasAttributes {
+
+export interface HasAttributes {
     set(name: string, value: any): void;
     get(name: string): any;
-  }
+}
 
-  export interface Node extends HasAttributes {
-  }
+export interface Node extends HasAttributes {
+}
 
-  export interface Edge extends HasAttributes {
-  }
+export interface Edge extends HasAttributes {
+}
 
-  export interface OutputCallback {
+export interface OutputCallback {
     (data: string): void;
-  }
+}
 
-  export interface ErrorCallback {
+export interface ErrorCallback {
     (code: number, stdout: string, stderr: string): void;
-  }
+}
 
-  export interface RenderOptions {
+export interface RenderOptions {
     type: string;  // output file type (png, jpeg, ps, ...)
     use: string;  // Graphviz command to use (dot, neato, ...)
     path: string;  // GraphViz path
     G: any;  // graph options
     N: any;  // node options
     E: any;  // edge options
-  }
+}
 
-  export interface Graph extends HasAttributes {
+export interface Graph extends HasAttributes {
 
     addNode(id: string, attrs?: any): Node;
     nodeCount(): number;
@@ -78,16 +78,14 @@ declare module 'graphviz' {
     output(options: RenderOptions, filename: string, errback?: ErrorCallback): void;
     output(type: string, callback: OutputCallback, errback?: ErrorCallback): void;
     output(options: RenderOptions, callback: OutputCallback, errback?: ErrorCallback): void;
-  }
-
-  export function graph(id: string): Graph;
-
-  export function digraph(id: string): Graph;
-
-  interface ParseCallback {
-    (graph: Graph): void;
-  }
-
-  export function parse(path: string, callback: ParseCallback, errback?: ErrorCallback): void;
-
 }
+
+declare export function graph(id: string): Graph;
+
+declare export function digraph(id: string): Graph;
+
+interface ParseCallback {
+    (graph: Graph): void;
+}
+
+declare export function parse(path: string, callback: ParseCallback, errback?: ErrorCallback): void;

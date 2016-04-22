@@ -3,19 +3,18 @@
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "archy" {
-    function archy(obj: archy.Data, prefix?: string, opts?: archy.Options): string;
-    function archy(obj: string, prefix?: string, opts?: archy.Options): string;
 
-    namespace archy {
-        interface Data {
-            label: string;
-            nodes?: (Data | string)[];
-        }
-        interface Options {
-            unicode?: boolean;
-        }
+declare function archy(obj: archy.Data, prefix?: string, opts?: archy.Options): string;
+declare function archy(obj: string, prefix?: string, opts?: archy.Options): string;
+
+declare namespace archy {
+    interface Data {
+        label: string;
+        nodes?: (Data | string)[];
     }
-
-    export = archy;
+    interface Options {
+        unicode?: boolean;
+    }
 }
+
+export = archy;

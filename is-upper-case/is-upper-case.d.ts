@@ -3,7 +3,6 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "is-upper-case" {
-	function isUpperCase(string: string, locale?: string): boolean;
-	export = isUpperCase;
-}
+
+declare function isUpperCase(string: string, locale?: string): boolean;
+export = isUpperCase;

@@ -3,12 +3,11 @@
 // Definitions by: Shogo Iwano <https://github.com/shiwano>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "path-exists" {
-    interface PathExists {
-        (path: string, callback: (error: Error, exists: boolean) => void): void;
-        sync(path: string): boolean;
-    }
 
-    var pathExists: PathExists;
-    export = pathExists;
+interface PathExists {
+    (path: string, callback: (error: Error, exists: boolean) => void): void;
+    sync(path: string): boolean;
 }
+
+declare var pathExists: PathExists;
+export = pathExists;

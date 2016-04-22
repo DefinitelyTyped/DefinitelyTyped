@@ -3,46 +3,45 @@
 // Definitions by: Jared Klopper <https://github.com/optical>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "tmp" {
 
-	namespace tmp {
-		interface Options extends SimpleOptions {
-			mode?: number;
-		}
 
-		interface SimpleOptions {
-			prefix?: string;
-			postfix?: string;
-			template?: string;
-			dir?: string;
-			tries?: number;
-			keep?: boolean;
-			unsafeCleanup?: boolean;
-		}
+declare namespace tmp {
+    interface Options extends SimpleOptions {
+        mode?: number;
+    }
 
-		interface SynchrounousResult {
-			name: string;
-			fd: number;
-			removeCallback: () => void;
-		}
+    interface SimpleOptions {
+        prefix?: string;
+        postfix?: string;
+        template?: string;
+        dir?: string;
+        tries?: number;
+        keep?: boolean;
+        unsafeCleanup?: boolean;
+    }
 
-		function file(callback: (err: any, path: string, fd: number, cleanupCallback: () => void) => void): void;
-		function file(config: Options, callback?: (err: any, path: string, fd: number, cleanupCallback: () => void) => void): void;
+    interface SynchrounousResult {
+        name: string;
+        fd: number;
+        removeCallback: () => void;
+    }
 
-		function fileSync(config?: Options): SynchrounousResult;
+    function file(callback: (err: any, path: string, fd: number, cleanupCallback: () => void) => void): void;
+    function file(config: Options, callback?: (err: any, path: string, fd: number, cleanupCallback: () => void) => void): void;
 
-		function dir(callback: (err: any, path: string, cleanupCallback: () => void) => void): void;
-		function dir(config: Options, callback?: (err: any, path: string, cleanupCallback: () => void) => void): void;
+    function fileSync(config?: Options): SynchrounousResult;
 
-		function dirSync(config?: Options): SynchrounousResult;
+    function dir(callback: (err: any, path: string, cleanupCallback: () => void) => void): void;
+    function dir(config: Options, callback?: (err: any, path: string, cleanupCallback: () => void) => void): void;
 
-		function tmpName(callback: (err: any, path: string) => void): void;
-		function tmpName(config: SimpleOptions, callback?: (err: any, path: string) => void): void;
+    function dirSync(config?: Options): SynchrounousResult;
 
-		function tmpNameSync(config?: SimpleOptions): string;
+    function tmpName(callback: (err: any, path: string) => void): void;
+    function tmpName(config: SimpleOptions, callback?: (err: any, path: string) => void): void;
 
-		function setGracefulCleanup(): void;
-	}
+    function tmpNameSync(config?: SimpleOptions): string;
 
-	export = tmp;
+    function setGracefulCleanup(): void;
 }
+
+export = tmp;

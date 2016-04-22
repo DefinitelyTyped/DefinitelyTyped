@@ -3,34 +3,33 @@
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "update-notifier" {
-	function t(settings?:t.ISettings):t.IResult;
 
-	namespace t {
+declare function t(settings?: t.ISettings): t.IResult;
 
-		export interface IResult {
-			update: IUpdateInfo;
-			notify(message?:string):void;
-		}
+declare namespace t {
 
-		export interface ISettings {
-			callback?:(error:any, update?:IUpdateInfo)=>any; // default null
-			packagePath?:string; // default 'package.json'
-			packageName?:string; // default Inferred from packageFile
-			packageVersion?:string; // default Inferred from packageFile
-			updateCheckInterval?:number; // default 1000 * 60 * 60 * 24 (1 day)
-			updateCheckTimeout?:number; // default 20000 (20 secs)
-			registryUrl?:string; // default 'http://registry.npmjs.org/%s'
-		}
+    export interface IResult {
+        update: IUpdateInfo;
+        notify(message?: string): void;
+    }
 
-		export interface IUpdateInfo {
-			latest:string;
-			current:string;
-			type:string;
-			date:string;
-			name:string;
-		}
-	}
+    export interface ISettings {
+        callback?: (error: any, update?: IUpdateInfo) => any; // default null
+        packagePath?: string; // default 'package.json'
+        packageName?: string; // default Inferred from packageFile
+        packageVersion?: string; // default Inferred from packageFile
+        updateCheckInterval?: number; // default 1000 * 60 * 60 * 24 (1 day)
+        updateCheckTimeout?: number; // default 20000 (20 secs)
+        registryUrl?: string; // default 'http://registry.npmjs.org/%s'
+    }
 
-	export = t;
+    export interface IUpdateInfo {
+        latest: string;
+        current: string;
+        type: string;
+        date: string;
+        name: string;
+    }
 }
+
+export = t;

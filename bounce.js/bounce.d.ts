@@ -5,62 +5,61 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module 'bounce.js' {
-    export default Bounce
 
-    interface Point2D {
-        x: number
-        y: number
-    }
+export default Bounce
 
-    interface BounceOptions<T> {
-        from: T
-        to: T
-        duration?: number
-        delay?: number
-        easing?: string
-        bounces?: number
-        stiffness?: number
-    }
+interface Point2D {
+    x: number
+    y: number
+}
 
-    interface AnimationOptions {
-        loop?: boolean
-        remove?: boolean
-        onComplete?: () => void
-    }
+interface BounceOptions<T> {
+    from: T
+    to: T
+    duration?: number
+    delay?: number
+    easing?: string
+    bounces?: number
+    stiffness?: number
+}
 
-    interface SerailizedComponent<T> {
-        type: string
-        from: T
-        to: T
-        duration: number
-        delay: number
-        easing: string
-        bounces: number
-        stiffness: number
-    }
+interface AnimationOptions {
+    loop?: boolean
+    remove?: boolean
+    onComplete?: () => void
+}
 
-    class Bounce {
-        static FPS: number
-        static counter: number
+interface SerailizedComponent<T> {
+    type: string
+    from: T
+    to: T
+    duration: number
+    delay: number
+    easing: string
+    bounces: number
+    stiffness: number
+}
 
-        static isSupported(): boolean
+declare class Bounce {
+    static FPS: number
+    static counter: number
 
-        constructor();
+    static isSupported(): boolean
 
-        scale(options: BounceOptions<Point2D>): Bounce
-        rotate(options: BounceOptions<number>): Bounce
-        translate(options: BounceOptions<Point2D>): Bounce
-        skew(options: BounceOptions<Point2D>): Bounce
+    constructor();
 
-        serialize(): SerailizedComponent<number|Point2D>[]
-        deserialize(serailized: SerailizedComponent<number|Point2D>[]): Bounce
+    scale(options: BounceOptions<Point2D>): Bounce
+    rotate(options: BounceOptions<number>): Bounce
+    translate(options: BounceOptions<Point2D>): Bounce
+    skew(options: BounceOptions<Point2D>): Bounce
 
-        applyTo(element: Element, options?: AnimationOptions): void
-        applyTo(elements: Element[], options?: AnimationOptions): void
-        applyTo(elements: JQuery, options?: AnimationOptions): JQueryPromise<void>
+    serialize(): SerailizedComponent<number | Point2D>[]
+    deserialize(serailized: SerailizedComponent<number | Point2D>[]): Bounce
 
-        define(name: string): Bounce
-        remove(): void
-    }
+    applyTo(element: Element, options?: AnimationOptions): void
+    applyTo(elements: Element[], options?: AnimationOptions): void
+    applyTo(elements: JQuery, options?: AnimationOptions): JQueryPromise<void>
+
+    define(name: string): Bounce
+    remove(): void
 }

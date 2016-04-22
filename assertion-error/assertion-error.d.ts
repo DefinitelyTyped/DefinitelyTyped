@@ -3,13 +3,12 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'assertion-error' {
-	class AssertionError implements Error {
-		constructor(message: string, props?: any, ssf?: Function);
-		name: string;
-		message: string;
-		showDiff: boolean;
-		stack: string;
-	}
-	export = AssertionError;
+
+declare class AssertionError implements Error {
+    constructor(message: string, props?: any, ssf?: Function);
+    name: string;
+    message: string;
+    showDiff: boolean;
+    stack: string;
 }
+export = AssertionError;

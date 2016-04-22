@@ -5,10 +5,9 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "gulp-dtsm" {
-  function dtsm(): NodeJS.WritableStream;
 
-  namespace dtsm {}
+declare function dtsm(): NodeJS.WritableStream;
 
-  export = dtsm;
-}
+declare namespace dtsm { }
+
+export = dtsm;

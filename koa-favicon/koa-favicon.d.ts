@@ -15,21 +15,20 @@
 
 /// <reference path="../koa/koa.d.ts" />
 
-declare module "koa-favicon" {
 
-    import * as Koa from "koa";
+
+import * as Koa from "koa";
+
+/**
+ * Returns a middleware serving the favicon found on the given path.
+ */
+declare function favicon(path: string, options?: {
 
     /**
-     * Returns a middleware serving the favicon found on the given path.
+     * cache-control max-age directive in ms, defaulting to 1 day.
      */
-    function favicon(path: string, options?: {
+    maxage?: number;
 
-        /**
-         * cache-control max-age directive in ms, defaulting to 1 day.
-         */
-        maxage?: number;
+}): { (ctx: Koa.Context, next?: () => any): any };
 
-    }): { (ctx: Koa.Context, next?: () => any): any };
-
-    export = favicon;
-}
+export = favicon;

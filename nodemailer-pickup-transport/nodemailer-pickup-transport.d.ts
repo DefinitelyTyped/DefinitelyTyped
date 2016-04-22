@@ -5,15 +5,13 @@
 
 /// <reference path="../nodemailer/nodemailer-types.d.ts" />
 
-declare module "nodemailer-pickup-transport" {
 
-    namespace PickupTransport {
-        export interface Options {
-            directory: string;
-        }
+
+declare namespace PickupTransport {
+    export interface Options {
+        directory: string;
     }
-
-    function PickupTransport(options: PickupTransport.Options): nodemailer.Transport;
-    export = PickupTransport;
 }
 
+declare function PickupTransport(options: PickupTransport.Options): nodemailer.Transport;
+export = PickupTransport;

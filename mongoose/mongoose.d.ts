@@ -5,26 +5,26 @@
 
 ///<reference path="../node/node.d.ts" />
 
-declare module "mongoose" {
-  function connect(uri: string, options?: ConnectionOptions , callback?: (err: any) => void): Mongoose;
-  function createConnection(): Connection;
-  function createConnection(uri: string, options?: ConnectionOptions): Connection;
-  function createConnection(host: string, database_name: string, port?: number, options?: ConnectionOptions): Connection;
-  function disconnect(callback?: (err?: any) => void): Mongoose;
 
-  function model<T extends Document>(name: string, schema?: Schema, collection?: string, skipInit?: boolean): Model<T>;
-  function modelNames(): string[];
-  function plugin(plugin: (schema: Schema, options?: Object) => void, options?: Object): Mongoose;
+declare function connect(uri: string, options?: ConnectionOptions, callback?: (err: any) => void): Mongoose;
+declare function createConnection(): Connection;
+declare function createConnection(uri: string, options?: ConnectionOptions): Connection;
+declare function createConnection(host: string, database_name: string, port?: number, options?: ConnectionOptions): Connection;
+declare function disconnect(callback?: (err?: any) => void): Mongoose;
 
-  function get(key: string): any;
-  function set(key: string, value: any): void;
+declare function model<T extends Document>(name: string, schema?: Schema, collection?: string, skipInit?: boolean): Model<T>;
+declare function modelNames(): string[];
+declare function plugin(plugin: (schema: Schema, options?: Object) => void, options?: Object): Mongoose;
 
-  var mongo: any;
-  var mquery: any;
-  var version: string;
-  var connection: Connection;
+declare function get(key: string): any;
+declare function set(key: string, value: any): void;
 
-  export class Mongoose {
+declare var mongo: any;
+declare var mquery: any;
+declare var version: string;
+declare var connection: Connection;
+
+declare export class Mongoose {
     connect(uri: string, options?: ConnectOpenOptionsBase, callback?: (err: any) => void): Mongoose;
     createConnection(): Connection;
     createConnection(uri: string, options?: Object): Connection;
@@ -40,9 +40,9 @@ declare module "mongoose" {
     mquery: any;
     version: string;
     connection: Connection;
-  }
+}
 
-  export interface Connection extends NodeJS.EventEmitter {
+export interface Connection extends NodeJS.EventEmitter {
     constructor(base: Mongoose): Connection;
 
     close(callback?: (err: any) => void): Connection;
@@ -53,11 +53,11 @@ declare module "mongoose" {
     openSet(uris: string, database?: string, options?: OpenSetConnectionOptions, callback?: (err: any) => void): Connection;
 
     db: any;
-    collections: {[index: string]: Collection};
+    collections: { [index: string]: Collection };
     readyState: number;
-  }
+}
 
-  export interface ConnectOpenOptionsBase {
+export interface ConnectOpenOptionsBase {
     db?: any;
     server?: any;
     replset?: any;
@@ -67,77 +67,77 @@ declare module "mongoose" {
     pass?: string;
     /** Options for authentication */
     auth?: any;
-  }
+}
 
-  export interface ConnectionOptions extends ConnectOpenOptionsBase {
+export interface ConnectionOptions extends ConnectOpenOptionsBase {
     /** Passed to the underlying driver's Mongos instance. */
     mongos?: MongosOptions;
-  }
+}
 
-  interface OpenSetConnectionOptions extends ConnectOpenOptionsBase {
-      /** If true, enables High Availability support for mongos */
-      mongos?: boolean;
-  }
+interface OpenSetConnectionOptions extends ConnectOpenOptionsBase {
+    /** If true, enables High Availability support for mongos */
+    mongos?: boolean;
+}
 
-  interface MongosOptions {
-      /** Turn on high availability monitoring. (default: true) */
-      ha?: boolean;
-      /** Time between each replicaset status check. (default: 5000) */
-      haInterval?: number;
-      /**
-       * Number of connections in the connection pool for each
-       * server instance. (default: 5 (for legacy reasons)) */
-      poolSize?: number;
-      /**
-       * Use ssl connection (needs to have a mongod server with
-       * ssl support). (default: false).
-       */
-      ssl?: boolean;
-      /**
-       * Validate mongod server certificate against ca
-       * (needs to have a mongod server with ssl support, 2.4 or higher)
-       * (default: true)
-       */
-      sslValidate?: boolean;
-      /** Turn on high availability monitoring. */
-      sslCA?: (Buffer|string)[];
-      sslKey?: Buffer|string;
-      sslPass?: Buffer|string;
-      socketOptions?: {
-          noDelay?: boolean;
-          keepAlive?: number;
-          connectionTimeoutMS?: number;
-          socketTimeoutMS?: number;
-      };
-  }
+interface MongosOptions {
+    /** Turn on high availability monitoring. (default: true) */
+    ha?: boolean;
+    /** Time between each replicaset status check. (default: 5000) */
+    haInterval?: number;
+    /**
+     * Number of connections in the connection pool for each
+     * server instance. (default: 5 (for legacy reasons)) */
+    poolSize?: number;
+    /**
+     * Use ssl connection (needs to have a mongod server with
+     * ssl support). (default: false).
+     */
+    ssl?: boolean;
+    /**
+     * Validate mongod server certificate against ca
+     * (needs to have a mongod server with ssl support, 2.4 or higher)
+     * (default: true)
+     */
+    sslValidate?: boolean;
+    /** Turn on high availability monitoring. */
+    sslCA?: (Buffer | string)[];
+    sslKey?: Buffer | string;
+    sslPass?: Buffer | string;
+    socketOptions?: {
+        noDelay?: boolean;
+        keepAlive?: number;
+        connectionTimeoutMS?: number;
+        socketTimeoutMS?: number;
+    };
+}
 
-  export interface Collection {
-  }
+export interface Collection {
+}
 
 
-  export class SchemaType { }
-  export class VirtualType {
+declare export class SchemaType { }
+declare export class VirtualType {
     get(fn: Function): VirtualType;
     set(fn: Function): VirtualType;
-  }
-  export module Types {
+}
+declare export module Types {
     export class ObjectId {
-      constructor(id?: string|number);
-      toHexString(): string;
-      equals(other: ObjectId): boolean;
-      getTimestamp(): Date;
-      isValid(): boolean;
-      static createFromTime(time: number): ObjectId;
-      static createFromHexString(hexString: string): ObjectId;
+        constructor(id?: string | number);
+        toHexString(): string;
+        equals(other: ObjectId): boolean;
+        getTimestamp(): Date;
+        isValid(): boolean;
+        static createFromTime(time: number): ObjectId;
+        static createFromHexString(hexString: string): ObjectId;
     }
-  }
+}
 
-  export class Schema {
+declare export class Schema {
     static Types: {
-      String: String;
-      ObjectId: Types.ObjectId;
-      OId: Types.ObjectId;
-      Mixed: any;
+        String: String;
+        ObjectId: Types.ObjectId;
+        OId: Types.ObjectId;
+        Mixed: any;
     };
     constructor(schema?: Object, options?: Object);
 
@@ -159,8 +159,8 @@ declare module "mongoose" {
     static(name: string, fn: Function): Schema;
     virtual(name: string, options?: Object): VirtualType;
     virtualpath(name: string): VirtualType;
-  }
-  export interface SchemaOption {
+}
+export interface SchemaOption {
     autoIndex?: boolean;
     bufferCommands?: boolean;
     capped?: boolean;
@@ -175,10 +175,10 @@ declare module "mongoose" {
     toJSON?: Object;
     toObject?: Object;
     versionKey?: boolean;
-  }
+}
 
-  export interface Model<T extends Document> extends NodeJS.EventEmitter {
-    new(doc?: Object, fields?: Object, skipInit?: boolean): T;
+export interface Model<T extends Document> extends NodeJS.EventEmitter {
+    new (doc?: Object, fields?: Object, skipInit?: boolean): T;
 
     aggregate(...aggregations: Object[]): Aggregate<T[]>;
     aggregate(aggregation: Object, callback: (err: any, res: T[]) => void): Promise<T[]>;
@@ -237,20 +237,20 @@ declare module "mongoose" {
     discriminators: any;
     modelName: string;
     schema: Schema;
-  }
-  export interface FindAndUpdateOption {
+}
+export interface FindAndUpdateOption {
     new?: boolean;
     upsert?: boolean;
     sort?: Object;
     select?: Object;
-  }
-  export interface GeoSearchOption {
+}
+export interface GeoSearchOption {
     near: number[];
     maxDistance: number;
     limit?: number;
     lean?: boolean;
-  }
-  export interface MapReduceOption<T extends Document, Key, Val> {
+}
+export interface MapReduceOption<T extends Document, Key, Val> {
     map: () => void;
     reduce: (key: Key, vals: T[]) => Val;
     query?: Object;
@@ -261,13 +261,13 @@ declare module "mongoose" {
     jsMode?: boolean;
     verbose?: boolean;
     out?: {
-      inline?: number;
-      replace?: string;
-      reduce?: string;
-      merge?: string;
+        inline?: number;
+        replace?: string;
+        reduce?: string;
+        merge?: string;
     };
-  }
-  export interface MapReduceOption2<T extends Document, Key, Val> {
+}
+export interface MapReduceOption2<T extends Document, Key, Val> {
     map: string;
     reduce: (key: Key, vals: T[]) => Val;
     query?: Object;
@@ -278,18 +278,18 @@ declare module "mongoose" {
     jsMode?: boolean;
     verbose?: boolean;
     out?: {
-      inline?: number;
-      replace?: string;
-      reduce?: string;
-      merge?: string;
+        inline?: number;
+        replace?: string;
+        reduce?: string;
+        merge?: string;
     };
-  }
-  export interface MapReduceResult<Key, Val> {
+}
+export interface MapReduceResult<Key, Val> {
     _id: Key;
     value: Val;
-  }
+}
 
-  export class Query<T> {
+declare export class Query<T> {
     exec(callback?: (err: any, res: T) => void): Promise<T>;
     exec(operation: string, callback?: (err: any, res: T) => void): Promise<T>;
     exec(operation: Function, callback?: (err: any, res: T) => void): Promise<T>;
@@ -402,31 +402,31 @@ declare module "mongoose" {
     $where(argument: Function): Query<T>;
 
     static use$geoWithin: boolean;
-  }
+}
 
-  export interface PopulateOption {
+export interface PopulateOption {
     path: string;
     select?: string;
     model?: string;
     match?: Object;
     options?: Object;
-  }
+}
 
-  export interface QueryStream extends NodeJS.EventEmitter {
+export interface QueryStream extends NodeJS.EventEmitter {
     destory(err?: any): void;
     pause(): void;
     resume(): void;
     pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
     paused: number;
     readable: boolean;
-  }
+}
 
-  export interface Document {
+export interface Document {
     id?: string;
     _id: any;
 
     equals(doc: Document): boolean;
-    get(path: string, type?: new(...args: any[]) => any): any;
+    get(path: string, type?: new (...args: any[]) => any): any;
     inspect(options?: Object): string;
     invalidate(path: string, errorMsg: string, value: any): void;
     invalidate(path: string, error: Error, value: any): void;
@@ -442,7 +442,7 @@ declare module "mongoose" {
     populated(path: string): any;
     remove<T>(callback?: (err: any) => void): Query<T>;
     save<T>(callback?: (err: any, res: T) => void): void;
-    set(path: string, val: any, type?: new(...args: any[]) => any, options?: Object): void;
+    set(path: string, val: any, type?: new (...args: any[]) => any, options?: Object): void;
     set(path: string, val: any, options?: Object): void;
     set(value: Object): void;
     toJSON(options?: Object): Object;
@@ -454,10 +454,10 @@ declare module "mongoose" {
     isNew: boolean;
     errors: Object;
     schema: Object;
-  }
+}
 
 
-  export class Aggregate<T> {
+declare export class Aggregate<T> {
     constructor(...options: Object[]);
 
     append(...options: Object[]): Aggregate<T>;
@@ -475,9 +475,9 @@ declare module "mongoose" {
 
     exec(callback?: (err: any, result: T) => void): Promise<T>;
     read(pref: string, ...tags: Object[]): Aggregate<T>;
-  }
+}
 
-  export class Promise<T> {
+declare export class Promise<T> {
     constructor(fn?: (err: any, result: T) => void);
 
     then<U>(onFulFill: (result: T) => void, onReject?: (err: any) => void): Promise<U>;
@@ -498,6 +498,4 @@ declare module "mongoose" {
     addErrback(listener: (err: any) => void): Promise<T>;
     complete(result: T): Promise<T>;
     error(err: any): Promise<T>;
-  }
-
 }

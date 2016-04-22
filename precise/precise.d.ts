@@ -3,32 +3,31 @@
 // Definitions by: Peter Harris <https://github.com/codeanimal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "precise" {
-  /**
-   * Precise factory
-   */
-  function _precise(): _precise.Precise;
 
-  module _precise {
+/**
+ * Precise factory
+ */
+declare function _precise(): _precise.Precise;
+
+declare module _precise {
     class Precise {
-      constructor();
+        constructor();
 
-      /**
-       * Starts a timer
-       */
-      start(): Precise;
+        /**
+         * Starts a timer
+         */
+        start(): Precise;
 
-      /**
-       * Stops a timer
-       */
-      stop(): Precise;
+        /**
+         * Stops a timer
+         */
+        stop(): Precise;
 
-      /**
-       * Returns the nanoseconds from `start()` to `stop()`
-       */
-      diff(): number;
+        /**
+         * Returns the nanoseconds from `start()` to `stop()`
+         */
+        diff(): number;
     }
-  }
-
-  export = _precise;
 }
+
+export = _precise;

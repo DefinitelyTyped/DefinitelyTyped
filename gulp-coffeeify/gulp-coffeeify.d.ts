@@ -5,40 +5,38 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "gulp-coffeeify" {
-	namespace coffeeify {
-		interface Coffeeify {
-			(option?: Option): NodeJS.ReadWriteStream;
-		}
 
-		interface Option {
-			options?: {
-				debug?: boolean;
-				paths?: string[];
-			},
-			/**
-			 * [DEPRECATED]: You should use a 'paths' options of browserify.
-			 */
-			aliases?: Aliases;
-			/**
-			 * [DEPRECATED]
-			 */
-			transforms?: Transforms;
-		}
+declare namespace coffeeify {
+    interface Coffeeify {
+        (option?: Option): NodeJS.ReadWriteStream;
+    }
 
-		interface Aliases {
-			cwd?: string;
-			base?: string;
-		}
+    interface Option {
+        options?: {
+            debug?: boolean;
+            paths?: string[];
+        },
+        /**
+         * [DEPRECATED]: You should use a 'paths' options of browserify.
+         */
+        aliases?: Aliases;
+        /**
+         * [DEPRECATED]
+         */
+        transforms?: Transforms;
+    }
 
-		interface Transforms {
-			ext?: string;
-			transform?(data: string): string;
-		}
-	}
+    interface Aliases {
+        cwd?: string;
+        base?: string;
+    }
 
-	var coffeeify: coffeeify.Coffeeify;
-
-	export = coffeeify;
+    interface Transforms {
+        ext?: string;
+        transform?(data: string): string;
+    }
 }
 
+declare var coffeeify: coffeeify.Coffeeify;
+
+export = coffeeify;

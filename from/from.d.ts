@@ -5,17 +5,16 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module 'from' {
 
-	var mod: mod.From;
 
-	namespace mod {
-		interface From {
-			(getChunk: (count: number, next: () => any) => any): NodeJS.ReadableStream;
-			(chunks: any[]): NodeJS.ReadableStream;
-			emit(type: string, data: any): void;
-		}
-	}
+declare var mod: mod.From;
 
-	export  = mod;
+declare namespace mod {
+    interface From {
+        (getChunk: (count: number, next: () => any) => any): NodeJS.ReadableStream;
+        (chunks: any[]): NodeJS.ReadableStream;
+        emit(type: string, data: any): void;
+    }
 }
+
+export = mod;

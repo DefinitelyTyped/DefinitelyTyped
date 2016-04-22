@@ -7,23 +7,22 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "mu2" {
-	export var root: string;
 
-	export function compileAndRender(templateName: string, view: any): NodeJS.ReadableStream;
+declare export var root: string;
 
-	export function compile(filename: string, callback: (err: Error, parsed: IParsed) => void): void;
+declare export function compileAndRender(templateName: string, view: any): NodeJS.ReadableStream;
 
-	export function compileText(name: string, template: string, callback: (err: Error, parsed: IParsed) => void): void;
-	export function compileText(name: string, template: string): IParsed;
-	export function compileText(template: string): IParsed;
+declare export function compile(filename: string, callback: (err: Error, parsed: IParsed) => void): void;
 
-	export function render(filenameOrParsed: string, view: any): NodeJS.ReadableStream;
-	export function render(filenameOrParsed: IParsed, view: any): NodeJS.ReadableStream;
+declare export function compileText(name: string, template: string, callback: (err: Error, parsed: IParsed) => void): void;
+declare export function compileText(name: string, template: string): IParsed;
+declare export function compileText(template: string): IParsed;
 
-	export function renderText(template: string, view: any, partials?: any): NodeJS.ReadableStream;
+declare export function render(filenameOrParsed: string, view: any): NodeJS.ReadableStream;
+declare export function render(filenameOrParsed: IParsed, view: any): NodeJS.ReadableStream;
 
-	export function clearCache(templateName?: string): void;
+declare export function renderText(template: string, view: any, partials?: any): NodeJS.ReadableStream;
 
-	export interface IParsed { }
-}
+declare export function clearCache(templateName?: string): void;
+
+export interface IParsed { }

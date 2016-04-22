@@ -5,19 +5,18 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module 'gulp-rev-replace' {
-  namespace revReplace {
+
+declare namespace revReplace {
     interface Options {
-      canonicalUris?: boolean;
-      replaceInExtensions?: Array<string>;
-      prefix?: string;
-      manifest?: NodeJS.ReadWriteStream;
-      modifyUnreved?: Function;
-      modifyReved?: Function;
+        canonicalUris?: boolean;
+        replaceInExtensions?: Array<string>;
+        prefix?: string;
+        manifest?: NodeJS.ReadWriteStream;
+        modifyUnreved?: Function;
+        modifyReved?: Function;
     }
-  }
-
-  function revReplace(options?: revReplace.Options): NodeJS.ReadWriteStream;
-
-  export = revReplace;
 }
+
+declare function revReplace(options?: revReplace.Options): NodeJS.ReadWriteStream;
+
+export = revReplace;

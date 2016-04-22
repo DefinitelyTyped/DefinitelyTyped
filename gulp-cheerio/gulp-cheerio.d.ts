@@ -7,28 +7,26 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../vinyl/vinyl.d.ts"/>
 
-declare module "gulp-cheerio" {
-    import Vinyl = require('vinyl');
 
-    namespace cheerio {
-        interface Cheerio {
-            (callback: Callback): NodeJS.ReadWriteStream;
-            (option: Option): NodeJS.ReadWriteStream;
-        }
+import Vinyl = require('vinyl');
 
-        interface Callback {
-            ($: CheerioStatic, file: Vinyl, done?: Function): any;
-        }
-
-        interface Option {
-            run?: Callback;
-            parserOptions?: CheerioOptionsInterface;
-            cheerio?: CheerioStatic;
-        }
+declare namespace cheerio {
+    interface Cheerio {
+        (callback: Callback): NodeJS.ReadWriteStream;
+        (option: Option): NodeJS.ReadWriteStream;
     }
 
-    var cheerio: cheerio.Cheerio;
+    interface Callback {
+        ($: CheerioStatic, file: Vinyl, done?: Function): any;
+    }
 
-    export = cheerio;
+    interface Option {
+        run?: Callback;
+        parserOptions?: CheerioOptionsInterface;
+        cheerio?: CheerioStatic;
+    }
 }
 
+declare var cheerio: cheerio.Cheerio;
+
+export = cheerio;

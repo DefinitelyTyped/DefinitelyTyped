@@ -14,29 +14,28 @@
  =============================================== */
 
 /// <reference path="../node/node.d.ts" />
-declare module "archiver" {
-    import * as FS from 'fs';
-    import * as STREAM from 'stream';
-    
-    interface nameInterface {
-        name?: string;
-    }
-        
-    interface Archiver extends STREAM.Transform {
-        pipe(writeStream: FS.WriteStream): void;
-        append(readStream: FS.ReadStream, name: nameInterface): void;
-        finalize(): void;
-    }
-    
-    interface Options {
-        
-    }
-    
-    function archiver(format: string, options?: Options): Archiver;
-    
-    namespace archiver {
-        function create(format: string, options?: Options): Archiver;
-    }
-    
-    export = archiver;
+
+import * as FS from 'fs';
+import * as STREAM from 'stream';
+
+interface nameInterface {
+    name?: string;
 }
+
+interface Archiver extends STREAM.Transform {
+    pipe(writeStream: FS.WriteStream): void;
+    append(readStream: FS.ReadStream, name: nameInterface): void;
+    finalize(): void;
+}
+
+interface Options {
+
+}
+
+declare function archiver(format: string, options?: Options): Archiver;
+
+declare namespace archiver {
+    function create(format: string, options?: Options): Archiver;
+}
+
+export = archiver;

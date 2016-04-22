@@ -3,6 +3,5 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "magic-number" {
-    export function detectFile(file: string): string;
-}
+
+declare export function detectFile(file: string): string;

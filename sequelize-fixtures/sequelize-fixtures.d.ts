@@ -5,27 +5,25 @@
 
 /// <reference path="../sequelize/sequelize.d.ts" />
 
-declare module "sequelize-fixtures"
-{
-    import * as Sequelize from "sequelize";
 
-    namespace SequelizeFixtures {
-        interface Options {
-            encoding?: string,
-            log?: (message: string) => void,
-            transaction?: Sequelize.Transaction,
-            transformFixtureDataFn?: (data: any) => any
-        }
+import * as Sequelize from "sequelize";
 
-        interface SequelizeFixturesStatic {
-            loadFile(file: string, models: any, options?: Options): Promise<any>;
-            loadFiles(files: string[], models: any, options?: Options): Promise<any>;
-            loadFixture(fixture: any, models: any, options?: Options): Promise<any>;
-            loadFixtures(fixtures: any[], models: any, options?: Options): Promise<any>;
-        }
+declare namespace SequelizeFixtures {
+    interface Options {
+        encoding?: string,
+        log?: (message: string) => void,
+        transaction?: Sequelize.Transaction,
+        transformFixtureDataFn?: (data: any) => any
     }
 
-    var sequelizeFixtures: SequelizeFixtures.SequelizeFixturesStatic;
-
-    export = sequelizeFixtures;
+    interface SequelizeFixturesStatic {
+        loadFile(file: string, models: any, options?: Options): Promise<any>;
+        loadFiles(files: string[], models: any, options?: Options): Promise<any>;
+        loadFixture(fixture: any, models: any, options?: Options): Promise<any>;
+        loadFixtures(fixtures: any[], models: any, options?: Options): Promise<any>;
+    }
 }
+
+declare var sequelizeFixtures: SequelizeFixtures.SequelizeFixturesStatic;
+
+export = sequelizeFixtures;

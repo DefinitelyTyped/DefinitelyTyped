@@ -15,37 +15,36 @@
 
 /// <reference path="../koa/koa.d.ts" />
 
-declare module "koa-static" {
 
-    import * as Koa from "koa";
 
-    function serve(root: string, opts?: {
-        
-        /**
-         * Default file name, defaults to 'index.html'
-         */
-        index?: boolean | string;
-        
-        /**
-         * If true, serves after return next(),allowing any downstream middleware to respond first.
-         */
-        defer?: boolean;
-        
-        /**
-         * Browser cache max-age in milliseconds. defaults to 0
-         */
-        maxage?: number;
-        
-        /**
-         * Allow transfer of hidden files. defaults to false
-         */
-        hidden?: boolean;
-        
-        /**
-         * Try to serve the gzipped version of a file automatically when gzip is supported by a client and if the requested file with .gz extension exists. defaults to true.
-         */
-        gzip?: boolean;
-    }): { (ctx: Koa.Context, next?: () => any): any };
+import * as Koa from "koa";
 
-    export = serve;
-}
+declare function serve(root: string, opts?: {
+
+    /**
+     * Default file name, defaults to 'index.html'
+     */
+    index?: boolean | string;
+
+    /**
+     * If true, serves after return next(),allowing any downstream middleware to respond first.
+     */
+    defer?: boolean;
+
+    /**
+     * Browser cache max-age in milliseconds. defaults to 0
+     */
+    maxage?: number;
+
+    /**
+     * Allow transfer of hidden files. defaults to false
+     */
+    hidden?: boolean;
+
+    /**
+     * Try to serve the gzipped version of a file automatically when gzip is supported by a client and if the requested file with .gz extension exists. defaults to true.
+     */
+    gzip?: boolean;
+}): { (ctx: Koa.Context, next?: () => any): any };
+
+export = serve;

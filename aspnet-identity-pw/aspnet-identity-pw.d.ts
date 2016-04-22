@@ -3,11 +3,10 @@
 // Definitions by: jt000 <https://github.com/jt000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "aspnet-identity-pw" {
 
-	export function hashPassword(password: string): string;
-	export function hashPassword(password: string, callback: (err: any, result: string)=>void): void;
 
-	export function validatePassword(password: string, hashedPass: string): boolean;
-	export function validatePassword(password: string, hashedPass: string, callback: (err: any, result: boolean) => void): void; 
-}
+declare export function hashPassword(password: string): string;
+declare export function hashPassword(password: string, callback: (err: any, result: string) => void): void;
+
+declare export function validatePassword(password: string, hashedPass: string): boolean;
+declare export function validatePassword(password: string, hashedPass: string, callback: (err: any, result: boolean) => void): void;

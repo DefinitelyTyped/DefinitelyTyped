@@ -5,38 +5,37 @@
 
 /// <reference path="../passport/passport.d.ts"/>
 
-declare module 'passport-twitter' {
 
-    import passport = require('passport');
-    import express = require('express');
 
-    interface Profile extends passport.Profile {
-        gender: string;
-        username: string;
+import passport = require('passport');
+import express = require('express');
 
-        _raw: string;
-        _json: any;
-        _accessLevel: string;
-    }
+interface Profile extends passport.Profile {
+    gender: string;
+    username: string;
 
-    interface IStrategyOption {
-        consumerKey: string;
-        consumerSecret: string;
-        callbackURL: string;
+    _raw: string;
+    _json: any;
+    _accessLevel: string;
+}
 
-        reguestTokenURL?: string;
-        accessTokenURL?: string;
-        userAuthorizationURL?: string;
-        sessionKey?: string;
+interface IStrategyOption {
+    consumerKey: string;
+    consumerSecret: string;
+    callbackURL: string;
 
-        userProfileURL?: string;
-        skipExtendedUserProfile?: boolean;
-    }
+    reguestTokenURL?: string;
+    accessTokenURL?: string;
+    userAuthorizationURL?: string;
+    sessionKey?: string;
 
-    class Strategy implements passport.Strategy {
-        constructor(options: IStrategyOption,
-                    verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
-        name: string;
-        authenticate: (req: express.Request, options?: Object) => void;
-    }
+    userProfileURL?: string;
+    skipExtendedUserProfile?: boolean;
+}
+
+declare class Strategy implements passport.Strategy {
+    constructor(options: IStrategyOption,
+        verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
+    name: string;
+    authenticate: (req: express.Request, options?: Object) => void;
 }

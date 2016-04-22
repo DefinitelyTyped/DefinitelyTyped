@@ -4,8 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module 'compare-version' {
-  function compare(a: string, b: string): number;
 
-  export = compare;
-}
+declare function compare(a: string, b: string): number;
+
+export = compare;

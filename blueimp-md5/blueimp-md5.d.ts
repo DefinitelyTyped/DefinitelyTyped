@@ -2,6 +2,5 @@
 // Project: https://github.com/blueimp/JavaScript-MD5
 // Definitions by: Ray Martone <https://github.com/rmartone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-declare module 'blueimp-md5' {
-    export function md5(value: string, key?: string, raw?: boolean): string;
-}
+
+declare export function md5(value: string, key?: string, raw?: boolean): string;

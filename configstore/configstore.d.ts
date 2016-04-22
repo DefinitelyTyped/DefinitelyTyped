@@ -3,36 +3,35 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'configstore' {
-	/*
-	 Set an item
-	 */
-	export function set(key: string, val: any): void;
 
-	/*
-	 Get an item
-	 */
-	export function get(key: string): any;
+/*
+ Set an item
+ */
+declare export function set(key: string, val: any): void;
 
-	/*
-	 Delete an item
-	 */
-	export function del(key: string): void;
+/*
+ Get an item
+ */
+declare export function get(key: string): any;
 
-	/*
-	 Get all items as an object or replace the current config with an object:
+/*
+ Delete an item
+ */
+declare export function del(key: string): void;
 
-	 conf.all = {
-	    hello: 'world'
-	 };
-	 */
-	export var all: Object;
-	/*
-	 Get the item count
-	 */
-	export var size: number;
-	/*
-	 Get the path to the config file. Can be used to show the user where the config file is located or even better open it for them.
-	 */
-	export var path: string;
-}
+/*
+ Get all items as an object or replace the current config with an object:
+
+ conf.all = {
+    hello: 'world'
+ };
+ */
+declare export var all: Object;
+/*
+ Get the item count
+ */
+declare export var size: number;
+/*
+ Get the path to the config file. Can be used to show the user where the config file is located or even better open it for them.
+ */
+declare export var path: string;

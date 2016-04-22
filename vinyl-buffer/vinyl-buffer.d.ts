@@ -5,15 +5,13 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "vinyl-buffer" {
-    namespace buffer {
-        interface Buffer {
-            (): NodeJS.ReadWriteStream;
-        }
+
+declare namespace buffer {
+    interface Buffer {
+        (): NodeJS.ReadWriteStream;
     }
-
-    var buffer: buffer.Buffer;
-
-    export = buffer;
 }
 
+declare var buffer: buffer.Buffer;
+
+export = buffer;

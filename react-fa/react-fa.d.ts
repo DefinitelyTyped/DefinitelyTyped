@@ -5,24 +5,23 @@
 
 /// <reference path="../react/react.d.ts" />
 
-declare module "react-fa" {
-	import { ComponentClass, Props } from 'react';
 
-	interface IconProps extends Props<Icon> {
-		name: string;
-		className?: string;
-		size?: string;
-		spin?: boolean;
-		rotate?: string;
-		flip?: string;
-		fixedWidth?: boolean;
-		pulse?: boolean;
-		stack?: string;
-		inverse?: boolean;
-	}
+import { ComponentClass, Props } from 'react';
 
-	interface Icon extends ComponentClass<IconProps> { }
-	const Icon: Icon;
-
-	export = Icon;
+interface IconProps extends Props<Icon> {
+    name: string;
+    className?: string;
+    size?: string;
+    spin?: boolean;
+    rotate?: string;
+    flip?: string;
+    fixedWidth?: boolean;
+    pulse?: boolean;
+    stack?: string;
+    inverse?: boolean;
 }
+
+interface Icon extends ComponentClass<IconProps> { }
+declare const Icon: Icon;
+
+export = Icon;

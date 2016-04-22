@@ -6,8 +6,7 @@
 /// <reference path="../mocha/mocha.d.ts"/>
 /// <reference path="../node/node.d.ts"/>
 
-declare module "gulp-mocha" {
-    function mocha(setupOptions?: MochaSetupOptions): NodeJS.ReadWriteStream;
-    namespace mocha {}
-    export = mocha;
-}
+
+declare function mocha(setupOptions?: MochaSetupOptions): NodeJS.ReadWriteStream;
+declare namespace mocha { }
+export = mocha;
