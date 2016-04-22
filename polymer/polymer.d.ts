@@ -305,7 +305,7 @@ declare namespace polymer {
 
     Settings: Settings;
 
-    dom:DomApiStatic;
+    dom:DomApiStatic|'shadow';
 
     (prototype: Base|{new ():Base}):webcomponents.CustomElementConstructor;
 
