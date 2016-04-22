@@ -1598,7 +1598,7 @@ declare namespace __MaterialUI {
             value?: any;
             width?: string;
         }
-        export class Tab extends React.Component<TabProps, {}> {
+        export class Tab extends React.Component<TabProps & EnhancedButtonProps, {}> {
         }
     }
 
