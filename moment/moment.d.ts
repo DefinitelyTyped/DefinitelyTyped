@@ -133,8 +133,7 @@ export interface MomentCreationData {
 }
 
 export interface Moment {
-    format(format: string): string;
-    format(): string;
+    format(format?: string): string;
 
     fromNow(withoutSuffix?: boolean): string;
 
@@ -154,26 +153,13 @@ export interface Moment {
      * @param amount the amount you want to add
      * @param unitOfTime the unit of time you want to add (eg "years" / "hours" etc)
      */
-    add(amount: number, unitOfTime: string): Moment;
-    /**
-     * Mutates the original moment by adding time. Note that the order of arguments can be flipped.
-     *
-     * @param amount the amount you want to add
-     * @param unitOfTime the unit of time you want to add (eg "years" / "hours" etc)
-     */
-    add(amount: string, unitOfTime: string): Moment;
+    add(amount: number|string, unitOfTime: string): Moment;
     /**
      * Mutates the original moment by adding time.
      *
-     * @param objectLiteral an object literal that describes multiple time units {days:7,months:1}
+     * @param objectLiteral a length of time or an object literal that describes multiple time units {days:7,months:1}
      */
-    add(objectLiteral: MomentInput): Moment;
-    /**
-     * Mutates the original moment by adding time.
-     *
-     * @param duration a length of time
-     */
-    add(duration: Duration): Moment;
+    add(duration: Duration|MomentInput): Moment;
 
     /**
      * Mutates the original moment by subtracting time. (deprecated in 2.8.0)
@@ -188,30 +174,15 @@ export interface Moment {
      * @param unitOfTime the unit of time you want to subtract (eg "years" / "hours" etc)
      * @param amount the amount you want to subtract
      */
-    subtract(amount: number, unitOfTime: string): Moment;
-    /**
-     * Mutates the original moment by subtracting time. Note that the order of arguments can be flipped.
-     *
-     * @param amount the amount you want to add
-     * @param unitOfTime the unit of time you want to subtract (eg "years" / "hours" etc)
-     */
-    subtract(amount: string, unitOfTime: string): Moment;
+    subtract(amount: string|string, unitOfTime: string): Moment;
     /**
      * Mutates the original moment by subtracting time.
      *
-     * @param objectLiteral an object literal that describes multiple time units {days:7,months:1}
+     * @param duration a length of time or an object literal that describes multiple time units {days:7,months:1}
      */
-    subtract(objectLiteral: MomentInput): Moment;
-    /**
-     * Mutates the original moment by subtracting time.
-     *
-     * @param duration a length of time
-     */
-    subtract(duration: Duration): Moment;
+    subtract(duration: Duration|MomentInput): Moment;
 
-    calendar(): string;
-    calendar(start: Moment): string;
-    calendar(start: Moment, formats: MomentCalendar): string;
+    calendar(start?: Moment, formats?: MomentCalendar): string;
 
     clone(): Moment;
 
@@ -280,9 +251,7 @@ export interface Moment {
     to(f: MomentComparable, suffix?: boolean): string;
     toNow(withoutPrefix?: boolean): string;
 
-    diff(b: MomentComparable): number;
-    diff(b: MomentComparable, unitOfTime: string): number;
-    diff(b: MomentComparable, unitOfTime: string, round: boolean): number;
+    diff(b: MomentComparable, unitOfTime?: string, round?: boolean): number;
 
     toArray(): number[];
     toDate(): Date;
@@ -292,20 +261,14 @@ export interface Moment {
 
     isLeapYear(): boolean;
     zone(): number;
-    zone(b: number): Moment;
-    zone(b: string): Moment;
+    zone(b?: number|string): Moment;
     utcOffset(): number;
-    utcOffset(b: number): Moment;
-    utcOffset(b: string): Moment;
+    utcOffset(b: number|string): Moment;
     daysInMonth(): number;
     isDST(): boolean;
 
-    isBefore(): boolean;
-    isBefore(b: MomentComparable, granularity?: string): boolean;
-
-    isAfter(): boolean;
-    isAfter(b: MomentComparable, granularity?: string): boolean;
-
+    isBefore(b?: MomentComparable, granularity?: string): boolean;
+    isAfter(b?: MomentComparable, granularity?: string): boolean;
     isSame(b: MomentComparable, granularity?: string): boolean;
     isBetween(a: MomentComparable, b: MomentComparable, granularity?: string): boolean;
 
@@ -318,20 +281,18 @@ export interface Moment {
     /**
      * @deprecated since version 2.8.0
      */
-    lang(language: string): Moment;
-    lang(reset: boolean): Moment;
+    lang(languageOrReset: string|boolean): Moment;
     lang(): MomentLanguage;
 
-    locale(language: string): Moment;
-    locale(reset: boolean): Moment;
+    locale(languageOrReset: string|boolean): Moment;
     locale(): string;
 
     /**
      * @since 2.12.0+
      */
     locales() : string[];
-    localeData(language: string): Moment;
-    localeData(reset: boolean): Moment;
+    
+    localeData(languageOrReset: string|boolean): Moment;
     localeData(): MomentLanguage;
 
     /**
@@ -347,6 +308,7 @@ export interface Moment {
     min(date: string, format: string): Moment;
 
     get(unit: string): number;
+
     set(unit: string, value: number): Moment;
     set(objectLiteral: MomentInput): Moment;
 
@@ -582,42 +544,30 @@ export interface MomentStatic {
     fn: Moment;
 
     (): Moment;
-    (date: number): Moment;
-    (date: number[]): Moment;
+    (date: number[]|number|Date|Moment|Object): Moment;
     (date: string, format?: MomentFormatSpecification, strict?: boolean): Moment;
     (date: string, format?: MomentFormatSpecification, language?: string, strict?: boolean): Moment;
-    (date: Date): Moment;
-    (date: Moment): Moment;
-    (date: Object): Moment;
 
     utc(): Moment;
-    utc(date: number): Moment;
-    utc(date: number[]): Moment;
+    utc(date: number[]|number|Date|Moment|Object): Moment;
     utc(date: string, format?: string, strict?: boolean): Moment;
     utc(date: string, format?: string, language?: string, strict?: boolean): Moment;
     utc(date: string, formats: string[], strict?: boolean): Moment;
     utc(date: string, formats: string[], language?: string, strict?: boolean): Moment;
-    utc(date: Date): Moment;
-    utc(date: Moment): Moment;
-    utc(date: Object): Moment;
 
     unix(timestamp: number): Moment;
 
     invalid(parsingFlags?: Object): Moment;
-    isMoment(): boolean;
-    isMoment(m: any): boolean;
+    isMoment(m?: any): boolean;
     isDate(m: any): boolean;
-    isDuration(): boolean;
-    isDuration(d: any): boolean;
+    isDuration(d?: any): boolean;
 
     /**
      * @deprecated since version 2.8.0
      */
-    lang(language?: string): string;
     lang(language?: string, definition?: MomentLanguage): string;
 
-    locale(language?: string): string;
-    locale(language?: string[]): string;
+    locale(language?: string[]|string): string;
     locale(language?: string, definition?: MomentLanguage): string;
 
     localeData(language?: string): MomentLanguageData;
@@ -636,26 +586,22 @@ export interface MomentStatic {
 
     parseZone(date: string): Moment;
 
-    months(): string[];
     months(index: number): string;
-    months(format: string): string[];
+    months(format?: string): string[];
     months(format: string, index: number): string;
-    monthsShort(): string[];
     monthsShort(index: number): string;
-    monthsShort(format: string): string[];
+    monthsShort(format?: string): string[];
     monthsShort(format: string, index: number): string;
 
-    weekdays(): string[];
     weekdays(index: number): string;
-    weekdays(format: string): string[];
+    weekdays(format?: string): string[];
     weekdays(format: string, index: number): string;
     weekdaysShort(): string[];
     weekdaysShort(index: number): string;
     weekdaysShort(format: string): string[];
     weekdaysShort(format: string, index: number): string;
-    weekdaysMin(): string[];
     weekdaysMin(index: number): string;
-    weekdaysMin(format: string): string[];
+    weekdaysMin(format?: string): string[];
     weekdaysMin(format: string, index: number): string;
 
     min(...moments: Moment[]): Moment;
