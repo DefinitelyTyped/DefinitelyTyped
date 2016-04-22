@@ -3,9 +3,8 @@
 // Definitions by: Martin Probst <https://github.com/mprobst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'closure-compiler' {
-  type Callback = (err: Error, stdout: string, stderr: string) => any;
-  function compile(src: string, callback: Callback): void;
-  function compile(src: string, options: {[k: string]: string | string[]},
-                   callback: Callback): void;
-}
+
+type Callback = (err: Error, stdout: string, stderr: string) => any;
+declare function compile(src: string, callback: Callback): void;
+declare function compile(src: string, options: { [k: string]: string | string[] },
+    callback: Callback): void;

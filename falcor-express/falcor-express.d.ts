@@ -6,9 +6,7 @@
 /// <reference path="../falcor/falcor.d.ts" />
 /// <reference path="../express/express.d.ts" />
 
-declare module 'falcor-express' {
-    import {Request, Response, Handler} from 'express';
-    import {DataSource} from 'falcor';
-    function dataSourceRoute(getDataSource: (req: Request, res: Response) => DataSource): Handler;
-}
 
+import {Request, Response, Handler} from 'express';
+import {DataSource} from 'falcor';
+declare function dataSourceRoute(getDataSource: (req: Request, res: Response) => DataSource): Handler;

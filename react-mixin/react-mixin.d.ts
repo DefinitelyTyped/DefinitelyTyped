@@ -5,23 +5,21 @@
 
 /// <reference path="../react/react.d.ts" />
 
-declare module "react-mixin" {
-    import * as React from 'react';
 
-    namespace reactMixin {
-        export interface ClassDecorator {
-            <TFunction extends Function>(target: TFunction): TFunction|void;
-        }
+import * as React from 'react';
 
-        interface ReactMixin {
-            decorate(mixin: React.Mixin<any, any>): ClassDecorator;
-            onClass<S>(clazz: any, mixin: React.Mixin<any, any>): React.ComponentClass<S>;
-            <S>(clazz: any, mixin: React.Mixin<any, any>): React.ComponentClass<S>;
-        }
+declare namespace reactMixin {
+    export interface ClassDecorator {
+        <TFunction extends Function>(target: TFunction): TFunction | void;
     }
 
-    var reactMixin: reactMixin.ReactMixin;
-
-    export = reactMixin;
+    interface ReactMixin {
+        decorate(mixin: React.Mixin<any, any>): ClassDecorator;
+        onClass<S>(clazz: any, mixin: React.Mixin<any, any>): React.ComponentClass<S>;
+        <S>(clazz: any, mixin: React.Mixin<any, any>): React.ComponentClass<S>;
+    }
 }
 
+declare var reactMixin: reactMixin.ReactMixin;
+
+export = reactMixin;

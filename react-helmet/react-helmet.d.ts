@@ -45,3 +45,22 @@ declare module "react-helmet" {
 
     export = Helmet;
 }
+
+interface HelmetData {
+    title: HelmetDatum;
+    base: HelmetDatum;
+    link: HelmetDatum;
+    meta: HelmetDatum;
+    script: HelmetDatum;
+}
+
+interface HelmetDatum {
+    toString(): string;
+    toComponent(): Component<any, any>;
+}
+
+declare class Helmet extends Component<HelmetProps, any> {
+    static rewind(): HelmetData
+}
+
+export default Helmet;

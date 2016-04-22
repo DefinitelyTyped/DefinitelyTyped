@@ -6,11 +6,9 @@
 /// <reference path="../express/express.d.ts" />
 /// <reference path="../express-unless/express-unless.d.ts" />
 
-declare module "express-jwt" {
-    import express = require('express');
-    import unless = require('express-unless');
 
-    function jwt(options: jwt.Options): jwt.RequestHandler;
+import express = require('express');
+import unless = require('express-unless');
 
     namespace jwt {
 

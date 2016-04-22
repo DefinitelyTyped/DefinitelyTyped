@@ -34,3 +34,5 @@ declare module "supertest-as-promised" {
   export = supertestAsPromised
 
 }
+
+export = supertest;

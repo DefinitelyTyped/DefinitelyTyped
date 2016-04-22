@@ -70,7 +70,7 @@ declare module 'xlsx' {
     }
 
     /**
-     * object representing the worksheet
+     * the style/theme of the cell (if applicable)
      */
     export interface IWorkSheet {
         [cell:string]:IWorkSheetCell;
@@ -146,4 +146,8 @@ declare module 'xlsx' {
         encode_range(s: ICell, e: ICell): any;
     }
 
+export interface IUtils {
+    sheet_to_json<T>(worksheet: IWorkSheet): T[];
+    sheet_to_csv(worksheet: IWorkSheet): any;
+    sheet_to_formulae(worksheet: IWorkSheet): any;
 }

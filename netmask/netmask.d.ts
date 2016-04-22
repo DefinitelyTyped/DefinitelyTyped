@@ -5,12 +5,12 @@
 
 // netmask.d.ts
 
-declare module 'netmask' {
 
-  export function long2ip(long: number): string;
-  export function ip2long(ip: string): number;
 
-  export class Netmask {
+declare export function long2ip(long: number): string;
+declare export function ip2long(ip: string): number;
+
+declare export class Netmask {
     maskLong: number;
     bitmask: number;
     netLong: number;
@@ -29,8 +29,8 @@ declare module 'netmask' {
     // The block's broadcast address: the last address of the block (eg.: 192.168.1.255)
     broadcast: string;
 
-    constructor (netmask: string);
-    constructor (net: string, mask: string);
+    constructor(netmask: string);
+    constructor(net: string, mask: string);
 
     // Returns true if the given ip or netmask is contained in the block
     contains(ip: string | Netmask | number): boolean;
@@ -43,5 +43,4 @@ declare module 'netmask' {
 
     // Returns the complete netmask formatted as `base/bitmask`
     toString(): string;
-  }
 }

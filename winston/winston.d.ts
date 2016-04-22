@@ -63,50 +63,50 @@ declare module "winston" {
     version: string;
     argv: string;
     memoryUsage: NodeJS.MemoryUsage;
-  }
+}
 
-  export interface ExceptionOsInfo {
+export interface ExceptionOsInfo {
     loadavg: [number, number, number];
     uptime: number;
-  }
+}
 
-  export interface ExceptionTrace {
+export interface ExceptionTrace {
     column: number;
     file: string;
     "function": string;
     line: number;
     method: string;
     native: boolean;
-  }
+}
 
-  export interface ExceptionAllInfo {
+export interface ExceptionAllInfo {
     date: Date;
     process: ExceptionProcessInfo;
     os: ExceptionOsInfo;
     trace: Array<ExceptionTrace>;
     stack: Array<string>;
-  }
+}
 
-  export interface Exception {
+export interface Exception {
     getAllInfo(err: Error): ExceptionAllInfo;
     getProcessInfo(): ExceptionProcessInfo;
     getOsInfo(): ExceptionOsInfo;
     getTrace(err: Error): Array<ExceptionTrace>;
-  }
+}
 
-  export interface MetadataRewriter {
+export interface MetadataRewriter {
     (level: string, msg: string, meta: any): any;
-  }
+}
 
-  export interface MetadataFilter {
-    (level: string, msg: string, meta: any): string | {msg: any; meta: any;};
-  }
+export interface MetadataFilter {
+    (level: string, msg: string, meta: any): string | { msg: any; meta: any; };
+}
 
-  export interface LoggerStatic {
+export interface LoggerStatic {
     new (options?: LoggerOptions): LoggerInstance;
-  }
+}
 
-  export interface LoggerInstance extends NodeJS.EventEmitter {
+export interface LoggerInstance extends NodeJS.EventEmitter {
     rewriters: Array<MetadataRewriter>;
     filters: Array<MetadataFilter>;
     transports: Array<TransportInstance>;
@@ -138,9 +138,9 @@ declare module "winston" {
     cli(): LoggerInstance;
 
     level: string;
-  }
+}
 
-  export interface LoggerOptions {
+export interface LoggerOptions {
     transports?: TransportInstance[];
     rewriters?: TransportInstance[];
     exceptionHandlers?: TransportInstance[];
@@ -155,53 +155,53 @@ declare module "winston" {
     //       and need to get options for each instance.
     //       Unfortunately, the documentation is unhelpful.
     [optionName: string]: any;
-  }
+}
 
-  export interface TransportStatic {
+export interface TransportStatic {
     new (options?: TransportOptions): TransportInstance;
-  }
+}
 
-  export interface TransportInstance extends TransportStatic, NodeJS.EventEmitter {
-    formatQuery(query: (string|Object)): (string|Object);
+export interface TransportInstance extends TransportStatic, NodeJS.EventEmitter {
+    formatQuery(query: (string | Object)): (string | Object);
     normalizeQuery(options: QueryOptions): QueryOptions;
-    formatResults(results: (Object|Array<any>), options?: Object): (Object|Array<any>);
+    formatResults(results: (Object | Array<any>), options?: Object): (Object | Array<any>);
     logException(msg: string, meta: Object, callback: () => void): void;
-  }
+}
 
-  export interface ConsoleTransportInstance extends TransportInstance {
+export interface ConsoleTransportInstance extends TransportInstance {
     new (options?: ConsoleTransportOptions): ConsoleTransportInstance;
-  }
+}
 
-  export interface DailyRotateFileTransportInstance extends TransportInstance {
+export interface DailyRotateFileTransportInstance extends TransportInstance {
     new (options?: DailyRotateFileTransportOptions): DailyRotateFileTransportInstance;
-  }
+}
 
-  export interface FileTransportInstance extends TransportInstance {
+export interface FileTransportInstance extends TransportInstance {
     new (options?: FileTransportOptions): FileTransportInstance;
     close(): void;
-  }
+}
 
-  export interface HttpTransportInstance extends TransportInstance {
+export interface HttpTransportInstance extends TransportInstance {
     new (options?: HttpTransportOptions): HttpTransportInstance;
-  }
+}
 
-  export interface MemoryTransportInstance extends TransportInstance {
+export interface MemoryTransportInstance extends TransportInstance {
     new (options?: MemoryTransportOptions): MemoryTransportInstance;
-  }
+}
 
-  export interface WebhookTransportInstance extends TransportInstance {
+export interface WebhookTransportInstance extends TransportInstance {
     new (options?: WebhookTransportOptions): WebhookTransportInstance;
-  }
+}
 
-  export interface WinstonModuleTrasportInstance extends TransportInstance {
+export interface WinstonModuleTrasportInstance extends TransportInstance {
     new (options?: WinstonModuleTransportOptions): WinstonModuleTrasportInstance;
-  }
+}
 
-  export interface ContainerStatic {
+export interface ContainerStatic {
     new (options: LoggerOptions): ContainerInstance;
-  }
+}
 
-  export interface ContainerInstance extends ContainerStatic {
+export interface ContainerInstance extends ContainerStatic {
     get(id: string, options?: LoggerOptions): LoggerInstance;
     add(id: string, options: LoggerOptions): LoggerInstance;
     has(id: string): boolean;
@@ -209,9 +209,9 @@ declare module "winston" {
     options: LoggerOptions;
     loggers: any;
     default: LoggerOptions;
-  }
+}
 
-  export interface Transports {
+export interface Transports {
     File: FileTransportInstance;
     Console: ConsoleTransportInstance;
     Loggly: WinstonModuleTrasportInstance;
@@ -219,11 +219,11 @@ declare module "winston" {
     Http: HttpTransportInstance;
     Memory: MemoryTransportInstance;
     Webhook: WebhookTransportInstance;
-  }
+}
 
-  export type TransportOptions = ConsoleTransportOptions|DailyRotateFileTransportOptions|FileTransportOptions|HttpTransportOptions|MemoryTransportOptions|WebhookTransportOptions|WinstonModuleTransportOptions;
+export type TransportOptions = ConsoleTransportOptions | DailyRotateFileTransportOptions | FileTransportOptions | HttpTransportOptions | MemoryTransportOptions | WebhookTransportOptions | WinstonModuleTransportOptions;
 
-  export interface GenericTransportOptions {
+export interface GenericTransportOptions {
     level?: string;
     silent?: boolean;
     raw?: boolean;
@@ -232,36 +232,36 @@ declare module "winston" {
     handleExceptions?: boolean;
     exceptionsLevel?: string;
     humanReadableUnhandledException?: boolean;
-  }
+}
 
-  export interface GenericTextTransportOptions {
+export interface GenericTextTransportOptions {
     json?: boolean;
     colorize?: boolean;
     colors?: any;
     prettyPrint?: boolean;
-    timestamp?: (Function|boolean);
+    timestamp?: (Function | boolean);
     showLevel?: boolean;
     label?: string;
     depth?: number;
     stringify?: Function;
-  }
+}
 
-  export interface GenericNetworkTransportOptions {
+export interface GenericNetworkTransportOptions {
     host?: string;
     port?: number;
     auth?: {
-      username: string;
-      password: string;
+        username: string;
+        password: string;
     };
     path?: string;
-  }
+}
 
-  export interface ConsoleTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
+export interface ConsoleTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
     logstash?: boolean;
     debugStdout?: boolean;
-  }
+}
 
-  export interface DailyRotateFileTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
+export interface DailyRotateFileTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
     logstash?: boolean;
     maxsize?: number;
     maxFiles?: number;
@@ -271,13 +271,13 @@ declare module "winston" {
     filename?: string;
     dirname?: string;
     options?: {
-      flags?: string;
-      highWaterMark?: number;
+        flags?: string;
+        highWaterMark?: number;
     };
     stream?: NodeJS.WritableStream;
-  }
+}
 
-  export interface FileTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
+export interface FileTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
     logstash?: boolean;
     maxsize?: number;
     rotationFormat?: boolean;
@@ -289,33 +289,33 @@ declare module "winston" {
     filename?: string;
     dirname?: string;
     options?: {
-      flags?: string;
-      highWaterMark?: number;
+        flags?: string;
+        highWaterMark?: number;
     };
     stream?: NodeJS.WritableStream;
-  }
+}
 
-  export interface HttpTransportOptions extends GenericTransportOptions, GenericNetworkTransportOptions {
+export interface HttpTransportOptions extends GenericTransportOptions, GenericNetworkTransportOptions {
     ssl?: boolean;
-  }
+}
 
-  export interface MemoryTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
-  }
+export interface MemoryTransportOptions extends GenericTransportOptions, GenericTextTransportOptions {
+}
 
-  export interface WebhookTransportOptions extends GenericTransportOptions, GenericNetworkTransportOptions {
+export interface WebhookTransportOptions extends GenericTransportOptions, GenericNetworkTransportOptions {
     method?: string;
     ssl?: {
-      key?: any;
-      cert?: any;
-      ca: any;
+        key?: any;
+        cert?: any;
+        ca: any;
     };
-  }
+}
 
-  export interface WinstonModuleTransportOptions extends GenericTransportOptions {
+export interface WinstonModuleTransportOptions extends GenericTransportOptions {
     [optionName: string]: any;
-  }
+}
 
-  export interface QueryOptions {
+export interface QueryOptions {
     rows?: number;
     limit?: number;
     start?: number;
@@ -323,27 +323,26 @@ declare module "winston" {
     until?: Date;
     order?: "asc" | "desc";
     fields: any;
-  }
+}
 
-  export interface ProfileHandler {
+export interface ProfileHandler {
     logger: LoggerInstance;
     start: Date;
     done: (msg: string) => LoggerInstance;
-  }
+}
 
-  interface LogMethod {
+interface LogMethod {
     (level: string, msg: string, callback: LogCallback): LoggerInstance;
     (level: string, msg: string, meta: any, callback: LogCallback): LoggerInstance;
-    (level: string, msg: string, ... meta: any[]): LoggerInstance;
-  }
+    (level: string, msg: string, ...meta: any[]): LoggerInstance;
+}
 
-  interface LeveledLogMethod {
+interface LeveledLogMethod {
     (msg: string, callback: LogCallback): LoggerInstance;
     (msg: string, meta: any, callback: LogCallback): LoggerInstance;
-    (msg: string, ... meta: any[]): LoggerInstance;
-  }
+    (msg: string, ...meta: any[]): LoggerInstance;
+}
 
-  interface LogCallback {
-    (error?: any, level?: string, msg?: string, meta?:any): void;
-  }
+interface LogCallback {
+    (error?: any, level?: string, msg?: string, meta?: any): void;
 }

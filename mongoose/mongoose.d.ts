@@ -344,7 +344,7 @@ declare module "mongoose" {
      * Each state change emits its associated event name.
      */
     readyState: number;
-  }
+}
 
   interface ConnectionOptionsBase {
     /** passed to the connection db instance */
@@ -359,7 +359,7 @@ declare module "mongoose" {
     pass?: string;
     /** options for authentication (see http://mongodb.github.com/node-mongodb-native/api-generated/db.html#authenticate) */
     auth?: any;
-  }
+}
 
   /** See the node-mongodb-native driver instance for options that it understands. */
   interface ConnectionOpenOptions extends ConnectionOptionsBase {
@@ -2496,7 +2496,7 @@ declare module "mongoose" {
   interface MapReduceResult<Key, Val> {
     _id: Key;
     value: Val;
-  }
+}
 
   /*
    * section collection.js

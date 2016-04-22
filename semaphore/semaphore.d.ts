@@ -3,24 +3,23 @@
 // Definitions by: Matt Frantz <https://github.com/mhfrantz/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'semaphore' {
 
-  function semaphore(capacity?: number): semaphore.Semaphore;
 
-  namespace semaphore {
+declare function semaphore(capacity?: number): semaphore.Semaphore;
+
+declare namespace semaphore {
 
     interface Task {
-      (): void;
+        (): void;
     }
 
     interface Semaphore {
-      capacity: number;
+        capacity: number;
 
-      take(task: Task): void;
-      take(n: number, task: Task): void;
+        take(task: Task): void;
+        take(n: number, task: Task): void;
 
-      leave(n?: number): void;
+        leave(n?: number): void;
     }
-  }
-  export = semaphore;
 }
+export = semaphore;

@@ -5,8 +5,7 @@
 
 /// <reference path="../mongoose/mongoose.d.ts" />
 
-declare module "mongoose-deep-populate" {
-	import { Mongoose, Schema } from 'mongoose';
 
-	export default function(mognoose: Mongoose): (schema: Schema, options: Object) => void;
-}
+import { Mongoose, Schema } from 'mongoose';
+
+declare export default function(mognoose: Mongoose): (schema: Schema, options: Object) => void;

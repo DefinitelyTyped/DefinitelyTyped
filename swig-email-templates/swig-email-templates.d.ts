@@ -5,17 +5,16 @@
 
 /// <reference path="../swig/swig.d.ts" />
 
-declare module "swig-email-templates" {
-    import swig = require('swig');
 
-    interface SwigRender<T> {
-        (file:string, context:T, callback:(err:any, html:string, text:string)=>any):any;
-    }
+import swig = require('swig');
 
-    interface SwigEmailTemplatesOptions extends swig.SwigOptions {
-        root?: string;
-    }
-
-    function init<T>(options:SwigEmailTemplatesOptions, cb:(err:any, render:SwigRender<T>)=>any):any;
-    export = init
+interface SwigRender<T> {
+    (file: string, context: T, callback: (err: any, html: string, text: string) => any): any;
 }
+
+interface SwigEmailTemplatesOptions extends swig.SwigOptions {
+    root?: string;
+}
+
+declare function init<T>(options: SwigEmailTemplatesOptions, cb: (err: any, render: SwigRender<T>) => any): any;
+export = init

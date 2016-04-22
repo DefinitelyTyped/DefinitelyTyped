@@ -3,20 +3,18 @@
 // Definitions by: xica <https://github.com/xica>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "path-to-regexp" {
 
-    function pathToRegexp(path: string, keys?: string[], options?: pathToRegexp.Options): RegExp;
 
-    namespace pathToRegexp {
+declare function pathToRegexp(path: string, keys?: string[], options?: pathToRegexp.Options): RegExp;
 
-        interface Options {
-            sensitive?: boolean;
-            strict?: boolean;
-            end?: boolean;
-        }
+declare namespace pathToRegexp {
 
+    interface Options {
+        sensitive?: boolean;
+        strict?: boolean;
+        end?: boolean;
     }
 
-    export = pathToRegexp;
-
 }
+
+export = pathToRegexp;

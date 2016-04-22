@@ -181,3 +181,6 @@ declare module "koa" {
     namespace Koa {}
     export = Koa;
 }
+
+declare namespace Koa { }
+export = Koa;

@@ -5,9 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module 'through2' {
 
-	import stream = require('stream');
 
 	type TransformCallback = (err?: any, data?: any) => void;
 	type TransformFunction = (chunk: any, enc: string, callback: TransformCallback) => void;
@@ -38,3 +36,5 @@ declare module 'through2' {
 	export = through2;
 
 }
+
+export = through2;

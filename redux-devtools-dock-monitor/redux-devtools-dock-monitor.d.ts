@@ -5,8 +5,6 @@
 
 /// <reference path="../react/react.d.ts" />
 
-declare module "redux-devtools-dock-monitor" {
-  import * as React from 'react'
 
   type DockPosition = 'left' | 'top' | 'right' | 'bottom'
 
@@ -64,7 +62,7 @@ declare module "redux-devtools-dock-monitor" {
      * @default true
      */
     defaultIsVisible?: boolean
-  }
+}
 
   export default class DockMonitor extends React.Component<IDockMonitorProps, any> {}
 }

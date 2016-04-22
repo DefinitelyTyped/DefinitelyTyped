@@ -22,10 +22,16 @@ declare module "query-string" {
      */
     export function stringify(obj: { [key: string]: value | value[] }, options?: StringifyOptions): string;
 
-    /**
-     * Extract a query string from a URL that can be passed into .parse().
-     *
-     * @param str
-     */
-    export function extract(str: string): string;
-}
+/**
+ * Stringify an object into a query string, sorting the keys.
+ *
+ * @param obj
+ */
+declare export function stringify(obj: any, options?: { strict: boolean }): string;
+
+/**
+ * Extract a query string from a URL that can be passed into .parse().
+ *
+ * @param str
+ */
+declare export function extract(str: string): string;

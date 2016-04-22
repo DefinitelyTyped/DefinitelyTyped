@@ -5,17 +5,6 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module 'pty.js' {
-    /** Options that can be used when creating a new pseudo-terminal. */
-    interface TerminalOptions {
-        name?: string;
-        cols?: number;
-        rows?: number;
-        cwd?: string;
-        env?: any;
-        uid?: number;
-        gid?: number;
-    }
 
     import stream = require('stream');
     import net = require('net');

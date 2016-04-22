@@ -2,9 +2,8 @@
 // Project: https://www.npmjs.com/package/extend
 // Definitions by: Stefan Steinhart <https://github.com/reppners>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-declare module "extend" {
 
-    function extend(deepOrObject:boolean | Object, ...objectN: Object[]): any;
-    namespace extend {}
-    export = extend;
-}
+
+declare function extend(deepOrObject: boolean | Object, ...objectN: Object[]): any;
+declare namespace extend { }
+export = extend;

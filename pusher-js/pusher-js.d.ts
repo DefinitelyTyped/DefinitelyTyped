@@ -225,7 +225,90 @@ declare module "pusher-js" {
         }
     }
 
-    var pusher: pusher.PusherStatic;
+    interface ConnectionManager extends GenericEventsDispatcher<ConnectionManager> {
+        key: string;
+        options: any; //TODO: Timeline.js
+        state: string;
+        connection: any; //TODO: Type this
+        encrypted: boolean;
+        timeline: any; //TODO: Type this
+        connectionCallbacks: {
+            message: (message: string) => void;
+            ping: () => void;
+            activity: () => void;
+            error: (error: any) => void;
+            closed: () => void;
+        };
+        errorCallbacks: {
+            ssl_only: () => void;
+            refused: () => void;
+            backoff: () => void;
+            retry: () => void;
+        };
+        handshakeCallbacks: {
+            ssl_only: () => void;
+            refused: () => void;
+            backoff: () => void;
+            retry: () => void;
+            connected: (handshake: any) => void; //TODO: Type this
+        };
+        /**
+         * Establishes a connection to Pusher.
+         *
+         * Does nothing when connection is already established. See top-level doc
+         * to find events emitted on connection attempts.
+         */
+        connect(): void;
+        /**
+         * Sends raw data.
+         * @param {String} data
+         */
+        send(data: string): boolean;
+        /** Sends an event.
+         *
+         * @param {String} name
+         * @param {String} data
+         * @param {String} [channel]
+         * @returns {Boolean} whether message was sent or not
+         */
+        send_event(name: string, data: string, channel: string): boolean;
+        /** Closes the connection. */
+        disconnect(): void;
+        isEncrypted(): boolean;
+    }
 
-    export = pusher;
+    interface PresenceChannel<T> extends Channel {
+        members: Members<T>;
+    }
+
+    interface Members<T> {
+        /**
+         * Returns member's info for given id.
+         *
+         * Resulting object containts two fields - id and info.
+         *
+         * @param {Number} id
+         * @return {Object} member's info or null
+         */
+        get(id: number): T;
+        /**
+         * Calls back for each member in unspecified order.
+         *
+         * @param  {Function} callback
+         */
+        each(callback: (member: any) => void): void;
+        members: { [id: number]: UserInfo<T> };
+        count: number;
+        myID: number;
+        me: UserInfo<T>;
+    }
+
+    interface UserInfo<T> {
+        id: number;
+        info: T;
+    }
 }
+
+declare var pusher: pusher.PusherStatic;
+
+export = pusher;

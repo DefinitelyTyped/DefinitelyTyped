@@ -34,3 +34,5 @@ declare module 'credential' {
 
     export = credential;
 }
+
+export = credential;

@@ -3,6 +3,5 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "luaparse" {
-	export function parse(code: string, options?: Object): Object;
-}
+
+declare export function parse(code: string, options?: Object): Object;

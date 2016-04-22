@@ -5,8 +5,6 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "finalhandler" {
-	import {ServerRequest, ServerResponse} from "http";
 
 	function finalHandler(req: ServerRequest, res: ServerResponse, options?: finalHandler.Options): (err: any) => void;
 
@@ -20,3 +18,7 @@ declare module "finalhandler" {
 
 	export = finalHandler;
 }
+
+declare function finalHandler(req: ServerRequest, res: ServerResponse, options?: Options): (err: any) => void;
+
+export default finalHandler;

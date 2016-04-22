@@ -3,6 +3,5 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "git-config" {
-    export function sync(gitFile?: string): Object; // Synchronous version.
-}
+
+declare export function sync(gitFile?: string): Object;

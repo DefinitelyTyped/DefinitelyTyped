@@ -3,9 +3,8 @@
 // Definitions by: Elisée MAURER <https://github.com/elisee/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "escape-html" {
-  function escapeHTML(text: string): string;
-  namespace escapeHTML {}
 
-  export = escapeHTML;
-}
+declare function escapeHTML(text: string): string;
+declare namespace escapeHTML { }
+
+export = escapeHTML;

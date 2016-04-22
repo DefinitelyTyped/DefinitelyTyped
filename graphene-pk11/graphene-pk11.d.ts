@@ -10,7 +10,6 @@
  * v2.0.3
  */
 
-declare module "graphene-pk11" {
 
     import * as pkcs11 from "pkcs11js"
 

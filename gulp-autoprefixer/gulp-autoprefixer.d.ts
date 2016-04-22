@@ -5,16 +5,15 @@
 
 /// <reference path="../node/node.d.ts"/>
 
-declare module "gulp-autoprefixer" {
-    namespace autoPrefixer {
-        interface Options {
-            browsers?: string[];
-            cascade?: boolean;
-            remove?: boolean;
-        }
+
+declare namespace autoPrefixer {
+    interface Options {
+        browsers?: string[];
+        cascade?: boolean;
+        remove?: boolean;
     }
-
-    function autoPrefixer(opts?: autoPrefixer.Options): NodeJS.ReadWriteStream;
-
-    export = autoPrefixer;
 }
+
+declare function autoPrefixer(opts?: autoPrefixer.Options): NodeJS.ReadWriteStream;
+
+export = autoPrefixer;

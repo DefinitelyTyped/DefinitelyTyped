@@ -6,17 +6,15 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../svg-sprite/svg-sprite.d.ts" />
 
-declare module "gulp-svg-sprite" {
-    import spriter = require('svg-sprite');
 
-    namespace svgSprite {
-        interface SvgSprite {
-            (options?: spriter.Config): NodeJS.ReadWriteStream;
-        }
+import spriter = require('svg-sprite');
+
+declare namespace svgSprite {
+    interface SvgSprite {
+        (options?: spriter.Config): NodeJS.ReadWriteStream;
     }
-
-    var svgSprite: svgSprite.SvgSprite;
-
-    export = svgSprite;
 }
 
+declare var svgSprite: svgSprite.SvgSprite;
+
+export = svgSprite;

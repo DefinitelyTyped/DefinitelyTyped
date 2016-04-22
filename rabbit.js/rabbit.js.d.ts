@@ -5,18 +5,18 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "rabbit.js" {
-  import events = require('events');
-  import stream = require('stream');
 
-  export function createContext(url?: string): Context;
+import events = require('events');
+import stream = require('stream');
 
-  export class Context extends events.EventEmitter {
-    public socket<T>(type: string, options?: SocketOptions):T;
+declare export function createContext(url?: string): Context;
+
+declare export class Context extends events.EventEmitter {
+    public socket<T>(type: string, options?: SocketOptions): T;
     public close(callback: Function): any;
-  }
+}
 
-  export interface SocketOptions {
+export interface SocketOptions {
     prefetch?: any;
     expiration?: any;
     persistent?: any;
@@ -25,13 +25,13 @@ declare module "rabbit.js" {
     routing?: any;
   }
 
-  export interface Socket {
+export interface Socket {
     connect(destination: string, callback?: Function): any;
     setsockopt(opt: string, value: string): any;
     close(): any;
-  }
+}
 
-  export class PubSocket extends stream.Writable implements Socket {
+declare export class PubSocket extends stream.Writable implements Socket {
     constructor(channel: string, opts: SocketOptions);
     connect(destination: string, callback?: Function): any;
     setsockopt(opt: string, value: string): any;
@@ -39,31 +39,31 @@ declare module "rabbit.js" {
 
     publish(topic: string, chunk: string, encoding?: string): any;
     publish(topic: string, chunk: Buffer, encoding?: string): any;
-  }
+}
 
-  export class SubSocket extends stream.Readable implements Socket {
+declare export class SubSocket extends stream.Readable implements Socket {
     constructor(channel: string, opts: SocketOptions);
     connect(source: string, callback?: Function): any;
     connect(source: string, topic?: string, callback?: Function): any;
     setsockopt(opt: string, value: string): any;
     close(): any;
-  }
+}
 
-  export class PushSocket extends stream.Writable implements Socket {
+declare export class PushSocket extends stream.Writable implements Socket {
     constructor(channel: string, opts: SocketOptions);
     connect(destination: string, callback?: Function): any;
     setsockopt(opt: string, value: string): any;
     close(): any;
-  }
+}
 
-  export class PullSocket extends stream.Readable implements Socket {
+declare export class PullSocket extends stream.Readable implements Socket {
     constructor(channel: string, opts: SocketOptions);
     connect(source: string, callback?: Function): any;
     setsockopt(opt: string, value: string): any;
     close(): any;
-  }
+}
 
-  export class WorkerSocket extends stream.Readable implements Socket {
+declare export class WorkerSocket extends stream.Readable implements Socket {
     constructor(channel: string, opts: SocketOptions);
     connect(source: string, callback?: Function): any;
     setsockopt(opt: string, value: string): any;
@@ -72,23 +72,23 @@ declare module "rabbit.js" {
     ack(): any;
     requeue(): any;
     discard(): any;
-  }
+}
 
-  export interface RequestMessage {
+export interface RequestMessage {
     properties: { correlationId: number };
     content: any;
-  }
+}
 
-  export class ReqSocket extends stream.Duplex implements Socket {
+declare export class ReqSocket extends stream.Duplex implements Socket {
     constructor(channel: string, opts: SocketOptions);
     connect(destination: string, callback?: Function): any;
     setsockopt(opt: string, value: string): any;
     close(): any;
 
     handleReply(msg: RequestMessage): any;
-  }
+}
 
-  export class RepSocket extends stream.Duplex implements Socket {
+declare export class RepSocket extends stream.Duplex implements Socket {
     constructor(channel: string, opts: SocketOptions);
     connect(source: string, callback?: Function): any;
     setsockopt(opt: string, value: string): any;
@@ -96,9 +96,9 @@ declare module "rabbit.js" {
 
     requeue(): any;
     discard(): any;
-  }
+}
 
-  export class TaskSocket extends stream.Writable implements Socket {
+declare export class TaskSocket extends stream.Writable implements Socket {
     constructor(channel: string, opts: SocketOptions);
     connect(destination: string, callback?: Function): any;
     setsockopt(opt: string, value: string): any;
@@ -106,5 +106,4 @@ declare module "rabbit.js" {
 
     post(task: string, chunk: string, encoding?: string): any;
     post(task: string, chunk: Buffer, encoding?: string): any;
-  }
 }

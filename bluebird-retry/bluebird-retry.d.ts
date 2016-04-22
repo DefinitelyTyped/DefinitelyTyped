@@ -7,7 +7,7 @@
 declare module "bluebird-retry" {
 	import Promise = require('bluebird');
 
-	function retry<T>(func:(param:T)=>void, options?:retry.Options):Promise<T>;
+import Promise = require('bluebird');
 
 	namespace retry {
 		export interface Options {
@@ -19,7 +19,15 @@ declare module "bluebird-retry" {
 			predicate?:any;
 		}
 
-	}
+declare namespace retry {
+    export interface Options {
+        interval?: number;
+        backoff?: number;
+        max_interval?: number;
+        timeout?: number;
+        max_tries?: number;
+    }
 
-	export = retry;
 }
+
+export = retry;

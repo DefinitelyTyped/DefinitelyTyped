@@ -3,8 +3,7 @@
 // Definitions by: Dave Keen <http://www.keendevelopment.ch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'cuid' {
-	function cuid(): string;
-	
-	export = cuid
-}
+
+declare function cuid(): string;
+
+export = cuid

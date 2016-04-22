@@ -5,22 +5,22 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "slate-irc" {
-  import * as net from "net";
 
-  function IRC(socket: net.Socket): IRC.Client;
+import * as net from "net";
 
-  namespace IRC {
+declare function IRC(socket: net.Socket): IRC.Client;
+
+declare namespace IRC {
     interface DataEvent {
-      prefix: string;
-      command: string;
-      params: string;
-      trailing: string;
-      string: string;
+        prefix: string;
+        command: string;
+        params: string;
+        trailing: string;
+        string: string;
     }
 
     interface MOTDEvent {
-      motd: string[];
+        motd: string[];
     }
 
     interface TopicEvent {
@@ -38,21 +38,21 @@ declare module "slate-irc" {
     }
 
     interface JoinEvent {
-      nick: string;
-      hostmask: string;
-      channel: string;
+        nick: string;
+        hostmask: string;
+        channel: string;
     }
 
     interface PartEvent {
-      nick: string;
-      hostmask: string;
-      channels: string[];
+        nick: string;
+        hostmask: string;
+        channels: string[];
     }
 
     interface NickEvent {
-      nick: string;
-      hostmask: string;
-      new: string;
+        nick: string;
+        hostmask: string;
+        new: string;
     }
 
     interface ModeEvent {
@@ -68,9 +68,9 @@ declare module "slate-irc" {
     }
 
     interface QuitEvent {
-      nick: string;
-      hostmask: string;
-      message: string;
+        nick: string;
+        hostmask: string;
+        message: string;
     }
 
     class Client {
@@ -114,7 +114,6 @@ declare module "slate-irc" {
       on(event: "away", callback: (event: AwayEvent) => void): void;
       on(event: "quit", callback: (event: QuitEvent) => void): void;
     }
-  }
-
-  export = IRC;
 }
+
+export = IRC;

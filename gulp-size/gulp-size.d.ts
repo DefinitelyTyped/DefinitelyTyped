@@ -5,21 +5,20 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module 'gulp-size' {
-    namespace size {
-        interface Options {
-            showFiles?: boolean;
-            gzip?: boolean;
-            title?: string;
-        }
 
-        interface SizeStream extends NodeJS.ReadWriteStream {
-            size: number;
-            prettySize: string;
-        }
+declare namespace size {
+    interface Options {
+        showFiles?: boolean;
+        gzip?: boolean;
+        title?: string;
     }
 
-    function size(options?: size.Options): size.SizeStream;
-
-    export = size;
+    interface SizeStream extends NodeJS.ReadWriteStream {
+        size: number;
+        prettySize: string;
+    }
 }
+
+declare function size(options?: size.Options): size.SizeStream;
+
+export = size;

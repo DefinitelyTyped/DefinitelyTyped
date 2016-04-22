@@ -5,19 +5,18 @@
 
 /// <reference path="../node/node.d.ts"/>
 
-declare module "gulp-gh-pages" {
-    interface Options {
-        remoteUrl?: string;
-        origin?: string;
-        branch?: string;
-        cacheDir?: string;
-        push?: boolean;
-        message?: string;
-    }
 
-    function ghPages(opts?: Options): NodeJS.ReadWriteStream;
-
-    namespace ghPages {}
-
-    export = ghPages;
+interface Options {
+    remoteUrl?: string;
+    origin?: string;
+    branch?: string;
+    cacheDir?: string;
+    push?: boolean;
+    message?: string;
 }
+
+declare function ghPages(opts?: Options): NodeJS.ReadWriteStream;
+
+declare namespace ghPages { }
+
+export = ghPages;

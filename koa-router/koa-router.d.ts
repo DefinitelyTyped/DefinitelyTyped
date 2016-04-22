@@ -12,17 +12,11 @@
 
 /// <reference path="../koa/koa.d.ts" />
 
-declare module "koa-router" {
 
-    import * as Koa from "koa";
 
-    module Layer {
+import * as Koa from "koa";
 
-        export interface ILayerOptions {
-            name: string;
-            sensitive?: boolean;
-            strict?: boolean;
-        }
+declare module Layer {
 
     }
 
@@ -197,52 +191,49 @@ declare module "koa-router" {
          */
         prefix(prefix: string): Router;
 
-        /**
-         * Returns router middleware which dispatches a route matching the request.
-         */
-        routes(): Router.IMiddleware;
+declare module Router {
 
+    export interface IRouterOptions {
         /**
-         * Returns router middleware which dispatches a route matching the request.
+         * Router prefixes 
          */
-        middlewares(): Router.IMiddleware;
-
+        prefix?: string;
         /**
-         * Returns separate middleware for responding to `OPTIONS` requests with
-         * an `Allow` header containing the allowed methods, as well as responding
-         * with `405 Method Not Allowed` and `501 Not Implemented` as appropriate.
+         * HTTP verbs
          */
-        allowedMethods(options?: Router.IRouterAllowedMethodsOptions): Router.IMiddleware;
+        methods?: string[];
+        routerPath?: string;
+        sensitive?: boolean;
+    }
 
+    export interface IRouterContext extends Koa.Context {
         /**
          * Redirect `source` to `destination` URL with optional 30x status `code`.
          *
          * Both `source` and `destination` can be route names.
          */
-        redirect(source: string, destination: string, code?: number): Router;
+        params: any;
+    }
 
         /**
          * Create and register a route.
          */
         register(path: string | RegExp, methods: string[], middleware: Router.IMiddleware, opts?: Object): Layer;
 
+    export interface IRouterAllowedMethodsOptions {
         /**
-         * Lookup route with given `name`.
+         * throw error instead of setting status and header
          */
-        route(name: string): Layer;
-        route(name: string): boolean;
-
+        throw?: boolean;
         /**
-         * Generate URL for route. Takes either map of named `params` or series of
-         * arguments (for regular expression routes)
+         * throw the returned value in place of the default NotImplemented error
          */
-        url(name: string, params: Object): string;
-        url(name: string, params: Object): Error;
-
+        notImplemented?: () => any;
         /**
-         * Match given `path` and return corresponding routes.
+         * throw the returned value in place of the default MethodNotAllowed error
          */
-        match(name: string, method: string): Object;
+        methodNotAllowed?: () => any;
+    }
 
         /**
          * Run middleware for named route parameters. Useful for auto-loading or validation.
@@ -255,5 +246,142 @@ declare module "koa-router" {
         static url(path: string | RegExp, params: Object): string;
     }
 
-    export = Router;
+declare class Router {
+
+    params: Object;
+
+    stack: Array<Layer>;
+
+    /**
+     * Create a new router.
+     */
+    constructor(opt?: Router.IRouterOptions);
+
+    /**
+     * Use given middleware.
+     *
+     * Middleware run in the order they are defined by `.use()`. They are invoked
+     * sequentially, requests start at the first middleware and work their way
+     * "down" the middleware stack.
+     */
+    use(...middleware: Array<Router.IMiddleware>): Router;
+    use(path: string, ...middleware: Array<Router.IMiddleware>): Router;
+
+    /**
+     * HTTP get method
+     */
+    get(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
+    get(path: string, ...middleware: Array<Router.IMiddleware>): Router;
+
+    /**
+     * HTTP post method
+     */
+    post(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
+    post(path: string, ...middleware: Array<Router.IMiddleware>): Router;
+
+    /**
+     * HTTP put method
+     */
+    put(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
+    put(path: string, ...middleware: Array<Router.IMiddleware>): Router;
+
+    /**
+     * HTTP delete method
+     */
+    delete(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
+    delete(path: string, ...middleware: Array<Router.IMiddleware>): Router;
+
+    /**
+     * Alias for `router.delete()` because delete is a reserved word
+     */
+    del(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
+    del(path: string, ...middleware: Array<Router.IMiddleware>): Router;
+
+    /**
+     * HTTP head method
+     */
+    head(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
+    head(path: string, ...middleware: Array<Router.IMiddleware>): Router;
+
+    /**
+     * HTTP options method
+     */
+    options(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
+    options(path: string, ...middleware: Array<Router.IMiddleware>): Router;
+
+    /**
+     * HTTP path method
+     */
+    patch(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
+    patch(path: string, ...middleware: Array<Router.IMiddleware>): Router;
+
+    /**
+     * Register route with all methods.
+     */
+    all(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
+    all(path: string, ...middleware: Array<Router.IMiddleware>): Router;
+
+    /**
+     * Set the path prefix for a Router instance that was already initialized.
+     */
+    prefix(prefix: string): Router;
+
+    /**
+     * Returns router middleware which dispatches a route matching the request.
+     */
+    routes(): Router.IMiddleware;
+
+    /**
+     * Returns router middleware which dispatches a route matching the request.
+     */
+    middlewares(): Router.IMiddleware;
+
+    /**
+     * Returns separate middleware for responding to `OPTIONS` requests with
+     * an `Allow` header containing the allowed methods, as well as responding
+     * with `405 Method Not Allowed` and `501 Not Implemented` as appropriate.
+     */
+    allowedMethods(options?: Router.IRouterAllowedMethodsOptions): Router.IMiddleware;
+
+    /**
+     * Redirect `source` to `destination` URL with optional 30x status `code`.
+     * 
+     * Both `source` and `destination` can be route names.
+     */
+    redirect(source: string, destination: string, code?: number): Router;
+
+    /**
+     * Create and register a route.
+     */
+    register(path: string, methods: string[], middleware: Router.IMiddleware, opts?: Object): Layer;
+
+    /**
+     * Lookup route with given `name`.
+     */
+    route(name: string): Layer;
+    route(name: string): boolean;
+
+    /**
+     * Generate URL for route. Takes either map of named `params` or series of
+     * arguments (for regular expression routes)
+     */
+    url(name: string, params: Object): string;
+    url(name: string, params: Object): Error;
+
+    /**
+     * Match given `path` and return corresponding routes.
+     */
+    match(name: string, method: string): Object;
+
+    /**
+     * Run middleware for named route parameters. Useful for auto-loading or validation.
+     */
+    param(param: string, middleware: Router.IMiddleware): Router;
+
+    /**
+     * Generate URL from url pattern and given `params`.
+     */
+    static url(path: string, params: Object): string;
 }
+
+export = Router;

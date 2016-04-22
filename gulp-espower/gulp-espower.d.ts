@@ -5,23 +5,21 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "gulp-espower" {
 
-    namespace espower {
-        interface Espower {
-            /**
-             * @param options Target patterns for power assert feature instrumentation.
-             */
-            (options?: Options): NodeJS.ReadWriteStream;
-        }
 
-        interface Options {
-            patterns: string[];
-        }
+declare namespace espower {
+    interface Espower {
+        /**
+         * @param options Target patterns for power assert feature instrumentation.
+         */
+        (options?: Options): NodeJS.ReadWriteStream;
     }
 
-    var espower: espower.Espower;
-
-    export = espower;
+    interface Options {
+        patterns: string[];
+    }
 }
 
+declare var espower: espower.Espower;
+
+export = espower;

@@ -176,3 +176,6 @@ declare module "helmet" {
   var helmet: helmet.Helmet;
   export = helmet;
 }
+
+declare var helmet: Helmet;
+export = helmet;

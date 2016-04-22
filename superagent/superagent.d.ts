@@ -5,20 +5,18 @@
 
 /// <reference path='../node/node.d.ts' />
 
-declare module "superagent" {
-  import stream = require('stream');
 
-  type CallbackHandler = (err: any, res: request.Response) => void;
+import stream = require('stream');
 
-  var request: request.SuperAgentStatic;
+type CallbackHandler = (err: any, res: request.Response) => void;
 
   namespace request {
     interface SuperAgentRequest extends Request {}
     interface SuperAgentStatic extends SuperAgent<SuperAgentRequest> {
-      (url: string): SuperAgentRequest;
-      (method: string, url: string): SuperAgentRequest;
+        (url: string): SuperAgentRequest;
+        (method: string, url: string): SuperAgentRequest;
 
-      agent(): SuperAgent<SuperAgentRequest>;
+        agent(): SuperAgent<SuperAgentRequest>;
     }
 
     interface SuperAgent<Req> extends stream.Stream {
@@ -114,5 +112,4 @@ declare module "superagent" {
 
   }
 
-  export = request;
 }

@@ -3,11 +3,9 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'detect-indent' {
-	interface DetectIndent {
-		(dir: string, alt?: string): string;
-	}
-	var _: DetectIndent;
-	export = _;
-}
 
+interface DetectIndent {
+    (dir: string, alt?: string): string;
+}
+declare var _: DetectIndent;
+export = _;

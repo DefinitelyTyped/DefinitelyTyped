@@ -3,27 +3,27 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'istanbul' {
-  namespace istanbul {
+
+declare namespace istanbul {
     interface Istanbul {
-      new (options?: any): Istanbul;
-      Collector: Collector;
-      config: Config;
-      ContentWriter: ContentWriter;
-      FileWriter: FileWriter;
-      hook: Hook;
-      Instrumenter: Instrumenter;
-      Report: Report;
-      Reporter: Reporter;
-      Store: Store;
-      utils: ObjectUtils;
-      VERSION: string;
-      Writer: Writer;
+        new (options?: any): Istanbul;
+        Collector: Collector;
+        config: Config;
+        ContentWriter: ContentWriter;
+        FileWriter: FileWriter;
+        hook: Hook;
+        Instrumenter: Instrumenter;
+        Report: Report;
+        Reporter: Reporter;
+        Store: Store;
+        utils: ObjectUtils;
+        VERSION: string;
+        Writer: Writer;
     }
 
     interface Collector {
-      new (options?: any): Collector;
-      add(coverage: any, testName?: string): void;
+        new (options?: any): Collector;
+        add(coverage: any, testName?: string): void;
     }
 
     interface Config {
@@ -39,22 +39,22 @@ declare module 'istanbul' {
     }
 
     interface Instrumenter {
-      new (options?: any): Instrumenter;
-      instrumentSync(code: string, filename: string): string;
+        new (options?: any): Instrumenter;
+        instrumentSync(code: string, filename: string): string;
     }
 
     interface Report {
     }
 
     interface Configuration {
-      new (obj: any, overrides: any): Configuration;
+        new (obj: any, overrides: any): Configuration;
     }
 
     interface Reporter {
-      new (cfg?: Configuration, dir?: string): Reporter;
-      add(fmt: string): void;
-      addAll(fmts: Array<string>): void;
-      write(collector: Collector, sync: boolean, callback: Function): void;
+        new (cfg?: Configuration, dir?: string): Reporter;
+        add(fmt: string): void;
+        addAll(fmts: Array<string>): void;
+        write(collector: Collector, sync: boolean, callback: Function): void;
     }
 
     interface Store {
@@ -65,9 +65,8 @@ declare module 'istanbul' {
 
     interface Writer {
     }
-  }
-
-  var istanbul: istanbul.Istanbul;
-
-  export = istanbul;
 }
+
+declare var istanbul: istanbul.Istanbul;
+
+export = istanbul;

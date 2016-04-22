@@ -15,26 +15,25 @@
 /// <reference path="../express/express.d.ts" />
 
 
-declare module "connect-slashes" {
-    import express = require('express');
+
+import express = require('express');
+
+/**
+ * @see https://github.com/avinoamr/connect-slashes#usage
+ */
+declare function slashes(addTrailingSlashes?: boolean, options?: slashes.Options): express.RequestHandler;
+
+declare namespace slashes {
 
     /**
-     * @see https://github.com/avinoamr/connect-slashes#usage
+     * Additional settings
+     * @see https://github.com/avinoamr/connect-slashes#additional-settings
      */
-    function slashes (addTrailingSlashes?: boolean, options?: slashes.Options): express.RequestHandler;
-
-    namespace slashes {
-
-        /**
-         * Additional settings
-         * @see https://github.com/avinoamr/connect-slashes#additional-settings
-         */
-        interface Options {
-            base?: string;
-            code?: number;
-            headers?: {[field: string]: string};
-        }
+    interface Options {
+        base?: string;
+        code?: number;
+        headers?: { [field: string]: string };
     }
-
-    export = slashes;
 }
+
+export = slashes;

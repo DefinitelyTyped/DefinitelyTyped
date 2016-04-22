@@ -265,3 +265,5 @@ declare module 'parsimmon' {
 
 	export = Parsimmon;
 }
+
+export = Parsimmon;

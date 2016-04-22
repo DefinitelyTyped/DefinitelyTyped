@@ -3,19 +3,18 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'create-error' {
-  // FIXME See Global type references https://github.com/Microsoft/TypeScript/issues/983
-  type Err = Error;
 
-  namespace createError {
+// FIXME See Global type references https://github.com/Microsoft/TypeScript/issues/983
+type Err = Error;
+
+declare namespace createError {
     interface Error<T extends Err> extends Err {
-      new (message?: string, obj?: any): T;
+        new (message?: string, obj?: any): T;
     }
-  }
-
-  function createError(): createError.Error<Error>;
-  function createError<T extends createError.Error<Error>>(name: string, properties?: any): T;
-  function createError<T extends createError.Error<Error>>(Target: createError.Error<Error>, name?: string, properties?: any): T;
-
-  export = createError;
 }
+
+declare function createError(): createError.Error<Error>;
+declare function createError<T extends createError.Error<Error>>(name: string, properties?: any): T;
+declare function createError<T extends createError.Error<Error>>(Target: createError.Error<Error>, name?: string, properties?: any): T;
+
+export = createError;

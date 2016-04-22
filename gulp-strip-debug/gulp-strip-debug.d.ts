@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="../node/node.d.ts" />
 
-declare module "gulp-strip-debug" {
-  const gulpStripDebug : () => NodeJS.ReadWriteStream;
-  export = gulpStripDebug;
-}
+
+declare const gulpStripDebug: () => NodeJS.ReadWriteStream;
+export = gulpStripDebug;

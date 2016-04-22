@@ -3,13 +3,12 @@
 // Definitions by: Jared Klopper <https://github.com/optical>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'mkpath' {
-  namespace mkpath {
+
+declare namespace mkpath {
     function sync(path: string, mode?: number): void;
-  }
-
-  function mkpath(path: string, callback?: (err: any) => void): void;
-  function mkpath(path: string, mode?: number, callback?: (err?: any) => void): void;
-
-  export = mkpath;
 }
+
+declare function mkpath(path: string, callback?: (err: any) => void): void;
+declare function mkpath(path: string, mode?: number, callback?: (err?: any) => void): void;
+
+export = mkpath;

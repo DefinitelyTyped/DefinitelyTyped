@@ -3,7 +3,6 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "swap-case" {
-	function swapCase(string: string, locale?: string): string;
-	export = swapCase;
-}
+
+declare function swapCase(string: string, locale?: string): string;
+export = swapCase;

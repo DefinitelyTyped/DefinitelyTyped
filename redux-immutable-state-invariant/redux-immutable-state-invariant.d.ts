@@ -5,9 +5,8 @@
 
 /// <reference path="../redux/redux.d.ts" />
 
-declare module "redux-immutable-state-invariant" {
-    type isImmutableDefault = (value: any) => boolean;
-    type immutableStateInvariantMiddlewareInterface = (isImmutable?: isImmutableDefault) => Redux.Middleware;
-    let immutableStateInvariantMiddleware: immutableStateInvariantMiddlewareInterface;
-    export = immutableStateInvariantMiddleware;
-}
+
+type isImmutableDefault = (value: any) => boolean;
+type immutableStateInvariantMiddlewareInterface = (isImmutable?: isImmutableDefault) => Redux.Middleware;
+declare let immutableStateInvariantMiddleware: immutableStateInvariantMiddlewareInterface;
+export = immutableStateInvariantMiddleware;

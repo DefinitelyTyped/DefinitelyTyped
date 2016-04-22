@@ -6,9 +6,6 @@
 
 ///<reference path="../node/node.d.ts"/>
 
-declare module "shelljs"
-{
-    import child = require("child_process");
 
     /**
      * Changes to directory dir for the duration of the script
@@ -426,11 +423,272 @@ declare module "shelljs"
      */
     export function ln(options: string, source: string, dest: string): void;
 
-    /**
-     * Exits the current process with the given exit code.
-     * @param {number} code The exit code.
-     */
-    export function exit(code: number): void;
+/**
+ * Reads an input string from file and performs a JavaScript replace() on the input using the given search regex and replacement string or function. Returns the new string after replacement.
+ * @param  {RegExp} searchRegex The regular expression to use for search.
+ * @param  {string} replacement The replacement.
+ * @param  {string} file        The file to process.
+ * @return {string}             The new string after replacement.
+ */
+declare export function sed(searchRegex: RegExp, replacement: string, file: string): string;
+
+/**
+ * Reads an input string from file and performs a JavaScript replace() on the input using the given search regex and replacement string or function. Returns the new string after replacement.
+ * @param  {string} searchRegex The regular expression to use for search.
+ * @param  {string} replacement The replacement.
+ * @param  {string} file        The file to process.
+ * @return {string}             The new string after replacement.
+ */
+declare export function sed(searchRegex: string, replacement: string, file: string): string;
+
+/**
+ * Reads an input string from file and performs a JavaScript replace() on the input using the given search regex and replacement string or function. Returns the new string after replacement.
+ * @param  {string} options     Available options: -i (Replace contents of 'file' in-place. Note that no backups will be created!)
+ * @param  {RegExp} searchRegex The regular expression to use for search.
+ * @param  {string} replacement The replacement.
+ * @param  {string} file        The file to process.
+ * @return {string}             The new string after replacement.
+ */
+declare export function sed(options: string, searchRegex: RegExp, replacement: string, file: string): string;
+
+/**
+ * Reads an input string from file and performs a JavaScript replace() on the input using the given search regex and replacement string or function. Returns the new string after replacement.
+ * @param  {string} options     Available options: -i (Replace contents of 'file' in-place. Note that no backups will be created!)
+ * @param  {string} searchRegex The regular expression to use for search.
+ * @param  {string} replacement The replacement.
+ * @param  {string} file        The file to process.
+ * @return {string}             The new string after replacement.
+ */
+declare export function sed(options: string, searchRegex: string, replacement: string, file: string): string;
+
+/**
+ * Reads input string from given files and returns a string containing all lines of the file that match the given regex_filter. Wildcard * accepted.
+ * @param  {RegExp}   regex_filter The regular expression to use.
+ * @param  {string[]} ...files     The files to process.
+ * @return {string}                Returns a string containing all lines of the file that match the given regex_filter.
+ */
+declare export function grep(regex_filter: RegExp, ...files: string[]): string;
+
+/**
+ * Reads input string from given files and returns a string containing all lines of the file that match the given regex_filter. Wildcard * accepted.
+ * @param  {RegExp}   regex_filter The regular expression to use.
+ * @param  {string[]} ...files     The files to process.
+ * @return {string}                Returns a string containing all lines of the file that match the given regex_filter.
+ */
+declare export function grep(regex_filter: RegExp, files: string[]): string;
+
+/**
+ * Reads input string from given files and returns a string containing all lines of the file that match the given regex_filter. Wildcard * accepted.
+ * @param  {string}   options      Available options: -v (Inverse the sense of the regex and print the lines not matching the criteria.)
+ * @param  {string}   regex_filter The regular expression to use.
+ * @param  {string[]} ...files     The files to process.
+ * @return {string}                Returns a string containing all lines of the file that match the given regex_filter.
+ */
+declare export function grep(options: string, regex_filter: string, ...files: string[]): string;
+
+/**
+ * Reads input string from given files and returns a string containing all lines of the file that match the given regex_filter. Wildcard * accepted.
+ * @param  {string}   options      Available options: -v (Inverse the sense of the regex and print the lines not matching the criteria.)
+ * @param  {string}   regex_filter The regular expression to use.
+ * @param  {string[]} files        The files to process.
+ * @return {string}                Returns a string containing all lines of the file that match the given regex_filter.
+ */
+declare export function grep(options: string, regex_filter: string, files: string[]): string;
+
+/**
+ * Searches for command in the system's PATH. On Windows looks for .exe, .cmd, and .bat extensions.
+ * @param  {string} command The command to search for.
+ * @return {string}         Returns string containing the absolute path to the command.
+ */
+declare export function which(command: string): string;
+
+/**
+ * Prints string to stdout, and returns string with additional utility methods like .to().
+ * @param  {string[]} ...text The text to print.
+ * @return {string}           Returns the string that was passed as argument.
+ */
+declare export function echo(...text: string[]): string;
+
+/**
+ * Save the current directory on the top of the directory stack and then cd to dir. With no arguments, pushd exchanges the top two directories. Returns an array of paths in the stack.
+ * @param  {"+N"}     dir Brings the Nth directory (counting from the left of the list printed by dirs, starting with zero) to the top of the list by rotating the stack.
+ * @return {string[]}     Returns an array of paths in the stack.
+ */
+declare export function pushd(dir: "+N"): string[];
+
+/**
+ * Save the current directory on the top of the directory stack and then cd to dir. With no arguments, pushd exchanges the top two directories. Returns an array of paths in the stack.
+ * @param  {"-N"}     dir Brings the Nth directory (counting from the right of the list printed by dirs, starting with zero) to the top of the list by rotating the stack.
+ * @return {string[]}     Returns an array of paths in the stack.
+ */
+declare export function pushd(dir: "-N"): string[];
+
+/**
+ * Save the current directory on the top of the directory stack and then cd to dir. With no arguments, pushd exchanges the top two directories. Returns an array of paths in the stack.
+ * @param  {string}     dir Makes the current working directory be the top of the stack, and then executes the equivalent of cd dir.
+ * @return {string[]}       Returns an array of paths in the stack.
+ */
+declare export function pushd(dir: string): string[];
+
+/**
+ * Save the current directory on the top of the directory stack and then cd to dir. With no arguments, pushd exchanges the top two directories. Returns an array of paths in the stack.
+ * @param  {string}   options Available options: -n (Suppresses the normal change of directory when adding directories to the stack, so that only the stack is manipulated)
+ * @param  {"+N"}     dir Brings the Nth directory (counting from the left of the list printed by dirs, starting with zero) to the top of the list by rotating the stack.
+ * @return {string[]}     Returns an array of paths in the stack.
+ */
+declare export function pushd(options: string, dir: "+N"): string[];
+
+/**
+ * Save the current directory on the top of the directory stack and then cd to dir. With no arguments, pushd exchanges the top two directories. Returns an array of paths in the stack.
+ * @param  {string}   options Available options: -n (Suppresses the normal change of directory when adding directories to the stack, so that only the stack is manipulated)
+ * @param  {"-N"}     dir Brings the Nth directory (counting from the right of the list printed by dirs, starting with zero) to the top of the list by rotating the stack.
+ * @return {string[]}     Returns an array of paths in the stack.
+ */
+declare export function pushd(options: string, dir: "-N"): string[];
+
+/**
+ * Save the current directory on the top of the directory stack and then cd to dir. With no arguments, pushd exchanges the top two directories. Returns an array of paths in the stack.
+ * @param  {string}   options Available options: -n (Suppresses the normal change of directory when adding directories to the stack, so that only the stack is manipulated)
+ * @param  {string}   dir     Makes the current working directory be the top of the stack, and then executes the equivalent of cd dir.
+ * @return {string[]}         Returns an array of paths in the stack.
+ */
+declare export function pushd(options: string, dir: string): string[];
+
+/**
+ * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
+ * @param  {"+N"}     dir Removes the Nth directory (counting from the left of the list printed by dirs), starting with zero.
+ * @return {string[]}     Returns an array of paths in the stack.
+ */
+declare export function popd(dir: "+N"): string[];
+
+/**
+ * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
+ * @return {string[]}     Returns an array of paths in the stack.
+ */
+declare export function popd(): string[];
+
+/**
+ * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
+ * @param  {"-N"}     dir Removes the Nth directory (counting from the right of the list printed by dirs), starting with zero.
+ * @return {string[]}     Returns an array of paths in the stack.
+ */
+declare export function popd(dir: "-N"): string[];
+
+/**
+ * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
+ * @param  {string}     dir You can only use -N and +N.
+ * @return {string[]}       Returns an array of paths in the stack.
+ */
+declare export function popd(dir: string): string[];
+
+/**
+ * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
+ * @param  {string}   options Available options: -n (Suppresses the normal change of directory when removing directories from the stack, so that only the stack is manipulated)
+ * @param  {"+N"}     dir     Removes the Nth directory (counting from the left of the list printed by dirs), starting with zero.
+ * @return {string[]}         Returns an array of paths in the stack.
+ */
+declare export function popd(options: string, dir: "+N"): string[];
+
+/**
+ * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
+ * @param  {string}   options Available options: -n (Suppresses the normal change of directory when removing directories from the stack, so that only the stack is manipulated)
+ * @param  {"-N"}     dir     Removes the Nth directory (counting from the right of the list printed by dirs), starting with zero.
+ * @return {string[]}         Returns an array of paths in the stack.
+ */
+declare export function popd(options: string, dir: "-N"): string[];
+
+/**
+ * When no arguments are given, popd removes the top directory from the stack and performs a cd to the new top directory. The elements are numbered from 0 starting at the first directory listed with dirs; i.e., popd is equivalent to popd +0. Returns an array of paths in the stack.
+ * @param  {string}   options Available options: -n (Suppresses the normal change of directory when removing directories from the stack, so that only the stack is manipulated)
+ * @param  {string}   dir     You can only use -N and +N.
+ * @return {string[]}         Returns an array of paths in the stack.
+ */
+declare export function popd(options: string, dir: string): string[];
+
+/**
+ * Clears the directory stack by deleting all of the elements.
+ * @param  {"-c"}     options Clears the directory stack by deleting all of the elements.
+ * @return {string[]}         Returns an array of paths in the stack, or a single path if +N or -N was specified.
+ */
+declare export function dirs(options: "-c"): string[];
+
+/**
+ * Display the list of currently remembered directories. Returns an array of paths in the stack, or a single path if +N or -N was specified.
+ * @param  {"+N"}   options Displays the Nth directory (counting from the left of the list printed by dirs when invoked without options), starting with zero.
+ * @return {string[]}       Returns an array of paths in the stack, or a single path if +N or -N was specified.
+ */
+declare export function dirs(options: "+N"): string;
+
+/**
+ * Display the list of currently remembered directories. Returns an array of paths in the stack, or a single path if +N or -N was specified.
+ * @param  {"-N"}   options Displays the Nth directory (counting from the right of the list printed by dirs when invoked without options), starting with zero.
+ * @return {string[]}       Returns an array of paths in the stack, or a single path if +N or -N was specified.
+ */
+declare export function dirs(options: "-N"): string;
+
+/**
+ * Display the list of currently remembered directories. Returns an array of paths in the stack, or a single path if +N or -N was specified.
+ * @param  {string} options Available options: -c, -N, +N. You can only use those.
+ * @return {any}            Returns an array of paths in the stack, or a single path if +N or -N was specified.
+ */
+declare export function dirs(options: string): any;
+
+/**
+ * Links source to dest. Use -f to force the link, should dest already exist.
+ * @param {string} source The source.
+ * @param {string} dest   The destination.
+ */
+declare export function ln(source: string, dest: string): void;
+
+/**
+ * Links source to dest. Use -f to force the link, should dest already exist.
+ * @param {string} options Available options: s (symlink), f (force)
+ * @param {string} source The source.
+ * @param {string} dest   The destination.
+ */
+declare export function ln(options: string, source: string, dest: string): void;
+
+/**
+ * Exits the current process with the given exit code.
+ * @param {number} code The exit code.
+ */
+declare export function exit(code: number): void;
+
+/**
+ * Object containing environment variables (both getter and setter). Shortcut to process.env.
+ */
+declare export var env: { [key: string]: string };
+
+/**
+ * Executes the given command synchronously.
+ * @param  {string}                 command The command to execute.
+ * @return {ExecOutputReturnValue}          Returns an object containing the return code and output as string.
+ */
+declare export function exec(command: string): ExecOutputReturnValue;
+/**
+ * Executes the given command synchronously.
+ * @param  {string}                                     command The command to execute.
+ * @param  {ExecOptions}                                options Silence and synchronous options.
+ * @return {ExecOutputReturnValue | child.ChildProcess}         Returns an object containing the return code and output as string, or if {async:true} was passed, a ChildProcess.
+ */
+declare export function exec(command: string, options: ExecOptions): ExecOutputReturnValue | child.ChildProcess;
+/**
+ * Executes the given command synchronously.
+ * @param  {string}          command  The command to execute.
+ * @param  {ExecOptions}     options  Silence and synchronous options.
+ * @param  {ExecCallback}    callback Receives code and output asynchronously.
+ */
+declare export function exec(command: string, options: ExecOptions, callback: ExecCallback): child.ChildProcess;
+/**
+ * Executes the given command synchronously.
+ * @param  {string}          command  The command to execute.
+ * @param  {ExecCallback}    callback Receives code and output asynchronously.
+ */
+declare export function exec(command: string, callback: ExecCallback): child.ChildProcess;
+
+export interface ExecCallback {
+    (code: number, output: string): any;
+}
 
     /**
      * Object containing environment variables (both getter and setter). Shortcut to process.env.
@@ -468,46 +726,44 @@ declare module "shelljs"
         (code: number, output: string, error?: string): any;
     }
 
-    export interface ExecOptions {
-        silent?: boolean;
-        async?: boolean;
-    }
+/**
+ * Alters the permissions of a file or directory by either specifying the absolute permissions in octal form or expressing the changes in symbols. This command tries to mimic the POSIX behavior as much as possible. Notable exceptions:
+ * - In symbolic modes, 'a-r' and '-r' are identical. No consideration is given to the umask.
+ * - There is no "quiet" option since default behavior is to run silent.
+ * @param {number} octalMode The access mode. Octal.
+ * @param {string} file      The file to use.
+ */
+declare export function chmod(octalMode: number, file: string): void;
 
-    export interface ExecOutputReturnValue
-    {
-        code: number;
-        output: string;
-    }
+/**
+ * Alters the permissions of a file or directory by either specifying the absolute permissions in octal form or expressing the changes in symbols. This command tries to mimic the POSIX behavior as much as possible. Notable exceptions:
+ * - In symbolic modes, 'a-r' and '-r' are identical. No consideration is given to the umask.
+ * - There is no "quiet" option since default behavior is to run silent.
+ * @param {string} mode      The access mode. Can be an octal string or a symbolic mode string.
+ * @param {string} file      The file to use.
+ */
+declare export function chmod(mode: string, file: string): void;
 
+// Non-Unix commands
+
+/**
+ * Searches and returns string containing a writeable, platform-dependent temporary directory. Follows Python's tempfile algorithm.
+ * @return {string} The temp file path.
+ */
+declare export function tempdir(): string;
+
+/**
+ * Tests if error occurred in the last command.
+ * @return {string} Returns null if no error occurred, otherwise returns string explaining the error
+ */
+declare export function error(): string;
+
+// Configuration
+
+interface ShellConfig {
     /**
-     * Alters the permissions of a file or directory by either specifying the absolute permissions in octal form or expressing the changes in symbols. This command tries to mimic the POSIX behavior as much as possible. Notable exceptions:
-     * - In symbolic modes, 'a-r' and '-r' are identical. No consideration is given to the umask.
-     * - There is no "quiet" option since default behavior is to run silent.
-     * @param {number} octalMode The access mode. Octal.
-     * @param {string} file      The file to use.
-     */
-    export function chmod(octalMode: number, file: string): void;
-
-    /**
-     * Alters the permissions of a file or directory by either specifying the absolute permissions in octal form or expressing the changes in symbols. This command tries to mimic the POSIX behavior as much as possible. Notable exceptions:
-     * - In symbolic modes, 'a-r' and '-r' are identical. No consideration is given to the umask.
-     * - There is no "quiet" option since default behavior is to run silent.
-     * @param {string} mode      The access mode. Can be an octal string or a symbolic mode string.
-     * @param {string} file      The file to use.
-     */
-    export function chmod(mode: string, file: string): void;
-
-    // Non-Unix commands
-
-    /**
-     * Searches and returns string containing a writeable, platform-dependent temporary directory. Follows Python's tempfile algorithm.
-     * @return {string} The temp file path.
-     */
-    export function tempdir(): string;
-
-    /**
-     * Tests if error occurred in the last command.
-     * @return {string} Returns null if no error occurred, otherwise returns string explaining the error
+     * Suppresses all command output if true, except for echo() calls. Default is false.
+     * @type {boolean}
      */
     export function error(): string;
 
@@ -550,8 +806,14 @@ declare module "shelljs"
     }
 
     /**
-     * The shelljs configuration.
-     * @type {ShellConfig}
+     * If true the script will die on errors. Default is false.
+     * @type {boolean}
      */
-    export var config: ShellConfig;
+    fatal: boolean;
 }
+
+/**
+ * The shelljs configuration.
+ * @type {ShellConfig}
+ */
+declare export var config: ShellConfig;

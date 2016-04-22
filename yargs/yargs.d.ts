@@ -3,20 +3,18 @@
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "yargs" {
 
-	namespace yargs {
-		interface Argv {
-			argv: any;
-			(...args: any[]): any;
-			parse(...args: any[]): any;
 
-			reset(): Argv;
+declare namespace yargs {
+    interface Argv {
+        argv: any;
+        (...args: any[]): any;
+        parse(...args: any[]): any;
 
-			locale(): string;
-			locale(loc:string): Argv;
+        reset(): Argv;
 
-			detectLocale(detect:boolean): Argv;
+        locale(): string;
+        locale(loc: string): Argv;
 
 			terminalWidth(): number;
 
@@ -27,22 +25,15 @@ declare module "yargs" {
 			array(key: string): Argv;
 			array(keys: string[]): Argv;
 
-			default(key: string, value: any): Argv;
-			default(defaults: { [key: string]: any}): Argv;
+        alias(shortName: string, longName: string): Argv;
+        alias(aliases: { [shortName: string]: string }): Argv;
+        alias(aliases: { [shortName: string]: string[] }): Argv;
 
-			demand(key: string, msg: string): Argv;
-			demand(key: string, required?: boolean): Argv;
-			demand(keys: string[], msg: string): Argv;
-			demand(keys: string[], required?: boolean): Argv;
-			demand(positionals: number, required?: boolean): Argv;
-			demand(positionals: number, msg: string): Argv;
+        array(key: string): Argv;
+        array(keys: string[]): Argv;
 
-			require(key: string, msg: string): Argv;
-			require(key: string, required: boolean): Argv;
-			require(keys: number[], msg: string): Argv;
-			require(keys: number[], required: boolean): Argv;
-			require(positionals: number, required: boolean): Argv;
-			require(positionals: number, msg: string): Argv;
+        default(key: string, value: any): Argv;
+        default(defaults: { [key: string]: any }): Argv;
 
 			required(key: string, msg: string): Argv;
 			required(key: string, required: boolean): Argv;
@@ -180,3 +171,6 @@ declare module "yargs" {
 	var yargs: yargs.Argv;
 	export = yargs;
 }
+
+declare var yargs: yargs.Argv;
+export = yargs;

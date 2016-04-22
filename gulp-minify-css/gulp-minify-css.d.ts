@@ -6,12 +6,11 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../clean-css/clean-css.d.ts" />
 
-declare module "gulp-minify-css" {
-    import * as CleanCSS from 'clean-css';
 
-    function minifyCSS(options?: CleanCSS.Options): NodeJS.ReadWriteStream;
+import * as CleanCSS from 'clean-css';
 
-    namespace minifyCSS {}
+declare function minifyCSS(options?: CleanCSS.Options): NodeJS.ReadWriteStream;
 
-    export = minifyCSS;
-}
+declare namespace minifyCSS { }
+
+export = minifyCSS;

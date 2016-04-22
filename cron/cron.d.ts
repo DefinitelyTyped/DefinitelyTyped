@@ -3,25 +3,22 @@
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "cron" {
 
-  interface CronJobStatic {
-    new(cronTime: string|Date, onTick: () => void, onComplete?: () => void, start?: boolean, timeZone?: string, context?: any): CronJob;
-    new(options: {
-      cronTime: string|Date; onTick: () => void; onComplete?: () => void; start?: boolean; timeZone?: string; context?: any
+
+interface CronJobStatic {
+    new (cronTime: string | Date, onTick: () => void, onComplete?: () => void, start?: boolean, timeZone?: string, context?: any): CronJob;
+    new (options: {
+        cronTime: string | Date; onTick: () => void; onComplete?: () => void; start?: boolean; timeZone?: string; context?: any
     }): CronJob;
-  }
-  interface CronJob {
+}
+interface CronJob {
     start(): void;
     stop(): void;
-  }
-  export var CronJob: CronJobStatic;
-
-  interface CronTimeStatic {
-    new(time: string|Date): CronTime;
-  }
-  interface CronTime {}
-  export var CronTime: CronTimeStatic;
-
 }
+declare export var CronJob: CronJobStatic;
 
+interface CronTimeStatic {
+    new (time: string | Date): CronTime;
+}
+interface CronTime { }
+declare export var CronTime: CronTimeStatic;

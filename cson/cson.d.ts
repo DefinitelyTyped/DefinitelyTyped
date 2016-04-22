@@ -3,30 +3,29 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "cson" {
-	// Create Strings
-	export function stringify(data: Object, opts?: Object, indent?: any): string;
-	export function createCSONString(data: Object, opts?: Object, next?: any): string;
-	export function createJSONString(data: Object, opts?: Object, next?: any): string;
-	export function createString(data: Object, opts?: Object, next?: any): string;
 
-	// Parse Strings
-	export function parse(data: string, opts?: Object, next?: any): Object;
-	export function parseCSONString(data: string, opts?: Object, next?: any): Object;
-	export function parseJSONString(data: string, opts?: Object, next?: any): Object;
-	export function parseCSString(data: string, opts?: Object, next?: any): Object;
-	export function parseJSString(data: string, opts?: Object, next?: any): Object;
-	export function parseString(data: string, opts?: Object, next?:any): Object;
+// Create Strings
+declare export function stringify(data: Object, opts?: Object, indent?: any): string;
+declare export function createCSONString(data: Object, opts?: Object, next?: any): string;
+declare export function createJSONString(data: Object, opts?: Object, next?: any): string;
+declare export function createString(data: Object, opts?: Object, next?: any): string;
 
-	// Parse Files
-	export function load(filePath: string, opts?: Object, next?: any): Object;
-	export function parseCSONFile(filePath: string, opts?: Object, next?: any): Object;
-	export function parseJSONFile(filePath: string, opts?: Object, next?: any): Object;
-	export function parseCSFile(filePath: string, opts?: Object, next?: any): Object;
-	export function parseJSFile(filePath: string, opts?: Object, next?: any): Object;
+// Parse Strings
+declare export function parse(data: string, opts?: Object, next?: any): Object;
+declare export function parseCSONString(data: string, opts?: Object, next?: any): Object;
+declare export function parseJSONString(data: string, opts?: Object, next?: any): Object;
+declare export function parseCSString(data: string, opts?: Object, next?: any): Object;
+declare export function parseJSString(data: string, opts?: Object, next?: any): Object;
+declare export function parseString(data: string, opts?: Object, next?: any): Object;
 
-	// Require Files
-	export function requireCSFile(filePath: string, opts?: Object, next?: any): Object;
-	export function requireJSFile(filePath: string, opts?: Object, next?: any): Object;
-	export function requireFile(filePath: string, opts?: Object, next?: any): Object;
-}
+// Parse Files
+declare export function load(filePath: string, opts?: Object, next?: any): Object;
+declare export function parseCSONFile(filePath: string, opts?: Object, next?: any): Object;
+declare export function parseJSONFile(filePath: string, opts?: Object, next?: any): Object;
+declare export function parseCSFile(filePath: string, opts?: Object, next?: any): Object;
+declare export function parseJSFile(filePath: string, opts?: Object, next?: any): Object;
+
+// Require Files
+declare export function requireCSFile(filePath: string, opts?: Object, next?: any): Object;
+declare export function requireJSFile(filePath: string, opts?: Object, next?: any): Object;
+declare export function requireFile(filePath: string, opts?: Object, next?: any): Object;

@@ -43,3 +43,5 @@ declare module "supertest" {
 
   export = supertest;
 }
+
+export = supertest;

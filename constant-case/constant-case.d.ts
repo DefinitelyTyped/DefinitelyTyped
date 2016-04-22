@@ -3,7 +3,6 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "constant-case" {
-	function constantCase(string: string, locale?: string): string;
-	export = constantCase;
-}
+
+declare function constantCase(string: string, locale?: string): string;
+export = constantCase;

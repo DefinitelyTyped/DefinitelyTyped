@@ -5,9 +5,9 @@
 
 
 //commonjs loader
-declare module "json5" {
-	/** 
-	 * The following is the exact list of additions to JSON's syntax introduced by JSON5. All of these are optional, and all of these come from ES5.
+
+/** 
+ * The following is the exact list of additions to JSON's syntax introduced by JSON5. All of these are optional, and all of these come from ES5.
 
 Objects
 
@@ -39,7 +39,6 @@ Numbers can begin with an explicit plus sign.
 Comments
 
 Both inline (single-line) and block (multi-line) comments are allowed.
-	  */
-    var json5: JSON;
-    export = json5;
-}
+  */
+declare var json5: JSON;
+export = json5;

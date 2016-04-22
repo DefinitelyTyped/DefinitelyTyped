@@ -3,7 +3,6 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "camel-case" {
-	function camelCase(string: string, locale?: string): string;
-	export = camelCase;
-}
+
+declare function camelCase(string: string, locale?: string): string;
+export = camelCase;

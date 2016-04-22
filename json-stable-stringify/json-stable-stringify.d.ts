@@ -3,31 +3,30 @@
 // Definitions by: Matt Frantz <https://github.com/mhfrantz/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'json-stable-stringify' {
 
-  function stringify(obj: any, opts?: stringify.Comparator | stringify.Options): string;
 
-  namespace stringify {
+declare function stringify(obj: any, opts?: stringify.Comparator | stringify.Options): string;
+
+declare namespace stringify {
 
     interface Element {
-      key: string;
-      value: any;
+        key: string;
+        value: any;
     }
 
     interface Comparator {
-      (a: Element, b: Element): number;
+        (a: Element, b: Element): number;
     }
 
     interface Replacer {
-      (key: string, value: any): any;
+        (key: string, value: any): any;
     }
 
     interface Options {
-      cmp?: Comparator;
-      space?: number | string;
-      replacer?: Replacer;
+        cmp?: Comparator;
+        space?: number | string;
+        replacer?: Replacer;
     }
-  }
-
-  export = stringify;
 }
+
+export = stringify;

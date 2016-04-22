@@ -102,3 +102,25 @@ declare module "statsd-client" {
 	namespace StatsdClient {}
 	export = StatsdClient;
 }
+
+declare class StatsdClient {
+    constructor(options: TcpOptions | UdpOptions | HttpOptions);
+
+    counter(metric: string, delta: number): void;
+    increment(metric: string, delta?: number): void;
+    decrement(metric: string, delta?: number): void;
+
+    gauge(name: string, value: number): void;
+    gaugeDelta(name: string, delta: number): void;
+
+    set(name: string, value: number): void;
+
+    timing(name: string, start: Date): void;
+    timing(name: string, duration: number): void;
+
+    close(): void;
+
+    getChildClient(name: string): StatsdClient;
+}
+
+export = StatsdClient;

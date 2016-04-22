@@ -5,19 +5,18 @@
 
 /// <reference path="../node/node.d.ts"/>
 
-declare module "gulp-replace" {
-    interface Options {
-        skipBinary?: boolean;
-    }
 
-    interface Replacer {
-      (match: string): string
-    }
-
-    function replace(pattern: string, replacement: string | Replacer, opts?: Options): NodeJS.ReadWriteStream;
-    function replace(pattern: RegExp, replacement: string | Replacer, opts?: Options): NodeJS.ReadWriteStream;
-
-    namespace replace {}
-
-    export = replace;
+interface Options {
+    skipBinary?: boolean;
 }
+
+interface Replacer {
+    (match: string): string
+}
+
+declare function replace(pattern: string, replacement: string | Replacer, opts?: Options): NodeJS.ReadWriteStream;
+declare function replace(pattern: RegExp, replacement: string | Replacer, opts?: Options): NodeJS.ReadWriteStream;
+
+declare namespace replace { }
+
+export = replace;

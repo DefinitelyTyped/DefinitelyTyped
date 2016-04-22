@@ -5,48 +5,41 @@
 
 /// <reference path="../express/express.d.ts" />
 
-declare module "express-brute" {
-    import express = require("express");
 
+import express = require("express");
+
+/**
+ * @summary Options for {@link MemoryStore} class.
+ * @interface
+ */
+interface MemoryStoreOptions {
     /**
-     * @summary Options for {@link MemoryStore} class.
-     * @interface
+     * @summary Key prefix.
+     * @type {string}
      */
-    interface MemoryStoreOptions {
-        /**
-         * @summary Key prefix.
-         * @type {string}
-         */
-        prefix: string;
-    }
+    prefix: string;
+}
 
+/**
+ * @summary Options for {@link ExpressBrute#getMiddleware} class.
+ * @interface
+ */
+interface ExpressBruteMiddleware {
     /**
-     * @summary Options for {@link ExpressBrute#getMiddleware} class.
-     * @interface
+     * @summary Allows you to override the value of failCallback for this middleware.
+     * @type {Function}
      */
-    interface ExpressBruteMiddleware {
-        /**
-         * @summary Allows you to override the value of failCallback for this middleware.
-         * @type {Function}
-         */
-        failCallback: Function;
-
-        /**
-         * @summary Disregard IP address when matching requests if set to true. Defaults to false.
-         * @type {boolean}
-         */
-        ignoreIP: boolean;
-
-        /**
-         * @summary Key.
-         * @type {any}
-         */
-        key: any;
-    }
+    failCallback: Function;
 
     /**
-     * @summary Options for {@link ExpressBrute} class.
-     * @interface
+     * @summary Disregard IP address when matching requests if set to true. Defaults to false.
+     * @type {boolean}
+     */
+    ignoreIP: boolean;
+
+    /**
+     * @summary Key.
+     * @type {any}
      */
     interface ExpressBruteOptions {
         freeRetries?: number;
@@ -64,7 +57,7 @@ declare module "express-brute" {
  * @summary Middleware.
  * @class
  */
-class ExpressBrute {
+declare class ExpressBrute {
     /**
      * @summary Constructor.
      * @constructor
@@ -104,7 +97,7 @@ class ExpressBrute {
     reset(ip: string, key: string, next: Function): express.RequestHandler;
 }
 
-namespace ExpressBrute {
+declare namespace ExpressBrute {
     /**
      * @summary In-memory store.
      * @class
@@ -142,4 +135,3 @@ namespace ExpressBrute {
 }
 
 export = ExpressBrute;
-}

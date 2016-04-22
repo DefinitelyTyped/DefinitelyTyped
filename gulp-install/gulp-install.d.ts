@@ -4,19 +4,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="../node/node.d.ts" />
 
-declare module "gulp-install" {
-  interface Options {
+
+interface Options {
     production?: boolean;
     ignoreScripts?: boolean;
     noOptional?: boolean;
     allowRoot?: boolean;
     args?: string | string[];
-  }
-
-  interface Install {
-    (options?: Options) : NodeJS.ReadWriteStream;
-  }
-
-  const install : Install;
-  export = install;
 }
+
+interface Install {
+    (options?: Options): NodeJS.ReadWriteStream;
+}
+
+declare const install: Install;
+export = install;

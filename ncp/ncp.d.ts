@@ -5,9 +5,6 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module 'ncp' {
-	function ncp (source: string, destination: string, callback: (err: Error) => void): void;
-	function ncp (source: string, destination: string, options: Options, callback: (err: Error) => void): void;
 
 	interface Options {
 		filter? : RegExp | ((filename: string) => boolean);

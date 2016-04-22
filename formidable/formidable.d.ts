@@ -5,52 +5,51 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "formidable" {
-	import http = require("http");
-	import stream = require("stream");
-	import events = require("events");
 
-	export class IncomingForm extends events.EventEmitter {
-		encoding: string;
-		uploadDir: string;
-		keepExtensions: boolean;
-		maxFieldsSize: number;
-		maxFields: number;
-		hash: string | boolean;
-		multiples: boolean;
-		type: string;
-		bytesReceived: number;
-		bytesExpected: number;
+import http = require("http");
+import stream = require("stream");
+import events = require("events");
 
-		onPart: (part: Part) => void;
+declare export class IncomingForm extends events.EventEmitter {
+    encoding: string;
+    uploadDir: string;
+    keepExtensions: boolean;
+    maxFieldsSize: number;
+    maxFields: number;
+    hash: string | boolean;
+    multiples: boolean;
+    type: string;
+    bytesReceived: number;
+    bytesExpected: number;
 
-		handlePart(part: Part): void;
-		parse(req: http.IncomingMessage, callback?: (err: any, fields: Fields, files: Files) => any): void;
-	}
+    onPart: (part: Part) => void;
 
-	export interface Fields {
-		[key: string]: string;
-	}
+    handlePart(part: Part): void;
+    parse(req: http.IncomingMessage, callback?: (err: any, fields: Fields, files: Files) => any): void;
+}
 
-	export interface Files {
-		[key: string]: File; // | File[];
-	}
+export interface Fields {
+    [key: string]: string;
+}
 
-	export interface Part extends stream.Stream {
-		headers: { [key: string]: string };
-		name: string;
-		filename?: string;
-		mime?: string;
-	}
+export interface Files {
+    [key: string]: File; // | File[];
+}
 
-	export interface File {
-		size: number;
-		path: string;
-		name: string;
-		type: string;
-		lastModifiedDate?: Date;
-		hash?: string;
+export interface Part extends stream.Stream {
+    headers: { [key: string]: string };
+    name: string;
+    filename?: string;
+    mime?: string;
+}
 
-		toJSON(): Object;
-	}
+export interface File {
+    size: number;
+    path: string;
+    name: string;
+    type: string;
+    lastModifiedDate?: Date;
+    hash?: string;
+
+    toJSON(): Object;
 }

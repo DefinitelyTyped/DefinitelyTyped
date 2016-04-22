@@ -5,7 +5,6 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "stream-series" {
-    function series<T extends NodeJS.ReadableStream>(...streams: T[]): NodeJS.ReadWriteStream;
-    export = series;
-}
+
+declare function series<T extends NodeJS.ReadableStream>(...streams: T[]): NodeJS.ReadWriteStream;
+export = series;

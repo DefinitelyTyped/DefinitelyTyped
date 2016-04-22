@@ -5,10 +5,9 @@
 
 /// <reference path="../base-x/base-x.d.ts" />
 
-declare module "bs58" {
-	namespace base58 {}
 
-	let base58: BaseX.BaseConverter;
+declare namespace base58 { }
 
-	export = base58;
-}
+declare let base58: BaseX.BaseConverter;
+
+export = base58;

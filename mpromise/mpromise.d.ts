@@ -3,20 +3,20 @@
 // Definitions by: Seulgi Kim <https://github.com/sgkim126/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "mpromise" {
-  interface IFulfillFunction<F> {
+
+interface IFulfillFunction<F> {
     (...args: F[]): void;
     (arg: F): void;
-  }
-  interface IRejectFunction<R> {
+}
+interface IRejectFunction<R> {
     (err: R): void;
-  }
-  interface IResolveFunction<F, R> {
+}
+interface IResolveFunction<F, R> {
     (err: R, ...args: F[]): void;
     (err: R, arg: F): void;
-  }
+}
 
-  class Promise<F, R> {
+declare class Promise<F, R> {
     constructor(fn?: IResolveFunction<F, R>);
 
     static FAILURE: string;
@@ -36,7 +36,6 @@ declare module "mpromise" {
     end(): void;
 
     chain(promise: Promise<F, R>): Promise<F, R>;
-  }
-
-  export = Promise;
 }
+
+export = Promise;

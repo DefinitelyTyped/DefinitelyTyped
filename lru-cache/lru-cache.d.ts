@@ -3,9 +3,6 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'lru-cache' {
-	function LRU<T>(opts: LRU.Options<T>): LRU.Cache<T>;
-	function LRU<T>(max: number): LRU.Cache<T>;
 
 	namespace LRU {
 		interface Options<T> {
@@ -32,5 +29,9 @@ declare module 'lru-cache' {
 		}
 	}
 
-	export = LRU;
+        keys(): string[];
+        values(): T[];
+    }
 }
+
+export = LRU;

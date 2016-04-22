@@ -3,11 +3,10 @@
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "absolute" {
-	/**
-	 * Test if a path is absolute
-	 */
-	function absolute(path: string): boolean;
 
-	export default absolute;
-}
+/**
+ * Test if a path is absolute
+ */
+declare function absolute(path: string): boolean;
+
+export default absolute;

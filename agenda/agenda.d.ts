@@ -6,18 +6,23 @@
 /// <reference path='../node/node.d.ts' />
 /// <reference path='../mongodb/mongodb.d.ts' />
 
-declare module "agenda" {
 
-    import {EventEmitter} from "events";
-    import {Db, Collection, ObjectID} from "mongodb";
 
-    interface Callback {
-        (err?: Error): void;
-    }
+import {EventEmitter} from "events";
+import {Db, Collection, ObjectID} from "mongodb";
 
-    interface ResultCallback<T> {
-        (err?: Error, result?: T): void;
-    }
+interface Callback {
+    (err?: Error): void;
+}
+
+interface ResultCallback<T> {
+    (err?: Error, result?: T): void;
+}
+
+/**
+ * Agenda Configuration.
+ */
+interface AgendaConfiguration {
 
     class Agenda extends EventEmitter {
 
@@ -28,60 +33,55 @@ declare module "agenda" {
          */
         constructor(config?: Agenda.AgendaConfiguration, cb?: ResultCallback<Collection>);
 
-        /**
-         * Connect to the specified MongoDB server and database.
-         */
-        database(url: string, collection?: string, options?: any, cb?: ResultCallback<Collection>): Agenda;
+    /**
+     * (lowest|low|normal|high|highest|number) specifies the priority of the job. Higher priority jobs will run
+     * first.
+     */
+    priority?: string | number;
+}
 
-        /**
-         * Initialize agenda with an existing MongoDB connection.
-         */
-        mongo(db: Db, collection?: string, cb?: ResultCallback<Collection>): Agenda;
+declare class Agenda extends EventEmitter {
 
-        /**
-         * Sets the agenda name.
-         */
-        name(value: string): Agenda;
+    /**
+     * Constructs a new Agenda object.
+     * @param config Optional configuration to initialize the Agenda.
+     * @param cb Optional callback called with the MongoDB colleciton.
+     */
+    constructor(config?: AgendaConfiguration, cb?: ResultCallback<Collection>);
 
-        /**
-         * Sets the interval with which the queue is checked. A number in milliseconds or a frequency string.
-         */
-        processEvery(interval: string | number): Agenda;
+    /**
+     * Connect to the specified MongoDB server and database.
+     */
+    database(url: string, collection?: string, options?: any, cb?: ResultCallback<Collection>): Agenda;
 
-        /**
-         * Takes a number which specifies the max number of jobs that can be running at any given moment. By default it
-         * is 20.
-         * @param value The value to set.
-         */
-        maxConcurrency(value: number): Agenda;
+    /**
+     * Initialize agenda with an existing MongoDB connection.
+     */
+    mongo(db: Db, collection?: string, cb?: ResultCallback<Collection>): Agenda;
 
-        /**
-         * Takes a number which specifies the default number of a specific job that can be running at any given moment.
-         * By default it is 5.
-         * @param value The value to set.
-         */
-        defaultConcurrency(value: number): Agenda;
+    /**
+     * Sets the agenda name.
+     */
+    name(value: string): Agenda;
 
-        /**
-         * Takes a number shich specifies the max number jobs that can be locked at any given moment. By default it is
-         * 0 for no max.
-         * @param value The value to set.
-         */
-        lockLimit(value: number): Agenda;
+    /**
+     * Sets the interval with which the queue is checked. A number in milliseconds or a frequency string.
+     */
+    processEvery(interval: string | number): Agenda;
 
-        /**
-         * Takes a number which specifies the default number of a specific job that can be locked at any given moment.
-         * By default it is 0 for no max.
-         * @param value The value to set.
-         */
-        defaultLockLimit(value: number): Agenda;
+    /**
+     * Takes a number which specifies the max number of jobs that can be running at any given moment. By default it
+     * is 20.
+     * @param value The value to set.
+     */
+    maxConcurrency(value: number): Agenda;
 
-        /**
-         * Takes a number which specifies the default lock lifetime in milliseconds. By default it is 10 minutes. This
-         * can be overridden by specifying the lockLifetime option to a defined job.
-         * @param value The value to set.
-         */
-        defaultLockLifetime(value: number): Agenda;
+    /**
+     * Takes a number which specifies the default number of a specific job that can be running at any given moment.
+     * By default it is 5.
+     * @param value The value to set.
+     */
+    defaultConcurrency(value: number): Agenda;
 
         /**
          * Returns an instance of a jobName with data. This does NOT save the job in the database. See below to learn
@@ -98,12 +98,12 @@ declare module "agenda" {
          */
         jobs(query: any, cb: ResultCallback<Agenda.Job[]>): void;
 
-        /**
-         * Removes all jobs in the database without defined behaviors. Useful if you change a definition name and want
-         * to remove old jobs.
-         * @param cb Called with the number of jobs removed.
-         */
-        purge(cb?: ResultCallback<number>): void;
+    /**
+     * Takes a number which specifies the default lock lifetime in milliseconds. By default it is 10 minutes. This
+     * can be overridden by specifying the lockLifetime option to a defined job.
+     * @param value The value to set.
+     */
+    defaultLockLifetime(value: number): Agenda;
 
         /**
          * Defines a job with the name of jobName. When a job of job name gets run, it will be passed to fn(job, done).
@@ -145,24 +145,34 @@ declare module "agenda" {
          */
         now(name: string, data?: any, cb?: ResultCallback<Agenda.Job>): Agenda.Job;
 
-        /**
-         * Cancels any jobs matching the passed mongodb-native query, and removes them from the database.
-         * @param query Mongodb native query.
-         * @param cb Called with the number of jobs removed.
-         */
-        cancel(query: any, cb?: ResultCallback<number>): void;
+    /**
+     * Runs job name at the given interval. Optionally, data and options can be passed in.
+     * @param interval Can be a human-readable format String, a cron format String, or a Number.
+     * @param names The name or names of the job(s) to run.
+     * @param data An optional argument that will be passed to the processing function under job.attrs.data.
+     * @param options An optional argument that will be passed to job.repeatEvery.
+     * @param cb An optional callback function which will be called when the job has been persisted in the database.
+     */
+    every(interval: number | string, names: string, data?: any, options?: any, cb?: ResultCallback<Job>): Job;
+    every(interval: number | string, names: string[], data?: any, options?: any, cb?: ResultCallback<Job[]>): Job[];
 
-        /**
-         * Starts the job queue processing, checking processEvery time to see if there are new jobs.
-         */
-        start(): void;
+    /**
+     * Schedules a job to run name once at a given time.
+     * @param when A Date or a String such as tomorrow at 5pm.
+     * @param names The name or names of the job(s) to run.
+     * @param data An optional argument that will be passed to the processing function under job.attrs.data.
+     * @param cb An optional callback function which will be called when the job has been persisted in the database.
+     */
+    schedule(when: Date | string, names: string, data?: any, cb?: ResultCallback<Job>): Job;
+    schedule(when: Date | string, names: string[], data?: any, cb?: ResultCallback<Job[]>): Job[];
 
-        /**
-         * Stops the job queue processing. Unlocks currently running jobs.
-         * @param cb Called after the job processing queue shuts down and unlocks all jobs.
-         */
-        stop(cb: Callback): void;
-    }
+    /**
+     * Schedules a job to run name once immediately.
+     * @param name The name of the job to run.
+     * @param data An optional argument that will be passed to the processing function under job.attrs.data.
+     * @param cb An optional callback function which will be called when the job has been persisted in the database.
+     */
+    now(name: string, data?: any, cb?: ResultCallback<Job>): Job;
 
     namespace Agenda {
         /**
@@ -447,5 +457,15 @@ declare module "agenda" {
         }
     }
 
-    export = Agenda;
+    /**
+     * Stops the job queue processing. Unlocks currently running jobs.
+     * @param cb Called after the job processing queue shuts down and unlocks all jobs.
+     */
+    stop(cb: Callback): void;
 }
+
+declare namespace Agenda {
+
+}
+
+export = Agenda;

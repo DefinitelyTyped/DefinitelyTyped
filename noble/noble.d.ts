@@ -110,3 +110,16 @@ declare module "noble" {
     }
 }
 
+declare export class Descriptor extends events.EventEmitter {
+    uuid: string;
+    name: string;
+    type: string;
+
+    readValue(callback?: (error: string, data: Buffer) => void): void;
+    writeValue(data: Buffer, callback?: (error: string) => void): void;
+    toString(): string;
+
+    on(event: string, listener: Function): this;
+    on(event: "valueRead", listener: (error: string, data: Buffer) => void): this;
+    on(event: "valueWrite", listener: (error: string) => void): this;
+}

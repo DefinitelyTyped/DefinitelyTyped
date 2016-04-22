@@ -6,17 +6,17 @@
 /// <reference path='../superagent/superagent.d.ts' />
 /// <reference path="../express/express.d.ts" />
 
-declare module 'promisify-supertest' {
-  // Mostly copy-pasted from supertest.d.ts
 
-  import * as superagent from 'superagent';
-  import * as express from 'express';
+// Mostly copy-pasted from supertest.d.ts
 
-  type CallbackHandler = (err: any, res: supertest.Response) => void;
+import * as superagent from 'superagent';
+import * as express from 'express';
 
-  function supertest(app: express.Express): supertest.SuperTest;
+type CallbackHandler = (err: any, res: supertest.Response) => void;
 
-  namespace supertest {
+declare function supertest(app: express.Express): supertest.SuperTest;
+
+declare namespace supertest {
     function agent(app?: any): supertest.SuperTest;
 
     interface SuperTest extends superagent.SuperAgent<Test> {
@@ -38,7 +38,6 @@ declare module 'promisify-supertest' {
 
     interface Response extends superagent.Response {
     }
-  }
-
-  export = supertest;
 }
+
+export = supertest;

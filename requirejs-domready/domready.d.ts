@@ -3,13 +3,12 @@
 // Definitions by: Nobuhiro Nakamura <https://github.com/lefb766>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "domReady" {
-    interface DomReady {
-        (callback: () => any): DomReady;
-        version: string;
-    }
 
-    let domReady: DomReady;
-
-    export = domReady;
+interface DomReady {
+    (callback: () => any): DomReady;
+    version: string;
 }
+
+declare let domReady: DomReady;
+
+export = domReady;

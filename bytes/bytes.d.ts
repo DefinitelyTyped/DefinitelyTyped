@@ -11,22 +11,32 @@ declare module 'bytes' {
       fixedDecimals?: boolean
     }
     /**
-     *Convert the given value in bytes into a string.
+     * Format the given value in bytes into a string.
+     *
+     * If the value is negative, take Math.abs(). If it is a float,
+     * it is rounded.
      *
      * @param {number} value
-     * @param {{
-     *  thousandsSeparator: [string]
-     *  }} [options] bytes options.
+     * @param {BytesFormatOptions} [options]
+     */
+
+    function format(value: number, options?: { thousandsSeparator: string }): string;
+
+    /**
+     * Just return the input number value.
      *
-     * @returns {string}
+     * @param {number} value
+     * @return {number}
      */
     function bytes(value: number, options?: BytesOptions): string;
 
     /**
-     *Parse string to an integer in bytes.
+     * Parse the string value into an integer in bytes.
+     *
+     * If no unit is given, it is assumed the value is in bytes.
      *
      * @param {string} value
-     * @returns {number}
+     * @return {number}
      */
     function bytes(value: string): number;
 
@@ -65,3 +75,5 @@ declare module 'bytes' {
 
     export = bytes;
 }
+
+export = bytes;

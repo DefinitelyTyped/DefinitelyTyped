@@ -3,7 +3,6 @@
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "mess" {
-	function shuffle<T>(array: T[]): T[];
-	export = shuffle;
-}
+
+declare function shuffle<T>(array: T[]): T[];
+export = shuffle;

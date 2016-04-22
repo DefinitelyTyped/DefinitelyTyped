@@ -3,28 +3,27 @@
 // Definitions by: Elisée MAURER <https://github.com/elisee/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "async-lock" {
-  interface AsyncLockDoneCallback {
-    (err?: Error, ret?: any): void;
-  }
 
-  interface AsyncLockOptions {
+interface AsyncLockDoneCallback {
+    (err?: Error, ret?: any): void;
+}
+
+interface AsyncLockOptions {
     timeout?: number;
     maxPending?: number;
     domainReentrant?: boolean;
     Promise?: any;
-  }
+}
 
-  class AsyncLock {
+declare class AsyncLock {
     constructor(options?: AsyncLockOptions);
 
-    acquire(key: string|string[], fn: (done: AsyncLockDoneCallback) => any, cb: AsyncLockDoneCallback, opts?: AsyncLockOptions): void;
-    acquire(key: string|string[], fn: (done: AsyncLockDoneCallback) => any, opts?: AsyncLockOptions): PromiseLike<any>;
+    acquire(key: string | string[], fn: (done: AsyncLockDoneCallback) => any, cb: AsyncLockDoneCallback, opts?: AsyncLockOptions): void;
+    acquire(key: string | string[], fn: (done: AsyncLockDoneCallback) => any, opts?: AsyncLockOptions): PromiseLike<any>;
 
     isBusy(): boolean;
-  }
-
-  namespace AsyncLock {}
-
-  export = AsyncLock;
 }
+
+declare namespace AsyncLock { }
+
+export = AsyncLock;

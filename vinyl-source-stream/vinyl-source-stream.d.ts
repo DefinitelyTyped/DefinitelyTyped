@@ -5,8 +5,7 @@
 
 /// <reference path="../node/node.d.ts"/>
 
-declare module "vinyl-source-stream" {
-    function vinylSourceStream(filename: string): NodeJS.ReadWriteStream;
-    namespace vinylSourceStream {}
-    export = vinylSourceStream;
-}
+
+declare function vinylSourceStream(filename: string): NodeJS.ReadWriteStream;
+declare namespace vinylSourceStream { }
+export = vinylSourceStream;

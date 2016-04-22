@@ -3,7 +3,6 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "dot-case" {
-	function dotCase(string: string, locale?: string): string;
-	export = dotCase;
-}
+
+declare function dotCase(string: string, locale?: string): string;
+export = dotCase;

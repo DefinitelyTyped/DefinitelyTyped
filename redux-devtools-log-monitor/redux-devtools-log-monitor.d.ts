@@ -10,7 +10,9 @@ declare module "redux-devtools-log-monitor" {
   import * as React from 'react'
   import {ColorScheme} from 'base16'
 
-  interface ILogMonitorProps {
+import * as React from 'react'
+
+interface ILogMonitorProps {
     /**
      * Either a string referring to one of the themes provided by
      * redux-devtools-themes or a custom object of the same format.

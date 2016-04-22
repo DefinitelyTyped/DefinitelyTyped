@@ -5,18 +5,17 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "gulp-less" {
 
-    interface IOptions {
-        modifyVars?: {};
-        paths?: string[];
-        plugins?: any[];
-        relativeUrls?: boolean;
-    }
 
-    function less(options?: IOptions): NodeJS.ReadWriteStream;
-
-    namespace less {}
-
-    export = less;
+interface IOptions {
+    modifyVars?: {};
+    paths?: string[];
+    plugins?: any[];
+    relativeUrls?: boolean;
 }
+
+declare function less(options?: IOptions): NodeJS.ReadWriteStream;
+
+declare namespace less { }
+
+export = less;

@@ -3,18 +3,17 @@
 // Definitions by: jKey Lu <https://github.com/jkeylu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "koa-compose" {
-    function compose(middleware: compose.Middleware[]): compose.ComposedMiddleware;
 
-    namespace compose {
-        interface Middleware {
-            (context: any, next?: () => Promise<void>): Promise<any>;
-        }
+declare function compose(middleware: compose.Middleware[]): compose.ComposedMiddleware;
 
-        interface ComposedMiddleware {
-            (context: any): Promise<void>;
-        }
+declare namespace compose {
+    interface Middleware {
+        (context: any, next?: () => Promise<void>): Promise<any>;
     }
 
-    export = compose;
+    interface ComposedMiddleware {
+        (context: any): Promise<void>;
+    }
 }
+
+export = compose;

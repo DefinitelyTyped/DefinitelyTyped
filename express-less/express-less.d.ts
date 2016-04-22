@@ -5,17 +5,16 @@
 
 /// <reference path="../express/express.d.ts" />
 
-declare module "express-less" {
-    import express = require('express');
 
-    function less(root: string, options?: less.Options): express.RequestHandler;
+import express = require('express');
 
-    namespace less {
-        export interface Options {
-            debug?: boolean;
-            compress?: boolean;
-        }
+declare function less(root: string, options?: less.Options): express.RequestHandler;
+
+declare namespace less {
+    export interface Options {
+        debug?: boolean;
+        compress?: boolean;
     }
-
-    export = less;
 }
+
+export = less;

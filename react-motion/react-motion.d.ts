@@ -72,7 +72,10 @@ declare module "react-motion" {
         onRest?: () => void;
     }
 
-    export class Motion extends Component<MotionProps, any> { }
+interface MotionProps {
+    defaultStyle?: any;
+    style: any;
+}
 
     // === TransitionMotion ===
     interface TransitionStyle {
@@ -141,18 +144,23 @@ declare module "react-motion" {
     }
     export class StaggeredMotion extends Component<StaggeredMotionProps, any> { }
 
-
-    /**
-    * Used in conjunction with the components below. Specifies the how to animate to the destination value, e.g. spring(10, {stiffness: 120, damping: 17}) means "animate to value 10, with a spring of stiffness 120 and damping 17".
-    */
-    export function spring(val: number, config?: SpringHelperConfig): OpaqueConfig;
-
-    export class Presets {
-        noWobble: OpaqueConfig; // the default, if nothing provided
-        gentle: OpaqueConfig;
-        wobbly: OpaqueConfig;
-        stiff: OpaqueConfig;
-    }
-
-    export const presets: Presets;
+interface StaggeredMotionProps {
+    defaultStyles?: Array<PlainStyle>;
+    styles: (previousInterpolatedStyles?: Array<PlainStyle>) => Array<Style>;
 }
+declare export class StaggeredMotion extends Component<StaggeredMotionProps, any> { }
+
+
+/**
+* Used in conjunction with the components below. Specifies the how to animate to the destination value, e.g. spring(10, {stiffness: 120, damping: 17}) means "animate to value 10, with a spring of stiffness 120 and damping 17".
+*/
+declare export function spring(val: number, config?: SpringHelperConfig): OpaqueConfig;
+
+declare export class Presets {
+    noWobble: OpaqueConfig; // the default, if nothing provided
+    gentle: OpaqueConfig;
+    wobbly: OpaqueConfig;
+    stiff: OpaqueConfig;
+}
+
+declare export const presets: Presets;

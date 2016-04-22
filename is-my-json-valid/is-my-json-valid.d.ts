@@ -3,28 +3,26 @@
 // Definitions by: kruncher <https://github.com/kruncher/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module "is-my-json-valid" {
 
-  interface ValidationError {
+
+interface ValidationError {
     field: string;
     message: string;
     value: any;
     type: string;
-  }
+}
 
-  interface ValidateFunction {
+interface ValidateFunction {
     (data: any): boolean;
 
     errors: ValidationError[];
-  }
+}
 
-  interface Validator {
+interface Validator {
     (schema: any, options?: any): ValidateFunction;
 
     filter(schema: any): any;
-  }
-
-  var validator: Validator;
-  export = validator;
-
 }
+
+declare var validator: Validator;
+export = validator;

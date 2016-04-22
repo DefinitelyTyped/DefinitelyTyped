@@ -3,9 +3,8 @@
 // Definitions by: jt000 <https://github.com/jt000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "ejs-locals" {
 
-    function ejsLocals(): Function;
 
-    export = ejsLocals;
-}
+declare function ejsLocals(): Function;
+
+export = ejsLocals;

@@ -5,22 +5,21 @@
 
 /// <reference path="../express/express.d.ts" />
 
-declare module "express-unless" {
-    import express = require('express');
 
-    function unless(options:unless.Options): express.RequestHandler;
+import express = require('express');
 
-    namespace unless {
-        export interface Options {
-            custom?: (req: express.Request) => boolean;
-            path?: any; // TODO: union type 'string|string[]' is not supported yet
-            ext?: any; // TODO: union type 'string|string[]' is not supported yet
-            method?: any; // TODO: union type 'string|string[]' is not supported yet
-        }
-        export interface RequestHandler extends express.RequestHandler {
-            unless?: typeof unless;
-        }
+declare function unless(options: unless.Options): express.RequestHandler;
+
+declare namespace unless {
+    export interface Options {
+        custom?: (req: express.Request) => boolean;
+        path?: any; // TODO: union type 'string|string[]' is not supported yet
+        ext?: any; // TODO: union type 'string|string[]' is not supported yet
+        method?: any; // TODO: union type 'string|string[]' is not supported yet
     }
-
-    export = unless;
+    export interface RequestHandler extends express.RequestHandler {
+        unless?: typeof unless;
+    }
 }
+
+export = unless;

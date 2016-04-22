@@ -3,89 +3,87 @@
 // Definitions by: Vojtěch Habarta <https://github.com/vojtechhabarta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "tabtab" {
+
+
+/**
+ * Main completion method, has support for installation and actual completion.
+ * @param name Name of the command to complete.
+ * @param cb Get called when a tab-completion command happens.
+ */
+declare export function complete(name: string, cb: CallBack): void;
+
+/**
+ * Main completion method, has support for installation and actual completion.
+ * @param name Name of the command to complete.
+ * @param completer Name of the command to call on completion.
+ * @param cb Get called when a tab-completion command happens.
+ */
+declare export function complete(name: string, completer: string, cb: CallBack): void;
+
+/**
+ * Simple helper function to know if the script is run in the context of a completion command.
+ */
+declare export function isComplete(): boolean;
+
+/**
+ * Helper to return the list of short and long options, parsed from the usual --help output of a command (cake/rake -H, vagrant, commander -h, optimist.help(), ...).
+ */
+declare export function parseOut(str: string): { shorts: string[]; longs: string[] };
+
+/**
+ * Same purpose as parseOut, but for parsing tasks from an help command (cake/rake -T, vagrant, etc.).
+ */
+declare export function parseTasks(str: string, prefix: string, reg?: RegExp | string): string[];
+
+/**
+ * Helper to return completion output and log to standard output.
+ * @param values Array of values to complete against.
+ * @param data The data object returned by the complete callback, used mainly to filter results accordingly upon the text that is supplied by the user.
+ * @param prefix A prefix to add to the completion results, useful for options to add dashes (eg. - or --).
+ */
+declare export function log(values: string[], data: Data, prefix?: string): void;
+
+interface CallBack {
+    (error?: Error, data?: Data, text?: string): any;
+}
+
+/**
+ * Holds interesting values to drive the output of the completion.
+ */
+interface Data {
 
     /**
-     * Main completion method, has support for installation and actual completion.
-     * @param name Name of the command to complete.
-     * @param cb Get called when a tab-completion command happens.
+     * full command being completed
      */
-    export function complete(name: string, cb: CallBack): void;
+    line: string;
 
     /**
-     * Main completion method, has support for installation and actual completion.
-     * @param name Name of the command to complete.
-     * @param completer Name of the command to call on completion.
-     * @param cb Get called when a tab-completion command happens.
+     * number of words
      */
-    export function complete(name: string, completer: string, cb: CallBack): void;
+    words: number;
 
     /**
-     * Simple helper function to know if the script is run in the context of a completion command.
+     * cursor position
      */
-    export function isComplete(): boolean;
+    point: number;
 
     /**
-     * Helper to return the list of short and long options, parsed from the usual --help output of a command (cake/rake -H, vagrant, commander -h, optimist.help(), ...).
+     * tabing in the middle of a word: foo bar baz bar foobarrrrrrr
      */
-    export function parseOut(str: string): { shorts: string[]; longs: string[] };
+    partial: string;
 
     /**
-     * Same purpose as parseOut, but for parsing tasks from an help command (cake/rake -T, vagrant, etc.).
+     * last word of the line
      */
-    export function parseTasks(str: string, prefix: string, reg?: RegExp|string): string[];
+    last: string;
 
     /**
-     * Helper to return completion output and log to standard output.
-     * @param values Array of values to complete against.
-     * @param data The data object returned by the complete callback, used mainly to filter results accordingly upon the text that is supplied by the user.
-     * @param prefix A prefix to add to the completion results, useful for options to add dashes (eg. - or --).
+     * last partial of the line
      */
-    export function log(values: string[], data: Data, prefix?: string): void;
-
-    interface CallBack {
-        (error?: Error, data?: Data, text?: string): any;
-    }
+    lastPartial: string;
 
     /**
-     * Holds interesting values to drive the output of the completion.
+     * the previous word
      */
-    interface Data {
-
-        /**
-         * full command being completed
-         */
-        line: string;
-
-        /**
-         * number of words
-         */
-        words: number;
-
-        /**
-         * cursor position
-         */
-        point: number;
-
-        /**
-         * tabing in the middle of a word: foo bar baz bar foobarrrrrrr
-         */
-        partial: string;
-
-        /**
-         * last word of the line
-         */
-        last: string;
-
-        /**
-         * last partial of the line
-         */
-        lastPartial: string;
-
-        /**
-         * the previous word
-         */
-        prev: string;
-    }
-
+    prev: string;
 }

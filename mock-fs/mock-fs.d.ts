@@ -5,53 +5,52 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "mock-fs" {
-	import fs = require("fs");
 
-	function mock(config?: mock.Config, options?: mock.Options): void;
+import fs = require("fs");
 
-	namespace mock {
-		function file(config: FileConfig): File;
-		function directory(config: DirectoryConfig): Directory;
-		function symlink(config: SymlinkConfig): Symlink;
+declare function mock(config?: mock.Config, options?: mock.Options): void;
 
-		function restore(): void;
+declare namespace mock {
+    function file(config: FileConfig): File;
+    function directory(config: DirectoryConfig): Directory;
+    function symlink(config: SymlinkConfig): Symlink;
 
-		function fs(config?: Config, options?: Options): typeof fs;
+    function restore(): void;
 
-		interface Config {
-			[path: string]: string | Buffer | File | Directory | Symlink | Config;
-		}
+    function fs(config?: Config, options?: Options): typeof fs;
 
-		interface Options {
-			createCwd?: boolean;
-			createTmp?: boolean;
-		}
+    interface Config {
+        [path: string]: string | Buffer | File | Directory | Symlink | Config;
+    }
 
-		interface CommonConfig {
-			mode?: number;
-			uid?: number;
-			git?: number;
-			atime?: Date;
-			ctime?: Date;
-			mtime?: Date;
-			birthtime?: Date;
-		}
+    interface Options {
+        createCwd?: boolean;
+        createTmp?: boolean;
+    }
 
-		interface FileConfig extends CommonConfig {
-			content: string | Buffer;
-		}
-		interface DirectoryConfig extends CommonConfig {
-			items: Config;
-		}
-		interface SymlinkConfig extends CommonConfig {
-			path: string;
-		}
+    interface CommonConfig {
+        mode?: number;
+        uid?: number;
+        git?: number;
+        atime?: Date;
+        ctime?: Date;
+        mtime?: Date;
+        birthtime?: Date;
+    }
 
-		class File { private _file: any; }
-		class Directory { private _directory: any; }
-		class Symlink { private _symlink: any; }
-	}
+    interface FileConfig extends CommonConfig {
+        content: string | Buffer;
+    }
+    interface DirectoryConfig extends CommonConfig {
+        items: Config;
+    }
+    interface SymlinkConfig extends CommonConfig {
+        path: string;
+    }
 
-	export = mock;
+    class File { private _file: any; }
+    class Directory { private _directory: any; }
+    class Symlink { private _symlink: any; }
 }
+
+export = mock;

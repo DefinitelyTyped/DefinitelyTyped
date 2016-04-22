@@ -262,3 +262,5 @@ declare module 'request' {
 	var request: request.RequestAPI<request.Request, request.CoreOptions, request.RequiredUriUrl>;
 	export = request;
 }
+declare var request: request.RequestAPI<request.Request, request.CoreOptions, request.RequiredUriUrl>;
+export = request;

@@ -12,97 +12,96 @@
 
 /// <reference path="../express/express.d.ts" />
 
-declare module "less-middleware" {
-    import express = require('express');
+
+import express = require('express');
+
+/**
+ * Middleware created to allow processing of Less files for Connect JS framework
+ * and by extension the Express JS framework
+ */
+declare function lessMiddleware(source: string, options?: {
+    /**
+    * Show more verbose logging?
+    */
+    debug?: boolean;
 
     /**
-     * Middleware created to allow processing of Less files for Connect JS framework
-     * and by extension the Express JS framework
+    * Destination directory to output the compiled .css files.
+    */
+    dest?: string;
+
+    /**
+     * Always re-compile less files on each request.
      */
-    function lessMiddleware(source: string, options?: {
-        /**
-        * Show more verbose logging?
-        */
-        debug?: boolean;
+    force?: boolean;
+
+    /**
+     * Only recompile once after each server restart.
+     * Useful for reducing disk i/o on production.
+     */
+    once?: boolean;
+
+    /**
+     * Common root of the source and destination.
+     * It is prepended to both the source and destination before being used.
+     */
+    pathRoot?: string;
+
+    /**
+     * Object containing functions relevant to preprocessing data.
+     */
+    postprocess?: {
 
         /**
-        * Destination directory to output the compiled .css files.
-        */
-        dest?: string;
-
-        /**
-         * Always re-compile less files on each request.
+         * Function that modifies the compiled css output before being stored.
          */
-        force?: boolean;
+        css?(css: string, req: express.Request): string;
+    };
+
+    /**
+     * Object containing functions relevant to preprocessing data.
+     */
+    preprocess?: {
 
         /**
-         * Only recompile once after each server restart.
-         * Useful for reducing disk i/o on production.
+         * Function that modifies the raw less output before being parsed and compiled.
          */
-        once?: boolean;
+        less?(css: string, req: express.Request): string;
 
         /**
-         * Common root of the source and destination.
-         * It is prepended to both the source and destination before being used.
+         * Function that modifies the less pathname before being loaded from the filesystem.
          */
-        pathRoot?: string;
+        path?(pathname: string, req: express.Request): string;
 
         /**
-         * Object containing functions relevant to preprocessing data.
+         * Function that modifies the import paths used by the less parser per request.
          */
-        postprocess?: {
+        importPaths?(paths: string[], req: express.Request): string[];
+    };
 
-          /**
-           * Function that modifies the compiled css output before being stored.
-           */
-          css?(css: string, req: express.Request): string;
-        };
+    /**
+     * Options for the less render.
+     */
+    render?: {
 
-        /**
-         * Object containing functions relevant to preprocessing data.
-         */
-        preprocess?: {
+        compress?: string;
+        yuicompress?: boolean;
+        paths?: string[];
+    };
 
-            /**
-             * Function that modifies the raw less output before being parsed and compiled.
-             */
-            less?(css: string, req: express.Request): string;
+    /**
+     * Function that is in charge of storing the css in the filesystem.
+     */
+    storeCss?(pathname: string, css: string, req: express.Request, next: Function): void;
 
-            /**
-             * Function that modifies the less pathname before being loaded from the filesystem.
-             */
-            path?(pathname: string, req: express.Request): string;
+    /**
+     * Path to a JSON file that will be used to cache less data across server restarts.
+     * This can greatly speed up initial load time after a server restart - if the less
+     * files haven't changed and the css files still exist, specifying this option will
+     * mean that the less files don't need to be recompiled after a server restart.  
+     */
+    cacheFile?: string;
 
-            /**
-             * Function that modifies the import paths used by the less parser per request.
-             */
-            importPaths?(paths: string[], req: express.Request): string[];
-        };
+}): express.RequestHandler;
 
-        /**
-         * Options for the less render.
-         */
-        render?: {
-
-            compress?: string;
-            yuicompress?: boolean;
-            paths?: string[];
-        };
-
-        /**
-         * Function that is in charge of storing the css in the filesystem.
-         */
-        storeCss?(pathname: string, css: string, req: express.Request, next: Function): void;
-
-        /**
-         * Path to a JSON file that will be used to cache less data across server restarts.
-         * This can greatly speed up initial load time after a server restart - if the less
-         * files haven't changed and the css files still exist, specifying this option will
-         * mean that the less files don't need to be recompiled after a server restart.  
-         */
-        cacheFile?: string;
-
-    }): express.RequestHandler;
-
-    export = lessMiddleware;
-}
+export = lessMiddleware;

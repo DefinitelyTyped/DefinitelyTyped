@@ -3,7 +3,6 @@
 // Definitions by: Klaus Reimer <https://github.com/kayahr/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "fullname" {
-    function fullname(): Promise<string>;
-    export = fullname;
-}
+
+declare function fullname(): Promise<string>;
+export = fullname;

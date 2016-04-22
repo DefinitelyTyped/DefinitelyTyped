@@ -45,3 +45,15 @@ declare module "archiver" {
     
     export = archiver;
 }
+
+interface Options {
+
+}
+
+declare function archiver(format: string, options?: Options): Archiver;
+
+declare namespace archiver {
+    function create(format: string, options?: Options): Archiver;
+}
+
+export = archiver;

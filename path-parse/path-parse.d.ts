@@ -5,8 +5,7 @@
 
 /// <reference path="../node/node.d.ts"/>
 
-declare module "path-parse" {
-  import { ParsedPath } from "path";
-  const parse: (src: string) => ParsedPath;
-  export = parse;
-}
+
+import { ParsedPath } from "path";
+declare const parse: (src: string) => ParsedPath;
+export = parse;

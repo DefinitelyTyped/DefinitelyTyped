@@ -5,34 +5,33 @@
 
 /// <reference path="../connect/connect.d.ts" />
 
-declare module "connect-livereload" {
-	import { HandleFunction } from "connect";
 
-	function livereload(): HandleFunction;
-	function livereload(options: livereload.Options): HandleFunction;
+import { HandleFunction } from "connect";
 
-	namespace livereload {
-		export type FileMatcher = string | RegExp;
+declare function livereload(): HandleFunction;
+declare function livereload(options: livereload.Options): HandleFunction;
 
-		export interface Rule {
-			match: RegExp;
-			fn: (w: string, s: string) => string;
-		}
+declare namespace livereload {
+    export type FileMatcher = string | RegExp;
 
-		export interface Options {
-			ignore?: FileMatcher[];
-			excludeList?: FileMatcher[];
+    export interface Rule {
+        match: RegExp;
+        fn: (w: string, s: string) => string;
+    }
 
-			include?: FileMatcher[];
-			html?: (val: string) => boolean;
-			rules?: Rule[];
-			disableCompression?: boolean;
+    export interface Options {
+        ignore?: FileMatcher[];
+        excludeList?: FileMatcher[];
 
-			hostname?: string;
-			port?: number;
-			src?: string;
-		}
-	}
+        include?: FileMatcher[];
+        html?: (val: string) => boolean;
+        rules?: Rule[];
+        disableCompression?: boolean;
 
-	export = livereload;
+        hostname?: string;
+        port?: number;
+        src?: string;
+    }
 }
+
+export = livereload;

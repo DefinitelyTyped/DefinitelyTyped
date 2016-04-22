@@ -3,16 +3,15 @@
 // Definitions by: Panu Horsmalahti <https://github.com/panuhorsmalahti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "rcloader" {
-    interface Options {
-        [property: string]: any;
-        lookup?: boolean;
-    }
 
-    class RcLoader {
-        constructor(configfilename: string, options: string | Options);
-        for(path: string, callback?: (error: any, fileOpts: any) => void): void;
-    }
-
-    export = RcLoader;
+interface Options {
+    [property: string]: any;
+    lookup?: boolean;
 }
+
+declare class RcLoader {
+    constructor(configfilename: string, options: string | Options);
+    for(path: string, callback?: (error: any, fileOpts: any) => void): void;
+}
+
+export = RcLoader;

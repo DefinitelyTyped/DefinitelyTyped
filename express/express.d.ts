@@ -13,12 +13,19 @@
 /// <reference path="../serve-static/serve-static.d.ts" />
 /// <reference path="../express-serve-static-core/express-serve-static-core.d.ts" />
 
-declare module "express" {
-    import * as serveStatic from "serve-static";
-    import * as core from "express-serve-static-core";
+
+import * as serveStatic from "serve-static";
+import * as core from "express-serve-static-core";
+
+/**
+ * Creates an Express application. The express() function is a top-level function exported by the express module.
+ */
+declare function e(): core.Express;
+
+declare namespace e {
 
     /**
-     * Creates an Express application. The express() function is a top-level function exported by the express module.
+     * This is the only built-in middleware function in Express. It serves static files and is based on serve-static.
      */
     function e(): core.Express;
 
@@ -53,3 +60,5 @@ declare module "express" {
 
     export = e;
 }
+
+export = e;

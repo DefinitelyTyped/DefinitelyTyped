@@ -3,8 +3,7 @@
 // Definitions by: Yuki Kokubun <https://github.com/Kuniwak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "unique-random" {
-  function uniqueRandom(min: number, max: number): () => number;
 
-  export = uniqueRandom;
-}
+declare function uniqueRandom(min: number, max: number): () => number;
+
+export = uniqueRandom;

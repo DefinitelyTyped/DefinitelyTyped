@@ -5,15 +5,13 @@
 
 /// <reference path="../react/react.d.ts" />
 
-declare module "react-spinkit" {
-    import { Component } from 'react';
 
-    interface Props {
-        spinnerName?: string;
-    }
+import { Component } from 'react';
 
-    class Spinner extends Component<Props, {}> { }
-
-    export default Spinner;
+interface Props {
+    spinnerName?: string;
 }
 
+declare class Spinner extends Component<Props, {}> { }
+
+export default Spinner;

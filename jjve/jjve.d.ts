@@ -5,22 +5,21 @@
 
 /// <reference path="../jjv/jjv.d.ts" />
 
-declare module 'jjve' {
-	import jjv  = require('jjv');
 
-	function jjve(jjv: jjv.Env): jjve.Env;
-	namespace jjve {
-		interface Issue {
-			code: string;
-			message: string;
-			data: any;
-			path: string;
-		}
+import jjv = require('jjv');
 
-		interface Env {
-			(schema: Object, data: any, errors: jjv.Errors): Issue[];
-		}
-	}
+declare function jjve(jjv: jjv.Env): jjve.Env;
+declare namespace jjve {
+    interface Issue {
+        code: string;
+        message: string;
+        data: any;
+        path: string;
+    }
 
-	export = jjve;
+    interface Env {
+        (schema: Object, data: any, errors: jjv.Errors): Issue[];
+    }
 }
+
+export = jjve;

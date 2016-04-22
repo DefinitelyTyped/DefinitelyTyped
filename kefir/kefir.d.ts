@@ -198,3 +198,103 @@ declare module "kefir" {
 	export function pool<T, S>(): ObservablePool<T, S>;
 	export function repeat<T, S>(generator: (i: number) => Observable<T, S> | boolean): Observable<T, S>;
 }
+
+export interface Property<T, S> extends Observable<T, S> {
+    changes(): Stream<T, S>;
+
+    // Modify an property
+    map<U>(fn: (value: T) => U): Property<U, S>;
+    filter(predicate?: (value: T) => boolean): Property<T, S>;
+    take(n: number): Property<T, S>;
+    takeWhile(predicate?: (value: T) => boolean): Property<T, S>;
+    last(): Property<T, S>;
+    skip(n: number): Property<T, S>;
+    skipWhile(predicate?: (value: T) => boolean): Property<T, S>;
+    skipDuplicates(comparator?: (a: T, b: T) => boolean): Property<T, S>;
+    diff(fn?: (prev: T, next: T) => T, seed?: T): Property<T, S>;
+    scan(fn: (prev: T, next: T) => T, seed?: T): Property<T, S>;
+    delay(wait: number): Property<T, S>;
+    throttle(wait: number, options?: { leading?: boolean, trailing?: boolean }): Property<T, S>;
+    debounce(wait: number, options?: { immediate: boolean }): Property<T, S>;
+    valuesToErrors<U>(handler?: (value: T) => { convert: boolean, error: U }): Property<void, S | U>;
+    errorsToValues<U>(handler?: (error: S) => { convert: boolean, value: U }): Property<T | U, void>;
+    mapErrors<U>(fn: (error: S) => U): Property<T, U>;
+    filterErrors(predicate?: (error: S) => boolean): Property<T, S>;
+    endOnError(): Property<T, S>;
+    takeErrors(n: number): Stream<T, S>;
+    ignoreValues(): Property<void, S>;
+    ignoreErrors(): Property<T, void>;
+    ignoreEnd(): Property<T, S>;
+    beforeEnd<U>(fn: () => U): Property<T | U, S>;
+    slidingWindow(max: number, mix?: number): Property<T[], S>;
+    bufferWhile(predicate: (value: T) => boolean): Property<T[], S>;
+    bufferWithCount(count: number, options?: { flushOnEnd: boolean }): Property<T[], S>;
+    bufferWithTimeOrCount(interval: number, count: number, options?: { flushOnEnd: boolean }): Property<T[], S>;
+    transduce<U>(transducer: any): Property<U, S>;
+    withHandler<U, V>(handler: (emitter: Emitter<T, S>, event: Event<T | S>) => void): Property<U, S>;
+
+    // Combine properties
+    combine<U, V, W>(otherObs: Property<U, V>, combinator?: (value: T, ...values: U[]) => W): Property<W, S | V>;
+    zip<U, V, W>(otherObs: Property<U, V>, combinator?: (value: T, ...values: U[]) => W): Property<W, S | V>;
+    merge<U, V>(otherObs: Property<U, V>): Property<T | U, S | V>;
+    concat<U, V>(otherObs: Property<U, V>): Property<T | U, S | V>;
+    flatMap<U, V>(transform: (value: T) => Property<U, V>): Property<U, V>;
+    flatMapLatest<U, V>(fn: (value: T) => Property<U, V>): Property<U, V>;
+    flatMapFirst<U, V>(fn: (value: T) => Property<U, V>): Property<U, V>;
+    flatMapConcat<U, V>(fn: (value: T) => Property<U, V>): Property<U, V>;
+    flatMapConcurLimit<U, V>(fn: (value: T) => Property<U, V>, limit: number): Property<U, V>;
+    flatMapErrors<U, V>(transform: (error: S) => Property<U, V>): Property<U, V>;
+
+    // Combine two properties
+    filterBy<U>(otherObs: Observable<boolean, U>): Property<T, S>;
+    sampledBy<U, V, W>(otherObs: Observable<U, V>, combinator?: (a: T, b: U) => W): Property<W, S>;
+    skipUntilBy<U, V>(otherObs: Observable<U, V>): Property<U, V>;
+    takeUntilBy<U, V>(otherObs: Observable<U, V>): Property<U, V>;
+    bufferBy<U, V>(otherObs: Observable<U, V>, options?: { flushOnEnd: boolean }): Property<T[], S>;
+    bufferWhileBy<U>(otherObs: Observable<boolean, U>, options?: { flushOnEnd?: boolean, flushOnChange?: boolean }): Property<T[], S>;
+    awaiting<U, V>(otherObs: Observable<U, V>): Property<boolean, S>;
+}
+
+export interface ObservablePool<T, S> extends Observable<T, S> {
+    plug(obs: Observable<T, S>): void;
+    unPlug(obs: Observable<T, S>): void;
+}
+
+export interface Event<T> {
+    type: string;
+    value: T;
+}
+
+export interface Emitter<T, S> {
+    emit(value: T): void;
+    error(error: S): void;
+    end(): void;
+    emitEvent(event: { type: string, value: T | S }): void;
+}
+
+// Create a stream
+declare export function never(): Stream<void, void>;
+declare export function later<T>(wait: number, value: T): Stream<T, void>;
+declare export function interval<T>(interval: number, value: T): Stream<T, void>;
+declare export function sequentially<T>(interval: number, values: T[]): Stream<T, void>;
+declare export function fromPoll<T>(interval: number, fn: () => T): Stream<T, void>;
+declare export function withInterval<T, S>(interval: number, handler: (emitter: Emitter<T, S>) => void): Stream<T, S>;
+declare export function fromCallback<T>(fn: (callback: (value: T) => void) => void): Stream<T, void>;
+declare export function fromNodeCallback<T, S>(fn: (callback: (error: S, result: T) => void) => void): Stream<T, S>;
+declare export function fromEvents<T, S>(target: EventTarget | NodeJS.EventEmitter | { on: Function, off: Function }, eventName: string, transform?: (value: T) => S): Stream<T, S>;
+declare export function stream<T, S>(subscribe: (emitter: Emitter<T, S>) => Function | void): Stream<T, S>;
+declare export function fromESObservable<T, S>(observable: any): Stream<T, S>
+
+// Create a property
+declare export function constant<T>(value: T): Property<T, void>;
+declare export function constantError<T>(error: T): Property<void, T>;
+declare export function fromPromise<T, S>(promise: any): Property<T, S>;
+
+// Combine observables
+declare export function combine<T, S, U>(obss: Observable<T, S>[], passiveObss: Observable<T, S>[], combinator?: (...values: T[]) => U): Observable<U, S>;
+declare export function combine<T, S, U>(obss: Observable<T, S>[], combinator?: (...values: T[]) => U): Observable<U, S>;
+declare export function zip<T, S, U>(obss: Observable<T, S>[], passiveObss?: Observable<T, S>[], combinator?: (...values: T[]) => U): Observable<U, S>;
+declare export function merge<T, S>(obss: Observable<T, S>[]): Observable<T, S>;
+declare export function concat<T, S>(obss: Observable<T, S>[]): Observable<T, S>;
+declare export function pool<T, S>(): ObservablePool<T, S>;
+declare export function repeat<T, S>(generator: (i: number) => Observable<T, S> | boolean): Observable<T, S>;

@@ -35,8 +35,8 @@ declare module "gulp-uglify" {
             preserveComments?: string|((node: any, comment: UglifyJS.Tokenizer) => boolean);
         }
     }
-
-    function GulpUglify(options?: GulpUglify.Options): NodeJS.ReadWriteStream;
-
-    export = GulpUglify;
 }
+
+declare function GulpUglify(options?: GulpUglify.Options): NodeJS.ReadWriteStream;
+
+export = GulpUglify;

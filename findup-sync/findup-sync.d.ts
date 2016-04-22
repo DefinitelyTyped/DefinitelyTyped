@@ -5,14 +5,13 @@
 
 /// <reference path="../minimatch/minimatch.d.ts" />
 
-declare module 'findup-sync' {
-	import minimatch = require('minimatch');
 
-	interface IOptions extends minimatch.IOptions {
-		cwd?: string;
-	}
+import minimatch = require('minimatch');
 
-	function mod(pattern: string[] | string, opts?: IOptions): string;
-
-	export = mod;
+interface IOptions extends minimatch.IOptions {
+    cwd?: string;
 }
+
+declare function mod(pattern: string[] | string, opts?: IOptions): string;
+
+export = mod;

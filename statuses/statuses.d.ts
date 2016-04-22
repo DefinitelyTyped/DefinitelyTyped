@@ -3,19 +3,18 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'statuses' {
-    interface Status {
-        [code: number]: string;
-        [msg: string]: any | number;
 
-        codes: Array<number>;
-        redirect: {[code: number]: boolean};
-        empty: {[code: number]: boolean};
-        retry: {[code: number]: boolean};
+interface Status {
+    [code: number]: string;
+    [msg: string]: any | number;
 
-        (code: number | string): number;
-    }
+    codes: Array<number>;
+    redirect: { [code: number]: boolean };
+    empty: { [code: number]: boolean };
+    retry: { [code: number]: boolean };
 
-    var status: Status;
-    export = status;
+    (code: number | string): number;
 }
+
+declare var status: Status;
+export = status;

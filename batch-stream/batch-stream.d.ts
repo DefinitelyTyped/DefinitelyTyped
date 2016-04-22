@@ -5,20 +5,19 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "batch-stream" {
-  import stream = require('stream');
 
-  interface Options {
+import stream = require('stream');
+
+interface Options {
     size?: number;
     highWaterMark?: number;
-  }
+}
 
-  class BatchStream extends stream.Transform {
+declare class BatchStream extends stream.Transform {
     size: number;
     batch: any[];
 
     constructor(options: Options);
-  }
-
-  export = BatchStream;
 }
+
+export = BatchStream;

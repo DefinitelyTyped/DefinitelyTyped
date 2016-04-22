@@ -5,8 +5,6 @@
 
 /// <reference path="../express/express.d.ts" />
 
-declare module "compression" {
-    import express = require('express');
 
     namespace e {
         interface CompressionOptions  {
@@ -57,6 +55,12 @@ declare module "compression" {
         }
     }
 
-    function e(options?: e.CompressionOptions): express.RequestHandler;
-    export = e;
+declare namespace e {
+    interface CompressionOptions {
+        threshold?: number;
+        filter?: Function;
+    }
 }
+
+declare function e(options?: e.CompressionOptions): express.RequestHandler;
+export = e;

@@ -13,10 +13,23 @@
 // Fell free to include other methods. If possible let me know about.
 //
 
-declare module "dustjs-linkedin" {
+
+
+/**
+* A template compiled into a js function.
+*/
+export interface Template {
+    (chk: Chunk, ctx: Context): Chunk;
+}
+
+export interface Chunk {
+    /**
+    * Writes data to this chunk's buffer. 
+    */
+    write(data: string): Chunk;
 
     /**
-    * A template compiled into a js function.
+    * Writes data to this chunk's buffer and marks it as flushable. This method must be called on any chunks created via chunk.map. Do not call this method on a handler's main chunk -- dust.render and dust.stream take care of this for you.
     */
     export interface Template {
         (chk: Chunk, ctx: Context): Chunk;
@@ -95,74 +108,134 @@ declare module "dustjs-linkedin" {
     }
 
     /**
-    * register a template into the cache.
-    * @param name the unique template name. 
-    * @param tmpl the template function. 
+    * Creates a new chunk and passes it to callback. Use map to wrap asynchronous functions and to partition the template for streaming.
     */
-    export function register(name: string, tmpl: Template): void;
+    map(callback: (chunk: Chunk) => any): Chunk;
 
     /**
-    * compile a template body into a string of JavaScript source code
-    * @param source the template string
-    * @param name the name used to register the compiled template into the internal cache. See render().
-    * @strip strip whitespaces from the output. Defaults to false.
+    * Convenience method to apply filters to a stream.
     */
-    export function compile(source: string, name: string, strip?: boolean): string;
+    tap(callback: (value: any) => any): Chunk;
 
     /**
-    * Compiles source directly into a JavaScript function that takes a context and an optional callback (see dust.renderSource). Registers the template under [name] if this argument is supplied.
-    * @param source the template string
-    * @param name the template name (optional). 
+    * Removes the head tap function from the list.
     */
-    export function compileFn(source: string, name?: string): Template;
+    untap(): Chunk;
 
     /**
-    * Evaluates a compiled source string. 
+    * Renders a template block, such as a default block or an else block.
     */
-    export function loadSource(compiled: string): Template;
+    render(body: any, context: Context): Chunk;
 
     /**
-    * Renders the named template and calls callback on completion.context may be a plain object or an instance of dust.Context.
-    * @param name the template name.
-    * @param context a plain object or an instance of dust.Context.
+    * Sets an error on this chunk and immediately flushes the output.
     */
     export function render(name: string, context: any, callback: (err: any, out: string) => any): void;
     export function render(name: string, context: Context, callback: (err: any, out: string) => any): void;
 
+export interface Context {
     /**
-    * Compiles and renders source, invoking callback on completion. If no callback is supplied this function returns a Stream object. Use this function when precompilation is not required.
-    * @param source the template string.
-    * @param context a plain object or an instance of dust.Context.
-    * @param callback (optional). If supplied the callback will be called passing the result string. If omitted, renderSource() will return a dust.Stream object.
+    * Retrieves the value at key from the context stack.
     */
-    export function renderSource(source: string, context: any): Stream;
-    export function renderSource(source: string, context: Context): Stream;
-    export function renderSource(source: string, context: any, callback: (err: any, out: string) => any): void;
-    export function renderSource(source: string, context: Context, callback: (err: any, out: string) => any): void;
+    get(key: string): any;
 
     /**
-    * Streams the named template. context may be a plain object or an instance of dust.Context. Returns an instance of dust.Stream.
-    * @param name the template name.
-    * @param context a plain object or an instance of dust.Context.
+    * Pushes an arbitrary value onto the context stack and returns a new context instance. Specify index and/or length to enable enumeration helpers.
     */
-    export function stream(name: string, context: any): Stream;
-    export function stream(name: string, context: Context): Stream;
+    push(head: any, idx?: number, len?: number): Context;
 
     /**
-    * Manufactures a dust.Context instance with its global object set to object.
-    * @param global a plain object or an instance of dust.Context.
+    * Returns a new context instance consisting only of the value at head, plus any previously defined global object.
     */
-    export function makeBase(global: any): Context;
-    export function makeBase(global: Context): Context;
+    rebase(head: any): Context;
 
-    export function escapeHtml(html: string): string;
-    export function escapeJs(js: string): string;
-
-    var helpers: {
-        [key: string]: (chk: Chunk, ctx: Context, bodies?: any, params?: any) => any;
-    };
-
-    var filters: {
-        [key: string]: (value: string) => string;
-    };
+    /**
+    * Returns the head of the context stack.
+    */
+    current(): any;
 }
+
+export interface Stream {
+    flush(): void;
+    emit(evt: string, data: any): void;
+
+    /*
+    * Registers an event listener. Streams accept a single listener for a given event.
+    * @param evt the event. Possible values are data, end, error (maybe more, look in the source).
+    */
+    on(evt: string, callback: (data?: any) => any);
+
+    pipe(stream: Stream): Stream;
+}
+
+/**
+* register a template into the cache.
+* @param name the unique template name. 
+* @param tmpl the template function. 
+*/
+declare export function register(name: string, tmpl: Template): void;
+
+/**
+* compile a template body into a string of JavaScript source code
+* @param source the template string
+* @param name the name used to register the compiled template into the internal cache. See render().
+* @strip strip whitespaces from the output. Defaults to false.
+*/
+declare export function compile(source: string, name: string, strip?: boolean): string;
+
+/**
+* Compiles source directly into a JavaScript function that takes a context and an optional callback (see dust.renderSource). Registers the template under [name] if this argument is supplied.
+* @param source the template string
+* @param name the template name (optional). 
+*/
+declare export function compileFn(source: string, name?: string): Template;
+
+/**
+* Evaluates a compiled source string. 
+*/
+declare export function loadSource(compiled: string): Template;
+
+/**
+* Renders the named template and calls callback on completion.context may be a plain object or an instance of dust.Context.
+* @param name the template name.
+* @param context a plain object or an instance of dust.Context.
+*/
+declare export function render(name: string, context: any, callback: (err: any, out: string) => any);
+declare export function render(name: string, context: Context, callback: (err: any, out: string) => any);
+
+/**
+* Compiles and renders source, invoking callback on completion. If no callback is supplied this function returns a Stream object. Use this function when precompilation is not required.
+* @param source the template string.
+* @param context a plain object or an instance of dust.Context.
+* @param callback (optional). If supplied the callback will be called passing the result string. If omitted, renderSource() will return a dust.Stream object.
+*/
+declare export function renderSource(source: string, context: any): Stream;
+declare export function renderSource(source: string, context: Context): Stream;
+declare export function renderSource(source: string, context: any, callback: (err: any, out: string) => any): void;
+declare export function renderSource(source: string, context: Context, callback: (err: any, out: string) => any): void;
+
+/**
+* Streams the named template. context may be a plain object or an instance of dust.Context. Returns an instance of dust.Stream.
+* @param name the template name.
+* @param context a plain object or an instance of dust.Context.
+*/
+declare export function stream(name: string, context: any): Stream;
+declare export function stream(name: string, context: Context): Stream;
+
+/**
+* Manufactures a dust.Context instance with its global object set to object.
+* @param global a plain object or an instance of dust.Context.
+*/
+declare export function makeBase(global: any): Context;
+declare export function makeBase(global: Context): Context;
+
+declare export function escapeHtml(html: string): string;
+declare export function escapeJs(js: string): string;
+
+declare var helpers: {
+    [key: string]: (chk: Chunk, ctx: Context, bodies?: any, params?: any) => any;
+};
+
+declare var filters: {
+    [key: string]: (value: string) => string;
+};

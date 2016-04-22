@@ -33,3 +33,8 @@ declare module "react-fa" {
 
     export default Icon
 }
+
+interface Icon extends ComponentClass<IconProps> { }
+declare const Icon: Icon;
+
+export = Icon;

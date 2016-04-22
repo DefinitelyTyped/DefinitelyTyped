@@ -3,29 +3,27 @@
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "flux-standard-action" {
-    export interface ErrorAction extends Action<Error> {
-        error: boolean;
-    }
 
-    export interface Action<T> {
-        type: string;
-        payload?: T;
-        error?: boolean;
-    }
-
-    // Usage: var action: Action<sring> & AnyMeta;
-    export interface AnyMeta {
-        meta: any
-    }
-
-    // Usage: var action: Action<sring> & TypedMeta<string>;
-    export interface TypedMeta<T> {
-        meta: T
-    }
-
-    export function isFSA(action: any): boolean;
-
-    export function isError(action: any): boolean;
+export interface ErrorAction extends Action<Error> {
+    error: boolean;
 }
 
+export interface Action<T> {
+    type: string;
+    payload?: T;
+    error?: boolean;
+}
+
+// Usage: var action: Action<sring> & AnyMeta;
+export interface AnyMeta {
+    meta: any
+}
+
+// Usage: var action: Action<sring> & TypedMeta<string>;
+export interface TypedMeta<T> {
+    meta: T
+}
+
+declare export function isFSA(action: any): boolean;
+
+declare export function isError(action: any): boolean;

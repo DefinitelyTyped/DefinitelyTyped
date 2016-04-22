@@ -5,8 +5,29 @@
 
 /// <reference path="../express/express.d.ts" />
 
-declare module "express-graphql" {
-    import { Request, Response } from "express";
+
+import { Request, Response } from "express";
+
+/**
+ * Used to configure the graphQLHTTP middleware by providing a schema
+ * and other configuration options.
+ */
+export type Options = ((req: Request) => OptionsObj) | OptionsObj
+export type OptionsObj = {
+    /**
+     * A GraphQL schema from graphql-js.
+     */
+    schema: Object,
+
+    /**
+     * An object to pass as the rootValue to the graphql() function.
+     */
+    rootValue?: Object,
+
+    /**
+     * A boolean to configure whether the output should be pretty-printed.
+     */
+    pretty?: boolean,
 
     namespace graphqlHTTP {
         /**
@@ -52,8 +73,7 @@ declare module "express-graphql" {
     }
 
     /**
-     * Middleware for express; takes an options object or function as input to
-     * configure behavior, and returns an express middleware.
+     * A boolean to optionally enable GraphiQL mode.
      */
     function graphqlHTTP(options: graphqlHTTP.Options): graphqlHTTP.Middleware;
     export = graphqlHTTP;

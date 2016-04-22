@@ -137,9 +137,9 @@ declare module "log4js" {
 
     toLevel(level: string, defaultLevel?: Level): Level;
     toLevel(level: Level, defaultLevel?: Level): Level;
-  };
+};
 
-  export interface Logger {
+export interface Logger {
     setLevel(level: string): void;
     setLevel(level: Level): void;
 
@@ -157,35 +157,35 @@ declare module "log4js" {
     warn(message: string, ...args: any[]): void;
     error(message: string, ...args: any[]): void;
     fatal(message: string, ...args: any[]): void;
-  }
+}
 
-  export interface Level {
+export interface Level {
     isEqualTo(other: string): boolean;
     isEqualTo(otherLevel: Level): boolean;
     isLessThanOrEqualTo(other: string): boolean;
     isLessThanOrEqualTo(otherLevel: Level): boolean;
     isGreaterThanOrEqualTo(other: string): boolean;
     isGreaterThanOrEqualTo(otherLevel: Level): boolean;
-  }
+}
 
-  export interface IConfig {
+export interface IConfig {
     appenders: AppenderConfig[];
     levels?: { [category: string]: string };
     replaceConsole?: boolean;
-  }
+}
 
-  export interface AppenderConfigBase {
+export interface AppenderConfigBase {
     type: string;
     category?: string;
     layout?: { type: string;[key: string]: any }
   }
 
-  export interface ConsoleAppenderConfig extends AppenderConfigBase {}
+export interface ConsoleAppenderConfig extends AppenderConfigBase { }
 
-  export interface FileAppenderConfig extends AppenderConfigBase {
+export interface FileAppenderConfig extends AppenderConfigBase {
     filename: string;
-  }
-  export interface DateFileAppenderConfig extends FileAppenderConfig {
+}
+export interface DateFileAppenderConfig extends FileAppenderConfig {
     /**
      * The following strings are recognised in the pattern:
      *  - yyyy : the full year, use yy for just the last two digits
@@ -199,9 +199,9 @@ declare module "log4js" {
      */
     pattern: string;
     alwaysIncludePattern: boolean;
-  }
+}
 
-  export interface SmtpAppenderConfig extends AppenderConfigBase {
+export interface SmtpAppenderConfig extends AppenderConfigBase {
     /** Comma separated list of email recipients */
     recipients: string;
 
@@ -219,38 +219,38 @@ declare module "log4js" {
     sendInterval: number;
 
     SMTP: {
-      host: string;
-      secure: boolean;
-      port: number;
-      auth: {
-          user: string;
-          pass: string;
-      }
+        host: string;
+        secure: boolean;
+        port: number;
+        auth: {
+            user: string;
+            pass: string;
+        }
     }
-  }
+}
 
-  export interface HookIoAppenderConfig extends FileAppenderConfig {
+export interface HookIoAppenderConfig extends FileAppenderConfig {
     maxLogSize: number;
     backup: number;
     pollInterval: number;
-  }
+}
 
-  export interface GelfAppenderConfig extends AppenderConfigBase {
+export interface GelfAppenderConfig extends AppenderConfigBase {
     host: string;
     hostname: string;
     port: string;
     facility: string;
-  }
+}
 
-  export interface MultiprocessAppenderConfig extends AppenderConfigBase {
+export interface MultiprocessAppenderConfig extends AppenderConfigBase {
     mode: string;
     loggerPort: number;
     loggerHost: string;
     facility: string;
     appender?: AppenderConfig;
-  }
+}
 
-  export interface LogglyAppenderConfig extends AppenderConfigBase {
+export interface LogglyAppenderConfig extends AppenderConfigBase {
     /** Loggly customer token - https://www.loggly.com/docs/api-sending-data/ */
     token: string;
 
@@ -262,25 +262,11 @@ declare module "log4js" {
 
     /** Enable JSON logging by setting to 'true' */
     json: boolean;
-  }
+}
 
-  export interface ClusteredAppenderConfig extends AppenderConfigBase {
+export interface ClusteredAppenderConfig extends AppenderConfigBase {
     appenders?: AppenderConfig[];
-  }
-
-  type CoreAppenderConfig = ConsoleAppenderConfig
-                          | FileAppenderConfig
-                          | DateFileAppenderConfig
-                          | SmtpAppenderConfig
-                          | HookIoAppenderConfig
-                          | GelfAppenderConfig
-                          | MultiprocessAppenderConfig
-                          | LogglyAppenderConfig
-                          | ClusteredAppenderConfig
-
-  interface CustomAppenderConfig extends AppenderConfigBase {
-    [prop: string]: any;
-  }
+}
 
   type AppenderConfig = CoreAppenderConfig | CustomAppenderConfig;
   
@@ -316,3 +302,5 @@ declare module "log4js" {
     (event: LogEvent): string;
   }
 }
+
+type AppenderConfig = CoreAppenderConfig | CustomAppenderConfig;

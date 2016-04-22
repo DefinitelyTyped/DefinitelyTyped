@@ -5,60 +5,60 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "amqp-rpc" {
 
-  export interface Options {
+
+export interface Options {
     connection?: any;
     url?: string;
     exchangeInstance?: any;
     exchange?: string;
     exchange_options?: {
-      exclusive?: boolean;
-      autoDelete?: boolean;
+        exclusive?: boolean;
+        autoDelete?: boolean;
     };
     ipml_options?: {
-      defaultExchangeName?: string;
+        defaultExchangeName?: string;
     }
     conn_options?: any;
-  }
+}
 
-  export interface CallOptions {
+export interface CallOptions {
     correlationId?: string;
     autoDeleteCallback?: any;
-  }
+}
 
-  export interface HandlerOptions {
+export interface HandlerOptions {
     queueName?: string;
     durable?: boolean;
     exclusive?: boolean;
     autoDelete?: boolean;
-  }
+}
 
-  export interface BroadcastOptions {
+export interface BroadcastOptions {
     ttl?: number;
     onResponse?: any;
     context?: any;
     onComplete?: any;
-  }
+}
 
-  export interface CommandInfo {
+export interface CommandInfo {
     cmd?: string;
     exchange?: string;
     contentType?: string;
     size?: number;
-  }
+}
 
-  export interface Callback {
+export interface Callback {
     (...args: any[]): void;
-  }
+}
 
-  export interface CallbackWithError {
+export interface CallbackWithError {
     (err: any, ...args: any[]): void;
-  }
+}
 
-  export function factory(opt?: Options): amqpRPC;
+declare export function factory(opt?: Options): amqpRPC;
 
-  export class amqpRPC {
+declare export class amqpRPC {
     constructor(opt?: Options);
     generateQueueName(type: string): string;
     disconnect(): void;
@@ -68,5 +68,4 @@ declare module "amqp-rpc" {
     callBroadcast<T>(cmd: string, params: T, options?: BroadcastOptions): void;
     onBroadcast<T>(cmd: string, cb?: (params?: T, cb?: CallbackWithError) => void, context?: any, options?: any): boolean;
     offBroadcast(cmd: string): boolean;
-  }
 }

@@ -5,60 +5,59 @@
 
 /// <reference path="../node/node.d.ts"/>
 
-declare module "gulp-istanbul" {
-    function GulpIstanbul(opts?: GulpIstanbul.Options): NodeJS.ReadWriteStream;
 
-    namespace GulpIstanbul {
-        export function hookRequire(): NodeJS.ReadWriteStream;
-        export function summarizeCoverage(opts?: {coverageVariable?: string}): Coverage;
-        export function writeReports(opts?: ReportOptions): NodeJS.ReadWriteStream;
-        export function enforceThresholds(opts?: ThresholdOptions): NodeJS.ReadWriteStream;
+declare function GulpIstanbul(opts?: GulpIstanbul.Options): NodeJS.ReadWriteStream;
 
-        interface Options {
-            coverageVariable?: string;
-            includeUntested?: boolean;
-            embedSource?: boolean;
-            preserveComments?: boolean;
-            noCompact?: boolean;
-            noAutoWrap?: boolean;
-            codeGenerationOptions?: Object;
-            debug?: boolean;
-            walkDebug?: boolean;
-        }
+declare namespace GulpIstanbul {
+    export function hookRequire(): NodeJS.ReadWriteStream;
+    export function summarizeCoverage(opts?: { coverageVariable?: string }): Coverage;
+    export function writeReports(opts?: ReportOptions): NodeJS.ReadWriteStream;
+    export function enforceThresholds(opts?: ThresholdOptions): NodeJS.ReadWriteStream;
 
-        interface Coverage {
-            lines: CoverageStats;
-            statements: CoverageStats;
-            functions: CoverageStats;
-            branches: CoverageStats;
-        }
-
-        interface CoverageStats {
-            total: number;
-            covered: number;
-            skipped: number;
-            pct: number;
-        }
-
-        interface ReportOptions {
-            dir?: string;
-            reporters?: string[];
-            reportOpts?: {dir?: string};
-            coverageVariable?: string;
-        }
-
-        interface ThresholdOptions {
-            coverageVariable?: string;
-            thresholds?: { global?: CoverageOptions|number; each?: CoverageOptions|number };
-        }
-
-        interface CoverageOptions {
-            lines?: number;
-            statements?: number;
-            functions?: number;
-            branches?: number;
-        }
+    interface Options {
+        coverageVariable?: string;
+        includeUntested?: boolean;
+        embedSource?: boolean;
+        preserveComments?: boolean;
+        noCompact?: boolean;
+        noAutoWrap?: boolean;
+        codeGenerationOptions?: Object;
+        debug?: boolean;
+        walkDebug?: boolean;
     }
 
-    export = GulpIstanbul;
+    interface Coverage {
+        lines: CoverageStats;
+        statements: CoverageStats;
+        functions: CoverageStats;
+        branches: CoverageStats;
+    }
+
+    interface CoverageStats {
+        total: number;
+        covered: number;
+        skipped: number;
+        pct: number;
+    }
+
+    interface ReportOptions {
+        dir?: string;
+        reporters?: string[];
+        reportOpts?: { dir?: string };
+        coverageVariable?: string;
+    }
+
+    interface ThresholdOptions {
+        coverageVariable?: string;
+        thresholds?: { global?: CoverageOptions | number; each?: CoverageOptions | number };
+    }
+
+    interface CoverageOptions {
+        lines?: number;
+        statements?: number;
+        functions?: number;
+        branches?: number;
+    }
 }
+
+export = GulpIstanbul;

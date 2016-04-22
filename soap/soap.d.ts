@@ -5,8 +5,6 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module 'soap' {
-    import * as events from 'events';
 
     interface Security {
     }

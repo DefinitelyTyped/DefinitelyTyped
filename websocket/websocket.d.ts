@@ -657,3 +657,217 @@ declare module "websocket" {
         DEBUG: boolean;
     };
 }
+
+declare class frame {
+    /** Whether or not this is last frame in a fragmentation sequence */
+    fin: boolean;
+
+    /**
+     * Represents the RSV1 field in the framing. Setting this to true will result in
+     * a Protocol Error on the receiving peer.
+     */
+    rsv1: boolean;
+
+    /**
+     * Represents the RSV1 field in the framing. Setting this to true will result in
+     * a Protocol Error on the receiving peer.
+     */
+    rsv2: boolean;
+
+    /**
+     * Represents the RSV1 field in the framing. Setting this to true will result in
+     * a Protocol Error on the receiving peer.
+     */
+    rsv3: boolean;
+
+    /**
+     * Whether or not this frame is (or should be) masked. For outgoing frames, when
+     * connected as a client, this flag is automatically forced to true by `connection`.
+     * Outgoing frames sent from the server-side of a connection are not masked.
+     */
+    mask: number;
+
+    /**
+     * Identifies which kind of frame this is.
+     *
+     * Hex  - Dec - Description
+     * 0x00 -   0 - Continuation
+     * 0x01 -   1 - Text Frame
+     * 0x02 -   2 - Binary Frame
+     * 0x08 -   8 - Close Frame
+     * 0x09 -   9 - Ping Frame
+     * 0x0A -  10 - Pong Frame
+     */
+    opcode: number;
+
+    /**
+     * Identifies the length of the payload data on a received frame.
+     * When sending a frame, will be automatically calculated from `binaryPayload` object.
+     */
+    length: number;
+
+    /**
+     * The binary payload data.
+     * Even text frames are sent with a Buffer providing the binary payload data.
+     */
+    binaryPayload: Buffer;
+
+    maskBytes: Buffer;
+    frameHeader: Buffer;
+    config: IConfig;
+    maxReceivedFrameSize: number;
+    protocolError: boolean;
+    frameTooLarge: boolean;
+    invalidCloseFrameLength: boolean;
+    closeStatus: number;
+
+    addData(bufferList: IBufferList): boolean;
+    throwAwayPayload(bufferList: IBufferList): boolean;
+    toBuffer(nullMask: boolean): Buffer;
+}
+
+export interface IClientConfig extends IConfig {
+    /**
+     * Which version of the WebSocket protocol to use when making the connection.
+     * Currently supported values are 8 and 13. This option will be removed once the
+     * protocol is finalized by the IETF It is only available to ease the transition
+     * through the intermediate draft protocol versions. The only thing this affects
+     * the name of the Origin header.
+     * @default 13
+     */
+    webSocketVersion?: number;
+
+    /**
+     * The maximum allowed received frame size in bytes.
+     * Single frame messages will also be limited to this maximum.
+     * @default 1MiB
+     */
+    maxReceivedFrameSize?: number;
+
+    /**
+     * The maximum allowed aggregate message size (for fragmented messages) in bytes.
+     * @default 8MiB
+     */
+    maxReceivedMessageSize?: number;
+}
+
+declare class client extends events.EventEmitter {
+    protocols: string[];
+    origin: string;
+    url: url.Url;
+    secure: boolean;
+    socket: net.Socket;
+    response: http.ClientResponse;
+
+    constructor(clientConfig?: IClientConfig);
+
+    /**
+     * Establish a connection. The remote server will select the best subprotocol that
+     * it supports and send that back when establishing the connection.
+     *
+     * @param [origin] can be used in user-agent scenarios to identify the page containing
+     *                 any scripting content that caused the connection to be requested.
+     * @param requestUrl should be a standard websocket url
+     */
+    connect(requestUrl: url.Url, protocols?: string[], origin?: string, headers?: any[]): void;
+    connect(requestUrl: string, protocols?: string[], origin?: string, headers?: any[]): void;
+    connect(requestUrl: url.Url, protocols?: string, origin?: string, headers?: any[]): void;
+    connect(requestUrl: string, protocols?: string, origin?: string, headers?: any[]): void;
+
+    // Events
+    on(event: string, listener: () => void): this;
+    on(event: 'connect', cb: (connection: connection) => void): this;
+    on(event: 'connectFailed', cb: (err: Error) => void): this;
+    addListener(event: string, listener: () => void): this;
+    addListener(event: 'connect', cb: (connection: connection) => void): this;
+    addListener(event: 'connectFailed', cb: (err: Error) => void): this;
+}
+
+declare class routerRequest extends events.EventEmitter {
+
+    /** A reference to the original Node HTTP request object */
+    httpRequest: http.ClientRequest;
+    /** A string containing the path that was requested by the client */
+    resource: string;
+    /** Parsed resource, including the query string parameters */
+    resourceURL: url.Url;
+
+    /**
+     * Client's IP. If an `X-Forwarded-For` header is present, the value will be taken
+     * from that header to facilitate WebSocket servers that live behind a reverse-proxy
+     */
+    remoteAddress: string;
+
+    /**
+     * If the client is a web browser, origin will be a string containing the URL
+     * of the page containing the script that opened the connection.
+     * If the client is not a web browser, origin may be `null` or "*".
+     */
+    origin: string;
+
+    /** The version of the WebSocket protocol requested by the client */
+    webSocketVersion: number;
+    /** An array containing a list of extensions requested by the client */
+    requestedExtensions: any[];
+
+    cookies: ICookie[];
+
+    constructor(webSocketRequest: request, resolvedProtocol: string);
+
+    /**
+     * After inspecting the `request` properties, call this function on the
+     * request object to accept the connection. If you don't have a particular subprotocol
+     * you wish to speak, you may pass `null` for the `acceptedProtocol` parameter.
+     *
+     * @param [acceptedProtocol] case-insensitive value that was requested by the client
+     */
+    accept(acceptedProtocol?: string, allowedOrigin?: string, cookies?: ICookie[]): connection;
+
+    /**
+     * Reject connection.
+     * You may optionally pass in an HTTP Status code (such as 404) and a textual
+     * description that will be sent to the client in the form of an
+     * `X-WebSocket-Reject-Reason` header.
+     */
+    reject(httpStatus?: number, reason?: string): void;
+
+    // Events
+    on(event: string, listener: () => void): this;
+    on(event: 'requestAccepted', cb: (connection: connection) => void): this;
+    on(event: 'requestRejected', cb: () => void): this;
+    addListener(event: string, listener: () => void): this;
+    addListener(event: 'requestAccepted', cb: (connection: connection) => void): this;
+    addListener(event: 'requestRejected', cb: () => void): this;
+}
+
+interface IRouterConfig {
+    /*
+     * The WebSocketServer instance to attach to.
+     */
+    server: server
+}
+
+declare class router extends events.EventEmitter {
+
+    constructor(config?: IRouterConfig);
+
+    /** Attach to WebSocket server */
+    attachServer(server: server): void;
+
+    /** Detach from WebSocket server */
+    detachServer(): void;
+
+    mount(path: string, cb: (request: routerRequest) => void): void;
+    mount(path: string, protocol: string, cb: (request: routerRequest) => void): void;
+    mount(path: RegExp, cb: (request: routerRequest) => void): void;
+    mount(path: RegExp, protocol: string, cb: (request: routerRequest) => void): void;
+
+    unmount(path: string, protocol?: string): void;
+    unmount(path: RegExp, protocol?: string): void;
+
+}
+
+declare export var version: string;
+declare export var constants: {
+    DEBUG: boolean;
+};

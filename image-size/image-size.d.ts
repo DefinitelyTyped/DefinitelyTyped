@@ -5,20 +5,19 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "image-size" {
 
-  interface ImageInfo {
+
+interface ImageInfo {
     width: number;
     height: number;
     type: string;
-  }
-
-  function sizeOf(path: string): ImageInfo;
-  function sizeOf(path: string, callback: (err: Error, dimensions: ImageInfo) => void): void;
-
-  function sizeOf(buffer: Buffer): ImageInfo;
-
-  namespace sizeOf {}
-
-  export = sizeOf;
 }
+
+declare function sizeOf(path: string): ImageInfo;
+declare function sizeOf(path: string, callback: (err: Error, dimensions: ImageInfo) => void): void;
+
+declare function sizeOf(buffer: Buffer): ImageInfo;
+
+declare namespace sizeOf { }
+
+export = sizeOf;

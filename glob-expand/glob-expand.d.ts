@@ -5,23 +5,22 @@
 
 /// <reference path="../glob/glob.d.ts" />
 
-declare module "glob-expand" {
-    import * as _glob from "glob";
 
-    interface Option {
-        filter?: string | ((filePath: string) => boolean);
-        cwd?: string;
-		  }
+import * as _glob from "glob";
 
-    namespace expand {
-        var glob: typeof _glob;
-        var VERSION: string;
-    }
-
-    function expand(opts: Option, patterns: (string | RegExp)[]): string[];
-    function expand(opts: Option, ...patterns: (string | RegExp)[]): string[];
-    function expand(patterns: (string | RegExp)[]): string[];
-    function expand(...patterns: (string | RegExp)[]): string[];
-
-    export = expand;
+interface Option {
+    filter?: string | ((filePath: string) => boolean);
+    cwd?: string;
 }
+
+declare namespace expand {
+    var glob: typeof _glob;
+    var VERSION: string;
+}
+
+declare function expand(opts: Option, patterns: (string | RegExp)[]): string[];
+declare function expand(opts: Option, ...patterns: (string | RegExp)[]): string[];
+declare function expand(patterns: (string | RegExp)[]): string[];
+declare function expand(...patterns: (string | RegExp)[]): string[];
+
+export = expand;

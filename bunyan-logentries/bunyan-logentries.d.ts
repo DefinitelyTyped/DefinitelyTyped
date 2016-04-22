@@ -6,12 +6,11 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../bunyan/bunyan.d.ts" />
 
-declare module "bunyan-logentries" {
-  import bunyan = require("bunyan");
 
-  interface StreamOptions {
+import bunyan = require("bunyan");
+
+interface StreamOptions {
     token: string;
-  }
-
-  export function createStream(options: StreamOptions): NodeJS.WritableStream;
 }
+
+declare export function createStream(options: StreamOptions): NodeJS.WritableStream;

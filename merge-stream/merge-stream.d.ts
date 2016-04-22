@@ -5,13 +5,12 @@
 
 /// <reference path="../node/node.d.ts"/>
 
-declare module "merge-stream" {
-    interface IMergedStream extends NodeJS.ReadWriteStream {
-        add(source: NodeJS.ReadableStream): IMergedStream;
-        add(source: NodeJS.ReadableStream[]): IMergedStream;
-        isEmpty(): boolean;
-    }
 
-    function merge<T extends NodeJS.ReadableStream>(...streams: T[]): IMergedStream;
-    export = merge;
+interface IMergedStream extends NodeJS.ReadWriteStream {
+    add(source: NodeJS.ReadableStream): IMergedStream;
+    add(source: NodeJS.ReadableStream[]): IMergedStream;
+    isEmpty(): boolean;
 }
+
+declare function merge<T extends NodeJS.ReadableStream>(...streams: T[]): IMergedStream;
+export = merge;

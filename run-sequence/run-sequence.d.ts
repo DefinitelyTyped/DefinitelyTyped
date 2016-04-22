@@ -6,15 +6,14 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-declare module "run-sequence" {
-    import gulp = require('gulp');
 
-    interface IRunSequence {
-        (...streams: (string | string[] | gulp.TaskCallback)[]): NodeJS.ReadWriteStream;
+import gulp = require('gulp');
 
-        use(gulp: gulp.Gulp): IRunSequence;
-    }
+interface IRunSequence {
+    (...streams: (string | string[] | gulp.TaskCallback)[]): NodeJS.ReadWriteStream;
 
-    var _tmp: IRunSequence;
-    export = _tmp;
+    use(gulp: gulp.Gulp): IRunSequence;
 }
+
+declare var _tmp: IRunSequence;
+export = _tmp;

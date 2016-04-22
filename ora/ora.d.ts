@@ -35,3 +35,5 @@ declare module "ora" {
     function ora(options: Options | Text): Instance;
     export = ora;
 }
+declare function ora(options: Options | Text): Instance;
+export = ora;

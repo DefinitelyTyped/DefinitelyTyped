@@ -3,8 +3,7 @@
 // Definitions by: Sam Verschueren <https://github.com/samverschueren>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "camelcase" {
-	function camelcase(...args: string[]): string;
-	namespace camelcase {}
-	export = camelcase;
-}
+
+declare function camelcase(...args: string[]): string;
+declare namespace camelcase { }
+export = camelcase;

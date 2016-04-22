@@ -5,22 +5,21 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module 'gulp-rev' {
-    interface IOptions {
-        base?: string;
-        cwd?: string;
-        merge?: boolean;
-    }
 
-    interface IRev {
-        (): NodeJS.ReadWriteStream;
-
-        manifest(): NodeJS.ReadWriteStream;
-        manifest(path?: string): NodeJS.ReadWriteStream;
-        manifest(options?: IOptions): NodeJS.ReadWriteStream;
-        manifest(path?: string, options?: IOptions): NodeJS.ReadWriteStream;
-    }
-
-    var rev: IRev;
-    export = rev;
+interface IOptions {
+    base?: string;
+    cwd?: string;
+    merge?: boolean;
 }
+
+interface IRev {
+    (): NodeJS.ReadWriteStream;
+
+    manifest(): NodeJS.ReadWriteStream;
+    manifest(path?: string): NodeJS.ReadWriteStream;
+    manifest(options?: IOptions): NodeJS.ReadWriteStream;
+    manifest(path?: string, options?: IOptions): NodeJS.ReadWriteStream;
+}
+
+declare var rev: IRev;
+export = rev;

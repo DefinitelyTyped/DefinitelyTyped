@@ -12,20 +12,19 @@
 
 /// <reference path="../express/express.d.ts" />
 
-declare module "serve-favicon" {
-    import express = require('express');
 
+import express = require('express');
+
+/**
+ * Node.js middleware for serving a favicon.
+ */
+declare function serveFavicon(path: string, options?: {
     /**
-     * Node.js middleware for serving a favicon.
-     */
-    function serveFavicon(path: string, options?: {
-        /**
-        * The cache-control max-age directive in ms, defaulting to 1 day. This can also be a string accepted by the ms module.
-        */
-        maxAge?: number;
-    }): express.RequestHandler;
-    
-    namespace serveFavicon{}
+    * The cache-control max-age directive in ms, defaulting to 1 day. This can also be a string accepted by the ms module.
+    */
+    maxAge?: number;
+}): express.RequestHandler;
 
-    export = serveFavicon;
-}
+declare namespace serveFavicon { }
+
+export = serveFavicon;

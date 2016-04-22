@@ -5,8 +5,6 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module 'oracledb' {
-	import * as stream from "stream";
 
 	export type TRet<T> = T | IPromise<T>;
 	export type TFunc<T, R> = (value: T) => TRet<R>;
@@ -61,35 +59,35 @@ declare module 'oracledb' {
 		 */
 		type: number;
 
-		/**
-		 * Do not call this... used internally by node-oracledb
-		 */
-		constructor(iLob: ILob, opts: stream.DuplexOptions): Lob;
-		constructor(iLob: ILob): Lob;
+    /**
+     * Do not call this... used internally by node-oracledb
+     */
+    constructor(iLob: ILob, opts: stream.DuplexOptions): Lob;
+    constructor(iLob: ILob): Lob;
 
-		/**
-		 * Closes the current LOB.
-		 * @param  {(err: any) => void} callback? When passed, is called after the release.
-		 * @returns void
-		 */
-		close(callback: (err: any) => void): void;
-		close(): void;
-	}
+    /**
+     * Closes the current LOB.
+     * @param  {(err: any) => void} callback? When passed, is called after the release.
+     * @returns void
+     */
+    close(callback: (err: any) => void): void;
+    close(): void;
+}
 
-	export interface IConnectionAttributes {
-		user?: string;
-		password?: string;
-		connectString: string;
-		stmtCacheSize?: number;
-		externalAuth?: boolean;
-	}
+export interface IConnectionAttributes {
+    user?: string;
+    password?: string;
+    connectString: string;
+    stmtCacheSize?: number;
+    externalAuth?: boolean;
+}
 
-	export interface IPoolAttributes extends IConnectionAttributes {
-		poolMax?: number;
-		poolMin?: number;
-		poolIncrement?: number;
-		poolTimeout?: number;
-	}
+export interface IPoolAttributes extends IConnectionAttributes {
+    poolMax?: number;
+    poolMin?: number;
+    poolIncrement?: number;
+    poolTimeout?: number;
+}
 
 	export interface IExecuteOptions {
 		/**
@@ -373,11 +371,11 @@ declare module 'oracledb' {
 		 */
 		release(): IPromise<void>;
 
-		/**
-		 * Send a rollback requisition to database.
-		 * @param	{(err: any) => void} callback Callback on rollback done.
-		 */
-		rollback(callback: (err: any) => void): void;
+    /**
+     * Send a rollback requisition to database.
+     * @param	{(err: any) => void} callback Callback on rollback done.
+     */
+    rollback(callback: (err: any) => void): void;
 
 		/**
 		 * Send a rollback requisition to database.
@@ -470,36 +468,36 @@ declare module 'oracledb' {
 		terminate(): IPromise<void>;
 	}
 
-	export const DEFAULT: number;
-	/** Data type */
-	export const STRING: number;
-	/** Data type */
-	export const NUMBER: number;
-	/** Data type */
-	export const DATE: number;
-	/** Data type */
-	export const CURSOR: number;
-	/** Data type */
-	export const BUFFER: number;
-	/** Data type */
-	export const CLOB: number;
-	/** Data type */
-	export const BLOB: number;
-	/** Bind direction */
-	export const BIND_IN: number;
-	/** Bind direction */
-	export const BIND_INOUT: number;
-	/** Bind direction */
-	export const BIND_OUT: number;
-	/** outFormat */
-	export const ARRAY: number;
-	/** outFormat */
-	export const OBJECT: number;
+declare export const DEFAULT: number;
+/** Data type */
+declare export const STRING: number;
+/** Data type */
+declare export const NUMBER: number;
+/** Data type */
+declare export const DATE: number;
+/** Data type */
+declare export const CURSOR: number;
+/** Data type */
+declare export const BUFFER: number;
+/** Data type */
+declare export const CLOB: number;
+/** Data type */
+declare export const BLOB: number;
+/** Bind direction */
+declare export const BIND_IN: number;
+/** Bind direction */
+declare export const BIND_INOUT: number;
+/** Bind direction */
+declare export const BIND_OUT: number;
+/** outFormat */
+declare export const ARRAY: number;
+/** outFormat */
+declare export const OBJECT: number;
 
-	/**
-	 * Do not use this method - used internally by node-oracledb.
-	 */
-	export function newLob(iLob: ILob): Lob;
+/**
+ * Do not use this method - used internally by node-oracledb.
+ */
+declare export function newLob(iLob: ILob): Lob;
 
 	/** Default transaction behaviour of auto commit for each statement. */
 	export var autoCommit: boolean;

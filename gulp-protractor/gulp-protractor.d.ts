@@ -6,22 +6,21 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-declare module 'gulp-protractor' {
-    import gulp = require('gulp');
 
-    interface IOptions {
-        configFile?: string;
-        args?: Array<string>;
-        debug?: boolean;
-    }
+import gulp = require('gulp');
 
-    interface IGulpProtractor {
-        getProtractorDir(): string;
-        protractor(options?: IOptions): NodeJS.ReadWriteStream;
-        webdriver_standalone: gulp.TaskCallback;
-        webdriver_update: gulp.TaskCallback;
-    }
-
-    var protractor: IGulpProtractor;
-    export = protractor;
+interface IOptions {
+    configFile?: string;
+    args?: Array<string>;
+    debug?: boolean;
 }
+
+interface IGulpProtractor {
+    getProtractorDir(): string;
+    protractor(options?: IOptions): NodeJS.ReadWriteStream;
+    webdriver_standalone: gulp.TaskCallback;
+    webdriver_update: gulp.TaskCallback;
+}
+
+declare var protractor: IGulpProtractor;
+export = protractor;

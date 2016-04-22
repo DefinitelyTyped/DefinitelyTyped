@@ -5,105 +5,104 @@
 
 /// <reference path="../tedious/tedious.d.ts" />
 
-declare module "tedious-connection-pool" {
-    import tedious = require('tedious');
 
-    namespace tcp {
+import tedious = require('tedious');
 
+declare namespace tcp {
+
+    /**
+     * Extends Tedious Connection with release function
+     */
+    export class PooledConnection extends tedious.Connection {
         /**
-         * Extends Tedious Connection with release function
+         * If the connection is issued from a connection pool returns the connection to the pool.
          */
-        export class PooledConnection extends tedious.Connection {
-            /**
-             * If the connection is issued from a connection pool returns the connection to the pool.
-             */
-            release():void;
-        }
-
-        /**
-         * Acquire function callback signature
-         */
-        export interface ConnectionCallback {
-            /**
-             * Provides a connection or an error
-             * @param err error if any
-             * @param connection issued from the pool
-             */
-            (err:Error, connection:PooledConnection): void;
-        }
-
-        /**
-         *  Pool Configuration interface
-         */
-        export interface PoolConfig {
-
-            /**
-             * Minimum concurrent connections
-             */
-            min?: number;
-
-            /**
-             * Maximum concurrent connections
-             */
-            max?: number;
-
-            /**
-             * Defines if logging is activated
-             */
-            log?: boolean;
-
-            /**
-             * Idle timeout
-             */
-            idleTimeout?: number;
-
-            /**
-             * Retry delay
-             */
-            retryDelay?: number;
-
-            /**
-             * Acquire timeout
-             */
-            acquireTimeout?: number;
-        }
-
-
+        release(): void;
     }
 
     /**
-     * Tedious Connection Pool Class
+     * Acquire function callback signature
      */
-    class tcp {
+    export interface ConnectionCallback {
+        /**
+         * Provides a connection or an error
+         * @param err error if any
+         * @param connection issued from the pool
+         */
+        (err: Error, connection: PooledConnection): void;
+    }
+
+    /**
+     *  Pool Configuration interface
+     */
+    export interface PoolConfig {
 
         /**
-         * Connection Pool constructor
-         * @param poolConfig the pool configuration
-         * @param connectionConfig the connection configuration
+         * Minimum concurrent connections
          */
-        constructor(poolConfig:tcp.PoolConfig, connectionConfig:tedious.ConnectionConfig);
+        min?: number;
 
         /**
-         * acquires a connection from the pool
-         * @param callback invoked when the connection is retrieved and ready
+         * Maximum concurrent connections
          */
-        acquire(callback:tcp.ConnectionCallback):void;
+        max?: number;
 
         /**
-         * listens for a specific connection pool event
-         * @param event the event name
-         * @param callback invoked when the event is raised
+         * Defines if logging is activated
          */
-        on(event:string, callback:Function):void;
+        log?: boolean;
 
         /**
-         * closes opened connections
+         * Idle timeout
          */
-        drain():void;
+        idleTimeout?: number;
+
+        /**
+         * Retry delay
+         */
+        retryDelay?: number;
+
+        /**
+         * Acquire timeout
+         */
+        acquireTimeout?: number;
     }
 
 
-
-
-    export = tcp;
 }
+
+/**
+ * Tedious Connection Pool Class
+ */
+declare class tcp {
+
+    /**
+     * Connection Pool constructor
+     * @param poolConfig the pool configuration
+     * @param connectionConfig the connection configuration
+     */
+    constructor(poolConfig: tcp.PoolConfig, connectionConfig: tedious.ConnectionConfig);
+
+    /**
+     * acquires a connection from the pool
+     * @param callback invoked when the connection is retrieved and ready
+     */
+    acquire(callback: tcp.ConnectionCallback): void;
+
+    /**
+     * listens for a specific connection pool event
+     * @param event the event name
+     * @param callback invoked when the event is raised
+     */
+    on(event: string, callback: Function): void;
+
+    /**
+     * closes opened connections
+     */
+    drain(): void;
+}
+
+
+
+
+export = tcp;

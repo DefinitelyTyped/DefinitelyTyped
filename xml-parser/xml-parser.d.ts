@@ -3,31 +3,30 @@
 // Definitions by: Matt Frantz <https://github.com/mhfrantz/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'xml-parser' {
 
-  function parse(xml: string): parse.Document;
 
-  namespace parse {
+declare function parse(xml: string): parse.Document;
+
+declare namespace parse {
     export interface Document {
-      declaration: Declaration;
-      root: Node;
+        declaration: Declaration;
+        root: Node;
     }
 
     export interface Declaration {
-      attributes: Attributes;
+        attributes: Attributes;
     }
 
     export interface Node {
-      name: string;
-      attributes: Attributes;
-      children: Node[];
-      content?: string;
+        name: string;
+        attributes: Attributes;
+        children: Node[];
+        content?: string;
     }
 
     export interface Attributes {
-      [name: string]: string;
+        [name: string]: string;
     }
-  }
-
-  export = parse;
 }
+
+export = parse;

@@ -6,13 +6,12 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../html-minifier/html-minifier.d.ts" />
 
-declare module 'gulp-htmlmin' {
-    import * as HTMLMinifier from 'html-minifier';
 
-    namespace htmlmin {
-    }
+import * as HTMLMinifier from 'html-minifier';
 
-    function htmlmin(options?: HTMLMinifier.Options): NodeJS.ReadWriteStream;
-
-    export = htmlmin;
+declare namespace htmlmin {
 }
+
+declare function htmlmin(options?: HTMLMinifier.Options): NodeJS.ReadWriteStream;
+
+export = htmlmin;

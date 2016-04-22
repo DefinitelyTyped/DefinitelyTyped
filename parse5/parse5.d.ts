@@ -5,40 +5,75 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module 'parse5' {
-    import * as stream from "stream";
-    import * as events from "events";
-  
-    /**
-     * Parses an HTML string.
-     * @function
-     * @param {string} html - Input HTML string.
-     * @param {ParserOptions} html - Parsing options.
-     * 
-     * @example
-     * var parse5 = require('parse5');
-     * var document = parse5.parse('<!DOCTYPE html><html><head></head><body>Hi there!</body></html>');
-     */
-    export function parse(html: string, options?: ParserOptions): ASTNode;
-    
-    /**
-     * Parses an HTML fragment.
-     * 
-     * @param {string} html - Input html fragment
-     * @param {ParserOptions} - Parsign options
-     * @example
-     * var parse5 = require('parse5');
-     * var documentFragment = parse5.parseFragment('<table></table>');
-     * // Parses the html fragment in the context of the parsed <table> element.
-     * var trFragment = parser.parseFragment(documentFragment.childNodes[0], '<tr><td>Shake it, baby</td></tr>');
-     */
-    export function parseFragment(html: string, options?: ParserOptions): ASTNode;
-    export function parseFragment(fragmentContext: any, html: string, options?: ParserOptions): ASTNode;
 
+import * as stream from "stream";
+import * as events from "events";
+
+/**
+ * Parses an HTML string.
+ * @function
+ * @param {string} html - Input HTML string.
+ * @param {ParserOptions} html - Parsing options.
+ * 
+ * @example
+ * var parse5 = require('parse5');
+ * var document = parse5.parse('<!DOCTYPE html><html><head></head><body>Hi there!</body></html>');
+ */
+declare export function parse(html: string, options?: ParserOptions): ASTNode;
+
+/**
+ * Parses an HTML fragment.
+ * 
+ * @param {string} html - Input html fragment
+ * @param {ParserOptions} - Parsign options
+ * @example
+ * var parse5 = require('parse5');
+ * var documentFragment = parse5.parseFragment('<table></table>');
+ * // Parses the html fragment in the context of the parsed <table> element.
+ * var trFragment = parser.parseFragment(documentFragment.childNodes[0], '<tr><td>Shake it, baby</td></tr>');
+ */
+declare export function parseFragment(html: string, options?: ParserOptions): ASTNode;
+declare export function parseFragment(fragmentContext: any, html: string, options?: ParserOptions): ASTNode;
+
+/**
+ * Serializes an AST node to an HTML string.
+ * @param node Node to serialize.
+ * @param options Serialization options
+ */
+declare export function serialize(node: ASTNode, options?: SerializerOptions): string;
+
+export interface ASTAttribute {
+    name: string;
+    value: string;
+}
+
+export interface Attribute {
+    key: string;
+    value: string;
+}
+
+export interface ASTNode {
+    attrs: ASTAttribute[];
+    childNodes?: ASTNode[];
+    namespaceURI?: string;
+    parentNode?: ASTNode;
+    nodeName: string;
+    quirksMode?: boolean;
+    value?: string;
+    __location: LocationInfo | ElementLocationInfo;
+}
+
+export interface LocationInfo {
     /**
-     * Serializes an AST node to an HTML string.
-     * @param node Node to serialize.
-     * @param options Serialization options
+     * One-based line index
+     */
+    line: number;
+    /**
+     * Zero-based first character index
+     */
+    col: number;
+    /**
+     * Zero-based first character index
      */
     export function serialize(node: ASTNode, options?: SerializerOptions): string;
 
@@ -65,62 +100,42 @@ declare module 'parse5' {
         __location: LocationInfo | ElementLocationInfo;
     }
 
-    export interface LocationInfo {
-        /**
-         * One-based line index
-         */
-        line: number;
-        /**
-         * Zero-based first character index
-         */
-        col: number;
-        /**
-         * Zero-based first character index
-         */
-        startOffset: number;
-        /**
-         * Zero-based last character index
-         */
-        endOffset: number;
-    }
-    
-        
+/**
+ * Streaming AST node to an HTML serializer. A readable stream.
+ */
+declare export class SerializerStream extends stream.Readable {
     /**
      * Streaming AST node to an HTML serializer. A readable stream.
+     * 
+     * @param Node to serialize.
+     * @param options Serialization options.
      */
-    export class SerializerStream extends stream.Readable {
-        /**
-         * Streaming AST node to an HTML serializer. A readable stream.
-         * 
-         * @param Node to serialize.
-         * @param options Serialization options.
-         */
-        constructor(node: ASTNode, options: SerializerOptions);
-    }
-    
+    constructor(node: ASTNode, options: SerializerOptions);
+}
+
+/**
+ * Streaming HTML parser with scripting support. A writable stream.
+ */
+declare export class ParserStream extends stream.Writable {
     /**
-     * Streaming HTML parser with scripting support. A writable stream.
+     * @param options Parsing options.
      */
-    export class ParserStream extends stream.Writable {
-        /**
-         * @param options Parsing options.
-         */
-        constructor(options?: ParserOptions);
-        /**
-         * The resulting document node.
-         */
-        document: ASTNode;
-        on(event: string, listener: Function): this;
-        /**
-         * Raised then parser encounters a <script> element. If this event has listeners, parsing will be suspended
-         *  once it is emitted. So, if <script> has the src attribute, 
-         * you can fetch it, execute and then resume parsing just like browsers do.
-         * The listener will have 3 parameters:
-         * The script element that caused the event, a function for writing additional html at the current parsing position. Suitable for implementing the DOM document.write and document.writeln methods.
-         * And finally a resume function as a callback to signal the continuation of the parsing
-         */
-        on(event: 'script', listener: (scriptElement: ASTNode, documentWrite: (html: string) => void, resume: Function) => void): this;
-    }
+    constructor(options?: ParserOptions);
+    /**
+     * The resulting document node.
+     */
+    document: ASTNode;
+    on(event: string, listener: Function): this;
+    /**
+     * Raised then parser encounters a <script> element. If this event has listeners, parsing will be suspended
+     *  once it is emitted. So, if <script> has the src attribute, 
+     * you can fetch it, execute and then resume parsing just like browsers do.
+     * The listener will have 3 parameters:
+     * The script element that caused the event, a function for writing additional html at the current parsing position. Suitable for implementing the DOM document.write and document.writeln methods.
+     * And finally a resume function as a callback to signal the continuation of the parsing
+     */
+    on(event: 'script', listener: (scriptElement: ASTNode, documentWrite: (html: string) => void, resume: Function) => void): this;
+}
 
     export class SAXParser extends stream.Transform {
         constructor(options?: SAXParserOptions);
@@ -197,69 +212,67 @@ declare module 'parse5' {
         isElementNode(node: ASTNode): boolean;
     }
 
-    export interface AttributesLocationInfo {
-        [attributeName: string]: LocationInfo;
-    }
-
-    export interface StartTagLocationInfo extends LocationInfo {
-        /**
-         * Start tag attributes' location info
-         */
-        attrs: AttributesLocationInfo
-    }
-
-    export interface ElementLocationInfo {
-        /**
-         * Element's start tag location info.
-         */
-        startTag: StartTagLocationInfo;
-        /**
-         * Element's end tag location info.
-         */
-        endTag: LocationInfo;
-    }
-    
-    /**
-     * Provides built-in tree adapters that can be used for parsing and serialization.
-     */
-    export var treeAdapters: {
-        /**
-         * Default tree format for parse5.
-         */
-        default: TreeAdapter, 
-        /**
-         * Quite popular htmlparser2 tree format (e.g. used by cheerio and jsdom).
-         */
-        htmlparser2: TreeAdapter
-    };
-
-    export interface ParserOptions {
-        /**
-         * Enables source code location information for the nodes. When enabled, each node (except root node) has the __location property. 
-         * In case the node is not an empty element, __location will be ElementLocationInfo object, otherwise it's LocationInfo.
-         * If the element was implicitly created by *the parser it's __location property will be null.
-         */
-        locationInfo?: boolean;
-        /**
-         * Specifies the resulting tree format.
-         */
-        treeAdapter?: TreeAdapter;
-    }
-
-    export interface SerializerOptions {
-        /***
-         * Specifies input tree format.
-         */
-        treeAdapter: TreeAdapter;
-    }
-    
-    /**
-     * Enables source code location information for the tokens.
-     *  When enabled, each token event handler will receive LocationInfo 
-     * (or StartTagLocationInfo) object as its last argument.
-     */
-    export interface SAXParserOptions {
-        locationInfo?: boolean;
-    }
+export interface AttributesLocationInfo {
+    [attributeName: string]: LocationInfo;
 }
 
+export interface StartTagLocationInfo extends LocationInfo {
+    /**
+     * Start tag attributes' location info
+     */
+    attrs: AttributesLocationInfo
+}
+
+export interface ElementLocationInfo {
+    /**
+     * Element's start tag location info.
+     */
+    startTag: StartTagLocationInfo;
+    /**
+     * Element's end tag location info.
+     */
+    endTag: LocationInfo;
+}
+
+/**
+ * Provides built-in tree adapters that can be used for parsing and serialization.
+ */
+declare export var treeAdapters: {
+    /**
+     * Default tree format for parse5.
+     */
+    default: TreeAdapter,
+    /**
+     * Quite popular htmlparser2 tree format (e.g. used by cheerio and jsdom).
+     */
+    htmlparser2: TreeAdapter
+};
+
+export interface ParserOptions {
+    /**
+     * Enables source code location information for the nodes. When enabled, each node (except root node) has the __location property. 
+     * In case the node is not an empty element, __location will be ElementLocationInfo object, otherwise it's LocationInfo.
+     * If the element was implicitly created by *the parser it's __location property will be null.
+     */
+    locationInfo?: boolean;
+    /**
+     * Specifies the resulting tree format.
+     */
+    treeAdapter?: TreeAdapter;
+}
+
+export interface SerializerOptions {
+    /***
+     * Specifies input tree format.
+     */
+    treeAdapter: TreeAdapter;
+}
+
+/**
+ * Enables source code location information for the tokens.
+ *  When enabled, each token event handler will receive LocationInfo 
+ * (or StartTagLocationInfo) object as its last argument.
+ */
+export interface SAXParserOptions {
+    locationInfo?: boolean;
+}

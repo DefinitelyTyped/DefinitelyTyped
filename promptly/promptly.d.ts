@@ -5,14 +5,14 @@
 
 ///<reference path="../node/node.d.ts"/>
 
-declare module "promptly" {
-  import stream = require('stream');
 
-  interface Callback {
+import stream = require('stream');
+
+interface Callback {
     (err: Error, value: string): void;
-  }
+}
 
-  export interface Options {
+export interface Options {
     default?: string;
     trim?: boolean;
     validator?: any;
@@ -20,18 +20,16 @@ declare module "promptly" {
     silent?: boolean;
     input?: NodeJS.ReadableStream;
     output?: NodeJS.WritableStream;
-  }
-
-  export function prompt(message: string, fn?: Callback):any;
-  export function prompt(message: string, opts: Options, fn?: Callback):any;
-
-  export function password(message: string, fn?: Callback):any;
-  export function password(message: string, opts: Options, fn?: Callback):any;
-
-  export function confirm(message: string, fn?: Callback):any;
-  export function confirm(message: string, opts: Options, fn?: Callback):any;
-
-  export function choose(message: string, choices: string[], fn?: Callback):any;
-  export function choose(message: string, choices: string[], opts: Options, fn?: Callback):any;
-
 }
+
+declare export function prompt(message: string, fn?: Callback): any;
+declare export function prompt(message: string, opts: Options, fn?: Callback): any;
+
+declare export function password(message: string, fn?: Callback): any;
+declare export function password(message: string, opts: Options, fn?: Callback): any;
+
+declare export function confirm(message: string, fn?: Callback): any;
+declare export function confirm(message: string, opts: Options, fn?: Callback): any;
+
+declare export function choose(message: string, choices: string[], fn?: Callback): any;
+declare export function choose(message: string, choices: string[], opts: Options, fn?: Callback): any;

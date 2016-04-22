@@ -5,9 +5,8 @@
 
 /// <reference path="../mongoose/mongoose.d.ts" />
 
-declare module "mongoose-mock" {
-    import mongoose = require('mongoose');
 
-    var mock: mongoose.Mongoose;
-    export = mock;
-}
+import mongoose = require('mongoose');
+
+declare var mock: mongoose.Mongoose;
+export = mock;

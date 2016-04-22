@@ -4,26 +4,25 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="../node/node.d.ts" />
 
-declare module "gulp-html-replace" {
-  interface AdvancedTask {
+
+interface AdvancedTask {
     src: string | string[];
     tpl: string;
-  }
+}
 
-  interface Tasks {
-    [taskId: string] : string | string[] | AdvancedTask;
-  }
+interface Tasks {
+    [taskId: string]: string | string[] | AdvancedTask;
+}
 
-  interface Options {
+interface Options {
     keepUnassigned?: boolean;
     keepBlockTags?: boolean;
     resolvePaths?: boolean;
-  }
-
-  interface HtmlReplace {
-    (tasks: Tasks, options?: Options) : NodeJS.ReadWriteStream;
-  }
-
-  const htmlReplace : HtmlReplace;
-  export = htmlReplace;
 }
+
+interface HtmlReplace {
+    (tasks: Tasks, options?: Options): NodeJS.ReadWriteStream;
+}
+
+declare const htmlReplace: HtmlReplace;
+export = htmlReplace;

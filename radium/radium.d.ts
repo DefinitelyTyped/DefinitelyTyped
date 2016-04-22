@@ -116,3 +116,9 @@ declare module 'radium' {
 
     export = Radium;
 }
+
+declare var Radium: {
+    <T extends ReactComponent<any, any>>(comp: T): T;
+};
+
+export = Radium;

@@ -7,34 +7,33 @@
 
 // This package has been deprecated in favor of gulp-htmlmin, which should be faster and more comprehensive.
 
-declare module 'gulp-minify-html' {
-    namespace minifyHtml {
-        // Options from https://github.com/Swaagie/minimize#options
-        interface Options {
-            // Do not remove empty attributes
-            empty?: boolean;
 
-            // Do not strip CDATA from scripts
-            cdata?: boolean;
+declare namespace minifyHtml {
+    // Options from https://github.com/Swaagie/minimize#options
+    interface Options {
+        // Do not remove empty attributes
+        empty?: boolean;
 
-            // Do not remove comments
-            comments?: boolean;
+        // Do not strip CDATA from scripts
+        cdata?: boolean;
 
-            // Do not remove conditional internet explorer comments
-            conditionals?: boolean;
+        // Do not remove comments
+        comments?: boolean;
 
-            // Do not remove redundant attributes
-            spare?: boolean;
+        // Do not remove conditional internet explorer comments
+        conditionals?: boolean;
 
-            // Do not remove arbitrary quotes
-            quotes?: boolean;
+        // Do not remove redundant attributes
+        spare?: boolean;
 
-            // Preserve one whitespace
-            loose?: boolean;
-        }
+        // Do not remove arbitrary quotes
+        quotes?: boolean;
+
+        // Preserve one whitespace
+        loose?: boolean;
     }
-
-    function minifyHtml(options?: minifyHtml.Options): NodeJS.ReadWriteStream;
-
-    export = minifyHtml;
 }
+
+declare function minifyHtml(options?: minifyHtml.Options): NodeJS.ReadWriteStream;
+
+export = minifyHtml;

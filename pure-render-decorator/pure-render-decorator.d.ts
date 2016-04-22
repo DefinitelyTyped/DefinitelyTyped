@@ -3,7 +3,6 @@
 // Definitions by: Sean Kelley <https://github.com/seansfkelley/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'pure-render-decorator' {
-  var PureRender: ClassDecorator;
-  export = PureRender;
-}
+
+declare var PureRender: ClassDecorator;
+export = PureRender;

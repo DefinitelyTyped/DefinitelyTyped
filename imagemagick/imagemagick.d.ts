@@ -7,53 +7,52 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "imagemagick" {
-	import child_process = require("child_process");
 
-	export function identify(path: string, callback: (err: Error, features: Features) => void): child_process.ChildProcess;
-	export function identify(path: any[], callback: (err: Error, result: string) => void): child_process.ChildProcess;
-	export module identify {
-		export var path: string;
-	}
-	export function readMetadata(path: string, callback: (err: Error, result: any) => void): child_process.ChildProcess;
+import child_process = require("child_process");
 
-	export function convert(args: any, callback: (err: Error, result: any) => void): child_process.ChildProcess;
-	export function convert(args: any, timeout: number, callback: (err: Error, result: any) => void): child_process.ChildProcess;
-	export module convert {
-		export var path: string;
-	}
+declare export function identify(path: string, callback: (err: Error, features: Features) => void): child_process.ChildProcess;
+declare export function identify(path: any[], callback: (err: Error, result: string) => void): child_process.ChildProcess;
+declare export module identify {
+    export var path: string;
+}
+declare export function readMetadata(path: string, callback: (err: Error, result: any) => void): child_process.ChildProcess;
 
-	export function resize(options: Options, callback: (err: Error, result: any) => void): child_process.ChildProcess;
-	export function crop(options: Options, callback: (err: Error, result: any) => void): child_process.ChildProcess;
-	export function resizeArgs(options: Options): ResizeArgs;
+declare export function convert(args: any, callback: (err: Error, result: any) => void): child_process.ChildProcess;
+declare export function convert(args: any, timeout: number, callback: (err: Error, result: any) => void): child_process.ChildProcess;
+declare export module convert {
+    export var path: string;
+}
 
-	export interface Features {
-		format?: string;
-		width?: number;
-		height?: number;
-		depth?: number;
-	}
+declare export function resize(options: Options, callback: (err: Error, result: any) => void): child_process.ChildProcess;
+declare export function crop(options: Options, callback: (err: Error, result: any) => void): child_process.ChildProcess;
+declare export function resizeArgs(options: Options): ResizeArgs;
 
-	export interface Options {
-		srcPath?: string; //: null,
-		srcData?: string; //: null,
-		srcFormat?: string; //: null,
-		dstPath?: string; //: null,
-		quality?: number; //: 0.8,
-		format?: string; //: 'jpg',
-		progressive?: boolean; //: false,
-		colorspace?: any; //: null,
-		width?: number; //: 0,
-		height?: number; //: 0,
-		strip?: boolean; //: true,
-		filter?: string; //: 'Lagrange',
-		sharpening?: number; //: 0.2,
-		customArgs?: any[]; //: [],
-		timeout?: number; //: 0
-	}
+export interface Features {
+    format?: string;
+    width?: number;
+    height?: number;
+    depth?: number;
+}
 
-	export interface ResizeArgs {
-		opt: Options;
-		args: string[];
-	}
+export interface Options {
+    srcPath?: string; //: null,
+    srcData?: string; //: null,
+    srcFormat?: string; //: null,
+    dstPath?: string; //: null,
+    quality?: number; //: 0.8,
+    format?: string; //: 'jpg',
+    progressive?: boolean; //: false,
+    colorspace?: any; //: null,
+    width?: number; //: 0,
+    height?: number; //: 0,
+    strip?: boolean; //: true,
+    filter?: string; //: 'Lagrange',
+    sharpening?: number; //: 0.2,
+    customArgs?: any[]; //: [],
+    timeout?: number; //: 0
+}
+
+export interface ResizeArgs {
+    opt: Options;
+    args: string[];
 }

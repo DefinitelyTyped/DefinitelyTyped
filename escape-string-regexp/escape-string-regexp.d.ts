@@ -3,10 +3,8 @@
 // Definitions by: kruncher <https://github.com/kruncher/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "escape-string-regexp" {
 
-  function escapeStringRegexp(str: string): string;
 
-  export = escapeStringRegexp;
+declare function escapeStringRegexp(str: string): string;
 
-}
+export = escapeStringRegexp;

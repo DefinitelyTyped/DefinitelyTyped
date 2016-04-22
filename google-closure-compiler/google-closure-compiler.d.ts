@@ -41,3 +41,12 @@ declare module 'google-closure-compiler' {
         CONTRIB_PATH: string;
     };
 }
+type CompileOptions = { [key: string]: string };
+declare var compiler: {
+    new (opts: (CompileOptions | string[]),
+        extraCommandArgs?: string[]): Compiler;
+
+    JAR_PATH: string;
+    COMPILER_PATH: string;
+    CONTRIB_PATH: string;
+};

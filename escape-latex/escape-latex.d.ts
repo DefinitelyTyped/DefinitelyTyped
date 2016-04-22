@@ -3,7 +3,6 @@
 // Definitions by: Oliver Schneider <https://github.com/olsio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'escape-latex' {
-    function lescape(texString: string): string;
-    export = lescape;
-}
+
+declare function lescape(texString: string): string;
+export = lescape;

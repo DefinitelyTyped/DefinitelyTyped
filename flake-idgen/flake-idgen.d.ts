@@ -5,18 +5,17 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module 'flake-idgen' {
-	interface ConstructorOptions {
-		datacenter?: number;
-		worker?: number;
-		id?: number;
-		epoch?: number;
-		seqMask?: number;
-	}
 
-	class FlakeId {
-		constructor(options?: ConstructorOptions);
-		next(callback?: (err: Error, id: Buffer) => void): Buffer;
-	}
-	export = FlakeId;
+interface ConstructorOptions {
+    datacenter?: number;
+    worker?: number;
+    id?: number;
+    epoch?: number;
+    seqMask?: number;
 }
+
+declare class FlakeId {
+    constructor(options?: ConstructorOptions);
+    next(callback?: (err: Error, id: Buffer) => void): Buffer;
+}
+export = FlakeId;

@@ -5,30 +5,29 @@
 
 /// <reference path="../node/node.d.ts" />
 
-declare module "main-bower-files" {
 
-    interface IPaths {
-        bowerDirectory?: string;
-        bowerrc?: string;
-        bowerJson?: string;
-    }
 
-    interface IFilterFunction {
-        (filepath: string): boolean;
-    }
-
-    interface IOptions {
-        debugging?: boolean;
-        main?: string | string[] | Object;
-        env?: string;
-        paths?: IPaths | string;
-        checkExistence?: boolean;
-        includeDev?: boolean | string;
-        includeSelf?: boolean;
-        filter?: RegExp | IFilterFunction | string | string[];
-    }
-
-    function mainBowerFiles(options?: IOptions): string[];
-
-    export = mainBowerFiles;
+interface IPaths {
+    bowerDirectory?: string;
+    bowerrc?: string;
+    bowerJson?: string;
 }
+
+interface IFilterFunction {
+    (filepath: string): boolean;
+}
+
+interface IOptions {
+    debugging?: boolean;
+    main?: string | string[] | Object;
+    env?: string;
+    paths?: IPaths | string;
+    checkExistence?: boolean;
+    includeDev?: boolean | string;
+    includeSelf?: boolean;
+    filter?: RegExp | IFilterFunction | string | string[];
+}
+
+declare function mainBowerFiles(options?: IOptions): string[];
+
+export = mainBowerFiles;
