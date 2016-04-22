@@ -4054,6 +4054,12 @@ declare namespace ol {
             constructor(options: olx.Projection);
 
             getExtent(): Extent;
+
+            /**
+             * Set the validity extent for this projection.
+             * @param extent The new extent of the projection.
+             */
+            setExtent(extent: Extent): void;
         }
     }
 

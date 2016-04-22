@@ -338,6 +338,7 @@ var tileLayer: ol.layer.Tile = new ol.layer.Tile({
 projection = new ol.proj.Projection({
     code:stringValue,    
 });
+projection.setExtent(projection.getExtent());
 
 //
 // ol.Map 
