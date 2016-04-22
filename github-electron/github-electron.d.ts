@@ -1,4 +1,4 @@
-// Type definitions for Electron v0.37.6
+// Type definitions for Electron v0.37.7
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -297,6 +297,14 @@ declare namespace Electron {
 		 * Note: This is only implemented on OS X.
 		 */
 		isDarkMode(): boolean;
+		/**
+		 * Imports the certificate in pkcs12 format into the platform certificate store.
+		 * @param callback Called with the result of import operation, a value of 0 indicates success
+		 * while any other value indicates failure according to chromium net_error_list.
+		 *
+		 * Note: This API is only available on Linux.
+		 */
+		importCertificate(options: ImportCertificateOptions, callback: (result: number) => void): void;
 		commandLine: CommandLine;
 		/**
 		 * Note: This API is only available on Mac.
@@ -305,6 +313,17 @@ declare namespace Electron {
 	}
 
 	type AppPathName = 'home'|'appData'|'userData'|'temp'|'exe'|'module'|'desktop'|'documents'|'downloads'|'music'|'pictures'|'videos';
+
+	interface ImportCertificateOptions {
+		/**
+		 * Path for the pkcs12 file.
+		 */
+		certificate: string;
+		/**
+		 * Passphrase for the certificate.
+		 */
+		password: string;
+	}
 
 	interface CommandLine {
 		/**
@@ -814,6 +833,11 @@ declare namespace Electron {
 		 * @returns The title of the native window.
 		 */
 		getTitle(): string;
+		/**
+		 * Changes the attachment point for sheets on Mac OS X.
+		 * Note: This API is available only on OS X.
+		 */
+		setSheetOffset(offset: number): void;
 		/**
 		 * Starts or stops flashing the window to attract user's attention.
 		 */
@@ -2419,7 +2443,7 @@ declare namespace Electron {
 
 	/**
 	 * The screen module retrieves information about screen size, displays, cursor position, etc.
-	 * You should not use this module until the ready event of the app module is emitted.
+	 * You can not use this module until the ready event of the app module is emitted.
 	 */
 	interface Screen extends NodeJS.EventEmitter {
 		/**
@@ -2547,7 +2571,7 @@ declare namespace Electron {
 		webRequest: WebRequest;
 	}
 
-	type Permission = 'media' | 'geolocation' | 'notifications' | 'midiSysex' | 'pointerLock' | 'fullscreen';
+	type Permission = 'media' | 'geolocation' | 'notifications' | 'midiSysex' | 'pointerLock' | 'fullscreen' | 'openExternal';
 
 	interface ClearStorageDataOptions {
 		/**
@@ -3254,6 +3278,10 @@ declare namespace Electron {
 		 */
 		isLoading(): boolean;
 		/**
+		 * @returns Whether the main frame (and not just iframes or frames within it) is still loading.
+		 */
+		isLoadingMainFrame(): boolean;
+		/**
 		 * @returns Whether web page is waiting for a first-response for the main
 		 * resource of the page.
 		 */
@@ -3420,9 +3448,9 @@ declare namespace Electron {
 		 */
 		openDevTools(options?: {
 			/**
-			 * Opens devtools in a new window.
+			 * Opens the devtools with specified dock state. Defaults to last used dock state.
 			 */
-			detach?: boolean;
+			mode?: 'right' | 'bottom' | 'undocked' | 'detach'
 		}): void;
 		/**
 		 * Closes the developer tools.
@@ -4234,7 +4262,7 @@ declare namespace Electron {
 		 * Emitted when a page's theme color changes. This is usually due to encountering a meta tag:
 		 * <meta name='theme-color' content='#ff0000'>
 		 */
-		addEventListener(type: 'did-change-theme-color', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-change-theme-color', listener: (event: WebViewElement.DidChangeThemeColorEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Emitted when DevTools is opened.
 		 */
@@ -4329,6 +4357,10 @@ declare namespace Electron {
 		interface PluginCrashedEvent extends Event {
 			name: string;
 			version: string;
+		}
+
+		interface DidChangeThemeColorEvent extends Event {
+			themeColor: string;
 		}
 	}
 

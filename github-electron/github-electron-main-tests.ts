@@ -65,7 +65,7 @@ app.on('ready', () => {
 
 	mainWindow.webContents.openDevTools();
 	mainWindow.webContents.toggleDevTools();
-	mainWindow.webContents.openDevTools({detach: true});
+	mainWindow.webContents.openDevTools({mode: 'detach'});
 	mainWindow.webContents.closeDevTools();
 	mainWindow.webContents.addWorkSpace('/path/to/workspace');
 	mainWindow.webContents.removeWorkSpace('/path/to/workspace');
@@ -337,6 +337,9 @@ win.on('closed', () => {
 win.loadURL('https://github.com');
 win.show();
 
+var toolbarRect = document.getElementById('toolbar').getBoundingClientRect();
+win.setSheetOffset(toolbarRect.height);
+
 // content-tracing
 // https://github.com/atom/electron/blob/master/docs/api/content-tracing.md
 
@@ -517,12 +520,20 @@ var template = <Electron.MenuItemOptions[]>[
 			{
 				label: 'Reload',
 				accelerator: 'Command+R',
-				click: () => { BrowserWindow.getFocusedWindow().webContents.reloadIgnoringCache(); }
+				click: (item, focusedWindow) => {
+					if (focusedWindow) {
+						focusedWindow.webContents.reloadIgnoringCache();
+					}
+				}
 			},
 			{
 				label: 'Toggle DevTools',
 				accelerator: 'Alt+Command+I',
-				click: () => { BrowserWindow.getFocusedWindow().webContents.toggleDevTools(); }
+				click: (item, focusedWindow) => {
+					if (focusedWindow) {
+						focusedWindow.webContents.toggleDevTools();
+					}
+				}
 			}
 		]
 	},
