@@ -40,6 +40,19 @@ declare module "helmet" {
         directives? : IHelmetCspDirectives
     }
 
+    interface IHelmetPublicKeyPinsSetIfFunction {
+      (req: express.Request, res: express.Response): boolean;
+    }
+
+    interface IHelmetPublicKeyPinsConfiguration {
+        maxAge : number;
+        sha256s : string[];
+        includeSubdomains? : boolean;
+        reportUri? : string;
+        reportOnly? : boolean;
+        setIf?: IHelmetPublicKeyPinsSetIfFunction
+    }
+
     interface IHelmetXssFilterConfiguration {
         setOnOldIE? : boolean;
     }
@@ -107,7 +120,7 @@ declare module "helmet" {
          * @summary Adds the "Public-Key-Pins" header.
          * @return {RequestHandler} The Request handler.
          */
-        publicKeyPins(options ?: Object):express.RequestHandler;
+        publicKeyPins(options ?: IHelmetPublicKeyPinsConfiguration):express.RequestHandler;
 
         /**
          * @summary Mitigate cross-site scripting attacks with the "X-XSS-Protection" header.

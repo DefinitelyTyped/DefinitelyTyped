@@ -110,9 +110,38 @@ function noSniffTest() {
  */
 function publicKeyPinsTest() {
     app.use(helmet.publicKeyPins({
+        maxAge: 7776000000,
         sha256s: ["AbCdEf123=", "ZyXwVu456="],
-        includeSubdomains: true,
+    }));
+
+    app.use(helmet.publicKeyPins({
+        maxAge: 7776000000,
+        sha256s: ["AbCdEf123=", "ZyXwVu456="],
+        includeSubdomains: false
+    }));
+
+    app.use(helmet.publicKeyPins({
+        maxAge: 7776000000,
+        sha256s: ["AbCdEf123=", "ZyXwVu456="],
+        includeSubdomains: true
+    }));
+
+    app.use(helmet.publicKeyPins({
+        maxAge: 7776000000,
+        sha256s: ["AbCdEf123=", "ZyXwVu456="],
         reportUri: "http://example.com"
+    }));
+
+    app.use(helmet.publicKeyPins({
+        maxAge: 7776000000,
+        sha256s: ["AbCdEf123=", "ZyXwVu456="],
+        reportOnly: true
+    }));
+
+    app.use(helmet.publicKeyPins({
+        maxAge: 7776000000,
+        sha256s: ["AbCdEf123=", "ZyXwVu456="],
+        setIf: function (req, res) { return true; }
     }));
 }
 
