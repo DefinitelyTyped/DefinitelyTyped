@@ -1,9 +1,9 @@
 // Type definitions for material-ui v0.12.1
 // Project: https://github.com/callemall/material-ui
 // Definitions by: Nathan Brown <https://github.com/ngbrown>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path='../../react/react.d.ts' />
+///<reference path='../../react/react-0.13.3.d.ts' />
 
 declare module "material-ui" {
     export import AppBar = __MaterialUI.AppBar; // require('material-ui/lib/app-bar');

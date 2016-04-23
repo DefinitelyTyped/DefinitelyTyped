@@ -35,7 +35,7 @@ THE SOFTWARE.
 /// <reference path="./tests/webgl/webgl_interactive_cubes.ts" />
 /// <reference path="./tests/webgl/webgl_interactive_raycasting_points.ts" />
 /// <reference path="./tests/webgl/webgl_lensflares.ts" />
-/// <reference path="./tests/webgl/webgl_lights_heimsphere.ts" />
+/// <reference path="./tests/webgl/webgl_lights_hemisphere.ts" />
 /// <reference path="./tests/webgl/webgl_lines_colors.ts" />
 /// <reference path="./tests/webgl/webgl_loader_awd.ts" />
 /// <reference path="./tests/webgl/webgl_materials.ts" />

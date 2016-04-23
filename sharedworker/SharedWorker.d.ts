@@ -1,9 +1,9 @@
 // Type definitions for SharedWorker
 // Project: http://www.w3.org/TR/workers/
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module SharedWorker {
+declare namespace SharedWorker {
     interface AbstractWorker extends EventTarget {
         onerror: (ev: ErrorEvent) => any;
     }

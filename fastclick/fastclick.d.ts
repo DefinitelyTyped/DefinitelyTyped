@@ -1,7 +1,7 @@
 // Type definitions for FastClick v1.0.3
 // Project: https://github.com/ftlabs/fastclick
 // Definitions by: Shinnosuke Watanabe <https://github.com/shinnn>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface FastClickObject {
   lastTouchIdentifier: number;
@@ -34,7 +34,7 @@ interface FastClickStatic {
 
 declare module "fastclick" {
 	function fastclick(layer: any, options?: FastClickOptions): FastClickObject;
-	module fastclick {
+	namespace fastclick {
 		var FastClick: FastClickStatic;
 	}
 

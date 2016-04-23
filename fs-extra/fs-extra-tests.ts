@@ -45,15 +45,47 @@ var openOpts: fs.OpenOptions;
 var watcher: fs.FSWatcher;
 var readStreeam: stream.Readable;
 var writeStream: stream.Writable;
+var outputStream: stream.Writable;
 
 fs.copy(src, dest, errorCallback);
 fs.copy(src, dest, (src: string) => {
 	return false;
 }, errorCallback);
+fs.copy(src, dest,
+	{
+		clobber: true,
+		preserveTimestamps: true,
+		filter: (src: string) => {return false}
+	},
+	errorCallback
+);
+fs.copy(src, dest,
+	{
+		clobber: true,
+		preserveTimestamps: true,
+		filter: /.*/
+	},
+	errorCallback
+);
 fs.copySync(src, dest);
 fs.copySync(src, dest, (src: string) => {
 	return false;
 });
+fs.copySync(src, dest, /.*/);
+fs.copySync(src, dest,
+	{
+		clobber: true,
+		preserveTimestamps: true,
+		filter: (src: string) => {return false}
+	}
+);
+fs.copySync(src, dest,
+	{
+		clobber: true,
+		preserveTimestamps: true,
+		filter: /.*/
+	}
+);
 fs.createFile(file, errorCallback);
 fs.createFileSync(file);
 
@@ -74,10 +106,10 @@ fs.outputJSON(file, data, errorCallback);
 fs.outputJsonSync(file, data);
 fs.outputJSONSync(file, data);
 
-fs.readJson(file, errorCallback);
-fs.readJson(file, openOpts, errorCallback);
-fs.readJSON(file, errorCallback);
-fs.readJSON(file, openOpts, errorCallback);
+fs.readJson(file, (error: Error, jsonObject: any) => {});
+fs.readJson(file, openOpts, (error: Error, jsonObject: any) => {});
+fs.readJSON(file, (error: Error, jsonObject: any) => {});
+fs.readJSON(file, openOpts, (error: Error, jsonObject: any) => {});
 
 fs.readJsonSync(file, openOpts);
 fs.readJSONSync(file, openOpts);
@@ -150,7 +182,7 @@ strArr = fs.readdirSync(path);
 fs.close(fd, errorCallback);
 fs.closeSync(fd);
 fs.open(path, flags, modeStr, (err: Error, fd: number) => {
-    
+
 });
 num = fs.openSync(path, flags, modeStr);
 fs.utimes(path, atime, mtime, errorCallback);
@@ -217,6 +249,17 @@ fs.exists(path, (exists: boolean) => {
 });
 bool = fs.existsSync(path);
 
+fs.ensureDir(path, errorCallback);
+fs.ensureDirSync(path);
+fs.ensureFile(path, errorCallback);
+fs.ensureFileSync(path);
+fs.ensureLink(path, errorCallback);
+fs.ensureLinkSync(path);
+fs.ensureSymlink(path, errorCallback);
+fs.ensureSymlinkSync(path);
+fs.emptyDir(path, errorCallback);
+fs.emptyDirSync(path);
+
 readStreeam = fs.createReadStream(path);
 readStreeam = fs.createReadStream(path, {
 	flags: str,
@@ -227,6 +270,12 @@ readStreeam = fs.createReadStream(path, {
 });
 writeStream = fs.createWriteStream(path);
 writeStream = fs.createWriteStream(path, {
+	flags: str,
+	encoding: str,
+	string: str
+});
+outputStream = fs.createOutputStream(path);
+outputStream = fs.createOutputStream(path, {
 	flags: str,
 	encoding: str,
 	string: str

@@ -21,6 +21,16 @@ function main() {
         .then(function (user: KiiUser) {
         });
 
+    user.pushInstallation().getMqttEndpoint("")
+        .then(function (endpoint: KiiCloud.KiiMqttEndpoint) {
+            endpoint.installationID;
+        });
+
+    var anotherUser: KiiUser = KiiUserBuilder
+        .builderWithIdentifier("id", "password")
+        .setEmailAddress("mail@example.org")
+        .build();
+
     var bucket = Kii.bucketWithName("foo");
     var clause1 = KiiClause.lessThan("x", 1);
     var clause2 = KiiClause.greaterThan("y", 1);
@@ -46,4 +56,15 @@ function main() {
     object.set("foo", 1);
 
     object.save();
+
+    KiiGroup.registerGroupWithID("Group ID", "Group Name", [user], {
+        success: function(theSavedGroup: KiiGroup) {
+            theSavedGroup.saveWithOwner("user ID");
+        },
+        failure: function(theGroup: KiiGroup,
+                          anErrorString: String,
+                          addMembersArray: KiiUser[],
+                          removeMembersArray: KiiUser[]) {
+        }
+    });
 }

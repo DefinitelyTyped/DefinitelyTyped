@@ -1,15 +1,18 @@
 // Type definitions for SharePoint 2010 and 2013
 // Project: https://github.com/gandjustas/sptypescript
 // Definitions by: Stanislav Vyshchepan <http://blog.gandjustas.ru>, Andrey Markeev <http://markeev.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../microsoft-ajax/microsoft.ajax.d.ts" />
 declare var _spBodyOnLoadFunctions: Function[];
 declare var _spBodyOnLoadFunctionNames: string[];
 declare var _spBodyOnLoadCalled: boolean;
+declare function ExecuteOrDelayUntilBodyLoaded(initFunc: () => void): void;
+declare function ExecuteOrDelayUntilScriptLoaded(func: () => void, depScriptFileName: string): boolean;
+declare function ExecuteOrDelayUntilEventNotified(func: Function, eventName: string): boolean;
 declare var Strings:any;
 
-declare module SP {
+declare namespace SP {
     export class SOD {
         static execute(fileName: string, functionName: string, ...args: any[]): void;
         static executeFunc(fileName: string, typeName: string, fn: () => void): void;
@@ -179,6 +182,7 @@ declare class _spPageContextInfo {
 }
 
 declare function STSHtmlEncode(value: string): string;
+declare function STSHtmlDecode(value: string): string;
 
 declare function AddEvtHandler(element: HTMLElement, event: string, func: EventListener): void;
 
@@ -322,7 +326,7 @@ interface ContextInfo extends SPClientTemplates.RenderContext {
 
 declare function GetCurrentCtx(): ContextInfo;
 declare function SetFullScreenMode(fullscreen: boolean): void;
-declare module SP {
+declare namespace SP {
     export enum RequestExecutorErrors {
         requestAbortedOrTimedout,
         unexpectedResponse,
@@ -795,7 +799,7 @@ declare class CalloutManager {
 }
 
 
-declare module SPClientTemplates {
+declare namespace SPClientTemplates {
 
     export enum FileSystemObjectType {
         Invalid,
@@ -1344,7 +1348,7 @@ declare module SPClientTemplates {
 
     export interface Templates {
         View?: RenderCallback | string; // TODO: determine appropriate context type and purpose of this template
-        Body?: RenderCallback | string; // TODO: determine appropriate context type and purpose of this template 
+        Body?: RenderCallback | string; // TODO: determine appropriate context type and purpose of this template
         /** Defines templates for rendering groups (aggregations). */
         Group?: GroupCallback | string;
         /** Defines templates for list items rendering. */
@@ -1365,7 +1369,7 @@ declare module SPClientTemplates {
 
     export interface TemplateOverrides {
         View?: RenderCallback | string; // TODO: determine appropriate context type and purpose of this template
-        Body?: RenderCallback | string; // TODO: determine appropriate context type and purpose of this template 
+        Body?: RenderCallback | string; // TODO: determine appropriate context type and purpose of this template
         /** Defines templates for rendering groups (aggregations). */
         Group?: GroupCallback | string;
         /** Defines templates for list items rendering. */
@@ -1389,10 +1393,10 @@ declare module SPClientTemplates {
         /** �allbacks called after rendered html inserted into DOM. Can be function (ctx: RenderContext) => void or array of functions.*/
         OnPostRender?: RenderCallback | RenderCallback[];
 
-        /** View style (SPView.StyleID) for which the templates should be applied. 
+        /** View style (SPView.StyleID) for which the templates should be applied.
             If not defined, the templates will be applied only to default view style. */
         ViewStyle?: number;
-        /** List template type (SPList.BaseTemplate) for which the template should be applied. 
+        /** List template type (SPList.BaseTemplate) for which the template should be applied.
             If not defined, the templates will be applied to all lists. */
         ListTemplateType?: number;
         /** Base view ID (SPView.BaseViewID) for which the template should be applied.
@@ -1496,8 +1500,8 @@ declare function GenerateIIDForListItem(renderCtx: SPClientTemplates.RenderConte
 declare function SPFormControl_AppendValidationErrorMessage(nodeId: string, errorResult: any): void;
 declare function CoreRender(template: any, context: any): string;
 
-declare module SPClientForms {
-    module ClientValidation {
+declare namespace SPClientForms {
+    namespace ClientValidation {
         export class ValidationResult {
             constructor(hasErrors: boolean, errorMsg: string);
         }
@@ -1588,7 +1592,7 @@ declare function SPFieldLookup_Edit(ctx: SPClientTemplates.RenderContext_FieldIn
 declare function SPFieldLookupMulti_Edit(ctx: SPClientTemplates.RenderContext_FieldInForm): string;
 declare function SPFieldAttachments_Default(ctx: SPClientTemplates.RenderContext_FieldInForm): string;
 
-declare module SPAnimation {
+declare namespace SPAnimation {
     export enum Attribute {
         PositionX,
         PositionY,
@@ -1642,7 +1646,7 @@ declare module SPAnimation {
     }
 }
 
-declare module SPAnimationUtility {
+declare namespace SPAnimationUtility {
     export class BasicAnimator {
         static FadeIn(element: HTMLElement, finishFunc?: (data: any) => void, data?: any): void;
         static FadeOut(element: HTMLElement, finishFunc?: (data: any) => void, data?: any): void;
@@ -1675,7 +1679,7 @@ interface IEnumerable<T> {
     getEnumerator(): IEnumerator<T>;
 }
 
-declare module SP {
+declare namespace SP {
     export class ScriptUtility {
         static isNullOrEmptyString(str: string): boolean;
         static isNullOrUndefined(obj: any): boolean;
@@ -2636,12 +2640,12 @@ declare module SP {
     /** Specifies a Collaborative Application Markup Language (CAML) query on a list. */
     export class CamlQuery extends SP.ClientValueObject {
         constructor();
-        /** This method creates a Collaborative Application Markup Language (CAML) string 
-            that can be used to recursively get all of the items in a list, including 
+        /** This method creates a Collaborative Application Markup Language (CAML) string
+            that can be used to recursively get all of the items in a list, including
             the items in the subfolders. */
         static createAllItemsQuery(): SP.CamlQuery;
-        /** This method creates a Collaborative Application Markup Language (CAML) string 
-            that can be used to recursively get all of the folders in a list, including 
+        /** This method creates a Collaborative Application Markup Language (CAML) string
+            that can be used to recursively get all of the folders in a list, including
             the subfolders. */
         static createAllFoldersQuery(): SP.CamlQuery;
         /** Returns true if the query returns dates in Coordinated Universal Time (UTC) format. */
@@ -3920,7 +3924,7 @@ declare module SP {
         choiceField,
         minMaxField,
         textField,
-    } 
+    }
     /** Represents an item or row in a list. */
     export class ListItem extends SP.SecurableObject {
         get_fieldValues(): any;
@@ -5119,8 +5123,8 @@ declare module SP {
 
 
 
-declare module Microsoft.SharePoint.Client.Search {
-    module Query {
+declare namespace Microsoft.SharePoint.Client.Search {
+    namespace Query {
 
         /**Contains information common to all types of search queries.*/
         export class Query extends SP.ClientObject {
@@ -5563,7 +5567,7 @@ declare module Microsoft.SharePoint.Client.Search {
         }
     }
 
-    module WebControls {
+    namespace WebControls {
         export class ControlMessage extends SP.ClientValueObject {
             get_code: () => number;
 
@@ -5597,7 +5601,7 @@ declare module Microsoft.SharePoint.Client.Search {
         }
     }
 
-    module Administration {
+    namespace Administration {
         export class DocumentCrawlLog extends SP.ClientObject {
             constructor(context: SP.ClientContext, site: SP.Site);
             getCrawledUrls: (getCountOnly: boolean,
@@ -5623,7 +5627,7 @@ declare module Microsoft.SharePoint.Client.Search {
         }
     }
 
-    module Portability {
+    namespace Portability {
         export class SearchConfigurationPortability extends SP.ClientObject {
             constructor(context: SP.ClientContext);
             get_importWarnings: () => string;
@@ -5641,7 +5645,7 @@ declare module Microsoft.SharePoint.Client.Search {
     }
 
     /**Located in sp.search.apps.js*/
-    module Analytics {
+    namespace Analytics {
         export class AnalyticsItemData extends SP.ClientObject {
             get_lastProcessingTime: () => Date;
 
@@ -5673,7 +5677,7 @@ declare module Microsoft.SharePoint.Client.Search {
     }
 }
 
-declare module SP {
+declare namespace SP {
     export module BusinessData {
         export class AppBdcCatalog extends SP.ClientObject {
             getEntity(namespace: string, name: string): SP.BusinessData.Entity;
@@ -5862,7 +5866,7 @@ declare module SP {
     }
 }
 
-declare module SP {
+declare namespace SP {
     export module Sharing {
         export class DocumentSharingManager {
             static getRoleDefinition(context: SP.ClientRuntimeContext, role: SP.Sharing.Role): SP.RoleDefinition;
@@ -5899,7 +5903,7 @@ declare module SP {
 
 }
 
-declare module SP {
+declare namespace SP {
 
     export module Social {
         /** Identifies an actor as a user, document, site, or tag. */
@@ -6056,7 +6060,7 @@ declare module SP {
 
         /** Contains information about an actor retrieved from server. An actor is a user, document, site, or tag. */
         export class SocialActor extends SP.ClientValueObject {
-            /** The AccountName property returns the user account name. 
+            /** The AccountName property returns the user account name.
                 This property is only available for social actors of type "user". */
             get_accountName(): string;
             /** Identifies whether the actor is a user, document, site, or tag. */
@@ -6087,7 +6091,7 @@ declare module SP {
             get_personalSiteUri(): string;
             /** Represents the status of retrieving the actor */
             get_status(): SocialStatusCode;
-            /** The StatusText property returns the most recent post of the user. 
+            /** The StatusText property returns the most recent post of the user.
                 This property is only available for social actors of type "user". */
             get_statusText(): string;
             /** Returns the GUID of the tag.
@@ -6102,10 +6106,10 @@ declare module SP {
 
         /** Identifies an actor to the server. An actor can be a user, document, site, or tag. */
         export class SocialActorInfo extends SP.ClientValueObject {
-            /** User account name. 
+            /** User account name.
                 This property is only available for social actors of type "user". */
             get_accountName(): string;
-            /** User account name. 
+            /** User account name.
                 This property is only available for social actors of type "user". */
             set_accountName(value: string): string;
             /** Identifies whether the actor is a user, document, site, or tag. */
@@ -6216,7 +6220,7 @@ declare module SP {
         }
 
         /** Provides information about an overlay.
-            An overlay is a substring in a post that represents a user, document, site, tag, or link. 
+            An overlay is a substring in a post that represents a user, document, site, tag, or link.
             The SocialPost class contains an array of SocialDataOverlay objects.
             Each of the SocialDataOverlay objects specifies a link or one or more actors. */
         export class SocialDataOverlay extends SP.ClientValueObject {
@@ -6253,8 +6257,8 @@ declare module SP {
                 The most recent post that was requested can be removed from the feed if the current user does not have access to it.
                 Consequently, the feed does not always contain the post with the date specified in this property. */
             get_newestProcessed(): string;
-            /** The OldestProcessed property returns the date-time of the oldest post that was requested. 
-                The oldest post that was requested can be removed from the feed if the current user does not have access to it. 
+            /** The OldestProcessed property returns the date-time of the oldest post that was requested.
+                The oldest post that was requested can be removed from the feed if the current user does not have access to it.
                 Consequently, the feed does not always contain the post with the date specified in this property */
             get_oldestProcessed(): string;
             /** Contains the social threads in the feed. */
@@ -6271,7 +6275,7 @@ declare module SP {
             get_owner(): SocialActor;
             /** Specifies the URI of the personal site portal. */
             get_personalSitePortalUri(): string;
-            /** Creates a post in the current user's newsfeed, in the specified user's feed, or in the specified thread. 
+            /** Creates a post in the current user's newsfeed, in the specified user's feed, or in the specified thread.
                 This method returns a new or a modified thread.
                 @param targetId Optional, specifies the target of the post.
                                 If this parameter is null, the post is created as a root post in the current user's feed.
@@ -6304,19 +6308,19 @@ declare module SP {
             getFullThread(threadId: string): SocialThread;
             /** Returns a feed containing mention reference threads from the current user's personal feed. */
             getMentions(clearUnreadMentions: boolean, options: SocialFeedOptions): SocialFeed;
-            /** Returns the server's count of unread mentions of the current user. 
-                The server maintains a count of unread mentions in posts, but does not track which mentions have been read. 
-                When a new mention is stored on the server, it increments the unread mention for the user specified by the mention. 
+            /** Returns the server's count of unread mentions of the current user.
+                The server maintains a count of unread mentions in posts, but does not track which mentions have been read.
+                When a new mention is stored on the server, it increments the unread mention for the user specified by the mention.
                 The unread mention count is cleared by the GetMentions method. */
             getUnreadMentionCount(): SP.IntResult;
-            /** Specifies that the current user likes the specified post. 
-                Returns a digest thread containing the specified post. 
+            /** Specifies that the current user likes the specified post.
+                Returns a digest thread containing the specified post.
                 A digest thread contains the root post and a selection of reply posts */
             likePost(postId: string): SocialThread;
-            /** Specifies that the current user does not like the specified post. 
+            /** Specifies that the current user does not like the specified post.
                 Returns a digest thread containing the specified post.  */
             unlikePost(postId: string): SocialThread;
-            /** Prevents any user from adding a new reply post to the specified thread. 
+            /** Prevents any user from adding a new reply post to the specified thread.
                 Once a thread is locked, no new reply posts can be added until after the thread has been unlocked with the unlockThread method.
                 This method returns a digest of the locked thread */
             lockThread(threadId: string): SocialThread;
@@ -6356,9 +6360,9 @@ declare module SP {
             get_followedSitesUri(): string;
             /** Adds the specified actor to the current user's list of followed items.
                 Returns one of the following values, wrapped into the SP.IntResult object:
-                0 = ok, 
-                1 = alreadyFollowing, 
-                2 = limitReached, 
+                0 = ok,
+                1 = alreadyFollowing,
+                2 = limitReached,
                 3 = internalError */
             follow(actor: SocialActorInfo): SP.IntResult;
             stopFollowing(actor: SocialActorInfo): SP.BooleanResult;
@@ -6491,10 +6495,10 @@ declare module SP {
             get_text(): string;
             /** Specifies the text that is substituted for the placeholder */
             set_text(value: string): string;
-            /** Specifies the URI of the document, site, or link. 
+            /** Specifies the URI of the document, site, or link.
                 This property is only available if the ItemType property specifies that the item is a Document, Link, or Site. */
             get_uri(): string;
-            /** Specifies the URI of the document, site, or link. 
+            /** Specifies the URI of the document, site, or link.
                 This property is only available if the ItemType property specifies that the item is a Document, Link, or Site. */
             set_uri(value: string): string;
         }
@@ -6542,8 +6546,8 @@ declare module SP {
     }
 
 }
-declare module SP {
-    module Taxonomy {
+declare namespace SP {
+    namespace Taxonomy {
         export enum StringMatchOption {
             startsWith,
             exactMatch
@@ -6952,7 +6956,7 @@ declare module SP {
     }
 }
 
-declare module SP {
+declare namespace SP {
     export module DocumentSet {
         export class DocumentSet extends ClientObject {
             static create(context: ClientContext, parentFolder: Folder, name: string, ctid: ContentTypeId): StringResult;
@@ -6999,7 +7003,7 @@ declare module SP {
 }
 
 
-declare module SP {
+declare namespace SP {
     export module UI {
         export module ApplicationPages {
             export class SelectorSelectionEventArgs extends Sys.EventArgs {
@@ -7133,7 +7137,7 @@ declare module SP {
     }
 }
 
-declare module SP {
+declare namespace SP {
     export module UI {
         export class PopoutMenu implements Sys.IDisposable {
             constructor(launcherId: string, menuId: string, iconId: string, launcherOpenCssClass: string, textDirection: string, closeIconUrl: string, isClustered: boolean, closeIconOffsetLeft: number, closeIconOffsetTop: number, closeIconHeight: number, closeIconWidth: number);
@@ -7326,7 +7330,7 @@ declare module SP {
             /** Displays a wait/loading modal dialog with the specified title, message, height and width. Height and width are defined in pixels. Cancel button is shown. If user clicks it, the callbackFunc is called. */
             static showWaitScreenSize(title: string, message?: string, callbackFunc?: SP.UI.DialogReturnValueCallback, height?: number, width?: number): SP.UI.ModalDialog;
             static showPlatformFirstRunDialog(url: string, callbackFunc: SP.UI.DialogReturnValueCallback): SP.UI.ModalDialog;
-            static get_childDialog: ModalDialog;
+            static get_childDialog(): SP.UI.ModalDialog;
             /** Closes the dialog using the specified dialog result. */
             close(dialogResult: SP.UI.DialogResult): void;
         }
@@ -7433,7 +7437,7 @@ declare module SP {
     }
 }
 
-declare module SPNotifications {
+declare namespace SPNotifications {
 
     export enum ContainerID {
         Basic,
@@ -7453,7 +7457,7 @@ declare class SPStatusNotificationData {
 }
 declare function RefreshCommandUI():void;
 
-declare module SP {
+declare namespace SP {
     export module UI {
         export module Controls {
 
@@ -7540,7 +7544,7 @@ declare module SP {
     }
 }
 
-declare module SP {
+declare namespace SP {
 
     export module UserProfiles {
         /** Specifies types of changes made in the user profile store. */
@@ -7703,7 +7707,7 @@ declare module SP {
             /** Specifies the person's title. */
             get_title(): string;
             /** Represents all user profile properties including custom.
-                The privacy settings affect which properties can be retrieved. 
+                The privacy settings affect which properties can be retrieved.
                 Multiple values are delimited by the vertical bar "|".
                 Null values are specified as empty strings. */
             get_userProfileProperties(): { [name: string]: string; };
@@ -7792,7 +7796,7 @@ declare module SP {
             /** Updates the properties for followed item with specified URL.
                 @param url  URL that identifies the followed item.
                             The url parameter can identify an existing document or site using the url property of the original item.
-                            The url parameter can also identify a document with the following format: http://host/site?listId=<listGuid>&itemId=<itemId> 
+                            The url parameter can also identify a document with the following format: http://host/site?listId=<listGuid>&itemId=<itemId>
                 @param data Application-defined data stored with the followed item. */
             updateData(url: string, data: FollowedItemData): void;
             /** Returns the refreshed item that is being pointed to in the Social list.
@@ -7862,11 +7866,11 @@ declare module SP {
             /** Specifies the site identification (GUID) in the Content database for this item if this item is a site, or for its parent site if this item is not a site. */
             set_siteId(value: string): string;
             /** Specifies the subtype of this item.
-                If the ItemType is Site, the Subtype specifies the web template identification. 
+                If the ItemType is Site, the Subtype specifies the web template identification.
                 If the ItemType is Document, the Subtype has a value of 1. */
             get_subtype(): number;
             /** Specifies the subtype of this item.
-                If the ItemType is Site, the Subtype specifies the web template identification. 
+                If the ItemType is Site, the Subtype specifies the web template identification.
                 If the ItemType is Document, the Subtype has a value of 1. */
             set_subtype(value: number): number;
             /** Specifies the item of this item */
@@ -7969,7 +7973,7 @@ declare module SP {
 
 }
 
-declare module SP {
+declare namespace SP {
 
     export module Utilities {
         export class Utility {
@@ -8149,7 +8153,7 @@ declare module SP {
     }
 }
 
-declare module SP {
+declare namespace SP {
     export module WebParts {
         export class LimitedWebPartManager extends SP.ClientObject {
             get_hasPersonalizedParts(): boolean;
@@ -8209,7 +8213,7 @@ declare module SP {
     }
 }
 
-declare module SP {
+declare namespace SP {
     export module Workflow {
         export class WorkflowAssociation extends SP.ClientObject {
             get_allowManual(): boolean;
@@ -8286,7 +8290,7 @@ declare module SP {
     }
 }
 
-declare module SP.WorkflowServices {
+declare namespace SP.WorkflowServices {
 
     export enum WorkflowStatus {
         notStarted,
@@ -8445,7 +8449,7 @@ declare module SP.WorkflowServices {
         /** Specifies the custom status set by workflow authors. */
         set_userStatus(value: string): string;
         /** Gets the unique identifier (GUID) of the subscription that instantiates the WorkflowInstance */
-        get_workflowSubscriptionId(): string;
+        get_workflowSubscriptionId(): SP.Guid;
         /** This method is internal and is not intended to be used in your code. */
         initPropertiesFromJson(parentNode: any): void;
 
@@ -8607,7 +8611,7 @@ declare module SP.WorkflowServices {
 
 
 
-declare module SP {
+declare namespace SP {
     export module Publishing {
         export class PublishingWeb extends ClientObject {
             static getPublishingWeb(context: ClientContext, web: Web): PublishingWeb;
@@ -9007,7 +9011,7 @@ declare module SP {
     }
 }
 
-declare module SP {
+declare namespace SP {
     export module CompliancePolicy {
         export enum SPContainerType {
             site,//: 0,
@@ -9610,7 +9614,7 @@ declare class SPClientPeoplePickerProcessedUser {
     static HandleResolveProcessedUserKey(e: Event): void;
 }
 
-declare module Microsoft {
+declare namespace Microsoft {
     export module Office {
         export module Server {
             export module ReputationModel {
@@ -9625,7 +9629,7 @@ declare module Microsoft {
 }
 
 /** Available only in SharePoint Online*/
-declare module Define {
+declare namespace Define {
     export function loadScript(url: string, successCallback: () => void, errCallback: () => void): void;
     /** Loads script from _layouts/15/[req].js */
     export function require(req: string, callback: Function): void;
@@ -9635,13 +9639,13 @@ declare module Define {
 }
 
 /** Available only in SharePoint Online*/
-declare module Verify {
+declare namespace Verify {
     export function ArgumentType(arg: string, expected: any): void;
 }
 
 
 /** Available only in SharePoint Online*/
-declare module BrowserStorage {
+declare namespace BrowserStorage {
     export var local: CachedStorage;
     export var session: CachedStorage;
 
@@ -9656,12 +9660,12 @@ declare module BrowserStorage {
 }
 
 /** Available only in SharePoint Online*/
-declare module BrowserDetection {
+declare namespace BrowserDetection {
     export var browseris: Browseris;
 }
 
 /** Available only in SharePoint Online*/
-declare module CSSUtil {
+declare namespace CSSUtil {
     export function HasClass(elem: HTMLElement, className: string): boolean;
     export function AddClass(elem: HTMLElement, className: string): void;
     export function RemoveClass(elem: HTMLElement, className: string): void;
@@ -9676,7 +9680,7 @@ declare module CSSUtil {
 }
 
 /** Available only in SharePoint Online*/
-declare module DOM {
+declare namespace DOM {
     export var rightToLeft: boolean;
     export function cancelDefault(evt: Event): void;
     export function AbsLeft(el: HTMLElement): number;
@@ -9691,7 +9695,7 @@ declare module DOM {
 }
 
 /** Available only in SharePoint Online*/
-declare module Encoding {
+declare namespace Encoding {
     export function EncodeScriptQuote(str: string): string;
     export function HtmlEncode(str: string): string;
     export function HtmlDecode(str: string): string;
@@ -9702,7 +9706,7 @@ declare module Encoding {
 }
 
 /** Available only in SharePoint Online*/
-declare module IE8Support {
+declare namespace IE8Support {
     export function arrayIndexOf<T>(array: T[], item: T, startIdx?: number): number;
     export function attachDOMContentLoaded(handler: Function): void;
     export function getComputedStyle(domObj: HTMLElement, camelStyleName: string, dashStyleName: string): string;
@@ -9710,19 +9714,19 @@ declare module IE8Support {
 }
 
 /** Available only in SharePoint Online*/
-declare module StringUtil {
+declare namespace StringUtil {
     export function BuildParam(stPattern: string, ...params: any[]): string;
     export function ApplyStringTemplate(str: string, ...params: any[]): string;
 }
 
 /** Available only in SharePoint Online*/
-declare module TypeUtil {
+declare namespace TypeUtil {
     export function IsArray(value: any): boolean;
     export function IsNullOrUndefined(value: any): boolean;
 }
 
 /** Available only in SharePoint Online*/
-declare module Nav {
+declare namespace Nav {
     export var ajaxNavigate: AjaxNavigate;
     export function convertRegularURLtoMDSURL(webUrl: string, fullPath: string): string;
     export function isMDSUrl(url: string): boolean;
@@ -9747,7 +9751,7 @@ declare module Nav {
 }
 
 /** Available only in SharePoint Online*/
-declare module URI_Encoding {
+declare namespace URI_Encoding {
     export function encodeURIComponent(str: string, bAsUrl?: boolean, bForFilterQuery?: boolean, bForCallback?: boolean): string;
     export function escapeUrlForCallback(str: string): string;
 }
@@ -9758,7 +9762,7 @@ interface IListItem {
 }
 
 /** Available only in SharePoint Online*/
-declare module ListModule {
+declare namespace ListModule {
     export module Util {
         export function createViewEditUrl(renderCtx: SPClientTemplates.RenderContext, listItem: IListItem, useEditFormUrl?: boolean, appendSource?: boolean): string;
         export function createItemPropertiesTitle(renderCtx: SPClientTemplates.RenderContext, listItem: IListItem): string;
@@ -9773,14 +9777,14 @@ declare module ListModule {
 }
 
 /** Available only in SharePoint Online*/
-declare module SPThemeUtils {
+declare namespace SPThemeUtils {
     export function ApplyCurrentTheme(): void;
     export function WithCurrentTheme(resultCallback: Function): void;
     export function UseClientSideTheming(): boolean;
     export function Suspend(): void;
 }
 
-declare module SP {
+declare namespace SP {
     export module JsGrid {
 
         export enum TextDirection {
@@ -10756,7 +10760,7 @@ declare module SP {
             /** set widget control names for a particular cell
                 widgets are basically in-cell buttons with associated popup controls, e.g. date selector or address book button
                 standard widget ids are defined in the SP.JsGrid.WidgetControl.Type enumeration
-                it is also possible to create your own widgets 
+                it is also possible to create your own widgets
                 usually this function is not used, and instead, widget control names are determined via PropertyType
              */
             fnGetWidgetControlNames: { (record: IRecord, fieldKey: string): string[] };
@@ -11177,7 +11181,7 @@ declare module SP {
             /** Returns a copy of this set */
             Clone(): SP.Utilities.Set;
             /** Returns a set that contains all the items that exist only in one of the sets (this and other), but not in both */
-            SymmetricDifference(otherSet: SP.Utilities.Set): SP.Utilities.Set; 
+            SymmetricDifference(otherSet: SP.Utilities.Set): SP.Utilities.Set;
             /** Returns a set that contains all the items that are in this set but not in the otherSet */
             Difference(otherSet: SP.Utilities.Set): SP.Utilities.Set;
             /** Returns a new set, that contains items from this set and otherSet */
@@ -11194,7 +11198,7 @@ declare module SP {
 
 
 
-declare module SP {
+declare namespace SP {
     export class GanttControl {
         static WaitForGanttCreation(callack: (control: GanttControl) => void): void;
         static Instances: GanttControl[];

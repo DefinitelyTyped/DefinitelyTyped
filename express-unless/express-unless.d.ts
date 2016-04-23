@@ -1,7 +1,7 @@
 // Type definitions for express-unless
 // Project: https://www.npmjs.org/package/express-unless
 // Definitions by: Wonshik Kim <https://github.com/wokim/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 
@@ -10,7 +10,7 @@ declare module "express-unless" {
 
     function unless(options:unless.Options): express.RequestHandler;
 
-    module unless {
+    namespace unless {
         export interface Options {
             custom?: (req: express.Request) => boolean;
             path?: any; // TODO: union type 'string|string[]' is not supported yet

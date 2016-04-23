@@ -1,7 +1,7 @@
 // Type definitions for pg
 // Project: https://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <http://pspeter3.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -9,8 +9,8 @@ declare module "pg" {
     import events = require("events");
     import stream = require("stream");
 
-    export function connect(connection: string, callback: (err: Error, client: Client, done: () => void) => void): void;
-    export function connect(config: ClientConfig, callback: (err: Error, client: Client, done: () => void) => void): void;
+    export function connect(connection: string, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
+    export function connect(config: ClientConfig, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
     export function end(): void;
 
     export interface ConnectionConfig {
@@ -67,22 +67,26 @@ declare module "pg" {
         pauseDrain(): void;
         resumeDrain(): void;
 
-        public on(event: "drain", listener: () => void): Client;
-        public on(event: "error", listener: (err: Error) => void): Client;
-        public on(event: "notification", listener: (message: any) => void): Client;
-        public on(event: "notice", listener: (message: any) => void): Client;
-        public on(event: string, listener: Function): Client;
+        public on(event: "drain", listener: () => void): this;
+        public on(event: "error", listener: (err: Error) => void): this;
+        public on(event: "notification", listener: (message: any) => void): this;
+        public on(event: "notice", listener: (message: any) => void): this;
+        public on(event: string, listener: Function): this;
     }
 
     export class Query extends events.EventEmitter {
-        public on(event: "row", listener: (row: any, result?: ResultBuilder) => void): Query;
-        public on(event: "error", listener: (err: Error) => void): Query;
-        public on(event: "end", listener: (result: ResultBuilder) => void): Query;
-        public on(event: string, listener: Function): Query;
+        public on(event: "row", listener: (row: any, result?: ResultBuilder) => void): this;
+        public on(event: "error", listener: (err: Error) => void): this;
+        public on(event: "end", listener: (result: ResultBuilder) => void): this;
+        public on(event: string, listener: Function): this;
     }
 
     export class Events extends events.EventEmitter {
-        public on(event: "error", listener: (err: Error, client: Client) => void): Events;
-        public on(event: string, listener: Function): Events;
+        public on(event: "error", listener: (err: Error, client: Client) => void): this;
+        public on(event: string, listener: Function): this;
+    }
+
+    namespace types {
+        function setTypeParser<T>(typeId: number, parser: (value: string) => T): void;
     }
 }

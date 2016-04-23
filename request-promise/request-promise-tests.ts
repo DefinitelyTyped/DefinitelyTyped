@@ -20,6 +20,21 @@ rp(options)
 
 // --> Displays length of response from server after post
 
+//Defaults tests
+(() => {
+  const githubUrl = 'https://github.com';
+  const defaultJarRequest = rp.defaults({ jar: true });
+  defaultJarRequest.get(githubUrl).then(() => {});
+  //defaultJarRequest(); //this line doesn't compile (and shouldn't)
+  const defaultUrlRequest = rp.defaults({ url: githubUrl });
+  defaultUrlRequest().then(() => {});
+  defaultUrlRequest.get().then(() => {});
+  const defaultBodyRequest = defaultUrlRequest.defaults({body: '{}', json: true});
+  defaultBodyRequest.get().then(() => {});
+  defaultBodyRequest.post().then(() => {});
+  defaultBodyRequest.put().then(() => {});
+})();
+
 // Get full response after DELETE
 options = {
     method: 'DELETE',

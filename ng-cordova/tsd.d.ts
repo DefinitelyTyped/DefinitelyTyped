@@ -13,3 +13,9 @@
 /// <reference path="deviceOrientation.d.ts"/>
 /// <reference path="appAvailability.d.ts"/>
 /// <reference path="datepicker.d.ts"/>
+/// <reference path="app-version.d.ts"/>
+/// <reference path="camera.d.ts"/>
+/// <reference path="actionSheet.d.ts"/>
+/// <reference path="badge.d.ts"/>
+/// <reference path="file.d.ts"/>
+/// <reference path="fileTransfer.d.ts"/>

@@ -1,13 +1,12 @@
 // Type definitions for React v0.14 (react-addons-css-transition-group)
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="react.d.ts" />
 /// <reference path="react-addons-transition-group.d.ts" />
 
 declare namespace __React {
-    
     interface CSSTransitionGroupTransitionName {
         enter: string;
         enterActive?: string;
@@ -16,16 +15,19 @@ declare namespace __React {
         appear?: string;
         appearActive?: string;
     }
-    
+
     interface CSSTransitionGroupProps extends TransitionGroupProps {
         transitionName: string | CSSTransitionGroupTransitionName;
         transitionAppear?: boolean;
+        transitionAppearTimeout?: number;
         transitionEnter?: boolean;
+        transitionEnterTimeout?: number;
         transitionLeave?: boolean;
+        transitionLeaveTimeout?: number;
     }
-    
+
     type CSSTransitionGroup = ComponentClass<CSSTransitionGroupProps>;
-    
+
     namespace __Addons {
         export var CSSTransitionGroup: __React.CSSTransitionGroup;
     }

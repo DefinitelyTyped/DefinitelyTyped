@@ -8,7 +8,7 @@ import Sequelize = require("sequelize");
 //
 
 interface AnyAttributes { };
-interface AnyInstance extends Sequelize.Instance<AnyInstance, AnyAttributes> { };
+interface AnyInstance extends Sequelize.Instance<AnyAttributes> { };
 
 var s         = new Sequelize( '' );
 var sequelize = s;
@@ -32,7 +32,7 @@ interface GUserAttributes {
     username? : string;
 }
 
-interface GUserInstance extends Sequelize.Instance<GUserInstance, GUserAttributes> {}
+interface GUserInstance extends Sequelize.Instance<GUserAttributes> {}
 var GUser = s.define<GUserInstance, GUserAttributes>( 'user', { id: Sequelize.INTEGER, username : Sequelize.STRING });
 GUser.create({ id : 1, username : 'one' }).then( ( guser ) => guser.save() );
 
@@ -47,7 +47,7 @@ interface GTaskAttributes {
     revision? : number;
     name? : string;
 }
-interface GTaskInstance extends Sequelize.Instance<GTaskInstance, GTaskAttributes> {
+interface GTaskInstance extends Sequelize.Instance<GTaskAttributes> {
   upRevision(): void;
 }
 var GTask = s.define<GTaskInstance, GTaskAttributes>( 'task', { revision : Sequelize.INTEGER, name : Sequelize.STRING });
@@ -347,7 +347,7 @@ interface ProductAttributes {
     price?: number;
 };
 
-interface ProductInstance extends Sequelize.Instance<ProductInstance, ProductAttributes>, ProductAttributes {
+interface ProductInstance extends Sequelize.Instance<ProductAttributes>, ProductAttributes {
     // hasOne association mixins:
     getBarcode: Sequelize.HasOneGetAssociationMixin<BarcodeInstance>;
     setBarcode: Sequelize.HasOneSetAssociationMixin<BarcodeInstance, number>;
@@ -365,7 +365,7 @@ interface BarcodeAttributes {
     dateIssued?: Date;
 };
 
-interface BarcodeInstance extends Sequelize.Instance<BarcodeInstance, BarcodeAttributes>, BarcodeAttributes {
+interface BarcodeInstance extends Sequelize.Instance<BarcodeAttributes>, BarcodeAttributes {
     // belongsTo association mixins:
     getProduct: Sequelize.BelongsToGetAssociationMixin<ProductInstance>;
     setProduct: Sequelize.BelongsToSetAssociationMixin<ProductInstance, number>;
@@ -378,7 +378,7 @@ interface WarehouseAttributes {
     capacity?: number;
 };
 
-interface WarehouseInstance extends Sequelize.Instance<WarehouseInstance, WarehouseAttributes>, WarehouseAttributes {
+interface WarehouseInstance extends Sequelize.Instance<WarehouseAttributes>, WarehouseAttributes {
     // hasMany association mixins:
     getProducts: Sequelize.HasManyGetAssociationsMixin<ProductInstance>;
     setProducts: Sequelize.HasManySetAssociationsMixin<ProductInstance, number>;
@@ -410,7 +410,7 @@ interface BranchAttributes {
     rank?: number;
 };
 
-interface BranchInstance extends Sequelize.Instance<BranchInstance, BranchAttributes>, BranchAttributes {
+interface BranchInstance extends Sequelize.Instance<BranchAttributes>, BranchAttributes {
     // belongsToMany association mixins:
     getWarehouses: Sequelize.BelongsToManyGetAssociationsMixin<WarehouseInstance>;
     setWarehouses: Sequelize.BelongsToManySetAssociationsMixin<WarehouseInstance, number, WarehouseBranchAttributes>;
@@ -440,7 +440,7 @@ interface WarehouseBranchAttributes {
     distance?: number;
 };
 
-interface WarehouseBranchInstance extends Sequelize.Instance<WarehouseBranchInstance, WarehouseBranchAttributes>, WarehouseBranchAttributes { };
+interface WarehouseBranchInstance extends Sequelize.Instance<WarehouseBranchAttributes>, WarehouseBranchAttributes { };
 
 interface CustomerAttributes {
     id?: number;
@@ -448,7 +448,7 @@ interface CustomerAttributes {
     credit?: number;
 };
 
-interface CustomerInstance extends Sequelize.Instance<CustomerInstance, CustomerAttributes>, CustomerAttributes {
+interface CustomerInstance extends Sequelize.Instance<CustomerAttributes>, CustomerAttributes {
     // belongsToMany association mixins:
     getBranches: Sequelize.BelongsToManyGetAssociationsMixin<BranchInstance>;
     setBranches: Sequelize.BelongsToManySetAssociationsMixin<BranchInstance, number, void>;
@@ -486,6 +486,7 @@ Sequelize.CHAR( 12 ).BINARY;
 Sequelize.CHAR.BINARY;
 Sequelize.BOOLEAN;
 Sequelize.DATE;
+Sequelize.DATE(6);
 Sequelize.UUID;
 Sequelize.UUIDV1;
 Sequelize.UUIDV4;
@@ -581,6 +582,9 @@ Sequelize.GEOMETRY( 'POINT' );
 Sequelize.GEOMETRY( 'LINESTRING' );
 Sequelize.GEOMETRY( 'POLYGON' );
 Sequelize.GEOMETRY( 'POINT', 4326 );
+Sequelize.VIRTUAL;
+new Sequelize.VIRTUAL( Sequelize.STRING );
+new Sequelize.VIRTUAL( Sequelize.DATE , ['property1', 'property2']);
 
 //
 //  Deferrable
@@ -633,11 +637,11 @@ new s.ConnectionTimedOutError( new Error( 'original connection error message' ) 
 //  https://github.com/sequelize/sequelize/blob/v3.4.1/test/integration/hooks.test.js
 //
 
-User.addHook( 'afterCreate', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function ) { next(); } );
-User.addHook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function) { next(); } );
+User.addHook( 'afterCreate', function( instance : Sequelize.Instance<any>, options : Object, next : Function ) { next(); } );
+User.addHook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any>, options : Object, next : Function) { next(); } );
 s.addHook( 'beforeInit', function( config : Object, options : Object ) { } );
-User.hook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function) { next(); } );
-User.hook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any, any>, options : Object, next : Function ) { next(); } );
+User.hook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any>, options : Object, next : Function) { next(); } );
+User.hook( 'afterCreate', 'myHook', function( instance : Sequelize.Instance<any>, options : Object, next : Function ) { next(); } );
 
 User.removeHook( 'afterCreate', 'myHook' );
 
@@ -898,7 +902,7 @@ User.findOne( { where : { name : 'worker' }, include : [User] } );
 User.findOne( { where : { name : 'Boris' }, include : [User, { model : User, as : 'Photos' }] } );
 User.findOne( { where : { username : 'someone' }, include : [User] } );
 User.findOne( { where : { username : 'barfooz' }, raw : true } );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 User.findOne( { updatedAt : { ne : null } } );
  */
 User.find( { where : { intVal : { gt : 5 } } } );
@@ -906,7 +910,7 @@ User.find( { where : { intVal : { lte : 5 } } } );
 
 User.count();
 User.count( { transaction : t } );
-User.count().then( function( c ) { c.toFixed() } );
+User.count().then( function( c ) { c.toFixed(); } );
 User.count( { where : ["username LIKE '%us%'"] } );
 User.count( { include : [{ model : User, required : false }] } );
 User.count( { distinct : true, include : [{ model : User, required : false }] } );
@@ -952,7 +956,7 @@ User.findOrInitialize( { where : { username : 'foo' }, defaults : { foo : 'asd' 
 
 User.findOrCreate( { where : { a : 'b' }, defaults : { json : { a : { b : 'c' }, d : [1, 2, 3] } } } );
 User.findOrCreate( { where : { a : 'b' }, defaults : { json : 'a', data : 'b' } } );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 User.findOrCreate( { where : { a : 'b' }, transaction : t, lock : t.LOCK.UPDATE } );
  */
 User.findOrCreate( { where : { a : 'b' }, logging : function(  ) { } } );
@@ -1034,7 +1038,7 @@ queryInterface.dropAllTables();
 queryInterface.showAllTables( { logging : function() { } } );
 queryInterface.createTable( 'table', { name : Sequelize.STRING }, { logging : function() { } } );
 queryInterface.createTable( 'skipme', { name : Sequelize.STRING } );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 queryInterface.dropAllTables( { skip : ['skipme'] } );
  */
 queryInterface.dropTable( 'Group', { logging : function() { } } );
@@ -1042,7 +1046,7 @@ queryInterface.addIndex( 'Group', ['username', 'isAdmin'], { logging : function(
 queryInterface.showIndex( 'Group', { logging : function() { } } );
 queryInterface.removeIndex( 'Group', ['username', 'isAdmin'], { logging : function() { } } );
 queryInterface.showIndex( 'Group' );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 queryInterface.createTable( 'table', { name : { type : Sequelize.STRING } }, { schema : 'schema' } );
  */
 queryInterface.addIndex( { schema : 'a', tableName : 'c' }, ['d', 'e'], { logging : function() {} }, 'schema_table' );
@@ -1050,13 +1054,13 @@ queryInterface.showIndex( { schema : 'schema', tableName : 'table' }, { logging 
 queryInterface.addIndex( 'Group', ['from'] );
 queryInterface.describeTable( '_Users', { logging : function() {} } );
 queryInterface.createTable( 's', { table_id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 queryInterface.insert( null, 'TableWithPK', {}, { raw : true, returning : true, plain : true } );
  */
 queryInterface.createTable( 'SomeTable', { someEnum : Sequelize.ENUM( 'value1', 'value2', 'value3' ) } );
 queryInterface.createTable( 'SomeTable', { someEnum : { type : Sequelize.ENUM, values : ['b1', 'b2', 'b3'] } } );
 queryInterface.createTable( 't', { someEnum : { type : Sequelize.ENUM, values : ['c1', 'c2', 'c3'], field : 'd' } } );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 queryInterface.createTable( 'User', { name : { type : Sequelize.STRING } }, { schema : 'hero' } );
 queryInterface.rawSelect( 'User', { schema : 'hero', logging : function() {} }, 'name' );
  */
@@ -1122,7 +1126,7 @@ s.query( '', { raw : true, nest : false } );
 s.query( 'select ? as foo, ? as bar', { type : this.sequelize.QueryTypes.SELECT, replacements : [1, 2] } );
 s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { type : s.QueryTypes.SELECT } );
 s.query( 'select :one as foo, :two as bar', { raw : true, replacements : { one : 1, two : 2 } } );
-s.transaction().then( function( t ) { s.set( { foo : 'bar' }, { transaction : t } ) } );
+s.transaction().then( function( t ) { s.set( { foo : 'bar' }, { transaction : t } ); } );
 s.define( 'foo', { bar : Sequelize.STRING }, { collate : 'utf8_bin' } );
 s.define( 'Foto', { name : Sequelize.STRING }, { tableName : 'photos' } );
 s.databaseVersion().then( function( version ) { } );
@@ -1153,6 +1157,7 @@ new Sequelize( 'sequelize', null, null, {
 } );
 
 s.model( 'Project' );
+s.models['Project'];
 s.define( 'Project', {
     name : Sequelize.STRING
 } );
@@ -1241,7 +1246,7 @@ s.define( 'UserWithUniqueUsername', {
     username : { type : Sequelize.STRING, unique : { name : 'user_and_email', msg : 'User and email must be unique' } },
     email : { type : Sequelize.STRING, unique : 'user_and_email' }
 } );
-/* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
 s.define( 'UserWithUniqueUsername', {
     user_id : { type : Sequelize.INTEGER },
     email : { type : Sequelize.STRING }
@@ -1296,7 +1301,7 @@ s.define( 'ProductWithSettersAndGetters2', {
 s.define( 'post', {
     title : Sequelize.STRING,
     authorId : { type : Sequelize.INTEGER, references : testModel, referencesKey : 'id' }
-} );
+} as any /* TODO please remove `as any` */);
 s.define( 'post', {
     title : Sequelize.STRING,
     authorId : { type : Sequelize.INTEGER, references : { model : testModel, key : 'id' } }
@@ -1563,3 +1568,13 @@ s.transaction( function() {
 s.transaction( { isolationLevel : 'SERIALIZABLE' }, function( t ) { return Promise.resolve(); } );
 s.transaction( { isolationLevel : s.Transaction.ISOLATION_LEVELS.SERIALIZABLE }, (t) => Promise.resolve() );
 s.transaction( { isolationLevel : s.Transaction.ISOLATION_LEVELS.READ_COMMITTED }, (t) => Promise.resolve() );
+
+// transaction types
+new Sequelize( '', { transactionType: 'DEFERRED' } );
+new Sequelize( '', { transactionType: Sequelize.Transaction.TYPES.DEFERRED} );
+new Sequelize( '', { transactionType: Sequelize.Transaction.TYPES.IMMEDIATE} );
+new Sequelize( '', { transactionType: Sequelize.Transaction.TYPES.EXCLUSIVE} );
+s.transaction( { type : 'DEFERRED' }, (t) => Promise.resolve() );
+s.transaction( { type : s.Transaction.TYPES.DEFERRED }, (t) => Promise.resolve() );
+s.transaction( { type : s.Transaction.TYPES.IMMEDIATE }, (t) => Promise.resolve() );
+s.transaction( { type : s.Transaction.TYPES.EXCLUSIVE }, (t) => Promise.resolve() );

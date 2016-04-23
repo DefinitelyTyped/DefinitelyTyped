@@ -1,7 +1,7 @@
 // Type definitions for React v0.14 (react-addons-test-utils)
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="react.d.ts" />
 
@@ -44,24 +44,25 @@ declare namespace __React {
         (element: Element, eventData?: SyntheticEventData): void;
         (component: Component<any, any>, eventData?: SyntheticEventData): void;
     }
-    
+
     interface MockedComponentClass {
         new(): any;
     }
-    
+
     class ShallowRenderer {
         getRenderOutput<E extends ReactElement<any>>(): E;
         getRenderOutput(): ReactElement<any>;
         render(element: ReactElement<any>, context?: any): void;
         unmount(): void;
     }
-        
+
     namespace __Addons {
         namespace TestUtils {
             namespace Simulate {
                 export var blur: EventSimulator;
                 export var change: EventSimulator;
                 export var click: EventSimulator;
+                export var copy: EventSimulator;
                 export var cut: EventSimulator;
                 export var doubleClick: EventSimulator;
                 export var drag: EventSimulator;
@@ -93,57 +94,59 @@ declare namespace __React {
                 export var touchStart: EventSimulator;
                 export var wheel: EventSimulator;
             }
-    
+
+            export function renderIntoDocument<T extends Element>(
+                element: DOMElement<any, T>): T;
             export function renderIntoDocument(
-                element: DOMElement<any>): Element;
+                element: SFCElement<any>): void;
+            export function renderIntoDocument<T extends Component<any, any>>(
+                element: CElement<any, T>): T;
             export function renderIntoDocument<P>(
-                element: ReactElement<P>): Component<P, any>;
-            export function renderIntoDocument<C extends Component<any, any>>(
-                element: ReactElement<any>): C;
-    
+                element: ReactElement<P>): Component<P, {}> | Element | void;
+
             export function mockComponent(
                 mocked: MockedComponentClass, mockTagName?: string): typeof TestUtils;
-    
-            export function isElementOfType(
-                element: ReactElement<any>, type: ReactType): boolean;
-            export function isDOMComponent(instance: ReactInstance): boolean;
-            export function isCompositeComponent(instance: ReactInstance): boolean;
-            export function isCompositeComponentWithType(
-                instance: ReactInstance,
-                type: ComponentClass<any>): boolean;
-    
+
+            export function isElementOfType<T extends HTMLElement>(
+                element: ReactElement<any>, type: string): element is ReactHTMLElement<T>;
+            export function isElementOfType<P extends DOMAttributes, T extends Element>(
+                element: ReactElement<any>, type: string): element is DOMElement<P, T>;
+            export function isElementOfType<P>(
+                element: ReactElement<any>, type: SFC<P>): element is SFCElement<P>;
+            export function isElementOfType<P, T extends Component<P, {}>, C extends ComponentClass<P>>(
+                element: ReactElement<any>, type: ClassType<P, T, C>): element is CElement<P, T>;
+
+            export function isDOMComponent(instance: ReactInstance): instance is Element;
+            export function isCompositeComponent(instance: ReactInstance): instance is Component<any, any>;
+            export function isCompositeComponentWithType<T extends Component<any, any>, C extends ComponentClass<any>>(
+                instance: ReactInstance, type: ClassType<any, T, C>): T;
+
             export function findAllInRenderedTree(
                 root: Component<any, any>,
                 fn: (i: ReactInstance) => boolean): ReactInstance[];
-    
+
             export function scryRenderedDOMComponentsWithClass(
                 root: Component<any, any>,
                 className: string): Element[];
             export function findRenderedDOMComponentWithClass(
                 root: Component<any, any>,
                 className: string): Element;
-    
+
             export function scryRenderedDOMComponentsWithTag(
                 root: Component<any, any>,
                 tagName: string): Element[];
             export function findRenderedDOMComponentWithTag(
                 root: Component<any, any>,
                 tagName: string): Element;
-    
-            export function scryRenderedComponentsWithType<P>(
+
+            export function scryRenderedComponentsWithType<T extends Component<{}, {}>, C extends ComponentClass<{}>>(
                 root: Component<any, any>,
-                type: ComponentClass<P>): Component<P, {}>[];
-            export function scryRenderedComponentsWithType<C extends Component<any, any>>(
+                type: ClassType<any, T, C>): T[];
+
+            export function findRenderedComponentWithType<T extends Component<{}, {}>, C extends ComponentClass<{}>>(
                 root: Component<any, any>,
-                type: ComponentClass<any>): C[];
-    
-            export function findRenderedComponentWithType<P>(
-                root: Component<any, any>,
-                type: ComponentClass<P>): Component<P, {}>;
-            export function findRenderedComponentWithType<C extends Component<any, any>>(
-                root: Component<any, any>,
-                type: ComponentClass<any>): C;
-    
+                type: ClassType<any, T, C>): T;
+
             export function createRenderer(): ShallowRenderer;
         }
     }

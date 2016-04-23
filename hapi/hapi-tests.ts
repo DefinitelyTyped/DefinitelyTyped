@@ -22,10 +22,19 @@ plugin.register.attributes = {
 };
 
 // optional options parameter
-server.register({}, function (err) {});
+server.register({}, function (err) {
+});
+// optional callback function with and without options
+server.register({}).then((res: any) => {
+	console.log(res);
+});
+server.register({}, {select: "api", routes: {prefix: "/prefix"}}).then((res: any) => {
+	console.log(res);
+});
 
 // optional options.routes.vhost parameter
-server.register({}, { select: 'api', routes: { prefix: '/prefix' } }, function (err) {});
+server.register({}, {select: "api", routes: {prefix: "/prefix"}}, function (err) {
+});
 
 //server.pack.register(plugin, (err: Object) => {
 //	if (err) { throw err; }
@@ -84,29 +93,80 @@ server.route([{
 
 // config.validate parameters should be optional
 server.route([{
-    method: 'GET',
-    path: '/hello2',
-    handler: function(request: Hapi.Request, reply: Function) {
-        reply('hello world2');
-    },
-    config: {
-        validate: {
-        }
-    }
+	method: 'GET',
+	path: '/hello2',
+	handler: function (request: Hapi.Request, reply: Function) {
+		reply('hello world2');
+	},
+	config: {
+		validate: {}
+	}
 }]);
 
 // Should be able to chain reply options
 server.route([{
-    method: 'GET',
-    path: '/chained-notation',
-    handler: function(request: Hapi.Request, reply: Hapi.IReply) {
-        reply('chained-notation')
-            .bytes(16)
-            .code(200)
-            .type('text/plain')
-            .header('X-Custom', 'some-value');
-    }
+	method: 'GET',
+	path: '/chained-notation',
+	handler: function (request: Hapi.Request, reply: Hapi.IReply) {
+		reply.state('cookie_key', 'cookie_value');
+		reply('chained-notation')
+			.bytes(16)
+			.code(200)
+			.type('text/plain')
+			.unstate('cookie_to_remove')
+			.header('X-Custom', 'some-value');
+	}
 }]);
 
 // Start the server
 server.start();
+
+// server startup may now return a promise
+server.start()
+	.then(() => {
+		console.log('Started!');
+	});
+
+//inject a request into connection
+server.inject({
+	method: 'GET',
+	url: '/hello'
+}).then(response => {
+	console.log(response.statusCode);
+});
+
+//the same but this time using callback
+server.inject({
+	method: 'GET',
+	url: '/hello'
+}, response => {
+	console.log(response.statusCode);
+});
+
+//tests for server initialization
+server.initialize()
+	.then(() => {
+		console.log('Initialized!')
+	});
+
+//and the same but with callback
+server.initialize(err => {
+	if (err) {
+		console.log(err);
+	}
+});
+
+//server stopping may now return a promise
+server.stop()
+	.then(() => {
+		console.log('Stopped!');
+	});
+
+//decorate can take an optional options argument
+server.decorate('hello', 'world', () => {
+}, {
+	apply: true
+});
+
+server.decorate('hello2', 'world2', () => {
+});

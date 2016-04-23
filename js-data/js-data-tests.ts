@@ -422,7 +422,7 @@ User4.create({name: 'John'}, {
     }
 });
 
-module CustomAdapterTest {
+namespace CustomAdapterTest {
 
     class MyCustomAdapter implements JSData.IDSAdapter {
 
@@ -505,7 +505,7 @@ interface MyResourceDefinition {
 
 }
 
-module JSData {
+namespace JSData {
 
     interface DS {
 
@@ -580,3 +580,23 @@ customActionResourceInstance.DSLoadRelations('myRelation');
 customActionResourceInstance.DSRefresh();
 customActionResourceInstance.DSSave();
 customActionResourceInstance.DSUpdate();
+
+/**
+ * Events
+ */
+
+function myEvtHandler(definition:JSData.DSResourceDefinition<Resource>, item:Resource) {
+
+}
+
+store.on("DS.change", myEvtHandler);
+store.off("DS.change", myEvtHandler);
+store.emit("DS.change", customActionResource, customActionResourceInstance);
+
+customActionResource.on("DS.change", myEvtHandler);
+customActionResource.off("DS.change", myEvtHandler);
+customActionResource.emit("DS.change", customActionResource, customActionResourceInstance);
+
+customActionResourceInstance.on("DS.change", myEvtHandler);
+customActionResourceInstance.off("DS.change", myEvtHandler);
+customActionResourceInstance.emit("DS.change", customActionResource, customActionResourceInstance);
