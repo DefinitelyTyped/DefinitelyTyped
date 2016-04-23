@@ -44,6 +44,10 @@ declare module "helmet" {
         setOnOldIE? : boolean;
     }
 
+    interface IHelmetDnsPrefetchControlConfiguration {
+        allow? : boolean;
+    }
+
     /**
      * @summary Interface for helmet class.
      * @interface
@@ -54,6 +58,11 @@ declare module "helmet" {
          * @return {RequestHandler} The Request handler.
          */
         ():express.RequestHandler;
+
+        /**
+         * @summary Stop browsers from doing DNS prefetching.
+         */
+        dnsPrefetchControl(options ?: IHelmetDnsPrefetchControlConfiguration):express.RequestHandler;
 
         /**
          * @summary Prevent clickjacking.
