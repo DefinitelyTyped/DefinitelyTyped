@@ -3485,11 +3485,18 @@ declare namespace  __React {
         useNativeDriver?: boolean;
       }
 
-      interface TimingAnimationConfig extends AnimationConfig {
-        toValue: number | AnimatedValue | {x: number, y: number} | AnimatedValueXY;
-        easing?: (value: number) => number;
-        duration?: number;
-        delay?: number;
+      /**
+       * Animates a value from an initial velocity to zero based on a decay
+       * coefficient.
+       */
+      export function decay(
+        value: AnimatedValue | AnimatedValueXY,
+        config: DecayAnimationConfig
+      ): CompositeAnimation;
+
+      interface DecayAnimationConfig extends AnimationConfig {
+        velocity: number | {x: number, y: number};
+        deceleration?: number;
       }
 
       /**
@@ -3500,6 +3507,13 @@ declare namespace  __React {
         value: AnimatedValue | AnimatedValueXY,
         config: TimingAnimationConfig
       ) => CompositeAnimation;
+
+      interface TimingAnimationConfig extends AnimationConfig {
+        toValue: number | AnimatedValue | {x: number, y: number} | AnimatedValueXY;
+        easing?: (value: number) => number;
+        duration?: number;
+        delay?: number;
+      }
 
       interface SpringAnimationConfig extends AnimationConfig {
         toValue: number | AnimatedValue | {x: number, y: number} | AnimatedValueXY;
@@ -3512,6 +3526,63 @@ declare namespace  __React {
         tension?: number;
         friction?: number;
       }
+
+      /**
+       * Creates a new Animated value composed from two Animated values added
+       * together.
+       */
+      export function add(
+        a: Animated,
+        b: Animated
+      ): AnimatedAddition;
+
+      class AnimatedAddition extends AnimatedInterpolation {}
+
+      /**
+       * Creates a new Animated value composed from two Animated values multiplied
+       * together.
+       */
+       export function multiply(
+        a: Animated,
+        b: Animated
+      ): AnimatedMultiplication;
+
+      class AnimatedMultiplication extends AnimatedInterpolation {}
+
+      /**
+       * Creates a new Animated value that is the (non-negative) modulo of the
+       * provided Animated value
+       */
+      export function modulo(
+        a: Animated,
+        modulus: number
+      ): AnimatedModulo;
+
+      class AnimatedModulo extends AnimatedInterpolation {}
+
+      /**
+       * Starts an animation after the given delay.
+       */
+      export function delay(time: number): CompositeAnimation;
+
+      /**
+       * Starts an array of animations in order, waiting for each to complete
+       * before starting the next.  If the current running animation is stopped, no
+       * following animations will be started.
+       */
+      export function sequence(
+        animations: Array<CompositeAnimation>
+      ): CompositeAnimation;
+
+      /**
+       * Array of animations may run in parallel (overlap), but are started in
+       * sequence with successive delays.  Nice for doing trailing effects.
+       */
+
+      export function stagger(
+        time: number,
+        animations: Array<CompositeAnimation>,
+      ): CompositeAnimation
 
       /**
        * Spring animation based on Rebound and Origami.  Tracks velocity state to

@@ -49,6 +49,47 @@ function TestAnimatedAPI() {
     stopTogether: true,
   });
 
+  Animated.decay(v1, {
+    velocity: 2,
+  });
 
+  Animated.timing(v1, {
+    toValue: 1,
+    duration: 100,
+    delay: 100,
+    easing: v => v,
+  });
 
+  Animated.add(v1, v2);
+  Animated.multiply(v1, v2);
+  Animated.modulo(v1, 2);
+
+  Animated.delay(100);
+
+  Animated.sequence([
+    spring1,
+    springXY,
+  ]);
+
+  Animated.stagger(100, [
+    spring1,
+    springXY,
+  ]);
+
+  return (
+    <View>
+      <Animated.View
+        style={[
+          position.getLayout(),
+          {
+            opacity: v1,
+          }]}>
+      </Animated.View>
+
+      <Animated.Image
+        style={position.getTranslateTransform()}
+        >
+      </Animated.Image>
+    </View>
+  );
 }
