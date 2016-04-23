@@ -677,6 +677,12 @@ interface JQueryStatic {
      */
     get(url: string, data?: Object|string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
     /**
+     * Load data from the server using a HTTP GET request.
+     *
+     * @param settings The JQueryAjaxSettings to be used for the request
+     */
+    get(settings : JQueryAjaxSettings): JQueryXHR;
+    /**
      * Load JSON-encoded data from the server using a GET HTTP request.
      *
      * @param url A string containing the URL to which the request is sent.
@@ -721,7 +727,12 @@ interface JQueryStatic {
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
      */
     post(url: string, data?: Object|string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
-
+    /**
+     * Load data from the server using a HTTP POST request.
+     *
+     * @param settings The JQueryAjaxSettings to be used for the request
+     */
+    post(settings : JQueryAjaxSettings): JQueryXHR;
     /**
      * A multi-purpose callbacks list object that provides a powerful way to manage callback lists.
      *
