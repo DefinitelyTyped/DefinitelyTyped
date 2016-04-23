@@ -2234,8 +2234,10 @@ declare namespace __React {
         radialGradient: SVGFactory;
         rect: SVGFactory;
         stop: SVGFactory;
+        symbol: SVGFactory;
         text: SVGFactory;
         tspan: SVGFactory;
+        use: SVGFactory;
     }
 
     //
@@ -2464,7 +2466,9 @@ declare namespace JSX {
         radialGradient: React.SVGProps;
         rect: React.SVGProps;
         stop: React.SVGProps;
+        symbol: React.SVGProps;
         text: React.SVGProps;
         tspan: React.SVGProps;
+        use: React.SVGProps;
     }
 }
