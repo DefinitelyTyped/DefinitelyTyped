@@ -3421,9 +3421,9 @@ declare namespace  __React {
 
         constructor(valueIn?: {x: number | AnimatedValue; y: number | AnimatedValue});
 
-        setValue(value: {x: number; y: number});
+        setValue(value: {x: number; y: number}): void;
 
-        setOffset(offset: {x: number; y: number});
+        setOffset(offset: {x: number; y: number}): void;
 
         flattenOffset(): void
 
