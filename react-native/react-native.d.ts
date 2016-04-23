@@ -3568,7 +3568,7 @@ declare namespace  __React {
 
       export function stagger(
         time: number,
-        animations: Array<CompositeAnimation>,
+        animations: Array<CompositeAnimation>
       ): CompositeAnimation
 
       /**
