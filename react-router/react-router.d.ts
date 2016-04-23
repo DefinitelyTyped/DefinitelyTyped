@@ -86,6 +86,8 @@ declare namespace ReactRouter {
     const browserHistory: History;
     const hashHistory: History;
 
+    function createMemoryHistory(options?: H.HistoryOptions): H.History
+
     /* components */
 
     interface RouterProps extends React.Props<Router> {
@@ -412,6 +414,9 @@ declare module "react-router/lib/useRouterHistory" {
     export default function useRouterHistory<T>(createHistory: HistoryModule.CreateHistory<T>): CreateRouterHistory;
 }
 
+declare module "react-router/lib/createMemoryHistory" {
+  export default ReactRouter.createMemoryHistory;
+}
 
 declare module "react-router" {
 
@@ -453,6 +458,8 @@ declare module "react-router" {
 
     import useRouterHistory from "react-router/lib/useRouterHistory";
 
+    import createMemoryHistory from "react-router/lib/createMemoryHistory";
+
     // PlainRoute is defined in the API documented at:
     // https://github.com/rackt/react-router/blob/master/docs/API.md
     // but not included in any of the .../lib modules above.
@@ -492,7 +499,8 @@ declare module "react-router" {
         RouterContext,
         PropTypes,
         match,
-        useRouterHistory
+        useRouterHistory,
+        createMemoryHistory
     }
 
     export default Router
