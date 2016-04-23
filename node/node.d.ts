@@ -679,6 +679,8 @@ declare module "cluster" {
         kill(signal?: string): void;
         destroy(signal?: string): void;
         disconnect(): void;
+        isConnected(): boolean;
+        isDead(): boolean;
     }
 
     export var settings: ClusterSettings;
@@ -688,7 +690,9 @@ declare module "cluster" {
     export function fork(env?: any): Worker;
     export function disconnect(callback?: Function): void;
     export var worker: Worker;
-    export var workers: Worker[];
+    export var workers: {
+        [index: string]: Worker
+    };
 
     // Event emitter
     export function addListener(event: string, listener: Function): void;
