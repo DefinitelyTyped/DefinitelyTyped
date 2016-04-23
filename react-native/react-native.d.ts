@@ -3331,11 +3331,12 @@ declare namespace  __React {
         vibrate(): void
     }
 
-    export type AnimatedValue = Animated.Animated;
-    type AnimatedValueXY = Animated.ValueXY;
-
     export module Animated {
       // Most (all?) functions where AnimatedValue is used any subclass of Animated can be used as well.
+      type AnimatedValue = Animated;
+      type AnimatedValueXY = ValueXY;
+
+      type Base = Animated;
 
       class Animated {
         // Internal class, no public API.
@@ -3345,6 +3346,9 @@ declare namespace  __React {
         // Internal class, no public API.
       }
 
+      class AnimatedInterpolation extends AnimatedWithChildren {
+        interpolate(config: InterpolationConfigType): AnimatedInterpolation;
+      }
 
       type ExtrapolateType = 'extend' | 'identity' | 'clamp';
 
@@ -3453,23 +3457,6 @@ declare namespace  __React {
          */
         getTranslateTransform(): {[key: string]: AnimatedValue}[];
 
-      }
-
-      type AnimatedValueXY = ValueXY;
-
-      // Most (all?) functions where AnimatedValue is used any subclass of Animated can be used as well.
-      type AnimatedValue = Animated;
-
-      class Animated {
-        // Internal class, no public API.
-      }
-
-      class AnimatedWithChildren extends Animated {
-        // Internal class, no public API.
-      }
-
-      class AnimatedInterpolation extends AnimatedWithChildren {
-        interpolate(config: InterpolationConfigType): AnimatedInterpolation;
       }
 
       type EndResult = {finished: boolean};
