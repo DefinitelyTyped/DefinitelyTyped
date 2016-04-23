@@ -2058,7 +2058,23 @@ declare module _ {
          */
         fromPairs(
             array: any[]|List<any>
-        ): any[];
+        ): Dictionary<any>;
+    }
+
+    //_.fromPairs DUMMY
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.fromPairs
+         */
+        fromPairs(): LoDashImplicitObjectWrapper<any>;
+    }
+
+    //_.fromPairs DUMMY
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.fromPairs
+         */
+        fromPairs(): LoDashExplicitObjectWrapper<any>;
     }
 
     //_.head
@@ -16174,17 +16190,33 @@ declare module _ {
 
         /**
          * @see _.mapValues
-         * TResult is the type of the properties on the object specified by pluck.
-         * T should be a Dictionary<Dictionary<Dictionary<TResult>>>
+         * TResult is the type of the properties of each object in the values of T
+         * T should be a Dictionary<Dictionary<TResult>>
          */
-        mapValues<TResult>(pluck: string, where: Dictionary<TResult>): LoDashImplicitArrayWrapper<Dictionary<boolean>>;
+        mapValues<TResult>(where: Dictionary<TResult>): LoDashImplicitArrayWrapper<boolean>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.mapValues
+         * TValue is the type of the property values of T.
+         * TResult is the type output by the ObjectIterator function
+         */
+        mapValues<TValue, TResult>(callback: ObjectIterator<TValue, TResult>): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
+
+        /**
+         * @see _.mapValues
+         * TResult is the type of the property specified by pluck.
+         * T should be a Dictionary<Dictionary<TResult>>
+         */
+        mapValues<TResult>(pluck: string): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
 
         /**
          * @see _.mapValues
          * TResult is the type of the properties of each object in the values of T
          * T should be a Dictionary<Dictionary<TResult>>
          */
-        mapValues<TResult>(where: Dictionary<TResult>): LoDashImplicitArrayWrapper<boolean>;
+        mapValues<TResult>(where: Dictionary<TResult>): LoDashExplicitObjectWrapper<boolean>;
     }
 
     //_.merge
@@ -16635,7 +16667,7 @@ declare module _ {
          */
         pickBy<TResult extends {}, T extends {}>(
             object: T,
-            predicate: ObjectIterator<any, boolean>
+            predicate?: ObjectIterator<any, boolean>
         ): TResult;
     }
 
@@ -16644,7 +16676,7 @@ declare module _ {
          * @see _.pickBy
          */
         pickBy<TResult extends {}>(
-            predicate: ObjectIterator<any, boolean>
+            predicate?: ObjectIterator<any, boolean>
         ): LoDashImplicitObjectWrapper<TResult>;
     }
 
@@ -16653,7 +16685,7 @@ declare module _ {
          * @see _.pickBy
          */
         pickBy<TResult extends {}>(
-            predicate: ObjectIterator<any, boolean>
+            predicate?: ObjectIterator<any, boolean>
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
