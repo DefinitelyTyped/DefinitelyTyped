@@ -466,7 +466,7 @@ interface PromiseLike<T> {
     * @returns A Promise for the completion of which ever callback is executed.
     */
     then<TResult>(onfulfilled?: (value: T) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => TResult | PromiseLike<TResult>): PromiseLike<TResult>;
-    then<TResult>(onfulfilled?: (value: T) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => void): PromiseLike<TResult>;
+    then<TResult>(onfulfilled?: (value: T) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => any): PromiseLike<TResult>;
 }
 
 /**
@@ -480,7 +480,7 @@ interface Promise<T> {
     * @returns A Promise for the completion of which ever callback is executed.
     */
     then<TResult>(onfulfilled?: (value: T) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => TResult | PromiseLike<TResult>): Promise<TResult>;
-    then<TResult>(onfulfilled?: (value: T) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => void): Promise<TResult>;
+    then<TResult>(onfulfilled?: (value: T) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => any): Promise<TResult>;
 
     /**
      * Attaches a callback for only the rejection of the Promise.
@@ -488,7 +488,7 @@ interface Promise<T> {
      * @returns A Promise for the completion of the callback.
      */
     catch(onrejected?: (reason: any) => T | PromiseLike<T>): Promise<T>;
-    catch(onrejected?: (reason: any) => void): Promise<T>;
+    catch(onrejected?: (reason: any) => any): Promise<T>;
 }
 
 interface PromiseConstructor {
@@ -503,7 +503,7 @@ interface PromiseConstructor {
      * a resolve callback used resolve the promise with a value or the result of another promise,
      * and a reject callback used to reject the promise with a provided reason or error.
      */
-    new <T>(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): Promise<T>;
+    new <T>(executor: (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => any) => void): Promise<T>;
 
     /**
      * Creates a Promise that is resolved with an array of results when all of the provided Promises
@@ -526,7 +526,7 @@ interface PromiseConstructor {
      * @param reason The reason the promise was rejected.
      * @returns A new rejected Promise.
      */
-    reject(reason: any): Promise<void>;
+    reject(reason: any): Promise<any>;
 
     /**
      * Creates a new rejected promise for the provided reason.
