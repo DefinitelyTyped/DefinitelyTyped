@@ -1,9 +1,9 @@
 ﻿// Type definitions for sjcl v1.0.1
 // Project: http://crypto.stanford.edu/sjcl/
 // Definitions by: Eugene Chernyshov <https://github.com/Evgenus>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module sjcl {
+declare namespace sjcl {
 
     export var bn: BigNumberStatic;
     export var bitArray: BitArrayStatic;
@@ -36,10 +36,10 @@ declare module sjcl {
         /// Equality test is in constant time.
         equals(that: number): boolean;
         equals(that: BigNumber): boolean;
-          
+
         /// Get the i'th limb of this, zero if i is too large.
         getLimb(index: number): number;
-  
+
         /// Constant time comparison function.
         /// Returns 1 if this >= that, or zero otherwise.
         greaterEquals(that: number): boolean;
@@ -262,23 +262,23 @@ declare module sjcl {
     interface SjclGCMMode {
         encrypt(prp: SjclCipher, plaintext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number): BitArray;
         decrypt(prp: SjclCipher, ciphertext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number): BitArray;
-    } 
+    }
 
     interface SjclCCMMode {
         encrypt(prp: SjclCipher, plaintext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number): BitArray;
         decrypt(prp: SjclCipher, ciphertext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number): BitArray;
-    } 
+    }
 
     interface SjclOCB2Mode {
         encrypt(prp: SjclCipher, plaintext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number, premac?: boolean): BitArray;
         decrypt(prp: SjclCipher, ciphertext: BitArray, iv: BitArray, adata?: BitArray, tlen?: number, premac?: boolean): BitArray;
         pmac(prp: SjclCipher, adata: BitArray): number[];
-    } 
+    }
 
     interface SjclCBCMode {
         encrypt(prp: SjclCipher, plaintext: BitArray, iv: BitArray, adata?: BitArray): BitArray;
         decrypt(prp: SjclCipher, ciphertext: BitArray, iv: BitArray, adata?: BitArray): BitArray;
-    } 
+    }
 
     // ________________________________________________________________________
 
@@ -535,7 +535,7 @@ declare module sjcl {
 
     // ________________________________________________________________________
 
-    module TypeHelpers {
+    namespace TypeHelpers {
         interface One<T> {
             (value: T): BigNumber;
         }

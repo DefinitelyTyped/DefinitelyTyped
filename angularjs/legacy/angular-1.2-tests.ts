@@ -1,6 +1,6 @@
 /// <reference path="angular-1.2.d.ts" />
 
-// issue: https://github.com/borisyankov/DefinitelyTyped/issues/369
+// issue: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/369
 // https://github.com/witoldsz/angular-http-auth/blob/master/src/angular-http-auth.js
 /**
  * @license HTTP Auth Interceptor Module for AngularJS
@@ -87,7 +87,7 @@ angular.module('http-auth-interceptor', [])
     }]);
 
 
-module HttpAndRegularPromiseTests {
+namespace HttpAndRegularPromiseTests {
     interface Person {
         firstName: string;
         lastName: string;
@@ -170,7 +170,7 @@ module HttpAndRegularPromiseTests {
 
 // Test for AngularJS Syntax
 
-module My.Namespace {
+namespace My.Namespace {
     export var x: any; // need to export something for module to kick in
 }
 

@@ -2,6 +2,9 @@
 
 const dropzoneFromString = new Dropzone(".test");
 const dropzoneFromElement = new Dropzone(document.getElementById("test"));
+const dropzoneRenameFunction = function (name:string):string {
+  return name + 'new';
+};
 
 const dropzoneWithOptions = new Dropzone(".test", {
 	url: "/some/url",
@@ -26,10 +29,12 @@ const dropzoneWithOptions = new Dropzone(".test", {
 	clickable: true,
 	ignoreHiddenFiles: true,
 	acceptedFiles: "image/*",
+	renameFilename: dropzoneRenameFunction,
 	autoProcessQueue: true,
 	autoQueue: true,
 	addRemoveLinks: true,
 	previewsContainer: "<div></div>",
+	hiddenInputContainer: document.createElement("input"),
 	capture: "camera",
 
 	dictDefaultMessage: "",
@@ -129,6 +134,13 @@ dropzoneWithOptionsVariations = new Dropzone(".test", {
 });
 dropzoneWithOptionsVariations = new Dropzone(".test", {
 	clickable: ["test", document.getElementById("test")]
+});
+
+dropzoneWithOptionsVariations = new Dropzone(".test", {
+    success: (file:DropzoneFile, response:Object) => console.log(file, response)
+});
+dropzoneWithOptionsVariations = new Dropzone(".test", {
+    success: (file:DropzoneFile, response:string) => console.log(file, response)
 });
 
 const dropzone = new Dropzone(".test");

@@ -41,6 +41,16 @@ var schema: mongoose.Schema = new Schema({ name: String }, { collection: 'actor'
 schema.set('collection', 'actor');
 var Model = mongoose.model<IActor>('Actor', schema, 'actor');
 
+interface IZip extends mongoose.Document {
+    _id: string;
+}
+interface IPerson extends mongoose.Document {
+    _id: mongoose.Types.ObjectId;
+}
+interface IThing extends mongoose.Document {
+    _id: number;
+}
+
 var names: string[] = mongoose.modelNames();
 var names: string[] = db.modelNames();
 mongoose.plugin((schema: mongoose.Schema) => {

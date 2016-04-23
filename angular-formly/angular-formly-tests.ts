@@ -20,6 +20,18 @@ class FormConfig {
 			name: 'customInput',
 			extends: 'input'
 		});
+
+		formlyConfig.disableWarnings = true;		
+		formlyConfig.templateManipulators = undefined;
+
+		formlyConfig.extras.apiCheckInstance = null;
+		formlyConfig.extras.defaultHideDirective = 'ng-if';
+		formlyConfig.extras.disableNgModelAttrsManipulator = true;
+		formlyConfig.extras.errorExistsAndShouldBeVisibleExpression = angular.noop;
+		formlyConfig.extras.explicitAsync = true;		
+		formlyConfig.extras.fieldTransform = angular.noop;
+		formlyConfig.extras.getFieldId = angular.noop;
+		formlyConfig.extras.ngModelAttrsManipulatorPreferUnbound = true;
 	}
 }
 

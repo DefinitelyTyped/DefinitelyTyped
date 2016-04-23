@@ -5,13 +5,13 @@
 
 /// <reference path="google-apps-script.types.d.ts" />
 
-declare module GoogleAppsScript {
+declare namespace GoogleAppsScript {
   export module Content {
     /**
      * Service for returning text content from a script.
-     * 
+     *
      *  You can serve up text in various forms. For example, publish this script as a web app.
-     * 
+     *
      *      function doGet() {
      *        return ContentService.createTextOutput("Hello World");
      *      }
@@ -29,17 +29,17 @@ declare module GoogleAppsScript {
 
     /**
      * A TextOutput object that can be served from a script.
-     *  
+     *
      *  Due to security considerations, scripts cannot directly return text content to a browser.
      *  Instead, the browser is redirected to googleusercontent.com, which will display it without any
      *  further sanitization or manipulation.
-     *  
+     *
      *  You can return text content like this:
-     * 
+     *
      *      function doGet() {
      *        return ContentService.createPlainTextOutput("hello world!");
      *      }
-     * 
+     *
      * ContentService
      */
     export interface TextOutput {

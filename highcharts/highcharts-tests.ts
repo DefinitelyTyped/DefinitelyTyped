@@ -135,6 +135,51 @@ function originalTests() {
     var multipleYAxisOptions: HighchartsOptions = {
         yAxis: [{}, {}]
     };
+
+    var renderToIdChart = new Highcharts.Chart("container", {
+        xAxis: {},
+        series: [<HighchartsLineChartSeriesOptions>{
+            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+            type: "line",
+            allowPointSelect: true
+        }]
+    });
+
+    var renderToElementChart = new Highcharts.Chart(div, {
+        xAxis: {},
+        series: [<HighchartsLineChartSeriesOptions>{
+            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+            type: "line",
+            allowPointSelect: true
+        }]
+    });
+
+    var createWithFunction = Highcharts.chart({
+        xAxis: {},
+        series: [<HighchartsLineChartSeriesOptions>{
+            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+            type: "line",
+            allowPointSelect: true
+        }]
+    });
+
+    var createWithFunctionRenderToId = Highcharts.chart("container", {
+        xAxis: {},
+        series: [<HighchartsLineChartSeriesOptions>{
+            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+            type: "line",
+            allowPointSelect: true
+        }]
+    });
+
+    var createWithFunctionRenderToElement = Highcharts.chart(div, {
+        xAxis: {},
+        series: [<HighchartsLineChartSeriesOptions>{
+            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+            type: "line",
+            allowPointSelect: true
+        }]
+    });
 }
 
 function test_alldefaults() {
@@ -1554,15 +1599,18 @@ function test_Line() {
         series: [<HighchartsLineChartSeriesOptions>{
             data: [1, 2, 3, 4, null, 6, 7, null, 9],
             step: 'right',
-            name: 'Right'
+            name: 'Right',
+            linecap: 'round'
         }, <HighchartsLineChartSeriesOptions>{
             data: [5, 6, 7, 8, null, 10, 11, null, 13],
             step: 'center',
-            name: 'Center'
+            name: 'Center',
+            linecap: 'round'
         }, <HighchartsLineChartSeriesOptions>{
             data: [9, 10, 11, 12, null, 14, 15, null, 17],
             step: 'left',
-            name: 'Left'
+            name: 'Left',
+            linecap: 'round'
         }]
     });
 }

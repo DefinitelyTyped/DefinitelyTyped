@@ -1,7 +1,7 @@
 // Type definitions for Angular JS 1.4 (ngCookies module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Anthony Ciccarello <http://github.com/aciccarello>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="angular.d.ts" />
@@ -14,7 +14,7 @@ declare module "angular-cookies" {
 /**
  * ngCookies module (angular-cookies.js)
  */
-declare module angular.cookies {
+declare namespace angular.cookies {
 
     /**
     * Cookies options
@@ -22,13 +22,13 @@ declare module angular.cookies {
     */
     interface ICookiesOptions {
         /**
-        * The cookie will be available only for this path and its sub-paths. 
+        * The cookie will be available only for this path and its sub-paths.
         * By default, this would be the URL that appears in your base tag.
         */
         path?: string;
         /**
         * The cookie will be available only for this domain and its sub-domains.
-        * For obvious security reasons the user agent will not accept the cookie if the 
+        * For obvious security reasons the user agent will not accept the cookie if the
         * current domain is not a sub domain or equals to the requested domain.
         */
         domain?: string;

@@ -1,7 +1,7 @@
 // Type definitions for Angular JS 1.1.5+ (ui.router module)
 // Project: https://github.com/angular-ui/ui-router
 // Definitions by: Michel Salib <https://github.com/michelsalib>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
@@ -28,7 +28,7 @@ declare module 'angular-ui-router' {
     export type IType = angular.ui.IType;
 }
 
-declare module angular.ui {
+declare namespace angular.ui {
 
     interface IState {
         name?: string;
@@ -88,18 +88,24 @@ declare module angular.ui {
          * Arbitrary data object, useful for custom configuration.
          */
         data?: any;
-        
+
         /**
          * Boolean (default true). If false will not re-trigger the same state just because a search/query parameter has changed. Useful for when you'd like to modify $location.search() without triggering a reload.
          */
         reloadOnSearch?: boolean;
-        
+
         /**
          * Boolean (default true). If false will reload state on everytransitions. Useful for when you'd like to restore all data  to its initial state.
          */
         cache?: boolean;
     }
 
+    interface IUnfoundState {
+        to: string,
+        toParams: {},
+        options: IStateOptions
+    }
+    
     interface IStateProvider extends angular.IServiceProvider {
         state(name:string, config:IState): IStateProvider;
         state(config:IState): IStateProvider;
@@ -257,11 +263,15 @@ declare module angular.ui {
         transitionTo(state: string, params?: {}, options?: IStateOptions): angular.IPromise<any>;
         transitionTo(state: IState, params?: {}, options?: IStateOptions): angular.IPromise<any>;
         includes(state: string, params?: {}): boolean;
+        includes(state: string, params?: {}, options?:any): boolean;
         is(state:string, params?: {}): boolean;
         is(state: IState, params?: {}): boolean;
         href(state: IState, params?: {}, options?: IHrefOptions): string;
         href(state: string, params?: {}, options?: IHrefOptions): string;
-        get(state: string): IState;
+        get(state: string, context?: string): IState;
+        get(state: IState, context?: string): IState;
+        get(state: string, context?: IState): IState;
+        get(state: IState, context?: IState): IState;
         get(): IState[];
         /** A reference to the state's config object. However you passed it in. Useful for accessing custom data. */
         current: IState;
