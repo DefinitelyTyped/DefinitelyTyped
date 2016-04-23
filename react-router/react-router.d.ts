@@ -247,7 +247,7 @@ declare namespace ReactRouter {
     interface MatchArgs {
         routes?: RouteConfig
         history?: H.History
-        location?: H.Location
+        location?: H.Location | string
         parseQueryString?: ParseQueryString
         stringifyQuery?: StringifyQuery
     }
