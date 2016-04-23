@@ -774,7 +774,7 @@ declare namespace Vex {
         }
 
         namespace Renderer {
-            const enum Backends {CANVAS, RAPHAEL, SVG, VML}
+            const enum Backends {CANVAS = 1, RAPHAEL, SVG, VML}
             const enum LineEndType {NONE, UP, DOWN}
         }
 
