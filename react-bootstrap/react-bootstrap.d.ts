@@ -190,6 +190,12 @@ declare module "react-bootstrap" {
         dialogComponent?: any; // TODO: Add more specific type
         enforceFocus?: boolean;
         keyboard?: boolean;
+        onEnter?: (node: HTMLElement) => any;
+        onEntered?: (node: HTMLElement) => any;
+        onEntering?: (node: HTMLElement) => any;
+        onExit?: (node: HTMLElement) => any;
+        onExited?: (node: HTMLElement) => any;
+        onExiting?: (node: HTMLElement) => any;
         show?: boolean;
     }
     interface ModalClass extends React.ClassicComponentClass<ModalProps> {
