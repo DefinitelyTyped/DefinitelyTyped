@@ -859,7 +859,7 @@ declare namespace Vex {
         }
 
         namespace StaveConnector {
-            const enum type { SINGLE_RIGHT, SINGLE_LEFT, SINGLE, DOUBLE, BRACE, BRACKET, BOLD_DOUBLE_LEFT, BOLD_DOUBLE_RIGHT, THIN_DOUBLE }
+            const enum type { SINGLE_RIGHT = 0, SINGLE_LEFT = 1, SINGLE = 1, DOUBLE = 2, BRACE = 3, BRACKET = 4, BOLD_DOUBLE_LEFT = 5, BOLD_DOUBLE_RIGHT = 6, THIN_DOUBLE = 7 }
         }
 
         class StaveHairpin {
