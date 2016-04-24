@@ -2499,8 +2499,28 @@ declare namespace  __React {
         width: number;
         height: number;
         scale: number;
+        fontScale: number;
     }
 
+    /**
+     * Initial dimensions are set before `runApplication` is called so they should
+     * be available before any other require's are run, but may be updated later.
+     *
+     * Note: Although dimensions are available immediately, they may change (e.g
+     * due to device rotation) so any rendering logic or styles that depend on
+     * these constants should try to call this function on every render, rather
+     * than caching the value (for example, using inline styles rather than
+     * setting a value in a `StyleSheet`).
+     *
+     * Example: `var {height, width} = Dimensions.get('window');`
+     *
+     * @param {string} dim Name of dimension as defined when calling `set`.
+     * @returns {Object?} Value for the dimension.
+     * @see https://facebook.github.io/react-native/docs/dimensions.html#content
+     */
+    export interface Dimensions {
+      get( what: "window" | "screen" ): React.ScaledSize;
+    }
 
     export interface InteractionManagerStatic {
         runAfterInteractions( fn: () => void ): void;
@@ -3447,6 +3467,7 @@ declare namespace  __React {
     export var VibrationIOS: VibrationIOSStatic
     export type VibrationIOS = VibrationIOSStatic
 
+    export var Dimensions: Dimensions;
 
     //
     // /TODO: BGR: These are leftovers of the initial port that must be revisited
@@ -3510,16 +3531,3 @@ declare module "react-native" {
 declare var global: __React.GlobalStatic
 
 declare function require( name: string ): any
-
-
-//TODO: BGR: this is a left-over from the initial port. Not sure it makes any sense
-declare module "Dimensions" {
-    import * as React from 'react-native';
-
-    interface Dimensions {
-        get( what: string ): React.ScaledSize;
-    }
-
-    var ExportDimensions: Dimensions;
-    export = ExportDimensions;
-}
