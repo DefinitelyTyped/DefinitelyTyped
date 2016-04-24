@@ -80,7 +80,8 @@ declare module "react-redux" {
      * Defaults to true.
      * @default true
      */
-    pure: boolean;
+    pure?: boolean;
+    withRef?: boolean;
   }
 
   export interface ProviderProps {
