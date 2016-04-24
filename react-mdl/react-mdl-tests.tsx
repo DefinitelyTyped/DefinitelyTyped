@@ -1,7 +1,6 @@
 ﻿// Test file for react-mdl Definition file
 /// <reference path="react-mdl.d.ts" />
 
-import React = require('react');
 import {Badge,
     FABButton, Button, IconButton,
     Card, CardActions, CardTitle, CardText, CardMenu, CardMedia,
