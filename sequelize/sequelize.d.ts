@@ -3121,7 +3121,7 @@ declare module "sequelize" {
              * `Sequelize.literal`, `Sequelize.fn` and so on), and the second is the name you want the attribute to
              * have in the returned instance
              */
-            attributes? : Array<string | [string, string]>;
+            attributes? :  Array<string> | { include?: Array<string>, exclude?: Array<string> };
 
             /**
              * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
