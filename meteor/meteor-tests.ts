@@ -458,29 +458,30 @@ Accounts.emailTemplates.enrollAccount.text = function (user:any, url:string) {
 /**
  * From Templates, Template.myTemplate.helpers section
  */
-(<Template>Template['adminDashboard']).helpers({
+Template['adminDashboard'].helpers({
   foo: function () {
     return Session.get("foo");
   }
 });
-(<Template>Template['newTemplate']).helpers({
+
+Template['newTemplate'].helpers({
   helperName: function () {
   }
 });
 
-(<Template>Template['newTemplate']).created = function() {
+Template['newTemplate'].created = function() {
 
 };
 
-(<Template>Template['newTemplate']).rendered = function() {
+Template['newTemplate'].rendered = function() {
 
 };
 
-(<Template>Template['newTemplate']).destroyed = function() {
+Template['newTemplate'].destroyed = function() {
 
 };
 
-(<Template>Template['newTemplate']).events({
+Template['newTemplate'].events({
   'click .something': function (event: Meteor.Event, template: Blaze.TemplateInstance) {
   }
 });

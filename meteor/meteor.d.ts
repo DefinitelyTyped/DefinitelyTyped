@@ -1,6 +1,7 @@
 // Type definitions for Meteor 1.3
 // Project: http://www.meteor.com/
-// Definitions by: Alex Borodach <https://github.com/alexborodach>
+// Definitions by: Alex Borodach <https://github.com/barbatus>,
+// Dave Allen <https://github.com/fullflavedave>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "meteor/check" {
@@ -443,6 +444,14 @@ declare module "meteor/blaze" {
 
 		function isTemplate(value: any): boolean;
 
+    interface HelpersMap {
+      [key: string]: Function;
+    }
+
+    interface EventsMap {
+      [key: string]: Function;
+    }
+
 		class Template {
       new(viewName?: string, renderFunction?: Function): Template;
       viewName: string;
@@ -458,8 +467,8 @@ declare module "meteor/blaze" {
       created: Function;
       rendered: Function;
       destroyed: Function;
-      helpers(helpersMap: Map<string, Function>): void;
-      events(eventsMap: Map<string, Function>): void
+      helpers(helpersMap: HelpersMap): void;
+      events(eventsMap: EventsMap): void
       static registerHelper(name: string, func: Function): void;
       static instance(): TemplateInstance;
       static currentData(): any
@@ -527,11 +536,6 @@ declare module "meteor/browser-policy" {
 			disallowFont(): void;
 			disallowObject(): void;
 			disallowAllContent(): void;
-			//TODO: add the basic content types
-			// allow<content type>Origin(origin)
-			// allow<content type>DataUrl()
-			// allow<content type>SameOrigin()
-			// disallow<content type>()
 		}
 	}
 }
@@ -850,8 +854,6 @@ declare namespace Package {
 		npmDependencies?: Object;
 	}): void;
 }
-
-declare var PackageAPI: PackageAPI;
 
 interface PackageAPI {
 	new (): PackageAPI;

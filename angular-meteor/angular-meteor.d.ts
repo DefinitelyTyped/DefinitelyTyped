@@ -3,7 +3,7 @@
 // Definitions by: Peter Grman <https://github.com/pgrm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../meteor/meteor.d.ts" />
+/// <reference path="../meteor/meteor-1.2.d.ts" />
 /// <reference path="../angularjs/angular.d.ts" />
 
 declare namespace angular.meteor {

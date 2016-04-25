@@ -1,4 +1,4 @@
-/// <reference path='meteor-1.2.0.2.d.ts'/>
+/// <reference path='meteor-1.2.d.ts'/>
 
 /**
  * All code below was copied from the examples at http://docs.meteor.com/.
