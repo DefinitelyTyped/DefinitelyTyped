@@ -269,93 +269,93 @@ interface CORS {
     credentials: boolean;
 }
 
-declare export function createServer(options?: ServerOptions): Server;
+export declare function createServer(options?: ServerOptions): Server;
 
-declare export function createJsonClient(options?: ClientOptions): Client;
-declare export function createStringClient(options?: ClientOptions): Client;
-declare export function createClient(options?: ClientOptions): HttpClient;
+export declare function createJsonClient(options?: ClientOptions): Client;
+export declare function createStringClient(options?: ClientOptions): Client;
+export declare function createClient(options?: ClientOptions): HttpClient;
 
-declare export class HttpError { constructor(cause: any, message?: any); }
+export declare class HttpError { constructor(cause: any, message?: any); }
 
 declare class DefiniteHttpError {
     constructor(message?: any);
     constructor(cause: any, message?: any);
 }
 
-declare export class BadRequestError extends DefiniteHttpError { }
-declare export class UnauthorizedError extends DefiniteHttpError { }
-declare export class PaymentRequiredError extends DefiniteHttpError { }
-declare export class ForbiddenError extends DefiniteHttpError { }
-declare export class NotFoundError extends DefiniteHttpError { }
-declare export class MethodNotAllowedError extends DefiniteHttpError { }
-declare export class NotAcceptableError extends DefiniteHttpError { }
-declare export class ProxyAuthenticationRequiredError extends DefiniteHttpError { }
-declare export class RequestTimeoutError extends DefiniteHttpError { }
-declare export class ConflictError extends DefiniteHttpError { }
-declare export class GoneError extends DefiniteHttpError { }
-declare export class LengthRequiredError extends DefiniteHttpError { }
-declare export class RequestEntityTooLargeError extends DefiniteHttpError { }
-declare export class RequesturiTooLargeError extends DefiniteHttpError { }
-declare export class UnsupportedMediaTypeError extends DefiniteHttpError { }
-declare export class RequestedRangeNotSatisfiableError extends DefiniteHttpError { }
-declare export class ExpectationFailedError extends DefiniteHttpError { }
-declare export class ImATeapotError extends DefiniteHttpError { }
-declare export class UnprocessableEntityError extends DefiniteHttpError { }
-declare export class LockedError extends DefiniteHttpError { }
-declare export class FailedDependencyError extends DefiniteHttpError { }
-declare export class UnorderedCollectionError extends DefiniteHttpError { }
-declare export class UpgradeRequiredError extends DefiniteHttpError { }
-declare export class PreconditionRequiredError extends DefiniteHttpError { }
-declare export class TooManyRequestsError extends DefiniteHttpError { }
-declare export class RequestHeaderFieldsTooLargeError extends DefiniteHttpError { }
-declare export class InternalServerError extends DefiniteHttpError { }
-declare export class NotImplementedError extends DefiniteHttpError { }
-declare export class BadGatewayError extends DefiniteHttpError { }
-declare export class ServiceUnavailableError extends DefiniteHttpError { }
-declare export class GatewayTimeoutError extends DefiniteHttpError { }
-declare export class HttpVersionNotSupportedError extends DefiniteHttpError { }
-declare export class VariantAlsoNegotiatesError extends DefiniteHttpError { }
-declare export class InsufficientStorageError extends DefiniteHttpError { }
-declare export class BandwidthLimitExceededError extends DefiniteHttpError { }
-declare export class NotExtendedError extends DefiniteHttpError { }
-declare export class NetworkAuthenticationRequiredError extends DefiniteHttpError { }
-declare export class RestError extends DefiniteHttpError { }
+export declare class BadRequestError extends DefiniteHttpError { }
+export declare class UnauthorizedError extends DefiniteHttpError { }
+export declare class PaymentRequiredError extends DefiniteHttpError { }
+export declare class ForbiddenError extends DefiniteHttpError { }
+export declare class NotFoundError extends DefiniteHttpError { }
+export declare class MethodNotAllowedError extends DefiniteHttpError { }
+export declare class NotAcceptableError extends DefiniteHttpError { }
+export declare class ProxyAuthenticationRequiredError extends DefiniteHttpError { }
+export declare class RequestTimeoutError extends DefiniteHttpError { }
+export declare class ConflictError extends DefiniteHttpError { }
+export declare class GoneError extends DefiniteHttpError { }
+export declare class LengthRequiredError extends DefiniteHttpError { }
+export declare class RequestEntityTooLargeError extends DefiniteHttpError { }
+export declare class RequesturiTooLargeError extends DefiniteHttpError { }
+export declare class UnsupportedMediaTypeError extends DefiniteHttpError { }
+export declare class RequestedRangeNotSatisfiableError extends DefiniteHttpError { }
+export declare class ExpectationFailedError extends DefiniteHttpError { }
+export declare class ImATeapotError extends DefiniteHttpError { }
+export declare class UnprocessableEntityError extends DefiniteHttpError { }
+export declare class LockedError extends DefiniteHttpError { }
+export declare class FailedDependencyError extends DefiniteHttpError { }
+export declare class UnorderedCollectionError extends DefiniteHttpError { }
+export declare class UpgradeRequiredError extends DefiniteHttpError { }
+export declare class PreconditionRequiredError extends DefiniteHttpError { }
+export declare class TooManyRequestsError extends DefiniteHttpError { }
+export declare class RequestHeaderFieldsTooLargeError extends DefiniteHttpError { }
+export declare class InternalServerError extends DefiniteHttpError { }
+export declare class NotImplementedError extends DefiniteHttpError { }
+export declare class BadGatewayError extends DefiniteHttpError { }
+export declare class ServiceUnavailableError extends DefiniteHttpError { }
+export declare class GatewayTimeoutError extends DefiniteHttpError { }
+export declare class HttpVersionNotSupportedError extends DefiniteHttpError { }
+export declare class VariantAlsoNegotiatesError extends DefiniteHttpError { }
+export declare class InsufficientStorageError extends DefiniteHttpError { }
+export declare class BandwidthLimitExceededError extends DefiniteHttpError { }
+export declare class NotExtendedError extends DefiniteHttpError { }
+export declare class NetworkAuthenticationRequiredError extends DefiniteHttpError { }
+export declare class RestError extends DefiniteHttpError { }
 
-declare export class PreconditionFailedError extends RestError { }
-declare export class BadDigestError extends RestError { }
-declare export class BadMethodError extends RestError { }
-declare export class InternalError extends RestError { }
-declare export class InvalidArgumentError extends RestError { }
-declare export class InvalidContentError extends RestError { }
-declare export class InvalidCredentialsError extends RestError { }
-declare export class InvalidHeaderError extends RestError { }
-declare export class InvalidVersionError extends RestError { }
-declare export class MissingParameterError extends RestError { }
-declare export class NotAuthorizedError extends RestError { }
-declare export class RequestExpiredError extends RestError { }
-declare export class RequestThrottledError extends RestError { }
-declare export class ResourceNotFoundError extends RestError { }
-declare export class WrongAcceptError extends RestError { }
+export declare class PreconditionFailedError extends RestError { }
+export declare class BadDigestError extends RestError { }
+export declare class BadMethodError extends RestError { }
+export declare class InternalError extends RestError { }
+export declare class InvalidArgumentError extends RestError { }
+export declare class InvalidContentError extends RestError { }
+export declare class InvalidCredentialsError extends RestError { }
+export declare class InvalidHeaderError extends RestError { }
+export declare class InvalidVersionError extends RestError { }
+export declare class MissingParameterError extends RestError { }
+export declare class NotAuthorizedError extends RestError { }
+export declare class RequestExpiredError extends RestError { }
+export declare class RequestThrottledError extends RestError { }
+export declare class ResourceNotFoundError extends RestError { }
+export declare class WrongAcceptError extends RestError { }
 
 
-declare export function acceptParser(parser: any): RequestHandler;
-declare export function authorizationParser(): RequestHandler;
-declare export function dateParser(skew?: number): RequestHandler;
-declare export function queryParser(options?: Object): RequestHandler;
-declare export function urlEncodedBodyParser(options?: Object): RequestHandler[];
-declare export function jsonp(): RequestHandler;
-declare export function gzipResponse(options?: Object): RequestHandler;
-declare export function bodyParser(options?: Object): RequestHandler[];
-declare export function requestLogger(options?: Object): RequestHandler;
-declare export function serveStatic(options?: Object): RequestHandler;
-declare export function throttle(options?: ThrottleOptions): RequestHandler;
-declare export function conditionalRequest(): RequestHandler[];
-declare export function auditLogger(options?: Object): Function;
-declare export function fullResponse(): RequestHandler;
-declare export var defaultResponseHeaders: any;
-declare export var CORS: CORS;
+export declare function acceptParser(parser: any): RequestHandler;
+export declare function authorizationParser(): RequestHandler;
+export declare function dateParser(skew?: number): RequestHandler;
+export declare function queryParser(options?: Object): RequestHandler;
+export declare function urlEncodedBodyParser(options?: Object): RequestHandler[];
+export declare function jsonp(): RequestHandler;
+export declare function gzipResponse(options?: Object): RequestHandler;
+export declare function bodyParser(options?: Object): RequestHandler[];
+export declare function requestLogger(options?: Object): RequestHandler;
+export declare function serveStatic(options?: Object): RequestHandler;
+export declare function throttle(options?: ThrottleOptions): RequestHandler;
+export declare function conditionalRequest(): RequestHandler[];
+export declare function auditLogger(options?: Object): Function;
+export declare function fullResponse(): RequestHandler;
+export declare var defaultResponseHeaders: any;
+export declare var CORS: CORS;
 
-declare export module pre {
+export declare module pre {
     export function pause(): RequestHandler;
     export function sanitizePath(options?: any): RequestHandler;
     export function userAgentConnection(options?: any): RequestHandler;

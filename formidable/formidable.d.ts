@@ -10,7 +10,7 @@ import http = require("http");
 import stream = require("stream");
 import events = require("events");
 
-declare export class IncomingForm extends events.EventEmitter {
+export declare class IncomingForm extends events.EventEmitter {
     encoding: string;
     uploadDir: string;
     keepExtensions: boolean;

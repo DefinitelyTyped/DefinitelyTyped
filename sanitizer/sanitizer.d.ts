@@ -15,12 +15,12 @@ export interface ISaxHandler {
     endDoc(param: any): void;
 }
 
-declare export function escape(s: string): string;
+export declare function escape(s: string): string;
 
-declare export function makeSaxParser(yourHandler: ISaxHandler): (...any: any[]) => any;
+export declare function makeSaxParser(yourHandler: ISaxHandler): (...any: any[]) => any;
 
-declare export function normalizeRCData(s: string): string;
+export declare function normalizeRCData(s: string): string;
 
-declare export function sanitize(s: string): string;
+export declare function sanitize(s: string): string;
 
-declare export function unescapeEntities(s: string): string;
+export declare function unescapeEntities(s: string): string;

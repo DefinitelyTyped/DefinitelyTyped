@@ -10,7 +10,7 @@
  * @param noVerify
  * @api public
  */
-declare export function decode(token: any, key: string, noVerify?: boolean): any;
+export declare function decode(token: any, key: string, noVerify?: boolean): any;
 /**
  * Encode jwt
  * @param payload
@@ -18,4 +18,4 @@ declare export function decode(token: any, key: string, noVerify?: boolean): any
  * @param algorithm default is HS256
  * @api public
  */
-declare export function encode(payload: any, key: string, algorithm?: string): string;
+export declare function encode(payload: any, key: string, algorithm?: string): string;

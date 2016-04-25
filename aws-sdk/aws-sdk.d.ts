@@ -9,11 +9,11 @@
 
 
 
-declare export var config: ClientConfig;
+export declare var config: ClientConfig;
 
-declare export function Config(json: any): void;
+export declare function Config(json: any): void;
 
-declare export class Credentials {
+export declare class Credentials {
     constructor(accessKeyId: string, secretAccessKey: string, sessionToken?: string);
     accessKeyId: string;
 }
@@ -31,7 +31,7 @@ export interface HttpOptions {
     xhrWithCredentials?: boolean;
 }
 
-declare export class Endpoint {
+export declare class Endpoint {
     constructor(endpoint: string);
 
     host: string;
@@ -108,7 +108,7 @@ export interface ClientConfig extends ClientConfigPartial {
     region: string;
 }
 
-declare export class SQS {
+export declare class SQS {
     constructor(options?: any);
     endpoint: Endpoint;
 
@@ -131,28 +131,28 @@ declare export class SQS {
     setQueueAttributes(params: SQS.SetQueueAttributesParams, callback: (err: Error, data: any) => void): void;
 }
 
-declare export class SES {
+export declare class SES {
     constructor(options?: any);
     public client: Ses.Client;
 }
 
-declare export class SNS {
+export declare class SNS {
     constructor(options?: any);
     public client: Sns.Client;
 }
 
-declare export class SimpleWorkflow {
+export declare class SimpleWorkflow {
     constructor(options?: any);
     public client: Swf.Client;
 }
 
-declare export class S3 {
+export declare class S3 {
     constructor(options?: any);
     putObject(params: s3.PutObjectRequest, callback: (err: any, data: any) => void): void;
     getObject(params: s3.GetObjectRequest, callback: (err: any, data: any) => void): void;
 }
 
-declare export class ECS {
+export declare class ECS {
     constructor(options?: any);
 
     createService(params: ecs.CreateServicesParams, callback: (err: any, data: any) => void): void;
@@ -162,17 +162,17 @@ declare export class ECS {
     updateService(params: ecs.UpdateServiceParams, callback: (err: any, data: any) => void): void;
 }
 
-declare export class DynamoDB {
+export declare class DynamoDB {
     constructor(options?: any);
 }
 
-declare export module DynamoDB {
+export declare module DynamoDB {
     export class DocumentClient {
         constructor(options?: any);
     }
 }
 
-declare export module SQS {
+export declare module SQS {
 
     export interface SqsOptions {
         params?: any;
@@ -364,7 +364,7 @@ declare export module SQS {
 
 }
 
-declare export module Ses {
+export declare module Ses {
 
     export interface Client {
         config: ClientConfig;
@@ -407,7 +407,7 @@ declare export module Ses {
 
 }
 
-declare export module Swf {
+export declare module Swf {
 
     export class Client {
         //constructor(options?: any);
@@ -1018,7 +1018,7 @@ declare export module Swf {
 
 }
 
-declare export module Sns {
+export declare module Sns {
 
     export interface Client {
         config: ClientConfig;
@@ -1053,7 +1053,7 @@ declare export module Sns {
 
 }
 
-declare export module s3 {
+export declare module s3 {
 
     export interface PutObjectRequest {
         ACL?: string;
@@ -1097,7 +1097,7 @@ declare export module s3 {
 
 }
 
-declare export module ecs {
+export declare module ecs {
     export interface CreateServicesParams {
         desiredCount: number;
         serviceName: string;

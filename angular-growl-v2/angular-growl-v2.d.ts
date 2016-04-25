@@ -3,7 +3,7 @@
 // Definitions by: Tadeusz Hucal <https://github.com/mkp05>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angular.d.ts" />
+/// <reference path="../angularjs/angularjs.d.ts" />
 
 declare namespace angular.growl {
 

@@ -8,18 +8,18 @@
 
 import events = require("events");
 
-declare export function startScanning(): void;
-declare export function startScanning(serviceUUIDs: string[]): void;
-declare export function startScanning(serviceUUIDs: string[], allowDuplicates: boolean): void;
-declare export function stopScanning(): void;
+export declare function startScanning(): void;
+export declare function startScanning(serviceUUIDs: string[]): void;
+export declare function startScanning(serviceUUIDs: string[], allowDuplicates: boolean): void;
+export declare function stopScanning(): void;
 
-declare export function on(event: string, listener: Function): events.EventEmitter;
-declare export function on(event: "stateChange", listener: (state: string) => void): events.EventEmitter;
-declare export function on(event: "scanStart", listener: () => void): events.EventEmitter;
-declare export function on(event: "scanStop", listener: () => void): events.EventEmitter;
-declare export function on(event: "discover", listener: (peripheral: Peripheral) => void): events.EventEmitter;
+export declare function on(event: string, listener: Function): events.EventEmitter;
+export declare function on(event: "stateChange", listener: (state: string) => void): events.EventEmitter;
+export declare function on(event: "scanStart", listener: () => void): events.EventEmitter;
+export declare function on(event: "scanStop", listener: () => void): events.EventEmitter;
+export declare function on(event: "discover", listener: (peripheral: Peripheral) => void): events.EventEmitter;
 
-declare export class Peripheral extends events.EventEmitter {
+export declare class Peripheral extends events.EventEmitter {
     uuid: string;
     advertisement: Advertisement;
     rssi: number;
@@ -52,7 +52,7 @@ export interface Advertisement {
     serviceUuids: string[];
 }
 
-declare export class Service extends events.EventEmitter {
+export declare class Service extends events.EventEmitter {
     uuid: string;
     name: string;
     type: string;
@@ -68,7 +68,7 @@ declare export class Service extends events.EventEmitter {
     on(event: "characteristicsDiscover", listener: (characteristics: Characteristic[]) => void): this;
 }
 
-declare export class Characteristic extends events.EventEmitter {
+export declare class Characteristic extends events.EventEmitter {
     uuid: string;
     name: string;
     type: string;
@@ -91,7 +91,7 @@ declare export class Characteristic extends events.EventEmitter {
     on(event: "descriptorsDiscover", listener: (descriptors: Descriptor[]) => void): this;
 }
 
-declare export class Descriptor extends events.EventEmitter {
+export declare class Descriptor extends events.EventEmitter {
     uuid: string;
     name: string;
     type: string;

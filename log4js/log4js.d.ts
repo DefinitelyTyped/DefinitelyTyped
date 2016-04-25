@@ -13,13 +13,13 @@ import express = require('express');
  * @param logger
  * @returns void
  */
-declare export function replaceConsole(logger?: Logger): void;
+export declare function replaceConsole(logger?: Logger): void;
 
 /**
  * Restores the console
  * @returns void
  */
-declare export function restoreConsole(): void;
+export declare function restoreConsole(): void;
 
 /**
  * Get a logger instance. Instance is cached on categoryName level.
@@ -28,8 +28,8 @@ declare export function restoreConsole(): void;
  * @returns {Logger} instance of logger for the category
  * @static
  */
-declare export function getLogger(categoryName?: string): Logger;
-declare export function getBufferedLogger(categoryName?: string): Logger;
+export declare function getLogger(categoryName?: string): Logger;
+export declare function getBufferedLogger(categoryName?: string): Logger;
 
 /**
  * Has a logger instance cached on categoryName.
@@ -38,7 +38,7 @@ declare export function getBufferedLogger(categoryName?: string): Logger;
  * @returns {boolean} contains logger for the category
  * @static
  */
-declare export function hasLogger(categoryName: string): boolean;
+export declare function hasLogger(categoryName: string): boolean;
 
 /**
  * Get the default logger instance.
@@ -46,7 +46,7 @@ declare export function hasLogger(categoryName: string): boolean;
  * @returns {Logger} instance of default logger
  * @static
  */
-declare export function getDefaultLogger(): Logger;
+export declare function getDefaultLogger(): Logger;
 
 /**
  * args are appender, then zero or more categories
@@ -55,7 +55,7 @@ declare export function getDefaultLogger(): Logger;
  * @returns {void}
  * @static
  */
-declare export function addAppender(...appenders: any[]): void;
+export declare function addAppender(...appenders: any[]): void;
 
 /**
  * Claer configured appenders
@@ -63,7 +63,7 @@ declare export function addAppender(...appenders: any[]): void;
  * @returns {void}
  * @static
  */
-declare export function clearAppenders(): void;
+export declare function clearAppenders(): void;
 
 /**
  * Shutdown all log appenders. This will first disable all writing to appenders
@@ -74,13 +74,13 @@ declare export function clearAppenders(): void;
  *  as the first argument.
  * @returns {void}
  */
-declare export function shutdown(cb: Function): void;
+export declare function shutdown(cb: Function): void;
 
-declare export function configure(filename: string, options?: any): void;
-declare export function configure(config: IConfig, options?: any): void;
+export declare function configure(filename: string, options?: any): void;
+export declare function configure(config: IConfig, options?: any): void;
 
-declare export function setGlobalLogLevel(level: string): void;
-declare export function setGlobalLogLevel(level: Level): void;
+export declare function setGlobalLogLevel(level: string): void;
+export declare function setGlobalLogLevel(level: Level): void;
 
 
 /**
@@ -90,12 +90,12 @@ declare export function setGlobalLogLevel(level: Level): void;
  * @returns {express.Handler} Instance of middleware.
  * @static
  */
-declare export function connectLogger(logger: Logger, options: { format?: string; level?: string; nolog?: any; }): express.Handler;
-declare export function connectLogger(logger: Logger, options: { format?: string; level?: Level; nolog?: any; }): express.Handler;
+export declare function connectLogger(logger: Logger, options: { format?: string; level?: string; nolog?: any; }): express.Handler;
+export declare function connectLogger(logger: Logger, options: { format?: string; level?: Level; nolog?: any; }): express.Handler;
 
 
-declare export var appenders: any;
-declare export var levels: {
+export declare var appenders: any;
+export declare var levels: {
     ALL: Level;
     TRACE: Level;
     DEBUG: Level;

@@ -7,10 +7,10 @@
 
 
 
-declare export function long2ip(long: number): string;
-declare export function ip2long(ip: string): number;
+export declare function long2ip(long: number): string;
+export declare function ip2long(ip: string): number;
 
-declare export class Netmask {
+export declare class Netmask {
     maskLong: number;
     bitmask: number;
     netLong: number;

@@ -4,4 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare export function detectFile(file: string): string;
+export declare function detectFile(file: string): string;

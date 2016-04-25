@@ -11,13 +11,13 @@ export interface Options {
     retryWait?: number;
 }
 
-declare export function lock(path: string, opts: Options, callback: (err: Error) => void): void;
-declare export function lock(path: string, callback: (err: Error) => void): void;
-declare export function lockSync(path: string, opts: Options): void;
+export declare function lock(path: string, opts: Options, callback: (err: Error) => void): void;
+export declare function lock(path: string, callback: (err: Error) => void): void;
+export declare function lockSync(path: string, opts: Options): void;
 
-declare export function unlock(path: string, callback: (err: Error) => void): void;
-declare export function unlockSync(path: string): void;
+export declare function unlock(path: string, callback: (err: Error) => void): void;
+export declare function unlockSync(path: string): void;
 
-declare export function check(path: string, opts: Options, callback: (err: Error, isLocked: boolean) => void): void;
-declare export function check(path: string, callback: (err: Error, isLocked: boolean) => void): void;
-declare export function checkSync(path: string, opts: Options): boolean;
+export declare function check(path: string, opts: Options, callback: (err: Error, isLocked: boolean) => void): void;
+export declare function check(path: string, callback: (err: Error, isLocked: boolean) => void): void;
+export declare function checkSync(path: string, opts: Options): boolean;

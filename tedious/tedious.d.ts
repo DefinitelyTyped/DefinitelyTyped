@@ -65,7 +65,7 @@ export interface DebugOptions {
     token?: boolean;
 }
 
-declare export enum ISOLATION_LEVEL {
+export declare enum ISOLATION_LEVEL {
     NO_CHANGE = 0x00,
     READ_UNCOMMITTED = 0x01,
     READ_COMMITTED = 0x02,
@@ -83,7 +83,7 @@ declare export enum ISOLATION_LEVEL {
     7_3_B = 0x730B0003,
     7_4 = 0x74000004
  */
-declare export var TDS_VERSION: { [index: string]: number };
+export declare var TDS_VERSION: { [index: string]: number };
 
 export interface TediousType {
     type: string;
@@ -136,7 +136,7 @@ export interface TediousTypes {
     Xml: TediousType;
 }
 
-declare export var TYPES: TediousTypes;
+export declare var TYPES: TediousTypes;
 
 export interface ConnectionOptions {
 
@@ -321,7 +321,7 @@ export interface ColumnValue {
  * @event  'doneProc' Indicates the completion status of a stored procedure. This is also generated for stored procedures executed through SQL statements.
  * @event  'returnValue' A value for an output parameter (that was added to the request with addOutputParameter(...)). See also Using Parameters.
  */
-declare export class Request extends events.EventEmitter {
+export declare class Request extends events.EventEmitter {
 
     /**
      * Constructor
@@ -434,7 +434,7 @@ export interface InfoObject {
  * @event  'charsetChange' The server has reported that the charset has changed.
  * @event  'secure' A secure connection has been established.
  */
-declare export class Connection extends events.EventEmitter {
+export declare class Connection extends events.EventEmitter {
 
     constructor(config: ConnectionConfig);
 

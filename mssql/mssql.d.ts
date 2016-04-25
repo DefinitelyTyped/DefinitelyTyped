@@ -20,40 +20,40 @@ type sqlTypeFactoryWithScale = (scale?: number) => sqlTypeWithScale;
 type sqlTypeFactoryWithPrecisionScale = (precision?: number, scale?: number) => sqlTypeWithPrecisionScale;
 type sqlTypeFactoryWithTvpType = (tvpType: any) => sqlTypeWithTvpType;
 
-declare export var VarChar: sqlTypeFactoryWithLength;
-declare export var NVarChar: sqlTypeFactoryWithLength;
-declare export var Text: sqlTypeFactoryWithNoParams;
-declare export var Int: sqlTypeFactoryWithNoParams;
-declare export var BigInt: sqlTypeFactoryWithNoParams;
-declare export var TinyInt: sqlTypeFactoryWithNoParams;
-declare export var SmallInt: sqlTypeFactoryWithNoParams;
-declare export var Bit: sqlTypeFactoryWithNoParams;
-declare export var Float: sqlTypeFactoryWithNoParams;
-declare export var Numeric: sqlTypeFactoryWithPrecisionScale;
-declare export var Decimal: sqlTypeFactoryWithPrecisionScale;
-declare export var Real: sqlTypeFactoryWithNoParams;
-declare export var Date: sqlTypeFactoryWithNoParams;
-declare export var DateTime: sqlTypeFactoryWithNoParams;
-declare export var DateTime2: sqlTypeFactoryWithScale;
-declare export var DateTimeOffset: sqlTypeFactoryWithScale;
-declare export var SmallDateTime: sqlTypeFactoryWithNoParams;
-declare export var Time: sqlTypeFactoryWithScale;
-declare export var UniqueIdentifier: sqlTypeFactoryWithNoParams;
-declare export var SmallMoney: sqlTypeFactoryWithNoParams;
-declare export var Money: sqlTypeFactoryWithNoParams;
-declare export var Binary: sqlTypeFactoryWithNoParams;
-declare export var VarBinary: sqlTypeFactoryWithLength;
-declare export var Image: sqlTypeFactoryWithNoParams;
-declare export var Xml: sqlTypeFactoryWithNoParams;
-declare export var Char: sqlTypeFactoryWithLength;
-declare export var NChar: sqlTypeFactoryWithLength;
-declare export var NText: sqlTypeFactoryWithNoParams;
-declare export var TVP: sqlTypeFactoryWithTvpType;
-declare export var UDT: sqlTypeFactoryWithNoParams;
-declare export var Geography: sqlTypeFactoryWithNoParams;
-declare export var Geometry: sqlTypeFactoryWithNoParams;
+export declare var VarChar: sqlTypeFactoryWithLength;
+export declare var NVarChar: sqlTypeFactoryWithLength;
+export declare var Text: sqlTypeFactoryWithNoParams;
+export declare var Int: sqlTypeFactoryWithNoParams;
+export declare var BigInt: sqlTypeFactoryWithNoParams;
+export declare var TinyInt: sqlTypeFactoryWithNoParams;
+export declare var SmallInt: sqlTypeFactoryWithNoParams;
+export declare var Bit: sqlTypeFactoryWithNoParams;
+export declare var Float: sqlTypeFactoryWithNoParams;
+export declare var Numeric: sqlTypeFactoryWithPrecisionScale;
+export declare var Decimal: sqlTypeFactoryWithPrecisionScale;
+export declare var Real: sqlTypeFactoryWithNoParams;
+export declare var Date: sqlTypeFactoryWithNoParams;
+export declare var DateTime: sqlTypeFactoryWithNoParams;
+export declare var DateTime2: sqlTypeFactoryWithScale;
+export declare var DateTimeOffset: sqlTypeFactoryWithScale;
+export declare var SmallDateTime: sqlTypeFactoryWithNoParams;
+export declare var Time: sqlTypeFactoryWithScale;
+export declare var UniqueIdentifier: sqlTypeFactoryWithNoParams;
+export declare var SmallMoney: sqlTypeFactoryWithNoParams;
+export declare var Money: sqlTypeFactoryWithNoParams;
+export declare var Binary: sqlTypeFactoryWithNoParams;
+export declare var VarBinary: sqlTypeFactoryWithLength;
+export declare var Image: sqlTypeFactoryWithNoParams;
+export declare var Xml: sqlTypeFactoryWithNoParams;
+export declare var Char: sqlTypeFactoryWithLength;
+export declare var NChar: sqlTypeFactoryWithLength;
+export declare var NText: sqlTypeFactoryWithNoParams;
+export declare var TVP: sqlTypeFactoryWithTvpType;
+export declare var UDT: sqlTypeFactoryWithNoParams;
+export declare var Geography: sqlTypeFactoryWithNoParams;
+export declare var Geometry: sqlTypeFactoryWithNoParams;
 
-declare export var TYPES: {
+export declare var TYPES: {
     VarChar: sqlTypeFactoryWithLength;
     NVarChar: sqlTypeFactoryWithLength;
     Text: sqlTypeFactoryWithNoParams;
@@ -88,23 +88,23 @@ declare export var TYPES: {
     Geometry: sqlTypeFactoryWithNoParams;
 };
 
-declare export var MAX: number;
-declare export var fix: boolean;
-declare export var Promise: any;
+export declare var MAX: number;
+export declare var fix: boolean;
+export declare var Promise: any;
 
 
 interface IMap extends Array<{ js: any, sql: any }> {
     register(jstype: any, sql: any): void;
 }
 
-declare export var map: IMap;
+export declare var map: IMap;
 
-declare export var DRIVERS: string[];
+export declare var DRIVERS: string[];
 
 type recordSet = any;
 type IIsolationLevel = number;
 
-declare export var ISOLATION_LEVEL: {
+export declare var ISOLATION_LEVEL: {
     READ_UNCOMMITTED: IIsolationLevel
     READ_COMMITTED: IIsolationLevel
     REPEATABLE_READ: IIsolationLevel
@@ -123,7 +123,7 @@ export interface IPool {
     idleTimeoutMillis: number;
 }
 
-declare export var pool: IPool;
+export declare var pool: IPool;
 
 export interface config {
     driver?: string;
@@ -140,7 +140,7 @@ export interface config {
     pool?: IPool;
 }
 
-declare export class Connection extends events.EventEmitter {
+export declare class Connection extends events.EventEmitter {
     public connected: boolean;
     public connecting: boolean;
     public driver: string;
@@ -151,7 +151,7 @@ declare export class Connection extends events.EventEmitter {
     public close(callback: (err: any) => void): void;
 }
 
-declare export class ConnectionError implements Error {
+export declare class ConnectionError implements Error {
     constructor(message: string, code?: any)
     public name: string;
     public message: string;
@@ -166,7 +166,7 @@ declare class rows {
     public add(...row: any[]): void;
 }
 
-declare export class Table {
+export declare class Table {
     public create: boolean;
     public columns: columns;
     public rows: rows;
@@ -186,7 +186,7 @@ interface IRequestParameters {
     }
 }
 
-declare export class Request extends events.EventEmitter {
+export declare class Request extends events.EventEmitter {
     public connection: Connection;
     public transaction: Transaction;
     public pstatement: PreparedStatement;
@@ -217,14 +217,14 @@ declare export class Request extends events.EventEmitter {
     public cancel(): void;
 }
 
-declare export class RequestError implements Error {
+export declare class RequestError implements Error {
     constructor(message: string, code?: any)
     public name: string;
     public message: string;
     public code: string;
 }
 
-declare export class Transaction extends events.EventEmitter {
+export declare class Transaction extends events.EventEmitter {
     public connection: Connection;
     public isolationLevel: IIsolationLevel;
     public constructor(connection?: Connection);
@@ -236,14 +236,14 @@ declare export class Transaction extends events.EventEmitter {
     public rollback(callback: (err?: any) => void): void;
 }
 
-declare export class TransactionError implements Error {
+export declare class TransactionError implements Error {
     constructor(message: string, code?: any)
     public name: string;
     public message: string;
     public code: string;
 }
 
-declare export class PreparedStatement extends events.EventEmitter {
+export declare class PreparedStatement extends events.EventEmitter {
     public connection: Connection;
     public transaction: Transaction;
     public prepared: boolean;
@@ -264,7 +264,7 @@ declare export class PreparedStatement extends events.EventEmitter {
     public unprepare(callback: (err?: any) => void): void;
 }
 
-declare export class PreparedStatementError implements Error {
+export declare class PreparedStatementError implements Error {
     constructor(message: string, code?: any)
     public name: string;
     public message: string;

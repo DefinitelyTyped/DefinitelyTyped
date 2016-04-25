@@ -39,12 +39,12 @@ interface HotpOptions {
     encoding?: string;
 }
 
-declare export function generate_key(options: GenerateOptions): IKey;
+export declare function generate_key(options: GenerateOptions): IKey;
 
-declare export function hotp(options: HotpOptions): string;
+export declare function hotp(options: HotpOptions): string;
 
-declare export function counter(options: HotpOptions): string;
+export declare function counter(options: HotpOptions): string;
 
-declare export function totp(options: TotpOptions): string;
+export declare function totp(options: TotpOptions): string;
 
-declare export function time(options: TotpOptions): string;
+export declare function time(options: TotpOptions): string;

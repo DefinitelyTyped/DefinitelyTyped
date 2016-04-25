@@ -1,5 +1,5 @@
 /// <reference path="ui-grid.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
+/// <reference path="../angularjs/angularjs.d.ts" />
 
 interface IMyEntity {
     name: string;

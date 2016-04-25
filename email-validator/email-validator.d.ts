@@ -4,4 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare export function validate(email: String): boolean;
+export declare function validate(email: String): boolean;

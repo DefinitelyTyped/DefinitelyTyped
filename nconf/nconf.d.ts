@@ -6,40 +6,40 @@
 // Imported from: https://github.com/soywiz/typescript-node-definitions/nconf.d.ts
 
 
-declare export var version: number;
-declare export var stores: any;
-declare export var sources: any[];
+export declare var version: number;
+export declare var stores: any;
+export declare var sources: any[];
 
-declare export function clear(key: string, callback?: ICallbackFunction): any;
-declare export function get(key: string, callback?: ICallbackFunction): any;
-declare export function merge(key: string, value: any, callback?: ICallbackFunction): any;
-declare export function set(key: string, value: any, callback?: ICallbackFunction): any;
-declare export function reset(callback?: ICallbackFunction): any;
+export declare function clear(key: string, callback?: ICallbackFunction): any;
+export declare function get(key: string, callback?: ICallbackFunction): any;
+export declare function merge(key: string, value: any, callback?: ICallbackFunction): any;
+export declare function set(key: string, value: any, callback?: ICallbackFunction): any;
+export declare function reset(callback?: ICallbackFunction): any;
 
-declare export function load(callback?: ICallbackFunction): any;
-declare export function mergeSources(data: any): void;
-declare export function loadSources(): any;
-declare export function save(value: any, callback?: ICallbackFunction): any;
+export declare function load(callback?: ICallbackFunction): any;
+export declare function mergeSources(data: any): void;
+export declare function loadSources(): any;
+export declare function save(value: any, callback?: ICallbackFunction): any;
 
-declare export function add(name: string, options?: IOptions): Provider;
-declare export function argv(options?: IOptions): Provider;
-declare export function env(options?: IOptions): Provider;
-declare export function file(name: string, options?: IFileOptions): Provider;
-declare export function file(name: string, filename: string): Provider;
-declare export function file(options: IFileOptions): Provider;
-declare export function use(name: string, options?: IOptions): Provider;
-declare export function defaults(options?: IOptions): Provider;
-declare export function init(options?: IOptions): void;
-declare export function overrides(options?: IOptions): Provider;
-declare export function remove(name: string): void;
-declare export function create(name: string, options: IOptions): IStore;
+export declare function add(name: string, options?: IOptions): Provider;
+export declare function argv(options?: IOptions): Provider;
+export declare function env(options?: IOptions): Provider;
+export declare function file(name: string, options?: IFileOptions): Provider;
+export declare function file(name: string, filename: string): Provider;
+export declare function file(options: IFileOptions): Provider;
+export declare function use(name: string, options?: IOptions): Provider;
+export declare function defaults(options?: IOptions): Provider;
+export declare function init(options?: IOptions): void;
+export declare function overrides(options?: IOptions): Provider;
+export declare function remove(name: string): void;
+export declare function create(name: string, options: IOptions): IStore;
 
-declare export function key(...values: any[]): string;
-declare export function path(key: any): any[];
-declare export function loadFiles(files: any, callback?: ICallbackFunction): void;
-declare export function loadFilesSync(files: any, callback?: ICallbackFunction): void;
+export declare function key(...values: any[]): string;
+export declare function path(key: any): any[];
+export declare function loadFiles(files: any, callback?: ICallbackFunction): void;
+export declare function loadFilesSync(files: any, callback?: ICallbackFunction): void;
 
-declare export var formats: {
+export declare var formats: {
     json: IFormat;
     ini: IFormat;
 };
@@ -66,7 +66,7 @@ export interface ICallbackFunction {
     (err: Error): void;
 }
 
-declare export class Provider {
+export declare class Provider {
     constructor(options: IOptions);
 
     stores: any;

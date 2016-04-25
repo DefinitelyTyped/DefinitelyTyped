@@ -700,67 +700,67 @@ export interface AlternativesSchema extends AnySchema<FunctionSchema> {
 /**
  * Generates a schema object that matches any data type.
  */
-declare export function any(): Schema;
+export declare function any(): Schema;
 
 /**
  * Generates a schema object that matches an array data type.
  */
-declare export function array(): ArraySchema;
+export declare function array(): ArraySchema;
 
 /**
  * Generates a schema object that matches a boolean data type (as well as the strings 'true', 'false', 'yes', and 'no'). Can also be called via bool().
  */
-declare export function bool(): BooleanSchema;
+export declare function bool(): BooleanSchema;
 
-declare export function boolean(): BooleanSchema;
+export declare function boolean(): BooleanSchema;
 
 /**
  * Generates a schema object that matches a Buffer data type (as well as the strings which will be converted to Buffers).
  */
-declare export function binary(): BinarySchema;
+export declare function binary(): BinarySchema;
 
 /**
  * Generates a schema object that matches a date type (as well as a JavaScript date string or number of milliseconds).
  */
-declare export function date(): DateSchema;
+export declare function date(): DateSchema;
 
 /**
  * Generates a schema object that matches a function type.
  */
-declare export function func(): FunctionSchema;
+export declare function func(): FunctionSchema;
 
 /**
  * Generates a schema object that matches a number data type (as well as strings that can be converted to numbers).
  */
-declare export function number(): NumberSchema;
+export declare function number(): NumberSchema;
 
 /**
  * Generates a schema object that matches an object data type (as well as JSON strings that parsed into objects).
  */
-declare export function object(schema?: SchemaMap): ObjectSchema;
+export declare function object(schema?: SchemaMap): ObjectSchema;
 
 /**
  * Generates a schema object that matches a string data type. Note that empty strings are not allowed by default and must be enabled with allow('').
  */
-declare export function string(): StringSchema;
+export declare function string(): StringSchema;
 
 /**
  * Generates a type that will match one of the provided alternative schemas
  */
-declare export function alternatives(types: Schema[]): Schema;
-declare export function alternatives(type1: Schema, type2: Schema, ...types: Schema[]): Schema;
+export declare function alternatives(types: Schema[]): Schema;
+export declare function alternatives(type1: Schema, type2: Schema, ...types: Schema[]): Schema;
 
 /**
  * Validates a value using the given schema and options.
  */
-declare export function validate<T>(value: T, schema: Schema, callback: (err: ValidationError, value: T) => void): void;
-declare export function validate<T>(value: T, schema: Object, callback: (err: ValidationError, value: T) => void): void;
-declare export function validate<T>(value: T, schema: Object, options?: ValidationOptions, callback?: (err: ValidationError, value: T) => void): ValidationResult<T>;
+export declare function validate<T>(value: T, schema: Schema, callback: (err: ValidationError, value: T) => void): void;
+export declare function validate<T>(value: T, schema: Object, callback: (err: ValidationError, value: T) => void): void;
+export declare function validate<T>(value: T, schema: Object, options?: ValidationOptions, callback?: (err: ValidationError, value: T) => void): ValidationResult<T>;
 
 /**
  * Converts literal schema definition to joi schema object (or returns the same back if already a joi schema object).
  */
-declare export function compile(schema: Object): Schema;
+export declare function compile(schema: Object): Schema;
 
 /**
  * Validates a value against a schema and throws if validation fails.
@@ -769,9 +769,9 @@ declare export function compile(schema: Object): Schema;
  * @param schema - the schema object.
  * @param message - optional message string prefix added in front of the error message. may also be an Error object.
  */
-declare export function assert(value: any, schema: Schema, message?: string | Error): void;
+export declare function assert(value: any, schema: Schema, message?: string | Error): void;
 
 /**
  * Generates a reference to the value of the named key.
  */
-declare export function ref(key: string, options?: ReferenceOptions): Reference;
+export declare function ref(key: string, options?: ReferenceOptions): Reference;

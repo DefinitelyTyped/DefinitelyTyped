@@ -3,4 +3,4 @@
 // Definitions by: Ray Martone <https://github.com/rmartone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare export function md5(value: string, key?: string, raw?: boolean): string;
+export declare function md5(value: string, key?: string, raw?: boolean): string;

@@ -6,9 +6,9 @@
 // Imported from: https://github.com/soywiz/typescript-node-definitions/timezone-js.d.ts
 
 
-declare export var timezone: TimezoneJs;
+export declare var timezone: TimezoneJs;
 
-declare export class Date {
+export declare class Date {
     constructor(timezone?: string);
     // Note due to naming conflict I have not found a way to introduce the constructor
     // that takes a regular Date object. Instead, I defined it to take an Object.
@@ -85,7 +85,7 @@ export interface TimezoneJsOptions {
     url?: string;
 }
 
-declare export class TimezoneJsLoadingSchemes {
+export declare class TimezoneJsLoadingSchemes {
     PRELOAD_ALL: number;
     LAZY_LOAD: number;
     MANUAL_LOAD: number;

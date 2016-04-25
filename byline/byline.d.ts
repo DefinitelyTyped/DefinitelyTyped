@@ -31,7 +31,7 @@ export interface LineStreamCreatable extends LineStream {
 // ():LineStream; // same as createStream():LineStream
 // (stream:stream.Stream, options?:LineStreamOptions):LineStream; // same as createStream(stream, options?):LineStream
 
-declare export function createStream(): LineStream;
-declare export function createStream(stream: NodeJS.ReadableStream, options?: LineStreamOptions): LineStream;
+export declare function createStream(): LineStream;
+export declare function createStream(stream: NodeJS.ReadableStream, options?: LineStreamOptions): LineStream;
 
-declare export var LineStream: LineStreamCreatable;
+export declare var LineStream: LineStreamCreatable;

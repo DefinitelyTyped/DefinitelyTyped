@@ -8,7 +8,7 @@
 
 
 import stream = require('stream');
-declare export module streams {
+export declare module streams {
     export function convert(options: IStreamConvertOptions): stream.Transform;
 }
 

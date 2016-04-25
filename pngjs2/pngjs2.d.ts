@@ -32,7 +32,7 @@ interface PNGMetadata {
     interlace: boolean;
 }
 
-declare export class PNG extends stream.Writable {
+export declare class PNG extends stream.Writable {
     constructor(options?: PNGOptions);
 
     width: number;
@@ -56,7 +56,7 @@ declare export class PNG extends stream.Writable {
         width: number, height: number, deltaX: number, deltaY: number): PNG;
 }
 
-declare export namespace PNG {
+export declare namespace PNG {
     namespace sync {
         function read(buffer: string | Buffer, options?: PNGOptions): PNG;
     }

@@ -41,7 +41,7 @@ export interface AddOptions {
  * @param name The name parameter specifies the name of the created service.
  * @param opts Options
  */
-declare export function add(name: string, opts?: AddOptions): void;
+export declare function add(name: string, opts?: AddOptions): void;
 
 
 /**
@@ -51,7 +51,7 @@ declare export function add(name: string, opts?: AddOptions): void;
  * it is to be removed.
  * An exception will be thrown if the service could not be removed. The error will be an instance of the Error class.
  */
-declare export function remove(name: string): void;
+export declare function remove(name: string): void;
 
 /**
  * The run() function will connect the calling program to the Windows Service Control Manager, allowing the program to run as a Windows service.
@@ -61,8 +61,8 @@ declare export function remove(name: string): void;
  * called when the service receives a stop request, e.g. because the Windows Service Controller was used to send a stop request to the service.
  * The program should perform cleanup tasks and then call the service.stop() function.
  */
-declare export function run(stdoutLogStream: stream.Writable, callback: () => void): void;
-declare export function run(stdoutLogStream: stream.Writable, stderrLogStream: stream.Writable, callback: () => void): void;
+export declare function run(stdoutLogStream: stream.Writable, callback: () => void): void;
+export declare function run(stdoutLogStream: stream.Writable, stderrLogStream: stream.Writable, callback: () => void): void;
 
 /**
  * The stop() function will cause the service to stop, and the calling program to exit.
@@ -70,4 +70,4 @@ declare export function run(stdoutLogStream: stream.Writable, stderrLogStream: s
  * parameter which defaults to 0. Before calling this function ensure the program has finished performing cleanup tasks.
  * BE AWARE, THIS FUNCTION WILL NOT RETURN.
  */
-declare export function stop(rcode?: number): void;
+export declare function stop(rcode?: number): void;

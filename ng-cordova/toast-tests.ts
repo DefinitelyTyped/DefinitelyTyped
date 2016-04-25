@@ -1,5 +1,5 @@
 /// <reference path="toast.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
+/// <reference path="../angularjs/angularjs.d.ts" />
 /// <reference path="../ionic/ionic.d.ts" />
 
 // For the full application demo please see following repo :

@@ -5,7 +5,7 @@
 /// <reference path="../node/node.d.ts" />
 
 
-declare export var EVENTS: string[];
+export declare var EVENTS: string[];
 
 interface SAXOptions {
     trim?: boolean;
@@ -42,8 +42,8 @@ export interface Tag extends BaseTag {
     attributes: { [key: string]: string };
 }
 
-declare export function parser(strict: boolean, opt: SAXOptions): SAXParser;
-declare export class SAXParser {
+export declare function parser(strict: boolean, opt: SAXOptions): SAXParser;
+export declare class SAXParser {
     constructor(strict: boolean, opt: SAXOptions);
 
     // Methods
@@ -84,8 +84,8 @@ declare export class SAXParser {
 }
 
 import stream = require("stream");
-declare export function createStream(strict: boolean, opt: SAXOptions): SAXStream;
-declare export class SAXStream extends stream.Duplex {
+export declare function createStream(strict: boolean, opt: SAXOptions): SAXStream;
+export declare class SAXStream extends stream.Duplex {
     constructor(strict: boolean, opt: SAXOptions);
     private _parser: SAXParser;
 }

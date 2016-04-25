@@ -10,22 +10,22 @@
 
 import child_process = require("child_process");
 
-declare export function identify(path: string, callback: (err: Error, features: Features) => void): child_process.ChildProcess;
-declare export function identify(path: any[], callback: (err: Error, result: string) => void): child_process.ChildProcess;
-declare export module identify {
+export declare function identify(path: string, callback: (err: Error, features: Features) => void): child_process.ChildProcess;
+export declare function identify(path: any[], callback: (err: Error, result: string) => void): child_process.ChildProcess;
+export declare module identify {
     export var path: string;
 }
-declare export function readMetadata(path: string, callback: (err: Error, result: any) => void): child_process.ChildProcess;
+export declare function readMetadata(path: string, callback: (err: Error, result: any) => void): child_process.ChildProcess;
 
-declare export function convert(args: any, callback: (err: Error, result: any) => void): child_process.ChildProcess;
-declare export function convert(args: any, timeout: number, callback: (err: Error, result: any) => void): child_process.ChildProcess;
-declare export module convert {
+export declare function convert(args: any, callback: (err: Error, result: any) => void): child_process.ChildProcess;
+export declare function convert(args: any, timeout: number, callback: (err: Error, result: any) => void): child_process.ChildProcess;
+export declare module convert {
     export var path: string;
 }
 
-declare export function resize(options: Options, callback: (err: Error, result: any) => void): child_process.ChildProcess;
-declare export function crop(options: Options, callback: (err: Error, result: any) => void): child_process.ChildProcess;
-declare export function resizeArgs(options: Options): ResizeArgs;
+export declare function resize(options: Options, callback: (err: Error, result: any) => void): child_process.ChildProcess;
+export declare function crop(options: Options, callback: (err: Error, result: any) => void): child_process.ChildProcess;
+export declare function resizeArgs(options: Options): ResizeArgs;
 
 export interface Features {
     format?: string;

@@ -19,4 +19,4 @@ interface Options {
     verbose?: boolean;
 }
 
-declare export function bundle(opts: Options): void;
+export declare function bundle(opts: Options): void;

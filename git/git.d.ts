@@ -5,7 +5,7 @@
 
 
 // lib/git/git.js
-declare export class Git {
+export declare class Git {
 
     constructor(gitDirectory: any);
 
@@ -112,7 +112,7 @@ declare export class Git {
 }
 
 // lib/git/actor.js
-declare export class Actor {
+export declare class Actor {
     name: string;
     email: string;
 
@@ -122,7 +122,7 @@ declare export class Actor {
 }
 
 // lib/git/blame.js
-declare export class Blame {
+export declare class Blame {
     repo: Repo;
     file: string;
     commit: string;
@@ -134,7 +134,7 @@ declare export class Blame {
 }
 
 // lib/git/blame_line.js
-declare export class BlameLine {
+export declare class BlameLine {
     lineno: number;
     oldlineno: number;
     commit: any;
@@ -144,7 +144,7 @@ declare export class BlameLine {
 }
 
 // lib/git/blob.js
-declare export class Blob {
+export declare class Blob {
     repo: Repo;
     id: any;
     mode: any;
@@ -160,7 +160,7 @@ declare export class Blob {
 }
 
 // lib/git/commit.js
-declare export class Commit {
+export declare class Commit {
     repo: Repo;
     id: string;
     parents: any[];
@@ -205,7 +205,7 @@ declare export class Commit {
 }
 
 // lib/git/commit_stats.js
-declare export class CommitStats {
+export declare class CommitStats {
     repo: any;
     id: any;
     files: any[];
@@ -223,7 +223,7 @@ declare export class CommitStats {
 }
 
 // lib/git/config.js
-declare export class Config {
+export declare class Config {
     repo: any;
     data: any;
 
@@ -235,7 +235,7 @@ declare export class Config {
 }
 
 // lib/git/diff.js
-declare export class Diff {
+export declare class Diff {
     repo: any;
     a_path: any;
     b_path: any;
@@ -253,7 +253,7 @@ declare export class Diff {
 }
 
 // lib/git/file_index/js
-declare export class FileIndex {
+export declare class FileIndex {
     repo_path: any;
     index_file: any;
     sha_count: any;
@@ -279,7 +279,7 @@ declare export class FileIndex {
 }
 
 // lib/git/file_window.js
-declare export class FileWindow {
+export declare class FileWindow {
     idxfile: any;
     version: any;
     global_offset: any;
@@ -298,7 +298,7 @@ declare export class FileWindow {
 }
 
 // lib/git/git_file_operations.js
-declare export class GitFileOperations {
+export declare class GitFileOperations {
     static glob_streaming(path: any): any;
 
     static glob(path: any, callback: Function): void;
@@ -317,7 +317,7 @@ declare export class GitFileOperations {
 }
 
 // lib/git/git_index.js
-declare export class GitIndex {
+export declare class GitIndex {
     repo: any;
     tree: any;
     current_tree: any;
@@ -344,12 +344,12 @@ declare export class GitIndex {
 }
 
 // lib/git/git_object.js
-declare export class GitObject {
+export declare class GitObject {
     static from_raw(rawObject: any, repository: any): any;
 }
 
 // lib/git/head.js
-declare export class Head {
+export declare class Head {
     name: string;
     commit: any; // string or Commit or ...?
 
@@ -365,7 +365,7 @@ declare export class Head {
 }
 
 // lib/git/loose_storage.js
-declare export class LooseStorage {
+export declare class LooseStorage {
     directory: any;
 
     constructor(directory: any);
@@ -384,7 +384,7 @@ declare export class LooseStorage {
 }
 
 // lib/git/merge.js
-declare export class Merge {
+export declare class Merge {
     static STATUS_BOTH: string;
     static STATUS_OURS: string;
     static STATUS_THEIRS: string;
@@ -397,7 +397,7 @@ declare export class Merge {
 }
 
 // lib/git/pack_storage.js
-declare export class PackStorage {
+export declare class PackStorage {
     name: any;
     cache: any;
     version: any;
@@ -418,7 +418,7 @@ declare export class PackStorage {
 }
 
 // lib/git/raw.js
-declare export class RawObject {
+export declare class RawObject {
     type: any;
     content: any;
 
@@ -430,11 +430,11 @@ declare export class RawObject {
 }
 
 // lib/git/ref.js
-declare export class Ref {
+export declare class Ref {
 }
 
 // lib/git/remote.js
-declare export class Remote {
+export declare class Remote {
     constructor(name: any, commit: any);
 
     find_all(repo: any, callback: Function): void;
@@ -443,7 +443,7 @@ declare export class Remote {
 }
 
 // lib/git/repo.js
-declare export class Repo {
+export declare class Repo {
     path: string;
     options: any;
     git: any;
@@ -550,7 +550,7 @@ declare export class Repo {
 }
 
 // lib/git/repository.js
-declare export class Repository {
+export declare class Repository {
     git_directory: any;
     options: any;
     already_searched: any;
@@ -597,7 +597,7 @@ declare export class Repository {
 }
 
 // lib/git/status.js
-declare export class Status {
+export declare class Status {
     repo: any;
     files: any[];
 
@@ -607,7 +607,7 @@ declare export class Status {
 }
 
 // lib/git/status_file.js
-declare export class StatusFile {
+export declare class StatusFile {
     repo: any;
     path: any;
     type: any;
@@ -622,7 +622,7 @@ declare export class StatusFile {
 }
 
 // lib/git/sub_module.js
-declare export class Submodule {
+export declare class Submodule {
     repo: any;
     id: any;
     mode: any;
@@ -637,7 +637,7 @@ declare export class Submodule {
 }
 
 // lib/git/tag.js
-declare export class Tag {
+export declare class Tag {
     name: any;
     commit: any;
 
@@ -649,7 +649,7 @@ declare export class Tag {
 }
 
 // lib/git/tree.js
-declare export class Tree {
+export declare class Tree {
     repo: any;
     id: any;
     mode: any;
@@ -669,7 +669,7 @@ declare export class Tree {
 }
 
 // lib/git/user_info.js
-declare export class UserInfo {
+export declare class UserInfo {
     name: any;
     email: any;
     date: any;

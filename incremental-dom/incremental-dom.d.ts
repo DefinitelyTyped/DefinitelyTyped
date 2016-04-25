@@ -12,7 +12,7 @@
  *     calls that describe the DOM.
  * @param {?T} data An argument passed to fn to represent DOM state.
  */
-declare export var patch: <T>(el: Node, fn: (data: T) => void, data?: T) => void;
+export declare var patch: <T>(el: Node, fn: (data: T) => void, data?: T) => void;
 
 /**
  * Declares a virtual Element at the current location in the document. This
@@ -27,7 +27,7 @@ declare export var patch: <T>(el: Node, fn: (data: T) => void, data?: T) => void
  * @param {...*} var_args Attribute name/value pairs of the dynamic attributes
  *     for the Element.
  */
-declare export var elementOpen: (tag: string, key?: string, statics?: any[], ...var_args: any[]) => void;
+export declare var elementOpen: (tag: string, key?: string, statics?: any[], ...var_args: any[]) => void;
 /**
  * Declares a virtual Element at the current location in the document. This
  * corresponds to an opening tag and a elementClose tag is required. This is
@@ -42,7 +42,7 @@ declare export var elementOpen: (tag: string, key?: string, statics?: any[], ...
  *     static attributes for the Element. These will only be set once when the
  *     Element is created.
  */
-declare export var elementOpenStart: (tag: string, key?: any, ...statics: any[]) => void;
+export declare var elementOpenStart: (tag: string, key?: any, ...statics: any[]) => void;
 /***
  * Defines a virtual attribute at this point of the DOM. This is only valid
  * when called between elementOpenStart and elementOpenEnd.
@@ -50,15 +50,15 @@ declare export var elementOpenStart: (tag: string, key?: any, ...statics: any[])
  * @param {string} name
  * @param {*} value
  */
-declare export var attr: (name: string, value: any) => void;
+export declare var attr: (name: string, value: any) => void;
 /**
  * Closes an open tag started with elementOpenStart.
  */
-declare export var elementOpenEnd: () => void;
+export declare var elementOpenEnd: () => void;
 /**
  * Closes an open virtual Element.
  */
-declare export var elementClose: (tag: string) => void;
+export declare var elementClose: (tag: string) => void;
 /**
  * Declares a virtual Element at the current location in the document that has
  * no children.
@@ -72,10 +72,10 @@ declare export var elementClose: (tag: string) => void;
  * @param {...*} var_args Attribute name/value pairs of the dynamic attributes
  *     for the Element.
  */
-declare export var elementVoid: (tag: string, key?: string, statics?: any, ...var_args: any[]) => void;
+export declare var elementVoid: (tag: string, key?: string, statics?: any, ...var_args: any[]) => void;
 /**
  * Declares a virtual Text at this point in the document.
  *
  * @param {string} value The text of the Text.
  */
-declare export var text: (value: string) => void;
+export declare var text: (value: string) => void;

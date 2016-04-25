@@ -8,11 +8,11 @@
 
 import events = require("events");
 
-declare export var OPEN_READONLY: number;
-declare export var OPEN_READWRITE: number;
-declare export var OPEN_CREATE: number;
+export declare var OPEN_READONLY: number;
+export declare var OPEN_READWRITE: number;
+export declare var OPEN_CREATE: number;
 
-declare export var cached: {
+export declare var cached: {
     Database(filename: string, callback?: (err: Error) => void): Database;
     Database(filename: string, mode?: number, callback?: (err: Error) => void): Database;
 };
@@ -22,7 +22,7 @@ export interface RunResult {
     changes: number;
 }
 
-declare export class Statement {
+export declare class Statement {
     public bind(callback?: (err: Error) => void): Statement;
     public bind(...params: any[]): Statement;
 
@@ -43,7 +43,7 @@ declare export class Statement {
     public each(...params: any[]): Statement;
 }
 
-declare export class Database extends events.EventEmitter {
+export declare class Database extends events.EventEmitter {
     constructor(filename: string, callback?: (err: Error) => void);
     constructor(filename: string, mode?: number, callback?: (err: Error) => void);
 

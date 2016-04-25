@@ -1044,7 +1044,7 @@ console.error('request aborted');
 
 return reply.continue();
 });*/
-declare export class Request extends Events.EventEmitter {
+export declare class Request extends Events.EventEmitter {
     /** application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name].*/
     app: any;
     /**  authentication information*/
@@ -1309,7 +1309,7 @@ console.log(hash.digest('hex'));
 
 return reply.continue();
 });*/
-declare export class Response extends Events.EventEmitter {
+export declare class Response extends Events.EventEmitter {
     /**  the HTTP response status code. Defaults to 200 (except for errors).*/
     statusCode: number;
     /** an object containing the response headers where each key is a header field name. Note that this is an incomplete list of headers to be included with the response. Additional headers will be added once the response is prepare for transmission.*/
@@ -1421,7 +1421,7 @@ The server object inherits from Events.EventEmitter and emits the following even
 'tail' - emitted when a request finished processing, including any registered tails. Single event per request.
 Note that the server object should not be used to emit application events as its internal implementation is designed to fan events out to the various plugin selections and not for application events.
 MORE EVENTS HERE: http://hapijs.com/api#server-events*/
-declare export class Server extends Events.EventEmitter {
+export declare class Server extends Events.EventEmitter {
 
     constructor(options?: IServerOptions);
     /** Provides a safe place to store server-specific run-time application data without potential conflicts with the framework internals. The data can be accessed whenever the server is accessible. Initialized with an empty object.

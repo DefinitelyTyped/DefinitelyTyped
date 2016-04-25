@@ -51,12 +51,12 @@ export interface Transporter {
 /**
  * Create a direct transporter
  */
-declare export function createTransport(options?: directTransport.DirectOptions, defaults?: Object): Transporter;
+export declare function createTransport(options?: directTransport.DirectOptions, defaults?: Object): Transporter;
 /**
  * Create an SMTP transporter
  */
-declare export function createTransport(options?: smtpTransport.SmtpOptions, defaults?: Object): Transporter;
+export declare function createTransport(options?: smtpTransport.SmtpOptions, defaults?: Object): Transporter;
 /**
  * Create a transporter from a given implementation
  */
-declare export function createTransport(transport: Transport, defaults?: Object): Transporter;
+export declare function createTransport(transport: Transport, defaults?: Object): Transporter;

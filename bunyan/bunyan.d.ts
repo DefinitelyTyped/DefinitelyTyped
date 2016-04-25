@@ -72,18 +72,18 @@ interface Stream {
     count?: number;
 }
 
-declare export var stdSerializers: Serializers;
+export declare var stdSerializers: Serializers;
 
-declare export var TRACE: number;
-declare export var DEBUG: number;
-declare export var INFO: number;
-declare export var WARN: number;
-declare export var ERROR: number;
-declare export var FATAL: number;
+export declare var TRACE: number;
+export declare var DEBUG: number;
+export declare var INFO: number;
+export declare var WARN: number;
+export declare var ERROR: number;
+export declare var FATAL: number;
 
-declare export function resolveLevel(value: number | string): number;
+export declare function resolveLevel(value: number | string): number;
 
-declare export function createLogger(options: LoggerOptions): Logger;
+export declare function createLogger(options: LoggerOptions): Logger;
 
 declare class RingBuffer extends EventEmitter {
     constructor(options: RingBufferOptions);
@@ -101,4 +101,4 @@ interface RingBufferOptions {
     limit?: number;
 }
 
-declare export function safeCycles(): (key: string, value: any) => any;
+export declare function safeCycles(): (key: string, value: any) => any;

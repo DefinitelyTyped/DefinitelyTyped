@@ -96,7 +96,7 @@ export interface FtpServerOptions {
  *                     On successful login, success should be called with a username argument. It may also optionally
  *                     be given a second argument, which should be an object providing an implementation of the API for Node's fs module.
  */
-declare export class FtpConnection extends events.EventEmitter {
+export declare class FtpConnection extends events.EventEmitter {
     server: FtpServer;
     socket: net.Socket;
     pasv: net.Server;
@@ -175,7 +175,7 @@ export interface FtpFileSystem {
  * @event error net.Server error event
  * @event client:connected  (connection: FtpConnection)
  */
-declare export class FtpServer extends events.EventEmitter {
+export declare class FtpServer extends events.EventEmitter {
 
     /**
      * @param host host is a string representation of the IP address clients use to connect to the FTP server.

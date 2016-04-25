@@ -9,7 +9,7 @@
 
 import {ReactElement, Component, StatelessComponent, ComponentClass, HTMLAttributes} from "react";
 
-declare export class ElementClass extends Component<any, any> {
+export declare class ElementClass extends Component<any, any> {
 }
 
 /**
@@ -389,22 +389,22 @@ export interface CheerioWrapper<P, S> extends CommonWrapper<P, S> {
  * @param node
  * @param [options]
  */
-declare export function shallow<P, S>(node: ReactElement<P>, options?: any): ShallowWrapper<P, S>;
+export declare function shallow<P, S>(node: ReactElement<P>, options?: any): ShallowWrapper<P, S>;
 
 /**
  * Mounts and renders a react component into the document and provides a testing wrapper around it.
  * @param node
  * @param [options]
  */
-declare export function mount<P, S>(node: ReactElement<P>, options?: any): ReactWrapper<P, S>;
+export declare function mount<P, S>(node: ReactElement<P>, options?: any): ReactWrapper<P, S>;
 
 /**
  * Render react components to static HTML and analyze the resulting HTML structure.
  * @param node
  * @param [options]
  */
-declare export function render<P, S>(node: ReactElement<P>, options?: any): CheerioWrapper<P, S>;
+export declare function render<P, S>(node: ReactElement<P>, options?: any): CheerioWrapper<P, S>;
 
-declare export function describeWithDOM(description: String, fn: Function): void;
+export declare function describeWithDOM(description: String, fn: Function): void;
 
-declare export function spyLifecycle(component: typeof Component): void;
+export declare function spyLifecycle(component: typeof Component): void;

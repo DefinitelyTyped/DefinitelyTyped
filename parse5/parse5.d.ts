@@ -19,7 +19,7 @@ import * as events from "events";
  * var parse5 = require('parse5');
  * var document = parse5.parse('<!DOCTYPE html><html><head></head><body>Hi there!</body></html>');
  */
-declare export function parse(html: string, options?: ParserOptions): ASTNode;
+export declare function parse(html: string, options?: ParserOptions): ASTNode;
 
 /**
  * Parses an HTML fragment.
@@ -32,15 +32,15 @@ declare export function parse(html: string, options?: ParserOptions): ASTNode;
  * // Parses the html fragment in the context of the parsed <table> element.
  * var trFragment = parser.parseFragment(documentFragment.childNodes[0], '<tr><td>Shake it, baby</td></tr>');
  */
-declare export function parseFragment(html: string, options?: ParserOptions): ASTNode;
-declare export function parseFragment(fragmentContext: any, html: string, options?: ParserOptions): ASTNode;
+export declare function parseFragment(html: string, options?: ParserOptions): ASTNode;
+export declare function parseFragment(fragmentContext: any, html: string, options?: ParserOptions): ASTNode;
 
 /**
  * Serializes an AST node to an HTML string.
  * @param node Node to serialize.
  * @param options Serialization options
  */
-declare export function serialize(node: ASTNode, options?: SerializerOptions): string;
+export declare function serialize(node: ASTNode, options?: SerializerOptions): string;
 
 export interface ASTAttribute {
     name: string;
@@ -86,7 +86,7 @@ export interface LocationInfo {
 /**
  * Streaming AST node to an HTML serializer. A readable stream.
  */
-declare export class SerializerStream extends stream.Readable {
+export declare class SerializerStream extends stream.Readable {
     /**
      * Streaming AST node to an HTML serializer. A readable stream.
      * 
@@ -99,7 +99,7 @@ declare export class SerializerStream extends stream.Readable {
 /**
  * Streaming HTML parser with scripting support. A writable stream.
  */
-declare export class ParserStream extends stream.Writable {
+export declare class ParserStream extends stream.Writable {
     /**
      * @param options Parsing options.
      */
@@ -120,7 +120,7 @@ declare export class ParserStream extends stream.Writable {
     on(event: 'script', listener: (scriptElement: ASTNode, documentWrite: (html: string) => void, resume: Function) => void): this;
 }
 
-declare export class SAXParser extends stream.Transform {
+export declare class SAXParser extends stream.Transform {
     constructor(options?: SAXParserOptions);
     on(event: string, listener: Function): this;
     /**
@@ -220,7 +220,7 @@ export interface ElementLocationInfo {
 /**
  * Provides built-in tree adapters that can be used for parsing and serialization.
  */
-declare export var treeAdapters: {
+export declare var treeAdapters: {
     /**
      * Default tree format for parse5.
      */

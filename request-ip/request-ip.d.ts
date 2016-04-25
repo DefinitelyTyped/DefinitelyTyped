@@ -28,4 +28,4 @@ interface Request {
     };
 }
 
-declare export function getClientIp(req: Request): string;
+export declare function getClientIp(req: Request): string;

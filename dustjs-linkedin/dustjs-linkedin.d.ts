@@ -99,7 +99,7 @@ export interface Stream {
 * @param name the unique template name. 
 * @param tmpl the template function. 
 */
-declare export function register(name: string, tmpl: Template): void;
+export declare function register(name: string, tmpl: Template): void;
 
 /**
 * compile a template body into a string of JavaScript source code
@@ -107,27 +107,27 @@ declare export function register(name: string, tmpl: Template): void;
 * @param name the name used to register the compiled template into the internal cache. See render().
 * @strip strip whitespaces from the output. Defaults to false.
 */
-declare export function compile(source: string, name: string, strip?: boolean): string;
+export declare function compile(source: string, name: string, strip?: boolean): string;
 
 /**
 * Compiles source directly into a JavaScript function that takes a context and an optional callback (see dust.renderSource). Registers the template under [name] if this argument is supplied.
 * @param source the template string
 * @param name the template name (optional). 
 */
-declare export function compileFn(source: string, name?: string): Template;
+export declare function compileFn(source: string, name?: string): Template;
 
 /**
 * Evaluates a compiled source string. 
 */
-declare export function loadSource(compiled: string): Template;
+export declare function loadSource(compiled: string): Template;
 
 /**
 * Renders the named template and calls callback on completion.context may be a plain object or an instance of dust.Context.
 * @param name the template name.
 * @param context a plain object or an instance of dust.Context.
 */
-declare export function render(name: string, context: any, callback: (err: any, out: string) => any);
-declare export function render(name: string, context: Context, callback: (err: any, out: string) => any);
+export declare function render(name: string, context: any, callback: (err: any, out: string) => any);
+export declare function render(name: string, context: Context, callback: (err: any, out: string) => any);
 
 /**
 * Compiles and renders source, invoking callback on completion. If no callback is supplied this function returns a Stream object. Use this function when precompilation is not required.
@@ -135,28 +135,28 @@ declare export function render(name: string, context: Context, callback: (err: a
 * @param context a plain object or an instance of dust.Context.
 * @param callback (optional). If supplied the callback will be called passing the result string. If omitted, renderSource() will return a dust.Stream object.
 */
-declare export function renderSource(source: string, context: any): Stream;
-declare export function renderSource(source: string, context: Context): Stream;
-declare export function renderSource(source: string, context: any, callback: (err: any, out: string) => any): void;
-declare export function renderSource(source: string, context: Context, callback: (err: any, out: string) => any): void;
+export declare function renderSource(source: string, context: any): Stream;
+export declare function renderSource(source: string, context: Context): Stream;
+export declare function renderSource(source: string, context: any, callback: (err: any, out: string) => any): void;
+export declare function renderSource(source: string, context: Context, callback: (err: any, out: string) => any): void;
 
 /**
 * Streams the named template. context may be a plain object or an instance of dust.Context. Returns an instance of dust.Stream.
 * @param name the template name.
 * @param context a plain object or an instance of dust.Context.
 */
-declare export function stream(name: string, context: any): Stream;
-declare export function stream(name: string, context: Context): Stream;
+export declare function stream(name: string, context: any): Stream;
+export declare function stream(name: string, context: Context): Stream;
 
 /**
 * Manufactures a dust.Context instance with its global object set to object.
 * @param global a plain object or an instance of dust.Context.
 */
-declare export function makeBase(global: any): Context;
-declare export function makeBase(global: Context): Context;
+export declare function makeBase(global: any): Context;
+export declare function makeBase(global: Context): Context;
 
-declare export function escapeHtml(html: string): string;
-declare export function escapeJs(js: string): string;
+export declare function escapeHtml(html: string): string;
+export declare function escapeJs(js: string): string;
 
 declare var helpers: {
     [key: string]: (chk: Chunk, ctx: Context, bodies?: any, params?: any) => any;

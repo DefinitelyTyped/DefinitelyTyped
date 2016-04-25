@@ -10,7 +10,7 @@ import http = require('http');
 import events = require('events');
 import stream = require('stream');
 
-declare export class Form extends events.EventEmitter {
+export declare class Form extends events.EventEmitter {
     constructor(options?: FormOptions);
     /**
      * Parses an incoming node.js request containing form data.

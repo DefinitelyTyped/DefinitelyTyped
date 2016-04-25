@@ -22,14 +22,14 @@ export interface Options {
     output?: NodeJS.WritableStream;
 }
 
-declare export function prompt(message: string, fn?: Callback): any;
-declare export function prompt(message: string, opts: Options, fn?: Callback): any;
+export declare function prompt(message: string, fn?: Callback): any;
+export declare function prompt(message: string, opts: Options, fn?: Callback): any;
 
-declare export function password(message: string, fn?: Callback): any;
-declare export function password(message: string, opts: Options, fn?: Callback): any;
+export declare function password(message: string, fn?: Callback): any;
+export declare function password(message: string, opts: Options, fn?: Callback): any;
 
-declare export function confirm(message: string, fn?: Callback): any;
-declare export function confirm(message: string, opts: Options, fn?: Callback): any;
+export declare function confirm(message: string, fn?: Callback): any;
+export declare function confirm(message: string, opts: Options, fn?: Callback): any;
 
-declare export function choose(message: string, choices: string[], fn?: Callback): any;
-declare export function choose(message: string, choices: string[], opts: Options, fn?: Callback): any;
+export declare function choose(message: string, choices: string[], fn?: Callback): any;
+export declare function choose(message: string, choices: string[], opts: Options, fn?: Callback): any;

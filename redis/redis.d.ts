@@ -8,13 +8,13 @@
 /// <reference path="../node/node.d.ts" />
 
 
-declare export function createClient(port_arg: number, host_arg?: string, options?: ClientOpts): RedisClient;
-declare export function createClient(unix_socket: string, options?: ClientOpts): RedisClient;
-declare export function createClient(options?: ClientOpts): RedisClient;
+export declare function createClient(port_arg: number, host_arg?: string, options?: ClientOpts): RedisClient;
+export declare function createClient(unix_socket: string, options?: ClientOpts): RedisClient;
+export declare function createClient(options?: ClientOpts): RedisClient;
 
-declare export function print(err: Error, reply: any): void;
+export declare function print(err: Error, reply: any): void;
 
-declare export var debug_mode: boolean;
+export declare var debug_mode: boolean;
 
 export interface MessageHandler<M> {
     (channel: string, message: M): void;

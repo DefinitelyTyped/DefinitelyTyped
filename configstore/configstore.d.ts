@@ -7,17 +7,17 @@
 /*
  Set an item
  */
-declare export function set(key: string, val: any): void;
+export declare function set(key: string, val: any): void;
 
 /*
  Get an item
  */
-declare export function get(key: string): any;
+export declare function get(key: string): any;
 
 /*
  Delete an item
  */
-declare export function del(key: string): void;
+export declare function del(key: string): void;
 
 /*
  Get all items as an object or replace the current config with an object:
@@ -26,12 +26,12 @@ declare export function del(key: string): void;
     hello: 'world'
  };
  */
-declare export var all: Object;
+export declare var all: Object;
 /*
  Get the item count
  */
-declare export var size: number;
+export declare var size: number;
 /*
  Get the path to the config file. Can be used to show the user where the config file is located or even better open it for them.
  */
-declare export var path: string;
+export declare var path: string;

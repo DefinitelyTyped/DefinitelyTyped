@@ -4,4 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare export function parse(code: string, options?: Object): Object;
+export declare function parse(code: string, options?: Object): Object;

@@ -4,5 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare export function get(topObj: any, fields: string): any;
-declare export function set(topObj: any, fields: string, value: any): any;
+export declare function get(topObj: any, fields: string): any;
+export declare function set(topObj: any, fields: string, value: any): any;

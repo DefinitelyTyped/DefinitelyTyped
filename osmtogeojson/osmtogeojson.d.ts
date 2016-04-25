@@ -25,7 +25,7 @@ export interface Options {
     polygonFeatures?: any | Function; //TODO: type this
 }
 
-declare export namespace GeoJSON {
+export declare namespace GeoJSON {
     export interface GeoJSONObject {
         type: string;
     }
@@ -53,7 +53,7 @@ declare export namespace GeoJSON {
     export type Coordinate = Coordinate2d | Coordinate3d;
 }
 
-declare export namespace OsmJSON {
+export declare namespace OsmJSON {
     export interface OsmJSONObject {
         elements: (Node | Way | Relationship)[];
     }

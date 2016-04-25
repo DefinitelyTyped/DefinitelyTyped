@@ -9,13 +9,13 @@
 
 
 
-declare export enum ConnectionType {
+export declare enum ConnectionType {
     CONNTYPE_PG = 0x01,
     CONNTYPE_OP = 0x02,
     CONNTYPE_BASIC = 0x03
 }
 
-declare export enum ParamNumber {
+export declare enum ParamNumber {
     RemotePort = 2,
     PingTimeout = 3,
     SendTimeout = 4,
@@ -26,7 +26,7 @@ declare export enum ParamNumber {
     PDURequest = 10
 }
 
-declare export enum Area {
+export declare enum Area {
     S7AreaPE = 0x81,
     S7AreaPA = 0x82,
     S7AreaMK = 0x83,
@@ -35,7 +35,7 @@ declare export enum Area {
     S7AreaTM = 0x1D
 }
 
-declare export enum WordLen {
+export declare enum WordLen {
     S7WLBit = 0x01,
     S7WLByte = 0x02,
     S7WLWord = 0x04,
@@ -45,7 +45,7 @@ declare export enum WordLen {
     S7WLTimer = 0x1D
 }
 
-declare export enum BlockType {
+export declare enum BlockType {
     Block_OB = 0x38,
     Block_DB = 0x41,
     Block_SDB = 0x42,
@@ -55,7 +55,7 @@ declare export enum BlockType {
     Block_SFB = 0x46
 }
 
-declare export enum SubBlockType {
+export declare enum SubBlockType {
     SubBlk_OB = 0x08,
     SubBlk_DB = 0x0A,
     SubBlk_SDB = 0x0B,
@@ -65,7 +65,7 @@ declare export enum SubBlockType {
     SubBlk_SFB = 0x0F
 }
 
-declare export enum LangType {
+export declare enum LangType {
     BlockLangAWL = 0x01,
     BlockLangKOP = 0x02,
     BlockLangFUP = 0x03,
@@ -74,7 +74,7 @@ declare export enum LangType {
     BlockLangGRAPH = 0x06
 }
 
-declare export enum Status {
+export declare enum Status {
     S7CpuStatusUnknown = 0x00,
     S7CpuStatusRun = 0x08,
     S7CpuStatusStop = 0x04
@@ -659,4 +659,4 @@ interface S7Client {
     ErrorText(err: number): string;
 }
 
-declare export var S7Client: S7Client_Static;
+export declare var S7Client: S7Client_Static;

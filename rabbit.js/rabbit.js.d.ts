@@ -9,9 +9,9 @@
 import events = require('events');
 import stream = require('stream');
 
-declare export function createContext(url?: string): Context;
+export declare function createContext(url?: string): Context;
 
-declare export class Context extends events.EventEmitter {
+export declare class Context extends events.EventEmitter {
     public socket<T>(type: string, options?: SocketOptions): T;
     public close(callback: Function): any;
 }
@@ -30,7 +30,7 @@ export interface Socket {
     close(): any;
 }
 
-declare export class PubSocket extends stream.Writable implements Socket {
+export declare class PubSocket extends stream.Writable implements Socket {
     constructor(channel: string, opts: SocketOptions);
     connect(destination: string, callback?: Function): any;
     setsockopt(opt: string, value: string): any;
@@ -40,28 +40,28 @@ declare export class PubSocket extends stream.Writable implements Socket {
     publish(topic: string, chunk: Buffer, encoding?: string): any;
 }
 
-declare export class SubSocket extends stream.Readable implements Socket {
+export declare class SubSocket extends stream.Readable implements Socket {
     constructor(channel: string, opts: SocketOptions);
     connect(source: string, callback?: Function): any;
     setsockopt(opt: string, value: string): any;
     close(): any;
 }
 
-declare export class PushSocket extends stream.Writable implements Socket {
+export declare class PushSocket extends stream.Writable implements Socket {
     constructor(channel: string, opts: SocketOptions);
     connect(destination: string, callback?: Function): any;
     setsockopt(opt: string, value: string): any;
     close(): any;
 }
 
-declare export class PullSocket extends stream.Readable implements Socket {
+export declare class PullSocket extends stream.Readable implements Socket {
     constructor(channel: string, opts: SocketOptions);
     connect(source: string, callback?: Function): any;
     setsockopt(opt: string, value: string): any;
     close(): any;
 }
 
-declare export class WorkerSocket extends stream.Readable implements Socket {
+export declare class WorkerSocket extends stream.Readable implements Socket {
     constructor(channel: string, opts: SocketOptions);
     connect(source: string, callback?: Function): any;
     setsockopt(opt: string, value: string): any;
@@ -77,7 +77,7 @@ export interface RequestMessage {
     content: any;
 }
 
-declare export class ReqSocket extends stream.Duplex implements Socket {
+export declare class ReqSocket extends stream.Duplex implements Socket {
     constructor(channel: string, opts: SocketOptions);
     connect(destination: string, callback?: Function): any;
     setsockopt(opt: string, value: string): any;
@@ -86,7 +86,7 @@ declare export class ReqSocket extends stream.Duplex implements Socket {
     handleReply(msg: RequestMessage): any;
 }
 
-declare export class RepSocket extends stream.Duplex implements Socket {
+export declare class RepSocket extends stream.Duplex implements Socket {
     constructor(channel: string, opts: SocketOptions);
     connect(source: string, callback?: Function): any;
     setsockopt(opt: string, value: string): any;
@@ -96,7 +96,7 @@ declare export class RepSocket extends stream.Duplex implements Socket {
     discard(): any;
 }
 
-declare export class TaskSocket extends stream.Writable implements Socket {
+export declare class TaskSocket extends stream.Writable implements Socket {
     constructor(channel: string, opts: SocketOptions);
     connect(destination: string, callback?: Function): any;
     setsockopt(opt: string, value: string): any;

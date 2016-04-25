@@ -16,7 +16,7 @@ import stream = require("stream");
 import url = require("url");
 
 //#region Services
-declare export class TableService extends BatchServiceClient {
+export declare class TableService extends BatchServiceClient {
     static incorrectTableNameErr: string;
     static incorrectCallbackErr: string;
     static incorrectTableQuery: string;
@@ -114,7 +114,7 @@ declare export class TableService extends BatchServiceClient {
     //#endregion
 }
 
-declare export class BlobService extends StorageServiceClient {
+export declare class BlobService extends StorageServiceClient {
     singleBlobPutThresholdInBytes: number;
     parallelOperationThreadCount: number;
 
@@ -479,7 +479,7 @@ declare export class BlobService extends StorageServiceClient {
     //#endregion
 }
 
-declare export class QueueService extends StorageServiceClient {
+export declare class QueueService extends StorageServiceClient {
     authenticationProvider: SharedKey;
 
     //#region Constructors
@@ -619,44 +619,44 @@ declare export class QueueService extends StorageServiceClient {
     //#endregion
 }
 
-declare export class ServiceBusService {
+export declare class ServiceBusService {
 
 }
 
-declare export class SqlService {
+export declare class SqlService {
 
 }
 
-declare export class ServiceManagementService {
+export declare class ServiceManagementService {
 
 }
 
-declare export class SqlManagementService {
+export declare class SqlManagementService {
 }
 //#endregion
 
 //#region Service Creators
-declare export function createTableService(): TableService;
-declare export function createTableService(connectionString: string): TableService;
-declare export function createTableService(storageAccount: string, storageAccessKey: string, host?: string, authenticationProvider?: string): TableService;
+export declare function createTableService(): TableService;
+export declare function createTableService(connectionString: string): TableService;
+export declare function createTableService(storageAccount: string, storageAccessKey: string, host?: string, authenticationProvider?: string): TableService;
 
-declare export function createBlobService(): BlobService;
-declare export function createBlobService(connectionString: string): BlobService;
-declare export function createBlobService(storageAccount: string, storageAccessKey: string, host?: string, authenticationProvider?: string): BlobService;
+export declare function createBlobService(): BlobService;
+export declare function createBlobService(connectionString: string): BlobService;
+export declare function createBlobService(storageAccount: string, storageAccessKey: string, host?: string, authenticationProvider?: string): BlobService;
 
-declare export function createQueueService(): QueueService;
-declare export function createQueueService(connectionString: string): QueueService;
-declare export function createQueueService(storageAccount: string, storageAccessKey: string, host?: string, authenticationProvider?: string): QueueService;
+export declare function createQueueService(): QueueService;
+export declare function createQueueService(connectionString: string): QueueService;
+export declare function createQueueService(storageAccount: string, storageAccessKey: string, host?: string, authenticationProvider?: string): QueueService;
 
-declare export function createServiceBusService(): ServiceBusService;
-declare export function createServiceBusService(connectionString: string): ServiceBusService;
-declare export function createServiceBusService(namespace: string, accessKey?: string, issuer?: string, acsNamespace?: string, host?: string, authenticationProvider?: string): ServiceBusService;
+export declare function createServiceBusService(): ServiceBusService;
+export declare function createServiceBusService(connectionString: string): ServiceBusService;
+export declare function createServiceBusService(namespace: string, accessKey?: string, issuer?: string, acsNamespace?: string, host?: string, authenticationProvider?: string): ServiceBusService;
 
-declare export function createSqlService(serverName: string, administratorLogin: string, administratorLoginPassword: string, host?: string, acsHost?: string, authenticationProvider?: string): SqlService;
+export declare function createSqlService(serverName: string, administratorLogin: string, administratorLoginPassword: string, host?: string, acsHost?: string, authenticationProvider?: string): SqlService;
 
-declare export function createServiceManagementService(subscriptionId: string, authentication: string, hostOptions: string): ServiceManagementService;
+export declare function createServiceManagementService(subscriptionId: string, authentication: string, hostOptions: string): ServiceManagementService;
 
-declare export function createSqlManagementService(subscriptionId: string, authentication: string, hostOptions: string): SqlManagementService;
+export declare function createSqlManagementService(subscriptionId: string, authentication: string, hostOptions: string): SqlManagementService;
 //#endregion
 
 //#region RoleEnvironment
@@ -745,12 +745,12 @@ interface RoleEnvironmentInterface extends events.EventEmitter {
     clearStatus(callback: ErrorCallback): void;
 }
 
-declare export var RoleEnvironment: RoleEnvironmentInterface;
+export declare var RoleEnvironment: RoleEnvironmentInterface;
 
 //#endregion
 
 //#region Export of internal classes
-declare export class WebResource {
+export declare class WebResource {
     rawResponse: boolean;
     queryString: Dictionary<string>;
 
@@ -777,7 +777,7 @@ declare export class WebResource {
     pipeInput(inputStream: stream.Stream, destStream: stream.Stream): stream.Stream;
 }
 
-declare export class ServiceClient extends events.EventEmitter {
+export declare class ServiceClient extends events.EventEmitter {
     static EnvironmentVariables: any;
     static DEVSTORE_STORAGE_ACCOUNT: string;
     static DEVSTORE_STORAGE_ACCESS_KEY: string;
@@ -807,7 +807,7 @@ declare export class ServiceClient extends events.EventEmitter {
     setProxy(proxyUrl: string, proxyPort: number): void;
 }
 
-declare export class BatchServiceClient extends StorageServiceClient {
+export declare class BatchServiceClient extends StorageServiceClient {
     operations: any[];
 
     constructor(storageAccount: string, storageAccessKey: string, host: string, usePathstyleUri: boolean, authenticationProvider: any);
@@ -822,11 +822,11 @@ declare export class BatchServiceClient extends StorageServiceClient {
     processOperation(webResource: WebResource, rawResponse: string): any;
 }
 
-declare export class ServiceManagementClient {
+export declare class ServiceManagementClient {
 
 }
 
-declare export class TableQuery {
+export declare class TableQuery {
     static select(...fields: string[]): TableQuery;
     from(table: string): TableQuery;
     whereKeys(partitionKey: string, rowKey: string): TableQuery;
@@ -839,7 +839,7 @@ declare export class TableQuery {
     toPath(): string;
 }
 
-declare export class BlobResult {
+export declare class BlobResult {
     blob: string;
     container: string;
 
@@ -889,7 +889,7 @@ declare export class BlobResult {
     getPropertiesFromHeaders(headers: any): void;
 }
 
-declare export class ContainerResult {
+export declare class ContainerResult {
     name: string;
     publicAccessLevel: string;
 
@@ -912,7 +912,7 @@ declare export class ContainerResult {
     getPropertiesFromHeaders(headers: any): void;
 }
 
-declare export class LeaseResult {
+export declare class LeaseResult {
     container: string;
     blob: string;
     id: string;
@@ -929,7 +929,7 @@ declare export class LeaseResult {
     getPropertiesFromHeaders(header: any): void;
 }
 
-declare export class QueueResult {
+export declare class QueueResult {
     name: string;
     metadata: StorageMetadata;
     approximatemessagecount: number;
@@ -943,7 +943,7 @@ declare export class QueueResult {
     getPropertiesFromHeaders(headers: any): void;
 }
 
-declare export class QueueMessageResult {
+export declare class QueueMessageResult {
     queue: string;
     insertiontime: string;
     expirationtime: string;
@@ -966,7 +966,7 @@ declare export class QueueMessageResult {
     getPropertiesFromHeaders(headers: any): void;
 }
 
-declare export class SpeedSummary {
+export declare class SpeedSummary {
     name: string;
     totalSize: number;
     completeSize: number;
@@ -1022,7 +1022,7 @@ declare export class SpeedSummary {
     getCompleteSize(humanReadable: boolean): number;
 }
 
-declare export module Constants {
+export declare module Constants {
 
 }
 
@@ -1030,14 +1030,14 @@ export interface Filter {
     handle(requestOptions: any, next: Function): void;
 }
 
-declare export class LinearRetryPolicyFilter implements Filter {
+export declare class LinearRetryPolicyFilter implements Filter {
     constructor(retryCount?: number, retryInterval?: number);
     retryCount: number;
     retryInterval: number;
     handle(requestOptions: any, next: Function): void;
 }
 
-declare export class ExponentialRetryPolicyFilter implements Filter {
+export declare class ExponentialRetryPolicyFilter implements Filter {
     constructor(retryCount?: number, retryInterval?: number, minRetryInterval?: number, maxRetryInterval?: number);
     retryCount: number;
     retryInterval: number;
@@ -1046,11 +1046,11 @@ declare export class ExponentialRetryPolicyFilter implements Filter {
     handle(requestOptions: any, next: Function): void;
 }
 
-declare export class HmacSha256Sign {
+export declare class HmacSha256Sign {
 
 }
 
-declare export class SharedAccessSignature {
+export declare class SharedAccessSignature {
     storageAccount: string;
     storageAccessKey: string;
     permissionSet: string[];
@@ -1079,7 +1079,7 @@ declare export class SharedAccessSignature {
     _permissionMatchesRequest(sharedAccessSignature: string, webResource: WebResource, resourceType: string, requiredPermissions: string[]): string;
 }
 
-declare export class SharedKey {
+export declare class SharedKey {
     storageAccount: string;
     storageAccessKey: string;
     usePathStyleUri: string;
@@ -1114,7 +1114,7 @@ declare export class SharedKey {
     _getCanonicalizedHeaders(webResource: WebResource): string;
 }
 
-declare export class SharedKeyLite {
+export declare class SharedKeyLite {
     storageAccount: string;
     storageAccessKey: string;
     usePathStyleUri: string;
@@ -1149,7 +1149,7 @@ declare export class SharedKeyLite {
     _getCanonicalizedHeaders(webResource: WebResource): string;
 }
 
-declare export class SharedKeyTable {
+export declare class SharedKeyTable {
     storageAccount: string;
     storageAccessKey: string;
     usePathStyleUri: string;
@@ -1168,7 +1168,7 @@ declare export class SharedKeyTable {
     _getCanonicalizedResource(webResource: WebResource): string;
 }
 
-declare export class SharedKeyLiteTable {
+export declare class SharedKeyLiteTable {
     torageAccount: string;
     storageAccessKey: string;
     usePathStyleUri: string;
@@ -1187,7 +1187,7 @@ declare export class SharedKeyLiteTable {
     _getCanonicalizedResource(webResource: WebResource): string;
 }
 
-declare export module ISO8061Date {
+export declare module ISO8061Date {
     /**
      * Formats a date into an iso 8061 string.
      */
@@ -1199,7 +1199,7 @@ declare export module ISO8061Date {
     export function parse(stringDateTime: string): Date;
 }
 
-declare export class Logger {
+export declare class Logger {
     level: string;
     loggerFunction: (level: string, message: string) => void;
 
@@ -1228,7 +1228,7 @@ declare export class Logger {
     defaultLoggerFunction(level: string, message: string): void;
 }
 
-declare export class ConnectionStringParser {
+export declare class ConnectionStringParser {
     _value: string;
     _pos: number;
     _state: string;
@@ -1247,7 +1247,7 @@ declare export class ConnectionStringParser {
     static parse(connectionString: string): Dictionary<string>;
 }
 
-declare export module ServiceSettings {
+export declare module ServiceSettings {
     export var DEFAULT_PROTOCOL: string;
 
     export class NoMatchError implements Error {
@@ -1318,7 +1318,7 @@ declare export module ServiceSettings {
     export function parseHost(uri: string): url.Url;
 }
 
-declare export class StorageServiceSettings {
+export declare class StorageServiceSettings {
     _name: string;
     _key: string;
     _blobEndpointUri: string;
@@ -1371,15 +1371,15 @@ declare export class StorageServiceSettings {
     static customizeConfig(config: any): void;
 }
 
-declare export class ServiceBusSettings {
+export declare class ServiceBusSettings {
 
 }
 
-declare export class ServiceManagementSettinsg {
+export declare class ServiceManagementSettinsg {
 
 }
 
-declare export module Validate {
+export declare module Validate {
     /**
      * Checks if the given uri is valid or not.
      */
@@ -1441,7 +1441,7 @@ declare export module Validate {
     export function validateArgs(functionName: string, validationRules: Function): boolean;
 }
 
-declare export module date {
+export declare module date {
     /**
      * Generates a Date object which is in the given days from now.
      */
@@ -1878,4 +1878,4 @@ declare class StorageServiceClient extends ServiceClient {
 }
 //#endregion
 
-declare export function isEmulated(): boolean;
+export declare function isEmulated(): boolean;

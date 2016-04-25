@@ -10,7 +10,7 @@
 import { Component } from 'react';
 import { Store, Dispatch, ActionCreator } from 'redux';
 
-declare export class ElementClass extends Component<any, any> { }
+export declare class ElementClass extends Component<any, any> { }
 export interface ClassDecorator {
     <T extends (typeof ElementClass)>(component: T): T
 }
@@ -22,7 +22,7 @@ export interface ClassDecorator {
  * @param mergeProps
  * @param options
    */
-declare export function connect(mapStateToProps?: MapStateToProps,
+export declare function connect(mapStateToProps?: MapStateToProps,
     mapDispatchToProps?: MapDispatchToPropsFunction | MapDispatchToPropsObject,
     mergeProps?: MergeProps,
     options?: Options): ClassDecorator;
@@ -65,4 +65,4 @@ export interface Property {
 /**
  * Makes the Redux store available to the connect() calls in the component hierarchy below.
  */
-declare export class Provider extends Component<Property, {}> { }
+export declare class Provider extends Component<Property, {}> { }

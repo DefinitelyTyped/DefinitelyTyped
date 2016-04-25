@@ -2,7 +2,7 @@
 // Project: https://github.com/beevelop/ng-stomp
 // Definitions by: Lukasz Potapczuk <https://github.com/lpotapczuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../angularjs/angular.d.ts" />
+/// <reference path="../angularjs/angularjs.d.ts" />
 
 
 interface ngStomp {

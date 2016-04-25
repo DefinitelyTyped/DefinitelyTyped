@@ -6,14 +6,14 @@
 // Imported from: https://github.com/soywiz/typescript-node-definitions/mime.d.ts
 
 
-declare export function lookup(path: string): string;
-declare export function extension(mime: string): string;
-declare export function load(filepath: string): void;
-declare export function define(mimes: Object): void;
+export declare function lookup(path: string): string;
+export declare function extension(mime: string): string;
+export declare function load(filepath: string): void;
+export declare function define(mimes: Object): void;
 
 interface Charsets {
     lookup(mime: string): string;
 }
 
-declare export var charsets: Charsets;
-declare export var default_type: string;
+export declare var charsets: Charsets;
+export declare var default_type: string;

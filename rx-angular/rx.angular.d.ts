@@ -3,7 +3,7 @@
 // Definitions by: Mick Delaney <https://github.com/mickdelaney/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angular.d.ts" />
+/// <reference path="../angularjs/angularjs.d.ts" />
 /// <reference path="../rx/rx.d.ts" />
 /// <reference path="../rx/rx.time.d.ts" />
 

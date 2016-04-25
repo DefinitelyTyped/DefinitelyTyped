@@ -116,7 +116,7 @@ export interface ElementProxy {
     filter(selector: any, callback?: (err: Error, element: ElementProxy) => void): ElementProxy
 }
 
-declare export class Browser {
+export declare class Browser {
     //constructor(args: { type: string; location?: string; args?: string[] });
     constructor(args: { type: string; location?: string; args?: any; });
 
@@ -124,9 +124,9 @@ declare export class Browser {
     close();
 }
 
-declare export function listen(port: number, callback?: Function)
-declare export var events: HarnessEvents;
-declare export var config: {
+export declare function listen(port: number, callback?: Function)
+export declare var events: HarnessEvents;
+export declare var config: {
     timeoutMS: number;
     retryMS: number;
 };

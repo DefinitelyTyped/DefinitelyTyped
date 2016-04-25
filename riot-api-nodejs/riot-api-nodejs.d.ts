@@ -8,7 +8,7 @@
 
 
 
-declare export enum region_e {
+export declare enum region_e {
     BR = 0,
     EUNE = 1,
     EUW = 2,
@@ -24,7 +24,7 @@ declare export enum region_e {
 /**
     * Tournament API
     */
-declare export class TournamentAPI {
+export declare class TournamentAPI {
     private ApiKeys;
     private ApiKey;
     /**
@@ -85,7 +85,7 @@ declare export class TournamentAPI {
         */
     registerTournament(name: string, providerId: number, callback: (tournamentId: number) => void): any;
 }
-declare export class ClassicAPI {
+export declare class ClassicAPI {
     private ApiKeys;
     private ApiKey;
     private region;
