@@ -60,7 +60,7 @@ export interface Options {
     recognizeSelfClosing?: boolean;
 }
 
-declare export class Parser {
+export declare class Parser {
     constructor(handler: Handler, options?: Options);
 
     /***

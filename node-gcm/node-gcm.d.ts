@@ -30,7 +30,7 @@ export interface IMessageOptions {
     notification?: INotificationOptions;
 }
 
-declare export class Message {
+export declare class Message {
     constructor(options?: IMessageOptions);
     collapseKey: string;
     delayWhileIdle: boolean;
@@ -62,7 +62,7 @@ export interface IRecipient {
     registrationTokens?: string[]
 }
 
-declare export class Sender {
+export declare class Sender {
     constructor(key: string, options?: ISenderOptions);
     key: string;
     options: ISenderOptions;

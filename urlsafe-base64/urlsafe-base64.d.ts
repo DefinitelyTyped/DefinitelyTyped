@@ -9,7 +9,7 @@
 /**
  * Library version.
  */
-declare export var version: string;
+export declare var version: string;
 
 /**
  * .encode
@@ -24,7 +24,7 @@ declare export var version: string;
  * @return {String}
  * @api public
  */
-declare export function encode(buffer: Buffer): string;
+export declare function encode(buffer: Buffer): string;
 
 /**
  * .decode
@@ -35,7 +35,7 @@ declare export function encode(buffer: Buffer): string;
  * @return {Buffer}
  * @api public
  */
-declare export function decode(base64: string): Buffer;
+export declare function decode(base64: string): Buffer;
 
 /**
  * .validate
@@ -46,4 +46,4 @@ declare export function decode(base64: string): Buffer;
  * @return {Boolean}
  * @api public
  */
-declare export function validate(base64: string): boolean;
+export declare function validate(base64: string): boolean;

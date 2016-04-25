@@ -27,11 +27,11 @@ declare module "query-string" {
  *
  * @param obj
  */
-declare export function stringify(obj: any, options?: { strict: boolean }): string;
+export declare function stringify(obj: any, options?: { strict: boolean }): string;
 
 /**
  * Extract a query string from a URL that can be passed into .parse().
  *
  * @param str
  */
-declare export function extract(str: string): string;
+export declare function extract(str: string): string;

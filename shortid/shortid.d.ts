@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare export function generate(): string;
-declare export function characters(string: string): string;
-declare export function isValid(id: any): boolean;
-declare export function worker(integer: number): void;
-declare export function seed(float: number): void;
+export declare function generate(): string;
+export declare function characters(string: string): string;
+export declare function isValid(id: any): boolean;
+export declare function worker(integer: number): void;
+export declare function seed(float: number): void;

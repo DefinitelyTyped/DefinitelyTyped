@@ -9,7 +9,7 @@
 /**
  * Turns a React component or stateless render function into a reactive component.
  */
-declare export function reactiveComponent<P>(clazz: React.ClassicComponentClass<P>): React.ClassicComponentClass<P>;
-declare export function reactiveComponent<TFunction extends React.ComponentClass<any>>(target: TFunction): void; // decorator signature
-declare export function reactiveComponent<P>(clazz: React.ComponentClass<P>): React.ComponentClass<P>;
-declare export function reactiveComponent<P>(renderFunction: (props: P) => React.ReactElement<any>): React.ClassicComponentClass<P>;
+export declare function reactiveComponent<P>(clazz: React.ClassicComponentClass<P>): React.ClassicComponentClass<P>;
+export declare function reactiveComponent<TFunction extends React.ComponentClass<any>>(target: TFunction): void; // decorator signature
+export declare function reactiveComponent<P>(clazz: React.ComponentClass<P>): React.ComponentClass<P>;
+export declare function reactiveComponent<P>(renderFunction: (props: P) => React.ReactElement<any>): React.ClassicComponentClass<P>;

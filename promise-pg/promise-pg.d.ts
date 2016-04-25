@@ -15,16 +15,16 @@ export {pg as raw};
 
 export interface ClientConfig extends pg.ClientConfig { }
 
-declare export function connect(connection: string): Q.Promise<Client>;
-declare export function connect(connection: pg.ClientConfig): Q.Promise<Client>;
+export declare function connect(connection: string): Q.Promise<Client>;
+export declare function connect(connection: pg.ClientConfig): Q.Promise<Client>;
 
-declare export function end(): Q.Promise<void>;
+export declare function end(): Q.Promise<void>;
 
 export interface QueryConfig extends pg.QueryConfig {
     buffer?: boolean;
 }
 
-declare export class Client {
+export declare class Client {
     constructor(connection: string);
     constructor(config: ClientConfig);
 
@@ -55,6 +55,6 @@ declare export class Client {
 export interface QueryResult extends pg.QueryResult { }
 export interface ResultBuilder extends pg.ResultBuilder { }
 
-declare export class Query extends pg.Query {
+export declare class Query extends pg.Query {
     promise: Q.Promise<QueryResult>;
 }

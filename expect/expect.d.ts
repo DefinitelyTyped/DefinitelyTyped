@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare export class Expectation {
+export declare class Expectation {
     constructor(actual: any);
     toExist(message?: string): Expectation;
     toBeTruthy(message?: string): Expectation;
@@ -60,11 +60,11 @@ export interface Spy {
 
 declare function expect(actual: any): Expectation;
 
-declare export function createSpy(fn?: Function, restore?: Function): Spy;
-declare export function spyOn(object: Object, methodName: string): Spy;
-declare export function isSpy(object: any): Boolean;
-declare export function restoreSpies(): void;
-declare export function assert(condition: any, messageFormat: string, ...extraArgs: Array<any>): void;
-declare export function extend(extension: Extension): void;
+export declare function createSpy(fn?: Function, restore?: Function): Spy;
+export declare function spyOn(object: Object, methodName: string): Spy;
+export declare function isSpy(object: any): Boolean;
+export declare function restoreSpies(): void;
+export declare function assert(condition: any, messageFormat: string, ...extraArgs: Array<any>): void;
+export declare function extend(extension: Extension): void;
 
 export default expect;

@@ -39,6 +39,6 @@ export interface DeferredInterface<T> {
     reject(error?: any): DeferredInterface<T>;
     promise: PromiseInterface<T>;
 }
-declare export function create<T>(): DeferredInterface<T>;
-declare export function when<T>(value?: ThenableInterface<T>): PromiseInterface<T>;
-declare export function when<T>(value?: T): PromiseInterface<T>;
+export declare function create<T>(): DeferredInterface<T>;
+export declare function when<T>(value?: ThenableInterface<T>): PromiseInterface<T>;
+export declare function when<T>(value?: T): PromiseInterface<T>;

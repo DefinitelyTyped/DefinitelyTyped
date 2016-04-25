@@ -238,4 +238,4 @@ export interface ResponseInterceptorReturnValue {
     url?: string;
 }
 
-declare export default function restful(endpoint: string): Api;
+export declare default function restful(endpoint: string): Api;

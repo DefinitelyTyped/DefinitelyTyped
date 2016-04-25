@@ -1499,7 +1499,7 @@ console.error('request aborted');
 
 return reply.continue();
 });*/
-declare export class Request extends Events.EventEmitter {
+export declare class Request extends Events.EventEmitter {
     /** application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name].*/
     app: any;
     /**  authentication information*/
@@ -1768,7 +1768,7 @@ console.log(hash.digest('hex'));
 
 return reply.continue();
 });*/
-declare export class Response extends Events.EventEmitter {
+export declare class Response extends Events.EventEmitter {
     isBoom: boolean;
     /**  the HTTP response status code. Defaults to 200 (except for errors).*/
     statusCode: number;
@@ -1889,7 +1889,7 @@ declare export class Response extends Events.EventEmitter {
     vary(header: string): void;
 }
 /** When using the redirect() method, the response object provides these additional methods */
-declare export class ResponseRedirect extends Response {
+export declare class ResponseRedirect extends Response {
     /** sets the status code to 302 or 307 (based on the rewritable() setting) where:
      isTemporary - if false, sets status to permanent. Defaults to true.*/
     temporary(isTemporary: boolean): void;
@@ -1935,7 +1935,7 @@ export interface IServerConnectionInfo {
  *  undocumented.   The connection object constructed after calling server.connection();
  * can be accessed via server.connections; or request.connection;
  */
-declare export class ServerConnection extends Events.EventEmitter {
+export declare class ServerConnection extends Events.EventEmitter {
     domain: any;
     _events: { route: Function, domain: Function, _events: Function, _eventsCount: Function, _maxListeners: Function };
     _eventsCount: number;
@@ -1976,7 +1976,7 @@ declare export class ServerConnection extends Events.EventEmitter {
  'tail' - emitted when a request finished processing, including any registered tails. Single event per request.
  Note that the server object should not be used to emit application events as its internal implementation is designed to fan events out to the various plugin selections and not for application events.
  MORE EVENTS HERE: http://hapijs.com/api#server-events*/
-declare export class Server extends Events.EventEmitter {
+export declare class Server extends Events.EventEmitter {
 
     constructor(options?: IServerOptions);
 

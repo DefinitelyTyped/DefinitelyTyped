@@ -1,4 +1,4 @@
-///<reference path="../angularjs/angular.d.ts" />
+///<reference path="../angularjs/angularjs.d.ts" />
 ///<reference path="./angularLocalStorage.d.ts" />
 
 interface TestScope extends ng.IScope {

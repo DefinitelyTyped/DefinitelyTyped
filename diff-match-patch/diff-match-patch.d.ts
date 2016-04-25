@@ -15,7 +15,7 @@ declare module "diff-match-patch" {
 
 type Diff = [number, string];
 
-declare export class diff_match_patch {
+export declare class diff_match_patch {
     static new(): diff_match_patch;
 
         diff_main(text1: string, text2: string, opt_checklines?: boolean, opt_deadline?: number): Diff[];
@@ -56,6 +56,6 @@ declare export class diff_match_patch {
     diff_fromDelta(text1: string, delta: string): Diff[];
 }
 
-declare export var DIFF_DELETE: number;
-declare export var DIFF_INSERT: number;
-declare export var DIFF_EQUAL: number;
+export declare var DIFF_DELETE: number;
+export declare var DIFF_INSERT: number;
+export declare var DIFF_EQUAL: number;

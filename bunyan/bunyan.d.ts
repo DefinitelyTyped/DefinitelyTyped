@@ -114,4 +114,4 @@ declare module "bunyan" {
     export function safeCycles():(key:string, value:any) => any;
 }
 
-declare export function safeCycles(): (key: string, value: any) => any;
+export declare function safeCycles(): (key: string, value: any) => any;

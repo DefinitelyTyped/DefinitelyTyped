@@ -14,7 +14,7 @@ export type PasteCallback = (err: Error, content: string) => void;
  * @param {T} content Takes either a string, array, object, or readable stream.
  * @return {T} Returns the same value passed in.
  */
-declare export function copy<T>(content: T): T;
+export declare function copy<T>(content: T): T;
 
 /**
  * Asynchronously replaces the current contents of the clip board with text.
@@ -23,7 +23,7 @@ declare export function copy<T>(content: T): T;
  * @param {CopyCallback} callback will fire when the copy operation is complete.
  * @return {T} Returns the same value passed in.
  */
-declare export function copy<T>(content: T, callback: CopyCallback): T;
+export declare function copy<T>(content: T, callback: CopyCallback): T;
 
 
 /**
@@ -35,11 +35,11 @@ declare export function copy<T>(content: T, callback: CopyCallback): T;
  * 
  * @return {string} Returns the current contents of the system clip board.
  */
-declare export function paste(): string;
+export declare function paste(): string;
 
 /**
  * Asynchronously returns the current contents of the system clip board.
  * 
  * @param {PasteCallback} callback The contents of the system clip board are passed to the callback as the second parameter.
  */
-declare export function paste(callback: PasteCallback): void;
+export declare function paste(callback: PasteCallback): void;

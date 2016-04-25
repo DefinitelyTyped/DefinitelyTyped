@@ -11,7 +11,7 @@
 */
 
 
-declare export class Store {
+export declare class Store {
 
     /**
     * @constructor

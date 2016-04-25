@@ -25,4 +25,4 @@ interface getAgent {
     (...args: any[]): Agent
 }
 
-declare export function getAgentFactory(app: express.Application, transform?: Function): getAgent;
+export declare function getAgentFactory(app: express.Application, transform?: Function): getAgent;

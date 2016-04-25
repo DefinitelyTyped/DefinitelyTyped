@@ -9,13 +9,13 @@
 
 import events = require('events');
 
-declare export function parseXml(source: string): XMLDocument;
-declare export function parseHtml(source: string): HTMLDocument;
-declare export function parseXmlString(source: string): XMLDocument;
-declare export function parseHtmlString(source: string): HTMLDocument;
+export declare function parseXml(source: string): XMLDocument;
+export declare function parseHtml(source: string): HTMLDocument;
+export declare function parseXmlString(source: string): XMLDocument;
+export declare function parseHtmlString(source: string): HTMLDocument;
 
 
-declare export class XMLDocument {
+export declare class XMLDocument {
     constructor(version: number, encoding: string);
     child(idx: number): Element;
     childNodes(): Element[];
@@ -32,12 +32,12 @@ declare export class XMLDocument {
     version(): Number;
 }
 
-declare export class HTMLDocument extends XMLDocument {
+export declare class HTMLDocument extends XMLDocument {
 
 }
 
 
-declare export class Element {
+export declare class Element {
     constructor(doc: XMLDocument, name: string, content?: string);
     name(): string;
     name(newName: string): void;
@@ -75,7 +75,7 @@ declare export class Element {
 }
 
 
-declare export class Attribute {
+export declare class Attribute {
     constructor(node: Element, name: string, value: string);
     constructor(node: Element, name: string, value: string, ns: Namespace);
     name(): string;
@@ -88,18 +88,18 @@ declare export class Attribute {
     value(): string;
 }
 
-declare export class Namespace {
+export declare class Namespace {
     constructor(node: Element, prefix: string, href: string);
     href(): string;
     prefix(): string;
 }
 
-declare export class SaxParser extends events.EventEmitter {
+export declare class SaxParser extends events.EventEmitter {
     parseString(source: string): boolean;
 }
 
 
-declare export class SaxPushParser extends events.EventEmitter {
+export declare class SaxPushParser extends events.EventEmitter {
     push(source: string): boolean;
 }
 

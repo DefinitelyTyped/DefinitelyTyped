@@ -110,7 +110,7 @@ declare module "noble" {
     }
 }
 
-declare export class Descriptor extends events.EventEmitter {
+export declare class Descriptor extends events.EventEmitter {
     uuid: string;
     name: string;
     type: string;

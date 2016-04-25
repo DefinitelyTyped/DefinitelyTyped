@@ -30,7 +30,7 @@ export interface IProgress {
 /**
 * tasks pool that manages concurrency.
 */
-declare export class Pool<T> {
+export declare class Pool<T> {
     /**
     * (get/set) the max concurrency of this task pool.
     */

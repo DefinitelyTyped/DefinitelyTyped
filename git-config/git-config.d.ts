@@ -4,4 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare export function sync(gitFile?: string): Object;
+export declare function sync(gitFile?: string): Object;

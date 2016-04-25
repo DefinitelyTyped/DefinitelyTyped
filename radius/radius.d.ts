@@ -9,36 +9,36 @@
 /**
  * {@link https://github.com/retailnext/node-radius#radiusdecodeargs} for more info.
  **/
-declare export function decode(args: DecodeArgsWithSecret): RadiusPacket;
+export declare function decode(args: DecodeArgsWithSecret): RadiusPacket;
 
 /**
  * {@link https://github.com/retailnext/node-radius#radiusdecode_without_secretargs} for more info.
  **/
-declare export function decode_without_secret(args: DecodeArgs): RadiusPacket;
+export declare function decode_without_secret(args: DecodeArgs): RadiusPacket;
 
 /**
  * {@link https://github.com/retailnext/node-radius#radiusencodeargs} for more info.
  **/
-declare export function encode(args: EncodeArgs): Buffer;
+export declare function encode(args: EncodeArgs): Buffer;
 
 /**
  * {@link https://github.com/retailnext/node-radius#radiusencode_responseargs} for more info.
  **/
-declare export function encode_response(args: EncodeResponseArgs): Buffer;
+export declare function encode_response(args: EncodeResponseArgs): Buffer;
 
 /**
  * {@link https://github.com/retailnext/node-radius#radiusverify_responseargs} for more info.
  **/
-declare export function verify_response(args: VerifyResponseArgs): boolean;
+export declare function verify_response(args: VerifyResponseArgs): boolean;
 
 /**
  * {@link https://github.com/retailnext/node-radius#radiusadd_dictionarypath} for more info.
  * 
  * @param path Can be either a path to a file or a directory.
  **/
-declare export function add_dictionary(path: string): void;
+export declare function add_dictionary(path: string): void;
 
-declare export function unload_dictionaries(): void;
+export declare function unload_dictionaries(): void;
 
 
 

@@ -36,23 +36,23 @@ interface Indices {
     indices: [number, number];
 }
 
-declare export function htmlEscape(text: string): string;
-declare export function splitTags(text: string): string[];
+export declare function htmlEscape(text: string): string;
+export declare function splitTags(text: string): string[];
 
-declare export function extractHashtags(text: string): string[];
-declare export function extractHashtagsWithIndices(text: string): HashtagWithIndices[];
-declare export function extractUrls(text: string): string[];
-declare export function extractUrlsWithIndices(text: string): UrlWithIndices[];
-declare export function extractMentions(text: string): string[];
-declare export function extractMentionsWithIndices(text: string): MentionWithIndices[];
-declare export function extractMentionsOrListsWithIndices(text: string): MentionOrListWithIndices[];
-declare export function extractReplies(text: string): string[];
-declare export function extractCashtags(text: string): string[];
-declare export function extractCashtagsWithIndices(text: string): CashtagWithIndices[];
-declare export function extractEntitiesWithIndices(text: string): EntityWithIndices[];
+export declare function extractHashtags(text: string): string[];
+export declare function extractHashtagsWithIndices(text: string): HashtagWithIndices[];
+export declare function extractUrls(text: string): string[];
+export declare function extractUrlsWithIndices(text: string): UrlWithIndices[];
+export declare function extractMentions(text: string): string[];
+export declare function extractMentionsWithIndices(text: string): MentionWithIndices[];
+export declare function extractMentionsOrListsWithIndices(text: string): MentionOrListWithIndices[];
+export declare function extractReplies(text: string): string[];
+export declare function extractCashtags(text: string): string[];
+export declare function extractCashtagsWithIndices(text: string): CashtagWithIndices[];
+export declare function extractEntitiesWithIndices(text: string): EntityWithIndices[];
 
-declare export function modifyIndicesFromUnicodeToUTF16<I>(i: I): I;
-declare export function modifyIndicesFromUTF16ToUnicode<I>(i: I): I;
+export declare function modifyIndicesFromUnicodeToUTF16<I>(i: I): I;
+export declare function modifyIndicesFromUTF16ToUnicode<I>(i: I): I;
 
 export interface UrlEntity {
     url: string;
@@ -75,28 +75,28 @@ export interface AutoLinkOptions {
     urlEntities?: UrlEntity[];
 }
 
-declare export function autoLink(text: string, options?: AutoLinkOptions): string;
-declare export function autoLinkUsernamesOrLists(text: string, options?: AutoLinkOptions): string;
-declare export function autoLinkHashtags(text: string, options?: AutoLinkOptions): string;
-declare export function autoLinkCashtags(text: string, options?: AutoLinkOptions): string;
-declare export function autoLinkUrlsCustom(text: string, options?: AutoLinkOptions): string;
-declare export function autoLinkEntities(text: string, entities: EntityWithIndices[], options?: AutoLinkOptions): string;
+export declare function autoLink(text: string, options?: AutoLinkOptions): string;
+export declare function autoLinkUsernamesOrLists(text: string, options?: AutoLinkOptions): string;
+export declare function autoLinkHashtags(text: string, options?: AutoLinkOptions): string;
+export declare function autoLinkCashtags(text: string, options?: AutoLinkOptions): string;
+export declare function autoLinkUrlsCustom(text: string, options?: AutoLinkOptions): string;
+export declare function autoLinkEntities(text: string, entities: EntityWithIndices[], options?: AutoLinkOptions): string;
 
 interface TweetLengthOptions {
     short_url_length: number;
     short_url_length_https: number;
 }
-declare export function getTweetLength(text: string, options?: TweetLengthOptions): number;
+export declare function getTweetLength(text: string, options?: TweetLengthOptions): number;
 
-declare export function isValidUsername(username: string): boolean;
-declare export function isValidList(usernameList: string): boolean;
-declare export function isValidHashtag(hashtag: string): boolean;
+export declare function isValidUsername(username: string): boolean;
+export declare function isValidList(usernameList: string): boolean;
+export declare function isValidHashtag(hashtag: string): boolean;
 // Note: unicodeDomainsa and requireProtocol can be null
-declare export function isValidUrl(url: string, unicodeDomains: boolean, requireProtocol: boolean): boolean;
-declare export function isInvalidTweet(text: string): string;
+export declare function isValidUrl(url: string, unicodeDomains: boolean, requireProtocol: boolean): boolean;
+export declare function isInvalidTweet(text: string): string;
 
-declare export function getUnicodeTextLength(text: string): number;
+export declare function getUnicodeTextLength(text: string): number;
 // Note: This function directly modify entities" indices
-declare export function convertUnicodeIndices(text: string, entities: EntityWithIndices[], indicesInUTF16?: boolean): void;
+export declare function convertUnicodeIndices(text: string, entities: EntityWithIndices[], indicesInUTF16?: boolean): void;
 
-declare export function hitHighlight(text: string, hits?: number[][], options?: { tag: string }): string;
+export declare function hitHighlight(text: string, hits?: number[][], options?: { tag: string }): string;

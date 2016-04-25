@@ -127,12 +127,12 @@ declare module 'kafka-node' {
 
 
 // # Classes
-declare export class Client {
+export declare class Client {
     constructor(connectionString: string, clientId: string, options?: ZKOptions);
     close(callback?: Function): void;
 }
 
-declare export class Producer {
+export declare class Producer {
     constructor(client: Client);
     on(eventName: string, cb: () => any): void;
     on(eventName: string, cb: (error: any) => any): void;
@@ -140,7 +140,7 @@ declare export class Producer {
     createTopics(topics: Array<string>, async: boolean, cb?: (error: any, data: any) => any): void;
 }
 
-declare export class HighLevelProducer {
+export declare class HighLevelProducer {
     constructor(client: Client);
     on(eventName: string, cb: () => any): void;
     on(eventName: string, cb: (error: any) => any): void;
@@ -148,7 +148,7 @@ declare export class HighLevelProducer {
     createTopics(topics: Array<string>, async: boolean, cb?: (error: any, data: any) => any): void;
 }
 
-declare export class Consumer {
+export declare class Consumer {
     constructor(client: Client, fetchRequests: Array<Topic>, options: ConsumerOptions);
     on(eventName: string, cb: (message: string) => any): void;
     on(eventName: string, cb: (error: any) => any): void;
@@ -164,7 +164,7 @@ declare export class Consumer {
     close(force: boolean, cb: () => any): void;
 }
 
-declare export class HighLevelConsumer {
+export declare class HighLevelConsumer {
     constructor(client: Client, payloads: Array<Topic>, options: ConsumerOptions);
     on(eventName: string, cb: (message: string) => any): void;
     on(eventName: string, cb: (error: any) => any): void;
@@ -180,7 +180,7 @@ declare export class HighLevelConsumer {
     close(force: boolean, cb: () => any): void;
 }
 
-declare export class Offset {
+export declare class Offset {
     constructor(client: Client);
     on(eventName: string, cb: () => any): void;
     fetch(payloads: Array<OffsetRequest>, cb: (error: any, data: any) => any): void;
@@ -188,7 +188,7 @@ declare export class Offset {
     fetchCommits(groupId: string, payloads: Array<OffsetFetchRequest>, cb: (error: any, data: any) => any): void;
 }
 
-declare export class KeyedMessage {
+export declare class KeyedMessage {
     constructor(key: string, message: string);
 }
 

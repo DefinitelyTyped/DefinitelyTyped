@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare export function generate(password: string, options?: Options): string;
-declare export function verify(password: string, hashedPassword: string): boolean;
-declare export function isHashed(password: string): boolean;
+export declare function generate(password: string, options?: Options): string;
+export declare function verify(password: string, hashedPassword: string): boolean;
+export declare function isHashed(password: string): boolean;
 
 export interface Options {
     algorithm?: string;

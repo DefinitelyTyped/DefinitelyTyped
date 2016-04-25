@@ -6,7 +6,7 @@
 // API Documentation : http://paularmstrong.github.io/swig/docs/api/
 
 
-declare export class Swig {
+export declare class Swig {
     constructor(options?: SwigOptions);
 
     setFilter(
@@ -35,7 +35,7 @@ declare export class Swig {
     loaders: typeof loaders;
 }
 
-declare export module lexer {
+export declare module lexer {
     export enum TYPES {
         /** Whitespace */
         WHITESPACE = 0,
@@ -100,7 +100,7 @@ declare export module lexer {
     export function read(str: string): string[];
 }
 
-declare export module parser {
+export declare module parser {
     interface ParseReturn {
         name: string;
         parent: any;
@@ -125,33 +125,33 @@ export interface TemplateLoader {
     load(identifier: string): any;
 }
 
-declare export module loaders {
+export declare module loaders {
     export function fs(basepath?: string, encoding?: string): TemplateLoader;
     export function memory(mapping: any, basepath?: string): TemplateLoader;
 }
 
-declare export var version: string;
-declare export function setDefaults(options: SwigOptions): void;
-declare export function setDefaultTZOffset(offset: number): void;
-declare export function setFilter(
+export declare var version: string;
+export declare function setDefaults(options: SwigOptions): void;
+export declare function setDefaultTZOffset(offset: number): void;
+export declare function setFilter(
     name: string,
     method: (input: any, ...args: any[]) => string
 ): void;
-declare export function setTag(
+export declare function setTag(
     name: string,
     parse: (str?: string, line?: string, parser?: Object, types?: lexer.TYPES, stack?: any, opts?: Object, swig?: Swig) => boolean,
     compile: (compiler?: (content?: string, parents?: any, options?: any, blockName?: string) => string, args?: any[], content?: string, parents?: any, options?: any, blockName?: string) => string,
     ends?: boolean,
     blockLevel?: boolean
 ): void;
-declare export function setExtension(name: string, object: any): void;
-declare export function parseFile(pathName: string, options?: any): parser.ParseReturn;
-declare export function precompile(source: string, options?: SwigOptions): any;
-declare export function compile(source: string, options?: SwigOptions): (locals?: any) => string;
-declare export function compileFile(pathname: string, options: SwigOptions, cb: (err: Error, compiledRender: (locals?: any) => string) => void): void;
-declare export function compileFile(pathname: string, options?: SwigOptions): (locals?: any) => string;
-declare export function render(source: string, options?: SwigOptions): string;
-declare export function renderFile(pathName: string, locals: any, cb: (err: Error, output: string) => void): void;
-declare export function renderFile(pathName: string, locals?: any): string
-declare export function run(templateFn: Function, locals?: any, filePath?: string): string;
-declare export function invalidateCache(): void;
+export declare function setExtension(name: string, object: any): void;
+export declare function parseFile(pathName: string, options?: any): parser.ParseReturn;
+export declare function precompile(source: string, options?: SwigOptions): any;
+export declare function compile(source: string, options?: SwigOptions): (locals?: any) => string;
+export declare function compileFile(pathname: string, options: SwigOptions, cb: (err: Error, compiledRender: (locals?: any) => string) => void): void;
+export declare function compileFile(pathname: string, options?: SwigOptions): (locals?: any) => string;
+export declare function render(source: string, options?: SwigOptions): string;
+export declare function renderFile(pathName: string, locals: any, cb: (err: Error, output: string) => void): void;
+export declare function renderFile(pathName: string, locals?: any): string
+export declare function run(templateFn: Function, locals?: any, filePath?: string): string;
+export declare function invalidateCache(): void;

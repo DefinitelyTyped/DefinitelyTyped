@@ -67,7 +67,7 @@ export interface Bucket {
  * Additionally, some methods can be calculated quickly as data is inserted, thereby reducing the number of loops required to run through the data during processing.
  * Fast stats maintains a running cache of several summary values as data is inserted making final calculation very fast. It trades off a small amount of additional memory usage for a large reduction in execution time.	 
  */
-declare export class Stats {
+export declare class Stats {
     constructor(opts?: StatsOpts);
 
     /**

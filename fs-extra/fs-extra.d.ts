@@ -102,6 +102,6 @@ declare module "fs-extra" {
 		mode?: number;
 	}
 }
-declare export function createReadStream(path: string, options?: ReadStreamOptions): ReadStream;
-declare export function createWriteStream(path: string, options?: WriteStreamOptions): WriteStream;
-declare export function createOutputStream(path: string, options?: WriteStreamOptions): WriteStream;
+export declare function createReadStream(path: string, options?: ReadStreamOptions): ReadStream;
+export declare function createWriteStream(path: string, options?: WriteStreamOptions): WriteStream;
+export declare function createOutputStream(path: string, options?: WriteStreamOptions): WriteStream;

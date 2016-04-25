@@ -11,22 +11,22 @@ interface MockeryEnableArgs {
     warnOnUnregistered?: boolean;
 }
 
-declare export function enable(args?: MockeryEnableArgs): void;
-declare export function disable(): void;
+export declare function enable(args?: MockeryEnableArgs): void;
+export declare function disable(): void;
 
-declare export function registerMock(name: string, mock: any): void;
-declare export function deregisterMock(name: string): void;
+export declare function registerMock(name: string, mock: any): void;
+export declare function deregisterMock(name: string): void;
 
-declare export function registerSubstitute(name: string, substitute: string): void;
-declare export function deregisterSubstitute(name: string): void;
+export declare function registerSubstitute(name: string, substitute: string): void;
+export declare function deregisterSubstitute(name: string): void;
 
-declare export function registerAllowable(name: string, unhook?: boolean): void;
-declare export function deregisterAllowable(name: string): void;
+export declare function registerAllowable(name: string, unhook?: boolean): void;
+export declare function deregisterAllowable(name: string): void;
 
-declare export function registerAllowables(names: string[]): void;
-declare export function deregisterAllowables(names: string[]): void;
+export declare function registerAllowables(names: string[]): void;
+export declare function deregisterAllowables(names: string[]): void;
 
-declare export function deregisterAll(): void;
-declare export function resetCache(): void;
-declare export function warnOnUnregistered(value: boolean): void;
-declare export function warnOnReplace(value: boolean): void;
+export declare function deregisterAll(): void;
+export declare function resetCache(): void;
+export declare function warnOnUnregistered(value: boolean): void;
+export declare function warnOnReplace(value: boolean): void;

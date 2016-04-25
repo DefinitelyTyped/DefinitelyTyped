@@ -17,7 +17,7 @@ interface SubDomain {
     allow: CrossStorageMethod[];
 }
 
-declare export class CrossStorageClient {
+export declare class CrossStorageClient {
 
     /**
      * Constructs a new cross storage client given the url to a hub. By default, an iframe is created 
@@ -72,7 +72,7 @@ declare export class CrossStorageClient {
     close(): void;
 }
 
-declare export class CrossStorageHub {
+export declare class CrossStorageHub {
     /**
      * Accepts an array of objects with two keys: origin and allow. The value of origin is expected to be 
      * a RegExp, and allow, an array of strings. The cross storage hub is then initialized to accept requests 

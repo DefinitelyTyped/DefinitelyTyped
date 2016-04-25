@@ -16,7 +16,7 @@ import events = require('events');
 import express = require('express');
 import redis = require('redis');
 
-declare export class Queue extends events.EventEmitter {
+export declare class Queue extends events.EventEmitter {
     name: string;
     id: string;
     promoter: any;
@@ -63,7 +63,7 @@ interface Priorities {
     critical: number;
 }
 
-declare export class Job extends events.EventEmitter {
+export declare class Job extends events.EventEmitter {
     public id: number;
     public type: string;
     public data: any;
@@ -145,9 +145,9 @@ interface TestMode {
     clear(): void;
 }
 
-declare export var app: express.Application;
-declare export var redis: Redis;
-declare export var workers: Worker[];
+export declare var app: express.Application;
+export declare var redis: Redis;
+export declare var workers: Worker[];
 
   export function createQueue(options?: Object): Queue;
 }

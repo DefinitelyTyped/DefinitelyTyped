@@ -16,7 +16,7 @@ import request = require('request');
 import bunyan = require('bunyan');
 import express = require('express');
 
-declare export function create(opts: {
+export declare function create(opts: {
     name: any;
     config: {
         url: string;

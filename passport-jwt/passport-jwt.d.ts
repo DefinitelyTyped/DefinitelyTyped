@@ -9,7 +9,7 @@
 import {Strategy as PassportStrategy} from 'passport-strategy';
 import {Request} from 'express';
 
-declare export class Strategy extends PassportStrategy {
+export declare class Strategy extends PassportStrategy {
     constructor(opt: StrategyOptions, verify: VerifyCallback);
     constructor(opt: StrategyOptions, verify: VerifyCallbackWithRequest);
 }
@@ -40,7 +40,7 @@ export interface JwtFromRequestFunction {
     (req: Request): string;
 }
 
-declare export namespace ExtractJwt {
+export declare namespace ExtractJwt {
     export function fromHeader(header_name: string): JwtFromRequestFunction;
     export function fromBodyField(field_name: string): JwtFromRequestFunction;
     export function fromUrlQueryParameter(param_name: string): JwtFromRequestFunction;

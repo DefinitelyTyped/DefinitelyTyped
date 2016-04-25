@@ -867,7 +867,7 @@ declare class router extends events.EventEmitter {
 
 }
 
-declare export var version: string;
-declare export var constants: {
+export declare var version: string;
+export declare var constants: {
     DEBUG: boolean;
 };

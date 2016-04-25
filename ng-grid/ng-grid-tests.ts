@@ -1,5 +1,5 @@
 /// <reference path="ng-grid.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
+/// <reference path="../angularjs/angularjs.d.ts" />
 
 var options1: ngGrid.IGridOptions = {
     data: [{ 'Name': 'Bob' }, { 'Name': 'Jane' }]

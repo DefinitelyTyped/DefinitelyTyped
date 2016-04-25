@@ -89,7 +89,7 @@ declare module "sqlite3" {
     function verbose(): void;
 }
 
-declare export class Database extends events.EventEmitter {
+export declare class Database extends events.EventEmitter {
     constructor(filename: string, callback?: (err: Error) => void);
     constructor(filename: string, mode?: number, callback?: (err: Error) => void);
 

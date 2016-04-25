@@ -49,7 +49,7 @@ export interface InferableComponentDecorator {
  * @param mergeProps
  * @param options
  */
-declare export function connect(): InferableComponentDecorator;
+export declare function connect(): InferableComponentDecorator;
 
   export function connect<TStateProps, TDispatchProps, TOwnProps>(
     mapStateToProps: FuncOrSelf<MapStateToProps<TStateProps, TOwnProps>>,
@@ -118,4 +118,4 @@ declare module "react-redux" {
 /**
  * Makes the Redux store available to the connect() calls in the component hierarchy below.
  */
-declare export class Provider extends Component<ProviderProps, {}> { }
+export declare class Provider extends Component<ProviderProps, {}> { }

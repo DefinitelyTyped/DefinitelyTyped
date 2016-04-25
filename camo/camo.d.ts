@@ -110,7 +110,7 @@ declare class DocumentInstance<Schema extends DocumentSchema> {
 /**
  * Camo document
  */
-declare export class Document {
+export declare class Document {
     /**
      * Index signature
      */
@@ -134,4 +134,4 @@ declare export class Document {
  *
  * @param	uri		Connection URI
  */
-declare export function connect(uri: string): Promise<any>;
+export declare function connect(uri: string): Promise<any>;

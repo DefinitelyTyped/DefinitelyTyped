@@ -4,13 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare export function checkArgument(value: any, message?: string, ...formatArgs: any[]): void;
-declare export function checkState(value: any, message?: string, ...formatArgs: any[]): void;
-declare export function checkIsDef(value: any, message?: string, ...formatArgs: any[]): any;
-declare export function checkIsDefAndNotNull(value: any, message?: string, ...formatArgs: any[]): any;
-declare export function checkIsString(value: any, message?: string, ...formatArgs: any[]): any;
-declare export function checkIsArray(value: any, message?: string, ...formatArgs: any[]): any;
-declare export function checkIsNumber(value: any, message?: string, ...formatArgs: any[]): any;
-declare export function checkIsBoolean(value: any, message?: string, ...formatArgs: any[]): any;
-declare export function checkIsFunction(value: any, message?: string, ...formatArgs: any[]): any;
-declare export function checkIsObject(value: any, message?: string, ...formatArgs: any[]): any;
+export declare function checkArgument(value: any, message?: string, ...formatArgs: any[]): void;
+export declare function checkState(value: any, message?: string, ...formatArgs: any[]): void;
+export declare function checkIsDef(value: any, message?: string, ...formatArgs: any[]): any;
+export declare function checkIsDefAndNotNull(value: any, message?: string, ...formatArgs: any[]): any;
+export declare function checkIsString(value: any, message?: string, ...formatArgs: any[]): any;
+export declare function checkIsArray(value: any, message?: string, ...formatArgs: any[]): any;
+export declare function checkIsNumber(value: any, message?: string, ...formatArgs: any[]): any;
+export declare function checkIsBoolean(value: any, message?: string, ...formatArgs: any[]): any;
+export declare function checkIsFunction(value: any, message?: string, ...formatArgs: any[]): any;
+export declare function checkIsObject(value: any, message?: string, ...formatArgs: any[]): any;

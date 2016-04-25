@@ -12,7 +12,7 @@
  * @module linqsharp
  */
 
-declare export namespace LinqSharp {
+export declare namespace LinqSharp {
     /**
      * Defines methods to support the comparison of objects for equality.
      *

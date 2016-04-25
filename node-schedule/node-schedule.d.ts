@@ -371,7 +371,7 @@ declare module 'node-schedule' {
  *
  * @class
  */
-declare export class Invocation {
+export declare class Invocation {
     /**
      * Fire date.
      *
@@ -421,7 +421,7 @@ declare export class Invocation {
  * @param {Job} job The job.
  * @returns {boolean} {true} if the job has been cancelled with success, otherwise, {false}.
  */
-declare export function cancelJob(job: Job): boolean;
+export declare function cancelJob(job: Job): boolean;
 
 /**
  * Create a schedule job.
@@ -429,4 +429,4 @@ declare export function cancelJob(job: Job): boolean;
  * @param {RecurrenceRule} rule The rule.
  * @param {Function} callback The callback.
  */
-declare export function scheduleJob(rule: RecurrenceRule | Date | string, callback: Function): void;
+export declare function scheduleJob(rule: RecurrenceRule | Date | string, callback: Function): void;

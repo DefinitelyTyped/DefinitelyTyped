@@ -468,36 +468,36 @@ export interface IPoolAttributes extends IConnectionAttributes {
 		terminate(): IPromise<void>;
 	}
 
-declare export const DEFAULT: number;
+export declare const DEFAULT: number;
 /** Data type */
-declare export const STRING: number;
+export declare const STRING: number;
 /** Data type */
-declare export const NUMBER: number;
+export declare const NUMBER: number;
 /** Data type */
-declare export const DATE: number;
+export declare const DATE: number;
 /** Data type */
-declare export const CURSOR: number;
+export declare const CURSOR: number;
 /** Data type */
-declare export const BUFFER: number;
+export declare const BUFFER: number;
 /** Data type */
-declare export const CLOB: number;
+export declare const CLOB: number;
 /** Data type */
-declare export const BLOB: number;
+export declare const BLOB: number;
 /** Bind direction */
-declare export const BIND_IN: number;
+export declare const BIND_IN: number;
 /** Bind direction */
-declare export const BIND_INOUT: number;
+export declare const BIND_INOUT: number;
 /** Bind direction */
-declare export const BIND_OUT: number;
+export declare const BIND_OUT: number;
 /** outFormat */
-declare export const ARRAY: number;
+export declare const ARRAY: number;
 /** outFormat */
-declare export const OBJECT: number;
+export declare const OBJECT: number;
 
 /**
  * Do not use this method - used internally by node-oracledb.
  */
-declare export function newLob(iLob: ILob): Lob;
+export declare function newLob(iLob: ILob): Lob;
 
 	/** Default transaction behaviour of auto commit for each statement. */
 	export var autoCommit: boolean;

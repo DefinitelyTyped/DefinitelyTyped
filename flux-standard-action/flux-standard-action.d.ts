@@ -24,6 +24,6 @@ export interface TypedMeta<T> {
     meta: T
 }
 
-declare export function isFSA(action: any): boolean;
+export declare function isFSA(action: any): boolean;
 
-declare export function isError(action: any): boolean;
+export declare function isError(action: any): boolean;

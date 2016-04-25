@@ -21,7 +21,7 @@ export interface IErrorCallback {
     (err: Error): void;
 }
 
-declare export class Mandrill {
+export declare class Mandrill {
     apikey: string;
     debug: boolean;
     templates: Templates;
@@ -44,7 +44,7 @@ declare export class Mandrill {
     call(uri: string, params: any, onresult?: ICallback, onerror?: ICallback): void;
 }
 
-declare export class Templates {
+export declare class Templates {
     constructor(master: Mandrill);
 
     /**
@@ -144,7 +144,7 @@ declare export class Templates {
     render(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
-declare export class Exports {
+export declare class Exports {
     constructor(master: Mandrill);
 
     /**
@@ -215,7 +215,7 @@ declare export class Exports {
     activity(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
-declare export class Users {
+export declare class Users {
     constructor(master: Mandrill);
 
     /**
@@ -254,7 +254,7 @@ declare export class Users {
 
 }
 
-declare export class Rejects {
+export declare class Rejects {
     constructor(master: Mandrill);
 
     /**
@@ -300,7 +300,7 @@ declare export class Rejects {
 
 }
 
-declare export class Inbound {
+export declare class Inbound {
     constructor(master: Mandrill);
 
     /**
@@ -402,7 +402,7 @@ declare export class Inbound {
 
 }
 
-declare export class Tags {
+export declare class Tags {
     constructor(master: Mandrill);
 
     /**
@@ -453,7 +453,7 @@ declare export class Tags {
     allTimeSeries(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
-declare export class Messages {
+export declare class Messages {
     constructor(master: Mandrill);
 
     /**
@@ -705,7 +705,7 @@ declare export class Messages {
 
 }
 
-declare export class Whitelists {
+export declare class Whitelists {
     constructor(master: Mandrill);
 
     /**
@@ -741,7 +741,7 @@ declare export class Whitelists {
 
 }
 
-declare export class Ips {
+export declare class Ips {
     constructor(master: Mandrill);
 
     /**
@@ -880,11 +880,11 @@ declare export class Ips {
     setCustomDns(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
-declare export class Internal {
+export declare class Internal {
     constructor(master: Mandrill);
 }
 
-declare export class Subaccounts {
+export declare class Subaccounts {
     constructor(master: Mandrill);
 
     /**
@@ -959,7 +959,7 @@ declare export class Subaccounts {
     resume(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
-declare export class Urls {
+export declare class Urls {
     constructor(master: Mandrill);
 
     /**
@@ -1015,7 +1015,7 @@ declare export class Urls {
     checkTrackingDomain(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
-declare export class Webhooks {
+export declare class Webhooks {
     constructor(master: Mandrill);
 
     /**
@@ -1071,7 +1071,7 @@ declare export class Webhooks {
 
 }
 
-declare export class Senders {
+export declare class Senders {
     constructor(master: Mandrill);
 
     /**
@@ -1143,7 +1143,7 @@ declare export class Senders {
     timeSeries(params: any, onsuccess?: ICallback, onerror?: ICallback): void;
 }
 
-declare export class Metadata {
+export declare class Metadata {
     constructor(master: Mandrill);
     /**
      * Get the list of custom metadata fields indexed for the account.

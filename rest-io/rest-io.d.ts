@@ -31,7 +31,7 @@ export interface ResourceModule {
     SubResource: SubResource;
 }
 
-declare export class Resource {
+export declare class Resource {
     baseUrl: string;
     url: string;
     parameterizedUrl: string;
@@ -89,7 +89,7 @@ export interface Roles {
     ADMIN: string;
 }
 
-declare export class AuthorizedResource extends Resource {
+export declare class AuthorizedResource extends Resource {
     methodAccess: IMethodAccess;
 
     maxDays: number;
@@ -117,7 +117,7 @@ export interface IMethodAccess {
     del: Array<string>;
 }
 
-declare export class UserResource extends AuthorizedResource {
+export declare class UserResource extends AuthorizedResource {
     ensureBaseUserModel(model: any): void;
 
     createRoleModel(): void;
@@ -127,7 +127,7 @@ declare export class UserResource extends AuthorizedResource {
     login(req: Request, res: Response): void;
 }
 
-declare export class SubResource extends Resource {
+export declare class SubResource extends Resource {
     constructor(resDef: ISubResource);
 
     createProjectionQuery(req: Request): any;

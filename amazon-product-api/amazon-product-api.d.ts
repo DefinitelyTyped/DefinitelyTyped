@@ -21,4 +21,4 @@ interface IAmazonProductClient {
     browseNodeLookup(query: any, callback?: IAmazonProductQueryCallback): Promise<Object[]>;
 }
 
-declare export function createClient(credentials: ICredentials): IAmazonProductClient;
+export declare function createClient(credentials: ICredentials): IAmazonProductClient;

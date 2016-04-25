@@ -10,7 +10,7 @@
 
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/mongoclient.html
-declare export class MongoClient {
+export declare class MongoClient {
     constructor(serverConfig: any, options: any);
 
     static connect(uri: string, callback?: (err: Error, db: Db) => void): void;
@@ -18,14 +18,14 @@ declare export class MongoClient {
 }
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/server.html
-declare export class Server {
+export declare class Server {
     constructor(host: string, port: number, opts?: ServerOptions);
 
     public connect(): any;
 }
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/db.html
-declare export class Db {
+export declare class Db {
     constructor(databaseName: string, serverConfig: Server, dbOptions?: DbCreateOptions);
 
     public db(dbName: string): Db;
@@ -108,7 +108,7 @@ declare export class Db {
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/api-bson-generated/objectid.html
 // Last update: doc. version 1.3.13 (28.08.2013)
-declare export class ObjectID {
+export declare class ObjectID {
     constructor(s?: string);
 
     // Returns the ObjectID id as a 24 byte hex string representation
@@ -138,7 +138,7 @@ declare export class ObjectID {
 }
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/api-bson-generated/binary.html
-declare export class Binary {
+export declare class Binary {
     constructor(buffer: Buffer, subType?: number);
 
     // Updates this binary with byte_value
@@ -234,7 +234,7 @@ export interface DbCreateOptions {
     promoteLongs?: boolean;
 }
 
-declare export class ReadPreference {
+export declare class ReadPreference {
     public static PRIMARY: string;
     public static PRIMARY_PREFERRED: string;
     public static SECONDARY: string;
@@ -462,7 +462,7 @@ export interface IndexOptions {
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/cursor.html
 // Last update: doc. version 1.3.13 (29.08.2013)
-declare export class Cursor {
+export declare class Cursor {
     // INTERNAL TYPE
     // constructor (db: Db, collection: Collection, selector, fields, skip, limit, sort, hint, explain, snapshot, timeout, tailable, batchSize, slaveOk, raw, read, returnKey, maxScan, min, max, showDiskLoc, comment, awaitdata, numberOfRetries, dbName, tailableRetryInterval, exhaust, partial);
     // constructor(db: Db, collection: Collection, selector, fields, options);
@@ -497,7 +497,7 @@ declare export class Cursor {
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/api-generated/cursorstream.html
 // Last update: doc. version 1.3.13 (29.08.2013)
-declare export class CursorStream {
+export declare class CursorStream {
     constructor(cursor: Cursor);
 
     public pause(): any;

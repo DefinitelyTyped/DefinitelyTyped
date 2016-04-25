@@ -9,7 +9,7 @@
 /**
  * Defines prettyjson version
  */
-declare export var version: string;
+export declare var version: string;
 
 /**
  * Render pretty json.
@@ -20,7 +20,7 @@ declare export var version: string;
  *
  * @return {string} pretty serialized json data ready to display.
    */
-declare export function render(data: any, options?: RendererOptions, indentation?: number): string;
+export declare function render(data: any, options?: RendererOptions, indentation?: number): string;
 
 /**
  * Render pretty json from a string.
@@ -31,7 +31,7 @@ declare export function render(data: any, options?: RendererOptions, indentation
  *
  * @return {string} pretty serialized json data ready to display.
    */
-declare export function renderString(data: string, options?: RendererOptions, indentation?: number): string;
+export declare function renderString(data: string, options?: RendererOptions, indentation?: number): string;
 
 export interface RendererOptions {
 

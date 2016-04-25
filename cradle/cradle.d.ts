@@ -29,7 +29,7 @@ interface ErrorCallback {
     (error: any): void;
 }
 
-declare export class Connection {
+export declare class Connection {
     constructor(uri?: string, port?: number, options?: Options);
     database(name: string): Database;
     databases(Callback: Callback): void;
@@ -60,7 +60,7 @@ export interface ChangesOptions {
     since: number;
 }
 
-declare export class Database {
+export declare class Database {
     name: string;
     get(id: string, callback: (error: any, document: any) => void): void;
     get<T>(id: string, callback: (error: any, document: T) => void): void;
@@ -118,4 +118,4 @@ declare export class Database {
     replicate(target: string, options: any, callback: Callback): void;
 }
 
-declare export function setup(options: Options): void;
+export declare function setup(options: Options): void;

@@ -32,13 +32,13 @@
 
 import express = require('express');
 
-declare export function initialize(args: Args): InitializedApi;
+export declare function initialize(args: Args): InitializedApi;
 
 export interface InitializedApi {
     apiDoc: OpenApi.ApiDefinition;
 }
 
-declare export module OpenApi {
+export declare module OpenApi {
     export interface ApiDefinition {
         swagger: string
         info: InfoObject

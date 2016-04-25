@@ -30,4 +30,4 @@ interface Request {
     export function mw(options?: Options): (req: Request, res: any, next: any) => any;
 }
 
-declare export function getClientIp(req: Request): string;
+export declare function getClientIp(req: Request): string;

@@ -8,21 +8,21 @@
 /// <reference path="../node/node.d.ts" />
 
 
-declare export var root: string;
+export declare var root: string;
 
-declare export function compileAndRender(templateName: string, view: any): NodeJS.ReadableStream;
+export declare function compileAndRender(templateName: string, view: any): NodeJS.ReadableStream;
 
-declare export function compile(filename: string, callback: (err: Error, parsed: IParsed) => void): void;
+export declare function compile(filename: string, callback: (err: Error, parsed: IParsed) => void): void;
 
-declare export function compileText(name: string, template: string, callback: (err: Error, parsed: IParsed) => void): void;
-declare export function compileText(name: string, template: string): IParsed;
-declare export function compileText(template: string): IParsed;
+export declare function compileText(name: string, template: string, callback: (err: Error, parsed: IParsed) => void): void;
+export declare function compileText(name: string, template: string): IParsed;
+export declare function compileText(template: string): IParsed;
 
-declare export function render(filenameOrParsed: string, view: any): NodeJS.ReadableStream;
-declare export function render(filenameOrParsed: IParsed, view: any): NodeJS.ReadableStream;
+export declare function render(filenameOrParsed: string, view: any): NodeJS.ReadableStream;
+export declare function render(filenameOrParsed: IParsed, view: any): NodeJS.ReadableStream;
 
-declare export function renderText(template: string, view: any, partials?: any): NodeJS.ReadableStream;
+export declare function renderText(template: string, view: any, partials?: any): NodeJS.ReadableStream;
 
-declare export function clearCache(templateName?: string): void;
+export declare function clearCache(templateName?: string): void;
 
 export interface IParsed { }

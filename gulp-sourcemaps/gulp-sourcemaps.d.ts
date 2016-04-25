@@ -22,6 +22,6 @@ interface WriteOptions {
     sourceMappingURLPrefix?: string | WriteMapper;
 }
 
-declare export function init(opts?: InitOptions): NodeJS.ReadWriteStream;
-declare export function write(path?: string, opts?: WriteOptions): NodeJS.ReadWriteStream;
-declare export function write(opts?: WriteOptions): NodeJS.ReadWriteStream;
+export declare function init(opts?: InitOptions): NodeJS.ReadWriteStream;
+export declare function write(path?: string, opts?: WriteOptions): NodeJS.ReadWriteStream;
+export declare function write(opts?: WriteOptions): NodeJS.ReadWriteStream;

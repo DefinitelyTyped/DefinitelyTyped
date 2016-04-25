@@ -8,8 +8,8 @@
 
 import stream = require('stream');
 
-declare export function inspector(options?: EyesOptions): InspectorFunction;
-declare export function inspect(thing: any, label?: string): void;
+export declare function inspector(options?: EyesOptions): InspectorFunction;
+export declare function inspect(thing: any, label?: string): void;
 
 export interface InspectorFunction {
     (thing: any, label?: string): string;

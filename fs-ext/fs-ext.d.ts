@@ -13,14 +13,14 @@ export * from "fs";
 * @param fd File Descriptor
 * @param flags Flags can be 'sh', 'ex', 'shnb', 'exnb', 'un' and correspond to the various LOCK_SH, LOCK_EX, LOCK_SH|LOCK_NB, etc.
 **/
-declare export function flock(fd: number, flags: string, callback: (err: Error) => void): void;
+export declare function flock(fd: number, flags: string, callback: (err: Error) => void): void;
 
 /**
 * Synchronous flock(2). Throws an exception on error.
 * @param fd File Descriptor
 * @param flags Flags can be 'sh', 'ex', 'shnb', 'exnb', 'un' and correspond to the various LOCK_SH, LOCK_EX, LOCK_SH|LOCK_NB, etc.
   **/
-declare export function flockSync(fd: number, flags: string): void;
+export declare function flockSync(fd: number, flags: string): void;
 
 /**
 * Asynchronous fcntl(2).
@@ -29,7 +29,7 @@ declare export function flockSync(fd: number, flags: string): void;
 * Requiring this module adds FD_CLOEXEC to the constants module, for use with F_SETFD.
 * @param arg arg
 **/
-declare export function fcntl(fd: number, cmd: string, arg: number, callback: (err: Error, result: number) => void): void;
+export declare function fcntl(fd: number, cmd: string, arg: number, callback: (err: Error, result: number) => void): void;
 
 /**
 * Asynchronous fcntl(2).
@@ -37,7 +37,7 @@ declare export function fcntl(fd: number, cmd: string, arg: number, callback: (e
 * @param cmd The supported commands are: 'getfd' ( F_GETFD ) , 'setfd' ( F_SETFD )
 * Requiring this module adds FD_CLOEXEC to the constants module, for use with F_SETFD.
 **/
-declare export function fcntl(fd: number, cmd: string, callback: (err: Error, result: number) => void): void;
+export declare function fcntl(fd: number, cmd: string, callback: (err: Error, result: number) => void): void;
 
 /**
 * Synchronous fcntl(2). Throws an exception on error.
@@ -47,7 +47,7 @@ declare export function fcntl(fd: number, cmd: string, callback: (err: Error, re
 * @param arg arg
 * @return Returns flags
 **/
-declare export function fcntlSync(fd: number, cmd: string, arg?: number): number;
+export declare function fcntlSync(fd: number, cmd: string, arg?: number): number;
 
 /**
 * Asynchronous lseek(2).
@@ -58,7 +58,7 @@ declare export function fcntlSync(fd: number, cmd: string, arg?: number): number
 * position to the current position plus offset bytes (can be negative), or 2 (SEEK_END) to set to the end 
 * of the file plus offset bytes (usually negative or zero to seek to the end of the file).
 **/
-declare export function seek(fd: number, offset: number, whence: number, callback: (err: Error, currFilePos: number) => void): void;
+export declare function seek(fd: number, offset: number, whence: number, callback: (err: Error, currFilePos: number) => void): void;
 
 /**
 * Synchronous lseek(2). Throws an exception on error. Returns current file position.
@@ -70,7 +70,7 @@ declare export function seek(fd: number, offset: number, whence: number, callbac
 * of the file plus offset bytes (usually negative or zero to seek to the end of the file).
 * @returns Returns current file position.
 **/
-declare export function seekSync(fd: number, offset: number, whence: number): number;
+export declare function seekSync(fd: number, offset: number, whence: number): number;
 
 /**
 * Asynchronous utime(2).
@@ -84,7 +84,7 @@ declare export function seekSync(fd: number, offset: number, whence: number): nu
 * so to use the 'now' value with fs.utime() you would have to divide by 1000 first, e.g. Date.now()/1000
 * Just like for utime(2), the absence of the atime and mtime means 'now'.
 **/
-declare export function utime(path: string, atime: number, mtime: number, callback: (err: Error) => void): void;
+export declare function utime(path: string, atime: number, mtime: number, callback: (err: Error) => void): void;
 
 /**
 * Synchronous version of utime(). Throws an exception on error.
@@ -98,4 +98,4 @@ declare export function utime(path: string, atime: number, mtime: number, callba
 * so to use the 'now' value with fs.utime() you would have to divide by 1000 first, e.g. Date.now()/1000
 * Just like for utime(2), the absence of the atime and mtime means 'now'.
 **/
-declare export function utimeSync(path: string, atime: number, mtime: number): void;
+export declare function utimeSync(path: string, atime: number, mtime: number): void;

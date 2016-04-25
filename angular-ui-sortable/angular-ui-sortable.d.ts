@@ -3,7 +3,7 @@
 // Definitions by: Thodoris Greasidis <https://github.com/thgreasi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angular.d.ts" />
+/// <reference path="../angularjs/angularjs.d.ts" />
 
 declare namespace angular.ui {
 

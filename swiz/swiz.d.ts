@@ -6,12 +6,12 @@
 // Imported from: https://github.com/soywiz/typescript-node-definitions/swiz.d.ts
 
 
-declare export class Cidr {
+export declare class Cidr {
     constructor(x: string, y?: string);
     isInCIDR(x: any): boolean;
 }
 
-declare export class Valve {
+export declare class Valve {
     constructor(schema: IValveSchema, baton?: any);
     setSchema(schema: IValveSchema): Valve;
     addFinalValidator(func: (obj: any, callback: (err: Error, cleaned: any) => void) => void): Valve;
@@ -36,9 +36,9 @@ export interface IValveSchemaMemberArray extends IValveSchemaMember {
     [index: string]: IValveSchemaMember;
 }
 
-declare export function Chain(): IChain;
+export declare function Chain(): IChain;
 
-declare export function chain(): IChain;
+export declare function chain(): IChain;
 
 export interface IChain extends IValveSchemaMember {
     getValidatorPos(name: string): number;
@@ -107,9 +107,9 @@ export interface IChain extends IValveSchemaMember {
     custom(name: string): IChain;
 }
 
-declare export function defToValve(def: struct.IObj[]): IValveSchema[];
+export declare function defToValve(def: struct.IObj[]): IValveSchema[];
 
-declare export class Swiz {
+export declare class Swiz {
     constructor(defs: struct.IObj[], options?: ISwizOptions);
     buildObject(obj: any, callback: (err: any, result: any) => void): void;
     buildObjectSync(obj: any): any;
@@ -138,9 +138,9 @@ interface IValidator {
     help: string;
 }
 
-declare export function stripSerializerTypes(obj: any): any;
+export declare function stripSerializerTypes(obj: any): any;
 
-declare export module struct {
+export declare module struct {
     export function Obj(name: string, options?: IObjOptions): IObj;
     export function Field(name: string, options?: IFieldOptions): IField;
     export function coerce(value: any, coerceTo: string): any;
@@ -188,7 +188,7 @@ declare export module struct {
     }
 }
 
-declare export enum SERIALIZATION {
+export declare enum SERIALIZATION {
     SERIALIZATION_JSON,
     SERIALIZATION_XML
 }

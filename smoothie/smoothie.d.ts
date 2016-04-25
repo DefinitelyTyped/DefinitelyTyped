@@ -20,7 +20,7 @@ export interface ITimeSeriesPresentationOptions {
     lineWidth?: number;
 }
 
-declare export class TimeSeries {
+export declare class TimeSeries {
     /**
      * Initialises a new <code>TimeSeries</code> with optional data options.
      *
@@ -131,7 +131,7 @@ export interface IChartOptions {
  * Options are optional and may be sparsely populated. Just specify the values you
  * need and the rest will be given sensible defaults.
  */
-declare export class SmoothieChart {
+export declare class SmoothieChart {
     constructor(chartOptions?: IChartOptions);
 
     /**

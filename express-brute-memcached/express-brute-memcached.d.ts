@@ -102,7 +102,7 @@ interface MemcachedStoreOptions {
  * @summary A memcached store adapter.
  * @class
  */
-declare export default class MemcachedStore {
+export declare default class MemcachedStore {
     /**
      * @summary Constructor.
      * @constructor

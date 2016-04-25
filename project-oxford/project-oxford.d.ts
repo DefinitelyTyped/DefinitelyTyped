@@ -10,14 +10,14 @@
 import Promise = require("bluebird");
 import stream = require("stream");
 
-declare export class Client {
+export declare class Client {
     constructor(apiKey: string);
     private _key: string;
     public face: FaceAPI;
     public vision: VisionAPI;
 }
 
-declare export class FaceAPI {
+export declare class FaceAPI {
 
     /**
      * Call the Face Detected API
@@ -92,7 +92,7 @@ declare export class FaceAPI {
     public person: Person;
 }
 
-declare export class VisionAPI {
+export declare class VisionAPI {
     /**
      * This operation does a deep analysis on the given image and then extracts a
      * set of rich visual features based on the image content.
@@ -140,7 +140,7 @@ declare export class VisionAPI {
     public ocr(options: Options.Ocr): Promise<VisionResponses.Ocr>;
 }
 
-declare export class PersonGroup {
+export declare class PersonGroup {
     /**
      * Creates a new person group with a user-specified ID.
      * A person group is one of the most important parameters for the Identification API.
@@ -207,7 +207,7 @@ declare export class PersonGroup {
     public list(): Promise<PersonGroupResponses.PersonGroup[]>;
 }
 
-declare export class Person {
+export declare class Person {
     /**
      * Adds a face to a person for identification. The maximum face count for each person is 32.
      * The face ID must be added to a person before its expiration. Typically a face ID expires
