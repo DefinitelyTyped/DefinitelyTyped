@@ -302,5 +302,8 @@ declare namespace ReactSelect {
 
 declare module "react-select" {
     const select: ReactSelect.ReactSelectClass;
+    interface Option extends ReactSelect.Option {}
+    
     export default select;
+    export { Option };
 }
