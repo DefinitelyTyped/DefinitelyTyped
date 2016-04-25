@@ -96,6 +96,7 @@ declare namespace ReactRouter {
         createElement?: (component: RouteComponent, props: Object) => any
         onError?: (error: any) => any
         onUpdate?: () => any
+        render?: (props: Object) => any
         parseQueryString?: ParseQueryString
         stringifyQuery?: StringifyQuery
     }
