@@ -1,4 +1,4 @@
-// Type definitions for Electron v0.37.6
+// Type definitions for Electron v0.37.4
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -319,7 +319,7 @@ declare namespace Electron {
 		 *
 		 * Note: This will not affect process.argv.
 		 */
-		appendArgument(value: string): void;
+		appendArgument(value: any): void;
 	}
 
 	interface Dock {
@@ -448,7 +448,7 @@ declare namespace Electron {
 		 * Ask the server whether there is an update, you have to call setFeedURL
 		 * before using this API
 		 */
-		checkForUpdates(): void;
+		checkForUpdates(): any;
 		/**
 		 * Restarts the app and installs the update after it has been downloaded.
 		 * It should only be called after update-downloaded has been emitted.
@@ -1132,11 +1132,6 @@ declare namespace Electron {
 		 * Default: ISO-8859-1.
 		 */
 		defaultEncoding?: string;
-		/**
-		 * Whether to throttle animations and timers when the page becomes background.
-		 * Default: true
-		 */
-		backgroundThrottling?: boolean;
 	}
 
 	interface BrowserWindowOptions extends Rectangle {
@@ -1287,7 +1282,7 @@ declare namespace Electron {
 		enableLargerThanScreen?: boolean;
 		/**
 		 * Window’s background color as Hexadecimal value, like #66CD00 or #FFF or #80FFFFFF (alpha is supported).
-		 * Default: #FFF (white).
+		 * Default: #000 (black) for Linux and Windows, #FFF for Mac (or clear if transparent).
 		 */
 		backgroundColor?: string;
 		/**
@@ -1388,7 +1383,7 @@ declare namespace Electron {
 		 * Reads the data in the clipboard of the specified format.
 		 * Note: This API is experimental and could be removed in future.
 		 */
-		read(format: string, type?: ClipboardType): string | NativeImage;
+		read(format: string, type?: ClipboardType): any;
 		/**
 		 * Writes data to the clipboard.
 		 */
@@ -1415,7 +1410,7 @@ declare namespace Electron {
 		 *
 		 * @param callback Called once all child processes have acknowledged the getCategories request.
 		 */
-		getCategories(callback: (categoryGroups: string[]) => void): void;
+		getCategories(callback: (categoryGroups: any[]) => void): void;
 		/**
 		 * Start recording on all processes. Recording begins immediately locally and asynchronously
 		 * on child processes as soon as they receive the EnableRecording request.
@@ -1579,7 +1574,7 @@ declare namespace Electron {
 		 * Note: There is no guarantee that the size of source.thumbnail is always
 		 * the same as the thumnbailSize in options. It also depends on the scale of the screen or window.
 		 */
-		getSources(options: DesktopCapturerOptions, callback: (error: Error, sources: DesktopCapturerSource[]) => any): void;
+		getSources(options: any, callback: (error: Error, sources: DesktopCapturerSource[]) => any): void;
 	}
 
 	interface DesktopCapturerOptions {
@@ -1654,13 +1649,13 @@ declare namespace Electron {
 		 * @param callback If supplied, the API call will be asynchronous.
 		 * @returns The index of the clicked button.
 		 */
-		showMessageBox(browserWindow: BrowserWindow, options: ShowMessageBoxOptions, callback?: (response: number) => void): number;
+		showMessageBox(browserWindow: BrowserWindow, options: ShowMessageBoxOptions, callback?: (response: any) => void): number;
 		/**
 		 * Shows a message box. It will block until the message box is closed.
 		 * @param callback If supplied, the API call will be asynchronous.
 		 * @returns The index of the clicked button.
 		 */
-		showMessageBox(options: ShowMessageBoxOptions, callback?: (response: number) => void): number;
+		showMessageBox(options: ShowMessageBoxOptions, callback?: (response: any) => void): number;
 		/**
 		 * Displays a modal dialog that shows an error message.
 		 *
@@ -2165,7 +2160,7 @@ declare namespace Electron {
 		/**
 		 * @returns {} The size of the image.
 		 */
-		getSize(): Dimension;
+		getSize(): any;
 		/**
 		 * Marks the image as template image.
 		 */
@@ -2511,7 +2506,7 @@ declare namespace Electron {
 		/**
 		 * Resolves the proxy information for url.
 		 */
-		resolveProxy(url: URL, callback: (proxy: string) => void): void;
+		resolveProxy(url: URL, callback: (proxy: any) => any): void;
 		/**
 		 * Sets download saving directory.
 		 * By default, the download directory will be the Downloads under the respective app folder.
@@ -2527,16 +2522,9 @@ declare namespace Electron {
 		 */
 		disableNetworkEmulation(): void;
 		/**
-		 * Sets the certificate verify proc for session, the proc will be called
-		 * whenever a server certificate verification is requested.
-		 *
-		 * Calling setCertificateVerifyProc(null) will revert back to default certificate verify proc.
+		 * Sets the certificate verify proc for session.
 		 */
-		setCertificateVerifyProc(proc: (hostname: string, cert: Certificate, callback: (accepted: boolean) => void) => void): void;
-		/**
-		 * Sets the handler which can be used to respond to permission requests for the session.
-		 */
-		setPermissionRequestHandler(handler: (webContents: WebContents, permission: Permission, callback: (allow: boolean) => void) => void): void;
+		setCertificateVerifyProc(proc: CertificateVerifyProc): void;
 		/**
 		 * Clears the host resolver cache.
 		 */
@@ -2544,10 +2532,8 @@ declare namespace Electron {
 		/**
 		 * The webRequest API set allows to intercept and modify contents of a request at various stages of its lifetime.
 		 */
-		webRequest: WebRequest;
+		webRequest: any;
 	}
-
-	type Permission = 'media' | 'geolocation' | 'notifications' | 'midiSysex' | 'pointerLock' | 'fullscreen';
 
 	interface ClearStorageDataOptions {
 		/**
@@ -2581,6 +2567,10 @@ declare namespace Electron {
 		 * Upload rate in Bps.
 		 */
 		uploadThroughput?: number;
+	}
+
+	interface CertificateVerifyProc {
+		(hostname: string, cert: any, callback: (accepted: boolean) => any): any;
 	}
 
 	interface CookieFilter {
@@ -2705,188 +2695,6 @@ declare namespace Electron {
 		 * Removes the cookies matching url and name.
 		 */
 		remove(url: string, name: string, callback: (error: Error) => void): void;
-	}
-
-	/**
-	 * Each API accepts an optional filter and a listener, the listener will be called when the API's event has happened.
-	 * Passing null as listener will unsubscribe from the event.
-	 *
-	 * The filter will be used to filter out the requests that do not match the URL patterns.
-	 * If the filter is omitted then all requests will be matched.
-	 *
-	 * For certain events the listener is passed with a callback,
-	 * which should be called with an response object when listener has done its work.
-	 */
-	interface WebRequest {
-		/**
-		 * The listener will be called when a request is about to occur.
-		 */
-		onBeforeRequest(listener: (details: WebRequest.BeforeRequestDetails, callback: WebRequest.BeforeRequestCallback) => void): void;
-		/**
-		 * The listener will be called when a request is about to occur.
-		 */
-		onBeforeRequest(filter: WebRequest.Filter, listener: (details: WebRequest.BeforeRequestDetails, callback: WebRequest.BeforeRequestCallback) => void): void;
-		/**
-		 * The listener will be called before sending an HTTP request, once the request headers are available.
-		 * This may occur after a TCP connection is made to the server, but before any http data is sent.
-		 */
-		onBeforeSendHeaders(listener: (details: WebRequest.BeforeSendHeadersDetails, callback: WebRequest.BeforeSendHeadersCallback) => void): void;
-		/**
-		 * The listener will be called before sending an HTTP request, once the request headers are available.
-		 * This may occur after a TCP connection is made to the server, but before any http data is sent.
-		 */
-		onBeforeSendHeaders(filter: WebRequest.Filter, listener: (details: WebRequest.BeforeSendHeadersDetails, callback: WebRequest.BeforeSendHeadersCallback) => void): void;
-		/**
-		 * The listener will be called just before a request is going to be sent to the server,
-		 * modifications of previous onBeforeSendHeaders response are visible by the time this listener is fired.
-		 */
-		onSendHeaders(listener: (details: WebRequest.SendHeadersDetails) => void): void;
-		/**
-		 * The listener will be called just before a request is going to be sent to the server,
-		 * modifications of previous onBeforeSendHeaders response are visible by the time this listener is fired.
-		 */
-		onSendHeaders(filter: WebRequest.Filter, listener: (details: WebRequest.SendHeadersDetails) => void): void;
-		/**
-		 * The listener will be called when HTTP response headers of a request have been received.
-		 */
-		onHeadersReceived(listener: (details: WebRequest.HeadersReceivedDetails, callback: WebRequest.HeadersReceivedCallback) => void): void;
-		/**
-		 * The listener will be called when HTTP response headers of a request have been received.
-		 */
-		onHeadersReceived(filter: WebRequest.Filter, listener: (details: WebRequest.HeadersReceivedDetails, callback: WebRequest.HeadersReceivedCallback) => void): void;
-		/**
-		 * The listener will be called when first byte of the response body is received.
-		 * For HTTP requests, this means that the status line and response headers are available.
-		 */
-		onResponseStarted(listener: (details: WebRequest.ResponseStartedDetails) => void): void;
-		/**
-		 * The listener will be called when first byte of the response body is received.
-		 * For HTTP requests, this means that the status line and response headers are available.
-		 */
-		onResponseStarted(filter: WebRequest.Filter, listener: (details: WebRequest.ResponseStartedDetails) => void): void;
-		/**
-		 * The listener will be called when a server initiated redirect is about to occur.
-		 */
-		onBeforeRedirect(listener: (details: WebRequest.BeforeRedirectDetails) => void): void;
-		/**
-		 * The listener will be called when a server initiated redirect is about to occur.
-		 */
-		onBeforeRedirect(filter: WebRequest.Filter, listener: (details: WebRequest.BeforeRedirectDetails) => void): void;
-		/**
-		 * The listener will be called when a request is completed.
-		 */
-		onCompleted(listener: (details: WebRequest.CompletedDetails) => void): void;
-		/**
-		 * The listener will be called when a request is completed.
-		 */
-		onCompleted(filter: WebRequest.Filter, listener: (details: WebRequest.CompletedDetails) => void): void;
-		/**
-		 * The listener will be called when an error occurs.
-		 */
-		onErrorOccurred(listener: (details: WebRequest.ErrorOccurredDetails) => void): void;
-		/**
-		 * The listener will be called when an error occurs.
-		 */
-		onErrorOccurred(filter: WebRequest.Filter, listener: (details: WebRequest.ErrorOccurredDetails) => void): void;
-	}
-
-	namespace WebRequest {
-		interface Filter {
-			urls: string[];
-		}
-
-		interface Details {
-			id: number;
-			url: string;
-			method: string;
-			resourceType: string;
-			timestamp: number;
-		}
-
-		interface UploadData {
-			/**
-			 * Content being sent.
-			 */
-			bytes: Buffer;
-			/**
-			 * Path of file being uploaded.
-			 */
-			file: string;
-		}
-
-		interface BeforeRequestDetails extends Details {
-			uploadData?: UploadData[];
-		}
-
-		type BeforeRequestCallback = (response: {
-			cancel?: boolean;
-			/**
-			 * The original request is prevented from being sent or completed, and is instead redirected to the given URL.
-			 */
-			redirectURL?: string;
-		}) => void;
-
-		interface BeforeSendHeadersDetails extends Details {
-			requestHeaders: Headers;
-		}
-
-		type BeforeSendHeadersCallback = (response: {
-			cancel?: boolean;
-			/**
-			 * When provided, request will be made with these headers.
-			 */
-			requestHeaders?: Headers;
-		}) => void;
-
-		interface SendHeadersDetails extends Details {
-			requestHeaders: Headers;
-		}
-
-		interface HeadersReceivedDetails extends Details {
-			statusLine: string;
-			statusCode: number;
-			responseHeaders: Headers;
-		}
-
-		type HeadersReceivedCallback = (response: {
-			cancel?: boolean;
-			/**
-			 * When provided, the server is assumed to have responded with these headers.
-			 */
-			responseHeaders?: Headers;
-			/**
-			 * Should be provided when overriding responseHeaders to change header status
-			 * otherwise original response header's status will be used.
-			 */
-			statusLine?: string;
-		}) => void;
-
-		interface ResponseStartedDetails extends Details {
-			responseHeaders: Headers;
-			fromCache: boolean;
-			statusCode: number;
-			statusLine: string;
-		}
-
-		interface BeforeRedirectDetails extends Details {
-			redirectURL: string;
-			statusCode: number;
-			ip?: string;
-			fromCache: boolean;
-			responseHeaders: Headers;
-		}
-
-		interface CompletedDetails extends Details {
-			responseHeaders: Headers;
-			fromCache: boolean;
-			statusCode: number;
-			statusLine: string;
-		}
-
-		interface ErrorOccurredDetails extends Details {
-			fromCache: boolean;
-			error: string;
-		}
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/shell.md
@@ -3062,7 +2870,7 @@ declare namespace Electron {
 		 * This event is like did-finish-load but emitted when the load failed or was cancelled,
 		 * e.g. window.stop() is invoked.
 		 */
-		on(event: 'did-fail-load', listener: (event: Event, errorCode: number, errorDescription: string, validatedURL: string, isMainFrame: boolean) => void): this;
+		on(event: 'did-fail-load', listener: (event: Event, errorCode: number, errorDescription: string, validatedURL: string) => void): this;
 		/**
 		 * Emitted when a frame has done navigation.
 		 */
@@ -3086,8 +2894,7 @@ declare namespace Electron {
 			httpResponseCode: number,
 			requestMethod: string,
 			referrer: string,
-			headers: Headers,
-			resourceType: string
+			headers: any
 		) => void): this;
 		/**
 		 * Emitted when a redirect is received while requesting a resource.
@@ -3099,7 +2906,7 @@ declare namespace Electron {
 			httpResponseCode: number,
 			requestMethod: string,
 			referrer: string,
-			headers: Headers
+			headers: any
 		) => void): this;
 		/**
 		 * Emitted when the document in the given frame is loaded.
@@ -3512,10 +3319,6 @@ declare namespace Electron {
 		debugger: Debugger;
 	}
 
-	interface Headers {
-		[key: string]: string;
-	}
-
 	type NewWindowDisposition = 'default' | 'foreground-tab' | 'background-tab' | 'new-window' | 'other';
 
 	/**
@@ -3651,7 +3454,7 @@ declare namespace Electron {
 		/**
 		 * Coordinates of first match region.
 		 */
-		selectionArea?: Bounds;
+		selectionArea?: any;
 	}
 
 	interface DeviceEmulationParameters {
@@ -4133,7 +3936,7 @@ declare namespace Electron {
 		 * Fired when details regarding a requested resource is available.
 		 * status indicates socket connection to download the resource.
 		 */
-		addEventListener(type: 'did-get-response-details', listener: (event: WebViewElement.DidGetResponseDetails) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-get-response-details', listener: (event: WebViewElement.DidGetResponseRetails) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when a redirect was received while requesting a resource.
 		 */
@@ -4262,22 +4065,20 @@ declare namespace Electron {
 			errorCode: number;
 			errorDescription: string;
 			validatedURL: string;
-			isMainFrame: boolean;
 		}
 
 		interface DidFrameFinishLoadEvent extends Event  {
 			isMainFrame: boolean;
 		}
 
-		interface DidGetResponseDetails extends Event  {
+		interface DidGetResponseRetails extends Event  {
 			status: boolean;
 			newURL: string;
 			originalURL: string;
 			httpResponseCode: number;
 			requestMethod: string;
 			referrer: string;
-			headers: Headers;
-			resourceType: string;
+			headers: any;
 		}
 
 		interface DidGetRedirectRequestEvent extends Event {
@@ -4287,7 +4088,7 @@ declare namespace Electron {
 			httpResponseCode: number;
 			requestMethod: string;
 			referrer: string;
-			headers: Headers;
+			headers: any;
 		}
 
 		interface PageTitleUpdatedEvent extends Event {
