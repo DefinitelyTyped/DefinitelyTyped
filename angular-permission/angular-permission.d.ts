@@ -6,7 +6,8 @@
 /// <reference path="../angularjs/angular.d.ts" />
 /// <reference path="../angular-ui-router/angular-ui-router.d.ts" />
 
-declare module 'angular-permission' {
+declare namespace angular.permission {
+
   export interface PermissionStore {
     /**
      * Allows to define permission on application configuration

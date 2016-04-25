@@ -527,16 +527,12 @@ namespace TestDropRightWhile {
 
         result = _.dropRightWhile<TResult>(array);
         result = _.dropRightWhile<TResult>(array, predicateFn);
-        result = _.dropRightWhile<TResult>(array, predicateFn, any);
         result = _.dropRightWhile<TResult>(array, '');
-        result = _.dropRightWhile<TResult>(array, '', any);
         result = _.dropRightWhile<{a: number;}, TResult>(array, {a: 42});
 
         result = _.dropRightWhile<TResult>(list);
         result = _.dropRightWhile<TResult>(list, predicateFn);
-        result = _.dropRightWhile<TResult>(list, predicateFn, any);
         result = _.dropRightWhile<TResult>(list, '');
-        result = _.dropRightWhile<TResult>(list, '', any);
         result = _.dropRightWhile<{a: number;}, TResult>(list, {a: 42});
     }
 
@@ -545,16 +541,12 @@ namespace TestDropRightWhile {
 
         result = _(array).dropRightWhile();
         result = _(array).dropRightWhile(predicateFn);
-        result = _(array).dropRightWhile(predicateFn, any);
         result = _(array).dropRightWhile('');
-        result = _(array).dropRightWhile('', any);
         result = _(array).dropRightWhile<{a: number;}>({a: 42});
 
         result = _(list).dropRightWhile<TResult>();
         result = _(list).dropRightWhile<TResult>(predicateFn);
-        result = _(list).dropRightWhile<TResult>(predicateFn, any);
         result = _(list).dropRightWhile<TResult>('');
-        result = _(list).dropRightWhile<TResult>('', any);
         result = _(list).dropRightWhile<{a: number;}, TResult>({a: 42});
     }
 
@@ -563,16 +555,12 @@ namespace TestDropRightWhile {
 
         result = _(array).chain().dropRightWhile();
         result = _(array).chain().dropRightWhile(predicateFn);
-        result = _(array).chain().dropRightWhile(predicateFn, any);
         result = _(array).chain().dropRightWhile('');
-        result = _(array).chain().dropRightWhile('', any);
         result = _(array).chain().dropRightWhile<{a: number;}>({a: 42});
 
         result = _(list).chain().dropRightWhile<TResult>();
         result = _(list).chain().dropRightWhile<TResult>(predicateFn);
-        result = _(list).chain().dropRightWhile<TResult>(predicateFn, any);
         result = _(list).chain().dropRightWhile<TResult>('');
-        result = _(list).chain().dropRightWhile<TResult>('', any);
         result = _(list).chain().dropRightWhile<{a: number;}, TResult>({a: 42});
     }
 }
@@ -588,16 +576,12 @@ namespace TestDropWhile {
 
         result = _.dropWhile<TResult>(array);
         result = _.dropWhile<TResult>(array, predicateFn);
-        result = _.dropWhile<TResult>(array, predicateFn, any);
         result = _.dropWhile<TResult>(array, '');
-        result = _.dropWhile<TResult>(array, '', any);
         result = _.dropWhile<{a: number;}, TResult>(array, {a: 42});
 
         result = _.dropWhile<TResult>(list);
         result = _.dropWhile<TResult>(list, predicateFn);
-        result = _.dropWhile<TResult>(list, predicateFn, any);
         result = _.dropWhile<TResult>(list, '');
-        result = _.dropWhile<TResult>(list, '', any);
         result = _.dropWhile<{a: number;}, TResult>(list, {a: 42});
     }
 
@@ -606,16 +590,12 @@ namespace TestDropWhile {
 
         result = _(array).dropWhile();
         result = _(array).dropWhile(predicateFn);
-        result = _(array).dropWhile(predicateFn, any);
         result = _(array).dropWhile('');
-        result = _(array).dropWhile('', any);
         result = _(array).dropWhile<{a: number;}>({a: 42});
 
         result = _(list).dropWhile<TResult>();
         result = _(list).dropWhile<TResult>(predicateFn);
-        result = _(list).dropWhile<TResult>(predicateFn, any);
         result = _(list).dropWhile<TResult>('');
-        result = _(list).dropWhile<TResult>('', any);
         result = _(list).dropWhile<{a: number;}, TResult>({a: 42});
     }
 
@@ -624,16 +604,12 @@ namespace TestDropWhile {
 
         result = _(array).chain().dropWhile();
         result = _(array).chain().dropWhile(predicateFn);
-        result = _(array).chain().dropWhile(predicateFn, any);
         result = _(array).chain().dropWhile('');
-        result = _(array).chain().dropWhile('', any);
         result = _(array).chain().dropWhile<{a: number;}>({a: 42});
 
         result = _(list).chain().dropWhile<TResult>();
         result = _(list).chain().dropWhile<TResult>(predicateFn);
-        result = _(list).chain().dropWhile<TResult>(predicateFn, any);
         result = _(list).chain().dropWhile<TResult>('');
-        result = _(list).chain().dropWhile<TResult>('', any);
         result = _(list).chain().dropWhile<{a: number;}, TResult>({a: 42});
     }
 }
@@ -703,30 +679,22 @@ namespace TestFindIndex {
 
         result = _.findIndex<TResult>(array);
         result = _.findIndex<TResult>(array, predicateFn);
-        result = _.findIndex<TResult>(array, predicateFn, any);
         result = _.findIndex<TResult>(array, '');
-        result = _.findIndex<TResult>(array, '', any);
         result = _.findIndex<{a: number}, TResult>(array, {a: 42});
 
         result = _.findIndex<TResult>(list);
         result = _.findIndex<TResult>(list, predicateFn);
-        result = _.findIndex<TResult>(list, predicateFn, any);
         result = _.findIndex<TResult>(list, '');
-        result = _.findIndex<TResult>(list, '', any);
         result = _.findIndex<{a: number}, TResult>(list, {a: 42});
 
         result = _<TResult>(array).findIndex();
         result = _<TResult>(array).findIndex(predicateFn);
-        result = _<TResult>(array).findIndex(predicateFn, any);
         result = _<TResult>(array).findIndex('');
-        result = _<TResult>(array).findIndex('', any);
         result = _<TResult>(array).findIndex<{a: number}>({a: 42});
 
         result = _(list).findIndex();
         result = _(list).findIndex<TResult>(predicateFn);
-        result = _(list).findIndex<TResult>(predicateFn, any);
         result = _(list).findIndex('');
-        result = _(list).findIndex('', any);
         result = _(list).findIndex<{a: number}>({a: 42});
     }
 
@@ -735,16 +703,12 @@ namespace TestFindIndex {
 
         result = _<TResult>(array).chain().findIndex();
         result = _<TResult>(array).chain().findIndex(predicateFn);
-        result = _<TResult>(array).chain().findIndex(predicateFn, any);
         result = _<TResult>(array).chain().findIndex('');
-        result = _<TResult>(array).chain().findIndex('', any);
         result = _<TResult>(array).chain().findIndex<{a: number}>({a: 42});
 
         result = _(list).chain().findIndex();
         result = _(list).chain().findIndex<TResult>(predicateFn);
-        result = _(list).chain().findIndex<TResult>(predicateFn, any);
         result = _(list).chain().findIndex('');
-        result = _(list).chain().findIndex('', any);
         result = _(list).chain().findIndex<{a: number}>({a: 42});
     }
 }
@@ -761,30 +725,22 @@ namespace TestFindLastIndex {
 
         result = _.findLastIndex<TResult>(array);
         result = _.findLastIndex<TResult>(array, predicateFn);
-        result = _.findLastIndex<TResult>(array, predicateFn, any);
         result = _.findLastIndex<TResult>(array, '');
-        result = _.findLastIndex<TResult>(array, '', any);
         result = _.findLastIndex<{a: number}, TResult>(array, {a: 42});
 
         result = _.findLastIndex<TResult>(list);
         result = _.findLastIndex<TResult>(list, predicateFn);
-        result = _.findLastIndex<TResult>(list, predicateFn, any);
         result = _.findLastIndex<TResult>(list, '');
-        result = _.findLastIndex<TResult>(list, '', any);
         result = _.findLastIndex<{a: number}, TResult>(list, {a: 42});
 
         result = _<TResult>(array).findLastIndex();
         result = _<TResult>(array).findLastIndex(predicateFn);
-        result = _<TResult>(array).findLastIndex(predicateFn, any);
         result = _<TResult>(array).findLastIndex('');
-        result = _<TResult>(array).findLastIndex('', any);
         result = _<TResult>(array).findLastIndex<{a: number}>({a: 42});
 
         result = _(list).findLastIndex();
         result = _(list).findLastIndex<TResult>(predicateFn);
-        result = _(list).findLastIndex<TResult>(predicateFn, any);
         result = _(list).findLastIndex('');
-        result = _(list).findLastIndex('', any);
         result = _(list).findLastIndex<{a: number}>({a: 42});
     }
 
@@ -793,16 +749,12 @@ namespace TestFindLastIndex {
 
         result = _<TResult>(array).chain().findLastIndex();
         result = _<TResult>(array).chain().findLastIndex(predicateFn);
-        result = _<TResult>(array).chain().findLastIndex(predicateFn, any);
         result = _<TResult>(array).chain().findLastIndex('');
-        result = _<TResult>(array).chain().findLastIndex('', any);
         result = _<TResult>(array).chain().findLastIndex<{a: number}>({a: 42});
 
         result = _(list).chain().findLastIndex();
         result = _(list).chain().findLastIndex<TResult>(predicateFn);
-        result = _(list).chain().findLastIndex<TResult>(predicateFn, any);
         result = _(list).chain().findLastIndex('');
-        result = _(list).chain().findLastIndex('', any);
         result = _(list).chain().findLastIndex<{a: number}>({a: 42});
     }
 }
@@ -1016,6 +968,24 @@ namespace TestFlattenDeep {
 
         result = _({0: 1, 1: [2, [3]], length: 2}).chain().flattenDeep<number|number[]>();
         result = _({0: 1, 1: [2, [3]], 2: [[4]], length: 3}).chain().flattenDeep<number|number[]>();
+    }
+}
+
+// _.fromPairs
+namespace TestFromPairs {
+    let array: string[][];
+    let result: _.Dictionary<any>;
+
+    {
+        result = _.fromPairs(array);
+    }
+
+    {
+        result = _(array).fromPairs().value();
+    }
+
+    {
+        result = _.chain(array).fromPairs().value();
     }
 }
 
@@ -1412,16 +1382,12 @@ namespace TestRemove {
 
         result = _.remove<TResult>(array);
         result = _.remove<TResult>(array, predicateFn);
-        result = _.remove<TResult>(array, predicateFn, any);
         result = _.remove<TResult>(array, '');
-        result = _.remove<TResult>(array, '', any);
         result = _.remove<{a: number}, TResult>(array, {a: 42});
 
         result = _.remove<TResult>(list);
         result = _.remove<TResult>(list, predicateFn);
-        result = _.remove<TResult>(list, predicateFn, any);
         result = _.remove<TResult>(list, '');
-        result = _.remove<TResult>(list, '', any);
         result = _.remove<{a: number}, TResult>(list, {a: 42});
     }
 
@@ -1430,16 +1396,12 @@ namespace TestRemove {
 
         result = _<TResult>(array).remove();
         result = _<TResult>(array).remove(predicateFn);
-        result = _<TResult>(array).remove(predicateFn, any);
         result = _<TResult>(array).remove('');
-        result = _<TResult>(array).remove('', any);
         result = _<TResult>(array).remove<{a: number}>({a: 42});
 
         result = _(list).remove<TResult>();
         result = _(list).remove<TResult>(predicateFn);
-        result = _(list).remove<TResult>(predicateFn, any);
         result = _(list).remove<TResult>('');
-        result = _(list).remove<TResult>('', any);
         result = _(list).remove<{a: number}, TResult>({a: 42});
     }
 
@@ -1448,16 +1410,12 @@ namespace TestRemove {
 
         result = _<TResult>(array).chain().remove();
         result = _<TResult>(array).chain().remove(predicateFn);
-        result = _<TResult>(array).chain().remove(predicateFn, any);
         result = _<TResult>(array).chain().remove('');
-        result = _<TResult>(array).chain().remove('', any);
         result = _<TResult>(array).chain().remove<{a: number}>({a: 42});
 
         result = _(list).chain().remove<TResult>();
         result = _(list).chain().remove<TResult>(predicateFn);
-        result = _(list).chain().remove<TResult>(predicateFn, any);
         result = _(list).chain().remove<TResult>('');
-        result = _(list).chain().remove<TResult>('', any);
         result = _(list).chain().remove<{a: number}, TResult>({a: 42});
     }
 }
@@ -1834,16 +1792,12 @@ namespace TestTakeRightWhile {
 
         result = _.takeRightWhile<TResult>(array);
         result = _.takeRightWhile<TResult>(array, predicateFn);
-        result = _.takeRightWhile<TResult>(array, predicateFn, any);
         result = _.takeRightWhile<TResult>(array, '');
-        result = _.takeRightWhile<TResult>(array, '', any);
         result = _.takeRightWhile<{a: number;}, TResult>(array, {a: 42});
 
         result = _.takeRightWhile<TResult>(list);
         result = _.takeRightWhile<TResult>(list, predicateFn);
-        result = _.takeRightWhile<TResult>(list, predicateFn, any);
         result = _.takeRightWhile<TResult>(list, '');
-        result = _.takeRightWhile<TResult>(list, '', any);
         result = _.takeRightWhile<{a: number;}, TResult>(list, {a: 42});
     }
 
@@ -1852,16 +1806,12 @@ namespace TestTakeRightWhile {
 
         result = _(array).takeRightWhile();
         result = _(array).takeRightWhile(predicateFn);
-        result = _(array).takeRightWhile(predicateFn, any);
         result = _(array).takeRightWhile('');
-        result = _(array).takeRightWhile('', any);
         result = _(array).takeRightWhile<{a: number;}>({a: 42});
 
         result = _(list).takeRightWhile<TResult>();
         result = _(list).takeRightWhile<TResult>(predicateFn);
-        result = _(list).takeRightWhile<TResult>(predicateFn, any);
         result = _(list).takeRightWhile<TResult>('');
-        result = _(list).takeRightWhile<TResult>('', any);
         result = _(list).takeRightWhile<{a: number;}, TResult>({a: 42});
     }
 
@@ -1870,16 +1820,12 @@ namespace TestTakeRightWhile {
 
         result = _(array).chain().takeRightWhile();
         result = _(array).chain().takeRightWhile(predicateFn);
-        result = _(array).chain().takeRightWhile(predicateFn, any);
         result = _(array).chain().takeRightWhile('');
-        result = _(array).chain().takeRightWhile('', any);
         result = _(array).chain().takeRightWhile<{a: number;}>({a: 42});
 
         result = _(list).chain().takeRightWhile<TResult>();
         result = _(list).chain().takeRightWhile<TResult>(predicateFn);
-        result = _(list).chain().takeRightWhile<TResult>(predicateFn, any);
         result = _(list).chain().takeRightWhile<TResult>('');
-        result = _(list).chain().takeRightWhile<TResult>('', any);
         result = _(list).chain().takeRightWhile<{a: number;}, TResult>({a: 42});
     }
 }
@@ -1895,16 +1841,12 @@ namespace TestTakeWhile {
 
         result = _.takeWhile<TResult>(array);
         result = _.takeWhile<TResult>(array, predicateFn);
-        result = _.takeWhile<TResult>(array, predicateFn, any);
         result = _.takeWhile<TResult>(array, '');
-        result = _.takeWhile<TResult>(array, '', any);
         result = _.takeWhile<{a: number;}, TResult>(array, {a: 42});
 
         result = _.takeWhile<TResult>(list);
         result = _.takeWhile<TResult>(list, predicateFn);
-        result = _.takeWhile<TResult>(list, predicateFn, any);
         result = _.takeWhile<TResult>(list, '');
-        result = _.takeWhile<TResult>(list, '', any);
         result = _.takeWhile<{a: number;}, TResult>(list, {a: 42});
     }
 
@@ -1913,16 +1855,12 @@ namespace TestTakeWhile {
 
         result = _(array).takeWhile();
         result = _(array).takeWhile(predicateFn);
-        result = _(array).takeWhile(predicateFn, any);
         result = _(array).takeWhile('');
-        result = _(array).takeWhile('', any);
         result = _(array).takeWhile<{a: number;}>({a: 42});
 
         result = _(list).takeWhile<TResult>();
         result = _(list).takeWhile<TResult>(predicateFn);
-        result = _(list).takeWhile<TResult>(predicateFn, any);
         result = _(list).takeWhile<TResult>('');
-        result = _(list).takeWhile<TResult>('', any);
         result = _(list).takeWhile<{a: number;}, TResult>({a: 42});
     }
 
@@ -1931,16 +1869,12 @@ namespace TestTakeWhile {
 
         result = _(array).chain().takeWhile();
         result = _(array).chain().takeWhile(predicateFn);
-        result = _(array).chain().takeWhile(predicateFn, any);
         result = _(array).chain().takeWhile('');
-        result = _(array).chain().takeWhile('', any);
         result = _(array).chain().takeWhile<{a: number;}>({a: 42});
 
         result = _(list).chain().takeWhile<TResult>();
         result = _(list).chain().takeWhile<TResult>(predicateFn);
-        result = _(list).chain().takeWhile<TResult>(predicateFn, any);
         result = _(list).chain().takeWhile<TResult>('');
-        result = _(list).chain().takeWhile<TResult>('', any);
         result = _(list).chain().takeWhile<{a: number;}, TResult>({a: 42});
     }
 }
@@ -2443,14 +2377,10 @@ namespace TestUnzip {
     let result: TResult[];
     result = _.unzipWith<number, TResult>(testUnzipWithArray);
     result = _.unzipWith<number, TResult>(testUnzipWithArray, testUnzipWithIterator);
-    result = _.unzipWith<number, TResult>(testUnzipWithArray, testUnzipWithIterator, any);
     result = _.unzipWith<number, TResult>(testUnzipWithList);
     result = _.unzipWith<number, TResult>(testUnzipWithList, testUnzipWithIterator);
-    result = _.unzipWith<number, TResult>(testUnzipWithList, testUnzipWithIterator, any);
     result = _(testUnzipWithArray).unzipWith<number, TResult>(testUnzipWithIterator).value();
-    result = _(testUnzipWithArray).unzipWith<number, TResult>(testUnzipWithIterator, any).value();
     result = _(testUnzipWithList).unzipWith<number, TResult>(testUnzipWithIterator).value();
-    result = _(testUnzipWithList).unzipWith<number, TResult>(testUnzipWithIterator, any).value();
 }
 
 // _.without
@@ -2717,14 +2647,12 @@ interface TestZipWithFn {
 var testZipWithFn: TestZipWithFn;
 result = <number[]>_.zipWith<number>([1, 2]);
 result = <number[]>_.zipWith<number>([1, 2], testZipWithFn);
-result = <number[]>_.zipWith<number>([1, 2], testZipWithFn, any);
-result = <number[]>_.zipWith<number>([1, 2], [1, 2], testZipWithFn, any);
-result = <number[]>_.zipWith<number>([1, 2], [1, 2], [1, 2], [1, 2], [1, 2], [1, 2], testZipWithFn, any);
+result = <number[]>_.zipWith<number>([1, 2], [1, 2], testZipWithFn);
+result = <number[]>_.zipWith<number>([1, 2], [1, 2], [1, 2], [1, 2], [1, 2], [1, 2], testZipWithFn);
 result = <number[]>_([1, 2]).zipWith<number>().value();
 result = <number[]>_([1, 2]).zipWith<number>(testZipWithFn).value();
-result = <number[]>_([1, 2]).zipWith<number>(testZipWithFn, any).value();
-result = <number[]>_([1, 2]).zipWith<number>([1, 2], testZipWithFn, any).value();
-result = <number[]>_([1, 2]).zipWith<number>([1, 2], [1, 2], [1, 2], [1, 2], [1, 2], testZipWithFn, any).value();
+result = <number[]>_([1, 2]).zipWith<number>([1, 2], testZipWithFn).value();
+result = <number[]>_([1, 2]).zipWith<number>([1, 2], [1, 2], [1, 2], [1, 2], [1, 2], testZipWithFn).value();
 
 /*********
  * Chain *
@@ -2778,7 +2706,6 @@ namespace TestTap {
         let result: string;
 
         _.tap('', interceptor);
-        _.tap('', interceptor, any);
     }
 
     {
@@ -2786,7 +2713,6 @@ namespace TestTap {
         let result: _.LoDashImplicitArrayWrapper<string>;
 
         _.tap([''], interceptor);
-        _.tap([''], interceptor, any);
     }
 
     {
@@ -2794,18 +2720,15 @@ namespace TestTap {
         let result: _.LoDashImplicitObjectWrapper<{a: string}>;
 
         _.tap({a: ''}, interceptor);
-        _.tap({a: ''}, interceptor, any);
     }
 
     {
         let interceptor: (value: string) => void;
         let result: _.LoDashImplicitWrapper<string>;
 
-        _.chain('').tap(interceptor, any);
-        _.chain('').tap(interceptor, any);
+        _.chain('').tap(interceptor);
 
         _('').tap(interceptor);
-        _('').tap(interceptor, any);
     }
 
     {
@@ -2813,10 +2736,8 @@ namespace TestTap {
         let result: _.LoDashImplicitArrayWrapper<string>;
 
         _.chain(['']).tap(interceptor);
-        _.chain(['']).tap(interceptor, any);
 
         _(['']).tap(interceptor);
-        _(['']).tap(interceptor, any);
     }
 
     {
@@ -2824,21 +2745,17 @@ namespace TestTap {
         let result: _.LoDashImplicitObjectWrapper<{a: string}>;
 
         _.chain({a: ''}).tap(interceptor);
-        _.chain({a: ''}).tap(interceptor, any);
 
         _({a: ''}).tap(interceptor);
-        _({a: ''}).tap(interceptor, any);
     }
 
     {
         let interceptor: (value: string) => void;
         let result: _.LoDashExplicitWrapper<string>;
 
-        _.chain('').tap(interceptor, any);
-        _.chain('').tap(interceptor, any);
+        _.chain('').tap(interceptor);
 
         _('').chain().tap(interceptor);
-        _('').chain().tap(interceptor, any);
     }
 
     {
@@ -2846,10 +2763,8 @@ namespace TestTap {
         let result: _.LoDashExplicitArrayWrapper<string>;
 
         _.chain(['']).tap(interceptor);
-        _.chain(['']).tap(interceptor, any);
 
         _(['']).chain().tap(interceptor);
-        _(['']).chain().tap(interceptor, any);
     }
 
     {
@@ -2857,10 +2772,8 @@ namespace TestTap {
         let result: _.LoDashExplicitObjectWrapper<{a: string}>;
 
         _.chain({a: ''}).tap(interceptor);
-        _.chain({a: ''}).tap(interceptor, any);
 
         _({a: ''}).chain().tap(interceptor);
-        _({a: ''}).chain().tap(interceptor, any);
     }
 }
 
@@ -2875,7 +2788,6 @@ namespace TestThru {
         let result: number;
 
         result = _.thru<number, number>(1, interceptor);
-        result = _.thru<number, number>(1, interceptor, any);
     }
 
     {
@@ -2883,7 +2795,6 @@ namespace TestThru {
         let result: _.LoDashImplicitWrapper<number>;
 
         result = _(1).thru<number>(interceptor);
-        result = _(1).thru<number>(interceptor, any);
     }
 
     {
@@ -2891,7 +2802,6 @@ namespace TestThru {
         let result: _.LoDashImplicitWrapper<string>;
 
         result = _('').thru<string>(interceptor);
-        result = _('').thru<string>(interceptor, any);
     }
 
     {
@@ -2899,7 +2809,6 @@ namespace TestThru {
         let result: _.LoDashImplicitWrapper<boolean>;
 
         result = _(true).thru<boolean>(interceptor);
-        result = _(true).thru<boolean>(interceptor, any);
     }
 
     {
@@ -2907,7 +2816,6 @@ namespace TestThru {
         let result: _.LoDashImplicitObjectWrapper<{a: string}>;
 
         result = _({a: ''}).thru<{a: string}>(interceptor);
-        result = _({a: ''}).thru<{a: string}>(interceptor, any);
     }
 
     {
@@ -2915,7 +2823,6 @@ namespace TestThru {
         let result: _.LoDashImplicitArrayWrapper<number>;
 
         result = _([1, 2, 3]).thru<number>(interceptor);
-        result = _([1, 2, 3]).thru<number>(interceptor, any);
     }
 
     {
@@ -2923,7 +2830,6 @@ namespace TestThru {
         let result: _.LoDashExplicitWrapper<number>;
 
         result = _(1).chain().thru<number>(interceptor);
-        result = _(1).chain().thru<number>(interceptor, any);
     }
 
     {
@@ -2931,7 +2837,6 @@ namespace TestThru {
         let result: _.LoDashExplicitWrapper<string>;
 
         result = _('').chain().thru<string>(interceptor);
-        result = _('').chain().thru<string>(interceptor, any);
     }
 
     {
@@ -2939,7 +2844,6 @@ namespace TestThru {
         let result: _.LoDashExplicitWrapper<boolean>;
 
         result = _(true).chain().thru<boolean>(interceptor);
-        result = _(true).chain().thru<boolean>(interceptor, any);
     }
 
     {
@@ -2947,7 +2851,6 @@ namespace TestThru {
         let result: _.LoDashExplicitObjectWrapper<{a: string}>;
 
         result = _({a: ''}).chain().thru<{a: string}>(interceptor);
-        result = _({a: ''}).chain().thru<{a: string}>(interceptor, any);
     }
 
     {
@@ -2955,7 +2858,6 @@ namespace TestThru {
         let result: _.LoDashExplicitArrayWrapper<number>;
 
         result = _([1, 2, 3]).chain().thru<number>(interceptor);
-        result = _([1, 2, 3]).chain().thru<number>(interceptor, any);
     }
 }
 
@@ -3134,12 +3036,12 @@ namespace TestPlant {
 namespace TestReverse {
     {
         let result: _.LoDashImplicitArrayWrapper<number>;
-        result: _([42]).reverse();
+        result = _([42]).reverse();
     }
 
     {
         let result: _.LoDashExplicitArrayWrapper<number>;
-        result: _([42]).chain().reverse();
+        result = _([42]).chain().reverse();
     }
 }
 
@@ -3326,37 +3228,28 @@ namespace TestCountBy {
 
         result = _.countBy<string>('');
         result = _.countBy<string>('', stringIterator);
-        result = _.countBy<string>('', stringIterator, any);
 
         result = _.countBy<TResult>(array);
         result = _.countBy<TResult>(array, listIterator);
-        result = _.countBy<TResult>(array, listIterator, any);
         result = _.countBy<TResult>(array, '');
-        result = _.countBy<TResult>(array, '', any);
         result = _.countBy<{a: number}, TResult>(array, {a: 42});
         result = _.countBy<TResult>(array, {a: 42});
 
         result = _.countBy<TResult>(list);
         result = _.countBy<TResult>(list, listIterator);
-        result = _.countBy<TResult>(list, listIterator, any);
         result = _.countBy<TResult>(list, '');
-        result = _.countBy<TResult>(list, '', any);
         result = _.countBy<{a: number}, TResult>(list, {a: 42});
         result = _.countBy<TResult>(list, {a: 42});
 
         result = _.countBy<TResult>(dictionary);
         result = _.countBy<TResult>(dictionary, dictionaryIterator);
-        result = _.countBy<TResult>(dictionary, dictionaryIterator, any);
         result = _.countBy<TResult>(dictionary, '');
-        result = _.countBy<TResult>(dictionary, '', any);
         result = _.countBy<{a: number}, TResult>(dictionary, {a: 42});
         result = _.countBy<TResult>(dictionary, {a: 42});
 
         result = _.countBy<TResult>(numericDictionary);
         result = _.countBy<TResult>(numericDictionary, numericDictionaryIterator);
-        result = _.countBy<TResult>(numericDictionary, numericDictionaryIterator, any);
         result = _.countBy<TResult>(numericDictionary, '');
-        result = _.countBy<TResult>(numericDictionary, '', any);
         result = _.countBy<{a: number}, TResult>(numericDictionary, {a: 42});
         result = _.countBy<TResult>(numericDictionary, {a: 42});
     }
@@ -3366,37 +3259,28 @@ namespace TestCountBy {
 
         result = _('').countBy();
         result = _('').countBy(stringIterator);
-        result = _('').countBy(stringIterator, any);
 
         result = _(array).countBy();
         result = _(array).countBy(listIterator);
-        result = _(array).countBy(listIterator, any);
         result = _(array).countBy('');
-        result = _(array).countBy('', any);
         result = _(array).countBy<{a: number}>({a: 42});
         result = _(array).countBy({a: 42});
 
         result = _(list).countBy();
         result = _(list).countBy<TResult>(listIterator);
-        result = _(list).countBy<TResult>(listIterator, any);
         result = _(list).countBy('');
-        result = _(list).countBy('', any);
         result = _(list).countBy<{a: number}>({a: 42});
         result = _(list).countBy({a: 42});
 
         result = _(dictionary).countBy();
         result = _(dictionary).countBy<TResult>(dictionaryIterator);
-        result = _(dictionary).countBy<TResult>(dictionaryIterator, any);
         result = _(dictionary).countBy('');
-        result = _(dictionary).countBy('', any);
         result = _(dictionary).countBy<{a: number}>({a: 42});
         result = _(dictionary).countBy({a: 42});
 
         result = _(numericDictionary).countBy();
         result = _(numericDictionary).countBy<TResult>(numericDictionaryIterator);
-        result = _(numericDictionary).countBy<TResult>(numericDictionaryIterator, any);
         result = _(numericDictionary).countBy('');
-        result = _(numericDictionary).countBy('', any);
         result = _(numericDictionary).countBy<{a: number}>({a: 42});
         result = _(numericDictionary).countBy({a: 42});
     }
@@ -3406,37 +3290,28 @@ namespace TestCountBy {
 
         result = _('').chain().countBy();
         result = _('').chain().countBy(stringIterator);
-        result = _('').chain().countBy(stringIterator, any);
 
         result = _(array).chain().countBy();
         result = _(array).chain().countBy(listIterator);
-        result = _(array).chain().countBy(listIterator, any);
         result = _(array).chain().countBy('');
-        result = _(array).chain().countBy('', any);
         result = _(array).chain().countBy<{a: number}>({a: 42});
         result = _(array).chain().countBy({a: 42});
 
         result = _(list).chain().countBy();
         result = _(list).chain().countBy<TResult>(listIterator);
-        result = _(list).chain().countBy<TResult>(listIterator, any);
         result = _(list).chain().countBy('');
-        result = _(list).chain().countBy('', any);
         result = _(list).chain().countBy<{a: number}>({a: 42});
         result = _(list).chain().countBy({a: 42});
 
         result = _(dictionary).chain().countBy();
         result = _(dictionary).chain().countBy<TResult>(dictionaryIterator);
-        result = _(dictionary).chain().countBy<TResult>(dictionaryIterator, any);
         result = _(dictionary).chain().countBy('');
-        result = _(dictionary).chain().countBy('', any);
         result = _(dictionary).chain().countBy<{a: number}>({a: 42});
         result = _(dictionary).chain().countBy({a: 42});
 
         result = _(numericDictionary).chain().countBy();
         result = _(numericDictionary).chain().countBy<TResult>(numericDictionaryIterator);
-        result = _(numericDictionary).chain().countBy<TResult>(numericDictionaryIterator, any);
         result = _(numericDictionary).chain().countBy('');
-        result = _(numericDictionary).chain().countBy('', any);
         result = _(numericDictionary).chain().countBy<{a: number}>({a: 42});
         result = _(numericDictionary).chain().countBy({a: 42});
     }
@@ -3456,84 +3331,72 @@ namespace TestEach {
         let result: string;
 
         _.each('', stringIterator);
-        _.each('', stringIterator, any);
     }
 
     {
         let result: TResult[];
 
         _.each<TResult>(array, listIterator);
-        _.each<TResult>(array, listIterator, any);
     }
 
     {
         let result: _.List<TResult>;
 
         _.each<TResult>(list, listIterator);
-        _.each<TResult>(list, listIterator, any);
     }
 
     {
         let result: _.Dictionary<TResult>;
 
         _.each<TResult>(dictionary, dictionaryIterator);
-        _.each<TResult>(dictionary, dictionaryIterator, any);
     }
 
     {
         let result: _.LoDashImplicitWrapper<string>;
 
         _('').each(stringIterator);
-        _('').each(stringIterator, any);
     }
 
     {
         let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         _(array).each(listIterator);
-        _(array).each(listIterator, any);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
 
         _(list).each<TResult>(listIterator);
-        _(list).each<TResult>(listIterator, any);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
 
         _(dictionary).each<TResult>(dictionaryIterator);
-        _(dictionary).each<TResult>(dictionaryIterator, any);
     }
 
     {
         let result: _.LoDashExplicitWrapper<string>;
 
         _('').chain().each(stringIterator);
-        _('').chain().each(stringIterator, any);
     }
 
     {
         let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         _(array).chain().each(listIterator);
-        _(array).chain().each(listIterator, any);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
 
         _(list).chain().each<TResult>(listIterator);
-        _(list).chain().each<TResult>(listIterator, any);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
 
         _(dictionary).chain().each<TResult>(dictionaryIterator);
-        _(dictionary).chain().each<TResult>(dictionaryIterator, any);
     }
 }
 
@@ -3551,84 +3414,72 @@ namespace TestEachRight {
         let result: string;
 
         _.eachRight('', stringIterator);
-        _.eachRight('', stringIterator, any);
     }
 
     {
         let result: TResult[];
 
         _.eachRight<TResult>(array, listIterator);
-        _.eachRight<TResult>(array, listIterator, any);
     }
 
     {
         let result: _.List<TResult>;
 
         _.eachRight<TResult>(list, listIterator);
-        _.eachRight<TResult>(list, listIterator, any);
     }
 
     {
         let result: _.Dictionary<TResult>;
 
         _.eachRight<TResult>(dictionary, dictionaryIterator);
-        _.eachRight<TResult>(dictionary, dictionaryIterator, any);
     }
 
     {
         let result: _.LoDashImplicitWrapper<string>;
 
         _('').eachRight(stringIterator);
-        _('').eachRight(stringIterator, any);
     }
 
     {
         let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         _(array).eachRight(listIterator);
-        _(array).eachRight(listIterator, any);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
 
         _(list).eachRight<TResult>(listIterator);
-        _(list).eachRight<TResult>(listIterator, any);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
 
         _(dictionary).eachRight<TResult>(dictionaryIterator);
-        _(dictionary).eachRight<TResult>(dictionaryIterator, any);
     }
 
     {
         let result: _.LoDashExplicitWrapper<string>;
 
         _('').chain().eachRight(stringIterator);
-        _('').chain().eachRight(stringIterator, any);
     }
 
     {
         let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         _(array).chain().eachRight(listIterator);
-        _(array).chain().eachRight(listIterator, any);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
 
         _(list).chain().eachRight<TResult>(listIterator);
-        _(list).chain().eachRight<TResult>(listIterator, any);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
 
         _(dictionary).chain().eachRight<TResult>(dictionaryIterator);
-        _(dictionary).chain().eachRight<TResult>(dictionaryIterator, any);
     }
 }
 
@@ -3740,28 +3591,21 @@ namespace TestFilter {
         let result: string[];
 
         result = _.filter('', stringIterator);
-        result = _.filter('', stringIterator, any);
     }
 
     {
         let result: TResult[];
 
         result = _.filter<TResult>(array, listIterator);
-        result = _.filter<TResult>(array, listIterator, any);
         result = _.filter<TResult>(array, '');
-        result = _.filter<TResult>(array, '', any);
         result = _.filter<{a: number}, TResult>(array, {a: 42});
 
         result = _.filter<TResult>(list, listIterator);
-        result = _.filter<TResult>(list, listIterator, any);
         result = _.filter<TResult>(list, '');
-        result = _.filter<TResult>(list, '', any);
         result = _.filter<{a: number}, TResult>(list, {a: 42});
 
         result = _.filter<TResult>(dictionary, dictionaryIterator);
-        result = _.filter<TResult>(dictionary, dictionaryIterator, any);
         result = _.filter<TResult>(dictionary, '');
-        result = _.filter<TResult>(dictionary, '', any);
         result = _.filter<{a: number}, TResult>(dictionary, {a: 42});
     }
 
@@ -3769,28 +3613,21 @@ namespace TestFilter {
         let result: _.LoDashImplicitArrayWrapper<string>;
 
         result = _('').filter(stringIterator);
-        result = _('').filter(stringIterator, any);
     }
 
     {
         let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).filter(listIterator);
-        result = _(array).filter(listIterator, any);
         result = _(array).filter('');
-        result = _(array).filter('', any);
         result = _(array).filter<{a: number}>({a: 42});
 
         result = _(list).filter<TResult>(listIterator);
-        result = _(list).filter<TResult>(listIterator, any);
         result = _(list).filter<TResult>('');
-        result = _(list).filter<TResult>('', any);
         result = _(list).filter<{a: number}, TResult>({a: 42});
 
         result = _(dictionary).filter<TResult>(dictionaryIterator);
-        result = _(dictionary).filter<TResult>(dictionaryIterator, any);
         result = _(dictionary).filter<TResult>('');
-        result = _(dictionary).filter<TResult>('', any);
         result = _(dictionary).filter<{a: number}, TResult>({a: 42});
     }
 
@@ -3798,28 +3635,21 @@ namespace TestFilter {
         let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _('').chain().filter(stringIterator);
-        result = _('').chain().filter(stringIterator, any);
     }
 
     {
         let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().filter(listIterator);
-        result = _(array).chain().filter(listIterator, any);
         result = _(array).chain().filter('');
-        result = _(array).chain().filter('', any);
         result = _(array).chain().filter<{a: number}>({a: 42});
 
         result = _(list).chain().filter<TResult>(listIterator);
-        result = _(list).chain().filter<TResult>(listIterator, any);
         result = _(list).chain().filter<TResult>('');
-        result = _(list).chain().filter<TResult>('', any);
         result = _(list).chain().filter<{a: number}, TResult>({a: 42});
 
         result = _(dictionary).chain().filter<TResult>(dictionaryIterator);
-        result = _(dictionary).chain().filter<TResult>(dictionaryIterator, any);
         result = _(dictionary).chain().filter<TResult>('');
-        result = _(dictionary).chain().filter<TResult>('', any);
         result = _(dictionary).chain().filter<{a: number}, TResult>({a: 42});
     }
 }
@@ -3837,37 +3667,31 @@ namespace TestFind {
 
     result = _.find<TResult>(array);
     result = _.find<TResult>(array, listIterator);
-    result = _.find<TResult>(array, listIterator, any);
     result = _.find<TResult>(array, '');
     result = _.find<{a: number}, TResult>(array, {a: 42});
 
     result = _.find<TResult>(list);
     result = _.find<TResult>(list, listIterator);
-    result = _.find<TResult>(list, listIterator, any);
     result = _.find<TResult>(list, '');
     result = _.find<{a: number}, TResult>(list, {a: 42});
 
     result = _.find<TResult>(dictionary);
     result = _.find<TResult>(dictionary, dictionaryIterator);
-    result = _.find<TResult>(dictionary, dictionaryIterator, any);
     result = _.find<TResult>(dictionary, '');
     result = _.find<{a: number}, TResult>(dictionary, {a: 42});
 
     result = _(array).find();
     result = _(array).find(listIterator);
-    result = _(array).find(listIterator, any);
     result = _(array).find('');
     result = _(array).find<{a: number}>({a: 42});
 
     result = _(list).find<TResult>();
     result = _(list).find<TResult>(listIterator);
-    result = _(list).find<TResult>(listIterator, any);
     result = _(list).find<TResult>('');
     result = _(list).find<{a: number}, TResult>({a: 42});
 
     result = _(dictionary).find<TResult>();
     result = _(dictionary).find<TResult>(dictionaryIterator);
-    result = _(dictionary).find<TResult>(dictionaryIterator, any);
     result = _(dictionary).find<TResult>('');
     result = _(dictionary).find<{a: number}, TResult>({a: 42});
 }
@@ -4089,84 +3913,72 @@ namespace TestForEach {
         let result: string;
 
         _.forEach('', stringIterator);
-        _.forEach('', stringIterator, any);
     }
 
     {
         let result: TResult[];
 
         _.forEach<TResult>(array, listIterator);
-        _.forEach<TResult>(array, listIterator, any);
     }
 
     {
         let result: _.List<TResult>;
 
         _.forEach<TResult>(list, listIterator);
-        _.forEach<TResult>(list, listIterator, any);
     }
 
     {
         let result: _.Dictionary<TResult>;
 
         _.forEach<TResult>(dictionary, dictionaryIterator);
-        _.forEach<TResult>(dictionary, dictionaryIterator, any);
     }
 
     {
         let result: _.LoDashImplicitWrapper<string>;
 
         _('').forEach(stringIterator);
-        _('').forEach(stringIterator, any);
     }
 
     {
         let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         _(array).forEach(listIterator);
-        _(array).forEach(listIterator, any);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
 
         _(list).forEach<TResult>(listIterator);
-        _(list).forEach<TResult>(listIterator, any);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
 
         _(dictionary).forEach<TResult>(dictionaryIterator);
-        _(dictionary).forEach<TResult>(dictionaryIterator, any);
     }
 
     {
         let result: _.LoDashExplicitWrapper<string>;
 
         _('').chain().forEach(stringIterator);
-        _('').chain().forEach(stringIterator, any);
     }
 
     {
         let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         _(array).chain().forEach(listIterator);
-        _(array).chain().forEach(listIterator, any);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
 
         _(list).chain().forEach<TResult>(listIterator);
-        _(list).chain().forEach<TResult>(listIterator, any);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
 
         _(dictionary).chain().forEach<TResult>(dictionaryIterator);
-        _(dictionary).chain().forEach<TResult>(dictionaryIterator, any);
     }
 }
 
@@ -4184,84 +3996,72 @@ namespace TestForEachRight {
         let result: string;
 
         _.forEachRight('', stringIterator);
-        _.forEachRight('', stringIterator, any);
     }
 
     {
         let result: TResult[];
 
         _.forEachRight<TResult>(array, listIterator);
-        _.forEachRight<TResult>(array, listIterator, any);
     }
 
     {
         let result: _.List<TResult>;
 
         _.forEachRight<TResult>(list, listIterator);
-        _.forEachRight<TResult>(list, listIterator, any);
     }
 
     {
         let result: _.Dictionary<TResult>;
 
         _.forEachRight<TResult>(dictionary, dictionaryIterator);
-        _.forEachRight<TResult>(dictionary, dictionaryIterator, any);
     }
 
     {
         let result: _.LoDashImplicitWrapper<string>;
 
         _('').forEachRight(stringIterator);
-        _('').forEachRight(stringIterator, any);
     }
 
     {
         let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         _(array).forEachRight(listIterator);
-        _(array).forEachRight(listIterator, any);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
 
         _(list).forEachRight<TResult>(listIterator);
-        _(list).forEachRight<TResult>(listIterator, any);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
 
         _(dictionary).forEachRight<TResult>(dictionaryIterator);
-        _(dictionary).forEachRight<TResult>(dictionaryIterator, any);
     }
 
     {
         let result: _.LoDashExplicitWrapper<string>;
 
         _('').chain().forEachRight(stringIterator);
-        _('').chain().forEachRight(stringIterator, any);
     }
 
     {
         let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         _(array).chain().forEachRight(listIterator);
-        _(array).chain().forEachRight(listIterator, any);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
 
         _(list).chain().forEachRight<TResult>(listIterator);
-        _(list).chain().forEachRight<TResult>(listIterator, any);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
 
         _(dictionary).chain().forEachRight<TResult>(dictionaryIterator);
-        _(dictionary).chain().forEachRight<TResult>(dictionaryIterator, any);
     }
 }
 
@@ -4282,9 +4082,7 @@ namespace TestGroupBy {
 
         result = _.groupBy<string>('');
         result = _.groupBy<string>('', stringIterator);
-        result = _.groupBy<string>('', stringIterator, any);
         result = _.groupBy<string, number>('', stringIterator);
-        result = _.groupBy<string, number>('', stringIterator, any);
     }
 
     {
@@ -4292,38 +4090,29 @@ namespace TestGroupBy {
 
         result = _.groupBy<SampleType>(array);
         result = _.groupBy<SampleType>(array, listIterator);
-        result = _.groupBy<SampleType>(array, listIterator, any);
         result = _.groupBy<SampleType>(array, '');
-        result = _.groupBy<SampleType>(array, '', any);
         result = _.groupBy<SampleType>(array, {a: 42});
 
         result = _.groupBy<SampleType, number>(array, listIterator);
-        result = _.groupBy<SampleType, number>(array, listIterator, any);
-        result = _.groupBy<SampleType, boolean>(array, '', true);
+        result = _.groupBy<SampleType, boolean>(array, '');
         result = _.groupBy<{a: number}, SampleType>(array, {a: 42});
 
         result = _.groupBy<SampleType>(list);
         result = _.groupBy<SampleType>(list, listIterator);
-        result = _.groupBy<SampleType>(list, listIterator, any);
         result = _.groupBy<SampleType>(list, '');
-        result = _.groupBy<SampleType>(list, '', any);
         result = _.groupBy<SampleType>(list, {a: 42});
 
         result = _.groupBy<SampleType, number>(list, listIterator);
-        result = _.groupBy<SampleType, number>(list, listIterator, any);
-        result = _.groupBy<SampleType, boolean>(list, '', true);
+        result = _.groupBy<SampleType, boolean>(list, '');
         result = _.groupBy<{a: number}, SampleType>(list, {a: 42});
 
         result = _.groupBy<SampleType>(dictionary);
         result = _.groupBy<SampleType>(dictionary, dictionaryIterator);
-        result = _.groupBy<SampleType>(dictionary, dictionaryIterator, any);
         result = _.groupBy<SampleType>(dictionary, '');
-        result = _.groupBy<SampleType>(dictionary, '', any);
         result = _.groupBy<SampleType>(dictionary, {a: 42});
 
         result = _.groupBy<SampleType, number>(dictionary, dictionaryIterator);
-        result = _.groupBy<SampleType, number>(dictionary, dictionaryIterator, any);
-        result = _.groupBy<SampleType, boolean>(dictionary, '', true);
+        result = _.groupBy<SampleType, boolean>(dictionary, '');
         result = _.groupBy<{a: number}, SampleType>(dictionary, {a: 42});
     }
 
@@ -4332,7 +4121,6 @@ namespace TestGroupBy {
 
         result = _('').groupBy();
         result = _('').groupBy<number>(stringIterator);
-        result = _('').groupBy<number>(stringIterator, any);
     }
 
     {
@@ -4340,33 +4128,26 @@ namespace TestGroupBy {
 
         result = _(array).groupBy();
         result = _(array).groupBy<number>(listIterator);
-        result = _(array).groupBy<number>(listIterator, any);
         result = _(array).groupBy('');
-        result = _(array).groupBy<boolean>('', true);
+        result = _(array).groupBy<boolean>('');
         result = _(array).groupBy<{a: number}>({a: 42});
 
         result = _(list).groupBy<SampleType>();
         result = _(list).groupBy<SampleType>(listIterator);
-        result = _(list).groupBy<SampleType>(listIterator, any);
         result = _(list).groupBy<SampleType>('');
-        result = _(list).groupBy<SampleType>('', any);
         result = _(list).groupBy<SampleType>({a: 42});
 
         result = _(list).groupBy<SampleType, number>(listIterator);
-        result = _(list).groupBy<SampleType, number>(listIterator, any);
-        result = _(list).groupBy<SampleType, boolean>('', true);
+        result = _(list).groupBy<SampleType, boolean>('');
         result = _(list).groupBy<{a: number}, SampleType>({a: 42});
 
         result = _(dictionary).groupBy<SampleType>();
         result = _(dictionary).groupBy<SampleType>(dictionaryIterator);
-        result = _(dictionary).groupBy<SampleType>(dictionaryIterator, any);
         result = _(dictionary).groupBy<SampleType>('');
-        result = _(dictionary).groupBy<SampleType>('', any);
         result = _(dictionary).groupBy<SampleType>({a: 42});
 
         result = _(dictionary).groupBy<SampleType, number>(dictionaryIterator);
-        result = _(dictionary).groupBy<SampleType, number>(dictionaryIterator, any);
-        result = _(dictionary).groupBy<SampleType, boolean>('', true);
+        result = _(dictionary).groupBy<SampleType, boolean>('');
         result = _(dictionary).groupBy<{a: number}, SampleType>({a: 42});
     }
 
@@ -4375,7 +4156,6 @@ namespace TestGroupBy {
 
         result = _('').chain().groupBy();
         result = _('').chain().groupBy<number>(stringIterator);
-        result = _('').chain().groupBy<number>(stringIterator, any);
     }
 
     {
@@ -4383,33 +4163,26 @@ namespace TestGroupBy {
 
         result = _(array).chain().groupBy();
         result = _(array).chain().groupBy<number>(listIterator);
-        result = _(array).chain().groupBy<number>(listIterator, any);
         result = _(array).chain().groupBy('');
-        result = _(array).chain().groupBy<boolean>('', true);
+        result = _(array).chain().groupBy<boolean>('');
         result = _(array).chain().groupBy<{a: number}>({a: 42});
 
         result = _(list).chain().groupBy<SampleType>();
         result = _(list).chain().groupBy<SampleType>(listIterator);
-        result = _(list).chain().groupBy<SampleType>(listIterator, any);
         result = _(list).chain().groupBy<SampleType>('');
-        result = _(list).chain().groupBy<SampleType>('', any);
         result = _(list).chain().groupBy<SampleType>({a: 42});
 
         result = _(list).chain().groupBy<SampleType, number>(listIterator);
-        result = _(list).chain().groupBy<SampleType, number>(listIterator, any);
-        result = _(list).chain().groupBy<SampleType, boolean>('', true);
+        result = _(list).chain().groupBy<SampleType, boolean>('');
         result = _(list).chain().groupBy<{a: number}, SampleType>({a: 42});
 
         result = _(dictionary).chain().groupBy<SampleType>();
         result = _(dictionary).chain().groupBy<SampleType>(dictionaryIterator);
-        result = _(dictionary).chain().groupBy<SampleType>(dictionaryIterator, any);
         result = _(dictionary).chain().groupBy<SampleType>('');
-        result = _(dictionary).chain().groupBy<SampleType>('', any);
         result = _(dictionary).chain().groupBy<SampleType>({a: 42});
 
         result = _(dictionary).chain().groupBy<SampleType, number>(dictionaryIterator);
-        result = _(dictionary).chain().groupBy<SampleType, number>(dictionaryIterator, any);
-        result = _(dictionary).chain().groupBy<SampleType, boolean>('', true);
+        result = _(dictionary).chain().groupBy<SampleType, boolean>('');
         result = _(dictionary).chain().groupBy<{a: number}, SampleType>({a: 42});
     }
 }
@@ -4479,7 +4252,6 @@ namespace TestKeyBy {
 
         result = _.keyBy<string>('abcd');
         result = _.keyBy<string>('abcd', stringIterator);
-        result = _.keyBy<string>('abcd', stringIterator, any);
     }
 
     {
@@ -4487,33 +4259,25 @@ namespace TestKeyBy {
 
         result = _.keyBy<SampleObject>(array);
         result = _.keyBy<SampleObject>(array, listIterator);
-        result = _.keyBy<SampleObject>(array, listIterator, any);
         result = _.keyBy<SampleObject>(array, 'a');
-        result = _.keyBy<SampleObject>(array, 'a', any);
         result = _.keyBy<{a: number}, SampleObject>(array, {a: 42});
         result = _.keyBy<SampleObject>(array, {a: 42});
 
         result = _.keyBy<SampleObject>(list);
         result = _.keyBy<SampleObject>(list, listIterator);
-        result = _.keyBy<SampleObject>(list, listIterator, any);
         result = _.keyBy<SampleObject>(list, 'a');
-        result = _.keyBy<SampleObject>(list, 'a', any);
         result = _.keyBy<{a: number}, SampleObject>(list, {a: 42});
         result = _.keyBy<SampleObject>(list, {a: 42});
 
         result = _.keyBy<SampleObject>(numericDictionary);
         result = _.keyBy<SampleObject>(numericDictionary, numericDictionaryIterator);
-        result = _.keyBy<SampleObject>(numericDictionary, numericDictionaryIterator, any);
         result = _.keyBy<SampleObject>(numericDictionary, 'a');
-        result = _.keyBy<SampleObject>(numericDictionary, 'a', any);
         result = _.keyBy<{a: number}, SampleObject>(numericDictionary, {a: 42});
         result = _.keyBy<SampleObject>(numericDictionary, {a: 42});
 
         result = _.keyBy<SampleObject>(dictionary);
         result = _.keyBy<SampleObject>(dictionary, dictionaryIterator);
-        result = _.keyBy<SampleObject>(dictionary, dictionaryIterator, any);
         result = _.keyBy<SampleObject>(dictionary, 'a');
-        result = _.keyBy<SampleObject>(dictionary, 'a', any);
         result = _.keyBy<{a: number}, SampleObject>(dictionary, {a: 42});
         result = _.keyBy<SampleObject>(dictionary, {a: 42});
     }
@@ -4523,7 +4287,6 @@ namespace TestKeyBy {
 
         result = _('abcd').keyBy();
         result = _('abcd').keyBy(stringIterator);
-        result = _('abcd').keyBy(stringIterator, any);
     }
 
     {
@@ -4531,32 +4294,24 @@ namespace TestKeyBy {
 
         result = _(array).keyBy();
         result = _(array).keyBy(listIterator);
-        result = _(array).keyBy(listIterator, any);
         result = _(array).keyBy('a');
-        result = _(array).keyBy('a', any);
         result = _(array).keyBy<{a: number}>({a: 42});
 
         result = _(list).keyBy<SampleObject>();
         result = _(list).keyBy<SampleObject>(listIterator);
-        result = _(list).keyBy<SampleObject>(listIterator, any);
         result = _(list).keyBy<SampleObject>('a');
-        result = _(list).keyBy<SampleObject>('a', any);
         result = _(list).keyBy<{a: number}, SampleObject>({a: 42});
         result = _(list).keyBy<SampleObject>({a: 42});
 
         result = _(numericDictionary).keyBy<SampleObject>();
         result = _(numericDictionary).keyBy<SampleObject>(numericDictionaryIterator);
-        result = _(numericDictionary).keyBy<SampleObject>(numericDictionaryIterator, any);
         result = _(numericDictionary).keyBy<SampleObject>('a');
-        result = _(numericDictionary).keyBy<SampleObject>('a', any);
         result = _(numericDictionary).keyBy<{a: number}, SampleObject>({a: 42});
         result = _(numericDictionary).keyBy<SampleObject>({a: 42});
 
         result = _(dictionary).keyBy<SampleObject>();
         result = _(dictionary).keyBy<SampleObject>(dictionaryIterator);
-        result = _(dictionary).keyBy<SampleObject>(dictionaryIterator, any);
         result = _(dictionary).keyBy<SampleObject>('a');
-        result = _(dictionary).keyBy<SampleObject>('a', any);
         result = _(dictionary).keyBy<{a: number}, SampleObject>({a: 42});
         result = _(dictionary).keyBy<SampleObject>({a: 42});
     }
@@ -4566,7 +4321,6 @@ namespace TestKeyBy {
 
         result = _('abcd').chain().keyBy();
         result = _('abcd').chain().keyBy(stringIterator);
-        result = _('abcd').chain().keyBy(stringIterator, any);
     }
 
     {
@@ -4574,32 +4328,24 @@ namespace TestKeyBy {
 
         result = _(array).chain().keyBy();
         result = _(array).chain().keyBy(listIterator);
-        result = _(array).chain().keyBy(listIterator, any);
         result = _(array).chain().keyBy('a');
-        result = _(array).chain().keyBy('a', any);
         result = _(array).chain().keyBy<{a: number}>({a: 42});
 
         result = _(list).chain().keyBy<SampleObject>();
         result = _(list).chain().keyBy<SampleObject>(listIterator);
-        result = _(list).chain().keyBy<SampleObject>(listIterator, any);
         result = _(list).chain().keyBy<SampleObject>('a');
-        result = _(list).chain().keyBy<SampleObject>('a', any);
         result = _(list).chain().keyBy<{a: number}, SampleObject>({a: 42});
         result = _(list).chain().keyBy<SampleObject>({a: 42});
 
         result = _(numericDictionary).chain().keyBy<SampleObject>();
         result = _(numericDictionary).chain().keyBy<SampleObject>(numericDictionaryIterator);
-        result = _(numericDictionary).chain().keyBy<SampleObject>(numericDictionaryIterator, any);
         result = _(numericDictionary).chain().keyBy<SampleObject>('a');
-        result = _(numericDictionary).chain().keyBy<SampleObject>('a', any);
         result = _(numericDictionary).chain().keyBy<{a: number}, SampleObject>({a: 42});
         result = _(numericDictionary).chain().keyBy<SampleObject>({a: 42});
 
         result = _(dictionary).chain().keyBy<SampleObject>();
         result = _(dictionary).chain().keyBy<SampleObject>(dictionaryIterator);
-        result = _(dictionary).chain().keyBy<SampleObject>(dictionaryIterator, any);
         result = _(dictionary).chain().keyBy<SampleObject>('a');
-        result = _(dictionary).chain().keyBy<SampleObject>('a', any);
         result = _(dictionary).chain().keyBy<{a: number}, SampleObject>({a: 42});
         result = _(dictionary).chain().keyBy<SampleObject>({a: 42});
     }
@@ -4749,17 +4495,14 @@ namespace TestMap {
 
         result = _.map<number, TResult>(array);
         result = _.map<number, TResult>(array, listIterator);
-        result = _.map<number, TResult>(array, listIterator, any);
         result = _.map<number, TResult>(array, '');
 
         result = _.map<number, TResult>(list);
         result = _.map<number, TResult>(list, listIterator);
-        result = _.map<number, TResult>(list, listIterator, any);
         result = _.map<number, TResult>(list, '');
 
         result = _.map<number, TResult>(dictionary);
         result = _.map<number, TResult>(dictionary, dictionaryIterator);
-        result = _.map<number, TResult>(dictionary, dictionaryIterator, any);
         result = _.map<number, TResult>(dictionary, '');
     }
 
@@ -4776,17 +4519,14 @@ namespace TestMap {
 
         result = _<number>(array).map<TResult>();
         result = _<number>(array).map<TResult>(listIterator);
-        result = _<number>(array).map<TResult>(listIterator, any);
         result = _<number>(array).map<TResult>('');
 
         result = _(list).map<number, TResult>();
         result = _(list).map<number, TResult>(listIterator);
-        result = _(list).map<number, TResult>(listIterator, any);
         result = _(list).map<number, TResult>('');
 
         result = _(dictionary).map<number, TResult>();
         result = _(dictionary).map<number, TResult>(dictionaryIterator);
-        result = _(dictionary).map<number, TResult>(dictionaryIterator, any);
         result = _(dictionary).map<number, TResult>('');
     }
 
@@ -4803,17 +4543,14 @@ namespace TestMap {
 
         result = _<number>(array).chain().map<TResult>();
         result = _<number>(array).chain().map<TResult>(listIterator);
-        result = _<number>(array).chain().map<TResult>(listIterator, any);
         result = _<number>(array).chain().map<TResult>('');
 
         result = _(list).chain().map<number, TResult>();
         result = _(list).chain().map<number, TResult>(listIterator);
-        result = _(list).chain().map<number, TResult>(listIterator, any);
         result = _(list).chain().map<number, TResult>('');
 
         result = _(dictionary).chain().map<number, TResult>();
         result = _(dictionary).chain().map<number, TResult>(dictionaryIterator);
-        result = _(dictionary).chain().map<number, TResult>(dictionaryIterator, any);
         result = _(dictionary).chain().map<number, TResult>('');
     }
 
@@ -4939,7 +4676,7 @@ result = <number>_([1, 2, 3]).reduce<number>(function (sum: number, num: number)
 result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).reduce<number, ABC>(function (r: ABC, num: number, key: string) {
     r[key] = num * 3;
     return r;
-}, {});
+}, <ABC> {});
 
 result = <number[]>_.reduceRight([[0, 1], [2, 3], [4, 5]], function (a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
 
@@ -4957,28 +4694,21 @@ namespace TestReject {
         let result: string[];
 
         result = _.reject('', stringIterator);
-        result = _.reject('', stringIterator, any);
     }
 
     {
         let result: TResult[];
 
         result = _.reject<TResult>(array, listIterator);
-        result = _.reject<TResult>(array, listIterator, any);
         result = _.reject<TResult>(array, '');
-        result = _.reject<TResult>(array, '', any);
         result = _.reject<{a: number}, TResult>(array, {a: 42});
 
         result = _.reject<TResult>(list, listIterator);
-        result = _.reject<TResult>(list, listIterator, any);
         result = _.reject<TResult>(list, '');
-        result = _.reject<TResult>(list, '', any);
         result = _.reject<{a: number}, TResult>(list, {a: 42});
 
         result = _.reject<TResult>(dictionary, dictionaryIterator);
-        result = _.reject<TResult>(dictionary, dictionaryIterator, any);
         result = _.reject<TResult>(dictionary, '');
-        result = _.reject<TResult>(dictionary, '', any);
         result = _.reject<{a: number}, TResult>(dictionary, {a: 42});
     }
 
@@ -4986,28 +4716,21 @@ namespace TestReject {
         let result: _.LoDashImplicitArrayWrapper<string>;
 
         result = _('').reject(stringIterator);
-        result = _('').reject(stringIterator, any);
     }
 
     {
         let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).reject(listIterator);
-        result = _(array).reject(listIterator, any);
         result = _(array).reject('');
-        result = _(array).reject('', any);
         result = _(array).reject<{a: number}>({a: 42});
 
         result = _(list).reject<TResult>(listIterator);
-        result = _(list).reject<TResult>(listIterator, any);
         result = _(list).reject<TResult>('');
-        result = _(list).reject<TResult>('', any);
         result = _(list).reject<{a: number}, TResult>({a: 42});
 
         result = _(dictionary).reject<TResult>(dictionaryIterator);
-        result = _(dictionary).reject<TResult>(dictionaryIterator, any);
         result = _(dictionary).reject<TResult>('');
-        result = _(dictionary).reject<TResult>('', any);
         result = _(dictionary).reject<{a: number}, TResult>({a: 42});
     }
 
@@ -5015,28 +4738,21 @@ namespace TestReject {
         let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _('').chain().reject(stringIterator);
-        result = _('').chain().reject(stringIterator, any);
     }
 
     {
         let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().reject(listIterator);
-        result = _(array).chain().reject(listIterator, any);
         result = _(array).chain().reject('');
-        result = _(array).chain().reject('', any);
         result = _(array).chain().reject<{a: number}>({a: 42});
 
         result = _(list).chain().reject<TResult>(listIterator);
-        result = _(list).chain().reject<TResult>(listIterator, any);
         result = _(list).chain().reject<TResult>('');
-        result = _(list).chain().reject<TResult>('', any);
         result = _(list).chain().reject<{a: number}, TResult>({a: 42});
 
         result = _(dictionary).chain().reject<TResult>(dictionaryIterator);
-        result = _(dictionary).chain().reject<TResult>(dictionaryIterator, any);
         result = _(dictionary).chain().reject<TResult>('');
-        result = _(dictionary).chain().reject<TResult>('', any);
         result = _(dictionary).chain().reject<{a: number}, TResult>({a: 42});
     }
 }
@@ -8970,7 +8686,6 @@ namespace TestExtend {
 
         result = _.extend<Obj, S1, Obj & S1>(obj, s1);
         result = _.extend<Obj, S1, Obj & S1>(obj, s1, customizer);
-        result = _.extend<Obj, S1, Obj & S1>(obj, s1, customizer, any);
     }
 
     {
@@ -8978,7 +8693,6 @@ namespace TestExtend {
 
         result = _.extend<Obj, S1, S2, Obj & S1 & S2>(obj, s1, s2);
         result = _.extend<Obj, S1, S2, Obj & S1 & S2>(obj, s1, s2, customizer);
-        result = _.extend<Obj, S1, S2, Obj & S1 & S2>(obj, s1, s2, customizer, any);
     }
 
     {
@@ -8986,7 +8700,6 @@ namespace TestExtend {
 
         result = _.extend<Obj, S1, S2, S3, Obj & S1 & S2 & S3>(obj, s1, s2, s3);
         result = _.extend<Obj, S1, S2, S3, Obj & S1 & S2 & S3>(obj, s1, s2, s3, customizer);
-        result = _.extend<Obj, S1, S2, S3, Obj & S1 & S2 & S3>(obj, s1, s2, s3, customizer, any);
     }
 
     {
@@ -8994,7 +8707,6 @@ namespace TestExtend {
 
         result = _.extend<Obj, S1, S2, S3, S4, Obj & S1 & S2 & S3 & S4>(obj, s1, s2, s3, s4);
         result = _.extend<Obj, S1, S2, S3, S4, Obj & S1 & S2 & S3 & S4>(obj, s1, s2, s3, s4, customizer);
-        result = _.extend<Obj, S1, S2, S3, S4, Obj & S1 & S2 & S3 & S4>(obj, s1, s2, s3, s4, customizer, any);
     }
 
     {
@@ -9002,7 +8714,6 @@ namespace TestExtend {
 
         result = _.extend<Obj, Obj & S1 & S2 & S3 & S4 & S5>(obj, s1, s2, s3, s4, s5);
         result = _.extend<Obj, Obj & S1 & S2 & S3 & S4 & S5>(obj, s1, s2, s3, s4, s5, customizer);
-        result = _.extend<Obj, Obj & S1 & S2 & S3 & S4 & S5>(obj, s1, s2, s3, s4, s5, customizer, any);
     }
 
     {
@@ -9016,7 +8727,6 @@ namespace TestExtend {
 
         result = _(obj).extend<S1, Obj & S1>(s1);
         result = _(obj).extend<S1, Obj & S1>(s1, customizer);
-        result = _(obj).extend<S1, Obj & S1>(s1, customizer, any);
     }
 
     {
@@ -9024,7 +8734,6 @@ namespace TestExtend {
 
         result = _(obj).extend<S1, S2, Obj & S1 & S2>(s1, s2);
         result = _(obj).extend<S1, S2, Obj & S1 & S2>(s1, s2, customizer);
-        result = _(obj).extend<S1, S2, Obj & S1 & S2>(s1, s2, customizer, any);
     }
 
     {
@@ -9032,7 +8741,6 @@ namespace TestExtend {
 
         result = _(obj).extend<S1, S2, S3, Obj & S1 & S2 & S3>(s1, s2, s3);
         result = _(obj).extend<S1, S2, S3, Obj & S1 & S2 & S3>(s1, s2, s3, customizer);
-        result = _(obj).extend<S1, S2, S3, Obj & S1 & S2 & S3>(s1, s2, s3, customizer, any);
     }
 
     {
@@ -9040,7 +8748,6 @@ namespace TestExtend {
 
         result = _(obj).extend<S1, S2, S3, S4, Obj & S1 & S2 & S3 & S4>(s1, s2, s3, s4);
         result = _(obj).extend<S1, S2, S3, S4, Obj & S1 & S2 & S3 & S4>(s1, s2, s3, s4, customizer);
-        result = _(obj).extend<S1, S2, S3, S4, Obj & S1 & S2 & S3 & S4>(s1, s2, s3, s4, customizer, any);
     }
 
     {
@@ -9048,7 +8755,6 @@ namespace TestExtend {
 
         result = _(obj).extend<Obj & S1 & S2 & S3 & S4 & S5>(s1, s2, s3, s4, s5);
         result = _(obj).extend<Obj & S1 & S2 & S3 & S4 & S5>(s1, s2, s3, s4, s5, customizer);
-        result = _(obj).extend<Obj & S1 & S2 & S3 & S4 & S5>(s1, s2, s3, s4, s5, customizer, any);
     }
 
     {
@@ -9062,7 +8768,6 @@ namespace TestExtend {
 
         result = _(obj).chain().extend<S1, Obj & S1>(s1);
         result = _(obj).chain().extend<S1, Obj & S1>(s1, customizer);
-        result = _(obj).chain().extend<S1, Obj & S1>(s1, customizer, any);
     }
 
     {
@@ -9070,7 +8775,6 @@ namespace TestExtend {
 
         result = _(obj).chain().extend<S1, S2, Obj & S1 & S2>(s1, s2);
         result = _(obj).chain().extend<S1, S2, Obj & S1 & S2>(s1, s2, customizer);
-        result = _(obj).chain().extend<S1, S2, Obj & S1 & S2>(s1, s2, customizer, any);
     }
 
     {
@@ -9078,7 +8782,6 @@ namespace TestExtend {
 
         result = _(obj).chain().extend<S1, S2, S3, Obj & S1 & S2 & S3>(s1, s2, s3);
         result = _(obj).chain().extend<S1, S2, S3, Obj & S1 & S2 & S3>(s1, s2, s3, customizer);
-        result = _(obj).chain().extend<S1, S2, S3, Obj & S1 & S2 & S3>(s1, s2, s3, customizer, any);
     }
 
     {
@@ -9086,7 +8789,6 @@ namespace TestExtend {
 
         result = _(obj).chain().extend<S1, S2, S3, S4, Obj & S1 & S2 & S3 & S4>(s1, s2, s3, s4);
         result = _(obj).chain().extend<S1, S2, S3, S4, Obj & S1 & S2 & S3 & S4>(s1, s2, s3, s4, customizer);
-        result = _(obj).chain().extend<S1, S2, S3, S4, Obj & S1 & S2 & S3 & S4>(s1, s2, s3, s4, customizer, any);
     }
 
     {
@@ -9094,7 +8796,6 @@ namespace TestExtend {
 
         result = _(obj).chain().extend<Obj & S1 & S2 & S3 & S4 & S5>(s1, s2, s3, s4, s5);
         result = _(obj).chain().extend<Obj & S1 & S2 & S3 & S4 & S5>(s1, s2, s3, s4, s5, customizer);
-        result = _(obj).chain().extend<Obj & S1 & S2 & S3 & S4 & S5>(s1, s2, s3, s4, s5, customizer, any);
     }
 }
 
@@ -9107,22 +8808,18 @@ namespace TestFindKey {
         result = _.findKey<{a: string;}>({a: ''});
 
         result = _.findKey<{a: string;}>({a: ''}, predicateFn);
-        result = _.findKey<{a: string;}>({a: ''}, predicateFn, any);
 
 
         result = _.findKey<{a: string;}>({a: ''}, '');
-        result = _.findKey<{a: string;}>({a: ''}, '', any);
 
         result = _.findKey<{a: number;}, {a: string;}>({a: ''}, {a: 42});
 
         result = _<{a: string;}>({a: ''}).findKey();
 
         result = _<{a: string;}>({a: ''}).findKey(predicateFn);
-        result = _<{a: string;}>({a: ''}).findKey(predicateFn, any);
 
 
         result = _<{a: string;}>({a: ''}).findKey('');
-        result = _<{a: string;}>({a: ''}).findKey('', any);
 
         result = _<{a: string;}>({a: ''}).findKey<{a: number;}>({a: 42});
     }
@@ -9132,10 +8829,8 @@ namespace TestFindKey {
         let result: string;
 
         result = _.findKey<string, {a: string;}>({a: ''}, predicateFn);
-        result = _.findKey<string, {a: string;}>({a: ''}, predicateFn, any);
 
         result = _<{a: string;}>({a: ''}).findKey<string>(predicateFn);
-        result = _<{a: string;}>({a: ''}).findKey<string>(predicateFn, any);
     }
 
     {
@@ -9145,11 +8840,9 @@ namespace TestFindKey {
         result = _<{a: string;}>({a: ''}).chain().findKey();
 
         result = _<{a: string;}>({a: ''}).chain().findKey(predicateFn);
-        result = _<{a: string;}>({a: ''}).chain().findKey(predicateFn, any);
 
 
         result = _<{a: string;}>({a: ''}).chain().findKey('');
-        result = _<{a: string;}>({a: ''}).chain().findKey('', any);
 
         result = _<{a: string;}>({a: ''}).chain().findKey<{a: number;}>({a: 42});
     }
@@ -9159,7 +8852,6 @@ namespace TestFindKey {
         let result: _.LoDashExplicitWrapper<string>;
 
         result = _<{a: string;}>({a: ''}).chain().findKey<string>(predicateFn);
-        result = _<{a: string;}>({a: ''}).chain().findKey<string>(predicateFn, any);
     }
 }
 
@@ -9172,22 +8864,18 @@ namespace TestFindLastKey {
         result = _.findLastKey<{a: string;}>({a: ''});
 
         result = _.findLastKey<{a: string;}>({a: ''}, predicateFn);
-        result = _.findLastKey<{a: string;}>({a: ''}, predicateFn, any);
 
 
         result = _.findLastKey<{a: string;}>({a: ''}, '');
-        result = _.findLastKey<{a: string;}>({a: ''}, '', any);
 
         result = _.findLastKey<{a: number;}, {a: string;}>({a: ''}, {a: 42});
 
         result = _<{a: string;}>({a: ''}).findLastKey();
 
         result = _<{a: string;}>({a: ''}).findLastKey(predicateFn);
-        result = _<{a: string;}>({a: ''}).findLastKey(predicateFn, any);
 
 
         result = _<{a: string;}>({a: ''}).findLastKey('');
-        result = _<{a: string;}>({a: ''}).findLastKey('', any);
 
         result = _<{a: string;}>({a: ''}).findLastKey<{a: number;}>({a: 42});
     }
@@ -9197,10 +8885,8 @@ namespace TestFindLastKey {
         let result: string;
 
         result = _.findLastKey<string, {a: string;}>({a: ''}, predicateFn);
-        result = _.findLastKey<string, {a: string;}>({a: ''}, predicateFn, any);
 
         result = _<{a: string;}>({a: ''}).findLastKey<string>(predicateFn);
-        result = _<{a: string;}>({a: ''}).findLastKey<string>(predicateFn, any);
     }
 
     {
@@ -9210,11 +8896,9 @@ namespace TestFindLastKey {
         result = _<{a: string;}>({a: ''}).chain().findLastKey();
 
         result = _<{a: string;}>({a: ''}).chain().findLastKey(predicateFn);
-        result = _<{a: string;}>({a: ''}).chain().findLastKey(predicateFn, any);
 
 
         result = _<{a: string;}>({a: ''}).chain().findLastKey('');
-        result = _<{a: string;}>({a: ''}).chain().findLastKey('', any);
 
         result = _<{a: string;}>({a: ''}).chain().findLastKey<{a: number;}>({a: 42});
     }
@@ -9224,7 +8908,6 @@ namespace TestFindLastKey {
         let result: _.LoDashExplicitWrapper<string>;
 
         result = _<{a: string;}>({a: ''}).chain().findLastKey<string>(predicateFn);
-        result = _<{a: string;}>({a: ''}).chain().findLastKey<string>(predicateFn, any);
     }
 }
 
@@ -9243,7 +8926,6 @@ namespace TestForIn {
 
         result = _.forIn<number>(dictionary);
         result = _.forIn<number>(dictionary, dictionaryIterator);
-        result = _.forIn<number>(dictionary, dictionaryIterator, any);
     }
 
     {
@@ -9251,7 +8933,6 @@ namespace TestForIn {
 
         result = _.forIn<SampleObject>(object);
         result = _.forIn<SampleObject>(object, objectIterator);
-        result = _.forIn<SampleObject>(object, objectIterator, any);
     }
 
     {
@@ -9259,7 +8940,6 @@ namespace TestForIn {
 
         result = _(dictionary).forIn<number>();
         result = _(dictionary).forIn<number>(dictionaryIterator);
-        result = _(dictionary).forIn<number>(dictionaryIterator, any);
     }
 
     {
@@ -9267,7 +8947,6 @@ namespace TestForIn {
 
         result = _(dictionary).chain().forIn<number>();
         result = _(dictionary).chain().forIn<number>(dictionaryIterator);
-        result = _(dictionary).chain().forIn<number>(dictionaryIterator, any);
     }
 }
 
@@ -9286,7 +8965,6 @@ namespace TestForInRight {
 
         result = _.forInRight<number>(dictionary);
         result = _.forInRight<number>(dictionary, dictionaryIterator);
-        result = _.forInRight<number>(dictionary, dictionaryIterator, any);
     }
 
     {
@@ -9294,7 +8972,6 @@ namespace TestForInRight {
 
         result = _.forInRight<SampleObject>(object);
         result = _.forInRight<SampleObject>(object, objectIterator);
-        result = _.forInRight<SampleObject>(object, objectIterator, any);
     }
 
     {
@@ -9302,7 +8979,6 @@ namespace TestForInRight {
 
         result = _(dictionary).forInRight<number>();
         result = _(dictionary).forInRight<number>(dictionaryIterator);
-        result = _(dictionary).forInRight<number>(dictionaryIterator, any);
     }
 
     {
@@ -9310,7 +8986,6 @@ namespace TestForInRight {
 
         result = _(dictionary).chain().forInRight<number>();
         result = _(dictionary).chain().forInRight<number>(dictionaryIterator);
-        result = _(dictionary).chain().forInRight<number>(dictionaryIterator, any);
     }
 }
 
@@ -9329,7 +9004,6 @@ namespace TestForOwn {
 
         result = _.forOwn<number>(dictionary);
         result = _.forOwn<number>(dictionary, dictionaryIterator);
-        result = _.forOwn<number>(dictionary, dictionaryIterator, any);
     }
 
     {
@@ -9337,7 +9011,6 @@ namespace TestForOwn {
 
         result = _.forOwn<SampleObject>(object);
         result = _.forOwn<SampleObject>(object, objectIterator);
-        result = _.forOwn<SampleObject>(object, objectIterator, any);
     }
 
     {
@@ -9345,7 +9018,6 @@ namespace TestForOwn {
 
         result = _(dictionary).forOwn<number>();
         result = _(dictionary).forOwn<number>(dictionaryIterator);
-        result = _(dictionary).forOwn<number>(dictionaryIterator, any);
     }
 
     {
@@ -9353,7 +9025,6 @@ namespace TestForOwn {
 
         result = _(dictionary).chain().forOwn<number>();
         result = _(dictionary).chain().forOwn<number>(dictionaryIterator);
-        result = _(dictionary).chain().forOwn<number>(dictionaryIterator, any);
     }
 }
 
@@ -9372,7 +9043,6 @@ namespace TestForOwnRight {
 
         result = _.forOwnRight<number>(dictionary);
         result = _.forOwnRight<number>(dictionary, dictionaryIterator);
-        result = _.forOwnRight<number>(dictionary, dictionaryIterator, any);
     }
 
     {
@@ -9380,7 +9050,6 @@ namespace TestForOwnRight {
 
         result = _.forOwnRight<SampleObject>(object);
         result = _.forOwnRight<SampleObject>(object, objectIterator);
-        result = _.forOwnRight<SampleObject>(object, objectIterator, any);
     }
 
     {
@@ -9388,7 +9057,6 @@ namespace TestForOwnRight {
 
         result = _(dictionary).forOwnRight<number>();
         result = _(dictionary).forOwnRight<number>(dictionaryIterator);
-        result = _(dictionary).forOwnRight<number>(dictionaryIterator, any);
     }
 
     {
@@ -9396,7 +9064,6 @@ namespace TestForOwnRight {
 
         result = _(dictionary).chain().forOwnRight<number>();
         result = _(dictionary).chain().forOwnRight<number>(dictionaryIterator);
-        result = _(dictionary).chain().forOwnRight<number>(dictionaryIterator, any);
     }
 }
 
@@ -9779,23 +9446,17 @@ namespace TestMapKeys {
 
         result = _.mapKeys<TResult, string>(array);
         result = _.mapKeys<TResult, string>(array, listIterator);
-        result = _.mapKeys<TResult, string>(array, listIterator, any);
         result = _.mapKeys<TResult>(array, '');
-        result = _.mapKeys<TResult>(array, '', any);
         result = _.mapKeys<TResult, {}>(array, {});
 
         result = _.mapKeys<TResult, string>(list);
         result = _.mapKeys<TResult, string>(list, listIterator);
-        result = _.mapKeys<TResult, string>(list, listIterator, any);
         result = _.mapKeys<TResult>(list, '');
-        result = _.mapKeys<TResult>(list, '', any);
         result = _.mapKeys<TResult, {}>(list, {});
 
         result = _.mapKeys<TResult, string>(dictionary);
         result = _.mapKeys<TResult, string>(dictionary, dictionaryIterator);
-        result = _.mapKeys<TResult, string>(dictionary, dictionaryIterator, any);
         result = _.mapKeys<TResult>(dictionary, '');
-        result = _.mapKeys<TResult>(dictionary, '', any);
         result = _.mapKeys<TResult, {}>(dictionary, {});
     }
 
@@ -9804,23 +9465,17 @@ namespace TestMapKeys {
 
         result = _(array).mapKeys<string>();
         result = _(array).mapKeys<string>(listIterator);
-        result = _(array).mapKeys<string>(listIterator, any);
         result = _(array).mapKeys('');
-        result = _(array).mapKeys('', any);
         result = _(array).mapKeys<{}>({});
 
         result = _(list).mapKeys<TResult, string>();
         result = _(list).mapKeys<TResult, string>(listIterator);
-        result = _(list).mapKeys<TResult, string>(listIterator, any);
         result = _(list).mapKeys<TResult>('');
-        result = _(list).mapKeys<TResult>('', any);
         result = _(list).mapKeys<TResult, {}>({});
 
         result = _(dictionary).mapKeys<TResult, string>();
         result = _(dictionary).mapKeys<TResult, string>(dictionaryIterator);
-        result = _(dictionary).mapKeys<TResult, string>(dictionaryIterator, any);
         result = _(dictionary).mapKeys<TResult>('');
-        result = _(dictionary).mapKeys<TResult>('', any);
         result = _(dictionary).mapKeys<TResult, {}>({});
     }
 
@@ -9829,23 +9484,17 @@ namespace TestMapKeys {
 
         result = _(array).chain().mapKeys<string>();
         result = _(array).chain().mapKeys<string>(listIterator);
-        result = _(array).chain().mapKeys<string>(listIterator, any);
         result = _(array).chain().mapKeys('');
-        result = _(array).chain().mapKeys('', any);
         result = _(array).chain().mapKeys<{}>({});
 
         result = _(list).chain().mapKeys<TResult, string>();
         result = _(list).chain().mapKeys<TResult, string>(listIterator);
-        result = _(list).chain().mapKeys<TResult, string>(listIterator, any);
         result = _(list).chain().mapKeys<TResult>('');
-        result = _(list).chain().mapKeys<TResult>('', any);
         result = _(list).chain().mapKeys<TResult, {}>({});
 
         result = _(dictionary).chain().mapKeys<TResult, string>();
         result = _(dictionary).chain().mapKeys<TResult, string>(dictionaryIterator);
-        result = _(dictionary).chain().mapKeys<TResult, string>(dictionaryIterator, any);
         result = _(dictionary).chain().mapKeys<TResult>('');
-        result = _(dictionary).chain().mapKeys<TResult>('', any);
         result = _(dictionary).chain().mapKeys<TResult, {}>({});
     }
 }
@@ -10388,12 +10037,10 @@ namespace TestTransform {
         result = _.transform<number, TResult>(array);
         result = _.transform<number, TResult>(array, iterator);
         result = _.transform<number, TResult>(array, iterator, accumulator);
-        result = _.transform<number, TResult>(array, iterator, accumulator, any);
 
         result = _<number>(array).transform<TResult>().value();
         result = _<number>(array).transform<TResult>(iterator).value();
         result = _<number>(array).transform<TResult>(iterator, accumulator).value();
-        result = _<number>(array).transform<TResult>(iterator, accumulator, any).value();
     }
 
     {
@@ -10403,11 +10050,9 @@ namespace TestTransform {
 
         result = _.transform<number, TResult>(array, iterator);
         result = _.transform<number, TResult>(array, iterator, accumulator);
-        result = _.transform<number, TResult>(array, iterator, accumulator, any);
 
         result = _<number>(array).transform<TResult>(iterator).value();
         result = _<number>(array).transform<TResult>(iterator, accumulator).value();
-        result = _<number>(array).transform<TResult>(iterator, accumulator, any).value();
     }
 
     {
@@ -10418,12 +10063,10 @@ namespace TestTransform {
         result = _.transform<number, TResult>(dictionary);
         result = _.transform<number, TResult>(dictionary, iterator);
         result = _.transform<number, TResult>(dictionary, iterator, accumulator);
-        result = _.transform<number, TResult>(dictionary, iterator, accumulator, any);
 
         result = _(dictionary).transform<number, TResult>().value();
         result = _(dictionary).transform<number, TResult>(iterator).value();
         result = _(dictionary).transform<number, TResult>(iterator, accumulator).value();
-        result = _(dictionary).transform<number, TResult>(iterator, accumulator, any).value();
     }
 
     {
@@ -10433,11 +10076,9 @@ namespace TestTransform {
 
         result = _.transform<number, TResult>(dictionary, iterator);
         result = _.transform<number, TResult>(dictionary, iterator, accumulator);
-        result = _.transform<number, TResult>(dictionary, iterator, accumulator, any);
 
         result = _(dictionary).transform<number, TResult>(iterator).value();
         result = _(dictionary).transform<number, TResult>(iterator, accumulator).value();
-        result = _(dictionary).transform<number, TResult>(iterator, accumulator, any).value();
     }
 }
 
@@ -11207,77 +10848,77 @@ namespace TestAttempt {
 namespace TestConstant {
     {
         let result: () => number;
-        result: _.constant<number>(42);
+        result = _.constant<number>(42);
     }
 
     {
         let result: () => string;
-        result: _.constant<string>('a');
+        result = _.constant<string>('a');
     }
 
     {
         let result: () => boolean;
-        result: _.constant<boolean>(true);
+        result = _.constant<boolean>(true);
     }
 
     {
         let result: () => string[];
-        result: _.constant<string[]>(['a']);
+        result = _.constant<string[]>(['a']);
     }
 
     {
         let result: () => {a: string};
-        result: _.constant<{a: string}>({a: 'a'});
+        result = _.constant<{a: string}>({a: 'a'});
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<() => number>;
-        result: _(42).constant<number>();
+        result = _(42).constant<number>();
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<() => string>;
-        result: _('a').constant<string>();
+        result = _('a').constant<string>();
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<() => boolean>;
-        result: _(true).constant<boolean>();
+        result = _(true).constant<boolean>();
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<() => string[]>;
-        result: _(['a']).constant<string[]>();
+        result = _(['a']).constant<string[]>();
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<() => {a: string}>;
-        result: _({a: 'a'}).constant<{a: string}>();
+        result = _({a: 'a'}).constant<{a: string}>();
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<() => number>;
-        result: _(42).chain().constant<number>();
+        result = _(42).chain().constant<number>();
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<() => string>;
-        result: _('a').chain().constant<string>();
+        result = _('a').chain().constant<string>();
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<() => boolean>;
-        result: _(true).chain().constant<boolean>();
+        result = _(true).chain().constant<boolean>();
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<() => string[]>;
-        result: _(['a']).chain().constant<string[]>();
+        result = _(['a']).chain().constant<string[]>();
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<() => {a: string}>;
-        result: _({a: 'a'}).chain().constant<{a: string}>();
+        result = _({a: 'a'}).chain().constant<{a: string}>();
     }
 }
 
@@ -11329,63 +10970,54 @@ namespace TestIteratee {
         let result: (...args: any[]) => TResult;
 
         result = _.iteratee<TResult>(Function);
-        result = _.iteratee<TResult>(Function, any);
     }
 
     {
         let result: (object: any) => TResult;
 
         result = _.iteratee<TResult>('');
-        result = _.iteratee<TResult>('', any);
     }
 
     {
         let result: (object: any) => boolean;
 
         result = _.iteratee({});
-        result = _.iteratee({}, any);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => TResult>;
 
         result = _(Function).iteratee<TResult>();
-        result = _(Function).iteratee<TResult>(any);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<(object: any) => TResult>;
 
         result = _('').iteratee<TResult>();
-        result = _('').iteratee<TResult>(any);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<(object: any) => boolean>;
 
         result = _({}).iteratee();
-        result = _({}).iteratee(any);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => TResult>;
 
         result = _(Function).chain().iteratee<TResult>();
-        result = _(Function).chain().iteratee<TResult>(any);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<(object: any) => TResult>;
 
         result = _('').chain().iteratee<TResult>();
-        result = _('').chain().iteratee<TResult>(any);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<(object: any) => boolean>;
 
         result = _({}).chain().iteratee();
-        result = _({}).chain().iteratee(any);
     }
 }
 
@@ -11462,7 +11094,6 @@ namespace TestMethod {
         let result: (object: any) => {a: string};
 
         result = _.method<{a: string}>('a.0');
-        result = _.method<{a: string}>('a.0', any);
         result = _.method<{a: string}>('a.0', any, any);
         result = _.method<{a: string}>('a.0', any, any, any);
 
@@ -11476,7 +11107,6 @@ namespace TestMethod {
         let result: (object: {a: string}) => {b: string};
 
         result = _.method<{a: string}, {b: string}>('a.0');
-        result = _.method<{a: string}, {b: string}>('a.0', any);
         result = _.method<{a: string}, {b: string}>('a.0', any, any);
         result = _.method<{a: string}, {b: string}>('a.0', any, any, any);
 

@@ -27,8 +27,26 @@ import {
     View,
     AppState,
     AppStateIOS,
-    ViewPagerAndroid
+    ViewPagerAndroid,
+    Dimensions,
 } from 'react-native';
+
+function testDimensions() {
+  var {
+    width,
+    height,
+    scale,
+    fontScale,
+  } = Dimensions.get("window");
+
+  var {
+    width,
+    height,
+    scale,
+    fontScale,
+  } = Dimensions.get("screen");
+}
+
 
 var styles = StyleSheet.create(
     {

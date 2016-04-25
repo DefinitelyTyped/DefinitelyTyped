@@ -15,6 +15,7 @@ import * as querystring from "querystring";
 import * as path from "path";
 import * as readline from "readline";
 import * as childProcess from "child_process";
+import * as cluster from "cluster";
 import * as os from "os";
 import * as vm from "vm";
 // Specifically test buffer module regression.
@@ -138,6 +139,7 @@ function bufferTests() {
     var base64Buffer = new Buffer('','base64');
     var octets: Uint8Array = null;
     var octetBuffer = new Buffer(octets);
+    var sharedBuffer = new Buffer(octets.buffer);
     var copiedBuffer = new Buffer(utf8Buffer);
     console.log(Buffer.isBuffer(octetBuffer));
     console.log(Buffer.isEncoding('utf8'));
@@ -180,6 +182,12 @@ function bufferTests() {
         b.writeUInt8(0, 6);
         let sb = new ImportedSlowBuffer(43);
         b.writeUInt8(0, 6);
+    }
+
+    // Buffer has Uint8Array's buffer field (an ArrayBuffer).
+    {
+      let buffer = new Buffer('123');
+      let octets = new Uint8Array(buffer.buffer);
     }
 }
 
@@ -635,6 +643,18 @@ namespace readline_tests {
 
 childProcess.exec("echo test");
 childProcess.spawnSync("echo test");
+
+//////////////////////////////////////////////////////////////////////
+/// cluster tests: https://nodejs.org/api/cluster.html ///
+//////////////////////////////////////////////////////////////////////
+
+cluster.fork();
+Object.keys(cluster.workers).forEach(key => {
+    const worker = cluster.workers[key];
+    if (worker.isDead()) {
+        console.log('worker %d is dead', worker.process.pid);
+    }
+});
 
 ////////////////////////////////////////////////////
 /// os tests : https://nodejs.org/api/os.html
