@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare export function parse<T>(
+export declare function parse<T>(
     file: string,
     callback: (err: any, data: T) => void
 ): void;
 
-declare export function parseSync<T>(file: string): T;
+export declare function parseSync<T>(file: string): T;
 
-declare export function parseString<T>(data: string): T;
+export declare function parseString<T>(data: string): T;

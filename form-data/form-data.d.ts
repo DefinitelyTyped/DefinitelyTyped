@@ -6,7 +6,7 @@
 // Imported from: https://github.com/soywiz/typescript-node-definitions/form-data.d.ts
 
 
-declare export class FormData {
+export declare class FormData {
     append(key: string, value: any, options?: any): FormData;
     getHeaders(): Object;
     // TODO expand pipe

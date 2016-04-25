@@ -21,5 +21,5 @@ export interface Element {
     path: string;
 }
 
-declare export function create(glob: string, opts?: Options): NodeJS.ReadableStream;
-declare export function create(globs: string[], opts?: Options): NodeJS.ReadableStream;
+export declare function create(glob: string, opts?: Options): NodeJS.ReadableStream;
+export declare function create(globs: string[], opts?: Options): NodeJS.ReadableStream;

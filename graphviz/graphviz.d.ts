@@ -80,12 +80,12 @@ export interface Graph extends HasAttributes {
     output(options: RenderOptions, callback: OutputCallback, errback?: ErrorCallback): void;
 }
 
-declare export function graph(id: string): Graph;
+export declare function graph(id: string): Graph;
 
-declare export function digraph(id: string): Graph;
+export declare function digraph(id: string): Graph;
 
 interface ParseCallback {
     (graph: Graph): void;
 }
 
-declare export function parse(path: string, callback: ParseCallback, errback?: ErrorCallback): void;
+export declare function parse(path: string, callback: ParseCallback, errback?: ErrorCallback): void;

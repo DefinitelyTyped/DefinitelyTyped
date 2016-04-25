@@ -234,7 +234,7 @@ interface IndexingPolicy {
 
 /** Provides a client-side logical representation of the Azure DocumentDB database account. This client is used to configure and execute requests against the service.
   */
-declare export class DocumentClient {
+export declare class DocumentClient {
     /**
      * Constructs a DocumentClient.
      * @param urlConnection           - The service endpoint to use to create the client.

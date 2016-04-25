@@ -19,7 +19,7 @@ export interface IImageOptions {
     filterType?: EFilterType;
 }
 
-declare export enum EDeflateStrategy {
+export declare enum EDeflateStrategy {
     DEFAULT_STRATEGY = 0,
     FILTERED = 1,
     HUFFMAN_ONLY = 2,
@@ -27,7 +27,7 @@ declare export enum EDeflateStrategy {
     FIXED = 4,
 }
 
-declare export enum EFilterType {
+export declare enum EFilterType {
     Auto = -1,
     None = 0,
     Sub = 1,
@@ -36,9 +36,9 @@ declare export enum EFilterType {
     Paeth = 4,
 }
 
-declare export function createImage(option?: IImageOptions): Image;
+export declare function createImage(option?: IImageOptions): Image;
 
-declare export class Image extends stream.Duplex {
+export declare class Image extends stream.Duplex {
     width: number;
     height: number;
     gamma: number;

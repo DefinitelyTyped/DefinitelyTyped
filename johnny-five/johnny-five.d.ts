@@ -30,7 +30,7 @@ export interface AccelerometerMMA7361Option extends AccelerometerGeneralOption {
     sleepPin?: number | string;
 }
 
-declare export class Accelerometer {
+export declare class Accelerometer {
     constructor(option: AccelerometerGeneralOption | AccelerometerAnalogOption | AccelerometerMPU6050Option | AccelerometerMMA7361Option);
     on(event: string, cb: () => void): void;
     on(event: "change", cb: () => void): void;
@@ -40,7 +40,7 @@ declare export class Accelerometer {
     disable(): void;
 }
 
-declare export class Animation {
+export declare class Animation {
     constructor(option: Servo | Array<Servo>);
     enqueue(segment: any): void;
     play(): void;
@@ -69,7 +69,7 @@ export interface ButtonOptions {
     holdtime?: number;
 }
 
-declare export class Button {
+export declare class Button {
     constructor(pin: number | string | ButtonOptions);
     on(event: string, cb: () => void): void;
     on(event: "hold", cb: (holdTime: number) => void): void;
@@ -89,7 +89,7 @@ export interface Repl {
     inject(object: any): void;
 }
 
-declare export class Board {
+export declare class Board {
     constructor(option?: BoardOptions);
     on(event: string, cb: () => void): void;
     on(event: "ready", cb: () => void): void;
@@ -116,7 +116,7 @@ export interface CompassOptions {
     gauss?: number;
 }
 
-declare export class Compass {
+export declare class Compass {
     constructor(option: CompassOptions);
     on(event: string, cb: () => void): void;
     on(event: "change", cb: () => void): void;
@@ -129,7 +129,7 @@ export interface ESCOption {
     startAt?: number;
 }
 
-declare export class ESC {
+export declare class ESC {
     constructor(option: number | string | ESCOption);
     speed(value: number): void;
     min(): void;
@@ -151,7 +151,7 @@ export interface GyroMPU6050Option extends GyroGeneralOption {
     sensitivity: number;
 }
 
-declare export class Gyro {
+export declare class Gyro {
     constructor(option: GyroGeneralOption | GyroAnalogOption | GyroMPU6050Option);
     on(event: string, cb: () => void): void;
     on(event: "change", cb: () => void): void;
@@ -168,14 +168,14 @@ export interface IMUMPU6050Option extends IMUGeneralOption {
     address: number;
 }
 
-declare export class IMU {
+export declare class IMU {
     constructor(option: IMUGeneralOption | IMUMPU6050Option);
     on(event: string, cb: () => void): void;
     on(event: "change", cb: () => void): void;
     on(event: "data", cb: (data: any) => void): void;
 }
 
-declare export module IR {
+export declare module IR {
     export interface MotionOption {
         pin: number | string;
     }
@@ -232,7 +232,7 @@ export interface JoystickOption {
     pins: Array<string>;
 }
 
-declare export class Joystick {
+export declare class Joystick {
     constructor(option: JoystickOption);
     on(event: string, cb: () => void): void;
     on(event: "data", cb: (data: any) => void): void;
@@ -259,7 +259,7 @@ export interface LCDParallelOption extends LCDGeneralOption {
     backlight?: number;
 }
 
-declare export class LCD {
+export declare class LCD {
     constructor(option: LCDGeneralOption | LCDI2COption | LCDParallelOption);
     print(message: string): void;
     useChar(char: string): void;
@@ -282,7 +282,7 @@ export interface LedOption {
     isAnode?: boolean;
 }
 
-declare export class Led {
+export declare class Led {
     constructor(option: number | LedOption);
     on(): void;
     off(): void;
@@ -298,7 +298,7 @@ declare export class Led {
     stop(ms: number): void;
 }
 
-declare export module Led {
+export declare module Led {
     export interface DigitsOption {
         pins: any;
         devices?: number;
@@ -382,7 +382,7 @@ export interface MotorOption {
     bits?: any;
 }
 
-declare export class Motor {
+export declare class Motor {
     constructor(option: Array<number> | MotorOption);
     forward(speed: number): void;
     fwd(speed: number): void;
@@ -399,7 +399,7 @@ export interface PiezoOption {
     pin: number;
 }
 
-declare export class Piezo {
+export declare class Piezo {
     constructor(option: number | PiezoOption);
     frequency(frequency: number, duration: number): void;
     play(tune: any, cb?: () => void): void;
@@ -422,7 +422,7 @@ export interface PinState {
     analogChannel: number;
 }
 
-declare export class Pin {
+export declare class Pin {
     constructor(option: number | string | PinOption);
     query(cb: (pin: PinState) => void): void;
     high(): void;
@@ -439,7 +439,7 @@ export interface PingOption {
     pulse?: number;
 }
 
-declare export class Ping {
+export declare class Ping {
     constructor(option: number | PingOption);
 }
 
@@ -448,7 +448,7 @@ export interface RelayOption {
     type?: string;
 }
 
-declare export class Relay {
+export declare class Relay {
     constructor(option: number | RelayOption);
     open(): void;
     close(): void;
@@ -461,7 +461,7 @@ export interface SensorOption {
     threshold?: number;
 }
 
-declare export class Sensor {
+export declare class Sensor {
     constructor(option: number | string | SensorOption);
     scale(low: number, high: number): Sensor;
     scale(range: number[]): Sensor;
@@ -493,7 +493,7 @@ export interface ServoSweepOpts {
     step?: number;
 }
 
-declare export class Servo {
+export declare class Servo {
     constructor(option: number | string | ServoGeneralOption);
     to(degrees: number, ms?: number, rage?: number): void;
     min(): void;
@@ -513,7 +513,7 @@ export interface ShiftRegisterOption {
     pins: any;
 }
 
-declare export class ShiftRegister {
+export declare class ShiftRegister {
     constructor(option: ShiftRegisterOption);
     send(...value: number[]): void;
 }
@@ -525,7 +525,7 @@ export interface SonarOption {
     threshold?: number;
 }
 
-declare export class Sonar {
+export declare class Sonar {
     constructor(option: number | string | SonarOption);
     within(range: Array<number>, cb: () => void): void;
     within(range: Array<number>, unit: string, cb: () => void): void;
@@ -542,7 +542,7 @@ export interface StepperOption {
     direction?: number;
 }
 
-declare export module Stepper {
+export declare module Stepper {
     export class TYPE {
         static DRIVER: number;
         static TWO_WIRE: number;
@@ -550,7 +550,7 @@ declare export module Stepper {
     }
 }
 
-declare export class Stepper {
+export declare class Stepper {
     constructor(option: number | string | StepperOption);
     step(stepsOrOpts: any, cb: () => void): void;
     rpm(): Stepper;
@@ -580,7 +580,7 @@ export interface TemperatureOption {
     freq?: number;
 }
 
-declare export class Temperature {
+export declare class Temperature {
     constructor(option: TemperatureOption);
     on(event: string, cb: () => void): void;
     on(event: "data", cb: (data: any) => void): void;

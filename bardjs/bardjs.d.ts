@@ -3,7 +3,7 @@
 // Definitions by: Andrew Archibald <https://github.com/TepigMC>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angular.d.ts" />
+/// <reference path="../angularjs/angularjs.d.ts" />
 /// <reference path="../chai/chai.d.ts" />
 /// <reference path="../mocha/mocha.d.ts" />
 

@@ -7,5 +7,5 @@
 /// <reference path="../react/react.d.ts" />
 
 
-declare export function devTools(): Function;
-declare export function persistState(sessionId: any, stateDeserializer?: Function, actionDeserializer?: Function): Function;
+export declare function devTools(): Function;
+export declare function persistState(sessionId: any, stateDeserializer?: Function, actionDeserializer?: Function): Function;

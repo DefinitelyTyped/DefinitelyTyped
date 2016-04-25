@@ -56,9 +56,9 @@ export interface CallbackWithError {
     (err: any, ...args: any[]): void;
 }
 
-declare export function factory(opt?: Options): amqpRPC;
+export declare function factory(opt?: Options): amqpRPC;
 
-declare export class amqpRPC {
+export declare class amqpRPC {
     constructor(opt?: Options);
     generateQueueName(type: string): string;
     disconnect(): void;

@@ -121,7 +121,7 @@ export interface IServerConfig extends IConfig {
     disableNagleAlgorithm?: boolean;
 }
 
-declare export class server extends events.EventEmitter {
+export declare class server extends events.EventEmitter {
     config: IServerConfig;
     connections: connection[];
 
@@ -177,7 +177,7 @@ export interface IExtension {
     value: string;
 }
 
-declare export class request extends events.EventEmitter {
+export declare class request extends events.EventEmitter {
     /** A reference to the original Node HTTP request object */
     httpRequest: http.ClientRequest;
     /** This will include the port number if a non-standard port is used */
@@ -651,7 +651,7 @@ declare class router extends events.EventEmitter {
 
 }
 
-declare export var version: string;
-declare export var constants: {
+export declare var version: string;
+export declare var constants: {
     DEBUG: boolean;
 };

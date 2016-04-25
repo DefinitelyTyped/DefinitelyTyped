@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare export class ArgumentParser extends ArgumentGroup {
+export declare class ArgumentParser extends ArgumentGroup {
     constructor(options?: ArgumentParserOptions);
 
     addSubparsers(options?: SubparserOptions): SubParser;
@@ -69,10 +69,10 @@ interface ArgumentGroupOptions {
     description?: string;
 }
 
-declare export class HelpFormatter { }
-declare export class ArgumentDefaultsHelpFormatter { }
-declare export class RawDescriptionHelpFormatter { }
-declare export class RawTextHelpFormatter { }
+export declare class HelpFormatter { }
+export declare class ArgumentDefaultsHelpFormatter { }
+export declare class RawDescriptionHelpFormatter { }
+export declare class RawTextHelpFormatter { }
 
 interface ArgumentOptions {
     action?: string;

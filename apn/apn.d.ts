@@ -77,7 +77,7 @@ export interface ConnectionOptions {
      */
     fastMode?: boolean;
 }
-declare export class Connection extends events.EventEmitter {
+export declare class Connection extends events.EventEmitter {
     constructor(options: ConnectionOptions);
     /**
      * This is the business end of the module. Create a `Notification` object and pass it in, along with a single recipient or an array of them and node-apn will take care of the rest, delivering the notification to each recipient.
@@ -145,7 +145,7 @@ export interface NotificationAlertOptions {
     "loc-args"?: string[];
     "launch-image"?: string;
 }
-declare export class Notification {
+export declare class Notification {
     /**
      * The maximum number of retries which should be performed when sending a notification if an error occurs. A value of 0 will only allow one attempt at sending (0 retries). Set to -1 to disable (default).
      */
@@ -255,7 +255,7 @@ declare export class Notification {
      */
     trim(): number;
 }
-declare export class Device {
+export declare class Device {
     public token: Buffer;
     /**
      * `deviceToken` can be a `Buffer` or a `String` containing a "hex" representation of the token. Throws an error if the deviceToken supplied is invalid.
@@ -312,7 +312,7 @@ export interface FeedbackData {
 /**
  * Connection to the Apple Push Notification Feedback Service and if `interval` isn't disabled automatically begins polling the service. Many of the options are the same as `apn.Connection()`
  */
-declare export class Feedback {
+export declare class Feedback {
     constructor(options: FeedbackOptions);
     /**
      * Trigger a query of the feedback service. If `interval` is non-zero then this method will be called automatically.
@@ -337,7 +337,7 @@ declare export class Feedback {
     on(event: string, listener: Function): Feedback;
 }
 
-declare export enum Errors {
+export declare enum Errors {
     "noErrorsEncountered" = 0,
     "processingError" = 1,
     "missingDeviceToken" = 2,

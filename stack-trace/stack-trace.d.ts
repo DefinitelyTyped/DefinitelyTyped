@@ -15,5 +15,5 @@ export interface StackFrame {
     isNative(): boolean;
 }
 
-declare export function get(belowFn?: () => void): StackFrame[];
-declare export function parse(err: Error): StackFrame[];
+export declare function get(belowFn?: () => void): StackFrame[];
+export declare function parse(err: Error): StackFrame[];

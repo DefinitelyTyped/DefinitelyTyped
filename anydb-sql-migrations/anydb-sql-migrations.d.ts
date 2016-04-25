@@ -23,7 +23,7 @@ export interface MigrationTask {
     down: MigFn;
     name: string;
 }
-declare export function create(db: AnydbSql, tasks: any): {
+export declare function create(db: AnydbSql, tasks: any): {
     run: () => Promise<any>;
     migrateTo: (target?: string) => Promise<any>;
     check: (f: (m: {

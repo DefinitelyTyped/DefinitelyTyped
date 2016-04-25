@@ -230,36 +230,36 @@ export interface IConnectionPool {
     getConnection(callback: (err: any, connection: IConnection) => void): void;
 }
 
-declare export const DEFAULT: number;
+export declare const DEFAULT: number;
 /** Data type */
-declare export const STRING: number;
+export declare const STRING: number;
 /** Data type */
-declare export const NUMBER: number;
+export declare const NUMBER: number;
 /** Data type */
-declare export const DATE: number;
+export declare const DATE: number;
 /** Data type */
-declare export const CURSOR: number;
+export declare const CURSOR: number;
 /** Data type */
-declare export const BUFFER: number;
+export declare const BUFFER: number;
 /** Data type */
-declare export const CLOB: number;
+export declare const CLOB: number;
 /** Data type */
-declare export const BLOB: number;
+export declare const BLOB: number;
 /** Bind direction */
-declare export const BIND_IN: number;
+export declare const BIND_IN: number;
 /** Bind direction */
-declare export const BIND_INOUT: number;
+export declare const BIND_INOUT: number;
 /** Bind direction */
-declare export const BIND_OUT: number;
+export declare const BIND_OUT: number;
 /** outFormat */
-declare export const ARRAY: number;
+export declare const ARRAY: number;
 /** outFormat */
-declare export const OBJECT: number;
+export declare const OBJECT: number;
 
 /**
  * Do not use this method - used internally by node-oracledb.
  */
-declare export function newLob(iLob: ILob): Lob;
+export declare function newLob(iLob: ILob): Lob;
 
 /**
  * Creates a connection with the database.
@@ -267,7 +267,7 @@ declare export function newLob(iLob: ILob): Lob;
  * @param  {(err:any,connection:IConnection)=>void} callback Callback to run when the connection gets stablished or when some error occurs.
  * @returns void
  */
-declare export function getConnection(connectionAttributes: IConnectionAttributes, callback: (err: any, connection: IConnection) => void): void;
+export declare function getConnection(connectionAttributes: IConnectionAttributes, callback: (err: any, connection: IConnection) => void): void;
 
 /**
  * Creates a database managed connection pool.
@@ -275,33 +275,33 @@ declare export function getConnection(connectionAttributes: IConnectionAttribute
  * @param  {(err:any,connection:IConnectionPool)=>void} callback Callback to run when the connection pool gets created or when some error occurs.
  * @returns void
  */
-declare export function createPool(poolAttributes: IPoolAttributes, callback: (err: any, connection: IConnectionPool) => void): void;
+export declare function createPool(poolAttributes: IPoolAttributes, callback: (err: any, connection: IConnectionPool) => void): void;
 
 /** Default maximum connections in created pools */
-declare export var poolMax: number;
+export declare var poolMax: number;
 /** Default minimum connections in created pools */
-declare export var poolMin: number;
+export declare var poolMin: number;
 /** Default number of connections to increment when available connections reach 0 in created pools. poolMax will be respected.*/
-declare export var poolIncrement: number;
+export declare var poolIncrement: number;
 /** Default timeout for unused connections in pool to be released. poolMin will be respected.*/
-declare export var poolTimeout: number;
+export declare var poolTimeout: number;
 /** Default size of statements cache. Used to speed up creating queries.*/
-declare export var stmtCacheSize: number;
+export declare var stmtCacheSize: number;
 /** Default number of rows that the driver will fetch in each query.*/
-declare export var prefetchRows: number;
+export declare var prefetchRows: number;
 /** Default transaction behaviour of auto commit for each statement. */
-declare export var autoCommit: boolean;
+export declare var autoCommit: boolean;
 /** Default maximum number of rows to be fetched in statements not using ResultSets */
-declare export var maxRows: number;
+export declare var maxRows: number;
 /** Default format for returning rows. When ARRAY, it will return Array<Array<any>>. When OBJECT, it will return Array<Object>. */
-declare export var outFormat: number;
+export declare var outFormat: number;
 /** node-oracledb driver version. */
-declare export var version: number;
-declare export var connectionClass: string;
+export declare var version: number;
+export declare var connectionClass: string;
 /** Default authentication/authorization method. When true, the SO trusted user will be used. */
-declare export var externalAuth: boolean;
-declare export var fetchAsString: any;
+export declare var externalAuth: boolean;
+export declare var fetchAsString: any;
 /** Default size in bytes that the driver will fetch from LOBs in advance. */
-declare export var lobPrefetchSize: number;
+export declare var lobPrefetchSize: number;
 /** Version of OCI that is used. */
-declare export var oracleClientVersion: number;
+export declare var oracleClientVersion: number;

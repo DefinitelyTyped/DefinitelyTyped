@@ -30,13 +30,13 @@ export interface Position {
     column: number;
 }
 
-declare export function wrapCallSite(frame: any /* StackFrame */): any /* StackFrame */;
-declare export function getErrorSource(error: Error): string;
-declare export function mapSourcePosition(position: Position): Position;
-declare export function retrieveSourceMap(source: string): UrlAndMap;
+export declare function wrapCallSite(frame: any /* StackFrame */): any /* StackFrame */;
+export declare function getErrorSource(error: Error): string;
+export declare function mapSourcePosition(position: Position): Position;
+export declare function retrieveSourceMap(source: string): UrlAndMap;
 
 /**
  * Install SourceMap support.
  * @param options Can be used to e.g. disable uncaughtException handler.
  */
-declare export function install(options?: Options): void;
+export declare function install(options?: Options): void;

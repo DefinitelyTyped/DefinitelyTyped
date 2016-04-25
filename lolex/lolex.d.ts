@@ -17,7 +17,7 @@ export interface Clock {
     uninstall(): void;
 }
 
-declare export function createClock(now?: number): Clock;
+export declare function createClock(now?: number): Clock;
 
-declare export function install(now?: number, toFake?: string[]): Clock;
-declare export function install(context?: any, now?: number, toFake?: string[]): Clock;
+export declare function install(now?: number, toFake?: string[]): Clock;
+export declare function install(context?: any, now?: number, toFake?: string[]): Clock;

@@ -5,7 +5,7 @@
 
 
 
-declare export class EventSubscription {
+export declare class EventSubscription {
 
     listener: Function;
     context: any;
@@ -17,7 +17,7 @@ declare export class EventSubscription {
 
 }
 
-declare export class EventEmitter {
+export declare class EventEmitter {
 
     constructor();
 

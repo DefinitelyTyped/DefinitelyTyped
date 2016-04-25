@@ -15,10 +15,10 @@ interface CronJob {
     start(): void;
     stop(): void;
 }
-declare export var CronJob: CronJobStatic;
+export declare var CronJob: CronJobStatic;
 
 interface CronTimeStatic {
     new (time: string | Date): CronTime;
 }
 interface CronTime { }
-declare export var CronTime: CronTimeStatic;
+export declare var CronTime: CronTimeStatic;

@@ -6,5 +6,5 @@
 // Imported from: https://github.com/soywiz/typescript-node-definitions/sprintff.d.ts
 
 
-declare export function sprintf(fmt: string, ...args: any[]): string;
-declare export function vsprintf(fmt: string, args: any[]): string;
+export declare function sprintf(fmt: string, ...args: any[]): string;
+export declare function vsprintf(fmt: string, args: any[]): string;

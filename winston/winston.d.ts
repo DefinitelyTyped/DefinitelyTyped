@@ -12,40 +12,40 @@
 ///******************
 
 
-declare export var transports: Transports;
-declare export var Transport: TransportStatic;
-declare export var Logger: LoggerStatic;
-declare export var Container: ContainerStatic;
-declare export var loggers: ContainerInstance;
-declare export var defaultLogger: LoggerInstance;
+export declare var transports: Transports;
+export declare var Transport: TransportStatic;
+export declare var Logger: LoggerStatic;
+export declare var Container: ContainerStatic;
+export declare var loggers: ContainerInstance;
+export declare var defaultLogger: LoggerInstance;
 
-declare export var exception: Exception;
+export declare var exception: Exception;
 
-declare export var exitOnError: boolean;
-declare export var level: string;
+export declare var exitOnError: boolean;
+export declare var level: string;
 
-declare export var log: LogMethod;
+export declare var log: LogMethod;
 
-declare export var debug: LeveledLogMethod;
-declare export var info: LeveledLogMethod;
-declare export var warn: LeveledLogMethod;
-declare export var error: LeveledLogMethod;
+export declare var debug: LeveledLogMethod;
+export declare var info: LeveledLogMethod;
+export declare var warn: LeveledLogMethod;
+export declare var error: LeveledLogMethod;
 
-declare export function query(options: QueryOptions, callback?: (err: Error, results: any) => void): any;
-declare export function query(callback: (err: Error, results: any) => void): any;
-declare export function stream(options?: any): NodeJS.ReadableStream;
-declare export function handleExceptions(...transports: TransportInstance[]): void;
-declare export function unhandleExceptions(...transports: TransportInstance[]): void;
-declare export function add(transport: TransportInstance, options?: TransportOptions, created?: boolean): LoggerInstance;
-declare export function clear(): void;
-declare export function remove(transport: string): LoggerInstance;
-declare export function remove(transport: TransportInstance): LoggerInstance;
-declare export function startTimer(): ProfileHandler;
-declare export function profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-declare export function addColors(target: any): any;
-declare export function setLevels(target: any): any;
-declare export function cli(): LoggerInstance;
-declare export function close(): void;
+export declare function query(options: QueryOptions, callback?: (err: Error, results: any) => void): any;
+export declare function query(callback: (err: Error, results: any) => void): any;
+export declare function stream(options?: any): NodeJS.ReadableStream;
+export declare function handleExceptions(...transports: TransportInstance[]): void;
+export declare function unhandleExceptions(...transports: TransportInstance[]): void;
+export declare function add(transport: TransportInstance, options?: TransportOptions, created?: boolean): LoggerInstance;
+export declare function clear(): void;
+export declare function remove(transport: string): LoggerInstance;
+export declare function remove(transport: TransportInstance): LoggerInstance;
+export declare function startTimer(): ProfileHandler;
+export declare function profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
+export declare function addColors(target: any): any;
+export declare function setLevels(target: any): any;
+export declare function cli(): LoggerInstance;
+export declare function close(): void;
 
 export interface ExceptionProcessInfo {
     pid: number;

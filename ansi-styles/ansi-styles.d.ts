@@ -10,31 +10,31 @@ export interface EscapeCodePair {
     close: string;
 }
 
-declare export var reset: EscapeCodePair;
+export declare var reset: EscapeCodePair;
 
-declare export var bold: EscapeCodePair;
-declare export var dim: EscapeCodePair;
-declare export var italic: EscapeCodePair;
-declare export var underline: EscapeCodePair;
-declare export var inverse: EscapeCodePair;
-declare export var hidden: EscapeCodePair;
-declare export var strikethrough: EscapeCodePair;
+export declare var bold: EscapeCodePair;
+export declare var dim: EscapeCodePair;
+export declare var italic: EscapeCodePair;
+export declare var underline: EscapeCodePair;
+export declare var inverse: EscapeCodePair;
+export declare var hidden: EscapeCodePair;
+export declare var strikethrough: EscapeCodePair;
 
-declare export var black: EscapeCodePair;
-declare export var red: EscapeCodePair;
-declare export var green: EscapeCodePair;
-declare export var yellow: EscapeCodePair;
-declare export var blue: EscapeCodePair;
-declare export var magenta: EscapeCodePair;
-declare export var cyan: EscapeCodePair;
-declare export var white: EscapeCodePair;
-declare export var gray: EscapeCodePair;
+export declare var black: EscapeCodePair;
+export declare var red: EscapeCodePair;
+export declare var green: EscapeCodePair;
+export declare var yellow: EscapeCodePair;
+export declare var blue: EscapeCodePair;
+export declare var magenta: EscapeCodePair;
+export declare var cyan: EscapeCodePair;
+export declare var white: EscapeCodePair;
+export declare var gray: EscapeCodePair;
 
-declare export var bgBlack: EscapeCodePair;
-declare export var bgRed: EscapeCodePair;
-declare export var bgGreen: EscapeCodePair;
-declare export var bgYellow: EscapeCodePair;
-declare export var bgBlue: EscapeCodePair;
-declare export var bgMagenta: EscapeCodePair;
-declare export var bgCyan: EscapeCodePair;
-declare export var bgWhite: EscapeCodePair;
+export declare var bgBlack: EscapeCodePair;
+export declare var bgRed: EscapeCodePair;
+export declare var bgGreen: EscapeCodePair;
+export declare var bgYellow: EscapeCodePair;
+export declare var bgBlue: EscapeCodePair;
+export declare var bgMagenta: EscapeCodePair;
+export declare var bgCyan: EscapeCodePair;
+export declare var bgWhite: EscapeCodePair;

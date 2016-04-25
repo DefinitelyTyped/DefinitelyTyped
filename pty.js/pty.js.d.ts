@@ -20,7 +20,7 @@ interface TerminalOptions {
 import stream = require('stream');
 import net = require('net');
 
-declare export class Terminal implements stream.Stream {
+export declare class Terminal implements stream.Stream {
     /** Read-only name of the terminal. */
     name: string;
     /** Read-only number of columns in the terminal. */
@@ -94,19 +94,19 @@ declare export class Terminal implements stream.Stream {
  * Creates a new pseudo-terminal, spawns a child process, and associates it with the slave 
  * end of the pseudo-terminal.
  */
-declare export function createTerminal(file?: string, args?: string[], opt?: TerminalOptions): Terminal;
+export declare function createTerminal(file?: string, args?: string[], opt?: TerminalOptions): Terminal;
 /** Alias for [[createTerminal]]. */
-declare export function fork(file?: string, args?: string[], opt?: TerminalOptions): Terminal;
+export declare function fork(file?: string, args?: string[], opt?: TerminalOptions): Terminal;
 /** Alias for [[createTerminal]]. */
-declare export function spawn(file?: string, args?: string[], opt?: TerminalOptions): Terminal;
+export declare function spawn(file?: string, args?: string[], opt?: TerminalOptions): Terminal;
 /** 
  * Creates a new pseudo-terminal.
  * This function is not available on Windows, use [[fork]] there instead.
  */
-declare export function open(opt?: { cols?: number; rows?: number }): Terminal;
+export declare function open(opt?: { cols?: number; rows?: number }): Terminal;
 
 // Internal stuff that probably isn't very useful but is exported by pty.js
-declare export module native {
+export declare module native {
     /** Unix-only. */
     export function fork(
         file: string, args: string[], env: any, cwd: string, cols: number, rows: number,

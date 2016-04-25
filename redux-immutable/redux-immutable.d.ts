@@ -4,4 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare export function combineReducers(reducers: Object): Object;
+export declare function combineReducers(reducers: Object): Object;

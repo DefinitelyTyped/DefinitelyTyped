@@ -4,5 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare export function get(object: any, path: string): any;
-declare export function set(object: any, path: string, value: any): void;
+export declare function get(object: any, path: string): any;
+export declare function set(object: any, path: string, value: any): void;

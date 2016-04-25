@@ -5,9 +5,9 @@
 
 
 
-declare export function readFile(filename: string, opts?: IParsingOptions): IWorkBook;
-declare export function read(data: any, opts?: IParsingOptions): IWorkBook;
-declare export var utils: IUtils;
+export declare function readFile(filename: string, opts?: IParsingOptions): IWorkBook;
+export declare function read(data: any, opts?: IParsingOptions): IWorkBook;
+export declare var utils: IUtils;
 
 export interface IProperties {
     LastAuthor?: string

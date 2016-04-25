@@ -10,7 +10,7 @@
  * @param name Name of the command to complete.
  * @param cb Get called when a tab-completion command happens.
  */
-declare export function complete(name: string, cb: CallBack): void;
+export declare function complete(name: string, cb: CallBack): void;
 
 /**
  * Main completion method, has support for installation and actual completion.
@@ -18,22 +18,22 @@ declare export function complete(name: string, cb: CallBack): void;
  * @param completer Name of the command to call on completion.
  * @param cb Get called when a tab-completion command happens.
  */
-declare export function complete(name: string, completer: string, cb: CallBack): void;
+export declare function complete(name: string, completer: string, cb: CallBack): void;
 
 /**
  * Simple helper function to know if the script is run in the context of a completion command.
  */
-declare export function isComplete(): boolean;
+export declare function isComplete(): boolean;
 
 /**
  * Helper to return the list of short and long options, parsed from the usual --help output of a command (cake/rake -H, vagrant, commander -h, optimist.help(), ...).
  */
-declare export function parseOut(str: string): { shorts: string[]; longs: string[] };
+export declare function parseOut(str: string): { shorts: string[]; longs: string[] };
 
 /**
  * Same purpose as parseOut, but for parsing tasks from an help command (cake/rake -T, vagrant, etc.).
  */
-declare export function parseTasks(str: string, prefix: string, reg?: RegExp | string): string[];
+export declare function parseTasks(str: string, prefix: string, reg?: RegExp | string): string[];
 
 /**
  * Helper to return completion output and log to standard output.
@@ -41,7 +41,7 @@ declare export function parseTasks(str: string, prefix: string, reg?: RegExp | s
  * @param data The data object returned by the complete callback, used mainly to filter results accordingly upon the text that is supplied by the user.
  * @param prefix A prefix to add to the completion results, useful for options to add dashes (eg. - or --).
  */
-declare export function log(values: string[], data: Data, prefix?: string): void;
+export declare function log(values: string[], data: Data, prefix?: string): void;
 
 interface CallBack {
     (error?: Error, data?: Data, text?: string): any;

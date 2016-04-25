@@ -154,28 +154,28 @@ export interface Emitter<T, S> {
 }
 
 // Create a stream
-declare export function never(): Stream<void, void>;
-declare export function later<T>(wait: number, value: T): Stream<T, void>;
-declare export function interval<T>(interval: number, value: T): Stream<T, void>;
-declare export function sequentially<T>(interval: number, values: T[]): Stream<T, void>;
-declare export function fromPoll<T>(interval: number, fn: () => T): Stream<T, void>;
-declare export function withInterval<T, S>(interval: number, handler: (emitter: Emitter<T, S>) => void): Stream<T, S>;
-declare export function fromCallback<T>(fn: (callback: (value: T) => void) => void): Stream<T, void>;
-declare export function fromNodeCallback<T, S>(fn: (callback: (error: S, result: T) => void) => void): Stream<T, S>;
-declare export function fromEvents<T, S>(target: EventTarget | NodeJS.EventEmitter | { on: Function, off: Function }, eventName: string, transform?: (value: T) => S): Stream<T, S>;
-declare export function stream<T, S>(subscribe: (emitter: Emitter<T, S>) => Function | void): Stream<T, S>;
-declare export function fromESObservable<T, S>(observable: any): Stream<T, S>
+export declare function never(): Stream<void, void>;
+export declare function later<T>(wait: number, value: T): Stream<T, void>;
+export declare function interval<T>(interval: number, value: T): Stream<T, void>;
+export declare function sequentially<T>(interval: number, values: T[]): Stream<T, void>;
+export declare function fromPoll<T>(interval: number, fn: () => T): Stream<T, void>;
+export declare function withInterval<T, S>(interval: number, handler: (emitter: Emitter<T, S>) => void): Stream<T, S>;
+export declare function fromCallback<T>(fn: (callback: (value: T) => void) => void): Stream<T, void>;
+export declare function fromNodeCallback<T, S>(fn: (callback: (error: S, result: T) => void) => void): Stream<T, S>;
+export declare function fromEvents<T, S>(target: EventTarget | NodeJS.EventEmitter | { on: Function, off: Function }, eventName: string, transform?: (value: T) => S): Stream<T, S>;
+export declare function stream<T, S>(subscribe: (emitter: Emitter<T, S>) => Function | void): Stream<T, S>;
+export declare function fromESObservable<T, S>(observable: any): Stream<T, S>
 
 // Create a property
-declare export function constant<T>(value: T): Property<T, void>;
-declare export function constantError<T>(error: T): Property<void, T>;
-declare export function fromPromise<T, S>(promise: any): Property<T, S>;
+export declare function constant<T>(value: T): Property<T, void>;
+export declare function constantError<T>(error: T): Property<void, T>;
+export declare function fromPromise<T, S>(promise: any): Property<T, S>;
 
 // Combine observables
-declare export function combine<T, S, U>(obss: Observable<T, S>[], passiveObss: Observable<T, S>[], combinator?: (...values: T[]) => U): Observable<U, S>;
-declare export function combine<T, S, U>(obss: Observable<T, S>[], combinator?: (...values: T[]) => U): Observable<U, S>;
-declare export function zip<T, S, U>(obss: Observable<T, S>[], passiveObss?: Observable<T, S>[], combinator?: (...values: T[]) => U): Observable<U, S>;
-declare export function merge<T, S>(obss: Observable<T, S>[]): Observable<T, S>;
-declare export function concat<T, S>(obss: Observable<T, S>[]): Observable<T, S>;
-declare export function pool<T, S>(): ObservablePool<T, S>;
-declare export function repeat<T, S>(generator: (i: number) => Observable<T, S> | boolean): Observable<T, S>;
+export declare function combine<T, S, U>(obss: Observable<T, S>[], passiveObss: Observable<T, S>[], combinator?: (...values: T[]) => U): Observable<U, S>;
+export declare function combine<T, S, U>(obss: Observable<T, S>[], combinator?: (...values: T[]) => U): Observable<U, S>;
+export declare function zip<T, S, U>(obss: Observable<T, S>[], passiveObss?: Observable<T, S>[], combinator?: (...values: T[]) => U): Observable<U, S>;
+export declare function merge<T, S>(obss: Observable<T, S>[]): Observable<T, S>;
+export declare function concat<T, S>(obss: Observable<T, S>[]): Observable<T, S>;
+export declare function pool<T, S>(): ObservablePool<T, S>;
+export declare function repeat<T, S>(generator: (i: number) => Observable<T, S> | boolean): Observable<T, S>;

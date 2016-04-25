@@ -49,7 +49,7 @@ export interface MenuItemConfig {
     modifiers?: string;
 }
 
-declare export class MenuItem extends EventEmitter implements MenuItemConfig {
+export declare class MenuItem extends EventEmitter implements MenuItemConfig {
     constructor(config: MenuItemConfig);
     label: string;
     click: Function;
@@ -63,7 +63,7 @@ declare export class MenuItem extends EventEmitter implements MenuItemConfig {
     modifiers: string;
 }
 
-declare export class Menu {
+export declare class Menu {
     constructor(config?: MenuConfig);
     items: MenuItem[];
     append(item: MenuItem): void;
@@ -82,7 +82,7 @@ export interface ShortcutOption {
     failed: Function;
 }
 
-declare export class Shortcut extends EventEmitter {
+export declare class Shortcut extends EventEmitter {
     constructor(option: ShortcutOption);
     key: string;
     active: Function;
@@ -104,7 +104,7 @@ export interface WindowManifestOptions {
     max_height?: number;
 }
 
-declare export class Window extends EventEmitter {
+export declare class Window extends EventEmitter {
     static get(windowObject?: any): Window;
     static open(url: string, options?: WindowManifestOptions): Window;
     x: number;
@@ -184,7 +184,7 @@ export interface App {
     unregisterGlobalHotKey(shortcut: Shortcut): void;
 }
 
-declare export class Clipboard {
+export declare class Clipboard {
     static get(): Clipboard;
     get(type?: string): string;
     set(data: string, type?: string): void;
@@ -199,7 +199,7 @@ export interface TrayOption {
     menu?: Menu;
 }
 
-declare export class Tray implements TrayOption {
+export declare class Tray implements TrayOption {
     constructor(option: TrayOption);
     title: string;
     tooltip: string;
@@ -215,5 +215,5 @@ interface Shell {
     showItemInFolder(file_path: string): void;
 }
 
-declare export var App: App;
-declare export var Shell: Shell;
+export declare var App: App;
+export declare var Shell: Shell;

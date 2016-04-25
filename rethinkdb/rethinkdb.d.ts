@@ -8,32 +8,32 @@
 
 
 
-declare export function connect(host: ConnectionOptions, cb?: (err: Error, conn: Connection) => void): Promise<Connection>;
+export declare function connect(host: ConnectionOptions, cb?: (err: Error, conn: Connection) => void): Promise<Connection>;
 
-declare export function dbCreate(name: string): Operation<CreateResult>;
-declare export function dbDrop(name: string): Operation<DropResult>;
-declare export function dbList(): Operation<string[]>;
+export declare function dbCreate(name: string): Operation<CreateResult>;
+export declare function dbDrop(name: string): Operation<DropResult>;
+export declare function dbList(): Operation<string[]>;
 
-declare export function db(name: string): Db;
-declare export function table(name: string, options?: { useOutdated: boolean }): Table;
+export declare function db(name: string): Db;
+export declare function table(name: string, options?: { useOutdated: boolean }): Table;
 
-declare export function asc(property: string): Sort;
-declare export function desc(property: string): Sort;
+export declare function asc(property: string): Sort;
+export declare function desc(property: string): Sort;
 
-declare export var count: Aggregator;
-declare export function sum(prop: string): Aggregator;
-declare export function avg(prop: string): Aggregator;
+export declare var count: Aggregator;
+export declare function sum(prop: string): Aggregator;
+export declare function avg(prop: string): Aggregator;
 
-declare export function row(name: string): Expression<any>;
-declare export function expr(stuff: any): Expression<any>;
+export declare function row(name: string): Expression<any>;
+export declare function expr(stuff: any): Expression<any>;
 
-declare export function now(): Time;
+export declare function now(): Time;
 
 // Control Structures
-declare export function branch(test: Expression<boolean>, trueBranch: Expression<any>, falseBranch: Expression<any>): Expression<any>;
+export declare function branch(test: Expression<boolean>, trueBranch: Expression<any>, falseBranch: Expression<any>): Expression<any>;
 
 
-declare export class Cursor {
+export declare class Cursor {
     hasNext(): boolean;
     each(cb: (err: Error, row: any) => void, done?: () => void);
     each(cb: (err: Error, row: any) => boolean, done?: () => void); // returning false stops iteration

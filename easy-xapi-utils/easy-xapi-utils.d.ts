@@ -10,6 +10,6 @@
 
 import express = require('express');
 
-declare export function isLoggedIn(role?: string): express.RequestHandler;
-declare export function isLoggedOut(): express.RequestHandler;
-declare export function hasRole(role: string): express.RequestHandler;
+export declare function isLoggedIn(role?: string): express.RequestHandler;
+export declare function isLoggedOut(): express.RequestHandler;
+export declare function hasRole(role: string): express.RequestHandler;

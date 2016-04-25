@@ -42,14 +42,14 @@ interface UUIDArray<T> extends Array<T> {
  * The simplest function to get an UUID string.
  * @returns {string} A version 4 UUID string.
  */
-declare export function generate(): string;
+export declare function generate(): string;
 
 /**
  * Generates a version 4 {@link UUID}.
  * @returns {UUID} A version 4 {@link UUID} object.
  * @since 3.0
  */
-declare export function genV4(): UUID;
+export declare function genV4(): UUID;
 
 
 /**
@@ -57,7 +57,7 @@ declare export function genV4(): UUID;
  * @returns {UUID} A version 1 {@link UUID} object.
  * @since 3.0
  */
-declare export function genV1(): UUID;
+export declare function genV1(): UUID;
 
 /**
  * Converts hexadecimal UUID string to an {@link UUID} object.
@@ -65,18 +65,18 @@ declare export function genV1(): UUID;
  * @returns {UUID} {@link UUID} object or null.
  * @since 3.0
  */
-declare export function parse(uuid: string): UUID;
+export declare function parse(uuid: string): UUID;
 
 
 /**
  * Re-initializes version 1 UUID state.
  * @since 3.0
  */
-declare export function resetState(): void;
+export declare function resetState(): void;
 
 /**
  * Reinstalls {@link UUID.generate} method to emulate the interface of UUID.js version 2.x.
  * @since 3.1
  * @deprecated Version 2.x. compatible interface is not recommended.
  */
-declare export function makeBackwardCompatible(): void;
+export declare function makeBackwardCompatible(): void;

@@ -69,7 +69,7 @@ export interface ExtractStream extends ParseStream {
 
 // #region Enums
 
-declare export var fields: {
+export declare var fields: {
     path: number;
     mode: number;
     uid: number;
@@ -89,15 +89,15 @@ declare export var fields: {
     fill: number;
 };
 
-declare export var fieldSize: number[];
-declare export var fieldOffs: number[];
-declare export var fieldEnds: number[];
+export declare var fieldSize: number[];
+export declare var fieldOffs: number[];
+export declare var fieldEnds: number[];
 
 /**
  * Different values of the 'type' field
  * paths match the values of Stats.isX() functions, where appropriate
  */
-declare export var types: {
+export declare var types: {
     0: string;
     "\0": string;
     "": string;
@@ -144,7 +144,7 @@ declare export var types: {
 /**
  * Values for the mode field
  */
-declare export var modes: {
+export declare var modes: {
     suid: number;
     sgid: number;
     svtx: number;
@@ -159,7 +159,7 @@ declare export var modes: {
     oexec: number;
 };
 
-declare export var numeric: {
+export declare var numeric: {
     mode: boolean;
     uid: boolean;
     gid: boolean;
@@ -175,7 +175,7 @@ declare export var numeric: {
     nlink: boolean;
 };
 
-declare export var knownExtended: {
+export declare var knownExtended: {
     atime: boolean;
     charset: boolean;
     comment: boolean;
@@ -192,8 +192,8 @@ declare export var knownExtended: {
     uname: boolean;
 };
 
-declare export var headerSize: number;
-declare export var blockSize: number;
+export declare var headerSize: number;
+export declare var blockSize: number;
 
 //#endregion
 
@@ -202,17 +202,17 @@ declare export var blockSize: number;
 /**
  * Returns a writable stream. Write tar data to it and it will emit entry events for each entry parsed from the tarball. This is used by tar.Extract.
  */
-declare export function Parse(): ParseStream;
+export declare function Parse(): ParseStream;
 /**
  * Returns a through stream. Use fstream to write files into the pack stream and you will receive tar archive data from the pack stream.
  * This only works with directories, it does not work with individual files.
  * The optional properties object are used to set properties in the tar 'Global Extended Header'.
  */
-declare export function Pack(props?: HeaderProperties): PackStream;
+export declare function Pack(props?: HeaderProperties): PackStream;
 /**
  * Returns a through stream. Write tar data to the stream and the files in the tarball will be extracted onto the filesystem.
  */
-declare export function Extract(path: string): ExtractStream;
+export declare function Extract(path: string): ExtractStream;
 /**
  * Returns a through stream. Write tar data to the stream and the files in the tarball will be extracted onto the filesystem.
  * options can be:
@@ -224,4 +224,4 @@ declare export function Extract(path: string): ExtractStream;
  * ```
  * options also get passed to the fstream.Writer instance that tar uses internally.
  */
-declare export function Extract(opts: ExtractOptions): ExtractStream;
+export declare function Extract(opts: ExtractOptions): ExtractStream;

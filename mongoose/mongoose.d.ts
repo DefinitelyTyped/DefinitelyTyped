@@ -24,7 +24,7 @@ declare var mquery: any;
 declare var version: string;
 declare var connection: Connection;
 
-declare export class Mongoose {
+export declare class Mongoose {
     connect(uri: string, options?: ConnectOpenOptionsBase, callback?: (err: any) => void): Mongoose;
     createConnection(): Connection;
     createConnection(uri: string, options?: Object): Connection;
@@ -115,12 +115,12 @@ export interface Collection {
 }
 
 
-declare export class SchemaType { }
-declare export class VirtualType {
+export declare class SchemaType { }
+export declare class VirtualType {
     get(fn: Function): VirtualType;
     set(fn: Function): VirtualType;
 }
-declare export module Types {
+export declare module Types {
     export class ObjectId {
         constructor(id?: string | number);
         toHexString(): string;
@@ -132,7 +132,7 @@ declare export module Types {
     }
 }
 
-declare export class Schema {
+export declare class Schema {
     static Types: {
         String: String;
         ObjectId: Types.ObjectId;
@@ -289,7 +289,7 @@ export interface MapReduceResult<Key, Val> {
     value: Val;
 }
 
-declare export class Query<T> {
+export declare class Query<T> {
     exec(callback?: (err: any, res: T) => void): Promise<T>;
     exec(operation: string, callback?: (err: any, res: T) => void): Promise<T>;
     exec(operation: Function, callback?: (err: any, res: T) => void): Promise<T>;
@@ -457,7 +457,7 @@ export interface Document {
 }
 
 
-declare export class Aggregate<T> {
+export declare class Aggregate<T> {
     constructor(...options: Object[]);
 
     append(...options: Object[]): Aggregate<T>;
@@ -477,7 +477,7 @@ declare export class Aggregate<T> {
     read(pref: string, ...tags: Object[]): Aggregate<T>;
 }
 
-declare export class Promise<T> {
+export declare class Promise<T> {
     constructor(fn?: (err: any, result: T) => void);
 
     then<U>(onFulFill: (result: T) => void, onReject?: (err: any) => void): Promise<U>;

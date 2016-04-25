@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../localForage/localForage.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
+/// <reference path="../angularjs/angularjs.d.ts" />
 
 declare namespace angular.localForage {
 

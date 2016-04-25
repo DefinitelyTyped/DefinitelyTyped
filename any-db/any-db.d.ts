@@ -286,7 +286,7 @@ export interface PoolConfig {
  * @param callback
  * @returns	Connection object.
  */
-declare export function createConnection(url: string, callback?: (error: Error, connection: Connection) => void): Connection;
+export declare function createConnection(url: string, callback?: (error: Error, connection: Connection) => void): Connection;
 
 /**
  * Create a database connection.
@@ -294,8 +294,8 @@ declare export function createConnection(url: string, callback?: (error: Error, 
  * @param callback
  * @returns	Connection object.
  */
-declare export function createConnection(opts: ConnectOpts, callback?: (error: Error, connection: Connection) => void): Connection;
+export declare function createConnection(opts: ConnectOpts, callback?: (error: Error, connection: Connection) => void): Connection;
 
 
-declare export function createPool(url: string, config: PoolConfig): ConnectionPool;
-declare export function createPool(opts: ConnectOpts, config: PoolConfig): ConnectionPool;
+export declare function createPool(url: string, config: PoolConfig): ConnectionPool;
+export declare function createPool(opts: ConnectOpts, config: PoolConfig): ConnectionPool;

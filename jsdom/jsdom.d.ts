@@ -24,15 +24,15 @@ import EventEmitter = NodeJS.EventEmitter;
  * @param config  Configuration object
  * @param callback 
  */
-declare export function env(urlOrHtml: string, scripts: string, config: Config, callback?: Callback): void;
-declare export function env(urlOrHtml: string, scripts: string, callback: Callback): void;
-declare export function env(urlOrHtml: string, scripts: string[], config: Config, callback?: Callback): void;
-declare export function env(urlOrHtml: string, scripts: string[], callback: Callback): void;
-declare export function env(urlOrHtml: string, callback: Callback): void;
-declare export function env(urlOrHtml: string, config: Config, callback?: Callback): void;
-declare export function env(config: Config, callback?: Callback): void;
+export declare function env(urlOrHtml: string, scripts: string, config: Config, callback?: Callback): void;
+export declare function env(urlOrHtml: string, scripts: string, callback: Callback): void;
+export declare function env(urlOrHtml: string, scripts: string[], config: Config, callback?: Callback): void;
+export declare function env(urlOrHtml: string, scripts: string[], callback: Callback): void;
+export declare function env(urlOrHtml: string, callback: Callback): void;
+export declare function env(urlOrHtml: string, config: Config, callback?: Callback): void;
+export declare function env(config: Config, callback?: Callback): void;
 
-declare export function serializeDocument(doc: Document): string;
+export declare function serializeDocument(doc: Document): string;
 
 export interface VirtualConsole extends EventEmitter {
     sendTo(console: Console): VirtualConsole;
@@ -63,15 +63,15 @@ export interface CookieJar {
 
 }
 
-declare export function createVirtualConsole(options?: VirtualConsoleOptions): VirtualConsole;
-declare export function getVirtualConsole(window: Window): VirtualConsole;
-declare export function createCookieJar(): CookieJar;
-declare export function nodeLocation(node: Node): any;
-declare export function reconfigureWindow(window: Window, newProps: WindowProperties): void;
+export declare function createVirtualConsole(options?: VirtualConsoleOptions): VirtualConsole;
+export declare function getVirtualConsole(window: Window): VirtualConsole;
+export declare function createCookieJar(): CookieJar;
+export declare function nodeLocation(node: Node): any;
+export declare function reconfigureWindow(window: Window, newProps: WindowProperties): void;
 
-declare export function jQueryify(window: Window, jqueryUrl: string, callback: (window: Window, jquery: JQuery) => any): void;
+export declare function jQueryify(window: Window, jqueryUrl: string, callback: (window: Window, jquery: JQuery) => any): void;
 
-declare export var debugMode: boolean;
+export declare var debugMode: boolean;
 
 export interface DocumentWithParentWindow extends Document {
     parentWindow: Window;
@@ -88,14 +88,14 @@ export interface DocumentWithParentWindow extends Document {
  *					equivalent to what a browser will give if you open up an empty .html file.
  * @param options	see the explanation of the config object above.
  */
-declare export function jsdom(markup: string, config?: Config): DocumentWithParentWindow;
+export declare function jsdom(markup: string, config?: Config): DocumentWithParentWindow;
 
 /**
  * Before creating any documents, you can modify the defaults for all future documents:
  */
-declare export var availableDocumentFeatures: FeatureOptions;
-declare export var defaultDocumentFeatures: FeatureOptions;
-declare export var applyDocumentFeatures: FeatureOptions;
+export declare var availableDocumentFeatures: FeatureOptions;
+export declare var defaultDocumentFeatures: FeatureOptions;
+export declare var applyDocumentFeatures: FeatureOptions;
 
 export interface Callback {
     (errors: Error[], window: Window): any;

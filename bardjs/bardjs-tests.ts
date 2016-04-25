@@ -1,7 +1,7 @@
 /// <reference path="bardjs.d.ts" />
 /// <reference path="../mocha/mocha.d.ts" />
 /// <reference path="../chai/chai.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
+/// <reference path="../angularjs/angularjs.d.ts" />
 /// <reference path="../angularjs/angular-mocks.d.ts" />
 
 namespace bardTests {

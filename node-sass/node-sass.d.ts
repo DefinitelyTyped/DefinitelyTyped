@@ -51,5 +51,5 @@ interface Result {
     }
 }
 
-declare export function render(options: Options, callback: (err: SassError, result: Result) => any): void;
-declare export function renderSync(options: Options): Result;
+export declare function render(options: Options, callback: (err: SassError, result: Result) => any): void;
+export declare function renderSync(options: Options): Result;

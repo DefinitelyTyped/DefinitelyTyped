@@ -12,7 +12,7 @@ import {EventEmitter} from 'events';
 
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html
-declare export class MongoClient {
+export declare class MongoClient {
     constructor();
 
     static connect(uri: string, callback: MongoCallback<Db>): void;
@@ -29,7 +29,7 @@ export interface MongoCallback<T> {
 }
 
 // http://mongodb.github.io/node-mongodb-native/2.1/api/MongoError.html
-declare export class MongoError extends Error {
+export declare class MongoError extends Error {
     constructor(message: string);
     static create(options: Object): MongoError;
 }
@@ -72,7 +72,7 @@ export interface DbCreateOptions {
 }
 
 // See http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html
-declare export class ReadPreference {
+export declare class ReadPreference {
     constructor(mode: string, tags: Object);
     mode: string;
     tags: any;
@@ -151,7 +151,7 @@ export interface MongosOptions {
 }
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html
-declare export class Db extends EventEmitter {
+export declare class Db extends EventEmitter {
     constructor(databaseName: string, serverConfig: Server | ReplSet | Mongos, options?: DbCreateOptions);
 
     serverConfig: Server | ReplSet | Mongos;
@@ -242,21 +242,21 @@ declare export class Db extends EventEmitter {
 }
 
 // Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
-declare export class Server extends EventEmitter {
+export declare class Server extends EventEmitter {
     constructor(host: string, port: number, options?: ServerOptions);
 
     connections(): Array<any>;
 }
 
 // Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/ReplSet.html
-declare export class ReplSet extends EventEmitter {
+export declare class ReplSet extends EventEmitter {
     constructor(servers: Array<Server>, options?: ReplSetOptions);
 
     connections(): Array<any>;
 }
 
 // Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/ReplSet.html
-declare export class Mongos extends EventEmitter {
+export declare class Mongos extends EventEmitter {
     constructor(servers: Array<Server>, options?: MongosOptions);
 
     connections(): Array<any>;
@@ -394,7 +394,7 @@ export interface FSyncOptions {
 }
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/ObjectID.html
-declare export class ObjectID {
+export declare class ObjectID {
     constructor(s?: string | number);
 
     generationTime: number;
@@ -420,7 +420,7 @@ declare export class ObjectID {
 }
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Binary.html
-declare export class Binary {
+export declare class Binary {
     constructor(buffer: Buffer, subType?: number);
 
     static SUBTYPE_BYTE_ARRAY: number;
@@ -443,14 +443,14 @@ declare export class Binary {
     write(buffer: Buffer | string, offset: number): void;
 }
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Double.html
-declare export class Double {
+export declare class Double {
     constructor(value: number);
 
     valueOf(): number;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Long.html
-declare export class Long {
+export declare class Long {
     constructor(low: number, high: number);
 
     static MAX_VALUE: Long;
@@ -498,13 +498,13 @@ declare export class Long {
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/MaxKey.html
-declare export class MaxKey { }
+export declare class MaxKey { }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/MinKey.html
-declare export class MinKey { }
+export declare class MinKey { }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Timestamp.html
-declare export class Timestamp {
+export declare class Timestamp {
     constructor(low: number, high: number);
 
     static MAX_VALUE: Timestamp;
@@ -854,7 +854,7 @@ export interface GeoNearOptions {
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Code.html
-declare export class Code {
+export declare class Code {
     constructor(code: string | Function, scope?: Object)
     code: string | Function;
     scope: any;

@@ -16,11 +16,11 @@ export interface SourceMapConverter {
     getProperty(key: string): any;
 }
 
-declare export function removeComments(src: string): string;
-declare export var commentRegex: RegExp;
+export declare function removeComments(src: string): string;
+export declare var commentRegex: RegExp;
 
-declare export function fromObject(obj: any): SourceMapConverter;
-declare export function fromJSON(json: string): SourceMapConverter;
-declare export function fromBase64(base64: string): SourceMapConverter;
-declare export function fromComment(comment: string): SourceMapConverter;
-declare export function fromSource(source: string): SourceMapConverter;
+export declare function fromObject(obj: any): SourceMapConverter;
+export declare function fromJSON(json: string): SourceMapConverter;
+export declare function fromBase64(base64: string): SourceMapConverter;
+export declare function fromComment(comment: string): SourceMapConverter;
+export declare function fromSource(source: string): SourceMapConverter;

@@ -9,9 +9,9 @@
 import events = require("events");
 import stream = require("stream");
 
-declare export function connect(connection: string, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
-declare export function connect(config: ClientConfig, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
-declare export function end(): void;
+export declare function connect(connection: string, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
+export declare function connect(config: ClientConfig, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
+export declare function end(): void;
 
 export interface ConnectionConfig {
     user?: string;
@@ -50,7 +50,7 @@ export interface ResultBuilder extends QueryResult {
     addRow(row: any): void;
 }
 
-declare export class Client extends events.EventEmitter {
+export declare class Client extends events.EventEmitter {
     constructor(connection: string);
     constructor(config: ClientConfig);
 
@@ -74,14 +74,14 @@ declare export class Client extends events.EventEmitter {
     public on(event: string, listener: Function): this;
 }
 
-declare export class Query extends events.EventEmitter {
+export declare class Query extends events.EventEmitter {
     public on(event: "row", listener: (row: any, result?: ResultBuilder) => void): this;
     public on(event: "error", listener: (err: Error) => void): this;
     public on(event: "end", listener: (result: ResultBuilder) => void): this;
     public on(event: string, listener: Function): this;
 }
 
-declare export class Events extends events.EventEmitter {
+export declare class Events extends events.EventEmitter {
     public on(event: "error", listener: (err: Error, client: Client) => void): this;
     public on(event: string, listener: Function): this;
 }

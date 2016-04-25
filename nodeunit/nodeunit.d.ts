@@ -9,7 +9,7 @@
 export interface ITestCase {
     (testCase: { [property: string]: ITestBody | ITestGroup | void }): void;
 }
-declare export var testCase: ITestCase;
+export declare var testCase: ITestCase;
 
 export interface Test {
     done: ICallbackFunction;

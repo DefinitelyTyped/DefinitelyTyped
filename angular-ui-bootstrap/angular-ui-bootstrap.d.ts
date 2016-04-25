@@ -3,7 +3,7 @@
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angular.d.ts" />
+/// <reference path="../angularjs/angularjs.d.ts" />
 
 // Support for AMD require
 declare module 'angular-bootstrap' {

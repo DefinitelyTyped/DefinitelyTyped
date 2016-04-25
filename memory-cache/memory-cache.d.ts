@@ -6,15 +6,15 @@
 // Imported from: https://github.com/soywiz/typescript-node-definitions/memory-cache.d.ts
 
 
-declare export function put(key: any, value: any, time?: number, timeoutCallback?: (key: any) => void): void;
-declare export function get(key: any): any;
-declare export function del(key: any): void;
-declare export function clear(): void;
+export declare function put(key: any, value: any, time?: number, timeoutCallback?: (key: any) => void): void;
+export declare function get(key: any): any;
+export declare function del(key: any): void;
+export declare function clear(): void;
 
-declare export function size(): number;
-declare export function memsize(): number;
+export declare function size(): number;
+export declare function memsize(): number;
 
-declare export function debug(bool: boolean): void;
-declare export function hits(): number;
-declare export function misses(): number;
-declare export function keys(): any;
+export declare function debug(bool: boolean): void;
+export declare function hits(): number;
+export declare function misses(): number;
+export declare function keys(): any;

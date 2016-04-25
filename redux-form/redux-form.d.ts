@@ -292,7 +292,7 @@ interface MapDispatchToPropsObject {
     [name: string]: ActionCreator;
 }
 
-declare export function reduxForm(config: ReduxFormConfig,
+export declare function reduxForm(config: ReduxFormConfig,
     mapStateToProps?: MapStateToProps,
     mapDispatchToProps?: MapDispatchToPropsFunction | MapDispatchToPropsObject): ClassDecorator;
 
@@ -433,7 +433,7 @@ export type Normalizer =
     (value: FieldValue, previousValue: FieldValue,
         allValues: FormData, previousAllValues: FormData) => any;
 
-declare export const reducer: {
+export declare const reducer: {
     (state: any, action: any): any;
 
     /**

@@ -22,27 +22,27 @@ export interface Type {
 }
 
 /** A Buffer that references the C NULL pointer. */
-declare export var NULL: Buffer;
+export declare var NULL: Buffer;
 /** A pointer-sized buffer pointing to NULL. */
-declare export var NULL_POINTER: Buffer;
+export declare var NULL_POINTER: Buffer;
 /** Get the memory address of buffer. */
-declare export function address(buffer: Buffer): number;
+export declare function address(buffer: Buffer): number;
 /** Allocate the memory with the given value written to it. */
-declare export function alloc(type: Type, value?: any): Buffer;
+export declare function alloc(type: Type, value?: any): Buffer;
 /** Allocate the memory with the given value written to it. */
-declare export function alloc(type: string, value?: any): Buffer;
+export declare function alloc(type: string, value?: any): Buffer;
 
 /**
  * Allocate the memory with the given string written to it with the given
  * encoding (defaults to utf8). The buffer is 1 byte longer than the
  * string itself, and is NULL terminated.
  */
-declare export function allocCString(string: string, encoding?: string): Buffer;
+export declare function allocCString(string: string, encoding?: string): Buffer;
 
 /** Coerce a type.*/
-declare export function coerceType(type: Type): Type;
+export declare function coerceType(type: Type): Type;
 /** Coerce a type. String are looked up from the ref.types object. */
-declare export function coerceType(type: string): Type;
+export declare function coerceType(type: string): Type;
 
 /**
  * Get value after dereferencing buffer.
@@ -50,133 +50,133 @@ declare export function coerceType(type: string): Type;
  * if it's greater than 1 then it merely returns another Buffer, but with
  * one level less indirection.
  */
-declare export function deref(buffer: Buffer): any;
+export declare function deref(buffer: Buffer): any;
 
 /** Create clone of the type, with decremented indirection level by 1. */
-declare export function derefType(type: Type): Type;
+export declare function derefType(type: Type): Type;
 /** Create clone of the type, with decremented indirection level by 1. */
-declare export function derefType(type: string): Type;
+export declare function derefType(type: string): Type;
 /** Represents the native endianness of the processor ("LE" or "BE"). */
-declare export var endianness: string;
+export declare var endianness: string;
 /** Check the indirection level and return a dereferenced when necessary. */
-declare export function get(buffer: Buffer, offset?: number, type?: Type): any;
+export declare function get(buffer: Buffer, offset?: number, type?: Type): any;
 /** Check the indirection level and return a dereferenced when necessary. */
-declare export function get(buffer: Buffer, offset?: number, type?: string): any;
+export declare function get(buffer: Buffer, offset?: number, type?: string): any;
 /** Get type of the buffer. Create a default type when none exists. */
-declare export function getType(buffer: Buffer): Type;
+export declare function getType(buffer: Buffer): Type;
 /** Check the NULL. */
-declare export function isNull(buffer: Buffer): boolean;
+export declare function isNull(buffer: Buffer): boolean;
 /** Read C string until the first NULL. */
-declare export function readCString(buffer: Buffer, offset?: number): string;
+export declare function readCString(buffer: Buffer, offset?: number): string;
 
 /**
  * Read a big-endian signed 64-bit int.
  * If there is losing precision, then return a string, otherwise a number.
  * @return {number|string}
  */
-declare export function readInt64BE(buffer: Buffer, offset?: number): any;
+export declare function readInt64BE(buffer: Buffer, offset?: number): any;
 
 /**
  * Read a little-endian signed 64-bit int.
  * If there is losing precision, then return a string, otherwise a number.
  * @return {number|string}
  */
-declare export function readInt64LE(buffer: Buffer, offset?: number): any;
+export declare function readInt64LE(buffer: Buffer, offset?: number): any;
 
 /** Read a JS Object that has previously been written. */
-declare export function readObject(buffer: Buffer, offset?: number): Object;
+export declare function readObject(buffer: Buffer, offset?: number): Object;
 /** Read data from the pointer. */
-declare export function readPointer(buffer: Buffer, offset?: number,
+export declare function readPointer(buffer: Buffer, offset?: number,
     length?: number): Buffer;
 /**
  * Read a big-endian unsigned 64-bit int.
  * If there is losing precision, then return a string, otherwise a number.
  * @return {number|string}
  */
-declare export function readUInt64BE(buffer: Buffer, offset?: number): any;
+export declare function readUInt64BE(buffer: Buffer, offset?: number): any;
 
 /**
  * Read a little-endian unsigned 64-bit int.
  * If there is losing precision, then return a string, otherwise a number.
  * @return {number|string}
  */
-declare export function readUInt64LE(buffer: Buffer, offset?: number): any;
+export declare function readUInt64LE(buffer: Buffer, offset?: number): any;
 
 /** Create pointer to buffer. */
-declare export function ref(buffer: Buffer): Buffer;
+export declare function ref(buffer: Buffer): Buffer;
 /** Create clone of the type, with incremented indirection level by 1. */
-declare export function refType(type: Type): Type;
+export declare function refType(type: Type): Type;
 /** Create clone of the type, with incremented indirection level by 1. */
-declare export function refType(type: string): Type;
+export declare function refType(type: string): Type;
 
 /**
  * Create buffer with the specified size, with the same address as source.
  * This function "attaches" source to the returned buffer to prevent it from
  * being garbage collected.
  */
-declare export function reinterpret(buffer: Buffer, size: number,
+export declare function reinterpret(buffer: Buffer, size: number,
     offset?: number): Buffer;
 /**
  * Scan past the boundary of the buffer's length until it finds size number
  * of aligned NULL bytes.
  */
-declare export function reinterpretUntilZeros(buffer: Buffer, size: number,
+export declare function reinterpretUntilZeros(buffer: Buffer, size: number,
     offset?: number): Buffer;
 
 /** Write pointer if the indirection is 1, otherwise write value. */
-declare export function set(buffer: Buffer, offset: number, value: any, type?: Type): void;
+export declare function set(buffer: Buffer, offset: number, value: any, type?: Type): void;
 /** Write pointer if the indirection is 1, otherwise write value. */
-declare export function set(buffer: Buffer, offset: number, value: any, type?: string): void;
+export declare function set(buffer: Buffer, offset: number, value: any, type?: string): void;
 /** Write the string as a NULL terminated. Default encoding is utf8. */
-declare export function writeCString(buffer: Buffer, offset: number,
+export declare function writeCString(buffer: Buffer, offset: number,
     string: string, encoding?: string): void;
 /** Write a big-endian signed 64-bit int. */
-declare export function writeInt64BE(buffer: Buffer, offset: number, input: number): void;
+export declare function writeInt64BE(buffer: Buffer, offset: number, input: number): void;
 /** Write a big-endian signed 64-bit int. */
-declare export function writeInt64BE(buffer: Buffer, offset: number, input: string): void;
+export declare function writeInt64BE(buffer: Buffer, offset: number, input: string): void;
 /** Write a little-endian signed 64-bit int. */
-declare export function writeInt64LE(buffer: Buffer, offset: number, input: number): void;
+export declare function writeInt64LE(buffer: Buffer, offset: number, input: number): void;
 /** Write a little-endian signed 64-bit int. */
-declare export function writeInt64LE(buffer: Buffer, offset: number, input: string): void;
+export declare function writeInt64LE(buffer: Buffer, offset: number, input: string): void;
 
 /**
  * Write the JS Object. This function "attaches" object to buffer to prevent
  * it from being garbage collected.
  */
-declare export function writeObject(buffer: Buffer, offset: number, object: Object): void;
+export declare function writeObject(buffer: Buffer, offset: number, object: Object): void;
 
 /**
  * Write the memory address of pointer to buffer at the specified offset. This
  * function "attaches" object to buffer to prevent it from being garbage collected.
  */
-declare export function writePointer(buffer: Buffer, offset: number,
+export declare function writePointer(buffer: Buffer, offset: number,
     pointer: Buffer): void;
 
 /** Write a little-endian unsigned 64-bit int. */
-declare export function writeUInt64BE(buffer: Buffer, offset: number, input: number): void;
+export declare function writeUInt64BE(buffer: Buffer, offset: number, input: number): void;
 /** Write a little-endian unsigned 64-bit int. */
-declare export function writeUInt64BE(buffer: Buffer, offset: number, input: string): void;
+export declare function writeUInt64BE(buffer: Buffer, offset: number, input: string): void;
 
 /**
  * Attach object to buffer such.
  * It prevents object from being garbage collected until buffer does.
  */
-declare export function _attach(buffer: Buffer, object: Object): void;
+export declare function _attach(buffer: Buffer, object: Object): void;
 
 /** Same as ref.reinterpret, except that this version does not attach buffer. */
-declare export function _reinterpret(buffer: Buffer, size: number,
+export declare function _reinterpret(buffer: Buffer, size: number,
     offset?: number): Buffer;
 /** Same as ref.reinterpretUntilZeros, except that this version does not attach buffer. */
-declare export function _reinterpretUntilZeros(buffer: Buffer, size: number,
+export declare function _reinterpretUntilZeros(buffer: Buffer, size: number,
     offset?: number): Buffer;
 /** Same as ref.writePointer, except that this version does not attach pointer. */
-declare export function _writePointer(buffer: Buffer, offset: number,
+export declare function _writePointer(buffer: Buffer, offset: number,
     pointer: Buffer): void;
 /** Same as ref.writeObject, except that this version does not attach object. */
-declare export function _writeObject(buffer: Buffer, offset: number, object: Object): void;
+export declare function _writeObject(buffer: Buffer, offset: number, object: Object): void;
 
 /** Default types. */
-declare export var types: {
+export declare var types: {
     void: Type; int64: Type; ushort: Type;
     int: Type; uint64: Type; float: Type;
     uint: Type; long: Type; double: Type;
