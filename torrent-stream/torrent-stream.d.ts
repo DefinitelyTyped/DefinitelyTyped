@@ -52,9 +52,9 @@ interface TorrentFile {
     path: string;
     length: number;
     
-    select();
-    deselect();
-    createReadStream(options: ReadStreamOptions);
+    select(): void;
+    deselect(): void;
+    createReadStream(options: ReadStreamOptions): any;
 }
 interface ReadStreamOptions {
     start: number;
