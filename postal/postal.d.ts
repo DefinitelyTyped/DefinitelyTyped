@@ -1,4 +1,4 @@
-// Type definitions for Postal v1.0.6
+// Type definitions for Postal v1.0.8
 // Project: https://github.com/postaljs/postal.js
 // Definitions by: Lokesh Peta <https://github.com/lokeshpeta/>, Paul Jolly <https://github.com/myitcv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -61,19 +61,9 @@ interface IChannelDefinition<T> {
 	channel: string;
 }
 
-interface ISourceArg {
-	topic: string;
-	channel?: string;
-}
-
-interface IDestinationArg {
-	topic: string | ((topic: string) => string);
-	channel?: string;
-}
-
 interface IPostal {
 	subscriptions: {};
-	wiretaps: ICallback<any>[];
+	wireTaps: ICallback<any>[];
 
 	addWireTap(callback: ICallback<any>): () => void;
 
@@ -82,8 +72,6 @@ interface IPostal {
 	getSubscribersFor(): ISubscriptionDefinition<any>[];
 	getSubscribersFor(options: {channel?: string, topic?: string, context?: any}): ISubscriptionDefinition<any>[];
 	getSubscribersFor(predicateFn: (sub: ISubscriptionDefinition<any>) => boolean): ISubscriptionDefinition<any>[];
-
-	linkChannels(source: ISourceArg | ISourceArg[], destination: IDestinationArg | IDestinationArg[]): void;
 
 	publish(envelope: IEnvelope<any>): void;
 

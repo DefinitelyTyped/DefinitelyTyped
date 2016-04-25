@@ -173,7 +173,7 @@ declare namespace ReactSelect {
          * field placeholder, displayed when there's no value
          * @default "Select..."
          */
-        placeholder?: string;
+        placeholder?: string | __React.ReactElement<any>;
         /**
          * whether to enable searching feature or not
          * @default true;
@@ -302,5 +302,5 @@ declare namespace ReactSelect {
 
 declare module "react-select" {
     const select: ReactSelect.ReactSelectClass;
-    export = select;
+    export default select;
 }
