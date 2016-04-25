@@ -66,6 +66,8 @@ declare namespace angular.translate {
         useFallbackLanguage(langKey?: string): void;
         versionInfo(): string;
         loaderCache(): any;
+        isReady(): boolean;
+        onReady(): angular.IPromise<void>;
     }
 
     interface ITranslateProvider extends angular.IServiceProvider {
