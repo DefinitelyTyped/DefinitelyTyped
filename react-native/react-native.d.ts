@@ -22,7 +22,7 @@
 import React = __React;
 
 //react-native "extends" react
-declare namespace  __React {
+declare module "react-native" {
 
 
     /**
@@ -120,6 +120,109 @@ declare namespace  __React {
 
     // @see lib.es6.d.ts
     export var Promise: PromiseConstructor;
+
+    module NativeMethodsMixin {
+      type MeasureOnSuccessCallback = (
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        pageX: number,
+        pageY: number
+      ) => void
+
+      type MeasureInWindowOnSuccessCallback = (
+        x: number,
+        y: number,
+        width: number,
+        height: number
+      ) => void
+
+      type MeasureLayoutOnSuccessCallback = (
+        left: number,
+        top: number,
+        width: number,
+        height: number
+      ) => void
+    }
+
+    /**
+     * @see https://github.com/facebook/react-native/blob/master/Libraries/ReactIOS/NativeMethodsMixin.js
+     */
+    export class Component<P, S> extends React.Component<P, S> {
+      /**
+       * Determines the location on screen, width, and height of the given view and
+       * returns the values via an async callback. If successful, the callback will
+       * be called with the following arguments:
+       *
+       *  - x
+       *  - y
+       *  - width
+       *  - height
+       *  - pageX
+       *  - pageY
+       *
+       * Note that these measurements are not available until after the rendering
+       * has been completed in native. If you need the measurements as soon as
+       * possible, consider using the [`onLayout`
+       * prop](docs/view.html#onlayout) instead.
+       */
+      measure(callback: NativeMethodsMixin.MeasureOnSuccessCallback): void;
+
+      /**
+       * Determines the location of the given view in the window and returns the
+       * values via an async callback. If the React root view is embedded in
+       * another native view, this will give you the absolute coordinates. If
+       * successful, the callback will be called with the following
+       * arguments:
+       *
+       *  - x
+       *  - y
+       *  - width
+       *  - height
+       *
+       * Note that these measurements are not available until after the rendering
+       * has been completed in native.
+       */
+      measureInWindow(callback: NativeMethodsMixin.MeasureInWindowOnSuccessCallback): void;
+
+      /**
+       * Like [`measure()`](#measure), but measures the view relative an ancestor,
+       * specified as `relativeToNativeNode`. This means that the returned x, y
+       * are relative to the origin x, y of the ancestor view.
+       *
+       * As always, to obtain a native node handle for a component, you can use
+       * `React.findNodeHandle(component)`.
+       */
+      measureLayout(
+        relativeToNativeNode: number,
+        onSuccess: NativeMethodsMixin.MeasureLayoutOnSuccessCallback,
+        onFail: () => void /* currently unused */
+      ): void;
+
+       /**
+        * This function sends props straight to native. They will not participate in
+        * future diff process - this means that if you do not include them in the
+        * next render, they will remain active (see [Direct
+        * Manipulation](docs/direct-manipulation.html)).
+        */
+      setNativeProps(nativeProps: Object): void;
+
+      /**
+       * Requests focus for the given input or view. The exact behavior triggered
+       * will depend on the platform and type of view.
+       */
+      focus(): void;
+
+      /**
+       * Removes focus from an input or view. This is the opposite of `focus()`.
+       */
+      blur(): void;
+
+      refs: {
+        [key: string]: Component<any, any>
+      };
+    }
 
     //TODO: BGR: Replace with ComponentClass ?
     // node_modules/react-tools/src/classic/class/ReactClass.js
@@ -219,7 +322,6 @@ declare namespace  __React {
      * //FIXME: need to find documentation on which compoenent is a native (i.e. non composite component)
      */
     export interface NativeComponent {
-        setNativeProps: ( props: Object ) => void
     }
 
     /**
@@ -2080,7 +2182,7 @@ declare namespace  __React {
     }
 
     export interface Route {
-        component?: ComponentClass<ViewProperties>
+        component?: React.ComponentClass<ViewProperties>
         id?: string
         title?: string
         passProps?: Object;
@@ -3489,19 +3591,6 @@ declare namespace  __React {
 
     export function __spread( target: any, ...sources: any[] ): any;
 
-
-    export interface GlobalStatic {
-
-        /**
-         * Accepts a function as its only argument and calls that function before the next repaint.
-         * It is an essential building block for animations that underlies all of the JavaScript-based animation APIs.
-         * In general, you shouldn't need to call this yourself - the animation API's will manage frame updates for you.
-         * @see https://facebook.github.io/react-native/docs/animations.html#requestanimationframe
-         */
-        requestAnimationFrame( fn: () => void ) : void;
-
-    }
-
     //
     // Add-Ons
     //
@@ -3518,16 +3607,19 @@ declare namespace  __React {
         export var TestModule: TestModuleStatic
         export type TestModule = TestModuleStatic
     }
-
-
 }
 
-declare module "react-native" {
-
-    import ReactNative = __React
-    export = ReactNative
+declare interface ReactNativeGlobalStatic {
+  /**
+   * Accepts a function as its only argument and calls that function before the next repaint.
+   * It is an essential building block for animations that underlies all of the JavaScript-based animation APIs.
+   * In general, you shouldn't need to call this yourself - the animation API's will manage frame updates for you.
+   * @see https://facebook.github.io/react-native/docs/animations.html#requestanimationframe
+   */
+  requestAnimationFrame( fn: () => void ) : void;
 }
 
-declare var global: __React.GlobalStatic
+
+declare var global: ReactNativeGlobalStatic;
 
 declare function require( name: string ): any
