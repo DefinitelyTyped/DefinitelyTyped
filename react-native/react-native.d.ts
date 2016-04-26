@@ -1293,7 +1293,7 @@ declare namespace  __React {
          *  enum('date', 'time', 'datetime')
          *  The date picker mode.
          */
-        mode?: string
+        mode?: "date" | "time" | "datetime"
 
         /**
          * Date change handler.
