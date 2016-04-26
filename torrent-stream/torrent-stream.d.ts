@@ -25,7 +25,7 @@ interface TorrentEngine {
     block(peer: string): void;
     remove(keepPieces: boolean, callback: () => void): void;
     listen(port: number, callback: () => void): void;
-    sward: Swarm;
+    swarm: Swarm;
     
     // Events
     on(event: "ready" | "torrent" | "idle", callback: Function): void;
