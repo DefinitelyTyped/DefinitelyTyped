@@ -1027,11 +1027,6 @@ declare namespace  __React {
     }
 
     export interface WebViewPropertiesIOS {
-
-        /**
-         * Used for iOS only, sets whether the webpage scales to fit the view and the user can change the scale
-         */
-        scalesPageToFit?: boolean
     }
 
     /**
@@ -1076,7 +1071,14 @@ declare namespace  __React {
 
         style?: ViewStyle
 
-        url: string
+        url?: string
+
+        mediaPlaybackRequiresUserAction?: boolean
+
+        /**
+         * sets whether the webpage scales to fit the view and the user can change the scale
+         */
+        scalesPageToFit?: boolean
     }
 
 
