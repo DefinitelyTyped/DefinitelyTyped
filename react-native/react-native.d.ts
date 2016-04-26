@@ -1710,13 +1710,14 @@ declare namespace  __React {
         prefetch(url: string)
     }
 
-
     /**
      * @see https://facebook.github.io/react-native/docs/listview.html#props
      */
     export interface ListViewProperties extends ScrollViewProperties, React.Props<ListViewStatic> {
 
         dataSource?: ListViewDataSource
+
+        enableEmptySections?: boolean
 
         /**
          * How many rows to render on initial component mount.  Use this to make
@@ -2921,6 +2922,9 @@ declare namespace  __React {
             x?: number,
             animated?: boolean
         ): void;
+
+        // TODO: investigate return type
+        getMetrics: () => any
     }
 
 
