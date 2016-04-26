@@ -1314,6 +1314,43 @@ declare namespace  __React {
     export interface DatePickerIOSStatic extends React.ComponentClass<DatePickerIOSProperties> {
     }
 
+    export interface DrawerSlideEvent extends NativeSyntheticEvent<NativeTouchEvent> {
+    }
+
+    /**
+     * @see DrawerLayoutAndroid.android.js
+     */
+    export interface DrawerLayoutAndroidProperties extends React.Props<DrawerLayoutAndroidStatic> {
+
+      drawerBackgroundColor?: any;
+
+      drawerLockMode?: "unlocked" | "locked-closed" | "locked-open";
+
+      //  enum(DrawerConsts.DrawerPosition.Left, DrawerConsts.DrawerPosition.Right)
+      drawerPosition?: any;
+
+      drawerWidth?: number;
+
+      keyboardDismissMode?: "none" | "on-drag"
+
+      onDrawerClose?: () => void
+
+      onDrawerOpen?: () => void
+
+      onDrawerSlide?: (event: DrawerSlideEvent) => void
+
+      onDrawerStateChanged?: (event:  "Idle" | "Dragging" | "Settling") => void
+
+      renderNavigationView: () => View
+
+      statusBarBackgroundColor?: any
+
+    }
+
+    export interface DrawerLayoutAndroidStatic extends React.ComponentClass<DrawerLayoutAndroidProperties> {
+
+    }
+
 
     /**
      * @see PickerIOS.ios.js
@@ -3438,6 +3475,9 @@ declare namespace  __React {
 
     export var DatePickerIOS: DatePickerIOSStatic
     export type DatePickerIOS = DatePickerIOSStatic
+
+    export var DrawerLayoutAndroid: DrawerLayoutAndroidStatic
+    export type DrawerLayoutAndroid = DrawerLayoutAndroidStatic
 
     export var Image: ImageStatic
     export type Image = ImageStatic
