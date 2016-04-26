@@ -1030,7 +1030,7 @@ declare namespace  __React {
     export interface WebViewPropertiesIOS {
       allowsInlineMediaPlayback?: boolean
       bounces?: boolean
-      decelerationRate?: boolean
+      decelerationRate?: any
       onShouldStartLoadWithRequest?: () => boolean
       scrollEnabled?: boolean
     }
