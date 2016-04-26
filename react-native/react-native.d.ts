@@ -1981,6 +1981,20 @@ declare namespace  __React {
     export interface MapViewStatic extends React.ComponentClass<MapViewProperties> {
     }
 
+    export interface ModalProperties extends React.Props<ModalStatic> {
+
+      animated?: boolean
+      transparent?: boolean
+      visible?: boolean
+      onRequestClose?: () => void
+      onShow?: (event: NativeSyntheticEvent<null>) => void
+
+    }
+
+    export interface ModalStatic extends React.ComponentClass<ModalProperties> {
+
+    }
+
 
     export interface TouchableWithoutFeedbackAndroidProperties {
 
@@ -3520,6 +3534,9 @@ declare namespace  __React {
 
     export var MapView: MapViewStatic
     export type MapView = MapViewStatic
+
+    export var Modal: ModalStatic
+    export type Modal = ModalStatic
 
     export var Navigator: NavigatorStatic
     export type Navigator = NavigatorStatic
