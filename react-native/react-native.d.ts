@@ -1390,7 +1390,7 @@ declare namespace  __React {
 
         selectedValue?: string | number
 
-        style?: ViewStyle
+        itemStyle?: ViewStyle
     }
 
     /**
