@@ -11,7 +11,7 @@ declare module "hammerjs" {
 
 interface HammerStatic
 {
-  new( element:HTMLElement, options?:any ): HammerManager;
+  new( element:HTMLElement | SVGElement, options?:any ): HammerManager;
 
   defaults:HammerDefaults;
 

@@ -5,7 +5,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import * as Select from "react-select";
+import Select from "react-select";
 
 class SelectTest extends React.Component<React.Props<{}>, {}> {
 
@@ -14,12 +14,14 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
         const onChange = (value: any) => console.log(value);
         const onOpen = () => { return; };
         const onClose = () => { return; };
+        const optionRenderer = (option: ReactSelect.Option) => <span>{option.label}</span>
         return <div>
             <Select
                 name="test-select"
                 className="test-select"
                 key="1"
                 options={options}
+                optionRenderer={optionRenderer}
                 matchPos={"any"}
                 matchProp={"any"}
                 multi={true}

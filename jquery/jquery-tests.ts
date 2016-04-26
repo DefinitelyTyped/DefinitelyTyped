@@ -2528,6 +2528,18 @@ function test_jQuery() {
     $.post('url.xml', function (data) {
         var $child = $(data).find('child');
     });
+    $.post({
+        url: "test.php",
+        success : () => {
+            console.log("successfull");
+        }
+    });
+    $.get({
+        url: "test.php",
+        success : () => {
+            console.log("successfull");
+        }
+    });
     var foo = { foo: 'bar', hello: 'world' };
     var $foo = $(foo);
     var test1 = $foo.prop('foo');

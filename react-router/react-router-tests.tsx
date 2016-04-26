@@ -8,7 +8,7 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
-import { browserHistory, hashHistory, Router, Route, IndexRoute, Link } from "react-router"
+import { browserHistory, hashHistory, createMemoryHistory, Router, Route, IndexRoute, Link } from "react-router"
 
 interface MasterContext {
 	router: ReactRouter.RouterOnContext;

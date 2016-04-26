@@ -234,10 +234,10 @@ declare module "hapi" {
 		credentialData?: any
 		): IBoom;
 		/**  Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
-		<T>(result: string|number|boolean|Buffer|stream.Stream | Promise<T> | T): Response;
+		<T>(result?: string|number|boolean|Buffer|stream.Stream | Promise<T> | T): Response;
 
 		/** Returns control back to the framework without setting a response. If called in the handler, the response defaults to an empty payload with status code 200.
-		* The data argument is only used for passing back authentication data and is ignored elsewhere. */
+		  * The data argument is only used for passing back authentication data and is ignored elsewhere. */
 		continue(credentialData?: any): void;
 
 		/** Transmits a file from the file system. The 'Content-Type' header defaults to the matching mime type based on filename extension.  The response flow control rules do not apply. */
