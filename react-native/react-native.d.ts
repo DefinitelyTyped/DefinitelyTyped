@@ -1035,6 +1035,18 @@ declare namespace  __React {
       scrollEnabled?: boolean
     }
 
+    export interface WebViewUriSource {
+      uri: string;
+      method?: string;
+      headers?: any;
+      body?: string;
+    }
+
+    export interface WebViewHtmlSource {
+      html: string;
+      baseUrl?: string;
+    }
+
     /**
      * @see https://facebook.github.io/react-native/docs/webview.html#props
      */
@@ -1078,6 +1090,8 @@ declare namespace  __React {
         style?: ViewStyle
 
         url?: string
+
+        source?: WebViewUriSource | WebViewHtmlSource | number
 
         mediaPlaybackRequiresUserAction?: boolean
 
