@@ -1093,6 +1093,7 @@ declare namespace  __React {
         goBack: () => void
         goForward: () => void
         reload: () => void
+        getWebViewHandle: () => any
     }
 
 
