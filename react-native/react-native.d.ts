@@ -1597,11 +1597,17 @@ declare namespace  __React {
      */
     export interface ImageStyle extends FlexStyle, TransformsStyle {
         resizeMode?: string //Object.keys(ImageResizeMode)
+        backfaceVisibility?: "visible" | "hidden"
+        borderBottomLeftRadius?: number
+        borderBottomRightRadius?: number
         backgroundColor?: string
         borderColor?: string
         borderWidth?: number
         borderRadius?: number
-        overflow?: string // enum('visible', 'hidden')
+        borderTopLeftRadius?: number
+        borderTopRightRadius?: number
+        overflow?: "visible" | "hidden"
+        overlayColor?: string
         tintColor?: string
         opacity?: number
     }
@@ -1628,27 +1634,12 @@ declare namespace  __React {
         /**
          * A static image to display while downloading the final image off the network.
          */
-        defaultSource?: {uri: string}
+        defaultSource?: {uri: string} | number
 
         /**
          * Invoked on load error with {nativeEvent: {error}}
          */
         onError?: ( error: {nativeEvent: any} ) => void
-
-        /**
-         * Invoked when load completes successfully
-         */
-        onLoad?: () => void
-
-        /**
-         * Invoked when load either succeeds or fails
-         */
-        onLoadEnd?: () => void
-
-        /**
-         * Invoked on load start
-         */
-        onLoadStart?: () => void
 
         /**
          * Invoked on download progress with {nativeEvent: {loaded, total}}
@@ -1669,13 +1660,28 @@ declare namespace  __React {
          */
         onLayout?: ( event: LayoutChangeEvent ) => void;
 
+        /**
+         * Invoked when load completes successfully
+         */
+        onLoad?: () => void
+
+        /**
+         * Invoked when load either succeeds or fails
+         */
+        onLoadEnd?: () => void
+
+        /**
+         * Invoked on load start
+         */
+        onLoadStart?: () => void
+
 
         /**
          * Determines how to resize the image when the frame doesn't match the raw image dimensions.
          *
          * enum('cover', 'contain', 'stretch')
          */
-        resizeMode?: string;
+        resizeMode?: "cover" | "contain" | "stretch"
 
         /**
          * uri is a string representing the resource identifier for the image,
@@ -1700,6 +1706,8 @@ declare namespace  __React {
     export interface ImageStatic extends React.ComponentClass<ImageProperties> {
         uri: string;
         resizeMode: ImageResizeModeStatic
+        getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void)
+        prefetch(url: string)
     }
 
 
