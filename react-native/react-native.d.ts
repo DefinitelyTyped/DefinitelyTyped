@@ -1439,6 +1439,29 @@ declare namespace  __React {
         Item: PickerIOSItemStatic
     }
 
+    export interface RefreshControlPropertiesIOS extends React.Props<RefreshControlStatic> {
+
+        tintColor: string
+        title: string
+        titleColor: string
+    }
+
+    export interface RefreshControlPropertiesAndroid extends React.Props<RefreshControlStatic> {
+
+        colors?: [string]
+        enabled?: boolean
+        progressBackgroundColor?: string
+        size: number
+    }
+
+    export interface RefreshControlProperties extends RefreshControlPropertiesIOS, RefreshControlPropertiesAndroid, React.Props<RefreshControl> {
+        onRefresh: () => void
+        refreshing: boolean
+    }
+
+    export interface RefreshControlStatic extends React.ComponentClass<RefreshControlProperties> {
+    }
+
 
     /**
      * @see https://facebook.github.io/react-native/docs/sliderios.html
@@ -2680,7 +2703,7 @@ declare namespace  __React {
 
     export interface ScrollViewStyle extends FlexStyle, TransformsStyle {
 
-        backfaceVisibility?:string //enum('visible', 'hidden')
+        backfaceVisibility?: "visible" | "hidden"
         backgroundColor?: string
         borderColor?: string
         borderTopColor?: string
@@ -2692,22 +2715,23 @@ declare namespace  __React {
         borderTopRightRadius?: number
         borderBottomLeftRadius?: number
         borderBottomRightRadius?: number
-        borderStyle?: string //enum('solid', 'dotted', 'dashed')
+        borderStyle?: "solid" | "dotted" | "dashed"
         borderWidth?: number
         borderTopWidth?: number
         borderRightWidth?: number
         borderBottomWidth?: number
         borderLeftWidth?: number
         opacity?: number
-        overflow?: string //enum('visible', 'hidden')
+        overflow?: "visible" | "hidden"
         shadowColor?: string
         shadowOffset?: {width: number; height: number}
         shadowOpacity?: number
         shadowRadius?: number
+        elevation?: number
     }
 
 
-    export interface ScrollViewIOSProperties {
+    export interface ScrollViewPropertiesIOS {
 
         /**
          * When true the scroll view bounces horizontally when it reaches the end
@@ -2756,7 +2780,6 @@ declare namespace  __React {
          */
         centerContent?: boolean
 
-
         /**
          * The amount by which the scroll view content is inset from the edges of the scroll view.
          * Defaults to {0, 0, 0, 0}.
@@ -2775,13 +2798,15 @@ declare namespace  __React {
          *   - Normal: 0.998 (the default)
          *   - Fast: 0.9
          */
-        decelerationRate?: number
+        decelerationRate?: "fast" | "normal" | number
 
         /**
          * When true the ScrollView will try to lock to only vertical or horizontal
          * scrolling while dragging.  The default value is false.
          */
         directionalLockEnabled?: boolean
+
+        indicatorStyle?: "default" | "black" | "white"
 
         /**
          * The maximum allowed zoom scale. The default value is 1.0.
@@ -2792,6 +2817,8 @@ declare namespace  __React {
          * The minimum allowed zoom scale. The default value is 1.0.
          */
         minimumZoomScale?: number
+
+        onRefreshStart?: () => void
 
         /**
          * Called when a scrolling animation ends.
@@ -2861,7 +2888,12 @@ declare namespace  __React {
         zoomScale?: number
     }
 
-    export interface ScrollViewProperties extends ScrollViewIOSProperties, Touchable {
+    export interface ScrollViewPropertiesAndroid {
+      endFillColor: string
+
+    }
+
+    export interface ScrollViewProperties extends ScrollViewPropertiesIOS, ScrollViewPropertiesAndroid, Touchable {
 
         /**
          * These styles will be applied to the scroll view content container which
@@ -2910,6 +2942,7 @@ declare namespace  __React {
          */
         onScroll?: (event?: { nativeEvent: NativeScrollEvent }) => void
 
+
         /**
          * Experimental: When true offscreen child views (whose `overflow` value is
          * `hidden`) are removed from their native backing superview when offscreen.
@@ -2932,6 +2965,8 @@ declare namespace  __React {
          * Style
          */
         style?: ScrollViewStyle
+
+        refreshControl?: RefreshControl
     }
 
     export interface ScrollViewProps extends ScrollViewProperties, React.Props<ScrollViewStatic> {
@@ -2939,6 +2974,9 @@ declare namespace  __React {
     }
 
     interface ScrollViewStatic extends React.ComponentClass<ScrollViewProps> {
+
+        endRefreshing?: () => void
+
         /**
          * Scrolls to a given x, y offset, either immediately or with a smooth animation.
          * Syntax:
@@ -2956,7 +2994,9 @@ declare namespace  __React {
         ): void;
 
         // TODO: investigate return type
-        getMetrics: () => any
+        getMetrics?: () => any
+
+        scrollWithoutAnimationTo?: (y: number, x: number) => void
     }
 
 
@@ -3549,6 +3589,9 @@ declare namespace  __React {
 
     export var PickerIOS: PickerIOSStatic
     export type PickerIOS = PickerIOSStatic
+
+    export var RefreshControl: RefreshControlStatic
+    export type RefreshControl = RefreshControlStatic
 
     export var SliderIOS: SliderIOSStatic
     export type SliderIOS = SliderIOSStatic
