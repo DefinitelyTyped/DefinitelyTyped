@@ -1849,6 +1849,14 @@ declare namespace  __React {
         longitudeDelta: number
     }
 
+    export interface MapViewOverlays {
+      coordinates: Object
+      lineWidth: number
+      strokeColor: Object
+      fillColor: Object
+      id: string
+    }
+
     export interface MapViewPropertiesIOS {
 
         /**
@@ -1856,14 +1864,13 @@ declare namespace  __React {
          * Default value is true.
          */
         showsPointsOfInterest?: boolean
-    }
-
-    export interface MapViewProperties extends MapViewPropertiesIOS, Touchable, React.Props<MapViewStatic> {
 
         /**
          * Map annotations with title/subtitle.
          */
         annotations?: MapViewAnnotation[]
+
+        followUserLocation: boolean
 
         /**
          * Insets for the map's legal label, originally at bottom left of the map. See EdgeInsetsPropType.js for more information.
@@ -1889,6 +1896,17 @@ declare namespace  __React {
          * Minimum size of area that can be displayed.
          */
         minDelta?: number
+
+        showsCompass?: boolean
+    }
+
+    export interface MapViewPropertiesAndroid {
+        active: boolean
+    }
+
+    export interface MapViewProperties extends MapViewPropertiesIOS, MapViewPropertiesAndroid, Touchable, React.Props<MapViewStatic> {
+
+
 
         /**
          * Callback that is called once, when the user taps an annotation.
