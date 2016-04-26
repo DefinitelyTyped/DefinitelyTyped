@@ -1023,10 +1023,16 @@ declare namespace  __React {
         /**
          * Used for android only, JS is enabled by default for WebView on iOS
          */
-        javaScriptEnabledAndroid?: boolean
+        javaScriptEnabled?: boolean
+        domStorageEnabled?: boolean
     }
 
     export interface WebViewPropertiesIOS {
+      allowsInlineMediaPlayback?: boolean
+      bounces?: boolean
+      decelerationRate?: boolean
+      onShouldStartLoadWithRequest?: () => boolean
+      scrollEnabled?: boolean
     }
 
     /**
