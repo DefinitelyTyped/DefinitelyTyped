@@ -1329,6 +1329,56 @@ declare namespace  __React {
     export interface PickerIOSItemStatic extends React.ComponentClass<PickerIOSItemProperties> {
     }
 
+    /**
+     * @see Picker.js
+     */
+    export interface PickerItemProperties extends React.Props<PickerItemStatic> {
+        label: string
+        value?: any
+        color?: string /* See ColorPropType.js for details */
+        testID?: string
+    }
+
+    export interface PickerItemStatic extends React.ComponentClass<PickerItemProperties> {
+    }
+
+    export interface PickerPropertiesIOS extends React.Props<PickerStatic> {
+
+      itemStyle?: ViewStyle
+    }
+
+    export interface PickerPropertiesAndroid extends React.Props<PickerStatic> {
+
+      enabled?: boolean
+
+      mode?: "dialog" | "dropdown"
+
+      prompt?: string
+    }
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/picker.html
+     * @see Picker.js
+     */
+    export interface PickerProperties extends PickerPropertiesIOS, PickerPropertiesAndroid, React.Props<PickerStatic> {
+
+        onValueChange?: ( itemValue: any, itemPosition: number ) => void
+
+        selectedValue?: any
+
+        style?: ViewStyle
+
+        testId?: string
+    }
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/picker.html
+     * @see Picker.js
+     */
+    export interface PickerStatic extends React.ComponentClass<PickerProperties> {
+
+        Item: PickerItemStatic
+    }
 
     /**
      * @see https://facebook.github.io/react-native/docs/pickerios.html
@@ -3406,6 +3456,9 @@ declare namespace  __React {
 
     export var NavigatorIOS: NavigatorIOSStatic
     export type NavigatorIOS = NavigatorIOSStatic
+
+    export var Picker: PickerStatic
+    export type Picker = PickerStatic
 
     export var PickerIOS: PickerIOSStatic
     export type PickerIOS = PickerIOSStatic
