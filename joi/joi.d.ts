@@ -747,8 +747,9 @@ declare module 'joi' {
 	/**
 	 * Generates a type that will match one of the provided alternative schemas
 	 */
-	export function alternatives(types: Schema[]): Schema;
-	export function alternatives(type1: Schema, type2: Schema, ...types: Schema[]): Schema;
+	export function alternatives(): AlternativesSchema;
+	export function alternatives(types: Schema[]): AlternativesSchema;
+	export function alternatives(type1: Schema, type2: Schema, ...types: Schema[]): AlternativesSchema;
 
 	/**
 	 * Validates a value using the given schema and options.
