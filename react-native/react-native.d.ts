@@ -1112,10 +1112,27 @@ declare namespace  __React {
 
 
     /**
-     * @see
+     * @see https://facebook.github.io/react-native/docs/segmentedcontrolios.html
+     * @see SegmentedControlIOS.ios.js
      */
-    export interface SegmentedControlIOSProperties {
-        /// TODO
+     export interface NativeSegmentedControlIOSChangeEvent {
+         value: string
+         selectedSegmentIndex: number
+         target: number
+     }
+
+     export interface SegmentedControlIOSProperties extends React.Props<SegmentedControlIOSStatic> {
+       enabled?: boolean
+       momentary?: boolean
+       onChange?: (event: NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>) => void
+       onValueChange?: (value: string) => void
+       selectedIndex?: number
+       tintColor?: string
+       values?: [string]
+     }
+
+    export interface SegmentedControlIOSStatic extends React.ComponentClass<SegmentedControlIOSProperties> {
+
     }
 
 
@@ -3679,7 +3696,8 @@ declare namespace  __React {
     // /TODO: BGR: These are leftovers of the initial port that must be revisited
     //
 
-    export var SegmentedControlIOS: React.ComponentClass<SegmentedControlIOSProperties>
+    export var SegmentedControlIOS: SegmentedControlIOSStatic
+    export type SegmentedControlIOS = SegmentedControlIOSStatic
 
     export var PixelRatio: PixelRatioStatic
     export var DeviceEventEmitter: DeviceEventEmitterStatic
