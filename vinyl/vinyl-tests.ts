@@ -1,9 +1,7 @@
 /// <reference path="../mocha/mocha.d.ts" />
 /// <reference path="../should/should.d.ts" />
 
-/// <reference path="./vinyl.d.ts" />
-
-import File = require('vinyl');
+import File = require('../vinyl');
 import Stream = require('stream');
 import fs = require('fs');
 
