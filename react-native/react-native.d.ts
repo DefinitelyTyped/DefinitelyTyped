@@ -3559,6 +3559,25 @@ declare module "react-native" {
         setString(content: string)
     }
 
+    export interface DatePickerAndroidOpenOption {
+        date?: Date | number
+        minDate?: Date | number
+        maxDate?: Date | number
+    }
+
+    export interface DatePickerAndroidOpenReturn {
+        action: string // Deduced from DatePickerAndroid.android.js
+        year?: number
+        month?: number
+        day?: number
+    }
+
+    export interface DatePickerAndroid {
+        open(options?: DatePickerAndroidOpenOption): Promise<DatePickerAndroidOpenReturn>
+        dateSetAction: string
+        dismissedAction: string
+    }
+
     export interface FetchableListenable<T> {
         fetch: () => Promise<T>
 
