@@ -85,8 +85,8 @@ interface SwiperOptions {
     onSlideTouch?: (swiper: Swiper) => void;
     onImagesReady?: (swiper: Swiper) => void;
     onMomentumBounce?: (swiper: Swiper) => void;
-    onResistanceBefore?: (swiper: Swiper, distance) => void;
-    onResistanceAfter?: (swiper: Swiper, distance) => void;
+    onResistanceBefore?: (swiper: Swiper, distance: any) => void;
+    onResistanceAfter?: (swiper: Swiper, distance: any) => void;
 
     // Slides Loader
     loader?: {
@@ -126,8 +126,8 @@ declare class Swiper {
     // Properties
     width: number;
     height: number;
-    params;
-    positions;
+    params: any;
+    positions: any;
 
     // Feature detection
     support: {
@@ -156,7 +156,7 @@ declare class Swiper {
     updateActiveSlide(index: number): void;
 
     // Events
-    touches;
+    touches: any;
     isTouched: boolean;
     clickedSlideIndex: number;
     clickedSlide: SwiperSlide;
@@ -175,7 +175,7 @@ declare class Swiper {
     // Other methods
     getWrapperTranslate(axis: string): number;  // 'x' or 'y'
     setWrapperTranslate(x: number, y: number, z: number): void;
-    setWrapperTransition(duration): void;
+    setWrapperTransition(duration: any): void;
 
     // Slides API
     slides: SwiperSlide[];
