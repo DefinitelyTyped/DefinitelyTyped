@@ -3554,6 +3554,11 @@ declare module "react-native" {
         getPhotos(params: GetPhotosParamType): Promise<GetPhotosReturnType>;
     }
 
+    export interface ClipboardStatic {
+        getString(): Promise<string>
+        setString(content: string)
+    }
+
     export interface FetchableListenable<T> {
         fetch: () => Promise<T>
 
@@ -4330,6 +4335,9 @@ declare module "react-native" {
 
     export var CameraRoll: CameraRollStatic
     export type CameraRoll = CameraRollStatic
+
+    export var Clipboard: ClipboardStatic
+    export type Clipboard = ClipboardStatic
 
     export var NetInfo: NetInfoStatic
     export type NetInfo = NetInfoStatic
