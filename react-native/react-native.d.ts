@@ -394,7 +394,7 @@ declare namespace  __React {
         textShadowColor?: string
         textShadowOffset?: {width: number, height: number}
         textShadowRadius?: number
-        testID: string
+        testID?: string
     }
 
     export interface TextPropertiesIOS {
@@ -1529,6 +1529,39 @@ declare namespace  __React {
         Item: PickerIOSItemStatic
     }
 
+    /**
+     * @see https://facebook.github.io/react-native/docs/progressbarandroid.html
+     * @see ProgressBarAndroid.android.js
+     */
+    export interface ProgressBarAndroidProperties extends React.Props<ProgressBarAndroidStatic> {
+
+        style?: ViewStyle,
+        styleAttr?: 'Horizontal'|'Normal'|'Small'|'Large'|'Inverse'|'SmallInverse'|'LargeInverse',
+        indeterminate?: boolean,
+        progress?: number,
+        color?: string,
+        testID?: string,
+    }
+    export interface ProgressBarAndroidStatic extends React.ComponentClass<ProgressBarAndroidProperties> {
+    }
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/progressviewios.html
+     * @see ProgressViewIOS.ios.js
+     */
+    export interface ProgressViewIOSProperties extends React.Props<ProgressViewIOSStatic> {
+
+        style?: ViewStyle,
+        progressViewStyle?: 'default'|'bar',
+        progress?: number,
+        progressTintColor?: string,
+        trackTintColor?: string,
+        progressImage?: any,
+        trackImage?: any,
+    }
+    export interface ProgressViewIOSStatic extends React.ComponentClass<ProgressViewIOSProperties> {
+    }
+
     export interface RefreshControlPropertiesIOS extends React.Props<RefreshControlStatic> {
 
         tintColor?: string
@@ -1846,8 +1879,8 @@ declare namespace  __React {
     export interface ImageStatic extends React.ComponentClass<ImageProperties> {
         uri: string;
         resizeMode: ImageResizeModeStatic
-        getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void)
-        prefetch(url: string)
+        getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any
+        prefetch(url: string): any
     }
 
     /**
@@ -2129,14 +2162,13 @@ declare namespace  __React {
         transparent?: boolean
         visible?: boolean
         onRequestClose?: () => void
-        onShow?: (event: NativeSyntheticEvent<null>) => void
+        onShow?: (event: NativeSyntheticEvent<any>) => void
 
     }
 
     export interface ModalStatic extends React.ComponentClass<ModalProperties> {
 
     }
-
 
     export interface TouchableWithoutFeedbackAndroidProperties {
 
@@ -2784,6 +2816,10 @@ declare namespace  __React {
 
     export interface PixelRatioStatic {
         get(): number;
+    }
+
+    export interface PlatformStatic {
+        OS: string,
     }
 
     export interface DeviceEventSubscriptionStatic {
@@ -3757,6 +3793,12 @@ declare namespace  __React {
     export var PickerIOS: PickerIOSStatic
     export type PickerIOS = PickerIOSStatic
 
+    export var ProgressBarAndroid: ProgressBarAndroidStatic
+    export type ProgressBarAndroid = ProgressBarAndroidStatic
+
+    export var ProgressViewIOS: ProgressViewIOSStatic
+    export type ProgressViewIOS = ProgressViewIOSStatic
+
     export var RefreshControl: RefreshControlStatic
     export type RefreshControl = RefreshControlStatic
 
@@ -3859,6 +3901,7 @@ declare namespace  __React {
     export type SegmentedControlIOS = SegmentedControlIOSStatic
 
     export var PixelRatio: PixelRatioStatic
+    export var Platform: PlatformStatic
     export var DeviceEventEmitter: DeviceEventEmitterStatic
     export var DeviceEventSubscription: DeviceEventSubscriptionStatic
     export type DeviceEventSubscription = DeviceEventSubscriptionStatic
