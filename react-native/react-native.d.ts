@@ -695,7 +695,7 @@ declare namespace  __React {
     }
 
     export interface ToolbarAndroidProperties extends React.Props<ToolbarAndroidStatic> {
-        actions?: [ToolbarAndroidAction]
+        actions?: ToolbarAndroidAction[]
         contentInsetEnd?: number
         contentInsetStart?: number
         logo?: any
@@ -1201,7 +1201,7 @@ declare namespace  __React {
          onValueChange?: (value: string) => void
          selectedIndex?: number
          tintColor?: string
-         values?: [string]
+         values?: string[]
      }
 
     export interface SegmentedControlIOSStatic extends React.ComponentClass<SegmentedControlIOSProperties> {
@@ -1538,7 +1538,7 @@ declare namespace  __React {
 
     export interface RefreshControlPropertiesAndroid extends React.Props<RefreshControlStatic> {
 
-        colors?: [string]
+        colors?: string[]
         enabled?: boolean
         progressBackgroundColor?: string
         size?: number
@@ -1990,7 +1990,7 @@ declare namespace  __React {
     }
 
     export interface MapViewOverlay {
-        coordinates: [{latitude: number, longitude: number}]
+        coordinates: ({latitude: number, longitude: number})[]
         lineWidth?: number
         strokeColor?: Object
         fillColor?: Object
@@ -2037,7 +2037,7 @@ declare namespace  __React {
          */
         minDelta?: number
 
-        overlays: [MapViewOverlay]
+        overlays: MapViewOverlay[]
 
         showsCompass?: boolean
     }
@@ -3159,13 +3159,14 @@ declare namespace  __React {
     //////////////////////////////////////////////////////////////////////////
 
     /**
-     * //FIXME: no documentation - inferred from RCTACtionSheetManager.m
+     * @see: http://facebook.github.io/react-native/docs/actionsheetios.html#content
      */
     export interface ActionSheetIOSOptions {
         title?: string
         options?: string[]
         cancelButtonIndex?: number
         destructiveButtonIndex?: number
+        message?: string
     }
 
     /**
