@@ -6,8 +6,7 @@
 /// <reference path="../bluebird/bluebird-2.0.d.ts" />
 /// <reference path="../sequelize/sequelize.d.ts" />
 
-
-import Sequelize = require("sequelize");
+import Sequelize = require("../sequelize");
 
 declare namespace umzug {
 
