@@ -1101,23 +1101,23 @@ declare namespace  __React {
     }
 
     export interface WebViewPropertiesIOS {
-      allowsInlineMediaPlayback?: boolean
-      bounces?: boolean
-      decelerationRate?: any
-      onShouldStartLoadWithRequest?: () => boolean
-      scrollEnabled?: boolean
+        allowsInlineMediaPlayback?: boolean
+        bounces?: boolean
+        decelerationRate?: any
+        onShouldStartLoadWithRequest?: () => boolean
+        scrollEnabled?: boolean
     }
 
     export interface WebViewUriSource {
-      uri: string;
-      method?: string;
-      headers?: any;
-      body?: string;
+        uri: string;
+        method?: string;
+        headers?: any;
+        body?: string;
     }
 
     export interface WebViewHtmlSource {
-      html: string;
-      baseUrl?: string;
+        html: string;
+        baseUrl?: string;
     }
 
     /**
@@ -1195,13 +1195,13 @@ declare namespace  __React {
      }
 
      export interface SegmentedControlIOSProperties extends React.Props<SegmentedControlIOSStatic> {
-       enabled?: boolean
-       momentary?: boolean
-       onChange?: (event: NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>) => void
-       onValueChange?: (value: string) => void
-       selectedIndex?: number
-       tintColor?: string
-       values?: [string]
+         enabled?: boolean
+         momentary?: boolean
+         onChange?: (event: NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>) => void
+         onValueChange?: (value: string) => void
+         selectedIndex?: number
+         tintColor?: string
+         values?: [string]
      }
 
     export interface SegmentedControlIOSStatic extends React.ComponentClass<SegmentedControlIOSProperties> {
@@ -1412,28 +1412,28 @@ declare namespace  __React {
      */
     export interface DrawerLayoutAndroidProperties extends React.Props<DrawerLayoutAndroidStatic> {
 
-      drawerBackgroundColor?: any;
+        drawerBackgroundColor?: any;
 
-      drawerLockMode?: "unlocked" | "locked-closed" | "locked-open";
+        drawerLockMode?: "unlocked" | "locked-closed" | "locked-open";
 
-      //  enum(DrawerConsts.DrawerPosition.Left, DrawerConsts.DrawerPosition.Right)
-      drawerPosition?: any;
+        //  enum(DrawerConsts.DrawerPosition.Left, DrawerConsts.DrawerPosition.Right)
+        drawerPosition?: any;
 
-      drawerWidth?: number;
+        drawerWidth?: number;
 
-      keyboardDismissMode?: "none" | "on-drag"
+        keyboardDismissMode?: "none" | "on-drag"
 
-      onDrawerClose?: () => void
+        onDrawerClose?: () => void
 
-      onDrawerOpen?: () => void
+        onDrawerOpen?: () => void
 
-      onDrawerSlide?: (event: DrawerSlideEvent) => void
+        onDrawerSlide?: (event: DrawerSlideEvent) => void
 
-      onDrawerStateChanged?: (event:  "Idle" | "Dragging" | "Settling") => void
+        onDrawerStateChanged?: (event:  "Idle" | "Dragging" | "Settling") => void
 
-      renderNavigationView?: () => View
+        renderNavigationView?: () => View
 
-      statusBarBackgroundColor?: any
+        statusBarBackgroundColor?: any
 
     }
 
@@ -1471,16 +1471,16 @@ declare namespace  __React {
 
     export interface PickerPropertiesIOS extends React.Props<PickerStatic> {
 
-      itemStyle?: ViewStyle
+        itemStyle?: ViewStyle
     }
 
     export interface PickerPropertiesAndroid extends React.Props<PickerStatic> {
 
-      enabled?: boolean
+        enabled?: boolean
 
-      mode?: "dialog" | "dropdown"
+        mode?: "dialog" | "dropdown"
 
-      prompt?: string
+        prompt?: string
     }
 
     /**
@@ -1553,24 +1553,24 @@ declare namespace  __React {
     }
 
     export interface SliderPropertiesIOS extends React.Props<SliderStatic> {
-      maximumTrackImage?: any
-      maximumTrackTintColor?: string
-      minimumTrackImage?: string
-      minimumTrackTintColor?: string
-      thumbImage?: any
-      trackImage?: any
+        maximumTrackImage?: any
+        maximumTrackTintColor?: string
+        minimumTrackImage?: string
+        minimumTrackTintColor?: string
+        thumbImage?: any
+        trackImage?: any
     }
 
     export interface SliderProperties extends SliderPropertiesIOS, React.Props<SliderStatic> {
-      disabled?: boolean
-      maximumValue?: number
-      minimumValue?: number
-      onSlidingComplete?: (value: number) => void
-      onValueChange?: (value: number) => void
-      step?: number
-      style?: ViewStyle
-      testID?: string
-      value?: number
+        disabled?: boolean
+        maximumValue?: number
+        minimumValue?: number
+        onSlidingComplete?: (value: number) => void
+        onValueChange?: (value: number) => void
+        step?: number
+        style?: ViewStyle
+        testID?: string
+        value?: number
     }
 
     export interface SliderStatic extends React.ComponentClass<SliderProperties> {
@@ -1990,11 +1990,11 @@ declare namespace  __React {
     }
 
     export interface MapViewOverlay {
-      coordinates: [{latitude: number, longitude: number}]
-      lineWidth?: number
-      strokeColor?: Object
-      fillColor?: Object
-      id?: string
+        coordinates: [{latitude: number, longitude: number}]
+        lineWidth?: number
+        strokeColor?: Object
+        fillColor?: Object
+        id?: string
     }
 
     export interface MapViewPropertiesIOS {
@@ -2125,11 +2125,11 @@ declare namespace  __React {
 
     export interface ModalProperties extends React.Props<ModalStatic> {
 
-      animated?: boolean
-      transparent?: boolean
-      visible?: boolean
-      onRequestClose?: () => void
-      onShow?: (event: NativeSyntheticEvent<null>) => void
+        animated?: boolean
+        transparent?: boolean
+        visible?: boolean
+        onRequestClose?: () => void
+        onShow?: (event: NativeSyntheticEvent<null>) => void
 
     }
 
@@ -3015,7 +3015,7 @@ declare namespace  __React {
     }
 
     export interface ScrollViewPropertiesAndroid {
-      endFillColor?: string
+        endFillColor?: string
 
     }
 
