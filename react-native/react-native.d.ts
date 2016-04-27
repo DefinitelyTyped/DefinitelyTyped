@@ -834,23 +834,30 @@ declare namespace  __React {
 
     // @see https://facebook.github.io/react-native/docs/view.html#style
     export interface ViewStyle extends FlexStyle, TransformsStyle {
+        backfaceVisibility?: "visible" | "hidden"
         backgroundColor?: string;
         borderBottomColor?: string;
         borderBottomLeftRadius?: number;
         borderBottomRightRadius?: number;
+        borderBottomWidth?: number;
         borderColor?: string;
         borderLeftColor?: string;
         borderRadius?: number;
         borderRightColor?: string;
+        borderRightWidth?: number;
+        borderStyle?: "solid" | "dotted" | "dashed"
         borderTopColor?: string;
         borderTopLeftRadius?: number;
         borderTopRightRadius?: number;
+        borderTopWidth?: number
         opacity?: number;
-        overflow?: string; // enum('visible', 'hidden')
+        overflow?: "visible" | "hidden"
         shadowColor?: string;
         shadowOffset?: {width: number, height: number};
         shadowOpacity?: number;
         shadowRadius?: number;
+        elevation?: number;
+        testID?: string;
     }
 
 
@@ -962,6 +969,19 @@ declare namespace  __React {
         accessible?: boolean;
 
         /**
+        * This defines how far a touch event can start away from the view.
+        * Typical interface guidelines recommend touch targets that are at least
+        * 30 - 40 points/density-independent pixels. If a Touchable view has
+        * a height of 20 the touchable height can be extended to 40 with
+        * hitSlop={{top: 10, bottom: 10, left: 0, right: 0}}
+        * NOTE The touch area never extends past the parent view bounds and
+        * the Z-index of sibling views always takes precedence if a touch
+        * hits two overlapping views.
+        */
+
+        hitSlop?: {top: number, left: number, bottom: number, right: number}
+
+        /**
          * When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.
          */
         onAcccessibilityTap?: () => void;
@@ -1001,7 +1021,7 @@ declare namespace  __React {
          * But since pointerEvents does not affect layout/appearance, and we are already deviating from the spec by adding additional modes,
          * we opt to not include pointerEvents on style. On some platforms, we would need to implement it as a className anyways. Using style or not is an implementation detail of the platform.
          */
-        pointerEvents?: string;
+        pointerEvents?: "box-none" | "none" | "box-only" | "autoViewStyle"
 
         /**
          *
@@ -2189,7 +2209,7 @@ declare namespace  __React {
          */
         style?: ViewStyle
 
-        pressRetentionOffset: {top: number, left: number, bottom: number, right: number} 
+        pressRetentionOffset: {top: number, left: number, bottom: number, right: number}
     }
 
 
