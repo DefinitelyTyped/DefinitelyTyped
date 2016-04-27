@@ -1,3 +1,5 @@
+// Compiled using typings@0.6.8
+// Source: https://raw.githubusercontent.com/jppellerin/DefinitelyTyped/277a037422ec84c0c9d6f3967fe6c48e6c74c012/state-machine/state-machine.d.ts
 // Type definitions for Finite State Machine 2.2
 // Project: https://github.com/jakesgordon/javascript-state-machine
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Maarten Docter <https://github.com/mdocter>, William Sears <https://github.com/MrBigDog2U>
@@ -62,6 +64,10 @@ interface StateMachineCan {
 	(evt: string): boolean;
 }
 
+interface IStateMachineTransitions {
+    (): Array<string>;
+}
+
 interface StateMachine {
     current: string;
     is: StateMachineIs;
@@ -74,6 +80,7 @@ interface StateMachine {
         [2] fsm.transition.cancel();
     */
     transition: StateMachineTransition;
+    transitions: IStateMachineTransitions;
 }
 
 declare var StateMachine: StateMachineStatic;

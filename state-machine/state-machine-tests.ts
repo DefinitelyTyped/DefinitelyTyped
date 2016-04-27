@@ -28,3 +28,5 @@ var fsm: StateMachineTest = StateMachine.create({
 //fsm.panic("ERROR ALERT");	// transition from yellow to red
 //fsm.calm();					// transition from red to yellow
 //fsm.clear("All clear");		// transition from yellow to green
+
+let transitions: Array<string> = fsm.transitions();
