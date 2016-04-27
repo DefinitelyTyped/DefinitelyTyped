@@ -3598,6 +3598,23 @@ declare namespace  __React {
         setNetworkActivityIndicatorVisible(visible: boolean): void
     }
 
+    export interface SwitchPropertiesIOS extends React.Props<SwitchStatic> {
+        onTintColor?: any
+        thumbTintColor?: any
+        tintColor?: any
+    }
+
+    export interface SwitchProperties extends React.Props<SwitchStatic> {
+        disabled?: boolean
+        onValueChange?: (value: boolean) => void
+        testID?: string
+        value?: boolean
+    }
+
+    export interface SwitchStatic extends React.ComponentClass<SwitchProperties> {
+
+    }
+
     /**
      * The Vibration API is exposed at VibrationIOS.vibrate().
      * On iOS, calling this function will trigger a one second vibration.
