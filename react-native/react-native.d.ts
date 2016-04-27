@@ -3327,7 +3327,7 @@ declare module "react-native" {
     export interface AlertButton {
       text?: string
       onPress?: () => void
-      style?: string
+      style?: "default" | "cancel" | "destructive"
     }
 
     export interface AlertStatic {
@@ -3346,6 +3346,7 @@ declare module "react-native" {
     interface AlertIOSButton {
         text: string
         onPress?: () => void
+        style?: "default" | "cancel" | "destructive"
     }
 
     /**
@@ -3360,8 +3361,8 @@ declare module "react-native" {
      * @see https://facebook.github.io/react-native/docs/alertios.html#content
      */
     export interface AlertIOSStatic {
-        alert: ( title: string, message?: string, buttons?: Array<AlertIOSButton>, type?: string ) => void
-        prompt: ( title: string, value?: string, buttons?: Array<AlertIOSButton>, callback?: ( value?: string ) => void ) => void
+        alert: ( title: string, message?: string, callbackOrButtons?: (value: string) => void| Array<AlertIOSButton>, type?: string ) => void
+        prompt: ( title: string, value?: string, callbackOrButtons?: (value: string) => void | Array<AlertIOSButton>, type?: string, defaultValue?: string ) => void
     }
 
 
