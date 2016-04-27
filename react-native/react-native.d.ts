@@ -1067,11 +1067,14 @@ declare namespace  __React {
         initialPage?: number;
         onPageScroll?: ( event: NativeSyntheticEvent<ViewPagerAndroidOnPageScrollEventData> ) => void;
         onPageSelected?: ( event: NativeSyntheticEvent<ViewPagerAndroidOnPageSelectedEventData> ) => void;
-        keyboardDismissMode?: string; /* enum('none', 'on-drag') */
+        onPageScrollStateChanged?: (state: "Idle" | "Dragging" | "Settling") => void
+        keyboardDismissMode?: "none" | "on-drag"
+        pageMargin: number
     }
 
     export interface ViewPagerAndroidStatic extends NativeComponent, React.ComponentClass<ViewPagerAndroidProperties> {
-
+      setPage: (selectedPage: number) => void
+      setPageWithoutAnimation: (selectedPage: number) => void
     }
 
     /**
