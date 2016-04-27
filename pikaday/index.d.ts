@@ -3,7 +3,11 @@
 // Definitions by: Rudolph Gottesheim <http://midnight-design.at/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../moment/moment.d.ts" />
+import * as moment from '../moment';
+
+export as namespace Pikaday;
+
+export = Pikaday;
 
 declare class Pikaday {
     el: HTMLElement;
@@ -282,6 +286,3 @@ declare namespace Pikaday {
     }
 }
 
-declare module "pikaday" {
-    export = Pikaday;
-}
