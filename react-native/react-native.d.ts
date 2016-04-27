@@ -3552,12 +3552,36 @@ declare namespace  __React {
     /**
      * @enum('default', 'light-content')
      */
-    export type StatusBarStyle = string
+    export type StatusBarStyle =  string
 
     /**
      * @enum('none','fade', 'slide')
      */
     type StatusBarAnimation = string
+
+    export interface StatusBarPropertiesIOS extends React.Props<StatusBarStatic> {
+        barStyle?: "default" | "light-content"
+        networkActivityIndicatorVisible?: boolean
+        showHideTransition?: "fade" | "slide"
+    }
+
+    export interface StatusBarPropertiesAndroid extends React.Props<StatusBarStatic> {
+        backgroundColor?: any
+        translucent?: boolean
+    }
+
+    export interface StatusBarProperties extends StatusBarPropertiesIOS, StatusBarPropertiesAndroid, React.Props<StatusBarStatic> {
+        animated?: boolean
+        hidden?: boolean
+    }
+
+    export interface StatusBarStatic extends React.ComponentClass<StatusBarProperties> {
+        setHidden: (hidden: boolean, animation: 'none' | 'fade' | 'slide') => void
+        setBarStyle: (style: 'default' | 'light-content', animated: boolean) => void
+        setNetworkActivityIndicatorVisible: (visible: boolean) => void
+        setBackgroundColor: (color: string, animated: boolean) => void
+        setTranslucent: (translucent: boolean) => void
+    }
 
 
     /**
