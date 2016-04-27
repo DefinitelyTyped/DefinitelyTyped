@@ -1544,7 +1544,8 @@ declare module "react-native" {
     }
 
     export interface DrawerLayoutAndroidStatic extends React.ComponentClass<DrawerLayoutAndroidProperties> {
-
+        openDrawer(): void
+        closeDrawer(): void
     }
 
 
