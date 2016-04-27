@@ -26,40 +26,34 @@ declare namespace ReactSelect {
          */
         addLabelText?: string;
         /**
-         * blurs the input element after a selection has been made. Handy for lowering the keyboard on mobile devices.
-         * @default false
-         */
-        autoBlur?: boolean;
-        /**
          * allow new options to be created in multi mode (displays an "Add <option> ?" item
          * when a value not already in the options array is entered)
          * @default false
          */
         allowCreate?: boolean;
         /**
-         * whether to auto-load the default async options set
-         * @default true
+         * blurs the input element after a selection has been made. Handy for lowering the keyboard on mobile devices.
+         * @default false
          */
-        autoload?: boolean;
+        autoBlur?: boolean;
+        /**
+         * autofocus the component on mount
+         * @default false
+         */
+        autofocus?: boolean;
+        /**
+         *  If enabled, the input will expand as the length of its value increases
+         */
+        autosize?: boolean;
         /**
          * whether pressing backspace removes the last item when there is no input value
          * @default true
          */
         backspaceRemoves?: boolean;
         /**
-         * enables the options cache for `asyncOptions`
-         * @default true
-         */
-        cacheAsyncResults?: boolean;
-        /**
          * CSS className for the outer element
          */
         className?: string;
-        /**
-         * whether it is possible to reset value. if enabled, an X button will appear at the right side.
-         * @default true
-         */
-        clearable?: boolean;
         /**
          * title for the "clear" control when `multi` is true
          * @default "Clear all"
@@ -71,6 +65,11 @@ declare namespace ReactSelect {
          */
         clearValueText?: string;
         /**
+         * whether it is possible to reset value. if enabled, an X button will appear at the right side.
+         * @default true
+         */
+        clearable?: boolean;
+        /**
          * delimiter to use to join multiple values
          * @default ","
          */
@@ -81,6 +80,11 @@ declare namespace ReactSelect {
          */
         disabled?: boolean;
         /**
+         * whether escape clears the value when the menu is closed
+         * @default true
+         */
+        escapeClearsValue?: boolean;
+        /**
          * method to filter a single option
          */
         filterOption?: (option: Option, filter: string) => Option;
@@ -88,6 +92,11 @@ declare namespace ReactSelect {
          * method to filter the options array
          */
         filterOptions?: (options: Array<Option>, filter: string, currentValues: (string | number)[]) => Array<Option>;
+        /**
+         * whether to strip diacritics when filtering
+         * @default true
+         */
+        ignoreAccents?: boolean;
         /**
          * whether to perform case-insensitive filtering
          * @default true
@@ -105,14 +114,15 @@ declare namespace ReactSelect {
          */
         isLoading?: boolean;
         /**
+         * (legacy mode) joins multiple values into a single form field with the delimiter
+         * @default false
+         */
+        joinValues?: boolean;
+        /**
          * the option property to use for the label
          * @default "label"
          */
         labelKey?: string;
-        /**
-         * function that calls a callback with the options
-         */
-        loadOptions?: (input: string, callback: (options: Option[]) => any) => any;
         /**
          * (any, start) match the start or entire string when filtering
          * @default "any"
@@ -128,6 +138,14 @@ declare namespace ReactSelect {
          * @default 0
          */
         menuBuffer?: number;
+        /**
+         * optional style to apply to the menu container
+         */
+        menuContainerStyle?: {}
+        /**
+         * optional style to apply to the menu
+         */
+        menuStyle?: {}
         /**
          * multi-value input
          * @default false
@@ -147,19 +165,52 @@ declare namespace ReactSelect {
          * @default "No results found"
          */
         noResultsText?: string;
+        /**
+         * onBlur handler: function (event) {}
+         */
         onBlur?: __React.FocusEventHandler;
         /**
          * whether to clear input on blur or not
          * @default true
          */
         onBlurResetsInput?: boolean;
+        /**
+         * onChange handler: function (newValue) {}
+         */
         onChange?: (newValue: Option | Option[]) => void;
+        /**
+         * fires when the menu is closed
+         */
         onClose?: () => void;
+        /**
+         * onFocus handler: function (event) {}
+         */
         onFocus?: __React.FocusEventHandler;
+        /**
+         * onInputChange handler: function (inputValue) {}
+         */
         onInputChange?: (inputValue: string) => void;
+        /**
+         * fires when the menu is scrolled to the bottom; can be used to paginate options
+         */
+        onMenuScrollToBottom: () => void;
+        /**
+         * fires when the menu is opened
+         */
         onOpen?: () => void;
+        /**
+         * @deprecated use onValueClick isntead
+         */
         onOptionLabelClick?: (value: string, event: Event) => void;
-
+        /**
+         * boolean to enable opening dropdown when focused
+         * @default false
+         */
+        openAfterFocus?: boolean;
+        /**
+         * option component to render in dropdown
+         */
+        optionComponent?: __React.ReactElement<any>;
         /**
          * function which returns a custom way to render the options in the menu
          */
@@ -175,20 +226,28 @@ declare namespace ReactSelect {
          */
         placeholder?: string | __React.ReactElement<any>;
         /**
+         * applies HTML5 required attribute when needed
+         * @default false
+         */
+        required?: boolean;
+        /**
+         * value to use when you clear the control
+         */
+        resetValue?: any;
+        /**
+         * whether the viewport will shift to display the entire menu when engaged
+         * @default true
+         */
+        scrollMenuIntoView?: boolean;
+        /**
          * whether to enable searching feature or not
          * @default true;
          */
         searchable?: boolean;
         /**
-         * message to display whilst options are loading via asyncOptions, or when `isLoading` is true
-         * @default "Searching..."
+         * whether to select the currently focused value when the  [tab]  key is pressed
          */
-        searchingText?: string;
-        /**
-         * label to prompt for search input
-         * @default "Type to search"
-         */
-        searchPromptText?: string;
+        tabSelectsValue?: string;
         /**
          * initial field value
          */
@@ -216,7 +275,7 @@ declare namespace ReactSelect {
         /**
          *  value component to render
          */
-        valueComponent?: Function;
+        valueComponent?: __React.ReactElement<any>;
 
         /**
          *  optional style to apply to the component wrapper
@@ -226,7 +285,7 @@ declare namespace ReactSelect {
         /**
          * onClick handler for value labels: function (value, event) {}
          */
-        onValueClick?: Function;
+        onValueClick?: (value: string, event: Event) => void;
 
         /**
          *  pass the value to onChange as a simple value (legacy pre 1.0 mode), defaults to false
@@ -238,7 +297,7 @@ declare namespace ReactSelect {
         /**
          *  object to use to cache results; can be null to disable cache
          */
-        cache?: any;
+        cache?: Object | boolean;
 
         /**
          *  whether to strip diacritics when filtering (shared with Select)
