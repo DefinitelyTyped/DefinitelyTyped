@@ -3667,6 +3667,9 @@ declare namespace  __React {
     export var SliderIOS: SliderIOSStatic
     export type SliderIOS = SliderIOSStatic
 
+    export var StatusBar: StatusBarStatic
+    export type StatusBar = StatusBarStatic
+
     export var ScrollView: ScrollViewStatic
     export type ScrollView = ScrollViewStatic
 
