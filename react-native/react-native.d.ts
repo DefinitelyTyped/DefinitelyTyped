@@ -3460,6 +3460,11 @@ declare module "react-native" {
         multiMerge( keyValuePairs: string[][], callback?: ( errors?: Error[] ) => void ): Promise<string>
     }
 
+    export interface BackAndroidStatic {
+        exitApp(): void
+        addEventListener(eventName: string, handler: () => void)
+        removeEventListener(eventName: string, handler: () => void)
+    }
 
     export interface CameraRollFetchParams {
         first: number;
@@ -4293,6 +4298,9 @@ declare module "react-native" {
 
     export var AsyncStorage: AsyncStorageStatic
     export type AsyncStorage = AsyncStorageStatic
+
+    export var BackAndroid: BackAndroidStatic
+    export type BackAndroid = BackAndroidStatic
 
     export var CameraRoll: CameraRollStatic
     export type CameraRoll = CameraRollStatic
