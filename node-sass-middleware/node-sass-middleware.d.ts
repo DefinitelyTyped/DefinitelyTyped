@@ -3,7 +3,7 @@
 // Definitions by: Pascal Garber <http://www.jumplink.eu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
+
 /// <reference path="../node-sass/node-sass.d.ts" />
 
 

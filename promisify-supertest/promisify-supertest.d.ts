@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path='../superagent/superagent.d.ts' />
-/// <reference path="../express/express.d.ts" />
+
 
 
 // Mostly copy-pasted from supertest.d.ts

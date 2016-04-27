@@ -3,10 +3,7 @@
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../uglify-js/uglify-js.d.ts"/>
-
-
-import * as UglifyJS from 'uglify-js';
+import * as UglifyJS from '../uglify-js';
 
 declare namespace webpack {
     interface Configuration {

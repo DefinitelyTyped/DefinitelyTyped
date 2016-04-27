@@ -5,8 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-
-import * as temp from "temp";
+import * as temp from "./temp";
 import * as fs from "fs";
 
 export interface AffixOptions {

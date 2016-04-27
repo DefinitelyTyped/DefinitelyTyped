@@ -3,7 +3,7 @@
 // Definitions by: Kentaro Okuno <http://github.com/armorik83>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
+
 
 
 import express = require('express');
