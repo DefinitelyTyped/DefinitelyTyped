@@ -21,9 +21,7 @@
  * @version 1.3
  */
 
-
 declare namespace Tee {
-
   interface IPoint {
     x: number;
     y: number;
@@ -42,9 +40,9 @@ declare namespace Tee {
     active: boolean;
     chart: IChart;
 
-    mousedown(event): boolean;
-    mousemove(event): boolean;
-    clicked(p:IPoint): boolean;
+    mousedown(event: any): boolean;
+    mousemove(event: any): boolean;
+    clicked(p: IPoint): boolean;
     draw(): void;
   }
 
@@ -61,10 +59,10 @@ declare namespace Tee {
   interface IShadow {
     chart: IChart;
     visible: boolean;
-    blur:number;
+    blur: number;
     color: string;
-    width:number;
-    height:number;
+    width: number;
+    height: number;
   }
 
   interface IStroke {
@@ -87,8 +85,8 @@ declare namespace Tee {
     textAlign: string;
     baseLine: string;
 
-    getSize():number;
-    setSize(size:number):void;
+    getSize(): number;
+    setSize(size: number): void;
   }
 
   interface IImage {
@@ -107,12 +105,12 @@ declare namespace Tee {
     image: IImage;
     fill: string;
 
-    textHeight(text:string): number;
-    textWidth(text:string): number;
-    drawText(bounds:IRectangle, text:string);
-    rectangle(x:number, y:number, width:number, height:number);
-    poligon(points:IPoint[]);
-    ellipse(x:number, y:number, width:number, height:number);
+    textHeight(text: string): number;
+    textWidth(text: string): number;
+    drawText(bounds: IRectangle, text: string): any;
+    rectangle(x: number, y: number, width: number, height: number): any;
+    poligon(points: IPoint[]): any;
+    ellipse(x: number, y: number, width: number, height: number): any;
   }
 
   interface IMargins {
@@ -435,8 +433,8 @@ declare namespace Tee {
   }
 
   interface IChart {
-    addSeries(series:ISeries): ISeries;
-    draw(context?:CanvasRenderingContext2D);
+    addSeries(series: ISeries): ISeries;
+    draw(context?: CanvasRenderingContext2D): any;
   }
 
   // SERIES
@@ -570,8 +568,8 @@ declare namespace Tee {
   }
 
   class Point implements IPoint {
-    public x:number;
-    public y:number;
+    public x: number;
+    public y: number;
   }
 
   class Chart implements IChart {
@@ -596,88 +594,88 @@ declare namespace Tee {
     constructor(canvas: string);
     addSeries(series: ISeries): ISeries;
     getSeries(index: number): ISeries;
-    removeSeries(series:ISeries): void;
+    removeSeries(series: ISeries): void;
 
-    draw(context?:CanvasRenderingContext2D);
-    toImage(image: HTMLImageElement, format:string, quality:number): void;
+    draw(context?: CanvasRenderingContext2D): any;
+    toImage(image: HTMLImageElement, format: string, quality: number): void;
   }
 
   // SERIES
 
   var Line: {
     prototype: ILine;
-    new(values?:number[]): ILine;
+    new (values?: number[]): ILine;
   }
 
   var PointXY: {
     prototype: ICustomSeries;
-    new(values?:number[]): ICustomSeries;
+    new (values?: number[]): ICustomSeries;
   }
 
   var Area: {
     prototype: IArea;
-    new(values?:number[]): IArea;
+    new (values?: number[]): IArea;
   }
 
   var HorizArea: {
     prototype: IArea;
-    new(values?:number[]): IArea;
+    new (values?: number[]): IArea;
   }
 
   var Bar: {
     prototype: ICustomBar;
-    new(values?:number[]): ICustomBar;
+    new (values?: number[]): ICustomBar;
   }
 
   var HorizBar: {
     prototype: ICustomBar;
-    new(values?:number[]): ICustomBar;
+    new (values?: number[]): ICustomBar;
   }
 
   var Pie: {
     prototype: IPie;
-    new(values?:number[]): IPie;
+    new (values?: number[]): IPie;
   }
 
   var Donut: {
     prototype: IPie;
-    new(values?:number[]): IPie;
+    new (values?: number[]): IPie;
   }
 
   var Bubble: {
     prototype: IBubble;
-    new(values?:number[]): IBubble;
+    new (values?: number[]): IBubble;
   }
 
   var Gantt: {
     prototype: IGantt;
-    new(values?:number[]): IGantt;
+    new (values?: number[]): IGantt;
   }
 
   var Volume: {
     prototype: ICustomBar;
-    new(values?:number[]): ICustomBar;
+    new (values?: number[]): ICustomBar;
   }
 
   var Candle: {
     prototype: ICandle;
-    new(values?:number[]): ICandle;
+    new (values?: number[]): ICandle;
   }
 
   // TOOLS
 
   var CursorTool: {
     prototype: ICursorTool;
-    new(chart?: Chart): ICursorTool;
+    new (chart?: Chart): ICursorTool;
   }
 
   var DragTool: {
     prototype: IDragTool;
-    new(chart?: Chart): IDragTool;
+    new (chart?: Chart): IDragTool;
   }
 
   var ToolTip: {
     prototype: IToolTip;
-    new(chart?: Chart): IToolTip;
+    new (chart?: Chart): IToolTip;
   }
 }
