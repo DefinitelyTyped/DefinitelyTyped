@@ -2961,7 +2961,8 @@ declare module "react-native" {
      * @see https://facebook.github.io/react-native/docs/dimensions.html#content
      */
     export interface Dimensions {
-      get( what: "window" | "screen" ): ScaledSize;
+        get( what: "window" | "screen" ): ScaledSize;
+        set( dims: {[key: string]: any}[] ): void
     }
 
     export interface InteractionManagerStatic {
