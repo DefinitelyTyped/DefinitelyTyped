@@ -3,7 +3,7 @@
 // Definitions by: jt000 <https://github.com/jt000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
+
 
 
 import express = require('express');

@@ -2,7 +2,7 @@
  * Created by karl on 14/07/15.
  */
 
-/// <reference path="../express/express.d.ts" />
+
 /// <reference path="../easy-xapi/easy-xapi.d.ts" />
 /// <reference path="./easy-xapi-utils.d.ts" />
 

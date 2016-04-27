@@ -3,7 +3,7 @@
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
+
 declare namespace i18n {
     export interface ConfigurationOptions {
         /** Setup some locales - other locales default to en silently */

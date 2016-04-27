@@ -3,7 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
+
 
 declare namespace Express {
     export interface Request {
@@ -21,7 +21,7 @@ declare namespace Express {
 }
 
 declare module "connect-timeout" {
-    import express = require("express");
+    import express = require("../express");
 
     namespace e {
         /**

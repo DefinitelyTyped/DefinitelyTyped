@@ -3,7 +3,7 @@
 // Definitions by: Nathan Ridley <https://github.com/axefrog/>, Jonathan Häberle <http://dreampulse.de>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
+
 
 // Add RequestValidation Interface on to Express's Request Interface.
 declare namespace Express {
