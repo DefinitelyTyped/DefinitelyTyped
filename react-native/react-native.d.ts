@@ -350,6 +350,10 @@ declare module "react-native" {
 
         static registerRunnable( appKey: string, func: Runnable ): string;
 
+        static getAppKeys(): string[];
+
+        static unmountApplicationComponentAtRootTag(rootTag: number): void;
+
         static runApplication( appKey: string, appParameters: any ): void;
     }
 
