@@ -1,4 +1,4 @@
-/// <reference path="../express/express.d.ts" />
+
 /// <reference path="express-partials.d.ts" />
 
 import express = require('express');

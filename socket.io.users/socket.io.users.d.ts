@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../express/express.d.ts" />
+
 /// <reference path="../express-session/express-session.d.ts" />
 /// <reference path="../socket.io/socket.io.d.ts" />
 

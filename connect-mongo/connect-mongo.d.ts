@@ -3,7 +3,7 @@
 // Definitions by: Mizuki Yamamoto <https://github.com/Syati>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
+
 /// <reference path="../mongoose/mongoose.d.ts" />
 /// <reference path="../mongodb/mongodb.d.ts" />
 /// <reference path="../express-session/express-session.d.ts" />

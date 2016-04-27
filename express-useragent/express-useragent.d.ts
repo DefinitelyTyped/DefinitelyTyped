@@ -3,7 +3,7 @@
 // Definitions by: Isman Usoh <https://github.com/isman-usoh/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
+
 
 declare namespace Express {
    

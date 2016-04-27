@@ -5,10 +5,10 @@
  */
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../express/express.d.ts" />
+
 /// <reference path="i18n-node.d.ts" />
 
-import express = require("express");
+import express = require("../express");
 import i18n = require("i18n");
 
 var app = express();

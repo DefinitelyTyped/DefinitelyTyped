@@ -10,11 +10,10 @@
 
  =============================================== */
 
-/// <reference path="../serve-static/serve-static.d.ts" />
 /// <reference path="../express-serve-static-core/express-serve-static-core.d.ts" />
 
 
-import * as serveStatic from "serve-static";
+import * as serveStatic from "../serve-static";
 import * as core from "express-serve-static-core";
 
 /**
