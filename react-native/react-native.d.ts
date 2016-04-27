@@ -460,12 +460,6 @@ declare namespace  __React {
     export interface TextInputIOSProperties {
 
         /**
-         * If true, the text field will blur when submitted.
-         * The default value is true.
-         */
-        blurOnSubmit?: boolean
-
-        /**
          * enum('never', 'while-editing', 'unless-editing', 'always')
          * When the clear button should appear on the right side of the text view
          */
@@ -493,12 +487,7 @@ declare namespace  __React {
          * enum('default', 'go', 'google', 'join', 'next', 'route', 'search', 'send', 'yahoo', 'done', 'emergency-call')
          * Determines how the return key should look.
          */
-        returnKeyType?: string
-
-        /**
-         * If true, all text will automatically be selected on focus
-         */
-        selectTextOnFocus?: boolean
+        returnKeyType?: "default" | "go" | "google" | "join" | "next" | "route" | "search" | "send" | "yahoo" | "done" | "emergency-call"
 
         /**
          * //FIXME: requires typing
@@ -554,7 +543,7 @@ declare namespace  __React {
          *
          * https://facebook.github.io/react-native/docs/textinput.html#autocapitalize
          */
-        autoCapitalize?: string
+        autoCapitalize?: "none" | "sentences" | "words" | "characters"
 
         /**
          * If false, disables auto-correct.
@@ -567,6 +556,12 @@ declare namespace  __React {
          * The default value is false.
          */
         autoFocus?: boolean
+
+        /**
+         * If true, the text field will blur when submitted.
+         * The default value is true.
+         */
+        blurOnSubmit?: boolean
 
         /**
          * Provides an initial value that will change when the user starts typing.
@@ -585,7 +580,7 @@ declare namespace  __React {
          * Determines which keyboard to open, e.g.numeric.
          * The following values work across platforms: - default - numeric - email-address
          */
-        keyboardType?: string
+        keyboardType?: "default" | "email-address" | "numeric" | "phone-pad" | "ascii-capable" | "numbers-and-punctuation" | "url" | "number-pad" | "name-phone-pad" | "decimal-pad" | "twitter" | "web-search"
 
         /**
          * Limits the maximum number of characters that can be entered.
@@ -629,6 +624,8 @@ declare namespace  __React {
          */
         onLayout?: ( event: {nativeEvent: {x: number, y: number, width: number, height: number}} ) => void
 
+        onSelectionChange?: () => void
+
         /**
          * Callback that is called when the text input's submit button is pressed.
          */
@@ -656,6 +653,13 @@ declare namespace  __React {
         secureTextEntry?: boolean
 
         /**
+         * If true, all text will automatically be selected on focus
+         */
+        selectTextOnFocus?: boolean
+
+        selectionColor?: string
+
+        /**
          * Styles
          */
         style?: TextStyle
@@ -676,6 +680,9 @@ declare namespace  __React {
     }
 
     export interface TextInputStatic extends NativeComponent, React.ComponentClass<TextInputProperties> {
+        isFocused: () => boolean
+        clear: () => void
+        // Not found in documentation?
         blur: () => void
         focus: () => void
     }
