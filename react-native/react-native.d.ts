@@ -1530,6 +1530,8 @@ declare namespace  __React {
          */
         minimumValue?: number
 
+        minimumTrackImage?: any
+
         /**
          * The color used for the track to the left of the button. Overrides the default blue gradient image.
          */
