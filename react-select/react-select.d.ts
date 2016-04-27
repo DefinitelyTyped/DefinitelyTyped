@@ -398,5 +398,8 @@ declare namespace ReactSelect {
 
 declare module "react-select" {
     const select: ReactSelect.ReactSelectClass;
+    interface MenuRendererProps extends ReactSelect.MenuRendererProps {}
+
     export default select;
+    export { MenuRendererProps };
 }
