@@ -367,24 +367,39 @@ declare namespace  __React {
         }
     }
 
+    export interface TextStyleIOS extends ViewStyle {
+      letterSpacing?: number
+      textDecorationColor?: string
+      textDecorationStyle?: "solid" | "double" | "dotted" | "dashed"
+      writingDirection?: "auto" | "ltr" | "rtl"
+    }
+
+    export interface TextStyleAndroid extends ViewStyle {
+      textAlignVertical?: "auto" | "top" | "bottom" | "center"
+    }
+
     // @see https://facebook.github.io/react-native/docs/text.html#style
-    export interface TextStyle extends ViewStyle {
+    export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
         color?: string
         fontFamily?: string
         fontSize?: number
-        fontStyle?: string // 'normal' | 'italic';
-        fontWeight?: string // enum("normal", 'bold', '100', '200', '300', '400', '500', '600', '700', '800', '900')
+        fontStyle?: "normal" | "italic"
+        fontWeight?: "normal" | "bold" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900"
         letterSpacing?: number
         lineHeight?: number
-        textAlign?: string // enum("auto", 'left', 'right', 'center')
-        textDecorationLine?: string // enum("none", 'underline', 'line-through', 'underline line-through')
-        textDecorationStyle?: string // enum("solid", 'double', 'dotted', 'dashed')
+        textAlign?: "auto" | "left" | "right" | "center"
+        textDecorationLine?: "none" | "underline" | "line-through" | "underline line-through"
+        textDecorationStyle?: "solid" | "double" | "dotted" | "dashed"
         textDecorationColor?: string
-        writingDirection?: string; //enum("auto", 'ltr', 'rtl')
-        //containerBackgroundColor?: string
+        textShadowColor?: string
+        textShadowOffset?: {width: number, height: number}
+        textShadowRadius?: number
+        testID: string
     }
 
     export interface TextPropertiesIOS {
+
+        allowFontScaling: boolean
 
         /**
          * When true, no visual change is made when text is pressed down.
