@@ -2273,6 +2273,7 @@ declare namespace  __React {
      * @see https://facebook.github.io/react-native/docs/touchableopacity.html
      */
     export interface TouchableOpacityStatic extends React.ComponentClass<TouchableOpacityProperties> {
+        setOpacityTo: (value: number) => void
     }
 
 
