@@ -5,7 +5,11 @@
 
 /// <reference path="../underscore/underscore.d.ts" />
 /// <reference path="../q/Q.d.ts" />
-/// <reference path="../moment/moment.d.ts" />
+
+export as namespace Validation;
+
+export = Validation;
+
 declare namespace Validation {
     /**
     * Custom message functions.
@@ -703,8 +707,4 @@ declare namespace Validation {
         public ErrorMessage : string;
         public TranslateArgs : IErrorTranslateArgs[];
     }
-}
-
-declare module "node-form"{
-    export = Validation;
 }
