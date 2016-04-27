@@ -3,9 +3,91 @@
 // Definitions by: j3ko <https://github.com/j3ko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../moment/moment.d.ts" />
+import { Moment, Duration } from '../moment';
 
-declare namespace moment {
+export interface TwixFormatOptions {
+    groupMeridiems?: boolean;
+    spaceBeforeMeridiem?: boolean;
+    showDate?: boolean;
+    showDayOfWeek?: boolean;
+    twentyFourHour?: boolean;
+    implicitMinutes?: boolean;
+    implicitYear?: boolean;
+    yearFormat?: string;
+    monthFormat?: string;
+    weekdayFormat?: string;
+    dayFormat?: string;
+    meridiemFormat?: string;
+    hourFormat?: string;
+    minuteFormat?: string;
+    allDay?: any; // boolean | string
+    explicitAllDay?: boolean;
+    lastNightEndsAt?: number;
+}
+
+export interface TwixParseAndFormatOptions extends TwixFormatOptions {
+    parseStrict?: boolean;
+}
+
+export interface TwixSimpleFormatOptions {
+    allDay?: string;
+    template?: (left: any, right: any) => any;
+}
+
+export interface TwixIter {
+    hasNext(): boolean;
+    next(): Twix;
+}
+
+export interface Twix {
+    isPast(): boolean;
+    isFuture(): boolean;
+    isCurrent(): boolean;
+    isSame(period: string): boolean;
+    contains(date: string): boolean;
+    contains(date: Date): boolean;
+    contains(date: Moment): boolean;
+    length(period: string): number;
+    count(period: string): number;
+    countInner(period: string): number;
+
+    iterate(period: string): TwixIter;
+    iterate(num: number, period: string): TwixIter;
+    iterate(duration: Duration): TwixIter;
+
+    iterateInner(period: string): TwixIter;
+    iterateInner(num: number, period: string): TwixIter;
+
+    overlaps(other: Twix): boolean;
+    engulfs(other: Twix): boolean;
+    equals(other: Twix): boolean;
+    union(other: Twix): string;
+    intersection(other: Twix): string;
+
+    xor(other: Twix): Twix[];
+    difference(other: Twix): Twix[];
+    split(num: number, period: string): Twix[];
+    split(other: Moment): Twix[];
+    split(start: Moment, end: Moment): Twix[];
+    split(duration: Duration): Twix[];
+
+    humanizeLength(): string;
+    simpleFormat(): string;
+    simpleFormat(format: string): string;
+    simpleFormat(format: string, options: TwixSimpleFormatOptions): string;
+
+    format(): string;
+    format(options: TwixFormatOptions): string;
+
+    asDuration(period: string): Duration;
+    isValid(): boolean;
+}
+
+export interface TwixStatic {
+    formatTemplate?: (left: any, right: any) => any;
+}
+
+declare module "../moment" {
     interface Moment {
         twix(date: Date): Twix;
         twix(date: Date, allDay: boolean): Twix;
@@ -43,96 +125,8 @@ declare namespace moment {
         twixClass: TwixStatic;
     }
 
-    interface TwixFormatOptions {
-        groupMeridiems?: boolean;
-        spaceBeforeMeridiem?: boolean;
-        showDate?: boolean;
-        showDayOfWeek?: boolean;
-        twentyFourHour?: boolean;
-        implicitMinutes?: boolean;
-        implicitYear?: boolean;
-        yearFormat?: string;
-        monthFormat?: string;
-        weekdayFormat?: string;
-        dayFormat?: string;
-        meridiemFormat?: string;
-        hourFormat?: string;
-        minuteFormat?: string;
-        allDay?: any; // boolean | string
-        explicitAllDay?: boolean;
-        lastNightEndsAt?: number;
-    }
-
-    interface TwixParseAndFormatOptions extends TwixFormatOptions {
-        parseStrict?: boolean;
-    }
-
-    interface TwixSimpleFormatOptions {
-        allDay?: string;
-        template?: (left: any, right: any) => any;
-    }
-
-    interface TwixIter {
-        hasNext(): boolean;
-        next(): Twix;
-    }
-
     interface Duration {
         afterMoment(date: string): string;
         beforeMoment(date: string): string;
     }
-
-    interface Twix {
-        isPast(): boolean;
-        isFuture(): boolean;
-        isCurrent(): boolean;
-        isSame(period: string): boolean;
-        contains(date: string): boolean;
-        contains(date: Date): boolean;
-        contains(date: Moment): boolean;
-        length(period: string): number;
-        count(period: string): number;
-        countInner(period: string): number;
-
-        iterate(period: string): TwixIter;
-        iterate(num: number, period: string): TwixIter;
-        iterate(duration: Duration): TwixIter;
-
-        iterateInner(period: string): TwixIter;
-        iterateInner(num: number, period: string): TwixIter;
-
-        overlaps(other: Twix): boolean;
-        engulfs(other: Twix): boolean;
-        equals(other: Twix): boolean;
-        union(other: Twix): string;
-        intersection(other: Twix): string;
-
-        xor(other: Twix): Twix[];
-        difference(other: Twix): Twix[];
-        split(num: number, period: string): Twix[];
-        split(other: Moment): Twix[];
-        split(start: Moment, end: Moment): Twix[];
-        split(duration: Duration): Twix[];
-
-        humanizeLength(): string;
-        simpleFormat(): string;
-        simpleFormat(format: string): string;
-        simpleFormat(format: string, options: TwixSimpleFormatOptions): string;
-
-        format(): string;
-        format(options: TwixFormatOptions): string;
-
-        asDuration(period: string): Duration;
-        isValid(): boolean;
-    }
-
-    interface TwixStatic {
-        formatTemplate?: (left: any, right: any) => any;
-    }
-}
-
-declare module 'twix' {
-    var _tmp: moment.MomentStatic;
-
-    export = _tmp;
 }
