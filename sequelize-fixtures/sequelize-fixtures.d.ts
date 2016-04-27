@@ -3,10 +3,7 @@
 // Definitions by: Christian Schwarz <https://github.com/cschwarz/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../sequelize/sequelize.d.ts" />
-
-
-import * as Sequelize from "sequelize";
+import * as Sequelize from "../sequelize";
 
 declare namespace SequelizeFixtures {
     interface Options {

@@ -1,6 +1,4 @@
-/// <reference path="sequelize.d.ts" />
-
-import Sequelize = require("sequelize");
+import Sequelize = require("./");
 
 //
 //  Fixtures
