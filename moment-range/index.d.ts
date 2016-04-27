@@ -3,26 +3,12 @@
 // Definitions by: Bart van den Burg <https://github.com/Burgov>, Wilgert Velinga <https://github.com/wilgert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../moment/moment.d.ts" />
+import { Moment } from '../moment';
+
+export as namespace moment;
+export = moment;
 
 declare namespace moment {
-
-    interface Moment {
-
-        within (x: Range): boolean;
-
-    }
-
-    interface MomentStatic {
-
-        range(range: string): Range;
-        range(range: Date[]): Range;
-        range(range: Moment[]): Range;
-        range(start: Date, end: Date): Range;
-        range(start: Moment, end: Moment): Range;
-
-    }
-
     interface Range {
         start: Moment;
         end: Moment;
@@ -54,6 +40,20 @@ declare namespace moment {
         center (): number;
 
         clone (): Range;
+    }
+}
+
+declare module '../moment' {
+    interface Moment {
+        within (x: moment.Range): boolean;
+    }
+
+    interface MomentStatic {
+        range(range: string): moment.Range;
+        range(range: Date[]): moment.Range;
+        range(range: Moment[]): moment.Range;
+        range(start: Date, end: Date): moment.Range;
+        range(start: Moment, end: Moment): moment.Range;
     }
 
 }
