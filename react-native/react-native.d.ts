@@ -3493,6 +3493,36 @@ declare module "react-native" {
         };
     }
 
+    export interface GetPhotosParamType {
+        first: number
+        after: string
+        groupTypes: "Album" | "All" | "Event" | "Faces" | "Library" | "PhotoStream" | "SavedPhotos"
+        groupName: string
+        assetType: "All" | "Videos" | "Photos"
+        mimeTypes: string[]
+    }
+
+    export interface GetPhotosReturnType {
+        edges: {
+            node: {
+              type: string
+              group_name: string
+              image: {
+                  uri: string
+                  height: number
+                  width: number
+                  isStored?: boolean
+              }
+            }
+        }[]
+
+        page_info: {
+            has_next_page: boolean
+            start_cursor?: string
+            end_cursor?: string
+        }
+    }
+
     /**
      * CameraRoll provides access to the local camera roll / gallery.
      */
@@ -3514,18 +3544,14 @@ declare module "react-native" {
          * @param successCallback Invoked with the value of tag on success.
          * @param errorCallback Invoked with error message on error.
          */
-        saveImageWithTag( tag: string, successCallback: ( tag?: string ) => void, errorCallback: ( error: Error ) => void ): void
+        saveImageWithTag( tag: string ): Promise<string>
 
         /**
          * Invokes callback with photo identifier objects from the local camera roll of the device matching shape defined by getPhotosReturnChecker.
          *
          * @param {object} params See getPhotosParamChecker.
-         * @param {function} callback Invoked with arg of shape defined by getPhotosReturnChecker on success.
-         * @param {function} errorCallback Invoked with error message on error.
          */
-        getPhotos( fetch: CameraRollFetchParams,
-                   callback: ( assetInfo: CameraRollAssetInfo ) => void,
-                   errorCallback: ( error: Error )=> void ): void;
+        getPhotos(params: GetPhotosParamType): Promise<GetPhotosReturnType>;
     }
 
     export interface FetchableListenable<T> {
