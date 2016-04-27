@@ -1,4 +1,4 @@
-/// <reference path="eonasdan-bootstrap-datetimepicker.d.ts"/>
+/// <reference path="index.d.ts"/>
 
 // Minimum Setup
 $("#datetimepicker1").datetimepicker();
