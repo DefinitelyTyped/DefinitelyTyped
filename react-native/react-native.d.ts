@@ -687,6 +687,34 @@ declare namespace  __React {
         focus: () => void
     }
 
+    export type ToolbarAndroidAction = {
+        title: string
+        icon?: any
+        show?: "always" | "ifRoom" | "never"
+        showWithText?: boolean
+    }
+
+    export interface ToolbarAndroidProperties extends React.Props<ToolbarAndroidStatic> {
+        actions?: [ToolbarAndroidAction]
+        contentInsetEnd?: number
+        contentInsetStart?: number
+        logo?: any
+        navIcon?: any
+        onActionSelected?: (position: number) => void
+        onIconClicked?: () => void
+        overflowIcon?: any
+        rtl?: boolean
+        subtitle?: string
+        subtitleColor: string
+        testID?: string
+        title: string
+        titleColor: string
+    }
+
+    export interface ToolbarAndroidStatic extends React.ComponentClass<ToolbarAndroidProperties> {
+
+    }
+
 
     /**
      * Gesture recognition on mobile devices is much more complicated than web.
@@ -3726,6 +3754,9 @@ declare namespace  __React {
 
     export var TextInput: TextInputStatic
     export type TextInput = TextInputStatic
+
+    export var ToolbarAndroid: ToolbarAndroidStatic
+    export type ToolbarAndroid = ToolbarAndroidStatic
 
     export var TouchableHighlight: TouchableHighlightStatic
     export type TouchableHighlight = TouchableHighlightStatic
