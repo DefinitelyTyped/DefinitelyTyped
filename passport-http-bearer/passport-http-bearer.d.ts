@@ -4,12 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../passport/passport.d.ts"/>
-/// <reference path="../express/express.d.ts"/>
-
-
 
 import passport = require("passport");
-import express = require("express");
+import express = require("../express");
 
 interface IStrategyOptions {
     scope: string | Array<string>;
