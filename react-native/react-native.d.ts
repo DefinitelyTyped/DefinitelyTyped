@@ -3186,6 +3186,16 @@ declare namespace  __React {
         showShareActionSheetWithOptions: ( options: ShareActionSheetIOSOptions, failureCallback: ( error: Error ) => void, successCallback: ( success: boolean, method: string ) => void ) => void
     }
 
+    export interface AlertButton {
+      text?: string
+      onPress?: () => void
+      style?: string
+    }
+
+    export interface AlertStatic {
+       alert: (title: string, message?: string, buttons?: AlertButton[], type?) => void
+    }
+
 
     /**
      * //FIXME: No documentation - inferred from RCTAdSupport.m
@@ -3819,6 +3829,9 @@ declare namespace  __React {
 
     export var AdSupportIOS: AdSupportIOSStatic
     export type AdSupportIOS = AdSupportIOSStatic
+
+    export var Alert: AlertStatic
+    export type Alert = AlertStatic
 
     export var AlertIOS: AlertIOSStatic
     export type AlertIOS = AlertIOSStatic
