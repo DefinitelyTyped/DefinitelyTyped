@@ -1479,6 +1479,31 @@ declare namespace  __React {
     export interface RefreshControlStatic extends React.ComponentClass<RefreshControlProperties> {
     }
 
+    export interface SliderPropertiesIOS extends React.Props<SliderStatic> {
+      maximumTrackImage?: any
+      maximumTrackTintColor?: string
+      minimumTrackImage?: string
+      minimumTrackTintColor?: string
+      thumbImage?: any
+      trackImage?: any
+    }
+
+    export interface SliderProperties extends SliderPropertiesIOS, React.Props<SliderStatic> {
+      disabled?: boolean
+      maximumValue?: number
+      minimumValue?: number
+      onSlidingComplete?: (value: number) => void
+      onValueChange?: (value: number) => void
+      step?: number
+      style?: ViewStyle
+      testID?: string
+      value?: number
+    }
+
+    export interface SliderStatic extends React.ComponentClass<SliderProperties> {
+
+    }
+
 
     /**
      * @see https://facebook.github.io/react-native/docs/sliderios.html
@@ -3609,6 +3634,9 @@ declare namespace  __React {
 
     export var RefreshControl: RefreshControlStatic
     export type RefreshControl = RefreshControlStatic
+
+    export var Slider: SliderIOS
+    export type Slider = SliderIOS
 
     export var SliderIOS: SliderIOSStatic
     export type SliderIOS = SliderIOSStatic
