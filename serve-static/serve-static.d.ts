@@ -44,7 +44,13 @@ declare module "serve-static" {
          * The default value is false.
          */
         extensions?: string[];
-
+        
+        /**
+         * Let client errors fall-through as unhandled requests, otherwise forward a client error.
+         * The default value is false.
+         */
+        fallthrough?: boolean;
+        
         /**
          * By default this module will send "index.html" files in response to a request on a directory.
          * To disable this set false or to supply a new index pass a string or an array in preferred order.
