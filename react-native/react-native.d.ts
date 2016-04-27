@@ -2162,6 +2162,10 @@ declare namespace  __React {
          */
         delayPressOut?: number;
 
+        disabled?: boolean
+
+        hitSlop?: {top: number, left: number, bottom: number, right: number}
+
         /**
          * Invoked on mount and layout changes with
          * {nativeEvent: {layout: {x, y, width, height}}}
@@ -2184,6 +2188,8 @@ declare namespace  __React {
          * //FIXME: not in doc but available in exmaples
          */
         style?: ViewStyle
+
+        pressRetentionOffset: {top: number, left: number, bottom: number, right: number} 
     }
 
 
