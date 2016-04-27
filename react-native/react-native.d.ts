@@ -3331,7 +3331,7 @@ declare module "react-native" {
     }
 
     export interface AlertStatic {
-       alert: (title: string, message?: string, buttons?: AlertButton[], type?) => void
+       alert: (title: string, message?: string, buttons?: AlertButton[], type?: string) => void
     }
 
 
