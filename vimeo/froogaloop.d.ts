@@ -15,13 +15,13 @@ interface VimeoPlayerAPI {
 }
 interface VimeoPlayer {
     api: VimeoPlayerAPI;
-    addEvent(eventName: string, callback: (e: any) =>void ): any;
+    addEvent(eventName: string, callback: (e: any) => void): any;
     removeEvent(eventName: string): void;
-    postMessage(method: string, params:VimeoParams[], target): void;
-    onMessagReceived(event);
-    storeCallback(eventName: string, callback, target_id: string);
-    getCallback(eventName: string, target_id: string);
-    removeCallback(eventName: string, target_id: string);
+    postMessage(method: string, params:VimeoParams[], target: any): void;
+    onMessageReceived(event: any): any;
+    storeCallback(eventName: string, callback: any, target_id: string): any;
+    getCallback(eventName: string, target_id: string): any;
+    removeCallback(eventName: string, target_id: string): any;
     getDomainFromUrl(url: string): string;
 }
 
