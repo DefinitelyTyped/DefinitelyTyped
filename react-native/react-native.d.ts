@@ -2965,8 +2965,17 @@ declare module "react-native" {
         set( dims: {[key: string]: any}[] ): void
     }
 
+    export type PromiseTask = {
+        gen: () => Promise<any>
+    }
+
+    export type Handle = number
+
     export interface InteractionManagerStatic {
-        runAfterInteractions( fn: () => void ): void;
+        runAfterInteractions( fn: () => void | PromiseTask): Promise<any>
+        createInteractionHandle(): Handle
+        clearInteractionHandle(handle: Handle): void
+        setDeadline(deadline: number): void
     }
 
 
