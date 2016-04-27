@@ -284,7 +284,7 @@ declare namespace ReactSelect {
         /**
          * whether to select the currently focused value when the  [tab]  key is pressed
          */
-        tabSelectsValue?: string;
+        tabSelectsValue?: boolean;
         /**
          * initial field value
          */
