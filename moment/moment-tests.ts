@@ -1,4 +1,4 @@
-/// <reference path="moment.d.ts" />
+import * as moment from './';
 
 moment().add('hours', 1).fromNow();
 

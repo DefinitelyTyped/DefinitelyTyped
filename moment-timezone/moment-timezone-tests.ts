@@ -1,4 +1,4 @@
-/// <reference path="moment-timezone.d.ts" />
+/// <reference path="index.d.ts" />
 
 import moment = require('moment-timezone');
 
