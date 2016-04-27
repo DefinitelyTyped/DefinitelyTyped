@@ -1535,12 +1535,12 @@ declare namespace  __React {
      */
     export interface ProgressBarAndroidProperties extends React.Props<ProgressBarAndroidStatic> {
 
-        style?: ViewStyle,
-        styleAttr?: 'Horizontal'|'Normal'|'Small'|'Large'|'Inverse'|'SmallInverse'|'LargeInverse',
-        indeterminate?: boolean,
-        progress?: number,
-        color?: string,
-        testID?: string,
+        style?: ViewStyle
+        styleAttr?: "Horizontal" | "Normal" | "Small" | "Large" | "Inverse" | "SmallInverse" | "LargeInverse"
+        indeterminate?: boolean
+        progress?: number
+        color?: string
+        testID?: string
     }
     export interface ProgressBarAndroidStatic extends React.ComponentClass<ProgressBarAndroidProperties> {
     }
@@ -1551,13 +1551,13 @@ declare namespace  __React {
      */
     export interface ProgressViewIOSProperties extends React.Props<ProgressViewIOSStatic> {
 
-        style?: ViewStyle,
-        progressViewStyle?: 'default'|'bar',
-        progress?: number,
-        progressTintColor?: string,
-        trackTintColor?: string,
-        progressImage?: any,
-        trackImage?: any,
+        style?: ViewStyle
+        progressViewStyle?: "default" | "bar"
+        progress?: number
+        progressTintColor?: string
+        trackTintColor?: string
+        progressImage?: any
+        trackImage?: any
     }
     export interface ProgressViewIOSStatic extends React.ComponentClass<ProgressViewIOSProperties> {
     }
