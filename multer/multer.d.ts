@@ -3,7 +3,7 @@
 // Definitions by: jt000 <https://github.com/jt000>, vilicvane <https://vilic.github.io/>, David Broder-Rodgers <https://github.com/DavidBR-SW>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
+
 
 declare namespace Express {
     export interface Request {

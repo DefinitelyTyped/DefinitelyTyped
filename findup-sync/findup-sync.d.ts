@@ -3,9 +3,6 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Nathan Brown <https://github.com/ngbrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../minimatch/minimatch.d.ts" />
-
-
 import minimatch = require('minimatch');
 
 interface IOptions extends minimatch.IOptions {

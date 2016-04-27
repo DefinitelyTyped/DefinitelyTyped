@@ -3,7 +3,6 @@
 // Definitions by: Lior Mualem <https://github.com/liorm/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts"/>
 /// <reference path="../passport/passport.d.ts"/>
 
 /**
@@ -14,7 +13,7 @@
 
 
 import passport = require('passport');
-import express = require('express');
+import express = require('../express');
 
 declare class Strategy implements passport.Strategy {
     /**

@@ -1,4 +1,4 @@
-/// <reference path="../express/express.d.ts" />
+
 /// <reference path="oauth2-server.d.ts" />
 
 import * as express from "express";

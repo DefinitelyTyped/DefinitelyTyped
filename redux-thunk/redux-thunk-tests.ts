@@ -1,6 +1,6 @@
 /// <reference path="redux-thunk.d.ts" />
 /// <reference path="../redux/redux.d.ts" />
-/// <reference path="../express/express.d.ts" />
+
 
 import { createStore, applyMiddleware, Store, Dispatch, ThunkAction } from 'redux';
 import thunk from 'redux-thunk';

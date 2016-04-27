@@ -3,10 +3,7 @@
 // Definitions by: Asana <https://asana.com>, Aya Morisawa <https://github.com/AyaMorisawa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../glob/glob.d.ts"/>
-
-
-import glob = require("glob");
+import glob = require("../glob");
 
 declare function Del(pattern: string): Promise<string[]>;
 declare function Del(pattern: string, options: Del.Options): Promise<string[]>;

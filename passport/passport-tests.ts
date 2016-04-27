@@ -1,5 +1,5 @@
 /// <reference path="passport.d.ts" />
-/// <reference path="../express/express.d.ts" />
+
 /// <reference path="../express-session/express-session.d.ts" />
 
 import express = require('express');

@@ -3,7 +3,7 @@
 // Definitions by: TANAKA Koichi <https://github.com/mugeso/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="../passport-strategy/passport-strategy.d.ts" />
-/// <reference path="../express/express.d.ts" />
+
 
 
 import {Strategy as PassportStrategy} from 'passport-strategy';
