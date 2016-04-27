@@ -3,8 +3,6 @@
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 declare function M(target: string, pattern: string, options?: M.IOptions): boolean;
 
 declare namespace M {
