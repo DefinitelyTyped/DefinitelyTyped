@@ -19,6 +19,39 @@ declare namespace ReactSelect {
         clearableValue?: boolean;
     }
 
+    interface MenuRendererProps {
+        /**
+         * The currently focused option; should be visible in the menu by default.
+         * default {}
+         */
+        focusedOption: Option;
+
+        /**
+         * Callback to focus a new option; receives the option as a parameter.
+         */
+        focusOption: (option: Option) => void;
+
+        /**
+         * Option labels are accessible with this string key.
+         */
+        labelKey: string;
+
+        /**
+         * Ordered array of options to render.
+         */
+        options: Option[];
+
+        /**
+         * Callback to select a new option; receives the option as a parameter.
+         */
+        selectValue: (option: Option) => void;
+
+        /**
+         * Array of currently selected options.
+         */
+        valueArray: Option[];
+    }
+
     interface ReactSelectProps extends __React.Props<ReactSelect> {
         /**
          * text to display when `allowCreate` is true.
@@ -142,6 +175,10 @@ declare namespace ReactSelect {
          * optional style to apply to the menu container
          */
         menuContainerStyle?: {}
+        /**
+         * renders a custom menu with options
+         */
+        menuRenderer?: (props: MenuRendererProps) => __React.ReactElement<any>;
         /**
          * optional style to apply to the menu
          */
