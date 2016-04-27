@@ -3,10 +3,7 @@
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../glob/glob.d.ts" />
-
-
-import * as _glob from "glob";
+import * as glob from "../glob";
 
 interface Option {
     filter?: string | ((filePath: string) => boolean);
@@ -14,7 +11,7 @@ interface Option {
 }
 
 declare namespace expand {
-    var glob: typeof _glob;
+    var glob: typeof glob;
     var VERSION: string;
 }
 

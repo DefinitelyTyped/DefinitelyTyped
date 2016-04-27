@@ -4,13 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../minimatch/minimatch.d.ts" />
-
-
 
 import events = require("events");
 import fs = require('fs');
-import minimatch = require("minimatch");
+import minimatch = require("../minimatch");
 
 declare function G(pattern: string, cb: (err: Error, matches: string[]) => void): void;
 declare function G(pattern: string, options: G.IOptions, cb: (err: Error, matches: string[]) => void): void;
