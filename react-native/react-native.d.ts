@@ -3369,7 +3369,6 @@ declare module "react-native" {
         prompt: ( title: string, value?: string, callbackOrButtons?: (value: string) => void | Array<AlertIOSButton>, type?: string, defaultValue?: string ) => void
     }
 
-
     /**
      * AppStateIOS can tell you if the app is in the foreground or background,
      * and notify you when the state changes.
@@ -3386,10 +3385,13 @@ declare module "react-native" {
      *
      * @see https://facebook.github.io/react-native/docs/appstateios.html#content
      */
+    export type AppStateEvent = "change" | "memoryWarning"
+    export type AppStateStatus = "active" | "background" | "inactive"
+
     export interface AppStateStatic {
         currentState: string
-        addEventListener( type: string, listener: ( state: string ) => void ): void
-        removeEventListener( type: string, listener: ( state: string ) => void ): void
+        addEventListener( type: AppStateEvent, listener: ( state: AppStateStatus ) => void ): void
+        removeEventListener( type: AppStateEvent, listener: ( state: AppStateStatus ) => void ): void
     }
 
     /**
