@@ -4,10 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../bluebird/bluebird.d.ts" />
-/// <reference path="../sequelize/sequelize.d.ts" />
 
-
-import Sequelize = require("sequelize");
+import Sequelize = require("../sequelize");
 
 declare namespace umzug {
 
