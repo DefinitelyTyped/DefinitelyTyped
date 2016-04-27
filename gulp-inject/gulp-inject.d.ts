@@ -4,11 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../vinyl/vinyl.d.ts" />
 
-
-
-import File = require("vinyl");
+import File = require("../vinyl");
 
 interface ITagFunction {
     (targetExt: string, sourceExt: string): string;

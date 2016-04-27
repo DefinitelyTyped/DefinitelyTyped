@@ -4,10 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
-/// <reference path="../vinyl/vinyl.d.ts"/>
 
-
-import vinyl = require("vinyl");
+import vinyl = require("../vinyl");
 
 declare namespace gulpTsLint {
     interface GulpTsLint {

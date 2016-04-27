@@ -4,9 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../vinyl/vinyl.d.ts"/>
-/// <reference path="../minimatch/minimatch.d.ts"/>
-
 
 import File = require('vinyl');
 import * as Minimatch from 'minimatch';
