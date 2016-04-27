@@ -705,10 +705,10 @@ declare namespace  __React {
         overflowIcon?: any
         rtl?: boolean
         subtitle?: string
-        subtitleColor: string
+        subtitleColor?: string
         testID?: string
-        title: string
-        titleColor: string
+        title?: string
+        titleColor?: string
     }
 
     export interface ToolbarAndroidStatic extends React.ComponentClass<ToolbarAndroidProperties> {
@@ -1069,7 +1069,7 @@ declare namespace  __React {
         onPageSelected?: ( event: NativeSyntheticEvent<ViewPagerAndroidOnPageSelectedEventData> ) => void;
         onPageScrollStateChanged?: (state: "Idle" | "Dragging" | "Settling") => void
         keyboardDismissMode?: "none" | "on-drag"
-        pageMargin: number
+        pageMargin?: number
     }
 
     export interface ViewPagerAndroidStatic extends NativeComponent, React.ComponentClass<ViewPagerAndroidProperties> {
@@ -1431,7 +1431,7 @@ declare namespace  __React {
 
       onDrawerStateChanged?: (event:  "Idle" | "Dragging" | "Settling") => void
 
-      renderNavigationView: () => View
+      renderNavigationView?: () => View
 
       statusBarBackgroundColor?: any
 
@@ -1531,9 +1531,9 @@ declare namespace  __React {
 
     export interface RefreshControlPropertiesIOS extends React.Props<RefreshControlStatic> {
 
-        tintColor: string
-        title: string
-        titleColor: string
+        tintColor?: string
+        title?: string
+        titleColor?: string
     }
 
     export interface RefreshControlPropertiesAndroid extends React.Props<RefreshControlStatic> {
@@ -1541,12 +1541,12 @@ declare namespace  __React {
         colors?: [string]
         enabled?: boolean
         progressBackgroundColor?: string
-        size: number
+        size?: number
     }
 
     export interface RefreshControlProperties extends RefreshControlPropertiesIOS, RefreshControlPropertiesAndroid, React.Props<RefreshControl> {
-        onRefresh: () => void
-        refreshing: boolean
+        onRefresh?: () => void
+        refreshing?: boolean
     }
 
     export interface RefreshControlStatic extends React.ComponentClass<RefreshControlProperties> {
@@ -1985,16 +1985,16 @@ declare namespace  __React {
     export interface MapViewRegion {
         latitude: number
         longitude: number
-        latitudeDelta: number
-        longitudeDelta: number
+        latitudeDelta?: number
+        longitudeDelta?: number
     }
 
-    export interface MapViewOverlays {
-      coordinates: Object
-      lineWidth: number
-      strokeColor: Object
-      fillColor: Object
-      id: string
+    export interface MapViewOverlay {
+      coordinates: [{latitude: number, longitude: number}]
+      lineWidth?: number
+      strokeColor?: Object
+      fillColor?: Object
+      id?: string
     }
 
     export interface MapViewPropertiesIOS {
@@ -2010,7 +2010,7 @@ declare namespace  __React {
          */
         annotations?: MapViewAnnotation[]
 
-        followUserLocation: boolean
+        followUserLocation?: boolean
 
         /**
          * Insets for the map's legal label, originally at bottom left of the map. See EdgeInsetsPropType.js for more information.
@@ -2037,11 +2037,13 @@ declare namespace  __React {
          */
         minDelta?: number
 
+        overlays: [MapViewOverlay]
+
         showsCompass?: boolean
     }
 
     export interface MapViewPropertiesAndroid {
-        active: boolean
+        active?: boolean
     }
 
     export interface MapViewProperties extends MapViewPropertiesIOS, MapViewPropertiesAndroid, Touchable, React.Props<MapViewStatic> {
@@ -2212,7 +2214,7 @@ declare namespace  __React {
          */
         style?: ViewStyle
 
-        pressRetentionOffset: {top: number, left: number, bottom: number, right: number}
+        pressRetentionOffset?: {top: number, left: number, bottom: number, right: number}
     }
 
 
@@ -3013,7 +3015,7 @@ declare namespace  __React {
     }
 
     export interface ScrollViewPropertiesAndroid {
-      endFillColor: string
+      endFillColor?: string
 
     }
 
