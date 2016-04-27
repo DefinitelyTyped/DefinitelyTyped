@@ -230,7 +230,7 @@ declare namespace ReactSelect {
         /**
          * fires when the menu is scrolled to the bottom; can be used to paginate options
          */
-        onMenuScrollToBottom: () => void;
+        onMenuScrollToBottom?: () => void;
         /**
          * fires when the menu is opened
          */
