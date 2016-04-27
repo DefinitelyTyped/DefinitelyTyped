@@ -5,7 +5,7 @@
  */
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../express/express.d.ts" />
+
 /// <reference path="stylus.d.ts" />
 
 import stylus = require("stylus");

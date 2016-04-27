@@ -3,7 +3,7 @@
 // Definitions by: Karl Düüna <https://github.com/DeadAlready/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
+
 /// <reference path="../easy-jsend/easy-jsend.d.ts" />
 /// <reference path="../easy-x-headers/easy-x-headers.d.ts" />
 

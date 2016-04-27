@@ -3,7 +3,7 @@
 // Definitions by: Andreas Gassmann <https://github.com/AndreasGassmann/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
+
 
 declare namespace Express {
     export interface Request {

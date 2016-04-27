@@ -3,7 +3,7 @@
 // Definitions by: Michael Ferris <https://github.com/Cellule/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
+
 /// <reference path="../mysql/mysql.d.ts" />
 
 declare namespace mysql{

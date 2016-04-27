@@ -3,7 +3,7 @@
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
+
 /// <reference path="../node/node.d.ts" />
 
 declare namespace Express {

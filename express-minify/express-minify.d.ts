@@ -3,8 +3,7 @@
 // Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
-/// <reference path="../uglify-js/uglify-js.d.ts" />
+
 
 declare namespace Express {
     interface Response extends ExpressMinifyInterfaces.ExpressMinifyResponse {}

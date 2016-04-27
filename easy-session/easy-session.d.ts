@@ -3,7 +3,7 @@
 // Definitions by: Karl Düüna <https://github.com/DeadAlready/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
+
 
 declare namespace Express {
     interface ErrorCallback {
