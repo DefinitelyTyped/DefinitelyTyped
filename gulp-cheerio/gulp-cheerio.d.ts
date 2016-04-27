@@ -5,10 +5,8 @@
 
 /// <reference path="../cheerio/cheerio.d.ts" />
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../vinyl/vinyl.d.ts"/>
 
-
-import Vinyl = require('vinyl');
+import Vinyl = require('../vinyl');
 
 declare namespace cheerio {
     interface Cheerio {

@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
-/// <reference path="../uglify-js/uglify-js.d.ts"/>
-
 
 import * as UglifyJS from 'uglify-js';
 

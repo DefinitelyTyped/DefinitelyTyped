@@ -4,11 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
-/// <reference path="../vinyl/vinyl.d.ts"/>
-
 
 import { Transform } from "stream";
-import File = require("vinyl");
+import File = require("../vinyl");
 
 interface IComparator {
     /**

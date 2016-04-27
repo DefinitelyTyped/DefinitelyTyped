@@ -4,11 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
-/// <reference path="../vinyl/vinyl.d.ts"/>
-
 
 import fs = require('fs');
-import vinyl = require('vinyl');
+import vinyl = require('../vinyl');
 
 interface GulpIf {
     /** 
