@@ -5,7 +5,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import Select from "react-select";
+import Select, { MenuRendererProps } from "react-select";
 
 class SelectTest extends React.Component<React.Props<{}>, {}> {
 
@@ -19,7 +19,7 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
             options,
             selectValue,
             valueArray
-        }: ReactSelect.MenuRendererProps) => { return <div></div> };
+        }: MenuRendererProps) => { return <div></div> };
         const onOpen = () => { return; };
         const onClose = () => { return; };
         const optionRenderer = (option: ReactSelect.Option) => <span>{option.label}</span>
