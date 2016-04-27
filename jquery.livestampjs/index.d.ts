@@ -6,7 +6,12 @@
 // A simple, unobtrusive jQuery plugin that provides auto-updating timeago text to your timestamped HTML elements using Moment.js.
 
 /// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="../moment/moment.d.ts"/>
+
+import * as moment from '../moment';
+
+export as namespace LivestampGlobal;
+
+export = LivestampGlobal;
 
 interface LivestampGlobal {
 	update(): void;
@@ -16,13 +21,15 @@ interface LivestampGlobal {
 	interval(interval: number): void;
 }
 
-interface JQueryStatic {
-	livestamp: LivestampGlobal;
-}
+declare global {
+	interface JQueryStatic {
+		livestamp: LivestampGlobal;
+	}
 
-interface JQuery {
-	livestamp(date: Date): JQuery;
-	livestamp(moment: moment.Moment): JQuery;
-	livestamp(timestamp: number): JQuery;
-	livestamp(timestamp: string): JQuery;
+	interface JQuery {
+		livestamp(date: Date): JQuery;
+		livestamp(moment: moment.Moment): JQuery;
+		livestamp(timestamp: number): JQuery;
+		livestamp(timestamp: string): JQuery;
+	}
 }
