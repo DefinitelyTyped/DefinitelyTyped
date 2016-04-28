@@ -1,6 +1,6 @@
 // Type definitions for Chroma.js v1.1.1
 // Project: https://github.com/gka/chroma.js
-// Definitions by: Marcin Pacholec <https://github.com/mpacholec>
+// Definitions by:  Sebastian Brückner <https://github.com/invliD> and Marcin Pacholec <https://github.com/mpacholec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -17,21 +17,21 @@ declare namespace Chroma {
         (color: string): Color;
 
         /**
-        * Creates a color from a number representation [0; 16777215]
-        *
-        * @param color The number to convert to a color.
-        * @return the color object.
+         * Creates a color from a number representation [0; 16777215]
+         * 
+         * @param color The number to convert to a color.
+         * @return the color object.
         */
         (number: number): Color;
 
         /**
-        * Create a color in the specified color space using a, b and c as values.
-        *
-        * @param a
-        * @param b
-        * @param c
-        * @param colorSpace The color space to use (one of "rgb", "hsl", "hsv", "lab", "lch", "gl"). Defaults to "rgb".
-        * @return the color object.
+         * Create a color in the specified color space using a, b and c as values.
+         *
+         * @param a
+         * @param b
+         * @param c
+         * @param colorSpace The color space to use (one of "rgb", "hsl", "hsv", "lab", "lch", "gl"). Defaults to "rgb".
+         * @return the color object.
         */
         (a: number, b: number, c: number, colorSpace?: string): Color;
 
@@ -57,7 +57,7 @@ declare namespace Chroma {
          * @return the color object.
          */
         hex(color: string): Color;
-        
+
 
         /** */
         hsl(h: number, s: number, l: number): Color;
