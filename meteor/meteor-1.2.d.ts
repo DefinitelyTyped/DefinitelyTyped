@@ -401,6 +401,15 @@ declare module Accounts {
 	function validateNewUser(func: Function): boolean;
 	function loginServicesConfigured(): boolean;
  	function onPageLoadLogin(func: Function): void;
+  interface IValidateLoginAttemptCbOpts {
+    type: string;
+    allowed: boolean;
+    error: Meteor.Error;
+    user: Meteor.User;
+    connection: Meteor.Connection;
+    methodName: string;
+    methodArguments: any[];
+  }
 }
 
 declare module App {
