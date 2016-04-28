@@ -4541,6 +4541,9 @@ declare module "react-native" {
     export type DeviceEventSubscription = DeviceEventSubscriptionStatic
     export var InteractionManager: InteractionManagerStatic
 
+		export var Geolocation: GeolocationStatic
+		export type Geolocation = GeolocationStatic
+
     //////////////////////////////////////////////////////////////////////////
     //
     // Additional ( and controversial)
