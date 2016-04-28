@@ -3605,6 +3605,12 @@ declare module "react-native" {
         removeEventListener: ( eventName: string, listener: ( result: T ) => void ) => void
     }
 
+    export interface IntentAndroidStatic {
+        openURL(url: string): void
+        canOpenURL(url: string, callback: (supported: boolean) => void): void
+        getInitialURL(callback: (url: string) => void):void
+    }
+
     /**
      * NetInfo exposes info about online/offline status
      *
@@ -4371,6 +4377,9 @@ declare module "react-native" {
 
     export var DatePickerAndroid: DatePickerAndroidStatic
     export type DatePickerAndroid = DatePickerAndroidStatic
+
+    export var IntentAndroid: IntentAndroidStatic
+    export type IntentAndroid = IntentAndroidStatic
 
     export var NetInfo: NetInfoStatic
     export type NetInfo = NetInfoStatic
