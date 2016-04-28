@@ -3975,6 +3975,12 @@ declare module "react-native" {
 				dismissedAction: string
 		}
 
+		export interface ToastAndroidStatic {
+			  show(message: string, duraction: number): void
+				SHORT: number
+				LONG: number
+		}
+
     export interface SwitchPropertiesIOS extends React.Props<SwitchStatic> {
         onTintColor?: any
         thumbTintColor?: any
@@ -4468,6 +4474,9 @@ declare module "react-native" {
 
 		export var TimePickerAndroid: TimePickerAndroidStatic
 		export type TimePickerAndroid = TimePickerAndroidStatic
+
+		export var ToastAndroid: ToastAndroidStatic
+		export type ToastAndroid = ToastAndroidStatic
 
     export var VibrationIOS: VibrationIOSStatic
     export type VibrationIOS = VibrationIOSStatic
