@@ -449,6 +449,34 @@ declare module "react-native" {
         shadowRadius: number
     }
 
+    type GetCurrentPositionOptions = {
+        timeout: number
+        maximumAge: number
+        enableHighAccuracy: boolean
+        distanceFilter: number
+    }
+
+		type WatchPositionOptions = {
+				timeout: number
+				maximumAge: number
+				enableHighAccuracy: boolean
+				distanceFilter: number
+		}
+
+		type GeolocationReturnType = {
+			  coords: {
+					  latitude: number
+						longitude: number
+				}
+		}
+
+    export interface GeolocationStatic {
+        getCurrentPosition(geo_success: (position: GeolocationReturnType) => void, geo_error?: (error: Error) => void, geo_options?: GetCurrentPositionOptions): void
+        watchPosition(success: (position: Geolocation) => void, error?: (error: Error) => void, options?: WatchPositionOptions): void
+        clearWatch(watchID: number): void
+        stopObserving(): void
+    }
+
 
     export interface TransformsStyle {
 
