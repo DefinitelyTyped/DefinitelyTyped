@@ -4354,6 +4354,18 @@ declare module "react-native" {
     // TODO: Add proper support
     export type fetch = (url: string, options?: Object) => Promise<any>
 
+    export type timedScheduler = (fn: string | Function, time: number) => number
+    export type untimedScheduler = (fn: string | Function) => number
+    export type setTimeout = timedScheduler
+    export type setInterval = timedScheduler
+    export type setImmediate = untimedScheduler
+    export type requestAnimationFrame = untimedScheduler
+
+    export type schedulerCanceller = (id: number) => void
+    export type clearTimeout = schedulerCanceller
+    export type clearInterval = schedulerCanceller
+    export type clearImmediate = schedulerCanceller
+    export type cancelAnimationFrame = schedulerCanceller
 
     //////////////////////////////////////////////////////////////////////////
     //
