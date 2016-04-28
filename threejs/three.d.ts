@@ -2479,6 +2479,7 @@ declare namespace THREE {
         color?: number|string;
         roughness?: number;
         metalness?: number;
+        map?: Texture;
         lighhtMap?: Texture;
         lightMapIntensity?: number;
         aoMap?: Texture;
