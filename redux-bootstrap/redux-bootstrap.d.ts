@@ -27,5 +27,5 @@ declare module "redux-bootstrap" {
         [index: string]: Redux.Reducer;
     }
 
-    export function bootstrap(options: BoostrapOptions): BootstrapResult;
+    export default function bootstrap(options: BoostrapOptions): BootstrapResult;
 }
