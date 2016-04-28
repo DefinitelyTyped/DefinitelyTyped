@@ -3963,6 +3963,18 @@ declare module "react-native" {
         setNetworkActivityIndicatorVisible(visible: boolean): void
     }
 
+		type TimePickerAndroidOpenOptions = {
+			  hour?: number
+				minute?: number
+				is24Hour?: boolean
+		}
+
+		export interface TimePickerAndroidStatic {
+			  open(options: TimePickerAndroidOpenOptions): Promise<{action: string, hour: number, minute: number}>
+				timeSetAction: string
+				dismissedAction: string
+		}
+
     export interface SwitchPropertiesIOS extends React.Props<SwitchStatic> {
         onTintColor?: any
         thumbTintColor?: any
@@ -4453,6 +4465,9 @@ declare module "react-native" {
 
     export var StatusBarIOS: StatusBarIOSStatic
     export type StatusBarIOS = StatusBarIOSStatic
+
+		export var TimePickerAndroid: TimePickerAndroidStatic
+		export type TimePickerAndroid = TimePickerAndroidStatic
 
     export var VibrationIOS: VibrationIOSStatic
     export type VibrationIOS = VibrationIOSStatic
