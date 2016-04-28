@@ -3627,6 +3627,8 @@ declare module "react-native" {
         popInitialURL(): string | null
     }
 
+
+
     /**
      * NetInfo exposes info about online/offline status
      *
@@ -3639,7 +3641,15 @@ declare module "react-native" {
 
      * @see https://facebook.github.io/react-native/docs/netinfo.html#content
      */
-    export interface NetInfoStatic extends FetchableListenable<string> {
+
+    // This is from code, a few items more than documentation@0.25
+    export type NetInfoReturnType = "none" | "wifi" | "cell" | "unknown" |
+   "NONE" | "MOBILE" | "WIFI" | "MOBILE_MMS" | "MOBILE_SUPL" | "MOBILE_DUN" |
+   "MOBILE_HIPRI" | "WIMAX" | "BLUETOOTH" | "DUMMY" | "ETHERNET" | "MOBILE_FOTA" |
+   "MOBILE_IMS" | "MOBILE_CBS" | "WIFI_P2P" | "MOBILE_IA" | "MOBILE_EMERGENCY" |
+   "PROXY" | "VPN" | "UNKNOWN"
+
+    export interface NetInfoStatic extends FetchableListenable<NetInfoReturnType> {
 
         /**
          *
@@ -3648,8 +3658,7 @@ declare module "react-native" {
          */
         isConnected: FetchableListenable<boolean>
 
-        //FIXME: Documentation missing
-        isConnectionMetered: any
+        isConnectionExpensive: FetchableListenable<boolean>
     }
 
 
