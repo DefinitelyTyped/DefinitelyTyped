@@ -4484,11 +4484,11 @@ declare module "react-native" {
     export var StatusBarIOS: StatusBarIOSStatic
     export type StatusBarIOS = StatusBarIOSStatic
 
-		export var TimePickerAndroid: TimePickerAndroidStatic
-		export type TimePickerAndroid = TimePickerAndroidStatic
+    export var TimePickerAndroid: TimePickerAndroidStatic
+    export type TimePickerAndroid = TimePickerAndroidStatic
 
-		export var ToastAndroid: ToastAndroidStatic
-		export type ToastAndroid = ToastAndroidStatic
+    export var ToastAndroid: ToastAndroidStatic
+    export type ToastAndroid = ToastAndroidStatic
 
     export var VibrationIOS: VibrationIOSStatic
     export type VibrationIOS = VibrationIOSStatic
