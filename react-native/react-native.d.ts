@@ -3827,6 +3827,23 @@ declare module "react-native" {
     }
 
 
+		type PresentLocalNotificationDetails = {
+			  alertBody: string
+				alertAction: string
+				soundName?: string
+				category?: string
+				userInfo?: Object
+		}
+
+		type ScheduleLocalNotificationDetails = {
+  			fireDate: Date
+			  alertBody: string
+				alertAction: string
+				soundName?: string
+				category?: string
+				userInfo?: Object
+		}
+
     /**
      * Handle push notifications for your app, including permission handling and icon badge number.
      * @see https://facebook.github.io/react-native/docs/pushnotificationios.html#content
@@ -3834,6 +3851,12 @@ declare module "react-native" {
      * //FIXME: BGR: The documentation seems completely off compared to the actual js implementation. I could never get the example to run
      */
     export interface PushNotificationIOSStatic {
+
+			  presentLocalNotification(details: PresentLocalNotificationDetails): void
+				scheduleLocalNotification(details: ScheduleLocalNotificationDetails): void
+				cancelAllLocalNotifications(): void
+				cancelLocalNotifications(userInfo: Object): void
+
 
         /**
          * Sets the badge number for the app icon on the home screen
@@ -3859,7 +3882,9 @@ declare module "react-native" {
          * Requests all notification permissions from iOS, prompting the user's
          * dialog box.
          */
-        requestPermissions(): void
+        requestPermissions( permissions?: PushNotificationPermissions[] ): void
+
+				abandonPermissions(): void
 
         /**
          * See what push permissions are currently enabled. `callback` will be
