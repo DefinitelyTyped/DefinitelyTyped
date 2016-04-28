@@ -6,10 +6,6 @@
 /// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path='../node/node.d.ts'/>
 
-/// <reference path='../redis/redis.d.ts'/>
-/// <reference path="../mongodb/mongodb-1.4.9.d.ts" />
-
-
 import http = require('http');
 import Promise = require("bluebird");
 

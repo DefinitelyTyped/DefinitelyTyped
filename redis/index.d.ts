@@ -7,7 +7,6 @@
 
 /// <reference path="../node/node.d.ts" />
 
-
 export declare function createClient(port_arg: number, host_arg?: string, options?: ClientOpts): RedisClient;
 export declare function createClient(unix_socket: string, options?: ClientOpts): RedisClient;
 export declare function createClient(options?: ClientOpts): RedisClient;
