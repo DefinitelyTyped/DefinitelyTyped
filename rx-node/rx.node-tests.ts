@@ -6,8 +6,6 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="rx.node.d.ts" />
 
-import RxNode = require('rx-node');
-
 {
 	var source = Rx.Observable.return(42);
 	var emitter = RxNode.toEventEmitter(source, 'data');
