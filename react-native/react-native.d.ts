@@ -2923,6 +2923,10 @@ declare module "react-native" {
 
     export interface PixelRatioStatic {
         get(): number;
+				getFontScale(): number
+				getPixelSizeForLayoutSize(layoutSize: number): number
+				roundToNearestPixel(layoutSize: number): number
+				startDetecting(): void
     }
 
     export interface PlatformStatic {
