@@ -3583,7 +3583,7 @@ declare module "react-native" {
         day?: number
     }
 
-    export interface DatePickerAndroid {
+    export interface DatePickerAndroidStatic {
         open(options?: DatePickerAndroidOpenOption): Promise<DatePickerAndroidOpenReturn>
         dateSetAction: string
         dismissedAction: string
@@ -4368,6 +4368,9 @@ declare module "react-native" {
 
     export var Clipboard: ClipboardStatic
     export type Clipboard = ClipboardStatic
+
+    export var DatePickerAndroid: DatePickerAndroidStatic
+    export type DatePickerAndroid = DatePickerAndroidStatic
 
     export var NetInfo: NetInfoStatic
     export type NetInfo = NetInfoStatic
