@@ -1,4 +1,4 @@
-/// <reference path="gulp-espower.d.ts" />
+
 /// <reference path="../gulp/gulp.d.ts" />
 
 

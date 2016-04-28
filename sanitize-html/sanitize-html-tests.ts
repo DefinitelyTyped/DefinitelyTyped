@@ -1,4 +1,3 @@
-/// <reference path="sanitize-html.d.ts" />
 
 import sanitizeHtml = require('sanitize-html');
 

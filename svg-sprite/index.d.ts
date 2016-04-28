@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../winston/winston.d.ts" />
-
 
 import File = require('../vinyl');
 import winston = require('winston');

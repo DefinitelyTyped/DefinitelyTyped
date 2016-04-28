@@ -138,7 +138,7 @@ declare namespace cola.vpsc {
         static double_rotate(root: any, dir: any): any;
     }
 }
-/// <reference path="vpsc.d.ts" />
+
 /// <reference path="rbtree.d.ts" />
 declare namespace cola.vpsc {
     interface Point {
@@ -249,8 +249,8 @@ declare namespace cola.vpsc {
         private solve(vs, cs, starting, desired);
     }
 }
-/// <reference path="vpsc.d.ts" />
-/// <reference path="rectangle.d.ts" />
+
+
 declare namespace cola.geom {
     class Point {
         x: number;
@@ -642,7 +642,7 @@ declare class PriorityQueue<T> {
      */
     count(): number;
 }
-/// <reference path="pqueue.d.ts" />
+
 /**
  * @module shortestpaths
  */
@@ -680,12 +680,12 @@ declare namespace cola.shortestpaths {
         private dijkstraNeighbours(start, dest?);
     }
 }
-/// <reference path="handledisconnected.d.ts" />
-/// <reference path="geom.d.ts" />
+
+
 /// <reference path="descent.d.ts" />
-/// <reference path="powergraph.d.ts" />
+
 /// <reference path="linklengths.d.ts" />
-/// <reference path="shortestpaths.d.ts" />
+
 /**
  * @module cola
  */
@@ -922,7 +922,7 @@ declare namespace cola {
         static mouseOut(d: any): void;
     }
 }
-/// <reference path="layout.d.ts" />
+
 declare namespace cola {
     class LayoutAdaptor extends Layout {
         trigger(e: Event): void;
@@ -950,7 +950,7 @@ declare namespace cola {
         powerGraph: any;
     };
 }
-/// <reference path="layout.d.ts" />
+
 declare namespace cola {
     class D3StyleLayoutAdaptor extends Layout {
         event: any;

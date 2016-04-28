@@ -1,5 +1,4 @@
 /// <reference path="../node/node.d.ts" />
-/// <reference path="./on-finished.d.ts" />
 
 import events = require('events');
 import onFinished = require('on-finished');

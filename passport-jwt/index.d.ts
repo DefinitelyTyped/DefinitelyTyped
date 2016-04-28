@@ -2,9 +2,6 @@
 // Project: https://github.com/themikenicholson/passport-jwt
 // Definitions by: TANAKA Koichi <https://github.com/mugeso/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../passport-strategy/passport-strategy.d.ts" />
-
-
 
 import {Strategy as PassportStrategy} from 'passport-strategy';
 import {Request} from 'express';

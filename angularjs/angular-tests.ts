@@ -1,4 +1,3 @@
-/// <reference path="angular.d.ts" />
 
 // issue: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/369
 // https://github.com/witoldsz/angular-http-auth/blob/master/src/angular-http-auth.js

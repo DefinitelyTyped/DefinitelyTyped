@@ -2,7 +2,6 @@
  * Created by stefansteinhart on 31.01.15.
  */
 
-/// <reference path="byline.d.ts" />
 
 import fs = require( 'fs' );
 import byline = require( 'byline' );

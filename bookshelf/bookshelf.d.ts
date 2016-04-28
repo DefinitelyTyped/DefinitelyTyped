@@ -5,7 +5,6 @@
 
 /// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path='../lodash/lodash-3.10.d.ts' />
-/// <reference path="../knex/knex.d.ts" />
 
 declare module 'bookshelf' {
 	import knex = require('knex');

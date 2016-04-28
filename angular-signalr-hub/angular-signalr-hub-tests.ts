@@ -1,5 +1,4 @@
 /// <reference path='angular-signalr-hub.d.ts' />
-/// <reference path='../angularjs/angular.d.ts' />
 
 angular
     .module('app', ['SignalR'])

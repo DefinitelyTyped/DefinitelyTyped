@@ -3,8 +3,6 @@
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../redis/redis.d.ts" />
-
 
 import { RedisClient } from 'redis';
 

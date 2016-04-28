@@ -3,8 +3,6 @@
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../connect/connect.d.ts" />
-
 
 import { HandleFunction } from "connect";
 

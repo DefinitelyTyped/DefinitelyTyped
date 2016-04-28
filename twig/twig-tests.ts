@@ -1,4 +1,3 @@
-/// <reference path="twig.d.ts" />
 
 import twig = require('twig');
 

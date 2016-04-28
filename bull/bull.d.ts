@@ -3,7 +3,6 @@
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../redis/redis.d.ts" />
 
 declare module "bull" {
 

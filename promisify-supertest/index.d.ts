@@ -3,9 +3,6 @@
 // Definitions by: Leo Liang <https://github.com/aleung/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path='../superagent/superagent.d.ts' />
-
-
 
 // Mostly copy-pasted from supertest.d.ts
 

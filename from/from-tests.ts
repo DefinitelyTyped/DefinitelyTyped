@@ -1,4 +1,4 @@
-/// <reference path="./from.d.ts" />
+
 /// <reference path="../node/node.d.ts" />
 
 import from = require('from');

@@ -1,6 +1,5 @@
-/// <reference path="../node/node" />
+
 /// <reference path="../gulp/gulp" />
-/// <reference path="gulp-plumber" />
 
 import gulp = require('gulp');
 import plumber = require('gulp-plumber');

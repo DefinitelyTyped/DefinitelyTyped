@@ -5,7 +5,7 @@
 
 // Change [0]: 2015/08/20 - Aya Morisawa <https://github.com/AyaMorisawa>
 
-/// <reference path="../request/request.d.ts" />
+
 /// <reference path="../bluebird/bluebird.d.ts" />
 
 

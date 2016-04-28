@@ -1,4 +1,4 @@
-/// <reference path='../nodemailer/nodemailer.d.ts' />
+
 /// <reference path='nodemailer-pickup-transport.d.ts' />
 
 import nodemailer = require('nodemailer')

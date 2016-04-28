@@ -1,4 +1,3 @@
-/// <reference path="ansi-styles.d.ts" />
 
 import ansi = require('ansi-styles');
 

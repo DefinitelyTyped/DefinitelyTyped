@@ -1,4 +1,3 @@
-/// <reference path="./username.d.ts" />
 
 import username = require("username");
 

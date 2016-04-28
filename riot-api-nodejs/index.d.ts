@@ -3,7 +3,7 @@
 // Definitions by: Luca Laissue <https://github.com/zafixlrp/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../request/request.d.ts" />
+
 /// <reference path="../riot-games-api/riot-games-api.d.ts" />
 
 

@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
-
 
 import gulp = require('gulp');
 

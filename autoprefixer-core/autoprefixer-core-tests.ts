@@ -1,4 +1,4 @@
-/// <reference path="autoprefixer-core.d.ts" />
+
 import autoprefixer = require("autoprefixer-core");
 
 var css: string;

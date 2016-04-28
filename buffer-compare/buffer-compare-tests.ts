@@ -1,4 +1,4 @@
-/// <reference path="./buffer-compare.d.ts" />
+
 /// <reference path="../node/node.d.ts" />
 
 import compare = require('buffer-compare');

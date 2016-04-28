@@ -1,4 +1,4 @@
-/// <reference path="enzyme.d.ts" />
+
 /// <reference path="../react/react.d.ts"/>
 
 import { shallow, mount, render, describeWithDOM, spyLifecycle } from "enzyme";

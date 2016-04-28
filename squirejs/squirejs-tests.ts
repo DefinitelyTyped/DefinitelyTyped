@@ -1,4 +1,3 @@
-/// <reference path="squirejs.d.ts" />
 
 import Squire = require('Squire');
 

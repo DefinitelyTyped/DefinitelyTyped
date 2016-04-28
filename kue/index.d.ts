@@ -4,9 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../redis/redis.d.ts" />
-
-
 
 import events = require('events');
 import express = require('express');

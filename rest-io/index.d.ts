@@ -4,9 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../mongoose/mongoose.d.ts" />
-
-
 
 import {Router, Application, Response, Request} from 'express';
 

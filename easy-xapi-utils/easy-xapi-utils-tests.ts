@@ -4,7 +4,6 @@
 
 
 /// <reference path="../easy-xapi/easy-xapi.d.ts" />
-/// <reference path="./easy-xapi-utils.d.ts" />
 
 import express = require('express');
 import eXapi = require('easy-xapi');

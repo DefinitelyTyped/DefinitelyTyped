@@ -1,4 +1,3 @@
-/// <reference path="title-case.d.ts" />
 
 import titleCase = require('title-case');
 

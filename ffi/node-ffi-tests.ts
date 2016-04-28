@@ -1,9 +1,7 @@
-/// <reference path="node-ffi.d.ts" />
 
 /// <reference path="../ref/ref.d.ts" />
-/// <reference path="../ref-struct/ref-struct.d.ts" />
+
 /// <reference path="../ref-union/ref-union.d.ts" />
-/// <reference path="../ref-array/ref-array.d.ts" />
 
 import ffi = require('ffi');
 import ref = require('ref');

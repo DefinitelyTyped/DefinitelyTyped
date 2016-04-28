@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../bluebird/bluebird.d.ts" />
-/// <reference path="../anydb-sql/anydb-sql.d.ts" />
-
 
 import Promise = require('bluebird');
 import { Column, Table, Transaction, AnydbSql } from 'anydb-sql';

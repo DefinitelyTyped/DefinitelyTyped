@@ -1,4 +1,4 @@
-/// <reference path="osmtogeojson.d.ts" />
+
 /// <reference path="../xmldom/xmldom.d.ts" />
 
 import osmtogeojson from 'osmtogeojson';

@@ -1,4 +1,3 @@
-/// <reference path="form-data.d.ts" />
 
 import formData = require('form-data');
 

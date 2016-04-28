@@ -5,7 +5,6 @@
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../chalk/chalk.d.ts" />
-/// <reference path="../through2/through2.d.ts" />
 
 import vinyl = require('../vinyl');
 import chalk = require('chalk');

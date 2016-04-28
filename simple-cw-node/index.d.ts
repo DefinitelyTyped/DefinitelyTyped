@@ -3,8 +3,6 @@
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../superagent/superagent.d.ts" />
-
 
 import superagent = require("superagent");
 // TODO 1. update superagent with generics

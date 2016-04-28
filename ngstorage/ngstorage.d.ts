@@ -3,7 +3,6 @@
 // Definitions by: Jakub Pistek <https://github.com/kubiq>
 // Definitions: https://github.com/kubiq/DefinitelyTyped
 
-/// <reference path='../angularjs/angular.d.ts' />
 
 declare namespace angular.storage {
 

@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../any-db/any-db.d.ts" />
-
 
 import anyDB = require("any-db");
 

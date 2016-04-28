@@ -1,4 +1,4 @@
-/// <reference path="./amazon-product-api.d.ts" />
+
 /// <reference path="../node/node.d.ts"/>
 
 import amazon = require('amazon-product-api');

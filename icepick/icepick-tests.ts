@@ -1,4 +1,4 @@
-/// <reference path="icepick.d.ts" />
+
 /// <reference path="../underscore/underscore.d.ts" />
 
 

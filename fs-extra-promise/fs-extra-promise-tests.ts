@@ -1,4 +1,4 @@
-/// <reference path="fs-extra-promise.d.ts" />
+
 /// <reference path="../node/node.d.ts" />
 
 import fs = require('fs-extra-promise');

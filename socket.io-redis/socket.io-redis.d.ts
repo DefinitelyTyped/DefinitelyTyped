@@ -3,7 +3,7 @@
 // Definitions by: Philipp Holzer <https://github.com/nupplaphil/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../redis/redis.d.ts" />
+
 /// <reference path="../socket.io/socket.io.d.ts" />
 
 declare module 'socket.io-redis' {

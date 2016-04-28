@@ -3,7 +3,6 @@
 */
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="nopt.d.ts" />
 
 import nopt = require("nopt");
 

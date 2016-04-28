@@ -3,8 +3,6 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../request/request.d.ts" />
-
 
 import request = require('request');
 

@@ -1,4 +1,4 @@
-/// <reference path="pify.d.ts" />
+
 /// <reference path="../bluebird/bluebird.d.ts" />
 
 import * as pify from 'pify';

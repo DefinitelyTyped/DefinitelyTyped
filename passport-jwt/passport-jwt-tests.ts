@@ -1,4 +1,4 @@
-/// <reference path="passport-jwt.d.ts" />
+
 /// <reference path="../passport/passport.d.ts" />
 'use strict';
 

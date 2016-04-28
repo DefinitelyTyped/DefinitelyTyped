@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../threejs/three.d.ts" />
 
 declare namespace Physijs {
     export function noConflict():Object;

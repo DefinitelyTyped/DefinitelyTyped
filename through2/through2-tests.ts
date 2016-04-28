@@ -1,4 +1,4 @@
-/// <reference path="./through2.d.ts" />
+
 /// <reference path="../node/node.d.ts" />
 
 import through2 = require('through2');
