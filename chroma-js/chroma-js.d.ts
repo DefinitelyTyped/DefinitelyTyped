@@ -1,6 +1,7 @@
 // Type definitions for Chroma.js v1.1.1
 // Project: https://github.com/gka/chroma.js
-// Definitions by:  Sebastian Brückner <https://github.com/invliD> and Marcin Pacholec <https://github.com/mpacholec>
+// Definitions by:  Sebastian Brückner <https://github.com/invliD> 
+//                  Marcin Pacholec    <https://github.com/mpacholec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -8,12 +9,13 @@
  */
 declare namespace Chroma {
     export interface ChromaStatic {
+
         /**
-        * Creates a color from a string representation (as supported in CSS).
-        *
-        * @param color The string to convert to a color.
-        * @return the color object.
-        */
+         * Creates a color from a string representation (as supported in CSS).
+         *
+         * @param color The string to convert to a color.
+         * @return the color object.
+         */
         (color: string): Color;
 
         /**
@@ -21,7 +23,7 @@ declare namespace Chroma {
          * 
          * @param color The number to convert to a color.
          * @return the color object.
-        */
+         */
         (number: number): Color;
 
         /**
@@ -35,6 +37,9 @@ declare namespace Chroma {
         */
         (a: number, b: number, c: number, colorSpace?: string): Color;
 
+        /** 
+         * 
+         */
         (a: number, b: number, c: number, d: number, colorSpace?: string): Color;
 
         /**
@@ -46,8 +51,6 @@ declare namespace Chroma {
           */
         (values: number[], colorSpace?: string): Color;
 
-
-
         /**
          * Create a color from a hex or string representation (as supported in CSS).
          *
@@ -57,7 +60,6 @@ declare namespace Chroma {
          * @return the color object.
          */
         hex(color: string): Color;
-
 
         /** */
         hsl(h: number, s: number, l: number): Color;
@@ -98,17 +100,17 @@ declare namespace Chroma {
 
         /**
          * Returns a random color.
-        */
+         */
         random(): Color;
 
         /**
-          * Computes the WCAG contrast ratio between two colors. 
-          * A minimum contrast of 4.5:1 is recommended to ensure that text is still readable against a background color.
-          *
-          * @param color1 The first color.
-          * @param color2 The second color.
-          * @return the contrast ratio.
-          */
+         * Computes the WCAG contrast ratio between two colors. 
+         * A minimum contrast of 4.5:1 is recommended to ensure that text is still readable against a background color.
+         *
+         * @param color1 The first color.
+         * @param color2 The second color.
+         * @return the contrast ratio.
+         */
         contrast(col1: string | Color, col2: string | Color): number;
 
         bezier(colors: string[]): Scale;
@@ -116,7 +118,7 @@ declare namespace Chroma {
         /**
          * chroma.brewer is an map of ColorBrewer scales that are included in chroma.js for convenience. 
          * chroma.scale uses the colors to construct.
-        */
+         */
         brewer: {
             OrRd: string[];
             PuBu: string[];
@@ -184,11 +186,31 @@ declare namespace Chroma {
     }
 
     export interface Color {
+        /** 
+         * 
+         */
         alpha(a?: number): Color;
+        
+        /**
+         * 
+         */
         darken(f?: number): Color;
+        
+        /**
+         * 
+         */
         brighten(f?: number): Color;
+        
+        /**
+         * 
+         */
         saturate(s?: number): Color;
+        
+        /**
+         * 
+         */
         desaturate(s?: number): Color;
+        
         /**
          * Set a channel of a color space.
         */
@@ -199,16 +221,24 @@ declare namespace Chroma {
          */
         get(modechan: string): number;
 
-        /** */
+        /**
+         * 
+         */
         luminance(): number;
 
-        /** */
+        /**
+         * 
+         */
         luminance(l: number, mode?: string): Color;
 
-        /** */
+        /**
+         * 
+         */
         hex(): string;
 
-        /** */
+        /**
+         * 
+         */
         name(): string;
 
         /**
