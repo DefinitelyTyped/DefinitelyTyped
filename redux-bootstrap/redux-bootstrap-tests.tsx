@@ -1,5 +1,3 @@
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="../react/react.d.ts" />
 /// <reference path="./redux-bootstrap.d.ts" />
 
 import bootstrap from "redux-bootstrap";
