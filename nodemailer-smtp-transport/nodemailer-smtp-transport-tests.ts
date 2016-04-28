@@ -1,4 +1,3 @@
-/// <reference path="nodemailer-smtp-transport.d.ts" />
 
 import smtpTransport = require('nodemailer-smtp-transport');
 

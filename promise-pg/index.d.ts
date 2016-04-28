@@ -5,8 +5,6 @@
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../q/Q.d.ts" />
-/// <reference path="../pg/pg.d.ts" />
-
 
 import * as stream from 'stream';
 import * as pg from 'pg';

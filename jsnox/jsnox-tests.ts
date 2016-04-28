@@ -1,4 +1,4 @@
-/// <reference path="jsnox.d.ts" />
+
 import React = require('react');
 import jsnox = require('jsnox');
 var $ = jsnox(React);

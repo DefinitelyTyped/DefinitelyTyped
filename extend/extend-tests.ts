@@ -1,5 +1,4 @@
 /// <reference path="../node/node.d.ts" />
-/// <reference path="extend.d.ts" />
 
 import assert = require('assert');
 import extend = require('extend');

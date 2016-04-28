@@ -1,4 +1,3 @@
-/// <reference path="fbsdk.d.ts" />
 
 window.fbAsyncInit = function() {
     FB.init(

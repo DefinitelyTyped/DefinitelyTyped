@@ -1,4 +1,4 @@
-/// <reference path="denodeify.d.ts" />
+
 /// <reference path="../node/node.d.ts" />
 
 import denodeify = require("denodeify");

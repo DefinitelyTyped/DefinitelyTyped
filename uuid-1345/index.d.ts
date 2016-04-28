@@ -2,7 +2,6 @@
 // Project: https://github.com/scravy/uuid-1345
 // Definitions by: TANAKA Koichi <https://github.com/mugeso/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-///<reference path="../node/node" />
 
 export interface UUID {
     version: string;

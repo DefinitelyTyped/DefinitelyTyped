@@ -1,4 +1,4 @@
-/// <reference path="imagemagick.d.ts" />
+
 /// <reference path="../node/node.d.ts" />
 
 import imagemagick = require('imagemagick');

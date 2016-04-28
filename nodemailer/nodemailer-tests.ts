@@ -1,4 +1,3 @@
-/// <reference path="nodemailer.d.ts" />
 
 import * as nodemailer from 'nodemailer'
 

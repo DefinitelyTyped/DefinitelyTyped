@@ -1,4 +1,3 @@
-/// <reference path="credential.d.ts" />
 
 // all from current main repo examples
 

@@ -1,5 +1,5 @@
 /// <reference path="../socket.io/socket.io.d.ts"/>
-/// <reference path="socket.io.users.d.ts" />
+
 /// <reference path="../node/node.d.ts" />
 
 var express = require('express');

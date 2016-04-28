@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../bunyan/bunyan.d.ts" />
 
 declare module "restify" {
   import http = require('http');

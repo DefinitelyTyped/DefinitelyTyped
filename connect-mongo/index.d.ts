@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../mongoose/mongoose.d.ts" />
+
 /// <reference path="../mongodb/mongodb.d.ts" />
 /// <reference path="../express-session/express-session.d.ts" />
 

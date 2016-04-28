@@ -1,4 +1,3 @@
-/// <reference path="domready.d.ts" />
 
 import domReady = require("domReady");
 

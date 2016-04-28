@@ -3,7 +3,6 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../redis/redis.d.ts" />
 
 // PLEASE USE redis/redis.d.ts directly!
 

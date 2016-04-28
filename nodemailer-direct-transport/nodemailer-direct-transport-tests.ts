@@ -1,4 +1,3 @@
-/// <reference path="nodemailer-direct-transport.d.ts" />
 
 import directTransport = require('nodemailer-direct-transport');
 

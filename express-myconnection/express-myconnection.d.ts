@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../mysql/mysql.d.ts" />
 
 declare namespace mysql{
   export interface IConnection {}

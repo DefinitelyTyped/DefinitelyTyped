@@ -1,4 +1,3 @@
-/// <reference path="./consul.d.ts" />
 
 import * as Consul from "consul";
 

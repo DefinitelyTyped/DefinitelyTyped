@@ -1,4 +1,3 @@
-/// <reference path="./passport-local.d.ts" />
 
 /**
  * Created by Maxime LUCE <https://github.com/SomaticIT>.

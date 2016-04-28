@@ -1,4 +1,3 @@
-/// <reference path="assertion-error.d.ts" />
 
 import AssertionError = require('assertion-error');
 

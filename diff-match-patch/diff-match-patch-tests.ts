@@ -1,4 +1,3 @@
-///<reference path="./diff-match-patch.d.ts" />
 
 import DiffMatchPatch = require("diff-match-patch");
 

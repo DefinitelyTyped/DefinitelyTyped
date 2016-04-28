@@ -1,4 +1,3 @@
-/// <reference path="./bs58.d.ts" />
 
 import * as bs58 from 'bs58';
 

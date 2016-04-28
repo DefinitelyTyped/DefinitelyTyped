@@ -11,8 +11,6 @@
  =============================================== */
 
 /// <reference path="../express-serve-static-core/express-serve-static-core.d.ts" />
-/// <reference path="../mime/mime.d.ts" />
-
 
 import * as express from "express-serve-static-core";
 

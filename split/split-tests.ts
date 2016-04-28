@@ -1,4 +1,4 @@
-/// <reference path="split.d.ts" />
+
 /// <reference path="../node/node.d.ts" />
 
 import stream = require("stream");

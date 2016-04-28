@@ -1,4 +1,3 @@
-/// <reference path='./connect-modrewrite.d.ts' />
 
 import modRewrite = require('connect-modrewrite');
 import express = require('../express');

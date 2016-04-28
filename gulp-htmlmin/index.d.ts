@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../html-minifier/html-minifier.d.ts" />
-
 
 import * as HTMLMinifier from 'html-minifier';
 

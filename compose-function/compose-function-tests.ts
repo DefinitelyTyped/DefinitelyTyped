@@ -1,4 +1,3 @@
-/// <reference path="compose-function.d.ts" />
 
 const numberToNumber = (a: number): number => a + 2;
 const numberToString = (a: number): string => "foo";

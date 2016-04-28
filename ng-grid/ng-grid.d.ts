@@ -8,7 +8,6 @@
 // Changelog:
 // 25/4/2014: Added interfaces for all classes and services
 
-/// <reference path='../angularjs/angular.d.ts' />
 
 declare class ngGridReorderable {
     constructor();

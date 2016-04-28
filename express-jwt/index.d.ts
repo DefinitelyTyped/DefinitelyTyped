@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../express-unless/express-unless.d.ts" />
-
 
 import express = require('express');
 import unless = require('express-unless');

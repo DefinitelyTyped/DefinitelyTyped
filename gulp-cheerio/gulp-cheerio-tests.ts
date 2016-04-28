@@ -1,4 +1,4 @@
-/// <reference path="gulp-cheerio.d.ts" />
+
 /// <reference path="../gulp/gulp.d.ts" />
 /// <reference path="../cheerio/cheerio.d.ts" />
 

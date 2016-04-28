@@ -1,4 +1,4 @@
-/// <reference path="./expect.d.ts" />
+
 /// <reference path="../mocha/mocha.d.ts"" />
 
 import expect,

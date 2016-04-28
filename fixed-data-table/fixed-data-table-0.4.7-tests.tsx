@@ -1,4 +1,4 @@
-/// <reference path="./fixed-data-table-0.4.7.d.ts"" />
+
 /// <reference path="../react/react.d.ts"/>
 /// <reference path="../react/react-dom.d.ts"/>
 

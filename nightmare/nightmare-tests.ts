@@ -1,4 +1,4 @@
-/// <reference path="./nightmare.d.ts" />
+
 /// <reference path="../jquery/jquery.d.ts" />
 
 import Nightmare = require("nightmare");

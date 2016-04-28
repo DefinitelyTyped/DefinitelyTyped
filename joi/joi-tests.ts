@@ -1,4 +1,4 @@
-/// <reference path="joi.d.ts" />
+
 /// <reference path="../node/node.d.ts" />
 
 import Joi = require('joi');

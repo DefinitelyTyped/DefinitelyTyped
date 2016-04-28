@@ -1,5 +1,3 @@
-/// <reference path="http-errors.d.ts" />
-
 
 import * as createError from 'http-errors';
 import * as express from 'express';

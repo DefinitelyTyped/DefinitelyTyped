@@ -1,5 +1,4 @@
 /// <reference path="../node/node.d.ts" />
-/// <reference path="kue.d.ts" />
 
 import kue = require('kue');
 

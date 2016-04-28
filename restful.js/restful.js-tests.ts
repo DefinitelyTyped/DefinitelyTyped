@@ -1,4 +1,3 @@
-/// <reference path="restful.js.d.ts" />
 
 import restful, {
     Api, MemberResponse, CollectionResponse, ResponseBody, CollectionEndpoint, MemberEndpoint,

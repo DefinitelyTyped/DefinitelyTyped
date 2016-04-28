@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../svg-sprite/svg-sprite.d.ts" />
-
 
 import spriter = require('svg-sprite');
 

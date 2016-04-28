@@ -4,9 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../node-sass/node-sass.d.ts" />
-
-
 
 import * as sass from "node-sass";
 import * as express from "express";

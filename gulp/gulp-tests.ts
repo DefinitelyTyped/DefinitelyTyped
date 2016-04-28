@@ -1,4 +1,4 @@
-/// <reference path="gulp.d.ts" />
+
 /// <reference path="../browser-sync/browser-sync.d.ts"/>
 
 import gulp = require("gulp");

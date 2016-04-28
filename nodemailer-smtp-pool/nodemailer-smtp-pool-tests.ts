@@ -1,4 +1,3 @@
-/// <reference path="nodemailer-smtp-pool.d.ts" />
 
 import smtpPool = require('nodemailer-smtp-pool');
 

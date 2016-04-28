@@ -3,7 +3,6 @@
  */
 
 
-/// <reference path="./easy-xapi-supertest.d.ts" />
 
 import express = require('express');
 import eSupertest = require('easy-xapi-supertest');

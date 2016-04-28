@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../mongodb/mongodb.d.ts" />
 
 declare namespace GridFSStream {
     export interface Range {

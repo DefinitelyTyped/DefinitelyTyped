@@ -1,5 +1,3 @@
-/// <reference path="serve-index.d.ts" />
-
 
 import * as express from 'express';
 import * as serveIndex from 'serve-index';

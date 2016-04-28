@@ -3,8 +3,6 @@
 // Definitions by: jt000 <https://github.com/jt000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../mongoose/mongoose.d.ts" />
-
 
 import mongoose = require('mongoose');
 

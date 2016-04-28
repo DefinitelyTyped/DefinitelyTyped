@@ -3,7 +3,6 @@
 // Definitions by: AmirSaber Sharifi <https://github.com/amirsaber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../koa/koa.d.ts" />
 
 declare module "koa-mount" {
 

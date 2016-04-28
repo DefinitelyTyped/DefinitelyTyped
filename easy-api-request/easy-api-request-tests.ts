@@ -3,7 +3,6 @@
  */
 
 
-/// <reference path="./easy-api-request.d.ts" />
 
 import express = require('express');
 import APIRequest = require('easy-api-request');

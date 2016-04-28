@@ -1,4 +1,3 @@
-/// <reference path="noble.d.ts" />
 
 import noble = require("noble");
 

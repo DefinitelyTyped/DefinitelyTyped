@@ -1,4 +1,3 @@
-/// <reference path="tape.d.ts" />
 
 /// <reference path="../node/node.d.ts" />
 

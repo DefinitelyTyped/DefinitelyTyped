@@ -5,8 +5,6 @@
 
 /// <reference path="../bluebird/bluebird-2.0.d.ts" />
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../log4js/log4js.d.ts" />
-
 
     namespace karma {
         interface Karma {

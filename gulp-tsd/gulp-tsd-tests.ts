@@ -1,4 +1,4 @@
-/// <reference path="./gulp-tsd.d.ts" />
+
 /// <reference path="../gulp/gulp.d.ts" />
 
 import * as gulp from "gulp";

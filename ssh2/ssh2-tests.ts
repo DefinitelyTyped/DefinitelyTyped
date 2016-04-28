@@ -1,4 +1,3 @@
-/// <reference path="ssh2.d.ts" />
 
 import * as ssh2 from 'ssh2';
 

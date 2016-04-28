@@ -1,5 +1,4 @@
 
-/// <reference path="ejs-locals.d.ts" />
 
 import express = require('express');
 import ejsLocals = require('ejs-locals');

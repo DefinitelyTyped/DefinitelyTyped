@@ -1,4 +1,4 @@
-/// <reference path="mu2.d.ts" />
+
 /// <reference path="../node/node.d.ts" />
 
 import mu2 = require('mu2');

@@ -1,4 +1,3 @@
-/// <reference path="sanitize-html.d.ts" />
 
 import * as sanitize from 'sanitize-html';
 

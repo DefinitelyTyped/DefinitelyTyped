@@ -1,4 +1,4 @@
-/// <reference path="superagent.d.ts" />
+
 /// <reference path="../node/node.d.ts" />
 
 // via: http://visionmedia.github.io/superagent/

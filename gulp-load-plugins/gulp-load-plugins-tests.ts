@@ -1,6 +1,6 @@
-/// <reference path="../node/node" />
+
 /// <reference path="../gulp/gulp" />
-/// <reference path="../gulp-concat/gulp-concat" />
+
 /// <reference path="gulp-load-plugins" />
 
 import * as gulp from 'gulp';

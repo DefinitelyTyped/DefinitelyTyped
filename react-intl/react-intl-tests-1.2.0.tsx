@@ -3,7 +3,7 @@
  */
 
 ///<reference path='../react/react.d.ts' />
-///<reference path='../react-mixin/react-mixin.d.ts' />
+
 ///<reference path='../react-intl/react-intl-1.2.0.d.ts' />
 
 import * as React from 'react'

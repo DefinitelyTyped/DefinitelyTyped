@@ -1,4 +1,4 @@
-/// <reference path="../redis/redis.d.ts" />
+
 /// <reference path="./ratelimiter.d.ts" />
 
 import * as redis from 'redis';

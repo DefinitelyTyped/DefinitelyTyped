@@ -1,4 +1,3 @@
-/// <reference path="./cli.d.ts" />
 
 import * as cli from "cli";
 

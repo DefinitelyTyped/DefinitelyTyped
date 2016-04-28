@@ -1,4 +1,4 @@
-/// <reference path="gulp-svg-sprite.d.ts" />
+
 /// <reference path="../gulp/gulp.d.ts" />
 /// <reference path="../svg-sprite/svg-sprite.d.ts" />
 

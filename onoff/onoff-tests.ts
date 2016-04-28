@@ -1,4 +1,4 @@
-/// <reference path="onoff" />
+
 /// <reference path="../node/node.d.ts" />
 import * as onoff from 'onoff';
 

@@ -1,4 +1,3 @@
-/// <reference path="param-case.d.ts" />
 
 import paramCase = require('param-case');
 

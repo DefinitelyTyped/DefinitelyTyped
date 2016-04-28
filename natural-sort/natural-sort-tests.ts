@@ -1,4 +1,3 @@
-/// <reference path="./natural-sort.d.ts" />
 
 import naturalSort = require("naturalSort");
 

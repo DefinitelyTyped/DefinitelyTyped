@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="angular.d.ts" />
 
 declare module "angular-sanitize" {
     var _: string;

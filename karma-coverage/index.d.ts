@@ -3,7 +3,7 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../karma/karma.d.ts" />
+
 /// <reference path="../istanbul/istanbul.d.ts" />
 
 

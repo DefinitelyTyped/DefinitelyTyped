@@ -1,4 +1,4 @@
-/// <reference path='../angularjs/angular.d.ts' />
+
 /// <reference path='angular-locker.d.ts' />
 
 angular

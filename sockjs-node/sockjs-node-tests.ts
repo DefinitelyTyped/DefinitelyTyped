@@ -1,4 +1,4 @@
-/// <reference path="sockjs-node.d.ts" />
+
 import sockjs = require("sockjs");
 import http = require("http");
 import stream = require("stream");

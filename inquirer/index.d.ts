@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../rx/rx-lite.d.ts" />
-/// <reference path="../through/through.d.ts" />
-
 
 import through = require('through');
 

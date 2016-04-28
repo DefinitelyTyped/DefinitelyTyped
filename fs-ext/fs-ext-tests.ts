@@ -1,4 +1,4 @@
-/// <reference path="fs-ext.d.ts" />
+
 /// <reference path="../node/node.d.ts" />
 
 import fs = require('fs-ext');

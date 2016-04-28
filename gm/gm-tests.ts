@@ -1,4 +1,4 @@
-/// <reference path="gm.d.ts" />
+
 /// <reference path="../node/node.d.ts" />
 
 import gm = require('gm');

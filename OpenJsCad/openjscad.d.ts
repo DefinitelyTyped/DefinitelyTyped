@@ -2,7 +2,6 @@
 // Project: https://github.com/joostn/OpenJsCad
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../threejs/three.d.ts" />
 
 declare namespace THREE {
     var CSG: {
