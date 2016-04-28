@@ -442,6 +442,13 @@ declare module "react-native" {
         width?: number
     }
 
+    export interface ShadowPropTypesIOSStatic {
+        shadowColor: string
+        shadowOffset: {width: number, height: number}
+        shadowOpacity: number
+        shadowRadius: number
+    }
+
 
     export interface TransformsStyle {
 
@@ -4490,6 +4497,7 @@ declare module "react-native" {
     export type Vibration = VibrationStatic
 
     export var Dimensions: Dimensions;
+    export var ShadowPropTypesIOS: ShadowPropTypesIOSStatic;
 
     //
     // /TODO: BGR: These are leftovers of the initial port that must be revisited
