@@ -91,13 +91,13 @@ interface Select2JQueryEventObject extends JQueryEventObject {
 }
 
 interface Select2SelectionObject {
-	loading: boolean,
-    disabled: boolean,
-    element: HTMLOptionElement,
-    id: string,
-    selected: boolean,
-    text: string,
-    title: string,
+    loading: boolean;
+    disabled: boolean;
+    element: HTMLOptionElement;
+    id: string;
+    selected: boolean;
+    text: string;
+    title: string;
 }
 
 interface JQuery {
