@@ -1,4 +1,4 @@
-/// <reference path='multiparty.d.ts' />
+
 /// <reference path='../node/node.d.ts' />
 import multiparty = require('multiparty');
 import http = require('http');

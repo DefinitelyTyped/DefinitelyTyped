@@ -1,4 +1,4 @@
-/// <reference path="../gulp/gulp.d.ts" />
+
 /// <reference path="gulp-task-listing.d.ts" />
 
 import gulp = require('gulp');

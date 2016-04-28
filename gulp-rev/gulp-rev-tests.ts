@@ -1,4 +1,4 @@
-/// <reference path="gulp-rev.d.ts" />
+
 /// <reference path="../gulp/gulp.d.ts" />
 
 import gulp = require('gulp');

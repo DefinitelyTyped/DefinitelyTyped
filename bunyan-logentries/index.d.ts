@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../bunyan/bunyan.d.ts" />
-
 
 import bunyan = require("bunyan");
 

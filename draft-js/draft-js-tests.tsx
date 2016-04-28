@@ -1,4 +1,4 @@
-/// <reference path="draft-js.d.ts" />
+
 /// <reference path="../react/react-global.d.ts" />
 /// <reference path="../react/react-dom.d.ts"/>
 

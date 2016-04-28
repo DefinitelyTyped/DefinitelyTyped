@@ -1,4 +1,4 @@
-/// <reference path="../mongoose/mongoose.d.ts" />
+
 /// <reference path="./mongoose-auto-increment.d.ts" />
 
 import * as autoIncrement from 'mongoose-auto-increment';

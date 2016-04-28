@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../bluebird/bluebird.d.ts" />
-/// <reference path="../request/request.d.ts" />
-
 
 import * as Promise from 'bluebird';
 

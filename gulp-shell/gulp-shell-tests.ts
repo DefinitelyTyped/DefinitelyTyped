@@ -1,4 +1,4 @@
-/// <reference path="gulp-shell.d.ts" />
+
 /// <reference path="../gulp/gulp.d.ts" />
 
 import shell = require('gulp-shell');

@@ -3,7 +3,6 @@
 // Definitions by: Diullei Gomes <https://github.com/diullei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../js-signals/js-signals.d.ts" />
 
 declare namespace CrossroadsJs {
 

@@ -1,4 +1,3 @@
-/// <reference path="flux-standard-action.d.ts" />
 
 //import action = require('flux-standard-action');
 import { isError, isFSA, Action, ErrorAction } from 'flux-standard-action';

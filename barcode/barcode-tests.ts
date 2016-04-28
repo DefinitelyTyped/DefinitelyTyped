@@ -1,4 +1,4 @@
-/// <reference path="barcode.d.ts" />
+
 import barcode = require('barcode');
 import path = require('path');
 

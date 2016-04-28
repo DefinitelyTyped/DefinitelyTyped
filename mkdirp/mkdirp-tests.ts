@@ -1,4 +1,3 @@
-/// <reference path="mkdirp.d.ts" />
 
 import mkdirp = require('mkdirp');
 

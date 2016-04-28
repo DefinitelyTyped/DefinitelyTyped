@@ -1,5 +1,3 @@
-/// <reference path="UUID.d.ts" />
-
 
 import UUID = require("UUID");
 

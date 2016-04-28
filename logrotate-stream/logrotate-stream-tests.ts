@@ -1,4 +1,3 @@
-/// <reference path="logrotate-stream.d.ts" />
 
 import stream = require("stream");
 import rotateStream = require("logrotate-stream");

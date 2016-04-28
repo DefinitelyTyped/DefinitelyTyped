@@ -5,8 +5,6 @@
 
 /// <reference path="../chokidar/chokidar.d.ts"/>
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../micromatch/micromatch.d.ts" />
-
 
 import chokidar = require("chokidar");
 import fs = require("fs");

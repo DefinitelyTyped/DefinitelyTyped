@@ -1,4 +1,4 @@
-/// <reference path="./micromatch.d.ts" />
+
 import mm = require('micromatch');
 
 var strArrResult: string[];

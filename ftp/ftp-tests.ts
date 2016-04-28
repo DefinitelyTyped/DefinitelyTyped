@@ -1,4 +1,4 @@
-/// <reference path="ftp.d.ts" />
+
 /// <reference path="../node/node.d.ts" />
 
 import Client = require("ftp");

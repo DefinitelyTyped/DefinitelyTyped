@@ -3,7 +3,7 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../clean-css/clean-css.d.ts" />
+
 /// <reference path="../relateurl/relateurl.d.ts" />
 
 import * as UglifyJS from '../uglify-js';

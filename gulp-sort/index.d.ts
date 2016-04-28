@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../gulp-util/gulp-util.d.ts" />
 
 /** Sort files in stream by path or any custom sort comparator */
 

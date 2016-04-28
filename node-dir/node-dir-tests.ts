@@ -1,4 +1,3 @@
-/// <reference path="node-dir.d.ts" />
 
 import * as dir from "node-dir";
 

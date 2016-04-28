@@ -1,6 +1,5 @@
-/// <reference path="./gulp-dtsm.d.ts" />
+
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
 
 import * as dtsm from 'gulp-dtsm';
 import * as gulp from 'gulp';

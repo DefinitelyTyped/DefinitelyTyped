@@ -1,4 +1,4 @@
-/// <reference path="./bunyan-logentries.d.ts" />
+
 /// <reference path="../bunyan/bunyan.d.ts" />
 
 import bunyan = require("bunyan");

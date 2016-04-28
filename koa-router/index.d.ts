@@ -10,9 +10,6 @@
 
  =============================================== */
 
-/// <reference path="../koa/koa.d.ts" />
-
-
 
 import * as Koa from "koa";
 

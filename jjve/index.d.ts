@@ -3,8 +3,6 @@
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jjv/jjv.d.ts" />
-
 
 import jjv = require('jjv');
 

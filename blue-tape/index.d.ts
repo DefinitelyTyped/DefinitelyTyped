@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../tape/tape.d.ts" />
-
 
 import tape = require('tape');
 export = tape;

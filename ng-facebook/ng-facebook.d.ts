@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angularjs.d.ts" />
-/// <reference path="../fbsdk/fbsdk.d.ts" />
 
 declare namespace angular.ngFacebook {
     interface IFacebookProvider {

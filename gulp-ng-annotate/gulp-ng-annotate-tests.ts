@@ -1,4 +1,4 @@
-/// <reference path="gulp-ng-annotate.d.ts" />
+
 /// <reference path="../gulp/gulp.d.ts" />
 
 import ngAnnotate = require('gulp-ng-annotate');

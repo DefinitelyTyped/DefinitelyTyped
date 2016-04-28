@@ -3,7 +3,6 @@
 // Definitions by: Calvin Fernandez <https://github.com/CalvinFernandez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path='../angularjs/angular.d.ts' />
 
 declare namespace AngularUITree {
     interface IEventSourceInfo {

@@ -3,7 +3,7 @@
 // Definitions by: Makis Maropoulos <https://github.com/kataras>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path='./../mysql/mysql.d.ts' />
+
 ///<reference path='./../bluebird/bluebird.d.ts' />
 ///<reference path="./my-meteor.d.ts" />
 

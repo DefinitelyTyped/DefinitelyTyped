@@ -1,5 +1,3 @@
-/// <reference path="./log4js.d.ts" />
-
 
 import log4js = require('log4js');
 

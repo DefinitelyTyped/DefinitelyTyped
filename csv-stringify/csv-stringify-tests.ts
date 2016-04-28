@@ -1,4 +1,3 @@
-/// <reference path="csv-stringify.d.ts" />
 
 import stringify = require("csv-stringify");
 

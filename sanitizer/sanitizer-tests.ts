@@ -1,4 +1,3 @@
-/// <reference path="sanitizer.d.ts" />
 
 import sanitizer = require('sanitizer');
 

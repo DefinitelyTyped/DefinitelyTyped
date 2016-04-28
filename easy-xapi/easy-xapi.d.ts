@@ -5,7 +5,6 @@
 
 
 /// <reference path="../easy-jsend/easy-jsend.d.ts" />
-/// <reference path="../bunyan/bunyan.d.ts" />
 
 declare namespace Express {
     export interface Request {

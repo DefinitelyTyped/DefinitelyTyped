@@ -5,7 +5,6 @@
 // Tests taken from documentation samples.
 
 ///<reference path="../node/node.d.ts" />
-///<reference path="../shelljs/shelljs.d.ts" />
 
 import shell = require("shelljs");
 

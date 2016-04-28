@@ -1,4 +1,4 @@
-/// <reference path="oracledb.d.ts" />
+
 /// <reference path="../node/node.d.ts" />
 
 import * as OracleDB from 'oracledb';

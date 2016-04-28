@@ -1,4 +1,3 @@
-/// <reference path="cors.d.ts" />
 
 import express = require('express');
 import cors = require('cors');

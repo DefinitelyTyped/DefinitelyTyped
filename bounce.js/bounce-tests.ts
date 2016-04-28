@@ -1,4 +1,4 @@
-/// <reference path="./bounce.d.ts" />
+
 /// <reference path="./../jquery/jquery.d.ts" />
 
 import Bounce from 'bounce.js';

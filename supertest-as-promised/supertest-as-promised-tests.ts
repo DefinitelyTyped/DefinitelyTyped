@@ -1,4 +1,3 @@
-/// <reference path="supertest-as-promised.d.ts" />
 
 /// <reference path="../jasmine/jasmine.d.ts" />
 
