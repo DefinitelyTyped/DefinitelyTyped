@@ -1,6 +1,6 @@
 // Type definitions for Chroma.js v1.1.1
 // Project: https://github.com/gka/chroma.js
-// Definitions by:  Sebastian Brückner <https://github.com/invliD> Marcin Pacholec <https://github.com/mpacholec>
+// Definitions by: Sebastian Brückner <https://github.com/invliD> Marcin Pacholec <https://github.com/mpacholec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
