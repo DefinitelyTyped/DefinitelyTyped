@@ -36,6 +36,7 @@ mock.module(
     function () { return 2; }
     );
 mock.module({ module1: function () { return 1; } });
+mock.module.sharedInjector();
 
 date = mock.TzDate(-7, '2013-1-1T15:00:00Z');
 date = mock.TzDate(-8, 12345678);

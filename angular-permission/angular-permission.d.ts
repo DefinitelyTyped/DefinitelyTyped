@@ -1,4 +1,4 @@
-// Type definitions for angular-permission 2.3.1
+// Type definitions for angular-permission 2.3.6
 // Project: https://github.com/Narzerus/angular-permission
 // Definitions by: Voislav Mishevski <https://github.com/vmishevski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,6 +7,16 @@
 /// <reference path="../angular-ui-router/angular-ui-router.d.ts" />
 
 declare namespace angular.permission {
+  /**
+   * Used as optional parameter provided on definitions of permissions and roles
+   */
+  export interface TransitionProperties {
+    fromState?: angular.ui.IState;
+    fromParams?: angular.ui.IStateParamsService;
+    toState?: angular.ui.IState;
+    toParams?: angular.ui.IStateParamsService;
+    options?: angular.ui.IStateOptions;
+  }
 
   export interface PermissionStore {
     /**
@@ -18,7 +28,7 @@ declare namespace angular.permission {
      */
     definePermission(
       name: string,
-      validationFunction: (stateParams?: angular.ui.IStateParamsService, permission?: string) => boolean | angular.IPromise<any>
+      validationFunction: (permission?: string, transitionProperties?: TransitionProperties) => boolean | angular.IPromise<any>
     ): void;
 
     /**
@@ -31,7 +41,7 @@ declare namespace angular.permission {
      */
     defineManyPermissions(
       permissions: string[],
-      validationFunction: (stateParams?: angular.ui.IStateParamsService, permission?: string) => boolean | angular.IPromise<any>
+      validationFunction: (permission?: string, transitionProperties?: TransitionProperties) => boolean | angular.IPromise<any>
     ): void;
 
     clearStore(): void;
@@ -138,11 +148,11 @@ declare namespace angular.permission {
   }
 
   interface RoleValidationFunction {
-    (stateParams?: angular.ui.IStateParamsService, permission?: string): boolean | angular.IPromise<any>;
+    (permission?: string, transitionProperties?: TransitionProperties): boolean | angular.IPromise<any>;
   }
 
   interface PermissionValidationFunction {
-    (stateParams?: angular.ui.IStateParamsService, permission?: string): boolean | angular.IPromise<any>;
+    (permission?: string, transitionProperties?: TransitionProperties): boolean | angular.IPromise<any>;
   }
 
   export interface IPermissionState extends angular.ui.IState {

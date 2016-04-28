@@ -15,6 +15,7 @@ import * as querystring from "querystring";
 import * as path from "path";
 import * as readline from "readline";
 import * as childProcess from "child_process";
+import * as cluster from "cluster";
 import * as os from "os";
 import * as vm from "vm";
 // Specifically test buffer module regression.
@@ -642,6 +643,18 @@ namespace readline_tests {
 
 childProcess.exec("echo test");
 childProcess.spawnSync("echo test");
+
+//////////////////////////////////////////////////////////////////////
+/// cluster tests: https://nodejs.org/api/cluster.html ///
+//////////////////////////////////////////////////////////////////////
+
+cluster.fork();
+Object.keys(cluster.workers).forEach(key => {
+    const worker = cluster.workers[key];
+    if (worker.isDead()) {
+        console.log('worker %d is dead', worker.process.pid);
+    }
+});
 
 ////////////////////////////////////////////////////
 /// os tests : https://nodejs.org/api/os.html

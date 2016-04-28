@@ -553,7 +553,7 @@ var node: Element = TestUtils.renderIntoDocument(React.DOM.div());
 
 TestUtils.Simulate.click(node);
 TestUtils.Simulate.change(node);
-TestUtils.Simulate.keyDown(node, { key: "Enter" });
+TestUtils.Simulate.keyDown(node, { key: "Enter", cancelable: false });
 
 var renderer: React.ShallowRenderer =
     TestUtils.createRenderer();
