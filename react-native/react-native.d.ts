@@ -4013,6 +4013,11 @@ declare module "react-native" {
         vibrate(): void
     }
 
+    export interface VibrationStatic {
+        vibrate(): void
+				cancel(): void
+    }
+
     export module Animated {
       // Most (all?) functions where AnimatedValue is used any subclass of Animated can be used as well.
       type AnimatedValue = Animated;
@@ -4480,6 +4485,9 @@ declare module "react-native" {
 
     export var VibrationIOS: VibrationIOSStatic
     export type VibrationIOS = VibrationIOSStatic
+
+    export var Vibration: VibrationStatic
+    export type Vibration = VibrationStatic
 
     export var Dimensions: Dimensions;
 
