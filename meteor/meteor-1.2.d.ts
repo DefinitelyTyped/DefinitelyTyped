@@ -159,7 +159,9 @@ declare module Meteor {
 		requestPermissions?: string[];
 		requestOfflineToken?: Boolean;
 		forceApprovalPrompt?: Boolean;
-		userEmail?: string;
+    loginUrlParameters?: Object;
+    loginHint?: string;
+    redirectUrl?: string;
 		loginStyle?: string;
 	}
 
@@ -244,13 +246,16 @@ declare module BrowserPolicy {
 
 declare module Meteor {
 	interface EmailFields {
+    from: Function;
 		subject?: Function;
 		text?: Function;
+    html?: Function;
 	}
 
 	interface EmailTemplates {
 		from: string;
 		siteName: string;
+    headers: Object;
 		resetPassword: Meteor.EmailFields;
 		enrollAccount:  Meteor.EmailFields;
 		verifyEmail:  Meteor.EmailFields;

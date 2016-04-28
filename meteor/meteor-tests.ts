@@ -18,6 +18,7 @@ import {Session} from "meteor/session";
 import {HTTP} from "meteor/http";
 import {ReactiveVar} from "meteor/reactive-var";
 import {Accounts} from "meteor/accounts-base";
+import {BrowserPolicy} from "meteor/browser-policy";
 
 var Rooms = new Mongo.Collection('rooms');
 var Messages = new Mongo.Collection('messages');
@@ -615,8 +616,9 @@ Meteor.call('sendEmail',
     'Hello from Meteor!',
     'This is a test of Email.send.');
 
-var testTemplate = new Blaze.Template();
-var testView = new Blaze.View();
+var testTemplate = new Blaze.Template('foo');
+var testView = new Blaze.View('foo');
+Blaze.Template.instance();
 
 declare var el: HTMLElement;
 Blaze.render(testTemplate, el);
@@ -685,3 +687,4 @@ var handle = Accounts.validateLoginAttempt(function(attemptInfoObject: Accounts.
   return true;
 });
 handle.stop();
+

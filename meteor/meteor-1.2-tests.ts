@@ -634,7 +634,7 @@ Accounts.onPageLoadLogin(function() {
 });
 
 // Covers this PR:  https://github.com/DefinitelyTyped/DefinitelyTyped/pull/8065
-var loginOpts: Meteor.LoginWithExternalServiceOptions = {
+var loginOpts = <Meteor.LoginWithExternalServiceOptions> {
   requestPermissions: ["a", "b"],
   requestOfflineToken: true,
   loginUrlParameters: {asdf: 1, qwer: "1234"},

@@ -117,26 +117,6 @@ declare module "meteor/meteor" {
 		function logoutOtherClients(callback?: Function): void;
 		/** Login **/
 
-		/** Email **/
-		interface EmailFields {
-			from?: () => string;
-			subject?: Function;
-			text?: Function;
-			html?: (user: Meteor.User, url: string) => string;
-		}
-		interface Header {
-			[id: string]: string;
-		}
-		interface EmailTemplates {
-			from: string;
-			siteName: string;
-			headers?: Header;
-			resetPassword: Meteor.EmailFields;
-			enrollAccount: Meteor.EmailFields;
-			verifyEmail: Meteor.EmailFields;
-		}
-		/** Email **/
-
 		/** Error **/
 		var Error: ErrorStatic;
 		interface ErrorStatic {
@@ -423,8 +403,13 @@ declare module "meteor/blaze" {
 	import {Meteor} from "meteor/meteor";
 
 	export module Blaze {
-		class View {
-      new (name?: string, renderFunction?: Function): View;
+    var View: ViewStatic;
+
+		interface ViewStatic {
+       new (name ?: string, renderFunction ?: Function): View;
+		}
+
+		interface View {
 			name: string;
 			parentView: View;
 			isCreated: boolean;
@@ -452,8 +437,18 @@ declare module "meteor/blaze" {
       [key: string]: Function;
     }
 
-		class Template {
-      new(viewName?: string, renderFunction?: Function): Template;
+    var Template: TemplateStatic;
+
+    interface TemplateStatic {
+      new (viewName ?: string, renderFunction ?: Function): Template;
+
+      registerHelper(name: string, func: Function): void;
+      instance(): TemplateInstance;
+      currentData(): any;
+      parentData(numLevels: number): any;
+    }
+
+		interface Template {
       viewName: string;
       renderFunction: Function;
       constructView(): View;
@@ -469,14 +464,15 @@ declare module "meteor/blaze" {
       destroyed: Function;
       helpers(helpersMap: HelpersMap): void;
       events(eventsMap: EventsMap): void
-      static registerHelper(name: string, func: Function): void;
-      static instance(): TemplateInstance;
-      static currentData(): any
-      static parentData(numLevels: number): any
 		}
 
-		class TemplateInstance {
-			new (view: View): TemplateInstance;
+    var TemplateInstance: TemplateInstanceStatic;
+
+    interface TemplateInstanceStatic {
+      new (view: View): TemplateInstance;
+    }
+
+		interface TemplateInstance {
 			$(selector: string): any;
 			autorun(runFunc: Function): Object;
 			data: Object;
@@ -581,33 +577,61 @@ declare module "meteor/tiny-test" {
 declare module "meteor/accounts-base" {
 	import {Meteor} from "meteor/meteor";
 
+	interface EmailFields {
+	  from?: () => string;
+	  subject?: (user: Meteor.User) => string;
+	  text?: (user: Meteor.User, url: string) => string;
+	  html?: (user: Meteor.User, url: string) => string;
+	}
+	interface Header {
+  	[id: string]: string;
+	}
+	interface EmailTemplates {
+	  from: string;
+	  siteName: string;
+	  headers?: Header;
+	  resetPassword: EmailFields;
+	  enrollAccount: EmailFields;
+	  verifyEmail: EmailFields;
+	}
+
 	export module Accounts {
+		var emailTemplates: EmailTemplates;
 		function addEmail(userId: string, newEmail: string, verified?: boolean): void;
-		function changePassword(oldPassword: string, newPassword: string, callback?: Function): void;
+		function removeEmail(userId: string, email: string): void;
+		function verifyEmail(token: string, callback?: Function): void;
+
+		function user(): Meteor.User;
+    function userId(): string;
+
 		function createUser(options: {
 			username?: string;
 			email?: string;
 			password?: string;
 			profile?: Object;
 		}, callback?: Function): string;
-		var emailTemplates: Meteor.EmailTemplates;
+		function setUsername(userId: string, newUsername: string): void;
+		function onCreateUser(func: Function): void;
 		function findUserByEmail(email: string): Object;
 		function findUserByUsername(username: string): Object;
+		function validateNewUser(func: Function): boolean;
+
+    function changePassword(oldPassword: string, newPassword: string, callback?: Function): void;
 		function forgotPassword(options: {
 			email?: string;
 		}, callback?: Function): void;
-		function onEmailVerificationLink(callback: Function): void;
-		function onEnrollmentLink(callback: Function): void;
-		function onResetPasswordLink(callback: Function): void;
-		function removeEmail(userId: string, email: string): void;
 		function resetPassword(token: string, newPassword: string, callback?: Function): void;
+ 	  function setPassword(userId: string, newPassword: string, options?: {
+      logout?: Object;
+    }): void;
+
+		function onEmailVerificationLink(callback: Function): void;
+    function onEnrollmentLink(callback: Function): void;
+    function onResetPasswordLink(callback: Function): void;
 		function sendEnrollmentEmail(userId: string, email?: string): void;
 		function sendResetPasswordEmail(userId: string, email?: string): void;
 		function sendVerificationEmail(userId: string, email?: string): void;
-		function setPassword(userId: string, newPassword: string, options?: {
-			logout?: Object;
-		}): void;
-		function setUsername(userId: string, newUsername: string): void;
+
 		var ui: {
 			config(options: {
 				requestPermissions?: Object;
@@ -616,7 +640,6 @@ declare module "meteor/accounts-base" {
 				passwordSignupFields?: string;
 			}): void;
 		};
-		function verifyEmail(token: string, callback?: Function): void;
 		function config(options: {
 			sendVerificationEmail?: boolean;
 			forbidClientAccountCreation?: boolean;
@@ -624,19 +647,15 @@ declare module "meteor/accounts-base" {
 			loginExpirationInDays?: number;
 			oauthSecretKey?: string;
 		}): void;
+
 		function onLogin(func: Function): { stop: () => void };
 		function onLoginFailure(func: Function): { stop: () => void };
-		function user(): Meteor.User;
-		function userId(): string;
 		function loggingIn(): boolean;
-		function logout(callback?: Function): void;
-		function logoutOtherClients(callback?: Function): void;
-		function onCreateUser(func: Function): void;
+    function logout(callback?: Function): void;
+    function logoutOtherClients(callback?: Function): void;
+    function loginServicesConfigured(): boolean;
+    function onPageLoadLogin(func: Function): void;
 		function validateLoginAttempt(func: Function): { stop: () => void };
-		function validateNewUser(func: Function): boolean;
-		function loginServicesConfigured(): boolean;
-		function onPageLoadLogin(func: Function): void;
-
 		interface IValidateLoginAttemptCbOpts {
 			type: string;
 			allowed: boolean;
@@ -714,6 +733,7 @@ declare module "meteor/tracker" {
 			stop(): void;
 			stopped: boolean;
 		}
+		var currentComputation: Computation;
 
 		var Dependency: DependencyStatic;
 		interface DependencyStatic {
@@ -721,16 +741,15 @@ declare module "meteor/tracker" {
 		}
 		interface Dependency {
 			changed(): void;
-			depend(fromComputation?: Tracker.Computation): boolean;
+			depend(fromComputation?: Computation): boolean;
 			hasDependents(): boolean;
 		}
 
 		var active: boolean;
 		function afterFlush(callback: Function): void;
-		function autorun(runFunc: (computation: Tracker.Computation) => void, options?: {
+		function autorun(runFunc: (computation: Computation) => void, options?: {
 			onError?: Function;
-		}): Tracker.Computation;
-		var currentComputation: Tracker.Computation;
+		}): Computation;
 		function flush(): void;
 		function nonreactive(func: Function): void;
 		function onInvalidate(callback: Function): void;
@@ -771,9 +790,10 @@ declare module "meteor/email" {
 			keepBcc: boolean;
 			forceEmbeddedImages: boolean;
 		}
-		var MailComposer: MailComposerStatic;
+
+    var MailComposer: MailComposerStatic;
 		interface MailComposerStatic {
-			new (options: MailComposerOptions): MailComposer;
+      new (options: MailComposerOptions): MailComposer;
 		}
 		interface MailComposer {
 			addHeader(name: string, value: string): void;
@@ -799,10 +819,12 @@ declare module "meteor/templating" {
 	import {Blaze} from "meteor/blaze";
 	import {Meteor} from "meteor/meteor";
 
-	class Template extends Blaze.Template {
-    static body: Template;
-    [index: string]: any | Template;
-	}
+  var Template: TemplateStatic;
+  interface TemplateStatic extends Blaze.TemplateStatic {
+    new (viewName?: string, renderFunction?: Function): Blaze.Template;
+    body: Blaze.Template;
+    [index: string]: any | Blaze.Template;
+  }
 }
 
 declare function execFileAsync(command: string, args?: any[], options?: {
