@@ -456,19 +456,19 @@ declare module "react-native" {
         distanceFilter: number
     }
 
-		type WatchPositionOptions = {
-				timeout: number
-				maximumAge: number
-				enableHighAccuracy: boolean
-				distanceFilter: number
-		}
+    type WatchPositionOptions = {
+        timeout: number
+        maximumAge: number
+        enableHighAccuracy: boolean
+        distanceFilter: number
+    }
 
-		type GeolocationReturnType = {
-			  coords: {
-					  latitude: number
-						longitude: number
-				}
-		}
+    type GeolocationReturnType = {
+        coords: {
+            latitude: number
+            longitude: number
+        }
+    }
 
 
     export interface TransformsStyle {
@@ -484,8 +484,8 @@ declare module "react-native" {
 
 
     export interface StyleSheetProperties {
-			  hairlineWidth: number
-				flatten<T extends string | null>(style: T): T
+        hairlineWidth: number
+        flatten<T extends string | null>(style: T): T
     }
 
     export interface LayoutRectangle {
@@ -2952,10 +2952,10 @@ declare module "react-native" {
 
     export interface PixelRatioStatic {
         get(): number;
-				getFontScale(): number
-				getPixelSizeForLayoutSize(layoutSize: number): number
-				roundToNearestPixel(layoutSize: number): number
-				startDetecting(): void
+        getFontScale(): number
+        getPixelSizeForLayoutSize(layoutSize: number): number
+        roundToNearestPixel(layoutSize: number): number
+        startDetecting(): void
     }
 
     export interface PlatformStatic {
@@ -3856,22 +3856,22 @@ declare module "react-native" {
     }
 
 
-		type PresentLocalNotificationDetails = {
-			  alertBody: string
-				alertAction: string
-				soundName?: string
-				category?: string
-				userInfo?: Object
-		}
+    type PresentLocalNotificationDetails = {
+        alertBody: string
+        alertAction: string
+        soundName?: string
+        category?: string
+        userInfo?: Object
+    }
 
-		type ScheduleLocalNotificationDetails = {
-  			fireDate: Date
-			  alertBody: string
-				alertAction: string
-				soundName?: string
-				category?: string
-				userInfo?: Object
-		}
+    type ScheduleLocalNotificationDetails = {
+        fireDate: Date
+        alertBody: string
+        alertAction: string
+        soundName?: string
+        category?: string
+        userInfo?: Object
+    }
 
     /**
      * Handle push notifications for your app, including permission handling and icon badge number.
@@ -3881,10 +3881,10 @@ declare module "react-native" {
      */
     export interface PushNotificationIOSStatic {
 
-			  presentLocalNotification(details: PresentLocalNotificationDetails): void
-				scheduleLocalNotification(details: ScheduleLocalNotificationDetails): void
-				cancelAllLocalNotifications(): void
-				cancelLocalNotifications(userInfo: Object): void
+        presentLocalNotification(details: PresentLocalNotificationDetails): void
+        scheduleLocalNotification(details: ScheduleLocalNotificationDetails): void
+        cancelAllLocalNotifications(): void
+        cancelLocalNotifications(userInfo: Object): void
 
 
         /**
@@ -3913,7 +3913,7 @@ declare module "react-native" {
          */
         requestPermissions( permissions?: PushNotificationPermissions[] ): void
 
-				abandonPermissions(): void
+        abandonPermissions(): void
 
         /**
          * See what push permissions are currently enabled. `callback` will be
@@ -3991,23 +3991,23 @@ declare module "react-native" {
         setNetworkActivityIndicatorVisible(visible: boolean): void
     }
 
-		type TimePickerAndroidOpenOptions = {
-			  hour?: number
-				minute?: number
-				is24Hour?: boolean
-		}
+    type TimePickerAndroidOpenOptions = {
+        hour?: number
+        minute?: number
+        is24Hour?: boolean
+    }
 
-		export interface TimePickerAndroidStatic {
-			  open(options: TimePickerAndroidOpenOptions): Promise<{action: string, hour: number, minute: number}>
-				timeSetAction: string
-				dismissedAction: string
-		}
+    export interface TimePickerAndroidStatic {
+        open(options: TimePickerAndroidOpenOptions): Promise<{action: string, hour: number, minute: number}>
+        timeSetAction: string
+        dismissedAction: string
+    }
 
-		export interface ToastAndroidStatic {
-			  show(message: string, duraction: number): void
-				SHORT: number
-				LONG: number
-		}
+    export interface ToastAndroidStatic {
+        show(message: string, duraction: number): void
+        SHORT: number
+        LONG: number
+    }
 
     export interface SwitchPropertiesIOS extends React.Props<SwitchStatic> {
         onTintColor?: any
@@ -4043,7 +4043,7 @@ declare module "react-native" {
 
     export interface VibrationStatic {
         vibrate(): void
-				cancel(): void
+        cancel(): void
     }
 
     export module Animated {
@@ -4351,8 +4351,8 @@ declare module "react-native" {
         stopObserving(): void
     }
 
-		// TODO: Add proper support
-		export type fetch = (url: string, options?: Object) => Promise<any>
+    // TODO: Add proper support
+    export type fetch = (url: string, options?: Object) => Promise<any>
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -4545,8 +4545,8 @@ declare module "react-native" {
     export type DeviceEventSubscription = DeviceEventSubscriptionStatic
     export var InteractionManager: InteractionManagerStatic
 
-		export var Geolocation: GeolocationStatic
-		export type Geolocation = GeolocationStatic
+    export var Geolocation: GeolocationStatic
+    export type Geolocation = GeolocationStatic
 
     //////////////////////////////////////////////////////////////////////////
     //
