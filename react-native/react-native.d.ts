@@ -408,8 +408,8 @@ declare module "react-native" {
      */
     export interface FlexStyle {
 
-        alignItems?: string;  //enum('flex-start', 'flex-end', 'center', 'stretch')
-        alignSelf?: string// enum('auto', 'flex-start', 'flex-end', 'center', 'stretch')
+        alignItems?: "flex-start" | "flex-end" | "center" | "stretch"
+        alignSelf?: "auto" | "flex-start" | "flex-end" | "center" | "stretch"
         borderBottomWidth?: number
         borderLeftWidth?: number
         borderRightWidth?: number
@@ -417,10 +417,10 @@ declare module "react-native" {
         borderWidth?: number
         bottom?: number
         flex?: number
-        flexDirection?: string // enum('row', 'column')
-        flexWrap?: string // enum('wrap', 'nowrap')
+        flexDirection?: "row" | "column"
+        flexWrap?: "wrap" | "nowrap"
         height?: number
-        justifyContent?: string // enum('flex-start', 'flex-end', 'center', 'space-between', 'space-around')
+        justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around"
         left?: number
         margin?: number
         marginBottom?: number
@@ -436,7 +436,7 @@ declare module "react-native" {
         paddingRight?: number
         paddingTop?: number
         paddingVertical?: number
-        position?: string // enum('absolute', 'relative')
+        position?: "absolute" | "relative"
         right?: number
         top?: number
         width?: number
