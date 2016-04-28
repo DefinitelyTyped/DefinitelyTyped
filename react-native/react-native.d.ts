@@ -3611,6 +3611,14 @@ declare module "react-native" {
         getInitialURL(callback: (url: string) => void):void
     }
 
+    export interface LinkingStatic {
+        addEventListener(type: string, handler: (event: {url: string}) => void): void
+        removeEventListener(type: string, handler: (event: {url: string}) => void): void
+        openURL(url: string): Promise<boolean>
+        canOpenURL(url: string): Promise<boolean>
+        getInitialURL(): Promise<string | null>
+    }
+
     /**
      * NetInfo exposes info about online/offline status
      *
@@ -4380,6 +4388,9 @@ declare module "react-native" {
 
     export var IntentAndroid: IntentAndroidStatic
     export type IntentAndroid = IntentAndroidStatic
+
+    export var Linking: LinkingStatic
+    export type Linking = LinkingStatic
 
     export var NetInfo: NetInfoStatic
     export type NetInfo = NetInfoStatic
