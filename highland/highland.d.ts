@@ -67,7 +67,7 @@ interface HighlandStatic {
 
 	// moar (promise for everything?)
 	<R>(xs: Highland.Thenable<Highland.Stream<R>>): Highland.Stream<R>;
-	<R>(xs: Highland.Thenable<R[]>): Highland.Stream<R>;
+	<R>(xs: Highland.Thenable<R>): Highland.Stream<R>;
 
 	/**
 	 * The end of stream marker. This is sent along the data channel of a Stream

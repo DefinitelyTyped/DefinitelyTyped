@@ -1241,8 +1241,7 @@ declare module _ {
          */
         dropRightWhile<TValue>(
             array: List<TValue>,
-            predicate?: ListIterator<TValue, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TValue, boolean>
         ): TValue[];
 
         /**
@@ -1250,8 +1249,7 @@ declare module _ {
          */
         dropRightWhile<TValue>(
             array: List<TValue>,
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): TValue[];
 
         /**
@@ -1268,16 +1266,14 @@ declare module _ {
          * @see _.dropRightWhile
          */
         dropRightWhile(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.dropRightWhile
          */
         dropRightWhile(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
@@ -1293,16 +1289,14 @@ declare module _ {
          * @see _.dropRightWhile
          */
         dropRightWhile<TValue>(
-            predicate?: ListIterator<TValue, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TValue, boolean>
         ): LoDashImplicitArrayWrapper<TValue>;
 
         /**
          * @see _.dropRightWhile
          */
         dropRightWhile<TValue>(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashImplicitArrayWrapper<TValue>;
 
         /**
@@ -1318,16 +1312,14 @@ declare module _ {
          * @see _.dropRightWhile
          */
         dropRightWhile(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.dropRightWhile
          */
         dropRightWhile(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
@@ -1343,16 +1335,14 @@ declare module _ {
          * @see _.dropRightWhile
          */
         dropRightWhile<TValue>(
-            predicate?: ListIterator<TValue, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TValue, boolean>
         ): LoDashExplicitArrayWrapper<TValue>;
 
         /**
          * @see _.dropRightWhile
          */
         dropRightWhile<TValue>(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashExplicitArrayWrapper<TValue>;
 
         /**
@@ -1385,8 +1375,7 @@ declare module _ {
          */
         dropWhile<TValue>(
             array: List<TValue>,
-            predicate?: ListIterator<TValue, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TValue, boolean>
         ): TValue[];
 
         /**
@@ -1394,8 +1383,7 @@ declare module _ {
          */
         dropWhile<TValue>(
             array: List<TValue>,
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): TValue[];
 
         /**
@@ -1412,16 +1400,14 @@ declare module _ {
          * @see _.dropWhile
          */
         dropWhile(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.dropWhile
          */
         dropWhile(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
@@ -1437,16 +1423,14 @@ declare module _ {
          * @see _.dropWhile
          */
         dropWhile<TValue>(
-            predicate?: ListIterator<TValue, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TValue, boolean>
         ): LoDashImplicitArrayWrapper<TValue>;
 
         /**
          * @see _.dropWhile
          */
         dropWhile<TValue>(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashImplicitArrayWrapper<TValue>;
 
         /**
@@ -1462,16 +1446,14 @@ declare module _ {
          * @see _.dropWhile
          */
         dropWhile(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.dropWhile
          */
         dropWhile(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
@@ -1487,16 +1469,14 @@ declare module _ {
          * @see _.dropWhile
          */
         dropWhile<TValue>(
-            predicate?: ListIterator<TValue, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TValue, boolean>
         ): LoDashExplicitArrayWrapper<TValue>;
 
         /**
          * @see _.dropWhile
          */
         dropWhile<TValue>(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashExplicitArrayWrapper<TValue>;
 
         /**
@@ -1604,8 +1584,7 @@ declare module _ {
          */
         findIndex<T>(
             array: List<T>,
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): number;
 
         /**
@@ -1613,8 +1592,7 @@ declare module _ {
          */
         findIndex<T>(
             array: List<T>,
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): number;
 
         /**
@@ -1631,16 +1609,14 @@ declare module _ {
          * @see _.findIndex
          */
         findIndex(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): number;
 
         /**
          * @see _.findIndex
          */
         findIndex(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): number;
 
         /**
@@ -1656,16 +1632,14 @@ declare module _ {
          * @see _.findIndex
          */
         findIndex<TResult>(
-            predicate?: ListIterator<TResult, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TResult, boolean>
         ): number;
 
         /**
          * @see _.findIndex
          */
         findIndex(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): number;
 
         /**
@@ -1681,16 +1655,14 @@ declare module _ {
          * @see _.findIndex
          */
         findIndex(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.findIndex
          */
         findIndex(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashExplicitWrapper<number>;
 
         /**
@@ -1706,16 +1678,14 @@ declare module _ {
          * @see _.findIndex
          */
         findIndex<TResult>(
-            predicate?: ListIterator<TResult, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TResult, boolean>
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.findIndex
          */
         findIndex(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashExplicitWrapper<number>;
 
         /**
@@ -1747,8 +1717,7 @@ declare module _ {
          */
         findLastIndex<T>(
             array: List<T>,
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): number;
 
         /**
@@ -1756,8 +1725,7 @@ declare module _ {
          */
         findLastIndex<T>(
             array: List<T>,
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): number;
 
         /**
@@ -1774,16 +1742,14 @@ declare module _ {
          * @see _.findLastIndex
          */
         findLastIndex(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): number;
 
         /**
          * @see _.findLastIndex
          */
         findLastIndex(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): number;
 
         /**
@@ -1799,16 +1765,14 @@ declare module _ {
          * @see _.findLastIndex
          */
         findLastIndex<TResult>(
-            predicate?: ListIterator<TResult, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TResult, boolean>
         ): number;
 
         /**
          * @see _.findLastIndex
          */
         findLastIndex(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): number;
 
         /**
@@ -1824,16 +1788,14 @@ declare module _ {
          * @see _.findLastIndex
          */
         findLastIndex(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.findLastIndex
          */
         findLastIndex(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashExplicitWrapper<number>;
 
         /**
@@ -1849,16 +1811,14 @@ declare module _ {
          * @see _.findLastIndex
          */
         findLastIndex<TResult>(
-            predicate?: ListIterator<TResult, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TResult, boolean>
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.findLastIndex
          */
         findLastIndex(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashExplicitWrapper<number>;
 
         /**
@@ -2058,7 +2018,23 @@ declare module _ {
          */
         fromPairs(
             array: any[]|List<any>
-        ): any[];
+        ): Dictionary<any>;
+    }
+
+    //_.fromPairs DUMMY
+    interface LoDashImplicitArrayWrapper<T> {
+        /**
+         * @see _.fromPairs
+         */
+        fromPairs(): LoDashImplicitObjectWrapper<any>;
+    }
+
+    //_.fromPairs DUMMY
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.fromPairs
+         */
+        fromPairs(): LoDashExplicitObjectWrapper<any>;
     }
 
     //_.head
@@ -2756,8 +2732,7 @@ declare module _ {
          */
         remove<T>(
             array: List<T>,
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): T[];
 
         /**
@@ -2765,8 +2740,7 @@ declare module _ {
          */
         remove<T>(
             array: List<T>,
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): T[];
 
         /**
@@ -2783,16 +2757,14 @@ declare module _ {
          * @see _.remove
          */
         remove(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.remove
          */
         remove(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
@@ -2808,16 +2780,14 @@ declare module _ {
          * @see _.remove
          */
         remove<TResult>(
-            predicate?: ListIterator<TResult, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TResult, boolean>
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
          * @see _.remove
          */
         remove<TResult>(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
@@ -2833,16 +2803,14 @@ declare module _ {
          * @see _.remove
          */
         remove(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.remove
          */
         remove(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
@@ -2858,16 +2826,14 @@ declare module _ {
          * @see _.remove
          */
         remove<TResult>(
-            predicate?: ListIterator<TResult, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TResult, boolean>
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
          * @see _.remove
          */
         remove<TResult>(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
@@ -3888,8 +3854,7 @@ declare module _ {
          */
         takeRightWhile<TValue>(
             array: List<TValue>,
-            predicate?: ListIterator<TValue, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TValue, boolean>
         ): TValue[];
 
         /**
@@ -3897,8 +3862,7 @@ declare module _ {
          */
         takeRightWhile<TValue>(
             array: List<TValue>,
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): TValue[];
 
         /**
@@ -3915,16 +3879,14 @@ declare module _ {
          * @see _.takeRightWhile
          */
         takeRightWhile(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.takeRightWhile
          */
         takeRightWhile(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
@@ -3940,16 +3902,14 @@ declare module _ {
          * @see _.takeRightWhile
          */
         takeRightWhile<TValue>(
-            predicate?: ListIterator<TValue, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TValue, boolean>
         ): LoDashImplicitArrayWrapper<TValue>;
 
         /**
          * @see _.takeRightWhile
          */
         takeRightWhile<TValue>(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashImplicitArrayWrapper<TValue>;
 
         /**
@@ -3965,16 +3925,14 @@ declare module _ {
          * @see _.takeRightWhile
          */
         takeRightWhile(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.takeRightWhile
          */
         takeRightWhile(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
@@ -3990,16 +3948,14 @@ declare module _ {
          * @see _.takeRightWhile
          */
         takeRightWhile<TValue>(
-            predicate?: ListIterator<TValue, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TValue, boolean>
         ): LoDashExplicitArrayWrapper<TValue>;
 
         /**
          * @see _.takeRightWhile
          */
         takeRightWhile<TValue>(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashExplicitArrayWrapper<TValue>;
 
         /**
@@ -4032,8 +3988,7 @@ declare module _ {
          */
         takeWhile<TValue>(
             array: List<TValue>,
-            predicate?: ListIterator<TValue, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TValue, boolean>
         ): TValue[];
 
         /**
@@ -4041,8 +3996,7 @@ declare module _ {
          */
         takeWhile<TValue>(
             array: List<TValue>,
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): TValue[];
 
         /**
@@ -4059,16 +4013,14 @@ declare module _ {
          * @see _.takeWhile
          */
         takeWhile(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.takeWhile
          */
         takeWhile(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
@@ -4084,16 +4036,14 @@ declare module _ {
          * @see _.takeWhile
          */
         takeWhile<TValue>(
-            predicate?: ListIterator<TValue, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TValue, boolean>
         ): LoDashImplicitArrayWrapper<TValue>;
 
         /**
          * @see _.takeWhile
          */
         takeWhile<TValue>(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashImplicitArrayWrapper<TValue>;
 
         /**
@@ -4109,16 +4059,14 @@ declare module _ {
          * @see _.takeWhile
          */
         takeWhile(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.takeWhile
          */
         takeWhile(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
@@ -4134,16 +4082,14 @@ declare module _ {
          * @see _.takeWhile
          */
         takeWhile<TValue>(
-            predicate?: ListIterator<TValue, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TValue, boolean>
         ): LoDashExplicitArrayWrapper<TValue>;
 
         /**
          * @see _.takeWhile
          */
         takeWhile<TValue>(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashExplicitArrayWrapper<TValue>;
 
         /**
@@ -5391,8 +5337,7 @@ declare module _ {
          */
         unzipWith<TArray, TResult>(
             array: List<List<TArray>>,
-            iteratee?: MemoIterator<TArray, TResult>,
-            thisArg?: any
+            iteratee?: MemoIterator<TArray, TResult>
         ): TResult[];
     }
 
@@ -5401,8 +5346,7 @@ declare module _ {
          * @see _.unzipWith
          */
         unzipWith<TArr, TResult>(
-            iteratee?: MemoIterator<TArr, TResult>,
-            thisArg?: any
+            iteratee?: MemoIterator<TArr, TResult>
         ): LoDashImplicitArrayWrapper<TResult>;
     }
 
@@ -5411,8 +5355,7 @@ declare module _ {
          * @see _.unzipWith
          */
         unzipWith<TArr, TResult>(
-            iteratee?: MemoIterator<TArr, TResult>,
-            thisArg?: any
+            iteratee?: MemoIterator<TArr, TResult>
         ): LoDashImplicitArrayWrapper<TResult>;
     }
 
@@ -5801,8 +5744,7 @@ declare module _ {
          **/
         tap<T>(
             value: T,
-            interceptor: (value: T) => void,
-            thisArg?: any
+            interceptor: (value: T) => void
         ): T;
     }
 
@@ -5811,8 +5753,7 @@ declare module _ {
          * @see _.tap
          */
         tap(
-            interceptor: (value: T) => void,
-            thisArg?: any
+            interceptor: (value: T) => void
         ): TWrapper;
     }
 
@@ -5821,8 +5762,7 @@ declare module _ {
          * @see _.tap
          */
         tap(
-            interceptor: (value: T) => void,
-            thisArg?: any
+            interceptor: (value: T) => void
         ): TWrapper;
     }
 
@@ -5838,8 +5778,7 @@ declare module _ {
          */
         thru<T, TResult>(
             value: T,
-            interceptor: (value: T) => TResult,
-            thisArg?: any
+            interceptor: (value: T) => TResult
         ): TResult;
     }
 
@@ -5848,36 +5787,31 @@ declare module _ {
          * @see _.thru
          */
         thru<TResult extends number>(
-            interceptor: (value: T) => TResult,
-            thisArg?: any): LoDashImplicitWrapper<TResult>;
+            interceptor: (value: T) => TResult): LoDashImplicitWrapper<TResult>;
 
         /**
          * @see _.thru
          */
         thru<TResult extends string>(
-            interceptor: (value: T) => TResult,
-            thisArg?: any): LoDashImplicitWrapper<TResult>;
+            interceptor: (value: T) => TResult): LoDashImplicitWrapper<TResult>;
 
         /**
          * @see _.thru
          */
         thru<TResult extends boolean>(
-            interceptor: (value: T) => TResult,
-            thisArg?: any): LoDashImplicitWrapper<TResult>;
+            interceptor: (value: T) => TResult): LoDashImplicitWrapper<TResult>;
 
         /**
          * @see _.thru
          */
         thru<TResult extends {}>(
-            interceptor: (value: T) => TResult,
-            thisArg?: any): LoDashImplicitObjectWrapper<TResult>;
+            interceptor: (value: T) => TResult): LoDashImplicitObjectWrapper<TResult>;
 
         /**
          * @see _.thru
          */
         thru<TResult>(
-            interceptor: (value: T) => TResult[],
-            thisArg?: any): LoDashImplicitArrayWrapper<TResult>;
+            interceptor: (value: T) => TResult[]): LoDashImplicitArrayWrapper<TResult>;
     }
 
     interface LoDashExplicitWrapperBase<T, TWrapper> {
@@ -5885,40 +5819,35 @@ declare module _ {
          * @see _.thru
          */
         thru<TResult extends number>(
-            interceptor: (value: T) => TResult,
-            thisArg?: any
+            interceptor: (value: T) => TResult
         ): LoDashExplicitWrapper<TResult>;
 
         /**
          * @see _.thru
          */
         thru<TResult extends string>(
-            interceptor: (value: T) => TResult,
-            thisArg?: any
+            interceptor: (value: T) => TResult
         ): LoDashExplicitWrapper<TResult>;
 
         /**
          * @see _.thru
          */
         thru<TResult extends boolean>(
-            interceptor: (value: T) => TResult,
-            thisArg?: any
+            interceptor: (value: T) => TResult
         ): LoDashExplicitWrapper<TResult>;
 
         /**
          * @see _.thru
          */
         thru<TResult extends {}>(
-            interceptor: (value: T) => TResult,
-            thisArg?: any
+            interceptor: (value: T) => TResult
         ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.thru
          */
         thru<TResult>(
-            interceptor: (value: T) => TResult[],
-            thisArg?: any
+            interceptor: (value: T) => TResult[]
         ): LoDashExplicitArrayWrapper<TResult>;
     }
 
@@ -6174,8 +6103,7 @@ declare module _ {
          */
         countBy<T>(
             collection: List<T>,
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): Dictionary<number>;
 
         /**
@@ -6183,8 +6111,7 @@ declare module _ {
          */
         countBy<T>(
             collection: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<T, any>
         ): Dictionary<number>;
 
         /**
@@ -6192,8 +6119,7 @@ declare module _ {
          */
         countBy<T>(
             collection: NumericDictionary<T>,
-            iteratee?: NumericDictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: NumericDictionaryIterator<T, any>
         ): Dictionary<number>;
 
         /**
@@ -6201,8 +6127,7 @@ declare module _ {
          */
         countBy<T>(
             collection: List<T>|Dictionary<T>|NumericDictionary<T>,
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): Dictionary<number>;
 
         /**
@@ -6227,8 +6152,7 @@ declare module _ {
          * @see _.countBy
          */
         countBy(
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): LoDashImplicitObjectWrapper<Dictionary<number>>;
     }
 
@@ -6237,16 +6161,14 @@ declare module _ {
          * @see _.countBy
          */
         countBy(
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): LoDashImplicitObjectWrapper<Dictionary<number>>;
 
         /**
          * @see _.countBy
          */
         countBy(
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): LoDashImplicitObjectWrapper<Dictionary<number>>;
 
         /**
@@ -6262,16 +6184,14 @@ declare module _ {
          * @see _.countBy
          */
         countBy<T>(
-            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>|NumericDictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>|NumericDictionaryIterator<T, any>
         ): LoDashImplicitObjectWrapper<Dictionary<number>>;
 
         /**
          * @see _.countBy
          */
         countBy(
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): LoDashImplicitObjectWrapper<Dictionary<number>>;
 
         /**
@@ -6287,8 +6207,7 @@ declare module _ {
          * @see _.countBy
          */
         countBy(
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): LoDashExplicitObjectWrapper<Dictionary<number>>;
     }
 
@@ -6297,16 +6216,14 @@ declare module _ {
          * @see _.countBy
          */
         countBy(
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): LoDashExplicitObjectWrapper<Dictionary<number>>;
 
         /**
          * @see _.countBy
          */
         countBy(
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): LoDashExplicitObjectWrapper<Dictionary<number>>;
 
         /**
@@ -6322,16 +6239,14 @@ declare module _ {
          * @see _.countBy
          */
         countBy<T>(
-            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>|NumericDictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>|NumericDictionaryIterator<T, any>
         ): LoDashExplicitObjectWrapper<Dictionary<number>>;
 
         /**
          * @see _.countBy
          */
         countBy(
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): LoDashExplicitObjectWrapper<Dictionary<number>>;
 
         /**
@@ -6349,8 +6264,7 @@ declare module _ {
          */
         each<T>(
             collection: T[],
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): T[];
 
         /**
@@ -6358,8 +6272,7 @@ declare module _ {
          */
         each<T>(
             collection: List<T>,
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): List<T>;
 
         /**
@@ -6367,8 +6280,7 @@ declare module _ {
          */
         each<T>(
             collection: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<T, any>
         ): Dictionary<T>;
 
         /**
@@ -6376,8 +6288,7 @@ declare module _ {
          */
         each<T extends {}>(
             collection: T,
-            iteratee?: ObjectIterator<any, any>,
-            thisArgs?: any
+            iteratee?: ObjectIterator<any, any>
         ): T;
 
         /**
@@ -6385,8 +6296,7 @@ declare module _ {
          */
         each<T extends {}, TValue>(
             collection: T,
-            iteratee?: ObjectIterator<TValue, any>,
-            thisArgs?: any
+            iteratee?: ObjectIterator<TValue, any>
         ): T;
     }
 
@@ -6395,8 +6305,7 @@ declare module _ {
          * @see _.forEach
          */
         each(
-            iteratee: ListIterator<string, any>,
-            thisArg?: any
+            iteratee: ListIterator<string, any>
         ): LoDashImplicitWrapper<string>;
     }
 
@@ -6405,8 +6314,7 @@ declare module _ {
          * @see _.forEach
          */
         each(
-            iteratee: ListIterator<T, any>,
-            thisArg?: any
+            iteratee: ListIterator<T, any>
         ): LoDashImplicitArrayWrapper<T>;
     }
 
@@ -6415,8 +6323,7 @@ declare module _ {
          * @see _.forEach
          */
         each<TValue>(
-            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>,
-            thisArg?: any
+            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>
         ): LoDashImplicitObjectWrapper<T>;
     }
 
@@ -6425,8 +6332,7 @@ declare module _ {
          * @see _.forEach
          */
         each(
-            iteratee: ListIterator<string, any>,
-            thisArg?: any
+            iteratee: ListIterator<string, any>
         ): LoDashExplicitWrapper<string>;
     }
 
@@ -6435,8 +6341,7 @@ declare module _ {
          * @see _.forEach
          */
         each(
-            iteratee: ListIterator<T, any>,
-            thisArg?: any
+            iteratee: ListIterator<T, any>
         ): LoDashExplicitArrayWrapper<T>;
     }
 
@@ -6445,8 +6350,7 @@ declare module _ {
          * @see _.forEach
          */
         each<TValue>(
-            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>,
-            thisArg?: any
+            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>
         ): LoDashExplicitObjectWrapper<T>;
     }
 
@@ -6457,8 +6361,7 @@ declare module _ {
          */
         eachRight<T>(
             collection: T[],
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): T[];
 
         /**
@@ -6466,8 +6369,7 @@ declare module _ {
          */
         eachRight<T>(
             collection: List<T>,
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): List<T>;
 
         /**
@@ -6475,8 +6377,7 @@ declare module _ {
          */
         eachRight<T>(
             collection: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<T, any>
         ): Dictionary<T>;
 
         /**
@@ -6484,8 +6385,7 @@ declare module _ {
          */
         eachRight<T extends {}>(
             collection: T,
-            iteratee?: ObjectIterator<any, any>,
-            thisArgs?: any
+            iteratee?: ObjectIterator<any, any>
         ): T;
 
         /**
@@ -6493,8 +6393,7 @@ declare module _ {
          */
         eachRight<T extends {}, TValue>(
             collection: T,
-            iteratee?: ObjectIterator<TValue, any>,
-            thisArgs?: any
+            iteratee?: ObjectIterator<TValue, any>
         ): T;
     }
 
@@ -6503,8 +6402,7 @@ declare module _ {
          * @see _.forEachRight
          */
         eachRight(
-            iteratee: ListIterator<string, any>,
-            thisArg?: any
+            iteratee: ListIterator<string, any>
         ): LoDashImplicitWrapper<string>;
     }
 
@@ -6513,8 +6411,7 @@ declare module _ {
          * @see _.forEachRight
          */
         eachRight(
-            iteratee: ListIterator<T, any>,
-            thisArg?: any
+            iteratee: ListIterator<T, any>
         ): LoDashImplicitArrayWrapper<T>;
     }
 
@@ -6523,8 +6420,7 @@ declare module _ {
          * @see _.forEachRight
          */
         eachRight<TValue>(
-            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>,
-            thisArg?: any
+            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>
         ): LoDashImplicitObjectWrapper<T>;
     }
 
@@ -6533,8 +6429,7 @@ declare module _ {
          * @see _.forEachRight
          */
         eachRight(
-            iteratee: ListIterator<string, any>,
-            thisArg?: any
+            iteratee: ListIterator<string, any>
         ): LoDashExplicitWrapper<string>;
     }
 
@@ -6543,8 +6438,7 @@ declare module _ {
          * @see _.forEachRight
          */
         eachRight(
-            iteratee: ListIterator<T, any>,
-            thisArg?: any
+            iteratee: ListIterator<T, any>
         ): LoDashExplicitArrayWrapper<T>;
     }
 
@@ -6553,8 +6447,7 @@ declare module _ {
          * @see _.forEachRight
          */
         eachRight<TValue>(
-            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>,
-            thisArg?: any
+            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>
         ): LoDashExplicitObjectWrapper<T>;
     }
 
@@ -6720,8 +6613,7 @@ declare module _ {
          */
         filter<T>(
             collection: List<T>,
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): T[];
 
         /**
@@ -6729,8 +6621,7 @@ declare module _ {
          */
         filter<T>(
             collection: Dictionary<T>,
-            predicate?: DictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate?: DictionaryIterator<T, boolean>
         ): T[];
 
         /**
@@ -6738,8 +6629,7 @@ declare module _ {
          */
         filter(
             collection: string,
-            predicate?: StringIterator<boolean>,
-            thisArg?: any
+            predicate?: StringIterator<boolean>
         ): string[];
 
         /**
@@ -6747,8 +6637,7 @@ declare module _ {
          */
         filter<T>(
             collection: List<T>|Dictionary<T>,
-            predicate: string,
-            thisArg?: any
+            predicate: string
         ): T[];
 
         /**
@@ -6765,8 +6654,7 @@ declare module _ {
          * @see _.filter
          */
         filter(
-            predicate?: StringIterator<boolean>,
-            thisArg?: any
+            predicate?: StringIterator<boolean>
         ): LoDashImplicitArrayWrapper<string>;
     }
 
@@ -6775,16 +6663,14 @@ declare module _ {
          * @see _.filter
          */
         filter(
-            predicate: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate: ListIterator<T, boolean>
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.filter
          */
         filter(
-            predicate: string,
-            thisArg?: any
+            predicate: string
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
@@ -6798,16 +6684,14 @@ declare module _ {
          * @see _.filter
          */
         filter<T>(
-            predicate: ListIterator<T, boolean>|DictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate: ListIterator<T, boolean>|DictionaryIterator<T, boolean>
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.filter
          */
         filter<T>(
-            predicate: string,
-            thisArg?: any
+            predicate: string
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
@@ -6821,8 +6705,7 @@ declare module _ {
          * @see _.filter
          */
         filter(
-            predicate?: StringIterator<boolean>,
-            thisArg?: any
+            predicate?: StringIterator<boolean>
         ): LoDashExplicitArrayWrapper<string>;
     }
 
@@ -6831,16 +6714,14 @@ declare module _ {
          * @see _.filter
          */
         filter(
-            predicate: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate: ListIterator<T, boolean>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.filter
          */
         filter(
-            predicate: string,
-            thisArg?: any
+            predicate: string
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
@@ -6854,16 +6735,14 @@ declare module _ {
          * @see _.filter
          */
         filter<T>(
-            predicate: ListIterator<T, boolean>|DictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate: ListIterator<T, boolean>|DictionaryIterator<T, boolean>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.filter
          */
         filter<T>(
-            predicate: string,
-            thisArg?: any
+            predicate: string
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
@@ -6894,8 +6773,7 @@ declare module _ {
          */
         find<T>(
             collection: List<T>,
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): T;
 
         /**
@@ -6903,8 +6781,7 @@ declare module _ {
          */
         find<T>(
             collection: Dictionary<T>,
-            predicate?: DictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate?: DictionaryIterator<T, boolean>
         ): T;
 
         /**
@@ -6912,8 +6789,7 @@ declare module _ {
          */
         find<T>(
             collection: List<T>|Dictionary<T>,
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): T;
 
         /**
@@ -6930,16 +6806,14 @@ declare module _ {
          * @see _.find
          */
         find(
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): T;
 
         /**
          * @see _.find
          */
         find(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): T;
 
         /**
@@ -6955,16 +6829,14 @@ declare module _ {
          * @see _.find
          */
         find<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>
         ): TResult;
 
         /**
          * @see _.find
          */
         find<TResult>(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): TResult;
 
         /**
@@ -6987,24 +6859,21 @@ declare module _ {
         **/
         findLast<T>(
             collection: Array<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T;
+            callback: ListIterator<T, boolean>): T;
 
         /**
         * @see _.find
         **/
         findLast<T>(
             collection: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T;
+            callback: ListIterator<T, boolean>): T;
 
         /**
         * @see _.find
         **/
         findLast<T>(
             collection: Dictionary<T>,
-            callback: DictionaryIterator<T, boolean>,
-            thisArg?: any): T;
+            callback: DictionaryIterator<T, boolean>): T;
 
         /**
         * @see _.find
@@ -7060,8 +6929,7 @@ declare module _ {
         * @see _.findLast
         */
         findLast(
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T;
+            callback: ListIterator<T, boolean>): T;
         /**
         * @see _.findLast
         * @param _.where style callback
@@ -7361,8 +7229,7 @@ declare module _ {
          */
         forEach<T>(
             collection: T[],
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): T[];
 
         /**
@@ -7370,8 +7237,7 @@ declare module _ {
          */
         forEach<T>(
             collection: List<T>,
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): List<T>;
 
         /**
@@ -7379,8 +7245,7 @@ declare module _ {
          */
         forEach<T>(
             collection: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<T, any>
         ): Dictionary<T>;
 
         /**
@@ -7388,8 +7253,7 @@ declare module _ {
          */
         forEach<T extends {}>(
             collection: T,
-            iteratee?: ObjectIterator<any, any>,
-            thisArgs?: any
+            iteratee?: ObjectIterator<any, any>
         ): T;
 
         /**
@@ -7397,8 +7261,7 @@ declare module _ {
          */
         forEach<T extends {}, TValue>(
             collection: T,
-            iteratee?: ObjectIterator<TValue, any>,
-            thisArgs?: any
+            iteratee?: ObjectIterator<TValue, any>
         ): T;
     }
 
@@ -7407,8 +7270,7 @@ declare module _ {
          * @see _.forEach
          */
         forEach(
-            iteratee: ListIterator<string, any>,
-            thisArg?: any
+            iteratee: ListIterator<string, any>
         ): LoDashImplicitWrapper<string>;
     }
 
@@ -7417,8 +7279,7 @@ declare module _ {
          * @see _.forEach
          */
         forEach(
-            iteratee: ListIterator<T, any>,
-            thisArg?: any
+            iteratee: ListIterator<T, any>
         ): LoDashImplicitArrayWrapper<T>;
     }
 
@@ -7427,8 +7288,7 @@ declare module _ {
          * @see _.forEach
          */
         forEach<TValue>(
-            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>,
-            thisArg?: any
+            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>
         ): LoDashImplicitObjectWrapper<T>;
     }
 
@@ -7437,8 +7297,7 @@ declare module _ {
          * @see _.forEach
          */
         forEach(
-            iteratee: ListIterator<string, any>,
-            thisArg?: any
+            iteratee: ListIterator<string, any>
         ): LoDashExplicitWrapper<string>;
     }
 
@@ -7447,8 +7306,7 @@ declare module _ {
          * @see _.forEach
          */
         forEach(
-            iteratee: ListIterator<T, any>,
-            thisArg?: any
+            iteratee: ListIterator<T, any>
         ): LoDashExplicitArrayWrapper<T>;
     }
 
@@ -7457,8 +7315,7 @@ declare module _ {
          * @see _.forEach
          */
         forEach<TValue>(
-            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>,
-            thisArg?: any
+            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>
         ): LoDashExplicitObjectWrapper<T>;
     }
 
@@ -7475,8 +7332,7 @@ declare module _ {
          */
         forEachRight<T>(
             collection: T[],
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): T[];
 
         /**
@@ -7484,8 +7340,7 @@ declare module _ {
          */
         forEachRight<T>(
             collection: List<T>,
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): List<T>;
 
         /**
@@ -7493,8 +7348,7 @@ declare module _ {
          */
         forEachRight<T>(
             collection: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<T, any>
         ): Dictionary<T>;
 
         /**
@@ -7502,8 +7356,7 @@ declare module _ {
          */
         forEachRight<T extends {}>(
             collection: T,
-            iteratee?: ObjectIterator<any, any>,
-            thisArgs?: any
+            iteratee?: ObjectIterator<any, any>
         ): T;
 
         /**
@@ -7511,8 +7364,7 @@ declare module _ {
          */
         forEachRight<T extends {}, TValue>(
             collection: T,
-            iteratee?: ObjectIterator<TValue, any>,
-            thisArgs?: any
+            iteratee?: ObjectIterator<TValue, any>
         ): T;
     }
 
@@ -7521,8 +7373,7 @@ declare module _ {
          * @see _.forEachRight
          */
         forEachRight(
-            iteratee: ListIterator<string, any>,
-            thisArg?: any
+            iteratee: ListIterator<string, any>
         ): LoDashImplicitWrapper<string>;
     }
 
@@ -7531,8 +7382,7 @@ declare module _ {
          * @see _.forEachRight
          */
         forEachRight(
-            iteratee: ListIterator<T, any>,
-            thisArg?: any
+            iteratee: ListIterator<T, any>
         ): LoDashImplicitArrayWrapper<T>;
     }
 
@@ -7541,8 +7391,7 @@ declare module _ {
          * @see _.forEachRight
          */
         forEachRight<TValue>(
-            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>,
-            thisArg?: any
+            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>
         ): LoDashImplicitObjectWrapper<T>;
     }
 
@@ -7551,8 +7400,7 @@ declare module _ {
          * @see _.forEachRight
          */
         forEachRight(
-            iteratee: ListIterator<string, any>,
-            thisArg?: any
+            iteratee: ListIterator<string, any>
         ): LoDashExplicitWrapper<string>;
     }
 
@@ -7561,8 +7409,7 @@ declare module _ {
          * @see _.forEachRight
          */
         forEachRight(
-            iteratee: ListIterator<T, any>,
-            thisArg?: any
+            iteratee: ListIterator<T, any>
         ): LoDashExplicitArrayWrapper<T>;
     }
 
@@ -7571,8 +7418,7 @@ declare module _ {
          * @see _.forEachRight
          */
         forEachRight<TValue>(
-            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>,
-            thisArg?: any
+            iteratee?: ListIterator<TValue, any>|DictionaryIterator<TValue, any>
         ): LoDashExplicitObjectWrapper<T>;
     }
 
@@ -7600,8 +7446,7 @@ declare module _ {
          */
         groupBy<T, TKey>(
             collection: List<T>,
-            iteratee?: ListIterator<T, TKey>,
-            thisArg?: any
+            iteratee?: ListIterator<T, TKey>
         ): Dictionary<T[]>;
 
         /**
@@ -7609,8 +7454,7 @@ declare module _ {
          */
         groupBy<T>(
             collection: List<any>,
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): Dictionary<T[]>;
 
         /**
@@ -7618,8 +7462,7 @@ declare module _ {
          */
         groupBy<T, TKey>(
             collection: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, TKey>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<T, TKey>
         ): Dictionary<T[]>;
 
         /**
@@ -7627,8 +7470,7 @@ declare module _ {
          */
         groupBy<T>(
             collection: Dictionary<any>,
-            iteratee?: DictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<T, any>
         ): Dictionary<T[]>;
 
         /**
@@ -7636,8 +7478,7 @@ declare module _ {
          */
         groupBy<T, TValue>(
             collection: List<T>|Dictionary<T>,
-            iteratee?: string,
-            thisArg?: TValue
+            iteratee?: string
         ): Dictionary<T[]>;
 
         /**
@@ -7645,8 +7486,7 @@ declare module _ {
          */
         groupBy<T>(
             collection: List<T>|Dictionary<T>,
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): Dictionary<T[]>;
 
         /**
@@ -7671,8 +7511,7 @@ declare module _ {
          * @see _.groupBy
          */
         groupBy<TKey>(
-            iteratee?: ListIterator<T, TKey>,
-            thisArg?: any
+            iteratee?: ListIterator<T, TKey>
         ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
     }
 
@@ -7681,16 +7520,14 @@ declare module _ {
          * @see _.groupBy
          */
         groupBy<TKey>(
-            iteratee?: ListIterator<T, TKey>,
-            thisArg?: any
+            iteratee?: ListIterator<T, TKey>
         ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
          * @see _.groupBy
          */
         groupBy<TValue>(
-            iteratee?: string,
-            thisArg?: TValue
+            iteratee?: string
         ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
@@ -7706,32 +7543,28 @@ declare module _ {
          * @see _.groupBy
          */
         groupBy<T, TKey>(
-            iteratee?: ListIterator<T, TKey>|DictionaryIterator<T, TKey>,
-            thisArg?: any
+            iteratee?: ListIterator<T, TKey>|DictionaryIterator<T, TKey>
         ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
          * @see _.groupBy
          */
         groupBy<T>(
-            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>
         ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
          * @see _.groupBy
          */
         groupBy<T, TValue>(
-            iteratee?: string,
-            thisArg?: TValue
+            iteratee?: string
         ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
          * @see _.groupBy
          */
         groupBy<T>(
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): LoDashImplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
@@ -7754,8 +7587,7 @@ declare module _ {
          * @see _.groupBy
          */
         groupBy<TKey>(
-            iteratee?: ListIterator<T, TKey>,
-            thisArg?: any
+            iteratee?: ListIterator<T, TKey>
         ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
     }
 
@@ -7764,16 +7596,14 @@ declare module _ {
          * @see _.groupBy
          */
         groupBy<TKey>(
-            iteratee?: ListIterator<T, TKey>,
-            thisArg?: any
+            iteratee?: ListIterator<T, TKey>
         ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
          * @see _.groupBy
          */
         groupBy<TValue>(
-            iteratee?: string,
-            thisArg?: TValue
+            iteratee?: string
         ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
@@ -7789,32 +7619,28 @@ declare module _ {
          * @see _.groupBy
          */
         groupBy<T, TKey>(
-            iteratee?: ListIterator<T, TKey>|DictionaryIterator<T, TKey>,
-            thisArg?: any
+            iteratee?: ListIterator<T, TKey>|DictionaryIterator<T, TKey>
         ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
          * @see _.groupBy
          */
         groupBy<T>(
-            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>
         ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
          * @see _.groupBy
          */
         groupBy<T, TValue>(
-            iteratee?: string,
-            thisArg?: TValue
+            iteratee?: string
         ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
          * @see _.groupBy
          */
         groupBy<T>(
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
 
         /**
@@ -7943,8 +7769,7 @@ declare module _ {
          */
         keyBy<T>(
             collection: List<T>,
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): Dictionary<T>;
 
         /**
@@ -7952,8 +7777,7 @@ declare module _ {
          */
         keyBy<T>(
             collection: NumericDictionary<T>,
-            iteratee?: NumericDictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: NumericDictionaryIterator<T, any>
         ): Dictionary<T>;
 
         /**
@@ -7961,8 +7785,7 @@ declare module _ {
          */
         keyBy<T>(
             collection: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<T, any>
         ): Dictionary<T>;
 
         /**
@@ -7970,8 +7793,7 @@ declare module _ {
          */
         keyBy<T>(
             collection: List<T>|NumericDictionary<T>|Dictionary<T>,
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): Dictionary<T>;
 
         /**
@@ -7996,8 +7818,7 @@ declare module _ {
          * @see _.keyBy
          */
         keyBy(
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
     }
 
@@ -8006,16 +7827,14 @@ declare module _ {
          * @see _.keyBy
          */
         keyBy(
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
 
         /**
          * @see _.keyBy
          */
         keyBy(
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
 
         /**
@@ -8031,16 +7850,14 @@ declare module _ {
          * @see _.keyBy
          */
         keyBy<T>(
-            iteratee?: ListIterator<T, any>|NumericDictionaryIterator<T, any>|DictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>|NumericDictionaryIterator<T, any>|DictionaryIterator<T, any>
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
 
         /**
          * @see _.keyBy
          */
         keyBy<T>(
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
 
         /**
@@ -8063,8 +7880,7 @@ declare module _ {
          * @see _.keyBy
          */
         keyBy(
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
     }
 
@@ -8073,16 +7889,14 @@ declare module _ {
          * @see _.keyBy
          */
         keyBy(
-            iteratee?: ListIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
 
         /**
          * @see _.keyBy
          */
         keyBy(
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
 
         /**
@@ -8098,16 +7912,14 @@ declare module _ {
          * @see _.keyBy
          */
         keyBy<T>(
-            iteratee?: ListIterator<T, any>|NumericDictionaryIterator<T, any>|DictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>|NumericDictionaryIterator<T, any>|DictionaryIterator<T, any>
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
 
         /**
          * @see _.keyBy
          */
         keyBy<T>(
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
 
         /**
@@ -8358,8 +8170,7 @@ declare module _ {
          */
         map<T, TResult>(
             collection: List<T>,
-            iteratee?: ListIterator<T, TResult>,
-            thisArg?: any
+            iteratee?: ListIterator<T, TResult>
         ): TResult[];
 
         /**
@@ -8367,14 +8178,12 @@ declare module _ {
          */
         map<T extends {}, TResult>(
             collection: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, TResult>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<T, TResult>
         ): TResult[];
 
         map<T extends {}, TResult>(
             collection: NumericDictionary<T>,
-            iteratee?: NumericDictionaryIterator<T, TResult>,
-            thisArg?: any
+            iteratee?: NumericDictionaryIterator<T, TResult>
         ): TResult[];
 
         /**
@@ -8399,8 +8208,7 @@ declare module _ {
          * @see _.map
          */
         map<TResult>(
-            iteratee?: ListIterator<T, TResult>,
-            thisArg?: any
+            iteratee?: ListIterator<T, TResult>
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
@@ -8423,8 +8231,7 @@ declare module _ {
          * @see _.map
          */
         map<TValue, TResult>(
-            iteratee?: ListIterator<TValue, TResult>|DictionaryIterator<TValue, TResult>,
-            thisArg?: any
+            iteratee?: ListIterator<TValue, TResult>|DictionaryIterator<TValue, TResult>
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
@@ -8447,8 +8254,7 @@ declare module _ {
          * @see _.map
          */
         map<TResult>(
-            iteratee?: ListIterator<T, TResult>,
-            thisArg?: any
+            iteratee?: ListIterator<T, TResult>
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
@@ -8471,8 +8277,7 @@ declare module _ {
          * @see _.map
          */
         map<TValue, TResult>(
-            iteratee?: ListIterator<TValue, TResult>|DictionaryIterator<TValue, TResult>,
-            thisArg?: any
+            iteratee?: ListIterator<TValue, TResult>|DictionaryIterator<TValue, TResult>
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
@@ -8513,16 +8318,14 @@ declare module _ {
         **/
         partition<T>(
             collection: List<T>,
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): T[][];
+            callback: ListIterator<T, boolean>): T[][];
 
         /**
          * @see _.partition
          **/
         partition<T>(
             collection: Dictionary<T>,
-            callback: DictionaryIterator<T, boolean>,
-            thisArg?: any): T[][];
+            callback: DictionaryIterator<T, boolean>): T[][];
 
         /**
          * @see _.partition
@@ -8574,8 +8377,7 @@ declare module _ {
          * @see _.partition
          */
         partition(
-            callback: ListIterator<string, boolean>,
-            thisArg?: any): LoDashImplicitArrayWrapper<string[]>;
+            callback: ListIterator<string, boolean>): LoDashImplicitArrayWrapper<string[]>;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -8583,8 +8385,7 @@ declare module _ {
          * @see _.partition
          */
         partition(
-            callback: ListIterator<T, boolean>,
-            thisArg?: any): LoDashImplicitArrayWrapper<T[]>;
+            callback: ListIterator<T, boolean>): LoDashImplicitArrayWrapper<T[]>;
         /**
          * @see _.partition
          */
@@ -8608,15 +8409,13 @@ declare module _ {
          * @see _.partition
          */
         partition<TResult>(
-            callback: ListIterator<TResult, boolean>,
-            thisArg?: any): LoDashImplicitArrayWrapper<TResult[]>;
+            callback: ListIterator<TResult, boolean>): LoDashImplicitArrayWrapper<TResult[]>;
 
         /**
          * @see _.partition
          */
         partition<TResult>(
-            callback: DictionaryIterator<TResult, boolean>,
-            thisArg?: any): LoDashImplicitArrayWrapper<TResult[]>;
+            callback: DictionaryIterator<TResult, boolean>): LoDashImplicitArrayWrapper<TResult[]>;
 
         /**
          * @see _.partition
@@ -8655,8 +8454,7 @@ declare module _ {
         reduce<T, TResult>(
             collection: Array<T>,
             callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
+            accumulator: TResult): TResult;
 
         /**
         * @see _.reduce
@@ -8664,8 +8462,7 @@ declare module _ {
         reduce<T, TResult>(
             collection: List<T>,
             callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
+            accumulator: TResult): TResult;
 
         /**
         * @see _.reduce
@@ -8673,8 +8470,7 @@ declare module _ {
         reduce<T, TResult>(
             collection: Dictionary<T>,
             callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
+            accumulator: TResult): TResult;
 
         /**
         * @see _.reduce
@@ -8682,40 +8478,35 @@ declare module _ {
         reduce<T, TResult>(
             collection: NumericDictionary<T>,
             callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
+            accumulator: TResult): TResult;
 
         /**
         * @see _.reduce
         **/
         reduce<T, TResult>(
             collection: Array<T>,
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
+            callback: MemoIterator<T, TResult>): TResult;
 
         /**
         * @see _.reduce
         **/
         reduce<T, TResult>(
             collection: List<T>,
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
+            callback: MemoIterator<T, TResult>): TResult;
 
         /**
         * @see _.reduce
         **/
         reduce<T, TResult>(
             collection: Dictionary<T>,
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
+            callback: MemoIterator<T, TResult>): TResult;
 
         /**
         * @see _.reduce
         **/
         reduce<T, TResult>(
             collection: NumericDictionary<T>,
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
+            callback: MemoIterator<T, TResult>): TResult;
 
     }
 
@@ -8725,15 +8516,13 @@ declare module _ {
         **/
         reduce<TResult>(
             callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
+            accumulator: TResult): TResult;
 
         /**
         * @see _.reduce
         **/
         reduce<TResult>(
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
+            callback: MemoIterator<T, TResult>): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -8742,15 +8531,13 @@ declare module _ {
         **/
         reduce<TValue, TResult>(
             callback: MemoIterator<TValue, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
+            accumulator: TResult): TResult;
 
         /**
         * @see _.reduce
         **/
         reduce<TValue, TResult>(
-            callback: MemoIterator<TValue, TResult>,
-            thisArg?: any): TResult;
+            callback: MemoIterator<TValue, TResult>): TResult;
     }
 
     //_.reduceRight
@@ -8767,8 +8554,7 @@ declare module _ {
         reduceRight<T, TResult>(
             collection: Array<T>,
             callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
+            accumulator: TResult): TResult;
 
         /**
         * @see _.reduceRight
@@ -8776,8 +8562,7 @@ declare module _ {
         reduceRight<T, TResult>(
             collection: List<T>,
             callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
+            accumulator: TResult): TResult;
 
         /**
         * @see _.reduceRight
@@ -8785,32 +8570,28 @@ declare module _ {
         reduceRight<T, TResult>(
             collection: Dictionary<T>,
             callback: MemoIterator<T, TResult>,
-            accumulator: TResult,
-            thisArg?: any): TResult;
+            accumulator: TResult): TResult;
 
         /**
         * @see _.reduceRight
         **/
         reduceRight<T, TResult>(
             collection: Array<T>,
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
+            callback: MemoIterator<T, TResult>): TResult;
 
         /**
         * @see _.reduceRight
         **/
         reduceRight<T, TResult>(
             collection: List<T>,
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
+            callback: MemoIterator<T, TResult>): TResult;
 
         /**
         * @see _.reduceRight
         **/
         reduceRight<T, TResult>(
             collection: Dictionary<T>,
-            callback: MemoIterator<T, TResult>,
-            thisArg?: any): TResult;
+            callback: MemoIterator<T, TResult>): TResult;
     }
 
     //_.reject
@@ -8826,8 +8607,7 @@ declare module _ {
          */
         reject<T>(
             collection: List<T>,
-            predicate?: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate?: ListIterator<T, boolean>
         ): T[];
 
         /**
@@ -8835,8 +8615,7 @@ declare module _ {
          */
         reject<T>(
             collection: Dictionary<T>,
-            predicate?: DictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate?: DictionaryIterator<T, boolean>
         ): T[];
 
         /**
@@ -8844,8 +8623,7 @@ declare module _ {
          */
         reject(
             collection: string,
-            predicate?: StringIterator<boolean>,
-            thisArg?: any
+            predicate?: StringIterator<boolean>
         ): string[];
 
         /**
@@ -8853,8 +8631,7 @@ declare module _ {
          */
         reject<T>(
             collection: List<T>|Dictionary<T>,
-            predicate: string,
-            thisArg?: any
+            predicate: string
         ): T[];
 
         /**
@@ -8871,8 +8648,7 @@ declare module _ {
          * @see _.reject
          */
         reject(
-            predicate?: StringIterator<boolean>,
-            thisArg?: any
+            predicate?: StringIterator<boolean>
         ): LoDashImplicitArrayWrapper<string>;
     }
 
@@ -8881,16 +8657,14 @@ declare module _ {
          * @see _.reject
          */
         reject(
-            predicate: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate: ListIterator<T, boolean>
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.reject
          */
         reject(
-            predicate: string,
-            thisArg?: any
+            predicate: string
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
@@ -8904,16 +8678,14 @@ declare module _ {
          * @see _.reject
          */
         reject<T>(
-            predicate: ListIterator<T, boolean>|DictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate: ListIterator<T, boolean>|DictionaryIterator<T, boolean>
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
          * @see _.reject
          */
         reject<T>(
-            predicate: string,
-            thisArg?: any
+            predicate: string
         ): LoDashImplicitArrayWrapper<T>;
 
         /**
@@ -8927,8 +8699,7 @@ declare module _ {
          * @see _.reject
          */
         reject(
-            predicate?: StringIterator<boolean>,
-            thisArg?: any
+            predicate?: StringIterator<boolean>
         ): LoDashExplicitArrayWrapper<string>;
     }
 
@@ -8937,16 +8708,14 @@ declare module _ {
          * @see _.reject
          */
         reject(
-            predicate: ListIterator<T, boolean>,
-            thisArg?: any
+            predicate: ListIterator<T, boolean>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.reject
          */
         reject(
-            predicate: string,
-            thisArg?: any
+            predicate: string
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
@@ -8960,16 +8729,14 @@ declare module _ {
          * @see _.reject
          */
         reject<T>(
-            predicate: ListIterator<T, boolean>|DictionaryIterator<T, boolean>,
-            thisArg?: any
+            predicate: ListIterator<T, boolean>|DictionaryIterator<T, boolean>
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
          * @see _.reject
          */
         reject<T>(
-            predicate: string,
-            thisArg?: any
+            predicate: string
         ): LoDashExplicitArrayWrapper<T>;
 
         /**
@@ -10120,7 +9887,6 @@ declare module _ {
         **/
         createCallback(
             func: string,
-            thisArg?: any,
             argCount?: number): () => any;
 
         /**
@@ -10128,7 +9894,6 @@ declare module _ {
         **/
         createCallback(
             func: Dictionary<any>,
-            thisArg?: any,
             argCount?: number): () => boolean;
     }
 
@@ -10137,7 +9902,6 @@ declare module _ {
         * @see _.createCallback
         **/
         createCallback(
-            thisArg?: any,
             argCount?: number): LoDashImplicitObjectWrapper<() => any>;
     }
 
@@ -10146,7 +9910,6 @@ declare module _ {
         * @see _.createCallback
         **/
         createCallback(
-            thisArg?: any,
             argCount?: number): LoDashImplicitObjectWrapper<() => any>;
     }
 
@@ -13349,16 +13112,14 @@ declare module _ {
          * @see _.maxBy
          */
         maxBy<T>(
-            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>
         ): T;
 
         /**
          * @see _.maxBy
          */
         maxBy<T>(
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): T;
 
         /**
@@ -13514,16 +13275,14 @@ declare module _ {
          * @see _.minBy
          */
         minBy<T>(
-            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>
         ): T;
 
         /**
          * @see _.minBy
          */
         minBy<T>(
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): T;
 
         /**
@@ -14917,8 +14676,7 @@ declare module _ {
         extend<TObject extends {}, TSource extends {}, TResult extends {}>(
             object: TObject,
             source: TSource,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            customizer?: AssignCustomizer
         ): TResult;
 
         /**
@@ -14928,8 +14686,7 @@ declare module _ {
             object: TObject,
             source1: TSource1,
             source2: TSource2,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            customizer?: AssignCustomizer
         ): TResult;
 
         /**
@@ -14940,8 +14697,7 @@ declare module _ {
             source1: TSource1,
             source2: TSource2,
             source3: TSource3,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            customizer?: AssignCustomizer
         ): TResult;
 
         /**
@@ -14955,8 +14711,7 @@ declare module _ {
                 source2: TSource2,
                 source3: TSource3,
                 source4: TSource4,
-                customizer?: AssignCustomizer,
-                thisArg?: any
+                customizer?: AssignCustomizer
             ): TResult;
 
         /**
@@ -14978,8 +14733,7 @@ declare module _ {
          */
         extend<TSource extends {}, TResult extends {}>(
             source: TSource,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            customizer?: AssignCustomizer
         ): LoDashImplicitObjectWrapper<TResult>;
 
         /**
@@ -14988,8 +14742,7 @@ declare module _ {
         extend<TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
             source1: TSource1,
             source2: TSource2,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            customizer?: AssignCustomizer
         ): LoDashImplicitObjectWrapper<TResult>;
 
         /**
@@ -14999,8 +14752,7 @@ declare module _ {
             source1: TSource1,
             source2: TSource2,
             source3: TSource3,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            customizer?: AssignCustomizer
         ): LoDashImplicitObjectWrapper<TResult>;
 
         /**
@@ -15011,8 +14763,7 @@ declare module _ {
             source2: TSource2,
             source3: TSource3,
             source4: TSource4,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            customizer?: AssignCustomizer
         ): LoDashImplicitObjectWrapper<TResult>;
 
         /**
@@ -15032,8 +14783,7 @@ declare module _ {
          */
         extend<TSource extends {}, TResult extends {}>(
             source: TSource,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            customizer?: AssignCustomizer
         ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
@@ -15042,8 +14792,7 @@ declare module _ {
         extend<TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
             source1: TSource1,
             source2: TSource2,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            customizer?: AssignCustomizer
         ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
@@ -15053,8 +14802,7 @@ declare module _ {
             source1: TSource1,
             source2: TSource2,
             source3: TSource3,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            customizer?: AssignCustomizer
         ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
@@ -15065,8 +14813,7 @@ declare module _ {
             source2: TSource2,
             source3: TSource3,
             source4: TSource4,
-            customizer?: AssignCustomizer,
-            thisArg?: any
+            customizer?: AssignCustomizer
         ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
@@ -15102,8 +14849,7 @@ declare module _ {
          */
         findKey<TValues, TObject>(
             object: TObject,
-            predicate?: DictionaryIterator<TValues, boolean>,
-            thisArg?: any
+            predicate?: DictionaryIterator<TValues, boolean>
         ): string;
 
         /**
@@ -15111,8 +14857,7 @@ declare module _ {
          */
         findKey<TObject>(
             object: TObject,
-            predicate?: ObjectIterator<any, boolean>,
-            thisArg?: any
+            predicate?: ObjectIterator<any, boolean>
         ): string;
 
         /**
@@ -15120,8 +14865,7 @@ declare module _ {
          */
         findKey<TObject>(
             object: TObject,
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): string;
 
         /**
@@ -15138,24 +14882,21 @@ declare module _ {
          * @see _.findKey
          */
         findKey<TValues>(
-            predicate?: DictionaryIterator<TValues, boolean>,
-            thisArg?: any
+            predicate?: DictionaryIterator<TValues, boolean>
         ): string;
 
         /**
          * @see _.findKey
          */
         findKey(
-            predicate?: ObjectIterator<any, boolean>,
-            thisArg?: any
+            predicate?: ObjectIterator<any, boolean>
         ): string;
 
         /**
          * @see _.findKey
          */
         findKey(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): string;
 
         /**
@@ -15171,24 +14912,21 @@ declare module _ {
          * @see _.findKey
          */
         findKey<TValues>(
-            predicate?: DictionaryIterator<TValues, boolean>,
-            thisArg?: any
+            predicate?: DictionaryIterator<TValues, boolean>
         ): LoDashExplicitWrapper<string>;
 
         /**
          * @see _.findKey
          */
         findKey(
-            predicate?: ObjectIterator<any, boolean>,
-            thisArg?: any
+            predicate?: ObjectIterator<any, boolean>
         ): LoDashExplicitWrapper<string>;
 
         /**
          * @see _.findKey
          */
         findKey(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashExplicitWrapper<string>;
 
         /**
@@ -15220,8 +14958,7 @@ declare module _ {
          */
         findLastKey<TValues, TObject>(
             object: TObject,
-            predicate?: DictionaryIterator<TValues, boolean>,
-            thisArg?: any
+            predicate?: DictionaryIterator<TValues, boolean>
         ): string;
 
         /**
@@ -15229,8 +14966,7 @@ declare module _ {
          */
         findLastKey<TObject>(
             object: TObject,
-            predicate?: ObjectIterator<any, boolean>,
-            thisArg?: any
+            predicate?: ObjectIterator<any, boolean>
         ): string;
 
         /**
@@ -15238,8 +14974,7 @@ declare module _ {
          */
         findLastKey<TObject>(
             object: TObject,
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): string;
 
         /**
@@ -15256,24 +14991,21 @@ declare module _ {
          * @see _.findLastKey
          */
         findLastKey<TValues>(
-            predicate?: DictionaryIterator<TValues, boolean>,
-            thisArg?: any
+            predicate?: DictionaryIterator<TValues, boolean>
         ): string;
 
         /**
          * @see _.findLastKey
          */
         findLastKey(
-            predicate?: ObjectIterator<any, boolean>,
-            thisArg?: any
+            predicate?: ObjectIterator<any, boolean>
         ): string;
 
         /**
          * @see _.findLastKey
          */
         findLastKey(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): string;
 
         /**
@@ -15289,24 +15021,21 @@ declare module _ {
          * @see _.findLastKey
          */
         findLastKey<TValues>(
-            predicate?: DictionaryIterator<TValues, boolean>,
-            thisArg?: any
+            predicate?: DictionaryIterator<TValues, boolean>
         ): LoDashExplicitWrapper<string>;
 
         /**
          * @see _.findLastKey
          */
         findLastKey(
-            predicate?: ObjectIterator<any, boolean>,
-            thisArg?: any
+            predicate?: ObjectIterator<any, boolean>
         ): LoDashExplicitWrapper<string>;
 
         /**
          * @see _.findLastKey
          */
         findLastKey(
-            predicate?: string,
-            thisArg?: any
+            predicate?: string
         ): LoDashExplicitWrapper<string>;
 
         /**
@@ -15331,8 +15060,7 @@ declare module _ {
          */
         forIn<T>(
             object: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<T, any>
         ): Dictionary<T>;
 
         /**
@@ -15340,8 +15068,7 @@ declare module _ {
          */
         forIn<T extends {}>(
             object: T,
-            iteratee?: ObjectIterator<any, any>,
-            thisArg?: any
+            iteratee?: ObjectIterator<any, any>
         ): T;
     }
 
@@ -15350,8 +15077,7 @@ declare module _ {
          * @see _.forIn
          */
         forIn<TValue>(
-            iteratee?: DictionaryIterator<TValue, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<TValue, any>
         ): _.LoDashImplicitObjectWrapper<T>;
     }
 
@@ -15360,8 +15086,7 @@ declare module _ {
          * @see _.forIn
          */
         forIn<TValue>(
-            iteratee?: DictionaryIterator<TValue, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<TValue, any>
         ): _.LoDashExplicitObjectWrapper<T>;
     }
 
@@ -15377,8 +15102,7 @@ declare module _ {
          */
         forInRight<T>(
             object: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<T, any>
         ): Dictionary<T>;
 
         /**
@@ -15386,8 +15110,7 @@ declare module _ {
          */
         forInRight<T extends {}>(
             object: T,
-            iteratee?: ObjectIterator<any, any>,
-            thisArg?: any
+            iteratee?: ObjectIterator<any, any>
         ): T;
     }
 
@@ -15396,8 +15119,7 @@ declare module _ {
          * @see _.forInRight
          */
         forInRight<TValue>(
-            iteratee?: DictionaryIterator<TValue, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<TValue, any>
         ): _.LoDashImplicitObjectWrapper<T>;
     }
 
@@ -15406,8 +15128,7 @@ declare module _ {
          * @see _.forInRight
          */
         forInRight<TValue>(
-            iteratee?: DictionaryIterator<TValue, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<TValue, any>
         ): _.LoDashExplicitObjectWrapper<T>;
     }
 
@@ -15425,8 +15146,7 @@ declare module _ {
          */
         forOwn<T>(
             object: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<T, any>
         ): Dictionary<T>;
 
         /**
@@ -15434,8 +15154,7 @@ declare module _ {
          */
         forOwn<T extends {}>(
             object: T,
-            iteratee?: ObjectIterator<any, any>,
-            thisArg?: any
+            iteratee?: ObjectIterator<any, any>
         ): T;
     }
 
@@ -15444,8 +15163,7 @@ declare module _ {
          * @see _.forOwn
          */
         forOwn<TValue>(
-            iteratee?: DictionaryIterator<TValue, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<TValue, any>
         ): _.LoDashImplicitObjectWrapper<T>;
     }
 
@@ -15454,8 +15172,7 @@ declare module _ {
          * @see _.forOwn
          */
         forOwn<TValue>(
-            iteratee?: DictionaryIterator<TValue, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<TValue, any>
         ): _.LoDashExplicitObjectWrapper<T>;
     }
 
@@ -15471,8 +15188,7 @@ declare module _ {
          */
         forOwnRight<T>(
             object: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<T, any>
         ): Dictionary<T>;
 
         /**
@@ -15480,8 +15196,7 @@ declare module _ {
          */
         forOwnRight<T extends {}>(
             object: T,
-            iteratee?: ObjectIterator<any, any>,
-            thisArg?: any
+            iteratee?: ObjectIterator<any, any>
         ): T;
     }
 
@@ -15490,8 +15205,7 @@ declare module _ {
          * @see _.forOwnRight
          */
         forOwnRight<TValue>(
-            iteratee?: DictionaryIterator<TValue, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<TValue, any>
         ): _.LoDashImplicitObjectWrapper<T>;
     }
 
@@ -15500,8 +15214,7 @@ declare module _ {
          * @see _.forOwnRight
          */
         forOwnRight<TValue>(
-            iteratee?: DictionaryIterator<TValue, any>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<TValue, any>
         ): _.LoDashExplicitObjectWrapper<T>;
     }
 
@@ -15999,8 +15712,7 @@ declare module _ {
          */
         mapKeys<T, TKey>(
             object: List<T>,
-            iteratee?: ListIterator<T, TKey>,
-            thisArg?: any
+            iteratee?: ListIterator<T, TKey>
         ): Dictionary<T>;
 
         /**
@@ -16008,8 +15720,7 @@ declare module _ {
          */
         mapKeys<T, TKey>(
             object: Dictionary<T>,
-            iteratee?: DictionaryIterator<T, TKey>,
-            thisArg?: any
+            iteratee?: DictionaryIterator<T, TKey>
         ): Dictionary<T>;
 
         /**
@@ -16025,8 +15736,7 @@ declare module _ {
          */
         mapKeys<T>(
             object: List<T>|Dictionary<T>,
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): Dictionary<T>;
     }
 
@@ -16035,8 +15745,7 @@ declare module _ {
          * @see _.mapKeys
          */
         mapKeys<TKey>(
-            iteratee?: ListIterator<T, TKey>,
-            thisArg?: any
+            iteratee?: ListIterator<T, TKey>
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
 
         /**
@@ -16050,8 +15759,7 @@ declare module _ {
          * @see _.mapKeys
          */
         mapKeys(
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): LoDashImplicitObjectWrapper<Dictionary<T>>;
     }
 
@@ -16060,8 +15768,7 @@ declare module _ {
          * @see _.mapKeys
          */
         mapKeys<TResult, TKey>(
-            iteratee?: ListIterator<TResult, TKey>|DictionaryIterator<TResult, TKey>,
-            thisArg?: any
+            iteratee?: ListIterator<TResult, TKey>|DictionaryIterator<TResult, TKey>
         ): LoDashImplicitObjectWrapper<Dictionary<TResult>>;
 
         /**
@@ -16075,8 +15782,7 @@ declare module _ {
          * @see _.mapKeys
          */
         mapKeys<TResult>(
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): LoDashImplicitObjectWrapper<Dictionary<TResult>>;
     }
 
@@ -16085,8 +15791,7 @@ declare module _ {
          * @see _.mapKeys
          */
         mapKeys<TKey>(
-            iteratee?: ListIterator<T, TKey>,
-            thisArg?: any
+            iteratee?: ListIterator<T, TKey>
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
 
         /**
@@ -16100,8 +15805,7 @@ declare module _ {
          * @see _.mapKeys
          */
         mapKeys(
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): LoDashExplicitObjectWrapper<Dictionary<T>>;
     }
 
@@ -16110,8 +15814,7 @@ declare module _ {
          * @see _.mapKeys
          */
         mapKeys<TResult, TKey>(
-            iteratee?: ListIterator<TResult, TKey>|DictionaryIterator<TResult, TKey>,
-            thisArg?: any
+            iteratee?: ListIterator<TResult, TKey>|DictionaryIterator<TResult, TKey>
         ): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
 
         /**
@@ -16125,8 +15828,7 @@ declare module _ {
          * @see _.mapKeys
          */
         mapKeys<TResult>(
-            iteratee?: string,
-            thisArg?: any
+            iteratee?: string
         ): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
     }
 
@@ -16151,10 +15853,10 @@ declare module _ {
         * @param {Object} [thisArg] The `this` binding of `iteratee`.
         * @return {Object} Returns the new mapped object.
         */
-        mapValues<T, TResult>(obj: Dictionary<T>, callback: ObjectIterator<T, TResult>, thisArg?: any): Dictionary<TResult>;
+        mapValues<T, TResult>(obj: Dictionary<T>, callback: ObjectIterator<T, TResult>): Dictionary<TResult>;
         mapValues<T>(obj: Dictionary<T>, where: Dictionary<T>): Dictionary<boolean>;
         mapValues<T, TMapped>(obj: T, pluck: string): TMapped;
-        mapValues<T>(obj: T, callback: ObjectIterator<any, any>, thisArg?: any): T;
+        mapValues<T>(obj: T, callback: ObjectIterator<any, any>): T;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -16163,7 +15865,7 @@ declare module _ {
          * TValue is the type of the property values of T.
          * TResult is the type output by the ObjectIterator function
          */
-        mapValues<TValue, TResult>(callback: ObjectIterator<TValue, TResult>, thisArg?: any): LoDashImplicitObjectWrapper<Dictionary<TResult>>;
+        mapValues<TValue, TResult>(callback: ObjectIterator<TValue, TResult>): LoDashImplicitObjectWrapper<Dictionary<TResult>>;
 
         /**
          * @see _.mapValues
@@ -16174,17 +15876,33 @@ declare module _ {
 
         /**
          * @see _.mapValues
-         * TResult is the type of the properties on the object specified by pluck.
-         * T should be a Dictionary<Dictionary<Dictionary<TResult>>>
+         * TResult is the type of the properties of each object in the values of T
+         * T should be a Dictionary<Dictionary<TResult>>
          */
-        mapValues<TResult>(pluck: string, where: Dictionary<TResult>): LoDashImplicitArrayWrapper<Dictionary<boolean>>;
+        mapValues<TResult>(where: Dictionary<TResult>): LoDashImplicitArrayWrapper<boolean>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.mapValues
+         * TValue is the type of the property values of T.
+         * TResult is the type output by the ObjectIterator function
+         */
+        mapValues<TValue, TResult>(callback: ObjectIterator<TValue, TResult>): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
+
+        /**
+         * @see _.mapValues
+         * TResult is the type of the property specified by pluck.
+         * T should be a Dictionary<Dictionary<TResult>>
+         */
+        mapValues<TResult>(pluck: string): LoDashExplicitObjectWrapper<Dictionary<TResult>>;
 
         /**
          * @see _.mapValues
          * TResult is the type of the properties of each object in the values of T
          * T should be a Dictionary<Dictionary<TResult>>
          */
-        mapValues<TResult>(where: Dictionary<TResult>): LoDashImplicitArrayWrapper<boolean>;
+        mapValues<TResult>(where: Dictionary<TResult>): LoDashExplicitObjectWrapper<boolean>;
     }
 
     //_.merge
@@ -16635,7 +16353,7 @@ declare module _ {
          */
         pickBy<TResult extends {}, T extends {}>(
             object: T,
-            predicate: ObjectIterator<any, boolean>
+            predicate?: ObjectIterator<any, boolean>
         ): TResult;
     }
 
@@ -16644,7 +16362,7 @@ declare module _ {
          * @see _.pickBy
          */
         pickBy<TResult extends {}>(
-            predicate: ObjectIterator<any, boolean>
+            predicate?: ObjectIterator<any, boolean>
         ): LoDashImplicitObjectWrapper<TResult>;
     }
 
@@ -16653,7 +16371,7 @@ declare module _ {
          * @see _.pickBy
          */
         pickBy<TResult extends {}>(
-            predicate: ObjectIterator<any, boolean>
+            predicate?: ObjectIterator<any, boolean>
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
@@ -16973,8 +16691,7 @@ declare module _ {
         transform<T, TResult>(
             object: T[],
             iteratee?: MemoVoidArrayIterator<T, TResult[]>,
-            accumulator?: TResult[],
-            thisArg?: any
+            accumulator?: TResult[]
         ): TResult[];
 
         /**
@@ -16983,8 +16700,7 @@ declare module _ {
         transform<T, TResult>(
             object: T[],
             iteratee?: MemoVoidArrayIterator<T, Dictionary<TResult>>,
-            accumulator?: Dictionary<TResult>,
-            thisArg?: any
+            accumulator?: Dictionary<TResult>
         ): Dictionary<TResult>;
 
         /**
@@ -16993,8 +16709,7 @@ declare module _ {
         transform<T, TResult>(
             object: Dictionary<T>,
             iteratee?: MemoVoidDictionaryIterator<T, Dictionary<TResult>>,
-            accumulator?: Dictionary<TResult>,
-            thisArg?: any
+            accumulator?: Dictionary<TResult>
         ): Dictionary<TResult>;
 
         /**
@@ -17003,8 +16718,7 @@ declare module _ {
         transform<T, TResult>(
             object: Dictionary<T>,
             iteratee?: MemoVoidDictionaryIterator<T, TResult[]>,
-            accumulator?: TResult[],
-            thisArg?: any
+            accumulator?: TResult[]
         ): TResult[];
     }
 
@@ -17014,8 +16728,7 @@ declare module _ {
          */
         transform<TResult>(
             iteratee?: MemoVoidArrayIterator<T, TResult[]>,
-            accumulator?: TResult[],
-            thisArg?: any
+            accumulator?: TResult[]
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
@@ -17023,8 +16736,7 @@ declare module _ {
          */
         transform<TResult>(
             iteratee?: MemoVoidArrayIterator<T, Dictionary<TResult>>,
-            accumulator?: Dictionary<TResult>,
-            thisArg?: any
+            accumulator?: Dictionary<TResult>
         ): LoDashImplicitObjectWrapper<Dictionary<TResult>>;
     }
 
@@ -17034,8 +16746,7 @@ declare module _ {
          */
         transform<T, TResult>(
             iteratee?: MemoVoidDictionaryIterator<T, Dictionary<TResult>>,
-            accumulator?: Dictionary<TResult>,
-            thisArg?: any
+            accumulator?: Dictionary<TResult>
         ): LoDashImplicitObjectWrapper<Dictionary<TResult>>;
 
         /**
@@ -17043,8 +16754,7 @@ declare module _ {
          */
         transform<T, TResult>(
             iteratee?: MemoVoidDictionaryIterator<T, TResult[]>,
-            accumulator?: TResult[],
-            thisArg?: any
+            accumulator?: TResult[]
         ): LoDashImplicitArrayWrapper<TResult>;
     }
 
@@ -18344,24 +18054,21 @@ declare module _ {
          * // => [{ 'user': 'fred', 'age': 40 }]
          */
         iteratee<TResult>(
-            func: Function,
-            thisArg?: any
+            func: Function
         ): (...args: any[]) => TResult;
 
         /**
          * @see _.iteratee
          */
         iteratee<TResult>(
-            func: string,
-            thisArg?: any
+            func: string
         ): (object: any) => TResult;
 
         /**
          * @see _.iteratee
          */
         iteratee(
-            func: Object,
-            thisArg?: any
+            func: Object
         ): (object: any) => boolean;
 
         /**
@@ -18374,38 +18081,38 @@ declare module _ {
         /**
          * @see _.iteratee
          */
-        iteratee<TResult>(thisArg?: any): LoDashImplicitObjectWrapper<(object: any) => TResult>;
+        iteratee<TResult>(): LoDashImplicitObjectWrapper<(object: any) => TResult>;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.iteratee
          */
-        iteratee(thisArg?: any): LoDashImplicitObjectWrapper<(object: any) => boolean>;
+        iteratee(): LoDashImplicitObjectWrapper<(object: any) => boolean>;
 
         /**
          * @see _.iteratee
          */
-        iteratee<TResult>(thisArg?: any): LoDashImplicitObjectWrapper<(...args: any[]) => TResult>;
+        iteratee<TResult>(): LoDashImplicitObjectWrapper<(...args: any[]) => TResult>;
     }
 
     interface LoDashExplicitWrapper<T> {
         /**
          * @see _.iteratee
          */
-        iteratee<TResult>(thisArg?: any): LoDashExplicitObjectWrapper<(object: any) => TResult>;
+        iteratee<TResult>(): LoDashExplicitObjectWrapper<(object: any) => TResult>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.iteratee
          */
-        iteratee(thisArg?: any): LoDashExplicitObjectWrapper<(object: any) => boolean>;
+        iteratee(): LoDashExplicitObjectWrapper<(object: any) => boolean>;
 
         /**
          * @see _.iteratee
          */
-        iteratee<TResult>(thisArg?: any): LoDashExplicitObjectWrapper<(...args: any[]) => TResult>;
+        iteratee<TResult>(): LoDashExplicitObjectWrapper<(...args: any[]) => TResult>;
     }
 
     //_.matches
