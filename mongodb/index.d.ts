@@ -243,8 +243,8 @@ export declare class Db extends EventEmitter {
 
 
 
-  // Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
-  export class Server extends EventEmitter {
+// Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
+export class Server extends EventEmitter {
     constructor(host: string, port: number, options?: ServerOptions);
 
     connections(): Array<any>;
@@ -255,23 +255,23 @@ export declare class ReplSet extends EventEmitter {
     constructor(servers: Array<Server>, options?: ReplSetOptions);
 
     connections(): Array<any>;
-  }
-  
-  // Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/ReplSet.html
-  export class Mongos extends EventEmitter {
+}
+
+// Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/ReplSet.html
+export class Mongos extends EventEmitter {
     constructor(servers: Array<Server>, options?: MongosOptions);
 
     connections(): Array<any>;
-  }
-  
-  // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#addUser
-  export interface DbAddUserOptions {
+}
+
+// http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#addUser
+export interface DbAddUserOptions {
     w?: string | number;
     wtimeout?: number;
     j?: boolean;
     customData?: Object;
     roles?: Object[];
-  }
+}
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#createCollection
 export interface CollectionCreateOptions {
@@ -742,9 +742,9 @@ export interface Collection {
     updateOne(filter: Object, update: Object, options: ReplaceOneOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
 }
 
-  // Documentation: http://docs.mongodb.org/manual/reference/command/collStats/
-  //TODO complete this
-  export interface CollStats {
+// Documentation: http://docs.mongodb.org/manual/reference/command/collStats/
+//TODO complete this
+export interface CollStats {
     // Namespace.
     ns: string;
     // Number of documents.
@@ -776,10 +776,10 @@ export interface Collection {
     wiredTiger: any;
     indexDetails: any;
     ok: number;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#aggregate
-  export interface CollectionAggregationOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#aggregate
+export interface CollectionAggregationOptions {
     readPreference?: ReadPreference | string;
     // Return the query as cursor, on 2.6 > it returns as a real cursor
     // on pre 2.6 it returns as an emulated cursor.
@@ -935,8 +935,8 @@ export interface OrderedBulkOperation {
     insert(doc: Object): OrderedBulkOperation;
 }
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/BulkWriteResult.html
-  export interface BulkWriteResult {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/BulkWriteResult.html
+export interface BulkWriteResult {
     ok: number;
     nInserted: number;
     nUpdated: number;
@@ -1009,8 +1009,8 @@ export interface FindOperatorsUnordered {
     upsert(): FindOperatorsUnordered;
 }
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOne
-  export interface FindOneOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOne
+export interface FindOneOptions {
     limit?: number,
     sort?: Array<any> | Object,
     fields?: Object,
@@ -1031,10 +1031,10 @@ export interface FindOperatorsUnordered {
     readPreference?: ReadPreference | string,
     partial?: boolean,
     maxTimeMs?: number
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~insertWriteOpResult
-  export interface InsertWriteOpResult {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~insertWriteOpResult
+export interface InsertWriteOpResult {
     insertedCount: number;
     ops: Array<any>;
     insertedIds: Array<ObjectID>;
@@ -1109,15 +1109,15 @@ export interface MapReduceOptions {
     bypassDocumentValidation?: boolean
 }
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~WriteOpResult
-  export interface WriteOpResult {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~WriteOpResult
+export interface WriteOpResult {
     ops: Array<any>;
     connection: any;
     result: any;
-  }
-  
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/external-Readable.html
-  export interface Readable {
+}
+
+//http://mongodb.github.io/node-mongodb-native/2.1/api/external-Readable.html
+export interface Readable {
     pause(): void;
     pipe(destination: Writable, options?: Object): void;
     read(size: number): string | Buffer | void;
