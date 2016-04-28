@@ -4343,13 +4343,16 @@ declare module "react-native" {
       export var Image: any;
       export var Text: any;
     }
-		
+
     export interface GeolocationStatic {
         getCurrentPosition(geo_success: (position: GeolocationReturnType) => void, geo_error?: (error: Error) => void, geo_options?: GetCurrentPositionOptions): void
         watchPosition(success: (position: Geolocation) => void, error?: (error: Error) => void, options?: WatchPositionOptions): void
         clearWatch(watchID: number): void
         stopObserving(): void
     }
+
+		// TODO: Add proper support
+		export type fetch = (url: string, options?: Object) => Promise<any>
 
 
     //////////////////////////////////////////////////////////////////////////
