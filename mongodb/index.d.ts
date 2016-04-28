@@ -7,12 +7,10 @@
 
 /// <reference path='../node/node.d.ts' />
 
-declare module "mongodb" {
-  import {EventEmitter} from 'events';
+import {EventEmitter} from 'events';
 
-
-  // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html
-  export class MongoClient {
+// Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html
+export class MongoClient {
     constructor();
 
     static connect(uri: string, callback: MongoCallback<Db>): void;
@@ -22,30 +20,30 @@ declare module "mongodb" {
     connect(uri: string, callback: MongoCallback<Db>): void;
     connect(uri: string, options?: MongoClientOptions): Promise<Db>;
     connect(uri: string, options: MongoClientOptions, callback: MongoCallback<Db>): void;
-  }
+}
 
-  export interface MongoCallback<T> {
+export interface MongoCallback<T> {
     (error: MongoError, result: T): void;
-  }
+}
 
-  // http://mongodb.github.io/node-mongodb-native/2.1/api/MongoError.html
-  export class MongoError extends Error {
+// http://mongodb.github.io/node-mongodb-native/2.1/api/MongoError.html
+export class MongoError extends Error {
     constructor(message: string);
     static create(options: Object): MongoError;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html#.connect
-  export interface MongoClientOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html#.connect
+export interface MongoClientOptions {
     uri_decode_auth?: boolean;
     db?: DbCreateOptions;
     server?: ServerOptions;
     replSet?: ReplSetOptions;
     mongos?: MongosOptions;
     promiseLibrary?: Object;
-  }
+}
 
-  // See : http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html
-  export interface DbCreateOptions {
+// See : http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html
+export interface DbCreateOptions {
     authSource?: string;
     //  the write concern for the operation where < 1 is no acknowlegement of write and w >= 1, w = ‘majority’ or tag acknowledges the write.
     w?: number | string;
@@ -69,10 +67,10 @@ declare module "mongodb" {
     pkFactory?: Object;
     promiseLibrary?: Object;
     readConcern?: { level?: Object };
-  }
+}
 
-  // See http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html
-  export class ReadPreference {
+// See http://mongodb.github.io/node-mongodb-native/2.1/api/ReadPreference.html
+export class ReadPreference {
     constructor(mode: string, tags: Object);
     mode: string;
     tags: any;
@@ -83,10 +81,10 @@ declare module "mongodb" {
     static NEAREST: string;
     isValid(mode: string): boolean;
     static isValid(mode: string): boolean;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
-  export interface SocketOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
+export interface SocketOptions {
     // Reconnect on error. default:false
     autoReconnect?: boolean;
     // TCP Socket NoDelay option. default:true
@@ -97,10 +95,10 @@ declare module "mongodb" {
     connectTimeoutMS?: number;
     // TCP Socket timeout setting. default 0
     socketTimeoutMS?: number;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
-  export interface ServerOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
+export interface ServerOptions {
     // - specify the number of connections in the pool default:5
     poolSize?: number;
     ssl?: boolean;
@@ -113,10 +111,10 @@ declare module "mongodb" {
     socketOptions?: SocketOptions;
     reconnectTries?: number;
     reconnectInterval?: number;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/ReplSet.html
-  export interface ReplSetOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/ReplSet.html
+export interface ReplSetOptions {
     ha?: boolean;
     haInterval?: number;
     replicaSet?: string;
@@ -132,10 +130,10 @@ declare module "mongodb" {
     sslKey?: Buffer | string;
     sslPass?: Buffer | string;
     socketOptions?: SocketOptions;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Mongos.html
-  export interface MongosOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Mongos.html
+export interface MongosOptions {
     ha?: boolean;
     haInterval?: number;
     // - specify the number of connections in the pool default:5
@@ -148,10 +146,10 @@ declare module "mongodb" {
     sslKey?: Buffer | string;
     sslPass?: Buffer | string;
     socketOptions?: SocketOptions;
-  }
+}
 
-  // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html
-  export class Db extends EventEmitter {
+// Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html
+export class Db extends EventEmitter {
     constructor(databaseName: string, serverConfig: Server | ReplSet | Mongos, options?: DbCreateOptions);
 
     serverConfig: Server | ReplSet | Mongos;
@@ -239,42 +237,42 @@ declare module "mongodb" {
     stats(callback: MongoCallback<any>): void;
     stats(options?: { scale?: number }): Promise<any>;
     stats(options: { scale?: number }, callback: MongoCallback<any>): void;
-  }
+}
 
 
 
-  // Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
-  export class Server extends EventEmitter {
+// Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/Server.html
+export class Server extends EventEmitter {
     constructor(host: string, port: number, options?: ServerOptions);
 
     connections(): Array<any>;
-  }
+}
 
-  // Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/ReplSet.html
-  export class ReplSet extends EventEmitter {
+// Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/ReplSet.html
+export class ReplSet extends EventEmitter {
     constructor(servers: Array<Server>, options?: ReplSetOptions);
 
     connections(): Array<any>;
-  }
-  
-  // Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/ReplSet.html
-  export class Mongos extends EventEmitter {
+}
+
+// Deprecated http://mongodb.github.io/node-mongodb-native/2.1/api/ReplSet.html
+export class Mongos extends EventEmitter {
     constructor(servers: Array<Server>, options?: MongosOptions);
 
     connections(): Array<any>;
-  }
-  
-  // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#addUser
-  export interface DbAddUserOptions {
+}
+
+// http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#addUser
+export interface DbAddUserOptions {
     w?: string | number;
     wtimeout?: number;
     j?: boolean;
     customData?: Object;
     roles?: Object[];
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#createCollection
-  export interface CollectionCreateOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#createCollection
+export interface CollectionCreateOptions {
     w?: number | string;
     wtimeout?: number;
     j?: boolean;
@@ -287,10 +285,10 @@ declare module "mongodb" {
     size?: number;
     max?: number;
     autoIndexId?: boolean;
-  }
+}
 
-  // http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#collection
-  export interface DbCollectionOptions {
+// http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#collection
+export interface DbCollectionOptions {
     w?: number | string;
     wtimeout?: number;
     j?: boolean;
@@ -300,10 +298,10 @@ declare module "mongodb" {
     serializeFunctions?: boolean;
     strict?: boolean;
     readConcern?: { level: Object };
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#createIndex
-  export interface IndexOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#createIndex
+export interface IndexOptions {
     // The write concern.
     w?: number | string;
     // The write concern timeout.
@@ -330,10 +328,10 @@ declare module "mongodb" {
     expireAfterSeconds?: number;
     // Override the auto generated index name (useful if the resulting name is larger than 128 bytes)
     name?: string;
-  }
+}
 
-  // http://mongodb.github.io/node-mongodb-native/2.1/api/Admin.html
-  export interface Admin {
+// http://mongodb.github.io/node-mongodb-native/2.1/api/Admin.html
+export interface Admin {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Admin.html#addUser
     addUser(username: string, password: string, callback: MongoCallback<any>): void;
     addUser(username: string, password: string, options?: AddUserOptions): Promise<any>;
@@ -384,28 +382,28 @@ declare module "mongodb" {
     validateCollection(collectionNme: string, callback: MongoCallback<any>): void;
     validateCollection(collectionNme: string, options?: Object): Promise<any>;
     validateCollection(collectionNme: string, options: Object, callback: MongoCallback<any>): void;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Admin.html#addUser
-  export interface AddUserOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Admin.html#addUser
+export interface AddUserOptions {
     w?: number | string;
     wtimeout?: number;
     j?: boolean;
     fsync: boolean;
     customData?: Object;
     roles?: Object[]
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Admin.html#removeUser
-  export interface FSyncOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Admin.html#removeUser
+export interface FSyncOptions {
     w?: number | string;
     wtimeout?: number;
     j?: boolean;
     fsync?: boolean
-  }
+}
 
-  // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/ObjectID.html
-  export class ObjectID {
+// Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/ObjectID.html
+export class ObjectID {
     constructor(s?: string | number);
 
     generationTime: number;
@@ -428,10 +426,10 @@ declare module "mongodb" {
     getTimestamp(): Date;
     // Returns the ObjectID id as a 24 byte hex string representation
     toHexString(): string;
-  }
+}
 
-  // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Binary.html
-  export class Binary {
+// Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Binary.html
+export class Binary {
     constructor(buffer: Buffer, subType?: number);
 
     static SUBTYPE_BYTE_ARRAY: number;
@@ -452,16 +450,16 @@ declare module "mongodb" {
     value(): string;
     // Writes a buffer or string to the binary
     write(buffer: Buffer | string, offset: number): void;
-  }
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Double.html
-  export class Double {
+}
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Double.html
+export class Double {
     constructor(value: number);
 
     valueOf(): number;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Long.html
-  export class Long {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Long.html
+export class Long {
     constructor(low: number, high: number);
 
     static MAX_VALUE: Long;
@@ -506,16 +504,16 @@ declare module "mongodb" {
     toNumber(): number;
     toString(radix?: number): string;
     xor(other: Long): Long;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/MaxKey.html
-  export class MaxKey { }
+//http://mongodb.github.io/node-mongodb-native/2.1/api/MaxKey.html
+export class MaxKey { }
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/MinKey.html
-  export class MinKey { }
+//http://mongodb.github.io/node-mongodb-native/2.1/api/MinKey.html
+export class MinKey { }
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Timestamp.html
-  export class Timestamp {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Timestamp.html
+export class Timestamp {
     constructor(low: number, high: number);
 
     static MAX_VALUE: Timestamp;
@@ -560,10 +558,10 @@ declare module "mongodb" {
     toNumber(): number;
     toString(radix?: number): string;
     xor(other: Timestamp): Timestamp;
-  }
+}
 
-  // Documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html
-  export interface Collection {
+// Documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html
+export interface Collection {
     // Get the collection name.
     collectionName: string;
     // Get the full collection namespace.
@@ -729,11 +727,11 @@ declare module "mongodb" {
     updateOne(filter: Object, update: Object, callback: MongoCallback<UpdateWriteOpResult>): void;
     updateOne(filter: Object, update: Object, options?: ReplaceOneOptions): Promise<UpdateWriteOpResult>;
     updateOne(filter: Object, update: Object, options: ReplaceOneOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
-  }
+}
 
-  // Documentation: http://docs.mongodb.org/manual/reference/command/collStats/
-  //TODO complete this
-  export interface CollStats {
+// Documentation: http://docs.mongodb.org/manual/reference/command/collStats/
+//TODO complete this
+export interface CollStats {
     // Namespace.
     ns: string;
     // Number of documents.
@@ -757,18 +755,18 @@ declare module "mongodb" {
     totalIndexSize: number;
     // Size of specific indexes in bytes.
     indexSizes: {
-      _id_: number;
-      username: number;
+        _id_: number;
+        username: number;
     };
     capped: boolean;
     maxSize: boolean;
     wiredTiger: any;
     indexDetails: any;
     ok: number;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#aggregate
-  export interface CollectionAggregationOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#aggregate
+export interface CollectionAggregationOptions {
     readPreference?: ReadPreference | string;
     // Return the query as cursor, on 2.6 > it returns as a real cursor
     // on pre 2.6 it returns as an emulated cursor.
@@ -783,10 +781,10 @@ declare module "mongodb" {
     maxTimeMS?: boolean;
     // Allow driver to bypass schema validation in MongoDB 3.2 or higher.
     bypassDocumentValidation?: boolean;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#insertMany
-  export interface CollectionInsertManyOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#insertMany
+export interface CollectionInsertManyOptions {
     // The write concern.
     w?: number | string;
     // The write concern timeout.
@@ -797,10 +795,10 @@ declare module "mongodb" {
     serializeFunctions?: boolean;
     //Force server to assign _id values instead of driver.
     forceServerObjectId?: boolean;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#bulkWrite
-  export interface CollectionBluckWriteOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#bulkWrite
+export interface CollectionBluckWriteOptions {
     // The write concern.
     w?: number | string;
     // The write concern timeout.
@@ -813,10 +811,10 @@ declare module "mongodb" {
     ordered?: boolean;
     // Allow driver to bypass schema validation in MongoDB 3.2 or higher.
     bypassDocumentValidation?: boolean;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~BulkWriteOpResult
-  export interface BulkWriteOpResultObject {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~BulkWriteOpResult
+export interface BulkWriteOpResultObject {
     insertedCount?: number;
     matchedCount?: number;
     modifiedCount?: number;
@@ -825,10 +823,10 @@ declare module "mongodb" {
     insertedIds?: any;
     upsertedIds?: any;
     result?: any;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#count
-  export interface MongoCountPreferences {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#count
+export interface MongoCountPreferences {
     // The limit of documents to count.
     limit?: number;
     // The number of documents to skip for the count.
@@ -837,52 +835,52 @@ declare module "mongodb" {
     hint?: string;
     // The preferred read preference
     readPreference?: ReadPreference | string;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~deleteWriteOpResult
-  export interface DeleteWriteOpResultObject {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~deleteWriteOpResult
+export interface DeleteWriteOpResultObject {
     //The raw result returned from MongoDB, field will vary depending on server version.
     result: {
-      //Is 1 if the command executed correctly.
-      ok?: number;
-      //The total count of documents deleted.
-      n?: number;
+        //Is 1 if the command executed correctly.
+        ok?: number;
+        //The total count of documents deleted.
+        n?: number;
     }
     //The connection object used for the operation.
     connection?: any;
     //The number of documents deleted.
     deletedCount?: number;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~findAndModifyWriteOpResult
-  export interface FindAndModifyWriteOpResultObject {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~findAndModifyWriteOpResult
+export interface FindAndModifyWriteOpResultObject {
     //Document returned from findAndModify command.
     value?: any;
     //The raw lastErrorObject returned from the command.
     lastErrorObject?: any;
     //Is 1 if the command executed correctly.
     ok?: number;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOneAndReplace
-  export interface FindOneAndReplaceOption {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOneAndReplace
+export interface FindOneAndReplaceOption {
     projection?: Object;
     sort?: Object;
     maxTimeMS?: number;
     upsert?: boolean;
     returnOriginal?: boolean;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#geoHaystackSearch
-  export interface GeoHaystackSearchOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#geoHaystackSearch
+export interface GeoHaystackSearchOptions {
     readPreference?: ReadPreference | string;
     maxDistance?: number;
     search?: Object;
     limit?: number;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#geoNear
-  export interface GeoNearOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#geoNear
+export interface GeoNearOptions {
     readPreference?: ReadPreference | string;
     num?: number;
     minDistance?: number;
@@ -892,27 +890,27 @@ declare module "mongodb" {
     spherical?: boolean;
     uniqueDocs?: boolean;
     includeLocs?: boolean;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Code.html
-  export class Code {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Code.html
+export class Code {
     constructor(code: string | Function, scope?: Object)
     code: string | Function;
     scope: any;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#deleteMany
-  export interface CollectionOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#deleteMany
+export interface CollectionOptions {
     //The write concern.
     w?: number | string;
     //The write concern timeout.
     wtimeout?: number;
     //Specify a journal write concern.
     j?: boolean;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/OrderedBulkOperation.html
-  export interface OrderedBulkOperation {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/OrderedBulkOperation.html
+export interface OrderedBulkOperation {
     length: number;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/OrderedBulkOperation.html#execute
     execute(callback: MongoCallback<BulkWriteResult>): void;
@@ -922,10 +920,10 @@ declare module "mongodb" {
     find(selector: Object): FindOperatorsOrdered;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/OrderedBulkOperation.html#insert
     insert(doc: Object): OrderedBulkOperation;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/BulkWriteResult.html
-  export interface BulkWriteResult {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/BulkWriteResult.html
+export interface BulkWriteResult {
     ok: number;
     nInserted: number;
     nUpdated: number;
@@ -943,38 +941,38 @@ declare module "mongodb" {
     getWriteErrorCount(): number;
     getWriteErrors(): Array<Object>;
     hasWriteErrors(): boolean;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/WriteError.html
-  export interface WriteError {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/WriteError.html
+export interface WriteError {
     //Write concern error code.
     code: number;
     //Write concern error original bulk operation index.
     index: number;
     //Write concern error message.
     errmsg: string;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/WriteConcernError.html
-  export interface WriteConcernError {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/WriteConcernError.html
+export interface WriteConcernError {
     //Write concern error code.
     code: number;
     //Write concern error message.
     errmsg: string;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/FindOperatorsOrdered.html
-  export interface FindOperatorsOrdered {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/FindOperatorsOrdered.html
+export interface FindOperatorsOrdered {
     delete(): OrderedBulkOperation;
     deleteOne(): OrderedBulkOperation;
     replaceOne(doc: Object): OrderedBulkOperation;
     update(doc: Object): OrderedBulkOperation;
     updateOne(doc: Object): OrderedBulkOperation;
     upsert(): FindOperatorsOrdered;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html
-  export interface UnorderedBulkOperation {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html
+export interface UnorderedBulkOperation {
     //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html#execute
     execute(callback: MongoCallback<BulkWriteResult>): void;
     execute(options?: FSyncOptions): Promise<BulkWriteResult>;
@@ -983,10 +981,10 @@ declare module "mongodb" {
     find(selector: Object): FindOperatorsUnordered;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html#insert
     insert(doc: Object): UnorderedBulkOperation;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/FindOperatorsUnordered.html
-  export interface FindOperatorsUnordered {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/FindOperatorsUnordered.html
+export interface FindOperatorsUnordered {
     length: number;
     remove(): UnorderedBulkOperation;
     removeOne(): UnorderedBulkOperation;
@@ -994,10 +992,10 @@ declare module "mongodb" {
     update(doc: Object): UnorderedBulkOperation;
     updateOne(doc: Object): UnorderedBulkOperation;
     upsert(): FindOperatorsUnordered;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOne
-  export interface FindOneOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOne
+export interface FindOneOptions {
     limit?: number,
     sort?: Array<any> | Object,
     fields?: Object,
@@ -1018,19 +1016,19 @@ declare module "mongodb" {
     readPreference?: ReadPreference | string,
     partial?: boolean,
     maxTimeMs?: number
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~insertWriteOpResult
-  export interface InsertWriteOpResult {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~insertWriteOpResult
+export interface InsertWriteOpResult {
     insertedCount: number;
     ops: Array<any>;
     insertedIds: Array<ObjectID>;
     connection: any;
     result: { ok: number, n: number }
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#insertOne
-  export interface CollectionInsertOneOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#insertOne
+export interface CollectionInsertOneOptions {
     // The write concern.
     w?: number | string;
     // The write concern timeout.
@@ -1043,46 +1041,46 @@ declare module "mongodb" {
     forceServerObjectId?: boolean;
     //Allow driver to bypass schema validation in MongoDB 3.2 or higher.
     bypassDocumentValidation?: boolean
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~insertOneWriteOpResult
-  export interface InsertOneWriteOpResult {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~insertOneWriteOpResult
+export interface InsertOneWriteOpResult {
     insertedCount: number;
     ops: Array<any>;
     insertedId: ObjectID;
     connection: any;
     result: { ok: number, n: number }
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#parallelCollectionScan
-  export interface ParallelCollectionScanOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#parallelCollectionScan
+export interface ParallelCollectionScanOptions {
     readPreference?: ReadPreference | string;
     batchSize?: number;
     numCursors?: number;
     raw?: boolean;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#replaceOne
-  export interface ReplaceOneOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#replaceOne
+export interface ReplaceOneOptions {
     upsert?: boolean;
     w?: number | string;
     wtimeout?: number;
     j?: boolean;
     bypassDocumentValidation?: boolean;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~updateWriteOpResult
-  export interface UpdateWriteOpResult {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~updateWriteOpResult
+export interface UpdateWriteOpResult {
     result: { ok: number, n: number, nModified: number };
     connection: any;
     matchedCount: number;
     modifiedCount: number;
     upsertedCount: number;
     upsertedId: { _id: ObjectID };
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#mapReduce
-  export interface MapReduceOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#mapReduce
+export interface MapReduceOptions {
     readPreference?: ReadPreference | string;
     out?: Object;
     query?: Object;
@@ -1094,17 +1092,17 @@ declare module "mongodb" {
     jsMode?: boolean;
     verbose?: boolean;
     bypassDocumentValidation?: boolean
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~WriteOpResult
-  export interface WriteOpResult {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~WriteOpResult
+export interface WriteOpResult {
     ops: Array<any>;
     connection: any;
     result: any;
-  }
-  
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/external-Readable.html
-  export interface Readable {
+}
+
+//http://mongodb.github.io/node-mongodb-native/2.1/api/external-Readable.html
+export interface Readable {
     pause(): void;
     pipe(destination: Writable, options?: Object): void;
     read(size: number): string | Buffer | void;
@@ -1113,16 +1111,16 @@ declare module "mongodb" {
     unpipe(destination?: Writable): void;
     unshift(stream: Buffer | string): void;
     wrap(stream: Stream): void;
-  }
+}
 
-  export interface Writable { }
-  export interface Stream { }
+export interface Writable { }
+export interface Stream { }
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#~resultCallback
-  export type CursorResult = any | void | boolean;
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#~resultCallback
+export type CursorResult = any | void | boolean;
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html
-  export interface Cursor extends Readable, NodeJS.EventEmitter {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html
+export interface Cursor extends Readable, NodeJS.EventEmitter {
 
     sortValue: string;
     timeout: boolean;
@@ -1214,32 +1212,32 @@ declare module "mongodb" {
     unshift(stream: Buffer | string): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#wrap
     wrap(stream: Stream): void;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#count
-  export interface CursorCommentOptions {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#count
+export interface CursorCommentOptions {
     skip?: number;
     limit?: number;
     maxTimeMS?: number;
     hint?: string;
     readPreference?: ReadPreference | string;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#~iteratorCallback
-  export interface IteratorCallback {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#~iteratorCallback
+export interface IteratorCallback {
     (doc: any): void;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#~endCallback
-  export interface EndCallback {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#~endCallback
+export interface EndCallback {
     (error: MongoError): void;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#~resultCallback
-  export type AggregationCursorResult = any | void;
+//http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#~resultCallback
+export type AggregationCursorResult = any | void;
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html
-  export interface AggregationCursor extends Readable, NodeJS.EventEmitter {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html
+export interface AggregationCursor extends Readable, NodeJS.EventEmitter {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#batchSize
     batchSize(value: number): AggregationCursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#clone
@@ -1300,10 +1298,10 @@ declare module "mongodb" {
     unwind(field: string): AggregationCursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/AggregationCursor.html#wrap
     wrap(stream: Stream): void;
-  }
+}
 
-  //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html
-  export interface CommandCursor extends Readable, NodeJS.EventEmitter {
+//http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html
+export interface CommandCursor extends Readable, NodeJS.EventEmitter {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#batchSize
     batchSize(value: number): CommandCursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#clone
@@ -1343,5 +1341,4 @@ declare module "mongodb" {
     unshift(stream: Buffer | string): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/CommandCursor.html#wrap
     wrap(stream: Stream): void;
-  }
 }
