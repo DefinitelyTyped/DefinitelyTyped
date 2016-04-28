@@ -456,7 +456,8 @@ declare module "react-native" {
 
 
     export interface StyleSheetProperties {
-        // TODO:
+			  hairlineWidth: number
+				flatten<T extends string | null>(style: T): T
     }
 
     export interface LayoutRectangle {
