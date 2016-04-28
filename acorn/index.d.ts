@@ -5,6 +5,9 @@
 
 /// <reference path="../estree/estree.d.ts" />
 
+export as namespace acorn;
+export = acorn;
+
 declare namespace acorn {
     var version: string;
     function parse(input: string, options?: Options): ESTree.Program;
@@ -61,8 +64,4 @@ declare namespace acorn {
         preserveParens?: boolean;
         plugins?: { [name: string]: Function; };
     }
-}
-
-declare module "acorn" {
-    export = acorn
 }
