@@ -470,13 +470,6 @@ declare module "react-native" {
 				}
 		}
 
-    export interface GeolocationStatic {
-        getCurrentPosition(geo_success: (position: GeolocationReturnType) => void, geo_error?: (error: Error) => void, geo_options?: GetCurrentPositionOptions): void
-        watchPosition(success: (position: Geolocation) => void, error?: (error: Error) => void, options?: WatchPositionOptions): void
-        clearWatch(watchID: number): void
-        stopObserving(): void
-    }
-
 
     export interface TransformsStyle {
 
@@ -4350,6 +4343,14 @@ declare module "react-native" {
       export var Image: any;
       export var Text: any;
     }
+		
+    export interface GeolocationStatic {
+        getCurrentPosition(geo_success: (position: GeolocationReturnType) => void, geo_error?: (error: Error) => void, geo_options?: GetCurrentPositionOptions): void
+        watchPosition(success: (position: Geolocation) => void, error?: (error: Error) => void, options?: WatchPositionOptions): void
+        clearWatch(watchID: number): void
+        stopObserving(): void
+    }
+
 
     //////////////////////////////////////////////////////////////////////////
     //
