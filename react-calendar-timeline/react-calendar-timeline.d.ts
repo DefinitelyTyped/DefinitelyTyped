@@ -3,6 +3,8 @@
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../react/react.d.ts"/>
+
 declare module "react-calendar-timeline" {
     interface ReactCalendarTimeline {
         groups?:any;
