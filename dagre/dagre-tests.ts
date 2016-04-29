@@ -1,6 +1,6 @@
 /// <reference path="dagre.d.ts"/>
 namespace DagreTests {
-  let gDagre = new dagre.graphlib.Graph();
+  const gDagre = new dagre.graphlib.Graph();
   gDagre.setGraph({})
     .setDefaultEdgeLabel(function(){ return ; })
     .setNode("a", {})
