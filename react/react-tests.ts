@@ -10,7 +10,7 @@
 /// <reference path="react-addons-transition-group.d.ts" />
 /// <reference path="react-addons-update.d.ts" />
 
-import React = require("react");
+import React from "react";
 import ReactDOM = require("react-dom");
 import ReactDOMServer = require("react-dom/server");
 import createFragment = require("react-addons-create-fragment");
