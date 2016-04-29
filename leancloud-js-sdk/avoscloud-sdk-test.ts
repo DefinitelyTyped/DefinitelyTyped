@@ -1,7 +1,9 @@
 /// <reference path="avoscloud-sdk.d.ts" />
 import  * as AV from 'avoscloud-sdk'
 // 创建一个新的 TestObject 对象
-var TestObject = AV.Object.extend('TestObject')
+AV.initialize('uay57kigwe0b6f5n0e1d4z4xhydsml3dor24bzwvzr57wdap','kfgz7jjfsk55r5a8a3y4ttd3je1ko11bkibcikonk32oozww');
+var TestObject = AV.Object.extend('TestObject');
+
 function avobject_Test() {
 
 
@@ -18,12 +20,7 @@ function avobject_Test() {
     testObject.increment("testInteger");
     testObject.addUnique("testArray", "service");
 
-
-    testObject.save().then(obj => {
-        let objectId = testObject.id;
-        let createdAt = testObject.createdAt;
-        let updatedAt =  testObject.updatedAt;
-    });
+    testObject.save();
 }
 
 function test_query() {
