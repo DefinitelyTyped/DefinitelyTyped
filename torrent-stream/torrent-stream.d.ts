@@ -34,15 +34,15 @@ interface TorrentEngine {
     on(event: string,callback: Function): void;
 }
 interface TorrentEngineOptions {
-    connections: number; // Max amount of peers to be connected to.
-    uploads: number; // Number of upload slots.
-    tmp: string; // Root folder for the files storage. Default folder under /tmp/torrent-stream/{infoHash}.
-    path: string; // Path where to save the files. Overrides 'tmp'.
-    verify: boolean; // Verify previously stored data before starting.
-    dht: boolean; // Whether or not to use DHT to initialize the swarm.
-    tracker: boolean; // Whether or not to use trackers from torrent file or magnet link.
-    trackers: string[]; // Allows to declare additional custom trackers to use.
-    storage: any; // Use a custom storage backend rather than the default disk-backed one.
+    connections?: number; // Max amount of peers to be connected to.
+    uploads?: number; // Number of upload slots.
+    tmp?: string; // Root folder for the files storage. Default folder under /tmp/torrent-stream/{infoHash}.
+    path?: string; // Path where to save the files. Overrides 'tmp'.
+    verify?: boolean; // Verify previously stored data before starting.
+    dht?: boolean; // Whether or not to use DHT to initialize the swarm.
+    tracker?: boolean; // Whether or not to use trackers from torrent file or magnet link.
+    trackers?: string[]; // Allows to declare additional custom trackers to use.
+    storage?: any; // Use a custom storage backend rather than the default disk-backed one.
 }
 interface Swarm {
     downloaded: number;
