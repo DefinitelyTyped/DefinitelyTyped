@@ -23,6 +23,10 @@ interface KnockoutValidationGroupingOptions {
     live?: boolean;
 }
 
+interface KnockoutValidationValidateOptions {
+    throttle?: number;
+}
+
 interface KnockoutValidationConfiguration {
     /**
      * Allows HTML in validation messages
@@ -85,6 +89,7 @@ interface KnockoutValidationConfiguration {
      * Register custom validation rules defined via ko.validation.rules
      */
     registerExtenders?: boolean;
+    validate?: KnockoutValidationValidateOptions;
     /**
      * Add HTML5 input validation attributes to form elements
      * that ko observable's are bound to
