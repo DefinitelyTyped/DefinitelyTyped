@@ -44,20 +44,20 @@ declare module "react-calendar-timeline" {
         stackItems?: boolean;
         traditionalZoom?: boolean;
         itemTouchSendsClick?: boolean;
-        onItemMove?(itemId, dragTime, newGroupOrder): any;
-        onItemResize?(itemId, newResizeEnd): any;
-        onItemSelect?(itemId): any;
-        onItemClick?(itemId): any;
-        onCanvasClick?(groupId, time, e): any;
-        onItemDoubleClick?(itemId): any;
-        moveResizeValidator?(action, itemId, time): any;
+        onItemMove?(itemId:any, dragTime:any, newGroupOrder:any): any;
+        onItemResize?(itemId:any, newResizeEnd:any): any;
+        onItemSelect?(itemId:any): any;
+        onItemClick?(itemId:any): any;
+        onCanvasClick?(groupId:any, time:any, e:any): any;
+        onItemDoubleClick?(itemId:any): any;
+        moveResizeValidator?(action:any, itemId:any, time:any): any;
         defaultTimeStart: any;
         defaultTimeEnd: any;
         visibleTimeStart?: any;
         visibleTimeEnd?: any;
-        onTimeChange?(visibleTimeStart, visibleTimeEnd): any;
-        onTimeInit?(visibleTimeStart, visibleTimeEnd): any;
-        onBoundsChange?(canvasTimeStart, canvasTimeEnd): any;
+        onTimeChange?(visibleTimeStart:any, visibleTimeEnd:any): any;
+        onTimeInit?(visibleTimeStart:any, visibleTimeEnd:any): any;
+        onBoundsChange?(canvasTimeStart:any, canvasTimeEnd:any): any;
         children?: any;
     }
 
