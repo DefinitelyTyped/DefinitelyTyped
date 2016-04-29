@@ -6,8 +6,8 @@ namespace DagreD3Tests {
     // has graph methods from dagre.d.ts
     graph.setNode("a", {});
     const num: number = 251 + graph.height + graph.width;
-    let predecessors: { [vertex: string]: string[] } = {};
-    let successors: { [vertex: string]: string[] } = {};
+    const predecessors: { [vertex: string]: string[] } = {};
+    const successors: { [vertex: string]: string[] } = {};
 
     predecessors["a"] = graph.predecessors("a");
     successors["a"] = graph.successors("a");
