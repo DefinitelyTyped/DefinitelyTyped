@@ -354,6 +354,7 @@ declare namespace ionic {
                 transition(transition?: string): string;
                 maxCache(maxNumber?: number): number;
                 forwardCache(value?: boolean): boolean;
+                swipeBackEnabled(value: boolean): boolean;
             };
             scrolling: {
                 jsScrolling(value?: boolean): boolean;
