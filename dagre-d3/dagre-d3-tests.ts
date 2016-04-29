@@ -1,18 +1,18 @@
 /// <reference path="dagre-d3.d.ts"/>
 namespace DagreD3Tests {
-    let gDagre = new dagreD3.graphlib.Graph();
-    let graph = gDagre.graph();
+    const gDagre = new dagreD3.graphlib.Graph();
+    const graph = gDagre.graph();
 
     // has graph methods from dagre.d.ts
     graph.setNode("a", {});
-    let num: number = 251 + graph.height + graph.width;
+    const num: number = 251 + graph.height + graph.width;
     let predecessors: { [vertex: string]: string[] } = {};
     let successors: { [vertex: string]: string[] } = {};
 
     predecessors["a"] = graph.predecessors("a");
     successors["a"] = graph.successors("a");
 
-    let render = new dagreD3.render();
-    let svg = d3.select("svg");
+    const render = new dagreD3.render();
+    const svg = d3.select("svg");
     render(svg, graph);
 }
