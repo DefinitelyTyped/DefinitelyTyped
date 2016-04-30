@@ -132,3 +132,7 @@ export interface KikGetFromCameraCallbacks {
 }
 
 declare const kik: Kik;
+
+declare module "kik" {
+    export = kik;
+}
