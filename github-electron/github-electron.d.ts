@@ -2256,19 +2256,19 @@ declare namespace Electron {
 		/**
 		 * Registers a protocol of scheme that will send the file as a response.
 		 */
-		registerFileProtocol(scheme: string, handler: (request: ProtocolRequest, callback: FileProtocolCallback) => void, completion?: (error: Error) => void): void;
+		registerFileProtocol(scheme: string, handler: FileProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Registers a protocol of scheme that will send a Buffer as a response.
 		 */
-		registerBufferProtocol(scheme: string, handler: (request: ProtocolRequest, callback: BufferProtocolCallback) => void, completion?: (error: Error) => void): void;
+		registerBufferProtocol(scheme: string, handler: BufferProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Registers a protocol of scheme that will send a String as a response.
 		 */
-		registerStringProtocol(scheme: string, handler: (request: ProtocolRequest, callback: StringProtocolCallback) => void, completion?: (error: Error) => void): void;
+		registerStringProtocol(scheme: string, handler: StringProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Registers a protocol of scheme that will send an HTTP request as a response.
 		 */
-		registerHttpProtocol(scheme: string, handler: (request: ProtocolRequest, callback: HttpProtocolCallback) => void, completion?: (error: Error) => void): void;
+		registerHttpProtocol(scheme: string, handler: HttpProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Unregisters the custom protocol of scheme.
 		 */
@@ -2280,24 +2280,29 @@ declare namespace Electron {
 		/**
 		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a file as a response.
 		 */
-		interceptFileProtocol(scheme: string, handler: (request: ProtocolRequest, callback: FileProtocolCallback) => void, completion?: (error: Error) => void): void;
-		/**
-		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a String as a response.
-		 */
-		interceptStringProtocol(scheme: string, handler: (request: ProtocolRequest, callback: BufferProtocolCallback) => void, completion?: (error: Error) => void): void;
+		interceptFileProtocol(scheme: string, handler: FileProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a Buffer as a response.
 		 */
-		interceptBufferProtocol(scheme: string, handler: (request: ProtocolRequest, callback: StringProtocolCallback) => void, completion?: (error: Error) => void): void;
+		interceptBufferProtocol(scheme: string, handler: BufferProtocolHandler, completion?: (error: Error) => void): void;
+		/**
+		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a String as a response.
+		 */
+		interceptStringProtocol(scheme: string, handler: StringProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a new HTTP request as a response.
 		 */
-		interceptHttpProtocol(scheme: string, handler: (request: ProtocolRequest, callback: HttpProtocolCallback) => void, completion?: (error: Error) => void): void;
+		interceptHttpProtocol(scheme: string, handler: HttpProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Remove the interceptor installed for scheme and restore its original handler.
 		 */
 		uninterceptProtocol(scheme: string, completion?: (error: Error) => void): void;
 	}
+
+	type FileProtocolHandler = (request: ProtocolRequest, callback: FileProtocolCallback) => void;
+	type BufferProtocolHandler = (request: ProtocolRequest, callback: BufferProtocolCallback) => void;
+	type StringProtocolHandler = (request: ProtocolRequest, callback: StringProtocolCallback) => void;
+	type HttpProtocolHandler = (request: ProtocolRequest, callback: HttpProtocolCallback) => void;
 
 	interface ProtocolRequest {
 		url: string;
