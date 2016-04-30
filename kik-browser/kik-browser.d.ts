@@ -1,12 +1,14 @@
 ﻿// Type definitions for Kik Cards v2.3.6
-// Project: https://dev.kik.com / http://cdn.kik.com/kik/2.3.6/kik.js
+// Project: https://dev.kik.com
 // Definitions by: Joel Day <https://github.com/joelday/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Kik {
     enabled: boolean;
-    send: boolean;
+    message: KikMessage;
 
+    send(user: string, message: KikMessage): void;
+    send(message: KikMessage): void;
     ready(callback: () => void): void;
     hasPermission(): boolean;
     open(url: string, popupMode?: boolean): void;
@@ -31,6 +33,7 @@ interface Kik {
     };
 
     metrics: {
+        enableGoogleAnalytics(): void;
         enableGoogleAnalytics(trackingId: string, domain: string, oldApi?: boolean): void;
     };
 
@@ -58,9 +61,7 @@ interface Kik {
         once(property: string, callback: () => void): void;
         trigger(property: string, data?: any): void;
         getOrientationLock(): string;
-        setOrientationLock(lock: "free"): void;
-        setOrientationLock(lock: "landscape"): void;
-        setOrientationLock(lock: "portriat"): void;
+        setOrientationLock(lock: "free" | "landscape" | "portrait"): void;
         setOrientationLock(lock: string): void;
         statusBar(show: boolean): void;
         backlightTimeout(timeout: boolean): void;
@@ -110,7 +111,7 @@ interface KikPickUsersOptions {
     filterSelf?: boolean;
 }
 
-export interface KikGetOptions {
+interface KikGetOptions {
     quality?: number;
     minResults?: number;
     maxResults?: number;
@@ -118,13 +119,13 @@ export interface KikGetOptions {
     maxWidth?: number;
 }
 
-export interface KikGetFromCameraOptions {
+interface KikGetFromCameraOptions {
     quality?: number;
     maxHeight?: number;
     maxWidth?: number;
 }
 
-export interface KikGetFromCameraCallbacks {
+interface KikGetFromCameraCallbacks {
     onSelect: (numPhotos: number) => void;
     onPhoto: (photo: string, index: number) => void;
     onComplete: (photos: string[]) => void;
@@ -132,7 +133,3 @@ export interface KikGetFromCameraCallbacks {
 }
 
 declare const kik: Kik;
-
-declare module "kik" {
-    export = kik;
-}
