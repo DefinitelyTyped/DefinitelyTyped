@@ -149,11 +149,6 @@ declare namespace Electron {
 		 * Emitted when the gpu process crashes.
 		 */
 		on(event: 'gpu-process-crashed', listener: Function): this;
-		/**
-		 * Emitted when the system’s Dark Mode theme is toggled.
-		 * Note: This is only implemented on OS X.
-		 */
-		on(event: 'platform-theme-changed', listener: Function): this;
 		on(event: string, listener: Function): this;
 		/**
 		 * Try to close all windows. The before-quit event will first be emitted.
@@ -256,10 +251,16 @@ declare namespace Electron {
 		/**
 		 * Removes the current executable as the default handler for a protocol (aka URI scheme).
 		 *
-		 * Note: This API is only available on Windows.
+		 * Note: This is only implemented on Windows.
 		 *       On OS X, removing the app will automatically remove the app as the default protocol handler.
 		 */
 		removeAsDefaultProtocolClient(protocol: string): void;
+		/**
+		 * @returns Whether the current executable is the default handler for a protocol (aka URI scheme).
+		 *
+		 * Note: This is only implemented on OS X and Windows.
+		 */
+		isDefaultProtocolClient(protocol: string): boolean;
 		/**
 		 * Adds tasks to the Tasks category of JumpList on Windows.
 		 *
@@ -284,19 +285,6 @@ declare namespace Electron {
 		 * Changes the Application User Model ID to id.
 		 */
 		setAppUserModelId(id: string): void;
-		/**
-		 * This method returns true if DWM composition (Aero Glass) is enabled,
-		 * and false otherwise. You can use it to determine if you should create
-		 * a transparent window or not (transparent windows won’t work correctly when DWM composition is disabled).
-		 *
-		 * Note: This is only implemented on Windows.
-		 */
-		isAeroGlassEnabled(): boolean;
-		/**
-		 * @returns If the system is in Dark Mode.
-		 * Note: This is only implemented on OS X.
-		 */
-		isDarkMode(): boolean;
 		/**
 		 * Imports the certificate in pkcs12 format into the platform certificate store.
 		 * @param callback Called with the result of import operation, a value of 0 indicates success
@@ -2416,7 +2404,7 @@ declare namespace Electron {
 		 */
 		scaleFactor: number;
 		/**
-		 * Can be 0, 1, 2, 3, each represents screen rotation in clock-wise degrees of 0, 90, 180, 270.
+		 * Can be 0, 90, 180, 270, represents screen rotation in clock-wise degrees.
 		 */
 		rotation: number;
 		touchSupport: 'available' | 'unavailable' | 'unknown';
@@ -2948,6 +2936,47 @@ declare namespace Electron {
 		 * Play the beep sound.
 		 */
 		beep(): void;
+	}
+
+	// https://github.com/electron/electron/blob/master/docs/api/system-preferences.md
+
+	/**
+	 * Get system preferences.
+	 */
+	interface SystemPreferences {
+		/**
+		 * @returns If the system is in Dark Mode.
+		 *
+		 * Note: This is only implemented on OS X.
+		 */
+		isDarkMode(): boolean;
+		/**
+		 * Subscribes to native notifications of OS X, callback will be called when the corresponding event happens.
+		 * The id of the subscriber is returned, which can be used to unsubscribe the event.
+		 *
+		 * Note: This is only implemented on OS X.
+		 */
+		subscribeNotification(event: string, callback: Function): number;
+		/**
+		 * Removes the subscriber with id.
+		 *
+		 * Note: This is only implemented on OS X.
+		 */
+		unsubscribeNotification(id: number): void;
+		/**
+		 * Get the value of key in system preferences.
+		 *
+		 * Note: This is only implemented on OS X.
+		 */
+		getUserDefault(key: string, type: 'string' | 'boolean' | 'integer' | 'float' | 'double' | 'url'): any;
+		/**
+		 * This method returns true if DWM composition (Aero Glass) is enabled,
+		 * and false otherwise. You can use it to determine if you should create
+		 * a transparent window or not (transparent windows won’t work correctly when DWM composition is disabled).
+		 *
+		 * Note: This is only implemented on Windows.
+		 */
+		isAeroGlassEnabled(): boolean;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/tray.md
@@ -4418,6 +4447,7 @@ declare namespace Electron {
 		protocol: Electron.Protocol;
 		screen: Electron.Screen;
 		session: typeof Electron.Session;
+		systemPreferences: Electron.SystemPreferences;
 		Tray: Electron.Tray;
 		hideInternalModules(): void;
 	}
