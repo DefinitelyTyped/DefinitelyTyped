@@ -80,7 +80,12 @@ declare module "react-redux" {
      * Defaults to true.
      * @default true
      */
-    pure: boolean;
+    pure?: boolean;
+    /**
+    * If true, stores a ref to the wrapped component instance and makes it available via 
+    * getWrappedInstance() method. Defaults to false.
+    */
+    withRef?: boolean;
   }
 
   export interface ProviderProps {
