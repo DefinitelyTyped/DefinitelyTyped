@@ -7,7 +7,7 @@
 
 declare interface IMatcher {
     apiName: string;
-    api(...args): any;
+    api(...args: any[]): any;
     evaluator(expectedValue: any, matcherValue?: any): boolean;
     negator?: boolean;
     minArgs: number;
@@ -31,13 +31,13 @@ declare function it(label: string, callback: (done?: () => void) => void, timeou
 
 declare function xit(label: string, callback: (done?: () => void) => void, timeoutInterval?: number): void;
 
-declare function beforeEach(callback: (done?: () => void) => void, timeoutInterval?: number);
+declare function beforeEach(callback: (done?: () => void) => void, timeoutInterval?: number): void;
 
-declare function afterEach(callback: (done?: () => void) => void, timeoutInterval?: number);
+declare function afterEach(callback: (done?: () => void) => void, timeoutInterval?: number): void;
 
 declare function expect(ev: any): {
-    toBe(matcherValue: any): any;
-    toEqual(matcherValue: any): any;
+    toBe(matcherValue: any): void;
+    toEqual(matcherValue: any): void;
     toBeTrue(): void;
     toBeTruthy(): void;
     toBeDefined(): void;
@@ -45,43 +45,43 @@ declare function expect(ev: any): {
     toBeNull(): void;
     toMatch(regExp: RegExp): void;
     toHaveBeenCalled(): void;
-    toHaveBeenCalledWith(...matcherValue): any[];
-    toHaveBeenCalledWithContext(matcherValue): {};
+    toHaveBeenCalledWith(...matcherValue: any[]): void;
+    toHaveBeenCalledWithContext(matcherValue: {}): void
     toHaveReturnedValue(matcherValue: any): void;
     toHaveThrown(): void;
-    toHaveThrownWithMessage(matcherValue): void;
-    toHaveThrownWithName(matcherValue): void;
+    toHaveThrownWithMessage(matcherValue: string): void;
+    toHaveThrownWithName(matcherValue: string): void;
     // declare your custom matchers here
     toBeAString(): void;
     toBeANumber(): void;
-    toBeInstanceOf(matcherValue: any): any;
+    toBeInstanceOf(matcherValue: any): void;
     not: {
-        toBe(matcherValue: any): any;
-        toEqual(matcherValue: any): any;
+        toBe(matcherValue: any): void;
+        toEqual(matcherValue: any): void;
         toBeTrue(): void;
         toBeTruthy(): void;
         toBeDefined(): void;
         toBeUndefined(): void;
         toBeNull(): void;
         toHaveBeenCalled(): void;
-        toHaveBeenCalledWith(...matcherValue): any[];
-        toHaveBeenCalledWithContext(matcherValue): {};
+        toHaveBeenCalledWith(...matcherValue: any[]): void;
+        toHaveBeenCalledWithContext(matcherValue: {}): void;
         toHaveReturnedValue(matcherValue: any): void;
         toHaveThrown(): void;
-        toHaveThrownWithMessage(matcherValue): void;
-        toHaveThrownWithName(matcherValue): void;
+        toHaveThrownWithMessage(matcherValue: string): void;
+        toHaveThrownWithName(matcherValue: string): void;
         // declare your custom negated matchers here
         toBeAString(): void;
         toBeANumber(): void;
-        toMatch(regExp: RegExp): any;
-        toBeInstanceOf(matcherValue: any): any;
+        toMatch(regExp: RegExp): void;
+        toBeInstanceOf(matcherValue: any): void;
     }
 };
 
-declare function spyOn(...args): Spy;
+declare function spyOn(...args: any[]): Spy;
 
 declare interface StaticSpy {
-    (...args): any;
+    (...args: any[]): any;
 }
 
 declare interface And {
@@ -91,7 +91,7 @@ declare interface And {
     throwWithMessage: (message: string) => Spy;
     throwWithName: (name: string) => Spy;
     return: (ret: any) => Spy;
-    callFake: (fn: (...args) => any) => Spy;
+    callFake: (fn: (...args: any[]) => any) => Spy;
     callActual: () => Spy;
     callStub: () => Spy;
 }
@@ -100,7 +100,7 @@ declare interface Calls {
     count: () => number;
     forCall: (i: number) => ACall;
     all: () => ACall[];
-    wasCalledWith: (...args) => boolean;
+    wasCalledWith: (...args: any[]) => boolean;
     wasCalledWithContext: (obj: {}) => boolean;
     returned: (value: any) => boolean;
     threw: () => boolean;
@@ -112,7 +112,7 @@ declare interface Spy extends StaticSpy {
     _spyMaker: string;
     _returns: any;
     _callActual: boolean;
-    _callFake: (...args) => any;
+    _callFake: (...args: any[]) => any;
     _callWithContext: {};
     _throws: boolean;
     _throwsMessage: string;
@@ -125,7 +125,7 @@ declare interface Spy extends StaticSpy {
 }
 
 declare interface SpyOnStatic {
-    (...args): Spy;
+    (...args: any[]): Spy;
 }
 
 declare function spyOnN(argObject: {}, argPropertyNames: string[]): void;
@@ -133,7 +133,7 @@ declare function spyOnN(argObject: {}, argPropertyNames: string[]): void;
 // args API
 declare class Args {
     args: any[];
-    constructor(...args);
+    constructor(...args: any[]);
     getLength: () => number;
     hasArg: (i: number) => boolean;
     getArg: (i: number) => any;
@@ -154,7 +154,7 @@ declare class ACall {
     getReturned: () => any;
 }
 
-declare function mock(...args): Mock;
+declare function mock(...args: any[]): Mock;
 
 declare function validate(): void;
 
@@ -163,7 +163,7 @@ declare interface MockStatic {
 }
 
 declare interface MockProxyStatic {
-    (...args): void;
+    (...args: any[]): void;
 }
 
 declare interface Mock extends MockProxyStatic {
@@ -180,7 +180,7 @@ declare interface MockAnd {
     throwWithMessage: (message: string) => Mock;
     throwWithName: (name: string) => Mock;
     return: (ret: any) => Mock;
-    callFake: (fn: (...args) => any) => Mock;
+    callFake: (fn: (...args: any[]) => any) => Mock;
     callActual: () => Mock;
     callStub: () => Mock;
 }
@@ -191,7 +191,7 @@ declare interface MockExpect {
 
 declare interface MockIt {
     toBeCalled: () => Mock;
-    toBeCalledWith: (...args) => Mock;
+    toBeCalledWith: (...args: any[]) => Mock;
     toBeCalledWithContext: (context: {}) => Mock;
     toReturnValue: (value: any) => Mock;
     toThrow: () => Mock;
@@ -202,7 +202,7 @@ declare interface MockIt {
 
 declare interface MockNot {
     toBeCalled: () => Mock;
-    toBeCalledWith: (...args) => Mock;
+    toBeCalledWith: (...args: any[]) => Mock;
     toBeCalledWithContext: (context: {}) => Mock;
     toReturnValue: (value: any) => Mock;
     toThrow: () => Mock;
