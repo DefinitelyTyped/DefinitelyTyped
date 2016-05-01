@@ -1,7 +1,7 @@
 ﻿/// <reference path="valdr-message.d.ts" />
 
 function ValdrMessageTests() {
-    var valdrMessage: valdr.message.IValdrMessage;
+    var valdrMessage: valdr.message.ValdrMessage;
 
     valdrMessage.templateUrl = 'valdrMesssageTemplate.html';
     valdrMessage.translateAvailable = true;
@@ -15,7 +15,7 @@ function ValdrMessageTests() {
 }
 
 function ValdrMessageProviderTests() {
-    var valdrMessageProvider: valdr.message.IValdrMessageProvider;
+    var valdrMessageProvider: valdr.message.ValdrMessageProvider;
     valdrMessageProvider.setTemplate('<div class="valdr-message" > {{ violation.message }}</div>');
     valdrMessageProvider.setTemplateUrl('valdrMesssageTemplate.html');
     valdrMessageProvider.addMessages({

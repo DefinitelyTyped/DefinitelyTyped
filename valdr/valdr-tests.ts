@@ -1,7 +1,7 @@
 ﻿/// <reference path="valdr.d.ts" />
 
 function ValdrTests() {
-    var valdr: valdr.IValdr;
+    var valdr: valdr.Valdr;
     var validation = valdr.validate('person', 'lastName', 'test');
     valdr.addConstraints({
         'person': {
@@ -21,7 +21,7 @@ function ValdrTests() {
 }
 
 function ValdrProviderTests() {
-    var valdrProvider: valdr.IValdrProvider;
+    var valdrProvider: valdr.ValdrProvider;
     valdrProvider.addConstraints({
         'person': {
             'lastName': {

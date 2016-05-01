@@ -5,8 +5,8 @@
 
 declare namespace valdr.message {
 
-    interface IValdrMessage {
-        /**
+    interface ValdrMessage {
+        /*
          * Default message template URL.
          */
         templateUrl: string;
@@ -43,7 +43,7 @@ declare namespace valdr.message {
         getMessage(typeName: string, fieldName: string, validatorName: string): string;
     }
 
-    interface IValdrMessageProvider {
+    interface ValdrMessageProvider {
         /**
          * Sets the default message template.
          * @param template the default message template (eg "<div class="valdr-message">{{ violation.message }}</div>").
