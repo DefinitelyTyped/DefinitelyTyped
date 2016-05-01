@@ -5,7 +5,7 @@
 
 declare namespace valdr {
 
-    interface IValdr {
+    interface Valdr {
         /**
          * Validates the value of the given type with the constraints for the given field name.
          * @param typeName the type name.
@@ -40,7 +40,7 @@ declare namespace valdr {
         setClasses(newClasses: { valid: string, invalid: string }): void;
     }
 
-    interface IValdrProvider {
+    interface ValdrProvider {
         /**
          * Adds a new list of constraints (JSON Object).
          * @param newConstraints the list of constraints (JSON Object).
