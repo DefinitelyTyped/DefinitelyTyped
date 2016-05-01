@@ -29,6 +29,7 @@ import {
     AppStateIOS,
     ViewPagerAndroid,
     Dimensions,
+    BackAndroid,
 } from 'react-native';
 
 function testDimensions() {
@@ -47,6 +48,8 @@ function testDimensions() {
   } = Dimensions.get("screen");
 }
 
+BackAndroid.addEventListener("hardwareBackPress", () => {
+});
 
 var styles = StyleSheet.create(
     {
