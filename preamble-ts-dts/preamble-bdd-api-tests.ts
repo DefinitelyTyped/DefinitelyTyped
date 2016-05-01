@@ -228,12 +228,12 @@ describe(`Calling toHaveReturnedValue`, function() {
 
 describe(`Calling toHaveThrown`, function() {
     it(`sets the expectation that the actual value, a spy, threw an exception`, function() {
-        let someFn = spyOn(function(arg) {
+        let someFn = spyOn(function(arg: any) {
             if (arguments.length !== 1) {
                 throw new Error("Whoops!");
             }
         }).and.callActual();
-        let someOtherFn = spyOn(function(arg) { return arg; }).and.callActual();
+        let someOtherFn = spyOn(function(arg: any) { return arg; }).and.callActual();
         someFn();
         someOtherFn("abc");
         expect(someFn).toHaveThrown();
@@ -243,7 +243,7 @@ describe(`Calling toHaveThrown`, function() {
 
 describe(`Calling toHaveThrown when the actual is an ordinary function`, function() {
     it(`sets the expectation that the actual value, an ordinary function, threw an exception`, function() {
-        let a;
+        let a: any;
         let someFn = spyOn(function() { }).and.throw();
         someFn();
         expect(someFn).toHaveThrown();
@@ -278,7 +278,7 @@ describe(`Calling spyOn() without arguments`, function() {
 
 describe(`Calling spyOn(fn)`, function() {
     it(`creates a spy from the function fn`, function() {
-        let someSpy;
+        let someSpy: Spy;
         function someFn() { }
         someSpy = spyOn(someFn);
         someSpy();
@@ -323,7 +323,7 @@ describe(`Calling calls.count()`, function() {
 describe(`Calling calls.forCall(nth)`, function() {
     it(`returns an ACall object`, function() {
         let someFn = spyOn(),
-            aCall;
+            aCall: ACall;
         someFn();
         aCall = someFn.calls.forCall(0);
         expect(aCall.hasOwnProperty("context")).toBeTrue();
@@ -363,7 +363,7 @@ describe(`Calling calls.wasCalledWithContext(object)`, function() {
 describe(`Calling calls.returned(value)`, function() {
     it(`returns true if the spy returned value and false if it did not return value`, function() {
         let someObj = {
-            someFn: function(num) { return num; }
+            someFn: function(num: number) { return num; }
         };
         let spy = spyOn(someObj, "someFn").and.callActual();
         someObj.someFn(123);
@@ -419,7 +419,7 @@ describe(`Calling calls.forCall(i).getContext()`, function() {
 describe(`Calling calls.forCall(i).getArgs()`, function() {
     it(`Returns an Args object for a specific call to the spy`, function() {
         let someObject = {
-            someFn: function(...args) { }
+            someFn: function(...args: any[]) { }
         };
         let spy = spyOn(someObject, "someFn");
         someObject.someFn(123);
@@ -430,7 +430,7 @@ describe(`Calling calls.forCall(i).getArgs()`, function() {
 describe(`Calling calls.forCall(i).getArg(nth)`, function() {
     it(`works like arguments[nth] for a specific call to the spy`, function() {
         let someObject = {
-            someFn: function(a, b) { }
+            someFn: function(a: number, b: number) { }
         };
         let spy = spyOn(someObject, "someFn");
         someObject.someFn(123, 456);
@@ -442,7 +442,7 @@ describe(`Calling calls.forCall(i).getArg(nth)`, function() {
 describe(`Calling calls.forCall(i).getArgsLength()`, function() {
     it(`works like arguments.length for a specific call to the spy`, function() {
         let someObject = {
-            someFn: function(...args) { }
+            someFn: function(...args: any[]) { }
         };
         let spy = spyOn(someObject, "someFn");
         someObject.someFn(123, 456);
@@ -453,7 +453,7 @@ describe(`Calling calls.forCall(i).getArgsLength()`, function() {
 describe(`Calling calls.forCall(i).getProperty(nth, propertyName)`, function() {
     it(`works like arguments[nth][propertyName] for a specific call to the spy`, function() {
         let someObject = {
-            someFn: function(name) { }
+            someFn: function(...args: any[]) { }
         };
         let spy = spyOn(someObject, "someFn");
         someObject.someFn({ fName: "Abraham", lName: "Lincoln" });
@@ -465,7 +465,7 @@ describe(`Calling calls.forCall(i).getProperty(nth, propertyName)`, function() {
 describe(`Calling calls.forCall(i).hasArgProperty(nth, propertyName)`, function() {
     it(`works like propertyName in arguments[nth] for a specific call to the _spy_`, function() {
         let someObject = {
-            someFn: function(name) { }
+            someFn: function(...args: any[]) { }
         };
         let spy = spyOn(someObject, "someFn");
         someObject.someFn({ fName: "Abraham", lName: "Lincoln" });
@@ -478,7 +478,7 @@ describe(`Calling calls.forCall(i).hasArgProperty(nth, propertyName)`, function(
 describe(`Calling calls.forCall(i).hasArg(n)`, function() {
     it(`works like !!arguments[nth] for a specific call to the spy`, function() {
         let someObject = {
-            someFn: function(...args) { }
+            someFn: function(...args: any[]) { }
         };
         let spy = spyOn(someObject, "someFn");
         someObject.someFn("123", 123);
@@ -501,7 +501,7 @@ describe(`Calling calls.forCall(i).getError()`, function() {
 describe(`Calling calls.forCall(i).getReturned()`, function() {
     it(`returns the value returned from a specific call to the spy`, function() {
         let someObject = {
-            someFn: function(n) { return n + 1; }
+            someFn: function(n: number) { return n + 1; }
         };
         let spy = spyOn(someObject, "someFn").and.callActual();
         someObject.someFn(123);
@@ -595,10 +595,10 @@ describe(`Calling and.return(value)`, function() {
 
 describe(`Calling and.callActual()`, function() {
     it(`the actual implementation is called when the spy is called`, function() {
-        let someFn = function(n) {
+        let someFn = function(n: number) {
             return n + 1;
         },
-            stub;
+            stub: Spy;
         stub = spyOn(someFn).and.return(1);
         stub(100);
         expect(stub).toHaveReturnedValue(1);
