@@ -15,7 +15,7 @@ interface AsyncIterator<T> { (item: T, callback: ErrorCallback): void; }
 interface AsyncForEachOfIterator<T> { (item: T, key: number, callback: ErrorCallback): void; }
 interface AsyncResultIterator<T, R> { (item: T, callback: AsyncResultCallback<R>): void; }
 interface AsyncMemoIterator<T, R> { (memo: R, item: T, callback: AsyncResultCallback<R>): void; }
-interface AsyncBooleanIterator<T> { (item: T, callback: (truthValue: boolean) => void): void; }
+interface AsyncBooleanIterator<T> { (item: T, callback: (err: string, truthValue: boolean) => void): void; }
 
 interface AsyncWorker<T> { (task: T, callback: ErrorCallback): void; }
 interface AsyncVoidFunction { (callback: ErrorCallback): void; }
@@ -99,9 +99,9 @@ interface Async {
     foldl<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback?: AsyncResultCallback<R>): any;
     reduceRight<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback: AsyncResultCallback<R>): any;
     foldr<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback: AsyncResultCallback<R>): any;
-    detect<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (result: T) => void): any;
-    detectSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (result: T) => void): any;
-    detectLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: (result: T) => void): any;
+    detect<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: AsyncResultCallback<T>): any;
+    detectSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: AsyncResultCallback<T>): any;
+    detectLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: AsyncResultCallback<T>): any;
     sortBy<T, V>(arr: T[], iterator: AsyncResultIterator<T, V>, callback?: AsyncResultArrayCallback<T>): any;
     some<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (result: boolean) => void): any;
     someLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: (result: boolean) => void): any;
