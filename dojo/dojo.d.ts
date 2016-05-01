@@ -3,8 +3,11 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function define(dependencies: String[], factory: Function): any;
-declare function require(config?:Object, dependencies?: String[], callback?: Function): any;
+declare function define(deps: string[], callback?: Function): void;
+declare function define(value: any): void;
+declare function require(config: any, deps?: string[], callback?: Function): void;
+declare function require(deps: string[], callback?: Function): void;
+declare function require<T>(moduleId: string): T;
 
 declare namespace dojox.dtl {
     interface __StringArgs { }
@@ -1671,7 +1674,7 @@ declare namespace dojo {
      * @param selector A CSS selector to search for.
      * @param context       OptionalAn optional context to limit the searching scope. Only nodes under context will bescanned.
      */
-    interface query{(selector: String, context?: String): NodeList}
+    interface query { (selector: String, context?: String): NodeList }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/query.html
      *
@@ -1713,7 +1716,7 @@ declare namespace dojo {
      * @param selector A CSS selector to search for.
      * @param context       OptionalAn optional context to limit the searching scope. Only nodes under context will bescanned.
      */
-    interface query{(selector: String, context?: HTMLElement): NodeList}
+    interface query { (selector: String, context?: HTMLElement): NodeList }
     interface query {
         /**
          * can be used as AMD plugin to conditionally load new query engine
@@ -1756,7 +1759,7 @@ declare namespace dojo {
      * @param context The context in which to run execute callback, or a callback if not using context
      * @param callback       OptionalThe function to execute.
      */
-    interface ready{(priority?: number, context?: any, callback?: Function): void}
+    interface ready { (priority?: number, context?: any, callback?: Function): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/sniff.html
      *
@@ -1764,7 +1767,7 @@ declare namespace dojo {
      * It returns the has() function.
      *
      */
-    interface sniff{(): void}
+    interface sniff { (): void }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/when.html
      *
@@ -1783,7 +1786,7 @@ declare namespace dojo {
      * @param errback       OptionalCallback to be invoked when the promise is rejected.
      * @param progback       OptionalCallback to be invoked when the promise emits a progress update.
      */
-    interface when { <T, U>(value: T|dojo.promise.Promise<T>, callback: dojo.promise.Callback<T, U>, errback?: any, progback?: any): U|dojo.promise.Promise<U> }
+    interface when { <T, U>(value: T | dojo.promise.Promise<T>, callback: dojo.promise.Callback<T, U>, errback?: any, progback?: any): U | dojo.promise.Promise<U> }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/DeferredList.html
      *
@@ -1916,7 +1919,7 @@ declare namespace dojo {
          * @param type
          * @param listener
          */
-        on(type: String, listener: {(e:any):void}): {remove: {():void}};
+        on(type: String, listener: { (e: any): void }): { remove: { (): void } };
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/NodeList.html
@@ -1959,7 +1962,7 @@ declare namespace dojo {
          * @param cssClass
          * @param args
          */
-        addClassFx(cssClass: any, args: any): {type:Function;value:any};
+        addClassFx(cssClass: any, args: any): { type: Function; value: any };
         /**
          * add a node, NodeList or some HTML as a string to every item in the
          * list.  Returns the original list.
@@ -2007,7 +2010,7 @@ declare namespace dojo {
          * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes
          * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property
          */
-        addContent(content:  dojo.NodeList, position?: String): Function;
+        addContent(content: dojo.NodeList, position?: String): Function;
         /**
          * add a node, NodeList or some HTML as a string to every item in the
          * list.  Returns the original list.
@@ -2055,7 +2058,7 @@ declare namespace dojo {
          * @param content the content to be set on the parent element.This can be an html string, a node reference or a NodeList, dojo/NodeList, Array or other enumerable list of nodes
          * @param position               Optionalcan be one of:"last"||"end" (default)"first||"start""before""after""replace" (replaces nodes in this NodeList with new content)"only" (removes other children of the nodes so new content is the only child)or an offset in the childNodes property
          */
-        addContent(content:  dojo.NodeList, position?: number): Function;
+        addContent(content: dojo.NodeList, position?: number): Function;
         /**
          * places any/all elements in queryOrListOrNode at a
          * position relative to the first element in this list.
@@ -2359,21 +2362,21 @@ declare namespace dojo {
          * @param template The template string or location
          * @param context The context object or location
          */
-        dtl(template: dojox.dtl.__StringArgs , context: dojox.dtl.__ObjectArgs ): Function;
+        dtl(template: dojox.dtl.__StringArgs, context: dojox.dtl.__ObjectArgs): Function;
         /**
          * Renders the specified template in each of the NodeList entries.
          *
          * @param template The template string or location
          * @param context The context object or location
          */
-        dtl(template: String, context: dojox.dtl.__ObjectArgs ): Function;
+        dtl(template: String, context: dojox.dtl.__ObjectArgs): Function;
         /**
          * Renders the specified template in each of the NodeList entries.
          *
          * @param template The template string or location
          * @param context The context object or location
          */
-        dtl(template: dojox.dtl.__StringArgs , context: Object): Function;
+        dtl(template: dojox.dtl.__StringArgs, context: Object): Function;
         /**
          * Renders the specified template in each of the NodeList entries.
          *
@@ -2826,7 +2829,7 @@ declare namespace dojo {
          * @param cssClass
          * @param args
          */
-        removeClassFx(cssClass: any, args: any): {type:Function;value:any};
+        removeClassFx(cssClass: any, args: any): { type: Function; value: any };
         /**
          * Remove the data associated with these nodes.
          *
@@ -2986,7 +2989,7 @@ declare namespace dojo {
          * @param force
          * @param args
          */
-        toggleClassFx(cssClass: any, force: any, args: any): {type:Function;value:any};
+        toggleClassFx(cssClass: any, force: any, args: any): { type: Function; value: any };
         /**
          *
          */
@@ -3098,7 +3101,7 @@ declare namespace dojo {
      */
     class Stateful {
         constructor();
-        inherited: {(args: IArguments): any};
+        inherited: { (args: IArguments): any };
         /**
          * Get a property on a Stateful instance.
          * Get a named property on a Stateful object. The property may
@@ -3128,7 +3131,7 @@ declare namespace dojo {
          * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
          * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
          */
-        watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+        watch(property: string, callback: { (property?: string, oldValue?: any, newValue?: any): void }): { unwatch(): void };
     }
     module _base {
         /**
@@ -3205,7 +3208,7 @@ declare namespace dojo {
          * @param superclass May be null, a Function, or an Array of Functions. This argumentspecifies a list of bases (the left-most one is the most deepestbase).
          * @param props An object whose properties are copied to the created prototype.Add an instance-initialization function by making it a propertynamed "constructor".
          */
-        interface declare { (className?: String, superclass?: any, props?: Object): any}
+        interface declare { (className?: String, superclass?: any, props?: Object): any }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/declare.html
          *
@@ -3280,7 +3283,7 @@ declare namespace dojo {
          * @param superclass May be null, a Function, or an Array of Functions. This argumentspecifies a list of bases (the left-most one is the most deepestbase).
          * @param props An object whose properties are copied to the created prototype.Add an instance-initialization function by making it a propertynamed "constructor".
          */
-        interface declare{(className?: String, superclass?: any[], props?: Object): any}
+        interface declare { (className?: String, superclass?: any[], props?: Object): any }
         interface declare {
             /**
              * Mix in properties skipping a constructor and decorating functions
@@ -3448,7 +3451,7 @@ declare namespace dojo {
          *
          * @param canceller       Optional
          */
-        interface Deferred{(canceller?: Function): void}
+        interface Deferred { (canceller?: Function): void }
         interface Deferred {
             /**
              *
@@ -3585,7 +3588,7 @@ declare namespace dojo {
          *
          *
          */
-        interface url{(): void}
+        interface url { (): void }
         interface url {
             /**
              *
@@ -3698,7 +3701,7 @@ declare namespace dojo {
          * @param args
          * @param hasBody       OptionalIf the request has an HTTP body, then pass true for hasBody.
          */
-        interface xhr{(method: String, args: Object, hasBody?: boolean): void}
+        interface xhr { (method: String, args: Object, hasBody?: boolean): void }
         interface xhr {
             /**
              * A map of available XHR transport handle types. Name matches the
@@ -5469,7 +5472,7 @@ declare namespace dojo {
              * @param onEnd               OptionalA function to be called when the animation finishesrunning.
              * @param delay               OptionalThe number of milliseconds to delay beginning theanimation by. The default is 0.
              */
-            anim  (node: HTMLElement, properties: Object, duration?: number, easing?: Function, onEnd?: Function, delay?: number): any ;
+            anim(node: HTMLElement, properties: Object, duration?: number, easing?: Function, onEnd?: Function, delay?: number): any;
             /**
              * A simpler interface to animateProperty(), also returns
              * an instance of Animation but begins the animation
@@ -5490,7 +5493,7 @@ declare namespace dojo {
              * @param onEnd               OptionalA function to be called when the animation finishesrunning.
              * @param delay               OptionalThe number of milliseconds to delay beginning theanimation by. The default is 0.
              */
-            anim  (node: String, properties: Object, duration?: number, easing?: Function, onEnd?: Function, delay?: number): any ;
+            anim(node: String, properties: Object, duration?: number, easing?: Function, onEnd?: Function, delay?: number): any;
             /**
              * Returns an animation that will transition the properties of
              * node defined in args depending how they are defined in
@@ -5502,7 +5505,7 @@ declare namespace dojo {
              *
              * @param args An object with the following properties:properties (Object, optional): A hash map of style properties to Objects describing the transition,such as the properties of _Line with an additional 'units' propertynode (DOMNode|String): The node referenced in the animationduration (Integer, optional): Duration of the animation in milliseconds.easing (Function, optional): An easing function.
              */
-            animateProperty  (args?: Object): any ;
+            animateProperty(args?: Object): any;
 
             /**
              * Returns an animation that will fade node defined in 'args' from
@@ -5510,14 +5513,14 @@ declare namespace dojo {
              *
              * @param args An object with the following properties:node (DOMNode|String): The node referenced in the animationduration (Integer, optional): Duration of the animation in milliseconds.easing (Function, optional): An easing function.
              */
-            fadeIn  (args: Object): any ;
+            fadeIn(args: Object): any;
             /**
              * Returns an animation that will fade node defined in 'args'
              * from its current opacity to fully transparent.
              *
              * @param args An object with the following properties:node (DOMNode|String): The node referenced in the animationduration (Integer, optional): Duration of the animation in milliseconds.easing (Function, optional): An easing function.
              */
-             fadeOut  (args: Object): any ;
+            fadeOut(args: Object): any;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/query.html
@@ -5686,7 +5689,7 @@ declare namespace dojo {
              * @param dest The object to which to copy/add all properties contained in source. If dest is falsy, thena new object is manufactured before copying/adding properties begins.
              * @param sources One of more objects from which to draw all properties to copy into dest. sources are processedleft-to-right and if more than one of these objects contain the same property name, the right-mostvalue "wins".
              */
-            mixin(dest: Object, sources: Object[]): Object;
+            mixin<P,Q>(dest: P, ...sources: Q[]): P & Q;
             /**
              * similar to hitch() except that the scope object is left to be
              * whatever the execution context eventually becomes.
@@ -9561,7 +9564,7 @@ declare namespace dojo {
                  * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
                  * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
                  */
-                watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+                watch(property: string, callback: { (property?: string, oldValue?: any, newValue?: any): void }): { unwatch(): void };
             }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/kernel._contentHandlers.html
@@ -11804,7 +11807,7 @@ declare namespace dojo {
              *
              * @param request               Optional
              */
-            close(request?: dojo.data.api.Request ): void;
+            close(request?: dojo.data.api.Request): void;
             /**
              * See dojo/data/api/Read.close()
              *
@@ -12553,7 +12556,7 @@ declare namespace dojo {
                  *
                  * @param request               OptionalAn instance of a request for the store to use to identify what to close out.If no request is passed, then the store should clear all internal caches (if any)and close out all 'open' connections.  It does not render the store unusable fromthere on, it merely cleans out any current data and resets the store to initialstate.
                  */
-                close(request?: dojo.data.api.Request ): void;
+                close(request?: dojo.data.api.Request): void;
                 /**
                  * The close() method is intended for instructing the store to 'close' out
                  * any information associated with a particular request.
@@ -12794,7 +12797,7 @@ declare namespace dojo {
                  *
                  * @param request               OptionalAn instance of a request for the store to use to identify what to close out.If no request is passed, then the store should clear all internal caches (if any)and close out all 'open' connections.  It does not render the store unusable fromthere on, it merely cleans out any current data and resets the store to initialstate.
                  */
-                close(request?: dojo.data.api.Request ): void;
+                close(request?: dojo.data.api.Request): void;
                 /**
                  * The close() method is intended for instructing the store to 'close' out
                  * any information associated with a particular request.
@@ -13038,7 +13041,7 @@ declare namespace dojo {
                  *
                  * @param request               OptionalAn instance of a request for the store to use to identify what to close out.If no request is passed, then the store should clear all internal caches (if any)and close out all 'open' connections.  It does not render the store unusable fromthere on, it merely cleans out any current data and resets the store to initialstate.
                  */
-                close(request?: dojo.data.api.Request ): void;
+                close(request?: dojo.data.api.Request): void;
                 /**
                  * The close() method is intended for instructing the store to 'close' out
                  * any information associated with a particular request.
@@ -13218,7 +13221,7 @@ declare namespace dojo {
                  *
                  * @param request               OptionalAn instance of a request for the store to use to identify what to close out.If no request is passed, then the store should clear all internal caches (if any)and close out all 'open' connections.  It does not render the store unusable fromthere on, it merely cleans out any current data and resets the store to initialstate.
                  */
-                close(request?: dojo.data.api.Request ): void;
+                close(request?: dojo.data.api.Request): void;
                 /**
                  * The close() method is intended for instructing the store to 'close' out
                  * any information associated with a particular request.
@@ -15941,28 +15944,28 @@ declare namespace dojo {
          * @param base
          * @param props
          */
-        interface create{(name: any, ctor: any, base: any, props: any): void}
+        interface create { (name: any, ctor: any, base: any, props: any): void }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/errors/CancelError.html
          *
          * Default error if a promise is canceled without a reason.
          *
          */
-        interface CancelError{(): void}
+        interface CancelError { (): void }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/errors/RequestError.html
          *
          * TODOC
          *
          */
-        interface RequestError{(): void}
+        interface RequestError { (): void }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/errors/RequestTimeoutError.html
          *
          * TODOC
          *
          */
-        interface RequestTimeoutError{(): void}
+        interface RequestTimeoutError { (): void }
     }
 
     namespace io {
@@ -16050,7 +16053,7 @@ declare namespace dojo {
          *
          * @param objectOrArray       OptionalThe promise will be fulfilled with a list of results if invoked with anarray, or an object of results when passed an object (using the samekeys). If passed neither an object or array it is resolved with anundefined value.
          */
-        interface all{<T>(value: Promise<T>[]): Promise<T[]>}
+        interface all { <T>(value: Promise<T>[]): Promise<T[]> }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/all.html
          *
@@ -16063,7 +16066,7 @@ declare namespace dojo {
          *
          * @param objectOrArray       OptionalThe promise will be fulfilled with a list of results if invoked with anarray, or an object of results when passed an object (using the samekeys). If passed neither an object or array it is resolved with anundefined value.
          */
-        interface all{(value: Object): Promise<any>}
+        interface all { (value: Object): Promise<any> }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/first.html
          *
@@ -16076,7 +16079,7 @@ declare namespace dojo {
          *
          * @param objectOrArray       OptionalThe promises are taken from the array or object values. If no valueis passed, the returned promise is resolved with an undefined value.
          */
-        interface first{(objectOrArray?: Object): void}
+        interface first { (objectOrArray?: Object): void }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/first.html
          *
@@ -16089,7 +16092,7 @@ declare namespace dojo {
          *
          * @param objectOrArray       OptionalThe promises are taken from the array or object values. If no valueis passed, the returned promise is resolved with an undefined value.
          */
-        interface first{(objectOrArray?: any[]): void}
+        interface first { (objectOrArray?: any[]): void }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/promise/instrumentation.html
          *
@@ -16106,10 +16109,10 @@ declare namespace dojo {
          *
          * @param Deferred
          */
-        interface instrumentation{(Deferred: any): void}
+        interface instrumentation { (Deferred: any): void }
 
         interface Callback<T, U> {
-            (arg: T): U|Promise<U>;
+            (arg: T): U | Promise<U>;
         }
 
         /**
@@ -16450,7 +16453,7 @@ declare namespace dojo {
          * @param selector
          * @param root
          */
-        interface lite{(selector: any, root: any): void}
+        interface lite { (selector: any, root: any): void }
         interface lite {
             /**
              *
@@ -16542,7 +16545,7 @@ declare namespace dojo {
          * @param query The CSS3 expression to match against. For details on the syntax ofCSS3 selectors, see http://www.w3.org/TR/css3-selectors/#selectors
          * @param root       OptionalA DOMNode (or node id) to scope the search from. Optional.
          */
-        interface acme{(query: String, root?: String): void}
+        interface acme { (query: String, root?: String): void }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/selector/acme.html
          *
@@ -16624,7 +16627,7 @@ declare namespace dojo {
          * @param query The CSS3 expression to match against. For details on the syntax ofCSS3 selectors, see http://www.w3.org/TR/css3-selectors/#selectors
          * @param root       OptionalA DOMNode (or node id) to scope the search from. Optional.
          */
-        interface acme{(query: String, root?: HTMLElement): void}
+        interface acme { (query: String, root?: HTMLElement): void }
         interface acme {
             /**
              * function for filtering a NodeList based on a selector, optimized for simple selectors
@@ -16676,7 +16679,7 @@ declare namespace dojo {
          *
          * @param store
          */
-        interface Observable{(store: dojo.store.api.Store): void}
+        interface Observable { (store: dojo.store.api.Store): void }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/Cache.html
          *
@@ -17455,7 +17458,7 @@ declare namespace dojo {
              *
              * @param results The result set as an array, or a promise for an array.
              */
-            interface QueryResults{(results: any[]): void}
+            interface QueryResults { (results: any[]): void }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/util/QueryResults.html
              *
@@ -17471,7 +17474,7 @@ declare namespace dojo {
              *
              * @param results The result set as an array, or a promise for an array.
              */
-            interface QueryResults{(results: dojo.promise.Promise<any>): void}
+            interface QueryResults { (results: dojo.promise.Promise<any>): void }
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojo/store/util/SimpleQueryEngine.html
              *
@@ -17492,7 +17495,7 @@ declare namespace dojo {
              * @param query An object hash with fields that may match fields of items in the store.Values in the hash will be compared by normal == operator, but regular expressionsor any object that provides a test() method are also supported and can beused to match strings by more complex expressions(and then the regex's or object's test() method will be used to match values).
              * @param options       OptionalAn object that contains optional information such as sort, start, and count.
              */
-            interface SimpleQueryEngine{(query: Object, options?: dojo.store.api.Store.QueryOptions): void}
+            interface SimpleQueryEngine { (query: Object, options?: dojo.store.api.Store.QueryOptions): void }
         }
 
     }
@@ -19028,6 +19031,7 @@ declare namespace dojo {
      *
      */
     interface dom_construct {
+        create(tag: String): any;
         /**
          * Create an element, allowing for optional attribute decoration
          * and placement.
@@ -24865,7 +24869,7 @@ declare namespace dojo {
              * @param name               OptionalIndicates the property to watch. This is optional (the callback may be theonly parameter), and if omitted, all the properties will be watched
              * @param callback The function to execute when the property changes. This will be called afterthe property has been changed. The callback will be called with the |this|set to the instance, the first argument as the name of the property, thesecond argument as the old value and the third argument as the new value.
              */
-            watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
+            watch(property: string, callback: { (property?: string, oldValue?: any, newValue?: any): void }): { unwatch(): void };
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/main._hasResource.html
@@ -27093,7 +27097,7 @@ declare namespace dojo {
          * @param topic The name of the topic to publish to
          * @param event An event to distribute to the topic listeners
          */
-        publish(topic: String, event: Object): any;
+        publish(topic: String, ...event: any[]): any;
         /**
          * Subscribes to a topic on the pub/sub hub
          *
@@ -27221,1055 +27225,1055 @@ declare namespace dojo {
 
 declare module "dojo/request" {
     var exp: dojo.request
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request.__BaseOptions" {
     var exp: dojo.request.__BaseOptions
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request.__MethodOptions" {
     var exp: dojo.request.__MethodOptions
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request.__Options" {
     var exp: dojo.request.__Options
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request.__Promise" {
     var exp: dojo.request.__Promise
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/handlers" {
     var exp: dojo.request.handlers
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/iframe" {
     var exp: dojo.request.iframe
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/iframe.__MethodOptions" {
     var exp: dojo.request.iframe.__MethodOptions
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/iframe.__BaseOptions" {
     var exp: dojo.request.iframe.__BaseOptions
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/iframe.__Options" {
     var exp: dojo.request.iframe.__Options
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/notify" {
     var exp: dojo.request.notify
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/registry" {
     var exp: dojo.request.registry
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/node" {
     var exp: dojo.request.node
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/node.__MethodOptions" {
     var exp: dojo.request.node.__MethodOptions
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/node.__Options" {
     var exp: dojo.request.node.__Options
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/node.__BaseOptions" {
     var exp: dojo.request.node.__BaseOptions
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/watch" {
     var exp: dojo.request.watch
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/script" {
     var exp: dojo.request.script
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/script.__MethodOptions" {
     var exp: dojo.request.script.__MethodOptions
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/script.__BaseOptions" {
     var exp: dojo.request.script.__BaseOptions
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/script.__Options" {
     var exp: dojo.request.script.__Options
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/xhr" {
     var exp: dojo.request.xhr
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/xhr.__BaseOptions" {
     var exp: dojo.request.xhr.__BaseOptions
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/xhr.__MethodOptions" {
     var exp: dojo.request.xhr.__MethodOptions
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/xhr.__Options" {
     var exp: dojo.request.xhr.__Options
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/default" {
     var exp: dojo.request.default_
-    export=exp;
+    export =exp;
 }
 declare module "dojo/request/util" {
     var exp: dojo.request.util
-    export=exp;
+    export =exp;
 }
 declare module "dojo/AdapterRegistry" {
     var exp: dojo.AdapterRegistry
-    export=exp;
+    export =exp;
 }
 declare module "dojo/cache" {
     var exp: dojo.cache
-    export=exp;
+    export =exp;
 }
 declare module "dojo/cookie" {
     var exp: dojo.cookie
-    export=exp;
+    export =exp;
 }
 declare module "dojo/domReady" {
     var exp: dojo.domReady
-    export=exp;
+    export =exp;
 }
 declare module "dojo/hash" {
     var exp: dojo.hash
-    export=exp;
+    export =exp;
 }
 declare module "dojo/has" {
     var exp: dojo.has
-    export=exp;
+    export =exp;
 }
 declare module "dojo/hccss" {
     var exp: dojo.hccss
-    export=exp;
+    export =exp;
 }
 declare module "dojo/NodeList-data" {
     var exp: dojo.NodeList_data
-    export=exp;
+    export =exp;
 }
 declare module "dojo/NodeList-html" {
     var exp: dojo.NodeList_html
-    export=exp;
+    export =exp;
 }
 declare module "dojo/NodeList-fx" {
     var exp: dojo.NodeList_fx
-    export=exp;
+    export =exp;
 }
 declare module "dojo/NodeList-dom" {
     var exp: dojo.NodeList_dom
-    export=exp;
+    export =exp;
 }
 declare module "dojo/NodeList-manipulate" {
     var exp: dojo.NodeList_manipulate
-    export=exp;
+    export =exp;
 }
 declare module "dojo/NodeList-traverse" {
     var exp: dojo.NodeList_traverse
-    export=exp;
+    export =exp;
 }
 declare module "dojo/on" {
     var exp: dojo.on
-    export=exp;
+    export =exp;
 }
 declare module "dojo/query" {
     var exp: dojo.query
-    export=exp;
+    export =exp;
 }
 declare module "dojo/ready" {
     var exp: dojo.ready
-    export=exp;
+    export =exp;
 }
 declare module "dojo/sniff" {
     var exp: dojo.sniff
-    export=exp;
+    export =exp;
 }
 declare module "dojo/when" {
     var exp: dojo.when
-    export=exp;
+    export =exp;
 }
 declare module "dojo/date" {
     var exp: dojo.date
-    export=exp;
+    export =exp;
 }
 declare module "dojo/date/stamp" {
     var exp: dojo.date.stamp
-    export=exp;
+    export =exp;
 }
 declare module "dojo/date/locale" {
     var exp: dojo.date.locale
-    export=exp;
+    export =exp;
 }
 declare module "dojo/date/locale.__FormatOptions" {
     var exp: dojo.date.locale.__FormatOptions
-    export=exp;
+    export =exp;
 }
 declare module "dojo/fx" {
     var exp: dojo.fx
-    export=exp;
+    export =exp;
 }
 declare module "dojo/fx/Toggler" {
     var exp: dojo.fx.Toggler
-    export=exp;
+    export =exp;
 }
 declare module "dojo/fx/easing" {
     var exp: dojo.fx.easing
-    export=exp;
+    export =exp;
 }
 declare module "dojo/router" {
     var exp: dojo.router
-    export=exp;
+    export =exp;
 }
 declare module "dojo/router/RouterBase" {
     var exp: typeof dojo.router.RouterBase
-    export=exp;
+    export =exp;
 }
 declare module "dojo/aspect" {
     var exp: dojo.aspect
-    export=exp;
+    export =exp;
 }
 declare module "dojo/back" {
     var exp: dojo.back
-    export=exp;
+    export =exp;
 }
 declare module "dojo/colors" {
     var exp: dojo.colors
-    export=exp;
+    export =exp;
 }
 declare module "dojo/currency" {
     var exp: dojo.currency
-    export=exp;
+    export =exp;
 }
 declare module "dojo/currency.__FormatOptions" {
     var exp: dojo.currency.__FormatOptions
-    export=exp;
+    export =exp;
 }
 declare module "dojo/currency.__ParseOptions" {
     var exp: dojo.currency.__ParseOptions
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dom" {
     var exp: dojo.dom
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dom-attr" {
     var exp: dojo.dom_attr
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dom-class" {
     var exp: dojo.dom_class
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dom-form" {
     var exp: dojo.dom_form
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dom-construct" {
     var exp: dojo.dom_construct
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dom-prop" {
     var exp: dojo.dom_prop
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dom-prop.names" {
     var exp: dojo.dom_prop.names
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dom-style" {
     var exp: dojo.dom_style
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dom-geometry" {
     var exp: dojo.dom_geometry
-    export=exp;
+    export =exp;
 }
 declare module "dojo/gears" {
     var exp: dojo.gears
-    export=exp;
+    export =exp;
 }
 declare module "dojo/gears.available" {
     var exp: dojo.gears.available
-    export=exp;
+    export =exp;
 }
 declare module "dojo/html" {
     var exp: dojo.html
-    export=exp;
+    export =exp;
 }
 declare module "dojo/html._ContentSetter" {
     var exp: dojo.html._ContentSetter
-    export=exp;
+    export =exp;
 }
 declare module "dojo/io-query" {
     var exp: dojo.io_query
-    export=exp;
+    export =exp;
 }
 declare module "dojo/i18n" {
     var exp: dojo.i18n
-    export=exp;
+    export =exp;
 }
 declare module "dojo/i18n.cache" {
     var exp: dojo.i18n.cache
-    export=exp;
+    export =exp;
 }
 declare module "dojo/json" {
     var exp: dojo.json
-    export=exp;
+    export =exp;
 }
 declare module "dojo/loadInit" {
     var exp: dojo.loadInit
-    export=exp;
+    export =exp;
 }
 declare module "dojo/keys" {
     var exp: dojo.keys
-    export=exp;
+    export =exp;
 }
 declare module "dojo/mouse" {
     var exp: dojo.mouse
-    export=exp;
+    export =exp;
 }
 declare module "dojo/node" {
     var exp: dojo.node
-    export=exp;
+    export =exp;
 }
 declare module "dojo/number" {
     var exp: dojo.number_
-    export=exp;
+    export =exp;
 }
 declare module "dojo/number.__FormatAbsoluteOptions" {
     var exp: dojo.number_.__FormatAbsoluteOptions
-    export=exp;
+    export =exp;
 }
 declare module "dojo/number.__IntegerRegexpFlags" {
     var exp: dojo.number_.__IntegerRegexpFlags
-    export=exp;
+    export =exp;
 }
 declare module "dojo/number.__FormatOptions" {
     var exp: dojo.number_.__FormatOptions
-    export=exp;
+    export =exp;
 }
 declare module "dojo/number.__RealNumberRegexpFlags" {
     var exp: dojo.number_.__RealNumberRegexpFlags
-    export=exp;
+    export =exp;
 }
 declare module "dojo/number.__ParseOptions" {
     var exp: dojo.number_.__ParseOptions
-    export=exp;
+    export =exp;
 }
 declare module "dojo/number.__RegexpOptions" {
     var exp: dojo.number_.__RegexpOptions
-    export=exp;
+    export =exp;
 }
 declare module "dojo/parser" {
     var exp: dojo.parser
-    export=exp;
+    export =exp;
 }
 declare module "dojo/regexp" {
     var exp: dojo.regexp
-    export=exp;
+    export =exp;
 }
 declare module "dojo/require" {
     var exp: dojo.require
-    export=exp;
+    export =exp;
 }
 declare module "dojo/robotx" {
     var exp: dojo.robotx
-    export=exp;
+    export =exp;
 }
 declare module "dojo/robotx._runsemaphore" {
     var exp: dojo.robotx._runsemaphore
-    export=exp;
+    export =exp;
 }
 declare module "dojo/robot" {
     var exp: dojo.robot
-    export=exp;
+    export =exp;
 }
 declare module "dojo/robot._runsemaphore" {
     var exp: dojo.robot._runsemaphore
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main" {
     var exp: dojo.main
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.__IoArgs" {
     var exp: dojo.main.__IoArgs
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.__IoCallbackArgs" {
     var exp: dojo.main.__IoCallbackArgs
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.__IoPublish" {
     var exp: dojo.main.__IoPublish
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.__XhrArgs" {
     var exp: dojo.main.__XhrArgs
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.Stateful" {
     var exp: dojo.main.Stateful
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main._hasResource" {
     var exp: dojo.main._hasResource
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main._contentHandlers" {
     var exp: dojo.main._contentHandlers
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.cldr" {
     var exp: dojo.main.cldr
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main._nodeDataCache" {
     var exp: dojo.main._nodeDataCache
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.colors" {
     var exp: dojo.main.colors
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.back" {
     var exp: dojo.main.back
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.data" {
     var exp: dojo.main.data
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.config" {
     var exp: dojo.main.config
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.contentHandlers" {
     var exp: dojo.main.contentHandlers
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.date" {
     var exp: dojo.main.date
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.currency" {
     var exp: dojo.main.currency
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.dnd" {
     var exp: dojo.main.dnd
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.doc" {
     var exp: dojo.main.doc
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.gears" {
     var exp: dojo.main.gears
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.global" {
     var exp: dojo.main.global
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.dijit" {
     var exp: dojo.main.dijit
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.io" {
     var exp: dojo.main.io
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.fx" {
     var exp: dojo.main.fx
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.html" {
     var exp: dojo.main.html
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.dojox" {
     var exp: dojo.main.dojox
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.i18n" {
     var exp: dojo.main.i18n
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.scopeMap" {
     var exp: dojo.main.scopeMap
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.regexp" {
     var exp: dojo.main.regexp
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.mouseButtons" {
     var exp: dojo.main.mouseButtons
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.rpc" {
     var exp: dojo.main.rpc
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.number" {
     var exp: dojo.main.number_
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.keys" {
     var exp: dojo.main.keys
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.tests" {
     var exp: dojo.main.tests
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.version" {
     var exp: dojo.main.version
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.string" {
     var exp: dojo.main.string_
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.touch" {
     var exp: dojo.main.touch
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.store" {
     var exp: dojo.main.store
-    export=exp;
+    export =exp;
 }
 declare module "dojo/main.window" {
     var exp: dojo.main.window
-    export=exp;
+    export =exp;
 }
 declare module "dojo/string" {
     var exp: dojo.string_
-    export=exp;
+    export =exp;
 }
 declare module "dojo/text" {
     var exp: dojo.text
-    export=exp;
+    export =exp;
 }
 declare module "dojo/topic" {
     var exp: dojo.topic
-    export=exp;
+    export =exp;
 }
 declare module "dojo/uacss" {
     var exp: dojo.uacss
-    export=exp;
+    export =exp;
 }
 declare module "dojo/window" {
     var exp: dojo.window
-    export=exp;
+    export =exp;
 }
 declare module "dojo/touch" {
     var exp: dojo.touch
-    export=exp;
+    export =exp;
 }
 declare module "dojo/DeferredList" {
     var exp: typeof dojo.DeferredList
-    export=exp;
+    export =exp;
 }
 declare module "dojo/Deferred" {
     var exp: typeof dojo.Deferred
-    export=exp;
+    export =exp;
 }
 declare module "dojo/Evented" {
     var exp: typeof dojo.Evented
-    export=exp;
+    export =exp;
 }
 declare module "dojo/NodeList" {
     var exp: typeof dojo.NodeList
-    export=exp;
+    export =exp;
 }
 declare module "dojo/NodeList._nodeDataCache" {
     var exp: dojo.NodeList._nodeDataCache
-    export=exp;
+    export =exp;
 }
 declare module "dojo/Stateful" {
     var exp: typeof dojo.Stateful
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/declare" {
     var exp: dojo._base.declare
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/declare.__DeclareCreatedObject" {
     var exp: dojo._base.declare.__DeclareCreatedObject
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/Deferred" {
     var exp: dojo._base.Deferred
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/url" {
     var exp: dojo._base.url
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/url.authority" {
     var exp: dojo._base.url.authority
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/url.password" {
     var exp: dojo._base.url.password
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/url.port" {
     var exp: dojo._base.url.port
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/url.fragment" {
     var exp: dojo._base.url.fragment
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/url.query" {
     var exp: dojo._base.url.query
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/url.user" {
     var exp: dojo._base.url.user
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/url.scheme" {
     var exp: dojo._base.url.scheme
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/xhr" {
     var exp: dojo._base.xhr
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/xhr.contentHandlers" {
     var exp: dojo._base.xhr.contentHandlers
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/browser" {
     var exp: dojo._base.browser
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/array" {
     var exp: dojo._base.array
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/connect" {
     var exp: dojo._base.connect
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/event" {
     var exp: dojo._base.event
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/html" {
     var exp: dojo._base.html
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/json" {
     var exp: dojo._base.json
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/fx" {
     var exp: dojo._base.fx
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/query" {
     var exp: dojo._base.query
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/NodeList" {
     var exp: dojo._base.NodeList
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/sniff" {
     var exp: dojo._base.sniff
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/lang" {
     var exp: dojo._base.lang
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/unload" {
     var exp: dojo._base.unload
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/window" {
     var exp: dojo._base.window
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/window.doc" {
     var exp: dojo._base.window.doc
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/window.global" {
     var exp: dojo._base.window.global
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel" {
     var exp: dojo._base.kernel
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.__IoCallbackArgs" {
     var exp: dojo._base.kernel.__IoCallbackArgs
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.__IoPublish" {
     var exp: dojo._base.kernel.__IoPublish
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.__IoArgs" {
     var exp: dojo._base.kernel.__IoArgs
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.__XhrArgs" {
     var exp: dojo._base.kernel.__XhrArgs
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.Stateful" {
     var exp: dojo._base.kernel.Stateful
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel._contentHandlers" {
     var exp: dojo._base.kernel._contentHandlers
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel._hasResource" {
     var exp: dojo._base.kernel._hasResource
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel._nodeDataCache" {
     var exp: dojo._base.kernel._nodeDataCache
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.back" {
     var exp: dojo._base.kernel.back
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.cldr" {
     var exp: dojo._base.kernel.cldr
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.colors" {
     var exp: dojo._base.kernel.colors
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.config" {
     var exp: dojo._base.kernel.config
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.contentHandlers" {
     var exp: dojo._base.kernel.contentHandlers
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.dnd" {
     var exp: dojo._base.kernel.dnd
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.date" {
     var exp: dojo._base.kernel.date
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.doc" {
     var exp: dojo._base.kernel.doc
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.data" {
     var exp: dojo._base.kernel.data
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.currency" {
     var exp: dojo._base.kernel.currency
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.dijit" {
     var exp: dojo._base.kernel.dijit
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.global" {
     var exp: dojo._base.kernel.global
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.gears" {
     var exp: dojo._base.kernel.gears
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.fx" {
     var exp: dojo._base.kernel.fx
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.html" {
     var exp: dojo._base.kernel.html
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.io" {
     var exp: dojo._base.kernel.io
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.dojox" {
     var exp: dojo._base.kernel.dojox
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.i18n" {
     var exp: dojo._base.kernel.i18n
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.mouseButtons" {
     var exp: dojo._base.kernel.mouseButtons
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.rpc" {
     var exp: dojo._base.kernel.rpc
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.regexp" {
     var exp: dojo._base.kernel.regexp
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.number" {
     var exp: dojo._base.kernel.number_
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.scopeMap" {
     var exp: dojo._base.kernel.scopeMap
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.tests" {
     var exp: dojo._base.kernel.tests
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.keys" {
     var exp: dojo._base.kernel.keys
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.store" {
     var exp: dojo._base.kernel.store
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.string" {
     var exp: dojo._base.kernel.string_
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.version" {
     var exp: dojo._base.kernel.version
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.touch" {
     var exp: dojo._base.kernel.touch
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/kernel.window" {
     var exp: dojo._base.kernel.window
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/config" {
     var exp: dojo._base.config
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/config.modulePaths" {
     var exp: dojo._base.config.modulePaths
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/Color" {
     var exp: typeof dojo._base.Color
-    export=exp;
+    export =exp;
 }
 declare module "dojo/_base/Color.named" {
     var exp: dojo._base.Color.named
-    export=exp;
+    export =exp;
 }
 declare module "dojo/cldr/monetary" {
     var exp: dojo.cldr.monetary
-    export=exp;
+    export =exp;
 }
 declare module "dojo/cldr/supplemental" {
     var exp: dojo.cldr.supplemental
-    export=exp;
+    export =exp;
 }
 declare module "dojo/data/ItemFileReadStore" {
     var exp: typeof dojo.data.ItemFileReadStore
-    export=exp;
+    export =exp;
 }
 declare module "dojo/data/ObjectStore" {
     var exp: typeof dojo.data.ObjectStore
-    export=exp;
+    export =exp;
 }
 declare module "dojo/data/ItemFileWriteStore" {
     var exp: typeof dojo.data.ItemFileWriteStore
-    export=exp;
+    export =exp;
 }
 declare module "dojo/data/api/Item" {
     var exp: typeof dojo.data.api.Item
-    export=exp;
+    export =exp;
 }
 declare module "dojo/data/api/Identity" {
     var exp: typeof dojo.data.api.Identity
-    export=exp;
+    export =exp;
 }
 declare module "dojo/data/api/Request" {
-    var exp: typeof  dojo.data.api.Request
-    export=exp;
+    var exp: typeof dojo.data.api.Request
+    export =exp;
 }
 declare module "dojo/data/api/Notification" {
     var exp: typeof dojo.data.api.Notification
-    export=exp;
+    export =exp;
 }
 declare module "dojo/data/api/Read" {
     var exp: typeof dojo.data.api.Read
-    export=exp;
+    export =exp;
 }
 declare module "dojo/data/api/Write" {
     var exp: typeof dojo.data.api.Write
-    export=exp;
+    export =exp;
 }
 declare module "dojo/data/util/filter" {
     var exp: dojo.data.util.filter
-    export=exp;
+    export =exp;
 }
 declare module "dojo/data/util/simpleFetch" {
     var exp: dojo.data.util.simpleFetch
-    export=exp;
+    export =exp;
 }
 declare module "dojo/data/util/sorter" {
     var exp: dojo.data.util.sorter
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/autoscroll" {
     var exp: dojo.dnd.autoscroll
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/autoscroll._validOverflow" {
     var exp: dojo.dnd.autoscroll._validOverflow
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/autoscroll._validNodes" {
     var exp: dojo.dnd.autoscroll._validNodes
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/common" {
     var exp: dojo.dnd.common
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/common._empty" {
     var exp: dojo.dnd.common._empty
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/common._defaultCreatorNodes" {
     var exp: dojo.dnd.common._defaultCreatorNodes
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/move" {
     var exp: dojo.dnd.move
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/move.parentConstrainedMoveable" {
     var exp: dojo.dnd.move.parentConstrainedMoveable
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/move.boxConstrainedMoveable" {
     var exp: dojo.dnd.move.boxConstrainedMoveable
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/move.constrainedMoveable" {
     var exp: dojo.dnd.move.constrainedMoveable
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/Avatar" {
     var exp: typeof dojo.dnd.Avatar
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/Manager" {
     var exp: typeof dojo.dnd.Manager
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/Container" {
     var exp: typeof dojo.dnd.Container
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/Container.__ContainerArgs" {
     var exp: dojo.dnd.Container.__ContainerArgs
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/AutoSource" {
     var exp: typeof dojo.dnd.AutoSource
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/Mover" {
     var exp: typeof dojo.dnd.Mover
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/Moveable" {
     var exp: typeof dojo.dnd.Moveable
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/Moveable.__MoveableArgs" {
     var exp: typeof dojo.dnd.Moveable.__MoveableArgs
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/Selector" {
     var exp: typeof dojo.dnd.Selector
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/TimedMoveable" {
     var exp: typeof dojo.dnd.TimedMoveable
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/Target" {
     var exp: typeof dojo.dnd.Target
-    export=exp;
+    export =exp;
 }
 declare module "dojo/dnd/Source" {
     var exp: typeof dojo.dnd.Source
-    export=exp;
+    export =exp;
 }
 declare module "dojo/errors/create" {
     var exp: dojo.errors.create
-    export=exp;
+    export =exp;
 }
 declare module "dojo/errors/CancelError" {
     var exp: dojo.errors.CancelError
-    export=exp;
+    export =exp;
 }
 declare module "dojo/errors/RequestError" {
     var exp: dojo.errors.RequestError
-    export=exp;
+    export =exp;
 }
 declare module "dojo/errors/RequestTimeoutError" {
     var exp: dojo.errors.RequestTimeoutError
-    export=exp;
+    export =exp;
 }
 declare module "dojo/io/iframe" {
     var exp: dojo.io.iframe
-    export=exp;
+    export =exp;
 }
 declare module "dojo/io/script" {
     var exp: dojo.io.script
-    export=exp;
+    export =exp;
 }
 declare module "dojo/promise/all" {
     var exp: dojo.promise.all
-    export=exp;
+    export =exp;
 }
 declare module "dojo/promise/first" {
     var exp: dojo.promise.first
-    export=exp;
+    export =exp;
 }
 declare module "dojo/promise/instrumentation" {
     var exp: dojo.promise.instrumentation
-    export=exp;
+    export =exp;
 }
 declare module "dojo/promise/tracer" {
     var exp: dojo.promise.tracer
-    export=exp;
+    export =exp;
 }
 declare module "dojo/promise/Promise" {
     interface Promise<T> extends dojo.promise.Promise<T> { }
@@ -28277,77 +28281,77 @@ declare module "dojo/promise/Promise" {
 }
 declare module "dojo/rpc/JsonpService" {
     var exp: typeof dojo.rpc.JsonpService
-    export=exp;
+    export =exp;
 }
 declare module "dojo/rpc/JsonService" {
     var exp: typeof dojo.rpc.JsonService
-    export=exp;
+    export =exp;
 }
 declare module "dojo/rpc/RpcService" {
-    var exp: typeof  dojo.rpc.RpcService
-    export=exp;
+    var exp: typeof dojo.rpc.RpcService
+    export =exp;
 }
 declare module "dojo/selector/lite" {
     var exp: dojo.selector.lite
-    export=exp;
+    export =exp;
 }
 declare module "dojo/selector/acme" {
     var exp: dojo.selector.acme
-    export=exp;
+    export =exp;
 }
 declare module "dojo/selector/_loader" {
     var exp: dojo.selector._loader
-    export=exp;
+    export =exp;
 }
 declare module "dojo/store/Observable" {
     var exp: dojo.store.Observable
-    export=exp;
+    export =exp;
 }
 declare module "dojo/store/Cache" {
-    var exp: typeof  dojo.store.Cache
-    export=exp;
+    var exp: typeof dojo.store.Cache
+    export =exp;
 }
 declare module "dojo/store/DataStore" {
     var exp: typeof dojo.store.DataStore
-    export=exp;
+    export =exp;
 }
 declare module "dojo/store/Memory" {
     var exp: typeof dojo.store.Memory
-    export=exp;
+    export =exp;
 }
 declare module "dojo/store/JsonRest" {
     var exp: typeof dojo.store.JsonRest
-    export=exp;
+    export =exp;
 }
 declare module "dojo/store/api/Store" {
     var exp: typeof dojo.store.api.Store
-    export=exp;
+    export =exp;
 }
 declare module "dojo/store/api/Store.PutDirectives" {
     var exp: typeof dojo.store.api.Store.PutDirectives
-    export=exp;
+    export =exp;
 }
 declare module "dojo/store/api/Store.QueryOptions" {
     var exp: typeof dojo.store.api.Store.QueryOptions
-    export=exp;
+    export =exp;
 }
 declare module "dojo/store/api/Store.QueryResults" {
     var exp: typeof dojo.store.api.Store.QueryResults
-    export=exp;
+    export =exp;
 }
 declare module "dojo/store/api/Store.SortInformation" {
     var exp: typeof dojo.store.api.Store.SortInformation
-    export=exp;
+    export =exp;
 }
 declare module "dojo/store/api/Store.Transaction" {
-    var exp: typeof  dojo.store.api.Store.Transaction
-    export=exp;
+    var exp: typeof dojo.store.api.Store.Transaction
+    export =exp;
 }
 declare module "dojo/store/util/QueryResults" {
     var exp: dojo.store.util.QueryResults
-    export=exp;
+    export =exp;
 }
 declare module "dojo/store/util/SimpleQueryEngine" {
     var exp: dojo.store.util.SimpleQueryEngine
-    export=exp;
+    export =exp;
 }
