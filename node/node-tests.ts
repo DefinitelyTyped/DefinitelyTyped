@@ -148,6 +148,35 @@ function bufferTests() {
     var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
     var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
 
+    // Class Method: Buffer.from(array)
+    {
+        const buf: Buffer = Buffer.from([0x62,0x75,0x66,0x66,0x65,0x72]);
+    }
+
+    // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
+    {
+        const arr: Uint16Array = new Uint16Array(2);
+        arr[0] = 5000;
+        arr[1] = 4000;
+
+        let buf: Buffer;
+        buf = Buffer.from(arr.buffer);
+        buf = Buffer.from(arr.buffer, 1);
+        buf = Buffer.from(arr.buffer, 0, 1);
+    }
+
+    // Class Method: Buffer.from(buffer)
+    {
+        const buf1: Buffer = Buffer.from('buffer');
+        const buf2: Buffer = Buffer.from(buf1);
+    }
+
+    // Class Method: Buffer.from(str[, encoding])
+    {
+        const buf1: Buffer = Buffer.from('this is a tést');
+        const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
+    }
+
     // Test that TS 1.6 works with the 'as Buffer' annotation
     // on isBuffer.
     var a: Buffer | number;
