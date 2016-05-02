@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import * as DatePicker from 'react-datepicker';
 
 class ReactDatePicker extends React.Component<{}, {startDate:any,displayName:string}> { 
-     constructor(props) {
+     constructor(props:any) {
         super();
         this.state = { 
           startDate: moment(),
