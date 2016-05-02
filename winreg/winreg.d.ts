@@ -13,11 +13,7 @@ interface WinregStatic {
      * @public
      * @class
      *
-     * @param {object} options - the options
-     * @param {string=} options.host - the hostname
-     * @param {string=} options.hive - the hive id
-     * @param {string=} options.key - the registry key
-     * @param {string=} options.arch - the optional registry hive architecture ('x86' or 'x64'; only valid on Windows 64 Bit Operating Systems)
+     * @param {@link Options} options - the options
      *
      * @example
      * var Registry = require('winreg')
@@ -25,7 +21,6 @@ interface WinregStatic {
      *       hive: Registry.HKCU,
      *       key:  '\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'
      *     });
-     *
      */
     new (options: Winreg.Options): Winreg.Registry;
 
@@ -141,7 +136,7 @@ declare namespace Winreg {
         key?: string;
 
         /**
-         * Optional architecture of the registry.
+         * Optional registry hive architecture ('x86' or 'x64'; only valid on Windows 64 Bit Operating Systems).
          */
         arch?: string;
     }
