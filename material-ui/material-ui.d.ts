@@ -1434,7 +1434,7 @@ declare namespace __MaterialUI {
         autoHideDuration?: number;
         bodyStyle?: React.CSSProperties;
         className?: string;
-        message: string;
+        message: string | JSX.Element;
         onActionTouchTap?: React.TouchEventHandler;
         /** @deprecated Use the open property to control the component instead */
         onDismiss?: () => void; // DEPRECATED
