@@ -5,7 +5,7 @@
 
 /// <reference path="../react/react.d.ts" />
 
-declare module "react-spinkit" {
+declare module "react-autosuggest" {
    interface Suggestion {
      text: string;
    }
