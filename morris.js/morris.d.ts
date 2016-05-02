@@ -4,16 +4,26 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace morris {
-    interface chartOptions {
+    interface IChartOptions {
         element: any;
         resize?: boolean;
     }
 
-    interface lineOptions extends chartOptions {
+    interface IGridChartOptions extends IChartOptions {
         data: any[];
         xkey: string;
         ykeys: string[];
         labels: string[];
+        axes?: boolean;
+        hideHover?: any;
+        grid?: boolean;
+        gridTextColor?: string;
+        gridTextSize?: number;
+        gridTextFamily?: string;
+        gridTextWeight?: string;
+    }
+
+    interface ILineOptions extends IGridChartOptions {
         lineColors?: string[];
         lineWidth?: number;
         pointSize?: number;
@@ -22,8 +32,7 @@ declare namespace morris {
         ymax?: any;
         ymin?: any;
         smooth?: boolean;
-        hideHover?: any;
-        hoverCallback?: (index: number, options: lineOptions, content: string, row: any) => string;
+        hoverCallback?: (index: number, options: ILineOptions, content: string, row: any) => string;
         parseTime?: boolean;
         postUnits?: string;
         preUnits?: string;
@@ -39,35 +48,36 @@ declare namespace morris {
         eventStrokeWidth?: number;
         eventLineColors?: string[];
         continuousLine?: boolean;
-        axes?: boolean;
-        grid?: boolean;
-        gridTextColor?: string;
-        gridTextSize?: number;
-        gridTextFamily?: string;
-        gridTextWeight?: string;
         fillOpacity?: number;
     }
 
-    interface areaOptions extends lineOptions {
+    interface IAreaOptions extends ILineOptions {
         behaveLikeLine?: boolean;
     }
 
-    interface donutData {
+    interface IBarOptions extends IGridChartOptions {
+        barColors?: string[];
+        stacked: boolean;
+        hoverCallback?: (index: number, options: IBarOptions, content: string, row: any) => string;
+    }
+
+    interface IDonutData {
         label: string;
         value: number;
     }
 
-    interface donutOptions extends chartOptions {
-        data: donutData[];
+    interface IDonutOptions extends IChartOptions {
+        data: IDonutData[];
         colors?: string[];
-        formatter?: (y: number, data: donutData) => string;
+        formatter?: (y: number, data: IDonutData) => string;
     }
 
-    interface morrisStatic {
-        Line: (options: lineOptions) => any;
-        Area: (options: areaOptions) => any;
-        Donut: (options: donutOptions) => any;
+    class MorrisStatic {
+        Line: (options: ILineOptions) => any;
+        Area: (options: IAreaOptions) => any;
+        Bar: (options: IBarOptions) => any;
+        Donut: (options: IDonutOptions) => any;
     }
 }
 
-declare var Morris: morris.morrisStatic;
+declare var Morris: morris.MorrisStatic;
