@@ -14,12 +14,12 @@ declare interface IMatcher {
     maxArgs: number;
 }
 
-declare interface Window {
-    preamble: {
-        registerMatcher(matcher: IMatcher): void;
-        Q: typeof Q;
-    };
+declare interface Preamble {
+    registerMatcher(matcher: IMatcher): void;
+    Q: typeof Q;
 }
+
+declare var preamble: Preamble;
 
 declare function registerMatcher(matcher: IMatcher): void;
 
@@ -46,7 +46,7 @@ declare function expect(ev: any): {
     toMatch(regExp: RegExp): void;
     toHaveBeenCalled(): void;
     toHaveBeenCalledWith(...matcherValue: any[]): void;
-    toHaveBeenCalledWithContext(matcherValue: {}): void
+    toHaveBeenCalledWithContext(matcherValue: {}): void;
     toHaveReturnedValue(matcherValue: any): void;
     toHaveThrown(): void;
     toHaveThrownWithMessage(matcherValue: string): void;
@@ -54,7 +54,7 @@ declare function expect(ev: any): {
     // declare your custom matchers here
     toBeAString(): void;
     toBeANumber(): void;
-    toBeInstanceOf(matcherValue: any): void;
+    toBeInstanceOf(matcherValue: any): void
     not: {
         toBe(matcherValue: any): void;
         toEqual(matcherValue: any): void;
