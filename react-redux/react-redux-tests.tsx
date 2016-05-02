@@ -284,3 +284,78 @@ function HelloMessage(props: HelloMessageProps) {
 let ConnectedHelloMessage = connect()(HelloMessage);
 ReactDOM.render(<HelloMessage name="Sebastian" />, document.getElementById('content'));
 ReactDOM.render(<ConnectedHelloMessage name="Sebastian" />, document.getElementById('content'));
+
+// stateless functions that uses mapStateToProps and mapDispatchToProps
+namespace TestStatelessFunctionWithMapArguments {
+    interface GreetingProps {
+        name: string;
+        onClick: () => void;
+    }
+
+    function Greeting(props: GreetingProps) {
+        return <div>Hello {props.name}</div>;
+    }
+
+    const mapStateToProps = (state: any, ownProps: GreetingProps) => {
+        return {
+            name: 'Connected! ' + ownProps.name
+        };
+    };
+
+    const mapDispatchToProps = (dispatch: Dispatch, ownProps: GreetingProps) => {
+        return {
+            onClick: () => {
+                dispatch({ type: 'GREETING', name: ownProps.name });
+            }
+        };
+    };
+
+    const ConnectedGreeting = connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(Greeting);
+}
+
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/8787
+namespace TestTOwnPropsInference {
+    interface OwnProps {
+        own: string;
+    }
+
+    interface StateProps {
+        state: string;
+    }
+
+    class OwnPropsComponent extends React.Component<OwnProps & StateProps, {}> {
+        render() {
+            return <div/>;
+        }
+    }
+
+    function mapStateToPropsWithoutOwnProps(state: any): StateProps {
+        return { state: 'string' };
+    }
+
+    function mapStateToPropsWithOwnProps(state: any, ownProps: OwnProps): StateProps {
+        return { state: 'string' };
+    }
+
+    const ConnectedWithoutOwnProps = connect(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
+    const ConnectedWithOwnProps = connect(mapStateToPropsWithOwnProps)(OwnPropsComponent);
+    const ConnectedWithTypeHint = connect<StateProps, {}, OwnProps>(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
+
+    // This compiles, which is bad.
+    React.createElement(ConnectedWithoutOwnProps, { anything: 'goes!' });
+
+    // This compiles, as expected.
+    React.createElement(ConnectedWithOwnProps, { own: 'string' });
+
+    // This should not compile, which is good.
+    // React.createElement(ConnectedWithOwnProps, { missingOwn: true });
+
+    // This compiles, as expected.
+    React.createElement(ConnectedWithTypeHint, { own: 'string' });
+
+    // This should not compile, which is good.
+    // React.createElement(ConnectedWithTypeHint, { missingOwn: true });
+}

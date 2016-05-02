@@ -311,7 +311,7 @@ declare namespace Backbone {
         start(options?: HistoryOptions): boolean;
 
         getHash(window?: Window): string;
-        getFragment(fragment?: string, forcePushState?: boolean): string;
+        getFragment(fragment?: string): string;
         stop(): void;
         route(route: string, callback: Function): number;
         checkUrl(e?: any): void;
@@ -328,6 +328,7 @@ declare namespace Backbone {
        // TODO: quickfix, this can't be fixed easy. The collection does not need to have the same model as the parent view.
       collection?: Backbone.Collection<any>; //was: Collection<TModel>;
       el?: any;
+      events?: EventsHash;
       id?: string;
       className?: string;
       tagName?: string;

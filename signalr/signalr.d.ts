@@ -8,6 +8,13 @@
 
 
 declare namespace SignalR {
+    
+    const enum ConnectionState {
+        Connecting = 0,
+        Connected = 1,
+        Reconnecting = 2,
+        Disconnected = 4
+    }
 
     interface AvailableEvents {
         onStart: string;
@@ -180,6 +187,7 @@ declare namespace SignalR {
     interface ConnectionError extends Error {
         context: ConnectionErrorContext;
         transport?: string;
+        source?: string;
     }
 
     interface Connection {

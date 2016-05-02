@@ -29,7 +29,7 @@ declare namespace keyboardjs {
         /**
 		 * Keyevent
 		 */
-        (e: KeyEvent): void;
+        (e?: KeyEvent): void;
     }
 
     // ---------- Key Binding ---------- //
@@ -39,21 +39,17 @@ declare namespace keyboardjs {
      * @param keyCombo String of keys to be pressed to execute callbacks.
      * @param pressed Callback that gets executed when the keyComboState is 'pressed', can be null.
      * @param released Callback that gets executed when the keyComboState is 'released'
+     * @param preventRepeatByDefault Whether or not to prevent repeat by default. Defaults to false.
      */
-    export function bind(keyCombo: string, pressed: Callback, released: Callback): void;
-    /**
-     * Binds a keyCombo to specific callback functions.
-     * @param keyCombo String of keys to be pressed to execute callbacks.
-     * @param pressed Callback that gets executed when the keyComboState is 'pressed'
-     */
-    export function bind(keyCombo: string, pressed: Callback): void;
-
+    export function bind(keyCombo: string | string[], pressed: Callback, released?: Callback, preventRepeatByDefault?: boolean): void;
 
     /**
-     * Unbinds a keyCombo
+     * Unbinds a keyCombo completely or only specific pressed & released callback combos.
      * @param keyCombo String of keys to be pressed to execute callbacks.
+     * @param pressed Callback that gets executed when the keyComboState is 'pressed', can be null.
+     * @param released Callback that gets executed when the keyComboState is 'released', can be null.
      */
-    export function unbind(keyCombo: string): void;
+    export function unbind(keyCombo: string | string[], pressed?: Callback, released?: Callback): void;
 
     // ---------- Context ---------- //
 

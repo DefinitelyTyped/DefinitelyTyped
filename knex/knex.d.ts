@@ -8,7 +8,7 @@
 
 declare module "knex" {
   import Promise = require("bluebird");
-  import events = require("events");
+  import * as events from "events";
 
   type Callback = Function;
   type Client = Function;
@@ -299,8 +299,8 @@ declare module "knex" {
     // Schema builder
     //
 
-    interface SchemaBuilder {
-      createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): Promise<void>;
+    interface SchemaBuilder extends Promise<any> {
+      createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
       renameTable(oldTableName: string, newTableName: string): Promise<void>;
       dropTable(tableName: string): Promise<void>;
       hasTable(tableName: string): Promise<boolean>;
@@ -339,6 +339,7 @@ declare module "knex" {
       unique(columnNames: string[], indexName?: string) : TableBuilder;
       foreign(column: string): ForeignConstraintBuilder;
       foreign(columns: string[]): MultikeyForeignConstraintBuilder;
+      dropForeign(columnNames: string[], foreignKeyName?: string): TableBuilder;
     }
 
     interface CreateTableBuilder extends TableBuilder {

@@ -35,7 +35,7 @@ interface IPath {
 	
 	root(path: string): void;
 	
-	rescure(fn: Function): void;
+	rescue(fn: Function): void;
 	
 	history: IPathHistory;
 	
