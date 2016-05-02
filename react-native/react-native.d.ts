@@ -2621,7 +2621,7 @@ declare module "react-native" {
      * @see https://facebook.github.io/react-native/docs/dimensions.html#content
      */
     export interface Dimensions {
-      get( what: "window" | "screen" ): React.ScaledSize;
+      get( what: "window" | "screen" ): ScaledSize;
     }
 
     export interface InteractionManagerStatic {
@@ -3751,6 +3751,14 @@ declare module "react-native" {
       export var Text: any;
     }
 
+    export namespace BackAndroid {
+      type EVENT_NAME = "hardwareBackPress";
+
+      export function exitApp(): void;
+      export function addEventListener(event: EVENT_NAME, fn: Function): void;
+      export function removeEventListener(event: EVENT_NAME, fn: Function): void;
+    }
+
     //////////////////////////////////////////////////////////////////////////
     //
     //  R E - E X P O R T S
@@ -3920,4 +3928,4 @@ declare interface ReactNativeGlobalStatic {
 
 declare var global: ReactNativeGlobalStatic;
 
-declare function require( name: string ): any
+declare function require( name: string ): any;

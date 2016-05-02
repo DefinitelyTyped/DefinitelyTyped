@@ -111,7 +111,7 @@ declare var Buffer: {
     /**
      * Produces a Buffer backed by the same allocated memory as
      * the given {ArrayBuffer}.
-     * 
+     *
      *
      * @param arrayBuffer The ArrayBuffer with which to share memory.
      */
@@ -129,6 +129,37 @@ declare var Buffer: {
      */
     new (buffer: Buffer): Buffer;
     prototype: Buffer;
+    /**
+     * Allocates a new Buffer using an {array} of octets.
+     *
+     * @param array
+     */
+    from(array: any[]): Buffer;
+    /**
+     * When passed a reference to the .buffer property of a TypedArray instance,
+     * the newly created Buffer will share the same allocated memory as the TypedArray.
+     * The optional {byteOffset} and {length} arguments specify a memory range
+     * within the {arrayBuffer} that will be shared by the Buffer.
+     *
+     * @param arrayBuffer The .buffer property of a TypedArray or a new ArrayBuffer()
+     * @param byteOffset
+     * @param length
+     */
+    from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?:number): Buffer;
+    /**
+     * Copies the passed {buffer} data onto a new Buffer instance.
+     *
+     * @param buffer
+     */
+    from(buffer: Buffer): Buffer;
+    /**
+     * Creates a new Buffer containing the given JavaScript string {str}.
+     * If provided, the {encoding} parameter identifies the character encoding.
+     * If not provided, {encoding} defaults to 'utf8'.
+     *
+     * @param str
+     */
+    from(str: string, encoding?: string): Buffer;
     /**
      * Returns true if {obj} is a Buffer
      *
