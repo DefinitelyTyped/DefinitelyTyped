@@ -102,7 +102,7 @@ declare namespace morris {
         /** Array containing colors for the series bars. */
         barColors?: string[];
         /** Set to true to draw bars stacked vertically. */
-        stacked: boolean;
+        stacked?: boolean;
         /** Provide a function on this option to generate custom hover legends. */
         hoverCallback?: (index: number, options: IBarOptions, content: string, row: any) => string;
     }
