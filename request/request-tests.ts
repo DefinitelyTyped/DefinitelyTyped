@@ -21,7 +21,7 @@ var headers: {[key: string]: string};
 var agent: http.Agent;
 var write: stream.Writable;
 var req: request.Request;
-var form1: formData.FormData;
+var form1: formData;
 
 var bodyArr: request.RequestPart[] = [{
 	body: value
