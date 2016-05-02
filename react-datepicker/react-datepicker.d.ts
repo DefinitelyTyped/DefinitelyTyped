@@ -13,7 +13,7 @@ declare module "react-datepicker" {
         disabled?: boolean;
         endDate?: {};
         excludeDates?: any[];
-        filterDate?();
+        filterDate?():any;
         id?: string;
         includeDates?: any[];
         isClearable?: boolean;
@@ -21,10 +21,10 @@ declare module "react-datepicker" {
         maxDate?: {};
         minDate?: {};
         name?: string;
-        onBlur?();
-        onChange();
-        onChange(date?);
-        onFocus?();
+        onBlur?():any;
+        onChange():any;
+        onChange(date?:any):any;
+        onFocus?():any;
         placeholderText?: string;
         popoverAttachment?: string;
         popoverTargetAttachment?: string;
