@@ -467,6 +467,9 @@ declare namespace AtomCore {
 		subscriptionCounts:any;
 
 		destroy():any;
+		isLastSelection():any;
+		onDidChangeRange(callback:Function):void;
+		onDidDestroy(callback:Function):void;
 		finalize():any;
 		clearAutoscroll():any;
 		isEmpty():boolean;
@@ -477,13 +480,13 @@ declare namespace AtomCore {
 		getBufferRange():TextBuffer.IRange;
 		setBufferRange(bufferRange:any, options:any):any;
 		getBufferRowRange():number[];
-		autoscroll():void;
+		autoscroll(options:any):void;
 		getText():string;
 		clear():boolean;
-		selectWord():TextBuffer.IRange;
-		expandOverWord():any;
-		selectLine(row?:any):TextBuffer.IRange;
-		expandOverLine():boolean;
+		selectWord(options?:{}):TextBuffer.IRange;
+		expandOverWord(options?:{}):any;
+		selectLine(row?:any, options?:{}):TextBuffer.IRange;
+		expandOverLine(options?:{}):boolean;
 		selectToScreenPosition(position:any):any;
 		selectToBufferPosition(position:any):any;
 		selectRight():boolean;
@@ -496,42 +499,68 @@ declare namespace AtomCore {
 		selectToBeginningOfLine():any;
 		selectToFirstCharacterOfLine():any;
 		selectToEndOfLine():any;
+		selectToEndOfBufferLine():any;
 		selectToBeginningOfWord():any;
 		selectToEndOfWord():any;
 		selectToBeginningOfNextWord():any;
 		selectToPreviousWordBoundary():any;
 		selectToNextWordBoundary():any;
+		selectToPreviousSubwordBoundary():any;
+		selectToNextSubwordBoundary():any;
+		selectToBeginningOfNextParagraph():any;
+		selectToBeginningOfPreviousParagraph():any;
 		addSelectionBelow():any;
 		getGoalBufferRange():any;
 		addSelectionAbove():any[];
-		insertText(text:string, options?:any):any;
+		insertText(text:string, options?:{
+			select?:boolean,
+			autoIndent?:boolean,
+			autoIndentNewline?:boolean,
+			autoDecreaseIndent?:boolean,
+			normalizeLineEndings?:boolean,
+			undo?:'skip',
+		}):any;
 		normalizeIndents(text:string, indentBasis:number):any;
-		indent(_arg?:any):any;
+		indent(options?:{autoIndent?:boolean}):any;
 		indentSelectedRows():TextBuffer.IRange[];
+
 		setIndentationForLine(line:string, indentLevel:number):any;
 		backspace():any;
 		backspaceToBeginningOfWord():any;
 		backspaceToBeginningOfLine():any;
 		delete():any;
+		deleteToPreviousWordBoundary():any;
+		deleteToNextWordBoundary():any;
+		deleteToBeginningOfWord():any;
+		deleteToBeginningOfLine():any;
 		deleteToEndOfWord():any;
+		deleteToBeginningOfSubword():any;
+		deleteToEndOfSubword():any;
 		deleteSelectedText():any;
 		deleteLine():any;
 		joinLines():any;
-		outdentSelectedRows():any[];
+		outdentSelectedRows():void;
 		autoIndentSelectedRows():any;
 		toggleLineComments():any;
-		cutToEndOfLine(maintainClipboard:any):any;
-		cut(maintainClipboard:any):any;
-		copy(maintainClipboard:any):any;
+		cutToEndOfLine(maintainClipboard:boolean):any;
+		cutToEndOfBufferLine(maintainClipboard:boolean):any;
+		cut(maintainClipboard?:boolean, fullLine?:boolean):any;
+		copy(maintainClipboard?:boolean, fullLine?:boolean):any;
 		fold():any;
+		adjustIndent():void;
 		modifySelection(fn:()=>any):any;
 		plantTail():any;
-		intersectsBufferRange(bufferRange:any):any;
+		intersectsBufferRange(bufferRange:any):boolean;
+		intersectsScreenRowRange(startRow:any, endRow:any):any;
+		intersectsScreenRow(screenRow:any):any;
 		intersectsWith(otherSelection:any):any;
 		merge(otherSelection:any, options:any):any;
 		compare(otherSelection:any):any;
+		markerDidChange(e:any):any;
+		markerDidDestroy():any;
 		getRegionRects():any[];
 		screenRangeChanged():any;
+		getGoalScreenRange():any;
 	}
 
 	interface IDecorationParams {
