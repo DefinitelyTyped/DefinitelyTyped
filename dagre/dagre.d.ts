@@ -16,7 +16,7 @@ declare namespace Dagre{
         nodes(): string[];
         node(id: any): any;
         setDefaultEdgeLabel(callback: () => void): Graph;
-        setEdge(sourceId: string, targetId: string): Graph;
+        setEdge(sourceId: string, targetId: string, edge: { [key: string]: any }): Graph;
         setGraph(options: { [key: string]: any }): Graph;
         setNode(id: string, node: { [key: string]: any }): Graph;
     }
