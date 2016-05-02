@@ -63,6 +63,6 @@ declare module "react-calendar-timeline" {
         children?: any;
     }
 
-    let DatePicker: __React.ClassicComponentClass<ReactCalendarTimeline>;
-    export = DatePicker;
+    let ReactCalendarTimeline: __React.ClassicComponentClass<ReactCalendarTimeline>;
+    export = ReactCalendarTimeline;
 }
