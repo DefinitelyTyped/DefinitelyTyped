@@ -1,4 +1,4 @@
-/// <reference path="react-spinkit.d.ts" />
+/// <reference path="react-scrollbar.d.ts" />
 /// <reference path="../react/react.d.ts" />
 
 import ScrollArea = require('react-scrollbar');
