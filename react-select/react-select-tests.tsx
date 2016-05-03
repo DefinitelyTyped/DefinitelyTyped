@@ -5,16 +5,16 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import * as Select from "react-select";
+import Select, { Option } from "react-select";
 
 class SelectTest extends React.Component<React.Props<{}>, {}> {
 
     render() {
-        const options: ReactSelect.Option[] = [{ label: "Foo", value: "bar" }];
+        const options: Option[] = [{ label: "Foo", value: "bar" }];
         const onChange = (value: any) => console.log(value);
         const onOpen = () => { return; };
         const onClose = () => { return; };
-        const optionRenderer = (option: ReactSelect.Option) => <span>{option.label}</span>
+        const optionRenderer = (option: Option) => <span>{option.label}</span>
         return <div>
             <Select
                 name="test-select"
@@ -46,7 +46,7 @@ class SelectAsyncTest extends React.Component<React.Props<{}>, {}> {
                 callback(null, options);
             }, 500);
         };
-        const options: ReactSelect.Option[] = [{ label: "Foo", value: "bar" }];
+        const options: Option[] = [{ label: "Foo", value: "bar" }];
         const onChange = (value: any) => console.log(value);
         return <div>
             <Select.Async
