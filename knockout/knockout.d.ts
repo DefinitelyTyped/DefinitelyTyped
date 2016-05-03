@@ -1,6 +1,6 @@
-﻿// Type definitions for Knockout v3.2.0
+﻿// Type definitions for Knockout v3.4.0
 // Project: http://knockoutjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Igor Oleinikov <https://github.com/Igorbek/>, Clément Bourgeois <https://github.com/moonpyk/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Igor Oleinikov <https://github.com/Igorbek/>, Clément Bourgeois <https://github.com/moonpyk/>, Matt Brooks <https://github.com/EnableSoftware>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -387,6 +387,17 @@ interface KnockoutTemplateEngine extends KnockoutNativeTemplateEngine {
     rewriteTemplate(template: any, rewriterCallback: Function, templateDocument: Document): void;
 }
 
+//////////////////////////////////
+// tasks.js
+//////////////////////////////////
+
+interface KnockoutTasks {
+    scheduler: (callback: Function) => any;
+    schedule(task: Function): number;
+    cancel(handle: number): void;
+    runEarly(): void;
+}
+
 /////////////////////////////////
 
 interface KnockoutStatic {
@@ -417,12 +428,12 @@ interface KnockoutStatic {
     observableArray: KnockoutObservableArrayStatic;
 
     contextFor(node: any): any;
-    isSubscribable(instance: any): boolean;
+    isSubscribable(instance: any): instance is KnockoutSubscribable<any>;
     toJSON(viewModel: any, replacer?: Function, space?: any): string;
     toJS(viewModel: any): any;
-    isObservable(instance: any): boolean;
-    isWriteableObservable(instance: any): boolean;
-    isComputed(instance: any): boolean;
+    isObservable(instance: any): instance is KnockoutObservable<any>;
+    isWriteableObservable(instance: any): instance is KnockoutObservable<any>;
+    isComputed(instance: any): instance is KnockoutComputed<any>;
     dataFor(node: any): any;
     removeNode(node: Element): void;
     cleanNode(node: Element): Element;
@@ -535,6 +546,22 @@ interface KnockoutStatic {
     };
 
     components: KnockoutComponents;
+    
+    /////////////////////////////////
+    // options.js
+    /////////////////////////////////
+    
+    options: {
+        deferUpdates: boolean,
+        
+        useOnlyNativeEvents: boolean
+    };
+    
+    /////////////////////////////////
+    // tasks.js
+    /////////////////////////////////
+    
+    tasks: KnockoutTasks;
 }
 
 interface KnockoutBindingProvider {

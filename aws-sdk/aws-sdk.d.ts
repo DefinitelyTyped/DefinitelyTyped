@@ -1072,7 +1072,7 @@ declare module "aws-sdk" {
 			GrantReadACP?: string;
 			GrantWriteACP?: string;
 			Key: string;
-			Metadata?: string[];
+			Metadata?: { [key: string]:string; };
 			ServerSideEncryption?: string;
 			StorageClass?: string;
 			WebsiteRedirectLocation?: string;

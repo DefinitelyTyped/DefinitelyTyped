@@ -281,7 +281,7 @@ export class ReactBootstrapTest extends Component<any, any> {
 
                 <div style={style}>
                   <div className='static-modal'>
-                    <Modal.Dialog>
+                    <Modal.Dialog onHide={this.callback} onEnter={this.callback} onEntered={this.callback} onEntering={this.callback} onExit={this.callback} onExited={this.callback} onExiting={this.callback}>
                       <Modal.Header>
                         <Modal.Title>Modal title</Modal.Title>
                       </Modal.Header>

@@ -138,6 +138,8 @@ class ModernComponent extends React.Component<Props, State>
     }
 }
 
+class ModernComponentNoState extends React.Component<Props, void> {}
+
 interface SCProps {
     foo?: number;
 }
@@ -182,6 +184,8 @@ var domFactoryElement: React.DOMElement<React.DOMAttributes, Element> =
 // React.createElement
 var element: React.CElement<Props, ModernComponent> =
     React.createElement(ModernComponent, props);
+var elementNoState: React.CElement<Props, ModernComponentNoState> =
+    React.createElement(ModernComponentNoState, props);
 var statelessElement: React.SFCElement<SCProps> =
     React.createElement(StatelessComponent, props);
 var classicElement: React.ClassicElement<Props> =
@@ -216,6 +220,8 @@ var clonedDOMElement: React.ReactHTMLElement<HTMLDivElement> =
 // React.render
 var component: ModernComponent =
     ReactDOM.render(element, container);
+var componentNoState: ModernComponentNoState =
+    ReactDOM.render(elementNoState, container);
 var classicComponent: React.ClassicComponent<Props, any> =
     ReactDOM.render(classicElement, container);
 var domComponent: Element =
@@ -547,7 +553,7 @@ var node: Element = TestUtils.renderIntoDocument(React.DOM.div());
 
 TestUtils.Simulate.click(node);
 TestUtils.Simulate.change(node);
-TestUtils.Simulate.keyDown(node, { key: "Enter" });
+TestUtils.Simulate.keyDown(node, { key: "Enter", cancelable: false });
 
 var renderer: React.ShallowRenderer =
     TestUtils.createRenderer();

@@ -82,6 +82,7 @@ declare namespace DataTables {
 
         exportOptions?: ButtonExportOptions;
         autoPrint?: boolean;
+        customize?: FunctionButtonCustomize;
     }
 
     export interface FunctionButtonAvailable {
@@ -108,6 +109,10 @@ declare namespace DataTables {
     // api object?
     export interface FunctionButtonAction {
         (e: any, dt: DataTables.DataTable, node: JQuery, config: any): void
+    }
+
+    export interface FunctionButtonCustomize {
+        (win: Window): void
     }
     //#endregion "button-settings
 }

@@ -6,6 +6,7 @@
 /// <reference path="../react/react.d.ts"/>
 
 declare namespace ReactSelect {
+
     interface Option {
         /** Text for rendering */
         label: string;
@@ -153,13 +154,16 @@ declare namespace ReactSelect {
          */
         onBlurResetsInput?: boolean;
         onChange?: (newValue: Option | Option[]) => void;
+        onClose?: () => void;
         onFocus?: __React.FocusEventHandler;
         onInputChange?: (inputValue: string) => void;
+        onOpen?: () => void;
         onOptionLabelClick?: (value: string, event: Event) => void;
+
         /**
          * function which returns a custom way to render the options in the menu
          */
-        optionRenderer?: () => void;
+        optionRenderer?: (option: Option) => JSX.Element;
         /**
          * array of Select options
          * @default false
@@ -169,7 +173,7 @@ declare namespace ReactSelect {
          * field placeholder, displayed when there's no value
          * @default "Select..."
          */
-        placeholder?: string;
+        placeholder?: string | __React.ReactElement<any>;
         /**
          * whether to enable searching feature or not
          * @default true;
@@ -199,23 +203,107 @@ declare namespace ReactSelect {
          * @default false
          */
         valueRenderer?: () => void;
+        /**
+         *  optional style to apply to the control
+         */
+        style?: any;
+
+        /**
+         *  optional tab index of the control
+         */
+        tabIndex?: string;
+
+        /**
+         *  value component to render
+         */
+        valueComponent?: Function;
+
+        /**
+         *  optional style to apply to the component wrapper
+         */
+        wrapperStyle?: any;
+
+        /**
+         * onClick handler for value labels: function (value, event) {}
+         */
+        onValueClick?: Function;
+
+        /**
+         *  pass the value to onChange as a simple value (legacy pre 1.0 mode), defaults to false
+         */
+        simpleValue?: boolean;
     }
 
-    interface ReactAsyncSelectProps extends __React.Props<ReactSelect> {
+    interface ReactAsyncSelectProps extends ReactSelectProps {
+        /**
+         *  object to use to cache results; can be null to disable cache
+         */
         cache?: any;
-        loadOptions?: () => void;
+
+        /**
+         *  whether to strip diacritics when filtering (shared with Select)
+         */
         ignoreAccents?: boolean;
+
+        /**
+         *  whether to perform case-insensitive filtering (shared with Select)
+         */
+        ignoreCase?: boolean;
+
+        /**
+         *  overrides the isLoading state when set to true
+         */
         isLoading?: boolean;
+
+        /**
+         *  function to call to load options asynchronously
+         */
+        loadOptions: (input: string, callback: (options: Option[]) => any) => any;
+
+        /**
+         *  replaces the placeholder while options are loading
+         */
         loadingPlaceholder?: string;
+
+        /**
+         *  the minimum number of characters that trigger loadOptions
+         */
+        minimumInput?: number;
+
+        /**
+         *  placeholder displayed when there are no matching search results (shared with Select)
+         */
+        noResultsText?: string;
+        /**
+         *  field placeholder; displayed when there's no value (shared with Select)
+         */
+        placeholder?: string;
+
+        /**
+         *  label to prompt for search input
+         */
+        searchPromptText?: string;
+
+        /**
+         *  message to display while options are loading
+         */
+        searchingText?: string;
     }
 
     interface ReactSelect extends  __React.ReactElement<ReactSelectProps> { }
-    interface ReactSelectClass extends __React.ComponentClass<ReactSelectProps> {
-        Async: __React.ComponentClass<ReactAsyncSelectProps>;
+    interface ReactSelectAsyncClass extends __React.ComponentClass<ReactAsyncSelectProps> {
     }
+    const Async: ReactSelectAsyncClass;
+    interface ReactSelectClass extends __React.ComponentClass<ReactSelectProps> {
+        Async: ReactSelectAsyncClass;
+    }
+
 }
 
 declare module "react-select" {
-    var select: ReactSelect.ReactSelectClass;
-    export = select;
+    const select: ReactSelect.ReactSelectClass;
+    interface Option extends ReactSelect.Option {}
+    
+    export default select;
+    export { Option };
 }
