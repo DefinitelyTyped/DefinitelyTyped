@@ -1741,7 +1741,7 @@ declare namespace angular {
         /**
          * Whether transclusion is enabled. Enabled by default.
          */
-        transclude?: boolean | string | {[slot: string]: string};
+        transclude?: any;
         require?: string | string[] | {[controller: string]: string};
     }
 
