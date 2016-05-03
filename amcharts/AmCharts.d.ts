@@ -36,7 +36,7 @@ declare namespace AmCharts {
             chart.dataProvider = chartData;
             chart.write("chartdiv");
     */
-    class AmPieChart {
+    class AmPieChart extends AmChart {
         /** Name of the field in chart's dataProvider which holds slice's alpha. */
         alphaField: string;
         /** Pie lean angle (for 3D effect). Valid range is 0 - 90. */
