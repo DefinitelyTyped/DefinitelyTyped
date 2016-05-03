@@ -7,7 +7,7 @@ declare namespace morris {
     type AutoAlways = "auto" | "always";
 
     type Interval = "decade" | "year" | "month" | "week" | "day" | "hour" | "30min" | "15min" | "10min" | "5min" | "minute" | "30sec" | "15sec" | "10sec" | "5sec" | "second";
-    
+
     interface IChartOptions {
         /** The ID of (or a reference to) the element into which to insert the graph. */
         element: any;
@@ -52,9 +52,9 @@ declare namespace morris {
         /** Colors for the outlines of the series points. (#ffffff by default). */
         pointStrokeColors?: string[];
         /** Max. bound for Y-values. Alternatively, set this to 'auto' to compute automatically, or 'auto [num]' to automatically compute and ensure that the max y-value is at least [num]. */
-        ymax?: any;
+        ymax?: number | string;
         /** Min. bound for Y-values. Alternatively, set this to 'auto' to compute automatically, or 'auto [num]' to automatically compute and ensure that the min y-value is at most [num]. */
-        ymin?: any;
+        ymin?: number | string;
         /** Set to false to disable line smoothing. */
         smooth?: boolean;
         /** Provide a function on this option to generate custom hover legends. */
@@ -123,15 +123,23 @@ declare namespace morris {
         formatter?: (y: number, data: IDonutData) => string;
     }
 
+    class GridChart {
+        setData(data: any[], redraw?: boolean): void;
+    }
+
+    class DonutChart {
+        setData(data: IDonutData[], redraw?: boolean): void;
+    }
+
     class MorrisStatic {
         /** Create a line chart. */
-        Line: (options: ILineOptions) => any;
+        Line: (options: ILineOptions) => GridChart;
         /** Create an area chart. */
-        Area: (options: IAreaOptions) => any;
+        Area: (options: IAreaOptions) => GridChart;
         /** Create a bar chart. */
-        Bar: (options: IBarOptions) => any;
+        Bar: (options: IBarOptions) => GridChart;
         /** Create a Donut chart. */
-        Donut: (options: IDonutOptions) => any;
+        Donut: (options: IDonutOptions) => DonutChart;
     }
 }
 
