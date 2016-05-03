@@ -62,7 +62,7 @@ declare module "jsonwebtoken" {
     }
 
     export interface SignCallback {
-        (encoded: string): void;
+        (err: Error, encoded: string): void;
     }
 
     /**
