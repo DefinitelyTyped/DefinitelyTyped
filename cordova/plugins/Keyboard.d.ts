@@ -172,3 +172,7 @@ interface Keyboard {
 }
 
 declare var Keyboard:Keyboard;
+
+interface CordovaPlugins {
+    Keyboard: Keyboard;
+}
