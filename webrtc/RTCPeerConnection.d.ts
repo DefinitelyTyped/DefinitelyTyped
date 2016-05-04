@@ -28,10 +28,6 @@ declare var RTCConfiguration: {
   new (): RTCConfiguration;
 };
 
-interface RTCIceServer {
-  urls: string;
-  credential?: string;
-}
 declare var RTCIceServer: {
   prototype: RTCIceServer;
   new (): RTCIceServer;
