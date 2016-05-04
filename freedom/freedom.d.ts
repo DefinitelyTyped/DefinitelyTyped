@@ -423,7 +423,7 @@ declare namespace freedom.PgpProvider {
         clear(): Promise<void>;
         exportKey(): Promise<PublicKey>;
         getFingerprint(publicKey: string): Promise<KeyFingerprint>;
-        ecdhBob(curve:string, pubKey:string) :Promise<ArrayBuffer>;
+        ecdhBob(curve: string, pubKey: string): Promise<ArrayBuffer>;
         signEncrypt(data: ArrayBuffer, encryptKey?: string,
                     sign?: boolean): Promise<ArrayBuffer>;
         verifyDecrypt(data: ArrayBuffer,
