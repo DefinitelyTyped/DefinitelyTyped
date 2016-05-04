@@ -3,10 +3,6 @@
 // Definitions by: Paul Loyd <https://github.com/loyd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-/// <reference path="../ref/ref.d.ts" />
-
-
 import ref = require('ref');
 
 /**

@@ -1,4 +1,5 @@
 {
+	"files": ["tv4.d.ts", "tv4-tests.d.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

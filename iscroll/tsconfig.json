@@ -1,4 +1,5 @@
 {
+	"files": ["iscroll.d.ts", "iscroll-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

@@ -1,6 +1,3 @@
-
-/// <reference path="../del/del.d.ts" />
-
 import gulp = require('gulp');
 import del = require('del');
 import paths = require('vinyl-paths');

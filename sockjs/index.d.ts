@@ -3,6 +3,9 @@
 // Definitions by: Emil Ivanov <https://github.com/vladev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export as namespace SockJS;
+export = SockJS;
+
 interface SockJSSimpleEvent {
     type: string;
     toString(): string;

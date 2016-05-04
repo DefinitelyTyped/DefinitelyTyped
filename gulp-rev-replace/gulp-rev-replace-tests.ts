@@ -1,5 +1,5 @@
 
-/// <reference path="../gulp/gulp.d.ts" />
+
 /// <reference path="../gulp-rev/gulp-rev.d.ts" />
 
 import * as gulp from 'gulp';

@@ -178,7 +178,7 @@ declare namespace moment {
          * @param unitOfTime the unit of time you want to subtract (eg "years" / "hours" etc)
          * @param amount the amount you want to subtract
          */
-        subtract(amount: string|string, unitOfTime: string): Moment;
+        subtract(amount: number|string, unitOfTime: string): Moment;
         /**
          * Mutates the original moment by subtracting time.
          *

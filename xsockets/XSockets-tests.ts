@@ -49,7 +49,7 @@ conn.publish(XSockets.Events.storage.set, {
 conn.publish(XSockets.Events.storage.remove, {Key: 'yourKey'});
 
 conn.on(XSockets.Events.storage.getAll, function (data) {
-    data.forEach(function (item) {
+    data.forEach(function (item: any) {
         console.log(item);
     });
 });

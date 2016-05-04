@@ -113,6 +113,11 @@ declare class File {
     public isNull(): boolean;
 
     /**
+     * Returns true if this is a directory.
+     */
+    public isDirectory(): boolean;
+
+    /**
      * Returns a new File object with all attributes cloned. Custom attributes are deep-cloned.
      */
     public clone(opts?: { contents?: boolean, deep?: boolean }): File;
