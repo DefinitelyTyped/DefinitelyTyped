@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es2015",
+        "target": "es6",
         "noImplicitAny": true,
         "strictNullChecks": true,
         "baseUrl": "../"
