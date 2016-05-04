@@ -39,7 +39,7 @@ interface RangySelection extends Selection {
     refresh(checkForChanges?:boolean):any;
     toHtml():string;
     getAllRanges():RangyRange[];
-    getNativeTextRange():TextRange;
+    getNativeTextRange():any;
     setSingleRange(range:RangyRange):any;
     setRanges(ranges:RangyRange[]):any;
     getBookmark(containerNode:Node):any;
@@ -51,7 +51,7 @@ interface RangySelection extends Selection {
 }
 
 interface RangyStatic {
-    createNativeRange(doc?:Document|Window|HTMLIFrameElement):TextRange|Range;
+    createNativeRange(doc?:Document|Window|HTMLIFrameElement):Range;
     createRange(doc?:Document|Window|HTMLIFrameElement):RangyRange;
     createRangyRange(doc?:Document|Window|HTMLIFrameElement):RangyRange;
     getNativeSelection(win?:Window):Selection;
