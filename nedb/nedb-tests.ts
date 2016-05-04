@@ -6,6 +6,8 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="nedb.d.ts" />
 
+import * as es6styleimport from 'nedb';
+
 import Q = require('q');
 import nedb = require('nedb');
 

@@ -149,6 +149,7 @@ declare module "nedb" {
         remove(query:any, cb?:(err:Error, n:number)=>void):void;
     }
 
+    namespace NeDBDataStore {}
     export = NeDBDataStore;
 }
 
