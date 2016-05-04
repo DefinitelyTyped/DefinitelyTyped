@@ -1587,18 +1587,19 @@ declare namespace __MaterialUI {
         export class Tabs extends React.Component<TabsProps, {}> {
         }
 
-        interface TabProps extends React.Props<Tab> {
+        interface TabProps extends SharedEnhancedButtonProps<Tab> {
             className?: string;
             icon?: React.ReactNode;
             label?: React.ReactNode;
             onActive?: (tab: Tab) => void;
-            onTouchTap?: (value: any, e: TouchTapEvent, tab: Tab) => void;
+            onTouchTap?: (value: any, e: TouchTapEvent = null, tab: Tab = null) => void;
             selected?: boolean;
             style?: React.CSSProperties;
             value?: any;
             width?: string;
         }
-        export class Tab extends React.Component<TabProps, {}> {
+        export class Tab extends React.Component<
+            TabProps, {}> {
         }
     }
 
