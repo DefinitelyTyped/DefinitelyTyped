@@ -1,5 +1,4 @@
 {
-	"files": ["winjs.d.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

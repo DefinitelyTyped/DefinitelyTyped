@@ -1,4 +1,5 @@
 {
+	"files": ["sequelize.d.ts", "sequelize-tests.d.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

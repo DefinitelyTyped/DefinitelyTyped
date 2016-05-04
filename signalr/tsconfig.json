@@ -1,4 +1,5 @@
 {
+	"files": ["signalr.d.ts", "signalr-tests.d.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

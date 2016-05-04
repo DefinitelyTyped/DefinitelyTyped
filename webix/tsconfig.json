@@ -1,4 +1,5 @@
 {
+	"files": ["webix.d.ts", "webix-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

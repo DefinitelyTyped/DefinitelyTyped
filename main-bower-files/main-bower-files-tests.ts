@@ -1,5 +1,5 @@
 
-/// <reference path="../gulp/gulp.d.ts" />
+
 
 import gulp = require("gulp");
 import mainBowerFiles = require("main-bower-files");

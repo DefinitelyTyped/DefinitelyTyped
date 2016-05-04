@@ -210,6 +210,8 @@ interface Toastr {
 	* Get toastr version 
 	*/
 	version: string;
+
+	[key: string]: any;
 }
 
 declare var toastr: Toastr;

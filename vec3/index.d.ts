@@ -1,10 +1,9 @@
-// Type definitions for Vec3 Librairy
+// Type definitions for Vec3 Library
 // Project: https://www.npmjs.com/package/vec3
 // Definitions by: Xavier Stouder <https://github.com/xstoudi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-declare class Vec3 {
+export declare class Vec3 {
     constructor(x: number, y: number, z: number);
     constructor(location: number[]);
     constructor(location: { x: number; y: number; z: number });

@@ -1,5 +1,5 @@
 /// <reference path="./gulp-sass.d.ts"/>
-/// <reference path="../gulp/gulp.d.ts"/>
+
 import gulp = require("gulp");
 import * as sass from "gulp-sass"; 
 

@@ -1,4 +1,5 @@
 {
+	"files": ["node.d.ts", "node-tests.d.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

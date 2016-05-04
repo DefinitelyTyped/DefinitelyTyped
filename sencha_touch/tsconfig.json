@@ -1,8 +1,9 @@
 {
+	"files": ["sencha_touch.d.ts", "SenchaTouch-Tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "strictNullChecks": false,
         "baseUrl": "../"
     }

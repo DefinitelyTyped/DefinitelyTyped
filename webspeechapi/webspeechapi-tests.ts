@@ -35,7 +35,7 @@ declare var select: HTMLSelectElement;
     }
 
     function start() {
-        select.options.length = 0;
+        let x: number = select.options.length;
         recognition.start();
     }
 }

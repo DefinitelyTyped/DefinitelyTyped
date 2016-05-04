@@ -1,5 +1,5 @@
 
-/// <reference path="../gulp/gulp.d.ts" />
+
 
 /// <reference path="../gulp-uglify/gulp-uglify.d.ts" />
 

@@ -3,8 +3,6 @@
 // Definitions by: Qubo <https://github.com/MugeSo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path='../redis/redis.d.ts'/>
-
 declare namespace RedisSMQ {
     interface CallbackT<R> {
         (e?:Error, res?:R): void;

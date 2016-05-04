@@ -1,5 +1,5 @@
 
-/// <reference path="../gulp/gulp.d.ts" />
+
 /// <reference path="../cheerio/cheerio.d.ts" />
 
 import cheerio = require('gulp-cheerio');

@@ -1,4 +1,5 @@
 {
+	"files": ["ion.rangeSlider.d.ts", "ion.rangeSlider-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
