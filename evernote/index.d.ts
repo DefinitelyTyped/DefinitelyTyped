@@ -3,9 +3,6 @@
 // Definitions by: Zachary Collins <https://github.com/corps/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../thrift/thrift.d.ts"/>
-
-
 import { Thrift } from "thrift";
 
 declare namespace Evernote {

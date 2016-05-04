@@ -1,6 +1,5 @@
 // Author: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 
-
 import * as temp from "temp";
 
 function testCleanup() {

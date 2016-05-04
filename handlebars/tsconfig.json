@@ -1,4 +1,5 @@
 {
+	"files": ["handlebars.d.ts", "handlebars-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

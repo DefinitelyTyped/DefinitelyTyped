@@ -1,4 +1,5 @@
 {
+	"files": ["react.d.ts", "react-tests.d.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
