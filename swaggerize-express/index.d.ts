@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
-
  import express = require('express');
  import swaggerize = require('swaggerize-express');
  var app = express();
@@ -13,11 +12,7 @@
     docspath: '/api-docs',
     handlers: './handlers'
  });
-
  =============================================== */
-
-
-
 
 import express = require('express');
 declare function swaggerize(options: swaggerize.Options): express.RequestHandler;

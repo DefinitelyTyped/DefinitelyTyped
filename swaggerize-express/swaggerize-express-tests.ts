@@ -1,4 +1,3 @@
-
 import http = require('http');
 import express = require('express');
 import swaggerize = require('swaggerize-express');
