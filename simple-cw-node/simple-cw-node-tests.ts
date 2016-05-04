@@ -1,6 +1,5 @@
 /// <reference path="../node/node.d.ts" />
 
-
 import CW = require('simple-cw-node');
 var client = CW();
 var Deferred:any = client.Deferred;

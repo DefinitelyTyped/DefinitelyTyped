@@ -5,7 +5,6 @@
 
 /// <reference path='../node/node.d.ts' />
 
-
 import stream = require('stream');
 
 type CallbackHandler = (err: any, res: request.Response) => void;
