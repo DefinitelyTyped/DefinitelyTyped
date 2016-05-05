@@ -315,6 +315,10 @@ moment.locale('en', {
             (b === 1) ? 'st' :
             (b === 2) ? 'nd' :
             (b === 3) ? 'rd' : 'th';
+    },
+    week: {
+        dow: 1,
+        doy: 4
     }
 });
 

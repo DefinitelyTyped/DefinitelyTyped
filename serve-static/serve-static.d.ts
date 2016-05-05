@@ -1,7 +1,7 @@
 ﻿// Type definitions for serve-static 1.7.1
 // Project: https://github.com/expressjs/serve-static
 // Definitions by: Uros Smolnik <https://github.com/urossmolnik/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
 
@@ -10,27 +10,27 @@
 
  =============================================== */
 
-/// <reference path="../express/express.d.ts" />
+/// <reference path="../express-serve-static-core/express-serve-static-core.d.ts" />
 /// <reference path="../mime/mime.d.ts" />
 
 declare module "serve-static" {
-    import * as express from "express";
-    
+    import * as express from "express-serve-static-core";
+
     /**
-     * Create a new middleware function to serve files from within a given root directory. 
-     * The file to serve will be determined by combining req.url with the provided root directory. 
+     * Create a new middleware function to serve files from within a given root directory.
+     * The file to serve will be determined by combining req.url with the provided root directory.
      * When a file is not found, instead of sending a 404 response, this module will instead call next() to move on to the next middleware, allowing for stacking and fall-backs.
      */
     function serveStatic(root: string, options?: {
         /**
-        * Set how "dotfiles" are treated when encountered. A dotfile is a file or directory that begins with a dot ("."). 
-        * Note this check is done on the path itself without checking if the path actually exists on the disk. 
-        * If root is specified, only the dotfiles above the root are checked (i.e. the root itself can be within a dotfile when when set to "deny").
-        * The default value is 'ignore'.
-        * 'allow' No special treatment for dotfiles
-        * 'deny' Send a 403 for any request for a dotfile
-        * 'ignore' Pretend like the dotfile does not exist and call next()
-        */
+         * Set how "dotfiles" are treated when encountered. A dotfile is a file or directory that begins with a dot (".").
+         * Note this check is done on the path itself without checking if the path actually exists on the disk.
+         * If root is specified, only the dotfiles above the root are checked (i.e. the root itself can be within a dotfile when when set to "deny").
+         * The default value is 'ignore'.
+         * 'allow' No special treatment for dotfiles
+         * 'deny' Send a 403 for any request for a dotfile
+         * 'ignore' Pretend like the dotfile does not exist and call next()
+         */
         dotfiles?: string;
 
         /**
@@ -44,7 +44,13 @@ declare module "serve-static" {
          * The default value is false.
          */
         extensions?: string[];
-
+        
+        /**
+         * Let client errors fall-through as unhandled requests, otherwise forward a client error.
+         * The default value is false.
+         */
+        fallthrough?: boolean;
+        
         /**
          * By default this module will send "index.html" files in response to a request on a directory.
          * To disable this set false or to supply a new index pass a string or an array in preferred order.
@@ -78,7 +84,7 @@ declare module "serve-static" {
 
     import * as m from "mime";
 
-    module serveStatic {
+    namespace serveStatic {
         var mime: typeof m;
     }
 

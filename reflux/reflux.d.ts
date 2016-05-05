@@ -1,7 +1,7 @@
 // Type definitions for RefluxJS
 // Project: https://github.com/reflux/refluxjs
 // Definitions by: Maurice de Beijer <https://github.com/mauricedb>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module  RefluxCore {
 
@@ -52,6 +52,7 @@ declare module  RefluxCore {
     function createActions(definition: ActionsDefinition): any;
     function createActions(definitions: string[]): any;
 
+    function connect(store: Store, key?: string):void;
     function listenTo(store: Store, handler: string):void;
     function setState(state: any):void;
 }

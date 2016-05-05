@@ -1,5 +1,4 @@
 ﻿/// <reference path="whatwg-fetch.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
 
 function test_fetchUrlWithOptions() {
 	var headers = new Headers();
@@ -37,6 +36,13 @@ function test_fetchUrlWithRequestObject() {
 	};
 	var request: Request = new Request("http://www.andlabs.net/html5/uCOR.php", requestOptions);
 	handlePromise(window.fetch(request));
+}
+
+function test_globalFetchVar() {
+	fetch('http://test.com', {})
+		.then(response => {
+			// for test only
+		});
 }
 
 function handlePromise(promise: Promise<Response>) {

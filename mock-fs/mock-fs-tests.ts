@@ -77,3 +77,10 @@ var mockedFS = mock.fs({
 if (mockedFS.readFileSync('/file', { encoding: 'utf8' }) === 'blah') {
 	console.log('woo');
 }
+
+mock({
+	'path/to/file.txt': 'file content here'
+}, {
+  createTmp: true,
+  createCwd: false
+});

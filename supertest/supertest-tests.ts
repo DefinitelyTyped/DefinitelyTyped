@@ -1,8 +1,8 @@
 /// <reference path="supertest.d.ts" />
 /// <reference path="../express/express.d.ts" />
 
-import supertest = require('supertest')
-import express = require('express');
+import * as supertest from 'supertest';
+import * as express from 'express';
 
 var app = express();
 
@@ -11,7 +11,7 @@ supertest(app)
   .expect('Content-Type', /json/)
   .expect('Content-Length', '20')
   .expect(201)
-  .end((err: any, res: supertest.Response) => {
+  .end((err, res) => {
     if (err) throw err;
   });
 
@@ -56,4 +56,3 @@ function hasPreviousAndNextKeys(res: supertest.Response) {
   if (!('next' in res.body)) return "missing next key";
   if (!('prev' in res.body)) throw new Error("missing prev key");
 }
-

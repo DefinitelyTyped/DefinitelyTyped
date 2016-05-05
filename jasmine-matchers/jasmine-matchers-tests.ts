@@ -27,8 +27,8 @@ describe('toBeArray', function () {
         });
         it('should pass for [1,"",{}]', function () {
             expect([
-                1, 
-                "", 
+                1,
+                "",
                 {
                 }
             ]).toBeArray();
@@ -115,13 +115,13 @@ describe('toBeOneOf', function () {
     describe('matches', function () {
         it('should find "a" in ["a", "b"]', function () {
             expect('a').toBeOneOf([
-                'a', 
+                'a',
                 'b'
             ]);
         });
         it('should find "uxebu" in ["company", "uxebu"]', function () {
             expect('uxebu').toBeOneOf([
-                'company', 
+                'company',
                 'uxebu'
             ]);
         });
@@ -129,30 +129,30 @@ describe('toBeOneOf', function () {
     describe('non-matches', function () {
         it('should not find "" in [" ", "0"]', function () {
             expect('').not.toBeOneOf([
-                ' ', 
+                ' ',
                 '0'
             ]);
         });
         it('should not find "a" in ["b", "c"]', function () {
             expect('a').not.toBeOneOf([
-                'b', 
+                'b',
                 'c'
             ]);
         });
     });
 });
 describe('toBeCloseToOneOf', function () {
-    function oneDigitOff(actual, expected) {
+    function oneDigitOff(actual: any, expected: any) {
         var actualInt = parseInt(actual, 10);
         return actualInt - 1 <= expected && actualInt + 1 >= expected;
     }
-    function tenPercentOff(actual, expected) {
+    function tenPercentOff(actual: any, expected: any) {
         return expected * 0.9 <= actual && expected * 1.1 >= actual;
     }
-    function oneDigitOrTenPercentOff(actual, expected) {
+    function oneDigitOrTenPercentOff(actual: any, expected: any) {
         return oneDigitOff(actual, expected) || tenPercentOff(actual, expected);
     }
-    function twoDecimalsOff(actual, expected) {
+    function twoDecimalsOff(actual: any, expected: any) {
         var lower = ((expected * 100) - 2) / 100;
         var upper = ((expected * 100) + 2) / 100;
         return lower <= actual && upper >= actual;
@@ -160,25 +160,25 @@ describe('toBeCloseToOneOf', function () {
     describe('matches', function () {
         it('should say 7 is close to one of [8, 9]', function () {
             expect(7).toBeCloseToOneOf([
-                8, 
+                8,
                 9
             ], oneDigitOff);
         });
         it('should say 2 is 10% off of one of [2.2, 1.0]', function () {
             expect(2).toBeCloseToOneOf([
-                2.2, 
+                2.2,
                 1.0
             ], tenPercentOff);
         });
         it('should say 7 is close to one of [8, 9]', function () {
             expect(7).toBeCloseToOneOf([
-                8, 
+                8,
                 9
             ], oneDigitOrTenPercentOff);
         });
         it('should say 1.345 two decimals off of [1.325, 1.365]', function () {
             expect(1.345).toBeCloseToOneOf([
-                1.325, 
+                1.325,
                 1.365
             ], twoDecimalsOff);
         });
@@ -186,26 +186,26 @@ describe('toBeCloseToOneOf', function () {
     describe('non-matches', function () {
         it('should say 7 is NOT one off of [9, 10, 11]', function () {
             expect(7).not.toBeCloseToOneOf([
-                9, 
-                10, 
+                9,
+                10,
                 11
             ], oneDigitOff);
         });
         it('should say 1 is close to one of [8, 9]', function () {
             expect(1).not.toBeCloseToOneOf([
-                8, 
+                8,
                 9
             ], oneDigitOrTenPercentOff);
         });
         it('should say 1.9 is NOT 10% off of one of [2.2, 1.0]', function () {
             expect(1.9).not.toBeCloseToOneOf([
-                2.2, 
+                2.2,
                 1.0
             ], tenPercentOff);
         });
         it('should say 1.345 two decimals off of [1.325, 1.365]', function () {
             expect(1.304).not.toBeCloseToOneOf([
-                1.325, 
+                1.325,
                 1.365
             ], twoDecimalsOff);
         });
@@ -216,7 +216,7 @@ describe('toContainOnce', function () {
     describe('matches', function () {
         it('should work for arrays', function () {
             expect([
-                1, 
+                1,
                 2
             ]).toContainOnce(1);
         });
@@ -227,7 +227,7 @@ describe('toContainOnce', function () {
     describe('non-matches', function () {
         it('should work for arrays', function () {
             expect([
-                1, 
+                1,
                 2
             ]).not.toContainOnce(3);
         });
@@ -257,7 +257,7 @@ describe('toHaveLength', function () {
 describe('toHaveProperties', function () {
     describe('matches', function () {
         it('should work for `{x:0, y:undefined}`', function () {
-            var obj = {
+            var obj: any = {
                 x: 0,
                 y: undefined
             };
@@ -268,7 +268,7 @@ describe('toHaveProperties', function () {
 describe('toHavePropertiesWithValues', function () {
     describe('matches', function () {
         it('should work with a reference object', function () {
-            function C() {
+            var C: any = function C() {
                 this.x = 0;
             }
             C.prototype.y = 'arbitrary';
@@ -283,7 +283,7 @@ describe('toHavePropertiesWithValues', function () {
 describe('toHaveOwnProperties', function () {
     describe('matches', function () {
         it('should work for `{x:0, y:undefined}`', function () {
-            var obj = {
+            var obj: any = {
                 x: 0,
                 y: undefined
             };
@@ -322,14 +322,14 @@ describe('toHaveBeenCalledXTimes', function () {
 describe('toExactlyHaveProperties', function () {
     describe('matches', function () {
         it('should work for `{x:0, y:undefined}`', function () {
-            var obj = {
+            var obj: any = {
                 x: 0,
                 y: undefined
             };
             expect(obj).toExactlyHaveProperties('x', 'y');
         });
         it('should work in any order', function () {
-            var obj = {
+            var obj: any = {
                 x: 0,
                 y: undefined
             };
@@ -338,14 +338,14 @@ describe('toExactlyHaveProperties', function () {
     });
     describe('non-matches', function () {
         it('should work for too many properties', function () {
-            var obj = {
+            var obj: any = {
                 x: 0,
                 y: undefined
             };
             expect(obj).not.toExactlyHaveProperties('x');
         });
         it('should work for missing properties', function () {
-            var obj = {
+            var obj: any = {
                 x: 0,
                 y: undefined
             };
@@ -375,17 +375,17 @@ describe('toEndWith', function () {
         describe('matches', function () {
             it('should work for string', function () {
                 expect([
-                    '1', 
+                    '1',
                     '2'
                 ]).toEndWith('2');
             });
             it('should work for array', function () {
                 expect([
-                    3, 
-                    4, 
+                    3,
+                    4,
                     5
                 ]).toEndWith([
-                    4, 
+                    4,
                     5
                 ]);
             });
@@ -393,17 +393,17 @@ describe('toEndWith', function () {
         describe('non-matches', function () {
             it('should work for string', function () {
                 expect([
-                    '1', 
+                    '1',
                     '2'
                 ]).not.toEndWith('3');
             });
             it('should work for array', function () {
                 expect([
-                    3, 
-                    4, 
+                    3,
+                    4,
                     5
                 ]).not.toEndWith([
-                    3, 
+                    3,
                     4
                 ]);
             });
@@ -419,8 +419,8 @@ describe('toEachEndWith', function () {
         });
         it('should work for array with multiple elements', function () {
             expect([
-                'one', 
-                'zwee', 
+                'one',
+                'zwee',
                 'three'
             ]).toEachEndWith('e');
         });
@@ -433,8 +433,8 @@ describe('toEachEndWith', function () {
         });
         it('should work for array with multiple elements', function () {
             expect([
-                'one', 
-                'zwei', 
+                'one',
+                'zwei',
                 'three'
             ]).not.toEachEndWith('e');
         });
@@ -449,8 +449,8 @@ describe('toSomeEndWith', function () {
         });
         it('should work for array with multiple elements', function () {
             expect([
-                'one', 
-                'zwee', 
+                'one',
+                'zwee',
                 'three'
             ]).toSomeEndWith('ee');
         });
@@ -463,8 +463,8 @@ describe('toSomeEndWith', function () {
         });
         it('should work for array with multiple elements', function () {
             expect([
-                'one', 
-                'zwei', 
+                'one',
+                'zwei',
                 'three'
             ]).not.toSomeEndWith('a');
         });
@@ -491,17 +491,17 @@ describe('toStartWith', function () {
         describe('matches', function () {
             it('should work for string', function () {
                 expect([
-                    '1', 
+                    '1',
                     '2'
                 ]).toStartWith('1');
             });
             it('should work for array', function () {
                 expect([
-                    3, 
-                    4, 
+                    3,
+                    4,
                     5
                 ]).toStartWith([
-                    3, 
+                    3,
                     4
                 ]);
             });
@@ -509,17 +509,17 @@ describe('toStartWith', function () {
         describe('non-matches', function () {
             it('should work for string', function () {
                 expect([
-                    '1', 
+                    '1',
                     '2'
                 ]).not.toStartWith('3');
             });
             it('should work for array', function () {
                 expect([
-                    3, 
-                    4, 
+                    3,
+                    4,
                     5
                 ]).not.toStartWith([
-                    4, 
+                    4,
                     5
                 ]);
             });
@@ -535,8 +535,8 @@ describe('toEachStartWith', function () {
         });
         it('should work for array with multiple elements', function () {
             expect([
-                'one', 
-                'onetwo', 
+                'one',
+                'onetwo',
                 'onethree'
             ]).toEachStartWith('o');
         });
@@ -549,8 +549,8 @@ describe('toEachStartWith', function () {
         });
         it('should work for array with multiple elements', function () {
             expect([
-                'one', 
-                'two', 
+                'one',
+                'two',
                 'onethree'
             ]).not.toEachStartWith('o');
         });
@@ -565,8 +565,8 @@ describe('toSomeStartWith', function () {
         });
         it('should work for array with multiple elements', function () {
             expect([
-                'one', 
-                'onetwo', 
+                'one',
+                'onetwo',
                 'three'
             ]).toSomeStartWith('one');
         });
@@ -579,8 +579,8 @@ describe('toSomeStartWith', function () {
         });
         it('should work for array with multiple elements', function () {
             expect([
-                'one', 
-                'two', 
+                'one',
+                'two',
                 'onethree'
             ]).not.toSomeStartWith('a');
         });
@@ -610,19 +610,19 @@ describe('toStartWithEither', function () {
         describe('matches', function () {
             it('should work for string', function () {
                 expect([
-                    '1', 
+                    '1',
                     '2'
                 ]).toStartWithEither('1', '2');
             });
             it('should work for array', function () {
                 expect([
-                    3, 
-                    4, 
+                    3,
+                    4,
                     5
                 ]).toStartWithEither([
                     4
                 ], [
-                    3, 
+                    3,
                     4
                 ]);
             });
@@ -630,20 +630,20 @@ describe('toStartWithEither', function () {
         describe('non-matches', function () {
             it('should work for string', function () {
                 expect([
-                    '1', 
+                    '1',
                     '2'
                 ]).not.toStartWithEither('3');
             });
             it('should work for array', function () {
                 expect([
-                    3, 
-                    4, 
+                    3,
+                    4,
                     5
                 ]).not.toStartWithEither([
-                    5, 
+                    5,
                     6
                 ], [
-                    4, 
+                    4,
                     5
                 ]);
             });

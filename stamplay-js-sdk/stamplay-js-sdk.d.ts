@@ -1,11 +1,11 @@
 // Type definitions for stamplay-js-sdk 1.2.9
 // Project: https://github.com/Stamplay/stamplay-js-sdk
 // Definitions by: Riderman de Sousa Barbosa <https://github.com/ridermansb/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="..\promises-a-plus\promises-a-plus.d.ts"/>
 
-declare module Stamplay {
+declare namespace Stamplay {
 
   export interface IStamplayModel {
     signup({}) : PromisesAPlus.Thenable<any>
@@ -26,6 +26,7 @@ declare module Stamplay {
   }
 
   export interface StamplayStatic {
+      init(appId : string) : void;
       User() : IStamplayObject
       Cobject(object : string) : IStamplayObject
   }

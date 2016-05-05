@@ -1,7 +1,7 @@
 // Type definitions for Google Realtime API
 // Project: https://developers.google.com/google-apps/realtime/
 // Definitions by: Dustin Wehr <http://cs.toronto.edu/~wehr>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // This definition file is merge-compatible with ../gapi/gapi.d.ts
 
@@ -15,7 +15,7 @@
 // See section "Type Aliases" of http://www.typescriptlang.org/Content/TypeScript%20Language%20Specification.pdf
 
 // gapi is a global var introduced by https://apis.google.com/js/api.js
-declare module gapi.drive.realtime {
+declare namespace gapi.drive.realtime {
 
 	type GoogEventHandler = ((evt:ObjectChangedEvent) => void) | ((e:Event) => void) | EventListener;
 
@@ -483,10 +483,40 @@ declare module gapi.drive.realtime {
 		saveAs(fileId:string)	: void;
 
 	}
+
+	// INCOMPLETE
+	// https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime.Error
+	export class Error { }
+
+	// Complete
+	// Opens the debugger application on the current page. The debugger shows all realtime documents that the
+	// page has loaded and is able to view, edit and debug all aspects of each realtime document.
+	export function debug() : void;
+
+	/* Creates a new file with fake network communications. This file will not talk to the server and will only
+	   exist in memory for as long as the browser session persists.
+	   https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime#.newInMemoryDocument
+	 @Param opt_onLoaded {function(non-null gapi.drive.realtime.Document)}
+	 A callback that will be called when the realtime document is ready. The created or opened realtime document
+	 object will be passed to this function.
+
+	 @Param opt_initializerFn {function(non-null gapi.drive.realtime.Model)}
+	 An optional initialization function that will be called before onLoaded only the first time that the document
+	 is loaded. The document's gapi.drive.realtime.Model object will be passed to this function.
+
+	 @Param opt_errorFn {function(non-null gapi.drive.realtime.Error)}
+	 An optional error handling function that will be called if an error occurs while the document is being
+	 loaded or edited. A gapi.drive.realtime.Error object describing the error will be passed to this function.
+	*/
+	export function newInMemoryDocument(
+		opt_onLoaded? : (d:Document) => void,
+		opt_initializerFn? : (m:Model) => void,
+		opt_errorFn? : (e:gapi.drive.realtime.Error) => void
+	) : Document;
 }
 
 
-declare module gapi.drive.realtime.databinding {
+declare namespace gapi.drive.realtime.databinding {
 	// COMPLETE
 	// https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime.databinding.Binding
 	export interface  Binding {
@@ -506,7 +536,7 @@ declare module gapi.drive.realtime.databinding {
 }
 
 
-declare module gapi.drive.realtime.EventType {
+declare namespace gapi.drive.realtime.EventType {
 	export var TEXT_INSERTED: string
 	export var TEXT_DELETED: string
 	export var OBJECT_CHANGED: string
@@ -514,7 +544,7 @@ declare module gapi.drive.realtime.EventType {
 
 
 // rtclient is a global var introduced by realtime-client-utils.js
-declare module rtclient {
+declare namespace rtclient {
 	// INCOMPLETE
 	export interface RealtimeLoader {
 		start():void;
@@ -603,7 +633,7 @@ declare module rtclient {
 }
 
 // INCOMPLETE
-declare module rtclient.params {
+declare namespace rtclient.params {
 	// string containing one or more file ids separated by spaces.
 	export var fileIds:string
 }

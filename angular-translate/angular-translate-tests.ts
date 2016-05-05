@@ -26,6 +26,7 @@ app.config(($translateProvider: angular.translate.ITranslateProvider) => {
     $translateProvider.preferredLanguage('en');
 
     $translateProvider.useLoader('customLoader');
+    $translateProvider.forceAsyncReload(true);
 });
 
 interface Scope extends ng.IScope {
@@ -34,6 +35,15 @@ interface Scope extends ng.IScope {
 
 app.controller('Ctrl', ($scope: Scope, $translate: angular.translate.ITranslateService) => {
     $scope['changeLanguage'] = function (key: any) {
-        $translate.use(key);
+		$translate.onReady().then(() => {
+			if($translate.isReady()) {
+				$translate.use(key);
+			}
+		});
     };
+}).run(($filter: ng.IFilterService) => {
+    var x: string;
+    x = $filter('translate')('something');
+    x = $filter('translate')('something', {});
+    x = $filter('translate')('something', {}, '');
 });

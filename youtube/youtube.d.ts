@@ -1,9 +1,9 @@
 // Type definitions for YouTube
 // Project: https://developers.google.com/youtube/
 // Definitions by: Daz Wilkin <https://github.com/DazWilkin/>, Ian Obermiller <http://ianobermiller.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module YT {
+declare namespace YT {
     interface EventArgs {
         target: Player;
         data: any;
@@ -17,6 +17,7 @@ declare module YT {
         onReady?: EventHandler;
         onPlayback?: EventHandler;
         onStateChange?: EventHandler;
+        onError?: EventHandler;
     }
 
 	export enum ListType {
@@ -43,6 +44,7 @@ declare module YT {
 		origin?: string;
         playerpiid?: string;
 		playlist?: string[];
+        playsinline?: number;
 		rel?: number;
         showinfo?: number;
 		start?: number;
@@ -50,8 +52,8 @@ declare module YT {
     }
 
     export interface PlayerOptions {
-        width?: number;
-        height?: number;
+        width?: string | number;
+        height?: string | number;
         videoId?: string;
         playerVars?: PlayerVars;
         events?: Events;
@@ -147,6 +149,9 @@ declare module YT {
 
         // Event Listener
         addEventListener(event: string, handler: EventHandler): void;
+
+        // DOM
+        destroy(): void;
     }
 
     export enum PlayerState {

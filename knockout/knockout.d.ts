@@ -1,7 +1,7 @@
-﻿// Type definitions for Knockout v3.2.0
+﻿// Type definitions for Knockout v3.4.0
 // Project: http://knockoutjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Igor Oleinikov <https://github.com/Igorbek/>, Clément Bourgeois <https://github.com/moonpyk/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Igor Oleinikov <https://github.com/Igorbek/>, Clément Bourgeois <https://github.com/moonpyk/>, Matt Brooks <https://github.com/EnableSoftware>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 interface KnockoutSubscribableFunctions<T> {
@@ -30,9 +30,9 @@ interface KnockoutObservableArrayFunctions<T> {
     push(...items: T[]): void;
     shift(): T;
     unshift(...items: T[]): number;
-    reverse(): T[];
-    sort(): void;
-    sort(compareFunction: (left: T, right: T) => number): void;
+    reverse(): KnockoutObservableArray<T>;
+    sort(): KnockoutObservableArray<T>;
+    sort(compareFunction: (left: T, right: T) => number): KnockoutObservableArray<T>;
 
     // Ko specific
     [key: string]: KnockoutBindingHandler;
@@ -142,6 +142,7 @@ interface KnockoutAllBindingsAccessor {
 }
 
 interface KnockoutBindingHandler {
+    after?: Array<string>;
     init?: (element: any, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) => void | { controlsDescendantBindings: boolean; };
     update?: (element: any, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) => void;
     options?: any;
@@ -386,6 +387,17 @@ interface KnockoutTemplateEngine extends KnockoutNativeTemplateEngine {
     rewriteTemplate(template: any, rewriterCallback: Function, templateDocument: Document): void;
 }
 
+//////////////////////////////////
+// tasks.js
+//////////////////////////////////
+
+interface KnockoutTasks {
+    scheduler: (callback: Function) => any;
+    schedule(task: Function): number;
+    cancel(handle: number): void;
+    runEarly(): void;
+}
+
 /////////////////////////////////
 
 interface KnockoutStatic {
@@ -416,12 +428,12 @@ interface KnockoutStatic {
     observableArray: KnockoutObservableArrayStatic;
 
     contextFor(node: any): any;
-    isSubscribable(instance: any): boolean;
+    isSubscribable(instance: any): instance is KnockoutSubscribable<any>;
     toJSON(viewModel: any, replacer?: Function, space?: any): string;
     toJS(viewModel: any): any;
-    isObservable(instance: any): boolean;
-    isWriteableObservable(instance: any): boolean;
-    isComputed(instance: any): boolean;
+    isObservable(instance: any): instance is KnockoutObservable<any>;
+    isWriteableObservable(instance: any): instance is KnockoutObservable<any>;
+    isComputed(instance: any): instance is KnockoutComputed<any>;
     dataFor(node: any): any;
     removeNode(node: Element): void;
     cleanNode(node: Element): Element;
@@ -534,6 +546,22 @@ interface KnockoutStatic {
     };
 
     components: KnockoutComponents;
+    
+    /////////////////////////////////
+    // options.js
+    /////////////////////////////////
+    
+    options: {
+        deferUpdates: boolean,
+        
+        useOnlyNativeEvents: boolean
+    };
+    
+    /////////////////////////////////
+    // tasks.js
+    /////////////////////////////////
+    
+    tasks: KnockoutTasks;
 }
 
 interface KnockoutBindingProvider {
@@ -552,7 +580,7 @@ interface KnockoutComputedContext {
 // refactored types into a namespace to reduce global pollution
 // and used Union Types to simplify overloads (requires TypeScript 1.4)
 //
-declare module KnockoutComponentTypes {
+declare namespace KnockoutComponentTypes {
 
     interface Config {
         viewModel?: ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
@@ -561,6 +589,7 @@ declare module KnockoutComponentTypes {
     }
 
     interface ComponentConfig {
+        viewModel?: ViewModelFunction | ViewModelSharedInstance | ViewModelFactoryFunction | AMDModule;
         template: any;
         createViewModel?: any;
     }

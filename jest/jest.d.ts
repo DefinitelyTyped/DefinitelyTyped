@@ -1,32 +1,40 @@
-// Type definitions for Jest 0.1.18
+// Type definitions for Jest 0.9.0
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference path="../node/node.d.ts" />
 
 declare function afterEach(fn: jest.EmptyFunction): void;
 declare function beforeEach(fn: jest.EmptyFunction): void;
 declare function describe(name: string, fn: jest.EmptyFunction): void;
 declare var it: jest.It;
 declare function pit(name: string, fn: jest.EmptyFunction): void;
-declare var require: jest.Require;
+
 declare function xdescribe(name: string, fn: jest.EmptyFunction): void;
 declare function xit(name: string, fn: jest.EmptyFunction): void;
 
 declare function expect(actual: any): jest.Matchers;
 
-declare module jest {
+interface NodeRequire {
+    requireActual(moduleName: string): any;
+}
+
+declare namespace jest {
+    function addMatchers(matchers: CustomMatcherFactories): void;
     function autoMockOff(): void;
     function autoMockOn(): void;
     function clearAllTimers(): void;
+    function currentTestPath(): string;
+    function fn<T>(implementation?: Function): Mock<T>;
     function dontMock(moduleName: string): void;
     function genMockFromModule<T>(moduleName: string): Mock<T>;
-    function genMockFunction<T>(): Mock<T>;
-    function genMockFn<T>(): Mock<T>;
-    function mock(moduleName: string): void;
+    function mock(moduleName: string, factory?: Function): void;
     function runAllTicks(): void;
     function runAllTimers(): void;
     function runOnlyPendingTimers(): void;
     function setMock<T>(moduleName: string, moduleExports: T): void;
+    function unmock(moduleName: string): void;
 
     interface EmptyFunction {
         (): void;
@@ -46,7 +54,7 @@ declare module jest {
         toContain(expected: string): boolean;
         toBeCloseTo(expected: number, delta: number): boolean;
         toBeGreaterThan(expected: number): boolean;
-        toBeLessThen(expected: number): boolean;
+        toBeLessThan(expected: number): boolean;
         toBeCalled(): boolean;
         toBeCalledWith(...args: any[]): boolean;
         lastCalledWith(...args: any[]): boolean;
@@ -57,14 +65,9 @@ declare module jest {
         only(name: string, fn: EmptyFunction): void;
     }
 
-    interface Require {
-        (moduleName: string): any;
-        requireActual(moduleName: string): any;
-    }
-
     interface Mock<T> {
-        new(): T;
-        (...args:any[]): any; // TODO please fix this line! added for TypeScript 1.1.0-1 https://github.com/borisyankov/DefinitelyTyped/pull/2932
+        new (): T;
+        (...args: any[]): any; // TODO please fix this line! added for TypeScript 1.1.0-1 https://github.com/DefinitelyTyped/DefinitelyTyped/pull/2932
         mock: MockContext<T>;
         mockClear(): void;
         mockImplementation(fn: Function): Mock<T>;
@@ -77,5 +80,45 @@ declare module jest {
     interface MockContext<T> {
         calls: any[][];
         instances: T[];
+    }
+
+    // taken from Jasmine since addMatchers calls into the jasmine api
+    interface CustomMatcherFactories {
+        [index: string]: CustomMatcherFactory;
+    }
+
+    // taken from Jasmine since addMatchers calls into the jasmine api
+    interface CustomMatcherFactory {
+        (util: MatchersUtil, customEqualityTesters: Array<CustomEqualityTester>): CustomMatcher;
+    }
+
+    // taken from Jasmine since addMatchers calls into the jasmine api
+    interface MatchersUtil {
+        equals(a: any, b: any, customTesters?: Array<CustomEqualityTester>): boolean;
+        contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: Array<CustomEqualityTester>): boolean;
+        buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: Array<any>): string;
+    }
+
+    // taken from Jasmine since addMatchers calls into the jasmine api
+    interface CustomEqualityTester {
+        (first: any, second: any): boolean;
+    }
+
+    // taken from Jasmine since addMatchers calls into the jasmine api
+    interface CustomMatcher {
+        compare<T>(actual: T, expected: T): CustomMatcherResult;
+        compare(actual: any, expected: any): CustomMatcherResult;
+    }
+
+    // taken from Jasmine since addMatchers calls into the jasmine api
+    interface CustomMatcherResult {
+        pass: boolean;
+        message: string;
+    }
+
+    // taken from Jasmine which takes from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
+    interface ArrayLike<T> {
+        length: number;
+        [n: number]: T;
     }
 }
