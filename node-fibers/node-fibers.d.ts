@@ -36,8 +36,8 @@ declare module "fibers/future" {
         return(result?: any): void;
         throw (error: any): void;
         wait (): void;
-        static wait(future: Future);
-        static wait(future_list: Future[]);
+        static wait(future: Future): any;
+        static wait(future_list: Future[]): any;
         static wrap(fn: Function): Future
     }
 

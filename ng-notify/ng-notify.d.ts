@@ -2,7 +2,8 @@
 // Project: https://github.com/matowens/ng-notify
 // Definitions by: Nick Zamosenchuk <https://github.com/nzamosenchuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path='../angularjs/angular.d.ts'/>
+
+/// <reference path='../angularjs/angularjs.d.ts'/>
 
 declare namespace ngNotify {
 

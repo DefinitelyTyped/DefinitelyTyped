@@ -1,6 +1,3 @@
-
-/// <reference path="gulp-task-listing.d.ts" />
-
 import gulp = require('gulp');
 import gulpTaskListing = require('gulp-task-listing');
 

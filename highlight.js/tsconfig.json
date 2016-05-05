@@ -1,4 +1,5 @@
 {
+	"files": ["highlightjs.d.ts", "highlightjs-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

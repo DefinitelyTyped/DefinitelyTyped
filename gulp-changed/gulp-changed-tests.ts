@@ -1,6 +1,3 @@
-
-/// <reference path="./gulp-changed.d.ts" />
-
 import * as gulp from "gulp";
 import changed = require("gulp-changed");
 import minifyHtml = require("gulp-minify-html");

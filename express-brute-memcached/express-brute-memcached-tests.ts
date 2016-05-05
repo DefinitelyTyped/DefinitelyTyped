@@ -1,5 +1,3 @@
-/// <reference path="../express-brute/express-brute.d.ts"/>
-/// <reference path="../mongodb/mongodb.d.ts"/>
 /// <reference path="express-brute-memcached.d.ts"/>
 
 import * as express from "express";

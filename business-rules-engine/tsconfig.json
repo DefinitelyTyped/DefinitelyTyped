@@ -1,4 +1,5 @@
 {
+	"files": ["business-rules-engine.d.ts", "business-rules-engine-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

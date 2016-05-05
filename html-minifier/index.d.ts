@@ -3,9 +3,6 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-/// <reference path="../relateurl/relateurl.d.ts" />
-
 import * as UglifyJS from '../uglify-js';
 import * as CleanCSS from 'clean-css';
 import * as RelateUrl from 'relateurl';

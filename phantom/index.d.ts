@@ -3,16 +3,14 @@
 // Definitions by: horiuchi <https://github.com/horiuchi/>, Random <https://github.com/llRandom/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export function create(args?: string[]): Promise<PhantomJS>;
 
-
-declare function create(args?: string[]): Promise<PhantomJS>;
-
-interface PhantomJS {
+export interface PhantomJS {
     createPage(): Promise<WebPage>;
     exit(returnValue?: number): void;
 }
 
-interface WebPage {
+export interface WebPage {
     open(url: string): Promise<string>;
     close(): Promise<void>;
 
@@ -43,7 +41,7 @@ interface WebPage {
     clearCookies(): Promise<void>;
 }
 
-interface ICookie {
+export interface ICookie {
     name: string,
     value: string,
     domain?: string,
@@ -53,7 +51,7 @@ interface ICookie {
     expires?: Date
 }
 
-interface IPaperSizeOptions {
+export interface IPaperSizeOptions {
     width?: string;
     height?: string;
     format?: string;

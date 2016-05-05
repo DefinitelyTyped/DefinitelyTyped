@@ -1,4 +1,5 @@
 {
+	"files": ["chai.d.ts", "chai-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

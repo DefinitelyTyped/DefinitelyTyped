@@ -3,7 +3,6 @@
 // Definitions by: Peter Snider <https://github.com/psnider/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 /// <reference path='../node/node.d.ts' />
 
 

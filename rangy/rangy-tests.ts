@@ -6,6 +6,8 @@ declare function assertString(s:string):any;
 declare function assertRangyRange(r:RangyRange):any;
 declare function getRangyRange():RangyRange;
 
+type TextRange = any; // ?
+
 function testRangyStatic() {
     rangy.addInitListener((rangy:RangyStatic) => {
     });

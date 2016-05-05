@@ -1,4 +1,5 @@
 {
+	"files": ["freedom-core.env.d.ts", "freedom-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

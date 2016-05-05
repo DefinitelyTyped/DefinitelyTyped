@@ -8,7 +8,7 @@
 interface JQueryTimer {
     // #region Constructors
     (action?: Function, time?: Number, autostart?: Boolean): Object;
-    set(any): Object;
+    set(x: any): Object;
     // #endregion
 
     // #region Actions

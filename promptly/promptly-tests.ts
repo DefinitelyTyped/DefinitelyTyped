@@ -1,5 +1,4 @@
 ///<reference path="../node/node.d.ts"/>
-///<reference path="promptly.d.ts"/>
 
 import promptly = require('promptly');
 

@@ -24,7 +24,7 @@ declare class ParsedOption {
 }
 
 interface EventCallback {
-    (arguments: string[], options: StringMap): void;
+    (args: string[], options: StringMap): void;
 }
 
 interface ErrorFunc {

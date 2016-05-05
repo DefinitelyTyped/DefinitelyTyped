@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 
-interface JSFL {
+export interface JSFL {
     init: (...args: any[]) => void;
     [index: string]: any;
 }
@@ -17,14 +17,14 @@ interface JSFL {
  * @param initParams Parameters to pass to JSFL init function
  * @param callback Callback
  */
-declare function createJSFL(jsfl: JSFL, fileName: string, initParams: Array<any>, callback: (err: NodeJS.ErrnoException) => void): void;
+export function createJSFL(jsfl: JSFL, fileName: string, initParams: Array<any>, callback: (err: NodeJS.ErrnoException) => void): void;
 
 /**
  * Deletes a JSFL file
  * @param fileName Path to JSFL file to delete
  * @param callback Callback
  */
-declare function deleteJSFL(fileName: string, callback: (err: NodeJS.ErrnoException) => void): void;
+export function deleteJSFL(fileName: string, callback: (err: NodeJS.ErrnoException) => void): void;
 
 /**
  * Runs a JSFL file
@@ -32,4 +32,4 @@ declare function deleteJSFL(fileName: string, callback: (err: NodeJS.ErrnoExcept
  * @param fileName Path to JSFL file to run
  * @param callback Callback
  */
-declare function runJSFL(flashLocation: string, fileName: string, callback: (err: NodeJS.ErrnoException) => void): void;
+export function runJSFL(flashLocation: string, fileName: string, callback: (err: NodeJS.ErrnoException) => void): void;

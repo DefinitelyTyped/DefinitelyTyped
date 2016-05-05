@@ -10,8 +10,9 @@ interface Option {
     cwd?: string;
 }
 
+type _glob = typeof glob;
 declare namespace expand {
-    var glob: typeof glob;
+    var glob: _glob;
     var VERSION: string;
 }
 

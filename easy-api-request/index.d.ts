@@ -6,10 +6,6 @@
 /// <reference path="../q/Q.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
-/// <reference path="../bunyan/bunyan.d.ts" />
-
-
-
 import stream = require('stream');
 import http = require('http');
 import request = require('request');

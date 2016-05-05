@@ -1,4 +1,5 @@
 {
+	"files": ["i18next.d.ts", "i18next-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

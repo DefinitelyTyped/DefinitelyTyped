@@ -1,5 +1,3 @@
-///<reference path='./node-git.d.ts'/>
-
 import base = require("git");
 
 var git = new base.Git("../.git");

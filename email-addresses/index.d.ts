@@ -3,6 +3,5 @@
 // Definitions by: John Grimsey <https://github.com/johngrimsey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-declare function parseOneAddress(opts: any): any;
-declare function parseAddressList(opts: any): any;
+export function parseOneAddress(opts: any): any;
+export function parseAddressList(opts: any): any;

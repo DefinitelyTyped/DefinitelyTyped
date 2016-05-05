@@ -1,9 +1,3 @@
-
-
-
-/// <reference path="../gulp-less/gulp-less.d.ts" />
-/// <reference path="../gulp-concat/gulp-concat.d.ts" />
-
 import * as gulp from 'gulp';
 import * as uglify from 'gulp-uglify';
 import * as less from 'gulp-less';

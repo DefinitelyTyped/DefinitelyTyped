@@ -1,6 +1,3 @@
-
-/// <reference path="../gulp-minify-html/gulp-minify-html.d.ts" />
-
 import * as gulp from "gulp";
 import newer = require("gulp-newer");
 import minifyHtml = require("gulp-minify-html");

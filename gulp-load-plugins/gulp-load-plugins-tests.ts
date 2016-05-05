@@ -1,8 +1,3 @@
-
-/// <reference path="../gulp/gulp" />
-
-/// <reference path="gulp-load-plugins" />
-
 import * as gulp from 'gulp';
 import * as gulpConcat from 'gulp-concat';
 import * as gulpLoadPlugins from 'gulp-load-plugins';

@@ -3,16 +3,13 @@
 // Definitions by: Manuel Rueda <https://github.com/ManRueda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Support AMD require
-declare module 'promise' {
-		export = Promise;
-}
+export as namespace Promise;
 
-declare var Promise: Promise.Ipromise;
+export = Promise;
+declare var Promise: Promise.IPromise;
 
 declare namespace Promise {
-
-	export interface Ipromise {
+	export interface IPromise {
 		new <T>(resolver: (resolve: (value: T) => void, reject: (reason: any) => void) => void): IThenable<T>;
 
 		resolve: <T>(value: T) => IThenable<T>;

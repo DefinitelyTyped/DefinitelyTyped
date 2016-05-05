@@ -1,6 +1,3 @@
-
-/// <reference path="koa-json.d.ts" />
-
 import * as Koa from "koa";
 import * as json from 'koa-json';
 

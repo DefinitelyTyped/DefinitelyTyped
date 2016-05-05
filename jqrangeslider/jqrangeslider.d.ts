@@ -57,7 +57,7 @@ interface JQRangeSliderOptions {
 interface JQNumericRangeSliderOptions extends JQRangeSliderOptions {
     bounds?: JQRangeSliderNumericRange; // min and max values of the slider
     defaultValues?: JQRangeSliderNumericRange; // values selected by default on construction
-    formatter?: (integer) => string; // customize displayed label text
+    formatter?: (int: number) => string; // customize displayed label text
     step?: number; // allows to customize values rounding, and graphically render this rounding
 }
 
@@ -68,7 +68,7 @@ interface JQEditRangeSliderOptions extends JQNumericRangeSliderOptions {
 interface JQDateRangeSliderOptions extends JQRangeSliderOptions {
     bounds?: JQRangeSliderDateRange; // min and max values of the slider
     defaultValues?: JQRangeSliderDateRange; // values selected by default on construction
-    formatter?: (Date) => string; // customize displayed label text
+    formatter?: (date: Date) => string; // customize displayed label text
     step?: JQRangeSliderDateSteps; // allows to customize values rounding, and graphically render this rounding
 }
 

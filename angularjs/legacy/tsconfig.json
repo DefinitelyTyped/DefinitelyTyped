@@ -1,4 +1,5 @@
 {
+	"files": ["angular-1.4.d.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

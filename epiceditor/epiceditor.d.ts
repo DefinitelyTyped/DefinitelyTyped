@@ -43,7 +43,7 @@ declare class EpicEditor {
     unload(callback?: Function): EpicEditor;
     getElement(element: string): any;
     is(state: string): boolean;
-    open(filename: string);
+    open(filename: string): any;
     importFile(filename?: string, content?: string): void;
     exportFile(filename?: string, type?: string): any;
     rename(oldName: string, newName: string): void;
