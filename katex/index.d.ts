@@ -3,14 +3,15 @@
 // Definitions by: Michael Randolph <https://github.com/mrand01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export as namespace katex;
 
-interface KatexOptions {
+export interface KatexOptions {
     displayMode?: boolean;
     breakOnUnsupportedCmds?: boolean;
     errorColor?: string;
 }
 
-declare class ParseError implements Error {
+export class ParseError implements Error {
     constructor(message: string, lexer: any, position: number);
     name: string;
     message: string;
@@ -23,10 +24,10 @@ declare class ParseError implements Error {
  * @param element The DOM element to render into
  * @param options KaTeX options
  */
-declare function render(tex: string, element: HTMLElement, options?: KatexOptions): void;
+export function render(tex: string, element: HTMLElement, options?: KatexOptions): void;
 /**
  * Renders a TeX expression into an HTML string
  * @param tex A TeX expression
  * @param options KaTeX options
  */
-declare function renderToString(tex: string, options?: KatexOptions): string;
+export function renderToString(tex: string, options?: KatexOptions): string;

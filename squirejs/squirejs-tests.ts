@@ -1,5 +1,5 @@
 
-import Squire = require('Squire');
+import Squire = require('squirejs');
 
 // Default Configuration
 var injector = new Squire();

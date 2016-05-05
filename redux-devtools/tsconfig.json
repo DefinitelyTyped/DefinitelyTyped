@@ -1,4 +1,5 @@
 {
+	"files": ["index.d.ts", "redux-devtools-tests.tsx"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

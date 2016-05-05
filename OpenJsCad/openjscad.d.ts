@@ -3,6 +3,8 @@
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../three/three.d.ts" />
+
 declare namespace THREE {
     var CSG: {
         fromCSG: (csg: CSG, defaultColor: any) => {

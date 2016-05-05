@@ -1,4 +1,3 @@
-/// <reference path='./loggly.d.ts' />
 import loggly  = require("loggly");
 
 var options: loggly.LogglyOptions  = {

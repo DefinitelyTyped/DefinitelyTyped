@@ -1,9 +1,11 @@
 {
+	"files": ["react-router.d.ts", "react-router-tests.tsx"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
         "strictNullChecks": false,
-        "baseUrl": "../"
+        "baseUrl": "../",
+        "jsx": "react"
     }
 }

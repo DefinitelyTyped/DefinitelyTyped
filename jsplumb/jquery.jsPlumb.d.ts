@@ -9,7 +9,7 @@ declare var jsPlumb: jsPlumbInstance;
 
 interface jsPlumbInstance {
 	setRenderMode(renderMode: string): string;
-	bind(event: string, callback: (e) => void ): void;
+	bind(event: string, callback: (e: any) => void ): void;
 	unbind(event?: string): void;
 	ready(callback: () => void): void;
 	importDefaults(defaults: Defaults): void;

@@ -1,4 +1,4 @@
-import Leap = require('./LeapMotionTS');
+import Leap = require('LeapMotionTS');
 
 var controller: Leap.Controller = new Leap.Controller();
 controller.addEventListener(Leap.LeapEvent.LEAPMOTION_FRAME, (event: Leap.LeapEvent) => {

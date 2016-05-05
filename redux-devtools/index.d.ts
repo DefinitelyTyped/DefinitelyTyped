@@ -11,8 +11,8 @@
     instrument(): (opts: any) => any;
   }
 
-export declare function createDevTools(el: React.ReactElement<any>): IDevTools
-export declare function persistState(debugSessionKey: string): Function
+export declare function createDevTools(el: React.ReactElement<any>): IDevTools;
+export declare function persistState(debugSessionKey: string): Function;
 
   var factory: { instrument(): (opts: any) => any }
 

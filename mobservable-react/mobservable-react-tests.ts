@@ -1,4 +1,3 @@
-/// <reference path="./mobservable-react.d.ts"/>
 /// <reference path="../react/react-global.d.ts" />
 
 import {reactiveComponent} from 'mobservable-react';

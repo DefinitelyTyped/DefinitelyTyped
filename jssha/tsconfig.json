@@ -1,4 +1,5 @@
 {
+	"files": ["jssha.d.ts", "jssha-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

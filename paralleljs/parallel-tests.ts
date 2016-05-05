@@ -35,7 +35,7 @@ p3.map(fib).then(log);
 var p4 = new Parallel([0, 1, 2, 3, 4, 5, 6, 7, 8]);
 
 function add(d: number[]) { return d[0] + d[1]; }
-function factorial(n: number) { return n < 2 ? 1 : n * factorial(n - 1); }
+function factorial(n: number): number { return n < 2 ? 1 : n * factorial(n - 1); }
 
 p4.require(factorial);
 
@@ -44,7 +44,7 @@ p4.map(function (n: number) { return Math.pow(10, n); }).reduce(add).then(log);
 
 var p5 = new Parallel([1, 2, 3]);
 
-function dbl(n) { return n * 2; }
+function dbl(n: number) { return n * 2; }
 
 p5.map(dbl).map(dbl).map(dbl).then(function (data) {
 	console.log(data); // logs [8, 16, 24]

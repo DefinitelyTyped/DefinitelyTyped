@@ -6,42 +6,42 @@
 declare namespace Persona {
 
     export interface WatchOptions {
-        loggedInUser: String
-        onlogin: (String) => void
-        onlogout: () => void
-        onready?: () => void
+        loggedInUser: string;
+        onlogin: (s: string) => void;
+        onlogout: () => void;
+        onready?: () => void;
     }
 
     export interface RequestOptions {
-        backgroundColor?: String
-        siteName?: String
-        siteLogo?: String
-        termsOfService?: String
-        privacyPolicy?: String
-        returnTo?: String
-        oncancel?: () => void
+        backgroundColor?: string;
+        siteName?: string;
+        siteLogo?: string;
+        termsOfService?: string;
+        privacyPolicy?: string;
+        returnTo?: string;
+        oncancel?: () => void;
     }
 
     export interface GetOptions {
-        backgroundColor?: String
-        siteName?: String
-        siteLogo?: String
-        termsOfService?: String
-        privacyPolicy?: String
+        backgroundColor?: string;
+        siteName?: string;
+        siteLogo?: string;
+        termsOfService?: string;
+        privacyPolicy?: string;
     }
 
     export interface Persona {
-        watch( options: WatchOptions ): void
-        request( options: RequestOptions ): void
-        request(): void
-        logout(): void
-        get( gotAssertion: (String) => void ): void
-        get( gotAssertion: (String) => void, options: GetOptions ): void
+        watch(options: WatchOptions): void;
+        request(options: RequestOptions): void;
+        request(): void;
+        logout(): void;
+        get(gotAssertion: (s: string) => void): void;
+        get(gotAssertion: (s: string) => void, options: GetOptions): void;
     }
 
 }
 
 interface Navigator {
-    id: Persona.Persona
+    id: Persona.Persona;
 }
 
