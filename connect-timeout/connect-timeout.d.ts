@@ -3,8 +3,6 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 declare namespace Express {
     export interface Request {
         /**
@@ -21,7 +19,7 @@ declare namespace Express {
 }
 
 declare module "connect-timeout" {
-    import express = require("../express");
+    import express = require("express");
 
     namespace e {
         /**

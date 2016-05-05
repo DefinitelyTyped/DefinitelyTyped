@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-type Callback = (err: Error, stdout: string, stderr: string) => any;
-declare function compile(src: string, callback: Callback): void;
-declare function compile(src: string, options: { [k: string]: string | string[] },
+export type Callback = (err: Error, stdout: string, stderr: string) => any;
+export function compile(src: string, callback: Callback): void;
+export function compile(src: string, options: { [k: string]: string | string[] },
     callback: Callback): void;

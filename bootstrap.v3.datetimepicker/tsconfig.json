@@ -1,4 +1,5 @@
 {
+	"files": ["bootstrap.v3.datetimepicker.d.ts", "bootstrap.v3.datetimepicker-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

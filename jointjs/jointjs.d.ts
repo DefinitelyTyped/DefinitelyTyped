@@ -3,8 +3,7 @@
 // Definitions by: Aidan Reel <http://github.com/areel>, David Durman <http://github.com/DavidDurman>, Ewout Van Gossum <https://github.com/DenEwout>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../backbone/backbone.d.ts" />
-
+/// <reference path="../backbone/index.d.ts" />
 
 declare namespace joint {
 

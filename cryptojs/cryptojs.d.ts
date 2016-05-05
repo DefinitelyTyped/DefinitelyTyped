@@ -7,6 +7,10 @@ declare var CryptoJS: CryptoJS.CryptoJSStatic;
 
 declare namespace CryptoJS{
     namespace lib{
+        type SomeArray = ArrayBuffer |
+                        Int8Array | Int16Array | Int32Array |
+                        Uint8Array | Uint16Array | Uint32Array;
+
         interface Base{
             extend(overrides: Object): Object
             init(...args: any[]): void
@@ -19,20 +23,12 @@ declare namespace CryptoJS{
         interface WordArray extends Base{
             words: number[]
             sigBytes: number
+
+            init(typedArray: SomeArray): void
             init(words?: number[], sigBytes?: number): void
+
+            create(typedArray: SomeArray): WordArray;
             create(words?: number[], sigBytes?: number): WordArray
-
-            init(typedArray: ArrayBuffer): void
-            init(typedArray: Int8Array): void
-
-            //Because TypeScript uses a structural type system then we don't need (& can't)
-            //declare oveload function init, create for the following type (same as Int8Array):
-            //then Uint8Array, Int16Array, Uint16Array, Int32Array, Uint32Array, Float32Array, Float64Array
-            //Note also: Uint8ClampedArray is not defined in lib.d.ts & not supported in IE
-            //@see http://compatibility.shwups-cms.ch/en/home?&property=Uint8ClampedArray
-
-            create(typedArray: ArrayBuffer): WordArray
-            create(typedArray: Int8Array): WordArray
 
             toString(encoder?: enc.IEncoder): string
             concat(wordArray: WordArray): WordArray

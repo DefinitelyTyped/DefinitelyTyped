@@ -3,7 +3,7 @@
 // Definitions by: Peter Palotas <https://github.com/alphaleonis/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../backbone/backbone.d.ts" />
+HTMLElement
 
 declare namespace Backbone {
     interface Radio {

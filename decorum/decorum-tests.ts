@@ -92,7 +92,7 @@ Validator.decorate(MyOtherModel, {
     ]
 });
 
-var otherValidator = Validator.new(new MyOtherModel());
+var otherValidator = Validator.new(MyOtherModel());
 otherValidator.validateField('foo', '');
 
 // Custom validator

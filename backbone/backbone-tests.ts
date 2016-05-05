@@ -1,4 +1,3 @@
-/// <reference path="backbone.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
 
 function test_events() {

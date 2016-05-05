@@ -74,7 +74,7 @@ var testSource:AltJS.Source = {
             remote() {
                 return new Promise<string>((res:any, rej:any) => {
                     setTimeout(() => {
-                        if(true) {
+                        if(!!true) {
                             res("stuff");
                         } else {
                             rej("Things have broken");

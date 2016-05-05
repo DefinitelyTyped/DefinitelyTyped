@@ -5,6 +5,11 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
+export = Backbone;
+export as namespace Backbone;
+
+import * as _ from 'underscore';
+
 declare namespace Backbone {
 
     interface AddOptions extends Silenceable {
@@ -387,8 +392,4 @@ declare namespace Backbone {
     // Utility
     function noConflict(): typeof Backbone;
     var $: JQueryStatic;
-}
-
-declare module "backbone" {
-    export = Backbone;
 }

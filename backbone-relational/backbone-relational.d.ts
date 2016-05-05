@@ -3,11 +3,11 @@
 // Definitions by: Eirik Hoem <https://github.com/eirikhm/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 /// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../backbone/backbone.d.ts" />
 
-declare namespace Backbone {
+import * as Backbone from 'backbone';
+
+declare module 'backbone' {
     class RelationalModel extends Model {
         /**
         * Do not use, prefer TypeScript's extend functionality.

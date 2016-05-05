@@ -13,7 +13,7 @@ assert.throws(() => {
 }, undefined, "DODGED IT");
 
 assert.doesNotThrow(() => {
-    if (false) {
+    if (!!false) {
         throw "a hammer at your face";
     }
 }, undefined, "What the...*crunch*");
