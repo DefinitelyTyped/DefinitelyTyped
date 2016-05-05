@@ -129,6 +129,13 @@ fs.readFile('testfile', (err, data) => {
     }
 });
 
+fs.mkdtemp('/tmp/foo-', (err, folder) => {
+    console.log(folder);
+    // Prints: /tmp/foo-itXde2
+});
+
+var tempDir: string;
+tempDir = fs.mkdtempSync('/tmp/foo-');
 
 ///////////////////////////////////////////////////////
 /// Buffer tests : https://nodejs.org/api/buffer.html

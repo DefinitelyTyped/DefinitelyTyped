@@ -1489,6 +1489,20 @@ declare module "fs" {
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdirSync(path: string, mode?: string): void;
+    /*
+     * Asynchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
+     *
+     * @param prefix
+     * @param callback The created folder path is passed as a string to the callback's second parameter.
+     */
+    export function mkdtemp(prefix: string, callback?: (err: NodeJS.ErrnoException, folder: string) => void): void;
+    /*
+     * Synchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
+     *
+     * @param prefix
+     * @returns Returns the created folder path.
+     */
+    export function mkdtempSync(prefix: string): string;
     export function readdir(path: string, callback?: (err: NodeJS.ErrnoException, files: string[]) => void): void;
     export function readdirSync(path: string): string[];
     export function close(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
