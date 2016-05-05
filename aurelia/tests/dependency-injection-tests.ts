@@ -333,7 +333,7 @@ class App_02 {
 class Logger_03 { }
 
 class App_03 {
-    static inject;
+    static inject: any;
     logger: any;
     constructor(logger: any) {
         this.logger = logger;
@@ -591,8 +591,8 @@ class Logger_23 { }
 
 class App1_23 {
     static inject() { return [Lazy.of(Logger_23)]; };
-    getLogger;
-    constructor(getLogger) {
+    getLogger: any;
+    constructor(getLogger: any) {
         this.getLogger = getLogger;
     }
 }
@@ -606,8 +606,8 @@ class Logger_24 extends LoggerBase_24 { }
 
 class App_24 {
     static inject() { return [All.of(LoggerBase_24)]; };
-    loggers;
-    constructor(loggers) {
+    loggers: any;
+    constructor(loggers: any) {
         this.loggers = loggers;
     }
 }
