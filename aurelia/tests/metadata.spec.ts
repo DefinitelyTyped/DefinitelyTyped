@@ -1,3 +1,5 @@
+/// <reference path="../aurelia-dependency-injection.d.ts" />
+
 import {Container, Parent} from 'aurelia-dependency-injection';
 
 export var run = () => {
