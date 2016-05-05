@@ -45,6 +45,9 @@ inst = inst.merge(str, data);
 inst = inst.merge(str, obj);
 inst = inst.merge(str, regex);
 
+inst = inst.query(obj);
+inst = inst.query(bool);
+
 inst = inst.intercept(str, str);
 inst = inst.intercept(str, str, str);
 inst = inst.intercept(str, str, obj);

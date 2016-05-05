@@ -4,7 +4,7 @@ import restify = require("restify");
 
 var server = restify.createServer({
   formatters: {
-    'application/foo': function formatFoo(req, res, body) {
+    'application/foo': function formatFoo(req: restify.Request, res: restify.Response, body: any) {
         if (body instanceof Error)
             return body.stack;
 
@@ -37,7 +37,7 @@ server.use((req, res, next)=>{});
 server.use([(req, res, next)=>{}]);
 server.use((req, res, next)=>{}, (req, res, next)=>{});
 
-function send(req, res, next) {
+function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.header('key', 'val');
     req.header('key') === 'val';
     
@@ -77,7 +77,7 @@ function send(req, res, next) {
 
     res.code === 50;
     res.contentLength === 50;
-    res.charSet === 'test';
+    res.charSet('test');
     res.contentType === 'test';
     res.headers;
     res.id === 'test';
@@ -92,30 +92,126 @@ server.put( '/hello', send);
 server.del( '/hello', send);
 server.get( '/hello', send);
 server.head('/hello', send);
+server.opts('/hello', send);
 
 server.post(/(.*)/, send);
 server.put( /(.*)/, send);
 server.del( /(.*)/, send);
 server.get( /(.*)/, send);
 server.head(/(.*)/, send);
+server.opts(/(.*)/, send);
 
-new restify.ConflictError("test");
-new restify.InvalidArgumentError("message");
-new restify.RestError("message");
-new restify.BadDigestError("message");
-new restify.BadMethodError("message");
-new restify.BadRequestError('test');
-new restify.InternalError("message");
-new restify.InvalidContentError("message");
-new restify.InvalidCredentialsError("message");
-new restify.InvalidHeaderError("message");
-new restify.InvalidVersionError("message");
-new restify.MissingParameterError("message");
-new restify.NotAuthorizedError("message");
-new restify.RequestExpiredError("jjmessage");
-new restify.RequestThrottledError("message");
-new restify.ResourceNotFoundError("message");
-new restify.WrongAcceptError("message");
+
+new restify.BadRequestError();
+new restify.UnauthorizedError();
+new restify.PaymentRequiredError();
+new restify.ForbiddenError();
+new restify.NotFoundError();
+new restify.MethodNotAllowedError();
+new restify.NotAcceptableError();
+new restify.ProxyAuthenticationRequiredError();
+new restify.RequestTimeoutError();
+new restify.ConflictError();
+new restify.GoneError();
+new restify.LengthRequiredError();
+new restify.RequestEntityTooLargeError();
+new restify.RequesturiTooLargeError();
+new restify.UnsupportedMediaTypeError();
+new restify.RequestedRangeNotSatisfiableError();
+new restify.ExpectationFailedError();
+new restify.ImATeapotError();
+new restify.UnprocessableEntityError();
+new restify.LockedError();
+new restify.FailedDependencyError();
+new restify.UnorderedCollectionError();
+new restify.UpgradeRequiredError();
+new restify.PreconditionRequiredError();
+new restify.TooManyRequestsError();
+new restify.RequestHeaderFieldsTooLargeError();
+new restify.InternalServerError();
+new restify.NotImplementedError();
+new restify.BadGatewayError();
+new restify.ServiceUnavailableError();
+new restify.GatewayTimeoutError();
+new restify.HttpVersionNotSupportedError();
+new restify.VariantAlsoNegotiatesError();
+new restify.InsufficientStorageError();
+new restify.BandwidthLimitExceededError();
+new restify.NotExtendedError();
+new restify.NetworkAuthenticationRequiredError();
+new restify.RestError();
+
+new restify.BadRequestError(new Error(), 'foo');
+new restify.UnauthorizedError(new Error(), 'foo');
+new restify.PaymentRequiredError(new Error(), 'foo');
+new restify.ForbiddenError(new Error(), 'foo');
+new restify.NotFoundError(new Error(), 'foo');
+new restify.MethodNotAllowedError(new Error(), 'foo');
+new restify.NotAcceptableError(new Error(), 'foo');
+new restify.ProxyAuthenticationRequiredError(new Error(), 'foo');
+new restify.RequestTimeoutError(new Error(), 'foo');
+new restify.ConflictError(new Error(), 'foo');
+new restify.GoneError(new Error(), 'foo');
+new restify.LengthRequiredError(new Error(), 'foo');
+new restify.RequestEntityTooLargeError(new Error(), 'foo');
+new restify.RequesturiTooLargeError(new Error(), 'foo');
+new restify.UnsupportedMediaTypeError(new Error(), 'foo');
+new restify.RequestedRangeNotSatisfiableError(new Error(), 'foo');
+new restify.ExpectationFailedError(new Error(), 'foo');
+new restify.ImATeapotError(new Error(), 'foo');
+new restify.UnprocessableEntityError(new Error(), 'foo');
+new restify.LockedError(new Error(), 'foo');
+new restify.FailedDependencyError(new Error(), 'foo');
+new restify.UnorderedCollectionError(new Error(), 'foo');
+new restify.UpgradeRequiredError(new Error(), 'foo');
+new restify.PreconditionRequiredError(new Error(), 'foo');
+new restify.TooManyRequestsError(new Error(), 'foo');
+new restify.RequestHeaderFieldsTooLargeError(new Error(), 'foo');
+new restify.InternalServerError(new Error(), 'foo');
+new restify.NotImplementedError(new Error(), 'foo');
+new restify.BadGatewayError(new Error(), 'foo');
+new restify.ServiceUnavailableError(new Error(), 'foo');
+new restify.GatewayTimeoutError(new Error(), 'foo');
+new restify.HttpVersionNotSupportedError(new Error(), 'foo');
+new restify.VariantAlsoNegotiatesError(new Error(), 'foo');
+new restify.InsufficientStorageError(new Error(), 'foo');
+new restify.BandwidthLimitExceededError(new Error(), 'foo');
+new restify.NotExtendedError(new Error(), 'foo');
+new restify.NetworkAuthenticationRequiredError(new Error(), 'foo');
+new restify.RestError(new Error(), 'foo');
+
+new restify.PreconditionFailedError(new Error(), 'foo');
+new restify.BadDigestError(new Error(), 'foo');
+new restify.BadMethodError(new Error(), 'foo');
+new restify.InternalError(new Error(), 'foo');
+new restify.InvalidArgumentError(new Error(), 'foo');
+new restify.InvalidContentError(new Error(), 'foo');
+new restify.InvalidCredentialsError(new Error(), 'foo');
+new restify.InvalidHeaderError(new Error(), 'foo');
+new restify.InvalidVersionError(new Error(), 'foo');
+new restify.MissingParameterError(new Error(), 'foo');
+new restify.NotAuthorizedError(new Error(), 'foo');
+new restify.RequestExpiredError(new Error(), 'foo');
+new restify.RequestThrottledError(new Error(), 'foo');
+new restify.ResourceNotFoundError(new Error(), 'foo');
+new restify.WrongAcceptError(new Error(), 'foo');
+
+new restify.PreconditionFailedError();
+new restify.BadDigestError();
+new restify.BadMethodError();
+new restify.InternalError();
+new restify.InvalidArgumentError();
+new restify.InvalidContentError();
+new restify.InvalidCredentialsError();
+new restify.InvalidHeaderError();
+new restify.InvalidVersionError();
+new restify.MissingParameterError();
+new restify.NotAuthorizedError();
+new restify.RequestExpiredError();
+new restify.RequestThrottledError();
+new restify.ResourceNotFoundError();
+new restify.WrongAcceptError();
+
 
 server.name = "";
 server.version = "";
@@ -153,7 +249,15 @@ server.on('after', restify.auditLogger({
     log: ()=>{}
 }));
 
-restify.defaultResponseHeaders = function(data) {
+server.on('after', (req: restify.Request, res: restify.Response, route: restify.Route, err: any) => {
+    route.spec.method === 'GET';
+    route.spec.name === 'routeName';
+    route.spec.path === '/some/path';
+    route.spec.versions === ['v1'];
+    restify.auditLogger({ log: ()=>{} })(req, res, route, err);
+});
+
+restify.defaultResponseHeaders = function(data: any) {
   this.header('Server', 'helloworld');
 };
 
@@ -180,18 +284,16 @@ client = restify.createStringClient({
     version: ""
 });
 
-client.get("test", send);
-client.head('test', send);
-client.post('path', {}, send);
-client.put('path', {}, send);
-client.del('path', send);
+client.head('test', function(err: any, req: restify.Request, res: restify.Response) { });
+client.put('path', {}, function(err: any, req: restify.Request, res: restify.Response, obj: any) { });
+client.del('path', function(err: any, req: restify.Request, res: restify.Response) { });
 
-client.post('/foo', { hello: 'world' }, function(err, req, res, obj) {
+client.post('/foo', { hello: 'world' }, function(err: any, req: restify.Request, res: restify.Response, obj: any) {
     console.log('%d -> %j', res.statusCode, res.headers);
     console.log('%j', obj);
 });
 
-client.get('/foo/bar', function(err, req, res, data) {
+client.get('/foo/bar', function(err: any, req: restify.Request, res: restify.Response, data: string) {
     console.log('%s', data);
 });
 
@@ -199,13 +301,13 @@ var client2 = restify.createClient({
   url: 'http://127.0.0.1'
 });
 
-client2.get('/str/mcavage', function(err, req) {
+client2.get('/str/mcavage', function(err: any, req: any) {
 
-    req.on('result', function(err, res) {
+    req.on('result', function(err: any, res: any) {
 
         res.body = '';
         res.setEncoding('utf8');
-        res.on('data', function(chunk) {
+        res.on('data', function(chunk: string) {
             res.body += chunk;
         });
 

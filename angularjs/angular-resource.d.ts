@@ -1,15 +1,19 @@
-// Type definitions for Angular JS 1.3 (ngResource module)
+// Type definitions for Angular JS 1.5 (ngResource module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Michael Jess <http://github.com/miffels>
 // Definitions: https://github.com/daptiv/DefinitelyTyped
 
 /// <reference path="angular.d.ts" />
 
+declare module 'angular-resource' {
+    var _: string;
+    export = _;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // ngResource module (angular-resource.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module ng.resource {
+declare namespace angular.resource {
 
     /**
      * Currently supported options for the $resource factory options argument.
@@ -19,7 +23,13 @@ declare module ng.resource {
          * If true then the trailing slashes from any calculated URL will be stripped (defaults to true)
          */
         stripTrailingSlashes?: boolean;
+        /**
+         * If true, the request made by a "non-instance" call will be cancelled (if not already completed) by calling
+         * $cancelRequest() on the call's return value. This can be overwritten per action. (Defaults to false.)
+         */
+        cancellable?: boolean;
     }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // ResourceService
@@ -46,9 +56,43 @@ declare module ng.resource {
     // Just a reference to facilitate describing new actions
     interface IActionDescriptor {
         method: string;
-        isArray?: boolean;
         params?: any;
+        url?: string;
+        isArray?: boolean;
+        transformRequest?: angular.IHttpRequestTransformer | angular.IHttpRequestTransformer[];
+        transformResponse?: angular.IHttpResponseTransformer | angular.IHttpResponseTransformer[];
         headers?: any;
+        cache?: boolean | angular.ICacheObject;
+        /**
+         * Note: In contrast to $http.config, promises are not supported in $resource, because the same value
+         * would be used for multiple requests. If you are looking for a way to cancel requests, you should
+         * use the cancellable option.
+         */
+        timeout?: number
+        cancellable?: boolean;
+        withCredentials?: boolean;
+        responseType?: string;
+        interceptor?: IHttpInterceptor;
+    }
+
+    // Allow specify more resource methods
+    // No need to add duplicates for all four overloads.
+    interface IResourceMethod<T> {
+        (): T;
+        (params: Object): T;
+        (success: Function, error?: Function): T;
+        (params: Object, success: Function, error?: Function): T;
+        (params: Object, data: Object, success?: Function, error?: Function): T;
+    }
+
+    // Allow specify resource moethod which returns the array
+    // No need to add duplicates for all four overloads.
+    interface IResourceArrayMethod<T> {
+        (): IResourceArray<T>;
+        (params: Object): IResourceArray<T>;
+        (success: Function, error?: Function): IResourceArray<T>;
+        (params: Object, success: Function, error?: Function): IResourceArray<T>;
+        (params: Object, data: Object, success?: Function, error?: Function): IResourceArray<T>;
     }
 
     // Baseclass for everyresource with default actions.
@@ -70,93 +114,83 @@ declare module ng.resource {
     // https://github.com/angular/angular.js/blob/v1.2.0/src/ngResource/resource.js#L538-L549
     interface IResourceClass<T> {
         new(dataOrParams? : any) : T;
-        get(): T;
-        get(params: Object): T;
-        get(success: Function, error?: Function): T;
-        get(params: Object, success: Function, error?: Function): T;
-        get(params: Object, data: Object, success?: Function, error?: Function): T;
+        get: IResourceMethod<T>;
 
-        query(): IResourceArray<T>;
-        query(params: Object): IResourceArray<T>;
-        query(success: Function, error?: Function): IResourceArray<T>;
-        query(params: Object, success: Function, error?: Function): IResourceArray<T>;
-        query(params: Object, data: Object, success?: Function, error?: Function): IResourceArray<T>;
+        query: IResourceArrayMethod<T>;
 
-        save(): T;
-        save(data: Object): T;
-        save(success: Function, error?: Function): T;
-        save(data: Object, success: Function, error?: Function): T;
-        save(params: Object, data: Object, success?: Function, error?: Function): T;
+        save: IResourceMethod<T>;
 
-        remove(): T;
-        remove(params: Object): T;
-        remove(success: Function, error?: Function): T;
-        remove(params: Object, success: Function, error?: Function): T;
-        remove(params: Object, data: Object, success?: Function, error?: Function): T;
+        remove: IResourceMethod<T>;
 
-        delete(): T;
-        delete(params: Object): T;
-        delete(success: Function, error?: Function): T;
-        delete(params: Object, success: Function, error?: Function): T;
-        delete(params: Object, data: Object, success?: Function, error?: Function): T;
+        delete: IResourceMethod<T>;
     }
 
     // Instance calls always return the the promise of the request which retrieved the object
     // https://github.com/angular/angular.js/blob/v1.2.0/src/ngResource/resource.js#L538-L546
     interface IResource<T> {
-        $get(): ng.IPromise<T>;
-        $get(params?: Object, success?: Function, error?: Function): ng.IPromise<T>;
-        $get(success: Function, error?: Function): ng.IPromise<T>;
+        $get(): angular.IPromise<T>;
+        $get(params?: Object, success?: Function, error?: Function): angular.IPromise<T>;
+        $get(success: Function, error?: Function): angular.IPromise<T>;
 
-        $query(): ng.IPromise<IResourceArray<T>>;
-        $query(params?: Object, success?: Function, error?: Function): ng.IPromise<IResourceArray<T>>;
-        $query(success: Function, error?: Function): ng.IPromise<IResourceArray<T>>;
+        $query(): angular.IPromise<IResourceArray<T>>;
+        $query(params?: Object, success?: Function, error?: Function): angular.IPromise<IResourceArray<T>>;
+        $query(success: Function, error?: Function): angular.IPromise<IResourceArray<T>>;
 
-        $save(): ng.IPromise<T>;
-        $save(params?: Object, success?: Function, error?: Function): ng.IPromise<T>;
-        $save(success: Function, error?: Function): ng.IPromise<T>;
+        $save(): angular.IPromise<T>;
+        $save(params?: Object, success?: Function, error?: Function): angular.IPromise<T>;
+        $save(success: Function, error?: Function): angular.IPromise<T>;
 
-        $remove(): ng.IPromise<T>;
-        $remove(params?: Object, success?: Function, error?: Function): ng.IPromise<T>;
-        $remove(success: Function, error?: Function): ng.IPromise<T>;
+        $remove(): angular.IPromise<T>;
+        $remove(params?: Object, success?: Function, error?: Function): angular.IPromise<T>;
+        $remove(success: Function, error?: Function): angular.IPromise<T>;
 
-        $delete(): ng.IPromise<T>;
-        $delete(params?: Object, success?: Function, error?: Function): ng.IPromise<T>;
-        $delete(success: Function, error?: Function): ng.IPromise<T>;
+        $delete(): angular.IPromise<T>;
+        $delete(params?: Object, success?: Function, error?: Function): angular.IPromise<T>;
+        $delete(success: Function, error?: Function): angular.IPromise<T>;
+
+        $cancelRequest(): void;
 
         /** the promise of the original server interaction that created this instance. **/
-        $promise : ng.IPromise<T>;
+        $promise : angular.IPromise<T>;
         $resolved : boolean;
+        toJSON(): T;
     }
 
     /**
      * Really just a regular Array object with $promise and $resolve attached to it
      */
-    interface IResourceArray<T> extends Array<T> {
+    interface IResourceArray<T> extends Array<T & IResource<T>> {
         /** the promise of the original server interaction that created this collection. **/
-        $promise : ng.IPromise<IResourceArray<T>>;
+        $promise : angular.IPromise<IResourceArray<T>>;
         $resolved : boolean;
     }
 
     /** when creating a resource factory via IModule.factory */
     interface IResourceServiceFactoryFunction<T> {
-        ($resource: ng.resource.IResourceService): IResourceClass<T>;
-        <U extends IResourceClass<T>>($resource: ng.resource.IResourceService): U;
+        ($resource: angular.resource.IResourceService): IResourceClass<T>;
+        <U extends IResourceClass<T>>($resource: angular.resource.IResourceService): U;
     }
+
+    // IResourceServiceProvider used to configure global settings
+    interface IResourceServiceProvider extends angular.IServiceProvider {
+
+        defaults: IResourceOptions;
+    }
+
 }
 
 /** extensions to base ng based on using angular-resource */
-declare module ng {
+declare namespace angular {
 
     interface IModule {
         /** creating a resource service factory */
-        factory(name: string, resourceServiceFactoryFunction: ng.resource.IResourceServiceFactoryFunction<any>): IModule;
+        factory(name: string, resourceServiceFactoryFunction: angular.resource.IResourceServiceFactoryFunction<any>): IModule;
     }
 }
 
 interface Array<T>
 {
     /** the promise of the original server interaction that created this collection. **/
-    $promise : ng.IPromise<Array<T>>;
+    $promise : angular.IPromise<Array<T>>;
     $resolved : boolean;
 }

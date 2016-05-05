@@ -3,7 +3,7 @@
 // NOTE: import statement can not use in TypeScript 1.0.1
 var program:commander.IExportedCommand = require('commander');
 
-declare module commander {
+declare namespace commander {
     interface IExportedCommand {
         peppers:boolean;
         pineapple:boolean;
@@ -43,7 +43,7 @@ function increaseVerbosity(v:any, total:number) {
     return total + 1;
 }
 
-declare module commander {
+declare namespace commander {
     interface IExportedCommand {
         integer:number;
         float:number;
@@ -94,6 +94,13 @@ program.on('--help', () => {
     console.log('    $ custom-help -h');
     console.log('');
 });
+
+program
+    .command('allow-unknown-option')
+    .allowUnknownOption()
+    .action(() => {
+        console.log('unknown option is allowed');
+    });
 
 program.parse(process.argv);
 

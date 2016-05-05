@@ -1,7 +1,7 @@
-// Type definitions for rest.js v1.2.0
+// Type definitions for rest.js v1.3.1
 // Project: https://github.com/cujojs/rest
 // Definitions by: Wim Looman <https://github.com/Nemo157>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../when/when.d.ts" />
 
@@ -13,7 +13,11 @@ declare module "rest" {
 	function rest(path: string): rest.ResponsePromise;
 	function rest(request: rest.Request): rest.ResponsePromise;
 
-	module rest {
+	namespace rest {
+		export function setDefaultClient(client: Client): void;
+		export function getDefaultClient(): Client;
+		export function resetDefaultClient(): void;
+
 		export function wrap<T>(interceptor: Interceptor<T>, config?: T): Client;
 
 		export interface Request {
@@ -73,7 +77,7 @@ declare module "rest/interceptor" {
 
 	function interceptor<T, U>(config: interceptor.Config<T, U>): rest.Interceptor<T>;
 
-	module interceptor {
+	namespace interceptor {
 		interface Config<T, U> {
 			init?: (config: T) => U;
 			request?: (request: rest.Request, config: U, meta: rest.Meta) => rest.Request | when.Promise<rest.Request>;
@@ -91,7 +95,7 @@ declare module "rest/interceptor/defaultRequest" {
 
 	var defaultRequest: rest.Interceptor<defaultRequest.Config>;
 
-	module defaultRequest {
+	namespace defaultRequest {
 		interface Config {
 			method?: string;
 			path?: string;
@@ -110,7 +114,7 @@ declare module "rest/interceptor/hateoas" {
 
 	var hateoas: rest.Interceptor<hateoas.Config>;
 
-	module hateoas {
+	namespace hateoas {
 		interface Config {
 			target?: string;
 			client?: rest.Client;
@@ -125,7 +129,7 @@ declare module "rest/interceptor/location" {
 
 	var location: rest.Interceptor<location.Config>;
 
-	module location {
+	namespace location {
 		interface Config {
 			client?: rest.Client;
 			code?: number;
@@ -141,7 +145,7 @@ declare module "rest/interceptor/mime" {
 
 	var mime: rest.Interceptor<mime.Config>;
 
-	module mime {
+	namespace mime {
 		interface Config {
 			mime?: string;
 			accept?: string;
@@ -158,7 +162,7 @@ declare module "rest/interceptor/pathPrefix" {
 
 	var pathPrefix: rest.Interceptor<pathPrefix.Config>;
 
-	module pathPrefix {
+	namespace pathPrefix {
 		interface Config {
 			prefix?: string;
 		}
@@ -172,7 +176,7 @@ declare module "rest/interceptor/basicAuth" {
 
 	var basicAuth: rest.Interceptor<basicAuth.Config>;
 
-	module basicAuth {
+	namespace basicAuth {
 		interface Config {
 			username?: string;
 			password?: string;
@@ -187,7 +191,7 @@ declare module "rest/interceptor/oAuth" {
 
 	var oAuth: rest.Interceptor<oAuth.Config>;
 
-	module oAuth {
+	namespace oAuth {
 		interface DismissWindow {
 			(): void;
 		}
@@ -211,7 +215,7 @@ declare module "rest/interceptor/csrf" {
 
 	var csrf: rest.Interceptor<csrf.Config>;
 
-	module csrf {
+	namespace csrf {
 		interface Config {
 			name?: string;
 			token?: string;
@@ -226,7 +230,7 @@ declare module "rest/interceptor/errorCode" {
 
 	var errorCode: rest.Interceptor<errorCode.Config>;
 
-	module errorCode {
+	namespace errorCode {
 		interface Config {
 			code?: number;
 		}
@@ -240,7 +244,7 @@ declare module "rest/interceptor/retry" {
 
 	var retry: rest.Interceptor<retry.Config>;
 
-	module retry {
+	namespace retry {
 		interface Config {
 			initial?: number;
 			multiplier?: number;
@@ -251,12 +255,29 @@ declare module "rest/interceptor/retry" {
 	export = retry;
 }
 
+declare module "rest/interceptor/template" {
+	import rest = require("rest");
+
+	var template: rest.Interceptor<template.Config>;
+
+	namespace template {
+		interface Config {
+			template?: string;
+			params?: {
+				[name: string]: any;
+			};
+		}
+	}
+
+	export = template;
+}
+
 declare module "rest/interceptor/timeout" {
 	import rest = require("rest");
 
 	var timeout: rest.Interceptor<timeout.Config>;
 
-	module timeout {
+	namespace timeout {
 		interface Config {
 			timeout?: number;
 			transient?: boolean;
@@ -271,7 +292,7 @@ declare module "rest/interceptor/jsonp" {
 
 	var jsonp: rest.Interceptor<jsonp.Config>;
 
-	module jsonp {
+	namespace jsonp {
 		interface Config {
 			callback?: {
 				param?: string;
@@ -305,7 +326,7 @@ declare module "rest/mime/registry" {
 
 	var registry: registry.Registry;
 
-	module registry {
+	namespace registry {
 		interface MIMEConverter {
 			read(value: string): any | when.Promise<any>;
 			write(value: any): string | when.Promise<string>;
@@ -318,4 +339,28 @@ declare module "rest/mime/registry" {
 	}
 
 	export = registry;
+}
+
+declare module "rest/client/xhr" {
+	import rest = require("rest");
+	var xhr: rest.Client;
+	export = xhr;
+}
+
+declare module "rest/client/node" {
+	import rest = require("rest");
+	var node: rest.Client;
+	export = node;
+}
+
+declare module "rest/client/jsonp" {
+	import rest = require("rest");
+	var jsonp: rest.Client;
+	export = jsonp;
+}
+
+declare module "rest/client/xdr" {
+	import rest = require("rest");
+	var xdr: rest.Client;
+	export = xdr;
 }

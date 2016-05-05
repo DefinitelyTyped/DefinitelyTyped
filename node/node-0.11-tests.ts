@@ -1,4 +1,4 @@
-/// <reference path="node.d.ts" />
+/// <reference path="node-0.11.d.ts" />
 
 import assert = require("assert");
 import fs = require("fs");
@@ -11,6 +11,7 @@ import http = require("http");
 import net = require("net");
 import dgram = require("dgram");
 import querystring = require('querystring');
+import readline = require('readline');
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -60,13 +61,20 @@ class Networker extends events.EventEmitter {
     }
 }
 
+var errno: number;
+fs.readFile('testfile', (err, data) => {
+    if (err && err.errno) {
+        errno = err.errno;
+    }
+});
+
 url.format(url.parse('http://www.example.com/xyz'));
 
 // https://google.com/search?q=you're%20a%20lizard%2C%20gary
 url.format({
-    protocol: 'https', 
-    host: "google.com", 
-    pathname: 'search', 
+    protocol: 'https',
+    host: "google.com",
+    pathname: 'search',
     query: { q: "you're a lizard, gary" }
 });
 
@@ -106,7 +114,7 @@ request.abort();
 ////////////////////////////////////////////////////
 /// Http tests : http://nodejs.org/api/http.html
 ////////////////////////////////////////////////////
-module http_tests {
+namespace http_tests {
     // Status codes
     var code = 100;
     var codeMessage = http.STATUS_CODES['400'];
@@ -132,5 +140,22 @@ var escaped: string = querystring.escape(original);
 console.log(escaped);
 // http%3A%2F%2Fexample.com%2Fproduct%2Fabcde.html
 var unescaped: string = querystring.unescape(escaped);
-console.log(unescaped); 
+console.log(unescaped);
 // http://example.com/product/abcde.html
+
+////////////////////////////////////////////////////
+///ReadLine tests : https://nodejs.org/docs/v0.11.0/api/readline.html
+////////////////////////////////////////////////////
+
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+rl.setPrompt("$>");
+rl.prompt();
+rl.prompt(true);
+
+rl.question("do you like typescript?", function(answer: string) {
+  rl.close();
+});

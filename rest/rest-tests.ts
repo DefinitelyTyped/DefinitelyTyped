@@ -13,6 +13,7 @@ import oAuth = require('rest/interceptor/oAuth');
 import csrf = require('rest/interceptor/csrf');
 import errorCode = require('rest/interceptor/errorCode');
 import retry = require('rest/interceptor/retry');
+import template = require('rest/interceptor/template');
 import timeout = require('rest/interceptor/timeout');
 import jsonp = require('rest/interceptor/jsonp');
 import xdomain = require('rest/interceptor/ie/xdomain');
@@ -127,11 +128,26 @@ client = rest
     .wrap(csrf)
     .wrap(errorCode)
     .wrap(retry)
+    .wrap(template, { template: 'auth={token}', params: { token: 'hunter2' } })
     .wrap(timeout)
     .wrap(jsonp)
     .wrap(xdomain)
     .wrap(xhr)
     .wrap(noop)
     .wrap(fail)
-    .wrap(knownConfig, { prop: 'value' })
+    .wrap<KnownConfig>(knownConfig, { prop: 'value' })
     .wrap(transformedConfig, { prop: 'value' });
+
+import xhrClient = require('rest/client/xhr');
+import nodeClient = require('rest/client/node');
+import jsonpClient = require('rest/client/jsonp');
+import xdrClient = require('rest/client/xdr');
+
+rest.setDefaultClient(xhrClient);
+rest.setDefaultClient(nodeClient);
+rest.setDefaultClient(jsonpClient);
+rest.setDefaultClient(xdrClient);
+
+var defaultClient: rest.Client = rest.getDefaultClient();
+
+rest.resetDefaultClient();

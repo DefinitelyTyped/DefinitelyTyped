@@ -11,6 +11,8 @@ function ModuleTest(): void {
 
     var myTypedArray = new Uint8Array(10);
     var buf = Module._malloc(myTypedArray.length*myTypedArray.BYTES_PER_ELEMENT);
+    Module.setValue(buf, 10, 'i32');
+    var x = Module.getValue(buf, 'i32') + 123;
     Module.HEAPU8.set(myTypedArray, buf);
     Module.ccall('my_function', 'number', ['number'], [buf]);
     Module._free(buf);
@@ -50,7 +52,7 @@ function FSTest(): void {
     FS.symlink('file', 'link');
 
     FS.writeFile('forbidden', 'can\'t touch this');
-    FS.chmod('forbidden', 0000);
+    FS.chmod('forbidden', parseInt("0000", 8));
 
     FS.writeFile('file', 'foobar');
     FS.truncate('file', 3);
