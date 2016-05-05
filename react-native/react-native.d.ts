@@ -22,8 +22,7 @@
 import React = __React;
 
 //react-native "extends" react
-declare module "react-native" {
-
+declare namespace  __React {
 
     /**
      * Represents the completion of an asynchronous operation
@@ -149,7 +148,9 @@ declare module "react-native" {
     /**
      * @see https://github.com/facebook/react-native/blob/master/Libraries/ReactIOS/NativeMethodsMixin.js
      */
-    export class Component<P, S> extends React.Component<P, S> {
+    // export class Component<P, S> extends React.Component<P, S> {
+    export interface NativeComponent {
+
       /**
        * Determines the location on screen, width, and height of the given view and
        * returns the values via an async callback. If successful, the callback will
@@ -321,9 +322,10 @@ declare module "react-native" {
     /**
      * //FIXME: need to find documentation on which compoenent is a native (i.e. non composite component)
      */
+    /*
     export interface NativeComponent {
     }
-
+    */
     /**
      * //FIXME: need to find documentation on which component is a TTouchable and can implement that interface
      * @see React.DOMAtributes
@@ -400,6 +402,8 @@ declare module "react-native" {
         }
     }
 
+    export type FlexAlignType = "flex-start" | "flex-end" | "center" | "stretch";
+    export type FlexJustifyType = "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
 
     /**
      * Flex Prop Types
@@ -408,8 +412,8 @@ declare module "react-native" {
      */
     export interface FlexStyle {
 
-        alignItems?: "flex-start" | "flex-end" | "center" | "stretch"
-        alignSelf?: "auto" | "flex-start" | "flex-end" | "center" | "stretch"
+        alignItems?: FlexAlignType;
+        alignSelf?: "auto" | FlexAlignType;
         borderBottomWidth?: number
         borderLeftWidth?: number
         borderRightWidth?: number
@@ -420,7 +424,7 @@ declare module "react-native" {
         flexDirection?: "row" | "column"
         flexWrap?: "wrap" | "nowrap"
         height?: number
-        justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around"
+        justifyContent?: FlexJustifyType
         left?: number
         margin?: number
         marginBottom?: number
@@ -485,7 +489,7 @@ declare module "react-native" {
 
     export interface StyleSheetProperties {
         hairlineWidth: number
-        flatten<T extends string | null>(style: T): T
+        flatten<T extends string>(style: T): T
     }
 
     export interface LayoutRectangle {
@@ -2780,7 +2784,6 @@ declare module "react-native" {
 
     }
 
-
     export interface StyleSheetStatic extends React.ComponentClass<StyleSheetProperties> {
         create<T>( styles: T ): T;
     }
@@ -3505,9 +3508,9 @@ declare module "react-native" {
     }
 
     export interface BackAndroidStatic {
-        exitApp(): void
-        addEventListener(eventName: string, handler: () => void)
-        removeEventListener(eventName: string, handler: () => void)
+        exitApp(): void;
+        addEventListener(eventName: string, handler: () => void): void;
+        removeEventListener(eventName: string, handler: () => void): void;
     }
 
     export interface CameraRollFetchParams {
@@ -3599,8 +3602,8 @@ declare module "react-native" {
     }
 
     export interface ClipboardStatic {
-        getString(): Promise<string>
-        setString(content: string)
+        getString(): Promise<string>;
+        setString(content: string): void;
     }
 
     export interface DatePickerAndroidOpenOption {
@@ -3649,7 +3652,7 @@ declare module "react-native" {
         removeEventListener(type: string, handler: (event: {url: string}) => void): void
         openURL(url: string): Promise<boolean>
         canOpenURL(url: string): Promise<boolean>
-        getInitialURL(): Promise<string | null>
+        getInitialURL(): Promise<string>
     }
 
     export interface LinkingIOSStatic {
@@ -3657,7 +3660,7 @@ declare module "react-native" {
         removeEventListener(type: string, handler: (event: {url: string}) => void): void
         openURL(url: string): void
         canOpenURL(url: string, callback: (supported: boolean) => void): void
-        popInitialURL(): string | null
+        popInitialURL(): string;
     }
 
 
@@ -3671,7 +3674,6 @@ declare module "react-native" {
      * - `wifi` - device is online and connected via wifi, or is the iOS simulator
      * - `cell` - device is connected via Edge, 3G, WiMax, or LTE
      * - `unknown` - error case and the network status is unknown
-
      * @see https://facebook.github.io/react-native/docs/netinfo.html#content
      */
 
@@ -4046,6 +4048,35 @@ declare module "react-native" {
         cancel(): void
     }
 
+    /**
+     * This class implements common easing functions. The math is pretty obscure,
+     * but this cool website has nice visual illustrations of what they represent:
+     * http://xaedes.de/dev/transitions/
+     */
+    export type EasingFunction = (value: number) => number;
+    export interface EasingStatic {
+        step0: EasingFunction;
+        step1: EasingFunction;
+        linear: EasingFunction;
+        ease: EasingFunction;
+        quad: EasingFunction;
+        cubic: EasingFunction;
+        poly: EasingFunction;
+        sin: EasingFunction;
+        circle: EasingFunction;
+        exp: EasingFunction;
+        elastic: EasingFunction;
+        back(s: number): EasingFunction;
+        bounce: EasingFunction;
+        bezier( x1: number,
+                y1: number,
+                x2: number,
+                y2: number): EasingFunction;
+        in(easing: EasingFunction): EasingFunction;
+        out(easing: EasingFunction): EasingFunction;
+        inOut(easing: EasingFunction): EasingFunction;
+    }
+
     export module Animated {
       // Most (all?) functions where AnimatedValue is used any subclass of Animated can be used as well.
       type AnimatedValue = Animated;
@@ -4367,6 +4398,67 @@ declare module "react-native" {
     export type clearImmediate = schedulerCanceller
     export type cancelAnimationFrame = schedulerCanceller
 
+
+    export interface TabsReducerStatic {
+        JumpToAction(index: number): any;
+    }
+
+    export type TabsReducerFunction = (params:any) => any;
+
+    export interface NavigationReducerStatic {
+        TabsReducer: any; // (TabsReducerFunction | TabsReducerStatic);
+    }
+
+    export interface NavigationTab
+    {
+        key: string;
+    }
+
+    export interface NavigationContainerProps {
+        tabs: NavigationTab[];
+        index: number;
+    }
+
+    export interface NavigationContainerStatic extends React.ComponentClass<NavigationContainerProps> {
+        create(inClass: any): any;
+    }
+
+    export interface NavigationAction
+    {
+        type: string;
+    }
+
+    export interface NavigationState {
+      key: string;
+    }
+
+    export interface NavigationParentState extends NavigationState {
+        index: number;
+        children: NavigationState[];
+    }
+
+    export type NavigationRenderer = (
+        navigationState: NavigationParentState,
+        onNavigate: (action: NavigationAction) => boolean
+    ) => JSX.Element;
+
+    export interface NavigationRootContainerProps extends React.Props<NavigationRootContainerStatic> {
+        renderNavigation: NavigationRenderer;
+        reducer: NavigationReducerStatic;
+        persistenceKey?: string;
+    }
+
+    export interface NavigationRootContainerStatic extends React.ComponentClass<NavigationRootContainerProps> {
+        getBackAction(): NavigationAction;
+        handleNavigation( action: NavigationAction ): boolean;
+    }
+
+    export interface NavigationExperimentalStatic {
+        Container: NavigationContainerStatic;
+        Reducer: NavigationReducerStatic;
+        RootContainer: NavigationRootContainerStatic;
+    }
+
     //////////////////////////////////////////////////////////////////////////
     //
     //  R E - E X P O R T S
@@ -4543,6 +4635,21 @@ declare module "react-native" {
     export var Dimensions: Dimensions;
     export var ShadowPropTypesIOS: ShadowPropTypesIOSStatic;
 
+    export type NavigationExperimental = NavigationExperimentalStatic;
+    export var NavigationExperimental: NavigationExperimentalStatic;
+
+    export type NavigationContainer = NavigationContainerStatic;
+    export var NavigationContainer: NavigationContainerStatic;
+
+    export type NavigationRootContainer = NavigationRootContainerStatic;
+    export var NavigationRootContainer: NavigationRootContainerStatic;
+
+    export type NavigationReducer = NavigationReducerStatic;
+    export var NavigationReducer: NavigationReducerStatic;
+
+    export type Easing = EasingStatic;
+    export var Easing: EasingStatic;
+
     //
     // /TODO: BGR: These are leftovers of the initial port that must be revisited
     //
@@ -4568,6 +4675,18 @@ declare module "react-native" {
 
     export function __spread( target: any, ...sources: any[] ): any;
 
+    export interface GlobalStatic {
+
+        /**
+         * Accepts a function as its only argument and calls that function before the next repaint.
+         * It is an essential building block for animations that underlies all of the JavaScript-based animation APIs.
+         * In general, you shouldn't need to call this yourself - the animation API's will manage frame updates for you.
+         * @see https://facebook.github.io/react-native/docs/animations.html#requestanimationframe
+         */
+        requestAnimationFrame( fn: () => void ) : void;
+
+    }
+
     //
     // Add-Ons
     //
@@ -4586,17 +4705,12 @@ declare module "react-native" {
     }
 }
 
-declare interface ReactNativeGlobalStatic {
-  /**
-   * Accepts a function as its only argument and calls that function before the next repaint.
-   * It is an essential building block for animations that underlies all of the JavaScript-based animation APIs.
-   * In general, you shouldn't need to call this yourself - the animation API's will manage frame updates for you.
-   * @see https://facebook.github.io/react-native/docs/animations.html#requestanimationframe
-   */
-  requestAnimationFrame( fn: () => void ) : void;
+declare module "react-native" {
+
+    import ReactNative = __React
+    export = ReactNative
 }
 
-
-declare var global: ReactNativeGlobalStatic;
+declare var global: __React.GlobalStatic
 
 declare function require( name: string ): any
