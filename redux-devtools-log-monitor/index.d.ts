@@ -35,4 +35,4 @@ interface ILogMonitorProps {
     preserveScrollTop?: boolean
 }
 
-export declare default class LogMonitor extends React.Component<ILogMonitorProps, any> { }
+export default class LogMonitor extends React.Component<ILogMonitorProps, any> { }

@@ -1,6 +1,3 @@
-
-/// <reference path="../xmldom/xmldom.d.ts" />
-
 import osmtogeojson from 'osmtogeojson';
 import {OsmJSON, GeoJSON} from 'osmtogeojson';
 import * as xmldom from 'xmldom';

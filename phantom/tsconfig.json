@@ -1,4 +1,5 @@
 {
+	"files": ["phatom.d.ts", "phantom-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

@@ -83,9 +83,9 @@ declare module "material-ui" {
     import NavigationChevronRight = __MaterialUI.SvgIcon; // require('material-ui/lib/svg-icon/navigation/chevron-right');
 
     export const Icons: {
-        NavigationMenu: NavigationMenu,
-        NavigationChevronLeft: NavigationChevronLeft,
-        NavigationChevronRight: NavigationChevronRight,
+        NavigationMenu: typeof NavigationMenu,
+        NavigationChevronLeft: typeof NavigationChevronLeft,
+        NavigationChevronRight: typeof NavigationChevronRight,
     };
 
     // export type definitions

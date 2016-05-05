@@ -5,8 +5,6 @@
 
 /// <reference path="../node/node.d.ts" />
 
-
-
 declare class Database {
     constructor(data: Buffer);
     constructor(data: Uint8Array);

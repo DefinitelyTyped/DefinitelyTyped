@@ -7,7 +7,7 @@
 
 import events = require('events');
 import express = require('express');
-import redis = require('redis');
+export import redis = require('redis');
 
 export declare class Queue extends events.EventEmitter {
     name: string;
@@ -139,7 +139,6 @@ interface TestMode {
 }
 
 export declare var app: express.Application;
-export declare var redis: Redis;
 export declare var workers: Worker[];
 
 export declare function createQueue(options?: Object): Queue;

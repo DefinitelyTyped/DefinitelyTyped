@@ -7,4 +7,4 @@
 
 
 import { Middleware } from 'redux';
-export declare default function createDebounce(): Middleware;
+export default function createDebounce(): Middleware;

@@ -3,8 +3,7 @@
 // Definitions by: Ray Martone <https://github.com/rmartone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-interface LogglyOptions {
+export interface LogglyOptions {
     token: string;
     subdomain: string;
     tags?: string[];
@@ -16,9 +15,9 @@ interface LogglyOptions {
     }
 }
 
-interface Loggly {
+export interface Loggly {
     log(message: any, tags?: string[], callback?: (err: any, results: any) => void): void;
     log(message: any, callback?: (err: any, results: any) => void): void;
 }
 
-declare function createClient(options: LogglyOptions): Loggly;
+export function createClient(options: LogglyOptions): Loggly;
