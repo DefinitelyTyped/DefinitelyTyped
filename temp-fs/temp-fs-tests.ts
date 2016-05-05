@@ -26,6 +26,6 @@ tempfs.mkdir({
     if (err) { throw err; }
 
     console.log(dir.path, dir.recursive);
-    throw new Error('Since it is tracked, tempfs will remove it for you.');
     dir.unlink();
+    throw new Error('Since it is tracked, tempfs will remove it for you.');
 });

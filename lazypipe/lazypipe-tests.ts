@@ -1,8 +1,3 @@
-
-/// <reference path="../gulp-minify-html/gulp-minify-html.d.ts" />
-
-/// <reference path="./lazypipe.d.ts" />
-
 import * as gulp from "gulp";
 import minifyHtml = require("gulp-minify-html");
 import size = require("gulp-size");

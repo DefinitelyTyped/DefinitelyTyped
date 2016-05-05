@@ -5,15 +5,14 @@
 
 /// <reference path="../node/node.d.ts" />
 
+export type ColorObject = { r: number, g: number, b: number, a?: number };
+export type Color = string | [number, number, number, number] | ColorObject;
 
-type ColorObject = { r: number, g: number, b: number, a?: number };
-type Color = string | [number, number, number, number] | ColorObject;
-
-interface ImageCallback {
+export interface ImageCallback {
     (err: any, image: Image): void;
 }
 
-interface BufferCallback {
+export interface BufferCallback {
     (err: any, buffer: Buffer): void;
 }
 
@@ -21,28 +20,28 @@ interface BufferCallback {
  * Open an image
  * @param source The path to the image on disk.
  */
-declare function open(source: string, callback: ImageCallback): void;
+export function open(source: string, callback: ImageCallback): void;
 
 /**
  * Open an image
  * @param source The path to the image on disk.
  * @param type Optional type of the image. If omitted, the type will be inferred from the file extension. Type must be a string of the image type (i.e. "jpg").
  */
-declare function open(source: string, type: string, callback: ImageCallback): void;
+export function open(source: string, type: string, callback: ImageCallback): void;
 
 /**
  * Open an image
  * @param source The path to the image on disk or an image buffer.
  * @param type Type of the image. If source is an encoded image buffer, type must be a string of the image type (i.e. "jpg"). If source is a raw pixels buffer type must be an object with type.width and type.height properties. 
  */
-declare function open(source: Buffer, type: string | { width: number, height: number }, callback: ImageCallback): any;
+export function open(source: Buffer, type: string | { width: number, height: number }, callback: ImageCallback): any;
 
 /**
  * Create a new image
  * @param width The width of the new image.
  * @param height The height of the new image.
  */
-declare function create(width: number, height: number, callback: ImageCallback): void;
+export function create(width: number, height: number, callback: ImageCallback): void;
 
 /**
  * Create a new image
@@ -50,26 +49,26 @@ declare function create(width: number, height: number, callback: ImageCallback):
  * @param height The height of the new image.
  * @param color Optional Color of the canvas.
  */
-declare function create(width: number, height: number, color: Color, callback: ImageCallback): void;
+export function create(width: number, height: number, color: Color, callback: ImageCallback): void;
 
-type JpegBufferParams = {
+export type JpegBufferParams = {
     quality?: number;
 };
 
-type PngBufferParams = {
+export type PngBufferParams = {
     compression?: string;
     interlaced?: boolean;
     transparency?: boolean | string;
 };
 
-type GifBufferParams = {
+export type GifBufferParams = {
     colors?: number;
     interlaced?: boolean;
     transparency?: boolean | string;
     threshold: number;
 }
 
-interface Image {
+export interface Image {
     // Image operations
 
     /**
@@ -555,7 +554,7 @@ interface Image {
     batch(): Batch;
 }
 
-interface Batch {
+export interface Batch {
     // Using a batch object
 
     /**

@@ -6,10 +6,6 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="./nodemailer-types.d.ts" />
 
-/// <reference path="../nodemailer-smtp-transport/nodemailer-smtp-transport.d.ts" />
-
-
-
 import directTransport = require("nodemailer-direct-transport");
 import smtpTransport = require("nodemailer-smtp-transport");
 

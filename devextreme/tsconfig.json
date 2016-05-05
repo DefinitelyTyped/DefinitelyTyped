@@ -1,4 +1,5 @@
 {
+	"files": ["devextreme.d.ts", "devextreme-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

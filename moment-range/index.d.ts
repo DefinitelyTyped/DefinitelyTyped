@@ -9,7 +9,7 @@ export as namespace moment;
 export = moment;
 
 declare namespace moment {
-    interface Range {
+    export interface Range {
         start: Moment;
         end: Moment;
 
@@ -44,6 +44,8 @@ declare namespace moment {
 }
 
 declare module '../moment' {
+    import Range = moment.Range;
+
     interface Moment {
         within (x: moment.Range): boolean;
     }
