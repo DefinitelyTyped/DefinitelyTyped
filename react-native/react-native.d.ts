@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.19
+// Type definitions for react-native 0.25
 // Project: https://github.com/facebook/react-native
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
