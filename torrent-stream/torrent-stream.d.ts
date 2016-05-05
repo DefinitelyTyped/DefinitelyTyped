@@ -15,6 +15,7 @@ declare namespace TorrentStream {
         remove(keepPieces: boolean, callback: () => void): void;
         listen(port: number, callback: () => void): void;
         swarm: Swarm;
+        infoHash: string;
         
         // Events
         on(event: "ready" | "torrent" | "idle", callback: Function): void;
