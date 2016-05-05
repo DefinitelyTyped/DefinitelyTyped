@@ -1,5 +1,5 @@
 /// <reference path="../aurelia-dependency-injection.d.ts" />
-
+/// <reference path="../../karma-jasmine/karma-jasmine.d.ts" />
 import {Container, Parent} from 'aurelia-dependency-injection';
 
 export var run = () => {
