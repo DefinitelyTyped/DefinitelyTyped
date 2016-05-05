@@ -1,5 +1,3 @@
-/// <reference path="./gulp-istanbul.d.ts"/>
-
 import gulp = require("gulp");
 import istanbul = require("gulp-istanbul");
 

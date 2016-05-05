@@ -3,14 +3,11 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
-
 /**
  * @summary Memcached options.
  * @interface
  */
-interface MemcachedStoreOptions {
+export interface MemcachedStoreOptions {
     prefix: string;
 
     /**
@@ -102,7 +99,7 @@ interface MemcachedStoreOptions {
  * @summary A memcached store adapter.
  * @class
  */
-export declare default class MemcachedStore {
+export default class MemcachedStore {
     /**
      * @summary Constructor.
      * @constructor

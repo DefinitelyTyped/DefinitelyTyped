@@ -29,7 +29,7 @@ namespace nvd3_test_multibarChart2 {
 
             return chart;
         },
-        callback: function (graph) {
+        callback: function (graph: nv.MultiBarChart) {
             nv.utils.windowResize(function () {
                 var width = nv.utils.windowSize().width;
                 var height = nv.utils.windowSize().height;

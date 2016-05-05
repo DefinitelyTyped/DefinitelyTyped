@@ -3,10 +3,7 @@
 // Definitions by: Peter Snider <https://github.com/psnider/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 /// <reference path='../node/node.d.ts' />
-
-
 
 import WritableStream = NodeJS.WritableStream;
 import EventEmitter = NodeJS.EventEmitter;
@@ -55,9 +52,7 @@ interface ParsedMail {
     attachments?: Attachment[];
 }
 
-
-
-declare class MailParser implements WritableStream {
+export class MailParser implements WritableStream {
     constructor(options?: Options);
     on(event: string, callback: (any: any) => void): this;
 

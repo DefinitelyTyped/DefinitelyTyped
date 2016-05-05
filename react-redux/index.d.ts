@@ -6,7 +6,6 @@
 /// <reference path="../react/react.d.ts" />
 /// <reference path="../redux/redux.d.ts" />
 
-
 import { ComponentClass, Component, StatelessComponent, ReactNode } from 'react';
 import { Store, Dispatch, ActionCreator } from 'redux';
 

@@ -3,7 +3,6 @@
 // Definitions by: Adam Babcock <https://github.com/mrhen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 interface Request {
     headers: {
         'x-client-ip'?: string;

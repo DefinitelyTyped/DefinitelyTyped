@@ -5,7 +5,6 @@
 
 /// <reference path="../react/react.d.ts" />
 
-
 import * as React from 'react'
 
 interface IDockMonitorProps {
@@ -55,4 +54,4 @@ interface IDockMonitorProps {
     defaultIsVisible?: boolean
 }
 
-export declare default class DockMonitor extends React.Component<IDockMonitorProps, any> { }
+export default class DockMonitor extends React.Component<IDockMonitorProps, any> { }

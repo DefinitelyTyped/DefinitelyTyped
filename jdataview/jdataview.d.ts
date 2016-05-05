@@ -80,6 +80,7 @@ declare class jDataView implements DataView {
 	writeFloat32(value: number, littleEndian?: boolean): void
 	writeFloat64(value: number, littleEndian?: boolean): void
 }
+interface jDataView extends DataView { }
 
 declare namespace jDataView {
 	interface Bytes {

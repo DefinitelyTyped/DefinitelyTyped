@@ -1,7 +1,5 @@
 /// <reference path="../node/node.d.ts" />
 
-/// <reference path="gulp-help.d.ts" />
-
 'use strict';
 
 import gulpHelp = require('gulp-help');

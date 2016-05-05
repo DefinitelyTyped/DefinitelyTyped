@@ -1,6 +1,3 @@
-/// <reference path="gulp-uglify.d.ts"/>
-
-
 import * as gulp from 'gulp';
 import * as uglify from 'gulp-uglify';
 

@@ -6,4 +6,4 @@
 
 import { Mongoose, Schema } from 'mongoose';
 
-export declare default function(mognoose: Mongoose): (schema: Schema, options: Object) => void;
+export default function(mognoose: Mongoose): (schema: Schema, options: Object) => void;

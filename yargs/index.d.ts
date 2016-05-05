@@ -3,8 +3,6 @@
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 declare namespace yargs {
     interface Argv {
         argv: any;

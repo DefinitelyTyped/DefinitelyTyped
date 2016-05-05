@@ -1,6 +1,3 @@
-
-/// <reference path="../gulp/gulp" />
-
 import gulp = require('gulp');
 import plumber = require('gulp-plumber');
 

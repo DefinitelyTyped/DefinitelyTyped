@@ -1,4 +1,3 @@
-/// <reference path="morgan.d.ts"/>
 /**
  * Created by staticfunction on 8/3/14.
  */

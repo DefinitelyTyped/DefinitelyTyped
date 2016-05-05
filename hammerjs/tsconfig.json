@@ -1,4 +1,5 @@
 {
+	"files": ["hammerjs.d.ts", "hammerjs-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

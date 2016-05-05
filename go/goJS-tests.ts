@@ -155,7 +155,7 @@ function init() {
                        o => o.diagram.commandHandler.canUngroupSelection())
             );
 
-    function nodeInfo(d) {  // Tooltip info for a node data object
+    function nodeInfo(d: any) {  // Tooltip info for a node data object
         var str = "Node " + d.key + ": " + d.text + "\n";
         if (d.group)
             str += "member of " + d.group;
@@ -203,7 +203,7 @@ function init() {
 
     // Define the appearance and behavior for Links:
 
-    function linkInfo(d) {  // Tooltip info for a link data object
+    function linkInfo(d: any) {  // Tooltip info for a link data object
         return "Link:\nfrom " + d.from + " to " + d.to;
     }
 

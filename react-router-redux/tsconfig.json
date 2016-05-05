@@ -1,4 +1,5 @@
 {
+	"files": ["react-router-redux.d.ts", "react-router-redux-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

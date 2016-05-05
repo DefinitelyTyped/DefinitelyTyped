@@ -1039,7 +1039,6 @@ function test_css() {
 function test_cssHooks() {
     if (!$.cssHooks) {
         throw ("jQuery 1.4.3 or above is required for this plugin to work");
-        return;
     }
     $.cssHooks["someCSSProp"] = {
         get: function (elem, computed, extra) { },

@@ -1,6 +1,3 @@
-
-/// <reference path="gulp-coffeeify.d.ts" />
-
 import gulp = require('gulp');
 import coffeeify = require('gulp-coffeeify');
 

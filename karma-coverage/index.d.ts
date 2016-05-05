@@ -3,10 +3,6 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-/// <reference path="../istanbul/istanbul.d.ts" />
-
-
 import * as karma from 'karma';
 import * as istanbul from 'istanbul';
 

@@ -1,4 +1,4 @@
-/// <reference path="index.d.ts"/>
+import * as moment from 'moment';
 
 // Minimum Setup
 $("#datetimepicker1").datetimepicker();

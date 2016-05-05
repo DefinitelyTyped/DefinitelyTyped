@@ -1,5 +1,3 @@
-/// <reference path="./gulp-if.d.ts"/>
-
 import gulp = require('gulp');
 import _if = require('gulp-if');
 
