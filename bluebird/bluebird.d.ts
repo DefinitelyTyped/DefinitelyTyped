@@ -195,9 +195,7 @@ interface PromiseConstructor {
      */
     // TODO verify this is correct
     // trusted promise for object
-    props(object: Promise<Object>): Promise<Object>;
-    // object
-    props(object: Object): Promise<Object>;
+    props<T>(object: T | Promise<T>): Promise<T>;
 
     /**
      * Given an array, or a promise of an array, which contains promises (or a mix of promises and values) return a promise that is fulfilled when all the items in the array are either fulfilled or rejected. The fulfillment value is an array of ``PromiseInspection`` instances at respective positions in relation to the input array.
