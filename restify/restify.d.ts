@@ -134,7 +134,7 @@ declare module "restify" {
      * @param    {Object} options an options object
      * @returns  {String}         returns the route name if creation is successful.
      */
-    mount: (options: Object) => string;
+    mount: (options: Object) => string | boolean;
     
     /**
      * unmounts a route.
@@ -150,40 +150,40 @@ declare module "restify" {
     use(handler: RequestHandler, ...handlers: RequestHandler[][]): Server;
     use(handler: RequestHandler[], ...handlers: RequestHandler[][]): Server;
 
-    post(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
-    post(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
-    post(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
-    post(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
+    post(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
+    post(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    post(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
+    post(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
-    patch(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
-    patch(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
-    patch(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
-    patch(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
+    patch(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
+    patch(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    patch(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
+    patch(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
-    put(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
-    put(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
-    put(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
-    put(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
+    put(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
+    put(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    put(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
+    put(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
-    del(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
-    del(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
-    del(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
-    del(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
+    del(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
+    del(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    del(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
+    del(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
-    get(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
-    get(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
-    get(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
-    get(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
+    get(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
+    get(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    get(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
+    get(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
-    head(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
-    head(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
-    head(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
-    head(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
+    head(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
+    head(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    head(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
+    head(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
-    opts(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
-    opts(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
-    opts(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
-    opts(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
+    opts(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
+    opts(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    opts(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
+    opts(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 	
     name: string;
     version: string;
