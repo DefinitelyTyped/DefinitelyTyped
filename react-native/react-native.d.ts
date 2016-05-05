@@ -2693,6 +2693,9 @@ declare namespace  __React {
          */
         annotations?: MapViewAnnotation[]
 
+        /**
+         * If true the map will follow the user's location whenever it changes. Note that this has no effect unless showsUserLocation is enabled. Default value is true.
+         */
         followUserLocation?: boolean
 
         /**
@@ -2879,8 +2882,18 @@ declare namespace  __React {
          */
         delayPressOut?: number;
 
+        /**
+         * If true, disable all interactions for this component.
+         */
         disabled?: boolean
 
+        /**
+         * This defines how far your touch can start away from the button.
+         * This is added to pressRetentionOffset when moving off of the button.
+         * NOTE The touch area never extends past the parent view bounds and
+         * the Z-index of sibling views always takes precedence if a touch hits
+         * two overlapping views.
+         */
         hitSlop?: {top: number, left: number, bottom: number, right: number}
 
         /**
@@ -3004,6 +3017,9 @@ declare namespace  __React {
      * @see https://facebook.github.io/react-native/docs/touchableopacity.html
      */
     export interface TouchableOpacityStatic extends React.ComponentClass<TouchableOpacityProperties> {
+        /**
+         * Determines what the opacity of the wrapped view should be when touch is active.
+         */
         setOpacityTo: (value: number) => void
     }
 
@@ -4136,8 +4152,18 @@ declare namespace  __React {
     export type AppStateStatus = "active" | "background" | "inactive"
 
     export interface AppStateStatic {
+        
         currentState: string
+        
+        /**
+         * Add a handler to AppState changes by listening to the change event
+         * type and providing the handler
+         */
         addEventListener( type: AppStateEvent, listener: ( state: AppStateStatus ) => void ): void
+
+        /**
+         * Remove a handler by passing the change event type and the handler
+         */
         removeEventListener( type: AppStateEvent, listener: ( state: AppStateStatus ) => void ): void
     }
 
@@ -4207,6 +4233,12 @@ declare namespace  __React {
         multiMerge( keyValuePairs: string[][], callback?: ( errors?: Error[] ) => void ): Promise<string>
     }
 
+    /**
+     * Detect hardware back button presses, and programmatically invoke the
+     * default back button functionality to exit the app if there are no
+     * listeners or if none of the listeners return true.
+     * Methods don't have more detailed documentation as of 0.25.
+     */
     export interface BackAndroidStatic {
         exitApp(): void;
         addEventListener(eventName: string, handler: () => void): void;
