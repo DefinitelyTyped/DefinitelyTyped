@@ -1,6 +1,6 @@
 /// <reference path="o.js.d.ts" /> 
 
-import o = require('o.js');
+import * as o from 'o.js';
 
 interface Product {
     ID : number;
