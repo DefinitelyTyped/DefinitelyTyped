@@ -1,6 +1,6 @@
 
-import {Container, inject, transient, singleton, Lazy, All, Optional, Parent} from 'aurelia-dependency-injection';
-import {decorators} from 'aurelia-metadata';
+import {Container, inject, transient, singleton, Lazy, All, Optional, Parent} from '../aurelia-dependency-injection';
+import {decorators} from '../aurelia-metadata';
 
 export var run = () => {
     describe('container', () => {
