@@ -324,7 +324,7 @@ class Logger_02 { }
 class App_02 {
     static inject() { return [Logger_02]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -335,7 +335,7 @@ class Logger_03 { }
 class App_03 {
     static inject;
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -347,14 +347,14 @@ class Logger_05 { }
 
 class App1_05 {
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
 
 class App2_05 {
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -364,14 +364,14 @@ class Logger_06 { }
 
 class App1_06 {
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
 
 class App2_06 {
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -387,7 +387,7 @@ let Logger_08 = decorators(singleton()).on(Logger_08_Class);
 class App1_08 {
     static inject() { return [Logger_08]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -395,7 +395,7 @@ class App1_08 {
 class App2_08 {
     static inject() { return [Logger_08]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -406,7 +406,7 @@ class Logger_09 { }
 class App1_09 {
     static inject() { return [Logger_09]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -414,7 +414,7 @@ class App1_09 {
 class App2_09 {
     static inject() { return [Logger_09]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -427,7 +427,7 @@ let Logger_10 = decorators(transient()).on(Logger_10_Class);
 class App1_10 {
     static inject() { return [Logger_10]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -435,7 +435,7 @@ class App1_10 {
 class App2_10 {
     static inject() { return [Logger_10]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -449,7 +449,7 @@ class Logger_12 { }
 class App1_12 {
     static inject() { return [Logger_12]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -457,7 +457,7 @@ class App1_12 {
 class App2_12 {
     static inject() { return [Logger_12]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -468,7 +468,7 @@ class Logger_13 { }
 class App1_13 {
     static inject() { return [Logger_13]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -476,7 +476,7 @@ class App1_13 {
 class App2_13 {
     static inject() { return [Logger_13]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -492,7 +492,7 @@ class App2_13 {
 //class App1_14 {
 //    static inject() { return [Logger_14]; };
 //    logger: any;
-//    constructor(logger) {
+//    constructor(logger: any) {
 //        this.logger = logger;
 //    }
 //}
@@ -500,7 +500,7 @@ class App2_13 {
 //class App2_14 {
 //    static inject() { return [Logger_14]; };
 //    logger: any;
-//    constructor(logger) {
+//    constructor(logger: any) {
 //        this.logger = logger;
 //    }
 //}
@@ -518,7 +518,7 @@ let Logger_16 = decorators(transient()).on(Logger_16_Class);
 class App1_16 {
     static inject() { return [Logger_16]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -526,7 +526,7 @@ class App1_16 {
 class App2_16 {
     static inject() { return [Logger_16]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -547,7 +547,7 @@ class Logger_20 extends LoggerBase_20 { }
 class App_20 {
     static inject() { return [LoggerBase_20]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -558,7 +558,7 @@ class Logger_21 extends LoggerBase_21 { }
 class App_21 {
     static inject() { return [LoggerBase_21]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -573,7 +573,7 @@ class App_21 {
 //class App1_22 {
 //    static inject() { return [Logger_22]; };
 //    logger: any;
-//    constructor(logger) {
+//    constructor(logger: any) {
 //        this.logger = logger;
 //    }
 //}
@@ -581,7 +581,7 @@ class App_21 {
 //class App2_22 {
 //    static inject() { return [Logger_22]; };
 //    logger: any;
-//    constructor(logger) {
+//    constructor(logger: any) {
 //        this.logger = logger;
 //    }
 //}
@@ -618,7 +618,7 @@ class Logger_25 { }
 class App_25 {
     static inject() { return [Optional.of(Logger_25)]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -630,7 +630,7 @@ class Logger_26 { }
 class App_26 {
     static inject() { return [Optional.of(Logger_26)]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -642,7 +642,7 @@ class Logger_27 { }
 class App_27 {
     static inject() { return [Optional.of(Logger_27)]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -653,7 +653,7 @@ class Logger_28 { }
 class App_28 {
     static inject() { return [Optional.of(Logger_28)]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -664,7 +664,7 @@ class Logger_29 { }
 class App_29 {
     static inject() { return [Optional.of(Logger_29, true)]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -675,7 +675,7 @@ class Logger_30 { }
 class App_30 {
     static inject() { return [Parent.of(Logger_30)]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
@@ -686,7 +686,7 @@ class Logger_31 { }
 class App_31 {
     static inject() { return [Parent.of(Logger_31)]; };
     logger: any;
-    constructor(logger) {
+    constructor(logger: any) {
         this.logger = logger;
     }
 }
