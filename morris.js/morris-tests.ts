@@ -1,4 +1,4 @@
-/// <reference path="./morris.d.ts" />
+/// <reference path="./morris.js.d.ts" />
 
 let data = [{
     label: "2010-5-1",
