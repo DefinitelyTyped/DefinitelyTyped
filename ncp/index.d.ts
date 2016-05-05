@@ -5,9 +5,8 @@
 
 /// <reference path="../node/node.d.ts" />
 
-
-declare function ncp(source: string, destination: string, callback: (err: Error) => void): void;
-declare function ncp(source: string, destination: string, options: Options, callback: (err: Error) => void): void;
+export function ncp(source: string, destination: string, callback: (err: Error) => void): void;
+export function ncp(source: string, destination: string, options: Options, callback: (err: Error) => void): void;
 
 interface Options {
     filter?: RegExp;

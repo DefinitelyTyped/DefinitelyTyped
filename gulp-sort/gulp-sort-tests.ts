@@ -1,7 +1,5 @@
 /** Tests taken from https://github.com/pgilad/gulp-sort#usage */
 
-/// <reference path="../gulp/gulp" />
-
 import * as gulp from 'gulp';
 import * as sort from 'gulp-sort';
 import * as gulpUtil from 'gulp-util';

@@ -571,7 +571,7 @@ function test_misc() {
     });
 	
 	this.observableFactory = function(): KnockoutObservable<number>{
-	    if (true) {
+	    if (!!true) {
 			return ko.computed({
 				read:function(){ 
 					return 3; 

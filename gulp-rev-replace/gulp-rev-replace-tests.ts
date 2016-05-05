@@ -1,7 +1,3 @@
-
-
-/// <reference path="../gulp-rev/gulp-rev.d.ts" />
-
 import * as gulp from 'gulp';
 import * as revReplace from 'gulp-rev-replace';
 import * as rev from 'gulp-rev';

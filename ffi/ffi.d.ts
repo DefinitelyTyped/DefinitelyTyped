@@ -6,8 +6,6 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="node-ffi-buffer.d.ts" />
 
-/// <reference path="../ref-struct/ref-struct.d.ts" />
-
 declare module "ffi" {
     import ref = require('ref');
     import StructType = require('ref-struct');

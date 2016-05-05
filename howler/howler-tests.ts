@@ -2,12 +2,8 @@
  * howler-tests.ts
  * Created by xperiments on 02/09/14.
  */
-///<reference path="howler.d.ts"/>
 
 import * as howler from "howler";
-
-howler.Howler = Howler;
-howler.Howl = Howl;
 
 Howler.codecs('ogg');
 Howler.iOSAutoEnable = true;

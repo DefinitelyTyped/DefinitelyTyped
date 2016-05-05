@@ -178,7 +178,7 @@ interface PouchRevsDiffOptions {
 
 interface PouchReplicateOptions {
 	continuous?: boolean;
-	onChange?: (any) => void;
+	onChange?: (a: any) => void;
 	filter?: any;			// Can be either string or PouchFilter
 	complete?: (err: PouchError, res: PouchChanges) => void;
 }
@@ -229,4 +229,4 @@ declare module 'pouchdb' {
 // emit is the function that the PouchFilter.map function should call in order to add a particular item to
 // a filter view.
 //
-declare function emit(key: any, value: any);
+declare function emit(key: any, value: any): any;

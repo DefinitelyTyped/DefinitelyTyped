@@ -1,4 +1,5 @@
 {
+	"files": ["js-data.d.ts", "js-data-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

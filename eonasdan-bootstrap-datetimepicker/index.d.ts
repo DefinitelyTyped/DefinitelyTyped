@@ -60,7 +60,7 @@ export interface Icons {
     close?: string;
 }
 
-const enum DayOfWeek {
+export declare const enum DayOfWeek {
     Sunday = 0,
     Monday = 1,
     Tuesday = 2,

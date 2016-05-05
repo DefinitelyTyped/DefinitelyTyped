@@ -1,5 +1,3 @@
-/// <reference path="./gulp-sourcemaps.d.ts"/>
-
 import gulp = require("gulp");
 import sourcemaps = require("gulp-sourcemaps");
 

@@ -1,8 +1,3 @@
-
-/// <reference path="../ref/ref.d.ts" />
-
-/// <reference path="../ref-union/ref-union.d.ts" />
-
 import ffi = require('ffi');
 import ref = require('ref');
 import Struct = require('ref-struct');

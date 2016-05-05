@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-export declare default class Assert {
+export default class Assert {
     static AreEqual<T>(expected: T, actual: T, message?: string): void;
     static AreNotEqual<T>(notExpected: T, actual: T, message?: string): void;
     static AreNotSame<T>(notExpected: T, actual: T, message?: string): void;

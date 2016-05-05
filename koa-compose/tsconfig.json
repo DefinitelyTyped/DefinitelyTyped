@@ -1,4 +1,5 @@
 {
+	"files": ["index.d.ts", "koa-compose-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

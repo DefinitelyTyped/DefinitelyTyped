@@ -48,4 +48,4 @@ type Middleware = (request: Request, response: Response) => void;
  * Middleware for express; takes an options object or function as input to
  * configure behavior, and returns an express middleware.
  */
-export declare default function graphqlHTTP(options: Options): Middleware;
+export default function graphqlHTTP(options: Options): Middleware;

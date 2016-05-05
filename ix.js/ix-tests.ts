@@ -1,5 +1,3 @@
-///<reference path="ix.d.ts"/>
-
 var ec_ns = (a: number, b: string) => a.toString() == b;	//equality comparer on number,string
 var ec_ss = (a: string, b: string) => a == b;				//equality comparer on string,string
 var ec_nn = (a: number, b: number) => a === b;				//equality comparer on number,number

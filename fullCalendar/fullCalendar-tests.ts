@@ -2,6 +2,8 @@
 /// <reference path="../jquery/jquery.d.ts"/>
 /// <reference path="../jqueryui/jqueryui.d.ts"/>
 
+import * as FullCalendar from 'fullCalendar';
+
 // All examples from http://arshaw.com/fullcalendar/docs/
 
 $('#calendar').fullCalendar({});

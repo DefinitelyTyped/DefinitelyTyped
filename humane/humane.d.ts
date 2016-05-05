@@ -27,7 +27,7 @@ interface Humane {
     info: Function;
     error: Function;
     spawn(options: HumaneOptions): Function;
-    remove(any): void;
+    remove(x: any): void;
     log(message: string): Humane;
     log(message: string, callback: Function): Humane;
     log(message: string, options: HumaneOptions): Humane;

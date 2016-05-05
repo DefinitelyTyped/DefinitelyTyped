@@ -5,11 +5,11 @@
 
 // he - "HTML Entities" - A high quality pair of HTML encode and decode functions.
 
+export as namespace he;
 
+export var version: string;
 
-declare var version: string;
-
-interface EncodeOptions {
+export interface EncodeOptions {
     /**
     * The default value for the useNamedReferences option is false. This
     * means that encode() will not use any named character references
@@ -47,7 +47,7 @@ interface EncodeOptions {
     allowUnsafeSymbols?: boolean;
 }
 
-interface Encode {
+export interface Encode {
     /**
     * Encode a string of text
     *
@@ -66,7 +66,7 @@ interface Encode {
 }
 declare var encode: Encode;
 
-interface DecodeOptions {
+export interface DecodeOptions {
     /**
      * The default value for the isAttributeValue option is false. This means
      * that decode() will decode the string as if it were used in a text
@@ -87,7 +87,7 @@ interface DecodeOptions {
     strict?: boolean;
 }
 
-interface Decode {
+export interface Decode {
     /**
      * Decode a string of HTML text
      *
@@ -99,7 +99,7 @@ interface Decode {
 
     options: DecodeOptions;
 }
-declare var decode: Decode;
+export var decode: Decode;
 
 /**
  * Escape XML entities
@@ -108,6 +108,6 @@ declare var decode: Decode;
  * contexts in XML or HTML documents. Only the following characters are
  * escaped: &, <, >, ", ', and `.
  */
-declare function escape(text: string): string;
+export function escape(text: string): string;
 
-declare var unescape: Decode;
+export var unescape: Decode;

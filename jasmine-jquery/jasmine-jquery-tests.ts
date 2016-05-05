@@ -100,7 +100,6 @@ describe("Jasmine jQuery extension", () => {
 
         var data = getJSONFixture('myjsonfixture.json');
         var fixtures = loadJSONFixtures('myjsonfixture.json');
-        var data = fixtures['myjsonfixture.json'];
     });
 
     describe("Event Spies", () => {

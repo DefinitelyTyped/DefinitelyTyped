@@ -1,7 +1,4 @@
-/// <reference path="is-my-json-valid.d.ts"/>
-
 import validator = require('is-my-json-valid');
-
 
 //
 // Usage

@@ -1,6 +1,3 @@
-
-/// <reference path="jjve.d.ts" />
-
 import jjv = require('jjv');
 import jjve = require('jjve');
 

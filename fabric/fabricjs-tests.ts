@@ -100,7 +100,6 @@ function sample3() {
   function applyFilterValue(index: number, prop: string, value: any) {
     var obj: fabric.IImage = <fabric.IImage>canvas.getActiveObject();
     if (obj.filters[index]) {
-      obj.filters[index][prop] = value;
       obj.applyFilters(canvas.renderAll.bind(canvas));
     }
   }

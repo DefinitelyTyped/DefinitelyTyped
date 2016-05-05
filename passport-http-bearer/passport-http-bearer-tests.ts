@@ -1,5 +1,3 @@
-/// <reference path="./passport-http-bearer.d.ts"/>
-
 /**
  * Created by Isman Usoh <https://github.com/isman-usoh>.
  */

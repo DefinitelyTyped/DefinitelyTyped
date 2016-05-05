@@ -71,7 +71,7 @@ $("#formatterExample").dateRangeSlider({
     formatter: function (val) {
         var days = val.getDay(),
         month = val.getMonth() + 1,
-        year = val.getYear();
+        year = val.getFullYear();
         return days + "/" + month + "/" + year;
     }
 });

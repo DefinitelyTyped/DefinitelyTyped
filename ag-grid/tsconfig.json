@@ -1,4 +1,5 @@
 {
+	"files": ["ag-grid.d.ts", "ag-grid-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
