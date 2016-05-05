@@ -3,11 +3,13 @@
 // Definitions by: Zeeshan Hamid <https://github.com/zhamid>, Natan Vivo <https://github.com/nvivo>, Sven Tschui <https://github.com/sventschui>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../backbone/backbone.d.ts" />
+import * as Backbone from 'backbone';
+
+export as namespace Marionette;
+export = Marionette;
 
 // declarations for Backbone.BabySitter and Backbone.Wreqr, different projects but included in MarionetteJS
-declare namespace Backbone {
-
+declare module 'backbone' {
     // Backbone.BabySitter
     class ChildViewContainer<TView extends View<Backbone.Model>> {
 
@@ -1503,10 +1505,4 @@ declare namespace Marionette {
          */
         static getBehaviorClass(options: any, key: string): any;
     }
-}
-
-declare module 'backbone.marionette' {
-    import Backbone = require('backbone');
-
-    export = Marionette;
 }

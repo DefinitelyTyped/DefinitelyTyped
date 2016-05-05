@@ -3,7 +3,7 @@
 // Definitions by: Dénes Harmath <http://github.com/thSoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angular.d.ts"/>
+/// <reference path="../angularjs/angularjs.d.ts"/>
 /// <reference path="../firebase/firebase.d.ts"/>
 
 interface AngularFireService {

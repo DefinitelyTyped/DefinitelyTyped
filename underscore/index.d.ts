@@ -3,8 +3,8 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Josh Baldwin <https://github.com/jbaldwin/>, Christopher Currens <https://github.com/ccurrens/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var self: _.UnderscoreStatic;
-export = self;
+declare var _: _.UnderscoreStatic;
+export = _;
 export as namespace _;
 
 declare module _ {

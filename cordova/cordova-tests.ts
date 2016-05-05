@@ -269,8 +269,6 @@ window.plugins.pushNotification.unregister(() => { }, () => { });
 // Network Plugin
 //----------------------------------------------------------------------
 
-console.log('Connection type is: ' + navigator.connectionSpeed);
-
 var connType = navigator.connection.type;
 if (connType == Connection.WIFI) {
     console.log('Congratulations, you\'re with fast Internet!');

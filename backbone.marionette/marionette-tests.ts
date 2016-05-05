@@ -1,6 +1,7 @@
-/// <reference path="marionette.d.ts" />
+import * as Marionette from 'backbone.marionette';
+import * as Backbone from 'backbone';
 
-namespace Marionette.Tests {
+namespace MarionetteTests {
     class DestroyWarn extends Marionette.Behavior {
         // you can set default options
         // just like you can in your Backbone Models

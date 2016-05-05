@@ -1,7 +1,7 @@
-/// <reference path="backgrid.d.ts" />
-/// <reference path="../backbone/backbone.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
 
+import * as Backgrid from 'backgrid';
+import * as Backbone from 'backbone';
 
 /*
   Uses getters and setters and requires ES >= 5

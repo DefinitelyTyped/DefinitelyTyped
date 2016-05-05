@@ -3,7 +3,6 @@
 // Definitions by: Bruno Leonardo Michels <https://github.com/brunolm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 export default class Assert {
     static AreEqual<T>(expected: T, actual: T, message?: string): void;
     static AreNotEqual<T>(notExpected: T, actual: T, message?: string): void;

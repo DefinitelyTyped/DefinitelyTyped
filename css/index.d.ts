@@ -11,7 +11,7 @@
 /**
  * css.parse options
  */
-interface ParserOptions {
+export interface ParserOptions {
     /** Silently fail on parse errors */
     silent?: boolean;
     /** The path to the file containing css. Makes errors and source maps more helpful, by letting them know where code comes from. */
@@ -21,7 +21,7 @@ interface ParserOptions {
 /**
  * css.stringify options
  */
-interface StringifyOptions {
+export interface StringifyOptions {
     /** The string used to indent the output. Defaults to two spaces. */
     indent?: string;
     /** Omit comments and extraneous whitespace. */
@@ -43,7 +43,7 @@ interface StringifyOptions {
 /**
  * Error thrown during parsing.
  */
-interface ParserError {
+export interface ParserError {
     /** The full error message with the source position. */
     message?: string;
     /** The error message without position. */
@@ -64,7 +64,7 @@ interface ParserError {
  * Information about a position in the code.
  * The line and column numbers are 1-based: The first line is 1 and the first column of a line is 1 (not 0).
  */
-interface Position {
+export interface Position {
     line?: number;
     column?: number;
 }
@@ -72,7 +72,7 @@ interface Position {
 /**
  * Base AST Tree Node.
  */
-interface Node {
+export interface Node {
     /** The possible values are the ones listed in the Types section on https://github.com/reworkcss/css page. */
     type?: string;
     /** A reference to the parent node, or null if the node has no parent. */
@@ -88,14 +88,14 @@ interface Node {
     };
 }
 
-interface Rule extends Node {
+export interface Rule extends Node {
     /** The list of selectors of the rule, split on commas. Each selector is trimmed from whitespace and comments. */
     selectors?: Array<string>;
     /** Array of nodes with the types declaration and comment. */
     declarations?: Array<Declaration | Comment>;
 }
 
-interface Declaration extends Node {
+export interface Declaration extends Node {
     /** The property name, trimmed from whitespace and comments. May not be empty. */
     property?: string;
     /** The value of the property, trimmed from whitespace and comments. Empty values are allowed. */
@@ -105,14 +105,14 @@ interface Declaration extends Node {
 /** 
  * A rule-level or declaration-level comment. Comments inside selectors, properties and values etc. are lost.
  */
-interface Comment extends Node {
+export interface Comment extends Node {
     comment?: string;
 }
 
 /** 
  * The @charset at-rule. 
  */
-interface Charset {
+export interface Charset {
     /** The part following @charset. */
     charset?: string;
 }
@@ -120,7 +120,7 @@ interface Charset {
 /**
  * The @custom-media at-rule 
  */
-interface CustomMedia {
+export interface CustomMedia {
     /** The ---prefixed name. */
     name?: string;
     /** The part following the name. */
@@ -130,7 +130,7 @@ interface CustomMedia {
 /**
  * The @document at-rule.
  */
-interface Document {
+export interface Document {
     /** The part following @document. */
     document?: string;
     /** The vendor prefix in @document, or undefined if there is none. */
@@ -142,7 +142,7 @@ interface Document {
 /**
  * The @font-face at-rule.
  */
-interface FontFace {
+export interface FontFace {
     /** Array of nodes with the types declaration and comment. */
     declarations?: Array<Declaration | Comment>;
 }
@@ -150,7 +150,7 @@ interface FontFace {
 /**
  * The @host at-rule.
  */
-interface Host {
+export interface Host {
     /** Array of nodes with the types rule, comment and any of the at-rule types. */
     rules?: Array<Rule | Comment | AtRule>;
 }
@@ -158,7 +158,7 @@ interface Host {
 /**
  * The @import at-rule.
  */
-interface Import {
+export interface Import {
     /** The part following @import. */
     import?: string;
 }
@@ -166,7 +166,7 @@ interface Import {
 /**
  * The @keyframes at-rule.
  */
-interface KeyFrames {
+export interface KeyFrames {
     /** The name of the keyframes rule. */
     name?: string;
     /** The vendor prefix in @keyframes, or undefined if there is none. */
@@ -175,7 +175,7 @@ interface KeyFrames {
     keyframes?: Array<KeyFrame | Comment>;
 }
 
-interface KeyFrame {
+export interface KeyFrame {
     /** The list of "selectors" of the keyframe rule, split on commas. Each “selector” is trimmed from whitespace. */
     values?: Array<string>;
     /** Array of nodes with the types declaration and comment. */
@@ -185,7 +185,7 @@ interface KeyFrame {
 /**
  * The @media at-rule.
  */
-interface Media {
+export interface Media {
     /** The part following @media. */
     media?: string;
     /** Array of nodes with the types rule, comment and any of the at-rule types. */
@@ -195,7 +195,7 @@ interface Media {
 /**
  * The @namespace at-rule.
  */
-interface Namespace {
+export interface Namespace {
     /** The part following @namespace. */
     namespace?: string;
 }
@@ -203,7 +203,7 @@ interface Namespace {
 /**
  * The @page at-rule.
  */
-interface Page {
+export interface Page {
     /** The list of selectors of the rule, split on commas. Each selector is trimmed from whitespace and comments. */
     selectors?: Array<string>;
     /** Array of nodes with the types declaration and comment. */
@@ -213,7 +213,7 @@ interface Page {
 /**
  * The @supports at-rule.
  */
-interface Supports {
+export interface Supports {
     /** The part following @supports. */
     supports?: string;
     /** Array of nodes with the types rule, comment and any of the at-rule types. */
@@ -221,12 +221,12 @@ interface Supports {
 }
 
 /** All at-rules. */
-type AtRule = Charset | CustomMedia | Document | FontFace | Host | Import | KeyFrames | Media | Namespace | Page | Supports;
+export type AtRule = Charset | CustomMedia | Document | FontFace | Host | Import | KeyFrames | Media | Namespace | Page | Supports;
 
 /** 
  * The root node returned by css.parse. 
  */
-interface Stylesheet extends Node {
+export interface Stylesheet extends Node {
     stylesheet?: {
         /** Array of nodes with the types rule, comment and any of the at-rule types. */
         rules?: Array<Rule | Comment | AtRule>;
@@ -244,7 +244,7 @@ interface Stylesheet extends Node {
  * @param {ParserOptions} options - CSS parser options.
  * @return {Stylesheet} AST object built using provides CSS code.
  */
-declare function parse(code: string, options?: ParserOptions): Stylesheet;
+export function parse(code: string, options?: ParserOptions): Stylesheet;
 
 /**
  * Accepts an AST object (as css.parse produces) and returns a CSS string.
@@ -253,4 +253,4 @@ declare function parse(code: string, options?: ParserOptions): Stylesheet;
  * @param {StringifyOptions} options - AST tree to string serializaiton options.
  * @return {string} CSS code.
  */
-declare function stringify(stylesheet: Stylesheet, options?: StringifyOptions): string;
+export function stringify(stylesheet: Stylesheet, options?: StringifyOptions): string;
