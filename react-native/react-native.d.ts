@@ -345,6 +345,21 @@ declare namespace  __React {
     }
 
     // https://github.com/facebook/react-native/blob/master/Libraries/AppRegistry/AppRegistry.js
+    /**
+     * `AppRegistry` is the JS entry point to running all React Native apps.  App
+     * root components should register themselves with
+     * `AppRegistry.registerComponent`, then the native system can load the bundle
+     * for the app and then actually run the app when it's ready by invoking
+     * `AppRegistry.runApplication`.
+     *
+     * To "stop" an application when a view should be destroyed, call
+     * `AppRegistry.unmountApplicationComponentAtRootTag` with the tag that was
+     * pass into `runApplication`. These should always be used as a pair.
+     *
+     * `AppRegistry` should be `require`d early in the `require` sequence to make
+     * sure the JS execution environment is setup before other modules are
+     * `require`d.
+     */
     export class AppRegistry {
         static registerConfig( config: AppConfig[] ): void;
 
@@ -446,10 +461,32 @@ declare namespace  __React {
         width?: number
     }
 
+    /**
+     * @see ShadowPropTypesIOS.js
+     */
     export interface ShadowPropTypesIOSStatic {
+        /**
+         * Sets the drop shadow color
+         * @platform ios
+         */
         shadowColor: string
+        
+        /**
+         * Sets the drop shadow offset
+         * @platform ios
+         */
         shadowOffset: {width: number, height: number}
+
+        /**
+         * Sets the drop shadow opacity (multiplied by the color's alpha component)
+         * @platform ios
+         */
         shadowOpacity: number
+        
+        /**
+         * Sets the drop shadow blur radius
+         * @platform ios
+         */
         shadowRadius: number
     }
 
@@ -523,9 +560,18 @@ declare namespace  __React {
         fontFamily?: string
         fontSize?: number
         fontStyle?: "normal" | "italic"
+        /**
+         * Specifies font weight. The values 'normal' and 'bold' are supported 
+         * for most fonts. Not all fonts have a variant for each of the numeric
+         * values, in that case the closest one is chosen.
+         */
         fontWeight?: "normal" | "bold" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900"
         letterSpacing?: number
         lineHeight?: number
+        /**
+         * Specifies text alignment.
+         * The value 'justify' is only supported on iOS.
+         */
         textAlign?: "auto" | "left" | "right" | "center"
         textDecorationLine?: "none" | "underline" | "line-through" | "underline line-through"
         textDecorationStyle?: "solid" | "double" | "dotted" | "dashed"
@@ -538,6 +584,10 @@ declare namespace  __React {
 
     export interface TextPropertiesIOS {
 
+        /**
+         * Specifies should fonts scale to respect Text Size accessibility
+         * setting on iOS.
+         */
         allowFontScaling: boolean
 
         /**
@@ -796,6 +846,9 @@ declare namespace  __React {
          */
         selectTextOnFocus?: boolean
 
+        /**
+         * The highlight (and cursor on ios) color of the text input
+         */
         selectionColor?: string
 
         /**
@@ -818,35 +871,128 @@ declare namespace  __React {
         value?: string
     }
 
+    /**
+     * @see https://facebook.github.io/react-native/docs/textinput.html#methods
+     */
     export interface TextInputStatic extends NativeComponent, React.ComponentClass<TextInputProperties> {
+        /**
+         * Returns if the input is currently focused.
+         */
         isFocused: () => boolean
+        
+        /**
+         * Removes all text from the input.
+         */
         clear: () => void
-        // Not found in documentation?
+        
+        // The following methods are found only in implementation
         blur: () => void
         focus: () => void
     }
 
     export type ToolbarAndroidAction = {
+        /**
+         *  title: required, the title of this action
+         */
         title: string
+
+        /**
+         * icon: the icon for this action, e.g. require('./some_icon.png')
+         */
         icon?: any
+
+        /**
+         * show: when to show this action as an icon or hide it in the overflow menu: always, ifRoom or never
+         */
         show?: "always" | "ifRoom" | "never"
+
+        /**
+         * showWithText: boolean, whether to show text alongside the icon or not
+         */
         showWithText?: boolean
     }
 
     export interface ToolbarAndroidProperties extends React.Props<ToolbarAndroidStatic> {
         actions?: ToolbarAndroidAction[]
+
+        /**
+         * Sets the content inset for the toolbar ending edge.
+         * The content inset affects the valid area for Toolbar content other
+         * than the navigation button and menu. Insets define the minimum
+         * margin for these components and can be used to effectively align
+         * Toolbar content along well-known gridlines.
+         */
         contentInsetEnd?: number
+
+        /**
+         * Sets the content inset for the toolbar starting edge.
+         * The content inset affects the valid area for Toolbar content
+         * other than the navigation button and menu. Insets define the
+         * minimum margin for these components and can be used to effectively
+         * align Toolbar content along well-known gridlines.
+         */
         contentInsetStart?: number
+
+        /**
+         * Sets the toolbar logo.
+         */
         logo?: any
+
+        /**
+         * Sets the navigation icon.
+         */
         navIcon?: any
+
+        /**
+         * Callback that is called when an action is selected. The only
+         * argument that is passed to the callback is the position of the
+         * action in the actions array.
+         */
         onActionSelected?: (position: number) => void
+
+        /**
+         * Callback called when the icon is selected.
+         */
         onIconClicked?: () => void
+
+        /**
+         * Sets the overflow icon.
+         */
         overflowIcon?: any
+
+        /**
+         * Used to set the toolbar direction to RTL.
+         * In addition to this property you need to add
+         * android:supportsRtl="true"
+         * to your application AndroidManifest.xml and then call
+         * setLayoutDirection(LayoutDirection.RTL) in your MainActivity
+         * onCreate method.
+         */
         rtl?: boolean
+
+        /**
+         * Sets the toolbar subtitle.
+         */
         subtitle?: string
+
+        /**
+         * Sets the toolbar subtitle color.
+         */
         subtitleColor?: string
+
+        /**
+         * Used to locate this view in end-to-end tests.
+         */
         testID?: string
+
+        /**
+         * Sets the toolbar title.
+         */
         title?: string
+
+        /**
+         * Sets the toolbar title color.
+         */
         titleColor?: string
     }
 
@@ -1236,26 +1382,86 @@ declare namespace  __React {
          * Used for android only, JS is enabled by default for WebView on iOS
          */
         javaScriptEnabled?: boolean
+        
+        /**
+         * Used on Android only, controls whether DOM Storage is enabled
+         * or not android
+         */
         domStorageEnabled?: boolean
     }
 
     export interface WebViewPropertiesIOS {
+
+        /**
+         * Determines whether HTML5 videos play inline or use the native
+         * full-screen controller. default value false
+         * NOTE : "In order * for video to play inline, not only does
+         * this property need to be set to true, but the video element
+         * in the HTML document must also include the webkit-playsinline
+         * attribute."
+         */
         allowsInlineMediaPlayback?: boolean
+        
         bounces?: boolean
-        decelerationRate?: any
+
+        /**
+         * A floating-point number that determines how quickly the scroll
+         * view decelerates after the user lifts their finger. You may also
+         * use string shortcuts "normal" and "fast" which match the
+         * underlying iOS settings for UIScrollViewDecelerationRateNormal
+         * and UIScrollViewDecelerationRateFast respectively.
+         * - normal: 0.998 - fast: 0.99 (the default for iOS WebView)
+         */
+        decelerationRate?: "normal" | "fast" | number
+
+        /**
+         * Allows custom handling of any webview requests by a JS handler.
+         * Return true or false from this method to continue loading the
+         * request.
+         */
         onShouldStartLoadWithRequest?: () => boolean
+        
         scrollEnabled?: boolean
     }
 
     export interface WebViewUriSource {
-        uri: string;
+        
+        /*
+         * The URI to load in the WebView. Can be a local or remote file.
+         */
+        uri?: string;
+
+        /*
+         * The HTTP Method to use. Defaults to GET if not specified.
+         * NOTE: On Android, only GET and POST are supported.
+         */
         method?: string;
+
+        /*
+         * Additional HTTP headers to send with the request.
+         * NOTE: On Android, this can only be used with GET requests.
+         */
         headers?: any;
+        
+        /*
+         * The HTTP body to send with the request. This must be a valid
+         * UTF-8 string, and will be sent exactly as specified, with no
+         * additional encoding (e.g. URL-escaping or base64) applied.
+         * NOTE: On Android, this can only be used with POST requests.
+         */
         body?: string;
     }
 
     export interface WebViewHtmlSource {
+        
+        /*
+         * A static HTML page to display in the WebView.
+         */
         html: string;
+        
+        /*
+         * The base URL to be used for any relative links in the HTML.
+         */
         baseUrl?: string;
     }
 
@@ -1301,11 +1507,16 @@ declare namespace  __React {
 
         style?: ViewStyle
 
+        // Deprecated: Use the `source` prop instead.
         url?: string
 
         source?: WebViewUriSource | WebViewHtmlSource | number
 
-        mediaPlaybackRequiresUserAction?: boolean
+        /**
+         * Determines whether HTML5 audio & videos require the user to tap
+         * before they can start playing. The default value is false.
+         */
+         mediaPlaybackRequiresUserAction?: boolean
 
         /**
          * sets whether the webpage scales to fit the view and the user can change the scale
@@ -1316,9 +1527,24 @@ declare namespace  __React {
 
     export interface WebViewStatic extends React.ComponentClass<WebViewProperties> {
 
+        /**
+         * Go back one page in the webview's history.
+         */
         goBack: () => void
+        
+        /**
+         * Go forward one page in the webview's history.
+         */
         goForward: () => void
+
+        /**
+         * Reloads the current page.
+         */
         reload: () => void
+
+        /**
+         * Returns the native webview node.
+         */
         getWebViewHandle: () => any
     }
 
@@ -1334,12 +1560,44 @@ declare namespace  __React {
      }
 
      export interface SegmentedControlIOSProperties extends React.Props<SegmentedControlIOSStatic> {
+
+         /**
+          * If false the user won't be able to interact with the control. Default value is true.
+          */
          enabled?: boolean
+
+         /**
+          * If true, then selecting a segment won't persist visually.
+          * The onValueChange callback will still work as expected.
+          */
          momentary?: boolean
+
+         /**
+          * Callback that is called when the user taps a segment;
+          * passes the event as an argument
+          * @param event
+          */
          onChange?: (event: NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>) => void
+
+         /**
+          * Callback that is called when the user taps a segment; passes the segment's value as an argument
+          * @param value
+          */
          onValueChange?: (value: string) => void
+
+         /**
+          * The index in props.values of the segment to be (pre)selected.
+          */
          selectedIndex?: number
+
+         /**
+          * Accent color of the control.
+          */
          tintColor?: string
+
+         /**
+          * The labels for the control's segment buttons, in order.
+          */
          values?: string[]
      }
 
@@ -1551,33 +1809,107 @@ declare namespace  __React {
      */
     export interface DrawerLayoutAndroidProperties extends React.Props<DrawerLayoutAndroidStatic> {
 
-        drawerBackgroundColor?: any;
+        /**
+         * Specifies the background color of the drawer. The default value 
+         * is white. If you want to set the opacity of the drawer, use rgba.
+         * Example:
+         * return (
+         *   <DrawerLayoutAndroid drawerBackgroundColor="rgba(0,0,0,0.5)">
+         *   </DrawerLayoutAndroid>
+         *);
+         */
+        drawerBackgroundColor?: string;
 
+        /**
+         * Specifies the lock mode of the drawer. The drawer can be locked
+         * in 3 states:
+         * 
+         * - unlocked (default), meaning that the drawer will respond
+         *   (open/close) to touch gestures.
+         *   
+         * - locked-closed, meaning that the drawer will stay closed and not
+         *   respond to gestures.
+         *   
+         * - locked-open, meaning that the drawer will stay opened and
+         *   not respond to gestures. The drawer may still be opened and
+         *   closed programmatically (openDrawer/closeDrawer).
+         */
         drawerLockMode?: "unlocked" | "locked-closed" | "locked-open";
 
-        //  enum(DrawerConsts.DrawerPosition.Left, DrawerConsts.DrawerPosition.Right)
+        /**
+         * Specifies the side of the screen from which the drawer will slide in.
+         * enum(DrawerConsts.DrawerPosition.Left, DrawerConsts.DrawerPosition.Right)
+         */
         drawerPosition?: any;
 
+        /**
+         * Specifies the width of the drawer, more precisely the width of the
+         * view that be pulled in from the edge of the window.
+         */
         drawerWidth?: number;
 
+        /**
+         * Determines whether the keyboard gets dismissed in response to a drag.
+         * - 'none' (the default), drags do not dismiss the keyboard.
+         * - 'on-drag', the keyboard is dismissed when a drag begins.
+         */
         keyboardDismissMode?: "none" | "on-drag"
 
+        /**
+         * Function called whenever the navigation view has been closed.
+         */
         onDrawerClose?: () => void
 
+        /**
+         * Function called whenever the navigation view has been opened.
+         */
         onDrawerOpen?: () => void
 
+        /**
+         * Function called whenever there is an interaction with the navigation view.
+         * @param event
+         */
         onDrawerSlide?: (event: DrawerSlideEvent) => void
 
+        /**
+         * Function called when the drawer state has changed.
+         * The drawer can be in 3 states:
+         * - idle, meaning there is no interaction with the navigation
+         *   view happening at the time
+         * - dragging, meaning there is currently an interaction with the
+         *   navigation view 
+         * - settling, meaning that there was an interaction with the
+         *   navigation view, and the navigation view is now finishing
+         *   it's closing or opening animation
+         * @param event
+         */
         onDrawerStateChanged?: (event:  "Idle" | "Dragging" | "Settling") => void
 
+        /**
+         * The navigation view that will be rendered to the side of the
+         * screen and can be pulled in.
+         */
         renderNavigationView?: () => View
 
+        /**
+         * Make the drawer take the entire screen and draw the background of
+         * the status bar to allow it to open over the status bar. It will
+         * only have an effect on API 21+.
+         */
         statusBarBackgroundColor?: any
 
     }
 
     export interface DrawerLayoutAndroidStatic extends React.ComponentClass<DrawerLayoutAndroidProperties> {
+
+        /**
+         * Opens the drawer.
+         */
         openDrawer(): void
+
+        /**
+         * Closes the drawer.
+         */
         closeDrawer(): void
     }
 
@@ -1629,12 +1961,27 @@ declare namespace  __React {
      */
     export interface PickerProperties extends PickerPropertiesIOS, PickerPropertiesAndroid, React.Props<PickerStatic> {
 
+        /**
+         * Callback for when an item is selected. This is called with the
+         * following parameters: 
+         * - itemValue: the value prop of the item that was selected 
+         * - itemPosition: the index of the selected item in this picker
+         * @param itemValue
+         * @param itemPosition
+         */
         onValueChange?: ( itemValue: any, itemPosition: number ) => void
 
+        /**
+         * Value matching value of one of the items.
+         * Can be a string or an integer.
+         */
         selectedValue?: any
 
         style?: ViewStyle
 
+        /**
+         * Used to locate this view in end-to-end tests.
+         */
         testId?: string
     }
 
@@ -1653,11 +2000,8 @@ declare namespace  __React {
      */
     export interface PickerIOSProperties extends React.Props<PickerIOSStatic> {
 
-        onValueChange?: ( value: string | number ) => void
-
-        selectedValue?: string | number
-
         itemStyle?: ViewStyle
+        
     }
 
     /**
@@ -1676,10 +2020,38 @@ declare namespace  __React {
     export interface ProgressBarAndroidProperties extends React.Props<ProgressBarAndroidStatic> {
 
         style?: ViewStyle
+
+        /**
+         * Style of the ProgressBar. One of:
+             Horizontal
+             Normal (default)
+             Small
+             Large
+             Inverse
+             SmallInverse
+             LargeInverse
+         */
         styleAttr?: "Horizontal" | "Normal" | "Small" | "Large" | "Inverse" | "SmallInverse" | "LargeInverse"
+
+        /**
+         * If the progress bar will show indeterminate progress.
+         * Note that this can only be false if styleAttr is Horizontal.
+         */
         indeterminate?: boolean
+
+        /**
+         * The progress value (between 0 and 1).
+         */
         progress?: number
+
+        /**
+         * Color of the progress bar.
+         */
         color?: string
+
+        /**
+         * Used to locate this view in end-to-end tests.
+         */
         testID?: string
     }
     export interface ProgressBarAndroidStatic extends React.ComponentClass<ProgressBarAndroidProperties> {
@@ -1692,11 +2064,35 @@ declare namespace  __React {
     export interface ProgressViewIOSProperties extends React.Props<ProgressViewIOSStatic> {
 
         style?: ViewStyle
+
+        /**
+         * The progress bar style.
+         */
         progressViewStyle?: "default" | "bar"
+
+        /**
+         * The progress value (between 0 and 1).
+         */
         progress?: number
+
+        /**
+         * The tint color of the progress bar itself.
+         */
         progressTintColor?: string
+
+        /**
+         * The tint color of the progress bar track.
+         */
         trackTintColor?: string
+
+        /**
+         * A stretchable image to display as the progress bar.
+         */
         progressImage?: any
+
+        /**
+         * A stretchable image to display behind the progress bar.
+         */
         trackImage?: any
     }
     export interface ProgressViewIOSStatic extends React.ComponentClass<ProgressViewIOSProperties> {
@@ -1704,21 +2100,55 @@ declare namespace  __React {
 
     export interface RefreshControlPropertiesIOS extends React.Props<RefreshControlStatic> {
 
+        /**
+         * The color of the refresh indicator.
+         */
         tintColor?: string
+
+        /**
+         * The title displayed under the refresh indicator.
+         */
         title?: string
+
+        /**
+         * Title color.
+         */
         titleColor?: string
     }
 
     export interface RefreshControlPropertiesAndroid extends React.Props<RefreshControlStatic> {
 
+        /**
+         * The colors (at least one) that will be used to draw the refresh indicator.
+         */
         colors?: string[]
+
+        /**
+         * Whether the pull to refresh functionality is enabled.
+         */
         enabled?: boolean
+
+        /**
+         * The background color of the refresh indicator.
+         */
         progressBackgroundColor?: string
+
+        /**
+         * Size of the refresh indicator, see RefreshControl.SIZE.
+         */
         size?: number
     }
 
     export interface RefreshControlProperties extends RefreshControlPropertiesIOS, RefreshControlPropertiesAndroid, React.Props<RefreshControl> {
+
+        /**
+         * Called when the view starts refreshing.
+         */
         onRefresh?: () => void
+
+        /**
+         * Whether the view should be indicating an active refresh.
+         */
         refreshing?: boolean
     }
 
@@ -1726,23 +2156,96 @@ declare namespace  __React {
     }
 
     export interface SliderPropertiesIOS extends React.Props<SliderStatic> {
+
+        /**
+         * Assigns a maximum track image. Only static images are supported.
+         * The leftmost pixel of the image will be stretched to fill the track.
+         */
         maximumTrackImage?: any
+
+        /**
+         * The color used for the track to the right of the button.
+         * Overrides the default blue gradient image.
+         */
         maximumTrackTintColor?: string
+
+        /**
+         * Assigns a minimum track image. Only static images are supported.
+         * The rightmost pixel of the image will be stretched to fill the track.
+         */
         minimumTrackImage?: string
+
+        /**
+         * The color used for the track to the left of the button.
+         * Overrides the default blue gradient image.
+         */
         minimumTrackTintColor?: string
+
+        /**
+         * Sets an image for the thumb. Only static images are supported.
+         */
         thumbImage?: any
+
+        /**
+         * Assigns a single image for the track. Only static images
+         * are supported. The center pixel of the image will be stretched
+         * to fill the track.
+         */
         trackImage?: any
     }
 
     export interface SliderProperties extends SliderPropertiesIOS, React.Props<SliderStatic> {
+
+        /**
+         * If true the user won't be able to move the slider.
+         * Default value is false.
+         */
         disabled?: boolean
+
+        /**
+         * Initial maximum value of the slider. Default value is 1.
+         */
         maximumValue?: number
+
+        /**
+         * Initial minimum value of the slider. Default value is 0.
+         */
         minimumValue?: number
+
+        /**
+         * Callback called when the user finishes changing the value (e.g. when the slider is released).
+         * @param value
+         */
         onSlidingComplete?: (value: number) => void
+
+        /**
+         * Callback continuously called while the user is dragging the slider.
+         * @param value
+         */
         onValueChange?: (value: number) => void
+
+        /**
+         * Step value of the slider. The value should be between 0 and (maximumValue - minimumValue). Default value is 0.
+         */
         step?: number
+
+        /**
+         * Used to style and layout the Slider. See StyleSheet.js and ViewStylePropTypes.js for more info.
+         */
         style?: ViewStyle
+
+        /**
+         * Used to locate this view in UI automation tests.
+         */
         testID?: string
+
+        /**
+         * Initial value of the slider. The value should be between minimumValue
+         * and maximumValue, which default to 0 and 1 respectively.
+         * Default value is 0.
+         * This is not a controlled component, you don't need to update
+         * the value during dragging.
+         */
         value?: number
     }
 
@@ -2030,6 +2533,13 @@ declare namespace  __React {
 
         dataSource?: ListViewDataSource
 
+        /**
+         * Flag indicating whether empty section headers should be rendered.
+         * In the future release empty section headers will be rendered by
+         * default, and the flag will be deprecated. If empty sections are not
+         * desired to be rendered their indices should be excluded from
+         * sectionID object.
+         */
         enableEmptySections?: boolean
 
         /**
@@ -2210,8 +2720,15 @@ declare namespace  __React {
          */
         minDelta?: number
 
+        /**
+         * Map overlays
+         */
         overlays: MapViewOverlay[]
 
+        /**
+         * If false compass won't be displayed on the map.
+         * Default value is true.
+         */
         showsCompass?: boolean
     }
 
@@ -2298,7 +2815,10 @@ declare namespace  __React {
 
     export interface ModalProperties extends React.Props<ModalStatic> {
 
+        // Only `animated` is documented. The JS code says `animated` is
+        // deprecated and `animationType` is preferred.
         animated?: boolean
+        animationType?: "none" | "slide" | "fade"
         transparent?: boolean
         visible?: boolean
         onRequestClose?: () => void
@@ -2382,10 +2902,18 @@ declare namespace  __React {
         onPressOut?: () => void;
 
         /**
-         * //FIXME: not in doc but available in exmaples
+         * //FIXME: not in doc but available in examples
          */
         style?: ViewStyle
 
+        /**
+         * When the scroll view is disabled, this defines how far your
+         * touch may move off of the button, before deactivating the button.
+         * Once deactivated, try moving it back and you'll see that the button
+         * is once again reactivated! Move it back and forth several times
+         * while the scroll view is disabled. Ensure you pass in a constant
+         * to reduce memory allocations.
+         */
         pressRetentionOffset?: {top: number, left: number, bottom: number, right: number}
     }
 
@@ -2913,7 +3441,7 @@ declare namespace  __React {
          *
          *  enum('bookmarks', 'contacts', 'downloads', 'favorites', 'featured', 'history', 'more', 'most-recent', 'most-viewed', 'recents', 'search', 'top-rated')
          */
-        systemIcon: string
+        systemIcon: "bookmarks" | "contacts" | "downloads" | "favorites" | "featured" | "history" | "more" | "most-recent" | "most-viewed" | "recents" | "search" | "top-rated"
 
         /**
          * Text that appears under the icon. It is ignored when a system icon is defined.
@@ -2954,15 +3482,73 @@ declare namespace  __React {
 
 
     export interface PixelRatioStatic {
+        
+        /*
+          Returns the device pixel density. Some examples:
+             PixelRatio.get() === 1
+             mdpi Android devices (160 dpi)
+             PixelRatio.get() === 1.5
+             hdpi Android devices (240 dpi)
+             PixelRatio.get() === 2
+             iPhone 4, 4S
+             iPhone 5, 5c, 5s
+             iPhone 6
+             xhdpi Android devices (320 dpi)
+             PixelRatio.get() === 3
+             iPhone 6 plus
+             xxhdpi Android devices (480 dpi)
+             PixelRatio.get() === 3.5
+             Nexus 6
+        */
         get(): number;
+        
+        /*
+         Returns the scaling factor for font sizes. This is the ratio that is
+          used to calculate the absolute font size, so any elements that
+           heavily depend on that should use this to do calculations.
+
+         If a font scale is not set, this returns the device pixel ratio.
+
+         Currently this is only implemented on Android and reflects the user
+          preference set in Settings > Display > Font size,
+           on iOS it will always return the default pixel ratio.
+         */
         getFontScale(): number
+
+        /**
+         * Converts a layout size (dp) to pixel size (px).
+         * Guaranteed to return an integer number.
+         * @param layoutSize
+         */
         getPixelSizeForLayoutSize(layoutSize: number): number
+
+        /**
+         * Rounds a layout size (dp) to the nearest layout size that
+         * corresponds to an integer number of pixels. For example,
+         * on a device with a PixelRatio of 3,
+         * PixelRatio.roundToNearestPixel(8.4) = 8.33,
+         * which corresponds to exactly (8.33 * 3) = 25 pixels.
+         * @param layoutSize
+         */
         roundToNearestPixel(layoutSize: number): number
+
+        /**
+         * No-op for iOS, but used on the web. Should not be documented. [sic]
+         */
         startDetecting(): void
     }
 
+    /**
+     * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
+     */
+    
+    export type PlatformOSType = 'ios' | 'android'
+    
     export interface PlatformStatic {
-        OS: string,
+        OS: PlatformOSType,
+        
+        // only documented in PlatformSpecificInformation.md
+        select({PlatformOSType: any}): any
     }
 
     export interface DeviceEventSubscriptionStatic {
@@ -2998,7 +3584,26 @@ declare namespace  __React {
      * @see https://facebook.github.io/react-native/docs/dimensions.html#content
      */
     export interface Dimensions {
-        get( what: "window" | "screen" ): ScaledSize;
+        /**
+         * Initial dimensions are set before runApplication is called so they
+         * should be available before any other require's are run, but may be
+         * updated later.
+         * Note: Although dimensions are available immediately, they may
+         * change (e.g due to device rotation) so any rendering logic or
+         * styles that depend on these constants should try to call this
+         * function on every render, rather than caching the value (for
+         * example, using inline styles rather than setting a value in a
+         * StyleSheet).
+         * Example: var {height, width} = Dimensions.get('window');
+         @param {string} dim Name of dimension as defined when calling set.
+         @returns {Object?} Value for the dimension.
+         */
+        get( dim: "window" | "screen" ): ScaledSize;
+
+        /**
+         * This should only be called from native code by sending the didUpdateDimensions event.
+         * @param {object} dims Simple string-keyed object of dimensions to set
+         */
         set( dims: {[key: string]: any}[] ): void
     }
 
@@ -3009,9 +3614,28 @@ declare namespace  __React {
     export type Handle = number
 
     export interface InteractionManagerStatic {
+
+        /**
+         * Schedule a function to run after all interactions have completed.
+         * @param fn
+         */
         runAfterInteractions( fn: () => void | PromiseTask): Promise<any>
+
+        /**
+         * Notify manager that an interaction has started.
+         */
         createInteractionHandle(): Handle
+
+        /**
+         * Notify manager that an interaction has completed.
+         */
         clearInteractionHandle(handle: Handle): void
+
+        /**
+         * A positive number will use setTimeout to schedule any tasks after
+         * the eventLoopRunningTime hits the deadline value, otherwise all
+         * tasks will be executed in one setImmediate batch (default).
+         */
         setDeadline(deadline: number): void
     }
 
@@ -3121,6 +3745,14 @@ declare namespace  __React {
          */
         directionalLockEnabled?: boolean
 
+        /**
+         * The style of the scroll indicators.
+         * - default (the default), same as black.
+         * - black, scroll indicator is black. This style is good against
+         *   a white content background.
+         * - white, scroll indicator is white. This style is good against
+         *   a black content background.
+         */
         indicatorStyle?: "default" | "black" | "white"
 
         /**
@@ -3133,6 +3765,9 @@ declare namespace  __React {
          */
         minimumZoomScale?: number
 
+        /**
+         * Deprecated. Use the refreshControl prop instead.
+         */
         onRefreshStart?: () => void
 
         /**
@@ -3204,6 +3839,14 @@ declare namespace  __React {
     }
 
     export interface ScrollViewPropertiesAndroid {
+
+        /**
+         * Sometimes a scrollview takes up more space than its content fills.
+         * When this is the case, this prop will fill the rest of the
+         * scrollview with a color to avoid setting a background and creating
+         * unnecessary overdraw. This is an advanced optimization that is not
+         * needed in the general case.
+         */
         endFillColor?: string
 
     }
@@ -3257,7 +3900,6 @@ declare namespace  __React {
          */
         onScroll?: (event?: { nativeEvent: NativeScrollEvent }) => void
 
-
         /**
          * Experimental: When true offscreen child views (whose `overflow` value is
          * `hidden`) are removed from their native backing superview when offscreen.
@@ -3281,6 +3923,10 @@ declare namespace  __React {
          */
         style?: ScrollViewStyle
 
+        /**
+         * A RefreshControl component, used to provide pull-to-refresh
+         * functionality for the ScrollView.
+         */
         refreshControl?: RefreshControl
     }
 
@@ -3290,6 +3936,7 @@ declare namespace  __React {
 
     interface ScrollViewStatic extends React.ComponentClass<ScrollViewProps> {
 
+        // Deprecated. Use RefreshControl instead.
         endRefreshing?: () => void
 
         /**
@@ -3308,9 +3955,18 @@ declare namespace  __React {
             animated?: boolean
         ): void;
 
-        // TODO: investigate return type
-        getMetrics?: () => any
+        /**
+         * Returns a reference to the underlying scroll responder, which supports
+         * operations like `scrollTo`. All ScrollView-like components should
+         * implement this method so that they can be composed while providing access
+         * to the underlying scroll responder's methods.
+         */
+        getScrollResponder(): JSX.element;
 
+        // Undocumented
+        getInnerViewNode(): any;
+
+        // Deprecated, do not use.
         scrollWithoutAnimationTo?: (y: number, x: number) => void
     }
 
@@ -3358,9 +4014,6 @@ declare namespace  __React {
         message?: string
     }
 
-    /**
-     * //FIXME: no documentation - inferred from RCTACtionSheetManager.m
-     */
     export interface ShareActionSheetIOSOptions {
         message?: string
         url?: string
@@ -3368,13 +4021,34 @@ declare namespace  __React {
 
     /**
      * @see https://facebook.github.io/react-native/docs/actionsheetios.html#content
-     * //FIXME: no documentation - inferred from RCTACtionSheetManager.m
      */
     export interface ActionSheetIOSStatic {
+        /**
+         * Display an iOS action sheet. The options object must contain one
+         * or more of: 
+         * options (array of strings) - a list of button titles (required)
+         * cancelButtonIndex (int) - index of cancel button in options
+         * destructiveButtonIndex (int) - index of destructive button in options
+         * title (string) - a title to show above the action sheet
+         * message (string) - a message to show below the title
+         */
         showActionSheetWithOptions: ( options: ActionSheetIOSOptions, callback: ( buttonIndex: number ) => void ) => void
+
+        /**
+         * Display the iOS share sheet. The options object should contain one
+         * or both of:
+         * message (string) - a message to share
+         * url (string) - a URL to share
+         * NOTE: if url points to a local file, or is a base64-encoded uri,
+         * the file it points to will be loaded and shared directly. In this
+         * way, you can share images, videos, PDF files, etc.
+         */
         showShareActionSheetWithOptions: ( options: ShareActionSheetIOSOptions, failureCallback: ( error: Error ) => void, successCallback: ( success: boolean, method: string ) => void ) => void
     }
 
+    /**
+     * @see https://facebook.github.io/react-native/docs/alert.html#content
+     */
     export interface AlertButton {
       text?: string
       onPress?: () => void
@@ -3412,7 +4086,33 @@ declare namespace  __React {
      * @see https://facebook.github.io/react-native/docs/alertios.html#content
      */
     export interface AlertIOSStatic {
+
+        /*
+         Creates a popup to alert the user.
+
+         title: string -- The dialog's title.
+         message: string -- An optional message that appears above the text input.
+         callbackOrButtons -- This optional argument should be either a single-argument function or an array of buttons. If passed a function, it will be called when the user taps 'OK'.
+
+         If passed an array of button configurations, each button should include a text key, as well as optional onPress and style keys. style should be one of 'default', 'cancel' or 'destructive'.
+
+         type -- deprecated, do not use
+         */
         alert: ( title: string, message?: string, callbackOrButtons?: (value: string) => void| Array<AlertIOSButton>, type?: string ) => void
+        
+        /*
+         Prompt the user to enter some text.
+
+         title: string -- The dialog's title.
+         message: string -- An optional message that appears above the text input.
+         callbackOrButtons -- This optional argument should be either a single-argument function or an array of buttons. If passed a function, it will be called with the prompt's value when the user taps 'OK'.
+
+         If passed an array of button configurations, each button should include a text key, as well as optional onPress and style keys (see example). style should be one of 'default', 'cancel' or 'destructive'.
+
+         type: string -- This configures the text input. One of 'plain-text', 'secure-text' or 'login-password'.
+         defaultValue: string -- the default value for the text field.
+         */
+        
         prompt: ( title: string, value?: string, callbackOrButtons?: (value: string) => void | Array<AlertIOSButton>, type?: string, defaultValue?: string ) => void
     }
 
@@ -3588,8 +4288,6 @@ declare namespace  __React {
          *      assets-library tag
          *      a tag not maching any of the above, which means the image data will be stored in memory (and consume memory as long as the process is alive)
          *
-         * @param successCallback Invoked with the value of tag on success.
-         * @param errorCallback Invoked with error message on error.
          */
         saveImageWithTag( tag: string ): Promise<string>
 
@@ -3620,8 +4318,25 @@ declare namespace  __React {
     }
 
     export interface DatePickerAndroidStatic {
+        /*
+         Opens the standard Android date picker dialog.
+
+         The available keys for the options object are: date (Date object or timestamp in milliseconds) - date to show by default minDate (Date or timestamp in milliseconds) - minimum date that can be selected * maxDate (Date object or timestamp in milliseconds) - minimum date that can be selected
+
+         Returns a Promise which will be invoked an object containing action, year, month (0-11), day if the user picked a date. If the user dismissed the dialog, the Promise will still be resolved with action being DatePickerAndroid.dismissedAction and all the other keys being undefined. Always check whether the action before reading the values.
+
+         Note the native date picker dialog has some UI glitches on Android 4 and lower when using the minDate and maxDate options.
+         */
         open(options?: DatePickerAndroidOpenOption): Promise<DatePickerAndroidOpenReturn>
+
+        /**
+         * A date has been selected.
+         */
         dateSetAction: string
+
+        /**
+         * The dialog has been dismissed.
+         */
         dismissedAction: string
     }
 
@@ -3642,27 +4357,112 @@ declare namespace  __React {
     }
 
     export interface IntentAndroidStatic {
+        /**
+         * Starts a corresponding external activity for the given URL.
+
+         For example, if the URL is "https://www.facebook.com", the system browser will be opened, or the "choose application" dialog will be shown.
+
+         You can use other URLs, like a location (e.g. "geo:37.484847,-122.148386"), a contact, or any other URL that can be opened with {@code Intent.ACTION_VIEW}.
+
+         NOTE: This method will fail if the system doesn't know how to open the specified URL. If you're passing in a non-http(s) URL, it's best to check {@code canOpenURL} first.
+
+         NOTE: For web URLs, the protocol ("http://", "https://") must be set accordingly!
+
+         @deprecated
+         */
         openURL(url: string): void
+
+        /**
+         * Determine whether or not an installed app can handle a given URL.
+
+         You can use other URLs, like a location (e.g. "geo:37.484847,-122.148386"), a contact, or any other URL that can be opened with {@code Intent.ACTION_VIEW}.
+
+         NOTE: For web URLs, the protocol ("http://", "https://") must be set accordingly!
+
+         @param URL the URL to open
+
+         @deprecated
+         */
         canOpenURL(url: string, callback: (supported: boolean) => void): void
+
+        /**
+         * If the app launch was triggered by an app link with {@code Intent.ACTION_VIEW}, it will give the link url, otherwise it will give null
+
+         Refer http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents
+
+         @deprecated
+         */
         getInitialURL(callback: (url: string) => void):void
     }
 
     export interface LinkingStatic {
+        /**
+         * Add a handler to Linking changes by listening to the url event type and providing the handler
+         * @platform ios
+         */
         addEventListener(type: string, handler: (event: {url: string}) => void): void
+
+        /**
+         * Remove a handler by passing the url event type and the handler
+         * @platform ios
+         */
         removeEventListener(type: string, handler: (event: {url: string}) => void): void
+
+        /**
+         * Try to open the given url with any of the installed apps.
+         * You can use other URLs, like a location (e.g. "geo:37.484847,-122.148386"), a contact, or any other URL that can be opened with the installed apps.
+         * NOTE: This method will fail if the system doesn't know how to open the specified URL. If you're passing in a non-http(s) URL, it's best to check {@code canOpenURL} first.
+         * NOTE: For web URLs, the protocol ("http://", "https://") must be set accordingly!
+         */
         openURL(url: string): Promise<boolean>
+
+        /**
+         * Determine whether or not an installed app can handle a given URL.
+         * NOTE: For web URLs, the protocol ("http://", "https://") must be set accordingly!
+         * NOTE: As of iOS 9, your app needs to provide the LSApplicationQueriesSchemes key inside Info.plist.
+         * @param URL the URL to open
+         */
         canOpenURL(url: string): Promise<boolean>
+
+        /**
+         * If the app launch was triggered by an app link with, it will give the link url, otherwise it will give null
+         * NOTE: To support deep linking on Android, refer http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents
+         */
         getInitialURL(): Promise<string>
     }
 
     export interface LinkingIOSStatic {
+        /**
+         * Add a handler to LinkingIOS changes by listening to the url event type and providing the handler
+         @deprecated
+         */
         addEventListener(type: string, handler: (event: {url: string}) => void): void
+
+        /**
+         * Remove a handler by passing the url event type and the handler
+         @deprecated
+         */
         removeEventListener(type: string, handler: (event: {url: string}) => void): void
+        
+        /**
+         * Try to open the given url with any of the installed apps.
+         @deprecated
+         */
         openURL(url: string): void
+
+        /**
+         * Determine whether or not an installed app can handle a given URL. The callback function will be called with bool supported as the only argument
+         NOTE: As of iOS 9, your app needs to provide the LSApplicationQueriesSchemes key inside Info.plist.
+         @deprecated
+         */
         canOpenURL(url: string, callback: (supported: boolean) => void): void
+
+        /**
+         * If the app launch was triggered by an app link, it will pop the link url, otherwise it will return null
+         @deprecated
+         */
         popInitialURL(): string;
     }
-
 
 
     /**
@@ -3693,6 +4493,12 @@ declare namespace  __React {
          */
         isConnected: FetchableListenable<boolean>
 
+        /**
+         * Available on Android. Detect if the current active connection is
+         * metered or not. A network is classified as metered when the user is
+         * sensitive to heavy data usage on that connection due to monetary
+         * costs, data limitations or battery/performance issues.
+         */
         isConnectionExpensive: FetchableListenable<boolean>
     }
 
@@ -3745,7 +4551,7 @@ declare namespace  __React {
         vy: number
 
         /**
-         * Number of touches currently on screeen
+         * Number of touches currently on screen
          */
         numberActiveTouches: number
 
@@ -3883,11 +4689,39 @@ declare namespace  __React {
      */
     export interface PushNotificationIOSStatic {
 
+        /**
+         * Schedules the localNotification for immediate presentation.
+         * details is an object containing:
+         * alertBody : The message displayed in the notification alert.
+         * alertAction : The "action" displayed beneath an actionable notification. Defaults to "view";
+         * soundName : The sound played when the notification is fired (optional).
+         * category : The category of this notification, required for actionable notifications (optional).
+         * userInfo : An optional object containing additional notification data.
+         */
         presentLocalNotification(details: PresentLocalNotificationDetails): void
-        scheduleLocalNotification(details: ScheduleLocalNotificationDetails): void
-        cancelAllLocalNotifications(): void
-        cancelLocalNotifications(userInfo: Object): void
 
+        /**
+         * Schedules the localNotification for future presentation.
+         * details is an object containing:
+         * fireDate : The date and time when the system should deliver the notification.
+         * alertBody : The message displayed in the notification alert.
+         * alertAction : The "action" displayed beneath an actionable notification. Defaults to "view";
+         * soundName : The sound played when the notification is fired (optional).
+         * category : The category of this notification, required for actionable notifications (optional).
+         * userInfo : An optional object containing additional notification data.
+         */
+        scheduleLocalNotification(details: ScheduleLocalNotificationDetails): void
+
+        /**
+         * Cancels all scheduled localNotifications
+         */
+        cancelAllLocalNotifications(): void
+
+        /**
+         * Cancel local notifications.
+         * Optionally restricts the set of canceled notifications to those notifications whose userInfo fields match the corresponding fields in the userInfo argument.
+         */
+        cancelLocalNotifications(userInfo: Object): void
 
         /**
          * Sets the badge number for the app icon on the home screen
@@ -3915,6 +4749,16 @@ declare namespace  __React {
          */
         requestPermissions( permissions?: PushNotificationPermissions[] ): void
 
+        /**
+         * Unregister for all remote notifications received via Apple Push
+         * Notification service. 
+         * You should call this method in rare circumstances only, such as when
+         * a new version of the app removes support for all types of remote
+         * notifications. Users can temporarily prevent apps from receiving
+         * remote notifications through the Notifications section of the
+         * Settings app. Apps unregistered through this method can always
+         * re-register.
+         */
         abandonPermissions(): void
 
         /**
@@ -3947,34 +4791,69 @@ declare namespace  __React {
     /**
      * @enum('default', 'light-content')
      */
-    export type StatusBarStyle =  string
+    export type StatusBarStyle =  "default" | "light-content"
 
     /**
      * @enum('none','fade', 'slide')
      */
-    type StatusBarAnimation = string
+    type StatusBarAnimation = "none" | "fade" | "slide"
 
     export interface StatusBarPropertiesIOS extends React.Props<StatusBarStatic> {
-        barStyle?: "default" | "light-content"
+        /**
+         * Sets the color of the status bar text.
+         */
+        barStyle?: StatusBarStyle
+
+        /**
+         * If the network activity indicator should be visible.
+         */
         networkActivityIndicatorVisible?: boolean
+
+        /**
+         * The transition effect when showing and hiding the status bar using
+         * the hidden prop. Defaults to 'fade'.
+         */
         showHideTransition?: "fade" | "slide"
     }
 
     export interface StatusBarPropertiesAndroid extends React.Props<StatusBarStatic> {
+        /**
+         * The background color of the status bar.
+         */
         backgroundColor?: any
+
+        /**
+         * If the status bar is translucent. When translucent is set to true,
+         * the app will draw under the status bar. This is useful when using a
+         * semi transparent status bar color.
+         */
         translucent?: boolean
     }
 
     export interface StatusBarProperties extends StatusBarPropertiesIOS, StatusBarPropertiesAndroid, React.Props<StatusBarStatic> {
+        
+        /**
+         * If the transition between status bar property changes should be
+         * animated. Supported for backgroundColor, barStyle and hidden.
+         */
         animated?: boolean
+
+        /**
+         * If the status bar is hidden.
+         */
         hidden?: boolean
     }
 
     export interface StatusBarStatic extends React.ComponentClass<StatusBarProperties> {
-        setHidden: (hidden: boolean, animation: 'none' | 'fade' | 'slide') => void
-        setBarStyle: (style: 'default' | 'light-content', animated: boolean) => void
+        
+        setHidden: (hidden: boolean, animation: StatusBarAnimation) => void
+        
+        setBarStyle: (style: StatusBarStyle, animated: boolean) => void
+        
         setNetworkActivityIndicatorVisible: (visible: boolean) => void
+        
         setBackgroundColor: (color: string, animated: boolean) => void
+        
         setTranslucent: (translucent: boolean) => void
     }
 
@@ -4000,27 +4879,85 @@ declare namespace  __React {
     }
 
     export interface TimePickerAndroidStatic {
+
+        /**
+         * The available keys for the options object are:
+         * hour (0-23) - the hour to show, defaults to the current time
+         * minute (0-59) - the minute to show, defaults to the current time 
+         * is24Hour (boolean) - If true, the picker uses the 24-hour format.
+         * If false, the picker shows an AM/PM chooser. If undefined,
+         * the default for the current locale is used.
+
+         * Returns a Promise which will be invoked an object containing action,
+         * hour (0-23), minute (0-59) if the user picked a time. If the user
+         * dismissed the dialog, the Promise will still be resolved with action
+         * being TimePickerAndroid.dismissedAction and all the other keys being
+         * undefined. Always check whether the action before reading the values.
+         */
         open(options: TimePickerAndroidOpenOptions): Promise<{action: string, hour: number, minute: number}>
+
+        /**
+         * A time has been selected.
+         */
         timeSetAction: string
+
+        /**
+         * The dialog has been dismissed.
+         */
         dismissedAction: string
     }
 
     export interface ToastAndroidStatic {
-        show(message: string, duraction: number): void
+        /**
+         * String message: A string with the text to toast
+         * int duration: The duration of the toast.
+         * May be ToastAndroid.SHORT or ToastAndroid.LONG
+         */
+        show(message: string, duration: number): void
         SHORT: number
         LONG: number
     }
 
     export interface SwitchPropertiesIOS extends React.Props<SwitchStatic> {
-        onTintColor?: any
-        thumbTintColor?: any
-        tintColor?: any
+
+        /**
+         * Background color when the switch is turned on.
+         */
+        onTintColor?: string
+
+        /**
+         * Color of the foreground switch grip.
+         */
+        thumbTintColor?: string
+
+        /**
+         * Background color when the switch is turned off.
+         */
+        tintColor?: string
     }
 
     export interface SwitchProperties extends React.Props<SwitchStatic> {
+
+        /**
+         * If true the user won't be able to toggle the switch.
+         * Default value is false.
+         */
         disabled?: boolean
+
+        /**
+         * Invoked with the new value when the value changes.
+         */
         onValueChange?: (value: boolean) => void
+
+        /**
+         * Used to locate this view in end-to-end tests.
+         */
         testID?: string
+
+        /**
+         * The value of the switch. If true the switch will be turned on.
+         * Default value is false.
+         */
         value?: boolean
     }
 
@@ -4044,7 +4981,13 @@ declare namespace  __React {
     }
 
     export interface VibrationStatic {
-        vibrate(): void
+        // Vibration patterns are currently unsupported.
+        vibrate(pattern: number | number[], repeat: boolean): void
+
+        /**
+         * Stop vibration
+         * @platform android
+         */
         cancel(): void
     }
 
@@ -4376,15 +5319,30 @@ declare namespace  __React {
     }
 
     export interface GeolocationStatic {
+        /*
+         * Invokes the success callback once with the latest location info.  Supported
+         * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool)
+         * On Android, this can return almost immediately if the location is cached or
+         * request an update, which might take a while.
+         */
         getCurrentPosition(geo_success: (position: GeolocationReturnType) => void, geo_error?: (error: Error) => void, geo_options?: GetCurrentPositionOptions): void
+
+        /*
+         * Invokes the success callback whenever the location changes.  Supported
+         * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool), distanceFilter(m)
+         */
         watchPosition(success: (position: Geolocation) => void, error?: (error: Error) => void, options?: WatchPositionOptions): void
+        
         clearWatch(watchID: number): void
+        
         stopObserving(): void
     }
 
-    // TODO: Add proper support
+    // Network Polyfill
+    // TODO: Add proper support for fetch
     export type fetch = (url: string, options?: Object) => Promise<any>
 
+    // Timers polyfill
     export type timedScheduler = (fn: string | Function, time: number) => number
     export type untimedScheduler = (fn: string | Function) => number
     export type setTimeout = timedScheduler
@@ -4706,7 +5664,6 @@ declare namespace  __React {
 }
 
 declare module "react-native" {
-
     import ReactNative = __React
     export = ReactNative
 }
