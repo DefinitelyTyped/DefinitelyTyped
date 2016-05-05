@@ -1,8 +1,5 @@
 /// <reference path="connect-timeout.d.ts" />
 
-/// <reference path="../cookie-parser/cookie-parser.d.ts" />
-
-
 import * as express from "express";
 import * as timeout from "connect-timeout";
 import * as bodyParser from "body-parser";

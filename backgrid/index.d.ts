@@ -3,7 +3,10 @@
 // Definitions by: Jeremy Lujan <https://github.com/jlujan/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../backbone/backbone.d.ts" />
+import * as Backbone from 'backbone';
+
+export as namespace Backgrid;
+export = Backgrid;
 
 declare namespace Backgrid {
 
@@ -121,8 +124,4 @@ declare namespace Backgrid {
         render(): Grid;
     }
 
-}
-
-declare module "backgrid" {
-    export = Backgrid;
 }

@@ -3,9 +3,9 @@
 // Definitions by: Craig Brett <https://github.com/craigbrett17/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../backbone/backbone.d.ts" />
+import * as Backbone from 'backbone';
 
-declare namespace Backbone {
+declare module 'backbone' {
     export module Associations {
         /** Defines a 1:Many relationship type */
         export var Many: string;

@@ -1,5 +1,3 @@
-/// <reference path="express-brute-memcached.d.ts"/>
-
 import * as express from "express";
 import * as ExpressBrute from "express-brute";
 import MemcachedStore from "express-brute-memcached";

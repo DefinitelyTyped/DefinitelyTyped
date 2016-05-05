@@ -3,7 +3,7 @@
 // Definitions by: Eric Todd <https://github.com/ericrtodd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="Microsoft.Maps.d.ts"/>
+/// <reference path="bingmaps.d.ts"/>
 
 declare namespace Microsoft.Maps.Directions {
 

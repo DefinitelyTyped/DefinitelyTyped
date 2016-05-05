@@ -3,10 +3,9 @@
 // Definitions by: Nyamazing <https://github.com/Nyamazing/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../backbone/backbone.d.ts" />
+import * as Backbone from 'backbone';
 
-declare namespace Backbone {
-
+declare module 'backbone' {
   interface PageableState {
     firstPage?:    number;
     lastPage?:     number;

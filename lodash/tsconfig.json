@@ -1,5 +1,5 @@
 {
-	"files": ["lodash.d.ts", "lodash-tests.d.ts"],
+	"files": ["lodash.d.ts", "lodash-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

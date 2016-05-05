@@ -1,4 +1,5 @@
 {
+	"files": ["angular-permission.d.ts", "angular-permission-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

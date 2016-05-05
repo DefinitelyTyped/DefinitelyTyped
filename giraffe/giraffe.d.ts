@@ -3,7 +3,8 @@
 // Definitions by: Matt McCray <https://github.com/darthapo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../backbone/backbone.d.ts" />
+/// <reference path="../backbone/index.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 declare namespace Giraffe {
 

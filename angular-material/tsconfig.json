@@ -1,4 +1,5 @@
 {
+	"files": ["angular-material.d.ts", "angular-material-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

@@ -4,10 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jointjs/jointjs.d.ts" />
-/// <reference path="../backbone/backbone.d.ts" />
 
 declare namespace joint{
-    namespace ui{
+    namespace ui {
         interface Handle {
             name : string;
             position : string;

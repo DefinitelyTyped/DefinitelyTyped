@@ -678,6 +678,11 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
   hasnt(contained: HTMLElement): ChocolateChipElementArray;
 
   /**
+   * Same overload as is present in the base type
+   */
+  find(predicate: (value: HTMLElement, index: number, obj: HTMLElement[]) => boolean, thisArg?: any): HTMLElement;
+
+  /**
    * Get the descendants of each element in the current set of matched elements, filtered by a selector or element.
    *
    * @param selector A string containing a selector expression to match elements against.
@@ -1247,11 +1252,6 @@ interface Promise<T> {
 }
 
 interface PromiseConstructor {
-  /**
-   * A reference to the prototype.
-   */
-  prototype: Promise<any>;
-
   /**
    * Creates a new Promise.
    *

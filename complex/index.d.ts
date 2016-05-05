@@ -3,8 +3,7 @@
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-export declare default class Complex {
+export default class Complex {
     /**
      * @param real The real part of the number
      * @param im The imaginary part of the number

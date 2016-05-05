@@ -3,9 +3,13 @@
 // Definitions by: Louis Grignon <https://github.com/lgrignon/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../backbone/backbone.d.ts" />
+import * as Backbone from 'backbone';
 
-declare namespace Backbone {
+declare global {
+    import Store = Backbone.LocalStorage;
+}
+
+declare module 'backbone' {
     interface Serializer {
         serialize(item: any): any;
         deserialize(data: any): any;
@@ -47,5 +51,4 @@ declare namespace Backbone {
     }
 }
 
-import Store = Backbone.LocalStorage;
 

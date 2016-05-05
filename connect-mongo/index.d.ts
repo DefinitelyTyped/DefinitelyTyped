@@ -3,9 +3,6 @@
 // Definitions by: Mizuki Yamamoto <https://github.com/Syati>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
-/// <reference path="../mongodb/mongodb.d.ts" />
 /// <reference path="../express-session/express-session.d.ts" />
 
 declare module "connect-mongo" {

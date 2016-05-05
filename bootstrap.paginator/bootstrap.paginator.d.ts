@@ -5,25 +5,24 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-interface PaginatorOptions{
+interface PaginatorOptions {
     alignment?: string;
     size?: string;
-    itemContainerClass?: (type, page, current) => string;
+    itemContainerClass?: (type: string, page: number, current: number) => string;
     currentPage?: number;
     numberOfPages?: number;
     totalPages?: number;
-    pageUrl?: (type, page, current) => string;
+    pageUrl?: (type: string, page: number, current: number) => string;
     shouldShowPage?: boolean;
-    itemTexts?: (type:string, page:number, current:number) => string;
-    tooltipTitles?: (type, page, current) => string;
+    itemTexts?: (type: string, page: number, current: number) => string;
+    tooltipTitles?: (type: string, page: number, current: number) => string;
     useBootstrapTooltip?: boolean;
     bootstrapTooltipOptions?: {};
     bootstrapMajorVersion?: number;
-    onPageClicked?: (event, originalEvent, type, page) => void;
-    onPageChanged?: (event, originalEvent, type, page) => void;
+    onPageClicked?: (event: any, originalEvent: any, type: string, page: number) => void;
+    onPageChanged?: (event: any, originalEvent: any, type: string, page: number) => void;
 }
 
 interface JQuery {
-    bootstrapPaginator(): JQuery;
-    bootstrapPaginator(options: PaginatorOptions): JQuery;
+    bootstrapPaginator(options?: PaginatorOptions): JQuery;
 }

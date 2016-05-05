@@ -1,4 +1,3 @@
-/// <reference path="./dts-bundle.d.ts"/>
 /// <reference path="../node/node.d.ts"/>
 import dts = require("dts-bundle");
 import os = require("os");
