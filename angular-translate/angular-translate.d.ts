@@ -68,6 +68,7 @@ declare namespace angular.translate {
         loaderCache(): any;
         isReady(): boolean;
         onReady(): angular.IPromise<void>;
+        resolveClientLocale():string;
     }
 
     interface ITranslateProvider extends angular.IServiceProvider {
@@ -111,6 +112,7 @@ declare namespace angular.translate {
         registerAvailableLanguageKeys(): string[];
         registerAvailableLanguageKeys(languageKeys: string[], aliases?: ILanguageKeyAlias): ITranslateProvider;
         useLoaderCache(cache?: any): ITranslateProvider;
+        resolveClientLocale():string;
     }
 }
 

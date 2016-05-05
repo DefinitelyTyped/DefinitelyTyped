@@ -112,8 +112,8 @@ interface IFetchStatic {
     (url: string | IRequest, init?: RequestInit): Promise<IResponse>;
 }
 
-declare module "isomorphic-fetch" {
-    export default IFetchStatic;
-}
-
 declare var fetch: IFetchStatic;
+
+declare module "isomorphic-fetch" {
+    export = fetch;
+}
