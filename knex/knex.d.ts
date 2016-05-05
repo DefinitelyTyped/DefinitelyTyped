@@ -28,7 +28,7 @@ declare module "knex" {
     schema: Knex.SchemaBuilder;
 
     client: any;
-    migrate: any;
+    migrate: Knex.Migration;
     seed: any;
     fn: any;
   }
@@ -370,15 +370,15 @@ declare module "knex" {
       nullable(): ColumnBuilder;
       comment(value: string): ColumnBuilder;
     }
-    
+
     interface ForeignConstraintBuilder {
         references(columnName: string): ReferencingColumnBuilder;
     }
-    
+
     interface MultikeyForeignConstraintBuilder {
         references(columnNames: string[]): ReferencingColumnBuilder;
     }
-    
+
     interface PostgreSqlColumnBuilder extends ColumnBuilder {
       index(indexName?: string, indexType?: string): ColumnBuilder;
     }
@@ -492,6 +492,14 @@ declare module "knex" {
       directory?: string;
       extension?: string;
       tableName?: string;
+    }
+
+    interface Migration {
+      make(name:string, config?: MigrationConfig):Promise<string>;
+      latest(config?: MigrationConfig):Promise<any>;
+      rollback(config?: MigrationConfig):Promise<any>;
+      status(config?: MigrationConfig):Promise<number>;
+      currentVersion(config?: MigrationConfig):Promise<string>;
     }
   }
 
