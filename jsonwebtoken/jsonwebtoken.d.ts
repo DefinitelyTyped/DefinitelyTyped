@@ -1,7 +1,7 @@
-﻿// Type definitions for jsonwebtoken 0.4.0
+﻿// Type definitions for jsonwebtoken 6.2.0
 // Project: https://github.com/auth0/node-jsonwebtoken
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Maxime LUCE <https://github.com/SomaticIT>, Daniel Heim <https://github.com/danielheim>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -22,17 +22,15 @@ declare module "jsonwebtoken" {
          * - none:     No digital signature or MAC value included
          */
         algorithm?: string;
-        /** 
-         *@deprecated - see expiresIn
-         *@member {number} - Lifetime for the token in minutes 
-         */
-        expiresInMinutes?: number;
         /** @member {string} - Lifetime for the token expressed in a string describing a time span [rauchg/ms](https://github.com/rauchg/ms.js). Eg: `60`, `"2 days"`, `"10h"`, `"7d"` */
         expiresIn?: string;
+        notBefore?: string;
         audience?: string;
         subject?: string;
         issuer?: string;
+        jwtid?: string;
         noTimestamp?: boolean;
+        header?: Object;
     }
 
     export interface VerifyOptions {
@@ -40,6 +38,12 @@ declare module "jsonwebtoken" {
         audience?: string;
         issuer?: string;
         ignoreExpiration?: boolean;
+        ignoreNotBefore?: boolean;
+        subject?: string;
+        /**
+         *@deprecated
+         *@member {string} - Max age of token
+         */
         maxAge?: string;
     }
 
@@ -74,7 +78,7 @@ declare module "jsonwebtoken" {
      */
     export function sign(payload: string | Buffer | Object, secretOrPrivateKey: string | Buffer, callback: SignCallback): void;
     export function sign(payload: string | Buffer | Object, secretOrPrivateKey: string | Buffer, options: SignOptions, callback: SignCallback): void;
-    
+
     /**
      * Synchronously verify given token using a secret or a public key to get a decoded token
      * @param {String} token - JWT string to verify

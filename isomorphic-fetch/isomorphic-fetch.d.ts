@@ -1,7 +1,7 @@
 // Type definitions for isomorphic-fetch
 // Project: https://github.com/matthew-andrews/isomorphic-fetch
 // Definitions by: Todd Lucas <https://github.com/toddlucas>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare enum RequestContext {
     "audio", "beacon", "cspreport", "download", "embed", "eventsource", 
@@ -112,8 +112,8 @@ interface IFetchStatic {
     (url: string | IRequest, init?: RequestInit): Promise<IResponse>;
 }
 
-declare module "isomorphic-fetch" {
-    export default IFetchStatic;
-}
-
 declare var fetch: IFetchStatic;
+
+declare module "isomorphic-fetch" {
+    export = fetch;
+}

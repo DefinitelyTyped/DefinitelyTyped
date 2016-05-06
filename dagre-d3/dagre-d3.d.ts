@@ -1,12 +1,12 @@
 // Type definitions for dagre-d3.core.js
 // Project: https://github.com/cpettitt/dagre-d3
 // Definitions by: Mark Wong Siang Kai <https://github.com/markwongsk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../d3/d3.d.ts"/>
 /// <reference path="../dagre/dagre.d.ts"/>
 
-declare module Dagre {
+declare namespace Dagre {
 
     interface DagreD3Factory extends Dagre.DagreFactory {
         render: Render;
@@ -29,3 +29,7 @@ declare module Dagre {
 }
 
 declare var dagreD3: Dagre.DagreD3Factory;
+
+declare module "dagre-d3" {
+    export = dagreD3;
+}

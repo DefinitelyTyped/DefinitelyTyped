@@ -1,20 +1,20 @@
 ﻿// Type definitions for Google Translate API
 // Project: https://developers.google.com/translate/
 // Definitions by: Frank M <https://github.com/sgtfrankieboy>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../gapi/gapi.d.ts" />
 
-declare module gapi.client.language {
+declare namespace gapi.client.language {
 
 	export interface detections {
-		
+
 		/**
 		 * Detect the language of text.
 		 */
 		list(object: {
 			/**
-			 * The text to detect 
+			 * The text to detect
 			 */
 			q: string[];
 			/**
@@ -25,14 +25,14 @@ declare module gapi.client.language {
 	}
 
 	export interface languages {
-	
-		
+
+
 		/**
 		 * List the source/target languages supported by the API
 		 */
 		list(object: {
 			/**
-			 * the language and collation in which the localized results should be returned 
+			 * the language and collation in which the localized results should be returned
 			 */
 			target?: string;
 			/**
@@ -44,21 +44,21 @@ declare module gapi.client.language {
 	}
 
 	export interface translations {
-	
+
 		/**
 		 * Returns text translations from one language to another.
 		 */
 		list(object: {
 			/**
-			 *  The text to translate 
+			 *  The text to translate
 			 */
 			q: string[];
 			/**
-			 * The target language into which the text should be translated 
+			 * The target language into which the text should be translated
 			 */
 			target: string;
 			/**
-			 * The customization id for translate 
+			 * The customization id for translate
 			 */
 			cid?: string[];
 			/**
@@ -66,7 +66,7 @@ declare module gapi.client.language {
 			 */
 			format?: string;
 			/**
-			 * The source language of the text 
+			 * The source language of the text
 			 */
 			source?: string;
 			/**
@@ -106,7 +106,7 @@ interface GoogleApiTranslateLanguageListResponse {
 }
 
 interface GoogleApiTranslateDetectionListResponse {
-	
+
 	data: {
 		detections: {
 			language: string;

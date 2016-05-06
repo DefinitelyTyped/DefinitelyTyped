@@ -1,7 +1,7 @@
 // Type definitions for React DnD v1.1.4
 // Project: https://github.com/gaearon/react-dnd
 // Definitions by: Asana <https://asana.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path='../react/react.d.ts' />
 
@@ -38,14 +38,14 @@ declare module __ReactDnd {
     export function DragSource<P>(
         type: Identifier | ((props: P) => Identifier),
         spec: DragSourceSpec<P>,
-        collect: (connect: DragSourceConnector, monitor: DragSourceMonitor) => Object,
+        collect: DragSourceCollector,
         options?: DndOptions<P>
     ): (componentClass: React.ComponentClass<P>) => DndComponentClass<P>;
 
     export function DropTarget<P>(
         types: Identifier | Identifier[] | ((props: P) => Identifier | Identifier[]),
         spec: DropTargetSpec<P>,
-        collect: (connect: DropTargetConnector, monitor: DropTargetMonitor) => Object,
+        collect: DropTargetCollector,
         options?: DndOptions<P>
     ): (componentClass: React.ComponentClass<P>) => DndComponentClass<P>;
 
@@ -54,9 +54,13 @@ declare module __ReactDnd {
     ): (componentClass: React.ComponentClass<P>) => ContextComponentClass<P>;
 
     export function DragLayer<P>(
-        collect: (monitor: DragLayerMonitor) => Object,
+        collect: DragLayerCollector,
         options?: DndOptions<P>
     ): (componentClass: React.ComponentClass<P>) => DndComponentClass<P>;
+
+    type DragSourceCollector = (connect: DragSourceConnector, monitor: DragSourceMonitor) => Object;
+    type DropTargetCollector = (connect: DropTargetConnector, monitor: DropTargetMonitor) => Object;
+    type DragLayerCollector = (monitor: DragLayerMonitor) => Object;
 
     // Shared
     // ----------------------------------------------------------------------

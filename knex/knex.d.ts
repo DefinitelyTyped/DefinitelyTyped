@@ -1,14 +1,14 @@
 // Type definitions for Knex.js
 // Project: https://github.com/tgriesser/knex
 // Definitions by: Qubo <https://github.com/tkQubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
 declare module "knex" {
   import Promise = require("bluebird");
-  import events = require("events");
+  import * as events from "events";
 
   type Callback = Function;
   type Client = Function;
@@ -299,8 +299,8 @@ declare module "knex" {
     // Schema builder
     //
 
-    interface SchemaBuilder {
-      createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): Promise<void>;
+    interface SchemaBuilder extends Promise<any> {
+      createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
       renameTable(oldTableName: string, newTableName: string): Promise<void>;
       dropTable(tableName: string): Promise<void>;
       hasTable(tableName: string): Promise<boolean>;
@@ -337,6 +337,9 @@ declare module "knex" {
       primary(columnNames: string[]) : TableBuilder;
       index(columnNames: string[], indexName?: string, indexType?: string) : TableBuilder;
       unique(columnNames: string[], indexName?: string) : TableBuilder;
+      foreign(column: string): ForeignConstraintBuilder;
+      foreign(columns: string[]): MultikeyForeignConstraintBuilder;
+      dropForeign(columnNames: string[], foreignKeyName?: string): TableBuilder;
     }
 
     interface CreateTableBuilder extends TableBuilder {
@@ -367,7 +370,15 @@ declare module "knex" {
       nullable(): ColumnBuilder;
       comment(value: string): ColumnBuilder;
     }
-
+    
+    interface ForeignConstraintBuilder {
+        references(columnName: string): ReferencingColumnBuilder;
+    }
+    
+    interface MultikeyForeignConstraintBuilder {
+        references(columnNames: string[]): ReferencingColumnBuilder;
+    }
+    
     interface PostgreSqlColumnBuilder extends ColumnBuilder {
       index(indexName?: string, indexType?: string): ColumnBuilder;
     }
@@ -399,7 +410,7 @@ declare module "knex" {
       debug?: boolean;
       client?: string;
       dialect?: string;
-      connection: string|ConnectionConfig|MariaSqlConnectionConfig|
+      connection?: string|ConnectionConfig|MariaSqlConnectionConfig|
         Sqlite3ConnectionConfig|SocketConnectionConfig;
       pool?: PoolConfig;
       migrations?: MigrationConfig;

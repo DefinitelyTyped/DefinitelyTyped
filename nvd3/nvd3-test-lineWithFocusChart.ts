@@ -1,5 +1,5 @@
 ﻿/// <reference path="nvd3.d.ts" />
-module nvd3_test_lineWithFocusChart {
+namespace nvd3_test_lineWithFocusChart {
     nv.addGraph(function () {
         var chart = nv.models.lineWithFocusChart();
 

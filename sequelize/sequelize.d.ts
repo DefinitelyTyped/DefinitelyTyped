@@ -1,7 +1,7 @@
 // Type definitions for Sequelize 3.4.1
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
@@ -11,7 +11,7 @@
 
 declare module "sequelize" {
 
-    module sequelize {
+    namespace sequelize {
 
         //
         //  Associations
@@ -3121,7 +3121,7 @@ declare module "sequelize" {
              * `Sequelize.literal`, `Sequelize.fn` and so on), and the second is the name you want the attribute to
              * have in the returned instance
              */
-            attributes? : Array<string | [string, string]>;
+            attributes? :  Array<string> | { include?: Array<string>, exclude?: Array<string> };
 
             /**
              * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
@@ -3325,6 +3325,20 @@ declare module "sequelize" {
              */
             logging? : boolean | Function;
 
+            /**
+             * Transaction to run query under
+             */
+            transaction? : Transaction;
+
+            /**
+             * An optional parameter to specify the schema search_path (Postgres only)
+             */
+            searchPath? : string;
+
+            /**
+             * Print query execution time in milliseconds when logging SQL.
+             */
+            benchmark? : boolean;
         }
 
         /**
@@ -5176,6 +5190,14 @@ declare module "sequelize" {
              */
             isolationLevel? : string;
 
+            /**
+             * Set the default transaction type. See `Sequelize.Transaction.TYPES` for possible
+             * options.
+             *
+             * Defaults to 'DEFERRED'
+             */
+            transactionType? : string;
+
         }
 
         /**
@@ -5373,6 +5395,9 @@ declare module "sequelize" {
         }
 
         interface QueryOptionsTransactionRequired { }
+        interface ModelsHashInterface {
+            [name: string]: Model<any, any>;
+        }
 
         /**
          * This is the main class, the entry point to sequelize. To use it, you just need to
@@ -5392,6 +5417,11 @@ declare module "sequelize" {
              * A reference to Sequelize constructor from sequelize. Useful for accessing DataTypes, Errors etc.
              */
             Sequelize: SequelizeStatic;
+
+            /**
+             * Defined models.
+             */
+            models: ModelsHashInterface;
 
             /**
              * Returns the specified dialect.
@@ -5787,6 +5817,41 @@ declare module "sequelize" {
             ISOLATION_LEVELS : TransactionIsolationLevels;
 
             /**
+             * Transaction type can be set per-transaction by passing `options.type` to
+             * `sequelize.transaction`. Default to `DEFERRED` but you can override the default isolation level
+             * by passing `options.transactionType` in `new Sequelize`.
+             *
+             * The transaction types to use when starting a transaction:
+             *
+             * ```js
+             * {
+             *   DEFERRED: "DEFERRED",
+             *   IMMEDIATE: "IMMEDIATE",
+             *   EXCLUSIVE: "EXCLUSIVE"
+             * }
+             * ```
+             *
+             * Pass in the transaction type the first argument:
+             *
+             * ```js
+             * return sequelize.transaction({
+             *   type: Sequelize.Transaction.EXCLUSIVE
+             * }, function (t) {
+             *
+             *  // your transactions
+             *
+             * }).then(function(result) {
+             *   // transaction has been committed. Do something after the commit if required.
+             * }).catch(function(err) {
+             *   // do something with the err.
+             * });
+             * ```
+             *
+             * @see Sequelize.Transaction.TYPES
+             */
+            TYPES : TransactionTypes;
+
+            /**
              * Possible options for row locking. Used in conjuction with `find` calls:
              *
              * ```js
@@ -5838,6 +5903,17 @@ declare module "sequelize" {
         }
 
         /**
+         * Transaction type can be set per-transaction by passing `options.type` to `sequelize.transaction`.
+         * Default to `DEFERRED` but you can override the default isolation level by passing
+         * `options.transactionType` in `new Sequelize`.
+         */
+        interface TransactionTypes {
+          DEFERRED: string; // 'DEFERRED'
+          IMMEDIATE: string; // 'IMMEDIATE'
+          EXCLUSIVE: string; // 'EXCLUSIVE'
+        }
+
+        /**
          * Possible options for row locking. Used in conjuction with `find` calls:
          */
         interface TransactionLock {
@@ -5860,6 +5936,11 @@ declare module "sequelize" {
              *  See `Sequelize.Transaction.ISOLATION_LEVELS` for possible options
              */
             isolationLevel?: string;
+
+            /**
+             *  See `Sequelize.Transaction.TYPES` for possible options
+             */
+            type?: string;
 
             /**
              * A function that gets executed while running the query to log the sql.

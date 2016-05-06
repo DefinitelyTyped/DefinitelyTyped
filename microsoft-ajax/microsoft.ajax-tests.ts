@@ -1,7 +1,7 @@
 // Type definitions for Microsoft ASP.NET Ajax client side library
 // Project: http://msdn.microsoft.com/en-us/library/ee341002(v=vs.100).aspx
 // Definitions by: Patrick Magee <https://github.com/pjmagee/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="microsoft.ajax.d.ts" />
 
 function GlobalNamespace_Tests() {

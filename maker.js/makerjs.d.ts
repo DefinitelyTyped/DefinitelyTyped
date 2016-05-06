@@ -1,7 +1,7 @@
 // Type definitions for Maker.js
 // Project: https://github.com/Microsoft/maker.js
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /**
  * Root module for Maker.js.
  *
@@ -11,7 +11,7 @@
  * ```
  *
  */
-declare module MakerJs {
+declare namespace MakerJs {
     /**
      * String-based enumeration of unit types: imperial, metric or otherwise.
      * A model may specify the unit system it is using, if any. When importing a model, it may have different units.
@@ -424,7 +424,7 @@ declare module MakerJs {
         notes?: string;
     }
 }
-declare module MakerJs.angle {
+declare namespace MakerJs.angle {
     /**
      * Find out if two angles are equal.
      *
@@ -502,7 +502,7 @@ declare module MakerJs.angle {
      */
     function mirror(angleInDegrees: number, mirrorX: boolean, mirrorY: boolean): number;
 }
-declare module MakerJs.point {
+declare namespace MakerJs.point {
     /**
      * Add two points together and return the result as a new point object.
      *
@@ -647,7 +647,7 @@ declare module MakerJs.point {
      */
     function zero(): IPoint;
 }
-declare module MakerJs.path {
+declare namespace MakerJs.path {
     /**
      * Find out if two paths are equal.
      *
@@ -700,7 +700,7 @@ declare module MakerJs.path {
      */
     function scale(pathToScale: IPath, scaleValue: number): IPath;
 }
-declare module MakerJs.path {
+declare namespace MakerJs.path {
     /**
      * Breaks a path in two. The supplied path will end at the supplied pointOfBreak,
      * a new path is returned which begins at the pointOfBreak and ends at the supplied path's initial end point.
@@ -712,7 +712,7 @@ declare module MakerJs.path {
      */
     function breakAtPoint(pathToBreak: IPath, pointOfBreak: IPoint): IPath;
 }
-declare module MakerJs.paths {
+declare namespace MakerJs.paths {
     /**
      * Class for arc path.
      *
@@ -778,7 +778,7 @@ declare module MakerJs.paths {
         constructor(toLine: IPathLine, distance: number, nearPoint: IPoint);
     }
 }
-declare module MakerJs.model {
+declare namespace MakerJs.model {
     /**
      * Count the number of child models within a given model.
      *
@@ -866,7 +866,7 @@ declare module MakerJs.model {
      */
     function walkPaths(modelContext: IModel, callback: IModelPathCallback): void;
 }
-declare module MakerJs.model {
+declare namespace MakerJs.model {
     /**
      * Check to see if a path is inside of a model.
      *
@@ -897,7 +897,7 @@ declare module MakerJs.model {
      */
     function combine(modelA: IModel, modelB: IModel, includeAInsideB?: boolean, includeAOutsideB?: boolean, includeBInsideA?: boolean, includeBOutsideA?: boolean, options?: ICombineOptions): void;
 }
-declare module MakerJs.units {
+declare namespace MakerJs.units {
     /**
      * Get a conversion ratio between a source unit and a destination unit.
      *
@@ -907,7 +907,7 @@ declare module MakerJs.units {
      */
     function conversionScale(srcUnitType: string, destUnitType: string): number;
 }
-declare module MakerJs.measure {
+declare namespace MakerJs.measure {
     /**
      * Total angle of an arc between its start and end angles.
      *
@@ -981,7 +981,7 @@ declare module MakerJs.measure {
      */
     function modelExtents(modelToMeasure: IModel): IMeasure;
 }
-declare module MakerJs.exporter {
+declare namespace MakerJs.exporter {
     /**
      * @private
      */
@@ -1036,7 +1036,7 @@ declare module MakerJs.exporter {
         exportItem(itemId: string, itemToExport: any, origin: IPoint): void;
     }
 }
-declare module MakerJs.exporter {
+declare namespace MakerJs.exporter {
     function toDXF(modelToExport: IModel, options?: IDXFRenderOptions): string;
     function toDXF(pathsToExport: IPath[], options?: IDXFRenderOptions): string;
     function toDXF(pathToExport: IPath, options?: IDXFRenderOptions): string;
@@ -1046,7 +1046,7 @@ declare module MakerJs.exporter {
     interface IDXFRenderOptions extends IExportOptions {
     }
 }
-declare module MakerJs.solvers {
+declare namespace MakerJs.solvers {
     /**
      * Solves for the angle of a triangle when you know lengths of 3 sides.
      *
@@ -1066,7 +1066,7 @@ declare module MakerJs.solvers {
      */
     function solveTriangleASA(oppositeAngleInDegrees: number, lengthOfSideBetweenAngles: number, otherAngleInDegrees: number): number;
 }
-declare module MakerJs.path {
+declare namespace MakerJs.path {
     /**
      * Find the point(s) where 2 paths intersect.
      *
@@ -1086,7 +1086,7 @@ declare module MakerJs.path {
      */
     function slopeIntersectionPoint(line1: IPathLine, line2: IPathLine, options?: IPathIntersectionOptions): IPoint;
 }
-declare module MakerJs.path {
+declare namespace MakerJs.path {
     /**
      * Adds a round corner to the outside angle between 2 lines. The lines must meet at one point.
      *
@@ -1104,7 +1104,7 @@ declare module MakerJs.path {
      */
     function fillet(path1: IPath, path2: IPath, filletRadius: number, options?: IPointMatchOptions): IPathArc;
 }
-declare module MakerJs.kit {
+declare namespace MakerJs.kit {
     /**
      * Helper function to use the JavaScript "apply" function in conjunction with the "new" keyword.
      *
@@ -1121,7 +1121,7 @@ declare module MakerJs.kit {
      */
     function getParameterValues(ctor: IKit): any[];
 }
-declare module MakerJs.model {
+declare namespace MakerJs.model {
     /**
      * @private
      */
@@ -1155,7 +1155,7 @@ declare module MakerJs.model {
     function detachLoop(loopToDetach: IModel): void;
     function removeDeadEnds(modelContext: IModel, pointMatchingDistance?: number): void;
 }
-declare module MakerJs.exporter {
+declare namespace MakerJs.exporter {
     /**
      * Attributes for an XML tag.
      * @private
@@ -1209,7 +1209,7 @@ declare module MakerJs.exporter {
         toString(): string;
     }
 }
-declare module MakerJs.exporter {
+declare namespace MakerJs.exporter {
     function toOpenJsCad(modelToExport: IModel, options?: IOpenJsCadOptions): string;
     function toOpenJsCad(pathsToExport: IPath[], options?: IOpenJsCadOptions): string;
     function toOpenJsCad(pathToExport: IPath, options?: IOpenJsCadOptions): string;
@@ -1248,7 +1248,7 @@ declare module MakerJs.exporter {
         [modelId: string]: IOpenJsCadOptions;
     }
 }
-declare module MakerJs.exporter {
+declare namespace MakerJs.exporter {
     function toSVG(modelToExport: IModel, options?: ISVGRenderOptions): string;
     function toSVG(pathsToExport: IPath[], options?: ISVGRenderOptions): string;
     function toSVG(pathToExport: IPath, options?: ISVGRenderOptions): string;
@@ -1307,83 +1307,83 @@ declare module MakerJs.exporter {
         viewBox?: boolean;
     }
 }
-declare module MakerJs.models {
+declare namespace MakerJs.models {
     class ConnectTheDots implements IModel {
         paths: IPathMap;
         constructor(isClosed: boolean, points: IPoint[]);
     }
 }
-declare module MakerJs.models {
+declare namespace MakerJs.models {
     class Polygon extends ConnectTheDots {
         constructor(numberOfSides: number, radius: number, firstCornerAngleInDegrees?: number);
         static getPoints(numberOfSides: number, radius: number, firstCornerAngleInDegrees?: number): IPoint[];
     }
 }
-declare module MakerJs.models {
+declare namespace MakerJs.models {
     class BoltCircle implements IModel {
         paths: IPathMap;
         constructor(boltRadius: number, holeRadius: number, boltCount: number, firstBoltAngleInDegrees?: number);
     }
 }
-declare module MakerJs.models {
+declare namespace MakerJs.models {
     class BoltRectangle implements IModel {
         paths: IPathMap;
         constructor(width: number, height: number, holeRadius: number);
     }
 }
-declare module MakerJs.models {
+declare namespace MakerJs.models {
     class Dome implements IModel {
         paths: IPathMap;
         constructor(width: number, height: number, radius?: number);
     }
 }
-declare module MakerJs.models {
+declare namespace MakerJs.models {
     class RoundRectangle implements IModel {
         paths: IPathMap;
         constructor(width: number, height: number, radius: number);
     }
 }
-declare module MakerJs.models {
+declare namespace MakerJs.models {
     class Oval extends RoundRectangle {
         constructor(width: number, height: number);
     }
 }
-declare module MakerJs.models {
+declare namespace MakerJs.models {
     class OvalArc implements IModel {
         paths: IPathMap;
         constructor(startAngle: number, endAngle: number, sweepRadius: number, slotRadius: number, selfIntersect?: boolean);
     }
 }
-declare module MakerJs.models {
+declare namespace MakerJs.models {
     class Rectangle extends ConnectTheDots {
         constructor(width: number, height: number);
     }
 }
-declare module MakerJs.models {
+declare namespace MakerJs.models {
     class Ring implements IModel {
         paths: IPathMap;
         constructor(outerRadius: number, innerRadius: number);
     }
 }
-declare module MakerJs.models {
+declare namespace MakerJs.models {
     class SCurve implements IModel {
         paths: IPathMap;
         constructor(width: number, height: number);
     }
 }
-declare module MakerJs.models {
+declare namespace MakerJs.models {
     class Slot implements IModel {
         paths: IPathMap;
         origin: IPoint;
         constructor(origin: IPoint, endPoint: IPoint, radius: number);
     }
 }
-declare module MakerJs.models {
+declare namespace MakerJs.models {
     class Square extends Rectangle {
         constructor(side: number);
     }
 }
-declare module MakerJs.models {
+declare namespace MakerJs.models {
     class Star implements IModel {
         paths: IPathMap;
         constructor(numberOfPoints: number, outerRadius: number, innerRadius?: number, skipPoints?: number);
