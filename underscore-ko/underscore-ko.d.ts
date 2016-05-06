@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../knockout/knockout.d.ts" />
-/// <reference path="../underscore/underscore.d.ts" />
+/// <reference path="../underscore/index.d.ts" />
 
 interface KnockoutObservableArrayFunctions<T> {
 

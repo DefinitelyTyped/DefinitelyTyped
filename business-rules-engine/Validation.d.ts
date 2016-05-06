@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../q/Q.d.ts" />
-/// <reference path="../underscore/underscore.d.ts" />
+
 declare namespace Validation {
     interface IErrorCustomMessage {
         (config: any, args: any): string;
