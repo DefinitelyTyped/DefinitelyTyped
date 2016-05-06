@@ -1913,12 +1913,12 @@ declare module "tls" {
          *  
          * NOTE: Can be used to request peer's certificate after the secure connection has been established.
          * ANOTHER NOTE: When running as the server, socket will be destroyed with an error after handshakeTimeout timeout.
-         * @param {any} options - The options may contain the following fields: rejectUnauthorized,
+         * @param {TlsOptions} options - The options may contain the following fields: rejectUnauthorized,
          * requestCert (See tls.createServer() for details).
-         * @param {} callback - callback(err) will be executed with null as err, once the renegotiation
+         * @param {Function} callback - callback(err) will be executed with null as err, once the renegotiation
          * is successfully completed.
          */
-        renegotiate(options, callback: (err) => any): any;
+        renegotiate(options: TlsOptions, callback: (err: Error) => any): any;
         /**
          * Set maximum TLS fragment size (default and maximum value is: 16384, minimum is: 512).
          * Smaller fragment size decreases buffering latency on the client: large fragments are buffered by
