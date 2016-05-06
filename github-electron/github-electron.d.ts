@@ -1,4 +1,4 @@
-// Type definitions for Electron v0.37.8
+// Type definitions for Electron v1.0.0
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -96,6 +96,11 @@ declare namespace Electron {
 		 * Note: This is only implemented on OS X.
 		 */
 		on(event: 'activate', listener: Function): this;
+		/**
+		 * Emitted during Handoff when an activity from a different device wants to be resumed.
+		 * You should call event.preventDefault() if you want to handle this event.
+		 */
+		on(event: 'continue-activity', listener: (event: Event, type: string, userInfo: Object) => void): this;
 		/**
 		 * Emitted when a browserWindow gets blurred.
 		 */
@@ -251,8 +256,7 @@ declare namespace Electron {
 		/**
 		 * Removes the current executable as the default handler for a protocol (aka URI scheme).
 		 *
-		 * Note: This is only implemented on Windows.
-		 *       On OS X, removing the app will automatically remove the app as the default protocol handler.
+		 * Note: This is only implemented on OS X and Windows.
 		 */
 		removeAsDefaultProtocolClient(protocol: string): void;
 		/**
@@ -281,6 +285,22 @@ declare namespace Electron {
 		 * of your app is running, and other instances signal this instance and exit.
 		 */
 		makeSingleInstance(callback: (args: string[], workingDirectory: string) => void): boolean;
+		/**
+		 * Creates an NSUserActivity and sets it as the current activity.
+		 * The activity is eligible for Handoff to another device afterward.
+		 *
+		 * @param type Uniquely identifies the activity. Maps to NSUserActivity.activityType.
+		 * @param userInfo App-specific state to store for use by another device.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		setUserActivity(type: string, userInfo: Object): void;
+		/**
+		 * @returns The type of the currently running activity.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		getCurrentActivityType(): string;
 		/**
 		 * Changes the Application User Model ID to id.
 		 */
@@ -348,6 +368,12 @@ declare namespace Electron {
 		 * Note: This API is only available on Mac.
 		 */
 		cancelBounce(id: number): void;
+		/**
+		 * Bounces the Downloads stack if the filePath is inside the Downloads folder.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		downloadFinished(filePath: string): void;
 		/**
 		 * Sets the string to be displayed in the dock’s badging area.
 		 *
@@ -1103,6 +1129,11 @@ declare namespace Electron {
 		 * Default: true.
 		 */
 		directWrite?: boolean;
+		/**
+		 * Enables scroll bounce (rubber banding) effect on OS X.
+		 * Default: false.
+		 */
+		scrollBounce?: boolean;
 		/**
 		 * A list of feature strings separated by ",".
 		 */
@@ -3284,6 +3315,10 @@ declare namespace Electron {
 		 * in a NativeImage, and the scale will hold scaling information for the image.
 		 */
 		on(event: 'cursor-changed', listener: (event: Event, type: CursorType, image?: NativeImage, scale?: number) => void): this;
+		/**
+		 * Emitted when there is a new context menu that needs to be handled.
+		 */
+		on(event: 'context-menu', listener: (event: Event, params: ContextMenuParams) => void): this;
 		on(event: string, listener: Function): this;
 		/**
 		 * Loads the url in the window.
@@ -3572,6 +3607,99 @@ declare namespace Electron {
 		 * @returns Debugger API
 		 */
 		debugger: Debugger;
+	}
+
+	interface ContextMenuParams {
+		/**
+		 * x coodinate
+		 */
+		x: number;
+		/**
+		 * y coodinate
+		 */
+		y: number;
+		/**
+		 * URL of the link that encloses the node the context menu was invoked on.
+		 */
+		linkURL: string;
+		/**
+		 * Text associated with the link. May be an empty string if the contents of the link are an image.
+		 */
+		linkText: string;
+		/**
+		 * URL of the top level page that the context menu was invoked on.
+		 */
+		pageURL: string;
+		/**
+		 * URL of the subframe that the context menu was invoked on.
+		 */
+		frameURL: string;
+		/**
+		 * Source URL for the element that the context menu was invoked on.
+		 * Elements with source URLs are images, audio and video.
+		 */
+		srcURL: string;
+		/**
+		 * Type of the node the context menu was invoked on.
+		 */
+		mediaType: 'none' | 'image' | 'audio' | 'video' | 'canvas' | 'file' | 'plugin';
+		/**
+		 * Parameters for the media element the context menu was invoked on.
+		 */
+		mediaFlags: {
+			inError: boolean;
+			isPaused: boolean;
+			isMuted: boolean;
+			hasAudio: boolean;
+			isLooping: boolean;
+			isControlsVisible: boolean;
+			canToggleControls: boolean;
+			canRotate: boolean;
+		}
+		/**
+		 * Wether the context menu was invoked on an image which has non-empty contents.
+		 */
+		hasImageContents: boolean;
+		/**
+		 * Wether the context is editable.
+		 */
+		isEditable: boolean;
+		/**
+		 * These flags indicate wether the renderer believes it is able to perform the corresponding action.
+		 */
+		editFlags: {
+			canUndo: boolean;
+			canRedo: boolean;
+			canCut: boolean;
+			canCopy: boolean;
+			canPaste: boolean;
+			canDelete: boolean;
+			canSelectAll: boolean;
+		}
+		/**
+		 * Text of the selection that the context menu was invoked on.
+		 */
+		selectionText: string;
+		/**
+		 * Title or alt text of the selection that the context was invoked on.
+		 */
+		titleText: string;
+		/**
+		 * The misspelled word under the cursor, if any.
+		 */
+		misspelledWord: string;
+		/**
+		 * The character encoding of the frame on which the menu was invoked.
+		 */
+		frameCharset: string;
+		/**
+		 * If the context menu was invoked on an input field, the type of that field.
+		 */
+		inputFieldType: 'none' | 'plainText' | 'password' | 'other';
+		/**
+		 * Input source that invoked the context menu.
+		 */
+		menuSourceType: 'none' | 'mouse' | 'keyboard' | 'touch' | 'touchMenu';
 	}
 
 	interface Headers {
@@ -4511,6 +4639,11 @@ declare namespace NodeJS {
 		 * If the app is running as a Windows Store app (appx), this value is true, for other builds it is undefined.
 		 */
 		windowsStore?: boolean;
+		/**
+		 * When app is started by being passed as parameter to the default app,
+		 * this value is true in the main process, otherwise it is undefined.
+		 */
+		defaultApp?: boolean;
 		/**
 		 * Emitted when Electron has loaded its internal initialization script
 		 * and is beginning to load the web page or the main script.
