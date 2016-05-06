@@ -1,6 +1,8 @@
 ﻿/// <reference path="backbone.radio.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
 
+import * as Backbone from 'backbone';
+
 class MyCommands extends Backbone.Radio.Commands {
 
 }

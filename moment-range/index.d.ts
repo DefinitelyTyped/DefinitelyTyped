@@ -3,13 +3,13 @@
 // Definitions by: Bart van den Burg <https://github.com/Burgov>, Wilgert Velinga <https://github.com/wilgert>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Moment } from '../moment';
+import * as moment from 'moment';
 
 export as namespace moment;
 export = moment;
 
-declare namespace moment {
-    export interface Range {
+declare module 'moment' {
+     interface Range {
         start: Moment;
         end: Moment;
 
@@ -41,10 +41,6 @@ declare namespace moment {
 
         clone (): Range;
     }
-}
-
-declare module '../moment' {
-    import Range = moment.Range;
 
     interface Moment {
         within (x: moment.Range): boolean;

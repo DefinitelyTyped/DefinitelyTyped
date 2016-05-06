@@ -3,14 +3,13 @@
 // Definitions by: Roman Samec <https://github.com/rsamec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../underscore/underscore.d.ts" />
 /// <reference path="../q/Q.d.ts" />
 /// <reference path="../node/node.d.ts" />
 /// <reference path="business-rules-engine.d.ts" />
 
 export as namespace Validators;
 
-import * as moment from '../moment';
+import * as moment from 'moment';
 
 export class LettersOnlyValidator implements Validation.IStringValidator {
     public isAcceptable(s: string): boolean;

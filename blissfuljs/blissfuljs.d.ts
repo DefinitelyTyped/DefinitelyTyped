@@ -333,7 +333,7 @@ declare namespace BlissNS {
         addEventListener(type: "mouseout", listener: (ev: MouseEvent) => any, useCapture?: boolean): T;
         addEventListener(type: "mouseover", listener: (ev: MouseEvent) => any, useCapture?: boolean): T;
         addEventListener(type: "mouseup", listener: (ev: MouseEvent) => any, useCapture?: boolean): T;
-        addEventListener(type: "mousewheel", listener: (ev: MouseWheelEvent) => any, useCapture?: boolean): T;
+        addEventListener(type: "mousewheel", listener: (ev: MouseEvent) => any, useCapture?: boolean): T;
         addEventListener(type: "paste", listener: (ev: DragEvent) => any, useCapture?: boolean): T;
         addEventListener(type: "pause", listener: (ev: Event) => any, useCapture?: boolean): T;
         addEventListener(type: "play", listener: (ev: Event) => any, useCapture?: boolean): T;
@@ -546,7 +546,7 @@ declare namespace BlissNS {
         getElementsByTagName(name: "view"): NodeListOf<SVGViewElement>;
         getElementsByTagName(name: "wbr"): NodeListOf<HTMLElement>;
         getElementsByTagName(name: "x-ms-webview"): NodeListOf<MSHTMLWebViewElement>;
-        getElementsByTagName(name: "xmp"): NodeListOf<HTMLBlockElement>;
+        getElementsByTagName(name: "xmp"): NodeListOf<HTMLElement>;
         getElementsByTagName(name: string): NodeListOf<Element>;
         getElementsByTagNameNS(namespaceURI: string, localName: string): NodeListOf<Element>;
         hasAttribute(name: string): boolean;
