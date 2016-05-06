@@ -1,6 +1,5 @@
 /// <reference path="business-rules-engine.d.ts" />
 /// <reference path="node-validators.d.ts" />
-/// <reference path="../underscore/underscore.d.ts" />
 /// <reference path="../q/Q.d.ts" />
 
 export interface IPerson{

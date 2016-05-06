@@ -4,12 +4,10 @@
 // Definitions: https://github.com/hejiang2000/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../underscore/underscore.d.ts" />
 
 import * as Backbone from 'backbone';
 
 declare module 'backbone' {
-
 	interface LayoutOptions<TModel extends Model> extends ViewOptions<TModel> {
 		template?: string;
         views?: { [viewName: string]: View<TModel> };

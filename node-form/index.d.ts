@@ -3,7 +3,6 @@
 // Definitions by: Roman Samec <https://github.com/rsamec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../underscore/underscore.d.ts" />
 /// <reference path="../q/Q.d.ts" />
 
 export as namespace Validation;

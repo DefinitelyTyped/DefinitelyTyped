@@ -3,9 +3,9 @@
 // Definitions by: Peter Palotas <https://github.com/alphaleonis/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-HTMLElement
+import * as Backbone from 'backbone';
 
-declare namespace Backbone {
+declare module "backbone" {
     interface Radio {
         tuneIn(channelName: string): Radio;
         tuneOut(channelName: string): Radio;
