@@ -1064,6 +1064,12 @@ declare namespace CodeMirror {
     function defineMode(id: string, modefactory: ModeFactory<any>): void;
 
     /**
+     * id will be the id for the defined mode. Typically, you should use this second argument to defineMode as your module scope function
+     * (modes should not leak anything into the global scope!), i.e. write your whole mode inside this function.
+     */
+    function defineMode<T>(id: string, modefactory: ModeFactory<T>): void;
+
+    /**
      * The first argument is a configuration object as passed to the mode constructor function, and the second argument
      * is a mode specification as in the EditorConfiguration mode option.
      */

@@ -9,6 +9,7 @@ declare namespace Backbone {
 
     interface AddOptions extends Silenceable {
         at?: number;
+        merge?: boolean;
     }
 
     interface HistoryOptions extends Silenceable {

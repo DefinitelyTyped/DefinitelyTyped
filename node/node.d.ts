@@ -111,7 +111,7 @@ declare var Buffer: {
     /**
      * Produces a Buffer backed by the same allocated memory as
      * the given {ArrayBuffer}.
-     * 
+     *
      *
      * @param arrayBuffer The ArrayBuffer with which to share memory.
      */
@@ -129,6 +129,37 @@ declare var Buffer: {
      */
     new (buffer: Buffer): Buffer;
     prototype: Buffer;
+    /**
+     * Allocates a new Buffer using an {array} of octets.
+     *
+     * @param array
+     */
+    from(array: any[]): Buffer;
+    /**
+     * When passed a reference to the .buffer property of a TypedArray instance,
+     * the newly created Buffer will share the same allocated memory as the TypedArray.
+     * The optional {byteOffset} and {length} arguments specify a memory range
+     * within the {arrayBuffer} that will be shared by the Buffer.
+     *
+     * @param arrayBuffer The .buffer property of a TypedArray or a new ArrayBuffer()
+     * @param byteOffset
+     * @param length
+     */
+    from(arrayBuffer: ArrayBuffer, byteOffset?: number, length?:number): Buffer;
+    /**
+     * Copies the passed {buffer} data onto a new Buffer instance.
+     *
+     * @param buffer
+     */
+    from(buffer: Buffer): Buffer;
+    /**
+     * Creates a new Buffer containing the given JavaScript string {str}.
+     * If provided, the {encoding} parameter identifies the character encoding.
+     * If not provided, {encoding} defaults to 'utf8'.
+     *
+     * @param str
+     */
+    from(str: string, encoding?: string): Buffer;
     /**
      * Returns true if {obj} is a Buffer
      *
@@ -679,6 +710,8 @@ declare module "cluster" {
         kill(signal?: string): void;
         destroy(signal?: string): void;
         disconnect(): void;
+        isConnected(): boolean;
+        isDead(): boolean;
     }
 
     export var settings: ClusterSettings;
@@ -688,7 +721,9 @@ declare module "cluster" {
     export function fork(env?: any): Worker;
     export function disconnect(callback?: Function): void;
     export var worker: Worker;
-    export var workers: Worker[];
+    export var workers: {
+        [index: string]: Worker
+    };
 
     // Event emitter
     export function addListener(event: string, listener: Function): void;
@@ -835,7 +870,7 @@ declare module "https" {
         SNICallback?: (servername: string) => any;
     }
 
-    export interface RequestOptions extends http.RequestOptions{
+    export interface RequestOptions extends http.RequestOptions {
         pfx?: any;
         key?: any;
         passphrase?: string;
@@ -846,13 +881,14 @@ declare module "https" {
         secureProtocol?: string;
     }
 
-    export interface Agent {
-        maxSockets: number;
-        sockets: any;
-        requests: any;
+    export interface Agent extends http.Agent { }
+
+    export interface AgentOptions extends http.AgentOptions {
+        maxCachedSessions?: number;
     }
+
     export var Agent: {
-        new (options?: RequestOptions): Agent;
+        new (options?: AgentOptions): Agent;
     };
     export interface Server extends tls.Server { }
     export function createServer(options: ServerOptions, requestListener?: Function): Server;
@@ -1454,6 +1490,20 @@ declare module "fs" {
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdirSync(path: string, mode?: string): void;
+    /*
+     * Asynchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
+     *
+     * @param prefix
+     * @param callback The created folder path is passed as a string to the callback's second parameter.
+     */
+    export function mkdtemp(prefix: string, callback?: (err: NodeJS.ErrnoException, folder: string) => void): void;
+    /*
+     * Synchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
+     *
+     * @param prefix
+     * @returns Returns the created folder path.
+     */
+    export function mkdtempSync(prefix: string): string;
     export function readdir(path: string, callback?: (err: NodeJS.ErrnoException, files: string[]) => void): void;
     export function readdirSync(path: string): string[];
     export function close(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;

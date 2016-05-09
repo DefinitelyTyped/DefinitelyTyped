@@ -207,11 +207,13 @@ interface PouchApi {
 interface PouchOptions {
 	name?: string;
 	adapter?: string;
+	skip_setup?: boolean;
 }
 
 interface PouchDB extends PouchApi {
     new (name: string, opts: PouchOptions, callback: (err: PouchError, res: PouchDB) => void): PouchDB;
     new (name: string, callback: (err: PouchError, res: PouchDB) => void): PouchDB;
+    new (name: string, opts: PouchOptions): PouchDB;
     new (name: string): PouchDB;
 	destroy(name: string, callback: (err: PouchError) => void): void;
 }

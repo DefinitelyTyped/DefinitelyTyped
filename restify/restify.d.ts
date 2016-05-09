@@ -73,11 +73,18 @@ declare module "restify" {
     id: string;
   }
   
+  interface RouteSpec {
+    method: string;
+    name: string;
+    path: string;
+    versions: string[];
+  }
+
   interface Route {
     name: string;
     method: string;
     path: RoutePathRegex;
-    spec: Object;
+    spec: RouteSpec;
     types: string[];
     versions: string[];
   }

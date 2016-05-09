@@ -22,7 +22,7 @@
 import React = __React;
 
 //react-native "extends" react
-declare namespace  __React {
+declare module "react-native" {
 
 
     /**
@@ -120,6 +120,109 @@ declare namespace  __React {
 
     // @see lib.es6.d.ts
     export var Promise: PromiseConstructor;
+
+    module NativeMethodsMixin {
+      type MeasureOnSuccessCallback = (
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        pageX: number,
+        pageY: number
+      ) => void
+
+      type MeasureInWindowOnSuccessCallback = (
+        x: number,
+        y: number,
+        width: number,
+        height: number
+      ) => void
+
+      type MeasureLayoutOnSuccessCallback = (
+        left: number,
+        top: number,
+        width: number,
+        height: number
+      ) => void
+    }
+
+    /**
+     * @see https://github.com/facebook/react-native/blob/master/Libraries/ReactIOS/NativeMethodsMixin.js
+     */
+    export class Component<P, S> extends React.Component<P, S> {
+      /**
+       * Determines the location on screen, width, and height of the given view and
+       * returns the values via an async callback. If successful, the callback will
+       * be called with the following arguments:
+       *
+       *  - x
+       *  - y
+       *  - width
+       *  - height
+       *  - pageX
+       *  - pageY
+       *
+       * Note that these measurements are not available until after the rendering
+       * has been completed in native. If you need the measurements as soon as
+       * possible, consider using the [`onLayout`
+       * prop](docs/view.html#onlayout) instead.
+       */
+      measure(callback: NativeMethodsMixin.MeasureOnSuccessCallback): void;
+
+      /**
+       * Determines the location of the given view in the window and returns the
+       * values via an async callback. If the React root view is embedded in
+       * another native view, this will give you the absolute coordinates. If
+       * successful, the callback will be called with the following
+       * arguments:
+       *
+       *  - x
+       *  - y
+       *  - width
+       *  - height
+       *
+       * Note that these measurements are not available until after the rendering
+       * has been completed in native.
+       */
+      measureInWindow(callback: NativeMethodsMixin.MeasureInWindowOnSuccessCallback): void;
+
+      /**
+       * Like [`measure()`](#measure), but measures the view relative an ancestor,
+       * specified as `relativeToNativeNode`. This means that the returned x, y
+       * are relative to the origin x, y of the ancestor view.
+       *
+       * As always, to obtain a native node handle for a component, you can use
+       * `React.findNodeHandle(component)`.
+       */
+      measureLayout(
+        relativeToNativeNode: number,
+        onSuccess: NativeMethodsMixin.MeasureLayoutOnSuccessCallback,
+        onFail: () => void /* currently unused */
+      ): void;
+
+       /**
+        * This function sends props straight to native. They will not participate in
+        * future diff process - this means that if you do not include them in the
+        * next render, they will remain active (see [Direct
+        * Manipulation](docs/direct-manipulation.html)).
+        */
+      setNativeProps(nativeProps: Object): void;
+
+      /**
+       * Requests focus for the given input or view. The exact behavior triggered
+       * will depend on the platform and type of view.
+       */
+      focus(): void;
+
+      /**
+       * Removes focus from an input or view. This is the opposite of `focus()`.
+       */
+      blur(): void;
+
+      refs: {
+        [key: string]: Component<any, any>
+      };
+    }
 
     //TODO: BGR: Replace with ComponentClass ?
     // node_modules/react-tools/src/classic/class/ReactClass.js
@@ -219,7 +322,6 @@ declare namespace  __React {
      * //FIXME: need to find documentation on which compoenent is a native (i.e. non composite component)
      */
     export interface NativeComponent {
-        setNativeProps: ( props: Object ) => void
     }
 
     /**
@@ -2080,7 +2182,7 @@ declare namespace  __React {
     }
 
     export interface Route {
-        component?: ComponentClass<ViewProperties>
+        component?: React.ComponentClass<ViewProperties>
         id?: string
         title?: string
         passProps?: Object;
@@ -2499,8 +2601,28 @@ declare namespace  __React {
         width: number;
         height: number;
         scale: number;
+        fontScale: number;
     }
 
+    /**
+     * Initial dimensions are set before `runApplication` is called so they should
+     * be available before any other require's are run, but may be updated later.
+     *
+     * Note: Although dimensions are available immediately, they may change (e.g
+     * due to device rotation) so any rendering logic or styles that depend on
+     * these constants should try to call this function on every render, rather
+     * than caching the value (for example, using inline styles rather than
+     * setting a value in a `StyleSheet`).
+     *
+     * Example: `var {height, width} = Dimensions.get('window');`
+     *
+     * @param {string} dim Name of dimension as defined when calling `set`.
+     * @returns {Object?} Value for the dimension.
+     * @see https://facebook.github.io/react-native/docs/dimensions.html#content
+     */
+    export interface Dimensions {
+      get( what: "window" | "screen" ): ScaledSize;
+    }
 
     export interface InteractionManagerStatic {
         runAfterInteractions( fn: () => void ): void;
@@ -3331,6 +3453,312 @@ declare namespace  __React {
         vibrate(): void
     }
 
+    export module Animated {
+      // Most (all?) functions where AnimatedValue is used any subclass of Animated can be used as well.
+      type AnimatedValue = Animated;
+      type AnimatedValueXY = ValueXY;
+
+      type Base = Animated;
+
+      class Animated {
+        // Internal class, no public API.
+      }
+
+      class AnimatedWithChildren extends Animated {
+        // Internal class, no public API.
+      }
+
+      class AnimatedInterpolation extends AnimatedWithChildren {
+        interpolate(config: InterpolationConfigType): AnimatedInterpolation;
+      }
+
+      type ExtrapolateType = 'extend' | 'identity' | 'clamp';
+
+      type InterpolationConfigType = {
+        inputRange: number[];
+        outputRange: (number[] | string[]);
+        easing?: ((input: number) => number);
+        extrapolate?: ExtrapolateType;
+        extrapolateLeft?: ExtrapolateType;
+        extrapolateRight?: ExtrapolateType;
+      };
+
+      type ValueListenerCallback = (state: {value: number}) => void;
+
+      /**
+       * Standard value for driving animations.  One `Animated.Value` can drive
+       * multiple properties in a synchronized fashion, but can only be driven by one
+       * mechanism at a time.  Using a new mechanism (e.g. starting a new animation,
+       * or calling `setValue`) will stop any previous ones.
+       */
+      export class Value extends AnimatedWithChildren {
+        constructor(value: number);
+
+        setValue(value: number): void;
+
+        /**
+         * Sets an offset that is applied on top of whatever value is set, whether via
+         * `setValue`, an animation, or `Animated.event`.  Useful for compensating
+         * things like the start of a pan gesture.
+         */
+        setOffset(offset: number): void;
+
+        /**
+         * Merges the offset value into the base value and resets the offset to zero.
+         * The final output of the value is unchanged.
+         */
+        flattenOffset(): void;
+
+        /**
+         * Adds an asynchronous listener to the value so you can observe updates from
+         * animations.  This is useful because there is no way to
+         * synchronously read the value because it might be driven natively.
+         */
+        addListener(callback: ValueListenerCallback): string;
+
+        removeListener(id: string): void;
+
+        removeAllListeners(): void;
+
+        /**
+         * Stops any running animation or tracking.  `callback` is invoked with the
+         * final value after stopping the animation, which is useful for updating
+         * state to match the animation position with layout.
+         */
+        stopAnimation(callback?: (value: number) => void): void;
+
+        /**
+         * Interpolates the value before updating the property, e.g. mapping 0-1 to
+         * 0-10.
+         */
+        interpolate(config: InterpolationConfigType): AnimatedInterpolation;
+      }
+
+      type ValueXYListenerCallback = (value: {x: number; y: number}) => void;
+
+      /**
+       * 2D Value for driving 2D animations, such as pan gestures.  Almost identical
+       * API to normal `Animated.Value`, but multiplexed.  Contains two regular
+       * `Animated.Value`s under the hood.
+       */
+      export class ValueXY extends AnimatedWithChildren {
+        x: AnimatedValue;
+        y: AnimatedValue;
+
+        constructor(valueIn?: {x: number | AnimatedValue; y: number | AnimatedValue});
+
+        setValue(value: {x: number; y: number}): void;
+
+        setOffset(offset: {x: number; y: number}): void;
+
+        flattenOffset(): void
+
+        stopAnimation(callback?: () => number): void;
+
+        addListener(callback: ValueXYListenerCallback): string;
+
+        removeListener(id: string): void;
+
+        /**
+         * Converts `{x, y}` into `{left, top}` for use in style, e.g.
+         *
+         *```javascript
+         *  style={this.state.anim.getLayout()}
+         *```
+         */
+        getLayout(): { left: AnimatedValue, top: AnimatedValue };
+
+        /**
+         * Converts `{x, y}` into a useable translation transform, e.g.
+         *
+         *```javascript
+         *  style={{
+         *    transform: this.state.anim.getTranslateTransform()
+         *  }}
+         *```
+         */
+        getTranslateTransform(): {[key: string]: AnimatedValue}[];
+
+      }
+
+      type EndResult = {finished: boolean};
+      type EndCallback = (result: EndResult) => void;
+
+      interface CompositeAnimation {
+        start: (callback?: EndCallback) => void;
+        stop: () => void;
+      }
+
+      interface AnimationConfig {
+        isInteraction?: boolean;
+        useNativeDriver?: boolean;
+      }
+
+      /**
+       * Animates a value from an initial velocity to zero based on a decay
+       * coefficient.
+       */
+      export function decay(
+        value: AnimatedValue | AnimatedValueXY,
+        config: DecayAnimationConfig
+      ): CompositeAnimation;
+
+      interface DecayAnimationConfig extends AnimationConfig {
+        velocity: number | {x: number, y: number};
+        deceleration?: number;
+      }
+
+      /**
+       * Animates a value along a timed easing curve.  The `Easing` module has tons
+       * of pre-defined curves, or you can use your own function.
+       */
+      export var timing: (
+        value: AnimatedValue | AnimatedValueXY,
+        config: TimingAnimationConfig
+      ) => CompositeAnimation;
+
+      interface TimingAnimationConfig extends AnimationConfig {
+        toValue: number | AnimatedValue | {x: number, y: number} | AnimatedValueXY;
+        easing?: (value: number) => number;
+        duration?: number;
+        delay?: number;
+      }
+
+      interface SpringAnimationConfig extends AnimationConfig {
+        toValue: number | AnimatedValue | {x: number, y: number} | AnimatedValueXY;
+        overshootClamping?: boolean;
+        restDisplacementThreshold?: number;
+        restSpeedThreshold?: number;
+        velocity?: number | {x: number, y: number};
+        bounciness?: number;
+        speed?: number;
+        tension?: number;
+        friction?: number;
+      }
+
+      /**
+       * Creates a new Animated value composed from two Animated values added
+       * together.
+       */
+      export function add(
+        a: Animated,
+        b: Animated
+      ): AnimatedAddition;
+
+      class AnimatedAddition extends AnimatedInterpolation {}
+
+      /**
+       * Creates a new Animated value composed from two Animated values multiplied
+       * together.
+       */
+       export function multiply(
+        a: Animated,
+        b: Animated
+      ): AnimatedMultiplication;
+
+      class AnimatedMultiplication extends AnimatedInterpolation {}
+
+      /**
+       * Creates a new Animated value that is the (non-negative) modulo of the
+       * provided Animated value
+       */
+      export function modulo(
+        a: Animated,
+        modulus: number
+      ): AnimatedModulo;
+
+      class AnimatedModulo extends AnimatedInterpolation {}
+
+      /**
+       * Starts an animation after the given delay.
+       */
+      export function delay(time: number): CompositeAnimation;
+
+      /**
+       * Starts an array of animations in order, waiting for each to complete
+       * before starting the next.  If the current running animation is stopped, no
+       * following animations will be started.
+       */
+      export function sequence(
+        animations: Array<CompositeAnimation>
+      ): CompositeAnimation;
+
+      /**
+       * Array of animations may run in parallel (overlap), but are started in
+       * sequence with successive delays.  Nice for doing trailing effects.
+       */
+
+      export function stagger(
+        time: number,
+        animations: Array<CompositeAnimation>
+      ): CompositeAnimation
+
+      /**
+       * Spring animation based on Rebound and Origami.  Tracks velocity state to
+       * create fluid motions as the `toValue` updates, and can be chained together.
+       */
+      export var spring: (
+        value: AnimatedValue | AnimatedValueXY,
+        config: SpringAnimationConfig
+      ) => CompositeAnimation;
+
+      type ParallelConfig = {
+        stopTogether?: boolean; // If one is stopped, stop all.  default: true
+      }
+
+      /**
+       * Starts an array of animations all at the same time.  By default, if one
+       * of the animations is stopped, they will all be stopped.  You can override
+       * this with the `stopTogether` flag.
+       */
+      var parallel: (
+        animations: Array<CompositeAnimation>,
+        config?: ParallelConfig
+      ) => CompositeAnimation;
+
+      type Mapping = {[key: string]: Mapping} | AnimatedValue;
+      interface EventConfig {
+        listener?: Function
+      }
+
+      /**
+       *  Takes an array of mappings and extracts values from each arg accordingly,
+       *  then calls `setValue` on the mapped outputs.  e.g.
+       *
+       *```javascript
+       *  onScroll={Animated.event(
+       *    [{nativeEvent: {contentOffset: {x: this._scrollX}}}]
+       *    {listener},          // Optional async listener
+       *  )
+       *  ...
+       *  onPanResponderMove: Animated.event([
+       *    null,                // raw event arg ignored
+       *    {dx: this._panX},    // gestureState arg
+       *  ]),
+       *```
+       */
+      var event: (
+        argMapping: Mapping[],
+        config?: EventConfig
+      ) => (...args: any[]) => void;
+
+      /**
+       * Animated variants of the basic native views. Accepts Animated.Value for
+       * props and style.
+       */
+      export var View: any;
+      export var Image: any;
+      export var Text: any;
+    }
+
+    export namespace BackAndroid {
+      type EVENT_NAME = "hardwareBackPress";
+
+      export function exitApp(): void;
+      export function addEventListener(event: EVENT_NAME, fn: Function): void;
+      export function removeEventListener(event: EVENT_NAME, fn: Function): void;
+    }
+
     //////////////////////////////////////////////////////////////////////////
     //
     //  R E - E X P O R T S
@@ -3447,6 +3875,7 @@ declare namespace  __React {
     export var VibrationIOS: VibrationIOSStatic
     export type VibrationIOS = VibrationIOSStatic
 
+    export var Dimensions: Dimensions;
 
     //
     // /TODO: BGR: These are leftovers of the initial port that must be revisited
@@ -3468,19 +3897,6 @@ declare namespace  __React {
 
     export function __spread( target: any, ...sources: any[] ): any;
 
-
-    export interface GlobalStatic {
-
-        /**
-         * Accepts a function as its only argument and calls that function before the next repaint.
-         * It is an essential building block for animations that underlies all of the JavaScript-based animation APIs.
-         * In general, you shouldn't need to call this yourself - the animation API's will manage frame updates for you.
-         * @see https://facebook.github.io/react-native/docs/animations.html#requestanimationframe
-         */
-        requestAnimationFrame( fn: () => void ) : void;
-
-    }
-
     //
     // Add-Ons
     //
@@ -3497,29 +3913,19 @@ declare namespace  __React {
         export var TestModule: TestModuleStatic
         export type TestModule = TestModuleStatic
     }
-
-
 }
 
-declare module "react-native" {
-
-    import ReactNative = __React
-    export = ReactNative
+declare interface ReactNativeGlobalStatic {
+  /**
+   * Accepts a function as its only argument and calls that function before the next repaint.
+   * It is an essential building block for animations that underlies all of the JavaScript-based animation APIs.
+   * In general, you shouldn't need to call this yourself - the animation API's will manage frame updates for you.
+   * @see https://facebook.github.io/react-native/docs/animations.html#requestanimationframe
+   */
+  requestAnimationFrame( fn: () => void ) : void;
 }
 
-declare var global: __React.GlobalStatic
 
-declare function require( name: string ): any
+declare var global: ReactNativeGlobalStatic;
 
-
-//TODO: BGR: this is a left-over from the initial port. Not sure it makes any sense
-declare module "Dimensions" {
-    import * as React from 'react-native';
-
-    interface Dimensions {
-        get( what: string ): React.ScaledSize;
-    }
-
-    var ExportDimensions: Dimensions;
-    export = ExportDimensions;
-}
+declare function require( name: string ): any;
