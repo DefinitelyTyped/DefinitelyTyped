@@ -389,9 +389,9 @@ declare namespace angular {
         $submitted: boolean;
         $error: any;
         $pending: any;
-        $addControl(control: INgModelController): void;
-        $removeControl(control: INgModelController): void;
-        $setValidity(validationErrorKey: string, isValid: boolean, control: INgModelController): void;
+        $addControl(control: INgModelController | IFormController): void;
+        $removeControl(control: INgModelController | IFormController): void;
+        $setValidity(validationErrorKey: string, isValid: boolean, control: INgModelController | IFormController): void;
         $setDirty(): void;
         $setPristine(): void;
         $commitViewValue(): void;
