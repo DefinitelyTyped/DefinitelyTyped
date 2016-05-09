@@ -28,7 +28,7 @@ declare module "knex" {
     schema: Knex.SchemaBuilder;
 
     client: any;
-    migrate: Knex.Migration;
+    migrate: Knex.Migrator;
     seed: any;
     fn: any;
   }
@@ -413,7 +413,7 @@ declare module "knex" {
       connection?: string|ConnectionConfig|MariaSqlConnectionConfig|
         Sqlite3ConnectionConfig|SocketConnectionConfig;
       pool?: PoolConfig;
-      migrations?: MigrationConfig;
+      migrations?: MigratorConfig;
     }
 
     interface ConnectionConfig {
@@ -487,19 +487,19 @@ declare module "knex" {
       log?: boolean;
     }
 
-    interface MigrationConfig {
+    interface MigratorConfig {
       database?: string;
       directory?: string;
       extension?: string;
       tableName?: string;
     }
 
-    interface Migration {
-      make(name:string, config?: MigrationConfig):Promise<string>;
-      latest(config?: MigrationConfig):Promise<any>;
-      rollback(config?: MigrationConfig):Promise<any>;
-      status(config?: MigrationConfig):Promise<number>;
-      currentVersion(config?: MigrationConfig):Promise<string>;
+    interface Migrator {
+      make(name:string, config?: MigratorConfig):Promise<string>;
+      latest(config?: MigratorConfig):Promise<any>;
+      rollback(config?: MigratorConfig):Promise<any>;
+      status(config?: MigratorConfig):Promise<number>;
+      currentVersion(config?: MigratorConfig):Promise<string>;
     }
   }
 
