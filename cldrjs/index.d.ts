@@ -3,6 +3,11 @@
 // Definitions by: Raman But-Husaim <https://github.com/RamanBut-Husaim>, Grégoire Castre <https://github.com/gcastre/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = self;
+export as namespace Cldr;
+
+declare var self: cldr.CldrFactory;
+
 declare namespace cldr {
     /**
      * @name Attributes
@@ -251,9 +256,3 @@ declare namespace cldr {
         localeSep: "-" | "_";
     }
 }
-
-declare module "cldr" {
-    export = cldr;
-}
-
-declare var Cldr: cldr.CldrFactory;

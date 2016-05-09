@@ -3,8 +3,7 @@
 // Definitions by: Clément Bourgeois <https://github.com/moonpyk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
+import * as Express from 'express';
 
 declare function auth(req: Express.Request): auth.BasicAuthResult;
 
