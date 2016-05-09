@@ -11,6 +11,7 @@ declare namespace Dagre {
 
     interface Graph {
         new (): Graph;
+        new (graph: { [key: string]: any }): Graph
         edges(): Edge[];
         edge(id: any): any;
         nodes(): string[];
@@ -19,6 +20,7 @@ declare namespace Dagre {
         setEdge(sourceId: string, targetId: string, options?: { [key: string]: any }): Graph;
         setGraph(options: { [key: string]: any }): Graph;
         setNode(id: string, node: { [key: string]: any }): Graph;
+        setParent(nodeId: string, parentId: string);
     }
 
     interface Edge {
