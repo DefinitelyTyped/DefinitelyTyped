@@ -8,6 +8,7 @@ import * as util from "util";
 import * as crypto from "crypto";
 import * as tls from "tls";
 import * as http from "http";
+import * as https from "https";
 import * as net from "net";
 import * as tty from "tty";
 import * as dgram from "dgram";
@@ -365,6 +366,31 @@ namespace http_tests {
 	http.request({
 		agent: undefined
 	});
+}
+
+////////////////////////////////////////////////////
+/// Https tests : http://nodejs.org/api/https.html
+////////////////////////////////////////////////////
+namespace https_tests {
+    var agent: https.Agent = new https.Agent({
+        keepAlive: true,
+        keepAliveMsecs: 10000,
+        maxSockets: Infinity,
+        maxFreeSockets: 256,
+        maxCachedSessions: 100
+    });
+
+    var agent: https.Agent = https.globalAgent;
+
+    https.request({
+        agent: false
+    });
+    https.request({
+        agent: agent
+    });
+    https.request({
+        agent: undefined
+    });
 }
 
 ////////////////////////////////////////////////////

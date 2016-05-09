@@ -870,7 +870,7 @@ declare module "https" {
         SNICallback?: (servername: string) => any;
     }
 
-    export interface RequestOptions extends http.RequestOptions{
+    export interface RequestOptions extends http.RequestOptions {
         pfx?: any;
         key?: any;
         passphrase?: string;
@@ -881,13 +881,14 @@ declare module "https" {
         secureProtocol?: string;
     }
 
-    export interface Agent {
-        maxSockets: number;
-        sockets: any;
-        requests: any;
+    export interface Agent extends http.Agent { }
+
+    export interface AgentOptions extends http.AgentOptions {
+        maxCachedSessions?: number;
     }
+
     export var Agent: {
-        new (options?: RequestOptions): Agent;
+        new (options?: AgentOptions): Agent;
     };
     export interface Server extends tls.Server { }
     export function createServer(options: ServerOptions, requestListener?: Function): Server;
