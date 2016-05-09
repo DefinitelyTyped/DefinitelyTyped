@@ -1023,16 +1023,24 @@ declare module "aws-sdk" {
 		export interface Client {
 			config: ClientConfig;
 
-			publicTopic(params: PublishRequest, callback: (err: any, data: PublishResult) => void): void;
+			publish(params: PublishRequest, callback: (err: any, data: PublishResult) => void): void;
 			createTopic(params: CreateTopicRequest, callback: (err: any, data: CreateTopicResult) => void): void;
 			deleteTopic(params: DeleteTopicRequest, callback: (err: any, data: any) => void): void;
 		}
 
 		export interface PublishRequest {
 			TopicArn?: string;
+			TargetArn?: string;
+			MessageAttributes?: { [name: string]: MessageAttribute; };
 			Message?: string;
 			MessageStructure?: string;
 			Subject?: string;
+		}
+
+		export interface MessageAttribute {
+			DataType: string;
+			StringValue?: string;
+			BinaryValue: any; // (Buffer, Typed Array, Blob, String)
 		}
 
 		export interface PublishResult {
@@ -1072,7 +1080,7 @@ declare module "aws-sdk" {
 			GrantReadACP?: string;
 			GrantWriteACP?: string;
 			Key: string;
-			Metadata?: string[];
+			Metadata?: { [key: string]:string; };
 			ServerSideEncryption?: string;
 			StorageClass?: string;
 			WebsiteRedirectLocation?: string;

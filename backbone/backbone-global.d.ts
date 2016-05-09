@@ -9,6 +9,7 @@ declare namespace Backbone {
 
     interface AddOptions extends Silenceable {
         at?: number;
+        merge?: boolean;
     }
 
     interface HistoryOptions extends Silenceable {
@@ -315,7 +316,7 @@ declare namespace Backbone {
         stop(): void;
         route(route: string, callback: Function): number;
         checkUrl(e?: any): void;
-        loadUrl(fragmentOverride: string): boolean;
+        loadUrl(fragmentOverride?: string): boolean;
         navigate(fragment: string, options?: any): boolean;
         static started: boolean;
         options: any;

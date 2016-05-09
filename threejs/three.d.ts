@@ -2477,8 +2477,9 @@ declare namespace THREE {
 
     export interface MeshStandardMaterialParameters extends MaterialParameters {
         color?: number|string;
-        roughtness?: number;
+        roughness?: number;
         metalness?: number;
+        map?: Texture;
         lighhtMap?: Texture;
         lightMapIntensity?: number;
         aoMap?: Texture;
@@ -2493,7 +2494,7 @@ declare namespace THREE {
         displacementMap?: Texture;
         displacementScale?: number;
         displacementBias?: number;
-        roughtnessMap?: Texture;
+        roughnessMap?: Texture;
         metalMap?: Texture;
         alphaMap?: Texture;
         envMap?: Texture;
@@ -2514,7 +2515,7 @@ declare namespace THREE {
         constructor(parameters?: MeshStandardMaterialParameters);
 
         color: Color;
-        roughtness: number;
+        roughness: number;
         metalness: number;
         map: Texture;
         lighhtMap: Texture;
@@ -2531,7 +2532,7 @@ declare namespace THREE {
         displacementMap: Texture;
         displacementScale: number;
         displacementBias: number;
-        roughtnessMap: Texture;
+        roughnessMap: Texture;
         metalMap: Texture;
         alphaMap: Texture;
         envMap: Texture;
@@ -5082,8 +5083,8 @@ declare namespace THREE {
         points_vert: string;
         premultiplied_alpha_fragment: string;
         project_vertex: string;
-        roughtnessmap_fragment: string;
-        roughtnessmap_pars_fragment: string;
+        roughnessmap_fragment: string;
+        roughnessmap_pars_fragment: string;
         shadowmap_pars_fragment: string;
         shadowmap_pars_vertex: string;
         shadowmap_vertex: string;
@@ -5167,7 +5168,7 @@ declare namespace THREE {
             displacementScale: IUniform;
             displacementBias: IUniform;
         };
-        roughtnessmap: { roughtnessMap: IUniform };
+        roughnessmap: { roughnessMap: IUniform };
         metalnessmap: { metalnessMap: IUniform };
         fog: {
             fogDensity: IUniform;

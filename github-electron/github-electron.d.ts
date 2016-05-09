@@ -1,4 +1,4 @@
-// Type definitions for Electron v0.37.6
+// Type definitions for Electron v0.37.8
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -149,11 +149,6 @@ declare namespace Electron {
 		 * Emitted when the gpu process crashes.
 		 */
 		on(event: 'gpu-process-crashed', listener: Function): this;
-		/**
-		 * Emitted when the system’s Dark Mode theme is toggled.
-		 * Note: This is only implemented on OS X.
-		 */
-		on(event: 'platform-theme-changed', listener: Function): this;
 		on(event: string, listener: Function): this;
 		/**
 		 * Try to close all windows. The before-quit event will first be emitted.
@@ -256,10 +251,16 @@ declare namespace Electron {
 		/**
 		 * Removes the current executable as the default handler for a protocol (aka URI scheme).
 		 *
-		 * Note: This API is only available on Windows.
+		 * Note: This is only implemented on Windows.
 		 *       On OS X, removing the app will automatically remove the app as the default protocol handler.
 		 */
 		removeAsDefaultProtocolClient(protocol: string): void;
+		/**
+		 * @returns Whether the current executable is the default handler for a protocol (aka URI scheme).
+		 *
+		 * Note: This is only implemented on OS X and Windows.
+		 */
+		isDefaultProtocolClient(protocol: string): boolean;
 		/**
 		 * Adds tasks to the Tasks category of JumpList on Windows.
 		 *
@@ -279,24 +280,19 @@ declare namespace Electron {
 		 * multiple instances of your app to run, this will ensure that only a single instance
 		 * of your app is running, and other instances signal this instance and exit.
 		 */
-		makeSingleInstance(callback: (args: string[], workingDirectory: string) => boolean): boolean;
+		makeSingleInstance(callback: (args: string[], workingDirectory: string) => void): boolean;
 		/**
 		 * Changes the Application User Model ID to id.
 		 */
 		setAppUserModelId(id: string): void;
 		/**
-		 * This method returns true if DWM composition (Aero Glass) is enabled,
-		 * and false otherwise. You can use it to determine if you should create
-		 * a transparent window or not (transparent windows won’t work correctly when DWM composition is disabled).
+		 * Imports the certificate in pkcs12 format into the platform certificate store.
+		 * @param callback Called with the result of import operation, a value of 0 indicates success
+		 * while any other value indicates failure according to chromium net_error_list.
 		 *
-		 * Note: This is only implemented on Windows.
+		 * Note: This API is only available on Linux.
 		 */
-		isAeroGlassEnabled(): boolean;
-		/**
-		 * @returns If the system is in Dark Mode.
-		 * Note: This is only implemented on OS X.
-		 */
-		isDarkMode(): boolean;
+		importCertificate(options: ImportCertificateOptions, callback: (result: number) => void): void;
 		commandLine: CommandLine;
 		/**
 		 * Note: This API is only available on Mac.
@@ -305,6 +301,17 @@ declare namespace Electron {
 	}
 
 	type AppPathName = 'home'|'appData'|'userData'|'temp'|'exe'|'module'|'desktop'|'documents'|'downloads'|'music'|'pictures'|'videos';
+
+	interface ImportCertificateOptions {
+		/**
+		 * Path for the pkcs12 file.
+		 */
+		certificate: string;
+		/**
+		 * Passphrase for the certificate.
+		 */
+		password: string;
+	}
 
 	interface CommandLine {
 		/**
@@ -814,6 +821,11 @@ declare namespace Electron {
 		 * @returns The title of the native window.
 		 */
 		getTitle(): string;
+		/**
+		 * Changes the attachment point for sheets on Mac OS X.
+		 * Note: This API is available only on OS X.
+		 */
+		setSheetOffset(offset: number): void;
 		/**
 		 * Starts or stops flashing the window to attract user's attention.
 		 */
@@ -2244,19 +2256,19 @@ declare namespace Electron {
 		/**
 		 * Registers a protocol of scheme that will send the file as a response.
 		 */
-		registerFileProtocol(scheme: string, handler: (request: ProtocolRequest, callback: FileProtocolCallback) => void, completion?: (error: Error) => void): void;
+		registerFileProtocol(scheme: string, handler: FileProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Registers a protocol of scheme that will send a Buffer as a response.
 		 */
-		registerBufferProtocol(scheme: string, handler: (request: ProtocolRequest, callback: BufferProtocolCallback) => void, completion?: (error: Error) => void): void;
+		registerBufferProtocol(scheme: string, handler: BufferProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Registers a protocol of scheme that will send a String as a response.
 		 */
-		registerStringProtocol(scheme: string, handler: (request: ProtocolRequest, callback: StringProtocolCallback) => void, completion?: (error: Error) => void): void;
+		registerStringProtocol(scheme: string, handler: StringProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Registers a protocol of scheme that will send an HTTP request as a response.
 		 */
-		registerHttpProtocol(scheme: string, handler: (request: ProtocolRequest, callback: HttpProtocolCallback) => void, completion?: (error: Error) => void): void;
+		registerHttpProtocol(scheme: string, handler: HttpProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Unregisters the custom protocol of scheme.
 		 */
@@ -2268,24 +2280,29 @@ declare namespace Electron {
 		/**
 		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a file as a response.
 		 */
-		interceptFileProtocol(scheme: string, handler: (request: ProtocolRequest, callback: FileProtocolCallback) => void, completion?: (error: Error) => void): void;
-		/**
-		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a String as a response.
-		 */
-		interceptStringProtocol(scheme: string, handler: (request: ProtocolRequest, callback: BufferProtocolCallback) => void, completion?: (error: Error) => void): void;
+		interceptFileProtocol(scheme: string, handler: FileProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a Buffer as a response.
 		 */
-		interceptBufferProtocol(scheme: string, handler: (request: ProtocolRequest, callback: StringProtocolCallback) => void, completion?: (error: Error) => void): void;
+		interceptBufferProtocol(scheme: string, handler: BufferProtocolHandler, completion?: (error: Error) => void): void;
+		/**
+		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a String as a response.
+		 */
+		interceptStringProtocol(scheme: string, handler: StringProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a new HTTP request as a response.
 		 */
-		interceptHttpProtocol(scheme: string, handler: (request: ProtocolRequest, callback: HttpProtocolCallback) => void, completion?: (error: Error) => void): void;
+		interceptHttpProtocol(scheme: string, handler: HttpProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Remove the interceptor installed for scheme and restore its original handler.
 		 */
 		uninterceptProtocol(scheme: string, completion?: (error: Error) => void): void;
 	}
+
+	type FileProtocolHandler = (request: ProtocolRequest, callback: FileProtocolCallback) => void;
+	type BufferProtocolHandler = (request: ProtocolRequest, callback: BufferProtocolCallback) => void;
+	type StringProtocolHandler = (request: ProtocolRequest, callback: StringProtocolCallback) => void;
+	type HttpProtocolHandler = (request: ProtocolRequest, callback: HttpProtocolCallback) => void;
 
 	interface ProtocolRequest {
 		url: string;
@@ -2392,7 +2409,7 @@ declare namespace Electron {
 		 */
 		scaleFactor: number;
 		/**
-		 * Can be 0, 1, 2, 3, each represents screen rotation in clock-wise degrees of 0, 90, 180, 270.
+		 * Can be 0, 90, 180, 270, represents screen rotation in clock-wise degrees.
 		 */
 		rotation: number;
 		touchSupport: 'available' | 'unavailable' | 'unknown';
@@ -2419,7 +2436,7 @@ declare namespace Electron {
 
 	/**
 	 * The screen module retrieves information about screen size, displays, cursor position, etc.
-	 * You should not use this module until the ready event of the app module is emitted.
+	 * You can not use this module until the ready event of the app module is emitted.
 	 */
 	interface Screen extends NodeJS.EventEmitter {
 		/**
@@ -2547,7 +2564,7 @@ declare namespace Electron {
 		webRequest: WebRequest;
 	}
 
-	type Permission = 'media' | 'geolocation' | 'notifications' | 'midiSysex' | 'pointerLock' | 'fullscreen';
+	type Permission = 'media' | 'geolocation' | 'notifications' | 'midiSysex' | 'pointerLock' | 'fullscreen' | 'openExternal';
 
 	interface ClearStorageDataOptions {
 		/**
@@ -2926,6 +2943,47 @@ declare namespace Electron {
 		beep(): void;
 	}
 
+	// https://github.com/electron/electron/blob/master/docs/api/system-preferences.md
+
+	/**
+	 * Get system preferences.
+	 */
+	interface SystemPreferences {
+		/**
+		 * @returns If the system is in Dark Mode.
+		 *
+		 * Note: This is only implemented on OS X.
+		 */
+		isDarkMode(): boolean;
+		/**
+		 * Subscribes to native notifications of OS X, callback will be called when the corresponding event happens.
+		 * The id of the subscriber is returned, which can be used to unsubscribe the event.
+		 *
+		 * Note: This is only implemented on OS X.
+		 */
+		subscribeNotification(event: string, callback: Function): number;
+		/**
+		 * Removes the subscriber with id.
+		 *
+		 * Note: This is only implemented on OS X.
+		 */
+		unsubscribeNotification(id: number): void;
+		/**
+		 * Get the value of key in system preferences.
+		 *
+		 * Note: This is only implemented on OS X.
+		 */
+		getUserDefault(key: string, type: 'string' | 'boolean' | 'integer' | 'float' | 'double' | 'url'): any;
+		/**
+		 * This method returns true if DWM composition (Aero Glass) is enabled,
+		 * and false otherwise. You can use it to determine if you should create
+		 * a transparent window or not (transparent windows won’t work correctly when DWM composition is disabled).
+		 *
+		 * Note: This is only implemented on Windows.
+		 */
+		isAeroGlassEnabled(): boolean;
+	}
+
 	// https://github.com/electron/electron/blob/master/docs/api/tray.md
 
 	/**
@@ -3254,6 +3312,10 @@ declare namespace Electron {
 		 */
 		isLoading(): boolean;
 		/**
+		 * @returns Whether the main frame (and not just iframes or frames within it) is still loading.
+		 */
+		isLoadingMainFrame(): boolean;
+		/**
 		 * @returns Whether web page is waiting for a first-response for the main
 		 * resource of the page.
 		 */
@@ -3420,9 +3482,9 @@ declare namespace Electron {
 		 */
 		openDevTools(options?: {
 			/**
-			 * Opens devtools in a new window.
+			 * Opens the devtools with specified dock state. Defaults to last used dock state.
 			 */
-			detach?: boolean;
+			mode?: 'right' | 'bottom' | 'undocked' | 'detach'
 		}): void;
 		/**
 		 * Closes the developer tools.
@@ -4234,7 +4296,7 @@ declare namespace Electron {
 		 * Emitted when a page's theme color changes. This is usually due to encountering a meta tag:
 		 * <meta name='theme-color' content='#ff0000'>
 		 */
-		addEventListener(type: 'did-change-theme-color', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-change-theme-color', listener: (event: WebViewElement.DidChangeThemeColorEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Emitted when DevTools is opened.
 		 */
@@ -4330,6 +4392,10 @@ declare namespace Electron {
 			name: string;
 			version: string;
 		}
+
+		interface DidChangeThemeColorEvent extends Event {
+			themeColor: string;
+		}
 	}
 
 	/**
@@ -4386,6 +4452,7 @@ declare namespace Electron {
 		protocol: Electron.Protocol;
 		screen: Electron.Screen;
 		session: typeof Electron.Session;
+		systemPreferences: Electron.SystemPreferences;
 		Tray: Electron.Tray;
 		hideInternalModules(): void;
 	}
@@ -4422,6 +4489,54 @@ interface File {
 	 * Exposes the real path of the filesystem.
 	 */
 	path: string;
+}
+
+// https://github.com/electron/electron/blob/master/docs/api/process.md
+
+declare namespace NodeJS {
+	interface Process {
+		/**
+		 * Process's type
+		 */
+		type: 'browser' | 'renderer';
+		/**
+		 * Path to JavaScript source code.
+		 */
+		resourcesPath: string;
+		/**
+		 * For Mac App Store build, this value is true, for other builds it is undefined.
+		 */
+		mas?: boolean;
+		/**
+		 * If the app is running as a Windows Store app (appx), this value is true, for other builds it is undefined.
+		 */
+		windowsStore?: boolean;
+		/**
+		 * Emitted when Electron has loaded its internal initialization script
+		 * and is beginning to load the web page or the main script.
+		 */
+		on(event: 'loaded', listener: Function): this;
+		on(event: string, listener: Function): this;
+		/**
+		 * Setting this to true can disable the support for asar archives in Node's built-in modules.
+		 */
+		noAsar?: boolean;
+		/**
+		 * Causes the main thread of the current process crash;
+		 */
+		crash(): void;
+		/**
+		 * Causes the main thread of the current process hang.
+		 */
+		hang(): void;
+		/**
+		 * Sets the file descriptor soft limit to maxDescriptors or the OS hard limit,
+		 * whichever is lower for the current process.
+		 *
+		 * Note: This API is only available on Mac and Linux.
+		 */
+		setFdLimit(maxDescriptors: number): void;
+	}
 }
 
 declare module 'electron' {

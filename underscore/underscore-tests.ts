@@ -173,6 +173,10 @@ _.pluck(stooges, 'name');
 
 _.max(stooges, (stooge) => stooge.age);
 _.min(stooges, (stooge) => stooge.age);
+_.max({ a: 1, b: 2 });
+_.max({ a: 'a', b: 'bb' }, (v, k) => v.length);
+_.min({ a: 1, b: 2 });
+_.min({ a: 'a', b: 'bb' }, (v, k) => v.length);
 
 var numbers = [10, 5, 100, 2, 1000];
 _.max(numbers);
