@@ -1,10 +1,14 @@
 {
-	"files": ["index.d.ts", "cldr.js-tests.ts"],
+    "files": [
+        "index.d.ts",
+        "cldr.js-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
         "strictNullChecks": false,
-        "baseUrl": "../"
+        "baseUrl": "../",
+        "typesRoot": "../"
     }
 }

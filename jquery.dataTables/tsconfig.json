@@ -1,10 +1,14 @@
 {
-	"files": ["jquery.dataTables.d.ts", "jquery.dataTables-tests.ts"],
+    "files": [
+        "jquery.dataTables.d.ts",
+        "jquery.dataTables-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": false,
         "strictNullChecks": false,
-        "baseUrl": "../"
+        "baseUrl": "../",
+        "typesRoot": "../"
     }
 }

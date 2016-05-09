@@ -1,10 +1,14 @@
 {
-	"files": ["react-router-redux.d.ts", "react-router-redux-tests.ts"],
+    "files": [
+        "react-router-redux.d.ts",
+        "react-router-redux-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
         "strictNullChecks": false,
-        "baseUrl": "../"
+        "baseUrl": "../",
+        "typesRoot": "../"
     }
 }

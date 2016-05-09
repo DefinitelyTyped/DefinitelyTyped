@@ -1,10 +1,14 @@
 {
-	"files": ["freedom-core.env.d.ts", "freedom-tests.ts"],
+    "files": [
+        "freedom-core.env.d.ts",
+        "freedom-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
         "strictNullChecks": false,
-        "baseUrl": "../"
+        "baseUrl": "../",
+        "typesRoot": "../"
     }
 }

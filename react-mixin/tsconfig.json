@@ -6,6 +6,7 @@
         "strictNullChecks": false,
         "baseUrl": "../",
         "jsx": "react",
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "typesRoot": "../"
     }
 }

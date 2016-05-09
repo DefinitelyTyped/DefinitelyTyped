@@ -1,10 +1,14 @@
 {
-	"files": ["linq.d.ts", "linq-tests.d.ts"],
+    "files": [
+        "linq.d.ts",
+        "linq-tests.d.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": false,
         "strictNullChecks": false,
-        "baseUrl": "../"
+        "baseUrl": "../",
+        "typesRoot": "../"
     }
 }

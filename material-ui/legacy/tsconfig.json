@@ -1,11 +1,15 @@
 {
-	"files": ["material-ui-0.13.4.d.ts", "material-ui-0.13.4-tests.tsx"],
+    "files": [
+        "material-ui-0.13.4.d.ts",
+        "material-ui-0.13.4-tests.tsx"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
         "strictNullChecks": false,
         "baseUrl": "../../",
-        "jsx": "react"
+        "jsx": "react",
+        "typesRoot": "../../"
     }
 }

@@ -1,13 +1,14 @@
 {
-	"files": [
-		"zeroclipboard.d.ts",
-		"zeroclipboard-tests.ts"
-	],
+    "files": [
+        "zeroclipboard.d.ts",
+        "zeroclipboard-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
         "strictNullChecks": false,
-        "baseUrl": "../"
+        "baseUrl": "../",
+        "typesRoot": "../"
     }
 }

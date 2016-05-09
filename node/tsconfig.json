@@ -1,10 +1,14 @@
 {
-	"files": ["node.d.ts", "node-tests.d.ts"],
+    "files": [
+        "node.d.ts",
+        "node-tests.d.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
         "strictNullChecks": false,
-        "baseUrl": "../"
+        "baseUrl": "../",
+        "typesRoot": "../"
     }
 }

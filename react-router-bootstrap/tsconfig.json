@@ -5,6 +5,7 @@
         "noImplicitAny": true,
         "strictNullChecks": false,
         "baseUrl": "../",
-        "jsx": "preserve"
+        "jsx": "preserve",
+        "typesRoot": "../"
     }
 }
