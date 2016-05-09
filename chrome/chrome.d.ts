@@ -6210,7 +6210,7 @@ declare namespace chrome.tabs {
 		 * The tab's new favicon URL.
 		 * @since Chrome 27.
 		 */
-		faviconUrl?: string;
+		favIconUrl?: string;
 		/**
 		 * The tab's new title.
 		 * @since Chrome 48.
