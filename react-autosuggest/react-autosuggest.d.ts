@@ -1,6 +1,6 @@
 // Type definitions for react-autosuggest v3.7.3
 // Project: http://react-autosuggest.js.org/
-// Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>
+// Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>, Stephen Jelfs <https://github.com/stephenjelfs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts"/>
@@ -18,9 +18,14 @@ declare namespace ReactAutosuggest {
     valueBeforeUpDown?: string;
   }
 
+  interface InputChangedEventData {
+    newValue: string;
+    method: string;
+  }
+
   interface InputProps extends React.HTMLAttributes {
     value: string;
-    onChange: React.FormEventHandler;
+    onChange: (event: React.FormEvent, data?: InputChangedEventData) => void;
   }
 
   interface SuggestionSelectedEventData {
