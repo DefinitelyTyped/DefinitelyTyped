@@ -1,10 +1,14 @@
 {
-	"files": ["bluebird.d.ts", "bluebird-tests.ts"],
+    "files": [
+        "bluebird.d.ts",
+        "bluebird-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es5",
         "noImplicitAny": true,
         "strictNullChecks": false,
-        "baseUrl": "../"
+        "baseUrl": "../",
+        "typesRoot": "../"
     }
 }

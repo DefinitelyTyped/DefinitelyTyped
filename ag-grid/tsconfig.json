@@ -1,10 +1,14 @@
 {
-	"files": ["ag-grid.d.ts", "ag-grid-tests.ts"],
+    "files": [
+        "ag-grid.d.ts",
+        "ag-grid-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
         "strictNullChecks": false,
-        "baseUrl": "../"
+        "baseUrl": "../",
+        "typesRoot": "../"
     }
 }

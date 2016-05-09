@@ -1,10 +1,14 @@
 {
-	"files": ["jssha.d.ts", "jssha-tests.ts"],
+    "files": [
+        "jssha.d.ts",
+        "jssha-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
         "strictNullChecks": false,
-        "baseUrl": "../"
+        "baseUrl": "../",
+        "typesRoot": "../"
     }
 }

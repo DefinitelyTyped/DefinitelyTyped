@@ -1,10 +1,14 @@
 {
-	"files": ["handlebars.d.ts", "handlebars-tests.ts"],
+    "files": [
+        "handlebars.d.ts",
+        "handlebars-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
         "strictNullChecks": false,
-        "baseUrl": "../"
+        "baseUrl": "../",
+        "typesRoot": "../"
     }
 }

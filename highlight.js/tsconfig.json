@@ -1,10 +1,14 @@
 {
-	"files": ["highlightjs.d.ts", "highlightjs-tests.ts"],
+    "files": [
+        "highlightjs.d.ts",
+        "highlightjs-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
         "strictNullChecks": false,
-        "baseUrl": "../"
+        "baseUrl": "../",
+        "typesRoot": "../"
     }
 }
