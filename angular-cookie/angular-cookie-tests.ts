@@ -1,4 +1,3 @@
-
 /// <reference path='angular-cookie.d.ts' />
 
 angular.module('myApp', ['ipCookie'])

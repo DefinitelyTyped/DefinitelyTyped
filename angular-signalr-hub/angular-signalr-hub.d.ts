@@ -5,6 +5,7 @@
 
 /// <reference path='../angularjs/angular.d.ts' />
 /// <reference path='../signalr/signalr.d.ts' />
+/// <reference path='../angularjs/angularjs.d.ts' />
 
 declare module "angular-signalr-hub" {
     let _: string;
