@@ -1192,7 +1192,7 @@ declare module "url" {
         host?: string;
         pathname?: string;
         search?: string;
-        query?: any; // string | Object
+        query?: string | any;
         slashes?: boolean;
         hash?: string;
         path?: string;
@@ -1814,13 +1814,13 @@ declare module "tls" {
         host?: string;
         port?: number;
         socket?: net.Socket;
-        pfx?: any;   //string | Buffer
-        key?: any;   //string | Buffer
+        pfx?: string | Buffer
+        key?: string | Buffer
         passphrase?: string;
-        cert?: any;  //string | Buffer
-        ca?: any;    //Array of string | Buffer
+        cert?: string | Buffer
+        ca?: (string | Buffer)[];
         rejectUnauthorized?: boolean;
-        NPNProtocols?: any;  //Array of string | Buffer
+        NPNProtocols?: (string | Buffer)[];
         servername?: string;
     }
 
@@ -1859,12 +1859,12 @@ declare module "tls" {
     }
 
     export interface SecureContextOptions {
-        pfx?: any;   //string | buffer
-        key?: any;   //string | buffer
+        pfx?: string | Buffer;
+        key?: string | Buffer;
         passphrase?: string;
-        cert?: any;  // string | buffer
-        ca?: any;    // string | buffer
-        crl?: any;   // string | string[]
+        cert?: string | Buffer;
+        ca?: string | Buffer;
+        crl?: string | string[]
         ciphers?: string;
         honorCipherOrder?: boolean;
     }
@@ -1887,8 +1887,8 @@ declare module "crypto" {
         key: string;
         passphrase: string;
         cert: string;
-        ca: any;    //string | string array
-        crl: any;   //string | string array
+        ca: string | string[];
+        crl: string | string[];
         ciphers: string;
     }
     export interface Credentials { context?: any; }
