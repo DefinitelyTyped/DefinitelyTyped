@@ -1,4 +1,5 @@
 {
+	"files": ["ace.d.ts", "all-tests.ts"],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",

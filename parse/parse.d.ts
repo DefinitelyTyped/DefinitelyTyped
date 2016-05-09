@@ -5,6 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="../underscore/index.d.ts" />
 
 declare namespace Parse {
 
@@ -424,7 +425,7 @@ declare namespace Parse {
         initialize(): void;
         add(models: any[], options?: Collection.AddOptions): Collection<T>;
         at(index: number): Object;
-        chain(): _Chain<Collection<T>>;
+        chain(): _._Chain<Collection<T>>;
         fetch(options?: Collection.FetchOptions): Promise<T>;
         create(model: Object, options?: Collection.CreateOptions): Object;
         get(id: string): Object;

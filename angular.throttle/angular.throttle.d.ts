@@ -3,6 +3,7 @@
 // Definitions by: Stefan Steinhart <https://github.com/reppners>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../angularjs/angularjs.d.ts" />
 
 declare namespace angular {
 	interface IAngularStatic {
