@@ -3,14 +3,14 @@
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="./promise.d.ts" />
-
 /**
  * A pure Javascript implementation of XMLDSIG and XAdES based on Web Crypto https://xadesjs.com
  * v1.0.0
  */
 
 declare namespace xadesjs {
+    
+    type PromiseType = any;
     
     const APPLICATION_XML: string;
 
@@ -149,7 +149,7 @@ declare namespace xadesjs {
         getAlgorithmName(): string;
     }
     interface IHashAlgorithm extends IAlgorithm {
-        getHash(xml: string): Promise;
+        getHash(xml: string): PromiseType;
     }
     interface IHashAlgorithmConstructable {
         new (): IHashAlgorithm;
@@ -160,11 +160,11 @@ declare namespace xadesjs {
         getAlgorithmName(): string;
     }
     abstract class HashAlgorithm extends XmlAlgorithm implements IHashAlgorithm {
-        getHash(xml: string): Promise;
+        getHash(xml: string): PromiseType;
     }
     interface ISignatureAlgorithm extends IAlgorithm {
-        getSignature(signedInfo: string, signingKey: CryptoKey, algorithm: Algorithm): Promise;
-        verifySignature(signedInfo: string, key: CryptoKey, signatureValue: string, algorithm?: Algorithm): Promise;
+        getSignature(signedInfo: string, signingKey: CryptoKey, algorithm: Algorithm): PromiseType;
+        verifySignature(signedInfo: string, key: CryptoKey, signatureValue: string, algorithm?: Algorithm): PromiseType;
     }
     interface ISignatureAlgorithmConstructable {
         new (): ISignatureAlgorithm;
@@ -173,11 +173,11 @@ declare namespace xadesjs {
         /**
          * Sign the given string using the given key
          */
-        getSignature(signedInfo: string, signingKey: CryptoKey, algorithm: Algorithm): Promise;
+        getSignature(signedInfo: string, signingKey: CryptoKey, algorithm: Algorithm): PromiseType;
         /**
         * Verify the given signature of the given string using key
         */
-        verifySignature(signedInfo: string, key: CryptoKey, signatureValue: string, algorithm?: Algorithm): Promise;
+        verifySignature(signedInfo: string, key: CryptoKey, signatureValue: string, algorithm?: Algorithm): PromiseType;
     }
 
     const SHA1: string;
@@ -368,9 +368,9 @@ declare namespace xadesjs {
         /**
          * Returns public key from X509Certificate
          * @param  {Algorithm} algorithm
-         * @returns Promise
+         * @returns PromiseType
          */
-        exportKey(algorithm: Algorithm): Promise;
+        exportKey(algorithm: Algorithm): PromiseType;
     }
 
     enum X509IncludeOption {
@@ -395,13 +395,13 @@ declare namespace xadesjs {
          * Gets public key of the X509Data
          */
         Key: CryptoKey;
-        importKey(key: CryptoKey): Promise;
+        importKey(key: CryptoKey): PromiseType;
         /**
          * Exports key from X509Data object
          * @param  {Algorithm} alg
-         * @returns Promise
+         * @returns PromiseType
          */
-        exportKey(alg: Algorithm): Promise;
+        exportKey(alg: Algorithm): PromiseType;
         /**
          * Gets a list of the X.509v3 certificates contained in the KeyInfoX509Data object.
          */
@@ -492,15 +492,15 @@ declare namespace xadesjs {
         /**
          * Imports key to the RSAKeyValue object
          * @param  {CryptoKey} key
-         * @returns Promise
+         * @returns PromiseType
          */
-        importKey(key: CryptoKey): Promise;
+        importKey(key: CryptoKey): PromiseType;
         /**
          * Exports key from the RSAKeyValue object
          * @param  {Algorithm} alg
-         * @returns Promise
+         * @returns PromiseType
          */
-        exportKey(alg: Algorithm): Promise;
+        exportKey(alg: Algorithm): PromiseType;
         /**
          * Returns the XML representation of the RSA key clause.
          * @returns Element
@@ -552,15 +552,15 @@ declare namespace xadesjs {
         /**
          * Imports key to the ECKeyValue object
          * @param  {CryptoKey} key
-         * @returns Promise
+         * @returns PromiseType
          */
-        importKey(key: CryptoKey): Promise;
+        importKey(key: CryptoKey): PromiseType;
         /**
          * Exports key from the ECKeyValue object
          * @param  {Algorithm} alg
-         * @returns Promise
+         * @returns PromiseType
          */
-        exportKey(alg: Algorithm): Promise;
+        exportKey(alg: Algorithm): PromiseType;
         /**
          * Returns the XML representation of the ECDSA key clause.
          * @returns Element
@@ -804,8 +804,8 @@ declare namespace xadesjs {
     }
     interface KeyInfoClause extends IXmlSerializable {
         Key: CryptoKey;
-        importKey(key: CryptoKey): Promise;
-        exportKey(alg: Algorithm): Promise;
+        importKey(key: CryptoKey): PromiseType;
+        exportKey(alg: Algorithm): PromiseType;
     }
 
     /**
@@ -1060,16 +1060,16 @@ declare namespace xadesjs {
         /**
          * Computes an XML digital signature using the specified algorithm.
          * @param  {Algorithm} algorithm Specified WebCrypto Algoriithm
-         * @returns Promise
+         * @returns PromiseType
          */
-        ComputeSignature(algorithm: Algorithm): Promise;
+        ComputeSignature(algorithm: Algorithm): PromiseType;
         /**
          * Determines whether the SignedXml.Signature property verifies using the public key in the signature.
-         * @returns Promise
+         * @returns PromiseType
          */
-        CheckSignature(): Promise;
-        CheckSignature(key: CryptoKey): Promise;
-        CheckSignature(cert: X509Certificate): Promise;
+        CheckSignature(): PromiseType;
+        CheckSignature(key: CryptoKey): PromiseType;
+        CheckSignature(cert: X509Certificate): PromiseType;
         /**
          * Loads a SignedXml state from an XML element.
          * @param  {Element} value The XML element to load the SignedXml state from.
