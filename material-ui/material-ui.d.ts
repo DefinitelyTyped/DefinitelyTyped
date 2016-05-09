@@ -1592,11 +1592,12 @@ declare namespace __MaterialUI {
             icon?: React.ReactNode;
             label?: React.ReactNode;
             onActive?: (tab: Tab) => void;
-            onTouchTap?: (value: any, e: TouchTapEvent = null, tab: Tab = null) => void;
+            onTouchTap?: (value: any, e?: TouchTapEvent, tab?: Tab) => void;
             selected?: boolean;
             style?: React.CSSProperties;
             value?: any;
             width?: string;
+            disabled?: boolean;
         }
         export class Tab extends React.Component<
             TabProps, {}> {
