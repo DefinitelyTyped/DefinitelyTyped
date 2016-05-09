@@ -59,7 +59,7 @@ var getCurrentNode = () => {
 var isPublishedNode = () => {
 
     // check that we have an active node
-    if (_.isUndefined(editorState.current)) {
+    if (editorState.current) {
         return false;
     }
     return editorState.current.published;
@@ -74,7 +74,7 @@ var isPublishedNode = () => {
 var getActiveNodeId = () => {
 
     // check that we have an active node
-    if (_.isUndefined(editorState.current)) {
+    if (editorState.current) {
         return 0;
     }
     // get the parent id of the current node - we get parent because if we create a new module then the current node will be unpublished and this "id" will be 0
