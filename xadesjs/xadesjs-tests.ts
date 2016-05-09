@@ -42,6 +42,6 @@ xadesjs.Application.crypto.subtle.generateKey(
     .then((doc: string) => {
         console.log("Signed document:", doc);
     })
-    .catch((e) => {
+    .catch((e: any) => {
         console.error("Error", e);
-    })
+    });
