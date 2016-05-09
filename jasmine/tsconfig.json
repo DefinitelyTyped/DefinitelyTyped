@@ -1,10 +1,14 @@
 {
-	"files": ["jasmine.d.ts", "jasmine-tests.ts"],
+    "files": [
+        "jasmine.d.ts",
+        "jasmine-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
         "strictNullChecks": false,
-        "baseUrl": "../"
+        "baseUrl": "../",
+        "typesRoot": "../"
     }
 }

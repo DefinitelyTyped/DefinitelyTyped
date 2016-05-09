@@ -1,10 +1,14 @@
 {
-	"files": ["mustache.d.ts", "mustache-tests.ts"],
+    "files": [
+        "mustache.d.ts",
+        "mustache-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
         "strictNullChecks": false,
-        "baseUrl": "../"
+        "baseUrl": "../",
+        "typesRoot": "../"
     }
 }

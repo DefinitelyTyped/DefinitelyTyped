@@ -1,24 +1,24 @@
 {
-	"files": [
-		"angularjs.d.ts",
-		"angular-animate.d.ts",
-		"angular-component-router.d.ts",
-		"angular-cookies.d.ts",
-		"angular-mocks.d.ts",
-		"angular-resource.d.ts",
-		"angular-route.d.ts",
-		"angular-sanitize.d.ts",
-
-		"angular-route-tests.ts",
-		"angular-resource-tests.ts",
-		"angular-sanitize-tests.ts",
-		"angular-tests.ts"
-	],
+    "files": [
+        "angularjs.d.ts",
+        "angular-animate.d.ts",
+        "angular-component-router.d.ts",
+        "angular-cookies.d.ts",
+        "angular-mocks.d.ts",
+        "angular-resource.d.ts",
+        "angular-route.d.ts",
+        "angular-sanitize.d.ts",
+        "angular-route-tests.ts",
+        "angular-resource-tests.ts",
+        "angular-sanitize-tests.ts",
+        "angular-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
         "strictNullChecks": false,
-        "baseUrl": "../"
+        "baseUrl": "../",
+        "typesRoot": "../"
     }
 }

@@ -5,6 +5,7 @@
         "noImplicitAny": true,
         "strictNullChecks": false,
         "baseUrl": "../",
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "typesRoot": "../"
     }
 }
