@@ -1,4 +1,14 @@
+// Type definitions for graphene-pk11 v2.0.0
+// Project: https://github.com/PeculiarVentures/graphene
+// Definitions by: Stepan Miroshin <https://github.com/microshine>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /// <reference path="./promise.d.ts" />
+
+/**
+ * A pure Javascript implementation of XMLDSIG and XAdES based on Web Crypto https://xadesjs.com
+ * v1.0.0
+ */
 
 declare namespace xadesjs {
     
