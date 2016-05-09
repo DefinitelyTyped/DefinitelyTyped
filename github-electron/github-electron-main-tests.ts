@@ -45,7 +45,6 @@ var shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) 
 	if (mainWindow.isMinimized()) mainWindow.restore();
 	mainWindow.focus();
   }
-  return true;
 });
 
 if (shouldQuit) {
