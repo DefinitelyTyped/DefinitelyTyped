@@ -1,5 +1,4 @@
-
-/// <reference path='angular-touchspin.d.ts' />
+/// <reference path="angular-touchspin.d.ts" />
 
 angular
     .module('touchspin-tests', ['lm.touchspin'])

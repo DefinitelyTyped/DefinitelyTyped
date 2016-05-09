@@ -3,6 +3,8 @@
 // Definitions by: Matthew DeKrey <https://github.com/mdekrey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../angularjs/angularjs.d.ts" />
+
 declare namespace angular.a0.storage {
 	interface IStoreService extends INamespacedStoreService {
 		/**

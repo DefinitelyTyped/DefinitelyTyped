@@ -1,7 +1,7 @@
 /// <reference path="cldr.js.d.ts" />
 /// <reference path="cldr.js-supplemental.d.ts" />
 
-const cldr = new Cldr("en");
+const myCldr = new Cldr("en");
 
 const supplemental = cldr.supplemental;
 
