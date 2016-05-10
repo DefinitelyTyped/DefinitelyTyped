@@ -49,7 +49,7 @@ declare namespace PhoneGapNfc {
         canMakeReadOnly:boolean;
         isWritable:boolean;
         maxSize:number;
-        records:Array<NdefRecord>;
+        ndefMessage:Array<NdefRecord>;
     }
 
     interface TagEvent extends Event {
