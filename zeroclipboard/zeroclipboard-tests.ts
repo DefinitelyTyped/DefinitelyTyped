@@ -1,4 +1,4 @@
-/// <reference path="zeroclipboard.d.ts" />
+
 /// <reference types="jquery" />
 
 import ZeroClipboard = require("zeroclipboard");

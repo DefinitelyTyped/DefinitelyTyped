@@ -1,6 +1,6 @@
 /// <reference types="mocha" />
 /// <reference types="node" />
-/// <reference path="mz.d.ts" />
+
 
 
 import assert = require('assert')

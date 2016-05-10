@@ -1,4 +1,4 @@
-/// <reference path="ng-grid.d.ts" />
+
 /// <reference types="angularjs" />
 
 var options1: ngGrid.IGridOptions = {

@@ -1,4 +1,4 @@
-/// <reference path="./asciify.d.ts" />
+
 
 import asciify = require('asciify');
 

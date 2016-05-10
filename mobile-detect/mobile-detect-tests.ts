@@ -1,4 +1,4 @@
-/// <reference path="mobile-detect.d.ts" />
+
 
 var md: MobileDetect = new MobileDetect(window.navigator.userAgent);
 

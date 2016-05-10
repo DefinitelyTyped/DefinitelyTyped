@@ -1,5 +1,5 @@
 // adapted from `cat wu.js/test/* |sed '/= require/d'> wu-tests.ts`
-///<reference path="wu.d.ts" />
+
 declare var describe: any, it: any, mocha: any, assert: {
   iterable:any;
   eqSet<T>(expected:Set<T>, actual: Iterable<T>): any;

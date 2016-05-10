@@ -3,7 +3,7 @@
 // Definitions by: Stefan Profanter <https://github.com/pro>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="./three.d.ts" />
+
 
 declare module THREE {
 	class OrthographicTrackballControls extends EventDispatcher {

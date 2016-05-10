@@ -1,4 +1,4 @@
-/// <reference path="angularjs-toaster.d.ts" />
+
 class NgToasterTestController {
   constructor(public $scope: ng.IScope, public $window: ng.IWindowService, public toaster: ngtoaster.IToasterService) {
     this.bar = 'Hi';

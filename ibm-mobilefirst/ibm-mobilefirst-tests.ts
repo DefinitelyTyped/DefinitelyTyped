@@ -1,5 +1,5 @@
 /// <reference types="jquery" />
-/// <reference path="ibm-mobilefirst.d.ts" />
+
 // Tests
 
 // Test WL.Client

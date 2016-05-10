@@ -1,5 +1,5 @@
 /// <reference types="jquery" />
-/// <reference path="jquery-handsontable.d.ts" />
+
 
 var data = [
     ["", "Maserati", "Mazda", "Mercedes", "Mini", "Mitsubishi"],

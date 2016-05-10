@@ -3,8 +3,8 @@
 // Definitions by: DeCareSystemsIreland <https://github.com/DeCareSystemsIreland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="umbraco-services.d.ts" />
-/// <reference path="umbraco-resources.d.ts" />
+
+
 
 // Collapse umbraco into umb
 import umb = umbraco;

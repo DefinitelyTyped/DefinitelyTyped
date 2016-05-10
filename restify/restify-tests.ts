@@ -1,4 +1,4 @@
-/// <reference path="restify.d.ts" />
+
 
 import restify = require("restify");
 

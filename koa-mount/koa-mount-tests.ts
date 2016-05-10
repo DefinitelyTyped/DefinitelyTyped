@@ -1,5 +1,5 @@
 
-/// <reference path="koa-mount.d.ts" />
+
 
 import * as Koa from "koa";
 import mount = require("koa-mount");

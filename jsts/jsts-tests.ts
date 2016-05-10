@@ -1,4 +1,4 @@
-﻿/// <reference path="jsts.d.ts" />
+﻿
 var str: string;
 var n: number;
 var bool: boolean;

@@ -1,4 +1,4 @@
-/// <reference path="jquery.tooltipster.d.ts" />
+
 
 // Type definition tests for jQuery Tooltipster 3.0.5
 // Project: https://github.com/iamceege/tooltipster

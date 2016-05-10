@@ -1,4 +1,4 @@
-/// <reference path="hystrixjs.d.ts" />
+
 /// <reference types="Q"/>
 
 import hystrixjs = require('hystrixjs');

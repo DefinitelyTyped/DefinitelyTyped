@@ -1,4 +1,4 @@
-/// <reference path="history.d.ts" />
+
 
 // Since History is defined in lib.d.ts as well 
 // the name for our interfaces was chosen to be Historyjs

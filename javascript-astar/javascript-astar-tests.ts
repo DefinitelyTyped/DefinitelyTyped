@@ -1,4 +1,4 @@
-/// <reference path="javascript-astar.d.ts" />
+
 
 function test_create() {
     let graph: Graph = new Graph([]);

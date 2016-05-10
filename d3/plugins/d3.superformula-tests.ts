@@ -1,5 +1,5 @@
-/// <reference path="../d3.d.ts" />
-/// <reference path="d3.superformula.d.ts" />
+
+
 
 function superformula() {
     var size = 1000;

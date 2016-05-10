@@ -1,5 +1,5 @@
 /// <reference types="require" />
-/// <reference path="orchestrator.d.ts" />
+
 
 'use strict';
 

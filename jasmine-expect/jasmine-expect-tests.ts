@@ -1,5 +1,5 @@
 /// <reference types="jasmine" />
-/// <reference path="jasmine-expect.d.ts" />
+
 
 // Taken directly from the test directory of the original repo
 

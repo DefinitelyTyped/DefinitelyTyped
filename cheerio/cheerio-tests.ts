@@ -1,4 +1,4 @@
-/// <reference path="cheerio.d.ts" />
+
 
 import * as cheerio from 'cheerio';
 

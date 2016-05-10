@@ -1,4 +1,4 @@
-/// <reference path="numeraljs.d.ts" />
+
 
 var valueFormat: string = numeral(1000).format('0,0');
 // '1,000'

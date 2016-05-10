@@ -1,5 +1,5 @@
 /// <reference types="yui" />
-/// <reference path="../cryptojs.d.ts" />
+
 
 YUI.add('algo-pbkdf2-profile', function (Y) {
     var C = CryptoJS;

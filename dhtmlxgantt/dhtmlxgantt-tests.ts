@@ -1,4 +1,4 @@
-/// <reference path="dhtmlxgantt.d.ts" />
+
 
 //date operations
 var start: Date = gantt.date.week_start(new Date());

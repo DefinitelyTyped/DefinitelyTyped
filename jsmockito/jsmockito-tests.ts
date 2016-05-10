@@ -1,4 +1,4 @@
-/// <reference path="jsmockito.d.ts" />
+
 
 function test_version() {
     var version: string = JsMockito.version;

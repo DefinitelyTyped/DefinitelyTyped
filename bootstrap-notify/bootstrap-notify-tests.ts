@@ -1,4 +1,4 @@
-/// <reference path="bootstrap-notify.d.ts" />
+
 /// <reference types="jquery" />
 
 //Test for bootstrap-notify v3.1.3

@@ -1,4 +1,4 @@
-/// <reference path="lodash-decorators.d.ts" />
+
 /// <reference types="lodash-3.10" />
 
 //

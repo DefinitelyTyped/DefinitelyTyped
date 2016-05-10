@@ -1,4 +1,4 @@
-/// <reference path="firefox.d.ts" />
+
 
 var manifestUrl = window.location.protocol + "//" + window.location.host + "/manifest.webapp";
 

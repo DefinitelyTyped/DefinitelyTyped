@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-/// <reference path="i18n-node.d.ts" />
+
 
 import express = require("../express");
 import i18n = require("i18n");

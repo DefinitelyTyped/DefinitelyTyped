@@ -1,5 +1,5 @@
 /// <reference types="jquery"/>
-/// <reference path="acc-wizard.d.ts" />
+
 
 /**
  * @summary Test for "accwizard" without options.

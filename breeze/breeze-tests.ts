@@ -1,4 +1,4 @@
-/// <reference path="breeze.d.ts" />
+
 
 import core = breeze.core;
 import config = breeze.config;

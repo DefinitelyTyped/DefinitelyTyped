@@ -1,4 +1,4 @@
-/// <reference path="google.visualization.d.ts" />
+
 
 function test_arrayToDataTable() {
     var array = [

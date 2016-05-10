@@ -1,4 +1,4 @@
-/// <reference path="adal.d.ts" />
+
 
 var endpoints = {
     "https://yourhost/api": "b6a68585-5287-45b2-ba82-383ba1f60932",

@@ -1,4 +1,4 @@
-﻿/// <reference path="./github-electron.d.ts" />
+﻿
 import {
 	app,
 	autoUpdater,

@@ -1,4 +1,4 @@
-/// <reference path="jasmine-1.3.d.ts" />
+
 
 describe("A suite", () => {
     it("contains spec with an expectation", () => {

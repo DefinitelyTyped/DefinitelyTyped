@@ -1,4 +1,4 @@
-/// <reference path="highcharts.d.ts" />
+
 /// <reference types="jquery" />
 
 function originalTests() {

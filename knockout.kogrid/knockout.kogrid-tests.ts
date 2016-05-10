@@ -1,5 +1,5 @@
 /// <reference types="knockout" />
-/// <reference path="ko-grid.d.ts" />
+
 
 namespace KoGridTests
 {

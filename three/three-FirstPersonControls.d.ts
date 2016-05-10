@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //Source : https://github.com/NTaylorMullen/CycleR/blob/master/CycleR/CycleR.Game.Client/Client/Interfaces/ThreeJS/Cameras/FirstPersonControls.d.ts
 
-/// <reference path="./three.d.ts" />
+
 declare namespace THREE {
     class FirstPersonControls {
         constructor(object: Camera, domElement?: HTMLElement);

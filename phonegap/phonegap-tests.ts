@@ -1,4 +1,4 @@
-/// <reference path="phonegap.d.ts" />
+
 
 function test_accelerometer() {
     var watchID = null;

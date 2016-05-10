@@ -1,4 +1,4 @@
-/// <reference path="./react-datagrid.d.ts" />
+
 /// <reference types="react" />
 
 import * as React from "react";

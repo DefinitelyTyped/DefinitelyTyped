@@ -1,4 +1,4 @@
-/// <reference path="hashtable.d.ts" />
+
 
 class Point {
     constructor(public x: number, public y: number) {

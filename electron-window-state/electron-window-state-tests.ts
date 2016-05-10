@@ -1,4 +1,4 @@
-/// <reference path="electron-window-state.d.ts" />
+
 
 import {app, BrowserWindow} from 'electron';
 import windowStateKeeper = require('electron-window-state');

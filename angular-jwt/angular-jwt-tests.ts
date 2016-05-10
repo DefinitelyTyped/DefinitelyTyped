@@ -1,5 +1,5 @@
 ﻿/// <reference types="angularjs" />
-/// <reference path="angular-jwt.d.ts" />
+
 
 var app = angular.module("angular-jwt-tests", ["angular-jwt"]);
 

@@ -1,4 +1,4 @@
-/// <reference path="angular-route-1.2.d.ts" />
+
 
 /**
  * @license HTTP Auth Interceptor Module for AngularJS

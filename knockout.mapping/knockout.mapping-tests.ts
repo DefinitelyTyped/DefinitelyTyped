@@ -1,4 +1,4 @@
-/// <reference path="knockout.mapping.d.ts" />
+
 /// <reference types="knockout" />
 
 var inputJSON = '{ name: "foo" }';

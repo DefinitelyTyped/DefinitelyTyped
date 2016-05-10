@@ -1,4 +1,4 @@
-/// <reference path="normalizr.d.ts" />
+
 
 import { normalize, Schema, arrayOf, unionOf, valuesOf } from 'normalizr';
 

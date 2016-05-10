@@ -1,4 +1,4 @@
-﻿/// <reference path="dot.d.ts" />
+﻿
 
 var headertmpl = "<h1>{{=it.title}}</h1>";
 

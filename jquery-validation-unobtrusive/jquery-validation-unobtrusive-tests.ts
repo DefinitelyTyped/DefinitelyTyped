@@ -1,4 +1,4 @@
-﻿/// <reference path="jquery-validation-unobtrusive.d.ts" />
+﻿
 
 // Test overloads for `add` method
 $.validator.unobtrusive.adapters.add("adapter", () => { });

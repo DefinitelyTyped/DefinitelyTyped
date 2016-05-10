@@ -1,5 +1,5 @@
 /// <reference types="cordova" />
-/// <reference path="./cordova-plugin-email-composer.d.ts" />
+
 
 cordova.plugins.email.isAvailable((isAvailable) => {}, {});
 cordova.plugins.email.open({

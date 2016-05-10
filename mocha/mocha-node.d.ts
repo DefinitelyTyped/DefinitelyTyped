@@ -3,7 +3,7 @@
 // Definitions by: Vadim Macagon <https://github.com/enlight>, vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="mocha.d.ts" />
+
 /// <reference types="node" />
 
 declare namespace Mocha {

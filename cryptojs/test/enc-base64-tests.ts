@@ -1,5 +1,5 @@
 /// <reference types="yui" />
-/// <reference path="../cryptojs.d.ts" />
+
 
 YUI.add('enc-base64-test', function (Y) {
     var C = CryptoJS;

@@ -1,4 +1,4 @@
-/// <reference path="jsbn.d.ts" />
+
 var BigInteger = jsbn.BigInteger;
 
 // constructor tests

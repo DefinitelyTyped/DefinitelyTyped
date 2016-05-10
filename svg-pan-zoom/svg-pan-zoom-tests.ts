@@ -1,4 +1,4 @@
-/// <reference path="svg-pan-zoom.d.ts" />
+
 
 var svgPanZoomOptions : SvgPanZoom.OptionConfig = {
     panEnabled: true // enable or disable panning (default enabled)

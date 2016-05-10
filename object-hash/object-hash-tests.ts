@@ -1,4 +1,4 @@
-/// <reference path="object-hash.d.ts" />
+
 
 import hash = require('object-hash');
 

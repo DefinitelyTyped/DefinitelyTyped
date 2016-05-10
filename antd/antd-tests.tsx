@@ -1,5 +1,5 @@
 /// <reference types="react" />
-/// <reference path="./antd.d.ts" />
+
 import React = __React
 /*import {
     Affix,

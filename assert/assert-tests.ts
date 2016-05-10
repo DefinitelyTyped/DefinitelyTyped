@@ -1,4 +1,4 @@
-/// <reference path="./assert.d.ts" />
+
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 

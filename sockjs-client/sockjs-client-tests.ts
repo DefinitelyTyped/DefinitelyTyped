@@ -1,4 +1,4 @@
-/// <reference path="./sockjs-client.d.ts" />
+
 
 import * as SockJS from 'sockjs-client';
 import BaseEvent = __SockJSClient.BaseEvent;

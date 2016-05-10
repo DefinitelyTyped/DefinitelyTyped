@@ -1,4 +1,4 @@
-/// <reference path="angular-resource.d.ts" />
+
 
 
 import IHttpPromiseCallbackArg = angular.IHttpPromiseCallbackArg;

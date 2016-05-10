@@ -1,4 +1,4 @@
-/// <reference path="bytebuffer.d.ts" />
+
 
 import ByteBuffer = require("bytebuffer");
 

@@ -1,4 +1,4 @@
-/// <reference path="wordcloud.d.ts" />
+
 /// <reference types="qunit" />
 
 'use strict';

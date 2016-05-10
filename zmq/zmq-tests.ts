@@ -1,5 +1,3 @@
-/// <reference path='zmq.d.ts' />
-
 import zmq = require('zmq');
 
 function test1() {

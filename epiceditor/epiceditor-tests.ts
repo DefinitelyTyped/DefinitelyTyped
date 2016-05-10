@@ -1,4 +1,4 @@
-/// <reference path="epiceditor.d.ts" />
+
 
 var editor = new EpicEditor().load();
 

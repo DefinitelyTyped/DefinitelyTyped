@@ -1,4 +1,4 @@
-/// <reference path="karma-0.12.d.ts" />
+
 
 import gulp = require('gulp');
 import karma = require('karma');

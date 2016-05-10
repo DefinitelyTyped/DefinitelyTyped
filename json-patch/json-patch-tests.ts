@@ -1,4 +1,4 @@
-/// <reference path="./json-patch.d.ts" />
+
 
 import jp = require("json-patch");
 

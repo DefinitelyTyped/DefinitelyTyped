@@ -1,4 +1,4 @@
-/// <reference path="parallel.d.ts" />
+
 
 interface String {
 	reverse(): string;

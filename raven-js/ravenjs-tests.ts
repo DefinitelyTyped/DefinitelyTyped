@@ -1,4 +1,4 @@
-/// <reference path="ravenjs.d.ts" />
+
 
 import RavenJS from 'raven-js';
 

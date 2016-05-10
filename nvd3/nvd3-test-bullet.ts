@@ -1,5 +1,5 @@
 /// <reference types="d3" />
-/// <reference path="nvd3.d.ts" />
+
 namespace nvd3_test_bullet {
     var width = 960,
         height = 55,

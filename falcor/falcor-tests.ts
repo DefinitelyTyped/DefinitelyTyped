@@ -1,4 +1,4 @@
-/// <reference path="falcor.d.ts" />
+
 
 import falcor = require('falcor');
 

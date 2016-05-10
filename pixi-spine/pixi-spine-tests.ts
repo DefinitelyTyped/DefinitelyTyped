@@ -1,5 +1,5 @@
 ﻿/// <reference types="pixi.js" />
-/// <reference path="pixi-spine.d.ts" />
+
 
 namespace Spine {
 

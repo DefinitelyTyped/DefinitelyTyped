@@ -1,4 +1,4 @@
-/// <reference path="jquery.fileupload.d.ts" />
+
 
 /* 
 * Handle the event of adding a file to the jQuery Upload plugin.

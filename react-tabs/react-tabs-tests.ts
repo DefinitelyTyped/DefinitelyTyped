@@ -1,4 +1,4 @@
-/// <reference path="react-tabs.d.ts" />
+
 /// <reference types="react" />
 /// <reference types="react-dom" />
 

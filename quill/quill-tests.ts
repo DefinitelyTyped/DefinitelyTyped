@@ -1,4 +1,4 @@
-/// <reference path="quill.d.ts" />
+
 /// <reference types="require"/>
 
 //export var Quill = require("quill");

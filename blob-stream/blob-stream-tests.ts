@@ -1,4 +1,4 @@
-/// <reference path="./blob-stream.d.ts" />
+
 /// <reference types="node" />
 
 var bl = require('blob-stream');

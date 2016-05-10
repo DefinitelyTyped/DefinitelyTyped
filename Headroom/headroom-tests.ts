@@ -1,4 +1,4 @@
-/// <reference path="headroom.d.ts" />
+
 
 new Headroom(document.getElementById('siteHead'));
 

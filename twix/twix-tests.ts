@@ -1,4 +1,4 @@
-﻿/// <reference path="twix.d.ts" />
+﻿
 
 import * as moment from 'moment';
 

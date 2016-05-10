@@ -1,4 +1,4 @@
-/// <reference path="iscroll-5.d.ts" />
+
 
 var myScroll1 = new IScroll('#wrapper');
 var myScroll2 = new IScroll('#wrapper', { hScrollbar: false, vScrollbar: false });

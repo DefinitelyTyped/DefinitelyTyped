@@ -1,4 +1,4 @@
-/// <reference path="fixtures.d.ts" />
+
 
 function test_path() {
     fixtures.path = "/fixtures";

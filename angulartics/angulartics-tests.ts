@@ -1,4 +1,4 @@
-/// <reference path="angulartics.d.ts" />
+
 /// <reference types="angularjs" />
 
 namespace Analytics {

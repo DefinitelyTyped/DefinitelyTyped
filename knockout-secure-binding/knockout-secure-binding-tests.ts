@@ -1,4 +1,4 @@
-/// <reference path="knockout-secure-binding.d.ts" />
+
 
 // knockout-secure-binding
 // The MIT License(MIT)

@@ -6,7 +6,7 @@
 // This renderer does not work in IE. Can be found here for more information.
 // https://github.com/mrdoob/three.js/issues/4783
 
-/// <reference path="./three.d.ts" />
+
 
 declare namespace THREE {
     class CSS3DObject extends Object3D {

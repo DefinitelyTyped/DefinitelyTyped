@@ -3,7 +3,7 @@
 /// <reference types="expect.js" />
 /// <reference types="fixtures" />
 /// <reference types="jquery" />
-/// <reference path="i18next-2.0.17.d.ts" />
+
 
 declare function done(): void;
 

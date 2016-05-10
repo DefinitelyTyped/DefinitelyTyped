@@ -1,4 +1,4 @@
-/// <reference path="AzureMobileServicesClient.d.ts" />
+
 
 
 //create base client istance and read properties

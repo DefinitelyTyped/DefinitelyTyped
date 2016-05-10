@@ -1,4 +1,4 @@
-/// <reference path="dotenv.d.ts" />
+
 
 import dotenv = require('dotenv');
 

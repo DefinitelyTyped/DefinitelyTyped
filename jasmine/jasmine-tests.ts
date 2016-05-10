@@ -1,4 +1,4 @@
-/// <reference path="jasmine.d.ts" />
+
 
 // tests based on http://jasmine.github.io/2.2/introduction.html
 

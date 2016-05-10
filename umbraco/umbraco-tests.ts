@@ -1,4 +1,4 @@
-/// <reference path="umbraco.d.ts" />
+
 /// <reference types="jquery" />
 
 var navigationService: umb.services.INavigationService;

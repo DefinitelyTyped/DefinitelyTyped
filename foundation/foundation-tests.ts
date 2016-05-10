@@ -1,5 +1,5 @@
 /// <reference types="jquery" />
-/// <reference path="foundation.d.ts" />
+
 
 function empty_callback() : void {}
 

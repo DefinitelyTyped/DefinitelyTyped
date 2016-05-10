@@ -1,5 +1,5 @@
 /// <reference types="jquery" />
-/// <reference path="jquery.leanModal.d.ts" />
+
 
 class LeanModalOptions implements JQueryLeanModalOption {
     top : number;

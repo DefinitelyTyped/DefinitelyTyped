@@ -1,4 +1,4 @@
-/// <reference path="c3.d.ts" />
+
 
 //////////////////
 // Doc Examples
