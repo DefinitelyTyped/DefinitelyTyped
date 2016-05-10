@@ -1,6 +1,6 @@
 // Type definitions for sqs-consumer
 // Project: https://github.com/BBC/sqs-consumer
-// Definitions by: Daniel Chao <https://github.com/bioball>
+// Definitions by: Daniel Chao <http://dchao.co/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../aws-sdk/aws-sdk.d.ts"/>
