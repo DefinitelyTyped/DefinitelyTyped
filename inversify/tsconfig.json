@@ -13,6 +13,6 @@
     },
     "files": [
         "index.d.ts",
-        "inversify-global-tests.ts"
+        "inversify-tests.ts"
     ]
 }

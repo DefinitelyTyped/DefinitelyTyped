@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "karma-0.12-tests.ts"
+        "karma-tests.ts"
     ]
 }

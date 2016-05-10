@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "Arbiter-tests.ts"
+        "arbiter-tests.ts"
     ]
 }

@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "mongodb-1.4.9-tests.ts"
+        "mongodb-tests.ts"
     ]
 }

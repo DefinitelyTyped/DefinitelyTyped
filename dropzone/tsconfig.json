@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "dropzone-commonjs-tests.ts"
+        "dropzone-tests.ts"
     ]
 }

@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "mousetrap-global-bind-tests.ts"
+        "mousetrap-tests.ts"
     ]
 }

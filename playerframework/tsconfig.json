@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "playerFramework-tests.ts"
+        "playerframework-tests.ts"
     ]
 }

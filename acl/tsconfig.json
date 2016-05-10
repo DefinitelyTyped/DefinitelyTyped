@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "acl-mongodbBackend-tests.ts"
+        "acl-tests.ts"
     ]
 }

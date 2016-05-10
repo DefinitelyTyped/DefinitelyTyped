@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "SharedWorker-tests.ts"
+        "sharedworker-tests.ts"
     ]
 }

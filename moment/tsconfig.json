@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "moment-external-tests.ts"
+        "moment-tests.ts"
     ]
 }
