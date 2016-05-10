@@ -1845,7 +1845,7 @@ declare module "tls" {
          * The reason why the peer's certificate has not been verified.
          * This property becomes available only when tlsSocket.authorized === false.
          */
-        authorizationError?: Error;
+        authorizationError: Error;
         /**
          * Static boolean value, always true.
          * May be used to distinguish TLS sockets from regular ones.
