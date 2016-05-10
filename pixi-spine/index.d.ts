@@ -3,7 +3,7 @@
 // Definitions by: martijncroezen <https://github.com/pixijs/pixi-typescript>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../pixi.js/pixi.js.d.ts" />
+/// <reference types="pixi.js" />
 declare namespace PIXI {
 
     export module spine {

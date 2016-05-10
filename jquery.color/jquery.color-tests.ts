@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 /// <reference path="jquery.color.d.ts"/>
 
 var color = $.Color("rgba(255, 255, 255, 0.4)");

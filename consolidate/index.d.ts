@@ -5,8 +5,8 @@
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/consolidate.d.ts
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference types="node" />
+/// <reference types="bluebird" />
 
 
 declare var cons: Consolidate;

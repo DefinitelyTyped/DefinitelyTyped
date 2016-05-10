@@ -3,7 +3,7 @@
 // Definitions by: John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="knockout" />
 
 interface KnockoutMappedObservableArray<T> extends KnockoutObservableArray<T>, KnockoutSubscription {
 }

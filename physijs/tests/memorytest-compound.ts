@@ -1,4 +1,4 @@
-/// <reference path="../../stats/stats.d.ts" />
+/// <reference types="stats" />
 /// <reference path="../physijs.d.ts" />
 
 

@@ -1,5 +1,5 @@
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 import * as onoff from 'onoff';
 
 var led:onoff.Gpio = new onoff.Gpio(17, 'out');

@@ -1,6 +1,6 @@
 /// <reference path="redux-devtools-2.1.4.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="../react/react.d.ts" />
+/// <reference types="redux" />
+/// <reference types="react" />
 
 import { compose, createStore, applyMiddleware, Middleware, Reducer } from 'redux';
 import { createDevTools as devTools, persistState } from 'redux-devtools';

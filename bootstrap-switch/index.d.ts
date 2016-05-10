@@ -9,7 +9,7 @@
  * see: http://www.bootstrap-switch.org/ or https://github.com/nostalgiaz/bootstrap-switch for details.
  */
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 declare namespace BootstrapSwitch {
     interface BootstrapSwitchChangeEventObject extends JQueryEventObject {

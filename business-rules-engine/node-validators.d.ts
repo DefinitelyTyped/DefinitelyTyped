@@ -3,8 +3,8 @@
 // Definitions by: Roman Samec <https://github.com/rsamec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../q/Q.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="Q" />
+/// <reference types="node" />
 /// <reference path="business-rules-engine.d.ts" />
 
 export as namespace Validators;

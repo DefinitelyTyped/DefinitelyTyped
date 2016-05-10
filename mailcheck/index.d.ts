@@ -3,7 +3,7 @@
 // Definitions by: Paulo Cesar <http://github.com/pocesar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 declare var Mailcheck: MailcheckModule.Static;
 

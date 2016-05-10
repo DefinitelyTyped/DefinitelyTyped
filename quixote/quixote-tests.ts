@@ -1,4 +1,4 @@
-/// <reference path="../mocha/mocha.d.ts" />
+/// <reference types="mocha" />
 /// <reference path="quixote.d.ts" />
 
 function test_createFrame() {

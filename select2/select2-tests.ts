@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 /// <reference path="select2.d.ts" />
 
 $("#e9").select2();

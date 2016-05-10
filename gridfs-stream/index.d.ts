@@ -3,7 +3,7 @@
 // Definitions by: Lior Mualem <https://github.com/liorm/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare namespace GridFSStream {
     export interface Range {

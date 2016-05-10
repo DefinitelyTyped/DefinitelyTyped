@@ -1,4 +1,4 @@
-///<reference path="../node/node.d.ts" />
+///<reference types="node" />
 
 'use strict';
 import * as UUID from 'uuid-1345';

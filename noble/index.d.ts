@@ -3,7 +3,7 @@
 // Definitions by: Seon-Wook Park <https://github.com/swook>, Hans Bakker <https://github.com/wind-rider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 import events = require("events");

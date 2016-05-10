@@ -3,7 +3,7 @@
 // Definitions by: Lokesh Peta <https://github.com/lokeshpeta/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../jquery/jquery.d.ts" />
+///<reference types="jquery" />
 interface JQueryJqGridColumn {
     name: string;
     index: string;

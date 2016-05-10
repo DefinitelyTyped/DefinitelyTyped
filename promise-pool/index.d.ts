@@ -3,7 +3,7 @@
 // Definitions by: VILIC VANE <https://github.com/vilic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../q-retry/q-retry.d.ts" />
+/// <reference types="q-retry" />
 
 
 /**

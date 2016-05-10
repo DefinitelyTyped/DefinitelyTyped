@@ -3,7 +3,7 @@
 // Definitions by: Quramy <https://github.com/Quramy/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../falcor-json-graph/falcor-json-graph.d.ts" />
+/// <reference types="falcor-json-graph" />
 
 declare namespace FalcorModel {
 

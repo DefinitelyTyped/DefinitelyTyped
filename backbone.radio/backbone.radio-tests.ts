@@ -1,5 +1,5 @@
 ﻿/// <reference path="backbone.radio.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 import * as Backbone from 'backbone';
 

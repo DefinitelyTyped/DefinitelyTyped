@@ -1,4 +1,4 @@
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 import sax = require("sax");
 import fs = require("fs");

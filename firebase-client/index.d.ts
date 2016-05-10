@@ -2,7 +2,7 @@
 // Project: https://www.github.com/jpstevens/firebase-client
 // Definitions by: Andrew Breen <https://github.com/fpsscarecrow/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../q/Q.d.ts" />
+/// <reference types="Q" />
 
 interface PushResponse {
 	/**

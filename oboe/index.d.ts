@@ -3,7 +3,7 @@
 // Definitions by: Jared Klopper <https://github.com/optical>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare namespace oboe {
 	interface OboeFunction extends Function {

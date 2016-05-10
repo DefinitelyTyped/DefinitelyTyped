@@ -4,7 +4,7 @@
  * Created by using code samples from https://github.com/LearnBoost/stylus/blob/master/docs/js.md.
  */
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 /// <reference path="stylus.d.ts" />
 

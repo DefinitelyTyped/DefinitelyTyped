@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Project by: Fabio Franzini
 
-/// <reference path='../jquery/jquery.d.ts'/>
+/// <reference types="jquery"/>
 
 interface JNotifyInitOptions {
     oneAtTime?: boolean;

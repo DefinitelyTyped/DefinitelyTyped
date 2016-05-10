@@ -3,7 +3,7 @@
 // Definitions by: vvakame <http://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 import child_process = require("child_process");

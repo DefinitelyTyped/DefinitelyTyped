@@ -1,5 +1,5 @@
 
-/// <reference path='../lodash/lodash-3.10.d.ts' />
+/// <reference types="lodash-3.10" />
 import Knex = require('knex');
 import _ = require('lodash');
 'use strict';

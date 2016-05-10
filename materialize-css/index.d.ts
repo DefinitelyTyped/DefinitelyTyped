@@ -3,8 +3,8 @@
 // Definitions by: Erik Lieben <https://github.com/eriklieben>, Leon Yu <https://github.com/leonyu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../pickadate/pickadate.d.ts" />
+/// <reference types="jquery" />
+/// <reference types="pickadate" />
 
 declare namespace Materialize {
 

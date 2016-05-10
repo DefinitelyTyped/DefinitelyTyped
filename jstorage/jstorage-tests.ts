@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 /// <reference path="jstorage.d.ts" />
 
 // Test set first overload

@@ -1,4 +1,4 @@
-/// <reference path="../leaflet/leaflet.d.ts" />
+/// <reference types="leaflet" />
 /// <reference path="leaflet-curve.d.ts" />
 
 

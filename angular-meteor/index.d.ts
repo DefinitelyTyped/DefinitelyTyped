@@ -3,8 +3,8 @@
 // Definitions by: Peter Grman <https://github.com/pgrm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../meteor/meteor.d.ts" />
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="meteor" />
+/// <reference types="angularjs" />
 
 declare namespace angular.meteor {
     interface IRootScopeService extends angular.IRootScopeService {

@@ -1,7 +1,7 @@
 
-///<reference path="../node/node.d.ts" />
-///<reference path="../mocha/mocha.d.ts" />
-///<reference path="../assert/assert.d.ts" />
+///<reference types="node" />
+///<reference types="mocha" />
+///<reference types="assert" />
 'use strict';
 
 /**

@@ -3,7 +3,7 @@
 // Definitions by: Markus Wagner <https://github.com/Ritzlgrmft/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../q/Q.d.ts" />
+/// <reference types="Q" />
 
 interface CordovaPlugins {
     locationManager: BeaconPlugin.LocationManager;

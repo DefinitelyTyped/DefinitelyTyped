@@ -3,7 +3,7 @@
 // Definitions by: VILIC VANE <https://github.com/vilic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../q/Q.d.ts" />
+/// <reference types="Q" />
 
 declare namespace Q {
     export interface IRetryOptions {

@@ -3,7 +3,7 @@
 // Definitions by: Julio Casal <https://github.com/julioct>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../q/Q.d.ts" />
+/// <reference types="Q" />
 
 declare namespace MsPortalTestFx {
 

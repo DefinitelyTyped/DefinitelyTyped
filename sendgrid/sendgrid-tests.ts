@@ -4,7 +4,7 @@
  * Created by using code samples from https://github.com/sendgrid/sendgrid-nodejs#usage
  */
 
-///<reference path="../node/node.d.ts" />
+///<reference types="node" />
 ///<reference path="sendgrid.d.ts" />
 
 import sg = require("sendgrid");

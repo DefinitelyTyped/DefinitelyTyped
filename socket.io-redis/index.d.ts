@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../socket.io/socket.io.d.ts" />
+/// <reference types="socket.io" />
 
 declare module 'socket.io-redis' {
 	var redis: SocketIORedisStatic;

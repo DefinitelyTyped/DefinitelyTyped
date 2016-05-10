@@ -5,7 +5,7 @@
 
 // These are very definitely preliminary. Please feel free to improve.
 
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="knockout" />
 
 declare namespace kg {
     export interface DomUtilityService {

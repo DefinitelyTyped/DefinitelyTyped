@@ -3,8 +3,8 @@
 // Definitions by: Tim Perry <https://github.com/pimterry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../chrome/chrome.d.ts"/>
-/// <reference path="../sinon/sinon.d.ts"/>
+/// <reference types="chrome"/>
+/// <reference types="sinon"/>
 
 /**
  * To use sinon-chrome:

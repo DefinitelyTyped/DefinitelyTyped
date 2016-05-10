@@ -3,7 +3,7 @@
 // Definitions by: flyfishMT <https://github.com/flyfishMT/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 interface UniformCoreOptions {
     activeClass?: string;

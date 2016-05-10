@@ -1,5 +1,5 @@
 
-/// <reference path="../react/react.d.ts" />
+/// <reference types="react" />
 
 import Spinner from 'react-spinkit';
 import * as React from 'react';

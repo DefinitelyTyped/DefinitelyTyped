@@ -3,7 +3,7 @@
 // Definitions by: Mathieu Larouche Dube <https://github.com/matdube>
 // Definitions: https://github.com/Vooban/DefinitelyTyped
 
-///<reference path='../react/react.d.ts' />
+///<reference types="react" />
 
 declare namespace ReactDropzone {
     import React = __React;

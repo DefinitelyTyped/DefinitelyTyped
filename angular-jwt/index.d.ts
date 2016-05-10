@@ -3,7 +3,7 @@
 // Definitions by: Reto Rezzonico <https://github.com/rerezz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="angularjs" />
 
 declare namespace angular.jwt {
 

@@ -3,7 +3,7 @@
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 /**
  * A simple layer for interacting with PKCS #11 / PKCS11 / CryptoKI for Node

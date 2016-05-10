@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 /// <reference path="kendo-ui.d.ts" />
 
 var is = {

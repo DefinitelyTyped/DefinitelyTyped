@@ -3,7 +3,7 @@
 // Definitions by: Jeff May <https://github.com/jeffmay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 /// <reference path="./node-uuid-base.d.ts" />
 /// <reference path="./node-uuid-cjs.d.ts" />
 

@@ -3,9 +3,9 @@
 // Definitions by: Mick Delaney <https://github.com/mickdelaney/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angularjs.d.ts" />
-/// <reference path="../rx/rx.d.ts" />
-/// <reference path="../rx/rx.time.d.ts" />
+/// <reference types="angularjs" />
+/// <reference types="rx" />
+/// <reference types="rx.time" />
 
 declare namespace Rx {
 

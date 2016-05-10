@@ -5,7 +5,7 @@
 
 // Documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/
 
-/// <reference path='../node/node.d.ts' />
+/// <reference types="node" />
 
 import {EventEmitter} from 'events';
 

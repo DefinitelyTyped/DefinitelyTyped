@@ -5,7 +5,7 @@
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/fs-extra.d.ts
 
-///<reference path="../node/node.d.ts"/>
+///<reference types="node"/>
 
 
 import stream = require("stream");

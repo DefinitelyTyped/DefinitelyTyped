@@ -3,7 +3,7 @@
 // Definitions by: Rogelio Morrell Caballero <https://github.com/molekilla>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../redux/redux.d.ts" />
+/// <reference types="redux" />
 
 declare namespace ReduxPromise {
     export interface Promise extends Redux.Middleware {}

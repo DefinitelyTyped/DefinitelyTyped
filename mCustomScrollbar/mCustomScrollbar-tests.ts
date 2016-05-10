@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 /// <reference path="mCustomScrollbar.d.ts" />
 
 class SimpleTest {

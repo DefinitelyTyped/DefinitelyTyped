@@ -3,7 +3,7 @@
 // Definitions by: Roman Samec <https://github.com/rsamec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../q/Q.d.ts" />
+/// <reference types="Q" />
 
 export as namespace Validation;
 

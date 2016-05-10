@@ -3,7 +3,7 @@
 // Definitions by: Sergey Gerasimov <https://github.com/gerich-home/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../hashtable/hashtable.d.ts" />
+/// <reference types="hashtable" />
 
 interface IHashSet<TValue>
 {

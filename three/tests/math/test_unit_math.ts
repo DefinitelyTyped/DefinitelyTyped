@@ -1,5 +1,5 @@
-﻿/// <reference path="../../three.d.ts" />
-/// <reference path="../../../qunit/qunit.d.ts" />
+﻿/// <reference types="three" />
+/// <reference types="qunit" />
 /// <reference path="../three-tests-setup.ts" />
 
 

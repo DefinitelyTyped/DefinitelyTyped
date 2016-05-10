@@ -3,7 +3,7 @@
 // Definitions by: Chris Charabaruk <http://github.com/coldacid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../jquery/jquery.d.ts" />
+///<reference types="jquery" />
 
 declare namespace ImagesLoaded {
   type ElementSelector = Element | NodeList | Array<Element> | string;

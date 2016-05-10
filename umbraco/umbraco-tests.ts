@@ -1,5 +1,5 @@
 /// <reference path="umbraco.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 var navigationService: umb.services.INavigationService;
 var notificationsService: umb.services.INotificationsService;

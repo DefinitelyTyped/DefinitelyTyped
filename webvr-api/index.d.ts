@@ -3,7 +3,7 @@
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../geometry-dom/geometry-dom.d.ts" />
+/// <reference types="geometry-dom" />
 
 declare type VREye = string;
 

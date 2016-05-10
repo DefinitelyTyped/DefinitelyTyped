@@ -3,7 +3,7 @@
 // Definitions by: Aymeric Beaumet <http://aymericbeaumet.me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 import bunyan = require("bunyan");
 

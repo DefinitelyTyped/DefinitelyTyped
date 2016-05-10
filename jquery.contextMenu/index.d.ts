@@ -3,7 +3,7 @@
 // Definitions by: Natan Vivo <https://github.com/nvivo/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 interface JQueryContextMenuOptions {
     selector: string;

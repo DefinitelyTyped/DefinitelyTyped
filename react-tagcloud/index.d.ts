@@ -3,7 +3,7 @@
 // Definitions by: wassname <https://github.com/wassname/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../react/react.d.ts"/>
+///<reference types="react"/>
 
 declare namespace ReactTagCloud {
     interface TagCloudProps extends __React.Props<void> {

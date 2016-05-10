@@ -3,7 +3,7 @@
 // Definitions by: Dmytro Kulyk <https://github.com/dkulyk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 declare namespace JQueryBackStretch {
 

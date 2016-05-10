@@ -3,8 +3,8 @@
 // Definitions by: jedmao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../chalk/chalk.d.ts" />
+/// <reference types="node" />
+/// <reference types="chalk" />
 
 import vinyl = require('../vinyl');
 import chalk = require('chalk');

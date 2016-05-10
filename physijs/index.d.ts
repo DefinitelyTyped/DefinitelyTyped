@@ -3,7 +3,7 @@
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../three/three.d.ts" />
+/// <reference types="three" />
 
 declare namespace Physijs {
     export function noConflict():Object;

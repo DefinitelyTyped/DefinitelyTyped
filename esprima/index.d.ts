@@ -3,7 +3,7 @@
 // Definitions by: teppeis <https://github.com/teppeis>, RReverser <https://github.com/RReverser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../estree/estree.d.ts" />
+/// <reference types="estree" />
 
 declare namespace esprima {
 

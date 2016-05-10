@@ -3,7 +3,7 @@
 // Definitions by: Robbie Van Gorkom <https://github.com/vangorra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../meteor/meteor.d.ts" />
+/// <reference types="meteor" />
 
 declare namespace Session {
     function setTemp(key: string, value: string | number | boolean | any /** Null **/ | any /** Undefined **/): boolean;

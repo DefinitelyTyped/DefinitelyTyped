@@ -3,8 +3,8 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="bluebird" />
+/// <reference types="node" />
 
 // See Karma public API https://karma-runner.github.io/0.13/dev/public-api.html
 import Promise = require('bluebird');

@@ -3,7 +3,7 @@
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare function afterEach(fn: jest.EmptyFunction): void;
 declare function beforeEach(fn: jest.EmptyFunction): void;

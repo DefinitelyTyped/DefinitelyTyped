@@ -1,4 +1,4 @@
-///<reference path="../jquery/jquery.d.ts" />
+///<reference types="jquery" />
 ///<reference path="jquery.cleditor.d.ts" />
 
 // cribbed from http://premiumsoftware.net/CLEditor/GettingStarted

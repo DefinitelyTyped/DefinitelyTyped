@@ -3,7 +3,7 @@
 // Definitions by: Walker Burgin <https://github.com/walkerburgin>, Vincent Siao <https://github.com/vsiao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../react/react.d.ts"/>
+///<reference types="react"/>
 
 declare module "react-bootstrap" {
     // Import React

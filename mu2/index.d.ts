@@ -5,7 +5,7 @@
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/mu2.d.ts
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 export declare var root: string;

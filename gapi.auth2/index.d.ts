@@ -3,7 +3,7 @@
 // Definitions by: Derek Lawless <https://github.com/flawless2011>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../gapi/gapi.d.ts" />
+/// <reference types="gapi" />
 
 declare namespace gapi.auth2 {
 

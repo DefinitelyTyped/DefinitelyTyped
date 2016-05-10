@@ -1,8 +1,8 @@
-/// <reference path="../sinon/sinon.d.ts" />
-/// <reference path="../mocha/mocha.d.ts" />
-/// <reference path="../expect.js/expect.js.d.ts" />
-/// <reference path="../js-fixtures/fixtures.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="sinon" />
+/// <reference types="mocha" />
+/// <reference types="expect.js" />
+/// <reference types="fixtures" />
+/// <reference types="jquery" />
 /// <reference path="i18next.d.ts" />
 
 import * as i18n from 'i18next';

@@ -3,7 +3,7 @@
 // Definitions by: Zenorbi <https://github.com/zenorbi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../node/node.d.ts"/>
+///<reference types="node"/>
 
 import events = require("events");
 import net = require("net");

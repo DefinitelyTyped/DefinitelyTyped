@@ -3,7 +3,7 @@
 // Definitions by: Paul Loyd <https://github.com/loyd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 /// <reference path="node-ffi-buffer.d.ts" />
 
 declare module "ffi" {

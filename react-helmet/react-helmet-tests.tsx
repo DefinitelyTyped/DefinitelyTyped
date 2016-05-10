@@ -1,5 +1,5 @@
 /// <reference path="react-helmet.d.ts" />
-/// <reference path="../react/react.d.ts" />
+/// <reference types="react" />
 
 import * as React from 'react';
 import * as Helmet from 'react-helmet';

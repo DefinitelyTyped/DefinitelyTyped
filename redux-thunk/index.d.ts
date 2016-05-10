@@ -3,7 +3,7 @@
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../redux/redux.d.ts" />
+/// <reference types="redux" />
 
 declare namespace ReduxThunk {
     export interface Thunk extends Redux.Middleware {}

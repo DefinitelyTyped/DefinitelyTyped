@@ -3,7 +3,7 @@
 // Definitions by: Denis Tirilis <https://github.com/DenisTirilis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
+/// <reference types="react" />
 
 declare namespace RcSelect {
     import React = __React;

@@ -3,8 +3,8 @@
 // Definitions by: Qubo <https://github.com/tkqubo>, Sean Kelley <https://github.com/seansfkelley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
+/// <reference types="react" />
+/// <reference types="redux" />
 
 import { ComponentClass, Component, StatelessComponent, ReactNode } from 'react';
 import { Store, Dispatch, ActionCreator } from 'redux';

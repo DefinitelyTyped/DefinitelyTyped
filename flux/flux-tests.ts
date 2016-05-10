@@ -1,5 +1,5 @@
 ﻿/// <reference path="flux.d.ts" />
-﻿/// <reference path="../react/react.d.ts" />
+﻿/// <reference types="react" />
 
 import flux = require('flux')
 import FluxUtils = require('flux/utils')

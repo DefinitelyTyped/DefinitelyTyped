@@ -3,7 +3,7 @@
 // Definitions by: Nicholas Penree <http://github.com/drudge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 import events = require('events');
 import express = require('express');

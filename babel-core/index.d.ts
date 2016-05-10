@@ -3,9 +3,9 @@
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../babel-template/babel-template.d.ts" />
-/// <reference path="../babel-traverse/babel-traverse.d.ts" />
-/// <reference path="../babel-types/babel-types.d.ts" />
+/// <reference types="babel-template" />
+/// <reference types="babel-traverse" />
+/// <reference types="babel-types" />
 
 declare module "babel-core" {
     import * as t from 'babel-types';

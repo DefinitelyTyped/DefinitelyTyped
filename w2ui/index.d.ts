@@ -3,7 +3,7 @@
 // Definitions by: Valentin Robert <https://github.com/Ptival/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 interface JQuery {
     w2layout(options: Object): W2UI.W2Layout;

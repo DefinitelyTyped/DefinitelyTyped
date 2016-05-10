@@ -3,7 +3,7 @@
 // Definitions by: Deividas Bakanas <https://github.com/DeividasBakanas>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../googlemaps/google.maps.d.ts" />
+/// <reference types="google.maps" />
 
 declare namespace GoogleMapsLoader {
     interface CallBack {

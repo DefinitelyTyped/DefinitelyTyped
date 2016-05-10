@@ -3,8 +3,8 @@
 // Definitions by: William Johnston <https://github.com/wjohnsto>, Peter Harris <https://github.com/codeanimal/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="bluebird" />
+/// <reference types="node" />
 
 declare module 'stripe' {
     var out: StripeNode.StripeExport;

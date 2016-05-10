@@ -3,7 +3,7 @@
 // Definitions by: Isman Usoh <https://github.com/isman-usoh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../passport/passport.d.ts"/>
+/// <reference types="passport"/>
 
 import passport = require("passport");
 import express = require("../express");

@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 /// <reference path="hammerjs-1.1.3.d.ts" />
 
 // plugin check

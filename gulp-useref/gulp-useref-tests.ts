@@ -1,4 +1,4 @@
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 import * as gulp from 'gulp';
 import * as useref from 'gulp-useref';

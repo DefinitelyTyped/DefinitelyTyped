@@ -3,7 +3,7 @@
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 import * as temp from "temp";
 import * as fs from "fs";

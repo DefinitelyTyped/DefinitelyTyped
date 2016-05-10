@@ -3,7 +3,7 @@
 // Definitions by: Martin Duparc <https://github.com/martinduparc>, Tim Klingeleers <https://github.com/mardaneus86>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 interface JQueryAddressStatic {
     (): any;

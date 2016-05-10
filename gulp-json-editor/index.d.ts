@@ -2,8 +2,8 @@
 // Project: https://www.npmjs.com/package/gulp-json-editor
 // Definitions by: Peter Juras <https://github.com/peterjuras>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../js-beautify/js-beautify.d.ts" />
+/// <reference types="node" />
+/// <reference types="js-beautify" />
 
 
 

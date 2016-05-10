@@ -5,8 +5,8 @@
 
 // Modified from the node.js definitions https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/node/node.d.ts
 
-/// <reference path="../bluebird/bluebird.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="bluebird" />
+/// <reference types="node" />
 
 
 declare module "mz/fs" {

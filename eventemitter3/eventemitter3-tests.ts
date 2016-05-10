@@ -1,6 +1,6 @@
 ///<reference path="eventemitter3.d.ts" />
-///<reference path="../node/node.d.ts" />
-///<reference path="../mocha/mocha.d.ts" />
+///<reference types="node" />
+///<reference types="mocha" />
 'use strict';
 
 import EventEmitter = require('eventemitter3');

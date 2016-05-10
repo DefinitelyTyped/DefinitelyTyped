@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 /// <reference path="selectize.d.ts" />
 
 var $input = $(".test-input").selectize();

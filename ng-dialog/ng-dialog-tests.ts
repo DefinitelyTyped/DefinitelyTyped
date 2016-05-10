@@ -1,5 +1,5 @@
 /// <reference path="ng-dialog.d.ts" />
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="angularjs" />
 
 var app = angular.module('testModule', ['ngDialog']);
 

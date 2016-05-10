@@ -7,7 +7,7 @@
 // typings project: https://github.com/typings/typings
 // typings: https://github.com/samvloeberghs/foundation-sites-typings
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 declare namespace FoundationSites {
 

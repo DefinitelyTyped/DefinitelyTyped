@@ -3,7 +3,7 @@
 // Definitions by: Scott Hatcher <https://github.com/scatcher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../highcharts/highcharts.d.ts" />
+/// <reference types="highcharts" />
 
 interface HighChartsNGConfig {
     options: HighchartsOptions;

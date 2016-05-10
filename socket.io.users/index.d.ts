@@ -3,10 +3,10 @@
 // Definitions by: Makis Maropoulos <https://github.com/kataras>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
-/// <reference path="../express-session/express-session.d.ts" />
-/// <reference path="../socket.io/socket.io.d.ts" />
+/// <reference types="express-session" />
+/// <reference types="socket.io" />
 
 
 import { EventEmitter } from 'events';

@@ -6,7 +6,7 @@
 //Note/Disclaimer: This .d.ts was created against hapi v8.x but has been incrementally upgraded to 13.x.  Some newer features/changes may be missing.  YMMV.
 
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare module "hapi" {
 	import http = require("http");

@@ -2,7 +2,7 @@
 // Project: https://github.com/rochal/jQuery-slimScroll
 // Definitions by: Chintan Shah <https://github.com/Promact>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 interface IJQuerySlimScrollOptions {
     // width in pixels of the visible scroll area

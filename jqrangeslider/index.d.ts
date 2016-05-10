@@ -3,8 +3,8 @@
 // Definitions by: Dániel Tar <https://github.com/qcz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="../jqueryui/jqueryui.d.ts"/>
+/// <reference types="jquery"/>
+/// <reference types="jqueryui"/>
 
 interface JQRangeSliderNumericRange {
     min?: number;

@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 /// <reference path="ss-utils.d.ts" />
 
 declare var EventSource : ssutils.IEventSourceStatic;

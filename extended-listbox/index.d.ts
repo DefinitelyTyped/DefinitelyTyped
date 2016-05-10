@@ -3,7 +3,7 @@
 // Definitions by: Christian Kotzbauer <https://github.com/code-chris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 interface ListboxItem {
     /** display text */

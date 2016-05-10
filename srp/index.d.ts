@@ -3,8 +3,8 @@
 // Definitions by: Pat Smuk <https://github.com/Patman64>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bignum/bignum.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="bignum" />
+/// <reference types="node" />
 
 declare namespace SRP {
     export interface Params {

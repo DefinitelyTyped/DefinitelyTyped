@@ -3,7 +3,7 @@
 // Definitions by: derikwhittaker <https://github.com/derikwhittaker/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 interface PaginatorOptions {
     alignment?: string;

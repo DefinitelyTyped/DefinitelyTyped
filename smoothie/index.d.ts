@@ -6,7 +6,7 @@
 // NOTE this reference is here to make the DefinitelyTyped `npm test` suite pass and
 //      may be removed if you are using this module declaration in isolation from the
 //      rest of DefinitelyTyped.
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 export interface ITimeSeriesOptions {

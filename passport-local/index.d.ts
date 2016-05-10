@@ -3,7 +3,7 @@
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../passport/passport.d.ts"/>
+/// <reference types="passport"/>
 
 
 

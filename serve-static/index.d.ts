@@ -10,7 +10,7 @@
 
  =============================================== */
 
-/// <reference path="../express-serve-static-core/express-serve-static-core.d.ts" />
+/// <reference types="express-serve-static-core" />
 
 import * as express from "express-serve-static-core";
 

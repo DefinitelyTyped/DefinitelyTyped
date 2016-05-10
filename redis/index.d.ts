@@ -5,7 +5,7 @@
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/redis.d.ts
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 export declare function createClient(port_arg: number, host_arg?: string, options?: ClientOpts): RedisClient;
 export declare function createClient(unix_socket: string, options?: ClientOpts): RedisClient;

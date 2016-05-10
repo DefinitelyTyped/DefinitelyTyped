@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-///<reference path="../jquery/jquery.d.ts" />
-///<reference path="../jqueryui/jqueryui.d.ts" />
+///<reference types="jquery" />
+///<reference types="jqueryui" />
 
 declare namespace JQueryUI {
     interface UI {

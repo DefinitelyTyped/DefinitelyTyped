@@ -3,8 +3,8 @@
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="../react/react.d.ts" />
+/// <reference types="redux" />
+/// <reference types="react" />
 
 
 export declare function devTools(): Function;

@@ -3,7 +3,7 @@
 // Definitions by: Dave McKeown <http://github.com/davemckeown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path='../node/node.d.ts' />
+/// <reference types="node" />
 
 interface EventEmitter {}
 

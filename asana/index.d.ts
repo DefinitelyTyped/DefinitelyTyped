@@ -3,7 +3,7 @@
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference types="bluebird" />
 
 import * as Promise from 'bluebird';
 

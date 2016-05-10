@@ -3,8 +3,8 @@
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../nodemailer/nodemailer-types.d.ts" />
+/// <reference types="node" />
+/// <reference types="nodemailer-types" />
 
 
 import tls = require("tls");

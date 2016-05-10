@@ -3,7 +3,7 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../rx/rx-lite.d.ts" />
+/// <reference types="rx-lite" />
 
 import through = require('through');
 

@@ -3,7 +3,7 @@
 // Definitions by: Peter Mitchell <https://github.com/PjMitchell/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../d3/d3.d.ts" />
+/// <reference types="d3" />
 declare namespace nv {
 
 //#region Core Interfaces

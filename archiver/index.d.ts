@@ -13,7 +13,7 @@
 
  =============================================== */
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 import * as FS from 'fs';
 import * as STREAM from 'stream';

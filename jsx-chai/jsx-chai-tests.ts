@@ -1,4 +1,4 @@
-/// <reference path="../chai/chai.d.ts"/>
+/// <reference types="chai"/>
 
 import chai = require('chai');
 import jsxChai = require('jsx-chai');

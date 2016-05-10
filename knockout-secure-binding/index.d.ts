@@ -3,7 +3,7 @@
 // Definitions by: Pine Mizune <https://github.com/pine613>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="knockout" />
 
 interface KnockoutSecureBindingOptions {
     attribute?: string;

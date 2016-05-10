@@ -3,7 +3,7 @@
 // Definitions by: Alan Norbauer <http://alan.norbauer.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 interface AsciifyOptions {
     font?: string;

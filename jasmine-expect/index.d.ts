@@ -3,7 +3,7 @@
 // Definitions by: UserPixel <https://github.com/UserPixel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jasmine/jasmine.d.ts" />
+/// <reference types="jasmine" />
 
 declare namespace jasmine {
   interface Matchers {

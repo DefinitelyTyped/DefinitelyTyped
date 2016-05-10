@@ -3,7 +3,7 @@
 // Definitions by: Alex Mikhalev <https://github.com/amikhalev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 import { EventEmitter } from 'events';

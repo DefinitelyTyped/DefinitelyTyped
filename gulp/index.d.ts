@@ -3,8 +3,8 @@
 // Definitions by: Drew Noakes <https://drewnoakes.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../orchestrator/orchestrator.d.ts" />
+/// <reference types="node" />
+/// <reference types="orchestrator" />
 
 
 import Orchestrator = require("orchestrator");

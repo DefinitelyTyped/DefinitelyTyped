@@ -9,6 +9,6 @@
         "noImplicitAny": true,
         "strictNullChecks": false,
         "baseUrl": "../",
-        "typesRoot": "../"
+        "typesSearchPaths": ["../"]
     }
 }

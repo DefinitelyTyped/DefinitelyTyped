@@ -3,7 +3,7 @@
 // Definitions by: Markus Peloso <https://github.com/ToastHawaii>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 import * as moment from '../moment';
 

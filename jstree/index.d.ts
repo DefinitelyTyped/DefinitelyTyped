@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // 45 commit df38535 2015-03-02 13:23 +2:00
 
-///<reference path="../jquery/jquery.d.ts" />
+///<reference types="jquery" />
 
 interface JQueryStatic {
     /**

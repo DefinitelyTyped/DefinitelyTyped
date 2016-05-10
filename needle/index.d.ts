@@ -3,7 +3,7 @@
 // Definitions by: San Chen <https://github.com/bigsan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare namespace Needle {
 	interface ReadableStream extends NodeJS.ReadableStream {

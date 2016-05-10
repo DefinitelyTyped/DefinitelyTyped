@@ -3,7 +3,7 @@
 // Definitions by: Suwato <https://github.com/Suwato/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../angularjs/angularjs.d.ts" />
+///<reference types="angularjs" />
 
 declare namespace angular.cgNotify {
 

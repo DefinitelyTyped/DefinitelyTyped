@@ -3,7 +3,7 @@
 // Definitions by: Philip Spain <https://github.com/philipisapain>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference types="bluebird" />
 
 
 import Promise = require('bluebird');

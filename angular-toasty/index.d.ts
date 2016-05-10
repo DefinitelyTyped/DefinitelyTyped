@@ -3,7 +3,7 @@
 // Definitions by: Dominik Muench <https://github.com/muenchdo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="angularjs" />
 
 declare namespace toasty {
 

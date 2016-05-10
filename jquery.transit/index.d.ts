@@ -3,7 +3,7 @@
 // Definitions by: MrBigDog2U <https://github.com/MrBigDog2U>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 // Transit //////////////////////////////////////////////////
 

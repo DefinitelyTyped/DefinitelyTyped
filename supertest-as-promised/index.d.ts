@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference types="bluebird" />
 
 
 // Mostly copy-pasted from supertest.d.ts

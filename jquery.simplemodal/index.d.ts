@@ -3,7 +3,7 @@
 // Definitions by: Friedrich von Never <https://github.com/ForNeVeR>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 declare namespace SimpleModal {
     interface SimpleModalOptions {

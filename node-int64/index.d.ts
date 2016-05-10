@@ -3,7 +3,7 @@
 // Definitions by: Benno Dreissig <https://github.com/x3cion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 declare class Int64 {

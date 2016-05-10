@@ -3,7 +3,7 @@
 // Definitions by: David Broder-Rodgers <https://github.com/DavidBR-SW/>
 // Definitions: https://github.com/DavidBR-SW/DefinitelyTyped
 
-/// <reference path="../chai/chai.d.ts" />
+/// <reference types="chai" />
 
 declare namespace Chai {
     interface ArrayAssertion {

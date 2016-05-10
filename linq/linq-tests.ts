@@ -1,4 +1,4 @@
-/// <reference path='../jasmine/jasmine.d.ts'/>
+/// <reference types="jasmine"/>
 /// <reference path='linq.d.ts'/>
 // <reference path="c:/linq.js" /> tests were run from VisualStudio + Resharper7
 
