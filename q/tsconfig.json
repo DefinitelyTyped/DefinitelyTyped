@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "Q-tests.ts"
+        "q-tests.ts"
     ]
 }

@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "URIjs-tests.ts"
+        "urijs-tests.ts"
     ]
 }

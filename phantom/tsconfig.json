@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "phantom-1.0.0-tests.ts"
+        "phantom-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "bluebird-1.0-tests.ts"
+        "bluebird-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

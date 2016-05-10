@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "jquery.ajaxFile-tests.ts"
+        "jquery.ajaxfile-tests.ts"
     ]
 }

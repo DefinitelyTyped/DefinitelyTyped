@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "chrome-app-tests.ts"
+        "chrome-tests.ts"
     ]
 }
