@@ -1,4 +1,4 @@
-/// <reference path="../googlemaps/google.maps.d.ts" />
+/// <reference types="google.maps" />
 /// <reference path="markerclustererplus.d.ts" />
 
 namespace MarkerClusterApp {

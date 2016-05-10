@@ -3,7 +3,7 @@
 // Definitions by: Michael Shearer <https://github.com/Shearerbeard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../react/react.d.ts"/>
+///<reference types="react"/>
 
 declare namespace AltJS {
 

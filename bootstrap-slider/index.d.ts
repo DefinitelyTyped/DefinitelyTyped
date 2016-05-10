@@ -3,7 +3,7 @@
 // Definitions by: Daniel Beckwith <https://github.com/dbeckwith>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../jquery/jquery.d.ts"/>
+///<reference types="jquery"/>
 
 interface SliderOptions {
     /**

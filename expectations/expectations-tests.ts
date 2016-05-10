@@ -1,4 +1,4 @@
-/// <reference path='../mocha/mocha.d.ts' />
+/// <reference types="mocha" />
 
 /// <reference path='expectations.d.ts' />
 

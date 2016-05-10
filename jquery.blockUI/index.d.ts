@@ -3,7 +3,7 @@
 // Definitions by: Jeffrey Lee <http://blog.darkthread.net/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../jquery/jquery.d.ts" />
+///<reference types="jquery" />
 
 interface JQBlockUIOptions {
     /** message displayed when blocking (use null for no message) */

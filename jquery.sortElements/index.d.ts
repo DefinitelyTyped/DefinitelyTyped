@@ -3,7 +3,7 @@
 // Definitions by: Tim Bureck <https://github.com/tbureck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path='../jquery/jquery.d.ts'/>
+/// <reference types="jquery"/>
 
 interface JQuery {
     sortElements(comparator:Function, getSortable?:Function):JQuery;

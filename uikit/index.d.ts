@@ -3,7 +3,7 @@
 // Definitions by: Giovanni Silva <https://github.com/giovannicandido>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 declare namespace UIkit {
     interface ModalElement {

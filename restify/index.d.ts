@@ -3,7 +3,7 @@
 // Definitions by: Bret Little <https://github.com/blittle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare module "restify" {
   import http = require('http');

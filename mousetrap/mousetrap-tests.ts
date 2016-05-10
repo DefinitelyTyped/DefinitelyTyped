@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 /// <reference path="mousetrap.d.ts"/>
 
 Mousetrap.bind('4', function() { console.log('4'); });

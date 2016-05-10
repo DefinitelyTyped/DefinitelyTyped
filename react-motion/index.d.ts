@@ -3,7 +3,7 @@
 // Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>, Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
+/// <reference types="react" />
 
 declare module "react-motion" {
     import { Component, ReactElement } from 'react';

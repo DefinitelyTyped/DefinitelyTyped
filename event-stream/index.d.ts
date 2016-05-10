@@ -3,7 +3,7 @@
 // Definitions by: David Gardiner <https://github.com/flcdrg/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 import * as stream from 'stream';

@@ -1,4 +1,4 @@
-/// <reference path="../../yui/yui.d.ts" />
+/// <reference types="yui" />
 /// <reference path="../cryptojs.d.ts" />
 
 YUI.add('kdf-openssl-test', function (Y) {

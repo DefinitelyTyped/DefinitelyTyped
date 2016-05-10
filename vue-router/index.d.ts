@@ -3,7 +3,7 @@
 // Definitions by: kaorun343 <https://github.com/kaorun343>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../vue/vue.d.ts" />
+/// <reference types="vue" />
 
 declare namespace vuejs {
 

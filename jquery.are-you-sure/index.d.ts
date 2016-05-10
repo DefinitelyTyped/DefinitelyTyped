@@ -3,7 +3,7 @@
 // Definitions by: Jon Egerton <https://github.com/jonegerton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 /**Options available to control dirty form checking*/
 interface AreYouSureOptions {

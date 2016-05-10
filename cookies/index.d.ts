@@ -3,7 +3,7 @@
 // Definitions by: Wang Zishi <https://github.com/WangZishi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 import * as http from "http"

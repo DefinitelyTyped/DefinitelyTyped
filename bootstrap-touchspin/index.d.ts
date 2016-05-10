@@ -3,7 +3,7 @@
 // Definitions by: Albin Sunnanbo <https://github.com/albinsunnanbo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 /**
  * TouchSpinOptions. All options are optional

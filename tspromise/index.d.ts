@@ -3,7 +3,7 @@
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 declare class Thenable<T> {
 	then<TR>(onFulfilled: (value: T) => Thenable<TR>, onRejected?: (error: Error) => TR): Thenable<TR>;
 	then<TR>(onFulfilled: (value: T) => Thenable<TR>, onRejected?: (error: Error) => void): Thenable<TR>;

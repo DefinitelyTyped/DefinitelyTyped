@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 /// <reference path="jsrender.d.ts"/>
 
 $.views.converters("upper", function(val) {

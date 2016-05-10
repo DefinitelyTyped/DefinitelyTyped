@@ -3,7 +3,7 @@
 // Definitions by: David Sichau <https://github.com/DavidSichau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="knockout" />
 
 
 interface KnockoutAMDModule {

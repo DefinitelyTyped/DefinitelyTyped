@@ -3,8 +3,8 @@
 // Definitions by: dougajmcdonald <https://github.com/dougajmcdonald>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="../jqueryui/jqueryui.d.ts"/>
+/// <reference types="jquery"/>
+/// <reference types="jqueryui"/>
 
 interface DateTimePickerOptions extends JQueryUI.DatepickerOptions {
 

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 declare function toArray(stream: NodeJS.ReadableStream, callback: (err: any, arr: any[]) => void): NodeJS.ReadWriteStream;

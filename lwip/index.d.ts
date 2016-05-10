@@ -3,7 +3,7 @@
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 export type ColorObject = { r: number, g: number, b: number, a?: number };
 export type Color = string | [number, number, number, number] | ColorObject;

@@ -3,7 +3,7 @@
 // Definitions by: phillips1012 <https://github.com/phillips1012>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node-0.10.d.ts" />
+/// <reference types="node-0.10" />
 
 /** This library provides IRC client functionality. */
 

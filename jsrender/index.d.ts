@@ -3,7 +3,7 @@
 // Definitions by: Kensuke Matsuzaki <https://github.com/zakki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 declare namespace JsRender {
     interface Converters {

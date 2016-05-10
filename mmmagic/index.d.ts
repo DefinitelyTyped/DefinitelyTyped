@@ -3,7 +3,7 @@
 // Definitions by: Andrei Sebastian Cîmpean <http://andreime.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 export type bitmask = number;

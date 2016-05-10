@@ -3,7 +3,7 @@
 // Definitions by: Matt Brooks <https://github.com/EnableSoftware>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery.validation/jquery.validation.d.ts" />
+/// <reference types="jquery.validation" />
 
 declare namespace MicrosoftJQueryUnobtrusiveValidation {
     type JQuerySelector = string | Document | Element | JQuery;

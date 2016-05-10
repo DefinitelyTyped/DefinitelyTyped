@@ -3,7 +3,7 @@
 // Definitions by: Eric Hillah <https://github.com/erichillah>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare namespace PDFKit {
     interface PDFGradient {

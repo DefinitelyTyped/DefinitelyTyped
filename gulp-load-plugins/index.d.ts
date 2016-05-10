@@ -3,7 +3,7 @@
 // Definitions by: Joe Skeen <http://github.com/joeskeen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 /** Loads in any gulp plugins and attaches them to an object, freeing you up from having to manually require each gulp plugin. */
 declare module 'gulp-load-plugins' {

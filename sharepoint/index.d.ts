@@ -3,7 +3,7 @@
 // Definitions by: Stanislav Vyshchepan <http://blog.gandjustas.ru>, Andrey Markeev <http://markeev.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../microsoft-ajax/microsoft.ajax.d.ts" />
+/// <reference types="microsoft.ajax" />
 declare var _spBodyOnLoadFunctions: Function[];
 declare var _spBodyOnLoadFunctionNames: string[];
 declare var _spBodyOnLoadCalled: boolean;

@@ -3,7 +3,7 @@
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../mixto/mixto.d.ts" />
+/// <reference types="mixto" />
 
 declare namespace Emissary {
 	interface IEmitterStatic extends Mixto.IMixinStatic {

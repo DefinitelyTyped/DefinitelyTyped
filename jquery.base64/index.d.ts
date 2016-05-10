@@ -3,7 +3,7 @@
 // Definitions by: Shinya Mochizuki <https://github.com/enrapt-mochizuki/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 interface JQueryBase64Static {
   encode(data: string, isUTF8?: boolean): string;

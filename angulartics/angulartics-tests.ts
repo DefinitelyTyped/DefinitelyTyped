@@ -1,5 +1,5 @@
 /// <reference path="angulartics.d.ts" />
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="angularjs" />
 
 namespace Analytics {
     angular.module("angulartics.app", ["angulartics"])

@@ -1,4 +1,4 @@
-﻿/// <reference path="../knockout.punches/knockout.punches.d.ts" />
+﻿/// <reference types="knockout.punches" />
 
 
 function test_enable() {

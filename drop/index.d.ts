@@ -3,7 +3,7 @@
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../tether/tether.d.ts" />
+///<reference types="tether" />
 
 // global Drop constructor
 declare class Drop {

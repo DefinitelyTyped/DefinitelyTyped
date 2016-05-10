@@ -3,7 +3,7 @@
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path='../react/react.d.ts' />
+///<reference types="react" />
 
 declare module __ReactDnd {
     import React = __React;

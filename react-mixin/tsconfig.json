@@ -7,7 +7,7 @@
         "baseUrl": "../",
         "jsx": "react",
         "experimentalDecorators": true,
-        "typesRoot": "../"
+        "typesSearchPaths": ["../"]
     },
     "files": [
         "index.d.ts",

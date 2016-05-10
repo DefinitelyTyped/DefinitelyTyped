@@ -3,7 +3,7 @@
 // Definitions by: Giampaolo Bellavite <https://github.com/gpbl>, Jason Killian <https://github.com/jkillian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
+/// <reference types="react" />
 
 declare module "react-day-picker" {
     import DayPicker = ReactDayPicker.DayPicker;

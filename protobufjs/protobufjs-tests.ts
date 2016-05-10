@@ -1,4 +1,4 @@
-/// <reference path="../chai/chai.d.ts" />
+/// <reference types="chai" />
 /// <reference path="protobufjs.d.ts" />
 
 var assert = require('chai').assert;

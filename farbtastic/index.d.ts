@@ -3,7 +3,7 @@
 // Definitions by: Matt Brooks <https://github.com/EnableSoftware>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 declare namespace JQueryFarbtastic {
     type Placeholder = string | Element | JQuery;

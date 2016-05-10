@@ -2,7 +2,7 @@
 // Project: https://github.com/isaacs/sax-js
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 export declare var EVENTS: string[];

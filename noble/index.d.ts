@@ -3,7 +3,7 @@
 // Definitions by: Seon-Wook Park <https://github.com/swook>, Hans Bakker <https://github.com/wind-rider>, Shantanu Bhadoria <https://github.com/shantanubhadoria>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare module "noble" {
     import events = require("events");

@@ -2,7 +2,7 @@
  * Created by Bruno Grieder and Christian Droulers
  */
 
-///<reference path="../react/react.d.ts" />
+///<reference types="react" />
 
 ///<reference path="./react-intl.d.ts" />
 

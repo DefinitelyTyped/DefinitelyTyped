@@ -3,7 +3,7 @@
 // Definitions by: Felipe Nipo <https://github.com/fnipo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path='../node/node.d.ts' />
+///<reference types="node" />
 
 declare module 'meshblu' {
 	var Meshblu: MeshbluStatic;

@@ -1,4 +1,4 @@
-///<reference path="../node/node.d.ts"/>
+///<reference types="node"/>
 
 // Load native UI library
 // See docs: https://github.com/rogerwang/node-webkit/wiki/Shell

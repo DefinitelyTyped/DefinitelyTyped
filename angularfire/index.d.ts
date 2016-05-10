@@ -3,8 +3,8 @@
 // Definitions by: Dénes Harmath <http://github.com/thSoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angularjs.d.ts"/>
-/// <reference path="../firebase/firebase.d.ts"/>
+/// <reference types="angularjs"/>
+/// <reference types="firebase"/>
 
 interface AngularFireService {
 	(firebase: Firebase, config?: any): AngularFire;

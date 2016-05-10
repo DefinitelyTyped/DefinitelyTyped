@@ -8,7 +8,7 @@
     var redis = new Redis();
  =============================================== */
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare module "ioredis" {
 

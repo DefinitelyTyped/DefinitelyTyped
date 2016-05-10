@@ -1,6 +1,6 @@
 
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../react/react-dom.d.ts" />
+/// <reference types="react" />
+/// <reference types="react-dom" />
 /// <reference path="./react-select-0.9.10.d.ts" />
 
 import * as React from "react"

@@ -3,7 +3,7 @@
 // Definitions by: Matthew Hill <https://github.com/matthewjh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jasmine/jasmine.d.ts" />
+/// <reference types="jasmine" />
 
 declare function installPromiseMatchers(): void;
 

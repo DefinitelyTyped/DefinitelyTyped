@@ -3,7 +3,7 @@
 // Definitions by: Klaus Reimer <https://github.com/kayahr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 interface CLI {

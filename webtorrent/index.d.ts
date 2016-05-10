@@ -3,8 +3,8 @@
 // Definitions by: Bazyli Brzóska <https://invent.life>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path='../node/node.d.ts' />
-/// <reference path='../parse-torrent/parse-torrent.d.ts' />
+/// <reference types="node" />
+/// <reference types="parse-torrent" />
 
 declare namespace WebTorrent {
   export interface ClientOptions {

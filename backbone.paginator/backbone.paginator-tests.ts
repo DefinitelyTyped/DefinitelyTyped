@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 /// <reference path="backbone.paginator.d.ts" />
 
 import * as Backbone from 'backbone';

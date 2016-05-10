@@ -3,8 +3,8 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../knockout/knockout.d.ts" />
-/// <reference path="../backbone/index.d.ts" />
+/// <reference types="knockout" />
+/// <reference types="index" />
 
 declare namespace Knockback {
     interface EventWatcherOptions {

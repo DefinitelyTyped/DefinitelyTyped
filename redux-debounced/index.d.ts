@@ -3,7 +3,7 @@
 // Definitions by: Sean Kelley <https://github.com/seansfkelley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../redux/redux.d.ts" />
+/// <reference types="redux" />
 
 
 import { Middleware } from 'redux';

@@ -3,7 +3,7 @@
 // Definitions by: Diullei Gomes <https://github.com/diullei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 interface SliderObject { //Object: The slider element itself
 	container: Object;              //Object: The ul.slides within the slider

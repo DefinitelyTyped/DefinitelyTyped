@@ -3,8 +3,8 @@
 // Definitions by: Maurits Elbers <https://github.com/MagicMau/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../knockout/knockout.d.ts" />
-/// <reference path="../underscore/index.d.ts" />
+/// <reference types="knockout" />
+/// <reference types="index" />
 
 interface KnockoutObservableArrayFunctions<T> {
 

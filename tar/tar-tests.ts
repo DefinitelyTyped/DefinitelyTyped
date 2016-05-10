@@ -4,7 +4,7 @@
  * Created by using code samples from https://github.com/npm/node-tar.
  */
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 import tar = require("tar");
 import fs = require("fs");

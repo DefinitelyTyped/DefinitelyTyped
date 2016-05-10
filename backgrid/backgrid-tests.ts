@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 import * as Backgrid from 'backgrid';
 import * as Backbone from 'backbone';

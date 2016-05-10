@@ -3,7 +3,7 @@
 // Definitions by: Guillaume Croteau <https://github.com/gcroteau>, Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../geojson/geojson.d.ts" />
+/// <reference types="geojson" />
 
 /**
 #### TODO:

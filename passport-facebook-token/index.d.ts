@@ -3,7 +3,7 @@
 // Definitions by: Ray Martone <https://github.com/rmartone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../passport/passport.d.ts"/>
+/// <reference types="passport"/>
 
 
 

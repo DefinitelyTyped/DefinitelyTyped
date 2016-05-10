@@ -3,7 +3,7 @@
 // Definitions by: Louis Grignon <https://github.com/lgrignon>, Suguru Inatomi <https://github.com/laco0416>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../webcomponents.js/webcomponents.js.d.ts"/>
+///<reference types="webcomponents.js"/>
 
 declare namespace polymer {
 

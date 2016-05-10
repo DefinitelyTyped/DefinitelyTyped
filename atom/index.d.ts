@@ -3,13 +3,13 @@
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../q/Q.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../space-pen/space-pen.d.ts" />
-/// <reference path="../emissary/emissary.d.ts" />
-/// <reference path="../pathwatcher/pathwatcher.d.ts" />
-/// <reference path="../text-buffer/text-buffer.d.ts" />
-/// <reference path="../status-bar/status-bar.d.ts" />
+/// <reference types="Q" />
+/// <reference types="jquery" />
+/// <reference types="space-pen" />
+/// <reference types="emissary" />
+/// <reference types="pathwatcher" />
+/// <reference types="text-buffer" />
+/// <reference types="status-bar" />
 
 // Policy: this definition file only declare element related to `atom`.
 // if js file include to another npm package (e.g. "space-pen", "mixto" and "emissary").

@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../jasmine/jasmine.d.ts" />
-/// <reference path="../selenium-webdriver/selenium-webdriver.d.ts" />
+/// <reference types="jasmine" />
+/// <reference types="selenium-webdriver" />
 
 // ElementArrayFinder
 

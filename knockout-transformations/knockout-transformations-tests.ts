@@ -1,4 +1,4 @@
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="knockout" />
 /// <reference path="knockout-transformations.d.ts" />
 
 // Test map

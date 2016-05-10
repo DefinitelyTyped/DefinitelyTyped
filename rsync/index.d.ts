@@ -3,7 +3,7 @@
 // Definitions by: Philipp Stucki <https://github.com/philippstucki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 import * as child_process from 'child_process';

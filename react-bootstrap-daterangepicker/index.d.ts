@@ -3,8 +3,8 @@
 // Definitions by: Ian Ker-Seymer https://github.com/ianks
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../bootstrap.datepicker/bootstrap.datepicker.d.ts" />
+/// <reference types="react" />
+/// <reference types="bootstrap.datepicker" />
 
 declare namespace ReactBootstrapDaterangepicker {
     export interface EventHandler { (event?: any, picker?: any): any; }

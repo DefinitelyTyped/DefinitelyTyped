@@ -5,8 +5,8 @@
 
 // this makes only sense together with d3 and crossfilter so you need the d3.d.ts and crossfilter.d.ts files
 
-///<reference path="../d3/d3.d.ts" />
-///<reference path="../crossfilter/crossfilter.d.ts" />
+///<reference types="d3" />
+///<reference types="crossfilter" />
 
 declare namespace DC {
     // helper for get/set situation

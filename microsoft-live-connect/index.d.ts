@@ -3,8 +3,8 @@
 // Definitions by: John Vilk <https://github.com/jvilk/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../winjs/winjs.d.ts" />
-/// <reference path="../winrt/winrt.d.ts" />
+/// <reference types="winjs" />
+/// <reference types="winrt" />
 
 declare namespace Microsoft.Live {
     //#region REST Object Information

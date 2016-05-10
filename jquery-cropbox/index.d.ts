@@ -3,7 +3,7 @@
 // Definitions by: Per Kastman <https://github.com/PerKastman/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 declare namespace jQueryCropBox {
 

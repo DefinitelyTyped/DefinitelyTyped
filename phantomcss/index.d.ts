@@ -3,8 +3,8 @@
 // Definitions by: Amaury Bauzac <https://github.com/abauzac>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../casperjs/casperjs.d.ts" />
-/// <reference path="../resemblejs/resemblejs.d.ts" />
+/// <reference types="casperjs" />
+/// <reference types="resemblejs" />
 declare namespace PhantomCSS {
     interface PhantomCSS {
         init(options: PhantomCSSOptions): void;

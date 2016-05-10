@@ -3,7 +3,7 @@
 // Definitions by: Paul Loyd <https://github.com/loyd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 export interface Type {
     /** The size in bytes required to hold this datatype. */

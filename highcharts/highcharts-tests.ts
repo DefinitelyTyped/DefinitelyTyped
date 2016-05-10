@@ -1,5 +1,5 @@
 /// <reference path="highcharts.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 function originalTests() {
     Highcharts.setOptions({

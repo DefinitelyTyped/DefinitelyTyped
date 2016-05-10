@@ -1,5 +1,5 @@
 /// <reference path="jssha.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 import imported = require("jssha");
 

@@ -1,4 +1,4 @@
-/// <reference path="../../yui/yui.d.ts" />
+/// <reference types="yui" />
 /// <reference path="../cryptojs.d.ts" />
 
 YUI.add('algo-md5-profile', function (Y) {

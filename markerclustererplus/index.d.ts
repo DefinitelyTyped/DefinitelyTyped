@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../googlemaps/google.maps.d.ts" />
+/// <reference types="google.maps" />
 
 /**
  * This class represents the object for values in the <code>styles</code> array passed

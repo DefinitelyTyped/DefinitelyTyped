@@ -3,7 +3,7 @@
 // Definitions by: Remo H. Jansen <https://github.com/remojansen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../redux/redux.d.ts" />
+/// <reference types="redux" />
 
 
 type isImmutableDefault = (value: any) => boolean;

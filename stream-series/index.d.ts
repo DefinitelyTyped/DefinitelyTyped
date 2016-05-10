@@ -3,7 +3,7 @@
 // Definitions by: Keita Kagurazaka <https://github.com/k-kagurazaka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 declare function series<T extends NodeJS.ReadableStream>(...streams: T[]): NodeJS.ReadWriteStream;

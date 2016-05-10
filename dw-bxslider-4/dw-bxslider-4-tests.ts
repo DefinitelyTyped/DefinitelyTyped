@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 /// <reference path="dw-bxslider-4.d.ts" />
 
 // examples from http://bxslider.com/examples

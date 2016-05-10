@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="mocha.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare namespace Mocha {
     interface IRunnable extends NodeJS.EventEmitter {

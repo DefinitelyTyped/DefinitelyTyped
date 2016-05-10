@@ -1,5 +1,5 @@
 
-/// <reference path="../q/Q.d.ts" />
+/// <reference types="Q" />
 
 import * as pg from 'promise-pg';
 

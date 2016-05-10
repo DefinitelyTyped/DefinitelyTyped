@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-///<reference path="../winrt/winrt.d.ts"/>
+///<reference types="winrt"/>
 
 declare namespace PlayerFramework {
 

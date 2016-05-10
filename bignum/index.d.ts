@@ -3,7 +3,7 @@
 // Definitions by: Pat Smuk <https://github.com/Patman64>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare class BigNum {
     /** Create a new BigNum from n. */

@@ -3,7 +3,7 @@
 // Definitions by: 新ゝ月 NewNotMoon <http://new.not-moon.net/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 interface PjaxSetting {
     gns?: string;

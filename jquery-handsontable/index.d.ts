@@ -3,7 +3,7 @@
 // Definitions by: Ted John <https://github.com/intelorca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 declare namespace Handsontable {
     interface CellPosition {

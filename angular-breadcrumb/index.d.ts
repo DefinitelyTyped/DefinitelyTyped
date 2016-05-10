@@ -3,7 +3,7 @@
 // Definitions by: Marc Talary <https://github.com/marctalary>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angular-ui-router/angular-ui-router.d.ts" />
+/// <reference types="angular-ui-router" />
 declare namespace angular.ui {
     export interface IState {
         ncyBreadcrumb?: {

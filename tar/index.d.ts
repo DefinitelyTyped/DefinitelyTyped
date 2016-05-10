@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TODO: When/if typings for [fstream](https://github.com/npm/fstream) are written, refactor this typing to use it for the various streams.
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 import stream = require("stream");

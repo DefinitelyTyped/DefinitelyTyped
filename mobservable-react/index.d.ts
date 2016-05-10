@@ -3,7 +3,7 @@
 // Definitions by: Michel Weststrate <https://github.com/mweststrate/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react-global.d.ts" />
+/// <reference types="react-global" />
 
 
 /**

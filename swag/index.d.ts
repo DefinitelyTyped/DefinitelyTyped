@@ -3,7 +3,7 @@
 // Definitions by: Shogo Iwano <https://github.com/shiwano>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../handlebars/handlebars.d.ts" />
+/// <reference types="handlebars" />
 
 interface SwagStatic {
     registerHelpers(handlebars: typeof Handlebars): void;

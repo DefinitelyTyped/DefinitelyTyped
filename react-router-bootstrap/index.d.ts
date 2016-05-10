@@ -3,8 +3,8 @@
 // Definitions by: Vincent Lesierse <https://github.com/vlesierse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../react/react.d.ts"/>
-///<reference path="../react-router/react-router.d.ts"/>
+///<reference types="react"/>
+///<reference types="react-router"/>
 
 declare namespace ReactRouterBootstrap {
     // Import React

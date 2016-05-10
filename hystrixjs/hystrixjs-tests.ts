@@ -1,5 +1,5 @@
 /// <reference path="hystrixjs.d.ts" />
-/// <reference path="../q/Q.d.ts"/>
+/// <reference types="Q"/>
 
 import hystrixjs = require('hystrixjs');
 import q = require('q');

@@ -2,7 +2,7 @@
 // Project: https://github.com/yeoman/generator
 // Definitions by: Kentaro Okuno <http://github.com/armorik83>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare namespace yo {
     export interface IYeomanGenerator {

@@ -3,7 +3,7 @@
 // Definitions by: Max Ackley <https://github.com/maxackley/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 declare namespace JQueryFinger {
     export interface JQueryFingerOptions {

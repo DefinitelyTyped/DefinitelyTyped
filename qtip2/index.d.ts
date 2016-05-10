@@ -8,7 +8,7 @@
 //   - Where possible, things are strongly typed and 'any' is avoided.
 //   - QTip2 includes a lot of shorthand notation for various expressions. These bindings support it all.
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 declare namespace QTip2 {
 	type EventApiFunc = (event: Event, api: Api) => void;

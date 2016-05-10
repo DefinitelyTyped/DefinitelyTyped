@@ -1,6 +1,6 @@
-/// <reference path="../mocha/mocha.d.ts"/>
-/// <reference path="../node/node.d.ts"/>
-/// <reference path="../bluebird/bluebird.d.ts"/>
+/// <reference types="mocha"/>
+/// <reference types="node"/>
+/// <reference types="bluebird"/>
 
 /// <reference path="./simple-mock.d.ts"/>
 

@@ -3,7 +3,7 @@
 // Definitions by: Peter Snider <https://github.com/psnider/>
 // Definitions: https://github.com/psnider/DefinitelyTyped/imap
 
-/// <reference path='../node/node.d.ts' />
+/// <reference types="node" />
 
 declare namespace IMAP {
 

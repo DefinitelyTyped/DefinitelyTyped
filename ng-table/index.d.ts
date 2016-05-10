@@ -3,7 +3,7 @@
 // Definitions by: Christian Crowhurst <https://github.com/christianacca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="angularjs" />
 
 /**
  * Parameters manager for an ngTable directive

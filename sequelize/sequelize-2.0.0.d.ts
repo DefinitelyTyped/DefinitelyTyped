@@ -5,8 +5,8 @@
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path='../lodash/lodash-3.10.d.ts' />
+/// <reference types="node" />
+/// <reference types="lodash-3.10" />
 
 
 declare namespace sequelize {

@@ -3,7 +3,7 @@
 // Definitions by: Rogelio Morrell Caballero <https://github.com/molekilla>, Kaur Kuut <https://github.com/xStrom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../redux/redux.d.ts" />
+/// <reference types="redux" />
 
 declare namespace Redux {
 	type PromiseAction<S> = (dispatch: Redux.Dispatch<S>, getState?: () => S) => any;

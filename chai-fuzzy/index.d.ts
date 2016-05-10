@@ -3,7 +3,7 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../chai/chai.d.ts" />
+/// <reference types="chai" />
 
 declare global {
 	namespace Chai {

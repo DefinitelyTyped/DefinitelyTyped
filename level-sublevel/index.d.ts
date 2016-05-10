@@ -3,7 +3,7 @@
 // Definitions by: Bas Pennings <https://github.com/basp/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../levelup/levelup.d.ts" />
+/// <reference types="levelup" />
 
 interface Hook {
 	(ch: any, add: (op: Batch|boolean) => void): void;

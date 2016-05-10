@@ -3,8 +3,8 @@
 // Definitions by: Alexander Matsievsky <https://github.com/alexander-matsievsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="jquery" />
+/// <reference types="node" />
 
 interface JQuery {
     /**

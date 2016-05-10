@@ -1,6 +1,6 @@
 
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../react/react-dom.d.ts" />
+/// <reference types="react" />
+/// <reference types="react-dom" />
 /// <reference path="./history.d.ts" />
 /// <reference path="./react-router.d.ts" />
 

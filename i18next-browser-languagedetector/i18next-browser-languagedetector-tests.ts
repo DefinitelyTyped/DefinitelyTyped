@@ -1,4 +1,4 @@
-/// <reference path="../i18next/i18next-2.0.17.d.ts"/>
+/// <reference types="i18next-2.0.17"/>
 /// <reference path="i18next-browser-languagedetector.d.ts"/>
 
 import * as i18next from 'i18next';

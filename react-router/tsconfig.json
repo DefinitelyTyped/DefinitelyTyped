@@ -10,6 +10,6 @@
         "strictNullChecks": false,
         "baseUrl": "../",
         "jsx": "react",
-        "typesRoot": "../"
+        "typesSearchPaths": ["../"]
     }
 }

@@ -1,6 +1,6 @@
-/// <reference path="../jasmine/jasmine.d.ts" />
-/// <reference path="../angularjs/angularjs.d.ts" />
-/// <reference path="../angularjs/angular-mocks.d.ts" />
+/// <reference types="jasmine" />
+/// <reference types="angularjs" />
+/// <reference types="angular-mocks" />
 
 /// <reference path="angular-wizard.d.ts" />
 

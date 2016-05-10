@@ -3,7 +3,7 @@
 // Definitions by: rhysd <https://github.com/rhysd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path='../react/react.d.ts' />
+///<reference types="react" />
 
 declare module "react-infinite" {
 	import Infinite = ReactInfinite.Infinite;

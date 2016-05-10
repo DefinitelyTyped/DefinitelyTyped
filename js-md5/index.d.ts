@@ -3,7 +3,7 @@
 // Definitions by: Roland Greim <https://github.com/tigerxy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 interface JQuery {
     md5(value: string): string;

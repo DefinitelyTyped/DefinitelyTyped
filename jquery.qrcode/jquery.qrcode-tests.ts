@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 /// <reference path="jquery.qrcode.d.ts"/>
 
 // Examples from website (note: the examples use color instead of fill, which is not supported)

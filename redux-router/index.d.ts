@@ -3,9 +3,9 @@
 // Definitions by: Stepan Mikhaylyuk <http://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../react-router/react-router.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
+/// <reference types="react" />
+/// <reference types="react-router" />
+/// <reference types="redux" />
 
 declare namespace __ReduxRouter {
 

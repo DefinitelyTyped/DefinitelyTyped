@@ -3,7 +3,7 @@
 // Definitions by: Mark Nadig <https://github.com/marknadig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="angularjs" />
 
 declare namespace angular.ui {
     interface IScrollDatasource<T> {

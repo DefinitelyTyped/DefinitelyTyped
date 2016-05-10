@@ -3,7 +3,7 @@
 // Definitions by: Andrey Kurdyumov <https://github.com/kant2002>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare namespace Steam {
     export var servers: any;

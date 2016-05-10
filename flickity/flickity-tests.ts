@@ -2,7 +2,7 @@
 // Project: http://flickity.metafizzy.co/
 // Definitions by: Chris McGrath <https://www.github.com/clmcgrath>
 // Definitions: https://github.com/clmcgrath/
-///<reference path="../jquery/jquery.d.ts"/>
+///<reference types="jquery"/>
 ///<reference path="FlickityEvents.ts"/>
 ///<reference path="flickity.d.ts"/>
 

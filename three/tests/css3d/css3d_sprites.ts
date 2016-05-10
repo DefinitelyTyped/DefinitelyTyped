@@ -1,6 +1,6 @@
-﻿/// <reference path="../../three.d.ts" />
+﻿/// <reference types="three" />
 /// <reference path="../three-tests-setup.ts" />
-/// <reference path="../../../tween.js/tween.js.d.ts" />
+/// <reference types="tween.js" />
 
 // https://github.com/mrdoob/three.js/blob/master/examples/css3d_sprites.html
 

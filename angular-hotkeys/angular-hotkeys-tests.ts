@@ -1,4 +1,4 @@
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="angularjs" />
 /// <reference path="angular-hotkeys.d.ts" />
 
 var scope: ng.IScope;

@@ -3,7 +3,7 @@
 // Definitions by: Zenorbi <https://github.com/zenorbi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../node/node.d.ts"/>
+///<reference types="node"/>
 
 		 * Error codes smaller than 512 correspond to those returned by Apple as per their [docs][errors]. Other errors are applicable to `node-apn` itself. Definitions can be found in `lib/errors.js`.
 		 */

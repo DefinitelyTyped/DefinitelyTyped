@@ -2,8 +2,8 @@
 // Project: https://github.com/flowjs/ng-flow
 // Definitions by: Ryan McNamara <https://github.com/ryan10132>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../flowjs/flowjs.d.ts" />
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="flowjs" />
+/// <reference types="angularjs" />
 
 declare namespace angular.flow {
     interface IFlowFactory {

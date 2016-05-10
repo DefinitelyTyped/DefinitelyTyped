@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 /// <reference path="jquery-mockjax.d.ts"/>
 /// <reference path="../qunit/qunit-1.16.d.ts" />
 

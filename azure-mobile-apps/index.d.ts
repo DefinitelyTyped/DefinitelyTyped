@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../azure-sb/azure-sb.d.ts" />
+/// <reference types="azure-sb" />
 
 declare module "azure-mobile-apps" {
     interface AzureMobileApps {

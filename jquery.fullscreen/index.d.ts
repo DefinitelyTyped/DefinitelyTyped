@@ -3,7 +3,7 @@
 // Definitions by: Piraveen Kamalathas <https://github.com/piraveen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 /**
  * Extends jQuery interface

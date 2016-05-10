@@ -1,5 +1,5 @@
-﻿/// <reference path="../mocha/mocha.d.ts" />
-/// <reference path="../should/should.d.ts" />
+﻿/// <reference types="mocha" />
+/// <reference types="should" />
 
 import gulp = require('gulp');
 import util = require('gulp-util');

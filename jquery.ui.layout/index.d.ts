@@ -3,8 +3,8 @@
 // Definitions by: Steve Fenton <https://github.com/Steve-Fenton>, Douglas Armstrong <https://github.com/drarmstr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="../jqueryui/jqueryui.d.ts"/>
+/// <reference types="jquery"/>
+/// <reference types="jqueryui"/>
 
 declare namespace JQueryUILayout {
 

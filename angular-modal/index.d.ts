@@ -3,8 +3,8 @@
 // Definitions by: Paul Lessing <https://github.com/paullessing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angularjs.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="angularjs" />
+/// <reference types="jquery" />
 
 declare namespace angularModal {
 

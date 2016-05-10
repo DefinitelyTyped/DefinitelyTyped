@@ -3,7 +3,7 @@
 // Definitions by: Basarat Ali Syed <https://github.com/basarat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts"/>
+/// <reference types="node"/>
 
 declare namespace NodeJS {
     export module _debugger {

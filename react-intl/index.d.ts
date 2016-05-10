@@ -3,7 +3,7 @@
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>, Christian Droulers <https://github.com/cdroulers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path='../react/react.d.ts' />
+///<reference types="react" />
 
 declare namespace ReactIntl {
     import React = __React;

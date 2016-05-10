@@ -1,5 +1,5 @@
 /// <reference path="redux-thunk.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
+/// <reference types="redux" />
 
 
 import { createStore, applyMiddleware, Store, Dispatch, ThunkAction } from 'redux';

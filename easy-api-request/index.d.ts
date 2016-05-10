@@ -3,8 +3,8 @@
 // Definitions by: Karl Düüna <https://github.com/DeadAlready/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../q/Q.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="Q" />
+/// <reference types="node" />
 
 import stream = require('stream');
 import http = require('http');

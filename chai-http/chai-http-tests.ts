@@ -1,4 +1,4 @@
-/// <reference path="../when/when.d.ts" />
+/// <reference types="when" />
 /// <reference path="chai-http.d.ts" />
 
 import fs = require('fs');

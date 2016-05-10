@@ -4,7 +4,7 @@
  * Created by using code samples from https://github.com/mashpie/i18n-node.
  */
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 /// <reference path="i18n-node.d.ts" />
 

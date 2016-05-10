@@ -5,7 +5,7 @@
 
 // see: https://www.npmjs.com/package/node-snap7#api
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 

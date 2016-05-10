@@ -3,7 +3,7 @@
 // Definitions by: Michael Randolph <https://github.com/mrand01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 export interface JSFL {
     init: (...args: any[]) => void;

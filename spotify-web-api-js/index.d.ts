@@ -3,7 +3,7 @@
 // Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../spotify-api/spotify-api.d.ts" />
+/// <reference types="spotify-api" />
 
 /**
  * Declare SpotifyWebApi variable, sincle that is the name of the function in spotify-web-api-js.

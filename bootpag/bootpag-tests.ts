@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 /// <reference path="bootpag.d.ts"/>
 
 var pagerSelector = ".bootpager";

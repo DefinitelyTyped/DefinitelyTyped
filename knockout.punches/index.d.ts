@@ -3,7 +3,7 @@
 // Definitions by: Stephen Lautier <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="knockout" />
 
 interface KnockoutPunchesStatic {
 	enableAll(): void;

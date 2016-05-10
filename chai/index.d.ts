@@ -7,7 +7,7 @@
 //                 Matt Wistrand <https://github.com/mwistrand>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// <reference path="../assertion-error/assertion-error.d.ts"/>
+// <reference types="assertion-error"/>
 
 declare namespace Chai {
 

@@ -3,7 +3,7 @@
 // Definitions by: Diullei Gomes <https://github.com/diullei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 interface ClientSideLoggingClientInfoObject {
     location?: boolean;	//  The url to the page on which the error occurred.

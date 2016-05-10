@@ -3,7 +3,7 @@
 // Definitions by: Vinayak Garg <https://github.com/vinayak-garg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 interface JQueryRowGridJSOptions {
     minMargin?: number;

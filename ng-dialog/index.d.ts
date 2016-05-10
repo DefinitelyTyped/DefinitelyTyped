@@ -3,7 +3,7 @@
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="angularjs" />
 
 declare module "ng-dialog" {
 	export type IDialogService = angular.dialog.IDialogService;

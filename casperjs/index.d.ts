@@ -3,7 +3,7 @@
 // Definitions by: Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../phantomjs/phantomjs.d.ts" />
+/// <reference types="phantomjs" />
 
 interface CasperModule {
     create(options: CasperOptions): Casper;

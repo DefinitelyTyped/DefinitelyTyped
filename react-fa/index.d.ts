@@ -3,7 +3,7 @@
 // Definitions by: Frank Laub <https://github.com/flaub>, Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
+/// <reference types="react" />
 
 declare module "react-fa" {
     import { Component, ClassAttributes } from "react";

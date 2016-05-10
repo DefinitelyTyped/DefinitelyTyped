@@ -3,8 +3,8 @@
 // Definitions by: Mordechai Zuber <https://github.com/M-Zuber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="../tinycolor/tinycolor.d.ts"/>
+/// <reference types="jquery"/>
+/// <reference types="tinycolor"/>
 
 interface JQuery {
 

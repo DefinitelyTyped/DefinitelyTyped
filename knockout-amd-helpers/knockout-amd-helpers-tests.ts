@@ -1,6 +1,6 @@
 // Tests for knockout.projections.d.ts
 
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="knockout" />
 /// <reference path="knockout-amd-helpers.d.ts" />
 
 //The baseDir is used in building the path to use in the require statement. If your modules live in the modules directory, then you can specify it globally here.

@@ -3,7 +3,7 @@
 // Definitions by: Blake Niemyjski <https://github.com/niemyjski/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 interface Trunk8Options {
     /**

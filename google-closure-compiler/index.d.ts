@@ -3,7 +3,7 @@
 // Definitions by: Evan Martin <http://neugierig.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 // Note: the types seen in the JSDoc are wrong:
 //   https://github.com/ChadKillingsworth/closure-compiler-npm/issues/21

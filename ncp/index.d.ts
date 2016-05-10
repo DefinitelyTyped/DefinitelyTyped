@@ -3,7 +3,7 @@
 // Definitions by: Bart van der Schoor <https://github.com/bartvds/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 	interface Options {

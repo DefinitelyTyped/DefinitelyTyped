@@ -3,8 +3,8 @@
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../jquery/jquery.d.ts"/>
-///<reference path="../rx/rx.d.ts"/>
+///<reference types="jquery"/>
+///<reference types="rx"/>
 
 interface RxJQueryAjaxResult<T> {
 	data: T;

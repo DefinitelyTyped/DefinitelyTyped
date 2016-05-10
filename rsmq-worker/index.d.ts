@@ -3,7 +3,7 @@
 // Definitions by: TANAKA Koichi <https://github.com/MugeSo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path='../rsmq/rsmq.d.ts'/>
+/// <reference types="rsmq"/>
 
 
 import redis = require('redis');

@@ -3,8 +3,8 @@
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>, Jed Mao <https://github.com/jedmao/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../chai/chai.d.ts" />
-/// <reference path="../sinon/sinon.d.ts" />
+/// <reference types="chai" />
+/// <reference types="sinon" />
 
 declare namespace Chai {
 

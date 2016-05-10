@@ -3,7 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../i18next/i18next.d.ts"/>
+///<reference types="i18next"/>
 
 declare namespace I18next {
   interface I18n {

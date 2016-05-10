@@ -3,8 +3,8 @@
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../space-pen/space-pen.d.ts" />
-/// <reference path="../text-buffer/text-buffer.d.ts" />
+/// <reference types="space-pen" />
+/// <reference types="text-buffer" />
 
 declare namespace StatusBar {
 	interface IStatusBarViewStatic {

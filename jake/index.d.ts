@@ -3,7 +3,7 @@
 // Definitions by: Kon <http://phyzkit.net/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 /**
  * Complets an asynchronous task, allowing Jake's execution to proceed to the next task

@@ -3,7 +3,7 @@
 // Definitions by: Brandon Meyer <https://github.com/BMeyerKC>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="knockout" />
 
 interface KnockoutMapper {
     fromJS(value: any, options?: any, target?: any, wrap?: boolean): any;

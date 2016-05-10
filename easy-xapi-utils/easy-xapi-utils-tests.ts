@@ -3,7 +3,7 @@
  */
 
 
-/// <reference path="../easy-xapi/easy-xapi.d.ts" />
+/// <reference types="easy-xapi" />
 
 import express = require('express');
 import eXapi = require('easy-xapi');

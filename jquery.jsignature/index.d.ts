@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Project by: Willow Systems Corp
 
-/// <reference path='../jquery/jquery.d.ts'/>
+/// <reference types="jquery"/>
 
 interface JQuery {
 

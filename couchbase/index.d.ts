@@ -3,7 +3,7 @@
 // Definitions by: Marwan Aouida <https://github.com/maouida>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts"/>
+/// <reference types="node"/>
 
 
 

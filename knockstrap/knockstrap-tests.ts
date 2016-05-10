@@ -1,6 +1,6 @@
-///<reference path="../jquery/jquery.d.ts" />
-///<reference path="../bootstrap/bootstrap.d.ts" />
-///<reference path="../knockout/knockout.d.ts" />
+///<reference types="jquery" />
+///<reference types="bootstrap" />
+///<reference types="knockout" />
 /// <reference path="knockstrap.d.ts" />
 
 

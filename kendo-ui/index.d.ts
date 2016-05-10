@@ -3,7 +3,7 @@
 // Definitions by: Telerik <https://github.com/telerik/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 declare namespace kendo {
     function culture(): {

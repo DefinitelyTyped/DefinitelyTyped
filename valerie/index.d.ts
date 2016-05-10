@@ -3,7 +3,7 @@
 // Definitions by: Howard Richards <https://github.com/conficient>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="knockout" />
 
 /**
  *

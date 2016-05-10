@@ -3,7 +3,7 @@
 // Definitions by: Sven Reglitzki <https://github.com/svi3c/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../jasmine/legacy/jasmine-1.3.d.ts"/>
+///<reference types="jasmine-1.3"/>
 
 declare function it(expectation:string, assertion:(done:(err?:any) => void) => void, timeout?:number):void;
 

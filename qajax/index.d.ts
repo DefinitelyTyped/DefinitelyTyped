@@ -3,7 +3,7 @@
 // Definitions by: Boltmade <https://github.com/Boltmade>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../q/Q.d.ts" />
+/// <reference types="Q" />
 
 declare function Qajax(url : string) : Q.Promise<XMLHttpRequest>;
 declare function Qajax(options : any) : Q.Promise<XMLHttpRequest>;

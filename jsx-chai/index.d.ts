@@ -3,7 +3,7 @@
 // Definitions by: Philipp Holzer <https://github.com/nupplaphil/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../chai/chai.d.ts" />
+/// <reference types="chai" />
 
 
 interface JsxChaiStatic {

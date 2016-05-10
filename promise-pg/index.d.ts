@@ -3,8 +3,8 @@
 // Definitions by: Chris Charabaruk <http://github.com/coldacid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../q/Q.d.ts" />
+/// <reference types="node" />
+/// <reference types="Q" />
 
 import * as stream from 'stream';
 import * as pg from 'pg';

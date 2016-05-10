@@ -3,7 +3,7 @@
 // Definitions by: hans windhoff <https://github.com/hansrwindhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../d3/d3.d.ts" />
+/// <reference types="d3" />
 
 declare namespace d3 {
     namespace layout {

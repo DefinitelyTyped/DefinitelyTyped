@@ -2,8 +2,8 @@
 // https://github.com/mrdoob/three.js/tree/master/examples
 //////////////////////////////////////////////////////////////
 
-/// <reference path="../../stats/stats.d.ts" />
-/// <reference path="../../dat-gui/dat-gui.d.ts" />
+/// <reference types="stats" />
+/// <reference types="dat-gui" />
 /// <reference path="../detector.d.ts" />
 /// <reference path="../three-canvasrenderer.d.ts" />
 /// <reference path="../three-css3drenderer.d.ts" />

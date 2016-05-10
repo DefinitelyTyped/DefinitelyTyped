@@ -3,7 +3,7 @@
 // Definitions by: Jon Egerton <https://github.com/jonegerton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 /// <reference path="jquery.are-you-sure.d.ts"/>
 
 //Use defaults

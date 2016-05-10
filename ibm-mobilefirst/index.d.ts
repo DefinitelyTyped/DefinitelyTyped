@@ -3,7 +3,7 @@
 // Definitions by: Guillermo Ignacio Enriquez Gutierrez <https://github.com/nacho4d>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 declare namespace WL.Events {
     var WORKLIGHT_IS_CONNECTED: string;

@@ -1,4 +1,4 @@
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 /// <reference path="express-handlebars.d.ts" />
 

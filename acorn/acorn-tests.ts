@@ -1,4 +1,4 @@
-/// <reference path="../estree/estree.d.ts" />
+/// <reference types="estree" />
 
 import acorn = require('acorn');
 

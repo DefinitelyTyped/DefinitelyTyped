@@ -3,7 +3,7 @@
 // Definitions by: Oisin Grehan <https://github.com/oising>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="knockout" />
 
 interface KnockoutViewModelStatic {
     toModel(viewmodel: any): any;

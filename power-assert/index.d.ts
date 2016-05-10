@@ -5,8 +5,8 @@
 
 // copy from assert external module in node.d.ts
 
-/// <reference path="../empower/empower.d.ts" />
-/// <reference path="../power-assert-formatter/power-assert-formatter.d.ts" />
+/// <reference types="empower" />
+/// <reference types="power-assert-formatter" />
 
 declare function assert(value:any, message?:string):void;
 declare namespace assert {

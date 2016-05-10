@@ -3,7 +3,7 @@
 // Definitions by: Sarah Williams <https://github.com/flurg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 declare namespace MCustomScrollbar {
     interface CustomScrollbarOptions {

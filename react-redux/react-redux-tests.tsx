@@ -1,8 +1,8 @@
-/// <reference path="../react/react.d.ts"/>
-/// <reference path="../react/react-dom.d.ts"/>
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="../history/history.d.ts" />
-/// <reference path="../react-router/react-router.d.ts" />
+/// <reference types="react"/>
+/// <reference types="react-dom"/>
+/// <reference types="redux" />
+/// <reference types="history" />
+/// <reference types="react-router" />
 
 import { Component, ReactElement } from 'react';
 import * as React from 'react';

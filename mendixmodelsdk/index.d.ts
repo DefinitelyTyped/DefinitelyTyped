@@ -208,7 +208,7 @@
 */
 
 
-/// <reference path="../mobservable/mobservable.d.ts" />
+/// <reference types="mobservable" />
 declare module "mendixmodelsdk" {
     namespace sdk {
         namespace internal {

@@ -8,7 +8,7 @@
 // https://github.com/jDataView/jBinary/wiki/jBinary-Constructor
 // https://github.com/jDataView/jBinary/wiki/jBinary-Methods
 
-/// <reference path="../jdataview/jdataview.d.ts" />
+/// <reference types="jdataview" />
 
 declare class jBinary
 {

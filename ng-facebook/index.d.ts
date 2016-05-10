@@ -3,8 +3,8 @@
 // Definitions by: Crevil <https://github.com/Crevil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angularjs.d.ts" />
-/// <reference path="../fb/fb.d.ts" />
+/// <reference types="angularjs" />
+/// <reference types="fb" />
 
 declare namespace angular.ngFacebook {
     interface IFacebookProvider {

@@ -3,7 +3,7 @@
 // Definitions by: Matt Wheatley <http://github.com/terrawheat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 interface JQuery {
   raty(): JQuery;

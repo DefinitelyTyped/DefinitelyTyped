@@ -3,7 +3,7 @@
 // Definitions by: Ken Fukuyama <https://github.com/kenfdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="angularjs" />
 
 declare namespace angular.local.storage {
   interface ILocalStorageServiceProvider extends angular.IServiceProvider {

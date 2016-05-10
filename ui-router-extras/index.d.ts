@@ -3,7 +3,7 @@
 // Definitions by: Michael Putters <https://github.com/mputters/>, Marcel van de Kamp <https://github.com/marcel-k/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angular-ui-router/angular-ui-router.d.ts" />
+/// <reference types="angular-ui-router" />
 
 // Support for AMD require
 declare module 'angular-ui-router-extras' {

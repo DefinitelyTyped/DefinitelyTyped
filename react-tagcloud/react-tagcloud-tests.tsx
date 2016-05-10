@@ -1,5 +1,5 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../react/react-dom.d.ts" />
+/// <reference types="react" />
+/// <reference types="react-dom" />
 /// <reference path="./react-tagcloud.d.ts" />
 
 

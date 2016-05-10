@@ -3,7 +3,7 @@
 // Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev/>, Philipp Holzer <https://github.com/nupplaphil/>, Alexey Svetliakov <https://github.com/asvetliakov/>, Mikael Hermansson <https://github.com/mihe/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts"/>
+/// <reference types="react"/>
 
 declare module 'radium' {
     import * as React from 'react';

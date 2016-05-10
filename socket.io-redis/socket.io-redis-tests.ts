@@ -1,4 +1,4 @@
-/// <reference path="../socket.io/socket.io.d.ts"/>
+/// <reference types="socket.io"/>
 /// <reference path="socket.io-redis.d.ts"/>
 
 import socketIO = require('socket.io');

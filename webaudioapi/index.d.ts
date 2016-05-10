@@ -7,7 +7,7 @@
 
 // DEPRECATED: use TypeScript 1.5.3
 
-/// <reference path='../webrtc/MediaStream.d.ts' />
+/// <reference types="MediaStream" />
 
 declare var webkitAudioContext: {
     new (): AudioContext;

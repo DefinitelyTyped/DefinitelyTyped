@@ -3,7 +3,7 @@
 // Definitions by: Oguzhan Ergin <https://github.com/OguzhanE>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../node/node.d.ts"/>
+///<reference types="node"/>
 
 
 export * from "fs";

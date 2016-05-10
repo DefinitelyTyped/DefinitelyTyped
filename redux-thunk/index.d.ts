@@ -3,7 +3,7 @@
 // Definitions by: Qubo <https://github.com/tkqubo>, Kaur Kuut <https://github.com/xStrom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../redux/redux.d.ts" />
+/// <reference types="redux" />
 
 declare namespace Redux {
 	type ThunkAction<R, S, E> = (dispatch: Dispatch<S>, getState: () => S, extraArgument: E) => R;

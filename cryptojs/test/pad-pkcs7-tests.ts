@@ -1,4 +1,4 @@
-/// <reference path="../../yui/yui.d.ts" />
+/// <reference types="yui" />
 /// <reference path="../cryptojs.d.ts" />
 
 YUI.add('pad-pkcs7-test', function (Y) {

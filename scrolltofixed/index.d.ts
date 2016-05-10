@@ -3,7 +3,7 @@
 // Definitions by: Ben Dixon <https://github.com/bmdixon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 declare namespace ScrollToFixed {
 	interface ScrollToFixedOptions {

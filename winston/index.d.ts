@@ -5,7 +5,7 @@
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/winston.d.ts
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 ///******************
 ///  Winston v2.2.x

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Project by: Nedim Carter <http://needim.github.io>
 
-/// <reference path='../jquery/jquery.d.ts'/>
+/// <reference types="jquery"/>
 
 interface NotyOptions {
     layout?: string;

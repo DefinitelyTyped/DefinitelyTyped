@@ -1,5 +1,5 @@
-///<reference path="../d3/d3.d.ts" />
-///<reference path="../crossfilter/crossfilter.d.ts" />
+///<reference types="d3" />
+///<reference types="crossfilter" />
 ///<reference path="dc.d.ts" />
 
 interface IYelpData {

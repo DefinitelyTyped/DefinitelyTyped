@@ -3,8 +3,8 @@
 // Definitions by: Sam Germano <https://github.com/SammyG4Free>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../jquery.dataTables/jquery.dataTables.d.ts"/>
+/// <reference types="jquery" />
+/// <reference types="jquery.dataTables"/>
 
 declare namespace DataTables {
     export interface Settings {

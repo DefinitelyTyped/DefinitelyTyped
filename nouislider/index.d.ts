@@ -2,7 +2,7 @@
 // Project: https://github.com/leongersen/noUiSlider
 // Definitions by: Patrick Davies <https://github.com/bleuarg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../wnumb/wnumb.d.ts"/>
+/// <reference types="wnumb"/>
 
 declare namespace noUiSlider {
     /**

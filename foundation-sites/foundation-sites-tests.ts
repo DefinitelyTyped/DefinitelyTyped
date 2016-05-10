@@ -3,7 +3,7 @@
 // Definitions by: Sam Vloeberghs <https://github.com/samvloeberghs/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 /// <reference path="foundation-sites.d.ts" />
 
 $(document).foundation();

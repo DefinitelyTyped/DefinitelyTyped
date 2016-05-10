@@ -3,7 +3,7 @@
 // Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar/>, John Vilk <https://github.com/jvilk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare var browserify: BrowserifyConstructor;
 export = browserify;

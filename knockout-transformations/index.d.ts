@@ -3,7 +3,7 @@
 // Definitions by: John Reilly <https://github.com/johnnyreilly>, Wim Looman <https://github.com/Nemo157>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="knockout" />
 
 declare namespace KnockoutTransformations {
     interface Mapping<T, TResult> {

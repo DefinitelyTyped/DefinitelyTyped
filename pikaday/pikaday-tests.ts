@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 import * as Pikaday from "./";
 import * as moment from "../moment";

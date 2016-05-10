@@ -3,8 +3,8 @@
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../chai/chai.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="chai" />
+/// <reference types="jquery" />
 
 declare namespace Chai {
 

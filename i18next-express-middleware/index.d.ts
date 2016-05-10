@@ -3,7 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../i18next/i18next-2.0.17.d.ts"/>
+///<reference types="i18next-2.0.17"/>
 
 declare namespace I18next {
     interface I18nextOptions extends i18nextExpressMiddleware.I18nextOptions { }

@@ -3,7 +3,7 @@
 // Definitions by: David Laubreiter <https://github.com/Laubi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 interface PlaygroundOptions{
     height?: number;

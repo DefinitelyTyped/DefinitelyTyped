@@ -1,5 +1,5 @@
-﻿/// <reference path="../../three.d.ts" />
-/// <reference path="../../../tween.js/tween.js.d.ts" />
+﻿/// <reference types="three" />
+/// <reference types="tween.js" />
 /// <reference path="../three-tests-setup.ts" />
 
 // https://github.com/mrdoob/three.js/blob/master/examples/css3d_periodictable.html

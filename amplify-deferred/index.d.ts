@@ -3,7 +3,7 @@
 // Definitions by: Jonas Eriksson <https://github.com/joeriks/>, Laurentiu Stamate <https://github.com/laurentiustamate94>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 interface amplifyRequestSettings {
     resourceId: string;

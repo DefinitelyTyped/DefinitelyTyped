@@ -1,5 +1,5 @@
-/// <reference path="../mocha/mocha.d.ts" />
-/// <reference path="../should/should.d.ts" />
+/// <reference types="mocha" />
+/// <reference types="should" />
 
 /// <reference path="./vinyl-0.4.3.d.ts" />
 

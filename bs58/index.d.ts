@@ -3,7 +3,7 @@
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../base-x/base-x.d.ts" />
+/// <reference types="base-x" />
 
 
 declare namespace base58 { }

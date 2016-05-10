@@ -3,8 +3,8 @@
 // Definitions by: Markus Wagner <https://github.com/Ritzlgrmft/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../q/Q.d.ts" />
+/// <reference types="jquery" />
+/// <reference types="Q" />
 
 interface Cordova {
 	getAppVersion: {

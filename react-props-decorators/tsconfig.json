@@ -6,7 +6,7 @@
         "strictNullChecks": false,
         "baseUrl": "../",
         "experimentalDecorators": true,
-        "typesRoot": "../"
+        "typesSearchPaths": ["../"]
     },
     "files": [
         "index.d.ts",

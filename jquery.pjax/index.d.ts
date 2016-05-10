@@ -3,7 +3,7 @@
 // Definitions by: Junle Li <https://github.com/lijunle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 /**
  * Interface for pjax:popstate event.

@@ -3,7 +3,7 @@
 // Definitions by: Cliff Burger <https://github.com/cliffburger/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../chai/chai.d.ts" />
+/// <reference types="chai" />
 
 declare function chaiDateTime(chai: any, utils: any): void;
 export = chaiDateTime;

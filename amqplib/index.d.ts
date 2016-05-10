@@ -3,8 +3,8 @@
 // Definitions by: Michael Nahkies <https://github.com/mnahkies>, Ab Reitsma <https://github.com/abreits>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../when/when.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="when" />
+/// <reference types="node" />
 
 declare module "amqplib/properties" {
     namespace Replies {

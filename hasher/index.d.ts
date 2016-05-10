@@ -3,7 +3,7 @@
 // Definitions by: flyfishMT <https://github.com/flyfishMT/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../signals/js-signals.d.ts" />
+/// <reference types="js-signals" />
 
 declare namespace HasherJs {
 
