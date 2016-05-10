@@ -6,7 +6,10 @@
         "strictNullChecks": false,
         "baseUrl": "../",
         "jsx": "preserve",
-        "typesSearchPaths": ["../"]
+        "typesSearchPaths": [
+            "../"
+        ],
+        "noEmit": true
     },
     "files": [
         "index.d.ts",
