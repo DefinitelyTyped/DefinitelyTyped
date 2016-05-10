@@ -4,6 +4,37 @@
 // & Alexandre Roba <https://github.com/alexandreroba/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/* =================== USAGE ===================
+
+
+ import {SwaggerObject} from 'swagger-object';
+ 
+ let myApiDefinition: SwaggerObject = {
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Swagger Petstore",
+    },
+    "paths": {
+        "/text": {
+        "get": {
+            "produces": [
+            "text/plain"
+            ],
+            "responses": {
+            "200": {
+                "schema": {
+                "type": "string"
+                }
+            }
+            }
+        }
+        }
+    }
+ };
+
+ =============================================== */
+
 declare module "swagger-object" {
     export interface SwaggerObject {
         swagger: string
