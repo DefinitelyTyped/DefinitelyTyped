@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "js-combinatorics-global-tests.ts"
+        "js-combinatorics-tests.ts"
     ]
 }

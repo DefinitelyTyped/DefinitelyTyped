@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "chai-3.2.0-tests.ts"
+        "chai-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

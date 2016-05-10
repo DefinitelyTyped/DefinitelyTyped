@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "expect.js-commonjs-tests.ts"
+        "expect.js-tests.ts"
     ]
 }

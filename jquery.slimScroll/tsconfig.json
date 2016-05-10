@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "jquery.SlimScroll-tests.ts"
+        "jquery.slimScroll-tests.ts"
     ]
 }

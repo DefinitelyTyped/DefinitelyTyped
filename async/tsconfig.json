@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "async-explicit-tests.ts"
+        "async-tests.ts"
     ]
 }

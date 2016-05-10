@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "openjscad-tests.ts"
+        "OpenJsCad-tests.ts"
     ]
 }

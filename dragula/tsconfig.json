@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "dragula-amd-tests.ts"
+        "dragula-tests.ts"
     ]
 }

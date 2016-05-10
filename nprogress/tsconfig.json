@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "NProgress-tests.ts"
+        "nprogress-tests.ts"
     ]
 }

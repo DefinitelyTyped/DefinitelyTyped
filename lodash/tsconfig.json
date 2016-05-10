@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "lodash-3.10-tests.ts"
+        "lodash-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

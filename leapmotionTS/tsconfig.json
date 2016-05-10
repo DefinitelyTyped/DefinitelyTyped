@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "LeapMotionTS-tests.ts"
+        "leapmotionTS-tests.ts"
     ]
 }

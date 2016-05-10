@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "easy-table-0.2.0-tests.ts"
+        "easy-table-tests.ts"
     ]
 }

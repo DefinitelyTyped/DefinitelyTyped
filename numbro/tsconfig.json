@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "numbro-commonjs-tests.ts"
+        "numbro-tests.ts"
     ]
 }

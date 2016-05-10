@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "XSockets-tests.ts"
+        "xsockets-tests.ts"
     ]
 }

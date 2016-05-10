@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "jssha-1.6.0-tests.ts"
+        "jssha-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

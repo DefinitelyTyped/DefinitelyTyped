@@ -12,6 +12,6 @@
     },
     "files": [
         "index.d.ts",
-        "format-unicorn-safe-tests.ts"
+        "format-unicorn-tests.ts"
     ]
 }
