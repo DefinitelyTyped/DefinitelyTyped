@@ -39,7 +39,7 @@ nfc.erase();
 nfc.erase(() => {}, () => {});
 
 nfc.enabled();
-nfc.enabled(() => {}, () => {});
+nfc.enabled((status: String) => {}, () => {});
 
 nfc.removeTagDiscoveredListener(() => {});
 nfc.removeTagDiscoveredListener(() => {},() => {},() => {});
