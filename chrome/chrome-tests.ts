@@ -1,4 +1,4 @@
-/// <reference path="chrome.d.ts" />
+
 /// <reference types="jquery" />
 /// <reference types="jqueryui" />
 

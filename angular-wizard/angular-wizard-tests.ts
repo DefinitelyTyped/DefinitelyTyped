@@ -2,7 +2,7 @@
 /// <reference types="angularjs" />
 /// <reference types="angular-mocks" />
 
-/// <reference path="angular-wizard.d.ts" />
+
 
 // test file taken from https://github.com/mgonto/angular-wizard
 

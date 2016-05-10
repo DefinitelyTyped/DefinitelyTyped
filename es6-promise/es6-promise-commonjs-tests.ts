@@ -1,4 +1,4 @@
-/// <reference path="es6-promise.d.ts" />
+
 
 import rsvp = require('es6-promise');
 rsvp.polyfill(); // Test for polyfill method existence

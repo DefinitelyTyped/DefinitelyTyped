@@ -3,7 +3,7 @@
 // Definitions by: Ryo Iwamoto <https://github.com/ryiwamoto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="SlickGrid.d.ts" />
+
 
 declare namespace Slick {
     export interface SlickGridAutoTooltipsOption extends PluginOptions {

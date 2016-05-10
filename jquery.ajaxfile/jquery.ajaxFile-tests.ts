@@ -1,4 +1,4 @@
-/// <reference path="jquery.ajaxFile.d.ts" />
+
 /// <reference types="jquery" />
 /// <reference types="knockout" />
 

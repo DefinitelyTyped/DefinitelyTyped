@@ -1,4 +1,4 @@
-/// <reference path="bardjs.d.ts" />
+
 /// <reference types="mocha" />
 /// <reference types="chai" />
 /// <reference types="angularjs" />

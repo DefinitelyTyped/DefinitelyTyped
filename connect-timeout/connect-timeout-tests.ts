@@ -1,4 +1,4 @@
-/// <reference path="connect-timeout.d.ts" />
+
 
 import * as express from "express";
 import * as timeout from "connect-timeout";

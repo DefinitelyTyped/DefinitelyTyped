@@ -3,7 +3,7 @@
 /// <reference types="expect.js" />
 /// <reference types="fixtures" />
 /// <reference types="jquery" />
-/// <reference path="i18next.d.ts" />
+
 
 import * as i18n from 'i18next';
 

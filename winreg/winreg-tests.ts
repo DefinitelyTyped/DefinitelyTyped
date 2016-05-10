@@ -1,4 +1,4 @@
-/// <reference path="winreg.d.ts" />
+
 
 var regKey = new Winreg({
     hive: Winreg.HKCU,

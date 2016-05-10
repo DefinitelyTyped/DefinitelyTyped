@@ -1,5 +1,5 @@
 /// <reference types="jquery"/>
-/// <reference path="jquery.tagsmanager.d.ts" />
+
 
 var options: ITagsManagerOptions = {
 	prefilled: ["Pisa", "Rome"],

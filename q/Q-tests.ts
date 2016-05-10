@@ -1,5 +1,5 @@
 /// <reference types="jquery" />
-/// <reference path="Q.d.ts" />
+
 
 import q = require('q');
 

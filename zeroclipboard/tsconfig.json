@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "zeroclipboard-1.x.x-tests.ts"
+        "zeroclipboard-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

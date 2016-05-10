@@ -1,4 +1,4 @@
-/// <reference path="rangy.d.ts" />
+
 
 declare function assertAny(a:any):any;
 declare function assertBoolean(b:boolean):any;

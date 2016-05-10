@@ -1,4 +1,4 @@
-/// <reference path="./power-assert.d.ts" />
+
 
 import assert = require("power-assert");
 

@@ -1,4 +1,4 @@
-/// <reference path="redux-thunk.d.ts" />
+
 /// <reference types="redux" />
 
 

@@ -1,4 +1,4 @@
-/// <reference path="./decorum.d.ts" />
+
 
 import {Required} from 'decorum';
 import {Email} from 'decorum';

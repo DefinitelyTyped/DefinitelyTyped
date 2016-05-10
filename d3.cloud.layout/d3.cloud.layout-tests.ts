@@ -1,5 +1,5 @@
 ﻿/// <reference types="d3" />
-/// <reference path="d3.cloud.layout.d.ts" />
+
 
   interface ICompTextSize{
     text:string;

@@ -1,4 +1,4 @@
-﻿/// <reference path="cal-heatmap.d.ts" />
+﻿
 /// <reference types="jquery" />
 /// <reference types="d3" />
 

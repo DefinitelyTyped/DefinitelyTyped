@@ -1,5 +1,5 @@
 /// <reference types="yui" />
-/// <reference path="../cryptojs.d.ts" />
+
 
 YUI.add('format-openssl-test', function (Y) {
     var C = CryptoJS;

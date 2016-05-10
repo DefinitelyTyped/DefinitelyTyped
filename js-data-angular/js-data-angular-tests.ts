@@ -1,4 +1,4 @@
-/// <reference path="js-data-angular.d.ts" />
+
 
 interface IUser {
 

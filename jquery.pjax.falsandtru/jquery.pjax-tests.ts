@@ -1,4 +1,4 @@
-﻿/// <reference path="jquery.pjax.d.ts" />
+﻿
 /// <reference types="jquery" />
 
 function test_pjax() {

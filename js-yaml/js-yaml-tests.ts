@@ -1,4 +1,4 @@
-/// <reference path="js-yaml.d.ts" />
+
 
 import yaml = require('js-yaml');
 import LoadOptions = yaml.LoadOptions;

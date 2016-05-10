@@ -1,4 +1,4 @@
-/// <reference path="imagesloaded.d.ts" />
+
 
 function test_ctor() {
   // element

@@ -2,14 +2,14 @@
 
 ## Referencing AngularJS definition files in your code
 
-To do that, simply add `/// <reference path="angular.d.ts" />` at the top of your code.
+To do that, simply add `` at the top of your code.
 
 That will make available to your code all interfaces AngularJS' main module **ng** implements, as well as the **AUTO** module.
 
 If you are including other AngularJS' modules in your code, like **ngResource**, just like you needed to include the additional module implementation file in your code, _angular-resource.js_, you will also need to reference the definitions file related to that module. Your code would then have the following definitions files reference:
 
-    /// <reference path="angular.d.ts" />
-    /// <reference path="angular-resource.d.ts" />
+    
+    
 
 Having these modules in separated files is actually good because they sometimes either augment or modify some of **ng**'s interfaces, and thus those differences should only be available to you when you really need them. Also, it forces you to explicit what you're going to be using.
 
@@ -107,8 +107,8 @@ function Controller($scope: ICustomScope) {
 
 ### Working with $resource
 ```ts
-/// <reference path="angular.d.ts" />
-/// <reference path="angular-resource.d.ts" />
+
+
 
 // We have the option to define arguments for a custom resource
 interface IArticleParameters {
@@ -177,8 +177,8 @@ function MainController($resource: ng.resource.IResourceService) {
 
 ### Working with $resource in angular-1.0 definitions
 ```ts
-/// <reference path="angular-1.0.d.ts" />
-/// <reference path="angular-resource-1.0.d.ts" />
+
+
 
 // Let's define a custom resource
 interface IArticleResourceClass extends ng.resource.IResourceClass {

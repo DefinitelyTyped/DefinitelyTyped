@@ -1,4 +1,4 @@
-/// <reference path="index.d.ts" />
+
 
 Cldr.load({
     "main": {

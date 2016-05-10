@@ -1,5 +1,5 @@
 
-/// <reference path="crossfilter.d.ts" />
+
 
 interface Payment {
     date: string;

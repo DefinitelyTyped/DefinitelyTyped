@@ -1,6 +1,6 @@
 /// <reference types="jquery" />
 /// <reference types="jquery.dataTables" />
-/// <reference path="datatables-buttons.d.ts" />
+
 
 $(document).ready(function () {
 

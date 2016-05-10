@@ -1,4 +1,4 @@
-/// <reference path="safari-extension-content.d.ts" />
+
 
 // https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/AddingExtensionToolbars/AddingExtensionToolbars.html#//apple_ref/doc/uid/TP40009977-CH5-SW7
 var theBody = document.body;

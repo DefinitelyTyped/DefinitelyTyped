@@ -1,4 +1,4 @@
-﻿/// <reference path="localForage.d.ts" />
+﻿
 
 declare let localForage: LocalForage;
 

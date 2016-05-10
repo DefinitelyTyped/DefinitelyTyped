@@ -1,6 +1,6 @@
 /// <reference types="jasmine" />
-/// <reference path="jasmine.extensions.d.ts" />
-/// <reference path="../knockout.d.ts" />
+
+
 /// <reference types="knockout.mapping" />
 
 var dummyTemplateEngine = function (templates?) {

@@ -3,7 +3,7 @@
 // Definitions by: Stefan Profanter <https://github.com/Pro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./three.d.ts" />
+
 
 declare namespace THREE {
 	class TransformControls extends Object3D {

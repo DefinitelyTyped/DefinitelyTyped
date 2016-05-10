@@ -1,4 +1,4 @@
-/// <reference path="adal-angular.d.ts" />
+
 
 // Code samples from:
 //  - https://github.com/AzureAD/azure-activedirectory-library-for-js

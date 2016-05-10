@@ -1,4 +1,4 @@
-/// <reference path="./skyway.d.ts" />
+
 /// <reference types="RTCPeerConnection" />
 
 var peerByOption: PeerJs.Peer = new Peer({

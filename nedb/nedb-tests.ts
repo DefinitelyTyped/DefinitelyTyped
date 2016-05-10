@@ -4,7 +4,7 @@
 
 /// <reference types="Q" />
 /// <reference types="node" />
-/// <reference path="nedb.d.ts" />
+
 
 import * as es6styleimport from 'nedb';
 

@@ -1,4 +1,4 @@
-/// <reference path="./redux.d.ts" />
+
 
 // Simple counter test using the global Redux var
 

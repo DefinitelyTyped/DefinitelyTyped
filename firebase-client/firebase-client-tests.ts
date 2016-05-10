@@ -1,4 +1,4 @@
-/// <reference path="firebase-client.d.ts" />
+
 
 //Class definitions for type safety
 class Name{

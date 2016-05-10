@@ -1,4 +1,4 @@
-/// <reference path="webdriverio.d.ts" />
+
 /// <reference types="mocha" />
 /// <reference types="chai" />
 

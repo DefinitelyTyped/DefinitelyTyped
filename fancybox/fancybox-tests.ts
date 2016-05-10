@@ -1,5 +1,5 @@
 /// <reference types="jquery" />
-/// <reference path="fancybox.d.ts" />
+
 
 $('.fancybox').fancybox();
 $('.fancybox').fancybox({

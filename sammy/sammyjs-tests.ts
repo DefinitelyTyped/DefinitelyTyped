@@ -1,4 +1,4 @@
-/// <reference path="sammyjs.d.ts" />
+
 
 function test_general() {
     // Example from homepage 

@@ -3,7 +3,7 @@
 // Definitions by: mmaitre314 <https://github.com/mmaitre314>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="adal.d.ts" />
+
 /// <reference types="angularjs" />
 
 declare namespace adal {

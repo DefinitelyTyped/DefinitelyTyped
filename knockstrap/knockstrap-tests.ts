@@ -1,7 +1,7 @@
 ///<reference types="jquery" />
 ///<reference types="bootstrap" />
 ///<reference types="knockout" />
-/// <reference path="knockstrap.d.ts" />
+
 
 
 // test unique id

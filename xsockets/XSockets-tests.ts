@@ -1,4 +1,4 @@
-/// <reference path="XSockets.d.ts" />
+
 
 var conn = new XSockets.WebSocket('ws://localhost:4502/Generic');
 

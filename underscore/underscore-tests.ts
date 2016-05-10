@@ -1,4 +1,4 @@
-/// <reference path="index.d.ts" />
+
 
 declare var $: any;
 

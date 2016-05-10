@@ -1,4 +1,4 @@
-/// <reference path="angular-protractor.d.ts" />
+
 
 function TestWebDriverExports() {
     var button: number = protractor.Button.LEFT;

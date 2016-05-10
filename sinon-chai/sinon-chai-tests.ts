@@ -1,4 +1,4 @@
-/// <reference path="sinon-chai.d.ts" />
+
 
 import chai = require('chai');
 import sinonChai = require('sinon-chai');

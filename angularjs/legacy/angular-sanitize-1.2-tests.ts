@@ -1,4 +1,4 @@
-/// <reference path="angular-sanitize-1.2.d.ts" />
+
 
 var shouldBeString: string;
 

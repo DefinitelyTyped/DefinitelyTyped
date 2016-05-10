@@ -1,5 +1,5 @@
 // https://github.com/harthur/nomnom
-/// <reference path="nomnom.d.ts" />
+
 
 import nomnom = require("nomnom");
 

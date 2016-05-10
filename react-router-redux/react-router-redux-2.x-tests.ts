@@ -1,4 +1,4 @@
-/// <reference path="./react-router-redux-2.x.d.ts" />
+
 /// <reference types="redux" />
 /// <reference types="react-router" />
 

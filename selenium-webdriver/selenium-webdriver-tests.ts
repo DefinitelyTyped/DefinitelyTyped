@@ -1,4 +1,4 @@
-/// <reference path="selenium-webdriver.d.ts" />
+
 
 function TestChromeDriver() {
     var driver: chrome.Driver = new chrome.Driver();

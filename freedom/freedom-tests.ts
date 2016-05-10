@@ -1,4 +1,4 @@
-/// <reference path="freedom.d.ts" />
+
 
 var freedomModule: freedom.FreedomInModuleEnv;
 var freedomCore: freedom.FreedomInCoreEnv;

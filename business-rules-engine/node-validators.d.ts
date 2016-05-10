@@ -5,7 +5,7 @@
 
 /// <reference types="Q" />
 /// <reference types="node" />
-/// <reference path="business-rules-engine.d.ts" />
+
 
 export as namespace Validators;
 

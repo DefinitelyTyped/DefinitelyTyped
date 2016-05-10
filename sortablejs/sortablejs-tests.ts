@@ -1,6 +1,6 @@
 // Examples from project repo used for tests.
 
-/// <reference path="sortablejs.d.ts" />
+
 
 var simpleList = document.getElementById('list');
 var list = simpleList;

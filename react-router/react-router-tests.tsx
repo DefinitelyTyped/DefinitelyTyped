@@ -1,8 +1,8 @@
 
 /// <reference types="react" />
 /// <reference types="react-dom" />
-/// <reference path="./history.d.ts" />
-/// <reference path="./react-router.d.ts" />
+
+
 
 
 import * as React from "react"

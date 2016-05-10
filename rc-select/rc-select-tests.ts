@@ -1,4 +1,4 @@
-/// <reference path="rc-select.d.ts" />
+
 /// <reference types="react" />
 
 import React = require('react');

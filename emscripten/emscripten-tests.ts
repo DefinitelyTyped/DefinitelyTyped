@@ -1,4 +1,4 @@
-/// <reference path="emscripten.d.ts" />
+
 
 
 /// Module

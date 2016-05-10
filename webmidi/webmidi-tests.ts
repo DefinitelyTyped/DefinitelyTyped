@@ -1,4 +1,4 @@
-/// <reference path="webmidi.d.ts" />
+
 
 var onFulfilled = (item: WebMidi.MIDIAccess) => {
     this._midiPort = item;

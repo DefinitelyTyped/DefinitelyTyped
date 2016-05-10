@@ -1,4 +1,4 @@
-/// <reference path="./protractor-helpers.d.ts" />
+
 
 import helpers = require('protractor-helpers');
 

@@ -1,4 +1,4 @@
-/// <reference path="nouislider-7.0.10.d.ts" />
+
 /// <reference types="jquery" />
 
 //basic

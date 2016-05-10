@@ -1,4 +1,4 @@
-/// <reference path="../d3.d.ts" />
+
 
 declare namespace d3 {
     export function superformula<T>(): Superformula<T>;

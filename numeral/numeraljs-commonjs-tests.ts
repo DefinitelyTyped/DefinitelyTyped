@@ -1,4 +1,4 @@
-/// <reference path="numeraljs.d.ts" />
+
 import numeral = require("numeral");
 
 var valueFormat: string = numeral(1000).format('0,0');

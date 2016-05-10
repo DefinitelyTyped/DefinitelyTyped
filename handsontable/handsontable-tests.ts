@@ -1,4 +1,4 @@
-/// <reference path="handsontable.d.ts" />
+
 
 function test_HandsontableInit() {
   var elem = document.createElement('div');

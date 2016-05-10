@@ -101,7 +101,7 @@ declare module Survey {
 }
 
 
-/// <reference path="surveyStrings.d.ts" />
+
 declare module Survey {
     class AnswerRequiredError extends SurveyError {
         constructor();
@@ -300,7 +300,7 @@ declare module Survey {
 }
 
 
-/// <reference path="error.d.ts" />
+
 
 declare module Survey {
     class ValidatorResult {
@@ -363,10 +363,10 @@ declare module Survey {
 }
 
 
-/// <reference path="error.d.ts" />
-/// <reference path="validator.d.ts" />
 
-/// <reference path="questionbase.d.ts" />
+
+
+
 declare module Survey {
     class Question extends QuestionBase implements IValidatorOwner {
         name: string;
@@ -407,8 +407,8 @@ declare module Survey {
     }
 }
 
-/// <reference path="jsonobject.d.ts" />
-/// <reference path="surveyStrings.d.ts" />
+
+
 declare module Survey {
     class QuestionSelectBase extends Question {
         otherItem: ItemValue;
@@ -438,7 +438,7 @@ declare module Survey {
 }
 
 
-/// <reference path="jsonobject.d.ts" />
+
 declare module Survey {
     class QuestionCheckboxModel extends QuestionCheckboxBase {
         name: string;
@@ -449,7 +449,7 @@ declare module Survey {
 }
 
 
-/// <reference path="jsonobject.d.ts" />
+
 declare module Survey {
     class QuestionCommentModel extends Question {
         name: string;
@@ -462,7 +462,7 @@ declare module Survey {
 }
 
 
-/// <reference path="jsonobject.d.ts" />
+
 declare module Survey {
     class QuestionDropdownModel extends QuestionSelectBase {
         name: string;
@@ -474,7 +474,7 @@ declare module Survey {
 }
 
 
-/// <reference path="jsonobject.d.ts" />
+
 declare module Survey {
     class QuestionHtmlModel extends QuestionBase {
         name: string;
@@ -487,7 +487,7 @@ declare module Survey {
 }
 
 
-/// <reference path="jsonobject.d.ts" />
+
 declare module Survey {
     interface IMatrixData {
         onMatrixRowChanged(row: MatrixRowModel): any;
@@ -521,7 +521,7 @@ declare module Survey {
 }
 
 
-/// <reference path="jsonobject.d.ts" />
+
 declare module Survey {
     class QuestionRadiogroupModel extends QuestionCheckboxBase {
         name: string;
@@ -628,7 +628,7 @@ declare module Survey {
 }
 
 
-/// <reference path="jsonobject.d.ts" />
+
 declare module Survey {
     interface IMultipleTextData {
         getMultipleTextValue(name: string): any;
@@ -670,7 +670,7 @@ declare module Survey {
 }
 
 
-/// <reference path="jsonobject.d.ts" />
+
 declare module Survey {
     class QuestionRatingModel extends Question {
         name: string;
@@ -753,8 +753,6 @@ declare module Survey {
     }
 }
 
-/// <reference path="base.d.ts" />
-/// <reference path="page.d.ts" />
 
 /// <reference path="jsonobject.d.ts" />
 /// <reference path="dxSurveyService.d.ts" />
@@ -913,7 +911,7 @@ declare module Survey {
 declare module Survey {
 }
 
-/// <reference path="../surveyStrings.d.ts" />
+
 declare module Survey {
 }
 
@@ -946,7 +944,7 @@ declare module Survey {
 }
 
 
-/// <reference path="koquestionbase.d.ts" />
+
 declare module Survey {
     class QuestionImplementor extends QuestionImplementorBase {
         question: Question;
@@ -984,7 +982,7 @@ declare module Survey {
 }
 
 
-/// <reference path="koquestion_baseselect.d.ts" />
+
 declare module Survey {
     class QuestionCheckbox extends QuestionCheckboxModel {
         name: string;
@@ -1009,7 +1007,7 @@ declare module Survey {
 }
 
 
-/// <reference path="koquestionbase.d.ts" />
+
 declare module Survey {
     class QuestionHtml extends QuestionHtmlModel {
         name: string;
@@ -1148,7 +1146,7 @@ declare module Survey {
 }
 
 
-/// <reference path="kosurvey.d.ts" />
+
 declare module Survey {
     class SurveyWindowBase extends SurveyWindowModel {
         koExpanded: any;
@@ -1179,7 +1177,7 @@ declare module template.ko {
 }
 
 
-/// <reference path="../kosurvey.d.ts" />
+
 declare module Survey {
     class Survey extends SurveyBase {
         constructor(jsonObj?: any, renderedElement?: any, css?: any);
@@ -1205,7 +1203,7 @@ declare module template.window.ko {
 }
 
 
-/// <reference path="../templateText.d.ts" />
+
 declare module Survey {
     class SurveyTemplateText extends SurveyTemplateTextBase {
         protected text: string;

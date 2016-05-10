@@ -1,4 +1,4 @@
-/// <reference path="gridfs-stream.d.ts" />
+
 
 /// <reference types="node" />
 

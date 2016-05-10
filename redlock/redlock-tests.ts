@@ -1,4 +1,4 @@
-/// <reference path="./redlock.d.ts" />
+
 
 import * as Redlock from 'redlock';
 import * as Promise from 'bluebird';

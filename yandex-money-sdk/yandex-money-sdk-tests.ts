@@ -1,5 +1,3 @@
-/// <reference types="yandex-money-sdk" />
-
 import * as ymsdk from 'yandex-money-sdk';
 
 let wallet: ymsdk.Wallet;

@@ -1,4 +1,4 @@
-/// <reference path="valerie.d.ts" />
+
 /// <reference types="knockout" />
 
 // Tests for valerie.d.ts

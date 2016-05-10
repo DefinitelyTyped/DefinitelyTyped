@@ -1,5 +1,5 @@
-/// <reference path="cldr.js.d.ts" />
-/// <reference path="cldr.js-supplemental.d.ts" />
+
+
 
 const myCldr = new Cldr("en");
 

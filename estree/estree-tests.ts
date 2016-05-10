@@ -1,4 +1,4 @@
-/// <reference path="estree.d.ts" />
+
 
 var program: ESTree.Program;
 var statement: ESTree.Statement;

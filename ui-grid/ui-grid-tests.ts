@@ -1,4 +1,4 @@
-/// <reference path="ui-grid.d.ts" />
+
 /// <reference types="angularjs" />
 
 interface IMyEntity {

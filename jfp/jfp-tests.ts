@@ -1,4 +1,4 @@
-/// <reference path="jfp.d.ts" />
+
 
 function testFn () {};
 

@@ -1,4 +1,4 @@
-/// <reference path="ace.d.ts" />
+
 
 var exports: any;
 var assert: any;

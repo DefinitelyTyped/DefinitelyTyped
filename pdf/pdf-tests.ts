@@ -1,4 +1,4 @@
-/// <reference path="pdf.d.ts" />
+
 
 //
 // Fetch the PDF document from the URL using promises

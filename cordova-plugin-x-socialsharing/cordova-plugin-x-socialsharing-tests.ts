@@ -1,5 +1,5 @@
 ﻿/// <reference types="cordova" />
-/// <reference path="./cordova-plugin-x-socialsharing.d.ts" />
+
 
 window.plugins.socialsharing.iPadPopupCoordinates = function () {
 	return "100,100,200,300";

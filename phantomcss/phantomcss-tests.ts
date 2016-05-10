@@ -1,4 +1,4 @@
-/// <reference path="phantomcss.d.ts" />
+
 /// <reference types="casperjs" />
 /// <reference types="resemblejs" />
 

@@ -3,7 +3,7 @@
 // Definitions by: Mick Delaney <https://github.com/mickdelaney/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="rx.angular.d.ts" />
+
 
 var app = angular.module('testModule');
 

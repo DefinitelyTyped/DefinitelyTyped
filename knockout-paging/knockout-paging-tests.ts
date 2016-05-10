@@ -1,4 +1,4 @@
-/// <reference path="knockout-paging.d.ts" />
+
 
 // Different option formats
 var emptyOptions      = {};

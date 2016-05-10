@@ -1,4 +1,4 @@
-/// <reference path="./node-cache.d.ts" />
+
 
 import NodeCache = require('node-cache');
 

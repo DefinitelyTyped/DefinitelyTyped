@@ -1,4 +1,4 @@
-/// <reference path="crossroads.d.ts" />
+
 
 //String rule with param:
 //match '/news/123' passing "123" as param to handler

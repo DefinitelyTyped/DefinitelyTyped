@@ -1,4 +1,4 @@
-﻿/// <reference path="cli-color.d.ts" />
+﻿
 /// <reference types="node" />
 
 import clc = require('cli-color');

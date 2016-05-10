@@ -1,4 +1,4 @@
-/// <reference path="nock.d.ts" />
+
 
 import * as nock from 'nock';
 import * as fs from 'fs';

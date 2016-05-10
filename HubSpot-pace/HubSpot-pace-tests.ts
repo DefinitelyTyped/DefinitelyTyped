@@ -1,4 +1,4 @@
-/// <reference path="HubSpot-pace.d.ts" />
+
 
 pace.start({
     document: false

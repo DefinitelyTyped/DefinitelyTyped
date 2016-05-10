@@ -1,4 +1,4 @@
-/// <reference path="leaflet.d.ts" />
+
 
 import L = require('leaflet');
 

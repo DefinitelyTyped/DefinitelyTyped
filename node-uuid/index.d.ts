@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference path="./node-uuid-base.d.ts" />
-/// <reference path="./node-uuid-cjs.d.ts" />
+
+
 
 /**
  * Definitions for use in node environment

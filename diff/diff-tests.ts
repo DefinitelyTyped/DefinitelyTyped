@@ -1,4 +1,4 @@
-/// <reference path="./diff.d.ts" />
+
 
 import jsdiff = require('diff');
 

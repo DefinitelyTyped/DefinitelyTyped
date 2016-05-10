@@ -1,4 +1,4 @@
-/// <reference path="jdataview.d.ts" />
+
 /// <reference types="jquery" />
 
 interface TARMetaData {

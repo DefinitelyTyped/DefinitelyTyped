@@ -1,4 +1,4 @@
-/// <reference path="../tsmonad.d.ts" />
+
 
 var is_true = TsMonad.Writer.writer(['Started with 0'], 0)
     .bind(x => TsMonad.Writer.writer(['+ 8'], x + 8))

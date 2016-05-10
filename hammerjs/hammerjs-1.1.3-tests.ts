@@ -1,5 +1,5 @@
 /// <reference types="jquery"/>
-/// <reference path="hammerjs-1.1.3.d.ts" />
+
 
 // plugin check
 if (!Hammer.HAS_TOUCHEVENTS && !Hammer.HAS_POINTEREVENTS) {

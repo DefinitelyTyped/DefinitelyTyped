@@ -1,4 +1,4 @@
-/// <reference path="./redux-actions.d.ts" />
+
 
 let state: number;
 const minimalAction: ReduxActions.BaseAction = { type: 'INCREMENT' };

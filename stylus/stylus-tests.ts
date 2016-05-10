@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-/// <reference path="stylus.d.ts" />
+
 
 import stylus = require("stylus");
 

@@ -1,4 +1,4 @@
-/// <reference path="swiper.d.ts" />
+
 /// <reference types="jquery" />
 
 //

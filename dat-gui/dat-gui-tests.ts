@@ -2,7 +2,7 @@
 // http://workshop.chromeexperiments.com/examples/gui/
 //////////////////////////////////////////////////////////////
 
-/// <reference path="dat-gui.d.ts" />
+
 
 
 // ------------ config

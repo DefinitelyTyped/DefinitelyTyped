@@ -1,5 +1,5 @@
 /// <reference types="jquery" />
-/// <reference path="SlickGrid.d.ts" />
+
 
 interface MyData extends Slick.SlickData {
 	title: string;

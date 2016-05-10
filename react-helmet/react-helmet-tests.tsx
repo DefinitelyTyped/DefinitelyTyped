@@ -1,4 +1,4 @@
-/// <reference path="react-helmet.d.ts" />
+
 /// <reference types="react" />
 
 import * as React from 'react';

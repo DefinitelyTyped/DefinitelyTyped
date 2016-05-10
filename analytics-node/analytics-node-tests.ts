@@ -1,4 +1,4 @@
-/// <reference path="./analytics-node.d.ts" />
+
 
 var analytics: AnalyticsNode.Analytics;
 import Analytics = require("analytics-node");

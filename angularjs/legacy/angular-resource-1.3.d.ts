@@ -3,7 +3,7 @@
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Michael Jess <http://github.com/miffels>
 // Definitions: https://github.com/daptiv/DefinitelyTyped
 
-/// <reference path="angular-1.4.d.ts" />
+
 
 declare module 'angular-resource' {
     var _: string;

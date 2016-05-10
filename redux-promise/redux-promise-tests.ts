@@ -1,4 +1,4 @@
-/// <reference path="redux-promise.d.ts" />
+
 /// <reference types="redux" />
 /// <reference types="redux-actions" />
 

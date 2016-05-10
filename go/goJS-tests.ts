@@ -3,7 +3,7 @@
 
 /* Copyright (C) 1998-2016 by Northwoods Software Corporation. */
 
-/// <reference path="goJS.d.ts" />
+
 
 class CustomLink extends go.Link {
     constructor() {

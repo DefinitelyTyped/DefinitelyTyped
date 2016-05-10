@@ -1,4 +1,4 @@
-/// <reference path="deployJava.d.ts" />
+
 
 /**
  * @summary Test for the method: "allowPlugin".

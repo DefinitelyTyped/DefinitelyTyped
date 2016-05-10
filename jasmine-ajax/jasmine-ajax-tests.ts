@@ -4,7 +4,7 @@
  */
 
 /// <reference types="jasmine" />
-/// <reference path="jasmine-ajax.d.ts" />
+
 
 declare function getJasmineRequireObj();
 

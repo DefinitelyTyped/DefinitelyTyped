@@ -1,5 +1,5 @@
-/// <reference path="riotjs.d.ts" />
-/// <reference path="riotjs-render.d.ts" />
+
+
 
 function describe(msg:any, fn:Function) {
     if (console.group) {

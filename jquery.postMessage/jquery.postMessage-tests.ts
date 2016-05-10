@@ -1,4 +1,4 @@
-﻿/// <reference path="jquery.postMessage.d.ts" />
+﻿
 /// <reference types="jquery" />
 
 function test_postMessage() {

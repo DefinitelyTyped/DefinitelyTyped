@@ -1,4 +1,4 @@
-/// <reference path="meteor-publish-composite.d.ts" />
+
 
 import User = Meteor.User;
 interface IPost { _id : string, authorId : string };

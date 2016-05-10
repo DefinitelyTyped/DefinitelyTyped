@@ -1,5 +1,5 @@
 /// <reference types="node" />
-/// <reference path="sql.js.d.ts" />
+
 
 import * as fs from "fs";
 import * as SQL from "sql.js";

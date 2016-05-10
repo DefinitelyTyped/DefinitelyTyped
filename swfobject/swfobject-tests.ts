@@ -1,4 +1,4 @@
-/// <reference path="swfobject.d.ts" />
+
 
 // access to user agent.
 var userAgent = swfobject.ua;

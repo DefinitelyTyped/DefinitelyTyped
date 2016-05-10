@@ -1,4 +1,4 @@
-/// <reference path="traceback.d.ts" />
+
 /// <reference types="node" />
 
 function testTraceback() {

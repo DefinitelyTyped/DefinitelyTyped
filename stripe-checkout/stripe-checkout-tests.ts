@@ -1,4 +1,4 @@
-/// <reference path="stripe-checkout.d.ts" />
+
 
 // Test the minimum amount of configuration required.
 var handler = StripeCheckout.configure({

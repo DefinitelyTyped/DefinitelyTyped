@@ -1,4 +1,4 @@
-/// <reference path="./pegjs.d.ts" />
+
 {
     let input: string;
     let result = PEG.parse(input);

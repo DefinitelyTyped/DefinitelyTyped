@@ -3,7 +3,7 @@
 // Definitions by: Jon Egerton <https://github.com/jonegerton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="docCookies.d.ts" />
+
 
 docCookies.setItem("test0", "Hello world!");
 docCookies.setItem("test1", "Unicode test: \u00E0\u00E8\u00EC\u00F2\u00F9", Infinity);

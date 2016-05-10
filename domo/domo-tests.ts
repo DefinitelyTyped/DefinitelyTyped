@@ -1,4 +1,4 @@
-/// <reference path="domo.d.ts" />
+
 
 function opacity(pct: number) {
     return { opacity: String(pct / 100), filter: "alpha(opacity=" + pct + ")" }

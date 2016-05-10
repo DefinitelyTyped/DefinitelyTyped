@@ -1,4 +1,4 @@
-/// <reference path="ExtJS.d.ts" />
+
 
 namespace MyApp.view {
     export interface CompanyGridPanel extends Ext.grid.IPanel {

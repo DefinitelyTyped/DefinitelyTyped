@@ -1,4 +1,4 @@
-/// <reference path="stripe-node.d.ts" />
+
 
 import StripeNode = require('stripe');
 

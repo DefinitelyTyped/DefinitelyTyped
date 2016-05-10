@@ -1,4 +1,4 @@
-/// <reference path="./base-x.d.ts" />
+
 
 import * as basex from 'base-x';
 

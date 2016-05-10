@@ -1,4 +1,4 @@
-/// <reference path="maquette.d.ts" />
+
 
 
 // The hello world example from the homepage of maquettejs.org:

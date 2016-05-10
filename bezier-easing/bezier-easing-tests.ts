@@ -1,4 +1,4 @@
-/// <reference path="bezier-easing.d.ts" />
+
 
 function get_easing() {
     let easing: Easing = BezierEasing(0, 0, 1, 0.5);

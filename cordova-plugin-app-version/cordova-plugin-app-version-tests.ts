@@ -1,5 +1,5 @@
 ﻿/// <reference types="cordova" />
-/// <reference path="./cordova-plugin-app-version.d.ts" />
+
 
 cordova.getAppVersion.getAppName()
 	.then(appName=> {

@@ -1,4 +1,4 @@
-/// <reference path="react-notification-system.d.ts" />
+
 /// <reference types="react" />
 
 import React = require('react');

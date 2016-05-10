@@ -1,4 +1,4 @@
-/// <reference path="snapsvg.d.ts" />
+
 
 // tests by Daniel Rosenwasser
 function tester1() {

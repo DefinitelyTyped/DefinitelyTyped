@@ -1,4 +1,4 @@
-/// <reference path="./slick.autotooltips.d.ts" />
+
 
 var tgrid = new Slick.Grid("#myGrid", [], [], {});
 tgrid.registerPlugin(new Slick.AutoTooltips({

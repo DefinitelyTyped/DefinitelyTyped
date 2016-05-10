@@ -1,4 +1,4 @@
-/// <reference path="observe-js.d.ts" />
+
 
 namespace observejs {
 

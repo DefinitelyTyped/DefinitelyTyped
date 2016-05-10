@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // May 22 2013
 
-/// <reference path="Arbiter.d.ts" />
+
 
 
 

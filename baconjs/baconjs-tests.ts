@@ -1,4 +1,4 @@
-/// <reference path="./baconjs.d.ts" />
+
 
 function CreatingStreams() {
     $("#my-div").asEventStream("click");

@@ -1,7 +1,7 @@
 /// <reference types="mocha" />
 /// <reference types="should" />
 
-/// <reference path="./vinyl-0.4.3.d.ts" />
+
 
 import File = require('vinyl');
 import Stream = require('stream');

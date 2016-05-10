@@ -1,4 +1,4 @@
-/// <reference path="amplifyjs.d.ts" />
+
 /// <reference types="jquery" />
 
 // Copied examples directly from AmplifyJs site

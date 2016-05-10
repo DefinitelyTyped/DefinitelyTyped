@@ -1,4 +1,4 @@
-/// <reference path="socketty.d.ts" />
+
 
 /* Server */
 

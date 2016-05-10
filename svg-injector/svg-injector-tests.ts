@@ -1,4 +1,4 @@
-/// <reference path="svg-injector.d.ts" />
+
 
 var SVGInjector: SVGInjector;
 

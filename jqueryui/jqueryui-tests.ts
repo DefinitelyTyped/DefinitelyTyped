@@ -1,5 +1,5 @@
 /// <reference types="jquery" />
-/// <reference path="jqueryui.d.ts" />
+
 
 function test_draggable() {
 

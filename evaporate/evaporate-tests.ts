@@ -1,4 +1,4 @@
-/// <reference path="./evaporate.d.ts" />
+
 
 function test_upload() {
   var evaporate = new Evaporate({});

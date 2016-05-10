@@ -1,5 +1,5 @@
 /// <reference types="node" />
-/// <reference path="when.d.ts" />
+
 
 import fs = require('fs');
 import dns = require('dns');

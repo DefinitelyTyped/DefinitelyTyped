@@ -3,7 +3,7 @@
 // Definitions by: Wilker Lucio <http://github.com/wilkerlucio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./firebase.d.ts" />
+
 
 interface IFirebaseSimpleLoginError {
     code: string;

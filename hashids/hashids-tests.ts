@@ -1,4 +1,4 @@
-/// <reference path="hashids.d.ts" />
+
 
 /* require hashids */
 import Hashids = require("hashids");

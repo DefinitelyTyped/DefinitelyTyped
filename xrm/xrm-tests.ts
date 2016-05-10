@@ -1,5 +1,5 @@
-/// <reference path="xrm.d.ts" />
-/// <reference path="parature.d.ts" />
+
+
 
 /// Demonstrate usage in the browser's window object
 

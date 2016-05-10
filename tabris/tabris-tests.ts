@@ -1,4 +1,4 @@
-/// <reference path="./tabris.d.ts" />
+
 
 var page = tabris.create("Page", {});
 

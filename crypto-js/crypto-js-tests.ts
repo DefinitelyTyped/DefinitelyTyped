@@ -1,4 +1,4 @@
-/// <reference path="crypto-js.d.ts" />
+
 
 import CryptoJS = require('crypto-js');
 

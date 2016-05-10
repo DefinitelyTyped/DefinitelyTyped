@@ -1,4 +1,4 @@
-/// <reference path="rx-lite.d.ts" />
+
 function test_scan() {
 
 	/* Without a seed */

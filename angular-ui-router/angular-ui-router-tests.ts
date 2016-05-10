@@ -1,4 +1,4 @@
-/// <reference path="angular-ui-router.d.ts" />
+
 
 import uiRouterModule from "angular-ui-router";
 var myApp = angular.module("testModule", [uiRouterModule]);

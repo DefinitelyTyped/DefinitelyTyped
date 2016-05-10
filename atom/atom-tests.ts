@@ -1,5 +1,5 @@
 /// <reference types="node" />
-/// <reference path="./atom.d.ts" />
+
 /// <reference types="pathwatcher" />
 
 import path = require("path");

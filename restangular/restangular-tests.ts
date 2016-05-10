@@ -1,4 +1,4 @@
-/// <reference path="restangular.d.ts" />
+
 
 
 var myApp = angular.module('testModule');

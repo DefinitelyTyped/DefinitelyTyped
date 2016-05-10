@@ -1,4 +1,4 @@
-/// <reference path="reflux.d.ts" />
+
 /// <reference types="react" />
 
 import Reflux = require("reflux");

@@ -1,4 +1,4 @@
-/// <reference path="tsd.d.ts" />
+
 /// <reference types="angularjs" />
 /// <reference types="cordova" />
 

@@ -1,4 +1,4 @@
-/// <reference path="index.d.ts" />
+
 /// <reference types="Q" />
 
 export interface IPerson{

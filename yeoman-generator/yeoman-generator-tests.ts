@@ -1,4 +1,4 @@
-/// <reference path="yeoman-generator.d.ts" />
+
 import yeoman = require('yeoman-generator');
 
 var base = yeoman.generators.Base;

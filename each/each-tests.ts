@@ -1,4 +1,4 @@
-/// <reference path="each.d.ts" />
+
 /// <reference types="node" />
 
 function testEach() {

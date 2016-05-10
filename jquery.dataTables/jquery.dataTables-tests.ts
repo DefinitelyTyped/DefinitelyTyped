@@ -1,5 +1,5 @@
 /// <reference types="jquery" />
-/// <reference path="jquery.dataTables.d.ts" />
+
 
 $(document).ready(function () {
     //#region "Language"

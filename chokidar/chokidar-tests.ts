@@ -1,4 +1,4 @@
-/// <reference path="chokidar.d.ts" />
+
 
 import fs = require('fs');
 import chokidar = require('chokidar');

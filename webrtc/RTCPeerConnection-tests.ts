@@ -1,5 +1,5 @@
-/// <reference path="MediaStream.d.ts" />
-/// <reference path="RTCPeerConnection.d.ts" />
+
+
 
 let voidpromise: Promise<void>;
 

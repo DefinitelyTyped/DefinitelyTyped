@@ -1,4 +1,4 @@
-/// <reference path="docopt.d.ts" />
+
 /// <reference types="node" />
 
 var doc = `

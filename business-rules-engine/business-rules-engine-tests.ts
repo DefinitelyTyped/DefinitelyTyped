@@ -1,5 +1,5 @@
-/// <reference path="business-rules-engine.d.ts" />
-/// <reference path="node-validators.d.ts" />
+
+
 /// <reference types="Q" />
 
 export interface IPerson{

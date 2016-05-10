@@ -3,7 +3,7 @@
 // Definitions by: David Deutsch <http://github.com/DavidKDeutsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="highcharts.d.ts" />
+
 
 declare namespace __Highstock {
     interface ChartObject extends __Highcharts.ChartObject {

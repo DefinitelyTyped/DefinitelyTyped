@@ -1,5 +1,5 @@
 /// <reference types="google.maps" />
-/// <reference path="markerclustererplus.d.ts" />
+
 
 namespace MarkerClusterApp {
     export function simple_test() {

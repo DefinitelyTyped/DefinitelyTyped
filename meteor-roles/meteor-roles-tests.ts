@@ -1,5 +1,5 @@
 /// <reference types="meteor" />
-/// <reference path="meteor-roles.d.ts" />
+
 
 import * as _ from 'underscore';
 

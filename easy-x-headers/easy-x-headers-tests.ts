@@ -3,7 +3,7 @@
  */
 
 
-/// <reference path="./easy-x-headers.d.ts" />
+
 
 import express = require('express');
 import xHeaders = require('easy-x-headers');

@@ -3,7 +3,7 @@
 // Definitions by: Qinsi ZHU <https://github.com/qszhusightp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./three.d.ts" />
+
 
 declare namespace THREE {
 

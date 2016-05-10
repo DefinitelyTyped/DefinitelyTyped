@@ -15,7 +15,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 
 /// <reference types="jasmine" />
-/// <reference path="jasmine-matchers.d.ts" />
+
 
 describe('toBeArray', function () {
     describe('matches', function () {

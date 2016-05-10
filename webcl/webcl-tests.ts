@@ -1,4 +1,4 @@
-/// <reference path="webcl.d.ts" />
+
 /// <reference types="jquery" />
 
 class CLHException {

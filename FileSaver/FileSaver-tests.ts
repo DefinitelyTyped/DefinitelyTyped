@@ -1,4 +1,4 @@
-/// <reference path="FileSaver.d.ts" />
+
 
 import {saveAs as importedSaveAs} from "file-saver";
 function testImportedSaveAs() {

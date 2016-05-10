@@ -1,4 +1,4 @@
-/// <reference path="sequelize-2.0.0.d.ts" />
+
 
 import Sequelize = require('sequelize');
 

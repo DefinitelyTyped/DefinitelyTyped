@@ -1,4 +1,4 @@
-/// <reference path="zeroclipboard-1.x.x.d.ts" />
+
 /// <reference types="jquery" />
 
 // main.js

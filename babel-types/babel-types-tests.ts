@@ -1,4 +1,4 @@
-/// <reference path="babel-types.d.ts" />
+
 /// <reference types="babel-traverse" />
 
 

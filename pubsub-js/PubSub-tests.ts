@@ -1,4 +1,4 @@
-/// <reference path="pubsub.d.ts" />
+
 
 /// Tests are taken from the PubSubJs Basic Examples https://github.com/mroderick/PubSubJS
 function test_Subscribe() {
