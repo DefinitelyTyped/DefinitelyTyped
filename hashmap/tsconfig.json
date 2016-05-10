@@ -1,7 +1,7 @@
 {
     "files": [
-        "hashmap.d.ts",
-        "hashmap-tests.ts"
+        "index.d.ts",
+        "hashmap-1.1-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

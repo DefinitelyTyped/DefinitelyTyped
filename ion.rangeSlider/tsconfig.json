@@ -1,7 +1,7 @@
 {
     "files": [
-        "ion.rangeSlider.d.ts",
-        "ion.rangeSlider-tests.ts"
+        "index.d.ts",
+        "ion.rangeSlider-1.9.1-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

@@ -1,6 +1,6 @@
 {
     "files": [
-        "jasmine.d.ts",
+        "index.d.ts",
         "jasmine-tests.ts"
     ],
     "compilerOptions": {

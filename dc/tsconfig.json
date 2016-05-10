@@ -1,6 +1,6 @@
 {
     "files": [
-        "dc.d.ts",
+        "index.d.ts",
         "dc-tests.ts"
     ],
     "compilerOptions": {

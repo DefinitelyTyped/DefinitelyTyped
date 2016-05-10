@@ -1,6 +1,6 @@
 {
     "files": [
-        "i18next.d.ts",
+        "index.d.ts",
         "i18next-tests.ts"
     ],
     "compilerOptions": {

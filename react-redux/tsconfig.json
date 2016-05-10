@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "react-redux-tests.tsx"
+        "react-redux-2.1.2-tests.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",

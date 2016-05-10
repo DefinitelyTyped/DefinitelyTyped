@@ -1,6 +1,6 @@
 {
     "files": [
-        "bootstrap.v3.datetimepicker.d.ts",
+        "index.d.ts",
         "bootstrap.v3.datetimepicker-tests.ts"
     ],
     "compilerOptions": {

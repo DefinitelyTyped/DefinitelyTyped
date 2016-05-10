@@ -1,7 +1,6 @@
 {
     "files": [
-        "durandal.d.ts",
-        "durandal-tests.ts"
+        "index.d.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

@@ -1,6 +1,6 @@
 {
     "files": [
-        "handlebars.d.ts",
+        "index.d.ts",
         "handlebars-tests.ts"
     ],
     "compilerOptions": {

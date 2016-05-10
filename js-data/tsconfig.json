@@ -1,7 +1,7 @@
 {
     "files": [
-        "js-data.d.ts",
-        "js-data-tests.ts"
+        "index.d.ts",
+        "js-data-node-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

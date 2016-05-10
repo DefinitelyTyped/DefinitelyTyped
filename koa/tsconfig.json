@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "koa-tests.ts"
+        "koa-1.1.2-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

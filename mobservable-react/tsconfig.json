@@ -7,5 +7,9 @@
         "baseUrl": "../",
         "experimentalDecorators": true,
         "typesRoot": "../"
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "mobservable-react-tests.ts"
+    ]
 }

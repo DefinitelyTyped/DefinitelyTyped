@@ -1,7 +1,7 @@
 {
     "files": [
-        "angular-permission.d.ts",
-        "angular-permission-tests.ts"
+        "index.d.ts",
+        "angular-permission-2.3.1-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
