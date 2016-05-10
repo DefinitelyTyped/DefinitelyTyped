@@ -21,7 +21,7 @@ var app2 = Consumer.create({
   waitTimeSeconds: 50
 });
  
-app.on('error', function (err) {
+app.on('error', function (err: any) {
   console.log(err.message);
 });
  
