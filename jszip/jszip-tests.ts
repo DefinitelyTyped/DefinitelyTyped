@@ -1,5 +1,3 @@
-/// <reference path='jszip.d.ts' />
-
 var SEVERITY = {
 	DEBUG: 0,
 	INFO: 1,

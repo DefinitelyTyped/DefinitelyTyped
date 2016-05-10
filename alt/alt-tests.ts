@@ -1,8 +1,6 @@
 /**
  * Created by shearerbeard on 6/28/15.
  */
-///<reference path="alt.d.ts"/>
-
 import Alt = require("alt");
 
 //New alt instance

@@ -1,7 +1,5 @@
-// Tests for Livestamp.js type definitions
 /// <reference types="jquery"/>
-/// <reference types="index"/>
-/// <reference path="index.d.ts"/>
+/// <reference types="moment"/>
 
 $('#test1').livestamp(new Date('June 18, 1987'));
 $('#test2').livestamp(1362282933);

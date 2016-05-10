@@ -1,5 +1,4 @@
 /// <reference types="jquery"/>
-/// <reference path='jquery.jnotify.d.ts'/>
 
 $(document).ready(function () {
     $('#StatusBar').jnotifyInizialize({

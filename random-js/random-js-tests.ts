@@ -1,4 +1,3 @@
-/// <reference path="random-js.d.ts"/>
 /// <reference types="node"/>
 
 // Examples taken from the documentation at https://github.com/ckknight/random-js

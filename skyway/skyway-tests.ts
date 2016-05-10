@@ -1,6 +1,3 @@
-
-/// <reference types="RTCPeerConnection" />
-
 var peerByOption: PeerJs.Peer = new Peer({
     key: 'peerKey',
     debug: 3,

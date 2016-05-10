@@ -3,11 +3,9 @@
 // Definitions by: Chris Kirby <https://github.com/sirkirby/>
 // Definitions: https://github.com/sirkirby/DefinitelyTyped
 
-
 /// <reference types="jquery"/>
 
-interface XEditableOptions
-{
+interface XEditableOptions {
   ajaxOptions?: any;
   anim?: string;
   autotext?: string;
@@ -35,33 +33,31 @@ interface XEditableOptions
   url?: any;
   validate?: any;
   value?: any;
-
-
 }
 
 interface XEditableSubmitOptions {
   url?: any;
   data?: any;
   ajaxOptions?: any;
-  error(obj: any) : void;
-  success(obj: any, config: any) : void;
+  error(obj: any): void;
+  success(obj: any, config: any): void;
 }
 
 interface XEditable {
   options: XEditableOptions;
-  activate() : void;
-  destroy() : void;
-  disable() : void;
-  enable() : void;
-  getValue(isSingle: boolean) : any;
-  hide() : void;
-  option(key: any, value: any) : void;
-  setValue(value: any, convertStr: boolean) : void;
-  show(closeAll: boolean) : void;
-  submit(options: XEditableSubmitOptions) : void;
-  toggle(closeAll: boolean) : void;
-  toggleDisabled() : void;
-  validate() : void;
+  activate(): void;
+  destroy(): void;
+  disable(): void;
+  enable(): void;
+  getValue(isSingle: boolean): any;
+  hide(): void;
+  option(key: any, value: any): void;
+  setValue(value: any, convertStr: boolean): void;
+  show(closeAll: boolean): void;
+  submit(options: XEditableSubmitOptions): void;
+  toggle(closeAll: boolean): void;
+  toggleDisabled(): void;
+  validate(): void;
 }
 
 interface JQuery {

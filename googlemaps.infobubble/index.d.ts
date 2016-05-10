@@ -3,7 +3,7 @@
 // Definitions by: Johan Nilsson <https://github.com/Dashue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="google.maps" />
+/// <reference types="google-maps" />
 
 /**
  * @name CSS3 InfoBubble with tabs for Google Maps API V3

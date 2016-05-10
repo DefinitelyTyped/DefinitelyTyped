@@ -1,5 +1,4 @@
 /// <reference types="jquery"/>
-/// <reference path="mailcheck.d.ts"/>
 
 import MC = require('mailcheck');
 

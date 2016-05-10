@@ -3,7 +3,7 @@
 // Definitions by: Diullei Gomes <https://github.com/diullei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="js-signals" />
+/// <reference types="signals" />
 
 declare namespace CrossroadsJs {
 

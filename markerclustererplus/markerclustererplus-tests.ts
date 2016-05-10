@@ -1,6 +1,3 @@
-/// <reference types="google.maps" />
-
-
 namespace MarkerClusterApp {
     export function simple_test() {
         var center = new google.maps.LatLng(37.4419, -122.1419);

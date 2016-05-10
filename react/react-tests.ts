@@ -1,15 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
 import React = require("react");
 import ReactDOM = require("react-dom");
 import ReactDOMServer = require("react-dom/server");

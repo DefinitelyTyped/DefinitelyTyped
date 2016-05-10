@@ -3,8 +3,7 @@
 // Definitions by: Mathias Rodriguez <http://github.com/enanox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-/// <reference types="google.maps" />
+/// <reference types="google-maps" />
 
 /**
  * This class represents the object for values in the <code>styles</code> array passed

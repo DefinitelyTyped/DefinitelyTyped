@@ -1,12 +1,6 @@
-/// <reference path='imap.d.ts' />
-
 /*
 * This code contains all of the example code that was on https://www.npmjs.com/package/imap as of Sat Dec 13, 2014.
 */
-
-
-
-
 
 import Imap     = require('imap');
 import util     = require('util');

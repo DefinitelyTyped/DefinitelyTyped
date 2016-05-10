@@ -1,5 +1,4 @@
-
-/// <reference types="react-global" />
+/// <reference types="react" />
 
 import * as DayPicker2 from "react-day-picker";
 

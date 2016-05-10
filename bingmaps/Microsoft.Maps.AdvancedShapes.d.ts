@@ -3,8 +3,6 @@
 // Definitions by: Eric Todd <https://github.com/ericrtodd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="bingmaps.d.ts"/>
-
 declare namespace Microsoft.Maps.AdvancedShapes {
 
     export class EntityCollection {

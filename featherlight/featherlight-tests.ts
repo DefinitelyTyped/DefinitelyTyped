@@ -1,7 +1,6 @@
 // Tests by: Kaur Kuut <https://github.com/xStrom>
 
 ///<reference types="jquery" />
-///<reference path="featherlight.d.ts" />
 
 // Every option as default
 var defaultOptions = {

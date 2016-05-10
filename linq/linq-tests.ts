@@ -1,6 +1,4 @@
 /// <reference types="jasmine"/>
-/// <reference path='linq.d.ts'/>
-// <reference path="c:/linq.js" /> tests were run from VisualStudio + Resharper7
 
 describe("Linq.js tests", function () {
     it("Projection and Filtering Methods", function () {

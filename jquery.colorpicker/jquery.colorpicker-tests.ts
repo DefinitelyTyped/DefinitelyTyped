@@ -1,4 +1,3 @@
-/// <reference path="jquery.colorpicker.d.ts"/>
 /// <reference types="jqueryui" />
 
 // Default options copied from the source

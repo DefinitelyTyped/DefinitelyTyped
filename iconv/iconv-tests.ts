@@ -1,5 +1,3 @@
-///<reference path="./iconv.d.ts" />
-
 import {Iconv} from "iconv";
 import {Writable} from "stream";
 

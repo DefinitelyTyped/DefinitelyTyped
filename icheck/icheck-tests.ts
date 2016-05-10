@@ -1,5 +1,4 @@
-///<reference path="icheck.d.ts" />
-///<reference types="jquery" />
+/// <reference types="jquery" />
 
 $('input').iCheck({
     labelHover: false,

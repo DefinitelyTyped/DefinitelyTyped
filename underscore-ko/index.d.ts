@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="knockout" />
-/// <reference types="index" />
+
+import * as _ from 'underscore';
 
 interface KnockoutObservableArrayFunctions<T> {
 
@@ -50,8 +51,8 @@ interface KnockoutObservableArrayFunctions<T> {
     contains(value: T): boolean;
     include(value: T): boolean;
 
-    invoke(methodName: string, ...arguments: any[]): any;
-    invoke_(methodName: string, ...arguments: any[]): any;
+    invoke(methodName: string, ...args: any[]): any;
+    invoke_(methodName: string, ...args: any[]): any;
 
     pluck(propertyName: string): T[];
     max(iterator: _.ListIterator<T, any>, context?: any): any;

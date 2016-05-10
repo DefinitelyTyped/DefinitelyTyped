@@ -1,6 +1,3 @@
-
-/// <reference path="PayPal-Cordova-Plugin.d.ts"/>
-
 var item: PayPalItem;
 item = new PayPalItem("name", 10, "25.00", "USD");
 item = new PayPalItem("name", 10, "25.00", "USD", null);

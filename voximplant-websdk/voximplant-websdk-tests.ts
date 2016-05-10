@@ -1,5 +1,3 @@
-/// <reference path="./voximplant-websdk.d.ts"/>
-
 var vox: VoxImplant.Client = VoxImplant.getInstance(),
 	call: VoxImplant.Call,
 	room: string;

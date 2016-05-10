@@ -1,5 +1,4 @@
 /// <reference types="jquery"/>
-/// <reference path="jquery.form.d.ts"/>
 
 // Basic usage
 

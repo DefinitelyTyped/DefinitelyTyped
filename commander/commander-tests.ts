@@ -1,5 +1,3 @@
-///<reference path="commander.d.ts"/>
-
 // NOTE: import statement can not use in TypeScript 1.0.1
 var program:commander.IExportedCommand = require('commander');
 

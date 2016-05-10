@@ -1,5 +1,4 @@
-///<reference types="jquery" />
-///<reference path="jquery.cookie.d.ts" />
+/// <reference types="jquery" />
 
 class TestObject {
     text: string;

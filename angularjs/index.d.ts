@@ -3,6 +3,7 @@
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Georgii Dolzhykov <http://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="angular-mocks.d.ts" />
 
 /// <reference types="jquery" />
 

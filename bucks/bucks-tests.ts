@@ -1,5 +1,3 @@
-/// <reference path="bucks.d.ts"/>
-
 function add_and_end() {
   //
   // new Bucks object

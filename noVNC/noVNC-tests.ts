@@ -1,5 +1,3 @@
-///<reference path="noVNC.d.ts" />
-
 Util.load_scripts(["webutil.js", "base64.js", "websock.js", "des.js",
 				   "input.js", "display.js", "jsunzip.js", "rfb.js"]);
 

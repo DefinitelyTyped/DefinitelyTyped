@@ -1,5 +1,3 @@
-///<reference path="./NProgress.d.ts"/>
-
 function test_basics() {
     NProgress.start();
     NProgress.inc();

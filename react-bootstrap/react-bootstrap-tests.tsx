@@ -1,6 +1,5 @@
 // React-Bootstrap Test
 // ================================================================================
-///<reference path="react-bootstrap.d.ts"/>
 ///<reference types="react"/>
 
 // Imports

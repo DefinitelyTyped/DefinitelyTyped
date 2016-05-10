@@ -1,5 +1,3 @@
-
-
 import yamljs = require('yamljs');
 
 yamljs.load('yaml-testfile.yml');

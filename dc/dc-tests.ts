@@ -1,6 +1,5 @@
 ///<reference types="d3" />
 ///<reference types="crossfilter" />
-///<reference path="dc.d.ts" />
 
 interface IYelpData {
     city: string;

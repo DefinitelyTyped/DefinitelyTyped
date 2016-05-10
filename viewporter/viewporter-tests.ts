@@ -1,6 +1,5 @@
 /// <reference types="jquery"/>
-/// <reference types="google.maps"/>
-/// <reference path="viewporter.d.ts"/>
+/// <reference types="google-maps"/>
 
 function test_map() {
     viewporter.preventPageScroll = true;

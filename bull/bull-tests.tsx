@@ -2,9 +2,6 @@
  * Created by Bruno Grieder
  */
 
-///<reference path="./bull.d.ts" />
-
-
 import * as Queue from "bull"
 
 var videoQueue = Queue( 'video transcoding', 6379, '127.0.0.1' );

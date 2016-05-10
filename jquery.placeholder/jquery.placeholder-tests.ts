@@ -1,5 +1,4 @@
 /// <reference types="jquery"/>
-/// <reference path="jquery.placeholder.d.ts"/>
 
 $('input').placeholder();
 

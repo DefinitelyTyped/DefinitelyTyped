@@ -1,5 +1,4 @@
 ///<reference types="jquery" />
-///<reference path="tether.d.ts" />
 
 var yellowBox = document.querySelector(".yellow");
 var greenBox = document.querySelector(".green");

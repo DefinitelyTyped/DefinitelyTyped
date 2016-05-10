@@ -1,4 +1,3 @@
-
 /// <reference types="jquery" />
 
 var navigationService: umb.services.INavigationService;

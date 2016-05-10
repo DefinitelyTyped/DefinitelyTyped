@@ -4,9 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery" />
-/// <reference types="handlebars-1.0.0" />
-
-declare var Handlebars: HandlebarsStatic;
+/// <reference types="handlebars" />
 
 declare namespace EmberStates {
 

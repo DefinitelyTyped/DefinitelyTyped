@@ -1,5 +1,3 @@
-///<reference path="js-signals.d.ts" />
-
 // lifted from https://github.com/millermedeiros/js-signals/wiki/Examples
 interface TestObject {
   started: Signal;

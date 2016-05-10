@@ -1,5 +1,4 @@
 /// <reference types="jquery"/>
-/// <reference path="bootpag.d.ts"/>
 
 var pagerSelector = ".bootpager";
 var $pager = $(pagerSelector);

@@ -1,4 +1,4 @@
-import Sequelize = require("./");
+import Sequelize = require("sequelize");
 
 //
 //  Fixtures

@@ -8,6 +8,7 @@
 
 
 import tls = require("tls");
+import nodemailer = require("nodemailer");
 
 declare namespace smtpPool {
 

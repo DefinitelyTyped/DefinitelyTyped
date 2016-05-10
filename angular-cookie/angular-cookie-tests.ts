@@ -1,5 +1,3 @@
-/// <reference path='angular-cookie.d.ts' />
-
 angular.module('myApp', ['ipCookie'])
     .controller('cookieController', ['ipCookie', function(ipCookie: angular.cookie.CookieService) {
         ipCookie('key', 'value');

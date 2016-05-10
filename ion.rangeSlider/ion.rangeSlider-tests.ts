@@ -1,5 +1,4 @@
 /// <reference types="jquery"/>
-/// <reference path="ion.rangeSlider.d.ts"/>
 
 var sliderInputElement = $('<input />');
 sliderInputElement.ionRangeSlider({

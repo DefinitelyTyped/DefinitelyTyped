@@ -1,5 +1,4 @@
 // Tests for JSONEditorOnline type definitions
-///<reference path="jsoneditoronline.d.ts" />
 
 var container: HTMLElement;
 

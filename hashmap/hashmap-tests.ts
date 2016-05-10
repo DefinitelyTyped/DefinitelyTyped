@@ -1,5 +1,3 @@
-/// <reference path="hashmap.d.ts"/>
-
 var emptyMap:HashMap<string, number> = new HashMap<string, number>();
 var filledMap:HashMap<string, number> = new HashMap<string, number>("bar", 123, "bar2", 234);
 var copiedMap:HashMap<string, number> = new HashMap(filledMap);

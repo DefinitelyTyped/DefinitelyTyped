@@ -3,8 +3,7 @@
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="lodash-3.10" />
-
+/// <reference types="lodash" />
 
 declare module "lodash-decorators" {
     // Originally copied from ../node_modules/typescript/lib/lib.es6.d.ts

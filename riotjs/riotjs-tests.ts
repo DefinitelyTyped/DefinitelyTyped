@@ -1,6 +1,3 @@
-
-
-
 function describe(msg:any, fn:Function) {
     if (console.group) {
         console.group(msg);

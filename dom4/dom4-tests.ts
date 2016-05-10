@@ -1,5 +1,3 @@
-///<reference path="./dom4.d.ts" />
-
 function testDocument() {
     document.query(".container-a").classList;
     document.queryAll(".container-b")[0].className;

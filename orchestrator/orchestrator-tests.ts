@@ -1,6 +1,3 @@
-/// <reference types="require" />
-
-
 'use strict';
 
 import Orchestrator = require('orchestrator');
@@ -30,7 +27,7 @@ orchestrator.add('thing2', function(callback: any){
 });
 
 
-var Q = require('q');
+import Q = require('q');
 
 orchestrator.add('thing3', function(){
     var deferred = Q.defer();
