@@ -11,6 +11,9 @@
         "baseUrl": "../",
         "jsx": "react",
         "experimentalDecorators": true,
-        "typesSearchPaths": ["../"]
+        "typesSearchPaths": [
+            "../"
+        ],
+        "noEmit": true
     }
 }

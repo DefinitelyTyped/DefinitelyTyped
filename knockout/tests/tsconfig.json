@@ -5,7 +5,8 @@
         "noImplicitAny": false,
         "strictNullChecks": false,
         "baseUrl": "../../",
-        "typesRoot": "../../"
+        "typesRoot": "../../",
+        "noEmit": true
     },
     "files": [
         "index.d.ts",
