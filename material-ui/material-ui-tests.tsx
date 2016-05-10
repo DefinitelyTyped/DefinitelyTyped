@@ -1,6 +1,5 @@
 ///<reference types="react" />
 ///<reference types="react-addons-linked-state-mixin" />
-///<reference path='material-ui.d.ts' />
 
 import * as React from "react";
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";

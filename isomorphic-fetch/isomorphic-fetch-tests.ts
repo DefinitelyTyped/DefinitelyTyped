@@ -1,5 +1,3 @@
-/// <reference path="isomorphic-fetch.d.ts"/>
-
 function test_isomorphicFetchTestCases() {
     expectSuccess(fetch('http://localhost:3000/good'), 'Good response');
     

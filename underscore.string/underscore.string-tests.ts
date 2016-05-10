@@ -1,5 +1,3 @@
-/// <reference path='underscore.string.d.ts' />
-
 import * as _ from 'underscore';
 
 _.mixin(_.string.exports());

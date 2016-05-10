@@ -3,7 +3,6 @@
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 interface VictorCoordinates
 {
     x:number

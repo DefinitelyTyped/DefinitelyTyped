@@ -1,5 +1,3 @@
-///<reference path="simplestorage.js.d.ts"/>
-
 var versionTest:        string           = simpleStorage.version;
 var canUseTest:         boolean          = simpleStorage.canUse();
 var simpleStorageTest1: boolean|Error    = simpleStorage.set("string", 7);

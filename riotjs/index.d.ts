@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery" />
+/// <reference path="riotjs-render.d.ts" />
 
 interface JQueryStatic {
     riot: string;

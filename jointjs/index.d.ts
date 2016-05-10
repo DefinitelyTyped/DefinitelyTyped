@@ -3,7 +3,7 @@
 // Definitions by: Aidan Reel <http://github.com/areel>, David Durman <http://github.com/DavidDurman>, Ewout Van Gossum <https://github.com/DenEwout>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="index" />
+/// <reference types="backbone" />
 
 declare namespace joint {
 

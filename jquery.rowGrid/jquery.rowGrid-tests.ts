@@ -1,5 +1,4 @@
 /// <reference types="jquery"/>
-/// <reference path="jquery.rowGrid.d.ts"/>
 
 /*
  * Test different options

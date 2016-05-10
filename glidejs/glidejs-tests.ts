@@ -1,4 +1,3 @@
-///<reference path="glidejs.d.ts" />
 ///<reference types="jquery" />
 
 // Copied from documentation

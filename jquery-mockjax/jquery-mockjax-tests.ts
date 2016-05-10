@@ -1,5 +1,4 @@
 /// <reference types="jquery"/>
-/// <reference path="jquery-mockjax.d.ts"/>
 /// <reference types="qunit" />
 
 class Tests {

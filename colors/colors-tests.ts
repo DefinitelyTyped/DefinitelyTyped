@@ -1,6 +1,3 @@
-
-///<reference path="colors.d.ts" />
-
 import colors = require("colors");
 
 console.log(colors.black.underline('test'));

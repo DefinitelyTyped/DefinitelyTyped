@@ -3,14 +3,13 @@
 // Definitions by: Tim Jonischkat <http://www.tim-jonischkat.de>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export as namespace YAML;
+export = YAML;
+
 declare namespace YAML {
     function load(path: string): any;
 
     function stringify(nativeObject: any, inline?: number, spaces?: number): string;
 
     function parse(yamlString: string): any;
-}
-
-declare module "yamljs" {
-    export = YAML;
 }

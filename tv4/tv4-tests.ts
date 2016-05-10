@@ -1,5 +1,3 @@
-///<reference path="tv4.d.ts" />
-
 var str:string;
 var strArr:string[];
 var bool:boolean;

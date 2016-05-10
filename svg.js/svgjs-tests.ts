@@ -1,8 +1,6 @@
 /// <reference types="jquery" />
-/// <reference path='svgjs.d.ts' />
  
 // create svg drawing paper
-
 
 // Example from svgjs.com
 function one() {

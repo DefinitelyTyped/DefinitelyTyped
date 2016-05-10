@@ -1,6 +1,6 @@
 // ReSharper disable InconsistentNaming
 // ReSharper disable WrongExpressionStatement
-/// <reference path="./tcomb.d.ts"/>
+
 /// <reference types="node"/>
 /// <reference types="jasmine" />
 

@@ -1,4 +1,3 @@
-///<reference path="dotdotdot.d.ts" />
 ///<reference types="jquery" />
 
 $("span").dotdotdot({ ellipsis: ":::" });

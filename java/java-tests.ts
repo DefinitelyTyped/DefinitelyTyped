@@ -1,4 +1,3 @@
-///<reference path="java.d.ts"/>
 ///<reference types="bluebird"/>
 
 import java = require('java');

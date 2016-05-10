@@ -1,6 +1,3 @@
-
-/// <reference types="lodash-3.10" />
-
 //
 // With Arguments
 //

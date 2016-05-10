@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery"/>
-/// <reference path="jquery.total-storage.d.ts"/>
 
 //direct call
 $.totalStorage("test_key1", "test_value");

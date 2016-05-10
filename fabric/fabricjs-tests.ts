@@ -1,5 +1,3 @@
-///<reference path="fabricjs.d.ts" />
-
 function sample1() {
   var canvas = new fabric.Canvas('c', {
     hoverCursor: 'pointer',

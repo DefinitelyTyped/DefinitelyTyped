@@ -2,9 +2,7 @@
 /// <reference types="node"/>
 /// <reference types="bluebird"/>
 
-/// <reference path="./simple-mock.d.ts"/>
-
-'use strict'
+'use strict';
 
 import simple = require('simple-mock');
 import assert = require('assert');

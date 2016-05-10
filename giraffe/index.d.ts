@@ -3,7 +3,7 @@
 // Definitions by: Matt McCray <https://github.com/darthapo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="index" />
+/// <reference types="backbone" />
 /// <reference types="jquery" />
 
 declare namespace Giraffe {

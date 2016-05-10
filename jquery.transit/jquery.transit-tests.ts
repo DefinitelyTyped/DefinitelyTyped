@@ -1,6 +1,4 @@
 ///<reference types="jquery" />
-///<reference path="jquery.transit.d.ts" />
-
 
 class TransitOptions implements JQueryTransitOptions {
 	opacity: number;

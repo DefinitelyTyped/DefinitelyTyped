@@ -1,5 +1,3 @@
-/// <reference path='qrcode-generator.d.ts' />
-
 import qrcode = require('qrcode-generator');
 
 let qr = qrcode(4,'M');

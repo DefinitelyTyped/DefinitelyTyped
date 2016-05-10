@@ -1,5 +1,4 @@
 ///<reference types="jquery" />
-///<reference path="vex-js.d.ts" />
 
 var vexContent = vex.open({
   afterClose: (() => null),

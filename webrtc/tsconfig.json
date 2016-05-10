@@ -2,14 +2,16 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "strictNullChecks": false,
-        "baseUrl": "../../",
-        "typesRoot": "../../",
+        "baseUrl": "../",
+        "typesSearchPaths": [
+            "../"
+        ],
         "noEmit": true
     },
     "files": [
         "index.d.ts",
-        "knockout-templatingBehaviors-tests.ts"
+        "webrtc-tests.ts"
     ]
 }

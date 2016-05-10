@@ -1,5 +1,4 @@
-/// <reference path="promises-a-plus.d.ts"/>
-/// <reference types="rx.async"/>
+/// <reference types="rx"/>
 /// <reference types="Q"/>
 /// <reference types="when"/>
 

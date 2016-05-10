@@ -3,9 +3,7 @@
 // Definitions by: Peter Snider <https://github.com/psnider/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="nodemailer-types" />
-
-
+import nodemailer = require('nodemailer');
 
 declare namespace PickupTransport {
     export interface Options {

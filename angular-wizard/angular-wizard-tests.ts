@@ -1,8 +1,5 @@
 /// <reference types="jasmine" />
 /// <reference types="angularjs" />
-/// <reference types="angular-mocks" />
-
-
 
 // test file taken from https://github.com/mgonto/angular-wizard
 

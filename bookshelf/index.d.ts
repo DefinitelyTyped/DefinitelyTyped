@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="bluebird" />
-/// <reference types="lodash-3.10" />
+/// <reference types="lodash" />
 
 declare module 'bookshelf' {
 	import knex = require('knex');

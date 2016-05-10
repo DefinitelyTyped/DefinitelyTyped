@@ -1,8 +1,6 @@
 // Copyright (c) Microsoft Open Technologies, Inc.
 // Licensed under the MIT license.
 
-/// <reference path="cordova.d.ts"/>
-
 // Apache Cordova core
 //----------------------------------------------------------------------
 

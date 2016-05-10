@@ -1,5 +1,3 @@
-///<reference path="matter-js.d.ts"/>
-
 var Engine = Matter.Engine, 
 	World = Matter.World,
 	Body = Matter.Body,

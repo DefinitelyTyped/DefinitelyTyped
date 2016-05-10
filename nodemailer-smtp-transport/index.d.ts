@@ -4,11 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="nodemailer-types" />
-
-
 
 import tls = require("tls");
+import nodemailer = require('nodemailer');
 
 declare namespace smtpTransport {
     export interface AuthOptions {

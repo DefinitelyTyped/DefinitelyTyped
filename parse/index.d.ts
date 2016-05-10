@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 /// <reference types="jquery" />
-/// <reference types="index" />
+/// <reference types="underscore" />
 
 declare namespace Parse {
 

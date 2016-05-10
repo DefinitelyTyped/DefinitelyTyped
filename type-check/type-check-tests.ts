@@ -1,5 +1,5 @@
 // run this in node
-/// <reference path="./type-check.d.ts"/>
+
 import tchecker = require("type-check");
 
 var typeCheck = (i1:string,i2:any,i3?: TypeCheck.Options ) =>  {
