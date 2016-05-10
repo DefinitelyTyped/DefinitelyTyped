@@ -406,7 +406,7 @@ declare namespace PhoneGapNfc {
          * @param win The callback that is called when NFC is enabled.
          * @param fail The callback that is called when NFC is disabled or missing.
          */
-        enabled(win?:(status:String) => void, fail?:() => void):void;
+        enabled(win?:(status:String) => void, fail?:(status:String) => void):void;
 
         /**
          * Removes the previously registered event listener added via nfc.addTagDiscoveredListener
