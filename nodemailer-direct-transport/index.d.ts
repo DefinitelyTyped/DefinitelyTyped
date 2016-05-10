@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../nodemailer/nodemailer-types.d.ts" />
+/// <reference types="nodemailer-types" />
 
 
 

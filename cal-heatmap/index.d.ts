@@ -3,7 +3,7 @@
 // Definitions by: Chris Baker <https://github.com/RetroChrisB/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../d3/d3.d.ts" />
+/// <reference types="d3" />
 
 declare namespace CalHeatMap
 {

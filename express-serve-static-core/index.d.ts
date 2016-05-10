@@ -3,7 +3,7 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare namespace Express {
 

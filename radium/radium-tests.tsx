@@ -1,5 +1,5 @@
 
-/// <reference path="../react/react.d.ts" />
+/// <reference types="react" />
 
 import * as React from "react";
 import * as Radium from 'radium';

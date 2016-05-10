@@ -1,5 +1,5 @@
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 import stream = require("stream");
 import split = require("split");

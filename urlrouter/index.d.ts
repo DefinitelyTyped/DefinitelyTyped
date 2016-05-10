@@ -3,7 +3,7 @@
 // Definitions by: soywiz <https://github.com/soywiz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 import http = require("http");

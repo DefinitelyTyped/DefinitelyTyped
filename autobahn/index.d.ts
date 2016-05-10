@@ -3,7 +3,7 @@
 // Definitions by: Elad Zelingher <https://github.com/darkl/>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../when/when.d.ts" />
+/// <reference types="when" />
 
 declare namespace autobahn {
 

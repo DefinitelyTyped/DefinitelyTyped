@@ -1,4 +1,4 @@
-﻿/// <reference path="../../three.d.ts" />
+﻿/// <reference types="three" />
 /// <reference path="../three-tests-setup.ts" />
 
 // https://github.com/mrdoob/three.js/blob/master/examples/canvas_lights_pointlights.html

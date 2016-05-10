@@ -1,4 +1,4 @@
-/// <reference path="../should/should.d.ts" />
+/// <reference types="should" />
 /// <reference path="should-promised.d.ts" />
 
 var promise: Promise<number> = new Promise<number>(function (resolve, reject) {});

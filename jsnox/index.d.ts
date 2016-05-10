@@ -3,7 +3,7 @@
 // Definitions by: Steve Baker <https://github.com/stkb/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
+/// <reference types="react" />
 
 
 

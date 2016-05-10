@@ -3,7 +3,7 @@
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="knockout" />
 
 interface KnockoutDeferredTasks {
     processImmediate(evaluator: Function, object?: any, args?: any[]): any;

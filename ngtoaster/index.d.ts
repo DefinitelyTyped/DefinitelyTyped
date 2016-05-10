@@ -3,7 +3,7 @@
 // Definitions by: Ben Tesser <https://github.com/btesser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="angularjs" />
 
 declare namespace ngtoaster {
   interface IToasterService {

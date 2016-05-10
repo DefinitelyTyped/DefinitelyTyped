@@ -3,8 +3,8 @@
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../chai/chai.d.ts" />
+/// <reference types="node" />
+/// <reference types="chai" />
 
 declare namespace Chai {
 

@@ -1,4 +1,4 @@
-/// <reference path="../q/Q.d.ts" />
+/// <reference types="Q" />
 /// <reference path="Q-io.d.ts" />
 
 var fs:typeof QioFS = require('q-io/fs');

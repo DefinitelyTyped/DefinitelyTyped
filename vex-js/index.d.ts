@@ -3,7 +3,7 @@
 // Definitions by: Greg Cohan <https://github.com/gdcohan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../jquery/jquery.d.ts" />
+///<reference types="jquery" />
 
 declare namespace vex {
 

@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="jquery" />
+/// <reference types="knockout" />
 /// <reference path="kolite.d.ts" />
 
 function test_asyncCommand() {

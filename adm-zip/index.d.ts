@@ -3,7 +3,7 @@
 // Definitions by: John Vilk <https://github.com/jvilk>, Abner Oliveira <https://github.com/abner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 declare class AdmZip {

@@ -2,7 +2,7 @@
 // Project: https://www.npmjs.com/package/gulp-strip-debug
 // Definitions by: Peter Juras <https://github.com/peterjuras>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 declare const gulpStripDebug: () => NodeJS.ReadWriteStream;

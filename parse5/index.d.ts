@@ -3,7 +3,7 @@
 // Definitions by: Nico Jansen <https://github.com/nicojs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 import * as stream from "stream";

@@ -5,7 +5,7 @@
 
 // Documentation : http://mongodb.github.io/node-mongodb-native/
 
-/// <reference path='../node/node.d.ts' />
+/// <reference types="node" />
 
 
 

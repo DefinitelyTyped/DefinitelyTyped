@@ -1,5 +1,5 @@
-/// <reference path="../jasmine/jasmine.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jasmine" />
+/// <reference types="jquery" />
 /// <reference path="jasmine-jquery.d.ts" />
 
 describe("Jasmine jQuery extension", () => {

@@ -3,7 +3,7 @@
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare namespace NodeCacheTypes {
 	interface NodeCache {

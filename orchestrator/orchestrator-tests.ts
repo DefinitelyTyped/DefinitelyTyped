@@ -1,4 +1,4 @@
-/// <reference path="../requirejs/require.d.ts" />
+/// <reference types="require" />
 /// <reference path="orchestrator.d.ts" />
 
 'use strict';

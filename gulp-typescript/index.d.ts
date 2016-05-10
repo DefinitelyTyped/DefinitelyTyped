@@ -3,7 +3,7 @@
 // Definitions by: Asana <https://asana.com>, Thomas Corbière <https://github.com/tomc974>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts"/>
+/// <reference types="node"/>
 
 
 declare function GulpTypescript(params?: GulpTypescript.Params, filters?: GulpTypescript.FilterSettings, reporter?: GulpTypescript.Reporter): GulpTypescript.CompilationStream;

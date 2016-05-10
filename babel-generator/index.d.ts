@@ -3,7 +3,7 @@
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../babel-types/babel-types.d.ts" />
+/// <reference types="babel-types" />
 
 declare module "babel-generator" {
     import * as t from 'babel-types';

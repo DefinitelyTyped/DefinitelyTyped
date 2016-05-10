@@ -3,7 +3,7 @@
 // Definitions by: Thomas Corbière <https://github.com/tomc974>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts"/>
+/// <reference types="node"/>
 
 
 interface ICacheStore {

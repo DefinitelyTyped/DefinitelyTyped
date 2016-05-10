@@ -1,5 +1,5 @@
 ///<reference path='index.d.ts'/>
-///<reference path='../angularjs/angularjs.d.ts'/>
+///<reference types="angularjs"/>
 
 var myApp = angular.module('testModule');
 

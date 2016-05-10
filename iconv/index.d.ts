@@ -3,7 +3,7 @@
 // Definitions by: delphinus <https://github.com/delphinus35/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../node/node.d.ts" />
+///<reference types="node" />
 
 declare namespace Iconv {
 

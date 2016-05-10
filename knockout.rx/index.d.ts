@@ -3,8 +3,8 @@
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../knockout/knockout.d.ts"/>
-/// <reference path="../rx/rx.d.ts"/>
+/// <reference types="knockout"/>
+/// <reference types="rx"/>
 
 interface KnockoutSubscribableFunctions<T> {
 	toObservable(event?: string): Rx.Observable<T>;

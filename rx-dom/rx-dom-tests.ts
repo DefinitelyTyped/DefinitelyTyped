@@ -1,4 +1,4 @@
-/// <reference path="../rx/rx.all.d.ts" />
+/// <reference types="rx.all" />
 /// <reference path="./rx-dom.d.ts" />
 
 import * as Rx from 'rx';

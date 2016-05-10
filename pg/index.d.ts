@@ -3,7 +3,7 @@
 // Definitions by: Phips Peter <http://pspeter3.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 import events = require("events");

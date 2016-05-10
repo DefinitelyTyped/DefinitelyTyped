@@ -3,7 +3,7 @@
 // Definitions by: Dan Chao <http://dchao.co>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts"/>
+/// <reference types="node"/>
 
 
 import { ParsedPath } from "path";

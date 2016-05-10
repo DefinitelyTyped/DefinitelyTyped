@@ -3,7 +3,7 @@
 // Definitions by: He Jiang <https://github.com/hejiang2000/>
 // Definitions: https://github.com/hejiang2000/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 import * as Backbone from 'backbone';
 

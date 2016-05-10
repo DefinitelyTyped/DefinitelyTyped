@@ -3,7 +3,7 @@
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../when/when.d.ts" />
+/// <reference types="when" />
 
 declare module "rest" {
 	import when = require("when");

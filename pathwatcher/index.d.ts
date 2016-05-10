@@ -3,8 +3,8 @@
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../q/Q.d.ts" />
+/// <reference types="node" />
+/// <reference types="Q" />
 
 declare namespace PathWatcher {
 	interface IFileStatic {

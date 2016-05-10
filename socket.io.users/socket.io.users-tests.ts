@@ -1,6 +1,6 @@
-/// <reference path="../socket.io/socket.io.d.ts"/>
+/// <reference types="socket.io"/>
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 var express = require('express');
 var app = express();

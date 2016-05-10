@@ -3,8 +3,8 @@
 // Definitions by: Adam Santaniello <https://github.com/AdamSantaniello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path='../signalr/signalr.d.ts' />
-/// <reference path='../angularjs/angularjs.d.ts' />
+/// <reference types="signalr" />
+/// <reference types="angularjs" />
 
 declare namespace ngSignalr {
     interface HubFactory {

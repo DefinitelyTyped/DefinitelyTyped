@@ -1,5 +1,5 @@
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 // via: http://visionmedia.github.io/superagent/
 

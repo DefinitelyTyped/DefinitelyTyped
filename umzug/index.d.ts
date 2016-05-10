@@ -3,7 +3,7 @@
 // Definitions by: Ivan Drinchev <https://github.com/drinchev/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference types="bluebird" />
 
 import Sequelize = require("../sequelize");
 

@@ -3,8 +3,8 @@
 // Definitions by: Voislav Mishevski <https://github.com/vmishevski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angularjs.d.ts" />
-/// <reference path="../angular-ui-router/angular-ui-router.d.ts" />
+/// <reference types="angularjs" />
+/// <reference types="angular-ui-router" />
 
 declare namespace angular.permission {
   /**

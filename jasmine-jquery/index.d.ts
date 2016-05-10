@@ -3,8 +3,8 @@
 // Definitions by: Gregor Stamac <https://github.com/gstamac/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jasmine/jasmine.d.ts"/>
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jasmine"/>
+/// <reference types="jquery"/>
 
 declare function sandbox(attributes?: any): string;
 

@@ -3,7 +3,7 @@
 // Definitions by: Ben Liddicott <https://github.com/benliddicott/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../esprima/esprima.d.ts" />
+/// <reference types="esprima" />
 
 
 /**

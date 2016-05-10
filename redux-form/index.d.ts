@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
+/// <reference types="react" />
+/// <reference types="redux" />
 
 
 import { Component, SyntheticEvent, FormEventHandler } from 'react';

@@ -3,7 +3,7 @@
 // Definitions by: Jeffery Grajkowski <https://github.com/pushplay/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../jquery/jquery.d.ts" />
+///<reference types="jquery" />
 
 /**
  * An editor is composed of a main div element used to hold a toolbar,

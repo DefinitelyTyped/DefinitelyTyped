@@ -3,7 +3,7 @@
 // Definitions by: William Johnston <https://github.com/wjohnsto>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path='../node/node.d.ts' />
+///<reference types="node" />
 
 
 import stream = require("stream");

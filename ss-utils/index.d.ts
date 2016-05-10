@@ -3,7 +3,7 @@
 // Definitions by: Demis Bellot <https://github.com/mythz/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 declare namespace ssutils {
 

@@ -3,7 +3,7 @@
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jasmine/jasmine.d.ts" />
+/// <reference types="jasmine" />
 
 declare namespace JasminePromiseMatchers  {
 	export function install():void;

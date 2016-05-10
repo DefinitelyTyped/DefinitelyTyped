@@ -3,7 +3,7 @@
 // Definitions by: Steve Shearn <https://github.com/shearnie/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 declare var jsPlumb: jsPlumbInstance;
 

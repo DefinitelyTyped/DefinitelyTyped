@@ -1,5 +1,5 @@
 /// <reference path="wordcloud.d.ts" />
-/// <reference path="../qunit/qunit.d.ts" />
+/// <reference types="qunit" />
 
 'use strict';
 //declare function test(name: string, test: Function);

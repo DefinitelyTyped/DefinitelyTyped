@@ -5,7 +5,7 @@
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/d.ts
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 import stream = require('stream');
 import http = require('http');

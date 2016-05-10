@@ -1,5 +1,5 @@
-///<reference path='../react/react.d.ts' />
-///<reference path='../react-dropzone/react-dropzone.d.ts' />
+///<reference types="react" />
+///<reference types="react-dropzone" />
 import * as React from 'react';
 import Dropzone = require('react-dropzone');
 

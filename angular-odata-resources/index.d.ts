@@ -3,7 +3,7 @@
 // Definitions by: Raphael ATALLAH <http://raphael.atallah.me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="angularjs" />
 
 declare namespace OData {
 

@@ -3,7 +3,7 @@
 // Definitions by: Cherry <http://github.com/cherrry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 
 export default Bounce

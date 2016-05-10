@@ -5,7 +5,7 @@
 
 //This is a total rewrite of Hakubo's original hapi.d.ts, as it was out of date/incomplete.
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 import http = require("http");

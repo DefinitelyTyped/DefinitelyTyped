@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 /// <reference path="jquery.window.d.ts"/>
 
 function example_1() {

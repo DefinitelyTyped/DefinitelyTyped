@@ -3,7 +3,7 @@
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bootbox/bootbox.d.ts" />
+/// <reference types="bootbox" />
 
 interface NgBootboxDialog {
 	title?: string;

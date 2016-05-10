@@ -3,7 +3,7 @@
 // Definitions by: Bart van der Schoor <https://github.com/bartvds/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 export function ncp(source: string, destination: string, callback: (err: Error) => void): void;
 export function ncp(source: string, destination: string, options: Options, callback: (err: Error) => void): void;

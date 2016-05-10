@@ -3,7 +3,7 @@
 // Definitions by: Sumit <https://github.com/sumitkm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../eventemitter2/eventemitter2.d.ts" />
+///<reference types="eventemitter2" />
 
 declare interface  DeltaStatic{
 	ops? : Array<any>;

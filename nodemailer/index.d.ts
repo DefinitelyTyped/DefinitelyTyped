@@ -3,7 +3,7 @@
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 /// <reference path="./nodemailer-types.d.ts" />
 
 import directTransport = require("nodemailer-direct-transport");

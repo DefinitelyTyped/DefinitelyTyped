@@ -3,7 +3,7 @@
 // Definitions by: Peter Snider <https://github.com/psnider/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path='../node/node.d.ts' />
+/// <reference types="node" />
 
 import WritableStream = NodeJS.WritableStream;
 import EventEmitter = NodeJS.EventEmitter;

@@ -3,7 +3,7 @@
 // Definitions by: RomanoLindano <https://github.com/RomanoLindano>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 declare namespace ng {
     export interface IAngularStatic {

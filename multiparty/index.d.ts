@@ -3,7 +3,7 @@
 // Definitions by: Ken Fukuyama <https://github.com/kenfdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path='../node/node.d.ts' />
+/// <reference types="node" />
 
 
 import http = require('http');

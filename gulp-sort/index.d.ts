@@ -3,7 +3,7 @@
 // Definitions by: Joe Skeen <http://github.com/joeskeen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 /** Sort files in stream by path or any custom sort comparator */
 

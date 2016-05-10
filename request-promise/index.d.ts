@@ -6,7 +6,7 @@
 // Change [0]: 2015/08/20 - Aya Morisawa <https://github.com/AyaMorisawa>
 
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference types="bluebird" />
 
 
 import request = require('request');

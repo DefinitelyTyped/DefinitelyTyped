@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 /// <reference path="jquery.customSelect.d.ts" />
 
 class CustomSelectOptions implements JQueryCustomSelectOption {

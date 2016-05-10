@@ -3,7 +3,7 @@
 // Definitions by: Frank Laub <https://github.com/flaub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
+/// <reference types="react" />
 
 
 import { ComponentClass, Props } from 'react';

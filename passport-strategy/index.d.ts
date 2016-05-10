@@ -3,7 +3,7 @@
 // Definitions by: Lior Mualem <https://github.com/liorm/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../passport/passport.d.ts"/>
+/// <reference types="passport"/>
 
 /**
  * Using this module, one can easily implement a strategy using typescript by

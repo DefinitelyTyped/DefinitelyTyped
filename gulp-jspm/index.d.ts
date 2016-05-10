@@ -2,7 +2,7 @@
 // Project: https://www.npmjs.com/package/gulp-jspm
 // Definitions by: Peter Juras <https://github.com/peterjuras>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 interface Options {

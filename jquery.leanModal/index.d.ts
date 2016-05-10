@@ -3,7 +3,7 @@
 // Definitions by: FinelySliced <https://github.com/FinelySliced>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../jquery/jquery.d.ts" />
+///<reference types="jquery" />
 
 interface JQueryLeanModalOption {
     top? : number;

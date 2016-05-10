@@ -3,7 +3,7 @@
 // Definitions by: Richard Hepburn <https://github.com/rwhepburn/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 declare namespace Html2Canvas {
     interface Html2CanvasOptions {

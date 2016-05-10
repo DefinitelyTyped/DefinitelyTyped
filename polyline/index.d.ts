@@ -3,7 +3,7 @@
 // Definitions by: Arseniy Maximov <https://github.com/Kern0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../geojson/geojson.d.ts" />
+/// <reference types="geojson" />
 
 interface Polyline {
   decode(string: string, precision?: number): number[][];

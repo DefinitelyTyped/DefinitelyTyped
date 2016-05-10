@@ -3,7 +3,7 @@
 // Definitions by: MIZUSHIMA Junki <https://github.com/mzsm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../doublearray/doublearray.d.ts" />
+/// <reference types="doublearray" />
 
 declare namespace kuromoji {
 

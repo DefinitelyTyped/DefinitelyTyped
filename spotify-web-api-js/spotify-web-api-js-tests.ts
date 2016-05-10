@@ -6,7 +6,7 @@
 // This test-file assumes the following two d.ts files to be present.
 
 /// <reference path="./spotify-web-api-js.d.ts" />
-/// <reference path="../spotify-api/spotify-api.d.ts" />
+/// <reference types="spotify-api" />
 
 var spotify = new SpotifyWebApi();
 

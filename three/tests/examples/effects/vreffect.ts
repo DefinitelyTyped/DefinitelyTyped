@@ -1,5 +1,5 @@
-/// <reference path="../../../three.d.ts" />
-/// <reference path="../../../three-vreffect.d.ts" />
+/// <reference types="three" />
+/// <reference types="three-vreffect" />
 
 var _vrEffect: THREE.VREffect;
 

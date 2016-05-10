@@ -3,7 +3,7 @@
 // Definitions by: Dan Ludwig <https://github.com/danludwig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="knockout" />
 
 interface KnockoutValidationGroupingOptions {
     deep?: boolean;

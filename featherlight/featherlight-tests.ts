@@ -1,6 +1,6 @@
 // Tests by: Kaur Kuut <https://github.com/xStrom>
 
-///<reference path="../jquery/jquery.d.ts" />
+///<reference types="jquery" />
 ///<reference path="featherlight.d.ts" />
 
 // Every option as default

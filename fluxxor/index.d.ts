@@ -3,8 +3,8 @@
 // Definitions by: Yuichi Murata <https://github.com/mrk21>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path='../react/react.d.ts' />
-///<reference path='../eventemitter3/eventemitter3.d.ts' />
+///<reference types="react" />
+///<reference types="eventemitter3" />
 
 declare namespace Fluxxor {
     class Dispatcher {

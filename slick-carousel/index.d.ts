@@ -3,7 +3,7 @@
 // Definitions by: John Gouigouix <https://github.com/orchestra-ts/DefinitelyTyped/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 interface JQuerySlickOptions {
 

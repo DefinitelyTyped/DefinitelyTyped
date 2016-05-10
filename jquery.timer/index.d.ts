@@ -3,7 +3,7 @@
 // Definitions by: Joshua Strobl <https://github.com/JoshStrobl/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 interface JQueryTimer {
     // #region Constructors

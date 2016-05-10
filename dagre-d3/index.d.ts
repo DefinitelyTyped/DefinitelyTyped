@@ -3,8 +3,8 @@
 // Definitions by: Mark Wong Siang Kai <https://github.com/markwongsk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../d3/d3.d.ts"/>
-/// <reference path="../dagre/dagre.d.ts"/>
+/// <reference types="d3"/>
+/// <reference types="dagre"/>
 
 declare namespace Dagre {
 

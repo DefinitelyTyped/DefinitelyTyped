@@ -1,5 +1,5 @@
-///<reference path='../react/react.d.ts' />
-///<reference path='../react-infinite/react-infinite.d.ts' />
+///<reference types="react" />
+///<reference types="react-infinite" />
 
 import * as React from 'react';
 import Infinite = require('react-infinite');

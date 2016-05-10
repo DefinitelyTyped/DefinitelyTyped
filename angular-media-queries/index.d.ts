@@ -3,7 +3,7 @@
 // Definitions by: Joao Monteiro <https://github.com/jpmnteiro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="angularjs" />
 declare namespace angular.matchmedia {
 
     interface IScreenSize {

@@ -3,7 +3,7 @@
 // Definitions by: Judah Gabriel Himango <https://debuggerdotbreak.wordpress.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="knockout" />
 
 interface KnockoutPostBox {
     subscribe<T>(topic: string, handler: (value: T) => void , target?: any): KnockoutSubscription;

@@ -3,7 +3,7 @@
 // Definitions by: Robbie Van Gorkom <https://github.com/vangorra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../meteor/meteor.d.ts" />
+/// <reference types="meteor" />
 
 declare namespace Meteor {
 	var isDevelopment : boolean;

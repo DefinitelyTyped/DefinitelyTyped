@@ -3,7 +3,7 @@
 // Definitions by: Thiago Temple <https://github.com/vintem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../sinon/sinon.d.ts"/>
+/// <reference types="sinon"/>
 
 declare namespace Sinon {
   interface SinonPromise {

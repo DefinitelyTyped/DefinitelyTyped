@@ -3,7 +3,7 @@
 // Definitions by: Vadim Macagon <https://github.com/enlight/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../event-kit/event-kit.d.ts" />
+/// <reference types="event-kit" />
 
 declare namespace AtomKeymap {
 	type Disposable = AtomEventKit.Disposable;

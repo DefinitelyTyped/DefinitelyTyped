@@ -3,9 +3,9 @@
 // Definitions by: Ullisen Media Group <http://ullisenmedia.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../underscore/index.d.ts" />
+/// <reference types="node" />
+/// <reference types="jquery" />
+/// <reference types="index" />
 
 declare namespace Parse {
 

@@ -1,6 +1,6 @@
 
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 import * as gulp from 'gulp';
 import * as htmlreplace from 'gulp-html-replace';

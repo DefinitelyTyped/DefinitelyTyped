@@ -3,7 +3,7 @@
 // Definitions by: Gidon Junge <https://github.com/gjunge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 interface ColorboxResizeSettings {
     height?: number;

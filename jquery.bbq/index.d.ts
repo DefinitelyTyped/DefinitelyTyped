@@ -3,7 +3,7 @@
 // Definitions by: Adam R. Smith <https://github.com/sunetos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 declare namespace JQueryBbq {
 

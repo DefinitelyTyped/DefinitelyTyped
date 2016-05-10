@@ -1,4 +1,4 @@
-/// <reference path="../yandex-money-sdk/yandex-money-sdk.d.ts" />
+/// <reference types="yandex-money-sdk" />
 
 import * as ymsdk from 'yandex-money-sdk';
 

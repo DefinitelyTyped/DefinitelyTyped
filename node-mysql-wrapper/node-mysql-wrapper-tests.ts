@@ -1,6 +1,6 @@
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference types="node" />
+/// <reference types="bluebird" />
 
 var express = require('express');
 var app = express();

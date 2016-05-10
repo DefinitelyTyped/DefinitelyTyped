@@ -3,7 +3,7 @@
 // Definitions by: Michel Salib <https://github.com/michelsalib>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jasmine/jasmine.d.ts" />
+/// <reference types="jasmine" />
 
 declare function fdescribe(description: string, specDefinitions: () => void): void;
 declare function fit(expectation: string, assertion: () => void): void;

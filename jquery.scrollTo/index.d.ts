@@ -3,7 +3,7 @@
 // Definitions by: Neil Stalker <https://github.com/nestalk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 interface ScrollToOptions {
     /**

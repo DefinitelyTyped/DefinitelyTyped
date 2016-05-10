@@ -2,7 +2,7 @@
 // Project: https://www.npmjs.com/package/gulp-html-replace
 // Definitions by: Peter Juras <https://github.com/peterjuras>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 interface AdvancedTask {

@@ -2,8 +2,8 @@
  * Created by stefansteinhart on 31.01.15.
  */
 
-/// <reference path="../q/Q.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="Q" />
+/// <reference types="node" />
 /// <reference path="nedb.d.ts" />
 
 import Q = require('q');

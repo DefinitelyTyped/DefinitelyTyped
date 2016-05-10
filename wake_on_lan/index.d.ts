@@ -3,7 +3,7 @@
 // Definitions by: Tobias Kahlert <https://github.com/SrTobi>
 // Definitions: https://github.com/SrTobi/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts"/>
+/// <reference types="node"/>
 
 declare namespace wol {
 

@@ -9,15 +9,15 @@
  * see: http://durandaljs.com or https://github.com/BlueSpire/Durandal for details.
  */
 
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="jquery" />
+/// <reference types="knockout" />
 
 // By default, Durandal uses JQuery's Defer/Promise implementation, but durandal supports injecting/configuring
 // usage of different JavaScript Defer/Promise libraries (f.ex. Q or ES6 Promise polyfills).
 // You might therefore want to use a different interface from a community typings file or your custom unified interface.
 // When using f.ex. Q as Defer/Promise library replace the lines below with:
 
-// <reference path="../q/Q.d.ts" />
+// <reference types="Q" />
 // interface DurandalPromise<T> extends Q.Promise<T>
 // interface DurandalDeferred<T> extends Q.Deferred<T>
 

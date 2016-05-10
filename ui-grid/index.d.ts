@@ -14,8 +14,8 @@
 // 7/8/2015 ui-grid v3.0.0-rc.22-482dc67
 //   Added primary interfaces for row, column, api, grid, columnDef, and gridOptions.  Needs more tests!
 
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="jquery" />
+/// <reference types="angularjs" />
 
 declare namespace uiGrid {
     export interface IUiGridConstants {

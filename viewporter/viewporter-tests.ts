@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="../googlemaps/google.maps.d.ts"/>
+/// <reference types="jquery"/>
+/// <reference types="google.maps"/>
 /// <reference path="viewporter.d.ts"/>
 
 function test_map() {

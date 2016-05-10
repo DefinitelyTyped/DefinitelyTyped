@@ -3,8 +3,8 @@
 // Definitions by: Stefan Steinhart <https://github.com/reppners>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../localForage/localForage.d.ts" />
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="localForage" />
+/// <reference types="angularjs" />
 
 declare namespace angular.localForage {
 

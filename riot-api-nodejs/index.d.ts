@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../riot-games-api/riot-games-api.d.ts" />
+/// <reference types="riot-games-api" />
 
 
 

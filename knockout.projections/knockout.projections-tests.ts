@@ -1,6 +1,6 @@
 // Tests for knockout.projections.d.ts
 
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="knockout" />
 /// <reference path="knockout.projections.d.ts" />
 
 // Test map

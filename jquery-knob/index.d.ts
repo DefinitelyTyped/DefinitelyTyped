@@ -3,7 +3,7 @@
 // Definitions by: Iain Buchanan <https://github.com/iain8/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 declare namespace JQueryKnob {
 	export interface JQueryKnobOptions {

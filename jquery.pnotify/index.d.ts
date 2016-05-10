@@ -3,7 +3,7 @@
 // Definitions by: David Sichau <https://github.com/DavidSichau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 interface PNotifyStack {
     dir1?: string;

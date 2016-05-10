@@ -3,8 +3,8 @@
 // Definitions by: Igor Sechyn <https://github.com/igorsechyn/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../q/Q.d.ts"/>
-///<reference path="../rx/rx.d.ts"/>
+///<reference types="Q"/>
+///<reference types="rx"/>
 
 declare namespace HystrixJS {
 

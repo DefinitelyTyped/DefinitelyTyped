@@ -3,8 +3,8 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// <reference path="../bluebird/bluebird.d.ts" />
-/// <reference path="../node/node.d.ts" />
+// <reference types="bluebird" />
+/// <reference types="node" />
 
 
 // import Promise = require("bluebird");

@@ -3,7 +3,7 @@
 // Definitions by: Bazyli Brzóska <https://invent.life>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path='../node/node.d.ts' />
+/// <reference types="node" />
 
 declare namespace ParseTorrent {
   export interface ParsedTorrent {

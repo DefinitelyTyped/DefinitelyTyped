@@ -3,7 +3,7 @@
 // Definitions by: Leonardo Chaia <http://github.com/leonardochaia>
 // Definitions: http://github.com/leonardochaia/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 interface JQuery {
     /**
     * Initialize MagicSuggest on this selector

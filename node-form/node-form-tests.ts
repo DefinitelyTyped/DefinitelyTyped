@@ -1,5 +1,5 @@
 /// <reference path="index.d.ts" />
-/// <reference path="../q/Q.d.ts" />
+/// <reference types="Q" />
 
 export interface IPerson{
     Checked:boolean;

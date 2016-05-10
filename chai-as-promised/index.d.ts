@@ -3,8 +3,8 @@
 // Definitions by: jt000 <https://github.com/jt000>, Yuki Kokubun <https://github.com/Kuniwak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../chai/chai.d.ts" />
-/// <reference path="../promises-a-plus/promises-a-plus.d.ts" />
+/// <reference types="chai" />
+/// <reference types="promises-a-plus" />
 
 declare module 'chai-as-promised' {
     function chaiAsPromised(chai: any, utils: any): void;

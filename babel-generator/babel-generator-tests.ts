@@ -1,4 +1,4 @@
-/// <reference path="../babylon/babylon.d.ts" />
+/// <reference types="babylon" />
 /// <reference path="babel-generator.d.ts" />
 
 

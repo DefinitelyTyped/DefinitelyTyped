@@ -3,7 +3,7 @@
 // Definitions by: Mizuki Yamamoto <https://github.com/Syati>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express-session/express-session.d.ts" />
+/// <reference types="express-session" />
 
 import * as express from 'express';
 import * as mongoose from 'mongoose';

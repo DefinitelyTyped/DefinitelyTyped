@@ -1,4 +1,4 @@
-/// <reference path="../auth0/auth0.d.ts" />
+/// <reference types="auth0" />
 /// <reference path="auth0.widget.d.ts" />
 
 var widget: Auth0WidgetStatic = new Auth0Widget({

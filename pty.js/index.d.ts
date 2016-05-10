@@ -3,7 +3,7 @@
 // Definitions by: Vadim Macagon <https://github.com/enlight/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 /** Options that can be used when creating a new pseudo-terminal. */

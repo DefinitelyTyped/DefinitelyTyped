@@ -3,7 +3,7 @@
 // Definitions by: Jacques Kang <https://www.linkedin.com/in/jacqueskang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="angularjs" />
 
 declare namespace ngCordova {
     export interface IAppVersionService {

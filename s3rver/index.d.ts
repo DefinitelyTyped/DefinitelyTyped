@@ -3,7 +3,7 @@
 // Definitions by: David Broder-Rodgers <https://github.com/DavidBR-SW/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 import * as http from "http";

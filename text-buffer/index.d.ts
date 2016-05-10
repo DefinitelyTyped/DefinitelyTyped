@@ -3,9 +3,9 @@
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../atom/atom.d.ts" />
-/// <reference path="../emissary/emissary.d.ts" />
-/// <reference path="../q/Q.d.ts" />
+/// <reference types="atom" />
+/// <reference types="emissary" />
+/// <reference types="Q" />
 
 
 declare namespace TextBuffer {

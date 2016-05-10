@@ -3,7 +3,7 @@
 // Definitions by: Yang Guan <https://github.com/lookuptable>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../leaflet/leaflet.d.ts" />
+/// <reference types="leaflet" />
 
 /*
  * Configuration object of a heatmap

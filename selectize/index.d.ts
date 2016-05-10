@@ -3,7 +3,7 @@
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 declare namespace Selectize {
     // see https://github.com/brianreavis/selectize.js/blob/master/docs/usage.md

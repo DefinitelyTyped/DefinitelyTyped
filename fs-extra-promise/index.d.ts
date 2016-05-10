@@ -5,8 +5,8 @@
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/fs-extra.d.ts via TSD fs-extra definition
 
-///<reference path="../node/node.d.ts"/>
-///<reference path="../bluebird/bluebird.d.ts"/>
+///<reference types="node"/>
+///<reference types="bluebird"/>
 
 
 import stream = require("stream");

@@ -3,7 +3,7 @@
 // Definitions by: Danil Flores <https://github.com/dflor003/>, Michael Lee <https://github.com/leemicw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 interface ILaddaButton {
     start(): ILaddaButton;

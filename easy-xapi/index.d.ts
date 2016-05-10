@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../easy-jsend/easy-jsend.d.ts" />
+/// <reference types="easy-jsend" />
 
 declare namespace Express {
     export interface Request {

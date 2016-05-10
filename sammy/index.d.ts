@@ -3,7 +3,7 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Oisin Grehan <https://github.com/oising>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 declare function Sammy(): Sammy.Application;
 declare function Sammy(selector: string): Sammy.Application;

@@ -3,8 +3,8 @@
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../mocha/mocha.d.ts"/>
-/// <reference path="../node/node.d.ts"/>
+/// <reference types="mocha"/>
+/// <reference types="node"/>
 
 
 declare function mocha(setupOptions?: MochaSetupOptions): NodeJS.ReadWriteStream;

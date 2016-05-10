@@ -3,7 +3,7 @@
 // Definitions by: Xiaohan Zhang <https://github.com/hellochar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 declare namespace Notify {
     interface Options {

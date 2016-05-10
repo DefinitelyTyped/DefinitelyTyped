@@ -3,7 +3,7 @@
 // Definitions by: Joe Skeen <http://github.com/joeskeen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 /** Prevent pipe breaking caused by errors from gulp plugins */
 

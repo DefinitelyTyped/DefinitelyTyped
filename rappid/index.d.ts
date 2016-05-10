@@ -3,7 +3,7 @@
 // Definitions by: Ewout Van Gossum <https://github.com/DenEwout>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jointjs/jointjs.d.ts" />
+/// <reference types="jointjs" />
 
 declare namespace joint{
     namespace ui {

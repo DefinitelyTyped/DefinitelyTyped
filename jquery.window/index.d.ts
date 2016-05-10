@@ -3,7 +3,7 @@
 // Definitions by: Ryan Graham <https://github.com/ryan-codingintrigue/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 declare namespace JQueryWindow {
     // Instance methods

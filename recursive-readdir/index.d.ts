@@ -3,7 +3,7 @@
 // Definitions by: Elisée Maurer <https://github.com/elisee/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 import * as fs from "fs";

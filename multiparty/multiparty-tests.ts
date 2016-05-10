@@ -1,5 +1,5 @@
 
-/// <reference path='../node/node.d.ts' />
+/// <reference types="node" />
 import multiparty = require('multiparty');
 import http = require('http');
 import util = require('util');

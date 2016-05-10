@@ -3,7 +3,7 @@
 // Definitions by: Keita Kagurazaka <https://github.com/k-kagurazaka>, Tom X. Tobin <http://tomxtobin.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts"/>
+/// <reference types="node"/>
 
 
 interface IMergedStream extends NodeJS.ReadWriteStream {

@@ -3,7 +3,7 @@
 // Definitions by: inversify <https://github.com/inversify>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference types="bluebird" />
 
 declare namespace inversify {
 

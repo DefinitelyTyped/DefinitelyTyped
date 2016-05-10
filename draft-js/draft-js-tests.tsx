@@ -1,6 +1,6 @@
 
-/// <reference path="../react/react-global.d.ts" />
-/// <reference path="../react/react-dom.d.ts"/>
+/// <reference types="react-global" />
+/// <reference types="react-dom"/>
 
 import * as React from "react";
 

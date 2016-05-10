@@ -1,4 +1,4 @@
-/// <reference path="../meteor/meteor.d.ts" />
+/// <reference types="meteor" />
 /// <reference path="meteor-roles.d.ts" />
 
 import * as _ from 'underscore';

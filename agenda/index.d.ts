@@ -3,7 +3,7 @@
 // Definitions by: Meir Gottlieb <https://github.com/meirgottlieb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path='../node/node.d.ts' />
+/// <reference types="node" />
 
 import {EventEmitter} from "events";
 import {Db, Collection, ObjectID} from "mongodb";

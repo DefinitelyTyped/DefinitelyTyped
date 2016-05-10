@@ -1,5 +1,5 @@
-/// <reference path="../../../three.d.ts" />
-/// <reference path="../../../three-vrcontrols.d.ts" />
+/// <reference types="three" />
+/// <reference types="three-vrcontrols" />
 
 var _vrControls = new THREE.VRControls(new THREE.Camera());
 

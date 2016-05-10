@@ -3,7 +3,7 @@
 // Definitions by: Haoqun Jiang <https://github.com/sodatea>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 import tape = require('tape');
 export = tape;

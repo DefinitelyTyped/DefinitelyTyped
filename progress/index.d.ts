@@ -3,7 +3,7 @@
 // Definitions by: Sebastian Lenz <https://github.com/sebastian-lenz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts"/>
+/// <reference types="node"/>
 
 
 

@@ -3,7 +3,7 @@
 // Definitions by: Robert Fonseca-Ensor <http://www.robfe.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 interface JQueryMenuAimOptions {
     /** Function to call when a row is purposefully activated. Use this

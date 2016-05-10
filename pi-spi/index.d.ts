@@ -3,7 +3,7 @@
 // Definitions by: Marcel Ernst <https://github.com/marcel-ernst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare namespace __PI_SPI {
     

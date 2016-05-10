@@ -1,4 +1,4 @@
-﻿/// <reference path="../cordova/plugins/Push.d.ts" />
+﻿/// <reference types="Push" />
 /// <reference path="./cordova-plugin-insomnia.d.ts" />
 
 window.plugins.insomnia.allowSleepAgain(

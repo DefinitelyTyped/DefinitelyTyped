@@ -5,7 +5,7 @@
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/imagemagick.d.ts
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 import child_process = require("child_process");

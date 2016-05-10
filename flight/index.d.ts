@@ -3,7 +3,7 @@
 // Definitions by: Jonathan Hedrén <https://github.com/jonathanhedren/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 declare namespace Flight {
 

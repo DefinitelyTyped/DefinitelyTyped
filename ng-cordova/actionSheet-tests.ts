@@ -1,5 +1,5 @@
 /// <reference path="tsd.d.ts" />
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="angularjs" />
 
 namespace ngCordova {
     'use strict';

@@ -3,8 +3,8 @@
 // Definitions by: Stefan Steinhart <https://github.com/reppners>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../js-data/js-data.d.ts" />
-/// <reference path="../angularjs/angularjs.d.ts" />
+/// <reference types="js-data" />
+/// <reference types="angularjs" />
 
 declare namespace JSData {
 

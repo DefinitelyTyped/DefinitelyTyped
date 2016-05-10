@@ -3,7 +3,7 @@
 // Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev/>, Philipp Holzer <https://github.com/nupplaphil/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts"/>
+/// <reference types="react"/>
 
 
 import React = require('react');

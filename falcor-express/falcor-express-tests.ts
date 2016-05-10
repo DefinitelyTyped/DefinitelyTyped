@@ -1,6 +1,6 @@
 
-/// <reference path="../falcor/falcor.d.ts" />
-/// <reference path="../falcor-router/falcor-router.d.ts" />
+/// <reference types="falcor" />
+/// <reference types="falcor-router" />
 
 import express = require('express');
 import Router = require('falcor-router');

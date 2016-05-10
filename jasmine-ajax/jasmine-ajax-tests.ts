@@ -3,7 +3,7 @@
  * By Louis Grignon
  */
 
-/// <reference path="../jasmine/jasmine.d.ts" />
+/// <reference types="jasmine" />
 /// <reference path="jasmine-ajax.d.ts" />
 
 declare function getJasmineRequireObj();

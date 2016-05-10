@@ -1,6 +1,6 @@
-/// <reference path="../jasmine/jasmine.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../jasmine-jquery/jasmine-jquery.d.ts" />
+/// <reference types="jasmine" />
+/// <reference types="jquery" />
+/// <reference types="jasmine-jquery" />
 /// <reference path="jasmine-fixture.d.ts" />
 
 describe("Jasmine fixture extension", () => {

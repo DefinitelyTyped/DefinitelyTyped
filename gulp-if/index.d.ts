@@ -3,7 +3,7 @@
 // Definitions by: Asana <https://asana.com>, Joe Skeen <http://github.com/joeskeen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts"/>
+/// <reference types="node"/>
 
 import fs = require('fs');
 import vinyl = require('../vinyl');

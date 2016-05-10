@@ -1,4 +1,4 @@
-/// <reference path="../googlemaps/google.maps.d.ts" />
+/// <reference types="google.maps" />
 /// <reference path="google.maps.infobubble.d.ts" />
 
 function test_options() {

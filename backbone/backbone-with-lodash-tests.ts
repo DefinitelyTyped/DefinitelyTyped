@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path='../lodash/lodash-3.10.d.ts' />
+/// <reference types="jquery" />
+/// <reference types="lodash-3.10" />
 
 namespace WithLoDash {
     function test_events() {

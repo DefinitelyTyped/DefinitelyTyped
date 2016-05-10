@@ -1,6 +1,6 @@
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 /// <reference path="jquery-mockjax.d.ts"/>
-/// <reference path="../qunit/qunit.d.ts" />
+/// <reference types="qunit" />
 
 class Tests {
     private _noErrorCallbackExpected: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any;

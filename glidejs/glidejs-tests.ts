@@ -1,5 +1,5 @@
 ///<reference path="glidejs.d.ts" />
-///<reference path="../jquery/jquery.d.ts" />
+///<reference types="jquery" />
 
 // Copied from documentation
 $('.slider').glide();

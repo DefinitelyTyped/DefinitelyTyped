@@ -3,7 +3,7 @@
 // Definitions by: Elisée Maurer <https://sparklinlabs.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 
 import fs = require("fs");
