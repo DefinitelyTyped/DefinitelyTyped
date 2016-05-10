@@ -1,4 +1,4 @@
-/// <reference path="pouch.d.ts" />
+
 
 window.alert = function (thing?: string) {    
     var div = document.createElement('div');

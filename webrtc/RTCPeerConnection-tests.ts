@@ -1,5 +1,5 @@
-/// <reference path="MediaStream.d.ts" />
-/// <reference path="RTCPeerConnection.d.ts" />
+
+
 
 var config: RTCConfiguration =
     { iceServers: [{ urls: "stun.l.google.com:19302" }] };

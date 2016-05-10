@@ -1,4 +1,4 @@
-﻿/// <reference path="multiplexjs.d.ts" />
+﻿
 /// <reference types="qunit"/>
 
 

@@ -1,5 +1,5 @@
 /// <reference types="auth0" />
-/// <reference path="auth0.lock.d.ts" />
+
 
 var lock: Auth0LockStatic = new Auth0Lock("dsa7d77dsa7d7", "mine.auth0.com");
 

@@ -1,4 +1,4 @@
-/// <reference path="react-global.d.ts" />
+
 
 interface Props {
     hello: string;

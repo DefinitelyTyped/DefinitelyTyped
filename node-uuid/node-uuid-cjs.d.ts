@@ -3,7 +3,7 @@
 // Definitions by: Jeff May <https://github.com/jeffmay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./node-uuid-base.d.ts" />
+
 
 /**
  * Expose as CommonJS module

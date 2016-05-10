@@ -1,4 +1,4 @@
-/// <reference path="yamljs.d.ts" />
+
 
 import yamljs = require('yamljs');
 

@@ -1,4 +1,4 @@
-/// <reference path="inversify.d.ts" />
+
 
 import {
     Kernel,

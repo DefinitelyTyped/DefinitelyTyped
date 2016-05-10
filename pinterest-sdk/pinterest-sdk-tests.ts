@@ -1,4 +1,4 @@
-/// <reference path="pinterest-sdk.d.ts" />
+
 
 // Examples from https://github.com/pinterest/pinterest-api-demo
 

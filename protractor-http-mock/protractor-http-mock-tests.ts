@@ -1,4 +1,4 @@
-/// <reference path="./protractor-http-mock.d.ts" />
+
 
 function TestConfig() {
     mock.config = {

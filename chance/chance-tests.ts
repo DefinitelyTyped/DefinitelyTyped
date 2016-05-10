@@ -1,4 +1,4 @@
-/// <reference path="chance.d.ts" />
+
 
 // Instantiation
 var globalInstance: Chance.Chance = chance;

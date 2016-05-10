@@ -1,4 +1,4 @@
-/// <reference path="ko.plus.d.ts" />
+
 /// <reference types="knockout" />
 
 // Tests for ko.plus.d.ts

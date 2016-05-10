@@ -1,4 +1,4 @@
-/// <reference path="timezonecomplete.d.ts" />
+
 
 import tc = require("timezonecomplete");
 

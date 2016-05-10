@@ -1,4 +1,4 @@
-/// <reference path="babel-template.d.ts" />
+
 /// <reference types="babel-generator" />
 /// <reference types="babel-types" />
 

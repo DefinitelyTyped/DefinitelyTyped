@@ -1,4 +1,4 @@
-/// <reference path="kuromoji.d.ts" />
+
 
 // From https://github.com/takuyaa/kuromoji.js/blob/master/README.md#usage
 kuromoji.builder({ dicPath: "/url/to/dictionary/dir/" }).build(function (err, tokenizer) {

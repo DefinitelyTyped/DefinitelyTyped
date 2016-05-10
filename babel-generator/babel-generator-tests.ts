@@ -1,5 +1,5 @@
 /// <reference types="babylon" />
-/// <reference path="babel-generator.d.ts" />
+
 
 
 // Example from https://github.com/babel/babel/tree/master/packages/babel-generator

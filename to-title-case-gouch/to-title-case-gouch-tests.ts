@@ -1,5 +1,5 @@
 /// <reference types="node" />
-/// <reference path="to-title-case-gouch.d.ts" />
+
 
 import fs = require('fs');
 

@@ -1,4 +1,4 @@
-/// <reference path="angular-mocks.d.ts" />
+
 
 ///////////////////////////////////////
 // IAngularStatic

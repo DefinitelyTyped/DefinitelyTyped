@@ -1,4 +1,4 @@
-/// <reference path="segment-analytics.d.ts" />
+
 /// <reference types="jquery" />
 
 // Some random vals to use

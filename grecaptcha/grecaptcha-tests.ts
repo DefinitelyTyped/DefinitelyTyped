@@ -1,4 +1,4 @@
-/// <reference path="grecaptcha.d.ts" />
+
 
 var params: ReCaptchaV2.Parameters = {
   "sitekey": "mySuperSecretKey",

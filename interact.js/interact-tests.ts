@@ -1,4 +1,4 @@
-/// <reference path="./interact.d.ts" />
+
 
 import interact = require("interact");
 

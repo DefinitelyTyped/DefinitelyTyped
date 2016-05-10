@@ -139,7 +139,7 @@ declare namespace cola.vpsc {
     }
 }
 
-/// <reference path="rbtree.d.ts" />
+
 declare namespace cola.vpsc {
     interface Point {
         x: number;
@@ -682,9 +682,9 @@ declare namespace cola.shortestpaths {
 }
 
 
-/// <reference path="descent.d.ts" />
 
-/// <reference path="linklengths.d.ts" />
+
+
 
 /**
  * @module cola
@@ -974,10 +974,10 @@ declare namespace cola {
      */
     function d3adaptor(): D3StyleLayoutAdaptor;
 }
-/// <reference path="rectangle.d.ts" />
-/// <reference path="shortestpaths.d.ts" />
-/// <reference path="geom.d.ts" />
-/// <reference path="vpsc.d.ts" />
+
+
+
+
 declare namespace cola {
     interface NodeAccessor<Node> {
         getChildren(v: Node): number[];

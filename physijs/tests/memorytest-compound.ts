@@ -1,5 +1,5 @@
 /// <reference types="stats" />
-/// <reference path="../physijs.d.ts" />
+
 
 
 Physijs.scripts.worker = '../physijs_worker.js';

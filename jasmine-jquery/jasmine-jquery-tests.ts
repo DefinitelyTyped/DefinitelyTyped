@@ -1,6 +1,6 @@
 /// <reference types="jasmine" />
 /// <reference types="jquery" />
-/// <reference path="jasmine-jquery.d.ts" />
+
 
 describe("Jasmine jQuery extension", () => {
     it("Adds jQuery matchers", () => {

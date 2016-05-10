@@ -1,4 +1,4 @@
-/// <reference path="./makerjs.d.ts" />
+
 
 function test() {
 	

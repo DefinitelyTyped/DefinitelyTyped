@@ -1,4 +1,4 @@
-/// <reference path="express-minify.d.ts" />
+
 
 import express = require('express');
 import minify = require('express-minify');

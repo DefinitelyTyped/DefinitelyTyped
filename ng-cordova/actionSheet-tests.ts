@@ -1,4 +1,4 @@
-/// <reference path="tsd.d.ts" />
+
 /// <reference types="angularjs" />
 
 namespace ngCordova {

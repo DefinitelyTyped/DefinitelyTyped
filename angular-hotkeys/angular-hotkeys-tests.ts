@@ -1,5 +1,5 @@
 /// <reference types="angularjs" />
-/// <reference path="angular-hotkeys.d.ts" />
+
 
 var scope: ng.IScope;
 var hotkeyProvider: ng.hotkeys.HotkeysProvider;

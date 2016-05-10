@@ -1,4 +1,4 @@
-/// <reference path="./easy-session.d.ts" />
+
 /// <reference types="express-session" />
 
 import express = require('express');

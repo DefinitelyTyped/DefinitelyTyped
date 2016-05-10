@@ -4,7 +4,7 @@
 
 /// <reference types="Q" />
 /// <reference types="node" />
-/// <reference path="nedb.d.ts" />
+
 
 import Q = require('q');
 import nedb = require('nedb');

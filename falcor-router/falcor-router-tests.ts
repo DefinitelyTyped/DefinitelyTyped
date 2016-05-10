@@ -1,4 +1,4 @@
-/// <reference path="falcor-router.d.ts" />
+
 
 import falcor = require('falcor');
 import Router = require('falcor-router');

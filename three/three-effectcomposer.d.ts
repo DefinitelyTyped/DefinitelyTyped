@@ -3,9 +3,9 @@
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./three.d.ts" />
-/// <reference path="./three-shaderpass.d.ts" />
-/// <reference path="./three-copyshader.d.ts" />
+
+
+
 
 declare namespace THREE {
 	export class EffectComposer {

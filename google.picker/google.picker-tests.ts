@@ -1,4 +1,4 @@
-/// <reference path="google.picker.d.ts" />
+
 
 var createPicker = () => {
     var picker = new google.picker.PickerBuilder()

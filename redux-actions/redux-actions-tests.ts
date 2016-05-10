@@ -1,4 +1,4 @@
-/// <reference path="./redux-actions.d.ts" />
+
 
 const minimalAction: ReduxActions.Action = { type: 'INCREMENT' };
 const richerAction: ReduxActions.Action = {

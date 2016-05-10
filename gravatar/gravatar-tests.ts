@@ -1,4 +1,4 @@
-/// <reference path="gravatar.d.ts" />
+
 
 import gravatar = require('gravatar');
 

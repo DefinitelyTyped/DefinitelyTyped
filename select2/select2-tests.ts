@@ -1,5 +1,5 @@
 /// <reference types="jquery" />
-/// <reference path="select2.d.ts" />
+
 
 $("#e9").select2();
 $("#e2").select2({

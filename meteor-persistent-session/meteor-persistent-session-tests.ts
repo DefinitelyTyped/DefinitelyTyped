@@ -1,4 +1,4 @@
-/// <reference path="meteor-persistent-session.d.ts" />
+
 
 Session.setTemp('a', 'a');
 Session.setPersistent('a', 'a');

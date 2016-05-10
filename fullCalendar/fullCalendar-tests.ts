@@ -1,4 +1,4 @@
-/// <reference path="index.d.ts" />
+
 /// <reference types="jquery"/>
 /// <reference types="jqueryui"/>
 

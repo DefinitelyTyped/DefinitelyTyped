@@ -1,4 +1,4 @@
-/// <reference path="angular-notifications.d.ts" />
+
 
 var myapp = angular.module("myapp", ["notifications"]);
 

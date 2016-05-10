@@ -1,5 +1,5 @@
 // https://github.com/mde/jake
-/// <reference path="jake.d.ts" />
+
 
 import path = require("path");
 

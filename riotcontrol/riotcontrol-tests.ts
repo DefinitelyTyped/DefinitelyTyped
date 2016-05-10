@@ -1,4 +1,4 @@
-/// <reference path="./riotcontrol.d.ts" />
+
 
 import riotcontrol = require('riotcontrol');
 

@@ -1,4 +1,4 @@
-/// <reference path="levelup.d.ts" />
+
 
 import levelup = require("levelup");
 

@@ -1,4 +1,4 @@
-/// <reference path="DataStream.js.d.ts" />
+
 
 var buf = new ArrayBuffer(100);
 var ds = new DataStream(buf);

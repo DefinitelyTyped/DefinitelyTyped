@@ -1,4 +1,4 @@
-/// <reference path="chai-as-promised.d.ts" />
+
 /// <reference types="promises-a-plus" />
 /// <reference types="Q" />
 

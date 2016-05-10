@@ -1,4 +1,4 @@
-/// <reference path="bookshelf.d.ts" />
+
 
 import * as Knex from 'knex';
 import * as Bookshelf from 'bookshelf';

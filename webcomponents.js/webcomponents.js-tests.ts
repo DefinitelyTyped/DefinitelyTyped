@@ -1,4 +1,4 @@
-/// <reference path="webcomponents.js.d.ts" />
+
 
 /*
  * Custom Elements

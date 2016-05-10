@@ -1,5 +1,5 @@
 /// <reference types="qunit" />
-/// <reference path="jquery.bbq.d.ts" />
+
 
 
 // ************** Tests to jquery JQueryParam interface

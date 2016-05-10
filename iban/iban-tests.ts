@@ -1,4 +1,4 @@
-/// <reference path="iban.d.ts" />
+
 
 /**
  * @summary Test for "electronicFormat" method.

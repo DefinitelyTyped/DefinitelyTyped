@@ -1,4 +1,4 @@
-/// <reference path="md5.d.ts" />
+
 
 var hash: string;
 hash = CybozuLabs.MD5.calc("abc");

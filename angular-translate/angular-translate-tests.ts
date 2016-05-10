@@ -1,4 +1,4 @@
-/// <reference path="angular-translate.d.ts" />
+
 
 var app = angular.module('at', ['pascalprecht.translate']);
 

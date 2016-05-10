@@ -1,4 +1,4 @@
-/// <reference path="gamequery.d.ts" />
+
 
 //Original examples: https://github.com/onaluf/gameQuery/tree/master/tests/human
 

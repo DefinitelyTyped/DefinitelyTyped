@@ -1,4 +1,4 @@
-/// <reference path="text-encoding.d.ts" />
+
 
 function test_encoder() {
     var text = "plain text";

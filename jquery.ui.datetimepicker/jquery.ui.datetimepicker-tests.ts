@@ -1,5 +1,5 @@
 /// <reference types="jquery"/>
-/// <reference path="jquery.ui.datetimepicker.d.ts" />
+
 
 // basic no options
 $('#datetimepicker').datetimepicker({

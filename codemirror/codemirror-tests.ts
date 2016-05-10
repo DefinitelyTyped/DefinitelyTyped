@@ -1,4 +1,4 @@
-/// <reference path="codemirror.d.ts" />
+
 
 var myCodeMirror: CodeMirror.Editor = CodeMirror(document.body);
 

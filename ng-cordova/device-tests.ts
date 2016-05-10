@@ -1,4 +1,4 @@
-/// <reference path="device.d.ts" />
+
 /// <reference types="angularjs" />
 /// <reference types="ionic" />
 

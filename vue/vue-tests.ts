@@ -1,4 +1,4 @@
-/// <reference path="vue.d.ts" />
+
 
 namespace TestConfig {
   "use strict";

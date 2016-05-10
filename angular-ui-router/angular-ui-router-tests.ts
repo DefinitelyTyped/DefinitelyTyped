@@ -1,4 +1,4 @@
-/// <reference path="angular-ui-router.d.ts" />
+
 
 var myApp = angular.module('testModule');
 

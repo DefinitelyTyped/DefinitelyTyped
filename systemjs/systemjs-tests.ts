@@ -1,4 +1,4 @@
-/// <reference path="systemjs.d.ts" />
+
 
 import System = require('systemjs');
 

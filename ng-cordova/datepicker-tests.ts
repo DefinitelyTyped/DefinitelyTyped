@@ -1,4 +1,4 @@
-/// <reference path="datepicker.d.ts" />
+
 /// <reference types="jquery" />
 
 namespace ngCordova {

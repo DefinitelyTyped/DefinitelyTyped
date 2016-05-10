@@ -5,7 +5,7 @@
 */
 
 /// <reference types="node" />
-/// <reference path="npm.d.ts" />
+
 
 import npm = require("npm");
 

@@ -1,4 +1,4 @@
-/// <reference path="jquery.d.ts" />
+
 
 function test_add() {
     $("p").add("div").addClass("widget");

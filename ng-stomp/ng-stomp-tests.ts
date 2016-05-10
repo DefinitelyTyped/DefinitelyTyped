@@ -1,5 +1,5 @@
 /// <reference types="angularjs" />
-/// <reference path="ng-stomp.d.ts" />
+
 
 namespace ngStompTesting {
 

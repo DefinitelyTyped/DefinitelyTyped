@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference path="node-ffi-buffer.d.ts" />
+
 
 declare module "ffi" {
     import ref = require('ref');

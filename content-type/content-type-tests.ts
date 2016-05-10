@@ -1,4 +1,4 @@
-/// <reference path="content-type.d.ts" />
+
 
 import MediaType = require('content-type');
 

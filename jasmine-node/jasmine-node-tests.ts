@@ -3,7 +3,7 @@
 // Definitions by: Sven Reglitzki <https://github.com/svi3c/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="jasmine-node.d.ts" />
+
 
 it("should have a timeout parameter", () => {}, 1000);
 it("should have an optional timeout parameter", () => {});

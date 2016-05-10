@@ -1,6 +1,6 @@
 // Licensed under the MIT license.
 
-/// <reference path="StatusBar.d.ts" />
+
 
 var statusBar: StatusBar = window.StatusBar;
 statusBar.overlaysWebView(true);

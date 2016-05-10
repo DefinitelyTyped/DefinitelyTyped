@@ -3,7 +3,7 @@
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./three.d.ts" />
+
 
 declare namespace THREE {
     export class VREffect {

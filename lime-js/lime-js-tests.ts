@@ -1,4 +1,4 @@
-/// <reference path="./lime-js.d.ts" />
+
 
 var transport = new Lime.WebSocketTransport(true);
 var clientChannel = new Lime.ClientChannel(transport, true, true);

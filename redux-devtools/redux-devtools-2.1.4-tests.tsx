@@ -1,4 +1,4 @@
-/// <reference path="redux-devtools-2.1.4.d.ts" />
+
 /// <reference types="redux" />
 /// <reference types="react" />
 

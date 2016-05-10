@@ -1,5 +1,5 @@
 /// <reference types="jquery" />
-/// <reference path="selectize.d.ts" />
+
 
 var $input = $(".test-input").selectize();
 var testApi = $input[0].selectize;

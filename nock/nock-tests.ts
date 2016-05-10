@@ -1,4 +1,4 @@
-/// <reference path="nock.d.ts" />
+
 
 import nock = require('nock');
 

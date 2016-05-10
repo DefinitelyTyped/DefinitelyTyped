@@ -1,4 +1,4 @@
-/// <reference path="toast.d.ts" />
+
 /// <reference types="angularjs" />
 /// <reference types="ionic" />
 

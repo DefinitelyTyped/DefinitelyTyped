@@ -1,5 +1,5 @@
 // Test file for Google Maps JavaScript API Definition file
-/// <reference path="material-design-lite.d.ts" />
+
 
 componentHandler.upgradeDom();
 componentHandler.upgradeDom('MaterialButton');

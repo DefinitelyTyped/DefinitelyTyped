@@ -1,5 +1,5 @@
 ﻿/// <reference types="jquery" />
-/// <reference path="jquery.menuaim.d.ts" />
+
 $('div').menuAim({
     activate: function () { },
     deactivate: function () { },

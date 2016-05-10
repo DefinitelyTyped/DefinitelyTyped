@@ -1,4 +1,4 @@
-/// <reference path="angular-notify.d.ts" />
+
 
 var myapp = angular.module("myapp", ["cgNotify"]);
 

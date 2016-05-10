@@ -1,4 +1,4 @@
-/// <reference path="./history.d.ts" />
+
 
 import { createHistory, createLocation, useBeforeUnload, useQueries, useBasename } from 'history'
 import { getUserConfirmation } from 'history/lib/DOMUtils'

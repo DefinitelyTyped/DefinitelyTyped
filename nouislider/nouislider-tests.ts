@@ -1,4 +1,4 @@
-/// <reference path="nouislider.d.ts" />
+
 
 var testHtmlElement = document.getElementById('test');
 

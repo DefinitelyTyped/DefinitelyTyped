@@ -1,4 +1,4 @@
-/// <reference path="electron-prebuilt.d.ts" />
+
 /// <reference types="node" />
 
 import electron = require('electron-prebuilt');
