@@ -1,6 +1,6 @@
 {
     "files": [
-        "business-rules-engine.d.ts",
+        "index.d.ts",
         "business-rules-engine-tests.ts"
     ],
     "compilerOptions": {

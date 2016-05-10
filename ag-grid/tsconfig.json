@@ -1,6 +1,6 @@
 {
     "files": [
-        "ag-grid.d.ts",
+        "index.d.ts",
         "ag-grid-tests.ts"
     ],
     "compilerOptions": {

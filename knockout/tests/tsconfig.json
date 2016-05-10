@@ -6,5 +6,9 @@
         "strictNullChecks": false,
         "baseUrl": "../../",
         "typesRoot": "../../"
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "knockout-templatingBehaviors-tests.ts"
+    ]
 }

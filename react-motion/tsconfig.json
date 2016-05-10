@@ -7,5 +7,9 @@
         "baseUrl": "../",
         "jsx": "react",
         "typesRoot": "../"
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "react-motion-tests.tsx"
+    ]
 }

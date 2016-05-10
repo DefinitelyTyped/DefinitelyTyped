@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "redux-devtools-tests.tsx"
+        "redux-devtools-2.1.4-tests.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",

@@ -1,6 +1,6 @@
 {
     "files": [
-        "sencha_touch.d.ts",
+        "index.d.ts",
         "SenchaTouch-Tests.ts"
     ],
     "compilerOptions": {

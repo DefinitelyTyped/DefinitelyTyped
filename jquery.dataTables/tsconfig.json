@@ -1,6 +1,6 @@
 {
     "files": [
-        "jquery.dataTables.d.ts",
+        "index.d.ts",
         "jquery.dataTables-tests.ts"
     ],
     "compilerOptions": {

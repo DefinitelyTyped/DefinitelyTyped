@@ -8,5 +8,9 @@
         "jsx": "react",
         "experimentalDecorators": true,
         "typesRoot": "../"
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "radium-tests.tsx"
+    ]
 }

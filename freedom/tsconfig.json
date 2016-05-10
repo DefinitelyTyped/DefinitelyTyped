@@ -1,6 +1,6 @@
 {
     "files": [
-        "freedom-core.env.d.ts",
+        "index.d.ts",
         "freedom-tests.ts"
     ],
     "compilerOptions": {

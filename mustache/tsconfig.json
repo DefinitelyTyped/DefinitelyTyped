@@ -1,7 +1,7 @@
 {
     "files": [
-        "mustache.d.ts",
-        "mustache-tests.ts"
+        "index.d.ts",
+        "mustache-0.7.3-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

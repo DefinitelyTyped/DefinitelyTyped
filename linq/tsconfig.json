@@ -1,7 +1,7 @@
 {
     "files": [
-        "linq.d.ts",
-        "linq-tests.d.ts"
+        "index.d.ts",
+        "linq-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

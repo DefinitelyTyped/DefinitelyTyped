@@ -1,6 +1,6 @@
 {
     "files": [
-        "webix.d.ts",
+        "index.d.ts",
         "webix-tests.ts"
     ],
     "compilerOptions": {

@@ -1,7 +1,7 @@
 {
     "files": [
-        "react-router-redux.d.ts",
-        "react-router-redux-tests.ts"
+        "index.d.ts",
+        "react-router-redux-2.x-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

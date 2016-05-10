@@ -7,5 +7,9 @@
         "baseUrl": "../",
         "experimentalDecorators": true,
         "typesRoot": "../"
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "pure-render-decorator-tests.ts"
+    ]
 }

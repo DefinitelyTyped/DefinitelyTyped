@@ -1,6 +1,6 @@
 {
     "files": [
-        "devextreme.d.ts",
+        "index.d.ts",
         "devextreme-tests.ts"
     ],
     "compilerOptions": {

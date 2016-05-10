@@ -1,7 +1,7 @@
 {
     "files": [
-        "tv4.d.ts",
-        "tv4-tests.d.ts"
+        "index.d.ts",
+        "tv4-1.2.4-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
