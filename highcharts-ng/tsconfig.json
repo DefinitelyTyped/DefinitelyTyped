@@ -5,7 +5,10 @@
         "noImplicitAny": true,
         "strictNullChecks": false,
         "baseUrl": "../",
-        "typesSearchPaths": ["../"]
+        "typesSearchPaths": [
+            "../"
+        ],
+        "noEmit": true
     },
     "files": [
         "index.d.ts",
