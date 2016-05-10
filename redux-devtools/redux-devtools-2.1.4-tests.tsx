@@ -1,10 +1,9 @@
-
 /// <reference types="redux" />
 /// <reference types="react" />
 
 import { compose, createStore, applyMiddleware, Middleware, Reducer } from 'redux';
 import { createDevTools as devTools, persistState } from 'redux-devtools';
-import { LogMonitor } from 'redux-devtools-log-monitor';
+import LogMonitor from 'redux-devtools-log-monitor';
 import * as React from 'react';
 import { Component } from 'react';
 

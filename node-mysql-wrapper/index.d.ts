@@ -3,11 +3,7 @@
 // Definitions by: Makis Maropoulos <https://github.com/kataras>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-///<reference path='./../bluebird/bluebird.d.ts' />
 ///<reference path="./my-meteor.d.ts" />
-
-
 
 import * as Mysql from 'mysql';
 import * as Promise from 'bluebird';

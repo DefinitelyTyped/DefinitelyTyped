@@ -1,7 +1,6 @@
 /// <reference types="jquery" />
 /// <reference types="knockout" />
 
-
 function test_asyncCommand() {
     var saveCmd = ko.asyncCommand({
         execute: function (complete) {

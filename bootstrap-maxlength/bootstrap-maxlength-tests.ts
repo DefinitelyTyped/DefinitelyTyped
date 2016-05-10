@@ -1,4 +1,3 @@
-/// <reference path="bootstrap-maxlength.d.ts"/>
 /// <reference types="jquery"/>
 
 // Examples from the projects github page

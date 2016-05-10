@@ -1,5 +1,4 @@
-﻿///<reference path="SharePoint.d.ts" />
-///<reference types="angularjs" />
+﻿///<reference types="angularjs" />
 ///<reference types="knockout" />
 ///<reference types="jquery" />
 

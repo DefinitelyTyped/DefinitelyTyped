@@ -3,7 +3,7 @@
 // Definitions by: oliver Weichhold <https://github.com/oliverw>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference types="rx.all" />
+/// <reference types="rx" />
 
 declare module Rx.DOM {
     export interface AjaxSettings {

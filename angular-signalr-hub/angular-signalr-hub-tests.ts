@@ -1,5 +1,3 @@
-/// <reference path='angular-signalr-hub.d.ts' />
-
 angular
     .module('app', ['SignalR'])
     .factory('Employees', ngSignalrTest.EmployeesFactory);

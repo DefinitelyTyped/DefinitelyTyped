@@ -1,6 +1,4 @@
-﻿/// <reference path="hypertext-application-language.d.ts"/>
-
-// Link object
+﻿// Link object
 
 // Fields format:
 var link:Hal.Link = {

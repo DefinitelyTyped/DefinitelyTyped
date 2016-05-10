@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="knockout" />
-/// <reference types="index" />
+/// <reference types="backbone" />
 
 declare namespace Knockback {
     interface EventWatcherOptions {

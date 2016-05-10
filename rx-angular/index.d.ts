@@ -5,7 +5,6 @@
 
 /// <reference types="angularjs" />
 /// <reference types="rx" />
-/// <reference types="rx.time" />
 
 declare namespace Rx {
 

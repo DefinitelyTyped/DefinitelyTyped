@@ -1,4 +1,3 @@
-///<reference path="eventemitter3.d.ts" />
 ///<reference types="node" />
 ///<reference types="mocha" />
 'use strict';

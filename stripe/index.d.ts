@@ -3,6 +3,8 @@
 // Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>, Eric J. Smith <https://github.com/ejsmith/>, Amrit Kahlon <https://github.com/amritk/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="stripe-node.d.ts" />
+
 interface StripeStatic {
     setPublishableKey(key: string): void;
     validateCardNumber(cardNumber: string): boolean;

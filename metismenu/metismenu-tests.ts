@@ -1,5 +1,4 @@
 /// <reference types="jquery"/>
-/// <reference path="metismenu.d.ts"/>
 
 $('#menu').metisMenu();
 $('.metismenu').metisMenu({toggle: false});

@@ -3,9 +3,9 @@
 // Definitions by: Gia Bảo @ Sân Đình <https://github.com/giabao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="yui-test.d.ts" />
 
-
-interface YUI{
+interface YUI {
     Test: YUITest.YUITestStatic
     Assert: YUITest.IAssert
 

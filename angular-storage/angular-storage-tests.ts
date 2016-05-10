@@ -1,5 +1,3 @@
-/// <reference path='angular-storage.d.ts' />
-
 // Samples taken from the a0-angular-storage Readme.md
 
 var app = angular.module('angular-storage-tests', ['angular-storage']);

@@ -3,10 +3,7 @@
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-/// <reference types="nodemailer-types" />
-
-
+import * as nodemailer from 'nodemailer';
 
 declare namespace directTransport {
 

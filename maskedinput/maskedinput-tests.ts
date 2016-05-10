@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="jquery" />
-///<reference path="maskedinput.d.ts" />
 
 $("#test").mask("9:000");
 $("#test").mask("9:000", { numeric: true });

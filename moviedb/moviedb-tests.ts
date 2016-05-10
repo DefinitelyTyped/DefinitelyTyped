@@ -1,6 +1,3 @@
-
-/// <reference path="./moviedb.d.ts"/>
-
 import moviedb = require('moviedb');
 
 export class TmbdMovieScanner {

@@ -1,6 +1,3 @@
-/// <reference path="./favico.js.d.ts"/>
-
-
 // constructor options
 
 var plain = (): favicojs.Favico => new Favico({

@@ -3,7 +3,7 @@
 // Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="MediaStream"/>
+/// <reference types="webrtc" />
 /// <reference types="filesystem" />
 
 ////////////////////

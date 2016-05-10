@@ -1,5 +1,3 @@
-///<reference path="./rosie.d.ts" />
-
 let resultObj: Object;
 let resultFactory: rosie.IFactory;
 

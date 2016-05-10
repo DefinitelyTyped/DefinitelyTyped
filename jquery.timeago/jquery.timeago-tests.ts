@@ -1,5 +1,4 @@
 ﻿/// <reference types="jquery"/>
-/// <reference path="jquery.timeago.d.ts"/>
 
 // Basic usage
 

@@ -3,27 +3,27 @@
 // Definitions by: Sumit <https://github.com/sumitkm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="eventemitter2" />
+/// <reference types="eventemitter2" />
 
-declare interface  DeltaStatic{
-	ops? : Array<any>;
-	retain?: any,
-	delete?: any,
-	insert?: any,
-	attributes?: any
+declare interface DeltaStatic {
+    ops?: Array<any>;
+    retain?: any,
+    delete?: any,
+    insert?: any,
+    attributes?: any
 }
 
-declare interface RangeStatic{
-	new(): RangeStatic;
-	start: number;
-	end: number;
+declare interface RangeStatic {
+    new (): RangeStatic;
+    start: number;
+    end: number;
 }
 
 declare interface QuillStatic {
-	new(selector: string, options?: Object):QuillStatic;
+    new (selector: string, options?: Object): QuillStatic;
 
     on(eventName: string, callback: (delta: DeltaStatic, source: string) => void): EventEmitter2;
-    addModule(id: string, options: any) : Object;
+    addModule(id: string, options: any): Object;
 
     getText(): string;
     getText(start: number): string;
@@ -40,7 +40,7 @@ declare interface QuillStatic {
     insertText(index: number, text: string): void;
     insertText(index: number, text: string, name: string, value: string): void;
     insertText(index: number, text: string, formats: any): void;
-    insertText(index: number, text: string, source: string) : void;
+    insertText(index: number, text: string, source: string): void;
     insertText(index: number, text: string, name: string, value: string, source: string): void;
     insertText(index: number, text: string, formats: any, source: string): void;
 
@@ -102,14 +102,14 @@ declare interface QuillStatic {
 
 declare module "Range"
 {
-	var Range: RangeStatic;
-	export = Range;
+    var Range: RangeStatic;
+    export = Range;
 }
 
 declare var Delta: DeltaStatic;
 
-declare module "Delta"{
-	export = Delta;
+declare module "Delta" {
+    export = Delta;
 }
 
 declare var Quill: QuillStatic;

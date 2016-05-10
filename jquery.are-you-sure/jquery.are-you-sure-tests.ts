@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery"/>
-/// <reference path="jquery.are-you-sure.d.ts"/>
 
 //Use defaults
 $("test").areYouSure();

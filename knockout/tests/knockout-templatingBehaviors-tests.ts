@@ -1,6 +1,4 @@
 /// <reference types="jasmine" />
-
-
 /// <reference types="knockout.mapping" />
 
 var dummyTemplateEngine = function (templates?) {

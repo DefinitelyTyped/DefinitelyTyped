@@ -7,8 +7,6 @@
 
 // DEPRECATED: use TypeScript 1.5.3
 
-/// <reference types="MediaStream" />
-
 declare var webkitAudioContext: {
     new (): AudioContext;
 }

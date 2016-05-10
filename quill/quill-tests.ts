@@ -1,8 +1,3 @@
-
-/// <reference types="require"/>
-
-//export var Quill = require("quill");
-
 function test_quill() {
 
     var quillEditor = new Quill('#editor', {

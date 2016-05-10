@@ -1,9 +1,7 @@
 /// <reference types="sinon" />
 /// <reference types="mocha" />
 /// <reference types="expect.js" />
-/// <reference types="fixtures" />
 /// <reference types="jquery" />
-
 
 import * as i18n from 'i18next';
 

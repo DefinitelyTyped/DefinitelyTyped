@@ -1,5 +1,3 @@
-
-
 // Test the minimum amount of configuration required.
 var handler = StripeCheckout.configure({
 	key: "my-secret-key",

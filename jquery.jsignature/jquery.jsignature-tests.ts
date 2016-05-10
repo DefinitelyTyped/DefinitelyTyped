@@ -1,5 +1,4 @@
 /// <reference types="jquery"/>
-/// <reference path='jquery.jsignature.d.ts'/>
 
 /*
  * Taken from the tests section on jSignature

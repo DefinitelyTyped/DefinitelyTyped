@@ -1,6 +1,3 @@
-/// <reference types="google.maps" />
-
-
 function test_options() {
     var options: google.maps.infobubble.InfoBubbleOptions;
     options = {};

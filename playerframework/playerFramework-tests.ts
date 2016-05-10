@@ -1,6 +1,4 @@
-﻿///<reference path="playerFramework.d.ts" />
-
-var el = document.createElement("div");
+﻿var el = document.createElement("div");
 var player = new PlayerFramework.MediaPlayer(el);
 
 // Getters

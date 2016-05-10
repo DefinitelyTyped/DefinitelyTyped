@@ -1,5 +1,4 @@
 /// <reference types="jquery"/>
-/// <reference path="jqrangeslider.d.ts"/>
 
 // Arrows
 $("#arrowsExample").rangeSlider({ arrows: false });

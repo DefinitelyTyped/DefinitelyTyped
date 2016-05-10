@@ -1,7 +1,6 @@
-
-/// <reference types="lodash-3.10" />
 import Knex = require('knex');
 import _ = require('lodash');
+
 'use strict';
 // Initializing the Library
 var knex = Knex({
