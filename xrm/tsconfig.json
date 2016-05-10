@@ -1,6 +1,6 @@
 {
     "files": [
-        "xrm.d.ts",
+        "index.d.ts",
         "xrm-tests.ts"
     ],
     "compilerOptions": {

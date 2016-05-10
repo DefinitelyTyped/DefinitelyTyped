@@ -1,7 +1,7 @@
 {
     "files": [
-        "hammerjs.d.ts",
-        "hammerjs-tests.ts"
+        "index.d.ts",
+        "hammerjs-1.1.3-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

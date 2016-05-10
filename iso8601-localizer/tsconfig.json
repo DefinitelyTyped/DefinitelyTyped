@@ -6,5 +6,9 @@
         "strictNullChecks": false,
         "baseUrl": "../",
         "typesRoot": "../"
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "iso8601-localizer-tests.ts"
+    ]
 }

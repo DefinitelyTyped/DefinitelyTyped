@@ -6,5 +6,9 @@
         "strictNullChecks": false,
         "baseUrl": "../",
         "typesRoot": "../"
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "spotify-web-api-js-tests.ts"
+    ]
 }

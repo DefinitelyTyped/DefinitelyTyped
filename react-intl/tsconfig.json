@@ -1,7 +1,7 @@
 {
     "files": [
-        "react-intl.d.ts",
-        "react-intl-tests.ts"
+        "index.d.ts",
+        "react-intl-tests.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",

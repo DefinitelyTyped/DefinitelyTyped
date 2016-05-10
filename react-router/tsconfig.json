@@ -1,7 +1,7 @@
 {
     "files": [
-        "react-router.d.ts",
-        "react-router-tests.tsx"
+        "index.d.ts",
+        "history-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

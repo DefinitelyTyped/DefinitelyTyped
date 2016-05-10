@@ -1,17 +1,7 @@
 {
     "files": [
-        "angularjs.d.ts",
-        "angular-animate.d.ts",
-        "angular-component-router.d.ts",
-        "angular-cookies.d.ts",
-        "angular-mocks.d.ts",
-        "angular-resource.d.ts",
-        "angular-route.d.ts",
-        "angular-sanitize.d.ts",
-        "angular-route-tests.ts",
-        "angular-resource-tests.ts",
-        "angular-sanitize-tests.ts",
-        "angular-tests.ts"
+        "index.d.ts",
+        "angular-mocks-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

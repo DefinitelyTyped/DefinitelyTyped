@@ -1,6 +1,6 @@
 {
     "files": [
-        "angular-material.d.ts",
+        "index.d.ts",
         "angular-material-tests.ts"
     ],
     "compilerOptions": {

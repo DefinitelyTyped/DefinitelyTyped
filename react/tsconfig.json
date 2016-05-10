@@ -1,7 +1,7 @@
 {
     "files": [
-        "react.d.ts",
-        "react-tests.d.ts"
+        "index.d.ts",
+        "react-global-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

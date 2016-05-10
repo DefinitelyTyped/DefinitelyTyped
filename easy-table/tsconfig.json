@@ -6,5 +6,9 @@
         "strictNullChecks": false,
         "baseUrl": "../",
         "typesRoot": "../"
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "easy-table-0.2.0-tests.ts"
+    ]
 }

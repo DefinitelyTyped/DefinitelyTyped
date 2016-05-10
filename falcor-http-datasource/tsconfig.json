@@ -6,5 +6,9 @@
         "strictNullChecks": false,
         "baseUrl": "../",
         "typesRoot": "../"
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "falcor-http-datasource-tests.ts"
+    ]
 }

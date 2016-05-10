@@ -1,6 +1,6 @@
 {
     "files": [
-        "material-ui.d.ts",
+        "index.d.ts",
         "material-ui-tests.tsx"
     ],
     "compilerOptions": {

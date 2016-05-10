@@ -1,6 +1,6 @@
 {
     "files": [
-        "postal.d.ts",
+        "index.d.ts",
         "postal-tests.ts"
     ],
     "compilerOptions": {

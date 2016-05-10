@@ -6,5 +6,9 @@
         "strictNullChecks": false,
         "baseUrl": "../",
         "typesRoot": "../"
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "adal-angular-tests.ts"
+    ]
 }
