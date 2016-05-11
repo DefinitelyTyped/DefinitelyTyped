@@ -4638,7 +4638,7 @@ declare namespace kendo.ui {
         paperSize?: string|any;
         template?: string;
         repeatHeaders?: boolean;
-        scale?: number|any|any;
+        scale?: number;
         proxyURL?: string;
         proxyTarget?: string;
         subject?: string;
