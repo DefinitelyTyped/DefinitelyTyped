@@ -605,10 +605,10 @@ declare namespace moment {
 
         invalid(parsingFlags?: Object): Moment;
         isMoment(): boolean;
-        isMoment(m: any): boolean;
-        isDate(m: any): boolean;
+        isMoment(m: any): m is Moment;
+        isDate(m: any): m is Date;
         isDuration(): boolean;
-        isDuration(d: any): boolean;
+        isDuration(d: any): d is Duration;
 
         /**
          * @deprecated since version 2.8.0
