@@ -1,7 +1,6 @@
 // Type definitions for Swagger (aka as the Open API Specification) 2.0
 // Project: https://github.com/OAI/OpenAPI-Specification
-// Definitions by: TANAKA Koichi <https://github.com/mugeso/> 
-// & Alexandre Roba <https://github.com/alexandreroba/>
+// Definitions by: Alexandre Roba <https://github.com/alexandreroba/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
