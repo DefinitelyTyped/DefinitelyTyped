@@ -31,12 +31,12 @@ interface PNotifyLabel {
 
 
 interface IPNotifyconfirmButton {
-    text: string;
-    addClass: string;
+    text?: string;
+    addClass?: string;
     /**
      *  Whether to trigger this button when the user hits enter in a single line prompt.
      */
-    promptTrigger: boolean;
+    promptTrigger?: boolean;
     click: (notice: PNotify, value: any) => void
 }
 
@@ -44,36 +44,36 @@ interface PNotifyconfirm {
     /**
      * Make a confirmation box.
      */
-    confirm: boolean;
+    confirm?: boolean;
 
     /**
      * Make a prompt.
      */
-    prompt: boolean;
+    prompt?: boolean;
     /**
      * Classes to add to the input element of the prompt.
      */
-    prompt_class: string
+    prompt_class?: string
 
     /**
      * The default value of the prompt.
      */
-    prompt_default: string
+    prompt_default?: string
 
     /**
      * Whether the prompt should accept multiple lines of text.
      */
-    prompt_multi_line: boolean;
+    prompt_multi_line?: boolean;
 
     /**
      * Where to align the buttons. (right, center, left, justify)
      */
-    align: string;
+    align?: string;
 
     /**
      * The buttons to display, and their callbacks.
      */
-    buttons: IPNotifyconfirmButton[];
+    buttons?: IPNotifyconfirmButton[];
 
 }
 
@@ -81,38 +81,38 @@ interface IPNotifyButtons {
     /**
      * Provide a button for the user to manually close the notice.
      */
-    closer: boolean;
+    closer?: boolean;
     /**
      * Only show the closer button on hover.
      */
-    closer_hover: boolean;
+    closer_hover?: boolean;
     /**
      * Provide a button for the user to manually stick the notice.
      */
-    sticker: boolean;
+    sticker?: boolean;
     /**
      * Only show the sticker button on hover.
      */
-    sticker_hover: boolean;
+    sticker_hover?: boolean;
     /**
      * Show the buttons even when the nonblock module is in use.
      */
-    show_on_nonblock: boolean;
+    show_on_nonblock?: boolean;
     /**
      * The various displayed text, helps facilitating internationalization.
      */
-    labels: {
-        close: string;
-        stick: string;
-        unstick: string;
+    labels?: {
+        close?: string;
+        stick?: string;
+        unstick?: string;
     };
     /**
      * The classes to use for button icons. Leave them null to use the classes from the styling you're using.
      */
-    classes: {
-        closer: string;
-        pin_up: string;
-        pin_down: string;
+    classes?: {
+        closer?: string;
+        pin_up?: string;
+        pin_down?: string;
     };
 }
 
@@ -150,7 +150,7 @@ interface PNotifyOptions {
         /**
          * Create a non-blocking notice. It lets the user click elements underneath it.
          */
-        nonblock: boolean;
+        nonblock?: boolean;
 
         /**
          * The opacity of the notice (if it's non-blocking) when the mouse is over it.
