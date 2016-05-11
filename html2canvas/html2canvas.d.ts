@@ -1,7 +1,6 @@
-﻿// Type definitions for html2canvas.js v0.5.0
+﻿// Type definitions for html2canvas.js v0.5.0-bata.4
 // Project: https://github.com/niklasvh/html2canvas
-// Definitions by: Richard Hepburn <https://github.com/rwhepburn/>
-// Definitions by: Pei-Tang Huang <https://github.com/tan9/>
+// Definitions by: Richard Hepburn <https://github.com/rwhepburn/>, Pei-Tang Huang <https://github.com/tan9/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
