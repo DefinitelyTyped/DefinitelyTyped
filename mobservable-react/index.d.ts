@@ -3,13 +3,12 @@
 // Definitions by: Michel Weststrate <https://github.com/mweststrate/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react-global" />
-
+import * as React from 'react';
 
 /**
  * Turns a React component or stateless render function into a reactive component.
  */
-export declare function reactiveComponent<P>(clazz: React.ClassicComponentClass<P>): React.ClassicComponentClass<P>;
-export declare function reactiveComponent<TFunction extends React.ComponentClass<any>>(target: TFunction): void; // decorator signature
-export declare function reactiveComponent<P>(clazz: React.ComponentClass<P>): React.ComponentClass<P>;
-export declare function reactiveComponent<P>(renderFunction: (props: P) => React.ReactElement<any>): React.ClassicComponentClass<P>;
+export function reactiveComponent<P>(clazz: React.ClassicComponentClass<P>): React.ClassicComponentClass<P>;
+export function reactiveComponent<TFunction extends React.ComponentClass<any>>(target: TFunction): void; // decorator signature
+export function reactiveComponent<P>(clazz: React.ComponentClass<P>): React.ComponentClass<P>;
+export function reactiveComponent<P>(renderFunction: (props: P) => React.ReactElement<any>): React.ClassicComponentClass<P>;

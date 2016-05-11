@@ -1,5 +1,3 @@
-/// <reference path="./dropzone.d.ts"/>
-
 const dropzoneFromString = new Dropzone(".test");
 const dropzoneFromElement = new Dropzone(document.getElementById("test"));
 const dropzoneRenameFunction = function (name:string):string {

@@ -3,8 +3,6 @@
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 declare namespace THREE {
     export interface SpriteCanvasMaterialParameters extends MaterialParameters{
         color?: number;

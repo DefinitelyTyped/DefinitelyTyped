@@ -9967,7 +9967,7 @@ declare namespace WinJS.Utilities {
          * Sorts an array.
          * @param compareFn The name of the function used to determine the order of the elements. If omitted, the elements are sorted in ascending, ASCII character order.
         **/
-        sort(compareFn?: (a: T, b: T) => number): T[];
+        sort(compareFn?: (a: T, b: T) => number): this;
 
         /**
          * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.

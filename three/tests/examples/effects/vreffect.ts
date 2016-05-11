@@ -1,5 +1,4 @@
 /// <reference types="three" />
-/// <reference types="three-vreffect" />
 
 var _vrEffect: THREE.VREffect;
 

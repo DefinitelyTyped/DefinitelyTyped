@@ -3,8 +3,8 @@
 // Definitions by: Hendrik Maus <https://github.com/hendrikmaus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
+/// <reference path="keyboard.d.ts" />
 
 interface CordovaPlugins {
-  Keyboard:Ionic.Keyboard;
+  Keyboard: Ionic.Keyboard;
 }

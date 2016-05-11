@@ -1,6 +1,5 @@
-
-
 /// <reference types="Q" />
+import * as Validators from './node-validators';
 
 export interface IPerson{
     Checked:boolean;

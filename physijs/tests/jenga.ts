@@ -1,7 +1,5 @@
 /// <reference types="stats" />
 
-/// <reference types="three-projector" />
-
 Physijs.scripts.worker = '../physijs_worker.js';
 Physijs.scripts.ammo = 'examples/js/ammo.js';
 

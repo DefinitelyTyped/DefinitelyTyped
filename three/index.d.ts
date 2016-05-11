@@ -3,6 +3,24 @@
 // Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>, Florent Poujol <https://github.com/florentpoujol>, SereznoKot <https://github.com/SereznoKot>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference path="detector.d.ts" />
+/// <reference path="three-canvasrenderer.d.ts" />
+/// <reference path="three-copyshader.d.ts" />
+/// <reference path="three-css3drenderer.d.ts" />
+/// <reference path="three-editorcontrols.d.ts" />
+/// <reference path="three-effectcomposer.d.ts" />
+/// <reference path="three-FirstPersonControls.d.ts" />
+/// <reference path="three-maskpass.d.ts" />
+/// <reference path="three-orbitcontrols.d.ts" />
+/// <reference path="three-orthographictrackballcontrols.d.ts" />
+/// <reference path="three-projector.d.ts" />
+/// <reference path="three-renderpass.d.ts" />
+/// <reference path="three-shaderpass.d.ts" />
+/// <reference path="three-trackballcontrols.d.ts" />
+/// <reference path="three-transformcontrols.d.ts" />
+/// <reference path="three-vrcontrols.d.ts" />
+/// <reference path="three-vreffect.d.ts" />
+
 declare namespace THREE {
     export const REVISION: string;
 
