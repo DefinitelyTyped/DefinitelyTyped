@@ -3,7 +3,10 @@
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace __React {
+export = React;
+export as namespace React;
+
+declare namespace React {
 
     //
     // React Elements
