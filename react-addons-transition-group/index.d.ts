@@ -3,25 +3,14 @@
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { ReactElement, ComponentClass, ReactType } from 'react';
 
-
-declare namespace __React {
-
-    interface TransitionGroupProps {
+declare namespace ReactCSSTransitionGroup {
+    export interface TransitionGroupProps {
         component?: ReactType;
         className?: string;
         childFactory?: (child: ReactElement<any>) => ReactElement<any>;
     }
-
-    type TransitionGroup = ComponentClass<TransitionGroupProps>;
-
-    namespace __Addons {
-        export var TransitionGroup: __React.TransitionGroup;
-    }
 }
-
-declare module "react-addons-transition-group" {
-    var TransitionGroup: __React.TransitionGroup;
-    type TransitionGroup = __React.TransitionGroup;
-    export = TransitionGroup;
-}
+declare var ReactCSSTransitionGroup : ComponentClass<ReactCSSTransitionGroup.TransitionGroupProps>;
+export = ReactCSSTransitionGroup;
