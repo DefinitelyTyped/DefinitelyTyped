@@ -470,7 +470,7 @@ declare namespace  __React {
          * @platform ios
          */
         shadowColor: string
-        
+
         /**
          * Sets the drop shadow offset
          * @platform ios
@@ -482,7 +482,7 @@ declare namespace  __React {
          * @platform ios
          */
         shadowOpacity: number
-        
+
         /**
          * Sets the drop shadow blur radius
          * @platform ios
@@ -561,7 +561,7 @@ declare namespace  __React {
         fontSize?: number
         fontStyle?: "normal" | "italic"
         /**
-         * Specifies font weight. The values 'normal' and 'bold' are supported 
+         * Specifies font weight. The values 'normal' and 'bold' are supported
          * for most fonts. Not all fonts have a variant for each of the numeric
          * values, in that case the closest one is chosen.
          */
@@ -879,12 +879,12 @@ declare namespace  __React {
          * Returns if the input is currently focused.
          */
         isFocused: () => boolean
-        
+
         /**
          * Removes all text from the input.
          */
         clear: () => void
-        
+
         // The following methods are found only in implementation
         blur: () => void
         focus: () => void
@@ -1382,7 +1382,7 @@ declare namespace  __React {
          * Used for android only, JS is enabled by default for WebView on iOS
          */
         javaScriptEnabled?: boolean
-        
+
         /**
          * Used on Android only, controls whether DOM Storage is enabled
          * or not android
@@ -1401,7 +1401,7 @@ declare namespace  __React {
          * attribute."
          */
         allowsInlineMediaPlayback?: boolean
-        
+
         bounces?: boolean
 
         /**
@@ -1420,12 +1420,12 @@ declare namespace  __React {
          * request.
          */
         onShouldStartLoadWithRequest?: () => boolean
-        
+
         scrollEnabled?: boolean
     }
 
     export interface WebViewUriSource {
-        
+
         /*
          * The URI to load in the WebView. Can be a local or remote file.
          */
@@ -1442,7 +1442,7 @@ declare namespace  __React {
          * NOTE: On Android, this can only be used with GET requests.
          */
         headers?: any;
-        
+
         /*
          * The HTTP body to send with the request. This must be a valid
          * UTF-8 string, and will be sent exactly as specified, with no
@@ -1453,12 +1453,12 @@ declare namespace  __React {
     }
 
     export interface WebViewHtmlSource {
-        
+
         /*
          * A static HTML page to display in the WebView.
          */
         html: string;
-        
+
         /*
          * The base URL to be used for any relative links in the HTML.
          */
@@ -1531,7 +1531,7 @@ declare namespace  __React {
          * Go back one page in the webview's history.
          */
         goBack: () => void
-        
+
         /**
          * Go forward one page in the webview's history.
          */
@@ -1810,7 +1810,7 @@ declare namespace  __React {
     export interface DrawerLayoutAndroidProperties extends React.Props<DrawerLayoutAndroidStatic> {
 
         /**
-         * Specifies the background color of the drawer. The default value 
+         * Specifies the background color of the drawer. The default value
          * is white. If you want to set the opacity of the drawer, use rgba.
          * Example:
          * return (
@@ -1823,13 +1823,13 @@ declare namespace  __React {
         /**
          * Specifies the lock mode of the drawer. The drawer can be locked
          * in 3 states:
-         * 
+         *
          * - unlocked (default), meaning that the drawer will respond
          *   (open/close) to touch gestures.
-         *   
+         *
          * - locked-closed, meaning that the drawer will stay closed and not
          *   respond to gestures.
-         *   
+         *
          * - locked-open, meaning that the drawer will stay opened and
          *   not respond to gestures. The drawer may still be opened and
          *   closed programmatically (openDrawer/closeDrawer).
@@ -1877,7 +1877,7 @@ declare namespace  __React {
          * - idle, meaning there is no interaction with the navigation
          *   view happening at the time
          * - dragging, meaning there is currently an interaction with the
-         *   navigation view 
+         *   navigation view
          * - settling, meaning that there was an interaction with the
          *   navigation view, and the navigation view is now finishing
          *   it's closing or opening animation
@@ -1963,8 +1963,8 @@ declare namespace  __React {
 
         /**
          * Callback for when an item is selected. This is called with the
-         * following parameters: 
-         * - itemValue: the value prop of the item that was selected 
+         * following parameters:
+         * - itemValue: the value prop of the item that was selected
          * - itemPosition: the index of the selected item in this picker
          * @param itemValue
          * @param itemPosition
@@ -2001,7 +2001,7 @@ declare namespace  __React {
     export interface PickerIOSProperties extends React.Props<PickerIOSStatic> {
 
         itemStyle?: ViewStyle
-        
+
     }
 
     /**
@@ -3498,7 +3498,7 @@ declare namespace  __React {
 
 
     export interface PixelRatioStatic {
-        
+
         /*
           Returns the device pixel density. Some examples:
              PixelRatio.get() === 1
@@ -3517,7 +3517,7 @@ declare namespace  __React {
              Nexus 6
         */
         get(): number;
-        
+
         /*
          Returns the scaling factor for font sizes. This is the ratio that is
           used to calculate the absolute font size, so any elements that
@@ -3557,12 +3557,12 @@ declare namespace  __React {
     /**
      * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
      */
-    
+
     export type PlatformOSType = 'ios' | 'android'
-    
+
     export interface PlatformStatic {
         OS: PlatformOSType,
-        
+
         // only documented in PlatformSpecificInformation.md
         select({PlatformOSType: any}): any
     }
@@ -3977,7 +3977,7 @@ declare namespace  __React {
          * implement this method so that they can be composed while providing access
          * to the underlying scroll responder's methods.
          */
-        getScrollResponder(): JSX.element;
+        getScrollResponder(): JSX.Element;
 
         // Undocumented
         getInnerViewNode(): any;
@@ -4041,7 +4041,7 @@ declare namespace  __React {
     export interface ActionSheetIOSStatic {
         /**
          * Display an iOS action sheet. The options object must contain one
-         * or more of: 
+         * or more of:
          * options (array of strings) - a list of button titles (required)
          * cancelButtonIndex (int) - index of cancel button in options
          * destructiveButtonIndex (int) - index of destructive button in options
@@ -4115,7 +4115,7 @@ declare namespace  __React {
          type -- deprecated, do not use
          */
         alert: ( title: string, message?: string, callbackOrButtons?: (value: string) => void| Array<AlertIOSButton>, type?: string ) => void
-        
+
         /*
          Prompt the user to enter some text.
 
@@ -4128,7 +4128,7 @@ declare namespace  __React {
          type: string -- This configures the text input. One of 'plain-text', 'secure-text' or 'login-password'.
          defaultValue: string -- the default value for the text field.
          */
-        
+
         prompt: ( title: string, value?: string, callbackOrButtons?: (value: string) => void | Array<AlertIOSButton>, type?: string, defaultValue?: string ) => void
     }
 
@@ -4152,9 +4152,9 @@ declare namespace  __React {
     export type AppStateStatus = "active" | "background" | "inactive"
 
     export interface AppStateStatic {
-        
+
         currentState: string
-        
+
         /**
          * Add a handler to AppState changes by listening to the change event
          * type and providing the handler
@@ -4475,7 +4475,7 @@ declare namespace  __React {
          @deprecated
          */
         removeEventListener(type: string, handler: (event: {url: string}) => void): void
-        
+
         /**
          * Try to open the given url with any of the installed apps.
          @deprecated
@@ -4783,7 +4783,7 @@ declare namespace  __React {
 
         /**
          * Unregister for all remote notifications received via Apple Push
-         * Notification service. 
+         * Notification service.
          * You should call this method in rare circumstances only, such as when
          * a new version of the app removes support for all types of remote
          * notifications. Users can temporarily prevent apps from receiving
@@ -4863,7 +4863,7 @@ declare namespace  __React {
     }
 
     export interface StatusBarProperties extends StatusBarPropertiesIOS, StatusBarPropertiesAndroid, React.Props<StatusBarStatic> {
-        
+
         /**
          * If the transition between status bar property changes should be
          * animated. Supported for backgroundColor, barStyle and hidden.
@@ -4877,15 +4877,15 @@ declare namespace  __React {
     }
 
     export interface StatusBarStatic extends React.ComponentClass<StatusBarProperties> {
-        
+
         setHidden: (hidden: boolean, animation: StatusBarAnimation) => void
-        
+
         setBarStyle: (style: StatusBarStyle, animated: boolean) => void
-        
+
         setNetworkActivityIndicatorVisible: (visible: boolean) => void
-        
+
         setBackgroundColor: (color: string, animated: boolean) => void
-        
+
         setTranslucent: (translucent: boolean) => void
     }
 
@@ -4915,7 +4915,7 @@ declare namespace  __React {
         /**
          * The available keys for the options object are:
          * hour (0-23) - the hour to show, defaults to the current time
-         * minute (0-59) - the minute to show, defaults to the current time 
+         * minute (0-59) - the minute to show, defaults to the current time
          * is24Hour (boolean) - If true, the picker uses the 24-hour format.
          * If false, the picker shows an AM/PM chooser. If undefined,
          * the default for the current locale is used.
@@ -5364,9 +5364,9 @@ declare namespace  __React {
          * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool), distanceFilter(m)
          */
         watchPosition(success: (position: Geolocation) => void, error?: (error: Error) => void, options?: WatchPositionOptions): void
-        
+
         clearWatch(watchID: number): void
-        
+
         stopObserving(): void
     }
 
