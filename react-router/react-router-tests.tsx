@@ -1,17 +1,10 @@
-
-/// <reference types="react" />
-/// <reference types="react-dom" />
-
-
-
-
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
-import { browserHistory, hashHistory, createMemoryHistory, Router, Route, IndexRoute, Link } from "react-router"
+import { browserHistory, hashHistory, createMemoryHistory, Router, Route, IndexRoute, Link, RouterOnContext } from "react-router"
 
 interface MasterContext {
-	router: ReactRouter.RouterOnContext;
+	router: RouterOnContext;
 }
 
 class Master extends React.Component<React.Props<{}>, {}> {
