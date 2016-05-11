@@ -1,8 +1,6 @@
-
 /// <reference types="mocha" />
 /// <reference types="chai" />
 /// <reference types="angularjs" />
-/// <reference types="angular-mocks" />
 
 namespace bardTests {
     var expect = chai.expect,

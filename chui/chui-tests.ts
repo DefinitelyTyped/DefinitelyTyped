@@ -1,5 +1,4 @@
 /// <reference types="jquery"/>
-/// <reference path="chui.d.ts"/>
 
 $(function() {
 

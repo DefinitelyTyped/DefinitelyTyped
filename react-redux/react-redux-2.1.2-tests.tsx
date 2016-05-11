@@ -1,8 +1,4 @@
-
-/// <reference types="react"/>
-/// <reference types="react-dom"/>
 /// <reference types="redux" />
-/// <reference types="react-router-0.13.3" />
 
 import { Component, ReactElement } from 'react';
 import * as React from 'react';

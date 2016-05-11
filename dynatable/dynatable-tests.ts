@@ -1,6 +1,4 @@
 /// <reference types="jquery"/>
-/// <reference path="dynatable.d.ts"/>
-
 
 // Using the global setup option
 // =============================

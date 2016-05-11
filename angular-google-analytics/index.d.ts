@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="angularjs" />
+/// <reference path="angular-google-analytics-service.d.ts" />
 
 declare namespace angular.google.analytics {
     /**

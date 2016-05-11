@@ -4,12 +4,9 @@
 
 ///<reference types="react" />
 
-///<reference path="./react-intl.d.ts" />
-
-
 import * as React from "react"
-
 import * as reactMixin from "react-mixin"
+
 import {
 IntlProvider,
 InjectedIntlProps,
@@ -26,6 +23,7 @@ FormattedPlural,
 FormattedDate,
 FormattedTime
 } from "react-intl"
+
 import reactIntlEn = require("react-intl/locale-data/en");
 
 addLocaleData(reactIntlEn);

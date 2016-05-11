@@ -1,6 +1,3 @@
-
-
-
 function ConfigurationMethodChaining(AnalyticsProvider: angular.google.analytics.AnalyticsProvider) {
     AnalyticsProvider
         .logAllCalls(true)

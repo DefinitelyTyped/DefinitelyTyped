@@ -1,6 +1,3 @@
-
-/// <reference path='angular-localForage.d.ts' />
-
 var app = angular.module('angular-localForage-tests', ['LocalForageModule']);
 app.config(function (localStorageServiceProvider:angular.localForage.ILocalForageProvider) {
 
