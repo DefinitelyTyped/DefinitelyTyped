@@ -69,6 +69,9 @@ interface Html2CanvasPromise<R> extends Html2CanvasThenable<R> {
     then<U>(onFulfilled?: (value: R) => U | Html2CanvasThenable<U>, onRejected?: (error: any) => void): Html2CanvasPromise<U>;
     catch<U>(onRejected?: (error: any) => U | Html2CanvasThenable<U>): Html2CanvasPromise<U>;
 }
+
+declare module 'html2canvas' {
+    export = html2canvas;
 }
 
 declare var html2canvas: Html2CanvasStatic;
