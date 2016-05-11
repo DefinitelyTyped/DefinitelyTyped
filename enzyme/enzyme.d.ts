@@ -337,6 +337,12 @@ declare module "enzyme" {
         findWhere(predicate: (wrapper: CommonWrapper<any, any>) => Boolean): ShallowWrapper<any, any>;
 
         /**
+         * Returns a new wrapper with child at the specified index.
+         * @param index A zero-based integer indicating which node to retrieve
+         */
+        childAt(index: number): ShallowWrapper<any, any>;
+        
+        /**
          * Returns a new wrapper with all of the children of the node(s) in the current wrapper. Optionally, a selector
          * can be provided and it will filter the children by this selector.
          * @param [selector]
