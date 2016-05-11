@@ -199,6 +199,11 @@ function test_ajax() {
         console.log(jqXHR, textStatus, errorThrown);
     });
 
+    // generic then method
+    var p: JQueryPromise<number> = $.ajax({ url: "test.js" })
+        .then(() => "Hello")
+        .then((x) => x.length);
+
     // jqXHR object
     var jqXHR = $.ajax({
         url: "test.js"
@@ -2523,6 +2528,18 @@ function test_jQuery() {
     $.post('url.xml', function (data) {
         var $child = $(data).find('child');
     });
+    $.post({
+        url: "test.php",
+        success : () => {
+            console.log("successfull");
+        }
+    });
+    $.get({
+        url: "test.php",
+        success : () => {
+            console.log("successfull");
+        }
+    });
     var foo = { foo: 'bar', hello: 'world' };
     var $foo = $(foo);
     var test1 = $foo.prop('foo');
@@ -3254,7 +3271,7 @@ var f1 = $.when("fetch"); // Is type JQueryPromise<string>
 var f2: JQueryPromise<string[]> = f1.then(s => [s, s]);
 var f3: JQueryPromise<number> = f2.then(v => 3);
 
-// ISSUE: https://github.com/borisyankov/DefinitelyTyped/issues/742
+// ISSUE: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/742
 // http://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax#answer-5976031
 $.ajax({
     url: 'php/upload.php',

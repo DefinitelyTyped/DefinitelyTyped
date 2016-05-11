@@ -5,11 +5,11 @@
 //                 Andrew Brown <https://github.com/AGBrown>,
 //                 Olivier Chevet <https://github.com/olivr70>,
 //                 Matt Wistrand <https://github.com/mwistrand>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // <reference path="../assertion-error/assertion-error.d.ts"/>
 
-declare module Chai {
+declare namespace Chai {
 
     interface ChaiStatic {
         expect: ExpectStatic;
@@ -17,7 +17,7 @@ declare module Chai {
         /**
          * Provides a way to extend the internals of Chai
          */
-        use(fn: (chai: any, utils: any) => void): any;
+        use(fn: (chai: any, utils: any) => void): ChaiStatic;
         assert: AssertStatic;
         config: Config;
         AssertionError: typeof AssertionError;

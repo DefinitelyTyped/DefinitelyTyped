@@ -1,7 +1,7 @@
 // Type definitions for power-assert
 // Project: https://github.com/twada/power-assert
 // Definitions by: vvakame <https://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // copy from assert external module in node.d.ts
 
@@ -66,5 +66,5 @@ declare namespace assert {
 }
 
 declare module "power-assert" {
-    export default assert;
+    export = assert;
 }

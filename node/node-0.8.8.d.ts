@@ -1,7 +1,7 @@
 // Type definitions for Node.js v0.8.8
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
 *                                               *
@@ -170,7 +170,7 @@ interface Buffer {
     length: number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
-    readUInt8(offset: number, noAsset?: boolean): number;
+    readUInt8(offset: number, noAssert?: boolean): number;
     readUInt16LE(offset: number, noAssert?: boolean): number;
     readUInt16BE(offset: number, noAssert?: boolean): number;
     readUInt32LE(offset: number, noAssert?: boolean): number;

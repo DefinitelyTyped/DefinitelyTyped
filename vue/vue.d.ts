@@ -1,7 +1,7 @@
-// Type definitions for vuejs 1.0.16
+// Type definitions for vuejs 1.0.21
 // Project: https://github.com/vuejs/vue
 // Definitions by: odangosan <https://github.com/odangosan>, kaorun343 <https://github.com/kaorun343>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Array<T> {
     $remove(item: T): Array<T>;
@@ -11,7 +11,7 @@ interface Array<T> {
 declare namespace vuejs {
 
     interface PropOption {
-        type?: { new (...args: any[]): any; };
+        type?: { new (...args: any[]): any; } | { new (...args: any[]): any; }[];
         required?: boolean;
         default?: any;
         twoWay?: boolean;
@@ -68,13 +68,14 @@ declare namespace vuejs {
 
     interface ComponentOption {
         data?: { [key: string]: any } | Function;
-        props?: string[] | { [key: string]: (PropOption | { new (...args: any[]): any; }) };
+        props?: string[] | { [key: string]: (PropOption | { new (...args: any[]): any; } | { new (...args: any[]): any; }[]) };
         computed?: { [key: string]: (Function | ComputedOption) };
         methods?: { [key: string]: Function };
         watch?: { [key: string]: ((val: any, oldVal: any) => void) | string | WatchOption };
         el?: string | HTMLElement | (() => HTMLElement);
         template?: string;
         replace?: boolean;
+        init?(): void;
         created?(): void;
         beforeCompile?(): void;
         compiled?(): void;
@@ -97,64 +98,42 @@ declare namespace vuejs {
         [key: string]: any;
     }
 
-    // instance/api/data.js
-    interface $get { (exp: string, asStatement?: boolean): any; }
-    interface $set { <T>(key: string | number, value: T): T; }
-    interface $delete { (key: string): void; }
-    interface $watch { (expOrFn: string | Function, callback: ((newVal: any, oldVal?: any) => any) | string, options?: { deep?: boolean, immidiate?: boolean }): Function; }
-    interface $eval { (expression: string): string; }
-    interface $interpolate { (expression: string): string; }
-    interface $log { (keypath?: string): void; }
-    // instance/api/dom.js
-    interface $nextTick { (callback: Function): void; }
-    interface $appendTo<V> { (target: (HTMLElement | string), callback?: Function, withTransition?: boolean): V; }
-    interface $prependTo<V> { (target: (HTMLElement | string), callback?: Function, withTransition?: boolean): V; }
-    interface $before<V> { (target: (HTMLElement | string), callback?: Function, withTransition?: boolean): V; }
-    interface $after<V> { (target: (HTMLElement | string), callback?: Function, withTransition?: boolean): V; }
-    interface $remove<V> { (callback?: Function): V; }
-    // instance/api/events.js
-    interface $on<V> { (event: string, callback: Function): V; }
-    interface $once<V> { (event: string, callback: Function): V; }
-    interface $off<V> { (event?: string, callback?: Function): V; }
-    interface $emit<V> { (event: string, ...args: any[]): V; }
-    interface $broadcast<V> { (event: string, ...args: any[]): V; }
-    interface $dispatch<V> { (event: string, ...args: any[]): V; }
-    // instance/api/lifecycle.js
-    interface $mount<V> { (elementOrSelector?: (HTMLElement | string)): V; }
-    interface $destroy { (remove?: boolean): void; }
-    interface $compile { (el: Element | DocumentFragment, host?: Vue): Function; }
-
     interface Vue {
-        $data?: any;
-        $el?: HTMLElement;
-        $options?: Object;
-        $parent?: Vue;
-        $root?: Vue;
-        $children?: Vue[];
-        $refs?: Object;
-        $els?: Object;
+        $data: any;
+        $el: HTMLElement;
+        $options: Object;
+        $parent: Vue;
+        $root: Vue;
+        $children: Vue[];
+        $refs: Object;
+        $els: Object;
 
-        $get?: $get;
-        $set?: $set;
-        $delete?: $delete;
-        $eval?: $eval;
-        $interpolate?: $interpolate;
-        $log?: $log;
-        $watch?: $watch;
-        $on?: $on<this>;
-        $once?: $once<this>;
-        $off?: $off<this>;
-        $emit?: $emit<this>;
-        $dispatch?: $dispatch<this>;
-        $broadcast?: $broadcast<this>;
-        $appendTo?: $appendTo<this>;
-        $before?: $before<this>;
-        $after?: $after<this>;
-        $remove?: $remove<this>;
-        $nextTick?: $nextTick;
-        $mount?: $mount<this>;
-        $destroy?: $destroy;
-        $compile?: $compile;
+        // instance/api/data.js
+        $get(exp: string, asStatement?: boolean): any;
+        $set<T>(key: string | number, value: T): T;
+        $delete(key: string): void;
+        $eval(expression: string): string;
+        $interpolate(expression: string): string;
+        $log(keypath?: string): void;
+        $watch(expOrFn: string | Function, callback: ((newVal: any, oldVal?: any) => any) | string, options?: { deep?: boolean, immidiate?: boolean }): Function;
+        // instance/api/dom.js
+        $nextTick(callback: Function): void;
+        $appendTo(target: (HTMLElement | string), callback?: Function, withTransition?: boolean): this;
+        $prependTo(target: (HTMLElement | string), callback?: Function, withTransition?: boolean): this;
+        $before(target: (HTMLElement | string), callback?: Function, withTransition?: boolean): this;
+        $after(target: (HTMLElement | string), callback?: Function, withTransition?: boolean): this;
+        $remove(callback?: Function): this;
+        // instance/api/events.js
+        $on(event: string, callback: Function): this;
+        $once(event: string, callback: Function): this;
+        $off(event: string, callback?: Function): this;
+        $emit(event: string, ...args: any[]): this;
+        $broadcast(event: string, ...args: any[]): this;
+        $dispatch(event: string, ...args: any[]): this;
+        // instance/api/lifecycle.js
+        $mount(elementOrSelector?: (HTMLElement | string)): this;
+        $destroy(remove?: boolean): void;
+        $compile(el: Element | DocumentFragment, host?: Vue): Function;
 
         _init(options?: ComponentOption): void;
     }
@@ -165,7 +144,7 @@ declare namespace vuejs {
         unsafeDelimiters: [string, string];
         silent: boolean;
         async: boolean;
-        convertAllProperties: boolean;
+        devtools: boolean;
     }
 
     interface VueUtil {

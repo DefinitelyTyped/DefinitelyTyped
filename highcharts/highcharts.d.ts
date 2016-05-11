@@ -1,7 +1,7 @@
 // Type definitions for Highcharts 4.1.9
 // Project: http://www.highcharts.com/
 // Definitions by: Damiano Gambarotto <http://github.com/damianog>, Dan Lewi Harkestad <http://github.com/baltie>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface HighchartsPosition {
     align?: string;
@@ -5681,6 +5681,30 @@ interface HighchartsChartObject {
      * @since 2.0
      */
     exportChart(options: HighchartsExportingOptions, chartOptions: HighchartsOptions): void;
+    /**
+     * Export the chart to a PNG or SVG without sending it to a server. Requires
+     * modules/exporting.js and modules/offline-exporting.js.
+     * @since 2.0
+     */
+    exportChartLocal(): void;
+    /**
+     * Export the chart to a PNG or SVG without sending it to a server. Requires
+     * modules/exporting.js and modules/offline-exporting.js.
+     * @param {HighchartsExportingOptions} options Exporting options. Same as
+     * the exportChart params.
+     * @since 2.0
+     */
+    exportChartLocal(options: HighchartsExportingOptions): void;
+    /**
+     * Export the chart to a PNG or SVG without sending it to a server.
+     * Requires modules/exporting.js and modules/offline-exporting.js.
+     * @param {HighchartsExportingOptions} options Exporting options. Same as
+     * the exportChart params.
+     * @param {HighchartsOptions} chartOptions Additional chart options for the
+     * exported chart. Same as the exportChart params.
+     * @since 2.0
+     */
+    exportChartLocal(options: HighchartsExportingOptions, chartOptions: HighchartsOptions): void;
     /**
      * Get an axis, series or point by its id as given in the configuration options.
      * @param  {string} id The id of the axis, series or point to get.

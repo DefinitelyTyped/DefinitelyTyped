@@ -36,7 +36,7 @@ client.useOauth({
 // https://github.com/Asana/node-asana#collections
 // Collections
 
-let tagId: string = null;
+let tagId: number = null;
 client.tasks.findByTag(tagId, { limit: 5 }).then((collection: any) => {
   console.log(collection.data);
   // [ .. array of up to 5 task objects .. ]

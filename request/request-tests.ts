@@ -92,6 +92,7 @@ var options: request.Options = {
 	qs: obj,
 	json: value,
 	multipart: value,
+	agent: new http.Agent(),  
 	agentOptions: value,
 	agentClass: value,
 	forever: value,
@@ -109,6 +110,15 @@ var options: request.Options = {
 	proxy: value,
 	strictSSL: bool
 };
+
+// Below line has compile error, use OptionsWithUri or OptionsWithUrl instead. See #7979.
+// options.uri = str;
+
+const opt: request.OptionsWithUri = {
+  baseUrl: 'http://localhost',
+  uri: 'bar'
+};
+opt.uri = str;
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
 

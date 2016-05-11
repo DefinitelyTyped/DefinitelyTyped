@@ -1,14 +1,14 @@
 // Type definitions for Knex.js
 // Project: https://github.com/tgriesser/knex
 // Definitions by: Qubo <https://github.com/tkQubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
 declare module "knex" {
   import Promise = require("bluebird");
-  import events = require("events");
+  import * as events from "events";
 
   type Callback = Function;
   type Client = Function;
@@ -28,7 +28,7 @@ declare module "knex" {
     schema: Knex.SchemaBuilder;
 
     client: any;
-    migrate: any;
+    migrate: Knex.Migrator;
     seed: any;
     fn: any;
   }
@@ -299,8 +299,8 @@ declare module "knex" {
     // Schema builder
     //
 
-    interface SchemaBuilder {
-      createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): Promise<void>;
+    interface SchemaBuilder extends Promise<any> {
+      createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
       renameTable(oldTableName: string, newTableName: string): Promise<void>;
       dropTable(tableName: string): Promise<void>;
       hasTable(tableName: string): Promise<boolean>;
@@ -337,6 +337,9 @@ declare module "knex" {
       primary(columnNames: string[]) : TableBuilder;
       index(columnNames: string[], indexName?: string, indexType?: string) : TableBuilder;
       unique(columnNames: string[], indexName?: string) : TableBuilder;
+      foreign(column: string): ForeignConstraintBuilder;
+      foreign(columns: string[]): MultikeyForeignConstraintBuilder;
+      dropForeign(columnNames: string[], foreignKeyName?: string): TableBuilder;
     }
 
     interface CreateTableBuilder extends TableBuilder {
@@ -366,6 +369,14 @@ declare module "knex" {
       notNullable(): ColumnBuilder;
       nullable(): ColumnBuilder;
       comment(value: string): ColumnBuilder;
+    }
+
+    interface ForeignConstraintBuilder {
+        references(columnName: string): ReferencingColumnBuilder;
+    }
+
+    interface MultikeyForeignConstraintBuilder {
+        references(columnNames: string[]): ReferencingColumnBuilder;
     }
 
     interface PostgreSqlColumnBuilder extends ColumnBuilder {
@@ -399,10 +410,10 @@ declare module "knex" {
       debug?: boolean;
       client?: string;
       dialect?: string;
-      connection: string|ConnectionConfig|
+      connection?: string|ConnectionConfig|MariaSqlConnectionConfig|
         Sqlite3ConnectionConfig|SocketConnectionConfig;
       pool?: PoolConfig;
-      migrations?: MigrationConfig;
+      migrations?: MigratorConfig;
     }
 
     interface ConnectionConfig {
@@ -411,6 +422,38 @@ declare module "knex" {
       password: string;
       database: string;
       debug?: boolean;
+    }
+
+    // Config object for mariasql: https://github.com/mscdex/node-mariasql#client-methods
+    interface MariaSqlConnectionConfig {
+      user?: string;
+      password?: string;
+      host?: string;
+      port?: number;
+      unixSocket?: string;
+      protocol?: string;
+      db?: string;
+      keepQueries?: boolean;
+      multiStatements?: boolean;
+      connTimeout?: number;
+      pingInterval?: number;
+      secureAuth?: boolean;
+      compress?: boolean;
+      ssl?: boolean|MariaSslConfiguration;
+      local_infile?: boolean;
+      read_default_file?: string;
+      read_default_group?: string;
+      charset?: string;
+      streamHWM?: number;
+    }
+
+    interface MariaSslConfiguration {
+      key?: string;
+      cert?: string;
+      ca?: string;
+      capath?: string;
+      cipher?: string;
+      rejectUnauthorized?: boolean;
     }
 
     /** Used with SQLite3 adapter */
@@ -444,11 +487,19 @@ declare module "knex" {
       log?: boolean;
     }
 
-    interface MigrationConfig {
+    interface MigratorConfig {
       database?: string;
       directory?: string;
       extension?: string;
       tableName?: string;
+    }
+
+    interface Migrator {
+      make(name:string, config?: MigratorConfig):Promise<string>;
+      latest(config?: MigratorConfig):Promise<any>;
+      rollback(config?: MigratorConfig):Promise<any>;
+      status(config?: MigratorConfig):Promise<number>;
+      currentVersion(config?: MigratorConfig):Promise<string>;
     }
   }
 

@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module ngCordova {
+declare namespace ngCordova {
     export interface IActionSheetService {
         show(options: ShowOptions): ng.IPromise<number>;
         hide(): ng.IPromise<void>;

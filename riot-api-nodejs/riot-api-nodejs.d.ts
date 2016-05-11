@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../request/request.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
 /// <reference path="../riot-games-api/riot-games-api.d.ts" />
 
 declare module "riot-api-nodejs"{

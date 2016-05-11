@@ -3,7 +3,7 @@
 // Type definition tests for jQuery Tooltipster 3.0.5
 // Project: https://github.com/iamceege/tooltipster
 // Definitions by: Patrick Magee <https://github.com/pjmagee/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Tests taken from the getting started section of the Tooltipster website
 
 $(document).ready(function () {

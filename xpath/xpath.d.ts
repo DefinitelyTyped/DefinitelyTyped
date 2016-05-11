@@ -1,7 +1,7 @@
 // Type definitions for xpath v0.0.7
 // Project: https://github.com/goto100/xpath
 // Definitions by: Andrew Bradley <https://github.com/cspotcode/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Some documentation prose is copied from the XPath documentation at https://developer.mozilla.org.
 
