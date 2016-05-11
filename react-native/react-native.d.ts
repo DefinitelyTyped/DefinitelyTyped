@@ -5518,6 +5518,9 @@ declare namespace  __React {
     export var StyleSheet: StyleSheetStatic
     export type StyleSheet = StyleSheetStatic
 
+    export var Switch: SwitchStatic
+    export type Switch = SwitchStatic
+    
     export var SwitchIOS: SwitchIOSStatic
     export type SwitchIOS = SwitchIOSStatic
 
