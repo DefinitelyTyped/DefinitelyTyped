@@ -3,14 +3,8 @@
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import * as React from 'react';
 
+export = createFragment;
 
-declare namespace __React {
-    namespace __Addons {
-        export function createFragment(object: { [key: string]: ReactNode }): ReactFragment;
-    }
-}
-
-declare module "react-addons-create-fragment" {
-    export = __React.__Addons.createFragment;
-}
+declare function createFragment(object: { [key: string]: React.ReactNode }): React.ReactFragment;

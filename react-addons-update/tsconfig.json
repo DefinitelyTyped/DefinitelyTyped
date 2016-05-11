@@ -1,7 +1,6 @@
 {
     "files": [
-        "index.d.ts",
-        "react-router-tests.tsx"
+        "index.d.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -9,7 +8,6 @@
         "noImplicitAny": true,
         "strictNullChecks": false,
         "baseUrl": "../",
-        "jsx": "react",
         "typesSearchPaths": [
             "../"
         ],

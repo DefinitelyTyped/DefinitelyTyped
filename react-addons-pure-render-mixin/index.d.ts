@@ -1,22 +1,11 @@
-// Type definitions for React v0.14 (namespace)
+// Type definitions for React v0.14 (react-addons-pure-render-mixin)
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { Mixin } from 'react';
 
+declare var PureRenderMixin: PureRenderMixin;
+export = PureRenderMixin;
 
-
-
-
-
-
-
-
-
-
-import React = __React;
-import ReactDOM = __React.__DOM;
-
-declare namespace __React {
-    export import addons = __React.__Addons;
-}
+interface PureRenderMixin extends Mixin<any, any> { }
