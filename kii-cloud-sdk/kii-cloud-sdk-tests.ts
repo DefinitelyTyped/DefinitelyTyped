@@ -21,6 +21,16 @@ function main() {
         .then(function (user: KiiUser) {
         });
 
+    user.pushInstallation().getMqttEndpoint("")
+        .then(function (endpoint: KiiCloud.KiiMqttEndpoint) {
+            endpoint.installationID;
+        });
+
+    var anotherUser: KiiUser = KiiUserBuilder
+        .builderWithIdentifier("id", "password")
+        .setEmailAddress("mail@example.org")
+        .build();
+
     var bucket = Kii.bucketWithName("foo");
     var clause1 = KiiClause.lessThan("x", 1);
     var clause2 = KiiClause.greaterThan("y", 1);

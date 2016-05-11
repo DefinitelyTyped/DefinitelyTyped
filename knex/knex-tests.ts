@@ -594,8 +594,8 @@ knex.migrate.latest();
 knex.migrate.rollback(config);
 knex.migrate.rollback();
 
-knex.migrate.currentversion(config);
-knex.migrate.currentversion();
+knex.migrate.currentVersion(config);
+knex.migrate.currentVersion();
 
 knex.seed.make(name, config);
 knex.seed.make(name);

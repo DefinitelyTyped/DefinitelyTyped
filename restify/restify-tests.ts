@@ -4,7 +4,7 @@ import restify = require("restify");
 
 var server = restify.createServer({
   formatters: {
-    'application/foo': function formatFoo(req, res, body) {
+    'application/foo': function formatFoo(req: restify.Request, res: restify.Response, body: any) {
         if (body instanceof Error)
             return body.stack;
 
@@ -37,7 +37,7 @@ server.use((req, res, next)=>{});
 server.use([(req, res, next)=>{}]);
 server.use((req, res, next)=>{}, (req, res, next)=>{});
 
-function send(req, res, next) {
+function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.header('key', 'val');
     req.header('key') === 'val';
     
@@ -77,7 +77,7 @@ function send(req, res, next) {
 
     res.code === 50;
     res.contentLength === 50;
-    res.charSet === 'test';
+    res.charSet('test');
     res.contentType === 'test';
     res.headers;
     res.id === 'test';
@@ -249,7 +249,15 @@ server.on('after', restify.auditLogger({
     log: ()=>{}
 }));
 
-restify.defaultResponseHeaders = function(data) {
+server.on('after', (req: restify.Request, res: restify.Response, route: restify.Route, err: any) => {
+    route.spec.method === 'GET';
+    route.spec.name === 'routeName';
+    route.spec.path === '/some/path';
+    route.spec.versions === ['v1'];
+    restify.auditLogger({ log: ()=>{} })(req, res, route, err);
+});
+
+restify.defaultResponseHeaders = function(data: any) {
   this.header('Server', 'helloworld');
 };
 
@@ -276,18 +284,16 @@ client = restify.createStringClient({
     version: ""
 });
 
-client.get("test", send);
-client.head('test', send);
-client.post('path', {}, send);
-client.put('path', {}, send);
-client.del('path', send);
+client.head('test', function(err: any, req: restify.Request, res: restify.Response) { });
+client.put('path', {}, function(err: any, req: restify.Request, res: restify.Response, obj: any) { });
+client.del('path', function(err: any, req: restify.Request, res: restify.Response) { });
 
-client.post('/foo', { hello: 'world' }, function(err, req, res, obj) {
+client.post('/foo', { hello: 'world' }, function(err: any, req: restify.Request, res: restify.Response, obj: any) {
     console.log('%d -> %j', res.statusCode, res.headers);
     console.log('%j', obj);
 });
 
-client.get('/foo/bar', function(err, req, res, data) {
+client.get('/foo/bar', function(err: any, req: restify.Request, res: restify.Response, data: string) {
     console.log('%s', data);
 });
 
@@ -295,13 +301,13 @@ var client2 = restify.createClient({
   url: 'http://127.0.0.1'
 });
 
-client2.get('/str/mcavage', function(err, req) {
+client2.get('/str/mcavage', function(err: any, req: any) {
 
-    req.on('result', function(err, res) {
+    req.on('result', function(err: any, res: any) {
 
         res.body = '';
         res.setEncoding('utf8');
-        res.on('data', function(chunk) {
+        res.on('data', function(chunk: string) {
             res.body += chunk;
         });
 

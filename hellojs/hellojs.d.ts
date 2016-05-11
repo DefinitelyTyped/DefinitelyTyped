@@ -80,3 +80,8 @@ interface HelloJSServiceDef {
 }
 
 declare var hello: HelloJSStatic;
+
+// Support AMD require
+declare module 'hellojs' {
+  export = hello;
+}

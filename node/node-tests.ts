@@ -8,6 +8,7 @@ import * as util from "util";
 import * as crypto from "crypto";
 import * as tls from "tls";
 import * as http from "http";
+import * as https from "https";
 import * as net from "net";
 import * as tty from "tty";
 import * as dgram from "dgram";
@@ -15,6 +16,7 @@ import * as querystring from "querystring";
 import * as path from "path";
 import * as readline from "readline";
 import * as childProcess from "child_process";
+import * as cluster from "cluster";
 import * as os from "os";
 import * as vm from "vm";
 // Specifically test buffer module regression.
@@ -128,6 +130,13 @@ fs.readFile('testfile', (err, data) => {
     }
 });
 
+fs.mkdtemp('/tmp/foo-', (err, folder) => {
+    console.log(folder);
+    // Prints: /tmp/foo-itXde2
+});
+
+var tempDir: string;
+tempDir = fs.mkdtempSync('/tmp/foo-');
 
 ///////////////////////////////////////////////////////
 /// Buffer tests : https://nodejs.org/api/buffer.html
@@ -138,6 +147,7 @@ function bufferTests() {
     var base64Buffer = new Buffer('','base64');
     var octets: Uint8Array = null;
     var octetBuffer = new Buffer(octets);
+    var sharedBuffer = new Buffer(octets.buffer);
     var copiedBuffer = new Buffer(utf8Buffer);
     console.log(Buffer.isBuffer(octetBuffer));
     console.log(Buffer.isEncoding('utf8'));
@@ -145,6 +155,35 @@ function bufferTests() {
     console.log(Buffer.byteLength('xyz123', 'ascii'));
     var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
     var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
+
+    // Class Method: Buffer.from(array)
+    {
+        const buf: Buffer = Buffer.from([0x62,0x75,0x66,0x66,0x65,0x72]);
+    }
+
+    // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
+    {
+        const arr: Uint16Array = new Uint16Array(2);
+        arr[0] = 5000;
+        arr[1] = 4000;
+
+        let buf: Buffer;
+        buf = Buffer.from(arr.buffer);
+        buf = Buffer.from(arr.buffer, 1);
+        buf = Buffer.from(arr.buffer, 0, 1);
+    }
+
+    // Class Method: Buffer.from(buffer)
+    {
+        const buf1: Buffer = Buffer.from('buffer');
+        const buf2: Buffer = Buffer.from(buf1);
+    }
+
+    // Class Method: Buffer.from(str[, encoding])
+    {
+        const buf1: Buffer = Buffer.from('this is a tést');
+        const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
+    }
 
     // Test that TS 1.6 works with the 'as Buffer' annotation
     // on isBuffer.
@@ -180,6 +219,12 @@ function bufferTests() {
         b.writeUInt8(0, 6);
         let sb = new ImportedSlowBuffer(43);
         b.writeUInt8(0, 6);
+    }
+
+    // Buffer has Uint8Array's buffer field (an ArrayBuffer).
+    {
+      let buffer = new Buffer('123');
+      let octets = new Uint8Array(buffer.buffer);
     }
 }
 
@@ -321,6 +366,31 @@ namespace http_tests {
 	http.request({
 		agent: undefined
 	});
+}
+
+////////////////////////////////////////////////////
+/// Https tests : http://nodejs.org/api/https.html
+////////////////////////////////////////////////////
+namespace https_tests {
+    var agent: https.Agent = new https.Agent({
+        keepAlive: true,
+        keepAliveMsecs: 10000,
+        maxSockets: Infinity,
+        maxFreeSockets: 256,
+        maxCachedSessions: 100
+    });
+
+    var agent: https.Agent = https.globalAgent;
+
+    https.request({
+        agent: false
+    });
+    https.request({
+        agent: agent
+    });
+    https.request({
+        agent: undefined
+    });
 }
 
 ////////////////////////////////////////////////////
@@ -635,6 +705,18 @@ namespace readline_tests {
 
 childProcess.exec("echo test");
 childProcess.spawnSync("echo test");
+
+//////////////////////////////////////////////////////////////////////
+/// cluster tests: https://nodejs.org/api/cluster.html ///
+//////////////////////////////////////////////////////////////////////
+
+cluster.fork();
+Object.keys(cluster.workers).forEach(key => {
+    const worker = cluster.workers[key];
+    if (worker.isDead()) {
+        console.log('worker %d is dead', worker.process.pid);
+    }
+});
 
 ////////////////////////////////////////////////////
 /// os tests : https://nodejs.org/api/os.html

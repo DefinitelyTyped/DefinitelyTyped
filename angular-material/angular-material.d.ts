@@ -250,4 +250,25 @@ declare namespace angular.material {
     interface IMenuService {
         hide(response?: any, options?: any): angular.IPromise<any>;
     }
+
+    interface IColorPalette {
+        red: IPalette;
+        pink: IPalette;
+        'deep-purple': IPalette;
+        indigo: IPalette;
+        blue: IPalette;
+        'light-blue': IPalette;
+        cyan: IPalette;
+        teal: IPalette;
+        green: IPalette;
+        'light-green': IPalette;
+        lime: IPalette;
+        yellow: IPalette;
+        amber: IPalette;
+        orange: IPalette;
+        'deep-orange': IPalette;
+        brown: IPalette;
+        grey: IPalette;
+        'blue-grey': IPalette;
+    }
 }

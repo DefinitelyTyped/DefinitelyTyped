@@ -19,6 +19,7 @@ import {
 	screen,
 	shell,
 	session,
+	systemPreferences,
 	hideInternalModules
 } from 'electron';
 
@@ -44,7 +45,6 @@ var shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) 
 	if (mainWindow.isMinimized()) mainWindow.restore();
 	mainWindow.focus();
   }
-  return true;
 });
 
 if (shouldQuit) {
@@ -65,7 +65,7 @@ app.on('ready', () => {
 
 	mainWindow.webContents.openDevTools();
 	mainWindow.webContents.toggleDevTools();
-	mainWindow.webContents.openDevTools({detach: true});
+	mainWindow.webContents.openDevTools({mode: 'detach'});
 	mainWindow.webContents.closeDevTools();
 	mainWindow.webContents.addWorkSpace('/path/to/workspace');
 	mainWindow.webContents.removeWorkSpace('/path/to/workspace');
@@ -260,8 +260,8 @@ app.commandLine.appendSwitch('host-rules', 'MAP * 127.0.0.1');
 app.commandLine.appendSwitch('v', -1);
 app.commandLine.appendSwitch('vmodule', 'console=0');
 
-// app
-// https://github.com/atom/electron/blob/master/docs/api/app.md
+// systemPreferences
+// https://github.com/electron/electron/blob/master/docs/api/system-preferences.md
 
 var browserOptions = {
 	width: 1000,
@@ -271,7 +271,7 @@ var browserOptions = {
 };
 
 // Make the window transparent only if the platform supports it.
-if (process.platform !== 'win32' || app.isAeroGlassEnabled()) {
+if (process.platform !== 'win32' || systemPreferences.isAeroGlassEnabled()) {
 	browserOptions.transparent = true;
 	browserOptions.frame = false;
 }
@@ -288,8 +288,11 @@ if (browserOptions.transparent) {
 }
 
 app.on('platform-theme-changed', () => {
-	console.log(app.isDarkMode());
+	console.log(systemPreferences.isDarkMode());
 });
+
+// app
+// https://github.com/atom/electron/blob/master/docs/api/app.md
 
 app.on('certificate-error', function(event, webContents, url, error, certificate, callback) {
 	if (url == "https://github.com") {
@@ -337,14 +340,21 @@ win.on('closed', () => {
 win.loadURL('https://github.com');
 win.show();
 
+var toolbarRect = document.getElementById('toolbar').getBoundingClientRect();
+win.setSheetOffset(toolbarRect.height);
+
 // content-tracing
 // https://github.com/atom/electron/blob/master/docs/api/content-tracing.md
 
-contentTracing.startRecording('*', contentTracing.DEFAULT_OPTIONS, () => {
-	console.log('Tracing started');
+const options = {
+	categoryFilter: '*',
+	traceOptions: 'record-until-full,enable-sampling'
+}
 
-	setTimeout(() => {
-		contentTracing.stopRecording('', path => {
+contentTracing.startRecording(options, function() {
+	console.log('Tracing started');
+	setTimeout(function() {
+		contentTracing.stopRecording('', function(path) {
 			console.log('Tracing data recorded to ' + path);
 		});
 	}, 5000);
@@ -408,7 +418,7 @@ var menuItem = new MenuItem({});
 
 menuItem.label = 'Hello World!';
 menuItem.click = (menuItem, browserWindow) => {
-    console.log('click', menuItem, browserWindow);
+	console.log('click', menuItem, browserWindow);
 };
 
 // menu
@@ -513,12 +523,20 @@ var template = <Electron.MenuItemOptions[]>[
 			{
 				label: 'Reload',
 				accelerator: 'Command+R',
-				click: () => { BrowserWindow.getFocusedWindow().webContents.reloadIgnoringCache(); }
+				click: (item, focusedWindow) => {
+					if (focusedWindow) {
+						focusedWindow.webContents.reloadIgnoringCache();
+					}
+				}
 			},
 			{
 				label: 'Toggle DevTools',
 				accelerator: 'Alt+Command+I',
-				click: () => { BrowserWindow.getFocusedWindow().webContents.toggleDevTools(); }
+				click: (item, focusedWindow) => {
+					if (focusedWindow) {
+						focusedWindow.webContents.toggleDevTools();
+					}
+				}
 			}
 		]
 	},
@@ -644,7 +662,7 @@ app.on('ready', () => {
 	appIcon.setToolTip('This is my application.');
 	appIcon.setContextMenu(contextMenu);
 	appIcon.setImage('/path/to/new/icon');
-    appIcon.popUpContextMenu(contextMenu, {x: 100, y: 100});
+	appIcon.popUpContextMenu(contextMenu, {x: 100, y: 100});
 
 	appIcon.on('click', (event, bounds) => {
 		console.log('click', event, bounds);
@@ -699,6 +717,18 @@ var image = clipboard.readImage();
 var appIcon3 = new Tray(image);
 var appIcon4 = new Tray('/Users/somebody/images/icon.png');
 
+// process
+// https://github.com/electron/electron/blob/master/docs/api/process.md
+
+console.log(process.type);
+console.log(process.resourcesPath);
+console.log(process.mas);
+console.log(process.windowsStore);
+process.noAsar = true;
+process.crash();
+process.hang();
+process.setFdLimit(8192);
+
 // screen
 // https://github.com/atom/electron/blob/master/docs/api/screen.md
 
@@ -745,7 +775,7 @@ shell.openItem('/home/user/Desktop/test.txt');
 shell.moveItemToTrash('/home/user/Desktop/test.txt');
 
 shell.openExternal('https://github.com', {
-    activate: false
+	activate: false
 });
 
 shell.beep();
@@ -775,7 +805,7 @@ session.defaultSession.cookies.get({ url : "http://www.github.com" }, (error, co
 var cookie = { url : "http://www.github.com", name : "dummy_name", value : "dummy" };
 session.defaultSession.cookies.set(cookie, (error) => {
 	if (error) {
-    	console.error(error);
+		console.error(error);
 	}
 });
 
@@ -814,4 +844,25 @@ session.defaultSession.enableNetworkEmulation({
 
 session.defaultSession.setCertificateVerifyProc((hostname, cert, callback) => {
 	callback((hostname === 'github.com') ? true : false);
+});
+
+session.defaultSession.setPermissionRequestHandler(function(webContents, permission, callback) {
+	if (webContents.getURL() === 'github.com') {
+		if (permission == "notifications") {
+			callback(false);
+			return;
+		}
+	}
+
+	callback(true);
+});
+
+// Modify the user agent for all requests to the following urls.
+var filter = {
+	urls: ["https://*.github.com/*", "*://electron.github.io"]
+};
+
+session.defaultSession.webRequest.onBeforeSendHeaders(filter, function(details, callback) {
+	details.requestHeaders['User-Agent'] = "MyAgent";
+	callback({cancel: false, requestHeaders: details.requestHeaders});
 });

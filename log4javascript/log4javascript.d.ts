@@ -274,6 +274,8 @@ declare namespace log4javascript {
 		messages: any[];
 		exception: Error;
 
+		constructor(logger: Logger, timeStamp: Date, level: Level, messages: string[], exception?: Error);
+
 		getThrowableStrRep: () => string;
 		getCombinedMessages: () => string;
 		toString: () => string;

@@ -1743,20 +1743,17 @@ declare namespace Excel {
          * Protect a worksheet. It throws if the worksheet has been protected.
          *
          * @param options sheet protection options.
-         * @param password sheet protection password.
          *
          * [Api set: ExcelApi 1.2]
          */
-        protect(options?: Excel.WorksheetProtectionOptions, password?: string): void;
+        protect(options?: Excel.WorksheetProtectionOptions): void;
         /**
          *
          * Unprotect a worksheet
          *
-         * @param password sheet protection password.
-         *
          * [Api set: ExcelApi 1.2]
          */
-        unprotect(password?: string): void;
+        unprotect(): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -2142,7 +2139,7 @@ declare namespace Excel {
          *
          * @param across Set true to merge cells in each row of the specified range as separate merged cells. The default value is false.
          *
-         * [Api set: ExcelApi 1.1]
+         * [Api set: ExcelApi 1.2]
          */
         merge(across?: boolean): void;
         /**
@@ -2156,7 +2153,7 @@ declare namespace Excel {
          *
          * Unmerge the range cells into separate cells.
          *
-         * [Api set: ExcelApi 1.1]
+         * [Api set: ExcelApi 1.2]
          */
         unmerge(): void;
         /**
@@ -2473,14 +2470,14 @@ declare namespace Excel {
          *
          * Clears all the filters currently applied on the table.
          *
-         * [Api set: ExcelApi 1.1]
+         * [Api set: ExcelApi 1.2]
          */
         clearFilters(): void;
         /**
          *
          * Converts the table into a normal range of cells. All data is preserved.
          *
-         * [Api set: ExcelApi 1.1]
+         * [Api set: ExcelApi 1.2]
          */
         convertToRange(): Excel.Range;
         /**
@@ -2522,7 +2519,7 @@ declare namespace Excel {
          *
          * Reapplies all the filters currently on the table.
          *
-         * [Api set: ExcelApi 1.1]
+         * [Api set: ExcelApi 1.2]
          */
         reapplyFilters(): void;
         /**
@@ -2835,14 +2832,14 @@ declare namespace Excel {
          *
          * Changes the width of the columns of the current range to achieve the best fit, based on the current data in the columns.
          *
-         * [Api set: ExcelApi 1.1]
+         * [Api set: ExcelApi 1.2]
          */
         autofitColumns(): void;
         /**
          *
          * Changes the height of the rows of the current range to achieve the best fit, based on the current data in the columns.
          *
-         * [Api set: ExcelApi 1.1]
+         * [Api set: ExcelApi 1.2]
          */
         autofitRows(): void;
         /**
@@ -3221,7 +3218,7 @@ declare namespace Excel {
          * @param width (Optional) The desired width of the resulting image.
          * @param fittingMode (Optional) The method used to scale the chart to the specified to the specified dimensions (if both height and width are set)."
          *
-         * [Api set: ExcelApi 1.1]
+         * [Api set: ExcelApi 1.2]
          */
         getImage(width?: number, height?: number, fittingMode?: string): OfficeExtension.ClientResult<string>;
         /**
@@ -8566,7 +8563,6 @@ declare namespace Excel {
     }
     namespace ErrorCodes {
         var accessDenied: string;
-        var badPassword: string;
         var generalException: string;
         var insertDeleteConflict: string;
         var invalidArgument: string;
