@@ -15,6 +15,7 @@ declare module 'soap' {
         setSecurity(s: WSSecurity): void;
         [method: string]: (args: any, fn: (err: any, result: any) => void, options?: any, extraHeaders?: any) => void;
         addSoapHeader(headJSON: any): void;
+        setEndpoint(endpoint: string): void;
     }
     function createClient(wsdlPath: string, options: any, fn: (err: any, client: Client) => void): void;
 

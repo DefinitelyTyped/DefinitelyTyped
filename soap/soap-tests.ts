@@ -19,5 +19,6 @@ soap.createClient(url, wsdlOptions, function(err: any, client: soap.Client) {
     client.on('request', function(obj: any) {
         //obj is an object
     });
+    client.setEndpoint('http://example.com/');
 });
 
