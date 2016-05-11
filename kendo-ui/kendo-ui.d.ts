@@ -4449,6 +4449,7 @@ declare namespace kendo.ui {
         encoded?: boolean;
         field?: string;
         filterable?: boolean|GridColumnFilterable;
+        footerAttributes?: any;
         footerTemplate?: string|Function;
         format?: string;
         groupable?: boolean;
