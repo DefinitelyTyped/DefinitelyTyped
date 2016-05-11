@@ -45,6 +45,9 @@ declare module 'bookshelf' {
 			/** If overriding, must use a getter instead of a plain property. */
 			idAttribute : string;
 
+			// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/model.js#L28
+			attributes : any;
+
 			constructor(attributes? : any, options? : ModelOptions);
 
 			clear() : T;
@@ -113,6 +116,9 @@ declare module 'bookshelf' {
 		}
 
 		abstract class CollectionBase<T extends Model<any>> extends Events<T> {
+			// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/collection.js#L573
+			length : number;
+
 			add(models : T[]|{[key : string] : any}[], options? : CollectionAddOptions) : Collection<T>;
 			at(index : number) : T;
 			clone() : Collection<T>;
