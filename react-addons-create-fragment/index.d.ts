@@ -3,7 +3,9 @@
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import * as React from 'react';
 
+export = createFragment;
 
 declare namespace __React {
     namespace __Addons {

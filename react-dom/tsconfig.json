@@ -1,14 +1,17 @@
 {
+    "files": [
+        "index.d.ts",
+        "react-dom-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
         "strictNullChecks": false,
-        "baseUrl": "../../",
-        "typesRoot": "../../",
+        "baseUrl": "../",
+        "typesSearchPaths": [
+            "../"
+        ],
         "noEmit": true
-    },
-    "files": [
-        "index.d.ts"
-    ]
+    }
 }
