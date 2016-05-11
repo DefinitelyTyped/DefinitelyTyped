@@ -39,9 +39,6 @@ declare namespace Html2Canvas {
         
         /** Use svg powered rendering where available (FF11+). */
         svgRendering?: boolean;
-
-        /** Callback providing the rendered canvas element after rendering */
-        onrendered?(canvas: HTMLCanvasElement): void;
     }
 }
 
@@ -56,7 +53,22 @@ interface Html2CanvasStatic {
       * @param {HTMLElement} element The HTML element which will be rendered to the canvas. Use the root element to render the entire window.
       * @param {Html2CanvasOptions} options The options object that controls how the element will be rendered.
       */
-    (element: HTMLElement, options?: Html2Canvas.Html2CanvasOptions): void;
+    (element: HTMLElement, options?: Html2Canvas.Html2CanvasOptions): Html2CanvasPromise<HTMLCanvasElement>;
+}
+
+// FIXME:
+// Find out a way to dependent on real Promise interface.
+// And remove following custome Promise interface.
+interface Html2CanvasThenable<R> {
+    then<U>(onFulfilled?: (value: R) => U | Html2CanvasThenable<U>, onRejected?: (error: any) => U | Html2CanvasThenable<U>): Html2CanvasThenable<U>;
+    then<U>(onFulfilled?: (value: R) => U | Html2CanvasThenable<U>, onRejected?: (error: any) => void): Html2CanvasThenable<U>;
+}
+
+interface Html2CanvasPromise<R> extends Html2CanvasThenable<R> {
+    then<U>(onFulfilled?: (value: R) => U | Html2CanvasThenable<U>, onRejected?: (error: any) => U | Html2CanvasThenable<U>): Html2CanvasPromise<U>;
+    then<U>(onFulfilled?: (value: R) => U | Html2CanvasThenable<U>, onRejected?: (error: any) => void): Html2CanvasPromise<U>;
+    catch<U>(onRejected?: (error: any) => U | Html2CanvasThenable<U>): Html2CanvasPromise<U>;
+}
 }
 
 declare var html2canvas: Html2CanvasStatic;
