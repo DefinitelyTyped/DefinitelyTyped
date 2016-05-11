@@ -18,6 +18,10 @@ declare module "react-bootstrap-table" {
 		*/
 		data: any[];
 		/**
+		If set, data is remote (use also fetchInfo)
+		*/
+		remote?: boolean,
+		/**
 		Use keyField to tell table which column is unique. This is same as isKey in <TableHeaderColumn>
 		Tips: You need choose one configuration to set key field: keyField or isKey in <TableHeaderColumn>
 		*/
@@ -113,9 +117,18 @@ declare module "react-bootstrap-table" {
 		For some options setting on this component, you can set the options attribute and give an object which contain following properties
 		*/
 		options?:Options;
+		
+		
+		fetchInfo?:FetchInfo;
+
+		tableStyle?: any;
+		containerStyle?: any;
+		headerStyle?: any;
+		bodyStyle?: any;
+
 	}
 	
-	export type SelectRowMode = 'radio' | 'checkbox';
+	export type SelectRowMode = 'none' | 'radio' | 'checkbox';
 
 	export interface SelectRow {
 		/**
@@ -164,7 +177,7 @@ declare module "react-bootstrap-table" {
 		
 		If return value of this function is false, the select or deselect action will not be applied.
 		*/
-		onSelect?: (row:any, isSelected:Boolean, event:any)=>void;
+		onSelect?: (row:any, isSelected:Boolean, event:any)=>boolean;
 		/**
 		Accept a custom callback function, if click select all checkbox, this function will be called.
 		This callback function taking two arguments isSelected and currentSelectedAndDisplayData:
@@ -175,11 +188,11 @@ declare module "react-bootstrap-table" {
 		
 		If return value of this function is false, the select all or deselect all action will not be applied.
 		*/
-		onSelectAll?: (isSelected:boolean, currentSelectedAndDisplayData:any)=>void;
+		onSelectAll?: (isSelected:boolean, currentSelectedAndDisplayData:any)=>boolean;
 
 	}
 
-	export type CellEditClickMode = 'click' | 'dbclick';
+	export type CellEditClickMode = 'none' | 'click' | 'dbclick';
 
 	export interface CellEdit {
 		/**
@@ -196,7 +209,7 @@ declare module "react-bootstrap-table" {
 		This callback function taking three arguments:row, cellName and cellValue
 		It's necessary to return a bool value which whether apply this cell editing.
 		*/
-		beforeSaveCell?: (row:any, cellName:string, cellValue:any)=>void;
+		beforeSaveCell?: (row:any, cellName:string, cellValue:any)=>boolean;
 		/**
 		Accept a custom callback function, after cell saving, this function will be called.
 		This callback function taking three arguments:row, cellName and cellValue
@@ -255,7 +268,7 @@ declare module "react-bootstrap-table" {
 		Assign a callback function which will be called after row delete.
 		This function taking one argument: rowKeys, which means the row key you dropped.
 		*/
-		afterDeleteRow?: (rowKey:string)=>void;
+		afterDeleteRow?: (rowKeys:string[])=>void;
 		/**
 		Assign a callback function which will be called after row insert.
 		This function taking one argument: row, which means the whole row data you added.
@@ -370,6 +383,23 @@ declare module "react-bootstrap-table" {
 		*/
 		handleConfirmDeleteRow?: (next:Function, rowKeys:any[])=>void;
 
+		paginationShowsTotal?: boolean;
+		
+		onSearchChange?: Function;
+		onAddRow?: Function;
+		onExportToCSV?: Function;
+		
+		insertText?: string;
+		deleteText?: string;
+		saveText?: string;
+		closeText?: string;
+		
+		
+	}
+
+
+	interface FetchInfo {
+		dataTotalSize?: number;
 	}
 
 	export interface BootstrapTable extends ComponentClass<BootstrapTableProps> { 
@@ -412,6 +442,8 @@ declare module "react-bootstrap-table" {
 	}
 	export const BootstrapTable: BootstrapTable;
 
+	export type DataAlignType = 'left' | 'center' | 'right' | 'start' | 'end';
+
 	export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 		/**
 		The field of data you want to show on column.
@@ -429,7 +461,7 @@ declare module "react-bootstrap-table" {
 		/**
 		Set align in column, value is left, center, right, start and end.
 		*/
-		dataAlign?: string;
+		dataAlign?: DataAlignType;
 		/**
 		True to enable table sorting. Default is disabled.
 		*/
@@ -504,6 +536,12 @@ declare module "react-bootstrap-table" {
 		*/
 		filter?: Filter;
 
+		onSort?: Function;
+		csvFormat?: Function;
+		
+		columnTitle?: boolean;
+		sort?: SortOrder;
+		formatExtraData?: any;
 	}
 	export interface Editable {
 		type?: string;//edit type, avaiable value is textarea, select, checkbox
@@ -520,11 +558,13 @@ declare module "react-bootstrap-table" {
 		options?: any;
 	}
 	
+	export type FilterType = 'TextFilter' | 'RegexFilter' | 'SelectFilter' | 'NumberFilter' | 'DateFilter' | 'CustomFilter';
+	
 	export interface Filter {
 		/**
 		 "TextFilter"||"SelectFilter"||"NumberFilter"||"DateFilter"||"RegexFilter"||"YOUR_CUSTOM_FILTER"
 		 */
-		type?: string; 
+		type?: FilterType; 
 		/**
 		 * Default value on filter. If type is NumberFilter or DateFilter, this value will like { number||date: xxx, comparator: '>' }
 		 */
