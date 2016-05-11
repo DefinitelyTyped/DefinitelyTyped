@@ -13,6 +13,7 @@ declare namespace __React {
 
     type Key = string | number;
     type Ref<T> = string | ((instance: T) => any);
+    type ComponentState = {} | void;
 
     interface Attributes {
         key?: Key;
@@ -31,13 +32,13 @@ declare namespace __React {
         type: SFC<P>;
     }
 
-    type CElement<P, T extends Component<P, {}>> = ComponentElement<P, T>;
-    interface ComponentElement<P, T extends Component<P, {}>> extends ReactElement<P> {
+    type CElement<P, T extends Component<P, ComponentState>> = ComponentElement<P, T>;
+    interface ComponentElement<P, T extends Component<P, ComponentState>> extends ReactElement<P> {
         type: ComponentClass<P>;
         ref?: Ref<T>;
     }
 
-    type ClassicElement<P> = CElement<P, ClassicComponent<P, {}>>;
+    type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
     interface DOMElement<P extends DOMAttributes, T extends Element> extends ReactElement<P> {
         type: string;
@@ -62,12 +63,12 @@ declare namespace __React {
         (props?: P & Attributes, ...children: ReactNode[]): SFCElement<P>;
     }
 
-    interface ComponentFactory<P, T extends Component<P, {}>> {
+    interface ComponentFactory<P, T extends Component<P, ComponentState>> {
         (props?: P & ClassAttributes<T>, ...children: ReactNode[]): CElement<P, T>;
     }
 
-    type CFactory<P, T extends Component<P, {}>> = ComponentFactory<P, T>;
-    type ClassicFactory<P> = CFactory<P, ClassicComponent<P, {}>>;
+    type CFactory<P, T extends Component<P, ComponentState>> = ComponentFactory<P, T>;
+    type ClassicFactory<P> = CFactory<P, ClassicComponent<P, ComponentState>>;
 
     interface DOMFactory<P extends DOMAttributes, T extends Element> {
         (props?: P & ClassAttributes<T>, ...children: ReactNode[]): DOMElement<P, T>;
@@ -101,8 +102,8 @@ declare namespace __React {
         type: string): DOMFactory<P, T>;
     function createFactory<P>(type: SFC<P>): SFCFactory<P>;
     function createFactory<P>(
-        type: ClassType<P, ClassicComponent<P, {}>, ClassicComponentClass<P>>): CFactory<P, ClassicComponent<P, {}>>;
-    function createFactory<P, T extends Component<P, {}>, C extends ComponentClass<P>>(
+        type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>): CFactory<P, ClassicComponent<P, ComponentState>>;
+    function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>): CFactory<P, T>;
     function createFactory<P>(type: ComponentClass<P> | SFC<P>): Factory<P>;
 
@@ -115,10 +116,10 @@ declare namespace __React {
         props?: P & Attributes,
         ...children: ReactNode[]): SFCElement<P>;
     function createElement<P>(
-        type: ClassType<P, ClassicComponent<P, {}>, ClassicComponentClass<P>>,
-        props?: P & ClassAttributes<ClassicComponent<P, {}>>,
-        ...children: ReactNode[]): CElement<P, ClassicComponent<P, {}>>;
-    function createElement<P, T extends Component<P, {}>, C extends ComponentClass<P>>(
+        type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>,
+        props?: P & ClassAttributes<ClassicComponent<P, ComponentState>>,
+        ...children: ReactNode[]): CElement<P, ClassicComponent<P, ComponentState>>;
+    function createElement<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
         props?: P & ClassAttributes<T>,
         ...children: ReactNode[]): CElement<P, T>;
@@ -135,7 +136,7 @@ declare namespace __React {
         element: SFCElement<P>,
         props?: Q, // should be Q & Attributes, but then Q is inferred as {}
         ...children: ReactNode[]): SFCElement<P>;
-    function cloneElement<P extends Q, Q, T extends Component<P, {}>>(
+    function cloneElement<P extends Q, Q, T extends Component<P, ComponentState>>(
         element: CElement<P, T>,
         props?: Q, // should be Q & ClassAttributes<T>
         ...children: ReactNode[]): CElement<P, T>;
@@ -201,7 +202,7 @@ declare namespace __React {
     }
 
     interface ComponentClass<P> {
-        new(props?: P, context?: any): Component<P, {}>;
+        new(props?: P, context?: any): Component<P, ComponentState>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         childContextTypes?: ValidationMap<any>;
@@ -210,7 +211,7 @@ declare namespace __React {
     }
 
     interface ClassicComponentClass<P> extends ComponentClass<P> {
-        new(props?: P, context?: any): ClassicComponent<P, {}>;
+        new(props?: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
 
@@ -219,7 +220,7 @@ declare namespace __React {
      * a single argument, which is useful for many top-level API defs.
      * See https://github.com/Microsoft/TypeScript/issues/7234 for more info.
      */
-    type ClassType<P, T extends Component<P, {}>, C extends ComponentClass<P>> =
+    type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         C &
         (new() => T) &
         (new() => { props: P });
@@ -1180,7 +1181,7 @@ declare namespace __React {
         lineClamp?: number;
 
         /**
-         * Specifies the height of an inline block level element. 
+         * Specifies the height of an inline block level element.
          */
         lineHeight?: number | string;
 
@@ -2033,7 +2034,7 @@ declare namespace __React {
         results?: number;
         security?: string;
         unselectable?: boolean;
-        
+
         // Allows aria- and data- Attributes
         [key: string]: any;
     }
@@ -2233,8 +2234,10 @@ declare namespace __React {
         radialGradient: SVGFactory;
         rect: SVGFactory;
         stop: SVGFactory;
+        symbol: SVGFactory;
         text: SVGFactory;
         tspan: SVGFactory;
+        use: SVGFactory;
     }
 
     //
@@ -2463,7 +2466,9 @@ declare namespace JSX {
         radialGradient: React.SVGProps;
         rect: React.SVGProps;
         stop: React.SVGProps;
+        symbol: React.SVGProps;
         text: React.SVGProps;
         tspan: React.SVGProps;
+        use: React.SVGProps;
     }
 }

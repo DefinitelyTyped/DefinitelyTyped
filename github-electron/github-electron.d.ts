@@ -1,4 +1,4 @@
-// Type definitions for Electron v0.37.4
+// Type definitions for Electron v0.37.8
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -25,7 +25,7 @@ declare namespace Electron {
 		sender: EventEmitter;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/app.md
+	// https://github.com/electron/electron/blob/master/docs/api/app.md
 
 	/**
 	 * The app module is responsible for controlling the application's lifecycle.
@@ -149,11 +149,6 @@ declare namespace Electron {
 		 * Emitted when the gpu process crashes.
 		 */
 		on(event: 'gpu-process-crashed', listener: Function): this;
-		/**
-		 * Emitted when the system’s Dark Mode theme is toggled.
-		 * Note: This is only implemented on OS X.
-		 */
-		on(event: 'platform-theme-changed', listener: Function): this;
 		on(event: string, listener: Function): this;
 		/**
 		 * Try to close all windows. The before-quit event will first be emitted.
@@ -256,10 +251,16 @@ declare namespace Electron {
 		/**
 		 * Removes the current executable as the default handler for a protocol (aka URI scheme).
 		 *
-		 * Note: This API is only available on Windows.
+		 * Note: This is only implemented on Windows.
 		 *       On OS X, removing the app will automatically remove the app as the default protocol handler.
 		 */
 		removeAsDefaultProtocolClient(protocol: string): void;
+		/**
+		 * @returns Whether the current executable is the default handler for a protocol (aka URI scheme).
+		 *
+		 * Note: This is only implemented on OS X and Windows.
+		 */
+		isDefaultProtocolClient(protocol: string): boolean;
 		/**
 		 * Adds tasks to the Tasks category of JumpList on Windows.
 		 *
@@ -279,24 +280,19 @@ declare namespace Electron {
 		 * multiple instances of your app to run, this will ensure that only a single instance
 		 * of your app is running, and other instances signal this instance and exit.
 		 */
-		makeSingleInstance(callback: (args: string[], workingDirectory: string) => boolean): boolean;
+		makeSingleInstance(callback: (args: string[], workingDirectory: string) => void): boolean;
 		/**
 		 * Changes the Application User Model ID to id.
 		 */
 		setAppUserModelId(id: string): void;
 		/**
-		 * This method returns true if DWM composition (Aero Glass) is enabled,
-		 * and false otherwise. You can use it to determine if you should create
-		 * a transparent window or not (transparent windows won’t work correctly when DWM composition is disabled).
+		 * Imports the certificate in pkcs12 format into the platform certificate store.
+		 * @param callback Called with the result of import operation, a value of 0 indicates success
+		 * while any other value indicates failure according to chromium net_error_list.
 		 *
-		 * Note: This is only implemented on Windows.
+		 * Note: This API is only available on Linux.
 		 */
-		isAeroGlassEnabled(): boolean;
-		/**
-		 * @returns If the system is in Dark Mode.
-		 * Note: This is only implemented on OS X.
-		 */
-		isDarkMode(): boolean;
+		importCertificate(options: ImportCertificateOptions, callback: (result: number) => void): void;
 		commandLine: CommandLine;
 		/**
 		 * Note: This API is only available on Mac.
@@ -305,6 +301,17 @@ declare namespace Electron {
 	}
 
 	type AppPathName = 'home'|'appData'|'userData'|'temp'|'exe'|'module'|'desktop'|'documents'|'downloads'|'music'|'pictures'|'videos';
+
+	interface ImportCertificateOptions {
+		/**
+		 * Path for the pkcs12 file.
+		 */
+		certificate: string;
+		/**
+		 * Passphrase for the certificate.
+		 */
+		password: string;
+	}
 
 	interface CommandLine {
 		/**
@@ -319,7 +326,7 @@ declare namespace Electron {
 		 *
 		 * Note: This will not affect process.argv.
 		 */
-		appendArgument(value: any): void;
+		appendArgument(value: string): void;
 	}
 
 	interface Dock {
@@ -411,7 +418,7 @@ declare namespace Electron {
 		iconIndex?: number;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/auto-updater.md
+	// https://github.com/electron/electron/blob/master/docs/api/auto-updater.md
 
 	/**
 	 * This module provides an interface for the Squirrel auto-updater framework.
@@ -448,7 +455,7 @@ declare namespace Electron {
 		 * Ask the server whether there is an update, you have to call setFeedURL
 		 * before using this API
 		 */
-		checkForUpdates(): any;
+		checkForUpdates(): void;
 		/**
 		 * Restarts the app and installs the update after it has been downloaded.
 		 * It should only be called after update-downloaded has been emitted.
@@ -456,7 +463,7 @@ declare namespace Electron {
 		quitAndInstall(): void;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/browser-window.md
+	// https://github.com/electron/electron/blob/master/docs/api/browser-window.md
 
 	/**
 	 * The BrowserWindow class gives you ability to create a browser window.
@@ -815,6 +822,11 @@ declare namespace Electron {
 		 */
 		getTitle(): string;
 		/**
+		 * Changes the attachment point for sheets on Mac OS X.
+		 * Note: This API is available only on OS X.
+		 */
+		setSheetOffset(offset: number): void;
+		/**
 		 * Starts or stops flashing the window to attract user's attention.
 		 */
 		flashFrame(flag: boolean): void;
@@ -1132,6 +1144,11 @@ declare namespace Electron {
 		 * Default: ISO-8859-1.
 		 */
 		defaultEncoding?: string;
+		/**
+		 * Whether to throttle animations and timers when the page becomes background.
+		 * Default: true
+		 */
+		backgroundThrottling?: boolean;
 	}
 
 	interface BrowserWindowOptions extends Rectangle {
@@ -1282,7 +1299,7 @@ declare namespace Electron {
 		enableLargerThanScreen?: boolean;
 		/**
 		 * Window’s background color as Hexadecimal value, like #66CD00 or #FFF or #80FFFFFF (alpha is supported).
-		 * Default: #000 (black) for Linux and Windows, #FFF for Mac (or clear if transparent).
+		 * Default: #FFF (white).
 		 */
 		backgroundColor?: string;
 		/**
@@ -1327,7 +1344,7 @@ declare namespace Electron {
 		height?: number;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/clipboard.md
+	// https://github.com/electron/electron/blob/master/docs/api/clipboard.md
 
 	/**
 	 * The clipboard module provides methods to perform copy and paste operations.
@@ -1383,7 +1400,7 @@ declare namespace Electron {
 		 * Reads the data in the clipboard of the specified format.
 		 * Note: This API is experimental and could be removed in future.
 		 */
-		read(format: string, type?: ClipboardType): any;
+		read(format: string, type?: ClipboardType): string | NativeImage;
 		/**
 		 * Writes data to the clipboard.
 		 */
@@ -1397,7 +1414,7 @@ declare namespace Electron {
 
 	type ClipboardType = '' | 'selection';
 
-	// https://github.com/atom/electron/blob/master/docs/api/content-tracing.md
+	// https://github.com/electron/electron/blob/master/docs/api/content-tracing.md
 
 	/**
 	 * The content-tracing module is used to collect tracing data generated by the underlying Chromium content module.
@@ -1407,47 +1424,40 @@ declare namespace Electron {
 	interface ContentTracing {
 		/**
 		 * Get a set of category groups. The category groups can change as new code paths are reached.
-		 * @param callback Called once all child processes have acked to the getCategories request.
+		 *
+		 * @param callback Called once all child processes have acknowledged the getCategories request.
 		 */
-		getCategories(callback: (categoryGroups: any[]) => void): void;
+		getCategories(callback: (categoryGroups: string[]) => void): void;
 		/**
-		 * Start recording on all processes. Recording begins immediately locally, and asynchronously
+		 * Start recording on all processes. Recording begins immediately locally and asynchronously
 		 * on child processes as soon as they receive the EnableRecording request.
-		 * @param categoryFilter A filter to control what category groups should be traced.
-		 * A filter can have an optional "-" prefix to exclude category groups that contain
-		 * a matching category. Having both included and excluded category patterns in the
-		 * same list would not be supported.
-		 * @param options controls what kind of tracing is enabled, it could be a OR-ed
-		 * combination of tracing.DEFAULT_OPTIONS, tracing.ENABLE_SYSTRACE, tracing.ENABLE_SAMPLING
-		 * and tracing.RECORD_CONTINUOUSLY.
-		 * @param callback Called once all child processes have acked to the startRecording request.
+		 *
+		 * @param callback Called once all child processes have acknowledged the startRecording request.
 		 */
-		startRecording(categoryFilter: string, options: number, callback: Function): void;
+		startRecording(options: ContentTracingOptions, callback: Function): void;
 		/**
 		 * Stop recording on all processes. Child processes typically are caching trace data and
 		 * only rarely flush and send trace data back to the main process. That is because it may
 		 * be an expensive operation to send the trace data over IPC, and we would like to avoid
 		 * much runtime overhead of tracing. So, to end tracing, we must asynchronously ask all
 		 * child processes to flush any pending trace data.
+		 *
 		 * @param resultFilePath Trace data will be written into this file if it is not empty,
 		 * or into a temporary file.
-		 * @param callback Called once all child processes have acked to the stopRecording request.
+		 * @param callback Called once all child processes have acknowledged the stopRecording request.
 		 */
-		stopRecording(resultFilePath: string, callback:
-			/**
-			 * @param filePath A file that contains the traced data.
-			 */
-			(filePath: string) => void
-			): void;
+		stopRecording(resultFilePath: string, callback: (filePath: string) => void): void;
 		/**
-		 * Start monitoring on all processes. Monitoring begins immediately locally, and asynchronously
+		 * Start monitoring on all processes. Monitoring begins immediately locally and asynchronously
 		 * on child processes as soon as they receive the startMonitoring request.
+		 *
 		 * @param callback Called once all child processes have acked to the startMonitoring request.
 		 */
-		startMonitoring(categoryFilter: string, options: number, callback: Function): void;
+		startMonitoring(options: ContentTracingOptions, callback: Function): void;
 		/**
 		 * Stop monitoring on all processes.
-		 * @param callback Called once all child processes have acked to the stopMonitoring request.
+		 *
+		 * @param callback Called once all child processes have acknowledged the stopMonitoring request.
 		 */
 		stopMonitoring(callback: Function): void;
 		/**
@@ -1456,17 +1466,13 @@ declare namespace Electron {
 		 * be an expensive operation to send the trace data over IPC, and we would like to avoid much
 		 * runtime overhead of tracing. So, to end tracing, we must asynchronously ask all child
 		 * processes to flush any pending trace data.
-		 * @param callback Called once all child processes have acked to the captureMonitoringSnapshot request.
+		 *
+		 * @param callback Called once all child processes have acknowledged the captureMonitoringSnapshot request.
 		 */
-		captureMonitoringSnapshot(resultFilePath: string, callback:
-			/**
-			 * @param filePath A file that contains the traced data
-			 * @returns {}
-			 */
-			(filePath: string) => void
-			): void;
+		captureMonitoringSnapshot(resultFilePath: string, callback: (filePath: string) => void): void;
 		/**
-		 * Get the maximum across processes of trace buffer percent full state.
+		 * Get the maximum usage across processes of trace buffer as a percentage of the full state.
+		 *
 		 * @param callback Called when the TraceBufferUsage value is determined.
 		 */
 		getTraceBufferUsage(callback: Function): void;
@@ -1475,16 +1481,47 @@ declare namespace Electron {
 		 */
 		setWatchEvent(categoryName: string, eventName: string, callback: Function): void;
 		/**
-		 * Cancel the watch event. If tracing is enabled, this may race with the watch event callback.
+		 * Cancel the watch event. This may lead to a race condition with the watch event callback if tracing is enabled.
 		 */
 		cancelWatchEvent(): void;
-		DEFAULT_OPTIONS: number;
-		ENABLE_SYSTRACE: number;
-		ENABLE_SAMPLING: number;
-		RECORD_CONTINUOUSLY: number;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/crash-reporter.md
+	interface ContentTracingOptions {
+		/**
+		 * Filter to control what category groups should be traced.
+		 * A filter can have an optional - prefix to exclude category groups
+		 * that contain a matching category. Having both included and excluded
+		 * category patterns in the same list is not supported.
+		 *
+		 * Examples:
+		 *   test_MyTest*
+		 *   test_MyTest*,test_OtherStuff
+		 *   -excluded_category1,-excluded_category2
+		 */
+		categoryFilter: string;
+		/**
+		 * Controls what kind of tracing is enabled, it is a comma-delimited list.
+		 *
+		 * Possible options are:
+		 *   record-until-full
+		 *   record-continuously
+		 *   trace-to-console
+		 *   enable-sampling
+		 *   enable-systrace
+		 *
+		 * The first 3 options are trace recoding modes and hence mutually exclusive.
+		 * If more than one trace recording modes appear in the traceOptions string,
+		 * the last one takes precedence. If none of the trace recording modes are specified,
+		 * recording mode is record-until-full.
+		 *
+		 * The trace option will first be reset to the default option (record_mode set
+		 * to record-until-full, enable_sampling and enable_systrace set to false)
+		 * before options parsed from traceOptions are applied on it.
+		 */
+		traceOptions: string;
+	}
+
+	// https://github.com/electron/electron/blob/master/docs/api/crash-reporter.md
 
 	/**
 	 * The crash-reporter module enables sending your app's crash reports.
@@ -1492,87 +1529,56 @@ declare namespace Electron {
 	interface CrashReporter {
 		/**
 		 * You are required to call this method before using other crashReporter APIs.
+		 *
+		 * Note: On OS X, Electron uses a new crashpad client, which is different from breakpad
+		 * on Windows and Linux. To enable the crash collection feature, you are required to call
+		 * the crashReporter.start API to initialize crashpad in the main process and in each
+		 * renderer process from which you wish to collect crash reports.
 		 */
 		start(options: CrashReporterStartOptions): void;
 		/**
-		 * @returns The date and ID of the last crash report. When there was no crash report
+		 * @returns The crash report. When there was no crash report
 		 * sent or the crash reporter is not started, null will be returned.
 		 */
-		getLastCrashReport(): CrashReporterPayload;
+		getLastCrashReport(): CrashReport;
 		/**
-		 * @returns All uploaded crash reports. Each report contains the date and uploaded ID.
+		 * @returns All uploaded crash reports.
 		 */
-		getUploadedReports(): CrashReporterPayload[];
+		getUploadedReports(): CrashReport[];
 	}
 
 	interface CrashReporterStartOptions {
 		/**
-		* Default: Electron
-		*/
+		 * Default: Electron
+		 */
 		productName?: string;
 		companyName: string;
 		/**
-		* URL that crash reports would be sent to as POST.
-		*/
+		 * URL that crash reports would be sent to as POST.
+		 */
 		submitURL: string;
 		/**
-		* Send the crash report without user interaction.
-		* Default: true.
-		*/
+		 * Send the crash report without user interaction.
+		 * Default: true.
+		 */
 		autoSubmit?: boolean;
 		/**
-		* Default: false.
-		*/
+		 * Default: false.
+		 */
 		ignoreSystemCrashHandler?: boolean;
 		/**
-		* An object you can define which content will be send along with the report.
-		* Only string properties are send correctly.
-		* Nested objects are not supported.
-		*/
+		 * An object you can define that will be sent along with the report.
+		 * Only string properties are sent correctly, nested objects are not supported.
+		 */
 		extra?: {[prop: string]: string};
 	}
 
-	interface CrashReporterPayload extends Object {
-		/**
-		* E.g., "electron-crash-service".
-		*/
-		rept: string;
-		/**
-		* The version of Electron.
-		*/
-		ver: string;
-		/**
-		* E.g., "win32".
-		*/
-		platform: string;
-		/**
-		* E.g., "renderer".
-		*/
-		process_type: string;
-		ptime: number;
-		/**
-		* The version in package.json.
-		*/
-		_version: string;
-		/**
-		* The product name in the crashReporter options object.
-		*/
-		_productName: string;
-		/**
-		* Name of the underlying product. In this case, Electron.
-		*/
-		prod: string;
-		/**
-		* The company name in the crashReporter options object.
-		*/
-		_companyName: string;
-		/**
-		* The crashreporter as a file.
-		*/
-		upload_file_minidump: File;
+	interface CrashReport {
+		id: string;
+		date: Date;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/desktop-capturer.md
+	// https://github.com/electron/electron/blob/master/docs/api/desktop-capturer.md
 
 	/**
 	 * The desktopCapturer module can be used to get available sources
@@ -1585,7 +1591,7 @@ declare namespace Electron {
 		 * Note: There is no guarantee that the size of source.thumbnail is always
 		 * the same as the thumnbailSize in options. It also depends on the scale of the screen or window.
 		 */
-		getSources(options: any, callback: (error: Error, sources: DesktopCapturerSource[]) => any): void;
+		getSources(options: DesktopCapturerOptions, callback: (error: Error, sources: DesktopCapturerSource[]) => any): void;
 	}
 
 	interface DesktopCapturerOptions {
@@ -1618,7 +1624,7 @@ declare namespace Electron {
 		thumbnail: NativeImage;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/dialog.md
+	// https://github.com/electron/electron/blob/master/docs/api/dialog.md
 
 	/**
 	 * The dialog module provides APIs to show native system dialogs, such as opening files or alerting,
@@ -1660,13 +1666,13 @@ declare namespace Electron {
 		 * @param callback If supplied, the API call will be asynchronous.
 		 * @returns The index of the clicked button.
 		 */
-		showMessageBox(browserWindow: BrowserWindow, options: ShowMessageBoxOptions, callback?: (response: any) => void): number;
+		showMessageBox(browserWindow: BrowserWindow, options: ShowMessageBoxOptions, callback?: (response: number) => void): number;
 		/**
 		 * Shows a message box. It will block until the message box is closed.
 		 * @param callback If supplied, the API call will be asynchronous.
 		 * @returns The index of the clicked button.
 		 */
-		showMessageBox(options: ShowMessageBoxOptions, callback?: (response: any) => void): number;
+		showMessageBox(options: ShowMessageBoxOptions, callback?: (response: number) => void): number;
 		/**
 		 * Displays a modal dialog that shows an error message.
 		 *
@@ -1752,7 +1758,7 @@ declare namespace Electron {
 		noLink?: boolean;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/download-item.md
+	// https://github.com/electron/electron/blob/master/docs/api/download-item.md
 
 	/**
 	 * DownloadItem represents a download item in Electron.
@@ -1820,7 +1826,7 @@ declare namespace Electron {
 		getContentDisposition(): string;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/global-shortcut.md
+	// https://github.com/electron/electron/blob/master/docs/api/global-shortcut.md
 
 	/**
 	 * The globalShortcut module can register/unregister a global keyboard shortcut
@@ -1854,7 +1860,7 @@ declare namespace Electron {
 		unregisterAll(): void;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/ipc-main.md
+	// https://github.com/electron/electron/blob/master/docs/api/ipc-main.md
 
 	/**
 	 * The ipcMain module handles asynchronous and synchronous messages
@@ -1883,7 +1889,7 @@ declare namespace Electron {
 		sender: WebContents;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/ipc-renderer.md
+	// https://github.com/electron/electron/blob/master/docs/api/ipc-renderer.md
 
 	/**
 	 * The ipcRenderer module provides a few methods so you can send synchronous
@@ -1926,7 +1932,8 @@ declare namespace Electron {
 		sender: IpcRenderer;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/menu-item.md
+	// https://github.com/electron/electron/blob/master/docs/api/menu-item.md
+	// https://github.com/electron/electron/blob/master/docs/api/accelerator.md
 
 	/**
 	 * The MenuItem allows you to add items to an application or context menu.
@@ -1986,13 +1993,16 @@ declare namespace Electron {
 		 * multiple modifiers and key codes, combined by the + character.
 		 *
 		 * Examples:
-		 *   Command+A
-		 *   Ctrl+Shift+Z
+		 *   CommandOrControl+A
+		 *   CommandOrControl+Shift+Z
 		 *
 		 * Platform notice:
 		 *   On Linux and Windows, the Command key would not have any effect,
 		 *   you can use CommandOrControl which represents Command on OS X and Control on
 		 *   Linux and Windows to define some accelerators.
+		 *
+		 *   Use Alt instead of Option. The Option key only exists on OS X, whereas
+		 *   the Alt key is available on all platforms.
 		 *
 		 *   The Super key is mapped to the Windows key on Windows and Linux and Cmd on OS X.
 		 *
@@ -2031,8 +2041,17 @@ declare namespace Electron {
 		 * or NativeImage instances. When passing null, an empty image will be used.
 		 */
 		icon?: NativeImage|string;
+		/**
+		 * If false, the menu item will be greyed out and unclickable.
+		 */
 		enabled?: boolean;
+		/**
+		 * If false, the menu item will be entirely hidden.
+		 */
 		visible?: boolean;
+		/**
+		 * Should only be specified for 'checkbox' or 'radio' type menu items.
+		 */
 		checked?: boolean;
 		/**
 		 * Should be specified for submenu type menu item, when it's specified the
@@ -2055,7 +2074,7 @@ declare namespace Electron {
 		role?: MenuItemRole | MenuItemRoleMac;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/menu.md
+	// https://github.com/electron/electron/blob/master/docs/api/menu.md
 
 	/**
 	 * The Menu class is used to create native menus that can be used as application
@@ -2110,7 +2129,7 @@ declare namespace Electron {
 		items: MenuItem[];
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/native-image.md
+	// https://github.com/electron/electron/blob/master/docs/api/native-image.md
 
 	/**
 	 * This class is used to represent an image.
@@ -2158,7 +2177,7 @@ declare namespace Electron {
 		/**
 		 * @returns {} The size of the image.
 		 */
-		getSize(): any;
+		getSize(): Dimension;
 		/**
 		 * Marks the image as template image.
 		 */
@@ -2169,7 +2188,7 @@ declare namespace Electron {
 		isTemplateImage(): boolean;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/power-monitor.md
+	// https://github.com/electron/electron/blob/master/docs/api/power-monitor.md
 
 	/**
 	 * The power-monitor module is used to monitor power state changes.
@@ -2195,7 +2214,7 @@ declare namespace Electron {
 		on(event: string, listener: Function): this;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/power-save-blocker.md
+	// https://github.com/electron/electron/blob/master/docs/api/power-save-blocker.md
 
 	/**
 	 * The powerSaveBlocker module is used to block the system from entering
@@ -2220,7 +2239,7 @@ declare namespace Electron {
 		isStarted(id: number): boolean;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/protocol.md
+	// https://github.com/electron/electron/blob/master/docs/api/protocol.md
 
 	/**
 	 * The protocol module can register a custom protocol or intercept an existing protocol.
@@ -2237,19 +2256,19 @@ declare namespace Electron {
 		/**
 		 * Registers a protocol of scheme that will send the file as a response.
 		 */
-		registerFileProtocol(scheme: string, handler: (request: ProtocolRequest, callback: FileProtocolCallback) => void, completion?: (error: Error) => void): void;
+		registerFileProtocol(scheme: string, handler: FileProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Registers a protocol of scheme that will send a Buffer as a response.
 		 */
-		registerBufferProtocol(scheme: string, handler: (request: ProtocolRequest, callback: BufferProtocolCallback) => void, completion?: (error: Error) => void): void;
+		registerBufferProtocol(scheme: string, handler: BufferProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Registers a protocol of scheme that will send a String as a response.
 		 */
-		registerStringProtocol(scheme: string, handler: (request: ProtocolRequest, callback: StringProtocolCallback) => void, completion?: (error: Error) => void): void;
+		registerStringProtocol(scheme: string, handler: StringProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Registers a protocol of scheme that will send an HTTP request as a response.
 		 */
-		registerHttpProtocol(scheme: string, handler: (request: ProtocolRequest, callback: HttpProtocolCallback) => void, completion?: (error: Error) => void): void;
+		registerHttpProtocol(scheme: string, handler: HttpProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Unregisters the custom protocol of scheme.
 		 */
@@ -2261,24 +2280,29 @@ declare namespace Electron {
 		/**
 		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a file as a response.
 		 */
-		interceptFileProtocol(scheme: string, handler: (request: ProtocolRequest, callback: FileProtocolCallback) => void, completion?: (error: Error) => void): void;
-		/**
-		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a String as a response.
-		 */
-		interceptStringProtocol(scheme: string, handler: (request: ProtocolRequest, callback: BufferProtocolCallback) => void, completion?: (error: Error) => void): void;
+		interceptFileProtocol(scheme: string, handler: FileProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a Buffer as a response.
 		 */
-		interceptBufferProtocol(scheme: string, handler: (request: ProtocolRequest, callback: StringProtocolCallback) => void, completion?: (error: Error) => void): void;
+		interceptBufferProtocol(scheme: string, handler: BufferProtocolHandler, completion?: (error: Error) => void): void;
+		/**
+		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a String as a response.
+		 */
+		interceptStringProtocol(scheme: string, handler: StringProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a new HTTP request as a response.
 		 */
-		interceptHttpProtocol(scheme: string, handler: (request: ProtocolRequest, callback: HttpProtocolCallback) => void, completion?: (error: Error) => void): void;
+		interceptHttpProtocol(scheme: string, handler: HttpProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Remove the interceptor installed for scheme and restore its original handler.
 		 */
 		uninterceptProtocol(scheme: string, completion?: (error: Error) => void): void;
 	}
+
+	type FileProtocolHandler = (request: ProtocolRequest, callback: FileProtocolCallback) => void;
+	type BufferProtocolHandler = (request: ProtocolRequest, callback: BufferProtocolCallback) => void;
+	type StringProtocolHandler = (request: ProtocolRequest, callback: StringProtocolCallback) => void;
+	type HttpProtocolHandler = (request: ProtocolRequest, callback: HttpProtocolCallback) => void;
 
 	interface ProtocolRequest {
 		url: string;
@@ -2335,7 +2359,7 @@ declare namespace Electron {
 		}): void;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/remote.md
+	// https://github.com/electron/electron/blob/master/docs/api/remote.md
 
 	/**
 	 * The remote module provides a simple way to do inter-process communication (IPC)
@@ -2365,7 +2389,7 @@ declare namespace Electron {
 		process: NodeJS.Process;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/screen.md
+	// https://github.com/electron/electron/blob/master/docs/api/screen.md
 
 	/**
 	 * The Display object represents a physical display connected to the system.
@@ -2385,7 +2409,7 @@ declare namespace Electron {
 		 */
 		scaleFactor: number;
 		/**
-		 * Can be 0, 1, 2, 3, each represents screen rotation in clock-wise degrees of 0, 90, 180, 270.
+		 * Can be 0, 90, 180, 270, represents screen rotation in clock-wise degrees.
 		 */
 		rotation: number;
 		touchSupport: 'available' | 'unavailable' | 'unknown';
@@ -2412,7 +2436,7 @@ declare namespace Electron {
 
 	/**
 	 * The screen module retrieves information about screen size, displays, cursor position, etc.
-	 * You should not use this module until the ready event of the app module is emitted.
+	 * You can not use this module until the ready event of the app module is emitted.
 	 */
 	interface Screen extends NodeJS.EventEmitter {
 		/**
@@ -2450,7 +2474,7 @@ declare namespace Electron {
 		getDisplayMatching(rect: Bounds): Display;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/session.md
+	// https://github.com/electron/electron/blob/master/docs/api/session.md
 
 	/**
 	 * The session module can be used to create new Session objects.
@@ -2504,7 +2528,7 @@ declare namespace Electron {
 		/**
 		 * Resolves the proxy information for url.
 		 */
-		resolveProxy(url: URL, callback: (proxy: any) => any): void;
+		resolveProxy(url: URL, callback: (proxy: string) => void): void;
 		/**
 		 * Sets download saving directory.
 		 * By default, the download directory will be the Downloads under the respective app folder.
@@ -2520,9 +2544,16 @@ declare namespace Electron {
 		 */
 		disableNetworkEmulation(): void;
 		/**
-		 * Sets the certificate verify proc for session.
+		 * Sets the certificate verify proc for session, the proc will be called
+		 * whenever a server certificate verification is requested.
+		 *
+		 * Calling setCertificateVerifyProc(null) will revert back to default certificate verify proc.
 		 */
-		setCertificateVerifyProc(proc: CertificateVerifyProc): void;
+		setCertificateVerifyProc(proc: (hostname: string, cert: Certificate, callback: (accepted: boolean) => void) => void): void;
+		/**
+		 * Sets the handler which can be used to respond to permission requests for the session.
+		 */
+		setPermissionRequestHandler(handler: (webContents: WebContents, permission: Permission, callback: (allow: boolean) => void) => void): void;
 		/**
 		 * Clears the host resolver cache.
 		 */
@@ -2530,8 +2561,10 @@ declare namespace Electron {
 		/**
 		 * The webRequest API set allows to intercept and modify contents of a request at various stages of its lifetime.
 		 */
-		webRequest: any;
+		webRequest: WebRequest;
 	}
+
+	type Permission = 'media' | 'geolocation' | 'notifications' | 'midiSysex' | 'pointerLock' | 'fullscreen' | 'openExternal';
 
 	interface ClearStorageDataOptions {
 		/**
@@ -2565,10 +2598,6 @@ declare namespace Electron {
 		 * Upload rate in Bps.
 		 */
 		uploadThroughput?: number;
-	}
-
-	interface CertificateVerifyProc {
-		(hostname: string, cert: any, callback: (accepted: boolean) => any): any;
 	}
 
 	interface CookieFilter {
@@ -2695,7 +2724,189 @@ declare namespace Electron {
 		remove(url: string, name: string, callback: (error: Error) => void): void;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/shell.md
+	/**
+	 * Each API accepts an optional filter and a listener, the listener will be called when the API's event has happened.
+	 * Passing null as listener will unsubscribe from the event.
+	 *
+	 * The filter will be used to filter out the requests that do not match the URL patterns.
+	 * If the filter is omitted then all requests will be matched.
+	 *
+	 * For certain events the listener is passed with a callback,
+	 * which should be called with an response object when listener has done its work.
+	 */
+	interface WebRequest {
+		/**
+		 * The listener will be called when a request is about to occur.
+		 */
+		onBeforeRequest(listener: (details: WebRequest.BeforeRequestDetails, callback: WebRequest.BeforeRequestCallback) => void): void;
+		/**
+		 * The listener will be called when a request is about to occur.
+		 */
+		onBeforeRequest(filter: WebRequest.Filter, listener: (details: WebRequest.BeforeRequestDetails, callback: WebRequest.BeforeRequestCallback) => void): void;
+		/**
+		 * The listener will be called before sending an HTTP request, once the request headers are available.
+		 * This may occur after a TCP connection is made to the server, but before any http data is sent.
+		 */
+		onBeforeSendHeaders(listener: (details: WebRequest.BeforeSendHeadersDetails, callback: WebRequest.BeforeSendHeadersCallback) => void): void;
+		/**
+		 * The listener will be called before sending an HTTP request, once the request headers are available.
+		 * This may occur after a TCP connection is made to the server, but before any http data is sent.
+		 */
+		onBeforeSendHeaders(filter: WebRequest.Filter, listener: (details: WebRequest.BeforeSendHeadersDetails, callback: WebRequest.BeforeSendHeadersCallback) => void): void;
+		/**
+		 * The listener will be called just before a request is going to be sent to the server,
+		 * modifications of previous onBeforeSendHeaders response are visible by the time this listener is fired.
+		 */
+		onSendHeaders(listener: (details: WebRequest.SendHeadersDetails) => void): void;
+		/**
+		 * The listener will be called just before a request is going to be sent to the server,
+		 * modifications of previous onBeforeSendHeaders response are visible by the time this listener is fired.
+		 */
+		onSendHeaders(filter: WebRequest.Filter, listener: (details: WebRequest.SendHeadersDetails) => void): void;
+		/**
+		 * The listener will be called when HTTP response headers of a request have been received.
+		 */
+		onHeadersReceived(listener: (details: WebRequest.HeadersReceivedDetails, callback: WebRequest.HeadersReceivedCallback) => void): void;
+		/**
+		 * The listener will be called when HTTP response headers of a request have been received.
+		 */
+		onHeadersReceived(filter: WebRequest.Filter, listener: (details: WebRequest.HeadersReceivedDetails, callback: WebRequest.HeadersReceivedCallback) => void): void;
+		/**
+		 * The listener will be called when first byte of the response body is received.
+		 * For HTTP requests, this means that the status line and response headers are available.
+		 */
+		onResponseStarted(listener: (details: WebRequest.ResponseStartedDetails) => void): void;
+		/**
+		 * The listener will be called when first byte of the response body is received.
+		 * For HTTP requests, this means that the status line and response headers are available.
+		 */
+		onResponseStarted(filter: WebRequest.Filter, listener: (details: WebRequest.ResponseStartedDetails) => void): void;
+		/**
+		 * The listener will be called when a server initiated redirect is about to occur.
+		 */
+		onBeforeRedirect(listener: (details: WebRequest.BeforeRedirectDetails) => void): void;
+		/**
+		 * The listener will be called when a server initiated redirect is about to occur.
+		 */
+		onBeforeRedirect(filter: WebRequest.Filter, listener: (details: WebRequest.BeforeRedirectDetails) => void): void;
+		/**
+		 * The listener will be called when a request is completed.
+		 */
+		onCompleted(listener: (details: WebRequest.CompletedDetails) => void): void;
+		/**
+		 * The listener will be called when a request is completed.
+		 */
+		onCompleted(filter: WebRequest.Filter, listener: (details: WebRequest.CompletedDetails) => void): void;
+		/**
+		 * The listener will be called when an error occurs.
+		 */
+		onErrorOccurred(listener: (details: WebRequest.ErrorOccurredDetails) => void): void;
+		/**
+		 * The listener will be called when an error occurs.
+		 */
+		onErrorOccurred(filter: WebRequest.Filter, listener: (details: WebRequest.ErrorOccurredDetails) => void): void;
+	}
+
+	namespace WebRequest {
+		interface Filter {
+			urls: string[];
+		}
+
+		interface Details {
+			id: number;
+			url: string;
+			method: string;
+			resourceType: string;
+			timestamp: number;
+		}
+
+		interface UploadData {
+			/**
+			 * Content being sent.
+			 */
+			bytes: Buffer;
+			/**
+			 * Path of file being uploaded.
+			 */
+			file: string;
+		}
+
+		interface BeforeRequestDetails extends Details {
+			uploadData?: UploadData[];
+		}
+
+		type BeforeRequestCallback = (response: {
+			cancel?: boolean;
+			/**
+			 * The original request is prevented from being sent or completed, and is instead redirected to the given URL.
+			 */
+			redirectURL?: string;
+		}) => void;
+
+		interface BeforeSendHeadersDetails extends Details {
+			requestHeaders: Headers;
+		}
+
+		type BeforeSendHeadersCallback = (response: {
+			cancel?: boolean;
+			/**
+			 * When provided, request will be made with these headers.
+			 */
+			requestHeaders?: Headers;
+		}) => void;
+
+		interface SendHeadersDetails extends Details {
+			requestHeaders: Headers;
+		}
+
+		interface HeadersReceivedDetails extends Details {
+			statusLine: string;
+			statusCode: number;
+			responseHeaders: Headers;
+		}
+
+		type HeadersReceivedCallback = (response: {
+			cancel?: boolean;
+			/**
+			 * When provided, the server is assumed to have responded with these headers.
+			 */
+			responseHeaders?: Headers;
+			/**
+			 * Should be provided when overriding responseHeaders to change header status
+			 * otherwise original response header's status will be used.
+			 */
+			statusLine?: string;
+		}) => void;
+
+		interface ResponseStartedDetails extends Details {
+			responseHeaders: Headers;
+			fromCache: boolean;
+			statusCode: number;
+			statusLine: string;
+		}
+
+		interface BeforeRedirectDetails extends Details {
+			redirectURL: string;
+			statusCode: number;
+			ip?: string;
+			fromCache: boolean;
+			responseHeaders: Headers;
+		}
+
+		interface CompletedDetails extends Details {
+			responseHeaders: Headers;
+			fromCache: boolean;
+			statusCode: number;
+			statusLine: string;
+		}
+
+		interface ErrorOccurredDetails extends Details {
+			fromCache: boolean;
+			error: string;
+		}
+	}
+
+	// https://github.com/electron/electron/blob/master/docs/api/shell.md
 
 	/**
 	 * The shell module provides functions related to desktop integration.
@@ -2732,7 +2943,48 @@ declare namespace Electron {
 		beep(): void;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/tray.md
+	// https://github.com/electron/electron/blob/master/docs/api/system-preferences.md
+
+	/**
+	 * Get system preferences.
+	 */
+	interface SystemPreferences {
+		/**
+		 * @returns If the system is in Dark Mode.
+		 *
+		 * Note: This is only implemented on OS X.
+		 */
+		isDarkMode(): boolean;
+		/**
+		 * Subscribes to native notifications of OS X, callback will be called when the corresponding event happens.
+		 * The id of the subscriber is returned, which can be used to unsubscribe the event.
+		 *
+		 * Note: This is only implemented on OS X.
+		 */
+		subscribeNotification(event: string, callback: Function): number;
+		/**
+		 * Removes the subscriber with id.
+		 *
+		 * Note: This is only implemented on OS X.
+		 */
+		unsubscribeNotification(id: number): void;
+		/**
+		 * Get the value of key in system preferences.
+		 *
+		 * Note: This is only implemented on OS X.
+		 */
+		getUserDefault(key: string, type: 'string' | 'boolean' | 'integer' | 'float' | 'double' | 'url'): any;
+		/**
+		 * This method returns true if DWM composition (Aero Glass) is enabled,
+		 * and false otherwise. You can use it to determine if you should create
+		 * a transparent window or not (transparent windows won’t work correctly when DWM composition is disabled).
+		 *
+		 * Note: This is only implemented on Windows.
+		 */
+		isAeroGlassEnabled(): boolean;
+	}
+
+	// https://github.com/electron/electron/blob/master/docs/api/tray.md
 
 	/**
 	 * A Tray represents an icon in an operating system's notification area.
@@ -2853,7 +3105,7 @@ declare namespace Electron {
 		metaKey: boolean;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/web-contents.md
+	// https://github.com/electron/electron/blob/master/docs/api/web-contents.md
 
 	/**
 	 * A WebContents is responsible for rendering and controlling a web page.
@@ -2868,7 +3120,7 @@ declare namespace Electron {
 		 * This event is like did-finish-load but emitted when the load failed or was cancelled,
 		 * e.g. window.stop() is invoked.
 		 */
-		on(event: 'did-fail-load', listener: (event: Event, errorCode: number, errorDescription: string, validatedURL: string) => void): this;
+		on(event: 'did-fail-load', listener: (event: Event, errorCode: number, errorDescription: string, validatedURL: string, isMainFrame: boolean) => void): this;
 		/**
 		 * Emitted when a frame has done navigation.
 		 */
@@ -2892,7 +3144,8 @@ declare namespace Electron {
 			httpResponseCode: number,
 			requestMethod: string,
 			referrer: string,
-			headers: any
+			headers: Headers,
+			resourceType: string
 		) => void): this;
 		/**
 		 * Emitted when a redirect is received while requesting a resource.
@@ -2904,7 +3157,7 @@ declare namespace Electron {
 			httpResponseCode: number,
 			requestMethod: string,
 			referrer: string,
-			headers: any
+			headers: Headers
 		) => void): this;
 		/**
 		 * Emitted when the document in the given frame is loaded.
@@ -3058,6 +3311,10 @@ declare namespace Electron {
 		 * @returns Whether web page is still loading resources.
 		 */
 		isLoading(): boolean;
+		/**
+		 * @returns Whether the main frame (and not just iframes or frames within it) is still loading.
+		 */
+		isLoadingMainFrame(): boolean;
 		/**
 		 * @returns Whether web page is waiting for a first-response for the main
 		 * resource of the page.
@@ -3225,9 +3482,9 @@ declare namespace Electron {
 		 */
 		openDevTools(options?: {
 			/**
-			 * Opens devtools in a new window.
+			 * Opens the devtools with specified dock state. Defaults to last used dock state.
 			 */
-			detach?: boolean;
+			mode?: 'right' | 'bottom' | 'undocked' | 'detach'
 		}): void;
 		/**
 		 * Closes the developer tools.
@@ -3315,6 +3572,10 @@ declare namespace Electron {
 		 * @returns Debugger API
 		 */
 		debugger: Debugger;
+	}
+
+	interface Headers {
+		[key: string]: string;
 	}
 
 	type NewWindowDisposition = 'default' | 'foreground-tab' | 'background-tab' | 'new-window' | 'other';
@@ -3452,7 +3713,7 @@ declare namespace Electron {
 		/**
 		 * Coordinates of first match region.
 		 */
-		selectionArea?: any;
+		selectionArea?: Bounds;
 	}
 
 	interface DeviceEmulationParameters {
@@ -3564,7 +3825,7 @@ declare namespace Electron {
 		on(event: string, listener: Function): this;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/web-frame.md
+	// https://github.com/electron/electron/blob/master/docs/api/web-frame.md
 
 	/**
 	 * The web-frame module allows you to customize the rendering of the current web page.
@@ -3630,7 +3891,7 @@ declare namespace Electron {
 		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): void;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/web-view-tag.md
+	// https://github.com/electron/electron/blob/master/docs/api/web-view-tag.md
 
 	/**
 	 * Use the webview tag to embed 'guest' content (such as web pages) in your Electron app.
@@ -3934,7 +4195,7 @@ declare namespace Electron {
 		 * Fired when details regarding a requested resource is available.
 		 * status indicates socket connection to download the resource.
 		 */
-		addEventListener(type: 'did-get-response-details', listener: (event: WebViewElement.DidGetResponseRetails) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-get-response-details', listener: (event: WebViewElement.DidGetResponseDetails) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when a redirect was received while requesting a resource.
 		 */
@@ -4035,7 +4296,7 @@ declare namespace Electron {
 		 * Emitted when a page's theme color changes. This is usually due to encountering a meta tag:
 		 * <meta name='theme-color' content='#ff0000'>
 		 */
-		addEventListener(type: 'did-change-theme-color', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-change-theme-color', listener: (event: WebViewElement.DidChangeThemeColorEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Emitted when DevTools is opened.
 		 */
@@ -4056,27 +4317,29 @@ declare namespace Electron {
 
 		interface LoadCommitEvent extends Event  {
 			url: string;
-			isMainFrame: string;
+			isMainFrame: boolean;
 		}
 
 		interface DidFailLoadEvent extends Event  {
 			errorCode: number;
 			errorDescription: string;
 			validatedURL: string;
+			isMainFrame: boolean;
 		}
 
 		interface DidFrameFinishLoadEvent extends Event  {
 			isMainFrame: boolean;
 		}
 
-		interface DidGetResponseRetails extends Event  {
+		interface DidGetResponseDetails extends Event  {
 			status: boolean;
 			newURL: string;
 			originalURL: string;
 			httpResponseCode: number;
 			requestMethod: string;
 			referrer: string;
-			headers: any;
+			headers: Headers;
+			resourceType: string;
 		}
 
 		interface DidGetRedirectRequestEvent extends Event {
@@ -4086,7 +4349,7 @@ declare namespace Electron {
 			httpResponseCode: number;
 			requestMethod: string;
 			referrer: string;
-			headers: any;
+			headers: Headers;
 		}
 
 		interface PageTitleUpdatedEvent extends Event {
@@ -4129,6 +4392,10 @@ declare namespace Electron {
 			name: string;
 			version: string;
 		}
+
+		interface DidChangeThemeColorEvent extends Event {
+			themeColor: string;
+		}
 	}
 
 	/**
@@ -4163,7 +4430,7 @@ declare namespace Electron {
 		postMessage(message: string, targetOrigin: string): void;
 	}
 
-	// https://github.com/atom/electron/blob/master/docs/api/synopsis.md
+	// https://github.com/electron/electron/blob/master/docs/api/synopsis.md
 
 	interface CommonElectron {
 		clipboard: Electron.Clipboard;
@@ -4185,6 +4452,7 @@ declare namespace Electron {
 		protocol: Electron.Protocol;
 		screen: Electron.Screen;
 		session: typeof Electron.Session;
+		systemPreferences: Electron.SystemPreferences;
 		Tray: Electron.Tray;
 		hideInternalModules(): void;
 	}
@@ -4205,7 +4473,7 @@ interface Document {
 	createElement(tagName: 'webview'): Electron.WebViewElement;
 }
 
-// https://github.com/atom/electron/blob/master/docs/api/window-open.md
+// https://github.com/electron/electron/blob/master/docs/api/window-open.md
 
 interface Window {
 	/**
@@ -4214,13 +4482,61 @@ interface Window {
 	open(url: string, frameName?: string, features?: string): Electron.BrowserWindowProxy;
 }
 
-// https://github.com/atom/electron/blob/master/docs/api/file-object.md
+// https://github.com/electron/electron/blob/master/docs/api/file-object.md
 
 interface File {
 	/**
 	 * Exposes the real path of the filesystem.
 	 */
 	path: string;
+}
+
+// https://github.com/electron/electron/blob/master/docs/api/process.md
+
+declare namespace NodeJS {
+	interface Process {
+		/**
+		 * Process's type
+		 */
+		type: 'browser' | 'renderer';
+		/**
+		 * Path to JavaScript source code.
+		 */
+		resourcesPath: string;
+		/**
+		 * For Mac App Store build, this value is true, for other builds it is undefined.
+		 */
+		mas?: boolean;
+		/**
+		 * If the app is running as a Windows Store app (appx), this value is true, for other builds it is undefined.
+		 */
+		windowsStore?: boolean;
+		/**
+		 * Emitted when Electron has loaded its internal initialization script
+		 * and is beginning to load the web page or the main script.
+		 */
+		on(event: 'loaded', listener: Function): this;
+		on(event: string, listener: Function): this;
+		/**
+		 * Setting this to true can disable the support for asar archives in Node's built-in modules.
+		 */
+		noAsar?: boolean;
+		/**
+		 * Causes the main thread of the current process crash;
+		 */
+		crash(): void;
+		/**
+		 * Causes the main thread of the current process hang.
+		 */
+		hang(): void;
+		/**
+		 * Sets the file descriptor soft limit to maxDescriptors or the OS hard limit,
+		 * whichever is lower for the current process.
+		 *
+		 * Note: This API is only available on Mac and Linux.
+		 */
+		setFdLimit(maxDescriptors: number): void;
+	}
 }
 
 declare module 'electron' {

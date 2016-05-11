@@ -204,7 +204,7 @@ declare namespace angular {
          * @param name The name of the constant.
          * @param value The constant value.
          */
-        constant(name: string, value: any): IModule;
+        constant<T>(name: string, value: T): IModule;
         constant(object: Object): IModule;
         /**
          * The $controller service is used by Angular to create new controllers.
@@ -294,7 +294,7 @@ declare namespace angular {
          * @param name The name of the instance.
          * @param value The value.
          */
-        value(name: string, value: any): IModule;
+        value<T>(name: string, value: T): IModule;
         value(object: Object): IModule;
 
         /**
@@ -389,9 +389,9 @@ declare namespace angular {
         $submitted: boolean;
         $error: any;
         $pending: any;
-        $addControl(control: INgModelController): void;
-        $removeControl(control: INgModelController): void;
-        $setValidity(validationErrorKey: string, isValid: boolean, control: INgModelController): void;
+        $addControl(control: INgModelController | IFormController): void;
+        $removeControl(control: INgModelController | IFormController): void;
+        $setValidity(validationErrorKey: string, isValid: boolean, control: INgModelController | IFormController): void;
         $setDirty(): void;
         $setPristine(): void;
         $commitViewValue(): void;

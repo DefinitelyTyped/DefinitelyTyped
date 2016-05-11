@@ -12,6 +12,7 @@ interface System {
   paths: { [key: string]: string };
   meta: { [key: string]: Object };
   config: any;
+  _nodeRequire: (name: string) => any;
 }
 
 declare var System: System;

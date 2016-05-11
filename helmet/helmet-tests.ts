@@ -10,22 +10,19 @@ var app = express();
  */
 function helmetTest() {
     app.use(helmet());
+    app.use(helmet({}));
+    app.use(helmet({ frameguard: false }));
+    app.use(helmet({ frameguard: true }));
+    app.use(helmet({
+      frameguard: {
+        action: 'deny'
+      }
+    }));
 }
 
 /**
- * @summary Test for {@see helmet#xssFilter} function.
+ * @summary Test for {@see helmet#contentSecurityPolicy} function.
  */
-function xssFilterTest() {
-    app.use(helmet.xssFilter());
-    app.use(helmet.xssFilter({}));
-    app.use(helmet.xssFilter({ setOnOldIE: false }));
-    app.use(helmet.xssFilter({ setOnOldIE: true }));
-}
-
-/**
- * @summary Test for {@see helmet#csp} function.
- */
-
 function contentSecurityPolicyTest() {
     const emptyArray: string[] =  [];
     const config = {
@@ -63,16 +60,15 @@ function contentSecurityPolicyTest() {
         },
         setAllHeaders: true
     }));
+}
 
-    app.use(helmet.csp());
-    app.use(helmet.csp({}));
-    app.use(helmet.csp(config));
-    app.use(helmet.csp({
-        directives: {
-            defaultSrc: ["'self'"]
-        },
-        setAllHeaders: true
-    }));
+/**
+ * @summary Test for {@see helmet#dnsPrefetchControl} function.
+ */
+function dnsPrefetchControlTest() {
+    app.use(helmet.dnsPrefetchControl());
+    app.use(helmet.dnsPrefetchControl({ allow: false }));
+    app.use(helmet.dnsPrefetchControl({ allow: true }));
 }
 
 /**
@@ -80,7 +76,62 @@ function contentSecurityPolicyTest() {
  */
 function frameguardTest() {
     app.use(helmet.frameguard());
-    app.use(helmet.frameguard("sameorigin"));
+    app.use(helmet.frameguard({}));
+    app.use(helmet.frameguard({ action: 'deny' }));
+    app.use(helmet.frameguard({ action: 'sameorigin' }));
+    app.use(helmet.frameguard({
+      action: 'allow-from',
+      domain: 'http://example.com'
+    }));
+}
+
+/**
+ * @summary Test for {@see helmet#hidePoweredBy} function.
+ */
+function hidePoweredBy() {
+    app.use(helmet.hidePoweredBy());
+    app.use(helmet.hidePoweredBy({}));
+    app.use(helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' }));
+}
+
+/**
+ * @summary Test for {@see helmet#hpkp} function.
+ */
+function hpkpTest() {
+    app.use(helmet.hpkp({
+        maxAge: 7776000000,
+        sha256s: ['AbCdEf123=', 'ZyXwVu456='],
+    }));
+
+    app.use(helmet.hpkp({
+        maxAge: 7776000000,
+        sha256s: ['AbCdEf123=', 'ZyXwVu456='],
+        includeSubdomains: false
+    }));
+
+    app.use(helmet.hpkp({
+        maxAge: 7776000000,
+        sha256s: ['AbCdEf123=', 'ZyXwVu456='],
+        includeSubdomains: true
+    }));
+
+    app.use(helmet.hpkp({
+        maxAge: 7776000000,
+        sha256s: ['AbCdEf123=', 'ZyXwVu456='],
+        reportUri: 'http://example.com'
+    }));
+
+    app.use(helmet.hpkp({
+        maxAge: 7776000000,
+        sha256s: ['AbCdEf123=', 'ZyXwVu456='],
+        reportOnly: true
+    }));
+
+    app.use(helmet.hpkp({
+        maxAge: 7776000000,
+        sha256s: ['AbCdEf123=', 'ZyXwVu456='],
+        setIf: function (req, res) { return true; }
+    }));
 }
 
 /**
@@ -88,7 +139,32 @@ function frameguardTest() {
  */
 function hstsTest() {
     app.use(helmet.hsts());
+
     app.use(helmet.hsts({ maxAge: 7776000000 }));
+
+    app.use(helmet.hsts({
+      maxAge: 7776000000,
+    }));
+
+    app.use(helmet.hsts({
+      maxAge: 7776000000,
+      includeSubdomains: true
+    }));
+
+    app.use(helmet.hsts({
+      maxAge: 7776000000,
+      preload: true
+    }));
+
+    app.use(helmet.hsts({
+      maxAge: 7776000000,
+      force: true
+    }));
+
+    app.use(helmet.hsts({
+      maxAge: 7776000000,
+      setIf: function (req, res) { return true; }
+    }));
 }
 
 /**
@@ -99,6 +175,15 @@ function ieNoOpenTest() {
 }
 
 /**
+ * @summary Test for {@see helmet#noCache} function.
+ */
+function noCacheTest() {
+    app.use(helmet.noCache());
+    app.use(helmet.noCache({}));
+    app.use(helmet.noCache({ noEtag: true }));
+}
+
+/**
  * @summary Test for {@see helmet#noSniff} function.
  */
 function noSniffTest() {
@@ -106,12 +191,11 @@ function noSniffTest() {
 }
 
 /**
- * @summary Test for {@see helmet#publicKeyPins} function.
+ * @summary Test for {@see helmet#xssFilter} function.
  */
-function publicKeyPinsTest() {
-    app.use(helmet.publicKeyPins({
-        sha256s: ["AbCdEf123=", "ZyXwVu456="],
-        includeSubdomains: true,
-        reportUri: "http://example.com"
-    }));
+function xssFilterTest() {
+    app.use(helmet.xssFilter());
+    app.use(helmet.xssFilter({}));
+    app.use(helmet.xssFilter({ setOnOldIE: false }));
+    app.use(helmet.xssFilter({ setOnOldIE: true }));
 }

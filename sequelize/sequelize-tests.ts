@@ -882,6 +882,8 @@ User.findAll( { order : [['id', ';DELETE YOLO INJECTIONS']] } );
 User.findAll( { include : [User], order : [[User, 'id', ';DELETE YOLO INJECTIONS']] } );
 User.findAll( { include : [User], order : [['id', 'ASC NULLS LAST'], [User, 'id', 'DESC NULLS FIRST']] } );
 User.findAll( { include : [{ model : User, where : { title : 'DoDat' }, include : [{ model : User }] }] } );
+User.findAll( { attributes: ['username', 'data']});
+User.findAll( { attributes: {include: ['username', 'data']} });
 
 User.findById( 'a string' );
 
