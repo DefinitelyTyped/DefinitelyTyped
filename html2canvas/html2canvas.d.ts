@@ -54,18 +54,9 @@ interface Html2CanvasStatic {
       * but builds the screenshot based on the information available on the page.
       *
       * @param {HTMLElement} element The HTML element which will be rendered to the canvas. Use the root element to render the entire window.
-      */
-    (element: HTMLElement): void;
-    /**
-      * Renders an HTML element to a canvas so that a screenshot can be generated.
-      *
-      * The screenshot is based on the DOM and as such may not be 100% accurate to the real representation as it does not make an actual screenshot,
-      * but builds the screenshot based on the information available on the page.
-      *
-      * @param {HTMLElement} element The HTML element which will be rendered to the canvas. Use the root element to render the entire window.
       * @param {Html2CanvasOptions} options The options object that controls how the element will be rendered.
       */
-    (element: HTMLElement, options: Html2Canvas.Html2CanvasOptions): void;
+    (element: HTMLElement, options?: Html2Canvas.Html2CanvasOptions): void;
 }
 
 declare var html2canvas: Html2CanvasStatic;
