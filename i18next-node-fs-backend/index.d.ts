@@ -3,7 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="i18next-2.0.17"/>
+///<reference types="i18next" />
 
 declare namespace I18next {
     interface I18nextOptions extends i18nextNodeFsBackEnd.I18nextOptions { }

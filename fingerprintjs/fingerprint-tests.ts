@@ -1,5 +1,3 @@
-/// <reference path="fingerprint.d.ts"/>
-
 function test_no_option() {
   var fingerprint = new Fingerprint().get();
 }

@@ -543,8 +543,7 @@ TestUtils.Simulate.click(node);
 TestUtils.Simulate.change(node);
 TestUtils.Simulate.keyDown(node, { key: "Enter", cancelable: false });
 
-var renderer: React.ShallowRenderer =
-    TestUtils.createRenderer();
+var renderer: TestUtils.ShallowRenderer = TestUtils.createRenderer();
 renderer.render(React.createElement(Timer));
 var output: React.ReactElement<React.Props<Timer>> =
     renderer.getRenderOutput();

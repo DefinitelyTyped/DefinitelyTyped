@@ -1,7 +1,5 @@
 /// <reference types="stats" />
 
-/// <reference types="three-projector" />
-
 var TWEEN: any;
 var SimplexNoise: any;
 

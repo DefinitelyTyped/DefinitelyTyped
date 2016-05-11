@@ -1,6 +1,6 @@
-/// <reference types="react-global" />
-
 import {reactiveComponent} from 'mobservable-react';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 {
     let c1 = reactiveComponent(React.createClass({
