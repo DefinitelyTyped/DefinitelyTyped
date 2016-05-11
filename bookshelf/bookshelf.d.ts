@@ -8,21 +8,22 @@
 /// <reference path="../knex/knex.d.ts" />
 
 declare module 'bookshelf' {
-	import knex = require('knex');
-	import Promise = require('bluebird');
-	import Lodash = require('lodash');
+	import * as Knex from 'knex';
+	import * as Promise from 'bluebird';
+	import * as Lodash from 'lodash';
+	import * as createError from 'create-error';
 
 	interface Bookshelf extends Bookshelf.Events<any> {
 		VERSION : string;
-		knex : knex;
+		knex : Knex;
 		Model : typeof Bookshelf.Model;
 		Collection : typeof Bookshelf.Collection;
 
 		plugin(name: string | string[] | Function, options?: any) : Bookshelf;
-		transaction<T>(callback : (transaction : knex.Transaction) => T) : Promise<T>;
+		transaction<T>(callback : (transaction : Knex.Transaction) => T) : Promise<T>;
 	}
 
-	function Bookshelf(knex : knex) : Bookshelf;
+	function Bookshelf(knex : Knex) : Bookshelf;
 
 	namespace Bookshelf {
 		abstract class Events<T> {
@@ -100,8 +101,8 @@ declare module 'bookshelf' {
 			morphTo(name : string, ...target : typeof Model[]) : T;
 			query(...query : string[]) : T;
 			query(query : {[key : string] : any}) : T;
-			query(callback : (qb : knex.QueryBuilder) => void) : T;
-			query() : knex.QueryBuilder;
+			query(callback : (qb : Knex.QueryBuilder) => void) : T;
+			query() : Knex.QueryBuilder;
 			refresh(options? : FetchOptions) : Promise<T>;
 			resetQuery() : T;
 			save(key? : string, val? : string, options? : SaveOptions) : Promise<T>;
@@ -216,8 +217,8 @@ declare module 'bookshelf' {
 			load(relations : string|string[], options? : SyncOptions) : Promise<Collection<T>>;
 			query(...query : string[]) : Collection<T>;
 			query(query : {[key : string] : any}) : Collection<T>;
-			query(callback : (qb : knex.QueryBuilder) => void) : Collection<T>;
-			query() : knex.QueryBuilder;
+			query(callback : (qb : Knex.QueryBuilder) => void) : Collection<T>;
+			query() : Knex.QueryBuilder;
 			resetQuery() : Collection<T>;
 			through<R extends Model<any>>(interim : typeof Model, throughForeignKey? : string, otherKey? : string) : R | Collection<R>;
 			updatePivot(attributes : any, options? : PivotOptions) : Promise<number>;
@@ -265,7 +266,7 @@ declare module 'bookshelf' {
 		}
 
 		interface SyncOptions {
-			transacting? : knex.Transaction;
+			transacting? : Knex.Transaction;
 			debug? : boolean;
 		}
 
