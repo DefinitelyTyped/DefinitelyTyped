@@ -6,6 +6,7 @@
 /// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path='../lodash/lodash-3.10.d.ts' />
 /// <reference path="../knex/knex.d.ts" />
+/// <reference path="../create-error/create-error.d.ts" />
 
 declare module 'bookshelf' {
 	import * as Knex from 'knex';
@@ -92,7 +93,7 @@ declare module 'bookshelf' {
 			belongsTo<R extends Model<any>>(target : {new(...args : any[]) : R}, foreignKey? : string) : R;
 			belongsToMany<R extends Model<any>>(target : {new(...args : any[]) : R}, table? : string, foreignKey? : string, otherKey? : string) : Collection<R>;
 			count(column? : string, options? : SyncOptions) : Promise<number>;
-			destroy(options? : SyncOptions) : Promise<T>;
+			destroy(options? : DestroyOptions) : Promise<T>;
 			fetch(options? : FetchOptions) : Promise<T>;
 			fetchAll(options? : FetchAllOptions) : Promise<Collection<T>>;
 			hasMany<R extends Model<any>>(target : {new(...args : any[]) : R}, foreignKey? : string) : Collection<R>;
@@ -113,6 +114,12 @@ declare module 'bookshelf' {
 			through<R extends Model<any>>(interim : typeof Model, throughForeignKey? : string, otherKey? : string) : R | Collection<R>;
 			where(properties : {[key : string] : any}) : T;
 			where(key : string, operatorOrValue : string|number|boolean, valueIfOperator? : string|number|boolean) : T;
+
+			// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/errors.js
+			// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/model.js#L1280
+			static NotFoundError: createError.Error<Error>;
+			static NoRowsUpdatedError: createError.Error<Error>;
+			static NoRowsDeletedError: createError.Error<Error>;
 		}
 
 		abstract class CollectionBase<T extends Model<any>> extends Events<T> {
@@ -184,8 +191,11 @@ declare module 'bookshelf' {
 			keys() : string[];
 			last() : T;
 			lastIndexOf(value : any, fromIndex? : number) : number;
-			map(predicate? : Lodash.ListIterator<T, boolean>|Lodash.DictionaryIterator<T, boolean>|string, thisArg? : any) : T[];
+
+			//map(predicate? : Lodash.ListIterator<T, boolean>|Lodash.DictionaryIterator<T, boolean>|string, thisArg? : any) : T[];
+			map(predicate? : Lodash.ListIterator<T, boolean>|string, thisArg? : any) : T[];
 			map<R extends {}>(predicate? : R) : T[];
+
 			max(predicate? : Lodash.ListIterator<T, boolean>|string, thisArg? : any) : T;
 			max<R extends {}>(predicate? : R) : T;
 			min(predicate? : Lodash.ListIterator<T, boolean>|string, thisArg? : any) : T;
@@ -219,6 +229,7 @@ declare module 'bookshelf' {
 			count(column? : string, options? : SyncOptions) : Promise<number>;
 			create(model : {[key : string] : any}, options? : CollectionCreateOptions) : Promise<T>;
 			detach(ids : any[], options? : SyncOptions) : Promise<any>;
+			detach(options? : SyncOptions) : Promise<any>;
 			fetchOne(options? : CollectionFetchOneOptions) : Promise<T>;
 			load(relations : string|string[], options? : SyncOptions) : Promise<Collection<T>>;
 			query(...query : string[]) : Collection<T>;
@@ -255,6 +266,10 @@ declare module 'bookshelf' {
 			method? : string;
 			defaults? : string;
 			patch? : boolean;
+			require? : boolean;
+		}
+
+		interface DestroyOptions extends SyncOptions {
 			require? : boolean;
 		}
 
