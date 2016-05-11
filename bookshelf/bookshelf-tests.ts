@@ -205,6 +205,14 @@ new Author2({id: 1}).fetch({require: true, withRelated: ['books']})
 	const books = author.relatedBooks();
 	const booksJson = books.map(book => book.toJSON());
 });
+class Author2Output {
+	constructor(bookJson: Object) {}
+}
+new Author2({id: 1}).fetch({require: true, withRelated: ['books']})
+.then(author => {
+	const books = author.relatedBooks();
+	const booksOutput = books.map(book => new Author2Output(book.toJSON()));
+});
 
 
 // Model.NoRowsDeletedError, see http://bookshelfjs.org/#section-Model-static-NoRowsDeletedError

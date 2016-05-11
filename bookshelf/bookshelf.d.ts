@@ -192,8 +192,9 @@ declare module 'bookshelf' {
 			last() : T;
 			lastIndexOf(value : any, fromIndex? : number) : number;
 
+			// See https://github.com/Microsoft/TypeScript/blob/v1.8.10/lib/lib.core.es7.d.ts#L1122
+			map<U>(predicate? : Lodash.ListIterator<T, U>|string, thisArg? : any) : U[];
 			//map(predicate? : Lodash.ListIterator<T, boolean>|Lodash.DictionaryIterator<T, boolean>|string, thisArg? : any) : T[];
-			map(predicate? : Lodash.ListIterator<T, boolean>|string, thisArg? : any) : T[];
 			map<R extends {}>(predicate? : R) : T[];
 
 			max(predicate? : Lodash.ListIterator<T, boolean>|string, thisArg? : any) : T;
