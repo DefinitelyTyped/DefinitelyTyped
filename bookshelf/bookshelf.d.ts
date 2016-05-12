@@ -21,7 +21,7 @@ declare module 'bookshelf' {
 		Collection : typeof Bookshelf.Collection;
 
 		plugin(name: string | string[] | Function, options?: any) : Bookshelf;
-		transaction<T>(callback : (transaction : Knex.Transaction) => T) : Promise<T>;
+		transaction<T>(callback : (transaction : Knex.Transaction) => T) : T;
 	}
 
 	function Bookshelf(knex : Knex) : Bookshelf;
@@ -46,6 +46,10 @@ declare module 'bookshelf' {
 			/** If overriding, must use a getter instead of a plain property. */
 			idAttribute : string;
 
+			// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/model.js#L178
+			// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/model.js#L213
+			id : any;
+
 			// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/model.js#L28
 			attributes : any;
 
@@ -59,7 +63,7 @@ declare module 'bookshelf' {
 			has(attribute : string) : boolean;
 			hasChanged(attribute? : string) : boolean;
 			isNew() : boolean;
-			parse(response : any) : any;
+			parse(response : Object) : Object;
 			previousAttributes() : any;
 			previous(attribute : string) : any;
 			related<R extends Model<any>>(relation : string) : R | Collection<R>;
@@ -103,10 +107,13 @@ declare module 'bookshelf' {
 			morphOne<R extends Model<any>>(target : {new(...args : any[]) : R}, name? : string, columnNames? : string[], morphValue? : string) : R;
 			morphTo(name : string, columnNames? : string[], ...target : typeof Model[]) : T;
 			morphTo(name : string, ...target : typeof Model[]) : T;
+
+			// Declaration order matters otherwise TypeScript gets confused between query() and query(...query: string[])
+			query() : Knex.QueryBuilder;
+			query(callback : (qb : Knex.QueryBuilder) => void) : T;
 			query(...query : string[]) : T;
 			query(query : {[key : string] : any}) : T;
-			query(callback : (qb : Knex.QueryBuilder) => void) : T;
-			query() : Knex.QueryBuilder;
+
 			refresh(options? : FetchOptions) : Promise<T>;
 			resetQuery() : T;
 			save(key? : string, val? : string, options? : SaveOptions) : Promise<T>;
@@ -125,6 +132,9 @@ declare module 'bookshelf' {
 		abstract class CollectionBase<T extends Model<any>> extends Events<T> {
 			// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/collection.js#L573
 			length : number;
+
+			// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/collection.js#L21
+			constructor(models? : T[], options? : CollectionOptions<T>);
 
 			add(models : T[]|{[key : string] : any}[], options? : CollectionAddOptions) : Collection<T>;
 			at(index : number) : T;
@@ -192,10 +202,11 @@ declare module 'bookshelf' {
 			last() : T;
 			lastIndexOf(value : any, fromIndex? : number) : number;
 
+			// See https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1ec3d51/lodash/lodash-3.10.d.ts#L7119
 			// See https://github.com/Microsoft/TypeScript/blob/v1.8.10/lib/lib.core.es7.d.ts#L1122
 			map<U>(predicate? : Lodash.ListIterator<T, U>|string, thisArg? : any) : U[];
-			//map(predicate? : Lodash.ListIterator<T, boolean>|Lodash.DictionaryIterator<T, boolean>|string, thisArg? : any) : T[];
-			map<R extends {}>(predicate? : R) : T[];
+			map<U>(predicate? : Lodash.DictionaryIterator<T, U>|string, thisArg? : any) : U[];
+			map<U>(predicate? : string) : U[];
 
 			max(predicate? : Lodash.ListIterator<T, boolean>|string, thisArg? : any) : T;
 			max<R extends {}>(predicate? : R) : T;
@@ -226,21 +237,27 @@ declare module 'bookshelf' {
 			/** @deprecated should use `new` objects instead. */
 			static forge<T>(attributes? : any, options? : ModelOptions) : T;
 
-			attach(ids : any[], options? : SyncOptions) : Promise<Collection<T>>;
+			attach(ids : any|any[], options? : SyncOptions) : Promise<Collection<T>>;
 			count(column? : string, options? : SyncOptions) : Promise<number>;
 			create(model : {[key : string] : any}, options? : CollectionCreateOptions) : Promise<T>;
 			detach(ids : any[], options? : SyncOptions) : Promise<any>;
 			detach(options? : SyncOptions) : Promise<any>;
 			fetchOne(options? : CollectionFetchOneOptions) : Promise<T>;
 			load(relations : string|string[], options? : SyncOptions) : Promise<Collection<T>>;
+
+			// Declaration order matters otherwise TypeScript gets confused between query() and query(...query: string[])
+			query() : Knex.QueryBuilder;
+			query(callback : (qb : Knex.QueryBuilder) => void) : Collection<T>;
 			query(...query : string[]) : Collection<T>;
 			query(query : {[key : string] : any}) : Collection<T>;
-			query(callback : (qb : Knex.QueryBuilder) => void) : Collection<T>;
-			query() : Knex.QueryBuilder;
+
 			resetQuery() : Collection<T>;
 			through<R extends Model<any>>(interim : typeof Model, throughForeignKey? : string, otherKey? : string) : R | Collection<R>;
 			updatePivot(attributes : any, options? : PivotOptions) : Promise<number>;
 			withPivot(columns : string[]) : Collection<T>;
+
+			// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/collection.js#L389
+			static EmptyError: createError.Error<Error>;
 		}
 
 		interface ModelOptions {
@@ -250,13 +267,17 @@ declare module 'bookshelf' {
 		}
 
 		interface LoadOptions extends SyncOptions {
-			withRelated: string|any|any[];
+			withRelated : (string|WithRelatedQuery)[];
 		}
 
 		interface FetchOptions extends SyncOptions {
 			require? : boolean;
 			columns? : string|string[];
-			withRelated? : string|any|any[];
+			withRelated? : (string|WithRelatedQuery)[];
+		}
+
+		interface WithRelatedQuery {
+			[index : string] : (query : Knex.QueryBuilder) => Knex.QueryBuilder;
 		}
 
 		interface FetchAllOptions extends SyncOptions {
