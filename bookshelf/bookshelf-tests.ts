@@ -786,6 +786,42 @@ customer.set("telephone", "555-555-1212");
 
 /* model.toJSON(), see http://bookshelfjs.org/#Model-instance-toJSON */
 
+// TODO No example provided on Bookshelf website
+
+{
+	interface UserJson {
+		name: string;
+	}
+
+	class User extends bookshelf.Model<User> {
+		get tableName() { return 'users'; }
+
+		toJSON(): UserJson {
+			return super.toJSON();
+		}
+
+		fetchAll(): Promise<Users> {
+			return super.fetchAll();
+		}
+	}
+
+	class Users extends bookshelf.Collection<User> {
+		toJSON(): UserJson[] {
+			return super.toJSON();
+		}
+	}
+
+	new User({id: 1}).fetch().then(user => {
+		const userJson = user.toJSON();
+		console.log('User name:', userJson.name);
+	});
+
+	new User({name: 'John'}).fetchAll().then(users => {
+		const usersJson = users.toJSON();
+		console.log('First user name:', usersJson[0].name);
+	});
+}
+
 /* model.trigger(), see http://bookshelfjs.org/#Model-instance-trigger */
 
 ship.trigger('fetched');

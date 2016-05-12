@@ -67,11 +67,11 @@ declare module 'bookshelf' {
 			previousAttributes() : any;
 			previous(attribute : string) : any;
 			related<R extends Model<any>>(relation : string) : R | Collection<R>;
-			serialize(options? : SerializeOptions) : Object;
+			serialize(options? : SerializeOptions) : any;
 			set(attribute?: {[key : string] : any}, options? : SetOptions) : T;
 			set(attribute : string, value? : any, options? : SetOptions) : T;
 			timestamp(options? : TimestampOptions) : any;
-			toJSON(options? : SerializeOptions) : Object;
+			toJSON(options? : SerializeOptions) : any;
 			unset(attribute : string) : T;
 
 			// lodash methods
@@ -151,11 +151,11 @@ declare module 'bookshelf' {
 			remove(model : T, options? : EventOptions) : T;
 			remove(model : T[], options? : EventOptions) : T[];
 			reset(model : any[], options? : CollectionAddOptions) : T[];
-			serialize(options? : SerializeOptions) : Object[];
+			serialize(options? : SerializeOptions) : any[];
 			set(models : T[]|{[key : string] : any}[], options? : CollectionSetOptions) : Collection<T>;
 			shift(options? : EventOptions) : void;
 			slice(begin? : number, end? : number) : void;
-			toJSON(options? : SerializeOptions) : Object[];
+			toJSON(options? : SerializeOptions) : any[];
 			unshift(model : any, options? : CollectionAddOptions) : void;
 			where(match : {[key : string] : any}, firstOnly : boolean) : T|Collection<T>;
 
