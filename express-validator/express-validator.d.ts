@@ -33,7 +33,7 @@ declare namespace ExpressValidator {
 	}
 
 	interface ValidatorFunction { (item: string | {}, message?: string): Validator; }
-	interface ValidatorExtraFunction extends ValidatorFunction { (matchIndex: number, message?: string): Validator; };
+	interface ValidatorExtraFunction extends ValidatorFunction { (matchIndex: number, message?: string): Validator; }
 	interface SanitizerFunction { (item: string): Sanitizer; }
 	interface Dictionary<T> { [key: string]: T; }
 
