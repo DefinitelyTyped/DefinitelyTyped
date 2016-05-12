@@ -163,10 +163,10 @@ let muiTheme: MuiTheme = ThemeManager.getMuiTheme({
 let SelectableList = SelectableContainerEnhance(List);
 
 @ThemeDecorator(muiTheme)
-class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implements React.LinkedStateMixin {
+class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implements LinkedStateMixin {
 
     // injected with mixin
-    linkState: <T>(key: string) => React.ReactLink<T>;
+    linkState: <T>(key: string) => LinkedStateMixin.ReactLink<T>;
 
     private picker12hr: TimePicker;
     private picker24hr: TimePicker;
