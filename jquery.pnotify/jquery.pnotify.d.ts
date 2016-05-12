@@ -267,7 +267,7 @@ interface PNotify {
     /**
      * This function is for updating the notice.
      */
-    update(options?: PNotifyOptions): void;
+    update(options?: PNotifyOptions): PNotify;
 
     /**
      * Remove the notice.
