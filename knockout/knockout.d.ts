@@ -525,7 +525,7 @@ interface KnockoutStatic {
     expressionRewriting: {
         bindingRewriteValidators: any[];
         twoWayBindings: any;
-        parseObjectLiteral: (objectLiteralString: string): any[];
+        parseObjectLiteral: (objectLiteralString: string) => any[];
         
         /**
         Internal, private KO utility for updating model properties from within bindings
@@ -542,7 +542,7 @@ interface KnockoutStatic {
         Note that if you need to write to the viewModel without an observable property,
         you need to set ko.expressionRewriting.twoWayBindings[key] = true; *before* the binding evaluation.
         */
-        writeValueToProperty: (property: KnockoutObservable<any> | any, allBindings: KnockoutAllBindingsAccessor, key: string, value: any, checkIfDifferent?: boolean): void;
+        writeValueToProperty: (property: KnockoutObservable<any> | any, allBindings: KnockoutAllBindingsAccessor, key: string, value: any, checkIfDifferent?: boolean) => void;
     };
 
     /////////////////////////////////
