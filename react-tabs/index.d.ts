@@ -3,7 +3,9 @@
 // Definitions by: Yuu Igarashi <https://github.com/yu-i9/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react" />
+import * as React from 'react';
+
+export as namespace ReactTabs;
 
 declare namespace ReactTabs {
 
@@ -15,13 +17,13 @@ declare namespace ReactTabs {
         onSelect?: (index: number, last: number) => void;
     }
 
-    interface Tabs extends __React.ComponentClass<TabsProps> {}
+    interface Tabs extends React.ComponentClass<TabsProps> {}
 
     interface TabListProps {
         className?: string;
     }
 
-    interface TabList extends __React.ComponentClass<TabListProps> {}
+    interface TabList extends React.ComponentClass<TabListProps> {}
 
     interface TabProps {
         className?: string;
@@ -31,7 +33,7 @@ declare namespace ReactTabs {
         panelId?: string;
     }
 
-    interface Tab extends __React.ComponentClass<TabProps> {}
+    interface Tab extends React.ComponentClass<TabProps> {}
 
     interface TabPanelProps {
         className?: string;
@@ -40,22 +42,17 @@ declare namespace ReactTabs {
         tabId?: string;
     }
 
-    interface TabPanel extends __React.ComponentClass<TabPanelProps> {}
+    interface TabPanel extends React.ComponentClass<TabPanelProps> {}
 }
 
+declare const Tabs: ReactTabs.Tabs;
+declare const TabList: ReactTabs.TabList;
+declare const Tab: ReactTabs.Tab;
+declare const TabPanel: ReactTabs.TabPanel;
 
-declare module "react-tabs" {
-
-    var Tabs: ReactTabs.Tabs;
-    var TabList: ReactTabs.TabList;
-    var Tab: ReactTabs.Tab;
-    var TabPanel: ReactTabs.TabPanel;
-
-    export {
-        Tabs,
-        TabList,
-        Tab,
-        TabPanel
-    }
-
-}
+export {
+    Tabs,
+    TabList,
+    Tab,
+    TabPanel
+};
