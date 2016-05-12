@@ -3,10 +3,7 @@
 // Definitions by: Pedro Pereira <https://github.com/oizie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react" />
-
-
-import React = __React
+import * as React from 'react';
 
 interface Link extends React.ClassicComponentClass<any> { }
 interface Element extends React.ClassicComponentClass<any> { }
