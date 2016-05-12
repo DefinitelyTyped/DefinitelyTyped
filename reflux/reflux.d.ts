@@ -47,7 +47,7 @@ declare module  RefluxCore {
 
     function createStore(definition: StoreDefinition): Store;
 
-    function createAction(definition: ActionsDefinition): any;
+    function createAction(definition?: ActionsDefinition): any;
 
     function createActions(definition: ActionsDefinition): any;
     function createActions(definitions: string[]): any;
