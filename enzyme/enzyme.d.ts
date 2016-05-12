@@ -313,6 +313,7 @@ declare module "enzyme" {
     export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
         shallow(): ShallowWrapper<P, S>;
         render(): CheerioWrapper<P, S>;
+        unmount(): ShallowWrapper<any, any>;
 
         /**
          * Find every node in the render tree that matches the provided selector.
@@ -376,7 +377,68 @@ declare module "enzyme" {
     }
 
     export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
+        unmount(): ReactWrapper<any, any>;
+        mount(): ReactWrapper<any, any>;
 
+        /**
+         * Find every node in the render tree that matches the provided selector.
+         * @param selector The selector to match.
+         */
+        find<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
+        find<P2>(statelessComponent: (props: P2) => JSX.Element): ReactWrapper<P2, {}>;
+        find(selector: string): ReactWrapper<HTMLAttributes, any>;
+
+        /**
+         * Finds every node in the render tree that returns true for the provided predicate function.
+         * @param predicate
+         */
+        findWhere(predicate: (wrapper: CommonWrapper<any, any>) => Boolean): ReactWrapper<any, any>;
+
+        /**
+         * Removes nodes in the current wrapper that do not match the provided selector.
+         * @param selector The selector to match.
+         */
+        filter<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
+        filter<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, {}>;
+        filter(selector: string): ReactWrapper<HTMLAttributes, any>;
+
+        /**
+         * Returns a new wrapper with all of the children of the node(s) in the current wrapper. Optionally, a selector
+         * can be provided and it will filter the children by this selector.
+         * @param [selector]
+         */
+        children<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
+        children<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, {}>;
+        children(selector: string): ReactWrapper<HTMLAttributes, any>;
+        children(): ReactWrapper<any, any>;
+
+        /**
+         * Returns a wrapper around all of the parents/ancestors of the wrapper. Does not include the node in the
+         * current wrapper. Optionally, a selector can be provided and it will filter the parents by this selector.
+         *
+         * Note: can only be called on a wrapper of a single node.
+         * @param [selector]
+         */
+        parents<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
+        parents<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, {}>;
+        parents(selector: string): ReactWrapper<HTMLAttributes, any>;
+        parents(): ReactWrapper<any, any>;
+
+        /**
+         * Returns a wrapper of the first element that matches the selector by traversing up through the current node's
+         * ancestors in the tree, starting with itself.
+         *
+         * Note: can only be called on a wrapper of a single node.
+         * @param selector
+         */
+        closest<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
+        closest<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, {}>;
+        closest(selector: string): ReactWrapper<HTMLAttributes, any>;
+
+        /**
+         * Returns a wrapper with the direct parent of the node in the current wrapper.
+         */
+        parent(): ReactWrapper<any, any>;
     }
 
     export interface CheerioWrapper<P, S> extends CommonWrapper<P, S> {
