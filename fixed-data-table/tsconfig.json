@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "fixed-data-table-0.4.7-tests.tsx"
+        "fixed-data-table-tests.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",
