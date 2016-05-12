@@ -107,6 +107,10 @@ namespace ShallowWrapperTest {
         shallowWrapper = shallowWrapper.shallow();
     }
 
+    function test_unmount() {
+        shallowWrapper = shallowWrapper.unmount();
+    }
+
     function test_render() {
         var cheerioWrapper: CheerioWrapper<MyComponentProps, MyComponentState> = shallowWrapper.render();
     }
@@ -237,6 +241,14 @@ namespace ReactWrapperTest {
         boolVal: Boolean,
         stringVal: String,
         elementWrapper: ReactWrapper<HTMLAttributes, {}>
+
+    function test_unmount() {
+        reactWrapper = reactWrapper.unmount();
+    }
+
+    function test_mount() {
+        reactWrapper = reactWrapper.mount();
+    }
 
     function test_find() {
         elementWrapper = reactWrapper.find('.selector');
@@ -418,7 +430,7 @@ namespace CheerioWrapperTest {
         objectVal: Object,
         boolVal: Boolean,
         stringVal: String,
-        elementWrapper: ReactWrapper<HTMLAttributes, {}>
+        elementWrapper: CheerioWrapper<HTMLAttributes, {}>
 
     function test_find() {
         elementWrapper = cheerioWrapper.find('.selector');
