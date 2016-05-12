@@ -5,21 +5,24 @@
 
 import { Mixin } from 'react';
 
-declare var LinkedStateMixin: LinkedStateMixin;
+declare var LinkedStateMixin: LinkedStateMixin.LinkedStateMixin;
+type LinkedStateMixin = LinkedStateMixin.LinkedStateMixin;
 export = LinkedStateMixin;
 
-interface ReactLink<T> {
-    value: T;
-    requestChange(newValue: T): void;
-}
+declare namespace LinkedStateMixin {
+	export interface ReactLink<T> {
+	    value: T;
+	    requestChange(newValue: T): void;
+	}
 
-interface LinkedStateMixin extends Mixin<any, any> {
-    linkState<T>(key: string): ReactLink<T>;
+	export interface LinkedStateMixin extends Mixin<any, any> {
+	    linkState<T>(key: string): ReactLink<T>;
+	}
 }
 
 declare module 'react' {
     interface HTMLAttributes {
-        checkedLink?: ReactLink<boolean>;
-        valueLink?: ReactLink<boolean | string | number>;
+        checkedLink?: LinkedStateMixin.ReactLink<boolean>;
+        valueLink?: LinkedStateMixin.ReactLink<boolean | string | number>;
     }
 }

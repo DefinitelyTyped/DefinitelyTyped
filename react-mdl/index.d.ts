@@ -3,11 +3,11 @@
 // Definitions by: Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react" />
+import * as React from 'react';
+
+export = __ReactMDL;
 
 declare namespace __ReactMDL {
-    import React = __React;
-    
     type __MDLClassProps = React.ClassAttributes<any>;
     type __MDLOtherProps = React.HTMLProps<any>;
     class __MDLComponent<P extends __MDLClassProps> extends React.Component<P, {}> {}
@@ -599,8 +599,4 @@ declare namespace __ReactMDL {
         title ?: string;
     }
     class Tooltip extends __MDLComponent<TooltipProps> {}
-}
-
-declare module 'react-mdl' {
-    export = __ReactMDL;
 }
