@@ -3,11 +3,11 @@
 // Definitions by: Michael Ledin <https://github.com/mxl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="react" />
+import * as React from 'react';
+
+export as namespace ReactSwipeableViews;
 
 declare namespace ReactSwipeableViews {
-    import React = __React;
-
     export interface SwipeableViewsProps extends React.Props<SwipeableViews> {
         containerStyle?: React.CSSProperties;
         disabled?: boolean;
@@ -32,6 +32,4 @@ declare namespace ReactSwipeableViews {
     }
 }
 
-declare module 'react-swipeable-views' {
-    export default ReactSwipeableViews.SwipeableViews;
-}
+export default ReactSwipeableViews.SwipeableViews;
