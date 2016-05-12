@@ -465,7 +465,7 @@ new Book({'ISBN-13': '9780440180296'})
 	new Book({'ISBN-13': '9780440180296'}).fetch({
 		withRelated: [
 			'genre', 'editions',
-			{ chapters: (query: Knex.QueryBuilder) => query.orderBy('chapter_number') }
+			{ chapters: query => query.orderBy('chapter_number') }
 		]
 	}).then(book => {
 		console.log(book.related('genre').toJSON());
@@ -1065,7 +1065,7 @@ ships.on('fetched', (collection, response) => {
 /* collection.query(), see http://bookshelfjs.org/#Collection-instance-query */
 
 {
-	let qb: Knex.QueryBuilder = collection.query();
+	let qb = collection.query();
 			qb.where({id: 1}).select().then(resp => {
 				// ...
 			});
