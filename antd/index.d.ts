@@ -3,12 +3,9 @@
 // Definitions by: bang88 <https://github.com/bang88>, Bruce Mitchener <https://github.com/waywardmonkeys/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 /// <reference types="react" />
+
 declare namespace Antd {
-
-    import React = __React
-
     // Affix
     interface AffixProps {
         /**
