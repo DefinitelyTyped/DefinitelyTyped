@@ -178,7 +178,7 @@ declare namespace ExpressValidator {
 		min(val:string): Validator;
 		isJSON(): Validator;
 		isLength(options: MinMaxOptions): Validator;
-		isWhitelisted(chars: string);
+		isWhitelisted(chars: string): Validator;
 		/**
 		 * Will work against Visa, MasterCard, American Express, Discover, Diners Club, and JCB card numbering formats
 		 */
