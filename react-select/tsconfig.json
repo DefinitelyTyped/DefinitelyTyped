@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "react-select-0.9.10-tests.tsx"
+        "react-select-tests.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",
