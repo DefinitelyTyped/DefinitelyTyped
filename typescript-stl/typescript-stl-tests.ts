@@ -1,12 +1,7 @@
 ﻿/// <reference path="typescript-stl.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
-/////////////////////////////
 // IMPORT
-/////////////////////////////
-// DUMMIES
-declare var global: any;
-declare var require: any;
-
 global["std"] = require("typescript-stl");
 
 /**
