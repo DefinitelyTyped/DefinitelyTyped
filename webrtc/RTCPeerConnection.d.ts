@@ -3,13 +3,7 @@
 // Definitions by: Ken Smith <https://github.com/smithkl42/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
-// Definitions taken from http://dev.w3.org/2011/webrtc/editor/webrtc.html
-//
-// For example code see:
-//   https://code.google.com/p/webrtc/source/browse/stable/samples/js/apprtc/js/main.js
-//
-// For a generic implementation see that deals with browser differences, see:
-//   https://code.google.com/p/webrtc/source/browse/stable/samples/js/base/adapter.js
+// W3 Spec: https://www.w3.org/TR/webrtc/#idl-def-RTCIceServer
 
 /// <reference path='MediaStream.d.ts' />
 
