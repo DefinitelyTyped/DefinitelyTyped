@@ -45,6 +45,8 @@ declare module  RefluxCore {
         [index: string]: Listenable
     }
 
+    class ListenerMixin {}
+
     function createStore(definition: StoreDefinition): Store;
 
     function createAction(definition: ActionsDefinition): any;
