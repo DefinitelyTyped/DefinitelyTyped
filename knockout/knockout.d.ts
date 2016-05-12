@@ -523,8 +523,26 @@ interface KnockoutStatic {
     renderTemplateForEach(template: any, arrayOrObservableArray: KnockoutObservable<any>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
 
     expressionRewriting: {
-        bindingRewriteValidators: any;
-        parseObjectLiteral: { (objectLiteralString: string): any[] }
+        bindingRewriteValidators: any[];
+        twoWayBindings: any;
+        parseObjectLiteral: (objectLiteralString: string): any[];
+        
+        /**
+        Internal, private KO utility for updating model properties from within bindings
+        property:            If the property being updated is (or might be) an observable, pass it here
+                             If it turns out to be a writable observable, it will be written to directly
+        allBindings:         An object with a get method to retrieve bindings in the current execution context.
+                             This will be searched for a '_ko_property_writers' property in case you're writing to a non-observable
+                             (See note below)
+        key:                 The key identifying the property to be written. Example: for { hasFocus: myValue }, write to 'myValue' by specifying the key 'hasFocus'
+        value:               The value to be written
+        checkIfDifferent:    If true, and if the property being written is a writable observable, the value will only be written if
+                             it is !== existing value on that writable observable
+                             
+        Note that if you need to write to the viewModel without an observable property,
+        you need to set ko.expressionRewriting.twoWayBindings[key] = true; *before* the binding evaluation.
+        */
+        writeValueToProperty: (property: KnockoutObservable<any> | any, allBindings: KnockoutAllBindingsAccessor, key: string, value: any, checkIfDifferent?: boolean): void;
     };
 
     /////////////////////////////////
