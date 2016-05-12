@@ -3,13 +3,11 @@
 // Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react"/>
+import * as React from 'react';
+export as namespace ReactSWF;
+declare const self: typeof rswf.ReactSWF;
+export = self;
 
-
-declare module "react-swf" {
-    export = ReactSWF;
-}
-declare var ReactSWF: typeof rswf.ReactSWF
 declare namespace rswf {
     interface State {
 
@@ -112,7 +110,7 @@ declare namespace rswf {
         */
         flashvars?: Object | string
     }
-    export class ReactSWF extends __React.Component<Props, State>{
+    export class ReactSWF extends React.Component<Props, State>{
         /**
         * Returns the Flash Player object DOM node.
         * Should be prefered over `React.findDOMNode`.
