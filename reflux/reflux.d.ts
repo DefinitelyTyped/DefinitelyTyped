@@ -55,6 +55,8 @@ declare module  RefluxCore {
     function connect(store: Store, key?: string):void;
     function listenTo(store: Store, handler: string):void;
     function setState(state: any):void;
+
+    function ListenerMixin(): any;
 }
 
 declare module "reflux" {

@@ -57,3 +57,7 @@ var Store = Reflux.createStore({
         // bzzzzapp!
     }
 });
+
+var ReactComponent = {
+    mixins: [Reflux.ListenerMixin]
+};
