@@ -5,10 +5,10 @@
 
 /// <reference types="redux" />
 /// <reference types="react-router"/>
+/// <reference types="history"/>
 
 declare namespace ReactRouterRedux {
     import R = Redux;
-    import H = HistoryModule;
 
     const CALL_HISTORY_METHOD: string;
     const LOCATION_CHANGE: string;
@@ -39,7 +39,7 @@ declare namespace ReactRouterRedux {
         goForward: GoForwardAction;
         goBack: GoBackAction;
     }
-    interface ReactRouterReduxHistory extends H.History {
+    interface ReactRouterReduxHistory extends History.History {
         unsubscribe(): void;
     }
     
