@@ -3,7 +3,8 @@
 // Definitions by: Nathan Brown <https://github.com/ngbrown>, Oliver Herrmann <https://github.com/herrmanno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="react" />
+/// <reference types="react" />
+/// <reference types="react-addons-linked-state-mixin" />
 
 declare module "material-ui" {
     export import AppBar = __MaterialUI.AppBar; // require('material-ui/lib/app-bar');
@@ -95,8 +96,6 @@ declare module "material-ui" {
 }
 
 declare namespace __MaterialUI {
-    export import React = __React;
-
     // ReactLink is from "react/addons"
     interface ReactLink<T> {
         value: T;
