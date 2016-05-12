@@ -64,7 +64,7 @@ declare namespace FixedDataTable {
       * horizontally.
       *
       */
-    export interface TableProps extends __React.Props<Table> {
+    export interface TableProps extends React.Props<Table> {
         /**
           * Pixel width of table. If all columns do not fit, a
           * horizontal scrollbar will appear.
@@ -206,30 +206,30 @@ declare namespace FixedDataTable {
         /**
           * Callback that is called when a row is clicked.
           */
-        onRowClick?: (event: __React.SyntheticEvent, rowIndex: number) => void;
+        onRowClick?: (event: React.SyntheticEvent, rowIndex: number) => void;
 
         /**
           * Callback that is called when a row is double clicked.
           */
-        onRowDoubleClick?: (event: __React.SyntheticEvent, rowIndex: number) => void;
+        onRowDoubleClick?: (event: React.SyntheticEvent, rowIndex: number) => void;
 
         /**
           * Callback that is called when a mouse-down event happens
           * on a row.
           */
-        onRowMouseDown?: (event: __React.SyntheticEvent, rowIndex: number) => void;
+        onRowMouseDown?: (event: React.SyntheticEvent, rowIndex: number) => void;
 
         /**
           * Callback that is called when a mouse-enter event happens
           * on a row.
           */
-        onRowMouseEnter?: (event: __React.SyntheticEvent, rowIndex: number) => void;
+        onRowMouseEnter?: (event: React.SyntheticEvent, rowIndex: number) => void;
 
         /**
           * Callback that is called when a mouse-leave event happens
           * on a row.
           */
-        onRowMouseLeave?: (event: __React.SyntheticEvent, rowIndex: number) => void;
+        onRowMouseLeave?: (event: React.SyntheticEvent, rowIndex: number) => void;
 
         /**
           * Callback that is called when resizer has been released
@@ -249,7 +249,7 @@ declare namespace FixedDataTable {
     /**
      * Component that defines the attributes of table column.
      */
-    interface ColumnProps extends __React.Props<Column> {
+    interface ColumnProps extends React.Props<Column> {
         /**
           * The horizontal alignment of the table cell content.
           *
@@ -284,7 +284,7 @@ declare namespace FixedDataTable {
           *
           * If you pass in a function, you will receive the same props object as the first argument.
           */
-        header?: string | __React.ReactElement<any> | ((props: CellProps) => (string | __React.ReactElement<any>));
+        header?: string | React.ReactElement<any> | ((props: CellProps) => (string | React.ReactElement<any>));
 
         /**
           * This is the body cell that will be cloned for this
@@ -308,7 +308,7 @@ declare namespace FixedDataTable {
           * If you pass in a function, you will receive the same
           * props object as the first argument.
           */
-        cell?: string | __React.ReactElement<any> | ((props: CellProps) => (string | __React.ReactElement<any>));
+        cell?: string | React.ReactElement<any> | ((props: CellProps) => (string | React.ReactElement<any>));
 
          /**
           * The footer cell for this column. This can either be a
@@ -331,7 +331,7 @@ declare namespace FixedDataTable {
           * If you pass in a function, you will receive the same
           * props object as the first argument.
           */
-        footer?: string | __React.ReactElement<any> | ((props: CellProps) => (string | __React.ReactElement<any>));
+        footer?: string | React.ReactElement<any> | ((props: CellProps) => (string | React.ReactElement<any>));
 
         /**
           * This is used to uniquely identify the column, and is not
@@ -398,7 +398,7 @@ declare namespace FixedDataTable {
     /**
      * Component that defines the attributes of a table column group.
      */
-    export interface ColumnGroupProps extends __React.Props<ColumnGroup> {
+    export interface ColumnGroupProps extends React.Props<ColumnGroup> {
         /**
 	     * The horizontal alignment of the table cell content.
          * 'left', 'center', 'right'
@@ -433,7 +433,7 @@ declare namespace FixedDataTable {
           * If you pass in a function, you will receive the same props
           * object as the first argument.
           */
-	    header: string | __React.ReactElement<any> | ((props: CellProps) => (string | __React.ReactElement<any>));
+	    header: string | React.ReactElement<any> | ((props: CellProps) => (string | React.ReactElement<any>));
     }
 
     /**
@@ -458,7 +458,7 @@ declare namespace FixedDataTable {
      *   />
      * );
      */
-    export interface CellProps extends __React.HTMLAttributes {
+    export interface CellProps extends React.HTMLAttributes {
         /**
          * The row index of the cell.
          */
@@ -482,13 +482,13 @@ declare namespace FixedDataTable {
         columnKey?: string | number;
     }
 
-    export class Table extends __React.Component<TableProps, {}> {
+    export class Table extends React.Component<TableProps, {}> {
     }
-    export class Column extends __React.Component<ColumnProps, {}> {
+    export class Column extends React.Component<ColumnProps, {}> {
     }
-    export class ColumnGroup extends __React.Component<ColumnGroupProps, {}> {
+    export class ColumnGroup extends React.Component<ColumnGroupProps, {}> {
     }
-    export class Cell extends __React.Component<CellProps, {}> {
+    export class Cell extends React.Component<CellProps, {}> {
     }
 }
 
