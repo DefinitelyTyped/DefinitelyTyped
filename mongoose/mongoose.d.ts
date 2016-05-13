@@ -307,8 +307,8 @@ declare module "mongoose" {
     circle(area: Object): Query<T>;
     circle(path: string, area: Object): Query<T>;
     comment(val: any): Query<T>;
-    count(callback?: (err: any, count: number) => void): Query<T>;
-    count(criteria: Object, callback?: (err: any, count: number) => void): Query<T>;
+    count(callback?: (err: any, count: number) => void): Query<number>;
+    count(criteria: Object, callback?: (err: any, count: number) => void): Query<number>;
     distinct(callback?: (err: any, res: T) => void): Query<T>;
     distinct(field: string, callback?: (err: any, res: T) => void): Query<T>;
     distinct(criteria: Object, field: string, callback?: (err: any, res: T) => void): Query<T>;
@@ -481,7 +481,7 @@ declare module "mongoose" {
   export class Promise<T> {
     constructor(fn?: (err: any, result: T) => void);
 
-    then<U>(onFulFill: (result: T) => void, onReject?: (err: any) => void): Promise<U>;
+    then<U>(onFulFill: (result: T) => void | U | Promise<U>, onReject?: (err: any) => void | U | Promise<U>): Promise<U>;
     end(): void;
 
     fulfill(result: T): Promise<T>;
