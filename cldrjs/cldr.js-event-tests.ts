@@ -1,5 +1,4 @@
-
-
+/// <reference path="cldr.js-event.d.ts" />
 
 Cldr.on("get", (path, value) => {
     console.log(path);
