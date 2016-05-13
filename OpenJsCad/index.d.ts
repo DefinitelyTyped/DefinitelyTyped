@@ -14,12 +14,15 @@ declare namespace THREE {
         };
         getGeometryVertex: (geometry: any, vertex_position: any) => number;
     };
+    /*
     function OrbitControls(object: any, domElement: any): void;
     function SpriteCanvasMaterial(parameters?: any): void;
+    */
     interface ICanvasRendererOptions {
         canvas?: HTMLCanvasElement;
         alpha?: boolean;
     }
+    /*
     class CanvasRenderer implements Renderer {
         domElement: HTMLCanvasElement;
         private pixelRatio;
@@ -144,6 +147,7 @@ declare namespace THREE {
     function RenderableLine(): void;
     function RenderableSprite(): void;
     function Projector(): void;
+    */
 }
 declare namespace OpenJsCad {
     interface ILog {
