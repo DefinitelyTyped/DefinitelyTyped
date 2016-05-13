@@ -357,9 +357,9 @@ interface HTMLCanvasElement {
 }
 interface CanvasRenderingContext2D {
     imageSmoothingEnabled: boolean;
-    mozImageSmoothingEnabled: boolean;
-    oImageSmoothingEnabled: boolean;
-    webkitImageSmoothingEnabled: boolean;
+    // mozImageSmoothingEnabled: boolean;
+    // oImageSmoothingEnabled: boolean;
+    // webkitImageSmoothingEnabled: boolean;
 }
 interface WebGLTexture {
     isReady: boolean;
@@ -410,7 +410,7 @@ interface Screen {
     mozOrientation: string;
 }
 interface HTMLMediaElement {
-    crossOrigin: string;
+    // crossOrigin: string;
 }
 
 declare namespace BABYLON {
