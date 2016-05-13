@@ -5011,6 +5011,8 @@ declare namespace  __React {
          * Default value is false.
          */
         value?: boolean
+	
+	style?: ViewStyle
     }
 
     export interface SwitchStatic extends React.ComponentClass<SwitchProperties> {
