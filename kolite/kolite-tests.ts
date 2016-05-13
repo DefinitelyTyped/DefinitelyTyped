@@ -129,7 +129,7 @@ function test_full() {
             };
             return self;
         };
-    })(ko);
+    })(ko as any);
     (function (ko) {
         ko.utils.wrapAccessor = function (accessor) {
             return function () {
@@ -190,7 +190,7 @@ function test_full() {
                 ko.bindingHandlers.enable.update(element, canExecute, allBindingsAccessor, viewModel);
             }
         };
-    })(ko);
+    })(ko as any);
 
     var my: any = {};
     my.TwitterService = function () {
