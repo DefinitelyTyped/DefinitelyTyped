@@ -19,7 +19,6 @@ import TArray = require('ref-array');
 
     var dbPtrPtr = ref.alloc(sqlite3PtrPtr);
     libsqlite3.sqlite3_open("test.sqlite3", dbPtrPtr);
-    var dbHandle = dbPtrPtr.deref();
 }
 {
     var func = ffi.ForeignFunction(new Buffer(10), 'int', [ 'int' ]);
