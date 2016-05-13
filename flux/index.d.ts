@@ -69,8 +69,6 @@ declare module "flux" {
 }
 
 declare namespace FluxUtils {
-
-    import React = __React;
     export class Container {
         constructor();
         /**

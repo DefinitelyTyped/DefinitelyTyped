@@ -77,7 +77,7 @@ ReactDOM.render((
 //
 declare var store: Store;
 declare var routerState: RouterState;
-declare var history: HistoryModule.History;
+declare var history: History.History;
 class MyRootComponent extends Component<any, any> {
 
 }

@@ -5,7 +5,6 @@
 
 /// <reference types="react" />
 
-
 import { Component } from 'react';
 
 // your typical style object given in props. Maps to a number or a spring config
@@ -58,7 +57,7 @@ type Styles = Array<TransitionStyle> | InterpolateFunction;
 interface TransitionProps {
     defaultStyles?: Array<TransitionPlainStyle>;
     styles: Styles;
-    children: (interpolatedStyles: Array<TransitionPlainStyle>) => __React.ReactElement<any>;
+    children: (interpolatedStyles: Array<TransitionPlainStyle>) => React.ReactElement<any>;
     willEnter?: (styleThatEntered: TransitionStyle) => PlainStyle;
     willLeave?: (styleThatLeft: TransitionStyle) => Style;
 }

@@ -47,6 +47,7 @@ export type RouterListener = Router.RouterListener;
 export type RouterState = Router.RouterState;
 export type HistoryBase = History.HistoryBase;
 export type RouterOnContext = Router.RouterOnContext;
+export type LinkProps = Link.LinkProps;
 
 export {
     Router,

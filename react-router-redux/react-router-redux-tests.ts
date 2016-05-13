@@ -1,8 +1,5 @@
-
 /// <reference types="redux" />
 /// <reference types="react-router" />
-
-
 
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { browserHistory } from 'react-router';

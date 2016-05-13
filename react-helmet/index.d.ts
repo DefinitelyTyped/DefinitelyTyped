@@ -6,8 +6,6 @@
 /// <reference types="react" />
 
 declare namespace ReactHelmet {
-    import React = __React;
-    
     interface HelmetProps {
         title?: string;
         titleTemplate?: string;
