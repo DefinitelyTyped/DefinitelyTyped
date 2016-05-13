@@ -1,6 +1,4 @@
 /// <reference types="react" />
-
-import React = __React
 /*import {
     Affix,
     Button,
