@@ -1483,12 +1483,24 @@ declare namespace  __React {
          */
         injectedJavaScript?: string
 
+        /**
+         * Invoked when load fails
+         */
         onError?:  ( event: NavState ) => void
 
+        /**
+         * Invoked when load finish
+         */
         onLoad?:  ( event: NavState ) => void
 
+        /**
+         * Invoked when load either succeeds or fails
+         */
         onLoadEnd?:  ( event: NavState ) => void
 
+        /**
+         * Invoked on load start
+         */
         onLoadStart?:  ( event: NavState ) => void
 
         onNavigationStateChange?: ( event: NavState ) => void
