@@ -17,7 +17,7 @@ declare module 'redux-mock-store' {
         getState():T
         getActions():Object[]
         clearActions():void
-        subscribe():Function
+        subscribe(listener: Function):Function
     }
 
     export default createMockStore
