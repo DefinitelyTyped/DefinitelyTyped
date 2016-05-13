@@ -1,5 +1,4 @@
-
-
+import * as d3 from 'd3';
 
 function superformula() {
     var size = 1000;
