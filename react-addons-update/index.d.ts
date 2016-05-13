@@ -3,9 +3,11 @@
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import * as React from 'react';
 
+export = React.__Addons.update;
 
-declare namespace __React {
+declare module 'react' {
     interface UpdateSpecCommand {
         $set?: any;
         $merge?: {};
@@ -30,6 +32,3 @@ declare namespace __React {
     }
 }
 
-declare module "react-addons-update" {
-    export = __React.__Addons.update;
-}

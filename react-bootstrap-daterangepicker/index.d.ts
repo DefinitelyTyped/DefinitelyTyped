@@ -19,7 +19,7 @@ declare namespace ReactBootstrapDaterangepicker {
         onEvent?: EventHandler;
     }
 
-    export class DateRangePicker extends __React.Component<Props, {}> {}
+    export class DateRangePicker extends React.Component<Props, {}> {}
 }
 
 declare var DateRangePicker: typeof ReactBootstrapDaterangepicker.DateRangePicker;

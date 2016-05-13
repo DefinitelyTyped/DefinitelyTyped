@@ -6,8 +6,6 @@
 ///<reference types="react" />
 
 declare namespace ReactIntl {
-    import React = __React;
-
     interface Locale {
         locale: string;
         fields?: { [key: string]: string },

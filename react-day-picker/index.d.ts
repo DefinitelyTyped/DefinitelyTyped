@@ -13,8 +13,6 @@ declare module "react-day-picker" {
 declare var DayPicker: typeof ReactDayPicker.DayPicker;
 
 declare namespace ReactDayPicker {
-    import React = __React;
-
     interface LocaleUtils {
         formatMonthTitle: (month: Date, locale: string) => string;
         formatWeekdayShort: (weekday: number, locale: string) => string;

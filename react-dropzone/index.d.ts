@@ -6,7 +6,6 @@
 ///<reference types="react" />
 
 declare namespace ReactDropzone {
-    import React = __React;
     interface DropzoneProps {
         // Drop behavior
         onDrop?: Function,

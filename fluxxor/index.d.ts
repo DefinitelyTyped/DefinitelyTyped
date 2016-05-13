@@ -3,8 +3,8 @@
 // Definitions by: Yuichi Murata <https://github.com/mrk21>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="react" />
-///<reference types="eventemitter3" />
+/// <reference types="react" />
+/// <reference types="eventemitter3" />
 
 declare namespace Fluxxor {
     class Dispatcher {
@@ -58,8 +58,8 @@ declare namespace Fluxxor {
         getStateFromFlux(): StoreState;
     }
 
-    function FluxMixin(React: typeof __React): FluxMixin;
-    function FluxChildMixin(React: typeof __React): FluxChildMixin;
+    function FluxMixin(react: typeof React): FluxMixin;
+    function FluxChildMixin(react: typeof React): FluxChildMixin;
     function StoreWatchMixin<StoreState>(...storeNames: string[]): StoreWatchMixin<StoreState>;
     function createStore(spec: StoreSpec): StoreClass;
     var version: string;

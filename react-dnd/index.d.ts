@@ -6,8 +6,6 @@
 ///<reference types="react" />
 
 declare module __ReactDnd {
-    import React = __React;
-
     // Decorated React Components
     // ----------------------------------------------------------------------
 

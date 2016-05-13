@@ -6,7 +6,7 @@
 ///<reference types="react"/>
 
 declare namespace ReactTagCloud {
-    interface TagCloudProps extends __React.Props<void> {
+    interface TagCloudProps extends React.Props<void> {
         tags: any[];
         maxSize: number;
         minSize: number;
@@ -15,7 +15,7 @@ declare namespace ReactTagCloud {
         className?: string;
         onClick?: Function;
     }
-    interface TagCloudClass extends __React.ComponentClass<TagCloudProps> { }
+    interface TagCloudClass extends React.ComponentClass<TagCloudProps> { }
 
     interface DefaultRendererFactoryOptions {
         tagRenderer?: Function;
