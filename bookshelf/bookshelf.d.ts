@@ -118,7 +118,7 @@ declare module 'bookshelf' {
 			resetQuery() : T;
 			save(key? : string, val? : string, options? : SaveOptions) : Promise<T>;
 			save(attrs? : {[key : string] : any}, options? : SaveOptions) : Promise<T>;
-			through<R extends Model<any>>(interim : typeof Model, throughForeignKey? : string, otherKey? : string) : R | Collection<R>;
+			through<R extends Model<any>>(interim : typeof Model, throughForeignKey? : string, otherKey? : string) : R;
 			where(properties : {[key : string] : any}) : T;
 			where(key : string, operatorOrValue : string|number|boolean, valueIfOperator? : string|number|boolean) : T;
 
@@ -252,7 +252,7 @@ declare module 'bookshelf' {
 			query(query : {[key : string] : any}) : Collection<T>;
 
 			resetQuery() : Collection<T>;
-			through<R extends Model<any>>(interim : typeof Model, throughForeignKey? : string, otherKey? : string) : R | Collection<R>;
+			through<R extends Model<any>>(interim : typeof Model, throughForeignKey? : string, otherKey? : string) : Collection<R>;
 			updatePivot(attributes : any, options? : PivotOptions) : Promise<number>;
 			withPivot(columns : string[]) : Collection<T>;
 

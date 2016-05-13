@@ -392,23 +392,23 @@ class Television extends bookshelf.Model<Television> {
 	}
 
 	class Doctor extends bookshelf.Model<Doctor> {
-		patients() {
-			return this.belongsToMany(Patient).through(Appointment);
+		patients(): Bookshelf.Collection<Patient> {
+			return this.belongsToMany(Patient).through<Patient>(Appointment);
 		}
 	}
 
 	class Appointment extends bookshelf.Model<Appointment> {
-		patient() {
+		patient(): Patient {
 			return this.belongsTo(Patient);
 		}
-		doctor() {
+		doctor(): Doctor {
 			return this.belongsTo(Doctor);
 		}
 	}
 
 	class Patient extends bookshelf.Model<Patient> {
-		doctors() {
-			return this.belongsToMany(Doctor).through(Appointment);
+		doctors(): Bookshelf.Collection<Doctor> {
+			return this.belongsToMany(Doctor).through<Doctor>(Appointment);
 		}
 	}
 }
@@ -746,7 +746,7 @@ customer.set("telephone", "555-555-1212");
 		// Find all paragraphs associated with this book, by
 		// passing through the "Chapter" model.
 		paragraphs(): Paragraphs {
-			return <Paragraphs> this.hasMany(Paragraph).through(Chapter);
+			return this.hasMany(Paragraph).through<Paragraph>(Chapter);
 		}
 
 		chapters(): Chapters {
@@ -774,7 +774,7 @@ customer.set("telephone", "555-555-1212");
 
 		// A reverse relation, where we can get the book from the chapter.
 		book(): Book {
-			return <Book> this.belongsTo(Book).through(Chapter);
+			return this.belongsTo(Book).through<Book>(Chapter);
 		}
 	}
 
