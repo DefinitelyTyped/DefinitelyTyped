@@ -13,9 +13,9 @@ import ImageData = cropperjs.ImageData;
 import CanvasData = cropperjs.CanvasData;
 import CropBoxData = cropperjs.CropBoxData;
 import CroppedCanvasOptions = cropperjs.CroppedCanvasOptions;
-type ReactCropperProps = cropperjs.CropperOptions & __React.HTMLProps<HTMLImageElement>;
+type ReactCropperProps = cropperjs.CropperOptions & React.HTMLProps<HTMLImageElement>;
 
-declare class ReactCropper extends __React.Component<ReactCropperProps, {}> implements cropperjs.Cropper {
+declare class ReactCropper extends React.Component<ReactCropperProps, {}> implements cropperjs.Cropper {
 
     /**
      * Show the crop box manually.

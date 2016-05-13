@@ -48,7 +48,7 @@ declare namespace reactInputCalendar {
         /**
         * Set a function that will be triggered the when input field is blurred. It will return the event and the date in the props.computableFormat format.
         */
-        onBlur?: (event: __React.SyntheticEvent, computableDate: string) => void;
+        onBlur?: (event: React.SyntheticEvent, computableDate: string) => void;
         /**
         * Define state when date picker would close once the user has clicked on a date.
         */
@@ -75,7 +75,7 @@ declare namespace reactInputCalendar {
         disabled?: boolean;
     }
     interface ReactInputCalendarState { }
-    export class ReactInputCalendar extends __React.Component<ReactInputCalendarProps, ReactInputCalendarState> {
+    export class ReactInputCalendar extends React.Component<ReactInputCalendarProps, ReactInputCalendarState> {
     }
 }
 declare var ReactInputCalendar: typeof reactInputCalendar.ReactInputCalendar

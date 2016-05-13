@@ -6,7 +6,6 @@
 /// <reference types="react" />
 
 declare namespace RcSelect {
-    import React = __React;
     interface SelectProps {
         className?: string;
         prefixCls?: string;

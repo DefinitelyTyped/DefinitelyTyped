@@ -18,9 +18,6 @@
 
 /// <reference types="react" />
 
-//so we know what is "original" React
-import React = __React;
-
 //react-native "extends" react
 declare module "react-native" {
 

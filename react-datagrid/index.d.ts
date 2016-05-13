@@ -11,8 +11,6 @@ declare module "react-datagrid" {
 }
 
 declare namespace ReactDataGrid {
-    import React = __React;
-
     interface DataGridProps extends React.Props<DataGrid> {
         /**
           * Array/String/Function/Promise - for local data, an array of object
@@ -46,7 +44,7 @@ declare namespace ReactDataGrid {
           */
         sortInfo?: SortInfo[];
 
-        style?: __React.CSSProperties;
+        style?: React.CSSProperties;
 
         /**
           * Object/Function - you can specify either a style object to be
@@ -54,7 +52,7 @@ declare namespace ReactDataGrid {
           * (data, props) (so you have access to props.index for example) and
           * is expected to return a style object.
           */
-        rowStyle?: __React.CSSProperties | ((data: any, props: RowProps) => React.CSSProperties);
+        rowStyle?: React.CSSProperties | ((data: any, props: RowProps) => React.CSSProperties);
 
         /**
           * Boolean - show a column menu to show/hide columns.
@@ -202,7 +200,7 @@ declare namespace ReactDataGrid {
           * Object - if you want cells in this column to be have a custom
           * style.
           */
-        style?: __React.CSSProperties;
+        style?: React.CSSProperties;
 
         /**
           * String - one of 'left', 'right', 'center'.
@@ -305,6 +303,6 @@ declare namespace ReactDataGrid {
 				}
     }
 
-    export class DataGrid extends __React.Component<DataGridProps, {}> {
+    export class DataGrid extends React.Component<DataGridProps, {}> {
     }
 }

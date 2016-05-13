@@ -7,8 +7,6 @@
 
 declare namespace NotificationSystem {
 
-    import React = __React;
-
     export interface System extends React.Component<any, any> {
         addNotification(notification: Notification): Notification;
         removeNotification(notification: Notification): void;
@@ -79,6 +77,6 @@ declare namespace NotificationSystem {
 
 
 declare module 'react-notification-system' {
-    var component: __React.ClassicComponentClass<NotificationSystem.Attributes>;
+    var component: React.ClassicComponentClass<NotificationSystem.Attributes>;
     export = component;
 }

@@ -11,8 +11,6 @@ declare module "react-infinite" {
 }
 
 declare namespace ReactInfinite {
-	import React = __React;
-
 	interface InfiniteProps extends React.Props<Infinite> {
 		elementHeight: number | number[];
 		containerHeight?: number;

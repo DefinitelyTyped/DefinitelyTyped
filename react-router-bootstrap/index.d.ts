@@ -3,13 +3,10 @@
 // Definitions by: Vincent Lesierse <https://github.com/vlesierse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="react"/>
-///<reference types="react-router"/>
+/// <reference types="react"/>
+/// <reference types="react-router"/>
 
 declare namespace ReactRouterBootstrap {
-    // Import React
-    import React = __React;
-
     interface LinkContainerProps extends ReactRouter.LinkProps {
         disabled?: boolean
     }
