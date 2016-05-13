@@ -229,9 +229,9 @@ declare namespace angular.ui {
          */
         notify?: boolean;
         /**
-         * {boolean=false}, If true will force transition even if the state or params have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd use this when you want to force a reload when everything is the same, including search params.
+         *  {boolean=false|string|object}, If true will force transition even if no state or params have changed. It will reload the resolves and views of the current state and parent states. If reload is a string (or state object), the state object is fetched (by name, or object reference); and \ the transition reloads the resolves and views for that matched state, and all its children states.
          */
-        reload?: boolean;
+        reload?: boolean | string | IState;
     }
 
     interface IHrefOptions {
