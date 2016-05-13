@@ -1,9 +1,10 @@
 
+import * as d3 from 'd3';
 
-declare namespace d3 {
+declare module 'd3' {
     export function superformula<T>(): Superformula<T>;
 
-    namespace superformula {
+    export namespace superformula {
         interface Type {
             m: number;
             n1: number;
@@ -14,7 +15,7 @@ declare namespace d3 {
         }
     }
 
-    interface Superformula<T> {
+    export interface Superformula<T> {
         (datum: T, index: number): string;
 
         type(): (datum: T, index: number) => string;

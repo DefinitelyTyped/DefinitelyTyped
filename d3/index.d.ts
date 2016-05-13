@@ -3,6 +3,9 @@
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = d3;
+export as namespace d3;
+
 declare namespace d3 {
     /**
      * The current version of D3.js.
@@ -3352,7 +3355,3 @@ declare namespace d3 {
 
 // we need this to exist
 interface TouchList { }
-
-declare module 'd3' {
-    export = d3;
-}
