@@ -171,6 +171,16 @@ var image = clipboard.readImage();
 var appIcon3 = new Tray(image);
 var appIcon4 = new Tray('/Users/somebody/images/icon.png');
 
+// https://github.com/electron/electron/blob/master/docs/api/process.md
+
+// preload.js
+var _setImmediate = setImmediate;
+var _clearImmediate = clearImmediate;
+process.once('loaded', function() {
+	global.setImmediate = _setImmediate;
+	global.clearImmediate = _clearImmediate;
+});
+
 // screen
 // https://github.com/atom/electron/blob/master/docs/api/screen.md
 

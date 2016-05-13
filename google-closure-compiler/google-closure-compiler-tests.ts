@@ -26,3 +26,12 @@ let jsonStream: GoogleClosureCompiler.JSONStreamFile[] = [
         src: 'var x = "hello, world";',
     },
 ];
+
+// Test the various options formats -- see
+//   https://github.com/ChadKillingsworth/closure-compiler-npm#specifying-options
+let optionsFormats: GoogleClosureCompiler.CompileOptions = {
+    js: ['/file-one.js', '/file-two.js'],
+    compilation_level: 'ADVANCED',
+    js_output_file: 'out.js',
+    debug: true
+};

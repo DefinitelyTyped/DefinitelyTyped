@@ -29,6 +29,7 @@ import {
     AppStateIOS,
     ViewPagerAndroid,
     Dimensions,
+    BackAndroid,
 } from 'react-native';
 
 function testDimensions() {
@@ -47,6 +48,8 @@ function testDimensions() {
   } = Dimensions.get("screen");
 }
 
+BackAndroid.addEventListener("hardwareBackPress", () => {
+});
 
 var styles = StyleSheet.create(
     {
@@ -72,11 +75,19 @@ var styles = StyleSheet.create(
 
 class Welcome extends React.Component<any,any> {
 
+    testNativeMethods() {
+      this.setNativeProps({});
+
+      const { rootView } = this.refs;
+
+      rootView.measure((x, y, width, height) => {
+      });
+    }
 
     render() {
 
         return (
-            <View style={styles.container}>
+            <View ref="rootView" style={styles.container}>
                 <Text style={styles.welcome}>
                     Welcome to React Native
                 </Text>
