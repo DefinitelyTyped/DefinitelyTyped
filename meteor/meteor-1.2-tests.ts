@@ -1,4 +1,4 @@
-/// <reference path='meteor.d.ts'/>
+/// <reference path='meteor-1.2.d.ts'/>
 
 /**
  * All code below was copied from the examples at http://docs.meteor.com/.
@@ -8,18 +8,6 @@
 
 
 /*********************************** Begin setup for tests ******************************/
-import {Mongo} from "meteor/mongo";
-import {Meteor} from "meteor/meteor";
-import {check, Match} from "meteor/check";
-import {Tracker} from "meteor/tracker";
-import {Template} from "meteor/templating";
-import {Blaze} from "meteor/blaze";
-import {Session} from "meteor/session";
-import {HTTP} from "meteor/http";
-import {ReactiveVar} from "meteor/reactive-var";
-import {Accounts} from "meteor/accounts-base";
-import {BrowserPolicy} from "meteor/browser-policy";
-
 var Rooms = new Mongo.Collection('rooms');
 var Messages = new Mongo.Collection('messages');
 interface MonkeyDAO {
@@ -74,8 +62,10 @@ Meteor.publish("counts-by-room", function (roomId: string) {
   var handle = Messages.find({roomId: roomId}).observeChanges({
     added: function (id: any) {
       count++;
-      // if (!initializing)
-      //   this.changed("counts", roomId, {count: count});
+//      if (!initializing)
+
+// Todo: Not sure how to define in typescript
+//        self.changed("counts", roomId, {count: count});
     },
     removed: function (id: any) {
       count--;
@@ -464,21 +454,20 @@ Template['adminDashboard'].helpers({
     return Session.get("foo");
   }
 });
-
 Template['newTemplate'].helpers({
   helperName: function () {
   }
 });
 
-Template['newTemplate'].created = function() {
+Template['newTemplate'].created = function () {
 
 };
 
-Template['newTemplate'].rendered = function() {
+Template['newTemplate'].rendered = function () {
 
 };
 
-Template['newTemplate'].destroyed = function() {
+Template['newTemplate'].destroyed = function () {
 
 };
 
@@ -616,9 +605,8 @@ Meteor.call('sendEmail',
     'Hello from Meteor!',
     'This is a test of Email.send.');
 
-var testTemplate = new Blaze.Template('foo');
-var testView = new Blaze.View('foo');
-Blaze.Template.instance();
+var testTemplate = new Blaze.Template();
+var testView = new Blaze.View();
 
 declare var el: HTMLElement;
 Blaze.render(testTemplate, el);
@@ -653,7 +641,8 @@ var loginOpts = <Meteor.LoginWithExternalServiceOptions> {
   loginHint: "Help me",
   loginStyle: "Bold and powerful",
   redirectUrl: "popup",
-  profile: "asdfasdf"
+  profile: "asdfasdf",
+  email: "asdf@ASDf.com"
 };
 Meteor.loginWithMeteorDeveloperAccount(loginOpts, function(error: Meteor.Error) {});
 
@@ -661,16 +650,16 @@ Accounts.emailTemplates.siteName = "AwesomeSite";
 Accounts.emailTemplates.from = "AwesomeSite Admin <accounts@example.com>";
 Accounts.emailTemplates.headers = { asdf: 'asdf', qwer: 'qwer' };
 
-Accounts.emailTemplates.enrollAccount.subject = function(user: Meteor.User) {
+Accounts.emailTemplates.enrollAccount.subject = function (user) {
   return "Welcome to Awesome Town, " + user.profile.name;
 };
-Accounts.emailTemplates.enrollAccount.html = function(user: Meteor.User, url: string) {
+Accounts.emailTemplates.enrollAccount.html = function (user, url) {
   return "<h1>Some html here</h1>";
 };
 Accounts.emailTemplates.enrollAccount.from = function() {
   return "asdf@asdf.com";
 };
-Accounts.emailTemplates.enrollAccount.text = function(user: Meteor.User, url: string) {
+Accounts.emailTemplates.enrollAccount.text = function (user, url) {
   return "You have been selected to participate in building a better future!"
         + " To activate your account, simply click the link below:\n\n"
         + url;
@@ -687,4 +676,3 @@ var handle = Accounts.validateLoginAttempt(function(attemptInfoObject: Accounts.
   return true;
 });
 handle.stop();
-

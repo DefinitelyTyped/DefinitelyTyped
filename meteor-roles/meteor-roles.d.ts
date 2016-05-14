@@ -3,7 +3,7 @@
 // Definitions by: Robbie Van Gorkom <https://github.com/vangorra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../meteor/meteor.d.ts" />
+/// <reference path="../meteor/meteor-1.2.d.ts" />
 
 /**
  * Provides functions related to user authorization. Compatible with built-in Meteor accounts packages.
