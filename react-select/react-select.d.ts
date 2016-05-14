@@ -245,6 +245,11 @@ declare namespace ReactSelect {
          */
         openAfterFocus?: boolean;
         /**
+         * open the options menu when the input gets focus (requires searchable = true)
+         * @default false
+         */
+        openOnFocus?: boolean;
+        /**
          * option component to render in dropdown
          */
         optionComponent?: __React.ReactElement<any>;
