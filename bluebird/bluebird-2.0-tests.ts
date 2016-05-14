@@ -1,4 +1,4 @@
-///<reference path="bluebird.d.ts"/>
+///<reference path="bluebird-2.0.d.ts"/>
 
 // Tests by: Bart van der Schoor <https://github.com/Bartvds>
 
@@ -157,21 +157,6 @@ var nodeCallbackFuncErrorOnly = (callback: (err: any) => void) => {}
 
 fooThen = fooProm;
 barThen = barProm;
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-fooProm = new Promise(function (resolve: (value: Foo) => void, reject: (reason: any) => void, onCancel: (callback: Function) => void) {
-	onCancel(function () {
-		// Do something.
-	});
-	
-	if (bool) {
-		resolve(foo);
-	}
-	else {
-		reject(new Error(str));
-	}
-});
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -347,12 +332,6 @@ fooProm = fooProm.caught(Error, (reason: any) => {
 fooProm = fooProm.caught(Promise.CancellationError, (reason: any) => {
 	return;
 });
-fooProm = fooProm.catch({ code: 'ENOENT'}, (reason: any) => {
-	return;
-});
-fooProm = fooProm.caught({ code: 'ENOENT'}, (reason: any) => {
-	return;
-});
 
 fooOrBarProm = fooProm.catch(Error, (reason: any) => {
 	return bar;
@@ -366,30 +345,6 @@ fooOrBarProm = fooProm.caught(Error, (reason: any) => {
 fooOrBarProm = fooProm.caught(Promise.CancellationError, (reason: any) => {
 	return bar;
 });
-fooOrBarProm = fooProm.catch({ code: 'ENOENT'}, (reason: any) => {
-	return bar;
-});
-fooOrBarProm = fooProm.caught({ code: 'ENOENT'}, (reason: any) => {
-	return bar;
-});
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-fooProm = fooProm.catchThrow("");
-fooProm = fooProm.catchThrow(new Error("test"));
-
-fooProm = fooProm.catchThrow(Error, "");
-fooProm = fooProm.catchThrow(Promise.CancellationError, "");
-fooProm = fooProm.catchThrow({ code: 'ENOENT'}, new Error("test"));
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-fooProm = fooProm.catchReturn("");
-fooProm = fooProm.catchReturn(new Promise(() => {}));
-
-fooProm = fooProm.catchReturn(Error, "");
-fooProm = fooProm.catchReturn(Promise.CancellationError, "");
-fooProm = fooProm.catchReturn({ code: 'ENOENT'}, new Promise(() => {}));
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -503,14 +458,6 @@ fooProm.nodeify({ spread: true });
 fooProm = fooProm.nodeify((err: any) => { }, { spread: true });
 fooProm = fooProm.nodeify((err: any, foo?: Foo) => { }, { spread: true });
 
-fooProm.asCallback();
-fooProm = fooProm.asCallback((err: any) => { });
-fooProm = fooProm.asCallback((err: any, foo?: Foo) => { });
-
-fooProm.asCallback({ spread: true });
-fooProm = fooProm.asCallback((err: any) => { }, { spread: true });
-fooProm = fooProm.asCallback((err: any, foo?: Foo) => { }, { spread: true });
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 barProm = fooProm.fork((value: Foo) => {
@@ -596,14 +543,22 @@ obj = fooProm.toJSON();
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-fooProm = fooArrProm.spread((one: Foo, two: Bar, twotwo: Foo) => {
-	return one;
+barProm = fooArrProm.spread<Bar>((one: Foo, two: Bar) => {
+	return bar;
+}, (reason: any) => {
+	return bar;
 });
-
 barProm = fooArrProm.spread<Bar>((one: Foo, two: Bar, twotwo: Foo) => {
 	return bar;
 });
 
+// - - - - - - - - - - - - - - - - -
+
+barProm = fooArrProm.spread<Bar>((one: Foo, two: Bar) => {
+	return barThen;
+}, (reason: any) => {
+	return barThen;
+});
 barProm = fooArrProm.spread<Bar>((one: Foo, two: Bar, twotwo: Foo) => {
 	return barThen;
 });
@@ -616,7 +571,7 @@ barArrProm = fooProm.all<Bar>();
 
 objProm = fooProm.props();
 
-barInspectionArrProm = fooProm.reflect<Bar>();
+barInspectionArrProm = fooProm.settle<Bar>();
 
 barProm = fooProm.any<Bar>();
 
@@ -731,12 +686,24 @@ fooProm = Promise.try<Foo>(() => {
 fooProm = Promise.try(() => {
 	return foo;
 });
+fooProm = Promise.try(() => {
+	return foo;
+}, arr);
+fooProm = Promise.try(() => {
+	return foo;
+}, arr, x);
 
 // - - - - - - - - - - - - - - - - -
 
 fooProm = Promise.try(() => {
 	return fooThen;
 });
+fooProm = Promise.try(() => {
+	return fooThen;
+}, arr);
+fooProm = Promise.try(() => {
+	return fooThen;
+}, arr, x);
 
 // - - - - - - - - - - - - - - - - -
 
@@ -835,11 +802,6 @@ anyProm = Promise.fromNode(callback => nodeCallbackFuncErrorOnly(callback));
 anyProm = Promise.fromNode(callback => nodeCallbackFunc(callback), {multiArgs : true});
 anyProm = Promise.fromNode(callback => nodeCallbackFuncErrorOnly(callback), {multiArgs : true});
 
-anyProm = Promise.fromCallback(callback => nodeCallbackFunc(callback));
-anyProm = Promise.fromCallback(callback => nodeCallbackFuncErrorOnly(callback));
-anyProm = Promise.fromCallback(callback => nodeCallbackFunc(callback), {multiArgs : true});
-anyProm = Promise.fromCallback(callback => nodeCallbackFuncErrorOnly(callback), {multiArgs : true});
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 declare var util: any;
@@ -901,11 +863,11 @@ objProm = Promise.props(obj);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-// These static methods are now deprecated.
-// fooInspectionArrProm = Promise.settle(fooThenArrThen);
-// fooInspectionArrProm = Promise.settle(fooArrProm);
-// fooInspectionArrProm = Promise.settle(fooThenArr);
-// fooInspectionArrProm = Promise.settle(fooArr);
+//TODO expand tests to overloads
+fooInspectionArrProm = Promise.settle(fooThenArrThen);
+fooInspectionArrProm = Promise.settle(fooArrProm);
+fooInspectionArrProm = Promise.settle(fooThenArr);
+fooInspectionArrProm = Promise.settle(fooArr);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

@@ -1,6 +1,6 @@
-// Type definitions for bluebird 3.0.0
+// Type definitions for bluebird 2.0.0
 // Project: https://github.com/petkaantonov/bluebird
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, falsandtru <https://github.com/falsandtru>, Peter Harris <https://github.com/codeanimal>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, falsandtru <https://github.com/falsandtru>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // ES6 model with generics overload was sourced and trans-multiplied from es6-promises.d.ts
@@ -22,7 +22,7 @@ interface PromiseConstructor {
     /**
      * Create a new promise. The passed in function will receive functions `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
      */
-    new <T>(callback: (resolve: (thenableOrResult?: T | PromiseLike<T>) => void, reject: (error: any) => void, onCancel?: (callback: Function) => void) => void): Promise<T>;
+    new <T>(callback: (resolve: (thenableOrResult?: T | PromiseLike<T>) => void, reject: (error: any) => void) => void): Promise<T>;
     
     config(options: {
         warnings?: boolean | {wForgottenReturn?: boolean};
@@ -58,7 +58,7 @@ interface PromiseConstructor {
      *
      * Alias for `attempt();` for compatibility with earlier ECMAScript version.
      */
-    try<T>(fn: () => T | PromiseLike<T>): Promise<T>;
+    try<T>(fn: () => T | PromiseLike<T>, args?: any[], ctx?: any): Promise<T>;
 
     attempt<T>(fn: () => T | PromiseLike<T>, args?: any[], ctx?: any): Promise<T>;
 
@@ -117,17 +117,15 @@ interface PromiseConstructor {
      *
      * If the `nodeFunction` calls its callback with multiple success values, the fulfillment value will be an array of them.
      *
-     * Setting multiArgs to true means the resulting promise will always fulfill with an array of the callback's success value(s). This is needed because promises only support a single success value while some callback API's have multiple success value. The default is to ignore all but the first success value of a callback function.
-     * 
-     * If you pass a context, the nodeFunction will be called as a method on the context.
+     * If you pass a `receiver`, the `nodeFunction` will be called as a method on the `receiver`.
      */
-    promisify<T>(func: (callback: (err: any, result: T) => void) => void, options?: Promise.PromisifyOptions): () => Promise<T>;
-    promisify<T, A1>(func: (arg1: A1, callback: (err: any, result: T) => void) => void, options?: Promise.PromisifyOptions): (arg1: A1) => Promise<T>;
-    promisify<T, A1, A2>(func: (arg1: A1, arg2: A2, callback: (err: any, result: T) => void) => void, options?: Promise.PromisifyOptions): (arg1: A1, arg2: A2) => Promise<T>;
-    promisify<T, A1, A2, A3>(func: (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result: T) => void) => void, options?: Promise.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3) => Promise<T>;
-    promisify<T, A1, A2, A3, A4>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result: T) => void) => void, options?: Promise.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => Promise<T>;
-    promisify<T, A1, A2, A3, A4, A5>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result: T) => void) => void, options?: Promise.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => Promise<T>;
-    promisify(nodeFunction: Function, options?: Promise.PromisifyOptions): Function;
+    promisify<T>(func: (callback: (err: any, result: T) => void) => void, receiver?: any): () => Promise<T>;
+    promisify<T, A1>(func: (arg1: A1, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1) => Promise<T>;
+    promisify<T, A1, A2>(func: (arg1: A1, arg2: A2, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1, arg2: A2) => Promise<T>;
+    promisify<T, A1, A2, A3>(func: (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1, arg2: A2, arg3: A3) => Promise<T>;
+    promisify<T, A1, A2, A3, A4>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => Promise<T>;
+    promisify<T, A1, A2, A3, A4, A5>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result: T) => void) => void, receiver?: any): (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => Promise<T>;
+    promisify(nodeFunction: Function, receiver?: any): Function;
 
     /**
      * Promisifies the entire object by going through the object's properties and creating an async equivalent of each function on the object and its prototype chain. The promisified method name will be the original method name postfixed with `Async`. Returns the input object.
@@ -141,12 +139,6 @@ interface PromiseConstructor {
     /**
      * Returns a promise that is resolved by a node style callback function.
      */
-    fromCallback(resolver: (callback: (err: any, result?: any) => void) => void, options? : {multiArgs? : boolean}): Promise<any>;
-    /**
-     * Returns a promise that is resolved by a node style callback function.
-     * 
-     * @deprecated use {@link fromCallback} instead of {@link fromNode}. 
-     */
     fromNode(resolver: (callback: (err: any, result?: any) => void) => void, options? : {multiArgs? : boolean}): Promise<any>;
 
     /**
@@ -157,9 +149,8 @@ interface PromiseConstructor {
 
     /**
      * Spawn a coroutine which may yield promises to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
-     * 
-     * @deprecated use {@link coroutine} instead.
      */
+    // TODO fix spawn GeneratorFunction
     spawn<T>(generatorFunction: Function): Promise<T>;
 
     /**
@@ -206,13 +197,11 @@ interface PromiseConstructor {
     props(object: Promise<Object>): Promise<Object>;
     // object
     props(object: Object): Promise<Object>;
-    
+
     /**
      * Given an array, or a promise of an array, which contains promises (or a mix of promises and values) return a promise that is fulfilled when all the items in the array are either fulfilled or rejected. The fulfillment value is an array of ``PromiseInspection`` instances at respective positions in relation to the input array.
      *
      * *original: The array is not modified. The input array sparsity is retained in the resulting array.*
-     * 
-     * @deprecated
      */
     // promise of array with promises of value
     settle<T>(values: PromiseLike<PromiseLike<T>[]>): Promise<Promise.Inspection<T>[]>;
@@ -399,77 +388,14 @@ interface Promise<T> extends PromiseLike<T>, Promise.Inspection<T> {
 
     catch<U>(ErrorClass: Function, onReject: (error: any) => U | PromiseLike<U>): Promise<U | T>;
     caught<U>(ErrorClass: Function, onReject: (error: any) => U | PromiseLike<U>): Promise<U | T>;
-    
-    /**
-     * This extends `.catch` to work more like catch-clauses in languages like Java or C#. Instead of manually checking `instanceof` or `.name === "SomeError"`, you may specify a number of error constructors which are eligible for this catch handler. The catch handler that is first met that has eligible constructors specified, is the one that will be called.
-     *
-     * This method also supports predicate-based filters. If you pass a predicate function instead of an error constructor, the predicate will receive the error as an argument. The return result of the predicate will be used determine whether the error handler should be called.
-     *
-     * Alias `.caught();` for compatibility with earlier ECMAScript version.
-     */
-    catch(predicate: ErrorConstructor, onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Promise<T>;
-    caught(predicate: ErrorConstructor, onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Promise<T>;
 
-    catch<U>(predicate: ErrorConstructor, onReject: (error: any) => U | PromiseLike<U>): Promise<U | T>;
-    caught<U>(predicate: ErrorConstructor, onReject: (error: any) => U | PromiseLike<U>): Promise<U | T>;
-    
-    /**
-     * This extends `.catch` to work more like catch-clauses in languages like Java or C#. Instead of manually checking `instanceof` or `.name === "SomeError"`, you may specify a number of error constructors which are eligible for this catch handler. The catch handler that is first met that has eligible constructors specified, is the one that will be called.
-     *
-     * This method also supports predicate-based filters. If you pass a predicate function instead of an error constructor, the predicate will receive the error as an argument. The return result of the predicate will be used determine whether the error handler should be called.
-     *
-     * Alias `.caught();` for compatibility with earlier ECMAScript version.
-     */
-    catch(predicate: Object, onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Promise<T>;
-    caught(predicate: Object, onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Promise<T>;
 
-    catch<U>(predicate: Object, onReject: (error: any) => U | PromiseLike<U>): Promise<U | T>;
-    caught<U>(predicate: Object, onReject: (error: any) => U | PromiseLike<U>): Promise<U | T>;
-    
-    
-    /**
-     * This is a convenience method for .catch(function() { throw reason });
-     */
-    catchThrow(reason: any): Promise<T>;
-    catchThrow(reason: any): Promise<T>;
-    catchThrow(reason: any): Promise<T>;
-    
-    /**
-     * This is a convenience method for .catch(function() { throw reason });
-     * 
-     * You may optionally prepend one predicate function or ErrorClass to pattern match the error (the generic .catch methods accepts multiple)
-     */
-    catchThrow(predicate: Function, reason: any): Promise<T>;
-    catchThrow(predicate: Object, reason: any): Promise<T>;
-    catchThrow(predicate: (error: any) => boolean, reason: any): Promise<T>;
-    
-    /**
-     * This is a convenience method for .catch(function() { return value });
-     */
-    catchReturn(value: any): Promise<T>;
-    catchReturn(value: any): Promise<T>;
-    catchReturn(value: any): Promise<T>;
-    
-    /**
-     * This is a convenience method for .catch(function() { return value });
-     * 
-     * You may optionally prepend one predicate function or ErrorClass to pattern match the error (the generic .catch methods accepts multiple)
-     */
-    catchReturn(predicate: Function, value: any): Promise<T>;
-    catchReturn(predicate: Object, value: any): Promise<T>;
-    catchReturn(predicate: (error: any) => boolean, value: any): Promise<T>;
-    
     /**
      * Like `.catch` but instead of catching all types of exceptions, it only catches those that don't originate from thrown errors but rather from explicit rejections.
      */
     error<U>(onReject: (reason: any) => PromiseLike<U>): Promise<U>;
     error<U>(onReject: (reason: any) => U): Promise<U>;
-    
-    /**
-     * The advantage of using .suppressUnhandledRejections() over .catch(function(){}) is that it doesn't increment the branch count of the promise. Branch counts matter when using cancellation because a promise will only be cancelled if all of its branches want to cancel it.
-     */
-    suppressUnhandledRejections<U>(): Promise<U>;
-    
+
     /**
      * Pass a handler that will be called regardless of this promise's fate. Returns a new promise chained from this promise. There are special semantics for `.finally()` in that the final value cannot be modified from the handler.
      *
@@ -486,8 +412,6 @@ interface Promise<T> extends PromiseLike<T>, Promise.Inspection<T> {
 
     /**
      * Like `.then()`, but any unhandled rejection that ends up here will be thrown as an error.
-     * 
-     * The use of this method is heavily discouraged and it only exists for historical reasons.
      */
     done<U>(onFulfilled?: (value: T) => PromiseLike<U>, onRejected?: (error: any) => U | PromiseLike<U>, onProgress?: (note: any) => any): void;
     done<U>(onFulfilled?: (value: T) => U, onRejected?: (error: any) => U | PromiseLike<U>, onProgress?: (note: any) => any): void;
@@ -514,19 +438,9 @@ interface Promise<T> extends PromiseLike<T>, Promise.Inspection<T> {
      */
     timeout(ms: number, message?: string): Promise<T>;
 
-
     /**
      * Register a node-style callback on this promise. When this promise is is either fulfilled or rejected, the node callback will be called back with the node.js convention where error reason is the first argument and success value is the second argument. The error argument will be `null` in case of success.
      * Returns back this promise instead of creating a new one. If the `callback` argument is not a function, this method does not do anything.
-     */
-    asCallback(callback: (err: any, value?: T) => void, options?: Promise.SpreadOption): Promise<T>;
-    asCallback(...sink: any[]): Promise<T>;
-    
-    /**
-     * Register a node-style callback on this promise. When this promise is is either fulfilled or rejected, the node callback will be called back with the node.js convention where error reason is the first argument and success value is the second argument. The error argument will be `null` in case of success.
-     * Returns back this promise instead of creating a new one. If the `callback` argument is not a function, this method does not do anything.
-     * 
-     * @deprecated use {@link asCallback} instead of {@link nodeify}.
      */
     nodeify(callback: (err: any, value?: T) => void, options?: Promise.SpreadOption): Promise<T>;
     nodeify(...sink: any[]): Promise<T>;
@@ -673,8 +587,7 @@ interface Promise<T> extends PromiseLike<T>, Promise.Inspection<T> {
      * Like calling `.then`, but the fulfillment value or rejection reason is assumed to be an array, which is flattened to the formal parameters of the handlers.
      */
     // TODO how to model instance.spread()? like Q?
-    spread<U>(onFulfill: (...values: any[]) => PromiseLike<U>): Promise<U>;
-    spread<U>(onFulfill: (...values: any[]) => U): Promise<U>;
+    spread<U>(onFulfill: Function, onReject?: (reason: any) => U | PromiseLike<U>): Promise<U>;
     /*
      // TODO or something like this?
      spread<U, W>(onFulfill: (...values: W[]) => PromiseLike<U>, onReject?: (reason: any) => PromiseLike<U>): Promise<U>;
@@ -697,15 +610,9 @@ interface Promise<T> extends PromiseLike<T>, Promise.Inspection<T> {
     /**
      * Same as calling `Promise.settle(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
      */
-    // @deprecated use {@link reflect} instead.
-    settle<U>(): Promise<Promise.Inspection<U>[]>;
-    
-    /**
-     * The .reflect method returns a promise that is always successful when this promise is settled. Its fulfillment value is an object that implements the PromiseInspection interface and reflects the resolution of this promise.
-     */
     // TODO type inference from array-resolving promise?
-    reflect<U>(): Promise<Promise.Inspection<U>[]>;
-    
+    settle<U>(): Promise<Promise.Inspection<U>[]>;
+
     /**
      * Same as calling `Promise.any(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
      */
@@ -778,16 +685,11 @@ declare namespace Promise {
     export interface SpreadOption {
         spread: boolean;
     }
-    export interface PromisifyOptions {
-        multiArgs?: boolean;
-        context?: any;
-    }
     export interface PromisifyAllOptions {
         suffix?: string;
         filter?: (name: string, func: Function, target?: any, passesDefaultFilter?: boolean) => boolean;
         // The promisifier gets a reference to the original method and should return a function which returns a promise
         promisifier?: (originalMethod: Function) => () => PromiseLike<any>;
-        multiArgs?: boolean;
     }
 
     export interface Resolver<T> {
