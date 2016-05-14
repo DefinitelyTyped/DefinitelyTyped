@@ -40,6 +40,7 @@ declare module "mongoose" {
     mquery: any;
     version: string;
     connection: Connection;
+    Promise: any;
   }
 
   export interface Connection extends NodeJS.EventEmitter {
