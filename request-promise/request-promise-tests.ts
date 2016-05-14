@@ -18,6 +18,14 @@ rp(options)
     .then(console.dir)
     .catch(console.error);
 
+// Test defining a request-promise options object
+
+var extendedOptions: rp.RequestPromiseOptions = {
+  simple: true,
+  resolveWithFullResponse: false,
+  transform: (body: any, response: http.IncomingMessage) => { return body;}
+};
+
 // --> Displays length of response from server after post
 
 //Defaults tests
