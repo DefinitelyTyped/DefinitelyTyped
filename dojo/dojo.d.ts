@@ -649,7 +649,7 @@ declare namespace dojo {
          * @param url URL to request
          * @param options       OptionalOptions for the request.
          */
-        interface xhr { (url: String, options?: dojo.request.xhr.__Options): void }
+        interface xhr { (url: String, options?: dojo.request.xhr.__Options): dojo.request.__Promise }
         interface xhr {
             /**
              * Send an HTTP DELETE request using XMLHttpRequest with the given URL and options.
@@ -657,28 +657,28 @@ declare namespace dojo {
              * @param url URL to request
              * @param options               OptionalOptions for the request.
              */
-            del(url: String, options?: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
+            // del(url: String, options?: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
             /**
              * Send an HTTP GET request using XMLHttpRequest with the given URL and options.
              *
              * @param url URL to request
              * @param options               OptionalOptions for the request.
              */
-            get(url: String, options?: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
+            // get(url: String, options?: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
             /**
              * Send an HTTP POST request using XMLHttpRequest with the given URL and options.
              *
              * @param url URL to request
              * @param options               OptionalOptions for the request.
              */
-            post(url: String, options?: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
+            // post(url: String, options?: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
             /**
              * Send an HTTP PUT request using XMLHttpRequest with the given URL and options.
              *
              * @param url URL to request
              * @param options               OptionalOptions for the request.
              */
-            put(url: String, options?: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
+            // put(url: String, options?: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
         }
 
         namespace xhr {
