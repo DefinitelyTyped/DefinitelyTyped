@@ -650,7 +650,7 @@ declare namespace dojo {
          * @param options       OptionalOptions for the request.
          */
         interface xhr { (url: String, options?: dojo.request.xhr.__Options): dojo.request.__Promise }
-        interface xhr {
+        // interface xhr {
             /**
              * Send an HTTP DELETE request using XMLHttpRequest with the given URL and options.
              *
@@ -679,7 +679,7 @@ declare namespace dojo {
              * @param options               OptionalOptions for the request.
              */
             // put(url: String, options?: dojo.request.xhr.__BaseOptions): dojo.request.__Promise;
-        }
+        // }
 
         namespace xhr {
             /**
