@@ -1,8 +1,10 @@
 /// <reference path='knex.d.ts' />
+
 /// <reference path='../lodash/lodash-3.10.d.ts' />
-import Knex = require('knex');
-import _ = require('lodash');
-'use strict';
+
+import * as Knex from 'knex';
+import * as _ from 'lodash';
+
 // Initializing the Library
 var knex = Knex({
   client: 'sqlite3',
