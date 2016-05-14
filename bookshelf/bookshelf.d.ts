@@ -104,7 +104,7 @@ declare module 'bookshelf' {
 			query() : knex.QueryBuilder;
 			refresh(options? : FetchOptions) : Promise<T>;
 			resetQuery() : T;
-			save(key? : string, val? : string, options? : SaveOptions) : Promise<T>;
+			save(key? : string, val? : any, options? : SaveOptions) : Promise<T>;
 			save(attrs? : {[key : string] : any}, options? : SaveOptions) : Promise<T>;
 			through<R extends Model<any>>(interim : typeof Model, throughForeignKey? : string, otherKey? : string) : R | Collection<R>;
 			where(properties : {[key : string] : any}) : T;
