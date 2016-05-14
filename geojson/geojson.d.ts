@@ -36,6 +36,7 @@ declare namespace GeoJSON {
     */
     export interface Point extends GeometryObject
     {
+        type: 'Point'
         coordinates: Position
     }
 
@@ -44,6 +45,7 @@ declare namespace GeoJSON {
     */
     export interface MultiPoint extends GeometryObject
     {
+        type: 'MultiPoint'
         coordinates: Position[]
     }
 
@@ -52,6 +54,7 @@ declare namespace GeoJSON {
     */
     export interface LineString extends GeometryObject
     {
+        type: 'LineString'
         coordinates: Position[]
     }
 
@@ -60,6 +63,7 @@ declare namespace GeoJSON {
     */
     export interface MultiLineString extends GeometryObject
     {
+        type: 'MultiLineString'
         coordinates: Position[][]
     }
 
@@ -68,6 +72,7 @@ declare namespace GeoJSON {
     */
     export interface Polygon extends GeometryObject
     {
+        type: 'Polygon'
         coordinates: Position[][]
     }
 
@@ -76,6 +81,7 @@ declare namespace GeoJSON {
     */
     export interface MultiPolygon extends GeometryObject
     {
+        type: 'MultiPolygon'
         coordinates: Position[][][]
     }
 
@@ -84,6 +90,7 @@ declare namespace GeoJSON {
     */
     export interface GeometryCollection extends GeoJsonObject
     {
+        type: 'GeometryCollection'
         geometries: GeometryObject[];
     }
 
@@ -92,6 +99,7 @@ declare namespace GeoJSON {
     */
     export interface Feature<T extends GeometryObject> extends GeoJsonObject
     {
+        type: 'Feature'
         geometry: T;
         properties: any;
         id?: string;
@@ -102,6 +110,7 @@ declare namespace GeoJSON {
     */
     export interface FeatureCollection<T extends GeometryObject> extends GeoJsonObject
     {
+        type: 'FeatureCollection'
         features: Feature<T>[];
     }
 
