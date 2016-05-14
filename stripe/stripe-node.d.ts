@@ -5098,6 +5098,8 @@ declare namespace StripeNode {
              *
              * @param id The identifier of the customer to be retrieved.
              */
+            retrieve(id: string, data: IDataOptions, options: HeaderOptions, response?: IResponseFn<customers.ICustomer>): Promise<customers.ICustomer>;
+            retrieve(id: string, data: IDataOptions, response?: IResponseFn<customers.ICustomer>): Promise<customers.ICustomer>;
             retrieve(id: string, options: HeaderOptions, response?: IResponseFn<customers.ICustomer>): Promise<customers.ICustomer>;
             retrieve(id: string, response?: IResponseFn<customers.ICustomer>): Promise<customers.ICustomer>;
             
