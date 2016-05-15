@@ -5086,8 +5086,8 @@ declare namespace StripeNode {
              * 
              * @param id The identifier of the customer to be retrieved.
              */
-            update(id: string, data: customers.ICustomerUpdateOptions, options: HeaderOptions, response?: IResponseFn<customers.ICustomer>): Promise<IList<customers.ICustomer>>;
-            update(id: string, data: customers.ICustomerUpdateOptions, response?: IResponseFn<customers.ICustomer>): Promise<IList<customers.ICustomer>>;
+            update(id: string, data: customers.ICustomerUpdateOptions, options: HeaderOptions, response?: IResponseFn<customers.ICustomer>): Promise<customers.ICustomer>;
+            update(id: string, data: customers.ICustomerUpdateOptions, response?: IResponseFn<customers.ICustomer>): Promise<customers.ICustomer>;
 
             /**
              * Retrieves the details of an existing customer. You need only supply the unique customer identifier that was returned upon customer
