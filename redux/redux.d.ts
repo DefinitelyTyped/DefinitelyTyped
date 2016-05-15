@@ -17,9 +17,9 @@ declare namespace Redux {
         (action: any): any;
     }
 
-    interface StoreMethods {
+    interface StoreMethods<S> {
         dispatch: Dispatch;
-        getState(): any;
+        getState(): S;
     }
 
 
@@ -36,7 +36,7 @@ declare namespace Redux {
         getReducer(): Reducer<S>;
         replaceReducer(nextReducer: Reducer<S>): void;
         dispatch(action: any): any;
-        getState(): any;
+        getState(): S;
         subscribe(listener: Function): Function;
     }
 
