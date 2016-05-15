@@ -9,8 +9,8 @@ declare namespace Redux {
         (...args: any[]): any;
     }
 
-    interface Reducer extends Function {
-        (state: any, action: any): any;
+    interface Reducer<S> extends Function {
+        (state: S, action: any): S;
     }
 
     interface Dispatch extends Function {
@@ -32,17 +32,17 @@ declare namespace Redux {
         (obj: MiddlewareArg): Function;
     }
 
-    class Store {
-        getReducer(): Reducer;
-        replaceReducer(nextReducer: Reducer): void;
+    class Store<S> {
+        getReducer(): Reducer<S>;
+        replaceReducer(nextReducer: Reducer<S>): void;
         dispatch(action: any): any;
         getState(): any;
         subscribe(listener: Function): Function;
     }
 
-    function createStore(reducer: Reducer, initialState?: any, enhancer?: Function): Store;
+    function createStore<S>(reducer: Reducer<S>, initialState?: any, enhancer?: Function): Store<S>;
     function bindActionCreators<T>(actionCreators: T, dispatch: Dispatch): T;
-    function combineReducers(reducers: any): Reducer;
+    function combineReducers<S>(reducers: any): Reducer<S>;
     function applyMiddleware(...middlewares: Middleware[]): Function;
     function compose<T extends Function>(...functions: Function[]): T;
 }
