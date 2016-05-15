@@ -5,7 +5,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import Select, { Option, MenuRendererProps } from "react-select";
+import { Option, MenuRendererProps } from "react-select-props";
+import Select = require("react-select");
 
 class SelectTest extends React.Component<React.Props<{}>, {}> {
 

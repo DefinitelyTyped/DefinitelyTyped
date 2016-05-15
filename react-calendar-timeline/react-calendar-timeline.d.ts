@@ -7,11 +7,14 @@
 
 declare module "react-calendar-timeline" {
     interface ReactCalendarTimeline {
-        groups?:any;
-        items?:{
+        groups: {
+            id: number;
+            title: string;
+        }[];
+        items:{
             id: number;
             group: number;
-            title?: string;
+            title?: any; // string | Element (__React.ClassicComponentClass<any>);
             start_time: any;
             end_time: any;
             canMove?: boolean;
@@ -53,8 +56,8 @@ declare module "react-calendar-timeline" {
         onCanvasClick?(groupId:any, time:any, e:any): any;
         onItemDoubleClick?(itemId:any): any;
         moveResizeValidator?(action:any, itemId:any, time:any): any;
-        defaultTimeStart: any;
-        defaultTimeEnd: any;
+        defaultTimeStart?: any;
+        defaultTimeEnd?: any;
         visibleTimeStart?: any;
         visibleTimeEnd?: any;
         onTimeChange?(visibleTimeStart:any, visibleTimeEnd:any): any;
@@ -62,7 +65,6 @@ declare module "react-calendar-timeline" {
         onBoundsChange?(canvasTimeStart:any, canvasTimeEnd:any): any;
         children?: any;
     }
-
-    let ReactCalendarTimeline: __React.ClassicComponentClass<ReactCalendarTimeline>;
-    export = ReactCalendarTimeline;
+    let ReactCalendarTimeline : __React.ClassicComponentClass<ReactCalendarTimeline>;
+    export default ReactCalendarTimeline;
 }

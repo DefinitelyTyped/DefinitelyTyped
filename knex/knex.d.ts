@@ -28,7 +28,7 @@ declare module "knex" {
     schema: Knex.SchemaBuilder;
 
     client: any;
-    migrate: any;
+    migrate: Knex.Migrator;
     seed: any;
     fn: any;
   }
@@ -302,7 +302,7 @@ declare module "knex" {
     interface SchemaBuilder extends Promise<any> {
       createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
       renameTable(oldTableName: string, newTableName: string): Promise<void>;
-      dropTable(tableName: string): Promise<void>;
+      dropTable(tableName: string): SchemaBuilder;
       hasTable(tableName: string): Promise<boolean>;
       hasColumn(tableName: string, columnName: string): Promise<boolean>;
       table(tableName: string, callback: (tableBuilder: AlterTableBuilder) => any): Promise<void>;
@@ -370,15 +370,15 @@ declare module "knex" {
       nullable(): ColumnBuilder;
       comment(value: string): ColumnBuilder;
     }
-    
+
     interface ForeignConstraintBuilder {
         references(columnName: string): ReferencingColumnBuilder;
     }
-    
+
     interface MultikeyForeignConstraintBuilder {
         references(columnNames: string[]): ReferencingColumnBuilder;
     }
-    
+
     interface PostgreSqlColumnBuilder extends ColumnBuilder {
       index(indexName?: string, indexType?: string): ColumnBuilder;
     }
@@ -413,7 +413,7 @@ declare module "knex" {
       connection?: string|ConnectionConfig|MariaSqlConnectionConfig|
         Sqlite3ConnectionConfig|SocketConnectionConfig;
       pool?: PoolConfig;
-      migrations?: MigrationConfig;
+      migrations?: MigratorConfig;
     }
 
     interface ConnectionConfig {
@@ -487,11 +487,19 @@ declare module "knex" {
       log?: boolean;
     }
 
-    interface MigrationConfig {
+    interface MigratorConfig {
       database?: string;
       directory?: string;
       extension?: string;
       tableName?: string;
+    }
+
+    interface Migrator {
+      make(name:string, config?: MigratorConfig):Promise<string>;
+      latest(config?: MigratorConfig):Promise<any>;
+      rollback(config?: MigratorConfig):Promise<any>;
+      status(config?: MigratorConfig):Promise<number>;
+      currentVersion(config?: MigratorConfig):Promise<string>;
     }
   }
 
