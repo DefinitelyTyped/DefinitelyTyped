@@ -5,6 +5,8 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
+type Direction = "horizontal" | "vertical" | "both";
+
 interface JQuery {
    /**
     * Gets the value of a setting.
@@ -12,5 +14,5 @@ interface JQuery {
     * @param callback The callback parameter should be a function that looks like this:
     * function(object details) {...};
     */
-	visible(partial?: boolean, hidden?: boolean, direction?: string): boolean;
+    visible(partial?: boolean, hidden?: boolean, direction?: Direction): boolean;
 }
