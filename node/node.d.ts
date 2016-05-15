@@ -1,11 +1,11 @@
-// Type definitions for Node.js v4.x
+// Type definitions for Node.js v6.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
 *                                               *
-*               Node.js v4.x API                *
+*               Node.js v6.x API                *
 *                                               *
 ************************************************/
 
