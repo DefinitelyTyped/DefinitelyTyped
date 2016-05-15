@@ -4031,6 +4031,8 @@ declare namespace StripeNode {
              */
             canceled_at: number;
             
+            created: number;
+            
             /**
              * End of the current period that the subscription has been invoiced for. At the end of this period, a new invoice will be created.
              */
