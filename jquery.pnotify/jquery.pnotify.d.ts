@@ -30,7 +30,7 @@ interface PNotifyLabel {
 }
 
 
-interface IPNotifyconfirmButton {
+interface PNotifyconfirmButton {
     text?: string;
     addClass?: string;
     /**
@@ -73,11 +73,11 @@ interface PNotifyconfirm {
     /**
      * The buttons to display, and their callbacks.
      */
-    buttons?: IPNotifyconfirmButton[];
+    buttons?: PNotifyconfirmButton[];
 
 }
 
-interface IPNotifyButtons {
+interface PNotifyButtons {
     /**
      * Provide a button for the user to manually close the notice.
      */
