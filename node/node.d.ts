@@ -1423,8 +1423,8 @@ declare module "fs" {
     export function readlink(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, linkString: string) => any): void;
     export function readlinkSync(path: string | Buffer): string;
     export function realpath(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
-    export function realpath(path: string | Buffer, cache: {[path: string | Buffer]: string}, callback: (err: NodeJS.ErrnoException, resolvedPath: string) =>any): void;
-    export function realpathSync(path: string | Buffer, cache?: { [path: string | Buffer]: string }): string;
+    export function realpath(path: string | Buffer, cache: {[path: string]: string}, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
+    export function realpathSync(path: string | Buffer, cache?: { [path: string]: string }): string;
     /*
      * Asynchronous unlink - deletes the file specified in {path}
      *
