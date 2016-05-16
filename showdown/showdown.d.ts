@@ -18,7 +18,7 @@ declare namespace Showdown {
          * Describes what type of extension - language ext or output modifier.
          * If absent, 'output modifier' type is assumed (contrary to comments in source).
          */
-        type?: string;
+            type?: string;
     }
 
     interface LangExtension extends Extension {
@@ -53,14 +53,6 @@ declare namespace Showdown {
         extensions: any[]; // (string | Plugin)[]
     }
 
-    interface Converter {
-        /**
-         * @param text The input text (markdown)
-         * @return The output HTML
-         */
-        makeHtml(text: string): string;
-    }
-
     interface ConverterStatic {
         /**
          * @constructor
@@ -69,8 +61,19 @@ declare namespace Showdown {
         new(converter_options?: ConverterOptions): Converter;
     }
 
+    /**
+     * A converter that will use showdown to parse markdown text and return html.
+     */
+    interface Converter {
+        /**
+         * @param text The input text (markdown)
+         * @return The output HTML
+         */
+        makeHtml(text: string): string;
+    }
+
     /** Constructor function for a Converter */
-    var converter: ConverterStatic;
+    var Converter: ConverterStatic;
 
     /** Registered extensions */
     var extensions: { [name: string]: ShowdownExtension };
@@ -81,6 +84,14 @@ declare namespace Showdown {
      * @param callback Applied once to each item (signature here is from forEach in lib.d.ts)
      */
     function forEach<T>(obj: T[], callback: (value: T, index: number, array: T[]) => any): void;
+
+    /**
+     * Register an extension.
+     * @param name A name for the new extension.
+     * @param e An extension to register.
+     */
+    function extension(name: string, e: ShowdownExtension);
+
 }
 
 declare module "showdown" {
