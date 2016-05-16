@@ -1,6 +1,6 @@
 // Type definitions for CacheFactory 1.4.0
 // Project: https://github.com/jmdobry/CacheFactory
-// Definitions by: Vaggelis Mparmpas <https://github.com/vag1830>
+// Definitions by: Vaggelis Mparmpas <https://github.com/vag1830>, Daniel Massa <https://github.com/danielmassa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module CacheFactory {
@@ -12,7 +12,42 @@ declare module CacheFactory {
 		removeItem(key: string): void;
 	}
 
-	export interface ICacheOptions {
+	export interface CacheGetOptions {
+		/*
+		 * A callback function to be executed whenever an expired item is removed from a cache when the cache is in passive
+		 * or aggressive mode. Will be passed the key and value of the expired item.
+		 *
+		 * Will be passed a third done argument if the cache is in passive mode. This allows you to synchronously access the
+		 * key and value of the expired item when you make the cache#get(key[, options]) call that is the reason the expired
+		 * item is being removed in the first place. Default: null.
+		 */
+		onExpire?(key: string, value: any): any;
+	}
+
+	export interface CachePutOptions {
+		/*
+		 * The number of milliseconds until a newly inserted item expires. Default: Number.MAX_VALUE.
+		 */
+		maxAge?: number;
+
+		/*
+		 * If inserting a promise into a cache, also insert the rejection value if the promise rejects. Default: false.
+		 */
+		storeOnReject?: boolean;
+
+		/*
+		 * If inserting a promise into a cache, also insert the resolved value if the promise resolves. Default: false.
+		 */
+		storeOnResolve?: boolean;
+
+		created?: Date;
+		access?: Date;
+		expires?: Date;
+	}
+
+	export interface CacheTouchOptions extends CachePutOptions { }
+
+	export interface CacheOptions {
 		/*
 		 * If set, remove all items from a cache on an interval after the given number of milliseconds. Default: null.
 		 */
@@ -113,7 +148,7 @@ declare module CacheFactory {
 		 * @param key
 		 * @returns {}
 		 */
-		get<T>(key: string, options?: ICacheOptions): T;
+		get<T>(key: string, options?: CacheGetOptions): T;
 
 		/**
 		 * Insert the item with the given key and value into the cache.options, if provided, must be an object.
@@ -125,9 +160,8 @@ declare module CacheFactory {
 		 * @param key
 		 * @param value
 		 * @param options
-		 * @returns {}
 		 */
-		put<T>(key: string, value: T, options?: ICacheOptions): void;
+		put<T>(key: string, value: T, options?: CachePutOptions): void;
 
 		/**
 		 * Remove and return the item with the given key, if it is in the cache.
@@ -145,7 +179,7 @@ declare module CacheFactory {
 		 * Remove and return all expired items in the cache.
 		 * @returns {}
 		 */
-		removeExpired(): {[key: string]: any};
+		removeExpired(): { [key: string]: any };
 
 		/**
 		 * Completely destroy this cache and its data.
@@ -154,12 +188,18 @@ declare module CacheFactory {
 		destroy(): void;
 
 		/**
-		 * cache#info() Returns an object containing information about the cache.
-		 * cache#info(key) returns an object containing information about the item with the given key, if the item is in the cache.
+		 * Returns an object containing information about the cache.
 		 *
 		 * @param key
 		 */
-		info(key?: string): CacheItemInfo;
+		info(): CacheInfo;
+
+		/**
+		 * Returns an object containing information about the item with the given key, if the item is in the cache.
+		 *
+		 * @param key
+		 */
+		info(key: string): CacheItemInfo;
 
 		/**
 		 * Return the keys of all items in the cache as an object.
@@ -189,7 +229,7 @@ declare module CacheFactory {
 		 *
 		 * @param key
 		 */
-		touch(key?: string): void;
+		touch(key?: string, options?: CacheTouchOptions): void;
 
 		/**
 		 * Set the cacheFlushInterval for the cache.
@@ -237,7 +277,7 @@ declare module CacheFactory {
 		 * that are not specifically set in the options hash to CacheFactoryProvider.defaults.
 		 * @param options
 		 */
-		setOptions(options: ICacheOptions, strict?: boolean): void;
+		setOptions(options: CacheOptions, strict?: boolean): void;
 
 		/**
 		 * Return the values of all items in the cache as an array.
@@ -250,7 +290,7 @@ declare module CacheFactory {
 
 		BinaryHeap: IBinaryHeap;
 		utils: IUtils;
-		defaults: ICacheOptions;
+		defaults: CacheOptions;
 
 		/**
 		 * Create a cache. cache must not already exist. cacheId must be a string. options is an optional argument and must be an object.
@@ -259,7 +299,7 @@ declare module CacheFactory {
 		 * @param options
 		 * @returns ICache
 		 */
-		(cacheId: string, options?: ICacheOptions): ICache;
+		(cacheId: string, options?: CacheOptions): ICache;
 
 		/**
 		 * Create a cache. cache must not already exist. cacheId must be a string. options is an optional argument and must be an object.
@@ -268,14 +308,14 @@ declare module CacheFactory {
 		 * @param options
 		 * @returns ICache
 		 */
-		createCache(cacheId: string, options?: ICacheOptions): ICache;
+		createCache(cacheId: string, options?: CacheOptions): ICache;
 
 		/**
 		 * Return the cache with the given cacheId.
 		 * @param cacheId The id of the cache storage.
 		 * @returns ICache
 		 */
-		get(cacheId: string): ICache;
+		get(cacheId: string, options?: CacheOptions): ICache;
 
 		/**
 		 * Return an object of key- value pairs, the keys being cache ids and the values being the result of .info() being called on each cache.
@@ -287,7 +327,7 @@ declare module CacheFactory {
 		 * Return the ids of all registered caches as an object.
 		 * @returns {[key: string]: ICache}
 		 */
-		keySet(): {[key: string]: ICache};
+		keySet(): { [key: string]: ICache };
 
 		/**
 		 * Return the ids of all registered caches as an array.
@@ -330,7 +370,7 @@ declare module CacheFactory {
 		 * Call.removeExpired() on all registered caches.Returns a hash of any expired items, keyed by cache id.
 		 * @returns {}
 		 */
-		removeExpiredFromAll(): Array<{[key: string]: Array<{[key: string]: any}>}>;
+		removeExpiredFromAll(): Array<{ [key: string]: Array<{ [key: string]: any }> }>;
 	}
 
 	export interface IUtils {
@@ -373,7 +413,7 @@ declare module CacheFactory {
 
 	export interface CacheInfo {
 		size: Number;
-		caches: {[key: string]: any};
+		caches: { [key: string]: any };
 		capacity: Number;
 		maxAge: Number;
 		deleteOnExpire: string;
