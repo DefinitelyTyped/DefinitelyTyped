@@ -36,7 +36,7 @@ declare namespace AmCharts {
             chart.dataProvider = chartData;
             chart.write("chartdiv");
     */
-    class AmPieChart {
+    class AmPieChart extends AmChart {
         /** Name of the field in chart's dataProvider which holds slice's alpha. */
         alphaField: string;
         /** Pie lean angle (for 3D effect). Valid range is 0 - 90. */
@@ -187,19 +187,6 @@ declare namespace AmCharts {
         rollOverSlice(index: number);
         /** Shows slice. index - the number of a slice or Slice object. */
         showSlice(index: number);
-
-        /** Adds event listener of the type "clickSlice" or "pullInSlice" or "pullOutSlice" to the object.
-            @param type Always "clickSlice" or "pullInSlice" or "pullOutSlice".
-            @param handler
-                If the type is "clickSlice", dispatched when user clicks on a slice.
-                If the type is "pullInSlice", dispatched when user clicks on a slice and the slice is pulled-in.
-                If the type is "pullOutSlice", dispatched when user clicks on a slice and the slice is pulled-out.
-                If the type is "rollOutSlice", dispatched when user rolls-out of the slice.
-                If the type is "rollOverSlice", dispatched when user rolls-over the slice.
-        */
-        addListener(type: string, handler: (e: {/** Always "rollOverSlice". */
-            type: string; dataItem: Slice;
-        }) => void );
     }
 
     /** AmRadarChart is the class you have to use for radar and polar chart types.

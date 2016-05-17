@@ -1,4 +1,4 @@
-// Type definitions for Electron v0.37.7
+// Type definitions for Electron v0.37.8
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -149,11 +149,6 @@ declare namespace Electron {
 		 * Emitted when the gpu process crashes.
 		 */
 		on(event: 'gpu-process-crashed', listener: Function): this;
-		/**
-		 * Emitted when the system’s Dark Mode theme is toggled.
-		 * Note: This is only implemented on OS X.
-		 */
-		on(event: 'platform-theme-changed', listener: Function): this;
 		on(event: string, listener: Function): this;
 		/**
 		 * Try to close all windows. The before-quit event will first be emitted.
@@ -256,10 +251,16 @@ declare namespace Electron {
 		/**
 		 * Removes the current executable as the default handler for a protocol (aka URI scheme).
 		 *
-		 * Note: This API is only available on Windows.
+		 * Note: This is only implemented on Windows.
 		 *       On OS X, removing the app will automatically remove the app as the default protocol handler.
 		 */
 		removeAsDefaultProtocolClient(protocol: string): void;
+		/**
+		 * @returns Whether the current executable is the default handler for a protocol (aka URI scheme).
+		 *
+		 * Note: This is only implemented on OS X and Windows.
+		 */
+		isDefaultProtocolClient(protocol: string): boolean;
 		/**
 		 * Adds tasks to the Tasks category of JumpList on Windows.
 		 *
@@ -279,24 +280,11 @@ declare namespace Electron {
 		 * multiple instances of your app to run, this will ensure that only a single instance
 		 * of your app is running, and other instances signal this instance and exit.
 		 */
-		makeSingleInstance(callback: (args: string[], workingDirectory: string) => boolean): boolean;
+		makeSingleInstance(callback: (args: string[], workingDirectory: string) => void): boolean;
 		/**
 		 * Changes the Application User Model ID to id.
 		 */
 		setAppUserModelId(id: string): void;
-		/**
-		 * This method returns true if DWM composition (Aero Glass) is enabled,
-		 * and false otherwise. You can use it to determine if you should create
-		 * a transparent window or not (transparent windows won’t work correctly when DWM composition is disabled).
-		 *
-		 * Note: This is only implemented on Windows.
-		 */
-		isAeroGlassEnabled(): boolean;
-		/**
-		 * @returns If the system is in Dark Mode.
-		 * Note: This is only implemented on OS X.
-		 */
-		isDarkMode(): boolean;
 		/**
 		 * Imports the certificate in pkcs12 format into the platform certificate store.
 		 * @param callback Called with the result of import operation, a value of 0 indicates success
@@ -2268,19 +2256,19 @@ declare namespace Electron {
 		/**
 		 * Registers a protocol of scheme that will send the file as a response.
 		 */
-		registerFileProtocol(scheme: string, handler: (request: ProtocolRequest, callback: FileProtocolCallback) => void, completion?: (error: Error) => void): void;
+		registerFileProtocol(scheme: string, handler: FileProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Registers a protocol of scheme that will send a Buffer as a response.
 		 */
-		registerBufferProtocol(scheme: string, handler: (request: ProtocolRequest, callback: BufferProtocolCallback) => void, completion?: (error: Error) => void): void;
+		registerBufferProtocol(scheme: string, handler: BufferProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Registers a protocol of scheme that will send a String as a response.
 		 */
-		registerStringProtocol(scheme: string, handler: (request: ProtocolRequest, callback: StringProtocolCallback) => void, completion?: (error: Error) => void): void;
+		registerStringProtocol(scheme: string, handler: StringProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Registers a protocol of scheme that will send an HTTP request as a response.
 		 */
-		registerHttpProtocol(scheme: string, handler: (request: ProtocolRequest, callback: HttpProtocolCallback) => void, completion?: (error: Error) => void): void;
+		registerHttpProtocol(scheme: string, handler: HttpProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Unregisters the custom protocol of scheme.
 		 */
@@ -2292,24 +2280,29 @@ declare namespace Electron {
 		/**
 		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a file as a response.
 		 */
-		interceptFileProtocol(scheme: string, handler: (request: ProtocolRequest, callback: FileProtocolCallback) => void, completion?: (error: Error) => void): void;
-		/**
-		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a String as a response.
-		 */
-		interceptStringProtocol(scheme: string, handler: (request: ProtocolRequest, callback: BufferProtocolCallback) => void, completion?: (error: Error) => void): void;
+		interceptFileProtocol(scheme: string, handler: FileProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a Buffer as a response.
 		 */
-		interceptBufferProtocol(scheme: string, handler: (request: ProtocolRequest, callback: StringProtocolCallback) => void, completion?: (error: Error) => void): void;
+		interceptBufferProtocol(scheme: string, handler: BufferProtocolHandler, completion?: (error: Error) => void): void;
+		/**
+		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a String as a response.
+		 */
+		interceptStringProtocol(scheme: string, handler: StringProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Intercepts scheme protocol and uses handler as the protocol’s new handler which sends a new HTTP request as a response.
 		 */
-		interceptHttpProtocol(scheme: string, handler: (request: ProtocolRequest, callback: HttpProtocolCallback) => void, completion?: (error: Error) => void): void;
+		interceptHttpProtocol(scheme: string, handler: HttpProtocolHandler, completion?: (error: Error) => void): void;
 		/**
 		 * Remove the interceptor installed for scheme and restore its original handler.
 		 */
 		uninterceptProtocol(scheme: string, completion?: (error: Error) => void): void;
 	}
+
+	type FileProtocolHandler = (request: ProtocolRequest, callback: FileProtocolCallback) => void;
+	type BufferProtocolHandler = (request: ProtocolRequest, callback: BufferProtocolCallback) => void;
+	type StringProtocolHandler = (request: ProtocolRequest, callback: StringProtocolCallback) => void;
+	type HttpProtocolHandler = (request: ProtocolRequest, callback: HttpProtocolCallback) => void;
 
 	interface ProtocolRequest {
 		url: string;
@@ -2416,7 +2409,7 @@ declare namespace Electron {
 		 */
 		scaleFactor: number;
 		/**
-		 * Can be 0, 1, 2, 3, each represents screen rotation in clock-wise degrees of 0, 90, 180, 270.
+		 * Can be 0, 90, 180, 270, represents screen rotation in clock-wise degrees.
 		 */
 		rotation: number;
 		touchSupport: 'available' | 'unavailable' | 'unknown';
@@ -2948,6 +2941,47 @@ declare namespace Electron {
 		 * Play the beep sound.
 		 */
 		beep(): void;
+	}
+
+	// https://github.com/electron/electron/blob/master/docs/api/system-preferences.md
+
+	/**
+	 * Get system preferences.
+	 */
+	interface SystemPreferences {
+		/**
+		 * @returns If the system is in Dark Mode.
+		 *
+		 * Note: This is only implemented on OS X.
+		 */
+		isDarkMode(): boolean;
+		/**
+		 * Subscribes to native notifications of OS X, callback will be called when the corresponding event happens.
+		 * The id of the subscriber is returned, which can be used to unsubscribe the event.
+		 *
+		 * Note: This is only implemented on OS X.
+		 */
+		subscribeNotification(event: string, callback: Function): number;
+		/**
+		 * Removes the subscriber with id.
+		 *
+		 * Note: This is only implemented on OS X.
+		 */
+		unsubscribeNotification(id: number): void;
+		/**
+		 * Get the value of key in system preferences.
+		 *
+		 * Note: This is only implemented on OS X.
+		 */
+		getUserDefault(key: string, type: 'string' | 'boolean' | 'integer' | 'float' | 'double' | 'url'): any;
+		/**
+		 * This method returns true if DWM composition (Aero Glass) is enabled,
+		 * and false otherwise. You can use it to determine if you should create
+		 * a transparent window or not (transparent windows won’t work correctly when DWM composition is disabled).
+		 *
+		 * Note: This is only implemented on Windows.
+		 */
+		isAeroGlassEnabled(): boolean;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/tray.md
@@ -4418,6 +4452,7 @@ declare namespace Electron {
 		protocol: Electron.Protocol;
 		screen: Electron.Screen;
 		session: typeof Electron.Session;
+		systemPreferences: Electron.SystemPreferences;
 		Tray: Electron.Tray;
 		hideInternalModules(): void;
 	}
