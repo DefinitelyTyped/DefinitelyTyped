@@ -1287,12 +1287,14 @@ interface JQuery {
      * Get the HTML contents of the first element in the set of matched elements.
      */
     html(): string;
+    
     /**
      * Set the HTML contents of each element in the set of matched elements.
      *
-     * @param htmlString A string of HTML to set as the content of each matched element.
+     * @param content DOM element or HTML string to set as the content of each matched element.
      */
-    html(htmlString: string): JQuery;
+    html(content: string|JQuery): JQuery;
+    
     /**
      * Set the HTML contents of each element in the set of matched elements.
      *
