@@ -46,6 +46,7 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
 
     req.accepts('test') === true;
     req.is('test') === true;
+    req.isChunked() === true;
 
     req.getLogger('test');
 

@@ -69,6 +69,15 @@ declare module "restify" {
      * @returns  {Boolean}
      */
     is: (type: string) => boolean;
+
+    /**
+     * Check if the incoming request is chunked.
+     * @public
+     * @function isChunked
+     * @returns  {Boolean}
+     */
+    isChunked: () => boolean;
+
     getLogger: (component: string) => any;
     contentLength: number;
     contentType: string;
