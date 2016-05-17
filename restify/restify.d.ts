@@ -16,12 +16,12 @@ declare module "restify" {
     family: string;
     address: string;
   }
-  
+
   interface requestFileInterface {
       path: string;
       type: string;
   }
-  
+
   /**
    * Comes from authorizationParser plugin
    */
@@ -43,7 +43,18 @@ declare module "restify" {
     contentType: string;
     href: () => string;
     log: bunyan.Logger;
-    id: string;
+    /**
+     * retrieves the request uuid. was created when the request was setup.
+     * @public
+     * @function getId
+     * @returns  {String}
+     */
+    getId: () => string;
+
+    /**
+     * @see getId
+     */
+    id: () => string;
     path: () => string;
     query: any;
     secure: boolean;
@@ -72,7 +83,7 @@ declare module "restify" {
     headers: Object;
     id: string;
   }
-  
+
   interface RouteSpec {
     method: string;
     name: string;
@@ -88,7 +99,7 @@ declare module "restify" {
     types: string[];
     versions: string[];
   }
-  
+
   interface RouteOptions {
       name: string;
       method: string;
@@ -98,11 +109,11 @@ declare module "restify" {
       contentType?: string | string[];
       versions?: string | string[];
   }
-  
+
   interface RoutePathRegex extends RegExp {
     restifyParams: string[];
   }
-  
+
   interface Router {
     name: string;
     mounts: { [routeName: string]: Route };
@@ -119,7 +130,7 @@ declare module "restify" {
     };
     log?: any;
     toString: () => string;
-    
+
     /**
      * Takes an object of route params and query params, and 'renders' a URL
      * @param    {String} routeName the route name
@@ -128,14 +139,14 @@ declare module "restify" {
      * @returns  {String}
      */
     render: (routeName: string, params: Object, query?: Object) => string;
-    
+
     /**
      * adds a route.
      * @param    {Object} options an options object
      * @returns  {String}         returns the route name if creation is successful.
      */
     mount: (options: Object) => string;
-    
+
     /**
      * unmounts a route.
      * @param    {String} name the route name
@@ -184,7 +195,7 @@ declare module "restify" {
     opts(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
     opts(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
     opts(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
-	
+
     name: string;
     version: string;
     log: Object;

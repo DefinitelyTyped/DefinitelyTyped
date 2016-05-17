@@ -40,7 +40,7 @@ server.use((req, res, next)=>{}, (req, res, next)=>{});
 function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.header('key', 'val');
     req.header('key') === 'val';
-    
+
     req.accepts('test') === true;
     req.is('test') === true;
 
@@ -52,7 +52,8 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.contentLength === 50;
     req.contentType === 'test';
     req.href() === 'test';
-    req.id === 'test';
+    req.getId() === 'test';
+    req.id() === 'test';
     req.path() === 'test';
     req.query === 'test';
     req.secure === true;
@@ -316,7 +317,7 @@ client2.get('/str/mcavage', function(err: any, req: any) {
         });
     });
 });
-  
+
 
 client.basicAuth('test', 'password');
 client2.basicAuth('test', 'password');
