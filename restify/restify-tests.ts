@@ -1,6 +1,7 @@
 /// <reference path="restify.d.ts" />
 
 import restify = require("restify");
+import url = require("url");
 
 var server = restify.createServer({
   formatters: {
@@ -60,6 +61,7 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.query() === 'test';
     req.secure === true;
     req.time() === 1463518410080;
+    req.getUrl() === url.parse('http://test.test.test/test');
     req.params;
 
     res.header('test');

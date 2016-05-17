@@ -9,6 +9,7 @@
 declare module "restify" {
   import http = require('http');
   import bunyan = require('bunyan');
+  import url = require('url');
 
 
   interface addressInterface {
@@ -91,6 +92,14 @@ declare module "restify" {
       * @returns  {Number}
       */
     time: () => number;
+
+    /**
+     * returns a parsed URL object.
+     * @public
+     * @function getUrl
+     * @returns  {Object}
+     */
+    getUrl: () => url.Url;
     params: any;
     files?: { [name: string]: requestFileInterface };
     isSecure: () => boolean;
