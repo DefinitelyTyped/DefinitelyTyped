@@ -78,6 +78,14 @@ declare module "restify" {
      */
     isChunked: () => boolean;
 
+    /**
+     * Check if the incoming request is kept alive.
+     * @public
+     * @function isKeepAlive
+     * @returns  {Boolean}
+     */
+    isKeepAlive: () => boolean;
+
     getLogger: (component: string) => any;
     contentLength: number;
     contentType: string;
