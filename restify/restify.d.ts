@@ -55,6 +55,19 @@ declare module "restify" {
      * @see getId
      */
     id: () => string;
+
+    /**
+     * retrieves the cleaned up url path.
+     * e.g., /foo?a=1  =>  /foo
+     * @public
+     * @function getPath
+     * @returns  {String}
+     */
+    getPath: () => string;
+
+    /**
+     * @see getPath
+     */
     path: () => string;
     query: any;
     secure: boolean;
