@@ -12,6 +12,10 @@ declare module "morgan" {
 
         export function token<T>(name: string, callback: (req: express.Request, res: express.Response) => T): express.RequestHandler;
 
+        export function format(name: string, fmt: string | Function): Function;
+        
+        export function compile(format: string): Function;
+        
         export interface StreamOptions {
             /**
              * Output stream for writing log lines

@@ -29,3 +29,35 @@ morgan('combined', {
     	}
     }
 });
+
+
+// a named custom format defined as string (example: extend 'tiny' format with user-agent token)
+morgan.format('tiny-extended', ':method :url :status :res[content-length] - :response-time ms :user-agent');
+
+
+// a named custom format defined using the Function signature (example: extend 'dev' format with user-agent token)
+morgan.format('dev-extended', function developmentExtendedFormatLine(tokens, req, res) {
+    
+  // get the status code if response written
+  var status = res._header
+    ? res.statusCode
+    : undefined
+
+  // get status color
+  var color = status >= 500 ? 31 // red
+    : status >= 400 ? 33 // yellow
+    : status >= 300 ? 36 // cyan
+    : status >= 200 ? 32 // green
+    : 0 // no color
+
+  // get colored function
+  var fn = developmentExtendedFormatLine[color]
+
+  if (!fn) {
+    // compile
+    fn = developmentExtendedFormatLine[color] = morgan.compile('\x1b[0m:method :url \x1b['
+      + color + 'm:status \x1b[0m:response-time ms - :res[content-length]\x1b[0m :user-agent')
+  }
+
+  return fn(tokens, req, res)
+});
