@@ -78,6 +78,15 @@ declare module "restify" {
     accepts: (types: string | string[]) => boolean;
 
     /**
+     * checks if the request accepts the encoding types.
+     * @public
+     * @function acceptsEncoding
+     * @param    {String | Array} types an array of accept type headers
+     * @returns  {Boolean}
+     */
+    acceptsEncoding: (types: string | string[]) => boolean;
+
+    /**
      * Check if the incoming request contains the Content-Type header field, and
      * if it contains the given mime type.
      * @public

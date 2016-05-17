@@ -46,6 +46,8 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
 
     req.accepts('test') === true;
     req.accepts(['test']) === true;
+    req.acceptsEncoding('test') === true;
+    req.acceptsEncoding(['test']) === true;
     req.is('test') === true;
     req.isChunked() === true;
     req.isKeepAlive() === true;
