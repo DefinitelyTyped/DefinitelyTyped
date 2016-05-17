@@ -51,6 +51,7 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.isSecure() === true;
     req.isUpgradeRequest() === true;
     req.isUpload() === true;
+    req.userAgent() === 'test';
 
     req.getLogger('test');
 

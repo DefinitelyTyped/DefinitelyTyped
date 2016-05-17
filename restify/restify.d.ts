@@ -102,6 +102,14 @@ declare module "restify" {
      */
     isUpload: () => boolean;
 
+    /**
+     * retrieves the user-agent header.
+     * @public
+     * @function userAgent
+     * @returns  {String}
+     */
+    userAgent: () => string;
+
     getLogger: (component: string) => any;
     contentLength: number;
     contentType: string;
