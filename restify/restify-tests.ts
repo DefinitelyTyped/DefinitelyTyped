@@ -64,7 +64,8 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     var log = req.log;
     log.debug({params: req.params}, 'Hello there %s', 'foo');
 
-    req.contentLength === 50;
+    req.getContentLength() === 50;
+    req.contentLength() === 50;
     req.contentType === 'test';
     req.href() === 'test';
     req.getId() === 'test';

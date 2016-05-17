@@ -157,7 +157,20 @@ declare module "restify" {
     endHandlerTimer: (handlerName: string) => void;
 
     getLogger: (component: string) => any;
-    contentLength: number;
+
+    /**
+     * gets the content-length header off the request.
+     * @public
+     * @function getContentLength
+     * @returns {Number}
+     */
+    getContentLength: () => number;
+
+    /**
+     * @see getContentLength
+     * @function contentLength
+     */
+    contentLength: () => number;
     contentType: string;
     href: () => string;
     log: bunyan.Logger;
