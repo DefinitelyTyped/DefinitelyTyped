@@ -120,6 +120,20 @@ declare namespace mock {
         match<T1, T2>(mockRequest: requests.AllRequests<T1, T2>, requestConfig: requests.AllRequests<T1, T2>): boolean;
     }
 
+    /**
+     * Plugin for custom matching logic.
+     */
+    interface Plugin {
+        /**
+         * Match function.
+         * Return a truthy value to indicate successfull match.
+         *
+         * @param mockRequest The mock to compare request with.
+         * @param requestConfig The request object to compare mock with.
+         */
+        match<T1, T2>(mockRequest: requests.AllRequests<T1, T2>, requestConfig: requests.AllRequests<T1, T2>): boolean;
+    }
+
     namespace requests {
         /**
          * Request methods type
