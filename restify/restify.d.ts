@@ -67,7 +67,15 @@ declare module "restify" {
      */
     trailer: (name: string, value?: string) => string;
 
-    accepts: (type: string) => boolean;
+    /**
+     * checks if the accept header is present and has the value requested.
+     * e.g., req.accepts('html');
+     * @public
+     * @function accepts
+     * @param    {String | Array} types an array of accept type headers
+     * @returns  {Boolean}
+     */
+    accepts: (types: string | string[]) => boolean;
 
     /**
      * Check if the incoming request contains the Content-Type header field, and
