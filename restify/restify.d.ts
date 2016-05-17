@@ -110,6 +110,26 @@ declare module "restify" {
      */
     userAgent: () => string;
 
+    /**
+     * Start the timer for a request handler function. You must explicitly invoke
+     * endHandlerTimer() after invoking this function. Otherwise timing information
+     * will be inaccurate.
+     * @public
+     * @function startHandlerTimer
+     * @param    {String}    handlerName The name of the handler.
+     * @returns  {undefined}
+     */
+    startHandlerTimer: (handlerName: string) => void;
+
+    /**
+     * Stop the timer for a request handler function.
+     * @public
+     * @function endHandlerTimer
+     * @param    {String}    handlerName The name of the handler.
+     * @returns  {undefined}
+     */
+    endHandlerTimer: (handlerName: string) => void;
+
     getLogger: (component: string) => any;
     contentLength: number;
     contentType: string;

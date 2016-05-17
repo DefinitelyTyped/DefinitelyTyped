@@ -52,6 +52,8 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.isUpgradeRequest() === true;
     req.isUpload() === true;
     req.userAgent() === 'test';
+    req.startHandlerTimer('test');
+    req.endHandlerTimer('test');
 
     req.getLogger('test');
 
