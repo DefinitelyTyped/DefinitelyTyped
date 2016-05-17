@@ -48,6 +48,7 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.is('test') === true;
     req.isChunked() === true;
     req.isKeepAlive() === true;
+    req.isSecure() === true;
 
     req.getLogger('test');
 

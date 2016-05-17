@@ -162,6 +162,13 @@ declare module "restify" {
     version: () => string;
     params: any;
     files?: { [name: string]: requestFileInterface };
+
+    /**
+     * Check if the incoming request is encrypted.
+     * @public
+     * @function isSecure
+     * @returns  {Boolean}
+     */
     isSecure: () => boolean;
     /** available when bodyParser plugin is used */
     body?: any;
