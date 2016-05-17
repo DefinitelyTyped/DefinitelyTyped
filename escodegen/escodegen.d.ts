@@ -136,6 +136,9 @@ declare module 'escodegen' {
     verbatim?: string;
   }
   
+  /**
+   * https://github.com/estools/escodegen/commit/adf113333cd4888cf59bfc4f957df98bf7db82b6
+   */
   export enum Precedence {
     Sequence,
     Yield,
