@@ -49,7 +49,7 @@ let generateOptions: escodegen.GenerateOptions = {
   verbatim: " "
 };
 
-let precedence: Precedence = escodegen.Precedence.Primary;
+let precedence: escodegen.Precedence = escodegen.Precedence.Primary;
 
 let myCode: string = escodegen.generate({}, generateOptions);
 
