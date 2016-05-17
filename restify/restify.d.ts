@@ -171,7 +171,20 @@ declare module "restify" {
      * @function contentLength
      */
     contentLength: () => number;
-    contentType: string;
+
+    /**
+     * gets the content-type header.
+     * @public
+     * @function getContentType
+     * @returns {String}
+     */
+    getContentType: () => string;
+
+    /**
+     * @see getContentType
+     */
+    contentType: () => string;
+
     href: () => string;
     log: bunyan.Logger;
     /**

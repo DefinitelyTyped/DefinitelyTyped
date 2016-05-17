@@ -66,7 +66,8 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
 
     req.getContentLength() === 50;
     req.contentLength() === 50;
-    req.contentType === 'test';
+    req.getContentType() === 'test';
+    req.contentType() === 'test';
     req.href() === 'test';
     req.getId() === 'test';
     req.id() === 'test';
