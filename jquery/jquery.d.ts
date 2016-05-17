@@ -2504,15 +2504,15 @@ interface JQuery {
      * @param eventType A string containing a JavaScript event type, such as click or submit.
      * @param extraParameters An array of additional parameters to pass along to the event handler.
      */
-    triggerHandler(eventType: string, ...extraParameters: any[]): Object;
-
+    triggerHandler(eventType: string, ...extraParameters: any[]): JQuery;
     /**
      * Execute all handlers attached to an element for an event.
      * 
      * @param event A jQuery.Event object.
      * @param extraParameters An array of additional parameters to pass along to the event handler.
      */
-    triggerHandler(event: JQueryEventObject, ...extraParameters: any[]): Object;
+    triggerHandler(event: JQueryEventObject, ...extraParameters: any[]): JQuery;
+    triggerHandler(event: any): JQuery;
 
     /**
      * Remove a previously-attached event handler from the elements.
@@ -2531,9 +2531,9 @@ interface JQuery {
     /**
      * Remove a previously-attached event handler from the elements.
      * 
-     * @param evt A JavaScript event object as passed to an event handler.
+     * @param event A JavaScript event object as passed to an event handler.
      */
-    unbind(evt: any): JQuery;
+    unbind(event: any): JQuery;
 
     /**
      * Remove a handler from the event for all elements which match the current selector, based upon a specific set of root elements.

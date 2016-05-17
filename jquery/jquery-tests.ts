@@ -932,6 +932,46 @@ function test_trigger() {
     });
 }
 
+function test_triggerHandler() {
+    $('input').triggerHandler('focus');
+
+    $('input').triggerHandler('outsideChange', this);
+
+    $('playlist').triggerHandler({type: 'load'});
+
+    $('input').triggerHandler('input').triggerHandler('change');
+
+    $('input').triggerHandler($.Event('keydown', {which: 13}));
+
+    $('input').triggerHandler(jQuery.Event('change', {
+        target: {
+            files: [
+                new Blob(['data0']),
+                new Blob(['data1'])
+            ]
+        }
+    }));
+
+    $('input').triggerHandler($.Event('change', {
+        target: {
+            files: [
+                new Blob(['data0']),
+                new Blob(['data1'])
+            ]
+        }
+    }));
+
+    $('input').triggerHandler({
+        type: 'change',
+        target: {
+            files: [
+                new Blob(['data0']),
+                new Blob(['data1'])
+            ]
+        }
+    });
+}
+
 function test_clone() {
     $('.hello').clone().appendTo('.goodbye');
     var $elem = $('#elem').data({ "arr": [1] }),
