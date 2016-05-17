@@ -8,10 +8,10 @@
 /// <reference path="../micromatch/micromatch.d.ts" />
 
 declare module "browser-sync" {
-    import chokidar = require("chokidar");
-    import fs = require("fs");
-    import http = require("http");
-    import mm = require("micromatch");
+    import * as chokidar from "chokidar";
+    import * as fs from "fs";
+    import * as http from "http";
+    import * as mm from "micromatch";
 
     namespace browserSync {
         interface Options {
