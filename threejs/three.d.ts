@@ -3147,7 +3147,7 @@ declare namespace THREE {
         onChange(callback: Function): void;
 
         static RotationOrders: string[];
-        static DefautlOrder: string;
+        static DefaultOrder: string;
     }
 
     /**
@@ -6002,7 +6002,7 @@ declare namespace THREE {
     }
     
 
-    // Extras / Geomerties /////////////////////////////////////////////////////////////////////
+    // Extras / Geometries /////////////////////////////////////////////////////////////////////
     export class BoxBufferGeometry extends BufferGeometry {
         constructor(width: number, height: number, depth: number, widthSegments?: number, heightSegments?: number, depthSegments?: number);
 
