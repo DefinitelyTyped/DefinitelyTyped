@@ -37,6 +37,15 @@ declare module "restify" {
 
   interface Request extends http.ServerRequest {
     /**
+     * builds an absolute URI for the request.
+     * @private
+     * @function absoluteUri
+     * @param    {String} path a url path
+     * @returns  {String}
+     */
+    absoluteUri: (path: string) => string;
+
+    /**
      * returns any header off the request. also, 'correct' any
      * correctly spelled 'referrer' header to the actual spelling used.
      * @public

@@ -54,6 +54,7 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.userAgent() === 'test';
     req.startHandlerTimer('test');
     req.endHandlerTimer('test');
+    req.absoluteUri('test') === 'test';
 
     req.getLogger('test');
 
