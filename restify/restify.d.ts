@@ -185,7 +185,19 @@ declare module "restify" {
      */
     contentType: () => string;
 
+    /**
+     * retrieves the complete URI requested by the client.
+     * @public
+     * @function getHref
+     * @returns {String}
+     */
+    getHref: () => string;
+
+    /**
+     * @see getHref
+     */
     href: () => string;
+
     log: bunyan.Logger;
     /**
      * retrieves the request uuid. was created when the request was setup.
