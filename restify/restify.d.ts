@@ -86,6 +86,14 @@ declare module "restify" {
      */
     isKeepAlive: () => boolean;
 
+    /**
+     * Check if the incoming request has been upgraded.
+     * @public
+     * @function isUpgradeRequest
+     * @returns  {Boolean}
+     */
+    isUpgradeRequest: () => boolean;
+
     getLogger: (component: string) => any;
     contentLength: number;
     contentType: string;
