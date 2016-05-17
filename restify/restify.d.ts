@@ -94,6 +94,14 @@ declare module "restify" {
      */
     isUpgradeRequest: () => boolean;
 
+    /**
+     * Check if the incoming request is an upload verb.
+     * @public
+     * @function isUpload
+     * @returns  {Boolean}
+     */
+    isUpload: () => boolean;
+
     getLogger: (component: string) => any;
     contentLength: number;
     contentType: string;

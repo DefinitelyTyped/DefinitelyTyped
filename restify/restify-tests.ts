@@ -50,6 +50,7 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.isKeepAlive() === true;
     req.isSecure() === true;
     req.isUpgradeRequest() === true;
+    req.isUpload() === true;
 
     req.getLogger('test');
 
