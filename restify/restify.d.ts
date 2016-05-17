@@ -69,7 +69,19 @@ declare module "restify" {
      * @see getPath
      */
     path: () => string;
-    query: any;
+
+    /**
+     * returns the raw query string
+     * @public
+     * @function getQuery
+     * @returns  {String}
+     */
+    getQuery: () => string;
+
+    /**
+     * @see getQuery
+     */
+    query: () => string;
     secure: boolean;
     time: number;
     params: any;

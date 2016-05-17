@@ -56,7 +56,8 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.id() === 'test';
     req.getPath() === 'test';
     req.path() === 'test';
-    req.query === 'test';
+    req.getQuery() === 'test';
+    req.query() === 'test';
     req.secure === true;
     req.time === 50;
     req.params;
