@@ -46,6 +46,18 @@ declare module "restify" {
      * @returns  {String}
      */
     header: (name: string, value?: string) => string;
+
+    /**
+     * returns any trailer header off the request. also, 'correct' any
+     * correctly spelled 'referrer' header to the actual spelling used.
+     * @public
+     * @function trailer
+     * @param    {String} name  the name of the header
+     * @param    {String} value default value if header isn't found on the req
+     * @returns  {String}
+     */
+    trailer: (name: string, value?: string) => string;
+
     accepts: (type: string) => boolean;
     is: (type: string) => boolean;
     getLogger: (component: string) => any;

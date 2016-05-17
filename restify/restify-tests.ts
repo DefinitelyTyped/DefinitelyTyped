@@ -41,6 +41,8 @@ server.use((req, res, next)=>{}, (req, res, next)=>{});
 function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.header('key', 'val');
     req.header('key') === 'val';
+    req.trailer('key', 'val');
+    req.trailer('key') === 'val';
 
     req.accepts('test') === true;
     req.is('test') === true;
