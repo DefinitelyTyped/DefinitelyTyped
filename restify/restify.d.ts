@@ -59,6 +59,15 @@ declare module "restify" {
     trailer: (name: string, value?: string) => string;
 
     accepts: (type: string) => boolean;
+
+    /**
+     * Check if the incoming request contains the Content-Type header field, and
+     * if it contains the given mime type.
+     * @public
+     * @function is
+     * @param    {String} type  a content-type header value
+     * @returns  {Boolean}
+     */
     is: (type: string) => boolean;
     getLogger: (component: string) => any;
     contentLength: number;
