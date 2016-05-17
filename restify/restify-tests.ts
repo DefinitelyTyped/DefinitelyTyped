@@ -62,6 +62,8 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.secure === true;
     req.time() === 1463518410080;
     req.getUrl() === url.parse('http://test.test.test/test');
+    req.getVersion() === 'test';
+    req.version() === 'test';
     req.params;
 
     res.header('test');

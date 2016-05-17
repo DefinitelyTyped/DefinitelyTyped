@@ -100,6 +100,19 @@ declare module "restify" {
      * @returns  {Object}
      */
     getUrl: () => url.Url;
+
+    /**
+     * returns the accept-version header.
+     * @public
+     * @function getVersion
+     * @returns  {String}
+     */
+    getVersion: () => string;
+
+    /**
+     * @see getVersion
+     */
+    version: () => string;
     params: any;
     files?: { [name: string]: requestFileInterface };
     isSecure: () => boolean;
