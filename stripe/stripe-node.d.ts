@@ -4031,6 +4031,8 @@ declare namespace StripeNode {
              */
             canceled_at: number;
             
+            created: number;
+            
             /**
              * End of the current period that the subscription has been invoiced for. At the end of this period, a new invoice will be created.
              */
@@ -5086,8 +5088,8 @@ declare namespace StripeNode {
              * 
              * @param id The identifier of the customer to be retrieved.
              */
-            update(id: string, data: customers.ICustomerUpdateOptions, options: HeaderOptions, response?: IResponseFn<customers.ICustomer>): Promise<IList<customers.ICustomer>>;
-            update(id: string, data: customers.ICustomerUpdateOptions, response?: IResponseFn<customers.ICustomer>): Promise<IList<customers.ICustomer>>;
+            update(id: string, data: customers.ICustomerUpdateOptions, options: HeaderOptions, response?: IResponseFn<customers.ICustomer>): Promise<customers.ICustomer>;
+            update(id: string, data: customers.ICustomerUpdateOptions, response?: IResponseFn<customers.ICustomer>): Promise<customers.ICustomer>;
 
             /**
              * Retrieves the details of an existing customer. You need only supply the unique customer identifier that was returned upon customer
@@ -5098,6 +5100,8 @@ declare namespace StripeNode {
              *
              * @param id The identifier of the customer to be retrieved.
              */
+            retrieve(id: string, data: IDataOptions, options: HeaderOptions, response?: IResponseFn<customers.ICustomer>): Promise<customers.ICustomer>;
+            retrieve(id: string, data: IDataOptions, response?: IResponseFn<customers.ICustomer>): Promise<customers.ICustomer>;
             retrieve(id: string, options: HeaderOptions, response?: IResponseFn<customers.ICustomer>): Promise<customers.ICustomer>;
             retrieve(id: string, response?: IResponseFn<customers.ICustomer>): Promise<customers.ICustomer>;
             
