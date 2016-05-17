@@ -328,6 +328,7 @@ declare module "webpack" {
              * This make ids predictable, reduces to total file size and is recommended.
              */
             OccurenceOrderPlugin: optimize.OccurenceOrderPluginStatic;
+            OccurrenceOrderPlugin: optimize.OccurenceOrderPluginStatic;
             /**
              * Minimize all JavaScript output of chunks. Loaders are switched into minimizing mode.
              * You can pass an object containing UglifyJs options.
