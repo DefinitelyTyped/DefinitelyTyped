@@ -59,7 +59,7 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.getQuery() === 'test';
     req.query() === 'test';
     req.secure === true;
-    req.time === 50;
+    req.time() === 1463518410080;
     req.params;
 
     res.header('test');

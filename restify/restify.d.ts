@@ -83,7 +83,14 @@ declare module "restify" {
      */
     query: () => string;
     secure: boolean;
-    time: number;
+
+    /**
+      * returns ms since epoch when request was setup.
+      * @public
+      * @function time
+      * @returns  {Number}
+      */
+    time: () => number;
     params: any;
     files?: { [name: string]: requestFileInterface };
     isSecure: () => boolean;
