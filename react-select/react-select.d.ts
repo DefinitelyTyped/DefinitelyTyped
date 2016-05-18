@@ -420,7 +420,8 @@ declare module "react-select-props" {
 
     interface Option extends ReactSelect.Option {}
     interface MenuRendererProps extends ReactSelect.MenuRendererProps {}
-
-    export { MenuRendererProps, Option };
+    interface ReactSelectProps extends ReactSelect.ReactSelectProps {}
+    
+    export { MenuRendererProps, ReactSelectProps, Option };
 }
 
