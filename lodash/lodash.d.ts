@@ -20047,15 +20047,12 @@ declare module "lodash/extend" {
    export = extend;
 }
 
-/**
-* uncoment it if definition exists
-*/
-/*
+
 declare module "lodash/extendWith" {
    const extendWith: typeof _.extendWith;
    export = extendWith;
 }
-*/
+
 
 declare module "lodash/add" {
    const add: typeof _.add;
