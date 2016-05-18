@@ -3,9 +3,9 @@
 // Definitions by: hans windhoff <https://github.com/hansrwindhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="d3" />
+import * as d3 from 'd3';
 
-declare namespace d3 {
+declare module 'd3' {
     namespace layout {
         export function cloud(): Cloud<cloud.Word>;
         export function cloud<T extends cloud.Word>(): Cloud<T>;
