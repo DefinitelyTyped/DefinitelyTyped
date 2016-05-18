@@ -168,6 +168,61 @@ map = new mapboxgl.Map({
     zoom: 3
 });
 
+map.flyTo({center: [0, 0], zoom: 9});
+
+map.flyTo({
+	center: [0, 0],
+	zoom: 9,
+	speed: 0.2,
+	curve: 1,
+	easing: function(t: any) {
+		return t;
+	}
+});
+
+/**
+ * GeoJSONSource
+ */
+var geoJSONSourceObj = new mapboxgl.GeoJSONSource({
+	data: {
+		"type": "FeatureCollection",
+		"features": [{
+			"type": "Feature",
+			"properties": null,
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					-76.53063297271729,
+					39.18174077994108
+				]
+			}
+		}]
+	}
+});
+map.addSource('some id', geoJSONSourceObj); // add
+map.removeSource('some id');  // remove
+
+/**
+ * Video Source
+ */
+var videoSourceObj = new mapboxgl.VideoSource({
+	urls: [
+		'https://www.mapbox.com/videos/baltimore-smoke.mp4',
+		'https://www.mapbox.com/videos/baltimore-smoke.webm'
+	],
+	coordinates: [
+		[-76.54335737228394, 39.18579907229748],
+		[-76.52803659439087, 39.1838364847587],
+		[-76.5295386314392, 39.17683392507606],
+		[-76.54520273208618, 39.17876344106642]
+	]
+});
+map.addSource('some id', videoSourceObj); // add
+map.removeSource('some id');  // remove
+
+/**
+ * Tooltip
+ */
 var tooltip = new mapboxgl.Popup({closeOnClick: false})
     .setLngLat([-96, 37.8])
     .setHTML('<h1>Hello World!</h1>')
