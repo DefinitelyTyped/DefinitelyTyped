@@ -421,7 +421,8 @@ declare module "react-select-props" {
     interface Option extends ReactSelect.Option {}
     interface MenuRendererProps extends ReactSelect.MenuRendererProps {}
     interface ReactSelectProps extends ReactSelect.ReactSelectProps {}
+    interface ReactAsyncSelectProps extends ReactSelect.ReactAsyncSelectProps {}
     
-    export { MenuRendererProps, ReactSelectProps, Option };
+    export { MenuRendererProps, ReactSelectProps, ReactAsyncSelectProps, Option };
 }
 
