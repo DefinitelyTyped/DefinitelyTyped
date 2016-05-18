@@ -3,6 +3,8 @@
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../geojson/geojson.d.ts" />
+
 declare namespace mapboxgl {
 	let accessToken: string;
 
@@ -41,7 +43,7 @@ declare namespace mapboxgl {
 
 		unproject(point: number[]): LngLat;
 
-		queryRenderedFeatures(pointOrBox: Point|number[]|number[][], params: Object): Object[];
+		queryRenderedFeatures(pointOrBox?: mapboxgl.Point|mapboxgl.Point[]|number[][], params?: {layers?: string[], filter?: any[]}): GeoJSON.Feature<GeoJSON.GeometryObject>[];
 
 		querySourceFeatures(sourceID: string, params: Object): Object[];
 
@@ -242,10 +244,12 @@ declare namespace mapboxgl {
 		// Todo: - queryRenderedFeatures
 		// Todo: - querySourceFeatures
 		// Todo: - redoPlacement
+		setData(data: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>|String): mapboxgl.GeoJSONSource;
 	}
 
     export interface GeoJSONSourceOptions {
         data?: Object|string;
+        data?: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>|string;
 
         maxzoom?: number;
 
