@@ -13788,7 +13788,7 @@ declare module _ {
         /**
          * @see assign
          */
-        assign<TObject, TSource1, TSource2, TSource3, TSource4, TResult>(
+        assign<TObject, TSource1, TSource2, TSource3, TSource4>(
             object: TObject,
             source1: TSource1,
             source2: TSource2,
@@ -14475,6 +14475,7 @@ declare module _ {
         create<U extends Object>(properties?: U): LoDashExplicitObjectWrapper<T & U>;
     }
 
+
     //_.defaults
     interface LoDashStatic {
         /**
@@ -14491,7 +14492,7 @@ declare module _ {
         defaults<TObject, TSource>(
             object: TObject,
             source: TSource
-        ): TObject & TSource;
+        ): TSource & TObject;
 
         /**
          * @see _.defaults
@@ -14500,7 +14501,7 @@ declare module _ {
             object: TObject,
             source1: TSource1,
             source2: TSource2
-        ): TObject & TSource1 & TSource2;
+        ): TSource2 & TSource1 & TObject;
 
         /**
          * @see _.defaults
@@ -14510,7 +14511,7 @@ declare module _ {
             source1: TSource1,
             source2: TSource2,
             source3: TSource3
-        ): TObject & TSource1 & TSource2;
+        ): TSource3 & TSource2 & TSource1 & TObject;
 
         /**
          * @see _.defaults
@@ -14521,7 +14522,7 @@ declare module _ {
             source2: TSource2,
             source3: TSource3,
             source4: TSource4
-        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
+        ): TSource4 & TSource3 & TSource2 & TSource1 & TObject;
 
         /**
          * @see _.defaults
@@ -14543,7 +14544,7 @@ declare module _ {
          */
         defaults<TSource>(
             source: TSource
-        ): LoDashImplicitObjectWrapper<T & TSource>;
+        ): LoDashImplicitObjectWrapper<TSource & T>;
 
         /**
          * @see _.defaults
@@ -14551,7 +14552,7 @@ declare module _ {
         defaults<TSource1, TSource2>(
             source1: TSource1,
             source2: TSource2
-        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2>;
+        ): LoDashImplicitObjectWrapper<TSource2 & TSource1 & T>;
 
         /**
          * @see _.defaults
@@ -14560,7 +14561,7 @@ declare module _ {
             source1: TSource1,
             source2: TSource2,
             source3: TSource3
-        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2 & TSource3>;
+        ): LoDashImplicitObjectWrapper<TSource3 & TSource2 & TSource1 & T>;
 
         /**
          * @see _.defaults
@@ -14570,7 +14571,7 @@ declare module _ {
             source2: TSource2,
             source3: TSource3,
             source4: TSource4
-        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        ): LoDashImplicitObjectWrapper<TSource4 & TSource3 & TSource2 & TSource1 & T>;
 
         /**
          * @see _.defaults
@@ -14589,7 +14590,7 @@ declare module _ {
          */
         defaults<TSource>(
             source: TSource
-        ): LoDashImplicitObjectWrapper<T & TSource>;
+        ): LoDashImplicitObjectWrapper<TSource & T>;
 
         /**
          * @see _.defaults
@@ -14597,7 +14598,7 @@ declare module _ {
         defaults<TSource1, TSource2>(
             source1: TSource1,
             source2: TSource2
-        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2>;
+        ): LoDashImplicitObjectWrapper<TSource2 & TSource1 & T>;
 
         /**
          * @see _.defaults
@@ -14606,7 +14607,7 @@ declare module _ {
             source1: TSource1,
             source2: TSource2,
             source3: TSource3
-        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2 & TSource3>;
+        ): LoDashImplicitObjectWrapper<TSource3 & TSource2 & TSource1 & T>;
 
         /**
          * @see _.defaults
@@ -14616,7 +14617,7 @@ declare module _ {
             source2: TSource2,
             source3: TSource3,
             source4: TSource4
-        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2 & TSource3 & TSource4>;
+        ): LoDashImplicitObjectWrapper<TSource4 & TSource3 & TSource2 & TSource1 & T>;
 
         /**
          * @see _.defaults
