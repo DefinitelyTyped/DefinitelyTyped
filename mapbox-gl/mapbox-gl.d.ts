@@ -11,19 +11,16 @@ declare namespace mapboxgl {
     /**
      * Map
      */
-    export class Map {
+    export class Map extends Evented {
         constructor(options?: MapboxOptions);
-    }
-
-    export interface Map extends Evented {
 
 		addControl(control: Control): mapboxgl.Map;
 
-		addClass(klass: string, options: Object): mapboxgl.Map;
+		addClass(klass: string, options?: mapboxgl.StyleOptions): mapboxgl.Map;
 
-		removeClass(klass: string, options: Object): mapboxgl.Map;
+		removeClass(klass: string, options?: mapboxgl.StyleOptions): mapboxgl.Map;
 
-		setClasses(klasses: string[], options: Object): mapboxgl.Map;
+		setClasses(klasses: string[], options?: mapboxgl.StyleOptions): mapboxgl.Map;
 
 		hasClass(klass: string): boolean;
 
@@ -31,21 +28,21 @@ declare namespace mapboxgl {
 
 		resize(): mapboxgl.Map;
 
-		getBounds(): LngLatBounds;
+		getBounds(): mapboxgl.LngLatBounds;
 
-		setMaxBounds(lnglatbounds: LngLatBounds|number[][]|any): mapboxgl.Map;
+		setMaxBounds(lnglatbounds?: mapboxgl.LngLatBounds|number[][]): mapboxgl.Map;
 
 		setMinZoom(minZoom: number): mapboxgl.Map;
 
 		setMaxZoom(maxZoom: number): mapboxgl.Map;
 
-		project(lnglat: LngLat): Object;
+		project(lnglat: mapboxgl.LngLat): number[]; // returns x and y coordinates
 
-		unproject(point: number[]): LngLat;
+		unproject(point: number[]): mapboxgl.LngLat;
 
 		queryRenderedFeatures(pointOrBox?: mapboxgl.Point|mapboxgl.Point[]|number[][], params?: {layers?: string[], filter?: any[]}): GeoJSON.Feature<GeoJSON.GeometryObject>[];
 
-		querySourceFeatures(sourceID: string, params: Object): Object[];
+		querySourceFeatures(sourceID: string, params: {sourceLayer?: string, filter?: any[]}): Object[];
 
 		setStyle(style: Object): mapboxgl.Map;
 
@@ -57,9 +54,9 @@ declare namespace mapboxgl {
 
 		getSource(id: string): mapboxgl.Map;
 
-		addLayer(layer: StyleLayer|Object, before?: string): mapboxgl.Map;
+		addLayer(layer: Object, before?: string): mapboxgl.Map;
 
-		removeLayer(id: string): mapboxgl.Map;  // Todo: add throws Error
+		removeLayer(id: string): mapboxgl.Map;
 
         getLayer(id: string): Object;
 
@@ -75,7 +72,7 @@ declare namespace mapboxgl {
 
 		setLayoutProperty(layer: string, name: string, value: any): mapboxgl.Map;
 
-		getLayoutProperty(layer: string, name: string): any;
+		getLayoutProperty(layer: string, name: string, klass?: string): any;
 
 		getContainer(): HTMLElement;
 
@@ -87,15 +84,61 @@ declare namespace mapboxgl {
 
 		remove(): void;
 
-		panTo(lnglat: LngLat, options?: any, eventdata?: any): mapboxgl.Map; // Todo: create types for AnimationOptions and Eventdata
-
 		onError(): void;
+
+		showTileBoundaries: boolean;
+
+		showCollisionBoxes: boolean;
+
+		repaint: boolean;
+
+		getCenter(): mapboxgl.LngLat;
+
+		setCenter(center: LngLat, eventData?: mapboxgl.EventData): mapboxgl.Map;
+
+		panBy(offset: number[], options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): mapboxgl.Map;
+
+		panTo(lnglat: mapboxgl.LngLat, options?: mapboxgl.AnimationOptions, eventdata?: mapboxgl.EventData): mapboxgl.Map;
+
+		getZoom(): number;
+
+		setZoom(zoom: number, eventData?: mapboxgl.EventData): mapboxgl.Map;
+
+		zoomTo(zoom: number, options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): mapboxgl.Map;
+
+		zoomIn(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): mapboxgl.Map;
+
+		zoomOut(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): mapboxgl.Map;
+
+		getBearing(): number;
+
+		setBearing(bearing: number, eventData?: mapboxgl.EventData): mapboxgl.Map;
+
+		rotateTo(bearing: number, options?: mapboxgl.AnimationOptions, eventData?: EventData): mapboxgl.Map;
+
+		resetNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): mapboxgl.Map;
+
+		snapToNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): mapboxgl.Map;
+
+		getPitch(): number;
+
+		setPitch(pitch: number, eventData?: EventData): mapboxgl.Map;
+
+		fitBounds(bounds: mapboxgl.LngLatBounds|number[][], options: {linear?: boolean, easing?: Function, padding?: number, maxZoom?: number}): mapboxgl.Map;
+
+		jumpTo(options: mapboxgl.CameraOptions, eventData?: mapboxgl.EventData): mapboxgl.Map;
+
+		easeTo(options: mapboxgl.CameraOptions|mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): mapboxgl.EventData;
+
+		flyTo(options: mapboxgl.FlyToOptions, eventData?: mapboxgl.EventData): mapboxgl.Map;
+
+		stop(): mapboxgl.Map;
 	}
 
     export interface MapboxOptions {
         touchZoomRotate?: boolean;
 
-        center?: LngLat|number[];
+        center?: mapboxgl.LngLat|number[];
 
         zoom?: number;
 
@@ -117,11 +160,11 @@ declare namespace mapboxgl {
 
         attributionControl?: boolean;
 
-        container?: string|HTMLElement;
+        container?: string|Element;
 
         preserveDrawingBuffer?: boolean;
 
-        maxBounds?: LngLatBounds|number[][];
+        maxBounds?: mapboxgl.LngLatBounds|number[][];
 
         scrollZoom?: boolean;
 
@@ -141,10 +184,111 @@ declare namespace mapboxgl {
     /**
      * Control
      */
-	export interface Control {
-		addTo(map: mapboxgl.Map): Control;
+	export class Control {
+		addTo(map: mapboxgl.Map): mapboxgl.Control;
 
-		remove(): Control;
+		remove(): mapboxgl.Control;
+	}
+
+	/**
+	 * BoxZoomHandler
+	 */
+	export class BoxZoomHandler {
+		constructor(map: mapboxgl.Map);
+
+		isEnabled(): boolean;
+
+		isActive(): boolean;
+
+		enable(): void;
+
+		disable(): void;
+	}
+
+	/**
+	 * ScrollZoomHandler
+	 */
+	export class ScrollZoomHandler {
+		constructor(map: mapboxgl.Map);
+
+		isEnabled(): boolean;
+
+		enable(): void;
+
+		disable(): void;
+	}
+
+	/**
+	 * DragPenHandler
+	 */
+	export class DragPenHandler {
+		constructor(map: mapboxgl.Map);
+
+		isEnabled(): boolean;
+
+		isActive(): boolean;
+
+		enable(): void;
+
+		disable(): void;
+	}
+
+	/**
+	 * DragRotateHandler
+	 */
+	export class DragRotateHandler {
+		constructor(map: mapboxgl.Map);
+
+		isEnabled(): boolean;
+
+		isActive(): boolean;
+
+		enable(): void;
+
+		disable(): void;
+	}
+
+	/**
+	 * KeyboardHandler
+	 */
+	export class KeyboardHandler {
+		constructor(map: mapboxgl.Map);
+
+		isEnabled(): boolean;
+
+		enable(): void;
+
+		disable(): void;
+	}
+
+	/**
+	 * DoubleClickZoomHandler
+	 */
+	export class DoubleClickZoomHandler {
+		constructor(map: mapboxgl.Map);
+
+		isEnabled(): boolean;
+
+		enable(): void;
+
+		disable(): void;
+	}
+
+	/**
+	 * TouchZoomRotateHandler
+	 */
+	export class TouchZoomRotateHandler {
+		constructor(map: mapboxgl.Map);
+
+		isEnabled(): boolean;
+
+		enable(): void;
+
+		disable(): void;
+
+		disableRotation(): void;
+
+		enableRotation(): void;
 	}
 
     /**
@@ -158,56 +302,42 @@ declare namespace mapboxgl {
      * Navigation
      */
     export class Navigation {
-        constructor(options?: ControlOptions);
-    }
-
-    export interface Navigation {
-		onAdd(map: mapboxgl.Map): HTMLElement; // Todo: HTMLElement return type is only an assertion
+        constructor(options?: mapboxgl.ControlOptions);
 	}
 
     /**
      * Geolocate
      */
     export class Geolocate {
-        constructor(options?: ControlOptions);
-    }
-
-    export interface Geolocate {
-		onAdd(map: mapboxgl.Map): HTMLElement; // Todo: HTMLElement return type is only an assertion
+        constructor(options?: mapboxgl.ControlOptions);
 	}
 
     /**
      * Attribution
      */
     export class Attribution {
-        constructor(options?: ControlOptions);
-    }
-
-    export interface Attribution {
-		onAdd(map: mapboxgl.Map): HTMLElement; // Todo: HTMLElement return type is only an assertion
+        constructor(options?: mapboxgl.ControlOptions);
 	}
 
     /**
      * Popup
      */
     export class Popup {
-        constructor(options?: PopupOptions);
-    }
+        constructor(options?: mapboxgl.PopupOptions);
 
-    export interface Popup {
-        addTo(map: mapboxgl.Map): Popup;
+        addTo(map: mapboxgl.Map): mapboxgl.Popup;
 
-		remove(): Popup;
+		remove(): mapboxgl.Popup;
 
-		getLngLat(): LngLat;
+		getLngLat(): mapboxgl.LngLat;
 
-		setLngLat(lnglat: LngLat|number[]): Popup;
+		setLngLat(lnglat: mapboxgl.LngLat|number[]): mapboxgl.Popup;
 
-		setText(text: string): Popup;
+		setText(text: string): mapboxgl.Popup;
 
-		setHTML(html: string): Popup;
+		setHTML(html: string): mapboxgl.Popup;
 
-		setDOMContent(htmlNode: Node): Popup;
+		setDOMContent(htmlNode: Node): mapboxgl.Popup;
 	}
 
     export interface PopupOptions {
@@ -222,33 +352,12 @@ declare namespace mapboxgl {
      * GeoJSONSource
      */
     export class GeoJSONSource {
-        constructor(options?: GeoJSONSourceOptions);
-    }
+        constructor(options?: mapboxgl.GeoJSONSourceOptions);
 
-    export interface GeoJSONSource {
-		setData(data: Object|String): GeoJSONSource;
-
-		onAdd(map: mapboxgl.Map): void;
-
-		loaded(): boolean;
-
-		update(transform: any): void; // Todo: Parameter type not documented yet
-
-        reload(): void;
-
-		serialize(): Object;
-
-		// Todo: variables
-		// Todo: - getVisibleCoordinates
-		// Todo: - getTitle
-		// Todo: - queryRenderedFeatures
-		// Todo: - querySourceFeatures
-		// Todo: - redoPlacement
 		setData(data: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>|String): mapboxgl.GeoJSONSource;
 	}
 
     export interface GeoJSONSourceOptions {
-        data?: Object|string;
         data?: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>|string;
 
         maxzoom?: number;
@@ -268,29 +377,11 @@ declare namespace mapboxgl {
      * VideoSource
      */
     export class VideoSource {
-        constructor(options?: VideoSourceOptions);
-    }
+        constructor(options?: mapboxgl.VideoSourceOptions);
 
-    export interface VideoSource {
-		getVideo(): VideoSource;
+		getVideo(): Object;
 
-		onAdd(map: mapboxgl.Map): void;
-
-		setCoordinates(coordinates: number[]): VideoSource;
-
-		loaded(): boolean;
-
-		update(): void;
-
-		reload(): void;
-
-		prepare(): void;
-
-		getVisibleCoordinates(): number[];
-
-		getTitle(): string;
-
-		serialize(): Object;
+		setCoordinates(coordinates: number[][]): mapboxgl.VideoSource;
 	}
 
     export interface VideoSourceOptions {
@@ -303,27 +394,9 @@ declare namespace mapboxgl {
      * ImageSource
      */
     export class ImageSource {
-        constructor(options?: ImageSourceOptions);
-    }
+        constructor(options?: mapboxgl.ImageSourceOptions);
 
-    export interface ImageSource {
-		onAdd(map: mapboxgl.Map): void;
-
-		setCoordinates(coordinates: number[]): ImageSource;
-
-		loaded(): boolean;
-
-		update(): void;
-
-		reload(): void;
-
-		prepare(): void;
-
-		getVisibleCoordinates(): number[]|any[];
-
-		getTitle(): string;
-
-		serialize(): Object;
+		setCoordinates(coordinates: number[][]): mapboxgl.ImageSource;
 	}
 
     export interface ImageSourceOptions {
@@ -337,62 +410,55 @@ declare namespace mapboxgl {
      */
     export class LngLat {
         constructor(lng: number, lat: number);
-    }
 
-    export interface LngLat {
-		wrap(): LngLat;
+		wrap(): mapboxgl.LngLat;
 
 		toArray(): number[];
 
 		toString(): string;
 
-		convert(input: number[]|LngLat): LngLat;
+		static convert(input: number[]|mapboxgl.LngLat): mapboxgl.LngLat;
 	}
 
     /**
      * LngLatBounds
      */
     export class LngLatBounds {
-        constructor(sw: LngLat, ne: LngLat);
-    }
+        constructor(sw?: LngLat, ne?: LngLat);
 
-    export interface LngLatBounds {
-		extend(obj: LngLat|LngLatBounds): LngLatBounds;
+		extend(obj: mapboxgl.LngLat|mapboxgl.LngLatBounds): mapboxgl.LngLatBounds;
 
-		getCenter(): LngLat;
+		getCenter(): mapboxgl.LngLat;
 
-		getSouthWest(): LngLat;
+		getSouthWest(): mapboxgl.LngLat;
 
-		getNorthEast(): LngLat;
+		getNorthEast(): mapboxgl.LngLat;
 
-		getNorthWest(): LngLat;
+		getNorthWest(): mapboxgl.LngLat;
 
-		getSouthEast(): LngLat;
+		getSouthEast(): mapboxgl.LngLat;
 
-		getWest(): LngLat;
+		getWest(): number;
 
-		getSouth(): LngLat;
+		getSouth(): number;
 
-		getEast(): LngLat;
+		getEast(): number;
 
-		getNorth(): LngLat;
+		getNorth(): number;
 
 		toArray(): number[];
 
 		toString(): string;
 
-		convert(input: LngLatBounds|number[]|number[][]): LngLatBounds;
+		static convert(input: mapboxgl.LngLatBounds|number[]|number[][]): mapboxgl.LngLatBounds;
 	}
 
     /**
      * Point
      */
-    // Todo: Pull out interface to seperate definition for Module "point-geometry"
+    // Todo: Pull out class to seperate definition for Module "point-geometry"
     export class Point {
         constructor(options?: Object);
-    }
-
-    export interface Point {
 
 		clone(): Point;
 
@@ -434,24 +500,99 @@ declare namespace mapboxgl {
     /**
      * Evented
      */
-	export interface Evented {
-		on(type: string, fn: Function): Evented;
+	export class Evented {
+		on(type: string, listener: Function): mapboxgl.Evented;
 
-		off(type: string|any, fn: Function): Evented;
+		off(type?: string|any, listener?: Function): mapboxgl.Evented;
 
-		once(type: string, fn: Function): Evented;
+		once(type: string, listener: Function): mapboxgl.Evented;
 
-		fire(type: string, data: Object): Evented;
+		fire(type: string, data?: mapboxgl.EventData|Object): mapboxgl.Evented;
 
 		listens(type: string): boolean;
 	}
 
-    /**
-     * StyleLayer
-     */
-    export class StyleLayer {
-        constructor(layer: any, refLayer: any); // Todo: not yet specified in documentation
-    }
+	/**
+	 * StyleOptions
+	 */
+	export interface StyleOptions {
+		options?: any;
+	}
+
+	/**
+	 * EventData
+	 */
+	export class EventData {
+		originalEvent: Event;
+		point: mapboxgl.Point;
+		lngLat: mapboxgl.LngLat;
+	}
+
+	/**
+	 * AnimationOptions
+	 */
+	export interface AnimationOptions {
+		duration?: number;
+		easing?: Function;
+		offset?: number[];
+		animate?: boolean;
+	}
+
+	/**
+	 * CameraOptions
+	 */
+	export interface CameraOptions {
+		center?: mapboxgl.LngLat|number[];
+		zoom?: number;
+		bearing?: number;
+		pitch?: number;
+		around?: mapboxgl.LngLat;
+	}
+
+	/**
+	 * FlyToOptions
+	 */
+	export interface FlyToOptions extends AnimationOptions, CameraOptions {
+		curve?: number;
+		minZoom?: number;
+		speed?: number;
+		screenSpeed?: number;
+		easing?: Function;
+	}
+
+	/**
+	 * MapEvent
+	 */
+	export interface MapEvent {
+		webglcontextlost?: {originalEvent: Event};
+		webglcontextrestored?: void;
+		render?: void;
+		contextmenu?: {data: mapboxgl.EventData};
+		dblclick?: {data: mapboxgl.EventData};
+		click?: {data: mapboxgl.EventData};
+		touchcancel?: {data: mapboxgl.EventData};
+		touchmove?: {data: mapboxgl.EventData};
+		touchend?: {data: mapboxgl.EventData};
+		touchstart?: {data: mapboxgl.EventData};
+		mousemove?: {data: mapboxgl.EventData};
+		mouseup?: {data: mapboxgl.EventData};
+		mousedown?: {data: mapboxgl.EventData};
+		moveend?: {data: mapboxgl.EventData};
+		move?: {data: mapboxgl.EventData};
+		movestart?: {data: mapboxgl.EventData};
+		load?: void;
+		zoomend?: {data: mapboxgl.EventData};
+		zoom?: {data: mapboxgl.EventData};
+		zoomstart?: {data: mapboxgl.EventData};
+		boxzoomcancel?: {data: mapboxgl.EventData};
+		boxzoomstart?: {data: mapboxgl.EventData};
+		boxzoomend?: {originalEvent: Event, boxZoomBounds: mapboxgl.LngLatBounds};
+		rotate?: {data: mapboxgl.EventData};
+		rotatestart?: {data: mapboxgl.EventData};
+		rotateend?: {data: mapboxgl.EventData};
+		drag?: {data: mapboxgl.EventData};
+		dragend?: {data: mapboxgl.EventData};
+		pitch?: {data: mapboxgl.EventData};
 
 	}
 }
