@@ -14590,7 +14590,7 @@ declare module _ {
          */
         defaults<TSource>(
             source: TSource
-        ): LoDashImplicitObjectWrapper<TSource & T>;
+        ): LoDashExplicitObjectWrapper<TSource & T>;
 
         /**
          * @see _.defaults
@@ -14598,7 +14598,7 @@ declare module _ {
         defaults<TSource1, TSource2>(
             source1: TSource1,
             source2: TSource2
-        ): LoDashImplicitObjectWrapper<TSource2 & TSource1 & T>;
+        ): LoDashExplicitObjectWrapper<TSource2 & TSource1 & T>;
 
         /**
          * @see _.defaults
@@ -14607,7 +14607,7 @@ declare module _ {
             source1: TSource1,
             source2: TSource2,
             source3: TSource3
-        ): LoDashImplicitObjectWrapper<TSource3 & TSource2 & TSource1 & T>;
+        ): LoDashExplicitObjectWrapper<TSource3 & TSource2 & TSource1 & T>;
 
         /**
          * @see _.defaults
@@ -14617,7 +14617,7 @@ declare module _ {
             source2: TSource2,
             source3: TSource3,
             source4: TSource4
-        ): LoDashImplicitObjectWrapper<TSource4 & TSource3 & TSource2 & TSource1 & T>;
+        ): LoDashExplicitObjectWrapper<TSource4 & TSource3 & TSource2 & TSource1 & T>;
 
         /**
          * @see _.defaults
@@ -14627,7 +14627,7 @@ declare module _ {
         /**
          * @see _.defaults
          */
-        defaults<TResult>(...sources: any[]): LoDashImplicitObjectWrapper<TResult>;
+        defaults<TResult>(...sources: any[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.defaultsDeep
