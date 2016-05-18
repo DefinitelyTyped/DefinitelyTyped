@@ -59,6 +59,7 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.endHandlerTimer('test');
     req.absoluteUri('test') === 'test';
 
+    req.timers.pop() === { name: 'test', time: [0, 1234] };
     req.getLogger('test');
 
     var log = req.log;

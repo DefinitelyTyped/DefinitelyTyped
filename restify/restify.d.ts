@@ -284,6 +284,19 @@ declare module "restify" {
     username?: string;
     /** available when authorizationParser plugin is used */
     authorization?: requestAuthorization;
+
+    timers: HandlerTiming[];
+  }
+
+  /**
+   * Timer object used to identify how long a specific handler took to run
+   *
+   * @property {String} name The name of the handler.
+   * @property {Array} time A tuple of [seconds, nanoseconds], how long the handler took.
+   */
+  interface HandlerTiming {
+    name: string;
+    time: [number, number];
   }
 
   interface Response extends http.ServerResponse {
