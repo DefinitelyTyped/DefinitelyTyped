@@ -400,7 +400,7 @@ declare namespace mapboxgl {
 	}
 
     export interface ImageSourceOptions {
-        urls?: string[];
+        url?: string;
 
         coordinates?: number[][];
     }
