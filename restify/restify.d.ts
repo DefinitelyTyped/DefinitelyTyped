@@ -316,7 +316,7 @@ declare module "restify" {
   interface RouteSpec {
     method: string;
     name: string;
-    path: string;
+    path: string | RegExp;
     versions: string[];
   }
 
