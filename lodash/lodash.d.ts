@@ -14488,59 +14488,52 @@ declare module _ {
          * @param sources The source objects.
          * @return The destination object.
          */
-        defaults<Obj extends {}, TResult extends {}>(
-            object: Obj,
-            ...sources: {}[]
-        ): TResult;
+        defaults<TObject, TSource>(
+            object: TObject,
+            source: TSource
+        ): TObject & TSource;
 
         /**
          * @see _.defaults
          */
-        defaults<Obj extends {}, S1 extends {}, TResult extends {}>(
-            object: Obj,
-            source1: S1,
-            ...sources: {}[]
-        ): TResult;
+        defaults<TObject, TSource1, TSource2>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2
+        ): TObject & TSource1 & TSource2;
 
         /**
          * @see _.defaults
          */
-        defaults<Obj extends {}, S1 extends {}, S2 extends {}, TResult extends {}>(
-            object: Obj,
-            source1: S1,
-            source2: S2,
-            ...sources: {}[]
-        ): TResult;
+        defaults<TObject, TSource1, TSource2, TSource3>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3
+        ): TObject & TSource1 & TSource2;
 
         /**
          * @see _.defaults
          */
-        defaults<Obj extends {}, S1 extends {}, S2 extends {}, S3 extends {}, TResult extends {}>(
-            object: Obj,
-            source1: S1,
-            source2: S2,
-            source3: S3,
-            ...sources: {}[]
-        ): TResult;
+        defaults<TObject, TSource1, TSource2, TSource3, TSource4>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4
+        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
 
         /**
          * @see _.defaults
          */
-        defaults<Obj extends {}, S1 extends {}, S2 extends {}, S3 extends {}, S4 extends {}, TResult extends {}>(
-            object: Obj,
-            source1: S1,
-            source2: S2,
-            source3: S3,
-            source4: S4,
-            ...sources: {}[]
-        ): TResult;
+        defaults<TObject>(object: TObject): TObject;
 
         /**
          * @see _.defaults
          */
-        defaults<TResult extends {}>(
-            object: {},
-            ...sources: {}[]
+        defaults<TResult>(
+            object: any,
+            ...sources: any[]
         ): TResult;
     }
 
@@ -14548,40 +14541,36 @@ declare module _ {
         /**
          * @see _.defaults
          */
-        defaults<S1 extends {}, TResult extends {}>(
-            source1: S1,
-            ...sources: {}[]
-        ): LoDashImplicitObjectWrapper<TResult>;
+        defaults<TSource>(
+            source: TSource
+        ): LoDashImplicitObjectWrapper<T & TSource>;
 
         /**
          * @see _.defaults
          */
-        defaults<S1 extends {}, S2 extends {}, TResult extends {}>(
-            source1: S1,
-            source2: S2,
-            ...sources: {}[]
-        ): LoDashImplicitObjectWrapper<TResult>;
+        defaults<TSource1, TSource2>(
+            source1: TSource1,
+            source2: TSource2
+        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2>;
 
         /**
          * @see _.defaults
          */
-        defaults<S1 extends {}, S2 extends {}, S3 extends {}, TResult extends {}>(
-            source1: S1,
-            source2: S2,
-            source3: S3,
-            ...sources: {}[]
-        ): LoDashImplicitObjectWrapper<TResult>;
+        defaults<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3
+        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2 & TSource3>;
 
         /**
          * @see _.defaults
          */
-        defaults<S1 extends {}, S2 extends {}, S3 extends {}, S4 extends {}, TResult extends {}>(
-            source1: S1,
-            source2: S2,
-            source3: S3,
-            source4: S4,
-            ...sources: {}[]
-        ): LoDashImplicitObjectWrapper<TResult>;
+        defaults<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4
+        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2 & TSource3 & TSource4>;
 
         /**
          * @see _.defaults
@@ -14591,47 +14580,43 @@ declare module _ {
         /**
          * @see _.defaults
          */
-        defaults<TResult>(...sources: {}[]): LoDashImplicitObjectWrapper<TResult>;
+        defaults<TResult>(...sources: any[]): LoDashImplicitObjectWrapper<TResult>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.defaults
          */
-        defaults<S1 extends {}, TResult extends {}>(
-            source1: S1,
-            ...sources: {}[]
-        ): LoDashExplicitObjectWrapper<TResult>;
+        defaults<TSource>(
+            source: TSource
+        ): LoDashImplicitObjectWrapper<T & TSource>;
 
         /**
          * @see _.defaults
          */
-        defaults<S1 extends {}, S2 extends {}, TResult extends {}>(
-            source1: S1,
-            source2: S2,
-            ...sources: {}[]
-        ): LoDashExplicitObjectWrapper<TResult>;
+        defaults<TSource1, TSource2>(
+            source1: TSource1,
+            source2: TSource2
+        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2>;
 
         /**
          * @see _.defaults
          */
-        defaults<S1 extends {}, S2 extends {}, S3 extends {}, TResult extends {}>(
-            source1: S1,
-            source2: S2,
-            source3: S3,
-            ...sources: {}[]
-        ): LoDashExplicitObjectWrapper<TResult>;
+        defaults<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3
+        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2 & TSource3>;
 
         /**
          * @see _.defaults
          */
-        defaults<S1 extends {}, S2 extends {}, S3 extends {}, S4 extends {}, TResult extends {}>(
-            source1: S1,
-            source2: S2,
-            source3: S3,
-            source4: S4,
-            ...sources: {}[]
-        ): LoDashExplicitObjectWrapper<TResult>;
+        defaults<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4
+        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2 & TSource3 & TSource4>;
 
         /**
          * @see _.defaults
@@ -14641,7 +14626,7 @@ declare module _ {
         /**
          * @see _.defaults
          */
-        defaults<TResult>(...sources: {}[]): LoDashExplicitObjectWrapper<TResult>;
+        defaults<TResult>(...sources: any[]): LoDashImplicitObjectWrapper<TResult>;
     }
 
     //_.defaultsDeep
