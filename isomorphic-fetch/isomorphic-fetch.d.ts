@@ -20,7 +20,7 @@ declare enum RequestCache {
 declare enum ResponseType { "basic", "cors", "default", "error", "opaque" }
 
 declare type HeaderInit = Headers | Array<string>;
-declare type BodyInit = Blob | FormData | string;
+declare type BodyInit = ArrayBuffer | ArrayBufferView | Blob | FormData | string;
 declare type RequestInfo = Request | string;
 
 interface RequestInit {
