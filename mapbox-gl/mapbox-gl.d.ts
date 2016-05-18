@@ -453,20 +453,6 @@ declare namespace mapboxgl {
         constructor(layer: any, refLayer: any); // Todo: not yet specified in documentation
     }
 
-    export interface StyleLayer {
-		set(layer: any, refLayer: any): void; // Todo: not yet specified in documentation
-		setLayoutProperty(name: any, value: any): void; // Todo: not yet specified in documentation
-		getLayoutProperty(name: any): Object; // Todo: not yet specified in documentation
-		getLayoutValue(name: any, globalProperties: any, featureProperties: any): any; // Todo: not yet specified in documentation
-		setPaintProperty(name: any, value: any, klass: any): void; // Todo: not yet specified in documentation
-		setPaintProperty(name: any, klass: any): Object; // Todo: not yet specified in documentation
-		getPaintValue(name: any, globalProperties: any, featureProperties: any): Object; // Todo: not yet specified in documentation
-		isPaintValueFeatureConstant(name: any): boolean; // Todo: not yet specified in documentation
-		isHidden(zoom: any): boolean; // Todo: not yet specified in documentation
-		updatePaintTransitions(classes: any, options: any, globalOptions: any, animationLoop: any): void; // Todo: not yet specified in documentation
-		updatePaintTransition(name: any, classes: any, options: any, globalOptions: any, animationLoop: any): void; // Todo: not yet specified in documentation
-		recalculate(zoom: any, zoomHistory: any): void; // Todo: not yet specified in documentation
-		serialize(options: any): Object; // Todo: not yet specified in documentation
 	}
 }
 
