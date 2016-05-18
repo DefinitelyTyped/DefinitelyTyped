@@ -14664,163 +14664,307 @@ declare module _ {
         defaultsDeep<TResult>(...sources: any[]): LoDashImplicitObjectWrapper<TResult>
     }
 
-    //_.extend
+    // _.extend
     interface LoDashStatic {
         /**
-         * @see assign
+         * @see _.assignIn
          */
-        extend<TObject extends {}, TSource extends {}, TResult extends {}>(
+        extend<TObject, TSource>(
             object: TObject,
-            source: TSource,
-            customizer?: AssignCustomizer
-        ): TResult;
+            source: TSource
+        ): TObject & TSource;
 
         /**
-         * @see assign
+         * @see _.assignIn
          */
-        extend<TObject extends {}, TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
+        extend<TObject, TSource1, TSource2>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2
+        ): TObject & TSource1 & TSource2;
+
+        /**
+         * @see _.assignIn
+         */
+        extend<TObject, TSource1, TSource2, TSource3>(
             object: TObject,
             source1: TSource1,
             source2: TSource2,
-            customizer?: AssignCustomizer
-        ): TResult;
+            source3: TSource3
+        ): TObject & TSource1 & TSource2 & TSource3;
 
         /**
-         * @see assign
+         * @see _.assignIn
          */
-        extend<TObject extends {}, TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TResult extends {}>(
+        extend<TObject, TSource1, TSource2, TSource3, TSource4>(
             object: TObject,
             source1: TSource1,
             source2: TSource2,
             source3: TSource3,
-            customizer?: AssignCustomizer
-        ): TResult;
+            source4: TSource4
+        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
 
         /**
-         * @see assign
+         * @see _.assignIn
          */
-        extend<TObject extends {}, TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TSource4 extends {},
-            TResult extends {}>
-            (
-                object: TObject,
-                source1: TSource1,
-                source2: TSource2,
-                source3: TSource3,
-                source4: TSource4,
-                customizer?: AssignCustomizer
-            ): TResult;
+        extend<TObject>(object: TObject): TObject;
 
         /**
-         * @see _.assign
+         * @see _.assignIn
          */
-        extend<TObject extends {}>(object: TObject): TObject;
-
-        /**
-         * @see _.assign
-         */
-        extend<TObject extends {}, TResult extends {}>(
-            object: TObject, ...otherArgs: any[]
+        extend<TResult>(
+            object: any,
+            ...otherArgs: any[]
         ): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
-         * @see _.assign
+         * @see _.assignIn
          */
-        extend<TSource extends {}, TResult extends {}>(
-            source: TSource,
-            customizer?: AssignCustomizer
-        ): LoDashImplicitObjectWrapper<TResult>;
+        extend<TSource>(
+            source: TSource
+        ): LoDashImplicitObjectWrapper<T & TSource>;
 
         /**
-         * @see assign
+         * @see _.assignIn
          */
-        extend<TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
+        extend<TSource1, TSource2>(
+            source1: TSource1,
+            source2: TSource2
+        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2>;
+
+        /**
+         * @see _.assignIn
+         */
+        extend<TSource1, TSource2, TSource3>(
             source1: TSource1,
             source2: TSource2,
-            customizer?: AssignCustomizer
-        ): LoDashImplicitObjectWrapper<TResult>;
+            source3: TSource3
+        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2 & TSource3>;
 
         /**
-         * @see assign
+         * @see _.assignIn
          */
-        extend<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TResult extends {}>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            customizer?: AssignCustomizer
-        ): LoDashImplicitObjectWrapper<TResult>;
-
-        /**
-         * @see assign
-         */
-        extend<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TSource4 extends {}, TResult extends {}>(
+        extend<TSource1, TSource2, TSource3, TSource4>(
             source1: TSource1,
             source2: TSource2,
             source3: TSource3,
-            source4: TSource4,
-            customizer?: AssignCustomizer
-        ): LoDashImplicitObjectWrapper<TResult>;
+            source4: TSource4
+        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2 & TSource3 & TSource4>;
 
         /**
-         * @see _.assign
+         * @see _.assignIn
          */
         extend(): LoDashImplicitObjectWrapper<T>;
 
         /**
-         * @see _.assign
+         * @see _.assignIn
          */
-        extend<TResult extends {}>(...otherArgs: any[]): LoDashImplicitObjectWrapper<TResult>;
+        extend<TResult>(...otherArgs: any[]): LoDashImplicitObjectWrapper<TResult>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
-         * @see _.assign
+         * @see _.assignIn
          */
-        extend<TSource extends {}, TResult extends {}>(
-            source: TSource,
-            customizer?: AssignCustomizer
-        ): LoDashExplicitObjectWrapper<TResult>;
+        extend<TSource>(
+            source: TSource
+        ): LoDashExplicitObjectWrapper<T & TSource>;
 
         /**
-         * @see assign
+         * @see _.assignIn
          */
-        extend<TSource1 extends {}, TSource2 extends {}, TResult extends {}>(
+        extend<TSource1, TSource2>(
+            source1: TSource1,
+            source2: TSource2
+        ): LoDashExplicitObjectWrapper<T & TSource1 & TSource2>;
+
+        /**
+         * @see _.assignIn
+         */
+        extend<TSource1, TSource2, TSource3>(
             source1: TSource1,
             source2: TSource2,
-            customizer?: AssignCustomizer
-        ): LoDashExplicitObjectWrapper<TResult>;
+            source3: TSource3
+        ): LoDashExplicitObjectWrapper<T & TSource1 & TSource2 & TSource3>;
 
         /**
-         * @see assign
+         * @see _.assignIn
          */
-        extend<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TResult extends {}>(
-            source1: TSource1,
-            source2: TSource2,
-            source3: TSource3,
-            customizer?: AssignCustomizer
-        ): LoDashExplicitObjectWrapper<TResult>;
-
-        /**
-         * @see assign
-         */
-        extend<TSource1 extends {}, TSource2 extends {}, TSource3 extends {}, TSource4 extends {}, TResult extends {}>(
+        extend<TSource1, TSource2, TSource3, TSource4>(
             source1: TSource1,
             source2: TSource2,
             source3: TSource3,
-            source4: TSource4,
-            customizer?: AssignCustomizer
-        ): LoDashExplicitObjectWrapper<TResult>;
+            source4: TSource4
+        ): LoDashExplicitObjectWrapper<T & TSource1 & TSource2 & TSource3 & TSource4>;
 
         /**
-         * @see _.assign
+         * @see _.assignIn
          */
         extend(): LoDashExplicitObjectWrapper<T>;
 
         /**
-         * @see _.assign
+         * @see _.assignIn
          */
-        extend<TResult extends {}>(...otherArgs: any[]): LoDashExplicitObjectWrapper<TResult>;
+        extend<TResult>(...otherArgs: any[]): LoDashExplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashStatic {
+        /**
+         * @see _.assignInWith
+         */
+        extendWith<TObject, TSource>(
+            object: TObject,
+            source: TSource,
+            customizer: AssignCustomizer
+        ): TObject & TSource;
+
+        /**
+         * @see _.assignInWith
+         */
+        extendWith<TObject, TSource1, TSource2>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            customizer: AssignCustomizer
+        ): TObject & TSource1 & TSource2;
+
+        /**
+         * @see _.assignInWith
+         */
+        extendWith<TObject, TSource1, TSource2, TSource3>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: AssignCustomizer
+        ): TObject & TSource1 & TSource2 & TSource3;
+
+        /**
+         * @see _.assignInWith
+         */
+        extendWith<TObject, TSource1, TSource2, TSource3, TSource4>(
+            object: TObject,
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: AssignCustomizer
+        ): TObject & TSource1 & TSource2 & TSource3 & TSource4;
+
+        /**
+         * @see _.assignInWith
+         */
+        extendWith<TObject>(object: TObject): TObject;
+
+        /**
+         * @see _.assignInWith
+         */
+        extendWith<TResult>(
+            object: any,
+            ...otherArgs: any[]
+        ): TResult;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.assignInWith
+         */
+        extendWith<TSource>(
+            source: TSource,
+            customizer: AssignCustomizer
+        ): LoDashImplicitObjectWrapper<T & TSource>;
+
+        /**
+         * @see _.assignInWith
+         */
+        extendWith<TSource1, TSource2>(
+            source1: TSource1,
+            source2: TSource2,
+            customizer: AssignCustomizer
+        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2>;
+
+        /**
+         * @see _.assignInWith
+         */
+        extendWith<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: AssignCustomizer
+        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2 & TSource3>;
+
+        /**
+         * @see _.assignInWith
+         */
+        extendWith<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: AssignCustomizer
+        ): LoDashImplicitObjectWrapper<T & TSource1 & TSource2 & TSource3 & TSource4>;
+
+        /**
+         * @see _.assignInWith
+         */
+        extendWith(): LoDashImplicitObjectWrapper<T>;
+
+        /**
+         * @see _.assignInWith
+         */
+        extendWith<TResult>(...otherArgs: any[]): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.assignInWith
+         */
+        extendWith<TSource>(
+            source: TSource,
+            customizer: AssignCustomizer
+        ): LoDashExplicitObjectWrapper<T & TSource>;
+
+        /**
+         * @see _.assignInWith
+         */
+        extendWith<TSource1, TSource2>(
+            source1: TSource1,
+            source2: TSource2,
+            customizer: AssignCustomizer
+        ): LoDashExplicitObjectWrapper<T & TSource1 & TSource2>;
+
+        /**
+         * @see _.assignInWith
+         */
+        extendWith<TSource1, TSource2, TSource3>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            customizer: AssignCustomizer
+        ): LoDashExplicitObjectWrapper<T & TSource1 & TSource2 & TSource3>;
+
+        /**
+         * @see _.assignInWith
+         */
+        extendWith<TSource1, TSource2, TSource3, TSource4>(
+            source1: TSource1,
+            source2: TSource2,
+            source3: TSource3,
+            source4: TSource4,
+            customizer: AssignCustomizer
+        ): LoDashExplicitObjectWrapper<T & TSource1 & TSource2 & TSource3 & TSource4>;
+
+        /**
+         * @see _.assignInWith
+         */
+        extendWith(): LoDashExplicitObjectWrapper<T>;
+
+        /**
+         * @see _.assignInWith
+         */
+        extendWith<TResult>(...otherArgs: any[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.findKey
