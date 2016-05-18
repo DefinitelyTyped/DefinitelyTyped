@@ -1,6 +1,5 @@
 ﻿/// <reference types="d3" />
 
-
   interface ICompTextSize{
     text:string;
     size:number;
