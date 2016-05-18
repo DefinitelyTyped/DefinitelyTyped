@@ -843,6 +843,7 @@ declare namespace kendo.data {
         axes?: any;
         catalogs?: any;
         cubes?: any;
+        cube?: any;
         data?: any;
         dimensions?: any;
         hierarchies?: any;
