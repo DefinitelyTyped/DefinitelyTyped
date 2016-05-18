@@ -79,7 +79,7 @@ interface ResponseInit {
 }
 
 declare type HeaderInit = Headers|Array<string>;
-declare type BodyInit = Blob|FormData|string;
+declare type BodyInit = ArrayBuffer|Blob|FormData|string;
 declare type RequestInfo = Request|string;
 
 interface Window {
