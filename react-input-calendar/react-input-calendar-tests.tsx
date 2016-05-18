@@ -1,4 +1,3 @@
-/// <reference path="./react-input-calendar.d.ts"/>
 /// <reference types="react"/>
 /// <reference types="react-dom"/>
 

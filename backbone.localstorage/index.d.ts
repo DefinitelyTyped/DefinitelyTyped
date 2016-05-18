@@ -6,7 +6,7 @@
 import * as Backbone from 'backbone';
 
 declare global {
-    const Store = Backbone.LocalStorage;
+    const Store: typeof Backbone.LocalStorage;
     type Store = Backbone.LocalStorage;
 }
 
