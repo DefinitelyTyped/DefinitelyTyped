@@ -203,6 +203,21 @@ map.addSource('some id', geoJSONSourceObj); // add
 map.removeSource('some id');  // remove
 
 /**
+ * ImageSource
+ */
+var imageSourceObj = new mapboxgl.ImageSource({
+	url: 'https://www.mapbox.com/images/foo.png',
+	coordinates: [
+		[-76.54335737228394, 39.18579907229748],
+		[-76.52803659439087, 39.1838364847587],
+		[-76.5295386314392, 39.17683392507606],
+		[-76.54520273208618, 39.17876344106642]
+	]
+});
+map.addSource('some id', imageSourceObj); // add
+map.removeSource('some id');  // remove
+
+/**
  * Video Source
  */
 var videoSourceObj = new mapboxgl.VideoSource({
