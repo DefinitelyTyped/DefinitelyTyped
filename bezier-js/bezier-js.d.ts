@@ -1,7 +1,7 @@
 // Type definitions for Bezier.js
 // Project: https://github.com/Pomax/bezierjs
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 declare module BezierJs {
     interface Point {
         x: number;
@@ -76,7 +76,7 @@ declare module BezierJs {
      *
      */
     class Bezier {
-        clockwise: boolean;
+        private clockwise;
         private _linear;
         _3d: boolean;
         _t1: number;
