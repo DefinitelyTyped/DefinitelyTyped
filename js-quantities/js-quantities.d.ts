@@ -5,7 +5,7 @@
 
 declare var Qty: QtyModule.QtyStatic;
 
-declare module QtyModule {
+declare namespace QtyModule {
   interface QtyStatic {
     (value: string): Qty;
     (value: number): Qty;
