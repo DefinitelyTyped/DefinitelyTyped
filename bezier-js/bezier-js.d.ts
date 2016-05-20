@@ -1,7 +1,7 @@
 // Type definitions for Bezier.js
 // Project: https://github.com/Pomax/bezierjs
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module BezierJs {
     interface Point {
         x: number;
