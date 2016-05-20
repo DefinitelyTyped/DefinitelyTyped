@@ -76,7 +76,7 @@ declare module BezierJs {
      *
      */
     class Bezier {
-        private clockwise;
+        clockwise: boolean;
         private _linear;
         _3d: boolean;
         _t1: number;
