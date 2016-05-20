@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="rx.node.d.ts" />
+/// <reference path="rx-node.d.ts" />
 
 {
 	var source = Rx.Observable.return(42);
