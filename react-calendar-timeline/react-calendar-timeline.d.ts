@@ -9,7 +9,7 @@ declare module "react-calendar-timeline" {
     interface ReactCalendarTimeline {
         groups: {
             id: number;
-            title: string;
+            title: any; // string | Element (__React.ClassicComponentClass<any>);
         }[];
         items:{
             id: number;
@@ -58,8 +58,8 @@ declare module "react-calendar-timeline" {
         moveResizeValidator?(action:any, itemId:any, time:any): any;
         defaultTimeStart?: any;
         defaultTimeEnd?: any;
-        visibleTimeStart?: any;
-        visibleTimeEnd?: any;
+        visibleTimeStart?: number;
+        visibleTimeEnd?: number;
         onTimeChange?(visibleTimeStart:any, visibleTimeEnd:any): any;
         onTimeInit?(visibleTimeStart:any, visibleTimeEnd:any): any;
         onBoundsChange?(canvasTimeStart:any, canvasTimeEnd:any): any;
