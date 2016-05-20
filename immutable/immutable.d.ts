@@ -1,3 +1,10 @@
+// Type definitions for Facebook's Immutable 3.8.1
+// Project: https://github.com/facebook/immutable-js
+// Definitions by: tht13 <https://github.com/tht13>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// Core of typings are from repository itself
+
 /**
  *  Copyright (c) 2014-2015, Facebook, Inc.
  *  All rights reserved.
