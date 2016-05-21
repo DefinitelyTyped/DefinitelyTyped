@@ -36,7 +36,7 @@ function tests_simple() {
     }, function (start: string, end: string, label: string) {
         console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
     });
-    
+
     $(function() {
 
     function cb(start: moment.Moment, end: moment.Moment) {
