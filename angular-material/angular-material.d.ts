@@ -59,6 +59,11 @@ declare namespace angular.material {
     interface IConfirmDialog extends IPresetDialog<IConfirmDialog> {
         cancel(cancel: string): IConfirmDialog;
     }
+    
+    interface IPromptDialog extends IPresetDialog<IPromptDialog> {
+        cancel(cancel: string): IPromptDialog;
+        placeholder(placeholder: string): IPromptDialog;        
+    }
 
     interface IDialogOptions {
         templateUrl?: string;
@@ -90,6 +95,7 @@ declare namespace angular.material {
         show(dialog: IDialogOptions|IAlertDialog|IConfirmDialog): angular.IPromise<any>;
         confirm(): IConfirmDialog;
         alert(): IAlertDialog;
+        prompt(): IPromptDialog;
         hide(response?: any): angular.IPromise<any>;
         cancel(response?: any): void;
     }
