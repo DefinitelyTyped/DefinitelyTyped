@@ -1,9 +1,9 @@
 // Type definitions for GeoJSON Format Specification
 // Project: http://geojson.org/
 // Definitions by: Jacob Bruun <https://github.com/cobster/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module GeoJSON {
+declare namespace GeoJSON {
 
     /***
     * http://geojson.org/geojson-spec.html#geojson-objects
@@ -14,7 +14,7 @@ declare module GeoJSON {
         bbox?: number[];
         crs?: CoordinateReferenceSystem;
     }
-        
+
     /***
     * http://geojson.org/geojson-spec.html#positions
     */
@@ -36,6 +36,7 @@ declare module GeoJSON {
     */
     export interface Point extends GeometryObject
     {
+        type: 'Point'
         coordinates: Position
     }
 
@@ -44,6 +45,7 @@ declare module GeoJSON {
     */
     export interface MultiPoint extends GeometryObject
     {
+        type: 'MultiPoint'
         coordinates: Position[]
     }
 
@@ -52,6 +54,7 @@ declare module GeoJSON {
     */
     export interface LineString extends GeometryObject
     {
+        type: 'LineString'
         coordinates: Position[]
     }
 
@@ -60,6 +63,7 @@ declare module GeoJSON {
     */
     export interface MultiLineString extends GeometryObject
     {
+        type: 'MultiLineString'
         coordinates: Position[][]
     }
 
@@ -68,6 +72,7 @@ declare module GeoJSON {
     */
     export interface Polygon extends GeometryObject
     {
+        type: 'Polygon'
         coordinates: Position[][]
     }
 
@@ -76,6 +81,7 @@ declare module GeoJSON {
     */
     export interface MultiPolygon extends GeometryObject
     {
+        type: 'MultiPolygon'
         coordinates: Position[][][]
     }
 
@@ -84,15 +90,17 @@ declare module GeoJSON {
     */
     export interface GeometryCollection extends GeoJsonObject
     {
+        type: 'GeometryCollection'
         geometries: GeometryObject[];
     }
 
     /***
     * http://geojson.org/geojson-spec.html#feature-objects
     */
-    export interface Feature extends GeoJsonObject
+    export interface Feature<T extends GeometryObject> extends GeoJsonObject
     {
-        geometry: GeometryObject;
+        type: 'Feature'
+        geometry: T;
         properties: any;
         id?: string;
     }
@@ -100,20 +108,21 @@ declare module GeoJSON {
     /***
     * http://geojson.org/geojson-spec.html#feature-collection-objects
     */
-    export interface FeatureCollection extends GeoJsonObject
+    export interface FeatureCollection<T extends GeometryObject> extends GeoJsonObject
     {
-        features: Feature[];
+        type: 'FeatureCollection'
+        features: Feature<T>[];
     }
 
     /***
     * http://geojson.org/geojson-spec.html#coordinate-reference-system-objects
     */
-    export interface CoordinateReferenceSystem 
+    export interface CoordinateReferenceSystem
     {
         type: string;
         properties: any;
     }
-	
+
     export interface NamedCoordinateReferenceSystem extends CoordinateReferenceSystem
     {
         properties: { name: string }

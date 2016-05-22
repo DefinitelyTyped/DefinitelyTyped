@@ -1,7 +1,7 @@
 // Type definitions for Q
 // Project: https://github.com/kriskowal/q
 // Definitions by: Barrie Nemetchek <https://github.com/bnemetchek>, Andrew Gaspar <https://github.com/AndrewGaspar/>, John Reilly <https://github.com/johnnyreilly>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * If value is a Q promise, returns the promise.
@@ -13,7 +13,7 @@ declare function Q<T>(promise: Q.IPromise<T>): Q.Promise<T>;
  */
 declare function Q<T>(value: T): Q.Promise<T>;
 
-declare module Q {
+declare namespace Q {
     interface IPromise<T> {
         then<U>(onFulfill?: (value: T) => U | IPromise<U>, onReject?: (error: any) => U | IPromise<U>): IPromise<U>;
     }
@@ -21,6 +21,7 @@ declare module Q {
     interface Deferred<T> {
         promise: Promise<T>;
         resolve(value?: T): void;
+        resolve(value?: IPromise<T>): void;
         reject(reason: any): void;
         notify(value: any): void;
         makeNodeResolver(): (reason: any, value: T) => void;
@@ -206,7 +207,7 @@ declare module Q {
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
     export function all<T>(promises: IPromise<T>[]): Promise<T[]>;
-    
+
     /**
     * Returns a promise for the first of an array of promises to become settled.
     */
@@ -291,6 +292,14 @@ declare module Q {
      * Returns whether a given promise is in the pending state. When the static version is used on non-promises, the result is always false.
      */
     export function isPending(object: any): boolean;
+    /**
+     * If an object is not a promise, it is as "near" as possible.
+     * If a promise is rejected, it is as "near" as possible too.
+     * If it’s a fulfilled promise, the fulfillment value is nearer.
+     * If it’s a deferred promise and the deferred has been resolved, the
+     * resolution is "nearer".
+     */
+    export function nearer<T>(promise: Promise<T>): T;
 
     /**
      * This is an experimental tool for converting a generator function into a deferred function. This has the potential of reducing nested callbacks in engines that support yield.

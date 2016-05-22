@@ -1,7 +1,7 @@
 // Type definitions for ui-grid
 // Project: http://www.ui-grid.info/
 // Definitions by: Ben Tesser <https://github.com/btesser>, Joe Skeen <http://github.com/joeskeen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // These are very definitely preliminary. Please feel free to improve.
 
@@ -16,7 +16,7 @@
 /// <reference path='../jquery/jquery.d.ts' />
 /// <reference path='../angularjs/angular.d.ts' />
 
-declare module uiGrid {
+declare namespace uiGrid {
     export interface IUiGridConstants {
         LOG_DEBUG_MESSAGES: boolean;
         LOG_WARN_MESSAGES: boolean;
@@ -399,7 +399,7 @@ declare module uiGrid {
          * ALL
          * @returns {Function} deregister function - a function that can be called to deregister this callback
          */
-        registerDataChangeCallback(callback: (grid: IGridInstanceOf<TEntity>) => void, types: Array<string>): Function;
+        registerDataChangeCallback(callback: (grid: IGridInstanceOf<TEntity>) => void, types?: Array<string>): Function;
         /**
          * When the build creates rows from gridOptions.data, the rowBuilders will be called to add
          * additional properties to the row.
@@ -861,7 +861,7 @@ declare module uiGrid {
          * By default it returns the `$$hashKey` property if it exists. If it doesn't it uses gridUtil.nextUid()
          * to generate one
          */
-        rowIdentity?(): any;
+        rowIdentity?(row: IGridRowOf<TEntity>): any;
     }
     export interface IGridCoreApi<TEntity> {
         // Methods
@@ -1511,6 +1511,10 @@ declare module uiGrid {
              * Defaults to 150
              */
             expandableRowHeight?: number;
+            /**
+             * reference to the parent grid scope (the parent scope of the sub-grid element)
+             */
+            expandableRowScope?: ng.IScope | Object;
             /**
              * Mandatory. The template for your expanded row
              */
@@ -3024,7 +3028,7 @@ declare module uiGrid {
              * @param {number} numValue Numeric value of the field
              * @param {IGridRow} row Row objet
              */
-            customerTreeAggregationFn?: (aggregation: IGridTreeBaseAggregationObject, fieldValue: any, numValue: number,
+            customTreeAggregationFn?: (aggregation: IGridTreeBaseAggregationObject, fieldValue: any, numValue: number,
                 row: IGridRowOf<TEntity>) => void;
             /**
              * A custom label to use for this aggregation.  If providedm, we don't use native i18n
@@ -3844,7 +3848,7 @@ declare module uiGrid {
          * or you can supply a custom filter function that gets passed the
          * following arguments: [searchTerm, cellValue, row, column].
          */
-        condition?: number;
+        condition?: number | ((searchTerm: string, cellValue: any, row: IGridRow, column: IGridColumn) => boolean);
         /**
          * If set, the filter field will be pre-populated with this value
          */

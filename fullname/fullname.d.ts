@@ -3,8 +3,6 @@
 // Definitions by: Klaus Reimer <https://github.com/kayahr/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../es6-promise/es6-promise.d.ts" />
-
 declare module "fullname" {
     function fullname(): Promise<string>;
     export = fullname;

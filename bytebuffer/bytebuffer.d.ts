@@ -1,7 +1,7 @@
 // Type definitions for bytebuffer.js 5.0.0
 // Project: https://github.com/dcodeIO/bytebuffer.js
 // Definitions by: Denis Cappellin <http://github.com/cappellin>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions by: SINTEF-9012 <http://github.com/SINTEF-9012>
 
 /// <reference path="../long/long.d.ts" />
@@ -611,5 +611,6 @@ declare class ByteBuffer
 }
 
 declare module 'bytebuffer' {
+    namespace ByteBuffer {}
     export = ByteBuffer;
 }

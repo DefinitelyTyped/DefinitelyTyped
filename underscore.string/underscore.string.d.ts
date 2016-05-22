@@ -1,7 +1,7 @@
 // Type definitions for underscore.string
 // Project: https://github.com/epeli/underscore.string
 // Definitions by: Ry Racherbaumer <http://github.com/rygine>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../underscore/underscore.d.ts" />
 
@@ -66,6 +66,13 @@ interface UnderscoreStringStaticExports {
      * @param str
      */
     capitalize(str: string): string;
+    
+    /**
+     * Converts first letter of the string to lowercase.
+     * ('Foo Bar') => 'foo Bar'
+     * @param str
+     */
+    decapitalize(str: string): string;    
 
     /**
      * Chop a string into pieces.

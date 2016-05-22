@@ -62,7 +62,7 @@
 
         materials.push(new THREE.MeshLambertMaterial({ color: 0xdddddd }));
         materials.push(new THREE.MeshPhongMaterial({ color: 0xdddddd, specular: 0x009900, shininess: 30, shading: THREE.SmoothShading, map: texture, transparent: true }));
-        materials.push(new THREE.MeshNormalMaterial({ shading: THREE.SmoothShading }));
+        materials.push(new THREE.MeshNormalMaterial({}));
         materials.push(new THREE.MeshBasicMaterial({ color: 0xffaa00, wireframe: true }));
 
         materials.push(new THREE.MeshDepthMaterial());
