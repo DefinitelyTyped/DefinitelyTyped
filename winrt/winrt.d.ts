@@ -1541,17 +1541,26 @@ declare namespace Windows {
                 device,
                 printTaskSettings,
                 cameraSettings,
+                /** Windows Store only. The user launched the restricted app. */
                 restrictedLaunch,
                 appointmentsProvider,
+                /** Windows Store only. The user wants to handle calls or messages for the phone number of a contact that is provided by the app. */
                 contact,
+                /** Windows Store only. The app launches a call from the lock screen. If the user wants to accept the call, the app displays its call UI directly on the lock screen without requiring the user to unlock. A lock-screen call is a special type of launch activation. */
                 lockScreenCall,
+                /** Windows Phone only. The application was activated as the result of a voice command. */
                 voiceCommand,
-                lockScreen,
+                /** Windows Phone only. The application was activated after the completion of a picker. */
                 pickerReturned,
+                /** Windows Phone only. The application was activated to perform a Wallet operation. */
                 walletAction,
+                /** Windows Phone only. The application was activated after the app was suspended for a file picker operation. */
                 pickFileContinuation,
+                /** Windows Phone only. The application was activated after the app was suspended for a file save picker operation. */
                 pickSaveFileContinuation,
+                /** Windows Phone only. The application was activated after the app was suspended for a folder picker operation. */
                 pickFolderContinuation,
+                /** Windows Phone only. The application was activated after the app was suspended for a web authentication broker operation. */
                 webAuthenticationBrokerContinuation,
                 webAccountProvider,
                 componentUI,
