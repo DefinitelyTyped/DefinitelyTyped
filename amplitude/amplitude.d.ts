@@ -1,4 +1,5 @@
 // Type definitions for Amplitude SDK 2.12.1
+// Project: https://github.com/amplitude/Amplitude-Javascript
 
 declare module amplitude {
 	interface Config {
