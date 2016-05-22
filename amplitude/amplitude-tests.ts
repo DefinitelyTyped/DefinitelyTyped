@@ -1,3 +1,5 @@
+// Tests for Amplitude SDK TypeScript definitions
+
 /// <reference path="amplitude.d.ts" />
 
 module Amplitude.Tests {

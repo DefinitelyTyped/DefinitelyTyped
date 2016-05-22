@@ -1,3 +1,5 @@
+// Type definitions for Amplitude SDK 2.12.1
+
 declare module amplitude {
 	interface Config {
 		batchEvents?: boolean;
