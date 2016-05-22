@@ -37,7 +37,7 @@ declare module "withings-lib" {
         /**
          * Notifications
          */
-        createNotification(callbackUrl:string, comment:string, appli, cb:WithingsApiCallback): void;
+        createNotification(callbackUrl:string, comment:string, appli:number, cb:WithingsApiCallback): void;
         getNotification(callbackUrl:string, appli:number, cb:WithingsApiCallback): void;
         listNotifications(appli:number, cb:WithingsApiCallback): void;
         revokeNotification(callbackUrl:string, appli:number, cb:WithingsApiCallback): void;
