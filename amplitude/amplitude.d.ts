@@ -48,7 +48,7 @@ declare module amplitude {
 
 	export function setOptOut(optOut: boolean): void;
 
-	export function setGroup(groupType: string, groupName: string | string[]);
+	export function setGroup(groupType: string, groupName: string | string[]): void;
 
 	export function logEvent(event: string): void;
 	export function logEvent(event: string, data: Object): void;
