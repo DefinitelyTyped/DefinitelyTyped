@@ -1,4 +1,4 @@
-
+import sinon = require("sinon");
 
 function once(fn: Function) {
     var returnValue: any, called = false;
@@ -110,7 +110,7 @@ testSeven();
 testEight();
 testNine();
 
-var clock: Sinon.SinonFakeTimers = sinon.useFakeTimers();
+var clock = sinon.useFakeTimers();
 clock.setSystemTime(1000);
 clock.setSystemTime(new Date());
 

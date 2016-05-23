@@ -22,7 +22,6 @@ interface Inflection {
     transform(str: string, arr: string[]): string;
 }
 
-declare module "inflection" {
-    var inflection: Inflection;
-    export = inflection;
-}
+declare var inflection: Inflection;
+export = inflection;
+export as namespace inflection;

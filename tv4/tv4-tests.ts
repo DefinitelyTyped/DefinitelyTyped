@@ -1,3 +1,4 @@
+import tv4 = require("tv4");
 var str:string;
 var strArr:string[];
 var bool:boolean;

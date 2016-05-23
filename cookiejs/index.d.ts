@@ -5,6 +5,10 @@
 /**
  * Shortcut for cookie.get()
  */
+
+export = cookie;
+export as namespace cookie;
+
 declare function cookie(key : string, fallback?: string) : string;
 declare function cookie(keys : string[], fallback?: string) : string;
 
@@ -43,8 +47,4 @@ declare namespace cookie {
    * Test if cookies are enabled
    */
   export function enabled() : boolean;
-}
-
-declare module "cookiejs" {
-  export = cookie;
 }

@@ -1,5 +1,5 @@
 import jsen = require("jsen");
-import JsenSettings = Jsen.JsenSettings;
+import JsenSettings = jsen.JsenSettings;
 
 // any
 {

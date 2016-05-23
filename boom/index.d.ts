@@ -5,6 +5,8 @@
 
 /// <reference types="node" />
 
+export = Boom;
+
 declare namespace Boom {
 
     export interface BoomError {
@@ -55,8 +57,4 @@ declare namespace Boom {
     export function badGateway(message?: string, data?: any): BoomError;
     export function serverUnavailable(message?: string, data?: any): BoomError;
     export function gatewayTimeout(message?: string, data?: any): BoomError;
-}
-
-declare module "boom" {
-    export = Boom;
 }

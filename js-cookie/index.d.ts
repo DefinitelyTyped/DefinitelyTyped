@@ -91,6 +91,5 @@ declare namespace Cookies {
 
 declare var Cookies: Cookies.CookiesStatic;
 
-declare module 'js-cookie' {
-    export = Cookies;
-}
+export = Cookies;
+export as namespace Cookies;

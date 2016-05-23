@@ -5,6 +5,8 @@
 
 /// <reference types="node" />
 
+export = __PI_SPI;
+
 declare namespace __PI_SPI {
     
     enum mode {
@@ -38,9 +40,4 @@ declare namespace __PI_SPI {
 
         close():void;
     }
-}
-
-
-declare module "pi-spi" {
-    export = __PI_SPI;
 }

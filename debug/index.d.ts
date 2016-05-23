@@ -5,10 +5,8 @@
 
 declare var debug: debug.IDebug;
 
-// Support AMD require
-declare module 'debug' {
-    export = debug;
-}
+export = debug;
+export as namespace debug;
 
 declare namespace debug {
     export interface IDebug {

@@ -5,6 +5,8 @@
 
 /// <reference types="Q" />
 
+export = MsPortalTestFx;
+
 declare namespace MsPortalTestFx {
 
     export module Locators {
@@ -305,10 +307,4 @@ declare namespace MsPortalTestFx {
     }
 
     export var portal: Portal;
-}
-
-
-
-declare module "MsPortalFx-Test" {
-    export = MsPortalTestFx;
 }

@@ -1,6 +1,6 @@
+import svgInjector = require("svg-injector");
 
-
-var SVGInjector: SVGInjector;
+var SVGInjector: svgInjector.SVGInjector;
 
 // Simple example
 var mySVGsToInject = document.querySelectorAll('img.inject-me');

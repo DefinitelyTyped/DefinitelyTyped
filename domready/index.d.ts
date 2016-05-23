@@ -5,6 +5,5 @@
 
 declare function domready(callback: () => any) : void;
 
-declare module "domready" {
-    export = domready;
-}
+export = domready;
+export as namespace domready;

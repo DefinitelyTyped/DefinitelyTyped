@@ -3,6 +3,11 @@
 // Definitions by: Paul Welter <https://github.com/pwelter34/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare var dragula: dragula.Dragula;
+
+export = dragula;
+export as namespace dragula;
+
 declare namespace dragula {
     interface DragulaOptions {
         containers?: Element[];
@@ -37,10 +42,4 @@ declare namespace dragula {
         (options: DragulaOptions): Drake;
         (): Drake;
     }
-}
-
-declare var dragula: dragula.Dragula;
-
-declare module "dragula" {
-    export = dragula;
 }

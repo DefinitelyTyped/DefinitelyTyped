@@ -3,6 +3,9 @@
 // Definitions by: Alexey Aylarov <https://github.com/aylarov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = VoxImplant;
+export as namespace VoxImplant;
+
 declare namespace VoxImplant {
 
 	/**
@@ -2030,8 +2033,4 @@ declare namespace VoxImplant {
 	*/
 	function version(): String;
 
-}
-
-declare module "voximplant-websdk" {
-    export = VoxImplant;
 }

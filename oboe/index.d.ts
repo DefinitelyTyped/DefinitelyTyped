@@ -64,6 +64,5 @@ declare namespace oboe {
 
 declare var oboe: oboe.OboeFunction;
 
-declare module "oboe" {
-	export = oboe;
-}
+export = oboe;
+export as namespace oboe;

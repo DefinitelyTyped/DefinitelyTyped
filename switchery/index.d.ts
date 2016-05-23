@@ -3,6 +3,10 @@
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>, Clayton Lautier <https://github.com/claylaut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare var switchery: Switchery.SwitcheryStatic;
+export default switchery;
+export as namespace Switchery;
+
 declare namespace Switchery {
 
     interface SwitcheryStatic {
@@ -85,9 +89,4 @@ interface Switchery {
      * @returns {boolean} whether it's disabled or not.
      */
     isDisabled(): boolean;
-}
-
-declare module "switchery" {
-    var switchery: Switchery.SwitcheryStatic;
-    export default switchery;
 }

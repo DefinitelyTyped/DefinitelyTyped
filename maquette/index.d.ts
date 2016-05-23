@@ -383,6 +383,5 @@ declare namespace maquette {
   }
 }
 
-declare module 'maquette' {
-  export = maquette;
-}
+export = maquette;
+export as namespace maquette;

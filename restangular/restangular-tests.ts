@@ -1,5 +1,5 @@
-
-
+import restangular = require("restangular");
+import * as angular from 'angularjs';
 
 var myApp = angular.module('testModule');
 

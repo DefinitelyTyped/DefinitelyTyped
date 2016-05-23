@@ -3,9 +3,8 @@
 // Definitions by: Clark Stevenson <https://github.com/clark-stevenson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "p2" {
-    export = p2;
-}
+export = p2;
+export as namespace p2;
 
 declare namespace p2 {
 

@@ -3,6 +3,8 @@
 // Definitions by: Quramy <https://github.com/Quramy/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+export = FalcorJsonGraph;
+
 declare namespace FalcorJsonGraph {
 
     // NOTE: The following types are described at https://github.com/Netflix/falcor/tree/master/lib/typedefs .
@@ -96,9 +98,5 @@ declare namespace FalcorJsonGraph {
     function error(errorValue: any, props?: FalcorJsonGraph.Sentinel): FalcorJsonGraph.Error;
     function pathValue(path: string | FalcorJsonGraph.PathSet, value: any): FalcorJsonGraph.PathValue;
     function pathInvalidation(path: string | FalcorJsonGraph.PathSet): FalcorJsonGraph.InvalidPath;
-}
-
-declare module 'falcor-json-graph' {
-    export = FalcorJsonGraph;
 }
 

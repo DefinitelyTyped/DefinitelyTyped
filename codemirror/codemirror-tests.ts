@@ -1,4 +1,4 @@
-
+import CodeMirror = require('codemirror');
 
 var myCodeMirror: CodeMirror.Editor = CodeMirror(document.body);
 

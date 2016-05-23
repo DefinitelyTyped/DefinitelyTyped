@@ -88,7 +88,5 @@ declare namespace MovieDB {
     }
 }
 
-declare module 'moviedb' {
-    function apiKeyAcceptor(key: string): MovieDB.IMovieDB;
-    export = apiKeyAcceptor;
-}
+declare function apiKeyAcceptor(key: string): MovieDB.IMovieDB;
+export = apiKeyAcceptor;

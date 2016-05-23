@@ -11,6 +11,6 @@ interface SwagStatic {
 
 declare var Swag: SwagStatic;
 
-declare module 'swag' {
-    export = Swag;
-}
+export = Swag;
+export as namespace Swag;
+

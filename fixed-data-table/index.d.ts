@@ -5,6 +5,9 @@
 
 /// <reference types="react"/>
 
+export = FixedDataTable;
+export as namespace FixedDataTable;
+
 declare namespace FixedDataTable {
     export var version: string;
 
@@ -490,8 +493,4 @@ declare namespace FixedDataTable {
     }
     export class Cell extends React.Component<CellProps, {}> {
     }
-}
-
-declare module "fixed-data-table" {
-    export = FixedDataTable;
 }

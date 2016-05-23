@@ -34,6 +34,4 @@ declare namespace ScryptAsync {
 
 declare var scrypt: ScryptAsync.ScryptStatic;
 
-declare module "scrypt-async" {
-	export = scrypt;
-}
+export = scrypt;

@@ -3,6 +3,9 @@
 // Definitions by: Atsushi Izumihara <https://github.com/izmhr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = Noise;
+export as namespace Noise;
+
 declare class Noise {
   /**
    * Passing in seed will seed this Noise instance
@@ -51,8 +54,4 @@ declare class Noise {
    * @param {number} seed [description]
    */
   seed(seed: number): void;
-}
-
-declare module "noisejs" {
-  export = Noise;
 }

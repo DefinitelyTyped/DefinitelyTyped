@@ -4,19 +4,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module "koa-mount" {
+import * as Koa from "koa";
 
-    import * as Koa from "koa";
+interface Function { (ctx: Koa.Context, next?: () => any): any }
 
-    interface Function { (ctx: Koa.Context, next?: () => any): any }
+declare function mount(app: Function): Function;
 
-    function mount(app: Function): Function;
+declare function mount(app: Koa): Function;
 
-    function mount(app: Koa): Function;
+declare function mount(prefix: string, app: Function): Function;
 
-    function mount(prefix: string, app: Function): Function;
+declare function mount(prefix: string, app: Koa): Function;
 
-    function mount(prefix: string, app: Koa): Function;
+export = mount;
 
     namespace mount {}
 

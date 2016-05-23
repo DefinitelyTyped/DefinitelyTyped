@@ -3,6 +3,8 @@
 // Definitions by: Andrew Fong <https://github.com/fongandrew>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = AnalyticsNode;
+
 declare namespace AnalyticsNode {
 
   interface Integrations {
@@ -76,8 +78,4 @@ declare namespace AnalyticsNode {
       timestamp: Date;
     }) => void): Analytics;
   }
-}
-
-declare module "analytics-node" {
-  export = AnalyticsNode.Analytics;
 }

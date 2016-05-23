@@ -5,6 +5,9 @@
 
 /// <reference types="event-kit" />
 
+import * as AtomEventKit from "event-kit";
+export = AtomFirstMate;
+
 declare namespace AtomFirstMate {
 	type Disposable = AtomEventKit.Disposable;
 
@@ -101,8 +104,4 @@ declare namespace AtomFirstMate {
 
 	/** Registry containing one or more grammars. */
 	var GrammarRegistry: GrammarRegistryStatic;
-}
-
-declare module 'first-mate' {
-	export = AtomFirstMate;
 }

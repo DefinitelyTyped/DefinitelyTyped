@@ -356,7 +356,63 @@ declare module 'bookshelf' {
 		interface CollectionCreateOptions extends ModelOptions, SyncOptions, CollectionAddOptions, SaveOptions {}
 	}
 
-	export = Bookshelf;
+	interface SerializeOptions {
+		shallow? : boolean;
+		omitPivot? : boolean;
+	}
+
+	interface SetOptions {
+		unset? : boolean;
+	}
+
+	interface TimestampOptions {
+		method? : string;
+	}
+
+	interface SyncOptions {
+		transacting? : knex.Transaction;
+		debug? : boolean;
+	}
+
+	interface CollectionOptions<T> {
+		comparator? : boolean|string|((a : T, b : T) => number);
+	}
+
+	interface CollectionAddOptions extends EventOptions {
+		at? : number;
+		merge? : boolean;
+	}
+
+	interface CollectionFetchOptions {
+		require? : boolean;
+		withRelated? : string|string[];
+	}
+
+	interface CollectionFetchOneOptions {
+		require? : boolean;
+		columns? : string|string[];
+	}
+
+	interface CollectionSetOptions extends EventOptions {
+		add? : boolean;
+		remove? : boolean;
+		merge?: boolean;
+	}
+
+	interface PivotOptions {
+		query? : Function|any;
+		require? : boolean;
+	}
+
+	interface EventOptions {
+		silent? : boolean;
+	}
+
+	interface EventFunction<T> {
+		(model: T, attrs: any, options: any) : Promise<any>|void;
+	}
+
+	interface CollectionCreateOptions extends ModelOptions, SyncOptions, CollectionAddOptions, SaveOptions {}
 }
 
 declare function Bookshelf(knex: knex): Bookshelf;

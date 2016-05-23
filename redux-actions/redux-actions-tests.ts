@@ -1,4 +1,4 @@
-
+import ReduxActions = require("redux-actions");
 
 let state: number;
 const minimalAction: ReduxActions.BaseAction = { type: 'INCREMENT' };

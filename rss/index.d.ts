@@ -3,6 +3,9 @@
 // Definitions by: Second Datke <https://github.com/secondwtq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare var factory: NodeRSS.RSSFactory;
+export = factory;
+
 declare namespace NodeRSS {
     interface FeedOptions {
         /**
@@ -201,9 +204,4 @@ declare namespace NodeRSS {
          */
         new(feedOptions: FeedOptions): RSS;
     }
-}
-
-declare module 'rss' {
-    var factory: NodeRSS.RSSFactory;
-    export = factory;
 }

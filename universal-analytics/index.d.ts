@@ -7,6 +7,8 @@ interface UniversalAnalytics {
     (accountID:string, uuid?:string, opts?:Object):UniversalAnalytics.Client;
 }
 
+export = UniversalAnalytics;
+
 declare namespace UniversalAnalytics {
 
     interface Client {
@@ -87,8 +89,4 @@ declare namespace UniversalAnalytics {
 
         middleware(accountID:string, options?:any):any;
     }
-}
-
-declare module 'universal-analytics' {
-export = UniversalAnalytics;
 }

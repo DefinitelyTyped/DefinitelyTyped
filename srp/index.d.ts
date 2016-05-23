@@ -6,6 +6,8 @@
 /// <reference types="bignum" />
 /// <reference types="node" />
 
+export = SRP;
+
 declare namespace SRP {
     export interface Params {
         N_length_bits: number;
@@ -68,8 +70,4 @@ declare namespace SRP {
         checkM1(M1: Buffer): Buffer;
         computeK(): Buffer;
     }
-}
-
-declare module "srp" {
-    export = SRP;
 }

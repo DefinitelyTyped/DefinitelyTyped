@@ -281,7 +281,4 @@ declare namespace mock {
 }
 
 declare var mock: mock.ProtractorHttpMock;
-
-declare module "protractor-http-mock" {
-    export = mock;
-}
+export = mock;

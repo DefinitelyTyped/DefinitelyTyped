@@ -5,44 +5,43 @@
 
 /// <reference types="babel-types" />
 
-declare module "babylon" {
-    import * as t from 'babel-types';
-    type Node = t.Node;
+import * as t from 'babel-types';
+type Node = t.Node;
 
-    export function parse(code: string, opts?: BabylonOptions): Node;
+export function parse(code: string, opts?: BabylonOptions): Node;
 
-    export interface BabylonOptions {
-        /**
-         * By default, import and export declarations can only appear at a program's top level.
-         * Setting this option to true allows them anywhere where a statement is allowed.
-         */
-        allowImportExportEverywhere?: boolean;
+export interface BabylonOptions {
+    /**
+     * By default, import and export declarations can only appear at a program's top level.
+     * Setting this option to true allows them anywhere where a statement is allowed.
+     */
+    allowImportExportEverywhere?: boolean;
 
-        /**
-         * By default, a return statement at the top level raises an error. Set this to true to accept such code.
-         */
-        allowReturnOutsideFunction?: boolean;
+    /**
+     * By default, a return statement at the top level raises an error. Set this to true to accept such code.
+     */
+    allowReturnOutsideFunction?: boolean;
 
-        allowSuperOutsideMethod?: boolean;
+    allowSuperOutsideMethod?: boolean;
 
-        /**
-         * Indicate the mode the code should be parsed in. Can be either "script" or "module".
-         */
-        sourceType?: 'script' | 'module';
+    /**
+     * Indicate the mode the code should be parsed in. Can be either "script" or "module".
+     */
+    sourceType?: 'script' | 'module';
 
-        /**
-         * Correlate output AST nodes with their source filename. Useful when
-         * generating code and source maps from the ASTs of multiple input files.
-         */
-        sourceFilename?: string;
+    /**
+     * Correlate output AST nodes with their source filename. Useful when
+     * generating code and source maps from the ASTs of multiple input files.
+     */
+    sourceFilename?: string;
 
-        /**
-         * Array containing the plugins that you want to enable.
-         */
-        plugins?: PluginName[];
-    }
-
-    export type PluginName = 'jsx' | 'flow' | 'asyncFunctions' | 'classConstructorCall' | 'doExpressions'
-        | 'trailingFunctionCommas' | 'objectRestSpread' | 'decorators' | 'classProperties' | 'exportExtensions'
-        | 'exponentiationOperator' | 'asyncGenerators' | 'functionBind' | 'functionSent';
+    /**
+     * Array containing the plugins that you want to enable.
+     */
+    plugins?: PluginName[];
 }
+
+export type PluginName = 'jsx' | 'flow' | 'asyncFunctions' | 'classConstructorCall' | 'doExpressions'
+    | 'trailingFunctionCommas' | 'objectRestSpread' | 'decorators' | 'classProperties' | 'exportExtensions'
+    | 'exponentiationOperator' | 'asyncGenerators' | 'functionBind' | 'functionSent';
+

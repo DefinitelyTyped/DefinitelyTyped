@@ -3,9 +3,8 @@
 // Definitions by: Markus Peloso <https://github.com/ToastHawaii/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "slideout" {
-    export = Slideout;
-}
+export = Slideout;
+export as namespace Slideout;
 
 declare namespace Slideout {
     /**

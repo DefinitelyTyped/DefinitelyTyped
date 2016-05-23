@@ -5,6 +5,9 @@
 
 /// <reference types="falcor-json-graph" />
 
+export = FalcorModel;
+export as namespace falcor;
+
 declare namespace FalcorModel {
 
     /////////////////////////////////////////////////////
@@ -270,8 +273,4 @@ declare namespace FalcorModel {
 		catch(handler: (exception: any) => boolean): Scheduler;
 		catchException(handler: (exception: any) => boolean): Scheduler;
 	}
-}
-
-declare module 'falcor' {
-    export = FalcorModel;
 }

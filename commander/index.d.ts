@@ -5,6 +5,9 @@
 
 /// <reference types="node" />
 
+declare var _tmp: commander.IExportedCommand;
+export = _tmp;
+
 declare namespace commander {
     interface ICommandStatic {
         /**
@@ -403,10 +406,6 @@ declare namespace commander {
     interface IExportedCommand extends ICommand {
         Command: commander.ICommandStatic;
         Option: commander.IOptionStatic;
+        [key: string]: any;
     }
-}
-
-declare module "commander" {
-    var _tmp:commander.IExportedCommand;
-    export = _tmp;
 }

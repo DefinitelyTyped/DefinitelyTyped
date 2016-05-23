@@ -1,4 +1,4 @@
-
+import mock = require("protractor-http-mock");
 
 function TestConfig() {
     mock.config = {

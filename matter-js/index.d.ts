@@ -4,9 +4,8 @@
 //                 David Asmuth <https://github.com/piranha771/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'matter-js' {
-    export = Matter;
-}
+export = Matter;
+export as namespace Matter;
 
 declare namespace Matter {
     /**

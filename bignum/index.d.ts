@@ -5,6 +5,8 @@
 
 /// <reference types="node" />
 
+export = BigNum;
+
 declare class BigNum {
     /** Create a new BigNum from n. */
     constructor(n: number|BigNum);
@@ -262,8 +264,4 @@ declare namespace BigNum {
     
     /** Return the number of bits used to represent the current BigNum. */
     export function bitLength(n: BigNumCompatible): number;
-}
-
-declare module "bignum" {
-    export = BigNum;
 }

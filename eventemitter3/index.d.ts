@@ -3,6 +3,12 @@
 // Definitions by: Yuichi Murata <https://github.com/mrk21>, Leon Yu <https://github.com/leonyu>, Boriss Nazarovs <https://github.com/Stubb0rn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+//
+// Expose the module.
+//
+declare var event_emitter3: EventEmitter3.EventEmitter3Static;
+export = event_emitter3;
+
 declare namespace EventEmitter3 {
     /**
      * Minimal EventEmitter interface that is molded against the Node.js

@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
+export = yo;
+
 declare namespace yo {
     export interface IYeomanGenerator {
         argument(name: string, config: IArgumentConfig): void;
@@ -245,8 +247,4 @@ declare namespace yo {
     export class Base extends NamedBase implements IBase {
         static extend(protoProps: IQueueProps, staticProps?: any): IYeomanGenerator;
     }
-}
-
-declare module "yeoman-generator" {
-    export = yo;
 }

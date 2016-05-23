@@ -3,9 +3,8 @@
 // Definitions by: Danil Flores <https://github.com/dflor003>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'decorum' {
-    export = decorum;
-}
+export = decorum;
+export as namespace decorum;
 
 declare namespace decorum {
     /**

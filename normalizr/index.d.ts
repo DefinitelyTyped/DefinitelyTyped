@@ -3,9 +3,7 @@
 // Definitions by: Markus Peloso <https://github.com/ToastHawaii/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "normalizr" {
-    export = Normalizr;
-}
+export = Normalizr;
 
 declare namespace Normalizr {
     type AttributeSetting = string | ((entity: any) => any);

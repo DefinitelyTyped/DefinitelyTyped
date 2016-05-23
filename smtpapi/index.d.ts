@@ -3,6 +3,9 @@
 // Definitions by: Antonio Morales <https://github.com/a-morales>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare var smtp: SmtpApi.Constructor;
+export = smtp;
+
 declare namespace SmtpApi {
 
   interface Header {
@@ -56,9 +59,4 @@ declare namespace SmtpApi {
       setASMGroupID(asm_group_id: number): void;
       setIpPool(ip_pool: string): void;
   }
-}
-
-declare module 'smtpapi' {
-  var smtp: SmtpApi.Constructor;
-  export = smtp;
 }

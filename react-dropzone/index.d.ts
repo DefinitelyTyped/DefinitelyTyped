@@ -5,6 +5,9 @@
 
 ///<reference types="react" />
 
+declare var Dropzone: typeof ReactDropzone.Dropzone;
+export = Dropzone;
+
 declare namespace ReactDropzone {
     interface DropzoneProps {
         // Drop behavior

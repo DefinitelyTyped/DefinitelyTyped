@@ -32,12 +32,11 @@ declare module "jasmine-node" {
         growl?: boolean
     }
 
-    interface JasmineNode {
-        executeSpecsInFolder(options:ExecuteSpecsOptions): void;
-        loadHelpersInFolder(path:string, pattern:RegExp): void;
-    }
-
-    var jasmine:JasmineNode;
-
-    export = jasmine;
+interface JasmineNode {
+    executeSpecsInFolder(options:ExecuteSpecsOptions): void;
+    loadHelpersInFolder(path:string, pattern:RegExp): void;
 }
+
+declare var jasmine:JasmineNode;
+
+export = jasmine;

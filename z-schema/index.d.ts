@@ -3,6 +3,9 @@
 // Definitions by: Adam Meadows <https://github.com/job13er>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = ZSchema.Validator;
+export as namespace ZSchema;
+
 declare namespace ZSchema {
 
     export interface Options {
@@ -90,8 +93,4 @@ declare namespace ZSchema {
         getLastError(): SchemaError;
         getLastErrors(): SchemaError[];
     }
-}
-
-declare module "z-schema" {
-    export = ZSchema.Validator;
 }

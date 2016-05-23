@@ -1,4 +1,4 @@
-
+import tabris = require("tabris");
 
 var page = tabris.create("Page", {});
 

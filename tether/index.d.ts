@@ -3,6 +3,9 @@
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = Tether;
+export as namespace Tether;
+
 // global Tether constructor
 declare class Tether {
     constructor(options: Tether.ITetherOptions);
@@ -40,8 +43,3 @@ declare namespace Tether {
         to?: string | HTMLElement | number[];
     }
 }
-
-declare module "tether" {
-    export = Tether;
-}
-

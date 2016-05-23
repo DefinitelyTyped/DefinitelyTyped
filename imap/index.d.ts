@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-declare namespace IMAP {
+declare namespace Connection {
 
     // The property names of these interfaces match the documentation (where type names were given).
 
@@ -238,7 +238,7 @@ declare namespace IMAP {
 
     export class Connection extends NodeJS.EventEmitter implements MessageFunctions {
         /** @constructor */
-        constructor(config: Config);
+        constructor(config: Connection.Config);
 
         // from NodeJS.EventEmitter
         addListener(event: string, listener: Function): this;
@@ -256,7 +256,7 @@ declare namespace IMAP {
         /** Searches the currently open mailbox for messages using given criteria. criteria is a list describing what you want to find. For criteria types that require arguments, use an array instead of just the string criteria type name (e.g. ['FROM', 'foo@bar.com']). Prefix criteria types with an "!" to negate. */
         search(criteria: any[], callback: (error: Error, uids: number[]) => void): void;
         /** Fetches message(s) in the currently open mailbox. */
-        fetch(source: any /* MessageSource */, options: FetchOptions): ImapFetch;
+        fetch(source: any /* MessageSource */, options: Connection.FetchOptions): Connection.ImapFetch;
         /** Copies message(s) in the currently open mailbox to another mailbox. */
         copy(source: any /* MessageSource */, mailboxName: string, callback: (error: Error) => void): void;
         /** Moves message(s) in the currently open mailbox to another mailbox. Note: The message(s) in the destination mailbox will have a new message UID. */
@@ -295,7 +295,7 @@ declare namespace IMAP {
         /**
         seq exposes the search() ... serverSupports() set of commands, but returns sequence number(s) instead of UIDs.
         */
-        seq: MessageFunctions;
+        seq: Connection.MessageFunctions;
         /** Attempts to connect and authenticate with the IMAP server. */
         connect(): void;
         /** Closes the connection to the server after all requests in the queue have been sent. */
@@ -303,9 +303,9 @@ declare namespace IMAP {
         /** Immediately destroys the connection to the server. */
         destroy(): void;
         /** Opens a specific mailbox that exists on the server. mailboxName should include any necessary prefix/path. modifiers is used by IMAP extensions. */
-        openBox(mailboxName: string, callback: (error: Error, mailbox: Box) => void): void;
-        openBox(mailboxName: string, openReadOnly: boolean, callback: (error: Error, mailbox: Box) => void): void;
-        openBox(mailboxName: string, openReadOnly: boolean, modifiers: Object, callback: (error: Error, mailbox: Box) => void): void;
+        openBox(mailboxName: string, callback: (error: Error, mailbox: Connection.Box) => void): void;
+        openBox(mailboxName: string, openReadOnly: boolean, callback: (error: Error, mailbox: Connection.Box) => void): void;
+        openBox(mailboxName: string, openReadOnly: boolean, modifiers: Object, callback: (error: Error, mailbox: Connection.Box) => void): void;
         /** Closes the currently open mailbox. If autoExpunge is true, any messages marked as Deleted in the currently open mailbox will be removed if the mailbox was NOT opened in read-only mode. If autoExpunge is false, you disconnect, or you open another mailbox, messages marked as Deleted will NOT be removed from the currently open mailbox. */
         closeBox(callback: (error: Error) => void): void;
         closeBox(autoExpunge: boolean, callback: (error: Error) => void): void;
@@ -314,29 +314,25 @@ declare namespace IMAP {
         /** Removes a specific mailbox that exists on the server. mailboxName should including any necessary prefix/path. */
         delBox(mailboxName: string, callback: (error: Error) => void): void;
         /** Renames a specific mailbox that exists on the server. Both oldMailboxName and newMailboxName should include any necessary prefix/path. Note: Renaming the 'INBOX' mailbox will instead cause all messages in 'INBOX' to be moved to the new mailbox. */
-        renameBox(oldMailboxName: string, newMailboxName: string, callback: (error: Error, mailbox: Box) => void): void;
+        renameBox(oldMailboxName: string, newMailboxName: string, callback: (error: Error, mailbox: Connection.Box) => void): void;
         /** Subscribes to a specific mailbox that exists on the server. mailboxName should include any necessary prefix/path. */
         subscribeBox(mailboxName: string, callback: (error: Error) => void): void;
         /** Unsubscribes from a specific mailbox that exists on the server. mailboxName should include any necessary prefix/path. */
         unsubscribeBox(mailboxName: string, callback: (error: Error) => void): void;
         /** Fetches information about a mailbox other than the one currently open. Note: There is no guarantee that this will be a fast operation on the server. Also, do not call this on the currently open mailbox. */
-        status(mailboxName: string, callback: (error: Error, mailbox: Box) => void): void;
+        status(mailboxName: string, callback: (error: Error, mailbox: Connection.Box) => void): void;
         /** Obtains the full list of mailboxes. If nsPrefix is not specified, the main personal namespace is used. */
-        getBoxes(callback: (error: Error, mailboxes: MailBoxes) => void): void;
-        getBoxes(nsPrefix: string, callback: (error: Error, mailboxes: MailBoxes) => void): void;
+        getBoxes(callback: (error: Error, mailboxes: Connection.MailBoxes) => void): void;
+        getBoxes(nsPrefix: string, callback: (error: Error, mailboxes: Connection.MailBoxes) => void): void;
         /** Obtains the full list of subscribed mailboxes. If nsPrefix is not specified, the main personal namespace is used. */
-        getSubscribedBoxes(callback: (error: Error, mailboxes: MailBoxes) => void): void;
-        getSubscribedBoxes(nsPrefix: string, callback: (error: Error, mailboxes: MailBoxes) => void): void;
+        getSubscribedBoxes(callback: (error: Error, mailboxes: Connection.MailBoxes) => void): void;
+        getSubscribedBoxes(nsPrefix: string, callback: (error: Error, mailboxes: Connection.MailBoxes) => void): void;
         /** Permanently removes all messages flagged as Deleted in the currently open mailbox. If the server supports the 'UIDPLUS' capability, uids can be supplied to only remove messages that both have their uid in uids and have the \Deleted flag set. Note: At least on Gmail, performing this operation with any currently open mailbox that is not the Spam or Trash mailbox will merely archive any messages marked as Deleted (by moving them to the 'All Mail' mailbox). */
         expunge(callback: (error: Error) => void): void;
         expunge(uids: any /* MessageSource */, callback: (error: Error) => void): void;
         /** Appends a message to selected mailbox. msgData is a string or Buffer containing an RFC-822 compatible MIME message. Valid options properties are: */
         append(msgData: any, callback: (error: Error) => void): void;
-        append(msgData: any, options: AppendOptions, callback: (error: Error) => void): void;
-    }
+        append(msgData: any, options: Connection.AppendOptions, callback: (error: Error) => void): void;
 }
 
-declare module "imap" {
-    var out: typeof IMAP.Connection;
-    export = out;
-}
+export = Connection;

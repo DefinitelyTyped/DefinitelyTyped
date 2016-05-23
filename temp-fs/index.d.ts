@@ -6,6 +6,8 @@
 /**
  * A temporary file and directory creator.
  */
+export = tempfs;
+
 declare namespace tempfs {
 
     /**
@@ -201,11 +203,4 @@ declare namespace tempfs {
      * and directories will be removed no matter it is on or off.</b>
      */
     function track(on?:Boolean):void;
-}
-
-/**
- * A temporary file and directory creator.
- */
-declare module "temp-fs" {
-    export = tempfs;
 }

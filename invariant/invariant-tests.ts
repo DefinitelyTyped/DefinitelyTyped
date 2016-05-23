@@ -1,4 +1,4 @@
-
+import invariant = require("invariant");
 
 // will throw in dev mode (process.env.NODE_ENV !== 'production')
 invariant(true);

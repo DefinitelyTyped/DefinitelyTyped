@@ -68,25 +68,24 @@ declare namespace RedisSMQ {
     }
 }
 
-declare module 'rsmq' {
-    import redis = require('redis');
+import redis = require('redis');
 
-    interface RedisSMQStatic {
-        new (options:ClientOptions): Client;
-    }
-
-    interface Client extends RedisSMQ.Client{
-        redis: redis.RedisClient;
-    }
-
-    interface ClientOptions {
-        host?: string;
-        port?: number;
-        options?: redis.ClientOpts;
-        client?: redis.RedisClient;
-        ns?: string;
-    }
-
-    var rsmq: RedisSMQStatic;
-    export = rsmq;
+interface RedisSMQStatic {
+    new (options:ClientOptions): Client;
 }
+
+interface Client extends RedisSMQ.Client{
+    redis: redis.RedisClient;
+}
+
+interface ClientOptions {
+    host?: string;
+    port?: number;
+    options?: redis.ClientOpts;
+    client?: redis.RedisClient;
+    ns?: string;
+}
+
+declare var rsmq: RedisSMQStatic;
+export = rsmq;
+

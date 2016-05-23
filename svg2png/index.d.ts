@@ -7,6 +7,4 @@ declare function svg2png(srcFile: string, destFile: string, scale: number, cb: (
 declare function svg2png(srcFile: string, destFile: string, cb: (err:Error) => void):void;
 
 
-declare module "svg2png" {
-  export = svg2png;
-}
+export = svg2png;

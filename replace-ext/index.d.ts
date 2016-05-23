@@ -6,6 +6,4 @@
 
 declare function replaceExt(npath: string, ext: string): string;
 
-declare module 'replace-ext' {
-    export = replaceExt;
-}
+export = replaceExt;

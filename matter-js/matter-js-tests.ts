@@ -1,3 +1,4 @@
+import Matter = require("matter-js");
 var Engine = Matter.Engine, 
 	World = Matter.World,
 	Body = Matter.Body,

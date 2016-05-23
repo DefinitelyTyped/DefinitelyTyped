@@ -38,12 +38,13 @@ declare module "redlock" {
 
 		interface LockError extends Error {}
 	}
+}
 
 	class Redlock {
 
-		driftFactor: number;
-		retryCount: number;
-		retryDelay: number;
+	driftFactor: number;
+	retryCount: number;
+	retryDelay: number;
 
 		servers: redis.RedisClient[];
 

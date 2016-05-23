@@ -79,6 +79,5 @@ declare class Heap<T> {
 
 }
 
-declare module 'heap' {
-    export = Heap;
-}
+export = Heap;
+export as namespace Heap;

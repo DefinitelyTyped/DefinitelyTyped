@@ -1,4 +1,4 @@
-
+import rewire = require("rewire");
 
 var myModule = rewire("../lib/myModule.js");
 

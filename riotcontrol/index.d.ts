@@ -3,6 +3,9 @@
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = RiotControl;
+export as namespace RiotControl;
+
 declare namespace RiotControl {
 	interface Store {
 		on(events: string, fn: Function): Store;
@@ -19,8 +22,4 @@ declare namespace RiotControl {
 	function one(name: string, fn: Function): void;
 	function off(events: string, fn?: Function): void;
 	function trigger(name: string, ...args: any[]): void;
-}
-
-declare module "riotcontrol" {
-	export = RiotControl;
 }

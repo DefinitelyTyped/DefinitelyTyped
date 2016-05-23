@@ -11,7 +11,6 @@ declare namespace LatinizeModule {
 }
 
 
-declare module "latinize" {
-    let latinize: LatinizeModule.Latinize;
-    export = latinize;
-}
+declare var latinize: LatinizeModule.Latinize;
+export = latinize;
+export as namespace latinize;

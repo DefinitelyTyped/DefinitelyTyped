@@ -60,31 +60,29 @@ declare namespace PathWatcher {
 	}
 }
 
-declare module "pathwatcher" {
+import events = require("events");
 
-	import events = require("events");
-
-	interface IHandleWatcher extends events.EventEmitter {
-		onEvent(event:any, filePath:any, oldFilePath:any):any;
-		start():void;
-		closeIfNoListener():void;
-		close():void;
-	}
-
-	interface IPathWatcher {
-		isWatchingParent:boolean;
-		path:any;
-		handleWatcher:IHandleWatcher;
-
-		close():void;
-	}
-
-	function watch(path:string, callback:Function):IPathWatcher;
-
-	function closeAllWatchers():void;
-
-	function getWatchedPaths():string[];
-
-	var File:PathWatcher.IFileStatic;
-	var Directory:PathWatcher.IDirectoryStatic;
+export interface IHandleWatcher extends events.EventEmitter {
+	onEvent(event:any, filePath:any, oldFilePath:any):any;
+	start():void;
+	closeIfNoListener():void;
+	close():void;
 }
+
+export interface IPathWatcher {
+	isWatchingParent:boolean;
+	path:any;
+	handleWatcher:IHandleWatcher;
+
+	close():void;
+}
+
+export function watch(path:string, callback:Function):IPathWatcher;
+
+export function closeAllWatchers():void;
+
+export function getWatchedPaths():string[];
+
+export var File:PathWatcher.IFileStatic;
+export var Directory:PathWatcher.IDirectoryStatic;
+

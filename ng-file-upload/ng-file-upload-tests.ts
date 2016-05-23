@@ -1,4 +1,4 @@
-﻿
+﻿import * as angular from 'angularjs';
 
 "use strict";
 

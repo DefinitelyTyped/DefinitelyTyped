@@ -5,6 +5,8 @@
 
 /// <reference types="Q" />
 
+export = Q;
+
 declare namespace Q {
     export interface IRetryOptions {
         limit?: number;
@@ -32,8 +34,4 @@ declare namespace Q {
         retry<U>(process: (value: T) => U, limit: number): Promise<U>;
         retry<U>(process: (value: T) => U, options?: IRetryOptions): Promise<U>;
     }
-}
-
-declare module "q-retry" {
-    export = Q;
 }

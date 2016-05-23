@@ -5,6 +5,9 @@
 
 /// <reference types="node"/>
 
+declare var wol: wol.Wol;
+export = wol;
+
 declare namespace wol {
 
 	export interface WakeOptions {
@@ -65,9 +68,4 @@ declare namespace wol {
 		 */
 		createMagicPacket(macAddress:string):Buffer;
 	}
-}
-
-declare module 'wake_on_lan' {
-	var wol: wol.Wol;
-	export = wol;
 }

@@ -6,6 +6,61 @@
 
 /// <reference types="node" />
 
+import * as cp from "child_process";
+
+interface DefaultFunction {
+    /**
+     * Uses the command open on OS X, start on Windows and xdg-open on other platforms.
+     * 
+     * Returns the spawned child process. 
+     * You'd normally not need to use this for anything, but it can be useful if you'd like 
+     * to attach custom event listeners or perform other operations directly on the spawned process.
+     * 
+* @param target - The thing you want to open. Can be a URL, file, or executable. Opens in the default app for the file type. Eg. URLs opens in your default browser.
+     */
+    (target: string): cp.ChildProcess;
+
+    /**
+     * Uses the command open on OS X, start on Windows and xdg-open on other platforms.
+     * 
+     * Returns the spawned child process. 
+     * You'd normally not need to use this for anything, but it can be useful if you'd like 
+     * to attach custom event listeners or perform other operations directly on the spawned process.
+     * 
+ * @param target - The thing you want to open. Can be a URL, file, or executable. Opens in the default app for the file type. Eg. URLs opens in your default browser.
+     * @param callback- Called when the opened app exits, or if `wait: false`, immediately when opening.
+     */
+    (target: string, callback: (err: Error) => void): cp.ChildProcess;
+
+    /**
+     * Uses the command open on OS X, start on Windows and xdg-open on other platforms.
+     * 
+     * Returns the spawned child process. 
+     * You'd normally not need to use this for anything, but it can be useful if you'd like 
+     * to attach custom event listeners or perform other operations directly on the spawned process.
+     * 
+     * @param target - The thing you want to open. Can be a URL, file, or executable. Opens in the default app for the file type. Eg. URLs opens in your default browser.
+     * @param options - Options to be passed to opn.
+     */
+    (target: string, options: Opn.Options): cp.ChildProcess;
+
+    /**
+     * Uses the command open on OS X, start on Windows and xdg-open on other platforms.
+     * 
+     * Returns the spawned child process. 
+     * You'd normally not need to use this for anything, but it can be useful if you'd like 
+     * to attach custom event listeners or perform other operations directly on the spawned process.
+     * 
+     * @param target - The thing you want to open. Can be a URL, file, or executable. Opens in the default app for the file type. Eg. URLs opens in your default browser.
+     * @param options - Options to be passed to opn.
+     * @param callback- Called when the opened app exits, or if `wait: false`, immediately when opening.
+     */
+    (target: string, options: Opn.Options, callback: (err: Error) => void): cp.ChildProcess;
+}
+
+declare var opn: DefaultFunction;
+export = opn;
+
 declare namespace Opn {
     export interface Options {
         /**
@@ -22,61 +77,4 @@ declare namespace Opn {
          */
         app?: string | string[];
     }
-}
-
-declare module "opn" {
-    import * as cp from "child_process";
-
-    interface DefaultFunction {
-        /**
-         * Uses the command open on OS X, start on Windows and xdg-open on other platforms.
-         * 
-         * Returns the spawned child process. 
-         * You'd normally not need to use this for anything, but it can be useful if you'd like 
-         * to attach custom event listeners or perform other operations directly on the spawned process.
-         * 
-         * @param target - The thing you want to open. Can be a URL, file, or executable. Opens in the default app for the file type. Eg. URLs opens in your default browser.
-         */
-        (target: string): cp.ChildProcess;
-
-        /**
-         * Uses the command open on OS X, start on Windows and xdg-open on other platforms.
-         * 
-         * Returns the spawned child process. 
-         * You'd normally not need to use this for anything, but it can be useful if you'd like 
-         * to attach custom event listeners or perform other operations directly on the spawned process.
-         * 
-         * @param target - The thing you want to open. Can be a URL, file, or executable. Opens in the default app for the file type. Eg. URLs opens in your default browser.
-         * @param callback- Called when the opened app exits, or if `wait: false`, immediately when opening.
-         */
-        (target: string, callback: (err: Error) => void): cp.ChildProcess;
-
-        /**
-         * Uses the command open on OS X, start on Windows and xdg-open on other platforms.
-         * 
-         * Returns the spawned child process. 
-         * You'd normally not need to use this for anything, but it can be useful if you'd like 
-         * to attach custom event listeners or perform other operations directly on the spawned process.
-         * 
-         * @param target - The thing you want to open. Can be a URL, file, or executable. Opens in the default app for the file type. Eg. URLs opens in your default browser.
-         * @param options - Options to be passed to opn.
-         */
-        (target: string, options: Opn.Options): cp.ChildProcess;
-
-        /**
-         * Uses the command open on OS X, start on Windows and xdg-open on other platforms.
-         * 
-         * Returns the spawned child process. 
-         * You'd normally not need to use this for anything, but it can be useful if you'd like 
-         * to attach custom event listeners or perform other operations directly on the spawned process.
-         * 
-         * @param target - The thing you want to open. Can be a URL, file, or executable. Opens in the default app for the file type. Eg. URLs opens in your default browser.
-         * @param options - Options to be passed to opn.
-         * @param callback- Called when the opened app exits, or if `wait: false`, immediately when opening.
-         */
-        (target: string, options: Opn.Options, callback: (err: Error) => void): cp.ChildProcess;
-    }
-
-    const opn: DefaultFunction;
-    export = opn;
 }

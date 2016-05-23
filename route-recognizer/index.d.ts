@@ -3,21 +3,19 @@
 // Definitions by: Dave Keen <http://www.keendevelopment.ch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "route-recognizer" {
-	
-	class RouteRecognizer<H> {
-		constructor()
-		add: (routes: Route<H>[]) => void
-		recognize: (path: string) => MatchedRoute<H>[]
-	}
-	
-	interface Route<H> {
-		path: string
-		handler: H
-	}
-	
-	export = RouteRecognizer
+declare class RouteRecognizer<H> {
+constructor()
+	add: (routes: Route<H>[]) => void
+	recognize: (path: string) => MatchedRoute<H>[]
 }
+
+interface Route<H> {
+	path: string
+	handler: H
+}
+
+export = RouteRecognizer;
+export as namespace RouteRecognizer;
 
 interface MatchedRoute<H> {
 	handler: H

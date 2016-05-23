@@ -21,6 +21,5 @@ declare namespace GoogleMapsLoader {
     export function isLoaded(): boolean;
 
 }
-declare module 'google-maps' {
-    export = GoogleMapsLoader;
-}
+export = GoogleMapsLoader;
+export as namespace GoogleMapsLoader;

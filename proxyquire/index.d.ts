@@ -3,6 +3,9 @@
 // Definitions by: jt000 <https://github.com/jt000/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare var p: Proxyquire;
+export = p;
+
 interface Proxyquire {
 
     (request: string, stubs: any): any;
@@ -16,10 +19,4 @@ interface Proxyquire {
 
     noPreserveCache(): Proxyquire;
     preserveCache(): Proxyquire;
-}
-
-declare module 'proxyquire' {
-
-    var p: Proxyquire;
-    export = p;
 }

@@ -135,3 +135,24 @@ declare module "pegjs" {
         var SyntaxError: any;
     }
 }
+
+export interface BuildOptions {
+    cache?: boolean;
+    allowedStartRules?: string[];
+    optimize?: string;
+    plugins?: any[];
+}
+
+export interface OutputBuildOptions extends BuildOptions {
+    output?: string;
+}
+
+export function buildParser(grammar: string, options?: BuildOptions): Parser;
+export function buildParser(grammar: string, options?: OutputBuildOptions): Parser | string;
+
+export namespace parser {
+    type SyntaxError = PegjsError;
+    var SyntaxError: any;
+}
+export as namespace PEG;
+

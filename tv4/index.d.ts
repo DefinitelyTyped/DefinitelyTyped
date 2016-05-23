@@ -97,7 +97,6 @@ declare namespace tv4 {
     }
 }
 
-declare module "tv4" {
-    var out: tv4.TV4
-    export = out;
-}
+declare var tv4: tv4.TV4;
+export = tv4;
+export as namespace tv4;

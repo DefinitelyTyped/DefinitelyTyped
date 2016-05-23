@@ -3,6 +3,9 @@
 // Definitions by: Eugene Chernyshov <https://github.com/Evgenus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = sjcl;
+export as namespace sjcl;
+
 declare namespace sjcl {
 
     export var bn: BigNumberStatic;
@@ -553,8 +556,4 @@ declare namespace sjcl {
         interface BigNumberTrinaryOperator extends Bind1<number>, Bind1<string>, Bind1<BigNumber> {
         }
     }
-}
-
-declare module "sjcl" {
-    export = sjcl;
 }

@@ -1,4 +1,4 @@
-import {Iconv} from "iconv";
+import Iconv = require("iconv");
 import {Writable} from "stream";
 
 const iconv: Iconv.Iconv = new Iconv("utf-8", "cp932");

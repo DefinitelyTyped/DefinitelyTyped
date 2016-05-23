@@ -1,4 +1,4 @@
-
+import j = require("jfp");
 
 function testFn () {};
 

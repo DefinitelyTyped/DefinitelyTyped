@@ -6,7 +6,7 @@
 // Sources: https://github.com/i18next/i18next/
 
 
-declare namespace I18next {
+declare namespace I18n {
     interface ResourceStore {
         [language: string]: ResourceStoreLanguage;
     }
@@ -138,5 +138,4 @@ declare namespace I18next {
 declare module 'i18next' {
     var i18n: I18next.I18n;
 
-    export = i18n;
-}
+export = i18n;

@@ -182,8 +182,3 @@ declare namespace Sendgrid {
 
     //#endregion
 }
-
-declare module "sendgrid" {
-    var ctor: Sendgrid.Constructor;
-    export = ctor;
-}

@@ -322,7 +322,62 @@ interface Response extends http.ServerResponse {
     versions: string[];
   }
 
-  interface Route {
+interface Request extends http.ServerRequest {
+  header: (key: string, defaultValue?: string) => any;
+  accepts: (type: string) => boolean;
+  is: (type: string) => boolean;
+  getLogger: (component: string) => any;
+  contentLength: number;
+  contentType: string;
+  href: () => string;
+  log: bunyan.Logger;
+  id: string;
+  path: () => string;
+  query: any;
+  secure: boolean;
+  time: number;
+  params: any;
+  files?: { [name: string]: requestFileInterface };
+  isSecure: () => boolean;
+  /** available when bodyParser plugin is used */
+  body?: any;
+  /** available when authorizationParser plugin is used */
+  username?: string;
+  /** available when authorizationParser plugin is used */
+  authorization?: requestAuthorization;
+}
+
+interface Response extends http.ServerResponse {
+  header: (key: string, value ?: any) => any;
+  cache: (type?: any, options?: Object) => any;
+  status: (code: number) => any;
+  send: (status?: any, body?: any, headers?: { [header: string]: string }) => any;
+  json: (status?: any, body?: any, headers?: { [header: string]: string }) => any;
+  code: number;
+  contentLength: number;
+  charSet(value: string): void;
+  contentType: string;
+  headers: Object;
+  id: string;
+}
+
+interface RouteSpec {
+  method: string;
+  name: string;
+  path: string;
+  versions: string[];
+}
+
+interface Route {
+  name: string;
+  method: string;
+  path: RoutePathRegex;
+  spec: RouteSpec;
+  types: string[];
+  versions: string[];
+}
+
+interface RouteOptions {
     name: string;
     method: string;
     path: RoutePathRegex;
@@ -612,3 +667,116 @@ export declare module pre {
     export function sanitizePath(options?: any): RequestHandler;
     export function userAgentConnection(options?: any): RequestHandler;
 }
+
+interface Next {
+  (err?: any): any;
+  ifError: (err?: any) => any;
+}
+
+interface RequestHandler {
+  (req: Request, res: Response, next: Next): any;
+}
+
+interface CORS {
+    (cors?: {
+        origins?: string[];
+        credentials?: boolean;
+        headers?: string[];
+    }): RequestHandler;
+    origins: string[];
+    ALLOW_HEADERS: string[];
+    credentials: boolean;
+}
+
+export function createServer(options?: ServerOptions): Server;
+
+export function createJsonClient(options?: ClientOptions): Client;
+export function createStringClient(options?: ClientOptions): Client;
+export function createClient(options?: ClientOptions): HttpClient;
+
+export class HttpError { constructor(cause: any, message?: any); }
+
+declare class DefiniteHttpError {
+  constructor(message?: any);
+  constructor(cause: any, message?: any);
+}
+
+export class BadRequestError extends DefiniteHttpError {}
+export class UnauthorizedError extends DefiniteHttpError {}
+export class PaymentRequiredError extends DefiniteHttpError {}
+export class ForbiddenError extends DefiniteHttpError {}
+export class NotFoundError extends DefiniteHttpError {}
+export class MethodNotAllowedError extends DefiniteHttpError {}
+export class NotAcceptableError extends DefiniteHttpError {}
+export class ProxyAuthenticationRequiredError extends DefiniteHttpError {}
+export class RequestTimeoutError extends DefiniteHttpError {}
+export class ConflictError extends DefiniteHttpError {}
+export class GoneError extends DefiniteHttpError {}
+export class LengthRequiredError extends DefiniteHttpError {}
+export class RequestEntityTooLargeError extends DefiniteHttpError {}
+export class RequesturiTooLargeError extends DefiniteHttpError {}
+export class UnsupportedMediaTypeError extends DefiniteHttpError {}
+export class RequestedRangeNotSatisfiableError extends DefiniteHttpError {}
+export class ExpectationFailedError extends DefiniteHttpError {}
+export class ImATeapotError extends DefiniteHttpError {}
+export class UnprocessableEntityError extends DefiniteHttpError {}
+export class LockedError extends DefiniteHttpError {}
+export class FailedDependencyError extends DefiniteHttpError {}
+export class UnorderedCollectionError extends DefiniteHttpError {}
+export class UpgradeRequiredError extends DefiniteHttpError {}
+export class PreconditionRequiredError extends DefiniteHttpError {}
+export class TooManyRequestsError extends DefiniteHttpError {}
+export class RequestHeaderFieldsTooLargeError extends DefiniteHttpError {}
+export class InternalServerError extends DefiniteHttpError {}
+export class NotImplementedError extends DefiniteHttpError {}
+export class BadGatewayError extends DefiniteHttpError {}
+export class ServiceUnavailableError extends DefiniteHttpError {}
+export class GatewayTimeoutError extends DefiniteHttpError {}
+export class HttpVersionNotSupportedError extends DefiniteHttpError {}
+export class VariantAlsoNegotiatesError extends DefiniteHttpError {}
+export class InsufficientStorageError extends DefiniteHttpError {}
+export class BandwidthLimitExceededError extends DefiniteHttpError {}
+export class NotExtendedError extends DefiniteHttpError {}
+export class NetworkAuthenticationRequiredError extends DefiniteHttpError {}
+export class RestError extends DefiniteHttpError {}
+
+export class PreconditionFailedError extends RestError {}
+export class BadDigestError extends RestError {}
+export class BadMethodError extends RestError {}
+export class InternalError extends RestError {}
+export class InvalidArgumentError extends RestError {}
+export class InvalidContentError extends RestError {}
+export class InvalidCredentialsError extends RestError {}
+export class InvalidHeaderError extends RestError {}
+export class InvalidVersionError extends RestError {}
+export class MissingParameterError extends RestError {}
+export class NotAuthorizedError extends RestError {}
+export class RequestExpiredError extends RestError {}
+export class RequestThrottledError extends RestError {}
+export class ResourceNotFoundError extends RestError {}
+export class WrongAcceptError extends RestError {}
+
+
+export function acceptParser(parser: any): RequestHandler;
+export function authorizationParser(): RequestHandler;
+export function dateParser(skew?: number): RequestHandler;
+export function queryParser(options?: Object): RequestHandler;
+export function urlEncodedBodyParser(options?: Object): RequestHandler[];
+export function jsonp(): RequestHandler;
+export function gzipResponse(options?: Object): RequestHandler;
+export function bodyParser(options?: Object): RequestHandler[];
+export function requestLogger(options?: Object): RequestHandler;
+export function serveStatic(options?: Object): RequestHandler;
+export function throttle(options?: ThrottleOptions): RequestHandler;
+export function conditionalRequest(): RequestHandler[];
+export function auditLogger(options?: Object): Function;
+export function fullResponse(): RequestHandler;
+export var defaultResponseHeaders : any;
+export var CORS: CORS;
+
+export module pre {
+    export function pause(): RequestHandler;
+    export function sanitizePath(options?: any): RequestHandler;
+    export function userAgentConnection(options?: any): RequestHandler;
+}
+

@@ -8,11 +8,9 @@
 
 // Support AMD require (copying angular.d.ts approach)
 // allows for import {IRequestConfig} from 'restangular' ES6 approach
-declare module 'restangular' {
-    export = restangular;
-}
-
-
+import * as angular from 'angularjs';
+export = restangular;
+export as namespace Restangular;
 
 declare namespace restangular {
 

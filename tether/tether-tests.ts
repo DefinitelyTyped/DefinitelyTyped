@@ -1,4 +1,5 @@
 ///<reference types="jquery" />
+import Tether = require("tether");
 
 var yellowBox = document.querySelector(".yellow");
 var greenBox = document.querySelector(".green");

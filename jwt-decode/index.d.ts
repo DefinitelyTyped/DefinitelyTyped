@@ -10,7 +10,6 @@ declare namespace JwtDecode {
     }
 }
 
-declare module 'jwt-decode' {
-    var jwtDecode: JwtDecode.JwtDecodeStatic;
-    export = jwtDecode;
-}
+declare var jwtDecode: JwtDecode.JwtDecodeStatic;
+export = jwtDecode;
+export as namespace jwt_decode;

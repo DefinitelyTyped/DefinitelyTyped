@@ -3,6 +3,11 @@
 // Definitions by: Christopher Brown <https://github.com/chbrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+
+declare var unorm: unorm.Static;
+export = unorm;
+export as namespace unorm;
+
 declare namespace unorm {
   interface Static {
     nfd(str: string): string;
@@ -10,10 +15,4 @@ declare namespace unorm {
     nfc(str: string): string;
     nfkc(str: string): string;
   }
-}
-
-declare var unorm: unorm.Static;
-
-declare module "unorm" {
-  export = unorm;
 }

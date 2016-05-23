@@ -5,6 +5,9 @@
 
 /// <reference types="node" />
 
+declare var npm: NPM.Static;
+export = npm;
+
 declare namespace NPM {
     export interface Static extends NodeJS.EventEmitter {
         config: Config;
@@ -453,9 +456,4 @@ declare namespace NPM {
     }
 
     //#endregion
-}
-
-declare module "npm" {
-    var npm: NPM.Static;
-    export = npm;
 }

@@ -104,9 +104,8 @@ declare namespace simplestoragejs {
 
 }
 
-declare module "simplestorage.js" {
-    export = simpleStorage;
-}
+export = simpleStorage;
+export as namespace simpleStorage;
 
 /**
  * Cross-browser key-value store database to store data locally in the browser.

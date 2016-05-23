@@ -11,6 +11,4 @@ declare function fileUrl(path:string):string;
 /**
  * Convert a path to a file URL.
  */
-declare module "file-url" {
-    export = fileUrl;
-}
+export = fileUrl;

@@ -5,6 +5,9 @@
 
 /// <reference types="angularjs" />
 
+export = ngtoaster;
+export as namespace toaster;
+
 declare namespace ngtoaster {
   interface IToasterService {
     pop(params:IPopParams): void
@@ -102,8 +105,4 @@ declare namespace ngtoaster {
     success: string;
     warning: string;
   }
-}
-
-declare module "ngtoaster" {
-  export = ngtoaster
 }

@@ -1,7 +1,7 @@
 /// <reference types="jquery" />
 
 
-import q = require('q');
+import Q = require('q');
 
 Q(8).then(x => console.log(x.toExponential()));
 Q().then(() => console.log("nothing"));

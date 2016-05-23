@@ -21,29 +21,29 @@ declare namespace insight {
     }
 }
 
-declare module "insight" {
-    import IOptions = insight.IOptions;
-    import IConfigstore = insight.IConfigstore;
 
-    class Insight {
-        trackingCode:string;
-        trackingProvider:string;
-        packageName:string;
-        packageVersion:string;
-        os:string;
-        nodeVersion:string;
-        appVersion:string;
-        config:IConfigstore;
+import IOptions = insight.IOptions;
+import IConfigstore = insight.IConfigstore;
 
-        optOut:boolean;
-        clientId:string;
+declare class Insight {
+    trackingCode:string;
+    trackingProvider:string;
+    packageName:string;
+    packageVersion:string;
+    os:string;
+    nodeVersion:string;
+    appVersion:string;
+    config:IConfigstore;
 
-        constructor(options:IOptions);
+    optOut:boolean;
+    clientId:string;
 
-        track(...args:string[]):void;
+    constructor(options:IOptions);
 
-        askPermission(msg?:string, cb?:Function):void;
-    }
+    track(...args:string[]):void;
 
-    export = Insight;
+    askPermission(msg?:string, cb?:Function):void;
 }
+
+export = Insight;
+

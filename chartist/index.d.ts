@@ -558,6 +558,5 @@ declare namespace Chartist {
 
 declare var Chartist: Chartist.ChartistStatic;
 
-declare module 'chartist' {
-  export = Chartist;
-}
+export = Chartist;
+export as namespace Chartist;

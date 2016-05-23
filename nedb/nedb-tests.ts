@@ -158,7 +158,7 @@ class BaseCollection<T> {
         return deferred.promise;
     }
 
-    public update(query:Object, updateQuery:Object, options?:NeDB.UpdateOptions):Q.Promise<number> {
+    public update(query:Object, updateQuery:Object, options?:any):Q.Promise<number> {
 
         var deferred = Q.defer<number>();
 

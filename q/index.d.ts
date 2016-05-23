@@ -3,6 +3,9 @@
 // Definitions by: Barrie Nemetchek <https://github.com/bnemetchek>, Andrew Gaspar <https://github.com/AndrewGaspar/>, John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = Q;
+export as namespace Q;
+
 /**
  * If value is a Q promise, returns the promise.
  * If value is a promise from another library it is coerced into a Q promise (where possible).
@@ -354,8 +357,4 @@ declare namespace Q {
 	 * @returns { The last version of Q. }
 	 */
 	export function noConflict(): typeof Q;
-}
-
-declare module "q" {
-    export = Q;
 }

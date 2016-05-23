@@ -30,7 +30,5 @@ declare namespace Hashids {
     }
 }
 
-declare module 'hashids' {
-    var hashids: Hashids.IHashids;
-    export = hashids;
-}
+declare var hashids: Hashids.IHashids;
+export = hashids;

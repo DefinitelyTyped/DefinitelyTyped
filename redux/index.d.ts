@@ -3,6 +3,9 @@
 // Definitions by: William Buchwalter <https://github.com/wbuchwalter/>, Vincent Prouillet <https://github.com/Keats/>, Kaur Kuut <https://github.com/xStrom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = Redux;
+export as namespace Redux;
+
 declare namespace Redux {
     /**
      * An *action* is a plain object that represents an intention to change the

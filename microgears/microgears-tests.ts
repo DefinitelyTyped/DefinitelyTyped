@@ -1,4 +1,4 @@
-
+import microgears = require("microgears");
 
 
 function verify_module_file() {

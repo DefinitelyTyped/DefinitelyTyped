@@ -3,6 +3,10 @@
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare var flatten: FlatTypes.Flatten;
+
+export = flatten;
+
 declare namespace FlatTypes {
 	interface FlattenOptions {
 		delimiter?: string;
@@ -32,10 +36,4 @@ declare namespace FlatTypes {
 			options?: UnflattenOptions
 		): TResult;
 	}
-}
-
-declare module "flat" {
-	var flatten: FlatTypes.Flatten;
-
-	export = flatten;
 }

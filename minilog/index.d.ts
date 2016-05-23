@@ -97,6 +97,5 @@ declare namespace Minilog {
 
 }
 
-declare module 'minilog' {
-    export = Minilog;
-}
+export = Minilog;
+export as namespace Minilog;

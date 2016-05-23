@@ -5,6 +5,9 @@
 
 /// <reference types="node" />
 
+declare var stylus: Stylus.Static;
+export = stylus;
+
 declare namespace Stylus {
 
     export interface Static {
@@ -1439,9 +1442,4 @@ declare namespace Stylus {
     }
 
     //#endregion
-}
-
-declare module "stylus" {
-    var stylus: Stylus.Static;
-    export = stylus;
 }

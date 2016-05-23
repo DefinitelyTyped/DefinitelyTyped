@@ -3,6 +3,8 @@
 // Definitions by: Vadim Macagon <https://github.com/enlight/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = AtomEventKit;
+
 declare namespace AtomEventKit {
 	interface IDisposable {
 		dispose(): void;
@@ -75,8 +77,4 @@ declare namespace AtomEventKit {
 
 	/** A utility class for implementing event-based APIs. */
 	var Emitter: EmitterStatic;
-}
-
-declare module "event-kit" {
-	export = AtomEventKit;
 }

@@ -3,6 +3,9 @@
 // Definitions by: Morten Houston Ludvigsen <https://github.com/MortenHoustonLudvigsen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = SourceMap;
+export as namespace sourceMap;
+
 declare namespace SourceMap {
     interface StartOfSourceMap {
         file?: string;
@@ -84,8 +87,4 @@ declare namespace SourceMap {
         public toString(): string;
         public toStringWithSourceMap(startOfSourceMap?: StartOfSourceMap): CodeWithSourceMap;
     }
-}
-
-declare module 'source-map' {
-    export = SourceMap;
 }

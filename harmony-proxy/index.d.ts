@@ -29,7 +29,5 @@ declare namespace harmonyProxy {
     }
 }
 
-declare module "harmony-proxy" {
-    let _Proxy: harmonyProxy.ProxyConstructor;
-    export = _Proxy;
-}
+declare var _Proxy: harmonyProxy.ProxyConstructor;
+export = _Proxy;

@@ -3,6 +3,9 @@
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = JsDiff;
+export as namespace JsDiff;
+
 declare namespace JsDiff {
     interface IDiffResult {
         value: string;
@@ -81,8 +84,4 @@ declare namespace JsDiff {
     function convertChangesToXML(changes:IDiffResult[]):string;
 
     function convertChangesToDMP(changes:IDiffResult[]):{0: number; 1:string;}[];
-}
-
-declare module "diff" {
-    export = JsDiff;
 }

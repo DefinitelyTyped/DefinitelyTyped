@@ -6,6 +6,10 @@
 /// <reference types="node" />
 /// <reference types="parse-torrent" />
 
+declare var webTorrentStatic:WebTorrent.ClientConstructor;
+export = webTorrentStatic;
+export as namespace WebTorrent;
+
 declare namespace WebTorrent {
   export interface ClientOptions {
     dht?: boolean|Object,   // Enable DHT (default=true), or options object for DHT
@@ -332,9 +336,4 @@ declare namespace WebTorrent {
      */
     on(event: 'done', callback:()=>void): this;
   }
-}
-
-declare module "webtorrent" {
-  const webTorrentStatic:WebTorrent.ClientConstructor;
-  export = webTorrentStatic;
 }

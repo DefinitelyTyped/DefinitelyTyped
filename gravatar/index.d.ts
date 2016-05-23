@@ -18,6 +18,4 @@ declare namespace GravatarModule {
   function url(email: string, options?: Options, forceProtocol?: boolean): string;
 }
 
-declare module "gravatar" {
-    export = GravatarModule;
-}
+export = GravatarModule;

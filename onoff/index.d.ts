@@ -5,6 +5,8 @@
 
 /// <reference types="node" />
 
+export = __ONOFF;
+
 declare namespace __ONOFF {
 
     var version:string;
@@ -48,8 +50,4 @@ declare namespace __ONOFF {
         unexport():void;
     }
 
-}
-
-declare module "onoff" {
-    export = __ONOFF;
 }

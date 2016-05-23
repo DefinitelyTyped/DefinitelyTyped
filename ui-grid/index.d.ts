@@ -17,6 +17,9 @@
 /// <reference types="jquery" />
 /// <reference types="angularjs" />
 
+export = uiGrid;
+export as namespace uiGrid;
+
 declare namespace uiGrid {
     export interface IUiGridConstants {
         LOG_DEBUG_MESSAGES: boolean;
@@ -3915,8 +3918,4 @@ declare namespace uiGrid {
     export interface IFilterFlags {
         caseSensitive?: boolean;
     }
-}
-
-declare module 'angular-ui-grid' {
-    export = uiGrid;
 }

@@ -7,6 +7,8 @@
  easystarjs.d.ts may be freely distributed under the MIT license.
  */
 
+export = easystarjs;
+
 declare namespace easystarjs
 {
     class js
@@ -30,8 +32,4 @@ declare namespace easystarjs
         x: number;
         y: number;
     }
-}
-
-declare module "easystarjs" {
-    export = easystarjs;
 }

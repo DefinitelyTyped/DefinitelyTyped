@@ -5,6 +5,13 @@
 
 /// <reference types="react" />
 
+declare var Helmet: {
+    (): ReactHelmet.HelmetComponent
+    rewind(): ReactHelmet.HelmetData
+    }
+
+export = Helmet;
+
 declare namespace ReactHelmet {
     import React = __React;
 

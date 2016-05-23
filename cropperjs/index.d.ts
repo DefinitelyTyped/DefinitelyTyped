@@ -4,6 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
+declare const Cropper: typeof cropperjs.Cropper;
+export = Cropper;
+export as namespace Cropper;
+
 declare module cropperjs {
     export enum CropperViewMods {
         CropBoxIsJustWithInTheContainer = 0,

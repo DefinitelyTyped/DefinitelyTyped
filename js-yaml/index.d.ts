@@ -80,6 +80,5 @@ declare namespace jsyaml {
 	}
 }
 
-declare module 'js-yaml' {
-	export = jsyaml;
-}
+export = jsyaml;
+export as namespace jsyaml;

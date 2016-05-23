@@ -3,6 +3,13 @@
 // Definitions by: Giovanni Bassi <https://github.com/giggio/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/**
+ * @param doc should be a string with the help message, written according to rules of the docopt language.
+ */
+declare function docopt(doc: string, options: DocoptOption): any;
+
+export = docopt;
+
 interface DocoptOption {
     /** is an optional argument vector. It defaults to the arguments passed to your program (process.argv[2..]). You can also supply it with an array of strings, as with process.argv. For example: ['--verbose', '-o', 'hai.txt'] */
     argv?: Array<string>,
@@ -14,10 +21,4 @@ interface DocoptOption {
     options_first?: boolean,
     /** (default true) If set to false will cause docopt to throw exceptions instead of printing the error to console and terminating the application. This flag is mainly for testing purposes. */
     exit?: boolean
-}
-declare module "docopt" {
-    /**
-     * @param doc should be a string with the help message, written according to rules of the docopt language.
-     */
-    export function docopt(doc: string, options: DocoptOption): any;
 }

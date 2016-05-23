@@ -3,6 +3,8 @@
 // Definitions by: Abraão Alves <https://github.com/abraaoalves>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = cucumber;
+
 declare namespace cucumber {
 
 	export interface CallbackStepDefinition{
@@ -69,8 +71,4 @@ declare namespace cucumber {
 		setDefaultTimeout(time:number): void;
 		registerHandler(handlerOption:string, code:(event:any, callback:CallbackStepDefinition) =>void): void;
 	}
-}
-
-declare module 'cucumber'{
-	export = cucumber;
 }

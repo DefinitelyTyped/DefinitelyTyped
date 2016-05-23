@@ -130,6 +130,5 @@ declare namespace __Combinatorics {
 
 }
 
-declare module "js-combinatorics" {
-	export = __Combinatorics;
-}
+export = __Combinatorics;
+export as namespace Combinatorics;

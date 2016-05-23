@@ -1,4 +1,4 @@
-
+import * as angular from 'angularjs';
 
 angular
 	.module('main', ['ui-select'])

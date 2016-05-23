@@ -171,6 +171,9 @@ declare module "nedb" {
     export = NeDBDataStore;
 }
 
+export = NeDBDataStore;
+export as namespace Nedb;
+
 declare namespace NeDB {
 
     interface Cursor<T> {

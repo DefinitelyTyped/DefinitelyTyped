@@ -1,4 +1,4 @@
-
+import Redux = require("redux");
 
 // Simple counter test using the global Redux var
 

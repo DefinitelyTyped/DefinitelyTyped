@@ -5,10 +5,8 @@
 
 /// <reference types="angularjs" />
 
-declare module "angular-touchspin" {
-    let _: string;
-    export = _;
-}
+declare let angularTouchSpin: string;
+export = angularTouchSpin;
 
 declare namespace angular.touchspin {
     interface ITouchSpinOptions {

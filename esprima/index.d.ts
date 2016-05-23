@@ -5,6 +5,9 @@
 
 /// <reference types="estree" />
 
+export = esprima;
+export as namespace esprima;
+
 declare namespace esprima {
 
     const version: string;
@@ -101,8 +104,4 @@ declare namespace esprima {
         YieldExpression: string
     };
 
-}
-
-declare module "esprima" {
-    export = esprima
 }

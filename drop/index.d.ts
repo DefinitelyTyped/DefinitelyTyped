@@ -5,6 +5,9 @@
 
 ///<reference types="tether" />
 
+export = Drop;
+export as namespace Drop;
+
 // global Drop constructor
 declare class Drop {
     constructor(options: Drop.IDropOptions);
@@ -48,9 +51,5 @@ declare namespace Drop {
         beforeClose?: () => boolean;
         tetherOptions?: Tether.ITetherOptions;
     }
-}
-
-declare module "drop" {
-    export = Drop;
 }
 

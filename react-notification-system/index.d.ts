@@ -77,7 +77,5 @@ declare namespace NotificationSystem {
 }
 
 
-declare module 'react-notification-system' {
-    var component: React.ClassicComponentClass<NotificationSystem.Attributes>;
-    export = component;
-}
+declare var NotificationSystem: React.ClassicComponentClass<NotificationSystem.Attributes>;
+export = NotificationSystem;

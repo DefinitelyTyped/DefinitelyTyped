@@ -3,6 +3,9 @@
 // Definitions by: clark-stevenson <https://github.com/pixijs/pixi-typescript>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = PIXI;
+export as namespace PIXI;
+
 declare class PIXI {
 
     static VERSION: string;
@@ -1741,8 +1744,4 @@ declare namespace PIXI {
         }
 
     }
-}
-
-declare module 'pixi.js' {
-    export = PIXI;
 }

@@ -3,6 +3,9 @@
 // Definitions by: cbowdon <https://github.com/cbowdon>, Pei-Tang Huang <https://github.com/tan9/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = Showdown;
+export as namespace showdown;
+
 declare namespace Showdown {
 
     interface Extension {
@@ -325,8 +328,4 @@ declare namespace Showdown {
      * Reset extensions.
      */
     function resetExtensions(): void;
-}
-
-declare module "showdown" {
-    export = Showdown;
 }

@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="Q" />
+export = Qajax;
+export as namespace Qajax;
 
 declare function Qajax(url : string) : Q.Promise<XMLHttpRequest>;
 declare function Qajax(options : any) : Q.Promise<XMLHttpRequest>;
@@ -20,8 +22,4 @@ declare namespace Qajax {
 	export function getJSON(url : string) : Q.Promise<any>;
 
 	export function serialize(paramsObj : any) : string;
-}
-
-declare module "qajax" {
-	export = Qajax;
 }

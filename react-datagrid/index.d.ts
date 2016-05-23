@@ -5,10 +5,8 @@
 
 /// <reference types="react"/>
 
-declare module "react-datagrid" {
-    import DataGrid = ReactDataGrid.DataGrid;
-    export = DataGrid;
-}
+import DataGrid = ReactDataGrid.DataGrid;
+export = DataGrid;
 
 declare namespace ReactDataGrid {
     interface DataGridProps extends React.Props<DataGrid> {

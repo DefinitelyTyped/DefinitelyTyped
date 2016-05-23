@@ -5,7 +5,7 @@
 
 
 //Following are example snippets from mixu.net/minilog
-
+import Minilog = require("minilog");
 var log = Minilog('app');
 Minilog.enable();
 

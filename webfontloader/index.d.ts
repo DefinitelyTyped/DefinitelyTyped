@@ -3,6 +3,9 @@
 // Definitions by: doskallemaskin <https://github.com/doskallemaskin/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = WebFont;
+export as namespace WebFont;
+
 declare namespace WebFont {
 	export function load(config:WebFont.Config):void;
 	export interface Config {
@@ -54,7 +57,4 @@ declare namespace WebFont {
 		version?:number;
 	}
 
-}
-declare module "webfontloader" {
-    export = WebFont;
 }

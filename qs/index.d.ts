@@ -3,6 +3,9 @@
 // Definitions by: Roman Korneev <https://github.com/RWander>, Leon Yu <https://github.com/leonyu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = QueryString;
+export as namespace qs;
+
 declare namespace QueryString {
     interface IStringifyOptions {
         delimiter?: string;
@@ -30,8 +33,4 @@ declare namespace QueryString {
 
     function stringify(obj: any, options?: IStringifyOptions): string;
     function parse(str: string, options?: IParseOptions): any;
-}
-
-declare module "qs" {
-	export = QueryString;
 }

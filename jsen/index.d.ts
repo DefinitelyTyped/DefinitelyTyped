@@ -3,7 +3,7 @@
 // Definitions by: Vladimir Đokić <https://github.com/vladeck/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module Jsen {
+declare namespace Jsen {
 
     export interface JsenFormats {
         [key: string]: string | RegExp | Function;
@@ -46,7 +46,6 @@ declare module Jsen {
     }
 }
 
-declare module "jsen" {
-    var _jsen: Jsen.JsenMain;
-    export = _jsen;
-}
+declare var Jsen: Jsen.JsenMain;
+export = Jsen;
+export as namespace jsen;

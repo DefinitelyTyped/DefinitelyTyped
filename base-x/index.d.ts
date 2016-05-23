@@ -3,6 +3,9 @@
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare var base: BaseX.Base;
+export = base;
+
 declare namespace BaseX {
 	interface EncodeBuffer {
 		[index: number]: number;
@@ -17,12 +20,4 @@ declare namespace BaseX {
 	interface Base {
 		(ALPHABET: string): BaseX.BaseConverter
 	}
-}
-
-declare module "base-x" {
-	namespace base {}
-
-	let base: BaseX.Base;
-
-	export = base;
 }

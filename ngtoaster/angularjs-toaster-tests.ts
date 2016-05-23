@@ -1,3 +1,5 @@
+import ngtoaster = require("ngtoaster");
+import * as angular from 'angularjs';
 
 class NgToasterTestController {
   constructor(public $scope: ng.IScope, public $window: ng.IWindowService, public toaster: ngtoaster.IToasterService) {

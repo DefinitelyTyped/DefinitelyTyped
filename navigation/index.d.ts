@@ -2,9 +2,7 @@
 // Project: http://grahammendick.github.io/navigation/
 // Definitions by: Graham Mendick <https://github.com/grahammendick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-declare module 'navigation' {
-    export = Navigation;
-}
+export = Navigation;
 
 declare namespace Navigation {
     /**

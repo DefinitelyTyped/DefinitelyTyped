@@ -3,6 +3,9 @@
 // Definitions by: ryoppy <https://github.com/ryoppy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = scalike;
+export as namespace scalike;
+
 declare namespace scalike {
 
     export interface Either<A, B> {
@@ -262,8 +265,4 @@ declare namespace scalike {
         constructor(oa: Future<A>, ob: Future<B>, oc: Future<C>, od: Future<D>, oe: Future<E>, of: Future<F>);
         run<G>(f: (a: A, b: B, c: C, d: D, e: E, f: F) => G): Future<G>;
     }
-}
-
-declare module "scalike" {
-    export = scalike
 }

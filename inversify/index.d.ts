@@ -270,6 +270,4 @@ declare namespace inversify {
     export var typeConstraint: (type: (Function|string)) => (request: interfaces.Request) => boolean;
 }
 
-declare module "inversify" {
-  export = inversify;
-}
+export = inversify;

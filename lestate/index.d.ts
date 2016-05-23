@@ -22,6 +22,4 @@ declare let LeState : {
     };
 };
 
-declare module "lestate" {
-    export default LeState;
-}
+export = LeState;
