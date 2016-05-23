@@ -1,3 +1,4 @@
+import LeState = require("lestate");
 let State = LeState.createState()
 
 State.set({

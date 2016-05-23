@@ -1,4 +1,4 @@
-
+import uiGrid = require("ui-grid");
 /// <reference types="angularjs" />
 
 interface IMyEntity {

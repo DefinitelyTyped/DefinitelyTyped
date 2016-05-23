@@ -3,6 +3,8 @@
 // Definitions by: Diullei Gomes <https://github.com/Diullei>, Bart van der Schoor <https://github.com/Bartvds>, Nico Jansen <https://github.com/nicojs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = Chalk;
+
 declare namespace Chalk {
 
     export var enabled: boolean;
@@ -114,9 +116,5 @@ declare namespace Chalk {
         bgCyan: ChalkStyleElement;
         bgWhite: ChalkStyleElement;
     }
-}
-
-declare module "chalk" {
-    export = Chalk;
 }
 

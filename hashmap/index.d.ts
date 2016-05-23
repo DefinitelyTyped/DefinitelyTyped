@@ -125,6 +125,5 @@ declare class HashMap<TKey, TValue> {
     forEach(callback:(value:TValue, key:TKey) => void):HashMap<TKey, TValue>;
 }
 
-declare module "hashmap" {
-    export = HashMap;
-}
+export = HashMap;
+export as namespace HashMap;

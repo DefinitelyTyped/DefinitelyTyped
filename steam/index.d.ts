@@ -5,6 +5,8 @@
 
 /// <reference types="node" />
 
+export = Steam;
+
 declare namespace Steam {
     export var servers: any;
 
@@ -58,9 +60,5 @@ declare namespace Steam {
         emit(event: string, ...args: any[]): boolean;
         listenerCount(type: string): number;
     }
-}
-
-declare module "steam" {
-    export = Steam;
 }
 

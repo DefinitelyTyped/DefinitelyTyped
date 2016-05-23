@@ -46,20 +46,20 @@ declare namespace __SockJSClient {
   }
 }
 
-declare module 'sockjs-client' {
-  import SockJSClass = __SockJSClient.SockJSClass;
-  import Options = __SockJSClient.Options;
-  import State = __SockJSClient.State;
+import SockJSClass = __SockJSClient.SockJSClass;
+import Options = __SockJSClient.Options;
+import State = __SockJSClient.State;
 
-  var SockJS: {
-    new(url: string, _reserved?: any, options?: Options): SockJSClass;
-    (url: string, _reserved?: any, options?: Options): SockJSClass;
-    prototype: SockJSClass;
-    CONNECTING: State;
-    OPEN: State;
-    CLOSING: State;
-    CLOSED: State;
-  };
+declare var SockJS: {
+  new(url: string, _reserved?: any, options?: Options): SockJSClass;
+  (url: string, _reserved?: any, options?: Options): SockJSClass;
+  prototype: SockJSClass;
+  CONNECTING: State;
+  OPEN: State;
+  CLOSING: State;
+  CLOSED: State;
+};
 
-  export = SockJS;
-}
+export = SockJS;
+export as namespace SockJS;
+

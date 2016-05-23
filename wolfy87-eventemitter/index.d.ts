@@ -3,6 +3,10 @@
 // Definitions by: ryiwamoto <https://github.com/ryiwamoto/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare class EventEmitter extends Wolfy87EventEmitter.EventEmitter {}
+export = EventEmitter;
+export as namespace EventEmitter;
+
 declare namespace Wolfy87EventEmitter {
 
     /**
@@ -502,11 +506,6 @@ declare namespace Wolfy87EventEmitter {
          */
         setOnceReturnValue(value: any): EventEmitter;
     }
-}
-
-declare module "wolfy87-eventemitter" {
-    class EventEmitter extends Wolfy87EventEmitter.EventEmitter {}
-    export = EventEmitter;
 }
 
 //declare var EventEmitter: typeof Wolfy87EventEmitter.EventEmitter;

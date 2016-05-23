@@ -347,7 +347,7 @@ declare class Long
     xor( other: Long | number | string ): Long;
 }
 
-declare module 'long' {
-    namespace Long {}
-    export = Long;
-}
+declare namespace Long {}
+export = Long;
+export as namespace Long;
+ 

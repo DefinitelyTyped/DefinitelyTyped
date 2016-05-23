@@ -7,6 +7,8 @@
 /// <reference types="react-router"/>
 /// <reference types="history"/>
 
+export = ReactRouterRedux;
+
 declare namespace ReactRouterRedux {
     import R = Redux;
 
@@ -55,8 +57,4 @@ declare namespace ReactRouterRedux {
     function routerReducer(state?: any, options?: any): R.Reducer;
     function syncHistoryWithStore(history: History.History, store: R.Store, options?: SyncHistoryWithStoreOptions): ReactRouterReduxHistory;
     function routerMiddleware(history: History.History): R.Middleware;
-}
-
-declare module "react-router-redux" {
-    export = ReactRouterRedux;
 }

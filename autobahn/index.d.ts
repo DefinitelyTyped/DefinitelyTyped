@@ -5,6 +5,8 @@
 
 /// <reference types="when" />
 
+export = autobahn;
+
 declare namespace autobahn {
 
     export class Session {
@@ -261,8 +263,4 @@ declare namespace autobahn {
     var log: ILog;
     var transports: ITransports;
     var auth_cra: IAuthCra;
-}
-
-declare module "autobahn" {
-    export = autobahn;
 }

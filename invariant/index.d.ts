@@ -5,9 +5,8 @@
 
 declare let invariant:invariant.InvariantStatic;
 
-declare module "invariant" {
-  export = invariant;
-}
+export = invariant;
+export as namespace invariant;
 
 declare namespace invariant {
   interface InvariantStatic {

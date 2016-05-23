@@ -3,6 +3,9 @@
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare var ctor: Sendgrid.Constructor;
+export = ctor;
+
 declare namespace Sendgrid {
     //#region Options
 
@@ -161,9 +164,4 @@ declare namespace Sendgrid {
     }
 
     //#endregion
-}
-
-declare module "sendgrid" {
-    var ctor: Sendgrid.Constructor;
-    export = ctor;
 }

@@ -3,6 +3,8 @@
 // Definitions by: Nico Jansen <https://github.com/nicojs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = commonmark;
+export as namespace commonmark;
 
 declare namespace commonmark {
 
@@ -207,8 +209,4 @@ declare namespace commonmark {
         render(root: Node): string;
     }
 
-}
-
-declare module 'commonmark' {
-    export = commonmark;
 }

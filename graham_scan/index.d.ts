@@ -7,6 +7,5 @@ declare class ConvexHullGrahamScan {
     getHull(): {x: number, y: number}[];
 }
 
-declare module 'graham_scan' {
-    export = ConvexHullGrahamScan;
-}
+export = ConvexHullGrahamScan;
+export as namespace ConvexHullGrahamScan;

@@ -5,62 +5,63 @@
 
 //NOTE: Does require GM (https://github.com/aheckmann/gm) thus requires GraphicsMagick (http://www.graphicsmagick.org/) or ImageMagick (http://www.imagemagick.org/)
 
-declare module "s3-uploader" {
-    export = Upload;
-}
-interface S3UploaderVersion {
-    original?: boolean;
-    suffix?: string;
-    quality?: number;
-    maxWidth?: number;
-    maxHeight?: number;
-}
+export = Upload;
 
-interface S3UploaderOptions {
-    awsAccessKeyId?: string;
-    awsSecretAccessKey?: string;
-    awsBucketRegion?: string;
-    awsBucketPath?: string;
-    awsBucketAcl?: string;
-    awsMaxRetries?: number;
-    awsHttpTimeout?: number;
-    resizeQuality?: number;
-    returnExif?: boolean;
-    tmpDir?: string;
-    workers?: number;
-    url?: string;
-    versions?: S3UploaderVersion;
-}
+declare namespace Upload {
+    interface S3UploaderVersion {
+        original?: boolean;
+        suffix?: string;
+        quality?: number;
+        maxWidth?: number;
+        maxHeight?: number;
+    }
 
-declare class Meta {
-    public format: string;
-    public fileSize: string;
-    public imageSize: imageSize;
-    public orientation: string;
-    public colorSpace: string;
-    public compression: string;
-    public quallity: string;
-}
+    interface S3UploaderOptions {
+        awsAccessKeyId?: string;
+        awsSecretAccessKey?: string;
+        awsBucketRegion?: string;
+        awsBucketPath?: string;
+        awsBucketAcl?: string;
+        awsMaxRetries?: number;
+        awsHttpTimeout?: number;
+        resizeQuality?: number;
+        returnExif?: boolean;
+        tmpDir?: string;
+        workers?: number;
+        url?: string;
+        versions?: S3UploaderVersion;
+    }
 
-declare class imageSize {
-    public height: number;
-    public width: number;
-}
+    interface Meta {
+        format: string;
+        fileSize: string;
+        imageSize: imageSize;
+        orientation: string;
+        colorSpace: string;
+        compression: string;
+        quallity: string;
+    }
 
-declare class image {
-    public etag: string;
-    public format: string;
-    public height: number;
-    public original: boolean;
-    public path: string;
-    public size: string;
-    public src: string;
-    public url: string;
-    public width: number;
+    interface imageSize {
+        height: number;
+        width: number;
+    }
+
+    interface image {
+        etag: string;
+        format: string;
+        height: number;
+        original: boolean;
+        path: string;
+        size: string;
+        src: string;
+        url: string;
+        width: number;
+    }
 }
 
 declare class Upload {
-    public constructor(awsBucketName: string, opts: S3UploaderOptions);
+    public constructor(awsBucketName: string, opts: Upload.S3UploaderOptions);
 
-    public upload(src: string, opts?: S3UploaderOptions, cb?: (err: string, images: image[], meta: Meta) => void): void;
+    public upload(src: string, opts?: Upload.S3UploaderOptions, cb?: (err: string, images: Upload.image[], meta: Upload.Meta) => void): void;
 }

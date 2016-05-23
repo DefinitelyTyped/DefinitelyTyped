@@ -1,4 +1,4 @@
-
+import empower = require("empower");
 
 var baseAssert:any;
 var fakeFormatter:any;

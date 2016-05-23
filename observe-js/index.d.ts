@@ -231,20 +231,18 @@ declare namespace observejs {
 	}
 }
 
-declare module "observe-js" {
-	var PathObserver: typeof observejs.PathObserver;
-	var ArrayObserver: typeof observejs.ArrayObserver;
-	var ObjectObserver: typeof observejs.ObjectObserver;
-	var CompoundObserver: typeof observejs.CompoundObserver;
-	var ObserverTransform: typeof observejs.ObserverTransform;
-	var Path: observejs.Path;
+declare var PathObserver: typeof observejs.PathObserver;
+declare var ArrayObserver: typeof observejs.ArrayObserver;
+declare var ObjectObserver: typeof observejs.ObjectObserver;
+declare var CompoundObserver: typeof observejs.CompoundObserver;
+declare var ObserverTransform: typeof observejs.ObserverTransform;
+declare var Path: observejs.Path;
 
-	export {
-		PathObserver,
-		ArrayObserver,
-		ObjectObserver,
-		CompoundObserver,
-		ObserverTransform,
-		Path
-	};
-}
+export {
+	PathObserver,
+	ArrayObserver,
+	ObjectObserver,
+	CompoundObserver,
+	ObserverTransform,
+	Path
+};

@@ -49,7 +49,5 @@ declare namespace FsFinder {
 	}
 }
 
-declare module "fs-finder" {
-	import Finder = FsFinder.Finder;
-	export = Finder;
-}
+import Finder = FsFinder.Finder;
+export = Finder;

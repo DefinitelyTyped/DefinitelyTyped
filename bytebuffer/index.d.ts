@@ -610,7 +610,6 @@ declare class ByteBuffer
     writeVarint64ZigZag( value: number | Long, offset?: number ): ByteBuffer | number;
 }
 
-declare module 'bytebuffer' {
-    namespace ByteBuffer {}
-    export = ByteBuffer;
-}
+declare namespace ByteBuffer {}
+export = ByteBuffer;
+export as namespace ByteBuffer;

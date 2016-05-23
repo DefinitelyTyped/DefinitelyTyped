@@ -5,6 +5,8 @@
 
 /// <reference types="event-kit" />
 
+export = AtomKeymap;
+
 declare namespace AtomKeymap {
 	type Disposable = AtomEventKit.Disposable;
 
@@ -128,8 +130,4 @@ declare namespace AtomKeymap {
 
 	/** Allows commands to be associated with keystrokes in a context-sensitive way.*/
 	var KeymapManager: KeymapManagerStatic;
-}
-
-declare module 'atom-keymap' {
-	export = AtomKeymap;
 }

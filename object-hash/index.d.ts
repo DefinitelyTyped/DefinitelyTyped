@@ -3,6 +3,10 @@
 // Definitions by: Michael Zabka <https://github.com/misak113/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import HashStatic = ObjectHash.HashStatic;
+export = HashStatic;
+export as namespace objectHash;
+
 declare namespace ObjectHash {
 	export interface IOptions {
 		algorithm?: string;
@@ -44,9 +48,4 @@ declare namespace ObjectHash {
 	}
 
 	export var HashStatic: Hash;
-}
-
-declare module 'object-hash' {
-	import HashStatic = ObjectHash.HashStatic;
-	export = HashStatic;
 }

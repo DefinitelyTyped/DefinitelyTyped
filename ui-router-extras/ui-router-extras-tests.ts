@@ -1,3 +1,4 @@
+import * as angular from 'angularjs';
 var myApp = angular.module('testModule')
 
 myApp.config(($stateProvider: angular.ui.IStateProvider, $stickyStateProvider: angular.ui.IStickyStateProvider) => {

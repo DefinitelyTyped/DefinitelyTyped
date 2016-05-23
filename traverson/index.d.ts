@@ -3,6 +3,10 @@
 // Definitions by: Marcin Porębski <https://github.com/marcinporebski/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare var traverson: Traverson.TraversonMethods;
+
+export = traverson;
+
 declare namespace Traverson
 {
     interface TraversonMethods
@@ -50,11 +54,4 @@ declare namespace Traverson
 
 
 
-}
-
-declare module "traverson"
-{
-    var traverson: Traverson.TraversonMethods;
-
-    export = traverson;
 }

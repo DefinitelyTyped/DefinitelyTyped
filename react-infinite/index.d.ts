@@ -5,10 +5,8 @@
 
 ///<reference types="react" />
 
-declare module "react-infinite" {
-	import Infinite = ReactInfinite.Infinite;
-	export = Infinite;
-}
+import Infinite = ReactInfinite.Infinite;
+export = Infinite;
 
 declare namespace ReactInfinite {
 	interface InfiniteProps extends React.Props<Infinite> {

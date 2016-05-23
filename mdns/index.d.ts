@@ -289,7 +289,5 @@ declare namespace MDNS {
     var kDNSServiceProtocol_TCP:number;
 }
 
-declare module "mdns" {
 
-    export = MDNS;
-}
+export = MDNS;

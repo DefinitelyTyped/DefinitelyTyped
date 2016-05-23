@@ -3,7 +3,7 @@
 /// <reference types="expect.js" />
 /// <reference types="jquery" />
 
-import * as i18n from 'i18next';
+import i18n = require("i18next");
 
 i18n.init({
     debug: true,
@@ -48,15 +48,15 @@ i18n.init({
     },
     joinArrays: '\n',
     overloadTranslationOptionHandler: (args:any[]) => {
-        return <I18next.TranslationOptions>{}
+        return <i18n.TranslationOptions>{}
     },
-    interpolation: <I18next.InterpolationOptions>{},
+    interpolation: <i18n.InterpolationOptions>{},
     detection: null,
     backend: null,
     cache: null
 });
 
-i18n.t('helloWorld', <I18next.TranslationOptions> {
+i18n.t('helloWorld', <i18n.TranslationOptions> {
     defaultValue: 'default',
     count: 10
 });

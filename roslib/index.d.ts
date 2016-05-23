@@ -10,6 +10,8 @@
 
  ---------------------------------- */
 
+export = ROSLIB;
+
 declare namespace ROSLIB {
 	export class Ros {
 		/**
@@ -416,8 +418,4 @@ declare namespace ROSLIB {
 		 */
 		cancel():void;
 	}
-}
-
-declare module "ROSLIB" {
-    export = ROSLIB;
 }

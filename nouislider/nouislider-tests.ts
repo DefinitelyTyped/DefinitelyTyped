@@ -1,4 +1,4 @@
-
+import noUiSlider = require("nouislider");
 
 var testHtmlElement = document.getElementById('test');
 

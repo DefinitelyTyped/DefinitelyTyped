@@ -80,6 +80,5 @@ declare namespace jsSHA {
 }
 
 declare var jsSHA: jsSHA.jsSHA;
-declare module 'jssha' {
-    export = jsSHA;
-}
+export = jsSHA;
+export as namespace jsSHA;

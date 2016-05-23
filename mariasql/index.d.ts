@@ -109,7 +109,5 @@ declare namespace mariasql {
     }
 }
 
-declare module "mariasql" {
-    var Client:mariasql.Client;
-    export = Client;
-}
+declare var Client:mariasql.Client;
+export = Client;

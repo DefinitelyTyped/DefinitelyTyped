@@ -8,6 +8,4 @@ declare namespace bip21 {
     export function encode(address:string,options?:any) : string;
 }
 
-declare module "bip21" {
-    export = bip21;
-}
+export = bip21;

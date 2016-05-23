@@ -4,6 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="wnumb"/>
 
+export = noUiSlider;
+export as namespace noUiSlider;
+
 declare namespace noUiSlider {
     /**
      * To create a slider, call noUiSlider.create() with an element and your options.
@@ -173,8 +176,4 @@ declare namespace noUiSlider {
     interface Instance extends HTMLElement {
         noUiSlider: noUiSlider
     }
-}
-
-declare module "nouislider" {
-    export = noUiSlider;
 }

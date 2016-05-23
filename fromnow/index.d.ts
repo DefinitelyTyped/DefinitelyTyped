@@ -3,6 +3,10 @@
 // Definitions by: Martin Bukovics <https://github.com/marinewater>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare var FromNow: FromNow.FromNowStatic;
+export = FromNow;
+export as namespace fromNow;
+
 declare namespace FromNow {
     interface FromNowOpts {
         maxChunks?: number,
@@ -20,9 +24,4 @@ declare namespace FromNow {
          */
         (date: string|Date, opts?: FromNowOpts): string
     }
-}
-
-declare module 'fromnow' {
-    var FromNow: FromNow.FromNowStatic;
-    export = FromNow;
 }

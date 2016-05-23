@@ -5,98 +5,97 @@
 
 /// <reference types="babel-types" />
 
-declare module "babel-generator" {
-    import * as t from 'babel-types';
-    type Node = t.Node;
+import * as t from 'babel-types';
+type Node = t.Node;
+
+/**
+ * Turns an AST into code, maintaining sourcemaps, user preferences, and valid output.
+ * @param ast - the abstract syntax tree from which to generate output code.
+ * @param opts - used for specifying options for code generation.
+ * @param code - the original source code, used for source maps.
+ * @returns - an object containing the output code and source map.
+ */
+export default function generate(ast: Node, opts?: GeneratorOptions, code?: string | {[filename: string]: string}): GeneratorResult;
+
+export interface GeneratorOptions {
 
     /**
-     * Turns an AST into code, maintaining sourcemaps, user preferences, and valid output.
-     * @param ast - the abstract syntax tree from which to generate output code.
-     * @param opts - used for specifying options for code generation.
-     * @param code - the original source code, used for source maps.
-     * @returns - an object containing the output code and source map.
+     * Optional string to add as a block comment at the start of the output file.
+    */
+    auxiliaryCommentBefore?: string;
+
+    /**
+     * Optional string to add as a block comment at the end of the output file.
+    */
+    auxiliaryCommentAfter?: string;
+
+    /**
+     * Function that takes a comment (as a string) and returns true if the comment should be included in the output.
+     * By default, comments are included if `opts.comments` is `true` or if `opts.minifed` is `false` and the comment
+     * contains `@preserve` or `@license`.
      */
-    export default function generate(ast: Node, opts?: GeneratorOptions, code?: string | {[filename: string]: string}): GeneratorResult;
+    shouldPrintComment?: (comment: string) => boolean;
 
-    export interface GeneratorOptions {
+    /**
+     * Attempt to use the same line numbers in the output code as in the source code (helps preserve stack traces).
+     * Defaults to `false`.
+     */
+    retainLines?: boolean;
 
-        /**
-         * Optional string to add as a block comment at the start of the output file.
-        */
-        auxiliaryCommentBefore?: string;
+    /**
+     * Should comments be included in output? Defaults to `true`.
+     */
+    comments?: boolean;
 
-        /**
-         * Optional string to add as a block comment at the end of the output file.
-        */
-        auxiliaryCommentAfter?: string;
+    /**
+     * Set to true to avoid adding whitespace for formatting. Defaults to the value of `opts.minified`.
+     */
+    compact?: boolean | 'auto';
 
-        /**
-         * Function that takes a comment (as a string) and returns true if the comment should be included in the output.
-         * By default, comments are included if `opts.comments` is `true` or if `opts.minifed` is `false` and the comment
-         * contains `@preserve` or `@license`.
-         */
-        shouldPrintComment?: (comment: string) => boolean;
+    /**
+     * Should the output be minified. Defaults to `false`.
+     */
+    minified?: boolean;
 
-        /**
-         * Attempt to use the same line numbers in the output code as in the source code (helps preserve stack traces).
-         * Defaults to `false`.
-         */
-        retainLines?: boolean;
+    /**
+     * Set to true to reduce whitespace (but not as much as opts.compact). Defaults to `false`.
+     */
+    concise?: boolean;        
 
-        /**
-         * Should comments be included in output? Defaults to `true`.
-         */
-        comments?: boolean;
+    /**
+     * The type of quote to use in the output. If omitted, autodetects based on `ast.tokens`.
+     */
+    quotes?: 'single' | 'double';
 
-        /**
-         * Set to true to avoid adding whitespace for formatting. Defaults to the value of `opts.minified`.
-         */
-        compact?: boolean | 'auto';
+    /**
+     * Used in warning messages
+     */
+    filename?: string;        
 
-        /**
-         * Should the output be minified. Defaults to `false`.
-         */
-        minified?: boolean;
+    /**
+     * Enable generating source maps. Defaults to `false`.
+     */
+    sourceMaps?: boolean;
 
-        /**
-         * Set to true to reduce whitespace (but not as much as opts.compact). Defaults to `false`.
-         */
-        concise?: boolean;        
+    /**
+     * The filename of the generated code that the source map will be associated with.
+     */
+    sourceMapTarget?: string;
 
-        /**
-         * The type of quote to use in the output. If omitted, autodetects based on `ast.tokens`.
-         */
-        quotes?: 'single' | 'double';
+    /**
+     * A root for all relative URLs in the source map.
+     */
+    sourceRoot?: string;
 
-        /**
-         * Used in warning messages
-         */
-        filename?: string;        
-
-        /**
-         * Enable generating source maps. Defaults to `false`.
-         */
-        sourceMaps?: boolean;
-
-        /**
-         * The filename of the generated code that the source map will be associated with.
-         */
-        sourceMapTarget?: string;
-
-        /**
-         * A root for all relative URLs in the source map.
-         */
-        sourceRoot?: string;
-
-        /**
-         * The filename for the source code (i.e. the code in the `code` argument).
-         * This will only be used if `code` is a string.
-         */
-        sourceFileName?: string;
-    }
-
-    export interface GeneratorResult {
-        map: Object;
-        code: string;
-    }
+    /**
+     * The filename for the source code (i.e. the code in the `code` argument).
+     * This will only be used if `code` is a string.
+     */
+    sourceFileName?: string;
 }
+
+export interface GeneratorResult {
+    map: Object;
+    code: string;
+}
+

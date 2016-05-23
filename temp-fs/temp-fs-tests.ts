@@ -1,6 +1,6 @@
 // Copied from https://github.com/jakwings/node-temp-fs/blob/60a4d2586a81a7057bd4a395ec8c00b4100f84fe/README.md
 // and slightly modified.
-
+import tempfs = require("temp-fs");
 
 
 // Create a tempfile in the system-provided tempdir.

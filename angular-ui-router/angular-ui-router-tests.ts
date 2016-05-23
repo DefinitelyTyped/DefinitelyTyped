@@ -1,4 +1,5 @@
-
+import * as ng from 'angularjs';
+import * as angular from 'angularjs';
 
 var myApp = angular.module('testModule');
 

@@ -3,7 +3,7 @@
 import riotcontrol = require('riotcontrol');
 
 {
-	let store: RiotControl.Store;
+	let store: riotcontrol.Store;
 	let result: void;
 	result = riotcontrol.addStore(store);
 }

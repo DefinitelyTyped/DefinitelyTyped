@@ -2,9 +2,9 @@
 
 import Redlock = require('redlock');
 
-import NodeifyCallback = RedlockTypes.NodeifyCallback;
-import Lock = RedlockTypes.Lock;
-import RedlockOptions = RedlockTypes.RedlockOptions;
+import NodeifyCallback = Redlock.NodeifyCallback;
+import Lock = Redlock.Lock;
+import RedlockOptions = Redlock.RedlockOptions;
 
 namespace RedlockTest {
 	// constructor

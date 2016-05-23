@@ -3,6 +3,9 @@
 // Definitions by: Denis Cappellin <http://github.com/cappellin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = Pako;
+export as namespace pako;
+
 declare namespace Pako {
 
 	/**
@@ -56,8 +59,4 @@ declare namespace Pako {
 		onEnd( status: number ): void;
 		push( data: Uint8Array | Array<number> | ArrayBuffer | string, mode?: number | boolean ): boolean;
 	}
-}
-
-declare module 'pako' {
-	export = Pako;
 }

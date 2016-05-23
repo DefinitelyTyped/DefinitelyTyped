@@ -15,9 +15,9 @@ rsmq.createQueue({qname: "my-queue"}, (e: Error, success: number) => {
 rsmq.sendMessage({qname: "my-queue", message: "first message"}, (e: Error, id: string) => {
     rsmq.changeMessageVisibility({qname: "my-queue", id: id, vt: 100}, (e: Error, success: number) => {});
 });
-rsmq.getQueueAttributes({qname: 'my-queue'}, (e: Error, attr: RedisSMQ.QueueAttributes) =>{} );
-rsmq.setQueueAttributes({qname: "my-queue", vt: 20}, (e: Error, attr: RedisSMQ.QueueAttributes) => {});
-rsmq.receiveMessage({qname: "my-queue"}, (e: Error, message: RedisSMQ.Message) => {
+rsmq.getQueueAttributes({qname: 'my-queue'}, (e: Error, attr: any) =>{} );
+rsmq.setQueueAttributes({qname: "my-queue", vt: 20}, (e: Error, attr: any) => {});
+rsmq.receiveMessage({qname: "my-queue"}, (e: Error, message: any) => {
     rsmq.deleteMessage(message, (e: Error, success: number) => {});
 });
 rsmq.listQueues((e: Error, list: string[]) => {});

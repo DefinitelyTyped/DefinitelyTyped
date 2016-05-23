@@ -121,7 +121,6 @@ declare namespace LargeLocalStorageInterfaces {
     }
 }
 
-declare module "lls" {
-    var LargeLocalStorage: LargeLocalStorageInterfaces.LargeLocalStorageService;
-    export = LargeLocalStorage;
-}
+declare var LargeLocalStorage: LargeLocalStorageInterfaces.LargeLocalStorageService;
+export = LargeLocalStorage;
+export as namespace LargeLocalStorage;

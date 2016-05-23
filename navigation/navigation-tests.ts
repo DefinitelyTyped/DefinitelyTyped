@@ -1,3 +1,4 @@
+import Navigation = require("navigation");
 
 
 namespace NavigationTests {

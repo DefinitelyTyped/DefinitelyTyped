@@ -8,6 +8,9 @@
 /// <reference types="empower" />
 /// <reference types="power-assert-formatter" />
 
+export = assert;
+export as namespace assert;
+
 declare function assert(value:any, message?:string):void;
 declare namespace assert {
     export class AssertionError implements Error {
@@ -63,8 +66,4 @@ declare namespace assert {
     }
 
     export function customize(options:Options):typeof assert;
-}
-
-declare module "power-assert" {
-    export = assert;
 }

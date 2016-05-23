@@ -3,6 +3,8 @@
 // Definitions by: Tabris.js team <http://github.com/eclipsesource/tabris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = tabris;
+
 declare namespace tabris {
 
   // Types
@@ -1439,8 +1441,4 @@ declare namespace tabris {
 
   export var ui: UI;
 
-}
-
-declare module "tabris" {
-  export = tabris;
 }

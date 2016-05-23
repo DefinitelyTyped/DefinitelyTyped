@@ -3,6 +3,9 @@
 // Definitions by: Maurice de Beijer <https://github.com/mauricedb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = RefluxCore;
+export as namespace Reflux;
+
 declare module  RefluxCore {
 
     interface StoreDefinition {
@@ -56,8 +59,3 @@ declare module  RefluxCore {
     function listenTo(store: Store, handler: string):void;
     function setState(state: any):void;
 }
-
-declare module "reflux" {
-    export = RefluxCore;
-}
-

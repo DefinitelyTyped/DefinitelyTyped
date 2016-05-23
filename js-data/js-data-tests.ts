@@ -1,4 +1,4 @@
-
+import JSData = require("js-data");
 
 interface IUser {
     id?: number;

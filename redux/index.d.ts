@@ -3,6 +3,9 @@
 // Definitions by: William Buchwalter <https://github.com/wbuchwalter/>, Vincent Prouillet <https://github.com/Keats/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = Redux;
+export as namespace Redux;
+
 declare namespace Redux {
 
     interface ActionCreator extends Function {
@@ -45,8 +48,4 @@ declare namespace Redux {
     function combineReducers(reducers: any): Reducer;
     function applyMiddleware(...middlewares: Middleware[]): Function;
     function compose<T extends Function>(...functions: Function[]): T;
-}
-
-declare module "redux" {
-    export = Redux;
 }

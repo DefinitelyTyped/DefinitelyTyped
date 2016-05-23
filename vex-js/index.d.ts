@@ -5,6 +5,9 @@
 
 ///<reference types="jquery" />
 
+export = vex;
+export as namespace vex;
+
 declare namespace vex {
 
   interface ICSSAttributes {
@@ -36,10 +39,6 @@ declare namespace vex {
     closeByID(id: number): boolean;
   }
 
-}
-
-declare module "vex" {
-  export = vex;
 }
 
 declare var vex: vex.Vex;
