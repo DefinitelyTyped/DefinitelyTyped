@@ -1,3 +1,5 @@
+import * as angular from 'angularjs';
+
 angular
     .module('toastr-tests', ['toastr'])
     .config(function(toastrConfig: angular.toastr.IToastrConfig) {

@@ -33,7 +33,5 @@ declare namespace Iconv {
     }
 }
 
-declare module "iconv" {
-
-    var Iconv: Iconv.Static;
-}
+declare var Iconv: Iconv.Static;
+export = Iconv;

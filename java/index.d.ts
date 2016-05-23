@@ -8,10 +8,8 @@
 // This is the core API exposed by https://github.com/joeferner/java.
 // To get the full power of Typescript with Java, see https://github.com/RedSeal-co/ts-java.
 
-declare module 'java' {
-  var NodeJavaCore: NodeJavaCore.NodeAPI;
-  export = NodeJavaCore;
-}
+declare var NodeJavaCore: NodeJavaCore.NodeAPI;
+export = NodeJavaCore;
 
 declare namespace NodeJavaCore {
   export interface Callback<T> {

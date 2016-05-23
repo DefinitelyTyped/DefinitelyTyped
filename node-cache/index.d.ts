@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-declare namespace NodeCacheTypes {
+declare namespace NodeCache {
 	interface NodeCache {
 		/** container for cached data */
 		data: Data;
@@ -144,120 +144,119 @@ declare namespace NodeCacheTypes {
 	}
 }
 
-declare module "node-cache" {
-	import events = require("events");
+import events = require("events");
 
-	import Data = NodeCacheTypes.Data;
-	import Options = NodeCacheTypes.Options;
-	import Stats = NodeCacheTypes.Stats;
-	import Callback = NodeCacheTypes.Callback;
+import Data = NodeCache.Data;
+import Options = NodeCache.Options;
+import Stats = NodeCache.Stats;
+import Callback = NodeCache.Callback;
 
-	class NodeCache extends events.EventEmitter implements NodeCacheTypes.NodeCache {
-		/** container for cached data */
-		data: Data;
+declare class NodeCache extends events.EventEmitter implements NodeCache.NodeCache {
+	/** container for cached data */
+	data: Data;
 
-		/** module options */
-		options: Options;
+	/** module options */
+	options: Options;
 
-		/** statistics container */
-		stats: Stats;
+	/** statistics container */
+	stats: Stats;
 
-		constructor(options?: Options);
+	constructor(options?: Options);
 
-		/**
-		 * get a cached key and change the stats
-		 *
-		 * @param key cache key or an array of keys
-		 * @param cb Callback function
-		 */
-		get<T>(
-			key: string,
-			cb?: Callback<T>
-		): T;
+	/**
+	 * get a cached key and change the stats
+	 *
+	 * @param key cache key or an array of keys
+	 * @param cb Callback function
+	 */
+	get<T>(
+		key: string,
+		cb?: Callback<T>
+	): T;
 
-		/**
-		 * get multiple cached keys at once and change the stats
-		 *
-		 * @param keys an array of keys
-		 * @param cb Callback function
-		 */
-		mget<T>(
-			keys: string[],
-			cb?: Callback<{[key: string]: T}>
-		): {[key: string]: T};
+	/**
+	 * get multiple cached keys at once and change the stats
+	 *
+	 * @param keys an array of keys
+	 * @param cb Callback function
+	 */
+	mget<T>(
+		keys: string[],
+		cb?: Callback<{[key: string]: T}>
+	): {[key: string]: T};
 
-		/**
-		 * set a cached key and change the stats
-		 *
-		 * @param key cache key
-		 * @param value A element to cache. If the option `option.forceString` is `true` the module trys to translate
-		 * it to a serialized JSON
-		 * @param ttl The time to live in seconds.
-		 * @param cb Callback function
-		 */
-		set<T>(
-			key: string,
-			value: T,
-			ttl: number|string,
-			cb?: Callback<boolean>
-		): boolean;
+	/**
+	 * set a cached key and change the stats
+	 *
+	 * @param key cache key
+	 * @param value A element to cache. If the option `option.forceString` is `true` the module trys to translate
+	 * it to a serialized JSON
+	 * @param ttl The time to live in seconds.
+	 * @param cb Callback function
+	 */
+	set<T>(
+		key: string,
+		value: T,
+		ttl: number|string,
+		cb?: Callback<boolean>
+	): boolean;
 
-		set<T>(
-			key: string,
-			value: T,
-			cb?: Callback<boolean>
-		): boolean;
+	set<T>(
+		key: string,
+		value: T,
+		cb?: Callback<boolean>
+	): boolean;
 
-		/**
-		 * remove keys
-		 * @param keys cache key to delete or a array of cache keys
-		 * @param cb Callback function
-		 * @returns Number of deleted keys
-		 */
-		del(
-			keys: string|string[],
-			cb?: Callback<number>
-		): number;
+	/**
+	 * remove keys
+	 * @param keys cache key to delete or a array of cache keys
+	 * @param cb Callback function
+	 * @returns Number of deleted keys
+	 */
+	del(
+		keys: string|string[],
+		cb?: Callback<number>
+	): number;
 
-		/**
-		 * reset or redefine the ttl of a key. If `ttl` is not passed or set to 0 it's similar to `.del()`
-		 */
-		ttl(
-			key: string,
-			ttl: number,
-			cb?: Callback<boolean>
-		): boolean;
+	/**
+	 * reset or redefine the ttl of a key. If `ttl` is not passed or set to 0 it's similar to `.del()`
+	 */
+	ttl(
+		key: string,
+		ttl: number,
+		cb?: Callback<boolean>
+	): boolean;
 
-		ttl(
-			key: string,
-			cb?: Callback<boolean>,
-			ttl?: number
-		): boolean;
+	ttl(
+		key: string,
+		cb?: Callback<boolean>,
+		ttl?: number
+	): boolean;
 
-		/**
-		 * list all keys within this cache
-		 * @param cb Callback function
-		 * @returns An array of all keys
-		 */
-		keys(cb?: Callback<string[]>): string[];
+	/**
+	 * list all keys within this cache
+	 * @param cb Callback function
+	 * @returns An array of all keys
+	 */
+	keys(cb?: Callback<string[]>): string[];
 
-		/**
-		 * get the stats
-		 *
-		 * @returns Stats data
-		 */
-		getStats(): Stats;
+	/**
+	 * get the stats
+	 *
+	 * @returns Stats data
+	 */
+	getStats(): Stats;
 
-		/**
-		 * flush the hole data and reset the stats
-		 */
-		flushAll(): void;
+	/**
+	 * flush the hole data and reset the stats
+	 */
+	flushAll(): void;
 
-		/**
-		 * This will clear the interval timeout which is set on checkperiod option.
-		 */
-		close(): void;
-	}
-
-	export = NodeCache;
+	/**
+	 * This will clear the interval timeout which is set on checkperiod option.
+	 */
+	close(): void;
 }
+
+export = NodeCache;
+

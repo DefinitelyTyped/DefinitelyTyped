@@ -188,7 +188,6 @@ declare namespace Simple {
   }
 }
 
-declare module "simple-mock" {
-  var simple: Simple.Static;
-  export = simple;
-}
+declare var Simple: Simple.Static;
+export = Simple;
+

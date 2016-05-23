@@ -3,6 +3,61 @@
 // Definitions by: Viktor Miroshnikov <https://github.com/superduper>, Lucas Woo <https://github.com/legendecas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export class UAParser {
+    static VERSION: string;
+    static BROWSER: UAParser.BROWSER;
+    static CPU: UAParser.CPU;
+    static DEVICE: UAParser.DEVICE;
+    static ENGINE: UAParser.ENGINE;
+    static OS: UAParser.OS;
+
+    /**
+    *  Returns browser information
+    */
+    getBrowser(): UAParser.IBrowser;
+    /**
+    *  Returns OS information
+    */
+    getOS(): UAParser.IOS;
+
+    /**
+    *  Returns browsers engine information
+    */
+    getEngine(): UAParser.IEngine;
+
+    /**
+    *  Returns device information
+    */
+    getDevice(): UAParser.IDevice;
+
+    /**
+    *  Returns parsed CPU information
+    */
+    getCPU(): UAParser.ICPU;
+
+    /**
+    *  Returns UA string of current instance
+    */
+    getUA(): string;
+
+    /**
+    *  Set & parse UA string
+    */
+    setUA(uastring: string): UAParser;
+
+    /**
+    *  Returns parse result
+    */
+    getResult(): UAParser.IResult;
+
+    /**
+     * Create a new parser with UA prepopulated and extensions extended
+     */
+    constructor(uastring?: string, extensions?: any);
+}
+export as namespace UAParser;
+
+
 declare namespace UAParser {
 
     export interface IBrowser {
@@ -128,63 +183,6 @@ declare namespace UAParser {
     export interface OS {
         NAME: string,
         VERSION: string
-    }
-
-}
-
-declare module "ua-parser-js" {
-
-    export class UAParser {
-        static VERSION: string;
-        static BROWSER: UAParser.BROWSER;
-        static CPU: UAParser.CPU;
-        static DEVICE: UAParser.DEVICE;
-        static ENGINE: UAParser.ENGINE;
-        static OS: UAParser.OS;
-
-        /**
-        *  Returns browser information
-        */
-        getBrowser(): UAParser.IBrowser;
-        /**
-        *  Returns OS information
-        */
-        getOS(): UAParser.IOS;
-
-        /**
-        *  Returns browsers engine information
-        */
-        getEngine(): UAParser.IEngine;
-
-        /**
-        *  Returns device information
-        */
-        getDevice(): UAParser.IDevice;
-
-        /**
-        *  Returns parsed CPU information
-        */
-        getCPU(): UAParser.ICPU;
-
-        /**
-        *  Returns UA string of current instance
-        */
-        getUA(): string;
-
-        /**
-        *  Set & parse UA string
-        */
-        setUA(uastring: string): UAParser;
-
-        /**
-        *  Returns parse result
-        */
-        getResult(): UAParser.IResult;
-
-        /**
-         * Create a new parser with UA prepopulated and extensions extended
-         */
-        constructor(uastring?: string, extensions?: any);
     }
 
 }

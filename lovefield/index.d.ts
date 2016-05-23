@@ -228,6 +228,5 @@ declare namespace lf {
 
 }  // module lf
 
-declare module 'lovefield' {
-  export = lf;
-}
+export = lf;
+export as namespace lf;

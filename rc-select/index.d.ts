@@ -5,6 +5,16 @@
 
 /// <reference types="react" />
 
+import Select = RcSelect.Select;
+import Option = RcSelect.Option;
+import OptGroup = RcSelect.OptGroup;
+
+export default Select;
+export {
+    Option,
+    OptGroup
+};
+
 declare namespace RcSelect {
     interface SelectProps {
         className?: string;
@@ -53,14 +63,3 @@ declare namespace RcSelect {
     }
     export class OptGroup extends React.Component<OptGroupProps, any> { }
 }
-declare module 'rc-select' {
-    import Select = RcSelect.Select;
-    import Option = RcSelect.Option;
-    import OptGroup = RcSelect.OptGroup;
-
-    export default Select;
-    export {
-        Option,
-        OptGroup
-    };
-} 

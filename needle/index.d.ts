@@ -5,6 +5,9 @@
 
 /// <reference types="node" />
 
+declare var needle: Needle.NeedleStatic;
+export = needle;
+
 declare namespace Needle {
 	interface ReadableStream extends NodeJS.ReadableStream {
 	}
@@ -91,9 +94,4 @@ declare namespace Needle {
         request(method: string, url: string, data: any, callback?: Callback): ReadableStream;
         request(method: string, url: string, data: any, options?: RequestOptions, callback?: Callback): ReadableStream;
     }
-}
-
-declare module "needle" {
-    var needle: Needle.NeedleStatic;
-    export = needle;
 }

@@ -3,9 +3,7 @@
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "donna" {
-    function generateMetadata(modules: string[]): DonnaTypes.Metadata;
-}
+export function generateMetadata(modules: string[]): DonnaTypes.Metadata;
 
 declare namespace DonnaTypes {
     interface Metadata {

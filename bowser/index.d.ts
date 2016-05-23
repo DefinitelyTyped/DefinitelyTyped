@@ -3,10 +3,9 @@
 // Definitions by: Paulo Cesar <https://github.com/pocesar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'bowser' {
-    var def: BowserModule.IBowser;
-    export = def;
-}
+declare var def: BowserModule.IBowser;
+export = def;
+export as namespace bowser;
 
 declare namespace BowserModule {
 

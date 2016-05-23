@@ -3,6 +3,10 @@
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare var fileSize: Filesize.IFilesize;
+export = fileSize;
+export as namespace filesize;
+
 declare namespace Filesize {
 
     export interface SiJedecBits {
@@ -75,10 +79,4 @@ declare namespace Filesize {
         (bytes: number): string;
         (bytes: number, options: Options): string;
     }
-}
-
-
-declare module "filesize" {
-    let fileSize: Filesize.IFilesize;
-    export = fileSize;
 }

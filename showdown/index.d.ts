@@ -3,6 +3,9 @@
 // Definitions by: cbowdon <https://github.com/cbowdon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = Showdown;
+export as namespace showdown;
+
 declare namespace Showdown {
 
     /** Defined for information only - used in union type */
@@ -81,8 +84,4 @@ declare namespace Showdown {
      * @param callback Applied once to each item (signature here is from forEach in lib.d.ts)
      */
     function forEach<T>(obj: T[], callback: (value: T, index: number, array: T[]) => any): void;
-}
-
-declare module "showdown" {
-    export = Showdown;
 }

@@ -3,6 +3,11 @@
 // Definitions by: Marcin Porębski <https://github.com/marcinporebski/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare var urlTemplate: UrlTemplate.TemplateParser;
+
+export = urlTemplate;
+export as namespace urltemplate;
+
 declare namespace UrlTemplate
 {
     interface TemplateParser {
@@ -12,13 +17,6 @@ declare namespace UrlTemplate
     interface Template {
         expand(parameters: any): string;
     }
-}
-
-declare module "url-template"
-{
-    var urlTemplate: UrlTemplate.TemplateParser;
-
-    export = urlTemplate;
 }
 
 

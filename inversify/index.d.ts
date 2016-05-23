@@ -138,6 +138,4 @@ declare namespace inversify {
     export var paramNames: any;
 }
 
-declare module "inversify" {
-  export = inversify;
-}
+export = inversify;

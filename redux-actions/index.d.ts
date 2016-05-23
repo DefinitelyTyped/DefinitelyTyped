@@ -3,6 +3,8 @@
 // Definitions by: Jack Hsu <https://github.com/jaysoo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = ReduxActions;
+
 declare namespace ReduxActions {
     // FSA-compliant action.
     // See: https://github.com/acdlite/flux-standard-action
@@ -27,9 +29,5 @@ declare namespace ReduxActions {
     export function handleAction<T>(actionType: string, reducer: Reducer<T> | ReducerMap<T>): Reducer<T>;
 
     export function handleActions<T>(reducerMap: ReducerMap<T>, initialState?: T): Reducer<T>;
-}
-
-declare module 'redux-actions' {
-    export = ReduxActions;
 }
 

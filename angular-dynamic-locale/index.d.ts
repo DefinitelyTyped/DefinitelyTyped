@@ -5,22 +5,23 @@
 
 /// <reference types="angularjs" />
 
-declare module "angular-dynamic-locale" {
-	import ng = angular.dynamicLocale;
-	export = ng;
+import * as angular from 'angularjs';
+
+declare module 'angularjs' {
+	export namespace dynamicLocale {
+
+		interface tmhDynamicLocaleService {
+			set(locale: string): void;
+			get(): string;
+		}
+
+		interface tmhDynamicLocaleProvider extends angular.IServiceProvider {
+			localeLocationPattern(location: string): tmhDynamicLocaleProvider;
+			localeLocationPattern(): string;
+			useStorage(storageName: string): void;
+			useCookieStorage(): void;
+		}
+	}
 }
 
-declare namespace angular.dynamicLocale {
 
-	interface tmhDynamicLocaleService {
-		set(locale: string): void;
-		get(): string;
-	}
-
-	interface tmhDynamicLocaleProvider extends angular.IServiceProvider {
-		localeLocationPattern(location: string): tmhDynamicLocaleProvider;
-		localeLocationPattern(): string;
-		useStorage(storageName: string): void;
-		useCookieStorage(): void;
-	}
-}

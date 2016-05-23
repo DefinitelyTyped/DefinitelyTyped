@@ -1,4 +1,4 @@
-
+import UniversalAnalytics = require("universal-analytics");
 
 var ui:UniversalAnalytics;
 

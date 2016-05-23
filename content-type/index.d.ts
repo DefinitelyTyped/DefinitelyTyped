@@ -3,6 +3,9 @@
 // Definitions by: Pine Mizune <https://github.com/pine613>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare var x: ContentType.MediaTypeStatic;
+export = x;
+
 declare namespace ContentType {
     interface MediaType {
         type: string;
@@ -24,9 +27,4 @@ declare namespace ContentType {
         select(availableTypes: MediaType[], acceptedTypes: MediaType[], options?: SelectOptions): string;
         mediaCmp(a: MediaType, b: MediaType): number;
     }
-}
-
-declare module "content-type" {
-    var x: ContentType.MediaTypeStatic;
-    export = x;
 }

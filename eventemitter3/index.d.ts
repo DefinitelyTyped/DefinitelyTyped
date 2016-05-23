@@ -3,6 +3,12 @@
 // Definitions by: Yuichi Murata <https://github.com/mrk21>, Leon Yu <https://github.com/leonyu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+//
+// Expose the module.
+//
+declare var event_emitter3: EventEmitter3.EventEmitter3Static;
+export = event_emitter3;
+
 declare namespace EventEmitter3 {
     interface EventEmitter3Static {
         new (): EventEmitter;
@@ -112,12 +118,4 @@ declare namespace EventEmitter3 {
          */
         setMaxListeners(): EventEmitter;
     }
-}
-
-declare module 'eventemitter3' {
-    //
-    // Expose the module.
-    //
-    var EventEmitter3: EventEmitter3.EventEmitter3Static;
-    export = EventEmitter3;
 }

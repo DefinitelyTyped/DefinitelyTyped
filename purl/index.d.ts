@@ -55,6 +55,5 @@ declare function purl(): purl.Url;
  */
 declare function purl(someUrl: string): purl.Url;
 
-declare module "purl" {
-    export = purl;
-}
+export = purl;
+export as namespace purl;

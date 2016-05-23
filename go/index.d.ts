@@ -9458,6 +9458,5 @@ declare namespace go {
     }
 } //END go
 
-declare module "go" {
-    export = go;
-}
+export = go;
+export as namespace go;

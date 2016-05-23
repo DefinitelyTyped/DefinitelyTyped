@@ -5,6 +5,13 @@
 
 /// <reference types="react" />
 
+declare var Helmet: {
+    (): ReactHelmet.HelmetComponent
+    rewind(): ReactHelmet.HelmetData
+    }
+
+export = Helmet;
+
 declare namespace ReactHelmet {
     interface HelmetProps {
         title?: string;
@@ -30,13 +37,4 @@ declare namespace ReactHelmet {
     }
 
     class HelmetComponent extends React.Component<HelmetProps, any> {}
-}
-
-declare module "react-helmet" {
-    var Helmet: {
-        (): ReactHelmet.HelmetComponent
-        rewind(): ReactHelmet.HelmetData
-    }
-    
-    export = Helmet;
 }

@@ -1,4 +1,5 @@
 ///<reference types="jquery" />
+import vex = require("vex-js");
 
 var vexContent = vex.open({
   afterClose: (() => null),

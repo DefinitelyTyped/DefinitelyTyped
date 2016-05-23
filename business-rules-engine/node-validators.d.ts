@@ -6,7 +6,7 @@
 /// <reference types="Q" />
 /// <reference types="node" />
 
-
+import Validation = require("business-rules-engine");
 export as namespace Validators;
 
 import * as moment from 'moment';

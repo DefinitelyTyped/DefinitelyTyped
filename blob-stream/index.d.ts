@@ -15,6 +15,4 @@ declare namespace BlobStream {
     }
 }
 
-declare module "blob-stream" {
-    export = BlobStream;
-}
+export = BlobStream;

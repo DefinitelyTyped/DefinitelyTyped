@@ -2,6 +2,10 @@
 // Project: https://assets.pinterest.com/sdk/sdk.js
 // Definitions by: Adam Burmister <https://github.com/adamburmister>
 // Definitions: https://github.com/adamburmister/DefinitelyTyped
+
+export = PDK;
+export as namespace PDK;
+
 declare namespace PDK {
 
   enum OAuthScopes { 'read_public', 'write_public', 'read_relationships', 'write_relationships' }
@@ -139,8 +143,4 @@ declare namespace PDK {
    * @param url      The URL the Pin will link to when you click through.
    */
   export function pin(imageUrl: string, note: string, url: string, callback: Function): void;
-}
-
-declare module 'pinterest-sdk' {
-   export = PDK;
 }

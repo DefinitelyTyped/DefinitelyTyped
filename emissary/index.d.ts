@@ -52,10 +52,10 @@ declare namespace Emissary {
 	}
 }
 
-declare module "emissary" {
-	var Emitter:Emissary.IEmitterStatic;
-	var Subscriber:Emissary.ISubscriberStatic;
-	var Signal:Function;   // TODO
-	var Behavior:Function; // TODO
-	var combine:Function;  // TODO
-}
+
+export var Emitter:Emissary.IEmitterStatic;
+export var Subscriber:Emissary.ISubscriberStatic;
+export var Signal:Function;   // TODO
+export var Behavior:Function; // TODO
+export var combine:Function;  // TODO
+

@@ -1,5 +1,6 @@
 /// <reference types="Q" />
 import * as Validators from './node-validators';
+import Validation = require("business-rules-engine");
 
 export interface IPerson{
     Checked:boolean;

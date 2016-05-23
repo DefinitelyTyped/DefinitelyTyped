@@ -4,18 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-//commonjs loader
-declare module "dsv" {
-
 	/** A parser and formatter for DSV (CSV and TSV) files.
 Extracted from D3. */
-    var loader: (
-		/** the symbol used to seperate cells in the row.*/
-		delimiter: string,
-		/** example: "text/plain" */
-		encoding?: string) => _dsv.Dsv;
-    export = loader;
-}
+declare var loader: (
+	/** the symbol used to seperate cells in the row.*/
+	delimiter: string,
+	/** example: "text/plain" */
+	encoding?: string) => _dsv.Dsv;
+export = loader;
+export as namespace d3_dsv;
 
 declare module _dsv {
 	/** A parser and formatter for DSV (CSV and TSV) files.

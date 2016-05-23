@@ -1,3 +1,4 @@
+import Chartist = require("chartist");
 Chartist.escapingMap = {
   '&': '&amp;',
   '<': '&lt;',

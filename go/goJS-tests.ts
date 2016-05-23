@@ -3,7 +3,7 @@
 
 /* Copyright (C) 1998-2016 by Northwoods Software Corporation. */
 
-
+import go = require("go");
 
 class CustomLink extends go.Link {
     constructor() {

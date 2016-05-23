@@ -20,7 +20,7 @@ declare namespace microgears {
 
     interface Plugin {
         name: string;
-        beforeChain(arguments: Array<any>, metaInfo: MetaInformation): Array<any>;
+        beforeChain(args: Array<any>, metaInfo: MetaInformation): Array<any>;
         afterChain<T>(result: T, metaInfo: MetaInformation): T;
     }
 
@@ -28,6 +28,4 @@ declare namespace microgears {
     function addPlugin(plugin: Plugin): void;
 }
 
-declare module "microgears" {
-    export = microgears;
-}
+export = microgears;

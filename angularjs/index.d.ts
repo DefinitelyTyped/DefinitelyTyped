@@ -14,12 +14,13 @@ interface Function {
     $inject?: string[];
 }
 
-// Collapse angular into ng
-import ng = angular;
+export as namespace angular;
+export as namespace ng;
+
 // Support AMD require
-declare module 'angular' {
-    export = angular;
-}
+export = angular;
+
+import ng = angular;
 
 ///////////////////////////////////////////////////////////////////////////////
 // ng module (angular.js)
@@ -617,7 +618,7 @@ declare namespace angular {
         /**
          * calling preventDefault sets defaultPrevented flag to true.
          */
-        preventDefault: Function;
+        preventDefault(): void;
         /**
          * true if preventDefault was called.
          */

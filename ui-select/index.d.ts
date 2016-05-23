@@ -5,15 +5,14 @@
 
 /// <reference types="angularjs" />
 
-declare module "ui-select" {
-    var _: string;
-    export = _;
-}
+import * as angular from 'angularjs';
 
-declare namespace angular.ui.select {
-    interface ISelectConfig {
-        appendToBody: boolean;
-        resetSearchInput: boolean;
-        theme: string;
-    }
+declare module 'angularjs' {
+	export namespace ui.select {
+	    interface ISelectConfig {
+	        appendToBody: boolean;
+	        resetSearchInput: boolean;
+	        theme: string;
+	    }
+	}
 }

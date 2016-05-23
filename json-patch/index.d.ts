@@ -36,6 +36,5 @@ declare namespace jsonpatch {
     function compile(patches: OpPatch[]): (document: any) => any;
 }
 
-declare module "json-patch" {
-    export = jsonpatch;
-}
+export = jsonpatch;
+export as namespace jsonpatch;

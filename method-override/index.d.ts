@@ -11,17 +11,15 @@ declare namespace Express {
     }
 }
 
-declare module "method-override" {
-    import express = require('express');
+import express = require('express');
 
-    namespace e {
-        export interface MethodOverrideOptions {
-            methods: string[];
-        }
+declare namespace e {
+    export interface MethodOverrideOptions {
+        methods: string[];
     }
-
-    function e(getter?: string, options?: e.MethodOverrideOptions): express.RequestHandler;
-    function e(getter?: (req: express.Request, res: express.Response) => string, options?: e.MethodOverrideOptions): express.RequestHandler;
-
-    export = e;
 }
+
+declare function e(getter?: string, options?: e.MethodOverrideOptions): express.RequestHandler;
+declare function e(getter?: (req: express.Request, res: express.Response) => string, options?: e.MethodOverrideOptions): express.RequestHandler;
+
+export = e;

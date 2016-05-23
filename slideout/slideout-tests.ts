@@ -1,4 +1,4 @@
-
+import Slideout = require("slideout");
 
 // Slideout(options)
 var slideout = new Slideout({

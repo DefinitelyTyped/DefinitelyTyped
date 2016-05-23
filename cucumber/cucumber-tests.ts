@@ -1,4 +1,4 @@
-
+import cucumber = require("cucumber");
 
 function StepSample() {
 	type Callback = cucumber.CallbackStepDefinition;

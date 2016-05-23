@@ -10,24 +10,21 @@
 
 /// <reference types="node" />
 
-declare module "ioredis" {
-
-
-    interface RedisStatic {
-        new (port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
-        new (host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
-        new (options: IORedis.RedisOptions): IORedis.Redis;
-        new (url: string): IORedis.Redis;
-        (port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
-        (host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
-        (options: IORedis.RedisOptions): IORedis.Redis;
-        (url: string): IORedis.Redis;
-        Cluster: IORedis.Cluster;
-    }
-
-    var redis: RedisStatic;
-    export = redis;
+interface RedisStatic {
+    new (port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
+    new (host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
+    new (options: IORedis.RedisOptions): IORedis.Redis;
+    new (url: string): IORedis.Redis;
+    (port?: number, host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
+    (host?: string, options?: IORedis.RedisOptions): IORedis.Redis;
+    (options: IORedis.RedisOptions): IORedis.Redis;
+    (url: string): IORedis.Redis;
+    Cluster: IORedis.Cluster;
 }
+
+declare var redis: RedisStatic;
+export = redis;
+
 declare module IORedis {
     interface Commander {
         new (): Commander;

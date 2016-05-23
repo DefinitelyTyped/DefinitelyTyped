@@ -5,6 +5,9 @@
 
 declare function empower(originalAssert:any, formatter:any, options?:empower.Options):any;
 
+export = empower;
+export as namespace empower;
+
 declare namespace empower {
     export interface Options {
         destructive?: boolean;
@@ -12,8 +15,4 @@ declare namespace empower {
         saveContextOnRethrow?: boolean;
         patterns?: string[];
     }
-}
-
-declare module "empower" {
-    export = empower;
 }

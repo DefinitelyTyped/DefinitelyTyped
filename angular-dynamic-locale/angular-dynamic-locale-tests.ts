@@ -1,3 +1,4 @@
+import * as angular from 'angularjs';
 var app = angular.module('testModule', ['tmh.dynamicLocale']);
 app.config((localStorageServiceProvider: angular.dynamicLocale.tmhDynamicLocaleProvider) => {
 	localStorageServiceProvider

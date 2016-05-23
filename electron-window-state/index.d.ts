@@ -5,6 +5,12 @@
 
 /// <reference types="electron" />
 
+/*
+ * Load the previous state with fallback to defaults
+ */
+declare function windowStateKeeper(opts: ElectronWindowState.WindowStateKeeperOptions): ElectronWindowState.WindowState;
+export = windowStateKeeper;
+
 declare namespace ElectronWindowState {
 	interface WindowState {
 		/*
@@ -79,12 +85,4 @@ declare namespace ElectronWindowState {
 		 */
 		fullScreen?: boolean;
 	}
-}
-
-declare module 'electron-window-state' {
-	/*
-	 * Load the previous state with fallback to defaults
-	 */
-	function windowStateKeeper(opts: ElectronWindowState.WindowStateKeeperOptions): ElectronWindowState.WindowState;
-	export = windowStateKeeper;
 }

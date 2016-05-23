@@ -197,6 +197,5 @@ declare namespace rosie {
 
 declare var rosie: { Factory: rosie.IFactoryStatic };
 
-declare module 'rosie' {
-    export = rosie;
-}
+export = rosie;
+export as namespace Factory;

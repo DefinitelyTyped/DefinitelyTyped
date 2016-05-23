@@ -3,9 +3,8 @@
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee/>, Jeremy Hull <https://github.com/sourrust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'highlight.js' {
-    export = hljs;
-}
+export = hljs;
+export as namespace hljs;
 
 declare  namespace hljs
 {

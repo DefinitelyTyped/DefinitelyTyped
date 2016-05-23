@@ -33,6 +33,4 @@ declare namespace RewireInterfaces {
 }
 
 declare var rewire: RewireInterfaces.Rewire;
-declare module "rewire" {
-    export = rewire;
-}
+export = rewire;

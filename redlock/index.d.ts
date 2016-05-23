@@ -5,7 +5,7 @@
 
 /// <reference types="bluebird" />
 
-declare namespace RedlockTypes {
+declare namespace Redlock {
 	interface LockError extends Error {}
 
 	interface NodeifyCallback<T> {
@@ -28,35 +28,32 @@ declare namespace RedlockTypes {
 		retryCount?: number;
 		retryDelay?: number;
 	}
-
-	class Redlock {
-		LockError: LockError;
-
-		driftFactor: number;
-		retryCount: number;
-		retryDelay: number;
-
-		servers: any[]; // array of redis.RedisClient
-
-		constructor(clients: any[], options?: RedlockOptions);
-
-		acquire(resource: string, ttl: number, callback?: NodeifyCallback<Lock>): Promise<Lock>;
-		lock(resource: string, ttl: number, callback?: NodeifyCallback<Lock>): Promise<Lock>;
-
-		disposer(resource: string, ttl: number): any; // return bluebird.Disposer
-
-		release(lock: Lock, callback?: NodeifyCallback<void>): Promise<void>;
-		unlock(lock: Lock, callback?: NodeifyCallback<void>): Promise<void>;
-
-		extend(lock: Lock, ttl: number, callback?: NodeifyCallback<Lock>): Promise<Lock>;
-
-		_lock(resource: string, value: string, ttl: number, callback?: NodeifyCallback<Lock>): Promise<Lock>;
-
-		_random(): string;
-	}
 }
 
-declare module "redlock" {
-	import Redlock = RedlockTypes.Redlock;
-	export = Redlock;
+declare class Redlock {
+	LockError: Redlock.LockError;
+
+	driftFactor: number;
+	retryCount: number;
+	retryDelay: number;
+
+	servers: any[]; // array of redis.RedisClient
+
+	constructor(clients: any[], options?: Redlock.RedlockOptions);
+
+	acquire(resource: string, ttl: number, callback?: Redlock.NodeifyCallback<Redlock.Lock>): Promise<Redlock.Lock>;
+	lock(resource: string, ttl: number, callback?: Redlock.NodeifyCallback<Redlock.Lock>): Promise<Redlock.Lock>;
+
+	disposer(resource: string, ttl: number): any; // return bluebird.Disposer
+
+	release(lock: Redlock.Lock, callback?: Redlock.NodeifyCallback<void>): Promise<void>;
+	unlock(lock: Redlock.Lock, callback?: Redlock.NodeifyCallback<void>): Promise<void>;
+
+	extend(lock: Redlock.Lock, ttl: number, callback?: Redlock.NodeifyCallback<Redlock.Lock>): Promise<Redlock.Lock>;
+
+	_lock(resource: string, value: string, ttl: number, callback?: Redlock.NodeifyCallback<Redlock.Lock>): Promise<Redlock.Lock>;
+
+	_random(): string;
 }
+
+export = Redlock;

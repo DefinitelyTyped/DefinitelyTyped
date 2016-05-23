@@ -3,154 +3,152 @@
 // Definitions by: Stefan Steinhart <https://github.com/reppners>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "nedb" {
+declare class NeDBDataStore {
 
-    class NeDBDataStore {
+    constructor();
+    constructor(path:string);
+    constructor(options:NeDB.DataStoreOptions);
 
-        constructor();
-        constructor(path:string);
-        constructor(options:NeDB.DataStoreOptions);
+    persistence:NeDB.Persistence;
 
-        persistence:NeDB.Persistence;
+    /**
+     * Load the database from the datafile, and trigger the execution of buffered commands if any
+     */
+    loadDatabase(cb?:(err:Error)=>void):void;
 
-        /**
-         * Load the database from the datafile, and trigger the execution of buffered commands if any
-         */
-        loadDatabase(cb?:(err:Error)=>void):void;
-
-        /**
-         * Get an array of all the data in the database
-         */
-        getAllData():Array<any>;
+    /**
+     * Get an array of all the data in the database
+     */
+    getAllData():Array<any>;
 
 
-        /**
-         * Reset all currently defined indexes
-         */
-        resetIndexes(newData:any):void;
+    /**
+     * Reset all currently defined indexes
+     */
+    resetIndexes(newData:any):void;
 
-        /**
-         * Ensure an index is kept for this field. Same parameters as lib/indexes
-         * For now this function is synchronous, we need to test how much time it takes
-         * We use an async API for consistency with the rest of the code
-         * @param {String} options.fieldName
-         * @param {Boolean} options.unique
-         * @param {Boolean} options.sparse
-         * @param {Function} cb Optional callback, signature: err
-         */
-        ensureIndex(options:NeDB.EnsureIndexOptions, cb?:(err:Error)=>void):void;
+    /**
+     * Ensure an index is kept for this field. Same parameters as lib/indexes
+     * For now this function is synchronous, we need to test how much time it takes
+     * We use an async API for consistency with the rest of the code
+     * @param {String} options.fieldName
+     * @param {Boolean} options.unique
+     * @param {Boolean} options.sparse
+     * @param {Function} cb Optional callback, signature: err
+     */
+    ensureIndex(options:NeDB.EnsureIndexOptions, cb?:(err:Error)=>void):void;
 
-        /**
-         * Remove an index
-         * @param {String} fieldName
-         * @param {Function} cb Optional callback, signature: err
-         */
-        removeIndex(fieldName:string, cb?:(err:Error)=>void):void;
+    /**
+     * Remove an index
+     * @param {String} fieldName
+     * @param {Function} cb Optional callback, signature: err
+     */
+    removeIndex(fieldName:string, cb?:(err:Error)=>void):void;
 
-        /**
-         * Add one or several document(s) to all indexes
-         */
-        addToIndexes<T>(doc:T):void;
-        addToIndexes<T>(doc:Array<T>):void;
+    /**
+     * Add one or several document(s) to all indexes
+     */
+    addToIndexes<T>(doc:T):void;
+    addToIndexes<T>(doc:Array<T>):void;
 
-        /**
-         * Remove one or several document(s) from all indexes
-         */
-        removeFromIndexes<T>(doc:T):void;
-        removeFromIndexes<T>(doc:Array<T>):void;
+    /**
+     * Remove one or several document(s) from all indexes
+     */
+    removeFromIndexes<T>(doc:T):void;
+    removeFromIndexes<T>(doc:Array<T>):void;
 
-        /**
-         * Update one or several documents in all indexes
-         * To update multiple documents, oldDoc must be an array of { oldDoc, newDoc } pairs
-         * If one update violates a constraint, all changes are rolled back
-         */
-        updateIndexes<T>(oldDoc:T, newDoc:T):void;
-        updateIndexes<T>(updates:Array<{oldDoc:T; newDoc:T;}>):void;
+    /**
+     * Update one or several documents in all indexes
+     * To update multiple documents, oldDoc must be an array of { oldDoc, newDoc } pairs
+     * If one update violates a constraint, all changes are rolled back
+     */
+    updateIndexes<T>(oldDoc:T, newDoc:T):void;
+    updateIndexes<T>(updates:Array<{oldDoc:T; newDoc:T;}>):void;
 
-        /**
-         * Return the list of candidates for a given query
-         * Crude implementation for now, we return the candidates given by the first usable index if any
-         * We try the following query types, in this order: basic match, $in match, comparison match
-         * One way to make it better would be to enable the use of multiple indexes if the first usable index
-         * returns too much data. I may do it in the future.
-         *
-         * TODO: needs to be moved to the Cursor module
-         */
-        getCandidates(query:any):void;
+    /**
+     * Return the list of candidates for a given query
+     * Crude implementation for now, we return the candidates given by the first usable index if any
+     * We try the following query types, in this order: basic match, $in match, comparison match
+     * One way to make it better would be to enable the use of multiple indexes if the first usable index
+     * returns too much data. I may do it in the future.
+     *
+     * TODO: needs to be moved to the Cursor module
+     */
+    getCandidates(query:any):void;
 
-        /**
-         * Insert a new document
-         * @param {Function} cb Optional callback, signature: err, insertedDoc
-         */
-        insert<T>(newDoc:T, cb?:(err:Error, document:T)=>void):void;
+    /**
+     * Insert a new document
+     * @param {Function} cb Optional callback, signature: err, insertedDoc
+     */
+    insert<T>(newDoc:T, cb?:(err:Error, document:T)=>void):void;
 
-        /**
-         * Count all documents matching the query
-         * @param {any} query MongoDB-style query
-         */
-        count(query:any, callback:(err:Error, n:number)=>void):void;
-        count(query:any):NeDB.CursorCount;
+    /**
+     * Count all documents matching the query
+     * @param {any} query MongoDB-style query
+     */
+    count(query:any, callback:(err:Error, n:number)=>void):void;
+    count(query:any):NeDB.CursorCount;
 
-        /**
-         * Find all documents matching the query
-         * If no callback is passed, we return the cursor so that user can limit, skip and finally exec
-         * @param {any} query MongoDB-style query
-         * @param {any} projection MongoDB-style projection
-         */
-        find<T>(query:any, projection:T, callback:(err:Error, documents:Array<T>)=>void):void;
-        find<T>(query:any, projection:T):NeDB.Cursor<T>;
+    /**
+     * Find all documents matching the query
+     * If no callback is passed, we return the cursor so that user can limit, skip and finally exec
+     * @param {any} query MongoDB-style query
+     * @param {any} projection MongoDB-style projection
+     */
+    find<T>(query:any, projection:T, callback:(err:Error, documents:Array<T>)=>void):void;
+    find<T>(query:any, projection:T):NeDB.Cursor<T>;
 
-        /**
-         * Find all documents matching the query
-         * If no callback is passed, we return the cursor so that user can limit, skip and finally exec
-         * * @param {any} query MongoDB-style query
-         */
-        find<T>(query:any, callback:(err:Error, documents:Array<T>)=>void):void;
-        find<T>(query:any):NeDB.Cursor<T>;
+    /**
+     * Find all documents matching the query
+     * If no callback is passed, we return the cursor so that user can limit, skip and finally exec
+     * * @param {any} query MongoDB-style query
+     */
+    find<T>(query:any, callback:(err:Error, documents:Array<T>)=>void):void;
+    find<T>(query:any):NeDB.Cursor<T>;
 
-        /**
-         * Find one document matching the query
-         * @param {any} query MongoDB-style query
-         * @param {any} projection MongoDB-style projection
-         */
-        findOne<T>(query:any, projection:T, callback:(err:Error, document:T)=>void):void;
+    /**
+     * Find one document matching the query
+     * @param {any} query MongoDB-style query
+     * @param {any} projection MongoDB-style projection
+     */
+    findOne<T>(query:any, projection:T, callback:(err:Error, document:T)=>void):void;
 
-        /**
-         * Find one document matching the query
-         * @param {any} query MongoDB-style query
-         */
-        findOne<T>(query:any, callback:(err:Error, document:T)=>void):void;
+    /**
+     * Find one document matching the query
+     * @param {any} query MongoDB-style query
+     */
+    findOne<T>(query:any, callback:(err:Error, document:T)=>void):void;
 
-        /**
-         * Update all docs matching query
-         * For now, very naive implementation (recalculating the whole database)
-         * @param {any} query
-         * @param {any} updateQuery
-         * @param {Object} options Optional options
-         *                 options.multi If true, can update multiple documents (defaults to false)
-         *                 options.upsert If true, document is inserted if the query doesn't match anything
-         * @param {Function} cb Optional callback, signature: err, numReplaced, upsert (set to true if the update was in fact an upsert)
-         *
-         * @api private Use Datastore.update which has the same signature
-         */
-        update(query:any, updateQuery:any, options?:NeDB.UpdateOptions, cb?:(err:Error, numberOfUpdated:number, upsert:boolean)=>void):void;
+    /**
+     * Update all docs matching query
+     * For now, very naive implementation (recalculating the whole database)
+     * @param {any} query
+     * @param {any} updateQuery
+     * @param {Object} options Optional options
+     *                 options.multi If true, can update multiple documents (defaults to false)
+     *                 options.upsert If true, document is inserted if the query doesn't match anything
+     * @param {Function} cb Optional callback, signature: err, numReplaced, upsert (set to true if the update was in fact an upsert)
+     *
+     * @api private Use Datastore.update which has the same signature
+     */
+    update(query:any, updateQuery:any, options?:NeDB.UpdateOptions, cb?:(err:Error, numberOfUpdated:number, upsert:boolean)=>void):void;
 
-        /**
-         * Remove all docs matching the query
-         * For now very naive implementation (similar to update)
-         * @param {Object} query
-         * @param {Object} options Optional options
-         *                 options.multi If true, can update multiple documents (defaults to false)
-         * @param {Function} cb Optional callback, signature: err, numRemoved
-         *
-         * @api private Use Datastore.remove which has the same signature
-         */
-        remove(query:any, options:NeDB.RemoveOptions, cb?:(err:Error, n:number)=>void):void;
-        remove(query:any, cb?:(err:Error, n:number)=>void):void;
-    }
-
-    export = NeDBDataStore;
+    /**
+     * Remove all docs matching the query
+     * For now very naive implementation (similar to update)
+     * @param {Object} query
+     * @param {Object} options Optional options
+     *                 options.multi If true, can update multiple documents (defaults to false)
+     * @param {Function} cb Optional callback, signature: err, numRemoved
+     *
+     * @api private Use Datastore.remove which has the same signature
+     */
+    remove(query:any, options:NeDB.RemoveOptions, cb?:(err:Error, n:number)=>void):void;
+    remove(query:any, cb?:(err:Error, n:number)=>void):void;
 }
+
+export = NeDBDataStore;
+export as namespace Nedb;
 
 declare namespace NeDB {
 

@@ -5,6 +5,9 @@
 
 /// <reference types="node" />
 
+declare var parseTorrentStatic:ParseTorrent.StaticInstance;
+export = parseTorrentStatic;
+
 declare namespace ParseTorrent {
   export interface ParsedTorrent {
     infoHash:string;
@@ -34,9 +37,4 @@ declare namespace ParseTorrent {
     remote(remoteURLorLocalTorrentPath:string, onTorrentCallback?:(err:Error, parsedTorrent:ParsedTorrent)=>void):void;
     remote(torrentBlob:Blob, onTorrentCallback?:(err:Error, parsedTorrent:ParsedTorrent)=>void):void;
   }
-}
-
-declare module "parse-torrent" {
-  const parseTorrentStatic:ParseTorrent.StaticInstance;
-  export = parseTorrentStatic;
 }
