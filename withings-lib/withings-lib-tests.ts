@@ -7,7 +7,7 @@ var client:Withings = new Withings({
     consumerSecret: process.env.CONSUMER_SECRET
 });
 
-client.getRequestToken(searchQuery, (err:string, token:string, tokenSecret:string) => {
+client.getRequestToken((err:string, token:string, tokenSecret:string) => {
     if(err) {
         console.log(err);
         return;
