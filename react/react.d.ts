@@ -150,7 +150,7 @@ declare namespace __React {
     var DOM: ReactDOM;
     var PropTypes: ReactPropTypes;
     var Children: ReactChildren;
-
+    var version: string;
     //
     // Component API
     // ----------------------------------------------------------------------
