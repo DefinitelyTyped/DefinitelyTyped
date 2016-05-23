@@ -1,5 +1,5 @@
-/// <reference path="undertaker.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="node" />
 
 var fs = require('fs');
 var Undertaker = require('undertaker');

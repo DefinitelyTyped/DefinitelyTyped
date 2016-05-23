@@ -1,4 +1,4 @@
-/// <reference path="webmidi.d.ts" />
+
 
 if (navigator.requestMIDIAccess !== undefined) {
     navigator.requestMIDIAccess().then(onSuccessCallback, onErrorCallback);

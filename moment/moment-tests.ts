@@ -1,4 +1,4 @@
-/// <reference path="moment.d.ts" />
+import * as moment from './';
 
 moment().add('hours', 1).fromNow();
 
@@ -475,5 +475,3 @@ moment.locale('en', {
 });
 
 console.log(moment.version);
-
-moment.defaultFormat = 'YYYY-MM-DD HH:mm';

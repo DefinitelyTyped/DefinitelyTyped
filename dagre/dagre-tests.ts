@@ -1,4 +1,3 @@
-/// <reference path="dagre.d.ts"/>
 namespace DagreTests {
   var gDagre = new dagre.graphlib.Graph();
   gDagre.setGraph({})

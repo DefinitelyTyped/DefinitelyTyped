@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="jquery.joyride.d.ts" />
+/// <reference types="jquery" />
+
 
 var options: JoyrideOptions;
 options.autoStart = true;

@@ -1,4 +1,4 @@
-/// <reference path="stampit.d.ts" />
+
 
 import stampit = require('stampit');
 

@@ -1,8 +1,7 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../moment/moment.d.ts" />
-/// <reference path="pikaday.d.ts" />
+/// <reference types="jquery" />
 
-import * as Pikaday from "pikaday";
+import * as Pikaday from "./";
+import * as moment from "../moment";
 
 new Pikaday({field: document.getElementById('datepicker')});
 new Pikaday({field: $('#datepicker')[0]});
@@ -69,5 +68,16 @@ new Pikaday({field: $('#datepicker')[0]});
             minDate: new Date('2000-01-01'),
             maxDate: new Date('2020-12-31'),
             yearRange: [2000, 2020]
+        });
+})();
+
+(() => {
+    new Pikaday(
+        {
+            field: document.getElementById('datepicker'),
+            firstDay: 1,
+            minDate: new Date('2000-01-01'),
+            maxDate: new Date('2020-12-31'),
+            showDaysInNextAndPreviousMonths: true
         });
 })();

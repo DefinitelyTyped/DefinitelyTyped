@@ -1,5 +1,3 @@
-/// <reference path="./gulp-typescript.d.ts"/>
-/// <reference path="../gulp/gulp.d.ts"/>
 import gulp = require("gulp");
 import typescript = require("gulp-typescript");
 

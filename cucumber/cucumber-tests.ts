@@ -1,4 +1,4 @@
-/// <reference path="cucumber.d.ts" />
+
 
 function StepSample() {
 	type Callback = cucumber.CallbackStepDefinition;

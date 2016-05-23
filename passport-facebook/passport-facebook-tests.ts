@@ -1,4 +1,3 @@
-/// <reference path="./passport-facebook.d.ts" />
 
 /**
  * Created by jcabresos on 4/19/2014.

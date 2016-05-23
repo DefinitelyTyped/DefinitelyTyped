@@ -1,7 +1,6 @@
-﻿///<reference path="SharePoint.d.ts" />
-///<reference path="../angularjs/angular.d.ts" />
-///<reference path="../knockout/knockout.d.ts" />
-///<reference path="../jquery/jquery.d.ts" />
+﻿///<reference types="angularjs" />
+///<reference types="knockout" />
+///<reference types="jquery" />
 
 
 //code from http://sptypescript.codeplex.com/

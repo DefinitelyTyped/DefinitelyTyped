@@ -1,5 +1,3 @@
-/// <reference path="ui-router-extras.d.ts"/>
-
 var myApp = angular.module('testModule')
 
 myApp.config(($stateProvider: angular.ui.IStateProvider, $stickyStateProvider: angular.ui.IStickyStateProvider) => {

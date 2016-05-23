@@ -1,4 +1,3 @@
-/// <reference path="ftpd.d.ts" />
 
 import ftpd = require("ftpd");
 

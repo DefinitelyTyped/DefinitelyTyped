@@ -1,5 +1,4 @@
-///<reference path="../angularjs/angular.d.ts" />
-///<reference path="./angularLocalStorage.d.ts" />
+/// <reference types="angularjs" />
 
 interface TestScope extends ng.IScope {
   viewType: string;

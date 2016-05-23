@@ -1,8 +1,5 @@
-/// <reference path="../jasmine/jasmine.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
-/// <reference path="../angularjs/angular-mocks.d.ts" />
-
-/// <reference path="angular-wizard.d.ts" />
+/// <reference types="jasmine" />
+/// <reference types="angularjs" />
 
 // test file taken from https://github.com/mgonto/angular-wizard
 

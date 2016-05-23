@@ -1,4 +1,4 @@
-/// <reference path="pako.d.ts" />
+
 
 import pako = require("pako");
 

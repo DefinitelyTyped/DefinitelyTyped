@@ -1,4 +1,3 @@
-/// <reference path="boolify-string.d.ts" />
 
 import boolifyString = require('boolify-string');
 

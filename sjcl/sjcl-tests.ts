@@ -1,4 +1,4 @@
-/// <reference path="./sjcl.d.ts" /> 
+ 
 
 var b: boolean;
 var n: number;

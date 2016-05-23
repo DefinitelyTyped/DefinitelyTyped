@@ -3,7 +3,6 @@
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Michael Jess <http://github.com/miffels>
 // Definitions: https://github.com/daptiv/DefinitelyTyped
 
-/// <reference path="angular.d.ts" />
 
 declare module 'angular-resource' {
     var _: string;
@@ -153,9 +152,7 @@ declare namespace angular.resource {
         /** the promise of the original server interaction that created this instance. **/
         $promise : angular.IPromise<T>;
         $resolved : boolean;
-        toJSON: () => {
-          [index: string]: any;
-        }
+        toJSON(): T;
     }
 
     /**

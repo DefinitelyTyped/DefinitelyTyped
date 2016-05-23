@@ -1,8 +1,5 @@
-/// <reference path="./react-router-redux.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="../react-router/react-router.d.ts" />
-
-
+/// <reference types="redux" />
+/// <reference types="react-router" />
 
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { browserHistory } from 'react-router';

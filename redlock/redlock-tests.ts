@@ -1,4 +1,4 @@
-/// <reference path="./redlock.d.ts" />
+
 
 import Redlock = require('redlock');
 

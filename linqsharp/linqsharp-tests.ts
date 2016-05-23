@@ -1,4 +1,3 @@
-/// <reference path="./linqsharp.d.ts" />
 
 import Linq, { LinqSharp } from "linqsharp";
 

@@ -1,5 +1,3 @@
-/// <reference path="katex.d.ts" />
-
 import katexLib = require('katex');
 
 class KatexTest {

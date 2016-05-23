@@ -1,6 +1,6 @@
-/// <reference path="webdriverio.d.ts" />
-/// <reference path="../mocha/mocha.d.ts" />
-/// <reference path="../chai/chai.d.ts" />
+
+/// <reference types="mocha" />
+/// <reference types="chai" />
 
 import {assert} from "chai";
 

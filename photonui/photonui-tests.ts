@@ -1,4 +1,4 @@
-/// <reference path="./photonui.d.ts" />
+
 
 // All exemple scripts from PhotonUI documentation:
 

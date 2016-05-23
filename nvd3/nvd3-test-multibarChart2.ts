@@ -1,4 +1,4 @@
-﻿/// <reference path="nvd3.d.ts" />
+﻿
 namespace nvd3_test_multibarChart2 {
     //todo resolve stream_layers var test_data = stream_layers(3, 128, .1).map(function (data, i) {
     var test_data = [3, 128, .1].map(function (data, i) {
@@ -29,7 +29,7 @@ namespace nvd3_test_multibarChart2 {
 
             return chart;
         },
-        callback: function (graph) {
+        callback: function (graph: nv.MultiBarChart) {
             nv.utils.windowResize(function () {
                 var width = nv.utils.windowSize().width;
                 var height = nv.utils.windowSize().height;

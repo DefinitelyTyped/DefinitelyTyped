@@ -1,4 +1,4 @@
-/// <reference path="stacktrace-js.d.ts" />
+
 
 function interestingFn() {
     return 'https://github.com/exceptionless/Exceptionless';

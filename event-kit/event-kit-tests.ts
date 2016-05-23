@@ -1,4 +1,4 @@
-/// <reference path="./event-kit.d.ts" />
+
 
 import { Disposable, CompositeDisposable, Emitter } from "event-kit";
 

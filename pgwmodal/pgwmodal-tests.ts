@@ -1,4 +1,4 @@
-/// <reference path="pgwmodal.d.ts" />
+
 
 var $j: JQueryStatic;
 var $z: ZeptoStatic;

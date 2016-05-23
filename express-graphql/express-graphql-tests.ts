@@ -1,7 +1,5 @@
-/// <reference path="./express-graphql.d.ts" />
-/// <reference path="../express/express.d.ts" />
 
-var express = require("express");
+var express = require("../express");
 var graphqlHTTP = require("express-graphql");
 var app = express();
 

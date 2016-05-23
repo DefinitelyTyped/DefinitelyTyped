@@ -1,4 +1,4 @@
-/// <reference path="FileSaver.d.ts" />
+
 
 /**
  * @summary Test for "saveAs" function.

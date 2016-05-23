@@ -1,6 +1,6 @@
-/// <reference path="redux-promise.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="../redux-actions/redux-actions.d.ts" />
+
+/// <reference types="redux" />
+/// <reference types="redux-actions" />
 
 import {createAction} from 'redux-actions';
 import { createStore, applyMiddleware } from 'redux';

@@ -1,6 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../knockout/knockout.d.ts" />
-/// <reference path="kolite.d.ts" />
+/// <reference types="jquery" />
+/// <reference types="knockout" />
 
 function test_asyncCommand() {
     var saveCmd = ko.asyncCommand({
@@ -115,7 +114,7 @@ function test_full() {
             };
             return self;
         };
-    })(ko);
+    })(ko as any);
     (function (ko) {
         ko.utils.wrapAccessor = function (accessor) {
             return function () {
@@ -176,7 +175,7 @@ function test_full() {
                 ko.bindingHandlers.enable.update(element, canExecute, allBindingsAccessor, viewModel);
             }
         };
-    })(ko);
+    })(ko as any);
 
     var my: any = {};
     my.TwitterService = function () {

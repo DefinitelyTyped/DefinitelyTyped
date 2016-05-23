@@ -1,4 +1,4 @@
-/// <reference path="./power-assert.d.ts" />
+
 
 import assert = require("power-assert");
 
@@ -19,7 +19,7 @@ assert.throws(() => {
 }, undefined, "DODGED IT");
 
 assert.doesNotThrow(() => {
-    if (false) {
+    if (!!false) {
         throw "a hammer at your face";
     }
 }, undefined, "What the...*crunch*");
@@ -44,7 +44,7 @@ customizedAssert1.throws(() => {
 }, undefined, "DODGED IT");
 
 customizedAssert1.doesNotThrow(() => {
-    if (false) {
+    if (!!false) {
         throw "a hammer at your face";
     }
 }, undefined, "What the...*crunch*");

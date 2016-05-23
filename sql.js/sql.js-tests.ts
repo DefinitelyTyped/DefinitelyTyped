@@ -1,8 +1,7 @@
-/// <reference path="../node/node.d.ts" />
-/// <reference path="sql.js.d.ts" />
+/// <reference types="node" />
+
 
 import fs = require("fs");
-import SQL = require("sql.js");
 
 var DB_PATH = "data.db";
 
@@ -14,7 +13,7 @@ function createFile(path: string): void {
 // Open the database file. If it does not exist, create a blank database in memory.
 var databaseData: Buffer;
 databaseData = fs.existsSync(DB_PATH) ? fs.readFileSync(DB_PATH) : null;
-var db = new SQL.Database(databaseData);
+var db = new Database(databaseData);
 
 // Create a new table 'test_table' in the database in memory.
 var createTableStatement =

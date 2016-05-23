@@ -1,8 +1,6 @@
 // Copyright (c) Microsoft Open Technologies, Inc.
 // Licensed under the MIT license.
 
-/// <reference path="cordova.d.ts"/>
-
 // Apache Cordova core
 //----------------------------------------------------------------------
 
@@ -268,8 +266,6 @@ window.plugins.pushNotification.unregister(() => { }, () => { });
 
 // Network Plugin
 //----------------------------------------------------------------------
-
-console.log('Connection type is: ' + navigator.connectionSpeed);
 
 var connType = navigator.connection.type;
 if (connType == Connection.WIFI) {

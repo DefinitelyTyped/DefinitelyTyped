@@ -1,5 +1,5 @@
-/// <reference path="./react-datagrid.d.ts" />
-/// <reference path="../react/react.d.ts" />
+
+/// <reference types="react" />
 
 import * as React from "react";
 import ReactDataGrid = require("react-datagrid");

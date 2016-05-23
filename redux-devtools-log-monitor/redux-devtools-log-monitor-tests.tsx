@@ -1,5 +1,4 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="./redux-devtools-log-monitor.d.ts" />
+/// <reference types="react" />
 
 import * as React from 'react'
 import LogMonitor from 'redux-devtools-log-monitor'

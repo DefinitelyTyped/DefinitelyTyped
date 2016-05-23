@@ -1,4 +1,4 @@
-/// <reference path="devexpress-web.d.ts" />
+
 
 namespace Tests.Globals {
     function ASPxTest(): void {

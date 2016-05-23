@@ -1,4 +1,3 @@
-/// <reference path="./deep-equal.d.ts" />
 
 import * as deepEqual from "deep-equal";
 

@@ -1,6 +1,3 @@
-/// <reference path='../angularjs/angular.d.ts' />
-/// <reference path='angular-locker.d.ts' />
-
 angular
 .module('angular-locker-tests', ['angular-locker'])
 .config(['lockerProvider', function config(lockerProvider: angular.locker.ILockerProvider) {

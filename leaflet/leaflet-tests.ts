@@ -1,4 +1,4 @@
-/// <reference path="leaflet.d.ts" />
+
 
 // initialize the map on the "map" div with a given center and zoom
 

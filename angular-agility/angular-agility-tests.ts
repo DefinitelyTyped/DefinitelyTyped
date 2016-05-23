@@ -1,5 +1,4 @@
-/// <reference path="angular-agility.d.ts" />
-/// <reference path='../angularjs/angular.d.ts' />
+
 
 var validIconStrategy:aa.IValidIconStrategy = <aa.IValidIconStrategy>{};
 validIconStrategy.validIcon = "";

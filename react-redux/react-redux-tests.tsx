@@ -1,10 +1,8 @@
-/// <reference path="react-redux.d.ts" />
-/// <reference path="../react/react.d.ts"/>
-/// <reference path="../react/react-dom.d.ts"/>
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="../history/history.d.ts" />
-/// <reference path="../react-router/react-router.d.ts" />
-/// <reference path="../object-assign/object-assign.d.ts" />
+/// <reference types="react"/>
+/// <reference types="react-dom"/>
+/// <reference types="redux" />
+/// <reference types="history" />
+/// <reference types="react-router" />
 
 import { Component, ReactElement } from 'react';
 import * as React from 'react';
@@ -79,7 +77,7 @@ ReactDOM.render((
 //
 declare var store: Store;
 declare var routerState: RouterState;
-declare var history: HistoryModule.History;
+declare var history: History.History;
 class MyRootComponent extends Component<any, any> {
 
 }

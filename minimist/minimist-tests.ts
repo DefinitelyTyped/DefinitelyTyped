@@ -1,4 +1,3 @@
-/// <reference path="minimist.d.ts" />
 
 import minimist = require('minimist');
 import Opts = minimist.Opts;

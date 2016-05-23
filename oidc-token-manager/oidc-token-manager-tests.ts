@@ -1,4 +1,4 @@
-/// <reference path="oidc-token-manager.d.ts" />
+
 
 var config = {
     client_id: "implicitclient",

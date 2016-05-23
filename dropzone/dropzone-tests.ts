@@ -1,7 +1,8 @@
-/// <reference path="./dropzone.d.ts"/>
-
 const dropzoneFromString = new Dropzone(".test");
 const dropzoneFromElement = new Dropzone(document.getElementById("test"));
+const dropzoneRenameFunction = function (name:string):string {
+  return name + 'new';
+};
 
 const dropzoneWithOptions = new Dropzone(".test", {
 	url: "/some/url",
@@ -26,10 +27,12 @@ const dropzoneWithOptions = new Dropzone(".test", {
 	clickable: true,
 	ignoreHiddenFiles: true,
 	acceptedFiles: "image/*",
+	renameFilename: dropzoneRenameFunction,
 	autoProcessQueue: true,
 	autoQueue: true,
 	addRemoveLinks: true,
 	previewsContainer: "<div></div>",
+	hiddenInputContainer: document.createElement("input"),
 	capture: "camera",
 
 	dictDefaultMessage: "",

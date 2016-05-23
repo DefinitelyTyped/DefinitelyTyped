@@ -1,4 +1,3 @@
-/// <reference path="node-gcm.d.ts" />
 
 import gcm = require('node-gcm');
 

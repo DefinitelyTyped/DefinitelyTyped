@@ -1,8 +1,5 @@
-/// <reference path="business-rules-engine.d.ts" />
-/// <reference path="BasicValidators.d.ts" />
-/// <reference path="../underscore/underscore.d.ts" />
-/// <reference path="../q/Q.d.ts" />
-/// <reference path="../moment/moment.d.ts" />
+/// <reference types="Q" />
+import * as Validators from './node-validators';
 
 export interface IPerson{
     Checked:boolean;

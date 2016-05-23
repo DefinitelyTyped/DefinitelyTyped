@@ -1,5 +1,3 @@
-/// <reference path="./typescript-deferred.d.ts"/>
-
 import tsd = require('typescript-deferred');
 
 var t1: tsd.PromiseInterface<string> = tsd.when(10)

@@ -1,5 +1,5 @@
-/// <reference path="valerie.d.ts" />
-/// <reference path="../knockout/knockout.d.ts" />
+
+/// <reference types="knockout" />
 
 // Tests for valerie.d.ts
 // Project: https://github.com/davewatts/valerie

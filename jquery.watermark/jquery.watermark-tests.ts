@@ -1,6 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery.watermark.d.ts"/>
-
+/// <reference types="jquery"/>
 
 $('#inputId').watermark('Required information');
 $('#inputId').watermark('Required information', { className: 'myClassName' });

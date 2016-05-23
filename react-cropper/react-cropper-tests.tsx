@@ -1,7 +1,3 @@
-/// <reference path="../react/react.d.ts"/>
-/// <reference path="./react-cropper.d.ts"/>
-
-
 import * as React from 'react';
 import Cropper from 'react-cropper';
 // If you choose not to use import, you need to assign Cropper to default

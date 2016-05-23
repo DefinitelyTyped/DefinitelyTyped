@@ -1,4 +1,4 @@
-/// <reference path="z-schema.d.ts" />
+
 
 import ZSchema = require('z-schema');
 

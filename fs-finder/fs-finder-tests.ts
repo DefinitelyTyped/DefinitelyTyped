@@ -1,4 +1,4 @@
-/// <reference path="fs-finder.d.ts" />
+
 
 import finder = require('fs-finder');
 

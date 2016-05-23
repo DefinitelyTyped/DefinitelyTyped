@@ -1,5 +1,4 @@
-/// <reference path="../angularjs/angular.d.ts"/>
-/// <reference path="./angular-strap.d.ts"/>
+/// <reference types="angularjs"/>
 
 namespace angularStrapTests {
 

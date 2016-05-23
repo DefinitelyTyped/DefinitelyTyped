@@ -1,5 +1,5 @@
-/// <reference path="datepicker.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
+
+/// <reference types="jquery" />
 
 namespace ngCordova {
     function smoketest($cordovaDatePicker: IDatePickerService, isIos: boolean) {

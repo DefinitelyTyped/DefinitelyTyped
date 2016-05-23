@@ -1,5 +1,5 @@
-/// <reference path="../angularjs/angular.d.ts" />
-/// <reference path="angular-ui-sortable.d.ts" />
+/// <reference types="angularjs" />
+
 
 var myApp = angular.module('testModule');
 

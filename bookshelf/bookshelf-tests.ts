@@ -1,5 +1,4 @@
-/// <reference path="bookshelf.d.ts" />
-/// <reference path="../knex/knex.d.ts" />
+
 
 import * as Knex from 'knex';
 import * as Bookshelf from 'bookshelf';
@@ -14,6 +13,9 @@ var knex = Knex({
 // Examples
 
 var bookshelf = Bookshelf(knex);
+
+bookshelf.plugin('registry');
+bookshelf.plugin(['virtuals']);
 
 class User extends bookshelf.Model<User> {
 	get tableName() { return 'users'; }

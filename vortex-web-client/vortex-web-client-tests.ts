@@ -1,4 +1,4 @@
-/// <reference path="vortex-web-client.d.ts" />
+
 
 var runtime = new dds.runtime.Runtime();
 runtime.connect("ws://localhost:9000", "user:pass");

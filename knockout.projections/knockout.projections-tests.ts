@@ -1,7 +1,7 @@
 // Tests for knockout.projections.d.ts
 
-/// <reference path="../knockout/knockout.d.ts" />
-/// <reference path="knockout.projections.d.ts" />
+/// <reference types="knockout" />
+
 
 // Test map
 var sourceItems = ko.observableArray([1, 2, 3, 4, 5]);

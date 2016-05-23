@@ -1,6 +1,4 @@
-﻿/// <reference path="moment.d.ts" />
-
-import moment = require('moment');
+﻿import moment = require('./');
 
 moment().add('hours', 1).fromNow();
 

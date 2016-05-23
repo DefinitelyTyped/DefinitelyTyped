@@ -1,4 +1,5 @@
-/// <reference path="angular-ui-router.d.ts" />
+import * as ng from 'angularjs';
+import * as angular from 'angularjs';
 
 var myApp = angular.module('testModule');
 
@@ -141,6 +142,8 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
         private $state: ng.ui.IStateService
     ) {
         $rootScope.$on("$locationChangeSuccess", (event: ng.IAngularEvent) => this.onLocationChangeSuccess(event));
+        $rootScope.$on('$stateNotFound', (event: ng.IAngularEvent, unfoundState: ng.ui.IUnfoundState, fromState: ng.ui.IState, fromParams: {}) => 
+                                              this.onStateNotFound(event, unfoundState, fromState, fromParams));
     }
 
     public currentUser: any;
@@ -161,6 +164,15 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
                 this.$urlRouter.sync();
             });
         }
+    }
+    
+     private onStateNotFound(event: ng.IAngularEvent,
+                             unfoundState: ng.ui.IUnfoundState,
+                             fromState: ng.ui.IState,
+                             fromParams: {}) {
+        var unfoundTo: string = unfoundState.to;
+        var unfoundToParams: {} = unfoundState.toParams;
+        var unfoundOptions: ng.ui.IStateOptions = unfoundState.options 
     }
 
     private stateServiceTest() {

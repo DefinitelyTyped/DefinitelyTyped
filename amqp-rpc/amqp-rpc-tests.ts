@@ -1,4 +1,4 @@
-/// <reference path="./amqp-rpc.d.ts" />
+
 import amqp_rpc = require('amqp-rpc');
 var rpc = amqp_rpc.factory();
 

@@ -1,4 +1,4 @@
-﻿/// <reference path="lz-string.d.ts" />
+﻿
 
 var input = "Someting to compress";
 var encoded: string;

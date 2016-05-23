@@ -1,4 +1,4 @@
-/// <reference path="./ionic.d.ts" />
+
 
 var testIonic = angular.module('testIonic', ['ionic']);
 
@@ -387,6 +387,7 @@ class IonicTestController {
         ready = ionic.Platform.ready(callbackWithReturn);
         var setGrade: void = ionic.Platform.setGrade('iOS');
         var deviceInformation: string = ionic.Platform.device();
+        var isBrowser: boolean = ionic.Platform.is('browser');
         var isWebView: boolean = ionic.Platform.isWebView();
         var isIPad: boolean = ionic.Platform.isIPad();
         var isIOS: boolean = ionic.Platform.isIOS();

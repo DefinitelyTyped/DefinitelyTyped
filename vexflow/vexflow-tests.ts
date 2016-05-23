@@ -1,4 +1,4 @@
-/// <reference path="vexflow.d.ts" />
+
 
 var canvas = document.getElementById("canvas");
 var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);

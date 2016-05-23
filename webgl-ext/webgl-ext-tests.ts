@@ -1,4 +1,4 @@
-/// <reference path="webgl-ext.d.ts" />
+
 
 var canvas = document.createElement("canvas");
 var gl = canvas.getContext("webgl");

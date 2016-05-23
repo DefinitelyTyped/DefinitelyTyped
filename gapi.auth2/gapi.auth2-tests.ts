@@ -1,4 +1,4 @@
-/// <reference path="gapi.auth2.d.ts" />
+
 
 function test_init(){
   var auth = gapi.auth2.init({

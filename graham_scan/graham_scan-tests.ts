@@ -1,4 +1,4 @@
-/// <reference path="graham_scan.d.ts" />
+
 
 // Based on the README.MD
 

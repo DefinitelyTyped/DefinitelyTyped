@@ -1,4 +1,4 @@
-/// <reference path="fromnow.d.ts" />
+
 
 import fromnow = require( 'fromnow' );
 

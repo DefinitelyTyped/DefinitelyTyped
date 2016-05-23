@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="bootstrap-slider.d.ts" />
+/// <reference types="jquery" />
+
 
 $(function() {
     // examples from http://seiyria.github.io/bootstrap-slider/

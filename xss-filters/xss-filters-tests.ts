@@ -1,4 +1,4 @@
-/// <reference path="./xss-filters.d.ts" />
+
 
 import xssFilters = require('xss-filters');
 

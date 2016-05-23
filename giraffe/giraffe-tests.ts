@@ -1,4 +1,4 @@
-/// <reference path="giraffe.d.ts" />
+
 
 class User extends Giraffe.Model {
 }

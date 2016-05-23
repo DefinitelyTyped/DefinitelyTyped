@@ -1,6 +1,4 @@
-﻿/// <reference path="bootstrap.datepicker.d.ts"/>
-
-function tests_simple() {
+﻿function tests_simple() {
     $('#datepicker').datepicker();
     $('#datepicker').datepicker({
         format: 'mm-dd-yyyy'

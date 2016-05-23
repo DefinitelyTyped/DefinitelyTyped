@@ -1,4 +1,3 @@
-/// <reference path="JSONStream.d.ts" />
 
 import json = require('JSONStream');
 

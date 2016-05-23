@@ -2,7 +2,6 @@
 // see: https://github.com/mathiask88/node-snap7-testsuite
 // see: http://definitelytyped.org/guides/contributing.html
 
-/// <reference path="node-snap7.d.ts" />
 
 import snap7 = require("node-snap7");
 

@@ -1,4 +1,4 @@
-/// <reference path="jasmine.d.ts" />
+
 
 // tests based on http://jasmine.github.io/2.2/introduction.html
 
@@ -747,31 +747,31 @@ describe("Manually ticking the Jasmine Clock", function () {
 
 describe("Asynchronous specs", function () {
     var value: number;
-    beforeEach(function (done) {
+    beforeEach(function (done: DoneFn) {
         setTimeout(function () {
             value = 0;
             done();
         }, 1);
     });
 
-    it("should support async execution of test preparation and expectations", function (done) {
+    it("should support async execution of test preparation and expectations", function (done: DoneFn) {
         value++;
         expect(value).toBeGreaterThan(0);
         done();
     });
 
     describe("long asynchronous specs", function() {
-        beforeEach(function(done) {
+        beforeEach(function(done: DoneFn) {
           done();
         }, 1000);
 
-        it("takes a long time", function(done) {
+        it("takes a long time", function(done: DoneFn) {
           setTimeout(function() {
             done();
           }, 9000);
         }, 10000);
 
-        afterEach(function(done) {
+        afterEach(function(done: DoneFn) {
           done();
         }, 1000);
     });

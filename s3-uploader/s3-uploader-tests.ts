@@ -1,5 +1,5 @@
-/// <reference path="../node/node.d.ts" />
-/// <reference path="s3-uploader.d.ts" />
+/// <reference types="node" />
+
 
 //NOTE: Does require GM (https://github.com/aheckmann/gm) thus requires GraphicsMagick (http://www.graphicsmagick.org/) or ImageMagick (http://www.imagemagick.org/)
 

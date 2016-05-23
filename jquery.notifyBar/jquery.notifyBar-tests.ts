@@ -1,4 +1,4 @@
-/// <reference path="jquery.notifyBar.d.ts" />
+
 
 $(function() {
     $.notifyBar({

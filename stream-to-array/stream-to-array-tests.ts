@@ -1,5 +1,5 @@
-/// <reference path="./stream-to-array.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="node" />
 
 import toArray = require('stream-to-array');
 

@@ -1,4 +1,4 @@
-/// <reference path="appframework.d.ts" />
+
 
 af(($: appFrameworkStatic) => {});
 

@@ -1,5 +1,4 @@
-/// <reference path="../node/node.d.ts" />
-/// <reference path="magic-number.d.ts" />
+/// <reference types="node" />
 
 import fs = require('fs');
 import magic = require('magic-number');

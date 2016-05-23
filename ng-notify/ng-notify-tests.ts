@@ -1,5 +1,5 @@
-/// <reference path='../angularjs/angular.d.ts'/>
-/// <reference path="ng-notify.d.ts" />
+/// <reference types="angularjs"/>
+
 
 class NgNotifyTestController {
 

@@ -1,5 +1,5 @@
-/// <reference path="../leaflet/leaflet.d.ts" />
-/// <reference path="leaflet-draw.d.ts" />
+/// <reference types="leaflet" />
+
 
 
 var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',

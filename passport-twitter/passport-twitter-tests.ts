@@ -1,4 +1,3 @@
-/// <reference path="./passport-twitter.d.ts" />
 
 /**
  * Created by jcabresos on 4/19/2014.

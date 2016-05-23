@@ -1,9 +1,4 @@
-/// <reference path="react-redux-2.1.2.d.ts" />
-/// <reference path="../react/react.d.ts"/>
-/// <reference path="../react/react-dom.d.ts"/>
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="../react-router/react-router-0.13.3.d.ts" />
-/// <reference path="../object-assign/object-assign.d.ts" />
+/// <reference types="redux" />
 
 import { Component, ReactElement } from 'react';
 import * as React from 'react';

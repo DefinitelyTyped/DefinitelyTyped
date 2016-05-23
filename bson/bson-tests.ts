@@ -1,5 +1,3 @@
-/// <reference path="bson.d.ts"/>
-
 import * as bson from 'bson';
 
 let BSON = new bson.BSONPure.BSON();

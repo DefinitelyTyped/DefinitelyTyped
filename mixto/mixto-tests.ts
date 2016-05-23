@@ -1,4 +1,4 @@
-/// <reference path="./mixto.d.ts" />
+
 
 import Mixin = require("mixto");
 

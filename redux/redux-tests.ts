@@ -1,4 +1,4 @@
-/// <reference path="./redux.d.ts" />
+
 
 function counter(state: any, action: any) {
     if (!state) {

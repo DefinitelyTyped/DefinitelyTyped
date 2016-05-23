@@ -1,7 +1,3 @@
-/// <reference path="../gulp/gulp.d.ts" />
-/// <reference path="../del/del.d.ts" />
-/// <reference path="vinyl-paths.d.ts" />
-
 import gulp = require('gulp');
 import del = require('del');
 import paths = require('vinyl-paths');

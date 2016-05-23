@@ -1,5 +1,5 @@
-/// <reference path="docopt.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="node" />
 
 var doc = `
 Usage:

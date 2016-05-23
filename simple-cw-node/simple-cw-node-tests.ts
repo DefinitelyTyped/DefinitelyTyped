@@ -1,6 +1,4 @@
-/// <reference path="../node/node.d.ts" />
-
-/// <reference path="./simple-cw-node.d.ts" />
+/// <reference types="node" />
 
 import CW = require('simple-cw-node');
 var client = CW();

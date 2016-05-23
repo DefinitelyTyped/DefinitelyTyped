@@ -1,4 +1,4 @@
-/// <reference path="node-sass.d.ts" />
+
 import sass = require('node-sass');
 sass.render({
   file: '/path/to/myFile.scss',

@@ -1,5 +1,5 @@
-/// <reference path="angular.d.ts" />
-/// <reference path="angular-route.d.ts" />
+
+
 
 /**
  * @license HTTP Auth Interceptor Module for AngularJS

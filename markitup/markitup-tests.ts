@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="markitup.d.ts" />
+/// <reference types="jquery" />
+
 
 // https://github.com/markitup/1.x/blob/master/markitup/sets/default/set.js
 var mySettings = {

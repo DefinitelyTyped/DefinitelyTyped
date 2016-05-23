@@ -1,4 +1,4 @@
-/// <reference path="slideout.d.ts" />
+
 
 // Slideout(options)
 var slideout = new Slideout({

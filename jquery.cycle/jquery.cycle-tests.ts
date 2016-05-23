@@ -1,5 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery.cycle.d.ts"/>
+/// <reference types="jquery"/>
 
 // As basic as it can be
 $('#element').cycle();

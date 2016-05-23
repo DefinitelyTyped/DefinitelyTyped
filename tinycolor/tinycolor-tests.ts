@@ -1,4 +1,4 @@
-/// <reference path="tinycolor.d.ts" />
+
 
 /*
  * Not all possible formats for construction are displayed.

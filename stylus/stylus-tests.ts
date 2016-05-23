@@ -4,9 +4,9 @@
  * Created by using code samples from https://github.com/LearnBoost/stylus/blob/master/docs/js.md.
  */
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../express/express.d.ts" />
-/// <reference path="stylus.d.ts" />
+/// <reference types="node" />
+
+
 
 import stylus = require("stylus");
 

@@ -1,10 +1,12 @@
-/// <reference path="rangy.d.ts" />
+
 
 declare function assertAny(a:any):any;
 declare function assertBoolean(b:boolean):any;
 declare function assertString(s:string):any;
 declare function assertRangyRange(r:RangyRange):any;
 declare function getRangyRange():RangyRange;
+
+type TextRange = any; // ?
 
 function testRangyStatic() {
     rangy.addInitListener((rangy:RangyStatic) => {

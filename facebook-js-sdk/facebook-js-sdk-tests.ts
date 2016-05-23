@@ -1,4 +1,4 @@
-/// <reference path="facebook-js-sdk.d.ts" />
+
 
 FB.init({
    appId: '***********',

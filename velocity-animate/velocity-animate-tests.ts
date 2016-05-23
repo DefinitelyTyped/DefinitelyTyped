@@ -1,4 +1,4 @@
-/// <reference path="velocity-animate.d.ts" />
+
 
 function basics_arguments() {
 	var $el: JQuery;

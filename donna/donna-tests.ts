@@ -1,4 +1,4 @@
-/// <reference path="./donna.d.ts" />
+
 
 import donna = require("donna");
 var metadata = donna.generateMetadata(['/path/to/my-module', '/path/to/another-module']);

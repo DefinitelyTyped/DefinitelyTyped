@@ -1,4 +1,4 @@
-﻿/// <reference path="ng-file-upload.d.ts" />
+﻿
 
 "use strict";
 

@@ -1,5 +1,5 @@
-/// <reference path="../q/Q.d.ts" />
-/// <reference path="Q-io.d.ts" />
+/// <reference types="Q" />
+
 
 var fs:typeof QioFS = require('q-io/fs');
 var http:typeof QioHTTP = require('q-io/http');

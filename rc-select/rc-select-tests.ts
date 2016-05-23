@@ -1,5 +1,5 @@
-/// <reference path="rc-select.d.ts" />
-/// <reference path="../react/react.d.ts" />
+
+/// <reference types="react" />
 
 import React = require('react');
 import Select = require('rc-select');
