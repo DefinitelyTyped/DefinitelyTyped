@@ -1,5 +1,5 @@
 // Type definitions for Enzyme v2.3.0
-// Project: https://github.com/irbnb/enzyme
+// Project: https://github.com/airbnb/enzyme
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
