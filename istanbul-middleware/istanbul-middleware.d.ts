@@ -1,3 +1,10 @@
+// Type definitions for istanbul-middleware
+// Project: https://www.npmjs.com/package/istanbul-middleware
+// Definitions by: Hookclaw <https://github.com/hookclaw>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference path="../express/express.d.ts" />
+
 declare module "istanbul-middleware" {
     import * as express from "express";
 
