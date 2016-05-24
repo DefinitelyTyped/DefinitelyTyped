@@ -1,7 +1,7 @@
 // Type definitions for shortid
 // Project: https://github.com/dylang/shortid
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "shortid" {
 	export function generate(): string;

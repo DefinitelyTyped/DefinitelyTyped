@@ -1,7 +1,7 @@
 // Type definitions for Angular JS 1.1.5+ (ui.router module)
 // Project: https://github.com/angular-ui/ui-router
 // Definitions by: Michel Salib <https://github.com/michelsalib>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
@@ -28,14 +28,14 @@ declare module 'angular-ui-router' {
     export type IType = angular.ui.IType;
 }
 
-declare module angular.ui {
+declare namespace angular.ui {
 
     interface IState {
         name?: string;
         /**
          * String HTML content, or function that returns an HTML string
          */
-        template?: string | {(): string};
+        template?: string | {(params: IStateParamsService): string};
         /**
          * String URL path to template file OR Function, returns URL path string
          */
@@ -88,18 +88,24 @@ declare module angular.ui {
          * Arbitrary data object, useful for custom configuration.
          */
         data?: any;
-        
+
         /**
          * Boolean (default true). If false will not re-trigger the same state just because a search/query parameter has changed. Useful for when you'd like to modify $location.search() without triggering a reload.
          */
         reloadOnSearch?: boolean;
-        
+
         /**
          * Boolean (default true). If false will reload state on everytransitions. Useful for when you'd like to restore all data  to its initial state.
          */
         cache?: boolean;
     }
 
+    interface IUnfoundState {
+        to: string,
+        toParams: {},
+        options: IStateOptions
+    }
+    
     interface IStateProvider extends angular.IServiceProvider {
         state(name:string, config:IState): IStateProvider;
         state(config:IState): IStateProvider;
@@ -223,9 +229,9 @@ declare module angular.ui {
          */
         notify?: boolean;
         /**
-         * {boolean=false}, If true will force transition even if the state or params have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd use this when you want to force a reload when everything is the same, including search params.
+         * {boolean=false|string|IState}, If true will force transition even if the state or params have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd use this when you want to force a reload when everything is the same, including search params.
          */
-        reload?: boolean;
+        reload?: boolean | string | IState;
     }
 
     interface IHrefOptions {

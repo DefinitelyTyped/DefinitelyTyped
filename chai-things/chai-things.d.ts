@@ -5,7 +5,7 @@
 
 /// <reference path="../chai/chai.d.ts" />
 
-declare module Chai {
+declare namespace Chai {
     interface ArrayAssertion {
         include: ArrayInclude;
         contain: ArrayInclude;

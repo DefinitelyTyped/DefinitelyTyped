@@ -1,7 +1,7 @@
 // Type definitions for swig
 // Project: http://github.com/paularmstrong/swig
 // Definitions by: Peter Harris <https://github.com/CodeAnimal>, Carlos Ballesteros Velasco <https://github.com/soywiz>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // API Documentation : http://paularmstrong.github.io/swig/docs/api/
 

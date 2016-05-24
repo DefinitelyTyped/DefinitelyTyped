@@ -6,12 +6,12 @@
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
-declare module GoogleAppsScript {
+declare namespace GoogleAppsScript {
   export module Forms {
     /**
      * An enum representing the supported types of image alignment. Alignment types can be accessed from
      *  FormApp.Alignment.
-     * 
+     *
      *      // Open a form by ID and add a new image item with alignment
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var img = UrlFetchApp.fetch('https://www.google.com/images/srpr/logo4w.png');
@@ -24,7 +24,7 @@ declare module GoogleAppsScript {
     /**
      * A question item that allows the respondent to select one or more checkboxes, as well as an
      *  optional "other" field. Items can be accessed or created from a Form.
-     * 
+     *
      *      // Open a form by ID and add a new checkbox item.
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var item = form.addCheckboxItem();
@@ -59,7 +59,7 @@ declare module GoogleAppsScript {
     /**
      * A single choice associated with a type of Item that supports choices, like
      *  CheckboxItem, ListItem, or MultipleChoiceItem.
-     * 
+     *
      *      // Create a new form and add a multiple-choice item.
      *      var form = FormApp.create('Form Name');
      *      var item = form.addMultipleChoiceItem();
@@ -68,10 +68,10 @@ declare module GoogleAppsScript {
      *              item.createChoice('Cats', FormApp.PageNavigationType.CONTINUE),
      *              item.createChoice('Dogs', FormApp.PageNavigationType.RESTART)
      *          ]);
-     *     
+     *
      *      // Add another page because navigation has no effect on the last page.
      *      form.addPageBreakItem().setTitle('You chose well!');
-     *     
+     *
      *      // Log the navigation types that each choice results in.
      *      var choices = item.getChoices();
      *      for (var i = 0; i < choices.length; i++) {
@@ -89,7 +89,7 @@ declare module GoogleAppsScript {
     /**
      * A question item that allows the respondent to indicate a date. Items can be accessed or created
      *  from a Form.
-     * 
+     *
      *      // Open a form by ID and add a new date item.
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var item = form.addDateItem();
@@ -114,7 +114,7 @@ declare module GoogleAppsScript {
     /**
      * A question item that allows the respondent to indicate a date and time. Items can be accessed or
      *  created from a Form.
-     * 
+     *
      *      // Open a form by ID and add a new date-time item.
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var item = form.addDateTimeItem();
@@ -142,11 +142,11 @@ declare module GoogleAppsScript {
      *  save
      *  a copy of responses in the form's response store. Destination types can be accessed from
      *  FormApp.DestinationType.
-     * 
+     *
      *      // Open a form by ID and create a new spreadsheet.
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var ss = SpreadsheetApp.create('Spreadsheet Name');
-     *     
+     *
      *      // Update the form's response destination.
      *      form.setDestination(FormApp.DestinationType.SPREADSHEET, ss.getId());
      */
@@ -155,7 +155,7 @@ declare module GoogleAppsScript {
     /**
      * A question item that allows the respondent to indicate a length of time. Items can be accessed or
      *  created from a Form.
-     * 
+     *
      *      // Open a form by ID and add a new duration item.
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var item = form.addDurationItem();
@@ -179,18 +179,18 @@ declare module GoogleAppsScript {
      * A form that contains overall properties (such as title, settings, and where responses are stored)
      *  and items (which includes question items like checkboxes and layout items like page breaks).
      *  Forms can be accessed or created from FormApp.
-     * 
+     *
      *      // Open a form by ID and create a new spreadsheet.
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var ss = SpreadsheetApp.create('Spreadsheet Name');
-     *     
+     *
      *      // Update form properties via chaining.
      *      form.setTitle('Form Name')
      *          .setDescription('Description of form')
      *          .setConfirmationMessage('Thanks for responding!')
      *          .setAllowResponseEdits(true)
      *          .setAcceptingResponses(false);
-     *     
+     *
      *      // Update the form's response destination.
      *      form.setDestination(FormApp.DestinationType.SPREADSHEET, ss.getId());
      */
@@ -267,10 +267,10 @@ declare module GoogleAppsScript {
 
     /**
      * Allows a script to open existing Forms or create new ones.
-     * 
+     *
      *      // Open a form by ID.
      *      var existingForm = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
-     *     
+     *
      *      // Create and open a form.
      *      var newForm = FormApp.create('Form Name');
      */
@@ -292,7 +292,7 @@ declare module GoogleAppsScript {
      *  respond to the form (see withItemResponse(response) and submit()), and they
      *  can be used as a template to create a URL for the form with pre-filled answers. Form responses
      *  can be created or accessed from a Form.
-     * 
+     *
      *      // Open a form by ID and log the responses to each question.
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var formResponses = form.getResponses();
@@ -324,7 +324,7 @@ declare module GoogleAppsScript {
      * A question item, presented as a grid of columns and rows, that allows the respondent to select
      *  one choice per row from a sequence of radio buttons. Items can be accessed or created from a
      *  Form.
-     * 
+     *
      *      // Open a form by ID and add a new grid item.
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var item = form.addGridItem();
@@ -352,7 +352,7 @@ declare module GoogleAppsScript {
 
     /**
      * A layout item that displays an image. Items can be accessed or created from a Form.
-     * 
+     *
      *      // Open a form by ID and add a new image item
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var img = UrlFetchApp.fetch('https://www.google.com/images/srpr/logo4w.png');
@@ -381,19 +381,19 @@ declare module GoogleAppsScript {
     /**
      * A generic form item that contains properties common to all items, such as title and help text.
      *  Items can be accessed or created from a Form.
-     * 
+     *
      *  To operate on type-specific properties, use getType() to check the item's
      *  ItemType, then cast the item to the
      *  appropriate class using a method like asCheckboxItem().
-     * 
+     *
      *      // Create a new form and add a text item.
      *      var form = FormApp.create('Form Name');
      *      form.addTextItem();
-     *     
+     *
      *      // Access the text item as a generic item.
      *      var items = form.getItems();
      *      var item = items[0];
-     *     
+     *
      *      // Cast the generic item to the text-item class.
      *      if (item.getType() == 'TEXT') {
      *        var textItem = item.asTextItem();
@@ -430,7 +430,7 @@ declare module GoogleAppsScript {
      * A response to one question item within a form. Item responses can be accessed from
      *  FormResponse and created from any Item that asks the respondent to answer a
      *  question.
-     * 
+     *
      *      // Open a form by ID and log the responses to each question.
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var formResponses = form.getResponses();
@@ -454,12 +454,12 @@ declare module GoogleAppsScript {
     /**
      * An enum representing the supported types of form items. Item types can be accessed from
      *  FormApp.ItemType.
-     * 
+     *
      *      // Open a form by ID and add a new section header.
      *      var form = FormApp.create('Form Name');
      *      var item = form.addSectionHeaderItem();
      *      item.setTitle('Title of new section');
-     *     
+     *
      *      // Check the item type.
      *      if (item.getType() == FormApp.ItemType.SECTION_HEADER) {
      *        item.setHelpText('Description of new section.');
@@ -470,7 +470,7 @@ declare module GoogleAppsScript {
     /**
      * A question item that allows the respondent to select one choice from a drop-down list. Items can
      *  be accessed or created from a Form.
-     * 
+     *
      *      // Open a form by ID and add a new list item.
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var item = form.addListItem();
@@ -503,7 +503,7 @@ declare module GoogleAppsScript {
     /**
      * A question item that allows the respondent to select one choice from a list of radio buttons or
      *  an optional "other" field. Items can be accessed or created from a Form.
-     * 
+     *
      *      // Open a form by ID and add a new multiple choice item.
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var item = form.addMultipleChoiceItem();
@@ -539,13 +539,13 @@ declare module GoogleAppsScript {
     /**
      * A layout item that marks the start of a page. Items can be accessed or
      *  created from a Form.
-     * 
+     *
      *      // Create a form and add three page-break items.
      *      var form = FormApp.create('Form Name');
      *      var pageTwo = form.addPageBreakItem().setTitle('Page Two');
      *      var pageThree = form.addPageBreakItem().setTitle('Page Three');
-     *     
-     *      // Make the first two pages navigate elsewhere upon completion. 
+     *
+     *      // Make the first two pages navigate elsewhere upon completion.
      *      pageTwo.setGoToPage(pageThree); // At end of page one (start of page two), jump to page three
      *      pageThree.setGoToPage(FormApp.PageNavigationType.RESTART); // At end of page two, restart form
      */
@@ -567,23 +567,23 @@ declare module GoogleAppsScript {
     /**
      * An enum representing the supported types of page navigation. Page navigation types can be
      *  accessed from FormApp.PageNavigationType.
-     * 
+     *
      * The page navigation occurs after the respondent completes a page that contains the option, and
      *  only if the respondent chose that option. If the respondent chose multiple options with
      *  page-navigation instructions on the same page, only the last navigation option has any effect.
      *  Page navigation also has no effect on the last page of a form.
      * Choices that use page navigation cannot be combined in the same item with choices that do not
      *  use page navigation.
-     * 
+     *
      *      // Create a form and add a new multiple-choice item and a page-break item.
      *      var form = FormApp.create('Form Name');
      *      var item = form.addMultipleChoiceItem();
      *      var pageBreak = form.addPageBreakItem();
-     *     
+     *
      *      // Set some choices with go-to-page logic.
      *      var rightChoice = item.createChoice('Vanilla', FormApp.PageNavigationType.SUBMIT);
      *      var wrongChoice = item.createChoice('Chocolate', FormApp.PageNavigationType.RESTART);
-     *     
+     *
      *      // For GO_TO_PAGE, just pass in the page break item. For CONTINUE (normally the default), pass in
      *      // CONTINUE explicitly because page navigation cannot be mixed with non-navigation choices.
      *      var iffyChoice = item.createChoice('Peanut', pageBreak);
@@ -595,7 +595,7 @@ declare module GoogleAppsScript {
     /**
      * A question item that allows the respondent to enter a block of text. Items can be accessed or
      *  created from a Form.
-     * 
+     *
      *      // Open a form by ID and add a new paragraph text item.
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var item = form.addParagraphTextItem();
@@ -618,7 +618,7 @@ declare module GoogleAppsScript {
     /**
      * A question item that allows the respondent to choose one option from a numbered sequence of radio
      *  buttons. Items can be accessed or created from a Form.
-     * 
+     *
      *      // Open a form by ID and add a new scale item.
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var item = form.addScaleItem();
@@ -648,7 +648,7 @@ declare module GoogleAppsScript {
     /**
      * A layout item that visually indicates the start of a section. Items can be accessed or created
      *  from a Form.
-     * 
+     *
      *      // Open a form by ID and add a new section header.
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var item = form.addSectionHeaderItem();
@@ -668,7 +668,7 @@ declare module GoogleAppsScript {
     /**
      * A question item that allows the respondent to enter a single line of text. Items can be accessed
      *  or created from a Form.
-     * 
+     *
      *      // Open a form by ID and add a new text item.
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var item = form.addTextItem();
@@ -691,7 +691,7 @@ declare module GoogleAppsScript {
     /**
      * A question item that allows the respondent to indicate a time of day. Items can be accessed or
      *  created from a Form.
-     * 
+     *
      *      // Open a form by ID and add a new time item.
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var item = form.addTimeItem();
@@ -713,7 +713,7 @@ declare module GoogleAppsScript {
 
     /**
      * A layout item that displays a video. Items can be accessed or created from a Form.
-     * 
+     *
      *      // Open a form by ID and add three new video items, using a long URL,
      *      // a short URL, and a video ID.
      *      var form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
@@ -721,12 +721,12 @@ declare module GoogleAppsScript {
      *          .setTitle('Video Title')
      *          .setHelpText('Video Caption')
      *          .setVideoUrl('www.youtube.com/watch?v=1234abcdxyz');
-     *     
+     *
      *      form.addVideoItem()
      *          .setTitle('Video Title')
      *          .setHelpText('Video Caption')
      *          .setVideoUrl('youtu.be/1234abcdxyz');
-     *     
+     *
      *      form.addVideoItem()
      *          .setTitle('Video Title')
      *          .setHelpText('Video Caption')

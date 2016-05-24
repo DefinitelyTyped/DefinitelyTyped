@@ -1,12 +1,11 @@
-// Type definitions for vue-router 0.7.7
+// Type definitions for vue-router 0.7.10
 // Project: https://github.com/vuejs/vue-router
 // Definitions by: kaorun343 <https://github.com/kaorun343>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../vue/vue.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
 
-declare namespace vuerouter {
+declare namespace vuejs {
 
     interface Transition<RootVueApp, FromParams, FromQuery, ToParams, ToQuery> {
         from: $route<RootVueApp, FromParams, FromQuery>;
@@ -65,26 +64,25 @@ declare namespace vuerouter {
     }
 
     interface TransitionHook<Root, FP, FQ, TP, TQ> {
-        data?(transition?: Transition<Root, FP, FQ, TP, TQ>): Thenable<any> | void;
-        activate?(transition?: Transition<Root, FP, FQ, TP, TQ>): Thenable<any> | void;
-        deactivate?(transition?: Transition<Root, FP, FQ, TP, TQ>): Thenable<any> | void;
-        canActivate?(transition?: Transition<Root, FP, FQ, TP, TQ>): Thenable<any> | boolean | void;
-        canDeactivate?(transition?: Transition<Root, FP, FQ, TP, TQ>): Thenable<any> | boolean | void;
+        data?(transition?: Transition<Root, FP, FQ, TP, TQ>): PromiseLike<any> | void;
+        activate?(transition?: Transition<Root, FP, FQ, TP, TQ>): PromiseLike<any> | void;
+        deactivate?(transition?: Transition<Root, FP, FQ, TP, TQ>): PromiseLike<any> | void;
+        canActivate?(transition?: Transition<Root, FP, FQ, TP, TQ>): PromiseLike<any> | boolean | void;
+        canDeactivate?(transition?: Transition<Root, FP, FQ, TP, TQ>): PromiseLike<any> | boolean | void;
         canReuse?: boolean | ((transition: Transition<Root, FP, FQ, TP, TQ>) => boolean);
     }
-}
 
-declare namespace vuejs {
     interface Vue {
-        $route: vuerouter.$route<any, any, any>;
+        $route: vuejs.$route<any, any, any>;
+        $router: vuejs.Router<any>;
     }
 
     interface ComponentOption {
-        route?: vuerouter.TransitionHook<any, any, any, any, any>;
+        route?: vuejs.TransitionHook<any, any, any, any, any>;
     }
 }
 
-declare var VueRouter: vuerouter.RouterStatic;
+declare var VueRouter: vuejs.RouterStatic;
 
 declare module "vue-router" {
     export = VueRouter;

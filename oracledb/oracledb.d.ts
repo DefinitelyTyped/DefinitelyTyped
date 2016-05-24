@@ -93,14 +93,14 @@ declare module 'oracledb' {
 		/** Metadata information - just columns names for now. */
 		metaData?: Array<IMetaData>;
 		/** When not using ResultSet, query results comes here. */
-		rows?: Array<Array<any>> | Array<Object>;
+		rows?: Array<Array<any>> | Array<any>;
 		/** When using ResultSet, query results comes here. */
 		resultSet?: IResultSet;
 	}
 
 	export interface IMetaData {
 		/** Column name */
-		columnName: string;
+		name: string;
 	}
 
 	export interface IResultSet {

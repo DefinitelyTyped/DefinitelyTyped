@@ -1,8 +1,8 @@
 /// <reference path="../redis/redis.d.ts" />
 /// <reference path="./ratelimiter.d.ts" />
 
-import redis = require('redis');
-import Limiter = require('ratelimiter');
+import * as redis from 'redis';
+import * as Limiter from 'ratelimiter';
 
 let id: string;
 let db: redis.RedisClient;

@@ -10,7 +10,7 @@ declare module 'promise' {
 
 declare var Promise: Promise.Ipromise;
 
-declare module Promise {
+declare namespace Promise {
 
 	export interface Ipromise {
 		new <T>(resolver: (resolve: (value: T) => void, reject: (reason: any) => void) => void): IThenable<T>;

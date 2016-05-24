@@ -136,6 +136,7 @@ coordinate = geometryResult.getClosestPoint(coordinate);
 geometryResult.getClosestPoint(coordinate, coordinate);
 extent = geometryResult.getExtent();
 geometryResult.getExtent(extent);
+geometryResult.transform(projection, projection);
 
 //
 //
@@ -337,6 +338,7 @@ var tileLayer: ol.layer.Tile = new ol.layer.Tile({
 projection = new ol.proj.Projection({
     code:stringValue,    
 });
+projection.setExtent(projection.getExtent());
 
 //
 // ol.Map 
@@ -360,8 +362,20 @@ var imageWMS: ol.source.ImageWMS = new ol.source.ImageWMS({
 // ol.source.TileWMS
 //
 var tileWMS: ol.source.TileWMS = new ol.source.TileWMS({
+    params: {},
     serverType: stringValue,
     url:stringValue
+});
+
+//
+// ol.source.WMTS
+//
+var wmts: ol.source.WMTS = new ol.source.WMTS({
+   tileGrid: new ol.tilegrid.WMTS({}),
+   layer: "",
+   style: "",
+   matrixSet: "",
+   wrapX: true    
 });
 
 //
@@ -521,3 +535,14 @@ jsonValue = geojsonFormat.writeFeaturesObject(featureArray);
 jsonValue = geojsonFormat.writeFeaturesObject(featureArray, writeOptions);
 jsonValue = geojsonFormat.writeGeometryObject(geometry);
 jsonValue = geojsonFormat.writeGeometryObject(geometry, writeOptions);
+
+//
+// ol.interactions
+//
+var modify: ol.interaction.Modify = new ol.interaction.Modify({
+    features: new ol.Collection<ol.Feature>(featureArray)
+});
+
+var draw: ol.interaction.Draw = new ol.interaction.Draw({
+    type: "Point"
+})

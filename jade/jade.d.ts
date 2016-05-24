@@ -1,7 +1,7 @@
 // Type definitions for jade
 // Project: https://github.com/jadejs/jade
 // Definitions by: Panu Horsmalahti <https://github.com/panuhorsmalahti>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'jade' {
     export function compile(template: string, options?: any): (locals?: any) => string;
