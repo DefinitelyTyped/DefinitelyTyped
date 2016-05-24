@@ -346,7 +346,7 @@ declare namespace __React {
         view: AbstractView;
     }
 
-    interface WheelEvent extends SyntheticEvent {
+    interface WheelEvent extends MouseEvent {
         deltaMode: number;
         deltaX: number;
         deltaY: number;
