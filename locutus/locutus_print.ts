@@ -1,4 +1,12 @@
-/// <reference path="../main.d.ts" />
+// Automatically generate script for locutus
+// Written by: Hookclaw <https://github.com/hookclaw>
+
+/* Usage
+   tsc  locutus_print.ts
+   node locutus_print.js define
+ */
+
+/// <reference path="../node/node.d.ts" />
 /// <reference path="./locutus.d.ts" />
 
 var locutus = require('locutus');
