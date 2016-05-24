@@ -17,6 +17,12 @@ app.use(function(req, res, next){
     next();
 });
 
+app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
+    console.error(err);
+    next(err);
+});
+
+
 app.get('/', function(req, res){
     res.send('hello world');
 });
@@ -47,6 +53,13 @@ router.route('/users')
         res.send(req.query['token']);
     });
 
+router.get('/user/:id', function(req, res, next) {
+    if (req.params.id == 0) next('route');
+    else next();
+}, function(req, res, next) {
+    res.render('regular');
+});
+
 app.use((req, res, next) => {
     // hacky trick, router is just a handler
     router(req, res, next);
@@ -55,3 +68,6 @@ app.use((req, res, next) => {
 app.use(router);
 
 app.listen(3000);
+
+const next: express.NextFunction = () => {};
+const nextWithArgument: express.NextFunction = (err: any) => {};

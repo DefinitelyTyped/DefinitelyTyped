@@ -80,9 +80,8 @@ promiseNumber = catchWithSimpleResult;
 var catchWithPromiseResult = promiseString.catch(error => Promise.resolve(10));
 promiseNumber = catchWithPromiseResult;
 
-promiseString = promiseString.catch<string>(function () {
+promiseString = promiseString.catch<string>(function (): string {
   throw new Error('Better error msg');
-  return null;
 });
 
 //examples coming from http://www.html5rocks.com/en/tutorials/es6/promises/

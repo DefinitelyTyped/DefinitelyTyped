@@ -9,6 +9,9 @@ $("#e2").select2({
 $("#e2_2").select2({
     placeholder: "Select a State"
 });
+$("#e2_3").select2({
+    placeholder: { id: "1", text: "Select options" }
+});
 $("#e3").select2({
     minimumInputLength: 2
 });
@@ -99,7 +102,7 @@ $("#e7").select2({
     ajax: {
         url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
         dataType: 'jsonp',
-        quietMillis: 100,
+        delay: 100,
         data: function (term, page) {
             return {
                 q: term,

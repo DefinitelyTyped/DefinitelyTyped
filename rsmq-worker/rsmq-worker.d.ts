@@ -1,7 +1,7 @@
 // Type definitions for rsmq-worker 0.3.5
 // Project: http://smrchy.github.io/rsmq/rsmq-worker/
 // Definitions by: TANAKA Koichi <https://github.com/MugeSo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path='../rsmq/rsmq.d.ts'/>
 
@@ -9,7 +9,7 @@ declare module "rsmq-worker" {
     import redis = require('redis');
     import events = require('events');
 
-    module RSMQWorker {
+    namespace RSMQWorker {
         export interface Client extends events.EventEmitter {
             start(): Client;
             stop(): Client;

@@ -6,10 +6,22 @@
 ///<reference path="../eventemitter2/eventemitter2.d.ts" />
 
 declare interface  DeltaStatic{
-	ops : Array<any>;
+	ops? : Array<any>;
+	retain?: any,
+	delete?: any,
+	insert?: any,
+	attributes?: any
+}
+
+declare interface RangeStatic{
+	new(): RangeStatic;
+	start: number;
+	end: number;
 }
 
 declare interface QuillStatic {
+	new(selector: string, options?: Object):QuillStatic;
+
     on(eventName: string, callback: (delta: DeltaStatic, source: string) => void): EventEmitter2;
     addModule(id: string, options: any) : Object;
 
@@ -36,7 +48,7 @@ declare interface QuillStatic {
     deleteText(start: number, end: number, source: string): void;
 
     formatText(start: number, end: number): void;
-    formatText(start: number, end: number, name: string, value: string): void;
+    formatText(start: number, end: number, name: string, value: boolean): void;
     formatText(start: number, end: number, formats: any): void;
     formatText(start: number, end: number, source: string): void;
     formatText(start: number, end: number, name: string, value: string, source: string): void;
@@ -44,7 +56,7 @@ declare interface QuillStatic {
 
 
     formatLine(start: number, end: number): void;
-    formatLine(start: number, end: number, name: string, value: string): void;
+    formatLine(start: number, end: number, name: string, value: boolean): void;
     formatLine(start: number, end: number, formats: any): void;
     formatLine(start: number, end: number, source: string): void;
     formatLine(start: number, end: number, name: string, value: string, source: string): void;
@@ -62,14 +74,14 @@ declare interface QuillStatic {
 
     setText(text: string): void;
 
-    getSelection(): string;
+    getSelection(): RangeStatic;
 
     setSelection(start: number, end: number): void;
     setSelection(start: number, end: number, source: string): void;
-    setSelection(range: any): void;
-    setSelection(range: any, source: string): void;
+    setSelection(range: RangeStatic): void;
+    setSelection(range: RangeStatic, source: string): void;
 
-    prepareFormat(format: string, value: string): void;
+    prepareFormat(format: string, value: boolean): void;
 
     focus(): void;
 
@@ -85,16 +97,23 @@ declare interface QuillStatic {
 
     addFormat(name: string, config: any): void;
 
-    addContainer(cssClass: string, before: number): HTMLDivElement;
+    addContainer(cssClass: string, before?: number): HTMLDivElement;
 }
 
-declare var Quill: QuillStatic;
+declare module "Range"
+{
+	var Range: RangeStatic;
+	export = Range;
+}
 
 declare var Delta: DeltaStatic;
 
 declare module "Delta"{
 	export = Delta;
 }
+
+declare var Quill: QuillStatic;
+
 declare module "Quill" {
     export = Quill;
 }

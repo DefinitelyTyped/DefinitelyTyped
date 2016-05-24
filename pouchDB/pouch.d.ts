@@ -1,7 +1,7 @@
 // Type definitions for Pouch 0.1
 // Project: http://pouchdb.com
 // Definitions by: Bill Sears <https://github.com/MrBigDog2U/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface PouchError {
 	status: number;
@@ -207,11 +207,13 @@ interface PouchApi {
 interface PouchOptions {
 	name?: string;
 	adapter?: string;
+	skip_setup?: boolean;
 }
 
 interface PouchDB extends PouchApi {
     new (name: string, opts: PouchOptions, callback: (err: PouchError, res: PouchDB) => void): PouchDB;
     new (name: string, callback: (err: PouchError, res: PouchDB) => void): PouchDB;
+    new (name: string, opts: PouchOptions): PouchDB;
     new (name: string): PouchDB;
 	destroy(name: string, callback: (err: PouchError) => void): void;
 }

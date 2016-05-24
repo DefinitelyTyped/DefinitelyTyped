@@ -1,7 +1,7 @@
 // Type definitions for node-git
 // Project: https://github.com/christkv/node-git
 // Definitions by: vvakame <https://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "git" {
     // lib/git/git.js

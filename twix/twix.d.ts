@@ -1,11 +1,11 @@
 ﻿// Type definitions for twix.js 0.6.3
 // Project: https://github.com/icambron/twix.js
 // Definitions by: j3ko <https://github.com/j3ko>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../moment/moment.d.ts" />
 
-declare module moment {
+declare namespace moment {
     interface Moment {
         twix(date: Date): Twix;
         twix(date: Date, allDay: boolean): Twix;
@@ -104,8 +104,8 @@ declare module moment {
         overlaps(other: Twix): boolean;
         engulfs(other: Twix): boolean;
         equals(other: Twix): boolean;
-        union(other: Twix): string;
-        intersection(other: Twix): string;
+        union(other: Twix): Twix;
+        intersection(other: Twix): Twix;
 
         xor(other: Twix): Twix[];
         difference(other: Twix): Twix[];
