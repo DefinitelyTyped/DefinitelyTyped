@@ -1,6 +1,6 @@
-﻿// Type definitions for jQuery Tooltipster 3.0.5
+// Type definitions for jQuery Tooltipster 3.3.0
 // Project: https://github.com/iamceege/tooltipster
-// Definitions by: Patrick Magee <https://github.com/pjmagee/>
+// Definitions by: Patrick Magee <https://github.com/pjmagee/>, Dmitry Pesterev <https://github.com/VorobeY1326/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
@@ -21,14 +21,13 @@ interface JQueryTooltipsterOptions {
     */
     arrowColor?: any;
     /**
-    * If autoClose is set to false, the tooltip will never close unless you call the 'close' method yourself. Default: true
+    * If autoClose is set to false, the tooltip will never close unless you call the 'hide' method yourself. Default: true
     */
     autoClose?: boolean;
     /**
     * If set, this will override the content of the tooltip. Default: null
-    * @type string, jQuery object
     */
-    content?: any;
+    content?: string | JQuery;
     /**
     * If the content of the tooltip is provided as a string, it is displayed as plain text by default. If this content should actually be interpreted as HTML, set this option to true. Default: false
     */
@@ -38,15 +37,19 @@ interface JQueryTooltipsterOptions {
     */
     contentCloning?: boolean;
     /**
+    * Tooltipster logs notices into the console when you're doing something you ideally shouldn't be doing. Set to false to disable logging. Default: true
+    */
+    debug?: boolean;
+    /**
     * Delay how long it takes (in milliseconds) for the tooltip to start animating in. Default: 200
     */
     delay?: number;
     /**
-    * Set a fixed width for the tooltip. The tooltip will always be a consistent width - no matter your content size. Default: 0 (auto width)
+    * Set a minimum width for the tooltip. Default: 0 (auto width)
     */
-    fixedWidth?: number;
+    minWidth?: number;
     /**
-    * Set a max width for the tooltip. If the tooltip ends up being smaller than the set max width, the tooltip's width will be set automatically. Default: 0 (no max width)
+    * Set a maximum width for the tooltip. Default: null (no max width)
     */
     maxWidth?: number;
     /**
@@ -66,10 +69,13 @@ interface JQueryTooltipsterOptions {
     */
     functionAfter?: (origin) => void;
     /**
-    * If using the iconDesktop or iconTouch options, this sets the content for your icon. Default: '(?)'
-    * @type string, jQuery object
+    * If true, the tooltip will close if its origin is clicked. This option only applies when 'trigger' is 'hover' and 'autoClose' is false. Default: false
     */
-    icon?: any;
+    hideOnClick?: boolean;
+    /**
+    * If using the iconDesktop or iconTouch options, this sets the content for your icon. Default: '(?)'
+    */
+    icon?: string | JQuery;
     /**
     * If you provide a jQuery object to the 'icon' option, this sets if it is a clone of this object that should actually be used. Default: true
     */
@@ -95,6 +101,10 @@ interface JQueryTooltipsterOptions {
     */
     interactiveTolerance?: number;
     /**
+    * Allows you to put multiple tooltips on a single element. Read further instructions down this page. Default: false
+    */
+    multiple?: boolean;
+    /**
     * Offsets the tooltip (in pixels) farther left/right from the origin. Default: 0
     */
     offsetX?: number;
@@ -115,6 +125,15 @@ interface JQueryTooltipsterOptions {
     * Will reposition the tooltip if the origin moves. As this option may have an impact on performance, we suggest you enable it only if you need to. Default: false
     */
     positionTracker?: boolean;
+    /**
+    * Called after the tooltip has been repositioned by the position tracker (if enabled). Default: A function that will close the tooltip if the trigger is 'hover' and autoClose is false.
+    */
+    positionTrackerCallback?: (origin) => void;
+    /**
+    * Specify if a TITLE attribute should be restored on the HTML element after a call to the 'destroy' method. This attribute may be omitted, or be restored with the value that existed before Tooltipster was initialized, or be restored with the stringified value of the current content. Note: in case of multiple tooltips on a single element, only the last destroyed tooltip may trigger a restoration. Default: 'current'
+    * 'none', 'previous' or 'current'
+    */
+    restoration?: string;
     /**
     * Set the speed of the animation. Default: 350
     */
