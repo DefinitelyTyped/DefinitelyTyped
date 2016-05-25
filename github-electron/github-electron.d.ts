@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.1.1
+// Type definitions for Electron v1.1.2
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -273,14 +273,6 @@ declare namespace Electron {
 		 * Note: This API is only available on Windows.
 		 */
 		setUserTasks(tasks: Task[]): void;
-		/**
-		 * Dynamically sets whether to always send credentials for HTTP NTLM or Negotiate authentication.
-		 * Normally, Electron will only send NTLM/Kerberos credentials for URLs that fall under
-		 * "Local Intranet" sites (i.e. are in the same domain as you).
-		 * However, this detection often fails when corporate networks are badly configured,
-		 * so this lets you co-opt this behavior and enable it for all URLs.
-		 */
-		allowNTLMCredentialsForAllDomains(allow: boolean): void;
 		/**
 		 * This method makes your application a Single Instance Application instead of allowing
 		 * multiple instances of your app to run, this will ensure that only a single instance
@@ -853,7 +845,7 @@ declare namespace Electron {
 		 * Changes the attachment point for sheets on Mac OS X.
 		 * Note: This API is available only on OS X.
 		 */
-		setSheetOffset(offset: number): void;
+		setSheetOffset(offsetY: number, offsetX?: number): void;
 		/**
 		 * Starts or stops flashing the window to attract user's attention.
 		 */
@@ -986,6 +978,11 @@ declare namespace Electron {
 		 * Note: This API is available only on OS X.
 		 */
 		showDefinitionForSelection(): void;
+		/**
+		 * Changes window icon.
+		 * Note: This API is not available on OS X.
+		 */
+		setIcon(icon: NativeImage): void;
 		/**
 		 * Sets whether the window menu bar should hide itself automatically. Once set
 		 * the menu bar will only show when users press the single Alt key.
@@ -2600,6 +2597,11 @@ declare namespace Electron {
 		 * Clears the host resolver cache.
 		 */
 		clearHostResolverCache(callback: Function): void;
+		/**
+		 * Dynamically sets whether to always send credentials for HTTP NTLM or Negotiate authentication.
+		 * @param domains Comma-seperated list of servers for which integrated authentication is enabled.
+		 */
+		allowNTLMCredentialsForDomains(domains: string): void;
 		/**
 		 * The webRequest API set allows to intercept and modify contents of a request at various stages of its lifetime.
 		 */

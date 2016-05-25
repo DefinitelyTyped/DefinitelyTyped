@@ -853,6 +853,13 @@ session.defaultSession.setPermissionRequestHandler(function(webContents, permiss
 	callback(true);
 });
 
+// consider any url ending with `example.com`, `foobar.com`, `baz`
+// for integrated authentication.
+session.defaultSession.allowNTLMCredentialsForDomains('*example.com, *foobar.com, *baz')
+
+// consider all urls for integrated authentication.
+session.defaultSession.allowNTLMCredentialsForDomains('*')
+
 // Modify the user agent for all requests to the following urls.
 var filter = {
 	urls: ["https://*.github.com/*", "*://electron.github.io"]
