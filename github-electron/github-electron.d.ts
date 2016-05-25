@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.0.2
+// Type definitions for Electron v1.1.1
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -49,7 +49,9 @@ declare namespace Electron {
 		/**
 		 * Emitted when all windows have been closed.
 		 *
-		 * This event is only emitted when the application is not going to quit.
+		 * If you do not subscribe to this event and all windows are closed,
+		 * the default behavior is to quit the app; however, if you subscribe,
+		 * you control whether the app quits or not.
 		 * If the user pressed Cmd + Q, or the developer called app.quit(),
 		 * Electron will first try to close all the windows and then emit the will-quit event,
 		 * and in this case the window-all-closed event would not be emitted.
@@ -1719,6 +1721,10 @@ declare namespace Electron {
 		title?: string;
 		defaultPath?: string;
 		/**
+		 * Custom label for the confirmation button, when left empty the default label will be used.
+		 */
+		buttonLabel?: string;
+		/**
 		 * File types that can be displayed or selected.
 		 */
 		filters?: {
@@ -1738,6 +1744,10 @@ declare namespace Electron {
 	interface SaveDialogOptions {
 		title?: string;
 		defaultPath?: string;
+		/**
+		 * Custom label for the confirmation button, when left empty the default label will be used.
+		 */
+		buttonLabel?: string;
 		/**
 		 * File types that can be displayed, see dialog.showOpenDialog for an example.
 		 */
@@ -2993,7 +3003,7 @@ declare namespace Electron {
 		 *
 		 * Note: This is only implemented on OS X.
 		 */
-		subscribeNotification(event: string, callback: Function): number;
+		subscribeNotification(event: string, callback: (event: Event, userInfo: Object) => void): number;
 		/**
 		 * Removes the subscriber with id.
 		 *
@@ -3591,6 +3601,10 @@ declare namespace Electron {
 		 */
 		savePage(fullPath: string, saveType: 'HTMLOnly' | 'HTMLComplete' | 'MHTML', callback?: (eror: Error) => void): boolean;
 		/**
+		 * @returns The unique ID of this WebContents.
+		 */
+		id: number;
+		/**
 		 * @returns The session object used by this webContents.
 		 */
 		session: Session;
@@ -4063,6 +4077,32 @@ declare namespace Electron {
 		 * this limitation.
 		 */
 		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): void;
+		/**
+		 * @returns Object describing usage information of Blink’s internal memory caches.
+		 */
+		getResourceUsage(): ResourceUsages;
+		/**
+		 * Attempts to free memory that is no longer being used (like images from a previous navigation).
+		 */
+		clearCache(): void;
+	}
+
+	interface ResourceUsages {
+		fonts: ResourceUsage;
+		images: ResourceUsage;
+		cssStyleSheets: ResourceUsage;
+		xslStyleSheets: ResourceUsage;
+		scripts: ResourceUsage;
+		other: ResourceUsage;
+	}
+
+	interface ResourceUsage {
+		count: number;
+		decodedSize: number;
+		liveSize: number;
+		purgeableSize: number;
+		purgedSize: number;
+		size: number;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/web-view-tag.md
@@ -4670,6 +4710,10 @@ interface File {
 declare namespace NodeJS {
 	interface Process {
 		/**
+		 * Setting this to true can disable the support for asar archives in Node's built-in modules.
+		 */
+		noAsar?: boolean;
+		/**
 		 * Process's type
 		 */
 		type: 'browser' | 'renderer';
@@ -4697,10 +4741,6 @@ declare namespace NodeJS {
 		on(event: 'loaded', listener: Function): this;
 		on(event: string, listener: Function): this;
 		/**
-		 * Setting this to true can disable the support for asar archives in Node's built-in modules.
-		 */
-		noAsar?: boolean;
-		/**
 		 * Causes the main thread of the current process crash;
 		 */
 		crash(): void;
@@ -4715,6 +4755,54 @@ declare namespace NodeJS {
 		 * Note: This API is only available on Mac and Linux.
 		 */
 		setFdLimit(maxDescriptors: number): void;
+		/**
+		 * @returns Object giving memory usage statistics about the current process.
+		 * Note: All statistics are reported in Kilobytes.
+		 */
+		getProcessMemoryInfo(): ProcessMemoryInfo;
+		/**
+		 * @returns Object giving memory usage statistics about the entire system.
+		 * Note: All statistics are reported in Kilobytes.
+		 */
+		getSystemMemoryInfo(): SystemMemoryInfo;
+	}
+
+	interface ProcessMemoryInfo {
+		/**
+		 * The amount of memory currently pinned to actual physical RAM.
+		 */
+		workingSetSize: number;
+		/**
+		 * The maximum amount of memory that has ever been pinned to actual physical RAM.
+		 */
+		peakWorkingSetSize: number;
+		/**
+		 * The amount of memory not shared by other processes, such as JS heap or HTML content.
+		 */
+		privateBytes: number;
+		/**
+		 * The amount of memory shared between processes, typically memory consumed by the Electron code itself.
+		 */
+		sharedBytes: number;
+	}
+
+	interface SystemMemoryInfo {
+		/**
+		 * The total amount of physical memory available to the system.
+		 */
+		total: number;
+		/**
+		 * The total amount of memory not being used by applications or disk cache.
+		 */
+		free: number;
+		/**
+		 * The total amount of swap memory available to the system.
+		 */
+		swapTotal: number;
+		/**
+		 * The free amount of swap memory available to the system.
+		 */
+		swapFree: number;
 	}
 }
 

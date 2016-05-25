@@ -287,10 +287,6 @@ if (browserOptions.transparent) {
   	win.loadURL('file://' + __dirname + '/fallback.html');
 }
 
-app.on('platform-theme-changed', () => {
-	console.log(systemPreferences.isDarkMode());
-});
-
 // app
 // https://github.com/atom/electron/blob/master/docs/api/app.md
 

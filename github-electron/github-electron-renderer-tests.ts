@@ -75,6 +75,9 @@ webFrame.executeJavaScript('JSON.stringify({})', false, (result) => {
     console.log(result);
 });
 
+console.log(webFrame.getResourceUsage());
+webFrame.clearCache();
+
 // clipboard
 // https://github.com/atom/electron/blob/master/docs/api/clipboard.md
 
