@@ -301,7 +301,7 @@ declare namespace Microsoft.Maps {
         getShowPointer(): boolean;
         getTitle(): string;
         getTitleAction(): any;
-        getTitleClickHandler(): () => void;
+        getTitleClickHandler(): (mouseEvent?: MouseEvent) => void;
         getVisible(): boolean;
         getWidth(): number;
         getZIndex(): number;
@@ -329,8 +329,8 @@ declare namespace Microsoft.Maps {
         showPointer?: boolean;
         pushpin?: Pushpin;
         title?: string;
-        titleAction?: { label?: string; eventHandler: () => void; };
-        titleClickHandler?: () => void;
+        titleAction?: { label?: string; eventHandler: (mouseEvent?: MouseEvent) => void; };
+        titleClickHandler?: (mouseEvent?: MouseEvent) => void;
         typeName?: InfoboxType;
         visible?: boolean;
         width?: number;
