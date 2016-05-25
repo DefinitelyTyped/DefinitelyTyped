@@ -1,4 +1,4 @@
-// Type definitions for linq.js v3.0.3-Beta5
+// Type definitions for linq.js v3.0.4-Beta5
 // Project: https://linqjs.codeplex.com/
 // Definitions by: neuecc <https://www.codeplex.com/site/users/view/neuecc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
