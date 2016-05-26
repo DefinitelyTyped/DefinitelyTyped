@@ -207,7 +207,7 @@ interface JQueryFileInputOptions {
     timeout?: number;
     
     active?: Function;
-    progress?: Function;
+    progress?: (e: JQueryEventObject, data: JQueryFileUploadProgressObject) => void;
     send?: Function;
 
     // Other callbacks:
@@ -215,17 +215,17 @@ interface JQueryFileInputOptions {
     done?: Function;
     fail?: Function;
     always?: Function;
-    progressall?: Function;
-    start?: Function;
-    stop?: Function;
-    change?: Function;
-    paste?: Function;
-    drop?: Function;
-    dragover?: Function;
-    chunksend?: Function;
-    chunkdone?: Function;
-    chunkfail?: Function;
-    chunkalways?: Function;
+    progressall?: (e: JQueryEventObject, data: JQueryFileUploadProgressAllObject) => void;
+    start?: (e: JQueryEventObject) => void;
+    stop?: (e: JQueryEventObject) => void;
+    change?: (e: JQueryEventObject, data: JQueryFileUploadChangeObject) => void;
+    paste?: (e: JQueryEventObject, data: JQueryFileUploadFilesObject) => void;
+    drop?: (e: JQueryEventObject, data: JQueryFileUploadFilesObject) => void;
+    dragover?: (e: JQueryEventObject) => void;
+    chunksend?: (e: JQueryEventObject, data: JQueryFileUploadChunkObject) => void;
+    chunkdone?: (e: JQueryEventObject, data: JQueryFileUploadChunkObject) => void;
+    chunkfail?: (e: JQueryEventObject, data: JQueryFileUploadChunkObject) => void;
+    chunkalways?: (e: JQueryEventObject, data: JQueryFileUploadChunkObject) => void;
 
     // Others 
     url?: string;
@@ -249,4 +249,35 @@ interface JQuery {
 
 interface JQuerySupport {
     fileInput?: boolean;
+}
+
+interface JQueryFileUploadChangeObject {
+    fileInput?: JQuery;
+    fileInputClone?: JQuery;
+    files: File[];
+    form?: JQuery;
+    originalFiles: File[];
+}
+
+interface JQueryFileUploadProgressAllObject {
+    loaded?: number;
+    total?: number;
+    bitrate?: number;
+}
+
+interface JQueryFileUploadProgressObject extends JQueryFileInputOptions, JQueryFileUploadProgressAllObject {
+}
+
+interface JQueryFileUploadFilesObject {
+    files: File[];
+}
+
+interface JQueryFileUploadChunkObject extends JQueryFileInputOptions {
+    blob: any;
+    chunkSize: number;
+    contentRange: string;
+    errorThrown: any;
+    jqXHR: JQueryXHR;
+    result: any;
+    textStatus: string;
 }
