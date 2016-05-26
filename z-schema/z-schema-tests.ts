@@ -7,7 +7,9 @@ var options: ZSchema.Options = {
   forceItems: true,
 };
 
-var validator: ZSchema.Validator = new ZSchema(options);
+var validator: ZSchema.Validator = new ZSchema();
+
+validator = new ZSchema(options);
 var json: any = {
     foo: 'bar',
 };
@@ -20,6 +22,8 @@ var schema: any = {
         },
     },
 };
+
+validator.validateSchema(schema);
 
 validator.validate(json, schema);
 validator.validate(json, schema, function (err: any, valid: boolean) {
