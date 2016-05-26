@@ -5,24 +5,24 @@
 
 declare module 'serialport' {
     module parsers {
-        function readline(delimiter: string);
+        function readline(delimiter: string):void;
     }
 
     export class SerialPort {
         constructor(path: string, options?: Object, openImmediately?: boolean, callback?: () => {})
         isOpen: boolean;
-        on(event: string, callback?: (data?:any) => void);
-        open(callback?: () => void);
-        write(buffer: any, callback?: () => void)
-        pause();
-        resume();
-        disconnected(err: Error);
-        close(callback?: () => void);
-        flush(callback?: () => void);
-        set(options: setOptions, callback: () => void);
-        drain(callback?: () => void);
-        update(options: updateOptions, callback?: () => void);
-        list(callback?: () => void);
+        on(event: string, callback?: (data?:any) => void):void;
+        open(callback?: () => void):void;
+        write(buffer: any, callback?: () => void):void
+        pause():void;
+        resume():void;
+        disconnected(err: Error):void;
+        close(callback?: () => void):void;
+        flush(callback?: () => void):void;
+        set(options: setOptions, callback: () => void):void;
+        drain(callback?: () => void):void;
+        update(options: updateOptions, callback?: () => void):void;
+        list(callback?: () => void):void;
     }
 
     interface setOptions {
