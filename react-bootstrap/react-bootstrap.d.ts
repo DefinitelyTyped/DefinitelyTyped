@@ -1,6 +1,6 @@
 // Type definitions for react-bootstrap
 // Project: https://github.com/react-bootstrap/react-bootstrap
-// Definitions by: Walker Burgin <https://github.com/walkerburgin>, Vincent Siao <https://github.com/vsiao>
+// Definitions by: Walker Burgin <https://github.com/walkerburgin>, Vincent Siao <https://github.com/vsiao>, Danilo Barros <https://github.com/danilojrr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../react/react.d.ts"/>
@@ -21,7 +21,7 @@ declare module "react-bootstrap" {
         bsSize?: string;
         navItem?: boolean;
         navDropdown?: boolean;
-        componentClass?: string;
+        componentClass?: React.ReactType;
     }
     type Button = React.ClassicComponent<ButtonProps, {}>;
     var Button: React.ClassicComponentClass<ButtonProps>;
@@ -335,7 +335,7 @@ declare module "react-bootstrap" {
         brand?: any; // TODO: Add more specific type
         bsSize?: string;
         bsStyle?: string;
-        componentClass?: any; // TODO: Add more specific type
+        componentClass?: React.ReactType;
         defaultNavExpanded?: boolean;
         eventKey?: any;
         fixedBottom?: boolean;
@@ -386,7 +386,7 @@ declare module "react-bootstrap" {
         brand?: any; // TODO: Add more specific type
         bsSize?: string;
         bsStyle?: string;
-        componentClass?: any; // TODO: Add more specific type
+        componentClass?: React.ReactType;
         defaultNavExpanded?: boolean;
         fixedBottom?: boolean;
         fixedTop?: boolean;
@@ -461,7 +461,7 @@ declare module "react-bootstrap" {
         activePage?: number;
         bsSize?: string;
         bsStyle?: string;
-        buttonComponentClass?: any; // TODO: Add more specific type
+        buttonComponentClass?: React.ReactType;
         ellipsis?: boolean;
         first?: boolean;
         items?: number;
@@ -522,7 +522,7 @@ declare module "react-bootstrap" {
     // <Grid />
     // ----------------------------------------
     interface GridProps extends React.HTMLAttributes {
-        componentClass?: any; // TODO: Add more specific type
+        componentClass?: React.ReactType;
         fluid?: boolean;
     }
     type Grid = React.ClassicComponent<GridProps, {}>;
@@ -531,7 +531,7 @@ declare module "react-bootstrap" {
     // <Row />
     // ----------------------------------------
     interface RowProps extends React.HTMLAttributes {
-        componentClass?: any; // TODO: Add more specific type
+        componentClass?: React.ReactType; 
     }
     type Row = React.ClassicComponent<RowProps, {}>;
     var Row: React.ClassicComponentClass<RowProps>;
@@ -539,7 +539,7 @@ declare module "react-bootstrap" {
     // <Col />
     // ----------------------------------------
     interface ColProps extends React.HTMLAttributes {
-        componentClass?: any; // TODO: Add more specific type
+        componentClass?: React.ReactType;
         lg?: number;
         lgHidden?: boolean;
         lgOffset?: number;
@@ -615,7 +615,7 @@ declare module "react-bootstrap" {
     // <Jumbotron />
     // ----------------------------------------
     interface JumbotronProps extends React.HTMLAttributes {
-        componentClass?: any; // TODO: Add more specific type
+        componentClass?: React.ReactType;
     }
     type Jumbotron = React.ClassicComponent<JumbotronProps, {}>;
     var Jumbotron: React.ClassicComponentClass<JumbotronProps>;
@@ -710,6 +710,82 @@ declare module "react-bootstrap" {
     }
     var FormControls: FormControlsClass;
 
+    // <Form />
+    // ----------------------------------------
+    interface FormProps extends React.HTMLAttributes {
+        bsClass?: string;
+        componentClass?: React.ReactType;
+        horizontal?: boolean;
+        inline?: boolean;
+    }
+    class Form extends React.Component<FormProps, {}> {}
+
+    // <FormGroup />
+    // ----------------------------------------
+    interface FormGroupProps extends React.HTMLAttributes {
+        bsClass?: string;
+        bsSize?: "sm" | "small" | "lg" | "large";
+        controlId?: string;
+        validationState?: "success" | "warning" | "error";
+    }
+    class FormGroup extends React.Component<FormGroupProps, {}> {}
+    
+    // <ControlLabel />
+    // ----------------------------------------
+    interface ControlLabelProps extends React.HTMLAttributes {
+        bsClass?: string;
+        htmlFor?: string;
+        srOnly?: boolean;
+    }
+    class ControlLabel extends React.Component<ControlLabelProps, {}> {}
+    
+    // <FormControl.Feedback />
+    // ----------------------------------------
+    interface FormControlFeedbackProps extends React.HTMLAttributes {
+    }
+    class FormControlFeedback extends React.Component<FormControlFeedbackProps, {}> {
+    }
+    
+    // <FormControl />
+    // ----------------------------------------
+    interface FormControlProps extends React.HTMLAttributes {
+        bsClass?: string;
+        componentClass?: React.ReactType;
+        id?: string;
+        type?: string;
+    }
+    interface FormControlClass extends React.ClassicComponentClass<FormControlProps> {
+        Feedback: typeof FormControlFeedback;
+    }
+    type FormControl = React.Component<FormControlProps, {}>;
+    var FormControl: FormControlClass;
+    
+    // <HelpBlock />
+    // ----------------------------------------
+    interface HelpBlockProps extends React.HTMLAttributes {
+        bsClass?: string;
+    }
+    class HelpBlock extends React.Component<HelpBlockProps, {}> {}
+    
+    // <Checkbox />
+    // ----------------------------------------
+    interface CheckboxProps extends React.HTMLAttributes {
+        bsClass?: string;
+        disabled?: boolean;
+        inline?: boolean;
+        validationState?: "success" | "warning" | "error";
+    }
+    class Checkbox extends React.Component<CheckboxProps, {}> {}
+    
+    // <Radio />
+    // ----------------------------------------
+    interface RadioProps extends React.HTMLAttributes {
+        bsClass?: string;
+        disabled?: boolean;
+        inline?: boolean;
+        validationState?: "success" | "warning" | "error";
+    }
+    class Radio extends React.Component<RadioProps, {}> {}
 
     // <Portal />
     // ----------------------------------------
