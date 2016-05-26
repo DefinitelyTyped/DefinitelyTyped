@@ -21,6 +21,8 @@ var schema: any = {
     },
 };
 
+validator.validateSchema(schema);
+
 validator.validate(json, schema);
 validator.validate(json, schema, function (err: any, valid: boolean) {
     if (err) {
