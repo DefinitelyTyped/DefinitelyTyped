@@ -1,7 +1,7 @@
 // Type definitions for Angular Translate v2.4.0 (pascalprecht.translate module)
 // Project: https://github.com/PascalPrecht/angular-translate
 // Definitions by: Michel Salib <https://github.com/michelsalib>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
@@ -10,7 +10,7 @@ declare module "angular-translate" {
     export = ngt;
 }
 
-declare module angular.translate {
+declare namespace angular.translate {
 
     interface ITranslationTable {
         [key: string]: any;
@@ -22,7 +22,7 @@ declare module angular.translate {
 
     interface IStorage {
         get(name: string): string;
-        set(name: string, value: string): void;
+        put(name: string, value: string): void;
     }
 
     interface IStaticFilesLoaderOptions {
@@ -66,6 +66,9 @@ declare module angular.translate {
         useFallbackLanguage(langKey?: string): void;
         versionInfo(): string;
         loaderCache(): any;
+        isReady(): boolean;
+        onReady(): angular.IPromise<void>;
+        resolveClientLocale():string;
     }
 
     interface ITranslateProvider extends angular.IServiceProvider {
@@ -87,6 +90,7 @@ declare module angular.translate {
         fallbackLanguage(): ITranslateProvider;
         fallbackLanguage(language: string): ITranslateProvider;
         fallbackLanguage(languages: string[]): ITranslateProvider;
+        forceAsyncReload(value: boolean): ITranslateProvider;
         use(): string;
         use(key: string): ITranslateProvider;
         storageKey(): string;
@@ -102,14 +106,17 @@ declare module angular.translate {
         useMissingTranslationHandlerLog(): ITranslateProvider;
         useMissingTranslationHandler(factory: string): ITranslateProvider;
         usePostCompiling(value: boolean): ITranslateProvider;
+        directivePriority(): number;
+        directivePriority(priority: number): ITranslateProvider;
         determinePreferredLanguage(fn?: () => void): ITranslateProvider;
         registerAvailableLanguageKeys(): string[];
         registerAvailableLanguageKeys(languageKeys: string[], aliases?: ILanguageKeyAlias): ITranslateProvider;
         useLoaderCache(cache?: any): ITranslateProvider;
+        resolveClientLocale():string;
     }
 }
 
-declare module angular {
+declare namespace angular {
     interface IFilterService {
         (name:'translate'): {
             (translationId: string, interpolateParams?: any, interpolation?: string): string;

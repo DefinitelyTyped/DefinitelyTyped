@@ -222,6 +222,13 @@ var pool = poolCluster.of('SLAVE*', 'RANDOM');
 pool.getConnection(function (err, connection) { });
 pool.getConnection(function (err, connection) { });
 
+var poolClusterWithOptions = mysql.createPoolCluster({
+    canRetry: true,
+    removeNodeErrorCount: 3,
+    restoreNodeTimeout: 1000,
+    defaultSelector: 'RR'
+});
+
 // destroy
 poolCluster.end();
 

@@ -1,11 +1,9 @@
-// Type definitions for Kii Cloud SDK v2.3.0
+// Type definitions for Kii Cloud SDK v2.4.4
 // Project: http://en.kii.com/
 // Definitions by: Kii Consortium <http://jp.kii.com/consortium/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path='../es6-promise/es6-promise.d.ts' />
-
-declare module KiiCloud {
+declare namespace KiiCloud {
     enum KiiACLAction {
         KiiACLBucketActionCreateObjects,
         KiiACLBucketActionQueryObjects,
@@ -82,6 +80,11 @@ declare module KiiCloud {
          * lot identifier given by thing vendor.
          */
         _lot?: string;
+
+        /**
+         * product name given by thing vendor.
+         */
+        _productName?: string;
 
         /**
          * arbitrary string field.
@@ -163,6 +166,33 @@ declare module KiiCloud {
         username?: string;
     }
 
+    interface KiiAccessTokenObject {
+        access_token: string;
+        expires_at: Date;
+    }
+
+    interface KiiGcmInstallationResponse {
+        installationID: string;
+    }
+
+    interface KiiMqttInstallationResponse {
+        installationID: string;
+        installationRegistrationID: string;
+    }
+
+    interface KiiMqttEndpoint {
+        installationID: string;
+        username: string;
+        password: string;
+        mqttTopic: string;
+        host: string;
+        "X-MQTT-TTL": number;
+        portTCP: number;
+        portSSL: number;
+        portWS: number;
+        portWSS: number;
+    }
+
     /**
      * The main SDK class
      */
@@ -197,7 +227,7 @@ declare module KiiCloud {
 
         /**
          * Set the access token lifetime in seconds.
-         * 
+         *
          * If you don't call this method or call it with 0, token won't be expired.
          * Call this method if you like the access token to be expired
          * after a certain period. Once called, token retrieved
@@ -217,7 +247,7 @@ declare module KiiCloud {
 
         /**
          * Returns access token lifetime in seconds.
-         * 
+         *
          * If access token lifetime has not set explicitly by {@link Kii.setAccessTokenExpiration(expiresIn)}, returns 0.
          *
          * @return access token lifetime in seconds.
@@ -228,7 +258,7 @@ declare module KiiCloud {
 
         /**
          * Initialize the Kii SDK with a specific URL
-         * 
+         *
          * Should be the first Kii SDK action your application makes.
          *
          * @param appID The application ID found in your Kii developer console
@@ -239,11 +269,11 @@ declare module KiiCloud {
          * @example
          *     // Disable KiiAnalytics
          *     Kii.initializeWithSite("my-app-id", "my-app-key", KiiSite.JP);
-         *     
+         *
          *     // Enable KiiAnalytics with deviceId
          *     var analyticsOption = { deviceId: "my-device-id" };
          *     Kii.initializeWithSite("my-app-id", "my-app-key", KiiSite.JP, analyticsOption);
-         *     
+         *
          *     // Enable KiiAnalytics without deviceId
          *     Kii.initializeWithSite("my-app-id", "my-app-key", KiiSite.JP, {});
          */
@@ -251,7 +281,7 @@ declare module KiiCloud {
 
         /**
          * Initialize the Kii SDK
-         * 
+         *
          * Should be the first Kii SDK action your application makes.
          * Meanwhile, Kii Analytics is initialized.
          *
@@ -262,11 +292,11 @@ declare module KiiCloud {
          * @example
          *     // Disable KiiAnalytics
          *     Kii.initialize("my-app-id", "my-app-key");
-         *     
+         *
          *     // Enable KiiAnalytics with deviceId
          *     var analyticsOption = { deviceId: "my-device-id" };
          *     Kii.initialize("my-app-id", "my-app-key", analyticsOption);
-         *     
+         *
          *     // Enable KiiAnalytics without deviceId
          *     Kii.initialize("my-app-id", "my-app-key", {});
          */
@@ -274,7 +304,7 @@ declare module KiiCloud {
 
         /**
          * Creates a reference to a bucket for this app
-         * 
+         *
          *     <br><br>The bucket will be created/accessed within this app's scope
          *
          * @param bucketName The name of the bucket the app should create/access
@@ -288,7 +318,7 @@ declare module KiiCloud {
 
         /**
          * Creates a reference to a　encrypted bucket for this app
-         * 
+         *
          *     <br><br>The bucket will be created/accessed within this app's scope
          *
          * @param bucketName The name of the bucket the app should create/access
@@ -359,13 +389,13 @@ declare module KiiCloud {
          *             // Authentication failed.
          *         }
          *     );
-         *     
+         *
          *     // example to use Promise
          *     Kii.authenticateAsAppAdmin("your client id", "your client secret").then(
          *         function(adminContext) {　// fulfill callback function
          *             // adminContext : KiiAppAdminContext instance
          *             // Operate entities with adminContext.
-         *     
+         *
          *         },
          *         function(error) { // reject callback function
          *             // Authentication failed.
@@ -459,7 +489,7 @@ declare module KiiCloud {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use promise
          *     Kii.listTopics().then(
          *         function(params) {
@@ -516,12 +546,12 @@ declare module KiiCloud {
          *     	success: function(theACL, theEntries) {
          *     		// do something
          *     	},
-         *     
+         *
          *     	failure: function(theACL, anErrorString) {
          *     		// do something with the error response
          *     	}
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var acl = . . .; // a KiiACL object
          *     acl.listACLEntries().then(
@@ -589,12 +619,12 @@ declare module KiiCloud {
          *         success: function(theSavedACL) {
          *             // do something with the saved acl
          *         },
-         *     
+         *
          *         failure: function(theACL, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var acl = . . .; // a KiiACL object
          *     acl.save().then(
@@ -620,6 +650,7 @@ declare module KiiCloud {
          * KiiACLAction.KiiACLBucketActionCreateObjects,<br>
          * KiiACLAction.KiiACLBucketActionQueryObjects,  <br>
          * KiiACLAction.KiiACLBucketActionDropBucket,<br>
+         * KiiACLAction.KiiACLBucketActionReadObjects,<br>
          * KiiACLAction.KiiACLObjectActionRead,<br>
          * KiiACLAction.KiiACLObjectActionWrite,<br>
          * KiiACLAction.KiiACLSubscribeToTopic,<br>
@@ -634,7 +665,7 @@ declare module KiiCloud {
         /**
          * Get the action that is being permitted/restricted in this entry
          *
-         * @return 
+         * @return
          */
         getAction(): KiiACLAction;
 
@@ -650,7 +681,7 @@ declare module KiiCloud {
         /**
          * Get the subject that is being permitted/restricted in this entry
          *
-         * @return 
+         * @return
          */
         getSubject<T extends KiiACLSubject>(): T;
 
@@ -666,13 +697,13 @@ declare module KiiCloud {
         /**
          * Get whether or not the action is being permitted to the subject
          *
-         * @return 
+         * @return
          */
         getGrant(): boolean;
 
         /**
          * Create a KiiACLEntry object with a subject and action
-         * 
+         *
          * The entry will not be applied on the server until the KiiACL object is
          * explicitly saved. This method simply returns a working KiiACLEntry with
          * a specified subject and action.
@@ -723,7 +754,7 @@ declare module KiiCloud {
 
         /**
          * Set the logging status of the SDK
-         * 
+         *
          *     Helpful for development - we strongly advice you turn off logging for any production code.
          *
          * @param True if logs should be printed, false otherwise
@@ -734,10 +765,10 @@ declare module KiiCloud {
         static setLogging(True: boolean): void;
 
         /**
-         * 
+         *
          *
          * @deprecated Use {@link Kii.initializeWithSite} instead. Initialize the Kii SDK with a specific URL
-         *   
+         *
          *   Should be the first Kii SDK action your application makes
          *
          * @param appID The application ID found in your Kii developer console
@@ -754,10 +785,10 @@ declare module KiiCloud {
         static initializeWithSite(appID: string, appKey: string, site: KiiAnalyticsSite, deviceid: string): void;
 
         /**
-         * 
+         *
          *
          * @deprecated Use {@link Kii.initialize} instead. Initialize the KiiAnalytics SDK
-         *   
+         *
          *   Should be the first KiiAnalytics SDK action your application makes
          *
          * @param appID The application ID found in your Kii developer console
@@ -774,7 +805,7 @@ declare module KiiCloud {
 
         /**
          * Utilize the KiiAnalytics logger to track SDK-specific actions
-         * 
+         *
          *     Helpful for development - we strongly advice you turn off logging for any production code.
          *
          * @param message The message to print to console.log in your browser
@@ -786,7 +817,7 @@ declare module KiiCloud {
 
         /**
          * Log a single event to be uploaded to KiiAnalytics
-         * 
+         *
          * Use this method if you'd like to track an event by name only. If you'd like to track other attributes/dimensions, please use KiiAnalytics.trackEventWithExtras(eventName, parameters)
          *
          * @param eventName A string representing the event name for later tracking
@@ -805,7 +836,7 @@ declare module KiiCloud {
 
         /**
          * Log a single event to be uploaded to KiiAnalytics
-         * 
+         *
          * Use this method if you'd like to track an event by name and add extra information to the event.
          *
          * @param eventName A string representing the event name for later tracking
@@ -828,7 +859,7 @@ declare module KiiCloud {
 
         /**
          * Log a single event to be uploaded to KiiAnalytics
-         * 
+         *
          * Use this method if you'd like to track an event asynchronously by name and add extra information to the event.
          *
          * @param eventName A string representing the event name for later tracking
@@ -851,7 +882,7 @@ declare module KiiCloud {
         static trackEventWithExtrasAndCallbacks(eventName: string, extras: any, callbacks?: { success(): any; failure(error: Error): any; }): Promise<void>;
 
         /**
-         * 
+         *
          *
          * @deprecated Set a custom API endpoint URL
          *
@@ -860,7 +891,7 @@ declare module KiiCloud {
         static setBaseURL(url: string): void;
 
         /**
-         * 
+         *
          *
          * @deprecated Use {@link Kii.getSDKVersion} instead. Kii Analytics SDK Version Number
          *
@@ -871,7 +902,7 @@ declare module KiiCloud {
 
     /**
      * Represent an anonymous user for setting the ACL of an object. This will include anyone using the application but have not signed up or authenticated as registered user.
-     * 
+     *
      * 	When retrieving ACL from an object, test for this class to determine the subject type.
      */
     export class KiiAnonymousUser {
@@ -883,7 +914,7 @@ declare module KiiCloud {
 
     /**
      * Represent any authenticated user for setting the ACL of an object. This will include anyone using the application who has registered and authenticated in the current session.
-     * 
+     *
      * 	When retrieving ACL from an object, test for this class to determine the subject type. Example:
      */
     export class KiiAnyAuthenticatedUser {
@@ -1029,6 +1060,65 @@ declare module KiiCloud {
         groupWithID(group: string): KiiGroup;
 
         /**
+         * Register new group own by specified user on Kii Cloud with specified ID.
+         * This method can be used only by app admin.
+         *
+         * <br><br>If the group that has specified id already exists, registration will be failed.
+         *
+         * @param groupID ID of the KiiGroup
+         * @param groupName Name of the KiiGroup
+         * @param user id of owner
+         * @param members An array of KiiUser objects to add to the group
+         * @param callbacks
+         *
+         * @return return promise object.
+         *       <ul>
+         *         <li>fulfill callback function: function(theSavedGroup). theSavedGroup is KiiGroup instance.</li>
+         *         <li>reject callback function: function(error). error is an Error instance.
+         *           <ul>
+         *             <li>error.target is the KiiGroup instance which this method was called on.</li>
+         *             <li>error.message</li>
+         *             <li>error.addMembersArray is array of KiiUser to be added as memebers of this group.</li>
+         *             <li>error.removeMembersArray is array of KiiUser to be removed from the memebers list of this group.</li>
+         *           </ul>
+         *         </li>
+         *       </ul>
+         *
+         * @example
+         *     // example to use callbacks directly
+         *     Kii.authenticateAsAppAdmin("client-id", "client-secret", {
+         *         success: function(adminContext) {
+         *             var members = [];
+         *             members.push(KiiUser.userWithID("Member User Id"));
+         *             adminContext.registerGroupWithOwnerAndID("Group ID", "Group Name", "Owner User ID", members, {
+         *                 success: function(theSavedGroup) {
+         *                     // do something with the saved group
+         *                 },
+         *                 failure: function(theGroup, anErrorString, addMembersArray, removeMembersArray) {
+         *                     // do something with the error response
+         *                 }
+         *             });
+         *         },
+         *         failure: function(errorString, errorCode) {
+         *             // auth failed.
+         *         }
+         *     });
+         *     // example to use Promise
+         *     Kii.authenticateAsAppAdmin("client-id", "client-secret").then(
+         *         function(adminContext) {
+         *             var members = [];
+         *             members.push(KiiUser.userWithID("Member User Id"));
+         *             return adminContext.registerGroupWithOwnerAndID("Group ID", "Group Name", "Owner User ID", members);
+         *         }
+         *     ).then(
+         *         function(group) {
+         *             // do something with the saved group
+         *         }
+         *     );
+         */
+        registerGroupWithOwnerAndID(groupID: string, groupName: string, user: string, members: KiiUser[], callbacks?: { success(adminContext: KiiAppAdminContext): any; failure(theGroup: KiiGroup, anErrorString: string, addMembersArray: KiiUser[], removeMembersArray: KiiUser[]): any; }): Promise<KiiAppAdminContext>;
+
+        /**
          * Creates a reference to a group operated by app admin using group's URI.
          *     <br><br>
          *     <b>Note:</b>
@@ -1105,7 +1195,7 @@ declare module KiiCloud {
          *             // Auth failed.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     Kii.authenticateAsAppAdmin("client-id", "client-secret").then(
          *         function(adminContext) {
@@ -1179,7 +1269,7 @@ declare module KiiCloud {
          *             // Auth failed.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     Kii.authenticateAsAppAdmin("client-id", "client-secret").then(
          *         function(adminContext) {
@@ -1318,7 +1408,7 @@ declare module KiiCloud {
          *             }
          *         }
          *     );
-         *     
+         *
          *     // example to use Promise
          *     // Assume you already have adminContext instance.
          *     adminContext.registerThing(
@@ -1362,7 +1452,7 @@ declare module KiiCloud {
          * Register user/group as owner of specified thing by app admin.
          *
          * @param thingID The ID of thing
-         * @param owner to be registered as owner.
+         * @param owner instnce of KiiUser/KiiGroup to be registered as owner.
          * @param callbacks object holds callback functions.
          *
          * @return return promise object.
@@ -1393,7 +1483,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // assume thing/group is already registered.
          *     var group = KiiGroup.groupWithURI("kiicloud://groups/xxxyyyy");
@@ -1415,7 +1505,7 @@ declare module KiiCloud {
          * Register user/group as owner of specified thing by app admin.
          *
          * @param vendorThingID The vendor thing ID of thing
-         * @param owner to be registered as owner.
+         * @param owner instance of KiiUser/KiiGroupd to be registered as owner.
          * @param callbacks object holds callback functions.
          *
          * @return return promise object.
@@ -1446,7 +1536,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // assume thing/group is already registered.
          *     var group = KiiGroup.groupWithURI("kiicloud://groups/xxxyyyy");
@@ -1494,7 +1584,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // Assume you already have adminContext instance.
          *     adminContext.loadThingWithVendorThingID("thing-xxxx-yyyy").then(
@@ -1541,7 +1631,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // Assume you already have adminContext instance.
          *     adminContext.loadThingWithThingID("thing-xxxx-yyyy").then(
@@ -1608,7 +1698,7 @@ declare module KiiCloud {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // Assume you already have adminContext instance.
          *     adminContext.listTopics().then(
@@ -1641,13 +1731,13 @@ declare module KiiCloud {
         /**
          * The name of this bucket
          *
-         * @return 
+         * @return
          */
         getBucketName(): string;
 
         /**
          * Create a KiiObject within the current bucket
-         * 
+         *
          * <br><br>The object will not be created on the server until the KiiObject is explicitly saved. This method simply returns an empty working KiiObject.
          *
          * @return An empty KiiObject with no specific type
@@ -1660,7 +1750,7 @@ declare module KiiCloud {
 
         /**
          * Create a KiiObject within the current bucket, with type
-         * 
+         *
          * <br><br>The object will not be created on the server until the KiiObject is explicitly saved. This method simply returns an empty working KiiObject with a specified type. The type allows for better indexing and improved query results. It is recommended to use this method - but for lazy creation, the createObject method is also available.
          *
          * @param type A string representing the desired object type
@@ -1675,7 +1765,7 @@ declare module KiiCloud {
 
         /**
          * Create a KiiObject within the current bucket, specifying its ID.
-         * 
+         *
          * <br><br> If the object has not exist on KiiCloud, {@link KiiObject#saveAllFields(callback)}
          *   will create new Object which has ID specified in the argument.
          *   If the object exist in KiiCloud, references the existing object which has
@@ -1697,7 +1787,7 @@ declare module KiiCloud {
 
         /**
          * Get the ACL handle for this bucket
-         * 
+         *
          * <br><br>Any KiiACLEntry objects added or revoked from this ACL object will be appended to/removed from the server on ACL save.
          *
          * @return A KiiACL object associated with this KiiObject
@@ -1710,7 +1800,7 @@ declare module KiiCloud {
 
         /**
          * Perform a query on the given bucket
-         * 
+         *
          * <br><br>The query will be executed against the server, returning a result set.
          *
          * @param query An object with callback methods defined
@@ -1737,7 +1827,7 @@ declare module KiiCloud {
          *     // example to use callbacks directly
          *     var bucket = . . .; // a KiiBucket
          *     var queryObject = . . .; // a KiiQuery
-         *     
+         *
          *     // define the callbacks (stored in a variable for reusability)
          *     var queryCallbacks = {
          *         success: function(queryPerformed, resultSet, nextQuery) {
@@ -1746,21 +1836,21 @@ declare module KiiCloud {
          *                 // do something with the object
          *                 // resultSet[i]; // could be KiiObject, KiiGroup, KiiUser, etc
          *             }
-         *     
+         *
          *             // if there are more results to be retrieved
          *             if(nextQuery != null) {
-         *     
+         *
          *                 // get them and repeat recursively until no results remain
          *                 bucket.executeQuery(nextQuery, queryCallbacks);
          *             }
          *         },
-         *     
+         *
          *         failure: function(bucket, anErrorString) {
          *             // do something with the error response
          *         }
          *     };
          *     bucket.executeQuery(queryObject, queryCallbacks);
-         *     
+         *
          *     // example to use Promise
          *     var bucket = . . .; // a KiiBucket
          *     var queryObject = . . .; // a KiiQuery
@@ -1774,10 +1864,10 @@ declare module KiiCloud {
          *                 // do something with the object
          *                 // resultSet[i]; // could be KiiObject, KiiGroup, KiiUser, etc
          *             }
-         *     
+         *
          *             // if there are more results to be retrieved
          *             if(nextQuery != null) {
-         *     
+         *
          *                 // get them and repeat recursively until no results remain
          *                 bucket.executeQuery(nextQuery).then(
          *                     function(params) {
@@ -1788,7 +1878,7 @@ declare module KiiCloud {
          *                     }
          *                 );
          *             }
-         *     
+         *
          *         },
          *         function(error) {
          *             // do something with the error response
@@ -1826,24 +1916,24 @@ declare module KiiCloud {
          *     // example to use callbacks directly
          *     var bucket = . . .; // a KiiBucket
          *     var queryObject = . . .; // a KiiQuery
-         *     
+         *
          *     // define the callbacks
          *     var callbacks = {
          *         success: function(bucket, query, count) {
          *             // do something with the results
          *         },
-         *     
+         *
          *         failure: function(bucket, errorString) {
          *             // error happened.
          *         }
          *     };
-         *     
+         *
          *     bucket.countWithQuery(queryObject, callbacks);
-         *     
+         *
          *     // example to use Promise
          *     var bucket = . . .; // a KiiBucket
          *     var queryObject = . . .; // a KiiQuery
-         *     
+         *
          *     bucket.countWithQuery(queryObject, callbacks).then(
          *         function(params) {
          *             var bucket = params[0];
@@ -1890,18 +1980,18 @@ declare module KiiCloud {
          *         success: function(bucket, query, count) {
          *             // do something with the results
          *         },
-         *     
+         *
          *         failure: function(bucket, errorString) {
          *             // error happened.
          *         }
          *     };
-         *     
+         *
          *     bucket.count(callbacks);
-         *     
+         *
          *     // example to use Promise
          *     var bucket = . . .; // a KiiBucket
          *     var queryObject = . . .; // a KiiQuery
-         *     
+         *
          *     bucket.count().then(
          *         function(params) {
          *             var bucket = params[0];
@@ -1936,23 +2026,23 @@ declare module KiiCloud {
          * @example
          *     // example to use callbacks directly
          *     var bucket = . . .; // a KiiBucket
-         *     bucket['delete']({
+         *     bucket.delete({
          *         success: function(deletedBucket) {
          *             // do something with the result
          *         },
-         *     
+         *
          *         failure: function(bucketToDelete, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var bucket = . . .; // a KiiBucket
-         *     bucket['delete']({
+         *     bucket.delete({
          *         success: function(deletedBucket) {
          *             // do something with the result
          *         },
-         *     
+         *
          *         failure: function(bucketToDelete, anErrorString) {
          *             // do something with the error response
          *         }
@@ -2083,7 +2173,7 @@ declare module KiiCloud {
          *             var orderByKey = "_calculated." + putDistanceInto;
          *             query.sortByAsc(orderByKey);
          *             // Define the callbacks
-         *             var bucket = Kii.bucketWithName("MyBucket"); 
+         *             var bucket = Kii.bucketWithName("MyBucket");
          *             var queryCallback = {
          *                 success: function(queryPerformed, resultSet, nextQuery) {
          *                     // check the first object from resultSet.
@@ -2150,12 +2240,12 @@ declare module KiiCloud {
      */
     export class KiiGroup {
         /**
-         * 
+         *
          *
          * @deprecated Use {@link KiiGroup.getId} instead.
          *   Get the UUID of the given group, assigned by the server
          *
-         * @return 
+         * @return
          */
         getUUID(): string;
 
@@ -2169,13 +2259,13 @@ declare module KiiCloud {
         /**
          * The name of this group
          *
-         * @return 
+         * @return
          */
         getName(): string;
 
         /**
          * Returns the owner of this group if this group holds the information of owner.
-         * 
+         *
          * Group will holds the information of owner when "saving group on cloud" or "retrieving group info/owner from cloud".
          * The cache will not be shared among the different instances of KiiGroup.
          * <UL>
@@ -2194,7 +2284,7 @@ declare module KiiCloud {
 
         /**
          * Get a specifically formatted string referencing the group
-         * 
+         *
          * <br><br>The group must exist in the cloud (have a valid UUID).
          *
          * @return A URI string based on the current group. null if a URI couldn't be generated.
@@ -2206,8 +2296,60 @@ declare module KiiCloud {
         objectURI(): string;
 
         /**
+         * Register new group own by current user on Kii Cloud with specified ID.
+         *
+         * <br><br>If the group that has specified id already exists, registration will be failed.
+         *
+         * @param groupID ID of the KiiGroup
+         * @param groupName Name of the KiiGroup
+         * @param members An array of KiiUser objects to add to the group
+         * @param callbacks An object with callback methods defined
+         *
+         * @return return promise object.
+         *       <ul>
+         *         <li>fulfill callback function: function(theSavedGroup). theSavedGroup is KiiGroup instance.</li>
+         *         <li>reject callback function: function(error). error is an Error instance.
+         *           <ul>
+         *             <li>error.target is the KiiGroup instance which this method was called on.</li>
+         *             <li>error.message</li>
+         *             <li>error.addMembersArray is array of KiiUser to be added as memebers of this group.</li>
+         *             <li>error.removeMembersArray is array of KiiUser to be removed from the memebers list of this group.</li>
+         *           </ul>
+         *         </li>
+         *       </ul>
+         *
+         * @example
+         *     // example to use callbacks directly
+         *     var members = [];
+         *     members.push(KiiUser.userWithID("Member User Id"));
+         *     KiiGroup.registerGroupWithID("Group ID", "Group Name", members, {
+         *         success: function(theSavedGroup) {
+         *             // do something with the saved group
+         *         },
+         *         failure: function(theGroup, anErrorString, addMembersArray, removeMembersArray) {
+         *             // do something with the error response
+         *         }
+         *     });
+         *
+         *     // example to use Promise
+         *     var members = [];
+         *     members.push(KiiUser.userWithID("Member User Id"));
+         *     KiiGroup.registerGroupWithID("Group ID", "Group Name", members).then(
+         *         function(theSavedGroup) {
+         *             // do something with the saved group
+         *         },
+         *         function(error) {
+         *             var theGroup = error.target;
+         *             var anErrorString = error.message;
+         *             var addMembersArray = error.addMembersArray;
+         *             // do something with the error response
+         *     });
+         */
+        static registerGroupWithID(groupID: string, groupName: string, members: KiiUser[], callbacks?: { success(theSavedGroup: KiiGroup): any; failure(theGroup: KiiGroup, anErrorString: string, addMembersArray: KiiUser[], removeMembersArray: KiiUser[]): any; }): Promise<KiiGroup>;
+
+        /**
          * Creates a reference to a bucket for this group
-         * 
+         *
          * <br><br>The bucket will be created/accessed within this group's scope
          *
          * @param bucketName The name of the bucket the user should create/access
@@ -2222,7 +2364,7 @@ declare module KiiCloud {
 
         /**
          * Creates a reference to a encrypted bucket for this group
-         * 
+         *
          * <br><br>The bucket will be created/accessed within this group's scope
          *
          * @param bucketName The name of the bucket the user should create/access
@@ -2237,7 +2379,7 @@ declare module KiiCloud {
 
         /**
          * Adds a user to the given group
-         * 
+         *
          * <br><br>This method will NOT access the server immediately. You must call save to add the user on the server. This allows multiple users to be added/removed before calling save.
          *
          * @param member The user to be added to the group
@@ -2252,7 +2394,7 @@ declare module KiiCloud {
 
         /**
          * Removes a user from the given group
-         * 
+         *
          * <br><br>This method will NOT access the server immediately. You must call save to remove the user on the server. This allows multiple users to be added/removed before calling save.
          *
          * @param member The user to be added to the group
@@ -2280,7 +2422,7 @@ declare module KiiCloud {
          *     </li>
          *     <li>reject callback function: function(error). error is an Error instance.
          *       <ul>
-         *         <li>error.target is the KiiACL instance which this method was called on.</li>
+         *         <li>error.target is the KiiGroup instance which this method was called on.</li>
          *         <li>error.message</li>
          *       </ul>
          *     </li>
@@ -2296,12 +2438,12 @@ declare module KiiCloud {
          *                 var u = memberList[i]; // a KiiUser within the group
          *             }
          *         },
-         *     
+         *
          *         failure: function(theGroup, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var group = . . .; // a KiiGroup
          *     group.getMemberList().then(
@@ -2344,12 +2486,12 @@ declare module KiiCloud {
          *         success: function(theRenamedGroup) {
          *             // do something with the group
          *         },
-         *     
+         *
          *         failure: function(theGroup, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var group = . . .; // a KiiGroup
          *     group.changeGroupName("myNewName").then(
@@ -2365,7 +2507,7 @@ declare module KiiCloud {
 
         /**
          * Saves the latest group values to the server
-         * 
+         *
          * <br><br>If the group does not yet exist, it will be created. If the group already exists, the members that have changed will be updated accordingly. If the group already exists and there is no updates of members, it will allways succeed but does not execute update. To change the name of group, use {@link #changeGroupName}.
          *
          * @param callbacks An object with callback methods defined
@@ -2390,23 +2532,15 @@ declare module KiiCloud {
          *         success: function(theSavedGroup) {
          *             // do something with the saved group
          *         },
-         *     
+         *
          *         failure: function(theGroup, anErrorString, addMembersArray, removeMembersArray) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var group = . . .; // a KiiGroup
-         *     group.save({
-         *         success: function(theSavedGroup) {
-         *             // do something with the saved group
-         *         },
-         *     
-         *         failure: function(theGroup, anErrorString, addMembersArray, removeMembersArray) {
-         *             // do something with the error response
-         *         }
-         *     }).then(
+         *     group.save().then(
          *         function(theSavedGroup) {
          *             // do something with the saved group
          *         },
@@ -2421,8 +2555,59 @@ declare module KiiCloud {
         save(callbacks?: { success(theSavedGroup: KiiGroup): any; failure(theGroup: KiiGroup, anErrorString: string, addMembersArray: KiiUser[], removeMembersArray: KiiUser[]): any; }): Promise<KiiGroup>;
 
         /**
+         * Saves the latest group values to the server with specified owner.
+         * This method can be used only by the group owner or app admin.
+         *
+         * <br><br>If the group does not yet exist, it will be created. If the group already exists, the members and owner that have changed will be updated accordingly. If the group already exists and there is no updates of members and owner, it will allways succeed but does not execute update. To change the name of group, use {@link #changeGroupName}.
+         *
+         * @param user id of owner
+         * @param callbacks An object with callback methods defined
+         *
+         * @return return promise object.
+         *       <ul>
+         *         <li>fulfill callback function: function(theSavedGroup). theSavedGroup is KiiGroup instance.</li>
+         *         <li>reject callback function: function(error). error is an Error instance.
+         *           <ul>
+         *             <li>error.target is the KiiGroup instance which this method was called on.</li>
+         *             <li>error.message</li>
+         *             <li>error.addMembersArray is array of KiiUser to be added as memebers of this group.</li>
+         *             <li>error.removeMembersArray is array of KiiUser to be removed from the memebers list of this group.</li>
+         *           </ul>
+         *         </li>
+         *       </ul>
+         *
+         * @example
+         *     // example to use callbacks directly
+         *     var group = . . .; // a KiiGroup
+         *     group.saveWithOwner("UserID of owner", {
+         *         success: function(theSavedGroup) {
+         *             // do something with the saved group
+         *         },
+         *
+         *         failure: function(theGroup, anErrorString, addMembersArray, removeMembersArray) {
+         *             // do something with the error response
+         *         }
+         *     });
+         *
+         *     // example to use Promise
+         *     var group = . . .; // a KiiGroup
+         *     group.saveWithOwner("UserID of owner").then(
+         *         function(theSavedGroup) {
+         *             // do something with the saved group
+         *         },
+         *         function(error) {
+         *             var theGroup = error.target;
+         *             var anErrorString = error.message;
+         *             var addMembersArray = error.addMembersArray;
+         *             var removeMembersArray = error.removeMembersArray;
+         *             // do something with the error response
+         *     });
+         */
+        saveWithOwner(user: string, callbacks?: { success(theSavedGroup: KiiGroup): any; failure(theGroup: KiiGroup, anErrorString: string, addMembersArray: KiiUser[], removeMembersArray: KiiUser[]): any; }): Promise<KiiGroup>;
+
+        /**
          * Updates the local group's data with the group data on the server
-         * 
+         *
          * <br><br>The group must exist on the server. Local data will be overwritten.
          *
          * @param callbacks An object with callback methods defined
@@ -2445,12 +2630,12 @@ declare module KiiCloud {
          *         success: function(theRefreshedGroup) {
          *             // do something with the refreshed group
          *         },
-         *     
+         *
          *         failure: function(theGroup, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var group = . . .; // a KiiGroup
          *     group.refresh().then(
@@ -2483,22 +2668,22 @@ declare module KiiCloud {
          * @example
          *     // example to use callbacks directly
          *     var group = . . .; // a KiiGroup
-         *     group['delete']({
+         *     group.delete({
          *         success: function(theDeletedGroup) {
          *             // do something
          *         },
-         *     
+         *
          *         failure: function(theGroup, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var group = . . .; // a KiiGroup
-         *     group['delete']({
+         *     group.delete({
          *         success: function(theDeletedGroup) {
          *         },
-         *     
+         *
          *         failure: function(theGroup, anErrorString) {
          *         }
          *     }).then(
@@ -2514,7 +2699,7 @@ declare module KiiCloud {
 
         /**
          * Gets the owner of the associated group
-         * 
+         *
          * This API does not return all the properties of the owner.
          * To get all owner properties, {@link KiiUser#refresh} is necessary.
          *
@@ -2547,7 +2732,7 @@ declare module KiiCloud {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var group = . . .; // a KiiGroup
          *     group.getOwner().then(
@@ -2681,7 +2866,7 @@ declare module KiiCloud {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use promise
          *     var group = . . .; // a KiiGroup
          *     group.listTopics().then(
@@ -2714,35 +2899,42 @@ declare module KiiCloud {
         /**
          * Get the UUID of the given object, assigned by the server
          *
-         * @return 
+         * @return
          */
         getUUID(): string;
 
         /**
+         * Get Id of the object or null if the object ID hasn't been assigned.
+         *
+         * @return
+         */
+        getID(): string;
+
+        /**
          * Get the server's creation date of this object
          *
-         * @return 
+         * @return
          */
         getCreated(): number;
 
         /**
          * Get the modified date of the given object, assigned by the server
          *
-         * @return 
+         * @return
          */
         getModified(): string;
 
         /**
          * Get the application-defined type name of the object
          *
-         * @return 
+         * @return type of this object. null or undefined if none exists
          */
         getObjectType(): string;
 
         /**
          * Get the body content-type.
          * It will be updated after the success of {@link KiiObject#uploadBody} and {@link KiiObject#downloadBody}
-         * returns null when this object doesn't have body content-type information.
+         * returns null or undefined when this object doesn't have body content-type information.
          *
          * @return content-type of object body
          */
@@ -2750,16 +2942,19 @@ declare module KiiCloud {
 
         /**
          * Sets a key/value pair to a KiiObject
-         * 
-         * <br><br>If the key already exists, its value will be written over. If the object is of invalid type, it will return false and a KiiError will be thrown (quietly). Accepted types are any JSON-encodable objects.
+         *
+         * <br><br>If the key already exists, its value will be written over.
          * <br><b>NOTE: Before involving floating point value, please consider using integer instead. For example, use percentage, permil, ppm, etc.</br></b>
          * The reason is:
          *  <li>Will dramatically improve the performance of bucket query.</li>
          *  <li>Bucket query does not support the mixed result of integer and floating point.
          *  ex.) If you use same key for integer and floating point and inquire object with the integer value, objects which has floating point value with the key would not be evaluated in the query. (and vice versa)</li>
          *
-         * @param key The key to set. The key must not be a system key (created, metadata, modified, type, uuid) or begin with an underscore (_)
-         * @param value The value to be set. Object must be of a JSON-encodable type (Ex: dictionary, array, string, number, etc)
+         * @param key The key to set.
+         *   if null, empty string or string prefixed with '_' is specified, silently ignored and have no effect.
+         *   We don't check if actual type is String or not. If non-string type is specified, it will be encoded as key by JSON.stringify()
+         * @param value The value to be set. Object must be JSON-encodable type (dictionary, array, string, number, boolean)
+         *   We don't check actual type of the value. It will be encoded as value by JSON.stringify()
          *
          * @example
          *     var obj = . . .; // a KiiObject
@@ -2772,7 +2967,7 @@ declare module KiiCloud {
          *
          * @param key The key to retrieve
          *
-         * @return The object associated with the key. null if none exists
+         * @return The object associated with the key. null or undefined if none exists
          *
          * @example
          *     var obj = . . .; // a KiiObject
@@ -2801,7 +2996,7 @@ declare module KiiCloud {
 
         /**
          * Get the ACL handle for this file
-         * 
+         *
          * <br><br>Any KiiACLEntry objects added or revoked from this ACL object will be appended to/removed from the server on ACL save.
          *
          * @return A KiiACL object associated with this KiiObject
@@ -2814,7 +3009,7 @@ declare module KiiCloud {
 
         /**
          * Get a specifically formatted string referencing the object
-         * 
+         *
          * <br><br>The object must exist in the cloud (have a valid UUID).
          *
          * @return A URI string based on the current object. null if a URI couldn't be generated.
@@ -2863,12 +3058,12 @@ declare module KiiCloud {
          *         success: function(theSavedObject) {
          *             // do something with the saved object
          *         },
-         *     
+         *
          *         failure: function(theObject, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var obj = . . .; // a KiiObject
          *     obj.saveAllFields().then(
@@ -2921,12 +3116,12 @@ declare module KiiCloud {
          *         success: function(theSavedObject) {
          *             // do something with the saved object
          *         },
-         *     
+         *
          *         failure: function(theObject, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var obj = . . .; // a KiiObject
          *     obj.save().then(
@@ -2942,7 +3137,7 @@ declare module KiiCloud {
 
         /**
          * Updates the local object's data with the user data on the server
-         * 
+         *
          * <br><br>The object must exist on the server. Local data will be overwritten.
          *
          * @param callbacks An object with callback methods defined
@@ -2965,12 +3160,12 @@ declare module KiiCloud {
          *         success: function(theRefreshedObject) {
          *             // do something with the refreshed object
          *         },
-         *     
+         *
          *         failure: function(theObject, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var obj = . . .; // a KiiObject
          *     obj.refresh().then(
@@ -3003,19 +3198,19 @@ declare module KiiCloud {
          * @example
          *     // example to use callbacks directly
          *     var obj = . . .; // a KiiObject
-         *     obj['delete']({
+         *     obj.delete({
          *         success: function(theDeletedObject) {
          *             // do something
          *         },
-         *     
+         *
          *         failure: function(theObject, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var obj = . . .; // a KiiObject
-         *     obj['delete']().then(
+         *     obj.delete().then(
          *         function(theDeletedObject) {
          *             // do something
          *         },
@@ -3076,12 +3271,12 @@ declare module KiiCloud {
          *         success: function(theSrcObject, theTgtObjectUri) {
          *             // Do something with the objects
          *         },
-         *     
+         *
          *         failure: function(theSrcObject, theTgtObjectUri, anErrorString) {
          *             // Do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var sourceObject = ...; // Source KiiObject
          *     var targetObject = ...; // Target KiiObject
@@ -3150,7 +3345,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var myObject = Kii.bucketWithName('myBucket').createObject();
          *     myObject.save().then(
@@ -3214,7 +3409,7 @@ declare module KiiCloud {
          *           if (oEvent.lengthComputable) {
          *             var percentComplete = oEvent.loaded / oEvent.total;
          *             //getting download progress. You can update progress bar on this function.
-         *     
+         *
          *           }
          *         },
          *         success: function(obj, bodyBlob) {
@@ -3227,7 +3422,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var myObject = KiiObject.objectWithURI('put existing object uri here');
          *     myObject.downloadBody({
@@ -3235,7 +3430,7 @@ declare module KiiCloud {
          *           if (oEvent.lengthComputable) {
          *             var percentComplete = oEvent.loaded / oEvent.total;
          *             //getting download progress. You can update progress bar on this function.
-         *     
+         *
          *           }
          *         }
          *     ).then(
@@ -3243,7 +3438,7 @@ declare module KiiCloud {
          *             // Obtaind body contents as bodyBlob.
          *             // content-type managed in Kii Cloud can be obtained from type attr.
          *             // It is same as obj.getBodyContentType();
-         *             var obj = param[0];
+         *             var obj = params[0];
          *             var bodyBlob = params[1];
          *             var contentType = bodyBlob.type;
          *         },
@@ -3291,7 +3486,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var myObject = KiiObject.objectWithURI('put existing object uri here');
          *     myObject.publishBody().then(
@@ -3346,7 +3541,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var myObject = KiiObject.objectWithURI('put existing object uri here');
          *     var expiresAt = new Date(2014, 11, 24);
@@ -3402,7 +3597,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var myObject = KiiObject.objectWithURI('put existing object uri here');
          *     var expiresIn = 60 * 60; // Expires in 1 hour.
@@ -3445,12 +3640,12 @@ declare module KiiCloud {
          *         success: function(theDeletedObject) {
          *             // do something
          *         },
-         *     
+         *
          *         failure: function(obj, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var obj = . . .; // a KiiObject
          *     obj.deleteBody().then(
@@ -3473,6 +3668,144 @@ declare module KiiCloud {
          * @return true if given ID is valid, false otherwise.
          */
         static isValidObjectID(objectID: string): boolean;
+    }
+
+    /**
+     * Represents a KiiPushInstallation object
+     */
+    export class KiiPushInstallation {
+        /**
+         * Register the id issued by GCM to the Kii cloud for current logged in user.
+         *
+         * @param installationRegistrationID The ID of registration that identifies the installation externally.
+         * @param development Indicates if the installation is for development or production environment.
+         * @param callbacks An object with callback methods defined
+         *
+         * @return return promise object.
+         *   <ul>
+         *     <li>fulfill callback function: function(response).
+         *       <ul>
+         *         <li>response.installationID is ID of the installation in the platform.</li>
+         *       </ul>
+         *     </li>
+         *     <li>reject callback function: function(error). error is an Error instance.
+         *       <ul>
+         *         <li>error.message</li>
+         *       </ul>
+         *     </li>
+         *   </ul>
+         *
+         * @example
+         *
+         */
+        installGcm(installationRegistrationID: string, development: boolean, callbacks?: { success(response: KiiGcmInstallationResponse): any; failure(error: Error): any; }): Promise<KiiGcmInstallationResponse>;
+
+        /**
+         * Register a MQTT installation to the Kii cloud for current logged in user.
+         *
+         * @param development Indicates if the installation is for development or production environment.
+         * @param callbacks An object with callback methods defined
+         *
+         * @return return promise object.
+         *   <ul>
+         *     <li>fulfill callback function: function(response).
+         *       <ul>
+         *         <li>response.installationID is ID of the installation in the platform.</li>
+         *         <li>response.installationRegistrationID is ID of registration that identifies the installation externally.</li>
+         *       </ul>
+         *     </li>
+         *     <li>reject callback function: function(error). error is an Error instance.
+         *       <ul>
+         *         <li>error.message</li>
+         *       </ul>
+         *     </li>
+         *   </ul>
+         *
+         * @example
+         *
+         */
+        installMqtt(development: boolean, callbacks?: { success(response: KiiMqttInstallationResponse): any; failure(error: Error): any; }): Promise<KiiMqttInstallationResponse>;
+
+        /**
+         * Get MQTT endpoint.
+         * If the MQTT endpoint is not ready, this method retries request up to three times.
+         * <br><br>
+         * Note that only MQTT over tls is supported currently.<br>
+         * Don't use portSSL, portWS or portWSS until we support it.
+         *
+         * @param installationID The ID of the installation in the platform.
+         * @param callbacks An object with callback methods defined
+         *
+         * @return return promise object.
+         *   <ul>
+         *     <li>fulfill callback function: function(response).
+         *       <ul>
+         *         <li>response.installationID is ID of the installation in the platform.</li>
+         *         <li>response.username is username to use for connecting to the MQTT broker.</li>
+         *         <li>response.password is assword to use for connecting to the MQTT broker.</li>
+         *         <li>response.mqttTopic is topic to subscribe in the MQTT broker.</li>
+         *         <li>response.host is URL of the MQTT broker host to connect.</li>
+         *         <li>response.X-MQTT-TTL is the amount of time in seconds that specifies how long the mqttTopic will be valid, after that the client needs to request new MQTT endpoint info.</li>
+         *         <li>response.portTCP is port to connect using plain TCP.</li>
+         *         <li>response.portSSL is port to connect using SSL/TLS.</li>
+         *         <li>response.portWS is port to connect using plain Websocket.</li>
+         *         <li>response.portWSS is port to connect using SSL/TLS Websocket.</li>
+         *       </ul>
+         *     </li>
+         *     <li>reject callback function: function(error). error is an Error instance.
+         *       <ul>
+         *         <li>error.message</li>
+         *       </ul>
+         *     </li>
+         *   </ul>
+         *
+         * @example
+         *
+         */
+        getMqttEndpoint(installationID: string, callbacks?: { success(response: KiiMqttEndpoint): any; failure(error: Error): any; }): Promise<KiiMqttEndpoint>;
+
+        /**
+         * Unregister the push settings by the id(issued by push provider) that is used for installation.
+         *
+         * @param installationRegistrationID The ID of registration that identifies the installation externally.
+         * @param deviceType The type of the installation, current implementation only supports "ANDROID" and "MQTT".
+         * @param callbacks An object with callback methods defined
+         *
+         * @return return promise object.
+         *   <ul>
+         *     <li>fulfill callback function: function().</li>
+         *     <li>reject callback function: function(error). error is an Error instance.
+         *       <ul>
+         *         <li>error.message</li>
+         *       </ul>
+         *     </li>
+         *   </ul>
+         *
+         * @example
+         *
+         */
+        uninstall(installationRegistrationID: string, deviceType: string, callbacks?: { success(): any; failure(error: Error): any; }): Promise<void>;
+
+        /**
+         * Unregister the push settings by the id(issued by KiiCloud) that is used for installation.
+         *
+         * @param installationID The ID of the installation issued by KiiCloud.
+         * @param callbacks An object with callback methods defined
+         *
+         * @return return promise object.
+         *   <ul>
+         *     <li>fulfill callback function: function().</li>
+         *     <li>reject callback function: function(error). error is an Error instance.
+         *       <ul>
+         *         <li>error.message</li>
+         *       </ul>
+         *     </li>
+         *   </ul>
+         *
+         * @example
+         *
+         */
+        uninstallByInstallationID(installationID: string, callbacks?: { success(): any; failure(error: Error): any; }): Promise<void>;
     }
 
     /**
@@ -3576,7 +3909,7 @@ declare module KiiCloud {
          * If this method is not called, no collapse_key is applied.
          * For details please refer to GCM document of collapse_key.
          *
-         * @param collapseKey 
+         * @param collapseKey
          *
          * @return builder instance.
          */
@@ -3587,7 +3920,7 @@ declare module KiiCloud {
          * If this method is not called, no delay_while_idle is applied.
          * For details please refer to GCM document of delay_while_idle.
          *
-         * @param delayWhileIdle 
+         * @param delayWhileIdle
          *
          * @return builder instance.
          */
@@ -3598,7 +3931,7 @@ declare module KiiCloud {
          * If this method is not called, no time_to_live is applied.
          * For details please refer to GCM document of time_to_live.
          *
-         * @param timeToLive 
+         * @param timeToLive
          *
          * @return builder instance.
          */
@@ -3609,7 +3942,7 @@ declare module KiiCloud {
          * If this method is not called, no restricted_package_name is applied.
          * For details please refer to GCM document of restricted_package_name.
          *
-         * @param restrictedPackageName 
+         * @param restrictedPackageName
          *
          * @return builder instance.
          */
@@ -3644,7 +3977,7 @@ declare module KiiCloud {
          * If this method is not called, no sound is applied.
          * For details please refer to APNS document of sound.
          *
-         * @param sound 
+         * @param sound
          *
          * @return builder instance.
          */
@@ -3655,7 +3988,7 @@ declare module KiiCloud {
          * If this method is not called, no badge is applied.
          * For details please refer to APNS document of badge.
          *
-         * @param badge 
+         * @param badge
          *
          * @return builder instance.
          */
@@ -3678,7 +4011,7 @@ declare module KiiCloud {
          * If this method is not called, no category is applied.
          * For details please refer to APNS document of category.
          *
-         * @param category 
+         * @param category
          *
          * @return builder instance.
          */
@@ -3749,7 +4082,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var topic = Kii.topicWithName("myAppTopic");
          *     var user = KiiUser.getCurrentUser();
@@ -3800,7 +4133,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var topic = Kii.topicWithName("myAppTopic");
          *     var user = KiiUser.getCurrentUser();
@@ -3857,7 +4190,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var topic = Kii.topicWithName("myAppTopic");
          *     var user = KiiUser.getCurrentUser();
@@ -3888,7 +4221,7 @@ declare module KiiCloud {
         /**
          * Get the limit of the current query
          *
-         * @return 
+         * @return
          */
         getLimit(): number;
 
@@ -3912,7 +4245,7 @@ declare module KiiCloud {
 
         /**
          * Set the query to sort by a field in descending order
-         * 
+         *
          * If a sort has already been set, it will be overwritten.
          *
          * @param field The key that should be used to sort
@@ -3921,7 +4254,7 @@ declare module KiiCloud {
 
         /**
          * Set the query to sort by a field in ascending order
-         * 
+         *
          * If a sort has already been set, it will be overwritten.
          *
          * @param field The key that should be used to sort
@@ -3963,29 +4296,29 @@ declare module KiiCloud {
          *     // example to use callbacks directly
          *     // Instantiate with the endpoint.
          *     var entry = Kii.serverCodeEntry("main");
-         *     
+         *
          *     // Set the custom parameters.
          *     var arg = {"username":"name_of_my_friend", "password":"password_for_my_friend"};
-         *     
+         *
          *     // Example of executing the Server Code
          *     entry.execute(arg, {
-         *     
+         *
          *        success: function(entry, argument, execResult) {
          *            // do something now that the user is logged in
          *        },
-         *     
+         *
          *        failure: function(entry, argument, execResult, anErrorString) {
          *            // do something with the error response
          *        }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // Instantiate with the endpoint.
          *     var entry = Kii.serverCodeEntry("main");
-         *     
+         *
          *     // Set the custom parameters.
          *     var arg = {"username":"name_of_my_friend", "password":"password_for_my_friend"};
-         *     
+         *
          *     // Example of executing the Server Code
          *     entry.execute(arg).then(
          *         function(params) {
@@ -4033,11 +4366,11 @@ declare module KiiCloud {
      */
     export class KiiSocialConnect {
         /**
-         * 
+         *
          *
          * @deprecated You don't have to call this method.
          *   Set up a reference to one of the supported KiiSocialNetworks.
-         *   
+         *
          *   Set up the network. Need to be called before accessing other methods.
          *   <br><b> Facebook </b>
          *   <table border="1" cellspacing="0">
@@ -4076,7 +4409,7 @@ declare module KiiCloud {
          *   </tr>
          *   </tbody>
          *   </table>
-         *   
+         *
          *   <br><b> Twitter </b>
          *   <table border="1" cellspacing="0">
          *   <thead>
@@ -4163,7 +4496,7 @@ declare module KiiCloud {
 
         /**
          * Log a user into the social network provided
-         * 
+         *
          *  This will initiate the login process for the given network. If user has already linked with the specified social network,
          *  sign-in with the social network. Otherwise, this will sign-up and create new user authenticated by the specified social network.
          *  If sign-up successful, the user is cached inside SDK as current user,and accessible via {@link KiiUser.getCurrentUser()}.
@@ -4174,7 +4507,7 @@ declare module KiiCloud {
          *
          * @param networkName One of the supported KiiSocialNetworkName values
          * @param options A dictionary of key/values to pass to KiiSocialConnect
-         *   
+         *
          *   <br><b> Facebook </b>
          *   <table border="1" cellspacing="0">
          *   <thead>
@@ -4194,7 +4527,7 @@ declare module KiiCloud {
          *   </tr>
          *   </tbody>
          *   </table>
-         *   
+         *
          *   <br><b> Twitter </b>
          *   <table border="1" cellspacing="0">
          *   <thead>
@@ -4220,7 +4553,7 @@ declare module KiiCloud {
          *   </tr>
          *   </tbody>
          *   </table>
-         *   
+         *
          *   <br><b> Google </b>
          *   <table border="1" cellspacing="0">
          *   <thead>
@@ -4240,7 +4573,7 @@ declare module KiiCloud {
          *   </tr>
          *   </tbody>
          *   </table>
-         *   
+         *
          *   <br><b> Renren </b>
          *   <table border="1" cellspacing="0">
          *   <thead>
@@ -4260,7 +4593,7 @@ declare module KiiCloud {
          *   </tr>
          *   </tbody>
          *   </table>
-         *   
+         *
          *   <br><b> QQ </b>
          *   <table border="1" cellspacing="0">
          *   <thead>
@@ -4308,16 +4641,16 @@ declare module KiiCloud {
          *      // example to use callbacks directly
          *      // Example of using no option
          *      KiiSocialConnect.logIn(KiiSocialNetworkName.FACEBOOK, null, {
-         *     
+         *
          *          success: function(user, network) {
          *              // do something now that the user is logged in
          *          },
-         *     
+         *
          *          failure: function(user, network, anErrorString) {
          *              // do something with the error response
          *          }
          *      });
-         *     
+         *
          *      // example to use Promise
          *      KiiSocialConnect.logIn(KiiSocialNetworkName.FACEBOOK, null).then(
          *          function(params) {
@@ -4332,7 +4665,7 @@ declare module KiiCloud {
 
         /**
          * Link the currently logged in user with a social network
-         * 
+         *
          *  This will initiate the login process for the given network, which for SSO-enabled services like Facebook, will send the user to the Facebook site for authentication. There must be a currently authenticated KiiUser. Otherwise, you can use the logIn: method to create and log in a KiiUser using a network. The network must already be set up via setupNetwork<br>
          *  If there is not logged-in user to link with, callbacks.failure or reject callback of promise will be called. <br>
          *  If the opitons is invalid, callbacks.failure or reject callback of promise will be called. <br>
@@ -4358,7 +4691,7 @@ declare module KiiCloud {
          *   </tr>
          *   </tbody>
          *   </table>
-         *   
+         *
          *   <br><b> Twitter </b>
          *   <table border="1" cellspacing="0">
          *   <thead>
@@ -4384,7 +4717,7 @@ declare module KiiCloud {
          *   </tr>
          *   </tbody>
          *   </table>
-         *   
+         *
          *   <br><b> Google </b>
          *   <table border="1" cellspacing="0">
          *   <thead>
@@ -4404,7 +4737,7 @@ declare module KiiCloud {
          *   </tr>
          *   </tbody>
          *   </table>
-         *   
+         *
          *   <br><b> Renren </b>
          *   <table border="1" cellspacing="0">
          *   <thead>
@@ -4424,7 +4757,7 @@ declare module KiiCloud {
          *   </tr>
          *   </tbody>
          *   </table>
-         *   
+         *
          *   <br><b> QQ </b>
          *   <table border="1" cellspacing="0">
          *   <thead>
@@ -4473,16 +4806,16 @@ declare module KiiCloud {
          *      // example to use callbacks directly
          *      // Example of using no option
          *      KiiSocialConnect.linkCurrentUserWithNetwork(KiiSocialNetworkName.FACEBOOK, null, {
-         *     
+         *
          *          success: function(user, network) {
          *              // do something now that the user is linked
          *          },
-         *     
+         *
          *          failure: function(user, network, anErrorString) {
          *              // do something with the error response
          *          }
          *      });
-         *     
+         *
          *      // example to use Promise
          *      // Example of using no option
          *      KiiSocialConnect.linkCurrentUserWithNetwork(KiiSocialNetworkName.FACEBOOK, null).then(
@@ -4498,7 +4831,7 @@ declare module KiiCloud {
 
         /**
          * Unlink the currently logged in user with a social network
-         * 
+         *
          *  The network must already be set up via setupNetwork
          *
          * @param networkName One of the supported KiiSocialNetworkName values
@@ -4522,19 +4855,19 @@ declare module KiiCloud {
          *   </ul>
          *
          * @example
-         *     
+         *
          *      // example to use callbacks directly
          *      KiiSocialConnect.unLinkCurrentUserFromNetwork(KiiSocialNetworkName.FACEBOOK, {
-         *     
+         *
          *          success: function(user, network) {
          *              // do something now that the user is unlinked
          *          },
-         *     
+         *
          *          failure: function(user, network, anErrorString) {
          *              // do something with the error response
          *          }
          *      });
-         *     
+         *
          *      // example to use Promise
          *      KiiSocialConnect.unLinkCurrentUserFromNetwork(KiiSocialNetworkName.FACEBOOK).then(
          *          function(params) {
@@ -4561,7 +4894,7 @@ declare module KiiCloud {
 
         /**
          * Retrieve the current user's access token expiration date from a social network
-         * 
+         *
          * The network must be set up and linked to the current user. It is recommended you save this to preferences for multi-session use.
          *
          * @deprecated Use {@link KiiSocialConnect.getAccessTokenObjectForNetwork} instead.
@@ -4574,7 +4907,7 @@ declare module KiiCloud {
 
         /**
          * Retrieve the current user's access token object from a social network
-         * 
+         *
          * The network must be set up and linked to the current user.
          * It is recommended you save this to preferences for multi-session use.<br><br>
          * Following parameters can be assigned to object.<br><br>
@@ -4665,6 +4998,11 @@ declare module KiiCloud {
          * '_thingID', '_created', '_accessToken' <br>
          * Following properties are readonly after creation and will be ignored on {@link #update} of thing.<br>
          * '_vendorThingID', '_password'<br>
+         * As Property prefixed with '_' is reserved by Kii Cloud,
+         * properties other than ones described in the parameter secion
+         * and '_layoutPosition' are ignored on creation/{@link #update} of thing.<br>
+         * Those ignored properties won't be removed from fields object passed as argument.
+         * However it won't be reflected to fields object property of created/updated Thing.
          *
          * @param fields of the thing to be registered.
          * @param callbacks object holds callback functions.
@@ -4702,7 +5040,7 @@ declare module KiiCloud {
          *             }
          *         }
          *     );
-         *     
+         *
          *     // example to use Promise
          *     KiiThing.register(
          *         {
@@ -4758,7 +5096,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // assume thing is already registered.
          *     thing.refresh().then(
@@ -4811,7 +5149,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // assume thing is already registered.
          *     thing.fields._stringField1 = "new string value";
@@ -4837,7 +5175,7 @@ declare module KiiCloud {
          * <br>To let users to own thing, please call {@link KiiThing#registerOwner}
          * <br>Note: if you obtain thing instance from {@link KiiAppAdminContext},
          * API is authorized by app admin.<br>
-         * 
+         *
          * It will delete bucket, topic which belongs to this thing,
          * entity belongs to the bucket/topic and all ownership information of thing.
          * This operation can not be reverted. Please carefully use this.
@@ -4866,7 +5204,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // assume thing is already registered.
          *     thing.deleteThing().then(
@@ -4924,7 +5262,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // assume thing/user is already registered.
          *     var user = KiiUser.userWithURI("kiicloud://users/xxxyyyy");
@@ -4983,7 +5321,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // assume thing/group is already registered.
          *     var group = KiiGroup.groupWithURI("kiicloud://groups/xxxyyyy");
@@ -5007,7 +5345,7 @@ declare module KiiCloud {
          * API is authorized by app admin.<br>
          *
          * @param thingID The ID of thing
-         * @param owner to be registered as owner.
+         * @param owner instance of KiiUser/KiiGroup to be registered as owner.
          * @param callbacks object holds callback functions.
          *
          * @return return promise object.
@@ -5036,7 +5374,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // assume thing/group is already registered.
          *     var group = KiiGroup.groupWithURI("kiicloud://groups/xxxyyyy");
@@ -5059,7 +5397,7 @@ declare module KiiCloud {
          * API is authorized by app admin.<br>
          *
          * @param vendorThingID The vendor thing ID of thing
-         * @param owner to be registered as owner.
+         * @param owner instance of KiiUser/KiiGroup to be registered as owner.
          * @param callbacks object holds callback functions.
          *
          * @return return promise object.
@@ -5088,7 +5426,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // assume thing/group is already registered.
          *     var group = KiiGroup.groupWithURI("kiicloud://groups/xxxyyyy");
@@ -5141,7 +5479,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // assume thing/group is already registered.
          *     var group = KiiGroup.groupWithURI("kiicloud://groups/xxxyyyy");
@@ -5163,7 +5501,7 @@ declare module KiiCloud {
          * <br>To let users to own Thing, please call {@link KiiThing#registerOwner}
          * <br>Note: if you obtain thing instance from {@link KiiAppAdminContext},
          * API is authorized by app admin.<br>
-         * 
+         *
          * After succeeded, access token published for thing is disabled.
          * In a result, only the app administrator and owners of thing can access the thing.
          * Used when user lost the thing and avoid using by unknown users.
@@ -5193,7 +5531,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // assume thing is already registered.
          *     thing.disable().then(
@@ -5214,7 +5552,7 @@ declare module KiiCloud {
          * <br>To let users to own Thing, please call {@link KiiThing#registerOwner}
          * <br>Note: if you obtain thing instance from {@link KiiAppAdminContext},
          * API is authorized by app admin.<br>
-         * 
+         *
          * After succeeded, If thing is registered with "persistentToken" option,
          * token should be recovered (Access token which is used before disabling can be available).
          * Otherwise, it does not recovered.
@@ -5244,7 +5582,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // assume thing is already registered.
          *     thing.enable().then(
@@ -5289,7 +5627,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     KiiThing.loadWithVendorThingID("thing-xxxx-yyyy").then(
          *         function(thing) {
@@ -5309,7 +5647,7 @@ declare module KiiCloud {
          * <br>To let users to own Thing, please call {@link KiiThing#registerOwner}
          * <br>Note: if you obtain thing instance from {@link KiiAppAdminContext},
          * API is authorized by app admin.<br>
-         * 
+         *
          * thing id can be obtained by {@link thingID}
          *
          * @param thingID registered thing id.
@@ -5335,7 +5673,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     KiiThing.loadWithVendorThingID("thing-xxxx-yyyy").then(
          *         function(thing) {
@@ -5359,7 +5697,7 @@ declare module KiiCloud {
 
         /**
          * Creates a reference to a encrypted bucket for this thing
-         * 
+         *
          * <br><br>The bucket will be created/accessed within this thing's scope
          *
          * @param bucketName The name of the bucket the user should create/access
@@ -5423,7 +5761,7 @@ declare module KiiCloud {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use promise
          *     var thing = . . .; // a KiiThing
          *     thing.listTopics().then(
@@ -5493,7 +5831,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // assume topic is already instantiated.
          *     topic.exists().then(
@@ -5533,7 +5871,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // assume topic is already instantiated.
          *     topic.save().then(
@@ -5584,7 +5922,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // assume topic is already instantiated.
          *     var contents = {
@@ -5629,7 +5967,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     // assume topic is already instantiated.
          *     topic.deleteTopic().then(
@@ -5658,12 +5996,12 @@ declare module KiiCloud {
      */
     export class KiiUser {
         /**
-         * 
+         *
          *
          * @deprecated Use {@link KiiUser.getId} instead.
          *   Get the UUID of the given user, assigned by the server
          *
-         * @return 
+         * @return
          */
         getUUID(): string;
 
@@ -5677,7 +6015,7 @@ declare module KiiCloud {
         /**
          * Get the username of the given user
          *
-         * @return 
+         * @return
          */
         getUsername(): string;
 
@@ -5692,7 +6030,7 @@ declare module KiiCloud {
         /**
          * Get the display name associated with this user
          *
-         * @return 
+         * @return
          */
         getDisplayName(): string;
 
@@ -5717,21 +6055,45 @@ declare module KiiCloud {
         /**
          * Get the email address associated with this user
          *
-         * @return 
+         * @return
          */
         getEmailAddress(): string;
 
         /**
+         * Get the email of this user that has not been verified.
+         * When the user's email has been changed and email verification is required in you app configuration,
+         * New email is stored as pending email.
+         * After the new email has been verified, the address can be obtained by {@link KiiUser.getEmailAddress}
+         *
+         * @return User's new email address has not been verified.
+         *     null if no pending email field is included in refresh
+         *     response or undefined when no refresh operation has been done before.
+         */
+        getPendingEmailAddress(): string;
+
+        /**
          * Get the phone number associated with this user
          *
-         * @return 
+         * @return
          */
         getPhoneNumber(): string;
 
         /**
+         * Get the phone of this user that has not been verified.
+         * When the user's phone has been changed and phone verification is required in you app configuration,
+         * New phone is stored as pending phone.
+         * After the new phone has been verified, the address can be obtained by {@link KiiUser.getPhoneNumber}
+         *
+         * @return User's new phone number has not been verified.
+         *     null if no pending phone field is included in refresh
+         *     response or undefined when no refresh operation has been done before.
+         */
+        getPendingPhoneNumber(): string;
+
+        /**
          * Get the country code associated with this user
          *
-         * @return 
+         * @return
          */
         getCountry(): string;
 
@@ -5747,16 +6109,16 @@ declare module KiiCloud {
         /**
          * Get the server's creation date of this user
          *
-         * @return 
+         * @return
          */
         getCreated(): string;
 
         /**
-         * 
+         *
          *
          * @deprecated Get the modified date of the given user, assigned by the server
          *
-         * @return 
+         * @return
          */
         getModified(): string;
 
@@ -5790,7 +6152,7 @@ declare module KiiCloud {
         /**
          * Get the access token for the user - only available if the user is currently logged in
          *
-         * @return 
+         * @return
          */
         getAccessToken(): string;
 
@@ -5816,11 +6178,11 @@ declare module KiiCloud {
          *
          * @return Access token and token expires in a object.
          */
-        getAccessTokenObject(): { access_token: string, expires_at: Date };
+        getAccessTokenObject(): KiiAccessTokenObject;
 
         /**
          * Get a specifically formatted string referencing the user
-         * 
+         *
          * <br><br>The user must exist in the cloud (have a valid UUID).
          *
          * @return A URI string based on the given user. null if a URI couldn't be generated.
@@ -5833,7 +6195,7 @@ declare module KiiCloud {
 
         /**
          * Sets a key/value pair to a KiiUser
-         * 
+         *
          * <br><br>If the key already exists, its value will be written over. If the object is of invalid type, it will return false and a KiiError will be thrown (quietly). Accepted types are any JSON-encodable objects.
          *
          * @param key The key to set. The key must not be a system key (created, metadata, modified, type, uuid) or begin with an underscore (_)
@@ -5850,7 +6212,7 @@ declare module KiiCloud {
          *
          * @param key The key to retrieve
          *
-         * @return The object associated with the key. null if none exists
+         * @return The object associated with the key. null or undefined if none exists
          *
          * @example
          *     var user = . . .; // a KiiUser
@@ -5861,7 +6223,7 @@ declare module KiiCloud {
         /**
          * The currently authenticated user
          *
-         * @return 
+         * @return
          *
          * @example
          *         var user = KiiUser.getCurrentUser();
@@ -5870,7 +6232,7 @@ declare module KiiCloud {
 
         /**
          * Create a user object to prepare for registration with credentials pre-filled
-         * 
+         *
          * <br><br>Creates an pre-filled user object for manipulation. This user will not be authenticated until one of the authentication methods are called on it. It can be treated as any other KiiObject before it is authenticated.
          *
          * @param username The user's desired username. Must be between 3 and 64 characters, which can include alphanumeric characters as well as underscores '_', dashes '-' and periods '.'
@@ -5888,7 +6250,7 @@ declare module KiiCloud {
 
         /**
          * Create a user object to prepare for registration with credentials pre-filled
-         * 
+         *
          * <br><br>Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before it is registered.
          *
          * @param phoneNumber The user's phone number
@@ -5906,7 +6268,7 @@ declare module KiiCloud {
 
         /**
          * Create a user object to prepare for registration with credentials pre-filled
-         * 
+         *
          * <br><br>Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before it is registered.
          *
          * @param phoneNumber The user's phone number
@@ -5926,7 +6288,7 @@ declare module KiiCloud {
 
         /**
          * Create a user object to prepare for registration with credentials pre-filled
-         * 
+         *
          * <br><br>Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before it is registered.
          *
          * @param emailAddress The user's email address
@@ -5944,7 +6306,7 @@ declare module KiiCloud {
 
         /**
          * Create a user object to prepare for registration with credentials pre-filled
-         * 
+         *
          * <br><br>Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before it is registered.
          *
          * @param emailAddress The user's email address
@@ -5964,7 +6326,7 @@ declare module KiiCloud {
 
         /**
          * Create a user object to prepare for registration with credentials pre-filled
-         * 
+         *
          * <br><br>Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before it is registered.
          *
          * @param emailAddress The user's email address
@@ -5984,7 +6346,7 @@ declare module KiiCloud {
 
         /**
          * Create a user object to prepare for registration with credentials pre-filled
-         * 
+         *
          * <br><br>Creates an pre-filled user object for registration. This user will not be authenticated until the registration method is called on it. It can be treated as any other KiiUser before it is registered.
          *
          * @param emailAddress The user's email address
@@ -6038,7 +6400,7 @@ declare module KiiCloud {
 
         /**
          * Creates a reference to a bucket for this user
-         * 
+         *
          * <br><br>The bucket will be created/accessed within this user's scope
          *
          * @param bucketName The name of the bucket the user should create/access
@@ -6053,7 +6415,7 @@ declare module KiiCloud {
 
         /**
          * Creates a reference to a encrypted bucket for this user
-         * 
+         *
          * <br><br>The bucket will be created/accessed within this user's scope
          *
          * @param bucketName The name of the bucket the user should create/access
@@ -6095,12 +6457,12 @@ declare module KiiCloud {
          *         success: function(theAuthenticatedUser) {
          *             // do something with the authenticated user
          *         },
-         *     
+         *
          *         failure: function(theUser, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     KiiUser.authenticate("myusername", "mypassword").then(
          *         function(theAuthenticatedUser) {
@@ -6121,13 +6483,13 @@ declare module KiiCloud {
          * by {@link KiiUser#getAccessTokenObject()}.<br>
          * Also, if successful, the user is cached inside SDK as current user
          * and accessible via {@link KiiUser.getCurrentUser()}.<br>
-         * 
+         *
          * Note that, if not specified, token expiration time is not cached
          * and set to value equivalant to 275760 years.<br>
-         * 
+         *
          * If the specified token is expired, authenticataiton will be failed.
          * Authenticate the user again to renew the token.<br>
-         * 
+         *
          * If expiresAt is invalid, callbacks.failure or reject callback of promise will be called. <br>
          *
          * @param accessToken A valid access token associated with the desired user
@@ -6156,12 +6518,12 @@ declare module KiiCloud {
          *         success: function(theAuthenticatedUser) {
          *             // do something with the authenticated user
          *         },
-         *     
+         *
          *         failure: function(theUser, anErrorString) {
          *             // do something with the error response
          *         }
          *     }, expiresAt);
-         *     
+         *
          *     // example to use Promise
          *     // Assume you stored the object get from KiiUser#getAccessTokenObject()
          *     // and now accessing by 'tokenObject' var.
@@ -6181,7 +6543,7 @@ declare module KiiCloud {
 
         /**
          * Registers a user with the server
-         * 
+         *
          * <br><br>The user object must have an associated email/password combination.
          *
          * @param callbacks An object with callback methods defined
@@ -6204,12 +6566,12 @@ declare module KiiCloud {
          *         success: function(theAuthenticatedUser) {
          *             // do something with the authenticated user
          *         },
-         *     
+         *
          *         failure: function(theUser, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var user = KiiUser.userWithUsername("myusername", "mypassword");
          *     user.register().then(
@@ -6247,12 +6609,12 @@ declare module KiiCloud {
          *         success: function(theAuthenticatedUser) {
          *             // do something with the authenticated user
          *         },
-         *     
+         *
          *         failure: function(theUser, anErrorString) {
          *             // do something with the error response
          *         }
          *     }, userFields);
-         *     
+         *
          *     // example to use Promise
          *     var userFields = {"displayName":"yourName", "country":"JP", "age":30};
          *     KiiUser.registerAsPseudoUser(null, userFields).then(
@@ -6268,11 +6630,11 @@ declare module KiiCloud {
 
         /**
          * Sets credentials data and custom fields to pseudo user.
-         * 
+         *
          * <br><br>This method is exclusive to pseudo user.
          * <br>password is mandatory and needs to provide at least one of login name, email address or phone number.
          *
-         * @param identityData 
+         * @param identityData
          * @param password The user's password. Valid pattern is ^[\x20-\x7E]{4,50}$.
          * @param callbacks An object with callback methods defined.
          *   This argument is mandatory and can't be ommited.
@@ -6310,7 +6672,7 @@ declare module KiiCloud {
          *         userFields,
          *         removeFields
          *     );
-         *     
+         *
          *     // example to use Promise
          *     var identityData = { "username": "__USER_NAME_" };
          *     var userFields = { "displayName":"__DISPLAY_NAME","score":12344300 };
@@ -6334,11 +6696,11 @@ declare module KiiCloud {
 
         /**
          * Update user attributes.
-         * 
-         * 
+         *
+         *
          * <br><br>If you want to update identity data of pseudo user, you must use KiiUser.putIdentity instead.
          *
-         * @param identityData 
+         * @param identityData
          * @param callbacks An object with callback methods defined.
          *   This argument is mandatory and can't be ommited.
          * @param userFields Custom Fields to add to the user.
@@ -6373,7 +6735,7 @@ declare module KiiCloud {
          *         userFields,
          *         removeFields
          *     );
-         *     
+         *
          *     // example to use Promise
          *     var identityData = { "username": "__USER_NAME_" };
          *     var userFields = { "displayName":"__DISPLAY_NAME","score":12344300 };
@@ -6396,7 +6758,7 @@ declare module KiiCloud {
 
         /**
          * Update a user's password on the server
-         * 
+         *
          * <br><br>Update a user's password with the server. The fromPassword must be equal to the current password associated with the account in order to succeed.
          *
          * @param fromPassword The user's current password
@@ -6421,12 +6783,12 @@ declare module KiiCloud {
          *         success: function(theUser) {
          *             // do something
          *         },
-         *     
+         *
          *         failure: function(theUser, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var user = Kii.currentUser();
          *     user.updatePassword("oldpassword", "newpassword").then(
@@ -6442,7 +6804,7 @@ declare module KiiCloud {
 
         /**
          * Reset a user's password on the server
-         * 
+         *
          * <br><br>Reset a user's password on the server. The user is determined by the specified userIdentifier - which is an email address that has already been associated with an account. Reset instructions will be sent to that identifier.
          * <br><br><b>Please Note:</b> This will reset the user's access token, so if they are currently logged in - their session will no longer be valid.
          *
@@ -6465,12 +6827,12 @@ declare module KiiCloud {
          *         success: function() {
          *             // do something
          *         },
-         *     
+         *
          *         failure: function(anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     KiiUser.resetPassword("johndoe@example.com").then(
          *         function() {
@@ -6518,7 +6880,7 @@ declare module KiiCloud {
          *             // Handle error.
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     KiiUser.resetPasswordWithNotificationMethod("+819001234567", "SMS").then(
          *         function() {
@@ -6568,12 +6930,12 @@ declare module KiiCloud {
          *         success: function(theUser) {
          *             // do something
          *         },
-         *     
+         *
          *         failure: function(theUser, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var user = Kii.currentUser();
          *     user.verifyPhoneNumber("012345").then(
@@ -6589,7 +6951,7 @@ declare module KiiCloud {
 
         /**
          * Resend the email verification code to the user
-         * 
+         *
          * <br><br>This method will re-send the email verification to the currently logged in user
          *
          * @param callbacks An object with callback methods defined
@@ -6612,12 +6974,12 @@ declare module KiiCloud {
          *         success: function(theUser) {
          *             // do something
          *         },
-         *     
+         *
          *         failure: function(theUser, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var user = Kii.currentUser();
          *     user.resendEmailVerification().then(
@@ -6633,7 +6995,7 @@ declare module KiiCloud {
 
         /**
          * Resend the SMS verification code to the user
-         * 
+         *
          * <br><br>This method will re-send the SMS verification to the currently logged in user
          *
          * @param callbacks An object with callback methods defined
@@ -6656,12 +7018,12 @@ declare module KiiCloud {
          *         success: function(theUser) {
          *             // do something
          *         },
-         *     
+         *
          *         failure: function(theUser, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var user = Kii.currentUser();
          *     user.resendPhoneNumberVerification().then(
@@ -6706,12 +7068,12 @@ declare module KiiCloud {
          *                 var g = groupList[i]; // a KiiGroup object
          *             }
          *         },
-         *     
+         *
          *         failure: function(theUser, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var user = Kii.currentUser();
          *     user.memberOfGroups().then(
@@ -6763,12 +7125,12 @@ declare module KiiCloud {
          *                 var g = groupList[i]; // a KiiGroup object
          *             }
          *         },
-         *     
+         *
          *         failure: function(theUser, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var user = Kii.currentUser();
          *     user.ownerOfGroups().then(
@@ -6788,7 +7150,12 @@ declare module KiiCloud {
         ownerOfGroups(callbacks?: { success(theUser: KiiUser, groupList: KiiGroup[]): any; failure(theUser: KiiUser, anErrorString: string): any; }): Promise<[KiiUser, KiiGroup[]]>;
 
         /**
-         * Updates the user's phone number on the server
+         * Change phone number of logged in user.
+         * If the phone number verification is required by your app configuration,
+         * User's phone number would not changed to new one until the new phone number verification has been done.
+         * In this case, new phone can be obtained by {@link KiiUser#getPendingPhoneNumber()}.
+         * This API does not refresh the KiiUser automatically.
+         * Please execute {@link KiiUser#refresh()} before checking the value of {@link KiiUser#getPhoneNumber()} or {@link KiiUser#getPendingPhoneNumber()}.
          *
          * @param newPhoneNumber The new phone number to change to
          * @param callbacks An object with callback methods defined
@@ -6811,12 +7178,12 @@ declare module KiiCloud {
          *         success: function(theUser) {
          *             // do something on success
          *         },
-         *     
+         *
          *         failure: function(theUser, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var user = Kii.currentUser();
          *     user.changePhone('+19415551234').then(
@@ -6831,7 +7198,12 @@ declare module KiiCloud {
         changePhone(newPhoneNumber: string, callbacks?: { success(theUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }): Promise<KiiUser>;
 
         /**
-         * Updates the user's email address on the server
+         * Change email of logged in user.
+         * If the email address verification is required by your app configuration,
+         * User's email would not changed to new one until the new email verification has been done.
+         * In this case, new mail address can be obtained by {@link KiiUser#getPendingEmailAddress()}.
+         * This API does not refresh the KiiUser automatically.
+         * Please execute {@link KiiUser#refresh()} before checking the value of {@link KiiUser#getEmailAddress()} or {@link KiiUser#getPendingEmailAddress()}
          *
          * @param newEmail The new email address to change to
          * @param callbacks An object with callback methods defined
@@ -6854,12 +7226,12 @@ declare module KiiCloud {
          *         success: function(theUser) {
          *             // do something on success
          *         },
-         *     
+         *
          *         failure: function(theUser, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var user = Kii.currentUser();
          *     user.changeEmail('mynewemail@kii.com').then(
@@ -6875,7 +7247,7 @@ declare module KiiCloud {
 
         /**
          * Saves the latest user values to the server
-         * 
+         *
          * <br><br>If the user does not yet exist, it will NOT be created. Otherwise, the fields that have changed will be updated accordingly.
          *
          * @param callbacks An object with callback methods defined
@@ -6898,12 +7270,12 @@ declare module KiiCloud {
          *         success: function(theSavedUser) {
          *             // do something with the saved user
          *         },
-         *     
+         *
          *         failure: function(theUser, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var user = Kii.getCurrentUser(); // a KiiUser
          *     user.save().then(
@@ -6919,7 +7291,7 @@ declare module KiiCloud {
 
         /**
          * Updates the local user's data with the user data on the server
-         * 
+         *
          * <br><br>The user must exist on the server. Local data will be overwritten.
          *
          * @param callbacks An object with callback methods defined
@@ -6942,12 +7314,12 @@ declare module KiiCloud {
          *         success: function(theRefreshedUser) {
          *             // do something with the refreshed user
          *         },
-         *     
+         *
          *         failure: function(theUser, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var user = Kii.getCurrentUser(); // a KiiUser
          *     user.refresh().then(
@@ -6980,19 +7352,19 @@ declare module KiiCloud {
          * @example
          *     // example to use callbacks directly
          *     var user = Kii.getCurrentUser(); // a KiiUser
-         *     user['delete']({
+         *     user.delete({
          *         success: function(theDeletedUser) {
          *             // do something
          *         },
-         *     
+         *
          *         failure: function(theUser, anErrorString) {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     var user = Kii.getCurrentUser(); // a KiiUser
-         *     user['delete']().then(
+         *     user.delete().then(
          *         function(theDeletedUser) {
          *             // do something
          *         },
@@ -7057,7 +7429,7 @@ declare module KiiCloud {
          *             // Do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     KiiUser.findUserByEmail("user_to_find@example.com").then(
          *         function(theMatchedUser) {
@@ -7106,7 +7478,7 @@ declare module KiiCloud {
          *             // Do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     KiiUser.findUserByPhone("phone_number_to_find").then(
          *         function(theMatchedUser) {
@@ -7154,7 +7526,7 @@ declare module KiiCloud {
          *             // Do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use Promise
          *     KiiUser.findUserByUsername("user_name_to_find").then(
          *         function(theMatchedUser) {
@@ -7218,7 +7590,7 @@ declare module KiiCloud {
          *             // do something with the error response
          *         }
          *     });
-         *     
+         *
          *     // example to use callbacks directly
          *     var user = . . .; // a KiiUser
          *     user.listTopics().then(
@@ -7249,6 +7621,184 @@ declare module KiiCloud {
          * @return push subscription object.
          */
         pushSubscription(): KiiPushSubscription;
+
+        /**
+         * Instantiate push installation for this user.
+         *
+         * @return push installation object.
+         */
+        pushInstallation(): KiiPushInstallation;
+    }
+
+    /**
+     * Represents a KiiUser builder
+     */
+    export class KiiUserBuilder {
+        /**
+         * Create a KiiUser builder with identifier.
+         *
+         * <br><br>Create a KiiUser builder. This constructor is received
+         * identifier. The identifier is one of user name, email address or
+         * phone number. This constructor automatically identity What is
+         * identifier and build proper KiiUser object on build method.
+         *
+         * <br><br> Some strings can be accepted as both user name and phone
+         * number. If such string is passed to this constructor as
+         * identifier, then phone number is prior to user name. String of
+         * email address is in different class against user name and phone
+         * number. So Email address is always identified correctly.
+         *
+         * @param identifier The user's user name, email address or phone
+         *   number. Must be string. Must not be null or undefined.
+         * @param password for the user. Must be string. Must not be null or
+         *   undefined.
+         *
+         * @return KiiUser object builder.
+         *
+         * @throws If Identifier is not user name,
+         *     email address or phone number.
+         * @throws If the password is not in the
+         *     proper format
+         */
+        static builderWithIdentifier(identifier: string, password: string): KiiUserBuilder;
+
+        /**
+         * Create KiiUser builder with email address
+         *
+         * <br><br>Create a KiiUser builder with email address.
+         *
+         * @param emailAddress email address.
+         * @param password for the user. Must be string. Must not be null or
+         *   undefined.
+         *
+         * @return KiiUser object builder.
+         *
+         * @throws If the email address is not in the proper format
+         * @throws If the password is not in the
+         *     proper format
+         */
+        static builderWithEmailAddress(emailAddress: string, password: string): KiiUserBuilder;
+
+        /**
+         * Create KiiUser builder with global phone number
+         *
+         * <br><br>Create a KiiUser builder with global phone number.
+         *
+         * @param phoneNumber global phone number.
+         * @param password
+         *
+         * @return KiiUser object builder.
+         *
+         * @throws If the phone number is not in the proper format
+         */
+        static builderWithGlobalPhoneNumber(phoneNumber: string, password: string): KiiUserBuilder;
+
+        /**
+         * Create KiiUser builder with local phone number
+         *
+         * <br><br>Create a KiiUser builder with local phone number.
+         *
+         * @param phoneNumber local phone number.
+         * @param country country code
+         * @param password for the user. Must be string. Must not be null or
+         *   undefined.
+         *
+         * @return KiiUser object builder.
+         *
+         * @throws If the phone number is not in the proper format
+         * @throws If the country code is not a valid format
+         * @throws If the password is not in the
+         *     proper format
+         */
+        static builderWithLocalPhoneNumber(phoneNumber: string, country: string, password: string): KiiUserBuilder;
+
+        /**
+         * Create KiiUser builder with user name
+         *
+         * <br><br>Create a KiiUser builder with user name.
+         *
+         * @param username user name.
+         * @param password for the user. Must be string. Must not be null or
+         *   undefined.
+         *
+         * @return KiiUser object builder.
+         *
+         * @throws If the username is not in the proper format
+         * @throws If the password is not in the
+         *     proper format
+         */
+        static builderWithUsername(username: string, password: string): KiiUserBuilder;
+
+        /**
+         * Set user name.
+         *
+         * <br><br>Set user name. If null or undefined is passed. It is
+         * ignored. Previous user name is remained.
+         *
+         * @param username user name.
+         *
+         * @return this builder object.
+         *
+         * @throws If the username is not in the
+         *     proper format
+         */
+        setUsername(username: string): KiiUserBuilder;
+
+        /**
+         * Set email address.
+         *
+         * <br><br>Set email address. If null or undefined is passed. It is
+         * ignored. Previous email address is remained.
+         *
+         * @param emailAddress email address.
+         *
+         * @return this builder object.
+         *
+         * @throws If the email address is not in the
+         *     proper format
+         */
+        setEmailAddress(emailAddress: string): KiiUserBuilder;
+
+        /**
+         * Set global phone number.
+         *
+         * <br><br>Set global phone number. If null or undefined is
+         * passed. It is ignored. Previous phone number is remained.
+         *
+         * @param phoneNumber global phone number.
+         *
+         * @return this builder object.
+         *
+         * @throws If the phone number is not
+         *     in the proper format
+         */
+        setGlobalPhoneNumber(phoneNumber: string): KiiUserBuilder;
+
+        /**
+         * Set local phone number.
+         *
+         * <br><br>Set local phone number. If null or undefined is
+         * passed. It is ignored. Previous phone number is remained.
+         *
+         * @param phoneNumber local phone number.
+         * @param country country code
+         *
+         * @return this builder object.
+         *
+         * @throws If the phone number is not
+         *     in the proper format
+         * @throws If the country code is not a valid format
+         */
+        setLocalPhoneNumber(phoneNumber: string, country: string): KiiUserBuilder;
+
+        /**
+         * Build KiiUser object.
+         *
+         * <br><br> Build KiiUser object. This method verify set values.
+         *
+         * @return a working KiiUser object.
+         */
+        build(): KiiUser;
     }
 }
 
@@ -7268,6 +7818,7 @@ import KiiClause = KiiCloud.KiiClause;
 import KiiGeoPoint = KiiCloud.KiiGeoPoint;
 import KiiGroup = KiiCloud.KiiGroup;
 import KiiObject = KiiCloud.KiiObject;
+import KiiPushInstallation = KiiCloud.KiiPushInstallation;
 import KiiPushMessageBuilder = KiiCloud.KiiPushMessageBuilder;
 import KiiPushSubscription = KiiCloud.KiiPushSubscription;
 import KiiQuery = KiiCloud.KiiQuery;
@@ -7277,3 +7828,4 @@ import KiiSocialConnect = KiiCloud.KiiSocialConnect;
 import KiiThing = KiiCloud.KiiThing;
 import KiiTopic = KiiCloud.KiiTopic;
 import KiiUser = KiiCloud.KiiUser;
+import KiiUserBuilder = KiiCloud.KiiUserBuilder;

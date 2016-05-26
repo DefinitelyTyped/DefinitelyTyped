@@ -1,11 +1,9 @@
 // Type definitions for iScroll 5
 // Project: http://cubiq.org/iscroll-5-ready-for-beta-test
 // Definitions by: Christiaan Rakowski <https://github.com/csrakowski/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface IScrollOptions {
-	//hScroll?: boolean;
-	//vScroll?: boolean;
 	x?: number;
 	y?: number;
 	bounce?: boolean;
@@ -31,28 +29,30 @@ interface IScrollOptions {
 	zoomMin?: number;
 	zoomMax?: number;
 	doubleTapZoom?: number;
+	mouseWheel?: boolean;
 	wheelAction?: string;
-
-	
-	///String or boolean
-	snap?: any;
+	snap?: string | boolean;
 	snapThreshold?: number;
 
-	//new in IScroll 5?
-
+	// New in IScroll 5?
 	resizeIndicator?: boolean;
 	mouseWheelSpeed?: number;
 	startX?: number;
 	startY?: number;
 	scrollX?: boolean;
 	scrollY?: boolean;
+	scrollbars?: boolean | string;
+	shrinkScrollbars?: string;
+	interactiveScrollbars?: boolean;
+	releaseScroll?: boolean;
+	fadeScrollbars?: boolean;
 	directionLockThreshold?: number;
 
 	bounceTime?: number;
 
 	///String or function
 	bounceEasing?: any;
-	
+
 	preventDefault?: boolean;
 	preventDefaultException?: boolean;
 
@@ -64,22 +64,23 @@ interface IScrollOptions {
 	tap?: boolean;
 	click?: boolean;
 	invertWheelDirection?: boolean;
-
-	///Boolean or string
-	eventPassthrough?: any;
+	eventPassthrough?: string | boolean;
 }
 
 declare class IScroll {
-
 	constructor (element: string, options?: IScrollOptions);
 	constructor (element: HTMLElement, options?: IScrollOptions);
+
+	x: number;
+	y: number;
 
 	destroy(): void;
 	refresh(): void;
 	scrollTo(x: number, y: number, time?: number, relative?: boolean): void;
 	scrollToElement(element: string, time?: number): void;
 	scrollToElement(element: HTMLElement, time?: number): void;
-	scrollToPage(pageX: number, pageY: number, time?: number): void;
+	scrollToElement(element: HTMLElement, time?: number, offsetX?: number | boolean, offsetY?: number | boolean, easing?: Function): void;
+	goToPage(pageX: number, pageY: number, time?: number): void;
 	disable(): void;
 	enable(): void;
 	stop(): void;
@@ -87,5 +88,6 @@ declare class IScroll {
 	isReady(): boolean;
 
 	// Events
-	on: (type: string, fn: () => void) => void;
+	on(type: string, fn: (evt?: any) => void): void;
+	off(type: string, fn?: (evt?: any) => void): void;
 }

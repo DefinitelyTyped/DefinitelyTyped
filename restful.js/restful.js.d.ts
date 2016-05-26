@@ -1,9 +1,7 @@
 // Type definitions for restful.js 0.6.2
 // Project: https://github.com/marmelab/restful.js
 // Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-
-/// <reference path="../es6-promise/es6-promise.d.ts" />
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "restful.js" {
     export interface Headers {
@@ -242,4 +240,3 @@ declare module "restful.js" {
 
     export default function restful(endpoint: string): Api;
 }
-

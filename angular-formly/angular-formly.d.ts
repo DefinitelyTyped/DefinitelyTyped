@@ -1,7 +1,7 @@
-// Type definitions for angular-formly 6.18.0
+// Type definitions for angular-formly 7.2.3
 // Project: https://github.com/formly-js/angular-formly
 // Definitions by: Scott Hatcher <https://github.com/scatcher>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
@@ -14,25 +14,36 @@ declare module 'angular-formly' {
 	export = angularFormlyDefaultExport;
 }
 
-declare module AngularFormly {
+declare namespace AngularFormly {
 
+	interface IFieldArray extends Array<IFieldConfigurationObject | IFieldGroup> {
+
+	}
 
 	interface IFieldGroup {
-		data?: Object;
+		data?: {
+			[key: string]: any;
+		};
 		className?: string;
-		elementAttributes?: { [key: string]: string };
-		fieldGroup: IFieldConfigurationObject[];
+		elementAttributes?: string;
+		fieldGroup?: IFieldArray;
 		form?: Object;
 		hide?: boolean;
-		hideExpression?: string | IExpresssionFunction;
+		hideExpression?: string | IExpressionFunction;
 		key?: string | number;
-		model?: string | Object;
-		options?: IFormOptionsAPI
+		model?: string | {
+			[key: string]: any;
+		};
+		options?: IFormOptionsAPI;
+		templateOptions?: ITemplateOptions;
+		wrapper?: string | string[];
 	}
 
 
 	interface IFormOptionsAPI {
-		data?: Object;
+		data?: {
+			[key: string]: any;
+		};
 		fieldTransform?: Function;
 		formState?: Object;
 		removeChromeAutoComplete?: boolean;
@@ -46,7 +57,7 @@ declare module AngularFormly {
 	/**
 	 * see http://docs.angular-formly.com/docs/formly-expressions#expressionproperties-validators--messages
 	 */
-	interface IExpresssionFunction {
+	interface IExpressionFunction {
 		($viewValue: any, $modelValue: any, scope: ITemplateScope): any;
 	}
 
@@ -96,13 +107,13 @@ declare module AngularFormly {
 		type?: string;
 
 		//expression types
-		onBlur?: string;
-		onChange?: string;
-		onClick?: string;
-		onFocus?: string;
-		onKeydown?: string;
-		onKeypress?: string;
-		onKeyup?: string;
+		onBlur?: string | IExpressionFunction;
+		onChange?: string | IExpressionFunction;
+		onClick?: string | IExpressionFunction;
+		onFocus?: string | IExpressionFunction;
+		onKeydown?: string | IExpressionFunction;
+		onKeypress?: string | IExpressionFunction;
+		onKeyup?: string | IExpressionFunction;
 
 		//Bootstrap types
 		label?: string;
@@ -122,8 +133,8 @@ declare module AngularFormly {
 	 * see http://docs.angular-formly.com/docs/field-configuration-object#validators-object
 	 */
 	interface IValidator {
-		expression: string | IExpresssionFunction;
-		message?: string | IExpresssionFunction;
+		expression: string | IExpressionFunction;
+		message?: string | IExpressionFunction;
 	}
 
 
@@ -154,8 +165,8 @@ declare module AngularFormly {
 		 * see http://angular-formly.com/#/example/other/unique-value-async-validation
 		 */
 		asyncValidators?: {
-			[key: string]: string | IExpresssionFunction | IValidator;
-		}
+			[key: string]: string | IExpressionFunction | IValidator;
+		};
 
 		/**
 		 * This is a great way to add custom behavior to a specific field. It is injectable with the $scope of the
@@ -172,7 +183,9 @@ declare module AngularFormly {
 		 *
 		 * see http://docs.angular-formly.com/docs/field-configuration-object#data-object
 		 */
-		data?: Object;
+		data?: {
+			[key: string]: any;
+		};
 
 
 		/**
@@ -193,7 +206,9 @@ declare module AngularFormly {
 		className?: string;
 
 
-		elementAttributes?: string;
+		elementAttributes?: {
+			[key: string]: string;
+		};
 
 
 		/**
@@ -204,8 +219,8 @@ declare module AngularFormly {
 		 * see http://docs.angular-formly.com/docs/field-configuration-object#expressionproperties-object
 		 */
 		expressionProperties?: {
-			[key: string]: string | IExpresssionFunction | IValidator;
-		}
+			[key: string]: string | IExpressionFunction | IValidator;
+		};
 
 
 		/**
@@ -214,7 +229,7 @@ declare module AngularFormly {
 		 *
 		 * see http://docs.angular-formly.com/docs/field-configuration-object#hide-boolean
 		 */
-		hide?: boolean
+		hide?: boolean;
 
 
 		/**
@@ -224,7 +239,7 @@ declare module AngularFormly {
 		 *
 		 * see http://docs.angular-formly.com/docs/field-configuration-object#hideexpression-string--function
 		 */
-		hideExpression?: string | IExpresssionFunction;
+		hideExpression?: string | IExpressionFunction;
 
 
 		/**
@@ -274,7 +289,9 @@ declare module AngularFormly {
 		 *
 		 * see http://docs.angular-formly.com/docs/field-configuration-object#model-object--string
 		 */
-		model?: Object | string;
+		model?: string | {
+			[key: string]: any;
+		};
 
 
 		/**
@@ -416,7 +433,7 @@ declare module AngularFormly {
 			 * like in this example.
 			 */
 			messages?: {
-				[key: string]: IExpresssionFunction | string;
+				[key: string]: IExpressionFunction | string;
 			}
 
 
@@ -427,7 +444,7 @@ declare module AngularFormly {
 			 */
 			show?: boolean;
 
-		}
+		};
 
 
 		/**
@@ -440,8 +457,8 @@ declare module AngularFormly {
 		 * see http://docs.angular-formly.com/docs/field-configuration-object#validators-object
 		 */
 		validators?: {
-			[key: string]: string | IExpresssionFunction | IValidator;
-		}
+			[key: string]: string | IExpressionFunction | IValidator;
+		};
 
 
 		/**
@@ -529,7 +546,9 @@ declare module AngularFormly {
 		apiCheckOptions?: Object;
 		defaultOptions?: IFieldConfigurationObject | Function;
 		controller?: Function | string | any[];
-		data?: Object;
+		data?: {
+			[key: string]: any;
+		};
 		extends?: string;
 		link?: ng.IDirectiveLinkFn;
 		overwriteOk?: boolean;
@@ -553,10 +572,24 @@ declare module AngularFormly {
 		validateOptions?: Function;
 	}
 
+	interface IFormlyConfigExtras {
+		disableNgModelAttrsManipulator: boolean;
+		apiCheckInstance: any;
+		ngModelAttrsManipulatorPreferUnbound: boolean;
+		removeChromeAutoComplete: boolean;
+		defaultHideDirective: string;
+		errorExistsAndShouldBeVisibleExpression: any;
+		getFieldId: Function;
+		fieldTransform: Function;
+		explicitAsync: boolean;
+	}
+
 	interface IFormlyConfig {
+		disableWarnings: boolean;
+		extras: IFormlyConfigExtras;
 		setType(typeOptions: ITypeOptions): void;
 		setWrapper(wrapperOptions: IWrapperOptions): void;
-
+		templateManipulators: ITemplateManipulators;
 	}
 
 	interface ITemplateScopeOptions {
@@ -573,7 +606,7 @@ declare module AngularFormly {
 		//Shortcut to options.formControl
 		fc: ng.IFormController | ng.IFormController[];
 		//all the fields for the form
-		fields: IFieldConfigurationObject[];
+		fields: IFieldArray;
 		//the form controller the field is in
 		form: any;
 		//The object passed as options.formState to the formly-form directive. Use this to share state between fields.
@@ -583,7 +616,9 @@ declare module AngularFormly {
 		//The index of the field the form is on (in ng-repeat)
 		index: number;
 		//the model of the form (or the model specified by the field if it was specified).
-		model: Object | string;
+		model?: string | {
+			[key: string]: any;
+		};
 		//Shortcut to options.validation.errorExistsAndShouldBeVisible
 		showError: boolean;
 		//Shortcut to options.templateOptions

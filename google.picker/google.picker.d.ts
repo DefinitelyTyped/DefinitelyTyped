@@ -1,10 +1,10 @@
 // Type definitions for Google Picker API
 // Project: https://developers.google.com/picker/
 // Definitions by: grapswiz <https://github.com/grapswiz>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module google {
-    module picker {
+declare namespace google {
+    namespace picker {
         export class PickerBuilder {
             constructor();
 
