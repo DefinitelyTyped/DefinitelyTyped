@@ -9,7 +9,7 @@ declare namespace Wolfy87EventEmitter {
      * Hash Object for manipulating multiple events.
      */
     interface MultipleEvents {
-        [event:string]: any //Function | Function[]
+        [event: string]: any //Function | Function[]
     }
 
     /**
@@ -506,6 +506,7 @@ declare namespace Wolfy87EventEmitter {
 
 declare module "wolfy87-eventemitter" {
     class EventEmitter extends Wolfy87EventEmitter.EventEmitter {}
+    namespace EventEmitter {}
     export = EventEmitter;
 }
 
