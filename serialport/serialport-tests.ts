@@ -6,7 +6,7 @@
 
 /// <reference path="serialport.d.ts" />
 
-import serialport = require('serialport');
+import * as serialport from 'serialport';
 
 this.port = new serialport.SerialPort("", {
     baudrate: 0,
