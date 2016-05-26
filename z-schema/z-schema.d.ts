@@ -37,7 +37,11 @@ declare namespace ZSchema {
     }
 
     export class Validator {
-        constructor(options: Options);
+
+        /**
+         * @param options - validator options, if not set fall back to default options
+         */
+        constructor(options?: Options);
 
         /**
          * @param json - either a JSON string or a parsed JSON object
