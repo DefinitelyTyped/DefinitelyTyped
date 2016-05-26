@@ -135,6 +135,35 @@ declare module 'escodegen' {
      */
     verbatim?: string;
   }
+  
+  /**
+   * https://github.com/estools/escodegen/commit/adf113333cd4888cf59bfc4f957df98bf7db82b6
+   */
+  export enum Precedence {
+    Sequence,
+    Yield,
+    Await,
+    Assignment,
+    Conditional,
+    ArrowFunction,
+    LogicalOR,
+    LogicalAND,
+    BitwiseOR,
+    BitwiseXOR,
+    BitwiseAND,
+    Equality,
+    Relational,
+    BitwiseSHIFT,
+    Additive,
+    Multiplicative,
+    Unary,
+    Postfix,
+    Call,
+    New,
+    TaggedTemplate,
+    Member,
+    Primary
+  }
 
   /**
    * Produces given Abstract Syntax Tree as javascript code
