@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.1.2
+// Type definitions for Electron v1.2.0
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -285,10 +285,12 @@ declare namespace Electron {
 		 *
 		 * @param type Uniquely identifies the activity. Maps to NSUserActivity.activityType.
 		 * @param userInfo App-specific state to store for use by another device.
+		 * @param webpageURL The webpage to load in a browser if no suitable app is
+		 * 					 installed on the resuming device. The scheme must be http or https.
 		 *
 		 * Note: This API is only available on Mac.
 		 */
-		setUserActivity(type: string, userInfo: Object): void;
+		setUserActivity(type: string, userInfo: Object, webpageURL?: string): void;
 		/**
 		 * @returns The type of the currently running activity.
 		 *
