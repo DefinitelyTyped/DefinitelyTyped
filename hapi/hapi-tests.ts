@@ -79,6 +79,7 @@ server.route({
 	method: 'GET',
 	path: '/hello',
 	handler: function (request: Hapi.Request, reply: Function) {
+		request.log('info', { route: '/hello' }, Date.now());
 		reply('hello world');
 	}
 });

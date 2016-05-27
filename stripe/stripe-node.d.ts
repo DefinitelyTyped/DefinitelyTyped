@@ -1,4 +1,4 @@
-// Type definitions for stripe-node 4.5.0
+// Type definitions for stripe-node 4.6.0
 // Project: https://github.com/stripe/stripe-node/
 // Definitions by: William Johnston <https://github.com/wjohnsto>, Peter Harris <https://github.com/codeanimal/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -61,6 +61,7 @@ declare namespace StripeNode {
          * @deprecated
          */
         recipients: resources.Recipients;
+        subscriptions: resources.Subscriptions;
         tokens: resources.Tokens;
         transfers: resources.Transfers;
         applicationFees: resources.ApplicationFees;
@@ -1250,7 +1251,7 @@ declare namespace StripeNode {
             subscriptions: ICustomerSubscriptions;
         }
         
-        interface ICustomerSubscriptions extends IList<customerSubscriptions.ISubscription>, resources.CustomerSubscriptions {}
+        interface ICustomerSubscriptions extends IList<subscriptions.ISubscription>, resources.CustomerSubscriptions {}
         
         interface ICustomerCreationOptions extends IDataOptionsWithMetadata {
             /**
@@ -3999,7 +4000,7 @@ declare namespace StripeNode {
         }
     }
 
-    namespace customerSubscriptions {
+    namespace subscriptions {
         /**
          * Subscriptions allow you to charge a customer's card on a recurring basis. A subscription ties a customer to
          * a particular plan you've created: https://stripe.com/docs/api#create_plan
@@ -4029,6 +4030,8 @@ declare namespace StripeNode {
              * subscription period when the subscription is automatically moved to a canceled state.
              */
             canceled_at: number;
+            
+            created: number;
             
             /**
              * End of the current period that the subscription has been invoiced for. At the end of this period, a new invoice will be created.
@@ -4098,7 +4101,7 @@ declare namespace StripeNode {
             trial_start: number;
         }
         
-        interface ISubscriptionCreationOptions extends IDataOptionsWithMetadata {
+        interface ISubscriptionCustCreationOptions extends IDataOptionsWithMetadata {
             /**
              * The identifier of the plan to subscribe the customer to.
              */
@@ -4142,6 +4145,13 @@ declare namespace StripeNode {
              */
             trial_end?: number;
         }
+        
+        interface ISubscriptionCreationOptions extends ISubscriptionCustCreationOptions {
+            /***
+             * The identifier of the customer to subscribe.
+             */
+            customer: string;
+        } 
         
         interface ISubscriptionUpdateOptions extends IDataOptionsWithMetadata {
             /**
@@ -4205,6 +4215,18 @@ declare namespace StripeNode {
              * A flag that if set to true will delay the cancellation of the subscription until the end of the current period.
              */
             at_period_end?: boolean;
+        }
+        
+        interface ISubscriptionListOptions extends IListOptionsCreated {
+            /**
+             * The ID of the customer whose subscriptions will be retrieved
+             */
+            customer?: string;
+            
+            /**
+             * The ID of the plan whose subscriptions will be retrieved
+             */
+            plan?: string;
         }
     }
 
@@ -5066,8 +5088,8 @@ declare namespace StripeNode {
              * 
              * @param id The identifier of the customer to be retrieved.
              */
-            update(id: string, data: customers.ICustomerUpdateOptions, options: HeaderOptions, response?: IResponseFn<customers.ICustomer>): Promise<IList<customers.ICustomer>>;
-            update(id: string, data: customers.ICustomerUpdateOptions, response?: IResponseFn<customers.ICustomer>): Promise<IList<customers.ICustomer>>;
+            update(id: string, data: customers.ICustomerUpdateOptions, options: HeaderOptions, response?: IResponseFn<customers.ICustomer>): Promise<customers.ICustomer>;
+            update(id: string, data: customers.ICustomerUpdateOptions, response?: IResponseFn<customers.ICustomer>): Promise<customers.ICustomer>;
 
             /**
              * Retrieves the details of an existing customer. You need only supply the unique customer identifier that was returned upon customer
@@ -5078,6 +5100,8 @@ declare namespace StripeNode {
              *
              * @param id The identifier of the customer to be retrieved.
              */
+            retrieve(id: string, data: IDataOptions, options: HeaderOptions, response?: IResponseFn<customers.ICustomer>): Promise<customers.ICustomer>;
+            retrieve(id: string, data: IDataOptions, response?: IResponseFn<customers.ICustomer>): Promise<customers.ICustomer>;
             retrieve(id: string, options: HeaderOptions, response?: IResponseFn<customers.ICustomer>): Promise<customers.ICustomer>;
             retrieve(id: string, response?: IResponseFn<customers.ICustomer>): Promise<customers.ICustomer>;
             
@@ -5303,8 +5327,8 @@ declare namespace StripeNode {
              * @param customerId The customer to which the add the subscription.
              * @param options The options for the new subscription
              */
-            createSubscription(customerId: string, data: customerSubscriptions.ISubscriptionCreationOptions, options: HeaderOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
-            createSubscription(customerId: string, data: customerSubscriptions.ISubscriptionCreationOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
+            createSubscription(customerId: string, data: subscriptions.ISubscriptionCustCreationOptions, options: HeaderOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
+            createSubscription(customerId: string, data: subscriptions.ISubscriptionCustCreationOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
             
             /**
              * By default, you can see the 10 most recent active subscriptions stored on a customer directly on the customer
@@ -5315,8 +5339,8 @@ declare namespace StripeNode {
              * @param customerId The customer ID for the subscription
              * @param subscriptionId The ID of the subscription to retrieve
              */
-            retrieveSubscription(customerId: string, subscriptionId: string, options: HeaderOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
-            retrieveSubscription(customerId: string, subscriptionId: string, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
+            retrieveSubscription(customerId: string, subscriptionId: string, options: HeaderOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
+            retrieveSubscription(customerId: string, subscriptionId: string, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
             
             /**
              * Updates an existing subscription on a customer to match the specified parameters. When changing plans or quantities,
@@ -5343,8 +5367,8 @@ declare namespace StripeNode {
              * @param subscriptionId The ID of the subscription to update.
              * @param data The fields to update
              */
-            updateSubscription(customerId: string, subscriptionId: string, data: customerSubscriptions.ISubscriptionUpdateOptions, options: HeaderOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
-            updateSubscription(customerId: string, subscriptionId: string, data: customerSubscriptions.ISubscriptionUpdateOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
+            updateSubscription(customerId: string, subscriptionId: string, data: subscriptions.ISubscriptionUpdateOptions, options: HeaderOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
+            updateSubscription(customerId: string, subscriptionId: string, data: subscriptions.ISubscriptionUpdateOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
             
             /**
              * Cancels a customer's subscription. If you set the at_period_end parameter to true, the subscription will remain active until
@@ -5365,9 +5389,9 @@ declare namespace StripeNode {
              * @param subscriptionId The ID of the subscription to cancel.
              * @param data Specify when to cancel the subscription
              */
-            cancelSubscription(customerId: string, subscriptionId: string, data: customerSubscriptions.ISubscriptionCancellationOptions, options: HeaderOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
-            cancelSubscription(customerId: string, subscriptionId: string, data: customerSubscriptions.ISubscriptionCancellationOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
-            cancelSubscription(customerId: string, subscriptionId: string, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
+            cancelSubscription(customerId: string, subscriptionId: string, data: subscriptions.ISubscriptionCancellationOptions, options: HeaderOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
+            cancelSubscription(customerId: string, subscriptionId: string, data: subscriptions.ISubscriptionCancellationOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
+            cancelSubscription(customerId: string, subscriptionId: string, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
             
             /**
              * You can see a list of the customer's active subscriptions. Note that the 10 most recent active subscriptions are always available
@@ -5380,10 +5404,10 @@ declare namespace StripeNode {
              * @param customerId The ID of the customer whose subscriptions will be retrieved
              * @param data Filtering options
              */
-            listSubscriptions(customerId: string, data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<customerSubscriptions.ISubscription>>): Promise<IList<customerSubscriptions.ISubscription>>;
-            listSubscriptions(customerId: string, data: IListOptions, response?: IResponseFn<IList<customerSubscriptions.ISubscription>>): Promise<IList<customerSubscriptions.ISubscription>>;
-            listSubscriptions(customerId: string, options: HeaderOptions, response?: IResponseFn<IList<customerSubscriptions.ISubscription>>): Promise<IList<customerSubscriptions.ISubscription>>;
-            listSubscriptions(customerId: string, response?: IResponseFn<IList<customerSubscriptions.ISubscription>>): Promise<IList<customerSubscriptions.ISubscription>>;
+            listSubscriptions(customerId: string, data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): Promise<IList<subscriptions.ISubscription>>;
+            listSubscriptions(customerId: string, data: IListOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): Promise<IList<subscriptions.ISubscription>>;
+            listSubscriptions(customerId: string, options: HeaderOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): Promise<IList<subscriptions.ISubscription>>;
+            listSubscriptions(customerId: string, response?: IResponseFn<IList<subscriptions.ISubscription>>): Promise<IList<subscriptions.ISubscription>>;
             
             
             /**
@@ -5410,19 +5434,7 @@ declare namespace StripeNode {
             deleteSubscriptionDiscount(customerId: string, subscriptionId: string, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;;
         }
 
-        class CustomerSubscriptions extends StripeResource {
-            /**
-             * Creates a new subscription on an existing customer.
-             *
-             * @returns The newly created subscription object if the call succeeded. If the customer has no card or the
-             * attempted charge fails, this call throws an error (unless the specified plan is free or has a trial
-             * period).
-             *
-             * @param options The options for the new subscription
-             */
-            create(data: customerSubscriptions.ISubscriptionCreationOptions, options: HeaderOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
-            create(data: customerSubscriptions.ISubscriptionCreationOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
-            
+        class SubscriptionsBase extends StripeResource {
             /**
              * By default, you can see the 10 most recent active subscriptions stored on a customer directly on the customer
              * object, but you can also retrieve details about a specific active subscription for a customer.
@@ -5431,8 +5443,8 @@ declare namespace StripeNode {
              *
              * @param subscriptionId The ID of the subscription to retrieve
              */
-            retrieve(subscriptionId: string, options: HeaderOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
-            retrieve(subscriptionId: string, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
+            retrieve(subscriptionId: string, options: HeaderOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
+            retrieve(subscriptionId: string, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
             
             /**
              * Updates an existing subscription on a customer to match the specified parameters. When changing plans or quantities,
@@ -5458,8 +5470,8 @@ declare namespace StripeNode {
              * @param subscriptionId The ID of the subscription to update.
              * @param data The fields to update
              */
-            update(subscriptionId: string, data: customerSubscriptions.ISubscriptionUpdateOptions, options: HeaderOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
-            update(subscriptionId: string, data: customerSubscriptions.ISubscriptionUpdateOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
+            update(subscriptionId: string, data: subscriptions.ISubscriptionUpdateOptions, options: HeaderOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
+            update(subscriptionId: string, data: subscriptions.ISubscriptionUpdateOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
             
             /**
              * Cancels a customer's subscription. If you set the at_period_end parameter to true, the subscription will remain active until
@@ -5479,10 +5491,10 @@ declare namespace StripeNode {
              * @param subscriptionId The ID of the subscription to cancel.
              * @param data Specify when to cancel the subscription
              */
-            del(subscriptionId: string, data: customerSubscriptions.ISubscriptionCancellationOptions, options: HeaderOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
-            del(subscriptionId: string, data: customerSubscriptions.ISubscriptionCancellationOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
-            del(subscriptionId: string, options: HeaderOptions, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
-            del(subscriptionId: string, response?: IResponseFn<customerSubscriptions.ISubscription>): Promise<customerSubscriptions.ISubscription>;
+            del(subscriptionId: string, data: subscriptions.ISubscriptionCancellationOptions, options: HeaderOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
+            del(subscriptionId: string, data: subscriptions.ISubscriptionCancellationOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
+            del(subscriptionId: string, options: HeaderOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
+            del(subscriptionId: string, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
             
             /**
              * You can see a list of the customer's active subscriptions. Note that the 10 most recent active subscriptions are always available
@@ -5494,10 +5506,10 @@ declare namespace StripeNode {
              *
              * @param data Filtering options
              */
-            list(data: IListOptions, options: HeaderOptions, response?: IResponseFn<IList<customerSubscriptions.ISubscription>>): Promise<IList<customerSubscriptions.ISubscription>>;
-            list(data: IListOptions, response?: IResponseFn<IList<customerSubscriptions.ISubscription>>): Promise<IList<customerSubscriptions.ISubscription>>;
-            list(options: HeaderOptions, response?: IResponseFn<IList<customerSubscriptions.ISubscription>>): Promise<IList<customerSubscriptions.ISubscription>>;
-            list(response?: IResponseFn<IList<customerSubscriptions.ISubscription>>): Promise<IList<customerSubscriptions.ISubscription>>;
+            list(data: subscriptions.ISubscriptionListOptions, options: HeaderOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): Promise<IList<subscriptions.ISubscription>>;
+            list(data: subscriptions.ISubscriptionListOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): Promise<IList<subscriptions.ISubscription>>;
+            list(options: HeaderOptions, response?: IResponseFn<IList<subscriptions.ISubscription>>): Promise<IList<subscriptions.ISubscription>>;
+            list(response?: IResponseFn<IList<subscriptions.ISubscription>>): Promise<IList<subscriptions.ISubscription>>;
             
             /**
              * Removes the currently applied discount on a subscription.
@@ -5509,6 +5521,33 @@ declare namespace StripeNode {
              */
             deleteDiscount(subscriptionId: string, options: HeaderOptions, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;;
             deleteDiscount(subscriptionId: string, response?: IResponseFn<IDeleteConfirmation>): Promise<IDeleteConfirmation>;;
+        }
+        
+        class Subscriptions extends SubscriptionsBase {
+            /**
+             * Creates a new subscription on an existing customer.
+             *
+             * @returns The newly created subscription object if the call succeeded. If the customer has no card or the
+             * attempted charge fails, this call throws an error (unless the specified plan is free or has a trial
+             * period).
+             *
+             * @param options The options for the new subscription
+             */
+            create(data: subscriptions.ISubscriptionCreationOptions, options: HeaderOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
+            create(data: subscriptions.ISubscriptionCreationOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
+        }
+        class CustomerSubscriptions extends SubscriptionsBase {
+            /**
+             * Creates a new subscription on an existing customer.
+             *
+             * @returns The newly created subscription object if the call succeeded. If the customer has no card or the
+             * attempted charge fails, this call throws an error (unless the specified plan is free or has a trial
+             * period).
+             *
+             * @param options The options for the new subscription
+             */
+            create(data: subscriptions.ISubscriptionCustCreationOptions, options: HeaderOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
+            create(data: subscriptions.ISubscriptionCustCreationOptions, response?: IResponseFn<subscriptions.ISubscription>): Promise<subscriptions.ISubscription>;
         }
         
         class Disputes extends StripeResource {

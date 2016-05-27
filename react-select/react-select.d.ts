@@ -245,6 +245,11 @@ declare namespace ReactSelect {
          */
         openAfterFocus?: boolean;
         /**
+         * open the options menu when the input gets focus (requires searchable = true)
+         * @default false
+         */
+        openOnFocus?: boolean;
+        /**
          * option component to render in dropdown
          */
         optionComponent?: __React.ReactElement<any>;
@@ -397,10 +402,15 @@ declare namespace ReactSelect {
 }
 
 declare module "react-select" {
-    const select: ReactSelect.ReactSelectClass;
+    const RS: ReactSelect.ReactSelectClass;
+    export = RS;
+}
+
+declare module "react-select-props" {
+    
     interface Option extends ReactSelect.Option {}
     interface MenuRendererProps extends ReactSelect.MenuRendererProps {}
 
-    export default select;
     export { MenuRendererProps, Option };
 }
+

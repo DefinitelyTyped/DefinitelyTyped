@@ -1,4 +1,4 @@
-// Type definitions for Kii Cloud SDK v2.4.3
+// Type definitions for Kii Cloud SDK v2.4.4
 // Project: http://en.kii.com/
 // Definitions by: Kii Consortium <http://jp.kii.com/consortium/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6060,11 +6060,35 @@ declare namespace KiiCloud {
         getEmailAddress(): string;
 
         /**
+         * Get the email of this user that has not been verified.
+         * When the user's email has been changed and email verification is required in you app configuration,
+         * New email is stored as pending email.
+         * After the new email has been verified, the address can be obtained by {@link KiiUser.getEmailAddress}
+         *
+         * @return User's new email address has not been verified.
+         *     null if no pending email field is included in refresh
+         *     response or undefined when no refresh operation has been done before.
+         */
+        getPendingEmailAddress(): string;
+
+        /**
          * Get the phone number associated with this user
          *
          * @return
          */
         getPhoneNumber(): string;
+
+        /**
+         * Get the phone of this user that has not been verified.
+         * When the user's phone has been changed and phone verification is required in you app configuration,
+         * New phone is stored as pending phone.
+         * After the new phone has been verified, the address can be obtained by {@link KiiUser.getPhoneNumber}
+         *
+         * @return User's new phone number has not been verified.
+         *     null if no pending phone field is included in refresh
+         *     response or undefined when no refresh operation has been done before.
+         */
+        getPendingPhoneNumber(): string;
 
         /**
          * Get the country code associated with this user
@@ -7126,7 +7150,12 @@ declare namespace KiiCloud {
         ownerOfGroups(callbacks?: { success(theUser: KiiUser, groupList: KiiGroup[]): any; failure(theUser: KiiUser, anErrorString: string): any; }): Promise<[KiiUser, KiiGroup[]]>;
 
         /**
-         * Updates the user's phone number on the server
+         * Change phone number of logged in user.
+         * If the phone number verification is required by your app configuration,
+         * User's phone number would not changed to new one until the new phone number verification has been done.
+         * In this case, new phone can be obtained by {@link KiiUser#getPendingPhoneNumber()}.
+         * This API does not refresh the KiiUser automatically.
+         * Please execute {@link KiiUser#refresh()} before checking the value of {@link KiiUser#getPhoneNumber()} or {@link KiiUser#getPendingPhoneNumber()}.
          *
          * @param newPhoneNumber The new phone number to change to
          * @param callbacks An object with callback methods defined
@@ -7169,7 +7198,12 @@ declare namespace KiiCloud {
         changePhone(newPhoneNumber: string, callbacks?: { success(theUser: KiiUser): any; failure(theUser: KiiUser, anErrorString: string): any; }): Promise<KiiUser>;
 
         /**
-         * Updates the user's email address on the server
+         * Change email of logged in user.
+         * If the email address verification is required by your app configuration,
+         * User's email would not changed to new one until the new email verification has been done.
+         * In this case, new mail address can be obtained by {@link KiiUser#getPendingEmailAddress()}.
+         * This API does not refresh the KiiUser automatically.
+         * Please execute {@link KiiUser#refresh()} before checking the value of {@link KiiUser#getEmailAddress()} or {@link KiiUser#getPendingEmailAddress()}
          *
          * @param newEmail The new email address to change to
          * @param callbacks An object with callback methods defined

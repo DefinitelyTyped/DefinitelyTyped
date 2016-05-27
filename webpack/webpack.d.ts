@@ -327,7 +327,9 @@ declare module "webpack" {
              * Assign the module and chunk ids by occurrence count. Ids that are used often get lower (shorter) ids.
              * This make ids predictable, reduces to total file size and is recommended.
              */
+            // TODO: This is a typo, and will be removed in Webpack 2.
             OccurenceOrderPlugin: optimize.OccurenceOrderPluginStatic;
+            OccurrenceOrderPlugin: optimize.OccurenceOrderPluginStatic;
             /**
              * Minimize all JavaScript output of chunks. Loaders are switched into minimizing mode.
              * You can pass an object containing UglifyJs options.
