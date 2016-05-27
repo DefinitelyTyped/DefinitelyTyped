@@ -1,11 +1,11 @@
 // Type definitions for PouchDB 5.0.0
 // Project: http://pouchdb.com
-// Definitions by: Roland Greim <https://github.com/tigerxy/>
+// Definitions by: Bill Sears <https://github.com/MrBigDog2U/>, Roland Greim <https://github.com/tigerxy/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../levelup/levelup.d.ts" />
 
-declare module PouchDB {
+declare module "PouchDB" {
 	interface PouchDBFactory {
 		new (name: string, options?: PouchDBOptions): PouchDB
 	
