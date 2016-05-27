@@ -5,7 +5,7 @@
 
 /// <reference path="../levelup/levelup.d.ts" />
 
-declare module "PouchDB" {
+declare module PouchDB {
 	interface PouchDBFactory {
 		new (name: string, options?: PouchDBOptions): PouchDB
 	
@@ -134,3 +134,7 @@ declare module "PouchDB" {
 }
 
 declare var PouchDB: PouchDB.PouchDBFactory
+
+declare module "PouchDB" {
+	export = PouchDB;
+}
