@@ -196,6 +196,7 @@ declare module "mongoose" {
     distinct(field: string, conditions: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
     ensureIndexes(callback: (err: any) => void): Promise<T>;
 
+    find(): Query<T[]>;
     find(cond: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
     find(cond: Object, fields: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
     find(cond: Object, fields: Object, options: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
