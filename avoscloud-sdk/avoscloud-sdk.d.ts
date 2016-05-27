@@ -797,3 +797,8 @@ declare module "avoscloud-sdk" {
 
   export = AV;
 }
+
+declare module 'leanengine' {
+    import alias = require('avoscloud-sdk');
+    export = alias;
+}
