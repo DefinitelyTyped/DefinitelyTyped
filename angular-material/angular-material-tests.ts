@@ -55,6 +55,18 @@ myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.
     $scope['confirmDialog'] = () => {
         $mdDialog.show($mdDialog.confirm().htmlContent('<span>Confirm!</span>'));
     };
+    $scope['promptDialog'] = () => {
+        $mdDialog.show($mdDialog.prompt().textContent('Prompt!'));
+    };
+    $scope['promptDialog'] = () => {
+        $mdDialog.show($mdDialog.prompt().htmlContent('<span>Prompt!</span>'));
+    };
+    $scope['promptDialog'] = () => {
+        $mdDialog.show($mdDialog.prompt().cancel('Prompt "Cancel" button text'));
+    };
+    $scope['promptDialog'] = () => {
+        $mdDialog.show($mdDialog.prompt().placeholder('Prompt input placeholder text'));
+    };
     $scope['hideDialog'] = $mdDialog.hide.bind($mdDialog, 'hide');
     $scope['cancelDialog'] = $mdDialog.cancel.bind($mdDialog, 'cancel');
 });

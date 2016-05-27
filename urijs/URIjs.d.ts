@@ -52,6 +52,8 @@ declare namespace uri {
         is(qry: string): boolean;
         iso8859(): URI;
 
+        joinPaths(...paths: (string | URI)[]): URI;
+
         normalize(): URI;
         normalizeFragment(): URI;
         normalizeHash(): URI;
@@ -62,6 +64,9 @@ declare namespace uri {
         normalizeProtocol(): URI;
         normalizeQuery(): URI;
         normalizeSearch(): URI;
+
+        origin(): string;
+        origin(uri: string | URI): URI;
 
         password(): string;
         password(pw: string): URI;

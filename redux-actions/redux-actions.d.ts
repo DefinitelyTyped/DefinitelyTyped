@@ -24,12 +24,12 @@ declare namespace ReduxActions {
 
     type MetaCreator<Input, Payload> = (...args: Input[]) => Payload;
 
-    type Reducer<Payload> = (state: Payload, action: Action<Payload>) => Payload;
+    type Reducer<State, Payload> = (state: State, action: Action<Payload>) => State;
 
-    type ReducerMeta<Payload, Meta> = (state: Payload, action: ActionMeta<Payload, Meta>) => Payload;
+    type ReducerMeta<State, Payload, Meta> = (state: State, action: ActionMeta<Payload, Meta>) => State;
 
-    type ReducerMap<Payload> = {
-        [actionType: string]: Reducer<Payload>
+    type ReducerMap<State, Payload> = {
+        [actionType: string]: Reducer<State, Payload>
     };
 
     export function createAction(
@@ -54,17 +54,20 @@ declare namespace ReduxActions {
         metaCreator: MetaCreator<Input, Meta>
     ): (...args: Input[]) => ActionMeta<Payload, Meta>;
 
-    export function handleAction<Payload>(
+    export function handleAction<State, Payload>(
         actionType: string,
-        reducer: Reducer<Payload> | ReducerMap<Payload>
-    ): Reducer<Payload>;
+        reducer: Reducer<State, Payload> | ReducerMap<State, Payload>
+    ): Reducer<State, Payload>;
 
-    export function handleAction<Payload, Meta>(
+    export function handleAction<State, Payload, Meta>(
         actionType: string,
-        reducer: ReducerMeta<Payload, Meta> | ReducerMap<Payload>
-    ): Reducer<Payload>;
+        reducer: ReducerMeta<State, Payload, Meta> | ReducerMap<State, Payload>
+    ): Reducer<State, Payload>;
 
-    export function handleActions<Payload>(reducerMap: ReducerMap<Payload>, initialState?: Payload): Reducer<Payload>;
+    export function handleActions<State, Payload>(
+        reducerMap: ReducerMap<State, Payload>,
+        initialState?: State
+    ): Reducer<State, Payload>;
 }
 
 declare module 'redux-actions' {
