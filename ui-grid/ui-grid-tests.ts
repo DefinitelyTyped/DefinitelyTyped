@@ -88,7 +88,7 @@ columnDef.sort = {
     priority: 1
 };
 columnDef.sortCellFiltered = false;
-columnDef.sortingAlgorithm = (a: any, b: any, rowA: IMyEntity, rowB: IMyEntity, direction: string) => {
+columnDef.sortingAlgorithm = (a: any, b: any, rowA: uiGrid.IGridRowOf<IMyEntity>, rowB: uiGrid.IGridRowOf<IMyEntity>, direction: string) => {
     return -1;
 };
 columnDef.suppressRemoveSort = false;

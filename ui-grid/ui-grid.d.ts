@@ -3554,7 +3554,7 @@ declare namespace uiGrid {
          * parameters that are the row objects and the current direction of the sort
          * respectively. 
          */
-        sortingAlgorithm?: (a: any, b: any, rowA: TEntity, rowB: TEntity, direction: string) => number;
+        sortingAlgorithm?: (a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number;
         /** Column width */
         width: number;
         /**
@@ -3789,7 +3789,7 @@ declare namespace uiGrid {
          * parameters that are the row objects and the current direction of the sort
          * respectively. 
          */
-        sortingAlgorithm?: (a: any, b: any, rowA: TEntity, rowB: TEntity, direction: string) => number;
+        sortingAlgorithm?: (a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number;
         /**
          * When enabled, this setting hides the removeSort option in the menu,
          * and prevents users from manually removing the sort
