@@ -3548,8 +3548,13 @@ declare namespace uiGrid {
         name?: string;
         /** Sort on this column */
         sort?: ISortInfo;
-        /** Algorithm to use for sorting this column. Takes 'a' and 'b' parameters like any normal sorting function. */
-        sortingAlgorithm?: (a: any, b: any) => number;
+        /**
+         * Algorithm to use for sorting this column. Takes 'a' and 'b' parameters
+         * like any normal sorting function with additional 'rowA', 'rowB', and 'direction'
+         * parameters that are the row objects and the current direction of the sort
+         * respectively. 
+         */
+        sortingAlgorithm?: (a: any, b: any, rowA: TEntity, rowB: TEntity, direction: string) => number;
         /** Column width */
         width: number;
         /**
@@ -3778,8 +3783,13 @@ declare namespace uiGrid {
          * not appear in the list more than once (e.g. [ASC, DESC, DESC] is not allowed), and the list may not be empty.*
          */
         sortDirectionCycle?: Array<IUiGridConstants>;
-        /** Algorithm to use for sorting this column */
-        sortingAlgorithm?: (a: any, b: any) => number;
+        /**
+         * Algorithm to use for sorting this column. Takes 'a' and 'b' parameters
+         * like any normal sorting function with additional 'rowA', 'rowB', and 'direction'
+         * parameters that are the row objects and the current direction of the sort
+         * respectively. 
+         */
+        sortingAlgorithm?: (a: any, b: any, rowA: TEntity, rowB: TEntity, direction: string) => number;
         /**
          * When enabled, this setting hides the removeSort option in the menu,
          * and prevents users from manually removing the sort
