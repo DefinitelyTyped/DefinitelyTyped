@@ -3121,7 +3121,7 @@ declare module "sequelize" {
              * `Sequelize.literal`, `Sequelize.fn` and so on), and the second is the name you want the attribute to
              * have in the returned instance
              */
-            attributes? :  Array<string> | { include?: Array<string>, exclude?: Array<string> };
+            attributes?: Array<string | fn | [string, string] | [fn, string]> | { include?: Array<string>, exclude?: Array<string> };
 
             /**
              * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
@@ -3181,6 +3181,12 @@ declare module "sequelize" {
              * having ?!?
              */
             having? : WhereOptions;
+
+            /**
+             * Group by. It is not mentioned in sequelize's JSDoc, but mentioned in docs.
+             * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
+             */
+            group?: string | string[] | Object;
 
         }
 
