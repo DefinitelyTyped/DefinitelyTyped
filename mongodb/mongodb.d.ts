@@ -729,6 +729,9 @@ declare module "mongodb" {
     updateOne(filter: Object, update: Object, callback: MongoCallback<UpdateWriteOpResult>): void;
     updateOne(filter: Object, update: Object, options?: ReplaceOneOptions): Promise<UpdateWriteOpResult>;
     updateOne(filter: Object, update: Object, options: ReplaceOneOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#remove
+    remove(selector:Object,options?:Object):Promise<UpdateWriteOpResult>;
+    remove(selector:Object,options?:Object,callback:MongoCallback<UpdateWriteOpResult>):void;
   }
 
   // Documentation: http://docs.mongodb.org/manual/reference/command/collStats/
