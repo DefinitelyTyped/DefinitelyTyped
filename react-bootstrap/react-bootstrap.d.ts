@@ -730,6 +730,26 @@ declare module "react-bootstrap" {
     }
     class FormGroup extends React.Component<FormGroupProps, {}> {}
     
+    // <InputGroup.Button />
+    // ----------------------------------------
+    interface InputGroupButtonProps extends React.HTMLAttributes {
+        bsClass?: string;
+    }
+    class InputGroupButton extends React.Component<InputGroupButtonProps, {}>{}
+
+    // <InputGroup />
+    // ----------------------------------------
+    interface InputGroupProps extends React.HTMLAttributes {
+        bsClass?: string;
+        bsSize?: "sm" | "small" | "lg" | "large";
+        Button?: InputGroupButton;
+    }
+    interface InputGroupClass extends React.ClassicComponentClass<InputGroupProps> {
+        Button: typeof InputGroupButton;
+    }
+    type InputGroup = React.Component<InputGroupProps, {}>;
+    var InputGroup: InputGroupClass;
+    
     // <ControlLabel />
     // ----------------------------------------
     interface ControlLabelProps extends React.HTMLAttributes {

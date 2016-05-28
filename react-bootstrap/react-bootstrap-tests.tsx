@@ -7,7 +7,10 @@
 // --------------------------------------------------------------------------------
 import * as React from 'react';
 import { Component, CSSProperties } from 'react';
-import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput, FormControls, Form, FormGroup, ControlLabel, FormControl, HelpBlock, Radio, Checkbox } from 'react-bootstrap';
+import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, 
+  OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, 
+  CarouselItem, Grid, Row, Col, Thumbnail, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput, FormControls, 
+  Form, FormGroup, ControlLabel, FormControl, HelpBlock, Radio, Checkbox, InputGroup } from 'react-bootstrap';
 
 
 export class ReactBootstrapTest extends Component<any, any> {
@@ -939,6 +942,20 @@ export class ReactBootstrapTest extends Component<any, any> {
                       <Radio name="radio" inline>2</Radio>
                       {' '}
                       <Radio name="radio" inline>3</Radio>
+                    </FormGroup>
+                    <FormGroup>
+                      <InputGroup>
+                        <FormControl type="text" />
+                        <DropdownButton
+                          componentClass={InputGroup.Button}
+                          id="input-dropdown-addon"
+                          title="Action">
+                          <MenuItem key="1">Item</MenuItem>
+                        </DropdownButton>
+                      </InputGroup>
+                      <InputGroup>
+                        <FormControl type="text" />
+                      </InputGroup>
                     </FormGroup>
                   </Form>
                 </div>
