@@ -41,6 +41,7 @@ interface ShouldAssertion {
   Date(): ShouldAssertion;
   Class(): ShouldAssertion;
   Undefined(): ShouldAssertion;
+  Null(): ShouldAssertion;
   generator(): ShouldAssertion;
   iterable(): ShouldAssertion;
   iterator(): ShouldAssertion;
@@ -132,6 +133,8 @@ interface ShouldAssertion {
   hasOwnProperty(name: string, description?: string): ShouldAssertion;
   greaterThan(n: number, description?: string): ShouldAssertion;
   lessThan(n: number, description?: string): ShouldAssertion;
+  null(): ShouldAssertion;
+  undefined(): ShouldAssertion;
 }
 
 interface ShouldInternal {
