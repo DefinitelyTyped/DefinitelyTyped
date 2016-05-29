@@ -1,6 +1,6 @@
-﻿// Type definitions for html2canvas.js v0.4.1
+﻿// Type definitions for html2canvas.js v0.5.0-bata.4
 // Project: https://github.com/niklasvh/html2canvas
-// Definitions by: Richard Hepburn <https://github.com/rwhepburn/>
+// Definitions by: Richard Hepburn <https://github.com/rwhepburn/>, Pei-Tang Huang <https://github.com/tan9/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
@@ -36,12 +36,9 @@ declare namespace Html2Canvas {
 
         /** Whether to attempt to load cross-origin images as CORS served, before reverting back to proxy. */
         useCORS?: boolean;
-        
+
         /** Use svg powered rendering where available (FF11+). */
         svgRendering?: boolean;
-
-        /** Callback providing the rendered canvas element after rendering */
-        onrendered?(canvas: HTMLCanvasElement): void;
     }
 }
 
@@ -54,18 +51,27 @@ interface Html2CanvasStatic {
       * but builds the screenshot based on the information available on the page.
       *
       * @param {HTMLElement} element The HTML element which will be rendered to the canvas. Use the root element to render the entire window.
-      */
-    (element: HTMLElement): void;
-    /**
-      * Renders an HTML element to a canvas so that a screenshot can be generated.
-      *
-      * The screenshot is based on the DOM and as such may not be 100% accurate to the real representation as it does not make an actual screenshot,
-      * but builds the screenshot based on the information available on the page.
-      *
-      * @param {HTMLElement} element The HTML element which will be rendered to the canvas. Use the root element to render the entire window.
       * @param {Html2CanvasOptions} options The options object that controls how the element will be rendered.
       */
-    (element: HTMLElement, options: Html2Canvas.Html2CanvasOptions): void;
+    (element: HTMLElement, options?: Html2Canvas.Html2CanvasOptions): Html2CanvasPromise<HTMLCanvasElement>;
+}
+
+// FIXME:
+// Find out a way to dependent on real Promise interface.
+// And remove following custome Promise interface.
+interface Html2CanvasThenable<R> {
+    then<U>(onFulfilled?: (value: R) => U | Html2CanvasThenable<U>, onRejected?: (error: any) => U | Html2CanvasThenable<U>): Html2CanvasThenable<U>;
+    then<U>(onFulfilled?: (value: R) => U | Html2CanvasThenable<U>, onRejected?: (error: any) => void): Html2CanvasThenable<U>;
+}
+
+interface Html2CanvasPromise<R> extends Html2CanvasThenable<R> {
+    then<U>(onFulfilled?: (value: R) => U | Html2CanvasThenable<U>, onRejected?: (error: any) => U | Html2CanvasThenable<U>): Html2CanvasPromise<U>;
+    then<U>(onFulfilled?: (value: R) => U | Html2CanvasThenable<U>, onRejected?: (error: any) => void): Html2CanvasPromise<U>;
+    catch<U>(onRejected?: (error: any) => U | Html2CanvasThenable<U>): Html2CanvasPromise<U>;
+}
+
+declare module 'html2canvas' {
+    export = html2canvas;
 }
 
 declare var html2canvas: Html2CanvasStatic;

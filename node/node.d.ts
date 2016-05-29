@@ -465,7 +465,7 @@ interface NodeBuffer extends Uint8Array {
     writeFloatBE(value: number, offset: number, noAssert?: boolean): number;
     writeDoubleLE(value: number, offset: number, noAssert?: boolean): number;
     writeDoubleBE(value: number, offset: number, noAssert?: boolean): number;
-    fill(value: any, offset?: number, end?: number): Buffer;
+    fill(value: any, offset?: number, end?: number): this;
     // TODO: encoding param
     indexOf(value: string | number | Buffer, byteOffset?: number): number;
     // TODO: entries
@@ -1021,6 +1021,7 @@ declare module "child_process" {
         pid: number;
         kill(signal?: string): void;
         send(message: any, sendHandle?: any): void;
+        connected: boolean;
         disconnect(): void;
         unref(): void;
     }
@@ -1386,86 +1387,78 @@ declare module "fs" {
      * @param newPath
      */
     export function renameSync(oldPath: string, newPath: string): void;
-    export function truncate(path: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function truncate(path: string, len: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function truncateSync(path: string, len?: number): void;
+    export function truncate(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function truncate(path: string | Buffer, len: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function truncateSync(path: string | Buffer, len?: number): void;
     export function ftruncate(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function ftruncate(fd: number, len: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function ftruncateSync(fd: number, len?: number): void;
-    export function chown(path: string, uid: number, gid: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function chownSync(path: string, uid: number, gid: number): void;
+    export function chown(path: string | Buffer, uid: number, gid: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function chownSync(path: string | Buffer, uid: number, gid: number): void;
     export function fchown(fd: number, uid: number, gid: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function fchownSync(fd: number, uid: number, gid: number): void;
-    export function lchown(path: string, uid: number, gid: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function lchownSync(path: string, uid: number, gid: number): void;
-    export function chmod(path: string, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function chmod(path: string, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function chmodSync(path: string, mode: number): void;
-    export function chmodSync(path: string, mode: string): void;
+    export function lchown(path: string | Buffer, uid: number, gid: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function lchownSync(path: string | Buffer, uid: number, gid: number): void;
+    export function chmod(path: string | Buffer, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function chmod(path: string | Buffer, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function chmodSync(path: string | Buffer, mode: number): void;
+    export function chmodSync(path: string | Buffer, mode: string): void;
     export function fchmod(fd: number, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function fchmod(fd: number, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function fchmodSync(fd: number, mode: number): void;
     export function fchmodSync(fd: number, mode: string): void;
-    export function lchmod(path: string, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function lchmod(path: string, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function lchmodSync(path: string, mode: number): void;
-    export function lchmodSync(path: string, mode: string): void;
-    export function stat(path: string, callback?: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
-    export function lstat(path: string, callback?: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
+    export function lchmod(path: string | Buffer, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function lchmod(path: string | Buffer, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function lchmodSync(path: string | Buffer, mode: number): void;
+    export function lchmodSync(path: string | Buffer, mode: string): void;
+    export function stat(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
+    export function lstat(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
     export function fstat(fd: number, callback?: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
-    export function statSync(path: string): Stats;
-    export function lstatSync(path: string): Stats;
+    export function statSync(path: string | Buffer): Stats;
+    export function lstatSync(path: string | Buffer): Stats;
     export function fstatSync(fd: number): Stats;
-    export function link(srcpath: string, dstpath: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function linkSync(srcpath: string, dstpath: string): void;
-    export function symlink(srcpath: string, dstpath: string, type?: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function symlinkSync(srcpath: string, dstpath: string, type?: string): void;
-    export function readlink(path: string, callback?: (err: NodeJS.ErrnoException, linkString: string) => any): void;
-    export function readlinkSync(path: string): string;
-    export function realpath(path: string, callback?: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
-    export function realpath(path: string, cache: {[path: string]: string}, callback: (err: NodeJS.ErrnoException, resolvedPath: string) =>any): void;
-    export function realpathSync(path: string, cache?: { [path: string]: string }): string;
+    export function link(srcpath: string | Buffer, dstpath: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function linkSync(srcpath: string | Buffer, dstpath: string | Buffer): void;
+    export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type?: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function symlinkSync(srcpath: string | Buffer, dstpath: string | Buffer, type?: string): void;
+    export function readlink(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, linkString: string) => any): void;
+    export function readlinkSync(path: string | Buffer): string;
+    export function realpath(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
+    export function realpath(path: string | Buffer, cache: {[path: string]: string}, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
+    export function realpathSync(path: string | Buffer, cache?: { [path: string]: string }): string;
     /*
      * Asynchronous unlink - deletes the file specified in {path}
      *
      * @param path
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
-    export function unlink(path: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function unlink(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
     /*
      * Synchronous unlink - deletes the file specified in {path}
      *
      * @param path
      */
-    export function unlinkSync(path: string): void;
+    export function unlinkSync(path: string | Buffer): void;
     /*
      * Asynchronous rmdir - removes the directory specified in {path}
      *
      * @param path
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
-    export function rmdir(path: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function rmdir(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
     /*
      * Synchronous rmdir - removes the directory specified in {path}
      *
      * @param path
      */
-    export function rmdirSync(path: string): void;
+    export function rmdirSync(path: string | Buffer): void;
     /*
      * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
      * @param path
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
-    export function mkdir(path: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    /*
-     * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
-     *
-     * @param path
-     * @param mode
-     * @param callback No arguments other than a possible exception are given to the completion callback.
-     */
-    export function mkdir(path: string, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function mkdir(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
     /*
      * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
@@ -1473,7 +1466,15 @@ declare module "fs" {
      * @param mode
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
-    export function mkdir(path: string, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function mkdir(path: string | Buffer, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    /*
+     * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
+     *
+     * @param path
+     * @param mode
+     * @param callback No arguments other than a possible exception are given to the completion callback.
+     */
+    export function mkdir(path: string | Buffer, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
     /*
      * Synchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
@@ -1481,7 +1482,7 @@ declare module "fs" {
      * @param mode
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
-    export function mkdirSync(path: string, mode?: number): void;
+    export function mkdirSync(path: string | Buffer, mode?: number): void;
     /*
      * Synchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
@@ -1489,7 +1490,7 @@ declare module "fs" {
      * @param mode
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
-    export function mkdirSync(path: string, mode?: string): void;
+    export function mkdirSync(path: string | Buffer, mode?: string): void;
     /*
      * Asynchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      *
@@ -1504,19 +1505,19 @@ declare module "fs" {
      * @returns Returns the created folder path.
      */
     export function mkdtempSync(prefix: string): string;
-    export function readdir(path: string, callback?: (err: NodeJS.ErrnoException, files: string[]) => void): void;
-    export function readdirSync(path: string): string[];
+    export function readdir(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, files: string[]) => void): void;
+    export function readdirSync(path: string | Buffer): string[];
     export function close(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function closeSync(fd: number): void;
-    export function open(path: string, flags: string, callback?: (err: NodeJS.ErrnoException, fd: number) => any): void;
-    export function open(path: string, flags: string, mode: number, callback?: (err: NodeJS.ErrnoException, fd: number) => any): void;
-    export function open(path: string, flags: string, mode: string, callback?: (err: NodeJS.ErrnoException, fd: number) => any): void;
-    export function openSync(path: string, flags: string, mode?: number): number;
-    export function openSync(path: string, flags: string, mode?: string): number;
-    export function utimes(path: string, atime: number, mtime: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function utimes(path: string, atime: Date, mtime: Date, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function utimesSync(path: string, atime: number, mtime: number): void;
-    export function utimesSync(path: string, atime: Date, mtime: Date): void;
+    export function open(path: string | Buffer, flags: string, callback?: (err: NodeJS.ErrnoException, fd: number) => any): void;
+    export function open(path: string | Buffer, flags: string, mode: number, callback?: (err: NodeJS.ErrnoException, fd: number) => any): void;
+    export function open(path: string | Buffer, flags: string, mode: string, callback?: (err: NodeJS.ErrnoException, fd: number) => any): void;
+    export function openSync(path: string | Buffer, flags: string, mode?: number): number;
+    export function openSync(path: string | Buffer, flags: string, mode?: string): number;
+    export function utimes(path: string | Buffer, atime: number, mtime: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function utimes(path: string | Buffer, atime: Date, mtime: Date, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function utimesSync(path: string | Buffer, atime: number, mtime: number): void;
+    export function utimesSync(path: string | Buffer, atime: Date, mtime: Date): void;
     export function futimes(fd: number, atime: number, mtime: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function futimes(fd: number, atime: Date, mtime: Date, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function futimesSync(fd: number, atime: number, mtime: number): void;
@@ -1599,8 +1600,8 @@ declare module "fs" {
     export function unwatchFile(filename: string, listener?: (curr: Stats, prev: Stats) => void): void;
     export function watch(filename: string, listener?: (event: string, filename: string) => any): FSWatcher;
     export function watch(filename: string, options: { persistent?: boolean; }, listener?: (event: string, filename: string) => any): FSWatcher;
-    export function exists(path: string, callback?: (exists: boolean) => void): void;
-    export function existsSync(path: string): boolean;
+    export function exists(path: string | Buffer, callback?: (exists: boolean) => void): void;
+    export function existsSync(path: string | Buffer): boolean;
     /** Constant for fs.access(). File is visible to the calling process. */
     export var F_OK: number;
     /** Constant for fs.access(). File can be read by the calling process. */
@@ -1610,18 +1611,18 @@ declare module "fs" {
     /** Constant for fs.access(). File can be executed by the calling process. */
     export var X_OK: number;
     /** Tests a user's permissions for the file specified by path. */
-    export function access(path: string, callback: (err: NodeJS.ErrnoException) => void): void;
-    export function access(path: string, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function access(path: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
+    export function access(path: string | Buffer, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;
     /** Synchronous version of fs.access. This throws if any accessibility checks fail, and does nothing otherwise. */
-    export function accessSync(path: string, mode ?: number): void;
-    export function createReadStream(path: string, options?: {
+    export function accessSync(path: string | Buffer, mode ?: number): void;
+    export function createReadStream(path: string | Buffer, options?: {
         flags?: string;
         encoding?: string;
         fd?: number;
         mode?: number;
         autoClose?: boolean;
     }): ReadStream;
-    export function createWriteStream(path: string, options?: {
+    export function createWriteStream(path: string | Buffer, options?: {
         flags?: string;
         encoding?: string;
         fd?: number;

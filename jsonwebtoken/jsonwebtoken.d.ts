@@ -23,7 +23,7 @@ declare module "jsonwebtoken" {
          */
         algorithm?: string;
         /** @member {string} - Lifetime for the token expressed in a string describing a time span [rauchg/ms](https://github.com/rauchg/ms.js). Eg: `60`, `"2 days"`, `"10h"`, `"7d"` */
-        expiresIn?: string;
+        expiresIn?: string | number;
         notBefore?: string;
         audience?: string;
         subject?: string;
