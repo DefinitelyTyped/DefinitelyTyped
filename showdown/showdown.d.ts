@@ -1,28 +1,19 @@
-// Type definitions for Showdown 0.3.1
+// Type definitions for Showdown 1.4.1
 // Project: https://github.com/coreyti/showdown
-// Definitions by: cbowdon <https://github.com/cbowdon>
+// Definitions by: cbowdon <https://github.com/cbowdon>, Pei-Tang Huang <https://github.com/tan9/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Showdown {
 
-    /** Defined for information only - used in union type */
-    interface Replace {
-        /**
-         * This is just the replacer function argument to String.prototype.replace, signature from lib.d.ts
-         */
-        replace(substring: string, ...args: any[]): string;
-    }
-
     interface Extension {
         /**
-         * Describes what type of extension - language ext or output modifier.
-         * If absent, 'output modifier' type is assumed (contrary to comments in source).
+         * Describes what type of extension - language ext ('lang') or output modifier ('output').
          */
-        type?: string;
+        type: string;
     }
 
     interface LangExtension extends Extension {
-        filter? (text: string): string;
+        filter?: (text: string, converter: Converter, options?: ConverterOptions) => string;
     }
 
     interface OutputModifier extends Extension {
@@ -44,13 +35,142 @@ declare namespace Showdown {
     interface ShowdownExtension extends LangExtension, OutputModifier {
     }
 
-    /** Defined for information only - used in union type */
-    interface Plugin {
-        (converter: Converter): ShowdownExtension[];
+    interface ConverterExtensions {
+      language: LangExtension[];
+      output: OutputModifier[];
     }
 
-    interface ConverterOptions {
-        extensions: any[]; // (string | Plugin)[]
+    interface ShowdownOptions {
+        /**
+         * Omit the trailing newline in a code block. Ex:
+         *
+         * This:
+         *   <code><pre>var foo = 'bar';
+         *   </pre></code>
+         *
+         * Becomes this:
+         *   <code><pre>var foo = 'bar';</pre></code>
+         *
+         * @default false
+         */
+        omitExtraWLInCodeBlocks?: boolean;
+
+        /**
+         * Disable the automatic generation of header ids. Setting to true overrides <strong>prefixHeaderId</strong>.
+         *
+         * @default false
+         */
+        noHeaderId?: boolean;
+
+        /**
+         * Add a prefix to the generated header ids.
+         * Passing a string will prefix that string to the header id.
+         * Setting to true will add a generic 'section' prefix.
+         *
+         * @default false
+         */
+        prefixHeaderId?: string | boolean;
+
+        /**
+         * Enable support for setting image dimensions from within markdown syntax.
+         * Examples:
+         *
+         *   ![foo](foo.jpg =100x80)     simple, assumes units are in px
+         *   ![bar](bar.jpg =100x*)      sets the height to "auto"
+         *   ![baz](baz.jpg =80%x5em)  Image with width of 80% and height of 5em
+         *
+         * @default false
+         */
+        parseImgDimensions?: boolean;
+
+
+        /**
+         * Set the header starting level. For instance, setting this to 3 means that
+         *
+         *   # foo
+         *
+         * will be parsed as
+         *
+         *   <h3>foo</h3>
+         *
+         * @default 1
+         */
+        headerLevelStart?: number;
+
+        /**
+         * Turning this on will stop showdown from interpreting underscores in the middle of
+         * words as <em> and <strong> and instead treat them as literal underscores.
+         *
+         * Example:
+         *
+         *   some text with__underscores__in middle
+         *
+         * will be parsed as
+         *
+         *   <p>some text with__underscores__in middle</p>
+         *
+         * @default false
+         */
+        literalMidWordUnderscores?: boolean;
+
+        /**
+         * Enable support for strikethrough syntax.
+         * `~~strikethrough~~` as `<del>strikethrough</del>`.
+         *
+         * @default false
+         */
+        strikethrough?: boolean;
+
+        /**
+         * Enable support for tables syntax. Example:
+         *
+         *   | h1    |    h2   |      h3 |
+         *   |:------|:-------:|--------:|
+         *   | 100   | [a][1]  | ![b][2] |
+         *   | *foo* | **bar** | ~~baz~~ |
+         *
+         * See the wiki for more info
+         *
+         * @default false
+         */
+        tables?: boolean;
+
+        /**
+         * If enabled adds an id property to table headers tags.
+         *
+         * @default false
+         */
+        tablesHeaderId?: boolean;
+
+        /**
+         * Enable support for GFM code block style.
+         *
+         * @default true
+         */
+        ghCodeBlocks?: boolean;
+
+        /**
+         * Enable support for GFM takslists. Example:
+         *
+         *   - [x] This task is done
+         *   - [ ] This is still pending
+         *
+         * @default false
+         */
+        tasklists?: boolean;
+
+        /**
+         * Prevents weird effects in live previews due to incomplete input.
+         *
+         * @default false
+         */
+        smoothLivePreview?: boolean;
+    }
+
+
+    interface ConverterOptions extends ShowdownOptions {
+
+        extensions?: string | string[];
     }
 
     interface Converter {
@@ -59,28 +179,131 @@ declare namespace Showdown {
          * @return The output HTML
          */
         makeHtml(text: string): string;
+
+        /**
+         * Setting a "local" option only affects the specified Converter object.
+         *
+         * @param optionKey
+         * @param string
+         */
+        setOption(optionKey: string, value: string): void;
+
+        /**
+         * Get the option of this Converter instance.
+         *
+         * @param optionKey
+         */
+        getOption(optionKey: string): any;
+
+        /**
+         * Get the options of this Converter instance.
+         */
+        getOptions(): ShowdownOptions;
+
+        /**
+         * Add extension to THIS converter.
+         *
+         * @param extension
+         * @param name
+         */
+        addExtension(extension: ShowdownExtension, name: string): void;
+
+        /**
+         * Use a global registered extension with THIS converter
+         *
+         * @param extensionName Name of the previously registered extension.
+         */
+        useExtension(extensionName: string): void;
+
+        /**
+         * Get all extensions.
+         *
+         * @return all extensions.
+         */
+        getAllExtensions(): ConverterExtensions;
+
+        /**
+         * Remove an extension from THIS converter.
+         *
+         * Note: This is a costly operation. It's better to initialize a new converter
+         * and specify the extensions you wish to use.
+         *
+         * @param extensions
+         */
+        removeExtension(extensions:  ShowdownExtension[] | ShowdownExtension): void;
     }
 
     interface ConverterStatic {
         /**
          * @constructor
-         * @param converter_options Configuration object, describes which extensions to apply
+         * @param converterOptions Configuration object, describes which extensions to apply
          */
-        new(converter_options?: ConverterOptions): Converter;
+        new(converterOptions?: ConverterOptions): Converter;
     }
 
     /** Constructor function for a Converter */
     var Converter: ConverterStatic;
 
-    /** Registered extensions */
-    var extensions: { [name: string]: ShowdownExtension };
+    /**
+     * Setting a "global" option affects all instances of showdown
+     */
+    function setOption(optionKey: string, value: string): void;
 
     /**
-     * Showdown defers to the ES5 native or other predefined forEach where available, otherwise simple loop
-     * @param obj An array of items
-     * @param callback Applied once to each item (signature here is from forEach in lib.d.ts)
+     * Retrieve previous set global option.
+     * @param optionKey
      */
-    function forEach<T>(obj: T[], callback: (value: T, index: number, array: T[]) => any): void;
+    function getOption(optionKey: string): any;
+
+    /**
+     * Retrieve previous set global options.
+     */
+    function getOptions(): ShowdownOptions;
+
+    /**
+     * Reset options.
+     */
+    function resetOptions(): void;
+
+    /**
+     * Retrieve the default options.
+     */
+    function getDefaultOptions(): ShowdownOptions;
+
+    /**
+     * Register an extension.
+     *
+     * @prarm name
+     * @param ext
+     */
+    function extension(name: string, ext: ShowdownExtension): void;
+
+    /**
+     * Get an extension.
+     *
+     * @param name
+     * @return The extensions array.
+     */
+    function extension(name: string): ShowdownExtension[];
+
+    /**
+     * Get all extensions.
+     *
+     * @return all extensions.
+     */
+    function getAllExtensions(): {[name: string]: ShowdownExtension[]};
+
+    /**
+     * Remove an extension.
+     *
+     * @param name
+     */
+    function removeExtension(name: string): void;
+
+    /**
+     * Reset extensions.
+     */
+    function resetExtensions(): void;
 }
 
 declare module "showdown" {
