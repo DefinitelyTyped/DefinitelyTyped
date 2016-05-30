@@ -6,9 +6,9 @@
 import Showdown = require('showdown');
 
 var exampleMarkdown = '#hello, markdown',
-    converter = new Showdown.converter(),
+    converter = new Showdown.Converter(),
     preloadedExtensions = [ 'github', 'twitter', 'prettify', 'table' ],
-    extensionsConverter = new Showdown.converter({ extensions: preloadedExtensions });
+    extensionsConverter = new Showdown.Converter({ extensions: preloadedExtensions });
 
 console.log(converter.makeHtml(exampleMarkdown));
 // should log '<h1 id="hellomarkdown">hello, markdown</h1>'

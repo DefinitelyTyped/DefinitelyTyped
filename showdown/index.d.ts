@@ -73,7 +73,7 @@ declare namespace Showdown {
     }
 
     /** Constructor function for a Converter */
-    var converter: ConverterStatic;
+    var Converter: ConverterStatic;
 
     /** Registered extensions */
     var extensions: { [name: string]: ShowdownExtension };
