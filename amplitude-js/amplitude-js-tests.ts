@@ -1,6 +1,6 @@
 // Tests for Amplitude SDK TypeScript definitions
 
-/// <reference path="amplitude.d.ts" />
+/// <reference path="amplitude-js.d.ts" />
 
 module Amplitude.Tests {
 	function all() {
@@ -76,7 +76,7 @@ module Amplitude.Tests {
 		amplitude.setGroup('orgId', '15');
 		amplitude.setGroup('sport', ['soccer', 'tennis']);
 
-		// Still to implement:
+		// TODO: Implement those.
 		/*
 		var revenue = new amplitude.Revenue().setProductId('com.company.productId').setPrice(3.99).setQuantity(3);
 		amplitude.logRevenueV2(revenue);
