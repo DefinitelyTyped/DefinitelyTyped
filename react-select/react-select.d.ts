@@ -124,7 +124,7 @@ declare namespace ReactSelect {
         /**
          * method to filter the options array
          */
-        filterOptions?: (options: Array<Option>, filter: string, currentValues: (string | number)[]) => Array<Option>;
+        filterOptions?: boolean | ((options: Array<Option>, filter: string, currentValues: (string | number | Option)[]) => Array<Option>);
         /**
          * whether to strip diacritics when filtering
          * @default true
@@ -359,7 +359,7 @@ declare namespace ReactSelect {
         /**
          *  function to call to load options asynchronously
          */
-        loadOptions: (input: string, callback: (options: Option[]) => any) => any;
+        loadOptions: (input: string, callback: (error: string, options: Option[]) => any) => any;
 
         /**
          *  replaces the placeholder while options are loading
