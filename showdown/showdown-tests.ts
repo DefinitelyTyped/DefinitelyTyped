@@ -3,18 +3,24 @@
 // compile: tsc showdown/showdown-tests.ts --noImplicitAny --module commonjs
 // run: node showdown/showdown-tests.js
 
-import Showdown = require('showdown');
+import showdown = require('showdown');
 
 var exampleMarkdown = '#hello, markdown',
-    converter = new Showdown.Converter(),
-    preloadedExtensions = [ 'github', 'twitter', 'prettify', 'table' ],
-    extensionsConverter = new Showdown.Converter({ extensions: preloadedExtensions });
+    converter = new showdown.Converter();
+
+var myExt: showdown.LangExtension = {type: 'lang', filter: (text, converter)=>{return text.replace('#', '*')}};
+showdown.extension('my-ext', myExt);
+var preloadedExtensions = [ 'my-ext' ],
+    extensionsConverter = new showdown.Converter({ extensions: preloadedExtensions });
+
+var configuredConverter = new showdown.Converter();
+    configuredConverter.addExtension({type: 'lang', filter: (text, converter)=>{return text.replace('#', '*')}}, 'myext');
 
 console.log(converter.makeHtml(exampleMarkdown));
 // should log '<h1 id="hellomarkdown">hello, markdown</h1>'
 
 console.log(extensionsConverter.makeHtml(exampleMarkdown));
-// should log '<p><a href="http://twitter.com/search/%23hello">#hello</a>, markdown</p>'
+// should log '<p>*hello, markdown</p>'
 
-Showdown.forEach(preloadedExtensions, console.log);
-// should log each item in the above array
+console.log(configuredConverter.makeHtml(exampleMarkdown));
+// should log '<p>*hello, markdown</p>'
