@@ -1,7 +1,6 @@
-﻿// Type definitions for fetch API
-// Project: https://github.com/github/fetch
-// Definitions by: Torsten Werner <https://github.com/torstenwerner> based on whatwg-fetch
-// that was created by: Ryan Graham <https://github.com/ryan-codingintrigue>
+﻿// Type definitions for node-fetch based on whatwg-fetch
+// Project: https://github.com/bitinn/node-fetch
+// Definitions by: Torsten Werner <https://github.com/torstenwerner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Request extends Body {
