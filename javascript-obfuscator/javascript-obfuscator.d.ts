@@ -6,6 +6,7 @@
 declare module 'javascript-obfuscator' {
   export interface IOptions {
     compact?: boolean;
+    encodeUnicodeArray?: boolean;
     debugProtection?: boolean;
     debugProtectionInterval?: boolean;
     disableConsoleOutput?: boolean;
