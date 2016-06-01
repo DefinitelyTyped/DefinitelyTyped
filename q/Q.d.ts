@@ -292,6 +292,14 @@ declare namespace Q {
      * Returns whether a given promise is in the pending state. When the static version is used on non-promises, the result is always false.
      */
     export function isPending(object: any): boolean;
+    /**
+     * If an object is not a promise, it is as "near" as possible.
+     * If a promise is rejected, it is as "near" as possible too.
+     * If it’s a fulfilled promise, the fulfillment value is nearer.
+     * If it’s a deferred promise and the deferred has been resolved, the
+     * resolution is "nearer".
+     */
+    export function nearer<T>(promise: Promise<T>): T;
 
     /**
      * This is an experimental tool for converting a generator function into a deferred function. This has the potential of reducing nested callbacks in engines that support yield.

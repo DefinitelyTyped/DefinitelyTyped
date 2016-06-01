@@ -358,6 +358,40 @@ describe("A spy, when configured to fake a return value", function () {
     });
 });
 
+describe("A spy, when configured to fake a series of return values", function() {
+    var foo: any, bar: any;
+
+    beforeEach(function() {
+        foo = {
+            setBar: function(value: any) {
+                bar = value;
+            },
+            getBar: function() {
+                return bar;
+            }
+        };
+
+        spyOn(foo, "getBar").and.returnValues("fetched first", "fetched second");
+
+        foo.setBar(123);
+    });
+
+    it("tracks that the spy was called", function() {
+        foo.getBar(123);
+        expect(foo.getBar).toHaveBeenCalled();
+    });
+
+    it("should not affect other functions", function() {
+        expect(bar).toEqual(123);
+    });
+
+    it("when called multiple times returns the requested values in order", function() {
+        expect(foo.getBar()).toEqual("fetched first");
+        expect(foo.getBar()).toEqual("fetched second");
+        expect(foo.getBar()).toBeUndefined();
+    });
+});
+
 describe("A spy, when configured with an alternate implementation", function () {
     var foo: any, bar: any, fetchedBar: any;
 
@@ -747,31 +781,31 @@ describe("Manually ticking the Jasmine Clock", function () {
 
 describe("Asynchronous specs", function () {
     var value: number;
-    beforeEach(function (done) {
+    beforeEach(function (done: DoneFn) {
         setTimeout(function () {
             value = 0;
             done();
         }, 1);
     });
 
-    it("should support async execution of test preparation and expectations", function (done) {
+    it("should support async execution of test preparation and expectations", function (done: DoneFn) {
         value++;
         expect(value).toBeGreaterThan(0);
         done();
     });
 
     describe("long asynchronous specs", function() {
-        beforeEach(function(done) {
+        beforeEach(function(done: DoneFn) {
           done();
         }, 1000);
 
-        it("takes a long time", function(done) {
+        it("takes a long time", function(done: DoneFn) {
           setTimeout(function() {
             done();
           }, 9000);
         }, 10000);
 
-        afterEach(function(done) {
+        afterEach(function(done: DoneFn) {
           done();
         }, 1000);
     });

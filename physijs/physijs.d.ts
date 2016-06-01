@@ -147,7 +147,7 @@ declare namespace Physijs {
         add(object:THREE.Object3D):void;
         remove(object:THREE.Object3D):void;
         setFixedTimeStep(fixedTimeStep:number):void;
-        setGravity(gravity:number):void;
+        setGravity(gravity:THREE.Vector3):void;
         simulate(timeStep?:number, maxSubSteps?:number):boolean;
 
 

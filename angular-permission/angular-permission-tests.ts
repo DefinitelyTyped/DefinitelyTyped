@@ -1,6 +1,6 @@
 /// <reference path="./angular-permission.d.ts" />
 
-import * as permission from 'angular-permission';
+import permission = angular.permission;
 
 angular
   .module('fooModule', ['permission', 'user'])
@@ -36,7 +36,7 @@ angular
 
     PermissionStore
       // A different example for admin
-      .definePermission('admin', function (stateParams) {
+      .definePermission('admin', function (permission: string, stateParams: angular.permission.TransitionProperties) {
         var deferred = $q.defer();
 
         User.getAccessLevel()
@@ -56,7 +56,7 @@ angular
       });
 
     let arrayOfPermissionNames = ['p1', 'p2'];
-    PermissionStore.defineManyPermissions(arrayOfPermissionNames, function (stateParams: angular.ui.IStateParamsService, permissionName: string) {
+    PermissionStore.defineManyPermissions(arrayOfPermissionNames, function (permissionName: string, stateParams: angular.permission.TransitionProperties) {
       return User.hasPermissionDefinition(permissionName);
     });
 
@@ -79,7 +79,7 @@ angular
 
     RoleStore
       // Server side validated role
-      .defineRole('accountant', [], function (stateParams) {
+      .defineRole('accountant', [], function (permission, stateParams) {
         // Let's assume that we are making a request to server here and return response as promise
         return User.hasRole('accountant');
       });

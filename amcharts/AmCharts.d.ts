@@ -36,7 +36,7 @@ declare namespace AmCharts {
             chart.dataProvider = chartData;
             chart.write("chartdiv");
     */
-    class AmPieChart {
+    class AmPieChart extends AmChart {
         /** Name of the field in chart's dataProvider which holds slice's alpha. */
         alphaField: string;
         /** Pie lean angle (for 3D effect). Valid range is 0 - 90. */
@@ -187,19 +187,6 @@ declare namespace AmCharts {
         rollOverSlice(index: number);
         /** Shows slice. index - the number of a slice or Slice object. */
         showSlice(index: number);
-
-        /** Adds event listener of the type "clickSlice" or "pullInSlice" or "pullOutSlice" to the object.
-            @param type Always "clickSlice" or "pullInSlice" or "pullOutSlice".
-            @param handler
-                If the type is "clickSlice", dispatched when user clicks on a slice.
-                If the type is "pullInSlice", dispatched when user clicks on a slice and the slice is pulled-in.
-                If the type is "pullOutSlice", dispatched when user clicks on a slice and the slice is pulled-out.
-                If the type is "rollOutSlice", dispatched when user rolls-out of the slice.
-                If the type is "rollOverSlice", dispatched when user rolls-over the slice.
-        */
-        addListener(type: string, handler: (e: {/** Always "rollOverSlice". */
-            type: string; dataItem: Slice;
-        }) => void );
     }
 
     /** AmRadarChart is the class you have to use for radar and polar chart types.
@@ -803,6 +790,10 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         textClickEnabled: boolean;
         /** In case legend position is set to "absolute", you can set distance from top of the chart, in pixels. */
         top: number;
+        /** Legend markers can mirror graph’s settings, displaying a line and a real bullet as in the graph itself.
+        Set this property to true if you want to enable this feature. Note, if you set graph colors in dataProvider, they will not be reflected in the marker.
+        @default false*/
+        useGraphSettings: boolean;
         /** Specifies if legend labels should be use same color as corresponding markers. */
         useMarkerColorForLabels: boolean;
         /** Alignment of the value text. Possible values are "left" and "right". right */
@@ -1239,6 +1230,11 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies if a grid line is placed on the center of a cell or on the beginning of a cell. Possible values are: "start" and "middle" This setting doesn't work if parseDates is set to true. middle */
         gridPosition: string;
 
+        /**   Specifies if minor grid should be displayed.
+        NOTE: If equalSpacing is set to true, this setting will be ignored.
+        @default false*/
+        minorGridEnabled: boolean;
+
         /** Specifies the shortest period of your data. This should be set only if parseDates is set to "true". Possible period values: fff - milliseconds, ss - seconds, mm - minutes, hh - hours, DD - days, MM - months, YYYY - years. DD */
         minPeriod: string;
 
@@ -1248,6 +1244,14 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Specifies whether the graph should start on axis or not. In case you display columns, it is recommended to set this to false. If parseDates is set to true, startOnAxis will allways be false, unless equalSpacing is set to true. */
         startOnAxis: boolean;
 
+        /** Works only when parseDates is set to true and equalSpacing is false. If you set it to true, at the position where bigger period changes,
+        category axis will display date strings of bot small and big period, in two rows.
+        @default false*/
+        twoLineMode: boolean;
+
+        /** Use line color for bullet
+        @default false*/
+        useLineColorForBulletBorder: boolean;
         /** Number returns coordinate of a category. Works only if parseDates is false. If parseDates is true, use dateToCoordinate method. category - String */
         categoryToCoordinate(category: string);
 
@@ -1486,6 +1490,10 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             @default true
         */
         enabled: boolean;
+        /** If set to true, instead of a cursor line user will see a fill which width will always be equal to the width of one data item.
+        Recommend setting cursorAlpha to 0.1 or some other small number if using this feature.
+        @default false*/
+        fullWidth: boolean;
         /** If this is set to true, only one balloon at a time will be displayed. Note, this is quite CPU consuming. */
         oneBalloonOnly: boolean;
         /** If this is set to true, the user will be able to pan the chart (Serial only) instead of zooming. */

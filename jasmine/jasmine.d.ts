@@ -11,29 +11,36 @@ declare function fdescribe(description: string, specDefinitions: () => void): vo
 declare function xdescribe(description: string, specDefinitions: () => void): void;
 
 declare function it(expectation: string, assertion?: () => void, timeout?: number): void;
-declare function it(expectation: string, assertion?: (done: () => void) => void, timeout?: number): void;
+declare function it(expectation: string, assertion?: (done: DoneFn) => void, timeout?: number): void;
 declare function fit(expectation: string, assertion?: () => void, timeout?: number): void;
-declare function fit(expectation: string, assertion?: (done: () => void) => void, timeout?: number): void;
+declare function fit(expectation: string, assertion?: (done: DoneFn) => void, timeout?: number): void;
 declare function xit(expectation: string, assertion?: () => void, timeout?: number): void;
-declare function xit(expectation: string, assertion?: (done: () => void) => void, timeout?: number): void;
+declare function xit(expectation: string, assertion?: (done: DoneFn) => void, timeout?: number): void;
 
 /** If you call the function pending anywhere in the spec body, no matter the expectations, the spec will be marked pending. */
 declare function pending(reason?: string): void;
 
 declare function beforeEach(action: () => void, timeout?: number): void;
-declare function beforeEach(action: (done: () => void) => void, timeout?: number): void;
+declare function beforeEach(action: (done: DoneFn) => void, timeout?: number): void;
 declare function afterEach(action: () => void, timeout?: number): void;
-declare function afterEach(action: (done: () => void) => void, timeout?: number): void;
+declare function afterEach(action: (done: DoneFn) => void, timeout?: number): void;
 
 declare function beforeAll(action: () => void, timeout?: number): void;
-declare function beforeAll(action: (done: () => void) => void, timeout?: number): void;
+declare function beforeAll(action: (done: DoneFn) => void, timeout?: number): void;
 declare function afterAll(action: () => void, timeout?: number): void;
-declare function afterAll(action: (done: () => void) => void, timeout?: number): void;
+declare function afterAll(action: (done: DoneFn) => void, timeout?: number): void;
 
 declare function expect(spy: Function): jasmine.Matchers;
 declare function expect(actual: any): jasmine.Matchers;
 
 declare function fail(e?: any): void;
+/** Action method that should be called when the async work is complete */
+interface DoneFn extends Function {
+    (): void;
+
+    /** fails the spec and indicates that it has completed. If the message is an Error, Error.message is used */
+    fail: (message?: Error|string) => void;
+}
 
 declare function spyOn(object: any, method: string): jasmine.Spy;
 
@@ -424,6 +431,8 @@ declare namespace jasmine {
         callThrough(): Spy;
         /** By chaining the spy with and.returnValue, all calls to the function will return a specific value. */
         returnValue(val: any): Spy;
+        /** By chaining the spy with and.returnValues, all calls to the function will return specific values in order until it reaches the end of the return values list. */
+        returnValues(...values: any[]): Spy;
         /** By chaining the spy with and.callFake, all calls to the spy will delegate to the supplied function. */
         callFake(fn: Function): Spy;
         /** By chaining the spy with and.throwError, all calls to the spy will throw the specified value. */

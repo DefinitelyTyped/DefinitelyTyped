@@ -418,9 +418,10 @@ React.createClass({
 // TestUtils addon
 // --------------------------------------------------------------------------
 var node: Element;
+
 React.addons.TestUtils.Simulate.click(node);
 React.addons.TestUtils.Simulate.change(node);
-React.addons.TestUtils.Simulate.keyDown(node, { key: "Enter" });
+React.addons.TestUtils.Simulate.keyDown(node, { key: "Enter", cancelable: false });
 
 var renderer: React.ShallowRenderer =
     React.addons.TestUtils.createRenderer();

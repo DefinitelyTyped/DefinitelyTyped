@@ -1,6 +1,6 @@
 // Type definitions for loglevel 1.4.0
 // Project: https://github.com/pimterry/loglevel
-// Definitions by: Stefan Profanter <https://github.com/Pro/>, Florian Wagner <https://github.com/flqw/>
+// Definitions by: Stefan Profanter <https://github.com/Pro/>, Florian Wagner <https://github.com/flqw/>, Gabor Szmetanko <https://github.com/szmeti/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -15,7 +15,27 @@ declare const enum LogLevel {
     SILENT = 5
 }
 
+interface LoggingMethod {
+
+    (...message : any[]):void;
+
+}
+
+interface MethodFactory {
+
+    (methodName : string, level : LogLevel, loggerName : string):LoggingMethod;
+
+}
+
 interface Log {
+
+    /**
+     * Plugin API entry point. This will be called for each enabled method each time the level is set 
+     * (including initially), and should return a MethodFactory to be used for the given log method, at the given level, 
+     * for a logger with the given name. If you'd like to retain all the reliability and features of loglevel, it's 
+     * recommended that this wraps the initially provided value of log.methodFactory
+     */
+    methodFactory:MethodFactory;
 
     /**
      * Output trace message to console.
@@ -134,6 +154,24 @@ interface Log {
      * @param name The name of the produced logger
      */
     getLogger(name : String):Log;
+
+    /**
+     * This enables all log messages, and is equivalent to log.setLevel("trace").
+     *
+     * @param persist Where possible the log level will be persisted. LocalStorage will be used if available, falling
+     *     back to cookies if not. If neither is available in the current environment (i.e. in Node), or if you pass
+     *     false as the optional 'persist' second argument, persistence will be skipped.
+     */
+    enableAll(persist? : boolean):void;
+
+    /**
+     * This disables all log messages, and is equivalent to log.setLevel("silent").
+     *
+     * @param persist Where possible the log level will be persisted. LocalStorage will be used if available, falling
+     *     back to cookies if not. If neither is available in the current environment (i.e. in Node), or if you pass
+     *     false as the optional 'persist' second argument, persistence will be skipped.
+     */
+    disableAll(persist? : boolean):void;
 
 }
 

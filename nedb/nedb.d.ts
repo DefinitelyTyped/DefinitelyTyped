@@ -122,18 +122,36 @@ declare module "nedb" {
         findOne<T>(query:any, callback:(err:Error, document:T)=>void):void;
 
         /**
-         * Update all docs matching query
+         * Update all docs matching query v1.7.4 and prior signature.
          * For now, very naive implementation (recalculating the whole database)
          * @param {any} query
          * @param {any} updateQuery
          * @param {Object} options Optional options
          *                 options.multi If true, can update multiple documents (defaults to false)
          *                 options.upsert If true, document is inserted if the query doesn't match anything
-         * @param {Function} cb Optional callback, signature: err, numReplaced, upsert (set to true if the update was in fact an upsert)
+         * @param {Function} cb Optional callback, signature: err,
+         *                                                    numReplaced,
+         *                                                    upsert (set to true if the update was in fact an upsert)
          *
          * @api private Use Datastore.update which has the same signature
          */
         update(query:any, updateQuery:any, options?:NeDB.UpdateOptions, cb?:(err:Error, numberOfUpdated:number, upsert:boolean)=>void):void;
+         /**
+         * Update all docs matching query v1.8 signature.
+         * For now, very naive implementation (recalculating the whole database)
+         * @param {any} query
+         * @param {any} updateQuery
+         * @param {Object} options Optional options
+         *                 options.multi If true, can update multiple documents (defaults to false)
+         *                 options.upsert If true, document is inserted if the query doesn't match anything
+         * @param {Function} cb Optional callback, signature: err,
+         *                                                    numAffected,
+         *                                                    affectedDocuments (when returnUpdatedDocs is set to true), obj or array
+         *                                                    upsert (set to true if the update was in fact an upsert)
+         *
+         * @api private Use Datastore.update which has the same signature
+         */
+        update<T>(query:any, updateQuery:any, options?:NeDB.UpdateOptions, cb?:(err:Error, numberOfUpdated:number, affectedDocuments:any, upsert:boolean)=>void):void;
 
         /**
          * Remove all docs matching the query
@@ -149,6 +167,7 @@ declare module "nedb" {
         remove(query:any, cb?:(err:Error, n:number)=>void):void;
     }
 
+    namespace NeDBDataStore {}
     export = NeDBDataStore;
 }
 
@@ -184,6 +203,7 @@ declare namespace NeDB {
     interface UpdateOptions {
         multi?: boolean;
         upsert?: boolean;
+        returnUpdatedDocs?: boolean
     }
 
     /**

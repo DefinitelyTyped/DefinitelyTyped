@@ -204,7 +204,7 @@ declare namespace angular {
          * @param name The name of the constant.
          * @param value The constant value.
          */
-        constant(name: string, value: any): IModule;
+        constant<T>(name: string, value: T): IModule;
         constant(object: Object): IModule;
         /**
          * The $controller service is used by Angular to create new controllers.
@@ -294,7 +294,7 @@ declare namespace angular {
          * @param name The name of the instance.
          * @param value The value.
          */
-        value(name: string, value: any): IModule;
+        value<T>(name: string, value: T): IModule;
         value(object: Object): IModule;
 
         /**
@@ -389,9 +389,9 @@ declare namespace angular {
         $submitted: boolean;
         $error: any;
         $pending: any;
-        $addControl(control: INgModelController): void;
-        $removeControl(control: INgModelController): void;
-        $setValidity(validationErrorKey: string, isValid: boolean, control: INgModelController): void;
+        $addControl(control: INgModelController | IFormController): void;
+        $removeControl(control: INgModelController | IFormController): void;
+        $setValidity(validationErrorKey: string, isValid: boolean, control: INgModelController | IFormController): void;
         $setDirty(): void;
         $setPristine(): void;
         $commitViewValue(): void;
@@ -1845,7 +1845,7 @@ declare namespace angular {
         controller(name: string): any;
         injector(): any;
         scope(): IScope;
-        
+
         /**
         *   Overload for custom scope interfaces
         */
@@ -1870,6 +1870,33 @@ declare namespace angular {
             annotate(fn: Function, strictDi?: boolean): string[];
             annotate(inlineAnnotatedFunction: any[]): string[];
             get<T>(name: string, caller?: string): T;
+            get(name: '$anchorScroll'): IAnchorScrollService
+            get(name: '$cacheFactory'): ICacheFactoryService
+            get(name: '$compile'): ICompileService
+            get(name: '$controller'): IControllerService
+            get(name: '$document'): IDocumentService
+            get(name: '$exceptionHandler'): IExceptionHandlerService
+            get(name: '$filter'): IFilterService
+            get(name: '$http'): IHttpService
+            get(name: '$httpBackend'): IHttpBackendService
+            get(name: '$httpParamSerializer'): IHttpParamSerializer
+            get(name: '$httpParamSerializerJQLike'): IHttpParamSerializer
+            get(name: '$interpolate'): IInterpolateService
+            get(name: '$interval'): IIntervalService
+            get(name: '$locale'): ILocaleService
+            get(name: '$location'): ILocationService
+            get(name: '$log'): ILogService
+            get(name: '$parse'): IParseService
+            get(name: '$q'): IQService
+            get(name: '$rootElement'): IRootElementService
+            get(name: '$rootScope'): IRootScopeService
+            get(name: '$sce'): ISCEService
+            get(name: '$sceDelegate'): ISCEDelegateService
+            get(name: '$templateCache'): ITemplateCacheService
+            get(name: '$templateRequest'): ITemplateRequestService
+            get(name: '$timeout'): ITimeoutService
+            get(name: '$window'): IWindowService
+            get<T>(name: '$xhrFactory'): IXhrFactory<T>
             has(name: string): boolean;
             instantiate<T>(typeConstructor: Function, locals?: any): T;
             invoke(inlineAnnotatedFunction: any[]): any;

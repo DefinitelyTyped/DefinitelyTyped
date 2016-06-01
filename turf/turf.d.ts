@@ -574,3 +574,7 @@ declare namespace turf {
     */
     function reclass(input: GeoJSON.FeatureCollection<any>, inField: string, outField: string, translations: Array<any>): GeoJSON.FeatureCollection<any>;
 }
+
+declare module 'turf' {
+  export= turf;
+}

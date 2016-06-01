@@ -94,13 +94,17 @@ declare namespace I18next {
 
         loadResources(callback?:(err:any) => void):void;
 
+        language:string;
+
+        languages:string[];
+
         use(module:any):I18n;
 
         changeLanguage(lng:string, callback?:(err:any, t:TranslationFunction) => void):void;
 
         getFixedT(lng?:string, ns?:string|string[]):TranslationFunction;
 
-        t(key:string, options?:TranslationOptions):string;
+        t(key:string, options?:TranslationOptions):string|any|Array<any>;
 
         exists():boolean;
 

@@ -270,6 +270,11 @@ declare namespace angular.ui.bootstrap {
          * A promise that is resolved when a modal is rendered.
          */
         rendered: angular.IPromise<any>;
+
+        /**
+         * A promise that is resolved when a modal is closed and the animation completes.
+         */
+        closed: angular.IPromise<any>;
     }
 
     interface IModalScope extends angular.IScope {
