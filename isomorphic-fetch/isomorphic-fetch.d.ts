@@ -4,23 +4,23 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare enum RequestContext {
-    "audio", "beacon", "cspreport", "download", "embed", "eventsource", 
-    "favicon", "fetch", "font", "form", "frame", "hyperlink", "iframe", 
-    "image", "imageset", "import", "internal", "location", "manifest", 
-    "object", "ping", "plugin", "prefetch", "script", "serviceworker", 
+    "audio", "beacon", "cspreport", "download", "embed", "eventsource",
+    "favicon", "fetch", "font", "form", "frame", "hyperlink", "iframe",
+    "image", "imageset", "import", "internal", "location", "manifest",
+    "object", "ping", "plugin", "prefetch", "script", "serviceworker",
     "sharedworker", "subresource", "style", "track", "video", "worker",
     "xmlhttprequest", "xslt"
 }
 declare enum RequestMode { "same-origin", "no-cors", "cors" }
 declare enum RequestCredentials { "omit", "same-origin", "include" }
-declare enum RequestCache { 
-    "default", "no-store", "reload", "no-cache", "force-cache", 
+declare enum RequestCache {
+    "default", "no-store", "reload", "no-cache", "force-cache",
     "only-if-cached"
 }
 declare enum ResponseType { "basic", "cors", "default", "error", "opaque" }
 
 declare type HeaderInit = Headers | Array<string>;
-declare type BodyInit = Blob | FormData | string;
+declare type BodyInit = ArrayBuffer | ArrayBufferView | Blob | FormData | string;
 declare type RequestInfo = Request | string;
 
 interface RequestInit {
@@ -112,8 +112,8 @@ interface IFetchStatic {
     (url: string | IRequest, init?: RequestInit): Promise<IResponse>;
 }
 
-declare module "isomorphic-fetch" {
-    export default IFetchStatic;
-}
-
 declare var fetch: IFetchStatic;
+
+declare module "isomorphic-fetch" {
+    export = fetch;
+}

@@ -1,70 +1,120 @@
-// Type definitions for node-schedule
+// Type definitions for node-schedule 1.1.0
 // Project: https://github.com/tejasmanohar/node-schedule/
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Florian Plattner <https://github.com/flowpl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "node-schedule" {
+///<reference path="../node/node.d.ts"/>
+
+declare module 'node-schedule' {
     import nodeSchedule = require('node-schedule');
+    import {EventEmitter} from 'events';
 
     /**
-     * Recurrence rules.
+     * The callback executed by a Job
      */
-    export interface RecurrenceRule {
+    export interface JobCallback {
+        ():void;
+    }
+
+    /**
+     * Scheduler jobs.
+     *
+     * @class
+     */
+    export class Job extends EventEmitter {
         /**
-         * Day of the month.
-         *
-         * @public
-         * @type {number}
+         * This Job's name. read-only.
          */
-        date?: number;
+        name:string;
 
         /**
-         * Day of the week.
+         * Use the function scheduleJob() to create new Job objects.
          *
-         * @public
-         * @type {number|Array<number|Range>}
+         * @constructor
+         * @internal
+         * @param {string|JobCallback}   name     either an optional name for this Job or this Job's callback
+         * @param {JobCallback|Function} job      either this Job's callback or an optional callback function
+         * @param {Function}             callback optional callback that is executed right before the JobCallback
          */
-        dayOfWeek?: number|Array<number|Range>;
+        constructor(name: string|JobCallback, job?: JobCallback|Function, callback?: Function);
 
         /**
-         * Hour.
-         *
-         * @public
-         * @type {number}
+         * Adds an Invocation to this job. For internal use.
+         * @internal
+         * @param {Invocation} invokation
+         * @return {boolean} whether the invocation could be added
          */
-        hour?: number;
+        trackInvocation(invokation:Invocation):boolean;
 
         /**
-         * Minute.
-         *
-         * @public
-         * @type {number}
+         * removes an Invocation from this Job's tracking list. For internal use.
+         * @internal
+         * @param invocation {Invocation}
+         * @return boolean whether the invocation was successful. Removing an Invocation that doesn't exist, returns false.
          */
-        minute?: number;
+        stopTrackingInvocation(invocation:Invocation):boolean;
 
         /**
-         * Month.
-         *
-         * @public
-         * @type {number}
+         * @internal
+         * @return {number} the number of currently running instances of this Job.
          */
-        month?: number;
+        triggeredJobs():number;
 
         /**
-         * Second.
-         *
-         * @public
-         * @type {number}
+         * set the number of currently running Jobs.
+         * @internal
+         * @param triggeredJobs
          */
-        second?: number;
+        setTriggeredJobs(triggeredJobs:number):void;
 
         /**
-         * Year.
-         *
-         * @public
-         * @type {number}
+         * cancel all pending Invocations of this Job.
+         * @param reschedule {boolean} whether to reschedule the canceled Invocations.
          */
-        year?: number;
+        cancel(reschedule?:boolean):boolean;
+
+        /**
+         * cancel the next Invocation of this Job.
+         * @param reschedule {boolean} whether to reschedule the canceled Invocation.
+         * @return {boolean} whether cancelation was successful
+         */
+        cancelNext(reschedule?:boolean):boolean;
+
+        /**
+         * Changes the scheduling information for this Job.
+         * @param spec {RecurrenceRule|string|number} the
+         * @return {boolean} whether the reschedule was successful
+         */
+        reschedule(spec:RecurrenceRule|string|number):boolean;
+
+        /**
+         * Returns the Date on which this Job will be run next.
+         * @return {Date}
+         */
+        nextInvocation():Date;
+
+        /**
+         * @return Invocation[] a list of all pending Invocations
+         */
+        pendingInvocations():Invocation[];
+
+        /**
+         * run this Job immediately.
+         */
+        invoke():void;
+
+        /**
+         * schedule this Job to be run on the specified date.
+         * @param date {Date}
+         */
+        runOnDate(date:Date): void;
+
+        /**
+         * set scheduling information
+         * @param {Date|string|number} date
+         * @public
+         */
+        schedule(date: Date|string|number): boolean;
     }
 
     /**
@@ -93,43 +143,74 @@ declare module "node-schedule" {
     }
 
     /**
-     * Scheduler jobs.
-     *
-     * @class
+     * Recurrence rules.
      */
-    export class Job {
+    export class RecurrenceRule {
         /**
-         * Constructor.
-         *
-         * @constructor
-         * @param {RecurrenceRule}  rule      The rule.
-         * @param {callback}        callback  The callback.
-         */
-        constructor(name?: string, job?: Function, callback?: Function);
-
-        /**
-         * Constructor.
-         *
-         * @constructor
-         * @param {RecurrenceRule} rule The rule.
-         * @param
-         */
-        constructor(job?: Function, callback?: Function);
-
-        /**
-         * Attach an event handler function.
+         * Day of the month.
          *
          * @public
-         * @param {string}    eventName The event name.
-         * @param {Function}  handler   The function to execute when the event is triggered.
+         * @type {number}
          */
-        on(eventName: string, handler: Function): void;
+        date: number;
 
         /**
+         * Day of the week.
          *
          * @public
+         * @type {number|Array<number|Range>}
          */
-        schedule(date: Date): void;
+        dayOfWeek: number|Array<number|Range>;
+
+        /**
+         * Hour.
+         *
+         * @public
+         * @type {number}
+         */
+        hour: number;
+
+        /**
+         * Minute.
+         *
+         * @public
+         * @type {number}
+         */
+        minute: number;
+
+        /**
+         * Month.
+         *
+         * @public
+         * @type {number}
+         */
+        month: number;
+
+        /**
+         * Second.
+         *
+         * @public
+         * @type {number}
+         */
+        second: number;
+
+        /**
+         * Year.
+         *
+         * @public
+         * @type {number}
+         */
+        year: number;
+
+        constructor(year:number,
+                    month:number,
+                    date:number,
+                    dayOfWeek:number|Array<number|Range>,
+                    hour:number,
+                    minute:number,
+                    second:number);
+
+        nextInvocationDate(base:Date):Date;
     }
 
     /**
@@ -182,18 +263,33 @@ declare module "node-schedule" {
     }
 
     /**
+     * Create a schedule job.
+     *
+     * @param {string|RecurrenceRule|Date} name     either an optional name for the new Job or scheduling information
+     * @param {RecurrenceRule|Date|string} rule     either the scheduling info or the JobCallback
+     * @param {JobCallback}                callback The callback to be executed on each invocation.
+     */
+    export function scheduleJob(name:string|RecurrenceRule|Date, rule: RecurrenceRule|Date|string|JobCallback, callback?: JobCallback): Job;
+
+    /**
+     * Changes the timing of a Job, canceling all pending invocations.
+     *
+     * @param job {Job}
+     * @param spec {JobCallback} the new timing for this Job
+     * @return {Job} if the job could be rescheduled, {null} otherwise.
+     */
+    export function rescheduleJob(job:Job|string, spec:RecurrenceRule|Date|string):Job;
+
+    /**
+     * Dictionary of all Jobs, accessible by name.
+     */
+    export let scheduledJobs:{[jobName:string]:Job};
+
+    /**
      * Cancels the job.
      *
      * @param {Job} job The job.
      * @returns {boolean} {true} if the job has been cancelled with success, otherwise, {false}.
      */
-    export function cancelJob(job: Job): boolean;
-
-    /**
-     * Create a schedule job.
-     *
-     * @param {RecurrenceRule} rule The rule.
-     * @param {Function} callback The callback.
-     */
-    export function scheduleJob(rule: RecurrenceRule|Date|string, callback: Function): void;
+    export function cancelJob(job: Job|string): boolean;
 }
