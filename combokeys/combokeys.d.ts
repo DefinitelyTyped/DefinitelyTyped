@@ -30,9 +30,9 @@ declare namespace Combokeys {
      * be sure to list the modifier keys first to make sure that the
      * correct key ends up getting bound (the last key in the pattern)
      *
-     * @param {keys} keys
-     * @param {callback} callback
-     * @param {handler} action - "keypress", "keydown", or "keyup"
+     * @param {keys} key combination or combinations
+     * @param {callback} callback function
+     * @param {handler} optional - one of "keypress", "keydown", or "keyup"
      * @returns void
      */
     bind(keys: string | string[], callback: () => void, action?: string): void;
@@ -41,9 +41,9 @@ declare namespace Combokeys {
     /**
      * binds multiple combinations to the same callback
      *
-     * @param {keys} combinations
-     * @param {callback} callback
-     * @param {handler} action
+     * @param {keys} key combinations
+     * @param {callback} callback function
+     * @param {handler} optional - one of "keypress", "keydown", or "keyup"
      * @returns void
      */
     bindMultiple(keys: string[], callback: () => void, action?: string): void;
@@ -58,8 +58,8 @@ declare namespace Combokeys {
      * the keycombo+action has to be exactly the same as
      * it was defined in the bind method
      *
-     * @param {keys} keys
-     * @param {action} action
+     * @param {keys} key combination or combinations
+     * @param {action} optional - one of "keypress", "keydown", or "keyup"
      * @returns void
      */
     unbind(keys: string | string[], action?: string): void;
@@ -67,8 +67,8 @@ declare namespace Combokeys {
     /**
      * triggers an event that has already been bound
      *
-     * @param {keys} keys
-     * @param {action} action
+     * @param {keys} key combination
+     * @param {action} optional - one of "keypress", "keydown", or "keyup"
      * @returns void
      */
     trigger(keys: string, action?: string): void;
@@ -86,7 +86,7 @@ declare namespace Combokeys {
      * should we stop this event before firing off callbacks
      *
      * @param {e} event
-     * @param {element} element
+     * @param {element} bound element
      * @return {boolean}
      */
     stopCallback(e: Event, element: Element): boolean;
