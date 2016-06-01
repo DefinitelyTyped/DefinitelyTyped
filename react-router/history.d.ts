@@ -90,7 +90,7 @@ declare namespace HistoryModule {
 
     type Pathname = string
 
-    type Query = { [key: string]: string; }
+    type Query = { [key: string]: any; }
 
     type QueryString = string
 
