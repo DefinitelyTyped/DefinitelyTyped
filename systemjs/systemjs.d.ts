@@ -272,8 +272,8 @@ declare namespace SystemJSLoader {
          * Loads a module by name taking an optional normalized parent name argument.
          * Promise resolves to the module value.
          */
-        import(moduleName: string, normalizedParentName?: any): Promise<any>;
-        import<TModule>(moduleName: string, normalizedParentName?: any): Promise<TModule>;
+        import(moduleName: string, normalizedParentName?: string): Promise<any>;
+        import<TModule>(moduleName: string, normalizedParentName?: string): Promise<TModule>;
 
         /**
          * Given a plain JavaScript object, return an equivalent Module object.
