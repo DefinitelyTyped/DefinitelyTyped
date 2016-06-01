@@ -3,7 +3,6 @@
 // Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://gitbus.com/couven92>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path='../webrtc/MediaStream.d.ts'/>
 /// <reference path='../filesystem/filesystem.d.ts' />
 
 ////////////////////
