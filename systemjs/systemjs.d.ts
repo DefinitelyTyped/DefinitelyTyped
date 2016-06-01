@@ -30,6 +30,10 @@ declare namespace SystemJSLoader {
     type Transpiler = "traceur" | "babel" | "typescript";
 
 
+    type ConfigMap = PackageList<string>;
+
+    type ConfigMeta = PackageList<MetaConfig>;
+
     interface MetaConfig {
         /**
          * Sets in what format the module is loaded.
@@ -120,14 +124,14 @@ declare namespace SystemJSLoader {
         /**
          * Local and relative map configurations scoped to the package. Apply for subpaths as well.
          */
-        map?: PackageList<any>;
+        map?: ConfigMap;
 
         /**
          * Module meta provides an API for SystemJS to understand how to load modules correctly.
          * Package-scoped meta configuration with wildcard support. Modules are subpaths within the package path.
          * This also provides an opt-out mechanism for defaultExtension, by adding modules here that should skip extension adding.
          */
-        meta?: PackageList<MetaConfig>;
+        meta?: ConfigMeta;
     }
 
     interface TraceurOptions {
@@ -179,13 +183,13 @@ declare namespace SystemJSLoader {
          * The map option is similar to paths, but acts very early in the normalization process.
          * It allows you to map a module alias to a location or package:
          */
-        map?: PackageList<any>;
+        map?: ConfigMap;
 
         /**
          * Module meta provides an API for SystemJS to understand how to load modules correctly.
          * Meta is how we set the module format of a module, or know how to shim dependencies of a global script.
          */
-        meta?: PackageList<MetaConfig>;
+        meta?: ConfigMeta;
 
         /**
          * Packages provide a convenience for setting meta and map configuration that is specific to a common path.
@@ -257,10 +261,6 @@ declare namespace SystemJSLoader {
          * Returns a module from the registry by normalized name.
          */
         get(moduleName: string): any;
-
-        /**
-         * Returns a module from the registry by normalized name.
-         */
         get<TModule>(moduleName: string): TModule;
 
         /**
