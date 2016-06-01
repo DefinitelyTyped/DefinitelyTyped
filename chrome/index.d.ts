@@ -3,7 +3,6 @@
 // Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="webrtc" />
 /// <reference types="filesystem" />
 
 ////////////////////
@@ -1291,7 +1290,7 @@ declare namespace chrome.cookies {
 // 		 */
 // 		targetId?: string;
 //     }
-// 
+//
 // 	/**
 // 	 * Since Chrome 28.
 // 	 * Debug target information
@@ -1322,11 +1321,11 @@ declare namespace chrome.cookies {
 // 		/** Optional. Target favicon URL.  */
 // 		faviconUrl?: string;
 //     }
-// 
+//
 //     interface DebuggerDetachedEvent extends chrome.events.Event<(source: Debuggee, reason: string) => void> {}
-// 
+//
 //     interface DebuggerEventEvent extends chrome.events.Event<(source: Debuggee, method: string, params?: Object) => void> {}
-// 
+//
 // 	/**
 // 	 * Attaches debugger to the given target.
 // 	 * @param target Debugging target to which you want to attach.
@@ -1363,7 +1362,7 @@ declare namespace chrome.cookies {
 // 	 * Parameter result: Array of TargetInfo objects corresponding to the available debug targets.
 // 	 */
 // 	export function getTargets(callback: (result: TargetInfo[]) => void): void;
-// 
+//
 // 	/** Fired when browser terminates debugging session for the tab. This happens when either the tab is being closed or Chrome DevTools is being invoked for the attached tab. */
 //     var onDetach: DebuggerDetachedEvent;
 // 	/** Fired whenever debugging target issues instrumentation event. */
