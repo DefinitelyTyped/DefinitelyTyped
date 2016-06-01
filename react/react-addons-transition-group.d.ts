@@ -9,6 +9,7 @@ declare namespace __React {
 
     interface TransitionGroupProps {
         component?: ReactType;
+        className?: string;
         childFactory?: (child: ReactElement<any>) => ReactElement<any>;
     }
 

@@ -576,7 +576,7 @@ declare namespace __MaterialUI {
     export class EnhancedButton extends React.Component<EnhancedButtonProps, {}> {
     }
 
-    interface FlatButtonProps extends SharedEnhancedButtonProps<FlatButton> {
+    interface FlatButtonProps extends React.DOMAttributes, SharedEnhancedButtonProps<FlatButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
         backgroundColor?: string;
         disabled?: boolean;
@@ -843,7 +843,7 @@ declare namespace __MaterialUI {
         ref?: string;
         text: string;
     }
-    interface DialogProps extends React.Props<Dialog> {
+    interface DialogProps extends React.DOMAttributes, React.Props<Dialog> {
         /** @deprecated use a custom `actions` property instead */
         actionFocus?: string;
         actions?: Array<DialogAction | React.ReactElement<any>>;
@@ -1434,7 +1434,7 @@ declare namespace __MaterialUI {
         autoHideDuration?: number;
         bodyStyle?: React.CSSProperties;
         className?: string;
-        message: string;
+        message: string | JSX.Element;
         onActionTouchTap?: React.TouchEventHandler;
         /** @deprecated Use the open property to control the component instead */
         onDismiss?: () => void; // DEPRECATED
@@ -1587,18 +1587,20 @@ declare namespace __MaterialUI {
         export class Tabs extends React.Component<TabsProps, {}> {
         }
 
-        interface TabProps extends React.Props<Tab> {
+        interface TabProps extends SharedEnhancedButtonProps<Tab> {
             className?: string;
             icon?: React.ReactNode;
             label?: React.ReactNode;
             onActive?: (tab: Tab) => void;
-            onTouchTap?: (value: any, e: TouchTapEvent, tab: Tab) => void;
+            onTouchTap?: (value: any, e?: TouchTapEvent, tab?: Tab) => void;
             selected?: boolean;
             style?: React.CSSProperties;
             value?: any;
             width?: string;
+            disabled?: boolean;
         }
-        export class Tab extends React.Component<TabProps, {}> {
+        export class Tab extends React.Component<
+            TabProps, {}> {
         }
     }
 

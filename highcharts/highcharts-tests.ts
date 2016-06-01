@@ -2187,6 +2187,7 @@ function test_ChartObject() {
     chart.destroy();
     chart.drillUp();
     chart.exportChart(<HighchartsExportingOptions>{}, <HighchartsOptions>{});
+    chart.exportChartLocal(<HighchartsExportingOptions>{}, <HighchartsOptions>{});
     var object = chart.get('axisIdOrSeriesIdOrPointId');
     var svg1 = chart.getSVG();
     var svg2 = chart.getSVG(<HighchartsOptions>{});

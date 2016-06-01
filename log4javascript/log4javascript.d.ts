@@ -1,4 +1,4 @@
-﻿// Type definitions for log4javascript v1.4.10
+﻿// Type definitions for log4javascript v1.4.13
 // Project: http://log4javascript.org/
 // Definitions by: Markus Wagner <https://github.com/Ritzlgrmft/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -126,6 +126,11 @@ declare namespace log4javascript {
 		 */
 		removeAllAppenders(): void;
 
+		/**
+		 * Returns all appenders which will log a message.
+		 */
+		getEffectiveAppenders(): Appender[];
+	
 		/**
 		 * Sets the level. Log messages of a lower level than level will not be logged. Default value is DEBUG.
 		 */
@@ -273,6 +278,8 @@ declare namespace log4javascript {
 		level: Level;
 		messages: any[];
 		exception: Error;
+
+		constructor(logger: Logger, timeStamp: Date, level: Level, messages: string[], exception?: Error);
 
 		getThrowableStrRep: () => string;
 		getCombinedMessages: () => string;

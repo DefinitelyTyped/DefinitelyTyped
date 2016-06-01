@@ -59,6 +59,11 @@ declare namespace angular.material {
     interface IConfirmDialog extends IPresetDialog<IConfirmDialog> {
         cancel(cancel: string): IConfirmDialog;
     }
+    
+    interface IPromptDialog extends IPresetDialog<IPromptDialog> {
+        cancel(cancel: string): IPromptDialog;
+        placeholder(placeholder: string): IPromptDialog;        
+    }
 
     interface IDialogOptions {
         templateUrl?: string;
@@ -90,6 +95,7 @@ declare namespace angular.material {
         show(dialog: IDialogOptions|IAlertDialog|IConfirmDialog): angular.IPromise<any>;
         confirm(): IConfirmDialog;
         alert(): IAlertDialog;
+        prompt(): IPromptDialog;
         hide(response?: any): angular.IPromise<any>;
         cancel(response?: any): void;
     }
@@ -249,5 +255,26 @@ declare namespace angular.material {
 
     interface IMenuService {
         hide(response?: any, options?: any): angular.IPromise<any>;
+    }
+
+    interface IColorPalette {
+        red: IPalette;
+        pink: IPalette;
+        'deep-purple': IPalette;
+        indigo: IPalette;
+        blue: IPalette;
+        'light-blue': IPalette;
+        cyan: IPalette;
+        teal: IPalette;
+        green: IPalette;
+        'light-green': IPalette;
+        lime: IPalette;
+        yellow: IPalette;
+        amber: IPalette;
+        orange: IPalette;
+        'deep-orange': IPalette;
+        brown: IPalette;
+        grey: IPalette;
+        'blue-grey': IPalette;
     }
 }

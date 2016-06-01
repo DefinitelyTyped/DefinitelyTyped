@@ -39,7 +39,7 @@ declare module _ {
 		* Default value is '/<%-([\s\S]+?)%>/g'.
 		**/
 		escape?: RegExp;
-		
+
 		/**
 		* By default, 'template()' places the values from your data in the local scope via the 'with' statement.
 		* However, you can specify a single variable name with this setting.
@@ -537,6 +537,11 @@ interface UnderscoreStatic {
 	max(list: _.List<number>): number;
 
 	/**
+	* @see _.max
+	*/
+	max(object: _.Dictionary<number>): number;
+
+	/**
 	* Returns the maximum value in list. If iterator is passed, it will be used on each value to generate
 	* the criterion by which the value is ranked.
 	* @param list Finds the maximum value in this list.
@@ -550,11 +555,24 @@ interface UnderscoreStatic {
 		context?: any): T;
 
 	/**
+	* @see _.max
+	*/
+	max<T>(
+		list: _.Dictionary<T>,
+		iterator?: _.ObjectIterator<T, any>,
+		context?: any): T;
+
+	/**
 	* Returns the minimum value in list.
 	* @param list Finds the minimum value in this list.
 	* @return Minimum value in `list`.
 	**/
 	min(list: _.List<number>): number;
+
+	/**
+	 * @see _.min
+	 */
+	min(o: _.Dictionary<number>): number;
 
 	/**
 	* Returns the minimum value in list. If iterator is passed, it will be used on each value to generate
@@ -567,6 +585,14 @@ interface UnderscoreStatic {
 	min<T>(
 		list: _.List<T>,
 		iterator?: _.ListIterator<T, any>,
+		context?: any): T;
+
+	/**
+	* @see _.min
+	*/
+	min<T>(
+		list: _.Dictionary<T>,
+		iterator?: _.ObjectIterator<T, any>,
 		context?: any): T;
 
 	/**
@@ -5908,7 +5934,7 @@ interface _ChainSingle<T> {
 	value(): T;
 }
 interface _ChainOfArrays<T> extends _Chain<T[]> {
-	flatten(): _Chain<T>;
+	flatten(shallow?: boolean): _Chain<T>;
 }
 
 declare var _: UnderscoreStatic;

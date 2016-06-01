@@ -179,6 +179,12 @@ declare namespace ExpressValidator {
 		/**
 		 * Decode HTML entities
 		 */
+		
+		/**
+     		* Convert the input string to a date, or null if the input is not a date.
+     		*/
+    		toDate(): Sanitizer;
+    
 		entityDecode(): Sanitizer;
 		entityEncode(): Sanitizer;
 		/**

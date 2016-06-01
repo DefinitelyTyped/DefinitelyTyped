@@ -8,7 +8,7 @@ namespace TestConfig {
   Vue.config.unsafeDelimiters = ['{!!', '!!}'];
   Vue.config.silent = true;
   Vue.config.async = false;
-  Vue.config.convertAllProperties = true;
+  Vue.config.devtools = true;
 }
 
 namespace TestGlobalAPI {
@@ -66,6 +66,16 @@ namespace TestGlobalAPI {
         set: function(val: number) { this.d = val; }
       }
     }
+  });
+  Vue.component("component", {
+    props: {
+      a: [String, Number],
+      b: {
+        type: [Number, Function],
+        required: true
+      }
+    },
+    init: function() {}
   });
   var transition = Vue.transition("transition");
   Vue.transition("transition", transition);

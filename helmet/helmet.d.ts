@@ -1,19 +1,32 @@
 // Type definitions for helmet
 // Project: https://github.com/helmetjs/helmet
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Evan Hahn <https://github.com/EvanHahn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 
-declare module "helmet" {
-    import express = require("express");
-    
-    interface IHelmetCspDirectiveFunction {
+declare module 'helmet' {
+    import express = require('express');
+
+    interface IHelmetConfiguration {
+        contentSecurityPolicy? : boolean | IHelmetContentSecurityPolicyConfiguration,
+        dnsPrefetchControl?: boolean | IHelmetDnsPrefetchControlConfiguration,
+        frameguard?: boolean | IHelmetFrameguardConfiguration,
+        hidePoweredBy?: boolean | IHelmetHidePoweredByConfiguration,
+        hpkp?: boolean | IHelmetHpkpConfiguration,
+        hsts?: boolean | IHelmetHstsConfiguration,
+        ieNoOpen?: boolean,
+        noCache?: boolean,
+        noSniff?: boolean,
+        xssFilter?: boolean | IHelmetXssFilterConfiguration
+    }
+
+    interface IHelmetContentSecurityPolicyDirectiveFunction {
       (req: express.Request, res: express.Response): string;
     }
-    type HelmetCspDirectiveValue = string | IHelmetCspDirectiveFunction;
+    type HelmetCspDirectiveValue = string | IHelmetContentSecurityPolicyDirectiveFunction;
 
-    interface IHelmetCspDirectives {
+    interface IHelmetContentSecurityPolicyDirectives {
         baseUri? : HelmetCspDirectiveValue[],
         childSrc? : HelmetCspDirectiveValue[],
         connectSrc? : HelmetCspDirectiveValue[],
@@ -31,13 +44,47 @@ declare module "helmet" {
         scriptSrc? : HelmetCspDirectiveValue[],
         styleSrc? : HelmetCspDirectiveValue[]
     }
-    
-    interface IHelmetCspConfiguration {
+
+    interface IHelmetContentSecurityPolicyConfiguration {
         reportOnly? : boolean;
         setAllHeaders? : boolean;
         disableAndroid? : boolean;
         browserSniff?: boolean;
-        directives? : IHelmetCspDirectives
+        directives? : IHelmetContentSecurityPolicyDirectives
+    }
+
+    interface IHelmetDnsPrefetchControlConfiguration {
+        allow? : boolean;
+    }
+
+    interface IHelmetFrameguardConfiguration {
+        action? : string,
+        domain? : string
+    }
+
+    interface IHelmetHidePoweredByConfiguration {
+        setTo? : string
+    }
+
+    interface IHelmetSetIfFunction {
+      (req: express.Request, res: express.Response): boolean;
+    }
+
+    interface IHelmetHpkpConfiguration {
+        maxAge : number;
+        sha256s : string[];
+        includeSubdomains? : boolean;
+        reportUri? : string;
+        reportOnly? : boolean;
+        setIf?: IHelmetSetIfFunction
+    }
+
+    interface IHelmetHstsConfiguration {
+        maxAge: number;
+        includeSubdomains? : boolean;
+        preload? : boolean;
+        setIf? : IHelmetSetIfFunction,
+        force? : boolean;
     }
 
     interface IHelmetXssFilterConfiguration {
@@ -53,72 +100,74 @@ declare module "helmet" {
          * @summary Constructor.
          * @return {RequestHandler} The Request handler.
          */
-        ():express.RequestHandler;
+        (options ?: IHelmetConfiguration): express.RequestHandler;
+
+        /**
+         * @summary Set policy around third-party content via headers
+         * @param {IHelmetContentSecurityPolicyConfiguration} options The options
+         * @return {RequestHandler} The Request handler
+         */
+        contentSecurityPolicy(options ?: IHelmetContentSecurityPolicyConfiguration): express.RequestHandler;
+
+        /**
+         * @summary Stop browsers from doing DNS prefetching.
+         * @param {IHelmetDnsPrefetchControlConfiguration} options The options
+         * @return {RequestHandler} The Request handler
+         */
+        dnsPrefetchControl(options ?: IHelmetDnsPrefetchControlConfiguration): express.RequestHandler;
 
         /**
          * @summary Prevent clickjacking.
-         * @param {string} header The header.
-         * @return {RequestHandler} The Request handler.
+         * @param {IHelmetFrameguardConfiguration} options The options
+         * @return {RequestHandler} The Request handler
          */
-        frameguard(header ?: string):express.RequestHandler;
+        frameguard(options ?: IHelmetFrameguardConfiguration): express.RequestHandler;
 
         /**
          * @summary Hide "X-Powered-By" header.
-         * @param {Object} options The options.
+         * @param {IHelmetHidePoweredByConfiguration} options The options
          * @return {RequestHandler} The Request handler.
          */
-        hidePoweredBy(options ?: Object):express.RequestHandler;
+        hidePoweredBy(options ?: IHelmetHidePoweredByConfiguration): express.RequestHandler;
+
+        /**
+         * @summary Adds the "Public-Key-Pins" header.
+         * @param {IHelmetHpkpConfiguration} options The options
+         * @return {RequestHandler} The Request handler.
+         */
+        hpkp(options ?: IHelmetHpkpConfiguration): express.RequestHandler;
 
         /**
          * @summary Adds the "Strict-Transport-Security" header.
-         * @param {Object} options The options.
+         * @param {IHelmetHstsConfiguration} options The options
          * @return {RequestHandler} The Request handler.
          */
-        hsts(options ?: Object):express.RequestHandler;
+        hsts(options ?: IHelmetHstsConfiguration): express.RequestHandler;
 
         /**
          * @summary Add the "X-Download-Options" header.
          * @return {RequestHandler} The Request handler.
          */
-        ieNoOpen():express.RequestHandler;
+        ieNoOpen(): express.RequestHandler;
 
         /**
          * @summary Add the "Cache-Control" and "Pragma" headers to stop caching.
          * @return {RequestHandler} The Request handler.
          */
-        noCache(options ?: Object):express.RequestHandler;
+        noCache(options ?: Object): express.RequestHandler;
 
         /**
          * @summary Adds the "X-Content-Type-Options" header.
          * @return {RequestHandler} The Request handler.
          */
-        noSniff():express.RequestHandler;
-
-        /**
-         * @summary Adds the "Public-Key-Pins" header.
-         * @return {RequestHandler} The Request handler.
-         */
-        publicKeyPins(options ?: Object):express.RequestHandler;
+        noSniff(): express.RequestHandler;
 
         /**
          * @summary Mitigate cross-site scripting attacks with the "X-XSS-Protection" header.
+         * @param {IHelmetXssFilterConfiguration} options The options
          * @return {RequestHandler} The Request handler.
-         * @param {Object} options The options.
          */
-        xssFilter(options ?: IHelmetXssFilterConfiguration):express.RequestHandler;
-
-        /**
-         * @summary Set policy around third-party content via headers
-         * @return {RequestHandler} The Request handler
-         * @param {Object} options The options
-         */
-        csp(options ?: IHelmetCspConfiguration): express.RequestHandler;
-
-        /**
-         * @see csp
-         */
-        contentSecurityPolicy(options ?: IHelmetCspConfiguration): express.RequestHandler;
-
+        xssFilter(options ?: IHelmetXssFilterConfiguration): express.RequestHandler;
     }
 
     var helmet: Helmet;

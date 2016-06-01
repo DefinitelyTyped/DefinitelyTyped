@@ -36,6 +36,7 @@ mock.module(
     function () { return 2; }
     );
 mock.module({ module1: function () { return 1; } });
+mock.module.sharedInjector();
 
 date = mock.TzDate(-7, '2013-1-1T15:00:00Z');
 date = mock.TzDate(-8, 12345678);
@@ -86,6 +87,15 @@ logCall = logService.log;
 logCall = logService.warn;
 
 logs = logCall.logs;
+
+///////////////////////////////////////
+// ControllerService mock
+///////////////////////////////////////
+var $controller: ng.IControllerService;
+$controller(class TestController {}, {}, {myBinding: 'works!'});
+$controller(function TestController() {}, {someLocal: 42}, {myBinding: 'works!'});
+$controller('TestController', {}, {myBinding: 'works!'});
+
 
 ///////////////////////////////////////
 // IComponentControllerService

@@ -1,4 +1,4 @@
-// Type definitions for Restangular v1.4.0
+// Type definitions for Restangular v1.5.0
 // Project: https://github.com/mgonto/restangular
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -56,7 +56,7 @@ declare namespace restangular {
     addRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): void;
     setFullRequestInterceptor(fullRequestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {element: any; headers: any; params: any}): void;
     addFullRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {headers: any; params: any; element: any; httpConfig: angular.IRequestShortcutConfig}): void;
-    setErrorInterceptor(errorInterceptor: (response: IResponse, deferred: angular.IDeferred<any>) => any): void;
+    setErrorInterceptor(errorInterceptor: (response: IResponse, deferred: angular.IDeferred<any>, responseHandler: (response: restangular.IResponse) => any) => any): void;
     setRestangularFields(fields: {[fieldName: string]: string}): void;
     setMethodOverriders(overriders: string[]): void;
     setJsonp(jsonp: boolean): void;
@@ -116,6 +116,9 @@ declare namespace restangular {
     withHttpConfig(httpConfig: angular.IRequestShortcutConfig): IElement;
     save(queryParams?: any, headers?: any): IPromise<any>;
     getRestangularUrl(): string;
+    route?: string;
+    id?: string;
+    reqParams?: any;
   }
 
   interface ICollection extends IService, Array<any> {
