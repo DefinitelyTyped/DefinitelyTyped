@@ -1,4 +1,4 @@
-// Type definitions for System.js 0.19.29
+// Type definitions for SystemJS 0.19.29
 // Project: https://github.com/systemjs/systemjs
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
