@@ -307,6 +307,11 @@ declare namespace SystemJSLoader {
          * The CommonJS require can be recovered within these modules from System._nodeRequire.
          */
         _nodeRequire: Function;
+
+        /**
+         * Modules list available only with trace=true
+         */
+        loads: PackageList<any>;
     }
 
 }
