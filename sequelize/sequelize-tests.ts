@@ -888,6 +888,10 @@ User.findAll( { include : [User], order : [['id', 'ASC NULLS LAST'], [User, 'id'
 User.findAll( { include : [{ model : User, where : { title : 'DoDat' }, include : [{ model : User }] }] } );
 User.findAll( { attributes: ['username', 'data']});
 User.findAll( { attributes: {include: ['username', 'data']} });
+User.findAll( { attributes: [['username', 'UNM'], ['email', 'EML']] });
+User.findAll( { attributes: [s.fn('count', Sequelize.col('*'))] });
+User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']] });
+User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']], group: ['sex'] });
 
 User.findById( 'a string' );
 
