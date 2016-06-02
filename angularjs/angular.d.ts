@@ -883,6 +883,24 @@ declare namespace angular {
 
         unwrapPromises(): boolean;
         unwrapPromises(value: boolean): IParseProvider;
+
+        /**
+         * Configure $parse service to add literal values that will be present as literal at expressions.
+         *
+         * @param literalName Token for the literal value. The literal name value must be a valid literal name.
+         * @param literalValue Value for this literal. All literal values must be primitives or `undefined`.
+         **/
+        addLiteral(literalName: string, literalValue: any): void;
+
+        /**
+         * Allows defining the set of characters that are allowed in Angular expressions. The function identifierStart will get called to know if a given character is a valid character to be the first character for an identifier. The function identifierContinue will get called to know if a given character is a valid character to be a follow-up identifier character. The functions identifierStart and identifierContinue will receive as arguments the single character to be identifier and the character code point. These arguments will be string and numeric. Keep in mind that the string parameter can be two characters long depending on the character representation. It is expected for the function to return true or false, whether that character is allowed or not.
+         * Since this function will be called extensivelly, keep the implementation of these functions fast, as the performance of these functions have a direct impact on the expressions parsing speed.
+         *
+         * @param identifierStart The function that will decide whether the given character is a valid identifier start character.
+         * @param identifierContinue The function that will decide whether the given character is a valid identifier continue character.
+         **/
+        setIdentifierFns(identifierStart?: (character: string, codePoint: number) => boolean,
+            identifierContinue?: (character: string, codePoint: number) => boolean): void;
     }
 
     interface ICompiledExpression {
