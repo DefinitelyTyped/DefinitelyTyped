@@ -197,6 +197,29 @@ declare var Buffer: {
      * The same as buf1.compare(buf2).
      */
     compare(buf1: Buffer, buf2: Buffer): number;
+    /**
+     * Allocates a new buffer of {size} octets.
+     *
+     * @param size count of octets to allocate.
+     * @param fill if specified, buffer will be initialized by calling buf.fill(fill).
+     *    If parameter is omitted, buffer will be filled with zeros.
+     * @param encoding encoding used for call to buf.fill while initalizing
+     */
+    alloc(size: number, fill?: string|Buffer|number, encoding?: string): Buffer;
+     /**
+      * Allocates a new buffer of {size} octets, leaving memory not initialized, so the contents
+      * of the newly created Buffer are unknown and may contain sensitive data.
+      *
+      * @param size count of octets to allocate
+      */
+    allocUnsafe(size: number): Buffer;
+     /**
+      * Allocates a new non-pooled buffer of {size} octets, leaving memory not initialized, so the contents
+      * of the newly created Buffer are unknown and may contain sensitive data.
+      *
+      * @param size count of octets to allocate
+      */
+    allocUnsafeSlow(size: number): Buffer;
 };
 
 /************************************************
