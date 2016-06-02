@@ -136,7 +136,7 @@ interface Async {
     cargo(worker : (tasks: any[], callback : ErrorCallback) => void, payload? : number) : AsyncCargo;
     auto(tasks: any, callback?: (error: Error, results: any) => void): void;
     retry<T>(opts: number, task: (callback : AsyncResultCallback<T>, results: any) => void, callback: (error: Error, results: any) => void): void;
-    retry<T>(opts: { times: number, interval: number }, task: (callback: AsyncResultCallback<T>, results : any) => void, callback: (error: Error, results: any) => void): void;
+    retry<T>(opts: { times: number, interval: number|((retryCount: number) => number) }, task: (callback: AsyncResultCallback<T>, results : any) => void, callback: (error: Error, results: any) => void): void;
     iterator(tasks: Function[]): Function;
     apply(fn: Function, ...arguments: any[]): AsyncFunction<any>;
     nextTick(callback: Function): void;
