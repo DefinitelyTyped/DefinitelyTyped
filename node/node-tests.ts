@@ -138,6 +138,22 @@ fs.mkdtemp('/tmp/foo-', (err, folder) => {
 var tempDir: string;
 tempDir = fs.mkdtempSync('/tmp/foo-');
 
+fs.watch('/tmp/foo-', (event, filename) => {
+  console.log(event, filename);
+});
+
+fs.watch('/tmp/foo-', 'utf8', (event, filename) => {
+  console.log(event, filename);
+});
+
+fs.watch('/tmp/foo-', {
+  recursive: true,
+  persistent: true,
+  encoding: 'utf8'
+}, (event, filename) => {
+  console.log(event, filename);
+});
+
 ///////////////////////////////////////////////////////
 /// Buffer tests : https://nodejs.org/api/buffer.html
 ///////////////////////////////////////////////////////
