@@ -12,7 +12,7 @@ interface AsyncResultObjectCallback<T> { (err: Error, results: Dictionary<T>): v
 
 interface AsyncFunction<T> { (callback: (err?: Error, result?: T) => void): void; }
 interface AsyncIterator<T> { (item: T, callback: ErrorCallback): void; }
-interface AsyncForEachOfIterator<T> { (item: T, key: number, callback: ErrorCallback): void; }
+interface AsyncForEachOfIterator<T> { (item: T, key: number|string, callback: ErrorCallback): void; }
 interface AsyncResultIterator<T, R> { (item: T, callback: AsyncResultCallback<R>): void; }
 interface AsyncMemoIterator<T, R> { (memo: R, item: T, callback: AsyncResultCallback<R>): void; }
 interface AsyncBooleanIterator<T> { (item: T, callback: (err: string, truthValue: boolean) => void): void; }
