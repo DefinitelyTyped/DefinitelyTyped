@@ -8,6 +8,59 @@ import * as ReactDOM from "react-dom";
 import { Option, MenuRendererProps } from "react-select-props";
 import Select = require("react-select");
 
+const CustomOption = React.createClass({
+    propTypes: {
+        children: React.PropTypes.node,
+        className: React.PropTypes.string,
+        isDisabled: React.PropTypes.bool,
+        isFocused: React.PropTypes.bool,
+        isSelected: React.PropTypes.bool,
+        onFocus: React.PropTypes.func,
+        onSelect: React.PropTypes.func,
+        option: React.PropTypes.object.isRequired,
+    },
+    handleMouseDown (event: Event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.props.onSelect(this.props.option, event);
+    },
+    handleMouseEnter (event: Event) {
+        this.props.onFocus(this.props.option, event);
+    },
+    handleMouseMove (event: Event) {
+        if (this.props.isFocused) return;
+        this.props.onFocus(this.props.option, event);
+    },
+    render () {
+        return (
+            <div className="Select-option"
+                    onMouseDown={this.handleMouseDown}
+                    onMouseEnter={this.handleMouseEnter}
+                    onMouseMove={this.handleMouseMove}
+                    title={this.props.option.title}>
+                {this.props.children}
+            </div>
+        );
+    }
+});
+
+const CustomValue = React.createClass({
+    propTypes: {
+        children: React.PropTypes.node,
+        placeholder: React.PropTypes.string,
+        value: React.PropTypes.object
+    },
+    render () {
+        return (
+            <div className="Select-value" title={this.props.value.title}>
+                <span className="Select-value-label">
+                    {this.props.children}
+                </span>
+            </div>
+        );
+    }
+});
+
 class SelectTest extends React.Component<React.Props<{}>, {}> {
 
     render() {
@@ -50,7 +103,7 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
                 onOpen={onOpen}
                 onClose={onClose}
                 openAfterFocus={false}
-                optionComponent={<div></div>}
+                optionComponent={CustomOption}
                 required={false}
                 resetValue={"resetValue"}
                 scrollMenuIntoView={false}
@@ -59,7 +112,7 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
                 onChange={onChange}
                 simpleValue
                 value={options}
-                valueComponent={<span></span>}
+                valueComponent={CustomValue}
                  />
         </div>;
     }

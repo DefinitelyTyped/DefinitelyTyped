@@ -252,7 +252,7 @@ declare namespace ReactSelect {
         /**
          * option component to render in dropdown
          */
-        optionComponent?: __React.ReactElement<any>;
+        optionComponent?: __React.ComponentClass<any>;
         /**
          * function which returns a custom way to render the options in the menu
          */
@@ -317,7 +317,7 @@ declare namespace ReactSelect {
         /**
          *  value component to render
          */
-        valueComponent?: __React.ReactElement<any>;
+        valueComponent?: __React.ComponentClass<any>;
 
         /**
          *  optional style to apply to the component wrapper
@@ -407,7 +407,7 @@ declare module "react-select" {
 }
 
 declare module "react-select-props" {
-    
+
     interface Option extends ReactSelect.Option {}
     interface MenuRendererProps extends ReactSelect.MenuRendererProps {}
 
