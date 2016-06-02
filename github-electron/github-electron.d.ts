@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.2.0
+// Type definitions for Electron v1.2.1
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -279,6 +279,11 @@ declare namespace Electron {
 		 * of your app is running, and other instances signal this instance and exit.
 		 */
 		makeSingleInstance(callback: (args: string[], workingDirectory: string) => void): boolean;
+		/**
+		 * Releases all locks that were created by makeSingleInstance. This will allow
+		 * multiple instances of the application to once again run side by side.
+		 */
+		releaseSingleInstance(): void;
 		/**
 		 * Creates an NSUserActivity and sets it as the current activity.
 		 * The activity is eligible for Handoff to another device afterward.
@@ -921,19 +926,11 @@ declare namespace Electron {
 		capturePage(rect: Rectangle, callback: (image: NativeImage) => void): void;
 		capturePage(callback: (image: NativeImage) => void): void;
 		/**
-		 * Same with webContents.print([options])
-		 */
-		print(options?: PrintOptions): void;
-		/**
-		 * Same with webContents.printToPDF([options])
-		 */
-		printToPDF(options: PrintToPDFOptions, callback: (error: Error, data: Buffer) => void): void;
-		/**
-		 * Same with webContents.loadURL(url).
+		 * Same as webContents.loadURL(url).
 		 */
 		loadURL(url: string, options?: LoadURLOptions): void;
 		/**
-		 * Same with webContents.reload.
+		 * Same as webContents.reload.
 		 */
 		reload(): void;
 		/**
@@ -1276,7 +1273,8 @@ declare namespace Electron {
 		 */
 		fullscreen?: boolean;
 		/**
-		 * Whether the maximize/zoom button on OS X should toggle full screen mode or maximize window.
+		 * Whether the window can be put into fullscreen mode.
+		 * On OS X, also whether the maximize/zoom button should toggle full screen mode or maximize window.
 		 * Default: true.
 		 */
 		fullscreenable?: boolean;
@@ -1393,11 +1391,11 @@ declare namespace Electron {
 		/**
 		 * @returns The contents of the clipboard as markup.
 		 */
-		readHtml(type?: ClipboardType): string;
+		readHTML(type?: ClipboardType): string;
 		/**
 		 * Writes markup to the clipboard.
 		 */
-		writeHtml(markup: string, type?: ClipboardType): void;
+		writeHTML(markup: string, type?: ClipboardType): void;
 		/**
 		 * @returns The contents of the clipboard as a NativeImage.
 		 */
@@ -1409,11 +1407,11 @@ declare namespace Electron {
 		/**
 		 * @returns The contents of the clipboard as RTF.
 		 */
-		readRtf(type?: ClipboardType): string;
+		readRTF(type?: ClipboardType): string;
 		/**
 		 * Writes the text into the clipboard in RTF.
 		 */
-		writeRtf(text: string, type?: ClipboardType): void;
+		writeRTF(text: string, type?: ClipboardType): void;
 		/**
 		 * Clears everything in clipboard.
 		 */
@@ -3334,6 +3332,14 @@ declare namespace Electron {
 		 * Emitted when there is a new context menu that needs to be handled.
 		 */
 		on(event: 'context-menu', listener: (event: Event, params: ContextMenuParams) => void): this;
+		/**
+		 * Emitted when bluetooth device needs to be selected on call to navigator.bluetooth.requestDevice.
+		 * To use navigator.bluetooth api webBluetooth should be enabled.
+		 * If event.preventDefault is not called, first available device will be selected.
+		 * callback should be called with deviceId to be selected,
+		 * passing empty string to callback will cancel the request.
+		 */
+		on(event: 'select-bluetooth-device', listener: (event: Event, deviceList: BluetoothDevice[], callback: (deviceId: string) => void) => void): this;
 		on(event: string, listener: Function): this;
 		/**
 		 * Loads the url in the window.
@@ -3766,6 +3772,11 @@ declare namespace Electron {
 		menuSourceType: 'none' | 'mouse' | 'keyboard' | 'touch' | 'touchMenu';
 	}
 
+	interface BluetoothDevice {
+		deviceName: string;
+		deviceId: string;
+	}
+
 	interface Headers {
 		[key: string]: string;
 	}
@@ -3774,8 +3785,8 @@ declare namespace Electron {
 
 	/**
 	 * Specifies the action to take place when ending webContents.findInPage request.
-	 * 'clearSelection' - Translate the selection into a normal selection.
-	 * 'keepSelection' - Clear the selection.
+	 * 'clearSelection' - Clear the selection.
+	 * 'keepSelection' - Translate the selection into a normal selection.
 	 * 'activateSelection' - Focus and click the selection node.
 	 */
 	type StopFindInPageAtion = 'clearSelection' | 'keepSelection' | 'activateSelection';
@@ -3823,7 +3834,7 @@ declare namespace Electron {
 		 * Specify page size of the generated PDF.
 		 * Default: A4.
 		 */
-		pageSize?: 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid';
+		pageSize?: 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid' | Dimension;
 		/**
 		 * Whether to print CSS backgrounds.
 		 * Default: false.
@@ -4646,6 +4657,10 @@ declare namespace Electron {
 		 * properties and a single method.
 		 */
 		postMessage(message: string, targetOrigin: string): void;
+		/**
+		 * Invokes the print dialog on the child window.
+		 */
+		print(): void;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/synopsis.md

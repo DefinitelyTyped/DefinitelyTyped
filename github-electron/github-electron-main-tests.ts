@@ -79,18 +79,8 @@ app.on('ready', () => {
 		mainWindow = null;
 	});
 
-	mainWindow.print({silent: true, printBackground: false});
 	mainWindow.webContents.print({silent: true, printBackground: false});
-	mainWindow.print();
 	mainWindow.webContents.print();
-
-	mainWindow.printToPDF({
-		marginsType: 1,
-		pageSize: 'A3',
-		printBackground: true,
-		printSelectionOnly: true,
-		landscape: true,
-	}, (error: Error, data: Buffer) => {});
 
 	mainWindow.webContents.printToPDF({
 		marginsType: 1,
@@ -100,7 +90,6 @@ app.on('ready', () => {
 		landscape: true,
 	}, (error: Error, data: Buffer) => {});
 
-	mainWindow.printToPDF({}, (err, data) => {});
 	mainWindow.webContents.printToPDF({}, (err, data) => {});
 
 	mainWindow.webContents.executeJavaScript('return true;');
@@ -144,6 +133,29 @@ app.on('ready', () => {
 	});
 
 	mainWindow.webContents.debugger.sendCommand("Network.enable");
+});
+
+app.commandLine.appendSwitch('enable-web-bluetooth');
+
+app.on('ready', () => {
+	mainWindow.webContents.on('select-bluetooth-device', (event, deviceList, callback) => {
+		event.preventDefault();
+
+		let result = (() => {
+			for (let device of deviceList) {
+				if (device.deviceName === 'test') {
+					return device;
+				}
+			}
+			return null;
+		})();
+
+		if (!result) {
+			callback('');
+		} else {
+			callback(result.deviceId);
+		}
+	});
 });
 
 // Locale

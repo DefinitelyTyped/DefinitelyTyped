@@ -235,7 +235,7 @@ webview.addEventListener('found-in-page', function(e) {
 	}
 });
 
-var rquestId = webview.findInPage("test");
+var requestId = webview.findInPage("test");
 
 webview.addEventListener('new-window', function(e) {
 	require('electron').shell.openExternal(e.url);
