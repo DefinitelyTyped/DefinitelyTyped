@@ -4,6 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
+
+declare module 'angular-material' {
+    var _: string;
+    export = _;
+}
+
 declare namespace angular.material {
 
     interface IBottomSheetOptions {
