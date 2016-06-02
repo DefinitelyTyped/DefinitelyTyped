@@ -13,6 +13,7 @@ import oAuth = require('rest/interceptor/oAuth');
 import csrf = require('rest/interceptor/csrf');
 import errorCode = require('rest/interceptor/errorCode');
 import retry = require('rest/interceptor/retry');
+import template = require('rest/interceptor/template');
 import timeout = require('rest/interceptor/timeout');
 import jsonp = require('rest/interceptor/jsonp');
 import xdomain = require('rest/interceptor/ie/xdomain');
@@ -117,24 +118,25 @@ var promiseOrResponse = interceptor({
 });
 
 client = rest
-    .wrap<any>(defaultRequest)
-    .wrap<any>(hateoas)
-    .wrap<any>(location)
-    .wrap<any>(mime)
-    .wrap<any>(pathPrefix)
-    .wrap<any>(basicAuth)
-    .wrap<any>(oAuth)
-    .wrap<any>(csrf)
-    .wrap<any>(errorCode)
-    .wrap<any>(retry)
-    .wrap<any>(timeout)
-    .wrap<any>(jsonp)
-    .wrap<any>(xdomain)
-    .wrap<any>(xhr)
-    .wrap<any>(noop)
-    .wrap<any>(fail)
-    .wrap<any>(knownConfig, { prop: 'value' })
-    .wrap<any>(transformedConfig, { prop: 'value' });
+    .wrap(defaultRequest)
+    .wrap(hateoas)
+    .wrap(location)
+    .wrap(mime)
+    .wrap(pathPrefix)
+    .wrap(basicAuth)
+    .wrap(oAuth)
+    .wrap(csrf)
+    .wrap(errorCode)
+    .wrap(retry)
+    .wrap(template, { template: 'auth={token}', params: { token: 'hunter2' } })
+    .wrap(timeout)
+    .wrap(jsonp)
+    .wrap(xdomain)
+    .wrap(xhr)
+    .wrap(noop)
+    .wrap(fail)
+    .wrap<KnownConfig>(knownConfig, { prop: 'value' })
+    .wrap(transformedConfig, { prop: 'value' });
 
 import xhrClient = require('rest/client/xhr');
 import nodeClient = require('rest/client/node');

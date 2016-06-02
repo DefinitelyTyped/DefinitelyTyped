@@ -1,11 +1,11 @@
 // Type definitions for power-assert-formatter
 // Project: https://github.com/twada/power-assert-formatter
 // Definitions by: vvakame <https://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function powerAssertFormatter(options?:powerAssertFormatter.Options):powerAssertFormatter.Formatter;
 
-declare module powerAssertFormatter {
+declare namespace powerAssertFormatter {
     export interface Options {
         lineDiffThreshold?: number;
         maxDepth?: number;

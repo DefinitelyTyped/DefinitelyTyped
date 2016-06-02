@@ -9,12 +9,17 @@ import * as crypto from "crypto";
 import * as tls from "tls";
 import * as http from "http";
 import * as net from "net";
+import * as tty from "tty";
 import * as dgram from "dgram";
 import * as querystring from "querystring";
 import * as path from "path";
 import * as readline from "readline";
 import * as childProcess from "child_process";
+import * as cluster from "cluster";
 import * as os from "os";
+import * as vm from "vm";
+// Specifically test buffer module regression.
+import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -29,8 +34,57 @@ assert.notDeepStrictEqual({ x: { y: "3" } }, { x: { y: 3 } }, "uses === comparat
 assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
 
 assert.doesNotThrow(() => {
-    if (false) { throw "a hammer at your face"; }
+    const b = false;
+    if (b) { throw "a hammer at your face"; }
 }, undefined, "What the...*crunch*");
+
+////////////////////////////////////////////////////
+/// Events tests : http://nodejs.org/api/events.html
+////////////////////////////////////////////////////
+
+namespace events_tests {
+    let emitter: events.EventEmitter;
+    let event: string;
+    let listener: Function;
+    let any: any;
+
+    {
+        let result: events.EventEmitter;
+
+        result = emitter.addListener(event, listener);
+        result = emitter.on(event, listener);
+        result = emitter.once(event, listener);
+        result = emitter.removeListener(event, listener);
+        result = emitter.removeAllListeners();
+        result = emitter.removeAllListeners(event);
+        result = emitter.setMaxListeners(42);
+    }
+
+    {
+        let result: number;
+
+        result = events.EventEmitter.defaultMaxListeners;
+        result = events.EventEmitter.listenerCount(emitter, event); // deprecated
+
+        result = emitter.getMaxListeners();
+        result = emitter.listenerCount(event);
+    }
+
+    {
+        let result: Function[];
+
+        result = emitter.listeners(event);
+    }
+
+    {
+        let result: boolean;
+
+        result = emitter.emit(event);
+        result = emitter.emit(event, any);
+        result = emitter.emit(event, any, any);
+        result = emitter.emit(event, any, any, any);
+    }
+}
 
 ////////////////////////////////////////////////////
 /// File system tests : http://nodejs.org/api/fs.html
@@ -85,6 +139,8 @@ function bufferTests() {
     var base64Buffer = new Buffer('','base64');
     var octets: Uint8Array = null;
     var octetBuffer = new Buffer(octets);
+    var sharedBuffer = new Buffer(octets.buffer);
+    var copiedBuffer = new Buffer(utf8Buffer);
     console.log(Buffer.isBuffer(octetBuffer));
     console.log(Buffer.isEncoding('utf8'));
     console.log(Buffer.byteLength('xyz123'));
@@ -110,6 +166,29 @@ function bufferTests() {
 
     // fill returns the input buffer.
     b.fill('a').fill('b');
+
+    {
+        let buffer = new Buffer('123');
+        let index: number;
+        index = buffer.indexOf("23");
+        index = buffer.indexOf("23", 1);
+        index = buffer.indexOf(23);
+        index = buffer.indexOf(buffer);
+    }
+
+    // Imported Buffer from buffer module works properly
+    {
+        let b = new ImportedBuffer('123');
+        b.writeUInt8(0, 6);
+        let sb = new ImportedSlowBuffer(43);
+        b.writeUInt8(0, 6);
+    }
+
+    // Buffer has Uint8Array's buffer field (an ArrayBuffer).
+    {
+      let buffer = new Buffer('123');
+      let octets = new Uint8Array(buffer.buffer);
+    }
 }
 
 
@@ -153,6 +232,13 @@ function stream_readable_pipe_test() {
 ////////////////////////////////////////////////////
 
 var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
+
+{
+    let hmac: crypto.Hmac;
+    (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
+        let hash: Buffer|string = hmac.read();
+    });
+}
 
 function crypto_cipher_decipher_string_test() {
 	var key:Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
@@ -198,6 +284,13 @@ var ctx: tls.SecureContext = tls.createSecureContext({
 });
 var blah = ctx.context;
 
+var tlsOpts: tls.TlsOptions = {
+	host: "127.0.0.1",
+	port: 55
+};
+var tlsSocket = tls.connect(tlsOpts);
+
+
 ////////////////////////////////////////////////////
 
 // Make sure .listen() and .close() retuern a Server instance
@@ -212,7 +305,7 @@ request.abort();
 ////////////////////////////////////////////////////
 /// Http tests : http://nodejs.org/api/http.html
 ////////////////////////////////////////////////////
-module http_tests {
+namespace http_tests {
     // Status codes
     var code = 100;
     var codeMessage = http.STATUS_CODES['400'];
@@ -226,6 +319,33 @@ module http_tests {
 	});
 
 	var agent: http.Agent = http.globalAgent;
+
+	http.request({
+		agent: false
+	});
+	http.request({
+		agent: agent
+	});
+	http.request({
+		agent: undefined
+	});
+}
+
+////////////////////////////////////////////////////
+/// TTY tests : http://nodejs.org/api/tty.html
+////////////////////////////////////////////////////
+
+namespace tty_tests {
+    let rs: tty.ReadStream;
+    let ws: tty.WriteStream;
+
+    let rsIsRaw: boolean = rs.isRaw;
+    rs.setRawMode(true);
+
+    let wsColumns: number = ws.columns;
+    let wsRows: number = ws.rows;
+
+    let isTTY: boolean = tty.isatty(1);
 }
 
 ////////////////////////////////////////////////////
@@ -242,7 +362,7 @@ ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: numb
 ///Querystring tests : https://nodejs.org/api/querystring.html
 ////////////////////////////////////////////////////
 
-module querystring_tests {
+namespace querystring_tests {
     type SampleObject = {a: string; b: number;}
 
     {
@@ -285,7 +405,7 @@ module querystring_tests {
 /// path tests : http://nodejs.org/api/path.html
 ////////////////////////////////////////////////////
 
-module path_tests {
+namespace path_tests {
 
     path.normalize('/foo/bar//baz/asdf/quux/..');
 
@@ -421,21 +541,101 @@ module path_tests {
 }
 
 ////////////////////////////////////////////////////
-///ReadLine tests : https://nodejs.org/api/readline.html
+/// readline tests : https://nodejs.org/api/readline.html
 ////////////////////////////////////////////////////
 
-var rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+namespace readline_tests {
+    let rl: readline.ReadLine;
 
-rl.setPrompt("$>");
-rl.prompt();
-rl.prompt(true);
+    {
+        let options: readline.ReadLineOptions;
+        let input: NodeJS.ReadableStream;
+        let output: NodeJS.WritableStream;
+        let completer: readline.Completer;
+        let terminal: boolean;
 
-rl.question("do you like typescript?", function(answer: string) {
-  rl.close();
-});
+        let result: readline.ReadLine;
+
+        result = readline.createInterface(options);
+        result = readline.createInterface(input);
+        result = readline.createInterface(input, output);
+        result = readline.createInterface(input, output, completer);
+        result = readline.createInterface(input, output, completer, terminal);
+    }
+
+    {
+        let prompt: string;
+
+        rl.setPrompt(prompt);
+    }
+
+    {
+        let preserveCursor: boolean;
+
+        rl.prompt();
+        rl.prompt(preserveCursor);
+    }
+
+    {
+        let query: string;
+        let callback: (answer: string) => void;
+
+        rl.question(query, callback);
+    }
+
+    {
+        let result: readline.ReadLine;
+
+        result = rl.pause();
+    }
+
+    {
+        let result: readline.ReadLine;
+
+        result = rl.resume();
+    }
+
+    {
+        rl.close();
+    }
+
+    {
+        let data: string|Buffer;
+        let key: readline.Key;
+
+        rl.write(data);
+        rl.write(null, key);
+    }
+
+    {
+        let stream: NodeJS.WritableStream;
+        let x: number;
+        let y: number;
+
+        readline.cursorTo(stream, x, y);
+    }
+
+    {
+        let stream: NodeJS.WritableStream;
+        let dx: number|string;
+        let dy: number|string;
+
+        readline.moveCursor(stream, dx, dy);
+    }
+
+    {
+        let stream: NodeJS.WritableStream;
+        let dir: number;
+
+        readline.clearLine(stream, dir);
+    }
+
+    {
+        let stream: NodeJS.WritableStream;
+
+        readline.clearScreenDown(stream);
+    }
+}
 
 //////////////////////////////////////////////////////////////////////
 /// Child Process tests: https://nodejs.org/api/child_process.html ///
@@ -444,11 +644,23 @@ rl.question("do you like typescript?", function(answer: string) {
 childProcess.exec("echo test");
 childProcess.spawnSync("echo test");
 
+//////////////////////////////////////////////////////////////////////
+/// cluster tests: https://nodejs.org/api/cluster.html ///
+//////////////////////////////////////////////////////////////////////
+
+cluster.fork();
+Object.keys(cluster.workers).forEach(key => {
+    const worker = cluster.workers[key];
+    if (worker.isDead()) {
+        console.log('worker %d is dead', worker.process.pid);
+    }
+});
+
 ////////////////////////////////////////////////////
 /// os tests : https://nodejs.org/api/os.html
 ////////////////////////////////////////////////////
 
-module os_tests {
+namespace os_tests {
     {
         let result: string;
 
@@ -487,5 +699,54 @@ module os_tests {
         let result: {[index: string]: os.NetworkInterfaceInfo[]};
 
         result = os.networkInterfaces();
+    }
+}
+
+////////////////////////////////////////////////////
+/// vm tests : https://nodejs.org/api/vm.html
+////////////////////////////////////////////////////
+
+namespace vm_tests {
+    {
+        const sandbox = {
+            animal: 'cat',
+            count: 2
+        };
+
+        const context = vm.createContext(sandbox);
+        console.log(vm.isContext(context));
+        const script = new vm.Script('count += 1; name = "kitty"');
+
+        for (let i = 0; i < 10; ++i) {
+            script.runInContext(context);
+        }
+
+        console.log(util.inspect(sandbox));
+
+        vm.runInNewContext('count += 1; name = "kitty"', sandbox);
+        console.log(util.inspect(sandbox));
+    }
+
+    {
+        const sandboxes = [{}, {}, {}];
+
+        const script = new vm.Script('globalVar = "set"');
+
+        sandboxes.forEach((sandbox) => {
+            script.runInNewContext(sandbox);
+            script.runInThisContext();
+        });
+
+        console.log(util.inspect(sandboxes));
+
+        var localVar = 'initial value';
+        vm.runInThisContext('localVar = "vm";');
+
+        console.log(localVar);
+    }
+
+    {
+        const Debug = vm.runInDebugContext('Debug');
+        Debug.scripts().forEach(function(script: any) { console.log(script.name); });
     }
 }

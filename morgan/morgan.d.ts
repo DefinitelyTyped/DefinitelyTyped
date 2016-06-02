@@ -1,16 +1,23 @@
 // Type definitions for morgan 1.2.2
 // Project: https://github.com/expressjs/morgan
 // Definitions by: James Roland Cabresos <https://github.com/staticfunction>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 declare module "morgan" {
 
     import express = require('express');
 
-    module morgan {
+    namespace morgan {
 
         export function token<T>(name: string, callback: (req: express.Request, res: express.Response) => T): express.RequestHandler;
+
+        export interface StreamOptions {
+            /**
+             * Output stream for writing log lines
+             */
+            write: (str: string) => void;
+        }
 
         /***
          * Morgan accepts these properties in the options object.
@@ -36,7 +43,7 @@ declare module "morgan" {
              * Output stream for writing log lines, defaults to process.stdout.
              * @param str
              */
-            stream?: (str: string) => void;
+            stream?: StreamOptions;
         }
     }
 

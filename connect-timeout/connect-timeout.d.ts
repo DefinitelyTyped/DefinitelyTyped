@@ -1,11 +1,11 @@
 // Type definitions for connect-timeout
 // Project: https://github.com/expressjs/timeout
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 
-declare module Express {
+declare namespace Express {
     export interface Request {
         /**
          * @summary Clears the timeout on the request.
@@ -23,14 +23,20 @@ declare module Express {
 declare module "connect-timeout" {
     import express = require("express");
 
-    interface TimeoutOptions extends Object {
+    namespace e {
         /**
-         * @summary Controls if this module will "respond" in the form of forwarding an error.
-         * @type {boolean}
+         * @summary Interface for timeout options.
+         * @interface
          */
-        respond: boolean;
+        interface TimeoutOptions {
+            /**
+             * @summary Controls if this module will "respond" in the form of forwarding an error.
+             * @type {boolean}
+             */
+            respond?: boolean;
+        }
     }
 
-    function timeout(timeout: string, options?: TimeoutOptions): express.RequestHandler;
-    export = timeout;
+    function e(timeout: string, options?: e.TimeoutOptions): express.RequestHandler;
+    export = e;
 }

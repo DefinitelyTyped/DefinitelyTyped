@@ -1,7 +1,7 @@
 ﻿// Type definitions for node-mysql
 // Project: https://github.com/felixge/node-mysql
 // Definitions by: William Johnston <https://github.com/wjohnsto>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path='../node/node.d.ts' />
 
@@ -407,6 +407,12 @@ declare module "mysql" {
          * remove a node in the PoolCluster. (Default: 5)
          */
         removeNodeErrorCount?: number;
+
+        /**
+         * If connection fails, specifies the number of milliseconds before another connection attempt will be made.
+         * If set to 0, then node will be removed instead and never re-used. (Default: 0)
+         */
+        restoreNodeTimeout?: number;
 
         /**
          * The default selector. (Default: RR)

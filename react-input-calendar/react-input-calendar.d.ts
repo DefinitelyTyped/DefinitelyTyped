@@ -1,10 +1,10 @@
 // Type definitions for react-input-calendar
 // Project: https://github.com/Rudeg/react-input-calendar
 // Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts"/>
-declare module reactInputCalendar {
+declare namespace reactInputCalendar {
     export interface ReactInputCalendarProps {
         /**
         * Format of date, which display in input and set in date property.
@@ -17,6 +17,16 @@ declare module reactInputCalendar {
         * @default current date
         */
         date?: string | Date;
+        /**
+        * Set the selectable minimum date
+        * @default null
+        */
+        minDate?: string | Date;
+        /**
+        * Set the selectable maximum date
+        * @default null
+        */
+        maxDate?: string | Date;
         /**
         * Set minimal view. Values:
         * 0 - days
@@ -32,13 +42,17 @@ declare module reactInputCalendar {
         */
         computableFormat?: string;
         /**
-        * Set an function that will be triggered whenever there is a change in the selected date. It will return the date in the props.computableFormat format.
+        * Set a function that will be triggered whenever there is a change in the selected date. It will return the date in the props.computableFormat format.
         */
-        onChange?:(selectedDate: string)=>any;
+        onChange?: (computableDate: string) => void;
+        /**
+        * Set a function that will be triggered the when input field is blurred. It will return the event and the date in the props.computableFormat format.
+        */
+        onBlur?: (event: __React.SyntheticEvent, computableDate: string) => void;
         /**
         * Define state when date picker would close once the user has clicked on a date.
         */
-        closeOnSelect?:boolean;
+        closeOnSelect?: boolean;
         /**
         * Setting this value to true makes the calendar widget open when the iput field is focused.
         */
@@ -46,14 +60,25 @@ declare module reactInputCalendar {
         /**
         * Value to show in the input text box if no date is set.
         */
-        placeholder?:string
+        placeholder?: string;
+        /**
+        * Id that should be applied to the input field. Useful when using it with a label element.
+        */
+        inputFieldId?: string;
+        /**
+        * Define the class name of the input field where the date picker represents its value.
+        */
+        inputFieldClass?: string;
+        /**
+        * If true, the input field gets disabled and the icon next to it disappears.
+        */
+        disabled?: boolean;
     }
     interface ReactInputCalendarState { }
-    export class ReactInputCalendar extends __React.Component<ReactInputCalendarProps, ReactInputCalendarState>{
-        render(): __React.DOMElement<any>
+    export class ReactInputCalendar extends __React.Component<ReactInputCalendarProps, ReactInputCalendarState> {
     }
 }
 declare var ReactInputCalendar: typeof reactInputCalendar.ReactInputCalendar
 declare module "react-input-calendar" {
-    export = ReactInputCalendar
+    export = ReactInputCalendar;
 }

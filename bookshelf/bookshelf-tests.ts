@@ -15,6 +15,9 @@ var knex = Knex({
 
 var bookshelf = Bookshelf(knex);
 
+bookshelf.plugin('registry');
+bookshelf.plugin(['virtuals']);
+
 class User extends bookshelf.Model<User> {
 	get tableName() { return 'users'; }
 	messages() : Bookshelf.Collection<Posts> {
@@ -97,4 +100,3 @@ class Photo extends bookshelf.Model<Photo> {
 		return this.morphTo('imageable', Site, Post);
 	}
 }
-
