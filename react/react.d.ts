@@ -158,6 +158,10 @@ declare namespace __React {
 
     type ReactInstance = Component<any, any> | Element;
 
+    interface Refs {
+        [key: string]: ReactInstance;
+    }
+
     // Base component for plain JS classes
     class Component<P, S> implements ComponentLifecycle<P, S> {
         constructor(props?: P, context?: any);
@@ -174,9 +178,7 @@ declare namespace __React {
         props: P & { children?: ReactNode };
         state: S;
         context: {};
-        refs: {
-            [key: string]: ReactInstance
-        };
+        refs: Refs;
     }
 
     interface ClassicComponent<P, S> extends Component<P, S> {

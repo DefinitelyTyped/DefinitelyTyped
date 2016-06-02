@@ -298,6 +298,17 @@ React.DOM.div({ ref: node => domNodeRef = node });
 var inputNodeRef: HTMLInputElement;
 React.DOM.input({ ref: node => inputNodeRef = <HTMLInputElement>node });
 
+interface RCRefs extends React.Refs {
+    component: React.ReactInstance
+}
+
+class RefsComponent extends React.Component<any, any> {
+    refs: RCRefs;    
+    method() {
+        return this.refs.component
+    }
+}
+
 //
 // Attributes
 // --------------------------------------------------------------------------
