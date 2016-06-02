@@ -5724,6 +5724,21 @@ namespace TestFlip {
 namespace TestFlow {
     let Fn1: (n: number) => number;
     let Fn2: (m: number, n: number) => number;
+    let Fn3: (a: number) => string;
+    let Fn4: (a: string) => number;
+    
+    {
+        // type infer test
+        let result: (m: number, n: number) => number;
+        
+        result = _.flow(Fn2, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1, Fn1, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1, Fn1, Fn1, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1, Fn1, Fn1, Fn1, Fn1);
+        result = _.flow(Fn2, Fn1, Fn3, Fn4);
+    }
 
     {
         let result: (m: number, n: number) => number;
