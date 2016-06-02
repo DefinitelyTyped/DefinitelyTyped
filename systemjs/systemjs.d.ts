@@ -213,6 +213,8 @@ declare namespace SystemJSLoader {
          * Sets the module name of the transpiler to be used for loading ES6 modules.
          */
         transpiler?: Transpiler;
+        
+        trace?: boolean;
 
         /**
          * Sets the TypeScript transpiler options.
