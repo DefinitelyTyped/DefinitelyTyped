@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.25
+// Type definitions for react-native 0.27
 // Project: https://github.com/facebook/react-native
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -5424,15 +5424,6 @@ declare namespace  __React {
         key: string;
     }
 
-    export interface NavigationContainerProps {
-        tabs: NavigationTab[];
-        index: number;
-    }
-
-    export interface NavigationContainerStatic extends React.ComponentClass<NavigationContainerProps> {
-        create(inClass: any): any;
-    }
-
     export interface NavigationAction
     {
         type: string;
@@ -5452,21 +5443,44 @@ declare namespace  __React {
         onNavigate: (action: NavigationAction) => boolean
     ) => JSX.Element;
 
-    export interface NavigationRootContainerProps extends React.Props<NavigationRootContainerStatic> {
-        renderNavigation: NavigationRenderer;
-        reducer: NavigationReducerStatic;
-        persistenceKey?: string;
+    // Definitions for NavigationExperimental feature are deduced
+    // from code examples
+    export interface NavigationAnimatedViewStaticProps {
+        navigationState?: any
+        style?: ViewStyle
+        onNavigate?(action: Object): boolean
+        renderOverlay?(props: Object): JSX.Element
+        applyAnimation(pos, navState): void
+        renderScene?(props): JSX.Element
     }
 
-    export interface NavigationRootContainerStatic extends React.ComponentClass<NavigationRootContainerProps> {
-        getBackAction(): NavigationAction;
-        handleNavigation( action: NavigationAction ): boolean;
+    export interface NavigationAnimatedViewStatic extends React.ComponentClass<NavigationAnimatedViewStaticProps> {
     }
+    
+    export interface NavigationHeaderProps {
+        renderTitleComponent?(props): JSX.element
+    }
+    
+    export interface NavigationHeaderStatic extends React.ComponentClass<NavigationHeaderProps> {
+        Title: JSX.Element
+        HEIGHT: number
+    }
+    
+    export interface NavigationCardStackProps {
+        direction?: 'horizontal' | 'vertical'
+        style?: ViewStyle
+        navigationState?: any
+        onNavigate(action: Object): boolean
+        renderScene?(props): JSX.Element
+    }
+    
+    export interface NavigationCardStackStatic extends React.ComponentClass<NavigationCardStackProps>
 
     export interface NavigationExperimentalStatic {
-        Container: NavigationContainerStatic;
+        AnimatedView: NavigationAnimatedViewStatic;
+        CardStack: NavigationCardStackStatic;
+        Header: NavigationHeaderStatic;
         Reducer: NavigationReducerStatic;
-        RootContainer: NavigationRootContainerStatic;
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -5540,7 +5554,7 @@ declare namespace  __React {
 
     export var Switch: SwitchStatic
     export type Switch = SwitchStatic
-    
+
     export var SwitchIOS: SwitchIOSStatic
     export type SwitchIOS = SwitchIOSStatic
 
