@@ -698,6 +698,48 @@ declare module "react-bootstrap" {
     class ButtonInput extends React.Component<ButtonInputProps, {}> {
     }
 
+    // <Form />
+    // ----------------------------------------
+    interface FormProps extends React.HTMLAttributes {
+        bsClass?: string;
+        componentClass?: string;
+        horizontal?: boolean;
+        inline?: boolean;
+    }
+    class Form extends React.Component<FormProps, {}> {
+    }
+    
+    // <FormGroup />
+    // ----------------------------------------
+    interface FormGroupProps extends React.HTMLAttributes {
+        bsClass?: string;
+        bsSize?: string;
+        controlId?: string;
+        validationState?: string;
+    }
+    class FormGroup extends React.Component<FormGroupProps, {}> {
+    }
+
+    // <FormControl />
+    // ----------------------------------------
+    interface FormControlProps extends React.HTMLAttributes {
+        bsClass?: string;
+        componentClass?: string;
+        id?: string;
+        type?: string;
+    }
+    class FormControl extends React.Component<FormControlProps, {}> {
+    }
+    
+    // <ControlLabel />
+    // ----------------------------------------
+    interface ControlLabelProps extends React.HTMLAttributes {
+        bsClass?: string;
+        htmlFor?: string;
+        srOnly?: boolean;
+    }
+    class ControlLabel extends React.Component<ControlLabelProps, {}> {
+    }
 
     // <FormControls.Static />
     // ----------------------------------------
