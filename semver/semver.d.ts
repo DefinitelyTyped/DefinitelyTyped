@@ -9,6 +9,10 @@ declare namespace SemVerModule {
      */
     function valid(v: string, loose?: boolean): string;
     /**
+     * Returns cleaned (removed leading/trailing whitespace, remove '=v' prefix) and parsed version, or null if version is invalid.
+     */
+    function clean(version: string, loose?: boolean): string;
+    /**
      * Return the version incremented by the release type (major, minor, patch, or prerelease), or null if it's not valid.
      */
     function inc(v: string, release: string, loose?: boolean): string;
