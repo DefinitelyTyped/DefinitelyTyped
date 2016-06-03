@@ -1282,6 +1282,12 @@ interface JQuery {
      * @param htmlString A string of HTML to set as the content of each matched element.
      */
     html(htmlString: string): JQuery;
+     /**
+     * Set the HTML contents of each element in the set of matched elements.
+     *
+     * @param jQueryObject A JQuery Object to set as the content of each matched element.
+     */
+    html(jQueryObject: JQuery): JQuery;
     /**
      * Set the HTML contents of each element in the set of matched elements.
      *

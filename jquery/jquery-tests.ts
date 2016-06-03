@@ -2189,6 +2189,8 @@ function test_html() {
     $("div").html("<b>Wow!</b> Such excitement...");
     $("div b").append(document.createTextNode("!!!"))
               .css("color", "red");
+    var testObject = $(".test");
+    $('div.demo-container').html(testObject);
 }
 
 function test_inArray() {
