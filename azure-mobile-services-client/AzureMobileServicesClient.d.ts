@@ -100,7 +100,7 @@ declare namespace Microsoft.WindowsAzure {
     }
 }
 
-declare module "WindowsAzure" {
+declare module "azure-mobile-apps-client" {
     export = WindowsAzure;
 }
 

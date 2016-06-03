@@ -27,8 +27,26 @@ import {
     View,
     AppState,
     AppStateIOS,
-    ViewPagerAndroid
+    ViewPagerAndroid,
+    Dimensions,
 } from 'react-native';
+
+function testDimensions() {
+  var {
+    width,
+    height,
+    scale,
+    fontScale,
+  } = Dimensions.get("window");
+
+  var {
+    width,
+    height,
+    scale,
+    fontScale,
+  } = Dimensions.get("screen");
+}
+
 
 var styles = StyleSheet.create(
     {
@@ -54,11 +72,19 @@ var styles = StyleSheet.create(
 
 class Welcome extends React.Component<any,any> {
 
+    testNativeMethods() {
+      this.setNativeProps({});
+
+      const { rootView } = this.refs;
+
+      rootView.measure((x, y, width, height) => {
+      });
+    }
 
     render() {
 
         return (
-            <View style={styles.container}>
+            <View ref="rootView" style={styles.container}>
                 <Text style={styles.welcome}>
                     Welcome to React Native
                 </Text>

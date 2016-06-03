@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // Type definitions for Survey JavaScript library v0.9.7
+=======
+// Type definitions for Survey JavaScript library v0.9.3
+>>>>>>> refs/remotes/DefinitelyTyped/master
 // Project: http://surveyjs.org/
 // Definitions by: Andrew Telnov <https://github.com/andrewtelnov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,10 +21,14 @@ declare module Survey {
         questionAdded(question: IQuestion, index: number): any;
         questionRemoved(question: IQuestion): any;
         validateQuestion(name: string): SurveyError;
+<<<<<<< HEAD
         processHtml(html: string): string;
         processText(text: string): string;
         isDesignMode: boolean;
         requiredText: string;
+=======
+        isDesignMode: boolean;
+>>>>>>> refs/remotes/DefinitelyTyped/master
     }
     interface IQuestion {
         name: string;
@@ -83,9 +91,12 @@ declare module Survey {
         completeText: string;
         otherItemText: string;
         progressText: string;
+<<<<<<< HEAD
         emptySurvey: string;
         completingSurvey: string;
         loadingSurvey: string;
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
         optionsCaption: string;
         requiredError: string;
         numericError: string;
@@ -96,7 +107,10 @@ declare module Survey {
         numericMin: string;
         numericMax: string;
         invalidEmail: string;
+<<<<<<< HEAD
         otherRequiredError: string;
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
     };
 }
 
@@ -285,7 +299,10 @@ declare module Survey {
         private numValue;
         private visibleValue;
         constructor(name?: string);
+<<<<<<< HEAD
         processedTitle: string;
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
         num: number;
         visible: boolean;
         getType(): string;
@@ -383,7 +400,10 @@ declare module Survey {
         constructor(name: string);
         hasTitle: boolean;
         title: string;
+<<<<<<< HEAD
         processedTitle: string;
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
         supportComment(): boolean;
         supportOther(): boolean;
         isRequired: boolean;
@@ -394,7 +414,10 @@ declare module Survey {
         comment: string;
         isEmpty(): boolean;
         hasErrors(): boolean;
+<<<<<<< HEAD
         requiredText: string;
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
         private checkForErrors();
         protected onCheckForErrors(errors: Array<SurveyError>): void;
         protected runValidators(): SurveyError;
@@ -482,7 +505,10 @@ declare module Survey {
         constructor(name: string);
         getType(): string;
         html: string;
+<<<<<<< HEAD
         processedHtml: string;
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
     }
 }
 
@@ -523,6 +549,7 @@ declare module Survey {
 /// <reference path="questionfactory.d.ts" />
 /// <reference path="jsonobject.d.ts" />
 declare module Survey {
+<<<<<<< HEAD
     class QuestionRadiogroupModel extends QuestionCheckboxBase {
         name: string;
         constructor(name: string);
@@ -551,6 +578,8 @@ declare module Survey {
 /// <reference path="question_text.d.ts" />
 /// <reference path="question_comment.d.ts" />
 declare module Survey {
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
     interface IMatrixDropdownData {
         onCellChanged(cell: MatrixDropdownCellModel): any;
         columns: Array<MatrixDropdownColumn>;
@@ -562,19 +591,26 @@ declare module Survey {
         private choicesValue;
         private titleValue;
         optionsCaption: string;
+<<<<<<< HEAD
         private cellTypeValue;
         private colCountValue;
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
         constructor(name: string, title?: string);
         getType(): string;
         title: string;
         choices: Array<any>;
+<<<<<<< HEAD
         cellType: string;
         colCount: number;
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
     }
     class MatrixDropdownCellModel {
         column: MatrixDropdownColumn;
         row: MatrixDropdownRowModel;
         private data;
+<<<<<<< HEAD
         private questionValue;
         constructor(column: MatrixDropdownColumn, row: MatrixDropdownRowModel, data: IMatrixDropdownData, value: any);
         choices: Array<any>;
@@ -592,6 +628,14 @@ declare module Survey {
         protected createCheckboxCore(name: string): QuestionCheckboxModel;
         protected createRadiogroupCore(name: string): QuestionRadiogroupModel;
         protected getQuestionName(): string;
+=======
+        private cellValue;
+        constructor(column: MatrixDropdownColumn, row: MatrixDropdownRowModel, data: IMatrixDropdownData, value: any);
+        choices: Array<any>;
+        optionsCaption: string;
+        value: any;
+        protected onValueChanged(): void;
+>>>>>>> refs/remotes/DefinitelyTyped/master
     }
     class MatrixDropdownRowModel {
         name: any;
@@ -649,6 +693,7 @@ declare module Survey {
     }
     class QuestionMultipleTextModel extends Question implements IMultipleTextData {
         name: string;
+<<<<<<< HEAD
         private colCountValue;
         colCountChangedCallback: () => void;
         itemSize: number;
@@ -659,6 +704,13 @@ declare module Survey {
         AddItem(name: string, title?: string): MultipleTextItemModel;
         colCount: number;
         getRows(): Array<any>;
+=======
+        itemSize: number;
+        items: Array<MultipleTextItemModel>;
+        constructor(name: string);
+        getType(): string;
+        AddItem(name: string, title?: string): MultipleTextItemModel;
+>>>>>>> refs/remotes/DefinitelyTyped/master
         private isMultipleItemValueChanging;
         protected onValueChanged(): void;
         protected createTextItem(name: string, title: string): MultipleTextItemModel;
@@ -672,6 +724,19 @@ declare module Survey {
 /// <reference path="questionfactory.d.ts" />
 /// <reference path="jsonobject.d.ts" />
 declare module Survey {
+<<<<<<< HEAD
+=======
+    class QuestionRadiogroupModel extends QuestionCheckboxBase {
+        name: string;
+        constructor(name: string);
+        getType(): string;
+    }
+}
+
+/// <reference path="questionfactory.d.ts" />
+/// <reference path="jsonobject.d.ts" />
+declare module Survey {
+>>>>>>> refs/remotes/DefinitelyTyped/master
     class QuestionRatingModel extends Question {
         name: string;
         static defaultRateValues: ItemValue[];
@@ -688,6 +753,21 @@ declare module Survey {
     }
 }
 
+<<<<<<< HEAD
+=======
+/// <reference path="questionfactory.d.ts" />
+/// <reference path="jsonobject.d.ts" />
+declare module Survey {
+    class QuestionTextModel extends Question {
+        name: string;
+        size: number;
+        constructor(name: string);
+        getType(): string;
+        isEmpty(): boolean;
+    }
+}
+
+>>>>>>> refs/remotes/DefinitelyTyped/master
 /// <reference path="base.d.ts" />
 /// <reference path="jsonobject.d.ts" />
 declare module Survey {
@@ -704,6 +784,7 @@ declare module Survey {
     }
     interface ISurveyTriggerOwner {
         getObjects(pages: string[], questions: string[]): any[];
+<<<<<<< HEAD
         doComplete(): any;
         setTriggerValue(name: string, value: any, isVariable: boolean): any;
     }
@@ -750,6 +831,27 @@ declare module Survey {
         private getItems(text);
         private getName(name);
         private canProcessName(name);
+=======
+    }
+    class SurveyTrigger extends Trigger {
+        name: string;
+        pages: string[];
+        questions: string[];
+        private owner;
+        constructor();
+        setOwner(owner: ISurveyTriggerOwner): void;
+        protected onSuccess(): void;
+        protected onFailure(): void;
+        onTrigger(func: Function): void;
+        protected onItemSuccess(item: any): void;
+        protected onItemFailure(item: any): void;
+    }
+    class SurveyTriggerVisible extends SurveyTrigger {
+        constructor();
+        getType(): string;
+        protected onItemSuccess(item: any): void;
+        protected onItemFailure(item: any): void;
+>>>>>>> refs/remotes/DefinitelyTyped/master
     }
 }
 
@@ -758,37 +860,52 @@ declare module Survey {
 /// <reference path="trigger.d.ts" />
 /// <reference path="jsonobject.d.ts" />
 /// <reference path="dxSurveyService.d.ts" />
+<<<<<<< HEAD
 /// <reference path="textPreProcessor.d.ts" />
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
 declare module Survey {
     class SurveyModel extends Base implements ISurvey, ISurveyTriggerOwner {
         surveyId: string;
         surveyPostId: string;
         clientId: string;
+<<<<<<< HEAD
         cookieName: string;
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
         sendResultOnPageNext: boolean;
         commentPrefix: string;
         title: string;
         showNavigationButtons: boolean;
         showTitle: boolean;
         showPageTitles: boolean;
+<<<<<<< HEAD
         completedHtml: string;
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
         requiredText: string;
         showProgressBar: string;
         pages: Array<PageModel>;
         triggers: Array<SurveyTrigger>;
         private currentPageValue;
         private valuesHash;
+<<<<<<< HEAD
         private variablesHash;
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
         private pagePrevTextValue;
         private pageNextTextValue;
         private completeTextValue;
         private showPageNumbersValue;
         private showQuestionNumbersValue;
         private localeValue;
+<<<<<<< HEAD
         private isCompleted;
         private isLoading;
         private processedTextValues;
         private textPreProcessor;
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
         onComplete: Event<(sender: SurveyModel) => any, any>;
         onCurrentPageChanged: Event<(sender: SurveyModel, options: any) => any, any>;
         onValueChanged: Event<(sender: SurveyModel, options: any) => any, any>;
@@ -797,16 +914,25 @@ declare module Survey {
         onQuestionAdded: Event<(sender: SurveyModel, options: any) => any, any>;
         onQuestionRemoved: Event<(sender: SurveyModel, options: any) => any, any>;
         onValidateQuestion: Event<(sender: SurveyModel, options: any) => any, any>;
+<<<<<<< HEAD
         onProcessHtml: Event<(sender: SurveyModel, options: any) => any, any>;
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
         onSendResult: Event<(sender: SurveyModel, options: any) => any, any>;
         onGetResult: Event<(sender: SurveyModel, options: any) => any, any>;
         jsonErrors: Array<JsonError>;
         mode: string;
+<<<<<<< HEAD
         constructor(jsonObj?: any);
         getType(): string;
         locale: string;
         getLocString(str: string): any;
         emptySurveyText: string;
+=======
+        constructor(jsonObj?: any, renderedElement?: any);
+        getType(): string;
+        locale: string;
+>>>>>>> refs/remotes/DefinitelyTyped/master
         pagePrevText: string;
         pageNextText: string;
         completeText: string;
@@ -819,6 +945,7 @@ declare module Survey {
         PageCount: number;
         visiblePageCount: number;
         currentPage: PageModel;
+<<<<<<< HEAD
         state: string;
         clear(): void;
         protected mergeValues(src: any, dest: any): void;
@@ -828,23 +955,35 @@ declare module Survey {
         hasCookie: boolean;
         setCookie(): void;
         deleteCookie(): void;
+=======
+        protected currentPageChanged(newValue: PageModel, oldValue: PageModel): void;
+        isDesignMode: boolean;
+>>>>>>> refs/remotes/DefinitelyTyped/master
         nextPage(): boolean;
         isCurrentPageHasErrors: boolean;
         prevPage(): boolean;
         completeLastPage(): boolean;
         isFirstPage: boolean;
         isLastPage: boolean;
+<<<<<<< HEAD
         doComplete(): void;
         protected setCompleted(): void;
         processedCompletedHtml: string;
         processedLoadingHtml: string;
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
         progressText: string;
         getPage(index: number): PageModel;
         addPage(page: PageModel): void;
         addNewPage(name: string): PageModel;
         removePage(page: PageModel): void;
+<<<<<<< HEAD
         getQuestionByName(name: string, caseInsensitive?: boolean): IQuestion;
         getQuestionsByNames(names: string[], caseInsensitive?: boolean): IQuestion[];
+=======
+        getQuestionByName(name: string): IQuestion;
+        getQuestionsByNames(names: string[]): IQuestion[];
+>>>>>>> refs/remotes/DefinitelyTyped/master
         getPageByQuestion(question: IQuestion): PageModel;
         getPageByName(name: string): PageModel;
         getPagesByNames(names: string[]): PageModel[];
@@ -852,6 +991,7 @@ declare module Survey {
         protected createNewPage(name: string): PageModel;
         private notifyQuestionOnValueChanged(name, newValue);
         private notifyAllQuestionsOnValueChanged();
+<<<<<<< HEAD
         protected doSurveyValueChanged(question: IQuestion, newValue: any): void;
         private checkOnPageTriggers();
         private checkTriggers(name, newValue, isOnNextPage);
@@ -860,17 +1000,27 @@ declare module Survey {
         loadSurveyFromService(surveyId?: string): void;
         protected onLoadingSurveyFromService(): void;
         protected onLoadSurveyFromService(): void;
+=======
+        private checkTriggers(name, newValue);
+        sendResult(postId?: string, clientId?: string, isPartialCompleted?: boolean): void;
+        getResult(resultId: string, name: string): void;
+        loadSurveyFromService(surveyId?: string, element?: any): void;
+        protected onLoadSurveyFromService(element: any): void;
+>>>>>>> refs/remotes/DefinitelyTyped/master
         private updateVisibleIndexes();
         private updatePageVisibleIndexes(showIndex);
         private updateQuestionVisibleIndexes(questions, showIndex);
         private setJsonObject(jsonObj);
         protected onBeforeCreating(): void;
         protected onCreating(): void;
+<<<<<<< HEAD
         private updateProcessedTextValues();
         private addQuestionToProcessedTextValues(question);
         private getProcessedTextValue(name);
         getVariable(name: string): any;
         setVariable(name: string, newValue: any): void;
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
         getValue(name: string): any;
         setValue(name: string, newValue: any): void;
         getComment(name: string): string;
@@ -880,10 +1030,14 @@ declare module Survey {
         questionAdded(question: IQuestion, index: number): void;
         questionRemoved(question: IQuestion): void;
         validateQuestion(name: string): SurveyError;
+<<<<<<< HEAD
         processHtml(html: string): string;
         processText(text: string): string;
         getObjects(pages: string[], questions: string[]): any[];
         setTriggerValue(name: string, value: any, isVariable: boolean): void;
+=======
+        getObjects(pages: string[], questions: string[]): any[];
+>>>>>>> refs/remotes/DefinitelyTyped/master
     }
 }
 
@@ -917,10 +1071,13 @@ declare module Survey {
 declare module Survey {
 }
 
+<<<<<<< HEAD
 /// <reference path="../surveyStrings.d.ts" />
 declare module Survey {
 }
 
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
 /// <reference path="../page.d.ts" />
 declare module Survey {
     class Page extends PageModel {
@@ -1035,6 +1192,7 @@ declare module Survey {
     }
 }
 
+<<<<<<< HEAD
 /// <reference path="../question_radiogroup.d.ts" />
 declare module Survey {
     class QuestionRadiogroup extends QuestionRadiogroupModel {
@@ -1062,16 +1220,26 @@ declare module Survey {
 /// <reference path="koquestion_radiogroup.d.ts" />
 /// <reference path="koquestion_text.d.ts" />
 /// <reference path="koquestion_comment.d.ts" />
+=======
+/// <reference path="../question_matrixdropdown.d.ts" />
+>>>>>>> refs/remotes/DefinitelyTyped/master
 declare module Survey {
     class MatrixDropdownCell extends MatrixDropdownCellModel {
         column: MatrixDropdownColumn;
         row: MatrixDropdownRowModel;
+<<<<<<< HEAD
         constructor(column: MatrixDropdownColumn, row: MatrixDropdownRowModel, data: IMatrixDropdownData, value: any);
         protected createText(name: string): QuestionTextModel;
         protected createComment(name: string): QuestionCommentModel;
         protected createDropdownCore(name: string): QuestionDropdownModel;
         protected createCheckboxCore(name: string): QuestionCheckboxModel;
         protected createRadiogroupCore(name: string): QuestionRadiogroupModel;
+=======
+        private isValueUpdating;
+        koValue: any;
+        constructor(column: MatrixDropdownColumn, row: MatrixDropdownRowModel, data: IMatrixDropdownData, value: any);
+        protected onValueChanged(): void;
+>>>>>>> refs/remotes/DefinitelyTyped/master
     }
     class MatrixDropdownRow extends MatrixDropdownRowModel {
         name: any;
@@ -1095,11 +1263,14 @@ declare module Survey {
         constructor(name?: any, title?: string);
         onValueChanged(newValue: any): void;
     }
+<<<<<<< HEAD
     class QuestionMultipleTextImplementor extends QuestionImplementor {
         koRows: any;
         constructor(question: Question);
         protected onColCountChanged(): void;
     }
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
     class QuestionMultipleText extends QuestionMultipleTextModel {
         name: string;
         constructor(name: string);
@@ -1107,13 +1278,36 @@ declare module Survey {
     }
 }
 
+<<<<<<< HEAD
+=======
+/// <reference path="../question_radiogroup.d.ts" />
+declare module Survey {
+    class QuestionRadiogroup extends QuestionRadiogroupModel {
+        name: string;
+        constructor(name: string);
+    }
+}
+
+>>>>>>> refs/remotes/DefinitelyTyped/master
 /// <reference path="../question_rating.d.ts" />
 declare module Survey {
     class QuestionRating extends QuestionRatingModel {
         name: string;
+<<<<<<< HEAD
         itemCss: string;
         constructor(name: string);
         protected onSetData(): void;
+=======
+        constructor(name: string);
+    }
+}
+
+/// <reference path="../question_text.d.ts" />
+declare module Survey {
+    class QuestionText extends QuestionTextModel {
+        name: string;
+        constructor(name: string);
+>>>>>>> refs/remotes/DefinitelyTyped/master
     }
 }
 
@@ -1121,12 +1315,16 @@ declare module Survey {
 declare module Survey {
     class SurveyBase extends SurveyModel {
         private renderedElement;
+<<<<<<< HEAD
         private cssValue;
+=======
+>>>>>>> refs/remotes/DefinitelyTyped/master
         onRendered: Event<(sender: SurveyModel) => any, any>;
         koCurrentPage: any;
         koIsFirstPage: any;
         koIsLastPage: any;
         dummyObservable: any;
+<<<<<<< HEAD
         koState: any;
         koProgress: any;
         koProgressText: any;
@@ -1144,6 +1342,20 @@ declare module Survey {
         protected onLoadingSurveyFromService(): void;
         private applyBinding();
         private updateKoCurrentPage();
+=======
+        koProgress: any;
+        koProgressText: any;
+        constructor(jsonObj?: any, renderedElement?: any);
+        render(element?: any): void;
+        protected createNewPage(name: string): Page;
+        protected getTemplate(): string;
+        protected onBeforeCreating(): void;
+        protected currentPageChanged(newValue: PageModel, oldValue: PageModel): void;
+        protected onLoadSurveyFromService(element: any): void;
+        private applyBinding();
+        private updateKoCurrentPage();
+        private getProgress();
+>>>>>>> refs/remotes/DefinitelyTyped/master
     }
 }
 
@@ -1182,14 +1394,23 @@ declare module template.ko {
 /// <reference path="../kosurvey.d.ts" />
 declare module Survey {
     class Survey extends SurveyBase {
+<<<<<<< HEAD
         constructor(jsonObj?: any, renderedElement?: any, css?: any);
         protected getTemplate(): string;
         protected createCssObject(): any;
+=======
+        constructor(jsonObj?: any, renderedElement?: any);
+        protected getTemplate(): string;
+>>>>>>> refs/remotes/DefinitelyTyped/master
     }
 }
 
 /// <reference path="../koSurveyWindow.d.ts" />
+<<<<<<< HEAD
 /// <reference path="koSurveybootstrap.d.ts" />
+=======
+/// <reference path="koSurveyStandard.d.ts" />
+>>>>>>> refs/remotes/DefinitelyTyped/master
 declare module Survey {
     class SurveyWindow extends SurveyWindowBase {
         koExpanded: any;
@@ -1211,3 +1432,7 @@ declare module Survey {
         protected text: string;
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/DefinitelyTyped/master

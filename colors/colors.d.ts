@@ -41,6 +41,7 @@ declare module "colors" {
         america: Color;
         trap: Color;
         random: Color;
+        zalgo: Color;
     }
 
     namespace e {
