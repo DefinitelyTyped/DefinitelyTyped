@@ -4,11 +4,11 @@
 
 declare module "node-dogstatsd" {
 
-	interface StatsDOptions {
+	export interface StatsDOptions {
 		global_tags?: string[];
 	}
 
-	class StatsD {
+	export class StatsD {
 		constructor(host: string, port?: number, socket?: string, options?: StatsDOptions);
 
 		timing(stat: string, time: number, sample_rate?: number, tags?: string[]): void;
@@ -29,6 +29,4 @@ declare module "node-dogstatsd" {
 
 		close(): void;
 	}
-
-	export = StatsD;
 }
