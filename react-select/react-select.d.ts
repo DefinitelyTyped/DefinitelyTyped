@@ -7,6 +7,16 @@
 
 declare namespace ReactSelect {
 
+    interface AutocompleteResult {
+        /** the search-results to be displayed  */
+        data: Option[],
+        /** Should be set to true, if and only if a longer query with the same prefix
+         * would return a subset of the results
+         * If set to true, more specific queries will not be sent to the server.
+         **/
+        complete: boolean;
+    }
+
     interface Option {
         /** Text for rendering */
         label: string;
@@ -359,7 +369,7 @@ declare namespace ReactSelect {
         /**
          *  function to call to load options asynchronously
          */
-        loadOptions: (input: string, callback: (options: Option[]) => any) => any;
+        loadOptions: (input: string, callback: (err: any, result: AutocompleteResult) => any) => any;
 
         /**
          *  replaces the placeholder while options are loading
