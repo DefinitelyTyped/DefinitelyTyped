@@ -10,11 +10,11 @@ declare namespace MCustomScrollbar {
         /**
         * Set the width of your content (overwrites CSS width), value in pixels (integer) or percentage (string)
         */
-        setWidth?: number|string;
+        setWidth?: boolean|number|string;
         /**
         * Set the height of your content (overwirtes CSS height), value in pixels (integer) or percentage (string)
         */
-        setHeight?: number|string;
+        setHeight?: boolean|number|string;
         /**
         * Set the initial css top property of content, accepts string values (css top position).
         * Example: setTop: "-100px".
@@ -38,7 +38,7 @@ declare namespace MCustomScrollbar {
         * Note that setting the value to "outside" requires your element (or parent elements) 
         * to have CSS position: relative (otherwise the scrollbar will be positioned in relation to document’s root element).
         */
-        scrollbarPosition: "inside"|"outside";
+        scrollbarPosition?: "inside"|"outside";
         /**
         * Always keep scrollbar(s) visible, even when there’s nothing to scroll.
         * 0 – disable (default)
@@ -52,7 +52,7 @@ declare namespace MCustomScrollbar {
         * Note that your elements must be of equal width or height in order for this to work properly.
         * To set different values for vertical and horizontal scrolling, use an array: [y,x]
         */
-        snapAmount?: number; 
+        snapAmount?: number|[number,number];
         /**
         * Set an offset (in pixels) for the snapAmount option. Useful when for example you need to offset the 
         * snap amount of table rows by the table header.
@@ -112,7 +112,7 @@ declare namespace MCustomScrollbar {
         /**
         * Keyboard support 
         */
-        keyboard:{
+        keyboard?:{
             /**
              * Enable or disable content scrolling via keyboard.
              */
@@ -155,7 +155,7 @@ declare namespace MCustomScrollbar {
             /**
             * Set a tabindex value for the buttons.
             */
-            tabIndex?: number;
+            tabindex?: number;
             /**
             * Scroll buttons pixels scrolling amount, value in pixels or "auto"
             */
@@ -225,6 +225,10 @@ declare namespace MCustomScrollbar {
         * Integer values define the axis-specific minimum amount required for scrolling momentum (default: 25).
         */
         contentTouchScroll?: boolean|number;
+        /**
+         * Enable or disable document touch-swipe scrolling for touch-enabled devices.
+         */
+        documentTouchScroll?: boolean;
         /**
         * All of the following callbacks option have examples in the callback demo - http://manos.malihu.gr/tuts/custom-scrollbar-plugin/callbacks_example.html
         */
@@ -304,7 +308,7 @@ declare namespace MCustomScrollbar {
             /**
             * A function to call each time a type of element is added, removed or changes its size and scrollbar(s) are updated.
             */
-            onSelctorChange?: () => void;
+            onSelectorChange?: () => void;
         }
         /**
         * Set a scrollbar ready-to-use theme. See themes demo for all themes - http://manos.malihu.gr/tuts/custom-scrollbar-plugin/scrollbar_themes_demo.html
