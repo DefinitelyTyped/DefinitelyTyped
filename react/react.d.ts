@@ -347,11 +347,23 @@ declare namespace __React {
         view: AbstractView;
     }
 
-    interface WheelEvent extends SyntheticEvent {
+    interface WheelEvent extends MouseEvent {
         deltaMode: number;
         deltaX: number;
         deltaY: number;
         deltaZ: number;
+    }
+
+    interface AnimationEvent extends SyntheticEvent {
+        animationName: string;
+        pseudoElement: string;
+        elapsedTime: number;
+    }
+    
+    interface TransitionEvent extends SyntheticEvent {
+        propertyName: string;
+        pseudoElement: string;
+        elapsedTime: number;
     }
 
     //
@@ -374,6 +386,8 @@ declare namespace __React {
     type TouchEventHandler = EventHandler<TouchEvent>;
     type UIEventHandler = EventHandler<UIEvent>;
     type WheelEventHandler = EventHandler<WheelEvent>;
+    type AnimationEventHandler = EventHandler<AnimationEvent>;
+    type TransitionEventHandler = EventHandler<TransitionEvent>;
 
     //
     // Props / DOM Attributes
@@ -497,6 +511,14 @@ declare namespace __React {
 
         // Wheel Events
         onWheel?: WheelEventHandler;
+
+        // Animation Events
+        onAnimationStart?: AnimationEventHandler;
+        onAnimationEnd?: AnimationEventHandler;
+        onAnimationIteration?: AnimationEventHandler;
+
+        // Transition Events
+        onTransitionEnd?: TransitionEventHandler;
     }
 
     // This interface is not complete. Only properties accepting
@@ -2455,6 +2477,7 @@ declare namespace JSX {
         clipPath: React.SVGProps;
         defs: React.SVGProps;
         ellipse: React.SVGProps;
+        foreignObject: React.SVGProps;
         g: React.SVGProps;
         image: React.SVGProps;
         line: React.SVGProps;

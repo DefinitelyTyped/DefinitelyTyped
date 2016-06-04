@@ -883,6 +883,24 @@ declare namespace angular {
 
         unwrapPromises(): boolean;
         unwrapPromises(value: boolean): IParseProvider;
+
+        /**
+         * Configure $parse service to add literal values that will be present as literal at expressions.
+         *
+         * @param literalName Token for the literal value. The literal name value must be a valid literal name.
+         * @param literalValue Value for this literal. All literal values must be primitives or `undefined`.
+         **/
+        addLiteral(literalName: string, literalValue: any): void;
+
+        /**
+         * Allows defining the set of characters that are allowed in Angular expressions. The function identifierStart will get called to know if a given character is a valid character to be the first character for an identifier. The function identifierContinue will get called to know if a given character is a valid character to be a follow-up identifier character. The functions identifierStart and identifierContinue will receive as arguments the single character to be identifier and the character code point. These arguments will be string and numeric. Keep in mind that the string parameter can be two characters long depending on the character representation. It is expected for the function to return true or false, whether that character is allowed or not.
+         * Since this function will be called extensivelly, keep the implementation of these functions fast, as the performance of these functions have a direct impact on the expressions parsing speed.
+         *
+         * @param identifierStart The function that will decide whether the given character is a valid identifier start character.
+         * @param identifierContinue The function that will decide whether the given character is a valid identifier continue character.
+         **/
+        setIdentifierFns(identifierStart?: (character: string, codePoint: number) => boolean,
+            identifierContinue?: (character: string, codePoint: number) => boolean): void;
     }
 
     interface ICompiledExpression {
@@ -1656,50 +1674,6 @@ declare namespace angular {
     // see http://angularjs.blogspot.com.br/2015/11/angularjs-15-beta2-and-14-releases.html
     // and http://toddmotto.com/exploring-the-angular-1-5-component-method/
     ///////////////////////////////////////////////////////////////////////////
-    /**
-     * Runtime representation a type that a Component or other object is instances of.
-     *
-     * An example of a `Type` is `MyCustomComponent` class, which in JavaScript is be represented by
-     * the `MyCustomComponent` constructor function.
-     */
-    interface Type extends Function {
-    }
-
-    /**
-     * `RouteDefinition` defines a route within a {@link RouteConfig} decorator.
-     *
-     * Supported keys:
-     * - `path` or `aux` (requires exactly one of these)
-     * - `component`, `loader`,  `redirectTo` (requires exactly one of these)
-     * - `name` or `as` (optional) (requires exactly one of these)
-     * - `data` (optional)
-     *
-     * See also {@link Route}, {@link AsyncRoute}, {@link AuxRoute}, and {@link Redirect}.
-     */
-    interface RouteDefinition {
-        path?: string;
-        aux?: string;
-        component?: Type | ComponentDefinition | string;
-        loader?: Function;
-        redirectTo?: any[];
-        as?: string;
-        name?: string;
-        data?: any;
-        useAsDefault?: boolean;
-    }
-
-    /**
-     * Represents either a component type (`type` is `component`) or a loader function
-     * (`type` is `loader`).
-     *
-     * See also {@link RouteDefinition}.
-     */
-    interface ComponentDefinition {
-        type: string;
-        loader?: Function;
-        component?: Type;
-    }
-
     /**
      * Component definition object (a simplified directive definition object)
      */

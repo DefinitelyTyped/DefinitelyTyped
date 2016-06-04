@@ -875,7 +875,7 @@ declare module "hapi" {
 		/**  - an optional domain string or an array of domain strings for limiting the route to only requests with a matching host header field.Matching is done against the hostname part of the header only (excluding the port).Defaults to all hosts.*/
 		vhost?: string;
 		/**  - (required) the function called to generate the response after successful authentication and validation.The handler function is described in Route handler.If set to a string, the value is parsed the same way a prerequisite server method string shortcut is processed.Alternatively, handler can be assigned an object with a single key using the name of a registered handler type and value with the options passed to the registered handler.*/
-		handler: ISessionHandler | string | IRouteHandlerConfig;
+		handler?: ISessionHandler | string | IRouteHandlerConfig;
 		/** - additional route options.*/
 		config?: IRouteAdditionalConfigurationOptions;
 	}

@@ -31,7 +31,7 @@ function test() {
     bezier.get(1);
     bezier.getLUT()[0].x;
     bezier.hull(0);
-    bezier.inflections().values;
+    bezier.extrema();
     bezier.intersects(bezier);
     bezier.length();
     bezier.lineIntersects(line);
@@ -48,7 +48,8 @@ function test() {
     bezier.scale(4);
     bezier.selfintersects();
     bezier.simple();
-    bezier.split(0, 1);
+    bezier.split(0, 1).clockwise;
+    bezier.split(0.5).left;
     bezier.toSVG();
     bezier.update();
     

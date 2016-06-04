@@ -75,6 +75,9 @@ webFrame.executeJavaScript('JSON.stringify({})', false, (result) => {
     console.log(result);
 });
 
+console.log(webFrame.getResourceUsage());
+webFrame.clearCache();
+
 // clipboard
 // https://github.com/atom/electron/blob/master/docs/api/clipboard.md
 
@@ -232,7 +235,7 @@ webview.addEventListener('found-in-page', function(e) {
 	}
 });
 
-var rquestId = webview.findInPage("test");
+var requestId = webview.findInPage("test");
 
 webview.addEventListener('new-window', function(e) {
 	require('electron').shell.openExternal(e.url);

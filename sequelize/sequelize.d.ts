@@ -2949,6 +2949,18 @@ declare module "sequelize" {
         }
 
         /**
+         * AddScope Options for Model.addScope
+         */
+        interface AddScopeOptions {
+            
+            /**
+             * If a scope of the same name already exists, should it be overwritten?
+             */
+            override: boolean;
+            
+        }
+
+        /**
          * Scope Options for Model.scope
          */
         interface ScopeOptions {
@@ -3121,7 +3133,7 @@ declare module "sequelize" {
              * `Sequelize.literal`, `Sequelize.fn` and so on), and the second is the name you want the attribute to
              * have in the returned instance
              */
-            attributes? :  Array<string> | { include?: Array<string>, exclude?: Array<string> };
+            attributes?: Array<string | fn | [string, string] | [fn, string]> | { include?: Array<string>, exclude?: Array<string> };
 
             /**
              * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
@@ -3181,6 +3193,12 @@ declare module "sequelize" {
              * having ?!?
              */
             having? : WhereOptions;
+
+            /**
+             * Group by. It is not mentioned in sequelize's JSDoc, but mentioned in docs.
+             * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
+             */
+            group?: string | string[] | Object;
 
         }
 
@@ -3639,6 +3657,18 @@ declare module "sequelize" {
              * @param options.logging=false A function that gets executed while running the query to log the sql.
              */
             getTableName( options? : { logging : Function } ) : string | Object;
+
+            /**
+             * Add a new scope to the model. This is especially useful for adding scopes with includes, when the model you want to include is not available at the time this model is defined.
+             *
+             * By default this will throw an error if a scope with that name already exists. Pass `override: true` in the options object to silence this error.
+             *
+             * @param {String}          name The name of the scope. Use `defaultScope` to override the default scope
+             * @param {Object|Function} scope
+             * @param {Object}          [options]
+             * @param {Boolean}         [options.override=false]
+             */
+            addScope( name : string, scope : FindOptions | Function, options? : AddScopeOptions ): void;
 
             /**
              * Apply a scope created in `define` to the model. First let's look at how to create scopes:
