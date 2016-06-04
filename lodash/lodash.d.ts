@@ -17004,6 +17004,11 @@ declare module _ {
          * @param object The object to query.
          * @return Returns an array of property values.
          */
+        values<T>(object?: Dictionary<T>): T[];
+
+         /**
+          * @see _.values
+          */
         values<T>(object?: any): T[];
     }
 
@@ -17028,6 +17033,11 @@ declare module _ {
          *
          * @param object The object to query.
          * @return Returns the array of property values.
+         */
+        valuesIn<T>(object?: Dictionary<T>): T[];
+
+        /**
+         * @see _.valuesIn
          */
         valuesIn<T>(object?: any): T[];
     }

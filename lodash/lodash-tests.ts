@@ -10277,7 +10277,14 @@ namespace TestValues {
     {
         let result: TResult[];
 
-        result = _.values<TResult>(object);
+        result = _.values(object);
+    }
+
+    {
+        let result: TResult[];
+
+        // Without this type hint, this will fail to compile, as expected.
+        result = _.values<TResult>(new Object);
     }
 
     {
@@ -10300,7 +10307,20 @@ namespace TestValuesIn {
     {
         let result: TResult[];
 
-        result = _.valuesIn<TResult>(object);
+        result = _.valuesIn(object);
+    }
+
+    {
+        let result: TResult[];
+
+        // Without this type hint, this will fail to compile, as expected.
+        result = _.valuesIn<TResult>(new Object);
+    }
+
+    {
+        let result: TResult[];
+
+        result = _.values(object);
     }
 
     {
