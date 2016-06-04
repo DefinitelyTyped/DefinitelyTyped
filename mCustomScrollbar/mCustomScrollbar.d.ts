@@ -130,6 +130,10 @@ declare namespace MCustomScrollbar {
             scrollType?: "stepless"|"stepped";
         }
 
+=======
+            disableOver?: string[]
+        }
+>>>>>>> upstream/master
         /**
         * Mouse wheel scrolling pixels amount, value in pixels (integer) or "auto" (script calculates and sets pixels amount according to content length)
         */

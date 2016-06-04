@@ -408,7 +408,7 @@ declare module "express-serve-static-core" {
 
     interface Send {
         (status: number, body?: any): Response;
-        (body: any): Response;
+        (body?: any): Response;
     }
 
     interface Response extends http.ServerResponse, Express.Response {
