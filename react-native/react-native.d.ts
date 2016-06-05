@@ -5487,15 +5487,15 @@ declare namespace  __React {
         style?: ViewStyle
         onNavigate?(action: Object): boolean
         renderOverlay?(props: Object): JSX.Element
-        applyAnimation(pos, navState): void
-        renderScene?(props): JSX.Element
+        applyAnimation(pos: any, navState: Object): void // TODO: what's pos?
+        renderScene?(props: Object): JSX.Element
     }
 
     export interface NavigationAnimatedViewStatic extends React.ComponentClass<NavigationAnimatedViewStaticProps> {
     }
     
     export interface NavigationHeaderProps {
-        renderTitleComponent?(props): JSX.element
+        renderTitleComponent?(props: Object): JSX.element
     }
     
     export interface NavigationHeaderStatic extends React.ComponentClass<NavigationHeaderProps> {
