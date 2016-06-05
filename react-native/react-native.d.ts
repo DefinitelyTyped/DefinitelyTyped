@@ -694,6 +694,12 @@ declare namespace  __React {
         numberOfLines?: number
 
         /**
+         * Sets the return key to the label. Use it instead of `returnKeyType`.
+         * @platform android
+         */
+        returnKeyLabel?: string
+
+        /**
          * enum('start', 'center', 'end')
          * Set the position of the cursor from where editing will begin.
          */
