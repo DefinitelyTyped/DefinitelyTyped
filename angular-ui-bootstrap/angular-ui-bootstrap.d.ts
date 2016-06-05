@@ -270,6 +270,11 @@ declare namespace angular.ui.bootstrap {
          * A promise that is resolved when a modal is rendered.
          */
         rendered: angular.IPromise<any>;
+
+        /**
+         * A promise that is resolved when a modal is closed and the animation completes.
+         */
+        closed: angular.IPromise<any>;
     }
 
     interface IModalScope extends angular.IScope {
@@ -382,6 +387,12 @@ declare namespace angular.ui.bootstrap {
          * @default 'model-open'
          */
         openedClass?: string;
+        
+        /**
+         * CSS class(es) to be added to the top modal window.
+         */
+        
+        windowTopClass?: string;
     }
 
     interface IModalStackService {

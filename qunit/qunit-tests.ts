@@ -1637,3 +1637,34 @@ function testAfterDone() {
         }
     });
 }
+
+// Example QUnit.extend call taken from: http://api.qunitjs.com/QUnit.extend/
+QUnit.test( "QUnit.extend", function( assert ) {
+  var base = {
+    a: 1,
+    b: 2,
+    z: 3
+  };
+  QUnit.extend( base, {
+    b: 2.5,
+    c: 3,
+    z: undefined
+  } );
+  
+  // Change from documentation example to satisfy tsc:
+  var newBase = <any> base;
+ 
+  assert.equal( newBase.a, 1, "Unspecified values are not modified" );
+  assert.equal( newBase.b, 2.5, "Existing values are updated" );
+  assert.equal( newBase.c, 3, "New values are defined" );
+  assert.ok( !( "z" in newBase ), "Values specified as `undefined` are removed" );
+});
+
+// Example QUnit.extend usage taken from: http://stackoverflow.com/a/33439774/419956
+QUnit.extend(QUnit.assert, {
+    matches: function (actual, regex, message) {
+        var success = !!regex && !!actual && (new RegExp(regex)).test(actual);
+        var expected = "String matching /" + regex.toString() + "/";
+        this.push(success, actual, expected, message);
+    }
+});

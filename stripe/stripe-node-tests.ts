@@ -941,6 +941,39 @@ stripe.plans.list().then(function (plans) {
 //#region Subscriptions tests
 // ##################################################################################
 
+stripe.subscriptions.create({ plan: "platypi-dev", customer: "cus_5rfJKDJkuxzh5Q" }, function(err, subscription) {
+    // asynchronously called
+});
+stripe.subscriptions.create({ plan: "platypi-dev", customer: "cus_5rfJKDJkuxzh5Q" }).then(function(subscription) {
+    // asynchronously called
+});
 
+stripe.subscriptions.retrieve("sub_8QwCiwZ9tmMSpt", function(err, subscription) {
+    // asynchronously called
+});
+stripe.subscriptions.retrieve("sub_8QwCiwZ9tmMSpt").then(function(subscription) {
+    // asynchronously called
+});
+
+stripe.subscriptions.update("sub_8QwCiwZ9tmMSpt", { plan: "platypi" }, function(err, subscription) {
+    // asynchronously called
+});
+stripe.subscriptions.update("sub_8QwCiwZ9tmMSpt", { plan: "platypi" }).then(function(subscription) {
+    // asynchronously called
+});
+
+stripe.subscriptions.del("sub_8QwCiwZ9tmMSpt", function(err, subscription) {
+    // asynchronously called
+});
+stripe.subscriptions.del("sub_8QwCiwZ9tmMSpt").then(function(subscription) {
+    // asynchronously called
+});
+
+stripe.subscriptions.list({ customer: "cus_5rfJKDJkuxzh5Q", plan: "platypi-dev" }, function(err, subscriptions) {
+    // asynchronously called
+});
+stripe.subscriptions.list({ customer: "cus_5rfJKDJkuxzh5Q", plan: "platypi-dev" }).then(function(subscriptions) {
+    // asynchronously called
+});
 
 //#endregion

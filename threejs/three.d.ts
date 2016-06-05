@@ -1928,9 +1928,9 @@ declare namespace THREE {
     }
 
     export interface LoaderHandler{
-        handlers: any[];
+        handlers: (RegExp | Loader)[];
 
-        add(regex: string, loader: Loader): void;
+        add(regex: RegExp, loader: Loader): void;
         get(file: string): Loader;
     }
 
@@ -2477,8 +2477,9 @@ declare namespace THREE {
 
     export interface MeshStandardMaterialParameters extends MaterialParameters {
         color?: number|string;
-        roughtness?: number;
+        roughness?: number;
         metalness?: number;
+        map?: Texture;
         lighhtMap?: Texture;
         lightMapIntensity?: number;
         aoMap?: Texture;
@@ -2493,7 +2494,7 @@ declare namespace THREE {
         displacementMap?: Texture;
         displacementScale?: number;
         displacementBias?: number;
-        roughtnessMap?: Texture;
+        roughnessMap?: Texture;
         metalMap?: Texture;
         alphaMap?: Texture;
         envMap?: Texture;
@@ -2514,7 +2515,7 @@ declare namespace THREE {
         constructor(parameters?: MeshStandardMaterialParameters);
 
         color: Color;
-        roughtness: number;
+        roughness: number;
         metalness: number;
         map: Texture;
         lighhtMap: Texture;
@@ -2531,7 +2532,7 @@ declare namespace THREE {
         displacementMap: Texture;
         displacementScale: number;
         displacementBias: number;
-        roughtnessMap: Texture;
+        roughnessMap: Texture;
         metalMap: Texture;
         alphaMap: Texture;
         envMap: Texture;
@@ -3146,7 +3147,7 @@ declare namespace THREE {
         onChange(callback: Function): void;
 
         static RotationOrders: string[];
-        static DefautlOrder: string;
+        static DefaultOrder: string;
     }
 
     /**
@@ -4164,7 +4165,7 @@ declare namespace THREE {
         applyMatrix4(m: Matrix4): Vector3;
         applyProjection(m: Matrix4): Vector3;
         applyQuaternion(q: Quaternion): Vector3;
-        project(camrea: Camera): Vector3;
+        project(camera: Camera): Vector3;
         unproject(camera: Camera): Vector3;
         transformDirection(m: Matrix4): Vector3;
         divide(v: Vector3): Vector3;
@@ -5082,8 +5083,8 @@ declare namespace THREE {
         points_vert: string;
         premultiplied_alpha_fragment: string;
         project_vertex: string;
-        roughtnessmap_fragment: string;
-        roughtnessmap_pars_fragment: string;
+        roughnessmap_fragment: string;
+        roughnessmap_pars_fragment: string;
         shadowmap_pars_fragment: string;
         shadowmap_pars_vertex: string;
         shadowmap_vertex: string;
@@ -5167,7 +5168,7 @@ declare namespace THREE {
             displacementScale: IUniform;
             displacementBias: IUniform;
         };
-        roughtnessmap: { roughtnessMap: IUniform };
+        roughnessmap: { roughnessMap: IUniform };
         metalnessmap: { metalnessMap: IUniform };
         fog: {
             fogDensity: IUniform;
@@ -6001,7 +6002,7 @@ declare namespace THREE {
     }
     
 
-    // Extras / Geomerties /////////////////////////////////////////////////////////////////////
+    // Extras / Geometries /////////////////////////////////////////////////////////////////////
     export class BoxBufferGeometry extends BufferGeometry {
         constructor(width: number, height: number, depth: number, widthSegments?: number, heightSegments?: number, depthSegments?: number);
 

@@ -13,7 +13,7 @@ Path.history.listen(() =>{
 var initial = Path.history.initial;
 
 //Core
-var route = Path.core.route("/test/:id");
+var route = new Path.core.route("/test/:id");
 
 function test1() {
 	

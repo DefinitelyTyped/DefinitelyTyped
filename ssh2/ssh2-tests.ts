@@ -293,6 +293,15 @@ conn.on('ready', () => {
     password: 'honk'
 });
 
+// ConnectConfig
+
+const sshconfig: ssh2.ConnectConfig = {
+    host: 'localhost',
+    port: 22,
+    username: 'ubuntu',
+    password: 'password'
+};
+
 //
 // # Server Examples
 //

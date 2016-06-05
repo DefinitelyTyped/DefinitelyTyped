@@ -231,15 +231,17 @@ arrSchema = arrSchema.sparse();
 arrSchema = arrSchema.sparse(bool);
 arrSchema = arrSchema.single();
 arrSchema = arrSchema.single(bool);
+arrSchema = arrSchema.ordered(anySchema);
+arrSchema = arrSchema.ordered(anySchema, numSchema, strSchema, arrSchema, boolSchema, binSchema, dateSchema, funcSchema, objSchema);
 arrSchema = arrSchema.min(num);
 arrSchema = arrSchema.max(num);
 arrSchema = arrSchema.length(num);
 arrSchema = arrSchema.unique();
 
+
 arrSchema = arrSchema.items(numSchema);
 arrSchema = arrSchema.items(numSchema, strSchema);
 arrSchema = arrSchema.items([numSchema, strSchema]);
-
 
 // - - - - - - - -
 
@@ -420,6 +422,10 @@ dateSchema = dateSchema.format(strArr);
 
 dateSchema = dateSchema.iso();
 
+dateSchema = dateSchema.timestamp();
+dateSchema = dateSchema.timestamp('javascript');
+dateSchema = dateSchema.timestamp('unix');
+
 namespace common {
 	dateSchema = dateSchema.allow(x);
 	dateSchema = dateSchema.allow(x, x);
@@ -470,6 +476,11 @@ namespace common {
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 funcSchema = Joi.func();
+
+funcSchema = funcSchema.arity(num);
+funcSchema = funcSchema.minArity(num);
+funcSchema = funcSchema.maxArity(num);
+funcSchema = funcSchema.ref();
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -770,5 +781,15 @@ Joi.assert(obj, schema);
 Joi.assert(obj, schema, str);
 Joi.assert(obj, schema, err);
 
+Joi.attempt(obj, schema);
+Joi.attempt(obj, schema, str);
+Joi.attempt(obj, schema, err);
+
 ref = Joi.ref(str, refOpts);
 ref = Joi.ref(str);
+
+Joi.isRef(ref);
+
+schema = Joi.reach(schema, '');
+
+const Joi2 = Joi.extend({ name: '', base: schema });

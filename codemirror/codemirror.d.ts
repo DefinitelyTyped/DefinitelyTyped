@@ -1125,6 +1125,115 @@ declare namespace CodeMirror {
         severity?: string;
         to?: Position;
     }
+
+    /**
+     * A function that calculates either a two-way or three-way merge between different sets of content.
+     */
+    function MergeView(element: HTMLElement, options?: MergeView.MergeViewEditorConfiguration): MergeView.MergeViewEditor;
+
+    namespace MergeView {
+      /**
+       * Options available to MergeView.
+       */
+      interface MergeViewEditorConfiguration extends EditorConfiguration {
+          /**
+           * Determines whether the original editor allows editing. Defaults to false.
+           */
+          allowEditingOriginals?: boolean;
+
+          /**
+           * When true stretches of unchanged text will be collapsed. When a number is given, this indicates the amount
+           * of lines to leave visible around such stretches (which defaults to 2). Defaults to false.
+           */
+          collapseIdentical?: boolean | number;
+
+          /**
+           * Sets the style used to connect changed chunks of code. By default, connectors are drawn. When this is set to "align",
+           * the smaller chunk is padded to align with the bigger chunk instead.
+           */
+          connect?: string;
+
+          /**
+           * Callback for when stretches of unchanged text are collapsed.
+           */
+          onCollapse?(mergeView: MergeViewEditor, line: number, size: number, mark: TextMarker): void;
+
+          /**
+           * Provides original version of the document to be shown on the right of the editor.
+           */
+          orig: any;
+
+          /**
+           * Provides original version of the document to be shown on the left of the editor.
+           * To create a 2-way (as opposed to 3-way) merge view, provide only one of origLeft and origRight.
+           */
+          origLeft?: any;
+
+          /**
+           * Provides original version of document to be shown on the right of the editor.
+           * To create a 2-way (as opposed to 3-way) merge view, provide only one of origLeft and origRight.
+           */
+          origRight?: any;
+
+          /**
+           * Determines whether buttons that allow the user to revert changes are shown. Defaults to true.
+           */
+          revertButtons?: boolean;
+
+          /**
+           * When true, changed pieces of text are highlighted. Defaults to true.
+           */
+          showDifferences?: boolean;
+      }
+
+      interface MergeViewEditor extends Editor {
+          /**
+           * Returns the editor instance.
+           */
+          editor(): Editor;
+
+          /**
+           * Left side of the merge view.
+           */
+          left: DiffView;
+          leftChunks(): MergeViewDiffChunk;
+          leftOriginal(): Editor;
+
+          /**
+           * Right side of the merge view.
+           */
+          right: DiffView;
+          rightChunks(): MergeViewDiffChunk;
+          rightOriginal(): Editor;
+
+          /**
+           * Sets whether or not the merge view should show the differences between the editor views.
+           */
+          setShowDifferences(showDifferences: boolean): void;
+      }
+
+      /**
+       * Tracks changes in chunks from oroginal to new.
+       */
+      interface MergeViewDiffChunk {
+          editFrom: number;
+          editTo: number;
+          origFrom: number;
+          origTo: number;
+      }
+
+      interface DiffView {
+          /**
+           * Forces the view to reload.
+           */
+          forceUpdate(): (mode: string) => void;
+
+          /**
+           * Sets whether or not the merge view should show the differences between the editor views.
+           */
+          setShowDifferences(showDifferences: boolean): void;
+      }
+    }
 }
 
 declare module "codemirror" {

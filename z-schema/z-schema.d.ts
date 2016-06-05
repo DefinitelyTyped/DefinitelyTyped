@@ -40,6 +40,12 @@ declare namespace ZSchema {
         constructor(options: Options);
 
         /**
+         * @param schema - JSON object representing schema
+         * @returns {boolean} true if schema is valid.
+         */
+        validateSchema(schema: any): boolean;
+
+        /**
          * @param json - either a JSON string or a parsed JSON object
          * @param schema - the JSON object representing the schema
          * @returns true if json matches schema

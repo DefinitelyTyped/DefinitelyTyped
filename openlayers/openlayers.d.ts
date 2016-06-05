@@ -2936,7 +2936,7 @@ declare namespace ol {
              * @param destination The desired projection. Can be a string identifier or a ol.proj.Projection object.
              * @return This geometry. Note that original geometry is modified in place.
              */
-            transform(source: ol.proj.ProjectionLike, destination: ol.proj.ProjectionLike): ol.geom.Geometry;
+            transform(source: ol.proj.ProjectionLike | ol.proj.Projection, destination: ol.proj.ProjectionLike | ol.proj.Projection): ol.geom.Geometry;
         }
 
         /**
@@ -4054,6 +4054,12 @@ declare namespace ol {
             constructor(options: olx.Projection);
 
             getExtent(): Extent;
+
+            /**
+             * Set the validity extent for this projection.
+             * @param extent The new extent of the projection.
+             */
+            setExtent(extent: Extent): void;
         }
     }
 
