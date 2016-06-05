@@ -673,12 +673,6 @@ declare namespace  __React {
         onKeyPress?: () => void
 
         /**
-         * enum('default', 'go', 'google', 'join', 'next', 'route', 'search', 'send', 'yahoo', 'done', 'emergency-call')
-         * Determines how the return key should look.
-         */
-        returnKeyType?: "default" | "go" | "google" | "join" | "next" | "route" | "search" | "send" | "yahoo" | "done" | "emergency-call"
-
-        /**
          * //FIXME: requires typing
          * See DocumentSelectionState.js, some state that is responsible for maintaining selection information for a document
          */
@@ -834,6 +828,12 @@ declare namespace  __React {
          * The text color of the placeholder string
          */
         placeholderTextColor?: string
+
+        /**
+         * enum('default', 'go', 'google', 'join', 'next', 'route', 'search', 'send', 'yahoo', 'done', 'emergency-call')
+         * Determines how the return key should look.
+         */
+        returnKeyType?: "default" | "go" | "google" | "join" | "next" | "route" | "search" | "send" | "yahoo" | "done" | "emergency-call"
 
         /**
          * If true, the text input obscures the text entered so that sensitive text like passwords stay secure.
