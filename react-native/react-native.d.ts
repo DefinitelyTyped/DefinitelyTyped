@@ -1356,6 +1356,11 @@ declare namespace  __React {
 
     export interface ViewPagerAndroidProperties extends ViewProperties {
         initialPage?: number;
+        /**
+         * When false, the content does not scroll.
+         * The default value is true.
+         */
+        scrollEnabled?: boolean;
         onPageScroll?: ( event: NativeSyntheticEvent<ViewPagerAndroidOnPageScrollEventData> ) => void;
         onPageSelected?: ( event: NativeSyntheticEvent<ViewPagerAndroidOnPageSelectedEventData> ) => void;
         onPageScrollStateChanged?: (state: "Idle" | "Dragging" | "Settling") => void
