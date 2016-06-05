@@ -1,6 +1,6 @@
 // Type definitions for Web MIDI API
 // Project: http://www.w3.org/TR/webmidi/
-// Definitions by: Toshiya Nakakura <https://github.com/nakakura>
+// Definitions by: six a <https://github.com/lostfictions>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Navigator {
@@ -19,28 +19,14 @@ declare namespace WebMidi{
         sysex: boolean;
     }
 
-    export interface IteratorItem<S>{
-        value: S;
-        done: boolean;
-    }
-
-    export interface Iterator<S>{
-        next(): IteratorItem<S>;
-    }
-
-    interface Tuple2<A,B> {
-        fst: A
-        snd: B
-    }
-
     /**
      * This type is used to represent all the currently available MIDI input ports as a MapClass-like interface
      */
     export interface MIDIInputMap{
         size: number;
-        keys: ()=>Iterator<string>;
-        entries: ()=>Iterator<Tuple2<string, MIDIInput>>;
-        values(): Iterator<MIDIInput>;
+        keys(): Iterable<string>;
+        values(): Iterable<MIDIInput>;
+        entries(): Iterable<[string, MIDIInput]>;
         get(key: string): MIDIInput;
         has(key: string): boolean;
     }
@@ -50,9 +36,9 @@ declare namespace WebMidi{
      */
     export interface MIDIOutputMap{
         size: number;
-        keys: ()=>Iterator<string>;
-        entries: ()=>Iterator<Tuple2<string, MIDIOutput>>;
-        values(): Iterator<MIDIOutput>;
+        keys(): Iterable<string>;
+        values(): Iterable<MIDIOutput>;
+        entries(): Iterable<[string, MIDIOutput]>;
         get(key: string): MIDIOutput;
         has(key: string): boolean;
     }
