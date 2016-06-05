@@ -3896,6 +3896,15 @@ declare namespace  __React {
          */
         endFillColor?: string
 
+        /**
+         * Tag used to log scroll performance on this scroll view. Will force
+         * momentum events to be turned on (see sendMomentumEvents). This doesn't do
+         * anything out of the box and you need to implement a custom native
+         * FpsListener for it to be useful.
+         * @platform android
+         */
+        scrollPerfTag?: string
+
     }
 
     export interface ScrollViewProperties extends ScrollViewPropertiesIOS, ScrollViewPropertiesAndroid, Touchable {
