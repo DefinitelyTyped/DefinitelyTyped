@@ -4031,6 +4031,41 @@ declare namespace  __React {
         layoutMeasurement: NativeScrollSize;
         zoomScale: number;
     }
+    
+    // Deduced from
+    // https://github.com/facebook/react-native/commit/052cd7eb8afa7a805ef13e940251be080499919c
+
+    /**
+     * Data source wrapper around ListViewDataSource to allow for tracking of
+     * which row is swiped open and close opened row(s) when another row is swiped
+     * open.
+     *
+     * See https://github.com/facebook/react-native/pull/5602 for why
+     * ListViewDataSource is not subclassed.
+     */
+    export interface SwipeableListViewDataSource {
+        cloneWithRowsAndSections(dataBlob: any,
+                                 sectionIdentities: Array<string>,
+                                 rowIdentities: Array<Array<string>>): SwipeableListViewDataSource
+        getDataSource(): ListViewDataSource
+        getOpenRowID(): string
+        setOpenRowID(rowID: string): ListViewDataSource
+    }
+    
+    export interface SwipeableListViewProps extends React.Props<SwipeableListViewStatic> {
+        dataSource: SwipeableListViewDataSource
+        maxSwipeDistance?: number
+        
+        // Callback method to render the swipeable view
+        renderRow: ( rowData: any, sectionID: string | number, rowID: string | number, highlightRow?: boolean ) => React.ReactElement<any>
+        
+        // Callback method to render the view that will be unveiled on swipe
+        renderQuickActions(rowData: Object, sectionID: string, rowID: string): React.ReactElement<any>
+    }
+    
+    export interface SwipeableListViewStatic extends React.ComponentClass<SwipeableListViewProps> {
+        getNewDataSource(): SwipeableListViewDataSource
+    }
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -5553,6 +5588,9 @@ declare namespace  __React {
 
     export var StyleSheet: StyleSheetStatic
     export type StyleSheet = StyleSheetStatic
+    
+    export var SwipeableListView: SwipeableListViewStatic
+    export type SwipeableListView = SwipeableListViewStatci
 
     export var Switch: SwitchStatic
     export type Switch = SwitchStatic
@@ -5675,6 +5713,9 @@ declare namespace  __React {
 
     export type NavigationReducer = NavigationReducerStatic;
     export var NavigationReducer: NavigationReducerStatic;
+    
+    export type SwipeableListView = SwipeableListViewStatic;
+    export var SwipeableListView: SwipeableListViewStatic;
 
     export type Easing = EasingStatic;
     export var Easing: EasingStatic;
