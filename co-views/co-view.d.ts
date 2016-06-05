@@ -57,23 +57,11 @@ declare module "co-views" {
         locals?: Object
     }
 
-    interface RenderFunction {
-        /**
-         * template path
-         */
-        view: string,
-
-        /**
-         * template locals data
-         */
-        locals: Object
-    }
-
     /**
      * Pass views `dir` and `opts` to return a render function.
      */
     function views(dir?: string, opts?: ICoViewsOpts): {
-        (view: string, locals?: Object): RenderFunction
+        (view: string, locals?: Object): any
     };
 
     export = views;
