@@ -1,19 +1,10 @@
 /// <reference path="webmidi.d.ts" />
 
-if (navigator.requestMIDIAccess !== undefined) {
-    navigator.requestMIDIAccess().then(onSuccessCallback, onErrorCallback);
-}
-
-var onSuccessCallback = (item: WebMidi.MIDIAccess)=>{
+var onFulfilled = (item: WebMidi.MIDIAccess) => {
     this._midiPort = item;
 
-    item.onconnect = (event: WebMidi.MIDIConnectionEvent)=>{
-        console.log("onconnect");
-        console.log(event);
-    };
-
-    item.ondisconnect = (event: WebMidi.MIDIConnectionEvent)=>{
-        console.log("ondisconnect");
+    item.onstatechange = (event : WebMidi.MIDIConnectionEvent) => {
+        console.log("onstatechange");
         console.log(event);
     };
 
@@ -40,8 +31,8 @@ var onSuccessCallback = (item: WebMidi.MIDIAccess)=>{
     }
 };
 
-var onErrorCallback = (access: Error)=>{ };
+var onRejected = (e: Error)=>{ console.error(e) };
 
-var onMidiMessage = (event: Uint8Array)=>{
-    console.log(event);
-};
+if (navigator.requestMIDIAccess !== undefined) {
+    navigator.requestMIDIAccess().then(onFulfilled, onRejected);
+}
