@@ -5511,7 +5511,8 @@ declare namespace  __React {
         renderScene?(props): JSX.Element
     }
     
-    export interface NavigationCardStackStatic extends React.ComponentClass<NavigationCardStackProps>
+    export interface NavigationCardStackStatic extends React.ComponentClass<NavigationCardStackProps> {
+    }
 
     export interface NavigationExperimentalStatic {
         AnimatedView: NavigationAnimatedViewStatic;
