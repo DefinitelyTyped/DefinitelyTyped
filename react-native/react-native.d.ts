@@ -3812,13 +3812,6 @@ declare namespace  __React {
         onScrollAnimationEnd?: () => void
 
         /**
-         * When true the scroll view stops on multiples of the scroll view's size
-         * when scrolling. This can be used for horizontal pagination. The default
-         * value is false.
-         */
-        pagingEnabled?: boolean
-
-        /**
          * When false, the content does not scroll. The default value is true
          */
         scrollEnabled?: boolean // true
@@ -3935,6 +3928,13 @@ declare namespace  __React {
          * The frequency of the events can be contolled using the scrollEventThrottle prop.
          */
         onScroll?: (event?: { nativeEvent: NativeScrollEvent }) => void
+        
+        /**
+         * When true the scroll view stops on multiples of the scroll view's size
+         * when scrolling. This can be used for horizontal pagination. The default
+         * value is false.
+         */
+        pagingEnabled?: boolean
 
         /**
          * Experimental: When true offscreen child views (whose `overflow` value is
