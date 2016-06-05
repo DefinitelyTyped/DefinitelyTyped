@@ -2163,6 +2163,12 @@ declare namespace  __React {
          * Size of the refresh indicator, see RefreshControl.SIZE.
          */
         size?: number
+        
+        /**
+         * Progress view top offset
+         * @platform android
+         */
+        progressViewOffset?: number
     }
 
     export interface RefreshControlProperties extends RefreshControlPropertiesIOS, RefreshControlPropertiesAndroid, React.Props<RefreshControl> {
@@ -2179,6 +2185,7 @@ declare namespace  __React {
     }
 
     export interface RefreshControlStatic extends React.ComponentClass<RefreshControlProperties> {
+        SIZE: Object // Undocumented
     }
 
     export interface SliderPropertiesIOS extends React.Props<SliderStatic> {
