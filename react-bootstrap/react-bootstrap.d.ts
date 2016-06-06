@@ -157,7 +157,7 @@ declare module "react-bootstrap" {
 
     // <Collapse />
     interface CollapseProps
-        extends TransitionCallbacks, React.Props<CollapseClass>
+        extends TransitionCallbacks, React.Props<Collapse>
     {
         dimension?: 'height' | 'width' | { ( ):string };
         getDimensionValue?: ( dimension:number, element:React.ReactElement<any> ) => number;
