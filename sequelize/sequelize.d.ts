@@ -3116,16 +3116,21 @@ declare module "sequelize" {
         }
 
         /**
+         * Shortcut for types used in FindOptions.attributes
+         */
+		type FindOptionsAttriburesArray = Array<string | [string, string] | fn | [fn, string] | cast | [cast, string]>;
+
+        /**
          * Options that are passed to any model creating a SELECT query
          *
          * A hash of options to describe the scope of the search
          */
-        interface FindOptions {
+		interface FindOptions {
 
             /**
              * A hash of attributes to describe your search. See above for examples.
              */
-            where? : WhereOptions | Array<col | and | or | string>;
+            where?: WhereOptions | Array<col | and | or | string>;
 
             /**
              * A list of the attributes that you want to select. To rename an attribute, you can pass an array, with
@@ -3133,7 +3138,7 @@ declare module "sequelize" {
              * `Sequelize.literal`, `Sequelize.fn` and so on), and the second is the name you want the attribute to
              * have in the returned instance
              */
-            attributes?: Array<string | fn | [string, string] | [fn, string]> | { include?: Array<string>, exclude?: Array<string> };
+            attributes?: FindOptionsAttriburesArray | { include?: FindOptionsAttriburesArray, exclude?: Array<string> };
 
             /**
              * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
