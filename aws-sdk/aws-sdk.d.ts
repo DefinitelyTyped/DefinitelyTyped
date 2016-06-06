@@ -166,11 +166,105 @@ declare module "aws-sdk" {
 		constructor(options?: any);
 	}
 
+	// ==========================================================
+
 	export module DynamoDB {
+
+		interface _DDBDC_Generic {
+			TableName: string;
+			ExpressionAttributeNames?: string[];
+			ReturnConsumedCapacity?: "INDEXES" | "TOTAL" | "NONE";
+		}
+
+		type _DDBDC_ComparisonOperator = "EQ" | "NE" | "IN" | "LE" | "LT" | "GE" | "GT" | "BETWEEN" | "NOT_NULL" | "NULL" | "CONTAINS" | "NOT_CONTAINS" | "BEGINS_WITH"
+		type _DDBDC_Keys = { [someKey: string]: any };
+		type _DDBDC_KeyComparison = {
+			[someKey: string]: {
+				AttributeValueList: any[];
+				ComparisonOperator: _DDBDC_ComparisonOperator;
+			}
+		};
+
+		interface _DDBDC_Reader extends _DDBDC_Generic {
+			ConsistentRead?: boolean;
+			ProjectionExpression?: string;
+			AttributesToGet?: string[];
+		}
+
+		interface _DDBDC_Writer extends _DDBDC_Generic {
+			ExpressionAttributeValues?: _DDBDC_Keys;
+			ReturnItemCollectionMetrics?: "SIZE" | "NONE";
+			ReturnValues?: "NONE" | "ALL_OLD" | "UPDATED_OLD" | "ALL_NEW" | "UPDATED_NEW";
+			ConditionExpression?: string;
+			ConditionalOperator?: "AND" | "OR";
+			Expected?: {
+				[someKey: string]: {
+					AttributeValueList: any[];
+					ComparisonOperator: _DDBDC_ComparisonOperator;
+					Exists: boolean;
+					Value: any;
+				}
+			}
+		}
+
+		interface UpdateParam extends _DDBDC_Writer {
+			Key: _DDBDC_Keys;
+			AttributeUpdates: {
+				[someKey: string]: {
+					Action: "PUT" | "ADD" | "DELETE";
+					Value: any
+				}
+			}
+		}
+
+		interface QueryParam extends _DDBDC_Reader {
+			ConditionalOperator?: "AND" | "OR";
+			ExclusiveStartKey?: _DDBDC_Keys;
+			ExpressionAttributeValues?: _DDBDC_Keys;
+			FilterExpression?: string;
+			IndexName?: string;
+			KeyConditionExpression?: string;
+			KeyConditions?: _DDBDC_KeyComparison;
+			Limit?: number;
+			QueryFilter?: _DDBDC_KeyComparison;
+			ScanIndexForward?: boolean;
+			Select?: "ALL_ATTRIBUTES" | "ALL_PROJECTED_ATTRIBUTES" | "SPECIFIC_ATTRIBUTES" | "COUNT";
+		}
+
+		interface ScanParam extends QueryParam {
+			Segment?: number;
+			ScanFilter?: _DDBDC_KeyComparison;
+			TotalSegments?: number;
+		}
+		
+		interface GetParam extends _DDBDC_Reader {
+			Key: _DDBDC_Keys;
+		}
+
+		interface PutParam extends _DDBDC_Writer {
+			Item: _DDBDC_Keys;
+		}
+
+		interface DeleteParam extends _DDBDC_Writer {
+			Key: _DDBDC_Keys;
+		}
+
 		export class DocumentClient {
 			constructor(options?: any);
+			get(params: GetParam, next: (err: any, data: any) => void): void;
+			put(params: PutParam, next: (err: any, data: any) => void): void;
+			delete(params: DeleteParam, next: (err: any, data: any) => void): void;
+			query(params: QueryParam, next: (err: any, data: any) => void): void;
+			scan(params: ScanParam, next: (err: any, data: any) => void): void;
+			update(params: UpdateParam, next: (err: any, data: any) => void): void;
+			createSet(list: any[], options?: { validate?: boolean }): { values: any[], type: string };
+			batchGet(params: any, next: (err: any, data: any) => void): void;
+			batchWrite(params: any, next: (err: any, data: any) => void): void;
 		}
+
 	}
+
+// ===========================================================
 
 	export module SQS {
 		
