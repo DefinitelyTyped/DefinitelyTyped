@@ -2542,5 +2542,5 @@ declare namespace Immutable {
 }
 
 declare module "immutable" {
-  export = __Immutable
+  export = Immutable;
 }
