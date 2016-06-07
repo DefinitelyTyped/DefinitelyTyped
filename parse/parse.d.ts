@@ -845,8 +845,8 @@ declare namespace Parse {
         }
 
         interface FunctionResponse {
-            success?: (response: HttpResponse) => void;
-            error?: (response: HttpResponse) => void;
+            success?: (response: any) => void;
+            error?: (response: any) => void;
         }
 
         interface Cookie {
