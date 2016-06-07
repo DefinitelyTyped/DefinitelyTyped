@@ -855,14 +855,18 @@ declare namespace Parse {
             value?: string;
         }
 
-        interface AfterSaveRequest extends FunctionRequest {}
+        interface SaveRequest extends FunctionRequest {
+            object: Object;
+        }
+
+        interface AfterSaveRequest extends SaveRequest {}
         interface AfterDeleteRequest extends FunctionRequest {}
         interface BeforeDeleteRequest extends FunctionRequest {}
         interface BeforeDeleteResponse extends FunctionResponse {}
-        interface BeforeSaveRequest extends FunctionRequest {
-            object: Object;
+        interface BeforeSaveRequest extends SaveRequest {}
+        interface BeforeSaveResponse extends FunctionResponse {
+            success?: () => void;
         }
-        interface BeforeSaveResponse extends FunctionResponse {}
 
         function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => void): void;
         function afterSave(arg1: any, func?: (request: AfterSaveRequest) => void): void;
