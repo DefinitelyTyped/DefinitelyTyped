@@ -3,7 +3,7 @@
 // Definitions by: Torsten Werner <https://github.com/torstenwerner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'node-fetch' {
+declare module _fetch {
 
 	class Request extends Body {
 		constructor(input: string | Request, init?: RequestInit);
@@ -88,5 +88,8 @@ declare module 'node-fetch' {
 	type RequestInfo = Request | string;
 
     function fetch(url: string | Request, init?: RequestInit): Promise<Response>;
-    export = fetch;
+}
+
+declare module "node-fetch" {
+	export = _fetch.fetch;
 }
