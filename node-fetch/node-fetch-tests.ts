@@ -3,9 +3,9 @@
 import fetch = require('node-fetch');
 
 function test_fetchUrlWithOptions() {
-	var headers = new Headers();
+	var headers = new _fetch.Headers();
 	headers.append("Content-Type", "application/json");
-	var requestOptions: RequestInit = {
+	var requestOptions: _fetch.RequestInit = {
 		method: "POST",
 		headers: headers,
 		mode: 'same-origin',
@@ -17,7 +17,7 @@ function test_fetchUrlWithOptions() {
 }
 
 function test_fetchUrlWithHeadersObject() {
-	var requestOptions: RequestInit = {
+	var requestOptions: _fetch.RequestInit = {
 		method: "POST",
 		headers: {
 			'Content-Type': 'application/json'
@@ -31,13 +31,13 @@ function test_fetchUrl() {
 }
 
 function test_fetchUrlWithRequestObject() {
-	var requestOptions: RequestInit = {
+	var requestOptions: _fetch.RequestInit = {
 		method: "POST",
 		headers: {
 			'Content-Type': 'application/json'
 		}
 	};
-	var request: Request = new Request("http://www.andlabs.net/html5/uCOR.php", requestOptions);
+	var request: _fetch.Request = new _fetch.Request("http://www.andlabs.net/html5/uCOR.php", requestOptions);
 	handlePromise(fetch(request));
 }
 
@@ -48,7 +48,7 @@ function test_globalFetchVar() {
 		});
 }
 
-function handlePromise(promise: Promise<Response>) {
+function handlePromise(promise: Promise<_fetch.Response>) {
 	promise.then((response) => {
 		if (response.type === 'basic') {
 			// for test only
