@@ -334,7 +334,7 @@ declare namespace Parse {
         dirtyKeys(): string[];
         escape(attr: string): string;
         existed(): boolean;
-        fetch<T>(options?: Object.FetchOptions): Promise<T>;
+        fetch<T extends Object>(options?: Object.FetchOptions): Promise<T>;
         get(attr: string): any;
         getACL(): ACL;
         has(attr: string): boolean;
@@ -711,7 +711,7 @@ declare namespace Parse {
 
         signUp<T>(attrs: any, options?: SuccessFailureOptions): Promise<T>;
         logIn<T>(options?: SuccessFailureOptions): Promise<T>;
-        fetch<T>(options?: SuccessFailureOptions): Promise<T>;
+        fetch<T extends User>(options?: SuccessFailureOptions): Promise<T>;
         save<T extends User>(options?: Object.SaveOptions, arg2?: any, arg3?: any): Promise<T>;
         authenticated(): boolean;
         isCurrent(): boolean;
