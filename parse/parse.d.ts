@@ -77,8 +77,8 @@ declare namespace Parse {
         static as<U>(resolvedValue: U): Promise<U>;
         static error<U>(error: U): Promise<U>;
         static is(possiblePromise: any): Boolean;
-        static when(promises: Promise<any>[]): Promise<any>;
-        static when(...promises: Promise<any>[]): Promise<any>;
+        static when(promises: IPromise<any>[]): Promise<any>;
+        static when(...promises: IPromise<any>[]): Promise<any>;
 
         always(callback: Function): Promise<T>;
         done(callback: Function): Promise<T>;
