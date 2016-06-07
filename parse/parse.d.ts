@@ -67,9 +67,9 @@ declare namespace Parse {
 
     interface IPromise<T> {
 
-        then<U>(resolvedCallback: (value: T) => IPromise<U>, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
-        then<U>(resolvedCallback: (value: T) => U, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
-        then<U>(resolvedCallback: (value: T) => U, rejectedCallback?: (reason: any) => U): IPromise<U>;
+        then<U>(resolvedCallback: (...values: T[]) => IPromise<U>, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
+        then<U>(resolvedCallback: (...values: T[]) => U, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+        then<U>(resolvedCallback: (...values: T[]) => U, rejectedCallback?: (reason: any) => U): IPromise<U>;
     }
 
     class Promise<T> {
@@ -78,17 +78,18 @@ declare namespace Parse {
         static error<U>(error: U): Promise<U>;
         static is(possiblePromise: any): Boolean;
         static when(promises: Promise<any>[]): Promise<any>;
+        static when(...promises: Promise<any>[]): Promise<any>;
 
         always(callback: Function): Promise<T>;
         done(callback: Function): Promise<T>;
         fail(callback: Function): Promise<T>;
         reject(error: any): void;
         resolve(result: any): void;
-        then<U>(resolvedCallback: (value: T) => Promise<U>,
+        then<U>(resolvedCallback: (...values: T[]) => Promise<U>,
                 rejectedCallback?: (reason: any) => Promise<U>): IPromise<T>;
-        then<U>(resolvedCallback: (value: T) => U,
+        then<U>(resolvedCallback: (...values: T[]) => U,
             rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
-        then<U>(resolvedCallback: (value: T) => U,
+        then<U>(resolvedCallback: (...values: T[]) => U,
             rejectedCallback?: (reason: any) => U): IPromise<T>;
     }
 
