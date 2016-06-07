@@ -698,6 +698,7 @@ declare namespace Parse {
         static allowCustomUserClass(isAllowed: boolean): void;
         static become<T>(sessionToken: string, options?: SuccessFailureOptions): Promise<T>;
         static requestPasswordReset<T>(email: string, options?: SuccessFailureOptions): Promise<T>;
+        static extend(protoProps?: any, classProps?: any): any;
 
         signUp<T>(attrs: any, options?: SuccessFailureOptions): Promise<T>;
         logIn<T>(options?: SuccessFailureOptions): Promise<T>;
