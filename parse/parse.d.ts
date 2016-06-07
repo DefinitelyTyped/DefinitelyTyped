@@ -320,7 +320,7 @@ declare namespace Parse {
         static fetchAll<T>(list: Object[], options: SuccessFailureOptions): Promise<T>;
         static fetchAllIfNeeded<T>(list: Object[], options: SuccessFailureOptions): Promise<T>;
         static destroyAll<T>(list: Object[], options?: Object.DestroyAllOptions): Promise<T>;
-        static saveAll<T>(list: Object[], options?: Object.SaveAllOptions): Promise<T>;
+        static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
 
         initialize(): void;
         add(attr: string, item: any): Object;
@@ -346,7 +346,7 @@ declare namespace Parse {
         previousAttributes(): any;
         relation(attr: string): Relation;
         remove(attr: string, item: any): any;
-        save<T>(options?: Object.SaveOptions, arg2?: any, arg3?: any): Promise<T>;
+        save<T extends Object>(options?: Object.SaveOptions, arg2?: any, arg3?: any): Promise<T>;
         set(key: string, value: any, options?: Object.SetOptions): boolean;
         setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
         unset(attr: string, options?: any): any;
@@ -712,7 +712,7 @@ declare namespace Parse {
         signUp<T>(attrs: any, options?: SuccessFailureOptions): Promise<T>;
         logIn<T>(options?: SuccessFailureOptions): Promise<T>;
         fetch<T>(options?: SuccessFailureOptions): Promise<T>;
-        save<T>(arg1: any, arg2: any, arg3: any): Promise<T>;
+        save<T extends User>(options?: Object.SaveOptions, arg2?: any, arg3?: any): Promise<T>;
         authenticated(): boolean;
         isCurrent(): boolean;
 
