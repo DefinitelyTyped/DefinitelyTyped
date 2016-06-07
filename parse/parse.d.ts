@@ -72,7 +72,7 @@ declare namespace Parse {
         then<U>(resolvedCallback: (...values: T[]) => U, rejectedCallback?: (reason: any) => U): IPromise<U>;
     }
 
-    class Promise<T> {
+    class Promise<T> implements IPromise<T> {
 
         static as<U>(resolvedValue: U): Promise<U>;
         static error<U>(error: U): Promise<U>;
@@ -85,8 +85,8 @@ declare namespace Parse {
         fail(callback: Function): Promise<T>;
         reject(error: any): void;
         resolve(result: any): void;
-        then<U>(resolvedCallback: (...values: T[]) => Promise<U>,
-                rejectedCallback?: (reason: any) => Promise<U>): IPromise<T>;
+        then<U>(resolvedCallback: (...values: T[]) => IPromise<U>,
+                rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
         then<U>(resolvedCallback: (...values: T[]) => U,
             rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
         then<U>(resolvedCallback: (...values: T[]) => U,
