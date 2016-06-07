@@ -927,7 +927,10 @@ declare namespace Parse {
 
     }
 
-    enum ErrorCode {
+    /*
+     * We need to inline the codes in order to make compilation work without this type definition as dependency.
+     */
+    const enum ErrorCode {
 
         OTHER_CAUSE = -1,
         INTERNAL_SERVER_ERROR = 1,
