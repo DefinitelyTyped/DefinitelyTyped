@@ -858,7 +858,7 @@ declare module "os" {
 
     export function tmpdir(): string;
     export function homedir(): string;
-    export function endianness(): string;
+    export function endianness(): "BE" | "LE";
     export function hostname(): string;
     export function type(): string;
     export function platform(): string;
