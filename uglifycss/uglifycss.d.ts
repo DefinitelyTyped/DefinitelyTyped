@@ -33,12 +33,12 @@ declare module "uglifycss" {
         /**
          * Uglify a string
          */
-        function processString(content: string, options?: UglifyCSSOptions);
+        function processString(content: string, options?: UglifyCSSOptions): string;
 
         /**
          * Uglify one or more files
          */
-        function processFiles(filenames: Array<string>, options?: UglifyCSSOptions);
+        function processFiles(filenames: Array<string>, options?: UglifyCSSOptions): string;
 
     }
 
