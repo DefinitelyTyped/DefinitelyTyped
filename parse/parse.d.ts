@@ -75,7 +75,7 @@ declare namespace Parse {
     class Promise<T> implements IPromise<T> {
 
         static as<U>(resolvedValue: U): Promise<U>;
-        static error<U>(error: U): Promise<U>;
+        static error<U, V>(error: U): Promise<V>;
         static is(possiblePromise: any): Boolean;
         static when(promises: IPromise<any>[]): Promise<any>;
         static when(...promises: IPromise<any>[]): Promise<any>;
