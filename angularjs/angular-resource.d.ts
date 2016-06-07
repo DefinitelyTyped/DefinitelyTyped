@@ -95,7 +95,7 @@ declare namespace angular.resource {
         (params: Object, data: Object, success?: Function, error?: Function): IResourceArray<T>;
     }
 
-    // Baseclass for everyresource with default actions.
+    // Baseclass for every resource with default actions.
     // If you define your new actions for the resource, you will need
     // to extend this interface and typecast the ResourceClass to it.
     //

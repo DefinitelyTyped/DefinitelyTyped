@@ -253,4 +253,107 @@ sqs.setQueueAttributes({
 		else console.log(data);           // successful response
 	});
 	
-	
+
+var dynamoDBDocClient:AWS.DynamoDB.DocumentClient;
+dynamoDBDocClient = new AWS.DynamoDB.DocumentClient();
+dynamoDBDocClient = new AWS.DynamoDB.DocumentClient({});
+dynamoDBDocClient.createSet([1, 2, 3], { validate: true });
+dynamoDBDocClient.get(
+	{
+		TableName: 'TABLE_NAME',
+		Key: { userId: 'abc123', email: 'abc123@abc123.com' }
+	},
+	function(err, data) {
+		if (err) console.log(err, err.stack); // an error occurred
+		else console.log(data);           // successful response
+	}
+);
+dynamoDBDocClient.put(
+	{
+		TableName: 'TABLE_NAME',
+		Item: {
+			userId: 'abc123',
+			email: 'abc123@abc123.com',
+			firstName: 'Matt',
+			lastName: 'Forrester the ' + new Date().getTime()
+		}
+	},
+	function(err, data) {
+		if (err) console.log(err, err.stack); // an error occurred
+		else console.log(data);           // successful response
+	}
+);
+dynamoDBDocClient.delete(
+	{
+		TableName: 'TABLE_NAME',
+		Key: {
+			userId: 'abc123',
+			email: 'abc123@abc123.com'
+		}
+	},
+	function(err, data) {
+		if (err) console.log(err, err.stack); // an error occurred
+		else console.log(data);           // successful response
+	}
+);
+dynamoDBDocClient.update(
+	{
+		TableName: 'TABLE_NAME',
+		Key: {
+			userId: 'abc123',
+			email: 'abc123@abc123.com'
+		},
+		AttributeUpdates: {
+			thingsWithWheels: {
+				Action: 'PUT',
+				Value: dynamoDBDocClient.createSet(
+					[
+						'SkateBoard',
+						'Skates',
+						'Mountain Bike',
+						'Evolve Electric Skateboard'
+					],
+					{ validate: true }
+				)
+			},
+			age: {
+				Action: 'PUT',
+				Value: 35
+			}
+		}
+	},
+	function(err, data) {
+		if (err) console.log(err, err.stack); // an error occurred
+		else console.log(data);           // successful response
+	}
+);
+dynamoDBDocClient.scan(
+	{
+		TableName: 'TABLE_NAME',
+		KeyConditions: {
+			age: {
+				ComparisonOperator: 'EQ',
+				AttributeValueList: [35]
+			}
+		}
+	},
+	function(err, data) {
+		if (err) console.log(err, err.stack); // an error occurred
+		else console.log(data);           // successful response
+	}
+);
+dynamoDBDocClient.query(
+	{
+		TableName: 'TABLE_NAME',
+		KeyConditions: {
+			userId: {
+				ComparisonOperator: 'EQ',
+				AttributeValueList: ['abc123']
+			}
+		}
+	},
+	function(err, data) {
+		if (err) console.log(err, err.stack); // an error occurred
+		else console.log(data);           // successful response
+	}
+);

@@ -378,6 +378,7 @@ async.auto({
 
 async.retry(3, function (callback, results) { }, function (err, result) { });
 async.retry({ times: 3, interval: 200 }, function (callback, results) { }, function (err, result) { });
+async.retry({ times: 3, interval: (retryCount) => { return 200 * retryCount; } }, function (callback, results) { }, function (err, result) { });
 
 
 async.parallel([

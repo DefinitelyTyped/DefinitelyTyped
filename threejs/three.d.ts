@@ -4165,7 +4165,7 @@ declare namespace THREE {
         applyMatrix4(m: Matrix4): Vector3;
         applyProjection(m: Matrix4): Vector3;
         applyQuaternion(q: Quaternion): Vector3;
-        project(camrea: Camera): Vector3;
+        project(camera: Camera): Vector3;
         unproject(camera: Camera): Vector3;
         transformDirection(m: Matrix4): Vector3;
         divide(v: Vector3): Vector3;

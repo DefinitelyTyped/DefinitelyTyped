@@ -43,3 +43,10 @@ function goNext() {
         renderPage(pageNum);
     }
 }
+
+//
+// Test PDFPromise allows return value mutation
+//
+var promise: PDFPromise<string> = PDFJS.getDocument('helloworld.pdf').then(pdf => {
+	return "arbitrary string";
+});
