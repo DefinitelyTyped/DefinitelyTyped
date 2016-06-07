@@ -67,7 +67,7 @@ declare namespace Parse {
 
     interface IPromise<T> {
 
-        then<U>(resolvedCallback: (...values: T[]) => IPromise<U>, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
+        then<U>(resolvedCallback: (...values: T[]) => IPromise<U>, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
         then<U>(resolvedCallback: (...values: T[]) => U, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
         then<U>(resolvedCallback: (...values: T[]) => U, rejectedCallback?: (reason: any) => U): IPromise<U>;
     }
@@ -86,11 +86,11 @@ declare namespace Parse {
         reject(error: any): void;
         resolve(result: any): void;
         then<U>(resolvedCallback: (...values: T[]) => IPromise<U>,
-                rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
+                rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
         then<U>(resolvedCallback: (...values: T[]) => U,
-            rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
+            rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
         then<U>(resolvedCallback: (...values: T[]) => U,
-            rejectedCallback?: (reason: any) => U): IPromise<T>;
+            rejectedCallback?: (reason: any) => U): IPromise<U>;
     }
 
     interface IBaseObject {
