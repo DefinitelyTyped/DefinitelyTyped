@@ -643,6 +643,14 @@ declare namespace Parse {
         setName(name: string, options?: SuccessFailureOptions): any;
     }
 
+    class Config extends Object {
+        static get(options?: SuccessFailureOptions): Promise<Config>;
+        static current(): Config;
+
+        get(attr: string): any;
+        escape(attr: string): any;
+    }
+
     /**
      * Routers map faux-URLs to actions, and fire events when routes are
      * matched. Creating a new one sets its `routes` hash, if not set statically.
