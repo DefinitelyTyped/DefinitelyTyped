@@ -832,9 +832,9 @@ declare namespace Parse {
         }
 
         interface JobStatus {
-            error?: Function;
-            message?: Function;
-            success?: Function;
+            error?: (response: any) => void;
+            message?: (response: any) => void;
+            success?: (response: any) => void;
         }
 
         interface FunctionRequest {
