@@ -588,7 +588,7 @@ declare namespace Parse {
         endsWith(key: string, suffix: string): Query;
         equalTo(key: string, value: any): Query;
         exists(key: string): Query;
-        find<T>(options?: Query.FindOptions): Promise<T>;
+        find<T extends Object>(options?: Query.FindOptions): Promise<T[]>;
         first<T>(options?: Query.FirstOptions): Promise<T>;
         get(objectId: string, options?: Query.GetOptions): Promise<any>;
         greaterThan(key: string, value: any): Query;
