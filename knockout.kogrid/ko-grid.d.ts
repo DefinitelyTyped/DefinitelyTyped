@@ -7,7 +7,7 @@
 
 /// <reference path="../knockout/knockout.d.ts" />
 
-declare namespace kg {
+declare module 'kg' {
     export interface DomUtilityService {
         UpdateGridLayout(grid: Grid<any>): void;
         BuildStyles(grid: Grid<any>): void;
