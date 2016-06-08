@@ -7,9 +7,7 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module "knex" {
-  if (!Promise) {
-    import Promise = require("bluebird");
-  }
+  import Promise = require("bluebird");
   import * as events from "events";
 
   type Callback = Function;
