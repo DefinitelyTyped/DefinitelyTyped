@@ -55,6 +55,8 @@ namespace events_tests {
         result = emitter.addListener(event, listener);
         result = emitter.on(event, listener);
         result = emitter.once(event, listener);
+        result = emitter.prependListener(event, listener);
+        result = emitter.prependOnceListener(event, listener);
         result = emitter.removeListener(event, listener);
         result = emitter.removeAllListeners();
         result = emitter.removeAllListeners(event);
@@ -84,6 +86,12 @@ namespace events_tests {
         result = emitter.emit(event, any);
         result = emitter.emit(event, any, any);
         result = emitter.emit(event, any, any, any);
+    }
+
+    {
+        let result: string[];
+
+        result = emitter.eventNames();
     }
 }
 
