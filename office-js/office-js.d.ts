@@ -53,6 +53,7 @@ declare namespace Office {
         displayLanguage: string;
         license: string;
         touchEnabled: boolean;
+		ui: UI;
         requirements: {
             /**
              * Check if the specified requirement set is supported by the host Office application.
@@ -65,6 +66,42 @@ declare namespace Office {
     export interface Error {
         message: string;
         name: string;
+    }
+	export interface UI {
+		 /**
+		 * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
+		 * @param startAddress Accepts the initial HTTPS Url that opens in the dialog.
+		 * @param options Optional. Accepts a DialogOptions object to define dialog behaviors.
+		 * @param callback Optional. Accepts a callback method to handle the dialog creation attempt.
+		 */
+		displayDialogAsync(startAddress: string, options?: DialogOptions, callback?: (result: AsyncResult) => void): void;		
+		/**
+		 * When called from an active add-in dialog, asynchronously closes the dialog.
+		 */
+		close(): void;		
+		/**
+		 * Synchronously delivers a message from the dialog to its parent add-in.
+		 * @param messageObject Accepts a message from the dialog to deliver to the add-in.
+		 */
+		messageParent(messageObject: any): void;
+    }
+    export interface DialogOptions {
+        /**
+         * Optional. Defines the width of the dialog as a percentage of the current display. Defaults to 99%. 250px minimum.
+         */
+        height?: number,        
+        /**
+         * Optional. Defines the height of the dialog as a percentage of the current display. Defaults to 99%. 150px minimum.
+         */
+        width?: number,        
+        /**
+         * Optional. Specifies whether the dialog can only display pages that have HTTPS URLs.
+         */
+        requireHTTPS?: boolean,        
+        /**
+         * Optional. Determines whether the dialog is safe to display within a Web frame.
+         */
+        xFrameDenySafe?: boolean,
     }
 }
 declare namespace OfficeExtension {
