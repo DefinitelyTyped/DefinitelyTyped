@@ -1645,6 +1645,8 @@ declare module "fs" {
         fd?: number;
         mode?: number;
         autoClose?: boolean;
+        start?: number;
+        end?: number;
     }): ReadStream;
     export function createWriteStream(path: string | Buffer, options?: {
         flags?: string;
