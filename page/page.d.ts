@@ -6,6 +6,16 @@
 declare namespace PageJS {
     interface Static {
         /**
+         * Expose Route
+         * @type {Route}
+         */
+        Route: Route
+        /**
+         * Export Context
+         * @type {Context}
+         */
+        Context: Context
+        /**
          *  Defines a route mapping path to the given callback(s).
          *
          *      page('/', user.list)
@@ -141,6 +151,40 @@ declare namespace PageJS {
         exit(callback: Callback): void;
     }
 
+    interface Route {
+        /**
+         * Initialize `Route` with the given HTTP `path` & `options`
+         * @param {string}  path    path
+         * @param {Options} options Options
+         */
+        new (path: string, options?: RouteOptions): Route
+        /**
+         * Return route middleware with the given callback `fn()`.
+         * @param {Callback} callback Callback
+         */
+        middleware(fn: Callback): Callback
+        /**
+         * Check if this route matches `path`, if so populate `params`.
+         * @param  {string}  path   path
+         * @param  {{}}    params params
+         * @return {boolean}       true if matched, false otherwise
+         */
+        match(path: string, params?: {}): boolean
+    }
+
+    interface RouteOptions {
+        /**
+         * enable case-sensitive routes
+         * @type {[type]}
+         */
+        sensitive?: boolean
+        /**
+         * enable strict matching for trailing slashes
+         * @type {[type]}
+         */
+        strict?: boolean
+    }
+
     interface Options {
         /**
          * bind to click events (default = true)
@@ -168,11 +212,21 @@ declare namespace PageJS {
      * Routes are passed Context objects, these may be used to share state, for example ctx.user =, as well as the history "state" ctx.state that the pushState API provides.
      */
     interface Context {
+        /**
+         * Initialize a new "request" `Context` with the given `path` and optional initial `state`.
+         * @param {string} path  path
+         * @param {any}    state state
+         */
+        new (path: string, state?: any): Context
         [idx: string]: any;
         /**
          * Saves the context using replaceState(). For example this is useful for caching HTML or other resources that were loaded for when a user presses "back".
          */
         save: () => void;
+        /**
+         * Push state
+         */
+        pushState: () => void
         /**
          *  If true, marks the context as handled to prevent default 404 behaviour. For example this is useful for the routes with interminate quantity of the callbacks.
          */
