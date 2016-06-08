@@ -74,7 +74,7 @@ declare namespace FluxUtils {
 
     import React = __React;
     import FBEmitter = __FBEmitter;
-    import Immutable = __Immutable;
+    import immutable = Immutable;
     
     /**
      * Default options to create a Container with
@@ -109,7 +109,7 @@ declare namespace FluxUtils {
     /**
     * This class extends ReduceStore and defines the state as an immutable map.
     */
-    export class MapStore<K extends string | number, V, TPayload> extends ReduceStore<Immutable.Map<K, V>, TPayload> {
+    export class MapStore<K extends string | number, V, TPayload> extends ReduceStore<immutable.Map<K, V>, TPayload> {
         /**
         * Access the value at the given key.
         * Throws an error if the key does not exist in the cache.
@@ -132,7 +132,7 @@ declare namespace FluxUtils {
         * it allows providing a previous result to update instead of generating a new map.
         * Providing a previous result allows the possibility of keeping the same reference if the keys did not change.
         */
-        getAll(keys: Immutable.Iterable.Indexed<K>, prev?: Immutable.Map<K, V>): Immutable.Map<K, V>;
+        getAll(keys: immutable.Iterable.Indexed<K>, prev?: immutable.Map<K, V>): immutable.Map<K, V>;
     }
 
     export class ReduceStore<T, TPayload> extends Store<TPayload> {
