@@ -107,7 +107,7 @@ gridApi.core.clearAllFilters(true);
 gridApi.core.addToGridMenu(gridInstance, [menuItem]);
 gridApi.core.getVisibleRows(gridInstance);
 gridApi.core.handleWindowResize();
-gridApi.core.queueGridRefresh()
+gridApi.core.queueGridRefresh();
 gridApi.core.queueRefresh();
 gridApi.core.registerColumnsProcessor(colProcessor, 100);
 
@@ -118,7 +118,9 @@ var gridOptions: uiGrid.IGridOptionsOf<IMyEntity> = {
             console.log(row.entity.name);
         })
     }
-}
+};
+gridOptions.isRowSelectable = () => true;
+
 interface IAnotherEntity {
     anObject: string
 }
