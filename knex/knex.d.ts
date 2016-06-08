@@ -7,7 +7,9 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module "knex" {
-  import Promise = require("bluebird");
+  if (!Promise) {
+    import Promise = require("bluebird");
+  }
   import * as events from "events";
 
   type Callback = Function;
@@ -127,7 +129,7 @@ declare module "knex" {
       insert(data: any, returning?: string | string[]): QueryBuilder;
       update(data: any, returning?: string | string[]): QueryBuilder;
       update(columnName: string, value: Value, returning?: string | string[]): QueryBuilder;
-      returning(column: string): QueryBuilder;
+      returning(column: string | string[]): QueryBuilder;
 
       del(returning?: string | string[]): QueryBuilder;
       delete(returning?: string | string[]): QueryBuilder;
