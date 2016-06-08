@@ -21,7 +21,7 @@ declare namespace ReactRouter {
     type EnterHook = (nextState: RouterState, replace: RedirectFunction, callback?: Function) => void
 
     type LeaveHook = () => void
-    
+
     type ChangeHook = (prevState: RouterState, nextState: RouterState, replace: RedirectFunction, callback: Function) => void;
 
     type Params = { [param: string]: string }
@@ -381,6 +381,10 @@ declare module "react-router/lib/PropTypes" {
     export const route: React.Requireable<any>
 
     export const routes: React.Requireable<any>
+
+    export const routerShape: React.Requireable<any>
+
+    export const locationShape: React.Requireable<any>
 
     export default {
         falsy,
