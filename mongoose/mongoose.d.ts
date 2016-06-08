@@ -428,6 +428,8 @@ declare module "mongoose" {
     id?: string;
     _id: any;
 
+    _doc?: Document;
+
     equals(doc: Document): boolean;
     get(path: string, type?: new(...args: any[]) => any): any;
     inspect(options?: Object): string;
