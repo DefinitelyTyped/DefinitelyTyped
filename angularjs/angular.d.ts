@@ -1683,7 +1683,7 @@ declare namespace angular {
          * controller if passed as a string. Empty function by default.
          * Use the array form to define dependencies (necessary if strictDi is enabled and you require dependency injection)
          */
-        controller?: string | Function | (string | Function)[];
+        controller?: string | Function | (string | Function)[] | IComponentController;
         /**
          * An identifier name for a reference to the controller. If present, the controller will be published to scope under
          * the controllerAs name. If not present, this will default to be the same as the component name.
@@ -1721,6 +1721,47 @@ declare namespace angular {
 
     interface IComponentTemplateFn {
         ( $element?: IAugmentedJQuery, $attrs?: IAttributes ): string;
+    }
+    
+    /**
+     * Components have a well-defined lifecycle Each component can implement "lifecycle hooks". These are methods that
+     * will be called at certain points in the life of the component.
+     * @url https://docs.angularjs.org/guide/component
+     */
+    interface IComponentController {
+        /**
+         * Called on each controller after all the controllers on an element have been constructed and had their bindings
+         * initialized (and before the pre & post linking functions for the directives on this element). This is a good
+         * place to put initialization code for your controller.
+         */
+        $onInit?(): void;
+        /**
+         * Called whenever one-way bindings are updated. The changesObj is a hash whose keys are the names of the bound
+         * properties that have changed, and the values are an {@link IChangesObject} object  of the form
+         * { currentValue, previousValue, isFirstChange() }. Use this hook to trigger updates within a component such as
+         * cloning the bound value to prevent accidental mutation of the outer value.
+         */
+        $onChanges?(changesObj: {[property:string]: IChangesObject}): void;
+        /**
+         * Called on a controller when its containing scope is destroyed. Use this hook for releasing external resources,
+         * watches and event handlers.
+         */
+        $onDestroy?(): void;
+        /**
+         * Called after this controller's element and its children have been linked. Similar to the post-link function this
+         * hook can be used to set up DOM event handlers and do direct DOM manipulation. Note that child elements that contain
+         * templateUrl directives will not have been compiled and linked since they are waiting for their template to load
+         * asynchronously and their own compilation and linking has been suspended until that occurs. This hook can be considered
+         * analogous to the ngAfterViewInit and ngAfterContentInit hooks in Angular 2. Since the compilation process is rather
+         * different in Angular 1 there is no direct mapping and care should be taken when upgrading.
+         */
+        $postInit?(): void;
+    }
+
+    interface IChangesObject {
+        currentValue: any;
+        previousValue: any;
+        isFirstChange(): boolean;
     }
 
     ///////////////////////////////////////////////////////////////////////////
