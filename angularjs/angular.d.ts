@@ -1716,7 +1716,7 @@ declare namespace angular {
          * Whether transclusion is enabled. Enabled by default.
          */
         transclude?: boolean | string | {[slot: string]: string};
-        require?: string | string[] | {[controller: string]: string};
+        require?: {[controller: string]: string};
     }
 
     interface IComponentTemplateFn {
