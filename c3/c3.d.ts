@@ -650,7 +650,7 @@ declare namespace c3 {
             /**
              * Set mouseover event handler to the legend item.
              */
-            onmoouseover?: (id: any) => void;
+            onmouseover?: (id: any) => void;
             /**
              * Set mouseout event handler to the legend item.
              */

@@ -7,6 +7,16 @@
 
 declare namespace ReactSelect {
 
+    interface AutocompleteResult {
+        /** the search-results to be displayed  */
+        data: Option[],
+        /** Should be set to true, if and only if a longer query with the same prefix
+         * would return a subset of the results
+         * If set to true, more specific queries will not be sent to the server.
+         **/
+        complete: boolean;
+    }
+
     interface Option {
         /** Text for rendering */
         label: string;
@@ -245,9 +255,14 @@ declare namespace ReactSelect {
          */
         openAfterFocus?: boolean;
         /**
+         * open the options menu when the input gets focus (requires searchable = true)
+         * @default false
+         */
+        openOnFocus?: boolean;
+        /**
          * option component to render in dropdown
          */
-        optionComponent?: __React.ReactElement<any>;
+        optionComponent?: __React.ComponentClass<any>;
         /**
          * function which returns a custom way to render the options in the menu
          */
@@ -312,7 +327,7 @@ declare namespace ReactSelect {
         /**
          *  value component to render
          */
-        valueComponent?: __React.ReactElement<any>;
+        valueComponent?: __React.ComponentClass<any>;
 
         /**
          *  optional style to apply to the component wrapper
@@ -354,7 +369,7 @@ declare namespace ReactSelect {
         /**
          *  function to call to load options asynchronously
          */
-        loadOptions: (input: string, callback: (options: Option[]) => any) => any;
+        loadOptions: (input: string, callback: (err: any, result: AutocompleteResult) => any) => any;
 
         /**
          *  replaces the placeholder while options are loading
@@ -397,10 +412,15 @@ declare namespace ReactSelect {
 }
 
 declare module "react-select" {
-    const select: ReactSelect.ReactSelectClass;
+    const RS: ReactSelect.ReactSelectClass;
+    export = RS;
+}
+
+declare module "react-select-props" {
+
     interface Option extends ReactSelect.Option {}
     interface MenuRendererProps extends ReactSelect.MenuRendererProps {}
 
-    export default select;
     export { MenuRendererProps, Option };
 }
+

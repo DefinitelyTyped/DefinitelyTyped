@@ -19,8 +19,10 @@ var versions:string[];
 var loose:boolean;
 
 str = mod.valid(str);
+str = mod.clean(str);
 
 str = mod.valid(str, loose);
+str = mod.clean(str, loose);
 str = mod.inc(str, str, loose);
 num = mod.major(str, loose);
 num = mod.minor(str, loose);
@@ -106,7 +108,9 @@ var testBoolean: boolean;
 testString = semver.SEMVER_SPEC_VERSION;
 
 testString = semver.valid('v1.0.0');
+testString = semver.clean(' =v1.0.0 ');
 testString = semver.valid('v1.0.0', true);
+testString = semver.clean(' =v1.0.0 ', true);
 testString = semver.inc('v1.0.0', 'major');
 testString = semver.inc('v1.0.0', 'major', true);
 testNumber = semver.major('v1.0.0');

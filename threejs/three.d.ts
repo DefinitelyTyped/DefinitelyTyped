@@ -1928,9 +1928,9 @@ declare namespace THREE {
     }
 
     export interface LoaderHandler{
-        handlers: any[];
+        handlers: (RegExp | Loader)[];
 
-        add(regex: string, loader: Loader): void;
+        add(regex: RegExp, loader: Loader): void;
         get(file: string): Loader;
     }
 
@@ -3147,7 +3147,7 @@ declare namespace THREE {
         onChange(callback: Function): void;
 
         static RotationOrders: string[];
-        static DefautlOrder: string;
+        static DefaultOrder: string;
     }
 
     /**
@@ -4165,7 +4165,7 @@ declare namespace THREE {
         applyMatrix4(m: Matrix4): Vector3;
         applyProjection(m: Matrix4): Vector3;
         applyQuaternion(q: Quaternion): Vector3;
-        project(camrea: Camera): Vector3;
+        project(camera: Camera): Vector3;
         unproject(camera: Camera): Vector3;
         transformDirection(m: Matrix4): Vector3;
         divide(v: Vector3): Vector3;
@@ -6002,7 +6002,7 @@ declare namespace THREE {
     }
     
 
-    // Extras / Geomerties /////////////////////////////////////////////////////////////////////
+    // Extras / Geometries /////////////////////////////////////////////////////////////////////
     export class BoxBufferGeometry extends BufferGeometry {
         constructor(width: number, height: number, depth: number, widthSegments?: number, heightSegments?: number, depthSegments?: number);
 

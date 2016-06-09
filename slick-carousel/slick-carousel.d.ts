@@ -1,4 +1,4 @@
-// Type definitions for stick 1.5.8
+// Type definitions for stick 1.6.0
 // Project: http://kenwheeler.github.io/slick/
 // Definitions by: John Gouigouix <https://github.com/orchestra-ts/DefinitelyTyped/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -50,6 +50,12 @@ interface JQuerySlickOptions {
     appendArrows?: any;
 
     /**
+     * Change where the navigation dots are attached (Selector, htmlString, Array, Element, jQuery object)
+     * Default: $(element)
+     */
+    appendDots?: any;
+
+    /**
      * Allows you to select a node or customize the HTML for the "Previous" arrow.
      * Default: <button type="button" class="slick-prev">Previous</button>
      */
@@ -90,6 +96,12 @@ interface JQuerySlickOptions {
      * Default: false
      */
     dots?: boolean;
+
+    /**
+     * Class for slide indicator dots container
+     * Default: 'slick-dots'
+     */
+    dotsClass?: string;
 
     /**
      * Enable mouse dragging
@@ -144,6 +156,12 @@ interface JQuerySlickOptions {
      * Default: false
      */
     mobileFirst?: boolean;
+
+    /**
+     * Pause Autoplay On Focus
+     * Default: true
+     */
+    pauseOnFocus?: boolean;
 
     /**
      * Pause Autoplay On Hover
@@ -238,6 +256,12 @@ interface JQuerySlickOptions {
     useCSS?: boolean;
 
     /**
+     * Enable/Disable CSS Transforms
+     * Default: true
+     */
+    useTransform?: boolean;
+
+    /**
      * Variable width slides.
      * Default: false
      */
@@ -261,6 +285,18 @@ interface JQuerySlickOptions {
      */
     rtl?: boolean;
 
+    /**
+     * Change the slider's direction to become right-to-left
+     * Default: false
+     */
+    waitForAnimate?: boolean;
+
+    /**
+     * Set the zIndex values for slides, useful for IE9 and lower
+     * Default: 1000
+     */
+    zIndex?: number;
+    
 }
 
 

@@ -883,6 +883,24 @@ declare namespace angular {
 
         unwrapPromises(): boolean;
         unwrapPromises(value: boolean): IParseProvider;
+
+        /**
+         * Configure $parse service to add literal values that will be present as literal at expressions.
+         *
+         * @param literalName Token for the literal value. The literal name value must be a valid literal name.
+         * @param literalValue Value for this literal. All literal values must be primitives or `undefined`.
+         **/
+        addLiteral(literalName: string, literalValue: any): void;
+
+        /**
+         * Allows defining the set of characters that are allowed in Angular expressions. The function identifierStart will get called to know if a given character is a valid character to be the first character for an identifier. The function identifierContinue will get called to know if a given character is a valid character to be a follow-up identifier character. The functions identifierStart and identifierContinue will receive as arguments the single character to be identifier and the character code point. These arguments will be string and numeric. Keep in mind that the string parameter can be two characters long depending on the character representation. It is expected for the function to return true or false, whether that character is allowed or not.
+         * Since this function will be called extensivelly, keep the implementation of these functions fast, as the performance of these functions have a direct impact on the expressions parsing speed.
+         *
+         * @param identifierStart The function that will decide whether the given character is a valid identifier start character.
+         * @param identifierContinue The function that will decide whether the given character is a valid identifier continue character.
+         **/
+        setIdentifierFns(identifierStart?: (character: string, codePoint: number) => boolean,
+            identifierContinue?: (character: string, codePoint: number) => boolean): void;
     }
 
     interface ICompiledExpression {
@@ -1657,50 +1675,6 @@ declare namespace angular {
     // and http://toddmotto.com/exploring-the-angular-1-5-component-method/
     ///////////////////////////////////////////////////////////////////////////
     /**
-     * Runtime representation a type that a Component or other object is instances of.
-     *
-     * An example of a `Type` is `MyCustomComponent` class, which in JavaScript is be represented by
-     * the `MyCustomComponent` constructor function.
-     */
-    interface Type extends Function {
-    }
-
-    /**
-     * `RouteDefinition` defines a route within a {@link RouteConfig} decorator.
-     *
-     * Supported keys:
-     * - `path` or `aux` (requires exactly one of these)
-     * - `component`, `loader`,  `redirectTo` (requires exactly one of these)
-     * - `name` or `as` (optional) (requires exactly one of these)
-     * - `data` (optional)
-     *
-     * See also {@link Route}, {@link AsyncRoute}, {@link AuxRoute}, and {@link Redirect}.
-     */
-    interface RouteDefinition {
-        path?: string;
-        aux?: string;
-        component?: Type | ComponentDefinition | string;
-        loader?: Function;
-        redirectTo?: any[];
-        as?: string;
-        name?: string;
-        data?: any;
-        useAsDefault?: boolean;
-    }
-
-    /**
-     * Represents either a component type (`type` is `component`) or a loader function
-     * (`type` is `loader`).
-     *
-     * See also {@link RouteDefinition}.
-     */
-    interface ComponentDefinition {
-        type: string;
-        loader?: Function;
-        component?: Type;
-    }
-
-    /**
      * Component definition object (a simplified directive definition object)
      */
     interface IComponentOptions {
@@ -1845,7 +1819,7 @@ declare namespace angular {
         controller(name: string): any;
         injector(): any;
         scope(): IScope;
-        
+
         /**
         *   Overload for custom scope interfaces
         */
@@ -1870,6 +1844,33 @@ declare namespace angular {
             annotate(fn: Function, strictDi?: boolean): string[];
             annotate(inlineAnnotatedFunction: any[]): string[];
             get<T>(name: string, caller?: string): T;
+            get(name: '$anchorScroll'): IAnchorScrollService
+            get(name: '$cacheFactory'): ICacheFactoryService
+            get(name: '$compile'): ICompileService
+            get(name: '$controller'): IControllerService
+            get(name: '$document'): IDocumentService
+            get(name: '$exceptionHandler'): IExceptionHandlerService
+            get(name: '$filter'): IFilterService
+            get(name: '$http'): IHttpService
+            get(name: '$httpBackend'): IHttpBackendService
+            get(name: '$httpParamSerializer'): IHttpParamSerializer
+            get(name: '$httpParamSerializerJQLike'): IHttpParamSerializer
+            get(name: '$interpolate'): IInterpolateService
+            get(name: '$interval'): IIntervalService
+            get(name: '$locale'): ILocaleService
+            get(name: '$location'): ILocationService
+            get(name: '$log'): ILogService
+            get(name: '$parse'): IParseService
+            get(name: '$q'): IQService
+            get(name: '$rootElement'): IRootElementService
+            get(name: '$rootScope'): IRootScopeService
+            get(name: '$sce'): ISCEService
+            get(name: '$sceDelegate'): ISCEDelegateService
+            get(name: '$templateCache'): ITemplateCacheService
+            get(name: '$templateRequest'): ITemplateRequestService
+            get(name: '$timeout'): ITimeoutService
+            get(name: '$window'): IWindowService
+            get<T>(name: '$xhrFactory'): IXhrFactory<T>
             has(name: string): boolean;
             instantiate<T>(typeConstructor: Function, locals?: any): T;
             invoke(inlineAnnotatedFunction: any[]): any;

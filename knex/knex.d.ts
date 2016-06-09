@@ -12,7 +12,7 @@ declare module "knex" {
 
   type Callback = Function;
   type Client = Function;
-  type Value = string|number|boolean|Date;
+  type Value = string|number|boolean|Date|Array<string>|Array<number>|Array<Date>|Array<boolean>;
   type ColumnName = string|Knex.Raw|Knex.QueryBuilder;
 
   interface Knex extends Knex.QueryInterface {
@@ -302,7 +302,7 @@ declare module "knex" {
     interface SchemaBuilder extends Promise<any> {
       createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
       renameTable(oldTableName: string, newTableName: string): Promise<void>;
-      dropTable(tableName: string): Promise<void>;
+      dropTable(tableName: string): SchemaBuilder;
       hasTable(tableName: string): Promise<boolean>;
       hasColumn(tableName: string, columnName: string): Promise<boolean>;
       table(tableName: string, callback: (tableBuilder: AlterTableBuilder) => any): Promise<void>;

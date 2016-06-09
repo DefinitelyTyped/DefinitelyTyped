@@ -11,6 +11,7 @@ declare class Request extends Body {
 	context: RequestContext;
 	referrer: string;
 	mode: RequestMode;
+	redirect: RequestRedirect;
 	credentials: RequestCredentials;
 	cache: RequestCache;
 }
@@ -20,6 +21,7 @@ interface RequestInit {
 	headers?: HeaderInit|{ [index: string]: string };
 	body?: BodyInit;
 	mode?: RequestMode;
+	redirect?: RequestRedirect;
 	credentials?: RequestCredentials;
 	cache?: RequestCache;
 }
@@ -33,6 +35,7 @@ type RequestContext =
 	"subresource" | "style" | "track" | "video" | "worker" |
 	"xmlhttprequest" | "xslt";
 type RequestMode = "same-origin" | "no-cors" | "cors";
+type RequestRedirect = "follow" | "error" | "manual";
 type RequestCredentials = "omit" | "same-origin" | "include";
 type RequestCache =
 	"default" | "no-store" | "reload" | "no-cache" |
@@ -70,7 +73,7 @@ declare class Response extends Body {
 	clone(): Response;
 }
 
-type ResponseType = "basic" | "cors" | "default" | "error" | "opaque";
+type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
 
 interface ResponseInit {
 	status: number;
@@ -79,7 +82,7 @@ interface ResponseInit {
 }
 
 declare type HeaderInit = Headers|Array<string>;
-declare type BodyInit = Blob|FormData|string;
+declare type BodyInit = ArrayBuffer|ArrayBufferView|Blob|FormData|string;
 declare type RequestInfo = Request|string;
 
 interface Window {

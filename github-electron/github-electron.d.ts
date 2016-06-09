@@ -1,4 +1,4 @@
-// Type definitions for Electron v0.37.8
+// Type definitions for Electron v1.2.1
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -49,7 +49,9 @@ declare namespace Electron {
 		/**
 		 * Emitted when all windows have been closed.
 		 *
-		 * This event is only emitted when the application is not going to quit.
+		 * If you do not subscribe to this event and all windows are closed,
+		 * the default behavior is to quit the app; however, if you subscribe,
+		 * you control whether the app quits or not.
 		 * If the user pressed Cmd + Q, or the developer called app.quit(),
 		 * Electron will first try to close all the windows and then emit the will-quit event,
 		 * and in this case the window-all-closed event would not be emitted.
@@ -96,6 +98,11 @@ declare namespace Electron {
 		 * Note: This is only implemented on OS X.
 		 */
 		on(event: 'activate', listener: Function): this;
+		/**
+		 * Emitted during Handoff when an activity from a different device wants to be resumed.
+		 * You should call event.preventDefault() if you want to handle this event.
+		 */
+		on(event: 'continue-activity', listener: (event: Event, type: string, userInfo: Object) => void): this;
 		/**
 		 * Emitted when a browserWindow gets blurred.
 		 */
@@ -251,8 +258,7 @@ declare namespace Electron {
 		/**
 		 * Removes the current executable as the default handler for a protocol (aka URI scheme).
 		 *
-		 * Note: This is only implemented on Windows.
-		 *       On OS X, removing the app will automatically remove the app as the default protocol handler.
+		 * Note: This is only implemented on OS X and Windows.
 		 */
 		removeAsDefaultProtocolClient(protocol: string): void;
 		/**
@@ -268,19 +274,34 @@ declare namespace Electron {
 		 */
 		setUserTasks(tasks: Task[]): void;
 		/**
-		 * Dynamically sets whether to always send credentials for HTTP NTLM or Negotiate authentication.
-		 * Normally, Electron will only send NTLM/Kerberos credentials for URLs that fall under
-		 * "Local Intranet" sites (i.e. are in the same domain as you).
-		 * However, this detection often fails when corporate networks are badly configured,
-		 * so this lets you co-opt this behavior and enable it for all URLs.
-		 */
-		allowNTLMCredentialsForAllDomains(allow: boolean): void;
-		/**
 		 * This method makes your application a Single Instance Application instead of allowing
 		 * multiple instances of your app to run, this will ensure that only a single instance
 		 * of your app is running, and other instances signal this instance and exit.
 		 */
 		makeSingleInstance(callback: (args: string[], workingDirectory: string) => void): boolean;
+		/**
+		 * Releases all locks that were created by makeSingleInstance. This will allow
+		 * multiple instances of the application to once again run side by side.
+		 */
+		releaseSingleInstance(): void;
+		/**
+		 * Creates an NSUserActivity and sets it as the current activity.
+		 * The activity is eligible for Handoff to another device afterward.
+		 *
+		 * @param type Uniquely identifies the activity. Maps to NSUserActivity.activityType.
+		 * @param userInfo App-specific state to store for use by another device.
+		 * @param webpageURL The webpage to load in a browser if no suitable app is
+		 * 					 installed on the resuming device. The scheme must be http or https.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		setUserActivity(type: string, userInfo: Object, webpageURL?: string): void;
+		/**
+		 * @returns The type of the currently running activity.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		getCurrentActivityType(): string;
 		/**
 		 * Changes the Application User Model ID to id.
 		 */
@@ -348,6 +369,12 @@ declare namespace Electron {
 		 * Note: This API is only available on Mac.
 		 */
 		cancelBounce(id: number): void;
+		/**
+		 * Bounces the Downloads stack if the filePath is inside the Downloads folder.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		downloadFinished(filePath: string): void;
 		/**
 		 * Sets the string to be displayed in the dock’s badging area.
 		 *
@@ -825,7 +852,7 @@ declare namespace Electron {
 		 * Changes the attachment point for sheets on Mac OS X.
 		 * Note: This API is available only on OS X.
 		 */
-		setSheetOffset(offset: number): void;
+		setSheetOffset(offsetY: number, offsetX?: number): void;
 		/**
 		 * Starts or stops flashing the window to attract user's attention.
 		 */
@@ -899,19 +926,11 @@ declare namespace Electron {
 		capturePage(rect: Rectangle, callback: (image: NativeImage) => void): void;
 		capturePage(callback: (image: NativeImage) => void): void;
 		/**
-		 * Same with webContents.print([options])
-		 */
-		print(options?: PrintOptions): void;
-		/**
-		 * Same with webContents.printToPDF([options])
-		 */
-		printToPDF(options: PrintToPDFOptions, callback: (error: Error, data: Buffer) => void): void;
-		/**
-		 * Same with webContents.loadURL(url).
+		 * Same as webContents.loadURL(url).
 		 */
 		loadURL(url: string, options?: LoadURLOptions): void;
 		/**
-		 * Same with webContents.reload.
+		 * Same as webContents.reload.
 		 */
 		reload(): void;
 		/**
@@ -958,6 +977,11 @@ declare namespace Electron {
 		 * Note: This API is available only on OS X.
 		 */
 		showDefinitionForSelection(): void;
+		/**
+		 * Changes window icon.
+		 * Note: This API is not available on OS X.
+		 */
+		setIcon(icon: NativeImage): void;
 		/**
 		 * Sets whether the window menu bar should hide itself automatically. Once set
 		 * the menu bar will only show when users press the single Alt key.
@@ -1104,6 +1128,11 @@ declare namespace Electron {
 		 */
 		directWrite?: boolean;
 		/**
+		 * Enables scroll bounce (rubber banding) effect on OS X.
+		 * Default: false.
+		 */
+		scrollBounce?: boolean;
+		/**
 		 * A list of feature strings separated by ",".
 		 */
 		blinkFeatures?: string;
@@ -1239,12 +1268,13 @@ declare namespace Electron {
 		alwaysOnTop?: boolean;
 		/**
 		 * Whether the window should show in fullscreen.
-		 * When explicity set to false the fullscreen button will be hidden or disabled on OS X.
+		 * When explicitly set to false the fullscreen button will be hidden or disabled on OS X.
 		 * Default: false.
 		 */
 		fullscreen?: boolean;
 		/**
-		 * Whether the maximize/zoom button on OS X should toggle full screen mode or maximize window.
+		 * Whether the window can be put into fullscreen mode.
+		 * On OS X, also whether the maximize/zoom button should toggle full screen mode or maximize window.
 		 * Default: true.
 		 */
 		fullscreenable?: boolean;
@@ -1361,11 +1391,11 @@ declare namespace Electron {
 		/**
 		 * @returns The contents of the clipboard as markup.
 		 */
-		readHtml(type?: ClipboardType): string;
+		readHTML(type?: ClipboardType): string;
 		/**
 		 * Writes markup to the clipboard.
 		 */
-		writeHtml(markup: string, type?: ClipboardType): void;
+		writeHTML(markup: string, type?: ClipboardType): void;
 		/**
 		 * @returns The contents of the clipboard as a NativeImage.
 		 */
@@ -1377,11 +1407,11 @@ declare namespace Electron {
 		/**
 		 * @returns The contents of the clipboard as RTF.
 		 */
-		readRtf(type?: ClipboardType): string;
+		readRTF(type?: ClipboardType): string;
 		/**
 		 * Writes the text into the clipboard in RTF.
 		 */
-		writeRtf(text: string, type?: ClipboardType): void;
+		writeRTF(text: string, type?: ClipboardType): void;
 		/**
 		 * Clears everything in clipboard.
 		 */
@@ -1688,6 +1718,10 @@ declare namespace Electron {
 		title?: string;
 		defaultPath?: string;
 		/**
+		 * Custom label for the confirmation button, when left empty the default label will be used.
+		 */
+		buttonLabel?: string;
+		/**
 		 * File types that can be displayed or selected.
 		 */
 		filters?: {
@@ -1708,6 +1742,10 @@ declare namespace Electron {
 		title?: string;
 		defaultPath?: string;
 		/**
+		 * Custom label for the confirmation button, when left empty the default label will be used.
+		 */
+		buttonLabel?: string;
+		/**
 		 * File types that can be displayed, see dialog.showOpenDialog for an example.
 		 */
 		filters?: {
@@ -1722,7 +1760,7 @@ declare namespace Electron {
 		 */
 		type?: 'none' | 'info' | 'error' | 'question' | 'warning';
 		/**
-		 * Texts for buttons.
+		 * Texts for buttons. On Windows, an empty array will result in one button labeled "OK".
 		 */
 		buttons?: string[];
 		/**
@@ -2023,6 +2061,7 @@ declare namespace Electron {
 		 *   Punctuations like ~, !, @, #, $, etc.
 		 *   Plus
 		 *   Space
+		 *   Tab
 		 *   Backspace
 		 *   Delete
 		 *   Insert
@@ -2559,6 +2598,11 @@ declare namespace Electron {
 		 */
 		clearHostResolverCache(callback: Function): void;
 		/**
+		 * Dynamically sets whether to always send credentials for HTTP NTLM or Negotiate authentication.
+		 * @param domains Comma-seperated list of servers for which integrated authentication is enabled.
+		 */
+		allowNTLMCredentialsForDomains(domains: string): void;
+		/**
 		 * The webRequest API set allows to intercept and modify contents of a request at various stages of its lifetime.
 		 */
 		webRequest: WebRequest;
@@ -2961,7 +3005,7 @@ declare namespace Electron {
 		 *
 		 * Note: This is only implemented on OS X.
 		 */
-		subscribeNotification(event: string, callback: Function): number;
+		subscribeNotification(event: string, callback: (event: Event, userInfo: Object) => void): number;
 		/**
 		 * Removes the subscriber with id.
 		 *
@@ -3284,6 +3328,18 @@ declare namespace Electron {
 		 * in a NativeImage, and the scale will hold scaling information for the image.
 		 */
 		on(event: 'cursor-changed', listener: (event: Event, type: CursorType, image?: NativeImage, scale?: number) => void): this;
+		/**
+		 * Emitted when there is a new context menu that needs to be handled.
+		 */
+		on(event: 'context-menu', listener: (event: Event, params: ContextMenuParams) => void): this;
+		/**
+		 * Emitted when bluetooth device needs to be selected on call to navigator.bluetooth.requestDevice.
+		 * To use navigator.bluetooth api webBluetooth should be enabled.
+		 * If event.preventDefault is not called, first available device will be selected.
+		 * callback should be called with deviceId to be selected,
+		 * passing empty string to callback will cancel the request.
+		 */
+		on(event: 'select-bluetooth-device', listener: (event: Event, deviceList: BluetoothDevice[], callback: (deviceId: string) => void) => void): this;
 		on(event: string, listener: Function): this;
 		/**
 		 * Loads the url in the window.
@@ -3555,6 +3611,10 @@ declare namespace Electron {
 		 */
 		savePage(fullPath: string, saveType: 'HTMLOnly' | 'HTMLComplete' | 'MHTML', callback?: (eror: Error) => void): boolean;
 		/**
+		 * @returns The unique ID of this WebContents.
+		 */
+		id: number;
+		/**
 		 * @returns The session object used by this webContents.
 		 */
 		session: Session;
@@ -3574,6 +3634,149 @@ declare namespace Electron {
 		debugger: Debugger;
 	}
 
+	interface ContextMenuParams {
+		/**
+		 * x coodinate
+		 */
+		x: number;
+		/**
+		 * y coodinate
+		 */
+		y: number;
+		/**
+		 * URL of the link that encloses the node the context menu was invoked on.
+		 */
+		linkURL: string;
+		/**
+		 * Text associated with the link. May be an empty string if the contents of the link are an image.
+		 */
+		linkText: string;
+		/**
+		 * URL of the top level page that the context menu was invoked on.
+		 */
+		pageURL: string;
+		/**
+		 * URL of the subframe that the context menu was invoked on.
+		 */
+		frameURL: string;
+		/**
+		 * Source URL for the element that the context menu was invoked on.
+		 * Elements with source URLs are images, audio and video.
+		 */
+		srcURL: string;
+		/**
+		 * Type of the node the context menu was invoked on.
+		 */
+		mediaType: 'none' | 'image' | 'audio' | 'video' | 'canvas' | 'file' | 'plugin';
+		/**
+		 * Parameters for the media element the context menu was invoked on.
+		 */
+		mediaFlags: {
+			/**
+			 * Wether the media element has crashed.
+			 */
+			inError: boolean;
+			/**
+			 * Wether the media element is paused.
+			 */
+			isPaused: boolean;
+			/**
+			 * Wether the media element is muted.
+			 */
+			isMuted: boolean;
+			/**
+			 * Wether the media element has audio.
+			 */
+			hasAudio: boolean;
+			/**
+			 * Wether the media element is looping.
+			 */
+			isLooping: boolean;
+			/**
+			 * Wether the media element's controls are visible.
+			 */
+			isControlsVisible: boolean;
+			/**
+			 * Wether the media element's controls are toggleable.
+			 */
+			canToggleControls: boolean;
+			/**
+			 * Wether the media element can be rotated.
+			 */
+			canRotate: boolean;
+		}
+		/**
+		 * Wether the context menu was invoked on an image which has non-empty contents.
+		 */
+		hasImageContents: boolean;
+		/**
+		 * Wether the context is editable.
+		 */
+		isEditable: boolean;
+		/**
+		 * These flags indicate wether the renderer believes it is able to perform the corresponding action.
+		 */
+		editFlags: {
+			/**
+			 * Wether the renderer believes it can undo.
+			 */
+			canUndo: boolean;
+			/**
+			 * Wether the renderer believes it can redo.
+			 */
+			canRedo: boolean;
+			/**
+			 * Wether the renderer believes it can cut.
+			 */
+			canCut: boolean;
+			/**
+			 * Wether the renderer believes it can copy
+			 */
+			canCopy: boolean;
+			/**
+			 * Wether the renderer believes it can paste.
+			 */
+			canPaste: boolean;
+			/**
+			 * Wether the renderer believes it can delete.
+			 */
+			canDelete: boolean;
+			/**
+			 * Wether the renderer believes it can select all.
+			 */
+			canSelectAll: boolean;
+		}
+		/**
+		 * Text of the selection that the context menu was invoked on.
+		 */
+		selectionText: string;
+		/**
+		 * Title or alt text of the selection that the context was invoked on.
+		 */
+		titleText: string;
+		/**
+		 * The misspelled word under the cursor, if any.
+		 */
+		misspelledWord: string;
+		/**
+		 * The character encoding of the frame on which the menu was invoked.
+		 */
+		frameCharset: string;
+		/**
+		 * If the context menu was invoked on an input field, the type of that field.
+		 */
+		inputFieldType: 'none' | 'plainText' | 'password' | 'other';
+		/**
+		 * Input source that invoked the context menu.
+		 */
+		menuSourceType: 'none' | 'mouse' | 'keyboard' | 'touch' | 'touchMenu';
+	}
+
+	interface BluetoothDevice {
+		deviceName: string;
+		deviceId: string;
+	}
+
 	interface Headers {
 		[key: string]: string;
 	}
@@ -3582,8 +3785,8 @@ declare namespace Electron {
 
 	/**
 	 * Specifies the action to take place when ending webContents.findInPage request.
-	 * 'clearSelection' - Translate the selection into a normal selection.
-	 * 'keepSelection' - Clear the selection.
+	 * 'clearSelection' - Clear the selection.
+	 * 'keepSelection' - Translate the selection into a normal selection.
 	 * 'activateSelection' - Focus and click the selection node.
 	 */
 	type StopFindInPageAtion = 'clearSelection' | 'keepSelection' | 'activateSelection';
@@ -3631,7 +3834,7 @@ declare namespace Electron {
 		 * Specify page size of the generated PDF.
 		 * Default: A4.
 		 */
-		pageSize?: 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid';
+		pageSize?: 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid' | Dimension;
 		/**
 		 * Whether to print CSS backgrounds.
 		 * Default: false.
@@ -3889,6 +4092,32 @@ declare namespace Electron {
 		 * this limitation.
 		 */
 		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): void;
+		/**
+		 * @returns Object describing usage information of Blink’s internal memory caches.
+		 */
+		getResourceUsage(): ResourceUsages;
+		/**
+		 * Attempts to free memory that is no longer being used (like images from a previous navigation).
+		 */
+		clearCache(): void;
+	}
+
+	interface ResourceUsages {
+		fonts: ResourceUsage;
+		images: ResourceUsage;
+		cssStyleSheets: ResourceUsage;
+		xslStyleSheets: ResourceUsage;
+		scripts: ResourceUsage;
+		other: ResourceUsage;
+	}
+
+	interface ResourceUsage {
+		count: number;
+		decodedSize: number;
+		liveSize: number;
+		purgeableSize: number;
+		purgedSize: number;
+		size: number;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/web-view-tag.md
@@ -4428,6 +4657,10 @@ declare namespace Electron {
 		 * properties and a single method.
 		 */
 		postMessage(message: string, targetOrigin: string): void;
+		/**
+		 * Invokes the print dialog on the child window.
+		 */
+		print(): void;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/synopsis.md
@@ -4496,6 +4729,10 @@ interface File {
 declare namespace NodeJS {
 	interface Process {
 		/**
+		 * Setting this to true can disable the support for asar archives in Node's built-in modules.
+		 */
+		noAsar?: boolean;
+		/**
 		 * Process's type
 		 */
 		type: 'browser' | 'renderer';
@@ -4512,15 +4749,16 @@ declare namespace NodeJS {
 		 */
 		windowsStore?: boolean;
 		/**
+		 * When app is started by being passed as parameter to the default app,
+		 * this value is true in the main process, otherwise it is undefined.
+		 */
+		defaultApp?: boolean;
+		/**
 		 * Emitted when Electron has loaded its internal initialization script
 		 * and is beginning to load the web page or the main script.
 		 */
 		on(event: 'loaded', listener: Function): this;
 		on(event: string, listener: Function): this;
-		/**
-		 * Setting this to true can disable the support for asar archives in Node's built-in modules.
-		 */
-		noAsar?: boolean;
 		/**
 		 * Causes the main thread of the current process crash;
 		 */
@@ -4536,6 +4774,54 @@ declare namespace NodeJS {
 		 * Note: This API is only available on Mac and Linux.
 		 */
 		setFdLimit(maxDescriptors: number): void;
+		/**
+		 * @returns Object giving memory usage statistics about the current process.
+		 * Note: All statistics are reported in Kilobytes.
+		 */
+		getProcessMemoryInfo(): ProcessMemoryInfo;
+		/**
+		 * @returns Object giving memory usage statistics about the entire system.
+		 * Note: All statistics are reported in Kilobytes.
+		 */
+		getSystemMemoryInfo(): SystemMemoryInfo;
+	}
+
+	interface ProcessMemoryInfo {
+		/**
+		 * The amount of memory currently pinned to actual physical RAM.
+		 */
+		workingSetSize: number;
+		/**
+		 * The maximum amount of memory that has ever been pinned to actual physical RAM.
+		 */
+		peakWorkingSetSize: number;
+		/**
+		 * The amount of memory not shared by other processes, such as JS heap or HTML content.
+		 */
+		privateBytes: number;
+		/**
+		 * The amount of memory shared between processes, typically memory consumed by the Electron code itself.
+		 */
+		sharedBytes: number;
+	}
+
+	interface SystemMemoryInfo {
+		/**
+		 * The total amount of physical memory available to the system.
+		 */
+		total: number;
+		/**
+		 * The total amount of memory not being used by applications or disk cache.
+		 */
+		free: number;
+		/**
+		 * The total amount of swap memory available to the system.
+		 */
+		swapTotal: number;
+		/**
+		 * The free amount of swap memory available to the system.
+		 */
+		swapFree: number;
 	}
 }
 
