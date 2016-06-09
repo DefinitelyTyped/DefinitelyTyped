@@ -70,6 +70,10 @@ interface JQueryTooltipsterOptions {
     */
     functionAfter?: (origin: JQuery) => void;
     /**
+     * If true, the tooltip will close if its origin is clicked. This option only applies when 'trigger' is 'hover' and 'autoClose' is false. Default: false
+     */
+    hideOnClick?: boolean;
+    /**
     * If using the iconDesktop or iconTouch options, this sets the content for your icon. Default: '(?)'
     * @type string, jQuery object
     */
