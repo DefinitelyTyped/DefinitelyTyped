@@ -87,13 +87,13 @@ declare namespace FluxUtils {
          * 
          * @type {boolean}
          */
-        pure: boolean;
+        pure?: boolean;
         /**
          * Default value: false
          * 
          * @type {boolean}
          */
-        withProps: boolean;
+        withProps?: boolean;
     }
     
     export class Container {
@@ -103,7 +103,7 @@ declare namespace FluxUtils {
         * that updates its state when relevant stores change.
         * The provided base class must have static methods getStores() and calculateState().
         */
-        static create<P, V extends {}>(base: React.ComponentClass<P>, options?: V & RealOptions): React.ComponentClass<P>;
+        static create<TComponent, V extends {}>(base: React.ComponentClass<TComponent>, options?: V & RealOptions): React.ComponentClass<TComponent>;
     }
 
     /**
