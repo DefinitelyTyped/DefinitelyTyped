@@ -836,3 +836,17 @@ namespace vm_tests {
         Debug.scripts().forEach(function(script: any) { console.log(script.name); });
     }
 }
+
+/////////////////////////////////////////////////////////
+/// Errors Tests : https://nodejs.org/api/errors.html ///
+/////////////////////////////////////////////////////////
+
+namespace errors_tests {
+    {
+        Error.stackTraceLimit = Infinity;
+    }
+    {
+        const myObject = {};
+        Error.captureStackTrace(myObject);
+    }
+}
