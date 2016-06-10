@@ -6,6 +6,7 @@
 // These are very definitely preliminary. Please feel free to improve.
 
 /// <reference path="../knockout/knockout.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 declare namespace kg {
    interface DomUtilityService {
@@ -98,7 +99,7 @@ declare namespace kg {
       headerRowHeight?: number;
 
       /** Define a header row template for further customization. See github wiki for more details. */
-      headerRowTemplate?: string | JQueryDeferred<string>;
+      headerRowTemplate?: string | JQueryGenericPromise<string>;
 
       /** Enables the use of jquery UI reaggable/droppable plugin. requires jqueryUI to work if enabled.
       Useful if you want drag + drop but your users insist on crappy browsers. */
@@ -127,7 +128,7 @@ declare namespace kg {
       rowHeight?: number;
 
       /** Define a row template to customize output. See github wiki for more details. */
-      rowTemplate?: string | JQueryDeferred<string>;
+      rowTemplate?: string | JQueryGenericPromise<string>;
 
       /** Defines the binding to select all at once */
       selectAllState?: KnockoutObservable<boolean>;
@@ -193,7 +194,7 @@ declare namespace kg {
       cellFormatter?(val:any): string;
 
       /**Sets the cell template for the column. See github wiki for more details.*/
-      cellTemplate?: string | JQueryDeferred<string>;
+      cellTemplate?: string | JQueryGenericPromise<string>;
 
       /** Sets the pretty display name of the column. default is the field given */
       displayName?: string;
@@ -202,7 +203,7 @@ declare namespace kg {
       field: string;
 
       /** Sets the template for the column header cell. See github wiki for more details. */
-      headerCellTemplate?: string | JQueryDeferred<string>;
+      headerCellTemplate?: string | JQueryGenericPromise<string>;
 
       /** Appends a css class for the column header. */
       headerClass?: string;
