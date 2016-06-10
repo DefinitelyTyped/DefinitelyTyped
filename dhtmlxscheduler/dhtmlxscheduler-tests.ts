@@ -32,6 +32,9 @@ scheduler.attachEvent("onEmptyClick", function (ev?: Event) {
     var date: Date = scheduler.getActionData(ev).date;
 });
 
+//filters
+scheduler.filter_week = (id: string, e: Event) => true;
+
 //enterprise version
 var scheduler2 = Scheduler.getSchedulerInstance();
 scheduler2.addEvent({ some: 1 });

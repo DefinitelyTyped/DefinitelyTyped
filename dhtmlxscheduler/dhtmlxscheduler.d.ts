@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface SchedulerCallback {  (...args: any[]) : any }
+interface SchedulerFilterCallback { (id: string | number, event: any): boolean }
+
 type SchedulerEventName ='onAfterEventDisplay'|'onAfterFolderToggle'|'onAfterLightbox'|'onAfterSchedulerResize'|'onBeforeCollapse'|'onBeforeDrag'|'onBeforeEventChanged'|'onBeforeEventCreated'|'onBeforeEventDelete'|'onBeforeEventDisplay'|'onBeforeEventDragIn'|'onBeforeEventDragOut'|'onBeforeExpand'|'onBeforeExternalDragIn'|'onBeforeFolderToggle'|'onBeforeLightbox'|'onBeforeSectionRender'|'onBeforeTodayDisplayed'|'onBeforeTooltip'|'onBeforeViewChange'|'onCellClick'|'onCellDblClick'|'onClearAll'|'onClick'|'onCollapse'|'onConfirmedBeforeEventDelete'|'onContextMenu'|'onDblClick'|'onDragEnd'|'onEmptyClick'|'onEventAdded'|'onEventCancel'|'onEventChanged'|'onEventCollision'|'onEventCopied'|'onEventCreated'|'onEventCut'|'onEventDeleted'|'onEventDrag'|'onEventDragIn'|'onEventDragOut'|'onEventDropOut'|'onEventIdChange'|'onEventLoading'|'onEventPasted'|'onEventSave'|'onExpand'|'onExternalDragIn'|'onLightbox'|'onLightboxButton'|'onLimitViolation'|'onLoadError'|'onLocationError'|'onMouseDown'|'onMouseMove'|'onOptionsLoad'|'onOptionsLoadFinal'|'onOptionsLoadStart'|'onSaveError'|'onScaleAdd'|'onScaleDblClick'|'onSchedulerReady'|'onSchedulerResize'|'onTemplatesReady'|'onTimelineCreated'|'onViewChange'|'onViewMoreClick'|'onXLE'|'onXLS'|'onXScaleClick'|'onXScaleDblClick'|'onYScaleClick'|'onYScaleDblClick';
 
 interface SchedulerTemplates{
@@ -1138,6 +1140,59 @@ interface SchedulerStatic{
 	version: String;
 	xy: SchedulerSizes;
 	locale: SchedulerLocale;
+
+	/**
+	 * filter events that will be displayed on the day view
+	*/
+	filter_day: SchedulerFilterCallback;
+
+	/**
+	 * filter events that will be displayed on the week view
+	*/
+	filter_week: SchedulerFilterCallback;
+
+	/**
+	 * filter events that will be displayed on the month view
+	*/
+	filter_month: SchedulerFilterCallback;
+
+	/**
+	 * filter events that will be displayed on the year view
+	*/
+	filter_year: SchedulerFilterCallback;
+
+	/**
+	 * filter events that will be displayed on the agenda view
+	*/
+	filter_agenda: SchedulerFilterCallback;
+
+	/**
+	 * filter events that will be displayed on the timeline view
+	*/
+	filter_timeline: SchedulerFilterCallback;
+
+	/**
+	 * filter events that will be displayed on the units view
+	*/
+	filter_units: SchedulerFilterCallback;
+
+	/**
+	 * filter events that will be displayed on the grid view
+	*/
+	filter_grid: SchedulerFilterCallback;
+
+
+	/**
+	 * removes all blocking sets from the scheduler
+	*/
+	deleteMarkedTimespan();
+
+	/**
+	 * removes marking/blocking set by the addMarkedTimespan() and blockTime() methods
+	 * @param configuration for deleting
+	*/
+	deleteMarkedTimespan(config: any);
+
 
 	/**
 	 * adds a new event
