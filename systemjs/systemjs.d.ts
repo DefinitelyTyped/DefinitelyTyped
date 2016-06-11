@@ -119,7 +119,7 @@ declare namespace SystemJSLoader {
          * The default extension to add to modules requested within the package. Takes preference over defaultJSExtensions.
          * Can be set to defaultExtension: false to optionally opt-out of extension-adding when defaultJSExtensions is enabled.
          */
-        defaultExtension?: boolean;
+        defaultExtension?: string | boolean;
 
         /**
          * Local and relative map configurations scoped to the package. Apply for subpaths as well.
