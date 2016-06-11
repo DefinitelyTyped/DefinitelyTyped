@@ -19,6 +19,12 @@ interface EmailTemplateResults {
      * @type {string}
      */
     text: string;
+
+    /**
+     * @summary Subject result.
+     * @type {string}
+     */
+    subject: string;
 }
 
 /**
