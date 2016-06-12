@@ -81,7 +81,7 @@ declare namespace angular {
          *
          * If jQuery is available, angular.element is an alias for the jQuery function. If jQuery is not available, angular.element delegates to Angular's built-in subset of jQuery, called "jQuery lite" or "jqLite."
          */
-        element: IAugmentedJQueryStatic;
+        element: JQueryStatic;
         equals(value1: any, value2: any): boolean;
         extend(destination: any, ...sources: any[]): any;
 
@@ -986,7 +986,7 @@ declare namespace angular {
     // DocumentService
     // see http://docs.angularjs.org/api/ng.$document
     ///////////////////////////////////////////////////////////////////////////
-    interface IDocumentService extends IAugmentedJQuery {}
+    interface IDocumentService extends JQuery {}
 
     ///////////////////////////////////////////////////////////////////////////
     // ExceptionHandlerService
@@ -1249,15 +1249,15 @@ declare namespace angular {
 
     // This corresponds to the "publicLinkFn" returned by $compile.
     interface ITemplateLinkingFunction {
-        (scope: IScope, cloneAttachFn?: ICloneAttachFunction): IAugmentedJQuery;
+        (scope: IScope, cloneAttachFn?: ICloneAttachFunction): JQuery;
     }
 
     // This corresponds to $transclude (and also the transclude function passed to link).
     interface ITranscludeFunction {
         // If the scope is provided, then the cloneAttachFn must be as well.
-        (scope: IScope, cloneAttachFn: ICloneAttachFunction): IAugmentedJQuery;
+        (scope: IScope, cloneAttachFn: ICloneAttachFunction): JQuery;
         // If one argument is provided, then it's assumed to be the cloneAttachFn.
-        (cloneAttachFn?: ICloneAttachFunction): IAugmentedJQuery;
+        (cloneAttachFn?: ICloneAttachFunction): JQuery;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1720,7 +1720,7 @@ declare namespace angular {
     }
 
     interface IComponentTemplateFn {
-        ( $element?: IAugmentedJQuery, $attrs?: IAttributes ): string;
+        ( $element?: JQuery, $attrs?: IAttributes ): string;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1736,7 +1736,7 @@ declare namespace angular {
     interface IDirectiveLinkFn {
         (
             scope: IScope,
-            instanceElement: IAugmentedJQuery,
+            instanceElement: JQuery,
             instanceAttributes: IAttributes,
             controller: {},
             transclude: ITranscludeFunction
@@ -1750,7 +1750,7 @@ declare namespace angular {
 
     interface IDirectiveCompileFn {
         (
-            templateElement: IAugmentedJQuery,
+            templateElement: JQuery,
             templateAttributes: IAttributes,
             /**
              * @deprecated
@@ -1792,44 +1792,14 @@ declare namespace angular {
     }
 
     /**
-     * angular.element
-     * when calling angular.element, angular returns a jQuery object,
-     * augmented with additional methods like e.g. scope.
-     * see: http://docs.angularjs.org/api/angular.element
+     * These interfaces are kept for compatibility with older versions of these type definitions.
+     * Actually, Angular doesn't create a special subclass of jQuery objects. It extends jQuery.prototype
+     * like jQuery plugins do, that's why all jQuery objects have these Angular-specific methods, not
+     * only those returned from angular.element.
+     * See: http://docs.angularjs.org/api/angular.element
      */
-    interface IAugmentedJQueryStatic extends JQueryStatic {
-        (selector: string, context?: any): IAugmentedJQuery;
-        (element: Element): IAugmentedJQuery;
-        (object: {}): IAugmentedJQuery;
-        (elementArray: Element[]): IAugmentedJQuery;
-        (object: JQuery): IAugmentedJQuery;
-        (func: Function): IAugmentedJQuery;
-        (array: any[]): IAugmentedJQuery;
-        (): IAugmentedJQuery;
-    }
-
-    interface IAugmentedJQuery extends JQuery {
-        // TODO: events, how to define?
-        //$destroy
-
-        find(selector: string): IAugmentedJQuery;
-        find(element: any): IAugmentedJQuery;
-        find(obj: JQuery): IAugmentedJQuery;
-        controller(): any;
-        controller(name: string): any;
-        injector(): any;
-        scope(): IScope;
-
-        /**
-        *   Overload for custom scope interfaces
-        */
-        scope<T extends IScope>(): T;
-        isolateScope(): IScope;
-
-        inheritedData(key: string, value: any): JQuery;
-        inheritedData(obj: { [key: string]: any; }): JQuery;
-        inheritedData(key?: string): any;
-    }
+    interface IAugmentedJQueryStatic extends JQueryStatic {}
+    interface IAugmentedJQuery extends JQuery {}
 
     ///////////////////////////////////////////////////////////////////////////
     // AUTO module (angular.js)
@@ -1930,4 +1900,21 @@ declare namespace angular {
     interface IHttpParamSerializer {
         (obj: Object): string;
     }
+}
+
+interface JQuery {
+    // TODO: events, how to define?
+    //$destroy
+
+    find(element: any): JQuery;
+    find(obj: JQuery): JQuery;
+    controller(name?: string): any;
+    injector(): ng.auto.IInjectorService;
+    /** It's declared generic for custom scope interfaces */
+    scope<T extends ng.IScope>(): T;
+    isolateScope<T extends ng.IScope>(): T;
+
+    inheritedData(key: string, value: any): JQuery;
+    inheritedData(obj: { [key: string]: any; }): JQuery;
+    inheritedData(key?: string): any;
 }
