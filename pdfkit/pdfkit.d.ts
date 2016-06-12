@@ -129,7 +129,7 @@ declare namespace PDFKit.Mixins {
         continued?: boolean;
 
         /** the alignment of the text (center, justify, left, right) */
-        align?: any;
+        align?: string;
     }
 
     interface PDFText<TDocument> {
