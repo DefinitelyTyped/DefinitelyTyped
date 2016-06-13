@@ -2000,7 +2000,7 @@ declare module _ {
         flattenDeep<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
-    //_.fromPairs DUMMY
+    //_.fromPairs
     interface LoDashStatic {
         /**
          * The inverse of `_.toPairs`; this method returns an object composed
@@ -2016,8 +2016,15 @@ declare module _ {
          * _.fromPairs([['fred', 30], ['barney', 40]]);
          * // => { 'fred': 30, 'barney': 40 }
          */
+        fromPairs<T>(
+          array: List<[_.StringRepresentable, T]>
+        ): Dictionary<T>;
+
+        /**
+         @see _.fromPairs
+         */
         fromPairs(
-            array: any[]|List<any>
+            array: List<any[]>
         ): Dictionary<any>;
     }
 
