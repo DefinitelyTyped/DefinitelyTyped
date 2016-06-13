@@ -11,7 +11,9 @@ var rectangle: ClientRect = {
     bottom: 100,
     height: 100
 };
-var interactable = interact(button);
+let context = document.createElement('a');
+let interactable = interact('.foo', {context: context});
+interactable = interact(button);
 
 interactable.draggable();
 interactable.draggable(true);
