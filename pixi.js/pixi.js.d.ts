@@ -504,6 +504,7 @@ declare namespace PIXI {
         view?: HTMLCanvasElement;
         transparent?: boolean;
         antialias?: boolean;
+        autoResize?: boolean;
         resolution?: number;
         clearBeforeRendering?: boolean;
         preserveDrawingBuffer?: boolean;
