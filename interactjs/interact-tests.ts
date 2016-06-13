@@ -1,6 +1,6 @@
 /// <reference path="./interact.d.ts" />
 
-import interact = require("interact");
+import interact = require("interact.js");
 
 var button: HTMLElement = document.createElement("BUTTON");
 var rectangle: ClientRect = {
