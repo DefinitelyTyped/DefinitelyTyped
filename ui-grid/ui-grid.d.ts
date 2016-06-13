@@ -2825,7 +2825,7 @@ declare namespace uiGrid {
              * Makes it possible to specify a method that evaluates for each row and sets its "enableSelection"
              * property.
              */
-            isRowSelectable?: boolean;
+            isRowSelectable?: (row: IGridRow) => boolean;
             /**
              * Enable multiple row selection only when using the ctrlKey or shiftKey. Requires multiSelect to be true.
              * Defaults to false
