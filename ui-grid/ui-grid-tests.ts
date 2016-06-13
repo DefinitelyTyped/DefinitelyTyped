@@ -44,6 +44,10 @@ columnDef.filter = {
 columnDef.filter.condition = (searchTerm: string, cellValue: any, row: uiGrid.IGridRow, column: uiGrid.IGridColumn): boolean => {
     return true;
 };
+// the condition function does not need to declare all the parameters
+columnDef.filter.condition = (searchTerm: string, cellValue: any): boolean => {
+    return false;
+};
 columnDef.filterCellFiltered = false;
 columnDef.filterHeaderTemplate = '<div blah="test"></div>';
 columnDef.filters = [columnDef.filter];
@@ -88,7 +92,7 @@ columnDef.sort = {
     priority: 1
 };
 columnDef.sortCellFiltered = false;
-columnDef.sortingAlgorithm = (a: any, b: any) => {
+columnDef.sortingAlgorithm = (a: any, b: any, rowA: uiGrid.IGridRowOf<IMyEntity>, rowB: uiGrid.IGridRowOf<IMyEntity>, direction: string) => {
     return -1;
 };
 columnDef.suppressRemoveSort = false;
