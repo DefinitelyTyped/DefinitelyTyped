@@ -1,6 +1,6 @@
-// Type definitions for react-bootstrap-daterangepicker
+// Type definitions for react-bootstrap-daterangepicker v3.1.0
 // Project: https://github.com/skratchdot/react-bootstrap-daterangepicker
-// Definitions by: Ian Ker-Seymer https://github.com/ianks
+// Definitions by: Ian Ker-Seymer <https://github.com/ianks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./../react/react.d.ts" />
