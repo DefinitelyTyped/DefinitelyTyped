@@ -4,9 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var AuthenticationContext: adal.AuthenticationContextStatic;
+declare var Logging: adal.Logging;
 
 declare module 'adal' {
-    export = AuthenticationContext;
+    export = { AuthenticationContext, Logging };
 }
 
 declare namespace adal {
@@ -35,6 +36,18 @@ declare namespace adal {
         stateMatch: boolean,
         stateResponse: string,
         requestType: string
+    }
+    
+    interface Logging {
+        log: (message: string) => void;
+        level: LoggingLevel;
+    }
+    
+    enum LoggingLevel {
+        ERROR = 0,
+        WARNING = 1, 
+        INFO = 2,
+        VERBOSE = 3
     }
 
     interface AuthenticationContextStatic {
