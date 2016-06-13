@@ -1,21 +1,21 @@
 ﻿// Type definitions for angular-jwt 0.0.8
 // Project: https://github.com/auth0/angular-jwt
 // Definitions by: Reto Rezzonico <https://github.com/rerezz>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.jwt {
+declare namespace angular.jwt {
 
     interface JwtToken {
-        iss: string;
-        sub: string;
-        aud: string;
-        exp: number;
-        nbf: number;
-        iat: number;
-        jti: string;
-        unique_name: string;
+        iss?: string;
+        sub?: string;
+        aud?: string;
+        exp?: number;
+        nbf?: number;
+        iat?: number;
+        jti?: string;
+        unique_name?: string;
     }
 
     interface IJwtHelper {
@@ -25,6 +25,6 @@ declare module angular.jwt {
     }
 
     interface IJwtInterceptor {
-        tokenGetter(): string;
+        tokenGetter(...params : any[]): string;
     }
 }

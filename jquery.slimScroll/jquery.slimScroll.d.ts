@@ -1,7 +1,7 @@
 // Type definitions for jQuery.slimScroll v1.3.3
 // Project: https://github.com/rochal/jQuery-slimScroll
 // Definitions by: Chintan Shah <https://github.com/Promact>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="../jquery/jquery.d.ts"/>
 
 interface IJQuerySlimScrollOptions {
@@ -49,6 +49,10 @@ interface IJQuerySlimScrollOptions {
     borderRadius?: string;
     // sets border radius of the rail
     railBorderRadius?: string;
+    // jumps to the specified scroll value
+    scrollTo?: string;
+    // increases/decreases current scroll value by specified amount
+    scrollBy?: string;
 }
 
 interface JQuery {

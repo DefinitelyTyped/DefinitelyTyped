@@ -1,10 +1,10 @@
 // Type definitions for Angular Material 0.9.0-rc1+ (angular.material module)
 // Project: https://github.com/angular/material
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
-declare module angular.material {
+declare namespace angular.material {
 
     interface MDBottomSheetOptions {
         templateUrl?: string;
@@ -64,7 +64,7 @@ declare module angular.material {
         show(dialog: MDDialogOptions|MDAlertDialog|MDConfirmDialog): angular.IPromise<any>;
         confirm(): MDConfirmDialog;
         alert(): MDAlertDialog;
-        hide(response?: any): void;
+        hide(response?: any): angular.IPromise<any>;
         cancel(response?: any): void;
     }
 

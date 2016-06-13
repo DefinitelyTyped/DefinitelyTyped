@@ -1,7 +1,7 @@
-﻿// Type definitions for Dexie v1.1
+﻿// Type definitions for Dexie v1.3.1
 // Project: https://github.com/dfahlander/Dexie.js
 // Definitions by: David Fahlander <http://github.com/dfahlander>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Thenable<R> {
     then<U>(onFulfilled: (value: R) => Thenable<U>, onRejected: (error: any) => Thenable<U>): Thenable<U>;
@@ -9,6 +9,8 @@ interface Thenable<R> {
     then<U>(onFulfilled: (value: R) => U, onRejected: (error: any) => Thenable<U>): Thenable<U>;
     then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): Thenable<U>;
 }
+
+declare type IndexableType = string | number | Date | Array<string | number | Date>;
 
 declare class Dexie {
     constructor(databaseName: string);
@@ -38,7 +40,7 @@ declare class Dexie {
 
     static deepClone(obj: Object): Object;
 
-    version(versionNumber: number): Dexie.Version
+    version(versionNumber: Number): Dexie.Version
 
     on: {
         (eventName: string, subscriber: () => any): void;
@@ -50,7 +52,7 @@ declare class Dexie {
         versionchange: Dexie.DexieVersionChangeEvent;
     }
 
-    open(): Dexie.Promise<void>;
+    open(): Dexie.Promise<Dexie>;
 
     table(tableName: string): Dexie.Table<any, any>;
 
@@ -78,6 +80,8 @@ declare class Dexie {
 
     delete(): Dexie.Promise<void>;
 
+    exists(name : string) : Dexie.Promise<boolean>;
+
     isOpen(): boolean;
 
     hasFailed(): boolean;
@@ -87,7 +91,7 @@ declare class Dexie {
     vip<U>(scopeFunction: () => U): U;
 }
 
-declare module Dexie {
+declare namespace Dexie {
 
     class Promise<R> implements Thenable<R> {
         constructor(callback: (resolve: (value?: Thenable<R>) => void, reject: (error?: any) => void) => void);
@@ -102,18 +106,24 @@ declare module Dexie {
 
         then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): Promise<U>;
 
-        catch<U>(onRejected: (error: any) => Promise<U>): Promise<U>;
+        catch<U>(onRejected: (error: any) => Thenable<U>): Promise<U>;
 
-        catch<U>(ExceptionType: Function, onRejected: (error : any) => Promise<U>): Promise<U>;
+        catch<U>(onRejected: (error: any) => U): Promise<U>;
 
-        catch<U>(errorName: string, onRejected: (error : any) => Promise<U>): Promise<U>;
+        catch<U>(ExceptionType: Function, onRejected: (error: any) => Promise<U>): Promise<U>;
+
+        catch<U>(ExceptionType: Function, onRejected: (error: any) => U): Promise<U>;
+
+        catch<U>(errorName: string, onRejected: (error: any) => Promise<U>): Promise<U>;
+
+        catch<U>(errorName: string, onRejected: (error: any) => U): Promise<U>;
 
         finally<R>(onFinally: () => any): Promise<R>;
 
         onuncatched: () => any;
     }
 
-    module Promise {
+    namespace Promise {
         function resolve<R>(value?: Thenable<R>): Promise<R>;
 
         function resolve<R>(value?: R): Promise<R>;
@@ -131,7 +141,7 @@ declare module Dexie {
         var PSD: any;
 
         var on: {
-            (eventName: string, subscriber: (...args : any[]) => any): void;
+            (eventName: string, subscriber: (...args: any[]) => any): void;
             error: DexieErrorEvent;
         }
     }
@@ -162,28 +172,27 @@ declare module Dexie {
     }
 
     interface DexieEvent {
-        subscribe(fn: () => any) : void;
-        unsubscribe(fn: () => any) : void;
-        fire() : any;
+        subscribe(fn: () => any): void;
+        unsubscribe(fn: () => any): void;
+        fire(): any;
     }
 
     interface DexieErrorEvent {
-        subscribe(fn: (error: any) => any) : void;
-        unsubscribe(fn: (error: any) => any) : void;
-        fire(error: any) : any;
+        subscribe(fn: (error: any) => any): void;
+        unsubscribe(fn: (error: any) => any): void;
+        fire(error: any): any;
     }
 
     interface DexieVersionChangeEvent {
-        subscribe(fn: (event: IDBVersionChangeEvent) => any) : void;
-        unsubscribe(fn: (event: IDBVersionChangeEvent) => any) : void;
-        fire(event: IDBVersionChangeEvent) : any;
+        subscribe(fn: (event: IDBVersionChangeEvent) => any): void;
+        unsubscribe(fn: (event: IDBVersionChangeEvent) => any): void;
+        fire(event: IDBVersionChangeEvent): any;
     }
 
-    interface DexieOnReadyEvent
-    {
-        subscribe(fn: () => any, bSticky: boolean) : void;
-        unsubscribe(fn: () => any) : void;
-        fire() : any;
+    interface DexieOnReadyEvent {
+        subscribe(fn: () => any, bSticky: boolean): void;
+        unsubscribe(fn: () => any): void;
+        fire(): any;
     }
 
     interface Table<T, Key> {
@@ -221,42 +230,33 @@ declare module Dexie {
         reverse(): Collection<T, Key>;
         mapToClass(constructor: Function): Function;
         add(item: T, key?: Key): Promise<Key>;
-        update(key: Key, changes: { [keyPath: string]: any }) : Promise<number>;
+        update(key: Key, changes: { [keyPath: string]: any }): Promise<number>;
         put(item: T, key?: Key): Promise<Key>;
         delete(key: Key): Promise<void>;
         clear(): Promise<void>;
     }
 
     interface WhereClause<T, Key> {
-        above(key: number): Collection<T, Key>;
-        above(key: string): Collection<T, Key>;
-        above(key: Date): Collection<T, Key>;
-        above(key: Array<any>): Collection<T, Key>;
-        aboveOrEqual(key: number): Collection<T, Key>;
-        aboveOrEqual(key: string): Collection<T, Key>;
-        aboveOrEqual(key: Date): Collection<T, Key>;
-        aboveOrEqual(key: Array<any>): Collection<T, Key>;
-        anyOf(keys: Array<any>): Collection<T, Key>;
-        anyOf(...keys: any[]): Collection<T, Key>;
-        below(key: number): Collection<T, Key>;
-        below(key: string): Collection<T, Key>;
-        below(key: Date): Collection<T, Key>;
-        below(key: Array<any>): Collection<T, Key>;
-        belowOrEqual(key: number): Collection<T, Key>;
-        belowOrEqual(key: string): Collection<T, Key>;
-        belowOrEqual(key: Date): Collection<T, Key>;
-        belowOrEqual(key: Array<any>): Collection<T, Key>;
-        between(lower: number, upper: number, includeLower?: boolean, includeUpper?: boolean): Collection<T, Key>;
-        between(lower: string, upper: string, includeLower?: boolean, includeUpper?: boolean): Collection<T, Key>;
-        between(lower: Date, upper: Date, includeLower?: boolean, includeUpper?: boolean): Collection<T, Key>;
-        between(lower: Array<any>, upper: Array<any>, includeLower?: boolean, includeUpper?: boolean): Collection<T, Key>;
-        equals(key: number): Collection<T, Key>;
-        equals(key: string): Collection<T, Key>;
-        equals(key: Date): Collection<T, Key>;
-        equals(key: Array<any>): Collection<T, Key>;
+        above(key: IndexableType): Collection<T, Key>;
+        aboveOrEqual(key: IndexableType): Collection<T, Key>;
+        anyOf(keys: IndexableType[]): Collection<T, Key>;
+        anyOf(...keys: IndexableType[]): Collection<T, Key>;
+        anyOfIgnoreCase(keys: string[]): Collection<T, Key>;
+        anyOfIgnoreCase(...keys: string[]): Collection<T, Key>;
+        below(key: IndexableType): Collection<T, Key>;
+        belowOrEqual(key: IndexableType): Collection<T, Key>;
+        between(lower: IndexableType, upper: IndexableType, includeLower?: boolean, includeUpper?: boolean): Collection<T, Key>;
+        equals(key: IndexableType): Collection<T, Key>;
         equalsIgnoreCase(key: string): Collection<T, Key>;
+        inAnyRange(ranges: Array<IndexableType[]>): Collection<T, Key>;
         startsWith(key: string): Collection<T, Key>;
+        startsWithAnyOf(prefixes: string[]): Collection<T, Key>;
+        startsWithAnyOf(...prefixes: string[]): Collection<T, Key>;
         startsWithIgnoreCase(key: string): Collection<T, Key>;
+        startsWithAnyOfIgnoreCase(prefixes: string[]): Collection<T, Key>;
+        startsWithAnyOfIgnoreCase(...prefixes: string[]): Collection<T, Key>;
+        noneOf(keys: Array<IndexableType>): Collection<T, Key>;
+        notEqual(key: IndexableType): Collection<T, Key>;
     }
 
     interface Collection<T, Key> {
@@ -306,7 +306,7 @@ declare module Dexie {
 
     interface IndexSpec {
         name: string;
-        keyPath: any;
+        keyPath: any; // string | Array<string>
         unique: boolean;
         multi: boolean;
         auto: boolean;
@@ -315,6 +315,5 @@ declare module Dexie {
     }
 }
 
-declare module 'dexie' {
-    export = Dexie;
-}
+export default Dexie;
+

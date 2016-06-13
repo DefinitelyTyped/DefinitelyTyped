@@ -1,175 +1,187 @@
 // Type definitions for WebVR API
-// Project: http://mozvr.github.io/webvr-spec/webvr.html
-// Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Project: https://w3c.github.io/webvr/
+// Definitions by: six a <https://github.com/lostfictions>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../geometry-dom/geometry-dom.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
+declare class VRDisplay extends EventTarget {
+  isConnected: boolean;
+  isPresenting: boolean;
 
-declare type VREye = string;
+  /**
+   * Dictionary of capabilities describing the VRDisplay.
+   */
+  capabilities: VRDisplayCapabilities;
 
-declare module WebVRApi {
-    export interface VRFieldOfViewReadOnly {
-        upDegrees: number;
-        rightDegrees: number;
-        downDegrees: number;
-        leftDegrees: number;
-    }
+  /**
+   * If this VRDisplay supports room-scale experiences, the optional
+   * stage attribute contains details on the room-scale parameters.
+   */
+  stageParameters: VRStageParameters;
 
-    export interface VRFieldOfViewInit {
-        upDegrees: number;
-        rightDegrees: number;
-        downDegrees: number;
-        leftDegrees: number;
-    }
+  /* Return the current VREyeParameters for the given eye. */
+  getEyeParameters(whichEye: VREye): VREyeParameters;
 
-    export interface VRFieldOfView extends VRFieldOfViewReadOnly {
-        constructor(upDegrees:number, rightDegrees:number, downDegrees:number, leftDegrees:number): VRFieldOfView;
-        upDegrees: number;
-        rightDegrees: number;
-        downDegrees: number;
-        leftDegrees: number;
-    }
+  /**
+   * An identifier for this distinct VRDisplay. Used as an
+   * association point in the Gamepad API.
+   */
+  displayId: number;
 
-    export interface VRPositionState {
-        /**
-         * Monotonically increasing value that allows the author to determine if position state data been updated from the hardware.
-         */
-        timeStamp: number;
-        /**
-         * True if the position attribute is valid. If false position MUST be null.
-         */
-        hasPosition: boolean;
-        /**
-         * Position of the sensor at timeStamp as a 3D vector.
-         */
-        position?: GeometryDom.DOMPoint;
-        /**
-         * Linear velocity of the sensor at timeStamp.
-         */
-        linearVelocity?: GeometryDom.DOMPoint;
-        /**
-         * Linear acceleration of the sensor at timeStamp.
-         */
-        linearAcceleration?: GeometryDom.DOMPoint;
-        /**
-         * True if the orientation attribute is valid. If false orientation MUST be null.
-         */
-        hasOrientation: boolean;
-        /**
-         * Orientation of the sensor at timeStamp as a quaternion.
-         */
-        orientation?: GeometryDom.DOMPoint;
-        /**
-         * Angular velocity of the sensor at timeStamp.
-         */
-        angularVelocity?: GeometryDom.DOMPoint;
-        /**
-         * Angular acceleration of the sensor at timeStamp.
-         */
-        angularAcceleration?: GeometryDom.DOMPoint;
-    }
+  /**
+   * A display name, a user-readable name identifying it.
+   */
+  displayName: string;
 
-    export interface VREyeParameters {
-        /**
-         * Describes the minimum supported field of view for the eye.
-         */
-        minimumFieldOfView: VRFieldOfView;
-        /**
-         * Describes the maximum supported field of view for the eye.
-         */
-        maximumFieldOfView: VRFieldOfView;
-        /**
-         * Describes the recommended field of view for the eye.
-         */
-        recommendedFieldOfView: VRFieldOfView;
-        /**
-         * Offset from the center of the users head to the eye in meters.
-         */
-        eyeTranslation: GeometryDom.DOMPoint;
-        /**
-         * The current field of view for the eye, as specified by setFieldOfView.
-         */
-        currentFieldOfView: VRFieldOfView;
-        /**
-         * Describes the viewport of a canvas into which visuals for this eye should be rendered.
-         */
-        renderRect: GeometryDom.DOMRect;
-    }
+  /**
+   * Return a VRPose containing the future predicted pose of the VRDisplay
+   * when the current frame will be presented. The value returned will not
+   * change until JavaScript has returned control to the browser.
+   *
+   * The VRPose will contain the position, orientation, velocity,
+   * and acceleration of each of these properties.
+   */
+  getPose() : VRPose;
 
-    export interface VRDevice {
-        /**
-         * An identifier for the distinct hardware unit that this VRDevice is a part of.
-         */
-        hardwareUnitId: string;
-        /**
-         * An identifier for this distinct sensor/device on a physical hardware device.
-         */
-        deviceId: string;
-        /**
-         * A user-readable name identifying the device.
-         */
-        deviceName: string;
-    }
+  /**
+   * Return the current instantaneous pose of the VRDisplay, with no
+   * prediction applied.
+   */
+  getImmediatePose(): VRPose;
+
+  /**
+   * Reset the pose for this display, treating its current position and
+   * orientation as the "origin/zero" values. VRPose.position,
+   * VRPose.orientation, and VRStageParameters.sittingToStandingTransform may be
+   * updated when calling resetPose(). This should be called in only
+   * sitting-space experiences.
+   */
+  resetPose(): void;
+
+  /**
+   * z-depth defining the near plane of the eye view frustum
+   * enables mapping of values in the render target depth
+   * attachment to scene coordinates. Initially set to 0.01.
+   */
+  depthNear: number;
+
+  /**
+   * z-depth defining the far plane of the eye view frustum
+   * enables mapping of values in the render target depth
+   * attachment to scene coordinates. Initially set to 10000.0.
+   */
+  depthFar: number;
+
+  /**
+   * The callback passed to `requestAnimationFrame` will be called
+   * any time a new frame should be rendered. When the VRDisplay is
+   * presenting the callback will be called at the native refresh
+   * rate of the HMD. When not presenting this function acts
+   * identically to how window.requestAnimationFrame acts. Content should
+   * make no assumptions of frame rate or vsync behavior as the HMD runs
+   * asynchronously from other displays and at differing refresh rates.
+   */
+  requestAnimationFrame(callback: FrameRequestCallback): number;
+
+  /**
+   * Passing the value returned by `requestAnimationFrame` to
+   * `cancelAnimationFrame` will unregister the callback.
+   */
+  cancelAnimationFrame(handle: number): void;
+
+  /**
+   * Begin presenting to the VRDisplay. Must be called in response to a user gesture.
+   * Repeat calls while already presenting will update the VRLayers being displayed.
+   */
+  requestPresent(layers: Array<VRLayer>): Promise<void>;
+
+  /**
+   * Stops presenting to the VRDisplay.
+   */
+  exitPresent(): Promise<void>;
+
+  /**
+   * Get the layers currently being presented.
+   */
+  getLayers(): Array<VRLayer>;
+
+  /**
+   * The VRLayer provided to the VRDisplay will be captured and presented
+   * in the HMD. Calling this function has the same effect on the source
+   * canvas as any other operation that uses its source image, and canvases
+   * created without preserveDrawingBuffer set to true will be cleared.
+   */
+  submitFrame(pose?: VRPose): void;
 }
 
-declare class HMDVRDevice implements WebVRApi.VRDevice {
-    /**
-     * An identifier for the distinct hardware unit that this VRDevice is a part of.
-     */
-    hardwareUnitId: string;
-    /**
-     * An identifier for this distinct sensor/device on a physical hardware device.
-     */
-    deviceId: string;
-    /**
-     * A user-readable name identifying the device.
-     */
-    deviceName: string;
+type VRSource = HTMLCanvasElement;
 
-    /**
-     * Return the current VREyeParameters for the given eye.
-     */
-    getEyeParameters(whichEye: VREye): WebVRApi.VREyeParameters;
-    /**
-     * Set the field of view for both eyes. If
-     */
-    setFieldOfView(leftFOV?: WebVRApi.VRFieldOfViewInit, rightFOV?: WebVRApi.VRFieldOfViewInit, zNear?: number, zFar?: number): void;
+
+type VRLayer = {
+  source?: VRSource;
+
+  leftBounds?: Array<number>;
+  rightBounds?: Array<number>;
+};
+
+interface VRDisplayCapabilities {
+  hasPosition: boolean;
+  hasOrientation: boolean;
+  hasExternalDisplay: boolean;
+  canPresent: boolean;
+  maxLayers: number;
 }
 
-declare class PositionSensorVRDevice implements WebVRApi.VRDevice {
-    /**
-     * An identifier for the distinct hardware unit that this VRDevice is a part of.
-     */
-    hardwareUnitId: string;
-    /**
-     * An identifier for this distinct sensor/device on a physical hardware device.
-     */
-    deviceId: string;
-    /**
-     * A user-readable name identifying the device.
-     */
-    deviceName: string;
+type VREye = "left" | "right";
 
-    /**
-     * Return a VRPositionState dictionary containing the state of this position sensor state for the current frame (if within a requestAnimationFrame context) or for the previous frame.
-     */
-    getState(): WebVRApi.VRPositionState;
-    /**
-     * Return the current instantaneous sensor state.
-     */
-    getImmediateState(): WebVRApi.VRPositionState;
+interface VRFieldOfView {
+  upDegrees: number;
+  rightDegrees: number;
+  downDegrees: number;
+  leftDegrees: number;
+}
 
-    /**
-     * Reset this sensor, treating its current position and orientation yaw as the "origin/zero" values.
-     */
-    resetSensor(): void;
+interface VRPose {
+  timestamp: number;
+
+  position: Float32Array;
+  linearVelocity: Float32Array;
+  linearAcceleration: Float32Array;
+
+  orientation: Float32Array;
+  angularVelocity: Float32Array;
+  angularAcceleration: Float32Array;
+}
+
+interface VREyeParameters {
+  offset: Float32Array;
+
+  fieldOfView: VRFieldOfView;
+
+  renderWidth: number;
+  renderHeight: number;
+}
+
+interface VRStageParameters {
+  sittingToStandingTransform: Float32Array;
+
+  sizeX: number;
+  sizeZ: number;
 }
 
 interface Navigator {
-    /**
-     * Return a Promise which resolves to a list of available VRDevices.
-     */
-    getVRDevices(): Promise<Array<WebVRApi.VRDevice>>;
+  getVRDisplays(): Promise<Array<VRDisplay>>;
+  activeVRDisplays: Array<VRDisplay>;
 }
 
+interface Window {
+  onvrdisplayconnected: (ev: Event) => any;
+  onvrdisplaydisconnected: (ev: Event) => any;
+  onvrdisplaypresentchange: (ev: Event) => any;
+  addEventListener(type: "vrdisplayconnected", listener: (ev: Event) => any, useCapture?: boolean): void;
+  addEventListener(type: "vrdisplaydisconnected", listener: (ev: Event) => any, useCapture?: boolean): void;
+  addEventListener(type: "vrdisplaypresentchange", listener: (ev: Event) => any, useCapture?: boolean): void;
+}
+
+interface Gamepad {
+  displayId: number;
+}

@@ -1,7 +1,7 @@
 // Type definitions for Mongoose 3.8.5
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../node/node.d.ts" />
 
@@ -40,6 +40,7 @@ declare module "mongoose" {
     mquery: any;
     version: string;
     connection: Connection;
+    Promise: any;
   }
 
   export interface Connection extends NodeJS.EventEmitter {
@@ -129,6 +130,7 @@ declare module "mongoose" {
       isValid(): boolean;
       static createFromTime(time: number): ObjectId;
       static createFromHexString(hexString: string): ObjectId;
+	  static isValid(id?: string|number):boolean;
     }
   }
 
@@ -178,7 +180,7 @@ declare module "mongoose" {
   }
 
   export interface Model<T extends Document> extends NodeJS.EventEmitter {
-    new(doc?: Object): T;
+    new(doc?: Object, fields?: Object, skipInit?: boolean): T;
 
     aggregate(...aggregations: Object[]): Aggregate<T[]>;
     aggregate(aggregation: Object, callback: (err: any, res: T[]) => void): Promise<T[]>;
@@ -194,6 +196,7 @@ declare module "mongoose" {
     distinct(field: string, conditions: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
     ensureIndexes(callback: (err: any) => void): Promise<T>;
 
+    find(): Query<T[]>;
     find(cond: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
     find(cond: Object, fields: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
     find(cond: Object, fields: Object, options: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
@@ -212,8 +215,8 @@ declare module "mongoose" {
     findOneAndUpdate(cond: Object, update: Object, callback?: (err: any, res: T) => void): Query<T>;
     findOneAndUpdate(cond: Object, update: Object, options: FindAndUpdateOption, callback?: (err: any, res: T) => void): Query<T>;
 
-    geoNear(point: { type: string; coordinates: number[] }, options: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
-    geoNear(point: number[], options: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
+    geoNear(point: { type: string; coordinates: number[] }, options: Object, callback?: (err: any, res: T[], stats: any) => void): Query<T[]>;
+    geoNear(point: number[], options: Object, callback?: (err: any, res: T[], stats: any) => void): Query<T[]>;
     geoSearch(cond: Object, options: GeoSearchOption, callback?: (err: any, res: T[]) => void): Query<T[]>;
     increment(): T;
     mapReduce<K, V>(options: MapReduceOption<T, K, V>, callback?: (err: any, res: MapReduceResult<K, V>[]) => void): Promise<MapReduceResult<K, V>[]>;
@@ -306,8 +309,8 @@ declare module "mongoose" {
     circle(area: Object): Query<T>;
     circle(path: string, area: Object): Query<T>;
     comment(val: any): Query<T>;
-    count(callback?: (err: any, count: number) => void): Query<T>;
-    count(criteria: Object, callback?: (err: any, count: number) => void): Query<T>;
+    count(callback?: (err: any, count: number) => void): Query<number>;
+    count(criteria: Object, callback?: (err: any, count: number) => void): Query<number>;
     distinct(callback?: (err: any, res: T) => void): Query<T>;
     distinct(field: string, callback?: (err: any, res: T) => void): Query<T>;
     distinct(criteria: Object, field: string, callback?: (err: any, res: T) => void): Query<T>;
@@ -423,7 +426,7 @@ declare module "mongoose" {
 
   export interface Document {
     id?: string;
-    _id: Types.ObjectId;
+    _id: any;
 
     equals(doc: Document): boolean;
     get(path: string, type?: new(...args: any[]) => any): any;
@@ -480,7 +483,7 @@ declare module "mongoose" {
   export class Promise<T> {
     constructor(fn?: (err: any, result: T) => void);
 
-    then<U>(onFulFill: (result: T) => void, onReject?: (err: any) => void): Promise<U>;
+    then<U>(onFulFill: (result: T) => void | U | Promise<U>, onReject?: (err: any) => void | U | Promise<U>): Promise<U>;
     end(): void;
 
     fulfill(result: T): Promise<T>;

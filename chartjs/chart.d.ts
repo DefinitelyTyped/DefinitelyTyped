@@ -1,7 +1,7 @@
 // Type definitions for Chart.js
 // Project: https://github.com/nnnick/Chart.js
 // Definitions by: Steve Fenton <https://github.com/Steve-Fenton>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface ChartDataSet {
     label: string;
@@ -33,52 +33,54 @@ interface CircularChartData {
 }
 
 interface ChartSettings {
-    animation: boolean;
-    animationSteps: number;
-    animationEasing: string;
-    showScale: boolean;
-    scaleOverride: boolean;
-    scaleSteps: number;
-    scaleStepWidth: number;
-    scaleStartValue: number;
-    scaleLineColor: string;
-    scaleLineWidth: number;
-    scaleShowLabels: boolean;
-    scaleLabel: string;
-    scaleIntegersOnly: boolean;
-    scaleBeginAtZero: boolean;
-    scaleFontFamily: string;
-    scaleFontSize: number;
-    scaleFontStyle: string;
-    scaleFontColor: string;
-    responsive: boolean;
-    maintainAspectRatio: boolean;
-    showTooltips: boolean;
-    tooltipEvents: string[];
-    tooltipFillColor: string;
-    tooltipFontFamily: string;
-    tooltipFontSize: number;
-    tooltipFontStyle: string;
-    tooltipFontColor: string;
-    tooltipTitleFontFamily: string;
-    tooltipTitleFontSize: number;
-    tooltipTitleFontStyle: string;
-    tooltipTitleFontColor: string;
-    tooltipYPadding: number;
-    tooltipXPadding: number;
-    tooltipCaretSize: number;
-    tooltipCornerRadius: number;
-    tooltipXOffset: number;
-    tooltipTemplate: string;
-    multiTooltipTemplate: string;
-    onAnimationProgress: () => any;
-    onAnimationComplete: () => any;
+    animation?: boolean;
+    animationSteps?: number;
+    animationEasing?: string;
+    showScale?: boolean;
+    scaleOverride?: boolean;
+    scaleSteps?: number;
+    scaleStepWidth?: number;
+    scaleStartValue?: number;
+    scaleLineColor?: string;
+    scaleLineWidth?: number;
+    scaleShowLabels?: boolean;
+    scaleLabel?: string;
+    scaleIntegersOnly?: boolean;
+    scaleBeginAtZero?: boolean;
+    scaleFontFamily?: string;
+    scaleFontSize?: number;
+    scaleFontStyle?: string;
+    scaleFontColor?: string;
+    responsive?: boolean;
+    maintainAspectRatio?: boolean;
+    showTooltips?: boolean;
+    tooltipEvents?: string[];
+    tooltipFillColor?: string;
+    tooltipFontFamily?: string;
+    tooltipFontSize?: number;
+    tooltipFontStyle?: string;
+    tooltipFontColor?: string;
+    tooltipTitleFontFamily?: string;
+    tooltipTitleFontSize?: number;
+    tooltipTitleFontStyle?: string;
+    tooltipTitleFontColor?: string;
+    tooltipYPadding?: number;
+    tooltipXPadding?: number;
+    tooltipCaretSize?: number;
+    tooltipCornerRadius?: number;
+    tooltipXOffset?: number;
+    tooltipTemplate?: string;
+    multiTooltipTemplate?: string;
+    onAnimationProgress?: () => any;
+    onAnimationComplete?: () => any;
 }
 
-interface ChartOptions {
+interface ChartOptions extends ChartSettings {
     scaleShowGridLines?: boolean;
     scaleGridLineColor?: string;
     scaleGridLineWidth?: number;
+    scaleShowHorizontalLines?: boolean;
+    scaleShowVerticalLines?: boolean;  
     legendTemplate?: string;
 }
 
@@ -107,7 +109,7 @@ interface LinearInstance extends ChartInstance {
     getPointsAtEvent: (event: Event) => PointsAtEvent[];
     update: () => void;
     addData: (valuesArray: number[], label: string) => void;
-    removeData: () => void;
+    removeData: (index?: number) => void;
 }
 
 interface CircularInstance extends ChartInstance {
@@ -135,10 +137,10 @@ interface BarChartOptions extends ChartOptions {
     barShowStroke?: boolean;
     barStrokeWidth?: number;
     barValueSpacing?: number;
-    barDatasetSpacing?: number;
+    barDatasetSpacing?: number;  
 }
 
-interface RadarChartOptions {
+interface RadarChartOptions extends ChartSettings {
     scaleShowLine?: boolean;
     angleShowLineOut?: boolean;
     scaleShowLabels?: boolean;
@@ -159,7 +161,7 @@ interface RadarChartOptions {
     legendTemplate?: string;
 }
 
-interface PolarAreaChartOptions {
+interface PolarAreaChartOptions extends ChartSettings {
     scaleShowLabelBackdrop?: boolean;
     scaleBackdropColor?: string;
     scaleBeginAtZero?: boolean;
@@ -176,7 +178,7 @@ interface PolarAreaChartOptions {
     legendTemplate?: string;
 }
 
-interface PieChartOptions {
+interface PieChartOptions extends ChartSettings {
     segmentShowStroke?: boolean;
     segmentStrokeColor?: string;
     segmentStrokeWidth?: number;

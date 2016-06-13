@@ -181,6 +181,10 @@ testApp.controller('TestCtrl', (
         $log.log('modal rendered');
     });
 
+    modalInstance.closed.then(()=> {
+        $log.log('modal closed');
+    });
+
     modalInstance.result.then((closeResult:any)=> {
         $log.log('modal closed', closeResult);
     }, (dismissResult:any)=> {

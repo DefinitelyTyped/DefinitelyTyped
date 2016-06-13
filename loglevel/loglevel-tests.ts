@@ -13,9 +13,26 @@ log.setLevel(0, false);
 log.setLevel("error");
 log.setLevel("error", false);
 
-log.setLevel(log.levels.WARN);
-log.setLevel(log.levels.WARN, false);
+log.setLevel(LogLevel.WARN);
+log.setLevel(LogLevel.WARN, false);
+
+log.enableAll(false);
+log.enableAll();
+log.disableAll(true);
+log.disableAll();
+
+var logLevel = log.getLevel();
+
+var testLogger = log.getLogger("TestLogger");
+
+testLogger.setLevel(logLevel);
+testLogger.warn("logging test");
 
 var logging = log.noConflict();
 
 logging.error("still pretty easy");
+
+log.methodFactory = function(methodName: string, level: LogLevel, loggerName :string) {
+    return function(...messages: any[]) {
+    };
+};

@@ -41,6 +41,9 @@ columnDef.filter = {
     selectOptions: [{value: 4, label: 'test'}],
     disableCancelButton: false
 };
+columnDef.filter.condition = (searchTerm: string, cellValue: any, row: uiGrid.IGridRow, column: uiGrid.IGridColumn): boolean => {
+    return true;
+};
 columnDef.filterCellFiltered = false;
 columnDef.filterHeaderTemplate = '<div blah="test"></div>';
 columnDef.filters = [columnDef.filter];
@@ -130,3 +133,14 @@ anotherGridInstance.scrollTo(rowEntityToScrollTo, columnDefToScrollTo);
 
 var selectedRowEntities: Array<IMyEntity> = gridApi.selection.getSelectedRows();
 var selectedGridRows: Array<uiGrid.IGridRow> = gridApi.selection.getSelectedGridRows();
+
+gridApi.expandable.on.rowExpandedStateChanged(null, (row) => {
+    if (row.isExpanded) {
+        console.log('expanded', row.entity);
+    } else {
+        gridApi.expandable.toggleRowExpansion(row.entity);
+    }
+});
+gridApi.expandable.expandAllRows();
+gridApi.expandable.collapseAllRows();
+gridApi.expandable.toggleAllRows();

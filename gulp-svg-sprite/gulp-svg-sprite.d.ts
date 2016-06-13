@@ -1,7 +1,7 @@
 // Type definitions for gulp-svg-sprite 1.2.9
 // Project: https://github.com/jkphl/gulp-svg-sprite
 // Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../svg-sprite/svg-sprite.d.ts" />

@@ -31,6 +31,22 @@ var bodyArr: request.RequestPart[] = [{
 	body: value
 }];
 
+//Defaults tests
+(() => {
+  const githubUrl = 'https://github.com';
+  const defaultJarRequest = request.defaults({ jar: true });
+  defaultJarRequest.get(githubUrl);
+  //defaultJarRequest(); //this line doesn't compile (and shouldn't)
+  const defaultUrlRequest = request.defaults({ url: githubUrl });
+  defaultUrlRequest();
+  defaultUrlRequest.get();
+  const defaultBodyRequest = defaultUrlRequest.defaults({body: '{}', json: true});
+  defaultBodyRequest.get();
+  defaultBodyRequest.post();
+  defaultBodyRequest.put();
+})();
+
+
 // --- --- --- --- --- --- --- --- --- --- --- ---
 
 obj = req.toJSON();
@@ -76,6 +92,7 @@ var options: request.Options = {
 	qs: obj,
 	json: value,
 	multipart: value,
+	agent: new http.Agent(),  
 	agentOptions: value,
 	agentClass: value,
 	forever: value,
@@ -93,6 +110,15 @@ var options: request.Options = {
 	proxy: value,
 	strictSSL: bool
 };
+
+// Below line has compile error, use OptionsWithUri or OptionsWithUrl instead. See #7979.
+// options.uri = str;
+
+const opt: request.OptionsWithUri = {
+  baseUrl: 'http://localhost',
+  uri: 'bar'
+};
+opt.uri = str;
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -526,6 +552,9 @@ var specialRequest = baseRequest.defaults({
   headers: {special: 'special value'}
 });
 
+const urlRequest = specialRequest.defaults({url: 'https://github.com'});
+urlRequest({}, function(error, response, body) {console.log(body);});
+
 request.put(url);
 request.patch(url);
 request.post(url);
@@ -621,3 +650,15 @@ request({url: 'http://www.google.com', jar: j}, function () {
   var cookies = j.getCookies(url);
   // [{key: 'key1', value: 'value1', domain: "www.google.com", ...}, ...]
 });
+
+request(
+    { method: 'GET'
+    , uri: 'http://www.google.com'
+    , gzip: true
+    }
+  )
+  .on('request', function(req: http.ClientRequest) { })
+  .on('response', function(resp: http.IncomingMessage) { })
+  .on('data', function(data: Buffer | string) { })
+  .on('error', function(e: Error) { })
+  .on('complete', function(resp: http.IncomingMessage, body?: string | Buffer) { });

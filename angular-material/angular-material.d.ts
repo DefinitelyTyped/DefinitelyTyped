@@ -1,10 +1,16 @@
-// Type definitions for Angular Material 0.10.1-rc1+ (angular.material module)
+// Type definitions for Angular Material 1.0.0-rc5+ (angular.material module)
 // Project: https://github.com/angular/material
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
-declare module angular.material {
+
+declare module 'angular-material' {
+    var _: string;
+    export = _;
+}
+
+declare namespace angular.material {
 
     interface IBottomSheetOptions {
         templateUrl?: string;
@@ -16,6 +22,7 @@ declare module angular.material {
         targetEvent?: MouseEvent;
         resolve?: {[index: string]: angular.IPromise<any>}
         controllerAs?: string;
+        bindToController?: boolean;
         parent?: string|Element|JQuery; // default: root node
         disableParentScroll?: boolean; // default: true
     }
@@ -28,7 +35,8 @@ declare module angular.material {
 
     interface IPresetDialog<T> {
         title(title: string): T;
-        content(content: string): T;
+        textContent(textContent: string): T;
+        htmlContent(htmlContent: string): T;
         ok(ok: string): T;
         theme(theme: string): T;
         templateUrl(templateUrl?: string): T;
@@ -57,11 +65,19 @@ declare module angular.material {
     interface IConfirmDialog extends IPresetDialog<IConfirmDialog> {
         cancel(cancel: string): IConfirmDialog;
     }
+    
+    interface IPromptDialog extends IPresetDialog<IPromptDialog> {
+        cancel(cancel: string): IPromptDialog;
+        placeholder(placeholder: string): IPromptDialog;        
+    }
 
     interface IDialogOptions {
         templateUrl?: string;
         template?: string;
+        autoWrap?: boolean; // default: true
         targetEvent?: MouseEvent;
+        openFrom?: any;
+        closeTo?: any;
         scope?: angular.IScope; // default: new child scope
         preserveScope?: boolean; // default: false
         disableParentScroll?: boolean; // default: true
@@ -75,14 +91,18 @@ declare module angular.material {
         resolve?: {[index: string]: angular.IPromise<any>}
         controllerAs?: string;
         parent?: string|Element|JQuery; // default: root node
+        onShowing?: Function;
         onComplete?: Function;
+        onRemoving?: Function;
+        fullscreen?: boolean;
     }
 
     interface IDialogService {
         show(dialog: IDialogOptions|IAlertDialog|IConfirmDialog): angular.IPromise<any>;
         confirm(): IConfirmDialog;
         alert(): IAlertDialog;
-        hide(response?: any): void;
+        prompt(): IPromptDialog;
+        hide(response?: any): angular.IPromise<any>;
         cancel(response?: any): void;
     }
 
@@ -115,9 +135,10 @@ declare module angular.material {
     }
 
     interface IToastPreset<T> {
-        content(content: string): T;
+        textContent(content: string): T;
         action(action: string): T;
         highlightAction(highlightAction: boolean): T;
+        highlightClass(highlightClass: string): T;
         capsule(capsule: boolean): T;
         theme(theme: string): T;
         hideDelay(delay: number): T;
@@ -131,6 +152,7 @@ declare module angular.material {
     interface IToastOptions {
         templateUrl?: string;
         template?: string;
+        autoWrap?:boolean;
         scope?: angular.IScope; // default: new child scope
         preserveScope?: boolean; // default: false
         hideDelay?: number; // default (ms): 3000
@@ -221,7 +243,7 @@ declare module angular.material {
         setDefaultTheme(theme: string): void;
         alwaysWatchTheme(alwaysWatch: boolean): void;
     }
-    
+
     interface IDateLocaleProvider {
         months: string[];
         shortMonths: string[];
@@ -235,5 +257,30 @@ declare module angular.material {
         weekNumberFormatter(weekNumber: number): string;
         msgCalendar: string;
         msgOpenCalendar: string;
+    }
+
+    interface IMenuService {
+        hide(response?: any, options?: any): angular.IPromise<any>;
+    }
+
+    interface IColorPalette {
+        red: IPalette;
+        pink: IPalette;
+        'deep-purple': IPalette;
+        indigo: IPalette;
+        blue: IPalette;
+        'light-blue': IPalette;
+        cyan: IPalette;
+        teal: IPalette;
+        green: IPalette;
+        'light-green': IPalette;
+        lime: IPalette;
+        yellow: IPalette;
+        amber: IPalette;
+        orange: IPalette;
+        'deep-orange': IPalette;
+        brown: IPalette;
+        grey: IPalette;
+        'blue-grey': IPalette;
     }
 }

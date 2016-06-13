@@ -199,6 +199,11 @@ function test_ajax() {
         console.log(jqXHR, textStatus, errorThrown);
     });
 
+    // generic then method
+    var p: JQueryPromise<number> = $.ajax({ url: "test.js" })
+        .then(() => "Hello")
+        .then((x) => x.length);
+
     // jqXHR object
     var jqXHR = $.ajax({
         url: "test.js"
@@ -1710,6 +1715,20 @@ function test_focusout() {
     });
 }
 
+function test_easing() {
+    const easing = jQuery.easing;
+
+    function test_easing_function( name: string, fn: JQueryEasingFunction ) {
+        const step = Math.pow( 2, -3 ); // use power of 2 to prevent floating point rounding error
+        for( let i = 0; i <= 1; i += step ) {
+            console.log( `$.easing.${name}(${i}): ${fn.call(easing, i)}` );
+        }
+    }
+
+    test_easing_function( "linear", easing.linear );
+    test_easing_function( "swing", easing.swing );
+}
+
 function test_fx() {
     jQuery.fx.interval = 100;
     $("input").click(function () {
@@ -2509,6 +2528,18 @@ function test_jQuery() {
     $.post('url.xml', function (data) {
         var $child = $(data).find('child');
     });
+    $.post({
+        url: "test.php",
+        success : () => {
+            console.log("successfull");
+        }
+    });
+    $.get({
+        url: "test.php",
+        success : () => {
+            console.log("successfull");
+        }
+    });
     var foo = { foo: 'bar', hello: 'world' };
     var $foo = $(foo);
     var test1 = $foo.prop('foo');
@@ -3128,6 +3159,7 @@ function test_val() {
     $("#single").val("Single2");
     $("#multiple").val(["Multiple2", "Multiple3"]);
     $("input").val(["check1", "check2", "radio1"]);
+    $("input").val(1);
 }
 
 function test_selector() {
@@ -3239,7 +3271,7 @@ var f1 = $.when("fetch"); // Is type JQueryPromise<string>
 var f2: JQueryPromise<string[]> = f1.then(s => [s, s]);
 var f3: JQueryPromise<number> = f2.then(v => 3);
 
-// ISSUE: https://github.com/borisyankov/DefinitelyTyped/issues/742
+// ISSUE: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/742
 // http://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax#answer-5976031
 $.ajax({
     url: 'php/upload.php',

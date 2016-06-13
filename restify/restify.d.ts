@@ -1,7 +1,7 @@
 // Type definitions for node.js REST framework 2.0
 // Project: https://github.com/mcavage/node-restify
 // Definitions by: Bret Little <https://github.com/blittle>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../bunyan/bunyan.d.ts" />
@@ -9,6 +9,7 @@
 declare module "restify" {
   import http = require('http');
   import bunyan = require('bunyan');
+  import url = require('url');
 
 
   interface addressInterface {
@@ -17,32 +18,293 @@ declare module "restify" {
     address: string;
   }
 
-  interface Request extends http.ServerRequest {
-    header: (key: string, defaultValue?: string) => any;
-    accepts: (type: string) => boolean;
-    is: (type: string) => boolean;
-    getLogger: (component: string) => any;
-    contentLength: number;
-    contentType: string;
-    href: () => string;
-    log: bunyan.Logger;
-    id: string;
-    path: () => string;
-    query: any;
-    secure: boolean;
-    time: number;
-    params: any;
+  interface requestFileInterface {
+      path: string;
+      type: string;
+  }
 
-    body?: any; //available when bodyParser plugin is used
+  /**
+   * Comes from authorizationParser plugin
+   */
+  interface requestAuthorization {
+      scheme: string;
+      credentials: string;
+      basic?: {
+          username: string;
+          password: string;
+      }
+  }
+
+  interface Request extends http.ServerRequest {
+    /**
+     * builds an absolute URI for the request.
+     * @private
+     * @function absoluteUri
+     * @param    {String} path a url path
+     * @returns  {String}
+     */
+    absoluteUri: (path: string) => string;
+
+    /**
+     * returns any header off the request. also, 'correct' any
+     * correctly spelled 'referrer' header to the actual spelling used.
+     * @public
+     * @function header
+     * @param    {String} name  the name of the header
+     * @param    {String} value default value if header isn't found on the req
+     * @returns  {String}
+     */
+    header: (name: string, value?: string) => string;
+
+    /**
+     * returns any trailer header off the request. also, 'correct' any
+     * correctly spelled 'referrer' header to the actual spelling used.
+     * @public
+     * @function trailer
+     * @param    {String} name  the name of the header
+     * @param    {String} value default value if header isn't found on the req
+     * @returns  {String}
+     */
+    trailer: (name: string, value?: string) => string;
+
+    /**
+     * checks if the accept header is present and has the value requested.
+     * e.g., req.accepts('html');
+     * @public
+     * @function accepts
+     * @param    {String | Array} types an array of accept type headers
+     * @returns  {Boolean}
+     */
+    accepts: (types: string | string[]) => boolean;
+
+    /**
+     * checks if the request accepts the encoding types.
+     * @public
+     * @function acceptsEncoding
+     * @param    {String | Array} types an array of accept type headers
+     * @returns  {Boolean}
+     */
+    acceptsEncoding: (types: string | string[]) => boolean;
+
+    /**
+     * Check if the incoming request contains the Content-Type header field, and
+     * if it contains the given mime type.
+     * @public
+     * @function is
+     * @param    {String} type  a content-type header value
+     * @returns  {Boolean}
+     */
+    is: (type: string) => boolean;
+
+    /**
+     * Check if the incoming request is chunked.
+     * @public
+     * @function isChunked
+     * @returns  {Boolean}
+     */
+    isChunked: () => boolean;
+
+    /**
+     * Check if the incoming request is kept alive.
+     * @public
+     * @function isKeepAlive
+     * @returns  {Boolean}
+     */
+    isKeepAlive: () => boolean;
+
+    /**
+     * Check if the incoming request has been upgraded.
+     * @public
+     * @function isUpgradeRequest
+     * @returns  {Boolean}
+     */
+    isUpgradeRequest: () => boolean;
+
+    /**
+     * Check if the incoming request is an upload verb.
+     * @public
+     * @function isUpload
+     * @returns  {Boolean}
+     */
+    isUpload: () => boolean;
+
+    /**
+     * retrieves the user-agent header.
+     * @public
+     * @function userAgent
+     * @returns  {String}
+     */
+    userAgent: () => string;
+
+    /**
+     * Start the timer for a request handler function. You must explicitly invoke
+     * endHandlerTimer() after invoking this function. Otherwise timing information
+     * will be inaccurate.
+     * @public
+     * @function startHandlerTimer
+     * @param    {String}    handlerName The name of the handler.
+     * @returns  {undefined}
+     */
+    startHandlerTimer: (handlerName: string) => void;
+
+    /**
+     * Stop the timer for a request handler function.
+     * @public
+     * @function endHandlerTimer
+     * @param    {String}    handlerName The name of the handler.
+     * @returns  {undefined}
+     */
+    endHandlerTimer: (handlerName: string) => void;
+
+    getLogger: (component: string) => any;
+
+    /**
+     * gets the content-length header off the request.
+     * @public
+     * @function getContentLength
+     * @returns {Number}
+     */
+    getContentLength: () => number;
+
+    /**
+     * @see getContentLength
+     * @function contentLength
+     */
+    contentLength: () => number;
+
+    /**
+     * gets the content-type header.
+     * @public
+     * @function getContentType
+     * @returns {String}
+     */
+    getContentType: () => string;
+
+    /**
+     * @see getContentType
+     */
+    contentType: () => string;
+
+    /**
+     * retrieves the complete URI requested by the client.
+     * @public
+     * @function getHref
+     * @returns {String}
+     */
+    getHref: () => string;
+
+    /**
+     * @see getHref
+     */
+    href: () => string;
+
+    log: bunyan.Logger;
+    /**
+     * retrieves the request uuid. was created when the request was setup.
+     * @public
+     * @function getId
+     * @returns  {String}
+     */
+    getId: () => string;
+
+    /**
+     * @see getId
+     */
+    id: () => string;
+
+    /**
+     * retrieves the cleaned up url path.
+     * e.g., /foo?a=1  =>  /foo
+     * @public
+     * @function getPath
+     * @returns  {String}
+     */
+    getPath: () => string;
+
+    /**
+     * @see getPath
+     */
+    path: () => string;
+
+    /**
+     * returns the raw query string
+     * @public
+     * @function getQuery
+     * @returns  {String}
+     */
+    getQuery: () => string;
+
+    /**
+     * @see getQuery
+     */
+    query: () => string;
+    secure: boolean;
+
+    /**
+      * returns ms since epoch when request was setup.
+      * @public
+      * @function time
+      * @returns  {Number}
+      */
+    time: () => number;
+
+    /**
+     * returns a parsed URL object.
+     * @public
+     * @function getUrl
+     * @returns  {Object}
+     */
+    getUrl: () => url.Url;
+
+    /**
+     * returns the accept-version header.
+     * @public
+     * @function getVersion
+     * @returns  {String}
+     */
+    getVersion: () => string;
+
+    /**
+     * @see getVersion
+     */
+    version: () => string;
+    params: any;
+    files?: { [name: string]: requestFileInterface };
+
+    /**
+     * Check if the incoming request is encrypted.
+     * @public
+     * @function isSecure
+     * @returns  {Boolean}
+     */
     isSecure: () => boolean;
+    /** available when bodyParser plugin is used */
+    body?: any;
+    /** available when authorizationParser plugin is used */
+    username?: string;
+    /** available when authorizationParser plugin is used */
+    authorization?: requestAuthorization;
+
+    timers: HandlerTiming[];
+  }
+
+  /**
+   * Timer object used to identify how long a specific handler took to run
+   *
+   * @property {String} name The name of the handler.
+   * @property {Array} time A tuple of [seconds, nanoseconds], how long the handler took.
+   */
+  interface HandlerTiming {
+    name: string;
+    time: [number, number];
   }
 
   interface Response extends http.ServerResponse {
     header: (key: string, value ?: any) => any;
     cache: (type?: any, options?: Object) => any;
     status: (code: number) => any;
-    send: (status?: any, body?: any) => any;
-    json: (status?: any, body?: any) => any;
+    send: (status?: any, body?: any, headers?: { [header: string]: string }) => any;
+    json: (status?: any, body?: any, headers?: { [header: string]: string }) => any;
     code: number;
     contentLength: number;
     charSet(value: string): void;
@@ -51,41 +313,117 @@ declare module "restify" {
     id: string;
   }
 
+  interface RouteSpec {
+    method: string;
+    name: string;
+    path: string | RegExp;
+    versions: string[];
+  }
+
+  interface Route {
+    name: string;
+    method: string;
+    path: RoutePathRegex;
+    spec: RouteSpec;
+    types: string[];
+    versions: string[];
+  }
+
+  interface RouteOptions {
+      name: string;
+      method: string;
+      path?: string | RegExp;
+      url?: string | RegExp;
+      urlParamPattern?: RegExp;
+      contentType?: string | string[];
+      versions?: string | string[];
+  }
+
+  interface RoutePathRegex extends RegExp {
+    restifyParams: string[];
+  }
+
+  interface Router {
+    name: string;
+    mounts: { [routeName: string]: Route };
+    versions: string[];
+    contentType: string[];
+    routes: {
+      DELETE: Route[];
+      GET: Route[];
+      HEAD: Route[];
+      OPTIONS: Route[];
+      PATCH: Route[];
+      POST: Route[];
+      PUT: Route[];
+    };
+    log?: any;
+    toString: () => string;
+
+    /**
+     * Takes an object of route params and query params, and 'renders' a URL
+     * @param    {String} routeName the route name
+     * @param    {Object} params    an object of route params
+     * @param    {Object} query     an object of query params
+     * @returns  {String}
+     */
+    render: (routeName: string, params: Object, query?: Object) => string;
+
+    /**
+     * adds a route.
+     * @param    {Object} options an options object
+     * @returns  {String}         returns the route name if creation is successful.
+     */
+    mount: (options: Object) => string;
+
+    /**
+     * unmounts a route.
+     * @param    {String} name the route name
+     * @returns  {String}      the name of the deleted route (or false if it was not matched)
+     */
+    unmount: (name: string) => string | boolean;
+  }
+
   interface Server extends http.Server {
-    use(handler: RequestHandler, ...handlers: RequestHandler[]): any;
-    use(handler: RequestHandler[], ...handlers: RequestHandler[]): any;
-    use(handler: RequestHandler, ...handlers: RequestHandler[][]): any;
-    use(handler: RequestHandler[], ...handlers: RequestHandler[][]): any;
+    use(handler: RequestHandler, ...handlers: RequestHandler[]): Server;
+    use(handler: RequestHandler[], ...handlers: RequestHandler[]): Server;
+    use(handler: RequestHandler, ...handlers: RequestHandler[][]): Server;
+    use(handler: RequestHandler[], ...handlers: RequestHandler[][]): Server;
 
-    post(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): any;
-    post(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): any;
-    post(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): any;
-    post(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): any;
+    post(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
+    post(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
+    post(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
+    post(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
 
-    patch(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): any;
-    patch(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): any;
-    patch(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): any;
-    patch(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): any;
+    patch(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
+    patch(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
+    patch(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
+    patch(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
 
-    put(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): any;
-    put(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): any;
-    put(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): any;
-    put(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): any;
+    put(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
+    put(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
+    put(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
+    put(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
 
-    del(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): any;
-    del(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): any;
-    del(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): any;
-    del(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): any;
+    del(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
+    del(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
+    del(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
+    del(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
 
-    get(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): any;
-    get(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): any;
-    get(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): any;
-    get(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): any;
+    get(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
+    get(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
+    get(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
+    get(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
 
-    head(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): any;
-    head(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): any;
-    head(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): any;
-    head(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): any;
+    head(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
+    head(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
+    head(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
+    head(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
+
+    opts(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
+    opts(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
+    opts(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
+    opts(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
 
     name: string;
     version: string;
@@ -95,9 +433,11 @@ declare module "restify" {
     address: () => addressInterface;
     listen(... args: any[]): any;
     close(... args: any[]): any;
-    pre(routeCallBack: RequestHandler): any;
+    pre(routeCallBack: RequestHandler): Server;
     server: http.Server;
-
+    router: Router;
+    routes: Route[];
+    toString: () => string;
   }
 
   interface ServerOptions {
@@ -110,6 +450,8 @@ declare module "restify" {
     version ?: string;
     responseTimeHeader ?: string;
     responseTimeFormatter ?: (durationInMilliseconds: number) => any;
+    handleUpgrades ?: boolean;
+    router ?: Router;
   }
 
   interface ClientOptions {
@@ -156,6 +498,7 @@ declare module "restify" {
 
   interface Next {
     (err?: any): any;
+    ifError: (err?: any) => any;
   }
 
   interface RequestHandler {

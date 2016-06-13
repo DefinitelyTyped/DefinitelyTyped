@@ -1,7 +1,7 @@
 // Type definitions for finalhandler
 // Project: https://github.com/pillarjs/finalhandler
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
