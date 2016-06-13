@@ -14,13 +14,13 @@ const fileName = 'xxx'; // template file name
 const locals = {}; // template locals data
 
 async function test() {
-    var html = await render(fileName, locals);
+    const html = await render(fileName, locals);
     console.log(html);
 }
 
 // or use generator
 
 // function* test() {
-//     var html = yield render(fileName, locals);
+//     const html = yield render(fileName, locals);
 //     console.log(html);
 // }
