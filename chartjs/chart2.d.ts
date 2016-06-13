@@ -108,7 +108,7 @@ interface ChartLegendOptions {
     display?: boolean;
     position?: string;
     fullWidth?: boolean;
-    onClick?: (event, legendItem) => void;
+    onClick?: (event: any, legendItem: any) => void;
     labels?: ChartLegendLabelOptions;
 }
 
@@ -119,12 +119,12 @@ interface ChartLegendLabelOptions {
     fontColor?: string;
     fontFamily?: string;
     padding?: number;
-    generateLabels?: (chart) => any;
+    generateLabels?: (chart: any) => any;
 }
 
 interface ChartTooltipOptions {
     enabled?: boolean;
-    custom?: (a) => void;
+    custom?: (a: any) => void;
     mode?: string;
     backgroundColor?: string;
     titleFontFamily?: string;
@@ -155,23 +155,23 @@ interface ChartTooltipOptions {
 interface ChartHoverOptions {
     mode?: string;
     animationDuration?: number;
-    onHover?: (active) => void;
+    onHover?: (active: any) => void;
 }
 
 interface ChartAnimationObject {
     currentStep?: number;
     numSteps?: number;
     easing?: string;
-    render?: (arg) => void;
-    onAnimationProgress?: (arg) => void;
-    onAnimationComplete?: (arg) => void;
+    render?: (arg: any) => void;
+    onAnimationProgress?: (arg: any) => void;
+    onAnimationComplete?: (arg: any) => void;
 }
 
 interface ChartAnimationOptions {
     duration?: number;
     easing?: string;
-    onProgress?: (chart) => void;
-    onComplete?: (chart) => void;
+    onProgress?: (chart: any) => void;
+    onComplete?: (chart: any) => void;
 }
 
 interface ChartElementsOptions {
@@ -239,7 +239,7 @@ interface ScaleTitleOptions {
 
 interface TickOptions {
     autoSkip?: boolean;
-    callback?: (value, index, values) => string;
+    callback?: (value: any, index: any, values: any) => string;
     display?: boolean;
     fontColor?: string;
     fontFamily?: string;
@@ -261,7 +261,7 @@ interface AngleLineOptions {
 }
 
 interface PointLabelOptions {
-    callback?: (arg) => any;
+    callback?: (arg: any) => any;
     fontColor?: string;
     fontFamily?: string;
     fontSize?: number;
@@ -357,7 +357,7 @@ interface TimeScale extends ChartScales {
     isoWeekday?: boolean;
     max?: string;
     min?: string;
-    parser?: string | ((arg) => moment.MomentDateObject);
+    parser?: string | ((arg: any) => moment.MomentDateObject);
     round?: string;
     tooltipFormat?: string;
     unit?: TimeUnit;
@@ -375,16 +375,16 @@ interface RadialLinearScale {
 declare var Chart: {
     new (context: CanvasRenderingContext2D, options: ChartConfiguration): {};
     destroy: () => {};
-    update: (duration, lazy) => {};
-    render: (duration, lazy) => {};
+    update: (duration: any, lazy: any) => {};
+    render: (duration: any, lazy: any) => {};
     stop: () => {};
     resize: () => {};
     clear: () => {};
     toBase64: () => string;
     generateLegend: () => {};
-    getElementAtEvent: (e) => {};
-    getElementsAtEvent: (e) => {}[];
-    getDatasetAtEvent: (e) => {}[];
+    getElementAtEvent: (e: any) => {};
+    getElementsAtEvent: (e: any) => {}[];
+    getDatasetAtEvent: (e: any) => {}[];
 
     defaults: {
         global: ChartOptions;
