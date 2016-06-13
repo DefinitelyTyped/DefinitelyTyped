@@ -1,4 +1,4 @@
-// Type definitions for Pdfkit v0.7.1
+// Type definitions for Pdfkit v0.7.2
 // Project: http://pdfkit.org
 // Definitions by: Eric Hillah <https://github.com/erichillah>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -84,12 +84,12 @@ declare namespace PDFKit.Mixins {
         fit?: number[];
     }
 
-    interface PDFImage {
-    /**
-     * Draw an image in PDFKit document.
-     * No need chainning capabilities
-     */
-        image(src: any, x: number, y: number, options: ImageOption): any;
+    interface PDFImage<TDocument> {
+        /**
+         * Draw an image in PDFKit document.
+         */
+        image(src: any, x?: number, y?: number, options?: ImageOption): TDocument;
+        image(src: any, options?: ImageOption): TDocument;
     }
 
     interface TextOptions {
@@ -127,6 +127,9 @@ declare namespace PDFKit.Mixins {
         strike?: boolean;
         /**whether the text segment will be followed immediately by another segment. Useful for changing styling in the middle of a paragraph. */
         continued?: boolean;
+
+        /** the alignment of the text (center, justify, left, right) */
+        align?: string;
     }
 
     interface PDFText<TDocument> {
@@ -227,14 +230,14 @@ declare namespace PDFKit {
         compress?: boolean;
         info?: DocumentInfo;
         autoFirstPage?: boolean;
-        sizes?: number[];
+        size?: number[];
         margin?: { top: number; left: number; bottom: number; right: number }|number;
 
         bufferPages?: boolean;
     }
 
     interface PDFDocument extends NodeJS.ReadableStream,
-        Mixins.PDFAnnotation<PDFDocument>, Mixins.PDFColor<PDFDocument>, Mixins.PDFImage,
+        Mixins.PDFAnnotation<PDFDocument>, Mixins.PDFColor<PDFDocument>, Mixins.PDFImage<PDFDocument>,
         Mixins.PDFText<PDFDocument>, Mixins.PDFVector<PDFDocument>, Mixins.PDFFont<PDFDocument> {
         /**
         * PDF Version
@@ -303,7 +306,7 @@ declare namespace PDFKit {
     interface PDFPage {
         size: string;
         layout: string;
-        margin: { top: number; left: number; bottom: number; right: number }|number;
+        margins: { top: number; left: number; bottom: number; right: number };
         width: number;
         height: number;
         document: PDFDocument;
@@ -375,7 +378,7 @@ declare module "pdfkit/js/mixins/fonts" {
 }
 
 declare module "pdfkit/js/mixins/images" {
-    var PDFKitImage: PDFKit.Mixins.PDFImage;
+    var PDFKitImage: PDFKit.Mixins.PDFImage<void>;
     export = PDFKitImage;
 }
 
