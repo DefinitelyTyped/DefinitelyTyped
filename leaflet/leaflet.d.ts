@@ -1504,7 +1504,7 @@ declare namespace L {
           * Returns a new LatLng object with the longitude wrapped around left and right
           * boundaries (-180 to 180 by default).
           */
-        wrap(left: number, right: number): LatLng;
+        wrap(left?: number, right?: number): LatLng;
 
         /**
           * Latitude in degrees.
