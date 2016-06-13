@@ -17,14 +17,14 @@
 
 declare module "co-views" {
 
-    interface IEngineMap {
+    interface EngineMap {
       /**
        * use for .html files
        */
       html: string
     }
 
-    interface ICoViewsOpts {
+    interface CoViewsOptions {
 
         /**
          * default extname
@@ -39,7 +39,7 @@ declare module "co-views" {
         /**
          * engine map
          */
-        map?: IEngineMap,
+        map?: EngineMap,
 
         /**
          * proxy partials
@@ -60,7 +60,7 @@ declare module "co-views" {
     /**
      * Pass views `dir` and `opts` to return a render function.
      */
-    function views(dir?: string, opts?: ICoViewsOpts): {
+    function views(dir?: string, opts?: CoViewsOptions): {
         (view: string, locals?: Object): any
     };
 
