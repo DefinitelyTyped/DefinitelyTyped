@@ -12,6 +12,32 @@ str = creds.accessKeyId;
 
 
 /*
+ * ECS 
+ */
+var ecs:AWS.ECS
+
+ecs = new AWS.ECS();
+ecs = new AWS.ECS({apiVersion: '2012-11-05'});
+
+ecs.describeClusters({
+		clusters: ['STRING_VALUE', 'STRING_VALUE']
+	}, 
+	function(err, data) {
+		if (err) console.log(err, err.stack); // an error occurred
+		else     console.log(data);           // successful response
+	});
+
+ecs.describeTasks({
+		cluster: 'STRING_VALUE',
+		tasks: ['STRING_VALUE', 'STRING_VALUE']
+	}, 
+	function(err, data) {
+		if (err) console.log(err, err.stack); // an error occurred
+		else     console.log(data);           // successful response
+	});
+
+
+/*
  * SQS 
  */
 var sqs:AWS.SQS

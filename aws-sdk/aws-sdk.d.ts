@@ -154,11 +154,33 @@ declare module "aws-sdk" {
 
 	export class ECS {
 		constructor(options?: any);
-
+		/**
+		 * Runs and maintains a desired number of tasks from a specified task definition. If the number of tasks running in a service drops below desiredCount, Amazon ECS spawns another instantiation of the task in the specified cluster. To update an existing service, see UpdateService.
+		 */
 		createService(params: ecs.CreateServicesParams, callback: (err: any, data: any) => void): void;
+		/**
+		 * Describes one or more of your clusters.
+		 */
+		describeClusters(params: ecs.DescribeClustersParams, callback: (err: any, data: any) => void): void;
+		/**
+		 * Describes the specified services running in your cluster.
+		 */
 		describeServices(params: ecs.DescribeServicesParams, callback: (err: any, data: any) => void): void;
+		/**
+		 * Describes a specified task or tasks.
+		 */
+		describeTasks(params: ecs.DescribeTasksParams, callback: (err: any, data: any) => void): void;
+		/**
+		 * Describes a task definition. You can specify a family and revision to find information about a specific task definition, or you can simply specify the family to find the latest ACTIVE revision in that family.
+		 */
 		describeTaskDefinition(params: ecs.DescribeTaskDefinitionParams, callback: (err: any, data: any) => void): void;
+		/**
+		 * Registers a new task definition from the supplied family and containerDefinitions. Optionally, you can add data volumes to your containers with the volumes parameter. For more information about task definition parameters and defaults, see Amazon ECS Task Definitions in the Amazon EC2 Container Service Developer Guide.
+		 */
 		registerTaskDefinition(params: ecs.RegisterTaskDefinitionParams, callback: (err: any, data: any) => void): void;
+		/**
+		 * Modifies the desired count, deployment configuration, or task definition used in a service.
+		 */
 		updateService(params: ecs.UpdateServiceParams, callback: (err: any, data: any) => void): void;
 	}
 
@@ -1219,11 +1241,38 @@ declare module "aws-sdk" {
 		}
 
 		export interface DescribeServicesParams {
+			/**
+			 * A list of services to describe.
+			 */
 			services: string[];
-			cluster: string;
+			/**
+			 * The name of the cluster that hosts the service to describe. If you do not specify a cluster, the default cluster is assumed.
+			 */
+			cluster?: string;
+		}
+
+		export interface DescribeClustersParams {
+			/**
+			 * A space-separated list of cluster names or full cluster Amazon Resource Name (ARN) entries. If you do not specify a cluster, the default cluster is assumed.
+			 */
+			clusters?: string[];
+		}
+
+		export interface DescribeTasksParams {
+			/**
+			 * A space-separated list of task IDs or full Amazon Resource Name (ARN) entries.
+			 */
+			tasks: string[];
+			/**
+			 * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the task to describe. If you do not specify a cluster, the default cluster is assumed.
+			 */
+			cluster?: string;
 		}
 
 		export interface DescribeTaskDefinitionParams {
+			/**
+			 * The `family` for the latest `ACTIVE` revision, `family` and `revision` (`family:revision`) for a specific revision in the family, or full Amazon Resource Name (ARN) of the task definition to describe.
+			 */
 			taskDefinition: string;
 		}
 
