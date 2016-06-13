@@ -322,6 +322,9 @@ app.on('login', function(event, webContents, request, authInfo, callback) {
 	callback('username', 'secret');
 });
 
+app.relaunch({args: process.argv.slice(1).concat(['--relaunch'])});
+app.exit(0);
+
 // auto-updater
 // https://github.com/atom/electron/blob/master/docs/api/auto-updater.md
 
