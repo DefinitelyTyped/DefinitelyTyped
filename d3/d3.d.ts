@@ -1097,6 +1097,12 @@ declare namespace d3 {
     export function mean(array: number[]): number;
     export function mean<T>(array: T[], accessor: (datum: T, index: number) => number): number;
 
+    /**
+     * Compute the median of an array of numbers (the 0.5-quantile).
+     */
+    export function median(array: number[]): number;
+    export function median<T>(datum: T[], accessor: (datum: T, index: number) => number): number;
+
     export function quantile(array: number[], p: number): number;
 
     export function variance(array: number[]): number;
