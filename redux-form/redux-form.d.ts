@@ -310,6 +310,18 @@ declare module 'redux-form' {
     form: string;
 
     /**
+     * By default, async blur validation is only triggered if synchronous
+     * validation passes, and the form is dirty or was never initialized (or if
+     * submitting). Sometimes it may be desirable to trigger asynchronous
+     * validation even in these cases, for example if all validation is performed
+     * asynchronously and you want to display validation messages if a user does
+     * not change a field, but does touch and blur it. Setting
+     * alwaysAsyncValidate to true will always run asynchronous validation on
+     * blur, even if the form is pristine or sync validation fails.
+     */
+    alwaysAsyncValidate?: boolean;
+
+    /**
      * field names for which onBlur should trigger a call to the asyncValidate
      * function. Defaults to [].
      *
@@ -365,7 +377,14 @@ declare module 'redux-form' {
      * you must pass it as a parameter to handleSubmit() inside your form
      * component.
      */
-    onSubmit?(values:FormData, dispatch?:Dispatch):any;
+    onSubmit?(values:FormData, dispatch?:Dispatch): any;
+
+    /**
+     * If true, the form values will be overwritten whenever the initialValues
+     * prop changes. If false, the values will not be overwritten if the form has
+     * previously been initialized. Defaults to true.
+     */
+    overwriteOnInitialValuesChange?: boolean;
 
     /**
      * If specified, all the props normally passed into your decorated
