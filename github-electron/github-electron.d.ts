@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.2.1
+// Type definitions for Electron v1.2.2
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -174,6 +174,24 @@ declare namespace Electron {
 		 */
 		exit(exitCode: number): void;
 		/**
+		 * Relaunches the app when current instance exits.
+		 *
+		 * By default the new instance will use the same working directory
+		 * and command line arguments with current instance.
+		 * When args is specified, the args will be passed as command line arguments instead.
+		 * When execPath is specified, the execPath will be executed for relaunch instead of current app.
+		 *
+		 * Note that this method does not quit the app when executed, you have to call app.quit
+		 * or app.exit after calling app.relaunch to make the app restart.
+		 *
+		 * When app.relaunch is called for multiple times, multiple instances
+		 * will be started after current instance exited.
+		 */
+		relaunch(options?: {
+			args?: string[],
+			execPath?: string
+		}): void;
+		/**
 		 * On Linux, focuses on the first visible window.
 		 * On OS X, makes the application the active app.
 		 * On Windows, focuses on the application’s first window.
@@ -314,6 +332,11 @@ declare namespace Electron {
 		 * Note: This API is only available on Linux.
 		 */
 		importCertificate(options: ImportCertificateOptions, callback: (result: number) => void): void;
+		/**
+		 * Disables hardware acceleration for current app.
+		 * This method can only be called before app is ready.
+		 */
+		disableHardwareAcceleration(): void;
 		commandLine: CommandLine;
 		/**
 		 * Note: This API is only available on Mac.
@@ -1013,8 +1036,10 @@ declare namespace Electron {
 		 */
 		isVisibleOnAllWorkspaces(): boolean;
 		/**
-		 * Ignore all moused events that happened in the window.
-		 * Note: This API is available only on OS X.
+		 * Makes the window ignore all mouse events.
+		 *
+		 * All mouse events happened in this window will be passed to the window below this window,
+		 * but if this window has focus, it will still receive keyboard events.
 		 */
 		setIgnoreMouseEvents(ignore: boolean): void;
 	}
@@ -1133,9 +1158,13 @@ declare namespace Electron {
 		 */
 		scrollBounce?: boolean;
 		/**
-		 * A list of feature strings separated by ",".
+		 * A list of feature strings separated by ",", like CSSVariables,KeyboardEventKey to enable.
 		 */
 		blinkFeatures?: string;
+		/**
+		 * A list of feature strings separated by ",", like CSSVariables,KeyboardEventKey to disable.
+		 */
+		disableBlinkFeatures?: string;
 		/**
 		 * Sets the default font for the font-family.
 		 */
@@ -2012,7 +2041,7 @@ declare namespace Electron {
 	}
 
 	type MenuItemType = 'normal' | 'separator' | 'submenu' | 'checkbox' | 'radio';
-	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'selectall' | 'minimize' | 'close';
+	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close';
 	type MenuItemRoleMac = 'about' | 'hide' | 'hideothers' | 'unhide' | 'front' | 'window' | 'help' | 'services';
 
 	interface MenuItemOptions {
@@ -3017,7 +3046,7 @@ declare namespace Electron {
 		 *
 		 * Note: This is only implemented on OS X.
 		 */
-		getUserDefault(key: string, type: 'string' | 'boolean' | 'integer' | 'float' | 'double' | 'url'): any;
+		getUserDefault(key: string, type: 'string' | 'boolean' | 'integer' | 'float' | 'double' | 'url' | 'array' | 'dictionary'): any;
 		/**
 		 * This method returns true if DWM composition (Aero Glass) is enabled,
 		 * and false otherwise. You can use it to determine if you should create
@@ -3322,6 +3351,10 @@ declare namespace Electron {
 		 * <meta name='theme-color' content='#ff0000'>
 		 */
 		on(event: 'did-change-theme-color', listener: Function): this;
+		/**
+		 * Emitted when mouse moves over a link or the keyboard moves the focus to a link.
+		 */
+		on(event: 'update-target-url', listener: (event: Event, url: string) => void): this;
 		/**
 		 * Emitted when the cursor’s type changes.
 		 * If the type parameter is custom, the image parameter will hold the custom cursor image
@@ -4198,6 +4231,10 @@ declare namespace Electron {
 		 */
 		blinkfeatures: string;
 		/**
+		 * A list of strings which specifies the blink features to be disabled separated by ,.
+		 */
+		disableblinkfeatures: string;
+		/**
 		 * Loads the url in the webview, the url must contain the protocol prefix, e.g. the http:// or file://.
 		 */
 		loadURL(url: string, options?: LoadURLOptions): void;
@@ -4527,6 +4564,10 @@ declare namespace Electron {
 		 */
 		addEventListener(type: 'did-change-theme-color', listener: (event: WebViewElement.DidChangeThemeColorEvent) => void, useCapture?: boolean): void;
 		/**
+		 * Emitted when mouse moves over a link or the keyboard moves the focus to a link.
+		 */
+		addEventListener(type: 'update-target-url', listener: (event: WebViewElement.UpdateTargetUrlEvent) => void, useCapture?: boolean): void;
+		/**
 		 * Emitted when DevTools is opened.
 		 */
 		addEventListener(type: 'devtools-opened', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
@@ -4624,6 +4665,10 @@ declare namespace Electron {
 
 		interface DidChangeThemeColorEvent extends Event {
 			themeColor: string;
+		}
+
+		interface UpdateTargetUrlEvent extends Event {
+			url: string;
 		}
 	}
 
