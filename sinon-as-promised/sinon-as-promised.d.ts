@@ -17,7 +17,7 @@ declare namespace Sinon {
     /**
      * When called, the stub will return a thenable which will return a reject promise with the provided err. If err is a string, it will be set as the message on an Error object.
      */
-    rejects(value:any):SinonStub;
+    rejects(err:any):SinonStub;
   } 
 
 }
