@@ -1,4 +1,4 @@
-/* TYPES */
+// TYPES 
 declare enum ChartType {
     line, bar, radar, doughnut, polarArea, bubble
 }
@@ -46,18 +46,18 @@ interface ChartPoint {
     y?: number;
 }
 
-/* END */
+// END 
 
-/* Configuration */
+// Configuration 
 interface ChartConfiguration {
     type?: string;
     data?: ChartData;
     options?: ChartOptions;
 }
 
-/* END */
+// END 
 
-/* DATA */
+// DATA 
 interface ChartData {
 
 }
@@ -67,9 +67,9 @@ interface LinearChartData extends ChartData {
     datasets?: ChartDataSets[];
 }
 
-/* END */
+// END 
 
-/* Options */
+// Options 
 interface ChartOptions {
     responsive?: boolean;
     responsiveAnimationDuration?: number;
@@ -289,9 +289,9 @@ interface LogarithmicTickOptions extends TickOptions {
     min?: number;
     max?: number;
 }
-/* END */
+// END 
 
-/* DATASETS */
+// DATASETS 
 interface ChartDataSets {
     backgroundColor?: string[];
     borderWidth?: number;
@@ -317,9 +317,9 @@ interface ChartDataSets {
     xAxisID?: string;
     yAxisID?: string;
 }
-/* END */
+// END 
 
-/* SCALES */
+// SCALES 
 interface ChartScales {
     type?: string;
     display?: boolean;
@@ -370,7 +370,7 @@ interface RadialLinearScale {
     pointLabels?: PointLabelOptions;
     ticks?: TickOptions;
 }
-/* END */
+// END 
 
 declare var Chart: {
     new (context: CanvasRenderingContext2D, options: ChartConfiguration): {};
