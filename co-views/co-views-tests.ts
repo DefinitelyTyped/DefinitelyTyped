@@ -1,5 +1,5 @@
 /// <reference path="../node/node.d.ts" />
-/// <reference path="co-view.d.ts" />
+/// <reference path="co-views.d.ts" />
 
 import views = require('co-views');
 
