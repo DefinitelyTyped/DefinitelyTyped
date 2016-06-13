@@ -18,4 +18,6 @@ Logging.log = (message: string) => {
 
 Logging.level = 4;
 
+auth.info("Logging message");
+
 var userName: string = auth.getCachedUser().userName;
