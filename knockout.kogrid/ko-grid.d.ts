@@ -180,13 +180,13 @@ declare namespace kg {
 
     interface PagingOptions {
         /**  pageSizes: list of available page sizes.  */
-        pageSizes?: number[];
+        pageSizes?: number[] | KnockoutObservableArray<number>;
         /** pageSize: currently selected page size.  */
-        pageSize?: number;
+        pageSize?: number | KnockoutObservable<number>;
         /** totalServerItems: Total items are on the server.  */
-        totalServerItems?: number;
+        totalServerItems?: number | KnockoutObservable<number>;
         /** currentPage: the uhm... current page. */
-        currentPage?: number;
+        currentPage?: number | KnockoutObservable<number>;
     }
 }
 
