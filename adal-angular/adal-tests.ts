@@ -12,4 +12,10 @@ var config : adal.Config = {
 
 var auth = new AuthenticationContext(config);
 
+Logging.log = (message: string) => {
+    console.log(message);
+}
+
+Logging.level = 4;
+
 var userName: string = auth.getCachedUser().userName;
