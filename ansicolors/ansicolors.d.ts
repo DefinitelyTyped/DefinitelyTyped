@@ -1,7 +1,7 @@
 // Type definitions for ansicolors
 // Project: https://github.com/thlorenz/ansicolors
 // Definitions by: rogierschouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "ansicolors" {
 	var colors: {[index: string]: (s: string) => string;};

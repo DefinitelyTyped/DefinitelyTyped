@@ -1,12 +1,16 @@
 // Type definitions for underscore.string
 // Project: https://github.com/epeli/underscore.string
 // Definitions by: Ry Racherbaumer <http://github.com/rygine>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference path="../underscore/underscore.d.ts" />
 
 interface UnderscoreStatic {
     str: UnderscoreStringStatic;
     string: UnderscoreStringStatic;
 }
+
+declare var s : UnderscoreStringStatic;
 
 interface UnderscoreStringStatic extends UnderscoreStringStaticExports {
     /**
@@ -62,6 +66,13 @@ interface UnderscoreStringStaticExports {
      * @param str
      */
     capitalize(str: string): string;
+    
+    /**
+     * Converts first letter of the string to lowercase.
+     * ('Foo Bar') => 'foo Bar'
+     * @param str
+     */
+    decapitalize(str: string): string;    
 
     /**
      * Chop a string into pieces.
@@ -296,7 +307,7 @@ interface UnderscoreStringStaticExports {
      * @param delimiter
      */
     words(str: string): string[];
-    
+
     /**
      * Split string by delimiter (String or RegExp).
      * /\s+/ by default.

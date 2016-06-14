@@ -1,12 +1,12 @@
 // Type definitions for Physijs
 // Project: http://chandlerprall.github.io/Physijs/
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../threejs/three.d.ts" />
 
-declare module Physijs {
+declare namespace Physijs {
     export function noConflict():Object;
     export function createMaterial(material: THREE.Material, friction?: number, restitution?: number): Material;
 
@@ -147,7 +147,7 @@ declare module Physijs {
         add(object:THREE.Object3D):void;
         remove(object:THREE.Object3D):void;
         setFixedTimeStep(fixedTimeStep:number):void;
-        setGravity(gravity:number):void;
+        setGravity(gravity:THREE.Vector3):void;
         simulate(timeStep?:number, maxSubSteps?:number):boolean;
 
 

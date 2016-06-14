@@ -41,6 +41,16 @@ var schema: mongoose.Schema = new Schema({ name: String }, { collection: 'actor'
 schema.set('collection', 'actor');
 var Model = mongoose.model<IActor>('Actor', schema, 'actor');
 
+interface IZip extends mongoose.Document {
+    _id: string;
+}
+interface IPerson extends mongoose.Document {
+    _id: mongoose.Types.ObjectId;
+}
+interface IThing extends mongoose.Document {
+    _id: number;
+}
+
 var names: string[] = mongoose.modelNames();
 var names: string[] = db.modelNames();
 mongoose.plugin((schema: mongoose.Schema) => {
@@ -146,6 +156,9 @@ Model.remove((err: any, res: IActor[]) => {});
 Model.save((err: any, res: IActor, numberAffected: number) => {});
 Model.create({ type: 'jelly bean' }, { type: 'snickers' }, (err: any, res1: IActor, res2: IActor) => {});
 Model.create({ type: 'jawbreaker' });
+Model.create({ type: 'muffin' }).then(function (res) {
+	res.name;
+});
 Model.distinct('url', { clicks: {$gt: 100}}, (err: any, result: IActor[]) => {});
 Model.distinct('url');
 
@@ -192,8 +205,8 @@ Model.findOneAndRemove({ type: 'iphone' }, { select: 'name' }, (err: any, res: I
 Model.findOneAndRemove({ type: 'iphone' }, { select: 'name' }).exec((err: any, res: IActor) => {});
 Model.findOneAndUpdate({ type: 'iphone' }, { $set: { name: 'jason borne' }}, { upsert: true }, (err: any, res: IActor) => {});
 
-Model.geoNear([1, 3], { maxDistance : 5, spherical : true }, (err: any, res: IActor[]) => {});
-Model.geoNear({ type : "Point", coordinates : [9,9] }, { maxDistance : 5, spherical : true }, (err: any, res: IActor[]) => {});
+Model.geoNear([1, 3], { maxDistance : 5, spherical : true }, (err: any, res: IActor[], stats: any) => {});
+Model.geoNear({ type : "Point", coordinates : [9,9] }, { maxDistance : 5, spherical : true }, (err: any, res: IActor[], stats: any) => {});
 Model.geoSearch({ type : "house" }, { near: [10, 10], maxDistance: 5 }, (err: any, res: IActor[]) => {});
 
 var o = {
@@ -364,3 +377,16 @@ schema.virtual('display_name')
   .get(function(): string { return this.name; })
   .set((value: string): void => {});
 
+var id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId('foo');
+var id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId();
+var id2: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(123);
+var id2: mongoose.Types.ObjectId = mongoose.Types.ObjectId.createFromTime(123);
+var id2: mongoose.Types.ObjectId = mongoose.Types.ObjectId.createFromHexString('foo');
+var isValid:boolean = mongoose.Types.ObjectId.isValid('570d350b67b1ae0600e8bee8');
+var s = id.toHexString();
+var valid = id.isValid();
+var eq = id.equals(id2);
+
+var kitty1 = new Kitty({});
+var kitty2 = new Kitty({});
+var kittyEq = kitty1._id.equals(kitty2._id);

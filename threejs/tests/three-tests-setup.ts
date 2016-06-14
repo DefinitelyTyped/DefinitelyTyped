@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////
 
 /// <reference path="../../stats/stats.d.ts" />
+/// <reference path="../../dat-gui/dat-gui.d.ts" />
 /// <reference path="../detector.d.ts" />
 /// <reference path="../three-canvasrenderer.d.ts" />
 /// <reference path="../three-css3drenderer.d.ts" />
@@ -14,7 +15,7 @@
 /// <reference path="../three-shaderpass.d.ts" />
 /// <reference path="../three-copyshader.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
     var AWDLoader: any;
     var FlyControls: any;
     var BloomPass: any;

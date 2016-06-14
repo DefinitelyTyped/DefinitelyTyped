@@ -1,7 +1,7 @@
 // Type definitions for Microsoft ASP.NET Ajax client side library
 // Project: http://msdn.microsoft.com/en-us/library/ee341002(v=vs.100).aspx
 // Definitions by: Patrick Magee <https://github.com/pjmagee/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 //#region Global Namespace
 
@@ -18,7 +18,7 @@
 * Object Type Extensions
 * @see {@link http://msdn.microsoft.com/en-us/library/bb397554(v=vs.100).aspx}
 */
-interface Object {
+interface ObjectConstructor {
     /**
     * Formats a number by using the invariant culture.
     */
@@ -34,172 +34,8 @@ interface Object {
 * Array Type Extensions
 * @see {@link http://msdn.microsoft.com/en-us/library/bb383786(v=vs.100).aspx}
 */
-interface Array<T> {
+interface ArrayConstructor {
 
-    //#region lib.d.ts
-
-    new (arrayLength?: number): any[];
-    new <T>(arrayLength: number): T[];
-    new <T>(...items: T[]): T[];
-    (arrayLength?: number): any[];
-    <T>(arrayLength: number): T[];
-    <T>(...items: T[]): T[];
-    isArray(arg: any): boolean;
-    prototype: Array<any>;
-
-    ///**
-    //  * Returns a string representation of an array.
-    //  */
-    //toString(): string;
-    //toLocaleString(): string;
-    ///**
-    //  * Combines two or more arrays.
-    //  * @param items Additional items to add to the end of array1.
-    //  */
-    //concat<U extends T[]>(...items: U[]): T[];
-    ///**
-    //  * Combines two or more arrays.
-    //  * @param items Additional items to add to the end of array1.
-    //  */
-    //concat(...items: T[]): T[];
-    ///**
-    //  * Adds all the elements of an array separated by the specified separator string.
-    //  * @param separator A string used to separate one element of an array from the next in the resulting String. If omitted, the array elements are separated with a comma.
-    //  */
-    //join(separator?: string): string;
-    ///**
-    //  * Removes the last element from an array and returns it.
-    //  */
-    //pop(): T;
-    ///**
-    //  * Appends new elements to an array, and returns the new length of the array.
-    //  * @param items New elements of the Array.
-    //  */
-    //push(...items: T[]): number;
-    ///**
-    //  * Reverses the elements in an Array. 
-    //  */
-    //reverse(): T[];
-    ///**
-    //  * Removes the first element from an array and returns it.
-    //  */
-    //shift(): T;
-    ///** 
-    //  * Returns a section of an array.
-    //  * @param start The beginning of the specified portion of the array.
-    //  * @param end The end of the specified portion of the array.
-    //  */
-    //slice(start?: number, end?: number): T[];
-
-    ///**
-    //  * Sorts an array.
-    //  * @param compareFn The name of the function used to determine the order of the elements. If omitted, the elements are sorted in ascending, ASCII character order.
-    //  */
-    //sort(compareFn?: (a: T, b: T) => number): T[];
-
-    ///**
-    //  * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
-    //  * @param start The zero-based location in the array from which to start removing elements.
-    //  */
-    //splice(start: number): T[];
-
-    ///**
-    //  * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
-    //  * @param start The zero-based location in the array from which to start removing elements.
-    //  * @param deleteCount The number of elements to remove.
-    //  * @param items Elements to insert into the array in place of the deleted elements.
-    //  */
-    //splice(start: number, deleteCount: number, ...items: T[]): T[];
-
-    ///**
-    //  * Inserts new elements at the start of an array.
-    //  * @param items  Elements to insert at the start of the Array.
-    //  */
-    //unshift(...items: T[]): number;
-
-    ///**
-    //  * Returns the index of the first occurrence of a value in an array.
-    //  * @param searchElement The value to locate in the array.
-    //  * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at index 0.
-    //  */
-    //indexOf(searchElement: T, fromIndex?: number): number;
-
-    ///**
-    //  * Returns the index of the last occurrence of a specified value in an array.
-    //  * @param searchElement The value to locate in the array.
-    //  * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at the last index in the array.
-    //  */
-    //lastIndexOf(searchElement: T, fromIndex?: number): number;
-
-    ///**
-    //  * Determines whether all the members of an array satisfy the specified test.
-    //  * @param callbackfn A function that accepts up to three arguments. The every method calls the callbackfn function for each element in array1 until the callbackfn returns false, or until the end of the array.
-    //  * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
-    //  */
-    //every(callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): boolean;
-
-    ///**
-    //  * Determines whether the specified callback function returns true for any element of an array.
-    //  * @param callbackfn A function that accepts up to three arguments. The some method calls the callbackfn function for each element in array1 until the callbackfn returns true, or until the end of the array.
-    //  * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
-    //  */
-    //some(callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): boolean;
-
-    ///**
-    //  * Performs the specified action for each element in an array.
-    //  * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the array. 
-    //  * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
-    //  */
-    //forEach(callbackfn: (value: T, index: number, array: T[]) => void, thisArg?: any): void;
-
-    ///**
-    //  * Calls a defined callback function on each element of an array, and returns an array that contains the results.
-    //  * @param callbackfn A function that accepts up to three arguments. The map method calls the callbackfn function one time for each element in the array. 
-    //  * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
-    //  */
-    //map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[];
-
-    ///**
-    //  * Returns the elements of an array that meet the condition specified in a callback function. 
-    //  * @param callbackfn A function that accepts up to three arguments. The filter method calls the callbackfn function one time for each element in the array. 
-    //  * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
-    //  */
-    //filter(callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): T[];
-
-    ///**
-    //  * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
-    //  * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
-    //  * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
-    //  */
-    //reduce(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
-    ///**
-    //  * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
-    //  * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
-    //  * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
-    //  */
-    //reduce<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
-
-    ///** 
-    //  * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
-    //  * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array. 
-    //  * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
-    //  */
-    //reduceRight(callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
-    ///** 
-    //  * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
-    //  * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array. 
-    //  * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
-    //  */
-    //reduceRight<U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
-
-    ///**
-    //  * Gets or sets the length of the array. This is a number one higher than the highest element defined in an array.
-    //  */
-    //length: number;
-
-    //[n: number]: T;
-
-    //#endregion
 
     //#region Extensions
 
@@ -208,57 +44,57 @@ interface Array<T> {
     * @param array
     *       The array to add the item to.
     * @param item
-    *       
+    *
     */
-    add(array: any[], element: any): void;
+    add<T>(array: T[], element: T): void;
     /**
     * Copies all the elements of the specified array to the end of an Array object.
     */
-    addRange(array: any, items: any): void;
+    addRange<T>(array: T[], items: T[]): void;
     /**
     * Removes all elements from an Array object.
     */
-    clear(): void;
+    clear<T>(array: T[]): void;
     /**
     * Creates a shallow copy of an Array object.
     */
-    clone(): any[];
+    clone<T>(array: T[]): T[];
     /**
     * Determines whether an element is in an Array object.
     */
-    contains(element: any): boolean;
+    contains<T>(array: T[], element: T): boolean;
     /**
     * Removes the first element from an Array object.
     */
-    dequeue(): any;
+    dequeue<T>(array: T[]): T;
     /**
     * Adds an element to the end of an Array object. Use the add function instead of the Array.enqueue function.
     */
-    enqueue(element: any): void;
+    enqueue<T>(array: T[], element: T): void;
     /**
     * Performs a specified action on each element of an Array object.
     */
-    forEach(array: any[], method: Function, instance: any[]): void;
+    forEach<T>(array: T[], method: (element: T, index: number, array: T[]) => void, instance: any): void;
     /**
     * Searches for the specified element of an Array object and returns its index.
     */
-    indexOf(array: any[], item: any, startIndex?: number): number;
+    indexOf<T>(array: T[], item: T, startIndex?: number): number;
     /**
     * Inserts a value at the specified location in an Array object.
     */
-    insert(array: any[], index: number, item: any): any;
+    insert<T>(array: T[], index: number, item: T): void;
     /**
     * Creates an Array object from a string representation.
     */
-    parse(value: string): any[];
+    parse<T>(value: string): T[];
     /**
     * Removes the first occurrence of an element in an Array object.
     */
-    remove(array: any[], item: any): boolean;
+    remove<T>(array: T[], item: T): boolean;
     /**
     * Removes an element at the specified location in an Array object.
     */
-    removeAt(array: any[], index: number): void;
+    removeAt<T>(array: T[], index: number): void;
 
     //#endregion
 }
@@ -277,6 +113,10 @@ interface Number {
     * Formats a number by using the current culture.
     */
     localeFormat(format: string): string;
+}
+
+interface NumberConstructor {
+
     /**
     * Returns a numeric value from a string representation of a number. This function is static and can be called without creating an instance of the object.
     */
@@ -297,11 +137,14 @@ interface Date {
     /**
     * Formats a date by using the invariant (culture-independent) culture.
     */
-    format(value: string): string;
+    format(format: string): string;
     /**
     * Formats a date by using the current culture. This function is static and can be invoked without creating an instance of the object.
     */
-    localeFormat(value: string): string;
+    localeFormat(format: string): string;
+}
+
+interface DateConstructor {
     /**
     * Creates a date from a locale-specific string by using the current culture. This function is static and can be invoked without creating an instance of the object.
     * @exception (Debug) formats contains an invalid format.
@@ -310,9 +153,8 @@ interface Date {
     * @param formats
     *           (Optional) An array of custom formats.
     */
-    parseLocale(value: string): string;
-    parseLocale(value: string, formats?: string[]): string;
-    parseLocale(value: string, ...formats: string[]): string;
+    parseLocale(value: string, formats?: string[]): Date;
+    parseLocale(value: string, ...formats: string[]): Date;
     /**
     * Creates a date from a string by using the invariant culture. This function is static and can be invoked without creating an instance of the object.
     * @return If value is a valid string representation of a date in the invariant format, an object of type Date; otherwise, null.
@@ -321,352 +163,172 @@ interface Date {
     * @param formats
     *           (Optional) An array of custom formats.
     */
-    parseInvariant(value: string): string;
     parseInvariant(value: string, formats?: string[]): string;
     parseInvariant(value: string, ...formats: string[]): string;
 }
 
-declare module MicrosoftAjaxBaseTypeExtensions {
+
+/**
+* Provides static functions that extend the built-in ECMAScript (JavaScript) Function type by including exception
+* details and support for application-compilation modes (debug or release).
+* @see {@link http://msdn.microsoft.com/en-us/library/dd409270(v=vs.100).aspx}
+*/
+interface FunctionConstructor {
+
+    //#region Extensions
 
     /**
-    * Provides static functions that extend the built-in ECMAScript (JavaScript) Function type by including exception
-    * details and support for application-compilation modes (debug or release).
-    * @see {@link http://msdn.microsoft.com/en-us/library/dd409270(v=vs.100).aspx}
-    */
-    interface Function {
-
-        //#region lib.d.ts
-
-        /** 
-          * Creates a new function.
-          * @param args A list of arguments the function accepts.
-          */
-        new (...args: string[]): Function;
-        (...args: string[]): Function;
-        prototype: Function;
-
-        //#endregion
-
-        //#region Extensions
-
-        /**
-          * Creates a delegate function that retains the context first used during an objects creation.
-          * @see {@link http://msdn.microsoft.com/en-us/library/dd393582(v=vs.100).aspx }
-          */
-        createCallback(method: Function, ...context: any[]): Function;
-        /**
-          * Creates a callback function that retains the parameter initially used during an object's creation.
-          * @see {@link http://msdn.microsoft.com/en-us/library/dd409287(v=vs.100).aspx }
-          */
-        createDelegate(instance: any, method: Function): Function;
-
-        /**
-          * A function that does nothing.
-          * @see {@link http://msdn.microsoft.com/en-us/library/dd393667(v=vs.100).aspx }
-          */
-        emptyMethod(): Function;
-
-        /**
-          * Validates the parameters to a method are as expected.
-          * @see {@link http://msdn.microsoft.com/en-us/library/dd393712(v=vs.100).aspx }
-          */
-        validateParameters(parameters: any, expectedParameters: Object[], validateParameterCount?: boolean): any;
-
-        //#endregion
-    }
+      * Creates a delegate function that retains the context first used during an objects creation.
+      * @see {@link http://msdn.microsoft.com/en-us/library/dd393582(v=vs.100).aspx }
+      */
+    createCallback(method: Function, ...context: any[]): Function;
+    /**
+      * Creates a callback function that retains the parameter initially used during an object's creation.
+      * @see {@link http://msdn.microsoft.com/en-us/library/dd409287(v=vs.100).aspx }
+      */
+    createDelegate(instance: any, method: Function): Function;
 
     /**
-    * Provides static functions that extend the built-in ECMAScript (JavaScript) Error type by including exception details and support for application-compilation modes (debug or release).
-    * Error Type Extensions
-    * @see {@link http://msdn.microsoft.com/en-us/library/bb310947(v=vs.100).aspx}
-    */
-    interface Error {
-
-        //#region lib.d.ts
-
-        name: string;
-        message: string;
-
-        new (message?: string): Error;
-        (message?: string): Error;
-        prototype: Error;
-
-        //#endregion
-
-        //#region Extensions
-
-        /**
-        * Creates an Error object that represents the Sys.ParameterCountException exception.
-        */
-        parameterCount(message?: string): Error;
-        /**
-        * Creates an Error object that represents the Sys.NotImplementedException exception.
-        */
-        notImplemented(message?: string): Error;
-        /**
-        * Creates an Error object that represents the Sys.ArgumentException exception.
-        */
-        argument(paramName?: any, message?: string): Error;
-        /**
-        * Creates an Error object that represents the Sys.ArgumentNullException exception.
-        */
-        argumentNull(paramName?: any, message?: string): Error;
-        /**
-        * Creates an Error object that represents the Sys.ArgumentOutOfRangeException exception.
-        */
-        argumentOutOfRange(paramName?: string, actualValue?: any, message?: string): Error;
-        /**
-        * Creates an Error object that represents the Sys.ArgumentTypeException exception.
-        */
-        argumentType(paramName?: string, actualType?: any, expectedType?: any, message?: string): Error;
-        /**
-        * Creates an Error object that represents the Sys.ArgumentUndefinedException exception.
-        */
-        argumentUndefined(paramName?: string, message?: string): Error;
-        /**
-        * Creates an Error object that can contain additional error information.
-        */
-        create(message?: string, errorInfo?: Object): Error;
-        /**
-        * Creates an Error object that represents the Sys.FormatException exception.
-        */
-        format(message?: string): Error;
-        /**
-        * Creates an Error object that represents the Sys.InvalidOperationException exception.
-        */
-        invalidOperation(message?: string): Error;
-        /**
-        * Updates the fileName and lineNumber properties of an Error instance to indicate where the error was thrown instead of where the error was created. Use this function if you are creating custom error types.
-        */
-        popStackFrame(): void;
-
-        //#endregion
-    }
+      * A function that does nothing.
+      * @see {@link http://msdn.microsoft.com/en-us/library/dd393667(v=vs.100).aspx }
+      */
+    emptyMethod(): Function;
 
     /**
-    * Provides extensions to the base ECMAScript (JavaScript) String object by including static and instance methods.
-    * String Type Extensions
-    * @see {@link http://msdn.microsoft.com/en-us/library/bb397472(v=vs.100).aspx}
-    */
-    interface String {
+      * Validates the parameters to a method are as expected.
+      * @see {@link http://msdn.microsoft.com/en-us/library/dd393712(v=vs.100).aspx }
+      */
+    validateParameters(parameters: any, expectedParameters: Object[], validateParameterCount?: boolean): any;
 
-        //#region lib.d.ts
+    //#endregion
+}
 
-        new (value?: any): String;
-        (value?: any): string;
-        prototype: String;
-        fromCharCode(...codes: number[]): string;
+/**
+* Provides static functions that extend the built-in ECMAScript (JavaScript) Error type by including exception details and support for application-compilation modes (debug or release).
+* Error Type Extensions
+* @see {@link http://msdn.microsoft.com/en-us/library/bb310947(v=vs.100).aspx}
+*/
+interface ErrorConstructor {
 
-        /** Returns a string representation of a string. */
-        toString(): string;
-
-        /**
-          * Returns the character at the specified index.
-          * @param pos The zero-based index of the desired character.
-          */
-        charAt(pos: number): string;
-
-        /** 
-          * Returns the Unicode value of the character at the specified location.
-          * @param index The zero-based index of the desired character. If there is no character at the specified index, NaN is returned.
-          */
-        charCodeAt(index: number): number;
-
-        /**
-          * Returns a string that contains the concatenation of two or more strings.
-          * @param strings The strings to append to the end of the string.  
-          */
-        concat(...strings: string[]): string;
-
-        /**
-          * Returns the position of the first occurrence of a substring. 
-          * @param searchString The substring to search for in the string
-          * @param position The index at which to begin searching the String object. If omitted, search starts at the beginning of the string.
-          */
-        indexOf(searchString: string, position?: number): number;
-
-        /**
-          * Returns the last occurrence of a substring in the string.
-          * @param searchString The substring to search for.
-          * @param position The index at which to begin searching. If omitted, the search begins at the end of the string.
-          */
-        lastIndexOf(searchString: string, position?: number): number;
-
-        /**
-          * Determines whether two strings are equivalent in the current locale.
-          * @param that String to compare to target string
-          */
-        localeCompare(that: string): number;
-
-        /** 
-          * Matches a string with a regular expression, and returns an array containing the results of that search.
-          * @param regexp A variable name or string literal containing the regular expression pattern and flags.
-          */
-        match(regexp: string): string[];
-
-        /** 
-          * Matches a string with a regular expression, and returns an array containing the results of that search.
-          * @param regexp A regular expression object that contains the regular expression pattern and applicable flags. 
-          */
-        match(regexp: RegExp): string[];
-
-        /**
-          * Replaces text in a string, using a regular expression or search string.
-          * @param searchValue A String object or string literal that represents the regular expression
-          * @param replaceValue A String object or string literal containing the text to replace for every successful match of rgExp in stringObj.
-          */
-        replace(searchValue: string, replaceValue: string): string;
-
-        /**
-          * Replaces text in a string, using a regular expression or search string.
-          * @param searchValue A String object or string literal that represents the regular expression
-          * @param replaceValue A function that returns the replacement text.
-          */
-        replace(searchValue: string, replaceValue: (substring: string, ...args: any[]) => string): string;
-
-        /**
-          * Replaces text in a string, using a regular expression or search string.
-          * @param searchValue A Regular Expression object containing the regular expression pattern and applicable flags
-          * @param replaceValue A String object or string literal containing the text to replace for every successful match of rgExp in stringObj.
-          */
-        replace(searchValue: RegExp, replaceValue: string): string;
-
-        /**
-          * Replaces text in a string, using a regular expression or search string.
-          * @param searchValue A Regular Expression object containing the regular expression pattern and applicable flags
-          * @param replaceValue A function that returns the replacement text.
-          */
-        replace(searchValue: RegExp, replaceValue: (substring: string, ...args: any[]) => string): string;
-
-        /**
-          * Finds the first substring match in a regular expression search.
-          * @param regexp The regular expression pattern and applicable flags. 
-          */
-        search(regexp: string): number;
-
-        /**
-          * Finds the first substring match in a regular expression search.
-          * @param regexp The regular expression pattern and applicable flags. 
-          */
-        search(regexp: RegExp): number;
-
-        /**
-          * Returns a section of a string.
-          * @param start The index to the beginning of the specified portion of stringObj. 
-          * @param end The index to the end of the specified portion of stringObj. The substring includes the characters up to, but not including, the character indicated by end. 
-          * If this value is not specified, the substring continues to the end of stringObj.
-          */
-        slice(start?: number, end?: number): string;
-
-        /**
-          * Split a string into substrings using the specified separator and return them as an array.
-          * @param separator A string that identifies character or characters to use in separating the string. If omitted, a single-element array containing the entire string is returned. 
-          * @param limit A value used to limit the number of elements returned in the array.
-          */
-        split(separator: string, limit?: number): string[];
-
-        /**
-          * Split a string into substrings using the specified separator and return them as an array.
-          * @param separator A Regular Express that identifies character or characters to use in separating the string. If omitted, a single-element array containing the entire string is returned. 
-          * @param limit A value used to limit the number of elements returned in the array.
-          */
-        split(separator: RegExp, limit?: number): string[];
-
-        /**
-          * Returns the substring at the specified location within a String object. 
-          * @param start The zero-based index number indicating the beginning of the substring.
-          * @param end Zero-based index number indicating the end of the substring. The substring includes the characters up to, but not including, the character indicated by end.
-          * If end is omitted, the characters from start through the end of the original string are returned.
-          */
-        substring(start: number, end?: number): string;
-
-        /** Converts all the alphabetic characters in a string to lowercase. */
-        toLowerCase(): string;
-
-        /** Converts all alphabetic characters to lowercase, taking into account the host environment's current locale. */
-        toLocaleLowerCase(): string;
-
-        /** Converts all the alphabetic characters in a string to uppercase. */
-        toUpperCase(): string;
-
-        /** Returns a string where all alphabetic characters have been converted to uppercase, taking into account the host environment's current locale. */
-        toLocaleUpperCase(): string;
-
-        /** Returns the length of a String object. */
-        length: number;
-
-        // IE extensions
-        /**
-          * Gets a substring beginning at the specified location and having the specified length.
-          * @param from The starting position of the desired substring. The index of the first character in the string is zero.
-          * @param length The number of characters to include in the returned substring.
-          */
-        substr(from: number, length?: number): string;
-
-        [index: number]: string;
-
-        //#endregion
-
-        //#region Extensions
-
-        /**
-        * Formats a number by using the invariant culture.
-        * @returns true if the end of the String object matches suffix; otherwise, false.
-        */
-        endsWith(suffix: string): boolean;
-        /**
-        * Replaces each format item in a String object with the text equivalent of a corresponding object's value.
-        * @returns A copy of the string with the formatting applied.
-        */
-        format(format: string, ...args: any[]): string;
-        /**
-        * Replaces the format items in a String object with the text equivalent of a corresponding object's value. The current culture is used to format dates and numbers.
-        * @returns A copy of the string with the formatting applied.
-        */
-        localeFormat(format: string, ...args: any[]): string;
-        /**
-        * Removes leading and trailing white-space characters from a String object.
-        * @returns A copy of the string with all white-space characters removed from the start and end of the string.
-        */
-        trim(): string;
-        /**
-        * Removes trailing white-space characters from a String object.
-        * @returns A copy of the string with all white-space characters removed from the end of the string.
-        */
-        trimEnd(): string;
-        /**
-        * Removes leading white-space characters from a String object.
-        * @returns A copy of the string with all white-space characters removed from the start of the string.
-        */
-        trimStart(): string;
-
-        //#endregion
-    }
+    //#region Extensions
 
     /**
-    * Provides extensions to the base ECMAScript (JavaScript) Boolean object. 
-    * Boolean Type Extensions
-    * @see {@link http://msdn.microsoft.com/en-us/library/bb397557(v=vs.100).aspx}
+    * Creates an Error object that represents the Sys.ParameterCountException exception.
     */
-    interface Boolean {
+    parameterCount(message?: string): Error;
+    /**
+    * Creates an Error object that represents the Sys.NotImplementedException exception.
+    */
+    notImplemented(message?: string): Error;
+    /**
+    * Creates an Error object that represents the Sys.ArgumentException exception.
+    */
+    argument(paramName?: any, message?: string): Error;
+    /**
+    * Creates an Error object that represents the Sys.ArgumentNullException exception.
+    */
+    argumentNull(paramName?: any, message?: string): Error;
+    /**
+    * Creates an Error object that represents the Sys.ArgumentOutOfRangeException exception.
+    */
+    argumentOutOfRange(paramName?: string, actualValue?: any, message?: string): Error;
+    /**
+    * Creates an Error object that represents the Sys.ArgumentTypeException exception.
+    */
+    argumentType(paramName?: string, actualType?: any, expectedType?: any, message?: string): Error;
+    /**
+    * Creates an Error object that represents the Sys.ArgumentUndefinedException exception.
+    */
+    argumentUndefined(paramName?: string, message?: string): Error;
+    /**
+    * Creates an Error object that can contain additional error information.
+    */
+    create(message?: string, errorInfo?: Object): Error;
+    /**
+    * Creates an Error object that represents the Sys.FormatException exception.
+    */
+    format(message?: string): Error;
+    /**
+    * Creates an Error object that represents the Sys.InvalidOperationException exception.
+    */
+    invalidOperation(message?: string): Error;
 
-        //#region lib.d.ts
 
-        new (value?: any): Boolean;
-        (value?: any): boolean;
-        prototype: Boolean;
+    //#endregion
+}
 
-        //#endregion
+interface Error {
+    /**
+    * Updates the fileName and lineNumber properties of an Error instance to indicate where the error was thrown instead of where the error was created. Use this function if you are creating custom error types.
+    */
+    popStackFrame(): void;
+}
 
-        //#region Extensions
 
-        /**
-        * Converts a string representation of a logical value to its Boolean object equivalent.
-        */
-        parse(value: string): Boolean;
 
-        //#endregion
-    }
+interface String {
+
+    //#region Extensions
+
+    /**
+    * Formats a number by using the invariant culture.
+    * @returns true if the end of the String object matches suffix; otherwise, false.
+    */
+    endsWith(suffix: string): boolean;
+
+    /**
+    * Removes leading and trailing white-space characters from a String object.
+    * @returns A copy of the string with all white-space characters removed from the start and end of the string.
+    */
+    trim(): string;
+    /**
+    * Removes trailing white-space characters from a String object.
+    * @returns A copy of the string with all white-space characters removed from the end of the string.
+    */
+    trimEnd(): string;
+    /**
+    * Removes leading white-space characters from a String object.
+    * @returns A copy of the string with all white-space characters removed from the start of the string.
+    */
+    trimStart(): string;
+
+    //#endregion
+}
+
+/**
+* Provides extensions to the base ECMAScript (JavaScript) String object by including static and instance methods.
+* String Type Extensions
+* @see {@link http://msdn.microsoft.com/en-us/library/bb397472(v=vs.100).aspx}
+*/
+interface StringConstructor {
+    /**
+* Replaces each format item in a String object with the text equivalent of a corresponding object's value.
+* @returns A copy of the string with the formatting applied.
+*/
+    format(format: string, ...args: any[]): string;
+    /**
+    * Replaces the format items in a String object with the text equivalent of a corresponding object's value. The current culture is used to format dates and numbers.
+    * @returns A copy of the string with the formatting applied.
+    */
+    localeFormat(format: string, ...args: any[]): string;
+}
+
+
+/**
+* Provides extensions to the base ECMAScript (JavaScript) Boolean object.
+* Boolean Type Extensions
+* @see {@link http://msdn.microsoft.com/en-us/library/bb397557(v=vs.100).aspx}
+*/
+interface BooleanConstructor {
+
+    //#region Extensions
+
+    /**
+    * Converts a string representation of a logical value to its Boolean object equivalent.
+    */
+    parse(value: string): Boolean;
+
+    //#endregion
 }
 
 //#endregion
@@ -686,7 +348,7 @@ declare class Type {
     callBaseMethod(instance: any, name: string, baseArguments?: any[]): any;
     /**
     * Creates a callback method, given the function to callback and the parameter to pass to it.
-    * @return 
+    * @return
     *       The callback function.
     *
     * @param method
@@ -699,7 +361,7 @@ declare class Type {
     * Creates a delegate function that keeps the context from its creation. The context defines the object instance to which the this keyword points.
     * @param instance
     *           The object instance that will be the context for the function. This parameter can be null.
-    * @param method 
+    * @param method
     *           The function from which the delegate is created.
     * @return The delegate function.
     */
@@ -709,7 +371,7 @@ declare class Type {
     * @param instance
     *          The instance for which the base method is requested.
     * @param name
-    *          The name of the method to retrieve as a reference.   
+    *          The name of the method to retrieve as a reference.
     */
     getBaseMethod(instance: Object, name: string): any;
     /**
@@ -719,7 +381,7 @@ declare class Type {
     getBaseType(): Type;
     /**
     * Returns an Array object that contains the list of interfaces that the type implements.
-    * Use the getInterfaces function to return a list of objects that define the interfaces on a type object. 
+    * Use the getInterfaces function to return a list of objects that define the interfaces on a type object.
     * This enables you to enumerate the array to determine the object's interfaces.
     *
     * @return An Array object that contains the list of interfaces that the type implements.
@@ -777,19 +439,19 @@ declare class Type {
     * Get a value that indicates whether the specified type is an integer of flags.
     * @param
     *      The type to test.
-    * @return true if the type is an integer of flags; otherwise, false.  
+    * @return true if the type is an integer of flags; otherwise, false.
     */
     static isFlags(type: any): boolean;
     /**
     * Determines whether an instance implements an interface.
     * @param typeInstanceVar
-    *           The instance on which the interface is tested.   
-    * @return 
+    *           The instance on which the interface is tested.
+    * @return
     */
     isImplementedBy(typeInstanceVar: any): boolean;
     /**
     * Returns a value that indicates whether an object is an instance of a specified class or of one of its derived classes.
-    * @param instance   
+    * @param instance
     *           The object to test.
     * @return true if instance is an instance of the class; false if instance does not implement the interface, or if it is undefined or null.
     */
@@ -798,11 +460,11 @@ declare class Type {
     * Returns a value that indicates whether the specified type is an interface. This is a static member that is invoked directly without creating an instance of the class.
     * @param type
     *           The type to test.
-    * @return true if the specified type is an interface; otherwise, false.  
+    * @return true if the specified type is an interface; otherwise, false.
     */
     static isInterface(type: any): boolean;
     /**
-    * Returns a value that indicates whether the specified object is a namespace. This is a static member that is invoked directly without creating an instance of the class.  
+    * Returns a value that indicates whether the specified object is a namespace. This is a static member that is invoked directly without creating an instance of the class.
     * @param object
     *           The object to test.
     * @return true if the specified object is a namespace; otherwise, false.
@@ -818,7 +480,7 @@ declare class Type {
     */
     static parse(typeName: string, ns?: string): any;
     /**
-    * Registers a class as defined by a constructor with an optional base type and interface type.   
+    * Registers a class as defined by a constructor with an optional base type and interface type.
     * @param typeName
     *           A string that represents the fully qualified name of the type.
     * @param baseType
@@ -829,7 +491,7 @@ declare class Type {
     */
     registerClass(typeName: string, baseType?: any, interfaceTypes?: any[]): any;
     /**
-    * Registers an enumeration.  
+    * Registers an enumeration.
     * @param name
     *           The fully-qualified name of the enumeration.
     * @param flags
@@ -837,25 +499,25 @@ declare class Type {
     */
     registerEnum(name: string, flags?: boolean): void;
     /**
-    * Registers an interface defined by a constructor.  
+    * Registers an interface defined by a constructor.
     * @param typeName
     *           A string that represents the fully qualified name of the class to be registered as an interface.
     * @return The registered interface.
     */
     registerInterface(typeName: string): any;
     /**
-    * Creates a namespace. This member is static and can be invoked without creating an instance of the class.  
+    * Creates a namespace. This member is static and can be invoked without creating an instance of the class.
     * @param namespacePath
     *           A string that represents the fully qualified namespace to register.
     */
     static registerNamespace(namespacePath: string): void;
     /**
-    * Copies members from the base class to the prototype associated with the derived class, and continues this process up the inheritance chain. This enables you to reflect on the inherited members of a derived type.  
-    * Use the resolveInheritance method to reflect on the inherited members of a derived type. 
-    * You invoke this method from the type that you want to reflect on. 
-    * The resolveInheritance method copies members from the base class to the prototype associated with the derived class, and continues this process up the inheritance chain. 
-    * If the derived type overrides a base type member, the base type member is not copied to the derived type's prototype. 
-    * After invoking a derived type's resolveInheritance method, you can examine the members of the derived type to discover all members, which includes inherited members.  
+    * Copies members from the base class to the prototype associated with the derived class, and continues this process up the inheritance chain. This enables you to reflect on the inherited members of a derived type.
+    * Use the resolveInheritance method to reflect on the inherited members of a derived type.
+    * You invoke this method from the type that you want to reflect on.
+    * The resolveInheritance method copies members from the base class to the prototype associated with the derived class, and continues this process up the inheritance chain.
+    * If the derived type overrides a base type member, the base type member is not copied to the derived type's prototype.
+    * After invoking a derived type's resolveInheritance method, you can examine the members of the derived type to discover all members, which includes inherited members.
     */
     resolveInheritance(): void;
 }
@@ -908,7 +570,7 @@ declare function $find(id: string, parent?: HTMLElement): Sys.Component;
 * @param handler The event handler to add.
 * @param autoRemove (Optional) A boolean value that determines whether the handler should be removed automatically when the element is disposed.
 */
-declare function $addHandler(element: Sys.UI.DomElement, eventName: string, handler: Function, autoRemove?: boolean): void;
+declare function $addHandler(element: HTMLElement, eventName: string, handler: (e: Sys.UI.DomEvent) => void, autoRemove?: boolean): void;
 
 /**
 * Provides a shortcut to the addHandlers method of the Sys.UI.DomEvent class. This member is static and can be invoked without creating an instance of the class.
@@ -918,7 +580,7 @@ declare function $addHandler(element: Sys.UI.DomElement, eventName: string, hand
 * @param handlerOwner (Optional) The object instance that is the context for the delegates that should be created from the handlers.
 * @param autoRemove (Optional) A boolean value that determines whether the handler should be removed automatically when the element is disposed.
 */
-declare function $addHandlers(element: Sys.UI.DomElement, events: any, handlerOwner?: any, autoRemove?: boolean): void;
+declare function $addHandlers(element: HTMLElement, events: { [event: string]: (e: Sys.UI.DomEvent) => void }, handlerOwner?: any, autoRemove?: boolean): void;
 
 /**
 * Provides a shortcut to the clearHandlers method of the Sys.UI.DomEvent class. This member is static and can be invoked without creating an instance of the class.
@@ -926,21 +588,19 @@ declare function $addHandlers(element: Sys.UI.DomElement, events: any, handlerOw
 * @see {@link http://msdn.microsoft.com/en-us/library/bb310959(v=vs.100).aspx}
 * @param The DOM element that exposes the events.
 */
-declare function $clearHandlers(element: Sys.UI.DomElement): void;
+declare function $clearHandlers(element: HTMLElement): void;
 
 /**
-* Provides a shortcut to the getElementById method of the Sys.UI.DomElement class. This member is static and can be invoked without creating an instance of the class.
+* Provides a shortcut to the getElementById method of the HTMLElement class. This member is static and can be invoked without creating an instance of the class.
 * @see {@link http://msdn.microsoft.com/en-us/library/bb397717(v=vs.100).aspx}
-* @param id 
+* @param id
 *           The ID of the DOM element to find.
-* @param element 
+* @param element
 *           The parent element to search. The default is the document element.
 * @return
-*   The  Sys.UI.DomElement
+*   The  HTMLElement
 */
-declare function $get(id: string): any; // Examples use HTMLElement and DomElement
 declare function $get(id: string, element?: HTMLElement): HTMLElement;
-declare function $get(id: string, element?: Sys.UI.DomElement): Sys.UI.DomElement;
 
 /**
 * Provides a shortcut to the removeHandler method of the Sys.UI.DomEvent class. This member is static and can be invoked without creating an instance of the class.
@@ -949,9 +609,7 @@ declare function $get(id: string, element?: Sys.UI.DomElement): Sys.UI.DomElemen
 * @param eventName The name of the DOM event.
 * @param handler The event handler to remove.
 */
-declare function $removeHandler(element: any, eventName: string, handler: Function): void;
-declare function $removeHandler(element: HTMLElement, eventName: string, handler: Function): void;
-declare function $removeHandler(element: Sys.UI.DomElement, eventName: string, handler: Function): void;
+declare function $removeHandler(element: HTMLElement, eventName: string, handler: (e: Sys.UI.DomEvent) => void): void;
 
 //#endregion
 
@@ -963,17 +621,17 @@ declare function $removeHandler(element: Sys.UI.DomElement, eventName: string, h
 * Represents the root namespace for the Microsoft Ajax Library, which contains all fundamental classes and base classes.
 * @see {@link http://msdn.microsoft.com/en-us/library/bb397702(v=vs.100).aspx}
 */
-declare module Sys {
+declare namespace Sys {
 
-    //#region Classes   
+    //#region Classes
 
     /**
-    * Provides a run-time object that exposes client events and manages client components that are registered with the application. 
-    * The members of this object are available globally after the client application has been initialized. 
+    * Provides a run-time object that exposes client events and manages client components that are registered with the application.
+    * The members of this object are available globally after the client application has been initialized.
     * The members can be invoked without creating an instance of the class.
     * @see {@link http://msdn.microsoft.com/en-us/library/bb384161(v=vs.100).aspx}
     */
-    interface Application {
+    interface Application extends Component, IContainer {
 
         //#region Constructors
 
@@ -986,34 +644,34 @@ declare module Sys {
         /**
         * Raised after all scripts have been loaded but before objects are created.
         */
-        add_init(handler: Function): void;
+        add_init(handler: (sender: Application, eventArgs: EventArgs) => void): void;
         /**
         * Raised after all scripts have been loaded but before objects are created.
         */
-        remove_init(handler: Function): void;
+        remove_init(handler: (sender: Application, eventArgs: EventArgs) => void): void;
         /**
         * Raised after all scripts have been loaded and after the objects in the application have been created and initialized.
         */
-        add_load(handler: Function): void;
+        add_load(handler: (sender: Application, eventArgs: ApplicationLoadEventArgs) => void): void;
         /**
        * Raised after all scripts have been loaded and after the objects in the application have been created and initialized.
        */
-        remove_load(handler: Function): void;
+        remove_load(handler: (sender: Application, eventArgs: ApplicationLoadEventArgs) => void): void;
         /**
         * Occurs when the user clicks the browser's Back or Forward button.
         */
-        add_navigate(handler: Function): void;
+        add_navigate(handler: (sender: Application, eventArgs: HistoryEventArgs) => void): void;
         /**
         * Occurs when the user clicks the browser's Back or Forward button.
         */
-        remove_navigate(handler: Function): void;
+        remove_navigate(handler: (sender: Application, eventArgs: HistoryEventArgs) => void): void;
 
-        /** 
+        /**
         * Raised before all objects in the client application are disposed, typically when the DOM window.unload event is raised.
         */
         add_unload(handler: Function): void;
 
-        /** 
+        /**
         * Raised before all objects in the client application are disposed, typically when the DOM window.unload event is raised.
         */
         remove_unload(handler: Function): void;
@@ -1084,7 +742,7 @@ declare module Sys {
         * Raises the load event. This member is static and can be invoked without creating an instance of the class.
         */
         raiseLoad(): void;
-        /** 
+        /**
         * Raises the Sys.INotifyPropertyChange.propertyChanged event.
         */
         raisePropertyChanged(propertyName: string): void;
@@ -1148,19 +806,19 @@ declare module Sys {
         agent: any;
         /**
         * Gets a value that indicates the document compatibility mode of the browser.
-        * @return 
-        *       
+        * @return
+        *
         */
         documentMode: number;
         /*
         * Gets a value that indicates whether the browser supports debug statements.
-        * @return 
+        * @return
         *   True if the browser supports debug statements
         */
         hasDebuggerStatement: boolean;
         /**
         * Gets the name of the browser.
-        * @return 
+        * @return
         *   The name of the browser
         */
         name: string;
@@ -1235,8 +893,8 @@ declare module Sys {
         */
         static create(type: Type, properties?: any, events?: any, references?: any, element?: HTMLElement): Sys.Component;
         /**
-        * Called by the create method to indicate that the process of setting properties of a component instance has finished.        
-        * This method is called by the create method ($create).   
+        * Called by the create method to indicate that the process of setting properties of a component instance has finished.
+        * This method is called by the create method ($create).
         * Sets the isUpdating property of the current Component object to false, calls the initialize method if it has not already been called, and then calls the updated method.
         */
         endUpdate(): void;
@@ -1245,14 +903,14 @@ declare module Sys {
         * The initialize method sets the isInitialized property of the current Component object to true. This function is called by the create method ($create) and overridden in derived classes to initialize the component.
         */
         initialize(): void;
-        /** 
+        /**
         * Raises the propertyChanged event for the specified property.
         * @param propertyName
         *               The name of the property that changed.
         */
         raisePropertyChanged(propertyName: string): void;
         /**
-        * Called by the endUpdate method as a placeholder for additional logic in derived classes.  
+        * Called by the endUpdate method as a placeholder for additional logic in derived classes.
         * Override the updated method in a derived class to add custom post-update logic.
         */
         updated(): void;
@@ -1268,13 +926,13 @@ declare module Sys {
         /**
          * Gets an EventHandlerList object that contains references to all the event handlers that are mapped to the current component's events.
          * This member supports the client-script infrastructure and is not intended to be used directly from your code.
-         * @return 
+         * @return
          *      An EventHandlerList object that contains references to all the events and handlers for this component.
          */
         get_events(): any;
         /**
         * Gets the ID of the current Component object.
-        * @return 
+        * @return
         *       The id
         */
         get_id(): string;
@@ -1308,7 +966,7 @@ declare module Sys {
         //#region Constructors
 
         /**
-        * Initializes a new instance of the Sys.CultureInfo class.   
+        * Initializes a new instance of the Sys.CultureInfo class.
         * @param name
         *           The culture value (locale) that represents a language and region.
         * @param numberFormat
@@ -1323,10 +981,10 @@ declare module Sys {
         //#region Properties
 
         /**
-        * Gets an object that contains an array of culture-sensitive formatting and parsing strings values that can be applied to Number type extensions. 
-        * Use the numberFormat field to retrieve an object that contains an array of formatting strings that are based on the current culture or on the invariant culture. 
+        * Gets an object that contains an array of culture-sensitive formatting and parsing strings values that can be applied to Number type extensions.
+        * Use the numberFormat field to retrieve an object that contains an array of formatting strings that are based on the current culture or on the invariant culture.
         * Each formatting string can be used to specify how to format Number type extensions.
-        * @return An object that contains an array of culture-sensitive formatting strings.  
+        * @return An object that contains an array of culture-sensitive formatting strings.
         */
         numberFormat: string[];
         /**
@@ -1337,7 +995,7 @@ declare module Sys {
         /**
         * Gets the globalization values of the invariant culture as sent by the server. This member is static and can be invoked without creating an instance of the class.
         * The InvariantCulture field contains the following fields associated with the invariant (culture-independent) culture: name, dateTimeFormat, and numberFormat.
-        * @return A CultureInfo object.  
+        * @return A CultureInfo object.
         */
         static InvariantCulture: CultureInfo;
         /**
@@ -1348,7 +1006,7 @@ declare module Sys {
         static CurrentCulture: CultureInfo;
         /**
         * Gets an object that contains an array of culture-sensitive formatting and parsing string values that can be applied to Date type extensions.
-        * Use the dateTimeFormat field to retrieve an object that contains an array of formatting strings that are based on the current culture or on the invariant culture. 
+        * Use the dateTimeFormat field to retrieve an object that contains an array of formatting strings that are based on the current culture or on the invariant culture.
         * Each formatting string can be used to specify how to format Date type extensions.
         * @return An object that contains an array of culture-sensitive formatting strings.
         */
@@ -1375,17 +1033,17 @@ declare module Sys {
         //#region Methods
 
         /**
-         * Checks for a condition, and if the condition is false, displays a message and prompts the user to break into the debugger. 
+         * Checks for a condition, and if the condition is false, displays a message and prompts the user to break into the debugger.
          * When you call the assert method in your code, express the success of an operation as true or false and use that value for condition. If the operation fails (if condition is false), the assert logic is executed.
          * The assert method should be used to catch developer errors. To respond to user errors and to run-time error conditions such as network errors or permission failures, throw an exception.
          * Debugging behavior, requirements, and the output of trace messages vary with different browsers. For more information, see Debugging and Tracing Ajax Applications Overview.
-         * 
+         *
          * @param condition
          *      true to continue to execute code; false to display message and break into the debugger.
          * @param message
          *      (Optional) The message to display. The default is an empty string ("").
          * @param displayCaller
-         *      (Optional) true to indicate that the name of the function that is calling assert should be displayed in the message. The default is false. 
+         *      (Optional) true to indicate that the name of the function that is calling assert should be displayed in the message. The default is false.
          */
         static assert(condition: boolean, message?: string, displayCaller?: boolean): void;
         /**
@@ -1395,7 +1053,7 @@ declare module Sys {
         /**
         * Displays a message in the debugger's output window and breaks into the debugger.
         * @param message
-        *           The message to display.  
+        *           The message to display.
         */
         static fail(message: string): void;
         /**
@@ -1429,7 +1087,7 @@ declare module Sys {
         * @param action
         *           A NotifyCollectionChangedAction enumeration value.
         * @param newItems
-        *           (Optional) The items that were added when the action is add or replace.   
+        *           (Optional) The items that were added when the action is add or replace.
         * @param newStartingIndex
         *           (Optional) An integer that represents the index where new items have been inserted.
         * @param oldItems
@@ -1468,12 +1126,12 @@ declare module Sys {
         */
         oldStartingIndex: number;
 
-        //#endregion  
+        //#endregion
     }
 
     /**
     * Adds update and management functionality to target objects such as arrays, DOM elements, and objects.
-    * The Sys.Observer class is based on the Observer pattern. The Sys.Observer class maintains a list of interested dependents (observers) in a separate object (the subject). 
+    * The Sys.Observer class is based on the Observer pattern. The Sys.Observer class maintains a list of interested dependents (observers) in a separate object (the subject).
     * All methods that are contained in the Sys.Observer class are static.
     * In order to be used with the Sys.Observer class, an object must be an object, array, or DOM element.
     * @see {@link http://msdn.microsoft.com/en-us/library/dd393710(v=vs.100).aspx}
@@ -1520,7 +1178,7 @@ declare module Sys {
         */
         static beginUpdate(target: any): void;
         /**
-        * Clears the array of its elements in an observable manner. 
+        * Clears the array of its elements in an observable manner.
         * @param target The array to clear.
         */
         static clear(target: any): void;
@@ -1557,7 +1215,7 @@ declare module Sys {
         */
         static raiseEvent(target: any, eventName: string, eventArgs: Sys.EventArgs): void;
         /**
-        * Raises a propertyChanged notification event.  
+        * Raises a propertyChanged notification event.
         * @param target The object to which an event is raised.
         * @param propertyName The name of the property that changed.
         */
@@ -1584,7 +1242,7 @@ declare module Sys {
         /**
         * Removes a propertyChanged event handler from the target.
         * @param target The object to observe.
-        * @param handler The event handler to remove.  
+        * @param handler The event handler to remove.
         */
         static removeEventHandler(target: any, handler: Function): void;
         /**
@@ -1611,7 +1269,7 @@ declare module Sys {
     }
 
     /**
-    * Provides static, culture-neutral exception messages that are used by the Microsoft Ajax Library framework. 
+    * Provides static, culture-neutral exception messages that are used by the Microsoft Ajax Library framework.
     * @see {@link http://msdn.microsoft.com/en-us/library/bb397705(v=vs.100).aspx}
     * This type supports the .NET Framework infrastructure and is not intended to be used directly from your code.
     */
@@ -1620,7 +1278,7 @@ declare module Sys {
         //#region Fields
 
         /**
-        * @return "Actual value was {0}." 
+        * @return "Actual value was {0}."
         */
         static actualValue: string;
         /**
@@ -1788,7 +1446,7 @@ declare module Sys {
         append(text: string): void;
 
         /**
-        * Appends a string with a line terminator to the end of the Sys.StringBuilder instance. 
+        * Appends a string with a line terminator to the end of the Sys.StringBuilder instance.
         * Use the appendLine method to append a specified string and a line terminator to the end of a Stringbuilder instance. The line terminator is a combination of a carriage return and a newline character. If no string is specified in text, only the line terminator is appended.
         * @param text
         *           (Optional) The string to append with a line terminator to the end of the StringBuilder instance.
@@ -1796,7 +1454,7 @@ declare module Sys {
         appendLine(text: string): void;
 
         /**
-        * Clears the contents of the Sys.StringBuilder instance.  
+        * Clears the contents of the Sys.StringBuilder instance.
         * Use the clear method to clear the StringBuilder instance of its current contents.
         */
         clear(): void;
@@ -1809,10 +1467,10 @@ declare module Sys {
         isEmpty(): boolean;
 
         /**
-        * Creates a string from the contents of a Sys.StringBuilder instance, and optionally inserts a delimiter between each element of the created string.  
+        * Creates a string from the contents of a Sys.StringBuilder instance, and optionally inserts a delimiter between each element of the created string.
         * Use the toString method to create a string from the contents of a StringBuilder instance. Use the toString method with the optional separator parameter to insert a specified string delimiter between each element of the created string.
         * @param separator
-        *           (Optional) A string to append between each element of the string that is returned.  
+        *           (Optional) A string to append between each element of the string that is returned.
         * @return A string representation of the StringBuilder instance. If separator is specified, the delimiter string is inserted between each element of the returned string.
         */
         toString(separator?: string): string;
@@ -1858,7 +1516,7 @@ declare module Sys {
         * Adds a Component object to the current container.
         * Implement this method for an object that will contain one or more component objects in order to programmatically add components to that container.
         * @param component
-        *           The Component object to add. 
+        *           The Component object to add.
         */
         addComponent(component: Component): void;
         /**
@@ -1887,7 +1545,7 @@ declare module Sys {
 
     /**
     * Provides a common interface for the application-defined tasks of closing, releasing, or resetting resources held by instances of a registered Microsoft Ajax Library class.
-    * Implement the IDisposable interface to provide a common interface for closing or releasing resources held by instances of your registered Microsoft Ajax Library class. 
+    * Implement the IDisposable interface to provide a common interface for closing or releasing resources held by instances of your registered Microsoft Ajax Library class.
     * You register an interface by when you register the class by calling the Type.registerClass method. You specify IDisposable in the interfaceTypes parameter when you call Type.registerClass.
     */
     interface IDisposable {
@@ -1909,7 +1567,7 @@ declare module Sys {
     */
     interface INotifyDisposing {
 
-        //#region Events 
+        //#region Events
 
         /**
         * Occurs when an object's resources are released.
@@ -1963,10 +1621,10 @@ declare module Sys {
         //#region Constructors
 
         /**
-        * Initializes a new instance of the ApplicationLoadEventArgs class.  
+        * Initializes a new instance of the ApplicationLoadEventArgs class.
         * @param components
         *           The list of components that were created since the last time the load event was raised.
-        * @param isPartialLoad 
+        * @param isPartialLoad
         *           true to indicate that the event is a partial-page update.
         */
         constructor(components: any, isPartialLoad: boolean);
@@ -2095,7 +1753,7 @@ declare module Sys {
         //#region Constructors
 
         /**
-        * For a live code example that demonstrates this event in action, and for a view of how this event is used in code, see Managing Browser History Using Client Script.  
+        * For a live code example that demonstrates this event in action, and for a view of how this event is used in code, see Managing Browser History Using Client Script.
         * @param state Object. A collection of key/value pairs that represent the state data. This data will be added to the main state to form the global state of the new history point.
         */
         constructor(state: any);
@@ -2105,7 +1763,7 @@ declare module Sys {
         //#region Methods
 
         /**
-        * Object. A collection of name/value pairs that represent the state of a Web page.  
+        * Object. A collection of name/value pairs that represent the state of a Web page.
         * The state object stores the data that is required in order to restore a Web page to a specified application state.
         * @return Object. A collection of name/value pairs that represent the state of a Web page.
         */
@@ -2152,8 +1810,8 @@ declare module Sys {
 
         /**
         * Initializes a new instance of the PropertyChangedEventArgs class.
-        * @param propertyName 
-        *           The name of the property that changed.  
+        * @param propertyName
+        *           The name of the property that changed.
         */
         constructor(propertyName: string);
 
@@ -2164,7 +1822,7 @@ declare module Sys {
         /**
         * Gets the name of the property that changed.
         * Use the propertyName property to determine the name of the property that changed.
-        * @return A string that contains the name of the property that changed. 
+        * @return A string that contains the name of the property that changed.
         */
         propertyName(): string;
 
@@ -2175,67 +1833,67 @@ declare module Sys {
     //#endregion
 
     //#region Exception Types
+    // Really not a types
+    ///**
+    //* Raised when a function or method is invoked and at least one of the passed arguments does not meet the parameter specification of the called function or method.
+    //*/
+    //class ArgumentException {
 
-    /**
-    * Raised when a function or method is invoked and at least one of the passed arguments does not meet the parameter specification of the called function or method.
-    */
-    class ArgumentException {
+    //}
+    ///**
+    //* Raised when an argument has an invalid value of null.
+    //*/
+    //class ArgumentNullException {
 
-    }
-    /**
-    * Raised when an argument has an invalid value of null.
-    */
-    class ArgumentNullException {
+    //}
+    ///**
+    //* Raised when an argument value is outside an acceptable range.
+    //*/
+    //class ArgumentOutOfRangeException {
 
-    }
-    /**
-    * Raised when an argument value is outside an acceptable range.
-    */
-    class ArgumentOutOfRangeException {
+    //}
+    ///**
+    //* Raised when a parameter is not an allowed type.
+    //*/
+    //class ArgumentTypeException {
 
-    }
-    /**
-    * Raised when a parameter is not an allowed type.
-    */
-    class ArgumentTypeException {
+    //}
+    ///**
+    //* Raised when an argument for a required method parameter is undefined.
+    //*/
+    //class ArgumentUndefinedException {
 
-    }
-    /**
-    * Raised when an argument for a required method parameter is undefined.
-    */
-    class ArgumentUndefinedException {
+    //}
+    ///**
+    //*
+    //*/
+    //class FormatException {
 
-    }
-    /**
-    * 
-    */
-    class FormatException {
+    //}
+    ///**
+    //* Raised when a call to a method has failed, but the reason was not invalid arguments.
+    //*/
+    //class InvalidOperationException {
 
-    }
-    /**
-    * Raised when a call to a method has failed, but the reason was not invalid arguments.
-    */
-    class InvalidOperationException {
+    //}
+    ///**
+    //* Raised when a requested method is not supported by an object.
+    //*/
+    //class NotImplementedException {
 
-    }
-    /**
-    * Raised when a requested method is not supported by an object.
-    */
-    class NotImplementedException {
+    //}
+    ///**
+    //* Raised when an invalid number of arguments have been passed to a function.
+    //*/
+    //class ParameterCountException {
 
-    }
-    /**
-    * Raised when an invalid number of arguments have been passed to a function.
-    */
-    class ParameterCountException {
+    //}
+    ///**
+    //* Raised by the Microsoft Ajax Library framework when a script does not load successfully. This exception should not be thrown by the developer.
+    //*/
+    //class ScriptLoadFailedException {
 
-    }
-    /**
-    * Raised by the Microsoft Ajax Library framework when a script does not load successfully. This exception should not be thrown by the developer.
-    */
-    class ScriptLoadFailedException {
-
-    }
+    //}
 
     //#endregion
 
@@ -2245,23 +1903,44 @@ declare module Sys {
     * The Sys.Net namespace contains classes that manage communication between AJAX-enabled ASP.NET client applications and Web services on the server. For more information, see Using Web Services in ASP.NET AJAX. The Sys.Net namespace is part of the Microsoft Ajax Library.
     * @see {@link http://msdn.microsoft.com/en-us/library/bb310860(v=vs.100).aspx}
     */
-    module Net {
+    namespace Net {
 
         /**
          * Generated Proxy Classes
          * Enables your application to call Web services asynchronously by using ECMAScript (JavaScript).
          * @see {@link http://msdn.microsoft.com/en-us/library/bb310823(v=vs.100).aspx}
          */
-        // Cannot create definitions for generated proxy classes.
+        class WebServiceProxy {
+            static invoke(
+                servicePath: string,
+                methodName: string,
+                useGet?: boolean,
+                params?: any,
+                onSuccess?: (result: string, eventArgs: EventArgs) => void,
+                onFailure?: (error: WebServiceError) => void,
+                userContext?: any,
+                timeout?: number,
+                enableJsonp?: boolean,
+                jsonpCallbackParameter?: string): WebRequest;
+        }
+
+        class WebServiceError {
+            get_errorObject(): any;
+            get_exceptionType(): any;
+            get_message(): string;
+            get_stackTrace(): string;
+            get_statusCode(): number;
+            get_timedOut(): boolean;
+        }
 
         /**
          * Contains information about a Web request that is ready to be sent to the current Sys.Net.WebRequestExecutor instance.
-         * This class represents the type for the second parameter of the callback function added by the add_invokingRequest method. 
+         * This class represents the type for the second parameter of the callback function added by the add_invokingRequest method.
          * The callback function is called before the Web request is routed to the current instance of the WebRequestExecutor class.
-         * 
+         *
          * @see {@link http://msdn.microsoft.com/en-us/library/bb397488(v=vs.100).aspx}
          */
-        class NetWorkRequestEventArgs {
+        class NetworkRequestEventArgs {
 
             //#region Constructors
 
@@ -2283,9 +1962,9 @@ declare module Sys {
             /**
              * Gets the Web request to be routed to the current Sys.Net.WebRequestExecutor instance.
              * Use this property to inspect the contents of a Web request before it is routed to the current instance of the Sys.Net.WebRequestExecutor class.
-             * You can access the Web request instance from the handler that is called before the request is routed. 
+             * You can access the Web request instance from the handler that is called before the request is routed.
              * This event handler is added by using the add_invokingRequest method.
-             * @return 
+             * @return
              *      The WebRequest.
              */
             get_webRequest(): WebRequest;
@@ -2310,6 +1989,19 @@ declare module Sys {
             //#endregion
 
             //#region Members
+            get_url(): string;
+            set_url(value: string): void;
+            get_httpVerb(): string;
+            set_httpVerb(value: string): void;
+            get_timeout(): number;
+            set_timeout(value: number): void;
+            get_body(): string;
+            set_body(value: string): void;
+            get_headers(): { [key: string]: string; };
+            get_userContext(): any;
+            set_userContext(value: any): void;
+            get_executor(): WebRequestExecutor;
+            set_executor(value: WebRequestExecutor): void;
 
             /**
             * Registers a handler for the completed request event of the Web request.
@@ -2330,7 +2022,7 @@ declare module Sys {
             getResolvedUrl(): string;
 
             /**
-            * Executes a Web request. 
+            * Executes a Web request.
             */
             invoke(): void;
 
@@ -2364,13 +2056,13 @@ declare module Sys {
 
             /**
             * Stops the pending network request issued by the executor.
-            * The specifics of aborting a request vary depending on how an executor is implemented. 
+            * The specifics of aborting a request vary depending on how an executor is implemented.
             * However, all executors that derive from WebRequestExecutor must set their state to aborted and must raise the completed event of the associated Sys.Net.WebRequest object.
             * The executor properties do not contain consistent data after abort has been called.
             */
             abort(): void;
             /**
-            * Instructs the executor to execute a Web request.  
+            * Instructs the executor to execute a Web request.
             * When this method is called, the executor packages the content of the Web request instance and initiates processing.
             * This method is intended to be used by a custom executor. If you are implementing a custom executor, you instantiate the executor, assign it to the Web request instance, and then invoke the method on the executor instance.
             * @see {@link http://msdn.microsoft.com/en-us/library/bb383834(v=vs.100).aspx}
@@ -2378,7 +2070,7 @@ declare module Sys {
             executeRequest(): void;
             /**
             * Gets all the response headers for the current request.
-            * If a request finished successfully and with valid response data, this method returns all the response headers.  
+            * If a request finished successfully and with valid response data, this method returns all the response headers.
             * @return All the response headers
             * @see {@link http://msdn.microsoft.com/en-us/library/bb310805(v=vs.100).aspx}
             */
@@ -2387,7 +2079,7 @@ declare module Sys {
             * Gets the value of the specified response header.
             * @return The specified response header.
             */
-            getResponseHeader(): string;
+            getResponseHeader(key: string): string;
 
             //#endregion
 
@@ -2399,21 +2091,21 @@ declare module Sys {
             */
             object(): any;
             /**
-            * Gets a value indicating whether the request associated with the executor was aborted.  
+            * Gets a value indicating whether the request associated with the executor was aborted.
             * When the current instance of the Sys.Net.WebRequestExecutor class is aborted, it must set its state to aborted and it must raise the completed event of the associated request object.
             * @return true if the request associated with the executor was aborted; otherwise, false.
             */
             get_aborted(): boolean;
             /**
-            * Gets a value indicating whether the request completed successfully.  
-            * Successful completion usually means a well-formed response was received by the executor. 
-            * If a response was received, the current instance of the Sys.Net.WebRequestExecutor class must set its state to completed. 
+            * Gets a value indicating whether the request completed successfully.
+            * Successful completion usually means a well-formed response was received by the executor.
+            * If a response was received, the current instance of the Sys.Net.WebRequestExecutor class must set its state to completed.
             * It must also raise the completed event of the associated request object.
             * @return true if the request completed successfully; otherwise, false.
             */
             get_responseAvailable(): boolean;
             /**
-            * Gets the text representation of the response body. When a request has completed successfully with valid response data, this property returns the text that is contained in the response body. 
+            * Gets the text representation of the response body. When a request has completed successfully with valid response data, this property returns the text that is contained in the response body.
             * @return The text representation of the response body.
             */
             get_responseData(): string;
@@ -2430,7 +2122,7 @@ declare module Sys {
             */
             get_statusCode(): number;
             /**
-            * Gets status information about a request that completed successfully.   
+            * Gets status information about a request that completed successfully.
             * The statusText property returns status information if a request completed successfully and with valid response data.
             * @return the status text
             */
@@ -2438,16 +2130,16 @@ declare module Sys {
             /**
             * Gets a value indicating whether the request timed out.
             * Executors use the time-out information associated with the request to raise the completed event on the associated WebRequest object.
-            * @return true if the request timed out; otherwise, false. 
+            * @return true if the request timed out; otherwise, false.
             */
             get_timedOut(): boolean;
             /**
             * Attempts to get the response to the current request as an XMLDOM object.
-            * If a request finished successfully with valid response data, this method tries to get the response as an XMLDOM object.  
+            * If a request finished successfully with valid response data, this method tries to get the response as an XMLDOM object.
             */
             get_xml(): XMLDocument;
             /**
-            * Gets the WebRequest object associated with the executor.   
+            * Gets the WebRequest object associated with the executor.
             * @return The WebRequest object associated with the current executor instance.
             */
             get_webRequest(): Sys.Net.WebRequest;
@@ -2478,42 +2170,42 @@ declare module Sys {
              * @param handler
              *      The function registered to handle the completed request event.
              */
-            add_completedRequest(handler: (sender: any, eventArgs: any) => void): void;
+            add_completedRequest(handler: (sender: WebRequestExecutor, eventArgs: EventArgs) => void): void;
             /**
              * Registers a handler for processing the invoking request event of the WebRequestManager.
              * @param handler
              *      The function registered to handle the invoking request event.
              */
-            add_invokingRequest(handler: (sender: any, networkRequestEventArgs: any) => void): void;
+            add_invokingRequest(handler: (sender: WebRequestExecutor, networkRequestEventArgs: NetworkRequestEventArgs) => void): void;
             /**
-             * Sends Web requests to the default network executor. 
+             * Sends Web requests to the default network executor.
              * This member supports the client-script infrastructure and is not intended to be used directly from your code.
              * @param WebRequest
              *      An instance of the Sys.Net.WebRequest class.
              */
             executeRequest(WebRequest: Sys.Net.WebRequest): void;
             /**
-             * Removes the event handler set by the add_completedRequest method. 
+             * Removes the event handler set by the add_completedRequest method.
              * Use the remove_ completedRequest method to remove the event handler you set using the add_ completedRequest method.
              * @param handler
              *      The function that handles the completed request event.
              */
-            remove_completedRequest(handler: Function): void;
+            remove_completedRequest(handler: (sender: WebRequestExecutor, eventArgs: EventArgs) => void): void;
             /**
-             * Removes the event handler set by the add_invokingRequest method. 
+             * Removes the event handler set by the add_invokingRequest method.
              * Use the remove_invokingRequest method to remove the event handler you set using the add_invokingRequest method.
              * @param handler
              *          The function that handles the invoking request event.
              */
-            remove_invokingRequest(handler: Function): void;
+            remove_invokingRequest(handler: (sender: WebRequestExecutor, networkRequestEventArgs: NetworkRequestEventArgs) => void): void;
 
             //#endregion
 
-            //#region Properties 
+            //#region Properties
 
             /**
              * Gets or sets the default network executor type that is used to make network requests.
-             * @return 
+             * @return
              *      The object that represents the default Web request executor.
              */
             get_defaultExecutorType(): Sys.Net.WebRequestExecutor;
@@ -2531,7 +2223,7 @@ declare module Sys {
             get_defaultTimeout(): number;
             /**
              * Gets or sets the time-out for the default network executor.
-             * 
+             *
              * @throws Sys.ArgumentOutOfRangeException An invalid parameter was passed.
              * @param value
              *          The time in milliseconds that the default executor should wait before timing out a Web request. This value must be 0 or a positive integer.
@@ -2554,7 +2246,7 @@ declare module Sys {
     * Contains classes related to data serialization for AJAX client functionality in ASP.NET. For more information, see Using Web Services in ASP.NET AJAX.
     * @see {@link http://msdn.microsoft.com/en-us/library/bb310840(v=vs.100).aspx}
     */
-    module Serialization {
+    namespace Serialization {
 
         /**
         * Serializes JavaScript types into JSON-formatted data and deserializes JSON-formatted data into JavaScript types
@@ -2572,7 +2264,7 @@ declare module Sys {
 
             //#endregion
 
-            //#region Methods 
+            //#region Methods
 
             /**
             * Converts an ECMAScript (JavaScript) object graph into a JSON string. This member is static and can be invoked without creating an instance of the class.
@@ -2601,18 +2293,18 @@ declare module Sys {
     //#region Sys.Services Namespace
 
     /**
-    * Contains types that provide script access in AJAX-enabled ASP.NET client applications to the ASP.NET authentication service, profile service, and other application services. 
-    * The Sys.Services namespace is part of the Microsoft Ajax Library.  
+    * Contains types that provide script access in AJAX-enabled ASP.NET client applications to the ASP.NET authentication service, profile service, and other application services.
+    * The Sys.Services namespace is part of the Microsoft Ajax Library.
     * For more information @{see Using Web Services in ASP.NET AJAX {@link http://msdn.microsoft.com/en-us/library/bb515101(v=vs.100).aspx}}
     * @see {@link http://msdn.microsoft.com/en-us/library/bb311017(v=vs.100).aspx}
     */
-    module Services {
+    namespace Services {
 
         /**
         * Provides the client proxy class for the authentication service.
-        * The AuthenticationService class is a singleton; it has only one instance with a global point of access. 
+        * The AuthenticationService class is a singleton; it has only one instance with a global point of access.
         * It is always available to your application and you do not have to instantiate it.
-        * The AuthenticationService class provides script access to user authentication. 
+        * The AuthenticationService class provides script access to user authentication.
         * It calls methods of the authentication service through the same infrastructure used to call any other Web service method.
         * @see {@link http://msdn.microsoft.com/en-us/library/bb310861(v=vs.100).aspx}
         */
@@ -2621,7 +2313,7 @@ declare module Sys {
             //#region Constructors
 
             /**
-            * Initializes a new instance of the Sys.Services.AuthenticationService class.  
+            * Initializes a new instance of the Sys.Services.AuthenticationService class.
             */
             constructor();
 
@@ -2641,33 +2333,33 @@ declare module Sys {
             /**
             * Authenticates the user's credentials.
             * @param userName (required) The user name to authenticate.
-            * @param password 
+            * @param password
             *           The user's password. The default is null.
-            * @param isPersistent 
+            * @param isPersistent
             *           true if the issued authentication ticket should be persistent across browser sessions; otherwise, false. The default is false.
             * @param redirctUrl
             *           The URL to redirect the browser to on successful login. The default is null.
             * @param customInfo
-            *           
+            *
             * @param loginCompletedCallback
             *           The function to call when the login has finished successfully. The default is null.
             * @param failedCallback
             *           The function to call if the login fails. The default is null.
             * @param userContext
             *           User context information that you are passing to the callback functions.
-            * @exception Sys.ArgumentNullException - username is null.     
+            * @exception Sys.ArgumentNullException - username is null.
             */
             login(userName: string, password: string, isPersistent: boolean, customInfo: any, redirectUrl: string, loginCompletedCallback: Function, failedCallback: Function, userContext: any): void;
 
             /**
-            * Logs out the currently authenticated user.  
-            * 
-            * If redirectUrl is null or is an empty string, the page is redirected to itself after the call to the authentication Web service finishes and the completed callback function is called. 
-            * This makes sure that any user-related data is cleared from the page. If redirectUrl is not null or is a non-empty string, the page is redirected to the specified URL after a successful call to the Web service. 
+            * Logs out the currently authenticated user.
+            *
+            * If redirectUrl is null or is an empty string, the page is redirected to itself after the call to the authentication Web service finishes and the completed callback function is called.
+            * This makes sure that any user-related data is cleared from the page. If redirectUrl is not null or is a non-empty string, the page is redirected to the specified URL after a successful call to the Web service.
             * This URL can be an absolute virtual path, a relative virtual path, or a fully qualified domain name and a path.
             * If the call to the Web service fails, the page is not redirected or refreshed. Instead, the failed callback function is called.
             *
-            * @param redirectUrl 
+            * @param redirectUrl
             *           The URL to redirect the browser to on successful logout. The default is null.
             * @param logoutCompletedCallback
             *           The function that is called when the logout has finished. The default is null.
@@ -2683,7 +2375,7 @@ declare module Sys {
             //#region Properties
 
             /**
-            * Gets or sets the name of the default failure callback function.  
+            * Gets or sets the name of the default failure callback function.
             */
             get_defaultFailedCallback(): Function;
             /**
@@ -2694,28 +2386,28 @@ declare module Sys {
             set_defaultFailedCallback(value: string): void;
             /**
             * Gets or sets the default succeeded callback function for the service.
-            * @return A reference to the succeeded callback function for the service.  
+            * @return A reference to the succeeded callback function for the service.
             */
             defaultSucceededCallback(): Function;
             /**
             * Gets or sets the default succeeded callback function for the service.
-            * @param value 
+            * @param value
             *           A reference to the succeeded callback function for the service.
             */
             defaultSucceededCallback(value: Function): void;
             /**
             * Gets or sets the default user context for the service.
-            * @return A reference to the user context for the service.  
+            * @return A reference to the user context for the service.
             */
             defaultUserContext(): Object
             /**
             * Gets or sets the default user context for the service.
             * @param value
-            *       A reference to the user context for the service.  
+            *       A reference to the user context for the service.
             */
             defaultUserContext(value: Object): void;
             /**
-            * Gets the authentication state of the current user.  
+            * Gets the authentication state of the current user.
             * The value of this property is set by the ScriptManager object during a page request.
             * @return true if the current user is logged in; otherwise, false.
             */
@@ -2729,7 +2421,7 @@ declare module Sys {
             */
             set_path(value: string): void;
             /**
-            * Gets or sets the authentication service path.  
+            * Gets or sets the authentication service path.
             * By default, the path property is set to an empty string. If you do not set the path property, the internal default path is used, which points to the built-in authentication service.
             */
             get_path(): string;
@@ -2742,10 +2434,10 @@ declare module Sys {
             */
             set_timeout(value: number): void;
             /**
-            * Gets or sets the authentication service time-out value. 
+            * Gets or sets the authentication service time-out value.
             * The timeout property represents the time in milliseconds that the current instance of the Sys.Net.WebRequestExecutor class should wait before timing out the request.
-            * The timeout in milliseconds 
-            * @return 
+            * The timeout in milliseconds
+            * @return
             *       The timeout
             */
             get_timeout(): number;
@@ -2755,7 +2447,7 @@ declare module Sys {
 
         /**
         * Defines a profile group.
-        * The ProfileGroup class defines the type of an element as a group in the properties collection of the Sys.Services.ProfileService class. 
+        * The ProfileGroup class defines the type of an element as a group in the properties collection of the Sys.Services.ProfileService class.
         * Profile group properties are accessed as subproperties of the related group, as shown in the following ECMAScript (JavaScript) example:
         * @see {@link http://msdn.microsoft.com/en-us/library/bb310801(v=vs.100).aspx}
         */
@@ -2817,13 +2509,13 @@ declare module Sys {
 
             /**
             * Loads the specified profile properties.
-            * 
-            * If propertyNames is not supplied, all profile properties enabled for read access are loaded from the server. 
-            * The loaded profile can then be accessed directly from the properties field. 
+            *
+            * If propertyNames is not supplied, all profile properties enabled for read access are loaded from the server.
+            * The loaded profile can then be accessed directly from the properties field.
             * This enables your application to access the profile properties by using simple field syntax, as shown in the following example:
             * @example
             *      Sys.Services.ProfileService.load(null, LoadCompletedCallback, ProfileFailedCallback, null);
-            * 
+            *
             * @param propertyName
             *      A string array that contains the profile properties to load.
             * @param loadCompletedCallback
@@ -2859,7 +2551,7 @@ declare module Sys {
             static get_defaultFailedCallback(): Function;
             /**
              * Gets or sets the name of the default load-completed callback function.
-             * 
+             *
              * @param value
              *      A string that contains the name of the default load-completed callback function.
              */
@@ -2874,14 +2566,14 @@ declare module Sys {
             static get_defaultSaveCompletedCallback(): Function;
             /**
              * Gets or sets the default succeeded callback function for the service.
-             * @return 
+             * @return
              *      A reference to the succeeded callback function for the service.
              */
             static defaultSucceededCallback(): Function;
             static defaultSucceededCallback(value: Function): void;
             /**
              * Gets or sets the default user context for the service.
-             * @return 
+             * @return
              *      A reference to the user context for the service.
              */
             static defaultUserContext(): Object;
@@ -2897,7 +2589,7 @@ declare module Sys {
             static set_path(value: string): void;
             /**
              * Gets or sets the profile service path.
-             * @return 
+             * @return
              *      The profile path
              */
             static get_path(): string;
@@ -2906,7 +2598,7 @@ declare module Sys {
              * Gets or sets the profile service time-out value.
              * The timeout property represents the time in milliseconds that the current instance of the Sys.Net.WebRequestExecutor class should wait before timing out the request.
              * By setting a time-out interval, you can make sure that a pending request returns based on a time interval that you specify, instead of waiting for the asynchronous communication layer to time out.
-             * 
+             *
              * @param value
              *          The time-out value in milliseconds.
              */
@@ -2929,7 +2621,7 @@ declare module Sys {
     * Contains types related to the user interface (UI), such as controls, events, and UI properties in the Microsoft Ajax Library.
     * @see {@link http://msdn.microsoft.com/en-us/library/bb397431(v=vs.100).aspx}
     */
-    module UI {
+    namespace UI {
 
         /**
         * Provides a base class for all ASP.NET AJAX client behaviors.
@@ -2943,16 +2635,16 @@ declare module Sys {
             * Gets a Sys.UI.Behavior instance with the specified name property from the specified HTML Document Object Model (DOM) element. This member a static member and can be invoked without creating an instance of the class.
             * @return The specified Behavior object, if found; otherwise, null.
             */
-            static getBehaviorByName(element: Sys.UI.DomElement, name: string): Behavior;
+            static getBehaviorByName(element: HTMLElement, name: string): Behavior;
             /**
             * Gets an array of Sys.UI.Behavior objects that are of the specified type from the specified HTML Document Object Model (DOM) element. This method is static and can be invoked without creating an instance of the class.
             * @return An array of all Behavior objects of the specified type that are associated with the specified DOM element, if found; otherwise, an empty array.
             */
-            static getBehaviorsByType(element: Sys.UI.DomElement, type: Sys.UI.Behavior): Behavior[];
+            static getBehaviorsByType(element: HTMLElement, type: Sys.UI.Behavior): Behavior[];
             /**
             * Gets the Sys.UI.Behavior objects that are associated with the specified HTML Document Object Model (DOM) element. This member is static and can be invoked without creating an instance of the class.
             * @param element
-            *           The Sys.UI.DomElement object to search.
+            *           The HTMLElement object to search.
             * @return An array of references to Behavior objects, or null if no references exist.
             */
             static getBehaviors(element: DomElement): Behavior[];
@@ -2971,10 +2663,10 @@ declare module Sys {
             * Gets the HTML Document Object Model (DOM) element that the current Sys.UI.Behavior object is associated with.
             * @return The DOM element that the current Behavior object is associated with.
             */
-            get_element(): Sys.UI.DomElement;
+            get_element(): HTMLElement;
             /**
             * Gets or sets the identifier for the Sys.UI.Behavior object.
-            * A generated identifier that consists of the ID of the associated Sys.UI.DomElement, the "$" character, and the name value of the Behavior object.
+            * A generated identifier that consists of the ID of the associated HTMLElement, the "$" character, and the name value of the Behavior object.
             */
             get_id(): string;
             /**
@@ -2991,7 +2683,7 @@ declare module Sys {
             */
             set_name(value: string): void;
             /**
-            * Gets or sets the name of the Sys.UI.Behavior object. 
+            * Gets or sets the name of the Sys.UI.Behavior object.
             */
             get_name(): string;
 
@@ -3032,7 +2724,7 @@ declare module Sys {
             x: number;
             /**
             * Gets the y-coordinate of anobject in pixels.
-            * @return A number that represents the y-coordinate of an object in pixels.  
+            * @return A number that represents the y-coordinate of an object in pixels.
             */
             y: number;
 
@@ -3047,21 +2739,21 @@ declare module Sys {
             //#region Constructors
 
             /**
-            * When called from a derived class, initializes a new instance of that class. 
+            * When called from a derived class, initializes a new instance of that class.
             * The Control constructor is a complete constructor function. However, because the Control class is an abstract base class, the constructor should be called only from derived classes.
             * @param element
-            *           The Sys.UI.DomElement object that the control will be associated with.
-            * 
+            *           The HTMLElement object that the control will be associated with.
+            *
             * @throws Error.invalidOperation Function
             */
-            constructor(element: Sys.UI.DomElement);
+            constructor(element: HTMLElement);
 
             //#endregion
 
             //#region Methods
 
             /**
-             * Adds a CSS class to the HTML Document Object Model (DOM) element that the control is attached to. 
+             * Adds a CSS class to the HTML Document Object Model (DOM) element that the control is attached to.
              * Use the addCssClass method to add a CSS class to a control. If the CSS class has already been added to the control, addCssClass makes no changes to the control.
              * @param className
              *          A string that contains the name of the CSS class to add.
@@ -3079,27 +2771,27 @@ declare module Sys {
             initialize(): void;
             /**
              * Called when an event is raised by the raiseBubbleEvent method.
-             * 
+             *
              * The onBubbleEvent method returns false to make sure that unhandled events propagate (bubble) to the parent control.
-             * In derived classes, you should override the onBubbleEvent method and return true when events are handled to prevent the events from bubbling further. 
+             * In derived classes, you should override the onBubbleEvent method and return true when events are handled to prevent the events from bubbling further.
              * For an explanation of bubbling, see Sys.UI.Control raiseBubbleEvent Method.
-             * 
+             *
              * @param source
              *          The object that triggered the event.
              * @param args
              *          The event arguments.
-             * @return 
+             * @return
              *      false in all cases.
              */
             onBubbleEvent(source: any, args: any): boolean;
             /**
              * Calls the onBubbleEvent method of the parent control.
-             * 
-             * When the raiseBubbleEvent method is called, the source object and args values are sent to the onBubbleEvent handler of the current control. 
-             * If onBubbleEvent returns false, they are sent to the onBubbleEvent handler of the parent control. 
-             * This process continues until an onBubbleEvent event handler returns true, which indicates that the event has been handled. 
+             *
+             * When the raiseBubbleEvent method is called, the source object and args values are sent to the onBubbleEvent handler of the current control.
+             * If onBubbleEvent returns false, they are sent to the onBubbleEvent handler of the parent control.
+             * This process continues until an onBubbleEvent event handler returns true, which indicates that the event has been handled.
              * Any event that bubbles to the Sys.Application instance without being handled is ignored.
-             * 
+             *
              * @param source
              *          The object that triggered the event.
              * @param args
@@ -3109,7 +2801,7 @@ declare module Sys {
             /**
              * Removes a CSS class from the HTML Document Object Model (DOM) element that the control is attached to.
              * Use the removeCssClass method to remove a CSS class from a control. If the CSS class has already been removed from the control, removeCssClass makes no changes to the control.
-             * 
+             *
              * @param className
              *          A string that contains the name of the CSS class to remove.
              */
@@ -3117,22 +2809,21 @@ declare module Sys {
             /**
              * Toggles a CSS class of the HTML Document Object Model (DOM) element that the control is attached to.
              * @param className
-             *          A string that contains the name of the CSS class to toggle. 
+             *          A string that contains the name of the CSS class to toggle.
              */
             toggleCssClass(className: string): void;
 
             //#endregion
-			
-			 //#region Properties
 
+            //#region Properties
             /**
             * Gets the HTML Document Object Model (DOM) element that the current Sys.UI.Control object is associated with.
             * @return The DOM element that the current Control object is associated with.
             */
-            get_element(): Sys.UI.DomElement;
+            get_element(): HTMLElement;
             /**
             * Gets or sets the identifier for the Sys.UI.Control object.
-            * A generated identifier that consists of the ID of the associated Sys.UI.DomElement, the "$" character, and the name value of the Control object.
+            * A generated identifier that consists of the ID of the associated HTMLElement, the "$" character, and the name value of the Control object.
             */
             get_id(): string;
             /**
@@ -3147,7 +2838,7 @@ declare module Sys {
             * @param value
             *           A string value to use as the name.
             */
-			
+
             //#endregion
         }
         /**
@@ -3158,10 +2849,6 @@ declare module Sys {
 
             //#region Constructors
 
-            /**
-             * Initializes a new instance of the Sys.UI.DomElement class.
-             */
-            constructor(): void;
 
             //#endregion
 
@@ -3171,58 +2858,56 @@ declare module Sys {
              * Adds a CSS class to a DOM element if the class is not already part of the DOM element. This member is static and can be invoked without creating an instance of the class.
              * If the element does not support a CSS class, no change is made to the element.
              * @param element
-             *             The Sys.UI.DomElement object to add the CSS class to. 
+             *             The HTMLElement object to add the CSS class to.
              * @param className
              *             The name of the CSS class to add.
              */
-            addCssClass(element: Sys.UI.DomElement, className: string): void;
+            addCssClass(element: HTMLElement, className: string): void;
             /**
              * Gets a value that indicates whether the DOM element contains the specified CSS class. This member is static and can be invoked without creating an instance of the class.
              * @param element
-             *          The Sys.UI.DomElement object to test for the CSS class.
+             *          The HTMLElement object to test for the CSS class.
              * @param className
              *          The name of the CSS class to test for.
-             * @return 
+             * @return
              *          true if the element contains the specified CSS class; otherwise, false.
              */
-            containsCssClass(element: Sys.UI.DomElement, className: string): boolean;
+            containsCssClass(element: HTMLElement, className: string): boolean;
             /**
              * Gets a set of integer coordinates that represent the position, width, and height of a DOM element. This member is static and can be invoked without creating an instance of the class.
-             * 
+             *
              * @param element
-             *          The Sys.UI.DomElement instance to get the coordinates of.
+             *          The HTMLElement instance to get the coordinates of.
              * @return
              *      An object of the JavaScript type Object that contains the x-coordinate and y-coordinate of the upper-left corner, the width, and the height of the element in pixels.
              */
-            getBounds(element: Sys.UI.DomElement): Object;
+            getBounds(element: HTMLElement): { x: number; y: number; width: number; height: number; };
             /**
              * @param id
              *      The ID of the element to find.
              * @param element
              *      (optional) The parent element to search in. The default is the document element.
              */
-            getElementById(id: string): Sys.UI.DomElement;
-            getElementById(id: string, element?: Sys.UI.DomElement): Sys.UI.DomElement;
+            getElementById(id: string): HTMLElement;
+            getElementById(id: string, element?: HTMLElement): HTMLElement;
             getElementById(id: string, element?: HTMLElement): HTMLElement;
             getElementById(id: string, element: any): any;
             /**
-             * Gets the absolute position of a DOM element relative to the upper-left corner of the owner frame or window. This member is static and can be invoked without creating an instance of the class.             * 
+             * Gets the absolute position of a DOM element relative to the upper-left corner of the owner frame or window. This member is static and can be invoked without creating an instance of the class.             *
              * @param element
-             *      The target element.             * 
+             *      The target element.             *
              * @return
              *      An object of the JavaScript type Object that contains the x-coordinate and y-coordinate of the element in pixels.
              */
-            getLocation(element: Sys.UI.DomElement): Sys.UI.Point;
-            getLocation(element: any): Object;
+            getLocation(element: HTMLElement): Sys.UI.Point;
             /*
-             * Returns a value that represents the layout characteristics of a DOM element when it is hidden by invoking the Sys.UI.DomElement.setVisible method. This member is static and can be invoked without creating an instance of the class.
+             * Returns a value that represents the layout characteristics of a DOM element when it is hidden by invoking the HTMLElement.setVisible method. This member is static and can be invoked without creating an instance of the class.
              * @param element
              *      The target DOM element.
              * @return
-             *    A Sys.UI.VisibilityMode enumeration value that indicates the layout characteristics of element when it is hidden by invoking the setVisible method.  
+             *    A Sys.UI.VisibilityMode enumeration value that indicates the layout characteristics of element when it is hidden by invoking the setVisible method.
              */
-            getVisibilityMode(element: Sys.UI.DomElement): Sys.UI.VisibilityMode;
-            getVisibilityMode(element: any): Sys.UI.VisibilityMode;
+            getVisibilityMode(element: HTMLElement): Sys.UI.VisibilityMode;
             /**
              * Gets a value that indicates whether a DOM element is currently visible on the Web page. This member is static and can be invoked without creating an instance of the class.
              * @param element
@@ -3246,89 +2931,80 @@ declare module Sys {
              * @param args
              *      The event arguments
              */
-            raiseBubbleEvent(source: Sys.UI.DomElement, args: EventArgs): void;
-            raiseBubbleEvent(source: any, args: any): void;
+            raiseBubbleEvent(source: HTMLElement, args: EventArgs): void;
             /**
              * Removes a CSS class from a DOM element. This member is static and can be invoked without creating an instance of the class. If the element does not include a CSS class, no change is made to the element.
              * @param element
-             *          The Sys.UI.DomElement object to remove the CSS class from.
-             * @param className 
+             *          The HTMLElement object to remove the CSS class from.
+             * @param className
              *          The name of the CSS class to remove.
              */
-            removeCssClass(element: Sys.UI.DomElement, className: string): void;
+            removeCssClass(element: HTMLElement, className: string): void;
             removeCssClass(element: HTMLElement, className: string): void;
             removeCssClass(element: any, className: string): void;
             /**
              * Returns the element that has either the specified ID in the specified container, or is the specified element itself.
-             * The resolveElement method is used to verify that an ID or an object can be resolved as an element.             * 
+             * The resolveElement method is used to verify that an ID or an object can be resolved as an element.             *
              * @param elementOrElementId
              *          The element to resolve, or the ID of the element to resolve. This parameter can be null.
              * @param containerElement
              *          (Optional) The specified container.
-             * @return 
+             * @return
              *      A DOM element.
              */
-            resolveElement(elementOrElementId: Sys.UI.DomElement, containerElement?: Sys.UI.DomElement): Sys.UI.DomElement;
-            resolveElement(elementOrElementId: HTMLElement, containerElement?: HTMLElement): HTMLElement;
-            resolveElement(elementOrElementId: string): any;
+            resolveElement(elementOrElementId: string|HTMLElement, containerElement?: HTMLElement): HTMLElement;
             /**
              * Sets the position of a DOM element. This member is static and can be invoked without creating an instance of the class.
-             * he left and top style attributes (upper-left corner) of an element specify the relative position of an element. 
-             * The actual position will depend on the offsetParent property of the target element and the positioning mode of the element.             * 
+             * he left and top style attributes (upper-left corner) of an element specify the relative position of an element.
+             * The actual position will depend on the offsetParent property of the target element and the positioning mode of the element.             *
              * @param element The target element.
              * @param x The x-coordinate in pixels.
              * @param y The y-coordinate in pixels.
              */
-            setLocation(element: Sys.UI.DomElement, x: number, y: number): void;
             setLocation(element: HTMLElement, x: number, y: number): void;
-            setLocation(element: any, x: number, y: number): void;
             /**
-             * Sets the layout characteristics of a DOM element when it is hidden by invoking the Sys.UI.DomElement.setVisible method. 
+             * Sets the layout characteristics of a DOM element when it is hidden by invoking the HTMLElement.setVisible method.
              * This member is static and can be invoked without creating an instance of the class.
-             * 
-             * Use the setVisibilityMode method to set the layout characteristics of a DOM element when it is hidden by invoking the Sys.UI.DomElement.setVisible method. 
+             *
+             * Use the setVisibilityMode method to set the layout characteristics of a DOM element when it is hidden by invoking the HTMLElement.setVisible method.
              * For example, if value is set to Sys.UI.VisibilityMode.collapse, the element uses no space on the page when the setVisible method is called to hide the element.
-             * 
+             *
              * @param element
              *          The target DOM element.
              * @param value
              *          A Sys.UI.VisibilityMode enumeration value.
              */
-            setVisibilityMode(element: Sys.UI.DomElement, value: Sys.UI.VisibilityMode): void;
+            setVisibilityMode(element: HTMLElement, value: Sys.UI.VisibilityMode): void;
             /**
              * Sets a DOM element to be visible or hidden. This member is static and can be invoked without creating an instance of the class.
-             * 
-             * Use the setVisible method to set a DOM element as visible or hidden on the Web page. 
-             * If you invoke this method with value set to false for an element whose visibility mode is set to "hide," the element will not be visible. 
+             *
+             * Use the setVisible method to set a DOM element as visible or hidden on the Web page.
+             * If you invoke this method with value set to false for an element whose visibility mode is set to "hide," the element will not be visible.
              * However, it will occupy space on the page. If the element's visibility mode is set to "collapse," the element will occupy no space in the page.
-             * For more information about how to set the layout characteristics of hidden DOM elements, see Sys.UI.DomElement setVisibilityMode Method.
-             * 
+             * For more information about how to set the layout characteristics of hidden DOM elements, see HTMLElement setVisibilityMode Method.
+             *
              * @param element
              *      The target DOM element.
              * @param value
              *      true to make element visible on the Web page; false to hide element.
              */
-            setVisible(element: Sys.UI.DomElement, value: boolean): void;
             setVisible(element: HTMLElement, value: boolean): void;
-            setVisible(element: any, value: boolean): void;
             /**
-             * Toggles a CSS class in a DOM element. This member is static and can be invoked without creating an instance of the class. 
+             * Toggles a CSS class in a DOM element. This member is static and can be invoked without creating an instance of the class.
              * Use the toggleCssClass method to hide a CSS class of an element if it is shown, or to show a CSS class of an element if it is hidden.
-             * 
+             *
              * @param element
-             *          The Sys.UI.DomElement object to toggle.
+             *          The HTMLElement object to toggle.
              * @param className
              *          The name of the CSS class to toggle.
              */
-            toggleCssClass(element: Sys.UI.DomElement, className: string): void;
             toggleCssClass(element: HTMLElement, className: string): void;
-            toggleCssClass(element: any, className: string): void;
 
             //#endregion
 
         }
 
-        var DomElement: Sys.UI.DomElement;
+        var DomElement: DomElement;
 
         /**
         * Provides cross-browser access to DOM event properties and helper APIs that are used to attach handlers to DOM element events.
@@ -3339,12 +3015,11 @@ declare module Sys {
             //#region Constructors
 
             /**
-            * Initializes a new instance of the Sys.UI.DomEvent class and associates it with the specified DomElement object.
+            * Initializes a new instance of the Sys.UI.DomEvent class and associates it with the specified HTMLElement object.
             * @param domElement
-            *           The DomElement object to associate with the event.
+            *           The HTMLElement object to associate with the event.
             */
-            constructor(domElement: DomElement);
-            constructor(domElement: any);
+            constructor(domElement: HTMLElement);
 
             //#endregion
 
@@ -3354,7 +3029,7 @@ declare module Sys {
              * Provides a method to add a DOM event handler to the DOM element that exposes the event. This member is static and can be invoked without creating an instance of the class.
              * Use the addHandler method to add a DOM event handler to the element that exposes the event. The eventName parameter should not include the "on" prefix. For example, specify "click" instead of "onclick".
              * This method can be accessed through the $addHandler shortcut method.
-             * 
+             *
              * @param element
              *          The element that exposes the event.
              * @param eventName
@@ -3364,41 +3039,41 @@ declare module Sys {
              * @param autoRemove
              *          (Optional) A boolean value that determines whether the handler should be removed automatically when the element is disposed.
              */
-            static addHandler(element: any, eventName: string, handler: Function, autoRemove?: boolean): void;
+            static addHandler(element: HTMLElement, eventName: string, handler: (e: DomEvent) => void, autoRemove?: boolean): void;
             /**
              * Adds a list of DOM event handlers to the DOM element that exposes the events. This member is static and can be invoked without creating an instance of the class.
              * Use the addHandlers method to add a list of DOM event handlers to the element that exposes the event.
              * The events parameter takes a comma-separated list of name/value pairs in the format name:value, where name is the name of the DOM event and value is the name of the handler function.
-             * If there is more than one name/value pair, the list must be enclosed in braces ({}) to identify it as a single parameter. Multiple name/value pairs are separated with commas. 
+             * If there is more than one name/value pair, the list must be enclosed in braces ({}) to identify it as a single parameter. Multiple name/value pairs are separated with commas.
              * Event names should not include the "on" prefix. For example, specify "click" instead of "onclick".
              * If handlerOwner is specified, delegates are created for each handler. These delegates are attached to the specified object instance, and the this pointer from the delegate handler will refer to the handlerOwner object.
              * This method can be accessed through the $addHandlers shortcut method.
-             * 
+             *
              * @param element
              *          The DOM element that exposes the events.
              * @param events
              *          A dictionary of event handlers.
              * @param handlerOwner
              *          (Optional) The object instance that is the context for the delegates that should be created from the handlers.
-             * @param autoRemove 
+             * @param autoRemove
              *          (Optional) A boolean value that determines whether the handler should be removed automatically when the element is disposed.
-             * 
+             *
              * @throws Error.invalidOperation - (Debug) One of the handlers specified in events is not a function.
-             *  
+             *
              */
-            static addHandlers(element: any, events: any, handlerOwner?: any, autoRemove?: boolean): void;
+            static addHandlers(element: HTMLElement, events: { [event: string]: (e: DomEvent) => void }, handlerOwner?: any, autoRemove?: boolean): void;
             /**
              * Removes all DOM event handlers from a DOM element that were added through the Sys.UI.DomEvent addHandler or the Sys.UI.DomEvent addHandlers methods.
              * This member is static and can be invoked without creating an instance of the class.
              * This method can be accessed through the $clearHandlers shortcut method.
-             * 
+             *
              * @param element
              *          The element that exposes the events.
              */
-            static clearHandlers(element: any): void;
+            static clearHandlers(element: HTMLElement): void;
             /**
              * Removes a DOM event handler from the DOM element that exposes the event. This member is static and can be invoked without creating an instance of the class.
-             * 
+             *
              * @param element
              *          The element that exposes the event.
              * @param eventName
@@ -3406,17 +3081,17 @@ declare module Sys {
              * @param handler
              *          The event handler to remove.
              */
-            static removeHandler(element: any, eventName: string, handler: Function): void;
+            static removeHandler(element: HTMLElement, eventName: string, handler: (e: DomEvent) => void): void;
             /**
              * Prevents the default DOM event action from happening.
-             * Use the preventDefault method to prevent the default event action for the browser from occurring. 
+             * Use the preventDefault method to prevent the default event action for the browser from occurring.
              * For example, if you prevent the keydown event of an input element from occurring, the character typed by the user is not automatically appended to the input element's value.
              */
             preventDefault(): void;
             /**
              * Prevents an event from being propagated (bubbled) to parent elements.
-             * By default, event notification is bubbled from a child object to parent objects until it reaches the document object. 
-             * The event notification stops if the event is handled during the propagation process. 
+             * By default, event notification is bubbled from a child object to parent objects until it reaches the document object.
+             * The event notification stops if the event is handled during the propagation process.
              * Use the stopPropagation method to prevent an event from being propagated to parent elements.
              */
             stopPropagation(): void;
@@ -3428,7 +3103,7 @@ declare module Sys {
             /**
              * Gets a Boolean value that indicates the state of the ALT key when the associated event occurred.
              * Use the altKey field to determine whether the ALT key is pressed when the event occurred.
-             * 
+             *
              * @return true if the ALT key was pressed when the event occurred; otherwise, false.
              */
             altKey: boolean;
@@ -3441,9 +3116,9 @@ declare module Sys {
             /**
              * Gets the character code of the key that raised the associated keyPress event.
              * Use the charCode field to get the character code of a pressed key or key combination that raised a keyPress event.
-             * The keyPress event provides a single character code that identifies key combinations. 
+             * The keyPress event provides a single character code that identifies key combinations.
              * The keyPress event is not raised for single modifier keys such as ALT, CTRL, and SHIFT.
-             * 
+             *
              * @return An integer value that represents the character code of the key or key combination that was pressed to raise the keyPress event.
              */
             charCode: number;
@@ -3571,14 +3246,25 @@ declare module Sys {
         * Describes mouse button locations.
         */
         enum MouseButton {
-            // todo
+            /**
+            * Represents the left mouse button.
+            */
+            leftButton,
+            /**
+            * Represents the middle mouse button.
+            */
+            middleButton,
+            /**
+            * Represents the right mouse button.
+            */
+            rightButton
         }
         /**
-        * Creates an object that contains a set of integer coordinates that represent a position. The getLocation method of the Sys.UI.DomElement class returns a Point object.
-        * @see {@link http://msdn.microsoft.com/en-us/library/bb383992(v=vs.100).aspx}        * 
+        * Creates an object that contains a set of integer coordinates that represent a position. The getLocation method of the HTMLElement class returns a Point object.
+        * @see {@link http://msdn.microsoft.com/en-us/library/bb383992(v=vs.100).aspx}        *
         */
         class Point {
-           
+
             //#region Constructors
 
             /**
@@ -3631,7 +3317,7 @@ declare module Sys {
     * The Sys.WebForms namespace contains classes related to partial-page rendering in the Microsoft Ajax Library.
     * @see {@link http://msdn.microsoft.com/en-us/library/bb397566(v=vs.100).aspx}
     */
-    module WebForms {
+    namespace WebForms {
 
         /**
         * Used by the beginRequest event of the PageRequestManager class to pass argument information to event handlers.
@@ -3642,7 +3328,7 @@ declare module Sys {
             //#region Constructors
 
             /**
-            * Initializes a new instance of the BeginRequestEventArgs class.  
+            * Initializes a new instance of the BeginRequestEventArgs class.
             * @param request
             *           A Sys.Net.WebRequest representing the web request for the EventArgs.
             * @param postBackElement
@@ -3714,19 +3400,19 @@ declare module Sys {
             /**
             * Get or sets a value that indicates whether the error has been handled.
             * Use this property to determine whether an asynchronous postback error has already been handled. If it has not and if you want to take action on the error, you can set the error as handled.
-            * @return true if the error has been handled; otherwise false.  
+            * @return true if the error has been handled; otherwise false.
             */
             get_errorHandled(): boolean;
             /**
             * Get or sets a value that indicates whether the error has been handled.
             * Use this property to determine whether an asynchronous postback error has already been handled. If it has not and if you want to take action on the error, you can set the error as handled.
             * @param value
-            *         true or false.             
+            *         true or false.
             */
             set_errorHandled(value: boolean): void;
             /**
             * Gets a response object that is represented by the Sys.Net.WebRequestExecutor class.
-            * @return A response object that is represented by the WebRequestExecutor class.  
+            * @return A response object that is represented by the WebRequestExecutor class.
             */
             get_response(): Sys.Net.WebRequestExecutor;
 
@@ -3765,7 +3451,7 @@ declare module Sys {
 
             /**
             * Gets the request object that represents the current postback.
-            * @return A request object that is represented by the Sys.Net.WebRequestExecutor class.  
+            * @return A request object that is represented by the Sys.Net.WebRequestExecutor class.
             */
             get_request(): Sys.Net.WebRequestExecutor;
 
@@ -3800,15 +3486,15 @@ declare module Sys {
             /**
             * Gets a JSON data structure that contains data items that were registered by using the RegisterDataItem method of the ScriptManager class.
             * A page or control must be in partial-page rendering mode to register data items that use the RegisterDataItem method of the ScriptManager class
-            * Use the IsInAsyncPostBack property to check whether the page is in partial-page rendering mode.The dataItems property returns a JSON data structure that contains name/value pairs. 
+            * Use the IsInAsyncPostBack property to check whether the page is in partial-page rendering mode.The dataItems property returns a JSON data structure that contains name/value pairs.
             * The name is the unique ID of the control that is used in the control parameter of the RegisterDataItem method. The value is the dataItem parameter of the RegisterDataItem method.
             *
-            * @return A JSON data structure that contains name/value pairs that were registered as data items that use the RegisterDataItem method of the ScriptManager class.  
+            * @return A JSON data structure that contains name/value pairs that were registered as data items that use the RegisterDataItem method of the ScriptManager class.
             */
             get_dataItems(): any;
             /**
             * Gets an array of HTML div elements that represent UpdatePanel controls that were created when the DOM was updated during the last asynchronous postback.
-            * If an UpdatePanel control is updated as a result of a partial-page update, the array referenced in the panelsCreated property of the PageLoadedEventArgs class contains a reference to the corresponding div element. 
+            * If an UpdatePanel control is updated as a result of a partial-page update, the array referenced in the panelsCreated property of the PageLoadedEventArgs class contains a reference to the corresponding div element.
             * The pageLoaded event of the Sys.WebForms.PageRequestManager class uses a PageLoadedEventArgs object to return its event data.
             * @return An array of div elements that were created during the DOM manipulation that was caused by the last asynchronous postback. If no elements were created, the property returns null.
             */
@@ -3843,23 +3529,23 @@ declare module Sys {
 
             /**
             * Gets a JSON data structure that contains data items that were registered by using the RegisterDataItem method of the ScriptManager class.
-            * page or control must be in partial-page rendering mode to register data items that use the RegisterDataItem method of the ScriptManager class. 
+            * page or control must be in partial-page rendering mode to register data items that use the RegisterDataItem method of the ScriptManager class.
             * Use the IsInAsyncPostBack property to check whether the page is in partial-page rendering mode.
-            * The dataItems property returns a JSON data structure that contains name/value pairs. 
+            * The dataItems property returns a JSON data structure that contains name/value pairs.
             * The name is the unique ID of the control that is used in the control parameter of the RegisterDataItem method. The value is the dataItem parameter of the RegisterDataItem method.
             * @return A JSON data structure that contains name/value pairs that were registered as data items by using the RegisterDataItem method of the ScriptManager class.
             */
             get_dataItems(): any;
             /**
-            * Gets an array of HTML <div> elements that represent UpdatePanel controls that will be deleted from the DOM as a result of the current asynchronous postback. 
-            * If the contents of an UpdatePanel control will be deleted as the result of a partial-page update, the array that is referenced in the panelsDeleting property of the PageLoadingEventArgs class contains a reference to the corresponding <div> element. 
+            * Gets an array of HTML <div> elements that represent UpdatePanel controls that will be deleted from the DOM as a result of the current asynchronous postback.
+            * If the contents of an UpdatePanel control will be deleted as the result of a partial-page update, the array that is referenced in the panelsDeleting property of the PageLoadingEventArgs class contains a reference to the corresponding <div> element.
             * The pageLoading event of the Sys.WebForms.PageRequestManager class uses a PageLoadingEventArgs object to return its event data.
             * @return An array of <div> elements that will be deleted from the DOM. If no elements will be deleted, the property returns null.
             */
             get_panelsDeleting(): HTMLDivElement[];
             /**
             * Gets an array of HTML <div> elements that represent UpdatePanel controls that will be updated in the DOM as a result of the current asynchronous postback.
-            * If the contents of any UpdatePanel controls will be updated as the result of a partial-page update, the panelsUpdating property contains an array that references the corresponding <div> elements. 
+            * If the contents of any UpdatePanel controls will be updated as the result of a partial-page update, the panelsUpdating property contains an array that references the corresponding <div> elements.
             * The pageLoading event of the Sys.WebForms.PageRequestManager class uses a PageLoadingEventArgs object to return its event data.
             * @return An array of <div> elements that will be updated in the DOM. If no elements will be updated, the property returns null.
             */
@@ -3875,7 +3561,7 @@ declare module Sys {
         */
         class PageRequestManager {
 
-            //#region Constructors 
+            //#region Constructors
 
             /**
             * Initializes a new instance of the Sys.WebForms.PageRequestManager Class.
@@ -3965,29 +3651,29 @@ declare module Sys {
 
             /**
             * Begins an asynchronous postback.
-            * @param updatePanelsToUpdate 
+            * @param updatePanelsToUpdate
             *                   (Optional) An array of UniqueID values or ClientID values for UpdatePanel controls that must be re-rendered.
-            * @param eventTarget 
+            * @param eventTarget
             *                   (Optional) A string that contains the target of the event.
-            * @param eventArgument 
+            * @param eventArgument
             *                   (Optional) A string that contains an argument for the event.
-            * @param causesValidation 
+            * @param causesValidation
             *                   (Optional) true to cause validation.
-            * @param validationGroup 
+            * @param validationGroup
             *                   (Optional) A string that contains the name of the validation group.
             */
             beginAsyncPostBack(updatePanelsToUpdate?: string[], eventTarget?: string, eventArgument?: string, causesValidation?: boolean, validationGroup?: string): void;
 
             /**
             * Releases ECMAScript (JavaScript) resources and detaches events.
-            * the dispose method to free client resources. The PageRequestManager instance calls the dispose method during the window.unload event of the browser. 
+            * the dispose method to free client resources. The PageRequestManager instance calls the dispose method during the window.unload event of the browser.
             * If you call the dispose method and then reference members of the PageRequestManager class, an error occurs. In typical page developer scenarios, you do not have to call the dispose method.
             */
             dispose(): void;
 
             //#endregion
 
-            //#region Properties       
+            //#region Properties
 
             get_isInAsyncPostBack(): boolean;
 
@@ -3998,7 +3684,7 @@ declare module Sys {
 
         /**
         * Raised when an error occurs while processing the response from the server.
-        * If the response to an asynchronous postback returns without an error but there is an error processing the response in the client, the Sys.WebForms.PageRequestManagerParserErrorException is raised. 
+        * If the response to an asynchronous postback returns without an error but there is an error processing the response in the client, the Sys.WebForms.PageRequestManagerParserErrorException is raised.
         * For information about how to handle this error condition, see Debugging and Tracing Ajax Applications Overview.
         * @see {@link http://msdn.microsoft.com/en-us/library/bb397466(v=vs.100).aspx}
         */
@@ -4009,7 +3695,7 @@ declare module Sys {
         /**
         * Raised when an error occurs on the server.
         * If an error occurs on the server while the request is being processed, an error response is returned to the browser and the Sys.WebForms.PageRequestManagerServerErrorException exception is raised.
-        * To customize error handling and to display more information about the server error, handle the AsyncPostBackError event and use the AsyncPostBackErrorMessage and AllowCustomErrorsRedirect properties. 
+        * To customize error handling and to display more information about the server error, handle the AsyncPostBackError event and use the AsyncPostBackErrorMessage and AllowCustomErrorsRedirect properties.
         * For an example of how to provide custom error handling during partial-page updates, see Customizing Error Handling for ASP.NET UpdatePanel Controls.
         * @see {@link http://msdn.microsoft.com/en-us/library/bb397466(v=vs.100).aspx}        *
         */

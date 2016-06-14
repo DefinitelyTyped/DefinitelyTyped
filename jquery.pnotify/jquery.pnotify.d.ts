@@ -1,21 +1,28 @@
-// Type definitions for jquery.pnotify 1.3.1
+// Type definitions for jquery.pnotify 3.x
 // Project: https://github.com/sciactive/pnotify
 // Definitions by: David Sichau <https://github.com/DavidSichau>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-interface pnotifyStack {
+// could not pass the Travis Test if enabled
+//type NoticeTypeOptions = "notice" | "info" | "success" | "error";
+//type StylingOptions = "brighttheme" | "jqueryui" | "bootstrap2" | "bootstrap3" | "fontawesome";
+//type StateOptions = "initializing" | "opening" | "open" | "closing" | "closed";
+
+interface PNotifyStack {
     dir1?: string;
     dir2?: string;
     push?: string;
     spacing1?: number;
     spacing2?: number;
-    context?: JQuery
+    firstpos1?: number;
+    firstpos2?: number;
+    context?: JQuery;
+    modal?: boolean;
 }
 
-interface pnotifyLabel {
+interface PNotifyLabel {
     redisplay?: string;
     all?: string;
     last?: string;
@@ -23,11 +30,98 @@ interface pnotifyLabel {
     stick?: string;
 }
 
-interface pnotifyDefaults {
+
+interface PNotifyconfirmButton {
+    text?: string;
+    addClass?: string;
+    /**
+     *  Whether to trigger this button when the user hits enter in a single line prompt.
+     */
+    promptTrigger?: boolean;
+    click: (notice: PNotify, value: any) => void
+}
+
+interface PNotifyconfirm {
+    /**
+     * Make a confirmation box.
+     */
+    confirm?: boolean;
+
+    /**
+     * Make a prompt.
+     */
+    prompt?: boolean;
+    /**
+     * Classes to add to the input element of the prompt.
+     */
+    prompt_class?: string
+
+    /**
+     * The default value of the prompt.
+     */
+    prompt_default?: string
+
+    /**
+     * Whether the prompt should accept multiple lines of text.
+     */
+    prompt_multi_line?: boolean;
+
+    /**
+     * Where to align the buttons. (right, center, left, justify)
+     */
+    align?: string;
+
+    /**
+     * The buttons to display, and their callbacks.
+     */
+    buttons?: PNotifyconfirmButton[];
+
+}
+
+interface PNotifyButtons {
+    /**
+     * Provide a button for the user to manually close the notice.
+     */
+    closer?: boolean;
+    /**
+     * Only show the closer button on hover.
+     */
+    closer_hover?: boolean;
+    /**
+     * Provide a button for the user to manually stick the notice.
+     */
+    sticker?: boolean;
+    /**
+     * Only show the sticker button on hover.
+     */
+    sticker_hover?: boolean;
+    /**
+     * Show the buttons even when the nonblock module is in use.
+     */
+    show_on_nonblock?: boolean;
+    /**
+     * The various displayed text, helps facilitating internationalization.
+     */
+    labels?: {
+        close?: string;
+        stick?: string;
+        unstick?: string;
+    };
+    /**
+     * The classes to use for button icons. Leave them null to use the classes from the styling you're using.
+     */
+    classes?: {
+        closer?: string;
+        pin_up?: string;
+        pin_down?: string;
+    };
+}
+
+interface PNotifyOptions {
     /**
      * The notice's title. Either boolean false or string
      */
-    title?: any;
+    title?: string | boolean;
     /**
      * Whether to escape the content of the title. (Not allow HTML.)
      */
@@ -35,13 +129,13 @@ interface pnotifyDefaults {
     /**
      * The notice's text. Either boolean false or string
      */
-    text?: any;
+    text?: string | boolean;
     /**
      * Whether to escape the content of the text. (Not allow HTML.)
      */
     text_escape?: boolean;
     /**
-     * What styling classes to use. (Can be either jqueryui or bootstrap.)
+     * What styling classes to use. (Can be either "brighttheme", "jqueryui", "bootstrap2", "bootstrap3", or "fontawesome".)
      */
     styling?: string;
     /**
@@ -52,14 +146,19 @@ interface pnotifyDefaults {
      * Class to be added to the notice for corner styling.
      */
     cornerclass?: string;
-    /**
-     * Create a non-blocking notice. It lets the user click elements underneath it.
-     */
-    nonblock?: boolean;
-    /**
-     * The opacity of the notice (if it's non-blocking) when the mouse is over it.
-     */
-    nonblock_opacity?: number;
+
+    nonblock?: {
+        /**
+         * Create a non-blocking notice. It lets the user click elements underneath it.
+         */
+        nonblock?: boolean;
+
+        /**
+         * The opacity of the notice (if it's non-blocking) when the mouse is over it.
+         */
+        nonblock_opacity?: number
+    };
+
     /**
      * Display a pull down menu to redisplay previous notices, and place the notice in the history.
      */
@@ -108,24 +207,29 @@ interface pnotifyDefaults {
      * Display a drop shadow.
      */
     shadow?: boolean;
+
+    buttons?: {
+        /**
+         * Provide a button for the user to manually close the notice.
+         */
+        closer?: boolean;
+        /**
+         * Only show the closer button on hover.
+         */
+        closer_hover?: boolean;
+
+        /**
+         * Provide a button for the user to manually stick the notice.
+         */
+        sticker?: boolean;
+        /**
+         * Only show the sticker button on hover.
+         */
+        sticker_hover?: boolean;
+    }
+
     /**
-     * Provide a button for the user to manually close the notice.
-     */
-    closer?: boolean;
-    /**
-     * Only show the closer button on hover.
-     */
-    closer_hover?: boolean;
-    /**
-     * Provide a button for the user to manually stick the notice.
-     */
-    sticker?: boolean;
-    /**
-     * Only show the sticker button on hover.
-     */
-    sticker_hover?: boolean;
-    /**
-     * After a delay, remove the notice.
+     * After a delay, remove the notice, set to false for sticky note.
      */
     hide?: boolean;
     /**
@@ -147,27 +251,46 @@ interface pnotifyDefaults {
     /**
      * The stack on which the notices will be placed. Also controls the direction the notices stack.
      */
-    stack?: pnotifyStack;
+    stack?: PNotifyStack;
     /**
      * The various displayed text, helps facilitating internationalization.
      */
-    labels?: pnotifyLabel;
+    labels?: PNotifyLabel;
 }
 
+interface PNotify {
 
-interface pnotifyInterface {
-    defaults?: pnotifyDefaults
-    (options: pnotifyDefaults): any;
-}
-
-interface JQueryStatic {
     /**
-     * The pnotify object
+     * The state can be "initializing", "opening", "open", "closing", and "closed"
      */
-    pnotify: pnotifyInterface;
+    state?: string;
+
     /**
-     * Removes all notifications
+     * This function is for updating the notice.
      */
-    pnotify_remove_all(): void;
+    update(options?: PNotifyOptions): PNotify;
+
+    /**
+     * Remove the notice.
+     */
+    remove(): void;
+
+    /**
+     *  Display the notice.
+     */
+    open(): void;
+
+    /**
+     *  Get the DOM element.
+     */
+    get(): JQuery;
+
 }
 
+interface PNotifyConstructor {
+    new (options?: PNotifyOptions): PNotify;
+
+    removeAll(): void;
+}
+
+declare var PNotify: PNotifyConstructor;

@@ -1,32 +1,83 @@
 // Type definitions for mCustomScrollbar 2.8.2
 // Project: https://github.com/malihu/malihu-custom-scrollbar-plugin
 // Definitions by: Sarah Williams <https://github.com/flurg>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module MCustomScrollbar {
+declare namespace MCustomScrollbar {
     interface CustomScrollbarOptions {
         /**
         * Set the width of your content (overwrites CSS width), value in pixels (integer) or percentage (string)
         */
-        set_width?: any;
+        setWidth?: any;
         /**
         * Set the height of your content (overwirtes CSS height), value in pixels (integer) or percentage (string)
         */
-        set_height?: any;
+        setHeight?: any;
         /**
-        * Add horizontal scrollbar (default is vertical), value: true, false
+         * Define content’s scrolling axis (the type of scrollbars added to the element: vertical and/of horizontal).
+         * Available values: "y", "x", "yx". y -vertical, x - horizontal
+         */
+        axis?: string;
+        /**
+        * Always keep scrollbar(s) visible, even when there’s nothing to scroll.
+        * 0 – disable (default)
+        * 1 – keep dragger rail visible
+        * 2 – keep all scrollbar components (dragger, rail, buttons etc.) visible
         */
-        horizontalScroll?: boolean;
+        alwaysShowScrollbar?: number;
+        /**
+        * Enable or disable auto-expanding the scrollbar when cursor is over or dragging the scrollbar.
+        */
+        autoExpandScrollbar?: boolean;
         /**
         * Scrolling inertia (easing), value in milliseconds (0 for no scrolling inertia)
         */
         scrollInertia?: number;
         /**
-        * Mouse wheel support, value: true, false
+        * Mouse wheel support
         */
-        mouseWheel?: boolean;
+        mouseWheel?: {
+            /**
+             * Enable or disable content scrolling via mouse-wheel.
+             */
+            enable?: boolean;
+            /**
+             * Set the mouse-wheel scrolling amount (in pixels).
+             * The default value "auto" adjusts scrolling amount according to scrollable content length.
+             */
+            scrollAmount?: number;
+            /**
+             * Define the mouse-wheel scrolling axis when both vertical and horizontal scrollbars are present.
+             * Set axis: "y" (default) for vertical or axis: "x" for horizontal scrolling.
+             */
+            axis?: "x"|"y";
+            /**
+             * Prevent the default behaviour which automatically scrolls the parent element when end
+             * or beginning of scrolling is reached (same bahavior with browser’s native scrollbar).
+             */
+            preventDefault?: boolean;
+            /**
+             * Set the number of pixels one wheel notch scrolls. The default value “auto” uses the OS/browser value.
+             */
+            deltaFactor?: number;
+            /**
+             * Enable or disable mouse-wheel (delta) acceleration.
+             * Setting normalizeDelta: true translates mouse-wheel delta value to -1 or 1.
+             */
+            normalizeDelta?:boolean;
+            /**
+             * Invert mouse-wheel scrolling direction.
+             * Set to true to scroll down or right when mouse-wheel is turned upwards.
+             */
+            invert?: boolean;
+            /**
+             * Set the tags that disable mouse-wheel when cursor is over them.
+             * Default value: ["select","option","keygen","datalist","textarea"]
+             */
+            disableOver?: string[]
+        }
         /**
         * Mouse wheel scrolling pixels amount, value in pixels (integer) or "auto" (script calculates and sets pixels amount according to content length)
         */
@@ -41,17 +92,21 @@ declare module MCustomScrollbar {
         autoHideScrollbar?: boolean;
         scrollButtons?: {
             /**
+             * Enable or disable scroll buttons.
+             */
+            enable?: boolean;
+            /**
             * Scroll buttons scroll type, values: "continuous" (scroll continuously while pressing the button), "pixels" (scrolls by a fixed number of pixels on each click")
             */
             scrollType?: string;
             /**
             * Scroll buttons continuous scrolling speed, integer value or "auto" (script calculates and sets the speed according to content length)
             */
-            scrollSpeed?: any;
+            scrollSpeed?: number | string;
             /**
-            * Scroll buttons pixels scrolling amount, value in pixels
+            * Scroll buttons pixels scrolling amount, value in pixels or "auto"
             */
-            scrollAmount?: number;
+            scrollAmount?: number | string;
         }
     advanced?: {
             /**
@@ -59,7 +114,7 @@ declare module MCustomScrollbar {
             */
             updateOnBrowserResize?: boolean;
             /**
-            * Auto-update scrollbars on content resize (useful when adding/changing content progrmatically), value: true, false. Setting this to true makes the script check for content 
+            * Auto-update scrollbars on content resize (useful when adding/changing content progrmatically), value: true, false. Setting this to true makes the script check for content
             * length changes (every few milliseconds) and automatically call plugin's update method to adjust the scrollbar accordingly
             */
             updateOnContentResize?: boolean;
@@ -86,7 +141,7 @@ declare module MCustomScrollbar {
         */
         callbacks?: {
             /**
-            * User defined callback function, triggered on scroll start event. You can call your own function(s) each time a scroll event begins 
+            * User defined callback function, triggered on scroll start event. You can call your own function(s) each time a scroll event begins
             */
             onScrollStart?: () => void;
             /**
@@ -94,17 +149,33 @@ declare module MCustomScrollbar {
             */
             onScroll?: () => void;
             /**
-            * User defined callback function, triggered when scroll end-limit is reached
+            * A function to call when scrolling is completed and content is scrolled all the way to the end (bottom/right)
+            */
+            onTotalScroll?: () => void;
+            /**
+            * A function to call when scrolling is completed and content is scrolled back to the beginning (top/left)
             */
             onTotalScrollBack?: () => void;
             /**
-            * Scroll end-limit offset, value in pixels
+            * Set an offset for which the onTotalScroll callback is triggered.
+            * Its value is in pixels.
             */
             onTotalScrollOffset?: number;
+            /**
+            * Set an offset for which the onTotalScrollBack callback is triggered.
+            * Its value is in pixels
+            */
+            onTotalScrollBackOffset?: number;
             /**
             * User defined callback function, triggered while scrolling
             */
             whileScrolling?: () => void;
+            /**
+            * Set the behavior of calling onTotalScroll and onTotalScrollBack offsets.
+            * By default, callback offsets will trigger repeatedly while content is scrolling within the offsets.
+            * Set alwaysTriggerOffsets: false when you need to trigger onTotalScroll and onTotalScrollBack callbacks once, each time scroll end or beginning is reached.
+            */
+            alwaysTriggerOffsets?: boolean;
         }
     /**
     * Set a scrollbar ready-to-use theme. See themes demo for all themes - http://manos.malihu.gr/tuts/custom-scrollbar-plugin/scrollbar_themes_demo.html
@@ -118,9 +189,17 @@ declare module MCustomScrollbar {
         */
         scrollInertia?: number;
         /**
+        * Scroll-to animation easing, values: "linear", "easeOut", "easeInOut".
+        */
+        scrollEasing?: string;
+        /**
         * Scroll scrollbar dragger (instead of content) to a number of pixels, values: true, false
         */
         moveDragger?: boolean;
+        /**
+        * Set a timeout for the method (the default timeout is 60 ms in order to work with automatic scrollbar update), value in milliseconds.
+        */
+        timeout?: number;
         /**
         * Trigger user defined callback after scroll-to completes, value: true, false
         */
@@ -129,12 +208,6 @@ declare module MCustomScrollbar {
 }
 
 interface JQuery {
-    /**
-    * Creates a new mCustomScrollbar with the specified or default options
-    *
-    * @param options Override default options
-    */
-    mCustomScrollbar(options?: MCustomScrollbar.CustomScrollbarOptions): JQuery;
     /**
     * Calls specified methods on the scrollbar "update", "stop", "disable", "destroy"
     *
@@ -149,4 +222,10 @@ interface JQuery {
     * @param options Override default options
     */
     mCustomScrollbar(scrollTo: string, parameter: any, options?: MCustomScrollbar.ScrollToParameterOptions): JQuery;
+    /**
+    * Creates a new mCustomScrollbar with the specified or default options
+    *
+    * @param options Override default options
+    */
+    mCustomScrollbar(options?: MCustomScrollbar.CustomScrollbarOptions): JQuery;
 }

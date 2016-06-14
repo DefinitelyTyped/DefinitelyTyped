@@ -6,7 +6,10 @@
 
 () => {
     var container, stats;
-    var camera, scene, projector, renderer;
+    var camera, scene, renderer;
+
+    var raycaster;
+    var mouse;
 
     init();
     animate();
@@ -48,12 +51,15 @@
 
         }
 
-        projector = new THREE.Projector();
+        //
+
+        raycaster = new THREE.Raycaster();
+        mouse = new THREE.Vector2();
 
         renderer = new THREE.CanvasRenderer();
         renderer.setClearColor(0xf0f0f0);
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
-
         container.appendChild(renderer.domElement);
 
         stats = new Stats();
@@ -62,6 +68,7 @@
         container.appendChild(stats.domElement);
 
         document.addEventListener('mousedown', onDocumentMouseDown, false);
+        document.addEventListener('touchstart', onDocumentTouchStart, false);
 
         //
 
@@ -78,14 +85,24 @@
 
     }
 
+    function onDocumentTouchStart(event) {
+
+        event.preventDefault();
+
+        event.clientX = event.touches[0].clientX;
+        event.clientY = event.touches[0].clientY;
+        onDocumentMouseDown(event);
+
+    }
+
     function onDocumentMouseDown(event) {
 
         event.preventDefault();
 
-        var vector = new THREE.Vector3((event.clientX / window.innerWidth) * 2 - 1, - (event.clientY / window.innerHeight) * 2 + 1, 0.5);
-        projector.unprojectVector(vector, camera);
+        mouse.x = (event.clientX / renderer.domElement.width) * 2 - 1;
+        mouse.y = - (event.clientY / renderer.domElement.height) * 2 + 1;
 
-        var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
+        raycaster.setFromCamera(mouse, camera);
 
         var intersects = raycaster.intersectObjects(scene.children);
 

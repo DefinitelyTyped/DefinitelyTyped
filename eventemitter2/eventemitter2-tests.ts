@@ -1,7 +1,19 @@
 ///<reference path="eventemitter2.d.ts"/>
 
-// import eventemitter2 = require("eventemitter2");
-// var EventEmitter2 = eventemitter2.EventEmitter2;
+// Example for CommonJS/AMD
+/*
+import eventemitter2 = require("eventemitter2");
+var EventEmitter2 = eventemitter2.EventEmitter2;
+
+class Child extends eventemitter2.EventEmitter2 {
+}
+*/
+
+// This class definition doesn't work in CommonJS/AMD.
+class Child extends EventEmitter2 {
+}
+
+var server = new EventEmitter2();
 
 function testConfiguration() {
     var foo = new EventEmitter2({
@@ -13,8 +25,6 @@ function testConfiguration() {
     var bar = new EventEmitter2({});
     var bazz = new EventEmitter2();
 }
-
-var server = new EventEmitter2();
 
 function testAddListener() {
     server.addListener('data', function (value1: any, value2: any, value3: any) {

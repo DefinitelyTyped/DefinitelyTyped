@@ -1,27 +1,100 @@
 // Type definitions for Knockout Validation
 // Project: https://github.com/ericmbarnard/Knockout-Validation
 // Definitions by: Dan Ludwig <https://github.com/danludwig>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../knockout/knockout.d.ts" />
 
 interface KnockoutValidationGroupingOptions {
+    /**
+     * indicates whether to walk the ViewModel (or object)
+     * recursively, or only walk first-level properties.
+     */
     deep?: boolean;
+    /**
+     * indicates whether the returned errors object
+     * is a ko.computed or a simple function
+     */
     observable?: boolean;
+    /**
+     * indicates whether changes to observableArrays inside
+     * the model should cause the validator to re-run
+     */
+    live?: boolean;
+}
+
+interface KnockoutValidationValidateOptions {
+    throttle?: number;
 }
 
 interface KnockoutValidationConfiguration {
-    registerExtenders?: boolean;
-    messagesOnModified?: boolean;
-    messageTemplate?: string;
-    insertMessages?: boolean;
-    parseInputAttributes?: boolean;
-    writeInputAttributes?: boolean;
-    decorateElement?: boolean;
+    /**
+     * Allows HTML in validation messages
+     */
+    allowHtmlMessages?: boolean;
+    /**
+     * Indicates whether css error classes are added only
+     * when properties are modified or at all times
+     * @type {[type]}
+     */
+    decorateElementOnModified?: boolean;
+    /**
+     * Indicates whether to assign an error class to the <input> tag
+     * when your property is invalid
+     */
+    decorateInputElement?: boolean;
+    /**
+     * If defined, the CSS class assigned to both <input> and validation message elements
+     */
     errorClass?: string;
+    /**
+     * The CSS class assigned to validation error <input> elements, must have decorateInputElement set to true
+     */
     errorElementClass?: string;
+    /**
+     * The CSS class assigned to validation error messages
+     */
     errorMessageClass?: string;
+    /**
+     * Shows tooltips using input 'title' attribute. False hides them
+     */
+    errorsAsTitle?: boolean;
+    /**
+     * Shows the error when hovering the input field (decorateElement must be true)
+     */
+    errorsAsTitleOnModified?: boolean;
     grouping?: KnockoutValidationGroupingOptions;
+    /**
+     * If true validation will insert either a <span> element or the template
+     * specified by messageTemplate after any element (e.g. <input>)
+     * that uses a KO value binding with a validated field
+     */
+    insertMessages?: boolean;
+    /**
+     * Indicates whether validation messages are triggered only
+     * when properties are modified or at all times
+     */
+    messagesOnModified?: boolean;
+    /**
+     * The id of the <script type="text/html"></script>
+     * that you want to use for all your validation messages
+     */
+    messageTemplate?: string;
+    /**
+     * Indicates whether to assign validation rules to your ViewModel
+     * using HTML5 validation attributes
+     */
+    parseInputAttributes?: boolean;
+    /**
+     * Register custom validation rules defined via ko.validation.rules
+     */
+    registerExtenders?: boolean;
+    validate?: KnockoutValidationValidateOptions;
+    /**
+     * Add HTML5 input validation attributes to form elements
+     * that ko observable's are bound to
+     */
+    writeInputAttributes?: boolean;
 }
 
 interface KnockoutValidationUtils {
@@ -106,9 +179,12 @@ interface KnockoutValidationGroup {
     isAnyMessageShown?: () => boolean;
 }
 
+interface KnockoutValidationLocalizationDictionary {
+    [key: string]: string;
+}
+
 interface KnockoutValidationStatic {
     init(options?: KnockoutValidationConfiguration, force?: boolean): void;
-    configure(options: KnockoutValidationConfiguration): void;
     reset(): void;
 
     group(obj: any, options?: any): KnockoutValidationErrors;
@@ -128,13 +204,15 @@ interface KnockoutValidationStatic {
     registerExtenders(): void;
     utils: KnockoutValidationUtils;
 
-    localize(msgTranslations: any): void;
+    localize(msgTranslations: KnockoutValidationLocalizationDictionary): void;
+    defineLocale(newLocale: string, msgTranslations: KnockoutValidationLocalizationDictionary): KnockoutValidationLocalizationDictionary;
+    locale(newLocale: string): string;
     validateObservable(observable: KnockoutObservable<any>): boolean;
 }
 
 interface KnockoutStatic {
     validation: KnockoutValidationStatic;
-    validatedObservable(initialValue: any): KnockoutObservable<any>;
+    validatedObservable<T>(initialValue?: T): KnockoutObservable<T>;
     applyBindingsWithValidation(viewModel: any, rootNode?: any, options?: KnockoutValidationConfiguration): void;
 }
 
@@ -143,10 +221,13 @@ interface KnockoutSubscribableFunctions<T> {
     isValidating: KnockoutObservable<boolean>;
     rules: KnockoutObservableArray<KnockoutValidationRule>;
     isModified: KnockoutObservable<boolean>;
+    error: KnockoutComputed<string>;
+    setError(error: string): void;
+    clearError(): void;
 }
 
 declare module "knockout.validation" {
-	export = validation;
+    export = validation;
 }
 
-declare var validation: KnockoutValidationStatic 
+declare var validation: KnockoutValidationStatic

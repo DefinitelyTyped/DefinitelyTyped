@@ -1,7 +1,7 @@
 ﻿// Type definitions for nconf
 // Project: https://github.com/flatiron/nconf
-// Definitions by: Jeff Goddard <https://github.com/jedigo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Jeff Goddard <https://github.com/jedigo>, Jean-Martin Thibault <https://github.com/jmthibault>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/nconf.d.ts
 
@@ -25,6 +25,7 @@ declare module "nconf" {
 	export function argv(options?: IOptions): Provider;
 	export function env(options?: IOptions): Provider;
 	export function file(name: string, options?: IFileOptions): Provider;
+	export function file(name: string, filename: string): Provider;
 	export function file(options: IFileOptions): Provider;
 	export function use(name: string, options?: IOptions): Provider;
 	export function defaults(options?: IOptions): Provider;
@@ -38,19 +39,26 @@ declare module "nconf" {
 	export function loadFiles(files: any, callback?: ICallbackFunction): void;
 	export function loadFilesSync(files: any, callback?: ICallbackFunction): void;
 
-	export enum formats {
-		json,
-		ini
+	export var formats: {
+		json: IFormat;
+		ini: IFormat;
+	};
+
+	export interface IFormat {
+		stringify: (obj: any, replacer: any, spacing?: any) => string;
+		parse: (str: string) => any;
 	}
 
 	export interface IOptions {
-		type?: string;
+		[index: string]: any;
 	}
 
-	export interface IFileOptions extends IOptions {
+	export interface IFileOptions {
+		type?: string;
 		file?: string;
 		dir?: string;
 		search?: boolean;
+		format?: IFormat;
 		json_spacing?: number;
 	}
 
@@ -79,6 +87,7 @@ declare module "nconf" {
 		argv(options?: IOptions): Provider;
 		env(options?: IOptions): Provider;
 		file(name: string, options?: IFileOptions): Provider;
+		file(name: string, filename: string): Provider;
 		file(options: IFileOptions): Provider;
 		use(name: string, options?: IOptions): Provider;
 

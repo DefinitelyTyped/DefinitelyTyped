@@ -5,7 +5,7 @@
 
 () => {
     var container, stats;
-    var camera, scene, projector, raycaster, renderer;
+    var camera, scene, raycaster, renderer;
 
     var mouse = new THREE.Vector2(), INTERSECTED;
     var radius = 100, theta = 0;
@@ -30,12 +30,8 @@
 
         scene = new THREE.Scene();
 
-        var light = new THREE.DirectionalLight(0xffffff, 2);
+        var light = new THREE.DirectionalLight(0xffffff, 1);
         light.position.set(1, 1, 1).normalize();
-        scene.add(light);
-
-        var light = new THREE.DirectionalLight(0xffffff);
-        light.position.set(-1, -1, -1).normalize();
         scene.add(light);
 
         var geometry = new THREE.BoxGeometry(20, 20, 20);
@@ -60,11 +56,11 @@
 
         }
 
-        projector = new THREE.Projector();
         raycaster = new THREE.Raycaster();
 
         renderer = new THREE.WebGLRenderer();
         renderer.setClearColor(0xf0f0f0);
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.sortObjects = false;
         container.appendChild(renderer.domElement);
@@ -120,12 +116,11 @@
         camera.position.z = radius * Math.cos(THREE.Math.degToRad(theta));
         camera.lookAt(scene.position);
 
+        camera.updateMatrixWorld();
+
         // find intersections
 
-        var vector = new THREE.Vector3(mouse.x, mouse.y, 1);
-        projector.unprojectVector(vector, camera);
-
-        raycaster.set(camera.position, vector.sub(camera.position).normalize());
+        raycaster.setFromCamera(mouse, camera);
 
         var intersects = raycaster.intersectObjects(scene.children);
 

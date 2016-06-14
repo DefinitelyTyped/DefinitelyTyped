@@ -1,7 +1,7 @@
 // Type definitions for SockJS 0.3.x
 // Project: https://github.com/sockjs/sockjs-client
 // Definitions by: Emil Ivanov <https://github.com/vladev>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface SockJSSimpleEvent {
     type: string;
@@ -36,7 +36,7 @@ interface SockJS extends EventTarget {
 
 declare var SockJS: {
     prototype: SockJS;
-    new (url: string, _reserved: any, options?: {
+    new (url: string, _reserved?: any, options?: {
         debug?: boolean;
         devel?: boolean;
         protocols_whitelist?: string[];

@@ -1,7 +1,7 @@
 // Type definitions for parallel.js
 // Project: http://adambom.github.io/parallel.js/
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
 Copyright(c) 2013 Josh Baldwin https://github.com/jbaldwin/parallel.d.ts
@@ -102,3 +102,7 @@ declare class Parallel<T> {
 	public require(fn: Function): Parallel<T>;
 }
 
+/* commonjs binding for npm use */
+declare module "paralleljs" {
+	export = Parallel;
+}

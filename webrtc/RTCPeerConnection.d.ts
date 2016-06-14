@@ -1,7 +1,7 @@
 // Type definitions for WebRTC
 // Project: http://dev.w3.org/2011/webrtc/
 // Definitions by: Ken Smith <https://github.com/smithkl42/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Definitions taken from http://dev.w3.org/2011/webrtc/editor/webrtc.html
 //
@@ -29,7 +29,7 @@ declare var RTCConfiguration: {
 };
 
 interface RTCIceServer {
-  url: string;
+  urls: string;
   credential?: string;
 }
 declare var RTCIceServer: {
@@ -71,8 +71,8 @@ interface RTCMediaConstraints {
 }
 
 interface RTCMediaOfferConstraints {
-  OfferToReceiveAudio: boolean;
-  OfferToReceiveVideo: boolean;
+  offerToReceiveAudio: boolean;
+  offerToReceiveVideo: boolean;
 }
 
 interface RTCSessionDescriptionInit {
@@ -261,7 +261,9 @@ interface RTCPeerConnection {
   signalingState: string; // RTCSignalingState; see TODO(1)
   updateIce(configuration?: RTCConfiguration,
             constraints?: RTCMediaConstraints): void;
-  addIceCandidate(candidate: RTCIceCandidate): void;
+  addIceCandidate(candidate:RTCIceCandidate,
+                  successCallback:() => void,
+                  failureCallback:RTCPeerConnectionErrorCallback): void;
   iceGatheringState: string;  // RTCIceGatheringState; see TODO(1)
   iceConnectionState: string;  // RTCIceConnectionState; see TODO(1)
   getLocalStreams(): MediaStream[];
@@ -358,5 +360,4 @@ interface Window{
   RTCIceCandidate: RTCIceCandidate;
   webkitRTCIceCandidate: webkitRTCIceCandidate;
   mozRTCIceCandidate: mozRTCIceCandidate;
-  URL: URL;
 }

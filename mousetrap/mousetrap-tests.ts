@@ -42,10 +42,22 @@ Mousetrap.trigger('esc', 'keyup');
 
 Mousetrap.reset();
 
+// Test that we can create an instance of mousetrap and attach the
+// event handler to the form element only, instead of the entire document.
+var element = document.querySelector('form');
+var instance = new Mousetrap(element);
+instance.bind('mod+s', function(){ console.log('Instance Saved'); });
+
+// Test that the factory method works as well.
+Mousetrap(element).bind('mod+s', function(){ console.log('Factory Saved'); });
+
+// Test that union types are accepted.
+const unionTypeKeys: string | string[] = ['a', 'b', 'c'];
+Mousetrap(element).bind(unionTypeKeys, function() { console.log('Union type test') });
+
 // Test that Mousetrap can be loaded as an external module.
 // Assume that if the externally-loaded module can be assigned to a variable with the type of global Mousetrap,
 // then everything is working correctly.
 
 import importedMousetrap = require('mousetrap');
 var mousetrapModuleReference: typeof Mousetrap = importedMousetrap;
-
