@@ -49,8 +49,10 @@ declare namespace linq {
         Scan(seed: any, func: string, resultSelector?: string): Enumerable<any>;
         Select<TResult>(selector: ($: T, i: number) => TResult): Enumerable<TResult>;
         Select(selector: string): Enumerable<any>;
-        SelectMany(collectionSelector: ($: any, i: number) => any[], resultSelector?: ($: any, item: any) => any): Enumerable<any>;
-        SelectMany(collectionSelector: ($: any, i: number) => Enumerable<any>, resultSelector?: ($: any, item: any) => any): Enumerable<any>;
+        SelectMany<TResult>(collectionSelector: ($: T, i: number) => TResult[]): Enumerable<TResult>;
+        SelectMany<TResult>(collectionSelector: ($: T, i: number) => Enumerable<TResult>): Enumerable<TResult>;
+        SelectMany<TCollectionItem, TResult>(collectionSelector: ($: T, i: number) => TCollectionItem[], resultSelector: ($: T, item: TCollectionItem) => TResult): Enumerable<TResult>;
+        SelectMany<TCollectionItem, TResult>(collectionSelector: ($: T, i: number) => Enumerable<TCollectionItem>, resultSelector: ($: T, item: TCollectionItem) => TResult): Enumerable<TResult>;
         SelectMany(collectionSelector: string, resultSelector?: string): Enumerable<any>;
         Where(predicate: ($ : T, i: number) => boolean): Enumerable<T>;
         Where(predicate: string): Enumerable<any>;
