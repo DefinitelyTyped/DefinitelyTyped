@@ -1592,8 +1592,11 @@ declare namespace google.maps {
         disableDefaultUi?: boolean;
         disableDoubleClickZoom?: boolean;
         enableCloseButton?: boolean;
+        fullscreenControl?: boolean;
+        fullscreenControlOptions?: fullscreenControlOptions;
         imageDateControl?: boolean;
         linksControl?: boolean;
+        mode?: "html4" | "html5" |"webgl";
         panControl?: boolean;
         panControlOptions?: PanControlOptions;
         pano?: string;
