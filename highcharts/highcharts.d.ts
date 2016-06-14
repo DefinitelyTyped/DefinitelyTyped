@@ -5799,6 +5799,10 @@ interface HighchartsChartObject {
      */
     updatePosition(): void;
     /**
+    * Zoom out to 1:1
+    */
+    zoomOut(): void;
+    /**
      * An array of the chart's x axes. If only one x axis, it is referenced by chart.xAxis[0].
      * @since 1.2.0
      */
