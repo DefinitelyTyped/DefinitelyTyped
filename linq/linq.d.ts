@@ -172,8 +172,8 @@ declare namespace linq {
         LastIndexOf(item: T): number;
         // Convert Methods
         ToArray(): T[];
-        ToLookup(keySelector: ($: T) => any, elementSelector?: ($: T) => any, compareSelector?: (key: any) => any): Lookup<T>;
-        ToLookup(keySelector: string, elementSelector?: string, compareSelector?: string): Lookup<T>;
+        ToLookup<TKey, TValue>(keySelector: ($: T) => TKey, elementSelector?: ($: T) => TValue, compareSelector?: (key: TKey) => any): Lookup<TKey, TValue>;
+        ToLookup(keySelector: string, elementSelector?: string, compareSelector?: string): Lookup<any, any>;
         ToObject(keySelector: ($: T) => string, elementSelector: ($: T) => any): any;
         ToObject(keySelector: string, elementSelector: string): any;
         ToDictionary<TKey, TValue>(keySelector: ($: T) => TKey, elementSelector: ($: T) => TValue, compareSelector?: (key: TKey) => any): Dictionary<TKey, TValue>;
@@ -213,15 +213,15 @@ declare namespace linq {
         ThenByDescending(keySelector: string): OrderedEnumerable<T>;
     }
 
-    interface Grouping<T> extends Enumerable<T> {
-        Key(): any;
+    interface Grouping<TKey, T> extends Enumerable<T> {
+        Key(): TKey;
     }
 
-    interface Lookup<TValue> {
+    interface Lookup<TKey, TValue> {
         Count(): number;
-        Get(key: any): Enumerable<TValue>;
-        Contains(key: any): boolean;
-        ToEnumerable(): Enumerable<TValue>;
+        Get(key: TKey): Enumerable<TValue>;
+        Contains(key: TKey): boolean;
+        ToEnumerable(): Enumerable<Grouping<TKey, TValue>>;
     }
 
     interface Dictionary<TKey, TValue> {
