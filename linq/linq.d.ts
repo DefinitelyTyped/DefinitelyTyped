@@ -174,8 +174,8 @@ declare namespace linq {
         ToLookup(keySelector: string, elementSelector?: string, compareSelector?: string): Lookup<T>;
         ToObject(keySelector: ($: T) => string, elementSelector: ($: T) => any): any;
         ToObject(keySelector: string, elementSelector: string): any;
-        ToDictionary(keySelector: ($: T) => any, elementSelector: ($: T) => any, compareSelector?: (key: T) => any): Dictionary<T>;
-        ToDictionary(keySelector: string, elementSelector: string, compareSelector?: string): Dictionary<T>;
+        ToDictionary<TKey, TValue>(keySelector: ($: T) => TKey, elementSelector: ($: T) => TValue, compareSelector?: (key: TKey) => any): Dictionary<TKey, TValue>;
+        ToDictionary(keySelector: string, elementSelector: string, compareSelector?: string): Dictionary<any, any>;
         ToJSON(replacer?: (key: any, value: any) => any, space?: number): string;
         ToJSON(replacer?: string, space?: number): string;
         ToString(separator?: string, selector?: ($: T) =>any): string;
@@ -222,15 +222,15 @@ declare namespace linq {
         ToEnumerable(): Enumerable<TValue>;
     }
 
-    interface Dictionary<TValue> {
-        Add(key: any, value: TValue): void;
-        Get(key: any): any;
-        Set(key: any, value: TValue): boolean;
-        Contains(key: any): boolean;
+    interface Dictionary<TKey, TValue> {
+        Add(key: TKey, value: TValue): void;
+        Get(key: TKey): TValue;
+        Set(key: TKey, value: TValue): boolean;
+        Contains(key: TKey): boolean;
         Clear(): void;
-        Remove(key: any): void;
+        Remove(key: TKey): void;
         Count(): number;
-        ToEnumerable(): Enumerable<TValue>;
+        ToEnumerable(): Enumerable<KeyValuePair<TKey, TValue>>;
     }
 
     interface KeyValuePair<TKey, TValue> {
