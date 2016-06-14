@@ -126,4 +126,4 @@ class CounterContainer extends Component<any, any> {
   }
 }
 
-const container = Container.create<CounterContainer, {}>(CounterContainer);
+const container = Container.create<CounterContainer>(CounterContainer);

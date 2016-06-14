@@ -103,7 +103,7 @@ declare namespace FluxUtils {
         * that updates its state when relevant stores change.
         * The provided base class must have static methods getStores() and calculateState().
         */
-        static create<TComponent, V extends {}>(base: React.ComponentClass<TComponent>, options?: V & RealOptions): React.ComponentClass<TComponent>;
+        static create<TComponent>(base: React.ComponentClass<TComponent>, options?: RealOptions): React.ComponentClass<TComponent>;
     }
 
     /**
