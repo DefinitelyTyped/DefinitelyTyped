@@ -867,7 +867,7 @@ angular.module('docsTabsExample', [])
 
 angular.module('componentExample', [])
     .component('counter', {
-        require: ['^ctrl'],
+        require: {'ctrl': '^ctrl'},
         bindings: {
             count: '='
         },
