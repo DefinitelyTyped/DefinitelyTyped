@@ -35,7 +35,7 @@ declare namespace angular.ui {
         /**
          * String HTML content, or function that returns an HTML string
          */
-        template?: string | {(): string};
+        template?: string | {(params: IStateParamsService): string};
         /**
          * String URL path to template file OR Function, returns URL path string
          */
@@ -229,9 +229,9 @@ declare namespace angular.ui {
          */
         notify?: boolean;
         /**
-         * {boolean=false}, If true will force transition even if the state or params have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd use this when you want to force a reload when everything is the same, including search params.
+         * {boolean=false|string|IState}, If true will force transition even if the state or params have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd use this when you want to force a reload when everything is the same, including search params.
          */
-        reload?: boolean;
+        reload?: boolean | string | IState;
     }
 
     interface IHrefOptions {

@@ -382,6 +382,7 @@ var id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId();
 var id2: mongoose.Types.ObjectId = new mongoose.Types.ObjectId(123);
 var id2: mongoose.Types.ObjectId = mongoose.Types.ObjectId.createFromTime(123);
 var id2: mongoose.Types.ObjectId = mongoose.Types.ObjectId.createFromHexString('foo');
+var isValid:boolean = mongoose.Types.ObjectId.isValid('570d350b67b1ae0600e8bee8');
 var s = id.toHexString();
 var valid = id.isValid();
 var eq = id.equals(id2);

@@ -8,29 +8,27 @@
 /// <reference path="../knockout/knockout.d.ts" />
 
 declare namespace kg {
-    export interface DomUtilityService {
+    interface DomUtilityService {
         UpdateGridLayout(grid: Grid<any>): void;
         BuildStyles(grid: Grid<any>): void;
     }
 
-    var domUtilityService: DomUtilityService;
-
-    export interface Row<EntityType> {
+    interface Row<EntityType> {
         selected: KnockoutObservable<boolean>;
         entity: EntityType;
     }
 
-    export interface RowFactory<EntityType> {
+    interface RowFactory<EntityType> {
         rowCache: Row<EntityType>[];
     }
 
-    export interface SelectionService<EntityType>  {
+    interface SelectionService<EntityType>  {
         setSelection(row: Row<EntityType>, selected: boolean): void;
         multi: boolean;
         lastClickedRow: Row<EntityType>;
     }
 
-    export interface Grid<EntityType> {
+    interface Grid<EntityType> {
         configureColumnWidths(): void;
         rowFactory: RowFactory<EntityType>;
         config: GridOptions<EntityType>;
@@ -38,11 +36,11 @@ declare namespace kg {
         selectionService: SelectionService<EntityType>;
     }
 
-    export interface Plugin<EntityType> {
+    interface Plugin<EntityType> {
         onGridInit(grid: Grid<EntityType>): void;
     }
 
-    export interface GridOptions<EntityType> {
+    interface GridOptions<EntityType> {
         /** Callback for when you want to validate something after selection. */
         afterSelectionChange?(row: Row<EntityType>): void;
 
@@ -164,7 +162,7 @@ declare namespace kg {
         useExternalSorting?: boolean;
     }
 
-    export interface ColumnDef {
+    interface ColumnDef {
         /** The string name of the property in your data model you want that column to represent. Can also be a property path on your data model. 'foo.bar.myField', 'Name.First', etc.. */
         field: string;
 
@@ -175,12 +173,12 @@ declare namespace kg {
         width?: string;
     }
 
-    export interface FilterOptions {
+    interface FilterOptions {
         filterText?: string;
         useExternalFilter?: boolean;
     }
 
-    export interface PagingOptions {
+    interface PagingOptions {
         /**  pageSizes: list of available page sizes.  */
         pageSizes?: number[];
         /** pageSize: currently selected page size.  */
@@ -191,3 +189,14 @@ declare namespace kg {
         currentPage?: number;
     }
 }
+
+interface IKg {
+   domUtilityService: kg.DomUtilityService;
+}
+
+declare var kg: IKg;
+
+declare module "kg" {
+   export = kg;
+}
+

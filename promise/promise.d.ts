@@ -18,7 +18,7 @@ declare namespace Promise {
 		resolve: <T>(value: T) => IThenable<T>;
 		reject: <T>(value: T) => IThenable<T>;
 		all: (array: Array<IThenable<any>>) => IThenable<Array<any>>;
-		denodeify: (fn: Function) => IThenable<any>;
+		denodeify: (fn: Function) => (...args: any[]) => IThenable<any>;
 		nodeify: (fn: Function) => Function;
 	}
 

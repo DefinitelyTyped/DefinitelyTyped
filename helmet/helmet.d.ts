@@ -1,6 +1,6 @@
 // Type definitions for helmet
 // Project: https://github.com/helmetjs/helmet
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Evan Hahn <https://github.com/EvanHahn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />

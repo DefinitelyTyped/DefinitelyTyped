@@ -19,14 +19,14 @@ declare namespace angular.animate {
     }
 
     interface IAnimateCallbackObject {
-        eventFn?: (element: IAugmentedJQuery, doneFunction: Function, options: IAnimationOptions) => any;
-        setClass?: (element: IAugmentedJQuery, addedClasses: string, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-        addClass?: (element: IAugmentedJQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-        removeClass?: (element: IAugmentedJQuery, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-        enter?: (element: IAugmentedJQuery, doneFunction: Function, options: IAnimationOptions) => any;
-        leave?: (element: IAugmentedJQuery, doneFunction: Function, options: IAnimationOptions) => any;
-        move?: (element: IAugmentedJQuery, doneFunction: Function, options: IAnimationOptions) => any;
-        animate?: (element: IAugmentedJQuery, fromStyles: string, toStyles: string, doneFunction: Function, options: IAnimationOptions) => any;
+        eventFn?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
+        setClass?: (element: JQuery, addedClasses: string, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
+        addClass?: (element: JQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
+        removeClass?: (element: JQuery, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
+        enter?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
+        leave?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
+        move?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
+        animate?: (element: JQuery, fromStyles: string, toStyles: string, doneFunction: Function, options: IAnimationOptions) => any;
     }
 
     interface IAnimationPromise extends IPromise<void> {}

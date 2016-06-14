@@ -23,9 +23,15 @@ declare namespace Dagre {
     }
 
     interface Render {
+        // see http://cpettitt.github.io/project/dagre-d3/latest/demo/user-defined.html for example usage
+        arrows (): { [arrowStyleName: string]: (parent: d3.Selection<any>, id: string, edge: Dagre.Edge, type: string) => void };
         new (): Render;
         (selection: d3.Selection<any>, g: Dagre.Graph): void;
     }
 }
 
 declare var dagreD3: Dagre.DagreD3Factory;
+
+declare module "dagre-d3" {
+    export = dagreD3;
+}

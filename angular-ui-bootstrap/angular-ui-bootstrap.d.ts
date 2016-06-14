@@ -387,6 +387,12 @@ declare namespace angular.ui.bootstrap {
          * @default 'model-open'
          */
         openedClass?: string;
+        
+        /**
+         * CSS class(es) to be added to the top modal window.
+         */
+        
+        windowTopClass?: string;
     }
 
     interface IModalStackService {
