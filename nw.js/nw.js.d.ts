@@ -1352,7 +1352,7 @@ declare module NWJS_Helpers {
     }
 }
 
-declare module nw {
+declare namespace nw {
 
     /* Reference: http://docs.nwjs.io/en/latest/References/App/ */
     /**
