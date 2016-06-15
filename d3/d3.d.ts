@@ -3064,6 +3064,8 @@ declare namespace d3 {
         }
 
         export interface Partition<T extends partition.Node> {
+            (root: T): T[];
+
             nodes(root: T): T[];
 
             links(nodes: T[]): partition.Link<T>[];
