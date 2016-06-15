@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.js 0.7.3
+// Type definitions for Leaflet.js 1.0.0
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Vladimir Zotov <https://github.com/rgripper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -380,6 +380,8 @@ declare namespace L {
           * The control's DOM container is removed automatically.
           */
         onRemove(map: Map): void;
+		
+        _refocusOnMap(e: any): void;
     }
 
     namespace Control {
@@ -2734,6 +2736,8 @@ declare namespace L.Map {
          * If true, it will delay moveend event so that it doesn't happen many times in a row.
          */
         debounceMoveend?: boolean;
+
+        duration?: number;
     }
 
     export interface FitBoundsOptions extends ZoomPanOptions {
@@ -2959,6 +2963,8 @@ declare namespace L {
         clearAllEventListeners(): Marker;
         on(eventMap: any, context?: any): Marker;
         off(eventMap?: any, context?: any): Marker;
+
+        _icon: HTMLElement;
     }
 }
 
@@ -3658,6 +3664,11 @@ declare namespace L {
           * something inside changed, e.g. image loaded.
           */
         update(): Popup;
+
+        /**
+         * saves popup source layer
+         */
+        _source: Marker;
     }
 }
 
