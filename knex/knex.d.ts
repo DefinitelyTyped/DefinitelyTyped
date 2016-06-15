@@ -249,6 +249,7 @@ declare module "knex" {
       (value: Value): Raw;
       (sql: string, ...bindings: Value[]): Raw;
       (sql: string, bindings: Value[]): Raw;
+      (sql: string, bindings: Object): Raw;
     }
 
     //
