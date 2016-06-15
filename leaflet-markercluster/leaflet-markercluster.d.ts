@@ -51,9 +51,10 @@ declare namespace L {
 
       /*
       * The maximum radius that a cluster will cover from the central marker (in pixels). Default 80.
-      * Decreasing will make more, smaller clusters.
+      * Decreasing will make more, smaller clusters. You can also use a function that accepts 
+      * the current map zoom and returns the maximum cluster radius in pixels
       */
-      maxClusterRadius?: number;
+      maxClusterRadius?: number | ((zoom: number) => number);
 
       /*
       * Options to pass when creating the L.Polygon(points, options) to show the bounds of a cluster.
