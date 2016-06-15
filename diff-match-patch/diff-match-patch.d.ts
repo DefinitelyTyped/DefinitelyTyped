@@ -37,7 +37,7 @@ declare module "diff-match-patch" {
         diff_toDelta(diffs: Diff[]): string;
         diff_fromDelta(text1: string, delta: string): Diff[];
         diff_linesToChars_(text1: string, text2: string): Encoded;
-        diff_charsToLines_(diffs: Diff[], lineArray: string[]);
+        diff_charsToLines_(diffs: Diff[], lineArray: string[]): void;
     }
 
     export var DIFF_DELETE: number;
