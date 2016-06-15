@@ -534,7 +534,13 @@ var measurements = Perf.getLastMeasurements();
 Perf.printInclusive(measurements);
 Perf.printExclusive(measurements);
 Perf.printWasted(measurements);
+Perf.printOperations(measurements);
 Perf.printDOM(measurements);
+Perf.printInclusive();
+Perf.printExclusive();
+Perf.printWasted();
+Perf.printOperations();
+Perf.printDOM();
 
 //
 // PureRenderMixin addon

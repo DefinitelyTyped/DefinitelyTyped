@@ -1,4 +1,4 @@
-// Type definitions for React v0.14 (react-addons-perf)
+// Type definitions for React v15.1.0 (react-addons-perf)
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -31,10 +31,11 @@ declare namespace __React {
         namespace Perf {
             export function start(): void;
             export function stop(): void;
-            export function printInclusive(measurements: Measurements[]): void;
-            export function printExclusive(measurements: Measurements[]): void;
-            export function printWasted(measurements: Measurements[]): void;
-            export function printDOM(measurements: Measurements[]): void;
+            export function printInclusive(measurements?: Measurements[]): void;
+            export function printExclusive(measurements?: Measurements[]): void;
+            export function printWasted(measurements?: Measurements[]): void;
+            export function printOperations(measurements?: Measurements[]): void;
+            export function printDOM(measurements?: Measurements[]): void;
             export function getLastMeasurements(): Measurements[];
         }
     }
