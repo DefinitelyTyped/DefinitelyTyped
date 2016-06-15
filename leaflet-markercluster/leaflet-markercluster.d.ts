@@ -83,6 +83,16 @@ declare namespace L {
       * Function used to create the cluster icon
       */
       iconCreateFunction?: any;
+
+      /*
+      * Boolean to split the addLayers processing in to small intervals so that the page does not freeze.
+      */
+      chunkedLoading?: boolean;
+
+      /*
+      * Time delay (in ms) between consecutive periods of processing for addLayers. Default to 50ms.
+      */
+      chunkDelay?: number;
     }
 
     export class MarkerClusterGroup extends FeatureGroup<ILayer> {
@@ -122,5 +132,11 @@ declare namespace L {
       * Returns the array of total markers contained within that cluster.
       */
       getAllChildMarkers(): Marker[];
+
+      /*
+      * Zooms to show the given marker (spiderfying if required), 
+      * calls the callback when the marker is visible on the map.
+      */	  
+      zoomToShowLayer(layer: any, callback: () => void);
     }
 }
