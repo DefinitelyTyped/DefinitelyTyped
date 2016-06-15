@@ -181,7 +181,7 @@ declare namespace CodeMirror {
             handle: any;
             text: string;
             /** Object mapping gutter IDs to marker elements. */
-            gutterMarks: any;
+            gutterMarkers: any;
             textClass: string;
             bgClass: string;
             wrapClass: string;

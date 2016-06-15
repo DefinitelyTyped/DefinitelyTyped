@@ -476,6 +476,8 @@ function test_angular_forEach() {
 var element = angular.element("div.myApp");
 var scope: ng.IScope = element.scope();
 var isolateScope: ng.IScope = element.isolateScope();
+isolateScope = element.find('div.foo').isolateScope();
+isolateScope = element.children().isolateScope();
 
 
 // $timeout signature tests
