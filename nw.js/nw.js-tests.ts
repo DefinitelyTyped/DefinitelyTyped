@@ -1,3 +1,4 @@
+/// <reference path="nw.js.d.ts" />
 /*
  * nw.App Tests
  */
@@ -88,7 +89,7 @@ nw.Window.get().menu = menu;
 /**
  * nw.MenuItem Tests
  */
-var item;
+var item: any;
 
 // Create a separator
 item = new nw.MenuItem( { type: 'separator' });
@@ -133,15 +134,15 @@ item.click = function () {
 nw.Screen.Init();
 
 var screenCB = {
-    onDisplayBoundsChanged: function ( screen ) {
+    onDisplayBoundsChanged: function ( screen: any ) {
         console.log( 'displayBoundsChanged', screen );
     },
 
-    onDisplayAdded: function ( screen ) {
+    onDisplayAdded: function ( screen: any ) {
         console.log( 'displayAdded', screen );
     },
 
-    onDisplayRemoved: function ( screen ) {
+    onDisplayRemoved: function ( screen: any ) {
         console.log( 'displayRemoved', screen )
     }
 };
@@ -164,7 +165,7 @@ nw.Screen.chooseDesktopMedia( ["window", "screen"],
                 maxWidth: 1920,
                 maxHeight: 1080
             },
-            optional: []
+            optional: <any[]>[]
         };
         //navigator.webkitGetUserMedia( { audio: false, video: constraint }, success_func, fallback_func );
     }
@@ -227,7 +228,7 @@ var option = {
     active: function () {
         console.log( "Global desktop keyboard shortcut: " + this.key + " active." );
     },
-    failed: function ( msg ) {
+    failed: function ( msg: any ) {
         // :(, fail to register the |key| or couldn't parse the |key|.
         console.log( msg );
     }
@@ -247,7 +248,7 @@ shortcut.on( 'active', function () {
     console.log( "Global desktop keyboard shortcut: " + this.key + " active." );
 });
 
-shortcut.on( 'failed', function ( msg ) {
+shortcut.on( 'failed', function ( msg: any ) {
     console.log( msg );
 });
 
