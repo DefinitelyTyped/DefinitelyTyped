@@ -96,8 +96,8 @@ declare namespace L {
     }
 
     export class MarkerClusterGroup extends FeatureGroup<ILayer> {
-      initialize(): void;
-      initialize(options: MarkerClusterGroupOptions): void;
+      constructor();
+      constructor(options: MarkerClusterGroupOptions);
 
       /*
       * Bulk methods for adding and removing markers and should be favoured over the
