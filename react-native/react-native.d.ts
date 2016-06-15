@@ -5547,6 +5547,26 @@ declare namespace  __React {
         Header: NavigationHeaderStatic;
         Reducer: NavigationReducerStatic;
     }
+    
+    export interface NavigationContainerProps {
+        tabs: NavigationTab[];
+        index: number;
+    }
+
+    export interface NavigationContainerStatic extends React.ComponentClass<NavigationContainerProps> {
+        create(inClass: any): any;
+    }
+
+    export interface NavigationRootContainerProps extends React.Props<NavigationRootContainerStatic> {
+        renderNavigation: NavigationRenderer;
+        reducer: NavigationReducerStatic;
+        persistenceKey?: string;
+    }
+
+    export interface NavigationRootContainerStatic extends React.ComponentClass<NavigationRootContainerProps> {
+        getBackAction(): NavigationAction;
+        handleNavigation( action: NavigationAction ): boolean;
+    }
 
     //////////////////////////////////////////////////////////////////////////
     //
