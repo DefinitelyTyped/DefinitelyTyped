@@ -5618,7 +5618,7 @@ declare namespace  __React {
     export type StyleSheet = StyleSheetStatic
     
     export var SwipeableListView: SwipeableListViewStatic
-    export type SwipeableListView = SwipeableListViewStatci
+    export type SwipeableListView = SwipeableListViewStatic
 
     export var Switch: SwitchStatic
     export type Switch = SwitchStatic
