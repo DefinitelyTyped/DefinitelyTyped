@@ -5522,7 +5522,7 @@ declare namespace  __React {
     }
     
     export interface NavigationHeaderProps {
-        renderTitleComponent?(props: Object): JSX.element
+        renderTitleComponent?(props: Object): JSX.Element
     }
     
     export interface NavigationHeaderStatic extends React.ComponentClass<NavigationHeaderProps> {
