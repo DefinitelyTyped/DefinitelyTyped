@@ -380,8 +380,6 @@ declare namespace L {
           * The control's DOM container is removed automatically.
           */
         onRemove(map: Map): void;
-		
-        _refocusOnMap(e: any): void;
     }
 
     namespace Control {
@@ -2963,8 +2961,6 @@ declare namespace L {
         clearAllEventListeners(): Marker;
         on(eventMap: any, context?: any): Marker;
         off(eventMap?: any, context?: any): Marker;
-
-        _icon: HTMLElement;
     }
 }
 
@@ -3664,11 +3660,6 @@ declare namespace L {
           * something inside changed, e.g. image loaded.
           */
         update(): Popup;
-
-        /**
-         * saves popup source layer
-         */
-        _source: Marker;
     }
 }
 
