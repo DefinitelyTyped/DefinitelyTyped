@@ -5,6 +5,11 @@
 
 declare module "diff-match-patch" {
     type Diff = [number, string];
+    export interface Encoded {
+        chars1: string;
+        chars2: string;
+        lineArray: string[];
+    }
 
     export class diff_match_patch {
         static new (): diff_match_patch;
@@ -31,6 +36,8 @@ declare module "diff-match-patch" {
         diff_levenshtein(diffs: Diff[]): number;
         diff_toDelta(diffs: Diff[]): string;
         diff_fromDelta(text1: string, delta: string): Diff[];
+        diff_linesToChars_(text1: string, text2: string): Encoded;
+        diff_charsToLines_(diffs: Diff[], lineArray: string[]);
     }
 
     export var DIFF_DELETE: number;
