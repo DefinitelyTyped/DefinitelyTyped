@@ -5741,9 +5741,6 @@ declare namespace  __React {
 
     export type NavigationReducer = NavigationReducerStatic;
     export var NavigationReducer: NavigationReducerStatic;
-    
-    export type SwipeableListView = SwipeableListViewStatic;
-    export var SwipeableListView: SwipeableListViewStatic;
 
     export type Easing = EasingStatic;
     export var Easing: EasingStatic;
