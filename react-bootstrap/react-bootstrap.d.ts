@@ -770,6 +770,10 @@ declare namespace ReactBootstrap {
         header?: any; // TODO: Add more specific type
         key?: any; // TODO: Add more specific type
         listItem?: boolean;
+		draggable?: boolean;
+        onDragStart?: React.DragEventHandler;
+        onDrop?: React.DragEventHandler;
+        onDragOver?: React.DragEventHandler;
     }
     class ListGroupItem extends React.Component<ListGroupItemProps, {}> {
     }
