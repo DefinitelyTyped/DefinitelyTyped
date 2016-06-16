@@ -142,3 +142,4 @@ resolve.sync('fs',
                  }
              });
 
+const result: boolean = resolve.isCore('fs');
