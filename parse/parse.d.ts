@@ -307,7 +307,9 @@ declare namespace Parse {
      */
     class Object extends BaseObject {
 
-        id: any;
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
         attributes: any;
         cid: string;
         changed: boolean;
