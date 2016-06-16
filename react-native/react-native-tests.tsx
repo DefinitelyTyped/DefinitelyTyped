@@ -91,7 +91,7 @@ class Welcome extends React.Component<any,any> {
 
       const { rootView } = this.refs;
 
-      rootView.measure((x, y, width, height) => {
+      rootView.measure((x: number, y: number, width: number, height: number) => {
       });
     }
 
