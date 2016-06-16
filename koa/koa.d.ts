@@ -38,7 +38,7 @@ declare module "koa" {
         toJSON(): any;
         inspect(): any;
         throw(code?: any, message?: any): void;
-        assert(): void;
+        assert(test: any, status: number, message: string): void;
     }
 
     export interface Request {
