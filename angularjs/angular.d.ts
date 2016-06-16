@@ -156,7 +156,7 @@ declare namespace angular {
 
         noop(...args: any[]): void;
         reloadWithDebugInfo(): void;
-        toJson(obj: any, pretty?: boolean): string;
+        toJson(obj: any, pretty?: boolean | number): string;
         uppercase(str: string): string;
         version: {
             full: string;
