@@ -714,8 +714,6 @@ declare namespace Parse {
 
         signUp<T>(attrs: any, options?: SuccessFailureOptions): Promise<T>;
         logIn<T>(options?: SuccessFailureOptions): Promise<T>;
-        fetch<T extends User>(options?: SuccessFailureOptions): Promise<T>;
-        save<T extends User>(options?: Object.SaveOptions, arg2?: any, arg3?: any): Promise<T>;
         authenticated(): boolean;
         isCurrent(): boolean;
 
