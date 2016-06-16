@@ -322,6 +322,8 @@ declare namespace Parse {
         static destroyAll<T>(list: Object[], options?: Object.DestroyAllOptions): Promise<T>;
         static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
 
+        static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
+
         initialize(): void;
         add(attr: string, item: any): Object;
         addUnique(attr: string, item: any): any;
