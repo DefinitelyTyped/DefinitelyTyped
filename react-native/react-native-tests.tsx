@@ -51,7 +51,13 @@ function testDimensions() {
 BackAndroid.addEventListener("hardwareBackPress", () => {
 });
 
-var styles = StyleSheet.create(
+interface LocalStyles {
+    container: React.ViewStyle;
+    welcome: React.TextStyle;
+    instructions: React.TextStyle;
+}
+
+var styles = StyleSheet.create<LocalStyles>(
     {
         container:    {
             flex:            1,
@@ -74,9 +80,14 @@ var styles = StyleSheet.create(
 
 
 class Welcome extends React.Component<any,any> {
-
+  
+    refs: {
+      [key: string]: any
+      rootView: View
+    }
+  
     testNativeMethods() {
-      this.setNativeProps({});
+      // this.setNativeProps({});
 
       const { rootView } = this.refs;
 

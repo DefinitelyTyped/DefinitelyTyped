@@ -5535,7 +5535,7 @@ declare namespace  __React {
         style?: ViewStyle
         navigationState?: any
         onNavigate(action: Object): boolean
-        renderScene?(props): JSX.Element
+        renderScene?(props: any /* undocumented on 0.27 */): JSX.Element
     }
     
     export interface NavigationCardStackStatic extends React.ComponentClass<NavigationCardStackProps> {
