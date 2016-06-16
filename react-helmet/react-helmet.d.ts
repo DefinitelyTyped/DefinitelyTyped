@@ -10,7 +10,7 @@ declare namespace ReactHelmet {
     
     interface HelmetProps {
         base?: any;
-        htmlAttributes: any;
+        htmlAttributes?: any;
         link?: Array<any>;
         meta?: Array<any>;
         script?: Array<any>;
