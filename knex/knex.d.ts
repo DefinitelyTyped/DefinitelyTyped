@@ -301,6 +301,7 @@ declare module "knex" {
 
     interface SchemaBuilder extends Promise<any> {
       createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
+      createTableIfNotExists(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
       renameTable(oldTableName: string, newTableName: string): Promise<void>;
       dropTable(tableName: string): SchemaBuilder;
       hasTable(tableName: string): Promise<boolean>;
