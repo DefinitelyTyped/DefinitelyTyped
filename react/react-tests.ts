@@ -540,6 +540,15 @@ Perf.printExclusive();
 Perf.printWasted();
 Perf.printOperations();
 
+console.log(Perf.getExclusive());
+console.log(Perf.getInclusive());
+console.log(Perf.getWasted());
+console.log(Perf.getOperations());
+console.log(Perf.getExclusive(measurements));
+console.log(Perf.getInclusive(measurements));
+console.log(Perf.getWasted(measurements));
+console.log(Perf.getOperations(measurements));
+
 // Renamed to printOperations().  Please use it instead.
 Perf.printDOM(measurements);
 Perf.printDOM();
