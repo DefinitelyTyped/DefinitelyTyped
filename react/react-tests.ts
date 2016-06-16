@@ -535,11 +535,13 @@ Perf.printInclusive(measurements);
 Perf.printExclusive(measurements);
 Perf.printWasted(measurements);
 Perf.printOperations(measurements);
-Perf.printDOM(measurements);
 Perf.printInclusive();
 Perf.printExclusive();
 Perf.printWasted();
 Perf.printOperations();
+
+// Renamed to printOperations().  Please use it instead.
+Perf.printDOM(measurements);
 Perf.printDOM();
 
 //

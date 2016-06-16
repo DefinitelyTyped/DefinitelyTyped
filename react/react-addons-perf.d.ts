@@ -35,8 +35,10 @@ declare namespace __React {
             export function printExclusive(measurements?: Measurements[]): void;
             export function printWasted(measurements?: Measurements[]): void;
             export function printOperations(measurements?: Measurements[]): void;
-            export function printDOM(measurements?: Measurements[]): void;
             export function getLastMeasurements(): Measurements[];
+
+            // Renamed to printOperations().  Please use it instead.
+            export function printDOM(measurements?: Measurements[]): void;
         }
     }
 }
