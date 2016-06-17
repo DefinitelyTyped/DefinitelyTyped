@@ -1,13 +1,13 @@
 // Type definitions for node_acl 0.4.7
 // Project: https://github.com/optimalbits/node_acl
 // Definitions by: Qubo <https://github.com/tkQubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path='../node/node.d.ts'/>
 
 /// <reference path='../redis/redis.d.ts'/>
-/// <reference path="../mongodb/mongodb.d.ts" />
+/// <reference path="../mongodb/mongodb-1.4.9.d.ts" />
 
 declare module "acl" {
   import http = require('http');

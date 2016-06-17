@@ -1,7 +1,7 @@
 // Type definitions for auto-launch 0.1.18
 // Project: https://github.com/Teamwork/node-auto-launch
 // Definitions by: rhysd <https://github.com/rhysd>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface AutoLaunchOption {
 	/**
@@ -32,7 +32,7 @@ declare class AutoLaunch {
 	/**
 	 * Returns if auto start up is enabled
 	 */
-	isEnabled(callback?: (err: Error) => void): boolean;
+	isEnabled(callback: (enabled: boolean) => void): void;
 }
 
 declare module "auto-launch" {

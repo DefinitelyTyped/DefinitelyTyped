@@ -1,11 +1,11 @@
 // Type definitions for three.js (Projector.js)
 // Project: https://github.com/mrdoob/three.js/blob/master/examples/js/renderers/Projector.js
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./three.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
     // Renderers / Renderables /////////////////////////////////////////////////////////////////////
     export class RenderableObject {
         constructor();
@@ -72,7 +72,7 @@ declare module THREE {
      */
     export class Projector {
         constructor();
-        
+
         // deprecated.
         projectVector(vector: Vector3, camera: Camera): Vector3;
 
@@ -88,8 +88,8 @@ declare module THREE {
          * @param sort select whether to sort elements using the Painter's algorithm.
          */
         projectScene(scene: Scene, camera: Camera, sortObjects: boolean, sortElements?: boolean): {
-            objects: Object3D[];     // Mesh, Line or other object  
-            sprites: Object3D[];    // Sprite or Particle 
+            objects: Object3D[];     // Mesh, Line or other object
+            sprites: Object3D[];    // Sprite or Particle
             lights: Light[];
             elements: Face3[];    // Line, Particle, Face3 or Face4
         };

@@ -1,7 +1,7 @@
 // Type definitions for bootstrap-slider.js 4.8.3
 // Project: https://github.com/seiyria/bootstrap-slider
 // Definitions by: Daniel Beckwith <https://github.com/dbeckwith>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts"/>
 

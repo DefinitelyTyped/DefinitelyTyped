@@ -1,7 +1,7 @@
 // Type definitions for connect-slashes
 // Project: https://github.com/avinoamr/connect-slashes
 // Definitions by: Sam Herrmann <https://github.com/samherrmann>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
 
@@ -23,7 +23,7 @@ declare module "connect-slashes" {
      */
     function slashes (addTrailingSlashes?: boolean, options?: slashes.Options): express.RequestHandler;
 
-    module slashes {
+    namespace slashes {
 
         /**
          * Additional settings

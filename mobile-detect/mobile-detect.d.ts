@@ -1,7 +1,7 @@
 // Type definitions for mobile-detect v1.2.0
 // Project: http://hgoebl.github.io/mobile-detect.js/
 // Definitions by: Martin McWhorter <https://github.com/martinmcwhorter/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class MobileDetect {
 	

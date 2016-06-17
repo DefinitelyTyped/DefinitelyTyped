@@ -70,6 +70,13 @@ myApp.config((
         $scope.items = ["A", "List", "Of", "Items"];
       }
     })
+    .state('state1.list', {
+      url: "/list",
+      templateUrl: "partials/state1.list.html",
+      controller: ['$scope', function ($scope: MyAppScope) {
+        $scope.items = ["A", "List", "Of", "Items"];
+      }]
+    })
     .state('state2', {
       url: "/state2",
       templateUrl: "partials/state2.html"
@@ -134,6 +141,8 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
         private $state: ng.ui.IStateService
     ) {
         $rootScope.$on("$locationChangeSuccess", (event: ng.IAngularEvent) => this.onLocationChangeSuccess(event));
+        $rootScope.$on('$stateNotFound', (event: ng.IAngularEvent, unfoundState: ng.ui.IUnfoundState, fromState: ng.ui.IState, fromParams: {}) => 
+                                              this.onStateNotFound(event, unfoundState, fromState, fromParams));
     }
 
     public currentUser: any;
@@ -155,6 +164,15 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
             });
         }
     }
+    
+     private onStateNotFound(event: ng.IAngularEvent,
+                             unfoundState: ng.ui.IUnfoundState,
+                             fromState: ng.ui.IState,
+                             fromParams: {}) {
+        var unfoundTo: string = unfoundState.to;
+        var unfoundToParams: {} = unfoundState.toParams;
+        var unfoundOptions: ng.ui.IStateOptions = unfoundState.options 
+    }
 
     private stateServiceTest() {
         this.$state.go("myState");
@@ -170,10 +188,29 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
         if (this.$state.href("myState") === "/myState") {
           //
         }
-        this.$state.get("myState");
         this.$state.get();
+        this.$state.get("myState");
+        this.$state.get("myState", "yourState");
+        this.$state.get("myState", this.$state.current);
+        this.$state.get(this.$state.current);
+        this.$state.get(this.$state.current, "yourState");
+        this.$state.get(this.$state.current, this.$state.current);
         this.$state.reload();
-        
+
+        // http://angular-ui.github.io/ui-router/site/#/api/ui.router.state.$state#properties
+        if (this.$state.transition) {
+          var transitionPromise: ng.IPromise<{}> = this.$state.transition;
+          transitionPromise.then(() => {
+            // transition success
+          }, () => {
+            // transition failure
+          }).catch(() => {
+            // transition failure
+          }).finally(() => {
+            // transition ended (success or failure)
+          });
+        }
+
         // Accesses the currently resolved values for the current state
         // http://stackoverflow.com/questions/28026620/is-there-a-way-to-access-resolved-state-dependencies-besides-injecting-them-into/28027023#28027023
         var resolvedValues = this.$state.$current.locals.globals;
@@ -182,7 +219,7 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
 
 myApp.service("urlLocatorTest", UrlLocatorTestService);
 
-module UiViewScrollProviderTests {
+namespace UiViewScrollProviderTests {
     var app = angular.module("uiViewScrollProviderTests", ["ui.router"]);
 
     app.config(['$uiViewScrollProvider', function($uiViewScrollProvider: ng.ui.IUiViewScrollProvider) {
@@ -201,7 +238,7 @@ interface ITestUserService {
     handleLogin: () => ng.IPromise<{}>;
 }
 
-module UrlRouterProviderTests {
+namespace UrlRouterProviderTests {
     var app = angular.module("urlRouterProviderTests", ["ui.router"]);
 
     app.config(($urlRouterProvider: ng.ui.IUrlRouterProvider) => {
@@ -209,7 +246,7 @@ module UrlRouterProviderTests {
         // this allows you to configure custom behavior in between
         // location changes and route synchronization:
         $urlRouterProvider.deferIntercept();
-    }).run(($rootScope: ng.IRootScopeService, $urlRouter: ng.ui.IUrlRouterService, UserService: ITestUserService) => {
+    }).run(($rootScope: ng.IRootScopeService, $urlRouter: ng.ui.IUrlRouterService, UserService: ITestUserService, $urlMatcher: ng.ui.IUrlMatcher) => {
         $rootScope.$on('$locationChangeSuccess', e => {
             // UserService is an example service for managing user state
             if (UserService.isLoggedIn()) return;
@@ -224,6 +261,18 @@ module UrlRouterProviderTests {
         });
 
         // Configures $urlRouter's listener *after* your custom listener
-        $urlRouter.listen();
+        var listen: Function = $urlRouter.listen();
+
+        var href: string;
+        href = $urlRouter.href($urlMatcher);
+        href = $urlRouter.href($urlMatcher, {});
+        href = $urlRouter.href($urlMatcher, {}, {});
+
+        $urlRouter.update();
+        $urlRouter.update(false);
+
+        $urlRouter.push($urlMatcher);
+        $urlRouter.push($urlMatcher, {});
+        $urlRouter.push($urlMatcher, {}, {});
     });
 }

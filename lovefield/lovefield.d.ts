@@ -1,11 +1,9 @@
 // Type definitions for Lovefield v2.0.62
 // Project: http://google.github.io/lovefield/
 // Definitions by: freshp86 <https://github.com/freshp86>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../es6-promise/es6-promise.d.ts"/>
-
-declare module lf {
+declare namespace lf {
   export enum Order { ASC, DESC }
 
   export enum Type {
@@ -77,7 +75,7 @@ declare module lf {
     update(table: schema.Table): query.Update
   }
 
-  module query {
+  namespace query {
     export interface Builder {
       bind(...values: any[]): Builder
       exec(): Promise<Array<Object>>
@@ -114,7 +112,7 @@ declare module lf {
   }  // module query
 
 
-  module raw {
+  namespace raw {
     export interface BackStore {
       getRawDBInstance(): any
       getRawTransaction(): any
@@ -133,7 +131,7 @@ declare module lf {
   }  // module raw
 
 
-  module schema {
+  namespace schema {
     export enum DataStoreType {
       FIREBASE,
       INDEXED_DB,
@@ -199,23 +197,25 @@ declare module lf {
       addIndex(
           name: string, columns: Array<string>|Array<IndexedColumn>,
           unique?: boolean, order?: Order): TableBuilder
-      addNullable(columns: Array<Column>): TableBuilder
-      addPrimaryKey(columns: Array<string>|Array<IndexedColumn>): TableBuilder
-      addUnique(name: string, columns: Array<Column>): TableBuilder
+      addNullable(columns: Array<string>): TableBuilder
+      addPrimaryKey(
+          columns: Array<string>|Array<IndexedColumn>,
+          autoInc?: boolean): TableBuilder
+      addUnique(name: string, columns: Array<string>): TableBuilder
     }
 
     function create(dbName: string, dbVersion: number): Builder
   }  // module schema
 
 
-  module op {
+  namespace op {
     function and(...args: Predicate[]): Predicate;
     function not(operand: Predicate): Predicate;
     function or(...args: Predicate[]): Predicate;
   }  // module op
 
 
-  module fn {
+  namespace fn {
     function avg(column: schema.Column): schema.Column
     function count(column?: schema.Column): schema.Column
     function distinct(column: schema.Column): schema.Column

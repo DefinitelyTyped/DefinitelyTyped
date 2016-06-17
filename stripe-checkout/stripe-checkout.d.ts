@@ -1,7 +1,7 @@
 // Type definitions for Stripe Checkout
 // Project: https://stripe.com/checkout
 // Definitions by: Chris Wrench <https://github.com/cgwrench>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../stripe/stripe.d.ts"/>
 
@@ -15,12 +15,13 @@ interface StripeCheckoutHandler {
 }
 
 interface StripeCheckoutOptions {
-    key: string;
-    token: (token: StripeTokenResponse) => void;
+    key?: string;
+    token?: (token: StripeTokenResponse) => void;
     image?: string;
     name?: string;
     description?: string;
     amount?: number;
+    locale?: string;
     currency?: string;
     panelLabel?: string;
     zipCode?: boolean;

@@ -1,9 +1,8 @@
 // Type definitions for node-notifier
 // Project: https://github.com/mikaelbr/node-notifier
 // Definitions by: Qubo <https://github.com/tkQubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
 declare module "node-notifier" {
