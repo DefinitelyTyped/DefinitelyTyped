@@ -10,10 +10,13 @@ declare module 'javascript-obfuscator' {
     debugProtectionInterval?: boolean;
     disableConsoleOutput?: boolean;
     encodeUnicodeLiterals?: boolean;
+    reservedNames?: string[];
     rotateUnicodeArray?: boolean;
+    selfDefending?: boolean;
     unicodeArray?: boolean;
+    unicodeArrayThreshold?: number;
     wrapUnicodeArrayCalls?: boolean;
-    [id: string]: any;
+    [key: string]: any;
   }
 
   export class JavaScriptObfuscator {
