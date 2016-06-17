@@ -312,6 +312,7 @@ declare module "knex" {
 
     interface TableBuilder {
       increments(columnName?: string): ColumnBuilder;
+      bigIncrements(columnName?: string): ColumnBuilder;
       dropColumn(columnName: string): TableBuilder;
       dropColumns(...columnNames: string[]): TableBuilder;
       renameColumn(from: string, to: string): ColumnBuilder;
