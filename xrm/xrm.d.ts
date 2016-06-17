@@ -220,14 +220,19 @@ declare namespace Xrm
          *
          * @return  The client, as either "Web", "Outlook", or "Mobile"
          */
-        getClient(): string;
+        getClient(): ClientContext.Client;
 
         /**
          * Gets client's current state.
          *
          * @return  The client state, as either "Online" or "Offline"
          */
-        getClientState(): string;
+        getClientState(): ClientContext.ClientState;
+    }
+
+    export module ClientContext {
+        export type Client = "Web" | "Outlook" | "Mobile";
+        export type ClientState = "Online" | "Offline";
     }
 
     /**
@@ -257,7 +262,7 @@ declare namespace Xrm
          *
          * @remarks This function does not work with Dynamics CRM for tablets.
          */
-        getCurrentTheme(): string;
+        getCurrentTheme(): Context.Theme;
 
         /**
          * Gets whether automatic save is enabled.
@@ -344,6 +349,9 @@ declare namespace Xrm
         prependOrgName( sPath: string ): string;
     }
 
+    export module Context {
+        export type Theme = "default" | "Office12Blue" | "Office14Silver";
+    }
     /**
      * Interface for the Xrm.Page.data object.
      */
@@ -437,49 +445,7 @@ declare namespace Xrm
          */
         refreshRibbon(): void;
 
-        /**
-         * Sets a form-level notification.
-         *
-         * @param   {string}    message     The message.
-         * @param   {"ERROR"}   level       An error message.
-         * @param   {string}    uniqueId    A unique identifier for the message.
-         *
-         * @return  true if it succeeds, false if it fails.
-         */
-        setFormNotification( message: string, level: "ERROR", uniqueId: string ): boolean;
-
-        /**
-         * Sets a form-level notification.
-         *
-         * @param   {string}    message     The message.
-         * @param   {"WARNING"} level       A warning message.
-         * @param   {string}    uniqueId    A unique identifier for the message.
-         *
-         * @return  true if it succeeds, false if it fails.
-         */
-        setFormNotification( message: string, level: "WARNING", uniqueId: string ): boolean;
-
-        /**
-         * Sets a form-level notification.
-         *
-         * @param   {string}    message     The message.
-         * @param   {"INFO"}    level       An informational message.
-         * @param   {string}    uniqueId    A unique identifier for the message.
-         *
-         * @return  true if it succeeds, false if it fails.
-         */
-        setFormNotification( message: string, level: "INFO", uniqueId: string ): boolean;
-
-        /**
-         * Sets a form-level notification.
-         *
-         * @param   {string}    message     The message.
-         * @param   {string}    level       The level, as either "ERROR", "WARNING", or "INFO".
-         * @param   {string}    uniqueId    A unique identifier for the message.
-         *
-         * @return  true if it succeeds, otherwise false.
-         */
-        setFormNotification( message: string, level: string, uniqueId: string ): boolean;
+        setFormNotification(message: string, level: Page.ui.FormNotificationLevel, uniqueId: string ): boolean;
 
         process: Page.data.ProcessManager;
 
@@ -725,7 +691,7 @@ declare namespace Xrm
              *
              * @remarks  This method will return either "active" or "inactive".
              */
-            getStatus(): string;
+            getStatus(): Stage.Status;
 
             /**
              * Returns a collection of steps in the stage.
@@ -733,6 +699,10 @@ declare namespace Xrm
              * @return  An array of Step.
              */
             getSteps(): Step[];
+        }
+
+        export module Stage {
+            export type Status = "active" | "inactive";
         }
 
         export interface Step
@@ -798,7 +768,7 @@ declare namespace Xrm
              *
              * @return  The event source.
              */
-            getEventSource(): Page.Attribute | Page.Entity;
+            getEventSource(): Attribute | Entity;
 
             /**
              * Gets the shared variable with the specified key.
@@ -912,12 +882,9 @@ declare namespace Xrm
             text: string;
 
             /**
-             * The value, as a string.
-             *
-             * @remarks     You must use parseInt to convert this value to a number before you can use it to
-             *              set the value of an OptionSetAttribute.
+             * The value, as a number
              */
-            value: string;
+            value: number;
         }
 
         /**
@@ -1024,7 +991,7 @@ declare namespace Xrm
              *
              * @return  The required level, as either "none", "required", or "recommended"
              */
-            getRequiredLevel(): string;
+            getRequiredLevel(): Attribute.RequirementLevel;
 
             /**
              * Gets current submit mode for the attribute.
@@ -1033,7 +1000,7 @@ declare namespace Xrm
              *
              * @remarks The default value is "dirty"
              */
-            getSubmitMode(): string;
+            getSubmitMode(): Attribute.SubmitMode;
 
             /**
              * Gets the current user's privileges for the attribute.
@@ -1050,53 +1017,11 @@ declare namespace Xrm
             removeOnChange( handler: ContextSensitiveHandler ): void;
 
             /**
-             * Sets required level.
-             *
-             * @param   {"none"}    requirementLevel    Not required.
-             */
-            setRequiredLevel( requirementLevel: "none" ): void;
-
-            /**
-             * Sets required level.
-             *
-             * @param   {"required"}    requirementLevel    Required.
-             */
-            setRequiredLevel( requirementLevel: "required" ): void;
-
-            /**
-             * Sets required level.
-             *
-             * @param   {"recommended"}    requirementLevel    Recommended.
-             */
-            setRequiredLevel( requirementLevel: "recommended" ): void;
-
-            /**
              * Sets the required level.
              *
              * @param   {string}    requirementLevel    The requirement level, as either "none", "required", or "recommended"
              */
-            setRequiredLevel( requirementLevel: string ): void;
-
-            /**
-             * Sets submit mode.
-             *
-             * @param   {"always"}    submitMode  Always submit this attribute.
-             */
-            setSubmitMode( submitMode: "always" ): void;
-
-            /**
-             * Sets submit mode.
-             *
-             * @param   {"never"}    submitMode  Never submit this attribute.
-             */
-            setSubmitMode( submitMode: "never" ): void;
-
-            /**
-             * Sets submit mode.
-             *
-             * @param   {"dirty"}    submitMode  Submit this attribute when changed.
-             */
-            setSubmitMode( submitMode: "dirty" ): void;
+            setRequiredLevel(requirementLevel: Attribute.RequirementLevel): void;
 
             /**
              * Sets the submit mode.
@@ -1105,12 +1030,17 @@ declare namespace Xrm
              *
              * @remarks The default value is "dirty"
              */
-            setSubmitMode( submitMode: string ): void;
+            setSubmitMode(submitMode: Attribute.SubmitMode): void;
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
              */
             controls: Collection.ItemCollection<Control>;
+        }
+
+        export module Attribute {
+            export type RequirementLevel = "none" | "recommended" | "required" ;
+            export type SubmitMode = "always" | "dirty" | "never";
         }
 
         /**
@@ -1429,29 +1359,19 @@ declare namespace Xrm
             /**
              * Saves the record with the given save mode.
              *
-             * @param   {"saveandclose"}    saveMode    Saves the record, and closes the form.
-             */
-            save( saveMode: "saveandclose" ): void;
-
-            /**
-             * Saves the record with the given save mode.
-             *
-             * @param   {"saveandnew"}  saveMode    Saves the record, and opens a blank form.
-             */
-            save( saveMode: "saveandnew" ): void;
-
-            /**
-             * Saves the record with the given save mode.
-             *
              * @param   {string}    saveMode    (Optional) the save mode to save, as either "saveandclose" or
              *                                  "saveandnew".
              */
-            save( saveMode: string ): void;
+            save( saveMode: Entity.SaveMode ): void;
 
             /**
              * The collection of attributes for the record.
              */
             attributes: Collection.ItemCollection<Attribute>;
+        }
+
+        export module Entity {
+            export type SaveMode = "saveandclose" | "saveandnew";
         }
 
         /**
@@ -1512,7 +1432,7 @@ declare namespace Xrm
                 /**
                  * Set a Process as the active process.
                  *
-                 * @param   {string}    processId           the Id of the process to make the active process.
+                 * @param   {string}    processId           The Id of the process to make the active process.
                  * @param   {function}  callbackFunction    (Optional) a function to call when the operation is complete.
                  */
                 setActiveProcess( processId: string, callbackFunction?: ProcessCallbackDelegate ): void;
@@ -1548,29 +1468,58 @@ declare namespace Xrm
                  * Use this method to asynchronously retrieve the enabled business process flows that the user can switch to for an
                  * entity.
                  *
-                 * @param   {Function} callbackFunction                                 The callback function must accept a parameter
-                 *                                                                      that contains an object with dictionary
-                 *                                                                      properties where the name of the property is the
-                 *                                                                      Id of the business process flow and the value of
-                 *                                                                      the property is the name of the business process
-                 *                                                                      flow.
-                 *
-                 *                                                                      The enabled processes are filtered according to
-                 *                                                                      the user’s privileges. The list of enabled
-                 *                                                                      processes is the same ones a user can see in the
-                 *                                                                      UI if they want to change the process manually.
+                 * @param   {Function} callbackFunction The callback function must accept a parameter that contains an object with 
+                 *                                      dictionary properties where the name of the property is the Id of the
+                 *                                      business process flow and the value of the property is the name of the
+                 *                                      business process flow.
+                 *                                      
+                 *                                      The enabled processes are filtered according to the user’s privileges. The
+                 *                                      list of enabled processes is the same ones a user can see in the UI if they
+                 *                                      want to change the process manually.
                  */
                 getEnabledProcesses( callbackFunction: ( enabledProcesses: ProcessDictionary ) => void ): void;
 
                 /**
+                 * Use this method to get the currently selected stage.
+                 *
+                 * @return  The currently selected stage.
+                 */
+                getSelectedStage(): Stage;
+
+                /**
                  * Use this to add a function as an event handler for the OnStageChange event so that it will be called when the
                  * business process flow stage changes.
-                 *
-                 * @param   {ContextSensitiveHandler}   handler The function will be added to the bottom of the event handler
-                 *                                              pipeline. The execution context is automatically set to be the first
-                 *                                              parameter passed to the event handler.
+                 * @param   {ContextSensitiveHandler}   handler The function will be added to the bottom of the event
+                 *                                              handler pipeline. The execution context is automatically
+                 *                                              set to be the first parameter passed to the event handler.
+                 * 
+                 *                                              Use a reference to a named function rather than an
+                 *                                              anonymous function if you may later want to remove the
+                 *                                              event handler.
                  */
                 addOnStageChange( handler: ContextSensitiveHandler ): void;
+
+                /**
+                 * Use this to add a function as an event handler for the OnStageSelected event so that it will be called
+                 * when a business process flow stage is selected.
+                 *
+                 * @param   {ContextSensitiveHandler}   handler The function will be added to the bottom of the event
+                 *                                              handler pipeline. The execution context is automatically
+                 *                                              set to be the first parameter passed to the event handler.
+                 * 
+                 *                                              Use a reference to a named function rather than an
+                 *                                              anonymous function if you may later want to remove the
+                 *                                              event handler.
+                 */
+                addOnStageSelected(handler: ContextSensitiveHandler): void;
+
+                /**
+                 * Use this to remove a function as an event handler for the OnStageChange event.
+                 *
+                 * @param   {ContextSensitiveHandler}   handler If an anonymous function is set using the addOnStageChange method it
+                 *                                              cannot be removed using this method.
+                 */
+                removeOnStageChange(handler: ContextSensitiveHandler): void;
 
                 /**
                  * Use this to remove a function as an event handler for the OnStageChange event.
@@ -1621,7 +1570,7 @@ declare namespace Xrm
          *
          * @sa  UiElement
          */
-        export interface Control extends UiElement
+        export interface Control extends UiElement, UiFocusable
         {
             /**
              * Clears the notification identified by uniqueId.
@@ -2037,7 +1986,7 @@ declare namespace Xrm
              *
              * @return  The display state, as either "expanded" or "collapsed"
              */
-            getDisplayState(): string;
+            getDisplayState(): ui.DisplayState;
 
             /**
              * Gets the name of the tab.
@@ -2056,23 +2005,9 @@ declare namespace Xrm
             /**
              * Sets display state of the tab.
              *
-             * @param   {"collapsed"}   displayState    Collapsed tab.
-             */
-            setDisplayState( displayState: "collapsed" ): void;
-
-            /**
-             * Sets display state of the tab.
-             *
-             * @param   {"expanded"}    displayState    Expanded tab.
-             */
-            setDisplayState( displayState: "expanded" ): void;
-
-            /**
-             * Sets display state of the tab.
-             *
              * @param   {string}    displayState   Display state of the tab, as either "expanded" or "collapsed"
              */
-            setDisplayState( displayState: string ): void;
+            setDisplayState(displayState: ui.DisplayState ): void;
 
             /**
              * A reference to the collection of form sections within this tab.
@@ -2120,23 +2055,9 @@ declare namespace Xrm
                 /**
                  * Sets display state of the process flow control.
                  *
-                 * @param   {"collapsed"}   displayState    Collapsed process flow control.
-                 */
-                setDisplayState( displayState: "collapsed" ): void;
-
-                /**
-                 * Sets display state of the process flow control.
-                 *
-                 * @param   {"expanded"}    displayState    Expanded process flow control.
-                 */
-                setDisplayState( displayState: "expanded" ): void;
-
-                /**
-                 * Sets display state of the process flow control.
-                 *
                  * @param   {string}    displayState   Display state of the process flow control, as either "expanded" or "collapsed"
                  */
-                setDisplayState( displayState: string ): void;
+                setDisplayState(displayState: ui.DisplayState ): void;
 
                 /**
                  * Sets the visibility state.
@@ -2280,6 +2201,10 @@ declare namespace Xrm
                  */
                 getEntityReference(): LookupValue;
             }
+
+            export type FormNotificationLevel = "ERROR" | "INFO" | "WARNING";
+
+            export type DisplayState = "collapsed" | "expanded";
         }
 
         /**
@@ -2393,7 +2318,7 @@ declare namespace Xrm
              * Accepted values are: "true"    (The command bar is displayed.)
              *                      "false"   (The command bar is not displayed.)
              */
-            cmdbar?: string;
+            cmdbar?: OpenParameters.CmdBarDisplay;
 
             /**
              * Controls whether the Navigation bar is displayed on the form.
@@ -2402,7 +2327,7 @@ declare namespace Xrm
              *                      "entity"  (On an entity form, only the navigation options for related
              *                                entities are available.)
              */
-            navbar?: string;
+            navbar?: OpenParameters.NavBarDisplay;
         }
 
         /**
@@ -2441,7 +2366,7 @@ declare namespace Xrm
              * Accepted values are: "true"    (The command bar is displayed.)
              *                      "false"   (The command bar is not displayed.)
              */
-            cmdbar?: string;
+            cmdbar?: OpenParameters.CmdBarDisplay;
 
             /**
              * Controls whether the Navigation bar is displayed on the form.
@@ -2450,7 +2375,7 @@ declare namespace Xrm
              *                      "entity"  (On an entity form, only the navigation options for related
              *                                entities are available.)
              */
-            navbar?: string;
+            navbar?: OpenParameters.NavBarDisplay;
         }
 
         /**
@@ -2494,7 +2419,7 @@ declare namespace Xrm
              * @remarks  "run"       Executes the report with default filters.
              *           "filter"    Presents the user with the filter editor, and a "Run Report" button.
              */
-            action: string;
+            action: ReportOpenParameters.Action;
 
             /**
              * The file name of the report.  For out-of-box reports, this parameter enables context-sensitive
@@ -2507,6 +2432,15 @@ declare namespace Xrm
              */
             id: string;
         }
+
+        export module ReportOpenParameters {
+            export type Action = "filter" | "run";
+        }
+    }
+
+    export module OpenParameters {
+        export type NavBarDisplay = "entity" | "off" | "on";
+        export type CmdBarDisplay = "true" | "false";
     }
 
     /**
@@ -2544,14 +2478,14 @@ declare namespace Xrm
              *                      "entity"  (On an entity form, only the navigation options for related
              *                                entities are available.)
              */
-            navbar?: string;
+            navbar?: OpenParameters.NavBarDisplay;
 
             /**
              * Controls whether the command bar is displayed.
              * Accepted values are: "true"    (The command bar is displayed.)
              *                      "false"   (The command bar is not displayed.)
              */
-            cmdbar?: string;
+            cmdbar?: OpenParameters.CmdBarDisplay;
         }
 
         /**
