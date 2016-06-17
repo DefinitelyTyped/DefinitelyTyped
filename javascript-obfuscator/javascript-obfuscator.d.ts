@@ -16,7 +16,7 @@ declare module 'javascript-obfuscator' {
     unicodeArray?: boolean;
     unicodeArrayThreshold?: number;
     wrapUnicodeArrayCalls?: boolean;
-    [key: string]: any;
+    [id: string]: any;
   }
 
   export class JavaScriptObfuscator {
