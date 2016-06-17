@@ -1234,7 +1234,7 @@ declare module kendo.data {
 
     interface DataSourceRequestStartEvent extends DataSourceEvent {
         type?: string;
-        preventDefault();
+        preventDefault(): void;
     }
 
     interface DataSourceRequestEndEvent extends DataSourceEvent {
