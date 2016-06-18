@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts" />
+/// <reference path="../fbemitter/fbemitter.d.ts" />
+/// <reference path="../immutable/immutable.d.ts" />
 
 declare namespace Flux {
 
@@ -71,6 +73,29 @@ declare module "flux" {
 declare namespace FluxUtils {
 
     import React = __React;
+    import fbEmitter = FBEmitter;
+    import immutable = Immutable;
+    
+    /**
+     * Default options to create a Container with
+     * 
+     * @interface RealOptions
+     */
+    interface RealOptions {
+        /**
+         * Default value: true
+         * 
+         * @type {boolean}
+         */
+        pure?: boolean;
+        /**
+         * Default value: false
+         * 
+         * @type {boolean}
+         */
+        withProps?: boolean;
+    }
+    
     export class Container {
         constructor();
         /**
@@ -78,14 +103,13 @@ declare namespace FluxUtils {
         * that updates its state when relevant stores change.
         * The provided base class must have static methods getStores() and calculateState().
         */
-        static create(base: React.ComponentClass<any>, options?: any): React.ComponentClass<any>;
+        static create<TComponent>(base: React.ComponentClass<TComponent>, options?: RealOptions): React.ComponentClass<TComponent>;
     }
 
     /**
     * This class extends ReduceStore and defines the state as an immutable map.
     */
-    // TODO: Change <any>  to <Immutable.Map<K, V>>
-    export class MapStore<K extends string | number, V> extends ReduceStore<any> {
+    export class MapStore<K extends string | number, V, TPayload> extends ReduceStore<immutable.Map<K, V>, TPayload> {
         /**
         * Access the value at the given key.
         * Throws an error if the key does not exist in the cache.
@@ -108,12 +132,10 @@ declare namespace FluxUtils {
         * it allows providing a previous result to update instead of generating a new map.
         * Providing a previous result allows the possibility of keeping the same reference if the keys did not change.
         */
-        // TODO: Update with Immutable interface.
-        // getAll(keys: Immutable.IndexedIterable<K>, prev?: Immutable.Map<K, V>): Immutable.Map<K, V>;
-        getAll(keys: any, prev?: any): any;
+        getAll(keys: immutable.Iterable.Indexed<K>, prev?: immutable.Map<K, V>): immutable.Map<K, V>;
     }
 
-    export class ReduceStore<T> extends Store {
+    export class ReduceStore<T, TPayload> extends Store<TPayload> {
         /**
         * Getter that exposes the entire state of this store.
         * If your state is not immutable you should override this and not expose state directly.
@@ -131,7 +153,7 @@ declare namespace FluxUtils {
         * All subclasses must implement this method.
         * This method should be pure and have no side-effects.
         */
-        reduce(state: T, action: any): T;
+        reduce(state: T, action: TPayload): T;
 
         /**
         * Checks if two versions of state are the same.
@@ -141,24 +163,24 @@ declare namespace FluxUtils {
 
     }
 
-    export class Store {
+    export class Store<TPayload> {
 
         /**
         * Constructs and registers an instance of this store with the given dispatcher.
         */
-        constructor(dispatcher: Flux.Dispatcher<any>);
+        constructor(dispatcher: Flux.Dispatcher<TPayload>);
 
         /**
         * Adds a listener to the store, when the store changes the given callback will be called.
         * A token is returned that can be used to remove the listener.
         * Calling the remove() function on the returned token will remove the listener.
         */
-        addListener(callback: Function): { remove: Function };
+        addListener(callback: Function): fbEmitter.EventSubscription;
 
         /**
         * Returns the dispatcher this store is registered with.
         */
-        getDispatcher(): Flux.Dispatcher<any>;
+        getDispatcher(): Flux.Dispatcher<TPayload>;
 
         /**
         * Returns the dispatch token that the dispatcher recognizes this store by.
@@ -185,7 +207,7 @@ declare namespace FluxUtils {
         * This is how the store receives actions from the dispatcher.
         * All state mutation logic must be done during this method.
         */
-        __onDispatch(payload: any): void;
+        __onDispatch(payload: TPayload): void;
     }
 }
 
