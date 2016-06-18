@@ -31,6 +31,7 @@ declare module "knex" {
     migrate: Knex.Migrator;
     seed: any;
     fn: any;
+    on(eventName: string, callback: Function): Knex.QueryBuilder;
   }
 
   function Knex(config: Knex.Config) : Knex;
