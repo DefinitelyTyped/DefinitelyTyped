@@ -174,6 +174,7 @@ declare namespace Microsoft.Maps {
         fixedMapPosition?: boolean;
         height?: number;
         inertiaIntensity?: number;
+        navigationBarMode?: number;
         showBreadcrumb?: boolean;
         showCopyright?: boolean;
         showDashboard?: boolean;
@@ -214,6 +215,12 @@ declare namespace Microsoft.Maps {
 
         getX(): number;
         getY(): number;
+    }
+
+    export enum NavigationBarMode {
+        default,
+        compact,
+        minified
     }
 
     export enum PixelReference {
@@ -307,6 +314,7 @@ declare namespace Microsoft.Maps {
         getZIndex(): number;
         setHtmlContent(content: string): void;
         setLocation(location: Location): void;
+        setMap(map: Map): void;
         setOptions(options: InfoboxOptions): void;
         toString(): string;
     }
