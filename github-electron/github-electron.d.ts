@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.2.3
+// Type definitions for Electron v1.2.4
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -270,7 +270,7 @@ declare namespace Electron {
 		clearRecentDocuments(): void;
 		/**
 		 * Sets the current executable as the default handler for a protocol (aka URI scheme).
-		 * Once registered, all links with your-protocol:// will be openend with the current executable.
+		 * Once registered, all links with your-protocol:// will be opened with the current executable.
 		 * The whole link, including protocol, will be passed to your application as a parameter.
 		 *
 		 * Note: This is only implemented on OS X and Windows.
@@ -650,15 +650,21 @@ declare namespace Electron {
 		 * Adds devtools extension located at path. The extension will be remembered
 		 * so you only need to call this API once, this API is not for programming use.
 		 * @returns The extension's name.
+		 *
+		 * Note: This API cannot be called before the ready event of the app module is emitted.
 		 */
 		static addDevToolsExtension(path: string): string;
 		/**
 		 * Remove a devtools extension.
 		 * @param name The name of the devtools extension to remove.
+		 *
+		 * Note: This API cannot be called before the ready event of the app module is emitted.
 		 */
 		static removeDevToolsExtension(name: string): void;
 		/**
 		 * @returns devtools extensions.
+		 *
+		 * Note: This API cannot be called before the ready event of the app module is emitted.
 		 */
 		static getDevToolsExtensions(): DevToolsExtensions;
 		/**
@@ -713,6 +719,10 @@ declare namespace Electron {
 		 * @returns Whether the window is visible to the user.
 		 */
 		isVisible(): boolean;
+		/**
+		 * @returns Whether the window is a modal window.
+		 */
+		isModal(): boolean;
 		/**
 		 * Maximizes the window.
 		 */
@@ -1058,6 +1068,20 @@ declare namespace Electron {
 		 * Note: This API is available only on Windows.
 		 */
 		setFocusable(focusable: boolean): void;
+		/**
+		 * Sets parent as current window's parent window,
+		 * passing null will turn current window into a top-level window.
+		 * Note: This API is not available on Windows.
+		 */
+		setParentWindow(parent: BrowserWindow): void;
+		/**
+		 * @returns The parent window.
+		 */
+		getParentWindow(): BrowserWindow;
+		/**
+		 * @returns All child windows.
+		 */
+		getChildWindows(): BrowserWindow[];
 	}
 
 	type SwipeDirection = 'up' | 'right' | 'down' | 'left';
@@ -1367,6 +1391,16 @@ declare namespace Electron {
 		 * Default: true.
 		 */
 		frame?: boolean;
+		/**
+		 * Specify parent window.
+		 * Default: null.
+		 */
+		parent?: BrowserWindow;
+		/**
+		 * Whether this is a modal window. This only works when the window is a child window.
+		 * Default: false.
+		 */
+		modal?: boolean;
 		/**
 		 * Whether the web view accepts a single mouse-down event that simultaneously activates the window.
 		 * Default: false.
@@ -2084,7 +2118,7 @@ declare namespace Electron {
 	}
 
 	type MenuItemType = 'normal' | 'separator' | 'submenu' | 'checkbox' | 'radio';
-	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close';
+	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close' | 'quit' | 'togglefullscreen';
 	type MenuItemRoleMac = 'about' | 'hide' | 'hideothers' | 'unhide' | 'front' | 'zoom' | 'window' | 'help' | 'services';
 
 	interface MenuItemOptions {
@@ -2205,6 +2239,10 @@ declare namespace Electron {
 		 */
 		static setApplicationMenu(menu: Menu): void;
 		/**
+		 * @returns The application menu if set, or null if not set.
+		 */
+		static getApplicationMenu(): Menu;
+		/**
 		 * Sends the action to the first responder of application.
 		 * This is used for emulating default Cocoa menu behaviors,
 		 * usually you would just use the role property of MenuItem.
@@ -2219,7 +2257,7 @@ declare namespace Electron {
 		 */
 		static buildFromTemplate(template: MenuItemOptions[]): Menu;
 		/**
-		 * Popups this menu as a context menu in the browserWindow. You can optionally
+		 * Pops up this menu as a context menu in the browserWindow. You can optionally
 		 * provide a (x,y) coordinate to place the menu at, otherwise it will be placed
 		 * at the current mouse cursor position.
 		 * @param x Horizontal coordinate where the menu will be placed.
@@ -3089,6 +3127,14 @@ declare namespace Electron {
 		 */
 		unsubscribeNotification(id: number): void;
 		/**
+		 * Same as subscribeNotification, but uses NSNotificationCenter for local defaults.
+		 */
+		subscribeLocalNotification(event: string, callback: (event: Event, userInfo: Object) => void): number;
+		/**
+		 * Same as unsubscribeNotification, but removes the subscriber from NSNotificationCenter.
+		 */
+		unsubscribeLocalNotification(id: number): void;
+		/**
 		 * Get the value of key in system preferences.
 		 *
 		 * Note: This is only implemented on OS X.
@@ -3206,7 +3252,7 @@ declare namespace Electron {
 			content?: string;
 		}): void;
 		/**
-		 * Popups the context menu of tray icon. When menu is passed,
+		 * Pops up the context menu of tray icon. When menu is passed,
 		 * the menu will showed instead of the tray's context menu.
 		 * The position is only available on Windows, and it is (0, 0) by default.
 		 * Note: This is only implemented on OS X and Windows.
@@ -3216,6 +3262,10 @@ declare namespace Electron {
 		 * Sets the context menu for this icon.
 		 */
 		setContextMenu(menu: Menu): void;
+		/**
+		 * @returns The bounds of this tray icon.
+		 */
+		getBounds(): Bounds;
 	}
 
 	interface Modifiers {
@@ -3721,11 +3771,11 @@ declare namespace Electron {
 
 	interface ContextMenuParams {
 		/**
-		 * x coodinate
+		 * x coordinate
 		 */
 		x: number;
 		/**
-		 * y coodinate
+		 * y coordinate
 		 */
 		y: number;
 		/**
