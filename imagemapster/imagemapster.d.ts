@@ -1,11 +1,11 @@
-// Type definitions for jquery.imagemapster 1.2.10
+// Type definitions for imagemapster 1.2.10
 // Project: http://www.outsharked.com/imagemapster/
 // Definitions by: delphinus <https://github.com/delphinus35/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts" />
 
-declare namespace JQueryImageMapster {
+declare namespace ImageMapster {
 
     type Select = "select";
     type Deselect = "deselect";
@@ -758,7 +758,7 @@ interface JQuery {
      * configuration is complete if needed to perform other setup activities on
      * the page.
      */
-    mapster(options?: JQueryImageMapster.Options): JQuery;
+    mapster(options?: ImageMapster.Options): JQuery;
 
     /**
      * select: Cause an area to become selected. This is similar to a user
@@ -767,7 +767,7 @@ interface JQuery {
      * Programatically select elements from the image map. The programmatic
      * selection/deselection methods will not honor the staticState property.
      */
-    mapster(method: JQueryImageMapster.Select): void;
+    mapster(method: ImageMapster.Select): void;
 
     /**
      * deselect: Cause an area to become deselected
@@ -775,7 +775,7 @@ interface JQuery {
      * The opposite of select, this causes an area to become deselected. If it
      * was not previously selected, nothing changes.
      */
-    mapster(method: JQueryImageMapster.Deselect): void;
+    mapster(method: ImageMapster.Deselect): void;
 
     /**
      * set: select or deselect an area
@@ -793,8 +793,8 @@ interface JQuery {
      * parameter. When present, these will supercede the default and
      * area-specific rendering options.
      */
-    mapster(method: JQueryImageMapster.Set, selected: boolean, options: JQueryImageMapster.RenderingOptions): JQuery;
-    mapster(method: JQueryImageMapster.Set, options: JQueryImageMapster.RenderingOptions): JQuery;
+    mapster(method: ImageMapster.Set, selected: boolean, options: ImageMapster.RenderingOptions): JQuery;
+    mapster(method: ImageMapster.Set, options: ImageMapster.RenderingOptions): JQuery;
 
     /**
      * get: get keys for all selected areas
@@ -803,7 +803,7 @@ interface JQuery {
      * keys representing the areas currently selected. If specified, returns
      * true or false indicating whether the area specified is selected.
      */
-    mapster(method: JQueryImageMapster.Get, key?: string): string | boolean;
+    mapster(method: ImageMapster.Get, key?: string): string | boolean;
 
     /**
      * highlight: highlight, clear, or return highlight state
@@ -819,7 +819,7 @@ interface JQuery {
      * that would normally cause a highlight to be removed occurs (e.g. moving
      * the mouse into any area), or it is removed programatically.
      */
-    mapster(method: JQueryImageMapster.Highlight, flag?: string | boolean): void;
+    mapster(method: ImageMapster.Highlight, flag?: string | boolean): void;
 
     /**
      * unbind: unbind ImageMapster from an image
@@ -854,7 +854,7 @@ interface JQuery {
      * and styles applied during configuration, which will be left intact when
      * using "preserveState."
      */
-    mapster(method: JQueryImageMapster.Unbind, preserveState?: boolean): JQuery;
+    mapster(method: ImageMapster.Unbind, preserveState?: boolean): JQuery;
 
     /**
      * snapshot: take a "snapshot" of the current selection state, and reset
@@ -875,7 +875,7 @@ interface JQuery {
      * place at the time of the snapshot essentially become part of the image
      * and are not affected by future operations.
      */
-    mapster(method: JQueryImageMapster.Snapshot): JQuery;
+    mapster(method: ImageMapster.Snapshot): JQuery;
 
     /**
      * rebind: rebind ImageMapster with new options
@@ -892,7 +892,7 @@ interface JQuery {
      * them to any existing data. When using set_options the new options only
      * apply to future actions.
      */
-    mapster(method: JQueryImageMapster.Rebind, options: JQueryImageMapster.Options): JQuery;
+    mapster(method: ImageMapster.Rebind, options: ImageMapster.Options): JQuery;
 
     /**
      * resize: change the size of the image and map
@@ -915,7 +915,7 @@ interface JQuery {
      * however, so in IE<9 the selections will be erased, then redrawn when the
      * animation is complete.
      */
-    mapster(method: JQueryImageMapster.Resize, width: number, height: number, duration?: number): JQuery;
+    mapster(method: ImageMapster.Resize, width: number, height: number, duration?: number): JQuery;
 
     /**
      * keys: get the primary mapKey (or comma-separated list of keys) for an
@@ -947,8 +947,8 @@ interface JQuery {
      * access to a complete list of primary keys in any group, or all keys
      * which contain a given primary key.
      */
-    mapster(method: JQueryImageMapster.Keys, key: string, all?: boolean): string | string[];
-    mapster(method: JQueryImageMapster.Keys, all: boolean): string | string[];
+    mapster(method: ImageMapster.Keys, key: string, all?: boolean): string | string[];
+    mapster(method: ImageMapster.Keys, all: boolean): string | string[];
 
     /**
      * set_options: set active options
@@ -960,7 +960,7 @@ interface JQuery {
      * options, but only update the state. This may affect future actions, but
      * it will not change any existing state information.
      */
-    mapster(method: JQueryImageMapster.SetOptions, options?: JQueryImageMapster.Options): JQuery;
+    mapster(method: ImageMapster.SetOptions, options?: ImageMapster.Options): JQuery;
 
     /**
      * get_options: get active options
@@ -976,7 +976,7 @@ interface JQuery {
      * including those that are inherited, as well as any specifically assigned
      * to the area.
      */
-    mapster(method: JQueryImageMapster.GetOptions, key?: string, effective?: boolean): JQueryImageMapster.Options | JQueryImageMapster.AreaRenderingOptions;
+    mapster(method: ImageMapster.GetOptions, key?: string, effective?: boolean): ImageMapster.Options | ImageMapster.AreaRenderingOptions;
 
     /**
      * tooltip: show/hide tooltips from code
@@ -992,5 +992,5 @@ interface JQuery {
      * closing event, but add a "close" button to your contianer that will
      * cause the tooltip to close when clicked.
      */
-    mapster(method: JQueryImageMapster.Tooltip, key?: string): JQuery;
+    mapster(method: ImageMapster.Tooltip, key?: string): JQuery;
 }
