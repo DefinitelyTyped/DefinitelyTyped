@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.js 0.7.3
+// Type definitions for Leaflet.js 1.0.0
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Vladimir Zotov <https://github.com/rgripper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,6 +6,7 @@
 declare namespace L {
     type LatLngExpression = LatLng | number[] | ({ lat: number; lng: number })
     type LatLngBoundsExpression = LatLngBounds | LatLngExpression[];
+    type PositionString = 'topleft' | 'topright' | 'bottomleft' | 'bottomright';
 }
 
 declare namespace L {
@@ -16,7 +17,7 @@ declare namespace L {
           * The position of the control (one of the map corners). See control positions.
           * Default value: 'bottomright'.
           */
-        position?: string;
+        position?: PositionString;
 
         /**
           * The HTML text shown before the attributions. Pass false to disable.
@@ -343,12 +344,12 @@ declare namespace L {
         /**
           * Sets the position of the control. See control positions.
           */
-        setPosition(position: string): Control;
+        setPosition(position: PositionString): Control;
 
         /**
           * Returns the current position of the control.
           */
-        getPosition(): string;
+        getPosition(): PositionString;
 
         /**
           * Adds the control to the map.
@@ -400,7 +401,7 @@ declare namespace L {
               *
               * Default value: 'topright'.
               */
-            position?: string; // 'topleft' | 'topright' | 'bottomleft' | 'bottomright'
+            position?: PositionString;
 
             /**
              * The text set on the zoom in button.
@@ -550,7 +551,7 @@ declare namespace L {
           * positions.
           * Default value: 'topright'.
           */
-        position?: string;
+        position?: PositionString;
 
     }
 }
@@ -1739,7 +1740,7 @@ declare namespace L {
           *
           * Default value: 'topright'.
           */
-        position?: string;
+        position?: PositionString;
 
         /**
           * If true, the control will be collapsed into an icon and expanded on mouse hover
@@ -2734,6 +2735,22 @@ declare namespace L.Map {
          * If true, it will delay moveend event so that it doesn't happen many times in a row.
          */
         debounceMoveend?: boolean;
+
+        /**
+         * Duration of animated panning, in seconds.
+         */
+        duration?: number;
+
+        /**
+         * The curvature factor of panning animation easing (third parameter of the Cubic Bezier curve).
+         * 1.0 means linear animation, the less the more bowed the curve.
+         */
+        easeLinearity?: number;
+
+        /**
+         * If true, panning won't fire movestart event on start (used internally for panning inertia).
+         */
+        noMoveStart?: boolean;
     }
 
     export interface FitBoundsOptions extends ZoomPanOptions {
@@ -3858,7 +3875,7 @@ declare namespace L {
           * The position of the control (one of the map corners). See control positions.
           * Default value: 'bottomleft'.
           */
-        position?: string;
+        position?: PositionString;
 
         /**
           * Maximum width of the control in pixels. The width is set dynamically to show
