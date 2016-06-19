@@ -293,16 +293,16 @@ declare namespace d3 {
             datum(): Datum;
 
             /**
-             * Set the data item for each node in the selection.
-             * @param value the constant element to use for each node
-             */
-            datum<NewDatum>(value: NewDatum): Update<NewDatum>;
-
-            /**
              * Derive the data item for each node in the selection. Useful for situations such as the HTML5 'dataset' attribute.
              * @param value the function to compute data for each node
              */
             datum<NewDatum>(value: (datum: Datum, index: number, outerIndex: number) => NewDatum): Update<NewDatum>;
+            
+            /**
+             * Set the data item for each node in the selection.
+             * @param value the constant element to use for each node
+             */
+            datum<NewDatum>(value: NewDatum): Update<NewDatum>;
 
             /**
              * Reorders nodes in the selection based on the given comparator. Nodes are re-inserted into the document once sorted.
