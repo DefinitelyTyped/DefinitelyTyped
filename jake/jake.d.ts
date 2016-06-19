@@ -75,6 +75,13 @@ declare function task(name:string, opts?:jake.TaskOptions, action?:(...params:an
 declare function npmPublishTask(name:string, packageFiles:string[]): jake.NpmPublishTask;
 declare function npmPublishTask(name:string, definition?:()=>void): jake.NpmPublishTask;
 
+/**
+ * Creates a Jake TestTask.
+ * @name name The name of the Task
+ * @param prereqs Prerequisites to be run before this task
+ * @param definitions The function to update/add to TestTask members
+ */
+declare function testTask(name:string, prereqs?:string[], definitions?:()=>void): jake.TestTask;
 
 declare namespace jake{
 
