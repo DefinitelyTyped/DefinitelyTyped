@@ -15,7 +15,7 @@ opentype.load('fonts/Roboto-Black.ttf', function(err, font) {
     }
 });
 
-var myBuffer;
+var myBuffer: ArrayBuffer;
 var font = opentype.parse(myBuffer);
 font = opentype.loadSync('fonts/Roboto-Black.ttf');
 
