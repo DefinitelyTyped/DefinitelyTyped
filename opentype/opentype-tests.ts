@@ -3,7 +3,6 @@
 var x = 0;
 var y = 0;
 var fontSize = 72;
-var options;
 var ctx: CanvasRenderingContext2D;
 
 opentype.load('fonts/Roboto-Black.ttf', function(err, font) {
@@ -48,10 +47,10 @@ var font = new opentype.Font({
     glyphs: glyphs});
 font.download();
 
-font.getPath('text', x, y, fontSize, options);
-font.draw(ctx, 'text', x, y, fontSize, options);
-font.drawPoints(ctx, 'text', x, y, fontSize, options);
-font.drawMetrics(ctx, 'text', x, y, fontSize, options);
+font.getPath('text', x, y, fontSize);
+font.draw(ctx, 'text', x, y, fontSize);
+font.drawPoints(ctx, 'text', x, y, fontSize);
+font.drawMetrics(ctx, 'text', x, y, fontSize);
 font.stringToGlyphs('string');
 font.charToGlyph('c');
 font.getKerningValue(notdefGlyph, aGlyph);
