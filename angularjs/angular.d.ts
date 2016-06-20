@@ -156,7 +156,7 @@ declare namespace angular {
 
         noop(...args: any[]): void;
         reloadWithDebugInfo(): void;
-        toJson(obj: any, pretty?: boolean): string;
+        toJson(obj: any, pretty?: boolean | number): string;
         uppercase(str: string): string;
         version: {
             full: string;
@@ -1716,7 +1716,7 @@ declare namespace angular {
          * Whether transclusion is enabled. Enabled by default.
          */
         transclude?: boolean | string | {[slot: string]: string};
-        require?: string | string[] | {[controller: string]: string};
+        require?: {[controller: string]: string};
     }
 
     interface IComponentTemplateFn {

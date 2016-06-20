@@ -3511,10 +3511,10 @@ interface UnderscoreStatic {
 
 	/**
 	* Returns a negated version of the pass-in predicate.
-	* @param Function predicate
-	* @return boolean
+	* @param (...args: any[]) => boolean predicate
+	* @return (...args: any[]) => boolean
 	**/
-	negate(predicate: Function): boolean;
+	negate(predicate: (...args: any[]) => boolean): (...args: any[]) => boolean;
 
 	/**
 	* Returns the composition of a list of functions, where each function consumes the return value of the
