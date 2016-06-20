@@ -62,8 +62,8 @@ declare namespace raygun {
         ignoreAjaxAbort?: boolean;
         ignoreAjaxError?: boolean;
         disableAnonymousUserTracking?: boolean;
-        excludedHostnames?: boolean;
-        excludedUserAgents?: boolean;
+        excludedHostnames?: boolean | string[];
+        excludedUserAgents?: boolean | string[];
         wrapAsynchronousCallbacks?: boolean;
         debugMode?: boolean;
         ignore3rdPartyErrors?: boolean;
