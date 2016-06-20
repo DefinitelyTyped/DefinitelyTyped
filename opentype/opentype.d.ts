@@ -3,11 +3,6 @@
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Type definitions for opentype.js
-// Project: https://github.com/nodebox/opentype.js
-// Definitions by: Dan Marshall <https://github.com/danmarshall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace opentypejs {
 
     interface Contour extends Array<Point> {
