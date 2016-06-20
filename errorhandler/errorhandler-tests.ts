@@ -1,4 +1,3 @@
-/// <reference path="errorhandler.d.ts" />
 
 import * as express from 'express';
 import * as errorhandler from 'errorhandler';

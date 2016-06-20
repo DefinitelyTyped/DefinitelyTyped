@@ -1,4 +1,4 @@
-/// <reference path="zynga-scroller.d.ts" />
+
 
 var scroller: Scroller = new Scroller((left, top, zoom) => { });
 scroller = new Scroller((left, top, zoom) => { }, {

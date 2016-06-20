@@ -1,4 +1,4 @@
-/// <reference path="js-beautify.d.ts" />
+
 
 var simple: string = js_beautify("console.log('Hello world!');");
 

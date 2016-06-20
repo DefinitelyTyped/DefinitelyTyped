@@ -1,4 +1,4 @@
-/// <reference path="auto-launch.d.ts" />
+
 
 import AutoLaunch = require('auto-launch');
 

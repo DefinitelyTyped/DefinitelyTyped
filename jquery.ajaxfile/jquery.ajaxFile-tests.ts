@@ -1,6 +1,6 @@
-/// <reference path="jquery.ajaxFile.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../knockout/knockout.d.ts" />
+
+/// <reference types="jquery" />
+/// <reference types="knockout" />
 
 function testRawApi(){
 	var inputElement:HTMLInputElement = null;

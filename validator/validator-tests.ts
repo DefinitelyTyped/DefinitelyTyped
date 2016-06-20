@@ -1,5 +1,3 @@
-/// <reference path='./validator.d.ts' />
-
 import * as validator from 'validator';
 
 let any: any;

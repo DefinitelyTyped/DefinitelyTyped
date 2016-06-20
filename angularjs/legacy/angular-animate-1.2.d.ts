@@ -3,7 +3,7 @@
 // Definitions by: Michel Salib <https://github.com/michelsalib>, Adi Dahiya <https://github.com/adidahiya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="angular-1.2.d.ts" />
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // ngAnimate module (angular-animate.js)

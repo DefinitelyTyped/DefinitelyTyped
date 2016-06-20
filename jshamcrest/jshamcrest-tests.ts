@@ -1,4 +1,4 @@
-/// <reference path="jshamcrest.d.ts" />
+
 
 
 function test_version() {

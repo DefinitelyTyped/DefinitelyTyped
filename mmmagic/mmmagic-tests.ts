@@ -1,4 +1,3 @@
-/// <reference path="mmmagic.d.ts" />
 
 import Magic = require("mmmagic");
 

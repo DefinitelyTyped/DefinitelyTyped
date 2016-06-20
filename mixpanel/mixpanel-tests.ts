@@ -1,4 +1,4 @@
-/// <reference path="mixpanel.d.ts" />
+
 function mixpanel_base()
 {
     mixpanel.init("new token");

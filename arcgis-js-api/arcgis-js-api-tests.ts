@@ -1,4 +1,4 @@
-/// <reference path="arcgis-js-api.d.ts" />
+
 
 import esri = require("esri");
 import Map = require("esri/map");

@@ -1,4 +1,3 @@
-/// <reference path="./update-notifier.d.ts" />
 
 import updateNotifier = require('update-notifier');
 

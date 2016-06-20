@@ -1,4 +1,4 @@
-/// <reference path="chai-jquery.d.ts" />
+
 
 // tests taken from https://github.com/chaijs/chai-jquery
 

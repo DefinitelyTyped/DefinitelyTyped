@@ -3,7 +3,7 @@
 // Definitions by: David Deutsch <http://github.com/DavidKDeutsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="highcharts.d.ts" />
+
 
 interface HighstockChartObject extends HighchartsChartObject {
     options: HighstockOptions;

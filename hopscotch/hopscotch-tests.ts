@@ -1,4 +1,4 @@
-/// <reference path="hopscotch.d.ts" />
+
 
 var tourDefinition: TourDefinition = {
   id: 'intro-tour',

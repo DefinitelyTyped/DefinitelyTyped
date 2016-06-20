@@ -1,4 +1,4 @@
-/// <reference path="date.format.d.ts" />
+
 
 // test dateFormat
 var now : string = dateFormat();

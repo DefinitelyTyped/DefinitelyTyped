@@ -1,7 +1,4 @@
-/// <reference path="./cordova-plugin-ms-adal.d.ts"/>
-
 function test_cordova_plugin_ms_adal() {
-
     var testConfiguration = {
         authority: 'https://login.microsoftonline.com/testtenant.onmicrosoft.com',
         resourceUrl: 'https://graph.windows.net/',

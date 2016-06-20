@@ -1,5 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery.slimScroll.d.ts"/>
+/// <reference types="jquery"/>
 
 $("div").slimScroll();
 

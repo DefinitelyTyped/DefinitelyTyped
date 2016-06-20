@@ -1,4 +1,4 @@
-/// <reference path="angular-toasty.d.ts" />
+
 
 interface AngularToastyTestControllerScope extends ng.IScope {
     button:string;

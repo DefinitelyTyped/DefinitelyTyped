@@ -1,4 +1,4 @@
-/// <reference path="js-data-1.5.4.d.ts" />
+
 
 import JSData = require('js-data');
 var store = new JSData.DS();

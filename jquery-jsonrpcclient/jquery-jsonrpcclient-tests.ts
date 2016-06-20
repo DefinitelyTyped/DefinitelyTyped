@@ -1,5 +1,4 @@
-﻿/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery-jsonrpcclient.d.ts"/>
+﻿/// <reference types="jquery"/>
 
 var foo = new $.JsonRpcClient({ ajaxUrl: '/backend/jsonrpc' });
 foo.call(

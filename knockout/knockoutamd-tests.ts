@@ -1,4 +1,4 @@
-/// <reference path="./knockout.d.ts" />
+
 
 ﻿import ko = require("knockout");
 

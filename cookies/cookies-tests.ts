@@ -1,5 +1,4 @@
-/// <reference path="../node/node.d.ts" />
-/// <reference path="cookies.d.ts" />
+/// <reference types="node" />
 
 import * as Cookies from 'cookies';
 import * as http from 'http';

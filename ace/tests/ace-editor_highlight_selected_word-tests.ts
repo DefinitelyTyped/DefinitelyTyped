@@ -1,4 +1,4 @@
-/// <reference path="../ace.d.ts" />
+
 
 var lipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
              "Mauris at arcu mi, eu lobortis mauris. Quisque ut libero eget " +

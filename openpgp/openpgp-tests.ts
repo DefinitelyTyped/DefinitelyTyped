@@ -1,4 +1,4 @@
-﻿/// <reference path="openpgp.d.ts" />
+﻿
 
 // Open PGP Sample codes
 

@@ -1,5 +1,3 @@
-/// <reference path="./phantom.d.ts" />
-
 import phantom = require("phantom");
 
 phantom.create().then((ph: phantom.PhantomJS): void => {

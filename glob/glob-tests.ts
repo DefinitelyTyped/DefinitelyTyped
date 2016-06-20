@@ -1,6 +1,4 @@
-/// <reference path="./glob.d.ts" />
-
-import glob = require("glob");
+import glob = require("./");
 var Glob = glob.Glob;
 
 (()=> {

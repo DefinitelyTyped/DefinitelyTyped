@@ -1,6 +1,4 @@
-﻿/// <reference path="mysql.d.ts" />
-
-import fs = require('fs');
+﻿import fs = require('fs');
 import mysql = require('mysql');
 import stream = require('stream');
 

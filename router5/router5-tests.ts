@@ -1,4 +1,3 @@
-/// <reference path="router5.d.ts" />
 
 import Router5, {loggerPlugin, RouteNode, Router5 as _Router5} from 'router5';
 

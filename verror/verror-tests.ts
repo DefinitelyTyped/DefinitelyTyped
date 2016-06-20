@@ -3,7 +3,6 @@
 // Definitions by: Sven Reglitzki <https://github.com/svi3c/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="verror.d.ts" />
 
 import VError = require("verror");
 

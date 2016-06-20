@@ -1,4 +1,3 @@
-/// <reference path="compare-version.d.ts" />
 
 import compareVersion = require('compare-version');
 

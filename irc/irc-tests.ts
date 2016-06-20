@@ -1,4 +1,4 @@
-/// <reference path="irc.d.ts" />
+
 // https://github.com/martynsmith/node-irc/blob/master/example/bot.js
 
 import irc = require('irc');

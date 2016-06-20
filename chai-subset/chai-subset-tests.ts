@@ -1,4 +1,4 @@
-/// <reference path="chai-subset.d.ts" />
+
 
 import chai = require('chai');
 import chaiSubset = require('chai-subset');

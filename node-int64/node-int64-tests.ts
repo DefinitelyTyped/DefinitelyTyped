@@ -1,5 +1,4 @@
-/// <reference path="../node/node.d.ts" />
-/// <reference path="node-int64.d.ts" />
+/// <reference types="node" />
 
 // Play example copy
 

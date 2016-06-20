@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "noImplicitAny": true,
+        "strictNullChecks": false,
+        "baseUrl": "../",
+        "jsx": "react",
+        "typesSearchPaths": [
+            "../"
+        ],
+        "noEmit": true
+    },
+    "files": [
+        "index.d.ts",
+        "react-bootstrap-tests.tsx"
+    ]
+}

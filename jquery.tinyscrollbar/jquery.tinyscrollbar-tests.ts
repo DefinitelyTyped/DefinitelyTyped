@@ -1,4 +1,4 @@
-/// <reference path="jquery.tinyscrollbar.d.ts" />
+
 
 $('#scrollbar1').tinyscrollbar();
 $('#scrollbar2').tinyscrollbar({ axis: 'x' });

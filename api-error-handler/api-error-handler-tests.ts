@@ -1,4 +1,3 @@
-/// <reference path="api-error-handler.d.ts" />
 
 import * as errorHandler from 'api-error-handler';
 import * as express from 'express';

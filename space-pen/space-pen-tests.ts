@@ -1,4 +1,4 @@
-/// <reference path="./space-pen.d.ts" />
+
 
 import SpacePen = require("space-pen");
 import View = SpacePen.View;

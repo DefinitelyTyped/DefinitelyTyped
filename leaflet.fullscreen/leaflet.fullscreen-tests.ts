@@ -1,4 +1,4 @@
-/// <reference path="leaflet.fullscreen.d.ts" />
+
 
 var map: L.Map;
 

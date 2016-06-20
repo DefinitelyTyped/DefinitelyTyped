@@ -1,4 +1,3 @@
-/// <reference path="pngjs2.d.ts" />
 
 import * as fs from "fs";
 import { PNG } from "pngjs2";

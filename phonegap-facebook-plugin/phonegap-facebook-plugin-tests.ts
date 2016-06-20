@@ -1,4 +1,4 @@
-/// <reference path="phonegap-facebook-plugin.d.ts" />
+
 
 facebookConnectPlugin.api("a", ["b", "c"]);
 facebookConnectPlugin.api("a", ["b", "c"], (result: any) => {});

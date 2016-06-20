@@ -1,4 +1,4 @@
-/// <reference path="./jquery.contextMenu.d.ts" />
+
 
 //http://medialize.github.io/jQuery-contextMenu/docs.html
 

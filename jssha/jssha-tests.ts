@@ -1,14 +1,14 @@
-/// <reference path="jssha.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="node" />
 
 import imported = require("jssha");
 
 // constructor
-let shaObj1:jsSHA.jsSHA = new imported("SHA-512", "TEXT");
-let shaObj2:jsSHA.jsSHA = new imported("SHA-512", "TEXT", { });
-let shaObj3:jsSHA.jsSHA = new imported("SHA-512", "TEXT", { encoding: "UTF8" });
-let shaObj4:jsSHA.jsSHA = new imported("SHA-512", "TEXT", { numRounds: 1 });
-let shaObj5:jsSHA.jsSHA = new imported("SHA-512", "TEXT", { encoding: "UTF8", numRounds: 1 });
+let shaObj1 = new imported("SHA-512", "TEXT");
+let shaObj2 = new imported("SHA-512", "TEXT", { });
+let shaObj3 = new imported("SHA-512", "TEXT", { encoding: "UTF8" });
+let shaObj4 = new imported("SHA-512", "TEXT", { numRounds: 1 });
+let shaObj5 = new imported("SHA-512", "TEXT", { encoding: "UTF8", numRounds: 1 });
 
 // setHMACKey
 shaObj1.setHMACKey("key", "TEXT");
@@ -50,7 +50,7 @@ let hmac5:string = shaObj1.getHMAC("HEX", { outputUpper: true, b64Pad: '=' });
 
 // Browser global test
 {
-	var shaObj = new jsSHA("SHA-512", "TEXT");
+	var shaObj = new imported("SHA-512", "TEXT");
 	shaObj.update("This is a test");
 	var hash = shaObj.getHash("HEX");
 }

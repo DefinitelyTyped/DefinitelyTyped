@@ -1,5 +1,5 @@
-/// <reference path="../chai/chai.d.ts" />
-/// <reference path="protobufjs.d.ts" />
+/// <reference types="chai" />
+
 
 var assert = require('chai').assert;
 var readFileSync = require('fs').readFileSync;

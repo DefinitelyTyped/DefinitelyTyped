@@ -1,4 +1,4 @@
-/// <reference path="./qs.d.ts" />
+
 
 import qs = require('qs');
 

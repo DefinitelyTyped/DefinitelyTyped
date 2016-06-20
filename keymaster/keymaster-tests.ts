@@ -1,4 +1,4 @@
-/// <reference path="keymaster.d.ts" />
+
 
 // simple key binding without scope
 key('shift+a', function (keyboardEvent: KeyboardEvent, keymasterEvent: KeymasterEvent) {

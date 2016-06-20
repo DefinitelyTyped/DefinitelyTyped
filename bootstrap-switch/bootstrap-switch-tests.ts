@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="bootstrap-switch.d.ts" />
+/// <reference types="jquery"/>
+
 
 function test_cases() {
 	$('#switch').bootstrapSwitch();

@@ -1,4 +1,4 @@
-/// <reference path="flightplan.d.ts" />
+
 
 import flightplan = require('flightplan');
 

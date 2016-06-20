@@ -1,4 +1,4 @@
-/// <reference path="highland.d.ts" />
+
 
 // Note: try to maintain the ordering and separators
 
@@ -137,7 +137,9 @@ fooStream = _<Foo>(readable);
 fooStream = _<Foo>(emitter);
 
 fooStream = _(fooStreamThen);
-fooStream = _(fooArrThen);
+fooStream = _(fooThen);
+
+fooArrStream = _(fooArrThen);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

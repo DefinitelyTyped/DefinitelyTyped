@@ -1,4 +1,4 @@
-/// <reference path="./express-myconnection.d.ts" />
+
 
 import express = require('express');
 import mysql = require('mysql');

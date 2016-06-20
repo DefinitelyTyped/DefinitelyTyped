@@ -1,4 +1,3 @@
-/// <reference path="aws-sdk.d.ts" />
 
 import AWS = require('aws-sdk');
 

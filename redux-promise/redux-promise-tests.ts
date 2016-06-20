@@ -1,11 +1,10 @@
-/// <reference path="redux-promise.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="../redux-actions/redux-actions.d.ts" />
+
+/// <reference types="redux" />
+/// <reference types="redux-actions" />
 
 import {createAction} from 'redux-actions';
 import { createStore, applyMiddleware } from 'redux';
 import promise from 'redux-promise';
-import PromiseInterface = ReduxPromise.PromiseInterface;
 
 declare var userReducer: any;
 
@@ -18,7 +17,7 @@ appStore.dispatch(
     listUsers()
 );
 
-function listUsers(): PromiseInterface {
+function listUsers() {
     return createAction('LIST_USERS',
         () => {
             return Promise.resolve([{ email: 'me@definitely.typed' }]);
