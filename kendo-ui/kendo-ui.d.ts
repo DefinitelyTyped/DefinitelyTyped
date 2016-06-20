@@ -3335,6 +3335,7 @@ declare namespace kendo.ui {
         static fn: DropDownList;
 
         options: DropDownListOptions;
+        popup: kendo.ui.Popup;
 
         dataSource: kendo.data.DataSource;
         span: JQuery;
