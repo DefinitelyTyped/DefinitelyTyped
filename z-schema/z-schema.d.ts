@@ -37,6 +37,7 @@ declare namespace ZSchema {
     }
 
     export class Validator {
+<<<<<<< HEAD
     
         /**
          * Register a custom format.
@@ -61,6 +62,11 @@ declare namespace ZSchema {
          */
         public static getRegisteredFormats(): string[];
         
+=======
+        public static registerFormat(name: string, validator: (value: any) => boolean): void;
+        public static unregisterFormat(name: string): void;
+        public static getRegisteredFormats(): string[];
+>>>>>>> e325b363f5ee9c72ebde49f1e783ae725f64b7e2
         public static getDefaultOptions(): Options;
     
         constructor(options: Options);

@@ -1282,6 +1282,7 @@ declare namespace kendo.data {
 
     interface DataSourceRequestStartEvent extends DataSourceEvent {
         type?: string;
+        preventDefault(): void;
     }
 
     interface DataSourceRequestEndEvent extends DataSourceEvent {
