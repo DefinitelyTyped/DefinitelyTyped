@@ -1,4 +1,4 @@
-/// <reference path="parse-torrent.d.ts" />
+
 
 import parseTorrent = require('parse-torrent');
 import * as fs from 'fs';

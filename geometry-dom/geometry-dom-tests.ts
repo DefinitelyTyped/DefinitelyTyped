@@ -1,4 +1,4 @@
-/// <reference path="./geometry-dom.d.ts" />
+
 
 var point = new DOMPoint(5, 4);
 var matrix = new DOMMatrix(2, 0, 0, 2, 10, 10);

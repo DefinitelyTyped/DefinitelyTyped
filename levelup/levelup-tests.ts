@@ -1,4 +1,4 @@
-/// <reference path="levelup.d.ts" />
+
 
 import levelup = require("levelup");
 
@@ -46,10 +46,10 @@ db.batch()
 var open:boolean = db.isOpen();
 var closed:boolean = db.isClosed(); 
 db.createReadStream()
-    .on('data', function (data) {
+    .on('data', function (data: any) {
       console.log(data.key, '=', data.value)
     })
-    .on('error', function (err) {
+    .on('error', function (err: any) {
       console.log('Oh my!', err)
     })
     .on('close', function () {

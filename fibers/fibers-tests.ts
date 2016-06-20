@@ -1,4 +1,3 @@
-/// <reference path="fibers.d.ts" />
 
 import fibers = require('fibers');
 

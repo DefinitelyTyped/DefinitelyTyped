@@ -1,5 +1,3 @@
-///<reference path="jquery.clientSideLogging.d.ts" />
-
 $.clientSideLogging({
 	log_level: 3,
 	client_info: {

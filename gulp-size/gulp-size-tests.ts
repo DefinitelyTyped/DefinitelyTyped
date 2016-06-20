@@ -1,6 +1,5 @@
-/// <reference path="gulp-size.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
-/// <reference path="../gulp-debug/gulp-debug.d.ts" />
+
+
 
 import * as gulp from 'gulp';
 import * as size from 'gulp-size';

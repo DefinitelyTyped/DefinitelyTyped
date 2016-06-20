@@ -1,4 +1,4 @@
-/// <reference path="./power-assert-formatter.d.ts" />
+
 
 powerAssertFormatter();
 

@@ -1,4 +1,4 @@
-/// <reference path="mocha.d.ts" />
+
 
 function test_describe() {
     describe('something', () => { });

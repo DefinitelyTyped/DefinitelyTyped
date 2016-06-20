@@ -1,4 +1,3 @@
-/// <reference path="./rsmq-worker.d.ts" />
 
 import RSMQWorker = require('rsmq-worker');
 

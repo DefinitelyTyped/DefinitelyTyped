@@ -1,5 +1,5 @@
-/// <reference path="ko.plus.d.ts" />
-/// <reference path="../knockout/knockout.d.ts" />
+
+/// <reference types="knockout" />
 
 // Tests for ko.plus.d.ts
 // Project: https://github.com/stevegreatrex/ko.plus

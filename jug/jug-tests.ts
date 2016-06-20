@@ -1,4 +1,4 @@
-/// <reference path='./jug.d.ts' />
+
 import jug = require('jug');
 
 /*

@@ -1,4 +1,3 @@
-/// <reference path="request.d.ts" />
 
 import request = require('request');
 import http = require('http');

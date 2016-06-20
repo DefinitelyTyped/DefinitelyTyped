@@ -1,5 +1,4 @@
-///<reference path="simplestorage.js.d.ts"/>
-
+import simpleStorage = require("simplestorage.js")
 var versionTest:        string           = simpleStorage.version;
 var canUseTest:         boolean          = simpleStorage.canUse();
 var simpleStorageTest1: boolean|Error    = simpleStorage.set("string", 7);

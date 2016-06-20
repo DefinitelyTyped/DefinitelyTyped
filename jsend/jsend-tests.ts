@@ -1,4 +1,4 @@
-/// <reference path="jsend.d.ts" />
+
 
 import jsend = require('jsend');
 

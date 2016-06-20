@@ -1,4 +1,4 @@
-/// <reference path="azure-mobile-apps.d.ts" />
+
 
 import express = require('express');
 import mobileApps = require('azure-mobile-apps');

@@ -1,4 +1,4 @@
-/// <reference path="jquery.tinycarousel.d.ts" />
+
 
 $('#slider1').tinycarousel();
 

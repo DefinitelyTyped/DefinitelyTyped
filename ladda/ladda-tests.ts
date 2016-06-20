@@ -1,4 +1,4 @@
-﻿/// <reference path="ladda.d.ts" />
+﻿
 
 // Automatically trigger the loading animation on click
 Ladda.bind('input[type=submit]');

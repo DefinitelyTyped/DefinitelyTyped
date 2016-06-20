@@ -1,5 +1,3 @@
-/// <reference path="./gulp-ruby-sass.d.ts"/>
-/// <reference path="../gulp/gulp.d.ts"/>
 import * as gulp from "gulp";
 import * as sass from "gulp-ruby-sass";
 

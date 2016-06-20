@@ -1,5 +1,5 @@
 // Tests for Video.js API
-/// <reference path="videojs.d.ts" />
+
 
 videojs("example_video_1").ready(function(){
 

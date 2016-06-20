@@ -1,5 +1,3 @@
-///<reference path="bluebird.d.ts"/>
-
 // Tests by: Bart van der Schoor <https://github.com/Bartvds>
 
 // Note: replicate changes to all overloads in both definition and test file

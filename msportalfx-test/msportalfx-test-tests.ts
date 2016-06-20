@@ -1,5 +1,5 @@
 
-/// <reference path="msportalfx-test.d.ts" />
+
 
 import testFx = require('MsPortalFx-Test');
 

@@ -1,5 +1,3 @@
-/// <reference path="cordovarduino.d.ts"/>
-
 serial.requestPermission(function success() {}, function error() {});
 serial.open({}, function success() {}, function error() {});
 serial.write('data_string', function success() {}, function error() {});

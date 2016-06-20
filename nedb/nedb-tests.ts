@@ -2,9 +2,9 @@
  * Created by stefansteinhart on 31.01.15.
  */
 
-/// <reference path="../q/Q.d.ts" />
-/// <reference path="../node/node.d.ts" />
-/// <reference path="nedb.d.ts" />
+/// <reference types="Q" />
+/// <reference types="node" />
+
 
 import Q = require('q');
 import nedb = require('nedb');
@@ -147,7 +147,7 @@ class BaseCollection<T> {
         return deferred.promise;
     }
 
-    public update(query:Object, updateQuery:Object, options?:NeDB.UpdateOptions):Q.Promise<number> {
+    public update(query:Object, updateQuery:Object, options?:any):Q.Promise<number> {
 
         var deferred = Q.defer<number>();
 

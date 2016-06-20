@@ -1,4 +1,4 @@
-/// <reference path="inversify.d.ts" />
+
 
 namespace global_module_test {
 

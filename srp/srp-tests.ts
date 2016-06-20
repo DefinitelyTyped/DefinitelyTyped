@@ -1,4 +1,4 @@
-/// <reference path="srp.d.ts" />
+
 
 var srp = require('srp');
 

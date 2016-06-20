@@ -1,5 +1,4 @@
-/// <reference path="./voximplant-websdk.d.ts"/>
-
+import VoxImplant = require("voximplant-websdk");
 var vox: VoxImplant.Client = VoxImplant.getInstance(),
 	call: VoxImplant.Call,
 	room: string;

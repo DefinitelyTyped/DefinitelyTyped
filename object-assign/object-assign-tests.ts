@@ -1,4 +1,4 @@
-/// <reference path="object-assign.d.ts" />
+
 import objectAssign = require("object-assign");
 
 function assign1() {

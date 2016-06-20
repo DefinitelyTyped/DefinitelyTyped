@@ -1,4 +1,4 @@
-/// <reference path="angular-fullscreen.d.ts" />
+
 
 angular
   .module('TestApp', ['FBAngular'])

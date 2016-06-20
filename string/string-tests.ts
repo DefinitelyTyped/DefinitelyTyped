@@ -1,4 +1,4 @@
-/// <reference path="string.d.ts" />
+
 
 import S = require('string');
 

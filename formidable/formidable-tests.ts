@@ -1,4 +1,3 @@
-/// <reference path="./formidable.d.ts" />
 
 import formidable = require('formidable');
 import http = require('http');

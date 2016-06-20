@@ -1,4 +1,3 @@
-/// <reference path="mime.d.ts" />
 
 import * as mime from "mime";
 

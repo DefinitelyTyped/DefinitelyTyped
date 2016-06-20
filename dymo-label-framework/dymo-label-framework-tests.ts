@@ -1,4 +1,4 @@
-/// <reference path="dymo-label-framework.d.ts" />
+
 
 var f = dymo.label.framework;
 

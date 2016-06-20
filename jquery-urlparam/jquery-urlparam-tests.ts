@@ -1,4 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="jquery-urlparam.d.ts" />
+/// <reference types="jquery" />
+
 
 console.log($.urlParam('variable'));

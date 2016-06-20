@@ -1,4 +1,4 @@
-﻿/// <reference path="less.d.ts" />
+﻿
 
 import less = require("less");
 

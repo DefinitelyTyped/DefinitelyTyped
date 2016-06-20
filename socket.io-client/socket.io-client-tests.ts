@@ -1,5 +1,3 @@
-/// <reference path="socket.io-client.d.ts"/>
-
 function testUsingWithNodeHTTPServer() {
     var socket = io('http://localhost');
     socket.on('news', function (data: any) {

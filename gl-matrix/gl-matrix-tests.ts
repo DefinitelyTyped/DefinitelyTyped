@@ -1,4 +1,4 @@
-/// <reference path="gl-matrix.d.ts" />
+
 
 // common
 var result: number = glMatrix.toRadian(180);

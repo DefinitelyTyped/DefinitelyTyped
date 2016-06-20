@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="mCustomScrollbar.d.ts" />
+/// <reference types="jquery" />
+
 
 class SimpleTest {
     element: JQuery;

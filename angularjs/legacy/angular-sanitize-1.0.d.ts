@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="angular-1.0.d.ts" />
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // ngSanitize module (angular-sanitize.js)

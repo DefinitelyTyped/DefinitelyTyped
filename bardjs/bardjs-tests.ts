@@ -1,8 +1,6 @@
-/// <reference path="bardjs.d.ts" />
-/// <reference path="../mocha/mocha.d.ts" />
-/// <reference path="../chai/chai.d.ts" />
-/// <reference path="../angularjs/angular.d.ts" />
-/// <reference path="../angularjs/angular-mocks.d.ts" />
+/// <reference types="mocha" />
+/// <reference types="chai" />
+/// <reference types="angularjs" />
 
 namespace bardTests {
     var expect = chai.expect,

@@ -1,4 +1,3 @@
-/// <reference path="karma-coverage.d.ts" />
 
 import * as karma from 'karma-coverage';
 

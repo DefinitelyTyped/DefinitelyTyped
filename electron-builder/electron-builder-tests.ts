@@ -1,4 +1,4 @@
-/// <reference path="./electron-builder.d.ts" />
+
 
 import * as factory from "electron-builder";
 const builder = factory.init();

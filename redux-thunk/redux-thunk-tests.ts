@@ -1,10 +1,9 @@
-/// <reference path="redux-thunk.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="../express/express.d.ts" />
+
+/// <reference types="redux" />
+
 
 import { createStore, applyMiddleware, Store, Dispatch } from 'redux';
 import thunk from 'redux-thunk';
-import ThunkInterface = ReduxThunk.ThunkInterface;
 
 declare var rootReducer: Function;
 declare var fetch: any;
@@ -58,7 +57,7 @@ store.dispatch(withdrawMoney(100));
 // A thunk is a function that returns a function.
 // This is a thunk.
 
-function makeASandwichWithSecretSauce(forPerson: any): ThunkInterface {
+function makeASandwichWithSecretSauce(forPerson: any) {
 
     // Invert control!
     // Return a function that accepts `dispatch` so we can dispatch later.
@@ -92,7 +91,7 @@ store.dispatch(
 // actions and async actions from other action creators,
 // and I can build my control flow with Promises.
 
-function makeSandwichesForEverybody(): ThunkInterface {
+function makeSandwichesForEverybody() {
     return function (dispatch: Dispatch, getState: () => any): any {
         if (!getState().sandwiches.isShopOpen) {
 

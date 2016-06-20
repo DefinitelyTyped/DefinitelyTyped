@@ -1,4 +1,4 @@
-/// <reference path="password-hash.d.ts" />
+
 'use strict';
 
 import {generate, verify, isHashed} from 'password-hash';

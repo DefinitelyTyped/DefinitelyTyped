@@ -3,11 +3,11 @@
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="google-apps-script.types.d.ts" />
-/// <reference path="google-apps-script.base.d.ts" />
-/// <reference path="google-apps-script.document.d.ts" />
-/// <reference path="google-apps-script.forms.d.ts" />
-/// <reference path="google-apps-script.spreadsheet.d.ts" />
+
+
+
+
+
 
 declare namespace GoogleAppsScript {
   export module Script {

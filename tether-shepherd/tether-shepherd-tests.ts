@@ -1,5 +1,3 @@
-///<reference path="tether-shepherd.d.ts" />
-
 var tour = new Shepherd.Tour({
     defaults: {
         classes: 'shepherd-theme-default'

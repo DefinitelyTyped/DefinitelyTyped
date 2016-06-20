@@ -1,4 +1,4 @@
-/// <reference path="scalike.d.ts" />
+
 
 import {Optional, Some, None, Try, Right, Left, Either, Future} from "scalike";
 

@@ -1,4 +1,4 @@
-/// <reference path="js-data-http.d.ts" />
+
 
 var adapter = new DSHttpAdapter();
 var store = new JSData.DS();

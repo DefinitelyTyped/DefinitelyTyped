@@ -1,5 +1,4 @@
-/// <reference path="simplebar.d.ts"/>
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 var simplebar = $.fn.simplebar.noConflict();
 $.fn.simplebar = simplebar;

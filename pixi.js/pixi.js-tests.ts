@@ -1,4 +1,4 @@
-﻿/// <reference path="pixi.js.d.ts" />
+﻿import PIXI = require("pixi.js");
 namespace basics {
 
     export class Basics {

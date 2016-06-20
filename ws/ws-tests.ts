@@ -1,4 +1,3 @@
-/// <reference path="ws.d.ts" />
 
 import WebSocket = require('ws');
 var WebSocketServer = WebSocket.Server;

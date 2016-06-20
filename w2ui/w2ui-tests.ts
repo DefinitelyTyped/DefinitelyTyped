@@ -1,4 +1,4 @@
-/// <reference path="w2ui.d.ts" />
+
 
 $(function() {
 

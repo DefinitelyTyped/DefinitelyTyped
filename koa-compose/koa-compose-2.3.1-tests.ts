@@ -1,4 +1,4 @@
-/// <reference path="koa-compose-2.3.1.d.ts" />
+
 
 import compose = require('koa-compose');
 

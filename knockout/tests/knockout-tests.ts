@@ -1,5 +1,5 @@
-/// <reference path="../knockout.d.ts" />
-/// <reference path="../../knockout.mapping/knockout.mapping.d.ts" />
+
+/// <reference types="knockout.mapping" />
 
 declare var $;
 
@@ -571,7 +571,7 @@ function test_misc() {
     });
 	
 	this.observableFactory = function(): KnockoutObservable<number>{
-	    if (true) {
+	    if (!!true) {
 			return ko.computed({
 				read:function(){ 
 					return 3; 

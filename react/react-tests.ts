@@ -1,15 +1,3 @@
-/// <reference path="react.d.ts" />
-/// <reference path="react-dom.d.ts" />
-/// <reference path="react-addons-create-fragment.d.ts" />
-/// <reference path="react-addons-css-transition-group.d.ts" />
-/// <reference path="react-addons-linked-state-mixin.d.ts" />
-/// <reference path="react-addons-perf.d.ts" />
-/// <reference path="react-addons-pure-render-mixin.d.ts" />
-/// <reference path="react-addons-shallow-compare.d.ts" />
-/// <reference path="react-addons-test-utils.d.ts" />
-/// <reference path="react-addons-transition-group.d.ts" />
-/// <reference path="react-addons-update.d.ts" />
-
 import React = require("react");
 import ReactDOM = require("react-dom");
 import ReactDOMServer = require("react-dom/server");
@@ -138,6 +126,8 @@ class ModernComponent extends React.Component<Props, State>
     }
 }
 
+class ModernComponentNoState extends React.Component<Props, void> {}
+
 interface SCProps {
     foo?: number;
 }
@@ -182,6 +172,8 @@ var domFactoryElement: React.DOMElement<React.DOMAttributes, Element> =
 // React.createElement
 var element: React.CElement<Props, ModernComponent> =
     React.createElement(ModernComponent, props);
+var elementNoState: React.CElement<Props, ModernComponentNoState> =
+    React.createElement(ModernComponentNoState, props);
 var statelessElement: React.SFCElement<SCProps> =
     React.createElement(StatelessComponent, props);
 var classicElement: React.ClassicElement<Props> =
@@ -216,6 +208,8 @@ var clonedDOMElement: React.ReactHTMLElement<HTMLDivElement> =
 // React.render
 var component: ModernComponent =
     ReactDOM.render(element, container);
+var componentNoState: ModernComponentNoState =
+    ReactDOM.render(elementNoState, container);
 var classicComponent: React.ClassicComponent<Props, any> =
     ReactDOM.render(classicElement, container);
 var domComponent: Element =
@@ -547,10 +541,9 @@ var node: Element = TestUtils.renderIntoDocument(React.DOM.div());
 
 TestUtils.Simulate.click(node);
 TestUtils.Simulate.change(node);
-TestUtils.Simulate.keyDown(node, { key: "Enter" });
+TestUtils.Simulate.keyDown(node, { key: "Enter", cancelable: false });
 
-var renderer: React.ShallowRenderer =
-    TestUtils.createRenderer();
+var renderer: TestUtils.ShallowRenderer = TestUtils.createRenderer();
 renderer.render(React.createElement(Timer));
 var output: React.ReactElement<React.Props<Timer>> =
     renderer.getRenderOutput();

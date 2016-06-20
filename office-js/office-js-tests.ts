@@ -3,7 +3,7 @@ office-js
 Copyright (c) Microsoft Corporation
 */
 
-/// <reference path="office-js.d.ts" />
+
 
 function test_excel() {
 	

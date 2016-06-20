@@ -1,5 +1,4 @@
-/// <reference path="noisejs.d.ts"/>
-
+import Noise = require("noisejs");
 var noise = new Noise(Math.random());
 
 var simplex2_noise_val = noise.simplex2(0.1, 0.2);

@@ -1,5 +1,5 @@
-/// <reference path="knockout.mapping.d.ts" />
-/// <reference path="../knockout/knockout.d.ts" />
+
+/// <reference types="knockout" />
 
 var inputJSON = '{ name: "foo" }';
 var inputData = { name: 'foo' };

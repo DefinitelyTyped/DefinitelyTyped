@@ -1,4 +1,3 @@
-/// <reference path="./finalhandler.d.ts" />
 
 import {ServerRequest, ServerResponse} from "http";
 import finalHandler from "finalhandler";

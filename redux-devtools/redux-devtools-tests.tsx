@@ -1,7 +1,5 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="../react-redux/react-redux.d.ts" />
-/// <reference path="redux-devtools.d.ts" />
+/// <reference types="react" />
+/// <reference types="redux" />
 
 import * as React from 'react'
 import { createStore, applyMiddleware, compose } from 'redux'

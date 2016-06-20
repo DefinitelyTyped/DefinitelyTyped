@@ -1,7 +1,3 @@
-/// <reference path="ember.d.ts" />
-/// <reference path="../handlebars/handlebars-1.0.0.d.ts" />
-
-
 var App : any;
 
 App = Em.Application.create<Em.Application>();

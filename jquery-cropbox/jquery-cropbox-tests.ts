@@ -1,5 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery-cropbox.d.ts"/>
+/// <reference types="jquery"/>
 
 var cropboxWithDefaultSettings = $("#element").cropbox();
 

@@ -1,5 +1,3 @@
-/// <reference path='notie.d.ts' />
-
 notie.alert(1, 'Success!', 1.5);
 notie.alert(2, 'Warning<br><b>with</b><br><i>HTML</i><br><u>included.</u>', 2);
 notie.alert(3, 'Error.', 2.5);

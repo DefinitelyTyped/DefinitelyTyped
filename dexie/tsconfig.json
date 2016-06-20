@@ -1,10 +1,17 @@
 {
     "compilerOptions": {
-        "module": "es6",
+        "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
-        "removeComments": false,
-        "sourceMap": true,
-        "outDir": "out/ts"
-    }
+        "strictNullChecks": false,
+        "baseUrl": "../",
+        "typesSearchPaths": [
+            "../"
+        ],
+        "noEmit": true
+    },
+    "files": [
+        "index.d.ts",
+        "dexie-tests.ts"
+    ]
 }

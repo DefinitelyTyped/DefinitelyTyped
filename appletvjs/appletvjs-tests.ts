@@ -1,4 +1,4 @@
-/// <reference path="appletvjs.d.ts" />
+
 
 //test the global app events and functions
 function test_AppEvents() {

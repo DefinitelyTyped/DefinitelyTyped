@@ -3,7 +3,6 @@
 // Definitions by: David Reher <http://github.com/davidreher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./angular.d.ts" />
 
 declare namespace angular {
     /**
