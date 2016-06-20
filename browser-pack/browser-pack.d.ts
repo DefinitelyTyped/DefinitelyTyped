@@ -54,8 +54,6 @@ declare module BrowserPack {
 }
 
 declare module "browser-pack" {
-    import stream = require("stream");
-
     /** pack node-style source files from a json stream into a browser bundle
      */
     function browserPack(opts?: BrowserPack.Options): NodeJS.ReadWriteStream;
