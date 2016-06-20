@@ -242,3 +242,7 @@ declare namespace opentypejs {
 }
 
 declare var opentype: typeof opentypejs;
+
+declare module "opentype.js" {
+    export = opentype;
+}
