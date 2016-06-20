@@ -31,6 +31,7 @@ declare module "knex" {
     migrate: Knex.Migrator;
     seed: any;
     fn: any;
+    on(eventName: string, callback: Function): Knex.QueryBuilder;
   }
 
   function Knex(config: Knex.Config) : Knex;
@@ -314,6 +315,7 @@ declare module "knex" {
 
     interface TableBuilder {
       increments(columnName?: string): ColumnBuilder;
+      bigIncrements(columnName?: string): ColumnBuilder;
       dropColumn(columnName: string): TableBuilder;
       dropColumns(...columnNames: string[]): TableBuilder;
       renameColumn(from: string, to: string): ColumnBuilder;
