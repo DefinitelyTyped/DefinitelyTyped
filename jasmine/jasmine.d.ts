@@ -179,6 +179,7 @@ declare namespace jasmine {
         addCustomEqualityTester(equalityTester: CustomEqualityTester): void;
         addMatchers(matchers: CustomMatcherFactories): void;
         specFilter(spec: Spec): boolean;
+        throwOnExpectationFailure(value: boolean): void;
     }
 
     interface FakeTimer {
