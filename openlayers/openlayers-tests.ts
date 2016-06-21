@@ -358,6 +358,14 @@ var imageWMS: ol.source.ImageWMS = new ol.source.ImageWMS({
     serverType: stringValue,
     url:stringValue
 });
+
+//
+// ol.source.Source
+//
+const source = imageWMS as ol.source.Source;
+voidValue = source.refresh();
+projectionValue = source.getProjection();
+
 //
 // ol.source.TileWMS
 //
@@ -366,6 +374,9 @@ var tileWMS: ol.source.TileWMS = new ol.source.TileWMS({
     serverType: stringValue,
     url:stringValue
 });
+
+tileWMS.updateParams(tileWMS.getParams());
+stringValue = tileWMS.getGetFeatureInfoUrl();
 
 //
 // ol.source.WMTS
