@@ -4121,6 +4121,16 @@ declare namespace ol {
         }
 
         class Source {
+            /**
+             * Get the projection of the source.
+             * @return Projection.
+             */
+            getProjection(): ol.proj.Projection;
+
+            /**
+             * Refreshes the source and finally dispatches a 'change' event.
+             */
+            refresh(): void;
         }
 
         class Stamen {
