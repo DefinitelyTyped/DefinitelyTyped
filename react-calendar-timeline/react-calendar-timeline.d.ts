@@ -1,4 +1,4 @@
-// Type definitions for react-calendar-timeline v0.7.9
+// Type definitions for react-calendar-timeline v0.8.1
 // Project: https://github.com/namespace-ee/react-calendar-timeline
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,11 +7,14 @@
 
 declare module "react-calendar-timeline" {
     interface ReactCalendarTimeline {
-        groups?:any;
-        items?:{
+        groups: {
+            id: number;
+            title: any; // string | Element (__React.ClassicComponentClass<any>);
+        }[];
+        items:{
             id: number;
             group: number;
-            title?: string;
+            title?: any; // string | Element (__React.ClassicComponentClass<any>);
             start_time: any;
             end_time: any;
             canMove?: boolean;
@@ -53,16 +56,15 @@ declare module "react-calendar-timeline" {
         onCanvasClick?(groupId:any, time:any, e:any): any;
         onItemDoubleClick?(itemId:any): any;
         moveResizeValidator?(action:any, itemId:any, time:any): any;
-        defaultTimeStart: any;
-        defaultTimeEnd: any;
-        visibleTimeStart?: any;
-        visibleTimeEnd?: any;
+        defaultTimeStart?: any;
+        defaultTimeEnd?: any;
+        visibleTimeStart?: number;
+        visibleTimeEnd?: number;
         onTimeChange?(visibleTimeStart:any, visibleTimeEnd:any): any;
         onTimeInit?(visibleTimeStart:any, visibleTimeEnd:any): any;
         onBoundsChange?(canvasTimeStart:any, canvasTimeEnd:any): any;
         children?: any;
     }
-
-    let ReactCalendarTimeline: __React.ClassicComponentClass<ReactCalendarTimeline>;
-    export = ReactCalendarTimeline;
+    let ReactCalendarTimeline : __React.ClassicComponentClass<ReactCalendarTimeline>;
+    export default ReactCalendarTimeline;
 }

@@ -20,14 +20,14 @@ declare namespace createjs {
         static BINARY: string;
         canceled: boolean;
         static CSS: string;
-        GET: string;
+        static GET: string;
         static IMAGE: string;
         static JAVASCRIPT: string;
         static JSON: string;
         static JSONP: string;
         loaded: boolean;
         static MANIFEST: string;
-        POST: string;
+        static POST: string;
         progress: number;
         resultFormatter: () => any;
         static SOUND: string;

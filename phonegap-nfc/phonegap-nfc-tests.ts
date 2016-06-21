@@ -3,6 +3,8 @@
 import nfc = require('nfc');
 import ndef = require('ndef');
 import NdefRecord = PhoneGapNfc.NdefRecord;
+import NdefTag = PhoneGapNfc.NdefTag;
+import NdefTagEvent = PhoneGapNfc.NdefTagEvent;
 
 nfc.addTagDiscoveredListener(() => {});
 nfc.addTagDiscoveredListener(() => {},() => {}, () => {});
@@ -39,7 +41,7 @@ nfc.erase();
 nfc.erase(() => {}, () => {});
 
 nfc.enabled();
-nfc.enabled(() => {}, () => {});
+nfc.enabled((status: String) => {}, (status: String) => {});
 
 nfc.removeTagDiscoveredListener(() => {});
 nfc.removeTagDiscoveredListener(() => {},() => {},() => {});
@@ -78,3 +80,45 @@ let obj:any = ndef.decodeTnf(bytes[0]);
 let tnfByte:number = ndef.encodeTnf(bytes[0],bytes[1],bytes[2],bytes[3],bytes[4],bytes[5]);
 
 let tnfString:string = ndef.tnfToString(tnfByte);
+
+let ndefTag: NdefTag = {
+    id: [4, 12, 109, 98, 8, 41, -127],
+    techTypes: ["android.nfc.tech.MifareUltralight", "android.nfc.tech.NfcA", "android.nfc.tech.Ndef"],
+    type: "NFC Forum Type 2",
+    date: "1394448136236",
+
+    canMakeReadOnly: true,
+    isWritable: true,
+    maxSize: 137,
+    ndefMessage: records
+};
+
+let eventTarget: EventTarget = {
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean) { return; },
+    dispatchEvent(evt: Event) { return true; },
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean) { return; }
+}
+
+let ndefTagEvent: NdefTagEvent = {
+    bubbles: false,
+    cancelBubble: false,
+    cancelable: false,
+    currentTarget: eventTarget,
+    defaultPrevented: false,
+    eventPhase: 2,
+    isTrusted: true,
+    returnValue: true,
+    srcElement: new Element(),
+    target: eventTarget,
+    timeStamp: 1394448136236,
+    type: "ndef",
+    initEvent(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean) { return; },
+    preventDefault() { return; },
+    stopImmediatePropagation() { return; },
+    stopPropagation() { return; },
+    AT_TARGET: 0,
+    BUBBLING_PHASE: 0,
+    CAPTURING_PHASE: 0,
+
+    tag: ndefTag
+};

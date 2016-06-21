@@ -37,7 +37,18 @@ declare namespace ZSchema {
     }
 
     export class Validator {
+        public static registerFormat(name: string, validator: (value: any) => boolean): void;
+        public static unregisterFormat(name: string): void;
+        public static getRegisteredFormats(): string[];
+        public static getDefaultOptions(): Options;
+    
         constructor(options: Options);
+
+        /**
+         * @param schema - JSON object representing schema
+         * @returns {boolean} true if schema is valid.
+         */
+        validateSchema(schema: any): boolean;
 
         /**
          * @param json - either a JSON string or a parsed JSON object

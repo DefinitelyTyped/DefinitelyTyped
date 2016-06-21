@@ -8,6 +8,7 @@ import * as util from "util";
 import * as crypto from "crypto";
 import * as tls from "tls";
 import * as http from "http";
+import * as https from "https";
 import * as net from "net";
 import * as tty from "tty";
 import * as dgram from "dgram";
@@ -54,6 +55,8 @@ namespace events_tests {
         result = emitter.addListener(event, listener);
         result = emitter.on(event, listener);
         result = emitter.once(event, listener);
+        result = emitter.prependListener(event, listener);
+        result = emitter.prependOnceListener(event, listener);
         result = emitter.removeListener(event, listener);
         result = emitter.removeAllListeners();
         result = emitter.removeAllListeners(event);
@@ -83,6 +86,12 @@ namespace events_tests {
         result = emitter.emit(event, any);
         result = emitter.emit(event, any, any);
         result = emitter.emit(event, any, any, any);
+    }
+
+    {
+        let result: string[];
+
+        result = emitter.eventNames();
     }
 }
 
@@ -136,6 +145,22 @@ fs.mkdtemp('/tmp/foo-', (err, folder) => {
 
 var tempDir: string;
 tempDir = fs.mkdtempSync('/tmp/foo-');
+
+fs.watch('/tmp/foo-', (event, filename) => {
+  console.log(event, filename);
+});
+
+fs.watch('/tmp/foo-', 'utf8', (event, filename) => {
+  console.log(event, filename);
+});
+
+fs.watch('/tmp/foo-', {
+  recursive: true,
+  persistent: true,
+  encoding: 'utf8'
+}, (event, filename) => {
+  console.log(event, filename);
+});
 
 ///////////////////////////////////////////////////////
 /// Buffer tests : https://nodejs.org/api/buffer.html
@@ -365,6 +390,31 @@ namespace http_tests {
 	http.request({
 		agent: undefined
 	});
+}
+
+////////////////////////////////////////////////////
+/// Https tests : http://nodejs.org/api/https.html
+////////////////////////////////////////////////////
+namespace https_tests {
+    var agent: https.Agent = new https.Agent({
+        keepAlive: true,
+        keepAliveMsecs: 10000,
+        maxSockets: Infinity,
+        maxFreeSockets: 256,
+        maxCachedSessions: 100
+    });
+
+    var agent: https.Agent = https.globalAgent;
+
+    https.request({
+        agent: false
+    });
+    https.request({
+        agent: agent
+    });
+    https.request({
+        agent: undefined
+    });
 }
 
 ////////////////////////////////////////////////////
@@ -784,5 +834,19 @@ namespace vm_tests {
     {
         const Debug = vm.runInDebugContext('Debug');
         Debug.scripts().forEach(function(script: any) { console.log(script.name); });
+    }
+}
+
+/////////////////////////////////////////////////////////
+/// Errors Tests : https://nodejs.org/api/errors.html ///
+/////////////////////////////////////////////////////////
+
+namespace errors_tests {
+    {
+        Error.stackTraceLimit = Infinity;
+    }
+    {
+        const myObject = {};
+        Error.captureStackTrace(myObject);
     }
 }

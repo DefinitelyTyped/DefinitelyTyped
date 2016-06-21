@@ -5,10 +5,6 @@ var app: any;
 
 app.controller('LocalCtrl', function ($localStorage: angular.storage.IStorageService) {
 
-    $localStorage.set('MyKey', 'value');
-
-    $localStorage.get('MyKey');
-
     $localStorage.$default({
         counter: 1
     });
@@ -20,13 +16,11 @@ app.controller('LocalCtrl', function ($localStorage: angular.storage.IStorageSer
     $localStorage.$reset();
 
     $localStorage.$apply();
+    
+    $localStorage.$sync();
 });
 
 app.controller('SessionCtrl', function ($sessionStorage: angular.storage.IStorageService) {
-
-    $sessionStorage.set('MyKey', 'value');
-
-    $sessionStorage.get('MyKey');
 
     $sessionStorage.$default({
         counter: 1
@@ -39,9 +33,12 @@ app.controller('SessionCtrl', function ($sessionStorage: angular.storage.IStorag
     $sessionStorage.$reset();
 
     $sessionStorage.$apply();
+    
+    $sessionStorage.$sync();
 });
 
 app.config(['$localStorageProvider', function ($localStorageProvider: angular.storage.IStorageProvider) {
+
         $localStorageProvider.setKeyPrefix('NewPrefix');
 
         $localStorageProvider.get('MyKey');
