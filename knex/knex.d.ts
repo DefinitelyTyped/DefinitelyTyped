@@ -67,10 +67,14 @@ declare module "knex" {
       where: Where;
       andWhere: Where;
       orWhere: Where;
+      whereNot: Where;
+      andWhereNot: Where;
+      orWhereNot: Where;
       whereRaw: WhereRaw;
+      orWhereRaw: WhereRaw;
+      andWhereRaw: WhereRaw;
       whereWrapped: WhereWrapped;
       havingWrapped: WhereWrapped;
-      orWhereRaw: WhereRaw;
       whereExists: WhereExists;
       orWhereExists: WhereExists;
       whereNotExists: WhereExists;
@@ -84,9 +88,11 @@ declare module "knex" {
       whereNotNull: WhereNull;
       orWhereNotNull: WhereNull;
       whereBetween: WhereBetween;
-      whereNotBetween: WhereBetween;
       orWhereBetween: WhereBetween;
+      andWhereBetween: WhereBetween;
+      whereNotBetween: WhereBetween;
       orWhereNotBetween: WhereBetween;
+      andWhereNotBetween: WhereBetween;
 
       // Group by
       groupBy: GroupBy;
@@ -102,6 +108,7 @@ declare module "knex" {
 
       // Having
       having: Having;
+      andHaving: Having;
       havingRaw: RawQueryBuilder;
       orHaving: Having;
       orHavingRaw: RawQueryBuilder;
