@@ -2595,9 +2595,6 @@ declare module "sequelize" {
              * Transaction to run query under
              */
             transaction? : Transaction;
-            
-            
-
         }
 
         /**
@@ -2654,7 +2651,7 @@ declare module "sequelize" {
         /**
          * Options used for Instance.save method
          */
-        interface InstanceSaveOptions {
+        interface InstanceSaveOptions extends LoggingOptions, ReturningOptions {
 
             /**
              * An optional array of strings, representing database columns. If fields is provided, only those columns
@@ -2675,21 +2672,6 @@ declare module "sequelize" {
              * Defaults to true
              */
             validate? : boolean;
-
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
-            /**
-             * Transaction to run the query in
-             */
-            transaction? : Transaction;
-            
-            /**
-             * Append RETURNING * to get back auto generated values (Postgres only)
-             */
-            returning? : boolean;
 
         }
 
@@ -2914,6 +2896,27 @@ declare module "sequelize" {
 
         }
 
+        interface LoggingOptions {
+            logging?: boolean | Function;
+
+            /**
+             * Print query execution time in milliseconds when logging SQL.
+             */
+            benchmark?: boolean;
+        }
+
+        interface SearchPathOptions {
+            /**
+             * Transaction to run query under
+             */
+            transaction? : Transaction;
+
+            /**
+             * An optional parameter to specify the schema search_path (Postgres only)
+             */
+            searchPath? : string;
+        }
+
         //
         //  Model
         // ~~~~~~~
@@ -2924,76 +2927,44 @@ declare module "sequelize" {
         /**
          * Options to pass to Model on drop
          */
-        interface DropOptions {
+        interface DropOptions extends LoggingOptions {
 
             /**
              * Also drop all objects depending on this table, such as views. Only works in postgres
              */
             cascade?: boolean;
 
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging?: boolean | Function;
-            
-            /**
-             * Print query execution time in milliseconds when logging SQL.
-             */
-            benchmark?: boolean;
-
         }
 
         /**
          * Schema Options provided for applying a schema to a model
          */
-        interface SchemaOptions {
+        interface SchemaOptions extends LoggingOptions {
 
             /**
              * The character(s) that separates the schema name from the table name
              */
             schemaDelimeter? : string;
 
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : Function | boolean;
-            
-            
-            /**
-             * Print query execution time in milliseconds when logging SQL.
-             */
-            benchmark: boolean;
-
         }
         /**
          * GetTableName Options
          */
-        interface GetTableNameOptions {
-
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : Function | boolean;
-            
-            
-            /**
-             * Print query execution time in milliseconds when logging SQL.
-             */
-            benchmark: boolean;
-
+        interface GetTableNameOptions extends LoggingOptions {
+            // no addition properties
         }
-        
+
 
         /**
          * AddScope Options for Model.addScope
          */
         interface AddScopeOptions {
-            
+
             /**
              * If a scope of the same name already exists, should it be overwritten?
              */
             override: boolean;
-            
+
         }
 
         /**
@@ -3161,7 +3132,7 @@ declare module "sequelize" {
          *
          * A hash of options to describe the scope of the search
          */
-	interface FindOptions {
+	interface FindOptions extends LoggingOptions, SearchPathOptions {
 
             /**
              * A hash of attributes to describe your search. See above for examples.
@@ -3197,7 +3168,7 @@ declare module "sequelize" {
              * `order: [['name', 'DESC']]`. In this way the column will be escaped, but the direction will not.
              */
             order?: string | col | literal | Array<string | number | Model<any, any> | { model : Model<any, any>, as? : string}> | Array<string | col | literal | Array<string | number | Model<any, any> | { model : Model<any, any>, as? : string}>>;
-            
+
             /**
              * Limit the results
              */
@@ -3207,11 +3178,6 @@ declare module "sequelize" {
              * Skip the results;
              */
             offset?: number;
-
-            /**
-             * Transaction to run query under
-             */
-            transaction? : Transaction;
 
             /**
              * Lock the selected rows. Possible options are transaction.LOCK.UPDATE and transaction.LOCK.SHARE.
@@ -3226,11 +3192,6 @@ declare module "sequelize" {
             raw? : boolean;
 
             /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
-            /**
              * having ?!?
              */
             having? : WhereOptions;
@@ -3240,40 +3201,27 @@ declare module "sequelize" {
              * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
              */
             group?: string | string[] | Object;
-            
-            /**
-             * An optional parameter to specify the schema search_path (Postgres only)
-             */
-            searchPath? : string;
-
-            /**
-             * Print query execution time in milliseconds when logging SQL.
-             */
-            benchmark? : boolean;
 
         }
-        
+
         /**
-         * Options for findById/findByPrimary, findOne/find
+         * Options for findOne/find
          */
-	interface FindOneOptions {
+	    interface FindOneOptions extends SearchPathOptions {
+            // no additional properties
+        }
 
-            /**
-             * Transaction to run query under
-             */
-            transaction? : Transaction;
-            
-            /**
-             * An optional parameter to specify the schema search_path (Postgres only)
-             */
-            searchPath? : string;
-
+        /**
+         * Options for findById/findByPrimary,
+         */
+	    interface FindByIdOptions extends SearchPathOptions {
+            // no additional properties
         }
 
         /**
          * Options for Model.count method
          */
-        interface CountOptions {
+        interface CountOptions extends LoggingOptions, SearchPathOptions {
 
             /**
              * A hash of search attributes.
@@ -3301,32 +3249,12 @@ declare module "sequelize" {
              * TODO: Check?
              */
             group? : Object;
-
-            /**
-             * Transaction to run query under
-             */
-            transaction? : Transaction;
-            
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
-            /**
-             * An optional parameter to specify the schema search_path (Postgres only)
-             */
-            searchPath? : string;
-
-            /**
-             * Print query execution time in milliseconds when logging SQL.
-             */
-            benchmark? : boolean;
         }
 
         /**
          * Options for Model.build method
          */
-        interface BuildOptions {
+        interface BuildOptions extends ReturningOptions {
 
             /**
              * If set to true, values will ignore field and virtual setters.
@@ -3345,22 +3273,16 @@ declare module "sequelize" {
              */
             include? :  Array<Model<any, any> | IncludeOptions>;
 
-	    /**
-	     * If true, the updatedAt timestamp will not be updated.
-	     */
-            silent? : boolean;
-            
             /**
-             * Append RETURNING * to get back auto generated values (Postgres only)
+             * If true, the updatedAt timestamp will not be updated.
              */
-            returning? : boolean;
+            silent? : boolean;
         }
 
         /**
          * Options for Model.create method
          */
-        interface CreateOptions extends BuildOptions {
-
+        interface CreateOptions extends BuildOptions, InstanceSaveOptions {
             /**
              * If set, only columns matching those in fields will be saved
              */
@@ -3370,32 +3292,12 @@ declare module "sequelize" {
              * On Duplicate
              */
             onDuplicate? : string;
-
-            /**
-             * Transaction to run query under
-             */
-            transaction? : Transaction;
-
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-            
-            /**
-             * An optional parameter to specify the schema search_path (Postgres only)
-             */
-            searchPath? : string;
-
-            /**
-             * Print query execution time in milliseconds when logging SQL.
-             */
-            benchmark? : boolean;
         }
 
         /**
          * Options for Model.findOrInitialize method
          */
-        interface FindOrInitializeOptions<TAttributes> {
+        interface FindOrInitializeOptions<TAttributes> extends LoggingOptions {
 
             /**
              * A hash of search attributes.
@@ -3411,18 +3313,8 @@ declare module "sequelize" {
              * Transaction to run query under
              */
             transaction? : Transaction;
-
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
-            /**
-             * Print query execution time in milliseconds when logging SQL.
-             */
-            benchmark? : boolean;
         }
-        
+
         /**
          * Options for Model.findOrInitialize method
          */
@@ -3442,7 +3334,7 @@ declare module "sequelize" {
         /**
          * Options for Model.upsert method
          */
-        interface UpsertOptions {
+        interface UpsertOptions extends LoggingOptions, SearchPathOptions {
 
             /**
              * Run validations before the row is inserted
@@ -3453,32 +3345,12 @@ declare module "sequelize" {
              * The fields to insert / update. Defaults to all fields
              */
             fields? : string[];
-
-            /**
-             * Transaction to run query under
-             */
-            transaction? : Transaction;
-            
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
-            /**
-             * An optional parameter to specify the schema search_path (Postgres only)
-             */
-            searchPath? : string;
-
-            /**
-             * Print query execution time in milliseconds when logging SQL.
-             */
-            benchmark? : boolean;
         }
 
         /**
          * Options for Model.bulkCreate method
          */
-        interface BulkCreateOptions {
+        interface BulkCreateOptions extends LoggingOptions, SearchPathOptions, ReturningOptions {
 
             /**
              * Fields to insert (defaults to all fields)
@@ -3514,42 +3386,12 @@ declare module "sequelize" {
              * mariadb). By default, all fields are updated.
              */
             updateOnDuplicate? : string[];
-
-            /**
-             * Transaction to run query under
-             */
-            transaction? : Transaction;
-
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
-            /**
-             * Append RETURNING * to get back auto generated values (Postgres only).
-             */
-            returning? : boolean;
-            
-            /**
-             * An optional parameter to specify the schema search_path (Postgres only)
-             */
-            searchPath? : string;
-            
-            /**
-             * Print query execution time in milliseconds when logging SQL.
-             */
-            benchmark? : boolean;
         }
 
         /**
          * The options passed to Model.destroy in addition to truncate
          */
-        interface TruncateOptions {
-
-            /**
-             * Transaction to run query under
-             */
-            transaction? : Transaction;
+        interface TruncateOptions extends LoggingOptions, SearchPathOptions {
 
             /**
              * Only used in conjuction with TRUNCATE. Truncates  all tables that have foreign-key references to the
@@ -3558,21 +3400,6 @@ declare module "sequelize" {
              * Defaults to false;
              */
             cascade? : boolean;
-
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
-            /**
-             * An optional parameter to specify the schema search_path (Postgres only)
-             */
-            searchPath? : string;
-
-            /**
-             * Print query execution time in milliseconds when logging SQL.
-             */
-            benchmark? : boolean;
         }
 
         /**
@@ -3617,7 +3444,7 @@ declare module "sequelize" {
         /**
          * Options for Model.restore
          */
-        interface RestoreOptions {
+        interface RestoreOptions extends LoggingOptions {
 
             /**
              * Filter the restore
@@ -3641,26 +3468,16 @@ declare module "sequelize" {
             limit? : number;
 
             /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
-            /**
              * Transaction to run query under
              */
             transaction? : Transaction;
-            
-            /**
-             * Print query execution time in milliseconds when logging SQL.
-             */
-            benchmark?: boolean;
-            
+
         }
 
         /**
          * Options used for Model.update
          */
-        interface UpdateOptions {
+        interface UpdateOptions extends LoggingOptions, ReturningOptions {
 
             /**
              * Options to describe the scope of the search.
@@ -3703,51 +3520,30 @@ declare module "sequelize" {
             individualHooks? : boolean;
 
             /**
-             * Return the affected rows (only for postgres)
-             */
-            returning? : boolean;
-
-            /**
              * How many rows to update (only for mysql and mariadb)
              */
             limit? : number;
 
             /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
-            /**
              * Transaction to run query under
              */
             transaction? : Transaction;
-            
-            
-            /**
-             * Print query execution time in milliseconds when logging SQL.
-             */
-            benchmark?: boolean;
-            
+
            /**
-	     * If true, the updatedAt timestamp will not be updated.
-	     */
+	        * If true, the updatedAt timestamp will not be updated.
+	        */
             silent? : boolean;
         }
 
         /**
          * Options used for Model.aggregate
          */
-        interface AggregateOptions {
+        interface AggregateOptions extends LoggingOptions {
 
             /**
              * A hash of search attributes.
              */
             where?: WhereOptions;
-            
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
 
             /**
              * The type of the result. If `field` is a field in this Model, the default will be the type of that field,
@@ -3759,7 +3555,7 @@ declare module "sequelize" {
              * Applies DISTINCT to the field being aggregated over
              */
             distinct? : boolean;
-            
+
             /**
              * The transaction that the query should be executed under
              */
@@ -3771,11 +3567,6 @@ declare module "sequelize" {
              * Defaults to `true`
              */
             plain?: boolean;
-            
-            /**
-             * Print query execution time in milliseconds when logging SQL.
-             */
-            benchmark?: boolean;
         }
 
         /**
@@ -3963,15 +3754,15 @@ declare module "sequelize" {
              * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will
              * always be called with a single instance.
              */
-            findById( identifier? : number | string, options? : FindOneOptions ) : Promise<TInstance>;
-            findByPrimary( identifier? : number | string, options? : FindOneOptions ) : Promise<TInstance>;
+            findById( identifier? : number | string, options? : FindByIdOptions ) : Promise<TInstance>;
+            findByPrimary( identifier? : number | string, options? : FindByIdOptions ) : Promise<TInstance>;
 
             /**
              * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
              * instance.
              */
             findOne( options? : FindOneOptions ) : Promise<TInstance>;
-            find( optionz? : FindOneOptions ) : Promise<TInstance>;
+            find( options? : FindOneOptions ) : Promise<TInstance>;
 
             /**
              * Run an aggregation method on the specified field
@@ -4078,7 +3869,7 @@ declare module "sequelize" {
              * will be created instead, and any unique constraint violation will be handled internally.
              */
             findOrCreate( options : FindOrInitializeOptions<TAttributes> ) : Promise<TInstance>;
-            
+
             /**
              * A more performant findOrCreate that will not work under a transaction (at least not in postgres)
              * Will execute a find call, if empty then attempt to create, if unique constraint then attempt to find again
@@ -4669,7 +4460,7 @@ declare module "sequelize" {
          *
          * @see Options
          */
-        interface QueryOptions {
+        interface QueryOptions extends SearchPathOptions, ReturningOptions {
 
             /**
              * If true, sequelize will not try to format the results of the query, or build an instance of a model from
@@ -4677,10 +4468,6 @@ declare module "sequelize" {
              */
             raw?: boolean;
 
-            /**
-             * The transaction that the query should be executed under
-             */
-            transaction?: Transaction;
 
             /**
              * The type of query you are executing. The query type affects how results are formatted before they are
@@ -4708,7 +4495,7 @@ declare module "sequelize" {
              * replacements to replace `?` in your SQL.
              */
             replacements? : Object | string[];
-            
+
             /**
              * Either an object of named bind parameter in the format `$param` or an array of unnamed
              * bind parameter to replace `$1`, `$2`, ... in your SQL.
@@ -4725,7 +4512,7 @@ declare module "sequelize" {
             /**
              * A function that gets executed while running the query to log the sql.
              */
-            logging? : Function;
+            logging? : boolean | Function;
 
             /**
              * A sequelize instance used to build the return instance
@@ -4736,30 +4523,32 @@ declare module "sequelize" {
              * A sequelize model used to build the returned model instances (used to be called callee)
              */
             model? : Model<any, any>;
-            
+
             /**
              * Set of flags that control when a query is automatically retried.
              */
-            retry? : {match?: string[], max?: integer};
-            
-            /**
-             * An optional parameter to specify the schema search_path (Postgres only)
-             */
-            searchPath? : string;
-            
+            retry? : {match?: string[], max?: number};
+
             /**
              * If false do not prepend the query with the search_path (Postgres only)
              */
-	    supportsSearchPath : boolean;
-	    
-	    /**
-	     * Map returned fields to model's fields if `options.model` or `options.instance` is present.
-	     * Mapping will occur before building the model instance.
-	     */
-	    mapToModel : boolean;
-	    
+	        supportsSearchPath : boolean;
+
+            /**
+             * Map returned fields to model's fields if `options.model` or `options.instance` is present.
+             * Mapping will occur before building the model instance.
+             */
+            mapToModel : boolean;
+
             // TODO: force, cascade
-	    fieldMap? : { [key: string]: string; }
+            fieldMap? : { [key: string]: string; }
+        }
+
+        interface ReturningOptions {
+            /**
+             * Append RETURNING * to get back auto generated values (Postgres only)
+             */
+            returning? : boolean;
         }
 
         /**
