@@ -3211,20 +3211,6 @@ declare module "sequelize" {
         }
 
         /**
-         * Options for findOne/find
-         */
-	    interface FindOneOptions extends SearchPathOptions {
-            // no additional properties
-        }
-
-        /**
-         * Options for findById/findByPrimary,
-         */
-	    interface FindByIdOptions extends SearchPathOptions {
-            // no additional properties
-        }
-
-        /**
          * Options for Model.count method
          */
         interface CountOptions extends LoggingOptions, SearchPathOptions {
@@ -3718,15 +3704,15 @@ declare module "sequelize" {
              * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will
              * always be called with a single instance.
              */
-            findById( identifier? : number | string, options? : FindByIdOptions ) : Promise<TInstance>;
-            findByPrimary( identifier? : number | string, options? : FindByIdOptions ) : Promise<TInstance>;
+            findById( identifier? : number | string, options? : FindOptions ) : Promise<TInstance>;
+            findByPrimary( identifier? : number | string, options? : FindOptions ) : Promise<TInstance>;
 
             /**
              * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
              * instance.
              */
-            findOne( options? : FindOneOptions ) : Promise<TInstance>;
-            find( options? : FindOneOptions ) : Promise<TInstance>;
+            findOne( options? : FindOptions ) : Promise<TInstance>;
+            find( options? : FindOptions ) : Promise<TInstance>;
 
             /**
              * Run an aggregation method on the specified field
