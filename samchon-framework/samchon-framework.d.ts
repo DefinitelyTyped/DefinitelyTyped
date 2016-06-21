@@ -2277,24 +2277,24 @@ declare namespace samchon.protocol {
          *
          * <h4> Standard Usage. </h4>
          * <code>
-         *<memberList>
+         * <memberList>
          *	<member id='jhnam88' name='Jeongho Nam' birthdate='1988-03-11' />
          *	<member id='master' name='Administartor' birthdate='2011-07-28' />
-         *</memberList>
+         * </memberList>
          * </code>
          *
          * <h4> Non-standard usage abusing value. </h4>
          * <code>
-         *<member>
+         * <member>
          *	<id>jhnam88</id>
          *	<name>Jeongho Nam</name>
          *	<birthdate>1988-03-11</birthdate>
-         *</member>
-         *<member>
+         * </member>
+         * <member>
          *	<id>master</id>
          *	<name>Administartor</name>
          *	<birthdate>2011-07-28</birthdate>
-         *</member>
+         * </member>
          * </code>
          *
          * @return An XML object representing the Entity.
@@ -2385,7 +2385,6 @@ declare namespace samchon.protocol {
          * @return An iterator to the element, if an element with specified <i>key</i> is found, or
          *		   {@link end end()} otherwise.
          */
-        find(key: any): std.Iterator<T>;
         /**
          * <p> Whether have the item or not. </p>
          *
@@ -2455,7 +2454,6 @@ declare namespace samchon.protocol {
         /**
          * @inheritdoc
          */
-        find(key: any): std.VectorIterator<T>;
         /**
          * @inheritdoc
          */
@@ -2500,7 +2498,6 @@ declare namespace samchon.protocol {
         /**
          * @inheritdoc
          */
-        find(key: any): std.ListIterator<T>;
         /**
          * @inheritdoc
          */
@@ -2545,7 +2542,6 @@ declare namespace samchon.protocol {
         /**
          * @inheritdoc
          */
-        find(key: any): std.DequeIterator<T>;
         /**
          * @inheritdoc
          */
@@ -2597,7 +2593,6 @@ declare namespace samchon.protocol {
         /**
          * @inheritdoc
          */
-        find(key: any): std.VectorIterator<T>;
         /**
          * @inheritdoc
          */
@@ -2642,7 +2637,6 @@ declare namespace samchon.protocol {
         /**
          * @inheritdoc
          */
-        find(key: any): std.ListIterator<T>;
         /**
          * @inheritdoc
          */
@@ -2687,7 +2681,6 @@ declare namespace samchon.protocol {
         /**
          * @inheritdoc
          */
-        find(key: any): std.DequeIterator<T>;
         /**
          * @inheritdoc
          */
