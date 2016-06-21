@@ -552,12 +552,12 @@ declare namespace olx {
         interface SelectOptions {
             addCondition?: ol.events.ConditionType;
             condition?: ol.events.ConditionType;
-            layers?: Array<ol.layer.Layer>;
+            layers?: Array<ol.layer.Layer> | ((layer: ol.layer.Layer) => boolean);
             style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
             removeCondition?: ol.events.ConditionType;
             toggleCondition?: ol.events.ConditionType;
             multi?: boolean;
-            features?: ol.Collection<ol.Feature>
+            features?: ol.Collection<ol.Feature>;
             filter?: ol.interaction.SelectFilterFunction;
             wrapX?: boolean;
         }

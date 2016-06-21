@@ -546,3 +546,7 @@ var modify: ol.interaction.Modify = new ol.interaction.Modify({
 var draw: ol.interaction.Draw = new ol.interaction.Draw({
     type: "Point"
 })
+
+const select: ol.interaction.Select = new ol.interaction.Select({
+    layers: (layer: ol.layer.Layer) => true;
+});
