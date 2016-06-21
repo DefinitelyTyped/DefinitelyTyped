@@ -435,8 +435,39 @@ declare module "react-bootstrap" {
         animation?: boolean;
         eventKey?: any; // TODO: Add more specific type
     }
-    type Tab = React.ClassicComponent<TabProps, {}>;
-    var Tab: React.ClassicComponentClass<TabProps>;
+    interface TabClass extends React.ClassicComponentClass<TabProps> {
+      Container: TabContainer;
+      Pane: TabPane;
+      Content: TabClass;
+    }
+    type Tab = TabClass;
+    var Tab: TabClass;
+    
+    // <Tab.Container />
+    // ----------------------------------------
+    interface TabContainerProps extends React.HTMLAttributes {
+      activeKey?: any;
+      defaultActiveKey?: any;
+      generateChildId?: (eventKey: any, type: any) => string;
+    }
+    type TabContainer = React.ClassicComponentClass<TabContainerProps>;
+    
+    // <Tab.Pane />
+    // ----------------------------------------
+    interface TabPaneProps extends React.HTMLAttributes {
+      animation?: boolean | React.ComponentClass<any>;
+      'aria-labelledby'?: string;
+      bsClass?: string;
+      eventKey?: any;
+      onEnter?: Function;
+      onEntered?: Function;
+      onEntering?: Function;
+      onExit?: Function;
+      onExited?: Function;
+      onExiting?: Function;
+      unmountOnExit?: boolean;
+    }
+    type TabPane = React.ClassicComponentClass<TabPaneProps>;
 
     // <Pager />
     // ----------------------------------------

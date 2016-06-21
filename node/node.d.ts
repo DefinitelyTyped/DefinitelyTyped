@@ -1399,6 +1399,7 @@ declare module "fs" {
 
     export interface ReadStream extends stream.Readable {
         close(): void;
+        destroy(): void;
     }
     export interface WriteStream extends stream.Writable {
         close(): void;

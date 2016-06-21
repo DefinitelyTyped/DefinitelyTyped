@@ -49,8 +49,10 @@ declare namespace linq {
         Scan(seed: any, func: string, resultSelector?: string): Enumerable<any>;
         Select<TResult>(selector: ($: T, i: number) => TResult): Enumerable<TResult>;
         Select(selector: string): Enumerable<any>;
-        SelectMany(collectionSelector: ($: any, i: number) => any[], resultSelector?: ($: any, item: any) => any): Enumerable<any>;
-        SelectMany(collectionSelector: ($: any, i: number) => Enumerable<any>, resultSelector?: ($: any, item: any) => any): Enumerable<any>;
+        SelectMany<TResult>(collectionSelector: ($: T, i: number) => TResult[]): Enumerable<TResult>;
+        SelectMany<TResult>(collectionSelector: ($: T, i: number) => Enumerable<TResult>): Enumerable<TResult>;
+        SelectMany<TCollectionItem, TResult>(collectionSelector: ($: T, i: number) => TCollectionItem[], resultSelector: ($: T, item: TCollectionItem) => TResult): Enumerable<TResult>;
+        SelectMany<TCollectionItem, TResult>(collectionSelector: ($: T, i: number) => Enumerable<TCollectionItem>, resultSelector: ($: T, item: TCollectionItem) => TResult): Enumerable<TResult>;
         SelectMany(collectionSelector: string, resultSelector?: string): Enumerable<any>;
         Where(predicate: ($ : T, i: number) => boolean): Enumerable<T>;
         Where(predicate: string): Enumerable<any>;
@@ -170,12 +172,12 @@ declare namespace linq {
         LastIndexOf(item: T): number;
         // Convert Methods
         ToArray(): T[];
-        ToLookup(keySelector: ($: T) => any, elementSelector?: ($: T) => any, compareSelector?: (key: any) => any): Lookup<T>;
-        ToLookup(keySelector: string, elementSelector?: string, compareSelector?: string): Lookup<T>;
+        ToLookup<TKey, TValue>(keySelector: ($: T) => TKey, elementSelector?: ($: T) => TValue, compareSelector?: (key: TKey) => any): Lookup<TKey, TValue>;
+        ToLookup(keySelector: string, elementSelector?: string, compareSelector?: string): Lookup<any, any>;
         ToObject(keySelector: ($: T) => string, elementSelector: ($: T) => any): any;
         ToObject(keySelector: string, elementSelector: string): any;
-        ToDictionary(keySelector: ($: T) => any, elementSelector: ($: T) => any, compareSelector?: (key: T) => any): Dictionary<T>;
-        ToDictionary(keySelector: string, elementSelector: string, compareSelector?: string): Dictionary<T>;
+        ToDictionary<TKey, TValue>(keySelector: ($: T) => TKey, elementSelector: ($: T) => TValue, compareSelector?: (key: TKey) => any): Dictionary<TKey, TValue>;
+        ToDictionary(keySelector: string, elementSelector: string, compareSelector?: string): Dictionary<any, any>;
         ToJSON(replacer?: (key: any, value: any) => any, space?: number): string;
         ToJSON(replacer?: string, space?: number): string;
         ToString(separator?: string, selector?: ($: T) =>any): string;
@@ -211,26 +213,26 @@ declare namespace linq {
         ThenByDescending(keySelector: string): OrderedEnumerable<T>;
     }
 
-    interface Grouping<T> extends Enumerable<T> {
-        Key(): any;
+    interface Grouping<TKey, T> extends Enumerable<T> {
+        Key(): TKey;
     }
 
-    interface Lookup<TValue> {
+    interface Lookup<TKey, TValue> {
         Count(): number;
-        Get(key: any): Enumerable<TValue>;
-        Contains(key: any): boolean;
-        ToEnumerable(): Enumerable<TValue>;
+        Get(key: TKey): Enumerable<TValue>;
+        Contains(key: TKey): boolean;
+        ToEnumerable(): Enumerable<Grouping<TKey, TValue>>;
     }
 
-    interface Dictionary<TValue> {
-        Add(key: any, value: TValue): void;
-        Get(key: any): any;
-        Set(key: any, value: TValue): boolean;
-        Contains(key: any): boolean;
+    interface Dictionary<TKey, TValue> {
+        Add(key: TKey, value: TValue): void;
+        Get(key: TKey): TValue;
+        Set(key: TKey, value: TValue): boolean;
+        Contains(key: TKey): boolean;
         Clear(): void;
-        Remove(key: any): void;
+        Remove(key: TKey): void;
         Count(): number;
-        ToEnumerable(): Enumerable<TValue>;
+        ToEnumerable(): Enumerable<KeyValuePair<TKey, TValue>>;
     }
 
     interface KeyValuePair<TKey, TValue> {

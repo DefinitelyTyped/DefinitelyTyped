@@ -37,6 +37,11 @@ declare namespace ZSchema {
     }
 
     export class Validator {
+        public static registerFormat(name: string, validator: (value: any) => boolean): void;
+        public static unregisterFormat(name: string): void;
+        public static getRegisteredFormats(): string[];
+        public static getDefaultOptions(): Options;
+    
         constructor(options: Options);
 
         /**

@@ -19,6 +19,8 @@ declare namespace Dagre {
         height: number;
         predecessors(id: string): string[];
         successors(id: string): string[];
+        // see source of http://cpettitt.github.io/project/dagre-d3/latest/demo/interactive-demo.html
+        transition?(selection: d3.Selection<any>): d3.Transition<any>;
         width: number;
     }
 
