@@ -3278,11 +3278,6 @@ declare module "sequelize" {
              * TODO: See set
              */
             include? :  Array<Model<any, any> | IncludeOptions>;
-
-            /**
-             * If true, the updatedAt timestamp will not be updated.
-             */
-            silent? : boolean;
         }
 
         /**
