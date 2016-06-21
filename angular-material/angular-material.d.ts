@@ -95,6 +95,7 @@ declare namespace angular.material {
         onComplete?: Function;
         onRemoving?: Function;
         fullscreen?: boolean;
+        skipHide?: boolean;
     }
 
     interface IDialogService {
