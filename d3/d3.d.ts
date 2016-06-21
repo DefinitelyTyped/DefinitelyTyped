@@ -1055,6 +1055,11 @@ declare module d3 {
      * Return the min and max simultaneously.
      */
     export function extent<T>(array: T[], accessor: (datum: T, index: number) => string): [string, string];
+    
+    /**
+     * Return the min and max simultaneously.
+     */
+    export function extent<T>(array: T[], accessor: (datum: T, index: number) => Date): [Date, Date];
 
     /**
      * Return the min and max simultaneously.
