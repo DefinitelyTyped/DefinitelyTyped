@@ -1,6 +1,7 @@
 // Type definitions for inversify 1.0.0-alpha.4
 // Project: https://github.com/inversify/inversify-express-utils
 // Definitions by: inversify <https://github.com/inversify/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../inversify/inversify.d.ts" />
 /// <reference path="../express/express.d.ts" />
