@@ -13,40 +13,33 @@ declare module 'babelify' {
     import babel = require("babel-core");
 
 
-    /** In addition to the various purposes documented here, all of the babelify options are passed to babel which passes them on to babel.transform() when each file is transformed */
-    interface babelifyOptions extends babel.TransformOptions {
-        /** These are passed to babel.util.canCompile() for each filename
-         * default: null (see babel.
-         */
-        extensions?: string | string[];
-
-        /** if true, a 'sourceFileName' property with a value equal to the current file being transformed is included with the options passed to babel.transform()
-         * default: false
-         */
-        sourceMapsAbsolute?: boolean;
-    }
-
-
-    class babelifyObject extends stream.Transform {
-
-        _transform(buf: string | Buffer, encoding: string, callback: () => void): void;
-
-        _flush(callback: () => void): void;
-    }
-
-
-    function Babelify(filename: string, opts?: babelifyOptions): babelifyObject;
+    function Babelify(filename: string, opts?: Babelify.BabelifyOptions): Babelify.BabelifyObject;
 
     module Babelify {
+
         export interface BabelifyConstructor {
-            (filename: string, opts: babelifyOptions): babelifyObject;
+            (filename: string, opts: Babelify.BabelifyOptions): Babelify.BabelifyObject;
         }
 
-        export interface BabelifyOptions extends babelifyOptions { }
+        /** In addition to the various purposes documented here, all of the babelify options are passed to babel which passes them on to babel.transform() when each file is transformed */
+        export interface BabelifyOptions extends babel.TransformOptions {
+            /** These are passed to babel.util.canCompile() for each filename
+             * default: null
+             */
+            extensions?: string | string[];
 
-        export class BabelifyObject extends babelifyObject { }
+            /** if true, a 'sourceFileName' property with a value equal to the current file being transformed is included with the options passed to babel.transform()
+             * default: false
+             */
+            sourceMapsAbsolute?: boolean;
+        }
 
-        export function configure(opts: babelifyOptions): (filename: string) => babelifyObject;
+        export class BabelifyObject extends stream.Transform {
+            _transform(buf: string | Buffer, encoding: string, callback: () => void): void;
+            _flush(callback: () => void): void;
+        }
+
+        export function configure(opts: Babelify.BabelifyOptions): (filename: string) => Babelify.BabelifyObject;
     }
 
     export = Babelify;
