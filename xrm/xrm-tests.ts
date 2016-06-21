@@ -121,16 +121,17 @@ var level: Xrm.Page.ui.FormNotificationLevel;
 level = "ERROR";
 Xrm.Page.ui.setFormNotification("Test", level, "uniqueId"); 
 
-/// Demonstrate
+/// Demonstrate Requirement Level and Submit Mode both via string parameters and String Literal Types
 
-let requirementlevel: Xrm.Page.Attribute.RequirementLevel;
-requirementlevel = "none";
-let submitMode: Xrm.Page.Attribute.SubmitMode;
-submitMode = "always";
+let requirementLevel: Xrm.Page.RequirementLevel = "none";
+let requirementLevelString = "none";
+let submitMode: Xrm.Page.SubmitMode = "always";
+let submitModeString = "always";
 
 let attribute = Xrm.Page.getAttribute<Xrm.Page.LookupAttribute>("customerid");
 attribute.setSubmitMode(submitMode);
-attribute.setRequiredLevel(requirementlevel);
-
+attribute.setSubmitMode(submitMode);
+attribute.setRequiredLevel(requirementLevel);
+attribute.setRequiredLevel(requirementLevelString);
 
 

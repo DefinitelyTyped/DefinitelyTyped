@@ -211,6 +211,19 @@ declare namespace Xrm
     }
 
     /**
+     * Client Types for Xrm.Page.context.getClient().
+     */
+    export type Client = "Web" | "Outlook" | "Mobile";
+    /**
+     * Client States for Xrm.Page.context.getClientState().
+     */
+    export type ClientState = "Online" | "Offline";
+    /**
+     * Themes for Xrm.Page.context.getCurrentTheme().
+     */
+    export type Theme = "default" | "Office12Blue" | "Office14Silver";
+
+    /**
      * Interface for the client context.
      */
     export interface ClientContext
@@ -220,19 +233,14 @@ declare namespace Xrm
          *
          * @return  The client, as either "Web", "Outlook", or "Mobile"
          */
-        getClient(): ClientContext.Client;
+        getClient(): Client;
 
         /**
          * Gets client's current state.
          *
          * @return  The client state, as either "Online" or "Offline"
          */
-        getClientState(): ClientContext.ClientState;
-    }
-
-    export module ClientContext {
-        export type Client = "Web" | "Outlook" | "Mobile";
-        export type ClientState = "Online" | "Offline";
+        getClientState(): ClientState;
     }
 
     /**
@@ -262,7 +270,7 @@ declare namespace Xrm
          *
          * @remarks This function does not work with Dynamics CRM for tablets.
          */
-        getCurrentTheme(): Context.Theme;
+        getCurrentTheme(): Theme;
 
         /**
          * Gets whether automatic save is enabled.
@@ -349,9 +357,6 @@ declare namespace Xrm
         prependOrgName( sPath: string ): string;
     }
 
-    export module Context {
-        export type Theme = "default" | "Office12Blue" | "Office14Silver";
-    }
     /**
      * Interface for the Xrm.Page.data object.
      */
@@ -445,7 +450,7 @@ declare namespace Xrm
          */
         refreshRibbon(): void;
 
-        setFormNotification(message: string, level: Page.ui.FormNotificationLevel, uniqueId: string ): boolean;
+        setFormNotification(message: string, level: Page.ui.FormNotificationLevel | string, uniqueId: string ): boolean;
 
         process: Page.data.ProcessManager;
 
@@ -613,6 +618,23 @@ declare namespace Xrm
     export module Page
     {
         /**
+         * Requirement Level for Xrm.Page.Attribute.getRequiredLevel() and Xrm.Page.Attribute.setRequiredLevel().
+         */
+        export type RequirementLevel = "none" | "recommended" | "required";
+        /**
+         * Save Modes for Xrm.Page.Entity.save().
+         */
+        export type SaveMode = "saveandclose" | "saveandnew";
+        /**
+         * Status for Xrm.Page.Stage.getStatus().
+         */
+        export type Status = "active" | "inactive";
+        /**
+         * Submit Mode for Xrm.Page.Attribute.getSubmitMode() and Xrm.Page.Attribute.setSubmitMode().
+         */
+        export type SubmitMode = "always" | "dirty" | "never";
+
+        /**
          * Interface for a CRM Business Process Flow instance.
          */
         export interface Process
@@ -691,7 +713,7 @@ declare namespace Xrm
              *
              * @remarks  This method will return either "active" or "inactive".
              */
-            getStatus(): Stage.Status;
+            getStatus(): Status;
 
             /**
              * Returns a collection of steps in the stage.
@@ -699,10 +721,6 @@ declare namespace Xrm
              * @return  An array of Step.
              */
             getSteps(): Step[];
-        }
-
-        export module Stage {
-            export type Status = "active" | "inactive";
         }
 
         export interface Step
@@ -991,7 +1009,7 @@ declare namespace Xrm
              *
              * @return  The required level, as either "none", "required", or "recommended"
              */
-            getRequiredLevel(): Attribute.RequirementLevel;
+            getRequiredLevel(): RequirementLevel;
 
             /**
              * Gets current submit mode for the attribute.
@@ -1000,7 +1018,7 @@ declare namespace Xrm
              *
              * @remarks The default value is "dirty"
              */
-            getSubmitMode(): Attribute.SubmitMode;
+            getSubmitMode(): SubmitMode;
 
             /**
              * Gets the current user's privileges for the attribute.
@@ -1021,7 +1039,7 @@ declare namespace Xrm
              *
              * @param   {string}    requirementLevel    The requirement level, as either "none", "required", or "recommended"
              */
-            setRequiredLevel(requirementLevel: Attribute.RequirementLevel): void;
+            setRequiredLevel(requirementLevel: RequirementLevel | string): void;
 
             /**
              * Sets the submit mode.
@@ -1030,17 +1048,12 @@ declare namespace Xrm
              *
              * @remarks The default value is "dirty"
              */
-            setSubmitMode(submitMode: Attribute.SubmitMode): void;
+            setSubmitMode(submitMode: SubmitMode | string): void;
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
              */
             controls: Collection.ItemCollection<Control>;
-        }
-
-        export module Attribute {
-            export type RequirementLevel = "none" | "recommended" | "required" ;
-            export type SubmitMode = "always" | "dirty" | "never";
         }
 
         /**
@@ -1362,16 +1375,12 @@ declare namespace Xrm
              * @param   {string}    saveMode    (Optional) the save mode to save, as either "saveandclose" or
              *                                  "saveandnew".
              */
-            save( saveMode: Entity.SaveMode ): void;
+            save( saveMode: SaveMode | string): void;
 
             /**
              * The collection of attributes for the record.
              */
             attributes: Collection.ItemCollection<Attribute>;
-        }
-
-        export module Entity {
-            export type SaveMode = "saveandclose" | "saveandnew";
         }
 
         /**
@@ -2007,7 +2016,7 @@ declare namespace Xrm
              *
              * @param   {string}    displayState   Display state of the tab, as either "expanded" or "collapsed"
              */
-            setDisplayState(displayState: ui.DisplayState ): void;
+            setDisplayState(displayState: ui.DisplayState | string ): void;
 
             /**
              * A reference to the collection of form sections within this tab.
@@ -2047,6 +2056,16 @@ declare namespace Xrm
          */
         export module ui
         {
+            /**
+             * Form Notification Levels for Xrm.Ui.setFormNotification().
+             */
+            export type FormNotificationLevel = "ERROR" | "INFO" | "WARNING";
+
+            /**
+             * Display States for Xrm.ui.ProcessMonitor.setDisplayState().
+             */
+            export type DisplayState = "collapsed" | "expanded";
+
             /**
              * Interface for Xrm.Page.ui.process API
              */
@@ -2201,10 +2220,6 @@ declare namespace Xrm
                  */
                 getEntityReference(): LookupValue;
             }
-
-            export type FormNotificationLevel = "ERROR" | "INFO" | "WARNING";
-
-            export type DisplayState = "collapsed" | "expanded";
         }
 
         /**
@@ -2288,6 +2303,19 @@ declare namespace Xrm
     export module Url
     {
         /**
+         * Command Bar Display options for Xrm.Url.FormOpenParameters.cmdbar, Xrm.Url.ViewOpenParameters.cmdbar, and Xrm.Utility.FormOpenParameters.cmdbar.
+         */
+        export type CmdBarDisplay = "true" | "false";
+        /**
+         * Navigation Bar Display options for Xrm.Url.FormOpenParameters.navbar, Xrm.Url.ViewOpenParameters.navbar, and Xrm.Utility.FormOpenParameters.navbar.
+         */
+        export type NavBarDisplay = "entity" | "off" | "on";
+        /**
+         * Report Open Action options for Xrm.Url.ReportOpenParameters.actions.
+         */
+        export type ReportAction = "filter" | "run";
+
+        /**
          * Interface for defining parameters on a request to open a form with main.aspx (as with
          * window.open). Useful for parsing the keys and values into a string of the format:
          * "&key=value".
@@ -2318,7 +2346,7 @@ declare namespace Xrm
              * Accepted values are: "true"    (The command bar is displayed.)
              *                      "false"   (The command bar is not displayed.)
              */
-            cmdbar?: OpenParameters.CmdBarDisplay;
+            cmdbar?: CmdBarDisplay;
 
             /**
              * Controls whether the Navigation bar is displayed on the form.
@@ -2327,7 +2355,7 @@ declare namespace Xrm
              *                      "entity"  (On an entity form, only the navigation options for related
              *                                entities are available.)
              */
-            navbar?: OpenParameters.NavBarDisplay;
+            navbar?: NavBarDisplay;
         }
 
         /**
@@ -2366,7 +2394,7 @@ declare namespace Xrm
              * Accepted values are: "true"    (The command bar is displayed.)
              *                      "false"   (The command bar is not displayed.)
              */
-            cmdbar?: OpenParameters.CmdBarDisplay;
+            cmdbar?: CmdBarDisplay;
 
             /**
              * Controls whether the Navigation bar is displayed on the form.
@@ -2375,7 +2403,7 @@ declare namespace Xrm
              *                      "entity"  (On an entity form, only the navigation options for related
              *                                entities are available.)
              */
-            navbar?: OpenParameters.NavBarDisplay;
+            navbar?: NavBarDisplay;
         }
 
         /**
@@ -2419,7 +2447,7 @@ declare namespace Xrm
              * @remarks  "run"       Executes the report with default filters.
              *           "filter"    Presents the user with the filter editor, and a "Run Report" button.
              */
-            action: ReportOpenParameters.Action;
+            action: ReportAction;
 
             /**
              * The file name of the report.  For out-of-box reports, this parameter enables context-sensitive
@@ -2432,15 +2460,6 @@ declare namespace Xrm
              */
             id: string;
         }
-
-        export module ReportOpenParameters {
-            export type Action = "filter" | "run";
-        }
-    }
-
-    export module OpenParameters {
-        export type NavBarDisplay = "entity" | "off" | "on";
-        export type CmdBarDisplay = "true" | "false";
     }
 
     /**
@@ -2478,14 +2497,14 @@ declare namespace Xrm
              *                      "entity"  (On an entity form, only the navigation options for related
              *                                entities are available.)
              */
-            navbar?: OpenParameters.NavBarDisplay;
+            navbar?: Url.NavBarDisplay;
 
             /**
              * Controls whether the command bar is displayed.
              * Accepted values are: "true"    (The command bar is displayed.)
              *                      "false"   (The command bar is not displayed.)
              */
-            cmdbar?: OpenParameters.CmdBarDisplay;
+            cmdbar?: Url.CmdBarDisplay;
         }
 
         /**
