@@ -4169,12 +4169,12 @@ declare namespace ol {
             /**
              * Update the user-provided (WMS request) parameters.
              */
-            updateParams(params: Object): void;
+            updateParams(params: {}): void;
 
             /**
              * Get the user-provided (WMS request) params, i.e. those passed to the constructor through the "params" option, and possibly updated using the updateParams method.
              */
-            getParams(): Object;
+            getParams(): {};
 
             /**
              * Return the GetFeatureInfo URL for the passed coordinate, resolution, and
