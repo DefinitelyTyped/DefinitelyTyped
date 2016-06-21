@@ -31,6 +31,7 @@ declare module "knex" {
     migrate: Knex.Migrator;
     seed: any;
     fn: any;
+    on(eventName: string, callback: Function): Knex.QueryBuilder;
   }
 
   function Knex(config: Knex.Config) : Knex;
@@ -249,6 +250,7 @@ declare module "knex" {
       (value: Value): Raw;
       (sql: string, ...bindings: Value[]): Raw;
       (sql: string, bindings: Value[]): Raw;
+      (sql: string, bindings: Object): Raw;
     }
 
     //
@@ -301,6 +303,7 @@ declare module "knex" {
 
     interface SchemaBuilder extends Promise<any> {
       createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
+      createTableIfNotExists(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
       renameTable(oldTableName: string, newTableName: string): Promise<void>;
       dropTable(tableName: string): SchemaBuilder;
       hasTable(tableName: string): Promise<boolean>;
@@ -312,6 +315,7 @@ declare module "knex" {
 
     interface TableBuilder {
       increments(columnName?: string): ColumnBuilder;
+      bigIncrements(columnName?: string): ColumnBuilder;
       dropColumn(columnName: string): TableBuilder;
       dropColumns(...columnNames: string[]): TableBuilder;
       renameColumn(from: string, to: string): ColumnBuilder;

@@ -27,7 +27,26 @@ var config: Microsoft.ApplicationInsights.IConfig = {
     cookieDomain: ""
 };
 
-var appInsights = new Microsoft.ApplicationInsights.AppInsights(config);
+var appInsights: Microsoft.ApplicationInsights.IAppInsights = {
+    config: config,
+    context: null,
+    queue: null,
+
+    startTrackPage(name?: string) { return null; },
+    stopTrackPage(name?: string, url?: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }) { return null; },
+    trackPageView(name?: string, url?: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }, duration?: number) { return null; },
+    startTrackEvent(name: string) { return null },
+    stopTrackEvent(name: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }) { return null },
+    trackEvent(name: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }) { return null },
+    trackAjax(id: string, absoluteUrl: string, pathName: string, totalTime: number, success: boolean, resultCode: number, method?: string) { return null },
+    trackException(exception: Error, handledAt?: string, properties?: { [name: string]: string; }, measurements?: { [name: string]: number; }, severityLevel?: AI.SeverityLevel) { return null },
+    trackMetric(name: string, average: number, sampleCount?: number, min?: number, max?: number, properties?: { [name: string]: string; }) { return null },
+    trackTrace(message: string, properties?: { [name: string]: string; }) { return null },
+    flush() { return null },
+    setAuthenticatedUserContext(authenticatedUserId: string, accountId?: string) { return null },
+    clearAuthenticatedUserContext() { return null },
+    _onerror(message: string, url: string, lineNumber: number, columnNumber: number, error: Error) { return null }
+};
 
 // trackPageView
 appInsights.trackPageView("page1");
@@ -68,7 +87,7 @@ appInsights.config.instrumentationKey = "<new key>";
 
 
 // TelementryContext
-var context = appInsights.context;
+var context: Microsoft.ApplicationInsights.ITelemetryContext = appInsights.context;
 
 context.application.ver = "v0.0.0";
 context.application.build = "1.1.1";
@@ -89,7 +108,7 @@ context.operation.syntheticSource = "testAgent";
 
 // track
 var data = new Microsoft.Telemetry.Base();
-var envelope = new Microsoft.ApplicationInsights.Telemetry.Common.Envelope(data, "name");
+var envelope = new Microsoft.Telemetry.Envelope();
 
 context.track(envelope);
 

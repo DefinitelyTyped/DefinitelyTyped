@@ -484,6 +484,7 @@ declare module "react-router" {
     export type RouterState = ReactRouter.RouterState
     export type HistoryBase = ReactRouter.HistoryBase
     export type RouterOnContext = ReactRouter.RouterOnContext
+    export type RouteProps = ReactRouter.RouteProps
 
     export {
         Router,

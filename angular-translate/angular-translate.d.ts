@@ -72,7 +72,7 @@ declare namespace angular.translate {
     }
 
     interface ITranslateProvider extends angular.IServiceProvider {
-        translations(): ITranslationTable;
+        translations(key?: string): ITranslationTable;
         translations(key: string, translationTable: ITranslationTable): ITranslateProvider;
         cloakClassName(): string;
         cloakClassName(name: string): ITranslateProvider;
