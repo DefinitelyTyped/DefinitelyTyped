@@ -1,7 +1,9 @@
 /// <reference path="samchon-framework.d.ts" />
 
-declare var global: any;
-declare var require: any;
+import samchon = require("samchon-framework");
 
-global["samchon"] = require("samchon-framework");
-console.log(samchon);
+let xml = new samchon.library.XML();
+xml.setTag("font");
+xml.setProperty("fontSize", "13");
+
+console.log(xml.toString());

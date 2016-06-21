@@ -1,22 +1,12 @@
-// Type definitions for TypeScript-STL v1.0.0-rc.1
+// Type definitions for TypeScript-STL v1.0.0-rc.2
 // Project: https://github.com/samchon/stl
 // Definitions by: Jeongho Nam <http://samchon.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// ------------------------------------------------------------------------------------
-// In TypeScript, merging multiple 'ts' files to a module is not possible yet.
-// Instead of using "import" instruction, use such trick: 
-//
-// <code>
-// declare var global: any;
-// declare var require: Function;
-//
-// global["std"] = require("typescript-stl");
-// let list: std.List<number> = new std.List<number>();
-// </code>
-//
-// Those declaration of global and require can be substituted by using "node.d.ts"
-// ------------------------------------------------------------------------------------
+declare module "typescript-stl"
+{
+        export = std;
+}
 
 /**
  * <h1> TypeScript-STL </h1>
@@ -25,137 +15,10 @@
  *
  * <p> GitHub Repository: https://github.com/samchon/stl </p>
  *
- *
- * <h2> Introduction </h2>
  * <p> STL (Standard Template Library) Containers and Algorithms for TypeScript. </p>
  *
  * <p> TypeScript-STL is a TypeScript's <b>Standard Template Library</b> who is migrated from C++ STL. Most of classes
  * and functions of STL have implemented. Just enjoy it. </p>
- *
- * <p> <img src="http://samchon.github.io/stl/api/assets/images/design/abstract_containers.png"
- *			alt="Abstract Containers"
- *			style="max-width: 100%" /> </p>
- *
- * <h4> Containers </h4>
- * <ul>
- *	<li> Linear Containers </li>
- *	<ul>
- *		<li> <a href="http://samchon.github.io/stl/api/classes/std.vector.html">Vector</a> </li>
- *		<li> <a href="http://samchon.github.io/stl/api/classes/std.list.html">List</a> </li>
- *		<li> <a href="http://samchon.github.io/stl/api/classes/std.deque.html">Deque</a> </li>
- *		<li> Miscellaneous </li>
- *		<ul>
- *			<li> <a href="http://samchon.github.io/stl/api/classes/std.queue.html">Queue</a> </li>
- *			<li> <a href="http://samchon.github.io/stl/api/classes/std.stack.html">Stack</a> </li>
- *			<li> <a href="http://samchon.github.io/stl/api/classes/std.priorityqueue.html">PriorityQueue</a> </li>
- *		</ul>
- *	</ul>
- *	<li> <a href="http://samchon.github.io/stl/api/classes/std.base.tree.rbtree.html">Tree-structured Containers</a> </li>
- *	<ul>
- *		<li>
- *			<a href="http://samchon.github.io/stl/api/classes/std.treeset.html">TreeSet</a>,
- *			<a href="http://samchon.github.io/stl/api/classes/std.treemultiset.html">TreeMultiSet</a>
- *		</li>
- *		<li>
- *			<a href="http://samchon.github.io/stl/api/classes/std.treemap.html">TreeMap</a>,
- *			<a href="http://samchon.github.io/stl/api/classes/std.treemultimap.html">TreeMultiMap</a>
- *		</li>
- *	</ul>
- *	<li> <a href="http://samchon.github.io/stl/api/classes/std.base.hash.hashbuckets.html">Hashed Containers</a> </li>
- *	<ul>
- *		<li>
- *			<a href="http://samchon.github.io/stl/api/classes/std.hashset.html">HashSet</a>,
- *			<a href="http://samchon.github.io/stl/api/classes/std.hashmultiset.html">TreeMultiset</a>
- *		</li>
- *		<li>
- *			<a href="http://samchon.github.io/stl/api/classes/std.hashmap.html">HashMap</a>,
- *			<a href="http://samchon.github.io/stl/api/classes/std.HashMultiMap.html">HashMultiMap</a>
- *		</li>
- *	</ul>
- * </ul>
- *
- * <h4> Global Functions </h4>
- * <ul>
- *	<li> <a href="http://www.cplusplus.com/reference/algorithm">&lt;algorithm&gt;</a> </li>
- *	<li> <a href="http://www.cplusplus.com/reference/exception">&lt;exceptional&gt;</a> </li>
- *	<li> <a href="http://www.cplusplus.com/reference/functional">&lt;functional&gt;</a> </li>
- *	<ul>
- *		<li> <a href="http://samchon.github.io/stl/api/classes/std.bind.html">std.bind</a> </li>
- *	</ul>
- *	<li> &lt;utility&gt; </li>
- *	<ul>
- *		<li> <a href="http://samchon.github.io/stl/api/classes/std.pair.html">std.Pair</a> </li>
- *	</ul>
- * </ul>
- *
- *
- * <h2> References </h2>
- * <p> You can learn and explore about TypeScript-STL more deeply with such below: </p>
- * <ul>
- *	<li> <a href="https://github.com/samchon/stl">GitHub Repository</a> </li>
- *	<li> <a href="https://github.com/samchon/stl/wiki">Guidebook (wiki)</a> </li>
- *	<li> <a href="http://samchon.github.io/stl/api">API Documents</a> </li>
- *	<li> <a href="https://samchon.github.io/stl/design/class_diagram.pdf">Class Diagram</a> </li>
- * </ul>
- *
- *
- * <h2> Installation </h2>
- * <h4> Node </h4>
- * <code> npm install -g typescript-stl </code>
- *
- * <h5> TypeScript </h5>
- * <code>
- * // SOMEWHERE PLACE NODE AND STL HEADERS EXIST
- * /// <reference path="node.d.ts" />
- * /// <reference path="typescript-stl.d.ts" />
- *
- * global["std"] = require("typescript-stl");
- * let list: std.List<string> = new std.List<string>();
- * </code>
- *
- * <h5> Pure JavaScript </h5>
- * <code>
- * var std = require("typescript-stl");
- * var list = new std.List();
- * </code>
- *
- * <h4> Browser </h4>
- * <h5> In HTML Document </h5>
- *
- * <h5> TypeScript, reference difinitions (header) </h5>
- * <code>
- * /// <reference path="typescript-stl.d.ts" />
- * </code>
- *
- *
- * <h2> Index of Guidance, Wiki </h2>
- * <ul>
- *	<li> <a href="https://github.com/samchon/stl/wiki/Home"><b>Outline</b></a> </li>
- *	<ul>
- *		<li> <a href="https://github.com/samchon/stl/wiki/Home#introduction">Introduction</a> </li>
- *		<li> <a href="https://github.com/samchon/stl/wiki/Home#references">References</a> </li>
- *		<li> <a href="https://github.com/samchon/stl/wiki/Home#installation">Installation</a> </li>
- *	</ul>
- *	<li> <a href="https://github.com/samchon/stl/wiki/Differences"><b>Differences between C++</b></a> </li>
- *	<ul>
- *		<li> <a href="https://github.com/samchon/stl/wiki/Differences#naming-convention">Naming Convention</a> </li>
- *		<li> <a href="https://github.com/samchon/stl/wiki/Differences#operator-overriding">Operator Overring</a> </li>
- *		<li> <a href="https://github.com/samchon/stl/wiki/Differences#iterator">Iterator</a> </li>
- *		<li> <a href="https://github.com/samchon/stl/wiki/Differences#tree-container">Tree Container</a> </li>
- *		<li> <a href="https://github.com/samchon/stl/wiki/Differences#hash-container">Hash Container</a> </li>
- *	</ul>
- *	<li> <a href="https://github.com/samchon/stl/wiki/Tutorial"><b>Tutorial</b></a> </li>
- *	<ul>
- *		<li> <a href="https://github.com/samchon/stl/wiki/Tutorial#linear-container">Linear Container</a> </li>
- *		<li> <a href="https://github.com/samchon/stl/wiki/Tutorial#tree-container">Tree Container</a> </li>
- *		<li> <a href="https://github.com/samchon/stl/wiki/Tutorial#hash-container">Hash Container</a> </li>
- *		<li> <a href="https://github.com/samchon/stl/wiki/Tutorial-Miscellaneous">Miscellaneous</a> </li>
- *		<ul>
- *			<li> <a href="https://github.com/samchon/stl/wiki/Tutorial-Miscellaneous#algorithm">Algorithm</a> </li>
- *			<li> <a href="https://github.com/samchon/stl/wiki/Tutorial-Miscellaneous#functional">Functional</a> </li>
- *		</ul>
- *	</ul>
- * </ul>
  *
  * @author Jeongho Nam <http://samchon.org>
  */
@@ -2802,7 +2665,9 @@ declare namespace std.base {
     /**
      * <p> An abstract container. </p>
      *
-     * <p> <img src="../assets/images/design/abstract_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/abstract_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/abstract_containers.png" style="max-width: 100%" />
+     * </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -2921,7 +2786,9 @@ declare namespace std {
      * <p> There is not a single type of {@link Iterator bidirectional iterator}: {@link IContainer Each container}
      * may define its own specific iterator type able to iterate through it and access its elements. </p>
      *
-     * <p> <img src="../assets/images/design/abstract_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/abstract_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/abstract_containers.png" style="max-width: 100%" />
+     * </p>
      *
      * @reference http://www.cplusplus.com/reference/iterator/BidirectionalIterator
      * @author Jeongho Nam <http://samchon.org>
@@ -3005,7 +2872,9 @@ declare namespace std {
      * first element in a range is reversed, the reversed iterator points to the element before the first element (this
      * would be the past-the-end element of the reversed range). </p>
      *
-     * <p> <img src="../assets/images/design/abstract_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/abstract_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/abstract_containers.png" style="max-width: 100%" />
+     * </p>
      *
      * @reference http://www.cplusplus.com/reference/iterator/reverse_iterator
      * @author Jeongho Nam <http://samchon.org>
@@ -3235,7 +3104,9 @@ declare namespace std {
      * the end, {@link Deque Deques} perform worse and have less consistent iterators and references than
      * {@link List Lists}. </p>
      *
-     * <p> <img src="../assets/images/design/linear_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -3523,7 +3394,9 @@ declare namespace std {
     /**
      * <p> An iterator of {@link Deque}. </p>
      *
-     * <p> <img src="../assets/images/design/linear_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
@@ -3593,7 +3466,9 @@ declare namespace std {
     /**
      * <p> A reverse-iterator of Deque. </p>
      *
-     * <p> <img src="../assets/images/design/linear_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * </p>
      *
      * @param <T> Type of the elements.
      *
@@ -3668,7 +3543,8 @@ declare namespace std {
      * <p> All objects thrown by components of the standard library are derived from this class.
      * Therefore, all standard exceptions can be caught by catching this type by reference. </p>
      *
-     * <p> <img src="../assets/images/design/exceptions.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </p>
      *
      * @reference http://www.cplusplus.com/reference/exception/exception
      * @author Jeongho Nam <http://samchon.org>
@@ -3716,7 +3592,8 @@ declare namespace std {
      *
      * <p> It is used as a base class for several logical error exceptions. </p>
      *
-     * <p> <img src="../assets/images/design/exceptions.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/logic_error
      * @author Jeongho Nam <http://samchon.org>
@@ -3741,7 +3618,8 @@ declare namespace std {
      * <p> No component of the standard library throws exceptions of this type. It is designed as a standard
      * exception to be thrown by programs. </p>
      *
-     * <p> <img src="../assets/images/design/exceptions.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" target="_blank"> <
+     * img src="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/domain_error
      * @author Jeongho Nam <http://samchon.org>
@@ -3762,7 +3640,8 @@ declare namespace std {
      * <p> It is a standard exception that can be thrown by programs. Some components of the standard library
      * also throw exceptions of this type to signal invalid arguments. </p>
      *
-     * <p> <img src="../assets/images/design/exceptions.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/invalid_argument
      * @author Jeongho Nam <http://samchon.org>
@@ -3783,7 +3662,8 @@ declare namespace std {
      * <p> It is a standard exception that can be thrown by programs. Some components of the standard library,
      * such as vector and string also throw exceptions of this type to signal errors resizing. </p>
      *
-     * <p> <img src="../assets/images/design/exceptions.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/length_error
      * @author Jeongho Nam <http://samchon.org>
@@ -3805,7 +3685,8 @@ declare namespace std {
      * such as vector, deque, string and bitset also throw exceptions of this type to signal arguments
      * out of range. </p>
      *
-     * <p> <img src="../assets/images/design/exceptions.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/out_of_range
      * @author Jeongho Nam <http://samchon.org>
@@ -3826,7 +3707,8 @@ declare namespace std {
      *
      * <p> It is used as a base class for several runtime error exceptions. </p>
      *
-     * <p> <img src="../assets/images/design/exceptions.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/runtime_error
      * @author Jeongho Nam <http://samchon.org>
@@ -3847,7 +3729,8 @@ declare namespace std {
      * <p> It is a standard exception that can be thrown by programs. Some components of the standard library
      * also throw exceptions of this type to signal range errors. </p>
      *
-     * <p> <img src="../assets/images/design/exceptions.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/outflow_error
      * @author Jeongho Nam <http://samchon.org>
@@ -3868,7 +3751,8 @@ declare namespace std {
      * <p> No component of the standard library throws exceptions of this type. It is designed as a standard
      * exception to be thrown by programs. </p>
      *
-     * <p> <img src="../assets/images/design/exceptions.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/underflow_error
      * @author Jeongho Nam <http://samchon.org>
@@ -3890,7 +3774,8 @@ declare namespace std {
      * <p> It is a standard exception that can be thrown by programs. Some components of the standard library
      * also throw exceptions of this type to signal range errors. </p>
      *
-     * <p> <img src="../assets/images/design/exceptions.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/range_error
      * @author Jeongho Nam <http://samchon.org>
@@ -4451,7 +4336,8 @@ declare namespace std.base {
      * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
      * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
      *
-     * <p> <img src="../assets/images/design/map_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -4588,7 +4474,7 @@ declare namespace std.base {
          * (i.e., its <i>reverse beginning</i>). </p>
          *
          * {@link MapReverseIterator Reverse iterators} iterate backwards: increasing them moves them towards the
-         * beginning of the  </p>
+         * beginning of the container. </p>
          *
          * <p> {@link rbegin} points to the element preceding the one that would be pointed to by member {@link end}.
          * </p>
@@ -4852,7 +4738,8 @@ declare namespace std {
     /**
      * <p> An iterator of {@link MapContainer map container}. </p>
      *
-     * <p> <img src="../assets/images/design/map_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
@@ -4922,7 +4809,8 @@ declare namespace std {
     /**
      * <p> A reverse-iterator of {@link MapContainer map container}. </p>
      *
-     * <p> <img src="../assets/images/design/map_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
@@ -4961,7 +4849,8 @@ declare namespace std.base {
      * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
      * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
      *
-     * <p> <img src="../assets/images/design/map_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -5114,7 +5003,8 @@ declare namespace std.base {
      * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
      * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
      *
-     * <p> <img src="../assets/images/design/map_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -5202,246 +5092,6 @@ declare namespace std.base {
         swap(obj: MultiMap<Key, T>): void;
     }
 }
-declare namespace std.base {
-    /**
-     * <p> Common interface for hash map. </p>
-     *
-     * <p> {@link IHashMap}s are associative containers that store elements formed by the combination of
-     * a <i>key value</i> and a <i>mapped value</i>. </p>
-     *
-     * <p> In an {@link IHashMap}, the <i>key value</i> is generally used to uniquely identify the
-     * element, while the <i>mapped value</i> is an object with the content associated to this <i>key</i>.
-     * Types of <i>key</i> and <i>mapped value</i> may differ. </p>
-     *
-     * <p> Internally, the elements in the {@link IHashMap} are not sorted in any particular order with
-     * respect to either their <i>key</i> or <i>mapped values</i>, but organized into <i>buckets</i> depending on
-     * their hash values to allow for fast access to individual elements directly by their <i>key values</i>
-     * (with a constant average time complexity on average). </p>
-     *
-     * <p> Elements with equivalent <i>keys</i> are grouped together in the same bucket and in such a way that
-     * an iterator can iterate through all of them. Iterators in the container are doubly linked iterators. </p>
-     *
-     * <p> <img src="../assets/images/design/map_containers.png" width="100%" /> </p>
-     *
-     * <h3> Container properties </h3>
-     * <dl>
-     *	<dt> Associative </dt>
-     *	<dd> Elements in associative containers are referenced by their <i>key</i> and not by their absolute
-     *		 position in the container. </dd>
-     *
-     *	<dt> Hashed </dt>
-     *	<dd> Hashed containers organize their elements using hash tables that allow for fast access to elements
-     *		 by their <i>key</i>. </dd>
-     *
-     *	<dt> Map </dt>
-     *	<dd> Each element associates a <i>key</i> to a <i>mapped value</i>:
-     *		 <i>Keys</i> are meant to identify the elements whose main content is the <i>mapped value</i>. </dd>
-     * </dl>
-     *
-     * @param <Key> Type of the key values.
-     *				Each element in an {@link IHashMap} is identified by a key value.
-     * @param <T> Type of the mapped value.
-     *			  Each element in an {@link IHashMap} is used to store some data as its mapped value.
-     *
-     * @reference http://www.cplusplus.com/reference/unordered_map
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    interface IHashMap<Key, T> {
-        /**
-         * <p> Return iterator to beginning. </p>
-         *
-         * <p> Returns an iterator pointing to the first element in the {@link IHashMap}. </p>
-         *
-         * <p> Notice that an {@link IHashMap} object makes no guarantees on which specific element is considered its
-         * first element. But, in any case, the range that goes from its begin to its end covers all the elements in the
-         * container, until invalidated. </p>
-         *
-         * @return An iterator to the first element in the container.
-         */
-        begin(): MapIterator<Key, T>;
-        /**
-         * <p> Return iterator to beginning. </p>
-         *
-         * <p> Returns an iterator pointing to the first element in one of buckets in the {@link IHashMap}. </p>
-         *
-         * <p> Notice that an {@link IHashMap} object makes no guarantees on which specific element is considered its
-         * first element. But, in any case, the range that goes from its begin to its end covers all the elements in the
-         * bucket, until invalidated. </p>
-         *
-         * @param index Bucket number. This shall be lower than {@link bucket_count}.
-         *
-         * @return An iterator to the first element in the bucket.
-         */
-        begin(index: number): MapIterator<Key, T>;
-        /**
-         * <p> Return iterator to end. </p>
-         *
-         * <p> Returns an iterator pointing to the past-the-end element in the {@link HaspMap} container. </p>
-         *
-         * <p> The iterator returned by end does not point to any element, but to the position that follows the last
-         * element in the {@link HaspMap} container (its <i>past-the-end</i> position). Thus, the value returned shall
-         * not be dereferenced - it is generally used to describe the open-end of a range, such as
-         * [<i>begin</i>, <i>end</i>). </p>
-         *
-         * <p> Notice that an {@link IHashMap} object makes no guarantees on which order its elements follow. But, in any
-         * case, the range that goes from its begin to its end covers all the elements in the container (or the bucket),
-         * until invalidated. </p>
-         *
-         * @return An iterator to the element past the end of the container.
-         */
-        end(): MapIterator<Key, T>;
-        /**
-         * <p> Return iterator to end. </p>
-         *
-         * <p> Returns an iterator pointing to the past-the-end element in the {@link HaspMap} container. </p>
-         *
-         * <p> The iterator returned by end does not point to any element, but to the position that follows the last
-         * element in the {@link HaspMap} container (its <i>past-the-end</i> position). Thus, the value returned shall
-         * not be dereferenced - it is generally used to describe the open-end of a range, such as
-         * [<i>begin</i>, <i>end</i>). </p>
-         *
-         * <p> Notice that an {@link IHashMap} object makes no guarantees on which order its elements follow. But, in any
-         * case, the range that goes from its begin to its end covers all the elements in the container (or the bucket),
-         * until invalidated. </p>
-         *
-         * @param index Bucket number. This shall be lower than {@link bucket_count}.
-         *
-         * @return An iterator to the element past the end of the bucket.
-         */
-        end(index: number): MapIterator<Key, T>;
-        rbegin(): MapReverseIterator<Key, T>;
-        rbegin(index: number): MapReverseIterator<Key, T>;
-        rend(): MapReverseIterator<Key, T>;
-        rend(index: number): MapReverseIterator<Key, T>;
-        /**
-         * <p> Return number of buckets. </p>
-         *
-         * <p> Returns the number of buckets in the {@link IHashMap} container. </p>
-         *
-         * <p> A bucket is a slot in the container's internal hash table to which elements are assigned based on the
-         * hash value of their key. </p>
-         *
-         * <p> The number of buckets influences directly the {@link load_factor load factor} of the container's hash
-         * table (and thus the probability of collision). The container automatically increases the number of buckets to
-         * keep the load factor below a specific threshold (its {@link max_load_factor}), causing a {@link rehash} each
-         * time the number of buckets needs to be increased. </p>
-         *
-         * @return The current amount of buckets.
-         */
-        bucket_count(): number;
-        /**
-         * <p> Return bucket size. </p>
-         *
-         * <p> Returns the number of elements in bucket <i>n</i>. </p>
-         *
-         * <p> A bucket is a slot in the container's internal hash table to which elements are assigned based on the hash
-         * value of their key. </p>
-         *
-         * <p> The number of elements in a bucket influences the time it takes to access a particular element in the
-         * bucket. The container automatically increases the number of buckets to keep the {@link load_cator load factor}
-         * (which is the average bucket size) below its {@link max_load_factor}. </p>
-         *
-         * @param n Bucket number. This shall be lower than {@link bucket_count}.
-         *
-         * @return The number of elements in bucket <i>n</i>.
-         */
-        bucket_size(n: number): number;
-        /**
-         * <p> Get maximum load factor. </p>
-         *
-         * <p> Returns the current maximum load factor for the {@link HashMultiMap} container. </p>
-         *
-         * <p> The load factor is the ratio between the number of elements in the container (its {@link size}) and the
-         * number of buckets ({@link bucket_count}). </p>
-         *
-         * <p> By default, {@link HashMultiMap} containers have a {@link max_load_factor} of 1.0. </p>
-         *
-         * <p> The load factor influences the probability of collision in the hash table (i.e., the probability of two
-         * elements being located in the same bucket). The container uses the value of max_load_factor as the threshold
-         * that forces an increase in the number of buckets (and thus causing a {@link rehash}). </p>
-         *
-         * <p> Note though, that implementations may impose an upper limit on the number of buckets (see
-         * {@link max_bucket_count}), which may force the container to ignore the {@link max_load_factor}. </p>
-         *
-         * @return The current load factor.
-         */
-        max_load_factor(): number;
-        /**
-         * <p> Set maximum load factor. </p>
-         *
-         * <p> Sets <i>z</i> as the cnew maximum load factor for the {@link HashMultiMap} container. </p>
-         *
-         * <p> The load factor is the ratio between the number of elements in the container (its {@link size}) and the
-         * number of buckets ({@link bucket_count}). </p>
-         *
-         * <p> By default, {@link HashMultiMap} containers have a {@link max_load_factor} of 1.0. </p>
-         *
-         * <p> The load factor influences the probability of collision in the hash table (i.e., the probability of two
-         * elements being located in the same bucket). The container uses the value of max_load_factor as the threshold
-         * that forces an increase in the number of buckets (and thus causing a {@link rehash}). </p>
-         *
-         * <p> Note though, that implementations may impose an upper limit on the number of buckets (see
-         * {@link max_bucket_count}), which may force the container to ignore the {@link max_load_factor}. </p>
-         *
-         * @param z The new maximum load factor.
-         */
-        max_load_factor(z: number): void;
-        /**
-         * <p> Locate element's bucket. </p>
-         *
-         * <p> Returns the bucket number where the element with <i>key</i> is located. </p>
-         *
-         * <p> A bucket is a slot in the container's internal hash table to which elements are assigned based on the
-         * hash value of their <i>key</i>. Buckets are numbered from 0 to ({@link bucket_count} - 1). </p>
-         *
-         * <p> Individual elements in a bucket can be accessed by means of the range iterators returned by
-         * {@link begin} and {@link end}. </p>
-         *
-         * @param key Key whose bucket is to be located.
-         */
-        bucket(key: Key): number;
-        /**
-         * <p> Request a capacity change. </p>
-         *
-         * <p> Sets the number of buckets in the container ({@link bucket_count}) to the most appropriate to contain at
-         * least <i>n</i> elements. </p>
-         *
-         * <p> If <i>n</i> is greater than the current {@link bucket_count} multiplied by the {@link max_load_factor},
-         * the container's {@link bucket_count} is increased and a {@link rehash} is forced. </p>
-         *
-         * <p> If <i>n</i> is lower than that, the function may have no effect. </p>
-         *
-         * @param n The number of elements requested as minimum capacity.
-         */
-        reserve(n: number): void;
-        /**
-         * <p> Set number of buckets. </p>
-         *
-         * <p> Sets the number of buckets in the container to <i>n</i> or more. </p>
-         *
-         * <p> If <i>n</i> is greater than the current number of buckets in the container ({@link bucket_count}), a
-         * {@link HashBuckets.rehash rehash} is forced. The new {@link bucket_count bucket count} can either be equal or
-         * greater than <i>n</i>. </p>
-         *
-         * <p> If <i>n</i> is lower than the current number of buckets in the container ({@link bucket_count}), the
-         * function may have no effect on the {@link bucket_count bucket count} and may not force a
-         * {@link HashBuckets.rehash rehash}. </p>
-         *
-         * <p> A {@link HashBuckets.rehash rehash} is the reconstruction of the hash table: All the elements in the
-         * container are rearranged according to their hash value into the new set of buckets. This may alter the order
-         * of iteration of elements within the container. </p>
-         *
-         * <p> {@link HashBuckets.rehash Rehashes} are automatically performed by the container whenever its
-         * {@link load_factor load factor} is going to surpass its {@link max_load_factor} in an operation. </p>
-         *
-         * <p> Notice that this function expects the number of buckets as argument. A similar function exists,
-         * {@link reserve}, that expects the number of elements in the container as argument. </p>
-         *
-         * @param n The minimum number of buckets for the container hash table.
-         */
-        rehash(n: number): void;
-    }
-}
 declare namespace std {
     /**
      * <p> Hashed, unordered map. </p>
@@ -5462,7 +5112,8 @@ declare namespace std {
      * <p> {@link HashMap} containers are faster than {@link TreeMap} containers to access individual elements by their
      * <i>key</i>, although they are generally less efficient for range iteration through a subset of their elements. </p>
      *
-     * <p> <img src="../assets/images/design/map_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -5618,7 +5269,8 @@ declare namespace std {
      * <p> Elements with equivalent <i>keys</i> are grouped together in the same bucket and in such a way that
      * an iterator can iterate through all of them. Iterators in the container are doubly linked iterators. </p>
      *
-     * <p> <img src="../assets/images/design/map_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -5776,7 +5428,8 @@ declare namespace std.base {
      * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
      * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
      *
-     * <p> <img src="../assets/images/design/set_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -6056,7 +5709,8 @@ declare namespace std {
     /**
      * <p> An iterator of a Set. </p>
      *
-     * <p> <img src="../assets/images/design/set_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
@@ -6114,7 +5768,8 @@ declare namespace std {
     /**
      * <p> A reverse-iterator of Set. </p>
      *
-     * <p> <img src="../assets/images/design/set_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </p>
      *
      * @param <T> Type of the elements.
      *
@@ -6143,7 +5798,8 @@ declare namespace std.base {
      * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
      * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
      *
-     * <p> <img src="../assets/images/design/set_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -6223,7 +5879,8 @@ declare namespace std.base {
      * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
      * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
      *
-     * <p> <img src="../assets/images/design/set_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -6275,243 +5932,6 @@ declare namespace std.base {
         swap(obj: MultiSet<T>): void;
     }
 }
-declare namespace std.base {
-    /**
-     * <p> A common interface for hash set. </p>
-     *
-     * <p> {@link IHashSet}s are containers that store unique elements in no particular order, and which
-     * allow for fast retrieval of individual elements based on their value. </p>
-     *
-     * <p> In an {@link IHashSet}, the value of an element is at the same time its <i>key</i>, that
-     * identifies it uniquely. Keys are immutable, therefore, the elements in an {@link IHashSet} cannot be
-     * modified once in the container - they can be inserted and removed, though. </p>
-     *
-     * <p> Internally, the elements in the {@link IHashSet} are not sorted in any particular order, but
-     * organized into buckets depending on their hash values to allow for fast access to individual elements
-     * directly by their <i>values</i> (with a constant average time complexity on average). </p>
-     *
-     * <p> {@link IHashSet} containers are faster than {@link TreeSet} containers to access individual
-     * elements by their <i>key</i>, although they are generally less efficient for range iteration through a
-     * subset of their elements. </p>
-     *
-     * <p> <img src="../assets/images/design/set_containers.png" width="100%" /> </p>
-     *
-     * <h3> Container properties </h3>
-     * <dl>
-     *	<dt> Associative </dt>
-     *	<dd> Elements in associative containers are referenced by their <i>key</i> and not by their absolute
-     *		 position in the container. </dd>
-     *
-     *	<dt> Hashed </dt>
-     *	<dd> Hashed containers organize their elements using hash tables that allow for fast access to elements
-     *		 by their <i>key</i>. </dd>
-     *
-     *	<dt> Set </dt>
-     *	<dd> The value of an element is also the <i>key</i> used to identify it. </dd>
-     * </dl>
-     *
-     * @param <T> Type of the elements.
-     *			  Each element in an {@link IHashSet} is also uniquely identified by this value.
-     *
-     * @reference http://www.cplusplus.com/reference/unordered_set/unordered_set
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    interface IHashSet<T> {
-        /**
-         * <p> Return iterator to beginning. </p>
-         *
-         * <p> Returns an iterator pointing to the first element in the {@link IHashSet}. </p>
-         *
-         * <p> Notice that an {@link IHashSet} object makes no guarantees on which specific element is considered its
-         * first element. But, in any case, the range that goes from its begin to its end covers all the elements in the
-         * container, until invalidated. </p>
-         *
-         * @return An iterator to the first element in the container.
-         */
-        begin(): SetIterator<T>;
-        /**
-         * <p> Return iterator to beginning. </p>
-         *
-         * <p> Returns an iterator pointing to the first element in one of buckets in the {@link IHashSet}. </p>
-         *
-         * <p> Notice that an {@link IHashSet} object makes no guarantees on which specific element is considered its
-         * first element. But, in any case, the range that goes from its begin to its end covers all the elements in the
-         * bucket, until invalidated. </p>
-         *
-         * @param index Bucket number. This shall be lower than {@link bucket_count}.
-         *
-         * @return An iterator to the first element in the bucket.
-         */
-        begin(index: number): SetIterator<T>;
-        /**
-         * <p> Return iterator to end. </p>
-         *
-         * <p> Returns an iterator pointing to the past-the-end element in the {@link HaspMap} container. </p>
-         *
-         * <p> The iterator returned by end does not point to any element, but to the position that follows the last
-         * element in the {@link HaspMap} container (its <i>past-the-end</i> position). Thus, the value returned shall
-         * not be dereferenced - it is generally used to describe the open-end of a range, such as
-         * [<i>begin</i>, <i>end</i>). </p>
-         *
-         * <p> Notice that an {@link IHashSet} object makes no guarantees on which order its elements follow. But, in any
-         * case, the range that goes from its begin to its end covers all the elements in the container (or the bucket),
-         * until invalidated. </p>
-         *
-         * @return An iterator to the element past the end of the container.
-         */
-        end(): SetIterator<T>;
-        /**
-         * <p> Return iterator to end. </p>
-         *
-         * <p> Returns an iterator pointing to the past-the-end element in the {@link HaspMap} container. </p>
-         *
-         * <p> The iterator returned by end does not point to any element, but to the position that follows the last
-         * element in the {@link HaspMap} container (its <i>past-the-end</i> position). Thus, the value returned shall
-         * not be dereferenced - it is generally used to describe the open-end of a range, such as
-         * [<i>begin</i>, <i>end</i>). </p>
-         *
-         * <p> Notice that an {@link IHashSet} object makes no guarantees on which order its elements follow. But, in any
-         * case, the range that goes from its begin to its end covers all the elements in the container (or the bucket),
-         * until invalidated. </p>
-         *
-         * @param index Bucket number. This shall be lower than {@link bucket_count}.
-         *
-         * @return An iterator to the element past the end of the bucket.
-         */
-        end(index: number): SetIterator<T>;
-        rbegin(): SetReverseIterator<T>;
-        rbegin(index: number): SetReverseIterator<T>;
-        rend(): SetReverseIterator<T>;
-        rend(index: number): SetReverseIterator<T>;
-        /**
-         * <p> Return number of buckets. </p>
-         *
-         * <p> Returns the number of buckets in the {@link IHashSet} container. </p>
-         *
-         * <p> A bucket is a slot in the container's internal hash table to which elements are assigned based on the
-         * hash value of their key. </p>
-         *
-         * <p> The number of buckets influences directly the {@link load_factor load factor} of the container's hash
-         * table (and thus the probability of collision). The container automatically increases the number of buckets to
-         * keep the load factor below a specific threshold (its {@link max_load_factor}), causing a {@link rehash} each
-         * time the number of buckets needs to be increased. </p>
-         *
-         * @return The current amount of buckets.
-         */
-        bucket_count(): number;
-        /**
-         * <p> Return bucket size. </p>
-         *
-         * <p> Returns the number of elements in bucket <i>n</i>. </p>
-         *
-         * <p> A bucket is a slot in the container's internal hash table to which elements are assigned based on the hash
-         * value of their key. </p>
-         *
-         * <p> The number of elements in a bucket influences the time it takes to access a particular element in the
-         * bucket. The container automatically increases the number of buckets to keep the {@link load_cator load factor}
-         * (which is the average bucket size) below its {@link max_load_factor}. </p>
-         *
-         * @param n Bucket number. This shall be lower than {@link bucket_count}.
-         *
-         * @return The number of elements in bucket <i>n</i>.
-         */
-        bucket_size(n: number): number;
-        /**
-         * <p> Get maximum load factor. </p>
-         *
-         * <p> Returns the current maximum load factor for the {@link HashMultiMap} container. </p>
-         *
-         * <p> The load factor is the ratio between the number of elements in the container (its {@link size}) and the
-         * number of buckets ({@link bucket_count}). </p>
-         *
-         * <p> By default, {@link HashMultiMap} containers have a {@link max_load_factor} of 1.0. </p>
-         *
-         * <p> The load factor influences the probability of collision in the hash table (i.e., the probability of two
-         * elements being located in the same bucket). The container uses the value of max_load_factor as the threshold
-         * that forces an increase in the number of buckets (and thus causing a {@link rehash}). </p>
-         *
-         * <p> Note though, that implementations may impose an upper limit on the number of buckets (see
-         * {@link max_bucket_count}), which may force the container to ignore the {@link max_load_factor}. </p>
-         *
-         * @return The current load factor.
-         */
-        max_load_factor(): number;
-        /**
-         * <p> Set maximum load factor. </p>
-         *
-         * <p> Sets <i>z</i> as the cnew maximum load factor for the {@link HashMultiMap} container. </p>
-         *
-         * <p> The load factor is the ratio between the number of elements in the container (its {@link size}) and the
-         * number of buckets ({@link bucket_count}). </p>
-         *
-         * <p> By default, {@link HashMultiMap} containers have a {@link max_load_factor} of 1.0. </p>
-         *
-         * <p> The load factor influences the probability of collision in the hash table (i.e., the probability of two
-         * elements being located in the same bucket). The container uses the value of max_load_factor as the threshold
-         * that forces an increase in the number of buckets (and thus causing a {@link rehash}). </p>
-         *
-         * <p> Note though, that implementations may impose an upper limit on the number of buckets (see
-         * {@link max_bucket_count}), which may force the container to ignore the {@link max_load_factor}. </p>
-         *
-         * @param z The new maximum load factor.
-         */
-        max_load_factor(z: number): void;
-        /**
-         * <p> Locate element's bucket. </p>
-         *
-         * <p> Returns the bucket number where the element with <i>key</i> is located. </p>
-         *
-         * <p> A bucket is a slot in the container's internal hash table to which elements are assigned based on the
-         * hash value of their <i>key</i>. Buckets are numbered from 0 to ({@link bucket_count} - 1). </p>
-         *
-         * <p> Individual elements in a bucket can be accessed by means of the range iterators returned by
-         * {@link begin} and {@link end}. </p>
-         *
-         * @param key Key whose bucket is to be located.
-         */
-        bucket(key: T): number;
-        /**
-         * <p> Request a capacity change. </p>
-         *
-         * <p> Sets the number of buckets in the container ({@link bucket_count}) to the most appropriate to contain at
-         * least <i>n</i> elements. </p>
-         *
-         * <p> If <i>n</i> is greater than the current {@link bucket_count} multiplied by the {@link max_load_factor},
-         * the container's {@link bucket_count} is increased and a {@link rehash} is forced. </p>
-         *
-         * <p> If <i>n</i> is lower than that, the function may have no effect. </p>
-         *
-         * @param n The number of elements requested as minimum capacity.
-         */
-        reserve(n: number): void;
-        /**
-         * <p> Set number of buckets. </p>
-         *
-         * <p> Sets the number of buckets in the container to <i>n</i> or more. </p>
-         *
-         * <p> If <i>n</i> is greater than the current number of buckets in the container ({@link bucket_count}), a
-         * {@link HashBuckets.rehash rehash} is forced. The new {@link bucket_count bucket count} can either be equal or
-         * greater than <i>n</i>. </p>
-         *
-         * <p> If <i>n</i> is lower than the current number of buckets in the container ({@link bucket_count}), the
-         * function may have no effect on the {@link bucket_count bucket count} and may not force a
-         * {@link HashBuckets.rehash rehash}. </p>
-         *
-         * <p> A {@link HashBuckets.rehash rehash} is the reconstruction of the hash table: All the elements in the
-         * container are rearranged according to their hash value into the new set of buckets. This may alter the order
-         * of iteration of elements within the container. </p>
-         *
-         * <p> {@link HashBuckets.rehash Rehashes} are automatically performed by the container whenever its
-         * {@link load_factor load factor} is going to surpass its {@link max_load_factor} in an operation. </p>
-         *
-         * <p> Notice that this function expects the number of buckets as argument. A similar function exists,
-         * {@link reserve}, that expects the number of elements in the container as argument. </p>
-         *
-         * @param n The minimum number of buckets for the container hash table.
-         */
-        rehash(n: number): void;
-    }
-}
 declare namespace std {
     /**
      * <p> Hashed, unordered set. </p>
@@ -6531,7 +5951,8 @@ declare namespace std {
      * elements by their <i>key</i>, although they are generally less efficient for range iteration through a
      * subset of their elements. </p>
      *
-     * <p> <img src="../assets/images/design/set_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -6683,7 +6104,8 @@ declare namespace std {
      * <p> Elements with equivalent values are grouped together in the same bucket and in such a way that an
      * iterator can iterate through all of them. Iterators in the container are doubly linked iterators. </p>
      *
-     * <p> <img src="../assets/images/design/set_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -6844,7 +6266,9 @@ declare namespace std {
      * distance between these. They also consume some extra memory to keep the linking information associated to each
      * element (which may be an important factor for large lists of small-sized elements). </p>
      *
-     * <p> <img src="../assets/images/design/linear_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -7415,7 +6839,9 @@ declare namespace std {
     /**
      * <p> An iterator, node of a List. </p>
      *
-     * <p> <img src="../assets/images/design/linear_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
@@ -7475,7 +6901,9 @@ declare namespace std {
     /**
      * <p> A reverse-iterator of List. </p>
      *
-     * <p> <img src="../assets/images/design/linear_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * </p>
      *
      * @param <T> Type of the elements.
      *
@@ -7523,7 +6951,9 @@ declare namespace std {
      * By default, if no container class is specified for a particular {@link Queue} class instantiation, the standard
      * container {@link List} is used. </p>
      *
-     * <p> <img src="../assets/images/design/linear_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * </p>
      *
      * @param <T> Type of elements.
      *
@@ -7853,7 +7283,9 @@ declare namespace std {
      * By default, if no container class is specified for a particular {@link Stack} class instantiation, the standard
      * container {@link List} is used. </p>
      *
-     * <p> <img src="../assets/images/design/linear_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * </p>
      *
      * @param <T> Type of elements.
      *
@@ -7962,7 +7394,8 @@ declare namespace std.base {
      * so that they can be interpreted when needed as more abstract (and portable)
      * {@link ErrorCondition error conditions}. </p>
      *
-     * <p> <img src="../assets/images/design/exceptions.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
@@ -8071,7 +7504,8 @@ declare namespace std {
      * <p> The class inherits from {@link RuntimeError}, to which it adds an {@link ErrorCode} as
      * member code (and defines a specialized what member). </p>
      *
-     * <p> <img src="../assets/images/design/exceptions.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </p>
      *
      * @reference http://www.cplusplus.com/reference/system_error/system_error
      * @author Jeongho Nam <http://samchon.org>
@@ -8136,7 +7570,8 @@ declare namespace std {
      * passed by reference. As such, only one object of each of these types shall exist, each uniquely identifying its own
      * category: all error codes and conditions of a same category shall return a reference to same object. </p>
      *
-     * <p> <img src="../assets/images/design/exceptions.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </p>
      *
      * @reference http://www.cplusplus.com/reference/system_error/error_category
      * @author Jeongho Nam <http://samchon.org>
@@ -8263,7 +7698,8 @@ declare namespace std {
      * <p> The {@link ErrorCategory categories} associated with the {@link ErrorCondition} and the
      * {@link ErrorCode} define the equivalences between them. </p>
      *
-     * <p> <img src="../assets/images/design/exceptions.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </p>
      *
      * @reference http://www.cplusplus.com/reference/system_error/error_condition
      * @author Jeongho Nam <http://samchon.org>
@@ -8295,7 +7731,8 @@ declare namespace std {
      * <p> Objects of this class associate such numerical codes to {@link ErrorCategory error categories}, so that they
      * can be interpreted when needed as more abstract (and portable) {@link ErrorCondition error conditions}. </p>
      *
-     * <p> <img src="../assets/images/design/exceptions.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </p>
      *
      * @reference http://www.cplusplus.com/reference/system_error/error_code
      * @author Jeongho Nam <http://samchon.org>
@@ -8312,121 +7749,6 @@ declare namespace std {
          * @param category A reference to an {@link ErrorCategory} object.
          */
         constructor(val: number, category: ErrorCategory);
-    }
-}
-declare namespace std.base {
-    /**
-     * <p> Common interface for tree-structured map. </p>
-     *
-     * <p> {@link ITreeMap ITreeMaps} are associative containers that store elements formed by a combination of
-     * a <i>key value</i> and a <i>mapped value</i>, following a specific order. </p>
-     *
-     * <p> In a {@link ITreeMap}, the <i>key values</i> are generally used to sort and uniquely identify
-     * the elements, while the <i>mapped values</i> store the content associated to this <i>key</i>. The types of
-     * <i>key</i> and <i>mapped value</i> may differ, and are grouped together in member type
-     * <code>value_type</code>, which is a {@link Pair} type combining both: </p>
-     *
-     * <p> <code>typedef Pair<const Key, T> value_type;</code> </p>
-     *
-     * <p> Internally, the elements in a {@link ITreeMap}are always sorted by its key following a
-     * strict weak ordering criterion indicated by its internal comparison method (of {@link less}). </p>
-     *
-     * <p> {@link ITreeMap}containers are generally slower than {@link IHashMap} containers
-     * to access individual elements by their <i>key</i>, but they allow the direct iteration on subsets based
-     * on their order. </p>
-     *
-     * <p> {@link ITreeMap TreeMultiMaps} are typically implemented as binary search trees. </p>
-     *
-     * <p> <img src="../assets/images/design/map_containers.png" width="100%" /> </p>
-     *
-     * <h3> Container properties </h3>
-     * <dl>
-     *	<dt> Associative </dt>
-     *	<dd> Elements in associative containers are referenced by their <i>key</i> and not by their absolute
-     *		 position in the container. </dd>
-     *
-     *	<dt> Ordered </dt>
-     *	<dd> The elements in the container follow a strict order at all times. All inserted elements are
-     *		 given a position in this order. </dd>
-     *
-     *	<dt> Map </dt>
-     *	<dd> Each element associates a <i>key</i> to a <i>mapped value</i>:
-     *		 <i>Keys</i> are meant to identify the elements whose main content is the <i>mapped value</i>. </dd>
-     * </dl>
-     *
-     * @param <Key> Type of the keys. Each element in a map is uniquely identified by its key value.
-     * @param <T> Type of the mapped value. Each element in a map stores some data as its mapped value.
-     *
-     * @reference http://www.cplusplus.com/reference/map
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    interface ITreeMap<Key, T> {
-        /**
-         * <p> Return iterator to lower bound. </p>
-         *
-         * <p> Returns an iterator pointing to the first element in the container whose key is not considered to
-         * go before <i>k</i> (i.e., either it is equivalent or goes after). </p>
-         *
-         * <p> The function uses its internal comparison object (key_comp) to determine this, returning an
-         * iterator to the first element for which key_comp(<i>k</i>, element_key) would return false. </p>
-         *
-         * <p> If the {@link ITreeMap} class is instantiated with the default comparison type ({@link less}),
-         * the function returns an iterator to the first element whose key is not less than <i>k</i> </p>.
-         *
-         * <p> A similar member function, {@link upper_bound}, has the same behavior as {@link lower_bound}, except
-         * in the case that the {@link ITreeMap} contains an element with a key equivalent to <i>k</i>: In this
-         * case, {@link lower_bound} returns an iterator pointing to that element, whereas {@link upper_bound}
-         * returns an iterator pointing to the next element. </p>
-         *
-         * @param k Key to search for.
-         *
-         * @return An iterator to the the first element in the container whose key is not considered to go before
-         *		   <i>k</i>, or {@link ITreeMap.end} if all keys are considered to go before <i>k</i>.
-         */
-        lower_bound(key: Key): MapIterator<Key, T>;
-        /**
-         * <p> Return iterator to upper bound. </p>
-         *
-         * <p> Returns an iterator pointing to the first element in the container whose key is considered to
-         * go after <i>k</i> </p>.
-         *
-         * <p> The function uses its internal comparison object (key_comp) to determine this, returning an
-         * iterator to the first element for which key_comp(<i>k</i>, element_key) would return true. </p>
-         *
-         * <p> If the {@link ITreeMap} class is instantiated with the default comparison type ({@link less}),
-         * the function returns an iterator to the first element whose key is greater than <i>k</i> </p>.
-         *
-         * <p> A similar member function, {@link lower_bound}, has the same behavior as {@link upper_bound}, except
-         * in the case that the map contains an element with a key equivalent to <i>k</i>: In this case
-         * {@link lower_bound} returns an iterator pointing to that element, whereas {@link upper_bound} returns an
-         * iterator pointing to the next element. </p>
-         *
-         * @param k Key to search for.
-         *
-         * @return An iterator to the the first element in the container whose key is considered to go after
-         *		   <i>k</i>, or {@link TreeMap.end end} if no keys are considered to go after <i>k</i>.
-         */
-        upper_bound(key: Key): MapIterator<Key, T>;
-        /**
-         * <p> Get range of equal elements. </p>
-         *
-         * <p> Returns the bounds of a range that includes all the elements in the container which have a key
-         * equivalent to <i>k</i> </p>.
-         *
-         * <p> If no matches are found, the range returned has a length of zero, with both iterators pointing to
-         * the first element that has a key considered to go after <i>k</i> according to the container's internal
-         * comparison object (key_comp). </p>
-         *
-         * <p> Two keys are considered equivalent if the container's comparison object returns false reflexively
-         * (i.e., no matter the order in which the keys are passed as arguments). </p>
-         *
-         * @param k Key to search for.
-         *
-         * @return The function returns a {@link Pair}, whose member {@link Pair.first} is the lower bound of
-         *		   the range (the same as {@link lower_bound}), and {@link Pair.second} is the upper bound
-         *		   (the same as {@link upper_bound}).
-         */
-        equal_range(key: Key): Pair<MapIterator<Key, T>, MapIterator<Key, T>>;
     }
 }
 declare namespace std {
@@ -8451,7 +7773,8 @@ declare namespace std {
      *
      * <p> {@link TreeMap}s are typically implemented as binary search trees. </p>
      *
-     * <p> <img src="../assets/images/design/map_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -8491,7 +7814,7 @@ declare namespace std {
          *
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(compare: (left: Key, right: Key) => boolean);
+        constructor(compare: (x: Key, y: Key) => boolean);
         /**
          * Contruct from elements.
          *
@@ -8504,7 +7827,7 @@ declare namespace std {
          * @param array Elements to be contained.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(array: Array<Pair<Key, T>>, compare: (left: Key, right: Key) => boolean);
+        constructor(array: Array<Pair<Key, T>>, compare: (x: Key, y: Key) => boolean);
         /**
          * Contruct from tuples.
          *
@@ -8517,7 +7840,7 @@ declare namespace std {
          * @param array Tuples to be contained.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(array: Array<[Key, T]>, compare: (left: Key, right: Key) => boolean);
+        constructor(array: Array<[Key, T]>, compare: (x: Key, y: Key) => boolean);
         /**
          * Copy Constructor.
          *
@@ -8530,7 +7853,7 @@ declare namespace std {
          * @param container Another map to copy.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(container: base.MapContainer<Key, T>, compare: (left: Key, right: Key) => boolean);
+        constructor(container: base.MapContainer<Key, T>, compare: (x: Key, y: Key) => boolean);
         /**
          * Range Constructor.
          *
@@ -8545,7 +7868,7 @@ declare namespace std {
          * @param end Input interator of the final position in a sequence.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(begin: Iterator<Pair<Key, T>>, end: Iterator<Pair<Key, T>>, compare: (left: Key, right: Key) => boolean);
+        constructor(begin: Iterator<Pair<Key, T>>, end: Iterator<Pair<Key, T>>, compare: (x: Key, y: Key) => boolean);
         /**
          * @inheritdoc
          */
@@ -8554,6 +7877,14 @@ declare namespace std {
          * @inheritdoc
          */
         find(key: Key): MapIterator<Key, T>;
+        /**
+         * @inheritdoc
+         */
+        key_comp(): (x: Key, y: Key) => boolean;
+        /**
+         * @inheritdoc
+         */
+        value_comp(): (x: Pair<Key, T>, y: Pair<Key, T>) => boolean;
         /**
          * @inheritdoc
          */
@@ -8620,7 +7951,8 @@ declare namespace std {
      *
      * <p> {@link TreeMultiMap TreeMultiMaps} are typically implemented as binary search trees. </p>
      *
-     * <p> <img src="../assets/images/design/map_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" target="_blank"> <
+     * img src="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -8663,7 +7995,7 @@ declare namespace std {
          *
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(compare: (left: Key, right: Key) => boolean);
+        constructor(compare: (x: Key, y: Key) => boolean);
         /**
          * Contruct from elements.
          *
@@ -8676,7 +8008,7 @@ declare namespace std {
          * @param array Elements to be contained.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(array: Array<Pair<Key, T>>, compare: (left: Key, right: Key) => boolean);
+        constructor(array: Array<Pair<Key, T>>, compare: (x: Key, y: Key) => boolean);
         /**
          * Contruct from tuples.
          *
@@ -8689,7 +8021,7 @@ declare namespace std {
          * @param array Tuples to be contained.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(array: Array<[Key, T]>, compare: (left: Key, right: Key) => boolean);
+        constructor(array: Array<[Key, T]>, compare: (x: Key, y: Key) => boolean);
         /**
          * Copy Constructor.
          *
@@ -8702,7 +8034,7 @@ declare namespace std {
          * @param container Another map to copy.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(container: base.MapContainer<Key, T>, compare: (left: Key, right: Key) => boolean);
+        constructor(container: base.MapContainer<Key, T>, compare: (x: Key, y: Key) => boolean);
         /**
          * Range Constructor.
          *
@@ -8717,7 +8049,7 @@ declare namespace std {
          * @param end Input interator of the final position in a sequence.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(begin: Iterator<Pair<Key, T>>, end: Iterator<Pair<Key, T>>, compare: (left: Key, right: Key) => boolean);
+        constructor(begin: Iterator<Pair<Key, T>>, end: Iterator<Pair<Key, T>>, compare: (x: Key, y: Key) => boolean);
         /**
          * @inheritdoc
          */
@@ -8730,6 +8062,14 @@ declare namespace std {
          * @inheritdoc
          */
         count(key: Key): number;
+        /**
+         * @inheritdoc
+         */
+        key_comp(): (x: Key, y: Key) => boolean;
+        /**
+         * @inheritdoc
+         */
+        value_comp(): (x: Pair<Key, T>, y: Pair<Key, T>) => boolean;
         /**
          * @inheritdoc
          */
@@ -8772,121 +8112,6 @@ declare namespace std {
         private swap_tree_multimap(obj);
     }
 }
-declare namespace std.base {
-    /**
-     * <p> A common interface for tree-structured set. </p>
-     *
-     * <p> {@link ITreeSet TreeMultiSets} are containers that store elements following a specific order. </p>
-     *
-     * <p> In a {@link ITreeSet}, the value of an element also identifies it (the value is itself
-     * the <i>key</i>, of type <i>T</i>). The value of the elements in a {@link ITreeSet} cannot
-     * be modified once in the container (the elements are always const), but they can be inserted or removed
-     * from the  </p>
-     *
-     * <p> Internally, the elements in a {@link ITreeSet TreeMultiSets} are always sorted following a strict
-     * weak ordering criterion indicated by its internal comparison method (of {@link IComparable.less less}). </p>
-     *
-     * <p> {@link ITreeSet} containers are generally slower than {@link IHashSet} containers
-     * to access individual elements by their <i>key</i>, but they allow the direct iteration on subsets based on
-     * their order. </p>
-     *
-     * <p> {@link ITreeSet TreeMultiSets} are typically implemented as binary search trees. </p>
-     *
-     * <p> <img src="../assets/images/design/set_containers.png" width="100%" /> </p>
-     *
-     * <h3> Container properties </h3>
-     * <dl>
-     *	<dt> Associative </dt>
-     *	<dd>
-     *		Elements in associative containers are referenced by their <i>key</i> and not by their absolute
-     *		position in the container.
-     *	</dd>
-     *
-     *	<dt> Ordered </dt>
-     *	<dd>
-     *		The elements in the container follow a strict order at all times. All inserted elements are
-     *		given a position in this order.
-     *	</dd>
-     *
-     *	<dt> Set </dt>
-     *	<dd> The value of an element is also the <i>key</i> used to identify it. </dd>
-     * </dl>
-     *
-     * @param <T> Type of the elements. Each element in a {@link ITreeSet} container is also identified
-     *			  by this value (each value is itself also the element's <i>key</i>).
-     *
-     * @reference http://www.cplusplus.com/reference/set
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    interface ITreeSet<T> {
-        /**
-         * <p> Return iterator to lower bound. </p>
-         *
-         * <p> Returns an iterator pointing to the first element in the container which is not considered to
-         * go before <i>val</i> (i.e., either it is equivalent or goes after). </p>
-         *
-         * <p> The function uses its internal comparison object (key_comp) to determine this, returning an
-         * iterator to the first element for which key_comp(element,val) would return false. </p>
-         *
-         * <p> If the {@link ITreeSet} class is instantiated with the default comparison type ({@link less}),
-         * the function returns an iterator to the first element that is not less than <i>val</i>. </p>
-
-         * <p> A similar member function, {@link upper_bound}, has the same behavior as {@link lower_bound}, except
-         * in the case that the {@link ITreeSet} contains elements equivalent to <i>val</i>: In this case
-         * {@link lower_bound} returns an iterator pointing to the first of such elements, whereas
-         * {@link upper_bound} returns an iterator pointing to the element following the last. </p>
-         *
-         * @param val Value to compare.
-         *
-         * @return An iterator to the the first element in the container which is not considered to go before
-         *		   <i>val</i>, or {@link ITreeSet.end} if all elements are considered to go before <i>val</i>.
-         */
-        lower_bound(val: T): SetIterator<T>;
-        /**
-         * <p> Return iterator to upper bound. </p>
-         *
-         * <p> Returns an iterator pointing to the first element in the container which is considered to go after
-         * <i>val</i>. </p>
-
-         * <p> The function uses its internal comparison object (key_comp) to determine this, returning an
-         * iterator to the first element for which key_comp(val,element) would return true. </p>
-
-         * <p> If the {@code ITreeSet} class is instantiated with the default comparison type (less), the
-         * function returns an iterator to the first element that is greater than <i>val</i>. </p>
-         *
-         * <p> A similar member function, {@link lower_bound}, has the same behavior as {@link upper_bound}, except
-         * in the case that the {@ITreeSet} contains elements equivalent to <i>val</i>: In this case
-         * {@link lower_bound} returns an iterator pointing to the first of such elements, whereas
-         * {@link upper_bound} returns an iterator pointing to the element following the last. </p>
-         *
-         * @param val Value to compare.
-         *
-         * @return An iterator to the the first element in the container which is considered to go after
-         *		   <i>val</i>, or {@link TreeSet.end end} if no elements are considered to go after <i>val</i>.
-         */
-        upper_bound(val: T): SetIterator<T>;
-        /**
-         * <p> Get range of equal elements. </p>
-         *
-         * <p> Returns the bounds of a range that includes all the elements in the container that are equivalent
-         * to <i>val</i>. </p>
-         *
-         * <p> If no matches are found, the range returned has a length of zero, with both iterators pointing to
-         * the first element that is considered to go after val according to the container's
-         * internal comparison object (key_comp). </p>
-         *
-         * <p> Two elements of a multiset are considered equivalent if the container's comparison object returns
-         * false reflexively (i.e., no matter the order in which the elements are passed as arguments). </p>
-         *
-         * @param key Value to search for.
-         *
-         * @return The function returns a {@link Pair}, whose member {@link Pair.first} is the lower bound of
-         *		   the range (the same as {@link lower_bound}), and {@link Pair.second} is the upper bound
-         *		   (the same as {@link upper_bound}).
-         */
-        equal_range(val: T): Pair<SetIterator<T>, SetIterator<T>>;
-    }
-}
 declare namespace std {
     /**
      * <p> Tree-structured set, <code>std::set</code> of STL. </p>
@@ -8907,7 +8132,8 @@ declare namespace std {
      *
      * <p> {@link TreeSet}s are typically implemented as binary search trees. </p>
      *
-     * <p> <img src="../assets/images/design/set_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -8950,7 +8176,7 @@ declare namespace std {
          *
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(compare: (left: T, right: T) => boolean);
+        constructor(compare: (x: T, y: T) => boolean);
         /**
          * Contruct from elements.
          *
@@ -8963,7 +8189,7 @@ declare namespace std {
          * @param array Elements to be contained.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(array: Array<T>, compare: (left: T, right: T) => boolean);
+        constructor(array: Array<T>, compare: (x: T, y: T) => boolean);
         /**
          * Copy Constructor.
          */
@@ -8974,7 +8200,7 @@ declare namespace std {
          * @param container A container to be copied.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(container: base.IContainer<T>, compare: (left: T, right: T) => boolean);
+        constructor(container: base.IContainer<T>, compare: (x: T, y: T) => boolean);
         /**
          * Range Constructor.
          *
@@ -8989,7 +8215,7 @@ declare namespace std {
          * @param end Input interator of the final position in a sequence.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(begin: Iterator<T>, end: Iterator<T>, compare: (left: T, right: T) => boolean);
+        constructor(begin: Iterator<T>, end: Iterator<T>, compare: (x: T, y: T) => boolean);
         /**
          * @inheritdoc
          */
@@ -8998,6 +8224,14 @@ declare namespace std {
          * @inheritdoc
          */
         find(val: T): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        key_comp(): (x: T, y: T) => boolean;
+        /**
+         * @inheritdoc
+         */
+        value_comp(): (x: T, y: T) => boolean;
         /**
          * @inheritdoc
          */
@@ -9058,7 +8292,8 @@ declare namespace std {
      *
      * <p> {@link TreeMultiSet TreeMultiSets} are typically implemented as binary search trees. </p>
      *
-     * <p> <img src="../assets/images/design/set_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -9101,7 +8336,7 @@ declare namespace std {
          *
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(compare: (left: T, right: T) => boolean);
+        constructor(compare: (x: T, y: T) => boolean);
         /**
          * Contruct from elements.
          *
@@ -9114,7 +8349,7 @@ declare namespace std {
          * @param array Elements to be contained.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(array: Array<T>, compare: (left: T, right: T) => boolean);
+        constructor(array: Array<T>, compare: (x: T, y: T) => boolean);
         /**
          * Copy Constructor.
          */
@@ -9125,7 +8360,7 @@ declare namespace std {
          * @param container A container to be copied.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(container: base.Container<T>, compare: (left: T, right: T) => boolean);
+        constructor(container: base.Container<T>, compare: (x: T, y: T) => boolean);
         /**
          * Range Constructor.
          *
@@ -9140,7 +8375,7 @@ declare namespace std {
          * @param end Input interator of the final position in a sequence.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(begin: Iterator<T>, end: Iterator<T>, compare: (left: T, right: T) => boolean);
+        constructor(begin: Iterator<T>, end: Iterator<T>, compare: (x: T, y: T) => boolean);
         /**
          * @inheritdoc
          */
@@ -9153,6 +8388,14 @@ declare namespace std {
          * @inheritdoc
          */
         count(val: T): number;
+        /**
+         * @inheritdoc
+         */
+        key_comp(): (x: T, y: T) => boolean;
+        /**
+         * @inheritdoc
+         */
+        value_comp(): (x: T, y: T) => boolean;
         /**
          * @inheritdoc
          */
@@ -9298,7 +8541,9 @@ declare namespace std {
      * end, they perform worse than the others, and have less consistent iterators and references than {@link List}s.
      * </p>
      *
-     * <p> <img src="../assets/images/design/linear_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -9682,7 +8927,9 @@ declare namespace std {
     /**
      * <p> An iterator of Vector. </p>
      *
-     * <p> <img src="../assets/images/design/linear_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * </p>
      *
      * @param <T> Type of the elements.
      *
@@ -9757,7 +9004,9 @@ declare namespace std {
     /**
      * <p> A reverse-iterator of Vector. </p>
      *
-     * <p> <img src="../assets/images/design/linear_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * </p>
      *
      * @param <T> Type of the elements.
      *
@@ -9777,6 +9026,1172 @@ declare namespace std {
          * Get index.
          */
         index: number;
+    }
+}
+declare namespace std.base {
+    /**
+     * <p> Static class holding enumeration codes of color of Red-black tree. </p>
+     *
+     * <p> Color codes imposed to nodes of RB-Tree are following those rules: </p>
+     *
+     * <ol>
+     *	<li> A node is either <font color='red'>red</font> or <font color='darkBlue'>black</font>. </li>
+     *	<li> The root is <font color='darkBlue'>black</font>. This rule is sometimes omitted. Since the root can
+     *		 always be changed from <font color='red'>red</font> to <font color='darkBlue'>black</font>, but not
+     *		 necessarily vice versa, this rule has little effect on analysis. </li>
+     *	<li> All leaves (NIL; <code>null</code>) are <font color='darkBlue'>black</font>. </li>
+     *  <li> If a node is <font color='red'>red</font>, then both its children are
+     *		 <font color='darkBlue'>black</font>. </li>
+     *  <li> Every path from a given node to any of its descendant NIL nodes contains the same number of
+     *		 <font color='darkBlue'>black</font> nodes. Some definitions: the number of
+     *		 <font color='darkBlue'>black</font> nodes from the root to a node is the node's
+     *		 <font color='darkBlue'>black</font> depth; the uniform number of <font color='darkBlue'>black</font>
+     *		 nodes in all paths from root to the leaves is called the <font color='darkBlue'>black</font>-height of
+     *		 the red-black tree. </li>
+     * </ol>
+     *
+     * @author Migrated by Jeongho Nam <http://samchon.org>
+     */
+    enum Color {
+        /**
+         * <p> Code of color black. </p>
+         *
+         * <ul>
+         *	<li> Those are clearly black: root, leaf nodes or children nodes of red. </li>
+         *	<li> Every path from a given nodes containes the same number of black nodes exclude NIL(s). </li>
+         * </ul>
+         */
+        BLACK = 0,
+        /**
+         * <p> Code of color red. </p>
+         */
+        RED = 1,
+    }
+}
+declare namespace std.base {
+    enum Hash {
+        MIN_SIZE = 10,
+        RATIO = 1,
+        MAX_RATIO = 2,
+    }
+    /**
+     * <p> Hask buckets. </p>
+     *
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    class HashBuckets<T> {
+        private buckets_;
+        private item_size_;
+        /**
+         * Default Constructor.
+         */
+        constructor();
+        /**
+         * <p> Reconstruction of hash table. </p>
+         *
+         * <p> All the elements in the hash buckets are rearranged according to their hash value into the new set of
+         * buckets. This may alter the order of iteration of elements within the container. </p>
+         *
+         * <p> Notice that {@link rehash rehashes} are automatically performed whenever its number of elements is going
+         * to greater than its own {@link capacity}. </p>
+         *
+         * @param size Number of bucket size to rehash.
+         */
+        rehash(size: number): void;
+        clear(): void;
+        size(): number;
+        item_size(): number;
+        capacity(): number;
+        at(index: number): Vector<T>;
+        hash_index(val: T): number;
+        insert(val: T): void;
+        erase(val: T): void;
+    }
+}
+declare namespace std.base {
+    /**
+     * <p> Common interface for hash map. </p>
+     *
+     * <p> {@link IHashMap}s are associative containers that store elements formed by the combination of
+     * a <i>key value</i> and a <i>mapped value</i>. </p>
+     *
+     * <p> In an {@link IHashMap}, the <i>key value</i> is generally used to uniquely identify the
+     * element, while the <i>mapped value</i> is an object with the content associated to this <i>key</i>.
+     * Types of <i>key</i> and <i>mapped value</i> may differ. </p>
+     *
+     * <p> Internally, the elements in the {@link IHashMap} are not sorted in any particular order with
+     * respect to either their <i>key</i> or <i>mapped values</i>, but organized into <i>buckets</i> depending on
+     * their hash values to allow for fast access to individual elements directly by their <i>key values</i>
+     * (with a constant average time complexity on average). </p>
+     *
+     * <p> Elements with equivalent <i>keys</i> are grouped together in the same bucket and in such a way that
+     * an iterator can iterate through all of them. Iterators in the container are doubly linked iterators. </p>
+     *
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </p>
+     *
+     * <h3> Container properties </h3>
+     * <dl>
+     *	<dt> Associative </dt>
+     *	<dd> Elements in associative containers are referenced by their <i>key</i> and not by their absolute
+     *		 position in the container. </dd>
+     *
+     *	<dt> Hashed </dt>
+     *	<dd> Hashed containers organize their elements using hash tables that allow for fast access to elements
+     *		 by their <i>key</i>. </dd>
+     *
+     *	<dt> Map </dt>
+     *	<dd> Each element associates a <i>key</i> to a <i>mapped value</i>:
+     *		 <i>Keys</i> are meant to identify the elements whose main content is the <i>mapped value</i>. </dd>
+     * </dl>
+     *
+     * @param <Key> Type of the key values.
+     *				Each element in an {@link IHashMap} is identified by a key value.
+     * @param <T> Type of the mapped value.
+     *			  Each element in an {@link IHashMap} is used to store some data as its mapped value.
+     *
+     * @reference http://www.cplusplus.com/reference/unordered_map
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    interface IHashMap<Key, T> {
+        /**
+         * <p> Return iterator to beginning. </p>
+         *
+         * <p> Returns an iterator pointing to the first element in the {@link IHashMap}. </p>
+         *
+         * <p> Notice that an {@link IHashMap} object makes no guarantees on which specific element is considered its
+         * first element. But, in any case, the range that goes from its begin to its end covers all the elements in the
+         * container, until invalidated. </p>
+         *
+         * @return An iterator to the first element in the container.
+         */
+        begin(): MapIterator<Key, T>;
+        /**
+         * <p> Return iterator to beginning. </p>
+         *
+         * <p> Returns an iterator pointing to the first element in one of buckets in the {@link IHashMap}. </p>
+         *
+         * <p> Notice that an {@link IHashMap} object makes no guarantees on which specific element is considered its
+         * first element. But, in any case, the range that goes from its begin to its end covers all the elements in the
+         * bucket, until invalidated. </p>
+         *
+         * @param index Bucket number. This shall be lower than {@link bucket_count}.
+         *
+         * @return An iterator to the first element in the bucket.
+         */
+        begin(index: number): MapIterator<Key, T>;
+        /**
+         * <p> Return iterator to end. </p>
+         *
+         * <p> Returns an iterator pointing to the past-the-end element in the {@link HaspMap} container. </p>
+         *
+         * <p> The iterator returned by end does not point to any element, but to the position that follows the last
+         * element in the {@link HaspMap} container (its <i>past-the-end</i> position). Thus, the value returned shall
+         * not be dereferenced - it is generally used to describe the open-end of a range, such as
+         * [<i>begin</i>, <i>end</i>). </p>
+         *
+         * <p> Notice that an {@link IHashMap} object makes no guarantees on which order its elements follow. But, in any
+         * case, the range that goes from its begin to its end covers all the elements in the container (or the bucket),
+         * until invalidated. </p>
+         *
+         * @return An iterator to the element past the end of the container.
+         */
+        end(): MapIterator<Key, T>;
+        /**
+         * <p> Return iterator to end. </p>
+         *
+         * <p> Returns an iterator pointing to the past-the-end element in the {@link HaspMap} container. </p>
+         *
+         * <p> The iterator returned by end does not point to any element, but to the position that follows the last
+         * element in the {@link HaspMap} container (its <i>past-the-end</i> position). Thus, the value returned shall
+         * not be dereferenced - it is generally used to describe the open-end of a range, such as
+         * [<i>begin</i>, <i>end</i>). </p>
+         *
+         * <p> Notice that an {@link IHashMap} object makes no guarantees on which order its elements follow. But, in any
+         * case, the range that goes from its begin to its end covers all the elements in the container (or the bucket),
+         * until invalidated. </p>
+         *
+         * @param index Bucket number. This shall be lower than {@link bucket_count}.
+         *
+         * @return An iterator to the element past the end of the bucket.
+         */
+        end(index: number): MapIterator<Key, T>;
+        /**
+         * <p> Return {@link MapReverseIterator reverse iterator} to <i>reverse beginning</i>. </p>
+         *
+         * <p> Returns a {@link MapReverseIterator reverse iterator} pointing to the last element in the {@link IHashMap}
+         * (i.e., its <i>reverse beginning</i>). </p>
+         *
+         * {@link MapReverseIterator Reverse iterators} iterate backwards: increasing them moves them towards the
+         * beginning of the container. </p>
+         *
+         * <p> {@link rbegin} points to the element preceding the one that would be pointed to by member {@link end}. </p>
+         *
+         * <p> Notice that an {@link IHashMap} object makes no guarantees on which specific element is considered its
+         * first element. But, in any case, the range that goes from its begin to its end covers all the elements in the
+         * bucket, until invalidated. </p>
+         *
+         * @return A {@link MapReverseIterator reverse iterator} to the <i>reverse beginning</i> of the sequence
+         */
+        rbegin(): MapReverseIterator<Key, T>;
+        /**
+         * <p> Return {@link MapReverseIterator reverse iterator} to <i>reverse beginning</i>. </p>
+         *
+         * <p> Returns a {@link MapReverseIterator reverse iterator} pointing to the last element in one of buckets in the
+         * {@link IHashMap} (i.e., its <i>reverse beginning</i>). </p>
+         *
+         * {@link MapReverseIterator Reverse iterators} iterate backwards: increasing them moves them towards the
+         * beginning of the container. </p>
+         *
+         * <p> {@link rbegin} points to the element preceding the one that would be pointed to by member {@link end}. </p>
+         *
+         * <p> Notice that an {@link IHashMap} object makes no guarantees on which specific element is considered its
+         * first element. But, in any case, the range that goes from its begin to its end covers all the elements in the
+         * bucket, until invalidated. </p>
+         *
+         * @param index Bucket number. This shall be lower than {@link bucket_count}.
+         *
+         * @return A {@link MapReverseIterator reverse iterator} to the <i>reverse beginning</i> of the sequence
+         */
+        rbegin(index: number): MapReverseIterator<Key, T>;
+        /**
+         * <p> Return {@link MapReverseIterator reverse iterator} to <i>reverse end</i>. </p>
+         *
+         * <p> Returns a {@link MapReverseIterator reverse iterator} pointing to the theoretical element right before
+         * the first element in the {@link IHashMap hash map container} (which is considered its <i>reverse end</i>). </p>
+         *
+         * <p> The range between {@link IHashMap}.{@link rbegin} and {@link IHashMap}.{@link rend} contains all the
+         * elements of the container (in reverse order). </p>
+         *
+         * <p> Notice that an {@link IHashMap} object makes no guarantees on which order its elements follow. But, in any
+         * case, the range that goes from its begin to its end covers all the elements in the container (or the bucket),
+         * until invalidated. </p>
+         *
+         * @return A {@link MapReverseIterator reverse iterator} to the <i>reverse end</i> of the sequence.
+         */
+        rend(): MapReverseIterator<Key, T>;
+        /**
+         * <p> Return {@link MapReverseIterator reverse iterator} to <i>reverse end</i>. </p>
+         *
+         * <p> Returns a {@link MapReverseIterator reverse iterator} pointing to the theoretical element right before
+         * the first element in one of buckets in the {@link IHashMap hash map container} (which is considered its
+         * <i>reverse end</i>). </p>
+         *
+         * <p> The range between {@link IHashMap}.{@link rbegin} and {@link IHashMap}.{@link rend} contains all the
+         * elements of the container (in reverse order). </p>
+         *
+         * <p> Notice that an {@link IHashMap} object makes no guarantees on which order its elements follow. But, in any
+         * case, the range that goes from its begin to its end covers all the elements in the container (or the bucket),
+         * until invalidated. </p>
+         *
+         * @param index Bucket number. This shall be lower than {@link bucket_count}.
+         *
+         * @return A {@link MapReverseIterator reverse iterator} to the <i>reverse end</i> of the sequence.
+         */
+        rend(index: number): MapReverseIterator<Key, T>;
+        /**
+         * <p> Return number of buckets. </p>
+         *
+         * <p> Returns the number of buckets in the {@link IHashMap} container. </p>
+         *
+         * <p> A bucket is a slot in the container's internal hash table to which elements are assigned based on the
+         * hash value of their key. </p>
+         *
+         * <p> The number of buckets influences directly the {@link load_factor load factor} of the container's hash
+         * table (and thus the probability of collision). The container automatically increases the number of buckets to
+         * keep the load factor below a specific threshold (its {@link max_load_factor}), causing a {@link rehash} each
+         * time the number of buckets needs to be increased. </p>
+         *
+         * @return The current amount of buckets.
+         */
+        bucket_count(): number;
+        /**
+         * <p> Return bucket size. </p>
+         *
+         * <p> Returns the number of elements in bucket <i>n</i>. </p>
+         *
+         * <p> A bucket is a slot in the container's internal hash table to which elements are assigned based on the hash
+         * value of their key. </p>
+         *
+         * <p> The number of elements in a bucket influences the time it takes to access a particular element in the
+         * bucket. The container automatically increases the number of buckets to keep the {@link load_cator load factor}
+         * (which is the average bucket size) below its {@link max_load_factor}. </p>
+         *
+         * @param n Bucket number. This shall be lower than {@link bucket_count}.
+         *
+         * @return The number of elements in bucket <i>n</i>.
+         */
+        bucket_size(n: number): number;
+        /**
+         * <p> Get maximum load factor. </p>
+         *
+         * <p> Returns the current maximum load factor for the {@link HashMultiMap} container. </p>
+         *
+         * <p> The load factor is the ratio between the number of elements in the container (its {@link size}) and the
+         * number of buckets ({@link bucket_count}). </p>
+         *
+         * <p> By default, {@link HashMultiMap} containers have a {@link max_load_factor} of 1.0. </p>
+         *
+         * <p> The load factor influences the probability of collision in the hash table (i.e., the probability of two
+         * elements being located in the same bucket). The container uses the value of max_load_factor as the threshold
+         * that forces an increase in the number of buckets (and thus causing a {@link rehash}). </p>
+         *
+         * <p> Note though, that implementations may impose an upper limit on the number of buckets (see
+         * {@link max_bucket_count}), which may force the container to ignore the {@link max_load_factor}. </p>
+         *
+         * @return The current load factor.
+         */
+        max_load_factor(): number;
+        /**
+         * <p> Set maximum load factor. </p>
+         *
+         * <p> Sets <i>z</i> as the cnew maximum load factor for the {@link HashMultiMap} container. </p>
+         *
+         * <p> The load factor is the ratio between the number of elements in the container (its {@link size}) and the
+         * number of buckets ({@link bucket_count}). </p>
+         *
+         * <p> By default, {@link HashMultiMap} containers have a {@link max_load_factor} of 1.0. </p>
+         *
+         * <p> The load factor influences the probability of collision in the hash table (i.e., the probability of two
+         * elements being located in the same bucket). The container uses the value of max_load_factor as the threshold
+         * that forces an increase in the number of buckets (and thus causing a {@link rehash}). </p>
+         *
+         * <p> Note though, that implementations may impose an upper limit on the number of buckets (see
+         * {@link max_bucket_count}), which may force the container to ignore the {@link max_load_factor}. </p>
+         *
+         * @param z The new maximum load factor.
+         */
+        max_load_factor(z: number): void;
+        /**
+         * <p> Locate element's bucket. </p>
+         *
+         * <p> Returns the bucket number where the element with <i>key</i> is located. </p>
+         *
+         * <p> A bucket is a slot in the container's internal hash table to which elements are assigned based on the
+         * hash value of their <i>key</i>. Buckets are numbered from 0 to ({@link bucket_count} - 1). </p>
+         *
+         * <p> Individual elements in a bucket can be accessed by means of the range iterators returned by
+         * {@link begin} and {@link end}. </p>
+         *
+         * @param key Key whose bucket is to be located.
+         */
+        bucket(key: Key): number;
+        /**
+         * <p> Request a capacity change. </p>
+         *
+         * <p> Sets the number of buckets in the container ({@link bucket_count}) to the most appropriate to contain at
+         * least <i>n</i> elements. </p>
+         *
+         * <p> If <i>n</i> is greater than the current {@link bucket_count} multiplied by the {@link max_load_factor},
+         * the container's {@link bucket_count} is increased and a {@link rehash} is forced. </p>
+         *
+         * <p> If <i>n</i> is lower than that, the function may have no effect. </p>
+         *
+         * @param n The number of elements requested as minimum capacity.
+         */
+        reserve(n: number): void;
+        /**
+         * <p> Set number of buckets. </p>
+         *
+         * <p> Sets the number of buckets in the container to <i>n</i> or more. </p>
+         *
+         * <p> If <i>n</i> is greater than the current number of buckets in the container ({@link bucket_count}), a
+         * {@link HashBuckets.rehash rehash} is forced. The new {@link bucket_count bucket count} can either be equal or
+         * greater than <i>n</i>. </p>
+         *
+         * <p> If <i>n</i> is lower than the current number of buckets in the container ({@link bucket_count}), the
+         * function may have no effect on the {@link bucket_count bucket count} and may not force a
+         * {@link HashBuckets.rehash rehash}. </p>
+         *
+         * <p> A {@link HashBuckets.rehash rehash} is the reconstruction of the hash table: All the elements in the
+         * container are rearranged according to their hash value into the new set of buckets. This may alter the order
+         * of iteration of elements within the container. </p>
+         *
+         * <p> {@link HashBuckets.rehash Rehashes} are automatically performed by the container whenever its
+         * {@link load_factor load factor} is going to surpass its {@link max_load_factor} in an operation. </p>
+         *
+         * <p> Notice that this function expects the number of buckets as argument. A similar function exists,
+         * {@link reserve}, that expects the number of elements in the container as argument. </p>
+         *
+         * @param n The minimum number of buckets for the container hash table.
+         */
+        rehash(n: number): void;
+    }
+}
+declare namespace std.base {
+    /**
+     * <p> Hash buckets storing {@link MapIterator MapIterators}. </p>
+     *
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </p>
+     *
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    class MapHashBuckets<K, T> extends HashBuckets<MapIterator<K, T>> {
+        private map;
+        constructor(map: MapContainer<K, T>);
+        find(key: K): MapIterator<K, T>;
+    }
+}
+declare namespace std.base {
+    /**
+     * <p> A common interface for hash set. </p>
+     *
+     * <p> {@link IHashSet}s are containers that store unique elements in no particular order, and which
+     * allow for fast retrieval of individual elements based on their value. </p>
+     *
+     * <p> In an {@link IHashSet}, the value of an element is at the same time its <i>key</i>, that
+     * identifies it uniquely. Keys are immutable, therefore, the elements in an {@link IHashSet} cannot be
+     * modified once in the container - they can be inserted and removed, though. </p>
+     *
+     * <p> Internally, the elements in the {@link IHashSet} are not sorted in any particular order, but
+     * organized into buckets depending on their hash values to allow for fast access to individual elements
+     * directly by their <i>values</i> (with a constant average time complexity on average). </p>
+     *
+     * <p> {@link IHashSet} containers are faster than {@link TreeSet} containers to access individual
+     * elements by their <i>key</i>, although they are generally less efficient for range iteration through a
+     * subset of their elements. </p>
+     *
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </p>
+     *
+     * <h3> Container properties </h3>
+     * <dl>
+     *	<dt> Associative </dt>
+     *	<dd> Elements in associative containers are referenced by their <i>key</i> and not by their absolute
+     *		 position in the container. </dd>
+     *
+     *	<dt> Hashed </dt>
+     *	<dd> Hashed containers organize their elements using hash tables that allow for fast access to elements
+     *		 by their <i>key</i>. </dd>
+     *
+     *	<dt> Set </dt>
+     *	<dd> The value of an element is also the <i>key</i> used to identify it. </dd>
+     * </dl>
+     *
+     * @param <T> Type of the elements.
+     *			  Each element in an {@link IHashSet} is also uniquely identified by this value.
+     *
+     * @reference http://www.cplusplus.com/reference/unordered_set/unordered_set
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    interface IHashSet<T> {
+        /**
+         * <p> Return iterator to beginning. </p>
+         *
+         * <p> Returns an iterator pointing to the first element in the {@link IHashSet}. </p>
+         *
+         * <p> Notice that an {@link IHashSet} object makes no guarantees on which specific element is considered its
+         * first element. But, in any case, the range that goes from its begin to its end covers all the elements in the
+         * container, until invalidated. </p>
+         *
+         * @return An iterator to the first element in the container.
+         */
+        begin(): SetIterator<T>;
+        /**
+         * <p> Return iterator to beginning. </p>
+         *
+         * <p> Returns an iterator pointing to the first element in one of buckets in the {@link IHashSet}. </p>
+         *
+         * <p> Notice that an {@link IHashSet} object makes no guarantees on which specific element is considered its
+         * first element. But, in any case, the range that goes from its begin to its end covers all the elements in the
+         * bucket, until invalidated. </p>
+         *
+         * @param index Bucket number. This shall be lower than {@link bucket_count}.
+         *
+         * @return An iterator to the first element in the bucket.
+         */
+        begin(index: number): SetIterator<T>;
+        /**
+         * <p> Return iterator to end. </p>
+         *
+         * <p> Returns an iterator pointing to the past-the-end element in the {@link HaspMap} container. </p>
+         *
+         * <p> The iterator returned by end does not point to any element, but to the position that follows the last
+         * element in the {@link HaspMap} container (its <i>past-the-end</i> position). Thus, the value returned shall
+         * not be dereferenced - it is generally used to describe the open-end of a range, such as
+         * [<i>begin</i>, <i>end</i>). </p>
+         *
+         * <p> Notice that an {@link IHashSet} object makes no guarantees on which order its elements follow. But, in any
+         * case, the range that goes from its begin to its end covers all the elements in the container (or the bucket),
+         * until invalidated. </p>
+         *
+         * @return An iterator to the element past the end of the container.
+         */
+        end(): SetIterator<T>;
+        /**
+         * <p> Return iterator to end. </p>
+         *
+         * <p> Returns an iterator pointing to the past-the-end element in the {@link HaspMap} container. </p>
+         *
+         * <p> The iterator returned by end does not point to any element, but to the position that follows the last
+         * element in the {@link HaspMap} container (its <i>past-the-end</i> position). Thus, the value returned shall
+         * not be dereferenced - it is generally used to describe the open-end of a range, such as
+         * [<i>begin</i>, <i>end</i>). </p>
+         *
+         * <p> Notice that an {@link IHashSet} object makes no guarantees on which order its elements follow. But, in any
+         * case, the range that goes from its begin to its end covers all the elements in the container (or the bucket),
+         * until invalidated. </p>
+         *
+         * @param index Bucket number. This shall be lower than {@link bucket_count}.
+         *
+         * @return An iterator to the element past the end of the bucket.
+         */
+        end(index: number): SetIterator<T>;
+        rbegin(): SetReverseIterator<T>;
+        rbegin(index: number): SetReverseIterator<T>;
+        rend(): SetReverseIterator<T>;
+        rend(index: number): SetReverseIterator<T>;
+        /**
+         * <p> Return number of buckets. </p>
+         *
+         * <p> Returns the number of buckets in the {@link IHashSet} container. </p>
+         *
+         * <p> A bucket is a slot in the container's internal hash table to which elements are assigned based on the
+         * hash value of their key. </p>
+         *
+         * <p> The number of buckets influences directly the {@link load_factor load factor} of the container's hash
+         * table (and thus the probability of collision). The container automatically increases the number of buckets to
+         * keep the load factor below a specific threshold (its {@link max_load_factor}), causing a {@link rehash} each
+         * time the number of buckets needs to be increased. </p>
+         *
+         * @return The current amount of buckets.
+         */
+        bucket_count(): number;
+        /**
+         * <p> Return bucket size. </p>
+         *
+         * <p> Returns the number of elements in bucket <i>n</i>. </p>
+         *
+         * <p> A bucket is a slot in the container's internal hash table to which elements are assigned based on the hash
+         * value of their key. </p>
+         *
+         * <p> The number of elements in a bucket influences the time it takes to access a particular element in the
+         * bucket. The container automatically increases the number of buckets to keep the {@link load_cator load factor}
+         * (which is the average bucket size) below its {@link max_load_factor}. </p>
+         *
+         * @param n Bucket number. This shall be lower than {@link bucket_count}.
+         *
+         * @return The number of elements in bucket <i>n</i>.
+         */
+        bucket_size(n: number): number;
+        /**
+         * <p> Get maximum load factor. </p>
+         *
+         * <p> Returns the current maximum load factor for the {@link HashMultiMap} container. </p>
+         *
+         * <p> The load factor is the ratio between the number of elements in the container (its {@link size}) and the
+         * number of buckets ({@link bucket_count}). </p>
+         *
+         * <p> By default, {@link HashMultiMap} containers have a {@link max_load_factor} of 1.0. </p>
+         *
+         * <p> The load factor influences the probability of collision in the hash table (i.e., the probability of two
+         * elements being located in the same bucket). The container uses the value of max_load_factor as the threshold
+         * that forces an increase in the number of buckets (and thus causing a {@link rehash}). </p>
+         *
+         * <p> Note though, that implementations may impose an upper limit on the number of buckets (see
+         * {@link max_bucket_count}), which may force the container to ignore the {@link max_load_factor}. </p>
+         *
+         * @return The current load factor.
+         */
+        max_load_factor(): number;
+        /**
+         * <p> Set maximum load factor. </p>
+         *
+         * <p> Sets <i>z</i> as the cnew maximum load factor for the {@link HashMultiMap} container. </p>
+         *
+         * <p> The load factor is the ratio between the number of elements in the container (its {@link size}) and the
+         * number of buckets ({@link bucket_count}). </p>
+         *
+         * <p> By default, {@link HashMultiMap} containers have a {@link max_load_factor} of 1.0. </p>
+         *
+         * <p> The load factor influences the probability of collision in the hash table (i.e., the probability of two
+         * elements being located in the same bucket). The container uses the value of max_load_factor as the threshold
+         * that forces an increase in the number of buckets (and thus causing a {@link rehash}). </p>
+         *
+         * <p> Note though, that implementations may impose an upper limit on the number of buckets (see
+         * {@link max_bucket_count}), which may force the container to ignore the {@link max_load_factor}. </p>
+         *
+         * @param z The new maximum load factor.
+         */
+        max_load_factor(z: number): void;
+        /**
+         * <p> Locate element's bucket. </p>
+         *
+         * <p> Returns the bucket number where the element with <i>key</i> is located. </p>
+         *
+         * <p> A bucket is a slot in the container's internal hash table to which elements are assigned based on the
+         * hash value of their <i>key</i>. Buckets are numbered from 0 to ({@link bucket_count} - 1). </p>
+         *
+         * <p> Individual elements in a bucket can be accessed by means of the range iterators returned by
+         * {@link begin} and {@link end}. </p>
+         *
+         * @param key Key whose bucket is to be located.
+         */
+        bucket(key: T): number;
+        /**
+         * <p> Request a capacity change. </p>
+         *
+         * <p> Sets the number of buckets in the container ({@link bucket_count}) to the most appropriate to contain at
+         * least <i>n</i> elements. </p>
+         *
+         * <p> If <i>n</i> is greater than the current {@link bucket_count} multiplied by the {@link max_load_factor},
+         * the container's {@link bucket_count} is increased and a {@link rehash} is forced. </p>
+         *
+         * <p> If <i>n</i> is lower than that, the function may have no effect. </p>
+         *
+         * @param n The number of elements requested as minimum capacity.
+         */
+        reserve(n: number): void;
+        /**
+         * <p> Set number of buckets. </p>
+         *
+         * <p> Sets the number of buckets in the container to <i>n</i> or more. </p>
+         *
+         * <p> If <i>n</i> is greater than the current number of buckets in the container ({@link bucket_count}), a
+         * {@link HashBuckets.rehash rehash} is forced. The new {@link bucket_count bucket count} can either be equal or
+         * greater than <i>n</i>. </p>
+         *
+         * <p> If <i>n</i> is lower than the current number of buckets in the container ({@link bucket_count}), the
+         * function may have no effect on the {@link bucket_count bucket count} and may not force a
+         * {@link HashBuckets.rehash rehash}. </p>
+         *
+         * <p> A {@link HashBuckets.rehash rehash} is the reconstruction of the hash table: All the elements in the
+         * container are rearranged according to their hash value into the new set of buckets. This may alter the order
+         * of iteration of elements within the container. </p>
+         *
+         * <p> {@link HashBuckets.rehash Rehashes} are automatically performed by the container whenever its
+         * {@link load_factor load factor} is going to surpass its {@link max_load_factor} in an operation. </p>
+         *
+         * <p> Notice that this function expects the number of buckets as argument. A similar function exists,
+         * {@link reserve}, that expects the number of elements in the container as argument. </p>
+         *
+         * @param n The minimum number of buckets for the container hash table.
+         */
+        rehash(n: number): void;
+    }
+}
+declare namespace std.base {
+    /**
+     * <p> Hash buckets storing {@link SetIterator SetIterators}. </p>
+     *
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </p>
+     *
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    class SetHashBuckets<T> extends HashBuckets<SetIterator<T>> {
+        private set;
+        constructor(set: SetContainer<T>);
+        find(val: T): SetIterator<T>;
+    }
+}
+declare namespace std.base {
+    /**
+     * <p> Array  </p>
+     *
+     * <p> {@link IArray} is an interface for sequence containers representing <i>arrays</i> that can change in
+     * {@link size}. However, compared to <i>arrays</i>, {@link IArray} objectss consume more memory in exchange for
+     * the ability to manage storage and grow dynamically in an efficient way. </p> </p>
+     *
+     * <p> Both {@link Vector Vectors} and {@link Deque Deques} who implemented {@link IArray} provide a very
+     * similar interface and can be used for similar purposes, but internally both work in quite different ways:
+     * While {@link Vector Vectors} use a single array that needs to be occasionally reallocated for growth, the
+     * elements of a {@link Deque} can be scattered in different chunks of storage, with the container keeping the
+     * necessary information internally to provide direct access to any of its elements in constant time and with a
+     * uniform sequential interface (through iterators). Therefore, {@link Deque Deques} are a little more complex
+     * internally than {@link Vector Vectors}, but this allows them to grow more efficiently under certain
+     * circumstances, especially with very long sequences, where reallocations become more expensive. </p>
+     *
+     * <p> Both {@link Vector Vectors} and {@link Deque Deques} provide a very similar interface and can be used for
+     * similar purposes, but internally both work in quite different ways: While {@link Vector Vectors} use a single
+     * array that needs to be occasionally reallocated for growth, the elements of a {@link Deque} can be scattered
+     * in different chunks of storage, with the container keeping the necessary information internally to provide
+     * direct access to any of its elements in constant time and with a uniform sequential interface (through
+     * iterators). Therefore, {@link Deque Deques} are a little more complex internally than {@link Vector Vectors},
+     * but this allows them to grow more efficiently under certain circumstances, especially with very long
+     * sequences, where reallocations become more expensive. </p>
+     *
+     * <p> For operations that involve frequent insertion or removals of elements at positions other than the
+     * beginning or the end, {@link IArray} objects perform worse and have less consistent iterators and references
+     * than {@link List Lists} </p>.
+     *
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * </p>
+     *
+     * <h3> Container properties </h3>
+     * <dl>
+     *	<dt> Sequence </dt>
+     *	<dd>
+     *		Elements in sequence containers are ordered in a strict linear sequence. Individual elements are
+     *		accessed by their position in this sequence.
+     *	</dd>
+     *
+     *	<dt> Dynamic array </dt>
+     *	<dd>
+     *		Allows direct access to any element in the sequence, even through pointer arithmetics, and provides
+     *		relatively fast addition/removal of elements at the end of the sequence.
+     *	</dd>
+     * </dl>
+     *
+     * @param <T> Type of the elements.
+     *
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    interface IArrayContainer<T> extends ILinearContainer<T> {
+        /**
+         * <p> Request a change in capacity. </p>
+         *
+         * <p> Requests that the {@link IArray container} {@link capacity} be at least enough to contain
+         * <i>n</i> elements. </p>
+         *
+         * <p> If <i>n</i> is greater than the current {@link IArray container} {@link capacity}, the
+         * function causes the {@link IArray container} to reallocate its storage increasing its
+         * {@link capacity} to <i>n</i> (or greater). </p>
+         *
+         * <p> In all other cases, the function call does not cause a reallocation and the
+         * {@link IArray container} {@link capacity} is not affected. </p>
+         *
+         * <p> This function has no effect on the {@link IArray container} {@link size} and cannot alter
+         * its elements. </p>
+         *
+         * @param n Minimum {@link capacity} for the {@link IArray container}.
+         *			Note that the resulting {@link capacity} may be equal or greater than <i>n</i>.
+         */
+        reserve(n: number): void;
+        /**
+         * <p> Return size of allocated storage capacity. </p>
+         *
+         * <p> Returns the size of the storage space currently allocated for the {@link IArray container},
+         * expressed in terms of elements. </p>
+         *
+         * <p> This {@link capacity} is not necessarily equal to the {@link IArray container} {@link size}.
+         * It can be equal or greater, with the extra space allowing to accommodate for growth without the
+         * need to reallocate on each insertion. </p>
+         *
+         * <p> Notice that this {@link capacity} does not suppose a limit on the {@link size} of the
+         * {@link IArray container}. When this {@link capacity} is exhausted and more is needed, it is
+         * automatically expanded by the {@link IArray container} (reallocating it storage space).
+         * The theoretical limit on the {@link size} of a {@link IArray container} is given by member
+         * {@link max_size}. </p>
+         *
+         * <p> The {@link capacity} of a {@link IArray container} can be explicitly altered by calling member
+         * {@link IArray.reserve}. </p>
+         *
+         * @return The size of the currently allocated storage capacity in the {@link IArray container},
+         *		   measured in terms of the number elements it can hold.
+         */
+        capacity(): number;
+        /**
+         * <p> Access element. </p>
+         * <p> Returns a value to the element at position <i>index</i> in the {@link IArray container}.</p>
+         *
+         * <p> The function automatically checks whether <i>index</i> is within the bounds of valid elements
+         * in the {@link IArray container}, throwing an {@link OutOfRange} exception if it is not (i.e.,
+         * if <i>index</i> is greater or equal than its {@link size}). </p>
+         *
+         * @param index Position of an element in the
+         *				If this is greater than or equal to the {@link IArray container} {@link size}, an
+         *				exception of type {@link OutOfRange} is thrown. Notice that the first
+         *				element has a position of 0 (not 1).
+         *
+         * @return The element at the specified position in the
+         */
+        at(index: number): T;
+        /**
+         * <p> Modify element. </p>
+         * <p> Replaces an element at the specified position (<i>index</i>) in this {@link IArray container}
+         * with the specified element (<i>val</i>). </p>
+         *
+         * <p> The function automatically checks whether <i>index</i> is within the bounds of valid elements
+         * in the {@link IArray container}, throwing an {@link OutOfRange} exception if it is not (i.e., if
+         * <i>index</i> is greater or equal than its {@link size}). </p>
+         *
+         * @.param index A specified position of the value to replace.
+         * @param val A value to be stored at the specified position.
+         *
+         * @return The previous element had stored at the specified position.
+         */
+        set(index: number, val: T): void;
+    }
+}
+declare namespace std.base {
+    /**
+     * <p> Random-access iterator. </p>
+     *
+     * <p> {@link IArrayIterator Random-access iterators} are iterators that can be used to access elements at an
+     * arbitrary offset position relative to the element they point to, offering the same functionality as pointers.
+     * </p>
+     *
+     * <p> {@link IArrayIterator Random-access iterators} are the most complete iterators in terms of functionality.
+     * All pointer types are also valid {@link IArrayIterator random-access iterators}. </p>
+     *
+     * <p> There is not a single type of {@link IArrayIterator random-access iterator}: Each container may define its
+     * own specific iterator type able to iterate through it and access its elements. </p>
+     *
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * </p>
+     *
+     * @reference http://www.cplusplus.com/reference/iterator/RandomAccessIterator
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    interface IArrayIterator<T> extends Iterator<T> {
+        /**
+         * Get index, sequence number of the iterator in the source {@link IArray array}.
+         *
+         * @return Sequence number of the iterator in the source {@link IArray array}.
+         */
+        index: number;
+        /**
+         * @inheritdoc
+         */
+        prev(): IArrayIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        next(): IArrayIterator<T>;
+    }
+}
+declare namespace std.base {
+    /**
+     * <p> An interface of containers. </p>
+     *
+     * <p> {@link IContainer} is an interface designed for sequence containers. Sequence containers of STL
+     * (Standard Template Library) are based on the {@link IContainer}. </p>
+     *
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/abstract_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/abstract_containers.png" style="max-width: 100%" />
+     * </p>
+     *
+     * <h3> Container properties </h3>
+     * <dl>
+     * 	<dt> Sequence </dt>
+     * 	<dd> Elements in sequence containers are ordered in a strict linear sequence. Individual elements are
+     *		 accessed by their position in this sequence. </dd>
+     *
+     * 	<dt> Doubly-linked list </dt>
+     *	<dd> Each element keeps information on how to locate the next and the previous elements, allowing
+     *		 constant time insert and erase operations before or after a specific element (even of entire ranges),
+     *		 but no direct random access. </dd>
+     * </dl>
+     *
+     * @param <T> Type of elements.
+     *
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    interface IContainer<T> {
+        /**
+         * <p> Assign new content to content. </p>
+         *
+         * <p> Assigns new contents to the container, replacing its current contents, and modifying its
+         * {@link size} accordingly. </p>
+         *
+         * @param begin Input interator of the initial position in a sequence.
+         * @param end Input interator of the final position in a sequence.
+         */
+        assign<U extends T, InputIterator extends Iterator<U>>(begin: InputIterator, end: InputIterator): void;
+        /**
+         * <p> Clear content. </p>
+         *
+         * <p> Removes all elements from the Container, leaving the container with a size of 0. </p>
+         */
+        clear(): void;
+        /**
+         * <p> Return iterator to beginning. </p>
+         *
+         * <p> Returns an iterator referring the first element in the  </p>
+         *
+         * <h4> Note </h4>
+         * <p> If the container is {@link empty}, the returned iterator is same with {@link end end()}. </p>
+         *
+         * @return An iterator to the first element in the  The iterator containes the first element's value.
+         */
+        begin(): Iterator<T>;
+        /**
+         * <p> Return iterator to end. </p>
+         * <p> Returns an iterator referring to the past-the-end element in the  </p>
+         *
+         * <p> The past-the-end element is the theoretical element that would follow the last element in the
+         * It does not point to any element, and thus shall not be dereferenced. </p>
+         *
+         * <p> Because the ranges used by functions of the Container do not include the element reference by their
+         * closing iterator, this function is often used in combination with {@link IContainer}.{@link begin} to
+         * specify a range including all the elements in the container. </p>
+         *
+         * <h4> Note </h4>
+         * <p> Returned iterator from {@link IContainer}.{@link end} does not refer any element. Trying to accessing
+         * element by the iterator will cause throwing exception ({@link OutOfRange}). </p>
+         *
+         * <p> If the container is {@link empty}, this function returns the same as {@link Container}.{@link begin}.
+         * </p>
+         *
+         * @return An iterator to the end element in the
+         */
+        end(): Iterator<T>;
+        /**
+         * <p> Return {@link ReverseIterator reverse iterator} to <i>reverse beginning</i>. </p>
+         *
+         * <p> Returns a {@link ReverseIterator reverse iterator} pointing to the last element in the container (i.e.,
+         * its <i>reverse beginning</i>). </p>
+         *
+         * <p> {@link ReverseIterator reverse iterators} iterate backwards: increasing them moves them towards the
+         * beginning of the  </p>
+         *
+         * <p> {@link rbegin} points to the element right before the one that would be pointed to by member {@link end}.
+         * </p>
+         *
+         * @return A {@link ReverseIterator reverse iterator} to the <i>reverse beginning</i> of the sequence
+         */
+        rbegin(): base.IReverseIterator<T>;
+        /**
+         * <p> Return {@link ReverseIterator reverse iterator} to <i>reverse end</i>. </p>
+         *
+         * <p> Returns a {@link ReverseIterator reverse iterator} pointing to the theoretical element preceding the
+         * first element in the container (which is considered its <i>reverse end</i>). </p>
+         *
+         * <p> The range between {@link IContainer}.{@link rbegin} and {@link IContainer}.{@link rend} contains all
+         * the elements of the container (in reverse order).
+         *
+         * @return A {@link ReverseIterator reverse iterator} to the <i>reverse end</i> of the sequence
+         */
+        rend(): base.IReverseIterator<T>;
+        /**
+         * Return the number of elements in the Container.
+         *
+         * @return The number of elements in the
+         */
+        size(): number;
+        /**
+         * <p> Test whether the container is empty. </p>
+         * <p> Returns whether the container is empty (i.e. whether its size is 0). </p>
+         *
+         * <p> This function does not modify the container in any way. To clear the content of the container,
+         * see {@link clear clear()}. </p>
+         *
+         * @return <code>true</code> if the container size is 0, <code>false</code> otherwise.
+         */
+        empty(): boolean;
+        /**
+         * <p> Insert elements. </p>
+         *
+         * <p> Appends new elements to the container, and returns the new size of the  </p>
+         *
+         * @param items New elements to insert.
+         *
+         * @return New size of the Container.
+         */
+        push<U extends T>(...items: U[]): number;
+        /**
+         * <p> Insert an element. </p>
+         *
+         * <p> The container is extended by inserting a new element before the element at the specified
+         * <i>position</i>. This effectively increases the {@link IContainer.size container size} by the amount of
+         * elements inserted. </p>
+         *
+         * @param position Position in the {@link IContainer} where the new element is inserted.
+         *				   {@link iterator} is a member type, defined as a {@link Iterator random access iterator}
+         *				   type that points to elements.
+         * @param val Value to be copied to the inserted element.
+         *
+         * @return An iterator that points to the newly inserted element.
+         */
+        insert(position: Iterator<T>, val: T): Iterator<T>;
+        /**
+         * <p> Erase an element. </p>
+         *
+         * <p> Removes from the container a single element. </p>
+         *
+         * <p> This effectively reduces the container size by the number of element removed. </p>
+         *
+         * @param position Iterator pointing to a single element to be removed from the Container.
+         *
+         * @return An iterator pointing to the element that followed the last element erased by the function
+         *		   call. This is the {@link end Container.end} if the operation erased the last element in the
+         *		   sequence.
+         */
+        erase(position: Iterator<T>): Iterator<T>;
+        /**
+         * <p> Erase elements. </p>
+         *
+         * <p> Removes from the container a range of elements. </p>
+         *
+         * <p> This effectively reduces the container size by the number of elements removed. </p>
+         *
+         * @param begin An iterator specifying a range of beginning to erase.
+         * @param end An iterator specifying a range of end to erase.
+         *
+         * @return An iterator pointing to the element that followed the last element erased by the function
+         *		   call. This is the {@link end Container.end} if the operation erased the last element in
+         *		   the sequence.
+         */
+        erase(begin: Iterator<T>, end: Iterator<T>): Iterator<T>;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link IContainer container} object with same type of elements. Sizes and container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were in <i>obj</i>
+         * before the call, and the elements of <i>obj</i> are those which were in this. All iterators, references and
+         * pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link IContainer container} of the same type of elements (i.e., instantiated
+         *			  with the same template parameter, <b>T</b>) whose content is swapped with that of this
+         *			  {@link container IContainer}.
+         */
+        swap(obj: IContainer<T>): void;
+    }
+    interface IReverseIterator<T> extends ReverseIterator<T, Iterator<T>, IReverseIterator<T>> {
+    }
+}
+declare namespace std.base {
+    /**
+     * <p> An interface for deque  </p>
+     *
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * </p>
+     *
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    interface IDequeContainer<T> extends ILinearContainer<T> {
+        /**
+         * <p> Insert element at beginning. </p>
+         *
+         * <p> Inserts a new element at the beginning of the {@link IDeque container}, right before its
+         * current first element. This effectively increases the {@link IDeque container} {@link size} by
+         * one. </p>
+         *
+         * @param val Value to be inserted as an element.
+         */
+        push_front(val: T): void;
+        /**
+         * <p> Delete first element. </p>
+         *
+         * <p> Removes the first element in the {@link IDeque container}, effectively reducing its
+         * {@link size} by one. </p>
+         */
+        pop_front(): void;
+    }
+}
+declare namespace std.base {
+    /**
+     * <p> An interface for linear containers.  </p>
+     *
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * </p>
+     *
+     * @author Jeonngho Nam
+     */
+    interface ILinearContainer<T> extends IContainer<T> {
+        /**
+         * @inheritdoc
+         */
+        assign<U extends T, InputIterator extends Iterator<U>>(begin: InputIterator, end: InputIterator): void;
+        /**
+         * <p> Assign container content. </p>
+         *
+         * <p> Assigns new contents to the {@link IList container}, replacing its current contents,
+         * and modifying its {@link size} accordingly. </p>
+         *
+         * @param n New size for the
+         * @param val Value to fill the container with. Each of the <u>n</u> elements in the container will
+         *			  be initialized to a copy of this value.
+         */
+        assign(n: number, val: T): void;
+        /**
+         * <p> Access first element. </p>
+         * <p> Returns a value of the first element in the {@link IList container}. </p>
+         *
+         * <p> Unlike member {@link end end()}, which returns an iterator just past this element,
+         * this function returns a direct value. </p>
+         *
+         * <p> Calling this function on an {@link empty} {@link IList container} causes undefined behavior. </p>
+         *
+         * @return A value of the first element of the {@link IList container}.
+         */
+        front(): T;
+        /**
+         * <p> Access last element. </p>
+         * <p> Returns a value of the last element in the {@link IList container}. </p>
+         *
+         * <p> Unlike member {@link end end()}, which returns an iterator just past this element,
+         * this function returns a direct value. </p>
+         *
+         * <p> Calling this function on an {@link empty} {@link IList container} causes undefined behavior. </p>
+         *
+         * @return A value of the last element of the {@link IList container}.
+         */
+        back(): T;
+        /**
+         * <p> Add element at the end. </p>
+         *
+         * <p> Adds a new element at the end of the {@link IList container}, after its current last element.
+         * This effectively increases the {@link IList container} {@link size} by one. </p>
+         *
+         * @param val Value to be copied to the new element.
+         */
+        push_back(val: T): void;
+        /**
+         * <p> Delete last element. </p>
+         *
+         * <p> Removes the last element in the {@link IList container}, effectively reducing the
+         * {@link IList container} {@link size} by one. </p>
+         */
+        pop_back(): void;
+        /**
+         * <p> Insert an element. </p>
+         *
+         * <p> The {@link IList conatiner} is extended by inserting new element before the element at the
+         * specified <i>position</i>, effectively increasing the {@link IList container} {@link size} by
+         * one. </p>
+         *
+         * @param position Position in the {@link IList container} where the new elements are inserted.
+         *				   {@link iterator} is a member type, defined as a {@link iterator random access iterator}
+         *				   type that points to elements.
+         * @param val Value to be copied to the inserted element.
+         *
+         * @return An iterator that points to the newly inserted element.
+         */
+        insert(position: Iterator<T>, val: T): Iterator<T>;
+        /**
+         * <p> Insert elements by range iterators. </p>
+         *
+         * <p> The {@link IList container} is extended by inserting new elements before the element at the
+         * specified <i>position</i>, effectively increasing the {@link IList container} {@link size} by
+         * the number of repeating elements </i>n</i>. </p>
+         *
+         * @param position Position in the {@link IList container} where the new elements are inserted.
+         *				   {@link iterator} is a member type, defined as a {@link iterator random access iterator}
+         *				   type that points to elements.
+         * @param n Number of elements to insert. Each element is initialized to a copy of <i>val</i>.
+         * @param val Value to be copied (or moved) to the inserted elements.
+         *
+         * @return An iterator that points to the first of the newly inserted elements.
+         */
+        insert(position: Iterator<T>, n: number, val: T): Iterator<T>;
+        /**
+         * <p> Insert elements by range iterators. </p>
+         *
+         * <p> The {@link IList container} is extended by inserting new elements before the element at the
+         * specified <i>position</i>, effectively increasing the {@link IList container} {@link size} by
+         * the number of elements inserted by range iterators. </p>
+         *
+         * @param position Position in the {@link IList container} where the new elements are inserted.
+         *				   {@link iterator} is a member type, defined as a {@link iterator random access iterator}
+         *				   type that points to elements.
+         * @param begin Input interator of the initial position in a sequence.
+         * @param end Input interator of the final position in a sequence.
+         *
+         * @return An iterator that points to the first of the newly inserted elements.
+         */
+        insert<U extends T, InputIterator extends Iterator<U>>(position: Iterator<T>, begin: InputIterator, end: InputIterator): Iterator<T>;
     }
 }
 declare namespace std.base {
@@ -9830,7 +10245,8 @@ declare namespace std.base {
      *	</li>
      * </ol>
      *
-     * <p> <img src="../assets/images/tree/Red-black_tree_example.svg" width="100%" /> </p>
+     * <p> <img src="http://samchon.github.io/stl/api/assets/images/tree/Red-black_tree_example.svg"
+     *			style="max-width: 100%" /> </p>
      *
      * <p> These constraints enforce a critical property of red-black trees: the path from the root to the farthest
      * leaf is no more than twice as long as the path from the root to the nearest leaf. The result is that the tree
@@ -9868,6 +10284,7 @@ declare namespace std.base {
          * Default Constructor.
          */
         constructor();
+        clear(): void;
         /**
          * Find a node from its contained value.
          *
@@ -10023,7 +10440,8 @@ declare namespace std.base {
          * the only loop, and any rotations occur after this loop, this proves that a constant number of rotations
          * occur. </p>
          *
-         * <p> <img src="../assets/images/tree/Red-black_tree_insert_case_3.svg" /> </p>
+         * <p> <img src="http://samchon.github.io/stl/api/assets/images/tree/Red-black_tree_insert_case_3.svg"
+                    style="max-width: 100%" /> </p>
          *
          * @param N A node to be inserted or swapped.
          */
@@ -10056,7 +10474,8 @@ declare namespace std.base {
          * node are <font color='darkBlue'>black</font>) is still violated, but now we can resolve this by
          * continuing to case 5. </p>
          *
-         * <p> <img src="../assets/images/tree/Red-black_tree_insert_case_4.svg" /> </p>
+         * <p> <img src="http://samchon.github.io/stl/api/assets/images/tree/Red-black_tree_insert_case_4.svg"
+                    style="max-width: 100%" /> </p>
          *
          * @param N A node to be inserted or swapped.
          */
@@ -10086,7 +10505,8 @@ declare namespace std.base {
          * through {@link XTreeNode.parent <b>P</b>}. In each case, this is the only
          * <font color='darkBlue'>black</font> node of the three. </p>
          *
-         * <p> <img src="../assets/images/tree/Red-black_tree_insert_case_5.svg" /> </p>
+         * <p> <img src="http://samchon.github.io/stl/api/assets/images/tree/Red-black_tree_insert_case_5.svg"
+                    style="max-width: 100%" /> </p>
          *
          * @param N A node to be inserted or swapped.
          */
@@ -10239,7 +10659,8 @@ declare namespace std.base {
         /**
          * <p> {@link XTreeNode.sibling <b>S</b>} is <font color='red'>red</font>. </p>
          *
-         * <p> <img src="../assets/images/tree/Red-black_tree_delete_case_2.svg" /> </p>
+         * <p> <img src="http://samchon.github.io/stl/api/assets/images/tree/Red-black_tree_delete_case_2.svg"
+                    style="max-width: 100%" /> </p>
          *
          * <p> In this case we reverse the colors of {@link XTreeNode.parent <b>P</b>} and
          * {@link XTreeNode.sibling <b>S</b>}, and then rotate left at {@link XTreeNode.parent <b>P</b>}, turning
@@ -10260,7 +10681,8 @@ declare namespace std.base {
          * <p> {@link XTreeNode.parent <b>P</b>}, {@link XTreeNode.sibling <b>S</b>}, and {@link XTreeNode.sibling
          * <b>S</b>}'s children are <font color='darkBlue'>black</font>. </p>
          *
-         * <p> <img src="../assets/images/tree/Red-black_tree_delete_case_3.svg" /> </p>
+         * <p> <img src="http://samchon.github.io/stl/api/assets/images/tree/Red-black_tree_delete_case_3.svg"
+                    style="max-width: 100%" /> </p>
          *
          * <p> In this case, we simply repaint {@link XTreeNode.sibling <b>S</b>} <font color='red'>red</font>. The
          * result is that all paths passing through {@link XTreeNode.sibling <b>S</b>}, which are precisely those
@@ -10283,7 +10705,8 @@ declare namespace std.base {
          * <p> {@link XTreeNode.sibling <b>S</b>} and {@link XTreeNode.sibling <b>S</b>}'s children are
          * <font color='darkBlue'>black</font>, but {@link XTreeNode.parent <b>P</b>} is <font color='red'>red</font>. </p>
          *
-         * <p> <img src="../assets/images/tree/Red-black_tree_delete_case_4.svg" /> </p>
+         * <p> <img src="http://samchon.github.io/stl/api/assets/images/tree/Red-black_tree_delete_case_4.svg"
+                    style="max-width: 100%" /> </p>
          *
          * <p> In this case, we simply exchange the colors of {@link XTreeNode.sibling <b>S</b>} and
          * {@link XTreeNode.parent <b>P</b>}. This does not affect the number of <font color='darkBlue'>black</font>
@@ -10299,7 +10722,8 @@ declare namespace std.base {
          * left child is <font color='red'>red</font>, {@link XTreeNode.sibling <b>S</b>}'s right child is
          * <font color='darkBlue'>black</font>, and <i><b>N</b></i> is the left child of its parent. </p>
          *
-         * <p> <img src="../assets/images/tree/Red-black_tree_delete_case_5.svg" /> </p>
+         * <p> <img src="http://samchon.github.io/stl/api/assets/images/tree/Red-black_tree_delete_case_5.svg"
+                    style="max-width: 100%" /> </p>
          *
          * <p> In this case we rotate right at {@link XTreeNode.sibling <b>S</b>}, so that
          * {@link XTreeNode.sibling <b>S</b>}'s left child becomes {@link XTreeNode.sibling <b>S</b>}'s parent and
@@ -10337,7 +10761,8 @@ declare namespace std.base {
          * <p> Thus, the paths passing through <i><b>N</b></i> pass through one additional
          * <font color='darkBlue'>black</font> node. </p>
          *
-         * <p> <img src="../assets/images/tree/Red-black_tree_delete_case_6.svg" /> </p>
+         * <p> <img src="http://samchon.github.io/stl/api/assets/images/tree/Red-black_tree_delete_case_6.svg"
+                    style="max-width: 100%" /> </p>
          *
          * <p> Meanwhile, if a path does not go through <i><b>N</b></i>, then there are two possibilities: </p>
          * <ol>
@@ -10399,648 +10824,284 @@ declare namespace std.base {
 }
 declare namespace std.base {
     /**
-     * <p> A red-black Tree storing {@link SetIterator SetIterators}. </p>
+     * <p> Common interface for tree-structured map. </p>
      *
-     * <p> <img src="../assets/images/design/set_containers.png" width="100%" /> </p>
+     * <p> {@link ITreeMap ITreeMaps} are associative containers that store elements formed by a combination of
+     * a <i>key value</i> and a <i>mapped value</i>, following a specific order. </p>
      *
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    class AtomicTree<T> extends XTree<SetIterator<T>> {
-        private compare_;
-        /**
-         * Default Constructor.
-         */
-        constructor(compare?: (left: T, right: T) => boolean);
-        find(val: T): XTreeNode<SetIterator<T>>;
-        find(it: SetIterator<T>): XTreeNode<SetIterator<T>>;
-        /**
-         * @hidden
-         */
-        private find_by_val(val);
-        get_compare(): (left: T, right: T) => boolean;
-        /**
-         * @inheritdoc
-         */
-        is_equal_to(left: SetIterator<T>, right: SetIterator<T>): boolean;
-        /**
-         * @inheritdoc
-         */
-        is_less(left: SetIterator<T>, right: SetIterator<T>): boolean;
-    }
-}
-declare namespace std.base {
-    /**
-     * <p> Static class holding enumeration codes of color of Red-black tree. </p>
+     * <p> In a {@link ITreeMap}, the <i>key values</i> are generally used to sort and uniquely identify
+     * the elements, while the <i>mapped values</i> store the content associated to this <i>key</i>. The types of
+     * <i>key</i> and <i>mapped value</i> may differ, and are grouped together in member type
+     * <code>value_type</code>, which is a {@link Pair} type combining both: </p>
      *
-     * <p> Color codes imposed to nodes of RB-Tree are following those rules: </p>
+     * <p> <code>typedef Pair<const Key, T> value_type;</code> </p>
      *
-     * <ol>
-     *	<li> A node is either <font color='red'>red</font> or <font color='darkBlue'>black</font>. </li>
-     *	<li> The root is <font color='darkBlue'>black</font>. This rule is sometimes omitted. Since the root can
-     *		 always be changed from <font color='red'>red</font> to <font color='darkBlue'>black</font>, but not
-     *		 necessarily vice versa, this rule has little effect on analysis. </li>
-     *	<li> All leaves (NIL; <code>null</code>) are <font color='darkBlue'>black</font>. </li>
-     *  <li> If a node is <font color='red'>red</font>, then both its children are
-     *		 <font color='darkBlue'>black</font>. </li>
-     *  <li> Every path from a given node to any of its descendant NIL nodes contains the same number of
-     *		 <font color='darkBlue'>black</font> nodes. Some definitions: the number of
-     *		 <font color='darkBlue'>black</font> nodes from the root to a node is the node's
-     *		 <font color='darkBlue'>black</font> depth; the uniform number of <font color='darkBlue'>black</font>
-     *		 nodes in all paths from root to the leaves is called the <font color='darkBlue'>black</font>-height of
-     *		 the red-black tree. </li>
-     * </ol>
+     * <p> Internally, the elements in a {@link ITreeMap}are always sorted by its key following a
+     * strict weak ordering criterion indicated by its internal comparison method (of {@link less}). </p>
      *
-     * @author Migrated by Jeongho Nam <http://samchon.org>
-     */
-    enum Color {
-        /**
-         * <p> Code of color black. </p>
-         *
-         * <ul>
-         *	<li> Those are clearly black: root, leaf nodes or children nodes of red. </li>
-         *	<li> Every path from a given nodes containes the same number of black nodes exclude NIL(s). </li>
-         * </ul>
-         */
-        BLACK = 0,
-        /**
-         * <p> Code of color red. </p>
-         */
-        RED = 1,
-    }
-}
-declare namespace std.base {
-    enum Hash {
-        MIN_SIZE = 10,
-        RATIO = 1,
-        MAX_RATIO = 2,
-    }
-    /**
-     * <p> Hask buckets. </p>
+     * <p> {@link ITreeMap}containers are generally slower than {@link IHashMap} containers
+     * to access individual elements by their <i>key</i>, but they allow the direct iteration on subsets based
+     * on their order. </p>
      *
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    class HashBuckets<T> {
-        private buckets_;
-        private item_size_;
-        /**
-         * Default Constructor.
-         */
-        constructor();
-        /**
-         * <p> Reconstruction of hash table. </p>
-         *
-         * <p> All the elements in the hash buckets are rearranged according to their hash value into the new set of
-         * buckets. This may alter the order of iteration of elements within the container. </p>
-         *
-         * <p> Notice that {@link rehash rehashes} are automatically performed whenever its number of elements is going
-         * to greater than its own {@link capacity}. </p>
-         *
-         * @param size Number of bucket size to rehash.
-         */
-        rehash(size: number): void;
-        clear(): void;
-        size(): number;
-        item_size(): number;
-        capacity(): number;
-        at(index: number): Vector<T>;
-        hash_index(val: T): number;
-        insert(val: T): void;
-        erase(val: T): void;
-    }
-}
-declare namespace std.base {
-    /**
-     * <p> Array  </p>
+     * <p> {@link ITreeMap TreeMultiMaps} are typically implemented as binary search trees. </p>
      *
-     * <p> {@link IArray} is an interface for sequence containers representing <i>arrays</i> that can change in
-     * {@link size}. However, compared to <i>arrays</i>, {@link IArray} objectss consume more memory in exchange for
-     * the ability to manage storage and grow dynamically in an efficient way. </p> </p>
-     *
-     * <p> Both {@link Vector Vectors} and {@link Deque Deques} who implemented {@link IArray} provide a very
-     * similar interface and can be used for similar purposes, but internally both work in quite different ways:
-     * While {@link Vector Vectors} use a single array that needs to be occasionally reallocated for growth, the
-     * elements of a {@link Deque} can be scattered in different chunks of storage, with the container keeping the
-     * necessary information internally to provide direct access to any of its elements in constant time and with a
-     * uniform sequential interface (through iterators). Therefore, {@link Deque Deques} are a little more complex
-     * internally than {@link Vector Vectors}, but this allows them to grow more efficiently under certain
-     * circumstances, especially with very long sequences, where reallocations become more expensive. </p>
-     *
-     * <p> Both {@link Vector Vectors} and {@link Deque Deques} provide a very similar interface and can be used for
-     * similar purposes, but internally both work in quite different ways: While {@link Vector Vectors} use a single
-     * array that needs to be occasionally reallocated for growth, the elements of a {@link Deque} can be scattered
-     * in different chunks of storage, with the container keeping the necessary information internally to provide
-     * direct access to any of its elements in constant time and with a uniform sequential interface (through
-     * iterators). Therefore, {@link Deque Deques} are a little more complex internally than {@link Vector Vectors},
-     * but this allows them to grow more efficiently under certain circumstances, especially with very long
-     * sequences, where reallocations become more expensive. </p>
-     *
-     * <p> For operations that involve frequent insertion or removals of elements at positions other than the
-     * beginning or the end, {@link IArray} objects perform worse and have less consistent iterators and references
-     * than {@link List Lists} </p>.
-     *
-     * <p> <img src="../assets/images/design/linear_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
-     *	<dt> Sequence </dt>
-     *	<dd>
-     *		Elements in sequence containers are ordered in a strict linear sequence. Individual elements are
-     *		accessed by their position in this sequence.
-     *	</dd>
+     *	<dt> Associative </dt>
+     *	<dd> Elements in associative containers are referenced by their <i>key</i> and not by their absolute
+     *		 position in the container. </dd>
      *
-     *	<dt> Dynamic array </dt>
-     *	<dd>
-     *		Allows direct access to any element in the sequence, even through pointer arithmetics, and provides
-     *		relatively fast addition/removal of elements at the end of the sequence.
-     *	</dd>
+     *	<dt> Ordered </dt>
+     *	<dd> The elements in the container follow a strict order at all times. All inserted elements are
+     *		 given a position in this order. </dd>
+     *
+     *	<dt> Map </dt>
+     *	<dd> Each element associates a <i>key</i> to a <i>mapped value</i>:
+     *		 <i>Keys</i> are meant to identify the elements whose main content is the <i>mapped value</i>. </dd>
      * </dl>
      *
-     * @param <T> Type of the elements.
+     * @param <Key> Type of the keys. Each element in a map is uniquely identified by its key value.
+     * @param <T> Type of the mapped value. Each element in a map stores some data as its mapped value.
      *
+     * @reference http://www.cplusplus.com/reference/map
      * @author Jeongho Nam <http://samchon.org>
      */
-    interface IArrayContainer<T> extends ILinearContainer<T> {
+    interface ITreeMap<Key, T> {
         /**
-         * <p> Request a change in capacity. </p>
+         * <p> Return key comparison function. </p>
          *
-         * <p> Requests that the {@link IArray container} {@link capacity} be at least enough to contain
-         * <i>n</i> elements. </p>
+         * <p> Returns a references of the comparison function used by the container to compare <i>keys</i>. </p>
          *
-         * <p> If <i>n</i> is greater than the current {@link IArray container} {@link capacity}, the
-         * function causes the {@link IArray container} to reallocate its storage increasing its
-         * {@link capacity} to <i>n</i> (or greater). </p>
+         * <p> The <i>comparison object</i> of a {@link ITreeMap tree-map object} is set on
+         * {@link TreeMap.constructor construction}. Its type (<i>Key</i>) is the last parameter of the
+         * {@link ITreeMap.constructor constructors}. By default, this is a {@link less} function, which returns the same
+         * as <i>operator&lt;</i>. </p>
          *
-         * <p> In all other cases, the function call does not cause a reallocation and the
-         * {@link IArray container} {@link capacity} is not affected. </p>
-         *
-         * <p> This function has no effect on the {@link IArray container} {@link size} and cannot alter
-         * its elements. </p>
-         *
-         * @param n Minimum {@link capacity} for the {@link IArray container}.
-         *			Note that the resulting {@link capacity} may be equal or greater than <i>n</i>.
-         */
-        reserve(n: number): void;
-        /**
-         * <p> Return size of allocated storage capacity. </p>
-         *
-         * <p> Returns the size of the storage space currently allocated for the {@link IArray container},
-         * expressed in terms of elements. </p>
-         *
-         * <p> This {@link capacity} is not necessarily equal to the {@link IArray container} {@link size}.
-         * It can be equal or greater, with the extra space allowing to accommodate for growth without the
-         * need to reallocate on each insertion. </p>
-         *
-         * <p> Notice that this {@link capacity} does not suppose a limit on the {@link size} of the
-         * {@link IArray container}. When this {@link capacity} is exhausted and more is needed, it is
-         * automatically expanded by the {@link IArray container} (reallocating it storage space).
-         * The theoretical limit on the {@link size} of a {@link IArray container} is given by member
-         * {@link max_size}. </p>
-         *
-         * <p> The {@link capacity} of a {@link IArray container} can be explicitly altered by calling member
-         * {@link IArray.reserve}. </p>
-         *
-         * @return The size of the currently allocated storage capacity in the {@link IArray container},
-         *		   measured in terms of the number elements it can hold.
-         */
-        capacity(): number;
-        /**
-         * <p> Access element. </p>
-         * <p> Returns a value to the element at position <i>index</i> in the {@link IArray container}.</p>
-         *
-         * <p> The function automatically checks whether <i>index</i> is within the bounds of valid elements
-         * in the {@link IArray container}, throwing an {@link OutOfRange} exception if it is not (i.e.,
-         * if <i>index</i> is greater or equal than its {@link size}). </p>
-         *
-         * @param index Position of an element in the
-         *				If this is greater than or equal to the {@link IArray container} {@link size}, an
-         *				exception of type {@link OutOfRange} is thrown. Notice that the first
-         *				element has a position of 0 (not 1).
-         *
-         * @return The element at the specified position in the
-         */
-        at(index: number): T;
-        /**
-         * <p> Modify element. </p>
-         * <p> Replaces an element at the specified position (<i>index</i>) in this {@link IArray container}
-         * with the specified element (<i>val</i>). </p>
-         *
-         * <p> The function automatically checks whether <i>index</i> is within the bounds of valid elements
-         * in the {@link IArray container}, throwing an {@link OutOfRange} exception if it is not (i.e., if
-         * <i>index</i> is greater or equal than its {@link size}). </p>
-         *
-         * @.param index A specified position of the value to replace.
-         * @param val A value to be stored at the specified position.
-         *
-         * @return The previous element had stored at the specified position.
-         */
-        set(index: number, val: T): void;
-    }
-}
-declare namespace std.base {
-    /**
-     * <p> Random-access iterator. </p>
-     *
-     * <p> {@link IArrayIterator Random-access iterators} are iterators that can be used to access elements at an
-     * arbitrary offset position relative to the element they point to, offering the same functionality as pointers.
-     * </p>
-     *
-     * <p> {@link IArrayIterator Random-access iterators} are the most complete iterators in terms of functionality.
-     * All pointer types are also valid {@link IArrayIterator random-access iterators}. </p>
-     *
-     * <p> There is not a single type of {@link IArrayIterator random-access iterator}: Each container may define its
-     * own specific iterator type able to iterate through it and access its elements. </p>
-     *
-     * <p> <img src="../assets/images/design/linear_containers.png" width="100%" /> </p>
-     *
-     * @reference http://www.cplusplus.com/reference/iterator/RandomAccessIterator
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    interface IArrayIterator<T> extends Iterator<T> {
-        /**
-         * Get index, sequence number of the iterator in the source {@link IArray array}.
-         *
-         * @return Sequence number of the iterator in the source {@link IArray array}.
-         */
-        index: number;
-        /**
-         * @inheritdoc
-         */
-        prev(): IArrayIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        next(): IArrayIterator<T>;
-    }
-}
-declare namespace std.base {
-    /**
-     * <p> An interface of containers. </p>
-     *
-     * <p> {@link IContainer} is an interface designed for sequence containers. Sequence containers of STL
-     * (Standard Template Library) are based on the {@link IContainer}. </p>
-     *
-     * <p> <img src="../assets/images/design/abstract_containers.png" width="100%" /> </p>
-     *
-     * <h3> Container properties </h3>
-     * <dl>
-     * 	<dt> Sequence </dt>
-     * 	<dd> Elements in sequence containers are ordered in a strict linear sequence. Individual elements are
-     *		 accessed by their position in this sequence. </dd>
-     *
-     * 	<dt> Doubly-linked list </dt>
-     *	<dd> Each element keeps information on how to locate the next and the previous elements, allowing
-     *		 constant time insert and erase operations before or after a specific element (even of entire ranges),
-     *		 but no direct random access. </dd>
-     * </dl>
-     *
-     * @param <T> Type of elements.
-     *
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    interface IContainer<T> {
-        /**
-         * <p> Assign new content to content. </p>
-         *
-         * <p> Assigns new contents to the container, replacing its current contents, and modifying its
-         * {@link size} accordingly. </p>
-         *
-         * @param begin Input interator of the initial position in a sequence.
-         * @param end Input interator of the final position in a sequence.
-         */
-        assign<U extends T, InputIterator extends Iterator<U>>(begin: InputIterator, end: InputIterator): void;
-        /**
-         * <p> Clear content. </p>
-         *
-         * <p> Removes all elements from the Container, leaving the container with a size of 0. </p>
-         */
-        clear(): void;
-        /**
-         * <p> Return iterator to beginning. </p>
-         *
-         * <p> Returns an iterator referring the first element in the  </p>
-         *
-         * <h4> Note </h4>
-         * <p> If the container is {@link empty}, the returned iterator is same with {@link end end()}. </p>
-         *
-         * @return An iterator to the first element in the  The iterator containes the first element's value.
-         */
-        begin(): Iterator<T>;
-        /**
-         * <p> Return iterator to end. </p>
-         * <p> Returns an iterator referring to the past-the-end element in the  </p>
-         *
-         * <p> The past-the-end element is the theoretical element that would follow the last element in the
-         * It does not point to any element, and thus shall not be dereferenced. </p>
-         *
-         * <p> Because the ranges used by functions of the Container do not include the element reference by their
-         * closing iterator, this function is often used in combination with {@link IContainer}.{@link begin} to
-         * specify a range including all the elements in the  </p>
-         *
-         * <h4> Note </h4>
-         * <p> Returned iterator from {@link IContainer}.{@link end} does not refer any element. Trying to accessing
-         * element by the iterator will cause throwing exception ({@link OutOfRange}). </p>
-         *
-         * <p> If the container is {@link empty}, this function returns the same as {@link Container}.{@link begin}.
+         * <p> This function determines the order of the elements in the container: it is a function pointer that takes
+         * two arguments of the same type as the element <i>keys</i>, and returns <code>true</code> if the first argument
+         * is considered to go before the second in the strict weak ordering it defines, and <code>false</code> otherwise.
          * </p>
          *
-         * @return An iterator to the end element in the
+         * <p> Two keys are considered equivalent if {@link key_comp} returns <code>false</code> reflexively (i.e., no
+         * matter the order in which the keys are passed as arguments). </p>
+         *
+         * @return The comparison function.
          */
-        end(): Iterator<T>;
+        key_comp(): (x: Key, y: Key) => boolean;
         /**
-         * <p> Return {@link ReverseIterator reverse iterator} to <i>reverse beginning</i>. </p>
+         * <p> Return value comparison function. </p>
          *
-         * <p> Returns a {@link ReverseIterator reverse iterator} pointing to the last element in the container (i.e.,
-         * its <i>reverse beginning</i>). </p>
+         * <p> Returns a comparison function that can be used to compare two elements to get whether the key of the first
+         * one goes before the second. </p>
          *
-         * <p> {@link ReverseIterator reverse iterators} iterate backwards: increasing them moves them towards the
-         * beginning of the  </p>
+         * <p> The arguments taken by this function object are of member type <code>std.Pair<Key, T></code> (defined in
+         * {@link ITreeMap}), but the mapped type (<i>T</i>) part of the value is not taken into consideration in this
+         * comparison. </p>
          *
-         * <p> {@link rbegin} points to the element right before the one that would be pointed to by member {@link end}.
-         * </p>
+         * <p> This comparison class returns <code>true</code> if the {@link Pair.first key} of the <i>first argument</i>
+         * is considered to go before that of the <i>second</i> (according to the strict weak ordering specified by the
+         * container's comparison function, {@link key_comp}), and <code>false</code> otherwise. </p>
          *
-         * @return A {@link ReverseIterator reverse iterator} to the <i>reverse beginning</i> of the sequence
+         * @return The comparison function for element values.
          */
-        rbegin(): base.IReverseIterator<T>;
+        value_comp(): (x: Pair<Key, T>, y: Pair<Key, T>) => boolean;
         /**
-         * <p> Return {@link ReverseIterator reverse iterator} to <i>reverse end</i>. </p>
+         * <p> Return iterator to lower bound. </p>
          *
-         * <p> Returns a {@link ReverseIterator reverse iterator} pointing to the theoretical element preceding the
-         * first element in the container (which is considered its <i>reverse end</i>). </p>
+         * <p> Returns an iterator pointing to the first element in the container whose key is not considered to
+         * go before <i>k</i> (i.e., either it is equivalent or goes after). </p>
          *
-         * <p> The range between {@link IContainer}.{@link rbegin} and {@link IContainer}.{@link rend} contains all
-         * the elements of the container (in reverse order).
+         * <p> The function uses its internal comparison object (key_comp) to determine this, returning an
+         * iterator to the first element for which key_comp(<i>k</i>, element_key) would return false. </p>
          *
-         * @return A {@link ReverseIterator reverse iterator} to the <i>reverse end</i> of the sequence
+         * <p> If the {@link ITreeMap} class is instantiated with the default comparison type ({@link less}),
+         * the function returns an iterator to the first element whose key is not less than <i>k</i> </p>.
+         *
+         * <p> A similar member function, {@link upper_bound}, has the same behavior as {@link lower_bound}, except
+         * in the case that the {@link ITreeMap} contains an element with a key equivalent to <i>k</i>: In this
+         * case, {@link lower_bound} returns an iterator pointing to that element, whereas {@link upper_bound}
+         * returns an iterator pointing to the next element. </p>
+         *
+         * @param k Key to search for.
+         *
+         * @return An iterator to the the first element in the container whose key is not considered to go before
+         *		   <i>k</i>, or {@link ITreeMap.end} if all keys are considered to go before <i>k</i>.
          */
-        rend(): base.IReverseIterator<T>;
+        lower_bound(key: Key): MapIterator<Key, T>;
         /**
-         * Return the number of elements in the Container.
+         * <p> Return iterator to upper bound. </p>
          *
-         * @return The number of elements in the
+         * <p> Returns an iterator pointing to the first element in the container whose key is considered to
+         * go after <i>k</i> </p>.
+         *
+         * <p> The function uses its internal comparison object (key_comp) to determine this, returning an
+         * iterator to the first element for which key_comp(<i>k</i>, element_key) would return true. </p>
+         *
+         * <p> If the {@link ITreeMap} class is instantiated with the default comparison type ({@link less}),
+         * the function returns an iterator to the first element whose key is greater than <i>k</i> </p>.
+         *
+         * <p> A similar member function, {@link lower_bound}, has the same behavior as {@link upper_bound}, except
+         * in the case that the map contains an element with a key equivalent to <i>k</i>: In this case
+         * {@link lower_bound} returns an iterator pointing to that element, whereas {@link upper_bound} returns an
+         * iterator pointing to the next element. </p>
+         *
+         * @param k Key to search for.
+         *
+         * @return An iterator to the the first element in the container whose key is considered to go after
+         *		   <i>k</i>, or {@link TreeMap.end end} if no keys are considered to go after <i>k</i>.
          */
-        size(): number;
+        upper_bound(key: Key): MapIterator<Key, T>;
         /**
-         * <p> Test whether the container is empty. </p>
-         * <p> Returns whether the container is empty (i.e. whether its size is 0). </p>
+         * <p> Get range of equal elements. </p>
          *
-         * <p> This function does not modify the container in any way. To clear the content of the container,
-         * see {@link clear clear()}. </p>
+         * <p> Returns the bounds of a range that includes all the elements in the container which have a key
+         * equivalent to <i>k</i> </p>.
          *
-         * @return <code>true</code> if the container size is 0, <code>false</code> otherwise.
+         * <p> If no matches are found, the range returned has a length of zero, with both iterators pointing to
+         * the first element that has a key considered to go after <i>k</i> according to the container's internal
+         * comparison object (key_comp). </p>
+         *
+         * <p> Two keys are considered equivalent if the container's comparison object returns false reflexively
+         * (i.e., no matter the order in which the keys are passed as arguments). </p>
+         *
+         * @param k Key to search for.
+         *
+         * @return The function returns a {@link Pair}, whose member {@link Pair.first} is the lower bound of
+         *		   the range (the same as {@link lower_bound}), and {@link Pair.second} is the upper bound
+         *		   (the same as {@link upper_bound}).
          */
-        empty(): boolean;
-        /**
-         * <p> Insert elements. </p>
-         *
-         * <p> Appends new elements to the container, and returns the new size of the  </p>
-         *
-         * @param items New elements to insert.
-         *
-         * @return New size of the Container.
-         */
-        push<U extends T>(...items: U[]): number;
-        /**
-         * <p> Insert an element. </p>
-         *
-         * <p> The container is extended by inserting a new element before the element at the specified
-         * <i>position</i>. This effectively increases the {@link IContainer.size container size} by the amount of
-         * elements inserted. </p>
-         *
-         * @param position Position in the {@link IContainer} where the new element is inserted.
-         *				   {@link iterator} is a member type, defined as a {@link Iterator random access iterator}
-         *				   type that points to elements.
-         * @param val Value to be copied to the inserted element.
-         *
-         * @return An iterator that points to the newly inserted element.
-         */
-        insert(position: Iterator<T>, val: T): Iterator<T>;
-        /**
-         * <p> Erase an element. </p>
-         *
-         * <p> Removes from the container a single element. </p>
-         *
-         * <p> This effectively reduces the container size by the number of element removed. </p>
-         *
-         * @param position Iterator pointing to a single element to be removed from the Container.
-         *
-         * @return An iterator pointing to the element that followed the last element erased by the function
-         *		   call. This is the {@link end Container.end} if the operation erased the last element in the
-         *		   sequence.
-         */
-        erase(position: Iterator<T>): Iterator<T>;
-        /**
-         * <p> Erase elements. </p>
-         *
-         * <p> Removes from the container a range of elements. </p>
-         *
-         * <p> This effectively reduces the container size by the number of elements removed. </p>
-         *
-         * @param begin An iterator specifying a range of beginning to erase.
-         * @param end An iterator specifying a range of end to erase.
-         *
-         * @return An iterator pointing to the element that followed the last element erased by the function
-         *		   call. This is the {@link end Container.end} if the operation erased the last element in
-         *		   the sequence.
-         */
-        erase(begin: Iterator<T>, end: Iterator<T>): Iterator<T>;
-        /**
-         * <p> Swap content. </p>
-         *
-         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
-         * {@link IContainer container} object with same type of elements. Sizes and container type may differ. </p>
-         *
-         * <p> After the call to this member function, the elements in this container are those which were in <i>obj</i>
-         * before the call, and the elements of <i>obj</i> are those which were in this. All iterators, references and
-         * pointers remain valid for the swapped objects. </p>
-         *
-         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
-         * algorithm with an optimization that behaves like this member function. </p>
-         *
-         * @param obj Another {@link IContainer container} of the same type of elements (i.e., instantiated
-         *			  with the same template parameter, <b>T</b>) whose content is swapped with that of this
-         *			  {@link container IContainer}.
-         */
-        swap(obj: IContainer<T>): void;
-    }
-    interface IReverseIterator<T> extends ReverseIterator<T, Iterator<T>, IReverseIterator<T>> {
+        equal_range(key: Key): Pair<MapIterator<Key, T>, MapIterator<Key, T>>;
     }
 }
 declare namespace std.base {
     /**
-     * <p> An interface for deque  </p>
+     * <p> A red-black tree storing {@link MapIterator MapIterators}. </p>
      *
-     * <p> <img src="../assets/images/design/linear_containers.png" width="100%" /> </p>
-     *
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    interface IDequeContainer<T> extends ILinearContainer<T> {
-        /**
-         * <p> Insert element at beginning. </p>
-         *
-         * <p> Inserts a new element at the beginning of the {@link IDeque container}, right before its
-         * current first element. This effectively increases the {@link IDeque container} {@link size} by
-         * one. </p>
-         *
-         * @param val Value to be inserted as an element.
-         */
-        push_front(val: T): void;
-        /**
-         * <p> Delete first element. </p>
-         *
-         * <p> Removes the first element in the {@link IDeque container}, effectively reducing its
-         * {@link size} by one. </p>
-         */
-        pop_front(): void;
-    }
-}
-declare namespace std.base {
-    /**
-     * <p> An interface for linear containers.  </p>
-     *
-     * <p> <img src="../assets/images/design/linear_containers.png" width="100%" /> </p>
-     *
-     * @author Jeonngho Nam
-     */
-    interface ILinearContainer<T> extends IContainer<T> {
-        /**
-         * @inheritdoc
-         */
-        assign<U extends T, InputIterator extends Iterator<U>>(begin: InputIterator, end: InputIterator): void;
-        /**
-         * <p> Assign container content. </p>
-         *
-         * <p> Assigns new contents to the {@link IList container}, replacing its current contents,
-         * and modifying its {@link size} accordingly. </p>
-         *
-         * @param n New size for the
-         * @param val Value to fill the container with. Each of the <u>n</u> elements in the container will
-         *			  be initialized to a copy of this value.
-         */
-        assign(n: number, val: T): void;
-        /**
-         * <p> Access first element. </p>
-         * <p> Returns a value of the first element in the {@link IList container}. </p>
-         *
-         * <p> Unlike member {@link end end()}, which returns an iterator just past this element,
-         * this function returns a direct value. </p>
-         *
-         * <p> Calling this function on an {@link empty} {@link IList container} causes undefined behavior. </p>
-         *
-         * @return A value of the first element of the {@link IList container}.
-         */
-        front(): T;
-        /**
-         * <p> Access last element. </p>
-         * <p> Returns a value of the last element in the {@link IList container}. </p>
-         *
-         * <p> Unlike member {@link end end()}, which returns an iterator just past this element,
-         * this function returns a direct value. </p>
-         *
-         * <p> Calling this function on an {@link empty} {@link IList container} causes undefined behavior. </p>
-         *
-         * @return A value of the last element of the {@link IList container}.
-         */
-        back(): T;
-        /**
-         * <p> Add element at the end. </p>
-         *
-         * <p> Adds a new element at the end of the {@link IList container}, after its current last element.
-         * This effectively increases the {@link IList container} {@link size} by one. </p>
-         *
-         * @param val Value to be copied to the new element.
-         */
-        push_back(val: T): void;
-        /**
-         * <p> Delete last element. </p>
-         *
-         * <p> Removes the last element in the {@link IList container}, effectively reducing the
-         * {@link IList container} {@link size} by one. </p>
-         */
-        pop_back(): void;
-        /**
-         * <p> Insert an element. </p>
-         *
-         * <p> The {@link IList conatiner} is extended by inserting new element before the element at the
-         * specified <i>position</i>, effectively increasing the {@link IList container} {@link size} by
-         * one. </p>
-         *
-         * @param position Position in the {@link IList container} where the new elements are inserted.
-         *				   {@link iterator} is a member type, defined as a {@link iterator random access iterator}
-         *				   type that points to elements.
-         * @param val Value to be copied to the inserted element.
-         *
-         * @return An iterator that points to the newly inserted element.
-         */
-        insert(position: Iterator<T>, val: T): Iterator<T>;
-        /**
-         * <p> Insert elements by range iterators. </p>
-         *
-         * <p> The {@link IList container} is extended by inserting new elements before the element at the
-         * specified <i>position</i>, effectively increasing the {@link IList container} {@link size} by
-         * the number of repeating elements </i>n</i>. </p>
-         *
-         * @param position Position in the {@link IList container} where the new elements are inserted.
-         *				   {@link iterator} is a member type, defined as a {@link iterator random access iterator}
-         *				   type that points to elements.
-         * @param n Number of elements to insert. Each element is initialized to a copy of <i>val</i>.
-         * @param val Value to be copied (or moved) to the inserted elements.
-         *
-         * @return An iterator that points to the first of the newly inserted elements.
-         */
-        insert(position: Iterator<T>, n: number, val: T): Iterator<T>;
-        /**
-         * <p> Insert elements by range iterators. </p>
-         *
-         * <p> The {@link IList container} is extended by inserting new elements before the element at the
-         * specified <i>position</i>, effectively increasing the {@link IList container} {@link size} by
-         * the number of elements inserted by range iterators. </p>
-         *
-         * @param position Position in the {@link IList container} where the new elements are inserted.
-         *				   {@link iterator} is a member type, defined as a {@link iterator random access iterator}
-         *				   type that points to elements.
-         * @param begin Input interator of the initial position in a sequence.
-         * @param end Input interator of the final position in a sequence.
-         *
-         * @return An iterator that points to the first of the newly inserted elements.
-         */
-        insert<U extends T, InputIterator extends Iterator<U>>(position: Iterator<T>, begin: InputIterator, end: InputIterator): Iterator<T>;
-    }
-}
-declare namespace std.base {
-    /**
-     * <p> Hash buckets storing {@link MapIterator MapIterators}. </p>
-     *
-     * <p> <img src="../assets/images/design/map_containers.png" width="100%" /> </p>
-     *
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    class MapHashBuckets<K, T> extends HashBuckets<MapIterator<K, T>> {
-        private map;
-        constructor(map: MapContainer<K, T>);
-        find(key: K): MapIterator<K, T>;
-    }
-}
-declare namespace std.base {
-    /**
-     * <p> A red-black Tree storing {@link MapIterator MapIterators}. </p>
-     *
-     * <p> <img src="../assets/images/design/map_containers.png" width="100%" /> </p>
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
     class PairTree<Key, T> extends XTree<MapIterator<Key, T>> {
+        private map_;
         private compare_;
         /**
          * Default Constructor.
          */
-        constructor(compare?: (left: Key, right: Key) => boolean);
+        constructor(map: TreeMap<Key, T> | TreeMultiMap<Key, T>, compare?: (x: Key, y: Key) => boolean);
         find(key: Key): XTreeNode<MapIterator<Key, T>>;
         find(it: MapIterator<Key, T>): XTreeNode<MapIterator<Key, T>>;
         /**
          * @hidden
          */
         private find_by_key(key);
-        get_compare(): (left: Key, right: Key) => boolean;
+        /**
+         * <p> Return iterator to lower bound. </p>
+         *
+         * <p> Returns an iterator pointing to the first element in the container whose key is not considered to
+         * go before <i>k</i> (i.e., either it is equivalent or goes after). </p>
+         *
+         * <p> The function uses its internal comparison object (key_comp) to determine this, returning an
+         * iterator to the first element for which key_comp(<i>k</i>, element_key) would return false. </p>
+         *
+         * <p> If the {@link ITreeMap} class is instantiated with the default comparison type ({@link less}),
+         * the function returns an iterator to the first element whose key is not less than <i>k</i> </p>.
+         *
+         * <p> A similar member function, {@link upper_bound}, has the same behavior as {@link lower_bound}, except
+         * in the case that the {@link ITreeMap} contains an element with a key equivalent to <i>k</i>: In this
+         * case, {@link lower_bound} returns an iterator pointing to that element, whereas {@link upper_bound}
+         * returns an iterator pointing to the next element. </p>
+         *
+         * @param k Key to search for.
+         *
+         * @return An iterator to the the first element in the container whose key is not considered to go before
+         *		   <i>k</i>, or {@link ITreeMap.end} if all keys are considered to go before <i>k</i>.
+         */
+        lower_bound(key: Key): MapIterator<Key, T>;
+        /**
+         * <p> Return iterator to upper bound. </p>
+         *
+         * <p> Returns an iterator pointing to the first element in the container whose key is considered to
+         * go after <i>k</i> </p>.
+         *
+         * <p> The function uses its internal comparison object (key_comp) to determine this, returning an
+         * iterator to the first element for which key_comp(<i>k</i>, element_key) would return true. </p>
+         *
+         * <p> If the {@link ITreeMap} class is instantiated with the default comparison type ({@link less}),
+         * the function returns an iterator to the first element whose key is greater than <i>k</i> </p>.
+         *
+         * <p> A similar member function, {@link lower_bound}, has the same behavior as {@link upper_bound}, except
+         * in the case that the map contains an element with a key equivalent to <i>k</i>: In this case
+         * {@link lower_bound} returns an iterator pointing to that element, whereas {@link upper_bound} returns an
+         * iterator pointing to the next element. </p>
+         *
+         * @param k Key to search for.
+         *
+         * @return An iterator to the the first element in the container whose key is considered to go after
+         *		   <i>k</i>, or {@link TreeMap.end end} if no keys are considered to go after <i>k</i>.
+         */
+        upper_bound(key: Key): MapIterator<Key, T>;
+        /**
+         * <p> Get range of equal elements. </p>
+         *
+         * <p> Returns the bounds of a range that includes all the elements in the container which have a key
+         * equivalent to <i>k</i> </p>.
+         *
+         * <p> If no matches are found, the range returned has a length of zero, with both iterators pointing to
+         * the first element that has a key considered to go after <i>k</i> according to the container's internal
+         * comparison object (key_comp). </p>
+         *
+         * <p> Two keys are considered equivalent if the container's comparison object returns false reflexively
+         * (i.e., no matter the order in which the keys are passed as arguments). </p>
+         *
+         * @param k Key to search for.
+         *
+         * @return The function returns a {@link Pair}, whose member {@link Pair.first} is the lower bound of
+         *		   the range (the same as {@link lower_bound}), and {@link Pair.second} is the upper bound
+         *		   (the same as {@link upper_bound}).
+         */
+        equal_range(key: Key): Pair<MapIterator<Key, T>, MapIterator<Key, T>>;
+        /**
+         * <p> Return key comparison function. </p>
+         *
+         * <p> Returns a references of the comparison function used by the container to compare <i>keys</i>. </p>
+         *
+         * <p> The <i>comparison object</i> of a {@link ITreeMap tree-map object} is set on
+         * {@link TreeMap.constructor construction}. Its type (<i>Key</i>) is the last parameter of the
+         * {@link ITreeMap.constructor constructors}. By default, this is a {@link less} function, which returns the same
+         * as <i>operator&lt;</i>. </p>
+         *
+         * <p> This function determines the order of the elements in the container: it is a function pointer that takes
+         * two arguments of the same type as the element <i>keys</i>, and returns <code>true</code> if the first argument
+         * is considered to go before the second in the strict weak ordering it defines, and <code>false</code> otherwise.
+         * </p>
+         *
+         * <p> Two keys are considered equivalent if {@link key_comp} returns <code>false</code> reflexively (i.e., no
+         * matter the order in which the keys are passed as arguments). </p>
+         *
+         * @return The comparison function.
+         */
+        key_comp(): (x: Key, y: Key) => boolean;
+        /**
+         * <p> Return value comparison function. </p>
+         *
+         * <p> Returns a comparison function that can be used to compare two elements to get whether the key of the first
+         * one goes before the second. </p>
+         *
+         * <p> The arguments taken by this function object are of member type <code>std.Pair<Key, T></code> (defined in
+         * {@link ITreeMap}), but the mapped type (<i>T</i>) part of the value is not taken into consideration in this
+         * comparison. </p>
+         *
+         * <p> This comparison class returns <code>true</code> if the {@link Pair.first key} of the <i>first argument</i>
+         * is considered to go before that of the <i>second</i> (according to the strict weak ordering specified by the
+         * container's comparison function, {@link key_comp}), and <code>false</code> otherwise. </p>
+         *
+         * @return The comparison function for element values.
+         */
+        value_comp(): (x: Pair<Key, T>, y: Pair<Key, T>) => boolean;
         /**
          * @inheritdoc
          */
@@ -11053,16 +11114,300 @@ declare namespace std.base {
 }
 declare namespace std.base {
     /**
-     * <p> Hash buckets storing {@link SetIterator SetIterators}. </p>
+     * <p> A common interface for tree-structured set. </p>
      *
-     * <p> <img src="../assets/images/design/set_containers.png" width="100%" /> </p>
+     * <p> {@link ITreeSet TreeMultiSets} are containers that store elements following a specific order. </p>
+     *
+     * <p> In a {@link ITreeSet}, the value of an element also identifies it (the value is itself
+     * the <i>key</i>, of type <i>T</i>). The value of the elements in a {@link ITreeSet} cannot
+     * be modified once in the container (the elements are always const), but they can be inserted or removed
+     * from the  </p>
+     *
+     * <p> Internally, the elements in a {@link ITreeSet TreeMultiSets} are always sorted following a strict
+     * weak ordering criterion indicated by its internal comparison method (of {@link IComparable.less less}). </p>
+     *
+     * <p> {@link ITreeSet} containers are generally slower than {@link IHashSet} containers
+     * to access individual elements by their <i>key</i>, but they allow the direct iteration on subsets based on
+     * their order. </p>
+     *
+     * <p> {@link ITreeSet TreeMultiSets} are typically implemented as binary search trees. </p>
+     *
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </p>
+     *
+     * <h3> Container properties </h3>
+     * <dl>
+     *	<dt> Associative </dt>
+     *	<dd>
+     *		Elements in associative containers are referenced by their <i>key</i> and not by their absolute
+     *		position in the container.
+     *	</dd>
+     *
+     *	<dt> Ordered </dt>
+     *	<dd>
+     *		The elements in the container follow a strict order at all times. All inserted elements are
+     *		given a position in this order.
+     *	</dd>
+     *
+     *	<dt> Set </dt>
+     *	<dd> The value of an element is also the <i>key</i> used to identify it. </dd>
+     * </dl>
+     *
+     * @param <T> Type of the elements. Each element in a {@link ITreeSet} container is also identified
+     *			  by this value (each value is itself also the element's <i>key</i>).
+     *
+     * @reference http://www.cplusplus.com/reference/set
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    interface ITreeSet<T> {
+        /**
+         * <p> Return comparison function. </p>
+         *
+         * <p> Returns a copy of the comparison function used by the container. </p>
+         *
+         * <p> By default, this is a {@link less} object, which returns the same as <i>operator<</i>. </p>
+         *
+         * <p> This object determines the order of the elements in the container: it is a function pointer or a function
+         * object that takes two arguments of the same type as the container elements, and returns <code>true</code> if
+         * the <i>first argument</i> is considered to go before the <i>second</i> in the <i>strict weak ordering</i> it
+         * defines, and <code>false</code> otherwise. </p>
+         *
+         * <p> Two elements of a {@link ITreeSet} are considered equivalent if {@link key_comp} returns <code>false</code>
+         * reflexively (i.e., no matter the order in which the elements are passed as arguments). </p>
+         *
+         * <p> In {@link ITreeSet} containers, the <i>keys</i> to sort the elements are the values (<i>T</i>) themselves,
+         * therefore {@link key_comp} and its sibling member function {@link value_comp} are equivalent. </p>
+         *
+         * @return The comparison function.
+         */
+        key_comp(): (x: T, y: T) => boolean;
+        /**
+         * <p> Return comparison function. </p>
+         *
+         * <p> Returns a copy of the comparison function used by the container. </p>
+         *
+         * <p> By default, this is a {@link less} object, which returns the same as <i>operator<</i>. </p>
+         *
+         * <p> This object determines the order of the elements in the container: it is a function pointer or a function
+         * object that takes two arguments of the same type as the container elements, and returns <code>true</code> if
+         * the <i>first argument</i> is considered to go before the <i>second</i> in the <i>strict weak ordering</i> it
+         * defines, and <code>false</code> otherwise. </p>
+         *
+         * <p> Two elements of a {@link ITreeSet} are considered equivalent if {@link key_comp} returns <code>false</code>
+         * reflexively (i.e., no matter the order in which the elements are passed as arguments). </p>
+         *
+         * <p> In {@link ITreeSet} containers, the <i>keys</i> to sort the elements are the values (<i>T</i>) themselves,
+         * therefore {@link key_comp} and its sibling member function {@link value_comp} are equivalent. </p>
+         *
+         * @return The comparison function.
+         */
+        value_comp(): (x: T, y: T) => boolean;
+        /**
+         * <p> Return iterator to lower bound. </p>
+         *
+         * <p> Returns an iterator pointing to the first element in the container which is not considered to
+         * go before <i>val</i> (i.e., either it is equivalent or goes after). </p>
+         *
+         * <p> The function uses its internal comparison object (key_comp) to determine this, returning an
+         * iterator to the first element for which key_comp(element,val) would return false. </p>
+         *
+         * <p> If the {@link ITreeSet} class is instantiated with the default comparison type ({@link less}),
+         * the function returns an iterator to the first element that is not less than <i>val</i>. </p>
+
+         * <p> A similar member function, {@link upper_bound}, has the same behavior as {@link lower_bound}, except
+         * in the case that the {@link ITreeSet} contains elements equivalent to <i>val</i>: In this case
+         * {@link lower_bound} returns an iterator pointing to the first of such elements, whereas
+         * {@link upper_bound} returns an iterator pointing to the element following the last. </p>
+         *
+         * @param val Value to compare.
+         *
+         * @return An iterator to the the first element in the container which is not considered to go before
+         *		   <i>val</i>, or {@link ITreeSet.end} if all elements are considered to go before <i>val</i>.
+         */
+        lower_bound(val: T): SetIterator<T>;
+        /**
+         * <p> Return iterator to upper bound. </p>
+         *
+         * <p> Returns an iterator pointing to the first element in the container which is considered to go after
+         * <i>val</i>. </p>
+
+         * <p> The function uses its internal comparison object (key_comp) to determine this, returning an
+         * iterator to the first element for which key_comp(val,element) would return true. </p>
+
+         * <p> If the {@code ITreeSet} class is instantiated with the default comparison type (less), the
+         * function returns an iterator to the first element that is greater than <i>val</i>. </p>
+         *
+         * <p> A similar member function, {@link lower_bound}, has the same behavior as {@link upper_bound}, except
+         * in the case that the {@ITreeSet} contains elements equivalent to <i>val</i>: In this case
+         * {@link lower_bound} returns an iterator pointing to the first of such elements, whereas
+         * {@link upper_bound} returns an iterator pointing to the element following the last. </p>
+         *
+         * @param val Value to compare.
+         *
+         * @return An iterator to the the first element in the container which is considered to go after
+         *		   <i>val</i>, or {@link TreeSet.end end} if no elements are considered to go after <i>val</i>.
+         */
+        upper_bound(val: T): SetIterator<T>;
+        /**
+         * <p> Get range of equal elements. </p>
+         *
+         * <p> Returns the bounds of a range that includes all the elements in the container that are equivalent
+         * to <i>val</i>. </p>
+         *
+         * <p> If no matches are found, the range returned has a length of zero, with both iterators pointing to
+         * the first element that is considered to go after val according to the container's
+         * internal comparison object (key_comp). </p>
+         *
+         * <p> Two elements of a multiset are considered equivalent if the container's comparison object returns
+         * false reflexively (i.e., no matter the order in which the elements are passed as arguments). </p>
+         *
+         * @param key Value to search for.
+         *
+         * @return The function returns a {@link Pair}, whose member {@link Pair.first} is the lower bound of
+         *		   the range (the same as {@link lower_bound}), and {@link Pair.second} is the upper bound
+         *		   (the same as {@link upper_bound}).
+         */
+        equal_range(val: T): Pair<SetIterator<T>, SetIterator<T>>;
+    }
+}
+declare namespace std.base {
+    /**
+     * <p> A red-black Tree storing {@link SetIterator SetIterators}. </p>
+     *
+     * <p> <a href="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
-    class SetHashBuckets<T> extends HashBuckets<SetIterator<T>> {
-        private set;
-        constructor(set: SetContainer<T>);
-        find(val: T): SetIterator<T>;
+    class AtomicTree<T> extends XTree<SetIterator<T>> {
+        private set_;
+        private compare_;
+        /**
+         * Default Constructor.
+         */
+        constructor(set: TreeSet<T> | TreeMultiSet<T>, compare?: (x: T, y: T) => boolean);
+        find(val: T): XTreeNode<SetIterator<T>>;
+        find(it: SetIterator<T>): XTreeNode<SetIterator<T>>;
+        /**
+         * @hidden
+         */
+        private find_by_val(val);
+        /**
+         * <p> Return iterator to lower bound. </p>
+         *
+         * <p> Returns an iterator pointing to the first element in the container which is not considered to
+         * go before <i>val</i> (i.e., either it is equivalent or goes after). </p>
+         *
+         * <p> The function uses its internal comparison object (key_comp) to determine this, returning an
+         * iterator to the first element for which key_comp(element,val) would return false. </p>
+         *
+         * <p> If the {@link ITreeSet} class is instantiated with the default comparison type ({@link less}),
+         * the function returns an iterator to the first element that is not less than <i>val</i>. </p>
+
+         * <p> A similar member function, {@link upper_bound}, has the same behavior as {@link lower_bound}, except
+         * in the case that the {@link ITreeSet} contains elements equivalent to <i>val</i>: In this case
+         * {@link lower_bound} returns an iterator pointing to the first of such elements, whereas
+         * {@link upper_bound} returns an iterator pointing to the element following the last. </p>
+         *
+         * @param val Value to compare.
+         *
+         * @return An iterator to the the first element in the container which is not considered to go before
+         *		   <i>val</i>, or {@link ITreeSet.end} if all elements are considered to go before <i>val</i>.
+         */
+        lower_bound(val: T): SetIterator<T>;
+        /**
+         * <p> Return iterator to upper bound. </p>
+         *
+         * <p> Returns an iterator pointing to the first element in the container which is considered to go after
+         * <i>val</i>. </p>
+
+         * <p> The function uses its internal comparison object (key_comp) to determine this, returning an
+         * iterator to the first element for which key_comp(val,element) would return true. </p>
+
+         * <p> If the {@code ITreeSet} class is instantiated with the default comparison type (less), the
+         * function returns an iterator to the first element that is greater than <i>val</i>. </p>
+         *
+         * <p> A similar member function, {@link lower_bound}, has the same behavior as {@link upper_bound}, except
+         * in the case that the {@ITreeSet} contains elements equivalent to <i>val</i>: In this case
+         * {@link lower_bound} returns an iterator pointing to the first of such elements, whereas
+         * {@link upper_bound} returns an iterator pointing to the element following the last. </p>
+         *
+         * @param val Value to compare.
+         *
+         * @return An iterator to the the first element in the container which is considered to go after
+         *		   <i>val</i>, or {@link TreeSet.end end} if no elements are considered to go after <i>val</i>.
+         */
+        upper_bound(val: T): SetIterator<T>;
+        /**
+         * <p> Get range of equal elements. </p>
+         *
+         * <p> Returns the bounds of a range that includes all the elements in the container that are equivalent
+         * to <i>val</i>. </p>
+         *
+         * <p> If no matches are found, the range returned has a length of zero, with both iterators pointing to
+         * the first element that is considered to go after val according to the container's
+         * internal comparison object (key_comp). </p>
+         *
+         * <p> Two elements of a multiset are considered equivalent if the container's comparison object returns
+         * false reflexively (i.e., no matter the order in which the elements are passed as arguments). </p>
+         *
+         * @param key Value to search for.
+         *
+         * @return The function returns a {@link Pair}, whose member {@link Pair.first} is the lower bound of
+         *		   the range (the same as {@link lower_bound}), and {@link Pair.second} is the upper bound
+         *		   (the same as {@link upper_bound}).
+         */
+        equal_range(val: T): Pair<SetIterator<T>, SetIterator<T>>;
+        /**
+         * <p> Return comparison function. </p>
+         *
+         * <p> Returns a copy of the comparison function used by the container. </p>
+         *
+         * <p> By default, this is a {@link less} object, which returns the same as <i>operator<</i>. </p>
+         *
+         * <p> This object determines the order of the elements in the container: it is a function pointer or a function
+         * object that takes two arguments of the same type as the container elements, and returns <code>true</code> if
+         * the <i>first argument</i> is considered to go before the <i>second</i> in the <i>strict weak ordering</i> it
+         * defines, and <code>false</code> otherwise. </p>
+         *
+         * <p> Two elements of a {@link ITreeSet} are considered equivalent if {@link key_comp} returns <code>false</code>
+         * reflexively (i.e., no matter the order in which the elements are passed as arguments). </p>
+         *
+         * <p> In {@link ITreeSet} containers, the <i>keys</i> to sort the elements are the values (<i>T</i>) themselves,
+         * therefore {@link key_comp} and its sibling member function {@link value_comp} are equivalent. </p>
+         *
+         * @return The comparison function.
+         */
+        key_comp(): (x: T, y: T) => boolean;
+        /**
+         * <p> Return comparison function. </p>
+         *
+         * <p> Returns a copy of the comparison function used by the container. </p>
+         *
+         * <p> By default, this is a {@link less} object, which returns the same as <i>operator<</i>. </p>
+         *
+         * <p> This object determines the order of the elements in the container: it is a function pointer or a function
+         * object that takes two arguments of the same type as the container elements, and returns <code>true</code> if
+         * the <i>first argument</i> is considered to go before the <i>second</i> in the <i>strict weak ordering</i> it
+         * defines, and <code>false</code> otherwise. </p>
+         *
+         * <p> Two elements of a {@link ITreeSet} are considered equivalent if {@link key_comp} returns <code>false</code>
+         * reflexively (i.e., no matter the order in which the elements are passed as arguments). </p>
+         *
+         * <p> In {@link ITreeSet} containers, the <i>keys</i> to sort the elements are the values (<i>T</i>) themselves,
+         * therefore {@link key_comp} and its sibling member function {@link value_comp} are equivalent. </p>
+         *
+         * @return The comparison function.
+         */
+        value_comp(): (x: T, y: T) => boolean;
+        /**
+         * @inheritdoc
+         */
+        is_equal_to(left: SetIterator<T>, right: SetIterator<T>): boolean;
+        /**
+         * @inheritdoc
+         */
+        is_less(left: SetIterator<T>, right: SetIterator<T>): boolean;
     }
 }
 declare namespace std.base {
