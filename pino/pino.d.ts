@@ -100,17 +100,17 @@ declare module 'pino' {
         level: Level
         levelVal: number
         on(event: LevelChangeEvent, listener: LevelChangeEventListener): void
-        fatal(obj: {}): void
+        fatal(msg: string, ...args : any[]): void
         fatal(obj: {}, msg?: string, ...args : any[]): void
-        error(obj: {}): void
+        error(msg: string, ...args : any[]): void
         error(obj: {}, msg?: string, ...args : any[]): void
-        warn(obj: {}): void
+        warn(msg: string, ...args : any[]): void
         warn(obj: {}, msg?: string, ...args : any[]): void
         info(msg: string, ...args : any[]): void
         info(obj: {}, msg?: string, ...args : any[]): void
-        debug(obj: {}): void
+        debug(msg: string, ...args : any[]): void
         debug(obj: {}, msg?: string, ...args : any[]): void
-        trace(obj: {}): void
+        trace(msg: string, ...args : any[]): void
         trace(obj: {}, msg?: string, ...args : any[]): void
         levels: {
             values: LevelLabelsToValues
