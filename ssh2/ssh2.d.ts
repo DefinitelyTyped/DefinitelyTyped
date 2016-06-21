@@ -109,7 +109,7 @@ declare module "ssh2" {
              * @description Try keyboard-interactive user authentication if primary user authentication method fails.
              * If you set this to `true`, you need to handle the `keyboard-interactive` event.
              */
-            tryKeyboard: boolean;
+            tryKeyboard?: boolean;
             /**
              * @description How often (in milliseconds) to send SSH-level keepalive packets to the server
              * (in a similar way as OpenSSH's ServerAliveInterval config option). Set to 0 to disable.
@@ -145,7 +145,7 @@ declare module "ssh2" {
             /**
              * @description Set this to a function that receives a single string argument to get detailed (local) debug information.
              */
-            debug: (information: string) => any;
+            debug?: (information: string) => any;
         }
 
         interface ExecOption {

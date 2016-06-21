@@ -305,21 +305,6 @@ interface UnderscoreStatic {
 		object: _.List<T>|_.Dictionary<T>,
 		iterator: string): T;
 
-    /**
-	* Looks through each value in the list, returning the index of the first one that passes a truth
-	* test (iterator). The function returns as soon as it finds an acceptable element,
-	* and doesn't traverse the entire list.
-	* @param list Searches for a value in this list.
-	* @param iterator Search iterator function for each element in `list`.
-	* @param context `this` object in `iterator`, optional.
-	* @return The index of the first acceptable found element in `list`, if nothing is found -1 is returned.
-	**/
-    findIndex<T>(
-        list: _.List<T>,
-        iterator: _.ListIterator<T, boolean>,
-        context?: any): number;
-
-
 	/**
 	* Looks through each value in the list, returning an array of all the values that pass a truth
 	* test (iterator). Delegates to the native filter method, if it exists.
@@ -1014,7 +999,7 @@ interface UnderscoreStatic {
 	**/
 	findIndex<T>(
 		array: _.List<T>,
-		predicate: _.ListIterator<T, boolean>,
+		predicate: _.ListIterator<T, boolean> | {},
 		context?: any): number;
 
 	/**
@@ -1026,7 +1011,7 @@ interface UnderscoreStatic {
 	**/
 	findLastIndex<T>(
 		array: _.List<T>,
-		predicate: _.ListIterator<T, boolean>,
+		predicate: _.ListIterator<T, boolean> | {},
 		context?: any): number;
 
 	/**
@@ -3511,10 +3496,10 @@ interface UnderscoreStatic {
 
 	/**
 	* Returns a negated version of the pass-in predicate.
-	* @param Function predicate
-	* @return boolean
+	* @param (...args: any[]) => boolean predicate
+	* @return (...args: any[]) => boolean
 	**/
-	negate(predicate: Function): boolean;
+	negate(predicate: (...args: any[]) => boolean): (...args: any[]) => boolean;
 
 	/**
 	* Returns the composition of a list of functions, where each function consumes the return value of the
@@ -4499,12 +4484,12 @@ interface Underscore<T> {
 	/**
 	* @see _.findIndex
 	**/
-	findIndex<T>(array: _.List<T>, predicate: _.ListIterator<T, boolean>, context?: any): number;
+	findIndex<T>(array: _.List<T>, predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
 
 	/**
 	* @see _.findLastIndex
 	**/
-	findLastIndex<T>(array: _.List<T>, predicate: _.ListIterator<T, boolean>, context?: any): number;
+	findLastIndex<T>(array: _.List<T>, predicate: _.ListIterator<T, boolean> | {}, context?: any): number;
 
 	/**
 	* Wrapped type `any[]`.
@@ -5417,12 +5402,12 @@ interface _Chain<T> {
 	/**
 	* @see _.findIndex
 	**/
-	findIndex<T>(predicate: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+	findIndex<T>(predicate: _.ListIterator<T, boolean> | {}, context?: any): _ChainSingle<number>;
 
 	/**
 	* @see _.findLastIndex
 	**/
-	findLastIndex<T>(predicate: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+	findLastIndex<T>(predicate: _.ListIterator<T, boolean> | {}, context?: any): _ChainSingle<number>;
 
 	/**
 	* Wrapped type `any[]`.

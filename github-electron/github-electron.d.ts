@@ -1,4 +1,4 @@
-// Type definitions for Electron v0.37.8
+// Type definitions for Electron v1.2.3
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -49,7 +49,9 @@ declare namespace Electron {
 		/**
 		 * Emitted when all windows have been closed.
 		 *
-		 * This event is only emitted when the application is not going to quit.
+		 * If you do not subscribe to this event and all windows are closed,
+		 * the default behavior is to quit the app; however, if you subscribe,
+		 * you control whether the app quits or not.
 		 * If the user pressed Cmd + Q, or the developer called app.quit(),
 		 * Electron will first try to close all the windows and then emit the will-quit event,
 		 * and in this case the window-all-closed event would not be emitted.
@@ -97,6 +99,11 @@ declare namespace Electron {
 		 */
 		on(event: 'activate', listener: Function): this;
 		/**
+		 * Emitted during Handoff when an activity from a different device wants to be resumed.
+		 * You should call event.preventDefault() if you want to handle this event.
+		 */
+		on(event: 'continue-activity', listener: (event: Event, type: string, userInfo: Object) => void): this;
+		/**
 		 * Emitted when a browserWindow gets blurred.
 		 */
 		on(event: 'browser-window-blur', listener: (event: Event, browserWindow: BrowserWindow) => void): this;
@@ -108,6 +115,10 @@ declare namespace Electron {
 		 * Emitted when a new browserWindow is created.
 		 */
 		on(event: 'browser-window-created', listener: (event: Event, browserWindow: BrowserWindow) => void): this;
+		/**
+		 * Emitted when a new webContents is created.
+		 */
+		on(event: 'web-contents-created', listener: (event: Event, webContents: WebContents) => void): this;
 		/**
 		 * Emitted when failed to verify the certificate for url, to trust the certificate
 		 * you should prevent the default behavior with event.preventDefault() and call callback(true).
@@ -166,6 +177,24 @@ declare namespace Electron {
 		 * and the before-quit and will-quit events will not be emitted.
 		 */
 		exit(exitCode: number): void;
+		/**
+		 * Relaunches the app when current instance exits.
+		 *
+		 * By default the new instance will use the same working directory
+		 * and command line arguments with current instance.
+		 * When args is specified, the args will be passed as command line arguments instead.
+		 * When execPath is specified, the execPath will be executed for relaunch instead of current app.
+		 *
+		 * Note that this method does not quit the app when executed, you have to call app.quit
+		 * or app.exit after calling app.relaunch to make the app restart.
+		 *
+		 * When app.relaunch is called for multiple times, multiple instances
+		 * will be started after current instance exited.
+		 */
+		relaunch(options?: {
+			args?: string[],
+			execPath?: string
+		}): void;
 		/**
 		 * On Linux, focuses on the first visible window.
 		 * On OS X, makes the application the active app.
@@ -251,8 +280,7 @@ declare namespace Electron {
 		/**
 		 * Removes the current executable as the default handler for a protocol (aka URI scheme).
 		 *
-		 * Note: This is only implemented on Windows.
-		 *       On OS X, removing the app will automatically remove the app as the default protocol handler.
+		 * Note: This is only implemented on OS X and Windows.
 		 */
 		removeAsDefaultProtocolClient(protocol: string): void;
 		/**
@@ -268,19 +296,34 @@ declare namespace Electron {
 		 */
 		setUserTasks(tasks: Task[]): void;
 		/**
-		 * Dynamically sets whether to always send credentials for HTTP NTLM or Negotiate authentication.
-		 * Normally, Electron will only send NTLM/Kerberos credentials for URLs that fall under
-		 * "Local Intranet" sites (i.e. are in the same domain as you).
-		 * However, this detection often fails when corporate networks are badly configured,
-		 * so this lets you co-opt this behavior and enable it for all URLs.
-		 */
-		allowNTLMCredentialsForAllDomains(allow: boolean): void;
-		/**
 		 * This method makes your application a Single Instance Application instead of allowing
 		 * multiple instances of your app to run, this will ensure that only a single instance
 		 * of your app is running, and other instances signal this instance and exit.
 		 */
-		makeSingleInstance(callback: (args: string[], workingDirectory: string) => boolean): boolean;
+		makeSingleInstance(callback: (args: string[], workingDirectory: string) => void): boolean;
+		/**
+		 * Releases all locks that were created by makeSingleInstance. This will allow
+		 * multiple instances of the application to once again run side by side.
+		 */
+		releaseSingleInstance(): void;
+		/**
+		 * Creates an NSUserActivity and sets it as the current activity.
+		 * The activity is eligible for Handoff to another device afterward.
+		 *
+		 * @param type Uniquely identifies the activity. Maps to NSUserActivity.activityType.
+		 * @param userInfo App-specific state to store for use by another device.
+		 * @param webpageURL The webpage to load in a browser if no suitable app is
+		 * 					 installed on the resuming device. The scheme must be http or https.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		setUserActivity(type: string, userInfo: Object, webpageURL?: string): void;
+		/**
+		 * @returns The type of the currently running activity.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		getCurrentActivityType(): string;
 		/**
 		 * Changes the Application User Model ID to id.
 		 */
@@ -293,6 +336,11 @@ declare namespace Electron {
 		 * Note: This API is only available on Linux.
 		 */
 		importCertificate(options: ImportCertificateOptions, callback: (result: number) => void): void;
+		/**
+		 * Disables hardware acceleration for current app.
+		 * This method can only be called before app is ready.
+		 */
+		disableHardwareAcceleration(): void;
 		commandLine: CommandLine;
 		/**
 		 * Note: This API is only available on Mac.
@@ -300,7 +348,7 @@ declare namespace Electron {
 		dock: Dock;
 	}
 
-	type AppPathName = 'home'|'appData'|'userData'|'temp'|'exe'|'module'|'desktop'|'documents'|'downloads'|'music'|'pictures'|'videos';
+	type AppPathName = 'home'|'appData'|'userData'|'temp'|'exe'|'module'|'desktop'|'documents'|'downloads'|'music'|'pictures'|'videos'|'pepperFlashSystemPlugin';
 
 	interface ImportCertificateOptions {
 		/**
@@ -348,6 +396,12 @@ declare namespace Electron {
 		 * Note: This API is only available on Mac.
 		 */
 		cancelBounce(id: number): void;
+		/**
+		 * Bounces the Downloads stack if the filePath is inside the Downloads folder.
+		 *
+		 * Note: This API is only available on Mac.
+		 */
+		downloadFinished(filePath: string): void;
 		/**
 		 * Sets the string to be displayed in the dock’s badging area.
 		 *
@@ -448,9 +502,8 @@ declare namespace Electron {
 		on(event: string, listener: Function): this;
 		/**
 		 * Set the url and initialize the auto updater.
-		 * The url cannot be changed once it is set.
 		 */
-		setFeedURL(url: string): void;
+		setFeedURL(url: string, requestHeaders?: Headers): void;
 		/**
 		 * Ask the server whether there is an update, you have to call setFeedURL
 		 * before using this API
@@ -509,6 +562,10 @@ declare namespace Electron {
 		 * Emitted when the window is hidden.
 		 */
 		on(event: 'hide', listener: Function): this;
+		/**
+		 * Emitted when the web page has been rendered and window can be displayed without visual flash.
+		 */
+		on(event: 'ready-to-show', listener: Function): this;
 		/**
 		 * Emitted when window is maximized.
 		 */
@@ -600,6 +657,10 @@ declare namespace Electron {
 		 * @param name The name of the devtools extension to remove.
 		 */
 		static removeDevToolsExtension(name: string): void;
+		/**
+		 * @returns devtools extensions.
+		 */
+		static getDevToolsExtensions(): DevToolsExtensions;
 		/**
 		 * The WebContents object this window owns, all web page related events and
 		 * operations would be done via it.
@@ -825,7 +886,7 @@ declare namespace Electron {
 		 * Changes the attachment point for sheets on Mac OS X.
 		 * Note: This API is available only on OS X.
 		 */
-		setSheetOffset(offset: number): void;
+		setSheetOffset(offsetY: number, offsetX?: number): void;
 		/**
 		 * Starts or stops flashing the window to attract user's attention.
 		 */
@@ -899,19 +960,11 @@ declare namespace Electron {
 		capturePage(rect: Rectangle, callback: (image: NativeImage) => void): void;
 		capturePage(callback: (image: NativeImage) => void): void;
 		/**
-		 * Same with webContents.print([options])
-		 */
-		print(options?: PrintOptions): void;
-		/**
-		 * Same with webContents.printToPDF([options])
-		 */
-		printToPDF(options: PrintToPDFOptions, callback: (error: Error, data: Buffer) => void): void;
-		/**
-		 * Same with webContents.loadURL(url).
+		 * Same as webContents.loadURL(url).
 		 */
 		loadURL(url: string, options?: LoadURLOptions): void;
 		/**
-		 * Same with webContents.reload.
+		 * Same as webContents.reload.
 		 */
 		reload(): void;
 		/**
@@ -954,10 +1007,15 @@ declare namespace Electron {
 		 */
 		setThumbarButtons(buttons: ThumbarButton[]): boolean;
 		/**
-		 * Shows pop-up dictionary that searches the selected word on the page.
+		 * Same as webContents.showDefinitionForSelection().
 		 * Note: This API is available only on OS X.
 		 */
 		showDefinitionForSelection(): void;
+		/**
+		 * Changes window icon.
+		 * Note: This API is not available on OS X.
+		 */
+		setIcon(icon: NativeImage): void;
 		/**
 		 * Sets whether the window menu bar should hide itself automatically. Once set
 		 * the menu bar will only show when users press the single Alt key.
@@ -989,10 +1047,17 @@ declare namespace Electron {
 		 */
 		isVisibleOnAllWorkspaces(): boolean;
 		/**
-		 * Ignore all moused events that happened in the window.
-		 * Note: This API is available only on OS X.
+		 * Makes the window ignore all mouse events.
+		 *
+		 * All mouse events happened in this window will be passed to the window below this window,
+		 * but if this window has focus, it will still receive keyboard events.
 		 */
 		setIgnoreMouseEvents(ignore: boolean): void;
+		/**
+		 * Changes whether the window can be focused.
+		 * Note: This API is available only on Windows.
+		 */
+		setFocusable(focusable: boolean): void;
 	}
 
 	type SwipeDirection = 'up' | 'right' | 'down' | 'left';
@@ -1004,6 +1069,13 @@ declare namespace Electron {
 		click: Function;
 		tooltip?: string;
 		flags?: ThumbarButtonFlags[];
+	}
+
+	interface DevToolsExtensions {
+		[name: string]: {
+			name: string;
+			value: string;
+		}
 	}
 
 	interface WebPreferences {
@@ -1104,9 +1176,18 @@ declare namespace Electron {
 		 */
 		directWrite?: boolean;
 		/**
-		 * A list of feature strings separated by ",".
+		 * Enables scroll bounce (rubber banding) effect on OS X.
+		 * Default: false.
+		 */
+		scrollBounce?: boolean;
+		/**
+		 * A list of feature strings separated by ",", like CSSVariables,KeyboardEventKey to enable.
 		 */
 		blinkFeatures?: string;
+		/**
+		 * A list of feature strings separated by ",", like CSSVariables,KeyboardEventKey to disable.
+		 */
+		disableBlinkFeatures?: string;
 		/**
 		 * Sets the default font for the font-family.
 		 */
@@ -1233,18 +1314,27 @@ declare namespace Electron {
 		 */
 		closable?: boolean;
 		/**
+		 * Whether the window can be focused.
+		 * On Windows setting focusable: false also implies setting skipTaskbar: true.
+		 * On Linux setting focusable: false makes the window stop interacting with wm,
+		 * so the window will always stay on top in all workspaces.
+		 * Default: true.
+		 */
+		focusable?: boolean;
+		/**
 		 * Whether the window should always stay on top of other windows.
 		 * Default: false.
 		 */
 		alwaysOnTop?: boolean;
 		/**
 		 * Whether the window should show in fullscreen.
-		 * When explicity set to false the fullscreen button will be hidden or disabled on OS X.
+		 * When explicitly set to false the fullscreen button will be hidden or disabled on OS X.
 		 * Default: false.
 		 */
 		fullscreen?: boolean;
 		/**
-		 * Whether the maximize/zoom button on OS X should toggle full screen mode or maximize window.
+		 * Whether the window can be put into fullscreen mode.
+		 * On OS X, also whether the maximize/zoom button should toggle full screen mode or maximize window.
 		 * Default: true.
 		 */
 		fullscreenable?: boolean;
@@ -1361,11 +1451,11 @@ declare namespace Electron {
 		/**
 		 * @returns The contents of the clipboard as markup.
 		 */
-		readHtml(type?: ClipboardType): string;
+		readHTML(type?: ClipboardType): string;
 		/**
 		 * Writes markup to the clipboard.
 		 */
-		writeHtml(markup: string, type?: ClipboardType): void;
+		writeHTML(markup: string, type?: ClipboardType): void;
 		/**
 		 * @returns The contents of the clipboard as a NativeImage.
 		 */
@@ -1377,11 +1467,11 @@ declare namespace Electron {
 		/**
 		 * @returns The contents of the clipboard as RTF.
 		 */
-		readRtf(type?: ClipboardType): string;
+		readRTF(type?: ClipboardType): string;
 		/**
 		 * Writes the text into the clipboard in RTF.
 		 */
-		writeRtf(text: string, type?: ClipboardType): void;
+		writeRTF(text: string, type?: ClipboardType): void;
 		/**
 		 * Clears everything in clipboard.
 		 */
@@ -1688,6 +1778,10 @@ declare namespace Electron {
 		title?: string;
 		defaultPath?: string;
 		/**
+		 * Custom label for the confirmation button, when left empty the default label will be used.
+		 */
+		buttonLabel?: string;
+		/**
 		 * File types that can be displayed or selected.
 		 */
 		filters?: {
@@ -1708,6 +1802,10 @@ declare namespace Electron {
 		title?: string;
 		defaultPath?: string;
 		/**
+		 * Custom label for the confirmation button, when left empty the default label will be used.
+		 */
+		buttonLabel?: string;
+		/**
 		 * File types that can be displayed, see dialog.showOpenDialog for an example.
 		 */
 		filters?: {
@@ -1722,7 +1820,7 @@ declare namespace Electron {
 		 */
 		type?: 'none' | 'info' | 'error' | 'question' | 'warning';
 		/**
-		 * Texts for buttons.
+		 * Texts for buttons. On Windows, an empty array will result in one button labeled "OK".
 		 */
 		buttons?: string[];
 		/**
@@ -1765,9 +1863,9 @@ declare namespace Electron {
 	 */
 	interface DownloadItem extends NodeJS.EventEmitter {
 		/**
-		 * Emits when the downloadItem gets updated.
+		 * Emitted when the download has been updated and is not done.
 		 */
-		on(event: 'updated', listener: Function): this;
+		on(event: 'updated', listener: (event: Event, state: 'progressing' | 'interrupted') => void): this;
 		/**
 		 * Emits when the download is in a terminal state. This includes a completed download,
 		 * a cancelled download (via downloadItem.cancel()), and interrupted download that can’t be resumed.
@@ -1786,9 +1884,17 @@ declare namespace Electron {
 		 */
 		pause(): void;
 		/**
+		 * @returns Whether the download is paused.
+		 */
+		isPaused(): boolean;
+		/**
 		 * Resumes the download that has been paused.
 		 */
 		resume(): void;
+		/**
+		 * @returns Whether the download can resume.
+		 */
+		canResume(): boolean;
 		/**
 		 * Cancels the download operation.
 		 */
@@ -1824,6 +1930,10 @@ declare namespace Electron {
 		 * @returns The Content-Disposition field from the response header.
 		 */
 		getContentDisposition(): string;
+		/**
+		 * @returns The current state.
+		 */
+		getState(): 'progressing' | 'completed' | 'cancelled' | 'interrupted';
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/global-shortcut.md
@@ -1974,8 +2084,8 @@ declare namespace Electron {
 	}
 
 	type MenuItemType = 'normal' | 'separator' | 'submenu' | 'checkbox' | 'radio';
-	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'selectall' | 'minimize' | 'close';
-	type MenuItemRoleMac = 'about' | 'hide' | 'hideothers' | 'unhide' | 'front' | 'window' | 'help' | 'services';
+	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close';
+	type MenuItemRoleMac = 'about' | 'hide' | 'hideothers' | 'unhide' | 'front' | 'zoom' | 'window' | 'help' | 'services';
 
 	interface MenuItemOptions {
 		/**
@@ -2023,6 +2133,7 @@ declare namespace Electron {
 		 *   Punctuations like ~, !, @, #, $, etc.
 		 *   Plus
 		 *   Space
+		 *   Tab
 		 *   Backspace
 		 *   Delete
 		 *   Insert
@@ -2559,9 +2670,18 @@ declare namespace Electron {
 		 */
 		clearHostResolverCache(callback: Function): void;
 		/**
+		 * Dynamically sets whether to always send credentials for HTTP NTLM or Negotiate authentication.
+		 * @param domains Comma-seperated list of servers for which integrated authentication is enabled.
+		 */
+		allowNTLMCredentialsForDomains(domains: string): void;
+		/**
 		 * The webRequest API set allows to intercept and modify contents of a request at various stages of its lifetime.
 		 */
 		webRequest: WebRequest;
+		/**
+		 * @returns An instance of protocol module for this session.
+		 */
+		protocol: Protocol;
 	}
 
 	type Permission = 'media' | 'geolocation' | 'notifications' | 'midiSysex' | 'pointerLock' | 'fullscreen' | 'openExternal';
@@ -2961,7 +3081,7 @@ declare namespace Electron {
 		 *
 		 * Note: This is only implemented on OS X.
 		 */
-		subscribeNotification(event: string, callback: Function): number;
+		subscribeNotification(event: string, callback: (event: Event, userInfo: Object) => void): number;
 		/**
 		 * Removes the subscriber with id.
 		 *
@@ -2973,7 +3093,7 @@ declare namespace Electron {
 		 *
 		 * Note: This is only implemented on OS X.
 		 */
-		getUserDefault(key: string, type: 'string' | 'boolean' | 'integer' | 'float' | 'double' | 'url'): any;
+		getUserDefault(key: string, type: 'string' | 'boolean' | 'integer' | 'float' | 'double' | 'url' | 'array' | 'dictionary'): any;
 		/**
 		 * This method returns true if DWM composition (Aero Glass) is enabled,
 		 * and false otherwise. You can use it to determine if you should create
@@ -3279,11 +3399,27 @@ declare namespace Electron {
 		 */
 		on(event: 'did-change-theme-color', listener: Function): this;
 		/**
+		 * Emitted when mouse moves over a link or the keyboard moves the focus to a link.
+		 */
+		on(event: 'update-target-url', listener: (event: Event, url: string) => void): this;
+		/**
 		 * Emitted when the cursor’s type changes.
 		 * If the type parameter is custom, the image parameter will hold the custom cursor image
 		 * in a NativeImage, and the scale will hold scaling information for the image.
 		 */
 		on(event: 'cursor-changed', listener: (event: Event, type: CursorType, image?: NativeImage, scale?: number) => void): this;
+		/**
+		 * Emitted when there is a new context menu that needs to be handled.
+		 */
+		on(event: 'context-menu', listener: (event: Event, params: ContextMenuParams) => void): this;
+		/**
+		 * Emitted when bluetooth device needs to be selected on call to navigator.bluetooth.requestDevice.
+		 * To use navigator.bluetooth api webBluetooth should be enabled.
+		 * If event.preventDefault is not called, first available device will be selected.
+		 * callback should be called with deviceId to be selected,
+		 * passing empty string to callback will cancel the request.
+		 */
+		on(event: 'select-bluetooth-device', listener: (event: Event, deviceList: BluetoothDevice[], callback: (deviceId: string) => void) => void): this;
 		on(event: string, listener: Function): this;
 		/**
 		 * Loads the url in the window.
@@ -3555,6 +3691,15 @@ declare namespace Electron {
 		 */
 		savePage(fullPath: string, saveType: 'HTMLOnly' | 'HTMLComplete' | 'MHTML', callback?: (eror: Error) => void): boolean;
 		/**
+		 * Shows pop-up dictionary that searches the selected word on the page.
+		 * Note: This API is available only on OS X.
+		 */
+		showDefinitionForSelection(): void;
+		/**
+		 * @returns The unique ID of this WebContents.
+		 */
+		id: number;
+		/**
 		 * @returns The session object used by this webContents.
 		 */
 		session: Session;
@@ -3574,6 +3719,149 @@ declare namespace Electron {
 		debugger: Debugger;
 	}
 
+	interface ContextMenuParams {
+		/**
+		 * x coodinate
+		 */
+		x: number;
+		/**
+		 * y coodinate
+		 */
+		y: number;
+		/**
+		 * URL of the link that encloses the node the context menu was invoked on.
+		 */
+		linkURL: string;
+		/**
+		 * Text associated with the link. May be an empty string if the contents of the link are an image.
+		 */
+		linkText: string;
+		/**
+		 * URL of the top level page that the context menu was invoked on.
+		 */
+		pageURL: string;
+		/**
+		 * URL of the subframe that the context menu was invoked on.
+		 */
+		frameURL: string;
+		/**
+		 * Source URL for the element that the context menu was invoked on.
+		 * Elements with source URLs are images, audio and video.
+		 */
+		srcURL: string;
+		/**
+		 * Type of the node the context menu was invoked on.
+		 */
+		mediaType: 'none' | 'image' | 'audio' | 'video' | 'canvas' | 'file' | 'plugin';
+		/**
+		 * Parameters for the media element the context menu was invoked on.
+		 */
+		mediaFlags: {
+			/**
+			 * Wether the media element has crashed.
+			 */
+			inError: boolean;
+			/**
+			 * Wether the media element is paused.
+			 */
+			isPaused: boolean;
+			/**
+			 * Wether the media element is muted.
+			 */
+			isMuted: boolean;
+			/**
+			 * Wether the media element has audio.
+			 */
+			hasAudio: boolean;
+			/**
+			 * Wether the media element is looping.
+			 */
+			isLooping: boolean;
+			/**
+			 * Wether the media element's controls are visible.
+			 */
+			isControlsVisible: boolean;
+			/**
+			 * Wether the media element's controls are toggleable.
+			 */
+			canToggleControls: boolean;
+			/**
+			 * Wether the media element can be rotated.
+			 */
+			canRotate: boolean;
+		}
+		/**
+		 * Wether the context menu was invoked on an image which has non-empty contents.
+		 */
+		hasImageContents: boolean;
+		/**
+		 * Wether the context is editable.
+		 */
+		isEditable: boolean;
+		/**
+		 * These flags indicate wether the renderer believes it is able to perform the corresponding action.
+		 */
+		editFlags: {
+			/**
+			 * Wether the renderer believes it can undo.
+			 */
+			canUndo: boolean;
+			/**
+			 * Wether the renderer believes it can redo.
+			 */
+			canRedo: boolean;
+			/**
+			 * Wether the renderer believes it can cut.
+			 */
+			canCut: boolean;
+			/**
+			 * Wether the renderer believes it can copy
+			 */
+			canCopy: boolean;
+			/**
+			 * Wether the renderer believes it can paste.
+			 */
+			canPaste: boolean;
+			/**
+			 * Wether the renderer believes it can delete.
+			 */
+			canDelete: boolean;
+			/**
+			 * Wether the renderer believes it can select all.
+			 */
+			canSelectAll: boolean;
+		}
+		/**
+		 * Text of the selection that the context menu was invoked on.
+		 */
+		selectionText: string;
+		/**
+		 * Title or alt text of the selection that the context was invoked on.
+		 */
+		titleText: string;
+		/**
+		 * The misspelled word under the cursor, if any.
+		 */
+		misspelledWord: string;
+		/**
+		 * The character encoding of the frame on which the menu was invoked.
+		 */
+		frameCharset: string;
+		/**
+		 * If the context menu was invoked on an input field, the type of that field.
+		 */
+		inputFieldType: 'none' | 'plainText' | 'password' | 'other';
+		/**
+		 * Input source that invoked the context menu.
+		 */
+		menuSourceType: 'none' | 'mouse' | 'keyboard' | 'touch' | 'touchMenu';
+	}
+
+	interface BluetoothDevice {
+		deviceName: string;
+		deviceId: string;
+	}
+
 	interface Headers {
 		[key: string]: string;
 	}
@@ -3582,8 +3870,8 @@ declare namespace Electron {
 
 	/**
 	 * Specifies the action to take place when ending webContents.findInPage request.
-	 * 'clearSelection' - Translate the selection into a normal selection.
-	 * 'keepSelection' - Clear the selection.
+	 * 'clearSelection' - Clear the selection.
+	 * 'keepSelection' - Translate the selection into a normal selection.
 	 * 'activateSelection' - Focus and click the selection node.
 	 */
 	type StopFindInPageAtion = 'clearSelection' | 'keepSelection' | 'activateSelection';
@@ -3631,7 +3919,7 @@ declare namespace Electron {
 		 * Specify page size of the generated PDF.
 		 * Default: A4.
 		 */
-		pageSize?: 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid';
+		pageSize?: 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid' | Dimension;
 		/**
 		 * Whether to print CSS backgrounds.
 		 * Default: false.
@@ -3889,6 +4177,32 @@ declare namespace Electron {
 		 * this limitation.
 		 */
 		executeJavaScript(code: string, userGesture?: boolean, callback?: (result: any) => void): void;
+		/**
+		 * @returns Object describing usage information of Blink’s internal memory caches.
+		 */
+		getResourceUsage(): ResourceUsages;
+		/**
+		 * Attempts to free memory that is no longer being used (like images from a previous navigation).
+		 */
+		clearCache(): void;
+	}
+
+	interface ResourceUsages {
+		fonts: ResourceUsage;
+		images: ResourceUsage;
+		cssStyleSheets: ResourceUsage;
+		xslStyleSheets: ResourceUsage;
+		scripts: ResourceUsage;
+		other: ResourceUsage;
+	}
+
+	interface ResourceUsage {
+		count: number;
+		decodedSize: number;
+		liveSize: number;
+		purgeableSize: number;
+		purgedSize: number;
+		size: number;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/web-view-tag.md
@@ -3968,6 +4282,10 @@ declare namespace Electron {
 		 * A list of strings which specifies the blink features to be enabled separated by ,.
 		 */
 		blinkfeatures: string;
+		/**
+		 * A list of strings which specifies the blink features to be disabled separated by ,.
+		 */
+		disableblinkfeatures: string;
 		/**
 		 * Loads the url in the webview, the url must contain the protocol prefix, e.g. the http:// or file://.
 		 */
@@ -4163,6 +4481,11 @@ declare namespace Electron {
 		 */
 		sendInputEvent(event: SendInputEvent): void
 		/**
+		 * Shows pop-up dictionary that searches the selected word on the page.
+		 * Note: This API is available only on OS X.
+		 */
+		showDefinitionForSelection(): void;
+		/**
 		 * @returns The WebContents associated with this webview.
 		 */
 		getWebContents(): WebContents;
@@ -4298,6 +4621,10 @@ declare namespace Electron {
 		 */
 		addEventListener(type: 'did-change-theme-color', listener: (event: WebViewElement.DidChangeThemeColorEvent) => void, useCapture?: boolean): void;
 		/**
+		 * Emitted when mouse moves over a link or the keyboard moves the focus to a link.
+		 */
+		addEventListener(type: 'update-target-url', listener: (event: WebViewElement.UpdateTargetUrlEvent) => void, useCapture?: boolean): void;
+		/**
 		 * Emitted when DevTools is opened.
 		 */
 		addEventListener(type: 'devtools-opened', listener: (event: WebViewElement.Event) => void, useCapture?: boolean): void;
@@ -4396,6 +4723,10 @@ declare namespace Electron {
 		interface DidChangeThemeColorEvent extends Event {
 			themeColor: string;
 		}
+
+		interface UpdateTargetUrlEvent extends Event {
+			url: string;
+		}
 	}
 
 	/**
@@ -4428,6 +4759,10 @@ declare namespace Electron {
 		 * properties and a single method.
 		 */
 		postMessage(message: string, targetOrigin: string): void;
+		/**
+		 * Invokes the print dialog on the child window.
+		 */
+		print(): void;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/synopsis.md
@@ -4496,6 +4831,10 @@ interface File {
 declare namespace NodeJS {
 	interface Process {
 		/**
+		 * Setting this to true can disable the support for asar archives in Node's built-in modules.
+		 */
+		noAsar?: boolean;
+		/**
 		 * Process's type
 		 */
 		type: 'browser' | 'renderer';
@@ -4512,15 +4851,16 @@ declare namespace NodeJS {
 		 */
 		windowsStore?: boolean;
 		/**
+		 * When app is started by being passed as parameter to the default app,
+		 * this value is true in the main process, otherwise it is undefined.
+		 */
+		defaultApp?: boolean;
+		/**
 		 * Emitted when Electron has loaded its internal initialization script
 		 * and is beginning to load the web page or the main script.
 		 */
 		on(event: 'loaded', listener: Function): this;
 		on(event: string, listener: Function): this;
-		/**
-		 * Setting this to true can disable the support for asar archives in Node's built-in modules.
-		 */
-		noAsar?: boolean;
 		/**
 		 * Causes the main thread of the current process crash;
 		 */
@@ -4536,6 +4876,54 @@ declare namespace NodeJS {
 		 * Note: This API is only available on Mac and Linux.
 		 */
 		setFdLimit(maxDescriptors: number): void;
+		/**
+		 * @returns Object giving memory usage statistics about the current process.
+		 * Note: All statistics are reported in Kilobytes.
+		 */
+		getProcessMemoryInfo(): ProcessMemoryInfo;
+		/**
+		 * @returns Object giving memory usage statistics about the entire system.
+		 * Note: All statistics are reported in Kilobytes.
+		 */
+		getSystemMemoryInfo(): SystemMemoryInfo;
+	}
+
+	interface ProcessMemoryInfo {
+		/**
+		 * The amount of memory currently pinned to actual physical RAM.
+		 */
+		workingSetSize: number;
+		/**
+		 * The maximum amount of memory that has ever been pinned to actual physical RAM.
+		 */
+		peakWorkingSetSize: number;
+		/**
+		 * The amount of memory not shared by other processes, such as JS heap or HTML content.
+		 */
+		privateBytes: number;
+		/**
+		 * The amount of memory shared between processes, typically memory consumed by the Electron code itself.
+		 */
+		sharedBytes: number;
+	}
+
+	interface SystemMemoryInfo {
+		/**
+		 * The total amount of physical memory available to the system.
+		 */
+		total: number;
+		/**
+		 * The total amount of memory not being used by applications or disk cache.
+		 */
+		free: number;
+		/**
+		 * The total amount of swap memory available to the system.
+		 */
+		swapTotal: number;
+		/**
+		 * The free amount of swap memory available to the system.
+		 */
+		swapFree: number;
 	}
 }
 

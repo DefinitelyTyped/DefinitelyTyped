@@ -102,5 +102,6 @@ declare namespace Atmosphere {
 }
 
 declare var atmosphere:Atmosphere.Atmosphere;
-
-
+declare module 'atmosphere' {
+    export = atmosphere;
+}

@@ -325,6 +325,7 @@ declare namespace Rx {
 		materialize(): Observable<Notification<T>>;
 		repeat(repeatCount?: number): Observable<T>;
 		retry(retryCount?: number): Observable<T>;
+		retryWhen<TError>(notifier: (errors: Observable<TError>) => Observable<any>): Observable<T>;
 
 		/**
 		 *  Applies an accumulator function over an observable sequence and returns each intermediate result. The optional seed value is used as the initial accumulator value.

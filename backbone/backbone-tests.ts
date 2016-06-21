@@ -166,6 +166,9 @@ function test_collection() {
 //////////
 
 Backbone.history.start();
+Backbone.History.started;
+Backbone.history.loadUrl();
+Backbone.history.loadUrl('12345');
 
 namespace v1Changes {
     namespace events {

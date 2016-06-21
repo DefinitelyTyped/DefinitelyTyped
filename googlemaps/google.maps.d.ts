@@ -1585,6 +1585,10 @@ declare namespace google.maps {
         setZoom(zoom: number): void;
     }
 
+    export interface FullscreenControlOptions {
+        position?: ControlPosition;
+    }
+
     export interface StreetViewPanoramaOptions {
         addressControl?: boolean;
         addressControlOptions?: StreetViewAddressControlOptions;
@@ -1592,8 +1596,11 @@ declare namespace google.maps {
         disableDefaultUi?: boolean;
         disableDoubleClickZoom?: boolean;
         enableCloseButton?: boolean;
+        fullscreenControl?: boolean;
+        fullscreenControlOptions?: FullscreenControlOptions;
         imageDateControl?: boolean;
         linksControl?: boolean;
+        mode?: "html4" | "html5" |"webgl";
         panControl?: boolean;
         panControlOptions?: PanControlOptions;
         pano?: string;

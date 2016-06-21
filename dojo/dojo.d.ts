@@ -649,7 +649,7 @@ declare namespace dojo {
          * @param url URL to request
          * @param options       OptionalOptions for the request.
          */
-        interface xhr { (url: String, options?: dojo.request.xhr.__Options): void }
+        interface xhr { (url: String, options?: dojo.request.xhr.__Options): dojo.request.__Promise }
         interface xhr {
             /**
              * Send an HTTP DELETE request using XMLHttpRequest with the given URL and options.

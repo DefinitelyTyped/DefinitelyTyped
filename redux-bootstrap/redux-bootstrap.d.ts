@@ -9,7 +9,7 @@
 
 declare module "redux-bootstrap" {
 
-    interface BoostrapOptions {
+    interface BootstrapOptions {
         routes: JSX.Element;
         reducers: ReducersOption;
         middlewares?: Redux.Middleware[];
@@ -27,5 +27,5 @@ declare module "redux-bootstrap" {
         [index: string]: Redux.Reducer;
     }
 
-    export default function bootstrap(options: BoostrapOptions): BootstrapResult;
+    export default function bootstrap(options: BootstrapOptions): BootstrapResult;
 }
