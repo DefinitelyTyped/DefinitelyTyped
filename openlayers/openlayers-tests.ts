@@ -364,7 +364,7 @@ var imageWMS: ol.source.ImageWMS = new ol.source.ImageWMS({
 //
 const source = imageWMS as ol.source.Source;
 voidValue = source.refresh();
-projectionValue = source.getProjection();
+projection = source.getProjection();
 
 //
 // ol.source.TileWMS
@@ -376,7 +376,7 @@ var tileWMS: ol.source.TileWMS = new ol.source.TileWMS({
 });
 
 tileWMS.updateParams(tileWMS.getParams());
-stringValue = tileWMS.getGetFeatureInfoUrl();
+stringValue = tileWMS.getGetFeatureInfoUrl([0, 0], 1, "EPSG:4326", {});
 
 //
 // ol.source.WMTS
@@ -559,5 +559,5 @@ var draw: ol.interaction.Draw = new ol.interaction.Draw({
 })
 
 const select: ol.interaction.Select = new ol.interaction.Select({
-    layers: (layer: ol.layer.Layer) => true;
+    layers: (layer: ol.layer.Layer) => true,
 });
