@@ -2651,13 +2651,7 @@ declare module "sequelize" {
         /**
          * Options used for Instance.save method
          */
-        interface InstanceSaveOptions extends LoggingOptions, ReturningOptions {
-
-            /**
-             * An optional array of strings, representing database columns. If fields is provided, only those columns
-             * will be validated and saved.
-             */
-            fields? : string[];
+        interface InstanceSaveOptions extends FieldsOptions, LoggingOptions, ReturningOptions {
 
             /**
              * If true, the updatedAt timestamp will not be updated.
@@ -2665,13 +2659,6 @@ declare module "sequelize" {
              * Defaults to false
              */
             silent? : boolean;
-
-            /**
-             * If false, validations won't be run.
-             *
-             * Defaults to true
-             */
-            validate? : boolean;
 
         }
 
@@ -2915,6 +2902,25 @@ declare module "sequelize" {
              * An optional parameter to specify the schema search_path (Postgres only)
              */
             searchPath? : string;
+        }
+
+        interface ReturningOptions {
+            /**
+             * Append RETURNING * to get back auto generated values (Postgres only)
+             */
+            returning? : boolean;
+        }
+
+        interface FieldsOptions {
+            /**
+             * Run validations before the row is inserted
+             */
+            validate? : boolean;
+
+            /**
+             * The fields to insert / update. Defaults to all fields
+             */
+            fields? : string[];
         }
 
         //
@@ -3283,10 +3289,6 @@ declare module "sequelize" {
          * Options for Model.create method
          */
         interface CreateOptions extends BuildOptions, InstanceSaveOptions {
-            /**
-             * If set, only columns matching those in fields will be saved
-             */
-            fields? : string[];
 
             /**
              * On Duplicate
@@ -3334,34 +3336,14 @@ declare module "sequelize" {
         /**
          * Options for Model.upsert method
          */
-        interface UpsertOptions extends LoggingOptions, SearchPathOptions {
-
-            /**
-             * Run validations before the row is inserted
-             */
-            validate? : boolean;
-
-            /**
-             * The fields to insert / update. Defaults to all fields
-             */
-            fields? : string[];
+        interface UpsertOptions extends FieldsOptions, LoggingOptions, SearchPathOptions {
         }
 
         /**
          * Options for Model.bulkCreate method
          */
-        interface BulkCreateOptions extends LoggingOptions, SearchPathOptions, ReturningOptions {
 
-            /**
-             * Fields to insert (defaults to all fields)
-             */
-            fields? : string[];
-
-            /**
-             * Should each row be subject to validation before it is inserted. The whole insert will fail if one row
-             * fails validation
-             */
-            validate? : boolean;
+        interface BulkCreateOptions extends FieldsOptions, LoggingOptions, SearchPathOptions, ReturningOptions {
 
             /**
              * Run before / after bulk create hooks?
@@ -3477,25 +3459,12 @@ declare module "sequelize" {
         /**
          * Options used for Model.update
          */
-        interface UpdateOptions extends LoggingOptions, ReturningOptions {
+        interface UpdateOptions extends FieldsOptions, LoggingOptions, ReturningOptions {
 
             /**
              * Options to describe the scope of the search.
              */
             where: WhereOptions;
-
-            /**
-             * Fields to update (defaults to all fields)
-             */
-            fields? : string[];
-
-            /**
-             * Should each row be subject to validation before it is inserted. The whole insert will fail if one row
-             * fails validation.
-             *
-             * Defaults to true
-             */
-            validate? : boolean;
 
             /**
              * Run before / after bulk update hooks?
@@ -4542,13 +4511,6 @@ declare module "sequelize" {
 
             // TODO: force, cascade
             fieldMap? : { [key: string]: string; }
-        }
-
-        interface ReturningOptions {
-            /**
-             * Append RETURNING * to get back auto generated values (Postgres only)
-             */
-            returning? : boolean;
         }
 
         /**
