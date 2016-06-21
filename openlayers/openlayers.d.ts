@@ -4152,6 +4152,31 @@ declare namespace ol {
 
         class TileWMS {
             constructor(options: olx.TileWMSOptions);
+
+            /**
+             * Update the user-provided (WMS request) parameters.
+             */
+            updateParams(params: Object);
+
+            /**
+             * Get the user-provided (WMS request) params, i.e. those passed to the constructor through the "params" option, and possibly updated using the updateParams method.
+             */
+            getParams(): Object;
+
+            /**
+             * Return the GetFeatureInfo URL for the passed coordinate, resolution, and
+             * projection. Return `undefined` if the GetFeatureInfo URL cannot be
+             * constructed.
+             * @param coordinate Coordinate.
+             * @param resolution Resolution.
+             * @param rojection Projection.
+             * @param params GetFeatureInfo params. `INFO_FORMAT` at least should
+             *     be provided. If `QUERY_LAYERS` is not provided then the layers specified
+             *     in the `LAYERS` parameter will be used. `VERSION` should not be
+             *     specified here.
+             * @return GetFeatureInfo URL.
+             */
+            getGetFeatureInfoUrl(coordinate: ol.Coordinate, resolution: number, projection: ol.proj.ProjectionLike, params: Object): string;
         }
 
         class Vector {
