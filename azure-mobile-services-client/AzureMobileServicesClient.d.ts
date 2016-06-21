@@ -48,14 +48,14 @@ declare namespace Microsoft.WindowsAzure {
          * @param secondaryTiles An object containing template definitions to be used with secondary tiles when using WNS.
          * @param callback Optional callback accepting (error, results) parameters.
          */
-        register(platform: string, pushChannel: string, templates: any, secondaryTiles: any, callback: (error: any, results: any) => void);
+        register(platform: string, pushChannel: string, templates: any, secondaryTiles: any, callback: (error: any, results: any) => void): void;
         /**
          * Invokes the specified custom api and returns a response object.
          *
          * @param pushChannel The push channel identifier or URI.
          * @param callback Optional callback accepting (error, results) parameters.
          */
-        unregister(pushChannel: string, callback: (error: any, results: any) => void);
+        unregister(pushChannel: string, callback: (error: any, results: any) => void): void;
     }
 
     interface InvokeApiOptions
