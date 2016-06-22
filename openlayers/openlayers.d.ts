@@ -4126,7 +4126,7 @@ declare namespace ol {
         class OSM extends XYZ {
         }
 
-        class Source extends Object {
+        class Source extends ol.Object {
             /**
              * Get the projection of the source.
              * @return Projection.
@@ -4169,12 +4169,12 @@ declare namespace ol {
             /**
              * Update the user-provided (WMS request) parameters.
              */
-            updateParams(params: {}): void;
+            updateParams(params: any): void;
 
             /**
              * Get the user-provided (WMS request) params, i.e. those passed to the constructor through the "params" option, and possibly updated using the updateParams method.
              */
-            getParams(): {};
+            getParams(): any;
 
             /**
              * Return the GetFeatureInfo URL for the passed coordinate, resolution, and
