@@ -164,10 +164,21 @@ declare module "knex" {
 
     interface Join {
       (raw: Raw): QueryBuilder;
-      (tableName: string, callback: Function): QueryBuilder;
+      (tableName: string, callback: (joinClause: JoinClause) => any): QueryBuilder;
+      (tableName: string, columns: {[key: string]: string|Raw}): QueryBuilder;
+      (tableName: string, raw: Raw): QueryBuilder;
       (tableName: string, column1: string, column2: string): QueryBuilder;
       (tableName: string, column1: string, raw: Raw): QueryBuilder;
       (tableName: string, column1: string, operator: string, column2: string): QueryBuilder;
+    }
+
+    interface JoinClause {
+      on(raw: Raw): JoinClause;
+      on(callback: Function): JoinClause;
+      on(columns: {[key: string]: string|Raw}): JoinClause;
+      on(column1: string, column2: string): JoinClause;
+      on(column1: string, raw: Raw): JoinClause;
+      on(column1: string, operator: string, column2: string): JoinClause;
     }
 
     interface JoinRaw {
@@ -175,6 +186,8 @@ declare module "knex" {
     }
 
     interface Where extends WhereRaw, WhereWrapped, WhereNull {
+      (raw: Raw): QueryBuilder;
+      (callback: (queryBuilder: QueryBuilder) => any): QueryBuilder;
       (object: Object): QueryBuilder;
       (columnName: string, value: Value): QueryBuilder;
       (columnName: string, operator: string, value: Value): QueryBuilder;
