@@ -232,10 +232,6 @@ declare namespace Resumable {
 	handleDropEvent(e: Event): void;
 	
     /**
-     * Listen for event from Resumable.js (see below)
-     **/
-    on(event: string, callback: Function): void;
-    /**
      *  A specific file was completed.
      **/
     on(event: 'fileSuccess', callback: (file: ResumableFile) => void): void;
@@ -303,6 +299,10 @@ declare namespace Resumable {
      * Listen to all the events listed above with the same callback function.
      **/
     on(event: 'catchAll', callback: () => void): void;
+	/**
+     * Listen for event from Resumable.js (see below)
+     **/
+    on(event: string, callback: Function): void;
   }
 
   interface ResumableFile {
