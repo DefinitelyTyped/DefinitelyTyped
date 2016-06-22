@@ -336,7 +336,7 @@ declare namespace Slick {
 		* @param editController {EditController}
 		* @return {Boolean}
 		*/
-		public isActive(editController: Editors.Editor<T>): boolean;
+		public isActive(editController?: Editors.Editor<T>): boolean;
 
 		/***
 		* Sets the specified edit controller as the active edit controller (acquire edit lock).
@@ -839,14 +839,14 @@ declare namespace Slick {
 		* @param newData New databinding source using a regular JavaScript array..
 		* @param scrollToTop If true, the grid will reset the vertical scroll position to the top of the grid.
 		**/
-		public setData(newData: T[], scrollToTop: boolean): void;
+		public setData(newData: T[], scrollToTop?: boolean): void;
 
 		/**
 		* Sets a new source for databinding and removes all rendered rows. Note that this doesn't render the new rows - you can follow it with a call to render() to do that.
 		* @param newData New databinding source using a custom object exposing getItem(index) and getLength() functions.
 		* @param scrollToTop If true, the grid will reset the vertical scroll position to the top of the grid.
 		**/
-		public setData(newData: DataProvider<T>, scrollToTop: boolean): void;
+		public setData(newData: DataProvider<T>, scrollToTop?: boolean): void;
 
 		/**
 		* Returns the size of the databinding source.
@@ -1037,7 +1037,7 @@ declare namespace Slick {
 		* @param e A standard W3C/jQuery event.
 		* @return
 		**/
-		public getCellFromEvent<T>(e: Event<T>): Cell; // todo: !! Unsure on return type !!
+		public getCellFromEvent<T>(e: Event<T> | EventData): Cell; // todo: !! Unsure on return type !!
 
 		/**
 		* Returns a hash containing row and cell indexes. Coordinates are relative to the top left corner of the grid beginning with the first row (not including the column headers).
