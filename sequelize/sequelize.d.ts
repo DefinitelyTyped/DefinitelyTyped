@@ -4488,7 +4488,7 @@ declare module "sequelize" {
              * Map returned fields to model's fields if `options.model` or `options.instance` is present.
              * Mapping will occur before building the model instance.
              */
-            mapToModel : boolean;
+            mapToModel? : boolean;
 
             // TODO: force, cascade
             fieldMap? : { [key: string]: string; }
