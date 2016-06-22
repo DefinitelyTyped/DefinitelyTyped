@@ -31,9 +31,21 @@ declare namespace Windows {
                 collectionChange: Windows.Foundation.Collections.CollectionChange;
                 index: number;
             }
-            export interface IPropertySet extends Windows.Foundation.Collections.IObservableMap<string, any>, Windows.Foundation.Collections.IMap<string, any>, Windows.Foundation.Collections.IIterable<Windows.Foundation.Collections.IKeyValuePair<string, any>> {
+            export interface IPropertySet extends Windows.Foundation.Collections.IObservableMap<string, any> {
             }
-            export class PropertySet implements Windows.Foundation.Collections.IPropertySet, Windows.Foundation.Collections.IObservableMap<string, any>, Windows.Foundation.Collections.IMap<string, any>, Windows.Foundation.Collections.IIterable<Windows.Foundation.Collections.IKeyValuePair<string, any>> {
+            export class PropertySet implements Windows.Foundation.Collections.IPropertySet {
+                size: number;
+                onmapchanged: any/* TODO */;
+                lookup(key: string): any;
+                hasKey(key: string): boolean;
+                getView(): Windows.Foundation.Collections.IMapView<string, any>;
+                insert(key: string, value: any): boolean;
+                remove(key: string): void;
+                clear(): void;
+                first(): Windows.Foundation.Collections.IIterator<Windows.Foundation.Collections.IKeyValuePair<string, any>>;
+            }
+            /** Windows Phone only. */
+            export class ValueSet implements Windows.Foundation.Collections.IPropertySet {
                 size: number;
                 onmapchanged: any/* TODO */;
                 lookup(key: string): any;
@@ -8516,8 +8528,14 @@ declare namespace Windows {
                     static authenticateAsync(options: Windows.Security.Authentication.Web.WebAuthenticationOptions, requestUri: Windows.Foundation.Uri, callbackUri: Windows.Foundation.Uri): Windows.Foundation.IAsyncOperation<Windows.Security.Authentication.Web.WebAuthenticationResult>;
                     static authenticateAsync(options: Windows.Security.Authentication.Web.WebAuthenticationOptions, requestUri: Windows.Foundation.Uri): Windows.Foundation.IAsyncOperation<Windows.Security.Authentication.Web.WebAuthenticationResult>;
                     static authenticateAndContinue(requestUri: Windows.Foundation.Uri): void;
+                    /** Windows Phone only. */
                     static authenticateAndContinue(requestUri: Windows.Foundation.Uri, callbackUri: Windows.Foundation.Uri): void;
+                    /** Windows Phone only. */
                     static authenticateAndContinue(requestUri: Windows.Foundation.Uri, callbackUri: Windows.Foundation.Uri, continuationData: Windows.Foundation.Collections.ValueSet, options: Windows.Security.Authentication.Web.WebAuthenticationOptions): void;
+                    /** Windows Phone only. */
+                    static authenticateSilentlyAsync(requestUri: Windows.Foundation.Uri): Windows.Foundation.IAsyncOperation<Windows.Security.Authentication.Web.WebAuthenticationResult>;
+                    /** Windows Phone only. */
+                    static authenticateSilentlyAsync(requestUri: Windows.Foundation.Uri, options: Windows.Security.Authentication.Web.WebAuthenticationOptions): Windows.Foundation.IAsyncOperation<Windows.Security.Authentication.Web.WebAuthenticationResult>;
                     static getCurrentApplicationCallbackUri(): Windows.Foundation.Uri;
                 }
             }
