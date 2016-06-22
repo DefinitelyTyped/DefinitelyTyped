@@ -243,24 +243,40 @@ interface RTCStatsCallback {
   (report: RTCStatsReport): void;
 }
 
+interface RTCOfferAnswerOptions {
+    voiceActivityDetection ?: boolean; // default = true
+}
+
+interface RTCOfferOptions extends RTCOfferAnswerOptions {
+    iceRestart ?: boolean; // default = false
+}
+
+interface RTCAnswerOptions extends RTCOfferAnswerOptions { }
+
 interface RTCPeerConnection {
+
+  createOffer(options?: RTCOfferOptions): Promise<RTCSessionDescription>;
   createOffer(successCallback: RTCSessionDescriptionCallback,
               failureCallback?: RTCPeerConnectionErrorCallback,
-              constraints?: RTCMediaConstraints): void;
+              constraints?: RTCMediaConstraints): void; // Deprecated
+  createAnswer(options?: RTCAnswerOptions): Promise<RTCSessionDescription>;
   createAnswer(successCallback: RTCSessionDescriptionCallback,
                failureCallback?: RTCPeerConnectionErrorCallback,
-               constraints?: RTCMediaConstraints): void;
+               constraints?: RTCMediaConstraints): void; // Deprecated
+  setLocalDescription(description: RTCSessionDescription | RTCSessionDescriptionInit): Promise<void>;
   setLocalDescription(description: RTCSessionDescription,
                       successCallback?: RTCVoidCallback,
-                      failureCallback?: RTCPeerConnectionErrorCallback): void;
-  localDescription: RTCSessionDescription;
+                      failureCallback?: RTCPeerConnectionErrorCallback): void; // Deprecated
+  setRemoteDescription(description: RTCSessionDescription | RTCSessionDescriptionInit): Promise<void>;
   setRemoteDescription(description: RTCSessionDescription,
                         successCallback?: RTCVoidCallback,
                         failureCallback?: RTCPeerConnectionErrorCallback): void;
+  localDescription: RTCSessionDescription;
   remoteDescription: RTCSessionDescription;
   signalingState: string; // RTCSignalingState; see TODO(1)
   updateIce(configuration?: RTCConfiguration,
             constraints?: RTCMediaConstraints): void;
+  addIceCandidate(candidate: RTCIceCandidate): Promise<void>;
   addIceCandidate(candidate:RTCIceCandidate,
                   successCallback:() => void,
                   failureCallback:RTCPeerConnectionErrorCallback): void;
@@ -284,8 +300,10 @@ interface RTCPeerConnection {
   onicecandidate: (event: RTCIceCandidateEvent) => void;
   onidentityresult: (event: Event) => void;
   onsignalingstatechange: (event: Event) => void;
-  getStats: (successCallback: RTCStatsCallback,
-             failureCallback: RTCPeerConnectionErrorCallback) => void;
+  getStats(selector: MediaStreamTrack): Promise<RTCStatsReport>;
+  getStats(selector: MediaStreamTrack, // nullable
+           successCallback: RTCStatsCallback,
+           failureCallback: RTCPeerConnectionErrorCallback): void;
 }
 declare var RTCPeerConnection: {
   prototype: RTCPeerConnection;
@@ -294,7 +312,7 @@ declare var RTCPeerConnection: {
 };
 
 interface RTCIceCandidate {
-  candidate?: string;
+  candidate: string;
   sdpMid?: string;
   sdpMLineIndex?: number;
 }
@@ -304,7 +322,7 @@ declare var RTCIceCandidate: {
 };
 
 interface webkitRTCIceCandidate extends RTCIceCandidate {
-  candidate?: string;
+  candidate: string;
   sdpMid?: string;
   sdpMLineIndex?: number;
 }
@@ -314,7 +332,7 @@ declare var webkitRTCIceCandidate: {
 };
 
 interface mozRTCIceCandidate extends RTCIceCandidate {
-  candidate?: string;
+  candidate: string;
   sdpMid?: string;
   sdpMLineIndex?: number;
 }
@@ -325,8 +343,8 @@ declare var mozRTCIceCandidate: {
 
 interface RTCIceCandidateInit {
   candidate: string;
-  sdpMid: string;
-  sdpMLineIndex: number;
+  sdpMid?: string;
+  sdpMLineIndex?: number;
 }
 declare var RTCIceCandidateInit:{
   prototype: RTCIceCandidateInit;

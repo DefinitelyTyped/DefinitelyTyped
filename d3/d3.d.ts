@@ -1111,8 +1111,7 @@ declare namespace d3 {
     export function deviation(array: number[]): number;
     export function deviation<T>(array: T[], accessor: (datum: T, index: number) => number): number;
 
-    export function bisectLeft(array: number[], x: number, lo?: number, hi?: number): number;
-    export function bisectLeft(array: string[], x: string, lo?: number, hi?: number): number;
+    export function bisectLeft<T>(array: T[], x: T, lo?: number, hi?: number): number;
 
     export var bisect: typeof bisectRight;
 

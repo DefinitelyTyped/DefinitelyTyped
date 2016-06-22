@@ -24,7 +24,7 @@ Please see the [contribution guide](http://definitelytyped.org/guides/contributi
 
 * Directly from the GitHub repos
 * [NuGet packages](http://nuget.org/packages?q=DefinitelyTyped)
-* [TypeScript Definition manager](https://github.com/DefinitelyTyped/tsd)
+* [Typings - TypeScript Definition Manager](https://github.com/typings/typings)
 
 ## List of definitions
 
