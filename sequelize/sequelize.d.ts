@@ -2651,7 +2651,7 @@ declare module "sequelize" {
         /**
          * Options used for Instance.save method
          */
-        interface InstanceSaveOptions extends FieldsOptions, LoggingOptions, ReturningOptions {
+        interface InstanceSaveOptions extends FieldsOptions, LoggingOptions, ReturningOptions, SearchPathOptions {
 
             /**
              * If true, the updatedAt timestamp will not be updated.
@@ -4482,7 +4482,7 @@ declare module "sequelize" {
             /**
              * If false do not prepend the query with the search_path (Postgres only)
              */
-	        supportsSearchPath : boolean;
+	        supportsSearchPath? : boolean;
 
             /**
              * Map returned fields to model's fields if `options.model` or `options.instance` is present.
