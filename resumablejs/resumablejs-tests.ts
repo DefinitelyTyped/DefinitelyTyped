@@ -1,4 +1,4 @@
-/// <reference path="resumable.d.ts" />
+/// <reference path="resumablejs.d.ts" />
 
 import { Resumable, ResumableFile } from 'resumablejs';
 
