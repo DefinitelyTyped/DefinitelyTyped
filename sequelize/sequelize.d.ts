@@ -2884,6 +2884,10 @@ declare module "sequelize" {
         }
 
         interface LoggingOptions {
+            /**
+            * A function that gets executed while running the query to log the sql.
+            */
+
             logging?: boolean | Function;
 
             /**
