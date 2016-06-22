@@ -458,6 +458,10 @@ interface UnderscoreStatic {
 		object: _.Dictionary<T>,
 		iterator?: _.ObjectIterator<T, boolean>,
 		context?: any): boolean;
+		
+	any<T>(
+		list: _.List<T>,
+		value: T): boolean;		
 
 	/**
 	* Returns true if the value is present in the list. Uses indexOf internally,
