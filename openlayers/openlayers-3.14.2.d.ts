@@ -3,6 +3,11 @@
 // Definitions by: Wouter Goedhart <https://github.com/woutergd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// we can't use Object, Event, EventTarget, etc within the namespace because they would refer to OpenLayer's versions.
+declare type GlobalObject = Object;
+declare type GlobalEvent = Event;
+declare type GlobalEventTarget = EventTarget;
+
 declare namespace olx {
 
     interface AttributionOptions {
@@ -132,7 +137,7 @@ declare namespace olx {
         attributions?: Array<ol.Attribution>;
 
         /**WMS request parameters. At least a LAYERS param is required. STYLES is '' by default. VERSION is 1.3.0 by default. WIDTH, HEIGHT, BBOX and CRS (SRS for WMS version < 1.3.0) will be set dynamically. Required.*/
-        params: Object;
+        params: GlobalObject;
         /**The crossOrigin attribute for loaded images. Note that you must provide a crossOrigin value if you are using the WebGL renderer or if you want to access pixel data with the Canvas renderer. See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail.*/
         crossOrigin?: string;
 
@@ -763,7 +768,7 @@ declare namespace olx {
             version?: string;
             format?: string;
             matrixSet: string;  //REQUIRED
-            dimensions?: Object;
+            dimensions?: GlobalObject;
             url?: string;
             maxZoom?: number;
             tileLoadFunction?: ol.TileLoadFunctionType;
@@ -1668,14 +1673,14 @@ declare namespace ol {
          * @param event Event.
          * @returns Coordinate.
          */
-        getEventCoordinate(event: Event): ol.Coordinate;
+        getEventCoordinate(event: GlobalEvent): ol.Coordinate;
 
         /**
          * Returns the map pixel position for a browser event relative to the viewport.
          * @param event Event.
          * @returns Pixel.
          */
-        getEventPixel(event: Event): ol.Pixel;
+        getEventPixel(event: GlobalEvent): ol.Pixel;
 
         /**
          * Get the map interactions. Modifying this collection changes the interactions associated with the map.
@@ -1849,7 +1854,7 @@ declare namespace ol {
         /**
          * The original browser event
          */
-        originalEvent: Event;
+        originalEvent: GlobalEvent;
 
         /**
          * The pixel of the original browser event.
@@ -1895,7 +1900,7 @@ declare namespace ol {
          * @constructor
          * @param values An object with key-value pairs.
          */
-        constructor(values?: Object);
+        constructor(values?: GlobalObject);
 
         /**
          * Gets a value.
@@ -1914,7 +1919,7 @@ declare namespace ol {
          * Get an object of all property names and values.
          * @returns Object.
          */
-        getProperties(): Object;
+        getProperties(): GlobalObject;
 
         /**
          * @returns Revision.
@@ -1932,7 +1937,7 @@ declare namespace ol {
          * Sets a collection of key-value pairs. Note that this changes any existing properties and adds new ones (it does not remove any existing properties).
          * @param Values.
          */
-        setProperties(values: Object): void;
+        setProperties(values: GlobalObject): void;
 
         /**
          * Unsets a property.
@@ -2798,7 +2803,7 @@ declare namespace ol {
         }
 
         class WFS {
-            readFeatures(source: Document | Node | Object | string, option?: olx.format.ReadOptions): Array<ol.Feature>;
+            readFeatures(source: Document | Node | GlobalObject | string, option?: olx.format.ReadOptions): Array<ol.Feature>;
         }
 
         class WKT {
@@ -3979,7 +3984,7 @@ declare namespace ol {
          * Meters per unit lookup table.
          */
         //TODO: validate!
-        var METERS_PER_UNIT: Object;
+        var METERS_PER_UNIT: GlobalObject;
 
         /**
          * Registers coordinate transform functions to convert coordinates between the source projection and the destination projection. The forward and inverse functions convert coordinate pairs; this function converts these into the functions used internally which also handle extents and coordinate arrays.
@@ -4074,7 +4079,7 @@ declare namespace ol {
             get(key: string): any;
             getExtent(): ol.Extent;
             getGeometry(): ol.geom.Geometry;
-            getProperties: Object[];
+            getProperties: GlobalObject[];
             getType(): ol.geom.GeometryType;
         }
         namespace canvas {
