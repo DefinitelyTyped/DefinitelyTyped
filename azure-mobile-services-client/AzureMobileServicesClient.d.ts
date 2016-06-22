@@ -9,8 +9,7 @@ declare namespace Microsoft.WindowsAzure {
 
     // MobileServiceClient object based on Microsoft Azure documentation: http://msdn.microsoft.com/en-us/library/windowsazure/jj554219.aspx
     interface MobileServiceClient {
-        new (applicationUrl: string): MobileServiceClient;
-        new (applicationUrl: string, applicationKey: string): MobileServiceClient;
+        new (applicationUrl: string, applicationKey?: string): MobileServiceClient;
         applicationUrl: string;
         applicationKey: string;
         currentUser: User;
@@ -34,7 +33,7 @@ declare namespace Microsoft.WindowsAzure {
          *     headers: HTTP request headers, specified as an object.
          * @param callback Optional callback accepting (error, results) parameters.
          */
-        invokeApi(apiName: string, options: InvokeApiOptions, callback: (error: any, results: any) => void): asyncPromise;
+        invokeApi(apiName: string, options?: InvokeApiOptions, callback?: (error: any, results: any) => void): asyncPromise;
     }
 
     interface Push
@@ -48,14 +47,14 @@ declare namespace Microsoft.WindowsAzure {
          * @param secondaryTiles An object containing template definitions to be used with secondary tiles when using WNS.
          * @param callback Optional callback accepting (error, results) parameters.
          */
-        register(platform: string, pushChannel: string, templates: any, secondaryTiles: any, callback: (error: any, results: any) => void): void;
+        register(platform: string, pushChannel: string, templates?: any, secondaryTiles?: any, callback?: (error: any, results: any) => void): void;
         /**
          * Invokes the specified custom api and returns a response object.
          *
          * @param pushChannel The push channel identifier or URI.
          * @param callback Optional callback accepting (error, results) parameters.
          */
-        unregister(pushChannel: string, callback: (error: any, results: any) => void): void;
+        unregister(pushChannel: string, callback?: (error: any, results: any) => void): void;
     }
 
     interface InvokeApiOptions
