@@ -1064,7 +1064,7 @@ declare module d3 {
     /**
      * Return the min and max simultaneously.
      */
-    export function extent<T, U extends Numeric>(array: U[], accessor: (datum: T, index: number) => U): [U | Primitive, U | Primitive];
+    export function extent<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number) => U): [U | Primitive, U | Primitive];
 
     /**
      * Compute the sum of an array of numbers.
