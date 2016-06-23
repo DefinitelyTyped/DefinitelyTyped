@@ -289,7 +289,7 @@ interface UnderscoreStatic {
 	detect<T>(
 		object: _.Dictionary<T>,
 		iterator: _.ObjectIterator<T, boolean>,
-        context?: any): T;
+		context?: any): T;
 
 	/**
 	* @see _.find
@@ -918,15 +918,15 @@ interface UnderscoreStatic {
 	**/
 	zip(...arrays: any[]): any[];
 
-    /**
-    * The opposite of zip. Given a number of arrays, returns a series of new arrays, the first
-    * of which contains all of the first elements in the input arrays, the second of which
-    * contains all of the second elements, and so on. Use with apply to pass in an array
-    * of arrays
-    * @param arrays The arrays to unzip.
-    * @return Unzipped version of `arrays`.
-    **/
-    unzip(...arrays: any[][]): any[][];
+	/**
+	* The opposite of zip. Given a number of arrays, returns a series of new arrays, the first
+	* of which contains all of the first elements in the input arrays, the second of which
+	* contains all of the second elements, and so on. Use with apply to pass in an array
+	* of arrays
+	* @param arrays The arrays to unzip.
+	* @return Unzipped version of `arrays`.
+	**/
+	unzip(...arrays: any[][]): any[][];
 
 	/**
 	* Converts arrays into objects. Pass either a single list of [key, value] pairs, or a
@@ -3520,7 +3520,7 @@ interface UnderscoreStatic {
 	**/
 	keys(object: any): string[];
 
-    /**
+	/**
 	* Retrieve all the names of object's own and inherited properties.
 	* @param object Retrieve the key or property names from this object.
 	* @return List of all the property names on `object`.
@@ -3541,30 +3541,30 @@ interface UnderscoreStatic {
 	**/
 	values(object: any): any[];
 
-    /**
-     * Like map, but for objects. Transform the value of each property in turn.
-     * @param object The object to transform
-     * @param iteratee The function that transforms property values
-     * @param context The optional context (value of `this`) to bind to
-     * @return a new _.Dictionary of property values
-     */
-    mapObject<T, U>(object: _.Dictionary<T>, iteratee: (val: T, key: string, object: _.Dictionary<T>) => U, context?: any): _.Dictionary<U>;
+	/**
+	 * Like map, but for objects. Transform the value of each property in turn.
+	 * @param object The object to transform
+	 * @param iteratee The function that transforms property values
+	 * @param context The optional context (value of `this`) to bind to
+	 * @return a new _.Dictionary of property values
+	 */
+	mapObject<T, U>(object: _.Dictionary<T>, iteratee: (val: T, key: string, object: _.Dictionary<T>) => U, context?: any): _.Dictionary<U>;
 
-    /**
-     * Like map, but for objects. Transform the value of each property in turn.
-     * @param object The object to transform
-     * @param iteratee The function that tranforms property values
-     * @param context The optional context (value of `this`) to bind to
-     */
-    mapObject<T>(object: any, iteratee: (val: any, key: string, object: any) => T, context?: any): _.Dictionary<T>;
+	/**
+	 * Like map, but for objects. Transform the value of each property in turn.
+	 * @param object The object to transform
+	 * @param iteratee The function that tranforms property values
+	 * @param context The optional context (value of `this`) to bind to
+	 */
+	mapObject<T>(object: any, iteratee: (val: any, key: string, object: any) => T, context?: any): _.Dictionary<T>;
 
-    /**
-     * Like map, but for objects. Retrieves a property from each entry in the object, as if by _.property
-     * @param object The object to transform
-     * @param iteratee The property name to retrieve
-     * @param context The optional context (value of `this`) to bind to
-     */
-    mapObject(object: any, iteratee: string, context?: any): _.Dictionary<any>;
+	/**
+	 * Like map, but for objects. Retrieves a property from each entry in the object, as if by _.property
+	 * @param object The object to transform
+	 * @param iteratee The property name to retrieve
+	 * @param context The optional context (value of `this`) to bind to
+	 */
+	mapObject(object: any, iteratee: string, context?: any): _.Dictionary<any>;
 
 	/**
 	* Convert an object into a list of [key, value] pairs.
@@ -3713,12 +3713,12 @@ interface UnderscoreStatic {
 	**/
 	property(key: string): (object: Object) => any;
 
-    /**
+	/**
 	* Returns a function that will itself return the value of a object key property.
 	* @param key The object to get the property value from.
 	* @return Function which accept a key property in `object` and returns its value.
 	**/
-    propertyOf(object: Object): (key: string) => any;
+	propertyOf(object: Object): (key: string) => any;
 
 	/**
 	* Performs an optimized deep comparison between the two objects,
@@ -3964,7 +3964,7 @@ interface UnderscoreStatic {
 	* If the value of the named property is a function then invoke it; otherwise, return it.
 	* @param object Object to maybe invoke function `property` on.
 	* @param property The function by name to invoke on `object`.
-    * @param defaultValue The value to be returned in case `property` doesn't exist or is undefined.
+	* @param defaultValue The value to be returned in case `property` doesn't exist or is undefined.
 	* @return The result of invoking the function `property` on `object.
 	**/
 	result(object: any, property: string, defaultValue?:any): any;
@@ -4447,7 +4447,7 @@ interface Underscore<T> {
 	**/
 	zip(...arrays: any[][]): any[][];
 
-    /**
+	/**
 	* Wrapped type `any[][]`.
 	* @see _.unzip
 	**/
@@ -4612,11 +4612,11 @@ interface Underscore<T> {
 	**/
 	keys(): string[];
 
-    /**
+	/**
 	* Wrapped type `object`.
 	* @see _.allKeys
 	**/
-    allKeys(): string[];
+	allKeys(): string[];
 
 	/**
 	* Wrapped type `object`.
@@ -4705,7 +4705,7 @@ interface Underscore<T> {
 	**/
 	property(): (object: Object) => any;
 
-    /**
+	/**
 	* Wrapped type `object`.
 	* @see _.propertyOf
 	**/
@@ -4759,7 +4759,7 @@ interface Underscore<T> {
 	**/
 	isFunction(): boolean;
 
-    /**
+	/**
 	* Wrapped type `object`.
 	* @see _.isError
 	**/
@@ -5365,7 +5365,7 @@ interface _Chain<T> {
 	**/
 	zip(...arrays: any[][]): _Chain<T>;
 
-    /**
+	/**
 	* Wrapped type `any[][]`.
 	* @see _.unzip
 	**/
@@ -5530,7 +5530,7 @@ interface _Chain<T> {
 	**/
 	keys(): _Chain<string>;
 
-    /**
+	/**
 	* Wrapped type `object`.
 	* @see _.allKeys
 	**/
@@ -5623,7 +5623,7 @@ interface _Chain<T> {
 	**/
 	property(): _Chain<T>;
 
-    /**
+	/**
 	* Wrapped type `object`.
 	* @see _.propertyOf
 	**/
@@ -5677,7 +5677,7 @@ interface _Chain<T> {
 	**/
 	isFunction(): _Chain<T>;
 
-    /**
+	/**
 	* Wrapped type `object`.
 	* @see _.isError
 	**/

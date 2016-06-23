@@ -39,7 +39,7 @@ interface HammerStatic
   DIRECTION_VERTICAL:   number;
   DIRECTION_ALL:        number;
 
-  Manager:     HammerManager;
+  Manager:     HammerManagerConstructor;
   Input:       HammerInput;
   TouchAction: TouchAction;
 
@@ -95,10 +95,12 @@ interface HammerOptions extends HammerDefaults
 
 }
 
+interface HammerManagerConstructor {
+  new( element:HTMLElement, options?:any ):HammerManager;
+}
+
 interface HammerManager
 {
-  new( element:HTMLElement, options?:any ):HammerManager;
-
   add( recogniser:Recognizer ):Recognizer;
   add( recogniser:Recognizer ):HammerManager;
   add( recogniser:Recognizer[] ):Recognizer;
