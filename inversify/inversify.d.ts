@@ -248,8 +248,11 @@ declare namespace inversify {
     export function tagged(metadataKey: string, metadataValue: any): (target: any, targetKey: string, index?: number) => any;
     export function named(name: string): (target: any, targetKey: string, index?: number) => any;
     export function targetName(name: string): (target: any, targetKey: string, index: number) => any;
-    export function inject(serviceIdentifier: (string|Symbol|any)): (target: any, targetKey: string, index?: number) => any;
-    export function multiInject(serviceIdentifier: (string|Symbol|any)): (target: any, targetKey: string, index?: number) => any;
+    export function inject(serviceIdentifier: interfaces.ServiceIdentifier<any>): (target: any, targetKey: string, index?: number) => any;
+
+    export function multiInject(
+        serviceIdentifier: interfaces.ServiceIdentifier<any>
+    ): (target: any, targetKey: string, index?: number) => any;
 
     export function makePropertyInjectDecorator(kernel: interfaces.Kernel):
         (serviceIdentifier: (string|Symbol|interfaces.Newable<any>)) => (proto: any, key: string) => void;
@@ -268,6 +271,7 @@ declare namespace inversify {
     export var taggedConstraint: (tag: string) => (value: any) => (request: interfaces.Request) => boolean;
     export var namedConstraint: (value: any) => (request: interfaces.Request) => boolean;
     export var typeConstraint: (type: (Function|string)) => (request: interfaces.Request) => boolean;
+
 }
 
 declare module "inversify" {
