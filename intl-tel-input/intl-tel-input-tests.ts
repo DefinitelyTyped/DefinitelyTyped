@@ -28,7 +28,7 @@ let ntlNumber = $('#phone').intlTelInput('getNumber', intlTelInputUtils.numberFo
 let numberType = $('#phone').intlTelInput('getNumberType');
 if (numberType === intlTelInputUtils.numberType.MOBILE) {}
 
-let countryData = $('#phone').intlTelInput('getSelectedCountryData');
+let selectedCountryData = $('#phone').intlTelInput('getSelectedCountryData');
 
 let error = $('#phone').intlTelInput('getValidationError');
 if (error === intlTelInputUtils.validationError.TOO_SHORT) {}
@@ -39,9 +39,9 @@ $('#phone').intlTelInput('setCountry', 'gb');
 
 $('#phone').intlTelInput('setNumber', '+447733123456');
 
-let countryData3 = $.intlTelInput.getCountryData();
+let countryData = $.fn.intlTelInput.getCountryData();
 
-$.intlTelInput.loadUtils('build/js/utils.js');
+$.fn.intlTelInput.loadUtils('build/js/utils.js');
 
 $('#phone').intlTelInput({
   utilsScript: '../../build/js/utils.js'
