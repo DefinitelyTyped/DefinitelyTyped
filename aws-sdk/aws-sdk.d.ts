@@ -144,31 +144,9 @@ declare module "aws-sdk" {
 
 	export class SNS {
 		constructor(options?: any);
-		publish(request: sns.publishRequestParams, callback: (err: any, data: any) => void): void;
+		publish(request: Sns.PublishRequest, callback: (err: any, data: any) => void): void;
 	}
-    
-    export interface publishRequestParams{
-        Message: string, 
-        MessageAttributes?: any,
-        MessageStructure: string, 
-        Subject?: string,
-        TargetArn?: string,
-        TopicArn: string
-    }
-
-	export module sns{
-		export interface publishRequestParams{
-        Message: string, 
-        MessageAttributes?: any,
-        MessageStructure: string, 
-        Subject?: string,
-        TargetArn?: string,
-        TopicArn: string
-    	}
-	}
-    
-    
-
+  
 	export class SimpleWorkflow {
 		constructor(options?: any);
 		public client: Swf.Client;
