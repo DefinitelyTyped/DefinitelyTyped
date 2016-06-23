@@ -18,6 +18,10 @@ declare module "aws-sdk" {
 		accessKeyId: string;
 	}
 
+	export class EnvironmentCredentials extends Credentials {
+		constructor(profile: string);
+	}
+
 	export interface Logger {
 		write?: (chunk: any, encoding?: string, callback?: () => void) => void;
 		log?: (...messages: any[]) => void;
@@ -86,6 +90,8 @@ declare module "aws-sdk" {
 	export interface ClientConfigPartial extends Services {
 		credentials?: Credentials;
 		region?: string;
+        accessKeyId: string;
+        secretAccessKey: string;
 		computeChecksums?: boolean;
 		convertResponseTypes?: boolean;
 		logger?: Logger;
@@ -138,9 +144,9 @@ declare module "aws-sdk" {
 
 	export class SNS {
 		constructor(options?: any);
-		public client: Sns.Client;
+		publish(request: Sns.PublishRequest, callback: (err: any, data: any) => void): void;
 	}
-
+  
 	export class SimpleWorkflow {
 		constructor(options?: any);
 		public client: Swf.Client;
@@ -150,6 +156,51 @@ declare module "aws-sdk" {
 		constructor(options?: any);
 		putObject(params: s3.PutObjectRequest, callback: (err: any, data: any) => void): void;
 		getObject(params: s3.GetObjectRequest, callback: (err: any, data: any) => void): void;
+	}
+
+	export class STS{
+		constructor(options?: any);
+
+		/**
+		 * Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) that you can use to access AWS resources that you might not normally have access to.
+		 */
+		assumeRole(params: sts.AssumeRoleParams, callback: (err: any, data: any) => void): void;
+
+		/**
+		 * Returns a set of temporary security credentials for users who have been authenticated via a SAML authentication response. 
+		 */
+		assumeRoleWithSAML(params: sts.AssumeRoleWithSAMLParams, callback: (err: any, data: any) => void): void;
+
+		/**
+		 * Returns a set of temporary security credentials for users who have been authenticated in a mobile or web application with a web identity provider, such as Amazon Cognito, Login with Amazon, Facebook, Google, or any OpenID Connect-compatible identity provider.
+		 */
+		assumeRoleWithWebIdentity(params: sts.AssumeRoleWithWebIdentityParams, callback: (err: any, data: any) => void): void;
+
+		/**
+		 * Creates a credentials object from STS response data containing credentials information.
+		 */
+		credentialsFrom(params: sts.CredentialsFromParams, callback: (err: any, data: any) => void): void;
+
+		/**
+		 * Decodes additional information about the authorization status of a request from an encoded message returned in response to an AWS request.
+		 */
+		decodeAuthorizationMessage(params: sts.DecodeAuthorizationMessageParams, callback: (err: any, data: any) => void): void;
+
+		/**
+		 * Returns details about the IAM identity whose credentials are used to call the API.
+		 */
+		getCallerIdentity(params: {}, callback: (err: any, data: any) => void): void;
+
+		/**
+		 * Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) for a federated user.
+		 */
+		getFederationToken(params: sts.GetFederationTokenParams, callback: (err: any, data: any) => void): void;
+
+		/**
+		 * Returns a set of temporary credentials for an AWS account or IAM user.
+		 */
+		getSessionToken(params: sts.GetSessionTokenParams, callback: (err: any, data: any) => void): void;
+
 	}
 
 	export class ECS {
@@ -1343,6 +1394,62 @@ declare module "aws-sdk" {
 			};
 			desiredCount?: number;
 			taskDefinition: string;
+		}
+	}
+
+	export module sts {
+		export interface AssumeRoleParams {
+			RoleArn: string;
+			RoleSessionName: string;
+			DurationSeconds?: number;
+			ExternalId?: string;
+			Policy?: string;
+			SerialNumber?: string;
+			TokenCode?: string;
+		}
+
+		export interface AssumeRoleWithSAMLParams {
+			PrincipalArn: string;
+  			RoleArn: string;
+  			SAMLAssertion: string;
+  			DurationSeconds?: number;
+  			Policy?: string;
+		}
+
+		export interface AssumeRoleWithWebIdentityParams {
+			RoleArn: string;
+			RoleSessionName: string;
+			WebIdentityToken: string;
+			DurationSeconds?: number;
+			Policy?: string;
+			ProviderId?: string;
+		}
+
+		export interface CredentialsFromParams {
+			/**
+			 * Data retrieved from a call to AWS.STS.getFederatedToken, getSessionToken(), assumeRole(), or assumeRoleWithWebIdentity().
+			 */
+			Data: any;
+			/**
+			 * An optional credentials object to fill instead of creating a new object. Useful when modifying an existing credentials object from a refresh call.
+			 */
+			Credentials?: Credentials
+		}
+
+		export interface DecodeAuthorizationMessageParams {
+			EncodedMessage: string;
+		}
+
+		export interface GetFederationTokenParams {
+			Name: string;
+  			DurationSeconds?: number,
+  			Policy?: string
+		}
+
+		export interface GetSessionTokenParams {
+			DurationSeconds: number,
+  			SerialNumber: string;
+  			TokenCode: string;
 		}
 	}
 }

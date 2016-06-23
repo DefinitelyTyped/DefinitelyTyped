@@ -641,7 +641,7 @@ declare namespace CKEDITOR {
         filebrowserImageBrowseLinkUrl?: string;
         filebrowserImageBrowseUrl?: string;
         filebrowserImageUploadUrl?: string;
-        filebrowserUploadUr?: string;
+        filebrowserUploadUrl?: string;
         filebrowserWindowFeatures?: string;
         filebrowserWindowHeight?: number | string;
         filebrowserWindowWidth?: number | string;
