@@ -108,8 +108,50 @@ context.operation.syntheticSource = "testAgent";
 
 // track
 var data = new Microsoft.Telemetry.Base();
-var envelope = new Microsoft.Telemetry.Envelope();
+var envelope = new Microsoft.ApplicationInsights.Telemetry.Common.Envelope(data, "name");
 
 context.track(envelope);
 
 context.addTelemetryInitializer((envelope) => false);
+
+// track event
+var eventObj = new Microsoft.ApplicationInsights.Telemetry.Event("test", null, null);
+var eventData = new Microsoft.ApplicationInsights.Telemetry.Common.Data<Microsoft.ApplicationInsights.Telemetry.Event>(Microsoft.ApplicationInsights.Telemetry.Event.dataType, eventObj);
+var eventEnvelope = new Microsoft.ApplicationInsights.Telemetry.Common.Envelope(eventData, Microsoft.ApplicationInsights.Telemetry.Event.envelopeType);
+context.track(eventEnvelope);
+
+// track exception
+var exceptionObj = new Microsoft.ApplicationInsights.Telemetry.Exception(new Error(), "handledAt", null, null, AI.SeverityLevel.Critical);
+var exceptionData = new Microsoft.ApplicationInsights.Telemetry.Common.Data<Microsoft.ApplicationInsights.Telemetry.Exception>(Microsoft.ApplicationInsights.Telemetry.Exception.dataType, exceptionObj);
+var exceptionEnvelope = new Microsoft.ApplicationInsights.Telemetry.Common.Envelope(exceptionData, Microsoft.ApplicationInsights.Telemetry.Exception.envelopeType);
+context.track(exceptionEnvelope);
+
+// track metric
+var metricObj = new Microsoft.ApplicationInsights.Telemetry.Metric("name", 1234, 1, 0, 100, null);
+var metricData = new Microsoft.ApplicationInsights.Telemetry.Common.Data<Microsoft.ApplicationInsights.Telemetry.Metric>(Microsoft.ApplicationInsights.Telemetry.Metric.dataType, metricObj);
+var metricEnvelope = new Microsoft.ApplicationInsights.Telemetry.Common.Envelope(metricData, Microsoft.ApplicationInsights.Telemetry.Metric.envelopeType);
+context.track(metricEnvelope);
+
+// track page view
+var pageViewObj = new Microsoft.ApplicationInsights.Telemetry.PageView("page name", "url", 999, null, null);
+var pageViewData = new Microsoft.ApplicationInsights.Telemetry.Common.Data<Microsoft.ApplicationInsights.Telemetry.PageView>(Microsoft.ApplicationInsights.Telemetry.PageView.dataType, pageViewObj);
+var pageViewEnvelope = new Microsoft.ApplicationInsights.Telemetry.Common.Envelope(pageViewData, Microsoft.ApplicationInsights.Telemetry.PageView.envelopeType);
+context.track(pageViewEnvelope);
+
+// track page view performance
+var pageViewPerfObj = new Microsoft.ApplicationInsights.Telemetry.PageViewPerformance("page name", "url", 999, null, null);
+var pageViewPerfData = new Microsoft.ApplicationInsights.Telemetry.Common.Data<Microsoft.ApplicationInsights.Telemetry.PageViewPerformance>(Microsoft.ApplicationInsights.Telemetry.PageViewPerformance.dataType, pageViewPerfObj);
+var pageViewPerfEnvelope = new Microsoft.ApplicationInsights.Telemetry.Common.Envelope(pageViewPerfData, Microsoft.ApplicationInsights.Telemetry.PageViewPerformance.envelopeType);
+context.track(pageViewPerfEnvelope);
+
+// track remote dependency
+var remoteDepObj = new Microsoft.ApplicationInsights.Telemetry.RemoteDependencyData("id", "url", "command", 1, true, 1234, "GET");
+var remoteDepData = new Microsoft.ApplicationInsights.Telemetry.Common.Data<Microsoft.ApplicationInsights.Telemetry.RemoteDependencyData>(Microsoft.ApplicationInsights.Telemetry.RemoteDependencyData.dataType, remoteDepObj);
+var remoteDepEnvelope = new Microsoft.ApplicationInsights.Telemetry.Common.Envelope(remoteDepData, Microsoft.ApplicationInsights.Telemetry.RemoteDependencyData.envelopeType);
+context.track(pageViewPerfEnvelope);
+
+// track trace
+var traceObj = new Microsoft.ApplicationInsights.Telemetry.Trace("message", null);
+var traceData = new Microsoft.ApplicationInsights.Telemetry.Common.Data<Microsoft.ApplicationInsights.Telemetry.Trace>(Microsoft.ApplicationInsights.Telemetry.Trace.dataType, traceObj);
+var traceEnvelope = new Microsoft.ApplicationInsights.Telemetry.Common.Envelope(traceData, Microsoft.ApplicationInsights.Telemetry.Trace.envelopeType);
+context.track(traceEnvelope);
