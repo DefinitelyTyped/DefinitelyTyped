@@ -311,15 +311,15 @@ declare namespace Rx {
 		select<TResult>(selector: (value: T, index: number, source: Observable<T>) => TResult, thisArg?: any): Observable<TResult>;
 		map<TResult>(selector: (value: T, index: number, source: Observable<T>) => TResult, thisArg?: any): Observable<TResult>;	// alias for select
 		pluck<TResult>(prop: string): Observable<TResult>;
-		selectMany<TOther, TResult>(selector: (value: T) => Observable<TOther>, resultSelector?: (item: T, other: TOther) => TResult): Observable<TResult>;
-		selectMany<TOther, TResult>(selector: (value: T) => IPromise<TOther>, resultSelector?: (item: T, other: TOther) => TResult): Observable<TResult>;
+		selectMany<TOther, TResult>(selector: (value: T) => Observable<TOther>, resultSelector: (item: T, other: TOther) => TResult): Observable<TResult>;
+		selectMany<TOther, TResult>(selector: (value: T) => IPromise<TOther>, resultSelector: (item: T, other: TOther) => TResult): Observable<TResult>;
 		selectMany<TResult>(selector: (value: T) => Observable<TResult>): Observable<TResult>;
 		selectMany<TResult>(selector: (value: T) => IPromise<TResult>): Observable<TResult>;
 		selectMany<TResult>(other: Observable<TResult>): Observable<TResult>;
 		selectMany<TResult>(other: IPromise<TResult>): Observable<TResult>;
 		selectMany<TResult>(selector: (value: T) => TResult[]): Observable<TResult>;	// alias for selectMany
-		flatMap<TOther, TResult>(selector: (value: T) => Observable<TOther>, resultSelector?: (item: T, other: TOther) => TResult): Observable<TResult>;	// alias for selectMany
-		flatMap<TOther, TResult>(selector: (value: T) => IPromise<TOther>, resultSelector?: (item: T, other: TOther) => TResult): Observable<TResult>;	// alias for selectMany
+		flatMap<TOther, TResult>(selector: (value: T) => Observable<TOther>, resultSelector: (item: T, other: TOther) => TResult): Observable<TResult>;	// alias for selectMany
+		flatMap<TOther, TResult>(selector: (value: T) => IPromise<TOther>, resultSelector: (item: T, other: TOther) => TResult): Observable<TResult>;	// alias for selectMany
 		flatMap<TResult>(selector: (value: T) => Observable<TResult>): Observable<TResult>;	// alias for selectMany
 		flatMap<TResult>(selector: (value: T) => IPromise<TResult>): Observable<TResult>;	// alias for selectMany
 		flatMap<TResult>(other: Observable<TResult>): Observable<TResult>;	// alias for selectMany
@@ -346,8 +346,8 @@ declare namespace Rx {
 		 */
 		flatMapObserver<T2, T3, T4>(onNext: (value: T, index: number) => Observable<T2>, onError: (exception: any) => Observable<T3>, onCompleted: () => Observable<T4>, thisArg?: any): Observable<T2 | T3 | T4>;
 
-		selectConcat<T2, R>(selector: (value: T, index: number) => Observable<T2>, resultSelector?: (value1: T, value2: T2, index: number) => R): Observable<R>;
-		selectConcat<T2, R>(selector: (value: T, index: number) => IPromise<T2>, resultSelector?: (value1: T, value2: T2, index: number) => R): Observable<R>;
+		selectConcat<T2, R>(selector: (value: T, index: number) => Observable<T2>, resultSelector: (value1: T, value2: T2, index: number) => R): Observable<R>;
+		selectConcat<T2, R>(selector: (value: T, index: number) => IPromise<T2>, resultSelector: (value1: T, value2: T2, index: number) => R): Observable<R>;
 		selectConcat<R>(selector: (value: T, index: number) => Observable<R>): Observable<R>;
 		selectConcat<R>(selector: (value: T, index: number) => IPromise<R>): Observable<R>;
 		selectConcat<R>(sequence: Observable<R>): Observable<R>;
@@ -487,7 +487,7 @@ declare namespace Rx {
 		fromArray<T>(array: T[], scheduler?: IScheduler): Observable<T>;
 		fromArray<T>(array: { length: number;[index: number]: T; }, scheduler?: IScheduler): Observable<T>;
 
-		generate<TState, TResult>(initialState: TState, condition: (state: TState) => boolean, iterate: (state: TState) => TState, resultSelector?: (state: TState) => TResult, scheduler?: IScheduler): Observable<TResult>;
+		generate<TState, TResult>(initialState: TState, condition: (state: TState) => boolean, iterate: (state: TState) => TState, resultSelector: (state: TState) => TResult, scheduler?: IScheduler): Observable<TResult>;
 		never<T>(): Observable<T>;
 
 		/**
