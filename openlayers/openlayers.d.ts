@@ -552,12 +552,12 @@ declare namespace olx {
         interface SelectOptions {
             addCondition?: ol.events.ConditionType;
             condition?: ol.events.ConditionType;
-            layers?: Array<ol.layer.Layer>;
+            layers?: Array<ol.layer.Layer> | ((layer: ol.layer.Layer) => boolean);
             style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
             removeCondition?: ol.events.ConditionType;
             toggleCondition?: ol.events.ConditionType;
             multi?: boolean;
-            features?: ol.Collection<ol.Feature>
+            features?: ol.Collection<ol.Feature>;
             filter?: ol.interaction.SelectFilterFunction;
             wrapX?: boolean;
         }
@@ -4085,76 +4085,117 @@ declare namespace ol {
 
     namespace source {
 
-        class BingMaps {
+        class BingMaps extends TileImage {
         }
 
-        class Cluster {
+        class CartoDB extends XYZ {
         }
 
-        class Image {
+        class Cluster extends Vector {
         }
 
-        class ImageCanvas {
+        class Image extends Source {
+        }
+
+        class ImageArcGISRest extends Image {
+        }
+
+        class ImageCanvas extends Image {
         }
 
         class ImageEvent {
         }
 
-        class ImageMapGuide {
+        class ImageMapGuide extends Image {
         }
 
-        class ImageStatic {
+        class ImageStatic extends Image {
         }
 
-        class ImageVector {
+        class ImageVector extends ImageCanvas {
         }
 
-        class ImageWMS {
+        class ImageWMS extends Image {
             constructor(options: olx.ImageWMSOptions);
         }
 
-        class MapQuest {
+        class MapQuest extends XYZ {
             constructor(options: any);
         }
 
-        class OSM {
+        class OSM extends XYZ {
         }
 
-        class Source {
+        class Source extends ol.Object {
+            /**
+             * Get the projection of the source.
+             * @return Projection.
+             */
+            getProjection(): ol.proj.Projection;
+
+            /**
+             * Refreshes the source and finally dispatches a 'change' event.
+             */
+            refresh(): void;
         }
 
-        class Stamen {
+        class Stamen extends XYZ {
         }
 
-        class Tile {
+        class Tile extends Source {
         }
 
-        class TileArcGISRest {
+        class TileArcGISRest extends TileImage {
         }
 
-        class TileDebug {
+        class TileDebug extends Tile {
         }
 
         class TileEvent {
         }
 
-        class TileImage {
+        class TileImage extends UrlTile {
         }
 
-        class TileJSON {
+        class TileJSON extends TileImage {
         }
 
-        class TileUTFGrid {
+        class TileUTFGrid extends Tile {
         }
 
-        class TileVector {
-        }
-
-        class TileWMS {
+        class TileWMS extends TileImage {
             constructor(options: olx.TileWMSOptions);
+
+            /**
+             * Update the user-provided (WMS request) parameters.
+             */
+            updateParams(params: any): void;
+
+            /**
+             * Get the user-provided (WMS request) params, i.e. those passed to the constructor through the "params" option, and possibly updated using the updateParams method.
+             */
+            getParams(): any;
+
+            /**
+             * Return the GetFeatureInfo URL for the passed coordinate, resolution, and
+             * projection. Return `undefined` if the GetFeatureInfo URL cannot be
+             * constructed.
+             * @param coordinate Coordinate.
+             * @param resolution Resolution.
+             * @param rojection Projection.
+             * @param params GetFeatureInfo params. `INFO_FORMAT` at least should
+             *     be provided. If `QUERY_LAYERS` is not provided then the layers specified
+             *     in the `LAYERS` parameter will be used. `VERSION` should not be
+             *     specified here.
+             * @return GetFeatureInfo URL.
+             */
+            getGetFeatureInfoUrl(coordinate: ol.Coordinate, resolution: number, projection: ol.proj.ProjectionLike, params: {}): string;
         }
 
-        class Vector {
+        class UrlTile extends Tile {
+        }
+
+        class Vector extends Source {
             constructor(opts?: olx.source.VectorOptions)
             /**
              * Add a single feature to the source. If you want to add a batch of features at once,
@@ -4198,14 +4239,17 @@ declare namespace ol {
         class VectorEvent {
         }
 
-        class WMTS {
+        class VectorTile extends UrlTile {
+        }
+
+        class WMTS extends TileImage {
             constructor(options: olx.source.WMTSOptions);
         }
 
-        class XYZ {
+        class XYZ extends TileImage {
         }
 
-        class Zoomify {
+        class Zoomify extends TileImage {
         }
 
         // Namespaces
