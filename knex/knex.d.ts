@@ -31,6 +31,7 @@ declare module "knex" {
     migrate: Knex.Migrator;
     seed: any;
     fn: any;
+    on(eventName: string, callback: Function): Knex.QueryBuilder;
   }
 
   function Knex(config: Knex.Config) : Knex;
@@ -66,10 +67,14 @@ declare module "knex" {
       where: Where;
       andWhere: Where;
       orWhere: Where;
+      whereNot: Where;
+      andWhereNot: Where;
+      orWhereNot: Where;
       whereRaw: WhereRaw;
+      orWhereRaw: WhereRaw;
+      andWhereRaw: WhereRaw;
       whereWrapped: WhereWrapped;
       havingWrapped: WhereWrapped;
-      orWhereRaw: WhereRaw;
       whereExists: WhereExists;
       orWhereExists: WhereExists;
       whereNotExists: WhereExists;
@@ -83,9 +88,11 @@ declare module "knex" {
       whereNotNull: WhereNull;
       orWhereNotNull: WhereNull;
       whereBetween: WhereBetween;
-      whereNotBetween: WhereBetween;
       orWhereBetween: WhereBetween;
+      andWhereBetween: WhereBetween;
+      whereNotBetween: WhereBetween;
       orWhereNotBetween: WhereBetween;
+      andWhereNotBetween: WhereBetween;
 
       // Group by
       groupBy: GroupBy;
@@ -101,6 +108,7 @@ declare module "knex" {
 
       // Having
       having: Having;
+      andHaving: Having;
       havingRaw: RawQueryBuilder;
       orHaving: Having;
       orHavingRaw: RawQueryBuilder;
@@ -127,7 +135,7 @@ declare module "knex" {
       insert(data: any, returning?: string | string[]): QueryBuilder;
       update(data: any, returning?: string | string[]): QueryBuilder;
       update(columnName: string, value: Value, returning?: string | string[]): QueryBuilder;
-      returning(column: string): QueryBuilder;
+      returning(column: string | string[]): QueryBuilder;
 
       del(returning?: string | string[]): QueryBuilder;
       delete(returning?: string | string[]): QueryBuilder;
@@ -249,6 +257,7 @@ declare module "knex" {
       (value: Value): Raw;
       (sql: string, ...bindings: Value[]): Raw;
       (sql: string, bindings: Value[]): Raw;
+      (sql: string, bindings: Object): Raw;
     }
 
     //
@@ -301,6 +310,7 @@ declare module "knex" {
 
     interface SchemaBuilder extends Promise<any> {
       createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
+      createTableIfNotExists(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
       renameTable(oldTableName: string, newTableName: string): Promise<void>;
       dropTable(tableName: string): SchemaBuilder;
       hasTable(tableName: string): Promise<boolean>;
@@ -312,6 +322,7 @@ declare module "knex" {
 
     interface TableBuilder {
       increments(columnName?: string): ColumnBuilder;
+      bigIncrements(columnName?: string): ColumnBuilder;
       dropColumn(columnName: string): TableBuilder;
       dropColumns(...columnNames: string[]): TableBuilder;
       renameColumn(from: string, to: string): ColumnBuilder;

@@ -18,10 +18,11 @@ passport.use(new google.OAuthStrategy({
             consumerSecret: process.env.GOOGLE_CONSUMER_SECRET,
             callbackURL: process.env.PASSPORT_GOOGLE_CALLBACK_URL
     },
-    function(accessToken:string, refreshToken:string, profile:google.Profile, done:(error:any, user?:any) => void) {
+    function(accessToken:string, refreshToken:string, profile:google.Profile, done:(error:any, user?:any, msg?: google.VerifyOptions) => void) {
          User.findOrCreate(profile.id, profile.provider, function(err, user) {
              if (err) { return done(err); }
-             done(null, user);
+             else if(!user) return done(null, false, {message: 'not found user'});
+             return done(null, user);
          });
     })
 );
