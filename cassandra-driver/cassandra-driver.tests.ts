@@ -1,6 +1,6 @@
-/// <reference path="cassandra.d.ts" />
+/// <reference path="cassandra-driver.d.ts" />
 
-import * as cassandra from 'cassandra';
+import * as cassandra from 'cassandra-driver';
 import * as util from 'util';
 
 var client = new cassandra.Client({ contactPoints: ['h1', 'h2'], keyspace: 'ks1'});
