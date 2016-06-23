@@ -31,9 +31,9 @@ declare namespace inversify {
         export interface Newable<T> {
             new(...args: any[]): T;
         }
-
+    
         export type ServiceIdentifier<T> = (string|Symbol|Newable<T>);
-
+    
         export interface Binding<T> extends Clonable<Binding<T>> {
             guid: string;
             moduleId: string;
@@ -49,66 +49,66 @@ declare namespace inversify {
             scope: number; // BindingScope
             type: number; // BindingType
         }
-
+    
         export interface Factory<T> extends Function {
             (...args: any[]): (((...args: any[]) => T)|T);
         }
-
+    
         export interface FactoryCreator<T> extends Function {
             (context: Context): Factory<T>;
         }
-
+    
         export interface Provider<T> extends Function {
             (): Promise<T>;
         }
-
+    
         export interface ProviderCreator<T> extends Function {
             (context: Context): Provider<T>;
         }
-
+    
         export interface PlanAndResolve<T> {
             (args: PlanAndResolveArgs): T[];
         }
-
+    
         export interface PlanAndResolveArgs {
             multiInject: boolean;
-            serviceIdentifier: (string|Symbol|Newable<any>);
+            serviceIdentifier: ServiceIdentifier<any>;
             target: Target;
             contextInterceptor: (contexts: Context) => Context;
         }
-
+    
         export interface Middleware extends Function {
             (next: PlanAndResolve<any>): PlanAndResolve<any>;
         }
-
+    
         export interface Context {
             guid: string;
             kernel: Kernel;
             plan: Plan;
             addPlan(plan: Plan): void;
         }
-
+    
         export interface ReflectResult {
             [key: string]: Metadata[];
         }
-
+    
         export interface Metadata {
             key: string;
             value: any;
         }
-
+    
         export interface Plan {
             parentContext: Context;
             rootRequest: Request;
         }
-
+    
         export interface Planner {
             createContext(kernel: Kernel): Context;
             createPlan(parentContext: Context, binding: Binding<any>, target: Target): Plan;
             getBindings<T>(kernel: Kernel, serviceIdentifier: ServiceIdentifier<T>): Binding<T>[];
             getActiveBindings(parentRequest: Request, target: Target): Binding<any>[];
         }
-
+    
         export interface QueryableString {
             startsWith(searchString: string): boolean;
             endsWith(searchString: string): boolean;
@@ -116,40 +116,40 @@ declare namespace inversify {
             equals(compareString: string): boolean;
             value(): string;
         }
-
+    
         export interface Request {
             guid: string;
-            serviceIdentifier: (string|Symbol|Newable<any>);
+            serviceIdentifier: ServiceIdentifier<any>;
             parentContext: Context;
             parentRequest: Request;
             childRequests: Request[];
             target: Target;
             bindings: Binding<any>[];
             addChildRequest(
-                serviceIdentifier: (string|Symbol|Newable<any>),
+                serviceIdentifier: ServiceIdentifier<any>,
                 bindings: (Binding<any>|Binding<any>[]),
                 target: Target
             ): Request;
         }
-
+    
         export interface Target {
             guid: string;
-            serviceIdentifier: (string|Symbol|Newable<any>);
+            serviceIdentifier: ServiceIdentifier<any>;
             name: QueryableString;
             metadata: Array<Metadata>;
             hasTag(key: string): boolean;
             isArray(): boolean;
-            matchesArray(name: string|Symbol|any): boolean;
+            matchesArray(name: string|Symbol|Newable<any>): boolean;
             isNamed(): boolean;
             isTagged(): boolean;
             matchesNamedTag(name: string): boolean;
             matchesTag(key: string): (value: any) => boolean;
         }
-
+    
         export interface Resolver {
             resolve<T>(context: Context): T;
         }
-
+    
         export interface Kernel {
             guid: string;
             bind<T>(serviceIdentifier: ServiceIdentifier<T>): BindingToSyntax<T>;
@@ -167,48 +167,48 @@ declare namespace inversify {
             snapshot(): void;
             restore(): void;
         }
-
+    
         export interface Bind extends Function {
             <T>(serviceIdentifier: ServiceIdentifier<T>): BindingToSyntax<T>;
         }
-
+    
         export interface KernelModule {
             guid: string;
             registry: (bind: Bind) => void;
         }
-
+    
         export interface KernelSnapshot {
             bindings: Lookup<Binding<any>>;
             middleware: PlanAndResolve<any>;
         }
-
+    
         export interface Clonable<T> {
             clone(): T;
         }
-
+    
         export interface Lookup<T> extends Clonable<Lookup<T>> {
-            add(serviceIdentifier: (string|Symbol|any), value: T): void;
-            get(serviceIdentifier: (string|Symbol|any)): Array<T>;
-            remove(serviceIdentifier: (string|Symbol|any)): void;
+            add(serviceIdentifier: ServiceIdentifier<any>, value: T): void;
+            get(serviceIdentifier: ServiceIdentifier<any>): Array<T>;
+            remove(serviceIdentifier: ServiceIdentifier<any>): void;
             removeByModuleId(moduleId: string): void;
-            hasKey(serviceIdentifier: (string|Symbol|any)): boolean;
+            hasKey(serviceIdentifier: ServiceIdentifier<any>): boolean;
         }
-
+    
         export interface KeyValuePair<T> {
-            serviceIdentifier: (string|Symbol|any);
+            serviceIdentifier: ServiceIdentifier<any>;
             value: Array<T>;
         }
-
+    
         export interface BindingInSyntax<T> {
             inSingletonScope(): BindingWhenOnSyntax<T>;
         }
-
+    
         export interface BindingInWhenOnSyntax<T> extends BindingInSyntax<T>, BindingWhenOnSyntax<T> {}
-
+    
         export interface BindingOnSyntax<T> {
             onActivation(fn: (context: Context, injectable: T) => T): BindingWhenSyntax<T>;
         }
-
+    
         export interface BindingToSyntax<T> {
             to(constructor: { new(...args: any[]): T; }): BindingInWhenOnSyntax<T>;
             toConstantValue(value: T): BindingWhenOnSyntax<T>;
@@ -216,12 +216,12 @@ declare namespace inversify {
             toConstructor<T2>(constructor: Newable<T2>): BindingWhenOnSyntax<T>;
             toFactory<T2>(factory: FactoryCreator<T2>): BindingWhenOnSyntax<T>;
             toFunction(func: T): BindingWhenOnSyntax<T>;
-            toAutoFactory<T2>(serviceIdentifier: (string|Symbol|Newable<T2>)): BindingWhenOnSyntax<T>;
+            toAutoFactory<T2>(serviceIdentifier: ServiceIdentifier<T2>): BindingWhenOnSyntax<T>;
             toProvider<T2>(provider: ProviderCreator<T2>): BindingWhenOnSyntax<T>;
         }
-
+    
         export interface BindingWhenOnSyntax<T> extends BindingWhenSyntax<T>, BindingOnSyntax<T> {}
-
+    
         export interface BindingWhenSyntax<T> {
             when(constraint: (request: Request) => boolean): BindingOnSyntax<T>;
             whenTargetNamed(name: string): BindingOnSyntax<T>;
@@ -238,7 +238,7 @@ declare namespace inversify {
             whenAnyAncestorMatches(constraint: (request: Request) => boolean): BindingOnSyntax<T>;
             whenNoAncestorMatches(constraint: (request: Request) => boolean): BindingOnSyntax<T>;
         }
-
+    
     }
 
     export var Kernel: interfaces.KernelConstructor;
