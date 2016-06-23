@@ -147,7 +147,6 @@ declare namespace Backbone {
         /*private*/ set(attributeName: string, value: any, options?: ModelSetOptions): Model;
         set(obj: any, options?: ModelSetOptions): Model;
 
-        change(): any;
         changedAttributes(attributes?: any): any[];
         clear(options?: Silenceable): any;
         clone(): Model;
@@ -388,7 +387,6 @@ declare namespace Backbone {
         $(selector: any): JQuery;
         render(): View<TModel>;
         remove(): View<TModel>;
-        make(tagName: any, attributes?: any, content?: any): any;
         delegateEvents(events?: EventsHash): any;
         delegate(eventName: string, selector: string, listener: Function): View<TModel>;
         undelegateEvents(): any;
