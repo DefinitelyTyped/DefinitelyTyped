@@ -225,22 +225,30 @@ declare namespace Rx {
 		catchException(handler: (exception: any) => IPromise<T>): Observable<T>;	// alias for catch
 		catch(second: Observable<T>): Observable<T>;
 		catchException(second: Observable<T>): Observable<T>;	// alias for catch
-		combineLatest<T2, TResult>(second: Observable<T2>|IPromise<T2>, resultSelector?: (v1: T, v2: T2) => TResult): Observable<TResult>;
-		combineLatest<T2, T3, TResult>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, resultSelector?: (v1: T, v2: T2, v3: T3) => TResult): Observable<TResult>;
-		combineLatest<T2, T3, T4, TResult>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, resultSelector?: (v1: T, v2: T2, v3: T3, v4: T4) => TResult): Observable<TResult>;
-		combineLatest<T2, T3, T4, T5, TResult>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, fifth: Observable<T5>|IPromise<T5>, resultSelector?: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) => TResult): Observable<TResult>;
-		combineLatest<TOther, TResult>(souces: (Observable<TOther>|IPromise<TOther>)[], resultSelector?: (firstValue: T, ...otherValues: TOther[]) => TResult): Observable<TResult>;
-		withLatestFrom<T2, TResult>(second: Observable<T2>|IPromise<T2>, resultSelector?: (v1: T, v2: T2) => TResult): Observable<TResult>;
-		withLatestFrom<T2, T3, TResult>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, resultSelector?: (v1: T, v2: T2, v3: T3) => TResult): Observable<TResult>;
-		withLatestFrom<T2, T3, T4, TResult>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, resultSelector?: (v1: T, v2: T2, v3: T3, v4: T4) => TResult): Observable<TResult>;
-		withLatestFrom<T2, T3, T4, T5, TResult>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, fifth: Observable<T5>|IPromise<T5>, resultSelector?: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) => TResult): Observable<TResult>;
-		withLatestFrom<TOther, TResult>(souces: (Observable<TOther>|IPromise<TOther>)[], resultSelector?: (firstValue: T, ...otherValues: TOther[]) => TResult): Observable<TResult>;
+		combineLatest<T2>(second: Observable<T2>|IPromise<T2>): Observable<[T, T2]>;
+                combineLatest<T2, TResult>(second: Observable<T2>|IPromise<T2>, resultSelector: (v1: T, v2: T2) => TResult): Observable<TResult>;
+		combineLatest<T2, T3>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>): Observable<[T, T2, T3]>;
+                combineLatest<T2, T3, TResult>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, resultSelector: (v1: T, v2: T2, v3: T3) => TResult): Observable<TResult>;
+		combineLatest<T2, T3, T4>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>): Observable<[T, T2, T3, T4]>;
+                combineLatest<T2, T3, T4, TResult>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, resultSelector: (v1: T, v2: T2, v3: T3, v4: T4) => TResult): Observable<TResult>;
+		combineLatest<T2, T3, T4, T5>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, fifth: Observable<T5>|IPromise<T5>): Observable<[T, T2, T3, T4, T5]>;
+                combineLatest<T2, T3, T4, T5, TResult>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, fifth: Observable<T5>|IPromise<T5>, resultSelector: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) => TResult): Observable<TResult>;
+		combineLatest<TOther, TResult>(souces: (Observable<TOther>|IPromise<TOther>)[], resultSelector: (firstValue: T, ...otherValues: TOther[]) => TResult): Observable<TResult>;
+		withLatestFrom<T2>(second: Observable<T2>|IPromise<T2>): Observable<[T, T2]>;
+                withLatestFrom<T2, TResult>(second: Observable<T2>|IPromise<T2>, resultSelector: (v1: T, v2: T2) => TResult): Observable<TResult>;
+		withLatestFrom<T2, T3>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>): Observable<[T, T2, T3]>;
+                withLatestFrom<T2, T3, TResult>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, resultSelector: (v1: T, v2: T2, v3: T3) => TResult): Observable<TResult>;
+		withLatestFrom<T2, T3, T4>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>): Observable<[T, T2, T3, T4]>;
+                withLatestFrom<T2, T3, T4, TResult>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, resultSelector: (v1: T, v2: T2, v3: T3, v4: T4) => TResult): Observable<TResult>;
+		withLatestFrom<T2, T3, T4, T5>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, fifth: Observable<T5>|IPromise<T5>): Observable<[T, T2, T3, T4, T5]>;
+                withLatestFrom<T2, T3, T4, T5, TResult>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, fifth: Observable<T5>|IPromise<T5>, resultSelector: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) => TResult): Observable<TResult>;
+		withLatestFrom<TOther, TResult>(souces: (Observable<TOther>|IPromise<TOther>)[], resultSelector: (firstValue: T, ...otherValues: TOther[]) => TResult): Observable<TResult>;
 		concat(...sources: (Observable<T>|IPromise<T>)[]): Observable<T>;
 		concat(sources: (Observable<T>|IPromise<T>)[]): Observable<T>;
 		concatAll(): T;
 		concatObservable(): T;	// alias for concatAll
-		concatMap<T2, R>(selector: (value: T, index: number) => Observable<T2>, resultSelector?: (value1: T, value2: T2, index: number) => R): Observable<R>;	// alias for selectConcat
-		concatMap<T2, R>(selector: (value: T, index: number) => IPromise<T2>, resultSelector?: (value1: T, value2: T2, index: number) => R): Observable<R>;	// alias for selectConcat
+		concatMap<T2, R>(selector: (value: T, index: number) => Observable<T2>, resultSelector: (value1: T, value2: T2, index: number) => R): Observable<R>;	// alias for selectConcat
+		concatMap<T2, R>(selector: (value: T, index: number) => IPromise<T2>, resultSelector: (value1: T, value2: T2, index: number) => R): Observable<R>;	// alias for selectConcat
 		concatMap<R>(selector: (value: T, index: number) => Observable<R>): Observable<R>;	// alias for selectConcat
 		concatMap<R>(selector: (value: T, index: number) => IPromise<R>): Observable<R>;	// alias for selectConcat
 		concatMap<R>(selector: (value: T, index: number) => R[]): Observable<R>;	// alias for selectConcat
@@ -257,11 +265,15 @@ declare namespace Rx {
 		switchLatest(): T;	// alias for switch
 		takeUntil<T2>(other: Observable<T2>): Observable<T>;
 		takeUntil<T2>(other: IPromise<T2>): Observable<T>;
-		zip<T2, TResult>(second: Observable<T2>|IPromise<T2>, resultSelector?: (v1: T, v2: T2) => TResult): Observable<TResult>;
-		zip<T2, T3, TResult>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, resultSelector?: (v1: T, v2: T2, v3: T3) => TResult): Observable<TResult>;
-		zip<T2, T3, T4, TResult>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, resultSelector?: (v1: T, v2: T2, v3: T3, v4: T4) => TResult): Observable<TResult>;
-		zip<T2, T3, T4, T5, TResult>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, fifth: Observable<T5>|IPromise<T5>, resultSelector?: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) => TResult): Observable<TResult>;
-		zip<TOther, TResult>(second: (Observable<TOther>|IPromise<TOther>)[], resultSelector?: (left: T, ...right: TOther[]) => TResult): Observable<TResult>;
+		zip<T2>(second: Observable<T2>|IPromise<T2>): Observable<[T, T2]>;
+                zip<T2, TResult>(second: Observable<T2>|IPromise<T2>, resultSelector: (v1: T, v2: T2) => TResult): Observable<TResult>;
+		zip<T2, T3>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>): Observable<[T, T2, T3]>;
+                zip<T2, T3, TResult>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, resultSelector: (v1: T, v2: T2, v3: T3) => TResult): Observable<TResult>;
+		zip<T2, T3, T4>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>): Observable<[T, T2, T3, T4]>;
+                zip<T2, T3, T4, TResult>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, resultSelector: (v1: T, v2: T2, v3: T3, v4: T4) => TResult): Observable<TResult>;
+		zip<T2, T3, T4, T5>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, fifth: Observable<T5>|IPromise<T5>): Observable<[T, T2, T3, T4, T5]>;
+                zip<T2, T3, T4, T5, TResult>(second: Observable<T2>|IPromise<T2>, third: Observable<T3>|IPromise<T3>, fourth: Observable<T4>|IPromise<T4>, fifth: Observable<T5>|IPromise<T5>, resultSelector: (v1: T, v2: T2, v3: T3, v4: T4, v5: T5) => TResult): Observable<TResult>;
+		zip<TOther, TResult>(second: (Observable<TOther>|IPromise<TOther>)[], resultSelector: (left: T, ...right: TOther[]) => TResult): Observable<TResult>;
 
 		asObservable(): Observable<T>;
 		dematerialize<TOrigin>(): Observable<TOrigin>;
