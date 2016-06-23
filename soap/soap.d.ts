@@ -8,12 +8,12 @@
 declare module 'soap' {
     import * as events from 'events';
 
-    class Security {
+    interface Security {
     }
-    class WSSecurity extends Security {
+    class WSSecurity implements   Security {
         constructor(username: string, password: string, options: any);
     }
-    class ClientSSLSecurity extends Security {
+    class ClientSSLSecurity implements   Security {
         constructor(key: string, cert: string, ca: string, defaults: any);
     }
     interface Client extends events.EventEmitter {
