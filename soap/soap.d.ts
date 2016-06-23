@@ -8,13 +8,19 @@
 declare module 'soap' {
     import * as events from 'events';
 
-    class WSSecurity {
+    interface Security {
+    }
+    class WSSecurity implements   Security {
         constructor(username: string, password: string, options: any);
     }
+    class ClientSSLSecurity implements   Security {
+        constructor(key: string, cert: string, ca: string, defaults: any);
+    }
     interface Client extends events.EventEmitter {
-        setSecurity(s: WSSecurity): void;
+        setSecurity(s: Security): void;
         [method: string]: (args: any, fn: (err: any, result: any) => void, options?: any, extraHeaders?: any) => void;
         addSoapHeader(headJSON: any): void;
+        setEndpoint(endpoint: string): void;
     }
     function createClient(wsdlPath: string, options: any, fn: (err: any, client: Client) => void): void;
 
