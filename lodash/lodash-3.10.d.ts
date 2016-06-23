@@ -7732,6 +7732,53 @@ declare module _ {
             thisArg?: any): TResult;
     }
 
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+        * @see _.reduce
+        **/
+        reduce<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            accumulator: TResult,
+            thisArg?: any): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+        * @see _.reduce
+        **/
+        reduce<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            thisArg?: any): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+        * @see _.reduce
+        **/
+        inject<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            accumulator: TResult,
+            thisArg?: any): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+        * @see _.reduce
+        **/
+        inject<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            thisArg?: any): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+        * @see _.reduce
+        **/
+        foldl<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            accumulator: TResult,
+            thisArg?: any): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+        * @see _.reduce
+        **/
+        foldl<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            thisArg?: any): LoDashExplicitObjectWrapper<TResult>;
+    }
+
     //_.reduceRight
     interface LoDashStatic {
         /**

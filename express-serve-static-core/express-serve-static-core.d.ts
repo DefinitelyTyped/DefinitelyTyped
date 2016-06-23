@@ -17,21 +17,23 @@ declare namespace Express {
 declare module "express-serve-static-core" {
     import * as http from "http";
 
+    type RequestHandlerParams = RequestHandler | RequestHandler[];
+
     interface IRoute {
         path: string;
         stack: any;
-        all(...handler: RequestHandler[]): IRoute;
-        get(...handler: RequestHandler[]): IRoute;
-        post(...handler: RequestHandler[]): IRoute;
-        put(...handler: RequestHandler[]): IRoute;
-        delete(...handler: RequestHandler[]): IRoute;
-        patch(...handler: RequestHandler[]): IRoute;
-        options(...handler: RequestHandler[]): IRoute;
-        head(...handler: RequestHandler[]): IRoute;
+        all(...handler: RequestHandlerParams[]): IRoute;
+        get(...handler: RequestHandlerParams[]): IRoute;
+        post(...handler: RequestHandlerParams[]): IRoute;
+        put(...handler: RequestHandlerParams[]): IRoute;
+        delete(...handler: RequestHandlerParams[]): IRoute;
+        patch(...handler: RequestHandlerParams[]): IRoute;
+        options(...handler: RequestHandlerParams[]): IRoute;
+        head(...handler: RequestHandlerParams[]): IRoute;
     }
 
     interface IRouterMatcher<T> {
-        (name: string | RegExp, ...handlers: RequestHandler[]): T;
+        (name: string | RegExp, ...handlers: RequestHandlerParams[]): T;
     }
 
     interface IRouter<T> extends RequestHandler {
@@ -88,13 +90,13 @@ declare module "express-serve-static-core" {
 
         route(path: string): IRoute;
 
-        use(...handler: RequestHandler[]): T;
-        use(handler: ErrorRequestHandler | RequestHandler): T;
-        use(path: string, ...handler: RequestHandler[]): T;
-        use(path: string, handler: ErrorRequestHandler | RequestHandler): T;
-        use(path: string[], ...handler: RequestHandler[]): T;
+        use(...handler: RequestHandlerParams[]): T;
+        use(handler: ErrorRequestHandler | RequestHandlerParams): T;
+        use(path: string, ...handler: RequestHandlerParams[]): T;
+        use(path: string, handler: ErrorRequestHandler | RequestHandlerParams): T;
+        use(path: string[], ...handler: RequestHandlerParams[]): T;
         use(path: string[], handler: ErrorRequestHandler): T;
-        use(path: RegExp, ...handler: RequestHandler[]): T;
+        use(path: RegExp, ...handler: RequestHandlerParams[]): T;
         use(path: RegExp, handler: ErrorRequestHandler): T;
         use(path: string, router: Router): T;
     }
@@ -408,7 +410,7 @@ declare module "express-serve-static-core" {
 
     interface Send {
         (status: number, body?: any): Response;
-        (body: any): Response;
+        (body?: any): Response;
     }
 
     interface Response extends http.ServerResponse, Express.Response {
@@ -860,7 +862,7 @@ declare module "express-serve-static-core" {
         set(setting: string, val: any): Application;
         get: {
             (name: string): any; // Getter
-            (name: string | RegExp, ...handlers: RequestHandler[]): Application;
+            (name: string | RegExp, ...handlers: RequestHandlerParams[]): Application;
         };
 
         /**
