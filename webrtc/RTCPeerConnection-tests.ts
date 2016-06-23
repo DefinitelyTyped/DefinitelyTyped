@@ -3,8 +3,28 @@
 
 let voidpromise: Promise<void>;
 
-var config: RTCConfiguration =
-    { iceServers: [{ urls: "stun.l.google.com:19302" }] };
+var minimalConfig: RTCConfiguration = {};
+var config: RTCConfiguration = {
+    iceServers: [
+        {
+            // Single url
+            urls: "stun.l.google.com:19302"
+        },
+        {
+            // List of urls and credentials
+            urls: ["another-stun.example.com"],
+            username: "dude",
+            credential: "pass",
+            credentialType: "token"
+        },
+    ],
+    iceTransportPolicy: "relay",
+    bundlePolicy: "max-compat",
+    rtcpMuxPolicy: "negotiate",
+    peerIdentity: "dude",
+    certificates: [{expires: 1337}],
+    iceCandidatePoolSize: 5
+};
 var constraints: RTCMediaConstraints =
     { mandatory: { offerToReceiveAudio: true, offerToReceiveVideo: true } };
 

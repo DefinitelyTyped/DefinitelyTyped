@@ -3,13 +3,7 @@
 // Definitions by: Ken Smith <https://github.com/smithkl42/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
-// Definitions taken from http://dev.w3.org/2011/webrtc/editor/webrtc.html
-//
-// For example code see:
-//   https://code.google.com/p/webrtc/source/browse/stable/samples/js/apprtc/js/main.js
-//
-// For a generic implementation see that deals with browser differences, see:
-//   https://code.google.com/p/webrtc/source/browse/stable/samples/js/base/adapter.js
+// W3 Spec: https://www.w3.org/TR/webrtc/#idl-def-RTCIceServer
 
 /// <reference path='MediaStream.d.ts' />
 
@@ -20,17 +14,46 @@
 // TODO(2): get Typescript to have union types as WebRtc uses them.
 // https://typescript.codeplex.com/workitem/1364
 
-interface RTCConfiguration {
-  iceServers: RTCIceServer[];
+// https://www.w3.org/TR/webrtc/#idl-def-RTCIceTransportPolicy
+type RTCIceTransportPolicy = 'public' | 'relay' | 'all';
+
+// https://www.w3.org/TR/webrtc/#idl-def-RTCBundlePolicy
+type RTCBundlePolicy = 'balanced' | 'max-compat' | 'max-bundle';
+
+// https://www.w3.org/TR/webrtc/#idl-def-RTCRtcpMuxPolicy
+type RTCRtcpMuxPolicy = 'negotiate' | 'require';
+
+// https://www.w3.org/TR/webrtc/#idl-def-RTCCertificate
+interface RTCCertificate {
+    expires: number;
 }
+
+// https://www.w3.org/TR/webrtc/#idl-def-RTCConfiguration
+// https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection#RTCConfiguration_dictionary
+interface RTCConfiguration {
+  iceServers           ?: RTCIceServer[];        // optional according to mozilla docs
+  iceTransportPolicy   ?: RTCIceTransportPolicy; // default = 'all'
+  bundlePolicy         ?: RTCBundlePolicy;       // default = 'balanced'
+  rtcpMuxPolicy        ?: RTCRtcpMuxPolicy;      // default = 'require'
+  peerIdentity         ?: string;                // default = null
+  certificates         ?: RTCCertificate[];      // default is auto-generated
+  iceCandidatePoolSize ?: number;                // default = 0
+}
+
 declare var RTCConfiguration: {
   prototype: RTCConfiguration;
   new (): RTCConfiguration;
 };
 
+// https://www.w3.org/TR/webrtc/#idl-def-RTCIceCredentialType
+type RTCIceCredentialType = 'password' | 'token';
+
+// https://www.w3.org/TR/webrtc/#idl-def-RTCIceServer
 interface RTCIceServer {
-  urls: string;
+  urls: string | string[];
+  username?: string;
   credential?: string;
+  credentialType?: RTCIceCredentialType; // default = 'password'
 }
 declare var RTCIceServer: {
   prototype: RTCIceServer;
@@ -42,7 +65,7 @@ interface mozRTCPeerConnection extends RTCPeerConnection {
 }
 declare var mozRTCPeerConnection: {
   prototype: mozRTCPeerConnection;
-  new (settings: RTCPeerConnectionConfig,
+  new (settings?: RTCConfiguration,
        constraints?:RTCMediaConstraints): mozRTCPeerConnection;
 };
 // webkit (Chrome) specific prefixes.
@@ -50,7 +73,7 @@ interface webkitRTCPeerConnection extends RTCPeerConnection {
 }
 declare var webkitRTCPeerConnection: {
   prototype: webkitRTCPeerConnection;
-  new (settings: RTCPeerConnectionConfig,
+  new (settings?: RTCConfiguration,
        constraints?:RTCMediaConstraints): webkitRTCPeerConnection;
 };
 
