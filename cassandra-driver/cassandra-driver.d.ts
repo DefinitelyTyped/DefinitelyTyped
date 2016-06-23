@@ -6,7 +6,7 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../long/long.d.ts" />
 
-declare module "cassandra" {
+declare module "cassandra-driver" {
   type Callback = Function;
   type ResultCallback = (err: Error, result: types.ResultSet) => void;
 
