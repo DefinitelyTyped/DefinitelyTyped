@@ -40,6 +40,8 @@ declare module 'redux-logger' {
     stateTransformer?: (state: any) => any;
     actionTransformer?: (action: any) => any;
     errorTransformer?: (error: any) => any;
+    diff?: boolean;
+    diffPredicate?: LoggerPredicate;
   }
 
   // Trickery to get TypeScript to accept that our anonymous, non-default export is a function.

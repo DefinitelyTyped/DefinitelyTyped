@@ -5522,7 +5522,7 @@ declare namespace  __React {
     }
     
     export interface NavigationHeaderProps {
-        renderTitleComponent?(props: Object): JSX.element
+        renderTitleComponent?(props: Object): JSX.Element
     }
     
     export interface NavigationHeaderStatic extends React.ComponentClass<NavigationHeaderProps> {
@@ -5535,7 +5535,7 @@ declare namespace  __React {
         style?: ViewStyle
         navigationState?: any
         onNavigate(action: Object): boolean
-        renderScene?(props): JSX.Element
+        renderScene?(props: any /* undocumented on 0.27 */): JSX.Element
     }
     
     export interface NavigationCardStackStatic extends React.ComponentClass<NavigationCardStackProps> {
@@ -5546,6 +5546,26 @@ declare namespace  __React {
         CardStack: NavigationCardStackStatic;
         Header: NavigationHeaderStatic;
         Reducer: NavigationReducerStatic;
+    }
+    
+    export interface NavigationContainerProps {
+        tabs: NavigationTab[];
+        index: number;
+    }
+
+    export interface NavigationContainerStatic extends React.ComponentClass<NavigationContainerProps> {
+        create(inClass: any): any;
+    }
+
+    export interface NavigationRootContainerProps extends React.Props<NavigationRootContainerStatic> {
+        renderNavigation: NavigationRenderer;
+        reducer: NavigationReducerStatic;
+        persistenceKey?: string;
+    }
+
+    export interface NavigationRootContainerStatic extends React.ComponentClass<NavigationRootContainerProps> {
+        getBackAction(): NavigationAction;
+        handleNavigation( action: NavigationAction ): boolean;
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -5618,7 +5638,7 @@ declare namespace  __React {
     export type StyleSheet = StyleSheetStatic
     
     export var SwipeableListView: SwipeableListViewStatic
-    export type SwipeableListView = SwipeableListViewStatci
+    export type SwipeableListView = SwipeableListViewStatic
 
     export var Switch: SwitchStatic
     export type Switch = SwitchStatic
@@ -5741,9 +5761,6 @@ declare namespace  __React {
 
     export type NavigationReducer = NavigationReducerStatic;
     export var NavigationReducer: NavigationReducerStatic;
-    
-    export type SwipeableListView = SwipeableListViewStatic;
-    export var SwipeableListView: SwipeableListViewStatic;
 
     export type Easing = EasingStatic;
     export var Easing: EasingStatic;

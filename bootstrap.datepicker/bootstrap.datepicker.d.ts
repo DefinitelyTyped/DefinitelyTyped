@@ -15,7 +15,7 @@
  *  http://bootstrap-datepicker.readthedocs.org/en/release/options.html
  */
 interface DatepickerOptions {
-    format?: string;
+    format?: string | DatepickerCustomFormatOptions;
     weekStart?: number;
     startDate?: any;
     endDate?: any;
@@ -36,6 +36,11 @@ interface DatepickerOptions {
     multidateSeparator?: string;
     orientation?: string;
     assumeNearbyYear?: any;
+}
+
+interface DatepickerCustomFormatOptions {
+    toDisplay?(date: string, format: any, language: any): string;
+    toValue?(date: string, format: any, language: any): Date;
 }
 
 interface DatepickerEventObject extends JQueryEventObject {

@@ -927,6 +927,12 @@ declare namespace uiGrid {
          */
         notifyDataChange(type: string): void;
         /**
+         * Refresh the rendered grid on screen.
+         *
+         * @param {boolean} [rowsAltered] Optional flag for refreshing when the number of rows has changed.
+         */
+        refresh(rowsAltered?: boolean): ng.IPromise<any>;
+        /**
          * Refresh the rendered rows on screen?  Note: not functional at present
          * @returns {ng.IPromise<any>} promise that is resolved when render completes?
          */
