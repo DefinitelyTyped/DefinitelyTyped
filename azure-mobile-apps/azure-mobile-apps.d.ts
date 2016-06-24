@@ -1,15 +1,15 @@
-// Type definitions for azure-mobile-apps v2.0.0-beta3
+// Type definitions for azure-mobile-apps v2.1.7
 // Project: https://github.com/Azure/azure-mobile-apps-node/
 // Definitions by: Microsoft Azure <https://github.com/Azure/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
 /// <reference path="../azure-sb/azure-sb.d.ts" />
 
 declare module "azure-mobile-apps" {
     interface AzureMobileApps {
         (configuration?: Azure.MobileApps.Configuration): Azure.MobileApps.Platforms.Express.MobileApp;
         table(): Azure.MobileApps.Platforms.Express.Table;
+        api(definition?: Azure.MobileApps.ApiDefinition): Azure.MobileApps.ApiDefinition;
         logger: Azure.MobileApps.Logger;
         query: Azure.MobileApps.Query;
     }
@@ -27,11 +27,11 @@ declare module "azure-mobile-apps/src/query" {
     export = query;
 }
 
-declare namespace Azure.MobileApps {
+declare module Azure.MobileApps {
     // the additional Platforms namespace is required to avoid collisions with the main Express namespace
     export module Platforms {
         export module Express {
-            interface MobileApp {
+            interface MobileApp extends Middleware {
                 configuration: Configuration;
                 tables: Tables;
                 table(): Table;
@@ -148,6 +148,7 @@ declare namespace Azure.MobileApps {
             options?: { encrypt: boolean };
             schema?: string;
             dynamicSchema?: boolean;
+            filename?: string;
         }
 
         interface Auth {
@@ -163,8 +164,9 @@ declare namespace Azure.MobileApps {
         interface LoggingTransport { }
 
         interface Cors {
+            exposeHeaders: string;
             maxAge?: number;
-            origins: string[];
+            hostnames: string[];
         }
 
         interface Notifications {
@@ -225,11 +227,15 @@ declare namespace Azure.MobileApps {
 
     interface TableDefinition {
         authorize?: boolean;
+        access?: string;
         autoIncrement?: boolean;
         dynamicSchema?: boolean;
         name?: string;
         columns?: any;
         schema?: string;
+        databaseTableName?: string;
+        maxTop?: number;
+        softDelete?: boolean;
     }
 
     interface ApiDefinition {
@@ -268,7 +274,7 @@ declare namespace Azure.MobileApps {
 }
 
 // additions to the Express modules
-declare namespace Express {
+declare module Express {
     interface Request {
         azureMobile: Azure.MobileApps.Context
     }
