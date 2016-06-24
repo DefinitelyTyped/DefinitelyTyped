@@ -256,6 +256,10 @@ declare module "mongoose" {
       OId: Types.ObjectId;
       Mixed: any;
     };
+
+    methods: any;
+    statics: any;
+
     constructor(schema?: Object, options?: Object);
 
     add(obj: Object, prefix?: string): void;
@@ -284,6 +288,7 @@ declare module "mongoose" {
     static(name: string, fn: Function): Schema;
     virtual(name: string, options?: Object): VirtualType;
     virtualpath(name: string): VirtualType;
+
   }
 
   // hook functions: https://github.com/vkarpov15/hooks-fixed
