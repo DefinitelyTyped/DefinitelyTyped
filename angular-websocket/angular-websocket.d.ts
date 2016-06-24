@@ -81,6 +81,6 @@ declare namespace angular.websocket {
          *
          * @param data data to send, if this is an object, it will be stringified before sending
          */
-        send(data: string | Object): ng.IPromise<any>;
+        send(data: string | {}): ng.IPromise<any>;
     }
 }
