@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.2.4
+// Type definitions for Electron v1.2.5
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1064,6 +1064,13 @@ declare namespace Electron {
 		 */
 		setIgnoreMouseEvents(ignore: boolean): void;
 		/**
+		 * Prevents the window contents from being captured by other apps.
+		 *
+		 * On macOS it sets the NSWindow's sharingType to NSWindowSharingNone.
+		 * On Windows it calls SetWindowDisplayAffinity with WDA_MONITOR.
+		 */
+		setContentProtection(enable: boolean): void;
+		/**
 		 * Changes whether the window can be focused.
 		 * Note: This API is available only on Windows.
 		 */
@@ -2088,7 +2095,7 @@ declare namespace Electron {
 		 */
 		constructor(options: MenuItemOptions);
 
-		click: (menuItem: MenuItem, browserWindow: BrowserWindow) => void;
+		click: (menuItem: MenuItem, browserWindow: BrowserWindow, event: Event) => void;
 		/**
 		 * Read-only property.
 		 */
@@ -2304,11 +2311,11 @@ declare namespace Electron {
 		/**
 		 * @returns Buffer Contains the image's PNG encoded data.
 		 */
-		toPng(): Buffer;
+		toPNG(): Buffer;
 		/**
 		 * @returns Buffer Contains the image's JPEG encoded data.
 		 */
-		toJpeg(quality: number): Buffer;
+		toJPEG(quality: number): Buffer;
 		/**
 		 * @returns string The data URL of the image.
 		 */
@@ -2712,6 +2719,16 @@ declare namespace Electron {
 		 * @param domains Comma-seperated list of servers for which integrated authentication is enabled.
 		 */
 		allowNTLMCredentialsForDomains(domains: string): void;
+		/**
+		 * Overrides the userAgent and acceptLanguages for this session.
+		 * The acceptLanguages must a comma separated ordered list of language codes, for example "en-US,fr,de,ko,zh-CN,ja".
+		 * This doesn't affect existing WebContents, and each WebContents can use webContents.setUserAgent to override the session-wide user agent.
+		 */
+		setUserAgent(userAgent: string, acceptLanguages?: string): void;
+		/**
+		 * @returns The user agent for this session.
+		 */
+		getUserAgent(): string;
 		/**
 		 * The webRequest API set allows to intercept and modify contents of a request at various stages of its lifetime.
 		 */
