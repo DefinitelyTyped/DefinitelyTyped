@@ -623,7 +623,7 @@ declare module "react-bootstrap" {
     }
     type Tab = TabClass;
     var Tab: TabClass;
-    
+
     // <Tab.Container />
     // ----------------------------------------
     interface TabContainerProps extends React.HTMLAttributes {
@@ -632,7 +632,7 @@ declare module "react-bootstrap" {
       generateChildId?: (eventKey: any, type: any) => string;
     }
     type TabContainer = React.ClassicComponentClass<TabContainerProps>;
-    
+
     // <Tab.Pane />
     // ----------------------------------------
     interface TabPaneProps extends React.HTMLAttributes {
@@ -846,6 +846,16 @@ declare module "react-bootstrap" {
     }
     type Jumbotron = React.ClassicComponent<JumbotronProps, {}>;
     var Jumbotron: React.ClassicComponentClass<JumbotronProps>;
+
+    // <Image />
+   interface ImageProps extends React.HTMLProps<Image> {
+       circle?: boolean;
+       responsive?: boolean;
+       rounded?: boolean;
+       thumbnail?: boolean;
+   }
+   type Image = React.ClassicComponent<ImageProps, {}>;
+   var Image: React.ClassicComponentClass<ImageProps>;
 
     // <PageHeader />
     interface PageHeaderProps extends React.HTMLProps<PageHeader> {
