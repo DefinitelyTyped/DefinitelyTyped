@@ -6,7 +6,6 @@
 interface Thenable<T> {
     then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
     then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => void): Thenable<U>;
-    catch<U>(onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
 }
 
 declare class Promise<T> implements Thenable<T> {
@@ -79,6 +78,7 @@ declare module 'es6-promise' {
 	var foo: typeof Promise; // Temp variable to reference Promise in local context
 	namespace rsvp {
 		export var Promise: typeof foo;
+		export function polyfill(): void;
 	}
 	export = rsvp;
 }

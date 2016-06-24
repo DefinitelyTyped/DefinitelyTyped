@@ -81,7 +81,7 @@ declare namespace angular {
          *
          * If jQuery is available, angular.element is an alias for the jQuery function. If jQuery is not available, angular.element delegates to Angular's built-in subset of jQuery, called "jQuery lite" or "jqLite."
          */
-        element: IAugmentedJQueryStatic;
+        element: JQueryStatic;
         equals(value1: any, value2: any): boolean;
         extend(destination: any, ...sources: any[]): any;
 
@@ -156,7 +156,7 @@ declare namespace angular {
 
         noop(...args: any[]): void;
         reloadWithDebugInfo(): void;
-        toJson(obj: any, pretty?: boolean): string;
+        toJson(obj: any, pretty?: boolean | number): string;
         uppercase(str: string): string;
         version: {
             full: string;
@@ -883,6 +883,24 @@ declare namespace angular {
 
         unwrapPromises(): boolean;
         unwrapPromises(value: boolean): IParseProvider;
+
+        /**
+         * Configure $parse service to add literal values that will be present as literal at expressions.
+         *
+         * @param literalName Token for the literal value. The literal name value must be a valid literal name.
+         * @param literalValue Value for this literal. All literal values must be primitives or `undefined`.
+         **/
+        addLiteral(literalName: string, literalValue: any): void;
+
+        /**
+         * Allows defining the set of characters that are allowed in Angular expressions. The function identifierStart will get called to know if a given character is a valid character to be the first character for an identifier. The function identifierContinue will get called to know if a given character is a valid character to be a follow-up identifier character. The functions identifierStart and identifierContinue will receive as arguments the single character to be identifier and the character code point. These arguments will be string and numeric. Keep in mind that the string parameter can be two characters long depending on the character representation. It is expected for the function to return true or false, whether that character is allowed or not.
+         * Since this function will be called extensivelly, keep the implementation of these functions fast, as the performance of these functions have a direct impact on the expressions parsing speed.
+         *
+         * @param identifierStart The function that will decide whether the given character is a valid identifier start character.
+         * @param identifierContinue The function that will decide whether the given character is a valid identifier continue character.
+         **/
+        setIdentifierFns(identifierStart?: (character: string, codePoint: number) => boolean,
+            identifierContinue?: (character: string, codePoint: number) => boolean): void;
     }
 
     interface ICompiledExpression {
@@ -968,7 +986,7 @@ declare namespace angular {
     // DocumentService
     // see http://docs.angularjs.org/api/ng.$document
     ///////////////////////////////////////////////////////////////////////////
-    interface IDocumentService extends IAugmentedJQuery {}
+    interface IDocumentService extends JQuery {}
 
     ///////////////////////////////////////////////////////////////////////////
     // ExceptionHandlerService
@@ -1231,15 +1249,15 @@ declare namespace angular {
 
     // This corresponds to the "publicLinkFn" returned by $compile.
     interface ITemplateLinkingFunction {
-        (scope: IScope, cloneAttachFn?: ICloneAttachFunction): IAugmentedJQuery;
+        (scope: IScope, cloneAttachFn?: ICloneAttachFunction): JQuery;
     }
 
     // This corresponds to $transclude (and also the transclude function passed to link).
     interface ITranscludeFunction {
         // If the scope is provided, then the cloneAttachFn must be as well.
-        (scope: IScope, cloneAttachFn: ICloneAttachFunction): IAugmentedJQuery;
+        (scope: IScope, cloneAttachFn: ICloneAttachFunction): JQuery;
         // If one argument is provided, then it's assumed to be the cloneAttachFn.
-        (cloneAttachFn?: ICloneAttachFunction): IAugmentedJQuery;
+        (cloneAttachFn?: ICloneAttachFunction): JQuery;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1657,50 +1675,6 @@ declare namespace angular {
     // and http://toddmotto.com/exploring-the-angular-1-5-component-method/
     ///////////////////////////////////////////////////////////////////////////
     /**
-     * Runtime representation a type that a Component or other object is instances of.
-     *
-     * An example of a `Type` is `MyCustomComponent` class, which in JavaScript is be represented by
-     * the `MyCustomComponent` constructor function.
-     */
-    interface Type extends Function {
-    }
-
-    /**
-     * `RouteDefinition` defines a route within a {@link RouteConfig} decorator.
-     *
-     * Supported keys:
-     * - `path` or `aux` (requires exactly one of these)
-     * - `component`, `loader`,  `redirectTo` (requires exactly one of these)
-     * - `name` or `as` (optional) (requires exactly one of these)
-     * - `data` (optional)
-     *
-     * See also {@link Route}, {@link AsyncRoute}, {@link AuxRoute}, and {@link Redirect}.
-     */
-    interface RouteDefinition {
-        path?: string;
-        aux?: string;
-        component?: Type | ComponentDefinition | string;
-        loader?: Function;
-        redirectTo?: any[];
-        as?: string;
-        name?: string;
-        data?: any;
-        useAsDefault?: boolean;
-    }
-
-    /**
-     * Represents either a component type (`type` is `component`) or a loader function
-     * (`type` is `loader`).
-     *
-     * See also {@link RouteDefinition}.
-     */
-    interface ComponentDefinition {
-        type: string;
-        loader?: Function;
-        component?: Type;
-    }
-
-    /**
      * Component definition object (a simplified directive definition object)
      */
     interface IComponentOptions {
@@ -1709,7 +1683,7 @@ declare namespace angular {
          * controller if passed as a string. Empty function by default.
          * Use the array form to define dependencies (necessary if strictDi is enabled and you require dependency injection)
          */
-        controller?: string | Function | (string | Function)[];
+        controller?: string | Function | (string | Function)[] | IComponentController;
         /**
          * An identifier name for a reference to the controller. If present, the controller will be published to scope under
          * the controllerAs name. If not present, this will default to be the same as the component name.
@@ -1742,11 +1716,52 @@ declare namespace angular {
          * Whether transclusion is enabled. Enabled by default.
          */
         transclude?: boolean | string | {[slot: string]: string};
-        require?: string | string[] | {[controller: string]: string};
+        require?: {[controller: string]: string};
     }
 
     interface IComponentTemplateFn {
-        ( $element?: IAugmentedJQuery, $attrs?: IAttributes ): string;
+        ( $element?: JQuery, $attrs?: IAttributes ): string;
+    }
+    
+    /**
+     * Components have a well-defined lifecycle Each component can implement "lifecycle hooks". These are methods that
+     * will be called at certain points in the life of the component.
+     * @url https://docs.angularjs.org/guide/component
+     */
+    interface IComponentController {
+        /**
+         * Called on each controller after all the controllers on an element have been constructed and had their bindings
+         * initialized (and before the pre & post linking functions for the directives on this element). This is a good
+         * place to put initialization code for your controller.
+         */
+        $onInit?(): void;
+        /**
+         * Called whenever one-way bindings are updated. The changesObj is a hash whose keys are the names of the bound
+         * properties that have changed, and the values are an {@link IChangesObject} object  of the form
+         * { currentValue, previousValue, isFirstChange() }. Use this hook to trigger updates within a component such as
+         * cloning the bound value to prevent accidental mutation of the outer value.
+         */
+        $onChanges?(changesObj: {[property:string]: IChangesObject}): void;
+        /**
+         * Called on a controller when its containing scope is destroyed. Use this hook for releasing external resources,
+         * watches and event handlers.
+         */
+        $onDestroy?(): void;
+        /**
+         * Called after this controller's element and its children have been linked. Similar to the post-link function this
+         * hook can be used to set up DOM event handlers and do direct DOM manipulation. Note that child elements that contain
+         * templateUrl directives will not have been compiled and linked since they are waiting for their template to load
+         * asynchronously and their own compilation and linking has been suspended until that occurs. This hook can be considered
+         * analogous to the ngAfterViewInit and ngAfterContentInit hooks in Angular 2. Since the compilation process is rather
+         * different in Angular 1 there is no direct mapping and care should be taken when upgrading.
+         */
+        $postInit?(): void;
+    }
+
+    interface IChangesObject {
+        currentValue: any;
+        previousValue: any;
+        isFirstChange(): boolean;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1762,7 +1777,7 @@ declare namespace angular {
     interface IDirectiveLinkFn {
         (
             scope: IScope,
-            instanceElement: IAugmentedJQuery,
+            instanceElement: JQuery,
             instanceAttributes: IAttributes,
             controller: {},
             transclude: ITranscludeFunction
@@ -1776,7 +1791,7 @@ declare namespace angular {
 
     interface IDirectiveCompileFn {
         (
-            templateElement: IAugmentedJQuery,
+            templateElement: JQuery,
             templateAttributes: IAttributes,
             /**
              * @deprecated
@@ -1818,44 +1833,14 @@ declare namespace angular {
     }
 
     /**
-     * angular.element
-     * when calling angular.element, angular returns a jQuery object,
-     * augmented with additional methods like e.g. scope.
-     * see: http://docs.angularjs.org/api/angular.element
+     * These interfaces are kept for compatibility with older versions of these type definitions.
+     * Actually, Angular doesn't create a special subclass of jQuery objects. It extends jQuery.prototype
+     * like jQuery plugins do, that's why all jQuery objects have these Angular-specific methods, not
+     * only those returned from angular.element.
+     * See: http://docs.angularjs.org/api/angular.element
      */
-    interface IAugmentedJQueryStatic extends JQueryStatic {
-        (selector: string, context?: any): IAugmentedJQuery;
-        (element: Element): IAugmentedJQuery;
-        (object: {}): IAugmentedJQuery;
-        (elementArray: Element[]): IAugmentedJQuery;
-        (object: JQuery): IAugmentedJQuery;
-        (func: Function): IAugmentedJQuery;
-        (array: any[]): IAugmentedJQuery;
-        (): IAugmentedJQuery;
-    }
-
-    interface IAugmentedJQuery extends JQuery {
-        // TODO: events, how to define?
-        //$destroy
-
-        find(selector: string): IAugmentedJQuery;
-        find(element: any): IAugmentedJQuery;
-        find(obj: JQuery): IAugmentedJQuery;
-        controller(): any;
-        controller(name: string): any;
-        injector(): any;
-        scope(): IScope;
-
-        /**
-        *   Overload for custom scope interfaces
-        */
-        scope<T extends IScope>(): T;
-        isolateScope(): IScope;
-
-        inheritedData(key: string, value: any): JQuery;
-        inheritedData(obj: { [key: string]: any; }): JQuery;
-        inheritedData(key?: string): any;
-    }
+    interface IAugmentedJQueryStatic extends JQueryStatic {}
+    interface IAugmentedJQuery extends JQuery {}
 
     ///////////////////////////////////////////////////////////////////////////
     // AUTO module (angular.js)
@@ -1956,4 +1941,21 @@ declare namespace angular {
     interface IHttpParamSerializer {
         (obj: Object): string;
     }
+}
+
+interface JQuery {
+    // TODO: events, how to define?
+    //$destroy
+
+    find(element: any): JQuery;
+    find(obj: JQuery): JQuery;
+    controller(name?: string): any;
+    injector(): ng.auto.IInjectorService;
+    /** It's declared generic for custom scope interfaces */
+    scope<T extends ng.IScope>(): T;
+    isolateScope<T extends ng.IScope>(): T;
+
+    inheritedData(key: string, value: any): JQuery;
+    inheritedData(obj: { [key: string]: any; }): JQuery;
+    inheritedData(key?: string): any;
 }

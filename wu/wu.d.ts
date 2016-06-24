@@ -50,7 +50,7 @@ declare namespace Wu {
 		slice<T>(iter: Iterable<T>): WuIterable<T>;
 		slice<T>(start: number, iter: Iterable<T>): WuIterable<T>;
 		slice<T>(start: number, stop: number, iter: Iterable<T>): WuIterable<T>;
-		some<T>(fn: Filter<T>, iter: Iterable<T>): WuIterable<T>;
+		some<T>(fn: Filter<T>, iter: Iterable<T>): boolean;
 		spreadMap<T>(fn: (...x: any[]) => T, iter: Iterable<any[]>): WuIterable<T>;
 		take<T>(n: number, iter: Iterable<T>): WuIterable<T>;
 		takeWhile<T>(fn: Filter<T>, iter: Iterable<T>): WuIterable<T>;
@@ -100,7 +100,7 @@ declare namespace Wu {
 		slice(): WuIterable<T>;
 		slice(start: number): WuIterable<T>;
 		slice(start: number, stop: number): WuIterable<T>;
-		some(fn: Filter<T>): WuIterable<T>;
+		some(fn: Filter<T>): boolean;
 		spreadMap(fn: (...x: any[]) => T, iter: Iterable<any[]>): WuIterable<T>;
 		take(n: number): WuIterable<T>;
 		takeWhile(fn: Filter<T>): WuIterable<T>;

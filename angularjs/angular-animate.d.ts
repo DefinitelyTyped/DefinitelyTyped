@@ -19,14 +19,14 @@ declare namespace angular.animate {
     }
 
     interface IAnimateCallbackObject {
-        eventFn?: (element: IAugmentedJQuery, doneFunction: Function, options: IAnimationOptions) => any;
-        setClass?: (element: IAugmentedJQuery, addedClasses: string, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-        addClass?: (element: IAugmentedJQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-        removeClass?: (element: IAugmentedJQuery, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
-        enter?: (element: IAugmentedJQuery, doneFunction: Function, options: IAnimationOptions) => any;
-        leave?: (element: IAugmentedJQuery, doneFunction: Function, options: IAnimationOptions) => any;
-        move?: (element: IAugmentedJQuery, doneFunction: Function, options: IAnimationOptions) => any;
-        animate?: (element: IAugmentedJQuery, fromStyles: string, toStyles: string, doneFunction: Function, options: IAnimationOptions) => any;
+        eventFn?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
+        setClass?: (element: JQuery, addedClasses: string, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
+        addClass?: (element: JQuery, addedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
+        removeClass?: (element: JQuery, removedClasses: string, doneFunction: Function, options: IAnimationOptions) => any;
+        enter?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
+        leave?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
+        move?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
+        animate?: (element: JQuery, fromStyles: string, toStyles: string, doneFunction: Function, options: IAnimationOptions) => any;
     }
 
     interface IAnimationPromise extends IPromise<void> {}
@@ -43,7 +43,7 @@ declare namespace angular.animate {
          * @param container the container element that will capture each of the animation events that are fired on itself as well as among its children
          * @param callback the callback function that will be fired when the listener is triggered
          */
-        on(event: string, container: JQuery, callback: Function): void;
+        on(event: string, container: JQuery, callback: (element?: JQuery, phase?: string) => any): void;
 
         /**
          * Deregisters an event listener based on the event which has been associated with the provided element.
@@ -52,7 +52,7 @@ declare namespace angular.animate {
          * @param container the container element the event listener was placed on
          * @param callback the callback function that was registered as the listener
          */
-        off(event: string, container?: JQuery, callback?: Function): void;
+        off(event: string, container?: JQuery, callback?: (element?: JQuery, phase?: string) => any): void;
 
         /**
          * Associates the provided element with a host parent element to allow the element to be animated even if it exists outside of the DOM structure of the Angular application.

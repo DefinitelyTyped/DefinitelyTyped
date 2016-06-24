@@ -9,6 +9,7 @@ app.use((ctx, next) => {
     const end: any = new Date();
     const ms = end - start;
     console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
+    ctx.assert(true, 404, 'Yep!');
   });
 });
 

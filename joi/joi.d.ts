@@ -844,7 +844,7 @@ declare module 'joi' {
 	 * @param schema - the schema object.
 	 * @param message - optional message string prefix added in front of the error message. may also be an Error object.
 	 */
-	export function attempt(value: any, schema: Schema, message?: string | Error): void;
+	export function attempt<T>(value: T, schema: Schema, message?: string | Error): T;
 
 
 	/**

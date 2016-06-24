@@ -89,7 +89,22 @@ declare namespace log4javascript {
 	/**
 	 * Levels are available as static properties of the log4javascript.Level object.
 	 */
-	export enum Level { ALL, TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF }
+	export class Level {
+		static ALL: Level;
+		static TRACE: Level;
+		static DEBUG: Level;
+		static INFO: Level;
+		static WARN: Level;
+		static ERROR: Level;
+		static FATAL: Level;
+		static OFF: Level;
+
+		constructor(level: number, name: string);
+
+		toString(): string;
+		equals(level: Level): boolean;
+		isGreaterOrEqual(level: Level): boolean;
+	}
 
 	// #endregion
 
