@@ -305,7 +305,7 @@ declare module "mongoose" {
       (error: Error): any;
   }
 
-    export interface HookDoneFunction {
+  export interface HookDoneFunction {
       (...hookArgs:any[]): any;
       (error: Error): any;
   }
