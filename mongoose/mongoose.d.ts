@@ -274,14 +274,10 @@ declare module "mongoose" {
     pathType(path: string): string;
     plugin(plugin: (schema: Schema, options?: Object) => void, options?: Object): Schema;
 
-    pre(method: string, fn: HookSyncCallback): Schema;
-    pre(method: string, fn: HookSyncCallback, errorCb: HookErrorCallback): Schema;
-    pre(method: string, isAsync: boolean, fn: HookAsyncCallback): Schema;
-    pre(method: string, isAsync: boolean, fn: HookAsyncCallback, errorCb: HookErrorCallback): Schema;
-    post(method: string, fn: HookSyncCallback): Schema;
-    post(method: string, fn: HookSyncCallback, errorCb: HookErrorCallback): Schema;
-    post(method: string, isAsync: boolean, fn: HookAsyncCallback): Schema;
-    post(method: string, isAsync: boolean, fn: HookAsyncCallback, errorCb: HookErrorCallback): Schema;
+    pre(method: string, fn: HookSyncCallback, errorCb?: HookErrorCallback): Schema;
+    pre(method: string, isAsync: boolean, fn: HookAsyncCallback, errorCb?: HookErrorCallback): Schema;
+    post(method: string, fn: HookSyncCallback, errorCb?: HookErrorCallback): Schema;
+    post(method: string, isAsync: boolean, fn: HookAsyncCallback, errorCb?: HookErrorCallback): Schema;
 
     requiredPaths(): string[];
     set(key: string, value: any): void;
