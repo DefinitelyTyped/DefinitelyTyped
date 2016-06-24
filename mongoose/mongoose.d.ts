@@ -289,11 +289,11 @@ declare module "mongoose" {
 
   // hook functions: https://github.com/vkarpov15/hooks-fixed
   export interface HookSyncCallback {
-      (next: Function, ...hookArgs:any[]): any;
+      (next: HookNextFunction, ...hookArgs:any[]): any;
   }
 
   export interface HookAsyncCallback {
-      (next: Function, done: Function, ...hookArgs:any[]): any;
+      (next: HookNextFunction, done: HookDoneFunction, ...hookArgs:any[]): any;
   }
 
   export interface HookErrorCallback {
@@ -301,6 +301,11 @@ declare module "mongoose" {
   }
 
   export interface HookNextFunction {
+      (...hookArgs:any[]): any;
+      (error: Error): any;
+  }
+
+    export interface HookDoneFunction {
       (...hookArgs:any[]): any;
       (error: Error): any;
   }
