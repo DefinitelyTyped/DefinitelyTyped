@@ -849,7 +849,10 @@ declare module "react-bootstrap" {
 
     // <Image />
    interface ImageProps extends React.HTMLProps<Image> {
-       componentClass?: React.ReactType;
+       circle?: boolean;
+       responsive?: boolean;
+       rounded?: boolean;
+       thumbnail?: boolean;
    }
    type Image = React.ClassicComponent<ImageProps, {}>;
    var Image: React.ClassicComponentClass<ImageProps>;
