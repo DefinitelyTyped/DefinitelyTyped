@@ -1755,7 +1755,7 @@ declare namespace angular {
          * analogous to the ngAfterViewInit and ngAfterContentInit hooks in Angular 2. Since the compilation process is rather
          * different in Angular 1 there is no direct mapping and care should be taken when upgrading.
          */
-        $postInit?(): void;
+        $postLink?(): void;
     }
 
     interface IChangesObject {
