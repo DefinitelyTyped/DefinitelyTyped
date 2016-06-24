@@ -162,6 +162,8 @@ knex.select('*').from('users').join('accounts', function() {
 
 knex.select('*').from('users').join('accounts', 'accounts.type', knex.raw('?', ['admin']));
 
+knex.raw('select * from users where id = :user_id', { user_id: 1 });
+
 knex.from('users').innerJoin('accounts', 'users.id', 'accounts.user_id');
 
 knex.table('users').innerJoin('accounts', 'users.id', '=', 'accounts.user_id');

@@ -27,7 +27,11 @@ interface IPathRoutes{
 }
 
 interface IPathCore{
-	route(path: string): IPathRoute;
+	route: IPathRouteConstructor;
+}
+
+interface IPathRouteConstructor {
+	new (path: string): IPathRoute;
 }
 
 interface IPath {

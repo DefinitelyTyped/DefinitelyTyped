@@ -4,6 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'react-tap-event-plugin'{
-    var exports:()=>any;
-    export = exports;
+    interface StrategyOverrides {
+        shouldRejectClick?: (lastTouchEventTimestamp: Date, clickEventTimestamp: Date) => boolean;
+    }
+
+    var injectTapEventPlugin: (strategyOverrides?: StrategyOverrides) => void;
+
+    export = injectTapEventPlugin;
 }
