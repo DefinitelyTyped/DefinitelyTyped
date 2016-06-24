@@ -1,7 +1,7 @@
-// Type definitions for Toastr 2.0.1
+// Type definitions for Toastr 2.1.1
 // Project: https://github.com/CodeSeven/toastr
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts" />
@@ -174,6 +174,13 @@ interface Toastr {
 		* @param toast Toast to clear
 		*/
 		(toast: JQuery): void;
+	        /**
+		* Clear specific toast
+		* 
+		* @param toast Toast to clear
+		* @param clearOptions force clearing a toast, ignoring focus
+		*/
+        	(toast: JQuery, clearOptions: { force: boolean }): void;
 	};
 	/**
 	* Create an error toast

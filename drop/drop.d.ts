@@ -1,7 +1,7 @@
 // Type definitions for Drop v1.4
 // Project: http://github.hubspot.com/drop/
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../tether/tether.d.ts" />
 
@@ -30,7 +30,7 @@ declare class Drop {
     public static createContext(options: Drop.IDropContextOptions): Drop;
 }
 
-declare module Drop {
+declare namespace Drop {
     interface IDropContextOptions {
         classPrefix?: string;
         defaults?: IDropOptions;

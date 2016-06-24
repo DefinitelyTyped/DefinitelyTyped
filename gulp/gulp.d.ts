@@ -1,7 +1,7 @@
 // Type definitions for Gulp v3.8.x
 // Project: http://gulpjs.com
 // Definitions by: Drew Noakes <https://drewnoakes.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../orchestrator/orchestrator.d.ts" />

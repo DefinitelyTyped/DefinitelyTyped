@@ -17,7 +17,7 @@ class User {
     }
 }
 
-module Station {
+namespace Station {
 
     export class BusPass {
 

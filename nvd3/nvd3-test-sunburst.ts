@@ -1,5 +1,5 @@
 ﻿/// <reference path="nvd3.d.ts" />
-module nvd3_test_sunburst {
+namespace nvd3_test_sunburst {
 
     var chart;
 
@@ -398,5 +398,5 @@ module nvd3_test_sunburst {
                 }
             ]
         }];
-    }  
+    }
 }

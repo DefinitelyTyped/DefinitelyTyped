@@ -1,6 +1,6 @@
 /// <reference path="../d3/d3.d.ts" />
 /// <reference path="nvd3.d.ts" />
-module nvd3_test_parallelCoordinates {
+namespace nvd3_test_parallelCoordinates {
     var chart;
     nv.addGraph(function () {
 

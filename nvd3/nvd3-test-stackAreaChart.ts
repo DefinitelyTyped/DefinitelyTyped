@@ -1,5 +1,5 @@
 ﻿/// <reference path="nvd3.d.ts" />
-module nvd3_test_stackAreaChart {
+namespace nvd3_test_stackAreaChart {
     var histcatexplong = [
         {
             "key": "Consumer Discretionary",
@@ -75,5 +75,5 @@ module nvd3_test_stackAreaChart {
         nv.utils.windowResize(chart.update);
         return chart;
     });
-  
+
 }

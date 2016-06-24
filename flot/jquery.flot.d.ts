@@ -1,12 +1,12 @@
 // Type definitions for Flot
 // Project: http://www.flotcharts.org/
 // Definitions by: Matt Burland <https://github.com/burlandm>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module jquery.flot {
+declare namespace jquery.flot {
     interface plotOptions {
         colors?: any[];
         series?: seriesOptions;

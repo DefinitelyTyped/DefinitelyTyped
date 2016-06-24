@@ -1,7 +1,7 @@
 // Type definitions for Expect v1.13.4
 // Project: https://github.com/mjackson/expect
 // Definitions by: Justin Reidy <https://github.com/jmreidy/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "expect" {
     export class Expectation {

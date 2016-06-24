@@ -1,7 +1,7 @@
-// Type definitions for VoxImplant Web SDK 3.0.x 
+// Type definitions for VoxImplant Web SDK 3.0.x
 // Project: http://voximplant.com/
 // Definitions by: Alexey Aylarov <https://github.com/aylarov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace VoxImplant {
 
@@ -77,7 +77,7 @@ declare namespace VoxImplant {
 		TransferFailed
 	}
 
-	module Events {
+	namespace Events {
 
 		/**
 		*	Event dispatched after login , loginWithOneTimeKey, requestOneTimeLoginKey or loginWithCode function call
@@ -181,7 +181,7 @@ declare namespace VoxImplant {
 
 	}
 
-	module CallEvents {
+	namespace CallEvents {
 
 		/**
 		*	Event dispatched after call was connected
@@ -320,7 +320,7 @@ declare namespace VoxImplant {
 		}
 	}
 
-	module IMEvents {
+	namespace IMEvents {
 
 		/**
 		*	Event dispatched when chat history received

@@ -2,7 +2,7 @@
 // Project: https://mixpanel.com/
 //          https://github.com/mixpanel/mixpanel-js
 // Definitions by: Knut Eirik Leira Hjelle <https://github.com/hjellek/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Mixpanel
 {
@@ -39,7 +39,7 @@ interface Mixpanel
     get_property(propertyName:string):any;
 }
 
-declare module Mixpanel
+declare namespace Mixpanel
 {
     interface People
     {

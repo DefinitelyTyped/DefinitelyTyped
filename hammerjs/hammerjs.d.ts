@@ -1,7 +1,7 @@
 // Type definitions for Hammer.js 2.0.4
 // Project: http://hammerjs.github.io/
 // Definitions by: Philip Bulley <https://github.com/milkisevil/>, Han Lin Yap <https://github.com/codler>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Hammer:HammerStatic;
 
@@ -11,7 +11,7 @@ declare module "hammerjs" {
 
 interface HammerStatic
 {
-  new( element:HTMLElement, options?:any ): HammerManager;
+  new( element:HTMLElement | SVGElement, options?:any ): HammerManager;
 
   defaults:HammerDefaults;
 
@@ -39,7 +39,7 @@ interface HammerStatic
   DIRECTION_VERTICAL:   number;
   DIRECTION_ALL:        number;
 
-  Manager:     HammerManager;
+  Manager:     HammerManagerConstructor;
   Input:       HammerInput;
   TouchAction: TouchAction;
 
@@ -95,10 +95,12 @@ interface HammerOptions extends HammerDefaults
 
 }
 
+interface HammerManagerConstructor {
+  new( element:HTMLElement, options?:any ):HammerManager;
+}
+
 interface HammerManager
 {
-  new( element:HTMLElement, options?:any ):HammerManager;
-
   add( recogniser:Recognizer ):Recognizer;
   add( recogniser:Recognizer ):HammerManager;
   add( recogniser:Recognizer[] ):Recognizer;

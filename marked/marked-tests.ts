@@ -1,6 +1,6 @@
 /// <reference path="marked.d.ts" />
 
-import marked = require('marked');
+import * as marked from 'marked';
 
 var options: MarkedOptions = {
     gfm: true,
@@ -37,3 +37,8 @@ console.log(marked.parse('i am using __markdown__.', options, callback));
 var text = 'something';
 var tokens = marked.lexer(text, options);
 console.log(marked.parser(tokens));
+
+var renderer = new marked.Renderer();
+renderer.heading = function(text, level, raw) {
+    return text + level.toString() + raw;
+};

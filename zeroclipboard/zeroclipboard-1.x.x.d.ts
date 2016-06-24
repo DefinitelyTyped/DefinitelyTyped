@@ -1,7 +1,7 @@
 // Type definitions for ZeroClipboard v1.x.x
 // Project: https://github.com/jonrohan/ZeroClipboard
 // Definitions by: Eric J. Smith <https://github.com/ejsmith>, Blake Niemyjski <https://github.com/niemyjski>, György Balássy <https://github.com/balassy>, Leon Yu <https://github.com/leonyu>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class ZeroClipboard {
     constructor(elements?: Element | { [index: number]: Element }, options?: ZeroClipboardOptions);

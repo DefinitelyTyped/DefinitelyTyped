@@ -1,10 +1,16 @@
 // Type definitions for Angular Material 1.0.0-rc5+ (angular.material module)
 // Project: https://github.com/angular/material
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
-declare module angular.material {
+
+declare module 'angular-material' {
+    var _: string;
+    export = _;
+}
+
+declare namespace angular.material {
 
     interface IBottomSheetOptions {
         templateUrl?: string;
@@ -59,6 +65,11 @@ declare module angular.material {
     interface IConfirmDialog extends IPresetDialog<IConfirmDialog> {
         cancel(cancel: string): IConfirmDialog;
     }
+    
+    interface IPromptDialog extends IPresetDialog<IPromptDialog> {
+        cancel(cancel: string): IPromptDialog;
+        placeholder(placeholder: string): IPromptDialog;        
+    }
 
     interface IDialogOptions {
         templateUrl?: string;
@@ -84,12 +95,14 @@ declare module angular.material {
         onComplete?: Function;
         onRemoving?: Function;
         fullscreen?: boolean;
+        skipHide?: boolean;
     }
 
     interface IDialogService {
         show(dialog: IDialogOptions|IAlertDialog|IConfirmDialog): angular.IPromise<any>;
         confirm(): IConfirmDialog;
         alert(): IAlertDialog;
+        prompt(): IPromptDialog;
         hide(response?: any): angular.IPromise<any>;
         cancel(response?: any): void;
     }
@@ -126,6 +139,7 @@ declare module angular.material {
         textContent(content: string): T;
         action(action: string): T;
         highlightAction(highlightAction: boolean): T;
+        highlightClass(highlightClass: string): T;
         capsule(capsule: boolean): T;
         theme(theme: string): T;
         hideDelay(delay: number): T;
@@ -139,6 +153,7 @@ declare module angular.material {
     interface IToastOptions {
         templateUrl?: string;
         template?: string;
+        autoWrap?:boolean;
         scope?: angular.IScope; // default: new child scope
         preserveScope?: boolean; // default: false
         hideDelay?: number; // default (ms): 3000
@@ -247,5 +262,26 @@ declare module angular.material {
 
     interface IMenuService {
         hide(response?: any, options?: any): angular.IPromise<any>;
+    }
+
+    interface IColorPalette {
+        red: IPalette;
+        pink: IPalette;
+        'deep-purple': IPalette;
+        indigo: IPalette;
+        blue: IPalette;
+        'light-blue': IPalette;
+        cyan: IPalette;
+        teal: IPalette;
+        green: IPalette;
+        'light-green': IPalette;
+        lime: IPalette;
+        yellow: IPalette;
+        amber: IPalette;
+        orange: IPalette;
+        'deep-orange': IPalette;
+        brown: IPalette;
+        grey: IPalette;
+        'blue-grey': IPalette;
     }
 }

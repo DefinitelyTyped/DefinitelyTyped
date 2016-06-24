@@ -25,11 +25,11 @@ function test() {
 	}
 	
 	function testAngle() {
-		makerjs.angle.areEqual(12, 13);
 		makerjs.angle.mirror(45, true, false);
 		makerjs.angle.noRevolutions(90);
 		makerjs.angle.ofArcEnd(paths.arc);
 		makerjs.angle.ofArcMiddle(paths.arc);
+		makerjs.angle.ofArcSpan(paths.arc);
 		makerjs.angle.ofLineInDegrees(paths.line);
 		makerjs.angle.ofPointInDegrees([0,0], [1,1]);
 		makerjs.angle.ofPointInRadians([0,0], [1,1]);
@@ -67,7 +67,9 @@ function test() {
 	}
 	
 	function testMeasure() {
-		makerjs.measure.arcAngle(paths.arc);
+		makerjs.measure.isPointEqual(p1, p2);
+		makerjs.measure.isPathEqual(paths.line, paths.circle, 4);
+		makerjs.measure.isAngleEqual(12, 13);
 		makerjs.measure.isArcConcaveTowardsPoint(paths.arc, [0,0]);
 		makerjs.measure.isBetween(7, 8, 9, false);
 		makerjs.measure.isBetweenArcAngles(7, paths.arc, false);
@@ -119,7 +121,6 @@ function test() {
 	}
 	
 	function testPath() {
-		makerjs.path.areEqual(paths.line, paths.circle, 4);
 		makerjs.path.breakAtPoint(paths.arc, [0,0]).type;
 		makerjs.path.dogbone(paths.line, paths.line, 7);
 		makerjs.path.fillet(paths.arc, paths.line, 4);
@@ -129,7 +130,6 @@ function test() {
 		makerjs.path.moveRelative(paths.circle, [0,0]);
 		makerjs.path.rotate(paths.line, 5, [0,0]);
 		makerjs.path.scale(paths.arc, 8);
-		makerjs.path.slopeIntersectionPoint(paths.line, paths.line);
 	}
 	
 	function testPaths() {
@@ -156,8 +156,6 @@ function test() {
 	
 	function testPoint() {	
 		makerjs.point.add(p1, p2);
-		makerjs.point.areEqual(p1, p2);
-		makerjs.point.areEqualRounded(p1, p2);
 		makerjs.point.average(p1, p2);
 		makerjs.point.clone(p1);
 		makerjs.point.closest([0,0], [p1, p2]);
@@ -170,7 +168,6 @@ function test() {
 		makerjs.point.rotate(p1, 5, p2);
 		makerjs.point.rounded(p1);
 		makerjs.point.scale(p2, 8);
-		makerjs.point.serialize(p1);
 		makerjs.point.subtract(p2, p1);
 		makerjs.point.zero();
 	}

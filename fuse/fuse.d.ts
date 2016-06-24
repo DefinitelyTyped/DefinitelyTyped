@@ -1,14 +1,14 @@
 // Type definitions for Fuse.js 1.1.5
 // Project: https://github.com/krisk/Fuse
 // Definitions by: Greg Smith <https://github.com/smrq/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Fuse {
 	constructor(list: any[], options?: fuse.IFuseOptions);
 	search(pattern: string): any[];
 }
 
-declare module fuse {
+declare namespace fuse {
 	interface IFuseOptions extends ISearchOptions {
 		caseSensitive?: boolean;
 		includeScore?: boolean;

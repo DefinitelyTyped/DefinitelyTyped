@@ -1,7 +1,7 @@
 // Type definitions for WinJS
 // Project: http://try.buildwinjs.com/
 // Definitions by: TypeScript samples <https://www.typescriptlang.org/>, Adam Hewitt <https://github.com/adamhewitt627>, Craig Treasure <https://github.com/craigktreasure>, Jeff Fisher <https://github.com/xirzec>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -63,7 +63,7 @@ interface IOHelper {
 /**
  * Provides application-level functionality, for example activation, storage, and application events.
 **/
-declare module WinJS.Application {
+declare namespace WinJS.Application {
     //#region Objects
 
     /**
@@ -195,7 +195,7 @@ declare module WinJS.Application {
 /**
  * Provides functionality for data and template binding.
 **/
-declare module WinJS.Binding {
+declare namespace WinJS.Binding {
     //#region Properties
 
     /**
@@ -1161,7 +1161,7 @@ declare module WinJS.Binding {
 /**
  * Provides helper functions for defining Classes.
 **/
-declare module WinJS.Class {
+declare namespace WinJS.Class {
     //#region Functions
 
     /**
@@ -1197,7 +1197,7 @@ declare module WinJS.Class {
 /**
  * The WinJS namespace provides special Windows Library for JavaScript functionality, including Promise and xhr.
 **/
-declare module WinJS {
+declare namespace WinJS {
     //#region Properties
 
     /**
@@ -1513,7 +1513,7 @@ declare module WinJS {
 /**
  * Provides helper functions for defining namespaces. For more information, see Organizing your code with WinJS.Namespace.
 **/
-declare module WinJS.Namespace {
+declare namespace WinJS.Namespace {
     //#region Functions
 
     /**
@@ -1539,7 +1539,7 @@ declare module WinJS.Namespace {
 /**
  * Provides functionality for dealing with basic navigation, including the navigation stack.
 **/
-declare module WinJS.Navigation {
+declare namespace WinJS.Navigation {
     //#region Properties
 
     /**
@@ -1637,7 +1637,7 @@ declare module WinJS.Navigation {
 /**
  * Provides functions for accessing resources and localizing content.
 **/
-declare module WinJS.Resources {
+declare namespace WinJS.Resources {
     //#region Functions
 
     /**
@@ -1692,7 +1692,7 @@ declare module WinJS.Resources {
 /**
  * Provides access to the Windows animations. These functions provide developers with the ability to use animations in their custom controls that are consistent with animations used by Windows controls.
 **/
-declare module WinJS.UI.Animation {
+declare namespace WinJS.UI.Animation {
     //#region Functions
 
     /**
@@ -2077,7 +2077,7 @@ declare module WinJS.UI.Animation {
 /**
  * Provides controls and objects that manipulate data.
 **/
-declare module WinJS.UI {
+declare namespace WinJS.UI {
     //#region Enumerations
 
     /**
@@ -4088,6 +4088,123 @@ declare module WinJS.UI {
     }
 
     /**
+     * Displays a lightweight popup that is used to temporarily show UI related to what the user is currently doing. It can be used to reveal a hidden control, show more details about an item, or ask the user to confirm an action. You should only show a flyout in response to a user tap or click. Unlike a MessageDialog, a flyout is always dismissed when the user taps or clicks outside of it.
+     */
+    class Flyout {
+       //#region Constructors
+       /**
+         * Creates a new FlipView.
+         * @constructor
+         * @param element The DOM element that hosts the control.
+         * @param options An object that contains one or more property/value pairs to apply to the new control. Each property corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the pageselected event, add a property named "onpageselected" and set its value to the event handler.
+        **/
+       constructor(element?: HTMLElement, options?: any);
+       //#endregion Constructors
+
+       //#region Events
+       /**
+        * Occurs immediately after the Flyout is hidden.
+        * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: source.
+        */
+       onafterhide(eventInfo: Event): void;
+
+       /**
+        * Occurs immediately after the Flyout is displayed.
+        * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: source.
+        */
+       onaftershow(eventInfo: Event): void;
+
+       /**
+        * Occurs before the Flyout is hidden.
+        * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: source.
+        */
+       onbeforehide(eventInfo: Event): void;
+
+       /**
+        * Occurs immediately before a hidden Flyout is displayed.
+        * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: source.
+        */
+       onbeforeshow(eventInfo: Event): void;
+       //#endregion Events
+
+       //#region Methods
+       /**
+         * Registers an event handler for the specified event.
+         * @param eventName The name of the event to handle. For a list of events, see the Flyout object page.
+         * @param eventHandler The event handler function to associate with the event.
+         * @param useCapture Set to true to register the event handler for the capturing phase; set to false to register the event handler for the bubbling phase.
+        **/
+       addEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
+
+       /**
+         * Unregisters an event handler for the specified event.
+         * @param eventName The name of the event.
+         * @param eventHandler The event handler function to remove.
+         * @param useCapture Set to true to unregister the event handler for the capturing phase; otherwise, set to false to unregister the event handler for the bubbling phase.
+        **/
+       removeEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
+
+       /**
+         * Releases resources held by this FlipView. Call this method when the FlipView is no longer needed. After calling this method, the FlipView becomes unusable.
+        **/
+       dispose(): void;
+
+       /**
+        * Hides the Flyout, if visible, regardless of other states.
+        */
+       hide(): void;
+
+       /**
+        * Shows the Flyout, if hidden, regardless of other states.
+        * @param anchor The DOM element to anchor the Flyout.
+        * @param placement The placement of the Flyout to the anchor: the string literal "top", "bottom", "left", or "right".
+        * @param alignment For "top" or "bottom" placement, the alignment of the Flyout to the anchor's edge: the string literal "center", "left", or "right".
+        */
+       show(anchor: HTMLElement, placement?: string, alignment?: string): void;
+
+       /**
+        * Shows the Flyout, if hidden, regardless of other states, top and left aligned at specified coordinates..
+        * @param x The x coordinate point where the top left corner of the Flyout will appear, relative to the top and left edge of the visual viewport.
+        * @param y The y coordinate point where the top left corner of the Flyout will appear, relative to the top and left edge of the visual viewport.
+        */
+       showat(x: number, y: number): void;
+       /**
+        * Shows the Flyout, if hidden, regardless of other states, top and left aligned at the location of the mouse event object.
+        * @param mouseEventObj The MouseEvent Object that specifies where to show the Flyout based on its location.
+        */
+       showat(mouseEventObj: MouseEvent): void;
+       //#endregion Methods
+
+       //#region Properties
+       /**
+        * Gets or sets the default alignment to be used for this Flyout relative to its anchor element.
+        */
+       public alignment: string;
+
+       /**
+        * Gets or sets the default anchor to be used for this Flyout.
+        */
+       public anchor: HTMLElement;
+
+       /**
+        * Gets the HTML element that hosts this FlipView.
+       **/
+       element: HTMLElement;
+
+       /**
+        * Gets a value that indicates whether the Flyout is hidden or in the process of becoming hidden.
+        */
+       hidden: boolean;
+
+       /**
+        * Gets or sets the placement to be used for this Flyout relative to the target object.
+        */
+       placement: string;
+
+       //#endregion Properties
+    }
+    
+    /**
      * Represents a grid layout for the ListView in which items are arranged in a horizontal grid.
     **/
     class GridLayout {
@@ -5790,7 +5907,7 @@ declare module WinJS.UI {
 /**
  * Provides functions to load HTML content programmatically.
 **/
-declare module WinJS.UI.Fragments {
+declare namespace WinJS.UI.Fragments {
     //#region Functions
 
     /**
@@ -5830,7 +5947,7 @@ declare module WinJS.UI.Fragments {
 /**
  * Provides methods for defining and displaying PageControl objects.
 **/
-declare module WinJS.UI.Pages {
+declare namespace WinJS.UI.Pages {
     //#region Interfaces
 
     /**
@@ -5928,7 +6045,7 @@ declare module WinJS.UI.Pages {
 /**
  * Provides methods for detecting when the user tabs to or from DOM elements.
 **/
-declare module WinJS.UI.TrackTabBehavior {
+declare namespace WinJS.UI.TrackTabBehavior {
     //#region Functions
 
     /**
@@ -5950,7 +6067,7 @@ declare module WinJS.UI.TrackTabBehavior {
 /**
  * Provides helper functions, for example, functions to add and remove CSS classes.
 **/
-declare module WinJS.Utilities {
+declare namespace WinJS.Utilities {
     //#region Enumerations
 
     /**
@@ -6857,7 +6974,7 @@ declare module WinJS.Utilities {
 /**
  * Provides functions and objects for scheduling and managing asynchronous tasks.
 **/
-declare module WinJS.Utilities.Scheduler {
+declare namespace WinJS.Utilities.Scheduler {
     //#region Enumerations
 
     /**

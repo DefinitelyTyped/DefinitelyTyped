@@ -1,7 +1,7 @@
 // Type definitions for valerie
 // Project: https://github.com/davewatts/valerie
 // Definitions by: Howard Richards <https://github.com/conficient>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../knockout/knockout.d.ts" />
 
@@ -207,7 +207,7 @@ declare var valerie: Valerie.Static;
 
 // additional types for Valerie (all inside this namespace)
 
-declare module Valerie {
+declare namespace Valerie {
     //
     // Static methods on valerie namespace
     //
@@ -718,7 +718,7 @@ declare module Valerie {
     }
 }
 
-declare module Valerie.Rules {
+declare namespace Valerie.Rules {
     /*
 
       Todo: add classes in valerie.rules namespace

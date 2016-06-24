@@ -17,7 +17,7 @@ var list = [[0, 1], [2, 3], [4, 5]];
 //var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
 var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
-module TestFind {
+namespace TestFind {
 	let array: {a: string}[] = [{a: 'a'}, {a: 'b'}];
 	let list: _.List<{a: string}> = {0: {a: 'a'}, 1: {a: 'b'}, length: 2};
 	let dict: _.Dictionary<{a: string}> = {a: {a: 'a'}, b: {a: 'b'}};
@@ -173,6 +173,10 @@ _.pluck(stooges, 'name');
 
 _.max(stooges, (stooge) => stooge.age);
 _.min(stooges, (stooge) => stooge.age);
+_.max({ a: 1, b: 2 });
+_.max({ a: 'a', b: 'bb' }, (v, k) => v.length);
+_.min({ a: 1, b: 2 });
+_.min({ a: 'a', b: 'bb' }, (v, k) => v.length);
 
 var numbers = [10, 5, 100, 2, 1000];
 _.max(numbers);
@@ -236,6 +240,10 @@ _.object([['moe', 30], ['larry', 40], ['curly', 50]]);
 _.indexOf([1, 2, 3], 2);
 _.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
 _.sortedIndex([10, 20, 30, 40, 50], 35);
+_.findIndex([1, 2, 3, 1, 2, 3], num => num % 2 === 0);
+_.findIndex([{a: 'a'}, {a: 'b'}], {a: 'b'});
+_.findLastIndex([1, 2, 3, 1, 2, 3], num => num % 2 === 0);
+_.findLastIndex([{ a: 'a' }, { a: 'b' }], { a: 'b' });
 _.range(10);
 _.range(1, 11);
 _.range(0, 30, 5);
@@ -385,6 +393,32 @@ _.isNull(null);
 _.isNull(undefined);
 
 _.isUndefined((<any>window).missingVariable);
+
+//////////////////////////////////// User Defined Guard tests
+
+function useElement(arg: Element) {};
+function useArguments(arg: IArguments) {};
+function useFunction(arg: Function) {};
+function useError(arg: Error) {};
+function useString(arg: String) {};
+function useNumber(arg: Number) {};
+function useBoolean(arg: Boolean) {};
+function useDate(arg: Date) {};
+function useRegExp(arg: RegExp) {};
+function useArray<T>(arg: T[]) {};
+
+var guardedType: {};
+if(_.isElement(guardedType)) useElement(guardedType);
+if(_.isArray(guardedType)) useArray(guardedType);
+if(_.isArray<String>(guardedType)) useArray(guardedType);
+if(_.isArguments(guardedType)) useArguments(guardedType);
+if(_.isFunction(guardedType)) useFunction(guardedType);
+if(_.isError(guardedType)) useError(guardedType);
+if(_.isString(guardedType)) useString(guardedType);
+if(_.isNumber(guardedType)) useNumber(guardedType);
+if(_.isBoolean(guardedType)) useBoolean(guardedType);
+if(_.isDate(guardedType)) useDate(guardedType);
+if(_.isRegExp(guardedType)) useRegExp(guardedType);
 
 ///////////////////////////////////////////////////////////////////////////////////////
 

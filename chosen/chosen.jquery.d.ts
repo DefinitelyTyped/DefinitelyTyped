@@ -1,7 +1,7 @@
 // Type definitions for Chosen.JQuery 1.4.2
 // Project: http://harvesthq.github.com/chosen/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>

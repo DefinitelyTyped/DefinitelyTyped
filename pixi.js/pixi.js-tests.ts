@@ -1,5 +1,5 @@
 ﻿/// <reference path="pixi.js.d.ts" />
-module basics {
+namespace basics {
 
     export class Basics {
 
@@ -52,7 +52,7 @@ module basics {
 
 }
 
-module basics {
+namespace basics {
 
     export class Click {
 
@@ -103,7 +103,7 @@ module basics {
 
 }
 
-module basics {
+namespace basics {
 
     export class Container {
 
@@ -164,7 +164,7 @@ module basics {
 
 }
 
-module basics {
+namespace basics {
 
     export class CustomFilter {
 
@@ -233,7 +233,7 @@ module basics {
 
 }
 
-module basics {
+namespace basics {
 
     export class Graphics {
 
@@ -253,7 +253,7 @@ module basics {
             this.stage.interactive = true;
 
             this.graphics = new PIXI.Graphics();
-            
+
             // draw a shape
             this.graphics.moveTo(50, 50);
             this.graphics.lineTo(250, 50);
@@ -297,7 +297,7 @@ module basics {
 
 }
 
-module basics {
+namespace basics {
 
     export class RenderTexture {
 
@@ -366,7 +366,7 @@ module basics {
 
 }
 
-module basics {
+namespace basics {
 
     export class SpriteSheet {
 
@@ -433,7 +433,7 @@ module basics {
 
 }
 
-module basics {
+namespace basics {
 
     export class Text {
 
@@ -495,7 +495,7 @@ module basics {
 
 }
 
-module basics {
+namespace basics {
 
     export class TexturedMesh {
 
@@ -592,7 +592,7 @@ module basics {
 
 }
 
-module basics {
+namespace basics {
 
     export class TilingSprite {
 
@@ -651,7 +651,7 @@ module basics {
 
 }
 
-module basics {
+namespace basics {
 
     export class Video {
 
@@ -699,7 +699,7 @@ module basics {
 
 }
 
-module demos {
+namespace demos {
 
     export class AlphaMask {
 
@@ -775,7 +775,7 @@ module demos {
 
 }
 
-module demos {
+namespace demos {
 
     export class Batch {
 
@@ -924,7 +924,7 @@ module demos {
 
 }
 
-module demos {
+namespace demos {
 
     export class BlendModes {
 
@@ -1063,7 +1063,7 @@ module demos {
 
 }
 
-module demos {
+namespace demos {
 
     export class CacheAsBitmap {
 
@@ -1182,7 +1182,7 @@ module demos {
 
 }
 
-module demos {
+namespace demos {
 
     export class DraggableBunny extends PIXI.Sprite {
 
@@ -1311,7 +1311,7 @@ module demos {
 
 }
 
-module demos {
+namespace demos {
 
     export class GraphicsDemo {
 
@@ -1432,7 +1432,7 @@ module demos {
 
 }
 
-module demos {
+namespace demos {
 
     export class Interactivity {
 
@@ -1618,7 +1618,7 @@ module demos {
 
 }
 
-module demos {
+namespace demos {
 
     export class Masking {
 
@@ -1761,7 +1761,7 @@ module demos {
 
 }
 
-module demos {
+namespace demos {
 
     export class MovieClipDemo {
 
@@ -1787,7 +1787,7 @@ module demos {
         }
 
         private onAssetsLoaded = (loader: PIXI.loaders.Loader): void => {
-        
+
             // create an array to store the textures
             var explosionTextures: PIXI.Texture[] = [];
             var i: number;
@@ -1835,7 +1835,7 @@ module demos {
 
 }
 
-module demos {
+namespace demos {
 
     export class RenderTextureDemo {
 
@@ -1959,7 +1959,7 @@ module demos {
 
 }
 
-module demos {
+namespace demos {
 
     export class StripDemo {
 
@@ -2036,7 +2036,7 @@ module demos {
 
 }
 
-module demos {
+namespace demos {
 
     export class TextDemo {
 
@@ -2119,7 +2119,7 @@ module demos {
             this.renderer.render(this.stage);
 
             this.count += 0.05;
-            
+
             // update the text with a new string
             this.countingText.text = 'COUNT 4EVAR: ' + Math.floor(this.count);
 
@@ -2133,7 +2133,7 @@ module demos {
 
 }
 
-module demos {
+namespace demos {
 
     export class TextureSwap {
 
@@ -2210,7 +2210,7 @@ module demos {
 
 }
 
-module demos {
+namespace demos {
 
     export class Tinting {
 
@@ -2337,7 +2337,7 @@ module demos {
 
 }
 
-module demos {
+namespace demos {
 
     export class TransparentBackground {
 
@@ -2366,7 +2366,7 @@ module demos {
             this.bunny.position.y = 150;
 
             this.stage.addChild(this.bunny);
-            
+
             // start animating
             this.animate();
 
@@ -2387,7 +2387,7 @@ module demos {
 
 }
 
-module filters {
+namespace filters {
 
     export class Blur {
 
@@ -2461,7 +2461,7 @@ module filters {
 
 }
 
-module filters {
+namespace filters {
 
     export class DisplacementMap {
 
@@ -2627,7 +2627,7 @@ module filters {
 
 }
 
-module filters {
+namespace filters {
 
     export class Filter {
 

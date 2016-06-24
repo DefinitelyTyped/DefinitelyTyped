@@ -1,13 +1,13 @@
 // Type definitions for ScrollToFixed
 // Project: https://github.com/bigspotteddog/ScrollToFixed
 // Definitions by: Ben Dixon <https://github.com/bmdixon>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module ScrollToFixed {
+declare namespace ScrollToFixed {
 	interface ScrollToFixedOptions {
-		marginTop? : number | (() => number);		
+		marginTop? : number | (() => number);
 		limit? : number | (() => number);
 		bottom?: number;
 		zIndex? : number;
@@ -31,7 +31,7 @@ declare module ScrollToFixed {
 	}
 }
 
-interface JQuery {	
+interface JQuery {
     scrollToFixed : (options? : ScrollToFixed.ScrollToFixedOptions) => JQuery[];
 }
 
@@ -40,10 +40,10 @@ interface JQueryStatic {
 	isScrollToFixed(el: Element[]) : JQuery;
 	isScrollToFixed(el: {}) : JQuery;
 	isScrollToFixed(el: JQuery) : JQuery;
-	
+
     ScrollToFixed(el: Element, options: ScrollToFixed.ScrollToFixedOptions): void;
 	ScrollToFixed(el : Element, options : ScrollToFixed.ScrollToFixedOptions) : JQuery;
 	ScrollToFixed(el: Element[], options : ScrollToFixed.ScrollToFixedOptions) : JQuery;
 	ScrollToFixed(el: {}, options : ScrollToFixed.ScrollToFixedOptions) : JQuery;
-	ScrollToFixed(el: JQuery, options : ScrollToFixed.ScrollToFixedOptions) : JQuery;	
+	ScrollToFixed(el: JQuery, options : ScrollToFixed.ScrollToFixedOptions) : JQuery;
 }

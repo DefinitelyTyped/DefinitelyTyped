@@ -1,13 +1,13 @@
 // Type definitions for Mailcheck 1.1+
 // Project: https://github.com/mailcheck/mailcheck
 // Definitions by: Paulo Cesar <http://github.com/pocesar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
 declare var Mailcheck: MailcheckModule.Static;
 
-declare module MailcheckModule {
+declare namespace MailcheckModule {
 
     export interface IDistanceFunction {
         (s1: string, s2: string): number;

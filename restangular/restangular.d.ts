@@ -1,7 +1,7 @@
-// Type definitions for Restangular v1.4.0
+// Type definitions for Restangular v1.5.0
 // Project: https://github.com/mgonto/restangular
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../angularjs/angular.d.ts" />
@@ -14,7 +14,7 @@ declare module 'restangular' {
 
 
 
-declare module restangular {
+declare namespace restangular {
 
   interface IPromise<T> extends angular.IPromise<T> {
     call(methodName: string, params?: any): IPromise<T>;
@@ -56,7 +56,7 @@ declare module restangular {
     addRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string) => any): void;
     setFullRequestInterceptor(fullRequestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {element: any; headers: any; params: any}): void;
     addFullRequestInterceptor(requestInterceptor: (element: any, operation: string, what: string, url: string, headers: any, params: any, httpConfig: angular.IRequestShortcutConfig) => {headers: any; params: any; element: any; httpConfig: angular.IRequestShortcutConfig}): void;
-    setErrorInterceptor(errorInterceptor: (response: IResponse, deferred: angular.IDeferred<any>) => any): void;
+    setErrorInterceptor(errorInterceptor: (response: IResponse, deferred: angular.IDeferred<any>, responseHandler: (response: restangular.IResponse) => any) => any): void;
     setRestangularFields(fields: {[fieldName: string]: string}): void;
     setMethodOverriders(overriders: string[]): void;
     setJsonp(jsonp: boolean): void;
@@ -116,6 +116,9 @@ declare module restangular {
     withHttpConfig(httpConfig: angular.IRequestShortcutConfig): IElement;
     save(queryParams?: any, headers?: any): IPromise<any>;
     getRestangularUrl(): string;
+    route?: string;
+    id?: string;
+    reqParams?: any;
   }
 
   interface ICollection extends IService, Array<any> {

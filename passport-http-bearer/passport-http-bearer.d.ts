@@ -1,7 +1,7 @@
 // Type definitions for passport-http-bearer 1.0.1
 // Project: https://github.com/jaredhanson/passport-http-bearer
 // Definitions by: Isman Usoh <https://github.com/isman-usoh>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../passport/passport.d.ts"/>
 /// <reference path="../express/express.d.ts"/>

@@ -1,7 +1,7 @@
 ﻿// Type definitions for JQuery DataTables 1.10.5
 // Project: http://www.datatables.net
 // Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>, Omid Rad <https://github.com/omidkrad>, Armin Sander <https://github.com/pragmatrix/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // missing:
 // - Static methods that are defined in JQueryStatic.fn are not typed.
@@ -19,7 +19,7 @@ interface JQuery {
 //    dataTable: DataTables.StaticFunctions;
 //}
 
-declare module DataTables {
+declare namespace DataTables {
     export interface DataTable extends DataTableCore {
         /**
         * Get the data for the whole table.
@@ -76,11 +76,11 @@ declare module DataTables {
         //#endregion "Cell/Cells"
 
         //#region "Column/Columns"
-        
+
         /**
         * Column Methods / Object
         */
-        column: ColumnMethodsModel;      
+        column: ColumnMethodsModel;
 
         /**
         * Columns Methods / Object
@@ -150,7 +150,7 @@ declare module DataTables {
         */
         page?: string;
     }
-    
+
     //#region "Namespaces"
 
     //#region "core-methods"
@@ -521,14 +521,14 @@ declare module DataTables {
 
         /**
         * Sort the elements of the API instance's result set.
-        * 
+        *
         * @param fn This is a standard Javascript sort comparison function. It accepts two parameters.
         */
         sort(fn?: Function): DataTable;
 
         /**
         * Modify the contents of an Api instance's result set, adding or removing items from it as required.
-        * 
+        *
         * @param index Index at which to start modifying the Api instance's result set.
         * @param howMany Number of elements to remove from the result set.
         * @param value_1 Item to add to the result set at the index specified by the first parameter.
@@ -557,7 +557,7 @@ declare module DataTables {
 
         /**
         * Add one or more items to the start of an API instance's result set.
-        * 
+        *
         * @param value_1 Item to add to the API instance's result set.
         */
         unshift(value_1: any | any[], ...value_2: any[]): number;
@@ -575,7 +575,7 @@ declare module DataTables {
     }
 
     //#region "cell-methods"
-    
+
     interface CommonCellMethods extends CommonSubMethods {
         /**
         * Invalidate the data held in DataTables for the selected cells
@@ -655,7 +655,7 @@ declare module DataTables {
 
         /**
         * Order the table, in the direction specified, by the column selected by the column()DT selector.
-        * 
+        *
         * @param direction Direction of sort to apply to the selected column - desc (descending) or asc (ascending).
         */
         order(direction: string): DataTable;
@@ -667,7 +667,7 @@ declare module DataTables {
 
         /**
         * Set the visibility of the selected column.
-        * 
+        *
         * @param show Specify if the column should be visible (true) or not (false).
         * @param redrawCalculations Indicate if DataTables should recalculate the column layout (true - default) or not (false). Typically this would be left as the default value, but it can be useful to disable when using the method in a loop - so the calculations are performed on every call as they can hamper performance.
         */
@@ -685,7 +685,7 @@ declare module DataTables {
 
         /**
         * Convert from the input column index type to that required.
-        * 
+        *
         * @param t The type on conversion that should take place: 'fromVisible', 'toData', 'fromData', 'toVisible'
         * @param index The index to be converted
         */
@@ -705,7 +705,7 @@ declare module DataTables {
 
         /**
         * Get index information about the selected cell
-        * 
+        *
         * @param t Specify if you want to get the column data index (default) or the visible index (visible).
         */
         index(t?: string): DataTable;
@@ -751,7 +751,7 @@ declare module DataTables {
 
         /**
         * Get the column indexes of the selected columns.
-        * 
+        *
         * @param t Specify if you want to get the column data index (default) or the visible index (visible).
         */
         indexes(t?: string): DataTable;
@@ -768,7 +768,7 @@ declare module DataTables {
     interface CommonRowMethod extends CommonSubMethods {
         /**
         * Obtain the th / td nodes for the selected column
-        * 
+        *
         * @param source Data source to read the new data from. Values: 'auto', 'data', 'dom'
         */
         invalidate(source?: string): DataTable;
@@ -782,14 +782,14 @@ declare module DataTables {
 
         /**
         * Get the child row(s) that have been set for a parent row
-        * 
+        *
         * @param showRemove This parameter can be given as true or false
         */
         (showRemove: boolean): RowChildMethods;
 
         /**
         * Set the data to show in the child row(s). Note that calling this method will replace any child rows which are already attached to the parent row.
-        * 
+        *
         * @param data The data to be shown in the child row can be given in multiple different ways.
         * @param className Class name that is added to the td cell node(s) of the child row(s). As of 1.10.1 it is also added to the tr row node of the child row(s).
         */
@@ -863,8 +863,8 @@ declare module DataTables {
 
         /**
         * Set the data for the selected row
-        * 
-        * @param d Data to use for the row. 
+        *
+        * @param d Data to use for the row.
         */
         data(d: any[]| Object): DataTable;
 
@@ -916,8 +916,8 @@ declare module DataTables {
 
         /**
         * Set the data for the selected row
-        * 
-        * @param d Data to use for the row. 
+        *
+        * @param d Data to use for the row.
         */
         data(d: any[]| Object): DataTable;
 
