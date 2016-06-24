@@ -208,13 +208,13 @@ interface JQueryFileInputOptions {
     
     active?: Function;
     progress?: (e: JQueryEventObject, data: JQueryFileUploadProgressObject) => void;
-    send?: Function;
+    send?: (e: JQueryEventObject, data: JQueryFileUploadProgressObject) => void;
 
     // Other callbacks:
     submit?: Function;
     done?: (e: JQueryEventObject, data: JQueryFileUploadDone) => void;
-    fail?: Function;
-    always?: Function;
+    fail?: (e: JQueryEventObject, data: JQueryFileInputOptions) => void;
+    always?: (e: JQueryEventObject, data: JQueryFileInputOptions) => void;
     progressall?: (e: JQueryEventObject, data: JQueryFileUploadProgressAllObject) => void;
     start?: (e: JQueryEventObject) => void;
     stop?: (e: JQueryEventObject) => void;
@@ -265,7 +265,7 @@ interface JQueryFileUploadProgressAllObject {
     bitrate?: number;
 }
 
-interface JQueryFileUploadWithXhr {
+interface JQueryFileUploadXhr {
     jqXHR: JQueryXHR;
     result: any;
     textStatus: string;
@@ -275,7 +275,7 @@ interface JQueryFileUploadFilesObject {
     files: File[];
 }
 
-interface JQueryFileUploadChunkObject extends JQueryFileInputOptions, JQueryFileUploadWithXhr {
+interface JQueryFileUploadChunkObject extends JQueryFileInputOptions, JQueryFileUploadXhr {
     blob: any;
     chunkSize: number;
     contentRange: string;
@@ -285,5 +285,5 @@ interface JQueryFileUploadChunkObject extends JQueryFileInputOptions, JQueryFile
 interface JQueryFileUploadProgressObject extends JQueryFileInputOptions, JQueryFileUploadProgressAllObject {
 }
 
-interface JQueryFileUploadDone extends JQueryFileInputOptions, JQueryFileUploadWithXhr {
+interface JQueryFileUploadDone extends JQueryFileInputOptions, JQueryFileUploadXhr {
 }
