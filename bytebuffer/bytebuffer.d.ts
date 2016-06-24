@@ -24,6 +24,11 @@ declare class ByteBuffer
     static DEFAULT_CAPACITY: number;
 
     /**
+     * Default endianess of false for big endian.
+     */
+    static DEFAULT_ENDIAN: boolean;
+
+    /**
      * Default no assertions flag of false.
      */
     static DEFAULT_NOASSERT: boolean;
@@ -96,7 +101,7 @@ declare class ByteBuffer
     /**
      * Allocates a new ByteBuffer backed by a buffer of the specified capacity.
      */
-    static allocate( capacity?: number, littleEndian?: number, noAssert?: boolean ): ByteBuffer;
+    static allocate( capacity?: number, littleEndian?: boolean, noAssert?: boolean ): ByteBuffer;
 
     /**
      * Decodes a base64 encoded string to binary like window.atob does.
