@@ -21,5 +21,5 @@ socket.onMessage((event) => {}, { filter: /Some Filter/ })
 socket.close(true);
 socket.close();
 
-let promise = socket.send("Some great data here!");
-promise.finally(() => {});
+socket.send("Some great data here!").finally(() => {});
+socket.send({ list: [1, 2, 3, 4] });
