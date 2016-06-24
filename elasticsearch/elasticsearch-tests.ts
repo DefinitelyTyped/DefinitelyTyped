@@ -6,6 +6,14 @@ var client = new elasticsearch.Client({
   log: 'trace'
 });
 
+client = new elasticsearch.Client({
+  hosts: [
+    'box1.server.org',
+    'box2.server.org'
+  ],
+  selector: function (hosts: any) { }
+});
+
 client.ping({
   requestTimeout: 30000,
   hello: "elasticsearch"

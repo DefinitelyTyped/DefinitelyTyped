@@ -1,53 +1,78 @@
 // Type definitions for elasticsearch
-// Project: https://www.npmjs.com/package/elasticsearch
+// Project: https://www.npmjs.com/package/elasticsearch | https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/index.html
 // Definitions by: Casper Skydt <https://github.com/CasperSkydt/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module Elasticsearch {
     export class Client {
-        constructor(params: any);
+        constructor(params: ConfigOptions);
         indices: Indices;
-        bulk(params: BulkIndexDocumentsParams): IPromise<any>;
+        bulk(params: BulkIndexDocumentsParams): PromiseLike<any>;
         bulk(params: BulkIndexDocumentsParams, callback: (error: any, response: any) => void): void;
-        delete(params: DeleteDocumentParams): IPromise<any>;
+        delete(params: DeleteDocumentParams): PromiseLike<any>;
         delete(params: DeleteDocumentParams, callback: (error: any, response: any) => void): void;
         get(params: GetParams, callback: (error: any, response: any) => void): void;
-        get<T>(params: GetParams): IPromise<GetResponse<T>>;
-        index<T>(params: IndexDocumentParams<T>): IPromise<any>;
+        get<T>(params: GetParams): PromiseLike<GetResponse<T>>;
+        index<T>(params: IndexDocumentParams<T>): PromiseLike<any>;
         index<T>(params: IndexDocumentParams<T>, callback: (error: any, response: any) => void): void;
         mget(params: MGetParams, callback: (error: any, response: any) => void): void;
-        mget<T>(params: MGetParams): IPromise<GetResponse<T>>;
+        mget<T>(params: MGetParams): PromiseLike<GetResponse<T>>;
         msearch(params: MSearchParams, callback: (error: any, response: any) => void): void;
-        msearch<T>(params: MSearchParams): IPromise<GetResponse<T>>;
-        ping(params: PingParams): IPromise<any>;
+        msearch<T>(params: MSearchParams): PromiseLike<GetResponse<T>>;
+        ping(params: PingParams): PromiseLike<any>;
         ping(params: PingParams, callback: (err: any, response: any, status: any) => void): void;
-        scroll(params: ScrollParams): IPromise<any>;
+        scroll(params: ScrollParams): PromiseLike<any>;
         scroll(params: ScrollParams, callback: (error: any, response: any) => void): void;
-        search(params: SearchParams): IPromise<any>;
+        search(params: SearchParams): PromiseLike<any>;
         search(params: SearchParams, callback: (error: any, response: any) => void): void;
-        suggest(params: SuggestParams): IPromise<any>;
+        suggest(params: SuggestParams): PromiseLike<any>;
         suggest(params: SuggestParams, callback: (error: any, response: any) => void): void;
-        update(params: UpdateDocumentParams): IPromise<any>;
+        update(params: UpdateDocumentParams): PromiseLike<any>;
         update(params: UpdateDocumentParams, callback: (error: any, response: any) => void): void;
     }
 
     export class Indices {
         delete(params: IndicesDeleteParams, callback: (error: any, response: any, status: any) => void): void;
-        delete(params: IndicesDeleteParams): IPromise<any>;
+        delete(params: IndicesDeleteParams): PromiseLike<any>;
         create(params: IndicesCreateParams, callback: (error: any, response: any, status: any) => void): void;
-        create(params: IndicesCreateParams): IPromise<any>;
+        create(params: IndicesCreateParams): PromiseLike<any>;
         exists(params: IndicesIndexExitsParams, callback: (error: any, response: any, status: any) => void): void;
-        exists(params: IndicesIndexExitsParams): IPromise<any>;
+        exists(params: IndicesIndexExitsParams): PromiseLike<any>;
         get(params: IndicesGetParams, callback: (error: any, response: any, status: any) => void): void;
-        get(params: IndicesGetParams): IPromise<any>;
+        get(params: IndicesGetParams): PromiseLike<any>;
         getAlias(params: IndicesGetAliasParams, callback: (error: any, response: any, status: any) => void): void;
-        getAlias(params: IndicesGetAliasParams): IPromise<any>;
+        getAlias(params: IndicesGetAliasParams): PromiseLike<any>;
         putAlias(params: IndicesPutAliasParams, callback: (error: any, response: any, status: any) => void): void;
-        putAlias(params: IndicesPutAliasParams): IPromise<any>;
+        putAlias(params: IndicesPutAliasParams): PromiseLike<any>;
         putTemplate(params: IndicesPutTemplateParams, callback: (error: any, response: any) => void): void;
-        putTemplate(params: IndicesPutTemplateParams): IPromise<any>;
+        putTemplate(params: IndicesPutTemplateParams): PromiseLike<any>;
         refresh(params: IndicesRefreshParams, callback: (error: any, response: any) => void): void;
-        refresh(params: IndicesRefreshParams): IPromise<any>;
+        refresh(params: IndicesRefreshParams): PromiseLike<any>;
+    }
+
+    export interface ConfigOptions{
+        host?: string | string[] | any;
+        hosts?: string | string[] | any;
+        log?: string | string[] | any | any[];
+        apiVersion?: string;
+        plugins?: any;
+        sniffOnStart?: boolean;
+        sniffInterval?: number;
+        sniffOnConnectionFault?: boolean;
+        maxRetries?: number;
+        requestTimeout?: number;
+        deadTimeout?: number;
+        pingTimeout?: number;
+        keepAlive?: boolean;
+        maxSockets?: number;
+        suggestCompression?: boolean;
+        connectionClass?: string;
+        sniffedNodesProtocol?: string;
+        ssl?: Object;
+        selector?: string | any;
+        defer?: () => void;
+        nodesToHostCallback?: any;
+        createNodeAgent?: any;
     }
 
     export interface GenericParams {
@@ -241,10 +266,6 @@ declare module Elasticsearch {
         source?: string;
         body: string | any;
         index: string | string[] | boolean;
-    }
-
-    export interface IPromise<T> {
-        then(resolve: (response: T) => void, reject: (error: any) => void): any;
     }
 }
 
