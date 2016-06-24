@@ -2,12 +2,12 @@
 // Project: https://github.com/orientechnologies/orientjs
 // Definitions by: Saeed Tabrizi <https://github.com/saeedtabrizi>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// Developed with love in www.nowcando.com 
- 
+// Developed with love in www.nowcando.com
+
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../bluebird/bluebird.d.ts" />
 
-/* =================== USAGE =================== 
+/* =================== USAGE ===================
 
     import orientjs = require('orientjs');
    var dbserver = orientjs({
@@ -202,22 +202,19 @@ declare module "orientjs" {
         interface RecordMeta {
             "@rid": string|RID;
             "@version": string|number;
-           
+
         }
 
         interface Record {
             rid: RID;
             create(record: any, options?: any): Promise<Record> ;
-            get(record: Record & any, options?: any): Promise<Record | Buffer>;
+            get(record:  Record | RID | string, options?: any): Promise<Record | Buffer>;
             resolveReferences(records: Record[] &  any[]): any;
-            meta(record: Record & any, options?: any): Promise<RecordMeta> ;
+            meta(record: Record | RID | string, options?: any): Promise<RecordMeta> ;
             update(): Promise<Record> & Promise<any>;
-            update(record: Record & any, options?: any): Promise<Record> ;
+            update(record: Record | RID | string, options?: any): Promise<Record> ;
             delete(): Promise<Record> & Promise<any>;
-            delete(record: Record & any, options?: any): Promise<Record> ;
-            delete(record: RID, options?: any): Promise<Record> ;
-            delete(record: string, options?: any): Promise<Record> ;
-
+            delete(record: Record | RID | string, options?: any): Promise<Record> ;
         }
 
         interface Index {
@@ -227,7 +224,6 @@ declare module "orientjs" {
             algorithm: string;
             clusters: Cluster[];
             type: string;
-
             configure(config: any): void;
             add(args: any): Promise<Index[]>;
             add(args: any[]): Promise<Index[]>;
@@ -241,75 +237,40 @@ declare module "orientjs" {
             drop(name: string): Promise<Db>;
             get(name: string, refresh?: boolean): Promise<Index>;
             cacheData(indices: any[]): Promise<Db>;
-
         }
 
         interface Statement extends Query<any> {
-            select(param: string): Statement;
-            select(params: string[]): Statement;
-            traverse(param: string): Statement;
-            traverse(param: string[]): Statement;
-
+            select(param: string | string[]): Statement;
+            traverse(param: string | string[]): Statement;
             strategy(param: string): Statement;
-            insert(param: string): Statement;
-            insert(param: string[]): Statement;
-            insert(param: any): Statement;
-            update(param: string): Statement;
-            update(param: string[]): Statement;
-            update(param: any): Statement;
-            delete(param: string): Statement;
-            delete(param: string[]): Statement;
-            delete(param: any): Statement;
+            insert(param: string | string[]): Statement;
+            update(param: string | string[]): Statement;
+            delete(param: string | string[]): Statement;
             into(param: string): Statement;
-            into(param: string[]): Statement;
-            into(param: any): Statement;
             create(paramtype: string, paramname: string): Statement;
             from(param: string): Statement;
-            from(param: string[]): Statement;
             from(param: any): Statement;
-            from(param: Function): Statement;
-            to(param: string): Statement;
             to(param: any): Statement;
-            to(param: Function): Statement;
-            set(param: string): Statement;
-            set(param: string[]): Statement;
             set(param: any): Statement;
-            content(param: string): Statement;
             content(param: any): Statement;
             increment(property: string, value: any): Statement;
             add(property: string, value: any): Statement;
             remove(property: string, value: any): Statement;
             put(property: string, keysValues: any): Statement;
-            upsert(condition?: string, params?: any, comparisonOperator?: string): Statement;
             upsert(condition?: any, params?: any, comparisonOperator?: string): Statement;
-            where(param: string): Statement;
-            where(param: string[]): Statement;
             where(params: any): Statement;
-            while(param: string): Statement;
-            while(param: string[]): Statement;
             while(param: any): Statement;
-            
             containsText(param: any): Statement;
-            and(param: string): Statement;
-            and(param: string[]): Statement;
             and(param: any): Statement;
-            or(param: string): Statement;
-            or(param: string[]): Statement;
             or(param: any): Statement;
-            group(param: string): Statement;
-            group(param: string[]): Statement;
             group(param: any): Statement;
-            order(param: string): Statement;
-            order(param: string[]): Statement;
             order(param: any): Statement;
             skip(value: number): Statement;
             offset(value: number): Statement;
             limit(value: number): Statement;
-            fetch(param: string): Statement;
             fetch(param: any): Statement;
             let(name: string, value: string): Statement;
             let(name: string, value: Statement): Statement;
-            lock(param: string): Statement;
             lock(param: any): Statement;
             commit(retryLimit?: number): Statement;
             retry(retryLimit?: number): Statement;
@@ -319,9 +280,7 @@ declare module "orientjs" {
             lucene(property: any, luceneQuery: string): Statement;
             near(latitudeProperty: string, longitudeProperty: string, longitude: number, latitude: number, maxDistanceInKms: number): Statement;
             near(prop: any, maxDistanceInKms: number, longitude: number, latitude: number): Statement;
-
             within(latitudeProperty: string, longitudeProperty: string, box: Array<Number>): Statement;
-
             addParams(key: string, value: any): Statement;
             addParams(value: any): Statement;
             token(value: any): Statement;
@@ -332,7 +291,6 @@ declare module "orientjs" {
         interface Query<T> {
 
             transform<T>(transformer: any): Query<T>;
-            transform<T>(transformer: Function): Query<T>;
             column(name: string): Query<T>;
             defaults(defaults: any): Query<T>;
             one<T>(params?: any): Promise<T>   ;
@@ -352,8 +310,6 @@ declare module "orientjs" {
             commit(): Promise<any>;
             create(record: any): Transaction;
             update(record: any): Transaction;
-            delete(record: string): Transaction;
-            delete(record: RID): Transaction;
             delete(record: any): Transaction;
 
         }
@@ -416,29 +372,15 @@ declare module "orientjs" {
             create(params?: any): Statement;
             create(paramtype: string, paramname: string): Statement;
             select(params?: any): Statement;
-            select(param: string): Statement;
-            select(params: string[]): Statement;
-
             traverse(params?: any): Statement;
-            traverse(param: string): Statement;
-            traverse(param: string[]): Statement;
-
             insert(params?: any): Statement;
-
             update(params?: any): Statement;
-
             delete(params?: any): Statement;
-
             let(params?: any): Statement;
-            insert(param: string): Statement;
-            insert(param: string[]): Statement;
-            update(param: string): Statement;
-            update(param: string[]): Statement;
-            delete(param: string): Statement;
-            delete(param: string[]): Statement;
-            let(name: string, value: string): Statement;
-            let(name: string, value: Statement): Statement;
-
+            insert(param: string|string[]): Statement;
+            update(param: string|string[]): Statement;
+            delete(param: string|string[]): Statement;
+            let(name: string, value: string|Statement): Statement;
             escape(input: string): string;
             createUserContext(token: any): any;
             createFn(name: string, fn: Function, options?: any): Promise<any>;
@@ -453,9 +395,6 @@ declare module "orientjs" {
              port: number;
              username: string;
              password: string;
-       
-           
-            // new(host: string, port: number, username: string, password: string, useToken): ServerConfig;
         }
 
         interface ServerConfiguration {
@@ -486,15 +425,9 @@ declare module "orientjs" {
             freeze(name: string, storageType?: string): any;
             release(name: string, storageType?: string): any;
         }
-
-
         interface OrientJs extends Server {
 
-
         }
-
     }
-
     export = ojs;
-
 }
