@@ -723,6 +723,10 @@ export class ReactBootstrapTest extends Component<any, any> {
                 </div>
 
                 <div style={style}>
+                    <Image src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AUDIO&w=150&h=150" rounded />
+                </div>
+
+                <div style={style}>
                   <PageHeader>Example page header <small>Subtext for header</small></PageHeader>
                 </div>
 
