@@ -1,10 +1,11 @@
-﻿// Type definitions for orientjs >= 2.0.0
+﻿// Type definitions for orientjs v2.1.0
 // Project: https://github.com/orientechnologies/orientjs
 // Definitions by: Saeed Tabrizi <https://github.com/saeedtabrizi>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // Developed with love in www.nowcando.com 
 
-
+/// <reference path="../node/node.d.ts" />
+/// <reference path="../bluebird/bluebird.d.ts" />
 
 /* =================== USAGE =================== 
 
@@ -25,12 +26,7 @@
 
 declare module "orientjs" {
     import events = require('events');
-    import Promise = require('bluebird');
-    //import {BPromise} from 'bluebird'
-   // var Promise = PromiseConstructorLike;
-   // var Promise: PromiseConstructor = require('bluebird');
-   // import * as Promise from 'bluebird';
-   // import Promise = require('bluebird');
+	import Promise = require('bluebird');
     function ojs(config: any): ojs.OrientJs;
 
     module ojs {
@@ -129,7 +125,7 @@ declare module "orientjs" {
             isValid?(input: string): boolean;
             isValid?(input: RID): boolean;
             isValid?(input: any): boolean;
-            toRid?(cluster: number, position: number);
+            toRid?(cluster: number, position: number):any;
         }
 
         interface Property {
@@ -451,7 +447,7 @@ declare module "orientjs" {
         }
 
         interface ServerConfig {
-            constructor(config?: any);
+            constructor(config?: any):ServerConfig;
              useToken: boolean;
              host: string;
              port: number;
