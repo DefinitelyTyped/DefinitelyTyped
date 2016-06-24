@@ -28,10 +28,6 @@ interface SockJS extends EventTarget {
     onclose: (ev: SJSCloseEvent) => any;
     send(data: any): void;
     close(code?: number, reason?: string): void;
-    OPEN: number;
-    CLOSING: number;
-    CONNECTING: number;
-    CLOSED: number;
 }
 
 declare var SockJS: {
@@ -49,4 +45,8 @@ declare var SockJS: {
             null_origin?: boolean;
         };
     }): SockJS;
+    OPEN: number;
+    CLOSING: number;
+    CONNECTING: number;
+    CLOSED: number;
 };
