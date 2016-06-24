@@ -1,5 +1,5 @@
 // Type definitions for elasticsearch
-// Project: https://www.npmjs.com/package/elasticsearch | https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/index.html
+// Project: https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/index.html
 // Definitions by: Casper Skydt <https://github.com/CasperSkydt/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
