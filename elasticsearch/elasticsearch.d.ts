@@ -51,9 +51,9 @@ declare module Elasticsearch {
     }
 
     export interface ConfigOptions{
-        host?: string | string[] | any;
-        hosts?: string | string[] | any;
-        log?: string | string[] | any | any[];
+        host?: any;
+        hosts?: any;
+        log?: any;
         apiVersion?: string;
         plugins?: any;
         sniffOnStart?: boolean;
@@ -69,7 +69,7 @@ declare module Elasticsearch {
         connectionClass?: string;
         sniffedNodesProtocol?: string;
         ssl?: Object;
-        selector?: string | any;
+        selector?: any;
         defer?: () => void;
         nodesToHostCallback?: any;
         createNodeAgent?: any;
@@ -79,7 +79,7 @@ declare module Elasticsearch {
         requestTimeout?: number;
         maxRetries?: number;
         method?: string;
-        body?: string | any;
+        body?: any;
         ignore?: number | number[];
     }
 
