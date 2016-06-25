@@ -1008,7 +1008,7 @@ declare module "express-serve-static-core" {
         listen(path: string, callback?: Function): http.Server;
         listen(handle: any, listeningListener?: Function): http.Server;
 
-        route(path: string): IRoute;
+        route(path: string | RegExp): IRoute;
 
         router: string;
 
