@@ -1292,7 +1292,7 @@ declare module "net" {
         end(data?: any, encoding?: string): void;
         
         // Events
-        on(event: 'close' | 'connect' | 'data' | 'drain' | 'end' | 'error' | 'lookup' | 'timeout , listener: Function): this;
+        on(event: 'close' | 'connect' | 'data' | 'drain' | 'end' | 'error' | 'lookup' | 'timeout' , listener: Function): this;
     }
 
     export var Socket: {
