@@ -1,4 +1,4 @@
-/// <reference path="rxwamp.d.ts"/>
+/// <reference path="rx-wamp.d.ts"/>
 /// <reference path="../rx/rx.all.d.ts"/>
 
 function nodeJS(session: autobahn.Session) {
