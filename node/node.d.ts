@@ -1290,6 +1290,9 @@ declare module "net" {
         end(str: string, cb?: Function): void;
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
+        
+        // Events
+        on(event: 'close' | 'connect' | 'data' | 'drain' | 'end' | 'error' | 'lookup' | 'timeout' , listener: Function): this;
     }
 
     export var Socket: {
