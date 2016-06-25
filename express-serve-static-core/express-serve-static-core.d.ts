@@ -88,7 +88,7 @@ declare module "express-serve-static-core" {
         options: IRouterMatcher<T>;
         head: IRouterMatcher<T>;
 
-        route(path: string): IRoute;
+        route(path: string | RegExp): IRoute;
 
         use(...handler: RequestHandlerParams[]): T;
         use(handler: ErrorRequestHandler | RequestHandlerParams): T;
