@@ -3,7 +3,7 @@
 // Definitions by: Viktor Miroshnikov <https://github.com/superduper>, Lucas Woo <https://github.com/legendecas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace IUAParser {
+declare namespace UAParser {
 
     export interface IBrowser {
         /**
@@ -24,6 +24,12 @@ declare namespace IUAParser {
          * Determined dynamically
          */
         version:string;
+
+        /**
+         * Determined dynamically
+         * @deprecated
+         */
+        major:string;
     }
 
     export interface IDevice {
@@ -36,7 +42,7 @@ declare namespace IUAParser {
          * Possible type:
          * console, mobile, tablet, smarttv, wearable, embedded
          */
-            type:string;
+        type:string;
 
         /**
          * Possible vendor:
@@ -98,8 +104,9 @@ declare namespace IUAParser {
 
     export interface BROWSER {
         NAME:string;
-
-        // Deprecated
+        /**
+         * @deprecated
+         */
         MAJOR:string;
         VERSION:string;
     }
@@ -129,18 +136,28 @@ declare namespace IUAParser {
         NAME:string;
         VERSION:string;
     }
-
 }
 
 declare module "ua-parser-js" {
+    import BROWSER = UAParser.BROWSER;
+    import CPU = UAParser.CPU;
+    import DEVICE = UAParser.DEVICE;
+    import ENGINE = UAParser.ENGINE;
+    import OS = UAParser.OS;
+    import IBrowser = UAParser.IBrowser;
+    import IOS = UAParser.IOS;
+    import IEngine = UAParser.IEngine;
+    import IDevice = UAParser.IDevice;
+    import ICPU = UAParser.ICPU;
+    import IResult = UAParser.IResult;
 
     export class UAParser {
         static VERSION:string;
-        static BROWSER:IUAParser.BROWSER;
-        static CPU:IUAParser.CPU;
-        static DEVICE:IUAParser.DEVICE;
-        static ENGINE:IUAParser.ENGINE;
-        static OS:IUAParser.OS;
+        static BROWSER:BROWSER;
+        static CPU:CPU;
+        static DEVICE:DEVICE;
+        static ENGINE:ENGINE;
+        static OS:OS;
 
         /**
          * Create a new parser with UA prepopulated and extensions extended
@@ -150,27 +167,27 @@ declare module "ua-parser-js" {
         /**
          *  Returns browser information
          */
-        getBrowser():IUAParser.IBrowser;
+        getBrowser():IBrowser;
 
         /**
          *  Returns OS information
          */
-        getOS():IUAParser.IOS;
+        getOS():IOS;
 
         /**
          *  Returns browsers engine information
          */
-        getEngine():IUAParser.IEngine;
+        getEngine():IEngine;
 
         /**
          *  Returns device information
          */
-        getDevice():IUAParser.IDevice;
+        getDevice():IDevice;
 
         /**
          *  Returns parsed CPU information
          */
-        getCPU():IUAParser.ICPU;
+        getCPU():ICPU;
 
         /**
          *  Returns UA string of current instance
@@ -185,7 +202,7 @@ declare module "ua-parser-js" {
         /**
          *  Returns parse result
          */
-        getResult():IUAParser.IResult;
+        getResult():IResult;
     }
 
 }
