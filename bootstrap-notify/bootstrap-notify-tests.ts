@@ -50,12 +50,3 @@ $.notify({
 		'<a href="{3}" target="{4}" data-notify="url"></a>' +
 	'</div>'
 });
-
-$.notify({
-	message: 'Message.',
-},{
-	offset: {
-		x: 50,
-		y: 25
-	}
-});
