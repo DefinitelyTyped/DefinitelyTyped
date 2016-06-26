@@ -3,7 +3,7 @@
 // Definitions by: Viktor Miroshnikov <https://github.com/superduper>, Lucas Woo <https://github.com/legendecas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace UAParser {
+declare namespace IUAParser {
 
     export interface IBrowser {
         /**
@@ -18,31 +18,31 @@ declare namespace UAParser {
          * Tizen, UCBrowser, Vivaldi, w3m, Yandex
          *
          */
-        name:string;
+        name: string;
 
         /**
          * Determined dynamically
          */
-        version:string;
+        version: string;
 
         /**
          * Determined dynamically
          * @deprecated
          */
-        major:string;
+        major: string;
     }
 
     export interface IDevice {
         /**
          * Determined dynamically
          */
-        model:string;
+        model: string;
 
         /**
          * Possible type:
          * console, mobile, tablet, smarttv, wearable, embedded
          */
-        type:string;
+        type: string;
 
         /**
          * Possible vendor:
@@ -51,7 +51,7 @@ declare namespace UAParser {
          * Nintendo, Nokia, Nvidia, Ouya, Palm, Panasonic, Polytron, RIM, Samsung, Sharp,
          * Siemens, Sony-Ericsson, Sprint, Xbox, ZTE
          */
-        vendor:string;
+        vendor: string;
     }
 
     export interface IEngine {
@@ -60,11 +60,11 @@ declare namespace UAParser {
          * Amaya, EdgeHTML, Gecko, iCab, KHTML, Links, Lynx, NetFront, NetSurf, Presto,
          * Tasman, Trident, w3m, WebKit
          */
-        name:string;
+        name: string;
         /**
          * Determined dynamically
          */
-        version:string;
+        version: string;
     }
 
     export interface IOS {
@@ -77,11 +77,11 @@ declare namespace UAParser {
          * RIM Tablet OS, RISC OS, Sailfish, Series40, Slackware, Solaris, SUSE, Symbian, Tizen,
          * Ubuntu, UNIX, VectorLinux, WebOS, Windows [Phone/Mobile], Zenwalk
          */
-        name:string;
+        name: string;
         /**
          * Determined dynamically
          */
-        version:string;
+        version: string;
     }
 
     export interface ICPU {
@@ -90,120 +90,107 @@ declare namespace UAParser {
          *  68k, amd64, arm, arm64, avr, ia32, ia64, irix, irix64, mips, mips64, pa-risc,
          *  ppc, sparc, sparc64
          */
-        architecture:string;
+        architecture: string;
     }
 
     export interface IResult {
-        ua:string;
-        browser:IBrowser;
-        device:IDevice;
-        engine:IEngine;
-        os:IOS;
-        cpu:ICPU;
+        ua: string;
+        browser: IBrowser;
+        device: IDevice;
+        engine: IEngine;
+        os: IOS;
+        cpu: ICPU;
     }
 
     export interface BROWSER {
-        NAME:string;
+        NAME: string;
         /**
          * @deprecated
          */
-        MAJOR:string;
-        VERSION:string;
+        MAJOR: string;
+        VERSION: string;
     }
 
     export interface CPU {
-        ARCHITECTURE:string;
+        ARCHITECTURE: string;
     }
 
     export interface DEVICE {
-        MODEL:string;
-        VENDOR:string;
-        TYPE:string;
-        CONSOLE:string;
-        MOBILE:string;
-        SMARTTV:string;
-        TABLET:string;
-        WEARABLE:string;
-        EMBEDDED:string;
+        MODEL: string;
+        VENDOR: string;
+        TYPE: string;
+        CONSOLE: string;
+        MOBILE: string;
+        SMARTTV: string;
+        TABLET: string;
+        WEARABLE: string;
+        EMBEDDED: string;
     }
 
     export interface ENGINE {
-        NAME:string;
-        VERSION:string;
+        NAME: string;
+        VERSION: string;
     }
 
     export interface OS {
-        NAME:string;
-        VERSION:string;
+        NAME: string;
+        VERSION: string;
     }
 }
 
 declare module "ua-parser-js" {
-    import BROWSER = UAParser.BROWSER;
-    import CPU = UAParser.CPU;
-    import DEVICE = UAParser.DEVICE;
-    import ENGINE = UAParser.ENGINE;
-    import OS = UAParser.OS;
-    import IBrowser = UAParser.IBrowser;
-    import IOS = UAParser.IOS;
-    import IEngine = UAParser.IEngine;
-    import IDevice = UAParser.IDevice;
-    import ICPU = UAParser.ICPU;
-    import IResult = UAParser.IResult;
-
     export class UAParser {
-        static VERSION:string;
-        static BROWSER:BROWSER;
-        static CPU:CPU;
-        static DEVICE:DEVICE;
-        static ENGINE:ENGINE;
-        static OS:OS;
+        static VERSION: string;
+        static BROWSER: IUAParser.BROWSER;
+        static CPU: IUAParser.CPU;
+        static DEVICE: IUAParser.DEVICE;
+        static ENGINE: IUAParser.ENGINE;
+        static OS: IUAParser.OS;
 
         /**
          * Create a new parser with UA prepopulated and extensions extended
          */
-        constructor(uastring?:string, extensions?:any);
+        constructor(uastring?: string, extensions?: any);
 
         /**
          *  Returns browser information
          */
-        getBrowser():IBrowser;
+        getBrowser(): IUAParser.IBrowser;
 
         /**
          *  Returns OS information
          */
-        getOS():IOS;
+        getOS(): IUAParser.IOS;
 
         /**
          *  Returns browsers engine information
          */
-        getEngine():IEngine;
+        getEngine(): IUAParser.IEngine;
 
         /**
          *  Returns device information
          */
-        getDevice():IDevice;
+        getDevice(): IUAParser.IDevice;
 
         /**
          *  Returns parsed CPU information
          */
-        getCPU():ICPU;
+        getCPU(): IUAParser.ICPU;
 
         /**
          *  Returns UA string of current instance
          */
-        getUA():string;
+        getUA(): string;
 
         /**
          *  Set & parse UA string
          */
-        setUA(uastring:string):UAParser;
+        setUA(uastring: string): UAParser;
 
         /**
          *  Returns parse result
          */
-        getResult():IResult;
+        getResult(): IUAParser.IResult;
     }
-
 }
 
