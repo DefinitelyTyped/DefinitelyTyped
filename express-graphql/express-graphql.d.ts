@@ -21,6 +21,11 @@ declare module "express-graphql" {
             schema:Object,
 
             /**
+             * A value to pass as the context to the graphql() function.
+             */
+            context?:Object,
+
+            /**
              * An object to pass as the rootValue to the graphql() function.
              */
             rootValue?:Object,
