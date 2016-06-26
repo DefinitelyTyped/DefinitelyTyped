@@ -62,12 +62,14 @@ declare namespace angular.material {
     
     interface IPromptDialog extends IPresetDialog<IPromptDialog> {
         cancel(cancel: string): IPromptDialog;
-        placeholder(placeholder: string): IPromptDialog;        
+        placeholder(placeholder: string): IPromptDialog;    
+        initialValue(initialValue: string): IPromptDialog;    
     }
 
     interface IDialogOptions {
         templateUrl?: string;
         template?: string;
+        contentElement?: string|Element;
         autoWrap?: boolean; // default: true
         targetEvent?: MouseEvent;
         openFrom?: any;
@@ -88,7 +90,7 @@ declare namespace angular.material {
         onShowing?: Function;
         onComplete?: Function;
         onRemoving?: Function;
-        fullscreen?: boolean;
+        fullscreen?: boolean; // default: false
     }
 
     interface IDialogService {
@@ -296,7 +298,7 @@ declare namespace angular.material {
         focusOnOpen?: boolean; // default: true
         fullscreen?: boolean; // default: false
         animation?: IPanelAnimation;
-        hasBackdrop?: boolean // default: false
+        hasBackdrop?: boolean; // default: false
         disableParentScroll?: boolean; // default: false
         onDomAdded?: Function;
         onOpenComplete?: Function;
