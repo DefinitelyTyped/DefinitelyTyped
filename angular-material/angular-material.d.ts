@@ -68,12 +68,14 @@ declare namespace angular.material {
     
     interface IPromptDialog extends IPresetDialog<IPromptDialog> {
         cancel(cancel: string): IPromptDialog;
-        placeholder(placeholder: string): IPromptDialog;        
+        placeholder(placeholder: string): IPromptDialog;    
+        initialValue(initialValue: string): IPromptDialog;    
     }
 
     interface IDialogOptions {
         templateUrl?: string;
         template?: string;
+        contentElement?: string|Element;
         autoWrap?: boolean; // default: true
         targetEvent?: MouseEvent;
         openFrom?: any;
@@ -94,8 +96,12 @@ declare namespace angular.material {
         onShowing?: Function;
         onComplete?: Function;
         onRemoving?: Function;
+<<<<<<< 3baa34499f7a3549b484081bbb081ba22f0596eb
         fullscreen?: boolean;
         skipHide?: boolean;
+=======
+        fullscreen?: boolean; // default: false
+>>>>>>> Updated IDialogOptions to include contentElement property for prerendered dialogs. Updated IPromptDialog to add initialValue method. Adding missing semicolon to IPanelConfig.
     }
 
     interface IDialogService {
@@ -303,7 +309,7 @@ declare namespace angular.material {
         focusOnOpen?: boolean; // default: true
         fullscreen?: boolean; // default: false
         animation?: IPanelAnimation;
-        hasBackdrop?: boolean // default: false
+        hasBackdrop?: boolean; // default: false
         disableParentScroll?: boolean; // default: false
         onDomAdded?: Function;
         onOpenComplete?: Function;
