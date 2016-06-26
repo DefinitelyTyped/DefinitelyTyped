@@ -83,7 +83,7 @@ declare namespace angular.material {
         scope?: angular.IScope; // default: new child scope
         preserveScope?: boolean; // default: false
         disableParentScroll?: boolean; // default: true
-        hasBackdrop?: boolean // default: true
+        hasBackdrop?: boolean; // default: true
         clickOutsideToClose?: boolean; // default: false
         escapeToClose?: boolean; // default: true
         focusOnOpen?: boolean; // default: true
@@ -96,12 +96,8 @@ declare namespace angular.material {
         onShowing?: Function;
         onComplete?: Function;
         onRemoving?: Function;
-<<<<<<< 3baa34499f7a3549b484081bbb081ba22f0596eb
-        fullscreen?: boolean;
         skipHide?: boolean;
-=======
         fullscreen?: boolean; // default: false
->>>>>>> Updated IDialogOptions to include contentElement property for prerendered dialogs. Updated IPromptDialog to add initialValue method. Adding missing semicolon to IPanelConfig.
     }
 
     interface IDialogService {
