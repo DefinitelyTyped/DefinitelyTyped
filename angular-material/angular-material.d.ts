@@ -1,6 +1,6 @@
 // Type definitions for Angular Material 1.0.0-rc5+ (angular.material module)
 // Project: https://github.com/angular/material
-// Definitions by: Matt Traynham <https://github.com/mtraynham>
+// Definitions by: Alex Staroselsky <https://github.com/AlStar01>, Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
@@ -65,11 +65,11 @@ declare namespace angular.material {
     interface IConfirmDialog extends IPresetDialog<IConfirmDialog> {
         cancel(cancel: string): IConfirmDialog;
     }
-    
+
     interface IPromptDialog extends IPresetDialog<IPromptDialog> {
         cancel(cancel: string): IPromptDialog;
-        placeholder(placeholder: string): IPromptDialog;    
-        initialValue(initialValue: string): IPromptDialog;    
+        placeholder(placeholder: string): IPromptDialog;
+        initialValue(initialValue: string): IPromptDialog;
     }
 
     interface IDialogOptions {
