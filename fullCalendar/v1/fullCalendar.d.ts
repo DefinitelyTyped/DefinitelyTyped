@@ -1,13 +1,34 @@
-﻿// Type definitions for FullCalendar 2.7.2
-// Project: http://fullcalendar.io/
+// Type definitions for FullCalendar 1.6.1
+// Project: http://arshaw.com/fullcalendar/
 // Definitions by: Neil Stalker <https://github.com/nestalk>, Marcelo Camargo <https://github.com/hasellcamargo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="../moment/moment.d.ts"/>
+/// <reference path="../../jquery/jquery.d.ts"/>
+/// <reference path="../../moment/moment.d.ts"/>
 
 declare namespace FullCalendar {
     export interface Calendar {
+
+        /**
+         * Formats a Date object into a string.
+         */
+        formatDate(date: Date, format: string, options?: Options): string;
+
+        /**
+         * Formats a date range (two Date objects) into a string.
+         */
+        formatDates(date1: Date, date2: Date, format: string, options?: Options): string;
+
+        /**
+         * Parses a string into a Date object.
+         */
+        parseDate(dateString: string, ignoreTimezone?: boolean): Date;
+
+        /**
+         * Parses an ISO8601 string into a Date object.
+         */
+        parseISO8601(dateString: string, ignoreTimezone?: boolean): Date;
+
         /**
          * Gets the version of Fullcalendar
          */
@@ -26,7 +47,8 @@ declare namespace FullCalendar {
     }
 
     export interface Options extends AgendaOptions, EventDraggingResizingOptions, DroppingExternalElementsOptions, SelectionOptions {
-        // General display - http://fullcalendar.io/docs/display/
+
+        // General display - http://arshaw.com/fullcalendar/docs/display/
 
         header?: {
             left: string;
@@ -50,7 +72,6 @@ declare namespace FullCalendar {
         contentHeight?: number;
         aspectRatio?: number;
         handleWindowResize?: boolean;
-		views?: ViewSpecificOptions;
         viewRender?: (view: ViewObject, element: JQuery) => void;
         viewDestroy?: (view: ViewObject, element: JQuery) => void;
         dayRender?: (date: Date, cell: HTMLTableDataCellElement) => void;
@@ -60,22 +81,22 @@ declare namespace FullCalendar {
         timezone?: string | boolean;
         now?: moment.Moment | Date | string | (() => moment.Moment)
 
-        // Views - http://fullcalendar.io/docs/views/
+        // Views - http://arshaw.com/fullcalendar/docs/views/
 
         defaultView?: string;
 
-        // Current Date - http://fullcalendar.io/docs/current_date/
+        // Current Date - http://arshaw.com/fullcalendar/docs/current_date/
 
         defaultDate?: moment.Moment | Date | string;
         year?: number;
         month?: number;
         date?: number;
 
-        // Text/Time Customization - http://fullcalendar.io/docs/text/
+        // Text/Time Customization - http://arshaw.com/fullcalendar/docs/text/
 
-        timeFormat?: any; // String
-        columnFormat?: any; // String
-        titleFormat?: any; // String
+        timeFormat?: any; // String/ViewOptionHash
+        columnFormat?: any; // String/ViewOptionHash
+        titleFormat?: any; // String/ViewOptionHash
 
         buttonText?: ButtonTextObject;
         monthNames?: Array<string>;
@@ -84,21 +105,21 @@ declare namespace FullCalendar {
         dayNamesShort?: Array<string>;
         weekNumberTitle?: string;
 
-        // Clicking & Hovering - http://fullcalendar.io/docs/mouse/
+        // Clicking & Hovering - http://arshaw.com/fullcalendar/docs/mouse/
 
         dayClick?: (date: Date, allDay: boolean, jsEvent: MouseEvent, view: ViewObject) => void;
         eventClick?: (event: EventObject, jsEvent: MouseEvent, view: ViewObject) => any; // return type boolean or void
         eventMouseover?: (event: EventObject, jsEvent: MouseEvent, view: ViewObject) => void;
         eventMouseout?: (event: EventObject, jsEvent: MouseEvent, view: ViewObject) => void;
 
-        // Event Data - http://fullcalendar.io/docs/event_data/
+        // Event Data - http://arshaw.com/fullcalendar/docs/event_data/
 
         /**
          * This has one of the following types:
          *
          * - EventObject[]
          * - string (JSON feed)
-         * - (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: {(events: EventObject[]) => void;}) => void;
+         * - (start: Date | string, end: Date | string, callback: {(events: EventObject[]) => void;}) => void;
          */
         events?: any;
 
@@ -108,18 +129,19 @@ declare namespace FullCalendar {
          * - EventSource
          * - EventObject[]
          * - string (JSON feed)
-         * - (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: {(events: EventObject[]) => void;}) => void;
+         * - (start: Date | string, end: Date | string, callback: {(events: EventObject[]) => void;}) => void;
          */
         eventSources?: any[];
 
         allDayDefault?: boolean;
+        ignoreTimezone?: boolean;
         startParam?: string;
         endParam?: string
         lazyFetching?: boolean;
         eventDataTransform?: (eventData: any) => EventObject;
         loading?: (isLoading: boolean, view: ViewObject) => void;
 
-        // Event Rendering - http://fullcalendar.io/docs/event_rendering/
+        // Event Rendering - http://arshaw.com/fullcalendar/docs/event_rendering/
 
         eventColor?: string;
         eventBackgroundColor?: string;
@@ -129,10 +151,25 @@ declare namespace FullCalendar {
         eventAfterRender?: (event: EventObject, element: HTMLDivElement, view: ViewObject) => void;
         eventAfterAllRender?: (view: ViewObject) => void;
         eventDestroy?: (event: EventObject, element: JQuery, view: ViewObject) => void;
+
+
+    }
+
+    export interface ViewOptionHash {
+        month?: any;
+        week?: any;
+        day?: any;
+        agenda?: any;
+        agendaDay?: any;
+        agendaWeek?: any;
+        basic?: any;
+        basicDay?: any;
+        basicWeek?: any;
+        ''?: any;
     }
 
     /**
-     * Agenda Options - http://fullcalendar.io/docs/agenda/
+     * Agenda Options - http://arshaw.com/fullcalendar/docs/agenda/
      */
     export interface AgendaOptions {
         allDaySlot?: boolean;
@@ -167,7 +204,7 @@ declare namespace FullCalendar {
         eventResize?: (event: EventObject, delta: moment.Duration, revertFunc: Function, jsEvent: Event, ui: any, view: ViewObject) => void;
     }
     /*
-    * Selection - http://fullcalendar.io/docs/selection/
+    * Selection - http://arshaw.com/fullcalendar/docs/selection/
     */
     export interface SelectionOptions {
         selectable?: boolean;
@@ -221,12 +258,13 @@ declare namespace FullCalendar {
     }
 
     export interface EventSource extends JQueryAjaxSettings {
+
         /**
          * This has one of the following types:
          *
          * - EventObject[]
          * - string (JSON feed)
-         * - (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: {(events: EventObject[]) => void;}) => void;
+         * - (start: Date | string, end: Date | string, callback: {(events: EventObject[]) => void;}) => void;
          */
         events?: any;
 
@@ -243,23 +281,10 @@ declare namespace FullCalendar {
         endParam?: string
     }
 
-	/*
-    * View Specific Options - http://fullcalendar.io/docs/views/View-Specific-Options/
-    */
-	export interface ViewSpecificOptions {
-		basic?: Options;
-		agenda?: Options;
-		week?: Options;
-		day?: Options;
-		month?: Options;
-		basicWeek?: Options;
-		basicDay?: Options;
-		agendaWeek?: Options;
-		agendaDay?: Options;
-	}
 }
 
 interface JQuery {
+
     /**
      * Get/Set option value
      */

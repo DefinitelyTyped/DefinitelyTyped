@@ -1,6 +1,6 @@
 /// <reference path="fullCalendar.d.ts" />
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="../jqueryui/jqueryui.d.ts"/>
+/// <reference path="../../jquery/jquery.d.ts"/>
+/// <reference path="../../jqueryui/jqueryui.d.ts"/>
 
 // All examples from http://arshaw.com/fullcalendar/docs/
 
@@ -599,14 +599,14 @@ $('#calendar').fullCalendar({
 });
 
 $('#calendar').fullCalendar({
-    events: function (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: (events: FullCalendar.EventObject[]) => void) {
+    events: function (start: any, end: any, callback: any) {
         $.ajax({
             url: 'myxmlfeed.php',
             dataType: 'xml',
             data: {
                 // our hypothetical feed requires UNIX timestamps
-                start: Math.round(start.toDate().getTime() / 1000),
-                end: Math.round(end.toDate().getTime() / 1000)
+                start: Math.round(start.getTime() / 1000),
+                end: Math.round(end.getTime() / 1000)
             },
             success: function (doc) {
                 var events: any[] = [];
@@ -628,7 +628,7 @@ $('#calendar').fullCalendar({
 
         // your event source
         {
-            events: function (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: (events: FullCalendar.EventObject[]) => void) {
+            events: function (start: any, end: any, callback: any) {
                 // ...
             },
             color: 'yellow',   // an option!
@@ -681,7 +681,7 @@ $('#calendar').fullCalendar({
         }
         // more events here
     ],
-    eventRender: function (event: EventWithDescription, element: any, view: any) {
+    eventRender: function (event: EventWithDescription, element: any) {
         element.qtip({
             content: event.description
         });
