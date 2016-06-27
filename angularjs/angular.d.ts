@@ -1707,10 +1707,7 @@ declare namespace angular {
          * Use the array form to define dependencies (necessary if strictDi is enabled and you require dependency injection)
          */
         templateUrl?: string | Function | (string | Function)[];
-        /**
-         * Define object mapping to other directive or component required controllers.
-         */
-        require?: any;
+
         /**
          * Define DOM attribute binding to component properties. Component properties are always bound to the component
          * controller and not to the scope.
@@ -1720,6 +1717,9 @@ declare namespace angular {
          * Whether transclusion is enabled. Enabled by default.
          */
         transclude?: boolean | string | {[slot: string]: string};
+        /**
+         * Define object mapping to other directive or component required controllers.
+         */
         require?: {[controller: string]: string};
     }
 
