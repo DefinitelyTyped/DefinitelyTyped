@@ -1,4 +1,4 @@
-/// <reference path="di-lite.d.ts" />
+
 
 interface Dependency {
     dependencies?: string;

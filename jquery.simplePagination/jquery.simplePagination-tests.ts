@@ -1,5 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery.simplePagination.d.ts"/>
+/// <reference types="jquery"/>
 
 var selector = '#elementId';
 

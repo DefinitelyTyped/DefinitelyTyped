@@ -1,4 +1,4 @@
-/// <reference path="sat.d.ts" />
+
 class SatTest{
 	public vectorTest(){
 		let v1: SAT.Vector = new SAT.Vector(10, 10);

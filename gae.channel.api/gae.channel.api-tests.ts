@@ -1,4 +1,4 @@
-/// <reference path="gae.channel.api.d.ts" />
+
 
 function test_channel() {
 	var channel = new goog.appengine.Channel("test");

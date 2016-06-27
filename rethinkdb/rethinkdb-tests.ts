@@ -1,4 +1,3 @@
-/// <reference path="rethinkdb.d.ts" />
 
 import r = require("rethinkdb")
 

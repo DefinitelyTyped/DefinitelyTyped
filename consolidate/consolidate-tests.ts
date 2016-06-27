@@ -1,4 +1,4 @@
-/// <reference path="consolidate.d.ts" />
+
 import cons = require('consolidate');
 
 var path: string = 'test/path';

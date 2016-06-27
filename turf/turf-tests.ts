@@ -1,8 +1,8 @@
-/// <reference path="turf.d.ts"/>
-
 ///////////////////////////////////////////
 // Tests data initialisation
 ///////////////////////////////////////////
+
+import turf = require("turf");
 
 var point1 = {
   "type": "Feature",

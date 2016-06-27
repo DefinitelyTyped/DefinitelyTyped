@@ -3,8 +3,6 @@
 // Definitions by: Lokesh Peta <https://github.com/lokeshpeta/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../underscore/underscore.d.ts" />
-
 interface IConfiguration{
 	SYSTEM_CHANNEL: string;
 	DEFAULT_CHANNEL: string;

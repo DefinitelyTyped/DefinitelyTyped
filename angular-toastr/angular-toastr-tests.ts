@@ -1,6 +1,4 @@
-/// <reference path='../angularjs/angular.d.ts' />
-/// <reference path='angular-toastr.d.ts' />
-
+import * as angular from 'angularjs';
 
 angular
     .module('toastr-tests', ['toastr'])

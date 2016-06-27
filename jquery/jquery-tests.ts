@@ -1,4 +1,4 @@
-/// <reference path="jquery.d.ts" />
+
 
 function test_add() {
     $("p").add("div").addClass("widget");
@@ -1039,7 +1039,6 @@ function test_css() {
 function test_cssHooks() {
     if (!$.cssHooks) {
         throw ("jQuery 1.4.3 or above is required for this plugin to work");
-        return;
     }
     $.cssHooks["someCSSProp"] = {
         get: function (elem, computed, extra) { },
@@ -2527,6 +2526,18 @@ function test_jQuery() {
     });
     $.post('url.xml', function (data) {
         var $child = $(data).find('child');
+    });
+    $.post({
+        url: "test.php",
+        success : () => {
+            console.log("successfull");
+        }
+    });
+    $.get({
+        url: "test.php",
+        success : () => {
+            console.log("successfull");
+        }
     });
     var foo = { foo: 'bar', hello: 'world' };
     var $foo = $(foo);

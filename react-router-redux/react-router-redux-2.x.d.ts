@@ -3,8 +3,8 @@
 // Definitions by: Isman Usoh <http://github.com/isman-usoh>, Noah Shipley <https://github.com/noah79>, Dimitri Rosenberg <https://github.com/rosendi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="../react-router/react-router.d.ts"/>
+/// <reference types="redux" />
+/// <reference types="react-router"/>
 
 declare namespace ReactRouterRedux {
     import R = Redux;

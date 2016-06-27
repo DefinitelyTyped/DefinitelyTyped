@@ -1,4 +1,4 @@
-/// <reference path="leaflet-label.d.ts" />
+
 
 var map: L.Map;
 var label: L.Label;

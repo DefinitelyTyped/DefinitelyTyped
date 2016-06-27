@@ -1,5 +1,5 @@
-/// <reference path="../d3/d3.d.ts" />
-/// <reference path="nvd3.d.ts" />
+/// <reference types="d3" />
+
 var data = [{ 
         values : [] 
     }]; 

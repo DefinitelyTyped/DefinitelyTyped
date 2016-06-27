@@ -3,8 +3,6 @@
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="yargs.d.ts" />
-
 import yargs = require('yargs');
 
 // Examples taken from yargs website

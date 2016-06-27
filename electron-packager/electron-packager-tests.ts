@@ -1,4 +1,4 @@
-/// <reference path="./electron-packager.d.ts" />
+
 
 import * as packager from "electron-packager";
 

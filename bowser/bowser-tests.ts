@@ -1,4 +1,4 @@
-/// <reference path="./bowser.d.ts" />
+
 
 import Bowser = require('bowser');
 

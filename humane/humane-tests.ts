@@ -1,4 +1,4 @@
-/// <reference path="humane.d.ts" />
+
 
 humane.log("Welcome Back");
 humane.log(["List","of","Items"]);

@@ -1,4 +1,4 @@
-/// <reference path="dropboxjs.d.ts" />
+
 
 var browserClient = new Dropbox.Client({ key: "your-key-here" });
 

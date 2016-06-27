@@ -1,4 +1,4 @@
-/// <reference path="oclazyload.d.ts" />
+
 
 angular.module('app', ['oc.lazyLoad']).config(['$ocLazyLoadProvider', function ($ocLazyLoadProvider: oc.ILazyLoadProvider) {
     $ocLazyLoadProvider.config({

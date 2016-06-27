@@ -1,4 +1,4 @@
-/// <reference path="decimal.js.d.ts" />
+
 var x = new Decimal(9)
 var y = new Decimal(x)
 

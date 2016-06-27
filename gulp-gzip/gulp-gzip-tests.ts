@@ -1,5 +1,5 @@
-/// <reference path="gulp-gzip.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
+
+
 
 import gulp = require('gulp');
 import gzip = require('gulp-gzip');

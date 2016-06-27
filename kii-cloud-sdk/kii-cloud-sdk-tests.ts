@@ -1,4 +1,4 @@
-/// <reference path="kii-cloud-sdk.d.ts" />
+
 
 function main() {
     Kii.initializeWithSite("abc", "def", KiiSite.JP);
@@ -20,6 +20,16 @@ function main() {
     user.register()
         .then(function (user: KiiUser) {
         });
+
+    user.pushInstallation().getMqttEndpoint("")
+        .then(function (endpoint: KiiCloud.KiiMqttEndpoint) {
+            endpoint.installationID;
+        });
+
+    var anotherUser: KiiUser = KiiUserBuilder
+        .builderWithIdentifier("id", "password")
+        .setEmailAddress("mail@example.org")
+        .build();
 
     var bucket = Kii.bucketWithName("foo");
     var clause1 = KiiClause.lessThan("x", 1);

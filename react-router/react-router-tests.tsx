@@ -1,17 +1,10 @@
-
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../react/react-dom.d.ts" />
-/// <reference path="./history.d.ts" />
-/// <reference path="./react-router.d.ts" />
-
-
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
-import { browserHistory, hashHistory, Router, Route, IndexRoute, Link } from "react-router"
+import { browserHistory, hashHistory, createMemoryHistory, Router, Route, IndexRoute, Link, RouterOnContext } from "react-router"
 
 interface MasterContext {
-	router: ReactRouter.RouterOnContext;
+	router: RouterOnContext;
 }
 
 class Master extends React.Component<React.Props<{}>, {}> {

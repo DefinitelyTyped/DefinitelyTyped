@@ -1,4 +1,4 @@
-/// <reference path="./sjcl.d.ts" /> 
+import sjcl = require("sjcl"); 
 
 var b: boolean;
 var n: number;

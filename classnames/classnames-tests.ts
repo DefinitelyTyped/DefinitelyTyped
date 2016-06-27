@@ -1,5 +1,3 @@
-///<reference path='classnames.d.ts' />
-
 import classNames = require('classnames')
 
 classNames('foo', 'bar'); // => 'foo bar'

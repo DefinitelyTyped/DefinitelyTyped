@@ -1,4 +1,4 @@
-/// <reference path="./pathwatcher.d.ts" />
+
 
 import pathwatcher = require("pathwatcher");
 var File = pathwatcher.File;

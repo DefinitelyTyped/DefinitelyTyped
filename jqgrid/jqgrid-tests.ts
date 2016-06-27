@@ -2,5 +2,4 @@
 // Definitions by: Lokesh Peta <https://github.com/lokeshpeta/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../jquery/jquery.d.ts" />
-/// <reference path="jqgrid.d.ts" />
+///<reference types="jquery" />

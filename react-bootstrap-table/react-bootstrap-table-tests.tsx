@@ -1,5 +1,4 @@
-/// <reference path="react-bootstrap-table.d.ts"/>
-/// <reference path="../react/react-dom.d.ts"/>
+/// <reference types="react-dom"/>
 
 import * as React from 'react';
 import { render } from 'react-dom';

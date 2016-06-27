@@ -1,5 +1,5 @@
-/// <reference path="archiver.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="node" />
 
 import Archiver = require('archiver');
 import FS = require('fs');

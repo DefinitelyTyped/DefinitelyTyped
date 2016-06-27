@@ -1,4 +1,4 @@
-/// <reference path="ui-select.d.ts" />
+import * as angular from 'angularjs';
 
 angular
 	.module('main', ['ui-select'])

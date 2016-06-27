@@ -1,7 +1,7 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="Q.d.ts" />
+/// <reference types="jquery" />
 
-import q = require('q');
+
+import Q = require('q');
 
 Q(8).then(x => console.log(x.toExponential()));
 

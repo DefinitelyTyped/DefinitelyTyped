@@ -1,5 +1,5 @@
-/// <reference path="../estree/estree.d.ts" />
-/// <reference path="esprima.d.ts" />
+/// <reference types="estree" />
+
 
 import esprima = require('esprima');
 

@@ -1,4 +1,3 @@
-/// <reference path="mandrill-api.d.ts" />
 
 import mandrill = require('mandrill-api');
 

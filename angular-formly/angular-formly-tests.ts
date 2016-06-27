@@ -1,4 +1,4 @@
-/// <reference path="angular-formly.d.ts" />
+
 
 var app = angular.module('app', ['formly']);
 

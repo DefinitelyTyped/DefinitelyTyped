@@ -1,4 +1,4 @@
-/// <reference path="modernizr.d.ts" />
+
 
 declare var $: any;
 

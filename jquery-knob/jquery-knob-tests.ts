@@ -1,5 +1,3 @@
-/// <reference path="jquery-knob.d.ts"/>
-
 // create from html attrs
 $('<input type="text" name="knob" value="50" data-min="0" data-max="100">').knob();
 

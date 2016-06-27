@@ -1,4 +1,4 @@
-/// <reference path="scrolltofixed.d.ts" />
+
 
 $(document).ready(function() {
   $('#mydiv').scrollToFixed();

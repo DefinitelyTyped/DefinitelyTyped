@@ -1,4 +1,4 @@
-/// <reference path="leaflet.awesome-markers.d.ts" />
+
 
 var map: L.Map;
 

@@ -1,5 +1,4 @@
 // Tests for storagejs.d.ts
-///<reference path="storejs.d.ts" />
 
 // Store 'marcus' at 'username'
 store.set('username', 'marcus');

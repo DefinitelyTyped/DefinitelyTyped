@@ -1,4 +1,4 @@
-/// <reference path="xrm-7.0.d.ts" />
+
 
 function _getContext()
 {

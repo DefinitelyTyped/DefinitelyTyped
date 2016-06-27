@@ -1,4 +1,4 @@
-/// <reference path="amqplib.d.ts" />
+
 
 // promise api tests
 import amqp = require("amqplib");

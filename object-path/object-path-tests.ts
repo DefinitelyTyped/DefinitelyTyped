@@ -1,4 +1,4 @@
-/// <reference path="object-path.d.ts" />
+
 
 import ObjectPath = require('object-path');
 

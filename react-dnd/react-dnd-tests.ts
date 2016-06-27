@@ -1,4 +1,3 @@
-///<reference path="react-dnd.d.ts" />
 "use strict";
 
 // Test adapted from the ReactDnD chess game tutorial:

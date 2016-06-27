@@ -1,4 +1,4 @@
-﻿import Dexie from "./dexie";
+﻿import Dexie from "dexie";
 
 interface IFriend {
     id?: number,

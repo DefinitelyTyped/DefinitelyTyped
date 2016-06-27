@@ -1,4 +1,4 @@
-/// <reference path="mkpath.d.ts" />
+
 import mkpath = require('mkpath');
 
 mkpath('red/green/violet', function (err) {

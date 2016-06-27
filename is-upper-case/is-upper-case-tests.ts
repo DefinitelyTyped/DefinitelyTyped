@@ -1,4 +1,3 @@
-/// <reference path="is-upper-case.d.ts" />
 
 import isUpperCase = require('is-upper-case')
 

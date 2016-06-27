@@ -1,4 +1,4 @@
-/// <reference path="./xlsx.d.ts" />
+
 import xlsx = require('xlsx');
 
 var options:xlsx.IParsingOptions = {

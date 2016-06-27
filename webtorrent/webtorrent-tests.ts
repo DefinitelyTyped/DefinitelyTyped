@@ -1,4 +1,4 @@
-/// <reference path="webtorrent.d.ts" />
+
 
 import WebTorrent = require('webtorrent');
 import * as fs from 'fs';

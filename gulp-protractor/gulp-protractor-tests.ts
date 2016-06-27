@@ -1,5 +1,5 @@
-/// <reference path="gulp-protractor.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
+
+
 
 import gulp = require('gulp');
 import protractor = require('gulp-protractor');

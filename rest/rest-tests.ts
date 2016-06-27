@@ -1,4 +1,4 @@
-/// <reference path="./rest.d.ts" />
+
 
 import when = require('when');
 import rest = require('rest');

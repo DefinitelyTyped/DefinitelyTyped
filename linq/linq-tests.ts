@@ -1,6 +1,4 @@
-/// <reference path='../jasmine/jasmine.d.ts'/>
-/// <reference path='linq.d.ts'/>
-// <reference path="c:/linq.js" /> tests were run from VisualStudio + Resharper7
+/// <reference types="jasmine"/>
 
 describe("Linq.js tests", function () {
     it("Projection and Filtering Methods", function () {

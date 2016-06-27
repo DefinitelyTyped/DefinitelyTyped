@@ -1,5 +1,5 @@
 // Test file for Google Maps JavaScript API Definition file
-/// <reference path="google.maps.d.ts" />
+
 
 var map = new google.maps.Map(document.querySelector("☺"));
 

@@ -3,7 +3,7 @@
 // Definitions by: DeCareSystemsIreland <https://github.com/DeCareSystemsIreland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angular.d.ts" />
+/// <reference types="angularjs" />
 
 declare namespace umbraco.resources{
 

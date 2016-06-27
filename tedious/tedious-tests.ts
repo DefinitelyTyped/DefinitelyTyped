@@ -1,9 +1,6 @@
-
-/// <reference path="tedious.d.ts" />
-
 "use strict";
 
-import tedious = require("tedious");
+import tedious = require("./");
 
 var config: tedious.ConnectionConfig = {
 	userName: "rogier",

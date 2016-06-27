@@ -1,5 +1,4 @@
-/// <reference path="sockjs-node.d.ts" />
-import sockjs = require("sockjs");
+import sockjs = require("sockjs-node");
 import http = require("http");
 import stream = require("stream");
 
@@ -24,7 +23,7 @@ serverOptions.websocket = true;
 serverOptions.jsessionid = true;
 serverOptions.jsessionid = () => true;
 
-serverOptions.log = (severity, message) => { };
+serverOptions.log = (severity: any, message: any) => { };
 serverOptions.heartbeat_delay = 25000;
 serverOptions.disconnect_delay = 5000;
 
@@ -32,7 +31,7 @@ serverOptions.disconnect_delay = 5000;
 var connection: sockjs.Connection;
 
 // on('connection') passes a sockJS connection
-server.on('connection', (conn) => {
+server.on('connection', (conn: any) => {
     connection = conn;
     conn = connection;
 });

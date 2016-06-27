@@ -1,4 +1,4 @@
-/// <reference path="stats.d.ts" />
+
 
 var stats = new Stats();
 stats.setMode(1); // 0: fps, 1: ms

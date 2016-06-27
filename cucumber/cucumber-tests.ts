@@ -1,4 +1,4 @@
-/// <reference path="cucumber.d.ts" />
+import cucumber = require("cucumber");
 
 function StepSample() {
 	type Callback = cucumber.CallbackStepDefinition;

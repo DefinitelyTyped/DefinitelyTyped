@@ -1,6 +1,6 @@
-/// <reference path="chrome.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../jqueryui/jqueryui.d.ts" />
+
+/// <reference types="jquery" />
+/// <reference types="jqueryui" />
 
 // https://developer.chrome.com/extensions/examples/api/bookmarks/basic/popup.js
 function bookmarksExample() {

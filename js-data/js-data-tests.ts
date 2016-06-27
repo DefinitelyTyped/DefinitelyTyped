@@ -1,4 +1,4 @@
-/// <reference path="js-data.d.ts" />
+import JSData = require("js-data");
 
 interface IUser {
     id?: number;

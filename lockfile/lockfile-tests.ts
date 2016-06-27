@@ -1,4 +1,3 @@
-/// <reference path="lockfile.d.ts" />
 
 import lockfile = require('lockfile');
 

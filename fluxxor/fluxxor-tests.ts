@@ -1,5 +1,3 @@
-///<reference path='fluxxor.d.ts' />
-
 import React = require('react');
 import Fluxxor = require('fluxxor');
 

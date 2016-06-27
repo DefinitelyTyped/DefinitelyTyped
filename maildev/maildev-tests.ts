@@ -1,5 +1,3 @@
-/// <reference path="maildev.d.ts"/>
-
 import MailDev = require("maildev")
 
 var options: MailDevOptions = {smtp: 1025};

@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "noImplicitAny": true,
+        "strictNullChecks": false,
+        "baseUrl": "../",
+        "experimentalDecorators": true,
+        "typesSearchPaths": [
+            "../"
+        ],
+        "noEmit": true
+    },
+    "files": [
+        "index.d.ts",
+        "lodash-decorators-tests.ts"
+    ]
+}

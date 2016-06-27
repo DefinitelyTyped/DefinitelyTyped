@@ -1,4 +1,4 @@
-/// <reference path="rivets.d.ts" />
+
 
 rivets.configure({
     // Attribute prefix in templates

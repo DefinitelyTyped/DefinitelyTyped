@@ -1,4 +1,4 @@
-/// <reference path="angular-resource-1.2.d.ts" />
+
 
 interface IMyResource extends ng.resource.IResource<IMyResource> { };
 interface IMyResourceClass extends ng.resource.IResourceClass<IMyResource> { };

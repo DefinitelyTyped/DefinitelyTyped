@@ -1,4 +1,4 @@
-/// <reference path="oboe.d.ts" />
+
 import oboe = require('oboe');
 
 oboe('friends.json')

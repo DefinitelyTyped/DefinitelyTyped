@@ -1,5 +1,3 @@
-/// <reference path="autobahn.d.ts"/>
-
 import autobahn = require("autobahn");
 
 class MyClass {
