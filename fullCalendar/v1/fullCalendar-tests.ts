@@ -599,7 +599,7 @@ $('#calendar').fullCalendar({
 });
 
 $('#calendar').fullCalendar({
-    events: function (start, end, callback) {
+    events: function (start: any, end: any, callback: any) {
         $.ajax({
             url: 'myxmlfeed.php',
             dataType: 'xml',
@@ -609,7 +609,7 @@ $('#calendar').fullCalendar({
                 end: Math.round(end.getTime() / 1000)
             },
             success: function (doc) {
-                var events = [];
+                var events: any[] = [];
                 $(doc).find('event').each(function () {
                     events.push({
                         title: $(this).attr('title'),
@@ -628,7 +628,7 @@ $('#calendar').fullCalendar({
 
         // your event source
         {
-            events: function (start, end, callback) {
+            events: function (start: any, end: any, callback: any) {
                 // ...
             },
             color: 'yellow',   // an option!
@@ -681,7 +681,7 @@ $('#calendar').fullCalendar({
         }
         // more events here
     ],
-    eventRender: function (event: EventWithDescription, element) {
+    eventRender: function (event: EventWithDescription, element: any) {
         element.qtip({
             content: event.description
         });
