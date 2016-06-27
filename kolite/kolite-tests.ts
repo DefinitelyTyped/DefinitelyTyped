@@ -2,6 +2,20 @@
 /// <reference path="../knockout/knockout.d.ts" />
 /// <reference path="kolite.d.ts" />
 
+function test_activityDefaults() {
+    ko.bindingHandlers.activity.defaultOptions = {
+        activityClass: 'fa fa-spinner fa-spin',
+        container: 'i',
+        inactiveClass: ''
+    };
+    
+    ko.bindingHandlers.activity.defaultOptions = {
+        activityClass: 'some Value'
+    };
+    
+    ko.bindingHandlers.activity.defaultOptions = {
+    };
+}
 function test_asyncCommand() {
     var saveCmd = ko.asyncCommand({
         execute: function (complete) {

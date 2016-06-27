@@ -31,7 +31,7 @@ declare namespace JQueryDotDotDot {
         /** jQuery-selector for the element to keep and put after the ellipsis.
           * Default: null
           */
-        after?: JQuery;
+        after?: string | JQuery;
 
         /** Whether to update the ellipsis: true/'window'
           * Default: false

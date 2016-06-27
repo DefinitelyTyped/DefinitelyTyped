@@ -105,7 +105,7 @@ declare namespace Normalizr {
          */
         mergeIntoEntity?: (stored: any, normalized: any, entityKey: string) => any;
     }): {
-            entites: any;
+            entities: any;
             result: any;
         };
 }

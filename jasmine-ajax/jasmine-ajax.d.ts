@@ -15,6 +15,7 @@ interface JasmineAjaxResponse {
 interface JasmineAjaxRequest extends XMLHttpRequest {
 	url: string;
 	method: string;
+	params: any;
 	username: string;
 	password: string;
 	requestHeaders: { [key: string]: string };

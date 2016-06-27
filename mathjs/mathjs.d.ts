@@ -2208,3 +2208,8 @@ declare namespace mathjs {
 		toString(): string;
 	}
 }
+
+declare module 'mathjs'{
+	export = math;
+}
+

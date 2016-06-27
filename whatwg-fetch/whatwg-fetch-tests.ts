@@ -8,7 +8,8 @@ function test_fetchUrlWithOptions() {
 		headers: headers,
 		mode: 'same-origin',
 		credentials: 'omit',
-		cache: 'default'
+		cache: 'default',
+		redirect: 'manual'
 	};
 	handlePromise(window.fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions));
 }

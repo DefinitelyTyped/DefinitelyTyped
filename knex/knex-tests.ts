@@ -1,8 +1,10 @@
 /// <reference path='knex.d.ts' />
+
 /// <reference path='../lodash/lodash-3.10.d.ts' />
-import Knex = require('knex');
-import _ = require('lodash');
-'use strict';
+
+import * as Knex from 'knex';
+import * as _ from 'lodash';
+
 // Initializing the Library
 var knex = Knex({
   client: 'sqlite3',
@@ -159,6 +161,8 @@ knex.select('*').from('users').join('accounts', function() {
 });
 
 knex.select('*').from('users').join('accounts', 'accounts.type', knex.raw('?', ['admin']));
+
+knex.raw('select * from users where id = :user_id', { user_id: 1 });
 
 knex.from('users').innerJoin('accounts', 'users.id', 'accounts.user_id');
 
@@ -594,8 +598,8 @@ knex.migrate.latest();
 knex.migrate.rollback(config);
 knex.migrate.rollback();
 
-knex.migrate.currentversion(config);
-knex.migrate.currentversion();
+knex.migrate.currentVersion(config);
+knex.migrate.currentVersion();
 
 knex.seed.make(name, config);
 knex.seed.make(name);

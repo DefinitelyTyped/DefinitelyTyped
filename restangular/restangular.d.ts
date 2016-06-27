@@ -116,6 +116,9 @@ declare namespace restangular {
     withHttpConfig(httpConfig: angular.IRequestShortcutConfig): IElement;
     save(queryParams?: any, headers?: any): IPromise<any>;
     getRestangularUrl(): string;
+    route?: string;
+    id?: string;
+    reqParams?: any;
   }
 
   interface ICollection extends IService, Array<any> {

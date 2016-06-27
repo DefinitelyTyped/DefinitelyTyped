@@ -181,7 +181,7 @@ declare namespace autobahn {
 
         open(): void;
 
-        close(reason: string, message: string): void;
+        close(reason?: string, message?: string): void;
 
         onopen: (session: Session, details: any) => void;
         onclose: (reason: string, details: any) => boolean;
