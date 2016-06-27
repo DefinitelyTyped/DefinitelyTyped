@@ -1,8 +1,8 @@
 // ReSharper disable InconsistentNaming
 // ReSharper disable WrongExpressionStatement
-/// <reference path="./tcomb.d.ts"/>
-/// <reference path="../node/node.d.ts"/>
-/// <reference path="../jasmine/jasmine.d.ts" />
+
+/// <reference types="node"/>
+/// <reference types="jasmine" />
 
 // tests adapted from/for tcomb's test folder
 

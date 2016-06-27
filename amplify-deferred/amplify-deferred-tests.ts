@@ -1,5 +1,5 @@
-/// <reference path="amplify-deferred.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
+
+/// <reference types="jquery" />
 
 // Copied examples directly from AmplifyJs site
 

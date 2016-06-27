@@ -1,4 +1,4 @@
-/// <reference path="./openjscad.d.ts" />
+
 
 function test() {
 

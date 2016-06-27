@@ -4,8 +4,7 @@
  * Created by using code samples from https://github.com/sendgrid/sendgrid-nodejs#usage
  */
 
-///<reference path="../node/node.d.ts" />
-///<reference path="sendgrid.d.ts" />
+/// <reference types="node" />
 
 import sg = require("sendgrid");
 var sendgrid = sg("api_user", "api_key");

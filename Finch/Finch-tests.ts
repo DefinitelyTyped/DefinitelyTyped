@@ -1,4 +1,4 @@
-/// <reference path="Finch.d.ts" />
+
 
 function test_Finch() {
 

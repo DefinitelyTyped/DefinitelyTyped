@@ -1,6 +1,3 @@
-/// <reference path="angular-google-analytics.d.ts" />
-/// <reference path="angular-google-analytics-service.d.ts" />
-
 function ConfigurationMethodChaining(AnalyticsProvider: angular.google.analytics.AnalyticsProvider) {
     AnalyticsProvider
         .logAllCalls(true)

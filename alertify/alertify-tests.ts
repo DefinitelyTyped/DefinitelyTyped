@@ -1,4 +1,4 @@
-/// <reference path="alertify.d.ts" />
+
 
 alertify.init();
 

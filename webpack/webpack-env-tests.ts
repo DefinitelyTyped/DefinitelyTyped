@@ -1,4 +1,4 @@
-/// <reference path="./webpack-env.d.ts" />
+
 
 interface SomeModule {
     someMethod(): void;

@@ -1,4 +1,4 @@
-/// <reference path="angular-ui-tree.d.ts" />
+
 
 var treeNode: AngularUITree.ITreeNode = {
     id: 0,

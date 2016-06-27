@@ -1,4 +1,4 @@
-/// <reference path="milliseconds.d.ts" />
+
 
 milliseconds.seconds(1)
 milliseconds.minutes(2)

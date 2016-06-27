@@ -1,4 +1,3 @@
-/// <reference path="./ski.d.ts" />
 
 import { S, K, I } from 'ski';
 

@@ -1,6 +1,3 @@
-/// <reference path="../googlemaps/google.maps.d.ts" />
-/// <reference path="markerclustererplus.d.ts" />
-
 namespace MarkerClusterApp {
     export function simple_test() {
         var center = new google.maps.LatLng(37.4419, -122.1419);

@@ -1,4 +1,4 @@
-/// <reference path="express-serve-static-core.d.ts" />
+
 
 import * as express from 'express-serve-static-core';
 

@@ -1,4 +1,4 @@
-/// <reference path="anydb-sql.d.ts" />
+
 import anydbsql = require('anydb-sql');
 import { Table, Column } from 'anydb-sql'
 

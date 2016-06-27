@@ -1,4 +1,3 @@
-/// <reference path="./del.d.ts"/>
 import del = require("del");
 
 var paths = ["build", "dist/**/*.js"];

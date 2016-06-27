@@ -1,5 +1,4 @@
-/// <reference path="react-day-picker.d.ts" />
-/// <reference path="../react/react-global.d.ts" />
+/// <reference types="react" />
 
 import * as DayPicker2 from "react-day-picker";
 

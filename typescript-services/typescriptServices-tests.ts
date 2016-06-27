@@ -1,5 +1,3 @@
-/// <reference path="./typescriptServices.d.ts"/>
-
 // transpile
 function transpile(input: string): string {
     return ts.transpile(input, { module: ts.ModuleKind.CommonJS });

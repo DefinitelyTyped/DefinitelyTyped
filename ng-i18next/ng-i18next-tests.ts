@@ -1,4 +1,4 @@
-/// <reference path="ng-i18next.d.ts" />
+
 /**
 * @summary Test for "ng-i18next" with options.
 */

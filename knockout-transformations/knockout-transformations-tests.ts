@@ -1,5 +1,5 @@
-/// <reference path="../knockout/knockout.d.ts" />
-/// <reference path="knockout-transformations.d.ts" />
+/// <reference types="knockout" />
+
 
 // Test map
 var sourceItems: KnockoutObservableArray<number> = ko.observableArray([1, 2, 3, 4, 5]);

@@ -1,4 +1,4 @@
-/// <reference path="./famous.d.ts" />
+
 
 import { Node, Size, FamousEngine } from 'famous/core'
 import { DOMElement } from 'famous/dom-renderables'

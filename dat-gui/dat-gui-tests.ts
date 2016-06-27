@@ -2,7 +2,7 @@
 // http://workshop.chromeexperiments.com/examples/gui/
 //////////////////////////////////////////////////////////////
 
-/// <reference path="dat-gui.d.ts" />
+
 
 
 // ------------ config
@@ -105,11 +105,11 @@ var FizzyText = function () {
     var gui = new dat.GUI();
     var controller = gui.add(fizzyText, 'maxSize', 0, 10);
 
-    controller.onChange(function (value) {
+    controller.onChange(function (value: any) {
         // Fires on every change, drag, keypress, etc.
     });
 
-    controller.onFinishChange(function (value) {
+    controller.onFinishChange(function (value: any) {
         // Fires when a controller loses focus.
         alert("The new value is " + value);
     });
@@ -163,11 +163,11 @@ var FizzyText = function () {
     var gui = new dat.GUI();
     var controller = gui.add(obj, 'maxSize', 0, 10);
 
-    controller.onChange(function (value) {
+    controller.onChange(function (value: any) {
         // Fires on every change, drag, keypress, etc.
     });
 
-    controller.onFinishChange(function (value) {
+    controller.onFinishChange(function (value: any) {
         // Fires when a controller loses focus.
         alert("The new value is " + value);
     });

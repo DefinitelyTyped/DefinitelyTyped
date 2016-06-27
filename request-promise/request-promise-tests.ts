@@ -1,4 +1,3 @@
-/// <reference path="request-promise.d.ts" />
 
 import rp = require('request-promise');
 import nodeRequest = require('request');

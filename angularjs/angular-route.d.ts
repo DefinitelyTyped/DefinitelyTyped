@@ -3,7 +3,6 @@
 // Definitions by: Jonathan Park <https://github.com/park9140>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="angular.d.ts" />
 
 declare module "angular-route" {
     var _: string;

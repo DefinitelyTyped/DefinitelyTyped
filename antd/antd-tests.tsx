@@ -1,6 +1,4 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="./antd.d.ts" />
-import React = __React
+/// <reference types="react" />
 /*import {
     Affix,
     Button,

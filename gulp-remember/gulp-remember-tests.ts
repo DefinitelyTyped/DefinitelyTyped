@@ -1,6 +1,3 @@
-/// <reference path="../gulp/gulp.d.ts" />
-/// <reference path="./gulp-remember.d.ts" />
-
 import * as gulp from "gulp";
 import remember = require("gulp-remember");
 

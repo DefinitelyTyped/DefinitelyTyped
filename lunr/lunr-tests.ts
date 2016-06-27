@@ -1,4 +1,4 @@
-/// <reference path="lunr.d.ts" />
+
 
 /**
  * Basic test, from http://lunrjs.com/

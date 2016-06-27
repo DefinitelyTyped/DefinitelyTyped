@@ -1,4 +1,4 @@
-/// <reference path="jsf.d.ts" />
+
 
 function callbackWithoutData() {
 

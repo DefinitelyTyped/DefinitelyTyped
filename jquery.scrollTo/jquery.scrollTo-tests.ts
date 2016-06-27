@@ -1,5 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery.scrollTo.d.ts"/>
+/// <reference types="jquery"/>
 
 $('div').scrollTo(340);
 

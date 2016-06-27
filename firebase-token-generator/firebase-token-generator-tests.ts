@@ -1,4 +1,3 @@
-/// <reference path="firebase-token-generator.d.ts"/>
 import FirebaseTokenGenerator = require('firebase-token-generator');
 
 const tokenGenerator: FirebaseTokenGenerator = new FirebaseTokenGenerator("MY_SECRET");

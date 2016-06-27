@@ -1,4 +1,4 @@
-﻿/// <reference path="jquery.blockUI.d.ts" />
+﻿
 
 $.blockUI();
 var opt: JQBlockUIOptions = {

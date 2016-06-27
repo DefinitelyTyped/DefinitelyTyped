@@ -1,4 +1,3 @@
-/// <reference path="fs-mock.d.ts" />
 
 import FS = require("fs-mock");
 

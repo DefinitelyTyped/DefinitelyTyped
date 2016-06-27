@@ -1,5 +1,4 @@
 
-/// <reference path="bitwise-xor.d.ts" />
 
 "use strict";
 

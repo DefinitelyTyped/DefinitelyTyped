@@ -1,4 +1,4 @@
-/// <reference path="./svg2png.d.ts" />
+
 "use strict";
 
 import svg2png = require("svg2png");

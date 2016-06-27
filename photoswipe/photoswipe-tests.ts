@@ -1,4 +1,4 @@
-/// <reference path="photoswipe.d.ts" />
+
 
 function test_defaultUI() {
     var items: PhotoSwipeUI_Default.Item[] = [

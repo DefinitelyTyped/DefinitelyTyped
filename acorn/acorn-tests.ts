@@ -1,13 +1,12 @@
-/// <reference path="../estree/estree.d.ts" />
-/// <reference path="acorn.d.ts" />
+/// <reference types="estree" />
 
 import acorn = require('acorn');
 
-var token: acorn.Token;
-var tokens: acorn.Token[];
-var comment: acorn.Comment;
-var comments: acorn.Comment[];
-var program: ESTree.Program;
+declare var token: acorn.Token;
+declare var tokens: acorn.Token[];
+declare var comment: acorn.Comment;
+declare var comments: acorn.Comment[];
+declare var program: ESTree.Program;
 var any: any;
 var string: string;
 

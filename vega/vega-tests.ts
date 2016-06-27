@@ -1,4 +1,4 @@
-/// <reference path="vega.d.ts" />
+
 
 // examples from http://trifacta.github.io/vega/editor/
 var specs: Vega.Spec[];

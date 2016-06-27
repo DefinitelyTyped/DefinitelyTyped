@@ -1,5 +1,5 @@
-/// <reference path="oracledb.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="node" />
 
 import * as OracleDB from 'oracledb';
 

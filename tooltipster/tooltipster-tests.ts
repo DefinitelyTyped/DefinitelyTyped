@@ -1,4 +1,4 @@
-/// <reference path="tooltipster.d.ts" />
+
 
 $(function() {
 	var tooltips = <JQueryTooltipster.ITooltipsterInstance[]>$("#tooltip").tooltipster({

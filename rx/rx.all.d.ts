@@ -13,7 +13,7 @@
 /// <reference path="rx.joinpatterns.d.ts"/> 
 /// <reference path="rx.virtualtime.d.ts"/> 
 /// <reference path="rx.testing.d.ts"/>
-/// <reference path="rx.backpressure.d.ts" />
+
 
 declare module "rx.all" {
 	export = Rx;

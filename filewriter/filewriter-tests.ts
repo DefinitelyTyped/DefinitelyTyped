@@ -1,4 +1,4 @@
-/// <reference path="filewriter.d.ts" />
+
 
 // http://www.w3.org/TR/file-writer-api/
 function writeFile(writer:FileWriter): void{

@@ -4,13 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace YUITest {
-    interface YUITestStatic{
+    interface YUITestStatic {
         Assert: IAssert
         Case: TestCase
         Runner: TestRunner
     }
 
-    interface EventTarget{
+    interface EventTarget {
         attach(type: string, listener: Function): void
         subscribe(type: string, listener: Function): void
         fire(event: Object): void
@@ -19,7 +19,7 @@ declare namespace YUITest {
         unsubscribe(type: string, listener: Function): void
     }
 
-    interface TestRunner extends EventTarget{
+    interface TestRunner extends EventTarget {
         TEST_CASE_BEGIN_EVENT: string
         TEST_CASE_COMPLETE_EVENT: string
         TEST_SUITE_BEGIN_EVENT: string
@@ -49,16 +49,16 @@ declare namespace YUITest {
         run(options?: boolean): void
     }
 
-    interface TestSuite{
+    interface TestSuite {
         name: string
-//        items: any[] //Array of test suites and test cases. @private
+        //        items: any[] //Array of test suites and test cases. @private
         add(testObject: TestSuite): void
         add(testObject: TestCase): void
         setUp(): void
         tearDown(): void
     }
 
-    interface TestCase{
+    interface TestCase {
         new (template: Object): TestCase
         DEFAULT_WAIT: number
         callback(...args: any[]): Function
@@ -73,7 +73,7 @@ declare namespace YUITest {
         tearDown(): void
     }
 
-    interface IAssert{
+    interface IAssert {
         fail(message?: string): void
         pass(message?: string): void
         areEqual(expected: Object, actual: Object, message?: string): void

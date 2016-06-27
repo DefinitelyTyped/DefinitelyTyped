@@ -1,5 +1,4 @@
-/// <reference path='../angularjs/angular.d.ts' />
-/// <reference path='angular-touchspin.d.ts' />
+import angularTouchSpin = require("angular-touchspin");
 
 angular
     .module('touchspin-tests', ['lm.touchspin'])

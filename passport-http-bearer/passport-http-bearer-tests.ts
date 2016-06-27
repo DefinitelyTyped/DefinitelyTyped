@@ -1,10 +1,8 @@
-/// <reference path="./passport-http-bearer.d.ts"/>
-
 /**
  * Created by Isman Usoh <https://github.com/isman-usoh>.
  */
 
-import express = require("express");
+import express = require("../express");
 import passport = require("passport");
 import httpBearer = require("passport-http-bearer");
 

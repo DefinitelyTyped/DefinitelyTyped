@@ -1,6 +1,5 @@
-///<reference path='../react/react.d.ts' />
-///<reference path='../react/react-addons-linked-state-mixin.d.ts' />
-///<reference path='material-ui.d.ts' />
+///<reference types="react" />
+///<reference types="react-addons-linked-state-mixin" />
 
 import * as React from "react";
 import * as LinkedStateMixin from "react-addons-linked-state-mixin";
@@ -164,10 +163,10 @@ let muiTheme: MuiTheme = ThemeManager.getMuiTheme({
 let SelectableList = SelectableContainerEnhance(List);
 
 @ThemeDecorator(muiTheme)
-class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implements React.LinkedStateMixin {
+class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implements LinkedStateMixin {
 
     // injected with mixin
-    linkState: <T>(key: string) => React.ReactLink<T>;
+    linkState: <T>(key: string) => LinkedStateMixin.ReactLink<T>;
 
     private picker12hr: TimePicker;
     private picker24hr: TimePicker;

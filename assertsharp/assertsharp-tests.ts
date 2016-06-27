@@ -1,5 +1,3 @@
-/// <reference path="./assertsharp.d.ts" />
-
 import Assert from "assertsharp";
 
 Assert.AreEqual(0, 0, "Pass");

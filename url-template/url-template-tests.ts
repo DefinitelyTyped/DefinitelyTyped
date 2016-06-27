@@ -1,4 +1,4 @@
-/// <reference path="url-template.d.ts" />
+
 
 
 import urlTemplate = require('url-template');

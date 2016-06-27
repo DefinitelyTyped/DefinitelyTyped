@@ -1,4 +1,4 @@
-/// <reference path="joData.d.ts" />
+
 
 var query = new jo('http://test.com');
 

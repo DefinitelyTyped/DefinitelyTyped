@@ -1,4 +1,4 @@
-/// <reference path="level-sublevel.d.ts" />
+
 
 import levelup = require('levelup');
 import sublevel = require('level-sublevel');

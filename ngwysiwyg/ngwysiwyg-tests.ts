@@ -1,4 +1,4 @@
-/// <reference path="ngwysiwyg.d.ts" />
+
 
 //import ngWYSIWYG = require("ngWYSIWYG");
 

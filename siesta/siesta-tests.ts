@@ -1,4 +1,4 @@
-/// <reference path="siesta.d.ts" />
+
 
 StartTest(function (t: Siesta.Test.ExtJS) {
     t.waitForComponentQuery('#myItemId', () => {

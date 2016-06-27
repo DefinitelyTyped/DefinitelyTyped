@@ -1,4 +1,4 @@
-﻿/// <reference path="ng-file-upload.d.ts" />
+﻿import * as angular from 'angularjs';
 
 "use strict";
 

@@ -1,4 +1,4 @@
-/// <reference path="screenfull.d.ts" />
+
 
 function test_fullscreen_page() {
   if (screenfull.enabled) {

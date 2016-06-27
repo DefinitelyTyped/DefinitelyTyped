@@ -1,5 +1,5 @@
-/// <reference path="gulp-nodemon.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
+
+
 
 import gulp = require('gulp');
 import path = require('path');

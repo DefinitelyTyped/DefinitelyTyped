@@ -1,4 +1,3 @@
-/// <reference path="./connect-livereload.d.ts" />
 
 import * as connect from "connect";
 import * as livereload from "connect-livereload";

@@ -1,8 +1,3 @@
-/// <reference path="quill.d.ts" />
-/// <reference path="../requirejs/require.d.ts"/>
-
-//export var Quill = require("quill");
-
 function test_quill() {
 
     var quillEditor = new Quill('#editor', {

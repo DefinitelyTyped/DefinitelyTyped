@@ -1,5 +1,4 @@
-/// <reference path="../esprima/esprima.d.ts" />
-/// <reference path="static-eval.d.ts" />
+/// <reference types="esprima" />
 
 import evaluate = require('static-eval');
 import esprima = require('esprima');

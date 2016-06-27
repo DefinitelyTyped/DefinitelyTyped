@@ -1,4 +1,4 @@
-/// <reference path="angular-loading-bar.d.ts" />
+
 
 var app = angular.module('testModule', ['angular-loading-bar']);
 

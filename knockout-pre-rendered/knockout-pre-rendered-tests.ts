@@ -1,4 +1,4 @@
-/// <reference path="knockout-pre-rendered.d.ts" />
+
 
 function initBindingHandler() {
     ko.bindingHandlers.init = {

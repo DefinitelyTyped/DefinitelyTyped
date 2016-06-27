@@ -1,5 +1,3 @@
-/// <reference path="http-status-codes.d.ts"/>
-
 import HttpStatusCodes = require("http-status-codes");
 
 var ACCEPTED = HttpStatusCodes.ACCEPTED;
