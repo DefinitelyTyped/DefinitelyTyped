@@ -67,6 +67,16 @@ myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.
     $scope['promptDialog'] = () => {
         $mdDialog.show($mdDialog.prompt().placeholder('Prompt input placeholder text'));
     };
+    $scope['promptDialog'] = () => {
+        $mdDialog.show($mdDialog.prompt().initialValue('Buddy'));
+    };
+    $scope['prerenderedDialog'] = () => {
+        $mdDialog.show({
+            template: '<md-dialog>Hello!</md-dialog>',
+            contentElement: '#myDialog',
+            clickOutsideToClose: true
+        });
+    };
     $scope['hideDialog'] = $mdDialog.hide.bind($mdDialog, 'hide');
     $scope['cancelDialog'] = $mdDialog.cancel.bind($mdDialog, 'cancel');
 });
