@@ -641,6 +641,7 @@ declare namespace __MaterialUI {
         touchRippleColor?: string;
         touchRippleOpacity?: number;
         type?: string;
+        containerElement?: React.ReactNode | string;
     }
 
     interface EnhancedButtonProps extends React.HTMLAttributes, SharedEnhancedButtonProps<EnhancedButton> {

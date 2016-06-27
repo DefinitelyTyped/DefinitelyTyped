@@ -67,6 +67,16 @@ myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.
     $scope['promptDialog'] = () => {
         $mdDialog.show($mdDialog.prompt().placeholder('Prompt input placeholder text'));
     };
+    $scope['promptDialog'] = () => {
+        $mdDialog.show($mdDialog.prompt().initialValue('Buddy'));
+    };
+    $scope['prerenderedDialog'] = () => {
+        $mdDialog.show({
+            template: '<md-dialog>Hello!</md-dialog>',
+            contentElement: '#myDialog',
+            clickOutsideToClose: true
+        });
+    };
     $scope['hideDialog'] = $mdDialog.hide.bind($mdDialog, 'hide');
     $scope['cancelDialog'] = $mdDialog.cancel.bind($mdDialog, 'cancel');
 });
@@ -109,4 +119,52 @@ myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.materia
 
 myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IToastService) => {
     $scope['openToast'] = () => $mdToast.show($mdToast.simple().textContent('Hello!'));
+});
+
+myApp.controller('PanelController', ($scope: ng.IScope, $mdPanel: ng.material.IPanelService) => {
+    $scope['createPanel'] = () => {
+        var config = {
+            template: '<h1>Hello!</h1>',
+            hasBackdrop: true,
+            disableParentScroll: true,
+            zIndex: 150
+        };
+        
+        $mdPanel.create(config);
+
+        var panelRef = $mdPanel.create(config);
+        panelRef.open()
+            .then((ref: ng.material.IPanelRef) => {
+                ref.addClass('foo');
+                ref.removeClass('bar');
+                ref.close();
+            })
+            .finally(() => {
+                panelRef = undefined;
+            });
+    };
+
+    $scope['openPanel'] = () => {
+        $mdPanel.open({
+            template: '<h1>Hello!</h1>',
+            hasBackdrop: true,
+            disableParentScroll: true,
+            zIndex: 150
+        })
+            .then((panelRef: ng.material.IPanelRef) => {
+                panelRef.addClass('foo');
+                panelRef.removeClass('bar');
+                panelRef.close();
+            });
+    };
+
+    $scope['newPanelPosition'] = () => {
+        $mdPanel.newPanelPosition().absolute().center();
+        $mdPanel.newPanelPosition().relativeTo('.demo-menu-open-button').addPanelPosition("ALIGN_START", "BELOW");
+    };
+
+    $scope['newPanelAnimation'] = () => {
+        $mdPanel.newPanelAnimation().openFrom('.some-target');
+        $mdPanel.newPanelAnimation().openFrom({top: 0, left: 0});
+    };
 });
