@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 import * as React from 'react';
 import { Component, CSSProperties } from 'react';
-import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput, FormControls, Form, FormGroup, ControlLabel, FormControl, HelpBlock, Radio, Checkbox } from 'react-bootstrap';
+import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Image, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput, Form, FormGroup, ControlLabel, FormControl, HelpBlock, Radio, Checkbox } from 'react-bootstrap';
 
 
 export class ReactBootstrapTest extends Component<any, any> {
@@ -503,6 +503,33 @@ export class ReactBootstrapTest extends Component<any, any> {
                 </div>
 
                 <div style={style}>
+                  <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                    <Row className="clearfix">
+                      <Col sm={4}>
+                        <Nav bsStyle="pills" stacked>
+                          <NavItem eventKey="first">
+                            Tab 1
+                          </NavItem>
+                          <NavItem eventKey="second">
+                            Tab 2
+                          </NavItem>
+                        </Nav>
+                      </Col>
+                      <Col sm={8}>
+                        <Tab.Content animation>
+                          <Tab.Pane eventKey="first">
+                            Tab 1 content
+                          </Tab.Pane>
+                          <Tab.Pane eventKey="second">
+                            Tab 2 content
+                          </Tab.Pane>
+                        </Tab.Content>
+                      </Col>
+                    </Row>
+                  </Tab.Container>
+                </div>
+
+                <div style={style}>
                   <Pager>
                     <PageItem href='#'>Previous</PageItem>
                     <PageItem href='#'>Next</PageItem>
@@ -696,6 +723,10 @@ export class ReactBootstrapTest extends Component<any, any> {
                 </div>
 
                 <div style={style}>
+                    <Image src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AUDIO&w=150&h=150" rounded />
+                </div>
+
+                <div style={style}>
                   <PageHeader>Example page header <small>Subtext for header</small></PageHeader>
                 </div>
 
@@ -856,14 +887,6 @@ export class ReactBootstrapTest extends Component<any, any> {
 
                 <div style={style}>
                   <form>
-                    <FormControls.Static className="col-xs-10 col-xs-offset-2" value="I'm in a form" />
-                    <FormControls.Static label="First Name" labelClassName="col-xs-2" wrapperClassName="col-xs-10" value="Billy" />
-                    <FormControls.Static label="Last Name" labelClassName="col-xs-2" wrapperClassName="col-xs-10">Bob</FormControls.Static>
-                  </form>
-                </div>
-
-                <div style={style}>
-                  <form>
                     <Input type='text' addonBefore='@' />
                     <Input type='text' addonAfter='.00' />
                     <Input type='text' addonBefore='$' addonAfter='.00' />
@@ -911,7 +934,7 @@ export class ReactBootstrapTest extends Component<any, any> {
                     </Row>
                   </Input>
                 </div>
-                
+
                 <div style={style}>
                   <Form>
                     <FormGroup
@@ -919,13 +942,13 @@ export class ReactBootstrapTest extends Component<any, any> {
                     >
                       <ControlLabel>Control Label</ControlLabel>
                       <FormControl
-                        type="text"                        
+                        type="text"
                         placeholder="Enter text"
                       />
                       <FormControl.Feedback />
                       <HelpBlock>Help block message.</HelpBlock>
                     </FormGroup>
-                    
+
                     <FormGroup>
                       <Checkbox name="checkbox" inline>1</Checkbox>
                       {' '}

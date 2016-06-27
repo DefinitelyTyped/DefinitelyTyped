@@ -743,6 +743,10 @@ namespace common {
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
+schema = Joi.alternatives();
+schema = Joi.alternatives().try(schemaArr);
+schema = Joi.alternatives().try(schema, schema);
+
 schema = Joi.alternatives(schemaArr);
 schema = Joi.alternatives(schema, anySchema, boolSchema);
 

@@ -288,7 +288,7 @@ declare namespace __React {
         data: string;
     }
 
-    interface DragEvent extends SyntheticEvent {
+    interface DragEvent extends MouseEvent {
         dataTransfer: DataTransfer;
     }
 
@@ -2477,6 +2477,24 @@ declare namespace JSX {
         clipPath: React.SVGProps;
         defs: React.SVGProps;
         ellipse: React.SVGProps;
+        feBlend: React.SVGProps;
+        feColorMatrix: React.SVGProps;
+        feComponentTransfer: React.SVGProps;
+        feComposite: React.SVGProps;
+        feConvolveMatrix: React.SVGProps;
+        feDiffuseLighting: React.SVGProps;
+        feDisplacementMap: React.SVGProps;
+        feFlood: React.SVGProps;
+        feGaussianBlur: React.SVGProps;
+        feImage: React.SVGProps;
+        feMerge: React.SVGProps;
+        feMergeNode: React.SVGProps;
+        feMorphology: React.SVGProps;
+        feOffset: React.SVGProps;
+        feSpecularLighting: React.SVGProps;
+        feTile: React.SVGProps;
+        feTurbulence: React.SVGProps;
+        filter: React.SVGProps;
         foreignObject: React.SVGProps;
         g: React.SVGProps;
         image: React.SVGProps;

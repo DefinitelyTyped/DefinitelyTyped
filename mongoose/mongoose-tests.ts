@@ -369,7 +369,7 @@ schema.path('name');
 schema.path('name', Number);
 schema.pathType('name');
 schema.plugin(function() {});
-schema.post('save', function(doc: IActor) {});
+schema.post('save', function(next: () => void, doc: IActor) {});
 schema.pre('save', function(next: () => void) {});
 schema.requiredPaths();
 schema.static('findByName', function(name: string, callback: () => void) {});

@@ -156,7 +156,7 @@ declare namespace angular {
 
         noop(...args: any[]): void;
         reloadWithDebugInfo(): void;
-        toJson(obj: any, pretty?: boolean): string;
+        toJson(obj: any, pretty?: boolean | number): string;
         uppercase(str: string): string;
         version: {
             full: string;
@@ -1708,6 +1708,10 @@ declare namespace angular {
          */
         templateUrl?: string | Function | (string | Function)[];
         /**
+         * Define object mapping to other directive or component required controllers.
+         */
+        require?: any;
+        /**
          * Define DOM attribute binding to component properties. Component properties are always bound to the component
          * controller and not to the scope.
          */
@@ -1716,7 +1720,7 @@ declare namespace angular {
          * Whether transclusion is enabled. Enabled by default.
          */
         transclude?: boolean | string | {[slot: string]: string};
-        require?: string | string[] | {[controller: string]: string};
+        require?: {[controller: string]: string};
     }
 
     interface IComponentTemplateFn {
@@ -1755,7 +1759,7 @@ declare namespace angular {
          * analogous to the ngAfterViewInit and ngAfterContentInit hooks in Angular 2. Since the compilation process is rather
          * different in Angular 1 there is no direct mapping and care should be taken when upgrading.
          */
-        $postInit?(): void;
+        $postLink?(): void;
     }
 
     interface IChangesObject {
@@ -1800,7 +1804,7 @@ declare namespace angular {
              * that is passed to the link function instead.
              */
             transclude: ITranscludeFunction
-        ): IDirectivePrePost;
+        ): void | IDirectivePrePost;
     }
 
     interface IDirective {

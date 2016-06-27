@@ -1037,6 +1037,8 @@ declare namespace AceAjax {
     **/
     export interface Editor {
 
+        on(ev: string, callback: (e: any) => any): void;
+
         addEventListener(ev: 'change', callback: (ev: EditorChangeEvent) => any): void;
         addEventListener(ev: string, callback: Function): void;
 
