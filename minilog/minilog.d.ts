@@ -1,7 +1,7 @@
 ﻿// Type definitions for minilog v2
 // Project: https://github.com/mixu/minilog
 // Definitions by: Guido <http://guido.io>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 //These type definitions are not complete, although basic usage should be typed.
 interface Minilog {
@@ -14,7 +14,7 @@ interface Minilog {
 
 declare function Minilog(namespace: string): Minilog;
 
-declare module Minilog {
+declare namespace Minilog {
     export function enable(): Minilog;
     export function disable() : Minilog;
     export function pipe(dest: any): Transform;

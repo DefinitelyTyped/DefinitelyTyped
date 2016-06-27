@@ -2,13 +2,13 @@
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
 //                 David Asmuth <https://github.com/piranha771/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'matter-js' {
     export = Matter;
 }
 
-declare module Matter {
+declare namespace Matter {
     /**
     * The `Matter.Axes` module contains methods for creating and manipulating sets of axes.
     *
@@ -496,8 +496,8 @@ declare module Matter {
          Default: a random colour
         */
         strokeStyle: string;
-		
-		
+
+
 		/*
 		 * Sets the opacity. 1.0 is fully opaque. 0.0 is fully translucent
 		 */

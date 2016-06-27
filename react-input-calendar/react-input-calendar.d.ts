@@ -1,10 +1,10 @@
 // Type definitions for react-input-calendar
 // Project: https://github.com/Rudeg/react-input-calendar
 // Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts"/>
-declare module reactInputCalendar {
+declare namespace reactInputCalendar {
     export interface ReactInputCalendarProps {
         /**
         * Format of date, which display in input and set in date property.
@@ -50,6 +50,10 @@ declare module reactInputCalendar {
         */
         onBlur?: (event: __React.SyntheticEvent, computableDate: string) => void;
         /**
+        * Set a function that will be triggered when the input field is focused.
+        */
+        onFocus?: (event: __React.SyntheticEvent) => void;
+        /**
         * Define state when date picker would close once the user has clicked on a date.
         */
         closeOnSelect?: boolean;
@@ -76,7 +80,6 @@ declare module reactInputCalendar {
     }
     interface ReactInputCalendarState { }
     export class ReactInputCalendar extends __React.Component<ReactInputCalendarProps, ReactInputCalendarState> {
-        render(): __React.DOMElement<any>;
     }
 }
 declare var ReactInputCalendar: typeof reactInputCalendar.ReactInputCalendar

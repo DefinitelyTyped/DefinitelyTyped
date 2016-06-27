@@ -1,7 +1,7 @@
 // Type definitions for mendixmodelsdk v0.0.1
 // Project: http://www.mendix.com
 // Definitions by: Mendix <https://github.com/mendix>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
                                  Apache License
@@ -210,13 +210,13 @@
 
 /// <reference path="../mobservable/mobservable.d.ts" />
 declare module "mendixmodelsdk" {
-    module sdk {
-        module internal {
+    namespace sdk {
+        namespace internal {
             /**
              * The `references` sub module contains all classes that handle/wrap references,
              * as a special cases of property value/settings.
              */
-            module references {
+            namespace references {
                 /**
                  * Abstract base class for both {@link ReferenceByName by-name} and {@link ReferenceById by-id} references
                  * to elements of type `T`, which are observed.
@@ -275,12 +275,12 @@ declare module "mendixmodelsdk" {
     }
 }
 declare module "mendixmodelsdk" {
-    module sdk {
-        module internal {
+    namespace sdk {
+        namespace internal {
             /**
              * The `structures` sub module contains all interfaces and classes related to the **structures** concept.
              */
-            module structures {
+            namespace structures {
                 type IContainer = units.IStructuralUnit | elements.IAbstractElement;
                 type Container = units.StructuralUnit | elements.AbstractElement;
                 /**
@@ -366,13 +366,13 @@ declare module "mendixmodelsdk" {
     }
 }
 declare module "mendixmodelsdk" {
-    module sdk {
-        module internal {
+    namespace sdk {
+        namespace internal {
             /**
              * The `instances` module contains various classes and functions
              * related to elements, specifically: (abstract) elements.
              */
-            module elements {
+            namespace elements {
                 /**
                  * Abstract elements are structures that are referable by name.
                  * Sub types: (I)Element and (I)ModelUnit.
@@ -449,13 +449,13 @@ declare module "mendixmodelsdk" {
     }
 }
 declare module "mendixmodelsdk" {
-    module sdk {
-        module internal {
+    namespace sdk {
+        namespace internal {
             /**
              * The `instances` module contains various classes and functions
              * which revolve around creating/maintaining/updating actual model contents.
              */
-            module instances {
+            namespace instances {
                 /**
                  * Generic type alias for `Mobservable.IObservableArray<T>`.
                  */
@@ -492,13 +492,13 @@ declare module "mendixmodelsdk" {
     }
 }
 declare module "mendixmodelsdk" {
-    module sdk {
-        module internal {
+    namespace sdk {
+        namespace internal {
             /**
              * The `units` module contains interfaces and base classes related to the concept of **units**.
              * For more information on this concept, see the README of this repository, under "About Mendix models".
              */
-            module units {
+            namespace units {
                 /**
                  * An abstract unit is a vertex, and usually: a node, in the project tree, i.e. a macro-level construct.
                  * Examples are: modules, folders, microflows, pages.
@@ -598,13 +598,13 @@ declare module "mendixmodelsdk" {
     }
 }
 declare module "mendixmodelsdk" {
-    module sdk {
-        module internal {
+    namespace sdk {
+        namespace internal {
             /**
              * The `properties` sub module contains all interfaces and classes
              * required for handling and wrapping property values/settings.
              */
-            module properties {
+            namespace properties {
                 /**
                  * Standard interface for an observable object.
                  */
@@ -842,13 +842,13 @@ declare module "mendixmodelsdk" {
     }
 }
 declare module "mendixmodelsdk" {
-    module sdk {
-        module internal {
+    namespace sdk {
+        namespace internal {
             /**
              * Types defined in this `transport` module express JSON serialisation and are shared with the Model API Server.
              * Some types (points, deltas) are used verbatim through the rest of the SDK.
              */
-            module transport {
+            namespace transport {
                 /**
                  * The contents of the `MetaData` table (which always contains one row) in the MPR contained in the working copy's MPK.
                  * This is useful to determine product version and to be able to re-export the MPR as part of an MPK
@@ -1111,7 +1111,7 @@ declare module "mendixmodelsdk" {
     /**
      * Module containing several often-used interfaces.
      */
-    module common {
+    namespace common {
         /**
          * Representation of a point.
          */
@@ -1160,11 +1160,11 @@ declare module "mendixmodelsdk" {
     }
 }
 declare module "mendixmodelsdk" {
-    module sdk {
+    namespace sdk {
         /**
          * The `utils` module contains various utility interfaces and functions.
          */
-        module utils {
+        namespace utils {
             /**
              * Generates a random UUID to set the ID of an element or unit to.
              * There is no intrinsic ID collision detection/avoidance mechanism but it's good enough in practice.
@@ -1194,7 +1194,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `Projects`.
      */
-    module projects {
+    namespace projects {
         /**
          * See: {@link https://world.mendix.com/display/refguide5/Project relevant section in reference guide}
          */
@@ -1423,7 +1423,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `Microflows`.
      */
-    module microflows {
+    namespace microflows {
         /**
          * TODO
          */
@@ -3792,7 +3792,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `WebServices`.
      */
-    module webservices {
+    namespace webservices {
         interface IDataMember extends elements.IElement {
             load(): DataMember;
             load(callback: (element: DataMember) => void): any;
@@ -4218,7 +4218,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `Integration`.
      */
-    module integration {
+    namespace integration {
         class AppServiceLocationEnum extends instances.IEnum {
             protected qualifiedTsTypeName: string;
             static Default: AppServiceLocationEnum;
@@ -4253,7 +4253,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `XmlSchemas`.
      */
-    module xmlschemas {
+    namespace xmlschemas {
         interface IModuleDocument extends units.IModelUnit {
             container: projects.IFolderBase;
             load(): ModuleDocument;
@@ -4355,7 +4355,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `AppServices`.
      */
-    module appservices {
+    namespace appservices {
         interface IAppServiceAction extends elements.IElement {
             container: IConsumedAppService;
             load(): AppServiceAction;
@@ -4697,7 +4697,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `Mappings`.
      */
-    module mappings {
+    namespace mappings {
         interface IModuleDocument extends units.IModelUnit {
             container: projects.IFolderBase;
             load(): ModuleDocument;
@@ -4883,7 +4883,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `ExportMappings`.
      */
-    module exportmappings {
+    namespace exportmappings {
         interface IModuleDocument extends units.IModelUnit {
             container: projects.IFolderBase;
             load(): ModuleDocument;
@@ -5081,7 +5081,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `ImportMappings`.
      */
-    module importmappings {
+    namespace importmappings {
         interface IModuleDocument extends units.IModelUnit {
             container: projects.IFolderBase;
             load(): ModuleDocument;
@@ -5291,7 +5291,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `Rest`.
      */
-    module rest {
+    namespace rest {
         interface IModuleDocument extends units.IModelUnit {
             container: projects.IFolderBase;
             load(): ModuleDocument;
@@ -5408,7 +5408,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `Settings`.
      */
-    module settings {
+    namespace settings {
         interface ICertificate extends elements.IElement {
             container: IProjectSettings;
             load(): Certificate;
@@ -5613,7 +5613,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `Pages`.
      */
-    module pages {
+    namespace pages {
         interface IModuleDocument extends units.IModelUnit {
             container: projects.IFolderBase;
             load(): ModuleDocument;
@@ -8651,7 +8651,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `CustomWidgets`.
      */
-    module customwidgets {
+    namespace customwidgets {
         /**
          * See: {@link https://world.mendix.com/display/refguide5/Pages relevant section in reference guide}
          */
@@ -8931,7 +8931,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `DocumentTemplates`.
      */
-    module documenttemplates {
+    namespace documenttemplates {
         interface IWidget extends elements.IElement {
             load(): Widget;
             load(callback: (element: Widget) => void): any;
@@ -9562,7 +9562,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `Navigation`.
      */
-    module navigation {
+    namespace navigation {
         /**
          * See: {@link https://world.mendix.com/display/refguide5/Project relevant section in reference guide}
          */
@@ -9690,7 +9690,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `Reports`.
      */
-    module reports {
+    namespace reports {
         /**
          * See: {@link https://world.mendix.com/display/refguide5/Pages relevant section in reference guide}
          */
@@ -10031,7 +10031,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `Menus`.
      */
-    module menus {
+    namespace menus {
         interface IModuleDocument extends units.IModelUnit {
             container: projects.IFolderBase;
             load(): ModuleDocument;
@@ -10152,7 +10152,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `DataSets`.
      */
-    module datasets {
+    namespace datasets {
         interface IModuleDocument extends units.IModelUnit {
             container: projects.IFolderBase;
             load(): ModuleDocument;
@@ -10438,7 +10438,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `Texts`.
      */
-    module texts {
+    namespace texts {
         /**
          * See: {@link https://world.mendix.com/display/refguide5/Translatable+Texts relevant section in reference guide}
          */
@@ -10561,7 +10561,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `JavaActions`.
      */
-    module javaactions {
+    namespace javaactions {
         interface IModuleDocument extends units.IModelUnit {
             container: projects.IFolderBase;
             load(): ModuleDocument;
@@ -10650,7 +10650,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `Constants`.
      */
-    module constants {
+    namespace constants {
         interface IModuleDocument extends units.IModelUnit {
             container: projects.IFolderBase;
             load(): ModuleDocument;
@@ -10722,7 +10722,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `ScheduledEvents`.
      */
-    module scheduledevents {
+    namespace scheduledevents {
         interface IModuleDocument extends units.IModelUnit {
             container: projects.IFolderBase;
             load(): ModuleDocument;
@@ -10813,7 +10813,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `RegularExpressions`.
      */
-    module regularexpressions {
+    namespace regularexpressions {
         interface IModuleDocument extends units.IModelUnit {
             container: projects.IFolderBase;
             load(): ModuleDocument;
@@ -10885,7 +10885,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `Images`.
      */
-    module images {
+    namespace images {
         interface IModuleDocument extends units.IModelUnit {
             container: projects.IFolderBase;
             load(): ModuleDocument;
@@ -10976,7 +10976,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `Security`.
      */
-    module security {
+    namespace security {
         interface IAccessRuleContainerBase extends elements.IElement {
             container: IProjectSecurity;
             load(): AccessRuleContainerBase;
@@ -11193,7 +11193,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `DomainModels`.
      */
-    module domainmodels {
+    namespace domainmodels {
         interface IModuleDocument extends units.IModelUnit {
             container: projects.IFolderBase;
             load(): ModuleDocument;
@@ -12031,7 +12031,7 @@ declare module "mendixmodelsdk" {
     /**
      * Interfaces and instance classes for types from the Mendix sub meta model `Enumerations`.
      */
-    module enumerations {
+    namespace enumerations {
         interface IModuleDocument extends units.IModelUnit {
             container: projects.IFolderBase;
             load(): ModuleDocument;
@@ -12130,9 +12130,9 @@ declare module "mendixmodelsdk" {
     }
 }
 declare module "mendixmodelsdk" {
-    module sdk {
-        module internal {
-            module model {
+    namespace sdk {
+        namespace internal {
+            namespace model {
                 interface IBaseModel {
                     allMicroflows(): microflows.IMicroflow[];
                     allMicroflowBases(): microflows.IMicroflowBase[];
@@ -12259,13 +12259,13 @@ declare module "mendixmodelsdk" {
     }
 }
 declare module "mendixmodelsdk" {
-    module sdk {
-        module internal {
+    namespace sdk {
+        namespace internal {
             /**
              * The `deltas` module does not contain the interfaces for all deltas,
              * but it does contain (all) objects required for building and handling these.
              */
-            module deltas {
+            namespace deltas {
                 const DeltaTypes: {
                     CREATE_ELEMENT: string;
                     UPDATE_PROPERTY_VALUE: string;
@@ -12323,18 +12323,18 @@ declare module "mendixmodelsdk" {
     }
 }
 declare module "mendixmodelsdk" {
-    module sdk {
+    namespace sdk {
         /**
          * Internal API of the mendixmodelsdk.
          *
          * DISCLAIMER: End-users of the sdk should never instantiate classes in this module, or in submodules of this module.
          * Anything in this module, or its submodules, can be removed, or have changed signature, between sdk-versions.
          */
-        module internal {
+        namespace internal {
             /**
              * The `modelapiclient` module provides typed communication with the Model API Server.
              */
-            module modelapiclient {
+            namespace modelapiclient {
                 /**
                  * The IModelApiClient interface is used for forwarding calls to the underlying Mendix Model API.
                  * Implementations of this interface serve as fully-typed clients for the Model API Server.
@@ -12386,13 +12386,13 @@ declare module "mendixmodelsdk" {
     }
 }
 declare module "mendixmodelsdk" {
-    module sdk {
+    namespace sdk {
         /**
          * The `configuration` module allows the Model SDK user to configure
          * how to communicate with the Model API Server;
          * in particular w.r.t.: authentication, success/error handling, etc.
          */
-        module configuration {
+        namespace configuration {
             /**
              * The credentials with which a trusted backend client (such as sprintr) connects to the Model API Server.
              */
@@ -12478,9 +12478,9 @@ declare module "mendixmodelsdk" {
          */
         fetchUnitById<T extends sdk.internal.units.IAbstractUnit>(id: string, callback: common.ICallback<T>, errorCallback?: common.IErrorCallback): any;
     }
-    module sdk {
-        module internal {
-            module model {
+    namespace sdk {
+        namespace internal {
+            namespace model {
                 interface IUnitsCache {
                     [id: string]: units.IAbstractUnit;
                 }
@@ -12634,8 +12634,8 @@ declare module "mendixmodelsdk" {
     }
 }
 declare module "mendixmodelsdk" {
-    module sdk {
-        module extras {
+    namespace sdk {
+        namespace extras {
             function serializeToJs(unit: internal.units.AbstractUnit): string;
             /**
              * Class which allows to serialise a given model part as TypeScript code that constructs that model piece.
@@ -12660,12 +12660,12 @@ declare module "mendixmodelsdk" {
     }
 }
 declare module "mendixmodelsdk" {
-    module sdk {
-        module internal {
+    namespace sdk {
+        namespace internal {
             /**
              * The `transportation` module is responsible for performing requests on the (/a) Model API Server.
              */
-            module transportation {
+            namespace transportation {
                 /**
                  * Implementations of this interface are capable of placing a request with the Model API Server over HTTP.
                  * Default implementation: {@link RestTransportation}.

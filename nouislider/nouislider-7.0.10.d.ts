@@ -1,7 +1,7 @@
 // Type definitions for nouislider v7.0.10
 // Project: https://github.com/leongersen/noUiSlider
 // Definitions by: Corey Jepperson <https://github.com/acoreyj>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="../jquery/jquery.d.ts"/>
 /// <reference path="../wnumb/wnumb.d.ts"/>
 

@@ -3,7 +3,7 @@
 /// <reference path="../express/express.d.ts" />
 
 import { createStore, applyMiddleware, Store, Dispatch } from 'redux';
-import * as thunk from 'redux-thunk';
+import thunk from 'redux-thunk';
 import ThunkInterface = ReduxThunk.ThunkInterface;
 
 declare var rootReducer: Function;

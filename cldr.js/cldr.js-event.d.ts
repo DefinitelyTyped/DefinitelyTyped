@@ -1,11 +1,11 @@
 // Type definitions for Cldr.js 0.4.4
 // Project: https://github.com/rxaviers/cldrjs
 // Definitions by: Raman But-Husaim <https://github.com/RamanBut-Husaim>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // The definition file for event module.
 
-declare module cldr {
+declare namespace cldr {
     interface CldrStatic {
         on(event:string, listener:(path:string, value:any) => void): void;
         once(event:string, listener:(path:string, value:any) => void): void;

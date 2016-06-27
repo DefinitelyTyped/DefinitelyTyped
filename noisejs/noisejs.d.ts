@@ -1,7 +1,7 @@
 // Type definitions for noisejs
 // Project: https://github.com/xixixao/noisejs
 // Definitions by: Atsushi Izumihara <https://github.com/izmhr>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Noise {
   /**

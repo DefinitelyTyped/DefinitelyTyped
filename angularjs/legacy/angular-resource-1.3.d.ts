@@ -13,7 +13,7 @@ declare module 'angular-resource' {
 ///////////////////////////////////////////////////////////////////////////////
 // ngResource module (angular-resource.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module angular.resource {
+declare namespace angular.resource {
 
     /**
      * Currently supported options for the $resource factory options argument.
@@ -169,7 +169,7 @@ declare module angular.resource {
 }
 
 /** extensions to base ng based on using angular-resource */
-declare module angular {
+declare namespace angular {
 
     interface IModule {
         /** creating a resource service factory */

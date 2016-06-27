@@ -1,7 +1,7 @@
 // Type definitions for body-parser
 // Project: http://expressjs.com
 // Definitions by: Santi Albo <https://github.com/santialbo/>, VILIC VANE <https://vilic.info>, Jonathan Häberle <https://github.com/dreampulse/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 
@@ -33,14 +33,14 @@ declare module "body-parser" {
         /**
          * passed to JSON.parse().
          */
-        receiver?: (key: string, value: any) => any;
+        reviver?: (key: string, value: any) => any;
         /**
          * parse extended syntax with the qs module. (default: true)
          */
         extended?: boolean;
     }): express.RequestHandler;
 
-    module bodyParser {
+    namespace bodyParser {
         export function json(options?: {
             /**
              * if deflated bodies will be inflated. (default: true)
@@ -65,7 +65,7 @@ declare module "body-parser" {
             /**
              * passed to JSON.parse().
              */
-            receiver?: (key: string, value: any) => any;
+            reviver?: (key: string, value: any) => any;
         }): express.RequestHandler;
 
         export function raw(options?: {

@@ -1,7 +1,7 @@
 // Type definitions for SweetAlert 1.1.3
 // Project: https://github.com/t4t5/sweetalert/
 // Definitions by: Markus Peloso <https://github.com/ToastHawaii/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var sweetAlert: SweetAlert.SweetAlertStatic;
 declare var swal: SweetAlert.SweetAlertStatic;
@@ -10,7 +10,7 @@ declare module "sweetalert" {
     export = swal;
 }
 
-declare module SweetAlert {
+declare namespace SweetAlert {
     type AlertType = "warning" | "error" | "success" | "info";
 
     type PromtType = "input" | "prompt";

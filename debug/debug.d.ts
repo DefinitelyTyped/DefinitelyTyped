@@ -1,7 +1,7 @@
 // Type definitions for debug
 // Project: https://github.com/visionmedia/debug
 // Definitions by: Seon-Wook Park <https://github.com/swook>, Gal Talmor <https://github.com/galtalmor>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var debug: debug.IDebug;
 
@@ -10,7 +10,7 @@ declare module 'debug' {
     export = debug;
 }
 
-declare module debug {
+declare namespace debug {
     export interface IDebug {
         (namespace: string): debug.IDebugger,
         coerce: (val: any) => any,

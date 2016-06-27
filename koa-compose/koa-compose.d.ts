@@ -6,11 +6,11 @@
 declare module "koa-compose" {
     function compose(middleware: compose.Middleware[]): compose.ComposedMiddleware;
 
-    module compose {
+    namespace compose {
         interface Middleware {
             (context: any, next?: () => Promise<void>): Promise<any>;
         }
-        
+
         interface ComposedMiddleware {
             (context: any): Promise<void>;
         }

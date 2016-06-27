@@ -1,12 +1,12 @@
 // Type definitions for jQueryUI 1.9
 // Project: http://jqueryui.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, John Reilly <https://github.com/johnnyreilly>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module JQueryUI {
+declare namespace JQueryUI {
     // Accordion //////////////////////////////////////////////////
 
     interface AccordionOptions extends AccordionEvents {
@@ -477,9 +477,10 @@ declare module JQueryUI {
     }
 
     interface DroppableOptions extends DroppableEvents {
-        disabled?: boolean;
         accept?: any;
         activeClass?: string;
+        addClasses?: boolean;
+        disabled?: boolean;
         greedy?: boolean;
         hoverClass?: string;
         scope?: string;
@@ -1794,7 +1795,7 @@ interface JQuery {
     uniqueId(): JQuery;
     removeUniqueId(): JQuery;
     scrollParent(): JQuery;
-    zIndex(): JQuery;
+    zIndex(): number;
     zIndex(zIndex: number): JQuery;
 
     widget: JQueryUI.Widget;

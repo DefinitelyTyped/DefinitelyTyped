@@ -5,7 +5,7 @@
 
 declare module "optimist" {
 
-	module optimist {
+	namespace optimist {
 		interface Opt {
 			alias?: string | string[];
 			default?: any;

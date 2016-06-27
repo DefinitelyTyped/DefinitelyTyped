@@ -6,7 +6,7 @@ angular.module('app',['angularLoad'])
             ()=>console.log("angular material js loaded")
         );
 
-        angularLoad.loadCss("https://ajax.googleapis.com/ajax/libs/angular_material/1.0.4/angular-material.css").then(
+        angularLoad.loadCSS("https://ajax.googleapis.com/ajax/libs/angular_material/1.0.4/angular-material.css").then(
             ()=>console.log("angular material css loaded")
         );
     }]);

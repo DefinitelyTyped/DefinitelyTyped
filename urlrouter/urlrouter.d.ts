@@ -1,7 +1,7 @@
 // Type definitions for urlrouter
 // Project: https://github.com/fengmk2/urlrouter
 // Definitions by: soywiz <https://github.com/soywiz>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -10,7 +10,7 @@ declare module "urlrouter" {
 
 	function UrlRouterInternal(handler:(app:UrlRouterInternal.App) => void):UrlRouterInternal.HttpHandler;
 
-	module UrlRouterInternal {
+	namespace UrlRouterInternal {
 
 
 		interface ServerRequest extends http.ServerRequest {

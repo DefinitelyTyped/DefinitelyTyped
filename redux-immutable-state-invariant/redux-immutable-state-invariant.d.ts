@@ -1,7 +1,7 @@
 // Type definitions for react-router-redux v1.2.0
 // Project: https://github.com/leoasis/redux-immutable-state-invariant
 // Definitions by: Remo H. Jansen <https://github.com/remojansen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../redux/redux.d.ts" />
 

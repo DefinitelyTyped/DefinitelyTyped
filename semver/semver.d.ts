@@ -3,11 +3,15 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/semver
 
-declare module SemVerModule {
+declare namespace SemVerModule {
     /**
      * Return the parsed version, or null if it's not valid.
      */
     function valid(v: string, loose?: boolean): string;
+    /**
+     * Returns cleaned (removed leading/trailing whitespace, remove '=v' prefix) and parsed version, or null if version is invalid.
+     */
+    function clean(version: string, loose?: boolean): string;
     /**
      * Return the version incremented by the release type (major, minor, patch, or prerelease), or null if it's not valid.
      */

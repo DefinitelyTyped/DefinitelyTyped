@@ -1,7 +1,7 @@
 // Type definitions for Foundation Sites v6.1.1
 // Project: http://foundation.zurb.com/
 // Definitions by: Sam Vloeberghs <https://github.com/samvloeberghs/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // please also see the typings project and prefer to use it!
 // typings project: https://github.com/typings/typings
@@ -9,7 +9,7 @@
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module FoundationSites {
+declare namespace FoundationSites {
 
     // http://foundation.zurb.com/sites/docs/abide.html#javascript-reference
     interface Abide {

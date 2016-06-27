@@ -1,7 +1,7 @@
 // Type definitions for Node OAuth2 Server
 // Project: https://github.com/thomseddon/node-oauth2-server
 // Definitions by: Robbie Van Gorkom <https://github.com/vangorra>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
 
@@ -18,7 +18,7 @@ declare module "oauth2-server" {
 
     function o(config : o.Config) : o.OAuth2Server;
 
-    module o {
+    namespace o {
         interface OAuth2Server {
             grant() : RequestHandler;
             authorise() : any;

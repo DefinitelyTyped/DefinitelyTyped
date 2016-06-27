@@ -1,11 +1,11 @@
 // Type definitions for angularjs-toaster v0.4.13
 // Project: https://github.com/jirikavi/AngularJS-Toaster
 // Definitions by: Ben Tesser <https://github.com/btesser>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module ngtoaster {
+declare namespace ngtoaster {
   interface IToasterService {
     pop(params:IPopParams): void
     /**

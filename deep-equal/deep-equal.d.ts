@@ -1,7 +1,7 @@
 // Type definitions for deep-equal
 // Project: https://github.com/substack/node-deep-equal
 // Definitions by: remojansen <https://github.com/remojansen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "deep-equal" {
 

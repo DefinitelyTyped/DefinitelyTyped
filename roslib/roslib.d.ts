@@ -1,7 +1,7 @@
 // Type definitions for roslib.js
 // Project: http://wiki.ros.org/roslibjs
 // Definitions by: Stefan Profanter <https://github.com/Pro/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /* ----------------------------------
@@ -10,7 +10,7 @@
 
  ---------------------------------- */
 
-declare module ROSLIB {
+declare namespace ROSLIB {
 	export class Ros {
 		/**
 		 * Manages connection to the server and all interactions with ROS.

@@ -1,11 +1,11 @@
 // Type definitions for mathjs
 // Project: http://mathjs.org/
 // Definitions by: Ilya Shestakov <https://github.com/siavol/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var math: mathjs.IMathJsStatic;
 
-declare module mathjs {
+declare namespace mathjs {
 
 	type MathArray = number[]|number[][];
 	type MathType = number|BigNumber|Fraction|Complex|Unit|MathArray|Matrix;
@@ -2208,3 +2208,8 @@ declare module mathjs {
 		toString(): string;
 	}
 }
+
+declare module 'mathjs'{
+	export = math;
+}
+

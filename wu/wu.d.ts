@@ -1,9 +1,9 @@
 // Type definitions for wu.js v2.1.0
 // Project: https://fitzgen.github.io/wu.js/
 // Definitions by: phiresky <https://github.com/phiresky/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Wu {
+declare namespace Wu {
 	type Consumer<T> = (t: T) => void;
 	type Filter<T> = (t: T) => boolean;
 
@@ -50,7 +50,7 @@ declare module Wu {
 		slice<T>(iter: Iterable<T>): WuIterable<T>;
 		slice<T>(start: number, iter: Iterable<T>): WuIterable<T>;
 		slice<T>(start: number, stop: number, iter: Iterable<T>): WuIterable<T>;
-		some<T>(fn: Filter<T>, iter: Iterable<T>): WuIterable<T>;
+		some<T>(fn: Filter<T>, iter: Iterable<T>): boolean;
 		spreadMap<T>(fn: (...x: any[]) => T, iter: Iterable<any[]>): WuIterable<T>;
 		take<T>(n: number, iter: Iterable<T>): WuIterable<T>;
 		takeWhile<T>(fn: Filter<T>, iter: Iterable<T>): WuIterable<T>;
@@ -66,7 +66,7 @@ declare module Wu {
 	export interface WuIterable<T> extends IterableIterator<T> {
 		// generated from section "copied to WuIterable" above via
 		// sed -r 's/(, )?iter: Iterable<\w+>//' |
-		// sed -r 's/^(\s+\w+)<T>/\1/' | 
+		// sed -r 's/^(\s+\w+)<T>/\1/' |
 		// sed -r 's/^(\s+\w+)<T, /\1</'
 		asyncEach<T>(fn: Consumer<T>, maxBlock?: number, timeout?: number): any;
 		drop(n: number): WuIterable<T>;
@@ -100,7 +100,7 @@ declare module Wu {
 		slice(): WuIterable<T>;
 		slice(start: number): WuIterable<T>;
 		slice(start: number, stop: number): WuIterable<T>;
-		some(fn: Filter<T>): WuIterable<T>;
+		some(fn: Filter<T>): boolean;
 		spreadMap(fn: (...x: any[]) => T, iter: Iterable<any[]>): WuIterable<T>;
 		take(n: number): WuIterable<T>;
 		takeWhile(fn: Filter<T>): WuIterable<T>;

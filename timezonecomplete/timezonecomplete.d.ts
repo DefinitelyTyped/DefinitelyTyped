@@ -1,7 +1,7 @@
 // Type definitions for timezonecomplete 1.15.0
 // Project: https://github.com/SpiritIT/timezonecomplete
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'timezonecomplete' {
     import basics = require("__timezonecomplete/basics");

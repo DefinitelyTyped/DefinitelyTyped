@@ -1,6 +1,6 @@
 /// <reference path="../d3/d3.d.ts" />
 /// <reference path="nvd3.d.ts" />
-module nvd3_test_tooltip {
+namespace nvd3_test_tooltip {
     var width = 500,
         height = 20;
 
@@ -26,11 +26,11 @@ module nvd3_test_tooltip {
         .on('mousemove', function (d, i) {
             console.log("mousemove", d, i);
             //tooltip.position({ top: d3.event.pageY, left: d3.event.pageX })(); todo pageY and X not found on d3 definition
-        }); 
+        });
 
 
-    // we must also test the scatter/line way of getting position 
-    // Wrapping in nv.addGraph allows for '0 timeout render', stores rendered charts in nv.graphs, and may do more in the future... it's NOT required 
+    // we must also test the scatter/line way of getting position
+    // Wrapping in nv.addGraph allows for '0 timeout render', stores rendered charts in nv.graphs, and may do more in the future... it's NOT required
     var chart;
     nv.addGraph(function () {
         chart = nv.models.lineChart()

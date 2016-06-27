@@ -1,7 +1,7 @@
 // Type definitions for redux-logger v2.6.0
 // Project: https://github.com/fcomb/redux-logger
 // Definitions by: Alexander Rusakov <https://github.com/arusakov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../redux/redux.d.ts" />
 
@@ -40,6 +40,8 @@ declare module 'redux-logger' {
     stateTransformer?: (state: any) => any;
     actionTransformer?: (action: any) => any;
     errorTransformer?: (error: any) => any;
+    diff?: boolean;
+    diffPredicate?: LoggerPredicate;
   }
 
   // Trickery to get TypeScript to accept that our anonymous, non-default export is a function.

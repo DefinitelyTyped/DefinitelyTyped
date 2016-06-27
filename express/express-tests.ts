@@ -68,3 +68,6 @@ app.use((req, res, next) => {
 app.use(router);
 
 app.listen(3000);
+
+const next: express.NextFunction = () => {};
+const nextWithArgument: express.NextFunction = (err: any) => {};

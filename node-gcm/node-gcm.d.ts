@@ -1,7 +1,7 @@
 // Type definitions for node-gcm 0.14.0
 // Project: https://www.npmjs.org/package/node-gcm
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "node-gcm" {
 

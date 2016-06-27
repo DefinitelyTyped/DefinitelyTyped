@@ -1,7 +1,7 @@
 // Type definitions for mailparser v0.5.2
 // Project: https://www.npmjs.com/package/mailparser
 // Definitions by: Peter Snider <https://github.com/psnider/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path='../node/node.d.ts' />

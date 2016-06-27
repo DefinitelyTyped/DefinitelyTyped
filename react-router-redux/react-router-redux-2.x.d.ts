@@ -1,7 +1,7 @@
 // Type definitions for react-router-redux v2.x - v3.x
 // Project: https://github.com/rackt/react-router-redux
 // Definitions by: Isman Usoh <http://github.com/isman-usoh>, Noah Shipley <https://github.com/noah79>, Dimitri Rosenberg <https://github.com/rosendi>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../redux/redux.d.ts" />
 /// <reference path="../react-router/react-router.d.ts"/>

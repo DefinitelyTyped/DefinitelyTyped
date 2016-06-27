@@ -1,7 +1,7 @@
 // Type definitions for project-oxford v0.1.3
 // Project: https://github.com/felixrieseberg/project-oxford
 // Definitions by: Scott Southwood <https://github.com/scsouthw/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="..\bluebird\bluebird.d.ts" />
 /// <reference path="..\node\node.d.ts" />
@@ -9,14 +9,14 @@
 declare module "project-oxford" {
     import Promise = require("bluebird");
     import stream = require("stream");
-    
+
     export class Client {
         constructor(apiKey: string);
         private _key: string;
         public face: FaceAPI;
         public vision: VisionAPI;
     }
-    
+
     export class FaceAPI {
 
         /**
@@ -83,7 +83,7 @@ declare module "project-oxford" {
          * @return {Promise}            - Promise resolving with the resulting JSON
          */
         public verify(faces: string[]): Promise<FaceResponses.Verify>;
-        
+
         /**
          * @namespace
          * @memberof face
@@ -108,7 +108,7 @@ declare module "project-oxford" {
          * @return {Promise}                        - Promise resolving with the resulting JSON
          */
         public analyzeImage(options: Options.Analyze): Promise<VisionResponses.Analyze>;
-        
+
         /**
          * Generate a thumbnail image to the user-specified width and height. By default, the
          * service analyzes the image, identifies the region of interest (ROI), and generates
@@ -125,7 +125,7 @@ declare module "project-oxford" {
          * @return {Promise}                        - Promise resolving with the resulting JSON
          */
         public thumbnail(options: Options.Thumbnail): Promise<stream.Stream>;
-        
+
         /**
          * Optical Character Recognition (OCR) detects text in an image and extracts the recognized
          * characters into a machine-usable character stream.
@@ -302,8 +302,8 @@ declare module "project-oxford" {
          */
         public list(personGroupId: string): Promise<PersonResponses.Person[]>;
     }
-    
-    module Options {
+
+    namespace Options {
         interface Detect {
             url?: string; // URL to image to be used
             path?: string; // Path to image to be used
@@ -316,7 +316,7 @@ declare module "project-oxford" {
 
         interface Identify {
             personGroupId: string;
-            maxNumOfCandidatesReturned: number; // range is 1-10 
+            maxNumOfCandidatesReturned: number; // range is 1-10
         }
 
         interface Analyze {
@@ -346,7 +346,7 @@ declare module "project-oxford" {
         }
     }
 
-    module FaceResponses {
+    namespace FaceResponses {
         interface FaceRectangle {
             top: number;
             left: number;
@@ -425,7 +425,7 @@ declare module "project-oxford" {
         }
     }
 
-    module PersonGroupResponses {
+    namespace PersonGroupResponses {
 
         export interface PersonGroup {
             "personGroupId": string;
@@ -441,7 +441,7 @@ declare module "project-oxford" {
         }
     }
 
-    module PersonResponses {
+    namespace PersonResponses {
         export interface Create {
             "personId": string;
         }
@@ -459,7 +459,7 @@ declare module "project-oxford" {
         }
     }
 
-    module VisionResponses {
+    namespace VisionResponses {
         export interface Analyze {
             "categories": [{
                 "name": string;
@@ -501,7 +501,7 @@ declare module "project-oxford" {
                 "lineDrawingType": number;
             }
         }
-        
+
 
         export interface Ocr {
             "language": string;

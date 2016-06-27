@@ -13,7 +13,7 @@ declare module 'angular-resource' {
 ///////////////////////////////////////////////////////////////////////////////
 // ngResource module (angular-resource.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module angular.resource {
+declare namespace angular.resource {
 
     /**
      * Currently supported options for the $resource factory options argument.
@@ -74,7 +74,7 @@ declare module angular.resource {
         responseType?: string;
         interceptor?: IHttpInterceptor;
     }
-    
+
     // Allow specify more resource methods
     // No need to add duplicates for all four overloads.
     interface IResourceMethod<T> {
@@ -84,7 +84,7 @@ declare module angular.resource {
         (params: Object, success: Function, error?: Function): T;
         (params: Object, data: Object, success?: Function, error?: Function): T;
     }
-    
+
     // Allow specify resource moethod which returns the array
     // No need to add duplicates for all four overloads.
     interface IResourceArrayMethod<T> {
@@ -95,7 +95,7 @@ declare module angular.resource {
         (params: Object, data: Object, success?: Function, error?: Function): IResourceArray<T>;
     }
 
-    // Baseclass for everyresource with default actions.
+    // Baseclass for every resource with default actions.
     // If you define your new actions for the resource, you will need
     // to extend this interface and typecast the ResourceClass to it.
     //
@@ -113,7 +113,7 @@ declare module angular.resource {
     // Also, static calls always return the IResource (or IResourceArray) retrieved
     // https://github.com/angular/angular.js/blob/v1.2.0/src/ngResource/resource.js#L538-L549
     interface IResourceClass<T> {
-        new(dataOrParams? : any) : T;
+        new(dataOrParams? : any) : T & IResource<T>;
         get: IResourceMethod<T>;
 
         query: IResourceArrayMethod<T>;
@@ -153,9 +153,7 @@ declare module angular.resource {
         /** the promise of the original server interaction that created this instance. **/
         $promise : angular.IPromise<T>;
         $resolved : boolean;
-        toJSON: () => {
-          [index: string]: any;
-        }
+        toJSON(): T;
     }
 
     /**
@@ -182,7 +180,7 @@ declare module angular.resource {
 }
 
 /** extensions to base ng based on using angular-resource */
-declare module angular {
+declare namespace angular {
 
     interface IModule {
         /** creating a resource service factory */

@@ -1,7 +1,7 @@
 // Type definitions for Zone.js
 // Project: https://github.com/angular/zone.js
 // Definitions by: angular team <https://github.com/angular/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Zone {
     constructor(parentZone: Zone, data: any);

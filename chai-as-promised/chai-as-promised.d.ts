@@ -1,7 +1,7 @@
 // Type definitions for chai-as-promised
 // Project: https://github.com/domenic/chai-as-promised/
 // Definitions by: jt000 <https://github.com/jt000>, Yuki Kokubun <https://github.com/Kuniwak>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../chai/chai.d.ts" />
 /// <reference path="../promises-a-plus/promises-a-plus.d.ts" />
@@ -12,7 +12,7 @@ declare module 'chai-as-promised' {
     export = chaiAsPromised;
 }
 
-declare module Chai {
+declare namespace Chai {
 
     // For BDD API
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
@@ -36,6 +36,7 @@ declare module Chai {
         // From chai
         not: PromisedAssertion;
         deep: PromisedDeep;
+        all: PromisedKeyFilter;
         a: PromisedTypeComparison;
         an: PromisedTypeComparison;
         include: PromisedInclude;
@@ -129,6 +130,10 @@ declare module Chai {
         property: PromisedProperty;
     }
 
+    interface PromisedKeyFilter {
+        keys: PromisedKeys;
+    }
+
     interface PromisedEqual {
         (value: any, message?: string): PromisedAssertion;
     }
@@ -151,6 +156,7 @@ declare module Chai {
         (value: number, message?: string): PromisedAssertion;
         keys: PromisedKeys;
         members: PromisedMembers;
+        all: PromisedKeyFilter;
     }
 
     interface PromisedKeys {

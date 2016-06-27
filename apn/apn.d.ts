@@ -1,7 +1,7 @@
 // Type definitions for node-apn
 // Project: https://github.com/argon/node-apn
 // Definitions by: Zenorbi <https://github.com/zenorbi>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../node/node.d.ts"/>
 declare module "apn" {

@@ -1,7 +1,7 @@
 // Type definitions for Angular JS 1.3 (ngAnimate module)
 // Project: http://angularjs.org
 // Definitions by: Michel Salib <https://github.com/michelsalib>, Adi Dahiya <https://github.com/adidahiya>, Raphael Schweizer <https://github.com/rasch>, Cody Schaaf <https://github.com/codyschaaf>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="angular-1.4.d.ts" />
 
@@ -13,7 +13,7 @@ declare module "angular-animate" {
 /**
  * ngAnimate module (angular-animate.js)
  */
-declare module angular.animate {
+declare namespace angular.animate {
     interface IAnimateFactory extends Function {
         enter?: (element: ng.IAugmentedJQuery, doneFn: Function) => IAnimateCssRunner|void;
         leave?: (element: ng.IAugmentedJQuery, doneFn: Function) => IAnimateCssRunner|void;
@@ -254,7 +254,7 @@ declare module angular.animate {
 
 }
 
-declare module angular {
+declare namespace angular {
     interface IModule {
         animate(cssSelector: string, animateFactory: angular.animate.IAnimateFactory): IModule;
     }

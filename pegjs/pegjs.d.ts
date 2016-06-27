@@ -1,15 +1,15 @@
 // Type definitions for PEG.js
-// Project: http://pegjs.majda.cz/
+// Project: http://pegjs.org/
 // Definitions by: vvakame <https://github.com/vvakame>, Tobias Kahlert <https://github.com/SrTobi>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module PEG {
+declare namespace PEG {
 	function parse(input:string):any;
 
 	interface Location {
 		line: number;
 		column: number;
-		offset: number;		
+		offset: number;
 	}
 
 	interface LocationRange {
@@ -20,7 +20,7 @@ declare module PEG {
 	class SyntaxError {
 		line: number;
 		column: number;
-		offset: number;	
+		offset: number;
 		location: LocationRange;
 		expected:any[];
 		found:any;
@@ -30,16 +30,16 @@ declare module PEG {
 }
 
 declare module "pegjs" {
-    
+
     type Location = PEG.Location;
     type LocationRange = PEG.LocationRange;
-    
+
     interface ExpectedItem {
         type: string;
         value?: string;
         description: string;
     }
-    
+
     interface PegjsError extends Error {
         name: string;
         message: string;
@@ -48,7 +48,7 @@ declare module "pegjs" {
         expected?: ExpectedItem[];
         stack?: any;
     }
-    
+
     type GrammarError = PegjsError;
     var GrammarError: any;
 
@@ -59,25 +59,25 @@ declare module "pegjs" {
 
     interface Parser {
         parse(input: string, options?:ParserOptions): any;
-        
+
         SyntaxError: any;
     }
-    
+
     interface BuildOptions {
         cache?: boolean;
         allowedStartRules?: string[];
         optimize?: string;
         plugins?: any[];
     }
-    
+
     interface OutputBuildOptions extends BuildOptions {
         output?: string;
     }
-    
+
     function buildParser(grammar: string, options?: BuildOptions): Parser;
     function buildParser(grammar: string, options?: OutputBuildOptions): Parser | string;
-    
-    module parser {
+
+    namespace parser {
         type SyntaxError = PegjsError;
         var SyntaxError: any;
     }

@@ -1,7 +1,7 @@
 /// <reference path="kineticjs.d.ts"/>
 
 // http://www.html5canvastutorials.com/kineticjs/html5-canvas-kineticjs-rect-tutorial/
-module RectTutorial {
+namespace RectTutorial {
     var stage = new Kinetic.Stage({
         container: 'container',
         width: 578,
@@ -28,7 +28,7 @@ module RectTutorial {
 }
 
 // http://www.html5canvastutorials.com/kineticjs/html5-canvas-kineticjs-circle-tutorial/
-module CircleTutorial {
+namespace CircleTutorial {
     var stage = new Kinetic.Stage({
         container: 'container',
         width: 578,

@@ -6,7 +6,7 @@
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
-declare module GoogleAppsScript {
+declare namespace GoogleAppsScript {
   export module Gmail {
     /**
      * Provides access to Gmail threads, messages, and labels.
@@ -79,7 +79,7 @@ declare module GoogleAppsScript {
      *  Blob except that it has an extra
      *  getSize() method that is faster than calling getBytes().length and does
      *  not count against the Gmail read quota.
-     * 
+     *
      *      // Logs information about any attachments in the first 100 inbox threads.
      *      var threads = GmailApp.getInboxThreads(0, 100);
      *      var msgs = GmailApp.getMessagesForThreads(threads);

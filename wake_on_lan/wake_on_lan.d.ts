@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts"/>
 
-declare module wol {
+declare namespace wol {
 
 	export interface WakeOptions {
 

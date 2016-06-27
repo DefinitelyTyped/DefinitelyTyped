@@ -43,6 +43,14 @@ server.on('browser_register', function (browser: any) {
     console.log('A new browser was registered');
 });
 
+server.on('run_complete', (browsers, results) => {
+   results.disconnected = false;
+   results.error = false;
+   results.exitCode = 0;
+   results.failed = 9;
+   results.success = 10; 
+});
+
 //var runner = require('karma').runner; => cannot use this syntax otherwise runner is of type any
 karma.runner.run({port: 9876}, function(exitCode: number) {
     console.log('Karma has exited with ' + exitCode);

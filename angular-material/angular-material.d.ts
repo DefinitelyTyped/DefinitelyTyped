@@ -1,10 +1,16 @@
 // Type definitions for Angular Material 1.0.0-rc5+ (angular.material module)
 // Project: https://github.com/angular/material
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
-declare module angular.material {
+
+declare module 'angular-material' {
+    var _: string;
+    export = _;
+}
+
+declare namespace angular.material {
 
     interface IBottomSheetOptions {
         templateUrl?: string;
@@ -59,10 +65,17 @@ declare module angular.material {
     interface IConfirmDialog extends IPresetDialog<IConfirmDialog> {
         cancel(cancel: string): IConfirmDialog;
     }
+    
+    interface IPromptDialog extends IPresetDialog<IPromptDialog> {
+        cancel(cancel: string): IPromptDialog;
+        placeholder(placeholder: string): IPromptDialog;    
+        initialValue(initialValue: string): IPromptDialog;    
+    }
 
     interface IDialogOptions {
         templateUrl?: string;
         template?: string;
+        contentElement?: string|Element;
         autoWrap?: boolean; // default: true
         targetEvent?: MouseEvent;
         openFrom?: any;
@@ -70,7 +83,7 @@ declare module angular.material {
         scope?: angular.IScope; // default: new child scope
         preserveScope?: boolean; // default: false
         disableParentScroll?: boolean; // default: true
-        hasBackdrop?: boolean // default: true
+        hasBackdrop?: boolean; // default: true
         clickOutsideToClose?: boolean; // default: false
         escapeToClose?: boolean; // default: true
         focusOnOpen?: boolean; // default: true
@@ -83,13 +96,15 @@ declare module angular.material {
         onShowing?: Function;
         onComplete?: Function;
         onRemoving?: Function;
-        fullscreen?: boolean;
+        skipHide?: boolean;
+        fullscreen?: boolean; // default: false
     }
 
     interface IDialogService {
-        show(dialog: IDialogOptions|IAlertDialog|IConfirmDialog): angular.IPromise<any>;
+        show(dialog: IDialogOptions|IAlertDialog|IConfirmDialog|IPromptDialog): angular.IPromise<any>;
         confirm(): IConfirmDialog;
         alert(): IAlertDialog;
+        prompt(): IPromptDialog;
         hide(response?: any): angular.IPromise<any>;
         cancel(response?: any): void;
     }
@@ -126,6 +141,7 @@ declare module angular.material {
         textContent(content: string): T;
         action(action: string): T;
         highlightAction(highlightAction: boolean): T;
+        highlightClass(highlightClass: string): T;
         capsule(capsule: boolean): T;
         theme(theme: string): T;
         hideDelay(delay: number): T;
@@ -139,6 +155,7 @@ declare module angular.material {
     interface IToastOptions {
         templateUrl?: string;
         template?: string;
+        autoWrap?:boolean;
         scope?: angular.IScope; // default: new child scope
         preserveScope?: boolean; // default: false
         hideDelay?: number; // default (ms): 3000
@@ -247,5 +264,98 @@ declare module angular.material {
 
     interface IMenuService {
         hide(response?: any, options?: any): angular.IPromise<any>;
+    }
+
+    interface IColorPalette {
+        red: IPalette;
+        pink: IPalette;
+        'deep-purple': IPalette;
+        indigo: IPalette;
+        blue: IPalette;
+        'light-blue': IPalette;
+        cyan: IPalette;
+        teal: IPalette;
+        green: IPalette;
+        'light-green': IPalette;
+        lime: IPalette;
+        yellow: IPalette;
+        amber: IPalette;
+        orange: IPalette;
+        'deep-orange': IPalette;
+        brown: IPalette;
+        grey: IPalette;
+        'blue-grey': IPalette;
+    }
+
+    interface IPanelConfig {
+        template?: string;
+        templateUrl?: string;
+        controller?: string|Function;
+        controllerAs?: string;
+        bindToController?: boolean; // default: true
+        locals?: {[index: string]: any};
+        resolve?: {[index: string]: angular.IPromise<any>}
+        attachTo?: string|JQuery|Element;
+        panelClass?: string;
+        zIndex?: number; // default: 80
+        position?: IPanelPosition;
+        clickOutsideToClose?: boolean; // default: false
+        escapeToClose?: boolean; // default: false
+        trapFocus?: boolean; // default: false
+        focusOnOpen?: boolean; // default: true
+        fullscreen?: boolean; // default: false
+        animation?: IPanelAnimation;
+        hasBackdrop?: boolean; // default: false
+        disableParentScroll?: boolean; // default: false
+        onDomAdded?: Function;
+        onOpenComplete?: Function;
+        onRemoving?: Function;
+        onDomRemoved?: Function;
+        origin?: string|JQuery|Element;
+    }
+
+    interface IPanelRef {
+        id: string;
+        config: IPanelConfig;
+        isAttached: boolean;
+        open(): angular.IPromise<any>;
+        close(): angular.IPromise<any>;
+        attach(): angular.IPromise<any>;
+        detach(): angular.IPromise<any>;
+        show(): angular.IPromise<any>;
+        hide(): angular.IPromise<any>;
+        destroy(): void;
+        addClass(newClass: string): void;
+        removeClass(oldClass: string): void;
+        toggleClass(toggleClass: string): void;
+        focusOnOpen(): void;
+    }
+
+    interface IPanelPosition {
+        absolute(): IPanelPosition;
+        relativeTo(someElement: string|JQuery|Element): IPanelPosition;
+        top(opt_top: string): IPanelPosition; // default: '0'
+        bottom(opt_bottom: string): IPanelPosition; // default: '0'
+        left(opt_left: string): IPanelPosition; // default: '0'
+        right(opt_right: string): IPanelPosition; // default: '0'
+        centerHorizontally(): IPanelPosition;
+        centerVertically(): IPanelPosition;
+        center(): IPanelPosition;
+        addPanelPosition(xPosition: string, yPosition: string): IPanelPosition;
+        withOffsetX(offsetX: string): IPanelPosition;
+        withOffsetY(offsetY: string): IPanelPosition;
+    }
+
+    interface IPanelAnimation {
+        openFrom(from: string|Element|Event|{top: number, left: number}): IPanelAnimation;
+        closeTo(to: string|Element|{top: number, left: number}): IPanelAnimation;
+        withAnimation(cssClass: string|{open: string, close: string}): IPanelAnimation;
+    }
+
+    interface IPanelService {
+        create(opt_config: IPanelConfig): IPanelRef;
+        open(opt_config: IPanelConfig): angular.IPromise<IPanelRef>;
+        newPanelPosition(): IPanelPosition;
+        newPanelAnimation(): IPanelAnimation;
     }
 }

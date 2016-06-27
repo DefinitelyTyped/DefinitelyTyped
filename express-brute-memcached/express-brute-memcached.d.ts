@@ -1,7 +1,7 @@
 // Type definitions for express-brute-memcached
 // Project: https://github.com/AdamPflug/express-brute-memcached
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 

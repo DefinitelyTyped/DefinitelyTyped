@@ -1,11 +1,11 @@
 // Type definitions for DevExtreme 15.2.5
 // Project: http://js.devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module DevExpress {
+declare namespace DevExpress {
     /** A mixin that provides a capability to fire and subscribe to events. */
     export interface EventsMixin<T> {
         /** Subscribes to a specified event. */
@@ -831,7 +831,7 @@ declare module DevExpress {
         export function registerPalette(paletteName: string, palette: Object): void;
     }
 }
-declare module DevExpress.ui {
+declare namespace DevExpress.ui {
     export interface dxValidatorOptions extends DOMComponentOptions {
         /** An array of validation rules to be checked for the editor with which the dxValidator object is associated. */
         validationRules?: Array<any>;
@@ -2384,7 +2384,7 @@ interface JQuery {
     dxForm(options: DevExpress.ui.dxForm): JQuery;
 }
 
-declare module DevExpress.ui {
+declare namespace DevExpress.ui {
     export interface dxTileViewOptions extends CollectionWidgetOptions {
         /** A Boolean value specifying whether or not the widget changes its state when interacting with a user. */
         activeStateEnabled?: boolean;
@@ -2621,7 +2621,7 @@ interface JQuery {
     dxDropDownMenu(options: string, ...params: any[]): any;
     dxDropDownMenu(options: DevExpress.ui.dxDropDownMenuOptions): JQuery;
 }
-declare module DevExpress.data {
+declare namespace DevExpress.data {
     export interface XmlaStoreOptions {
         /** The HTTP address to an XMLA OLAP server. */
         url?: string;
@@ -2817,7 +2817,7 @@ declare module DevExpress.data {
         off(eventName: string, eventHandler: Function): PivotGridDataSource;
     }
 }
-declare module DevExpress.ui {
+declare namespace DevExpress.ui {
     export interface dxSchedulerOptions extends WidgetOptions {
         /** Specifies a date displayed on the current scheduler view by default. */
         currentDate?: Date;
@@ -4155,7 +4155,7 @@ interface JQuery {
     dxScheduler(options: string, ...params: any[]): any;
     dxScheduler(options: DevExpress.ui.dxSchedulerOptions): JQuery;
 }
-declare module DevExpress.framework {
+declare namespace DevExpress.framework {
     /** An object used to store information on the views displayed in an application. */
     export class ViewCache {
         viewRemoved: JQueryCallback;
@@ -4437,7 +4437,7 @@ declare module DevExpress.framework {
         }
     }
 }
-declare module DevExpress.viz.core {
+declare namespace DevExpress.viz.core {
     /**
      * Applies a theme for the entire page with several DevExtreme visualization widgets.
      * @deprecated Use the DevExpress.viz.currentTheme(theme) method instead.
@@ -4673,7 +4673,7 @@ declare module DevExpress.viz.core {
         svg(): string;
     }
 }
-declare module DevExpress.viz.charts {
+declare namespace DevExpress.viz.charts {
     /** This section describes the fields and methods that can be used in code to manipulate the Series object. */
     export interface BaseSeries {
         /** Provides information about the state of the series object. */
@@ -5910,7 +5910,7 @@ interface JQuery {
     dxPolarChart(methodName: string, ...params: any[]): any;
     dxPolarChart(methodName: "instance"): DevExpress.viz.charts.dxPolarChart;
 }
-declare module DevExpress.viz.gauges {
+declare namespace DevExpress.viz.gauges {
     export interface BaseRangeContainer {
         /** Specifies a range container's background color. */
         backgroundColor?: string;
@@ -6327,7 +6327,7 @@ interface JQuery {
     dxBarGauge(methodName: string, ...params: any[]): any;
     dxBarGauge(methodName: "instance"): DevExpress.viz.gauges.dxBarGauge;
 }
-declare module DevExpress.viz.rangeSelector {
+declare namespace DevExpress.viz.rangeSelector {
     export interface dxRangeSelectorOptions extends viz.core.BaseWidgetOptions {
         /** Specifies the options for the range selector's background. */
         background?: {
@@ -6621,7 +6621,7 @@ interface JQuery {
     dxRangeSelector(methodName: string, ...params: any[]): any;
     dxRangeSelector(methodName: "instance"): DevExpress.viz.rangeSelector.dxRangeSelector;
 }
-declare module DevExpress.viz.map {
+declare namespace DevExpress.viz.map {
     /** This section describes the fields and methods that can be used in code to manipulate the Layer object. */
     export interface MapLayer {
         /** The name of the layer. */
@@ -7260,7 +7260,7 @@ interface JQuery {
     dxVectorMap(methodName: string, ...params: any[]): any;
     dxVectorMap(methodName: "instance"): DevExpress.viz.map.dxVectorMap;
 }
-declare module DevExpress.viz.sparklines {
+declare namespace DevExpress.viz.sparklines {
     export interface SparklineTooltip extends viz.core.Tooltip {
         /**
          * Specifies how a tooltip is horizontally aligned relative to the graph.

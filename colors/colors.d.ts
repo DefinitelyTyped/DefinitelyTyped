@@ -1,7 +1,7 @@
 // Type definitions for Colors.js 0.6.0-1
 // Project: https://github.com/Marak/colors.js
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "colors" {
     interface Color {
@@ -41,9 +41,10 @@ declare module "colors" {
         america: Color;
         trap: Color;
         random: Color;
+        zalgo: Color;
     }
 
-    module e {
+    namespace e {
         export function setTheme(theme:any): void;
 
         export var black: Color;
@@ -80,6 +81,7 @@ declare module "colors" {
         export var america: Color;
         export var trap: Color;
         export var random: Color;
+        export var zalgo: Color;
     }
 
     export = e;
@@ -120,4 +122,5 @@ interface String {
     america: string;
     trap: string;
     random: string;
+    zalgo: string;
 }

@@ -1,7 +1,7 @@
 // Type definitions for HTMLMinifier v1.1.1
 // Project: https://github.com/kangax/html-minifier
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../uglify-js/uglify-js.d.ts" />
 /// <reference path="../clean-css/clean-css.d.ts" />

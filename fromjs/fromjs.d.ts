@@ -6,7 +6,7 @@
 declare function from<T>(results: Array<T>): FromJS.IQueryable<T>;
 declare function from<T>(results: any): FromJS.IQueryable<any>;
 
-declare module FromJS {
+declare namespace FromJS {
     export interface IOrderedQueryable<T> extends IQueryable<T> {
         thenBy<TResult>(item: (item: T) => TResult): IOrderedQueryable<T>;
         thenByDesc<TResult>(item: (item: T) => TResult): IOrderedQueryable<T>;

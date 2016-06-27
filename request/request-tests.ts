@@ -92,6 +92,7 @@ var options: request.Options = {
 	qs: obj,
 	json: value,
 	multipart: value,
+	agent: new http.Agent(),  
 	agentOptions: value,
 	agentClass: value,
 	forever: value,

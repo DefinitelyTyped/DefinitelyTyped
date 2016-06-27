@@ -1,7 +1,7 @@
 ﻿// Type definitions for Auth0.js
 // Project: http://auth0.com
 // Definitions by: Robert McLaws <https://github.com/advancedrei>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** Extensions to the browser Window object. */
 interface Window {

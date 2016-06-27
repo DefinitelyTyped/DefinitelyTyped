@@ -1,9 +1,9 @@
 // Type definitions for openpgpjs
 // Project: http://openpgpjs.org/
 // Definitions by: Guillaume Lacasa <https://blog.lacasa.fr>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module openpgp {
+declare namespace openpgp {
 
     interface KeyPair {
         key: key.Key,
@@ -115,7 +115,7 @@ declare module openpgp {
     function verifyClearSignedMessage(publicKey: key.Key, msg: cleartext.CleartextMessage): Promise<VerifiedMessage>;
 }
 
-declare module openpgp.armor {
+declare namespace openpgp.armor {
 
     /** Armor an OpenPGP binary packet block
 
@@ -133,7 +133,7 @@ declare module openpgp.armor {
     function dearmor(text: string): Object;
 }
 
-declare module openpgp.cleartext {
+declare namespace openpgp.cleartext {
 
     /** Class that represents an OpenPGP cleartext signed message.
      */
@@ -164,7 +164,7 @@ declare module openpgp.cleartext {
     function readArmored(armoredText: string): CleartextMessage;
 }
 
-declare module openpgp.config {
+declare namespace openpgp.config {
     var prefer_hash_algorithm: enums.hash;
     var encryption_cipher: enums.symmetric;
     var compression: enums.compression;
@@ -175,7 +175,7 @@ declare module openpgp.config {
     var debug: boolean;
 }
 
-declare module openpgp.crypto {
+declare namespace openpgp.crypto {
     interface Mpi {
         data: number,
         read(input: string): number,
@@ -213,7 +213,7 @@ declare module openpgp.crypto {
     function publicKeyEncrypt(algo: enums.publicKey, publicMPIs: Array<Mpi>, data: Mpi): Array<Mpi>;
 }
 
-declare module openpgp.crypto.cfb {
+declare namespace openpgp.crypto.cfb {
     /** This function decrypts a given plaintext using the specified blockcipher to decrypt a message
         @param cipherfn the algorithm cipher class to decrypt data in one block_size encryption
         @param key binary string representation of key to be used to decrypt the ciphertext. This will be passed to the cipherfn
@@ -239,7 +239,7 @@ declare module openpgp.crypto.cfb {
     function mdc(cipherfn: Object, key: string, ciphertext: string): string;
 }
 
-declare module openpgp.crypto.hash {
+declare namespace openpgp.crypto.hash {
     /** Create a hash on the specified data using the specified algorithm
         @param algo Hash algorithm type
         @param data Data to be hashed
@@ -252,7 +252,7 @@ declare module openpgp.crypto.hash {
     function getHashByteLength(algo: enums.hash): number;
 }
 
-declare module openpgp.crypto.random {
+declare namespace openpgp.crypto.random {
     /** Create a secure random big integer of bits length
         @param bits Bit length of the MPI to create
      */
@@ -275,7 +275,7 @@ declare module openpgp.crypto.random {
     function getSecureRandom(from: number, to: number): number;
 }
 
-declare module openpgp.crypto.signature {
+declare namespace openpgp.crypto.signature {
     /** Create a signature on data using the specified algorithm
         @param hash_algo hash Algorithm to use
         @param algo Asymmetric cipher algorithm to use
@@ -295,7 +295,7 @@ declare module openpgp.crypto.signature {
     function verify(algo: enums.publicKey, hash_algo: enums.hash, msg_MPIs: Array<Mpi>, publickey_MPIs: Array<Mpi>, data: string): boolean;
 }
 
-declare module openpgp.enums {
+declare namespace openpgp.enums {
 
     enum armor {
         multipart_section,
@@ -372,7 +372,7 @@ declare module openpgp.enums {
     }
 }
 
-declare module openpgp.key {
+declare namespace openpgp.key {
 
     interface KeyResult {
         keys: Array<Key>,
@@ -411,7 +411,7 @@ declare module openpgp.key {
 
 }
 
-declare module openpgp.message {
+declare namespace openpgp.message {
     /** Class that represents an OpenPGP message. Can be an encrypted message, signed message, compressed message or literal message
      */
     interface Message {
@@ -477,7 +477,7 @@ declare module openpgp.message {
     function readArmored(armoredText: string): Message;
 }
 
-declare module openpgp.packet {
+declare namespace openpgp.packet {
 
     interface PublicKey {
         algorithm: enums.publicKey;
@@ -509,7 +509,7 @@ declare module openpgp.packet {
     function newPacketFromTag(tag: string): Object;
 }
 
-declare module openpgp.util {
+declare namespace openpgp.util {
     /** Convert an array of integers(0.255) to a string
         @param bin An array of (binary) integers to convert
      */

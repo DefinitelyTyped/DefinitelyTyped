@@ -11,7 +11,7 @@ interface Array<T> {
     _: BlissNS.BlissBindedArray<T> & BlissNS.BlissCollectionArray<T>;
 }
 
-declare module BlissNS {
+declare namespace BlissNS {
     export type BlissDecoratedElement<T> = Element & T;
     export type BlissDecoratedArrayElement<T> = Array<T> & BlissNS.BlissCollectionArray<T>;
 

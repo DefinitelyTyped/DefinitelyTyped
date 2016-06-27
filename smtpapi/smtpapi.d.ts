@@ -3,7 +3,7 @@
 // Definitions by: Antonio Morales <https://github.com/a-morales>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module SmtpApi {
+declare namespace SmtpApi {
 
   interface Header {
     to: string[];

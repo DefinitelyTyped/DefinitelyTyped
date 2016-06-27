@@ -1,11 +1,23 @@
 // Type definitions for ngDialog
 // Project: https://github.com/likeastore/ngDialog
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.dialog {
+declare module "ng-dialog" {
+	export type IDialogService = angular.dialog.IDialogService;
+	export type IDialogOpenResult = angular.dialog.IDialogOpenResult;
+	export type IDialogClosePromise = angular.dialog.IDialogClosePromise;
+	export type IDialogProvider = angular.dialog.IDialogProvider;
+	export type IDialogScope = angular.dialog.IDialogScope;
+	export type IDialogConfirmScope = angular.dialog.IDialogConfirmScope;
+	export type IDialogOptions = angular.dialog.IDialogOptions;
+	export type IDialogOpenOptions = angular.dialog.IDialogOpenOptions;
+	export type IDialogOpenConfirmOptions = angular.dialog.IDialogOpenConfirmOptions;
+}
+
+declare namespace angular.dialog {
 
 	interface IDialogService {
 		getDefaults(): IDialogOptions;

@@ -1,7 +1,7 @@
 // Type definitions for howler.js v1.1.29
 // Project: https://github.com/goldfire/howler.js
 // Definitions by: Pedro Casaubon <https://github.com/xperiments/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class HowlerGlobal {
     mute(): HowlerGlobal;
@@ -18,14 +18,21 @@ interface IHowlSoundSpriteDefinition {
     [name: string]: number[];
 }
 
+declare type HowlPos3d = [number, number, number]|[number, number, number, number];
+
 interface IHowlProperties {
     autoplay?: boolean;
     buffer?: boolean;
+    duration?: number;
     format?: string;
     loop?: boolean;
     sprite?: IHowlSoundSpriteDefinition;
+    src?: string;
+    pos3d?: HowlPos3d;
     volume?: number;
     urls?: string[];
+    rate?: number;
+    model?: 'equalpower'|'HRTF';
     onend?: Function;
     onload?: Function;
     onloaderror?: Function;

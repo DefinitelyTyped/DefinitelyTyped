@@ -700,11 +700,18 @@ wilmaRef.transaction(function(currentData) {
 	}, { x: 1 });
 }
 
+() => {
+	// Use a Promise in place of a callback
+	firebaseRef.once('value').then(function(dataSnapshot){
+		// handle read data
+	})
+}
+
 /*
  * FirebaseQuery.orderByChild()
  */
 () => {
-	// For example, using our sample Firebase of dinosaur facts, 
+	// For example, using our sample Firebase of dinosaur facts,
 	// we can read all dinosaurs ordered by height using the following query:
 	var ref = new Firebase("https://dinosaur-facts.firebaseio.com/");
 	ref.orderByChild("height").on("child_added", function (snapshot) {

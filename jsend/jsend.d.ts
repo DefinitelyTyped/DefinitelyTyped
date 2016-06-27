@@ -1,15 +1,15 @@
 ﻿// Type definitions for jsend 1.0.2
 // Project: https://github.com/Prestaul/jsend
 // Definitions by: Federico Caselli <https://github.com/CaselIT> 
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Express {
+declare namespace Express {
   export interface Response {
     jsend: jsend.jsendExpress;
   }
 }
 
-declare module jsend {
+declare namespace jsend {
   interface JSendObject {
     status: string;
     code?: number;

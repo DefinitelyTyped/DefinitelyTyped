@@ -1,11 +1,11 @@
 // Type definitions for Featherlight v1.3.4
 // Project: https://noelboss.github.io/featherlight/
 // Definitions by: Kaur Kuut <https://github.com/xStrom>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts" />
 
-declare module Featherlight {
+declare namespace Featherlight {
 	interface Config {
 		namespace?: string;
 		targetAttr?: string;

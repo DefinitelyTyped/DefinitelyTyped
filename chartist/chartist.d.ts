@@ -1,9 +1,9 @@
 // Type definitions for Chartist v0.9.5
 // Project: https://github.com/gionkunz/chartist-js
 // Definitions by: Matt Gibbs <https://github.com/mtgibbs>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Chartist {
+declare namespace Chartist {
 
   interface ChartistStatic {
 
@@ -105,7 +105,7 @@ declare module Chartist {
     plugins?: Array<any>; // all of these plugins seem to be functions with options, but keeping type any for now
 
     update(data: Object, options?: T, override?: boolean): void;
-    detatch(): void;
+    detach(): void;
 
     /**
      * Use this function to register event handlers. The handler callbacks are synchronous and will run in the main thread rather than the event loop.
@@ -557,3 +557,7 @@ declare module Chartist {
 }
 
 declare var Chartist: Chartist.ChartistStatic;
+
+declare module 'chartist' {
+  export = Chartist;
+}

@@ -1,7 +1,7 @@
 // Type definitions for redux-saga 0.9.1
 // Project: https://github.com/yelouafi/redux-saga
 // Definitions by: Daniel Lytkin <https://github.com/aikoven>, Dimitri Rosenberg <https://github.com/rosendi>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../redux/redux.d.ts" />
 
@@ -44,6 +44,10 @@ declare module 'redux-saga' {
   export function takeEvery(pattern: Pattern, saga: Saga, ...args: any[]): { [Symbol.iterator](): IterableIterator<any> };
 
   export function takeLatest(pattern: Pattern, saga: Saga, ...args: any[]): { [Symbol.iterator](): IterableIterator<any> };
+
+  export function delay(ms: number): Promise<boolean>;
+
+  export function delay<T>(ms: number, val: T): Promise<T>;
 
   export function isCancelError(e: any): boolean;
 }

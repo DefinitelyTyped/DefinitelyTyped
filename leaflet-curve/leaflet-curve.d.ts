@@ -5,7 +5,7 @@
 
 /// <reference path="../leaflet/leaflet.d.ts" />
 
-declare module L {
+declare namespace L {
 	/**
 	 * Drawing Bezier curves and other complex shapes.
 	 */

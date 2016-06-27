@@ -1,7 +1,7 @@
 // Type definitions for Glide.js v1.0.6
 // Project: http://glide.jedrzejchalubek.com/
 // Definitions by: Milan Jaros <https://github.com/milanjaros/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface JQuery {
     /**
@@ -13,7 +13,7 @@ interface JQuery {
     glide(options?: JQueryGlide.IGlideOptions): JQuery;
 }
 
-declare module JQueryGlide {
+declare namespace JQueryGlide {
     interface IGlideOptions {
         /**
          * Default: 4000

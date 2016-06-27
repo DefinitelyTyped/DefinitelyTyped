@@ -1,13 +1,13 @@
 // Type definitions for PayPal-Cordova-Plugin 3.1.10
 // Project: https://github.com/paypal/PayPal-Cordova-Plugin
 // Definitions by: Justin Unterreiner <https://github.com/Justin-Credible>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 //#region paypal-mobile-js-helper.js
 
 /**
  * The PayPalItem class defines an optional itemization for a payment.
- * 
+ *
  * @see https://developer.paypal.com/docs/api/#item-object for more details.
  */
 declare class PayPalItem {
@@ -51,7 +51,7 @@ declare class PayPalItem {
 
 /**
  * The PayPalPaymentDetails class defines optional amount details.
- * 
+ *
  * @see https://developer.paypal.com/webapps/developer/docs/api/#details-object for more details.
  */
 declare class PayPalPaymentDetails {
@@ -256,18 +256,18 @@ declare class PayPalConfiguration {
 
     /**
      * For single payments, options for the shipping address.
-     * 
+     *
      * - 0 - PayPalShippingAddressOptionNone: no shipping address applies.
-     * 
+     *
      * - 1 - PayPalShippingAddressOptionProvided: shipping address will be provided by your app,
      *   in the shippingAddress property of PayPalPayment.
-     * 
+     *
      * - 2 - PayPalShippingAddressOptionPayPal: user will choose from shipping addresses on file
      *   for their PayPal account.
-     * 
+     *
      * - 3 - PayPalShippingAddressOptionBoth: user will choose from the shipping address provided by your app,
      *   in the shippingAddress property of PayPalPayment, plus the shipping addresses on file for the user's PayPal account.
-     * 
+     *
      * Defaults to 0 (PayPalShippingAddressOptionNone).
      */
     payPalShippingAddressOption: number;
@@ -277,26 +277,26 @@ declare class PayPalConfiguration {
      * the SDK will remember the user's PayPal username or phone number;
      * if the user pays via their credit card, then the SDK will remember
      * the PayPal Vault token representing the user's credit card.
-     * 
+     *
      * If set to false, then any previously-remembered username, phone number, or
      * credit card token will be erased, and subsequent payment information will
      * not be remembered.
-     * 
+     *
      * Defaults to true.
      */
     rememberUser: boolean;
 
     /**
      * If not set, or if set to nil, defaults to the device's current language setting.
-     * 
+     *
      * Can be specified as a language code ("en", "fr", "zh-Hans", etc.) or as a locale ("en_AU", "fr_FR", "zh-Hant_HK", etc.).
      * If the library does not contain localized strings for a specified locale, then will fall back to the language. E.g., "es_CO" -> "es".
      * If the library does not contain localized strings for a specified language, then will fall back to American English.
-     * 
+     *
      * If you specify only a language code, and that code matches the device's currently preferred language,
      * then the library will attempt to use the device's current region as well.
      * E.g., specifying "en" on a device set to "English" and "United Kingdom" will result in "en_GB".
-     * 
+     *
      * These localizations are currently included:
      * da,de,en,en_AU,en_GB,en_SV,es,es_MX,fr,he,it,ja,ko,nb,nl,pl,pt,pt_BR,ru,sv,tr,zh-Hans,zh-Hant_HK,zh-Hant_TW.
      */
@@ -319,7 +319,7 @@ declare class PayPalConfiguration {
     /**
      * Sandbox credentials can be difficult to type on a mobile device. Setting this flag to true will
      * cause the sandboxUserPassword and sandboxUserPin to always be pre-populated into login fields.
-     * 
+     *
      * This setting will have no effect if the operation mode is production.
      * Defaults to false.
      */
@@ -385,18 +385,18 @@ interface PayPalConfigurationOptions {
 
     /**
      * For single payments, options for the shipping address.
-     * 
+     *
      * - 0 - PayPalShippingAddressOptionNone?: no shipping address applies.
-     * 
+     *
      * - 1 - PayPalShippingAddressOptionProvided?: shipping address will be provided by your app,
      *   in the shippingAddress property of PayPalPayment.
-     * 
+     *
      * - 2 - PayPalShippingAddressOptionPayPal?: user will choose from shipping addresses on file
      *   for their PayPal account.
-     * 
+     *
      * - 3 - PayPalShippingAddressOptionBoth?: user will choose from the shipping address provided by your app,
      *   in the shippingAddress property of PayPalPayment, plus the shipping addresses on file for the user's PayPal account.
-     * 
+     *
      * Defaults to 0 (PayPalShippingAddressOptionNone).
      */
     payPalShippingAddressOption?: number;
@@ -406,26 +406,26 @@ interface PayPalConfigurationOptions {
      * the SDK will remember the user's PayPal username or phone number;
      * if the user pays via their credit card, then the SDK will remember
      * the PayPal Vault token representing the user's credit card.
-     * 
+     *
      * If set to false, then any previously-remembered username, phone number, or
      * credit card token will be erased, and subsequent payment information will
      * not be remembered.
-     * 
+     *
      * Defaults to true.
      */
     rememberUser?: boolean;
 
     /**
      * If not set, or if set to nil, defaults to the device's current language setting.
-     * 
+     *
      * Can be specified as a language code ("en", "fr", "zh-Hans", etc.) or as a locale ("en_AU", "fr_FR", "zh-Hant_HK", etc.).
      * If the library does not contain localized strings for a specified locale, then will fall back to the language. E.g., "es_CO" -> "es".
      * If the library does not contain localized strings for a specified language, then will fall back to American English.
-     * 
+     *
      * If you specify only a language code, and that code matches the device's currently preferred language,
      * then the library will attempt to use the device's current region as well.
      * E.g., specifying "en" on a device set to "English" and "United Kingdom" will result in "en_GB".
-     * 
+     *
      * These localizations are currently included:
      * da,de,en,en_AU,en_GB,en_SV,es,es_MX,fr,he,it,ja,ko,nb,nl,pl,pt,pt_BR,ru,sv,tr,zh-Hans,zh-Hant_HK,zh-Hant_TW.
      */
@@ -448,7 +448,7 @@ interface PayPalConfigurationOptions {
     /**
      * Sandbox credentials can be difficult to type on a mobile device. Setting this flag to true will
      * cause the sandboxUserPassword and sandboxUserPin to always be pre-populated into login fields.
-     * 
+     *
      * This setting will have no effect if the operation mode is production.
      * Defaults to false.
      */
@@ -469,7 +469,7 @@ interface PayPalConfigurationOptions {
 
 //#region cdv-plugin-paypal-mobile-sdk.js
 
-declare module PayPalCordovaPlugin {
+declare namespace PayPalCordovaPlugin {
 
     export interface PayPalClientIds {
         PayPalEnvironmentProduction: string;
@@ -545,7 +545,7 @@ declare module PayPalCordovaPlugin {
          * the recommended time to preconnect is on page load.
          *
          * @param environment available options are "PayPalEnvironmentNoNetwork", "PayPalEnvironmentProduction" and "PayPalEnvironmentSandbox"
-         * @param configuration PayPalConfiguration object, for Future Payments merchantName, merchantPrivacyPolicyURL 
+         * @param configuration PayPalConfiguration object, for Future Payments merchantName, merchantPrivacyPolicyURL
          *      and merchantUserAgreementURL must be set be set
          * @param completionCallback a callback function on success
          */
@@ -592,7 +592,7 @@ declare module PayPalCordovaPlugin {
 
         /**
          * Please Read Docs on Future Payments at https://github.com/paypal/PayPal-iOS-SDK#future-payments
-         * 
+         *
          * @param completionCallback a callback function accepting a js object with future payment authorization
          * @param cancelCallback a callback function accepting a reason string, called when the user canceled without agreement
          */
@@ -600,7 +600,7 @@ declare module PayPalCordovaPlugin {
 
         /**
          * Please Read Docs on Profile Sharing at https://github.com/paypal/PayPal-iOS-SDK#profile-sharing
-         * 
+         *
          * @param scopes scopes Set of requested scope-values. Accepted scopes are: openid, profile, address, email, phone, futurepayments and paypalattributes
          * See https://developer.paypal.com/docs/integration/direct/identity/attributes/ for more details
          * @param completionCallback a callback function accepting a js object with future payment authorization

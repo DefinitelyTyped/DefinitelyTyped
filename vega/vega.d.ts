@@ -1,7 +1,7 @@
 // Type definitions for Vega
 // Project: http://trifacta.github.io/vega/
 // Definitions by: Tom Crockett <http://github.com/pelotom>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Vega {
 

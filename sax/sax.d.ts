@@ -1,7 +1,7 @@
 // Type definitions for sax js
 // Project: https://github.com/isaacs/sax-js
 // Definitions by: Asana <https://asana.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="../node/node.d.ts" />
 
 declare module "sax" {

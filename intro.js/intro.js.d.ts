@@ -1,9 +1,9 @@
 // Type definitions for intro.js 2.0
 // Project: https://github.com/usablica/intro.js
 // Definitions by: Maxime Fabre <https://github.com/anahkiasen/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module IntroJs {
+declare namespace IntroJs {
     interface Step {
         intro: string;
         element?: string|HTMLElement|Element;
@@ -53,9 +53,9 @@ declare module IntroJs {
         onafterchange(callback: (element: HTMLElement) => any): IntroJs;
         onchange(callback: (element: HTMLElement) => any): IntroJs;
         oncomplete(callback: Function): IntroJs;
-        
+
         addHints(): IntroJs;
-        
+
         onhintsadded(callback: Function): IntroJs;
         onhintclick(callback: (hintElement: HTMLElement, item: Step, stepId: number) => any): IntroJs;
         onhintclose(callback: (stepId: number) => any): IntroJs;

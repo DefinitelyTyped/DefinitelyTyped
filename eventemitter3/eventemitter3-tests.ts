@@ -105,6 +105,10 @@ describe('EventEmitter', function tests() {
       /* rawr, i'm a beast */
     }
 
+    class BeastES6 extends EventEmitter3ImportedAsES6Module {
+      /* rawr, i'm a beast */
+    }
+
     util.inherits(Beast, EventEmitter);
 
     var moop = new Beast()

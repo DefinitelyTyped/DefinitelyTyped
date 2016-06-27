@@ -1,7 +1,7 @@
 // Type definitions for gulp-mocha
 // Project: https://github.com/sindresorhus/gulp-mocha
 // Definitions by: Asana <https://asana.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../mocha/mocha.d.ts"/>
 /// <reference path="../node/node.d.ts"/>

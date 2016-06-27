@@ -1,7 +1,7 @@
 // Type definitions for hapi 8.2.0
 // Project: http://github.com/spumko/hapi
 // Definitions by: Jason Swearingen <http://github.com/jasonswearingen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 //This is a total rewrite of Hakubo's original hapi.d.ts, as it was out of date/incomplete.
 
@@ -234,7 +234,7 @@ declare module "hapi" {
 		credentialData?: any
 		): IBoom;
 		/**  Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
-		<T>(result: string|number|boolean|Buffer|stream.Stream | Promise<T> | T): Response;
+		<T>(result?: string|number|boolean|Buffer|stream.Stream | Promise<T> | T): Response;
 
 		/** Returns control back to the framework without setting a response. If called in the handler, the response defaults to an empty payload with status code 200.
 		  * The data argument is only used for passing back authentication data and is ignored elsewhere. */
@@ -1615,6 +1615,8 @@ declare module "hapi" {
 			}
 			});*/
 			default(options: string):void;
+			default(options: { strategy: string }): void;
+			default(options: { strategies: string[] }): void;
 			/** server.auth.scheme(name, scheme)
 			Registers an authentication scheme where:
 			name - the scheme name.

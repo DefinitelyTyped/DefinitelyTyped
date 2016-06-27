@@ -39,6 +39,10 @@ declare class Dexie {
     static shallowClone(obj: Object): Object;
 
     static deepClone(obj: Object): Object;
+    
+    static delete(databaseName : string): Dexie.Promise<void>;
+    
+    static exists(databaseName : string): Dexie.Promise<boolean>;
 
     version(versionNumber: Number): Dexie.Version
 
@@ -91,7 +95,7 @@ declare class Dexie {
     vip<U>(scopeFunction: () => U): U;
 }
 
-declare module Dexie {
+declare namespace Dexie {
 
     class Promise<R> implements Thenable<R> {
         constructor(callback: (resolve: (value?: Thenable<R>) => void, reject: (error?: any) => void) => void);
@@ -105,11 +109,11 @@ declare module Dexie {
         then<U>(onFulfilled: (value: R) => U, onRejected: (error: any) => Thenable<U>): Promise<U>;
 
         then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): Promise<U>;
-        
+
         catch<U>(onRejected: (error: any) => Thenable<U>): Promise<U>;
-        
+
         catch<U>(onRejected: (error: any) => U): Promise<U>;
-        
+
         catch<U>(ExceptionType: Function, onRejected: (error: any) => Promise<U>): Promise<U>;
 
         catch<U>(ExceptionType: Function, onRejected: (error: any) => U): Promise<U>;
@@ -123,7 +127,7 @@ declare module Dexie {
         onuncatched: () => any;
     }
 
-    module Promise {
+    namespace Promise {
         function resolve<R>(value?: Thenable<R>): Promise<R>;
 
         function resolve<R>(value?: R): Promise<R>;

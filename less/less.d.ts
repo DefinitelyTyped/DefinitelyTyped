@@ -1,9 +1,9 @@
 // Type definitions for LESS
 // Project: http://lesscss.org/
 // Definitions by: Tom Hasner <https://github.com/thasner>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Less {
+declare namespace Less {
     interface RootFileInfo {
         filename: string;
         relativeUrls: boolean;
@@ -47,6 +47,11 @@ declare module Less {
         sourceMapFileInline: boolean;
     }
 
+    interface StaticOptions {
+        async: boolean;
+        fileAsync: boolean;
+    }
+
     interface Options {
         sourceMap?: SourceMapOption;
         filename?: string;
@@ -72,6 +77,8 @@ declare module Less {
 }
 
 interface LessStatic {
+    options: Less.StaticOptions;
+    
     render(input: string, callback: (error: Less.RenderError, output: Less.RenderOutput) => void): void;
     render(input: string, options: Less.Options, callback: (error: Less.RenderError, output: Less.RenderOutput) => void): void;
 

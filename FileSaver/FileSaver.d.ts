@@ -1,7 +1,7 @@
 // Type definitions for FileSaver.js
 // Project: https://github.com/eligrey/FileSaver.js/
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * @summary Interface for "saveAs" function.

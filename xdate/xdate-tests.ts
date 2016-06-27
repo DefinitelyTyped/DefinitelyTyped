@@ -2,7 +2,7 @@
 
 //Those classes were tested by compile time only!
 
-module XDate_Test
+namespace XDate_Test
 {
 
     class test_base

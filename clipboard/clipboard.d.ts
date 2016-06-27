@@ -1,7 +1,7 @@
 // Type definitions for clipboard.js 1.5.9
 // Project: https://github.com/zenorocha/clipboard.js
 // Definitions by: Andrei Kurosh <https://github.com/impworks>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Clipboard {
     constructor(selector: (string | Element | NodeListOf<Element>), options?: ClipboardOptions);

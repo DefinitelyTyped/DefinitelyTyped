@@ -12,9 +12,12 @@ pg.connect(conString, (err, client, done) => {
         return console.error("Error fetching client from pool", err);
     }
     client.query("SELECT $1::int AS number", ["1"], (err, result) => {
-        done();
         if (err) {
+            done(err);
             return console.error("Error running query", err);
+        }
+        else {
+            done();
         }
         console.log(result.rows[0]["number"]);
         return null;
@@ -32,6 +35,7 @@ client.connect((err) => {
         if (err) {
             return console.error("Error running query", err);
         }
+        console.log(result.rowCount);
         console.log(result.rows[0]["theTime"]);
         client.end();
         return null;

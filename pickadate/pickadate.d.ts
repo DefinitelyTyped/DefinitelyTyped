@@ -1,11 +1,11 @@
 // Type definitions for pickadate.js 3.5.5
 // Project: https://github.com/amsul/pickadate.js
 // Definitions by: Theodore Brown <https://github.com/theodorejb/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts" />
 
-declare module Pickadate {
+declare namespace Pickadate {
     // KlassOptions shared between date and time pickers
     interface KlassOptions {
         // The element states
@@ -35,7 +35,7 @@ declare module Pickadate {
         buttonClear?: string; // default 'picker__button--clear'
     }
 
-    interface DateKlassOptions extends KlassOptions {       
+    interface DateKlassOptions extends KlassOptions {
         // The picker header
         header?: string; // default 'picker__header'
 
@@ -73,7 +73,7 @@ declare module Pickadate {
 
     interface TimeKlassOptions extends KlassOptions {
         // The root picker
-        picker?: string; // default 'picker picker--time'        
+        picker?: string; // default 'picker picker--time'
 
         // List of times
         list?: string; // default 'picker__list'
@@ -166,7 +166,7 @@ declare module Pickadate {
         onSet?: (event: any) => void;
         onStop?: (event: any) => void;
     }
-    
+
     type MinOrMaxDateOption = Date | [number, number, number] | number | boolean;
     type MinOrMaxTimeOption = Date | [number, number] | number | boolean;
 
@@ -239,7 +239,7 @@ declare module Pickadate {
 
     export interface TimeOptions extends Options {
         /**
-         * The formatLabel option is unique. It can contain HTML and it can 
+         * The formatLabel option is unique. It can contain HTML and it can
          * also be a function if you want to create the label during run-time.
          */
         formatLabel?: string | ((time: TimeItem) => string);
@@ -532,7 +532,7 @@ interface JQuery {
     pickatime(objectName: "$node"): JQuery;
     pickatime(objectName: "$root"): JQuery;
     pickatime(objectName: "_hidden"): HTMLInputElement;
-    
+
     /**
      * Invoke API methods after time picker initialization.
      */

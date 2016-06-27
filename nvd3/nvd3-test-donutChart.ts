@@ -1,5 +1,5 @@
 ﻿/// <reference path="nvd3.d.ts" />
-module nvd3_test_donutChart {
+namespace nvd3_test_donutChart {
     var testdata = [
         { key: "One", y: 5 },
         { key: "Two", y: 2 },

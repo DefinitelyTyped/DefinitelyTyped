@@ -4,11 +4,11 @@
 //                 Bart van der Schoor <https://github.com/Bartvds>,
 //                 Andrew Brown <https://github.com/AGBrown>,
 //                 Olivier Chevet <https://github.com/olivr70>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // <reference path="../assertion-error/assertion-error.d.ts"/>
 
-declare module Chai {
+declare namespace Chai {
 
     interface ChaiStatic {
         expect: ExpectStatic;
@@ -270,6 +270,9 @@ declare module Chai {
 
         isAbove(val: number, abv: number, msg?: string): void;
         isBelow(val: number, blw: number, msg?: string): void;
+
+        isAtMost(val: number, atmst: number, msg?: string): void;
+        isAtLeast(val: number, atlst: number, msg?: string): void;
 
         isFunction(val: any, msg?: string): void;
         isNotFunction(val: any, msg?: string): void;

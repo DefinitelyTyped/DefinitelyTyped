@@ -1,9 +1,9 @@
 // Type definitions for axios 0.9.1
 // Project: https://github.com/mzabriskie/axios
 // Definitions by: Marcel Buesing <https://github.com/marcelbuesing>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Axios {
+declare namespace Axios {
 
     interface IThenable<R> {
         then<U>(onFulfilled?: (value: R) => U | IThenable<U>, onRejected?: (error: any) => U | IThenable<U>): IThenable<U>;

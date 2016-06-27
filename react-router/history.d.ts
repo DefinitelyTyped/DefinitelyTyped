@@ -1,7 +1,7 @@
 // Type definitions for history v2.0.0
 // Project: https://github.com/rackt/history
 // Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Nathan Brown <https://github.com/ngbrown>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 declare namespace HistoryModule {
@@ -68,6 +68,7 @@ declare namespace HistoryModule {
         state: LocationState
         action: Action
         key: LocationKey
+        hash: Hash
         basename?: string
     }
 
@@ -90,13 +91,15 @@ declare namespace HistoryModule {
 
     type Pathname = string
 
-    type Query = Object
+    type Query = { [key: string]: any; }
 
     type QueryString = string
 
     type Search = string
 
     type TransitionHook = (location: Location, callback: (result: any) => void) => any
+
+    type Hash = string
 
 
     interface HistoryBeforeUnload {

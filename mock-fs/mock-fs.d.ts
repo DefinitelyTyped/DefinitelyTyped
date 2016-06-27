@@ -1,7 +1,7 @@
 // Type definitions for mock-fs 3.6.0
 // Project: https://github.com/tschaub/mock-fs
 // Definitions by: Wim Looman <https://github.com/Nemo157>, Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -10,7 +10,7 @@ declare module "mock-fs" {
 
 	function mock(config?: mock.Config, options?: mock.Options): void;
 
-	module mock {
+	namespace mock {
 		function file(config: FileConfig): File;
 		function directory(config: DirectoryConfig): Directory;
 		function symlink(config: SymlinkConfig): Symlink;
