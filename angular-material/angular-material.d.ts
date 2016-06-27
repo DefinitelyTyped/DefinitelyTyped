@@ -4,6 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
+
+declare module 'angular-material' {
+    var _: string;
+    export = _;
+}
+
 declare namespace angular.material {
 
     interface IBottomSheetOptions {
@@ -59,6 +65,11 @@ declare namespace angular.material {
     interface IConfirmDialog extends IPresetDialog<IConfirmDialog> {
         cancel(cancel: string): IConfirmDialog;
     }
+    
+    interface IPromptDialog extends IPresetDialog<IPromptDialog> {
+        cancel(cancel: string): IPromptDialog;
+        placeholder(placeholder: string): IPromptDialog;        
+    }
 
     interface IDialogOptions {
         templateUrl?: string;
@@ -84,12 +95,14 @@ declare namespace angular.material {
         onComplete?: Function;
         onRemoving?: Function;
         fullscreen?: boolean;
+        skipHide?: boolean;
     }
 
     interface IDialogService {
         show(dialog: IDialogOptions|IAlertDialog|IConfirmDialog): angular.IPromise<any>;
         confirm(): IConfirmDialog;
         alert(): IAlertDialog;
+        prompt(): IPromptDialog;
         hide(response?: any): angular.IPromise<any>;
         cancel(response?: any): void;
     }

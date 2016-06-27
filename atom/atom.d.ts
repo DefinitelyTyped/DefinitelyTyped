@@ -456,82 +456,111 @@ declare namespace AtomCore {
 		// TBD
 	}
 
-	interface ISelection /* extends Theorist.Model */ {
-		cursor:ICursor;
-		marker:IDisplayBufferMarker;
-		editor:IEditor;
-		initialScreenRange:any;
-		wordwise:boolean;
-		needsAutoscroll:boolean;
-		retainSelection:boolean;
-		subscriptionCounts:any;
+	interface ISelection {
+		// https://atom.io/docs/api/v1.7.3/Selection
 
-		destroy():any;
-		finalize():any;
-		clearAutoscroll():any;
-		isEmpty():boolean;
-		isReversed():boolean;
-		isSingleScreenLine():boolean;
-		getScreenRange():TextBuffer.IRange;
-		setScreenRange(screenRange:any, options:any):any;
-		getBufferRange():TextBuffer.IRange;
-		setBufferRange(bufferRange:any, options:any):any;
-		getBufferRowRange():number[];
-		autoscroll():void;
-		getText():string;
-		clear():boolean;
-		selectWord():TextBuffer.IRange;
-		expandOverWord():any;
-		selectLine(row?:any):TextBuffer.IRange;
-		expandOverLine():boolean;
-		selectToScreenPosition(position:any):any;
-		selectToBufferPosition(position:any):any;
-		selectRight():boolean;
-		selectLeft():boolean;
-		selectUp(rowCount?:any):boolean;
-		selectDown(rowCount?:any):boolean;
-		selectToTop():any;
-		selectToBottom():any;
-		selectAll():any;
-		selectToBeginningOfLine():any;
-		selectToFirstCharacterOfLine():any;
-		selectToEndOfLine():any;
-		selectToBeginningOfWord():any;
-		selectToEndOfWord():any;
-		selectToBeginningOfNextWord():any;
-		selectToPreviousWordBoundary():any;
-		selectToNextWordBoundary():any;
-		addSelectionBelow():any;
-		getGoalBufferRange():any;
-		addSelectionAbove():any[];
-		insertText(text:string, options?:any):any;
-		normalizeIndents(text:string, indentBasis:number):any;
-		indent(_arg?:any):any;
-		indentSelectedRows():TextBuffer.IRange[];
-		setIndentationForLine(line:string, indentLevel:number):any;
-		backspace():any;
-		backspaceToBeginningOfWord():any;
-		backspaceToBeginningOfLine():any;
-		delete():any;
-		deleteToEndOfWord():any;
-		deleteSelectedText():any;
-		deleteLine():any;
-		joinLines():any;
-		outdentSelectedRows():any[];
-		autoIndentSelectedRows():any;
-		toggleLineComments():any;
-		cutToEndOfLine(maintainClipboard:any):any;
-		cut(maintainClipboard:any):any;
-		copy(maintainClipboard:any):any;
-		fold():any;
-		modifySelection(fn:()=>any):any;
-		plantTail():any;
-		intersectsBufferRange(bufferRange:any):any;
-		intersectsWith(otherSelection:any):any;
-		merge(otherSelection:any, options:any):any;
-		compare(otherSelection:any):any;
-		getRegionRects():any[];
-		screenRangeChanged():any;
+		// Event Subscription
+		onDidChangeRange(callback: (event: {
+			oldBufferRange: TextBuffer.IRange;
+			oldScreenRange: TextBuffer.IRange;
+			newBufferRange: TextBuffer.IRange;
+			newScreenRange: TextBuffer.IRange;
+			selection: ISelection;
+		}) => {}): Disposable;
+		onDidDestroy(callback: () => {}): Disposable;
+
+		// Managing the selection range
+		getScreenRange(): TextBuffer.IRange;
+		setScreenRange(screenRange: TextBuffer.IRange, options?: {
+			preserveFolds?: boolean;
+			autoscroll?: boolean;
+		}): void;
+		getBufferRange(): TextBuffer.IRange;
+		setBufferRange(bufferRange: TextBuffer.IRange, options?: {
+			preserveFolds?: boolean;
+			autoscroll?: boolean;
+		}): void;
+		getBufferRowRange(): [number];
+
+		// Info about the selection
+		isEmpty(): boolean;
+		isReversed(): boolean;
+		isSingleScreenLine(): boolean;
+		getText(): string;
+		intersectsBufferRange(bufferRange: TextBuffer.IRange): boolean;
+		intersectsWith(otherSelection: ISelection): boolean;
+
+		// Modifying the selected range
+		clear(options?: {autoscroll?: boolean}): void;
+		selectToScreenPosition(position: any): void;
+		selectToBufferPosition(position: any): void;
+		selectRight(columnCount?: number): void;
+		selectLeft(columnCount?: number): void;
+		selectUp(rowCount: number): void;
+		selectDown(rowCount: number): void;
+		selectToTop(): void;
+		selectToBottom(): void;
+		selectAll(): void;
+		selectToBeginningOfLine(): void;
+		selectToFirstCharacterOfLine(): void;
+		selectToEndOfLine(): void;
+		selectToEndOfBufferLine(): void;
+		selectToBeginningOfWord(): void;
+		selectToEndOfWord(): void;
+		selectToBeginningOfNextWord(): void;
+		selectToPreviousWordBoundary(): void;
+		selectToNextWordBoundary(): void;
+		selectToPreviousSubwordBoundary(): void;
+		selectToNextSubwordBoundary(): void;
+		selectToBeginningOfNextParagraph(): void;
+		selectToBeginningOfPreviousParagraph(): void;
+		selectWord(): TextBuffer.IRange;
+		expandOverWord(): void;
+		selectLine(row?: number): void;
+		expandOverLine(): void;
+
+		// Modifying the selected text
+		insertText(text: string, options?: {
+			select: boolean;
+			autoIndent: boolean;
+			autoIndentNewline: boolean;
+			autoDecreaseIndent: boolean;
+			normalizeLineEndings?: boolean;
+			undo?: 'skip';
+		}): void;
+		backspace(): void;
+		deleteToPreviousWordBoundary(): void;
+		deleteToNextWordBoundary(): void;
+		deleteToBeginningOfWord(): void;
+		deleteToBeginningOfLine(): void;
+		delete(): void;
+		deleteToEndOfLine(): void;
+		deleteToEndOfWord(): void;
+		deleteToBeginningOfSubword(): void;
+		deleteToEndOfSubword(): void;
+		deleteSelectedText(): void;
+		deleteLine(): void;
+		joinLines(): void;
+		outdentSelectedRows(): void;
+		autoIndentSelectedRows(): void;
+		toggleLineComments(): void;
+		cutToEndOfLine(): void;
+		cutToEndOfBufferLine(): void;
+		cut(maintainClipboard?: boolean, fullLine?: boolean): void;
+		copy(maintainClipboard?: boolean, fullLine?: boolean): void;
+		fold(): void;
+		indentSelectedRows(): void;
+
+		// Managing multiple selections
+		addSelectionBelow(): void;
+		addSelectionAbove(): void;
+		merge(otherSelection: ISelection, options?: {
+			preserveFolds?: boolean;
+			autoscroll?: boolean;
+		}): void;
+
+		// Comparing to other selections
+		compare(otherSelection: ISelection): any;
 	}
 
 	interface IDecorationParams {

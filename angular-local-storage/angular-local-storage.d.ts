@@ -57,6 +57,15 @@ declare namespace angular.local.storage {
      */
     set(key:string, val:string):boolean;
     /**
+     * Directly adds a value to cookies with an expiration.
+     * Note: Typically used as a fallback if local storage is not supported.
+     * Returns: Boolean
+     * @param key
+     * @param val
+     * @param daysToExpiry
+     */
+    set(key:string, val:string, daysToExpiry:number):boolean;
+    /**
      * Directly get a value from a cookie.
      * Returns: value from local storage
      * @param key

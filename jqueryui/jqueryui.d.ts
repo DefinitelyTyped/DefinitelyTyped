@@ -1794,7 +1794,7 @@ interface JQuery {
     uniqueId(): JQuery;
     removeUniqueId(): JQuery;
     scrollParent(): JQuery;
-    zIndex(): JQuery;
+    zIndex(): number;
     zIndex(zIndex: number): JQuery;
 
     widget: JQueryUI.Widget;
