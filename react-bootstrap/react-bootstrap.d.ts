@@ -583,15 +583,6 @@ declare module "react-bootstrap" {
     type Navbar = React.ClassicComponent<NavbarProps, {}>;
     var Navbar: NavbarClass;
 
-    // <NavbarHeader />
-    // ----------------------------------------
-    interface NavbarHeaderProps {
-
-    }
-    interface NavbarHeader extends React.ReactElement<NavbarProps> { }
-    interface NavbarHeaderClass extends  React.ComponentClass<NavbarProps> { }
-    var NavbarHeader: NavbarHeaderClass;
-
 
     // <NavDropdown />
     interface NavDropdownBaseProps
