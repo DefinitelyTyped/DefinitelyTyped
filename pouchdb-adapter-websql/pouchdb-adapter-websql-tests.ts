@@ -2,12 +2,12 @@
 /// <reference path="./pouchdb-adapter-websql.d.ts" />
 
 function testDbCreation() {
-  const basicDB = new PouchDB('basic');
-  const persistentDb = new PouchDB('unsized', {
-    adapter: 'websql'
-  });
-  const temporaryDb = new PouchDB('sized', {
-    adapter: 'websql',
-    size: 10
-  });
+    const basicDB = new PouchDB('basic');
+    const persistentDb = new PouchDB('unsized', {
+        adapter: 'websql'
+    });
+    const temporaryDb = new PouchDB('sized', {
+        adapter: 'websql',
+        size: 10
+    });
 }

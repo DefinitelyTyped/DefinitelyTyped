@@ -6,17 +6,17 @@
 /// <reference path="../pouchdb-core/pouchdb-core.d.ts" />
 
 declare namespace PouchDB {
-  export namespace Remote {
-    export interface NewDbOptions {
-      /**
-       * Amount in MB to request for storage.
-       */
-      size?: number
+    export namespace Remote {
+        export interface NewDbOptions {
+            /**
+             * Amount in MB to request for storage.
+             */
+            size?: number
+        }
     }
-  }
 }
 
 declare module 'pouchdb-adapter-websql' {
-  const plugin: PouchDB.Plugin;
-  export = plugin;
+    const plugin: PouchDB.Plugin;
+    export = plugin;
 }
