@@ -164,7 +164,7 @@ declare module "aws-sdk" {
 		/**
 		 * Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) that you can use to access AWS resources that you might not normally have access to.
 		 */
-		assumeRole(params: sts.AssumeRoleParams, callback: (err: any, data: any) => void): void;
+		assumeRole(params: sts.AssumeRoleParams, callback: (err: any, data: sts.AssumeRoleCallbackData) => void): void;
 
 		/**
 		 * Returns a set of temporary security credentials for users who have been authenticated via a SAML authentication response. 
@@ -1406,6 +1406,24 @@ declare module "aws-sdk" {
 			Policy?: string;
 			SerialNumber?: string;
 			TokenCode?: string;
+		}
+
+		export interface AssumeRoleCallbackData{
+			Credentials: TemporaryCredentials;
+			AssumedRoleUser: AssumedRoleUser;
+			PackedPolicySize: number;
+		}
+
+		export interface TemporaryCredentials{
+			AccessKeyId: string;
+			SecretAccessKey: string;
+			SessionToken: string;
+			Expiration: Date;
+		}
+
+		export interface AssumedRoleUser{
+			AssumedRoleId: string;
+			Arn: string;
 		}
 
 		export interface AssumeRoleWithSAMLParams {
