@@ -5,30 +5,34 @@
 
 /// <reference types="angularjs" />
 
-declare namespace angular.fullscreen {
+import * as angular from 'angularjs';
 
-  /**
-   * Prefixing interface name with "I" is not recommended: http://www.typescriptlang.org/Handbook#writing-dts-files
-   * However, we let it here to keep consistency with all the other Angular-related definitions
-   */
-  interface IFullscreen {
-    // enable document fullscreen
-    all(): void;
+declare module 'angularjs' {
+  export namespace fullscreen {
 
-    // enable or disable the document fullscreen
-    toggleAll(): void;
+    /**
+     * Prefixing interface name with "I" is not recommended: http://www.typescriptlang.org/Handbook#writing-dts-files
+     * However, we let it here to keep consistency with all the other Angular-related definitions
+     */
+    interface IFullscreen {
+      // enable document fullscreen
+      all(): void;
 
-    // enable fullscreen to a specific element
-    enable(element: Element|HTMLElement): void;
+      // enable or disable the document fullscreen
+      toggleAll(): void;
 
-    // disable fullscreen
-    cancel(): void;
+      // enable fullscreen to a specific element
+      enable(element: Element|HTMLElement): void;
 
-    // return true if fullscreen is enabled, otherwise false
-    isEnabled(): boolean;
+      // disable fullscreen
+      cancel(): void;
 
-    // return true if fullscreen API is supported by your browser
-    isSupported(): boolean;
+      // return true if fullscreen is enabled, otherwise false
+      isEnabled(): boolean;
+
+      // return true if fullscreen API is supported by your browser
+      isSupported(): boolean;
+    }
   }
 
 }

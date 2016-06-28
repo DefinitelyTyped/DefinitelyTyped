@@ -5,6 +5,7 @@
 
 /// <reference types="base-x" />
 
+import * as BaseX from 'base-x';
 
 declare namespace base58 { }
 

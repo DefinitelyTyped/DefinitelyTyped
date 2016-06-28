@@ -5,7 +5,7 @@
 
 /// <reference types="sinon"/>
 
-declare namespace Sinon {
+declare module 'sinon' {
   interface SinonPromise {
     resolves(value?: any): void;
     rejects(value?: any): void;
@@ -15,3 +15,5 @@ declare namespace Sinon {
     returnsPromise(): SinonPromise;
   }
 }
+
+export {};

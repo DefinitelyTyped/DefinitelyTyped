@@ -69,7 +69,7 @@ new Router([{
 
 new Router([{
     route: 'todos[{integers:indicies}]',
-    get(pathset: FalcorRouter.RoutePathSet & {indicies: number[]}) {
+    get(pathset: Router.RoutePathSet & {indicies: number[]}) {
         return pathset.indicies.map(idx => {
             const id = 'id' + idx;
             return {

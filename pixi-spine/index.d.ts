@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="pixi.js" />
-declare namespace PIXI {
+import * as PIXI from 'pixi.js';
+
+declare module 'pixi.js' {
 
     export module spine {
 

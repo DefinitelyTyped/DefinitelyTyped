@@ -5,7 +5,9 @@
 
 /// <reference types="js-data" />
 
-declare namespace JSData {
+import * as JSData from 'js-data';
+
+declare module 'js-data' {
 
     interface DSHttpAdapterOptions {
         serialize?: (resourceName:string, data:any)=>any;
@@ -43,7 +45,5 @@ declare namespace JSData {
 }
 
 declare var DSHttpAdapter:JSData.DSHttpAdapter;
-
-declare module 'js-data-http' {
-    export = DSHttpAdapter;
-}
+export = DSHttpAdapter;
+export as namespace DSHttpAdapter;

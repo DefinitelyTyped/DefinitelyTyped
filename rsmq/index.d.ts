@@ -86,6 +86,6 @@ interface ClientOptions {
     ns?: string;
 }
 
-declare var rsmq: RedisSMQStatic;
-export = rsmq;
+declare var RedisSMQ: RedisSMQStatic;
+export = RedisSMQ;
 

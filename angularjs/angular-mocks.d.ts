@@ -3,6 +3,7 @@
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Tony Curtis <http://github.com/daltin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import * as angular from 'angularjs';
 
 declare module "angular-mocks/ngMock" {
     var _: string;
@@ -22,38 +23,38 @@ declare module "angular-mocks/ngAnimateMock" {
 ///////////////////////////////////////////////////////////////////////////////
 // ngMock module (angular-mocks.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare namespace angular {
+declare module 'angularjs' {
 
     ///////////////////////////////////////////////////////////////////////////
     // AngularStatic
     // We reopen it to add the MockStatic definition
     ///////////////////////////////////////////////////////////////////////////
     interface IAngularStatic {
-        mock: IMockStatic;
+      mock: IMockStatic;
     }
 
     // see https://docs.angularjs.org/api/ngMock/function/angular.mock.inject
     interface IInjectStatic {
-        (...fns: Function[]): any;
-        (...inlineAnnotatedConstructor: any[]): any; // this overload is undocumented, but works
-        strictDi(val?: boolean): void;
+      (...fns: Function[]): any;
+      (...inlineAnnotatedConstructor: any[]): any; // this overload is undocumented, but works
+      strictDi(val?: boolean): void;
     }
 
     interface IMockStatic {
-        // see https://docs.angularjs.org/api/ngMock/function/angular.mock.dump
-        dump(obj: any): string;
+      // see https://docs.angularjs.org/api/ngMock/function/angular.mock.dump
+      dump(obj: any): string;
 
-        inject: IInjectStatic
+      inject: IInjectStatic
 
-        // see https://docs.angularjs.org/api/ngMock/function/angular.mock.module
-        module: {
-          (...modules: any[]): any;
-          sharedInjector(): void;
-        }
+      // see https://docs.angularjs.org/api/ngMock/function/angular.mock.module
+      module: {
+        (...modules: any[]): any;
+        sharedInjector(): void;
+      }
 
-        // see https://docs.angularjs.org/api/ngMock/type/angular.mock.TzDate
-        TzDate(offset: number, timestamp: number): Date;
-        TzDate(offset: number, timestamp: string): Date;
+      // see https://docs.angularjs.org/api/ngMock/type/angular.mock.TzDate
+      TzDate(offset: number, timestamp: number): Date;
+      TzDate(offset: number, timestamp: string): Date;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -62,7 +63,7 @@ declare namespace angular {
     // see https://docs.angularjs.org/api/ngMock/provider/$exceptionHandlerProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IExceptionHandlerProvider extends IServiceProvider {
-        mode(mode: string): void;
+      mode(mode: string): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -71,9 +72,9 @@ declare namespace angular {
     // Augments the original service
     ///////////////////////////////////////////////////////////////////////////
     interface ITimeoutService {
-        flush(delay?: number): void;
-        flushNext(expectedDelay?: number): void;
-        verifyNoPendingTasks(): void;
+      flush(delay?: number): void;
+      flushNext(expectedDelay?: number): void;
+      verifyNoPendingTasks(): void;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -82,7 +83,7 @@ declare namespace angular {
     // Augments the original service
     ///////////////////////////////////////////////////////////////////////////
     interface IIntervalService {
-        flush(millis?: number): number;
+      flush(millis?: number): number;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -91,12 +92,12 @@ declare namespace angular {
     // Augments the original service
     ///////////////////////////////////////////////////////////////////////////
     interface ILogService {
-        assertEmpty(): void;
-        reset(): void;
+      assertEmpty(): void;
+      reset(): void;
     }
 
     interface ILogCall {
-        logs: string[];
+      logs: string[];
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -301,6 +302,7 @@ declare namespace angular {
           */
         whenPOST(url: string | RegExp | ((url: string) => boolean), data?: string | RegExp | Object | ((data: string) => boolean), headers?: Object | ((object: Object) => boolean), keys?: Object[]): mock.IRequestHandler;
 
+        // Available when ngMockE2E is loaded
         /**
           * Creates a new backend definition for PUT requests.
           * Returns an object with respond method that controls how a matched request is handled.
@@ -350,7 +352,6 @@ declare namespace angular {
         }
 
     }
-
 }
 
 ///////////////////////////////////////////////////////////////////////////////

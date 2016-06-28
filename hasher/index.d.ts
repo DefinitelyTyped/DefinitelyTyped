@@ -5,6 +5,8 @@
 
 /// <reference types="signals" />
 
+import * as signal from 'signals';
+
 declare namespace HasherJs {
 
 	export interface HasherStatic {
@@ -18,11 +20,11 @@ declare namespace HasherJs {
 		// avoid conflicts with elements that contain ID equal to hash value;
 		// <static> {signals.Signal} hasher.changed
 		// Signal dispatched when hash value changes. - pass current hash as 1st parameter to listeners and previous hash value as 2nd parameter.
-		changed: Signal;
+		changed: signal.Signal;
 
 		// <static> {signals.Signal} hasher.initialized
 		// Signal dispatched when hasher is initialized. - pass current hash as first parameter to listeners.
-		initialized: Signal;
+		initialized: signal.Signal;
 
 		// <static> {string} hasher.prependHash
         // String that should always be added to the beginning of Hash value.
@@ -38,7 +40,7 @@ declare namespace HasherJs {
 		// default value: '/';
 		// <static> {signals.Signal} hasher.stopped
 		// Signal dispatched when hasher is stopped. - pass current hash as first parameter to listeners
-		stopped: Signal;
+		stopped: signal.Signal;
 
 		// <static> <constant> {string} hasher.VERSION
 		// hasher Version Number
@@ -110,7 +112,5 @@ declare namespace HasherJs {
 
 declare var hasher: HasherJs.HasherStatic;
 
-// AMD
-declare module 'hasher'{
-    export = hasher;
-}
+export = hasher;
+export as namespace hasher;

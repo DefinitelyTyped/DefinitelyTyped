@@ -5,46 +5,44 @@
 
 /// <reference types="angularjs" />
 
-declare module "angular-translate" {
-    import ngt = angular.translate;
-    export = ngt;
-}
+import * as angular from 'angularjs';
 
-declare namespace angular.translate {
+declare module 'angularjs' {
+    export namespace translate {
 
     interface ITranslationTable {
         [key: string]: string | ITranslationTable;
     }
 
-    interface ILanguageKeyAlias {
-        [key: string]: string;
-    }
+        interface ILanguageKeyAlias {
+            [key: string]: string;
+        }
 
-    interface IStorage {
-        get(name: string): string;
-        put(name: string, value: string): void;
-    }
+        interface IStorage {
+            get(name: string): string;
+            put(name: string, value: string): void;
+        }
 
-    interface IStaticFilesLoaderOptions {
-        prefix: string;
-        suffix: string;
-        key?: string;
-    }
+        interface IStaticFilesLoaderOptions {
+            prefix: string;
+            suffix: string;
+            key?: string;
+        }
 
-    interface IPartialLoader<T> {
-        addPart(name : string, priority? : number) : T;
-        deletePart(name : string) : T;
-        isPartAvailable(name : string) : boolean;
-    }
+        interface IPartialLoader<T> {
+            addPart(name: string, priority?: number): T;
+            deletePart(name: string): T;
+            isPartAvailable(name: string): boolean;
+        }
 
-    interface ITranslatePartialLoaderService extends IPartialLoader<ITranslatePartialLoaderService> {
-        getRegisteredParts() : Array<string>;
-        isPartLoaded(name : string, lang : string) : boolean;
-    }
+        interface ITranslatePartialLoaderService extends IPartialLoader<ITranslatePartialLoaderService> {
+            getRegisteredParts(): Array<string>;
+            isPartLoaded(name: string, lang: string): boolean;
+        }
 
-    interface ITranslatePartialLoaderProvider extends angular.IServiceProvider, IPartialLoader<ITranslatePartialLoaderProvider> {
-        setPart(lang : string, part : string, table : ITranslationTable) : ITranslatePartialLoaderProvider;
-    }
+        interface ITranslatePartialLoaderProvider extends angular.IServiceProvider, IPartialLoader<ITranslatePartialLoaderProvider> {
+            setPart(lang: string, part: string, table: ITranslationTable): ITranslatePartialLoaderProvider;
+        }
 
     interface ITranslateService {
         (translationId: string, interpolateParams?: any, interpolationId?: string): angular.IPromise<string>;
@@ -115,9 +113,7 @@ declare namespace angular.translate {
         useLoaderCache(cache?: any): ITranslateProvider;
         resolveClientLocale():string;
     }
-}
 
-declare namespace angular {
     interface IFilterService {
         (name:'translate'): {
             (translationId: string, interpolateParams?: any, interpolation?: string): string;

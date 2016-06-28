@@ -505,7 +505,7 @@ interface MyResourceDefinition {
 
 }
 
-namespace JSData {
+namespace MyJSData {
 
     interface DS {
 

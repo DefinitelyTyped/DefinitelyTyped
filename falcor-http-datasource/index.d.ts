@@ -5,6 +5,8 @@
 
 /// <reference types="falcor" />
 
+import * as FalcorModel from 'falcor';
+
 declare namespace FalcorHttpDataSource {
 
     /**
@@ -15,9 +17,7 @@ declare namespace FalcorHttpDataSource {
     }
 }
 
-declare module 'falcor-http-datasource' {
-    import XMlHttpSource = FalcorHttpDataSource.XMlHttpSource;
-    export {XMlHttpSource};
-    export default XMlHttpSource;
-}
+import XMlHttpSource = FalcorHttpDataSource.XMlHttpSource;
+export {XMlHttpSource};
+export default XMlHttpSource;
 

@@ -3,12 +3,7 @@
 // Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-declare const Cropper: typeof cropperjs.Cropper;
-export = Cropper;
-export as namespace Cropper;
-
-declare module cropperjs {
+declare namespace cropperjs {
     export enum CropperViewMods {
         CropBoxIsJustWithInTheContainer = 0,
         CropBoxShouldBeWithInTheCanvas = 1,
@@ -334,139 +329,140 @@ declare module cropperjs {
         */
         fillColor?: string;
     }
-    export class Cropper {
-        constructor(element: HTMLImageElement, options: CropperOptions);
-        /**
- 				* Show the crop box manually.
- 				*/
-        crop(): void;
+}
 
+declare class cropperjs {
+    constructor(element: HTMLImageElement, options: cropperjs.CropperOptions);
+    /**
+             * Show the crop box manually.
+             */
+    crop(): void;
+
+    /**
+    * Clear the crop box.
+    */
+    reset(): void;
+
+    /**
+    * Replace the image's src and rebuild the cropper.
+    * @param url A new image url
+    */
+    replace(url: string): void;
+
+    /**
+    * Enable (unfreeze) the cropper.
+    */
+    enable(): void;
+
+    /**
+    * Disable (freeze) the cropper
+    */
+    disable(): void;
+
+    /**
+    * Destroy the cropper and remove the instance from the image.
+    */
+    destroy(): void;
+
+    /**
+    * Move the canvas (image wrapper) with relative offsets.
+    * @param offsetX Moving size (px) in the horizontal direction.
+    * @param offsetY Moving size (px) in the vertical direction.
+    * If not present, its default value is offsetX.
+    */
+    move(offsetX: number, offsetY?: number): void;
+
+    /**
+    * Move the canvas (image wrapper) to an absolute point.
+    * @param x The left value of the canvas
+    * @param y The top value of the canvas
+    * If not present, its default value is x.
+    */
+    moveTo(x: number, y?: number): void;
+
+    /**
+    * Zoom the canvas (image wrapper) with a relative ratio.
+    * Zoom in: requires a positive number (ratio > 0)
+    * Zoom out: requires a negative number (ratio < 0)
+    */
+    zoom(ratio: number): void;
+
+    /**
+    * Rotate the canvas (image wrapper) with a relative degree.
+    * Rotate right: requires a positive number (degree > 0)
+    * Rotate left: requires a negative number (degree < 0)
+    */
+    rotate(degree: number): void;
+
+    /**
+    * Clear the crop box.
+    */
+    clear(): void;
+
+    /**
+    * Output the cropped area position and size data (base on the original image).
+    */
+    getData(rounded?: boolean): cropperjs.Data;
+
+    /**
+    * Change the cropped area position and size with new data (base on the original image).
+    */
+    setData(data: cropperjs.Data): void;
+
+    /**
+    * Output the container size data.
+    */
+    getContainerData(): cropperjs.ContainerData;
+
+    /**
+    * Output the image position, size and other related data.
+    */
+    getImageData(): cropperjs.ImageData;
+
+    /**
+    * Output the canvas (image wrapper) position and size data.
+    */
+    getCanvasData(): cropperjs.CanvasData & {
         /**
-        * Clear the crop box.
+        * the natural width of the canvas (read only)
         */
-        reset(): void;
-
+        naturalWidth: number;
         /**
-        * Replace the image's src and rebuild the cropper.
-        * @param url A new image url
+        * the natural height of the canvas (read only)
         */
-        replace(url: string): void;
+        naturalHeight: number;
+    };
 
-        /**
-        * Enable (unfreeze) the cropper.
-        */
-        enable(): void;
+    /**
+    * Change the canvas (image wrapper) position and size with new data.
+    */
+    setCanvasData(data: cropperjs.CanvasData): void;
 
-        /**
-        * Disable (freeze) the cropper
-        */
-        disable(): void;
+    /**
+    * Output the crop box position and size data.
+    */
+    getCropBoxData(): cropperjs.CropBoxData;
 
-        /**
-        * Destroy the cropper and remove the instance from the image.
-        */
-        destroy(): void;
+    /**
+    * Change the crop box position and size with new data.
+    */
+    setCropBoxData(data: cropperjs.CropBoxData): void;
 
-        /**
-        * Move the canvas (image wrapper) with relative offsets.
-        * @param offsetX Moving size (px) in the horizontal direction.
-        * @param offsetY Moving size (px) in the vertical direction.
-        * If not present, its default value is offsetX.
-        */
-        move(offsetX: number, offsetY?: number): void;
+    /**
+    * Get a canvas drawn the cropped image.
+    */
+    getCroppedCanvas(options?: cropperjs.CroppedCanvasOptions): HTMLCanvasElement;
 
-        /**
-        * Move the canvas (image wrapper) to an absolute point.
-        * @param x The left value of the canvas
-        * @param y The top value of the canvas
-        * If not present, its default value is x.
-        */
-        moveTo(x: number, y?: number): void;
+    /**
+    * Change the aspect ratio of the crop box.
+    */
+    setAspectRatio(aspectRatio: number): void;
 
-        /**
-        * Zoom the canvas (image wrapper) with a relative ratio.
-        * Zoom in: requires a positive number (ratio > 0)
-        * Zoom out: requires a negative number (ratio < 0)
-        */
-        zoom(ratio: number): void;
+    /**
+    * Change the drag mode.
+    */
+    setDragMode(mode?: 'none' | 'crop' | 'move'): void;
 
-        /**
-        * Rotate the canvas (image wrapper) with a relative degree.
-        * Rotate right: requires a positive number (degree > 0)
-        * Rotate left: requires a negative number (degree < 0)
-        */
-        rotate(degree: number): void;
-
-        /**
-        * Clear the crop box.
-        */
-        clear(): void;
-
-        /**
-        * Output the cropped area position and size data (base on the original image).
-        */
-        getData(rounded?: boolean): Data;
-
-        /**
-        * Change the cropped area position and size with new data (base on the original image).
-        */
-        setData(data: Data): void;
-
-        /**
-        * Output the container size data.
-        */
-        getContainerData(): ContainerData;
-
-        /**
-        * Output the image position, size and other related data.
-        */
-        getImageData(): ImageData;
-
-        /**
-        * Output the canvas (image wrapper) position and size data.
-        */
-        getCanvasData(): CanvasData & {
-            /**
-            * the natural width of the canvas (read only)
-            */
-            naturalWidth: number;
-            /**
-            * the natural height of the canvas (read only)
-            */
-            naturalHeight: number;
-        };
-
-        /**
-        * Change the canvas (image wrapper) position and size with new data.
-        */
-        setCanvasData(data: CanvasData): void;
-
-        /**
-        * Output the crop box position and size data.
-        */
-        getCropBoxData(): CropBoxData;
-
-        /**
-        * Change the crop box position and size with new data.
-        */
-        setCropBoxData(data: CropBoxData): void;
-
-        /**
-        * Get a canvas drawn the cropped image.
-        */
-        getCroppedCanvas(options?: CroppedCanvasOptions): HTMLCanvasElement;
-
-        /**
-        * Change the aspect ratio of the crop box.
-        */
-        setAspectRatio(aspectRatio: number): void;
-
-        /**
-        * Change the drag mode.
-        */
-        setDragMode(mode?: 'none' | 'crop' | 'move'): void;
-
-    }
 }
 
 declare module "cropperjs" {

@@ -6,6 +6,8 @@
 /// <reference types="react" />
 /// <reference types="eventemitter3" />
 
+import * as EventEmitter3 from 'eventemitter3';
+
 declare namespace Fluxxor {
     class Dispatcher {
         constructor(stores: any);
@@ -65,6 +67,5 @@ declare namespace Fluxxor {
     var version: string;
 }
 
-declare module 'fluxxor' {
-    export = Fluxxor;
-}
+export = Fluxxor;
+export as namespace Fluxxor;

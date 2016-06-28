@@ -5,56 +5,57 @@
 
 /// <reference types="mixto" />
 
-declare namespace Emissary {
-	interface IEmitterStatic extends Mixto.IMixinStatic {
-		new ():IEmitter;
-	}
+export as namespace Emissary;
 
-	interface IEmitter {
-		on(eventNames:string, handler:Function):any; // return value type are Signal
-		once(eventName:string, handler:Function):any; // return value type are Signal
-		signal(eventName:string):void;
-		behavior(eventName:string, initialValue:any):void;
-		emit(eventName:string, ...args:any[]):void;
-		off(eventNames:string, handler:Function):void;
-		pauseEvents(eventNames:string):void;
-		resumeEvents(eventNames:string):void;
-		incrementSubscriptionCount(eventName:string):number;
-		decrementSubscriptionCount(eventName:string):number;
-		getSubscriptionCount(eventName:string):number;
-		hasSubscriptions(eventName:string):boolean;
-	}
+export interface IEmitterStatic extends Mixto.IMixinStatic {
+	new ():IEmitter;
+}
 
-	interface ISubscriberStatic extends Mixto.IMixinStatic {
-		new ():ISubscriber;
-	}
+export interface IEmitter {
+	on(eventNames:string, handler:Function):any; // return value type are Signal
+	once(eventName:string, handler:Function):any; // return value type are Signal
+	signal(eventName:string):void;
+	behavior(eventName:string, initialValue:any):void;
+	emit(eventName:string, ...args:any[]):void;
+	off(eventNames:string, handler:Function):void;
+	pauseEvents(eventNames:string):void;
+	resumeEvents(eventNames:string):void;
+	incrementSubscriptionCount(eventName:string):number;
+	decrementSubscriptionCount(eventName:string):number;
+	getSubscriptionCount(eventName:string):number;
+	hasSubscriptions(eventName:string):boolean;
+}
 
-	interface ISubscriber {
-		subscribeWith(eventEmitter:any, methodName:string, args:any):ISubscription;
+export interface ISubscriberStatic extends Mixto.IMixinStatic {
+	new ():ISubscriber;
+}
 
-		addSubscription(subscription:any):ISubscription;
+export interface ISubscriber {
+	subscribeWith(eventEmitter:any, methodName:string, args:any):ISubscription;
 
-		subscribe(eventEmitterOrSubscription:any, ...args:any[]):ISubscription;
+	addSubscription(subscription:any):ISubscription;
 
-		subscribeToCommand(eventEmitter:any, ...args:any[]):ISubscription;
+	subscribe(eventEmitterOrSubscription:any, ...args:any[]):ISubscription;
 
-		unsubscribe(object?:any):any;
-	}
+	subscribeToCommand(eventEmitter:any, ...args:any[]):ISubscription;
 
-	interface ISubscriptionStatic {
-		new (emitter: any, eventNames:string, handler:Function):ISubscription;
-	}
+	unsubscribe(object?:any):any;
+}
 
-	interface ISubscription extends IEmitter {
-		cancelled:boolean;
+export interface ISubscriptionStatic {
+	new (emitter: any, eventNames:string, handler:Function):ISubscription;
+}
 
-		off():any;
-	}
+export interface ISubscription extends IEmitter {
+	cancelled:boolean;
+
+	off():any;
 }
 
 
-export var Emitter:Emissary.IEmitterStatic;
-export var Subscriber:Emissary.ISubscriberStatic;
+
+export var Emitter:IEmitterStatic;
+export var Subscriber:ISubscriberStatic;
 export var Signal:Function;   // TODO
 export var Behavior:Function; // TODO
 export var combine:Function;  // TODO

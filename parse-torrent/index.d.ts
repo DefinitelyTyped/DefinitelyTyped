@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-declare var parseTorrentStatic:ParseTorrent.StaticInstance;
-export = parseTorrentStatic;
+declare var ParseTorrent:ParseTorrent.StaticInstance;
+export = ParseTorrent;
 
 declare namespace ParseTorrent {
   export interface ParsedTorrent {

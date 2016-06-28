@@ -5,9 +5,11 @@
 
 /// <reference types="Q" />
 
+import * as q from 'q';
+
 export = Q;
 
-declare namespace Q {
+declare module 'Q' {
     export interface IRetryOptions {
         limit?: number;
         interval?: number;

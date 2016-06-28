@@ -5,6 +5,8 @@
 
 /// <reference types="falcor-json-graph" />
 
+import * as FalcorJsonGraph from 'falcor-json-graph';
+
 export = FalcorModel;
 export as namespace falcor;
 

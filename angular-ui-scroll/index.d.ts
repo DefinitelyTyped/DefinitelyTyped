@@ -5,24 +5,27 @@
 
 /// <reference types="angularjs" />
 
-declare namespace angular.ui {
-    interface IScrollDatasource<T> {
-        /**
-         * The datasource object implements methods and properties to be used by the directive to access the data
-         *
-         * @param index indicates the first data row requested
-         *
-         * @param count indicates number of data rows requested
-         *
-         * @param success function to call when the data are retrieved. The implementation of the service has to call
-         * this function when the data are retrieved and pass it an array of the items retrieved. If no items are
-         * retrieved, an empty array has to be passed.
-         *
-         * Important: Make sure to respect the index and count parameters of the request. The array passed to the
-         * success method should have exactly count elements unless it hit eof/bof
-         */
-        get(index: number, count: number, success: (results: Array<T>) => any): void;
-    }
+import * as angular from 'angularjs';
+
+declare module 'angularjs' {
+    export namespace ui {
+        interface IScrollDatasource<T> {
+            /**
+             * The datasource object implements methods and properties to be used by the directive to access the data
+             *
+             * @param index indicates the first data row requested
+             *
+             * @param count indicates number of data rows requested
+             *
+             * @param success function to call when the data are retrieved. The implementation of the service has to call
+             * this function when the data are retrieved and pass it an array of the items retrieved. If no items are
+             * retrieved, an empty array has to be passed.
+             *
+             * Important: Make sure to respect the index and count parameters of the request. The array passed to the
+             * success method should have exactly count elements unless it hit eof/bof
+             */
+            get(index: number, count: number, success: (results: Array<T>) => any): void;
+        }
 
     interface IScrollAdapter {
         /**

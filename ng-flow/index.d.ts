@@ -5,8 +5,12 @@
 /// <reference types="flowjs" />
 /// <reference types="angularjs" />
 
-declare namespace angular.flow {
-    interface IFlowFactory {
-        create(options?: flowjs.IFlowOptions): flowjs.IFlow;
-    }
+import * as angular from 'angularjs';
+
+declare module 'angularjs' {
+	export namespace flow {
+		interface IFlowFactory {
+			create(options?: flowjs.IFlowOptions): flowjs.IFlow;
+		}
+	}
 }

@@ -6,7 +6,7 @@
 // Sources: https://github.com/i18next/i18next/
 
 
-declare namespace I18n {
+declare namespace i18n {
     interface ResourceStore {
         [language: string]: ResourceStoreLanguage;
     }

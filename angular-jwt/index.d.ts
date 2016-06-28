@@ -5,27 +5,31 @@
 
 /// <reference types="angularjs" />
 
-declare namespace angular.jwt {
+import * as angular from 'angularjs';
 
-    interface JwtToken {
-        iss?: string;
-        sub?: string;
-        aud?: string;
-        exp?: number;
-        nbf?: number;
-        iat?: number;
-        jti?: string;
-        unique_name?: string;
-    }
+declare module 'angularjs' {
+    export namespace jwt {
 
-    interface IJwtHelper {
-        decodeToken(token: string): JwtToken;
-        getTokenExpirationDate(token: any): Date;
-        isTokenExpired(token: any, offsetSeconds?: number): boolean;
-    }
+        interface JwtToken {
+            iss?: string;
+            sub?: string;
+            aud?: string;
+            exp?: number;
+            nbf?: number;
+            iat?: number;
+            jti?: string;
+            unique_name?: string;
+        }
 
-    interface IJwtInterceptor {
-        tokenGetter(...params : any[]): string;
+        interface IJwtHelper {
+            decodeToken(token: string): JwtToken;
+            getTokenExpirationDate(token: any): Date;
+            isTokenExpired(token: any, offsetSeconds?: number): boolean;
+        }
+
+        interface IJwtInterceptor {
+            tokenGetter(...params: any[]): string;
+        }
     }
 
     interface IAuthManagerServiceProvider {

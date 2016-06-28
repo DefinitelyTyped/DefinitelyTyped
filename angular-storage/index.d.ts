@@ -5,51 +5,55 @@
 
 /// <reference types="angularjs" />
 
-declare namespace angular.a0.storage {
-	interface IStoreService extends INamespacedStoreService {
-		/**
-		 * Returns a namespaced store
-		 *
-		 * @param {String} namespace - The namespace
-		 * @param {String} storage - The name of the storage service. Defaults to local storage.
-		 * @param {String} delimiter - The delimiter to use to separate the namespace and the keys.
-		 * @returns {INamespacedStoreService}
-		 */
-		getNamespacedStore(namespace: string, storage?: string, delimiter?: string): INamespacedStoreService;
-	}
+import * as angular from 'angularjs';
 
-	interface INamespacedStoreService {
-		/**
-		 * Sets a new value to the storage with the key name. It can be any object.
-		 *
-		 * @param {String} name - The key name for the location of the value
-		 * @param value - The value to store
-		 */
-		set(name: string, value: any): void;
+declare module 'angularjs' {
+	export namespace a0.storage {
+		interface IStoreService extends INamespacedStoreService {
+			/**
+			 * Returns a namespaced store
+			 *
+			 * @param {String} namespace - The namespace
+			 * @param {String} storage - The name of the storage service. Defaults to local storage.
+			 * @param {String} delimiter - The delimiter to use to separate the namespace and the keys.
+			 * @returns {INamespacedStoreService}
+			 */
+			getNamespacedStore(namespace: string, storage?: string, delimiter?: string): INamespacedStoreService;
+		}
 
-		/**
-		 * Returns the saved value with they key name.
-		 *
-		 * @param {String} name - The key name for the location of the value
-		 * @returns The saved value; if you saved an object, you get an object
-		 */
-		get(name: string): any;
+		interface INamespacedStoreService {
+			/**
+			 * Sets a new value to the storage with the key name. It can be any object.
+			 *
+			 * @param {String} name - The key name for the location of the value
+			 * @param value - The value to store
+			 */
+			set(name: string, value: any): void;
 
-		/**
-		 * Deletes the saved value with the key name
-		 *
-		 * @param {String} name - The key name for the location of the value to remove
-		 */
-		remove(name: string): void;
-	}
+			/**
+			 * Returns the saved value with they key name.
+			 *
+			 * @param {String} name - The key name for the location of the value
+			 * @returns The saved value; if you saved an object, you get an object
+			 */
+			get(name: string): any;
 
-	interface IStoreProvider {
+			/**
+			 * Deletes the saved value with the key name
+			 *
+			 * @param {String} name - The key name for the location of the value to remove
+			 */
+			remove(name: string): void;
+		}
 
-	    /**
-	     * Sets the storage.
-	     *
-	     * @param {String} storage - The storage name
-	     */
-		setStore(storage: string): void;
+		interface IStoreProvider {
+
+		    /**
+		     * Sets the storage.
+		     *
+		     * @param {String} storage - The storage name
+		     */
+			setStore(storage: string): void;
+		}
 	}
 }

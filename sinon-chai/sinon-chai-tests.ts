@@ -1,4 +1,4 @@
-
+import Sinon = require('sinon');
 
 import chai = require('chai');
 import sinonChai = require('sinon-chai');

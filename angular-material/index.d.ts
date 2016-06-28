@@ -28,11 +28,8 @@ declare namespace angular.material {
         disableParentScroll?: boolean; // default: true
     }
 
-    interface IBottomSheetService {
-        show(options: IBottomSheetOptions): angular.IPromise<any>;
-        hide(response?: any): void;
-        cancel(response?: any): void;
-    }
+declare module 'angularjs' {
+    export namespace material {
 
     interface IPresetDialog<T> {
         title(title: string): T;
@@ -60,12 +57,37 @@ declare namespace angular.material {
         ariaLabel(ariaLabel: string): T;
     }
 
-    interface IAlertDialog extends IPresetDialog<IAlertDialog> {
-    }
+        interface IBottomSheetService {
+            show(options: IBottomSheetOptions): angular.IPromise<any>;
+            hide(response?: any): void;
+            cancel(response?: any): void;
+        }
 
-    interface IConfirmDialog extends IPresetDialog<IConfirmDialog> {
-        cancel(cancel: string): IConfirmDialog;
-    }
+        interface IPresetDialog<T> {
+            title(title: string): T;
+            textContent(textContent: string): T;
+            htmlContent(htmlContent: string): T;
+            ok(ok: string): T;
+            theme(theme: string): T;
+            templateUrl(templateUrl?: string): T;
+            template(template?: string): T;
+            targetEvent(targetEvent?: MouseEvent): T;
+            scope(scope?: angular.IScope): T; // default: new child scope
+            preserveScope(preserveScope?: boolean): T; // default: false
+            disableParentScroll(disableParentScroll?: boolean): T; // default: true
+            hasBackdrop(hasBackdrop?: boolean): T; // default: true
+            clickOutsideToClose(clickOutsideToClose?: boolean): T; // default: false
+            escapeToClose(escapeToClose?: boolean): T; // default: true
+            focusOnOpen(focusOnOpen?: boolean): T; // default: true
+            controller(controller?: string | Function): T;
+            locals(locals?: { [index: string]: any }): T;
+            bindToController(bindToController?: boolean): T; // default: false
+            resolve(resolve?: { [index: string]: angular.IPromise<any> }): T;
+            controllerAs(controllerAs?: string): T;
+            parent(parent?: string | Element | JQuery): T; // default: root node
+            onComplete(onComplete?: Function): T;
+            ariaLabel(ariaLabel: string): T;
+        }
 
     interface IPromptDialog extends IPresetDialog<IPromptDialog> {
         cancel(cancel: string): IPromptDialog;
@@ -120,21 +142,43 @@ declare namespace angular.material {
         cancel(response?: any): void;
     }
 
-    interface IIcon {
-        (id: string): angular.IPromise<Element>; // id is a unique ID or URL
-    }
+        interface IDialogOptions {
+            templateUrl?: string;
+            template?: string;
+            autoWrap?: boolean; // default: true
+            targetEvent?: MouseEvent;
+            openFrom?: any;
+            closeTo?: any;
+            scope?: angular.IScope; // default: new child scope
+            preserveScope?: boolean; // default: false
+            disableParentScroll?: boolean; // default: true
+            hasBackdrop?: boolean // default: true
+            clickOutsideToClose?: boolean; // default: false
+            escapeToClose?: boolean; // default: true
+            focusOnOpen?: boolean; // default: true
+            controller?: string | Function;
+            locals?: { [index: string]: any };
+            bindToController?: boolean; // default: false
+            resolve?: { [index: string]: angular.IPromise<any> }
+            controllerAs?: string;
+            parent?: string | Element | JQuery; // default: root node
+            onShowing?: Function;
+            onComplete?: Function;
+            onRemoving?: Function;
+            fullscreen?: boolean;
+        }
 
-    interface IIconProvider {
-        icon(id: string, url: string, viewBoxSize?: number): IIconProvider; // viewBoxSize default: 24
-        iconSet(id: string, url: string, viewBoxSize?: number): IIconProvider; // viewBoxSize default: 24
-        defaultIconSet(url: string, viewBoxSize?: number): IIconProvider; // viewBoxSize default: 24
-        defaultViewBoxSize(viewBoxSize: number): IIconProvider; // default: 24
-        defaultFontSet(name: string): IIconProvider;
-    }
+        interface IDialogService {
+            show(dialog: IDialogOptions | IAlertDialog | IConfirmDialog): angular.IPromise<any>;
+            confirm(): IConfirmDialog;
+            alert(): IAlertDialog;
+            hide(response?: any): angular.IPromise<any>;
+            cancel(response?: any): void;
+        }
 
-    interface IMedia {
-        (media: string): boolean;
-    }
+        interface IIcon {
+            (id: string): angular.IPromise<Element>; // id is a unique ID or URL
+        }
 
     interface ISidenavObject {
         toggle(): angular.IPromise<void>;
@@ -163,8 +207,9 @@ declare namespace angular.material {
         toastClass(toastClass: string): T;
     }
 
-    interface ISimpleToastPreset extends IToastPreset<ISimpleToastPreset> {
-    }
+        interface ISidenavService {
+            (component: string): ISidenavObject;
+        }
 
     interface IToastOptions {
         templateUrl?: string;
@@ -194,38 +239,52 @@ declare namespace angular.material {
         cancel(response?: any): void;
     }
 
-    interface IPalette {
-        0?: string;
-        50?: string;
-        100?: string;
-        200?: string;
-        300?: string;
-        400?: string;
-        500?: string;
-        600?: string;
-        700?: string;
-        800?: string;
-        900?: string;
-        A100?: string;
-        A200?: string;
-        A400?: string;
-        A700?: string;
-        contrastDefaultColor?: string;
-        contrastDarkColors?: string|string[];
-        contrastLightColors?: string|string[];
-    }
+        interface IToastOptions {
+            templateUrl?: string;
+            template?: string;
+            autoWrap?: boolean;
+            scope?: angular.IScope; // default: new child scope
+            preserveScope?: boolean; // default: false
+            hideDelay?: number; // default (ms): 3000
+            position?: string; // any combination of 'bottom'/'left'/'top'/'right'/'fit'; default: 'bottom left'
+            controller?: string | Function;
+            locals?: { [index: string]: any };
+            bindToController?: boolean; // default: false
+            resolve?: { [index: string]: angular.IPromise<any> }
+            controllerAs?: string;
+            parent?: string | Element | JQuery; // default: root node
+        }
 
-    interface IThemeHues {
-        default?: string;
-        'hue-1'?: string;
-        'hue-2'?: string;
-        'hue-3'?: string;
-    }
+        interface IToastService {
+            show(optionsOrPreset: IToastOptions | IToastPreset<any>): angular.IPromise<any>;
+            showSimple(content: string): angular.IPromise<any>;
+            simple(): ISimpleToastPreset;
+            build(): IToastPreset<any>;
+            updateContent(): void;
+            hide(response?: any): void;
+            cancel(response?: any): void;
+        }
 
-    interface IThemePalette {
-        name: string;
-        hues: IThemeHues;
-    }
+        interface IPalette {
+            0?: string;
+            50?: string;
+            100?: string;
+            200?: string;
+            300?: string;
+            400?: string;
+            500?: string;
+            600?: string;
+            700?: string;
+            800?: string;
+            900?: string;
+            A100?: string;
+            A200?: string;
+            A400?: string;
+            A700?: string;
+            contrastDefaultColor?: string;
+            contrastDarkColors?: string | string[];
+            contrastLightColors?: string | string[];
+        }
 
     interface IBrowserColors{
         theme: string;
@@ -240,26 +299,17 @@ declare namespace angular.material {
         warn: IThemePalette;
     }
 
-    interface IThemeGrayScalePalette {
-        1: string;
-        2: string;
-        3: string;
-        4: string;
-        name: string;
-    }
+        interface IThemePalette {
+            name: string;
+            hues: IThemeHues;
+        }
 
-    interface ITheme {
-        name: string;
-        isDark: boolean;
-        colors: IThemeColors;
-        foregroundPalette: IThemeGrayScalePalette;
-        foregroundShadow: string;
-        accentPalette(name: string, hues?: IThemeHues): ITheme;
-        primaryPalette(name: string, hues?: IThemeHues): ITheme;
-        warnPalette(name: string, hues?: IThemeHues): ITheme;
-        backgroundPalette(name: string, hues?: IThemeHues): ITheme;
-        dark(isDark?: boolean): ITheme;
-    }
+        interface IThemeColors {
+            accent: IThemePalette;
+            background: IThemePalette;
+            primary: IThemePalette;
+            warn: IThemePalette;
+        }
 
     interface IThemingProvider {
         alwaysWatchTheme(alwaysWatch: boolean): void;
@@ -272,44 +322,66 @@ declare namespace angular.material {
         theme(name: string, inheritFrom?: string): ITheme;
     }
 
-    interface IDateLocaleProvider {
-        months: string[];
-        shortMonths: string[];
-        days: string[];
-        shortDays: string[];
-        dates: string[];
-        firstDayOfWeek: number;
-        parseDate(dateString: string): Date;
-        formatDate(date: Date): string;
-        monthHeaderFormatter(date: Date): string;
-        weekNumberFormatter(weekNumber: number): string;
-        msgCalendar: string;
-        msgOpenCalendar: string;
-    }
+        interface ITheme {
+            name: string;
+            isDark: boolean;
+            colors: IThemeColors;
+            foregroundPalette: IThemeGrayScalePalette;
+            foregroundShadow: string;
+            accentPalette(name: string, hues?: IThemeHues): ITheme;
+            primaryPalette(name: string, hues?: IThemeHues): ITheme;
+            warnPalette(name: string, hues?: IThemeHues): ITheme;
+            backgroundPalette(name: string, hues?: IThemeHues): ITheme;
+            dark(isDark?: boolean): ITheme;
+        }
 
-    interface IMenuService {
-        hide(response?: any, options?: any): angular.IPromise<any>;
-    }
+        interface IThemingProvider {
+            theme(name: string, inheritFrom?: string): ITheme;
+            definePalette(name: string, palette: IPalette): IThemingProvider;
+            extendPalette(name: string, palette: IPalette): IPalette;
+            setDefaultTheme(theme: string): void;
+            alwaysWatchTheme(alwaysWatch: boolean): void;
+        }
 
-    interface IColorPalette {
-        red: IPalette;
-        pink: IPalette;
-        'deep-purple': IPalette;
-        indigo: IPalette;
-        blue: IPalette;
-        'light-blue': IPalette;
-        cyan: IPalette;
-        teal: IPalette;
-        green: IPalette;
-        'light-green': IPalette;
-        lime: IPalette;
-        yellow: IPalette;
-        amber: IPalette;
-        orange: IPalette;
-        'deep-orange': IPalette;
-        brown: IPalette;
-        grey: IPalette;
-        'blue-grey': IPalette;
+        interface IDateLocaleProvider {
+            months: string[];
+            shortMonths: string[];
+            days: string[];
+            shortDays: string[];
+            dates: string[];
+            firstDayOfWeek: number;
+            parseDate(dateString: string): Date;
+            formatDate(date: Date): string;
+            monthHeaderFormatter(date: Date): string;
+            weekNumberFormatter(weekNumber: number): string;
+            msgCalendar: string;
+            msgOpenCalendar: string;
+        }
+
+        interface IMenuService {
+            hide(response?: any, options?: any): angular.IPromise<any>;
+        }
+
+        interface IColorPalette {
+            red: IPalette;
+            pink: IPalette;
+            'deep-purple': IPalette;
+            indigo: IPalette;
+            blue: IPalette;
+            'light-blue': IPalette;
+            cyan: IPalette;
+            teal: IPalette;
+            green: IPalette;
+            'light-green': IPalette;
+            lime: IPalette;
+            yellow: IPalette;
+            amber: IPalette;
+            orange: IPalette;
+            'deep-orange': IPalette;
+            brown: IPalette;
+            grey: IPalette;
+            'blue-grey': IPalette;
+        }
     }
 
     interface IPanelConfig {

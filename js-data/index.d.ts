@@ -345,7 +345,4 @@ declare var JSData:{
     DSUtils: any;
 };
 
-//Support node require
-declare module 'js-data' {
-    export = JSData;
-}
+export = JSData;

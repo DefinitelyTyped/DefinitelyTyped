@@ -4,9 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as moment from '../moment';
+import * as angular from 'angularjs';
 
-declare global {
-    namespace angular.bootstrap.calendar {
+declare module 'angularjs' {
+    export namespace bootstrap.calendar {
         interface IEvent {
             /**
              * The title of the event

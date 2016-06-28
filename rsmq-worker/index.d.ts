@@ -8,6 +8,7 @@
 
 import redis = require('redis');
 import events = require('events');
+import * as RedisSMQ from 'rsmq';
 
 declare namespace RSMQWorker {
     export interface Client extends events.EventEmitter {

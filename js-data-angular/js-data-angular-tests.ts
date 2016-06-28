@@ -1,4 +1,4 @@
-
+import * as JSData from 'js-data';
 
 interface IUser {
 
