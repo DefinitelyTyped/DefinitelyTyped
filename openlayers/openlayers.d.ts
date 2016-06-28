@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace olx {
-interface StaticImageOptions {
+    interface StaticImageOptions {
 
         /** Attributions */
         attributions?: Array<ol.Attribution>
