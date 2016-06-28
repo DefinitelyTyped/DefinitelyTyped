@@ -1,7 +1,7 @@
 // Type definitions for nouislider v1.0.0
 // Project: https://github.com/leongersen/wnumb
 // Definitions by: Corey Jepperson <https://github.com/acoreyj>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare var wNumb: wNumb;
 
 interface wNumbOptions {
@@ -10,7 +10,7 @@ interface wNumbOptions {
      */
     decimals?: number;
     /**
-     * The decimal separator. 
+     * The decimal separator.
      * Defaults to '.' if thousand isn't already set to '.'.
      */
     mark?: string;
@@ -35,7 +35,7 @@ interface wNumbOptions {
      */
     negativeBefore?: string;
     /**This is a powerful option to manually modify the slider output.
-     * 
+     *
      *For example, to show a number in another currency:
      * function( value ){
      *  return value * 1.32;
@@ -43,7 +43,7 @@ interface wNumbOptions {
      */
     encoder?: (value: number) => number;
     /**
-     * Reverse the operations set in encoder. 
+     * Reverse the operations set in encoder.
      * Use this option to undo modifications made while encoding the value.
      * function( value ){
      * return value / 1.32;
@@ -59,22 +59,22 @@ interface wNumbOptions {
      * Applied before all other formatting options are applied.
      */
     undo?: (value: number) => number;
-} 
+}
 
 
 interface wNumb {
     /**
-     * Create a wNumb 
-     * 
+     * Create a wNumb
+     *
      * @param options - the options
      */
     (options?: wNumbOptions): wNumbInstance;
 }
 
 interface wNumbInstance {
-    
-    
-    
+
+
+
     /**
      * format to string
      */

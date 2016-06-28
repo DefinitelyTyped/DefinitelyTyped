@@ -1,9 +1,9 @@
 // Type definitions for CodeMirror
 // Project: https://github.com/marijnh/CodeMirror
 // Definitions by: jacqt <https://github.com/jacqt>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module CodeMirror {
+declare namespace CodeMirror {
     interface Doc {
         /** This method can be used to implement search/replace functionality.
          *  `query`: This can be a regular * expression or a string (only strings will match across lines -

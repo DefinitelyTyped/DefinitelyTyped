@@ -8,12 +8,29 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
-import { Router, Route, IndexRoute, Link } from "react-router"
+import { browserHistory, hashHistory, createMemoryHistory, Router, Route, IndexRoute, Link} from "react-router"
+import { routerShape, locationShape } from "react-router/lib/PropTypes"
 
-import createHistory from "history/lib/createBrowserHistory"
-
+interface MasterContext {
+	router: ReactRouter.RouterOnContext;
+}
 
 class Master extends React.Component<React.Props<{}>, {}> {
+
+	static contextTypes: React.ValidationMap<any> = {
+		router: routerShape
+	};
+	context: MasterContext;
+
+	navigate() {
+		var router = this.context.router;
+		router.push("/users");
+		router.push({
+			pathname: "/users/12",
+			query: { modal: true },
+			state: { fromDashboard: true }
+		});
+	}
 
 	render() {
 		return <div>
@@ -59,7 +76,7 @@ class Users extends React.Component<{}, {}> {
 
 
 ReactDOM.render((
-	<Router history={createHistory()}>
+	<Router history={hashHistory}>
 		<Route path="/" component={Master}>
 			<IndexRoute component={Dashboard} />
 			<Route path="users" component={Users}/>

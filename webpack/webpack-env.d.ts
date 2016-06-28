@@ -1,7 +1,7 @@
 // Type definitions for webpack 1.12.2 (module API)
 // Project: https://github.com/webpack/webpack
 // Definitions by: use-strict <https://github.com/use-strict>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * Webpack module API - variables and global functions available inside modules

@@ -1,7 +1,7 @@
 // Type definitions for Ionic
 // Project: http://ionicframework.com
 // Definitions by: Spencer Williams <https://github.com/spencerwi/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
@@ -32,6 +32,10 @@ interface IonicStatic {
          * Return the current device (given by cordova).
          */
         device(): any;
+        /**
+         * Check if the platform name provided is detected.
+         */
+        is(platformName: string): boolean;
         /**
          * Check if we are running within a WebView (such as Cordova).
          */
@@ -97,8 +101,8 @@ declare module 'ionic' {
     export = ionic;
 }
 
-declare module ionic {
-    module actionSheet {
+declare namespace ionic {
+    namespace actionSheet {
         interface IonicActionSheetService {
             show(options: IonicActionSheetOptions): ()=>void;
         }
@@ -117,15 +121,15 @@ declare module ionic {
             cssClass?: string;
         }
     }
-    module backdrop {
+    namespace backdrop {
         interface IonicBackdropService {
             retain(): void;
             release(): void;
         }
     }
-    module gestures {
+    namespace gestures {
         interface IonicGestureService {
-            on(eventType: string, callback: (e: any)=>any, $element: ng.IAugmentedJQuery, options: any): IonicGesture;
+            on(eventType: string, callback: (e: any)=>any, $element: angular.IAugmentedJQuery, options: any): IonicGesture;
             off(gesture: IonicGesture, eventType: string, callback: (e: any)=>any): void;
         }
 
@@ -140,7 +144,7 @@ declare module ionic {
         }
 
     }
-    module list {
+    namespace list {
         interface IonicListDelegate {
             showReorder(showReorder?: boolean): boolean;
             showDelete(showDelete?: boolean): boolean;
@@ -149,7 +153,7 @@ declare module ionic {
             $getByHandle(handle: string): IonicListDelegate;
         }
     }
-    module loading {
+    namespace loading {
         interface IonicLoadingService {
             show(opts?: IonicLoadingOptions): void;
             hide(): void;
@@ -164,16 +168,17 @@ declare module ionic {
             duration?: number;
         }
     }
-    module modal {
+    namespace modal {
         interface IonicModalService {
             fromTemplate(templateString: string, options?: IonicModalOptions): IonicModalController;
-            fromTemplateUrl(templateUrl: string, options?: IonicModalOptions): ng.IPromise<IonicModalController>;
+            fromTemplateUrl(templateUrl: string, options?: IonicModalOptions): angular.IPromise<IonicModalController>;
         }
 
         interface IonicModalController {
             initialize(options: IonicModalOptions): void;
-            show(): ng.IPromise<void>;
-            hide(): ng.IPromise<void>;
+            show(): angular.IPromise<void>;
+            hide(): angular.IPromise<void>;
+            remove(): angular.IPromise<void>;
             isShown(): boolean;
         }
 
@@ -185,7 +190,7 @@ declare module ionic {
             hardwareBackButtonClose?: boolean;
         }
     }
-    module navigation {
+    namespace navigation {
         interface IonicNavBarDelegate {
             align(direction?: string): void;
             showBackButton(show?: boolean): boolean;
@@ -209,7 +214,7 @@ declare module ionic {
 
             goBack(backCount?: number): void;
             clearHistory(): void;
-            clearCache(): ng.IPromise<any>;
+            clearCache(): angular.IPromise<any>;
             nextViewOptions(options: IonicHistoryNextViewOptions): void;
         }
         interface IonicHistoryNextViewOptions {
@@ -218,25 +223,26 @@ declare module ionic {
             historyRoot?: boolean;
         }
     }
-    module platform {
+    namespace platform {
         interface IonicPlatformService {
             onHardwareBackButton(callback: Function): void;
             offHardwareBackButton(callback: Function): void;
             registerBackButtonAction(callback: Function, priority: number, actionId?: any): Function;
             on(type: string, callback: Function): Function;
-            ready(callback?: Function): ng.IPromise<any>;
+            ready(callback?: Function): angular.IPromise<any>;
         }
     }
-    module popover {
+    namespace popover {
         interface IonicPopoverService {
             fromTemplate(templateString: string, options: IonicPopoverOptions): IonicPopoverController;
-            fromTemplateUrl(templateUrl: string, options: IonicPopoverOptions): ng.IPromise<IonicPopoverController>;
+            fromTemplateUrl(templateUrl: string, options: IonicPopoverOptions): angular.IPromise<IonicPopoverController>;
         }
         interface IonicPopoverController {
             initialize(options: IonicPopoverOptions): void;
-            show($event?: any): ng.IPromise<any>;
-            hide(): ng.IPromise<any>;
+            show($event?: any): angular.IPromise<any>;
+            hide(): angular.IPromise<any>;
             isShown(): boolean;
+            remove(): angular.IPromise<any>;
         }
         interface IonicPopoverOptions {
             scope?: any;
@@ -245,7 +251,7 @@ declare module ionic {
             hardwareBackButtonClose?: boolean;
         }
     }
-    module popup {
+    namespace popup {
         interface IonicPopupService {
             show(options: IonicPopupFullOptions): IonicPopupPromise;
             alert(options: IonicPopupAlertOptions): IonicPopupPromise;
@@ -253,10 +259,10 @@ declare module ionic {
             prompt(options: IonicPopupPromptOptions): IonicPopupPromise;
         }
 
-        interface IonicPopupConfirmPromise extends ng.IPromise<boolean> {
+        interface IonicPopupConfirmPromise extends angular.IPromise<boolean> {
             close(value?: boolean): void;
         }
-        interface IonicPopupPromise extends ng.IPromise<any> {
+        interface IonicPopupPromise extends angular.IPromise<any> {
             close(value?: any): any;
         }
         interface IonicPopupBaseOptions {
@@ -294,7 +300,7 @@ declare module ionic {
             okType?: string;
         }
     }
-    module scroll {
+    namespace scroll {
         interface IonicScrollDelegate {
             resize(): void;
             scrollTop(shouldAnimate?: boolean): void;
@@ -311,7 +317,7 @@ declare module ionic {
             $getByHandle(handle: string): IonicScrollDelegate;
         }
     }
-    module sideMenu {
+    namespace sideMenu {
         interface IonicSideMenuDelegate {
             toggleLeft(isOpen?: boolean): void;
             toggleRight(isOpen?: boolean): void;
@@ -324,7 +330,7 @@ declare module ionic {
             $getByHandle(handle: string): IonicSideMenuDelegate;
         }
     }
-    module slideBox {
+    namespace slideBox {
         interface IonicSlideBoxDelegate {
             update(): void;
             slide(to: number, speed?: number): void;
@@ -338,7 +344,7 @@ declare module ionic {
             $getByHandle(handle: string): IonicSlideBoxDelegate;
         }
     }
-    module tabs {
+    namespace tabs {
         interface IonicTabsDelegate {
             select(index: number): void;
             selectedIndex(): number;
@@ -346,12 +352,13 @@ declare module ionic {
             showBar(show?: boolean): boolean;
         }
     }
-    module utility {
+    namespace utility {
         interface IonicConfigProvider {
             views: {
                 transition(transition?: string): string;
                 maxCache(maxNumber?: number): number;
                 forwardCache(value?: boolean): boolean;
+                swipeBackEnabled(value?: boolean): boolean;
             };
             scrolling: {
                 jsScrolling(value?: boolean): boolean;

@@ -1,7 +1,7 @@
 // Type definitions for Vortex Web 1.2.0p1
 // Project: http://www.prismtech.com/vortex/vortex-web
 // Definitions by: Stefan Profanter <https://github.com/Pro/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
  Vortex Web
@@ -14,7 +14,7 @@
  for full copyright notice and license terms.
  */
 
-declare module DDS {
+declare namespace DDS {
 
 
 	/**

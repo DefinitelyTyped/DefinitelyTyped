@@ -1,7 +1,7 @@
 // Type definitions for Node.js v0.8.8
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
 *                                               *
@@ -150,7 +150,7 @@ interface NodeProcess extends EventEmitter {
         visibility: string;
     };
     };
-    kill(pid: number, signal?: string): void;
+    kill(pid:number, signal?: string|number): void;
     pid: number;
     title: string;
     arch: string;
@@ -170,7 +170,7 @@ interface Buffer {
     length: number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
-    readUInt8(offset: number, noAsset?: boolean): number;
+    readUInt8(offset: number, noAssert?: boolean): number;
     readUInt16LE(offset: number, noAssert?: boolean): number;
     readUInt16BE(offset: number, noAssert?: boolean): number;
     readUInt32LE(offset: number, noAssert?: boolean): number;
@@ -326,7 +326,7 @@ declare module "cluster" {
     export function disconnect(callback?: Function): void;
     export var workers: any;
 
-    // Event emitter    
+    // Event emitter
     export function addListener(event: string, listener: Function): void;
     export function on(event: string, listener: Function): any;
     export function once(event: string, listener: Function): void;
@@ -970,7 +970,7 @@ declare module "crypto" {
         setPrivateKey(public_key: string, encoding?: string): void;
     }
     export function getDiffieHellman(group_name: string): DiffieHellman;
-    export function pbkdf2(password: string, salt: string, iterations: number, keylen: number, callback: (err: Error, derivedKey: string) => any): void;
+    export function pbkdf2(password: string|Buffer, salt: string|Buffer, iterations: number, keylen: number, callback: (err: Error, derivedKey: string) => any): void;
     export function randomBytes(size: number, callback?: (err: Error, buf: Buffer) =>void );
 }
 

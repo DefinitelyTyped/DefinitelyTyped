@@ -1,7 +1,7 @@
 // Type definitions for node-config-manager 1.0.2
 // Project: https://www.npmjs.com/package/node-config-manager
 // Definitions by: TANAKA Koichi <https://gitnub.com/mugeso/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "node-config-manager" {
     interface Options {

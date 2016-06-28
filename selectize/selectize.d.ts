@@ -1,11 +1,11 @@
 // Type definitions for Selectize 0.11.2
 // Project: https://github.com/brianreavis/selectize.js
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module Selectize {
+declare namespace Selectize {
     // see https://github.com/brianreavis/selectize.js/blob/master/docs/usage.md
     // option identifiers are parameterized by T; data is parameterized by U
     interface IOptions<T, U> {
@@ -31,7 +31,7 @@ declare module Selectize {
         /**
          * Allows the user to create a new items that aren't in the list of options.
          * This option can be any of the following: "true", "false" (disabled), or a function that accepts two
-         * arguments: "input" and "callback". The callback should be invoked with the final data for the option. 
+         * arguments: "input" and "callback". The callback should be invoked with the final data for the option.
          *
          * Default: false
          */

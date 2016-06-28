@@ -1,7 +1,7 @@
-// Type definitions for chokidar 1.0.0
+// Type definitions for chokidar 1.4.3
 // Project: https://github.com/paulmillr/chokidar
 // Definitions by: Stefan Steinhart <https://github.com/reppners/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -13,6 +13,7 @@ declare module "fs"
         add(filesDirsOrGlobs:Array<string>):void;
         unwatch(fileDirOrGlob:string):void;
         unwatch(filesDirsOrGlobs:Array<string>):void;
+        getWatched():any;
     }
 }
 
@@ -33,10 +34,11 @@ declare module "chokidar"
         binaryInterval?:number;
         ignorePermissionErrors?:boolean;
         atomic?:boolean;
+        awaitWriteFinish?:any;
     }
 
     import fs = require("fs");
 
-    function watch( fileDirOrGlob:string, options?:WatchOptions ):fs.FSWatcher;
-    function watch( filesDirsOrGlobs:Array<string>, options?:WatchOptions ):fs.FSWatcher;
+    function watch(fileDirOrGlob:string, options?:WatchOptions):fs.FSWatcher;
+    function watch(filesDirsOrGlobs:Array<string>, options?:WatchOptions):fs.FSWatcher;
 }

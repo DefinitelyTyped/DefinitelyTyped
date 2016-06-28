@@ -1,7 +1,7 @@
 // Type definitions for Rangy
 // Project: https://github.com/timdown/rangy
 // Definitions by: Rudolph Gottesheim <http://www.midnight-design.at/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface RangyRange extends Range {
     setStartAndEnd(startNode:Node, startOffset:number, endNode?:Node, endOffset?:number):any;

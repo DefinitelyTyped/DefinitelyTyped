@@ -1,7 +1,7 @@
 ﻿/// <reference path="angular-gettext.d.ts" />
 
-module angular_gettext_tests {
-  
+namespace angular_gettext_tests {
+
 
   // Configuring angular-gettext
   // https://angular-gettext.rocketeer.be/dev-guide/configure/
@@ -15,12 +15,12 @@ module angular_gettext_tests {
     gettextCatalog.debug = true;
   });
 
-  
-  // Marking strings in JavaScript code as translatable. 
-  // https://angular-gettext.rocketeer.be/dev-guide/annotate-js/  
+
+  // Marking strings in JavaScript code as translatable.
+  // https://angular-gettext.rocketeer.be/dev-guide/annotate-js/
   angular.module("myApp").controller("helloController", function (gettext: angular.gettext.gettextFunction) {
     var myString = gettext("Hello");
-  });  
+  });
 
   //Translating directly in JavaScript.
   angular.module("myApp").controller("helloController", function (gettextCatalog: angular.gettext.gettextCatalog) {

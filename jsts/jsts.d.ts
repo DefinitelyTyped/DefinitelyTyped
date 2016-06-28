@@ -1,12 +1,12 @@
 ﻿// Type definitions for jsts 0.16.0
 // Project: https://github.com/bjornharrtell/jsts
 // Definitions by: Stephane Alie <https://github.com/StephaneAlie>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module jsts {
+declare namespace jsts {
     export var version: string;
 
-    module geom {
+    namespace geom {
         /**
          * A lightweight class used to store coordinates on the 2-dimensional
          * Cartesian plane. It is distinct from {@link Point}, which is a subclass of
@@ -1601,7 +1601,7 @@ declare module jsts {
         }
     }
 
-    module io {
+    namespace io {
         export class GeoJSONWriter {
             /**
              * Writes the GeoJSON representation of a {@link Geometry}. The

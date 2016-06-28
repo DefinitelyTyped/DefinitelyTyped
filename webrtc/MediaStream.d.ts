@@ -1,12 +1,10 @@
 // Type definitions for WebRTC
 // Project: http://dev.w3.org/2011/webrtc/
 // Definitions by: Ken Smith <https://github.com/smithkl42/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Taken from http://dev.w3.org/2011/webrtc/editor/getusermedia.html
 // version: W3C Editor's Draft 29 June 2015
-
-/// <reference path="../es6-promise/es6-promise.d.ts" />
 
 interface ConstrainBooleanParameters {
     exact?: boolean;
@@ -33,7 +31,7 @@ interface MediaStreamConstraints {
     audio?: boolean | MediaTrackConstraints;
 }
 
-declare module W3C {
+declare namespace W3C {
     type LongRange = NumberRange;
     type DoubleRange = NumberRange;
     type ConstrainBoolean = boolean | ConstrainBooleanParameters;
@@ -174,6 +172,9 @@ interface NavigatorGetUserMedia {
      errorCallback: (error: MediaStreamError) => void): void;
 }
 
+// to use with adapter.js, see: https://github.com/webrtc/adapter
+declare var getUserMedia: NavigatorGetUserMedia;
+
 interface Navigator {
     getUserMedia: NavigatorGetUserMedia;
 
@@ -195,7 +196,7 @@ interface MediaDevices {
 
 interface MediaDeviceInfo {
     label: string;
-    id: string;
+    deviceId: string;
     kind: string;
-    facing: string;
+    groupId: string;
 }

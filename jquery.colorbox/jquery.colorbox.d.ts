@@ -1,7 +1,7 @@
 // Type definitions for jQuery.Colorbox 1.4.15
 // Project: http://www.jacklmoore.com/colorbox/
 // Definitions by: Gidon Junge <https://github.com/gjunge>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped/
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
 
 /// <reference path="../jquery/jquery.d.ts" />
 

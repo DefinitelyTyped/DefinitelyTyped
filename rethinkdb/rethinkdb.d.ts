@@ -1,7 +1,7 @@
 // Type definitions for Rethinkdb 1.10.0
 // Project: http://rethinkdb.com/
 // Definitions by: Sean Hess <https://seanhess.github.io/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Reference: http://www.rethinkdb.com/api/#js
 // TODO: Document manipulation and below
 ///<reference path="../bluebird/bluebird.d.ts"/>
