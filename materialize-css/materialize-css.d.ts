@@ -89,7 +89,7 @@ declare namespace Materialize {
          * Default: 400
          */
         height?: number;
-https://github.com/chingyawhao/DefinitelyTyped.git
+
         /**
          * Set the duration of the transition animation in ms.
          * Default: 500
