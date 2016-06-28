@@ -62,7 +62,7 @@ declare namespace ReactSelect {
         valueArray: Option[];
     }
 
-    interface ReactSelectProps extends __React.Props<ReactSelect> {
+    interface ReactSelectProps extends __React.Props<ReactSelectClass> {
         /**
          * text to display when `allowCreate` is true.
          * @default 'Add "{label}"?'
@@ -401,26 +401,24 @@ declare namespace ReactSelect {
         searchingText?: string;
     }
 
-    interface ReactSelect extends  __React.ReactElement<ReactSelectProps> { }
-    interface ReactSelectAsyncClass extends __React.ComponentClass<ReactAsyncSelectProps> {
+    class ReactSelectAsyncClass extends __React.Component<ReactAsyncSelectProps, {}> {
     }
-    const Async: ReactSelectAsyncClass;
-    interface ReactSelectClass extends __React.ComponentClass<ReactSelectProps> {
-        Async: ReactSelectAsyncClass;
+    class ReactSelectClass extends __React.Component<ReactSelectProps, {}> {
+        static Async: ReactSelectAsyncClass;
     }
 
 }
 
 declare module "react-select" {
-    const RS: ReactSelect.ReactSelectClass;
-    export = RS;
+    export = ReactSelect.ReactSelectClass;
 }
 
 declare module "react-select-props" {
 
-    interface Option extends ReactSelect.Option {}
-    interface MenuRendererProps extends ReactSelect.MenuRendererProps {}
+    import Option = ReactSelect.MenuRendererProps;
+    import MenuRendererProps = ReactSelect.MenuRendererProps;
+    import ReactSelectProps = ReactSelect.ReactSelectProps;
+    import ReactAsyncSelectProps = ReactSelect.ReactAsyncSelectProps;
 
-    export { MenuRendererProps, Option };
+    export { MenuRendererProps, ReactSelectProps, ReactAsyncSelectProps, Option };
 }
-
