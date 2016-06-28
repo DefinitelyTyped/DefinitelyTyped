@@ -1,7 +1,7 @@
 // Type definitions for jQuery 1.10.x / 2.0.x
 // Project: http://jquery.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Christian Hoffmeister <https://github.com/choffmeister>, Steve Fenton <https://github.com/Steve-Fenton>, Diullei Gomes <https://github.com/Diullei>, Tass Iliopoulos <https://github.com/tasoili>, Jason Swearingen <https://github.com/jasons-novaleaf>, Sean Hill <https://github.com/seanski>, Guus Goossens <https://github.com/Guuz>, Kelly Summerlin <https://github.com/ksummerlin>, Basarat Ali Syed <https://github.com/basarat>, Nicholas Wolverson <https://github.com/nwolverson>, Derek Cicerone <https://github.com/derekcicerone>, Andrew Gaspar <https://github.com/AndrewGaspar>, James Harrison Fisher <https://github.com/jameshfisher>, Seikichi Kondo <https://github.com/seikichi>, Benjamin Jackman <https://github.com/benjaminjackman>, Poul Sorensen <https://github.com/s093294>, Josh Strobl <https://github.com/JoshStrobl>, John Reilly <https://github.com/johnnyreilly/>, Dick van den Brink <https://github.com/DickvdBrink>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -48,7 +48,7 @@ interface JQueryAjaxSettings {
      */
     contents?: { [key: string]: any; };
     //According to jQuery.ajax source code, ajax's option actually allows contentType to set to "false"
-    // https://github.com/borisyankov/DefinitelyTyped/issues/742
+    // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/742
     /**
      * When sending data to the server, use this content type. Default is "application/x-www-form-urlencoded; charset=UTF-8", which is fine for most cases. If you explicitly pass in a content-type to $.ajax(), then it is always sent to the server (even if no data is sent). The W3C XMLHttpRequest specification dictates that the charset is always UTF-8; specifying another charset will not force the browser to change the encoding.
      */
@@ -180,7 +180,7 @@ interface JQueryXHR extends XMLHttpRequest, JQueryPromise<any> {
     /**
      * Incorporates the functionality of the .done() and .fail() methods, allowing (as of jQuery 1.8) the underlying Promise to be manipulated. Refer to deferred.then() for implementation details.
      */
-    then(doneCallback: (data: any, textStatus: string, jqXHR: JQueryXHR) => void, failCallback?: (jqXHR: JQueryXHR, textStatus: string, errorThrown: any) => void): JQueryPromise<any>;
+    then<R>(doneCallback: (data: any, textStatus: string, jqXHR: JQueryXHR) => R, failCallback?: (jqXHR: JQueryXHR, textStatus: string, errorThrown: any) => void): JQueryPromise<R>;
     /**
      * Property containing the parsed response if the response Content-Type is json
      */
@@ -607,6 +607,16 @@ interface JQueryAnimationOptions {
     specialEasing?: Object;
 }
 
+interface JQueryEasingFunction {
+    ( percent: number ): number;
+}
+
+interface JQueryEasingFunctions {
+    [ name: string ]: JQueryEasingFunction;
+    linear: JQueryEasingFunction;
+    swing: JQueryEasingFunction;
+}
+
 /**
  * Static members of jQuery (those on $ and jQuery themselves)
  */
@@ -667,6 +677,12 @@ interface JQueryStatic {
      */
     get(url: string, data?: Object|string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
     /**
+     * Load data from the server using a HTTP GET request.
+     *
+     * @param settings The JQueryAjaxSettings to be used for the request
+     */
+    get(settings : JQueryAjaxSettings): JQueryXHR;
+    /**
      * Load JSON-encoded data from the server using a GET HTTP request.
      *
      * @param url A string containing the URL to which the request is sent.
@@ -711,7 +727,12 @@ interface JQueryStatic {
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
      */
     post(url: string, data?: Object|string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
-
+    /**
+     * Load data from the server using a HTTP POST request.
+     *
+     * @param settings The JQueryAjaxSettings to be used for the request
+     */
+    post(settings : JQueryAjaxSettings): JQueryXHR;
     /**
      * A multi-purpose callbacks list object that provides a powerful way to manage callback lists.
      *
@@ -795,7 +816,7 @@ interface JQueryStatic {
      *
      * @param removeAll A Boolean indicating whether to remove all jQuery variables from the global scope (including jQuery itself).
      */
-    noConflict(removeAll?: boolean): Object;
+    noConflict(removeAll?: boolean): JQueryStatic;
 
     /**
      * Provides a way to execute callback functions based on one or more objects, usually Deferred objects that represent asynchronous events.
@@ -889,6 +910,9 @@ interface JQueryStatic {
     /**
      * Effects
      */
+
+    easing: JQueryEasingFunctions;
+
     fx: {
         tick: () => void;
         /**
@@ -1964,6 +1988,24 @@ interface JQuery {
     click(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): JQuery;
 
     /**
+     * Trigger the "contextmenu" event on an element.
+     */
+    contextmenu(): JQuery;
+    /**
+     * Bind an event handler to the "contextmenu" JavaScript event.
+     *
+     * @param handler A function to execute when the event is triggered.
+     */
+    contextmenu(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    /**
+     * Bind an event handler to the "contextmenu" JavaScript event.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute when the event is triggered.
+     */
+    contextmenu(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+
+    /**
      * Trigger the "dblclick" event on an element.
      */
     dblclick(): JQuery;
@@ -2258,6 +2300,13 @@ interface JQuery {
      * @param handler A handler function previously attached for the event(s), or the special value false.
      */
     off(events: string, selector?: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
+    /**
+     * Remove an event handler.
+     *
+     * @param events One or more space-separated event types and optional namespaces, or just namespaces, such as "click", "keydown.myPlugin", or ".myPlugin".
+     * @param handler A handler function previously attached for the event(s), or the special value false. Takes handler with extra args that can be attached with on().
+     */
+    off(events: string, handler: (eventObject: JQueryEventObject, ...args: any[]) => any): JQuery;
     /**
      * Remove an event handler.
      *

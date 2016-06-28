@@ -1,12 +1,12 @@
 // Type definitions for PeerJS
 // Project: http://peerjs.com/
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path='../webrtc/RTCPeerConnection.d.ts' />
 
-declare module PeerJs{
+declare namespace PeerJs{
     interface PeerJSOption{
         key?: string;
         host?: string;

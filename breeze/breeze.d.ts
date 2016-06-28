@@ -1,7 +1,7 @@
 // Type definitions for Breeze 1.5.x
 // Project: http://www.breezejs.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, IdeaBlade <https://github.com/IdeaBlade/Breeze/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Updated Jan 14 2011 - Jay Traband ( www.ideablade.com).
 // Updated Aug 13 2013 - Steve Schmitt ( www.ideablade.com).
@@ -12,7 +12,7 @@
 // Updated Jan 20 2015 for Breeze 1.5.2 and merging changes from DefinitelyTyped
 // Updated Feb 28 2015 add any/all clause on Predicate
 
-declare module breeze.core {
+declare namespace breeze.core {
 
     interface ErrorCallback {
         (error: Error): void;
@@ -89,7 +89,7 @@ declare module breeze.core {
     export function formatString(format: string, ...args: any[]): string;
 }
 
-declare module breeze {
+declare namespace breeze {
 
     interface Entity {
         entityAspect: EntityAspect;
@@ -392,6 +392,7 @@ declare module breeze {
         constructor(config?: EntityManagerOptions);
         constructor(config?: string);
 
+		acceptChanges(): void;
         addEntity(entity: Entity): Entity;
         attachEntity(entity: Entity, entityState?: EntityStateSymbol, mergeStrategy?: MergeStrategySymbol): Entity;
         clear(): void;
@@ -961,7 +962,7 @@ declare module breeze {
         /** Creates a regular expression validator with a fixed expression. */
         static makeRegExpValidator(validatorName: string, expression: RegExp, defaultMessage: string, context?: any): Validator;
 
-        /** Run this validator against the specified value. 
+        /** Run this validator against the specified value.
             @param value {Object} Value to validate
             @param additionalContext {Object} Any additional contextual information that the Validator can make use of.
             @return {ValidationError|null} A ValidationError if validation fails, null otherwise        */
@@ -989,7 +990,7 @@ declare module breeze {
     var version: string;
 }
 
-declare module breeze.config {
+declare namespace breeze.config {
     var ajax: string;
     var dataService: string;
     var functionRegistry: Object;
@@ -1013,13 +1014,13 @@ declare module breeze.config {
     **/
     export function getAdapterInstance(interfaceName: string, adapterName?: string): Object;
     /**
-    Initializes a single adapter implementation. Initialization means either newing a instance of the 
+    Initializes a single adapter implementation. Initialization means either newing a instance of the
     specified interface and then calling "initialize" on it or simply calling "initialize" on the instance
     if it already exists.
     @method initializeAdapterInstance
     @param interfaceName {String} The name of the interface to which the adapter to initialize belongs.
     @param adapterName {String} - The name of a previously registered adapter to initialize.
-    @param [isDefault=true] {Boolean} - Whether to make this the default "adapter" for this interface. 
+    @param [isDefault=true] {Boolean} - Whether to make this the default "adapter" for this interface.
     @return {an instance of the specified adapter}
     **/
     export function initializeAdapterInstance(interfaceName: string, adapterName: string, isDefault?: boolean): void;
@@ -1039,16 +1040,16 @@ declare module breeze.config {
     var objectRegistry: Object;
     /**
     Method use to register implementations of standard breeze interfaces.  Calls to this method are usually
-    made as the last step within an adapter implementation. 
+    made as the last step within an adapter implementation.
     @method registerAdapter
     @param interfaceName {String} - one of the following interface names "ajax", "dataService" or "modelLibrary"
-    @param adapterCtor {Function} - an ctor function that returns an instance of the specified interface.  
+    @param adapterCtor {Function} - an ctor function that returns an instance of the specified interface.
     **/
     export function registerAdapter(interfaceName: string, adapterCtor: Function): void;
     export function registerFunction(fn: Function, fnName: string): void;
     export function registerType(ctor: Function, typeName: string): void;
     //static setProperties(config: Object): void; //deprecated
-    /** 
+    /**
     Set the promise implementation, if Q.js is not found.
     @param q - implementation of promise.  @see http://wiki.commonjs.org/wiki/Promises/A
     */
@@ -1059,7 +1060,7 @@ declare module breeze.config {
 }
 
 /** Promises interface used by Breeze.  Usually implemented by Q (https://github.com/kriskowal/q) or angular.$q using breeze.config.setQ(impl) */
-declare module breeze.promises {
+declare namespace breeze.promises {
     interface IPromise<T> {
         then<U>(onFulfill: (value: T) => U, onReject?: (reason: any) => U): IPromise<U>;
         then<U>(onFulfill: (value: T) => IPromise<U>, onReject?: (reason: any) => U): IPromise<U>;

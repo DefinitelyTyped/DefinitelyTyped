@@ -1,7 +1,7 @@
 // Type definitions for acc-wizard
 // Project: https://github.com/sathomas/acc-wizard
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface AccWizardOptions {
     /**

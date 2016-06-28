@@ -1,9 +1,9 @@
 // Type definitions for Sortable.js v1.3.0-rc1
 // Project: https://github.com/RubaXa/Sortable
 // Definitions by: Maw-Fox <http://github.com/Maw-Fox>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Sortablejs {
+declare namespace Sortablejs {
     interface SortableOptions {
         group?: any;
         sort?: boolean;
@@ -42,7 +42,7 @@ declare module Sortablejs {
          * Attach an event handler function
          * @param {HTMLElement} element an HTMLElement.
          * @param {string} event an Event context.
-         * @param {Function} fn 
+         * @param {Function} fn
          */
         on(element: any, event: string, fn: (event: any) => any): void;
 
@@ -53,14 +53,14 @@ declare module Sortablejs {
          * @param {Function} fn a callback.
          */
         off(element: any, event: string, fn: (event: any) => any): void;
-        
+
         /**
          * Get the values of all the CSS properties.
          * @param {HTMLElement} element an HTMLElement.
          * @returns {Object}
          */
         css(element: any): any;
-        
+
         /**
          * Get the value of style properties.
          * @param {HTMLElement} element an HTMLElement.
@@ -68,7 +68,7 @@ declare module Sortablejs {
          * @returns {*}
          */
         css(element: any, prop: string): any;
-        
+
         /**
          * Set one CSS property.
          * @param {HTMLElement} element an HTMLElement.
@@ -76,7 +76,7 @@ declare module Sortablejs {
          * @param {string} value a property value.
          */
         css(element: any, prop: string, value: string): void;
-        
+
         /**
          * Set CSS properties.
          * @param {HTMLElement} element an HTMLElement.
@@ -159,7 +159,7 @@ declare module Sortablejs {
          * @returns {Sortable}
          */
         static create(element: any, options: SortableOptions): Sortable;
-        
+
         /**
          * Options getter/setter
          * @param {string} name a SortableOptions property.
@@ -172,7 +172,7 @@ declare module Sortablejs {
         /**
          * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
          * @param {string|HTMLElement} element an HTMLElement or selector string.
-         * @returns {HTMLElement} 
+         * @returns {HTMLElement}
          */
         closest(element: any): any;
 

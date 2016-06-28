@@ -1,11 +1,14 @@
-// Type definitions for EventEmitter3 0.1.6
+// Type definitions for EventEmitter3 1.1.1
 // Project: https://github.com/primus/eventemitter3
-// Definitions by: Yuichi Murata <https://github.com/mrk21>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Yuichi Murata <https://github.com/mrk21>, Leon Yu <https://github.com/leonyu>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module EventEmitter3 {
-    // __Base is hack for https://github.com/Microsoft/TypeScript/issues/3602
-    class __Base {
+declare namespace EventEmitter3 {
+    interface EventEmitter3Static {
+        new (): EventEmitter;
+        prefixed: string | boolean;
+    }
+    class EventEmitter {
         /**
          * Minimal EventEmitter interface that is molded against the Node.js
          * EventEmitter interface.
@@ -22,7 +25,17 @@ declare module EventEmitter3 {
          * @returns {Array}
          * @api public
          */
-        listeners(event: string): Function[];
+        listeners(event?: string): Function[];
+
+        /**
+         * Return a list of assigned event listeners.
+         *
+         * @param {String} event The events that should be listed.
+         * @param {Boolean} exists We only need to know if there are listeners.
+         * @returns {Boolean}
+         * @api public
+         */
+        listeners(event: string, param: boolean): boolean;
 
         /**
          * Emit an event to all registered event listeners.
@@ -37,8 +50,8 @@ declare module EventEmitter3 {
          * Register a new EventListener for the given event.
          *
          * @param {String} event Name of the event.
-         * @param {Functon} fn Callback function.
-         * @param {Mixed} context The context of the function.
+         * @param {Function} fn Callback function.
+         * @param {Mixed} [context=this] The context of the function.
          * @api public
          */
         on(event: string, fn: Function, context?: any): EventEmitter;
@@ -48,7 +61,7 @@ declare module EventEmitter3 {
          *
          * @param {String} event Name of the event.
          * @param {Function} fn Callback function.
-         * @param {Mixed} context The context of the function.
+         * @param {Mixed} [context=this] The context of the function.
          * @api public
          */
         once(event: string, fn: Function, context?: any): EventEmitter;
@@ -58,10 +71,11 @@ declare module EventEmitter3 {
          *
          * @param {String} event The event we want to remove.
          * @param {Function} fn The listener that we need to find.
+         * @param {Mixed} context Only remove listeners matching this context.
          * @param {Boolean} once Only remove once listeners.
          * @api public
          */
-        removeListener(event: string, fn: Function, once?: boolean): EventEmitter;
+        removeListener(event: string, fn?: Function, context?: any, once?: boolean): EventEmitter;
 
         /**
          * Remove all listeners or only the listeners for the specified event.
@@ -69,27 +83,34 @@ declare module EventEmitter3 {
          * @param {String} event The event want to remove all listeners for.
          * @api public
          */
-        removeAllListeners(event: string): EventEmitter;
+        removeAllListeners(event?: string): EventEmitter;
 
-        //
-        // Alias methods names because people roll like that.
-        //
-        off(event: string, fn: Function, once?: boolean): EventEmitter;
+        /**
+         * Remove event listeners.
+         *
+         * @param {String} event The event we want to remove.
+         * @param {Function} fn The listener that we need to find.
+         * @param {Mixed} context Only remove listeners matching this context.
+         * @param {Boolean} once Only remove once listeners.
+         * @api public
+         */
+        off(event: string, fn?: Function, context?: any, once?: boolean): EventEmitter;
+
+        /**
+         * Register a new EventListener for the given event.
+         *
+         * @param {String} event Name of the event.
+         * @param {Function} fn Callback function.
+         * @param {Mixed} [context=this] The context of the function.
+         * @api public
+         */
         addListener(event: string, fn: Function, context?: any): EventEmitter;
 
-        //
-        // This function doesn't apply anymore.
-        //
+        /**
+         * This function doesn't apply anymore.
+         * @deprecated
+         */
         setMaxListeners(): EventEmitter;
-    }
-    export class EventEmitter extends __Base { }
-    export module EventEmitter {
-        //
-        // Expose the module.
-        //
-        export class EventEmitter extends __Base {}
-        export class EventEmitter2 extends __Base {}
-        export class EventEmitter3 extends __Base {}
     }
 }
 
@@ -97,6 +118,6 @@ declare module 'eventemitter3' {
     //
     // Expose the module.
     //
-    class EventEmitter extends EventEmitter3.EventEmitter {}
-    export = EventEmitter;
+    var EventEmitter3: EventEmitter3.EventEmitter3Static;
+    export = EventEmitter3;
 }

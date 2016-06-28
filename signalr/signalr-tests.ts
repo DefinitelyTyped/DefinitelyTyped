@@ -1,5 +1,54 @@
 /// <reference path="signalr.d.ts" />
 
+var connection = $.hubConnection();
+var contosoChatHubProxy = connection.createHubProxy('contosoChatHub');
+contosoChatHubProxy.on('addContosoChatMessageToPage', function (name, message) {
+    console.log(name + ' ' + message);
+});
+connection.start().done(function () {
+    // Wire up Send button to call NewContosoChatMessage on the server.
+    $('#newContosoChatMessage').click(function () {
+        contosoChatHubProxy.invoke('newContosoChatMessage', $('#displayname').val(), $('#message').val());
+        $('#message').val('').focus();
+    });
+}).fail(function () {
+    console.log('Could not connect');
+});
+
+connection.qs = { 'version': '1.0' };
+
+$.connection.hub.url = '<yourbackendurl>';
+$.connection.hub.qs = { 'version': '1.0' };
+$.connection.hub.start({ transport: 'longPolling' });
+$.connection.hub.start({ transport: ['webSockets', 'longPolling'] });
+connection.start({ transport: 'longPolling' });
+connection.start({ transport: ['webSockets', 'longPolling'] });
+
+$.connection.hub.start().done(function () {
+    console.log("Connected, transport = " + $.connection.hub.transport.name);
+});
+
+connection.hub.start().done(function () {
+    console.log("Connected, transport = " + connection.transport.name);
+});
+
+$.connection.hub.connectionSlow(function () {
+    console.log('We are currently experiencing difficulties with the connection.')
+});
+connection.connectionSlow(function () {
+    console.log('We are currently experiencing difficulties with the connection.')
+});
+
+$.connection.hub.error(function (error) {
+    console.log('SignalR error: ' + error)
+});
+connection.error(function (error) {
+    console.log('SignalR error: ' + error)
+});
+
+connection.logging = true;
+$.connection.hub.logging = true;
+
 function test_client() {
     var connection = $.connection('/echo');
     connection.received(function (data) {
@@ -50,18 +99,18 @@ function test_connection() {
     });
 }
 
-interface MyHubConnection extends HubConnection {
-	someState: string;
-	SomeFunction: Function;
+interface MyHubConnection extends SignalR.Hub.Connection {
+    someState: string;
+    SomeFunction: Function;
 
-	// My Hubs Client functions: 
-	client: {
-		addMessage: (message: string) => void;
-	};
-	// My Hubs Server function: 
-	server: {
-		send(message: string): any;
-	};
+    // My Hubs Client functions: 
+    client: {
+        addMessage: (message: string) => void;
+    };
+    // My Hubs Server function: 
+    server: {
+        send(message: string): any;
+    };
 }
 
 interface SignalR {
@@ -90,7 +139,7 @@ function test_hubs() {
     $.connection.hub.start()
         .done(function () {
             myHub.SomeFunction("whatever")
-                    .done(connectionReady);
+                .done(connectionReady);
         })
         .fail(function () {
             alert("Could not Connect!");
@@ -113,8 +162,19 @@ function test_hubs() {
     proxy.on('addMessage', function (msg?) {
         console.log(msg);
     });
+
+    //a listener may have more than 1 parameter, and you should be able to subscribe and unsubscribe
+    function listenerWithMoreParams(id: number, anything: string) {
+        console.log('listenerWithMoreParams -> ', arguments);
+    };
+    //subscribe
+    proxy.on('listenerWithMoreParams', listenerWithMoreParams);
+
     var connection = $.hubConnection('http://localhost:8081/');
     connection.start({ jsonp: true });
+
+    //unsubscribe
+    proxy.off('listenerWithMoreParams', listenerWithMoreParams);
 }
 
 // Sample from : https://github.com/SignalR/SignalR/wiki/QuickStart-Hubs#javascript--html 

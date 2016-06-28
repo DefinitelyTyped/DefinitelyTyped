@@ -1,26 +1,26 @@
 // Type definitions for SockJS 0.3.x
 // Project: https://github.com/sockjs/sockjs-client
 // Definitions by: Emil Ivanov <https://github.com/vladev>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface SockJSSimpleEvent {
     type: string;
     toString(): string;
 }
 
-interface SJSOpenEvent extends SockJSSimpleEvent {}
+interface SJSOpenEvent extends SockJSSimpleEvent, Event {}
 
-interface SJSCloseEvent extends SockJSSimpleEvent {
+interface SJSCloseEvent extends SockJSSimpleEvent, CloseEvent {
     code: number;
     reason: string;
     wasClean: boolean;
 }
 
-interface SJSMessageEvent extends SockJSSimpleEvent {
+interface SJSMessageEvent extends SockJSSimpleEvent, MessageEvent {
     data: string;
 }
 
-interface SockJS extends EventTarget {
+interface SockJS extends WebSocket {
     protocol: string;
     readyState: number;
     onopen: (ev: SJSOpenEvent) => any;

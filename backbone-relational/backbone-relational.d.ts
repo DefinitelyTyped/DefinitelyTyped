@@ -1,13 +1,13 @@
 // Type definitions for Backbone-relational 0.8.5
 // Project: http://backbonerelational.org/
 // Definitions by: Eirik Hoem <https://github.com/eirikhm/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../backbone/backbone.d.ts" />
 
-declare module Backbone {
+declare namespace Backbone {
     class RelationalModel extends Model {
         /**
         * Do not use, prefer TypeScript's extend functionality.
@@ -35,15 +35,15 @@ declare module Backbone {
 
         toJSON():any;
 
-        setup();
+        static setup();
 
-        build(attributes:any, options?:any);
+        static build(attributes:any, options?:any);
 
-        findOrCreate(attributes:string, options?:any);
+        static findOrCreate(attributes:string, options?:any);
 
-        findOrCreate(attributes:number, options?:any);
+        static findOrCreate(attributes:number, options?:any);
 
-        findOrCreate(attributes:any, options?:any);
+        static findOrCreate(attributes:any, options?:any);
     }
 
     export class Relation extends Model {
@@ -147,13 +147,13 @@ declare module Backbone {
 
         resolveIdForItem(type:any, item:any):any;
 
-        find(type:any, item:string):RelationalModel;
+        static find(type:any, item:string):RelationalModel;
 
-        find(type:any, item:number):RelationalModel;
+        static find(type:any, item:number):RelationalModel;
 
-        find(type:any, item:RelationalModel):RelationalModel;
+        static find(type:any, item:RelationalModel):RelationalModel;
 
-        find(type:any, item:any):RelationalModel;
+        static find(type:any, item:any):RelationalModel;
 
         register(model:RelationalModel):void;
 
@@ -169,3 +169,4 @@ declare module Backbone {
     }
 
 }
+

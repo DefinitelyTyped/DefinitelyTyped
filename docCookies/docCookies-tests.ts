@@ -1,7 +1,7 @@
 // Type definitions for docCookies
 // Project: https://developer.mozilla.org/en-US/docs/Web/API/document.cookie
 // Definitions by: Jon Egerton <https://github.com/jonegerton>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="docCookies.d.ts" />
 

@@ -1,7 +1,7 @@
 // Type definitions for sockjs-node 0.3.x
 // Project: https://github.com/sockjs/sockjs-node
 // Definitions by: Phil McCloghry-Laing <https://github.com/pmccloghrylaing>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -24,8 +24,8 @@ declare module "sockjs" {
     export interface Server extends NodeJS.EventEmitter {
         installHandlers(server: http.Server, options?: ServerOptions): any;
 
-        on(event: 'connection', listener: (conn: Connection) => any): Server;
-        on(event: string, listener: Function): Server;
+        on(event: 'connection', listener: (conn: Connection) => any): this;
+        on(event: string, listener: Function): this;
     }
 
     export interface Connection extends NodeJS.ReadWriteStream {
@@ -50,8 +50,8 @@ declare module "sockjs" {
         close(code?: string, reason?: string): boolean;
         destroy(): void;
 
-        on(event: 'data', listener: (message: string) => any): Connection;
-        on(event: 'close', listener: () => void): Connection;
-        on(event: string, listener: Function): Connection;
+        on(event: 'data', listener: (message: string) => any): this;
+        on(event: 'close', listener: () => void): this;
+        on(event: string, listener: Function): this;
     }
 }

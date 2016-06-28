@@ -1,7 +1,7 @@
 // Type definitions for Swiper 2.0.0
 // Project: https://github.com/nolimits4web/Swiper
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 interface SwiperOptions {

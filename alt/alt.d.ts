@@ -1,12 +1,11 @@
 // Type definitions for Alt 0.16.10
 // Project: https://github.com/goatslacker/alt
 // Definitions by: Michael Shearer <https://github.com/Shearerbeard>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../react/react.d.ts"/>
-///<reference path="../es6-promise/es6-promise.d.ts" />
 
-declare module AltJS {
+declare namespace AltJS {
 
   interface StoreReduce {
     action:any;

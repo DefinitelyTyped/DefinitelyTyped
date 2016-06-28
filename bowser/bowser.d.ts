@@ -1,14 +1,14 @@
 // Type definitions for Bowser 1.x
 // Project: https://github.com/ded/bowser
 // Definitions by: Paulo Cesar <https://github.com/pocesar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'bowser' {
     var def: BowserModule.IBowser;
     export = def;
 }
 
-declare module BowserModule {
+declare namespace BowserModule {
 
     export interface IBowserUA {
         msie: boolean;

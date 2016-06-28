@@ -1,8 +1,8 @@
 /// <reference path="http-errors.d.ts" />
 /// <reference path="../express/express.d.ts" />
 
-import createError = require('http-errors');
-import express = require('express');
+import * as createError from 'http-errors';
+import * as express from 'express';
 
 var app = express();
 
@@ -67,3 +67,5 @@ var err = new createError['404']();
 
 //createError['404'](); // TypeScript should fail with "Did you mean to include 'new'?"
 //new createError(); // TypeScript should fail with "Only a void function can be called with the 'new' keyword"
+
+let error: createError.HttpError;

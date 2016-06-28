@@ -1,12 +1,12 @@
 // Type definitions for CodeMirror
 // Project: https://github.com/marijnh/CodeMirror
 // Definitions by: mihailik <https://github.com/mihailik>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function CodeMirror(host: HTMLElement, options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
 declare function CodeMirror(callback: (host: HTMLElement) => void , options?: CodeMirror.EditorConfiguration): CodeMirror.Editor;
 
-declare module CodeMirror {
+declare namespace CodeMirror {
     export var Doc : CodeMirror.DocConstructor;
     export var Pos: CodeMirror.PositionConstructor;
     export var Pass: any;
@@ -32,6 +32,11 @@ declare module CodeMirror {
     whenever a new CodeMirror instance is initialized. */
     function defineInitHook(func: Function): void;
 
+    /** Registers a helper value with the given name in the given namespace (type). This is used to define functionality
+    that may be looked up by mode. Will create (if it doesn't already exist) a property on the CodeMirror object for
+    the given type, pointing to an object that maps names to values. I.e. after doing
+    CodeMirror.registerHelper("hint", "foo", myFoo), the value CodeMirror.hint.foo will point to myFoo. */
+    function registerHelper(namespace: string, name: string, helper: any): void;
 
 
     function on(element: any, eventName: string, handler: Function): void;
@@ -145,7 +150,11 @@ declare module CodeMirror {
         /** Attach a new document to the editor. Returns the old document, which is now no longer associated with an editor. */
         swapDoc(doc: CodeMirror.Doc): CodeMirror.Doc;
 
+        /** Get the content of the current editor document. You can pass it an optional argument to specify the string to be used to separate lines (defaults to "\n"). */
+        getValue(seperator?: string): string;
 
+        /** Set the content of the current editor document. */
+        setValue(content: string): void;
 
         /** Sets the gutter marker for the given gutter (identified by its CSS class, see the gutters option) to the given value.
         Value can be either null, to clear the marker, or a DOM element, to set it. The DOM element will be shown in the specified gutter next to the specified line. */
@@ -172,7 +181,7 @@ declare module CodeMirror {
             handle: any;
             text: string;
             /** Object mapping gutter IDs to marker elements. */
-            gutterMarks: any;
+            gutterMarkers: any;
             textClass: string;
             bgClass: string;
             wrapClass: string;
@@ -211,14 +220,7 @@ declare module CodeMirror {
 
         /** Get an { left , top , width , height , clientWidth , clientHeight } object that represents the current scroll position, the size of the scrollable area,
         and the size of the visible area(minus scrollbars). */
-        getScrollInfo(): {
-            left: any;
-            top: any;
-            width: any;
-            height: any;
-            clientWidth: any;
-            clientHeight: any;
-        }
+        getScrollInfo(): CodeMirror.ScrollInfo;
 
         /** Scrolls the given element into view. pos is a { line , ch } position, referring to a given character, null, to refer to the cursor.
         The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
@@ -482,8 +484,8 @@ declare module CodeMirror {
         It may be "start" , "end" , "head"(the side of the selection that moves when you press shift + arrow),
         or "anchor"(the fixed side of the selection).Omitting the argument is the same as passing "head".A { line , ch } object will be returned. */
         getCursor(start?: string): CodeMirror.Position;
-        
-        /** Retrieves a list of all current selections. These will always be sorted, and never overlap (overlapping selections are merged). 
+
+        /** Retrieves a list of all current selections. These will always be sorted, and never overlap (overlapping selections are merged).
         Each object in the array contains anchor and head properties referring to {line, ch} objects. */
         listSelections(): { anchor: CodeMirror.Position; head: CodeMirror.Position }[];
 
@@ -600,13 +602,22 @@ declare module CodeMirror {
         text: string;
     }
 
+    interface ScrollInfo {
+        left: any;
+        top: any;
+        width: any;
+        height: any;
+        clientWidth: any;
+        clientHeight: any;
+    }
+
     interface TextMarker {
         /** Remove the mark. */
         clear(): void;
 
         /** Returns a {from, to} object (both holding document positions), indicating the current position of the marked range,
         or undefined if the marker is no longer in the document. */
-        find(): CodeMirror.Position;
+        find(): CodeMirror.Range;
 
         /**  Returns an object representing the options for the marker. If copyWidget is given true, it will clone the value of the replacedWith option, if any. */
         getOptions(copyWidget: boolean): CodeMirror.TextMarkerOptions;
@@ -647,8 +658,13 @@ declare module CodeMirror {
     }
 
     interface PositionConstructor {
-        new (line: number, ch: number): Position;
-        (line: number, ch: number): Position;
+        new (line: number, ch?: number): Position;
+        (line: number, ch?: number): Position;
+    }
+
+    interface Range{
+        from: CodeMirror.Position;
+        to: CodeMirror.Position;
     }
 
     interface Position {
@@ -802,8 +818,8 @@ declare module CodeMirror {
         /** Optional lint configuration to be used in conjunction with CodeMirror's linter addon. */
         lint?: boolean | LintOptions;
 
-	/** Optional value to be used in conduction with CodeMirror’s placeholder add-on. */
-	placeholder?: string;
+        /** Optional value to be used in conjunction with CodeMirror’s placeholder add-on. */
+        placeholder?: string;
     }
 
     interface TextMarkerOptions {
@@ -1050,6 +1066,12 @@ declare module CodeMirror {
     function defineMode(id: string, modefactory: ModeFactory<any>): void;
 
     /**
+     * id will be the id for the defined mode. Typically, you should use this second argument to defineMode as your module scope function
+     * (modes should not leak anything into the global scope!), i.e. write your whole mode inside this function.
+     */
+    function defineMode<T>(id: string, modefactory: ModeFactory<T>): void;
+
+    /**
      * The first argument is a configuration object as passed to the mode constructor function, and the second argument
      * is a mode specification as in the EditorConfiguration mode option.
      */
@@ -1104,6 +1126,115 @@ declare module CodeMirror {
         message?: string;
         severity?: string;
         to?: Position;
+    }
+
+    /**
+     * A function that calculates either a two-way or three-way merge between different sets of content.
+     */
+    function MergeView(element: HTMLElement, options?: MergeView.MergeViewEditorConfiguration): MergeView.MergeViewEditor;
+
+    namespace MergeView {
+      /**
+       * Options available to MergeView.
+       */
+      interface MergeViewEditorConfiguration extends EditorConfiguration {
+          /**
+           * Determines whether the original editor allows editing. Defaults to false.
+           */
+          allowEditingOriginals?: boolean;
+
+          /**
+           * When true stretches of unchanged text will be collapsed. When a number is given, this indicates the amount
+           * of lines to leave visible around such stretches (which defaults to 2). Defaults to false.
+           */
+          collapseIdentical?: boolean | number;
+
+          /**
+           * Sets the style used to connect changed chunks of code. By default, connectors are drawn. When this is set to "align",
+           * the smaller chunk is padded to align with the bigger chunk instead.
+           */
+          connect?: string;
+
+          /**
+           * Callback for when stretches of unchanged text are collapsed.
+           */
+          onCollapse?(mergeView: MergeViewEditor, line: number, size: number, mark: TextMarker): void;
+
+          /**
+           * Provides original version of the document to be shown on the right of the editor.
+           */
+          orig: any;
+
+          /**
+           * Provides original version of the document to be shown on the left of the editor.
+           * To create a 2-way (as opposed to 3-way) merge view, provide only one of origLeft and origRight.
+           */
+          origLeft?: any;
+
+          /**
+           * Provides original version of document to be shown on the right of the editor.
+           * To create a 2-way (as opposed to 3-way) merge view, provide only one of origLeft and origRight.
+           */
+          origRight?: any;
+
+          /**
+           * Determines whether buttons that allow the user to revert changes are shown. Defaults to true.
+           */
+          revertButtons?: boolean;
+
+          /**
+           * When true, changed pieces of text are highlighted. Defaults to true.
+           */
+          showDifferences?: boolean;
+      }
+
+      interface MergeViewEditor extends Editor {
+          /**
+           * Returns the editor instance.
+           */
+          editor(): Editor;
+
+          /**
+           * Left side of the merge view.
+           */
+          left: DiffView;
+          leftChunks(): MergeViewDiffChunk;
+          leftOriginal(): Editor;
+
+          /**
+           * Right side of the merge view.
+           */
+          right: DiffView;
+          rightChunks(): MergeViewDiffChunk;
+          rightOriginal(): Editor;
+
+          /**
+           * Sets whether or not the merge view should show the differences between the editor views.
+           */
+          setShowDifferences(showDifferences: boolean): void;
+      }
+
+      /**
+       * Tracks changes in chunks from oroginal to new.
+       */
+      interface MergeViewDiffChunk {
+          editFrom: number;
+          editTo: number;
+          origFrom: number;
+          origTo: number;
+      }
+
+      interface DiffView {
+          /**
+           * Forces the view to reload.
+           */
+          forceUpdate(): (mode: string) => void;
+
+          /**
+           * Sets whether or not the merge view should show the differences between the editor views.
+           */
+          setShowDifferences(showDifferences: boolean): void;
+      }
     }
 }
 

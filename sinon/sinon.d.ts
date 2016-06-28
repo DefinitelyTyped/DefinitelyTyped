@@ -1,9 +1,9 @@
 // Type definitions for Sinon 1.16.0
 // Project: http://sinonjs.org/
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Sinon {
+declare namespace Sinon {
     interface SinonSpyCallApi {
         // Properties
         thisValue: any;
@@ -59,7 +59,7 @@ declare module Sinon {
         (...args: any[]): any;
         calledBefore(anotherSpy: SinonSpy): boolean;
         calledAfter(anotherSpy: SinonSpy): boolean;
-        calledWithNew(spy: SinonSpy): boolean;
+        calledWithNew(): boolean;
         withArgs(...args: any[]): SinonSpy;
         alwaysCalledOn(obj: any): boolean;
         alwaysCalledWith(...args: any[]): boolean;
