@@ -1,13 +1,17 @@
 // Type definitions for webcomponents.js 0.6.0
 // Project: https://github.com/webcomponents/webcomponentsjs
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module webcomponents {
+declare namespace webcomponents {
 
     export interface CustomElementInit {
         prototype: HTMLElement;
         extends?: string;
+    }
+
+    export interface CustomElementConstructor {
+        new(): HTMLElement;
     }
 
     export interface CustomElementsPolyfill {
@@ -38,7 +42,7 @@ declare module "webcomponents.js" {
 }
 
 interface Document {
-    registerElement(name: string, prototype: webcomponents.CustomElementInit): void;
+    registerElement(name: string, prototype: webcomponents.CustomElementInit): webcomponents.CustomElementConstructor;
 }
 
 interface Window {

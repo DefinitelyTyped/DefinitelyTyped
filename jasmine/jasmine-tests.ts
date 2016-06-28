@@ -150,6 +150,17 @@ describe("Included matchers:", function () {
         expect(foo).not.toThrow();
         expect(bar).toThrow();
     });
+
+    it("The 'toThrowError' matcher is for testing a specific thrown exception", function() {
+        var foo = function() {
+            throw new TypeError("foo bar baz");
+        };
+
+        expect(foo).toThrowError("foo bar baz");
+        expect(foo).toThrowError(/bar/);
+        expect(foo).toThrowError(TypeError);
+        expect(foo).toThrowError(TypeError, "foo bar baz");
+    });
 });
 
 describe("A spec", function () {
@@ -347,6 +358,40 @@ describe("A spy, when configured to fake a return value", function () {
     });
 });
 
+describe("A spy, when configured to fake a series of return values", function() {
+    var foo: any, bar: any;
+
+    beforeEach(function() {
+        foo = {
+            setBar: function(value: any) {
+                bar = value;
+            },
+            getBar: function() {
+                return bar;
+            }
+        };
+
+        spyOn(foo, "getBar").and.returnValues("fetched first", "fetched second");
+
+        foo.setBar(123);
+    });
+
+    it("tracks that the spy was called", function() {
+        foo.getBar(123);
+        expect(foo.getBar).toHaveBeenCalled();
+    });
+
+    it("should not affect other functions", function() {
+        expect(bar).toEqual(123);
+    });
+
+    it("when called multiple times returns the requested values in order", function() {
+        expect(foo.getBar()).toEqual("fetched first");
+        expect(foo.getBar()).toEqual("fetched second");
+        expect(foo.getBar()).toBeUndefined();
+    });
+});
+
 describe("A spy, when configured with an alternate implementation", function () {
     var foo: any, bar: any, fetchedBar: any;
 
@@ -512,21 +557,21 @@ describe("A spy", function () {
     it("can provide the context and arguments to all calls", function () {
         foo.setBar(123);
 
-        expect(foo.setBar.calls.all()).toEqual([{ object: foo, args: [123] }]);
+        expect(foo.setBar.calls.all()).toEqual([{ object: foo, args: [123], returnValue: undefined }]);
     });
 
     it("has a shortcut to the most recent call", function () {
         foo.setBar(123);
         foo.setBar(456, "baz");
 
-        expect(foo.setBar.calls.mostRecent()).toEqual({ object: foo, args: [456, "baz"] });
+        expect(foo.setBar.calls.mostRecent()).toEqual({ object: foo, args: [456, "baz"], returnValue: undefined });
     });
 
     it("has a shortcut to the first call", function () {
         foo.setBar(123);
         foo.setBar(456, "baz");
 
-        expect(foo.setBar.calls.first()).toEqual({ object: foo, args: [123] });
+        expect(foo.setBar.calls.first()).toEqual({ object: foo, args: [123], returnValue: undefined });
     });
 
     it("can be reset", function () {
@@ -657,6 +702,30 @@ describe("jasmine.objectContaining", function () {
     });
 });
 
+describe("jasmine.arrayContaining", function() {
+  var foo: any;
+
+  beforeEach(function() {
+    foo = [1, 2, 3, 4];
+  });
+
+  it("matches arrays with some of the values", function() {
+    expect(foo).toEqual(jasmine.arrayContaining([3, 1]));
+    expect(foo).not.toEqual(jasmine.arrayContaining([6]));
+  });
+
+  describe("when used with a spy", function() {
+    it("is useful when comparing arguments", function() {
+      var callback = jasmine.createSpy('callback');
+
+      callback([1, 2, 3, 4]);
+
+      expect(callback).toHaveBeenCalledWith(jasmine.arrayContaining([4, 2, 3]));
+      expect(callback).not.toHaveBeenCalledWith(jasmine.arrayContaining([5, 2]));
+    });
+  });
+});
+
 describe("Manually ticking the Jasmine Clock", function () {
     var timerCallback: any;
 
@@ -697,35 +766,46 @@ describe("Manually ticking the Jasmine Clock", function () {
         jasmine.clock().tick(50);
         expect(timerCallback.calls.count()).toEqual(2);
     });
+
+    describe("Mocking the Date object", function(){
+        it("mocks the Date object and sets it to a given time", function() {
+            var baseTime = new Date(2013, 9, 23);
+
+            jasmine.clock().mockDate(baseTime);
+
+            jasmine.clock().tick(50);
+            expect(new Date().getTime()).toEqual(baseTime.getTime() + 50);
+        });
+    });
 });
 
 describe("Asynchronous specs", function () {
     var value: number;
-    beforeEach(function (done) {
+    beforeEach(function (done: DoneFn) {
         setTimeout(function () {
             value = 0;
             done();
         }, 1);
     });
 
-    it("should support async execution of test preparation and expectations", function (done) {
+    it("should support async execution of test preparation and expectations", function (done: DoneFn) {
         value++;
         expect(value).toBeGreaterThan(0);
         done();
     });
 
     describe("long asynchronous specs", function() {
-        beforeEach(function(done) {
+        beforeEach(function(done: DoneFn) {
           done();
         }, 1000);
 
-        it("takes a long time", function(done) {
+        it("takes a long time", function(done: DoneFn) {
           setTimeout(function() {
             done();
           }, 9000);
         }, 10000);
 
-        afterEach(function(done) {
+        afterEach(function(done: DoneFn) {
           done();
         }, 1000);
     });
@@ -778,7 +858,7 @@ var customMatchers: jasmine.CustomMatcherFactories = {
                 if (expected === undefined) {
                     expected = '';
                 }
-                var result: jasmine.CustomMatcherResult = { pass: false, message: ''};
+                var result: jasmine.CustomMatcherResult = { pass: false };
 
                 result.pass = util.equals(actual.hyuk, "gawrsh" + expected, customEqualityTesters);
 
@@ -794,7 +874,7 @@ var customMatchers: jasmine.CustomMatcherFactories = {
     }
 };
 // add the custom matchers to interface jasmine.Matchers via TypeScript declaration merging
-declare module jasmine {
+declare namespace jasmine {
     interface Matchers {
         toBeGoofy(expected?: any): boolean;
     }

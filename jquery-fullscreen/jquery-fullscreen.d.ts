@@ -1,7 +1,7 @@
 // Type definitions for jquery-fullscreen 1.1.5
 // Project: https://github.com/kayahr/jquery-fullscreen-plugin
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 

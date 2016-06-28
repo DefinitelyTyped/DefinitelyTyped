@@ -1,11 +1,11 @@
 // Type definitions for angularjs-toaster v0.4.13
 // Project: https://github.com/jirikavi/AngularJS-Toaster
 // Definitions by: Ben Tesser <https://github.com/btesser>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module ngtoaster {
+declare namespace ngtoaster {
   interface IToasterService {
     pop(params:IPopParams): void
     /**
@@ -16,7 +16,7 @@ declare module ngtoaster {
     error(params: IPopParams): void
     error(title?:string, body?:string, timeout?:number, bodyOutputType?:string, clickHandler?:EventListener,
         toasterId?:number): void
-    into(params: IPopParams): void
+    info(params: IPopParams): void
     info(title?:string, body?:string, timeout?:number, bodyOutputType?:string, clickHandler?:EventListener,
         toasterId?:number): void
     wait(params: IPopParams): void

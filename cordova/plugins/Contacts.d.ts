@@ -1,7 +1,7 @@
 // Type definitions for Apache Cordova Contacts plugin.
 // Project: https://github.com/apache/cordova-plugin-contacts
 // Definitions by: Microsoft Open Technologies, Inc. <http://msopentech.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // 
 // Copyright (c) Microsoft Open Technologies, Inc.
 // Licensed under the MIT license.
@@ -32,7 +32,7 @@ interface Contacts {
      */
     find(fields: string[],
         onSuccess: (contacts: Contact[]) => void,
-        onError: (error: ContactError) => void,
+        onError?: (error: ContactError) => void,
         options?: ContactFindOptions): void;
     /**
      * The navigator.contacts.pickContact method launches the Contact Picker to select a single contact.

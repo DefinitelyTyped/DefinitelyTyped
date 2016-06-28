@@ -1,7 +1,7 @@
 // Type definitions for jsblocks v0.3.0
 // Project: http://jsblocks.com/
 // Definitions by: Krzysztof Śmigiel <https://github.com/ksmigiel>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /////////////////////////////////////////
 // blocks methods
@@ -579,6 +579,8 @@ interface ViewPrototype {
 		route?: any;
 		url?: string
 	};
+
+	[propertyName: string]: any;
 }
 
 /////////////////////////////////////////
@@ -643,6 +645,8 @@ interface ModelPrototype {
 		destroy?: { url?: string };
 		update?: { url?: string };
 	};
+
+	[propertyName: string]: string | boolean | Object | Validator;
 }
 
 /////////////////////////////////////////
@@ -682,6 +686,7 @@ interface CollectionPrototype {
 		destroy?: { url?: string };
 		update?: { url?: string };
 	};
+	[propertyName: string]: any;
 }
 
 interface Extendable<T> {

@@ -1,7 +1,7 @@
 // Type definitions for bootstrap.timepicker
 // Project: http://code.google.com/p/box2dweb/
 // Definitions by: jbaldwin <https://github.com/jbaldwin/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
 * Box2DWeb-2.1.d.ts Copyright (c) 2012-2013 Josh Baldwin http://github.com/jbaldwin/box2dweb.d.ts
@@ -26,7 +26,7 @@
 * 3. This notice may not be removed or altered from any source distribution.
 **/
 
-declare module Box2D.Common {
+declare namespace Box2D.Common {
 
 	/**
 	* Color for debug drawing.  Each value has the range [0, 1].
@@ -72,7 +72,7 @@ declare module Box2D.Common {
 	}
 }
 
-declare module Box2D.Common {
+declare namespace Box2D.Common {
 
 	/**
 	* Controls Box2D global settings.
@@ -224,7 +224,7 @@ declare module Box2D.Common {
 	}
 }
 
-declare module Box2D.Common.Math {
+declare namespace Box2D.Common.Math {
 
 	/**
 	* A 2-by-2 matrix.  Stored in column-major order.
@@ -337,7 +337,7 @@ declare module Box2D.Common.Math {
 	}
 }
 
-declare module Box2D.Common.Math {
+declare namespace Box2D.Common.Math {
 
 	/**
 	* A 3-by3 matrix.  Stored in column-major order.
@@ -424,7 +424,7 @@ declare module Box2D.Common.Math {
 	}
 }
 
-declare module Box2D.Common.Math {
+declare namespace Box2D.Common.Math {
 
 	/**
 	* Math utility functions.
@@ -479,7 +479,7 @@ declare module Box2D.Common.Math {
 		public static MulMV(A: b2Mat22, v: b2Vec2): b2Vec2;
 
 		/**
-		* 
+		*
 		* @param A
 		* @param v
 		* @return
@@ -487,7 +487,7 @@ declare module Box2D.Common.Math {
 		public static MulTMV(A: b2Mat22, v: b2Vec2): b2Vec2;
 
 		/**
-		* 
+		*
 		* @param T
 		* @param v
 		* @return
@@ -495,7 +495,7 @@ declare module Box2D.Common.Math {
 		public static MulX(T: b2Transform, v: b2Vec2): b2Vec2;
 
 		/**
-		* 
+		*
 		* @param T
 		* @param v
 		* @return
@@ -535,7 +535,7 @@ declare module Box2D.Common.Math {
 		public static DistanceSquared(a: b2Vec2, b: b2Vec2): number;
 
 		/**
-		* 
+		*
 		* @param s
 		* @param a
 		* @return
@@ -543,7 +543,7 @@ declare module Box2D.Common.Math {
 		public static MulFV(s: number, a: b2Vec2): b2Vec2;
 
 		/**
-		* 
+		*
 		* @param A
 		* @param B
 		* @return
@@ -551,7 +551,7 @@ declare module Box2D.Common.Math {
 		public static AddMM(A: b2Mat22, B: b2Mat22): b2Mat22;
 
 		/**
-		* 
+		*
 		* @param A
 		* @param B
 		* @return
@@ -559,7 +559,7 @@ declare module Box2D.Common.Math {
 		public static MulMM(A: b2Mat22, B: b2Mat22): b2Mat22;
 
 		/**
-		* 
+		*
 		* @param A
 		* @param B
 		* @return
@@ -689,7 +689,7 @@ declare module Box2D.Common.Math {
 	}
 }
 
-declare module Box2D.Common.Math {
+declare namespace Box2D.Common.Math {
 
 	/**
 	* This describes the motion of a body/shape for TOI computation. Shapes are defined with respect to the body origin, which may no coincide with the center of mass. However, to support dynamics we must interpolate the center of mass position.
@@ -752,7 +752,7 @@ declare module Box2D.Common.Math {
 	}
 }
 
-declare module Box2D.Common.Math {
+declare namespace Box2D.Common.Math {
 
 	/**
 	* A transform contains translation and rotation. It is used to represent the position and orientation of rigid frames.
@@ -802,7 +802,7 @@ declare module Box2D.Common.Math {
 	}
 }
 
-declare module Box2D.Common.Math {
+declare namespace Box2D.Common.Math {
 
 	/**
 	* A 2D column vector.
@@ -953,7 +953,7 @@ declare module Box2D.Common.Math {
 	}
 }
 
-declare module Box2D.Common.Math {
+declare namespace Box2D.Common.Math {
 
 	/**
 	* A 2D column vector with 3 elements.
@@ -1039,7 +1039,7 @@ declare module Box2D.Common.Math {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* Axis aligned bounding box.
@@ -1113,7 +1113,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* We use contact ids to facilitate warm starting.
@@ -1149,7 +1149,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* This structure is used to report contact points.
@@ -1203,7 +1203,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* Input for b2Distance. You have to option to use the shape radii in the computation. Even
@@ -1237,7 +1237,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* Output calculation for b2Distance.
@@ -1266,7 +1266,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* A distance proxy is used by the GJK algorithm. It encapsulates any shape.
@@ -1323,7 +1323,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* A dynamic tree arranges data in a binary tree to accelerate queries such as volume queries and ray casts. Leafs are proxies with an AABB. In the tree we expand the proxy AABB by b2_fatAABBFactor so that the proxy AABB is bigger than the client object. This allows the client object to move by small amounts without triggering a tree update. Nodes are pooled.
@@ -1398,7 +1398,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* The broad-phase is used for computing pairs and performing volume queries and ray casts. This broad-phase does not persist pairs. Instead, this reports potentially new pairs. It is up to the client to consume the new pairs and to track subsequent overlap.
@@ -1479,7 +1479,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* Empty declaration, used in many callbacks within b2DynamicTree.
@@ -1490,7 +1490,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* A manifold for two touching convex shapes. Box2D supports multiple types of contact: - clip point versus plane with radius - point versus point with radius (circles) The local point usage depends on the manifold type: -e_circles: the local center of circleA -e_faceA: the center of faceA -e_faceB: the center of faceB Similarly the local normal usage: -e_circles: not used -e_faceA: the normal on polygonA -e_faceB: the normal on polygonB We store contacts in this way so that position correction can account for movement, which is critical for continuous physics. All contact scenarios must be expressed in one of these types. This structure is stored across time steps, so we keep it small.
@@ -1561,7 +1561,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* A manifold point is a contact point belonging to a contact manifold. It holds details related to the geometry and dynamics of the contact points. The local point usage depends on the manifold type: -e_circles: the local center of circleB -e_faceA: the local center of cirlceB or the clip point of polygonB -e_faceB: the clip point of polygonA This structure is stored across time steps, so we keep it small. Note: the impulses are used for internal caching and may not provide reliable contact forces, especially for high speed collisions.
@@ -1606,7 +1606,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* An oriented bounding box.
@@ -1630,7 +1630,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* Ray cast input data.
@@ -1662,7 +1662,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* Results of a ray cast.
@@ -1681,7 +1681,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* A line in space between two given vertices.
@@ -1731,7 +1731,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* Used to warm start b2Distance. Set count to zero on first call.
@@ -1760,7 +1760,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* Inpute parameters for b2TimeOfImpact
@@ -1794,7 +1794,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* This is used to compute the current state of a contact manifold.
@@ -1833,7 +1833,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* We use contact ids to facilitate warm starting.
@@ -1862,7 +1862,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision {
+declare namespace Box2D.Collision {
 
 	/**
 	* Interface for objects tracking overlap of many AABBs.
@@ -1936,7 +1936,7 @@ declare module Box2D.Collision {
 	}
 }
 
-declare module Box2D.Collision.Shapes {
+declare namespace Box2D.Collision.Shapes {
 
 	/**
 	* A circle shape.
@@ -1959,7 +1959,7 @@ declare module Box2D.Collision.Shapes {
 		/**
 		* Compute the mass properties of this shape using its dimensions and density. The inertia tensor is computed about the local origin, not the centroid.
 		* @param massData Calculate the mass, this argument is `out`.
-		* @param density 
+		* @param density
 		**/
 		public ComputeMass(massData: b2MassData, density: number): void;
 
@@ -2034,7 +2034,7 @@ declare module Box2D.Collision.Shapes {
 	}
 }
 
-declare module Box2D.Collision.Shapes {
+declare namespace Box2D.Collision.Shapes {
 
 	/**
 	* This structure is used to build edge shapes.
@@ -2063,7 +2063,7 @@ declare module Box2D.Collision.Shapes {
 	}
 }
 
-declare module Box2D.Collision.Shapes {
+declare namespace Box2D.Collision.Shapes {
 
 	/**
 	* An edge shape.
@@ -2219,7 +2219,7 @@ declare module Box2D.Collision.Shapes {
 	}
 }
 
-declare module Box2D.Collision.Shapes {
+declare namespace Box2D.Collision.Shapes {
 
 	/**
 	* This holds the mass data computed for a shape.
@@ -2243,7 +2243,7 @@ declare module Box2D.Collision.Shapes {
 	}
 }
 
-declare module Box2D.Collision.Shapes {
+declare namespace Box2D.Collision.Shapes {
 
 	/**
 	* Convex polygon. The vertices must be in CCW order for a right-handed coordinate system with the z-axis coming out of the screen.
@@ -2425,7 +2425,7 @@ declare module Box2D.Collision.Shapes {
 	}
 }
 
-declare module Box2D.Collision.Shapes {
+declare namespace Box2D.Collision.Shapes {
 
 	/**
 	* A shape is used for collision detection. Shapes are created in b2Body. You can use shape for collision detection before they are attached to the world.
@@ -2539,7 +2539,7 @@ declare module Box2D.Collision.Shapes {
 	}
 }
 
-declare module Box2D.Dynamics {
+declare namespace Box2D.Dynamics {
 
 	/**
 	* A rigid body.
@@ -2916,14 +2916,14 @@ declare module Box2D.Dynamics {
 		/**
 		* Splits a body into two, preserving dynamic properties
 		* @note This provides a feature specific to this port.
-		* @param callback 
+		* @param callback
 		* @return The newly created bodies from the split.
 		**/
 		public Split(callback: (fixture: b2Fixture) => boolean): b2Body;
 	}
 }
 
-declare module Box2D.Dynamics {
+declare namespace Box2D.Dynamics {
 
 	/**
 	* A body definition holds all the data needed to construct a rigid body. You can safely re-use body definitions.
@@ -3005,7 +3005,7 @@ declare module Box2D.Dynamics {
 	}
 }
 
-declare module Box2D.Dynamics {
+declare namespace Box2D.Dynamics {
 
 	/**
 	* Implement this class to provide collision filtering. In other words, you can implement this class if you want finer control over contact creation.
@@ -3033,7 +3033,7 @@ declare module Box2D.Dynamics {
 	}
 }
 
-declare module Box2D.Dynamics {
+declare namespace Box2D.Dynamics {
 
 	/**
 	* Contact impulses for reporting. Impulses are used instead of forces because sub-step forces may approach infinity for rigid body collisions. These match up one-to-one with the contact points in b2Manifold.
@@ -3052,7 +3052,7 @@ declare module Box2D.Dynamics {
 	}
 }
 
-declare module Box2D.Dynamics {
+declare namespace Box2D.Dynamics {
 
 	/**
 	* Implement this class to get contact information. You can use these results for things like sounds and game logic. You can also get contact results by traversing the contact lists after the time step. However, you might miss some contacts because continuous physics leads to sub-stepping. Additionally you may receive multiple callbacks for the same contact in a single time step. You should strive to make your callbacks efficient because there may be many callbacks per time step.
@@ -3088,7 +3088,7 @@ declare module Box2D.Dynamics {
 	}
 }
 
-declare module Box2D.Dynamics {
+declare namespace Box2D.Dynamics {
 
 	/**
 	* Implement and register this class with a b2World to provide debug drawing of physics entities in your game.
@@ -3281,7 +3281,7 @@ declare module Box2D.Dynamics {
 	}
 }
 
-declare module Box2D.Dynamics {
+declare namespace Box2D.Dynamics {
 
 	/**
 	* Joints and shapes are destroyed when their associated body is destroyed. Implement this listener so that you may nullify references to these joints and shapes.
@@ -3302,7 +3302,7 @@ declare module Box2D.Dynamics {
 	}
 }
 
-declare module Box2D.Dynamics {
+declare namespace Box2D.Dynamics {
 
 	/**
 	* This holds contact filtering data.
@@ -3332,7 +3332,7 @@ declare module Box2D.Dynamics {
 	}
 }
 
-declare module Box2D.Dynamics {
+declare namespace Box2D.Dynamics {
 
 	/**
 	* A fixture is used to attach a shape to a body for collision detection. A fixture inherits its transform from its parent. Fixtures hold additional non-geometric data such as friction, collision filters, etc. Fixtures are created via b2Body::CreateFixture.
@@ -3466,7 +3466,7 @@ declare module Box2D.Dynamics {
 	}
 }
 
-declare module Box2D.Dynamics {
+declare namespace Box2D.Dynamics {
 
 	/**
 	* A fixture definition is used to create a fixture. This class defines an abstract fixture definition. You can reuse fixture definitions safely.
@@ -3515,7 +3515,7 @@ declare module Box2D.Dynamics {
 	}
 }
 
-declare module Box2D.Dynamics {
+declare namespace Box2D.Dynamics {
 
 	/**
 	* The world class manages all physics entities, dynamic simulation, and asynchronous queries.
@@ -3684,11 +3684,11 @@ declare module Box2D.Dynamics {
 
 		/**
 		* Ray-cast the world for all fixtures in the path of the ray. Your callback Controls whether you get the closest point, any point, or n-points The ray-cast ignores shapes that contain the starting point.
-		* @param callback A callback function which must be of signature: 
+		* @param callback A callback function which must be of signature:
 		*	function Callback(
-		*		fixture:b2Fixture,	// The fixture hit by the ray 
-		*		point:b2Vec2,		// The point of initial intersection 
-		*		normal:b2Vec2,		// The normal vector at the point of intersection 
+		*		fixture:b2Fixture,	// The fixture hit by the ray
+		*		point:b2Vec2,		// The point of initial intersection
+		*		normal:b2Vec2,		// The normal vector at the point of intersection
 		*		fraction:Number		// The fractional length along the ray of the intersection
 		*	 ):Number
 		*	 Callback should return the new length of the ray as a fraction of the original length. By returning 0, you immediately terminate. By returning 1, you continue wiht the original ray. By returning the current fraction, you proceed to find the closest point.
@@ -3783,7 +3783,7 @@ declare module Box2D.Dynamics {
 	}
 }
 
-declare module Box2D.Dynamics.Contacts {
+declare namespace Box2D.Dynamics.Contacts {
 
 	/**
 	* The class manages contact between two shapes. A contact exists for each overlapping AABB in the broad-phase (except if filtered). Therefore a contact object may exist that has no contact points.
@@ -3869,7 +3869,7 @@ declare module Box2D.Dynamics.Contacts {
 	}
 }
 
-declare module Box2D.Dynamics.Contacts {
+declare namespace Box2D.Dynamics.Contacts {
 
 	/**
 	* A contact edge is used to connect bodies and contacts together in a contact graph where each body is a node and each contact is an edge. A contact edge belongs to a doubly linked list maintained in each attached body. Each contact has two contact nodes, one for each attached body.
@@ -3898,7 +3898,7 @@ declare module Box2D.Dynamics.Contacts {
 	}
 }
 
-declare module Box2D.Dynamics.Contacts {
+declare namespace Box2D.Dynamics.Contacts {
 
 	/**
 	* This structure is used to report contact point results.
@@ -3942,7 +3942,7 @@ declare module Box2D.Dynamics.Contacts {
 	}
 }
 
-declare module Box2D.Dynamics.Controllers {
+declare namespace Box2D.Dynamics.Controllers {
 
 	/**
 	* Base class for controllers. Controllers are a convience for encapsulating common per-step functionality.
@@ -4008,7 +4008,7 @@ declare module Box2D.Dynamics.Controllers {
 	}
 }
 
-declare module Box2D.Dynamics.Controllers {
+declare namespace Box2D.Dynamics.Controllers {
 
 	/**
 	* Controller Edge.
@@ -4047,7 +4047,7 @@ declare module Box2D.Dynamics.Controllers {
 	}
 }
 
-declare module Box2D.Dynamics.Controllers {
+declare namespace Box2D.Dynamics.Controllers {
 
 	/**
 	* Calculates buoyancy forces for fluids in the form of a half plane.
@@ -4108,7 +4108,7 @@ declare module Box2D.Dynamics.Controllers {
 	}
 }
 
-declare module Box2D.Dynamics.Controllers {
+declare namespace Box2D.Dynamics.Controllers {
 
 	/**
 	* Applies an acceleration every frame, like gravity
@@ -4127,7 +4127,7 @@ declare module Box2D.Dynamics.Controllers {
 	}
 }
 
-declare module Box2D.Dynamics.Controllers {
+declare namespace Box2D.Dynamics.Controllers {
 
 	/**
 	* Applies an acceleration every frame, like gravity.
@@ -4146,7 +4146,7 @@ declare module Box2D.Dynamics.Controllers {
 	}
 }
 
-declare module Box2D.Dynamics.Controllers {
+declare namespace Box2D.Dynamics.Controllers {
 
 	/**
 	* Applies simplified gravity between every pair of bodies.
@@ -4171,7 +4171,7 @@ declare module Box2D.Dynamics.Controllers {
 	}
 }
 
-declare module Box2D.Dynamics.Controllers {
+declare namespace Box2D.Dynamics.Controllers {
 
 	/**
 	* Applies top down linear damping to the controlled bodies The damping is calculated by multiplying velocity by a matrix in local co-ordinates.
@@ -4203,7 +4203,7 @@ declare module Box2D.Dynamics.Controllers {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* The base joint class. Joints are used to constraint two bodies together in various fashions. Some joints also feature limits and motors.
@@ -4242,7 +4242,7 @@ declare module Box2D.Dynamics.Joints {
 
 		/**
 		* Get the reaction force on body2 at the joint anchor in Newtons.
-		* @param inv_dt 
+		* @param inv_dt
 		* @return Reaction force (N)
 		**/
 		public GetReactionForce(inv_dt: number): Box2D.Common.Math.b2Vec2;
@@ -4280,7 +4280,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* Joint definitions are used to construct joints.
@@ -4319,7 +4319,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* A joint edge is used to connect bodies and joints together in a joint graph where each body is a node and each joint is an edge. A joint edge belongs to a doubly linked list maintained in each attached body. Each joint has two joint nodes, one for each attached body.
@@ -4348,7 +4348,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* A distance joint constrains two points on two bodies to remain at a fixed distance from each other. You can view this as a massless, rigid rod.
@@ -4419,7 +4419,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* Distance joint definition. This requires defining an anchor point on both bodies and the non-zero length of the distance joint. The definition uses local anchor points so that the initial configuration can violate the constraint slightly. This helps when saving and loading a game.
@@ -4468,7 +4468,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* Friction joint. This is used for top-down friction. It provides 2D translational friction and angular friction.
@@ -4536,7 +4536,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* Friction joint defintion.
@@ -4578,7 +4578,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* A gear joint is used to connect two joints together. Either joint can be a revolute or prismatic joint. You specify a gear ratio to bind the motions together: coordinate1 + ratio coordinate2 = constant The ratio can be negative or positive. If one joint is a revolute joint and the other joint is a prismatic joint, then the ratio will have units of length or units of 1/length.
@@ -4626,7 +4626,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* Gear joint definition. This definition requires two existing revolute or prismatic joints (any combination will work). The provided joints must attach a dynamic body to a static body.
@@ -4655,7 +4655,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* A line joint. This joint provides one degree of freedom: translation along an axis fixed in body1. You can use a joint limit to restrict the range of motion and a joint motor to drive the motion or to model joint friction.
@@ -4775,7 +4775,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* Line joint definition. This requires defining a line of motion using an axis and an anchor point. The definition uses local anchor points and a local axis so that the initial configuration can violate the constraint slightly. The joint translation is zero when the local anchor points coincide in world space. Using local anchors and a local axis helps when saving and loading a game.
@@ -4843,7 +4843,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* A mouse joint is used to make a point on a body track a specified world point. This a soft constraint with a maximum force. This allows the constraint to stretch and without applying huge forces. Note: this joint is not fully documented as it is intended primarily for the testbed. See that for more instructions.
@@ -4926,7 +4926,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* Mouse joint definition. This requires a world target point, tuning parameters, and the time step.
@@ -4955,7 +4955,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* A prismatic joint. This joint provides one degree of freedom: translation along an axis fixed in body1. Relative rotation is prevented. You can use a joint limit to restrict the range of motion and a joint motor to drive the motion or to model joint friction.
@@ -5069,7 +5069,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* Prismatic joint definition. This requires defining a line of motion using an axis and an anchor point. The definition uses local anchor points and a local axis so that the initial configuration can violate the constraint slightly. The joint translation is zero when the local anchor points coincide in world space. Using local anchors and a local axis helps when saving and loading a game.
@@ -5142,7 +5142,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* The pulley joint is connected to two bodies and two fixed ground points. The pulley supports a ratio such that: length1 + ratio length2 <= constant Yes, the force transmitted is scaled by the ratio. The pulley also enforces a maximum length limit on both sides. This is useful to prevent one side of the pulley hitting the top.
@@ -5202,7 +5202,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* Pulley joint definition. This requires two ground anchors, two dynamic body anchor points, max lengths for each side, and a pulley ratio.
@@ -5272,7 +5272,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* A revolute joint constrains to bodies to share a common point while they are free to rotate about the point. The relative rotation about the shared point is the joint angle. You can limit the relative rotation with a joint limit that specifies a lower and upper angle. You can use a motor to drive the relative rotation about the shared point. A maximum motor torque is provided so that infinite forces are not generated.
@@ -5386,7 +5386,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* Revolute joint definition. This requires defining an anchor point where the bodies are joined. The definition uses local anchor points so that the initial configuration can violate the constraint slightly. You also need to specify the initial relative angle for joint limits. This helps when saving and loading a game. The local anchor points are measured from the body's origin rather than the center of mass because: 1. you might not know where the center of mass will be. 2. if you add/remove shapes from a body and recompute the mass, the joints will be broken.
@@ -5453,7 +5453,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* A weld joint essentially glues two bodies together. A weld joint may distort somewhat because the island constraint solver is approximate.
@@ -5488,7 +5488,7 @@ declare module Box2D.Dynamics.Joints {
 	}
 }
 
-declare module Box2D.Dynamics.Joints {
+declare namespace Box2D.Dynamics.Joints {
 
 	/**
 	* Weld joint definition. You need to specify local anchor points where they are attached and the relative body angle. The position of the anchor points is important for computing the reaction torque.

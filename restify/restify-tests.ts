@@ -1,10 +1,11 @@
 /// <reference path="restify.d.ts" />
 
 import restify = require("restify");
+import url = require("url");
 
 var server = restify.createServer({
   formatters: {
-    'application/foo': function formatFoo(req, res, body) {
+    'application/foo': function formatFoo(req: restify.Request, res: restify.Response, body: any) {
         if (body instanceof Error)
             return body.stack;
 
@@ -37,26 +38,50 @@ server.use((req, res, next)=>{});
 server.use([(req, res, next)=>{}]);
 server.use((req, res, next)=>{}, (req, res, next)=>{});
 
-function send(req, res, next) {
+function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.header('key', 'val');
     req.header('key') === 'val';
-    
-    req.accepts('test') === true;
-    req.is('test') === true;
+    req.trailer('key', 'val');
+    req.trailer('key') === 'val';
 
+    req.accepts('test') === true;
+    req.accepts(['test']) === true;
+    req.acceptsEncoding('test') === true;
+    req.acceptsEncoding(['test']) === true;
+    req.is('test') === true;
+    req.isChunked() === true;
+    req.isKeepAlive() === true;
+    req.isSecure() === true;
+    req.isUpgradeRequest() === true;
+    req.isUpload() === true;
+    req.userAgent() === 'test';
+    req.startHandlerTimer('test');
+    req.endHandlerTimer('test');
+    req.absoluteUri('test') === 'test';
+
+    req.timers.pop() === { name: 'test', time: [0, 1234] };
     req.getLogger('test');
 
     var log = req.log;
     log.debug({params: req.params}, 'Hello there %s', 'foo');
 
-    req.contentLength === 50;
-    req.contentType === 'test';
+    req.getContentLength() === 50;
+    req.contentLength() === 50;
+    req.getContentType() === 'test';
+    req.contentType() === 'test';
+    req.getHref() === 'test';
     req.href() === 'test';
-    req.id === 'test';
+    req.getId() === 'test';
+    req.id() === 'test';
+    req.getPath() === 'test';
     req.path() === 'test';
-    req.query === 'test';
+    req.getQuery() === 'test';
+    req.query() === 'test';
     req.secure === true;
-    req.time === 50;
+    req.time() === 1463518410080;
+    req.getUrl() === url.parse('http://test.test.test/test');
+    req.getVersion() === 'test';
+    req.version() === 'test';
     req.params;
 
     res.header('test');
@@ -77,7 +102,7 @@ function send(req, res, next) {
 
     res.code === 50;
     res.contentLength === 50;
-    res.charSet === 'test';
+    res.charSet('test');
     res.contentType === 'test';
     res.headers;
     res.id === 'test';
@@ -92,12 +117,14 @@ server.put( '/hello', send);
 server.del( '/hello', send);
 server.get( '/hello', send);
 server.head('/hello', send);
+server.opts('/hello', send);
 
 server.post(/(.*)/, send);
 server.put( /(.*)/, send);
 server.del( /(.*)/, send);
 server.get( /(.*)/, send);
 server.head(/(.*)/, send);
+server.opts(/(.*)/, send);
 
 
 new restify.BadRequestError();
@@ -247,7 +274,16 @@ server.on('after', restify.auditLogger({
     log: ()=>{}
 }));
 
-restify.defaultResponseHeaders = function(data) {
+server.on('after', (req: restify.Request, res: restify.Response, route: restify.Route, err: any) => {
+    route.spec.method === 'GET';
+    route.spec.name === 'routeName';
+    route.spec.path === '/some/path';
+    route.spec.path === /\/some\/path\/.*/;
+    route.spec.versions === ['v1'];
+    restify.auditLogger({ log: ()=>{} })(req, res, route, err);
+});
+
+restify.defaultResponseHeaders = function(data: any) {
   this.header('Server', 'helloworld');
 };
 
@@ -274,18 +310,16 @@ client = restify.createStringClient({
     version: ""
 });
 
-client.get("test", send);
-client.head('test', send);
-client.post('path', {}, send);
-client.put('path', {}, send);
-client.del('path', send);
+client.head('test', function(err: any, req: restify.Request, res: restify.Response) { });
+client.put('path', {}, function(err: any, req: restify.Request, res: restify.Response, obj: any) { });
+client.del('path', function(err: any, req: restify.Request, res: restify.Response) { });
 
-client.post('/foo', { hello: 'world' }, function(err, req, res, obj) {
+client.post('/foo', { hello: 'world' }, function(err: any, req: restify.Request, res: restify.Response, obj: any) {
     console.log('%d -> %j', res.statusCode, res.headers);
     console.log('%j', obj);
 });
 
-client.get('/foo/bar', function(err, req, res, data) {
+client.get('/foo/bar', function(err: any, req: restify.Request, res: restify.Response, data: string) {
     console.log('%s', data);
 });
 
@@ -293,13 +327,13 @@ var client2 = restify.createClient({
   url: 'http://127.0.0.1'
 });
 
-client2.get('/str/mcavage', function(err, req) {
+client2.get('/str/mcavage', function(err: any, req: any) {
 
-    req.on('result', function(err, res) {
+    req.on('result', function(err: any, res: any) {
 
         res.body = '';
         res.setEncoding('utf8');
-        res.on('data', function(chunk) {
+        res.on('data', function(chunk: string) {
             res.body += chunk;
         });
 
@@ -308,7 +342,7 @@ client2.get('/str/mcavage', function(err, req) {
         });
     });
 });
-  
+
 
 client.basicAuth('test', 'password');
 client2.basicAuth('test', 'password');

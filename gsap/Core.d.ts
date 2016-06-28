@@ -1,7 +1,7 @@
 ﻿// Type definitions for GSAP v1.16.0
 // Project: http://greensock.com/
 // Definitions by: VILIC VANE <https://vilic.github.io/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Animation {
     /** Base class for all TweenLite, TweenMax, TimelineLite, and TimelineMax classes, providing core methods/properties/functionality, but there is no reason to create an instance of this class directly. */

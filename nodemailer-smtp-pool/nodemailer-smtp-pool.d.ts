@@ -1,7 +1,7 @@
 ﻿// Type definitions for nodemailer-smtp-pool 1.0.1
 // Project: https://github.com/andris9/nodemailer-smtp-pool
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../nodemailer/nodemailer-types.d.ts" />
@@ -9,7 +9,7 @@
 declare module "nodemailer-smtp-pool" {
 	import tls = require("tls");
 
-	module smtpPool {
+	namespace smtpPool {
 
 		export interface AuthOptions {
 			user?: string;

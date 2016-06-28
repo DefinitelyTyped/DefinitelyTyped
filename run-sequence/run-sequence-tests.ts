@@ -5,7 +5,7 @@ import gulp = require("gulp");
 import tmp = require("run-sequence");
 var runSequence = tmp.use(gulp);
 
-gulp.task("run-sequence", callback => {
+gulp.task("run-sequence", (callback: any) => {
     runSequence("task1",
         ["task2", "task3"],
         "taks4",

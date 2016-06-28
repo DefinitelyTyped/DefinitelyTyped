@@ -1,7 +1,7 @@
 // Type definitions for jquery.simulate.js
 // Project: https://github.com/jquery/jquery-simulate
 // Definitions by: Derek Cicerone <https://github.com/derekcicerone/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 

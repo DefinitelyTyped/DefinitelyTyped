@@ -39,6 +39,10 @@ describe("Jasmine jQuery extension", () => {
         expect($('<input type="text" />').focus()).toBeFocused();
         //expect($form).toHandle("submit")
         //expect($form).toHandleWith("submit", yourSubmitCallback)
+        expect($('<div></div>')).toBeInDOM();
+        expect($('<div><span class="some-class"></span></div>')).toContainElement('span.some-class');
+        expect($('<div><ul></ul><h1>header</h1></div>')).toContainHtml('<ul></ul>');
+        expect($('<div><ul></ul><h1>header</h1></div>')).toContainText('header')
     });
 
     it("Handles HTML Fixtures", () => {
