@@ -3,36 +3,40 @@
 // Definitions by: Marko Jurisic <https://github.com/mjurisic>, Ronald Wildenberg <https://github.com/rwwilden>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace angular.mgoAngularWizard {
-  interface WizardHandler {
-    wizard(name?: string): Wizard;
-    addWizard(name: string, wizard: Wizard): void;
-    removeWizard(name: string): void;
-  }
+import * as angular from 'angularjs';
 
-  interface Wizard {
-    next(nextHandler?: () => boolean): void;
-    previous(): void;
-    cancel: () => void;
-    goTo(step: number | string): void;
-    finish(): void;
-    reset: () => void;
+declare module 'angularjs' {
+  export namespace mgoAngularWizard {
+    interface WizardHandler {
+      wizard(name?: string): Wizard;
+      addWizard(name: string, wizard: Wizard): void;
+      removeWizard(name: string): void;
+    }
 
-    addStep: (step: WzStep) => void;
-    currentStep: () => WzStep;
-    currentStepNumber(): number;
-    currentStepDescription: () => string;
-    currentStepTitle: () => string;
-    getEnabledSteps(): WzStep[];
-  }
+    interface Wizard {
+      next(nextHandler?: () => boolean): void;
+      previous(): void;
+      cancel: () => void;
+      goTo(step: number | string): void;
+      finish(): void;
+      reset: () => void;
 
-  interface WzStep {
-    canenter: (...args: any[]) => boolean;
-    canexit: (...args: any[]) => boolean;
-    description: string;
-    selected: boolean;
-    title: string;
-    wzData: any;
-    wzTitle: string;
+      addStep: (step: WzStep) => void;
+      currentStep: () => WzStep;
+      currentStepNumber(): number;
+      currentStepDescription: () => string;
+      currentStepTitle: () => string;
+      getEnabledSteps(): WzStep[];
+    }
+
+    interface WzStep {
+      canenter: (...args: any[]) => boolean;
+      canexit: (...args: any[]) => boolean;
+      description: string;
+      selected: boolean;
+      title: string;
+      wzData: any;
+      wzTitle: string;
+    }
   }
 }

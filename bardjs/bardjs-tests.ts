@@ -2,6 +2,8 @@
 /// <reference types="chai" />
 /// <reference types="angularjs" />
 
+import * as angular from 'angularjs';
+
 namespace bardTests {
     var expect = chai.expect,
         assert = chai.assert;
@@ -16,9 +18,11 @@ namespace bardTests {
         }
     }
 
-    myService.$inject = ['$q'];
     function myService($q: angular.IQService) {
         return new MyService($q);
+    }
+    namespace myService {
+        export var $inject = ['$q'];
     }
 
     class MyController {

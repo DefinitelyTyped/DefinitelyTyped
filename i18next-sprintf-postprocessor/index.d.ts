@@ -5,15 +5,15 @@
 
 ///<reference types="i18next"/>
 
-declare namespace I18next {
-  interface I18n {
-    t(key: string, ...args: any[]): string;
-  }
-}
-
 declare module "i18next-sprintf-postprocessor" {
     import i18next = require("i18next");
 
+    module "i18next" {
+        interface I18n {
+          t(key: string, ...args: any[]): string;
+        }
+    }
+  
     interface I18nextSprintfPostProcessor {
         name: string;
         type: string;

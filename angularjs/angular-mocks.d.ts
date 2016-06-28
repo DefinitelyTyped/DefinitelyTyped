@@ -359,4 +359,6 @@ declare module 'angularjs' {
 ///////////////////////////////////////////////////////////////////////////////
 //Use `angular.mock.module` instead of `module`, as `module` conflicts with commonjs.
 //declare var module: (...modules: any[]) => any;
-declare var inject: angular.IInjectStatic;
+declare global {
+  export var inject: angular.IInjectStatic;
+}  
