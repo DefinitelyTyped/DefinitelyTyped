@@ -1,11 +1,11 @@
 // Type definitions for chai-datetime
 // Project: https://github.com/gaslight/chai-datetime.git
 // Definitions by: Cliff Burger <https://github.com/cliffburger/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../chai/chai.d.ts" />
 
-declare module Chai {
+declare namespace Chai {
 
     interface Assertion {
         afterDate(date: Date): Assertion;

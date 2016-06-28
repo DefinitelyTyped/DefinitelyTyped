@@ -9,6 +9,8 @@ testIonic.config(['$ionicConfigProvider', ($ionicConfigProvider: ionic.utility.I
     $ionicConfigProvider.views.maxCache(10);
     var forwardCache: boolean = $ionicConfigProvider.views.forwardCache();
     $ionicConfigProvider.views.forwardCache(true);
+    var swipeBackEnabled: boolean = $ionicConfigProvider.views.swipeBackEnabled();
+    $ionicConfigProvider.views.swipeBackEnabled(true);
 
     var jsScrolling: boolean = $ionicConfigProvider.scrolling.jsScrolling();
     $ionicConfigProvider.scrolling.jsScrolling(true);
@@ -149,6 +151,7 @@ class IonicTestController {
         ionicModalController.initialize(modalOptions);
         ionicModalController.show().then(() => console.log("shown modal"))
         ionicModalController.hide().then(() => console.log("hid modal"))
+        ionicModalController.remove().then(() => console.log("removed modal"))
         var isShown: boolean = ionicModalController.isShown();
 
         this.$ionicModal.fromTemplateUrl("templateUrl", modalOptions)
@@ -199,8 +202,9 @@ class IonicTestController {
         };
         var ionicPopoverController: ionic.popover.IonicPopoverController = this.$ionicPopover.fromTemplate("template", popoverOptions);
         ionicPopoverController.initialize(popoverOptions);
-        ionicPopoverController.show(angular.element("body")).then(() => console.log("shown popover"))
-        ionicPopoverController.hide().then(() => console.log("hid popover"))
+        ionicPopoverController.show(angular.element("body")).then(() => console.log("shown popover"));
+        ionicPopoverController.hide().then(() => console.log("hid popover"));
+        ionicPopoverController.remove().then(() => console.log("removed popover"));
         var isShown: boolean = ionicPopoverController.isShown();
 
         this.$ionicPopover.fromTemplateUrl("templateUrl", popoverOptions)
@@ -385,6 +389,7 @@ class IonicTestController {
         ready = ionic.Platform.ready(callbackWithReturn);
         var setGrade: void = ionic.Platform.setGrade('iOS');
         var deviceInformation: string = ionic.Platform.device();
+        var isBrowser: boolean = ionic.Platform.is('browser');
         var isWebView: boolean = ionic.Platform.isWebView();
         var isIPad: boolean = ionic.Platform.isIPad();
         var isIOS: boolean = ionic.Platform.isIOS();

@@ -1,9 +1,9 @@
 // Type definitions for Ace Ajax.org Cloud9 Editor
 // Project: http://ace.ajax.org/
 // Definitions by: Diullei Gomes <https://github.com/Diullei>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module AceAjax {
+declare namespace AceAjax {
 
     export interface Delta {
         action: string;
@@ -653,7 +653,7 @@ declare module AceAjax {
          * @param type Identify the type of the marker
          * @param inFront Set to `true` to establish a front marker
         **/
-        addMarker(range: Range, clazz: string, type: Function, inFront: boolean): void;
+        addMarker(range: Range, clazz: string, type: Function, inFront: boolean): number;
 
         /**
          * Adds a new marker to the given `Range`. If `inFront` is `true`, a front marker is defined, and the `'changeFrontMarker'` event fires; otherwise, the `'changeBackMarker'` event fires.
@@ -662,7 +662,7 @@ declare module AceAjax {
          * @param type Identify the type of the marker
          * @param inFront Set to `true` to establish a front marker
         **/
-        addMarker(range: Range, clazz: string, type: string, inFront: boolean): void;
+        addMarker(range: Range, clazz: string, type: string, inFront: boolean): number;
 
         /**
          * Adds a dynamic marker to the session.
@@ -1036,6 +1036,8 @@ declare module AceAjax {
      * Event sessions dealing with the mouse and keyboard are bubbled up from `Document` to the `Editor`, which decides what to do with them.
     **/
     export interface Editor {
+
+        on(ev: string, callback: (e: any) => any): void;
 
         addEventListener(ev: 'change', callback: (ev: EditorChangeEvent) => any): void;
         addEventListener(ev: string, callback: Function): void;

@@ -23,7 +23,7 @@ function doTest(test: (ctx: any, ...obj: Dependency[]) => void) {
     test(ctx, A, B, C);
 }
 
-module BasicWiring {
+namespace BasicWiring {
     doTest(ctx => {
         // initialize di container so all singleton(default) objects will be wired at this stage
         ctx.initialize();
@@ -37,7 +37,7 @@ module BasicWiring {
     });
 }
 
-module WiringWithAssignment {
+namespace WiringWithAssignment {
     doTest((ctx, A) => {
         A.dependencies = "bee=b, c"; // mix explicit and implicit assignment
 
@@ -49,7 +49,7 @@ module WiringWithAssignment {
     });
 }
 
-module PassiveDependencyResolution {
+namespace PassiveDependencyResolution {
     doTest((ctx, A) => {
         ctx.register("a", A);
         ctx.get("a"); // this triggers the dependency resolution for "a" alone
@@ -57,7 +57,7 @@ module PassiveDependencyResolution {
     });
 }
 
-module PrototypeStrategy {
+namespace PrototypeStrategy {
     doTest((ctx, A) => {
         ctx.register("prototype", A).strategy(di.strategy.proto);
         ctx.get("prototype") === ctx.get("prototype"); // false
@@ -65,7 +65,7 @@ module PrototypeStrategy {
     });
 }
 
-module PassingConstructorArguments {
+namespace PassingConstructorArguments {
     class ProfileView { }
 
     doTest(ctx => {
@@ -75,7 +75,7 @@ module PassingConstructorArguments {
     });
 }
 
-module CyclicalDependency {
+namespace CyclicalDependency {
     doTest((ctx, A, B) => {
         A.dependencies = "b";
         B.dependencies = "a";
@@ -92,7 +92,7 @@ module CyclicalDependency {
     });
 }
 
-module FunctionalObject {
+namespace FunctionalObject {
     doTest(ctx => {
         var FuncObject = (spec: any) => {
                 var that = {};
@@ -114,7 +114,7 @@ module FunctionalObject {
     });
 }
 
-module RuntimeDependenciesOverride {
+namespace RuntimeDependenciesOverride {
     doTest((ctx, A) => {
         ctx.register("a", A)
             .dependencies("bee=b"); // dependencies specified here will take precedence
@@ -122,7 +122,7 @@ module RuntimeDependenciesOverride {
     });
 }
 
-module CreateYourOwn {
+namespace CreateYourOwn {
     class Backbone {
         history: History = new History();
     }

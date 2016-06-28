@@ -1,11 +1,11 @@
 ﻿// Type definitions for Microsoft.Maps.Search 7.0
 // Project: http://msdn.microsoft.com/en-us/library/hh868061.aspx
 // Definitions by: Eric Todd <https://github.com/ericrtodd>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="Microsoft.Maps.d.ts"/>
 
-declare module Microsoft.Maps.Search {
+declare namespace Microsoft.Maps.Search {
 
      export interface Address {
          addressLine: string;

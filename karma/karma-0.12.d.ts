@@ -1,7 +1,7 @@
 // Type definitions for karma v0.12.37
 // Project: https://github.com/karma-runner/karma
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'karma' {
     // See Karma public API https://karma-runner.github.io/0.12/dev/public-api.html

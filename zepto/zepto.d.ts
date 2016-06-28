@@ -1,7 +1,7 @@
 // Type definitions for Zepto 1.0-rc.1
 // Project: http://zeptojs.com/
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
 zepto-1.0rc1.d.ts may be freely distributed under the MIT license.
@@ -9,23 +9,23 @@ zepto-1.0rc1.d.ts may be freely distributed under the MIT license.
 Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/zepto.d.ts
 
 Permission is hereby granted, free of charge, to any person
-obtaining a copy of this software and associated documentation 
-files (the "Software"), to deal in the Software without 
-restriction, including without limitation the rights to use, 
-copy, modify, merge, publish, distribute, sublicense, and/or sell 
-copies of the Software, and to permit persons to whom the 
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
 Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be 
+The above copyright notice and this permission notice shall be
 included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES 
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
-HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
-WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
@@ -448,7 +448,7 @@ interface ZeptoCollection {
 	* @see ZeptoCollection.after
 	**/
 	after(content: HTMLElement[]): ZeptoCollection;
-	
+
 	/**
 	* @see ZeptoCollection.after
 	**/
@@ -470,7 +470,7 @@ interface ZeptoCollection {
 	* @see ZeptoCollection.append
 	**/
 	append(content: HTMLElement[]): ZeptoCollection;
-	
+
 	/**
 	* @see ZeptoCollection.append
 	**/
@@ -541,7 +541,7 @@ interface ZeptoCollection {
 	* @see ZeptoCollection.before
 	**/
 	before(content: HTMLElement[]): ZeptoCollection;
-	
+
 	/**
 	* @see ZeptoCollection.before
 	**/
@@ -606,7 +606,7 @@ interface ZeptoCollection {
 
 	/**
 	* Read or write data-* DOM attributes. Behaves like attr, but prepends data- to the attribute name.
-	* When reading attribute values, the following conversions apply: 
+	* When reading attribute values, the following conversions apply:
 	*	“true”, “false”, and “null” are converted to corresponding types;
 	*	number values are converted to actual numeric types;
 	*	JSON values are parsed, if it’s valid JSON;
@@ -1117,12 +1117,12 @@ interface ZeptoCollection {
 	* @return
 	**/
 	size(): number;
-  
+
 	/**
 	* Get the number of elements in this collection.
 	**/
 	length: number;
-  
+
 	/**
 	* Extract the subset of this array, starting at start index. If end is specified, extract up to but not including end index.
 	* @param start
@@ -1513,7 +1513,7 @@ interface ZeptoCollection {
 	* @return Seralized form values in URL-encoded string.
 	**/
 	serialize(): string;
-	
+
 	/**
 	* Serialize form into an array of objects with name and value properties. Disabled form controls, buttons, and unchecked radio buttons/checkboxes are skipped. The result doesn’t include data from file inputs.
 	* @return Array with name value pairs from the Form.

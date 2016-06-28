@@ -1,6 +1,8 @@
 /// <reference path="config.d.ts" />
 
-import config = require('config');
+import * as config from "config";
+
+var class1: config.IConfig = config;
 
 var value1: string = config.get<string>("");
 var value2: any = config.get("");

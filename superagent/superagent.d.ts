@@ -1,7 +1,7 @@
 // Type definitions for SuperAgent v1.4.0
 // Project: https://github.com/visionmedia/superagent
 // Definitions by: Alex Varju <https://github.com/varju/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path='../node/node.d.ts' />
 
@@ -12,7 +12,7 @@ declare module "superagent" {
 
   var request: request.SuperAgentStatic;
 
-  module request {
+  namespace request {
     interface SuperAgentStatic extends SuperAgent<SuperAgentRequest> {
       (url: string): SuperAgentRequest;
       (method: string, url: string): SuperAgentRequest;
