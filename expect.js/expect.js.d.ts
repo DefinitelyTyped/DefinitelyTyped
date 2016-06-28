@@ -1,16 +1,21 @@
-// Type definitions for expect.js 0.2.0
-// Project: https://github.com/LearnBoost/expect.js
+// Type definitions for expect.js 0.3.1
+// Project: https://github.com/Automattic/expect.js
 // Definitions by: Teppei Sato <https://github.com/teppeis>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function expect(target?: any): Expect.Root;
 
-declare module Expect {
+declare namespace Expect {
     interface Assertion {
         /**
          * Check if the value is truthy
          */
         ok(): void;
+
+        /**
+         * Creates an anonymous function which calls fn with arguments.
+         */
+        withArgs(...args: any[]): Root;
 
         /**
          * Assert that the function throws.

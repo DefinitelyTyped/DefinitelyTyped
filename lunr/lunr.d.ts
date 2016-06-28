@@ -1,7 +1,7 @@
 // Type definitions for lunr.js 0.5.4
 // Project: https://github.com/olivernn/lunr.js
 // Definitions by: Sebastian Lenz <https://github.com/sebastian-lenz>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * lunr - http://lunrjs.com - A bit like Solr, but much smaller and not as bright - 0.5.4
@@ -9,17 +9,70 @@
  * MIT Licensed
  * @license
  */
-declare module lunr
+declare namespace lunr
 {
     var version:string;
 
 
     /**
-     * A function for splitting a string into tokens ready to be inserted into the search index.
+     * A function for splitting a string into tokens ready to be inserted into
+     * the search index. Uses `lunr.tokenizer.seperator` to split strings, change
+     * the value of this property to change how strings are split into tokens.
      *
-     * @param token  The token to pass through the filter
+     * @module
+     * @param {String} obj The string to convert into tokens
+     * @see lunr.tokenizer.seperator
+     * @returns {Array}
      */
-    function tokenizer(token:string):string;
+    function tokenizer(obj: any): string[];
+
+    interface TokenizerFunction {
+        // obj is usually a string, but the default lunr tokenizer handles null,
+        // undefined and arrays of objects with a .toString() method.
+        (obj: any): string[];
+    }
+
+    module tokenizer {
+        /**
+         * The sperator used to split a string into tokens. Override this property to change the behaviour of
+         * `lunr.tokenizer` behaviour when tokenizing strings. By default this splits on whitespace and hyphens.
+         *
+         * @static
+         * @see lunr.tokenizer
+         *
+         * (Note: this is misspelled in the original API, kept for compatibility sake)
+         */
+        var seperator: RegExp | string;
+
+        var label: string;
+
+        var registeredFunctions: {[label: string]: TokenizerFunction};
+
+        /**
+         * Register a tokenizer function.
+         *
+         * Functions that are used as tokenizers should be registered if they are to be used with a serialised index.
+         *
+         * Registering a function does not add it to an index, functions must still be associated with a specific index for them to be used when indexing and searching documents.
+         *
+         * @param {Function} fn The function to register.
+         * @param {String} label The label to register this function with
+         * @memberOf tokenizer
+         */
+        function registerFunction(fn: TokenizerFunction, label: string): void;
+
+        /**
+         * Loads a previously serialised tokenizer.
+         *
+         * A tokenizer function to be loaded must already be registered with lunr.tokenizer.
+         * If the serialised tokenizer has not been registered then an error will be thrown.
+         *
+         * @param {String} label The label of the serialised tokenizer.
+         * @returns {Function}
+         * @memberOf tokenizer
+         */
+        function load(label: string): TokenizerFunction;
+    }
 
 
     /**
@@ -42,7 +95,7 @@ declare module lunr
      */
     function stopWordFilter(token:string):string;
 
-    module stopWordFilter {
+    namespace stopWordFilter {
         var stopWords:SortedSet<string>;
     }
 
@@ -805,6 +858,32 @@ declare module lunr
          * @param serialisedData  The serialised token store to load.
          */
         static load(serialisedData:any):TokenStore;
+    }
+
+    /**
+     * A namespace containing utils for the rest of the lunr library
+     */
+    module utils {
+        /**
+         * Print a warning message to the console.
+         *
+         * @param {String} message The message to be printed.
+         * @memberOf Utils
+         */
+        function warn(message: any): void;
+
+        /**
+         * Convert an object to a string.
+         *
+         * In the case of `null` and `undefined` the function returns
+         * the empty string, in all other cases the result of calling
+         * `toString` on the passed object is returned.
+         *
+         * @param {Any} obj The object to convert to a string.
+         * @return {String} string representation of the passed object.
+         * @memberOf Utils
+         */
+        function asString(obj: any): string;
     }
 }
 

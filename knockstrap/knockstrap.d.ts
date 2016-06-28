@@ -1,7 +1,7 @@
 ﻿// Type definitions for Knockstrap
 // Project: http://faulknercs.github.io/Knockstrap/
 // Definitions by: Adam Pluciński <https://github.com/adaskothebeast>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts" /> 
 ///<reference path="../bootstrap/bootstrap.d.ts" /> 

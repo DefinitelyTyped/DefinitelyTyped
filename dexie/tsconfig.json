@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "module": "es6",
+        "target": "es6",
+        "noImplicitAny": true,
+        "removeComments": false,
+        "sourceMap": true,
+        "outDir": "out/ts"
+    }
+}

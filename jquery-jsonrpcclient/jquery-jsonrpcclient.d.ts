@@ -1,19 +1,25 @@
 ﻿// Type definitions for jquery.jsonrpc 0.7.0
 // Project: https://github.com/Textalk/jquery.jsonrpcclient.js
 // Definitions by: Maksim Karelov <https://github.com/Ty3uK>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
 interface JsonRpcClientOptions extends JQueryAjaxSettings {
-    ajaxUrl?: string;
+    ajaxUrl: string;
     headers?: {[key:string]: any};
-    sockerUrl?: string;
-    onmessage?: () => void;
-    onopen?: () => void;
-    onclose?: () => void;
-    onerror?: () => void;
+    socketUrl?: string;
+    onmessage?: (ev: MessageEvent) => void;
+    onopen?: (ev: Event) => void;
+    onclose?: (ev: CloseEvent) => void;
+    onerror?: (ev: Event) => void;
     getSockect?: (onmessageCb: () => void) => WebSocket;
+
+    /**
+     * Sets timeout for calls in milliseconds.
+     * Works with WebSocket as well as AJAX.
+     */
+    timeout?: number;
 }
 
 interface JsonRpcClient {

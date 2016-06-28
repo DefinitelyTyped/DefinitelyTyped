@@ -556,7 +556,7 @@ function test_globalization() {
 
 function test_inAppBrowser() {
     var ref = window.open('http://apache.org', '_blank', 'location=yes');
-    ref.addEventListener('loadstart', function () { alert(event.url); });
+    ref.addEventListener('loadstart', function () { alert(event); });
     ref.removeEventListener('loadstart', null);
     ref.close();
 }

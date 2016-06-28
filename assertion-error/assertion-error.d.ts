@@ -1,7 +1,7 @@
 // Type definitions for assertion-error 1.0.0
 // Project: https://github.com/chaijs/assertion-error
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'assertion-error' {
 	class AssertionError implements Error {

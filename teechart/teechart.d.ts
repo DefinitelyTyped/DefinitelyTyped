@@ -1,7 +1,7 @@
 // Type definitions for TeeChart 1.3
 // Project: http://www.steema.com
 // Definitions by: Steema Software <https://steema.com/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /**
  * TeeChart(tm) for TypeScript
  *
@@ -22,7 +22,7 @@
  */
 
 
-declare module Tee {
+declare namespace Tee {
 
   interface IPoint {
     x: number;
@@ -316,7 +316,7 @@ declare module Tee {
     calc(value: number): number;
     fromPos(position: number): number;
     fromSize(size: number): number;
-    
+
     hasAnySeries(): boolean;
     scroll(delta: number): void;
     setMinMax(minimum: number, maximum: number): void;

@@ -54,6 +54,11 @@ class OrderLine {
     public getSubtotal(): string {
         return "$" + (this.price * this.quantity).toFixed(2);
     }
+
+    public dispose() {
+        // Dispose of all the observables of this object to prevent memory leaks
+        ko.untrack(this);
+    }
 }
 
 class Order {

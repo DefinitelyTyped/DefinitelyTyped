@@ -1,7 +1,7 @@
 // Type definitions for Highland 1.14.0
 // Project: http://highlandjs.org/
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -67,7 +67,7 @@ interface HighlandStatic {
 
 	// moar (promise for everything?)
 	<R>(xs: Highland.Thenable<Highland.Stream<R>>): Highland.Stream<R>;
-	<R>(xs: Highland.Thenable<R[]>): Highland.Stream<R>;
+	<R>(xs: Highland.Thenable<R>): Highland.Stream<R>;
 
 	/**
 	 * The end of stream marker. This is sent along the data channel of a Stream
@@ -325,7 +325,7 @@ interface HighlandStatic {
 	not<R>(a: any): boolean;
 }
 
-declare module Highland {
+declare namespace Highland {
 
 	interface Thenable<R> {
 		then<U>(onFulfilled: (value: R) => Thenable<U>,  onRejected: (error: any) => Thenable<U>): Thenable<U>;

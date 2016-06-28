@@ -1,12 +1,12 @@
 // Type definitions for RxJS-Coincidence v2.2.28
 // Project: http://rx.codeplex.com/
 // Definitions by: Carl de Billy <http://carl.debilly.net/>, Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="rx.d.ts" />
 ///<reference path="rx.coincidence-lite.d.ts" />
 
-declare module Rx {
+declare namespace Rx {
 
 	interface Observable<T> {
 		join<TRight, TDurationLeft, TDurationRight, TResult>(

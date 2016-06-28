@@ -1,7 +1,7 @@
 // Type definitions for passport-facebook 1.0.3
 // Project: https://github.com/jaredhanson/passport-facebook
 // Definitions by: James Roland Cabresos <https://github.com/staticfunction>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../passport/passport.d.ts"/>
 
@@ -13,6 +13,10 @@ declare module 'passport-facebook' {
     interface Profile extends passport.Profile {
         gender: string;
         profileUrl: string;
+        username: string;
+
+        _raw: string;
+        _json: any;
     }
 
     interface IStrategyOption {

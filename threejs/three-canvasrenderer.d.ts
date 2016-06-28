@@ -1,14 +1,14 @@
 // Type definitions for three.js (CanvasRenderer.js)
 // Project: https://github.com/mrdoob/three.js/blob/master/examples/js/renderers/CanvasRenderer.js
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./three.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
     export interface SpriteCanvasMaterialParameters extends MaterialParameters{
         color?: number;
-
+        program?: (context: any, color: Color) => void;
     }
 
     export class SpriteCanvasMaterial extends Material {
@@ -23,6 +23,7 @@ declare module THREE {
     export interface CanvasRendererParameters {
         canvas?: HTMLCanvasElement;
         devicePixelRatio?: number;
+        alpha?: boolean;
     }
 
     export class CanvasRenderer implements Renderer {

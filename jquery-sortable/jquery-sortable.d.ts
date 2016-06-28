@@ -1,11 +1,11 @@
 // Type definitions for jQuery Sortable v0.9.12
 // Project: http://johnny.github.io/jquery-sortable/
 // Definitions by: Nathan Pitman <https://github.com/Seltzer>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module JQuerySortable {
+declare namespace JQuerySortable {
 
 	interface Position {
 		top: number;
@@ -88,17 +88,16 @@ declare module JQuerySortable {
 	}
 
 	interface Options extends GroupOptions, ContainerOptions {
+		group?: string;
 	}
 }
 
-
 interface JQuery {
-	sortable(options?: JQuerySortable.Options): JQuery;
-
 	sortable(methodName: 'enable'): JQuery;
 	sortable(methodName: 'disable'): JQuery;
 	sortable(methodName: 'refresh'): JQuery;
 	sortable(methodName: 'destroy'): JQuery;
 	sortable(methodName: 'serialize'): JQuery;
 	sortable(methodName: string): JQuery;
+	sortable(options?: JQuerySortable.Options): JQuery;
 }
