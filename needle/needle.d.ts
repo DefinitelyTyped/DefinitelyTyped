@@ -1,11 +1,11 @@
 // Type definitions for needle 0.7.8
 // Project: https://github.com/tomas/needle
 // Definitions by: San Chen <https://github.com/bigsan>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
-declare module Needle {
+declare namespace Needle {
 	interface ReadableStream extends NodeJS.ReadableStream {
 	}
 

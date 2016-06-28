@@ -1,16 +1,16 @@
 // Type definitions for Google Visualisation Apis
 // Project: https://developers.google.com/chart/
 // Definitions by: Dan Ludwig <https://github.com/danludwig>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module google {
+declare namespace google {
 
     function load(visualization: string, version: string, packages: any): void;
     function setOnLoadCallback(handler: Function): void;
     function setOnLoadCallback(handler: () => void): void;
 
     //https://developers.google.com/chart/interactive/docs/reference
-    module visualization {
+    namespace visualization {
 
         export interface ChartSpecs {
             chartType: string;
@@ -365,6 +365,7 @@ declare module google {
         export interface TransitionAnimation {
             duration?: number;
             easing?: string; // linear, in, out, inAndOut
+            startup?: boolean;
         }
 
         export interface ChartAxis {
@@ -441,6 +442,12 @@ declare module google {
         export interface VisualizationSelectionArray {
             column?: number;
             row?: number;
+        }
+
+        export interface Candlestick {
+            hollowIsRising?: boolean;
+            fallingColor?: ChartStroke;
+            risingColor?: ChartStroke;
         }
 
         class ChartBase {
@@ -725,45 +732,45 @@ declare module google {
         //#endregion
         //#region AnnotationChart
 
-		// https://developers.google.com/chart/interactive/docs/gallery/annotationchart
-		export class AnnotationChart extends CoreChartBase
-		{
-			draw(data: DataTable, options: AnnotationChartOptions): void;
-			draw(data: DataView, options: AnnotationChartOptions): void;
-			setVisibleChartRange(start: Date, end: Date): void;
-			getVisibleChartRange(): {start: Date; end: Date };
-			hideDataColumns(columnIndexes: number | number[]): void;
-			showDataColumns(columnIndexes: number | number[]): void;
-		}
+        // https://developers.google.com/chart/interactive/docs/gallery/annotationchart
+        export class AnnotationChart extends CoreChartBase
+        {
+            draw(data: DataTable, options: AnnotationChartOptions): void;
+            draw(data: DataView, options: AnnotationChartOptions): void;
+            setVisibleChartRange(start: Date, end: Date): void;
+            getVisibleChartRange(): {start: Date; end: Date };
+            hideDataColumns(columnIndexes: number | number[]): void;
+            showDataColumns(columnIndexes: number | number[]): void;
+        }
 
-		// https://developers.google.com/chart/interactive/docs/gallery/annotationchart#Configuration_Options
-	    export interface AnnotationChartOptions
-		{
-			allowHtml?: boolean;
-			allValuesSuffix?: string;
-			annotationsWidth?: number;
-			colors?: string[];
-			dateFormat?: string;
-			displayAnnotations?: boolean;
-			displayAnnotationsFilter?: boolean;
-			displayDateBarSeparator?: boolean;
-			displayExactValues?: boolean;
-			displayLegendDots?: boolean;
-			displayLegendValues?: boolean;
-			displayRangeSelector?: boolean;
-			displayZoomButtons?: boolean;
-			fill?: number;
-			legendPosition?: string;
-			max?: number;
-			min?: number;
-			numberFormats?: any;
-			scaleColumns?: number[];
-			scaleFormat?: string;
-			scaleType?: string;
-			thickness?: number;
-			zoomEndTime?: Date;
-			zoomStartTime?: Date;
-		}
+        // https://developers.google.com/chart/interactive/docs/gallery/annotationchart#Configuration_Options
+        export interface AnnotationChartOptions
+        {
+            allowHtml?: boolean;
+            allValuesSuffix?: string;
+            annotationsWidth?: number;
+            colors?: string[];
+            dateFormat?: string;
+            displayAnnotations?: boolean;
+            displayAnnotationsFilter?: boolean;
+            displayDateBarSeparator?: boolean;
+            displayExactValues?: boolean;
+            displayLegendDots?: boolean;
+            displayLegendValues?: boolean;
+            displayRangeSelector?: boolean;
+            displayZoomButtons?: boolean;
+            fill?: number;
+            legendPosition?: string;
+            max?: number;
+            min?: number;
+            numberFormats?: any;
+            scaleColumns?: number[];
+            scaleFormat?: string;
+            scaleType?: string;
+            thickness?: number;
+            zoomEndTime?: Date;
+            zoomStartTime?: Date;
+        }
 
         //#endregion
         //#region SteppedAreaChart
@@ -1023,11 +1030,7 @@ declare module google {
             axisTitlesPosition?: string;
             backgroundColor?: any;
             bar?: GroupWidth;
-            candlestick?: {
-                hollowIsRising?: boolean;
-                fallingColor?: ChartStroke;
-                risingColor?: ChartStroke;
-            }
+            candlestick?: Candlestick;
             chartArea?: ChartArea;
             colors?: string[];
             enableInteractivity?: boolean;
@@ -1052,14 +1055,263 @@ declare module google {
         }
 
         //#endregion
+        //#region ComboChart
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/combochart
+        export class ComboChart extends CoreChartBase {
+            draw(data: DataTable, options: ComboChartOptions): void;
+            draw(data: DataView, options: ComboChartOptions): void;
+        }
+
+        // https://google-developers.appspot.com/chart/interactive/docs/gallery/combochart#configuration-options
+        export interface ComboChartOptions {
+            aggregationTarget?: string;
+            animation?: TransitionAnimation;
+            annotations?: ChartAnnotations;
+            areaOpacity?: number;
+            axisTitlesPosition?: string; // in, out, none
+            backgroundColor?: any;
+            bar?: GroupWidth;
+            candlestick?: Candlestick;
+            chartArea?: ChartArea;
+            colors?: string[];
+            crosshair?: ChartCrosshair;
+            curveType?: string;
+            dataOpacity?: number;
+            enableInteractivity?: boolean;
+            focusTarget?: string;
+            fontSize?: number;
+            fontName?: string;
+            forceIFrame?: boolean;
+            hAxis?: ChartAxis;
+            height?: number;
+            interpolateNulls?: boolean;
+            isStacked?: boolean;
+            legend?: ChartLegend;
+            lineDashStyle?: number[];
+            lineWidth?: number;
+            orientation?: string;
+            pointShape?: string;
+            pointSize?: number;
+            pointsVisible?: boolean;
+            reverseCategories?: boolean;
+            selectionMode?: string;// single / multiple
+            series?: any;
+            seriesType?: string;
+            theme?: string;
+            title?: string;
+            titlePosition?: string;
+            titleTextStyle?: ChartTextStyle;
+            tooltip?: ChartTooltip;
+            vAxes?: any;
+            vAxis?: ChartAxis;
+            width?: number;
+        }
+
+        //#endregion
         //#region Events
 
-        module events {
+        namespace events {
             function addListener(visualization: any, eventName: string, callback: Function): any;
             function addListener(visualization: any, eventName: string, callback: (...args: any[]) => void): any;
             function removeListener(listener: any): void;
             function removeAllListeners(visualization: any): void;
             function trigger(visualization: any, eventName: string, args?: any): void;
+        }
+
+        //#endregion
+        //#region Formatter
+
+        class DefaultFormatter {
+            /**
+             * Reformats the data in the specified column.
+             *
+             * @param data - A DataTable containing the data to reformat. You cannot use a DataView here.
+             * @param columnIndex - The zero-based index of the column to format. To format multiple columns, you must call this method multiple times, with different colIndex values.
+             */
+            format(data: DataTable, columnIndex: number): void;
+        }
+
+        export interface ArrowFormatOptions {
+            /**
+             * A number indicating the base value, used to compare against the cell value. If the cell value is higher, the cell will include a green up arrow; if the cell value is lower, it will include a red down arrow; if the same, no arrow.
+             */
+            base?: number;
+        }
+
+        /**
+         * Adds an up or down arrow, indicating whether the cell value is above or below a specified value.
+         */
+        export class ArrowFormat extends DefaultFormatter {
+            constructor(options?: ArrowFormatOptions);
+        }
+
+        export interface BarFormatOptions {
+            /**
+             * A number that is the base value to compare the cell value against. If the cell value is higher, it will be drawn to the right of the base; if lower, it will be drawn to the left. Default value is 0.
+             */
+            base?: number;
+            /**
+             * A string indicating the negative value section of bars. Possible values are 'red', 'green' and 'blue'; default value is 'red'.
+             */
+            colorNegative?: string;
+            /**
+             * A string indicating the color of the positive value section of bars. Possible values are 'red', 'green' and 'blue'. Default is 'blue'.
+             */
+            colorPositive?: string;
+            /**
+             * A boolean indicating if to draw a 1 pixel dark base line when negative values are present. The dark line is there to enhance visual scanning of the bars. Default value is 'false'.
+             */
+            drawZeroLine?: boolean;
+            /**
+             * The maximum number value for the bar range. Default value is the highest value in the table.
+             */
+            max?: number;
+            /**
+             * The minimum number value for the bar range. Default value is the lowest value in the table.
+             */
+            min?: number;
+            /**
+             * If true, shows values and bars; if false, shows only bars. Default value is true.
+             */
+            showValue?: boolean;
+            /**
+             * Thickness of each bar, in pixels. Default value is 100.
+             */
+            width?: number;
+        }
+
+        /**
+         * Adds a colored bar, the direction and color of which indicates whether the cell value is above or below a specified value.
+         */
+        export class BarFormat extends DefaultFormatter {
+            constructor(options?: BarFormatOptions);
+        }
+
+        /**
+         * Colors a cell according to whether the values fall within a specified range.
+         */
+        export class ColorFormat extends DefaultFormatter {
+            constructor();
+            /**
+             * Specifies a foreground color and/or background color to a cell, depending on the cell value. Any cell with a value in the specified from—to range will be assigned color and bgcolor. It is important to realize that the range is non-inclusive, because creating a range from 1—1,000 and a second from 1,000— 2,000 will not cover the value 1,000!
+             *
+             * @param from - [String, Number, Date, DateTime, or TimeOfDay] The lower boundary (inclusive) of the range, or null. If null, it will match -∞. String boundaries are compared alphabetically against string values.
+             * @param to - [String, Number, Date, DateTime, or TimeOfDay] The high boundary (non-inclusive) of the range, or null. If null, it will match +∞. String boundaries are compared alphabetically against string values.
+             * @param color - The color to apply to text in matching cells. Values can be either '#RRGGBB' values or defined color constants, (example: '#FF0000' or 'red').
+             * @param bgcolor - The color to apply to the background of matching cells. Values can be either '#RRGGBB' values or defined color constants, (example: '#FF0000' or 'red').
+             */
+            addRange(from: any, to: any, color: string, bgcolor: string): void;
+            /**
+             * Assigns a background color from a range, according to the cell value. The color is scaled to match the cell's value within a range from a lower boundary color to an upper boundary color. Note that this method cannot compare string values, as addRange() can. Tip: Color ranges are often hard for viewers to gauge accurately; the simplest and easiest to read range is from a fully saturated color to white (e.g., #FF0000—FFFFFF).
+             *
+             * @param from - [Number, Date, DateTime, or TimeOfDay] The lower boundary (inclusive) of the range, or null. If null, it will match -∞.
+             * @param to - [Number, Date, DateTime, or TimeOfDay] The higher boundary (non-inclusive) of the range, or null. If null, it will match +∞.
+             * @param color - The color to apply to text in matching cells. This color is the same for all cells, no matter what their value.
+             * @param fromBgColor - The background color for cells holding values at the low end of the gradient. Values can be either '#RRGGBB' values or defined color constants, (example: '#FF0000' or 'red').
+             * @param toBgColor - The background color for cells holding values at the high end of the gradient. Values can be either '#RRGGBB' values or defined color constants, (example: '#FF0000' or 'red').
+             */
+            addGradientRange(from: any, to: any, color: string, fromBgColor: string, toBgColor: string): void;
+        }
+
+        export interface DateFormatOptions {
+            /**
+             * A quick formatting option for the date. The following string values are supported, reformatting the date February 28, 2016 as shown:
+             * - 'short' - Short format: e.g., "2/28/16"
+             * - 'medium' - Medium format: e.g., "Feb 28, 2016"
+             * - 'long' - Long format: e.g., "February 28, 2016"
+             * You cannot specify both formatType and pattern.
+             */
+            formatType?: string;
+            /**
+             * A custom format pattern to apply to the value, similar to the ICU date and time format.
+             * You cannot specify both formatType and pattern.
+             * @example
+             * var formatter3 = new google.visualization.DateFormat({pattern: "EEE, MMM d, ''yy"});
+             */
+            pattern?: string;
+            /**
+             * The time zone in which to display the date value. This is a numeric value, indicating GMT + this number of time zones (can be negative). Date object are created by default with the assumed time zone of the computer on which they are created; this option is used to display that value in a different time zone. For example, if you created a Date object of 5pm noon on a computer located in Greenwich, England, and specified timeZone to be -5 (options['timeZone'] = -5, or Eastern Pacific Time in the US), the value displayed would be 12 noon.
+             */
+            timeZone?: number;
+        }
+
+        /**
+         * Formats a Date or DateTime value in several different ways, including "January 1, 2009," "1/1/09" and "Jan 1, 2009."
+         */
+        export class DateFormat extends DefaultFormatter {
+            constructor(options: DateFormatOptions);
+            /**
+             * Returns the formatted value of a given value. This method does not require a DataTable.
+             */
+            formatValue(value: Date): string;
+        }
+
+        export interface NumberFormatOptions {
+            /**
+             * A character to use as the decimal marker. The default is a dot (.).
+             */
+            decimalSymbol?: string;
+            /**
+             * A number specifying how many digits to display after the decimal. The default is 2. If you specify more digits than the number contains, it will display zeros for the smaller values. Truncated values will be rounded (5 rounded up).
+             */
+            fractionDigits?: number;
+            /**
+             * A character to be used to group digits to the left of the decimal into sets of three. Default is a comma (,).
+             */
+            groupingSymbol?: string;
+            /**
+             * The text color for negative values. No default value. Values can be any acceptable HTML color value, such as "red" or "#FF0000".
+             */
+            negativeColor?: string;
+            /**
+             * A boolean, where true indicates that negative values should be surrounded by parentheses. Default is true.
+             */
+            negativeParens?: boolean;
+            /**
+             * A format string. When provided, all other options are ignored, except negativeColor.
+             * The format string is a subset of the ICU pattern set. For instance, {pattern:'#,###%'} will result in output values "1,000%", "750%", and "50%" for values 10, 7.5, and 0.5.
+             */
+            pattern?: string;
+            /**
+             * A string prefix for the value, for example "$".
+             */
+            prefix?: string;
+            /**
+             * A string suffix for the value, for example "%".
+             */
+            suffix?: string;
+        }
+
+        /**
+         * Formats various aspects of numeric values.
+         */
+        export class NumberFormat extends DefaultFormatter {
+            constructor(options?: NumberFormatOptions);
+            /**
+             * Returns the formatted value of a given value. This method does not require a DataTable.
+             */
+            formatValue(value: number): string;
+        }
+
+        /**
+         * Concatenates cell values on the same row into a specified cell, along with arbitrary text.
+         */
+        export class PatternFormat {
+            /**
+             * Constructor.
+             * Does not take an options object. Instead, it takes a string pattern parameter.
+             * This is a string that describes which column values to put into the destination column, along with any arbitrary text. Embed placeholders in your string to indicate a value from another column to embed. The placeholders are {#}, where # is a the index of a source column to use. The index is an index in the srcColumnIndices array from the format() method below. To include a literal { or } character, escape it like this: \{ or \}. To include a literal \ mark, escape it as \\.
+             */
+            constructor(pattern: string);
+            /**
+             * The standard formatting call, with a few additional parameters
+             *
+             * @param dataTable - The DataTable on which to operate.
+             * @param srcColumnIndices - An array of one or more (zero-based) column indices to pull as the sources from the underlying DataTable. This will be used as a data source for the pattern parameter in the constructor. The column numbers do not have to be in sorted order.
+             * @param opt_dstColumnIndex - The destination column to place the output of the pattern manipulation. If not specified, the first element in srcColumIndices will be used as the destination.
+             */
+            format(dataTable: DataTable, srcColumnIndices: number[], opt_dstColumnIndex?: number): void;
         }
 
         //#endregion

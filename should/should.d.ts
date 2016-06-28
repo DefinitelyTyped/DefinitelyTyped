@@ -1,7 +1,7 @@
-// Type definitions for should.js 3.1.2
-// Project: https://github.com/visionmedia/should.js
+// Type definitions for should.js v8.1.1
+// Project: https://github.com/shouldjs/should.js
 // Definitions by: Alex Varju <https://github.com/varju/>, Maxime LUCE <https://github.com/SomaticIT/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Object {
   should: ShouldAssertion;
@@ -13,34 +13,49 @@ interface ShouldAssertion {
   an: ShouldAssertion;
   and: ShouldAssertion;
   be: ShouldAssertion;
+  has: ShouldAssertion;
   have: ShouldAssertion;
+  is: ShouldAssertion;
+  it: ShouldAssertion;
   with: ShouldAssertion;
+  which: ShouldAssertion;
+  the: ShouldAssertion;
   of: ShouldAssertion;
   not: ShouldAssertion;
 
   // validators
-  arguments: ShouldAssertion;
-  empty: ShouldAssertion;
-  ok: ShouldAssertion;
-  true: ShouldAssertion;
-  false: ShouldAssertion;
-  NaN: ShouldAssertion;
-  Infinity: ShouldAssertion;
-  Array: ShouldAssertion;
-  Object: ShouldAssertion;
-  String: ShouldAssertion;
-  Boolean: ShouldAssertion;
-  Number: ShouldAssertion;
-  Error: ShouldAssertion;
-  Function: ShouldAssertion;
+  arguments(): ShouldAssertion;
+  empty(): ShouldAssertion;
+  ok(): ShouldAssertion;
+  true(): ShouldAssertion;
+  false(): ShouldAssertion;
+  NaN(): ShouldAssertion;
+  Infinity(): ShouldAssertion;
+  Array(): ShouldAssertion;
+  Object(): ShouldAssertion;
+  String(): ShouldAssertion;
+  Boolean(): ShouldAssertion;
+  Number(): ShouldAssertion;
+  Error(): ShouldAssertion;
+  Function(): ShouldAssertion;
+  Date(): ShouldAssertion;
+  Class(): ShouldAssertion;
+  generator(): ShouldAssertion;
+  iterable(): ShouldAssertion;
+  iterator(): ShouldAssertion;
   eql(expected: any, description?: string): ShouldAssertion;
   equal(expected: any, description?: string): ShouldAssertion;
+  equalOneOf(...values: any[]): ShouldAssertion;
   within(start: number, finish: number, description?: string): ShouldAssertion;
   approximately(value: number, delta: number, description?: string): ShouldAssertion;
   type(expected: any, description?: string): ShouldAssertion;
   instanceof(constructor: Function, description?: string): ShouldAssertion;
   above(n: number, description?: string): ShouldAssertion;
   below(n: number, description?: string): ShouldAssertion;
+  aboveOrEqual(n: number, description?: string): ShouldAssertion;
+  greaterThanOrEqual(n: number, description?: string): ShouldAssertion;
+  belowOrEqual(n: number, description?: string): ShouldAssertion;
+  lessThanOrEqual(n: number, description?: string): ShouldAssertion;
   match(other: {}, description?: string): ShouldAssertion;
   match(other: (val: any) => any, description?: string): ShouldAssertion;
   match(regexp: RegExp, description?: string): ShouldAssertion;
@@ -60,31 +75,60 @@ interface ShouldAssertion {
   properties(name: string): ShouldAssertion;
   properties(descriptor: any): ShouldAssertion;
   properties(...properties: string[]): ShouldAssertion;
+  propertyByPath(...properties: string[]): ShouldAssertion;
+  propertyWithDescriptor(name: string, descriptor: PropertyDescriptor): ShouldAssertion;
+  oneOf(...values: any[]): ShouldAssertion;
   ownProperty(name: string, description?: string): ShouldAssertion;
-  contain(obj: any): ShouldAssertion;
   containEql(obj: any): ShouldAssertion;
   containDeep(obj: any): ShouldAssertion;
+  containDeepOrdered(obj: any): ShouldAssertion;
   keys(...allKeys: string[]): ShouldAssertion;
   keys(allKeys: string[]): ShouldAssertion;
-  header(field: string, val?: string): ShouldAssertion;
-  status(code: number): ShouldAssertion;
-  json: ShouldAssertion;
-  html: ShouldAssertion;
+  enumerable(property: string, value?: any): ShouldAssertion;
+  enumerables(...properties: string[]): ShouldAssertion;
   startWith(expected: string, message?: any): ShouldAssertion;
   endWith(expected: string, message?: any): ShouldAssertion;
   throw(message?: any): ShouldAssertion;
 
-  // deprecated
-  include(obj: any, description?: string): ShouldAssertion;
-  includeEql(obj: any[], description?: string): ShouldAssertion;
+  //http
+  header(field: string, val?: string): ShouldAssertion;
+  status(code: number): ShouldAssertion;
+  json(): ShouldAssertion;
+  html(): ShouldAssertion;
+
+  //stubs
+  alwaysCalledOn(thisTarget: any): ShouldAssertion;
+  alwaysCalledWith(...arguments: any[]): ShouldAssertion;
+  alwaysCalledWithExactly(...arguments: any[]): ShouldAssertion;
+  alwaysCalledWithMatch(...arguments: any[]): ShouldAssertion;
+  alwaysCalledWithNew(): ShouldAssertion;
+  alwaysThrew(exception?: any): ShouldAssertion;
+  callCount(count: number): ShouldAssertion;
+  called(): ShouldAssertion;
+  calledOn(thisTarget: any): ShouldAssertion;
+  calledOnce(): ShouldAssertion;
+  calledTwice(): ShouldAssertion;
+  calledThrice(): ShouldAssertion;
+  calledWith(...arguments: any[]): ShouldAssertion;
+  calledWithExactly(...arguments: any[]): ShouldAssertion;
+  calledWithMatch(...arguments: any[]): ShouldAssertion;
+  calledWithNew(): ShouldAssertion;
+  neverCalledWith(...arguments: any[]): ShouldAssertion;
+  neverCalledWithMatch(...arguments: any[]): ShouldAssertion;
+  threw(exception?: any): ShouldAssertion;
 
   // aliases
+  True(): ShouldAssertion;
+  False(): ShouldAssertion;
+  Arguments(): ShouldAssertion;
+  class(): ShouldAssertion;
+  deepEqual(expected: any, description?: string): ShouldAssertion;
   exactly(expected: any, description?: string): ShouldAssertion;
   instanceOf(constructor: Function, description?: string): ShouldAssertion;
   throwError(message?: any): ShouldAssertion;
   lengthOf(n: number, description?: string): ShouldAssertion;
   key(key: string): ShouldAssertion;
-  haveOwnProperty(name: string, description?: string): ShouldAssertion;
+  hasOwnProperty(name: string, description?: string): ShouldAssertion;
   greaterThan(n: number, description?: string): ShouldAssertion;
   lessThan(n: number, description?: string): ShouldAssertion;
 }

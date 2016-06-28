@@ -409,7 +409,7 @@ function assertIsRPCMethod(rpc: ProtoBuf.ReflectRPCMethod, name: string) {
     assertIsMethod(rpc, name);
 
     assertIsMessage(rpc.resolvedRequestType, name + ".resolvedRequestType");
-    assertIsMessage(rpc.resolveResponseType, name + ".resolvedResponsetype");
+    assertIsMessage(rpc.resolvedResponseType, name + ".resolvedResponsetype");
 }
 
 testProtoBufJs();

@@ -1,5 +1,5 @@
 /// <reference path="dagre-d3.d.ts"/>
-module DagreD3Tests {
+namespace DagreD3Tests {
     var gDagre = new dagreD3.graphlib.Graph();
     var graph = gDagre.graph();
 

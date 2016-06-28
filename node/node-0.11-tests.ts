@@ -114,7 +114,7 @@ request.abort();
 ////////////////////////////////////////////////////
 /// Http tests : http://nodejs.org/api/http.html
 ////////////////////////////////////////////////////
-module http_tests {
+namespace http_tests {
     // Status codes
     var code = 100;
     var codeMessage = http.STATUS_CODES['400'];

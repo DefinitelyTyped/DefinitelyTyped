@@ -1,7 +1,7 @@
 ﻿// Type definitions for pty.js 0.2.7-1
 // Project: https://github.com/chjj/pty.js
 // Definitions by: Vadim Macagon <https://github.com/enlight/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -78,16 +78,18 @@ declare module 'pty.js' {
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
     
         // NodeJS EventEmitter interface
-    
-        addListener(event: string, listener: Function): NodeJS.EventEmitter;
-        on(event: string, listener: Function): NodeJS.EventEmitter;
-        once(event: string, listener: Function): NodeJS.EventEmitter;
-        removeListener(event: string, listener: Function): NodeJS.EventEmitter;
-        removeAllListeners(event?: string): NodeJS.EventEmitter;
+
+        addListener(event: string, listener: Function): this;
+        on(event: string, listener: Function): this;
+        once(event: string, listener: Function): this;
+        removeListener(event: string, listener: Function): this;
+        removeAllListeners(event?: string): this;
         // NOTE: this method is not actually defined in pty.js
-        setMaxListeners(n: number): void;
+        setMaxListeners(n: number): this;
+        getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
+        listenerCount(type: string): number;
     }
 
     /** 

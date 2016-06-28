@@ -1,7 +1,7 @@
 // Type definitions for Incremetal DOM
 // Project: https://github.com/google/incremental-dom
 // Definitions by: Basarat Ali Syed <https://github.com/basarat>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "incremental-dom" {
     /**
@@ -57,7 +57,7 @@ declare module "incremental-dom" {
     /**
      * Closes an open virtual Element.
      */
-    export var elementClose: () => void;
+    export var elementClose: (tag: string) => void;
     /**
      * Declares a virtual Element at the current location in the document that has
      * no children.

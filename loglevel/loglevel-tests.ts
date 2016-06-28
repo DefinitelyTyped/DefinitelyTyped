@@ -13,8 +13,15 @@ log.setLevel(0, false);
 log.setLevel("error");
 log.setLevel("error", false);
 
-log.setLevel(log.levels.WARN);
-log.setLevel(log.levels.WARN, false);
+log.setLevel(LogLevel.WARN);
+log.setLevel(LogLevel.WARN, false);
+
+var logLevel = log.getLevel();
+
+var testLogger = log.getLogger("TestLogger");
+
+testLogger.setLevel(logLevel);
+testLogger.warn("logging test");
 
 var logging = log.noConflict();
 

@@ -1,7 +1,7 @@
 // Type definitions for form-data
 // Project: https://github.com/felixge/node-form-data
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/form-data.d.ts
 

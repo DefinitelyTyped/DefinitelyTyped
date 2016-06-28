@@ -1,7 +1,7 @@
 // Type definitions for Mongoose 3.8.5
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../node/node.d.ts" />
 
@@ -178,7 +178,7 @@ declare module "mongoose" {
   }
 
   export interface Model<T extends Document> extends NodeJS.EventEmitter {
-    new(doc?: Object): T;
+    new(doc?: Object, fields?: Object, skipInit?: boolean): T;
 
     aggregate(...aggregations: Object[]): Aggregate<T[]>;
     aggregate(aggregation: Object, callback: (err: any, res: T[]) => void): Promise<T[]>;
@@ -212,8 +212,8 @@ declare module "mongoose" {
     findOneAndUpdate(cond: Object, update: Object, callback?: (err: any, res: T) => void): Query<T>;
     findOneAndUpdate(cond: Object, update: Object, options: FindAndUpdateOption, callback?: (err: any, res: T) => void): Query<T>;
 
-    geoNear(point: { type: string; coordinates: number[] }, options: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
-    geoNear(point: number[], options: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
+    geoNear(point: { type: string; coordinates: number[] }, options: Object, callback?: (err: any, res: T[], stats: any) => void): Query<T[]>;
+    geoNear(point: number[], options: Object, callback?: (err: any, res: T[], stats: any) => void): Query<T[]>;
     geoSearch(cond: Object, options: GeoSearchOption, callback?: (err: any, res: T[]) => void): Query<T[]>;
     increment(): T;
     mapReduce<K, V>(options: MapReduceOption<T, K, V>, callback?: (err: any, res: MapReduceResult<K, V>[]) => void): Promise<MapReduceResult<K, V>[]>;
@@ -423,7 +423,7 @@ declare module "mongoose" {
 
   export interface Document {
     id?: string;
-    _id: Types.ObjectId;
+    _id: any;
 
     equals(doc: Document): boolean;
     get(path: string, type?: new(...args: any[]) => any): any;

@@ -1,7 +1,7 @@
 ﻿// Type definitions for sanitize-html 1.6.0
 // Project: https://github.com/punkave/sanitize-html
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 declare module "sanitize-html" {

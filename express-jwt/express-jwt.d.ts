@@ -1,7 +1,7 @@
 // Type definitions for express-jwt
 // Project: https://www.npmjs.org/package/express-jwt
 // Definitions by: Wonshik Kim <https://github.com/wokim/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 /// <reference path="../express-unless/express-unless.d.ts" />
@@ -18,9 +18,9 @@ declare module "express-jwt" {
 
     type ICallback = <T>(req: express.Request, payload: T, done: IDoneCallback<boolean>) => void;
 
-    module jwt {
+    namespace jwt {
         export interface Options {
-            secret: string|ICallback;
+            secret: string|Buffer|ICallback;
             userProperty?: string;
             skip?: string[];
             credentialsRequired?: boolean;

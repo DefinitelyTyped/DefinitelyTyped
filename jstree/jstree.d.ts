@@ -1,7 +1,7 @@
 ﻿// Type definitions for jsTree v3.0.9 
 // Project: http://www.jstree.com/
 // Definitions by: Adam Pluciński <https://github.com/adaskothebeast>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // 45 commit df38535 2015-03-02 13:23 +2:00
 
 ///<reference path="../jquery/jquery.d.ts" />

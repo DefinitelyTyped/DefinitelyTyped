@@ -1,7 +1,7 @@
 // Type definitions for glDatePicker 2.0
 // Project: http://glad.github.com/glDatePicker/
 // Definitions by: Dániel Tar <https://github.com/qcz>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 

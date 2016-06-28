@@ -1,7 +1,7 @@
 // Type definitions for xmlbuilder
 // Project: https://github.com/oozcitak/xmlbuilder-js
 // Definitions by: Wallymathieu <http://github.com/wallymathieu>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'xmlbuilder' {
     export = xmlbuilder;
@@ -83,7 +83,7 @@ declare module 'xmlbuilder' {
         u(): XMLElementOrXMLNode;
     }
 
-    module xmlbuilder {
+    namespace xmlbuilder {
         function create(name: string, xmldec?: Object, doctype?: any, options?: Object): XMLElementOrXMLNode;
     }
 }

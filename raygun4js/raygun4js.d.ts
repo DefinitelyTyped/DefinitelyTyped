@@ -1,9 +1,9 @@
 ﻿// Type definitions for raygun4js 1.18.3
 // Project: https://github.com/MindscapeHQ/raygun4js
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module raygun {
+declare namespace raygun {
 
     // https://github.com/MindscapeHQ/raygun4js/blob/c7d8880045214ab6d403d5cc613c207f696a3cdd/src/raygun.js#L533-539
     interface IStackTrace {

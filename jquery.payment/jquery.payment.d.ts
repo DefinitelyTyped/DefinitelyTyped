@@ -1,9 +1,9 @@
 ﻿// Type definitions for jQuery.payment
 // Project: https://github.com/stripe/jquery.payment
 // Definitions by: Eric J. Smith <https://github.com/ejsmith/>, John Rutherford <https://github.com/johnrutherford/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module JQueryPayment {
+declare namespace JQueryPayment {
 
     interface Payment {
         /**
@@ -11,7 +11,7 @@ declare module JQueryPayment {
          * * Validates numbers
          * * Validates Luhn algorithm
          * * Validates length
-         * 
+         *
          * @param cardNumber The card number to validate.
          */
         validateCardNumber(cardNumber: string): boolean;
@@ -21,7 +21,7 @@ declare module JQueryPayment {
          * * Validates numbers
          * * Validates in the future
          * * Supports year shorthand
-         * 
+         *
          * @param year The year to validate.
          * @param month The months to validate.
          */
@@ -32,7 +32,7 @@ declare module JQueryPayment {
          * * Validates numbers
          * * Validates in the future
          * * Supports year shorthand
-         * 
+         *
          * @param expiry An object with the year and month to validate.
          */
         validateCardExpiry(expiry: ExpiryInfo): boolean;
@@ -41,7 +41,7 @@ declare module JQueryPayment {
          * Validates a card CVC:
          * * Validates number
          * * Validates length to 4
-         * 
+         *
          * @param cvc The CVC value to validate.
          * @param type Optional card type.
          */
@@ -49,15 +49,15 @@ declare module JQueryPayment {
 
         /**
          * Returns a card type. The function will return null if the card type can't be determined.
-         * 
+         *
          * @param cardNumber The card number to parse.
          */
         cardType(cardNumber: string): string;
 
         /**
-         * Parses a credit card expiry in the form of MM/YYYY, returning an object containing the month and 
+         * Parses a credit card expiry in the form of MM/YYYY, returning an object containing the month and
          * year. Shorthand years, such as 13 are also supported (and converted into the longhand, e.g. 2013).
-         * 
+         *
          * @param monthYear The value to parse.
          */
         cardExpiryVal(monthYear: string): ExpiryInfo;

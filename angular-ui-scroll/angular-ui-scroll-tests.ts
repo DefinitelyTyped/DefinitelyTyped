@@ -1,7 +1,7 @@
 /// <reference path="angular-ui-scroll.d.ts" />
 var myApp = angular.module('application', ['ui.scroll', 'ui.scroll.jqlite']);
 
-module application {
+namespace application {
     interface IItem {
         id: number;
         content: string;

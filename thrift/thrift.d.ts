@@ -1,7 +1,7 @@
 // Type definitions for thrift 0.9.2
 // Project: https://www.npmjs.com/package/thrift
 // Definitions by: Zachary Collins <https://github.com/corps>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one

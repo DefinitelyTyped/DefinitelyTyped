@@ -1,14 +1,14 @@
 // Type definitions for Ember.js 1.11.3
 // Project: http://emberjs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../handlebars/handlebars-1.0.0.d.ts" />
 
 declare var Handlebars: HandlebarsStatic;
 
-declare module EmberStates {
+declare namespace EmberStates {
 
     interface Transition {
         targetName: string;
@@ -156,9 +156,9 @@ declare module EmberStates {
 
 }
 
-declare module EmberTesting {
+declare namespace EmberTesting {
 
-    module Test {
+    namespace Test {
 
         class Adapter {
             asyncEnd(): void;
@@ -349,7 +349,7 @@ interface CoreObjectArguments {
     Override to implement teardown.
     **/
     willDestroy?: Function;
-    
+
     [propName: string]: any;
 }
 
@@ -402,7 +402,7 @@ interface ModifyObserver {
     (obj: any, path: string, func: Function, method?: string): void;
 }
 
-declare module Ember {
+declare namespace Ember {
     /**
     Alias for jQuery.
     **/
@@ -1262,7 +1262,7 @@ declare module Ember {
         isFrozen: boolean;
     }
     var GUID_KEY: string;
-    module Handlebars {
+    namespace Handlebars {
         function compile(string: string): Function;
         function get(root: any, path: string, options?: {}): any;
         function helper(name: string, func: Function, dependentKeys?: string): void;
@@ -1784,7 +1784,7 @@ declare module Ember {
     }
 
     // FYI - RSVP source comes from https://github.com/tildeio/rsvp.js/blob/master/lib/rsvp/promise.js
-    module RSVP {
+    namespace RSVP {
         interface PromiseResolve {
             (value?: any): void;
         }
@@ -2643,7 +2643,7 @@ declare module Ember {
         errorOnUnhandledEvents: boolean;
         transitionEvent: string;
     }
-    module String {
+    namespace String {
         function camelize(str: string): string;
         function capitalize(str: string): string;
         function classify(str: string): string;
@@ -3005,7 +3005,7 @@ declare module Ember {
 }
 
 // ReSharper disable DuplicatingLocalDeclaration
-declare module Em {
+declare namespace Em {
     /**
     Alias for jQuery.
     **/
@@ -3050,7 +3050,7 @@ declare module Em {
     var FROZEN_ERROR: typeof Ember.FROZEN_ERROR;
     class Freezable extends Ember.Freezable { }
     var GUID_KEY: typeof Ember.GUID_KEY;
-    module Handlebars {
+    namespace Handlebars {
         var compile: typeof Ember.Handlebars.compile;
         var get: typeof Ember.Handlebars.get;
         var helper: typeof Ember.Handlebars.helper;
@@ -3098,7 +3098,7 @@ declare module Em {
     class ObjectProxy extends Ember.ObjectProxy { }
     class Observable extends Ember.Observable { }
     class OrderedSet extends Ember.OrderedSet { }
-    module RSVP {
+    namespace RSVP {
         interface PromiseResolve extends Ember.RSVP.PromiseResolve { }
         interface PromiseReject extends Ember.RSVP.PromiseReject { }
         interface PromiseResolverFunction extends Ember.RSVP.PromiseResolverFunction { }
@@ -3116,7 +3116,7 @@ declare module Em {
     class SortableMixin extends Ember.SortableMixin { }
     class State extends Ember.State { }
     class StateManager extends Ember.StateManager { }
-    module String {
+    namespace String {
         var camelize: typeof Ember.String.camelize;
         var capitalize: typeof Ember.String.capitalize;
         var classify: typeof Ember.String.classify;
@@ -3294,7 +3294,7 @@ declare module "Ember" {
     var FROZEN_ERROR: typeof Ember.FROZEN_ERROR;
     class Freezable extends Ember.Freezable { }
     var GUID_KEY: typeof Ember.GUID_KEY;
-    module Handlebars {
+    namespace Handlebars {
         var compile: typeof Ember.Handlebars.compile;
         var get: typeof Ember.Handlebars.get;
         var helper: typeof Ember.Handlebars.helper;
@@ -3342,7 +3342,7 @@ declare module "Ember" {
     class ObjectProxy extends Ember.ObjectProxy { }
     class Observable extends Ember.Observable { }
     class OrderedSet extends Ember.OrderedSet { }
-    module RSVP {
+    namespace RSVP {
         interface PromiseResolve extends Ember.RSVP.PromiseResolve { }
         interface PromiseReject extends Ember.RSVP.PromiseReject { }
         interface PromiseResolverFunction extends Ember.RSVP.PromiseResolverFunction { }
@@ -3360,7 +3360,7 @@ declare module "Ember" {
     class SortableMixin extends Ember.SortableMixin { }
     class State extends Ember.State { }
     class StateManager extends Ember.StateManager { }
-    module String {
+    namespace String {
         var camelize: typeof Ember.String.camelize;
         var capitalize: typeof Ember.String.capitalize;
         var classify: typeof Ember.String.classify;

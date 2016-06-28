@@ -1,7 +1,7 @@
 // Type definitions for redis 0.12.1
 // Project: https://github.com/mranney/node_redis
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, Peter Harris <https://github.com/CodeAnimal>, TANAKA Koichi <https://github.com/MugeSo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/redis.d.ts
 
@@ -46,6 +46,7 @@ declare module "redis" {
         connect_timeout?: number;
         max_attempts?: number;
         auth_pass?: string;
+        password?: string;
         family?: string;
         command_queue_high_water?: number;
         command_queue_low_water?: number;
@@ -358,8 +359,17 @@ declare module "redis" {
         eval(...args:any[]): boolean;
         evalsha(args:any[], callback?:ResCallbackT<any>): boolean;
         evalsha(...args:any[]): boolean;
+        script(args:any[], callback?:ResCallbackT<any>): boolean;
+        script(...args: any[]): boolean;
+        script(key: string, callback?: ResCallbackT<any>): boolean;
         quit(args:any[], callback?:ResCallbackT<any>): boolean;
         quit(...args:any[]): boolean;
+        scan(...args:any[]): boolean;
+        scan(args:any[], callback?:ResCallbackT<any>): boolean;
+        hscan(...args:any[]): boolean;
+        hscan(args:any[], callback?:ResCallbackT<any>): boolean;
+        zscan(...args:any[]): boolean;
+        zscan(args:any[], callback?:ResCallbackT<any>): boolean;
     }
 
     export interface Multi {
@@ -622,5 +632,11 @@ declare module "redis" {
         evalsha(...args:any[]): Multi;
         quit(args:any[], callback?:ResCallbackT<any>): Multi;
         quit(...args:any[]): Multi;
+        scan(...args:any[]): Multi;
+        scan(args:any[], callback?:ResCallbackT<any>): Multi;
+        hscan(...args:any[]): Multi;
+        hscan(args:any[], callback?:ResCallbackT<any>): Multi;
+        zscan(...args:any[]): Multi;
+        zscan(args:any[], callback?:ResCallbackT<any>): Multi;
     }
 }

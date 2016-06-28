@@ -8,7 +8,7 @@
 // This is for TypeScript 1.4
 // TODO: TypeScript 1.5 modules and destructuring
 
-declare module go {
+declare namespace go {
     /** A number in place of a Margin object is treated as a uniform Margin with that thickness */
     type MarginLike = Margin | number;
 

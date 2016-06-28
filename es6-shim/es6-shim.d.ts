@@ -1,7 +1,7 @@
 // Type definitions for es6-shim v0.31.2
 // Project: https://github.com/paulmillr/es6-shim
 // Definitions by: Ron Buckton <http://github.com/rbuckton>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare type PropertyKey = string | number | symbol;
 
@@ -621,7 +621,7 @@ interface WeakSetConstructor {
 
 declare var WeakSet: WeakSetConstructor;
 
-declare module Reflect {
+declare namespace Reflect {
     function apply(target: Function, thisArgument: any, argumentsList: ArrayLike<any>): any;
     function construct(target: Function, argumentsList: ArrayLike<any>): any;
     function defineProperty(target: any, propertyKey: PropertyKey, attributes: PropertyDescriptor): boolean;
@@ -649,7 +649,7 @@ declare module "es6-shim" {
     var WeakMap: WeakMapConstructor;
     var WeakSet: WeakSetConstructor;
     var Promise: PromiseConstructor;
-    module Reflect {
+    namespace Reflect {
         function apply(target: Function, thisArgument: any, argumentsList: ArrayLike<any>): any;
         function construct(target: Function, argumentsList: ArrayLike<any>): any;
         function defineProperty(target: any, propertyKey: PropertyKey, attributes: PropertyDescriptor): boolean;

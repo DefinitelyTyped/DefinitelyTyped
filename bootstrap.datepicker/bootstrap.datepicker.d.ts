@@ -1,7 +1,7 @@
 // Type definitions for bootstrap.datepicker
 // Project: https://github.com/eternicode/bootstrap-datepicker
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
@@ -44,8 +44,8 @@ interface DatepickerEventObject extends JQueryEventObject {
 
 interface JQuery {
     datepicker(): JQuery;
-    datepicker(methodName: string): JQuery;
-    datepicker(methodName: string, params: any): JQuery;
+    datepicker(methodName: string): any;
+    datepicker(methodName: string, params: any): any;
     datepicker(options: DatepickerOptions): JQuery;
 
     off(events: "changeDate", selector?: string, handler?: (eventObject: DatepickerEventObject) => any): JQuery;

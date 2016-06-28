@@ -1,9 +1,9 @@
 ﻿// Type definitions for page v1.5.0
 // Project: http://visionmedia.github.io/page.js/
 // Definitions by: Alan Norbauer <http://alan.norbauer.com/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module PageJS {
+declare namespace PageJS {
     interface Static {
         /**
          *  Defines a route mapping path to the given callback(s).
@@ -35,23 +35,23 @@ declare module PageJS {
         (fromPath: string, toPath: string): void;
         /**
          * Register page's popstate / click bindings. If you're doing selective binding you'll like want to pass { click: false } to specify this yourself. The following options are available:
-         * 
+         *
          *     - click bind to click events [true]
          *     - popstate bind to popstate[true]
          *     - dispatch perform initial dispatch[true]
          *     - hashbang add #!before urls[false]
-         * 
+         *
          * If you wish to load serve initial content from the server you likely will want to set dispatch to false.
          */
         (options: Options): void;
         /**
          * Register page's popstate / click bindings. If you're doing selective binding you'll like want to pass { click: false } to specify this yourself. The following options are available:
-         * 
+         *
          *     - click bind to click events [true]
          *     - popstate bind to popstate[true]
          *     - dispatch perform initial dispatch[true]
          *     - hashbang add #!before urls[false]
-         * 
+         *
          * If you wish to load serve initial content from the server you likely will want to set dispatch to false.
          */
         (): void;
@@ -83,31 +83,31 @@ declare module PageJS {
          *        page('/user/12')
          *        e.preventDefault()
          *      })
-         * 
+         *
          * Identical to page(path).
          */
         show(path: string): void;
         /**
          * Register page's popstate / click bindings. If you're doing selective binding you'll like want to pass { click: false } to specify this yourself. The following options are available:
-         * 
+         *
          *     - click bind to click events [true]
          *     - popstate bind to popstate[true]
          *     - dispatch perform initial dispatch[true]
          *     - hashbang add #!before urls[false]
-         * 
+         *
          * If you wish to load serve initial content from the server you likely will want to set dispatch to false.
-         * 
+         *
          * Identical to page([options]).
          */
         start(options: Options): void;
         /**
          * Register page's popstate / click bindings. If you're doing selective binding you'll like want to pass { click: false } to specify this yourself. The following options are available:
-         * 
+         *
          *     - click bind to click events [true]
          *     - popstate bind to popstate[true]
          *     - dispatch perform initial dispatch[true]
          *     - hashbang add #!before urls[false]
-         * 
+         *
          * If you wish to load serve initial content from the server you likely will want to set dispatch to false.
          */
         start(): void;
@@ -121,14 +121,14 @@ declare module PageJS {
         base(path?: string): void;
         /**
          * Defines an exit route mapping path to the given callback(s).
-         *  
+         *
          * Exit routes are called when a page changes, using the context from the previous change. For example:
-         *     
+         *
          *     page('/sidebar', function(ctx, next) {
          *       sidebar.open = true
          *       next()
          *     })
-         *     
+         *
          *     page.exit('/sidebar', function(next) {
          *       sidebar.open = false
          *       next()

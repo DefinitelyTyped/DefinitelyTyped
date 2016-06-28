@@ -1,11 +1,11 @@
 ﻿// Type definitions for angular-gettext v2.1.0
 // Project: https://angular-gettext.rocketeer.be/
 // Definitions by: Ákos Lukács <https://github.com/AkosLukacs>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.gettext {
+declare namespace angular.gettext {
   interface gettextCatalog {
 
     //////////////
@@ -24,7 +24,7 @@ declare module angular.gettext {
     translatedMarkerSuffix: string;
     /** An object of loaded translation strings.Shouldn't be used directly. */
     strings: {};
-    /** The default language, in which you're application is written. This defaults to English and it's generally a bad idea to use anything else: if your language has different pluralization rules you'll end up with incorrect translations. Deprecated 
+    /** The default language, in which you're application is written. This defaults to English and it's generally a bad idea to use anything else: if your language has different pluralization rules you'll end up with incorrect translations. Deprecated
      * @deprecreated
      */
     baseLanguage: string;
@@ -51,7 +51,7 @@ declare module angular.gettext {
     /** Get the correct pluralized (but untranslated) string for the value of n. */
     getStringForm(string: string, n: number): string;
 
-    /** Translate a string with the given context. Uses Angular.JS interpolation, so something like this will do what you expect: 
+    /** Translate a string with the given context. Uses Angular.JS interpolation, so something like this will do what you expect:
      * var hello = gettextCatalog.getString("Hello {{name}}!", { name: "Ruben" });
      * // var hello will be "Hallo Ruben!" in Dutch.
      * The context parameter is optional: pass null (or don't pass anything) if you're not using it: this skips interpolation and is a lot faster.

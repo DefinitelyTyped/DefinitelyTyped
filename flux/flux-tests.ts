@@ -1,6 +1,12 @@
 ﻿/// <reference path="flux.d.ts" />
+﻿/// <reference path="../react/react.d.ts" />
 
 import flux = require('flux')
+import FluxUtils = require('flux/utils')
+import React = require('react')
+
+var Component = React.Component
+var Container = FluxUtils.Container
 
 //
 // Basic dispatcher usage
@@ -79,3 +85,45 @@ class CustomDispatcher extends flux.Dispatcher<Action> {
 var customDispatcher = new CustomDispatcher()
 
 export = customDispatcher
+
+
+// Sample Reduce Store
+class CounterStore extends FluxUtils.ReduceStore<number> {
+  getInitialState(): number {
+    return 0;
+  }
+
+  reduce(state: number, action: any): number {
+    switch (action.type) {
+      case 'increment':
+        return state + 1;
+
+      case 'square':
+        return state * state;
+
+      default:
+        return state;
+    }
+  }
+}
+
+const Store = new CounterStore(basicDispatcher);
+
+// Sample Flux container with CounterStore
+class CounterContainer extends Component<any, any> {
+  static getStores() {
+    return [Store];
+  }
+
+  static calculateState(prevState: any) {
+    return {
+      counter: Store.getState(),
+    };
+  }
+
+  render() {
+    return this.state.counter;
+  }
+}
+
+const container = Container.create(CounterContainer);

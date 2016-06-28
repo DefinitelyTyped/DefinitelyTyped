@@ -1,7 +1,7 @@
 // Type definitions for YDN-DB version 1
 // Project: http://dev.yathit.com/ydn-db/index.html
 // Definitions by: Kyaw Tun <https://github.com/yathit>, Gabriel Monteagudo <https://github.com/gabrielmaldi>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface FullTextSource {
   storeName: string;
@@ -46,7 +46,7 @@ interface StorageOptions {
   requestType?: string;
 }
 
-declare module ydn.db {
+declare namespace ydn.db {
   export class Request {
     abort(): any;
     always(callback: (data: any) => void): any;
@@ -246,7 +246,7 @@ declare module ydn.db {
   }
 }
 
-declare module ydb.db.algo {
+declare namespace ydb.db.algo {
 
   export class Solver {
 
@@ -266,7 +266,7 @@ declare module ydb.db.algo {
 
 }
 
-declare module ydn.db.events {
+declare namespace ydn.db.events {
 
   export class Event {
 

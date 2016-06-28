@@ -1,7 +1,7 @@
 // Type definitions for he v0.5.0
 // Project: https://github.com/mathiasbynens/he
 // Definitions by: Simon Edwards <https://github.com/sedwards2009>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // he - "HTML Entities" - A high quality pair of HTML encode and decode functions.
 
