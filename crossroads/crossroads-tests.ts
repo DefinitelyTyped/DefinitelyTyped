@@ -1,4 +1,4 @@
-
+import crossroads = require('crossroads');
 
 //String rule with param:
 //match '/news/123' passing "123" as param to handler

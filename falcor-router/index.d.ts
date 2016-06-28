@@ -4,24 +4,26 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference types="falcor" />
+import * as FalcorModel from 'falcor';
+import * as FalcorJsonGraph from 'falcor-json-graph';
+import DataSource = FalcorModel.DataSource;
+
+declare class FalcorRouter extends DataSource {
+
+    constructor(routes: Array<FalcorRouter.RouteDefinition>, options?: FalcorRouter.RouterOptions);
+
+    /**
+     * When a route misses on a call, get, or set the unhandledDataSource will
+     * have a chance to fulfill that request.
+     **/
+    routeUnhandledPathsTo(dataSource: DataSource): void;
+
+    static createClass(routes?: Array<FalcorRouter.RouteDefinition>): typeof FalcorRouter.CreatedRouter;
+}
+
 declare namespace FalcorRouter {
 
-    import DataSource = FalcorModel.DataSource;
-
-    class Router extends DataSource {
-
-        constructor(routes: Array<RouteDefinition>, options?: RouterOptions);
-
-        /**
-         * When a route misses on a call, get, or set the unhandledDataSource will
-         * have a chance to fulfill that request.
-         **/
-        routeUnhandledPathsTo(dataSource: DataSource): void;
-
-        static createClass(routes?: Array<RouteDefinition>): typeof CreatedRouter;
-    }
-
-    class CreatedRouter extends Router {
+    class CreatedRouter extends FalcorRouter {
         constructor(options?: RouterOptions);
     }
 
@@ -53,7 +55,5 @@ declare namespace FalcorRouter {
     }
 }
 
-declare module 'falcor-router' {
-    export = FalcorRouter.Router;
-}
+export = FalcorRouter;
 

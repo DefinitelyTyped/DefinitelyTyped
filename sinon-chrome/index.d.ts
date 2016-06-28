@@ -14,6 +14,11 @@
  * var chrome = <typeof SinonChrome> <any> window.chrome;
  * chrome.storage.onChanged.trigger(...);
  */
+
+import * as Sinon from 'sinon';
+export = SinonChrome;
+export as namespace SinonChrome;
+
 declare namespace SinonChrome {
     /**
      * Flush cache

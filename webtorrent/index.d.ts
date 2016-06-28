@@ -6,6 +6,8 @@
 /// <reference types="node" />
 /// <reference types="parse-torrent" />
 
+import ParseTorrent = require("parse-torrent");
+
 declare var webTorrentStatic:WebTorrent.ClientConstructor;
 export = webTorrentStatic;
 export as namespace WebTorrent;
