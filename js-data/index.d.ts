@@ -344,7 +344,4 @@ declare var JSData:{
     DSErrors: JSData.DSErrors;
 };
 
-//Support node require
-declare module 'js-data' {
-    export = JSData;
-}
+export = JSData;

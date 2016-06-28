@@ -9,10 +9,6 @@
 *                                               *
 ************************************************/
 
-interface Error {
-    stack?: string;
-}
-
 
 // compat for TypeScript 1.8
 // if you use with --target es3 or --target es5 and use below definitions,

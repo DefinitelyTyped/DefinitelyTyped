@@ -6,41 +6,45 @@
 /// <reference types="angularjs" />
 /// <reference types="fb" />
 
-declare namespace angular.ngFacebook {
-    interface IFacebookProvider {
-        setAppId(appId: string): IFacebookProvider;
-        getAppId(): string;
+import * as angular from 'angularjs';
 
-        setVersion(version: string): IFacebookProvider;
-        getVersion(): string;
+declare module 'angularjs' {
+    export namespace ngFacebook {
+        interface IFacebookProvider {
+            setAppId(appId: string): IFacebookProvider;
+            getAppId(): string;
 
-        setPermissions(permissions: string|Array<string>): IFacebookProvider;
-        getPermissions(): string;
+            setVersion(version: string): IFacebookProvider;
+            getVersion(): string;
 
-        setCustomInit(customInit: FBInitParams): IFacebookProvider;
-        getCustomInit(): FBInitParams;
-    }
+            setPermissions(permissions: string | Array<string>): IFacebookProvider;
+            getPermissions(): string;
 
-    interface IFacebookService {
-        config<T extends string|number|FBInitParams>(property: string): T;
-        init(): void;
+            setCustomInit(customInit: FBInitParams): IFacebookProvider;
+            getCustomInit(): FBInitParams;
+        }
 
-        setCache<T>(attr: string, val: T): void;
-        getCache<T>(attr: string): T;
-        clearCache(): void;
+        interface IFacebookService {
+            config<T extends string | number | FBInitParams>(property: string): T;
+            init(): void;
 
-        isConnected(): boolean;
-        getAuthResponse(): {};
-        getLoginStatus(force?: boolean): angular.IPromise<{}>;
-        login(permissions?: string, rerequest?: boolean): angular.IPromise<{}>;
-        logout(): angular.IPromise<void>;
+            setCache<T>(attr: string, val: T): void;
+            getCache<T>(attr: string): T;
+            clearCache(): void;
 
-        ui(params: FBUIParams): angular.IPromise<any>;
-        api(path: string): angular.IPromise<{}>;
-        api(path: string, method: string): angular.IPromise<{}>;
-        api(path: string, params: Object): angular.IPromise<{}>;
-        api(path: string, method: string, params: Object): angular.IPromise<{}>;
+            isConnected(): boolean;
+            getAuthResponse(): {};
+            getLoginStatus(force?: boolean): angular.IPromise<{}>;
+            login(permissions?: string, rerequest?: boolean): angular.IPromise<{}>;
+            logout(): angular.IPromise<void>;
 
-        cachedApi(path: string): angular.IPromise<any>;
+            ui(params: FBUIParams): angular.IPromise<any>;
+            api(path: string): angular.IPromise<{}>;
+            api(path: string, method: string): angular.IPromise<{}>;
+            api(path: string, params: Object): angular.IPromise<{}>;
+            api(path: string, method: string, params: Object): angular.IPromise<{}>;
+
+            cachedApi(path: string): angular.IPromise<any>;
+        }
     }
 }

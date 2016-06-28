@@ -5,18 +5,22 @@
 
 /// <reference types="angularjs"/>
 
-declare namespace angular.localStorage {
-  interface ILocalStorageService {
-    set(key: string, value: any): any;
-    get(key: string): any;
-    remove(key: string): boolean;
-    clearAll(): void;
+import * as angular from 'angularjs';
 
-    bind($scope: ng.IScope, key: string, opts?: {
-      defaultValue?: any;
-      storeName?: string;
-    }): any;
-    unbind($scope: ng.IScope, key: string, storeName?: string): void;
+declare module 'angularjs' {
+  export namespace localStorage {
+    interface ILocalStorageService {
+      set(key: string, value: any): any;
+      get(key: string): any;
+      remove(key: string): boolean;
+      clearAll(): void;
+
+      bind($scope: ng.IScope, key: string, opts?: {
+        defaultValue?: any;
+        storeName?: string;
+      }): any;
+      unbind($scope: ng.IScope, key: string, storeName?: string): void;
+    }
   }
 }
 

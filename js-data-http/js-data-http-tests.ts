@@ -1,4 +1,5 @@
-
+import * as JSData from 'js-data';
+import DSHttpAdapter = require("js-data-http");
 
 var adapter = new DSHttpAdapter();
 var store = new JSData.DS();

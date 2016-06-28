@@ -5,46 +5,50 @@
 
 /// <reference types="angularjs" />
 
-declare namespace angular.hotkeys {
+import * as angular from 'angularjs';
 
-    interface HotkeysProvider {
-        template: string;
-        templateTitle:string;
-        includeCheatSheet: boolean;
-        cheatSheetHotkey: string;
-        cheatSheetDescription: string;
+declare module 'angularjs' {
+    export namespace hotkeys {
 
-        add(combo: string|string[], callback: (event: Event, hotkey?: Hotkey) => void, action?: string, allowIn?: Array<string>, persistent?: boolean): ng.hotkeys.Hotkey;
+        interface HotkeysProvider {
+            template: string;
+            templateTitle: string;
+            includeCheatSheet: boolean;
+            cheatSheetHotkey: string;
+            cheatSheetDescription: string;
 
-        add(combo: string|string[], description: string, callback: (event: Event, hotkey?: Hotkey) => void, action?: string, allowIn?: Array<string>, persistent?: boolean): ng.hotkeys.Hotkey;
+            add(combo: string | string[], callback: (event: Event, hotkey?: Hotkey) => void, action?: string, allowIn?: Array<string>, persistent?: boolean): ng.hotkeys.Hotkey;
 
-        add(hotkeyObj: ng.hotkeys.Hotkey): ng.hotkeys.Hotkey;
+            add(combo: string | string[], description: string, callback: (event: Event, hotkey?: Hotkey) => void, action?: string, allowIn?: Array<string>, persistent?: boolean): ng.hotkeys.Hotkey;
 
-        bindTo(scope : ng.IScope): ng.hotkeys.HotkeysProviderChained;
+            add(hotkeyObj: ng.hotkeys.Hotkey): ng.hotkeys.Hotkey;
 
-        del(combo: string|string[]): void;
+            bindTo(scope: ng.IScope): ng.hotkeys.HotkeysProviderChained;
 
-        del(hotkeyObj: ng.hotkeys.Hotkey): void;
+            del(combo: string | string[]): void;
 
-        get(combo: string|string[]): ng.hotkeys.Hotkey;
+            del(hotkeyObj: ng.hotkeys.Hotkey): void;
 
-        toggleCheatSheet(): void;
+            get(combo: string | string[]): ng.hotkeys.Hotkey;
 
-        purgeHotkeys(): void;
-    }
+            toggleCheatSheet(): void;
 
-    interface HotkeysProviderChained {
-        add(combo: string|string[], description: string, callback: (event: Event, hotkeys: ng.hotkeys.Hotkey) => void): HotkeysProviderChained;
+            purgeHotkeys(): void;
+        }
 
-        add(hotkeyObj: ng.hotkeys.Hotkey): HotkeysProviderChained;
-    }
+        interface HotkeysProviderChained {
+            add(combo: string | string[], description: string, callback: (event: Event, hotkeys: ng.hotkeys.Hotkey) => void): HotkeysProviderChained;
 
-    interface Hotkey {
-        combo: string|string[];
-        description?: string;
-        callback: (event: Event, hotkey: ng.hotkeys.Hotkey) => void;
-        action?: string;
-        allowIn?: Array<string>;
-        persistent?: boolean;
+            add(hotkeyObj: ng.hotkeys.Hotkey): HotkeysProviderChained;
+        }
+
+        interface Hotkey {
+            combo: string | string[];
+            description?: string;
+            callback: (event: Event, hotkey: ng.hotkeys.Hotkey) => void;
+            action?: string;
+            allowIn?: Array<string>;
+            persistent?: boolean;
+        }
     }
 }

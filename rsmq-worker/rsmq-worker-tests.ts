@@ -1,4 +1,4 @@
-
+import * as RedisSMQ from 'rsmq';
 import RSMQWorker = require('rsmq-worker');
 
 var worker: RSMQWorker.Client;
