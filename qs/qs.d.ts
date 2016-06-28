@@ -1,9 +1,9 @@
 // Type definitions for qs
 // Project: https://github.com/hapijs/qs
 // Definitions by: Roman Korneev <https://github.com/RWander>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module QueryString {
+declare namespace QueryString {
     interface IStringifyOptions {
         delimiter?: string;
         strictNullHandling?: boolean;

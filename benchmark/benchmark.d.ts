@@ -1,7 +1,7 @@
 // Type definitions for Benchmark v1.0.0
 // Project: http://benchmarkjs.com
 // Definitions by: Asana <https://asana.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "benchmark" {
     class Benchmark {
@@ -60,7 +60,7 @@ declare module "benchmark" {
         toString(): string;
     }
 
-    module Benchmark {
+    namespace Benchmark {
         export interface Options {
             async?: boolean;
             defer?: boolean;

@@ -1,11 +1,11 @@
 ﻿// Type definitions for SimpleModal 1.4.4
 // Project: http://www.ericmmartin.com/projects/simplemodal/
 // Definitions by: Friedrich von Never <https://github.com/ForNeVeR>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module SimpleModal {
+declare namespace SimpleModal {
     interface SimpleModalOptions {
         /** The jQuery selector to append the elements to. For ASP.NET, use 'form'. Default: 'body'. */
         appendTo?: string;

@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module ngCordova {
+declare namespace ngCordova {
     export interface IBadgeService {
         hasPermission(): ng.IPromise<boolean>;
         promptForPermission(): ng.IPromise<any>;

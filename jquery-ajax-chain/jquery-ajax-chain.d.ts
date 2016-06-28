@@ -1,11 +1,11 @@
 // Type definitions for jquery-ajax-chain v 1.0.4
 // Project: https://github.com/humana-fragilitas/jQuery-Ajax-Chain/
 // Definitions by: Andrea Blasio <https://github.com/humana-fragilitas>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module ajaxChain {
+declare namespace ajaxChain {
 
     /**
      * Static members of JQueryAjaxChain
@@ -92,6 +92,6 @@ interface JQueryStatic {
     /**
      * JQueryAjaxChain constructor
      */
-    AjaxChain: ajaxChain.JQueryAjaxChainStatic; 
+    AjaxChain: ajaxChain.JQueryAjaxChainStatic;
 
 }

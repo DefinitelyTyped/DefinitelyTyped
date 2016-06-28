@@ -1,7 +1,7 @@
 // Type definitions for async-writer 1.4.1
 // Project: https://github.com/marko-js/async-writer
 // Definitions by: Yuce Tekol <http://yuce.me/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -9,7 +9,7 @@ declare module 'async-writer' {
 	import stream = require('stream');
 	import events = require('events');
 
-	module async_writer {
+	namespace async_writer {
 		interface EventFunction {
 			(event: string, callback: Function): void;
 		}

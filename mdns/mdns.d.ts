@@ -1,11 +1,11 @@
 // Type definitions for node_mdns
 // Project: https://github.com/agnat/node_mdns
 // Definitions by: Stefan Steinhart <https://github.com/reppners>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
-declare module MDNS {
+declare namespace MDNS {
 
     // --- Error ---
 
@@ -49,6 +49,9 @@ declare module MDNS {
     interface Browser extends NodeJS.EventEmitter {
         start():any;
         stop():any;
+        on(event:string, listener:Function):this;
+        on(event:'serviceUp', listener:(info:Service)=>void):this;
+        on(event:'serviceDown', listener:(info:Service)=>void):this;
     }
 
     interface BrowserStatic {

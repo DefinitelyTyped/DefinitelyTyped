@@ -1,7 +1,7 @@
 // Type definitions for JSZip
 // Project: http://stuk.github.com/jszip/
 // Definitions by: mzeiher <https://github.com/mzeiher>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface JSZip {
     /**

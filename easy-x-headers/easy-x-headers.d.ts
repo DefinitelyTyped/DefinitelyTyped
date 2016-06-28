@@ -1,11 +1,11 @@
 // Type definitions for easy-x-headers
 // Project: https://github.com/DeadAlready/easy-x-headers
 // Definitions by: Karl Düüna <https://github.com/DeadAlready/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 
-declare module Express {
+declare namespace Express {
     export interface Request {
         info: any;
     }

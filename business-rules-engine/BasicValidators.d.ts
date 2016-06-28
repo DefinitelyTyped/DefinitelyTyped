@@ -1,14 +1,14 @@
 // Type definitions for business-rules-engine - v1.0.20
 // Project: https://github.com/rsamec/form
 // Definitions by: Roman Samec <https://github.com/rsamec>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../underscore/underscore.d.ts" />
 /// <reference path="../q/Q.d.ts" />
 /// <reference path="../moment/moment.d.ts" />
 /// <reference path="../node/node.d.ts" />
 /// <reference path="business-rules-engine.d.ts" />
-declare module Validators {
+declare namespace Validators {
     class LettersOnlyValidator implements Validation.IStringValidator {
         public isAcceptable(s: string): boolean;
         public tagName: string;

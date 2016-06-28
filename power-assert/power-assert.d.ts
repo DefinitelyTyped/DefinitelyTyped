@@ -1,7 +1,7 @@
 // Type definitions for power-assert
 // Project: https://github.com/twada/power-assert
 // Definitions by: vvakame <https://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // copy from assert external module in node.d.ts
 
@@ -37,6 +37,10 @@ declare namespace assert {
 
     export function notStrictEqual(actual:any, expected:any, message?:string):void;
 
+    export function deepStrictEqual(actual:any, expected:any, message?:string):void;
+
+    export function notDeepStrictEqual(actual:any, expected:any, message?:string):void;
+
     export var throws:{
         (block:Function, message?:string): void;
         (block:Function, error:Function, message?:string): void;
@@ -62,5 +66,5 @@ declare namespace assert {
 }
 
 declare module "power-assert" {
-    export default assert;
+    export = assert;
 }

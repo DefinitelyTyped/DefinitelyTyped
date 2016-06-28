@@ -1,8 +1,9 @@
 // Type definitions for FHIR DSTU2 v1.0.0
 // Project: http://www.hl7.org/fhir/2015Sep/index.html
 // Definitions by: Artifact Health <http://www.artifacthealth.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-declare module fhir {
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+declare namespace fhir {
     type id = string;
     /**
      * String of characters used to identify a name or a resource

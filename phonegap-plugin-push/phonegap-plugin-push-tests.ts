@@ -9,13 +9,38 @@ function test() {
 			sound: true,
 			vibrate: true,
 			clearNotifications: false,
-			forceShow: true
+			forceShow: true,
+			topics: ['foo', 'bar']
 		},
 		ios: {
 			badge: true,
 			sound: true,
 			alert: true,
-			clearBadge: true
+			clearBadge: true,
+			senderID: '123456789',
+			gcmSandbox: true,
+			categories: {
+				"invite": {
+					yes: {
+						callback: "app.accept", title: "Accept", foreground: true, destructive: false
+					},
+					no: {
+						callback: "app.reject", title: "Reject", foreground: true, destructive: false
+					},
+					maybe: {
+						callback: "app.maybe", title: "Maybe", foreground: true, destructive: false
+					}
+				},
+				"delete": {
+					yes: {
+						callback: "app.doDelete", title: "Delete", foreground: true, destructive: true
+					},
+					no: {
+						callback: "app.cancel", title: "Cancel", foreground: true, destructive: false
+					}
+				}
+			},
+			topics: ['foo', 'bar']
 		},
 		windows: {}
 	};
@@ -39,7 +64,7 @@ function test() {
 		console.log('did unregister');
 	}, () => {
 		console.log('did not unregister');
-	});
+	}, ['foo','bar']);
 
 	/*from init*/
 	push = PushNotification.init(options);
@@ -59,12 +84,13 @@ function test() {
 		/*the rest of the additional fields are not 'canon'*/
 		console.log(data.additionalData);
 		console.log(data.additionalData.foreground);
+		console.log(data.additionalData.coldstart);
 
 		push.finish(() => {
 			console.log('did finish');
 		}, () => {
 			console.log('did not finish');
-		});
+		}, 'push-1');
 	};
 
 	let errorHandler = (e: Error) => {

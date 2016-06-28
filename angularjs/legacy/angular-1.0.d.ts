@@ -1,7 +1,7 @@
 // Type definitions for Angular JS 1.0
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../../jquery/jquery.d.ts" />
@@ -16,7 +16,7 @@ interface Function {
 ///////////////////////////////////////////////////////////////////////////////
 // ng module (angular.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module ng {
+declare namespace ng {
 
     // All service providers extend this interface
     interface IServiceProvider {
@@ -679,7 +679,7 @@ declare module ng {
         scope?: any;
         link?: Function;
         compile?: Function;
-        controller?: any; 
+        controller?: any;
     }
 
     ///////////////////////////////////////////////////////////////////////////

@@ -1,7 +1,7 @@
 // Type definitions for electron-builder v2.0.2
 // Project: https://github.com/loopline-systems/electron-builder
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
