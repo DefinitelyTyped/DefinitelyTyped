@@ -1,7 +1,7 @@
 ﻿// Type definitions for jQuery Tooltipster 3.0.5
 // Project: https://github.com/iamceege/tooltipster
 // Definitions by: Patrick Magee <https://github.com/pjmagee/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 

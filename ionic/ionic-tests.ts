@@ -84,13 +84,19 @@ class IonicTestController {
 
     private testActionSheet(): void {
         var closeActionSheetFn: ()=>void = this.$ionicActionSheet.show({
-            buttons: [],
+            buttons: [{ text: 'A button' }],
             titleText: "titleText",
             cancelText: "cancelText",
             destructiveText: "destructiveText",
             cancel: ()=>{ console.log("cancel"); },
-            buttonClicked: ()=>{ console.log("buttonClicked"); },
-            destructiveButtonClicked: ()=>{ console.log("destructiveButtonClicked"); },
+            buttonClicked: (index)=>{ 
+                console.log("buttonClicked");
+                return index === 0;
+            },
+            destructiveButtonClicked: ()=>{
+                console.log("destructiveButtonClicked");
+                return false;
+            },
             cancelOnStateChange: true,
             cssClass: "cssClass"
         });
@@ -102,7 +108,7 @@ class IonicTestController {
     }
     private testGesture(): void {
         var gesture: ionic.gestures.IonicGesture = this.$ionicGesture.on(
-            'eventType', 
+            'eventType',
             (e)=>{ return e; },
             angular.element("body"),
             {}
@@ -143,6 +149,7 @@ class IonicTestController {
         ionicModalController.initialize(modalOptions);
         ionicModalController.show().then(() => console.log("shown modal"))
         ionicModalController.hide().then(() => console.log("hid modal"))
+        ionicModalController.remove().then(() => console.log("removed modal"))
         var isShown: boolean = ionicModalController.isShown();
 
         this.$ionicModal.fromTemplateUrl("templateUrl", modalOptions)
@@ -193,8 +200,9 @@ class IonicTestController {
         };
         var ionicPopoverController: ionic.popover.IonicPopoverController = this.$ionicPopover.fromTemplate("template", popoverOptions);
         ionicPopoverController.initialize(popoverOptions);
-        ionicPopoverController.show(angular.element("body")).then(() => console.log("shown popover"))
-        ionicPopoverController.hide().then(() => console.log("hid popover"))
+        ionicPopoverController.show(angular.element("body")).then(() => console.log("shown popover"));
+        ionicPopoverController.hide().then(() => console.log("hid popover"));
+        ionicPopoverController.remove().then(() => console.log("removed popover"));
         var isShown: boolean = ionicPopoverController.isShown();
 
         this.$ionicPopover.fromTemplateUrl("templateUrl", popoverOptions)
@@ -226,7 +234,7 @@ class IonicTestController {
             cssClass: "cssClass",
             template: "template",
             templateUrl: "templateUrl",
-            okText: "OK", 
+            okText: "OK",
             okType: "okType"
         }).then(() => console.log("popover shown"))
         this.$ionicPopup.alert({
@@ -235,7 +243,7 @@ class IonicTestController {
             cssClass: "cssClass",
             template: "template",
             templateUrl: "templateUrl",
-            okText: "OK", 
+            okText: "OK",
             okType: "okType"
         }).close();
 
@@ -245,20 +253,20 @@ class IonicTestController {
             cssClass: "cssClass",
             template: "template",
             templateUrl: "templateUrl",
-            okText: "OK", 
+            okText: "OK",
             okType: "okType",
-            cancelText: "Cancel", 
+            cancelText: "Cancel",
             cancelType: "cancelType"
-        }).then(() => console.log("popover shown"))
+        }).then((result) => console.log(result === true ? "confirmed": "cancelled"))
         this.$ionicPopup.confirm({
             title: "title",
             subTitle: "subTitle",
             cssClass: "cssClass",
             template: "template",
             templateUrl: "templateUrl",
-            okText: "OK", 
+            okText: "OK",
             okType: "okType",
-            cancelText: "Cancel", 
+            cancelText: "Cancel",
             cancelType: "cancelType"
         }).close();
 
@@ -268,9 +276,9 @@ class IonicTestController {
             cssClass: "cssClass",
             template: "template",
             templateUrl: "templateUrl",
-            okText: "OK", 
+            okText: "OK",
             okType: "okType",
-            cancelText: "Cancel", 
+            cancelText: "Cancel",
             cancelType: "cancelType",
             inputType: "text",
             inputPlaceholder: "Type some text..."
@@ -281,9 +289,9 @@ class IonicTestController {
             cssClass: "cssClass",
             template: "template",
             templateUrl: "templateUrl",
-            okText: "OK", 
+            okText: "OK",
             okType: "okType",
-            cancelText: "Cancel", 
+            cancelText: "Cancel",
             cancelType: "cancelType",
             inputType: "text",
             inputPlaceholder: "Type some text..."
@@ -354,10 +362,47 @@ class IonicTestController {
         this.$ionicTabsDelegate.select(1);
         var selectedIndex: number = this.$ionicTabsDelegate.selectedIndex();
         var ionicTabsDelegate: ionic.tabs.IonicTabsDelegate = this.$ionicTabsDelegate.$getByHandle("handle");
+        this.$ionicTabsDelegate.showBar(true);
+        var isBarShown: boolean = this.$ionicTabsDelegate.showBar();
     }
     private testUtility(): void {
         var {top: number, left: number, width: number, height: number} = this.$ionicPositionService.position(angular.element("body"));
         var {top: number, left: number, width: number, height: number} = this.$ionicPositionService.offset(angular.element("body"));
+    }
+
+    /**
+     * ionic.version
+     */
+    private testStaticVersion(): void {
+        var version: string = ionic.version;
+    }
+
+    /**
+     * ionic.Platform
+     */
+    private testStaticPlaform(): void {
+        var callbackWithoutReturn: ()=>void;
+        var callbackWithReturn: ()=>boolean;
+        var ready: void = ionic.Platform.ready(callbackWithoutReturn);
+        ready = ionic.Platform.ready(callbackWithReturn);
+        var setGrade: void = ionic.Platform.setGrade('iOS');
+        var deviceInformation: string = ionic.Platform.device();
+        var isWebView: boolean = ionic.Platform.isWebView();
+        var isIPad: boolean = ionic.Platform.isIPad();
+        var isIOS: boolean = ionic.Platform.isIOS();
+        var isAndroid: boolean = ionic.Platform.isAndroid();
+        var isWindowsPhone: boolean = ionic.Platform.isWindowsPhone();
+        var currentPlatform: string = ionic.Platform.platform();
+        var currentPlatformVersion: number = ionic.Platform.version();
+        var exitApp: void = ionic.Platform.exitApp();
+        var showStatusBar: void = ionic.Platform.showStatusBar(true);
+        var showStatusBar: void = ionic.Platform.fullScreen();
+        showStatusBar = ionic.Platform.fullScreen(true);
+        showStatusBar = ionic.Platform.fullScreen(true, true);
+        var isReady: boolean = ionic.Platform.isReady;
+        var isFullScreen: boolean = ionic.Platform.isFullScreen;
+        var platforms: Array<string> = ionic.Platform.platforms;
+        var grade: string = ionic.Platform.grade;
     }
 }
 

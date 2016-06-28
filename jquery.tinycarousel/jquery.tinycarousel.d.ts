@@ -1,11 +1,11 @@
 ﻿// Type definitions for jQuery tinycarousel 1.9
 // Project: http://baijs.nl/tinycarousel/
 // Definitions by: Christiaan Rakowski <https://github.com/csrakowski/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module JQueryTinyCarousel {
+declare namespace JQueryTinyCarousel {
     export interface JQueryTinyCarouselOptions {
         /**
         * Start block of the carousel. (default: 1)
@@ -38,7 +38,7 @@ declare module JQueryTinyCarousel {
         /**
         * Interval time in milliseconds. (default: 3000)
         */
-        intervaltime?: number; 
+        intervaltime?: number;
         /**
         * Show animation when changing block? (default: true)
         */

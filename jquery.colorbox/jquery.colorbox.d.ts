@@ -1,7 +1,7 @@
 // Type definitions for jQuery.Colorbox 1.4.15
 // Project: http://www.jacklmoore.com/colorbox/
 // Definitions by: Gidon Junge <https://github.com/gjunge>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped/
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
 
 /// <reference path="../jquery/jquery.d.ts" />
 
@@ -105,6 +105,10 @@ interface ColorboxSettings {
     * Text or HTML for the close button. The 'esc' key will also close Colorbox.
     */
     close?: string;
+    /**
+    * Set to false to remove the close button.
+    */
+    closeButton?: boolean;
     /**
     * Error message given when ajax content for a given URL cannot be loaded.
     */

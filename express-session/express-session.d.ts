@@ -1,11 +1,12 @@
 // Type definitions for express-session
 // Project: https://www.npmjs.org/package/express-session
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
-declare module Express {
+declare namespace Express {
 
   export interface Request {
     session?: Session;
@@ -36,14 +37,15 @@ declare module Express {
 
 declare module "express-session" {
   import express = require('express');
+  import node = require('events');
 
   function session(options?: session.SessionOptions): express.RequestHandler;
 
-  module session {
+  namespace session {
     export interface SessionOptions {
       secret: string;
       name?: string;
-      store?: Store;
+      store?: Store | MemoryStore;
       cookie?: express.CookieOptions;
       genid?: (req: express.Request) => string;
       rolling?: boolean;
@@ -53,14 +55,23 @@ declare module "express-session" {
       unset?: string;
     }
 
-    export interface Store {
+	export interface BaseMemoryStore {
       get: (sid: string, callback: (err: any, session: Express.Session) => void) => void;
       set: (sid: string, session: Express.Session, callback: (err: any) => void) => void;
       destroy: (sid: string, callback: (err: any) => void) => void;
       length?: (callback: (err: any, length: number) => void) => void;
       clear?: (callback: (err: any) => void) => void;
     }
-    export class MemoryStore implements Store {
+
+    export abstract class Store extends node.EventEmitter {
+	  constructor(config?: any);
+
+	  regenerate (req: express.Request, fn: (err: any) => any): void;
+      load (sid: string, fn: (err: any, session: Express.Session) => any): void;
+      createSession (req: express.Request, sess: Express.Session): void;
+    }
+
+    export class MemoryStore implements BaseMemoryStore {
       get: (sid: string, callback: (err: any, session: Express.Session) => void) => void;
       set: (sid: string, session: Express.Session, callback: (err: any) => void) => void;
       destroy: (sid: string, callback: (err: any) => void) => void;

@@ -1,12 +1,12 @@
-﻿// Type definitions for Navigation 1.1.0
+﻿// Type definitions for Navigation 1.3.0
 // Project: http://grahammendick.github.io/navigation/
 // Definitions by: Graham Mendick <https://github.com/grahammendick>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module 'navigation' {
     export = Navigation;
-} 
+}
 
-declare module Navigation {
+declare namespace Navigation {
     /**
      * Defines a contract a class must implement in order to represent a
      * logical grouping of child State elements. Navigating across different
@@ -31,10 +31,14 @@ declare module Navigation {
          * Gets the textual description of the dialog
          */
         title?: string;
+        /**
+         * Gets the additional dialog attributes
+         */
+        [extras: string]: any;
     }
 
     /**
-     * Defines a contract a class must implement in order to configure state 
+     * Defines a contract a class must implement in order to configure state
      * information. A child of a Dialog element, it represents the endpoint of
      * a navigation
      */
@@ -65,9 +69,9 @@ declare module Navigation {
          */
         route: string | string[];
         /**
-         * Gets a value that indicates whether to maintain crumb trail 
+         * Gets a value that indicates whether to maintain crumb trail
          * information e.g PreviousState. This can be used together with Route
-         * to produce user friendly Urls 
+         * to produce user friendly Urls
          */
         trackCrumbTrail?: boolean;
         /**
@@ -75,10 +79,14 @@ declare module Navigation {
          * preserved when navigating
          */
         trackTypes?: boolean;
+        /**
+         * Gets the additional state attributes
+         */
+        [extras: string]: any;
     }
 
     /**
-     * Defines a contract a class must implement in order to configure 
+     * Defines a contract a class must implement in order to configure
      * transition information. A child of a State element it represents a
      * possible navigation from its Parent to a sibling State
      */
@@ -94,9 +102,9 @@ declare module Navigation {
          */
         key: string;
     }
-    
+
     /**
-     * Configures dialog information. Represents a logical grouping of child 
+     * Configures dialog information. Represents a logical grouping of child
      * State elements. Navigating across different dialogs will initialise the
      * crumb trail
      */
@@ -116,7 +124,7 @@ declare module Navigation {
          */
         index: number;
         /**
-         * Gets the state to navigate to if the Key is passed as an action 
+         * Gets the state to navigate to if the Key is passed as an action
          * parameter to the StateController
          */
         initial: State;
@@ -132,7 +140,7 @@ declare module Navigation {
     }
 
     /**
-     * Configures state information. A child of a Dialog element, it 
+     * Configures state information. A child of a Dialog element, it
      * represents the endpoint of a navigation
      */
     class State implements IState<{ [index: string]: Transition; }> {
@@ -184,9 +192,9 @@ declare module Navigation {
          */
         route: string | string[];
         /**
-         * Gets a value that indicates whether to maintain crumb trail 
+         * Gets a value that indicates whether to maintain crumb trail
          * information e.g PreviousState. This can be used together with Route
-         * to produce user friendly Urls 
+         * to produce user friendly Urls
          */
         trackCrumbTrail: boolean;
         /**
@@ -200,7 +208,7 @@ declare module Navigation {
          */
         stateHandler: IStateHandler;
         /**
-         * Called on the old State (this is not the same as the previous 
+         * Called on the old State (this is not the same as the previous
          * State) before navigating to a different State
          * @param state The new State
          * @param data The new NavigationData
@@ -210,7 +218,7 @@ declare module Navigation {
          */
         unloading: (state: State, data: any, url: string, unload: () => void, history?: boolean) => void;
         /**
-         * Called on the old State (this is not the same as the previous 
+         * Called on the old State (this is not the same as the previous
          * State) after navigating to a different State
          */
         dispose: () => void;
@@ -280,6 +288,24 @@ declare module Navigation {
     }
 
     /**
+     * Determines the effect on browser history after a successful navigation
+     */
+    enum HistoryAction {
+        /**
+         * Creates a new browser history entry
+         */
+        Add = 0,
+        /**
+         * Changes the current browser history entry
+         */
+        Replace = 1,
+        /**
+         * Leaves browser history unchanged
+         */
+        None = 2,
+    }
+
+    /**
      * Defines a contract a class must implement in order to manage the browser
      * Url
      */
@@ -295,9 +321,17 @@ declare module Navigation {
         /**
          * Adds browser history
          * @param state The State navigated to
-         * @param url The current url 
+         * @param url The current url
          */
         addHistory(state: State, url: string): void;
+        /**
+         * Adds browser history
+         * @param state The State navigated to
+         * @param url The current url
+         * @param replace A value indicating whether to replace the current
+         * browser history entry
+         */
+        addHistory(state: State, url: string, replace: boolean): void;
         /**
          * Gets the current location
          */
@@ -307,7 +341,7 @@ declare module Navigation {
          */
         getHref(url: string): string;
         /**
-         * Gets a Url from the anchor 
+         * Gets a Url from the anchor
          */
         getUrl(anchor: HTMLAnchorElement): string;
     }
@@ -320,7 +354,7 @@ declare module Navigation {
     class HashHistoryManager implements IHistoryManager {
         /**
          * Gets or sets a value indicating whether to disable browser history.
-         * Set to true if used in a browser without the hashchange event or 
+         * Set to true if used in a browser without the hashchange event or
          * outside of a browser environment
          */
         disabled: boolean;
@@ -336,9 +370,17 @@ declare module Navigation {
         /**
          * Sets the browser Url's hash to the url
          * @param state The State navigated to
-         * @param url The current url 
+         * @param url The current url
          */
         addHistory(state: State, url: string): void;
+        /**
+         * Sets the browser Url's hash to the url
+         * @param state The State navigated to
+         * @param url The current url
+         * @param replace A value indicating whether to replace the current
+         * browser history entry
+         */
+        addHistory(state: State, url: string, replace: boolean): void;
         /**
          * Gets the current location
          */
@@ -348,7 +390,7 @@ declare module Navigation {
          */
         getHref(url: string): string;
         /**
-         * Gets a Url from the anchor 
+         * Gets a Url from the anchor
          */
         getUrl(anchor: HTMLAnchorElement): string;
     }
@@ -361,7 +403,7 @@ declare module Navigation {
     class HTML5HistoryManager implements IHistoryManager {
         /**
          * Gets or sets a value indicating whether to disable browser history.
-         * Set to true if used in a browser without the HTML5 history api or 
+         * Set to true if used in a browser without the HTML5 history api or
          * outside of a browser environment
          */
         disabled: boolean;
@@ -372,9 +414,17 @@ declare module Navigation {
         /**
          * Sets the browser Url to the url using pushState
          * @param state The State navigated to
-         * @param url The current url 
+         * @param url The current url
          */
         addHistory(state: State, url: string): void;
+        /**
+         * Sets the browser Url to the url using pushState
+         * @param state The State navigated to
+         * @param url The current url
+         * @param replace A value indicating whether to replace the current
+         * browser history entry
+         */
+        addHistory(state: State, url: string, replace: boolean): void;
         /**
          * Gets the current location
          */
@@ -384,34 +434,34 @@ declare module Navigation {
          */
         getHref(url: string): string;
         /**
-         * Gets a Url from the anchor 
+         * Gets a Url from the anchor
          */
         getUrl(anchor: HTMLAnchorElement): string;
     }
-    
+
     /**
      * Provides the base functionality for crumb trail persistence mechanisms
      */
     class CrumbTrailPersister {
         /**
          * Overridden by derived classes to return the persisted crumb trail
-         * @param crumbTrail The key, returned from the save function, to 
+         * @param crumbTrail The key, returned from the save function, to
          * identify the persisted crumb trail
          * @returns The crumb trail holding navigation and data information
          */
         load(crumbTrail: string): string;
         /**
          * Overridden by derived classes to persist the crumb trail
-         * @param crumbTrail The crumb trail holding navigation and data 
+         * @param crumbTrail The crumb trail holding navigation and data
          * information
          * @returns The key to be passed to load function for crumb trail
          * retrieval
          */
         save(crumbTrail: string): string;
-    }    
+    }
 
     /**
-     * Persists crumb trails, over a specified length, in localStorage. 
+     * Persists crumb trails, over a specified length, in localStorage.
      * Prevents the creation of unmanageably long Urls. If used in a browser
      * without localStorage or outside of a browser environment, then in memory
      * storage is used
@@ -453,11 +503,11 @@ declare module Navigation {
          * crumb trail from storage. If retrieved from storage it may be null
          * @param Key generated by the save function
          * @returns Either the crumbTrail or the one retrieved value from
-         * storage; can be null if retrieved from storage 
+         * storage; can be null if retrieved from storage
          */
         load(crumbTrail: string): string;
         /**
-         * If the crumbTrail is not over the maxLength it is returned. 
+         * If the crumbTrail is not over the maxLength it is returned.
          * Otherwise the crumbTrail is stored in storage using a short key,
          * unique within a given storage session. Also expunges old items from
          * storage, if the historySize is breached when a new item is added
@@ -480,6 +530,14 @@ declare module Navigation {
          */
         getNavigationLink(state: State, data: any): string;
         /**
+         * Gets a link that navigates to the state passing the data
+         * @param state The State to navigate to
+         * @param data The data to pass when navigating
+         * @param queryStringData The query string array data
+         * @returns The navigation link
+         */
+        getNavigationLink(state: State, data: any, queryStringData: { [index: string]: string[]; }): string;
+        /**
          * Navigates to the url
          * @param oldState The current State
          * @param state The State to navigate to
@@ -493,6 +551,30 @@ declare module Navigation {
          * @returns The navigation data
          */
         getNavigationData(state: State, url: string): any;
+        /**
+         * Gets the data parsed from the url
+         * @param state The State navigated to
+         * @param url The current url
+         * @param queryStringData Stores query string keys
+         * @returns The navigation data
+         */
+        getNavigationData(state: State, url: string, queryStringData: any): any;
+        /**
+         * Encodes the Url value
+         * @param state The State navigated to
+         * @param key The key of the navigation data item
+         * @param val The Url value of the navigation data item
+         * @param queryString A value indicating the Url value's location
+         */
+        urlEncode?(state: State, key: string, val: string, queryString: boolean): string;
+        /**
+         * Decodes the Url value
+         * @param state The State navigated to
+         * @param key The key of the navigation data item
+         * @param val The Url value of the navigation data item
+         * @param queryString A value indicating the Url value's location
+         */
+        urlDecode?(state: State, key: string, val: string, queryString: boolean): string;
         /**
          * Truncates the crumb trail
          * @param The State navigated to
@@ -587,6 +669,16 @@ declare module Navigation {
          * ReturnData should be part of the CrumbTrail
          */
         combineCrumbTrail: boolean;
+        /**
+         * Gets or sets a value indicating whether to track PreviousData when
+         * navigating back or refreshing and combineCrumbTrail is false
+         */
+        trackAllPreviousData: boolean;
+        /**
+         * Gets or sets a value indicating whether arrays should be stored in
+         * a single query string parameter
+         */
+        combineArray: boolean;
     }
 
     /**
@@ -596,6 +688,18 @@ declare module Navigation {
      */
     class StateContext {
         /**
+         * Gets the last State displayed before the current State
+         */
+        static oldState: State;
+        /**
+         * Gets the parent of the OldState property
+         */
+        static oldDialog: Dialog;
+        /**
+         * Gets the NavigationData for the last displayed State
+         */
+        static oldData: any;
+        /**
          * Gets the State navigated away from to reach the current State
          */
         static previousState: State;
@@ -603,6 +707,10 @@ declare module Navigation {
          * Gets the parent of the PreviousState property
          */
         static previousDialog: Dialog;
+        /**
+         * Gets the NavigationData for the navigated away from State
+         */
+        static previousData: any;
         /**
          * Gets the current State
          */
@@ -612,21 +720,24 @@ declare module Navigation {
          */
         static dialog: Dialog;
         /**
-         * Gets the NavigationData for the current State. It can be accessed.
-         * Will become the data stored in a Crumb when part of a crumb trail
+         * Gets the NavigationData for the current State
          */
         static data: any;
         /**
          * Gets the current Url
          */
         static url: string;
-        /** 
+        /**
+         * Gets or sets the current title
+         */
+        static title: string;
+        /**
          * Combines the data with all the current NavigationData
          * @param The data to add to the current NavigationData
          * @returns The combined data
          */
         static includeCurrentData(data: any): any;
-        /** 
+        /**
          * Combines the data with a subset of the current NavigationData
          * @param The data to add to the current NavigationData
          * @returns The combined data
@@ -661,6 +772,10 @@ declare module Navigation {
          */
         static setStateContext(state: State, url: string): void;
         /**
+         * Clears the Context Data
+         */
+        static clearStateContext(): void;
+        /**
          * Registers a navigate event listener
          * @param handler The navigate event listener
          */
@@ -694,6 +809,20 @@ declare module Navigation {
          * @throws A mandatory route parameter has not been supplied a value
          */
         static navigate(action: string, toData: any): void;
+        /**
+         * Navigates to a State. Depending on the action will either navigate
+         * to the 'to' State of a Transition or the 'initial' State of a
+         * Dialog
+         * @param action The key of a child Transition or the key of a Dialog
+         * @param toData The NavigationData to be passed to the next State and
+         * stored in the StateContext
+         * @param A value determining the effect on browser history
+         * @throws action does not match the key of a child Transition or the
+         * key of a Dialog; or there is NavigationData that cannot be converted
+         * to a String
+         * @throws A mandatory route parameter has not been supplied a value
+         */
+        static navigate(action: string, toData: any, historyAction: HistoryAction): void;
         /**
          * Gets a Url to navigate to a State. Depending on the action will
          * either navigate to the 'to' State of a Transition or the 'initial'
@@ -734,7 +863,18 @@ declare module Navigation {
          */
         static navigateBack(distance: number): void;
         /**
-         * Gets a Url to navigate to a Crumb contained in the crumb trail, 
+         * Navigates back to the Crumb contained in the crumb trail,
+         * represented by the Crumbs collection, as specified by the distance.
+         * In the crumb trail no two crumbs can have the same State but all
+         * must have the same Dialog
+         * @param distance Starting at 1, the number of Crumb steps to go back
+         * @param A value determining the effect on browser history
+         * @throws canNavigateBack returns false for this distance
+         * @throws A mandatory route parameter has not been supplied a value
+         */
+        static navigateBack(distance: number, historyAction: HistoryAction): void;
+        /**
+         * Gets a Url to navigate to a Crumb contained in the crumb trail,
          * represented by the Crumbs collection, as specified by the distance.
          * In the crumb trail no two crumbs can have the same State but all
          * must have the same Dialog
@@ -756,7 +896,16 @@ declare module Navigation {
          */
         static refresh(toData: any): void;
         /**
-         * Gets a Url to navigate to the current State passing no 
+         * Navigates to the current State
+         * @param toData The NavigationData to be passed to the current State
+         * and stored in the StateContext
+         * @param A value determining the effect on browser history
+         * @throws There is NavigationData that cannot be converted to a String
+         * @throws A mandatory route parameter has not been supplied a value
+         */
+        static refresh(toData: any, historyAction: HistoryAction): void;
+        /**
+         * Gets a Url to navigate to the current State passing no
          * NavigationData
          */
         static getRefreshLink(): string;
@@ -780,6 +929,13 @@ declare module Navigation {
          */
         static navigateLink(url: string, history: boolean): void;
         /**
+         * Navigates to the url
+         * @param url The target location
+         * @param history A value indicating whether browser history was used
+         * @param A value determining the effect on browser history
+         */
+        static navigateLink(url: string, history: boolean, historyAction: HistoryAction): void;
+        /**
          * Gets the next State. Depending on the action will either return the
          * 'to' State of a Transition or the 'initial' State of a Dialog
          * @param action The key of a child Transition or the key of a Dialog
@@ -801,6 +957,14 @@ declare module Navigation {
          */
         getNavigationLink(state: State, data: any): string;
         /**
+         * Gets a link that navigates to the state passing the data
+         * @param state The State to navigate to
+         * @param data The data to pass when navigating
+         * @param queryStringData The query string array data
+         * @returns The navigation link
+         */
+        getNavigationLink(state: State, data: any, queryStringData: { [index: string]: string[]; }): string;
+        /**
          * Navigates to the url
          * @param oldState The current State
          * @param state The State to navigate to
@@ -814,6 +978,30 @@ declare module Navigation {
          * @returns The navigation data
          */
         getNavigationData(state: State, url: string): any;
+        /**
+         * Gets the data parsed from the url
+         * @param state The State navigated to
+         * @param url The current url
+         * @param queryStringData Stores query string keys
+         * @returns The navigation data
+         */
+        getNavigationData(state: State, url: string, queryStringData: any): any;
+        /**
+         * Encodes the Url value
+         * @param state The State navigated to
+         * @param key The key of the navigation data item
+         * @param val The Url value of the navigation data item
+         * @param queryString A value indicating the Url value's location
+         */
+        urlEncode(state: State, key: string, val: string, queryString: boolean): string;
+        /**
+         * Decodes the Url value
+         * @param state The State navigated to
+         * @param key The key of the navigation data item
+         * @param val The Url value of the navigation data item
+         * @param queryString A value indicating the Url value's location
+         */
+        urlDecode(state: State, key: string, val: string, queryString: boolean): string;
         /**
          * Truncates the crumb trail whenever a repeated or initial State is
          * encountered
@@ -861,7 +1049,7 @@ declare module Navigation {
      */
     class StateRouter implements IRouter {
         /**
-         * Gets the underlying Navigation Router 
+         * Gets the underlying Navigation Router
          */
         router: Router;
         /**
@@ -909,13 +1097,13 @@ declare module Navigation {
         params: { name: string; optional: boolean; }[];
         /**
          * Initializes a new instance of the Route class
-         * @param path The route pattern 
+         * @param path The route pattern
          */
         constructor(path: string);
         /**
          * Initializes a new instance of the Route class
-         * @param path The route pattern 
-         * @param defaults The default parameter values 
+         * @param path The route pattern
+         * @param defaults The default parameter values
          */
         constructor(path: string, defaults: any);
         /**
@@ -925,16 +1113,30 @@ declare module Navigation {
          */
         match(path: string): any;
         /**
+         * Gets the matching data for the path
+         * @param path The path to match
+         * @param urlDecode The function that decodes the Url value
+         * @returns The matched data or null if there's no match
+         */
+        match(path: string, urlDecode: (route: Route, name: string, val: string) => string): any;
+        /**
          * Gets the route populated with default values
          * @returns The built route
          */
         build(): string;
         /**
          * Gets the route populated with data and default values
-         * @param The data for the route parameters
+         * @param data The data for the route parameters
          * @returns The built route
          */
         build(data: any): string;
+        /**
+         * Gets the route populated with data and default values
+         * @param data The data for the route parameters
+         * @param urlEncode The function that encodes the Url value
+         * @returns The built route
+         */
+        build(data: any, urlEncode: (route: Route, name: string, val: string) => string): string;
     }
 
     /**
@@ -956,10 +1158,17 @@ declare module Navigation {
         addRoute(path: string, defaults: any): Route;
         /**
          * Gets the matching route and data for the path
-         * @param route The path to match
+         * @param path The path to match
          * @returns The matched route and data
          */
         match(path: string): { route: Route; data: any; };
+        /**
+         * Gets the matching route and data for the path
+         * @param path The path to match
+         * @param urlDecode The function that decodes the Url value
+         * @returns The matched route and data
+         */
+        match(path: string, urlDecode: (route: Route, name: string, val: string) => string): { route: Route; data: any; };
         /**
          * Sorts the routes by the comparer
          * @param compare The route comparer function
@@ -975,7 +1184,7 @@ declare module Navigation {
     /**
      * Initializes the history manager and navigates to the current location.
      * If used outside of a browser environment, pass in the Url to navigate to
-     * @param url If used outside of a browser, the url to navigate to 
+     * @param url If used outside of a browser, the url to navigate to
      */
     export var start: (url?: string) => void;
 }

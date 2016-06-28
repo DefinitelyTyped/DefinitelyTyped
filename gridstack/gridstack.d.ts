@@ -1,7 +1,7 @@
 ﻿// Type definitions for Gridstack
 // Project: http://troolee.github.io/gridstack.js/
 // Definitions by: Pascal Senn <https://github.com/PascalSenn/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface JQuery {
     gridstack (options: IGridstackOptions):GridStack
@@ -12,7 +12,7 @@ interface GridStack {
      * Creates new widget and returns it.
      *
      *   Widget will be always placed even if result height is more than actual grid height. You need to use will_it_fit method before calling add_widget for additional check.
-     * 
+     *
      * @param {string} el widget to add
      * @param {number} x widget position x
      * @param {number} y widget position y
@@ -62,7 +62,7 @@ interface GridStack {
     /*
     * Checks if specified area is empty.
     * @param {number} x the position x.
-    * @param {number} y the position y. 
+    * @param {number} y the position y.
     * @param {number} width the width of to check
     * @param {number} height the height of to check
     */
@@ -96,7 +96,7 @@ interface GridStack {
     * @param {HTMLElement} el  widget to modify
     * @param {number} x new position x. If value is null or undefined it will be ignored.
     * @param {number} y new position y. If value is null or undefined it will be ignored.
-    * 
+    *
     */
     move(el: HTMLElement, x: number, y: number): void
     /**
@@ -145,7 +145,7 @@ interface GridStack {
     * @param {boolean} auto_position  if true then x, y parameters will be ignored and widget will be places on the first available position
     */
     will_it_fit(x: number, y: number, width: number, height: number, auto_position:boolean):boolean
-    
+
 
 }
 /**
@@ -156,13 +156,13 @@ interface MousePosition {
     left:number,
 }
 /**
-*   Defines the position of a cell inside the grid 
+*   Defines the position of a cell inside the grid
 */
 interface CellPosition {
     x: number,
     y:number
 }
-declare module GridStackUI {
+declare namespace GridStackUI {
     interface Utils {
         /**
         * Sorts array of nodes
@@ -175,7 +175,7 @@ declare module GridStackUI {
 }
 /**
 * Gridstack Options
-* Defines the options for a Gridstack 
+* Defines the options for a Gridstack
 */
 interface IGridstackOptions {
     /**
@@ -206,7 +206,7 @@ interface IGridstackOptions {
     * maximum rows amount.Default is 0 which means no maximum rows
     */
      height: number;
-    /** 
+    /**
     * enable floating widgets (default: false) See example
     */
     float: boolean;
@@ -214,7 +214,7 @@ interface IGridstackOptions {
     * widget class (default: 'grid-stack-item')
     */
      item_class: string;
-    /** 
+    /**
     * minimal width.If window width is less, grid will be shown in one - column mode (default: 768)
     */
     min_width: number;
@@ -229,11 +229,11 @@ interface IGridstackOptions {
     /**
     * makes grid static (default false).If true widgets are not movable/ resizable.You don't even need jQueryUI draggable/resizable. A CSS class grid-stack-static is also added to the container.
     */
-    static_grid: boolean; 
+    static_grid: boolean;
     /**
     * vertical gap size (default: 20)
     */
-    vertical_margin: number; 
+    vertical_margin: number;
     /**
     * amount of columns (default: 12)
     */

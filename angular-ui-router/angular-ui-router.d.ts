@@ -1,17 +1,34 @@
 // Type definitions for Angular JS 1.1.5+ (ui.router module)
 // Project: https://github.com/angular-ui/ui-router
 // Definitions by: Michel Salib <https://github.com/michelsalib>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-// Support for AMD require
+// Support for AMD require and CommonJS
 declare module 'angular-ui-router' {
-    var _: string;
-    export = _;
+    // Since angular-ui-router adds providers for a bunch of
+    // injectable dependencies, it doesn't really return any
+    // actual data except the plain string 'ui.router'.
+    //
+    // As such, I don't think anybody will ever use the actual
+    // default value of the module.  So I've only included the
+    // the types. (@xogeny)
+    export type IState = angular.ui.IState;
+    export type IStateProvider = angular.ui.IStateProvider;
+    export type IUrlMatcher = angular.ui.IUrlMatcher;
+    export type IUrlRouterProvider = angular.ui.IUrlRouterProvider;
+    export type IStateOptions = angular.ui.IStateOptions;
+    export type IHrefOptions = angular.ui.IHrefOptions;
+    export type IStateService = angular.ui.IStateService;
+    export type IResolvedState = angular.ui.IResolvedState;
+    export type IStateParamsService = angular.ui.IStateParamsService;
+    export type IUrlRouterService = angular.ui.IUrlRouterService;
+    export type IUiViewScrollProvider = angular.ui.IUiViewScrollProvider;
+    export type IType = angular.ui.IType;
 }
 
-declare module angular.ui {
+declare namespace angular.ui {
 
     interface IState {
         name?: string;
@@ -26,24 +43,24 @@ declare module angular.ui {
         /**
          * Function, returns HTML content string
          */
-        templateProvider?: Function | Array<any>;
+        templateProvider?: Function | Array<string|Function>;
         /**
-         * A controller paired to the state. Function OR name as String
+         * A controller paired to the state. Function, annotated array or name as String
          */
-        controller?: Function | string;
+        controller?: Function|string|Array<string|Function>;
         controllerAs?: string;
         /**
          * Function (injectable), returns the actual controller function or string.
          */
-        controllerProvider?: Function;
-        
+        controllerProvider?: Function|Array<string|Function>;
+
         /**
          * Specifies the parent state of this state
          */
-        parent?: string | IState
-        
-        
-        resolve?: {};
+        parent?: string | IState;
+
+
+        resolve?: { [name:string]: any };
         /**
          * A url with optional parameters. When a state is navigated or transitioned to, the $stateParams service will be populated with any parameters that were passed.
          */
@@ -55,26 +72,32 @@ declare module angular.ui {
         /**
          * Use the views property to set up multiple views. If you don't need multiple views within a single state this property is not needed. Tip: remember that often nested views are more useful and powerful than multiple sibling views.
          */
-        views?: {};
+        views?: { [name:string]: IState };
         abstract?: boolean;
         /**
          * Callback function for when a state is entered. Good way to trigger an action or dispatch an event, such as opening a dialog.
          * If minifying your scripts, make sure to explicitly annotate this function, because it won't be automatically annotated by your build tools.
          */
-        onEnter?: Function|(string|Function)[];
+        onEnter?: Function|Array<string|Function>;
         /**
          * Callback functions for when a state is entered and exited. Good way to trigger an action or dispatch an event, such as opening a dialog.
          * If minifying your scripts, make sure to explicitly annotate this function, because it won't be automatically annotated by your build tools.
          */
-        onExit?: Function|(string|Function)[];
+        onExit?: Function|Array<string|Function>;
         /**
          * Arbitrary data object, useful for custom configuration.
          */
         data?: any;
+
         /**
          * Boolean (default true). If false will not re-trigger the same state just because a search/query parameter has changed. Useful for when you'd like to modify $location.search() without triggering a reload.
          */
         reloadOnSearch?: boolean;
+
+        /**
+         * Boolean (default true). If false will reload state on everytransitions. Useful for when you'd like to restore all data  to its initial state.
+         */
+        cache?: boolean;
     }
 
     interface IStateProvider extends angular.IServiceProvider {
@@ -229,29 +252,33 @@ declare module angular.ui {
          */
         go(to: string, params?: {}, options?: IStateOptions): angular.IPromise<any>;
         go(to: IState, params?: {}, options?: IStateOptions): angular.IPromise<any>;
-        transitionTo(state: string, params?: {}, updateLocation?: boolean): void;
-        transitionTo(state: IState, params?: {}, updateLocation?: boolean): void;
-        transitionTo(state: string, params?: {}, options?: IStateOptions): void;
-        transitionTo(state: IState, params?: {}, options?: IStateOptions): void;
+        transitionTo(state: string, params?: {}, updateLocation?: boolean): angular.IPromise<any>;
+        transitionTo(state: IState, params?: {}, updateLocation?: boolean): angular.IPromise<any>;
+        transitionTo(state: string, params?: {}, options?: IStateOptions): angular.IPromise<any>;
+        transitionTo(state: IState, params?: {}, options?: IStateOptions): angular.IPromise<any>;
         includes(state: string, params?: {}): boolean;
+        includes(state: string, params?: {}, options?:any): boolean;
         is(state:string, params?: {}): boolean;
         is(state: IState, params?: {}): boolean;
         href(state: IState, params?: {}, options?: IHrefOptions): string;
         href(state: string, params?: {}, options?: IHrefOptions): string;
-        get(state: string): IState;
+        get(state: string, context?: string): IState;
+        get(state: IState, context?: string): IState;
+        get(state: string, context?: IState): IState;
+        get(state: IState, context?: IState): IState;
         get(): IState[];
         /** A reference to the state's config object. However you passed it in. Useful for accessing custom data. */
         current: IState;
         /** A param object, e.g. {sectionId: section.id)}, that you'd like to test against the current active state. */
         params: IStateParamsService;
-        reload(): void;
-        
+        reload(): angular.IPromise<any>;
+
         /** Currently pending transition. A promise that'll resolve or reject. */
-        transition: ng.IPromise<{}>;
-        
+        transition: angular.IPromise<{}>;
+
         $current: IResolvedState;
     }
-    
+
     interface IResolvedState {
         locals: {
             /**
@@ -277,7 +304,10 @@ declare module angular.ui {
     	 *
     	 */
         sync(): void;
-        listen(): void;
+        listen(): Function;
+        href(urlMatcher: IUrlMatcher, params?: IStateParamsService, options?: IHrefOptions): string;
+        update(read?: boolean): void;
+        push(urlMatcher: IUrlMatcher, params?: IStateParamsService, options?: IHrefOptions): void;
     }
 
     interface IUiViewScrollProvider {

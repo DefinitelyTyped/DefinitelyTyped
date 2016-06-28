@@ -41,6 +41,16 @@ var schema: mongoose.Schema = new Schema({ name: String }, { collection: 'actor'
 schema.set('collection', 'actor');
 var Model = mongoose.model<IActor>('Actor', schema, 'actor');
 
+interface IZip extends mongoose.Document {
+    _id: string;
+}
+interface IPerson extends mongoose.Document {
+    _id: mongoose.Types.ObjectId;
+}
+interface IThing extends mongoose.Document {
+    _id: number;
+}
+
 var names: string[] = mongoose.modelNames();
 var names: string[] = db.modelNames();
 mongoose.plugin((schema: mongoose.Schema) => {
@@ -195,8 +205,8 @@ Model.findOneAndRemove({ type: 'iphone' }, { select: 'name' }, (err: any, res: I
 Model.findOneAndRemove({ type: 'iphone' }, { select: 'name' }).exec((err: any, res: IActor) => {});
 Model.findOneAndUpdate({ type: 'iphone' }, { $set: { name: 'jason borne' }}, { upsert: true }, (err: any, res: IActor) => {});
 
-Model.geoNear([1, 3], { maxDistance : 5, spherical : true }, (err: any, res: IActor[]) => {});
-Model.geoNear({ type : "Point", coordinates : [9,9] }, { maxDistance : 5, spherical : true }, (err: any, res: IActor[]) => {});
+Model.geoNear([1, 3], { maxDistance : 5, spherical : true }, (err: any, res: IActor[], stats: any) => {});
+Model.geoNear({ type : "Point", coordinates : [9,9] }, { maxDistance : 5, spherical : true }, (err: any, res: IActor[], stats: any) => {});
 Model.geoSearch({ type : "house" }, { near: [10, 10], maxDistance: 5 }, (err: any, res: IActor[]) => {});
 
 var o = {

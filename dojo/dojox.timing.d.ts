@@ -1,20 +1,20 @@
 ﻿// Type definitions for Dojo v1.9
 // Project: http://dojotoolkit.org
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module dojox {
+declare namespace dojox {
 
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/timing.html
      *
      * Deprecated.  Should require dojox/timing modules directly rather than trying to access them through
      * this module.
-     * 
+     *
      */
     interface timing {
     }
-    module timing {
+    namespace timing {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/timing/Sequence.html
          *
@@ -28,28 +28,28 @@ declare module dojox {
          * the repeat handling is easier and we don't need to handle that
          * many extra cases. Also the doneFunction, if given is added at the
          * end of the resolved-sequences.
-         * 
+         *
          */
         class Sequence {
             constructor();
             /**
              * Run the passed sequence definition
-             * 
-             * @param defs The sequence of actions             
-             * @param doneFunction               OptionalThe function to call when done             
+             *
+             * @param defs The sequence of actions
+             * @param doneFunction               OptionalThe function to call when done
              */
             go(defs: any[], doneFunction: Function): void;
             /**
              * Run the passed sequence definition
-             * 
-             * @param defs The sequence of actions             
-             * @param doneFunction               OptionalThe function to call when done             
+             *
+             * @param defs The sequence of actions
+             * @param doneFunction               OptionalThe function to call when done
              */
             go(defs: any[], doneFunction: any[]): void;
             /**
              * This method just provides a hook from the outside, so that
              * an interrupted sequence can be continued.
-             * 
+             *
              */
             goOn(): void;
             /**
@@ -61,7 +61,7 @@ declare module dojox {
              * by this object here. In this case it would be smarter to
              * run the slideshow using a sequence object so you can also stop
              * it using this method.
-             * 
+             *
              */
             stop(): void;
         }
@@ -77,10 +77,10 @@ declare module dojox {
          * dojox.timing.doLater(conditional) is testing if the call
          * should be done later. So it returns
          * true if the param is false.
-         * 
-         * @param conditional Can be a property that eventually gets set, oran expression, method... anything that can beevaluated.     
-         * @param context       OptionalThe namespace where the call originated.Defaults to global and anonymous functions     
-         * @param interval       OptionalPoll time to check conditional in Milliseconds     
+         *
+         * @param conditional Can be a property that eventually gets set, oran expression, method... anything that can beevaluated.
+         * @param context       OptionalThe namespace where the call originated.Defaults to global and anonymous functions
+         * @param interval       OptionalPoll time to check conditional in Milliseconds
          */
         interface doLater { (conditional: any, context?: Object, interval?: number): void }
         /**
@@ -90,12 +90,12 @@ declare module dojox {
          * queue, and will pass the next point in that queue out to an
          * output function at the passed interval; this way you can emulate
          * a constant buffered stream of data.
-         * 
-         * @param input the function executed when the internal queue reaches minimumSize     
-         * @param output the function executed on internal tick     
-         * @param interval the interval in ms at which the output function is fired.     
-         * @param minimum the minimum number of elements in the internal queue.     
-         * @param initialData     
+         *
+         * @param input the function executed when the internal queue reaches minimumSize
+         * @param output the function executed on internal tick
+         * @param interval the interval in ms at which the output function is fired.
+         * @param minimum the minimum number of elements in the internal queue.
+         * @param initialData
          */
         interface Streamer { (input: Function, output: Function, interval: number, minimum: number, initialData: any[]): void }
         module _base {

@@ -1,7 +1,7 @@
 // Type definitions for pusher-js 3.0.0
 // Project: https://github.com/pusher/pusher-js
 // Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "pusher-js" {
 

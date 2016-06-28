@@ -154,7 +154,7 @@ Q.nbind(kitty.find, kitty)({ cute: true }).done((kitties: any[]) => {});
 /*
  * Test: Can "rethrow" rejected promises
  */
-module TestCanRethrowRejectedPromises {
+namespace TestCanRethrowRejectedPromises {
 
     interface Foo {
         a: number;

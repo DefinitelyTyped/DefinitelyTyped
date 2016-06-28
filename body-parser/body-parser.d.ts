@@ -1,7 +1,7 @@
 // Type definitions for body-parser
 // Project: http://expressjs.com
 // Definitions by: Santi Albo <https://github.com/santialbo/>, VILIC VANE <https://vilic.info>, Jonathan Häberle <https://github.com/dreampulse/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 
@@ -40,7 +40,7 @@ declare module "body-parser" {
         extended?: boolean;
     }): express.RequestHandler;
 
-    module bodyParser {
+    namespace bodyParser {
         export function json(options?: {
             /**
              * if deflated bodies will be inflated. (default: true)
@@ -110,7 +110,7 @@ declare module "body-parser" {
             defaultCharset?: string;
         }): express.RequestHandler;
 
-        export function urlencoded(options?: {
+        export function urlencoded(options: {
             /**
              * if deflated bodies will be inflated. (default: true)
              */
@@ -128,9 +128,9 @@ declare module "body-parser" {
              */
             verify?: (req: express.Request, res: express.Response, buf: Buffer, encoding: string) => void;
             /**
-             * parse extended syntax with the qs module. (default: true)
+             * parse extended syntax with the qs module.
              */
-            extended?: boolean;
+            extended: boolean;
         }): express.RequestHandler;
     }
 

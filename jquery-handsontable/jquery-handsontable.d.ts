@@ -1,11 +1,11 @@
 ﻿// Type definitions for jquery-handsontable
 // Project: http://handsontable.com
 // Definitions by: Ted John <https://github.com/intelorca>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module Handsontable {
+declare namespace Handsontable {
     interface CellPosition {
         row: number;
         col: number;
@@ -171,8 +171,8 @@ declare module Handsontable {
         copyColsLimit?: number;
 
         /**
-         * Defines paste (CTRL+V) behavior. Default value "overwrite" will paste clipboard value over current selection. 
-         * When set to "shift_down", clipboard data will be pasted in place of current selection, while all selected cells are moved down. 
+         * Defines paste (CTRL+V) behavior. Default value "overwrite" will paste clipboard value over current selection.
+         * When set to "shift_down", clipboard data will be pasted in place of current selection, while all selected cells are moved down.
          * When set to "shift_right", clipboard data will be pasted in place of current selection, while all selected cells are moved right.
          */
         pasteMode?: string;
@@ -524,13 +524,13 @@ declare module Handsontable {
         afterRenderer?: (TD: HTMLTableDataCellElement, row: number, col: number, prop: string, value: string, cellProperties: Object) => void;
 
         /**
-         * Callback fired after clicking on a cell or row/column header. 
+         * Callback fired after clicking on a cell or row/column header.
          * In case the row/column header was clicked, the index is negative. For example clicking on the row header of cell (0, 0) results with afterOnCellMouseDown called with coords {row: 0, col: -1}.
          */
         afterOnCellMouseDown?: (event: MouseEvent, coords: CellPosition, TD: HTMLTableDataCellElement) => void;
 
         /**
-         * Callback fired after hovering a cell or row/column header with the mouse cursor. 
+         * Callback fired after hovering a cell or row/column header with the mouse cursor.
          * In case the row/column header was hovered, the index is negative. For example clicking on the row header of cell (0, 0) results with afterOnCellMouseOver called with coords {row: 0, col: -1}.
          */
         afterOnCellMouseOver?: (event: MouseEvent, coords: CellPosition, TD: HTMLTableDataCellElement) => void;
@@ -679,7 +679,7 @@ declare module Handsontable {
         getDataAtRowProp(row: number, prop: string): any;
 
         /**
-         * Returns a single row of the data (array or object, depending on what you have). row is the visible index of the row 
+         * Returns a single row of the data (array or object, depending on what you have). row is the visible index of the row
          */
         getDataAtRow(row: number): any;
 
@@ -734,9 +734,9 @@ declare module Handsontable {
         setDataAtRowProp(changes: any[], source?: string): void;
 
         /**
-         * Populate cells at position with 2D input array (e.g. [ [1, 2], [3, 4] ]). 
-         * Use endRow, endCol when you want to cut input when certain row is reached. 
-         * @param source (default value "populateFromArray") is used to identify this call in the resulting events (beforeChange, afterChange). 
+         * Populate cells at position with 2D input array (e.g. [ [1, 2], [3, 4] ]).
+         * Use endRow, endCol when you want to cut input when certain row is reached.
+         * @param source (default value "populateFromArray") is used to identify this call in the resulting events (beforeChange, afterChange).
          * @param populateMethod (default value "overwrite", possible values "shift_down" and "shift_right") has the same effect as pasteMethod option (see Options page).
          */
         populateFromArray(row: number, col: number, input: any[], endRow: number, endCol: number, source?: string, populateMethod?: string): void;
@@ -774,7 +774,7 @@ declare module Handsontable {
         alter(type: string, index: number, amount?: number, source?: string): void;
 
         /**
-         * Returns TD element for given row, col if it is rendered on screen. 
+         * Returns TD element for given row, col if it is rendered on screen.
          * Returns null if the TD is not rendered on screen (probably because that part of table is not visible).
          */
         getCell(row: number, col: number): any;
@@ -947,4 +947,4 @@ interface JQuery {
     handsontable(): JQuery;
     handsontable(methodName: string, ...arguments: any[]): any;
     handsontable(options: Handsontable.Options): JQuery;
-} 
+}

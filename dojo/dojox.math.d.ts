@@ -1,38 +1,38 @@
 ﻿// Type definitions for Dojo v1.9
 // Project: http://dojotoolkit.org
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module dojox {
-    
+declare namespace dojox {
+
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/math.html
      *
      * Deprecated.  Should require dojox/math modules directly rather than trying to access them through
      * this module.
-     * 
+     *
      */
     interface math {
     }
-    module math {
+    namespace math {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/math/BigInteger.html
          *
-         * 
-         * @param a     
-         * @param b     
-         * @param c     
+         *
+         * @param a
+         * @param b
+         * @param c
          */
         interface BigInteger{(a: any, b: any, c: any): void}
-        module BigInteger {
+        namespace BigInteger {
             /**
-             * 
-             * @param i             
-             * @param x             
-             * @param w             
-             * @param j             
-             * @param c             
-             * @param n             
+             *
+             * @param i
+             * @param x
+             * @param w
+             * @param j
+             * @param c
+             * @param n
              */
             interface am{(i: any, x: any, w: any, j: any, c: any, n: any): number}
         }
@@ -40,21 +40,21 @@ declare module dojox {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/math/BigInteger-ext.html
          *
-         * 
-         * @param a     
-         * @param b     
-         * @param c     
+         *
+         * @param a
+         * @param b
+         * @param c
          */
         interface BigInteger_ext{(a: any, b: any, c: any): void}
-        module BigInteger_ext {
+        namespace BigInteger_ext {
             /**
-             * 
-             * @param i             
-             * @param x             
-             * @param w             
-             * @param j             
-             * @param c             
-             * @param n             
+             *
+             * @param i
+             * @param x
+             * @param w
+             * @param j
+             * @param c
+             * @param n
              */
             interface am{(i: any, x: any, w: any, j: any, c: any, n: any): number}
         }
@@ -62,31 +62,31 @@ declare module dojox {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/math/round.html
          *
-         * 
-         * @param v     
-         * @param p     
-         * @param m     
+         *
+         * @param v
+         * @param p
+         * @param m
          */
         interface round{(v: any, p: any, m: any): void}
         module _base {
         }
 
-        module curves {
+        namespace curves {
         }
 
-        module matrix {
+        namespace matrix {
         }
 
-        module random {
+        namespace random {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/math/random/prng4.html
              *
-             * 
+             *
              */
             interface prng4{(): void}
-            module prng4 {
+            namespace prng4 {
                 /**
-                 * 
+                 *
                  */
                 var size: number
             }
@@ -96,26 +96,26 @@ declare module dojox {
              *
              * Super simple implementation of a random number generator,
              * which relies on Math.random().
-             * 
-             * @param prng function that returns an instance of PRNG (pseudo random number generator)with two methods: init(array) and next(). It should have a property "size"to indicate the required pool size.     
-             * @param noEvents       Optionalif false or absent, onclick and onkeypress event will be used to add"randomness", otherwise events will not be used.     
+             *
+             * @param prng function that returns an instance of PRNG (pseudo random number generator)with two methods: init(array) and next(). It should have a property "size"to indicate the required pool size.
+             * @param noEvents       Optionalif false or absent, onclick and onkeypress event will be used to add"randomness", otherwise events will not be used.
              */
             class Secure {
                 constructor(prng: Function, noEvents?: boolean);
                 /**
                  * Disconnects events, if any, preparing the object for GC.
-                 * 
+                 *
                  */
                 destroy(): void;
                 /**
                  * Fills in an array of bytes with random numbers
-                 * 
-                 * @param byteArray array to be filled in with random numbers, only existingelements will be filled.             
+                 *
+                 * @param byteArray array to be filled in with random numbers, only existingelements will be filled.
                  */
                 nextBytes(byteArray: any[]): void;
                 /**
                  * Mix in the current time (w/milliseconds) into the pool
-                 * 
+                 *
                  */
                 seedTime(): void;
             }
@@ -124,25 +124,25 @@ declare module dojox {
              *
              * Super simple implementation of a random number generator,
              * which relies on Math.random().
-             * 
+             *
              */
             class Simple {
                 constructor();
                 /**
                  * Prepares the object for GC. (empty in this case)
-                 * 
+                 *
                  */
                 destroy(): void;
                 /**
                  * Fills in an array of bytes with random numbers
-                 * 
-                 * @param byteArray array to be filled in with random numbers, only existingelements will be filled.             
+                 *
+                 * @param byteArray array to be filled in with random numbers, only existingelements will be filled.
                  */
                 nextBytes(byteArray: any[]): void;
             }
         }
 
-        module stats {
+        namespace stats {
         }
 
     }

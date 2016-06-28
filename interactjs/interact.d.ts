@@ -1,11 +1,11 @@
 // Type definitions for Interacting for interact.js v1.0.25
 // Project: https://github.com/taye/interact.js
 // Definitions by: Douglas Eichelberger <https://github.com/dduugg>, Adi Dahiya <https://github.com/adidahiya>, Tom Hasner <https://github.com/thasner>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // API documentation: http://interactjs.io/docs
 
-declare module Interact {
+declare namespace Interact {
     interface Interactable {
         // returns Element or string
         accept(): any;

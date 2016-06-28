@@ -1,7 +1,7 @@
 // Type definitions for Atom
 // Project: https://atom.io/
 // Definitions by: vvakame <https://github.com/vvakame/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../q/Q.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
@@ -23,7 +23,7 @@ interface Window {
 	profile(description:string, fn:Function):any; // return fn result
 }
 
-declare module AtomCore {
+declare namespace AtomCore {
 
 	// https://atom.io/docs/v0.84.0/advanced/view-system
 	interface IWorkspaceViewStatic {
@@ -165,7 +165,7 @@ declare module AtomCore {
 	}
 
 	interface ICommandRegistry {
-		add(selector: string, name: string, callback: (event: any) => void): void; // selector:'atom-editor'|'atom-workspace'
+		add(target: string, commandName: Object, callback?: (event: any) => void): any; // selector:'atom-editor'|'atom-workspace'
 		findCommands(params: Object): Object[];
 		dispatch(selector: any, name:string): void;
 	}
@@ -589,6 +589,7 @@ declare module AtomCore {
 		subscriptionCounts: any;
 		subscriptionsByObject: any; /* WeakMap */
 		subscriptions: Emissary.ISubscription[];
+		destroy():void;
 
 		mini: any;
 
@@ -780,6 +781,7 @@ declare module AtomCore {
 		moveCursorToNextWordBoundary():void;
 		moveCursorToBeginningOfNextParagraph():void;
 		moveCursorToBeginningOfPreviousParagraph():void;
+		moveToBottom():void;
 		scrollToCursorPosition(options:any):any;
 		pageUp():void;
 		pageDown():void;
@@ -1100,6 +1102,7 @@ declare module AtomCore {
 		itemOpened(item:any):void;
 		onPaneItemDestroyed(item:any):void;
 		destroyed():void;
+		isTextEditor(object: any): boolean;
 
 		onDidChangeActivePaneItem(item:any):Disposable;
 	}

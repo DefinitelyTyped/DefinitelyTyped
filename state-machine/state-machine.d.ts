@@ -1,7 +1,7 @@
 // Type definitions for Finite State Machine 2.2
 // Project: https://github.com/jakesgordon/javascript-state-machine
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Maarten Docter <https://github.com/mdocter>, William Sears <https://github.com/MrBigDog2U>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface StateMachineErrorCallback {
     (eventName?: string, from?: string, to?: string, args?: any[], errorCode?: number, errorMessage?: string, ex?: Error): void; // NB. errorCode? See: StateMachine.Error
@@ -79,5 +79,5 @@ interface StateMachine {
 declare var StateMachine: StateMachineStatic;
 
 declare module "state-machine" { 
-    export = StateMachineStatic; 
+    export = StateMachine; 
 }

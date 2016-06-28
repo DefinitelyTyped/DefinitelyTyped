@@ -140,7 +140,7 @@ logger.handleExceptions(transport);
 logger.unhandleExceptions(transport);
 logger = logger.add(transport, transportOptions, bool);
 logger = logger.add(transport);
-logger.addRewriter(transport)[0];
+
 logger.clear();
 logger = logger.remove(transport);
 profiler = logger.startTimer();
@@ -155,7 +155,12 @@ logger = profiler.done(str);
 logger = profiler.logger;
 profiler.start = new Date();
 
+let testRewriter : winston.MetadataRewriter;
+testRewriter = function(level: string, msg: string, meta: any) {
+    return meta;
+};
 
+logger.rewriters.push(testRewriter);
 /**
  * New Logger instances with transports tests:
  */

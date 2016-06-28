@@ -504,7 +504,16 @@ fooArrProm = fooArrProm.filter<Foo>((item: Foo) => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+function getMaybePromise(): Foo|Promise<Foo> {
+    return foo;
+}
 
+fooProm = Promise.try(() => {
+	return getMaybePromise();
+});
+fooProm = Promise.try<Foo>(() => {
+	return getMaybePromise();
+});
 fooProm = Promise.try(() => {
 	return foo;
 });
@@ -529,6 +538,12 @@ fooProm = Promise.try(() => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+fooProm = Promise.attempt(() => {
+	return getMaybePromise();
+});
+fooProm = Promise.attempt<Foo>(() => {
+	return getMaybePromise();
+});
 fooProm = Promise.attempt(() => {
 	return foo;
 });

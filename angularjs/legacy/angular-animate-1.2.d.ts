@@ -1,14 +1,14 @@
 // Type definitions for Angular JS 1.2 (ngAnimate module)
 // Project: http://angularjs.org
 // Definitions by: Michel Salib <https://github.com/michelsalib>, Adi Dahiya <https://github.com/adidahiya>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="angular-1.2.d.ts" />
 
 ///////////////////////////////////////////////////////////////////////////////
 // ngAnimate module (angular-animate.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module ng.animate {
+declare namespace ng.animate {
 
     ///////////////////////////////////////////////////////////////////////////
     // AnimateService

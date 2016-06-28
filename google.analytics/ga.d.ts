@@ -1,7 +1,7 @@
 // Type definitions for Google Analytics (Classic and Universal)
 // Project: https://developers.google.com/analytics/devguides/collection/gajs/, https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference
 // Definitions by: Ronnie Haakon Hegelund <http://ronniehegelund.blogspot.dk>, Pat Kujawa <http://patkujawa.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Tracker {
     _trackPageview(): void;
@@ -36,19 +36,58 @@ interface GoogleAnalytics {
     async: boolean;
 }
 
-declare module UniversalAnalytics {
+declare namespace UniversalAnalytics {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/method-reference
+
+    enum HitType {
+        'pageview', 'screenview', 'event', 'transaction', 'item', 'social', 'exception', 'timing'
+    }
 
     interface ga {
         l: number;
         q: any[];
-        (command: string, poly: string, opt_poly?: {}): UniversalAnalytics.Tracker;
-        (command: string, trackingId: string, auto: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
-        (command: string, hitDetails: {}): void;
-        create(trackingId: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
-        create(trackingId: string, auto: string, opt_configObject?: {}): UniversalAnalytics.Tracker;
+
+        (command: 'send', hitType: 'event', eventCategory: string, eventAction: string,
+            eventLabel?: string, eventValue?: number, fieldsObject?: {}): void;
+        (command: 'send', hitType: 'event', fieldsObject: {
+            eventCategory: string,
+            eventAction: string,
+            eventLabel?: string,
+            eventValue?: number,
+            nonInteraction?: boolean}): void;
+        (command: 'send', fieldsObject: {
+            hitType: HitType, // 'event'
+            eventCategory: string,
+            eventAction: string,
+            eventLabel?: string,
+            eventValue?: number,
+            nonInteraction?: boolean}): void;
+        (command: 'send', hitType: 'pageview', page: string): void;
+        (command: 'send', hitType: 'social',
+            socialNetwork: string, socialAction: string, socialTarget: string): void;
+        (command: 'send', hitType: 'social',
+            fieldsObject: {socialNetwork: string, socialAction: string, socialTarget: string}): void;
+        (command: 'send', hitType: 'timing',
+            timingCategory: string, timingVar: string, timingValue: number): void;
+        (command: 'send', hitType: 'timing',
+            fieldsObject: {timingCategory: string, timingVar: string, timingValue: number}): void;
+        (command: 'send', fieldsObject: {}): void;
+        (command: string, hitType: HitType, ...fields: any[]): void;
+
+        (command: 'create', trackingId: string, cookieDomain?: string, name?: string, fieldsObject?: {}): void;
+        (command: 'remove'): void;
+
+        (command: string, ...fields: any[]): void;
+
+        (readyCallback: (defaultTracker?: UniversalAnalytics.Tracker) => void): void;
+
+        create(trackingId: string, cookieDomain: string, name: string, fieldsObject?: {}): UniversalAnalytics.Tracker;
+        create(trackingId: string, cookieDomain: string, fieldsObject?: {}): UniversalAnalytics.Tracker;
+        create(trackingId: string, fieldsObject?: {}): UniversalAnalytics.Tracker;
+
         getAll(): UniversalAnalytics.Tracker[];
         getByName(name: string): UniversalAnalytics.Tracker;
+        remove(name:string): void;
     }
 
     interface Tracker {

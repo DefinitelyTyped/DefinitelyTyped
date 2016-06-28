@@ -1,7 +1,7 @@
 // Type definitions for Graphviz 0.0.8
-// Project: git://github.com/glejeune/node-graphviz.git
+// Project: https://github.com/glejeune/node-graphviz
 // Definitions by: Matt Frantz <https://github.com/mhfrantz/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // graphviz.d.ts
 

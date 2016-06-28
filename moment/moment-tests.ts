@@ -127,6 +127,15 @@ moment().isoWeeks(45);
 moment().dayOfYear();
 moment().dayOfYear(45);
 
+moment().set('year', 2013);
+moment().set('month', 3);  // April
+moment().set('date', 1);
+moment().set('hour', 13);
+moment().set('minute', 20);
+moment().set('second', 30);
+moment().set('millisecond', 123);
+moment().set({'year': 2013, 'month': 3});
+
 var getMilliseconds: number = moment().milliseconds();
 var getSeconds: number = moment().seconds();
 var getMinutes: number = moment().minutes();
@@ -257,6 +266,7 @@ moment.locale('en', {
     weekdaysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     weekdaysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
     longDateFormat: {
+        LTS: "h:mm:ss A",
         LT: "h:mm A",
         L: "MM/DD/YYYY",
         LL: "MMMM D YYYY",
@@ -305,6 +315,10 @@ moment.locale('en', {
             (b === 1) ? 'st' :
             (b === 2) ? 'nd' :
             (b === 3) ? 'rd' : 'th';
+    },
+    week: {
+        dow: 1,
+        doy: 4
     }
 });
 
@@ -378,6 +392,7 @@ moment.locale('en', {
 
 moment.locale('en', {
     longDateFormat : {
+        LTS: "h:mm:ss A",
         LT: "h:mm A",
         L: "MM/DD/YYYY",
         l: "M/D/YYYY",
@@ -392,6 +407,7 @@ moment.locale('en', {
 
 moment.locale('en', {
     longDateFormat : {
+        LTS: "h:mm A",
         LT: "h:mm A",
         L: "MM/DD/YYYY",
         LL: "MMMM Do YYYY",

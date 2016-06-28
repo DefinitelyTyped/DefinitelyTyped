@@ -1,7 +1,7 @@
 // Type definitions for accounting.js 0.3.2
 // Project: http://josscrowcroft.github.io/accounting.js/
 // Definitions by: Sergey Gerasimov <https://github.com/gerich-home/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface IAccountingCurrencyFormat {
     pos: string;         // for positive values, eg. "$ 1.00"

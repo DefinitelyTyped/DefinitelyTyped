@@ -1,7 +1,7 @@
 // Type definitions for Facebook Javascript SDK
 // Project: https://developers.facebook.com/docs/javascript
 // Definitions by: Joshua Strobl <https://github.com/JoshStrobl>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface FBInitParams{
     appId?: string;
@@ -149,13 +149,17 @@ interface FBSDKCanvas{
     stopTimer(handler?: (fbResponseObject : Object) => any) : void;
 }
 
+interface FBResponseObject {
+    error: any;
+}
+
 interface FBSDK{
     /* This method is used to initialize and setup the SDK. */
     init(fbInitObject : FBInitParams) : void;
 
     /* This method lets you make calls to the Graph API. */
     api(path : string, method : string, callback : (fbResponseObject : Object) => any) :  Object;
-    api(path : string, params : Object, callback : (fbResponseObject : Object) => any) :  Object;
+    api(path : string, params : Object, callback : (fbResponseObject : FBResponseObject) => any) :  Object;
     api(path : string, method : string, params : Object, callback : (fbResponseObject : Object) => any) : Object;
 
     /* This method is used to trigger different forms of Facebook created UI dialogs. */

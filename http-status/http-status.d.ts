@@ -1,7 +1,7 @@
 // Type definitions for http-status v0.1.8
 // Project: https://github.com/wdavidw/node-http-status
 // Definitions by: Michael Zabka <https://github.com/misak113/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface HttpStatus {
 	100: string;

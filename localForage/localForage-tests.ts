@@ -52,4 +52,14 @@ declare var localForage: LocalForage;
 
     localForage.removeItem("key").then(() => {
     });
+    
+    var config = localForage.config({
+        name: "testyo",
+        driver: localForage.LOCALSTORAGE
+    });
+    
+    var store = localForage.createInstance({
+        name: "da instance",
+        driver: localForage.LOCALSTORAGE
+    });
 }

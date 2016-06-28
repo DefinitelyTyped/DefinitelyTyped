@@ -1,7 +1,7 @@
 // Type definitions for jshashset 3.0
 // Project: http://www.timdown.co.uk/jshashtable/jshashset.html
 // Definitions by: Sergey Gerasimov <https://github.com/gerich-home/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../hashtable/hashtable.d.ts" />
 

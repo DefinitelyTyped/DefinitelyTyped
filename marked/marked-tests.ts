@@ -14,7 +14,8 @@ var options: MarkedOptions = {
     	return '';
     },
     langPrefix: 'lang-',
-    smartypants: false
+    smartypants: false,
+    renderer: new marked.Renderer()
 };
 
 function callback() {
