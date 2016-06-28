@@ -46,7 +46,7 @@ pg.connect(conString)
       buffer: true
     }).promise.then(
       function (result) { console.log(result.rows.length + " rows returned"); },
-      function (err) { console.error("Error running query", err); throw err; },
+      function (err): void { console.error("Error running query", err); throw err; },
       function (user: any) {} // called for each returned row
     ).finally(done);
   }).done();
