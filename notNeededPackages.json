@@ -1,0 +1,9 @@
+{
+    "packages": [
+        {
+            "libraryName": "Angular 2",
+            "typingsPackageName": "angular2",
+            "sourceRepoURL": "https://github.com/angular/angular"
+        }
+    ]
+}
