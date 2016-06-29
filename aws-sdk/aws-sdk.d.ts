@@ -34,10 +34,10 @@ declare module "aws-sdk" {
 		xhrAsync?: boolean;
 		xhrWithCredentials?: boolean;
 	}
-	
+
 	export class Endpoint {
 		constructor(endpoint:string);
-		
+
 		host:string;
 		hostname:string;
 		href:string;
@@ -117,7 +117,7 @@ declare module "aws-sdk" {
 	export class SQS {
 		constructor(options?: any);
 		endpoint:Endpoint;
-		
+
 		addPermission(params: SQS.AddPermissionParams, callback: (err:Error, data:any) => void): void;
 		changeMessageVisibility(params: SQS.ChangeMessageVisibilityParams, callback: (err:Error, data:any) => void): void;
 		changeMessageVisibilityBatch(params: SQS.ChangeMessageVisibilityBatchParams, callback: (err:Error, data:SQS.ChangeMessageVisibilityBatchResponse) => void): void;
@@ -134,7 +134,7 @@ declare module "aws-sdk" {
 		removePermission(params: {QueueUrl: string, Label: string}, callback: (err: Error, data: any) => void): void;
 		sendMessage(params: SQS.SendMessageParams, callback: (err: Error, data: SQS.SendMessageResult) => void): void;
 		sendMessageBatch(params: SQS.SendMessageBatchParams, callback: (err: Error, data: SQS.SendMessageBatchResult) => void): void;
-		setQueueAttributes(params: SQS.SetQueueAttributesParams, callback: (err: Error, data: any) => void): void;			
+		setQueueAttributes(params: SQS.SetQueueAttributesParams, callback: (err: Error, data: any) => void): void;
 	}
 
 	export class SES {
@@ -146,7 +146,7 @@ declare module "aws-sdk" {
 		constructor(options?: any);
 		publish(request: Sns.PublishRequest, callback: (err: any, data: any) => void): void;
 	}
-  
+
 	export class SimpleWorkflow {
 		constructor(options?: any);
 		public client: Swf.Client;
@@ -156,6 +156,14 @@ declare module "aws-sdk" {
 		constructor(options?: any);
 		putObject(params: s3.PutObjectRequest, callback: (err: any, data: any) => void): void;
 		getObject(params: s3.GetObjectRequest, callback: (err: any, data: any) => void): void;
+    putObject(params: s3.PutObjectRequest, callback: (err: Error, data: any) => void): void;
+    getObject(params: s3.GetObjectRequest, callback: (err: Error, data: any) => void): void;
+    deleteObject(params: s3.DeleteObjectRequest, callback: (err: Error, data: any) => void): void;
+    headObject(params: s3.HeadObjectRequest, callback: (err: Error, data: any) => void): void;
+    getSignedUrl(operation: string, params: any): string;
+    getSignedUrl(operation: string, params?: any, callback?: (err: Error, url: string) => void): void;
+    upload(params: s3.PutObjectRequest, options?: s3.UploadOptions): void;
+    upload(params: s3.PutObjectRequest, options?: s3.UploadOptions, callback: (err: Error, data: any) => void): void;
 	}
 
 	export class STS{
@@ -167,7 +175,7 @@ declare module "aws-sdk" {
 		assumeRole(params: sts.AssumeRoleParams, callback: (err: any, data: sts.AssumeRoleCallbackData) => void): void;
 
 		/**
-		 * Returns a set of temporary security credentials for users who have been authenticated via a SAML authentication response. 
+		 * Returns a set of temporary security credentials for users who have been authenticated via a SAML authentication response.
 		 */
 		assumeRoleWithSAML(params: sts.AssumeRoleWithSAMLParams, callback: (err: any, data: any) => void): void;
 
@@ -309,7 +317,7 @@ declare module "aws-sdk" {
 			ScanFilter?: _DDBDC_KeyComparison;
 			TotalSegments?: number;
 		}
-		
+
 		interface GetParam extends _DDBDC_Reader {
 			Key: _DDBDC_Keys;
 		}
@@ -340,7 +348,7 @@ declare module "aws-sdk" {
 // ===========================================================
 
 	export module SQS {
-		
+
 		export interface SqsOptions {
 			params?: any;
 			endpoint?: string;
@@ -367,25 +375,25 @@ declare module "aws-sdk" {
 			signatureVersion?: string;
 			signatureCache?: boolean;
 		}
-		
+
 		export interface AddPermissionParams {
 			QueueUrl: string;
 			Label: string;
 			AWSAccountIds:string[];
 			Actions:string[];
 		}
-		
-		export interface ChangeMessageVisibilityParams { 
-			QueueUrl: string, 
-			ReceiptHandle: string, 
-			VisibilityTimeout: number 
+
+		export interface ChangeMessageVisibilityParams {
+			QueueUrl: string,
+			ReceiptHandle: string,
+			VisibilityTimeout: number
 		}
-		
-		export interface ChangeMessageVisibilityBatchParams { 
-			QueueUrl: string, 
+
+		export interface ChangeMessageVisibilityBatchParams {
+			QueueUrl: string,
 			Entries: { Id: string; ReceiptHandle: string; VisibilityTimeout?: number; }[]
 		}
-		
+
 		export interface ChangeMessageVisibilityBatchResponse {
 			Successful: { Id:string }[];
 			Failed: BatchResultErrorEntry[];
@@ -438,7 +446,7 @@ declare module "aws-sdk" {
 			QueueName: string;
 			Attributes: QueueAttributes;
 		}
-		
+
 		export interface QueueAttributes {
 			[name:string]: any;
 			DelaySeconds?: number;
@@ -449,21 +457,21 @@ declare module "aws-sdk" {
 			VisibilityTimeout?: number;
 			RedrivePolicy?: any;
 		}
-		
+
 		export interface GetQueueAttributesParams {
 			QueueUrl: string;
 			AttributeNames: string[];
 		}
-		
+
 		export interface GetQueueAttributesResult {
 			Attributes: {[name:string]: string};
 		}
-		
+
 		export interface GetQueueUrlParams {
 			QueueName: string;
 			QueueOwnerAWSAccountId?: string;
 		}
-		
+
 		export interface SendMessageResult {
 			MessageId: string;
 			MD5OfMessageBody: string;
@@ -486,12 +494,12 @@ declare module "aws-sdk" {
 
 		export interface MessageAttribute {
 			StringValue?: string;
-			BinaryValue?: any; //(Buffer, Typed Array, Blob, String) 
+			BinaryValue?: any; //(Buffer, Typed Array, Blob, String)
 			StringListValues?: string[];
 			BinaryListValues?: any[];
 			DataType: string;
 		}
-				
+
 		export interface DeleteMessageBatchResult {
 			Successful: DeleteMessageBatchResultEntry[];
 			Failed: BatchResultErrorEntry[];
@@ -523,7 +531,7 @@ declare module "aws-sdk" {
 		export interface CreateQueueResult {
 			QueueUrl: string;
 		}
-		
+
 		export interface SetQueueAttributesParams {
 			QueueUrl: string;
 			Attributes: QueueAttributes;
@@ -1229,47 +1237,73 @@ declare module "aws-sdk" {
 	}
 
 	export module s3 {
-		
-		export interface PutObjectRequest {
-			ACL?: string;
-			Body?: any;
-			Bucket: string;
-			CacheControl?: string;
-			ContentDisposition?: string;
-			ContentEncoding?: string;
-			ContentLanguage?: string;
-			ContentLength?: string;
-			ContentMD5?: string;
-			ContentType?: string;
-			Expires?: any;
-			GrantFullControl?: string;
-			GrantRead?: string;
-			GrantReadACP?: string;
-			GrantWriteACP?: string;
-			Key: string;
-			Metadata?: { [key: string]:string; };
-			ServerSideEncryption?: string;
-			StorageClass?: string;
-			WebsiteRedirectLocation?: string;
-		}
+	  export interface PutObjectRequest {
+	    ACL?: string;
+	    Body?: any;
+	    Bucket: string;
+	    CacheControl?: string;
+	    ContentDisposition?: string;
+	    ContentEncoding?: string;
+	    ContentLanguage?: string;
+	    ContentLength?: string;
+	    ContentMD5?: string;
+	    ContentType?: string;
+	    Expires?: any;
+	    GrantFullControl?: string;
+	    GrantRead?: string;
+	    GrantReadACP?: string;
+	    GrantWriteACP?: string;
+	    Key: string;
+	    Metadata?: { [key: string]:string; };
+	    ServerSideEncryption?: string;
+	    StorageClass?: string;
+	    WebsiteRedirectLocation?: string;
+	  }
 
-		export interface GetObjectRequest {
+	  export interface GetObjectRequest {
+	    Bucket: string;
+	    IfMatch?: string;
+	    IfModifiedSince?: any;
+	    IfNoneMatch?: string;
+	    IfUnmodifiedSince?: any;
+	    Key: string;
+	    Range?: string;
+	    ResponseCacheControl?: string;
+	    ResponseContentDisposition?: string;
+	    ResponseContentEncoding?: string;
+	    ResponseContentLanguage?: string;
+	    ResponseContentType?: string;
+	    ResponseExpires?: any;
+	    VersionId?: string;
+	  }
+
+		export interface DeleteObjectRequest {
 			Bucket: string;
-			IfMatch?: string;
-			IfModifiedSince?: any;
-			IfNoneMatch?: string;
-			IfUnmodifiedSince?: any;
 			Key: string;
-			Range?: string;
-			ResponseCacheControl?: string;
-			ResponseContentDisposition?: string;
-			ResponseContentEncoding?: string;
-			ResponseContentLanguage?: string;
-			ResponseContentType?: string;
-			ResponseExpires?: any;
+			MFA?: string;
+			RequestPayer?: string;
 			VersionId?: string;
 		}
 
+		export interface HeadObjectRequest {
+			Bucket: string;
+			Key: string;
+			IfMatch?: string;
+			IfModifiedSince?: Date;
+			IfNoneMatch?: string;
+			IfUnmodifiedSince?: Date;
+			Range?: string;
+			RequestPayer?: string;
+			SSECustomerAlgorithm?: string;
+			SSECustomerKey?: Buffer | string;
+			SSECustomerKeyMD5?: string;
+			VersionId?: string;
+		}
+
+	  export interface UploadOptions {
+	    partSize?: number;
+	    queueSize?: number;
+	  }
 	}
 
 	export module ecs {
