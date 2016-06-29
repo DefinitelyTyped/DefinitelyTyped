@@ -131,7 +131,7 @@ declare namespace adal {
 
         /**
          * Gets requestInfo from given hash.
-         * @returns {string} error message related to login
+         * @returns {RequestInfo} for appropriate hash.
          */
         getRequestInfo(hash: string): RequestInfo;
 
