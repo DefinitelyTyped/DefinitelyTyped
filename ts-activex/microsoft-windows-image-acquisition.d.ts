@@ -187,185 +187,185 @@ declare namespace WIA {
 
     //Classes
     interface CommonDialog {
-        ShowAcquireImage: (DeviceType?: WiaDeviceType, Intent?: WiaImageIntent, Bias?: WiaImageBias, FormatID?: string, AlwaysSelectDevice?: boolean, UseCommonUI?: boolean, CancelError?: boolean) => ImageFile
-        ShowAcquisitionWizard: (Device: Device) => any
-        ShowDeviceProperties: (Device: Device, CancelError?: boolean) => void
-        ShowItemProperties: (Item: Item, CancelError?: boolean) => void
-        ShowPhotoPrintingWizard: (Files: any) => void
-        ShowSelectDevice: (DeviceType?: WiaDeviceType, AlwaysSelectDevice?: boolean, CancelError?: boolean) => Device
-        ShowSelectItems: (Device: Device, Intent?: WiaImageIntent, Bias?: WiaImageBias, SingleSelect?: boolean, UseCommonUI?: boolean, CancelError?: boolean) => Items
-        ShowTransfer: (Item: Item, FormatID?: string, CancelError?: boolean) => any
+        ShowAcquireImage: (DeviceType?: WiaDeviceType, Intent?: WiaImageIntent, Bias?: WiaImageBias, FormatID?: string, AlwaysSelectDevice?: boolean, UseCommonUI?: boolean, CancelError?: boolean) => ImageFile;
+        ShowAcquisitionWizard: (Device: Device) => any;
+        ShowDeviceProperties: (Device: Device, CancelError?: boolean) => void;
+        ShowItemProperties: (Item: Item, CancelError?: boolean) => void;
+        ShowPhotoPrintingWizard: (Files: any) => void;
+        ShowSelectDevice: (DeviceType?: WiaDeviceType, AlwaysSelectDevice?: boolean, CancelError?: boolean) => Device;
+        ShowSelectItems: (Device: Device, Intent?: WiaImageIntent, Bias?: WiaImageBias, SingleSelect?: boolean, UseCommonUI?: boolean, CancelError?: boolean) => Items;
+        ShowTransfer: (Item: Item, FormatID?: string, CancelError?: boolean) => any;
     }
 
     interface Device {
-        Commands: DeviceCommands
-        DeviceID: string
-        Events: DeviceEvents
-        ExecuteCommand: (CommandID: string) => Item
-        GetItem: (ItemID: string) => Item
-        Items: Items
-        Properties: Properties
-        Type: WiaDeviceType
-        WiaItem: any /*VT_UNKNOWN*/
+        Commands: DeviceCommands;
+        DeviceID: string;
+        Events: DeviceEvents;
+        ExecuteCommand: (CommandID: string) => Item;
+        GetItem: (ItemID: string) => Item;
+        Items: Items;
+        Properties: Properties;
+        Type: WiaDeviceType;
+        WiaItem: any /*VT_UNKNOWN*/;
     }
 
     interface DeviceCommand {
-        CommandID: string
-        Description: string
-        Name: string
+        CommandID: string;
+        Description: string;
+        Name: string;
     }
 
     interface DeviceCommands {
-        Count: number
-        Item: (Index: number) => DeviceCommand
+        Count: number;
+        Item: (Index: number) => DeviceCommand;
     }
 
     interface DeviceEvent {
-        Description: string
-        EventID: string
-        Name: string
-        Type: WiaEventFlag
+        Description: string;
+        EventID: string;
+        Name: string;
+        Type: WiaEventFlag;
     }
 
     interface DeviceEvents {
-        Count: number
-        Item: (Index: number) => DeviceEvent
+        Count: number;
+        Item: (Index: number) => DeviceEvent;
     }
 
     interface DeviceInfo {
-        Connect: Device
-        DeviceID: string
-        Properties: Properties
-        Type: WiaDeviceType
+        Connect: () => Device;
+        DeviceID: string;
+        Properties: Properties;
+        Type: WiaDeviceType;
     }
 
     interface DeviceInfos {
-        Count: number
-        Item: (Index: any) => DeviceInfo
+        Count: number;
+        Item: (Index: any) => DeviceInfo;
     }
 
     interface DeviceManager {
-        DeviceInfos: DeviceInfos
-        RegisterEvent: (EventID: string, DeviceID?: string) => void
-        RegisterPersistentEvent: (Command: string, Name: string, Description: string, Icon: string, EventID: string, DeviceID?: string) => void
-        UnregisterEvent: (EventID: string, DeviceID?: string) => void
-        UnregisterPersistentEvent: (Command: string, Name: string, Description: string, Icon: string, EventID: string, DeviceID?: string) => void
+        DeviceInfos: DeviceInfos;
+        RegisterEvent: (EventID: string, DeviceID?: string) => void;
+        RegisterPersistentEvent: (Command: string, Name: string, Description: string, Icon: string, EventID: string, DeviceID?: string) => void;
+        UnregisterEvent: (EventID: string, DeviceID?: string) => void;
+        UnregisterPersistentEvent: (Command: string, Name: string, Description: string, Icon: string, EventID: string, DeviceID?: string) => void;
     }
 
     interface Filter {
-        Description: string
-        FilterID: string
-        Name: string
-        Properties: Properties
+        Description: string;
+        FilterID: string;
+        Name: string;
+        Properties: Properties;
     }
 
     interface FilterInfo {
-        Description: string
-        FilterID: string
-        Name: string
+        Description: string;
+        FilterID: string;
+        Name: string;
     }
 
     interface FilterInfos {
-        Count: number
-        Item: (Index: any) => FilterInfo
+        Count: number;
+        Item: (Index: any) => FilterInfo;
     }
 
     interface Filters {
-        Add: (FilterID: string, Index?: number) => void
-        Count: number
-        Item: (Index: number) => Filter
-        Remove: (Index: number) => void
+        Add: (FilterID: string, Index?: number) => void;
+        Count: number;
+        Item: (Index: number) => Filter;
+        Remove: (Index: number) => void;
     }
 
     interface Formats {
-        Count: number
-        Item: (Index: number) => string
+        Count: number;
+        Item: (Index: number) => string;
     }
 
     interface ImageFile {
-        ActiveFrame: number
-        ARGBData: Vector
-        FileData: Vector
-        FileExtension: string
-        FormatID: string
-        FrameCount: number
-        Height: number
-        HorizontalResolution: number
-        IsAlphaPixelFormat: boolean
-        IsAnimated: boolean
-        IsExtendedPixelFormat: boolean
-        IsIndexedPixelFormat: boolean
-        LoadFile: (Filename: string) => void
-        PixelDepth: number
-        Properties: Properties
-        SaveFile: (Filename: string) => void
-        VerticalResolution: number
-        Width: number
+        ActiveFrame: number;
+        ARGBData: Vector;
+        FileData: Vector;
+        FileExtension: string;
+        FormatID: string;
+        FrameCount: number;
+        Height: number;
+        HorizontalResolution: number;
+        IsAlphaPixelFormat: boolean;
+        IsAnimated: boolean;
+        IsExtendedPixelFormat: boolean;
+        IsIndexedPixelFormat: boolean;
+        LoadFile: (Filename: string) => void;
+        PixelDepth: number;
+        Properties: Properties;
+        SaveFile: (Filename: string) => void;
+        VerticalResolution: number;
+        Width: number;
     }
 
     interface ImageProcess {
-        Apply: (Source: ImageFile) => ImageFile
-        FilterInfos: FilterInfos
-        Filters: Filters
+        Apply: (Source: ImageFile) => ImageFile;
+        FilterInfos: FilterInfos;
+        Filters: Filters;
     }
 
     interface Item {
-        Commands: DeviceCommands
-        ExecuteCommand: (CommandID: string) => Item
-        Formats: Formats
-        ItemID: string
-        Items: Items
-        Properties: Properties
-        Transfer: (FormatID?: string) => any
-        WiaItem: any /*VT_UNKNOWN*/
+        Commands: DeviceCommands;
+        ExecuteCommand: (CommandID: string) => Item;
+        Formats: Formats;
+        ItemID: string;
+        Items: Items;
+        Properties: Properties;
+        Transfer: (FormatID?: string) => any;
+        WiaItem: any /*VT_UNKNOWN*/;
     }
 
     interface Items {
-        Add: (Name: string, Flags: number) => void
-        Count: number
-        Item: (Index: number) => Item
-        Remove: (Index: number) => void
+        Add: (Name: string, Flags: number) => void;
+        Count: number;
+        Item: (Index: number) => Item;
+        Remove: (Index: number) => void;
     }
 
     interface Properties {
-        Count: number
-        Exists: (Index: any) => boolean
-        Item: (Index: any) => Property
+        Count: number;
+        Exists: (Index: any) => boolean;
+        Item: (Index: any) => Property;
     }
 
     interface Property {
-        IsReadOnly: boolean
-        IsVector: boolean
-        Name: string
-        PropertyID: number
-        SubType: WiaSubType
-        SubTypeDefault: any
-        SubTypeMax: number
-        SubTypeMin: number
-        SubTypeStep: number
-        SubTypeValues: Vector
-        Type: number
-        Value: any
+        IsReadOnly: boolean;
+        IsVector: boolean;
+        Name: string;
+        PropertyID: number;
+        SubType: WiaSubType;
+        SubTypeDefault: any;
+        SubTypeMax: number;
+        SubTypeMin: number;
+        SubTypeStep: number;
+        SubTypeValues: Vector;
+        Type: number;
+        Value: any;
     }
 
     interface Rational {
-        Denominator: number
-        Numerator: number
-        Value: number
+        Denominator: number;
+        Numerator: number;
+        Value: number;
     }
 
     interface Vector {
-        Add: (Value: any, Index?: number) => void
-        BinaryData: any
-        Clear: void
-        Count: number
-        Date: VarDate
-        ImageFile: (Width?: number, Height?: number) => ImageFile
-        Item: (Index: number) => any  //Also has setter with parameters
-        Picture: (Width?: number, Height?: number) => any
-        Remove: (Index: number) => any
-        SetFromString: (Value: string, Resizable?: boolean, Unicode?: boolean) => void
-        String: (Unicode?: boolean) => string
+        Add: (Value: any, Index?: number) => void;
+        BinaryData: any;
+        Clear: () => void;
+        Count: number;
+        Date: VarDate;
+        ImageFile: (Width?: number, Height?: number) => ImageFile;
+        Item: (Index: number) => any  //Also has setter with parameters;
+        Picture: (Width?: number, Height?: number) => any;
+        Remove: (Index: number) => any;
+        SetFromString: (Value: string, Resizable?: boolean, Unicode?: boolean) => void;
+        String: (Unicode?: boolean) => string;
     }
 
 }
