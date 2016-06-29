@@ -163,7 +163,7 @@ declare module "aws-sdk" {
     getSignedUrl(operation: string, params: any): string;
     getSignedUrl(operation: string, params?: any, callback?: (err: Error, url: string) => void): void;
     upload(params: s3.PutObjectRequest, options?: s3.UploadOptions): void;
-    upload(params: s3.PutObjectRequest, options?: s3.UploadOptions, callback: (err: Error, data: any) => void): void;
+    upload(params: s3.PutObjectRequest, options?: s3.UploadOptions, callback?: (err: Error, data: any) => void): void;
 	}
 
 	export class STS{
