@@ -1,13 +1,13 @@
 /// <reference path="request-promise.d.ts" />
 
 import rp = require('request-promise');
-import nodeRequest = require('request');
+import errors = require('request-promise/errors');
 
 rp('http://www.google.com')
     .then(console.dir)
     .catch(console.error);
 
-var options: nodeRequest.Options = {
+var options: rp.Options = {
     uri : 'http://posttestserver.com/post.php',
     method : 'POST',
     json: true,
@@ -18,7 +18,39 @@ rp(options)
     .then(console.dir)
     .catch(console.error);
 
-// --> Displays length of response from server after post
+rp('http://google.com').finally(() => {});
+
+// This works:
+rp('http://google.com').then(console.dir);
+rp('http://google.com').catch(console.error);
+rp('http://google.com').then(console.dir, console.error);
+
+// This works as well since additional methods are only used AFTER the FIRST call in the chain:
+rp('http://google.com').then(console.dir).spread(console.dir);
+rp('http://google.com').catch(console.error).error(console.error);
+
+// Use .promise() in these cases:
+rp('http://google.com').promise().bind(this).then(console.dir);
+
+rp({ uri: 'http://google.com', resolveWithFullResponse: true }).then((response) => {});
+rp({ uri: 'http://google.com', simple: false }).catch((reason) => {});
+
+rp({
+    uri: 'http://google.com',
+    transform: (body: any, response: http.IncomingMessage, resolveWithFullResponse: boolean): any => {
+        throw new Error('Transform failed!');
+    }
+}).catch(errors.StatusCodeError, (reason: errors.StatusCodeError) => {
+    // The server responded with a status codes other than 2xx.
+    // Check reason.statusCode
+}).catch(errors.RequestError, (reason: errors.RequestError) => {
+    // The request failed due to technical reasons.
+    // reason.cause is the Error object Request would pass into a callback.
+}).catch(errors.TransformError, (reason: errors.TransformError) => {
+    console.log(reason.cause.message); // => Transform failed!
+    // reason.response is the original response for which the transform operation failed
+});
+
 
 //Defaults tests
 (() => {
@@ -46,7 +78,7 @@ rp(options)
         console.log("DELETE succeeded with status %d", response.statusCode);
     })
     .catch(console.error);
-    
+
 //The following examples from https://github.com/request/request
 import fs = require('fs');
 import http = require('http');
@@ -71,14 +103,14 @@ request
     console.log(response.headers['content-type']); // 'image/png'
   })
   .pipe(request.put('http://mysite.com/img.png'));
-  
+
 request
   .get('http://mysite.com/doodle.png')
   .on('error', function(err: any) {
     console.log(err);
   })
   .pipe(fs.createWriteStream('doodle.png'));
-  
+
 http.createServer(function (req, resp) {
   if (req.url === '/doodle.png') {
     if (req.method === 'PUT') {
@@ -98,7 +130,7 @@ http.createServer(function (req, resp) {
 });
 
 var resp: http.ServerResponse;
-var req: nodeRequest.Request;
+var req: rp.RequestPromise;
 req.pipe(request('http://mysite.com/doodle.png')).pipe(resp);
 
 var r = request;
@@ -192,7 +224,7 @@ request({
     }
     console.log('Upload successful!  Server responded with:', body);
   });
-  
+
 request.get('http://some.server.com/').auth('username', 'password', false);
 // or
 request.get('http://some.server.com/', {
@@ -282,8 +314,8 @@ request.post({url:url, oauth:oauth}, function (e, r, body) {
         , token_secret: perm_data.oauth_token_secret
         };
     var url = 'https://api.twitter.com/1.1/users/show.json';
-    var query = { 
-      screen_name: perm_data.screen_name, 
+    var query = {
+      screen_name: perm_data.screen_name,
       user_id: perm_data.user_id
     };
     request.get({url:url, oauth:oauth, qs:query, json:true}, function (e, r, user) {
@@ -370,7 +402,7 @@ request({
       }
     }
   });
-  
+
 //requests using baseRequest() will set the 'x-token' header
 var baseRequest = request.defaults({
   headers: {'x-token': 'my-token'}
@@ -420,7 +452,7 @@ var rand = Math.floor(Math.random()*100000000).toString();
       }
     }
   );
-  
+
 request(
     { method: 'GET'
     , uri: 'http://www.google.com'
@@ -442,7 +474,7 @@ request(
       console.log('received ' + data.length + ' bytes of compressed data')
     })
   });
-  
+
 var requestWithJar = request.defaults({jar: true})
 requestWithJar('http://www.google.com', function () {
   requestWithJar('http://images.google.com');
