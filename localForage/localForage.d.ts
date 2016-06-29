@@ -52,7 +52,7 @@ interface LocalForage {
     config(options: LocalForageOptions): boolean;
     createInstance(options: LocalForageOptions): LocalForage;
 
-    driver(): LocalForageDriver;
+    driver(): string | null;
     /**
     * Force usage of a particular driver or drivers, if available.
     * @param {string} driver
