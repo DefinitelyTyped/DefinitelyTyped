@@ -92,6 +92,14 @@ declare namespace WebdriverIO {
             callback: (err: any) => P
         ): Client<P>;
 
+        selectByAttribute(selector: string, attribute: string, value: string): Client<void>;
+        selectByAttribute<P>(
+            selector: string,
+            attribute: string,
+            value: string,
+            callback: (err: any) => P
+        ): Client<P>;
+
         selectByIndex(selectElem: string, index: number): Client<void>;
         selectByIndex<P>(
             selectElem: string,
@@ -202,6 +210,28 @@ declare namespace WebdriverIO {
             cookie: Cookie,
             callback: (err: any) => P
         ): Client<P>;
+    }
+
+    export interface Client<T> {
+        session(action?: string, sessionId?: string): Client<RawResult<any>>;
+        session<P>(
+            callback: (err: any, result: RawResult<any>) => P
+        ): Client<P>;
+
+        getGridNodeDetails(): Client<Object>;
+        getGridNodeDetails<P>(
+            callback: (err: any, details: Object) => P
+        ): Client<P>;
+
+        gridProxyDetails(): Client<Object>;
+        gridProxyDetails<P>(
+            callback: (err: any, result: Object) => P
+        ): Client <P>;
+
+        gridTestSession(): Client<Object>;
+        gridProxyDetails<P>(
+            callback: (err: any, result: Object) => P
+        ): Client <P>;
     }
 
     // Mobile
@@ -946,22 +976,15 @@ declare namespace WebdriverIO {
         waitUntil(
             condition: () => boolean | Q.IPromise<boolean>,
             timeout?: number,
+            timeoutMsg?: string,
             interval?: number
         ): Client<boolean>;
         waitUntil<P>(
             condition: () => boolean | Q.IPromise<boolean>,
-            callback: (err: any, enabled: boolean) => P
-        ): Client<P>;
-        waitUntil<P>(
-            condition: () => boolean | Q.IPromise<boolean>,
-            timeout: number,
-            callback: (err: any, enabled: boolean) => P
-        ): Client<P>;
-        waitUntil<P>(
-            condition: () => boolean | Q.IPromise<boolean>,
-            timeout: number,
-            interval: number,
-            callback: (err: any, enabled: boolean) => P
+            timeout?: number,
+            timeoutMsg?: string,
+            interval?: number,
+            callback?: (err: any, enabled: boolean) => P
         ): Client<P>;
     }
 
