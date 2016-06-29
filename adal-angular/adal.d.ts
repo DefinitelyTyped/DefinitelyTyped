@@ -133,7 +133,7 @@ declare namespace adal {
          * Gets requestInfo from given hash.
          * @returns {string} error message related to login
          */
-        getRequestInfo(hash: string): string;
+        getRequestInfo(hash: string): RequestInfo;
 
         /**
          * Saves token from hash that is received from redirect.
