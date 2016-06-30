@@ -87,7 +87,7 @@ declare namespace JQueryUI {
         disabled?: boolean;
         icons?: any;
         label?: string;
-        text?: string|boolean;
+        text?: string | boolean;
         click?: (event?: Event) => void;
     }
 
@@ -365,7 +365,7 @@ declare namespace JQueryUI {
         width?: any; // number or string
         zIndex?: number;
 
-		open?: DialogEvent;
+        open?: DialogEvent;
         close?: DialogEvent;
     }
 
@@ -615,12 +615,12 @@ declare namespace JQueryUI {
     }
 
     interface SelectableEvents {
-        selected? (event: Event, ui: { selected?: Element; }): void;
-        selecting? (event: Event, ui: { selecting?: Element; }): void;
-        start? (event: Event, ui: any): void;
-        stop? (event: Event, ui: any): void;
-        unselected? (event: Event, ui: { unselected: Element; }): void;
-        unselecting? (event: Event, ui: { unselecting: Element; }): void;
+        selected?(event: Event, ui: { selected?: Element; }): void;
+        selecting?(event: Event, ui: { selecting?: Element; }): void;
+        start?(event: Event, ui: any): void;
+        stop?(event: Event, ui: any): void;
+        unselected?(event: Event, ui: { unselected: Element; }): void;
+        unselecting?(event: Event, ui: { unselecting: Element; }): void;
     }
 
     interface Selectable extends Widget, SelectableOptions {
@@ -680,7 +680,7 @@ declare namespace JQueryUI {
         forceHelperSize?: boolean;
         forcePlaceholderSize?: boolean;
         grid?: number[];
-        helper?: string | ((event: Event, element: Sortable) => Element);
+        helper?: string | ((event: Event, element: JQuery) => Element | JQuery);
         handle?: any; // Selector or Element
         items?: any; // Selector
         opacity?: number;
