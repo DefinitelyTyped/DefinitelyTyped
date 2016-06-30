@@ -1,5 +1,5 @@
 
-import UUID = require("UUID");
+import UUID = require("uuid");
 
 
 const uuid1: string = UUID.generate()
