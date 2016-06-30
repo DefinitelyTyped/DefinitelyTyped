@@ -168,7 +168,7 @@ var factoryElement: React.CElement<Props, ModernComponent> =
 
 var statelessFactory: React.SFCFactory<SCProps> =
     React.createFactory(StatelessComponent);
-var statelessElement: React.SFCElement<SCProps> =
+var statelessFactoryElement: React.SFCElement<SCProps> =
     statelessFactory(props);
 
 var classicFactory: React.ClassicFactory<Props> =
