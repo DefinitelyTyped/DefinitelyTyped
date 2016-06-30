@@ -8,7 +8,7 @@ import queries = require('azure-mobile-apps/src/query');
 var app = express(),
     mobileApp = mobileApps();
 
-// various configuration permutations   
+// various configuration permutations
 mobileApps({
     debug: true,
     data: {
@@ -29,7 +29,7 @@ mobileApps({
 // it would be nice to integrate with winston
 mobileApps({ logging: { level: 'silly', transports: [{}] } })
 
-// various custom middleware syntaxes     
+// various custom middleware syntaxes
 mobileApp.use(function (req: any, res: any, next: any) { next(); });
 mobileApp.use([function () {}, function () {}]);
 mobileApp.use(function () {}, function () {});
@@ -42,6 +42,9 @@ mobileApp.tables.add('todoitem', mobileApps.table());
 mobileApp.tables.import('tables');
 mobileApp.api.add('api', { authorize: true, get: function () {}, delete: function () {} });
 mobileApp.api.import('api');
+
+// ensure the mobile app instance can be correctly mounted as an express router
+app.use(mobileApp);
 
 // Express.Table, instantiated from the mobile app
 var table = mobileApp.table()
@@ -61,7 +64,7 @@ table.read(function (context: Azure.MobileApps.Context) {
 table.insert(function (context: Azure.MobileApps.Context) {
     context.query.id = 'anotherId';
     context.query.single = true;
-    context.item.userId = context.user.id;    
+    context.item.userId = context.user.id;
     context.push.send('tag', {}, function (error, result) {});
     context.push.gcm.send('tag', {}, function (error, result) {});
     context.push.apns.send('tag', { payload: { } }, function (error, result) {});
@@ -70,12 +73,18 @@ table.insert(function (context: Azure.MobileApps.Context) {
 table.read.use(function () {});
 table.read.use([function () {}, function () {}]);
 table.read.use(function () {}, function () {});
-table.use(function () {}).use(function () {}).read(function () {}).use(function () {})
+table.use(function () {}).use(function () {}).read(function () {}).use(function () {});
 
 // Express.Table, instantiated from the static require('azure-mobile-apps').table()
 // This is going to be interesting if we ever support more than one provider
 var table2 = mobileApps.table();
-table2.read(function (context: Azure.MobileApps.Context) {})
+table2.read(function (context: Azure.MobileApps.Context) {});
+
+// ApiDefinition, from the static require('azure-mobile-apps').api()
+var api2 = mobileApps.api({
+    get: function (req, res, next) { }
+});
+api2.post = function (req, res, next) {};
 
 // Logger
 logger.silly('test', 'message');

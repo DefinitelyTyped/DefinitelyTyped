@@ -1,4 +1,4 @@
-// Type definitions for azure-mobile-apps v2.0.0-beta3
+// Type definitions for azure-mobile-apps v2.1.7
 // Project: https://github.com/Azure/azure-mobile-apps-node/
 // Definitions by: Microsoft Azure <https://github.com/Azure/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,6 +10,7 @@ declare module "azure-mobile-apps" {
     interface AzureMobileApps {
         (configuration?: Azure.MobileApps.Configuration): Azure.MobileApps.Platforms.Express.MobileApp;
         table(): Azure.MobileApps.Platforms.Express.Table;
+        api(definition?: Azure.MobileApps.ApiDefinition): Azure.MobileApps.ApiDefinition;
         logger: Azure.MobileApps.Logger;
         query: Azure.MobileApps.Query;
     }
@@ -24,14 +25,14 @@ declare module "azure-mobile-apps/src/logger" {
 
 declare module "azure-mobile-apps/src/query" {
     var query: Azure.MobileApps.Query;
-    export = query; 
+    export = query;
 }
 
-declare module Azure.MobileApps {
+declare namespace Azure.MobileApps {
     // the additional Platforms namespace is required to avoid collisions with the main Express namespace
-    export module Platforms {
-        export module Express {
-            interface MobileApp {
+    export namespace Platforms {
+        export namespace Express {
+            interface MobileApp extends Middleware {
                 configuration: Configuration;
                 tables: Tables;
                 table(): Table;
@@ -61,7 +62,7 @@ declare module Azure.MobileApps {
                 delete: TableOperation;
                 undelete: TableOperation;
             }
-            
+
             interface TableOperation {
                 (operationHandler: (context: Context) => void): Table;
                 use(...middleware: Middleware[]): Table;
@@ -77,7 +78,7 @@ declare module Azure.MobileApps {
         }
     }
 
-    export module Data {
+    export namespace Data {
         interface Table {
             read(query: QueryJs): Thenable<any[]>;
             update(item: any, query: QueryJs): Thenable<any>;
@@ -133,8 +134,8 @@ declare module Azure.MobileApps {
         cors?: Configuration.Cors;
         notifications?: Configuration.Notifications;
     }
-    
-    export module Configuration {
+
+    export namespace Configuration {
         // it would be nice to have the config for various providers in separate interfaces,
         // but this is the simplest solution to support variations of the current setup
         interface Data {
@@ -148,6 +149,7 @@ declare module Azure.MobileApps {
             options?: { encrypt: boolean };
             schema?: string;
             dynamicSchema?: boolean;
+            filename?: string;
         }
 
         interface Auth {
@@ -163,8 +165,9 @@ declare module Azure.MobileApps {
         interface LoggingTransport { }
 
         interface Cors {
+            exposeHeaders: string;
             maxAge?: number;
-            origins: string[];
+            hostnames: string[];
         }
 
         interface Notifications {
@@ -208,7 +211,8 @@ declare module Azure.MobileApps {
     }
 
     // general
-    var nh: Azure.ServiceBus.NotificationHubService; 
+    var nh: Azure.ServiceBus.NotificationHubService;
+
     interface Context {
         query: QueryJs;
         id: string | number;
@@ -225,20 +229,24 @@ declare module Azure.MobileApps {
 
     interface TableDefinition {
         authorize?: boolean;
+        access?: string;
         autoIncrement?: boolean;
         dynamicSchema?: boolean;
         name?: string;
         columns?: any;
         schema?: string;
+        databaseTableName?: string;
+        maxTop?: number;
+        softDelete?: boolean;
     }
 
     interface ApiDefinition {
         authorize?: boolean;
-        get?: Middleware | Middleware[];    
-        post?: Middleware | Middleware[];    
-        patch?: Middleware | Middleware[];    
-        put?: Middleware | Middleware[];    
-        delete?: Middleware | Middleware[];    
+        get?: Middleware | Middleware[];
+        post?: Middleware | Middleware[];
+        patch?: Middleware | Middleware[];
+        put?: Middleware | Middleware[];
+        delete?: Middleware | Middleware[];
     }
 
     interface Thenable<R> {
@@ -268,11 +276,11 @@ declare module Azure.MobileApps {
 }
 
 // additions to the Express modules
-declare module Express {
+declare namespace Express {
     interface Request {
         azureMobile: Azure.MobileApps.Context
     }
-    
+
     interface Response {
         results?: any;
     }
