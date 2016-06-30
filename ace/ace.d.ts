@@ -77,9 +77,6 @@ declare namespace AceAjax {
 
         onTextInput(text: any): void;
     }
-    var KeyBinding: {
-        new(editor: Editor): KeyBinding;
-    }
 
     export interface TextMode {
 
