@@ -1,5 +1,15 @@
 /// <reference path="reflect-metadata.d.ts" />
 
+let target = {
+ some_property: {
+  
+ }
+}
+
+let metadataKey = "key";
+let metadataValue = "val";
+let propertyKey = "some_property";
+
 // define metadata on an object or property
 Reflect.defineMetadata(metadataKey, metadataValue, target);
 Reflect.defineMetadata(metadataKey, metadataValue, target, propertyKey);
