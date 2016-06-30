@@ -3,6 +3,7 @@
 // Definitions by: Matej Drolc <https://github.com/pingec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../node/node-0.12.d.ts" />
 
 declare module 'tinder' {
 
