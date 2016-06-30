@@ -1,7 +1,7 @@
 // Type definitions for Nodemailer 1.3.2
 // Project: https://github.com/andris9/Nodemailer
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="./nodemailer-types.d.ts" />
@@ -51,13 +51,13 @@ declare module "nodemailer" {
 	/**
 	 * Create a direct transporter
 	 */
-	export function createTransport(options?: directTransport.DirectOptions): Transporter;
+	export function createTransport(options?: directTransport.DirectOptions, defaults?: Object): Transporter;
 	/**
 	 * Create an SMTP transporter
 	 */
-	export function createTransport(options?: smtpTransport.SmtpOptions): Transporter;
+	export function createTransport(options?: smtpTransport.SmtpOptions, defaults?: Object): Transporter;
 	/**
 	 * Create a transporter from a given implementation
 	 */
-	export function createTransport(transport: Transport): Transporter;
+	export function createTransport(transport: Transport, defaults?: Object): Transporter;
 }

@@ -1,7 +1,7 @@
 // Type definitions for noVNC
 // Project: https://github.com/kanaka/noVNC
 // Definitions by: Ken Smith <https://github.com/smithkl42/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface NvPoint {
 	x: number;

@@ -1,10 +1,10 @@
 // Type definitions for Keypress v2.0.3
 // Project: https://github.com/dmauro/Keypress/
 // Definitions by: Roger Chen <https://github.com/rcchen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // A keyboard input capturing utility in which any key can be a modifier key.
-declare module Keypress {
+declare namespace Keypress {
 
     interface ListenerDefaults {
         keys: string;
@@ -16,12 +16,12 @@ declare module Keypress {
         is_solitary: boolean;
         is_sequence: boolean;
     }
-    
+
     interface Combo {
         keys: string;
-        on_keydown: () => any;
-        on_keyup: () => any;
-        on_release: () => any;
+        on_keydown: (event?: KeyboardEvent, count?: number) => any;
+        on_keyup: (event?: KeyboardEvent) => any;
+        on_release: (event?: KeyboardEvent) => any;
         this: Element;
         prevent_default: boolean;
         prevent_repeat: boolean;
@@ -31,14 +31,14 @@ declare module Keypress {
         is_sequence: boolean;
         is_solitary: boolean;
     }
-    
+
     interface Listener {
         new(element: Element, defaults: ListenerDefaults): Listener;
         new(element: Element): Listener;
         new(): Listener;
-        simple_combo(keys: string, on_keydown_callback: () => any): void;
-        counting_combo(keys: string, on_count_callback: () => any): void;
-        sequence_combo(keys: string, callback: () => any): void;
+        simple_combo(keys: string, on_keydown_callback: (event?: KeyboardEvent, count?: number) => any): void;
+        counting_combo(keys: string, on_count_callback: (event?: KeyboardEvent, count?: number) => any): void;
+        sequence_combo(keys: string, callback: (event?: KeyboardEvent, count?: number) => any): void;
         register_combo(combo: Combo): void;
         unregister_combo(combo: Combo): void;
         unregister_combo(keys: string): void;
@@ -50,7 +50,7 @@ declare module Keypress {
         listen(): void;
         stop_listening(): void;
     }
-    
+
     interface Keypress {
         Listener: Listener;
     }

@@ -1,7 +1,9 @@
 /// <reference path="stampit.d.ts" />
 
-var a = stampit().enclose(() => {
-    var a = 'a';
+import stampit = require('stampit');
+
+var a = stampit().init((options) => {
+    var a = options.args[0];
     this.getA = () => {
         return a;
     };
@@ -10,7 +12,7 @@ a(); // Object -- so far so good.
 a().getA(); // "a"
 
 
-var b = stampit().enclose(function () {
+var b = stampit().init(function () {
     var a = 'b';
     this.getB = function () {
         return a;
@@ -26,7 +28,7 @@ foo.getB(); // "b"
 
 // Some more privileged methods, with some private data.
 // Use stampit.mixIn() to make this feel declarative:
-var availability = stampit().enclose(function () {
+var availability = stampit().init(function () {
     var isOpen = false; // private
 
     return stampit.mixIn(this, {
@@ -43,22 +45,25 @@ var availability = stampit().enclose(function () {
         }
     });
 });
-// Hre's a mixin with public methods, and some state:
+
+// Here's a mixin with public methods, and some refs:
 var membership = stampit({
+    methods: {
         members: {},
-        add: function (member: any) {
+        add: function (member:any) {
             this.members[member.name] = member;
             return this;
         },
-        getMember: function (name: any) {
+        getMember: function (name:any) {
             return this.members[name];
         }
     },
-    {
+    refs: {
         members: {}
-    });
+    }
+});
 // Let's set some defaults:
-var defaults = stampit().state({
+var defaults = stampit().refs({
     name: 'The Saloon',
     specials: 'Whisky, Gin, Tequila'
 });
@@ -66,11 +71,10 @@ var defaults = stampit().state({
 // Classical inheritance has nothing on this. No parent/child coupling. No deep inheritance hierarchies.
 // Just good, clean code reusability.
 var bar = stampit.compose(defaults, availability, membership);
-// Note that you can override state on instantiation:
+// Note that you can override refs on instantiation:
 var myBar = bar({name: 'Moe\'s'});
 // Silly, but proves that everything is as it should be.
-myBar.add({name: 'Homer' }).open().getMember('Homer');
-
+myBar.add({name: 'Homer'}).open().getMember('Homer');
 
 
 var myStamp = stampit().methods({
@@ -89,23 +93,23 @@ var myStamp = stampit().methods({
     }
 });
 
-myStamp.state({
+myStamp.refs({
     foo: {bar: 'bar'},
-    stateOverride: false
-}).state({
+    refsOverride: false
+}).refs({
     bar: 'bar',
-    stateOverride: true
+    refsOverride: true
 });
 
-myStamp.enclose(function () {
+myStamp.init(function () {
     var secret = 'foo';
 
     this.getSecret = function () {
         return secret;
     };
-}).enclose(function () {
+}).init(function () {
     this.a = true;
-}).enclose({
+}).init({
     bar: function bar() {
         this.b = true;
     }
@@ -118,17 +122,20 @@ myStamp.enclose(function () {
 var obj = myStamp.create();
 obj.getSecret && obj.a && obj.b && obj.c; // true
 
-var newStamp = stampit(null, { defaultNum: 1 }).compose(myStamp);
-
+var newStamp = stampit({refs: {defaultNum: 1}}).compose(myStamp);
 
 
 var obj1 = stampit().methods({
-    a: function () { return 'a'; }
+    a: function () {
+        return 'a';
+    }
 }, {
-    b: function () { return 'b'; }
+    b: function () {
+        return 'b';
+    }
 }).create();
 
-var obj2 = stampit().state({
+var obj2 = stampit().refs({
     a: 'a'
 }, {
     b: 'b'
@@ -137,21 +144,24 @@ var obj2 = stampit().state({
 var obj = defaults.compose(newStamp, membership, availability).create();
 
 
-
 // The old constructor / class thing...
 var Constructor = function Constructor() {
     this.thing = 'initialized';
 };
-Constructor.prototype.foo = function foo() { return 'foo'; };
+Constructor.prototype.foo = function foo() {
+    return 'foo';
+};
 
 // The conversion
 var oldskool = stampit.convertConstructor(Constructor);
 
 // A new stamp to compose with...
 var newskool = stampit().methods({
-    bar: function bar() { return 'bar'; }
+    bar: function bar() {
+        return 'bar';
+    }
     // your methods here...
-}).enclose(function () {
+}).init(function () {
     this.baz = 'baz';
 });
 

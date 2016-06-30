@@ -1,10 +1,10 @@
 // Type definitions for signature_pad
 // Project: https://github.com/szimek/signature_pad
 // Definitions by: Abubaker Bashir <https://github.com/AbubakerB>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Project by: Szymon Nowak <https://github.com/szimek>
 
-declare module SignaturePad {
+declare namespace SignaturePad {
 	class Point {
 	    x: number;
 	    y: number;

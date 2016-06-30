@@ -19,7 +19,7 @@ function test3() {
     var sock = zmq.socket('push');
     sock.bindSync('tcp://127.0.0.1:3000');
     sock.send(['hello', 'world']);
-    sock.on('message', function (buffer: Buffer) {
+    sock.on('message', function (buffer1: Buffer, buffer2: Buffer) {
         //
     });
 }
@@ -41,4 +41,13 @@ function test5() {
     });
     sock.monitor();
     sock.monitor(10);
+}
+
+function test6() {
+    var sock = zmq.socket(zmq.types.dealer);
+    sock.bind('tcp://127.0.0.1', err => {
+        sock.send("some work");
+    });
+    sock.pause();
+    sock.resume();
 }

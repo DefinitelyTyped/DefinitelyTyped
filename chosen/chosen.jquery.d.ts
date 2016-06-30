@@ -1,7 +1,7 @@
 // Type definitions for Chosen.JQuery 1.4.2
 // Project: http://harvesthq.github.com/chosen/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
@@ -18,7 +18,7 @@ interface ChosenOptions {
     placeholder_text_single?: string;
     search_contains?: boolean;
     single_backstroke_delete?: boolean;
-    width?: number;
+    width?: number|string;
     display_disabled_options?: boolean;
     display_selected_options?: boolean;
     include_group_label_in_selected?: boolean;

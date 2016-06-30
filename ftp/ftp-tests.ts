@@ -20,7 +20,7 @@ c.connect();
 c.connect({
 	host: "127.0.0.1",
 	port: 21,
-	username: "Boo",
+	user: "Boo",
 	password: "secret"
 });
 

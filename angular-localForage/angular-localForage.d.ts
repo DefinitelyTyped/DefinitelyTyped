@@ -1,12 +1,12 @@
 // Type definitions for angular-localForage 1.2.2
 // Project: https://github.com/ocombe/angular-localForage
 // Definitions by: Stefan Steinhart <https://github.com/reppners>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../localForage/localForage.d.ts" />
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.localForage {
+declare namespace angular.localForage {
 
     interface LocalForageConfig {
         driver?:string;
@@ -22,8 +22,8 @@ declare module angular.localForage {
     }
 
     interface ILocalForageService {
-        setDriver(driver:string):angular.IPromise<void>;
-        driver<T>():lf.ILocalForage<T>;
+        driver(): LocalForageDriver;
+        setDriver(name: string | string[]): angular.IPromise<void>;
 
         setItem(key:string, value:any):angular.IPromise<void>;
         setItem(keys:Array<string>, values:Array<any>):angular.IPromise<void>;
@@ -46,14 +46,14 @@ declare module angular.localForage {
 
         iterate<T>(iteratorCallback:(value:string | number, key:string)=>T):angular.IPromise<T>;
 
-        bind($scope:ng.IScope, key:string):void;
+        bind($scope:ng.IScope, key:string):angular.IPromise<any>;
 
         bind($scope:ng.IScope, config:{
             key:string;
-            defaultValue:any;
-            scopeKey:string;
-            name:string;
-        }):void;
+            defaultValue?:any;
+            scopeKey?:string;
+            name?:string;
+        }):angular.IPromise<any>;
 
         unbind($scope:ng.IScope, key:string, scopeKey?:string):void;
 

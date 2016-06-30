@@ -1,5 +1,5 @@
 ///<reference path='applicationinsights.d.ts' />
-import appInsights = require("applicationinsights");
+import * as appInsights from "applicationinsights";
 
 // basic use
 appInsights.setup("<instrumentation_key>").start();
@@ -18,8 +18,14 @@ appInsights.client.trackEvent("custom event", {customProperty: "custom property 
 appInsights.client.trackException(new Error("handled exceptions can be logged with this method"));
 appInsights.client.trackMetric("custom metric", 3);
 appInsights.client.trackTrace("trace message");
+appInsights.client.trackDependency("dependency name", "commandName", 500, true);
 
 // assign common properties to all telemetry
 appInsights.client.commonProperties = {
     environment: "dev"
 };
+
+// send any pending data and log the response
+appInsights.client.sendPendingData(function (response) {
+    console.log(response);
+});

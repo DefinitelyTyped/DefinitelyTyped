@@ -12,7 +12,7 @@ function superformula() {
         .attr("width", 960)
         .attr("height", 500);
 
-    var small = d3.superformula()
+    var small = d3.superformula<string>()
         .type(function (d) { return d; } )
         .size(size);
 

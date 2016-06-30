@@ -1,11 +1,11 @@
 // Type definitions for RxJS-Aggregates v2.2.28
 // Project: http://rx.codeplex.com/
 // Definitions by: Carl de Billy <http://carl.debilly.net/>, Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="rx.d.ts" />
 
-declare module Rx {
+declare namespace Rx {
 	export interface Observable<T> {
 		finalValue(): Observable<T>;
 		aggregate(accumulator: (acc: T, value: T) => T): Observable<T>;
@@ -40,17 +40,9 @@ declare module Rx {
 		sequenceEqual(second: T[]): Observable<boolean>;
 
 		elementAt(index: number): Observable<T>;
-		elementAtOrDefault(index: number, defaultValue?: T): Observable<T>;
-
 		single(predicate?: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
-		singleOrDefault(predicate?: (value: T, index: number, source: Observable<T>) => boolean, defaultValue?: T, thisArg?: any): Observable<T>;
-
 		first(predicate?: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
-		firstOrDefault(predicate?: (value: T, index: number, source: Observable<T>) => boolean, defaultValue?: T, thisArg?: any): Observable<T>;
-
 		last(predicate?: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
-		lastOrDefault(predicate?: (value: T, index: number, source: Observable<T>) => boolean, defaultValue?: T, thisArg?: any): Observable<T>;
-
 		find(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<T>;
 		findIndex(predicate: (value: T, index: number, source: Observable<T>) => boolean, thisArg?: any): Observable<number>;
 	}

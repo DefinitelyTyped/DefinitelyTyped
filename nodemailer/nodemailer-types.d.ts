@@ -1,11 +1,11 @@
 ﻿// Type definitions for Nodemailer 1.3.2
 // Project: https://github.com/andris9/Nodemailer
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
-declare module nodemailer {
+declare namespace nodemailer {
 
 	export interface AttachmentObject {
 		/**
@@ -74,7 +74,7 @@ declare module nodemailer {
 		/**
 		 * The subject of the e-mail
 		 */
-		sbject?: string;
+		subject?: string;
 		/**
 		 * The plaintext version of the message as an Unicode string, Buffer, Stream or an object {path: '...'}
 		 */

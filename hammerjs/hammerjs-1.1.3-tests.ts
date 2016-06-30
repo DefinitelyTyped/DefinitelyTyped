@@ -43,7 +43,7 @@ $("#element")
    });
 
 $("#container").hammer({
-    prevent_default: false,
-    drag_block_vertical: false
+    preventDefault: false,
+    dragBlockVertical: false
 }).on("hold tap doubletap transformstart transform transformend dragstart drag dragend release swipe", function (ev) {
 });

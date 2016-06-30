@@ -22,13 +22,13 @@ describe('File', () => {
 		it('should default base to cwd', done => {
 			var cwd = "/";
 			var file = new File({cwd: cwd});
-			file.base.should.equal(cwd);
+			file.basename.should.equal(cwd);
 			done();
 		});
 
 		it('should default base to cwd even when none is given', done => {
 			var file = new File();
-			file.base.should.equal(process.cwd());
+			file.basename.should.equal(process.cwd());
 			done();
 		});
 
@@ -53,7 +53,7 @@ describe('File', () => {
 		it('should set base to given value', done => {
 			var val = "/";
 			var file = new File({base: val});
-			file.base.should.equal(val);
+			file.basename.should.equal(val);
 			done();
 		});
 
@@ -73,7 +73,7 @@ describe('File', () => {
 
 		it('should set stat to given value', done => {
 			var val = {};
-			var file = new File({stat: val});
+			var file = new File(<fs.Stats><any>{stat: val});
 			file.stat.should.equal(val);
 			done();
 		});
@@ -84,6 +84,41 @@ describe('File', () => {
 			file.contents.should.equal(val);
 			done();
 		});
+
+		it('should default basename to cwd', done => {
+			var cwd = "/";
+			var file = new File({cwd: cwd});
+			file.basename.should.equal(cwd);
+			done();
+		});
+
+		it('should default basename to cwd even when none is given', done => {
+			var file = new File();
+			file.basename.should.equal(process.cwd());
+			done();
+		});
+
+		it('should set basename to given value', done => {
+			var val = "/";
+			var file = new File({base: val});
+			file.basename.should.equal(val);
+			done();
+		});
+
+		it('should default extname to null', done => {
+			var cwd = "/";
+			var file = new File({cwd: cwd});
+			should.not.exist(file.path);
+			done();
+		});
+
+		it('should default dirname to null', done => {
+			var cwd = "/";
+			var file = new File({cwd: cwd});
+			should.not.exist(file.dirname);
+			done();
+		});
+
 	});
 
 	describe('isBuffer()', () => {
@@ -149,33 +184,6 @@ describe('File', () => {
 		});
 	});
 
-	describe('isDirectory()', () => {
-		var fakeStat = {
-			isDirectory: () => {
-				return true;
-			}
-		};
-
-		it('should return false when the contents are a Buffer', done => {
-			var val = new Buffer("test");
-			var file = new File({contents: val, stat: fakeStat});
-			file.isDirectory().should.equal(false);
-			done();
-		});
-
-		it('should return false when the contents are a Stream', done => {
-			var file = new File({ contents: fakeStream, stat: fakeStat});
-			file.isDirectory().should.equal(false);
-			done();
-		});
-
-		it('should return true when the contents are a null', done => {
-			var file = new File({contents: null, stat: fakeStat});
-			file.isDirectory().should.equal(true);
-			done();
-		});
-	});
-
 	describe('clone()', () => {
 		it('should copy all attributes over with Buffer', done => {
 			var options = {
@@ -189,10 +197,22 @@ describe('File', () => {
 
 			file2.should.not.equal(file, 'refs should be different');
 			file2.cwd.should.equal(file.cwd);
-			file2.base.should.equal(file.base);
+			file2.basename.should.equal(file.basename);
 			file2.path.should.equal(file.path);
-			file2.contents.should.not.equal(file.contents, 'buffer ref should be different');
-			file2.contents.toString('utf8').should.equal(file.contents.toString('utf8'));
+
+			let fileContents = file.contents;
+			let file2Contents = file2.contents;
+
+			file2Contents.should.not.equal(fileContents, 'buffer ref should be different');
+
+			let fileUtf8Contents = fileContents instanceof Buffer ?
+				fileContents.toString('utf8') :
+				(<NodeJS.ReadableStream>fileContents).toString();
+			let file2Utf8Contents = file2Contents instanceof Buffer ?
+				file2Contents.toString('utf8') :
+				(<NodeJS.ReadableStream>file2Contents).toString();
+
+			file2Utf8Contents.should.equal(fileUtf8Contents);
 			done();
 		});
 
@@ -208,7 +228,7 @@ describe('File', () => {
 
 			file2.should.not.equal(file, 'refs should be different');
 			file2.cwd.should.equal(file.cwd);
-			file2.base.should.equal(file.base);
+			file2.basename.should.equal(file.basename);
 			file2.path.should.equal(file.path);
 			file2.contents.should.equal(file.contents, 'stream ref should be the same');
 			done();
@@ -226,7 +246,7 @@ describe('File', () => {
 
 			file2.should.not.equal(file, 'refs should be different');
 			file2.cwd.should.equal(file.cwd);
-			file2.base.should.equal(file.base);
+			file2.basename.should.equal(file.basename);
 			file2.path.should.equal(file.path);
 			should.not.exist(file2.contents);
 			done();
@@ -246,7 +266,6 @@ describe('File', () => {
 
 			// ReSharper disable WrongExpressionStatement
 			copy.stat.isFile().should.be.true;
-			copy.stat.isDirectory().should.be.false;
 			// ReSharper restore WrongExpressionStatement
 
 			done();
@@ -294,7 +313,10 @@ describe('File', () => {
 			var ret = file.pipe(stream);
 			ret.should.equal(stream, 'should return the stream');
 
-			file.contents.write(testChunk);
+			let fileContents = file.contents;
+			if (fileContents instanceof Buffer) {
+				fileContents.write(testChunk.toString());
+			}
 		});
 
 		it('should do nothing with null', done => {
@@ -360,7 +382,10 @@ describe('File', () => {
 			var ret = file.pipe(stream, {end: false});
 			ret.should.equal(stream, 'should return the stream');
 
-			file.contents.write(testChunk);
+			let fileContents = file.contents;
+			if (fileContents instanceof Buffer) {
+				fileContents.write(testChunk.toString());
+			}
 		});
 
 		it('should do nothing with null', done => {
@@ -419,7 +444,7 @@ describe('File', () => {
 				path: "/test/test.coffee",
 				contents: val
 			});
-			delete file.base;
+			delete file.basename;
 			file.inspect().should.equal('<File "/test/test.coffee" <Buffer 74 65 73 74>>');
 			done();
 		});
@@ -475,7 +500,7 @@ describe('File', () => {
 			var val = "test";
 			var file = new File();
 			try {
-				file.contents = val;
+				file.contents = new Buffer(val);
 			} catch (err) {
 				should.exist(err);
 				done();
@@ -497,7 +522,7 @@ describe('File', () => {
 		it('should error on get when no base', done => {
 			var a: string;
 			var file = new File();
-			delete file.base;
+			delete file.basename;
 			try {
 				// ReSharper disable once AssignedValueIsNeverUsed
 				a = file.relative;
@@ -535,6 +560,97 @@ describe('File', () => {
 				path: "/test/test.coffee"
 			});
 			file.relative.should.equal("test/test.coffee");
+			done();
+		});
+	});
+
+	describe('path get/set', () => {
+
+		it('should return an absolute path', done => {
+			var file = new File({
+				cwd: "/",
+				base: "/test/",
+				path: "/test/test.coffee"
+			});
+			file.path.should.equal("/test/test.coffee");
+			done();
+		});
+
+	});
+
+	describe('history get', () => {
+		it('should error on set', done => {
+			var file = new File();
+			try {
+				file.history = [];
+			} catch (err) {
+				should.exist(err);
+				done();
+			}
+		});
+
+		it('should return an history', done => {
+			var file = new File({
+				cwd: "/",
+				base: "/test/",
+				path: "/test/test.coffee"
+			});
+			file.history.should.equal(["/test/test.coffee"]);
+			done();
+		});
+
+	});
+
+	describe('dirname get', () => {
+
+		it('should return an dirname', done => {
+			var file = new File({
+				cwd: "/",
+				base: "/test/",
+				path: "/test/test.coffee"
+			});
+			file.dirname.should.equal("test");
+			done();
+		});
+
+		it('should set dirname to given value', done => {
+			var file = new File();
+			file.dirname = ".ext"
+			file.dirname.should.equal(".ext")
+			done();
+		});
+
+		it('should set dirname to null', done => {
+			var file = new File();
+			file.dirname = null
+			should.not.exist(file.dirname)
+			done();
+		});
+	});
+
+	describe('extname get/set', () => {
+
+		it('should return an extname', done => {
+			var file = new File({
+				cwd: "/",
+				base: "/test/",
+				path: "/test/test.coffee"
+			});
+			file.dirname.should.equal(".coffee");
+			done();
+		});
+
+		it('should set extname to given value', done => {
+			var file = new File();
+			file.extname = ".ext"
+			file.extname.should.equal(".ext")
+			done();
+		});
+
+		it('should set extname to null', done => {
+			var file = new File();
+			file.extname = null
+			should.not.exist(file.extname)
 			done();
 		});
 	});

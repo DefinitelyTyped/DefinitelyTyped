@@ -1,11 +1,11 @@
 // Type definitions for Window plugin for jQuery 5.0.4
 // Project: http://fstoke.me/jquery/window/
 // Definitions by: Ryan Graham <https://github.com/ryan-codingintrigue/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module JQueryWindow {
+declare namespace JQueryWindow {
     // Instance methods
     interface Window {
         /**
@@ -35,7 +35,7 @@ declare module JQueryWindow {
         /**
         set current window as screen center
         **/
-        alignCenter(): void;    
+        alignCenter(): void;
         /**
         set current window as horizontal center
         **/

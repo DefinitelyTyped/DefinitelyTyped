@@ -1,7 +1,7 @@
 ﻿// Type definition tests for yargs
 // Project: https://github.com/chevex/yargs
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="yargs.d.ts" />
 
@@ -67,14 +67,14 @@ function default_singles() {
 		.default('x', 10)
 		.default('y', 10)
 		.argv
-	;
+		;
 	console.log(argv.x + argv.y);
 }
 function default_hash() {
 	var argv = yargs
 		.default({ x: 10, y: 10 })
 		.argv
-	;
+		;
 	console.log(argv.x + argv.y);
 }
 
@@ -83,7 +83,7 @@ function boolean_single() {
 	var argv = yargs
 		.boolean('v')
 		.argv
-	;
+		;
 	console.dir(argv.v);
 	console.dir(argv._);
 }
@@ -91,7 +91,7 @@ function boolean_double() {
 	var argv = yargs
 		.boolean(['x', 'y', 'z'])
 		.argv
-	;
+		;
 	console.dir([argv.x, argv.y, argv.z]);
 	console.dir(argv._);
 }
@@ -105,7 +105,7 @@ function line_count() {
 		.alias('f', 'file')
 		.describe('f', 'Load a file')
 		.argv
-	;
+		;
 }
 
 // Below are tests for individual methods.
@@ -123,15 +123,116 @@ function Argv$options() {
 		.options('f', {
 			alias: 'file',
 			default: '/etc/passwd',
+			defaultDescription: 'The /etc/passwd file',
+			group: 'files',
+			normalize: true,
+			global: false,
+			array: true,
+			nargs: 3
 		})
 		.argv
-	;
+		;
 
 	var argv2 = yargs
 		.alias('f', 'file')
 		.default('f', '/etc/passwd')
 		.argv
-	;
+		;
+}
+
+function Argv$global() {
+	var argv = yargs
+		.global('foo')
+		.global(['bar', 'baz', 'fizz', 'buzz'])
+}
+
+function Argv$group() {
+	var argv = yargs
+		.group('foo', 'foogroup')
+		.group(['bing', 'bang', 'buzz'], 'onomatopoeia')
+}
+
+function Argv$env() {
+	var argv = yargs
+		.env('YARGS_PREFIX_')
+		.env()
+		.env(true);
+}
+
+function Argv$array() {
+	var argv = yargs
+		.array('foo')
+		.array(['bar', 'baz'])
+}
+
+function Argv$nargs() {
+	var argv = yargs
+		.nargs('foo', 12)
+		.nargs({ 'bing': 3, 'bang': 2, 'buzz': 4 })
+}
+
+function Argv$choices() {
+	// example from documentation
+	var argv = yargs
+		.alias('i', 'ingredient')
+		.describe('i', 'choose your sandwich ingredients')
+		.choices('i', ['peanut-butter', 'jelly', 'banana', 'pickles'])
+		.help('help')
+		.argv
+}
+
+function command() {
+	var argv = yargs
+		.usage('npm <command>')
+		.command('install', 'tis a mighty fine package to install')
+		.command('publish', 'shiver me timbers, should you be sharing all that', yargs => {
+			argv = yargs.option('f', {
+				alias: 'force',
+				description: 'yar, it usually be a bad idea'
+			})
+				.help('help')
+				.argv;
+		})
+		.command("build", "arghh, build it mate", {
+			tag: {
+				default: true,
+				demand: true,
+				description: "Tag the build, mate!"
+			},
+			publish: {
+				default: false,
+				description:"Should i publish?"
+			}
+		})
+		.help('help')
+		.argv;
+}
+
+function completion_sync() {
+	var argv = yargs
+		.completion('completion', (current, argv) => {
+			// 'current' is the current command being completed.
+			// 'argv' is the parsed arguments so far.
+			// simply return an array of completions.
+			return [
+				'foo',
+				'bar'
+			];
+		})
+		.argv;
+}
+
+function completion_async() {
+	var argv = yargs
+		.completion('completion', (current, argv, done) => {
+			setTimeout(function () {
+				done([
+					'apple',
+					'banana'
+				]);
+			}, 500);
+		})
+		.argv;
 }
 
 function Argv$help() {
@@ -165,4 +266,58 @@ function Argv$version() {
 
 	var argv3 = yargs
 		.version('1.0.0', '--version', 'description');
+
+	var argv4 = yargs
+		.version(function () { return '1.0.0'; }, '--version', 'description');
+}
+
+function Argv$locale() {
+	var argv = yargs
+		.usage('./$0 - follow ye instructions true')
+		.option('option', {
+			alias: 'o',
+			describe: "'tis a mighty fine option",
+			demand: true
+		})
+		.command('run', "Arrr, ya best be knowin' what yer doin'")
+		.example('$0 run foo', "shiver me timbers, here's an example for ye")
+		.help('help')
+		.wrap(70)
+		.locale('pirate')
+		.argv
+}
+
+function Argv$epilogue() {
+	var argv = yargs
+		.epilogue('for more information, find our manual at http://example.com');
+}
+
+function Argv$reset() {
+	var ya = yargs
+		.usage('$0 command')
+		.command('hello', 'hello command')
+		.command('world', 'world command')
+		.demand(1, 'must provide a valid command'),
+		argv = yargs.argv,
+		command = argv._[0];
+
+	if (command === 'hello') {
+		ya.reset()
+			.usage('$0 hello')
+			.help('h')
+			.example('$0 hello', 'print the hello message!')
+			.argv
+
+		console.log('hello!');
+	} else if (command === 'world') {
+		ya.reset()
+			.usage('$0 world')
+			.help('h')
+			.example('$0 world', 'print the world message!')
+			.argv
+
+		console.log('world!');
+	} else {
+		ya.showHelp();
+	}
 }

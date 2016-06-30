@@ -1,15 +1,15 @@
 // Type definitions for Mongoose 3.8.5
 // Project: http://mongoosejs.com/
 // Definitions by: horiuchi <https://github.com/horiuchi/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../node/node.d.ts" />
 
 declare module "mongoose" {
-  function connect(uri: string, options?: ConnectionOption, callback?: (err: any) => void): Mongoose;
+  function connect(uri: string, options?: ConnectionOptions , callback?: (err: any) => void): Mongoose;
   function createConnection(): Connection;
-  function createConnection(uri: string, options?: ConnectionOption): Connection;
-  function createConnection(host: string, database_name: string, port?: number, options?: ConnectionOption): Connection;
+  function createConnection(uri: string, options?: ConnectionOptions): Connection;
+  function createConnection(host: string, database_name: string, port?: number, options?: ConnectionOptions): Connection;
   function disconnect(callback?: (err?: any) => void): Mongoose;
 
   function model<T extends Document>(name: string, schema?: Schema, collection?: string, skipInit?: boolean): Model<T>;
@@ -25,10 +25,10 @@ declare module "mongoose" {
   var connection: Connection;
 
   export class Mongoose {
-    connect(uri: string, options?: ConnectionOption, callback?: (err: any) => void): Mongoose;
+    connect(uri: string, options?: ConnectOpenOptionsBase, callback?: (err: any) => void): Mongoose;
     createConnection(): Connection;
     createConnection(uri: string, options?: Object): Connection;
-    createConnection(host: string, database_name: string, port?: number, options?: ConnectionOption): Connection;
+    createConnection(host: string, database_name: string, port?: number, options?: ConnectOpenOptionsBase): Connection;
     disconnect(callback?: (err?: any) => void): Mongoose;
     get(key: string): any;
     model<T extends Document>(name: string, schema?: Schema, collection?: string, skipInit?: boolean): Model<T>;
@@ -40,6 +40,7 @@ declare module "mongoose" {
     mquery: any;
     version: string;
     connection: Connection;
+    Promise: any;
   }
 
   export interface Connection extends NodeJS.EventEmitter {
@@ -49,28 +50,186 @@ declare module "mongoose" {
     collection(name: string, options?: Object): Collection;
     model<T extends Document>(name: string, schema?: Schema, collection?: string): Model<T>;
     modelNames(): string[];
-    open(host: string, database?: string, port?: number, options?: ConnectionOption, callback?: (err: any) => void): Connection;
-    openSet(uris: string, database?: string, options?: ConnectionSetOption, callback?: (err: any) => void): Connection;
+    open(host: string, database?: string, port?: number, options?: OpenSetConnectionOptions, callback?: (err: any) => void): Connection;
+    openSet(uris: string, database?: string, options?: OpenSetConnectionOptions, callback?: (err: any) => void): Connection;
 
     db: any;
     collections: {[index: string]: Collection};
     readyState: number;
   }
-  export interface ConnectionOption {
+
+  export interface ConnectOpenOptionsBase {
     db?: any;
     server?: any;
     replset?: any;
+    /** Username for authentication if not supplied in the URI. */
     user?: string;
+    /** Password for authentication if not supplied in the URI. */
     pass?: string;
+    /** Options for authentication */
     auth?: any;
   }
-  export interface ConnectionSetOption extends ConnectionOption {
-    mongos?: boolean;
+
+  export interface ConnectionOptions extends ConnectOpenOptionsBase {
+    /** Passed to the underlying driver's Mongos instance. */
+    mongos?: MongosOptions;
+  }
+
+  interface OpenSetConnectionOptions extends ConnectOpenOptionsBase {
+      /** If true, enables High Availability support for mongos */
+      mongos?: boolean;
+  }
+
+  interface MongosOptions {
+      /** Turn on high availability monitoring. (default: true) */
+      ha?: boolean;
+      /** Time between each replicaset status check. (default: 5000) */
+      haInterval?: number;
+      /**
+       * Number of connections in the connection pool for each
+       * server instance. (default: 5 (for legacy reasons)) */
+      poolSize?: number;
+      /**
+       * Use ssl connection (needs to have a mongod server with
+       * ssl support). (default: false).
+       */
+      ssl?: boolean;
+      /**
+       * Validate mongod server certificate against ca
+       * (needs to have a mongod server with ssl support, 2.4 or higher)
+       * (default: true)
+       */
+      sslValidate?: boolean;
+      /** Turn on high availability monitoring. */
+      sslCA?: (Buffer|string)[];
+      sslKey?: Buffer|string;
+      sslPass?: Buffer|string;
+      socketOptions?: {
+          noDelay?: boolean;
+          keepAlive?: number;
+          connectionTimeoutMS?: number;
+          socketTimeoutMS?: number;
+      };
   }
 
   export interface Collection {
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#initializeOrderedBulkOp
+    initializeOrderedBulkOp(options?: CollectionOptions): OrderedBulkOperation;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#initializeUnorderedBulkOp
+    initializeUnorderedBulkOp(options?: CollectionOptions): UnorderedBulkOperation;
   }
 
+  export interface CollectionOptions {
+    //The write concern.
+    w?: number | string;
+    //The write concern timeout.
+    wtimeout?: number;
+    //Specify a journal write concern.
+    j?: boolean;
+  }
+
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/OrderedBulkOperation.html
+  export interface OrderedBulkOperation {
+    length: number;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/OrderedBulkOperation.html#execute
+    execute(callback: MongoCallback<BulkWriteResult>): void;
+    execute(options?: FSyncOptions): Promise<BulkWriteResult>;
+    execute(options: FSyncOptions, callback: MongoCallback<BulkWriteResult>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/OrderedBulkOperation.html#find
+    find(selector: Object): FindOperatorsOrdered;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/OrderedBulkOperation.html#insert
+    insert(doc: Object): OrderedBulkOperation;
+  }
+
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html
+  export interface UnorderedBulkOperation {
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html#execute
+    execute(callback: MongoCallback<BulkWriteResult>): void;
+    execute(options?: FSyncOptions): Promise<BulkWriteResult>;
+    execute(options: FSyncOptions, callback: MongoCallback<BulkWriteResult>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html#find
+    find(selector: Object): FindOperatorsUnordered;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html#insert
+    insert(doc: Object): UnorderedBulkOperation;
+  }
+
+  export interface MongoCallback<T> {
+    (error: MongoError, result: T): void;
+  }
+
+  // http://mongodb.github.io/node-mongodb-native/2.1/api/MongoError.html
+  export class MongoError extends Error {
+    constructor(message: string);
+    static create(options: Object): MongoError;
+  }
+
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/BulkWriteResult.html
+  export interface BulkWriteResult {
+    ok: number;
+    nInserted: number;
+    nUpdated: number;
+    nUpserted: number;
+    nModified: number;
+    nRemoved: number;
+
+    getInsertedIds(): Array<Object>;
+    getLastOp(): Object;
+    getRawResponse(): Object;
+    getUpsertedIdAt(index: number): Object;
+    getUpsertedIds(): Array<Object>;
+    getWriteConcernError(): WriteConcernError;
+    getWriteErrorAt(index: number): WriteError;
+    getWriteErrorCount(): number;
+    getWriteErrors(): Array<Object>;
+    hasWriteErrors(): boolean;
+  }
+
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/WriteError.html
+  export interface WriteError {
+    //Write concern error code.
+    code: number;
+    //Write concern error original bulk operation index.
+    index: number;
+    //Write concern error message.
+    errmsg: string;
+  }
+
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/WriteConcernError.html
+  export interface WriteConcernError {
+    //Write concern error code.
+    code: number;
+    //Write concern error message.
+    errmsg: string;
+  }
+
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/Admin.html#removeUser
+  export interface FSyncOptions {
+    w?: number | string;
+    wtimeout?: number;
+    j?: boolean;
+    fsync?: boolean
+  }
+
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/FindOperatorsOrdered.html
+  export interface FindOperatorsOrdered {
+    delete(): OrderedBulkOperation;
+    deleteOne(): OrderedBulkOperation;
+    replaceOne(doc: Object): OrderedBulkOperation;
+    update(doc: Object): OrderedBulkOperation;
+    updateOne(doc: Object): OrderedBulkOperation;
+    upsert(): FindOperatorsOrdered;
+  }
+
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/FindOperatorsUnordered.html
+  export interface FindOperatorsUnordered {
+    length: number;
+    remove(): UnorderedBulkOperation;
+    removeOne(): UnorderedBulkOperation;
+    replaceOne(doc: Object): UnorderedBulkOperation;
+    update(doc: Object): UnorderedBulkOperation;
+    updateOne(doc: Object): UnorderedBulkOperation;
+    upsert(): FindOperatorsUnordered;
+  }
 
   export class SchemaType { }
   export class VirtualType {
@@ -79,13 +238,14 @@ declare module "mongoose" {
   }
   export module Types {
     export class ObjectId {
-      constructor(id: string|number);
+      constructor(id?: string|number);
       toHexString(): string;
       equals(other: ObjectId): boolean;
       getTimestamp(): Date;
       isValid(): boolean;
       static createFromTime(time: number): ObjectId;
       static createFromHexString(hexString: string): ObjectId;
+	  static isValid(id?: string|number):boolean;
     }
   }
 
@@ -96,6 +256,10 @@ declare module "mongoose" {
       OId: Types.ObjectId;
       Mixed: any;
     };
+
+    methods: any;
+    statics: any;
+
     constructor(schema?: Object, options?: Object);
 
     add(obj: Object, prefix?: string): void;
@@ -109,14 +273,42 @@ declare module "mongoose" {
     path(path: string, constructor: any): Schema;
     pathType(path: string): string;
     plugin(plugin: (schema: Schema, options?: Object) => void, options?: Object): Schema;
-    post(method: string, fn: Function): Schema;
-    pre(method: string, callback: Function): Schema;
+
+    pre(method: string, fn: HookSyncCallback, errorCb?: HookErrorCallback): Schema;
+    pre(method: string, isAsync: boolean, fn: HookAsyncCallback, errorCb?: HookErrorCallback): Schema;
+    post(method: string, fn: (doc: Document, next?: HookNextFunction) => any ): Schema;
+
     requiredPaths(): string[];
     set(key: string, value: any): void;
     static(name: string, fn: Function): Schema;
     virtual(name: string, options?: Object): VirtualType;
     virtualpath(name: string): VirtualType;
+
   }
+
+  // hook functions: https://github.com/vkarpov15/hooks-fixed
+  export interface HookSyncCallback {
+    (next: HookNextFunction, ...hookArgs:any[]): any;
+  }
+
+  export interface HookAsyncCallback {
+    (next: HookNextFunction, done: HookDoneFunction, ...hookArgs:any[]): any;
+  }
+
+  export interface HookErrorCallback {
+    (error: Error): any;
+  }
+
+  export interface HookNextFunction {
+    (error: Error): any;
+    (...hookArgs:any[]): any;
+  }
+
+  export interface HookDoneFunction {
+    (error: Error): any;
+    (...hookArgs:any[]): any;
+  }
+
   export interface SchemaOption {
     autoIndex?: boolean;
     bufferCommands?: boolean;
@@ -135,7 +327,7 @@ declare module "mongoose" {
   }
 
   export interface Model<T extends Document> extends NodeJS.EventEmitter {
-    new(doc: Object): T;
+    new(doc?: Object, fields?: Object, skipInit?: boolean): T;
 
     aggregate(...aggregations: Object[]): Aggregate<T[]>;
     aggregate(aggregation: Object, callback: (err: any, res: T[]) => void): Promise<T[]>;
@@ -151,6 +343,7 @@ declare module "mongoose" {
     distinct(field: string, conditions: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
     ensureIndexes(callback: (err: any) => void): Promise<T>;
 
+    find(): Query<T[]>;
     find(cond: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
     find(cond: Object, fields: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
     find(cond: Object, fields: Object, options: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
@@ -169,8 +362,8 @@ declare module "mongoose" {
     findOneAndUpdate(cond: Object, update: Object, callback?: (err: any, res: T) => void): Query<T>;
     findOneAndUpdate(cond: Object, update: Object, options: FindAndUpdateOption, callback?: (err: any, res: T) => void): Query<T>;
 
-    geoNear(point: { type: string; coordinates: number[] }, options: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
-    geoNear(point: number[], options: Object, callback?: (err: any, res: T[]) => void): Query<T[]>;
+    geoNear(point: { type: string; coordinates: number[] }, options: Object, callback?: (err: any, res: T[], stats: any) => void): Query<T[]>;
+    geoNear(point: number[], options: Object, callback?: (err: any, res: T[], stats: any) => void): Query<T[]>;
     geoSearch(cond: Object, options: GeoSearchOption, callback?: (err: any, res: T[]) => void): Query<T[]>;
     increment(): T;
     mapReduce<K, V>(options: MapReduceOption<T, K, V>, callback?: (err: any, res: MapReduceResult<K, V>[]) => void): Promise<MapReduceResult<K, V>[]>;
@@ -263,8 +456,8 @@ declare module "mongoose" {
     circle(area: Object): Query<T>;
     circle(path: string, area: Object): Query<T>;
     comment(val: any): Query<T>;
-    count(callback?: (err: any, count: number) => void): Query<T>;
-    count(criteria: Object, callback?: (err: any, count: number) => void): Query<T>;
+    count(callback?: (err: any, count: number) => void): Query<number>;
+    count(criteria: Object, callback?: (err: any, count: number) => void): Query<number>;
     distinct(callback?: (err: any, res: T) => void): Query<T>;
     distinct(field: string, callback?: (err: any, res: T) => void): Query<T>;
     distinct(criteria: Object, field: string, callback?: (err: any, res: T) => void): Query<T>;
@@ -380,7 +573,7 @@ declare module "mongoose" {
 
   export interface Document {
     id?: string;
-    _id: Types.ObjectId;
+    _id: any;
 
     equals(doc: Document): boolean;
     get(path: string, type?: new(...args: any[]) => any): any;
@@ -437,7 +630,7 @@ declare module "mongoose" {
   export class Promise<T> {
     constructor(fn?: (err: any, result: T) => void);
 
-    then<U>(onFulFill: (result: T) => void, onReject?: (err: any) => void): Promise<U>;
+    then<U>(onFulFill: (result: T) => void | U | Promise<U>, onReject?: (err: any) => void | U | Promise<U>): Promise<U>;
     end(): void;
 
     fulfill(result: T): Promise<T>;
@@ -458,4 +651,3 @@ declare module "mongoose" {
   }
 
 }
-
