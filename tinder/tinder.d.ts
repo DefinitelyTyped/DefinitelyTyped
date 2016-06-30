@@ -11,42 +11,266 @@ declare module 'tinder' {
 
     class TinderClient {
         constructor();
-        authorize(fbToken: string, fbId: string, callback: Callback<any>);
+        /**
+         * Authorize this tinder client
+         * @param {String} fbToken the Facebook token. This will be obtained when authenticating the user
+         * @param {String} fbId the Facebook user id.
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        authorize(fbToken: string, fbId: string, callback: Callback<any>): void;
+
+        /**
+         * Returns whether this client is authorized
+         * @return whether or not this client is authorized
+         */
         isAuthorized(): Boolean;
-        getAuthToken(): any;
+
+        /**
+         * Returns the xAuthToken
+         * @return xAuthToken
+         */
+        getAuthToken(): string;
+
+        /**
+         * Set auth token if you have it saved, no need to do fb login every time
+         */
+        setAuthToken(xAuthToken: string): void;
+
+        /**
+         * Returns client information and globals
+         * Globals are used for interacting with tinder api limits
+         */
         getDefaults(): any;
-        userId(): any;
-        getRecommendations(limit: number, callback: Callback<TinderRecommendationsResult>);
-        sendMessage(matchId: string, message: string, callback: Callback<any>);
-        like(userId: string, callback: Callback<any>);
-        superLike(userId: string, callback: Callback<any>);
-        pass(userId: string, callback: Callback<any>);
-        unmatch(matchId: string, callback: Callback<any>);
-        getUpdates(callback: Callback<TinderUpdates>);
-        getHistory(callback: Callback<TinderHistory>);
-        updatePosition(longitude, latitude, callback: Callback<any>);
-        getAccount(callback: Callback<any>);
-        updatePreferences(discovery: Boolean, minAge: number, maxAge: number, gender: number, distanceInMiles: string, callback: Callback<any>);
-        uploadPicture(file: fs.ReadStream, callback: Callback<any>);
-        uploadFBPicture(pictureId, xdistance_percent: number, ydistance_percent: number, xoffset_percent: number, yoffset_percent: number, callback: Callback<any>)
-        deletePicture(pictureId, callback: Callback<any>)
-        getProfile(callback: Callback<any>)
-        updateGender(gender: number, callback: Callback<any>)
-        updateBio(bio: string, callback: Callback<any>)
-        updateJob(id, callback: Callback<any>)
-        deleteJob(callback: Callback<any>)
-        updateSchool(id, callback: Callback<any>)
-        deleteSchool(callback: Callback<any>)
-        deleteAccount(callback: Callback<any>)
-        getUser(userId: string, callback: Callback<any>)
-        getShareLink(userId: string, callback: Callback<any>)
-        report(userId: string, causeId: Number, causeText: string, callback: Callback<any>)
-        report(userId: string, causeId: Number, callback: Callback<any>)
-        createUsername(username: string, callback: Callback<any>)
-        changeUsername(username: string, callback: Callback<any>)
-        deleteUsername(username: string, callback: Callback<any>)
-        updatePassport(latitude: string, longitude: string, callback: Callback<any>)
-        resetPassport(callback: Callback<any>)
+
+        /**
+         * The current account's user id
+         */
+        userId: string;
+
+        /**
+         * Gets a list of nearby users
+         * @param {Number} limit the maximum number of profiles to fetch
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        getRecommendations(limit: number, callback: Callback<TinderRecommendationsResult>): void;
+
+        /**
+         * Sends a message to a user
+         * @param {String} matchId the id of the match
+         * @param {String} message the message to send
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        sendMessage(matchId: string, message: string, callback: Callback<any>): void;
+
+        /**
+         * Likes (swipes right) on a user
+         * @param {String} userId the id of the user
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        like(userId: string, callback: Callback<any>): void;
+
+        /**
+         * Superlikes a user
+         * @param {String} userId the id of the user
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        superLike(userId: string, callback: Callback<any>): void;
+
+        /**
+         * Passes (swipes left) on a user
+         * @param {String} userId the id of the user
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        pass(userId: string, callback: Callback<any>): void;
+
+        /**
+         * Unmatch with a user
+         * @param {String} matchID the id of the match
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        unmatch(matchId: string, callback: Callback<any>): void;
+
+        /**
+         * Gets a list of new updates. This will be things like new messages, users who liked you, etc. 
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        getUpdates(callback: Callback<TinderUpdates>): void;
+
+        /**
+         * Gets the entire history for the current account (all matches, messages, blocks, etc.)
+         * 
+         * NOTE: Old messages seem to not be returned after a certain threshold. Not yet
+         * sure what exactly that timeout is. The official client seems to get this update
+         * once when the app is installed then cache the results and only rely on the
+         * incremental updates
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        getHistory(callback: Callback<TinderHistory>): void;
+
+        /**
+         * Updates the geographical position for the current account 
+         * @param {Number} lon the longitude
+         * @param {Number} lat the latitutde
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        updatePosition(longitude: Number, latitude: Number, callback: Callback<any>): void;
+
+        /**
+         * Gets the current account info
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        getAccount(callback: Callback<any>): void;
+
+        /**
+         * Updates the preferences for the current account
+         * @param {Boolean} discovery whether or not to show user's card
+         * @param {Number} ageMin the minimum age to show recommendations
+         * @param {Number} ageMax the maximum age to show recommendations
+         * @param {Number} gender the gender to show recommentations (0 = Male, 1 = Female, -1 = Both)
+         * @param {Number} distance the distance in miles to show recommendations
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        updatePreferences(discovery: Boolean, ageMin: number, ageMax: number, gender: number, distance: number, callback: Callback<any>): void;
+
+        /**
+         * Upload a new picture to the current account
+         * @param {Buffer} file the picture that you want to upload
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        uploadPicture(file: fs.ReadStream, callback: Callback<any>): void;
+
+        /**
+         * Post a new picture to the current account from Facebook
+         * @param {String} pictureId is the facebook id of the picture
+         * @param {Float} xdistance_percent is the zoom percentage in x 0 full Zoom 1 no Zoom
+         * @param {Float} ydistance_percent is the zoom percentage in x 0 full Zoom 1 no Zoom
+         * @param {Float} xoffset_percent is the offset from the left corner in percentage
+         * @param {Float} yoffset_percent is the offset from the top corner in percentage
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        uploadFBPicture(pictureId: string, xdistance_percent: number, ydistance_percent: number, xoffset_percent: number, yoffset_percent: number, callback: Callback<any>): void;
+
+        /**
+         * Delete a picture from the current account
+         * @param {String} pictureId the id of the picture
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        deletePicture(pictureId: string, callback: Callback<any>): void;
+
+        /**
+         * @deprecated
+         * Get authenticated user info
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        getProfile(callback: Callback<any>): void;
+
+        /**
+         * Update your gender
+         * @param {Number} gender is your gender (0 = Male, 1 = Female)
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        updateGender(gender: number, callback: Callback<any>): void;
+
+        /**
+         * Update your bio
+         * @param {String} bio is you bio (500 characters max.)
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        updateBio(bio: string, callback: Callback<any>): void;
+
+        /**
+         * Update your job
+         * @param {String} id is the facebook id of the job
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        updateJob(id: String, callback: Callback<any>): void;
+
+        /**
+         * Delete your current job
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        deleteJob(callback: Callback<any>): void;
+
+        /**
+         * Update your school
+         * @param {String} id is the facebook id of the school
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        updateSchool(id: String, callback: Callback<any>): void;
+
+        /**
+         * Delete your current school
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        deleteSchool(callback: Callback<any>): void;
+
+        /**
+         * Delete the current account
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        deleteAccount(callback: Callback<any>): void;
+
+        /**
+         * Gets a user by id
+         * @param {String} userId the id of the user
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        getUser(userId: string, callback: Callback<any>): void;
+
+        /**
+         * Get a share URL for a user
+         * 
+         * @param {String} userId the id of the user
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        getShareLink(userId: string, callback: Callback<any>): void;
+
+        /**
+         * Report a user
+         * 
+         * @param {String} userId the id of the user
+         * @param {Number} causeId one of 4 (inappropriate photos), 1 (spam), or 0 (other)
+         * @param {String} causeText optional reason for report when causeId is 0 (other)
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        report(userId: string, causeId: Number, causeText: string, callback: Callback<any>): void;
+
+        /**
+         * Create a web username for the current account
+         * 
+         * @param {String} userName the username to request be created
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        createUsername(username: string, callback: Callback<any>): void;
+
+        /**
+         * Change a web username for the current account if it's already been set
+         * 
+         * @param {String} userName the username to request be created
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        changeUsername(username: string, callback: Callback<any>): void;
+
+        /**
+         * Deletes the existing web username for the current account
+         * 
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        deleteUsername(username: string, callback: Callback<any>): void;
+
+        /**
+         * Update the passport location 
+         * @param {Number} lon the longitude
+         * @param {Number} lat the latitutde
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        updatePassport(latitude: string, longitude: string, callback: Callback<any>): void;
+        
+        /**
+         * Reset the passport location 
+         * @param {Function} callback the callback to invoke when the request completes
+         */
+        resetPassport(callback: Callback<any>): void;
     }
 
     interface Callback<T> {
@@ -64,12 +288,12 @@ declare module 'tinder' {
         last_activity_date: string;
     }
 
+    /**
+     * When out of recommendations it is set to "out of recs", a possible value is also "recs timeout",
+     * otherwise does not seem to be used
+     */
     interface TinderRecommendationsResult {
-        /**
-         * when out of recommendations it is set to "out of recs", a possible value is also "recs timeout",
-         *  otherwise does not seem to be used
-         */
-        message?: string; 
+        message?: string;
         status: Number;
         results: TinderRecommendation[];
     }
