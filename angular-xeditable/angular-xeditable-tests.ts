@@ -2,7 +2,7 @@
 
 var myApp = angular.module('testModule', ['xeditable']);
 
-myApp.run(["editableOptions"], (editableOptions: angular.xeditable.IEditableOptions) => {
+myApp.run(["editableOptions", (editableOptions: angular.xeditable.IEditableOptions) => {
     
         editableOptions.activate = "select";
         editableOptions.activationEvent = "click";
@@ -12,4 +12,4 @@ myApp.run(["editableOptions"], (editableOptions: angular.xeditable.IEditableOpti
         editableOptions.icon_set = "font-awesome";
         editableOptions.isDisabled = true;
         editableOptions.theme = "bs3";
-});
+}]);
