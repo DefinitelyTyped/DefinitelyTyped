@@ -1,9 +1,9 @@
-// Type definitions for material-ui v0.15.1
+// Type definitions for material-ui v0.15.0
 // Project: https://github.com/callemall/material-ui
 // Definitions by: Nathan Brown <https://github.com/ngbrown>, Oliver Herrmann <https://github.com/herrmanno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path='../react/react.d.ts' />
+///<reference path='../../react/react.d.ts' />
 
 declare module "material-ui" {
     export import AppBar = __MaterialUI.AppBar;
@@ -17,7 +17,6 @@ declare module "material-ui" {
     export import CardText = __MaterialUI.Card.CardText;
     export import CardTitle = __MaterialUI.Card.CardTitle;
     export import Checkbox = __MaterialUI.Switches.Checkbox;
-    export import Chip = __MaterialUI.Chip;
     export import CircularProgress = __MaterialUI.CircularProgress;
     export import DatePicker = __MaterialUI.DatePicker.DatePicker;
     export import Dialog = __MaterialUI.Dialog;
@@ -249,7 +248,7 @@ declare namespace __MaterialUI {
             inkBar?: {
                 backgroundColor?: string;
             };
-            drawer?: {
+            navDrawer?: {
                 width?: number;
                 color?: string;
             };
@@ -428,7 +427,7 @@ declare namespace __MaterialUI {
             menu: number;
             appBar: number;
             drawerOverlay: number;
-            drawer: number;
+            navDrawer: number;
             dialogOverlay: number;
             dialog: number;
             layer: number;
@@ -514,7 +513,6 @@ declare namespace __MaterialUI {
         iconElementLeft?: React.ReactElement<any>;
         iconElementRight?: React.ReactElement<any>;
         iconStyleRight?: string;
-        iconStyleLeft?: string;
         onLeftIconButtonTouchTap?: TouchTapEventHandler;
         onRightIconButtonTouchTap?: TouchTapEventHandler;
         onTitleTouchTap?: TouchTapEventHandler;
@@ -839,18 +837,6 @@ declare namespace __MaterialUI {
         }
     }
 
-    interface ChipProps extends React.Props<Chip> {
-        backgroundColor?: string;
-        className?: string;
-        labelColor?: string;
-        labelStyle?: React.CSSProperties;
-        onRequestDelete?: React.TouchEventHandler;
-        onTouchTap?: React.TouchEventHandler;
-        style?: React.CSSProperties;
-    }
-    export class Chip extends React.Component<ChipProps, {}> {
-    }
-
     namespace DatePicker {
         interface DatePickerProps extends React.Props<DatePicker> {
             // <TextField/> is the element that get the 'other' properties
@@ -1164,7 +1150,6 @@ declare namespace __MaterialUI {
             touchTapCloseDelay?: number;
             useLayerForClickAway?: boolean;
 
-            animated?: boolean;
             autoWidth?: boolean;
             desktop?: boolean;
             listStyle?: React.CSSProperties;
@@ -1184,7 +1169,6 @@ declare namespace __MaterialUI {
 
         interface DropDownMenuProps extends React.Props<DropDownMenu> {
             // <div/> is the element that gets the 'other' properties
-            animated?: boolean;
             autoWidth?: boolean;
             className?: string;
             disabled?: boolean;
@@ -1297,7 +1281,6 @@ declare namespace __MaterialUI {
         disabled?: boolean;
         errorStyle?: React.CSSProperties;
         errorText?: React.ReactNode;
-        floatingLabelFixed?: boolean;
         floatingLabelStyle?: React.CSSProperties;
         floatingLabelText?: React.ReactNode;
         fullWidth?: boolean;
@@ -1309,6 +1292,7 @@ declare namespace __MaterialUI {
         onBlur?: React.FocusEventHandler;
         onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
         onFocus?: React.FocusEventHandler;
+        selectFieldRoot?: React.CSSProperties;
         style?: React.CSSProperties;
         underlineDisabledStyle?: React.CSSProperties;
         underlineFocusStyle?: React.CSSProperties;
@@ -1719,8 +1703,6 @@ declare namespace __MaterialUI {
         autoOk?: boolean;
         cancelLabel?: React.ReactNode;
         defaultTime?: Date;
-        dialogBodyStyle?: React.CSSProperties;
-        dialogStyle?: React.CSSProperties;
         disabled?: boolean;
         format?: "ampm" | "24hr";
         okLabel?: React.ReactNode;
@@ -1914,11 +1896,6 @@ declare module 'material-ui/Card/CardTitle' {
 declare module 'material-ui/Checkbox' {
     export import Checkbox = __MaterialUI.Switches.Checkbox;
     export default Checkbox;
-}
-
-declare module 'material-ui/Chip' {
-    export import Chip = __MaterialUI.Chip;
-    export default Chip;
 }
 
 declare module 'material-ui/CircularProgress' {
