@@ -5,78 +5,82 @@
 
 /// <reference types="angularjs" />
 
-declare namespace angular.notifications {
+import * as angular from 'angularjs';
 
-  interface IAnimation {
-    duration: number;
-    enabled: boolean;
-  }
+declare module 'angularjs' {
+    export namespace notifications {
 
-  interface ISettings {
-    info: IAnimation;
-    warning: IAnimation;
-    error: IAnimation;
-    success: IAnimation;
-    progress: IAnimation;
-    custom: IAnimation;
-    details: boolean;
-    localStorage: boolean;
-    html5Mode: boolean;
-    html5DefaultIcon: string;
-  }
+        interface IAnimation {
+        duration: number;
+        enabled: boolean;
+        }
 
-  interface INotification {
-    type: string;
-    image: string;
-    icon: string;
-    title: string;
-    content: string;
-    timestamp: string;
-    userData: string;
-  }
+        interface ISettings {
+        info: IAnimation;
+        warning: IAnimation;
+        error: IAnimation;
+        success: IAnimation;
+        progress: IAnimation;
+        custom: IAnimation;
+        details: boolean;
+        localStorage: boolean;
+        html5Mode: boolean;
+        html5DefaultIcon: string;
+        }
 
-  interface INotificationFactory extends angular.IModule {
+        interface INotification {
+        type: string;
+        image: string;
+        icon: string;
+        title: string;
+        content: string;
+        timestamp: string;
+        userData: string;
+        }
 
-    /* ========== SETTINGS RELATED METHODS =============*/
+        interface INotificationFactory extends angular.IModule {
 
-    disableHtml5Mode(): void;
-    disableType(notificationType: string): void;
-    enableHtml5Mode(): void;
-    enableType(notificationType: string): void;
-    getSettings(): ISettings;
-    toggleType(notificationType: string): void;
-    toggleHtml5Mode(): void;
-    requestHtml5ModePermissions(): boolean;
+        /* ========== SETTINGS RELATED METHODS =============*/
 
-    /* ============ QUERYING RELATED METHODS ============*/
+        disableHtml5Mode(): void;
+        disableType(notificationType: string): void;
+        enableHtml5Mode(): void;
+        enableType(notificationType: string): void;
+        getSettings(): ISettings;
+        toggleType(notificationType: string): void;
+        toggleHtml5Mode(): void;
+        requestHtml5ModePermissions(): boolean;
 
-    getAll(): Array<INotification>;
-    getQueue(): Array<INotification>;
+        /* ============ QUERYING RELATED METHODS ============*/
 
-    /* ============== NOTIFICATION METHODS ==============*/
+        getAll(): Array<INotification>;
+        getQueue(): Array<INotification>;
 
-    info(title: string): INotification;
-    info(title: string, content: string): INotification;
-    info(title: string, content: string, userData: any): INotification;
-    error(title: string): INotification;
-    error(title: string, content: string): INotification;
-    error(title: string, content: string, userData: any): INotification;
-    success(title: string): INotification;
-    success(title: string, content: string): INotification;
-    success(title: string, content: string, userData: any): INotification;
-    warning(title: string): INotification;
-    warning(title: string, content: string): INotification;
-    warning(title: string, content: string, userData: any): INotification;
-    awesomeNotify(type: string, icon: string, title: string, content: string, userData: any): INotification;
-    notify(image: string, title: string, content: string, userData: any): INotification;
-    makeNotification(type: string, image: string, icon: string, title: string, content: string, userData: any): INotification;
+        /* ============== NOTIFICATION METHODS ==============*/
 
-    /* ============ PERSISTENCE METHODS ============ */
+        info(title: string): INotification;
+        info(title: string, content: string): INotification;
+        info(title: string, content: string, userData: any): INotification;
+        error(title: string): INotification;
+        error(title: string, content: string): INotification;
+        error(title: string, content: string, userData: any): INotification;
+        success(title: string): INotification;
+        success(title: string, content: string): INotification;
+        success(title: string, content: string, userData: any): INotification;
+        warning(title: string): INotification;
+        warning(title: string, content: string): INotification;
+        warning(title: string, content: string, userData: any): INotification;
+        awesomeNotify(type: string, icon: string, title: string, content: string, userData: any): INotification;
+        notify(image: string, title: string, content: string, userData: any): INotification;
+        makeNotification(type: string, image: string, icon: string, title: string, content: string, userData: any): INotification;
 
-    save(): void;
-    restore(): void;
-    clear(): void;
-  }
+        /* ============ PERSISTENCE METHODS ============ */
+
+        save(): void;
+        restore(): void;
+        clear(): void;
+        }
+}
 
 }
 

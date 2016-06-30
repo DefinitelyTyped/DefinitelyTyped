@@ -6,7 +6,7 @@
 // Sources: https://github.com/i18next/i18next/
 
 
-declare namespace I18n {
+declare namespace i18n {
     interface ResourceStore {
         [language: string]: ResourceStoreLanguage;
     }
@@ -87,8 +87,8 @@ declare namespace I18n {
 
     type TranslationFunction = (key:string, options?:TranslationOptions) => string;
 
-    class I18n {
-        constructor(options?:Options, callback?:(err:any, t:TranslationFunction) => void);
+    interface I18n {
+        //constructor(options?:Options, callback?:(err:any, t:TranslationFunction) => void);
 
         init(options?:Options, callback?:(err:any, t:TranslationFunction) => void):I18n;
 
@@ -118,6 +118,6 @@ declare namespace I18n {
     }
 }
 
-declare var i18n:I18n.I18n;
+declare var i18n:i18n.I18n;
 
 export = i18n;

@@ -3,8 +3,8 @@
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var base: BaseX.Base;
-export = base;
+declare var BaseX: BaseX.Base;
+export = BaseX;
 
 declare namespace BaseX {
 	interface EncodeBuffer {

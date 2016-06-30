@@ -6,58 +6,62 @@
 /// <reference types="localForage" />
 /// <reference types="angularjs" />
 
-declare namespace angular.localForage {
+import * as angular from 'angularjs';
 
-    interface LocalForageConfig {
-        driver?:string;
-        name?:string | number;
-        version?:number;
-        storeName?:string;
-        description?:string;
-    }
+declare module 'angularjs' {
+    export namespace localForage {
 
-    interface ILocalForageProvider {
-        config(config:LocalForageConfig):void;
-        setNotify(onItemSet:boolean, onItemRemove:boolean):void;
-    }
+        interface LocalForageConfig {
+            driver?: string;
+            name?: string | number;
+            version?: number;
+            storeName?: string;
+            description?: string;
+        }
 
-    interface ILocalForageService {
-        driver(): LocalForageDriver;
-        setDriver(name: string | string[]): angular.IPromise<void>;
+        interface ILocalForageProvider {
+            config(config: LocalForageConfig): void;
+            setNotify(onItemSet: boolean, onItemRemove: boolean): void;
+        }
 
-        setItem(key:string, value:any):angular.IPromise<void>;
-        setItem(keys:Array<string>, values:Array<any>):angular.IPromise<void>;
+        interface ILocalForageService {
+            driver(): LocalForageDriver;
+            setDriver(name: string | string[]): angular.IPromise<void>;
 
-        getItem(key:string):angular.IPromise<any>;
-        getItem(keys:Array<string>):angular.IPromise<Array<any>>;
+            setItem(key: string, value: any): angular.IPromise<void>;
+            setItem(keys: Array<string>, values: Array<any>): angular.IPromise<void>;
 
-        removeItem(key:string | Array<string>):angular.IPromise<void>;
+            getItem(key: string): angular.IPromise<any>;
+            getItem(keys: Array<string>): angular.IPromise<Array<any>>;
 
-        pull(key:string):angular.IPromise<any>;
-        pull(keys:Array<string>):angular.IPromise<Array<any>>;
+            removeItem(key: string | Array<string>): angular.IPromise<void>;
 
-        clear():angular.IPromise<void>;
+            pull(key: string): angular.IPromise<any>;
+            pull(keys: Array<string>): angular.IPromise<Array<any>>;
 
-        key(n:number):angular.IPromise<string>;
+            clear(): angular.IPromise<void>;
 
-        keys():angular.IPromise<string>;
+            key(n: number): angular.IPromise<string>;
 
-        length():angular.IPromise<number>;
+            keys(): angular.IPromise<string>;
 
-        iterate<T>(iteratorCallback:(value:string | number, key:string)=>T):angular.IPromise<T>;
+            length(): angular.IPromise<number>;
 
-        bind($scope:ng.IScope, key:string):angular.IPromise<any>;
+            iterate<T>(iteratorCallback: (value: string | number, key: string) => T): angular.IPromise<T>;
 
-        bind($scope:ng.IScope, config:{
-            key:string;
-            defaultValue?:any;
-            scopeKey?:string;
-            name?:string;
-        }):angular.IPromise<any>;
+            bind($scope: ng.IScope, key: string): angular.IPromise<any>;
 
-        unbind($scope:ng.IScope, key:string, scopeKey?:string):void;
+            bind($scope: ng.IScope, config: {
+                key: string;
+                defaultValue?: any;
+                scopeKey?: string;
+                name?: string;
+            }): angular.IPromise<any>;
 
-        createInstance(config:LocalForageConfig):ILocalForageService;
-        instance(name:string):ILocalForageService;
+            unbind($scope: ng.IScope, key: string, scopeKey?: string): void;
+
+            createInstance(config: LocalForageConfig): ILocalForageService;
+            instance(name: string): ILocalForageService;
+        }
     }
 }

@@ -1,4 +1,4 @@
-
+import oc = require('oclazyload');
 
 angular.module('app', ['oc.lazyLoad']).config(['$ocLazyLoadProvider', function ($ocLazyLoadProvider: oc.ILazyLoadProvider) {
     $ocLazyLoadProvider.config({

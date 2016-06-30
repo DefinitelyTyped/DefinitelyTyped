@@ -6,7 +6,9 @@
 /// <reference types="js-data" />
 /// <reference types="angularjs" />
 
-declare namespace JSData {
+import * as JSData from 'js-data';
+
+declare module 'js-data' {
 
     interface DSProvider {
         defaults:DSConfiguration;

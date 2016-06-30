@@ -9,7 +9,7 @@ declare class Thenable<T> {
 	then<TR>(onFulfilled: (value: T) => Thenable<TR>, onRejected?: (error: Error) => void): Thenable<TR>;
 	then<TR>(onFulfilled: (value: T) => TR, onRejected?: (error: Error) => void): Thenable<TR>;
 	then<TR>(onFulfilled: (value: T) => TR, onRejected?: (error: Error) => TR): Thenable<TR>;
-	catch(onRejected: (error: Error) => T): Thenable<T>;
+	catch(onRejected: (error: Error) => void): Thenable<T>;
 }
 
 interface NodeCallback<T> {

@@ -5,6 +5,8 @@
 
 /// <reference types="event-kit" />
 
+import * as AtomEventKit from 'event-kit';
+
 export = AtomKeymap;
 
 declare namespace AtomKeymap {
