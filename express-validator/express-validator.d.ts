@@ -65,7 +65,7 @@ declare namespace ExpressValidator {
 		/**
 		 * Accepts http, https, ftp
 		 */
-		isUrl(): Validator;
+		isURL(): Validator;
 
 		/**
 		 * Combines isIPv4 and isIPv6
