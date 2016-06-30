@@ -6160,4 +6160,6 @@ declare namespace sequelize {
 
 declare var sequelize: sequelize.SequelizeStatic;
 
-export = sequelize;
+declare module "sequelzie" {
+    export = sequelize;
+}
