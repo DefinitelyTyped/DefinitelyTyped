@@ -4,7 +4,7 @@
 
 'use strict';
 
-import Simple = require('Simple-mock');
+import Simple = require('simple-mock');
 import assert = require('assert');
 
 import Bluebird = require('bluebird');
