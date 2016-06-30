@@ -5,8 +5,15 @@
 
 
 declare namespace DotObject {
-    interface Dot {
+    interface DotConstructor extends Dot {
         new(separator: string): Dot;
+    }
+
+    interface ModifierFunctionWrapper {
+        (arg: any): any;
+    }
+
+    interface Dot {     
         /**
          *
          * Copy a property from one object to another object.
@@ -21,7 +28,7 @@ declare namespace DotObject {
          * @param {Function|Array} mods
          * @param {Boolean} merge
          */
-        copy(source: string, target: string, obj1: any, obj2: any, mods?: Function | Array<Function>, merge?: boolean): void;
+        copy(source: string, target: string, obj1: any, obj2: any, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>, merge?: boolean): void;
         /**
          *
          * Convert object to dotted-key/value pair
@@ -61,7 +68,7 @@ declare namespace DotObject {
          * @param {Function|Array} mods
          * @param {Boolean} merge
          */
-        move(source: string, target: string, obj: any, mods?: Function | Array<Function>, merge?: boolean): void;
+        move(source: string, target: string, obj: any, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>, merge?: boolean): void;
         /**
          *
          * Converts an object with dotted-key/value pairs to it's expanded version
@@ -84,7 +91,7 @@ declare namespace DotObject {
          * @param {Object} obj
          * @param {Object} mods
          */
-        object(obj: any, mods?: Function | Array<Function>): void;
+        object(obj: any, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): void;
         /**
          *
          * Pick a value from an object using dot notation.
@@ -111,7 +118,7 @@ declare namespace DotObject {
          * @param {Object} obj object to be modified
          * @param {Function|Array} mods optional modifier
         */
-        str(path: string, v: any, obj: Object, mods?: Function | Array<Function>): void;
+        str(path: string, v: any, obj: Object, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): void;
         /**
          *
          * Transfer a property from one object to another object.
@@ -126,7 +133,7 @@ declare namespace DotObject {
          * @param {Function|Array} mods
          * @param {Boolean} merge
          */
-        transfer(source: string, target: string, obj1: any, obj2: any, mods?: Function | Array<Function>, merge?: boolean): void;
+        transfer(source: string, target: string, obj1: any, obj2: any, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>, merge?: boolean): void;
         /**
          *
          * Transform an object
@@ -151,11 +158,11 @@ declare namespace DotObject {
          * @param {Object} obj Object to be transformed
          * @param {Array} mods modifiers for the target
          */
-        transform(recipe: any, obj: any, mods?: Function | Array<Function>): void;
+        transform(recipe: any, obj: any, mods?: ModifierFunctionWrapper | Array<ModifierFunctionWrapper>): void;
     }
 }
 
-declare var dot: DotObject.Dot;
+declare var dot: DotObject.DotConstructor;
 
 declare module 'dot-object' {
     export = dot;
