@@ -7,6 +7,18 @@
 
 declare namespace angular.websocket {
 
+    /**
+     * Options available to be specified for IWebSocketProvider.
+     */
+    type IWebSocketConfigOptions = {
+      scope?: ng.IScope;
+      rootScopeFailOver?: boolean;
+      useApplyAsync?: boolean;
+      initialTimeout?: number;
+      maxTimeout?: number;
+      binaryType?: "blob" | "arraybuffer";
+      reconnectIfNotNormalClose?: boolean;
+    }
     interface IWebSocketProvider {
         /**
          * Creates and opens an IWebSocket instance.
@@ -14,7 +26,7 @@ declare namespace angular.websocket {
          * @param url url to connect to
          * @return websocket instance
          */
-        (url: string): IWebSocket;
+         (url: string, protocols?: string | string[] | IWebSocketConfigOptions, options?: IWebSocketConfigOptions): IWebSocket;
     }
 
     /** Options available to be specified for IWebSocket.onMessage */
