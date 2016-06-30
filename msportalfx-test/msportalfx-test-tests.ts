@@ -1,7 +1,7 @@
 
 
 
-import testFx = require('MsPortalFx-Test');
+import testFx = require('msportalfx-test');
 
 var galleryPackageName = "My.Package";
 var bladeTitle = "A Service";

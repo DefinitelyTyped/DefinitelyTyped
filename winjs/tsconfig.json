@@ -11,6 +11,7 @@
         "typesSearchPaths": [
             "../"
         ],
-        "noEmit": true
+        "noEmit": true,
+		"forceConsistentCasingInFileNames": true
     }
 }

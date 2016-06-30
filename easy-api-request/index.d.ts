@@ -3,7 +3,7 @@
 // Definitions by: Karl Düüna <https://github.com/DeadAlready/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="Q" />
+/// <reference types="q" />
 /// <reference types="node" />
 
 import stream = require('stream');

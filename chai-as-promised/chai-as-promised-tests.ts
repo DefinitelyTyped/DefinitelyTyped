@@ -1,6 +1,6 @@
 
 /// <reference types="promises-a-plus" />
-/// <reference types="Q" />
+/// <reference types="q" />
 
 import chai = require('chai');
 import chaiAsPromised = require('chai-as-promised');

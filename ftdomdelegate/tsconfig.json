@@ -8,7 +8,8 @@
         "typesSearchPaths": [
             "../"
         ],
-        "noEmit": true
+        "noEmit": true,
+		"forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
