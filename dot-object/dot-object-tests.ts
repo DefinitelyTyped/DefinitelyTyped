@@ -1,6 +1,5 @@
 /// <reference path='dot-object.d.ts' />
 
-
 var obj = {
   'first_name': 'John',
   'last_name': 'Doe'
@@ -21,7 +20,9 @@ var src = {
 
 var tgt = {name: 'Brandon'};
 
-dot.copy('stuff.phone', 'wanna.haves.phone', src, tgt);
+dot.copy('stuff.phone', 'wanna.haves.phone', src, tgt, [(arg: any) => {
+    return arg;
+}]);
 
 dot.transfer('stuff.phone', 'wanna.haves.phone', src, tgt);
 
@@ -37,7 +38,9 @@ var row = {
   'some.other.things.1': 'that'
 };
 
-dot.object(row);
+dot.object(row, (arg: any) => {
+    return arg;
+});
 
 dot.str('this.is.my.string', 'value', tgt);
 
@@ -61,4 +64,4 @@ val = dot.remove('some.nested.value', newObj);
 // or use the alias `del`
 val = dot.del('some.nested.value', newObj);
 
-var dot = new dot('=>');
+var dotWithArrow = new dot('=>');
