@@ -156,14 +156,13 @@ declare module "aws-sdk" {
 		constructor(options?: any);
 		putObject(params: s3.PutObjectRequest, callback: (err: any, data: any) => void): void;
 		getObject(params: s3.GetObjectRequest, callback: (err: any, data: any) => void): void;
-    putObject(params: s3.PutObjectRequest, callback: (err: Error, data: any) => void): void;
-    getObject(params: s3.GetObjectRequest, callback: (err: Error, data: any) => void): void;
-    deleteObject(params: s3.DeleteObjectRequest, callback: (err: Error, data: any) => void): void;
-    headObject(params: s3.HeadObjectRequest, callback: (err: Error, data: any) => void): void;
-    getSignedUrl(operation: string, params: any): string;
-    getSignedUrl(operation: string, params?: any, callback?: (err: Error, url: string) => void): void;
-    upload(params: s3.PutObjectRequest, options?: s3.UploadOptions): void;
-    upload(params: s3.PutObjectRequest, options?: s3.UploadOptions, callback?: (err: Error, data: any) => void): void;
+		putObject(params: s3.PutObjectRequest, callback: (err: Error, data: any) => void): void;
+		getObject(params: s3.GetObjectRequest, callback: (err: Error, data: any) => void): void;
+		deleteObject(params: s3.DeleteObjectRequest, callback: (err: Error, data: any) => void): void;
+		headObject(params: s3.HeadObjectRequest, callback: (err: Error, data: any) => void): void;
+		getSignedUrl(operation: string, params: any): string;
+		getSignedUrl(operation: string, params: any, callback: (err: Error, url: string) => void): void;
+		upload(params?: s3.PutObjectRequest, options?: s3.UploadOptions, callback?: (err: Error, data: any) => void): void;
 	}
 
 	export class STS{
@@ -1237,45 +1236,45 @@ declare module "aws-sdk" {
 	}
 
 	export module s3 {
-	  export interface PutObjectRequest {
-	    ACL?: string;
-	    Body?: any;
-	    Bucket: string;
-	    CacheControl?: string;
-	    ContentDisposition?: string;
-	    ContentEncoding?: string;
-	    ContentLanguage?: string;
-	    ContentLength?: string;
-	    ContentMD5?: string;
-	    ContentType?: string;
-	    Expires?: any;
-	    GrantFullControl?: string;
-	    GrantRead?: string;
-	    GrantReadACP?: string;
-	    GrantWriteACP?: string;
-	    Key: string;
-	    Metadata?: { [key: string]:string; };
-	    ServerSideEncryption?: string;
-	    StorageClass?: string;
-	    WebsiteRedirectLocation?: string;
-	  }
+		export interface PutObjectRequest {
+			ACL?: string;
+			Body?: any;
+			Bucket: string;
+			CacheControl?: string;
+			ContentDisposition?: string;
+			ContentEncoding?: string;
+			ContentLanguage?: string;
+			ContentLength?: string;
+			ContentMD5?: string;
+			ContentType?: string;
+			Expires?: any;
+			GrantFullControl?: string;
+			GrantRead?: string;
+			GrantReadACP?: string;
+			GrantWriteACP?: string;
+			Key: string;
+			Metadata?: { [key: string]:string; };
+			ServerSideEncryption?: string;
+			StorageClass?: string;
+			WebsiteRedirectLocation?: string;
+		}
 
-	  export interface GetObjectRequest {
-	    Bucket: string;
-	    IfMatch?: string;
-	    IfModifiedSince?: any;
-	    IfNoneMatch?: string;
-	    IfUnmodifiedSince?: any;
-	    Key: string;
-	    Range?: string;
-	    ResponseCacheControl?: string;
-	    ResponseContentDisposition?: string;
-	    ResponseContentEncoding?: string;
-	    ResponseContentLanguage?: string;
-	    ResponseContentType?: string;
-	    ResponseExpires?: any;
-	    VersionId?: string;
-	  }
+		export interface GetObjectRequest {
+			Bucket: string;
+			IfMatch?: string;
+			IfModifiedSince?: any;
+			IfNoneMatch?: string;
+			IfUnmodifiedSince?: any;
+			Key: string;
+			Range?: string;
+			ResponseCacheControl?: string;
+			ResponseContentDisposition?: string;
+			ResponseContentEncoding?: string;
+			ResponseContentLanguage?: string;
+			ResponseContentType?: string;
+			ResponseExpires?: any;
+			VersionId?: string;
+		}
 
 		export interface DeleteObjectRequest {
 			Bucket: string;
@@ -1300,10 +1299,10 @@ declare module "aws-sdk" {
 			VersionId?: string;
 		}
 
-	  export interface UploadOptions {
-	    partSize?: number;
-	    queueSize?: number;
-	  }
+		export interface UploadOptions {
+			partSize?: number;
+			queueSize?: number;
+		}
 	}
 
 	export module ecs {
