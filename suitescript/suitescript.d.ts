@@ -54,7 +54,7 @@ declare namespace nlobjRecord.prototype {
             /**
              *
              */
-            getLineItemCount : /* nlobjSubList.prototype.getLineItemCount */ any;
+            getLineItemCount : /* nlobjSubList.prototype.getLineItemCount */ string|number;
 
             /**
              *
@@ -314,7 +314,7 @@ declare namespace nlobjAssistant.prototype {
             /**
              *
              */
-            getLineItemCount : /* nlobjAssistantStep.prototype.getLineItemCount */ any;
+            getLineItemCount : /* nlobjAssistantStep.prototype.getLineItemCount */ string|number;
 
             /**
              *
@@ -1236,7 +1236,7 @@ declare function nlapiGetLineItemDateTimeValue(type:string, fldnam:string, linen
  * @param linenum
  * @param value
  */
-declare function nlapiSetLineItemValue(type:string, fldnam:string, linenum:any, value:any):void;
+declare function nlapiSetLineItemValue(type:string, fldnam:string, linenum:any, value:string|number):void;
 
 /**
  * Set the value of a sublist field on the current record on a page.
@@ -1331,7 +1331,7 @@ declare function nlapiGetMatrixCount(type:string, fldnam:string):any;
  * @param type
  * @return
  */
-declare function nlapiGetLineItemCount(type:string):any;
+declare function nlapiGetLineItemCount(type:string):string|number;
 
 /**
  * Insert and select a new line into the sublist on a page or userevent.
@@ -3017,7 +3017,7 @@ declare interface nlobjRecord {
      * @since 2009.2
      * @param group
      */
-    getLineItemCount(group:string): any;
+    getLineItemCount(group:string): string|number;
 
     /**
      * Return line number for 1st occurence of field value in a sublist column.
@@ -4679,7 +4679,7 @@ declare interface nlobjRequest {
      * @param group
      * @return
      */
-    getLineItemCount(group:string): any;
+    getLineItemCount(group:string): string|number;
 
     /**
      * return the value of a request header.
@@ -6171,7 +6171,7 @@ declare interface nlobjSubList {
      * @since 2010.1
      * @param group
      */
-    getLineItemCount(group:string): any;
+    getLineItemCount(group:string): string|number;
 
     /**
      * add a field (column) to this sublist.
