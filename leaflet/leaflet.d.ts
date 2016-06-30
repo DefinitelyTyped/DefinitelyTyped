@@ -611,7 +611,7 @@ declare namespace L {
         /**
           * Size of the icon in pixels. Can be also set through CSS.
           */
-        iconSize?: Point;
+        iconSize?: Point|[number, number];
 
         /**
           * The coordinates of the "tip" of the icon (relative to its top left corner).
@@ -619,7 +619,7 @@ declare namespace L {
           * location. Centered by default if size is specified, also can be set in CSS
           * with negative margins.
           */
-        iconAnchor?: Point;
+        iconAnchor?: Point|[number, number];
 
         /**
           * A custom class name to assign to the icon.
@@ -634,6 +634,12 @@ declare namespace L {
           * Default value: ''.
           */
         html?: string;
+
+        /**
+          * The coordinates of the point from which popups will "open", relative to the
+          * icon anchor.
+          */
+        popupAnchor?: Point|[number, number];
 
     }
 }
