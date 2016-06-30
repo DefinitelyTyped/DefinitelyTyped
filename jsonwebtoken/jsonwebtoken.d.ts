@@ -7,6 +7,24 @@
 
 declare module "jsonwebtoken" {
 
+    export class JsonWebTokenError extends Error {
+        inner: Error;
+
+        constructor(message: string, error?: Error);
+    }
+
+    export class TokenExpiredError extends JsonWebTokenError {
+        expiredAt: number;
+
+        constructor(message: string, expiredAt: number);
+    }
+
+    export class NotBeforeError extends JsonWebTokenError {
+        date: Date;
+
+        constructor(message: string, date: Date);
+    }
+
     export interface SignOptions {
         /**
          * Signature algorithm. Could be one of these values :
@@ -23,7 +41,7 @@ declare module "jsonwebtoken" {
          */
         algorithm?: string;
         /** @member {string} - Lifetime for the token expressed in a string describing a time span [rauchg/ms](https://github.com/rauchg/ms.js). Eg: `60`, `"2 days"`, `"10h"`, `"7d"` */
-        expiresIn?: string;
+        expiresIn?: string | number;
         notBefore?: string;
         audience?: string;
         subject?: string;
@@ -53,7 +71,7 @@ declare module "jsonwebtoken" {
     }
 
     export interface VerifyCallback {
-        (err: Error, decoded: any): void;
+        (err: JsonWebTokenError | TokenExpiredError | NotBeforeError, decoded: any): void;
     }
 
     export interface SignCallback {

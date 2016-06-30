@@ -35,7 +35,7 @@ declare namespace angular.ui {
         /**
          * String HTML content, or function that returns an HTML string
          */
-        template?: string | {(): string};
+        template?: string | {(params: IStateParamsService): string};
         /**
          * String URL path to template file OR Function, returns URL path string
          */

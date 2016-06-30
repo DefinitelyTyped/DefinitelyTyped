@@ -45,6 +45,10 @@ declare module 'redux-saga' {
 
   export function takeLatest(pattern: Pattern, saga: Saga, ...args: any[]): { [Symbol.iterator](): IterableIterator<any> };
 
+  export function delay(ms: number): Promise<boolean>;
+
+  export function delay<T>(ms: number, val: T): Promise<T>;
+
   export function isCancelError(e: any): boolean;
 }
 

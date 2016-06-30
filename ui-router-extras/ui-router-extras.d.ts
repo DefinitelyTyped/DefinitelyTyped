@@ -148,4 +148,8 @@ declare namespace angular.ui {
         registerStickyState(state: IStickyState): void;
     }
 
+    interface IStateProvider extends angular.IServiceProvider {
+        state(config: IStickyState): IStateProvider;
+        state(name: string, config: IStickyState): IStateProvider;
+    }
 }

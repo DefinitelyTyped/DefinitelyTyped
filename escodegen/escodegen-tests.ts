@@ -49,6 +49,8 @@ let generateOptions: escodegen.GenerateOptions = {
   verbatim: " "
 };
 
+let precedence: escodegen.Precedence = escodegen.Precedence.Primary;
+
 let myCode: string = escodegen.generate({}, generateOptions);
 
 let ast: any = escodegen.attachComments({}, {}, {});

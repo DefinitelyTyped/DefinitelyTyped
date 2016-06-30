@@ -843,6 +843,7 @@ declare namespace kendo.data {
         axes?: any;
         catalogs?: any;
         cubes?: any;
+        cube?: any;
         data?: any;
         dimensions?: any;
         hierarchies?: any;
@@ -1281,6 +1282,7 @@ declare namespace kendo.data {
 
     interface DataSourceRequestStartEvent extends DataSourceEvent {
         type?: string;
+        preventDefault(): void;
     }
 
     interface DataSourceRequestEndEvent extends DataSourceEvent {
@@ -3333,6 +3335,7 @@ declare namespace kendo.ui {
         static fn: DropDownList;
 
         options: DropDownListOptions;
+        popup: kendo.ui.Popup;
 
         dataSource: kendo.data.DataSource;
         span: JQuery;
