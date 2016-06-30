@@ -3,7 +3,7 @@
 // Definitions by: VILIC VANE <https://github.com/vilic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="Q" />
+/// <reference types="q" />
 
 import * as q from 'q';
 
