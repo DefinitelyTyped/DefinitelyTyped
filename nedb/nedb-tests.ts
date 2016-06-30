@@ -2,7 +2,7 @@
  * Created by stefansteinhart on 31.01.15.
  */
 
-/// <reference types="Q" />
+/// <reference types="q" />
 /// <reference types="node" />
 
 

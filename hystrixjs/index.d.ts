@@ -3,7 +3,7 @@
 // Definitions by: Igor Sechyn <https://github.com/igorsechyn/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="Q"/>
+///<reference types="q"/>
 ///<reference types="rx"/>
 
 declare namespace HystrixJS {
