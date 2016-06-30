@@ -3,26 +3,30 @@
 // Definitions by: Luke Forder <https://github.com/LukeForder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace angular.progressLite {
+import * as angular from 'angularjs';
 
-    export interface INgProgressLite {
-        set(num: number): INgProgressLite;
-        get(): number;
-        start(): INgProgressLite;
-        inc(amount?: number): INgProgressLite;
-        done(): void;
-    }
+declare module 'angularjs' {
+    export namespace progressLite {
 
-    export interface IConfigurationOptions {
-        minimum: number;
-        speed: number;
-        ease: string;
-        trickleRate: number;
-        trickleSpeed: number;
-        template: string;
-    }
+        export interface INgProgressLite {
+            set(num: number): INgProgressLite;
+            get(): number;
+            start(): INgProgressLite;
+            inc(amount?: number): INgProgressLite;
+            done(): void;
+        }
 
-    export interface INgProgressLiteProvider {
-        settings: IConfigurationOptions;
+        export interface IConfigurationOptions {
+            minimum: number;
+            speed: number;
+            ease: string;
+            trickleRate: number;
+            trickleSpeed: number;
+            template: string;
+        }
+
+        export interface INgProgressLiteProvider {
+            settings: IConfigurationOptions;
+        }
     }
 }

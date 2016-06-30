@@ -5,15 +5,17 @@
 
 /// <reference types="signals" />
 
+import * as signal from 'signals';
+
 declare namespace CrossroadsJs {
 
     export interface Route {
-        matched: Signal;
+        matched: signal.Signal;
 
         /**
          * Signal dispatched every time a request "leaves" the route.
          */
-        switched: Signal;
+        switched: signal.Signal;
 
         /**
          * Object used to configure parameters/segments validation rules.
@@ -47,7 +49,7 @@ declare namespace CrossroadsJs {
          * @param listenercontext Context on which listener will be executed (object that should represent the `this` variable inside listener function).
          * @param priority The priority level of the event listener. Listeners with higher priority will be executed before listeners with lower priority. Listeners with same priority level will be executed at the same order as they were added. (default = 0)
          */
-        add(listener: Function, listenerContext?: any, priority?: Number): SignalBinding;
+        add(listener: Function, listenerContext?: any, priority?: Number): signal.SignalBinding;
     }
 
     export interface CrossRoadsStatic {
@@ -93,12 +95,12 @@ declare namespace CrossroadsJs {
         /**
          * Signal dispatched every time that crossroads.parse can't find a Route that matches the request. Useful for debuging and error handling.
          */
-        bypassed: Signal;
+        bypassed: signal.Signal;
 
         /**
          * Signal dispatched every time that crossroads.parse find a Route that matches the request. Useful for debuging and for executing tasks that should happen at each routing.
          */
-        routed: Signal;
+        routed: signal.Signal;
 
         /**
          * Create a new independent Router instance.
@@ -153,7 +155,5 @@ declare namespace CrossroadsJs {
 }
 
 declare var crossroads: CrossroadsJs.CrossRoadsStatic;
-
-declare module 'crossroads'{
-    export = crossroads;
-}
+export = crossroads;
+export as namespace crossroads;

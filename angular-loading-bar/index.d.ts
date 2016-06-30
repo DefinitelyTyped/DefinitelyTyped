@@ -5,39 +5,39 @@
 
 /// <reference types="angularjs" />
 
+import * as angular from 'angularjs';
 
-declare namespace angular {
+declare module 'angularjs' {
+	export namespace loadingBar {
+
+		interface ILoadingBarProvider {
+			/**
+			* Turn the spinner on or off
+			*/
+			includeSpinner?: boolean;
+
+			/**
+			* Turn the loading bar on or off
+			*/
+			includeBar?: boolean;
+
+			/**
+			* HTML template
+			*/
+			spinnerTemplate?: string;
+
+			/**
+			* Latency Threshold
+			*/
+			latencyThreshold?: number;
+		}
+	}
 
 	interface IRequestShortcutConfig {
 		/**
 		 * Indicates that the loading bar should be hidden.
 		 */
 		ignoreLoadingBar?: boolean;
-	}
-}
-
-declare namespace angular.loadingBar {
-
-	interface ILoadingBarProvider{
-		/**
-		* Turn the spinner on or off
-		*/
-		includeSpinner?: boolean;
-
-		/**
-		* Turn the loading bar on or off
-		*/
-		includeBar?: boolean;
-
-		/**
-		* HTML template
-		*/
-		spinnerTemplate?: string;
-
-		/**
-		* Latency Threshold
-		*/
-		latencyThreshold?: number;
 	}
 
 }

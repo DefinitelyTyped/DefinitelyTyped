@@ -6,6 +6,8 @@
 /// <reference types="bignum" />
 /// <reference types="node" />
 
+import * as BigNum from 'bignum';
+
 export = SRP;
 
 declare namespace SRP {
