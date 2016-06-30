@@ -4091,7 +4091,7 @@ declare namespace L {
           *
           * Default value: 'abc'.
           */
-        subdomains?: string[];
+        subdomains?: string|string[];
 
         /**
           * URL to the tile image to show in place of the tile that failed to load.
