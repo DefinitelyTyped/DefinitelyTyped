@@ -151,7 +151,7 @@ declare namespace __React {
     var PropTypes: ReactPropTypes;
     var Children: ReactChildren;
     var version: string;
-    
+
     //
     // Component API
     // ----------------------------------------------------------------------
@@ -163,7 +163,7 @@ declare namespace __React {
         constructor(props?: P, context?: any);
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
-        forceUpdate(callBack?: () => any): void;
+        forceUpdate(callback?: () => any): void;
         render(): JSX.Element;
 
         // React.Props<T> is now deprecated, which means that the `children`
@@ -359,7 +359,7 @@ declare namespace __React {
         pseudoElement: string;
         elapsedTime: number;
     }
-    
+
     interface TransitionEvent extends SyntheticEvent {
         propertyName: string;
         pseudoElement: string;
