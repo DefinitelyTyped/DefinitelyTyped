@@ -1,4 +1,4 @@
-/// <reference path="ember.d.ts" />
+/// <reference path="ember-1.11.3.d.ts" />
 /// <reference path="../handlebars/handlebars-1.0.0.d.ts" />
 
 
@@ -93,12 +93,35 @@ App.wife.get('householdIncome');
 App.user = Em.Object.create({
     fullName: 'Kara Gates'
 });
+App.userView = Em.View.create({
+    userNameBinding: Em.Binding.oneWay('App.user.fullName')
+});
 App.user.set('fullName', 'Krang Gates');
 App.userView.set('userName', 'Truckasaurus Gates');
 App.user.get('fullName');
 
 App = Em.Application.create({
     rootElement: '#sidebar'
+});
+
+var view = Em.View.create<Em.View>({
+    templateName: 'say-hello',
+    name: 'Bob'
+});
+view.appendTo('#container');
+view.append();
+view.remove();
+
+App.AlertView = Em.View.extend({
+    priority: 'p4',
+    isUrgent: true
+});
+
+App.ListingView = Em.View.extend({
+    templateName: 'listing',
+    edit: (event: any) => {
+        event.view.set('isEditing', true);
+    }
 });
 
 App.userController = Em.Object.create({
@@ -111,10 +134,32 @@ App.userController = Em.Object.create({
 });
 
 Handlebars.registerHelper('highlight', function(property: string, options: any) {
-    return new Handlebars.SafeString('<span class="highlight">' + "some value" + '</span>');
+    var value = Em.Handlebars.get(this, property, options);
+    return new Handlebars.SafeString('<span class="highlight">' + value + '</span>');
 });
 
-var coolView = App.CoolView.create();
+App.MyText = Em.TextField.extend({
+    formBlurredBinding: 'App.adminController.formBlurred',
+    change: function() {
+        this.set('formBlurred', true);
+    }
+});
+
+var textArea = Em.TextArea.create({
+    valueBinding: 'TestObject.value'
+});
+
+App.ClickableView = Em.View.extend({
+    click: () => {
+        alert('ClickableView was clicked!');
+    }
+});
+
+var container = Em.ContainerView.create<Em.ContainerView>();
+container.append();
+var coolView = App.CoolView.create(),
+    childViews = container.get('childViews');
+childViews.pushObject(coolView);
 
 var Person2 = Em.Object.extend<typeof Em.Object>({
     sayHello: function() {
