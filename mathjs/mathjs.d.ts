@@ -3,6 +3,11 @@
 // Definitions by: Ilya Shestakov <https://github.com/siavol/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// Type definitions for mathjs
+// Project: http://mathjs.org/
+// Definitions by: Ilya Shestakov <https://github.com/siavol/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare var math: mathjs.IMathJsStatic;
 
 declare namespace mathjs {
@@ -15,7 +20,21 @@ declare namespace mathjs {
 
 		e: number;
 		pi: number;
+		i: number;
+		Infinity: number;
+		LN2: number;
+		LN10: number;
+		LOG2E: number;
+		LOG10E: number;
+		NaN: number;
+		null: number;
+		phi: number;
+		SQRT1_2: number;
+		SQRT2: number;
+		tau: number;
+
 		uninitialized: any;
+		version: string;
 
 		config(options: any): void;
 
@@ -2212,4 +2231,3 @@ declare namespace mathjs {
 declare module 'mathjs'{
 	export = math;
 }
-
