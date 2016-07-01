@@ -1,32 +1,24 @@
-// Type definitions for content-type v0.0.1
-// Project: https://github.com/deoxxa/content-type
-// Definitions by: Pine Mizune <https://github.com/pine613>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Type definitions for content-type v1.0.1
+// Project: https://www.npmjs.com/package/content-type
+// Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare namespace ContentType {
+declare module ContentType {
+    interface StaticFunctions {
+        parse(string: string): MediaType;
+        parse(req: { headers: any; }): MediaType;
+        parse(res: { getHeader(key: string): string; }): MediaType;
+        format(obj: MediaType): string;
+    }
+
     interface MediaType {
         type: string;
-        q?: number;
-        params: any;
-        toString(): string;
-    }
-
-    interface SelectOptions {
-        sortAvailable?: boolean;
-        sortAccepted?: boolean;
-    }
-
-    interface MediaTypeStatic {
-        new (s: string, p?: any): MediaType;
-        parseMedia(type: string): MediaType;
-        splitQuotedString(str: string, delimiter?: string, quote?: string): string[];
-        splitContentTypes(str: string): string[];
-        select(availableTypes: MediaType[], acceptedTypes: MediaType[], options?: SelectOptions): string;
-        mediaCmp(a: MediaType, b: MediaType): number;
+        parameters?: any;
     }
 }
 
 declare module "content-type" {
-    var x: ContentType.MediaTypeStatic;
+    var x: ContentType.StaticFunctions;
     export = x;
 }
+
