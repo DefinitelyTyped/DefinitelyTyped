@@ -1,7 +1,6 @@
 // Type definitions for Reveal 3.3.0
 // Project: https://github.com/hakimel/reveal.js/
-// Definitions by: grapswiz <https://github.com/grapswiz/>
-// Updated definitions by: robertop87 <https://github.com/robertop87/>
+// Definitions by: robertop87 <https://github.com/robertop87/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Reveal:RevealStatic;
