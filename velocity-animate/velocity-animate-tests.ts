@@ -293,3 +293,62 @@ function advanced_utility_function () {
 		options: { duration: 1500 }
 	});
 }
+
+function ui_pack_sequence_running() {
+	var $element1: JQuery;
+	var $element2: JQuery;
+	var $element3: JQuery;
+
+	$element1.velocity({ translateX: 100 }, 1000, function() {
+		$element2.velocity({ translateX: 200 }, 1000, function() {
+			$element3.velocity({ translateX: 300 }, 1000);
+		});
+	});
+
+	var mySequence = [
+		{ e: $element1, p: { translateX: 100 }, o: { duration: 1000 } },
+		{ e: $element2, p: { translateX: 200 }, o: { duration: 1000 } },
+		{ e: $element3, p: { translateX: 300 }, o: { duration: 1000 } }
+	];
+	$.Velocity.RunSequence(mySequence);
+
+	var mySequence2 = [
+		{ e: $element1, p: { translateX: 100 }, o: { duration: 1000 } },
+		/* The call below will run at the same time as the first call. */
+		{ e: $element2, p: { translateX: 200 }, o: { duration: 1000, sequenceQueue: false } },
+		/* As normal, the call below will run once the second call is complete. */
+		{ e: $element3, p: { translateX: 300 }, o: { duration: 1000 } }
+	];
+	$.Velocity.RunSequence(mySequence2);
+}
+
+function ui_pack_registration() {
+	var $element: JQuery;
+
+	$.Velocity.RegisterEffect("callout.pulse", {
+		defaultDuration: 900,
+		calls: [
+			[ { scaleX: 1.1 }, 0.50 ],
+			[ { scaleX: 1 }, 0.50 ]
+		]
+	});
+	$element.velocity("callout.pulse");
+
+	$.Velocity
+		.RegisterEffect("transition.flipXIn", {
+			defaultDuration: 700,
+			calls: [
+				[ { opacity: 1, rotateY: [ 0, -55 ] } ]
+			]
+		})
+		.RegisterEffect("transition.flipXOut", {
+			defaultDuration: 700,
+			calls: [
+				[ { opacity: 0, rotateY: 55 } ]
+			],
+			reset: { rotateY: 0 }
+		});
+	$element
+		.velocity("transition.flipXIn")
+		.velocity("transition.flipXOut", { delay: 1000 });
+}

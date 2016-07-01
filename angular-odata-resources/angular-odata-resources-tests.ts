@@ -174,6 +174,7 @@ var user = odataResourceClass.odata()
 	.skip(10)
 	.take(20)
 	.orderBy("Name", "desc")
+	.transformUrl((s)=>s)
 	.single();
 user.$save();
 
@@ -197,3 +198,12 @@ users = odataResourceClass.odata()
 var countResult = odataResourceClass.odata().count();
 var total = countResult.result;
 
+
+
+
+var usersSelect1 = odataResourceClass.odata()
+	.select('name', 'user');
+
+
+var usersSelect2 = odataResourceClass.odata()
+	.select(['name', 'user']);

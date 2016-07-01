@@ -1,7 +1,7 @@
 // Type definitions for Angular JS 1.3 (ngSanitize module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="angular.d.ts" />
@@ -14,7 +14,7 @@ declare module "angular-sanitize" {
 ///////////////////////////////////////////////////////////////////////////////
 // ngSanitize module (angular-sanitize.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module angular.sanitize {
+declare namespace angular.sanitize {
 
     ///////////////////////////////////////////////////////////////////////////
     // SanitizeService

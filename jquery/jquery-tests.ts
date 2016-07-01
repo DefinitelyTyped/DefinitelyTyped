@@ -41,7 +41,7 @@ function test_addClass() {
 
 function test_after() {
     $('.inner').after('<p>Test</p>');
-    $('<div/>').after('<p></p>');
+    $('<div/>').after('<p></p>').after(document.createDocumentFragment());
     $('<div/>').after('<p></p>').addClass('foo')
       .filter('p').attr('id', 'bar').html('hello')
     .end()
@@ -88,7 +88,7 @@ function test_ajax() {
             alert('Load was performed.');
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert('Load failed. responseJSON=' + jqXHR.responseJSON); 
+            alert('Load failed. responseJSON=' + jqXHR.responseJSON);
         }
     });
     var _super = jQuery.ajaxSettings.xhr;
@@ -198,6 +198,11 @@ function test_ajax() {
     }, (jqXHR, textStatus, errorThrown) => {
         console.log(jqXHR, textStatus, errorThrown);
     });
+
+    // generic then method
+    var p: JQueryPromise<number> = $.ajax({ url: "test.js" })
+        .then(() => "Hello")
+        .then((x) => x.length);
 
     // jqXHR object
     var jqXHR = $.ajax({
@@ -504,7 +509,7 @@ function test_toggle() {
 
 function test_append() {
     $('.inner').append('<p>Test</p>');
-    $('.container').append($('h2'));
+    $('.container').append($('h2')).append(document.createDocumentFragment());
 
     var $newdiv1 = $('<div id="object1"/>'),
     newdiv2 = document.createElement('div'),
@@ -554,7 +559,7 @@ function test_attributeSelectors() {
 
 function test_before() {
     $('.inner').before('<p>Test</p>');
-    $('.container').before($('h2'));
+    $('.container').before($('h2')).before(document.createDocumentFragment());
     $("<div/>").before("<p></p>");
     var $newdiv1 = $('<div id="object1"/>'),
         newdiv2 = document.createElement('div'),
@@ -941,6 +946,17 @@ function test_clone() {
           .clone());
 }
 
+function test_prepend() {
+    $('.inner').prepend('<p>Test</p>');
+    $('.container').prepend($('h2')).prepend(document.createDocumentFragment());
+
+    var $newdiv1 = $('<div id="object1"/>'),
+        newdiv2 = document.createElement('div'),
+        existingdiv1 = document.getElementById('foo');
+
+    $('body').prepend($newdiv1, [newdiv2, existingdiv1]);
+}
+
 function test_prependTo() {
     $("<p>Test</p>").prependTo(".inner");
     $("h2").prependTo($(".container"));
@@ -1134,6 +1150,13 @@ function test_jQuery_removeData() {
     jQuery.removeData(div, "test1");
     $("span:eq(2)").text("" + jQuery.data(div, "test1"));
     $("span:eq(3)").text("" + jQuery.data(div, "test2"));
+}
+
+function test_removeDataAll() {
+    var el = $("div");
+    el.data("test1", "VALUE-1");
+    el.data("test2", "VALUE-2");
+    el.removeData();
 }
 
 function test_dblclick() {
@@ -1701,6 +1724,20 @@ function test_focusout() {
         $("#b")
             .text("blur fired: " + b + "x");
     });
+}
+
+function test_easing() {
+    const easing = jQuery.easing;
+
+    function test_easing_function( name: string, fn: JQueryEasingFunction ) {
+        const step = Math.pow( 2, -3 ); // use power of 2 to prevent floating point rounding error
+        for( let i = 0; i <= 1; i += step ) {
+            console.log( `$.easing.${name}(${i}): ${fn.call(easing, i)}` );
+        }
+    }
+
+    test_easing_function( "linear", easing.linear );
+    test_easing_function( "swing", easing.swing );
 }
 
 function test_fx() {
@@ -2502,6 +2539,18 @@ function test_jQuery() {
     $.post('url.xml', function (data) {
         var $child = $(data).find('child');
     });
+    $.post({
+        url: "test.php",
+        success : () => {
+            console.log("successfull");
+        }
+    });
+    $.get({
+        url: "test.php",
+        success : () => {
+            console.log("successfull");
+        }
+    });
     var foo = { foo: 'bar', hello: 'world' };
     var $foo = $(foo);
     var test1 = $foo.prop('foo');
@@ -3121,6 +3170,7 @@ function test_val() {
     $("#single").val("Single2");
     $("#multiple").val(["Multiple2", "Multiple3"]);
     $("input").val(["check1", "check2", "radio1"]);
+    $("input").val(1);
 }
 
 function test_selector() {
@@ -3210,6 +3260,10 @@ function test_not() {
     $("p").not("#selected");
 
     $("p").not($("div p.selected"));
+
+    var el1 = $("<div/>")[0];
+    var el2 = $("<div/>")[0];
+    $("p").not([el1, el2]);
 }
 
 function test_EventIsNewable() {
@@ -3228,7 +3282,7 @@ var f1 = $.when("fetch"); // Is type JQueryPromise<string>
 var f2: JQueryPromise<string[]> = f1.then(s => [s, s]);
 var f3: JQueryPromise<number> = f2.then(v => 3);
 
-// ISSUE: https://github.com/borisyankov/DefinitelyTyped/issues/742
+// ISSUE: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/742
 // http://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax#answer-5976031
 $.ajax({
     url: 'php/upload.php',
@@ -3359,7 +3413,7 @@ function test_promise_then_change_type() {
 		var def = $.Deferred<any>();
 		var promise = def.promise(null);
 
-		def.rejectWith(this, new Error());
+		def.rejectWith(this, [new Error()]);
 
 		return promise;
 	}

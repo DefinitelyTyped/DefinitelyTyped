@@ -1,9 +1,9 @@
 ﻿// Type definitions for Microsoft.Maps 7.0
 // Project: http://msdn.microsoft.com/en-us/library/gg427611.aspx
 // Definitions by: Eric Todd <https://github.com/ericrtodd>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Microsoft.Maps {
+declare namespace Microsoft.Maps {
 
     export enum AltitudeReference {
         ground,
@@ -45,7 +45,7 @@ declare module Microsoft.Maps {
         getNorth(): number;
         getNorthwest(): Location;
         getSouth(): number;
-        getSouthEast(): Location;
+        getSoutheast(): Location;
         getWest(): number;
         intersects(rect: LocationRect): boolean;
         toString(): string;
@@ -67,8 +67,8 @@ declare module Microsoft.Maps {
 
     export class Events {
 
-        static addHandler(target: any, eventName: string, handler: () => void): any;
-        static addThrottledHandler(target: any, eventName: string, handler: () => void, throttleInterval: number): any;
+        static addHandler(target: any, eventName: string, handler: (e: any) => void): any;
+        static addThrottledHandler(target: any, eventName: string, handler: (e: any) => void, throttleInterval: number): any;
         static hasHandler(target: any, eventName: string): boolean;
         static invoke(target: any, eventName: string, args: any): void;
         static removeHandler(handlerId: any): void;
@@ -96,7 +96,8 @@ declare module Microsoft.Maps {
 
     export class Map {
 
-        constructor(containerElement: HTMLElement, options: MapOptions);
+        constructor(containerElement: HTMLElement, options?: MapOptions);
+        constructor(containerElement: HTMLElement, options?: ViewOptions);
 
         entities: EntityCollection;
 
@@ -137,37 +138,23 @@ declare module Microsoft.Maps {
         setMapType(mapTypeId: MapTypeId): void;
         setOptions(options: MapOptions): void;
         setView(options: ViewOptions): void;
-        tryLocationToPixel(locations: Array<Location>, reference?: PixelReference): any;
-        tryPixelToLocation(points: Array<Point>, reference?: PixelReference): any;
-
-        click: (eventArgs: MouseEventArgs) => void;
-        copyrightchanged: () => void;
-        dblclick: (eventArgs: MouseEventArgs) => void;
-        imagerychanged: () => void;
-        keydown: (eventArgs: KeyEventArgs) => void;
-        keypress: (eventArgs: KeyEventArgs) => void;
-        keyup: (eventArgs: KeyEventArgs) => void;
-        maptypechanged: () => void;
-        mousedown: (eventArgs: MouseEventArgs) => void;
-        mousemove: (eventArgs: MouseEventArgs) => void;
-        mouseout: (eventArgs: MouseEventArgs) => void;
-        mouseover: (eventArgs: MouseEventArgs) => void;
-        mouseup: (eventArgs: MouseEventArgs) => void;
-        mousewheel: (eventArgs: MouseEventArgs) => void;
-        rightlick: (eventArgs: MouseEventArgs) => void;
-        targetviewchanged: () => void;
-        tiledownloadcomplete: () => void;
-        viewchange: () => void;
-        viewchangeend: () => void;
-        viewchangestart: () => void;
+        tryLocationToPixel(locations: Location, reference?: PixelReference): Point;
+        tryLocationToPixel(locations: Array<Location>, reference?: PixelReference): Array<Point>;
+        tryPixelToLocation(points: Point, reference?: PixelReference): Location;
+        tryPixelToLocation(points: Array<Point>, reference?: PixelReference): Array<Location>;
     }
 
     export class MapMode {
 
         getDrawShapesInSingleLayer(): boolean;
         getShouldClipPolygons(): boolean;
-        setOptions(options: MapOptions): void;
+        setOptions(options: MapModeOptions): void;
         setViewChangeEndDelay(delay: number): void;
+    }
+
+    export interface MapModeOptions {
+        shouldClipPolygons?: boolean;
+        drawShapesInSingleLayer?:boolean;
     }
 
     export interface MapOptions {
@@ -187,6 +174,7 @@ declare module Microsoft.Maps {
         fixedMapPosition?: boolean;
         height?: number;
         inertiaIntensity?: number;
+        navigationBarMode?: number;
         showBreadcrumb?: boolean;
         showCopyright?: boolean;
         showDashboard?: boolean;
@@ -227,6 +215,12 @@ declare module Microsoft.Maps {
 
         getX(): number;
         getY(): number;
+    }
+
+    export enum NavigationBarMode {
+        default,
+        compact,
+        minified
     }
 
     export enum PixelReference {
@@ -272,14 +266,14 @@ declare module Microsoft.Maps {
     }
 
     export interface EntityCollectionOptions {
-        bubble: boolean;
-        visible: boolean;
-        zIndex: number;
+        bubble?: boolean;
+        visible?: boolean;
+        zIndex?: number;
     }
 
     export class EntityCollection {
 
-        constructor(options: EntityCollectionOptions);
+        constructor(options?: EntityCollectionOptions);
 
         clear(): void;
         get(index: number): Entity;
@@ -295,9 +289,6 @@ declare module Microsoft.Maps {
         setOptions(options: EntityCollectionOptions): void;
         toString(): string;
 
-        entityAdded: (args: EntityChangeArgs) => any;
-        entityChanged: (args: EntityChangeArgs) => any;
-        entityRemoved: (args: EntityChangeArgs) => any;
     }
 
     export class Infobox {
@@ -317,19 +308,15 @@ declare module Microsoft.Maps {
         getShowPointer(): boolean;
         getTitle(): string;
         getTitleAction(): any;
-        getTitleClickHandler(): () => void;
+        getTitleClickHandler(): (mouseEvent?: MouseEvent) => void;
         getVisible(): boolean;
         getWidth(): number;
         getZIndex(): number;
         setHtmlContent(content: string): void;
         setLocation(location: Location): void;
+        setMap(map: Map): void;
         setOptions(options: InfoboxOptions): void;
         toString(): string;
-
-        click: (eventArgs: MouseEventArgs) => void;
-        entitychanged: (entity: Entity) => void;
-        mouseenter: (eventArgs: MouseEventArgs) => void;
-        mouseleave: (eventArgs: MouseEventArgs) => void;
     }
 
     export interface Action {
@@ -350,8 +337,8 @@ declare module Microsoft.Maps {
         showPointer?: boolean;
         pushpin?: Pushpin;
         title?: string;
-        titleAction?: { label?: string; eventHandler: () => void; };
-        titleClickHandler?: () => void;
+        titleAction?: { label?: string; eventHandler: (mouseEvent?: MouseEvent) => void; };
+        titleClickHandler?: (mouseEvent?: MouseEvent) => void;
         typeName?: InfoboxType;
         visible?: boolean;
         width?: number;
@@ -378,15 +365,11 @@ declare module Microsoft.Maps {
         setLocations(locations: Array<Location>): void;
         setOptions(options: PolylineOptions): void;
         toString(): string;
+    }
 
-        click: (eventArgs: MouseEventArgs) => void;
-        dblclick: (eventArgs: MouseEventArgs) => void;
-        entitychanged: (entity: Entity) => void;
-        mousedown: (eventArgs: MouseEventArgs) => void;
-        mouseout: (eventArgs: MouseEventArgs) => void;
-        mouseover: (eventArgs: MouseEventArgs) => void;
-        mouseup: (eventArgs: MouseEventArgs) => void;
-        rightclick: (eventArgs: MouseEventArgs) => void;
+    export class Position {
+        coords: Coordinates;
+        timestamp: string;
     }
 
     export interface PolylineOptions {
@@ -409,20 +392,11 @@ declare module Microsoft.Maps {
         setLocations(locations: Location[]): void;
         setOptions(options: PolylineOptions): void;
         toString(): string;
-
-        click: (eventArgs: MouseEventArgs) => void;
-        dbclick: (eventArgs: MouseEventArgs) => void;
-        entitychanged: (entity: Entity) => void;
-        mousedown: (eventArgs: MouseEventArgs) => void;
-        mouseout: (eventArgs: MouseEventArgs) => void;
-        mouseover: (eventArgs: MouseEventArgs) => void;
-        mouseup: (eventArgs: MouseEventArgs) => void;
-        rightclick: (eventArgs: MouseEventArgs) => void;
     }
 
     export interface PolygonOptions {
         fillColor?: Color;
-        infoBox?: Infobox;
+        infobox?: Infobox;
         strokeColor?: Color;
         strokeDashArray?: string;
         strokeThickness?: number;
@@ -446,18 +420,6 @@ declare module Microsoft.Maps {
         setLocation(location: Location): void;
         setOptions(options: PushpinOptions): void;
         toString(): string;
-
-        click: (eventArgs: MouseEventArgs) => void;
-        dblclick: (eventArgs: MouseEventArgs) => void;
-        drag: (object: Pushpin) => any;
-        dragend: (eventArgs: MouseEventArgs) => void;
-        dragstart: (eventArgs: MouseEventArgs) => void;
-        entitychanged: (object: { entity: Entity; }) => any;
-        mousedown: (eventArgs: MouseEventArgs) => void;
-        mouseout: (eventArgs: MouseEventArgs) => void;
-        mouseover: (eventArgs: MouseEventArgs) => void;
-        mouseup: (eventArgs: MouseEventArgs) => void;
-        rightclick: (eventArgs: MouseEventArgs) => void;
     }
 
     export enum EntityState {
@@ -487,13 +449,11 @@ declare module Microsoft.Maps {
 
         constructor(options: TileLayerOptions);
 
-        getOpacty(): number;
+        getOpacity(): number;
         getTileSource(projection: string): TileSource;
         getZIndex(): number;
         setOptions(options: TileLayerOptions): void;
         toString(): string;
-
-        tiledownloadcomplete: () => void;
     }
 
     export class TileSource {
@@ -509,7 +469,7 @@ declare module Microsoft.Maps {
     export interface TileSourceOptions {
 
         height?: number;
-        uriConstructor: string;
+        uriConstructor: any;
         width?: number;
     }
 
@@ -550,9 +510,29 @@ declare module Microsoft.Maps {
         removeAccuracyCircle(): void;
     }
 
+    export interface PositionOptionsErrorCallbackResult {
+        internalError: PositionError;
+        errorCode:number;
+		}
+    
+    export interface PositionOptionsSuccessCallbackResult {
+        center: Location;
+        position: Position;
+    }
+
+    export interface PositionOptions {
+        enableHighAccuracy?: boolean;
+        errorCallback?: (result: PositionOptionsErrorCallbackResult) => void;
+        showAccuracyCircle?: boolean;
+        timeout?: number;
+        updateMapView?: boolean;
+        maximumAge?: number;
+        successCallback?: (result: PositionOptionsSuccessCallbackResult) => void;
+    }
+
     export interface PositionCircleOptions {
         polygonOptions: PolygonOptions;
-        showOnMap: boolean;
+        showOnMap?: boolean;
     }
 
     export class PositionError {
@@ -567,7 +547,7 @@ declare module Microsoft.Maps {
         homeRegion?: string;
     }
 
-    export function loadModule(moduleKey: string, options: ModuleOptions): void;
+    export function loadModule(moduleKey: string, options?: ModuleOptions): void;
     export function moduleLoaded(moduleKey: string): void;
     export function registerModule(moduleKey: string, scriptUrl: string, options?: ModuleOptions): void;
 }

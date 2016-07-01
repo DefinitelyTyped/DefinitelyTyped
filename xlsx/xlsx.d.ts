@@ -1,7 +1,7 @@
 // Type definitions for xlsx
 // Project: https://github.com/SheetJS/js-xlsx
 // Definitions by: themauveavenger <https://github.com/themauveavenger/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'xlsx' {
 

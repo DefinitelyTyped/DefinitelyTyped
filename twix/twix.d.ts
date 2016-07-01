@@ -1,41 +1,41 @@
 ﻿// Type definitions for twix.js 0.6.3
 // Project: https://github.com/icambron/twix.js
 // Definitions by: j3ko <https://github.com/j3ko>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../moment/moment.d.ts" />
 
-declare module moment {
+declare namespace moment {
     interface Moment {
         twix(date: Date): Twix;
         twix(date: Date, allDay: boolean): Twix;
-        twix(date: Date, options: TwixFormatOptions): Twix;
-        twix(date: Date, format: string, options: TwixFormatOptions): Twix;
+        twix(date: Date, options: TwixParseAndFormatOptions): Twix;
+        twix(date: Date, format: string, options: TwixParseAndFormatOptions): Twix;
 
         twix(date: Moment): Twix;
         twix(date: Moment, allDay: boolean): Twix;
-        twix(date: Moment, options: TwixFormatOptions): Twix;
-        twix(date: Moment, format: string, options: TwixFormatOptions): Twix;
+        twix(date: Moment, options: TwixParseAndFormatOptions): Twix;
+        twix(date: Moment, format: string, options: TwixParseAndFormatOptions): Twix;
 
         twix(date: MomentInput): Twix;
         twix(date: MomentInput, allDay: boolean): Twix;
-        twix(date: MomentInput, options: TwixFormatOptions): Twix;
-        twix(date: MomentInput, format: string, options: TwixFormatOptions): Twix;
+        twix(date: MomentInput, options: TwixParseAndFormatOptions): Twix;
+        twix(date: MomentInput, format: string, options: TwixParseAndFormatOptions): Twix;
 
         twix(date: number): Twix;
         twix(date: number, allDay: boolean): Twix;
-        twix(date: number, options: TwixFormatOptions): Twix;
-        twix(date: number, format: string, options: TwixFormatOptions): Twix;
+        twix(date: number, options: TwixParseAndFormatOptions): Twix;
+        twix(date: number, format: string, options: TwixParseAndFormatOptions): Twix;
 
         twix(date: number[]): Twix;
         twix(date: number[], allDay: boolean): Twix;
-        twix(date: number[], options: TwixFormatOptions): Twix;
-        twix(date: number[], format: string, options: TwixFormatOptions): Twix;
+        twix(date: number[], options: TwixParseAndFormatOptions): Twix;
+        twix(date: number[], format: string, options: TwixParseAndFormatOptions): Twix;
 
         twix(date: string): Twix;
         twix(date: string, allDay: boolean): Twix;
-        twix(date: string, options: TwixFormatOptions): Twix;
-        twix(date: string, format: string, options: TwixFormatOptions): Twix;
+        twix(date: string, options: TwixParseAndFormatOptions): Twix;
+        twix(date: string, format: string, options: TwixParseAndFormatOptions): Twix;
     }
 
     interface MomentStatic {
@@ -61,6 +61,10 @@ declare module moment {
         allDay?: any; // boolean | string
         explicitAllDay?: boolean;
         lastNightEndsAt?: number;
+    }
+
+    interface TwixParseAndFormatOptions extends TwixFormatOptions {
+        parseStrict?: boolean;
     }
 
     interface TwixSimpleFormatOptions {
@@ -100,8 +104,8 @@ declare module moment {
         overlaps(other: Twix): boolean;
         engulfs(other: Twix): boolean;
         equals(other: Twix): boolean;
-        union(other: Twix): string;
-        intersection(other: Twix): string;
+        union(other: Twix): Twix;
+        intersection(other: Twix): Twix;
 
         xor(other: Twix): Twix[];
         difference(other: Twix): Twix[];

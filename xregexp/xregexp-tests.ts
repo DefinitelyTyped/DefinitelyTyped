@@ -8,6 +8,7 @@ import TokenOpts = X.TokenOpts;
 
 var exp: RegExp;
 var expArr: RegExp[];
+var expArrArr: RegExp[][];
 var chain: RegExp[];
 var groupChain: { regex: RegExp; backref: string }[];
 var groupChain1: { regex: RegExp; backref: number }[];
@@ -19,6 +20,7 @@ var search: string;
 var searchEx: RegExp;
 var bool: boolean;
 var strArr: string[];
+var strArrArr: string[][];
 var pattern: string;
 var flags: string;
 var right: string;
@@ -39,6 +41,14 @@ regex = XRegExp(str, flags);
 regex = XRegExp(regex);
 
 str =  XRegExp.version;
+
+// --  --  --  --  --  --  --  --  --  --  --  --  --
+
+regex = X(str);
+regex = X(str, flags);
+regex = X(regex);
+
+str =  X.version;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -74,13 +84,6 @@ matchArr = XRegExp.forEach(str, regex, (match, index, input, regexp) => {
 	str = input;
 	num = index;
 	matchArr = match;
-}, obj);
-
-matchArr = XRegExp.forEach(str, regex, (match, index, input, regexp) => {
-	exp = regexp;
-	str = input;
-	num = index;
-	matchArr = match;
 });
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
@@ -92,6 +95,11 @@ XRegExp.install(obj);
 
 bool = XRegExp.isInstalled(str);
 bool = XRegExp.isRegExp(value);
+
+strArr = XRegExp.match(str, regex);
+strArr = XRegExp.match(str, regex, scope);
+str = XRegExp.match(str, regex, "one");
+
 strArr = XRegExp.matchChain(str, chain);
 strArr = XRegExp.matchChain(str, groupChain);
 strArr = XRegExp.matchChain(str, groupChain1);
@@ -112,6 +120,11 @@ str = XRegExp.replace(str, searchEx, str, scope);
 str = XRegExp.replace(str, searchEx, str);
 str = XRegExp.replace(str, searchEx, replacer, scope);
 str = XRegExp.replace(str, searchEx, replacer);
+
+// --  --  --  --  --  --  --  --  --  --  --  --  --
+str = XRegExp.replaceEach(str, expArrArr);
+str = XRegExp.replaceEach(str, strArrArr);
+str = XRegExp.replaceEach(str, [[str, exp], [str, exp]]);
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -135,4 +148,3 @@ regex = XRegExp.union(strArr, flags);
 regex = XRegExp.union(strArr);
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
-

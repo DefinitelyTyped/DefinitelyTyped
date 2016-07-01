@@ -1,7 +1,7 @@
 // Type definitions for bxSlider v4.2.5
 // Project: https://github.com/stevenwanderski/bxslider-4
 // Definitions by: Piotr Sałkowski <https://github.com/namerci>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../jquery/jquery.d.ts"/>
 

@@ -1,12 +1,12 @@
 // Type definitions for PeerJS
 // Project: http://peerjs.com/
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path='../webrtc/RTCPeerConnection.d.ts' />
 
-declare module PeerJs{
+declare namespace PeerJs{
     interface PeerJSOption{
         key?: string;
         host?: string;
@@ -78,7 +78,7 @@ declare module PeerJs{
          * @param id The brokering ID of the remote peer (their peer.id).
          * @param options for specifying details about Peer Connection
          */
-        connect(id: string, options?: PeerJs.PeerJSOption): PeerJs.DataConnection;
+        connect(id: string, options?: PeerJs.PeerConnectOption): PeerJs.DataConnection;
         /**
          * Connects to the remote peer specified by id and returns a data connection.
          * @param id The brokering ID of the remote peer (their peer.id).

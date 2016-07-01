@@ -769,13 +769,7 @@ function test_autocomplete() {
             $("#project-icon").attr("src", "images/" + ui.item.icon);
             return false;
         }
-    })
-    .data("autocomplete")._renderItem = (ul, item) => {
-        return $("<li>")
-            .data("item.autocomplete", item)
-            .append("<a>" + item.label + "<br>" + item.desc + "</a>")
-            .appendTo(ul);
-    };
+    });
 
     $("#developer").autocomplete({
         source: (request, response) => {
@@ -1425,12 +1419,13 @@ function test_dialog() {
         height: 300,
         width: 350,
         modal: true,
-        buttons: {},
-        Cancel: function () {
-            $(this).dialog("close");
-        },
-        close: function () {
-		    var $el = $(this).dialog("destroy");
+        buttons: {
+            Cancel: function () {
+                $(this).dialog("close");
+            },
+            close: function () {
+                var $el = $(this).dialog("destroy");
+            }
         }
     });
     $("#dialog-message").dialog({
@@ -1443,8 +1438,10 @@ function test_dialog() {
     });
     $(".selector").dialog({ autoOpen: false });
     $(".selector").dialog({ buttons: { Ok: function () { $(this).dialog("close"); } } });
+    $(".selector").dialog({ buttons: [ { text: "Ok", click: function () { $(this).dialog("close"); } } ] } );
     $(".selector").dialog({ closeOnEscape: false });
     $(".selector").dialog({ closeText: "hide" });
+    $(".selector").dialog({ appendTo: "appendTo" });
     $(".selector").dialog({ dialogClass: "alert" });
     $(".selector").dialog({ disabled: true });
     $(".selector").dialog({ draggable: false });
@@ -1475,6 +1472,7 @@ function test_menu() {
     $(".selector").menu({ position: { my: "left top", at: "right-5 top+5" } });
     $(".selector").menu({ role: null });
     $(".selector").menu("option", { disabled: true });
+    $(".selector").menu({ select: (e, ui) => { } });
 }
 
 
@@ -1493,7 +1491,8 @@ function test_slider() {
         value: 123,
         range: "min",
         animate: true,
-        orientation: "vertical"
+        orientation: "vertical",
+        highlight: true
     });
     $("#slider-range").slider({
         range: true,
@@ -1581,7 +1580,7 @@ function test_spinner() {
         min: 5,
         max: 2500,
         step: 25,
-        start: 1000,
+        start: function () { return; },
         numberFormat: "C"
     });
     $("#spinner").spinner({
@@ -1595,8 +1594,8 @@ function test_spinner() {
     });
     $("#lat, #lng").spinner({
         step: .001,
-        change: 123,
-        stop: 321
+        change() { },
+        stop() { },
     });
     $("#spinner").spinner({
         spin: function (event, ui) {
@@ -1647,11 +1646,11 @@ function test_tabs() {
     });
     $("#tabs").tabs({
         beforeLoad: function (event, ui) {
-            ui.jqXHR.error(function () {
+            ui.jqXHR.error = function () {
                 ui.panel.html(
                     "Couldn't load this tab. We'll try to fix this as soon as possible. " +
                     "If this wouldn't be a demo.");
-            });
+            };
         }
     });
     $("#tabs").tabs({
@@ -1764,7 +1763,6 @@ function test_effects() {
         of: $("#parent"),
         my: $("#my_horizontal").val() + " " + $("#my_vertical").val(),
         at: $("#at_horizontal").val() + " " + $("#at_vertical").val(),
-        offset: $("#offset").val(),
         collision: $("#collision_horizontal").val() + " " + $("#collision_vertical").val()
     });
     $("#toggle").toggle({ effect: "scale", direction: "horizontal" });
@@ -1822,4 +1820,46 @@ function test_widget() {
     var isDisabled = $(".selector").jQuery.Widget("option", "disabled");
     $(".selector").jQuery.Widget("option", "disabled", true);
     $(".selector").jQuery.Widget("option", { disabled: true });
+}
+
+function test_easing() {
+    const easing = jQuery.easing;
+
+    function test_easing_function( name: string, fn: JQueryEasingFunction ) {
+        const step = Math.pow( 2, -3 ); // use power of 2 to prevent floating point rounding error
+        for( let i = 0; i <= 1; i += step ) {
+            console.log( `$.easing.${name}(${i}): ${fn.call(easing, i)}` );
+        }
+    }
+
+    test_easing_function("easeInQuad", easing.easeInQuad);
+    test_easing_function("easeOutQuad", easing.easeOutQuad);
+    test_easing_function("easeInOutQuad", easing.easeInOutQuad);
+    test_easing_function("easeInCubic", easing.easeInCubic);
+    test_easing_function("easeOutCubic", easing.easeOutCubic);
+    test_easing_function("easeInOutCubic", easing.easeInOutCubic);
+    test_easing_function("easeInQuart", easing.easeInQuart);
+    test_easing_function("easeOutQuart", easing.easeOutQuart);
+    test_easing_function("easeInOutQuart", easing.easeInOutQuart);
+    test_easing_function("easeInQuint", easing.easeInQuint);
+    test_easing_function("easeOutQuint", easing.easeOutQuint);
+    test_easing_function("easeInOutQuint", easing.easeInOutQuint);
+    test_easing_function("easeInExpo", easing.easeInExpo);
+    test_easing_function("easeOutExpo", easing.easeOutExpo);
+    test_easing_function("easeInOutExpo", easing.easeInOutExpo);
+    test_easing_function("easeInSine", easing.easeInSine);
+    test_easing_function("easeOutSine", easing.easeOutSine);
+    test_easing_function("easeInOutSine", easing.easeInOutSine);
+    test_easing_function("easeInCirc", easing.easeInCirc);
+    test_easing_function("easeOutCirc", easing.easeOutCirc);
+    test_easing_function("easeInOutCirc", easing.easeInOutCirc);
+    test_easing_function("easeInElastic", easing.easeInElastic);
+    test_easing_function("easeOutElastic", easing.easeOutElastic);
+    test_easing_function("easeInOutElastic", easing.easeInOutElastic);
+    test_easing_function("easeInBack", easing.easeInBack);
+    test_easing_function("easeOutBack", easing.easeOutBack);
+    test_easing_function("easeInOutBack", easing.easeInOutBack);
+    test_easing_function("easeInBounce", easing.easeInBounce);
+    test_easing_function("easeOutBounce", easing.easeOutBounce);
+    test_easing_function("easeInOutBounce", easing.easeInOutBounce);
 }

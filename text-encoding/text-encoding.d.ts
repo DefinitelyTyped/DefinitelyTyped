@@ -1,9 +1,9 @@
 // Type definitions for text-encoding
 // Project: https://github.com/inexorabletash/text-encoding
 // Definitions by: MIZUNE Pine <https://github.com/pine613/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module TextEncoding {
+declare namespace TextEncoding {
     interface TextDecoderOptions {
         fatal?: boolean;
         ignoreBOM?: boolean;
@@ -32,14 +32,29 @@ declare module TextEncoding {
     interface TextEncodeOptions {
         stream?: boolean;
     }
+
+    interface TextEncoderStatic {
+        (utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
+        new (utfLabel?: string, options?: TextEncoderOptions): TextEncoder;
+    }
+
+    interface TextDecoderStatic {
+        (label?: string, options?: TextDecoderOptions): TextDecoder;
+        new (label?: string, options?: TextDecoderOptions): TextDecoder;
+    }
+
+    interface TextEncodingStatic {
+        TextEncoder: TextEncoderStatic;
+        TextDecoder: TextDecoderStatic;
+    }
 }
 
-declare var TextDecoder: {
-    (label?: string, options?: TextEncoding.TextDecoderOptions): TextEncoding.TextDecoder;
-    new (label?: string, options?: TextEncoding.TextDecoderOptions): TextEncoding.TextDecoder;
-};
+declare var TextDecoder: TextEncoding.TextDecoderStatic;
 
-declare var TextEncoder: {
-    (utfLabel?: string, options?: TextEncoding.TextEncoderOptions): TextEncoding.TextEncoder;
-    new (utfLabel?: string, options?: TextEncoding.TextEncoderOptions): TextEncoding.TextEncoder;
-};
+declare var TextEncoder: TextEncoding.TextEncoderStatic;
+
+declare var TextEncoding: TextEncoding.TextEncodingStatic;
+
+declare module "text-encoding" {
+    export = TextEncoding;
+}

@@ -1,11 +1,11 @@
 // Type definitions for Uniform.js
 // Project: https://github.com/pixelmatrix/uniform
 // Definitions by: flyfishMT <https://github.com/flyfishMT/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-interface UniformOptions {
+interface UniformCoreOptions {
     activeClass?: string;
     autoHide?: boolean;
     buttonClass?: string;
@@ -22,6 +22,7 @@ interface UniformOptions {
     hoverClass?: string;
     idPrefix?: string;
     inputAddTypeAsClass?: boolean;
+    inputClass?: string;
     radioClass?: string;
     resetDefaultHtml?: string;
     resetSelector?: any;
@@ -33,12 +34,17 @@ interface UniformOptions {
     useID?: boolean;
     wrapperClass?: string;
 }
+
+interface UniformOptions extends UniformCoreOptions {
+    [option: string]: any;
+}
+
 interface Uniform {
     (options?: UniformOptions): JQuery;
     update(elemOrSelector?: any): void;
     restore(elemOrSelector?: any): void;
     elements: JQuery[];
-	defaults: UniformOptions;
+    defaults: UniformOptions;
 }
 interface JQueryStatic {
     uniform: Uniform;
