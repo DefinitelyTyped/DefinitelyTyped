@@ -782,6 +782,15 @@ declare module "express-serve-static-core" {
         locals: any;
 
         charset: string;
+        
+        /**
+         * Adds the field to the Vary response header, if it is not there already.
+         * Examples:
+         * 
+         *     res.vary('User-Agent').render('docs');
+         *
+         */
+        vary(field: string): Response;
     }
 
     interface NextFunction {
