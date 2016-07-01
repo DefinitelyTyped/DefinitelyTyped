@@ -5,10 +5,8 @@
 
 ///<reference path="../react/react.d.ts"/>
 
-declare module "react-bootstrap" {
-    // Import React
-    import React = require("react");
-
+declare namespace ReactBootstrap {
+    import React = __React;
 
     type Sizes = 'xs' | 'xsmall' | 'sm' | 'small' | 'lg' | 'large';
 
@@ -1072,4 +1070,8 @@ declare module "react-bootstrap" {
     class Position extends React.Component<PositionProps, {}> {
     }
 
+}
+
+declare module "react-bootstrap" {
+    export = ReactBootstrap;
 }
