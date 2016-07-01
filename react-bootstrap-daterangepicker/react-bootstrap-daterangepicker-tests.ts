@@ -2,12 +2,11 @@
 /// <reference path="./../react/react.d.ts" />
 
 import DateRangePicker = require("react-bootstrap-daterangepicker");
-import React = require("react");
 
-class IntegrationTest extends React.Component<{}, {}> {
+class IntegrationTest extends __React.Component<{}, {}> {
   render() {
     const props = {
-      onEvent: (ev, picker) => true,
+      onEvent: (ev: any, picker: any) => true,
       singleDatePicker: true,
       startDate: "1999-12-31",
       endDate: "2000-12-31",
@@ -21,6 +20,6 @@ class IntegrationTest extends React.Component<{}, {}> {
       linkedCalendars: true,
     };
 
-    return React.createElement(DateRangePicker, props);
+    return __React.createElement(DateRangePicker, props);
   }
 }
