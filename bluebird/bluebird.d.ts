@@ -34,7 +34,7 @@ interface PromiseConstructor {
     new <T>(callback: (
         resolve: (thenableOrResult?: T | PromiseLike<T>) => void,
         reject: (error: any) => void,
-        onCancel: PromiseCancelHandlerSetter
+        onCancel?: PromiseCancelHandlerSetter
     ) => void): Promise<T>;
     
     config(options: {
