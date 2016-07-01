@@ -243,6 +243,6 @@ declare namespace Interact {
 
 declare var interact: Interact.InteractStatic;
 
-declare module "interact.js" {
+declare module "interact" {
     export = interact;
 }
