@@ -59,7 +59,7 @@ interface RevealStatic {
     getScale():number;
     getConfig():RevealOptions;
     getQueryHash():any;
-    setState(state:any);
+    setState(state:any):void;
     getState():any;
 }
 
