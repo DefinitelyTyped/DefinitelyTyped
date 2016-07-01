@@ -1,7 +1,7 @@
 // Type definitions for Pixi.js 3.0.9 dev
 // Project: https://github.com/GoodBoyDigital/pixi.js/
 // Definitions by: clark-stevenson <https://github.com/pixijs/pixi-typescript>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class PIXI {
 
@@ -75,7 +75,7 @@ declare class PIXI {
 
 }
 
-declare module PIXI {
+declare namespace PIXI {
 
     export function autoDetectRenderer(width: number, height: number, options?: PIXI.RendererOptions, noWebGL?: boolean): PIXI.WebGLRenderer | PIXI.CanvasRenderer;
     export var loader: PIXI.loaders.Loader;
@@ -217,7 +217,7 @@ declare module PIXI {
         width: number;
         height: number;
 
-        addChild(child: DisplayObject): DisplayObject;
+        addChild(...child: DisplayObject[]): DisplayObject;
         addChildAt(child: DisplayObject, index: number): DisplayObject;
         swapChildren(child: DisplayObject, child2: DisplayObject): void;
         getChildIndex(child: DisplayObject): number;
@@ -504,6 +504,7 @@ declare module PIXI {
         view?: HTMLCanvasElement;
         transparent?: boolean;
         antialias?: boolean;
+        autoResize?: boolean;
         resolution?: number;
         clearBeforeRendering?: boolean;
         preserveDrawingBuffer?: boolean;
@@ -1235,7 +1236,7 @@ declare module PIXI {
     ///////////////////////////////FILTERS////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////
 
-    module filters {
+    namespace filters {
 
         export class AsciiFilter extends AbstractFilter {
             size: number;
@@ -1704,7 +1705,7 @@ declare module PIXI {
 
     }
 
-    module ticker {
+    namespace ticker {
 
         export var shared: Ticker;
 

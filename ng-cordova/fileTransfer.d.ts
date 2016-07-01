@@ -7,7 +7,7 @@
 /// <reference path="../cordova/plugins/FileTransfer.d.ts" />
 /// <reference path="../cordova/plugins/FileSystem.d.ts" />
 
-declare module ngCordova {
+declare namespace ngCordova {
     export interface IFileTransferService {
         download(url: string, filePath: string, options?: IFileDownloadOptions, trustAllHosts?: boolean): IFileTransferPromise<FileEntry>;
         upload(url: string, filePath: string, options?: IFileUploadOptions, trustAllHosts?: boolean): IFileTransferPromise<FileUploadResult>;

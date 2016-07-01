@@ -4,7 +4,7 @@
 /// <reference path="../angularjs/angular.d.ts" />
 /// <reference path="../angularjs/angular-mocks.d.ts" />
 
-module bardTests {
+namespace bardTests {
     var expect = chai.expect,
         assert = chai.assert;
 

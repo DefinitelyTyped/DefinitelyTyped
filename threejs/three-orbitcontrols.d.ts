@@ -1,11 +1,11 @@
 // Type definitions for three.js (OrbitControls.js)
 // Project: https://github.com/mrdoob/three.js/blob/master/examples/js/controls/OrbitControls.js
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./three.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
     class OrbitControls {
         constructor(object: Camera, domElement?: HTMLElement);
 
@@ -51,7 +51,7 @@ declare module THREE {
         reset(): void;
         getPolarAngle(): number;
         getAzimuthalAngle(): number;
-        
+
         // EventDispatcher mixins
         addEventListener(type: string, listener: (event: any) => void): void;
         hasEventListener(type: string, listener: (event: any) => void): void;

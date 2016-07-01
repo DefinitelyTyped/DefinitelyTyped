@@ -8,9 +8,29 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
-import { browserHistory, hashHistory, Router, Route, IndexRoute, Link } from "react-router"
+import { browserHistory, hashHistory, createMemoryHistory, Router, Route, IndexRoute, Link} from "react-router"
+import { routerShape, locationShape } from "react-router/lib/PropTypes"
+
+interface MasterContext {
+	router: ReactRouter.RouterOnContext;
+}
 
 class Master extends React.Component<React.Props<{}>, {}> {
+
+	static contextTypes: React.ValidationMap<any> = {
+		router: routerShape
+	};
+	context: MasterContext;
+
+	navigate() {
+		var router = this.context.router;
+		router.push("/users");
+		router.push({
+			pathname: "/users/12",
+			query: { modal: true },
+			state: { fromDashboard: true }
+		});
+	}
 
 	render() {
 		return <div>

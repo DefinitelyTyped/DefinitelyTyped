@@ -1,11 +1,11 @@
 // Type definitions for js_beautify
 // Project: https://github.com/beautify-web/js-beautify/
 // Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Type definitions for js_beautify
 // Project: https://github.com/beautify-web/js-beautify/
 // Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface JsBeautifyOptions {
   indent_size?: number;

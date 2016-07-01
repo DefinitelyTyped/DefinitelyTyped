@@ -1,17 +1,18 @@
 // Type definitions for Incremetal DOM
 // Project: https://github.com/google/incremental-dom
-// Definitions by: Basarat Ali Syed <https://github.com/basarat>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Basarat Ali Syed <https://github.com/basarat>, Markus Lanthaler <https://github.com/lanthaler>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "incremental-dom" {
     /**
      * Patches the document starting at el with the provided function. This function
      * may be called during an existing patch operation.
      * @param {!Element} el the element to patch
-     * @param {!function} fn A function containing elementOpen/elementClose/etc.
+     * @param {!function(T)} fn A function containing elementOpen/elementClose/etc.
      *     calls that describe the DOM.
+     * @param {?T} data An argument passed to fn to represent DOM state.
      */
-    export var patch: (el: Node, fn: Function) => void;
+    export var patch: <T>(el: Node, fn: (data: T) => void, data?: T) => void;
 
     /**
      * Declares a virtual Element at the current location in the document. This
@@ -57,7 +58,7 @@ declare module "incremental-dom" {
     /**
      * Closes an open virtual Element.
      */
-    export var elementClose: () => void;
+    export var elementClose: (tag: string) => void;
     /**
      * Declares a virtual Element at the current location in the document that has
      * no children.

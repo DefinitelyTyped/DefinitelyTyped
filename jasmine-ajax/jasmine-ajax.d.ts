@@ -1,7 +1,7 @@
 // Type definitions for jasmine-ajax 3.1.1
 // Project: https://github.com/jasmine/jasmine-ajax
 // Definitions by: Louis Grignon <https://github.com/lgrignon>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface JasmineAjaxResponse {
 	status?: number;
@@ -15,6 +15,7 @@ interface JasmineAjaxResponse {
 interface JasmineAjaxRequest extends XMLHttpRequest {
 	url: string;
 	method: string;
+	params: any;
 	username: string;
 	password: string;
 	requestHeaders: { [key: string]: string };
@@ -77,6 +78,6 @@ declare class MockAjax {
 	stubs: JasmineAjaxStubTracker;
 }
 
-declare module jasmine {
+declare namespace jasmine {
 	export var Ajax: MockAjax;
 }

@@ -3,8 +3,6 @@
 // Definitions by: François Skorzec <https://github.com/fskorzec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../es6-promise/es6-promise.d.ts"/>
-
 interface Element {
     _: BlissNS.BlissBindedElement<Element>;
 }
@@ -13,7 +11,7 @@ interface Array<T> {
     _: BlissNS.BlissBindedArray<T> & BlissNS.BlissCollectionArray<T>;
 }
 
-declare module BlissNS {
+declare namespace BlissNS {
     export type BlissDecoratedElement<T> = Element & T;
     export type BlissDecoratedArrayElement<T> = Array<T> & BlissNS.BlissCollectionArray<T>;
 
@@ -242,6 +240,8 @@ declare module BlissNS {
             add(name: string, callback: Function): void;
             run(name: string, env: Object): void;
         };
+
+        $: BlissStaticCollection;
     }
 
     interface BlissStaticCollection extends BlissStatic {

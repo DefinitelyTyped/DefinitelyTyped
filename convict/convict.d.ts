@@ -1,10 +1,10 @@
 // Type definitions for node-convict v0.6.0
 // Project: https://github.com/mozilla/node-convict
 // Definitions by: Wim Looman <https://github.com/Nemo157>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "convict" {
-    module convict {
+    namespace convict {
 
         interface Format {
             name?: string;
@@ -24,7 +24,7 @@ declare module "convict" {
                  *   - an array of enumerated values, e.g. ["production", "development", "testing"]
                  *   - built-in JavaScript type, i.e. Object, Array, String, Number, Boolean
                  *   - or if omitted, the Object.prototype.toString.call of the default value
-                 * 
+                 *
                  * The docs also state that any function that validates is ok too
                  */
                 format?: string | Array<any> | Function;
@@ -52,13 +52,13 @@ declare module "convict" {
              * @returns {Object} A {JSON} compliant {Object}
              */
             getSchema() : Object;
-            
+
             /**
              * Exports all the properties (that is the keys and their current values) as a JSON string.
              * @returns {String} a string representing this object
              */
             toString() : string;
-            
+
             /**
              * Exports the schema as a JSON string.
              * @returns {String} a string representing the schema of this {Config}

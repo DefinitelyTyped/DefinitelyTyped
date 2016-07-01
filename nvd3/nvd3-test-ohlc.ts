@@ -1,6 +1,6 @@
 /// <reference path="../d3/d3.d.ts" />
 /// <reference path="nvd3.d.ts" />
-module nvd3_test_ohlc {
+namespace nvd3_test_ohlc {
     var data = [{
         values: [
             { "date": 15707, "open": 145.11, "high": 146.15, "low": 144.73, "close": 146.06, "volume": 192059000, "adjusted": 144.65 },

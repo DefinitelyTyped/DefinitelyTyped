@@ -141,6 +141,8 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
         private $state: ng.ui.IStateService
     ) {
         $rootScope.$on("$locationChangeSuccess", (event: ng.IAngularEvent) => this.onLocationChangeSuccess(event));
+        $rootScope.$on('$stateNotFound', (event: ng.IAngularEvent, unfoundState: ng.ui.IUnfoundState, fromState: ng.ui.IState, fromParams: {}) => 
+                                              this.onStateNotFound(event, unfoundState, fromState, fromParams));
     }
 
     public currentUser: any;
@@ -161,6 +163,15 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
                 this.$urlRouter.sync();
             });
         }
+    }
+    
+     private onStateNotFound(event: ng.IAngularEvent,
+                             unfoundState: ng.ui.IUnfoundState,
+                             fromState: ng.ui.IState,
+                             fromParams: {}) {
+        var unfoundTo: string = unfoundState.to;
+        var unfoundToParams: {} = unfoundState.toParams;
+        var unfoundOptions: ng.ui.IStateOptions = unfoundState.options 
     }
 
     private stateServiceTest() {
@@ -208,7 +219,7 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
 
 myApp.service("urlLocatorTest", UrlLocatorTestService);
 
-module UiViewScrollProviderTests {
+namespace UiViewScrollProviderTests {
     var app = angular.module("uiViewScrollProviderTests", ["ui.router"]);
 
     app.config(['$uiViewScrollProvider', function($uiViewScrollProvider: ng.ui.IUiViewScrollProvider) {
@@ -227,7 +238,7 @@ interface ITestUserService {
     handleLogin: () => ng.IPromise<{}>;
 }
 
-module UrlRouterProviderTests {
+namespace UrlRouterProviderTests {
     var app = angular.module("urlRouterProviderTests", ["ui.router"]);
 
     app.config(($urlRouterProvider: ng.ui.IUrlRouterProvider) => {

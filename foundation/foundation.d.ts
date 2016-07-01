@@ -1,12 +1,12 @@
 // Type definitions for Foundation v5.5.1
 // Project: http://foundation.zurb.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module Foundation {
+declare namespace Foundation {
     // http://foundation.zurb.com/docs/components/abide.html#optional-javascript-configuration
     interface AbidePatterns {
         alpha? : RegExp;

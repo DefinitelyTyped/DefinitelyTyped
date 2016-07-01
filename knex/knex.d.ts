@@ -1,18 +1,18 @@
 // Type definitions for Knex.js
 // Project: https://github.com/tgriesser/knex
 // Definitions by: Qubo <https://github.com/tkQubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
 declare module "knex" {
   import Promise = require("bluebird");
-  import events = require("events");
+  import * as events from "events";
 
   type Callback = Function;
   type Client = Function;
-  type Value = string|number|boolean|Date;
+  type Value = string|number|boolean|Date|Array<string>|Array<number>|Array<Date>|Array<boolean>;
   type ColumnName = string|Knex.Raw|Knex.QueryBuilder;
 
   interface Knex extends Knex.QueryInterface {
@@ -28,9 +28,10 @@ declare module "knex" {
     schema: Knex.SchemaBuilder;
 
     client: any;
-    migrate: any;
+    migrate: Knex.Migrator;
     seed: any;
     fn: any;
+    on(eventName: string, callback: Function): Knex.QueryBuilder;
   }
 
   function Knex(config: Knex.Config) : Knex;
@@ -66,10 +67,14 @@ declare module "knex" {
       where: Where;
       andWhere: Where;
       orWhere: Where;
+      whereNot: Where;
+      andWhereNot: Where;
+      orWhereNot: Where;
       whereRaw: WhereRaw;
+      orWhereRaw: WhereRaw;
+      andWhereRaw: WhereRaw;
       whereWrapped: WhereWrapped;
       havingWrapped: WhereWrapped;
-      orWhereRaw: WhereRaw;
       whereExists: WhereExists;
       orWhereExists: WhereExists;
       whereNotExists: WhereExists;
@@ -83,9 +88,11 @@ declare module "knex" {
       whereNotNull: WhereNull;
       orWhereNotNull: WhereNull;
       whereBetween: WhereBetween;
-      whereNotBetween: WhereBetween;
       orWhereBetween: WhereBetween;
+      andWhereBetween: WhereBetween;
+      whereNotBetween: WhereBetween;
       orWhereNotBetween: WhereBetween;
+      andWhereNotBetween: WhereBetween;
 
       // Group by
       groupBy: GroupBy;
@@ -101,6 +108,7 @@ declare module "knex" {
 
       // Having
       having: Having;
+      andHaving: Having;
       havingRaw: RawQueryBuilder;
       orHaving: Having;
       orHavingRaw: RawQueryBuilder;
@@ -127,7 +135,7 @@ declare module "knex" {
       insert(data: any, returning?: string | string[]): QueryBuilder;
       update(data: any, returning?: string | string[]): QueryBuilder;
       update(columnName: string, value: Value, returning?: string | string[]): QueryBuilder;
-      returning(column: string): QueryBuilder;
+      returning(column: string | string[]): QueryBuilder;
 
       del(returning?: string | string[]): QueryBuilder;
       delete(returning?: string | string[]): QueryBuilder;
@@ -156,10 +164,21 @@ declare module "knex" {
 
     interface Join {
       (raw: Raw): QueryBuilder;
-      (tableName: string, callback: Function): QueryBuilder;
+      (tableName: string, callback: (joinClause: JoinClause) => any): QueryBuilder;
+      (tableName: string, columns: {[key: string]: string|Raw}): QueryBuilder;
+      (tableName: string, raw: Raw): QueryBuilder;
       (tableName: string, column1: string, column2: string): QueryBuilder;
       (tableName: string, column1: string, raw: Raw): QueryBuilder;
       (tableName: string, column1: string, operator: string, column2: string): QueryBuilder;
+    }
+
+    interface JoinClause {
+      on(raw: Raw): JoinClause;
+      on(callback: Function): JoinClause;
+      on(columns: {[key: string]: string|Raw}): JoinClause;
+      on(column1: string, column2: string): JoinClause;
+      on(column1: string, raw: Raw): JoinClause;
+      on(column1: string, operator: string, column2: string): JoinClause;
     }
 
     interface JoinRaw {
@@ -167,6 +186,8 @@ declare module "knex" {
     }
 
     interface Where extends WhereRaw, WhereWrapped, WhereNull {
+      (raw: Raw): QueryBuilder;
+      (callback: (queryBuilder: QueryBuilder) => any): QueryBuilder;
       (object: Object): QueryBuilder;
       (columnName: string, value: Value): QueryBuilder;
       (columnName: string, operator: string, value: Value): QueryBuilder;
@@ -249,6 +270,7 @@ declare module "knex" {
       (value: Value): Raw;
       (sql: string, ...bindings: Value[]): Raw;
       (sql: string, bindings: Value[]): Raw;
+      (sql: string, bindings: Object): Raw;
     }
 
     //
@@ -299,10 +321,11 @@ declare module "knex" {
     // Schema builder
     //
 
-    interface SchemaBuilder {
-      createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): Promise<void>;
+    interface SchemaBuilder extends Promise<any> {
+      createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
+      createTableIfNotExists(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
       renameTable(oldTableName: string, newTableName: string): Promise<void>;
-      dropTable(tableName: string): Promise<void>;
+      dropTable(tableName: string): SchemaBuilder;
       hasTable(tableName: string): Promise<boolean>;
       hasColumn(tableName: string, columnName: string): Promise<boolean>;
       table(tableName: string, callback: (tableBuilder: AlterTableBuilder) => any): Promise<void>;
@@ -312,6 +335,7 @@ declare module "knex" {
 
     interface TableBuilder {
       increments(columnName?: string): ColumnBuilder;
+      bigIncrements(columnName?: string): ColumnBuilder;
       dropColumn(columnName: string): TableBuilder;
       dropColumns(...columnNames: string[]): TableBuilder;
       renameColumn(from: string, to: string): ColumnBuilder;
@@ -337,6 +361,9 @@ declare module "knex" {
       primary(columnNames: string[]) : TableBuilder;
       index(columnNames: string[], indexName?: string, indexType?: string) : TableBuilder;
       unique(columnNames: string[], indexName?: string) : TableBuilder;
+      foreign(column: string): ForeignConstraintBuilder;
+      foreign(columns: string[]): MultikeyForeignConstraintBuilder;
+      dropForeign(columnNames: string[], foreignKeyName?: string): TableBuilder;
     }
 
     interface CreateTableBuilder extends TableBuilder {
@@ -366,6 +393,14 @@ declare module "knex" {
       notNullable(): ColumnBuilder;
       nullable(): ColumnBuilder;
       comment(value: string): ColumnBuilder;
+    }
+
+    interface ForeignConstraintBuilder {
+        references(columnName: string): ReferencingColumnBuilder;
+    }
+
+    interface MultikeyForeignConstraintBuilder {
+        references(columnNames: string[]): ReferencingColumnBuilder;
     }
 
     interface PostgreSqlColumnBuilder extends ColumnBuilder {
@@ -399,10 +434,10 @@ declare module "knex" {
       debug?: boolean;
       client?: string;
       dialect?: string;
-      connection: string|ConnectionConfig|
+      connection?: string|ConnectionConfig|MariaSqlConnectionConfig|
         Sqlite3ConnectionConfig|SocketConnectionConfig;
       pool?: PoolConfig;
-      migrations?: MigrationConfig;
+      migrations?: MigratorConfig;
     }
 
     interface ConnectionConfig {
@@ -411,6 +446,38 @@ declare module "knex" {
       password: string;
       database: string;
       debug?: boolean;
+    }
+
+    // Config object for mariasql: https://github.com/mscdex/node-mariasql#client-methods
+    interface MariaSqlConnectionConfig {
+      user?: string;
+      password?: string;
+      host?: string;
+      port?: number;
+      unixSocket?: string;
+      protocol?: string;
+      db?: string;
+      keepQueries?: boolean;
+      multiStatements?: boolean;
+      connTimeout?: number;
+      pingInterval?: number;
+      secureAuth?: boolean;
+      compress?: boolean;
+      ssl?: boolean|MariaSslConfiguration;
+      local_infile?: boolean;
+      read_default_file?: string;
+      read_default_group?: string;
+      charset?: string;
+      streamHWM?: number;
+    }
+
+    interface MariaSslConfiguration {
+      key?: string;
+      cert?: string;
+      ca?: string;
+      capath?: string;
+      cipher?: string;
+      rejectUnauthorized?: boolean;
     }
 
     /** Used with SQLite3 adapter */
@@ -444,11 +511,19 @@ declare module "knex" {
       log?: boolean;
     }
 
-    interface MigrationConfig {
+    interface MigratorConfig {
       database?: string;
       directory?: string;
       extension?: string;
       tableName?: string;
+    }
+
+    interface Migrator {
+      make(name:string, config?: MigratorConfig):Promise<string>;
+      latest(config?: MigratorConfig):Promise<any>;
+      rollback(config?: MigratorConfig):Promise<any>;
+      status(config?: MigratorConfig):Promise<number>;
+      currentVersion(config?: MigratorConfig):Promise<string>;
     }
   }
 

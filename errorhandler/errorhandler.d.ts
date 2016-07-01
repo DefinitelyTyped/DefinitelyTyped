@@ -1,7 +1,7 @@
 // Type definitions for errorhandler
 // Project: https://github.com/expressjs/errorhandler
 // Definitions by: Santi Albo <https://github.com/santialbo/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 

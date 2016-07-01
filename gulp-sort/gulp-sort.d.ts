@@ -1,7 +1,7 @@
 // Type definitions for gulp-sort
 // Project: https://github.com/pgilad/gulp-sort
 // Definitions by: Joe Skeen <http://github.com/joeskeen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../gulp-util/gulp-util.d.ts" />

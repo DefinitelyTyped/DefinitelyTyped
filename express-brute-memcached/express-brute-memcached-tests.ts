@@ -2,9 +2,9 @@
 /// <reference path="../mongodb/mongodb.d.ts"/>
 /// <reference path="express-brute-memcached.d.ts"/>
 
-import express = require("express");
-import ExpressBrute = require("express-brute");
-import MemcachedStore = require("express-brute-memcached");
+import * as express from "express";
+import * as ExpressBrute from "express-brute";
+import MemcachedStore from "express-brute-memcached";
 
 var app = express();
 var store = new MemcachedStore("127.0.0.1");

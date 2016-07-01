@@ -1,9 +1,9 @@
 // Type definitions for CrossFilter
 // Project: https://github.com/square/crossfilter
 // Definitions by: Schmulik Raskin <https://github.com/schmuli>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module CrossFilter {
+declare namespace CrossFilter {
 
     export interface Selector<T> {
         (value: T): any;
@@ -58,12 +58,12 @@ declare module CrossFilter {
         (array: T[], lo: number, hi: number): T[];
     }
 
-    export interface GroupAll<T> {
-        reduce<TValue>(add: (p: TValue, v: T) => TValue, remove: (p: TValue, v: T) => TValue, initial: () => TValue): GroupAll<T>;
-        reduceCount(): GroupAll<T>;
-        reduceSum(value: Selector<T>): GroupAll<T>;
-        dispose(): GroupAll<T>;
-        value(): T;
+    export interface GroupAll<T, TValue> {
+        reduce<TValue>(add: (p: TValue, v: T) => TValue, remove: (p: TValue, v: T) => TValue, initial: () => TValue): GroupAll<T, TValue>;
+        reduceCount(): GroupAll<T, TValue>;
+        reduceSum(value: Selector<T>): GroupAll<T, TValue>;
+        dispose(): GroupAll<T, TValue>;
+        value(): TValue;
     }
 
     export interface Grouping<TKey, TValue> {
@@ -87,7 +87,8 @@ declare module CrossFilter {
         add(records: T[]): CrossFilter<T>;
         remove(): CrossFilter<T>;
         size(): number;
-        groupAll(): GroupAll<T>;
+        GroupAll(): GroupAll<T, T>;
+        groupAll<TValue>(): GroupAll<T, TValue>;
         dimension<TDimension>(value: (data: T) => TDimension): Dimension<T, TDimension>;
     }
 
@@ -103,8 +104,9 @@ declare module CrossFilter {
         bottom(k: number): T[];
         dispose(): void;
 		group(): Group<T, TDimension, TDimension>;
-		group<TGroup>(groupValue: (data: TDimension) => TGroup): Group<T, TDimension, TGroup>;
-        groupAll(): GroupAll<T>;
+        group<TGroup>(groupValue: (data: TDimension) => TGroup): Group<T, TDimension, TGroup>;
+        groupAll(): GroupAll<T, T>;
+        groupAll<TValue>(): GroupAll<T, TValue>;
     }
 }
 

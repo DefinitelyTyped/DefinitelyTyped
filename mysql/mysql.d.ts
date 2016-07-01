@@ -1,7 +1,7 @@
 ﻿// Type definitions for node-mysql
 // Project: https://github.com/felixge/node-mysql
 // Definitions by: William Johnston <https://github.com/wjohnsto>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path='../node/node.d.ts' />
 

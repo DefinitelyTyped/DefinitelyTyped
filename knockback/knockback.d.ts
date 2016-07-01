@@ -1,12 +1,12 @@
 // Type definitions for Knockback.js
 // Project: http://kmalakoff.github.io/knockback/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../backbone/backbone.d.ts" />
 /// <reference path="../knockout/knockout.d.ts" />
 
-declare module Knockback {
+declare namespace Knockback {
     interface EventWatcherOptions {
         emitter: (newEmitter) => void;
         update: (newValue) => void;
@@ -38,7 +38,7 @@ declare module Knockback {
 
     class EventWatcher extends Destroyable {
         static useOptionsOrCreate(options, emitter: KnockoutObservable<any>, obj: Backbone.Model, callback_options: any);
-        
+
         emitter(): Backbone.Model;
         emitter(newEmitter: Backbone.Model);
         registerCallbacks(obj: any, callback_info: any);
@@ -58,7 +58,7 @@ declare module Knockback {
 
     class Store extends Destroyable {
         static useOptionsOrCreate(options: StoreOptions, obj: any, observable: KnockoutObservable<any>);
-        
+
         constructor (model:Backbone.Model, options: StoreOptions);
         clear();
         register(obj: Backbone.Model, observable: KnockoutObservable<any>, options: StoreOptions);

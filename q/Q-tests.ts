@@ -16,6 +16,10 @@ Q.when(delay(1000), function (val: void) {
     return;
 });
 
+// Note from Q documentation: a deferred can be resolved with a value or a promise.
+var otherPromise = Q.defer<string>().promise;
+Q.defer<string>().resolve(otherPromise);
+
 Q.timeout(Q(new Date()), 1000, "My dates never arrived. :(").then(d => d.toJSON());
 
 Q.delay(Q(8), 1000).then(x => x.toExponential());
@@ -26,7 +30,7 @@ Q.delay("asdf", 1000).then(x => x.length);
 var eventualAdd = Q.promised((a?: number, b?: number) => a + b);
 eventualAdd(Q(1), Q(2)).then(x => x.toExponential());
 
-var eventually = function (eventually: any) {
+function eventually<T>(eventually: T) {
     return Q.delay(eventually, 1000);
 };
 
@@ -38,7 +42,15 @@ Q.when(x, function (x) {
 Q.all([
     eventually(10),
     eventually(20)
-]).spread(function (x: any, y: any) {
+]).spread(function (x: number, y: number) {
+    console.log(x, y);
+});
+
+Q.all([
+    eventually(10),
+    eventually(20)
+]).then(function (results) {
+    let [x, y] = results;
     console.log(x, y);
 });
 
@@ -154,7 +166,7 @@ Q.nbind(kitty.find, kitty)({ cute: true }).done((kitties: any[]) => {});
 /*
  * Test: Can "rethrow" rejected promises
  */
-module TestCanRethrowRejectedPromises {
+namespace TestCanRethrowRejectedPromises {
 
     interface Foo {
         a: number;

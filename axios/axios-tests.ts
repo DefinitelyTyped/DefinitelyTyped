@@ -18,10 +18,32 @@ axios.interceptors.request.use<any>(config => {
     return config;
 });
 
+
+const requestId: number = axios.interceptors.request.use<any>(
+    (config) => {
+        console.log("Method:" + config.method + " Url:" +config.url);
+        return config;
+    },
+    (error: any) => error);
+
+
+axios.interceptors.request.eject(requestId);
+axios.interceptors.request.eject(7);
+
+
 axios.interceptors.response.use<any>(config => {
     console.log("Status:" + config.status);
     return config;
 });
+
+const responseId: number = axios.interceptors.response.use<any>(
+    config => {
+        console.log("Status:" + config.status);
+        return config;
+    },
+    (error: any) => error);
+
+axios.interceptors.response.eject(responseId);
 
 axios.get<Repository>("https://api.github.com/repos/mzabriskie/axios")
      .then(r => console.log(r.config.method));
@@ -69,3 +91,9 @@ var repoSum = (repo1: Axios.AxiosXHR<Repository>, repo2: Axios.AxiosXHR<Reposito
 };
 
 axios.all<Repository, Repository>([getRepoDetails, getRepoDetails]).then(axios.spread(repoSum));
+
+axios.defaults.baseURL = 'https://api.example.com';
+axios.defaults.headers.common['Authorization'] = "AUTH_TOKEN";
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+axiosInstance.defaults.headers.common['Authorization'] = "AUTH_TOKEN";

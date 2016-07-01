@@ -2,7 +2,7 @@
 // Project: https://github.com/sindresorhus/opn
 // Definitions by: Shinnosuke Watanabe <https://github.com/shinnn>,
 //                 Maxime LUCE <https://github.com/SomaticIT>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

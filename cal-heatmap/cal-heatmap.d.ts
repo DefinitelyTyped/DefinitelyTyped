@@ -1,11 +1,11 @@
 ﻿// Type definitions for cal-heatmap v3.5.4
 // Project: https://github.com/wa0x6e/cal-heatmap
 // Definitions by: Chris Baker <https://github.com/RetroChrisB/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../d3/d3.d.ts" />
 
-declare module CalHeatMap
+declare namespace CalHeatMap
 {
 	interface CalHeatMapStatic
 	{
@@ -25,8 +25,8 @@ declare module CalHeatMap
 		// Various update mode when using the update() API
 		/** Reset the whole calendar data before inserting the new data. */
 		RESET_ALL_ON_UPDATE: number;
-		/** 
-		 * Update only the dates (subDomain) you pass in the data argument, replace their value by the new ones. 
+		/**
+		 * Update only the dates (subDomain) you pass in the data argument, replace their value by the new ones.
 		 * All other dates are leaved untouched.
 		 */
 		RESET_SINGLE_ON_UPDATE: number;
@@ -434,8 +434,8 @@ declare module CalHeatMap
 		legendMargin: number[];
 		/** List of dates to highlight */
 		highlight: Date[];
-		/** 
-		 * Name of the items to represent in the calendar. 
+		/**
+		 * Name of the items to represent in the calendar.
 		 * First index is singular form, and the second index, the plural form.
 		 */
 		itemName: string[];

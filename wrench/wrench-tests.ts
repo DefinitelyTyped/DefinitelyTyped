@@ -17,7 +17,7 @@ wrench.copyDirSyncRecursive(str, str, {
 });
 wrench.chmodSyncRecursive(str, num);
 wrench.chownSyncRecursive(str, num, num);
-wrench.mkdirSyncRecursivefunction(str, num);
+wrench.mkdirSyncRecursive(str, num);
 wrench.readdirRecursive(str, (err: Error, files: string[]) => {
 
 });

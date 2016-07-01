@@ -1,31 +1,73 @@
 // Type definitions for redux-actions v0.8.0
 // Project: https://github.com/acdlite/redux-actions
-// Definitions by: Jack Hsu <https://github.com/jaysoo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-declare module ReduxActions {
+// Definitions by: Jack Hsu <https://github.com/jaysoo>, Alex Gorbatchev <https://github.com/alexgorbatchev>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+declare namespace ReduxActions {
     // FSA-compliant action.
     // See: https://github.com/acdlite/flux-standard-action
-    type Action = {
+    interface BaseAction {
         type: string
-        payload?: any
+    }
+
+    interface Action<Payload> extends BaseAction {
+        payload?: Payload
         error?: boolean
         meta?: any
+    }
+
+    interface ActionMeta<Payload, Meta> extends Action<Payload> {
+        meta: Meta
+    }
+
+    type PayloadCreator<Input, Payload> = (...args: Input[]) => Payload;
+
+    type MetaCreator<Input, Payload> = (...args: Input[]) => Payload;
+
+    type Reducer<State, Payload> = (state: State, action: Action<Payload>) => State;
+
+    type ReducerMeta<State, Payload, Meta> = (state: State, action: ActionMeta<Payload, Meta>) => State;
+
+    type ReducerMap<State, Payload> = {
+        [actionType: string]: Reducer<State, Payload>
     };
 
-    type PayloadCreator<T> = (...args: any[]) => T;
-    type MetaCreator = (...args: any[]) => any;
+    export function createAction(
+        actionType: string,
+        payloadCreator?: PayloadCreator<any, any>,
+        metaCreator?: MetaCreator<any, any>
+    ): (...args: any[]) => Action<any>;
 
-    type Reducer<T> = (state: T, action: Action) => T;
+    export function createAction<InputAndPayload>(
+        actionType: string,
+        payloadCreator?: PayloadCreator<InputAndPayload, InputAndPayload>
+    ): (...args: InputAndPayload[]) => Action<InputAndPayload>;
 
-    type ReducerMap<T> = {
-        [actionType: string]: Reducer<T>
-    };
+    export function createAction<Input, Payload>(
+        actionType: string,
+        payloadCreator?: PayloadCreator<Input, Payload>
+    ): (...args: Input[]) => Action<Payload>;
 
-    export function createAction<T>(actionType: string, payloadCreator?: PayloadCreator<T>, metaCreator?: MetaCreator): (...args: any[]) => Action;
+    export function createAction<Input, Payload, Meta>(
+        actionType: string,
+        payloadCreator: PayloadCreator<Input, Payload>,
+        metaCreator: MetaCreator<Input, Meta>
+    ): (...args: Input[]) => ActionMeta<Payload, Meta>;
 
-    export function handleAction<T>(actionType: string, reducer: Reducer<T> | ReducerMap<T>): Reducer<T>;
+    export function handleAction<State, Payload>(
+        actionType: string,
+        reducer: Reducer<State, Payload> | ReducerMap<State, Payload>
+    ): Reducer<State, Payload>;
 
-    export function handleActions<T>(reducerMap: ReducerMap<T>, initialState?: T): Reducer<T>;
+    export function handleAction<State, Payload, Meta>(
+        actionType: string,
+        reducer: ReducerMeta<State, Payload, Meta> | ReducerMap<State, Payload>
+    ): Reducer<State, Payload>;
+
+    export function handleActions<State, Payload>(
+        reducerMap: ReducerMap<State, Payload>,
+        initialState?: State
+    ): Reducer<State, Payload>;
 }
 
 declare module 'redux-actions' {

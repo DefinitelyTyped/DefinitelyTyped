@@ -1,7 +1,7 @@
 // Type definitions for vso-node-api v0.3.2
 // Project: https://github.com/Microsoft/vso-node-api
 // Definitions by: Teddy Ward <https://github.com/teddyward>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../q/Q.d.ts" />
