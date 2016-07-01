@@ -347,7 +347,7 @@ interface TimeScale extends ChartScales {
     isoWeekday?: boolean;
     max?: string;
     min?: string;
-    parser?: string | ((arg: any) => moment.MomentDateObject);
+    parser?: string | ((arg: any) => any);
     round?: string;
     tooltipFormat?: string;
     unit?: TimeUnit;
