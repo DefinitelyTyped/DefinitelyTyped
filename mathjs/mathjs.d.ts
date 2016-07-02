@@ -1334,6 +1334,10 @@ declare namespace mathjs {
 	export interface MathNode {
                 isNode: boolean;
                 isSymbolNode: boolean;
+                isConstantNode: boolean;
+                isOperatorNode: boolean;
+                op: string;
+                fn: string;
                 type: string;
                 name: string;
                 value: any;
