@@ -1,0 +1,3 @@
+- [X] checked compilation succeeds with `--target es6` and `--noImplicitAny` options.
+- [X] has correct [naming convention](http://definitelytyped.org/guides/contributing.html#naming-the-file)
+- [ ] has a [test file](http://definitelytyped.org/guides/contributing.html#tests) with the suffix of  `-tests.ts` or `-tests.tsx`.
