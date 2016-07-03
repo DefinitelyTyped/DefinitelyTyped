@@ -116,8 +116,11 @@ class ModernComponent extends React.Component<Props, State>
     render() {
         return React.DOM.div(null,
             React.DOM.input({
-                ref: input => this._input = <HTMLInputElement>input,
+                ref: input => this._input = input,
                 value: this.state.inputValue
+            }),
+            React.DOM.input({
+                onChange: event => console.log(event.target.value)
             }));
     }
 
