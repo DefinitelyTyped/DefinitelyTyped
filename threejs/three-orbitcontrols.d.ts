@@ -49,6 +49,7 @@ declare namespace THREE {
         dollyOut(dollyScale: number): void;
         update(): void;
         reset(): void;
+        dispose(): void;
         getPolarAngle(): number;
         getAzimuthalAngle(): number;
 
