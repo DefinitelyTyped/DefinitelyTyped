@@ -16,7 +16,7 @@ declare namespace ReactDOM {
     function findDOMNode<E extends Element>(instance: ReactInstance): E;
     function findDOMNode(instance: ReactInstance): Element;
 
-    function render<P extends DOMAttributes, T extends Element>(
+    function render<P extends DOMAttributes<T>, T extends Element>(
         element: DOMElement<P, T>,
         container: Element,
         callback?: (element: T) => any): T;
@@ -41,7 +41,7 @@ declare namespace ReactDOM {
     function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
     function unstable_batchedUpdates(callback: () => any): void;
 
-    function unstable_renderSubtreeIntoContainer<P extends DOMAttributes, T extends Element>(
+    function unstable_renderSubtreeIntoContainer<P extends DOMAttributes<T>, T extends Element>(
         parentComponent: Component<any, any>,
         element: DOMElement<P, T>,
         container: Element,
