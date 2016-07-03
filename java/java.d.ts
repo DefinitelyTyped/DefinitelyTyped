@@ -1,6 +1,6 @@
-// Type definitions for java 0.5.4
+// Type definitions for java 0.7.2
 // Project: https://github.com/joeferner/node-java
-// Definitions by: Jim Lloyd <https://github.com/jimlloyd>
+// Definitions by: Jim Lloyd <https://github.com/jimlloyd>, Kentaro Teramoto <https://github.com/hrl7>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
@@ -36,16 +36,26 @@ declare namespace NodeJavaCore {
   // *NodeAPI* declares methods & members exported by the node java module.
   interface NodeAPI {
     classpath: string[];
+    options: string[];
     asyncOptions: AsyncOptions;
+    nativeBindingLocation: string;
+
     callMethod(instance: any, className: string, methodName: string, args: any[], callback: Callback<any>): void;
     callMethodSync(instance: any, className: string, methodName: string, ...args: any[]): any;
+    callStaticMethod(className: string, methodName: string, ...args: Array<any|Callback<any>>): void;
     callStaticMethodSync(className: string, methodName: string, ...args: any[]): any;
+    getStaticFieldValue(className: string, fieldName: string): any;
+    setStaticFieldValue(className: string, fieldName: string, newValue: any): void;
     instanceOf(javaObject: any, className: string): boolean;
     registerClient(before: (cb: Callback<void>) => void, after?: (cb: Callback<void>) => void): void;
     registerClientP(beforeP: () => Promise<void>, afterP?: () => Promise<void>): void;
     ensureJvm(done: Callback<void>): void;
     ensureJvm(): Promise<void>;
+    isJvmCreated(): boolean;
 
+    newByte(val: number): any;
+    newChar(val: string|number): any;
+    newDouble(val: number): any;
     newShort(val: number): any;
     newLong(val: number): any;
     newFloat(val: number): any;

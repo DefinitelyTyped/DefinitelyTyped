@@ -2000,7 +2000,7 @@ declare module _ {
         flattenDeep<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
-    //_.fromPairs DUMMY
+    //_.fromPairs
     interface LoDashStatic {
         /**
          * The inverse of `_.toPairs`; this method returns an object composed
@@ -2016,8 +2016,15 @@ declare module _ {
          * _.fromPairs([['fred', 30], ['barney', 40]]);
          * // => { 'fred': 30, 'barney': 40 }
          */
+        fromPairs<T>(
+          array: List<[_.StringRepresentable, T]>
+        ): Dictionary<T>;
+
+        /**
+         @see _.fromPairs
+         */
         fromPairs(
-            array: any[]|List<any>
+            array: List<any[]>
         ): Dictionary<any>;
     }
 
@@ -8538,6 +8545,21 @@ declare module _ {
         **/
         reduce<TValue, TResult>(
             callback: MemoIterator<TValue, TResult>): TResult;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+        * @see _.reduce
+        **/
+        reduce<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            accumulator: TResult): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+        * @see _.reduce
+        **/
+        reduce<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.reduceRight
@@ -17033,6 +17055,11 @@ declare module _ {
          * @param object The object to query.
          * @return Returns an array of property values.
          */
+        values<T>(object?: Dictionary<T>): T[];
+
+         /**
+          * @see _.values
+          */
         values<T>(object?: any): T[];
     }
 
@@ -17057,6 +17084,11 @@ declare module _ {
          *
          * @param object The object to query.
          * @return Returns the array of property values.
+         */
+        valuesIn<T>(object?: Dictionary<T>): T[];
+
+        /**
+         * @see _.valuesIn
          */
         valuesIn<T>(object?: any): T[];
     }

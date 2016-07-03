@@ -37,6 +37,35 @@ declare namespace ZSchema {
     }
 
     export class Validator {
+    
+        /**
+         * Register a custom format.
+         *
+         * @param name - name of the custom format
+         * @param validatorFunction - custom format validator function.
+         *   Returns `true` if `value` matches the custom format.
+         */
+        public static registerFormat(formatName: string, validatorFunction: (value: any) => boolean): void;
+
+        /**
+         * Unregister a format.
+         *
+         * @param name - name of the custom format
+         */
+        public static unregisterFormat(name: string): void;
+        
+        /**
+         * Get the list of all registered formats.
+         *
+         * Both the names of the burned-in formats and the custom format names are
+         * returned by this function.
+         *
+         * @returns {string[]} the list of all registered format names.
+         */
+        public static getRegisteredFormats(): string[];
+        
+        public static getDefaultOptions(): Options;
+    
         constructor(options: Options);
 
         /**
